@@ -302,8 +302,6 @@
 	ruleset_lazy_templates = list(LAZY_TEMPLATE_KEY_WIZARDDEN)
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/ready(forced = FALSE)
-	if(!check_candidates())
-		return FALSE
 	if(!length(GLOB.wizardstart))
 		log_game("DYNAMIC: Cannot accept Wizard ruleset. Couldn't find any wizard spawn points.")
 		return FALSE

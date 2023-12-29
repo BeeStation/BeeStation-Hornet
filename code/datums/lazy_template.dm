@@ -7,9 +7,13 @@
 	/// If this is true each load will increment an index keyed to the type and it will load [map_name]_[index]
 	var/list/datum/turf_reservation/reservations = list()
 	var/uses_multiple_allocations = FALSE
+	/// Key to identify this template - used in caching
 	var/key
+	/// Directory of maps to prefix to the filename
 	var/map_dir = "_maps/templates/lazy_templates"
+	/// The filename (without extension) of the map to load
 	var/map_name
+
 	var/map_width
 	var/map_height
 
@@ -55,11 +59,11 @@
 		CRASH("Failed to reserve a block for lazy template: '[key]'")
 
 	var/turf/reservation_bottom_left = coords2turf(reservation.bottom_left_coords)
-	var/datum/map_generator/generator = loading.load(reservation_bottom_left)
+	var/datum/async_map_generator/asmapgen = loading.load(reservation_bottom_left)
 
-	if (!generator)
+	if (!asmapgen)
 		CRASH("Failed to load lazy template: '[key]'")
-	UNTIL(generator.completed)
+	UNTIL(asmapgen.completed)
 	reservations += reservation
 
 	return reservation
@@ -70,7 +74,7 @@
 	map_width = 60
 	map_height = 91
 
-/datum/lazy_template/wizard_dem
+/datum/lazy_template/wizard_den
 	key = LAZY_TEMPLATE_KEY_WIZARDDEN
 	map_name = "wizard_den"
 

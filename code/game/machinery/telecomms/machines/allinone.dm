@@ -20,6 +20,7 @@
 	desc = "A modified mainframe that allows for the processing of priority syndicate subspace telecommunications."
 	freq_listening = list(FREQ_SYNDICATE)
 	syndicate = TRUE
+
 /obj/machinery/telecomms/allinone/indestructable
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_1 = NODECONSTRUCT_1

@@ -172,8 +172,6 @@
 	var/list/roundstart_wizards = list()
 
 /datum/dynamic_ruleset/roundstart/wizard/acceptable(population=0, threat=0)
-	if(!check_candidates())
-		return FALSE
 	if(!length(GLOB.wizardstart))
 		log_admin("Cannot accept Wizard ruleset. Couldn't find any wizard spawn points.")
 		message_admins("Cannot accept Wizard ruleset. Couldn't find any wizard spawn points.")
