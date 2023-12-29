@@ -62,6 +62,15 @@
 			log_asset("Cache for spritesheet_[name] was not valid JSON. This is abnormal. Likely tampered with or IO failure.")
 			return CACHE_INVALID
 		var/cache_json = json_decode(cache_data)
+		// Best to invalidate if rustg updates, since the way icons are handled can change.
+		var/cached_rustg_version = cache_json["rustg_version"]
+		if(isnull(cached_rustg_version))
+			log_asset("Cache for spritesheet_[name] did not contain a rustg_version!")
+			return CACHE_INVALID
+		var/rustg_version = rustg_get_version()
+		if(cached_rustg_version != rustg_version)
+			log_asset("Invalidated cache for spritesheet_[name] due to rustg updating from [cached_rustg_version] to [rustg_version].")
+			return CACHE_INVALID
 		cache_sizes_data = cache_json["sizes"]
 		cache_input_hash = cache_json["input_hash"]
 		cache_dmi_hashes = cache_json["dmi_hashes"]
@@ -277,7 +286,8 @@
 	var/list/cache_data = list(
 		"input_hash" = input_hash,
 		"dmi_hashes" = dmi_hashes,
-		"sizes" = sizes
+		"sizes" = sizes,
+		"rustg_version" = rustg_get_version()
 	)
 	rustg_file_write(json_encode(cache_data), "[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json")
 
