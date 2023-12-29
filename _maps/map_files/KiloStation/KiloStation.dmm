@@ -53243,6 +53243,10 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/port)
+"iNk" = (
+/obj/machinery/door/firedoor,
+/turf/open/floor/holofloor/plating,
+/area/holodeck/prison)
 "iNm" = (
 /obj/effect/decal/cleanable/oil,
 /obj/effect/turf_decal/stripes/line{
@@ -58666,17 +58670,18 @@
 /area/engine/engineering)
 "lbg" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/security{
-	aiControlDisabled = 1;
-	id_tag = "prisonereducation";
-	name = "Solitary Confinement";
-	req_access_txt = "63"
-	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	id_tag = "prisonereducation";
+	name = "Solitary Confinement";
+	req_one_access_txt = "1;4"
+	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/aft)
 "lbt" = (
@@ -74083,15 +74088,16 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
 "ruu" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	id_tag = "prisonereducation";
 	name = "Solitary Confinement";
-	req_access_txt = "63"
+	req_one_access_txt = "1;4"
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "ruG" = (
@@ -109588,7 +109594,7 @@ vou
 cBI
 bPt
 iwC
-ajZ
+iNk
 ajZ
 ajZ
 ajZ

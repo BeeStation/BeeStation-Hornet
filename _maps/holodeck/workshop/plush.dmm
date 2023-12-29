@@ -142,9 +142,11 @@
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "P" = (
-/obj/item/toy/plush/moth,
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/delivery,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "U" = (

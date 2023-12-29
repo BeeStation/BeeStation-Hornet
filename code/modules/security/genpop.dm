@@ -252,7 +252,7 @@
 	icon = 'icons/obj/machines/genpop_display.dmi'
 	icon_state = "frame"
 	desc = "An all-in-one interface for officers to manage prisoners!"
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(ACCESS_BRIG)
 	density = FALSE
 	maptext_height = 26
 	maptext_width = 32

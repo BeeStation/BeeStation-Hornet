@@ -3720,14 +3720,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	id_tag = "prisonereducation";
 	name = "Solitary Confinement";
-	req_access_txt = "63"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -13949,10 +13949,6 @@
 /turf/open/floor/plasteel/dark/side,
 /area/engine/atmos)
 "chb" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig Desk";
-	req_access_txt = "1"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -13965,6 +13961,11 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig Control";
+	req_access_txt = "3";
+	security_level = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -23586,15 +23587,15 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "fCD" = (
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	id_tag = "prisonereducation";
 	name = "Solitary Confinement";
-	req_access_txt = "63"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -28625,7 +28626,7 @@
 /area/science/robotics/lab)
 "hYB" = (
 /obj/machinery/button/door{
-	id = "armory";
+	id = "HOSarmory";
 	name = "Armory Shutters";
 	pixel_x = 26;
 	pixel_y = -26;
@@ -47894,10 +47895,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
 "rlo" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig Desk";
-	req_access_txt = "1"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -47910,6 +47907,11 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig Control";
+	req_access_txt = "3";
+	security_level = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -49937,7 +49939,7 @@
 /area/hallway/secondary/entry)
 "sgW" = (
 /obj/machinery/door/poddoor/shutters{
-	id = "armory";
+	id = "HOSarmory";
 	name = "Armory Shutter"
 	},
 /obj/effect/turf_decal/delivery,
