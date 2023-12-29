@@ -9,7 +9,7 @@
 
     var/datum/gas_mixture/server_air
 
-    var/heat_generation = 50000
+    var/heat_generation = 0
 
 /obj/machinery/server/Initialize()
     . = ..()
@@ -17,7 +17,7 @@
 
 /obj/machinery/server/examine(mob/user)
     . = ..()
-. += "The status display reads: [round(efficiency * 100, 2)]% efficiency."
+    . += "The status display reads: [round(efficiency * 100, 2)]% efficiency."
 
 /obj/machinery/server/LateInitialize()
     . = ..()
@@ -37,9 +37,12 @@
     else
         efficiency = clamp(1 - ((server_air.return_temperature() - T20C) / (overheated_temp - T20C)), 0, 1)
         icon_state = "message_server"
-        var/heat_generated = efficiency * heat_generation
-        var/new_temperature = server_air.return_temperature() + heat_generated / server_air.heat_capacity()
-        server_air.set_temperature(new_temperature)
+        server_air.adjust_heat(heat_generation)
+        heat_generation = 0
+
+/obj/machinery/server/use_power(amount, chan)
+    . = ..()
+    heat_generation += amount * 1000
 
 /obj/machinery/server/proc/calculate_temperature()
     var/turf/turf = get_turf(src)

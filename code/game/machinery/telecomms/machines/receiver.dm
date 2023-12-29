@@ -13,7 +13,6 @@
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
-	heat_generation = 100
 	circuit = /obj/item/circuitboard/machine/telecomms/receiver
 
 /obj/machinery/server/telecomms/receiver/receive_signal(datum/signal/subspace/signal)

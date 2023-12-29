@@ -14,7 +14,6 @@
 	idle_power_usage = 15
 	circuit = /obj/item/circuitboard/machine/telecomms/server
 	var/list/log_entries = list()
-	heat_generation = 1000
 	var/totaltraffic = 0 // gigabytes (if > 1024, divide by 1024 -> terrabytes)
 
 /obj/machinery/server/telecomms/server/Initialize(mapload)

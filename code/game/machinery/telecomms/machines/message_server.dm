@@ -77,7 +77,6 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
-	heat_generation = 10000
 	circuit = /obj/item/circuitboard/machine/telecomms/message_server
 
 	var/list/datum/data_tablet_msg/modular_msgs = list()

@@ -14,7 +14,6 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	circuit = /obj/item/circuitboard/machine/telecomms/processor
-	heat_generation = 20000
 	var/process_mode = 1 // 1 = Uncompress Signals, 0 = Compress Signals
 
 /obj/machinery/server/telecomms/processor/receive_information(datum/signal/subspace/signal, obj/machinery/server/telecomms/machine_from)

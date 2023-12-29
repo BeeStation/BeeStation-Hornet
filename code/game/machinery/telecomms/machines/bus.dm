@@ -16,7 +16,6 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	netspeed = 40
-	heat_generation = 25000
 	circuit = /obj/item/circuitboard/machine/telecomms/bus
 	var/change_frequency = 0
 

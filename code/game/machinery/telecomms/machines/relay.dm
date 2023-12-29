@@ -16,7 +16,6 @@
 	netspeed = 5
 	long_range_link = 1
 	circuit = /obj/item/circuitboard/machine/telecomms/relay
-	heat_generation = 5000
 	var/broadcasting = 1
 	var/receiving = 1
 

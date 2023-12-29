@@ -17,7 +17,6 @@
 	idle_power_usage = 80
 	long_range_link = TRUE
 	netspeed = 40
-	heat_generation = 500000
 	circuit = /obj/item/circuitboard/machine/telecomms/hub
 
 /obj/machinery/server/telecomms/hub/receive_information(datum/signal/signal, obj/machinery/server/telecomms/machine_from)

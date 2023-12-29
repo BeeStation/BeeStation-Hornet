@@ -15,7 +15,6 @@ GLOBAL_VAR_INIT(message_delay, 0) // To make sure restarting the recentmessages 
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 25
-	heat_generation = 100
 	circuit = /obj/item/circuitboard/machine/telecomms/broadcaster
 
 /obj/machinery/server/telecomms/broadcaster/receive_information(datum/signal/subspace/signal, obj/machinery/server/telecomms/machine_from)
