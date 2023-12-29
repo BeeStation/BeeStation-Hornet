@@ -907,7 +907,7 @@
 "gD" = (
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
 /obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/snacks/tofu/prison,
+/obj/item/food/tofu/prison,
 /obj/item/knife/kitchen,
 /obj/item/reagent_containers/food/condiment/enzyme,
 /obj/item/kitchen/rollingpin,

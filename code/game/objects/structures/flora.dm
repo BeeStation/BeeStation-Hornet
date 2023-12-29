@@ -354,6 +354,7 @@
 	if(!states)
 		generate_states()
 	icon_state = pick(states)
+	update_appearance()
 
 /obj/item/kirbyplants/random/proc/generate_states()
 	states = list()

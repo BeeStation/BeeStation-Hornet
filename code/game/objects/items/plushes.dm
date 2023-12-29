@@ -663,6 +663,31 @@
 	desc = "An adorable mothperson plushy. It's a nightly bug!"
 	icon_state = "moffplush_moonfly"
 
+/obj/item/toy/plush/moth/witchwing
+	name = "witchwing moth plushie"
+	desc = "An adorable mothperson plushy. It's an enchanted bug!"
+	icon_state = "moffplush_witchwing"
+
+/obj/item/toy/plush/moth/bluespace
+	name = "bluespace moth plushie"
+	desc = "An adorable mothperson plushy. It's a teleporting bug!"
+	icon_state = "moffplush_bluespace"
+
+/obj/item/toy/plush/moth/plasmafire
+	name = "plasmafire moth plushie"
+	desc = "An adorable mothperson plushy. It's a plasma bug!"
+	icon_state = "moffplush_plasmafire"
+
+/obj/item/toy/plush/moth/brown
+	name = "brown moth plushie"
+	desc = "An adorable mothperson plushy. It's a brown bug!"
+	icon_state = "moffplush_brown"
+
+/obj/item/toy/plush/moth/rosy
+	name = "rosy moth plushie"
+	desc = "An adorable mothperson plushy. It's a cute bug!"
+	icon_state = "moffplush_rosy"
+
 /obj/item/toy/plush/moth/error
 	name = "error moth plushie"
 	desc = "An adorable mothperson plushy. It's a debuggable bug!"

@@ -4,7 +4,6 @@
 	name = "donut"
 	desc = "Goes great with robust coffee."
 	icon = 'icons/obj/food/donuts.dmi'
-	icon_state = "donut"
 	bite_consumption = 5
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 3)
 	tastes = list("donut" = 1)
@@ -24,7 +23,6 @@
 
 ///Override for checkliked callback
 /obj/item/food/donut/make_edible()
-	. = ..()
 	AddComponent(/datum/component/edible,\
 				initial_reagents = food_reagents,\
 				food_flags = food_flags,\
@@ -35,6 +33,7 @@
 				eatverbs = eatverbs,\
 				bite_consumption = bite_consumption,\
 				microwaved_type = microwaved_type,\
+				junkiness = junkiness,\
 				check_liked = CALLBACK(src, PROC_REF(check_liked)))
 
 /obj/item/food/donut/proc/decorate_donut()
@@ -57,6 +56,7 @@
 
 //Regular, tasty donut.
 /obj/item/food/donut/plain
+	icon_state = "donut"
 
 //Its like eating an Midwest donut, versus a scrumptious East Coast donut. Not very filling and you just want to eat more
 /obj/item/food/donut/premade
@@ -67,7 +67,7 @@
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/sprinkles = 1,
 		/datum/reagent/consumable/sugar = 2,
-		/datum/reagent/consumable/maltodextrin = 6
+		/datum/reagent/consumable/maltodextrin = 3.65
 	)
 
 /obj/item/food/donut/chaos

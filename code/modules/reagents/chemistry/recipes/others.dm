@@ -127,7 +127,7 @@
 /datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct(location)
+		new /obj/item/food/meat/slab/meatproduct(location)
 	return
 
 /datum/chemical_reaction/carbondioxide
@@ -241,14 +241,23 @@
 	var/level_min = 1
 	var/level_max = 2
 
-/datum/chemical_reaction/mix_virus/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/mix_virus/can_react(datum/reagents/holder)
+	return ..() && !isnull(find_virus(holder))
 
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B && B.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.Evolve(level_min, level_max)
-			D.logchanges(holder, "EVOLVE")
+/datum/chemical_reaction/mix_virus/proc/find_virus(datum/reagents/holder)
+	var/datum/reagent/blood/blood = locate(/datum/reagent/blood) in holder.reagent_list
+	if(!length(blood?.data))
+		return
+	for(var/datum/disease/advance/virus in blood.data["viruses"])
+		if(!virus.mutable)
+			continue
+		return virus
+
+/datum/chemical_reaction/mix_virus/on_reaction(datum/reagents/holder, created_volume)
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		target.Evolve(level_min, level_max)
+		target.logchanges(holder, "EVOLVE")
 
 /datum/chemical_reaction/mix_virus/mix_virus_2
 	name = "Mix Virus 2"
@@ -349,13 +358,10 @@
 	required_catalysts = list(/datum/reagent/blood = 1)
 
 /datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, created_volume)
-
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B && B.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.Devolve()
-			D.logchanges(holder, "DEVOLVE")
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		target.Devolve()
+		target.logchanges(holder, "DEVOLVE")
 
 //prevents a random symptom from showing while keeping the stats
 /datum/chemical_reaction/mix_virus/neuter_virus
@@ -365,13 +371,10 @@
 	required_catalysts = list(/datum/reagent/blood = 1)
 
 /datum/chemical_reaction/mix_virus/neuter_virus/on_reaction(datum/reagents/holder, created_volume)
-
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B?.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.Neuter()
-			D.logchanges(holder, "NEUTER")
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		target.Neuter()
+		target.logchanges(holder, "NEUTER")
 
 //prevents the altering of disease symptoms
 /datum/chemical_reaction/mix_virus/preserve_virus
@@ -381,13 +384,10 @@
 	required_catalysts = list(/datum/reagent/blood = 1)
 
 /datum/chemical_reaction/mix_virus/preserve_virus/on_reaction(datum/reagents/holder, created_volume)
-
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B?.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.mutable = FALSE
-			D.logchanges(holder, "PRESERVE")
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		target.mutable = FALSE
+		target.logchanges(holder, "PRESERVE")
 
 //prevents the disease from spreading via symptoms
 /datum/chemical_reaction/mix_virus/falter_virus
@@ -397,15 +397,12 @@
 	required_catalysts = list(/datum/reagent/blood = 1)
 
 /datum/chemical_reaction/mix_virus/falter_virus/on_reaction(datum/reagents/holder, created_volume)
-
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B?.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.faltered = TRUE
-			D.spread_flags = DISEASE_SPREAD_FALTERED
-			D.spread_text = "Intentional Injection"
-			D.logchanges(holder, "FALTER")
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		target.faltered = TRUE
+		target.spread_flags = DISEASE_SPREAD_FALTERED
+		target.spread_text = "Intentional Injection"
+		target.logchanges(holder, "FALTER")
 
 
 ////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
@@ -685,6 +682,18 @@
 	results = list(/datum/reagent/concentrated_barbers_aid = 2)
 	required_reagents = list(/datum/reagent/barbers_aid = 1, /datum/reagent/toxin/mutagen = 1)
 
+/datum/chemical_reaction/barbers_afro_mania
+	name = /datum/reagent/barbers_afro_mania
+	id = /datum/reagent/barbers_afro_mania
+	results = list(/datum/reagent/barbers_afro_mania = 2)
+	required_reagents = list(/datum/reagent/concentrated_barbers_aid = 1, /datum/reagent/colorful_reagent = 1)
+
+/datum/chemical_reaction/barbers_shaving_aid
+	name = /datum/reagent/barbers_shaving_aid
+	id = /datum/reagent/barbers_shaving_aid
+	results = list(/datum/reagent/barbers_shaving_aid = 2)
+	required_reagents = list(/datum/reagent/concentrated_barbers_aid = 1, /datum/reagent/napalm = 1)
+
 /datum/chemical_reaction/saltpetre
 	name = /datum/reagent/saltpetre
 	id = /datum/reagent/saltpetre
@@ -863,3 +872,9 @@
 	id = /datum/reagent/mutationtoxin/plasma
 	results = list(/datum/reagent/mutationtoxin/plasma = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
+
+/datum/chemical_reaction/mutationtoxin/psyphoza
+	name = /datum/reagent/mutationtoxin/psyphoza
+	id = /datum/reagent/mutationtoxin/psyphoza
+	results = list(/datum/reagent/mutationtoxin/psyphoza = 5)
+	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/amatoxin = 5)
