@@ -32,7 +32,10 @@
 		else if(length(redeemable))
 			C.served_time += (15 * redeemable.len)
 			redeemable.Cut()
-			to_chat(user, "<span class='notice'>Items redeemed! You now have [DisplayTimeText(C.sentence - C.served_time, 1)] left to serve!</span>")
+			if(C.served_time >= C.sentence)
+				to_chat(user, "<span class='notice>You have already served your time, no time could be deducted from your non-existant sentence!</span>")
+			else
+				to_chat(user, "<span class='notice'>Items redeemed! You now have [DisplayTimeText(C.sentence - C.served_time, 1)] left to serve!</span>")
 			linked_id = null
 		else
 			to_chat(user, "<span class='warning'> No items to redeem!</span>")
