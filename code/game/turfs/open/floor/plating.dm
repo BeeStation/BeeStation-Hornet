@@ -90,7 +90,7 @@
 			return
 		var/obj/item/stack/sheet/iron/R = C
 		if (R.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one sheet to make a reinforced floor!</span>")
+			to_chat(user, "<span class='warning'>You need one sheet to make a prison secure floor!</span>")
 			return
 		else
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor to secure the plating..</span>")

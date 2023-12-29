@@ -45,8 +45,8 @@
 	else
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 		to_chat(user, "<span class='notice'>You begin prying open the tile...</span>")
-		do_after(user, 4 SECONDS)
-		return ..()
+		if(do_after(user, 4 SECONDS))
+			return ..()
 
 
 /turf/open/floor/prison/wrench_act(mob/living/user, obj/item/I)
@@ -67,11 +67,9 @@
 	. = ..()
 
 /turf/open/floor/prison/attackby(obj/item/object, mob/living/user, params)
-	if(plates< MAX_PRISON_PLATES && istype(object, /obj/item/stack/tile/plasteel))
+	if(plates< MAX_PRISON_PLATES && istype(object, plates_type))
 		var/obj/item/stack/sheet/I = object
 		I.use(1)
-		if(I.amount == 0)
-			qdel(I)
 		plates += 1
 		update_icon_state()
 		return
