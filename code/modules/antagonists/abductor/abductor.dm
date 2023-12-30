@@ -13,11 +13,6 @@
 	var/landmark_type
 	var/greet_text
 
-/datum/antagonist/abductor/New()
-	// lets get the loading started now, but don't block waiting for it
-	INVOKE_ASYNC(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, lazy_load_template), LAZY_TEMPLATE_KEY_ABDUCTOR_SHIPS)
-	return ..()
-
 /datum/antagonist/abductor/agent
 	name = "Abductor Agent"
 	sub_role = "Agent"
