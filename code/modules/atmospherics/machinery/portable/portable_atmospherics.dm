@@ -14,6 +14,9 @@
 	var/volume = 0
 	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 
+	var/starts_connected = FALSE // If TRUE, it will start connected to a port if one is available.
+	var/connected = FALSE // checks if already connected from starts_connected
+
 /obj/machinery/portable_atmospherics/Initialize(mapload)
 	. = ..()
 	air_contents = new(volume)
@@ -44,6 +47,11 @@
 		return atmosanalyzer_scan(user, holding, TRUE)
 
 /obj/machinery/portable_atmospherics/process_atmos()
+	if(starts_connected && !connected) // kinda stinky but it works
+		var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
+		if(possible_port)
+			connect(possible_port)
+		connected = TRUE
 	if(!connected_port && air_contents != null && src != null) // Pipe network handles reactions if connected.
 		air_contents.react(src)
 
@@ -52,7 +60,6 @@
 
 /obj/machinery/portable_atmospherics/return_analyzable_air()
 	return air_contents
-
 /obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/components/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
