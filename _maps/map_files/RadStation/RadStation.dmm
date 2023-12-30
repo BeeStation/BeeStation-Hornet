@@ -1662,6 +1662,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/guideline/guideline_tri/red,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "aEx" = (
@@ -13688,6 +13691,9 @@
 /obj/machinery/airalarm/directional/north{
 	pixel_y = 21
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/prison/shielded)
 "ero" = (
@@ -15010,9 +15016,6 @@
 /area/quartermaster/miningdock)
 "eLy" = (
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -17471,6 +17474,18 @@
 /obj/structure/railing/corner,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
+"fws" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door_timer{
+	id = "cell";
+	name = "Solitary confinement timer";
+	pixel_y = -32
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/prison,
+/area/security/prison/shielded)
 "fwx" = (
 /obj/structure/altar_of_gods,
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -30878,6 +30893,9 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/prison,
 /area/security/prison/shielded)
 "jOj" = (
@@ -45320,10 +45338,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
-"oqJ" = (
-/obj/machinery/genpop_interface,
-/turf/closed/wall/r_wall,
-/area/security/prison/shielded)
 "oqK" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -49329,11 +49343,11 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/genpop_interface{
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
 /area/security/prison/shielded)
@@ -69344,6 +69358,13 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison/shielded)
+"wbs" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/prison,
+/area/security/prison/shielded)
 "wbE" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/disposal/bin,
@@ -73793,15 +73814,12 @@
 /turf/open/floor/plasteel/dark,
 /area/science/robotics)
 "xyA" = (
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
+/obj/machinery/door/window/brigdoor/security/cell/eastleft{
+	id = "cell";
+	name = "Solitary confinement"
 	},
-/obj/machinery/door/airlock/security{
-	aiControlDisabled = 1;
-	id_tag = "prisonereducation";
-	name = "Solitary Confinement";
-	req_one_access_txt = "1;4"
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison/shielded)
@@ -104981,7 +104999,7 @@ uDG
 pVy
 ifC
 ifC
-ifC
+jKo
 eLy
 ifC
 bCb
@@ -105752,7 +105770,7 @@ gGL
 uuk
 ifC
 ifC
-ifC
+uWf
 xyA
 ifC
 pFp
@@ -106010,8 +106028,8 @@ nhs
 rSz
 esI
 iDv
-sOz
-oqJ
+fws
+ifC
 xFU
 kBx
 miv
@@ -106267,7 +106285,7 @@ qCi
 esI
 esI
 esI
-sOz
+wbs
 ifC
 gYd
 jmy
@@ -106524,7 +106542,7 @@ tzl
 esI
 esI
 jMQ
-sOz
+wbs
 ifC
 ifC
 uWf
@@ -106781,7 +106799,7 @@ ers
 ers
 ers
 ers
-sOz
+wbs
 efR
 iCL
 ers
@@ -107038,7 +107056,7 @@ ers
 ers
 ers
 ers
-sOz
+wbs
 nSs
 nSs
 ers

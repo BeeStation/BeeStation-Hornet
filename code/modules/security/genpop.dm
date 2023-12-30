@@ -73,9 +73,12 @@
 		//Sec officers can always open the lockers. Bypass the ID setting behaviour.
 		//Buuut, if they're holding a prisoner ID, that takes priority.
 		if(allowed(user) && !istype(I, /obj/item/card/id/prisoner))
-			locked = !locked
-			update_icon()
-			return
+			if(!registered_name)
+				say("Invalid, please assign this locker to prisoners first before handling it!") // Prevents officers from "forgetting" to assign lockers to the prisoners they are handling.
+			else
+				locked = !locked
+				update_icon()
+				return
 		//Handle setting a new ID.
 		if(!registered_name)
 			if(istype(I, /obj/item/card/id/prisoner)) //Don't claim the locker for a sec officer mind you...

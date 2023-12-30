@@ -570,14 +570,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
-"adD" = (
-/obj/structure/lattice,
-/obj/machinery/camera/motion{
-	c_tag = "Armory - External";
-	dir = 1
-	},
-/turf/open/space,
-/area/space/nearstation)
 "adE" = (
 /turf/open/floor/plating,
 /area/crew_quarters/fitness/recreation)
@@ -30864,6 +30856,9 @@
 	dir = 10;
 	network = list("ss13","medbay")
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "fhJ" = (
@@ -31524,21 +31519,15 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "ful" = (
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/door/airlock/security{
-	aiControlDisabled = 1;
-	id_tag = "prisonereducation";
-	name = "Solitary Confinement";
-	req_one_access_txt = "1;4"
+/obj/machinery/door/window/brigdoor/security/cell/westleft{
+	id = "cell";
+	name = "Solitary confinement"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -32289,6 +32278,15 @@
 "fIB" = (
 /turf/open/floor/circuit/telecomms,
 /area/maintenance/department/science/xenobiology)
+"fIE" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "fIH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -34910,6 +34908,14 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/door_timer{
+	id = "cell";
+	name = "Solitary confinement timer";
+	pixel_y = 32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "gPK" = (
@@ -43133,6 +43139,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
+"khb" = (
+/obj/machinery/camera/motion{
+	c_tag = "Armory - External";
+	dir = 1
+	},
+/turf/open/space/basic,
+/area/ai_monitored/security/armory)
 "khd" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -44667,6 +44680,9 @@
 	},
 /obj/effect/turf_decal/loading_area{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -50089,9 +50105,6 @@
 /area/security/brig)
 "mUB" = (
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -50103,6 +50116,9 @@
 	id_tag = "prisonereducation";
 	name = "Solitary Confinement";
 	req_one_access_txt = "1;4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -57502,6 +57518,9 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "pRG" = (
@@ -59087,13 +59106,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
-"qwj" = (
-/obj/machinery/light{
-	dir = 4;
-	light_color = "#e8eaff"
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "qwU" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -65404,6 +65416,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -75445,6 +75460,15 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel,
 /area/hydroponics/garden)
+"xcp" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "xcx" = (
 /obj/structure/filingcabinet,
 /obj/item/folder/documents,
@@ -102376,8 +102400,8 @@ aaZ
 aaZ
 aaZ
 gPJ
+pWX
 mpr
-qwj
 pWX
 pWX
 pWX
@@ -102633,7 +102657,7 @@ aeg
 cZX
 aaZ
 ful
-aax
+vNN
 aax
 dMi
 sgT
@@ -103404,7 +103428,7 @@ aaZ
 aaZ
 aaZ
 mUB
-aax
+vNN
 aax
 aax
 aax
@@ -103661,7 +103685,7 @@ bmT
 aeQ
 bnT
 kGQ
-alQ
+xcp
 alQ
 alQ
 apE
@@ -103918,7 +103942,7 @@ ajm
 dqD
 gmW
 afA
-bMY
+fIE
 bMY
 frN
 reX
@@ -106735,8 +106759,8 @@ aaa
 aaa
 aaa
 aaf
-adD
-lwx
+aaf
+khb
 aeq
 ngE
 iYn

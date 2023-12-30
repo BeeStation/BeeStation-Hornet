@@ -7585,6 +7585,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"ciV" = (
+/obj/machinery/door/window/brigdoor/security/cell/southleft{
+	id = "cell";
+	name = "Solitary confinement"
+	},
+/turf/closed/wall/r_wall,
+/area/security/warden)
 "ciW" = (
 /obj/item/storage/toolbox/electrical,
 /obj/machinery/airalarm/directional/west,
@@ -22544,6 +22551,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "hox" = (
@@ -35911,6 +35921,24 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"lKT" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/door_timer{
+	id = "cell";
+	name = "Solitary confinement timer";
+	pixel_y = 32
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "lLa" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -39058,6 +39086,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "mIy" = (
@@ -39277,6 +39308,9 @@
 /obj/machinery/camera/autoname{
 	dir = 5;
 	network = list("ss13","medbay")
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -54375,6 +54409,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"rME" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/curtain,
+/turf/open/floor/plating,
+/area/security/prison)
 "rMN" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
 /turf/open/floor/plasteel,
@@ -54401,7 +54447,6 @@
 	req_one_access_txt = "1;4"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "rNy" = (
@@ -54579,6 +54624,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"rPZ" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/curtain,
+/turf/open/floor/plating,
+/area/security/prison)
 "rQb" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -57519,16 +57576,6 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
-"sNw" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/machinery/light{
-	light_color = "#7AC3FF"
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "sNz" = (
 /obj/machinery/rnd/experimentor,
 /turf/open/floor/engine,
@@ -71610,6 +71657,9 @@
 "xzy" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/light{
+	light_color = "#7AC3FF"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "xzA" = (
@@ -73651,17 +73701,17 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "yhL" = (
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/door/airlock/security{
-	aiControlDisabled = 1;
-	id_tag = "prisonereducation";
-	name = "Solitary Confinement";
-	req_one_access_txt = "1;4"
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/machinery/door/window/brigdoor/security/cell/southleft{
+	id = "cell";
+	name = "Solitary confinement"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -111468,7 +111518,7 @@ izC
 ghw
 umx
 kSp
-tTo
+ciV
 gXo
 vvb
 xzy
@@ -111728,10 +111778,10 @@ hHO
 fAg
 mrP
 wod
-sNw
-uKT
+xjc
+rME
 mMw
-uKT
+rPZ
 nSo
 fhB
 rnv
@@ -112246,7 +112296,7 @@ bwM
 uKT
 qnj
 uKT
-nSo
+lKT
 nzV
 rnv
 dso

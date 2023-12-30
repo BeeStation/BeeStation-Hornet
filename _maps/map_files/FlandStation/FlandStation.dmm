@@ -9059,6 +9059,8 @@
 /obj/machinery/light_switch{
 	pixel_y = -22
 	},
+/obj/machinery/power/apc/auto_name/south,
+/obj/structure/cable/yellow,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "crG" = (
@@ -9156,6 +9158,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/light,
 /turf/open/floor/prison,
 /area/security/prison)
 "ctv" = (
@@ -20965,13 +20968,17 @@
 	},
 /area/security/nuke_storage)
 "fwg" = (
-/obj/machinery/light,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/door_timer{
+	id = "cell";
+	name = "Solitary confinement timer";
+	pixel_y = -32
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -26842,6 +26849,9 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -37010,6 +37020,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "jKp" = (
@@ -38834,6 +38847,9 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
@@ -46315,6 +46331,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal)
+"mai" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/security/prison)
 "maD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -59060,6 +59085,9 @@
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/structure/bed,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "ptM" = (
@@ -71094,6 +71122,14 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/vault,
 /area/engine/engine_room)
+"slF" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/security/prison)
 "slO" = (
 /obj/machinery/requests_console{
 	department = "Construction";
@@ -74195,7 +74231,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/light/small,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "sZy" = (
@@ -81997,12 +82035,12 @@
 "uTM" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/security{
-	aiControlDisabled = 1;
-	id_tag = "prisonereducation";
-	name = "Solitary Confinement";
-	req_one_access_txt = "1;4"
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/window/brigdoor/security/cell/northright{
+	name = "Solitary confinement";
+	id = "cell"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
@@ -89621,9 +89659,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
 	name = "Prison blast door"
@@ -90775,10 +90810,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/machinery/power/apc/auto_name/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -94981,6 +95012,21 @@
 /obj/effect/turf_decal/trimline/red/filled/warning,
 /obj/effect/turf_decal/trimline/red/warning{
 	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
+"xFi" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -135262,7 +135308,7 @@ yfz
 nfI
 wYw
 oXD
-vzA
+xFi
 crF
 nVS
 nVS
@@ -135771,7 +135817,7 @@ tyZ
 dkV
 gWb
 uTM
-rBV
+mai
 jKk
 iqh
 wDT
@@ -136027,11 +136073,11 @@ tyZ
 tyZ
 qzQ
 sZw
-wYw
+slF
 jYd
 kgb
 ptI
-wYw
+slF
 wRI
 xtb
 pQg

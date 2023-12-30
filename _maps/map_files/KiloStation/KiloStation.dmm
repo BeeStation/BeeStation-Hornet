@@ -36,6 +36,15 @@
 	id = "brigfrontdoor";
 	name = "Front Security Blast door"
 	},
+/obj/machinery/door/airlock/security{
+	name = "Prison Wing";
+	req_access_txt = null;
+	req_one_access_txt = "2;34"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "aah" = (
@@ -220,6 +229,9 @@
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/structure/punching_bag,
 /obj/effect/turf_decal/delivery,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "aaU" = (
@@ -1369,6 +1381,9 @@
 /area/ai_monitored/turret_protected/aisat/foyer)
 "ael" = (
 /obj/machinery/light,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "aeo" = (
@@ -9099,6 +9114,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "aCw" = (
@@ -14700,6 +14718,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/aft)
 "bfI" = (
@@ -16339,6 +16360,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Courtroom - Backroom";
+	dir = 5
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/aft)
@@ -23282,6 +23310,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/machinery/camera/motion{
+	c_tag = "Armory - External";
+	dir = 1
+	},
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -25140,15 +25172,6 @@
 	},
 /area/hallway/secondary/entry)
 "bWH" = (
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/obj/machinery/door/airlock/security{
-	name = "Prison Wing";
-	req_access_txt = null;
-	req_one_access_txt = "2;34"
-	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "bWJ" = (
@@ -37250,6 +37273,9 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = -32
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "cKD" = (
@@ -43283,9 +43309,11 @@
 /area/science/lab)
 "eCJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/aft)
@@ -46736,6 +46764,16 @@
 	},
 /turf/open/floor/plating,
 /area/medical/virology)
+"fZm" = (
+/obj/machinery/camera/motion{
+	c_tag = "Armory - External";
+	dir = 1
+	},
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/plating/airless{
+	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+	},
+/area/space/nearstation)
 "fZy" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -50304,6 +50342,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"hDh" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "hDl" = (
 /obj/machinery/light,
 /obj/machinery/button/door{
@@ -51240,10 +51286,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "hWi" = (
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -51252,11 +51294,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
-	},
-/obj/machinery/door/airlock/security{
-	name = "Prison Wing";
-	req_access_txt = null;
-	req_one_access_txt = "2;34"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -53243,10 +53280,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/port)
-"iNk" = (
-/obj/machinery/door/firedoor,
-/turf/open/floor/holofloor/plating,
-/area/holodeck/prison)
 "iNm" = (
 /obj/effect/decal/cleanable/oil,
 /obj/effect/turf_decal/stripes/line{
@@ -54095,6 +54128,13 @@
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/camera{
+	c_tag = "Brig Cells";
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -58100,11 +58140,6 @@
 	icon_state = "plant-02";
 	pixel_y = 3
 	},
-/obj/machinery/door_timer{
-	id = "Cell 1";
-	name = "Cell 1";
-	pixel_x = -33
-	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "kLS" = (
@@ -58670,9 +58705,6 @@
 /area/engine/engineering)
 "lbg" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/security{
@@ -59950,6 +59982,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
+"lCQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera/motion{
+	c_tag = "Armory - External";
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "lCY" = (
 /obj/structure/sign/directions/science{
 	dir = 4;
@@ -66265,6 +66305,15 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/security{
+	name = "Prison Wing";
+	req_access_txt = null;
+	req_one_access_txt = "2;34"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "omD" = (
@@ -69232,6 +69281,9 @@
 "pAT" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -74088,16 +74140,13 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
 "ruu" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/security{
-	aiControlDisabled = 1;
-	id_tag = "prisonereducation";
+/obj/machinery/door/window/brigdoor/security/cell/eastright{
 	name = "Solitary Confinement";
-	req_one_access_txt = "1;4"
+	id = "cell"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "ruG" = (
@@ -80565,6 +80614,15 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"tZR" = (
+/obj/machinery/computer/cryopod{
+	pixel_x = 32
+	},
+/obj/machinery/genpop_interface{
+	pixel_y = 32
+	},
+/turf/open/floor/holofloor/plating,
+/area/holodeck/prison)
 "uad" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -83867,10 +83925,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"vxC" = (
-/obj/effect/turf_decal/sand/plating,
-/turf/open/space/basic,
-/area/space/nearstation)
 "vxQ" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
@@ -84278,6 +84332,9 @@
 "vHo" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -87347,7 +87404,9 @@
 "wLw" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/sand/plating,
-/turf/open/space/basic,
+/turf/open/floor/plating/airless{
+	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+	},
 /area/space/nearstation)
 "wLA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -89357,6 +89416,14 @@
 /obj/item/paper{
 	name = "Prison Workshop Guidelines";
 	default_raw_text = "**Prison Workshop Guidelines** <br><br>Hello future rehabilitated convict! Nanotrasen welcomes you aboard one of its cutting edge detention facility!<br><br>Here you'll find the key to your future, the workshop! That's right, Nanotrasen has committed to a revolutionary rehabilitation program, to help lost individuals such as yourself work away their misdeeds.<br><br>With your trusty prison export scanner, you too can get reduced sentences! So far we have two workshops, a donut workshop, and a plushes workshop!<br><br>Simply swipe your prisoner ID on the prison export scanner to link it your account, and then get working! **Don't forget to scan any donuts or plush you make!**<br><br>Once you want to redeem your precious earned time, simply swipe your card again on the scanner, and voila! You've become a useful contribution to the station! How does it feel? Pretty good right?<br><br>We hope you have a *productive* time at Nanotrasen!"
+	},
+/obj/machinery/door_timer{
+	id = "cell";
+	name = "Solitary confinement timer";
+	pixel_y = -32
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -105227,7 +105294,7 @@ bMS
 bQv
 bSF
 cnR
-vxC
+cBD
 cLW
 aaf
 lFH
@@ -105998,7 +106065,7 @@ bCt
 ajd
 aeu
 add
-vxC
+cBD
 cnR
 aaj
 eNl
@@ -106256,7 +106323,7 @@ bQv
 bSF
 aDQ
 cMa
-anH
+fZm
 vtz
 aaf
 aaf
@@ -108313,11 +108380,11 @@ cnQ
 cBN
 cMj
 bRS
-cnm
+lCQ
 cbc
 bfE
 eCJ
-ajx
+hDh
 bWH
 hWi
 aaf
@@ -109086,7 +109153,7 @@ ajZ
 ajZ
 ajZ
 wjh
-ins
+tVT
 aav
 jLy
 iJD
@@ -109339,11 +109406,11 @@ bPr
 aav
 ajZ
 ajZ
-ajZ
+tZR
 ajZ
 ajZ
 rRy
-srG
+tVT
 aav
 nvY
 vRa
@@ -109594,7 +109661,7 @@ vou
 cBI
 bPt
 iwC
-iNk
+ajZ
 ajZ
 ajZ
 ajZ
