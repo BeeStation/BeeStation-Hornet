@@ -84687,10 +84687,6 @@
 /mob/living/carbon/monkey,
 /turf/open/floor/plasteel,
 /area/medical/genetics)
-"vgO" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/security/prison)
 "vgQ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -149644,7 +149640,7 @@ cec
 aFm
 aFm
 aFm
-vgO
+aFm
 mGV
 aaa
 aaa
@@ -149901,7 +149897,7 @@ cec
 pTU
 cec
 qJX
-vgO
+aFm
 aad
 wiQ
 aad
@@ -150667,7 +150663,7 @@ bXR
 xRZ
 ejp
 aFm
-vgO
+aFm
 aFm
 aFm
 aFm
