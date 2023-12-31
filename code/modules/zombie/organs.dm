@@ -95,4 +95,4 @@
 	causes_damage = FALSE
 
 /obj/item/organ/zombie_infection/virus
-	var/zombietype = /datum/species/zombie/infectious/viral
+	zombietype = /datum/species/zombie/infectious/viral

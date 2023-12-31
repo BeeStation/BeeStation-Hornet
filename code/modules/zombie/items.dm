@@ -41,6 +41,8 @@
 			if(H.check_shields(src, 0))
 				return
 			if(prob(base_infection_chance-H.getarmor(flesh_wound, MELEE, armour_penetration)))
+				if(viral)
+					try_infect(target)
 				try_to_zombie_infect(target)
 		else
 			check_feast(target, user)
@@ -80,16 +82,17 @@
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, -hp_gained) // Zom Bee gibbers "BRAAAAISNSs!1!"
 		user.set_nutrition(min(user.nutrition + hp_gained, NUTRITION_LEVEL_FULL))
 
-
-/obj/item/zombie_hand/infectious
-	name = "infected zombie claw"
-	viral = TRUE
-
-/obj/item/zombie_hand/proc/try_infect(mob/living/target, mob/living/user)
+/obj/item/zombie_hand/proc/try_infect(mob/living/carbon/human/target, mob/living/user)
 	CHECK_DNA_AND_SPECIES(target)
 
 	if(NOZOMBIE in target.dna.species.species_traits)
 		// cannot infect any NOZOMBIE subspecies (such as high functioning
 		// zombies)
 		return
+
+/obj/item/zombie_hand/infectious
+	name = "infected zombie claw"
+	viral = TRUE
+
+
 
