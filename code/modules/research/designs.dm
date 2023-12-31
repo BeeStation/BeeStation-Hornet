@@ -64,7 +64,7 @@ other types of metals and chemistry for reagents).
 /datum/design/proc/icon_html(client/user)
 	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/research_designs)
 	sheet.send(user)
-	return sheet.icon_tag(id=)
+	return sheet.icon_tag(id)
 
 ////////////////////////////////////////
 //Disks for transporting design datums//
