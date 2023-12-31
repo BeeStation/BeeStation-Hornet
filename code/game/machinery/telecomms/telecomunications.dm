@@ -44,6 +44,10 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	var/netlag = round(traffic / 50)
 	if(netlag > signal.data["slow"])
 		signal.data["slow"] = netlag
+	
+	// Apply some lag based on efficiency
+	if (efficiency > 0)
+		signal.data["slow"] += (rand(10, 20) * (1 - efficiency)) // slow the signal down based on efficiency
 
 	// Loop through all linked machines and send the signal or copy.
 	for(var/obj/machinery/server/telecomms/machine in links)
