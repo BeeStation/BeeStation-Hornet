@@ -26,7 +26,7 @@
 	. = ..()
 	if(A.stealth >= 8)
 		severity += 2
-	if(A.resistance >= 20 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.resistance >= 12))
+	if(A.resistance >= 20 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 12))
 		severity -= 1
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
@@ -34,7 +34,7 @@
 		return
 	if(A.transmission >= 6)
 		tendrils = TRUE
-	if(A.resistance >= 20 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.resistance >= 12))
+	if(A.resistance >= 20 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 12))
 		fireproof = TRUE
 	if(A.stealth >= 8)
 		chest = TRUE

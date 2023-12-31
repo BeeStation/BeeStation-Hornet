@@ -372,12 +372,6 @@
 	return TRUE
 
 /datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, created_volume)
-<<<<<<< refs/remotes/BeeStation/master
-	var/datum/disease/advance/target = find_virus(holder)
-	if(target && target.symptoms.len > (CONFIG_GET(number/virus_thinning_cap)))
-		target.Devolve()
-		target.logchanges(holder, "DEVOLVE")
-=======
 
 	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
 	if(B && B.data)
@@ -385,7 +379,6 @@
 		if(D && D.symptoms.len > (CONFIG_GET(number/virus_thinning_cap)))
 			D.Devolve()
 			D.logchanges(holder, "DEVOLVE")
->>>>>>> it begins
 
 //prevents a random symptom from showing while keeping the stats
 /datum/chemical_reaction/mix_virus/neuter_virus

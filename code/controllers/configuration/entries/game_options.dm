@@ -465,5 +465,9 @@
 
 /datum/config_entry/flag/unconditional_symptom_thresholds
 
+/datum/config_entry/flag/event_symptom_thresholds
+
+/datum/config_entry/flag/special_symptom_thresholds
+
 /datum/config_entry/number/virus_thinning_cap
 	config_entry_value = 4

@@ -64,7 +64,7 @@
 	. = ..()
 	if(A.stage_rate >= 6)
 		severity -= 1
-	if(A.resistance >= 12 || CONFIG_GET(flag/unconditional_symptom_thresholds))
+	if(A.resistance >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		severity -= 1
 
 /datum/symptom/radconversion/Start(datum/disease/advance/A)
@@ -72,7 +72,7 @@
 		return
 	if(A.stage_rate >= 6)
 		toxheal = TRUE
-	if(A.resistance >= 12 || CONFIG_GET(flag/unconditional_symptom_thresholds))
+	if(A.resistance >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		cellheal = TRUE
 
 

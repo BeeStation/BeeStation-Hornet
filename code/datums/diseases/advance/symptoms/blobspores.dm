@@ -19,18 +19,18 @@
 
 /datum/symptom/blobspores/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 14 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.resistance >= 8))
+	if(A.resistance >= 14 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 8))
 		severity += 1
 
 
 /datum/symptom/blobspores/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 11 || CONFIG_GET(flag/unconditional_symptom_thresholds))
+	if(A.resistance >= 11 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		factory_blob = TRUE
-	if(A.resistance >= 8 || CONFIG_GET(flag/unconditional_symptom_thresholds))
+	if(A.resistance >= 8 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		strong_blob = TRUE
-		if(A.resistance >= 14 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.resistance >= 8))
+		if(A.resistance >= 14 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 8))
 			node_blob = TRUE
 
 /datum/symptom/blobspores/Activate(datum/disease/advance/A)

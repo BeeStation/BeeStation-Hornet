@@ -124,7 +124,7 @@ Bonus
 
 /datum/symptom/flesh_death/severityset(datum/disease/advance/A)
 	. = ..()
-	if((A.stealth >= 2) && (A.stage_rate >= 12))
+	if(((A.stealth >= 2) && (A.stage_rate >= 12) && CONFIG_GET(flag/special_symptom_thresholds)) || A.event)
 		bodies = list("Zombie")
 
 /datum/symptom/flesh_death/Start(datum/disease/advance/A)
@@ -134,7 +134,7 @@ Bonus
 		suppress_warning = TRUE
 	if(A.stage_rate >= 7) //bleeding and hunger
 		chems = TRUE
-	if((A.stealth >= 2) && (A.stage_rate >= 12))
+	if(((A.stealth >= 2) && (A.stage_rate >= 12) && CONFIG_GET(flag/special_symptom_thresholds)) || A.event)
 		zombie = TRUE
 
 /datum/symptom/flesh_death/Activate(datum/disease/advance/A)

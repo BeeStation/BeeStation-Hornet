@@ -19,15 +19,15 @@
 
 /datum/symptom/braindamage/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.transmission >= 7))
+	if(A.transmission >= 12 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.transmission >= 7))
 		severity += 1
 
 /datum/symptom/braindamage/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.transmission >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.transmission >= 7))
+	if(A.transmission >= 12 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.transmission >= 7))
 		lethal = TRUE
-	if(A.stage_rate >= 9  || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.stage_rate >= 6))
+	if(A.stage_rate >= 9  || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.stage_rate >= 6))
 		moretrauma = TRUE
 
 /datum/symptom/braindamage/Activate(datum/disease/advance/A)

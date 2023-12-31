@@ -24,9 +24,9 @@
 
 /datum/symptom/robotic_adaptation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= 4 || CONFIG_GET(flag/unconditional_symptom_thresholds)) //at base level, robotic organs are purely a liability
+	if(A.stage_rate >= 4 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event)) //at base level, robotic organs are purely a liability
 		severity += 1
-		if(A.stage_rate >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.stage_rate >= 6))//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
+		if(A.stage_rate >= 12 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.stage_rate >= 6))//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
 			severity -= 3//net benefits: 2 damage reduction, flight if you have wings, filter out low amounts of gas, durable ears, flash protection, a liver half as good as an upgraded cyberliver, and flight if you are a winged species
 	if(A.resistance >= 4)//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
 		severity += 1 //at this stage, even one EMP will hurt, a lot.
@@ -34,11 +34,11 @@
 
 /datum/symptom/robotic_adaptation/Start(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= 4 || CONFIG_GET(flag/unconditional_symptom_thresholds))
+	if(A.stage_rate >= 4 ||(CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		replaceorgans = TRUE
 	if(A.resistance >= 4)
 		replacebody = TRUE
-	if(A.stage_rate >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) && A.stage_rate >= 6))
+	if(A.stage_rate >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.stage_rate >= 6)
 		robustbits = TRUE //note that having this symptom means most healing symptoms won't work on you
 
 

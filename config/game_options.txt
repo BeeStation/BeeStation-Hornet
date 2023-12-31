@@ -675,7 +675,7 @@ DISABLE_LOCAL_BANS
 ##Uncomment to allow viruses to be mixed to combine symptoms
 MIXVIRUS_ALLOWED
 
-##Uncomment to disable seeded symptom removal. 
+##Uncomment to disable seeded symptom removal.
 ##This should be commented if you want fully custom viruses. At the start of each round, the ID of each symptom is randomized. This random ID is used to pre-determine rng-based methods of symptom removal.
 SEEDED_SYMPTOMS
 
@@ -692,6 +692,12 @@ UNCONDITIONAL_VIRUS_SPREADING
 ##uncomment to make certain symptom thresholds no longer required for their effects, and others have lowered effect thresholds
 ##It is recommended that you comment this if you want fully customizeable viro, for a balanced experience.
 UNCONDITIONAL_SYMPTOM_THRESHOLDS
+
+##Uncomment to allow event viruses to have the UNCONDITIONAL_SYMPTOM_THRESHOLDS above, without enabling that setting. Also enables special virus thresholds even if they're normally disabled
+EVENT_SYMPTOM_THRESHOLDS
+
+##Uncomment to allow certain symptoms to have powerful, game-warping thresholds (vampirism, zombies, etc)
+SPECIAL_SYMPTOM_THRESHOLDS
 
 ##At this amount of symptoms, Synaptizine will no longer remove symptoms from a virus. Set this to 6 or higher to prevent removing symptoms at all. Set this to 1 to allow synaptizine to work to its full effect
 VIRUS_THINNING_CAP 4
