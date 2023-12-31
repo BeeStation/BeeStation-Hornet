@@ -289,7 +289,7 @@
 		"input_hash" = input_hash,
 		"dmi_hashes" = dmi_hashes,
 		"sizes" = sizes,
-		"sprites" = json_encode(sprites),
+		"sprites" = sprites,
 		"rustg_version" = rustg_get_version()
 	)
 	rustg_file_write(json_encode(cache_data), "[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json")
