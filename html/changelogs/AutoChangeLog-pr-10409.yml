@@ -1,0 +1,4 @@
+author: Miliviu
+delete-after: true
+changes:
+  - bugfix: Fixed Agent Identification Card not accepting numbers
