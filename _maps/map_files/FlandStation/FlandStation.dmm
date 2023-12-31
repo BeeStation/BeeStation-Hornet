@@ -80820,7 +80820,7 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "uEa" = (
-/obj/machinery/rnd/server,
+/obj/machinery/server/rnd,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/techmaint,
 /area/science/server)

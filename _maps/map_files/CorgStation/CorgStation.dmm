@@ -40366,7 +40366,7 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "mZD" = (
-/obj/machinery/rnd/server,
+/obj/machinery/server/rnd,
 /obj/machinery/atmospherics/pipe/manifold/general/hidden{
 	dir = 1
 	},
@@ -54623,7 +54623,7 @@
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "rJB" = (
-/obj/machinery/rnd/server,
+/obj/machinery/server/rnd,
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},

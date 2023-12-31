@@ -6,13 +6,13 @@ import { toFixed } from 'common/math';
 const RDServerStatus = (props, context) => {
   const { act, data } = useBackend(context);
   const { value, ...rest } = props;
-  const { name, server_id, temperature, temperature_warning, temperature_max, enabled, overheated } = value;
+  const { name, server_id, temperature, overheating_temp, temperature_max, enabled, overheated } = value;
   const tempState =
-    (temperature < temperature_warning && 'good') ||
-    (temperature > temperature_warning && temperature < temperature_max && 'average') ||
+    (temperature < overheating_temp && 'good') ||
+    (temperature > overheating_temp && temperature < temperature_max && 'average') ||
     'bad';
   const overheadedState =
-    (overheated && 'Halted') || (temperature > temperature_warning && temperature < temperature_max && 'Warning') || 'Normal';
+    (overheated && 'Halted') || (temperature < temperature_max && temperature > overheating_temp && 'Warning') || 'Normal';
   return (
     <Box {...rest} width="170px" style={{ border: '1px solid #000000' }}>
       <Flex mx={0.5} my={0.5} direction="row" justify="space-around">

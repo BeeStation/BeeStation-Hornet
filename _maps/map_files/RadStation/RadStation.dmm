@@ -38225,7 +38225,7 @@
 /obj/machinery/atmospherics/pipe/manifold/general/hidden{
 	dir = 8
 	},
-/obj/machinery/rnd/server,
+/obj/machinery/server/rnd,
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "lVr" = (
@@ -61551,7 +61551,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/rnd/server,
+/obj/machinery/server/rnd,
 /obj/effect/turf_decal/box/white,
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)

@@ -34129,14 +34129,14 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "dKe" = (
-/obj/machinery/rnd/server,
+/obj/machinery/server/rnd,
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 5
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
 "dKg" = (
-/obj/machinery/rnd/server,
+/obj/machinery/server/rnd,
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
 	},

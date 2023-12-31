@@ -966,7 +966,7 @@
 /obj/item/circuitboard/machine/rdserver
 	name = "R&D server (Machine Board)"
 	icon_state = "science"
-	build_path = /obj/machinery/rnd/server
+	build_path = /obj/machinery/server/rnd
 	req_components = list(
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/stock_parts/scanning_module = 1)

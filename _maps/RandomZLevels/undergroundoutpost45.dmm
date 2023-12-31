@@ -6644,7 +6644,7 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/machinery/rnd/server{
+/obj/machinery/server/rnd{
 	req_access = null
 	},
 /turf/open/floor/circuit/telecomms/server,

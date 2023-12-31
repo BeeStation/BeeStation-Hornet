@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(research)
 	var/datum/techweb_node/error_node/error_node	//These two are what you get if a node/design is deleted and somehow still stored in a console.
 	var/datum/design/error_design/error_design
 
-	var/list/obj/machinery/rnd/server/servers = list()
+	var/list/obj/machinery/server/rnd/servers = list()
 
 	var/list/techweb_nodes_starting = list()	//associative id = TRUE
 	var/list/techweb_categories = list()		//category name = list(node.id = TRUE)
@@ -57,14 +57,14 @@ SUBSYSTEM_DEF(research)
 	var/list/bitcoins = list()
 	if(multiserver_calculation)
 		var/eff = calculate_server_coefficient()
-		for(var/obj/machinery/rnd/server/miner in servers)
+		for(var/obj/machinery/server/rnd/miner in servers)
 			var/list/result = (miner.mine())	//SLAVE AWAY, SLAVE.
 			for(var/i in result)
 				result[i] *= eff
 				bitcoins[i] = bitcoins[i]? bitcoins[i] + result[i] : result[i]
 	else
-		for(var/obj/machinery/rnd/server/miner in servers)
-			if(miner.working)
+		for(var/obj/machinery/server/rnd/miner in servers)
+			if(!miner.machine_stat)
 				bitcoins = single_server_income.Copy()
 				break			//Just need one to work.
 	if (!isnull(last_income))
@@ -76,9 +76,9 @@ SUBSYSTEM_DEF(research)
 	last_income = world.time
 
 /datum/controller/subsystem/research/proc/calculate_server_coefficient()	//Diminishing returns.
-	var/list/obj/machinery/rnd/server/active = new()
-	for(var/obj/machinery/rnd/server/miner in servers)
-		if(miner.working)
+	var/list/obj/machinery/server/rnd/active = new()
+	for(var/obj/machinery/server/rnd/miner in servers)
+		if(!miner.machine_stat)
 			active.Add(miner)
 	var/amt = active.len
 	if(!amt)

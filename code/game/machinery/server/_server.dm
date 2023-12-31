@@ -3,8 +3,10 @@
 	desc = "You should not be seeing this."
 	icon = 'icons/obj/machines/telecomms.dmi'
 	icon_state = "message_server_off"
+	interacts_with_air = TRUE
 
 	var/efficiency = 1 // 100%
+	var/overheating_temp = T20C // 20C - temperature at which the server starts to lose efficiency
 	var/overheated_temp = T0C + 100 // 100C - temperature at which the server stops working
 
 	var/temperature = T20C // current temperature
@@ -29,9 +31,10 @@
 		set_machine_stat(machine_stat | OVERHEATED)
 	else
 		set_machine_stat(machine_stat & ~OVERHEATED)
-		efficiency = clamp(1 - ((temperature - T20C) / (overheated_temp - T20C)), 0, 1)
+		efficiency = clamp(1 - ((temperature - overheating_temp) / (overheated_temp - overheating_temp)), 0, 1)
 		temperature += heat_generation / heat_capacity
 		heat_generation = 0
+	update_appearance()
 
 /obj/machinery/server/use_power(amount, chan)
 	. = ..()

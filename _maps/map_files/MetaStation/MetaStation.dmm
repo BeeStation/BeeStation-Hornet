@@ -35701,7 +35701,7 @@
 /area/science/mixing)
 "gap" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/rnd/server,
+/obj/machinery/server/rnd,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8;
 	external_pressure_bound = 140;
@@ -62904,7 +62904,7 @@
 /area/ai_monitored/storage/eva)
 "rvR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/rnd/server,
+/obj/machinery/server/rnd,
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "rvY" = (
