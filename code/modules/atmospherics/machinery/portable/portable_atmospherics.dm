@@ -47,7 +47,7 @@
 		return atmosanalyzer_scan(user, holding, TRUE)
 
 /obj/machinery/portable_atmospherics/process_atmos()
-	if(starts_connected && !connected) // kinda stinky but it works
+	if(starts_connected && !connected) // kinda stinky
 		var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
 		if(possible_port)
 			connect(possible_port)
