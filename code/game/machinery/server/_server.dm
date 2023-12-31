@@ -44,6 +44,3 @@
 	var/datum/gas_mixture/environment = turf.return_air()
 
 	temperature = environment.temperature_share(null, OPEN_HEAT_TRANSFER_COEFFICIENT, temperature, heat_capacity)
-	// Debug output
-	var/efficiency_status = efficiency ? "Efficiency: [efficiency]" : "OVERHEATED"
-	debug_world("[src] temperature: [temperature]K, [efficiency_status]")
