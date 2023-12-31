@@ -1,5 +1,4 @@
-/// When sending mutiple assets, how many before we give the client a quaint little sending resources message
-#define ASSET_CACHE_TELL_CLIENT_AMOUNT 8
+
 
 /// Base browse_rsc asset transport
 /datum/asset_transport
@@ -148,7 +147,7 @@
 
 
 /// Precache files without clogging up the browse() queue, used for passively sending files on connection start.
-/datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = 6)
+/datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = SLOW_ASSET_SEND_RATE)
 	var/startingfilerate = filerate
 	for (var/file in files)
 		if (!client)

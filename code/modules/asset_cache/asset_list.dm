@@ -1,5 +1,3 @@
-#define ASSET_CROSS_ROUND_CACHE_DIRECTORY "data/spritesheets/legacy_cache"
-
 //These datums are used to populate the asset cache, the proc "register()" does this.
 //Place any asset datums you create in asset_list_items.dm
 
@@ -597,5 +595,3 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/json/unregister()
 	SSassets.transport.unregister_asset("[name].json")
-
-#undef ASSET_CROSS_ROUND_CACHE_DIRECTORY

@@ -1,6 +1,5 @@
 #define SPR_SIZE "size_id"
 #define SPR_IDX "position"
-#define ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY "data/spritesheets/smart_cache"
 #define CACHE_WAIT "wait"
 #define CACHE_INVALID TRUE
 #define CACHE_VALID FALSE
@@ -36,6 +35,7 @@
 	// Fields to store async cache task inputs.
 	var/cache_data = null
 	var/cache_sizes_data = null
+	var/cache_sprites_data = null
 	var/cache_input_hash = null
 	var/cache_dmi_hashes = null
 	var/cache_dmi_hashes_json = null
@@ -72,9 +72,10 @@
 			log_asset("Invalidated cache for spritesheet_[name] due to rustg updating from [cached_rustg_version] to [rustg_version].")
 			return CACHE_INVALID
 		cache_sizes_data = cache_json["sizes"]
+		cache_sprites_data = cache_json["sprites"]
 		cache_input_hash = cache_json["input_hash"]
 		cache_dmi_hashes = cache_json["dmi_hashes"]
-		if(!length(cache_dmi_hashes) || !length(cache_input_hash) || !length(cache_sizes_data))
+		if(!length(cache_dmi_hashes) || !length(cache_input_hash) || !length(cache_sizes_data) || !length(cache_sprites_data))
 			log_asset("Cache for spritesheet_[name] did not contain the correct data. This is abnormal. Likely tampered with.")
 			return CACHE_INVALID
 		cache_dmi_hashes_json = json_encode(cache_dmi_hashes)
@@ -102,8 +103,9 @@
 			CRASH("Spritesheet [name] cache check UNKNOWN [fail]")
 		log_asset("Invalidated cache for spritesheet_[name]: [fail]")
 		return CACHE_INVALID
-	// Populate the sizes list.
+	// Populate the sizes and sprites list.
 	sizes = cache_sizes_data
+	sprites = cache_sprites_data
 	log_asset("Validated cache for spritesheet_[name]!")
 	return CACHE_VALID
 
@@ -287,6 +289,7 @@
 		"input_hash" = input_hash,
 		"dmi_hashes" = dmi_hashes,
 		"sizes" = sizes,
+		"sprites" = json_encode(sprites),
 		"rustg_version" = rustg_get_version()
 	)
 	rustg_file_write(json_encode(cache_data), "[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json")
@@ -307,14 +310,14 @@
 	if (!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
-	return {"<span class='[name][size_id] [sprite_name]'></span>"}
+	return "<span class='[name][size_id] [sprite_name]'></span>"
 
 /datum/asset/spritesheet_batched/proc/icon_class_name(sprite_name)
 	var/sprite = sprites[sprite_name]
 	if (!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
-	return {"[name][size_id] [sprite_name]"}
+	return "[name][size_id] [sprite_name]"
 
 /**
  * Returns the size class (ex design32x32) for a given sprite's icon
@@ -331,7 +334,6 @@
 
 #undef SPR_SIZE
 #undef SPR_IDX
-#undef ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY
 #undef CACHE_WAIT
 #undef CACHE_INVALID
 #undef CACHE_VALID
