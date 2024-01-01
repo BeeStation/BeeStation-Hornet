@@ -62,7 +62,7 @@
 					give_clown_mask(A)
 				if(prob(5))
 					playsound(M.loc, 'sound/items/bikehorn.ogg', 100, 1)
-					if((honkspread || CONFIG_GET(flag/unconditional_virus_spreading)) && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
+					if((honkspread || CONFIG_GET(flag/unconditional_virus_spreading) || A.event) && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
 						addtimer(CALLBACK(A, TYPE_PROC_REF(/datum/disease, spread), 4), 20)
 						M.visible_message("<span class='danger'>[M] lets out a terrifying HONK!</span>")
 

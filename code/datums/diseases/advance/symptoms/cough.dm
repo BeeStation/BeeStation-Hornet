@@ -78,7 +78,7 @@ BONUS
 				addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, emote), "cough"), 6)
 				addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, emote), "cough"), 12)
 				addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, emote), "cough"), 18)
-			if((infective || CONFIG_GET(flag/unconditional_virus_spreading)) && !(A.spread_flags & DISEASE_SPREAD_FALTERED) && prob(50))
+			if((infective || CONFIG_GET(flag/unconditional_virus_spreading) || A.event) && !(A.spread_flags & DISEASE_SPREAD_FALTERED) && prob(50))
 				addtimer(CALLBACK(A, TYPE_PROC_REF(/datum/disease, spread), 2), 20)
 
 

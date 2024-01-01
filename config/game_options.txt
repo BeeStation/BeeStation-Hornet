@@ -690,7 +690,7 @@ PROCESS_DEAD_ALLOWED
 
 ##Comment to make symptoms that result in virus spreading require a transmission threshold.
 ##It is recommended that you comment this if you want fully customizeable viro, for a balanced experience.
-UNCONDITIONAL_VIRUS_SPREADING
+#UNCONDITIONAL_VIRUS_SPREADING
 
 ##uncomment to make certain symptom thresholds no longer required for their effects, and others have lowered effect thresholds
 ##It is recommended that you comment this if you want fully customizeable viro, for a balanced experience.

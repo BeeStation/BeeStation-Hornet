@@ -319,13 +319,13 @@ Thresholds
 			M.adjustToxLoss(buboes)
 			pustules = min(pustules + buboes, 20)
 			to_chat(M, "<span class='warning'>painful sores open on your skin!</span>")
-			if((prob(pustules * 5) || pustules >= 20) && (shoot || CONFIG_GET(flag/unconditional_virus_spreading)))
+			if((prob(pustules * 5) || pustules >= 20) && (shoot || CONFIG_GET(flag/unconditional_virus_spreading) || A.event))
 				var/popped = rand(1, pustules)
 				var/pusdir = pick(GLOB.alldirs)
 				var/T = get_step(get_turf(M), pusdir)
 				var/obj/item/ammo_casing/caseless/pimple/pustule = new(get_turf(M))
 				for(var/datum/disease/advance/D in M.diseases) //spreads all diseases in the host, but only if they have fluid spread or higher
-					if(A.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS || CONFIG_GET(flag/unconditional_virus_spreading))
+					if(A.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS || CONFIG_GET(flag/unconditional_virus_spreading) || A.event)
 						pustule.diseases += D
 				pustule.pellets = popped
 				pustule.variance = rand(50, 200)
