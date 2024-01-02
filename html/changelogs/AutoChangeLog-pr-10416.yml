@@ -1,0 +1,4 @@
+author: Penwin0
+delete-after: true
+changes:
+  - bugfix: Damage overlays are visible again
