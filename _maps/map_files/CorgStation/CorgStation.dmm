@@ -9861,6 +9861,13 @@
 	},
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/solar/port/aft)
+"daT" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/light/floor,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "daX" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -33750,6 +33757,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
+"lbO" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/plasteel/dark,
+/area/security/brig)
 "lbP" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgedoors";
@@ -111824,7 +111838,7 @@ lro
 skM
 lOC
 eiF
-fKn
+lbO
 vgb
 vgb
 lcm
@@ -113901,7 +113915,7 @@ mPV
 gTR
 vrj
 hYR
-axR
+daT
 uPF
 bsZ
 pYy

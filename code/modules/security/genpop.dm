@@ -75,6 +75,7 @@
 		if(allowed(user) && !istype(I, /obj/item/card/id/prisoner))
 			if(!registered_name)
 				say("Invalid, please assign this locker to prisoners first before handling it!") // Prevents officers from "forgetting" to assign lockers to the prisoners they are handling.
+				return
 			else
 				locked = !locked
 				update_icon()
@@ -118,6 +119,15 @@
 			return
 	else
 		return ..()
+
+/obj/structure/closet/secure_closet/genpop/AltClick(user)
+	var/mob/living/carbon/human/H = user
+	var/obj/item/card/id/I = H.get_idcard()
+	if(!registered_name)
+		if(allowed(user) && !istype(I, /obj/item/card/id/prisoner))
+			say("Invalid, please assign this locker to prisoners first before handling it!") // Prevents officers from "forgetting" to assign lockers to the prisoners they are handling.
+			return
+	..()
 
 
 /obj/machinery/turnstile/Initialize(mapload)
@@ -269,7 +279,7 @@
 	var/config_file = file("config/space_law.json")
 	/// A list of all of the available crimes in a formated served to the user interface.
 	var/static/list/crime_list
-	var/static/list/crime_names
+	var/crime_names = list()
 	var/static/regex/valid_crime_name_regex = null
 
 //Prisoner interface wallframe
@@ -308,6 +318,7 @@
 	catch(var/exception/e)
 		message_admins("<span class='boldannounce'>[e] caught on [e.file]:[e.line].</span>")
 		load_default_crimelist()
+		return
 	//we need to get the names of each crime for the regex
 	for(var/key in crime_list)
 		var/value = crime_list[key]
