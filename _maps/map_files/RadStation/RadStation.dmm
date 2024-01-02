@@ -8825,12 +8825,7 @@
 	dir = 2;
 	network = list("ss13","security")
 	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 5
-	},
+/obj/effect/turf_decal/guideline/guideline_tri/red,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "cSi" = (
@@ -22379,18 +22374,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"gUj" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/effect/turf_decal/guideline/guideline_edge/red{
-	dir = 4
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 26
-	},
-/turf/open/floor/plasteel,
-/area/security/brig{
-	name = "Brig medbay"
-	})
 "gUo" = (
 /obj/structure/chair{
 	dir = 8
@@ -31722,6 +31705,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/guideline/guideline_tri/red,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "kcF" = (
@@ -32023,10 +32009,6 @@
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "khi" = (
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -32034,6 +32016,9 @@
 	pixel_y = 21
 	},
 /obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -33005,17 +32990,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_edge_alt/red,
-/obj/effect/turf_decal/guideline/guideline_tri/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 9
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "kxz" = (
@@ -42604,6 +42582,7 @@
 	name = "Security RC";
 	pixel_y = 30
 	},
+/obj/machinery/computer/cargo/request,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "nwf" = (
@@ -101647,7 +101626,7 @@ wsB
 fKY
 fKY
 fqk
-gUj
+fKY
 fKY
 kcp
 aGd
