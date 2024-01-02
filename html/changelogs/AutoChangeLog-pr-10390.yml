@@ -1,0 +1,14 @@
+author: Impish_Delights
+delete-after: true
+changes:
+  - rscadd: Wild West Frontier crate, a collection of cowboy and ranch hand outfits
+      and gear available as contraband on the cargo console. Includes a chance to
+      obtain the lever-action rifle, similar to the Mosin in the Russian Supplies
+      crate. Slim chance of obtaining the special Cursed Gunslinger crate when ordering
+  - rscadd: Armored variants of the "poncho of shame" and cowboy hat, available exclusive
+      to the Cursed Gunslinger crate. Non-reskinable variant of the detective's revolver
+      included as well.
+  - rscadd: Variant of the ammo toolbox, and bandolier for .38 ammo instead of Mosin
+      and shotgun ammo respectively.
+  - imageadd: Grey and Red color palette versions of the "Poncho of Shame", and "Cowboy
+      Hat"
