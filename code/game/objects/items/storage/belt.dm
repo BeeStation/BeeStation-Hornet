@@ -702,6 +702,25 @@
 		))
 	STR.can_hold = can_hold
 
+/obj/item/storage/belt/bandolier/western
+	name = "sheriff's bandolier"
+	desc = "A bandolier that has been retrofitted for .38 cartridges"
+
+/obj/item/storage/belt/bandolier/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 21
+	STR.display_numerical_stacking = TRUE
+	var/static/list/can_hold = typecacheof(list(
+		/obj/item/ammo_casing/c38
+		))
+	STR.can_hold = can_hold
+
+/obj/item/storage/belt/bandolier/western/filled/PopulateContents()
+	for(var/i in 1 to 21)
+		new /obj/item/ammo_casing/c38(src)
+
+
 /obj/item/storage/belt/quiver
 	name = "leather quiver"
 	desc = "A quiver made from the hide of some animal. Used to hold arrows."
