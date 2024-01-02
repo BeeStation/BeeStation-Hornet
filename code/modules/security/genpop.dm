@@ -269,6 +269,7 @@
 	var/config_file = file("config/space_law.json")
 	/// A list of all of the available crimes in a formated served to the user interface.
 	var/static/list/crime_list
+	var/static/list/crime_names
 	var/static/regex/valid_crime_name_regex = null
 
 //Prisoner interface wallframe
@@ -302,43 +303,46 @@
 	Radio.set_frequency(FREQ_SECURITY)
 
 /obj/machinery/genpop_interface/proc/build_static_information()
-	var/crime_names = list()
 	// Generate the crime list
-	if (!crime_list)
-		crime_list = list()
-		 //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
-		if(!config_file)
-			message_admins("<span class='boldannounce'>Failed to read the space_law config file! Defaulting to hardcoded datums.</span>") //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
-			for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
-				// Ignore this crime, it is abstract
-				if (isnull(initial(crime_path.name)))
-					continue
-				// We need to know about this crime for the regex
-				crime_names += initial(crime_path.name)
-				// Create the category if it is needed
-				if (!islist(crime_list[initial(crime_path.category)]))
-					crime_list[initial(crime_path.category)] = list()
-				// Add crimes to that category
-				crime_list[initial(crime_path.category)] += list(list(
-					"name" = initial(crime_path.name),
-					"tooltip" = initial(crime_path.tooltip),
-					"colour" = initial(crime_path.colour),
-					"icon" = initial(crime_path.icon),
-					"sentence" = initial(crime_path.sentence),
-				))
-		else
-			crime_list = json_decode(file2text(config_file))
-			//we need to get the names of each crime for the regex
-			for(var/key in crime_list)
-				var/value = crime_list[key]
-				for(var/second_key in value)
-					var/second_value = second_key["name"]
-					LAZYADD(crime_names, second_value)
+	try crime_list = json_decode(file2text(config_file))
+	catch(var/exception/e)
+		message_admins("<span class='boldannounce'>[e] caught on [e.file]:[e.line].</span>")
+		load_default_crimelist()
+	//we need to get the names of each crime for the regex
+	for(var/key in crime_list)
+		var/value = crime_list[key]
+		for(var/second_key in value)
+			var/second_value = second_key["name"]
+			LAZYADD(crime_names, second_value)
 
 	if (valid_crime_name_regex)
 		return
 
 	// Form the valid crime regex
+	var/regex_string = "^(Attempted )?([jointext(crime_names, "|")])( \\(Repeat offender\\))?$"
+	valid_crime_name_regex = regex(regex_string, "gm")
+
+/obj/machinery/genpop_interface/proc/load_default_crimelist()
+	crime_list = list()
+	//Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
+	message_admins("<span class='boldannounce'>Failed to read the space_law config file! Defaulting to hardcoded datums.</span>") //Hardcoded crimes list from crimes.dm, not used unless the config file is missing somehow.
+	for (var/datum/crime/crime_path as() in subtypesof(/datum/crime))
+		// Ignore this crime, it is abstract
+		if (isnull(initial(crime_path.name)))
+			continue
+		// We need to know about this crime for the regex
+		crime_names += initial(crime_path.name)
+		// Create the category if it is needed
+		if (!islist(crime_list[initial(crime_path.category)]))
+			crime_list[initial(crime_path.category)] = list()
+		// Add crimes to that category
+		crime_list[initial(crime_path.category)] += list(list(
+			"name" = initial(crime_path.name),
+			"tooltip" = initial(crime_path.tooltip),
+			"colour" = initial(crime_path.colour),
+			"icon" = initial(crime_path.icon),
+			"sentence" = initial(crime_path.sentence),
+			))
 	var/regex_string = "^(Attempted )?([jointext(crime_names, "|")])( \\(Repeat offender\\))?$"
 	valid_crime_name_regex = regex(regex_string, "gm")
 
