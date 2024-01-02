@@ -14,9 +14,9 @@
 // bitflags for machine stat variable
 #define BROKEN		(1<<0)
 #define NOPOWER		(1<<1)
-#define MAINT		(1<<2)		// under maintaince
+#define MAINT		(1<<2)		// under maintenance
 #define EMPED		(1<<3)		// temporary broken by EMP pulse
-#define OVERHEATED	(1<<4)	// Machine is overheated, used by servers
+#define OVERHEATED	(1<<4)		// Machine is overheated, used by servers
 #define TURNED_OFF	(1<<5)
 
 //ai power requirement defines
