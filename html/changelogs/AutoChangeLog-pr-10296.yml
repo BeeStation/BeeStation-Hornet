@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Launchad computer can now set a timer to automatically recall after a
-      set amount of time, up to 5 minutes.
