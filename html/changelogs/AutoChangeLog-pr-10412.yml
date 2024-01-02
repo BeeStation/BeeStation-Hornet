@@ -1,0 +1,5 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - code_imp: removes unnecessary material var, no player facing changes
+  - bugfix: fixes inconsistent material consumption while crafting tables
