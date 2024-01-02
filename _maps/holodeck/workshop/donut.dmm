@@ -160,6 +160,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
+"F" = (
+/obj/machinery/light/floor,
+/turf/open/floor/holofloor/monotile/light,
+/area/template_noop)
 "H" = (
 /obj/machinery/deepfryer,
 /obj/effect/turf_decal/bot,
@@ -291,7 +295,7 @@ K
 "}
 (2,1,1) = {"
 b
-h
+F
 z
 c
 a
@@ -319,7 +323,7 @@ l
 "}
 (6,1,1) = {"
 y
-h
+F
 e
 q
 u

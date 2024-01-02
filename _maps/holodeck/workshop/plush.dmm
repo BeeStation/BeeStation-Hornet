@@ -141,6 +141,10 @@
 /obj/effect/turf_decal/tile/dark_green/fourcorners,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
+"O" = (
+/obj/machinery/light/floor,
+/turf/open/floor/holofloor/monotile/dark,
+/area/template_noop)
 "P" = (
 /obj/structure/closet/crate,
 /obj/effect/turf_decal/delivery,
@@ -160,6 +164,11 @@
 /obj/machinery/seed_extractor,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
+"X" = (
+/obj/effect/turf_decal/tile/dark_green/fourcorners,
+/obj/machinery/light/floor,
+/turf/open/floor/holofloor/monotile/steel,
+/area/template_noop)
 "Z" = (
 /obj/structure/rack,
 /obj/item/wirecutters,
@@ -170,7 +179,7 @@
 
 (1,1,1) = {"
 x
-D
+O
 z
 U
 Z
@@ -212,7 +221,7 @@ d
 "}
 (7,1,1) = {"
 L
-c
+X
 W
 P
 g

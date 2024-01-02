@@ -3516,6 +3516,12 @@
 "aQv" = (
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
+"aQz" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "aQD" = (
 /obj/structure/sign/warning/securearea{
 	desc = "A warning sign which reads 'BOMB RANGE";
@@ -11244,6 +11250,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "dxf" = (
@@ -11583,19 +11592,6 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
-"dEv" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/turf/open/floor/plasteel,
-/area/security/brig)
 "dEw" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -25375,6 +25371,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"ikB" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "ikC" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -25917,6 +25919,9 @@
 /obj/machinery/light{
 	dir = 8;
 	light_color = "#e8eaff"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -29849,6 +29854,9 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -40189,6 +40197,9 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "ncj" = (
@@ -40206,6 +40217,9 @@
 "ncB" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "nde" = (
@@ -46727,6 +46741,18 @@
 /obj/structure/disposalpipe/junction/flip,
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
+"pnc" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "pno" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
@@ -46846,6 +46872,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/hallway/primary/starboard)
 "pql" = (
@@ -48629,6 +48658,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "pUR" = (
@@ -53633,6 +53663,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
+"rAt" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "rAw" = (
 /obj/machinery/advanced_airlock_controller/directional/south,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
@@ -54634,7 +54677,7 @@
 	icon_state = "0-4"
 	},
 /obj/structure/curtain,
-/turf/open/floor/plating,
+/turf/closed/wall/r_wall,
 /area/security/prison)
 "rQb" = (
 /obj/structure/disposalpipe/segment{
@@ -61842,6 +61885,9 @@
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel,
 /area/science/shuttle)
+"uoP" = (
+/turf/closed/wall,
+/area/security/prison)
 "upa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -62245,6 +62291,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -63392,6 +63441,9 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "uMY" = (
@@ -64302,6 +64354,10 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#c1caff"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "vdg" = (
@@ -65841,6 +65897,9 @@
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
@@ -69722,6 +69781,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "wRj" = (
@@ -70177,6 +70239,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"wYJ" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "wYR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -111010,16 +111084,16 @@ auC
 xjc
 uKT
 owu
-uKT
+uoP
 cou
 fLs
 gpE
 iNO
-uKT
+uoP
 gWl
-uKT
+uoP
 nYC
-uKT
+uoP
 iNO
 uKT
 ike
@@ -111527,12 +111601,12 @@ uKT
 uKT
 uCM
 sNi
-uKT
-uKT
-uKT
-uKT
-uKT
-uKT
+uoP
+uoP
+uoP
+uoP
+uoP
+uoP
 uKT
 uKT
 uKT
@@ -113069,7 +113143,7 @@ rdC
 sGW
 uTQ
 mfh
-uKT
+uoP
 oZa
 mBo
 dBB
@@ -113326,7 +113400,7 @@ cos
 fhB
 xCE
 qoM
-uKT
+uoP
 fan
 uCh
 dBB
@@ -113583,7 +113657,7 @@ wof
 fLs
 uTQ
 mfh
-uKT
+uoP
 xgq
 xgq
 rPk
@@ -114575,7 +114649,7 @@ duF
 duF
 duF
 duF
-dEv
+gHq
 vNt
 oRA
 tVA
@@ -114868,7 +114942,7 @@ wfS
 qQe
 gYz
 uKT
-nzt
+wYJ
 vnF
 dLA
 dLA
@@ -115125,7 +115199,7 @@ nVd
 xbh
 uBd
 uKT
-nzt
+wYJ
 vnF
 hXA
 ciw
@@ -115382,7 +115456,7 @@ uKT
 uKT
 uKT
 uKT
-nzt
+wYJ
 vnF
 eYn
 ldw
@@ -115860,7 +115934,7 @@ aMT
 aMT
 anT
 duF
-gHq
+rAt
 vNt
 oRA
 xoV
@@ -115894,9 +115968,9 @@ dsZ
 dsZ
 uKT
 ivK
-nzt
-ivK
-ivK
+pnc
+aQz
+ikB
 vnF
 caG
 max
