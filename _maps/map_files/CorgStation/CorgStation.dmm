@@ -4357,6 +4357,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "bdg" = (
@@ -5157,8 +5160,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 1
+/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -8738,6 +8742,9 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/security_officer,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "cFt" = (
@@ -9862,10 +9869,12 @@
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/solar/port/aft)
 "daT" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/red,
 /obj/machinery/light/floor,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "daX" = (
@@ -18525,6 +18534,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/shuttle)
+"fYL" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/disposalpipe/junction/flip,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "fZa" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -36339,12 +36359,11 @@
 "lRn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/red,
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 1;
-	sortType = 30
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/junction/flip{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -63625,8 +63644,10 @@
 /obj/machinery/light_switch{
 	pixel_x = 26
 	},
-/obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/red,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "uPQ" = (
@@ -66934,8 +66955,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/junction/flip{
-	dir = 4
+/obj/structure/disposalpipe/sorting/mail/flip{
+	dir = 4;
+	name = "Security"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -113659,7 +113681,7 @@ jxp
 jxp
 mEM
 cEJ
-jxp
+fYL
 bcS
 pvo
 wEz

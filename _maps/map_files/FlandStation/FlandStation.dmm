@@ -58730,12 +58730,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
-"pnV" = (
-/obj/structure/railing{
-	pixel_y = 32
-	},
-/turf/closed/wall/r_wall,
-/area/security/prison/shielded)
 "pnY" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
@@ -133236,7 +133230,7 @@ fsb
 fsb
 fsb
 fsb
-pnV
+fsb
 wYw
 wYw
 wYw

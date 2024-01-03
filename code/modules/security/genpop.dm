@@ -10,9 +10,9 @@
 	power_channel = AREA_USAGE_ENVIRON
 	density = TRUE
 	pass_flags_self = PASSTRANSPARENT | PASSGRILLE | PASSSTRUCTURE
-	obj_integrity = 250
-	max_integrity = 250
-	integrity_failure = 74
+	obj_integrity = 600
+	max_integrity = 600
+	integrity_failure = 0.35
 	//Robust! It'll be tough to break...
 	armor = list("melee" = 50, "bullet" = 20, "laser" = 0, "energy" = 80, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50, "stamina" = 0)
 	anchored = TRUE
@@ -179,7 +179,7 @@
 //Shock attack if something is thrown at it if we're broken
 /obj/machinery/turnstile/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isobj(AM))
-		if(prob(50) && BROKEN)
+		if(prob(50) && (machine_stat & BROKEN))
 			var/obj/O = AM
 			if(O.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
 				playsound(src, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
