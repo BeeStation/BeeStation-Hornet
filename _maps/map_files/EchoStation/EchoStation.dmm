@@ -4736,13 +4736,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"bVk" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/closed/wall,
-/area/maintenance/central)
 "bVQ" = (
 /turf/closed/indestructible/rock/bedrock,
 /area/science/test_area)
@@ -57742,7 +57735,7 @@ eXB
 eXB
 eaA
 hcJ
-bVk
+eXB
 eXB
 loD
 loD
