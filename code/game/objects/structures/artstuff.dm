@@ -259,6 +259,7 @@
 /obj/structure/sign/painting/Initialize(mapload, dir, building)
 	. = ..()
 	SSpersistence.painting_frames += src
+	AddElement(/datum/element/art, OK_ART)
 
 /obj/structure/sign/painting/Destroy()
 	. = ..()
