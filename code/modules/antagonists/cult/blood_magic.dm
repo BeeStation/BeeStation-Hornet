@@ -440,12 +440,13 @@
 				target.visible_message("<span class='warning'>[L] is utterly unphased by your utterance!</span>", \
 									   "<span class='userdanger'>[GLOB.deity] protects you from the heresy of [user]!</span>")
 		else if(henderson)
+			var/mob/living/carbon/carbon_target = L
 			to_chat(user, "<span class='cultitalic'>[L] is barely phased by your utterance, rambling with drunken annoyance instead!</span>")
-			to_chat(L, "<span class='cultitalic'>Eldritch horrors try to flood your thoughts, before being drowned out by an intense alcoholic haze!</span>") // yeah nobody's gonna be able to understand you through the slurring but it's funny anyways
-			L.say("MUCKLE DAMRED CULT! 'AIR EH NAMBLIES BE KEEPIN' ME WEE MEN!?!!", forced = "drunk cult stun")
-			L.silent += 15
-			L.confused += 15
-			L.Jitter(15)
+			to_chat(carbon_target, "<span class='cultitalic'>Eldritch horrors try to flood your thoughts, before being drowned out by an intense alcoholic haze!</span>") // yeah nobody's gonna be able to understand you through the slurring but it's funny anyways
+			carbon_target.say("MUCKLE DAMRED CULT! 'AIR EH NAMBLIES BE KEEPIN' ME WEE MEN!?!!", forced = "drunk cult stun")
+			carbon_target.silent += 15
+			carbon_target.confused += 15
+			carbon_target.Jitter(15)
 		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='cultitalic'>[L] falls to the ground, gibbering madly!</span>")
 			L.Paralyze(160)
