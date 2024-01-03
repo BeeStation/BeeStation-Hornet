@@ -4971,6 +4971,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"bHx" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/maintenance/department/security)
 "bHy" = (
 /obj/machinery/button/flasher{
 	id = "PermaEntry";
@@ -6723,9 +6727,6 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating/rust,
 /area/maintenance/port/aft)
-"ckB" = (
-/turf/open/space/basic,
-/area/security/prison)
 "ckD" = (
 /obj/structure/displaycase/labcage,
 /obj/machinery/power/apc/auto_name/west{
@@ -15819,6 +15820,16 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/atmos)
+"eWB" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/red,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "eWK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -24941,6 +24952,25 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/sepia,
 /area/maintenance/port/central)
+"hLo" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "hLt" = (
 /obj/effect/spawner/room/fivexthree,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -31765,6 +31795,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
+"ker" = (
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/maintenance/department/security)
 "keJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -32036,6 +32070,19 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lobby)
+"khD" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/red,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "khE" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /obj/structure/disposalpipe/segment{
@@ -36642,6 +36689,11 @@
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
+"lGB" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/security/brig)
 "lGI" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -66233,6 +66285,9 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"vay" = (
+/turf/open/space/basic,
+/area/maintenance/department/security)
 "vbc" = (
 /obj/effect/turf_decal/tile/blue{
 	alpha = 200;
@@ -70248,7 +70303,7 @@
 /area/bridge/meeting_room)
 "woY" = (
 /turf/closed/wall/r_wall,
-/area/security/prison)
+/area/maintenance/department/security)
 "wpm" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/storage/toolbox/electrical,
@@ -98804,12 +98859,12 @@ ePm
 hEt
 tKi
 nLV
-fHK
-fHK
-fHK
-fHK
-fHK
-fHK
+bAj
+bAj
+bAj
+sxq
+bAj
+bAj
 fHK
 fHK
 fHK
@@ -99061,15 +99116,15 @@ dsk
 teU
 xoB
 twT
-fHK
-ckB
-ckB
-ckB
-ckB
-ckB
-ckB
-ckB
-ckB
+bAj
+uyI
+xvl
+aOm
+pmV
+bAj
+uVJ
+yeA
+uVJ
 eSK
 eSK
 eSK
@@ -99318,15 +99373,15 @@ fHK
 hqF
 uGi
 rUD
-fHK
-ckB
-ckB
-ckB
-ckB
-ckB
-ckB
-ckB
-ckB
+fad
+pHp
+nLc
+iTy
+mQU
+bAj
+uVJ
+uVJ
+uVJ
 eSK
 xkc
 vPT
@@ -99576,10 +99631,10 @@ mLS
 uGi
 dpI
 bAj
-bAj
-bAj
-sxq
-bAj
+viB
+yaP
+asB
+oKh
 bAj
 woY
 woY
@@ -99833,10 +99888,10 @@ rmT
 uGi
 dpI
 bAj
-uyI
-xvl
-aOm
-pmV
+psf
+eVj
+mxD
+qNP
 bAj
 vHb
 aJB
@@ -100090,10 +100145,10 @@ iqW
 mky
 dpI
 fad
-pHp
-nLc
-iTy
-mQU
+kly
+pHy
+pkt
+mbr
 bAj
 vFM
 wTg
@@ -100347,10 +100402,10 @@ oMT
 uGi
 dAy
 bAj
-viB
-yaP
-asB
-oKh
+bAj
+bAj
+bAj
+bAj
 bAj
 vAb
 ksd
@@ -100601,14 +100656,14 @@ wLF
 qXb
 bPZ
 sun
-mky
-dpI
-bAj
-psf
-eVj
-mxD
-qNP
-bAj
+hLo
+khD
+lGB
+ker
+ker
+ker
+ker
+woY
 jBw
 aUt
 jBw
@@ -100859,13 +100914,13 @@ cpd
 cpd
 qdH
 uGi
-dpI
-fad
-kly
-pHy
-pkt
-mbr
-bAj
+eWB
+lGB
+vay
+vay
+ker
+vay
+bHx
 qPC
 aJB
 aMm
@@ -101117,12 +101172,12 @@ hPY
 wgX
 mky
 dpI
-bAj
-bAj
-bAj
-bAj
-bAj
-bAj
+fHK
+woY
+woY
+woY
+woY
+woY
 mXL
 xzg
 aJB
