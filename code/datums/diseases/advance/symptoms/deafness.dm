@@ -50,6 +50,8 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(3, 4)
 			if(prob(base_message_chance) && !suppress_warning)

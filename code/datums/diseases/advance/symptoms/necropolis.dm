@@ -46,10 +46,10 @@
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
 		if(2)
-			if(prob(base_message_chance))
+			if(prob(base_message_chance) && M.stat != DEAD)
 				to_chat(M, "<span class='notice'>Your skin feels scaly.</span>")
 		if(3, 4)
-			if(prob(base_message_chance))
+			if(prob(base_message_chance) && M.stat != DEAD)
 				to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
 		if(5)
 			if(tendrils)
@@ -67,8 +67,9 @@
 				M.weather_immunities |= "lava"
 			if(HAS_TRAIT(M, TRAIT_NECROPOLIS_INFECTED))
 				REMOVE_TRAIT(M, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
-				to_chat(M, "<span class='notice'>The tendrils loosen their grip, protecting the necropolis within you.</span>")
-			if(prob(base_message_chance))
+				if(M.stat != DEAD)
+					to_chat(M, "<span class='notice'>The tendrils loosen their grip, protecting the necropolis within you.</span>")
+			if(prob(base_message_chance) && M.stat != DEAD)
 				to_chat(M, "<span class='notice'>[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]</span>")
 	return
 

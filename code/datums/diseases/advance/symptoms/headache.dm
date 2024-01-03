@@ -57,6 +57,8 @@ BONUS
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	if(power < 2)
 		if(prob(base_message_chance) || A.stage >=4)
 			to_chat(M, "<span class='warning'>[pick("Your head hurts.", "Your head pounds.")]</span>")

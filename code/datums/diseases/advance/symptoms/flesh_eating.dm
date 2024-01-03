@@ -50,10 +50,11 @@ Bonus
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(2,3)
-			if(prob(base_message_chance))
+			if(prob(base_message_chance) && M.stat != DEAD)
 				to_chat(M, "<span class='warning'>[pick("You feel a sudden pain across your body.", "Drops of blood appear suddenly on your skin.")]</span>")
 		if(4,5)
-			to_chat(M, "<span class='userdanger'>[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]</span>")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='userdanger'>[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]</span>")
 			Flesheat(M, A)
 
 /datum/symptom/flesh_eating/proc/Flesheat(mob/living/M, datum/disease/advance/A)
@@ -145,13 +146,13 @@ Bonus
 		if(2,3)
 			if(MOB_UNDEAD in M.mob_biotypes)//i dont wanna do it like this but i gotta
 				return
-			if(prob(base_message_chance) && !suppress_warning)
+			if(prob(base_message_chance) && !suppress_warning && M.stat != DEAD)
 				to_chat(M, "<span class='warning'>[pick("You feel your body break apart.", "Your skin rubs off like dust.")]</span>")
 		if(4,5)
 			Flesh_death(M, A)
 			if(MOB_UNDEAD in M.mob_biotypes) //ditto
 				return
-			if(prob(base_message_chance / 2)) //reduce spam
+			if(prob(base_message_chance / 2) && M.stat != DEAD) //reduce spam
 				to_chat(M, "<span class='userdanger'>[pick("You feel your muscles weakening.", "Some of your skin detaches itself.", "You feel sandy.")]</span>")
 
 /datum/symptom/flesh_death/proc/Flesh_death(mob/living/M, datum/disease/advance/A)

@@ -48,7 +48,7 @@
 	var/mob/living/carbon/human/H = A.affected_mob
 	switch(A.stage)
 		if(3, 4)
-			if(replaceorgans)
+			if(replaceorgans && H.stat <= DEAD)
 				to_chat(H, "<span class='warning'><b>[pick("You feel a grinding pain in your abdomen.", "You exhale a jet of steam.")]</span>")
 		if(5)
 			if(replaceorgans || replacebody)
@@ -78,7 +78,7 @@
 					else
 						var/obj/item/organ/stomach/clockwork/organ = new()
 						organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
+					if(prob(40) && H.stat != DEAD)
 						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
 						H.emote("scream")
 					return TRUE
@@ -87,14 +87,15 @@
 					if(robustbits)
 						organ.damage_multiplier = 0.5
 					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='warning'>Your ears pop.</span>")
+					if(H.stat != DEAD)
+						to_chat(H, "<span class='warning'>Your ears pop.</span>")
 					return TRUE
 				if(ORGAN_SLOT_EYES)
 					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
 					if(robustbits)
 						organ.flash_protect = 1
 					organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
+					if(prob(40) && H.stat != DEAD)
 						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
 						H.emote("scream")
 					return TRUE
@@ -110,22 +111,23 @@
 						organ.BZ_trip_balls_min = 15
 						organ.gas_stimulation_min = 15
 					organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
+					if(prob(40) && H.stat != DEAD)
 						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_HEART)
 					var/obj/item/organ/heart/clockwork/organ = new()
 					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
-					H.emote("scream")
+					if(H.stat != DEAD)
+						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
+						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_LIVER)
 					var/obj/item/organ/liver/clockwork/organ = new()
 					if(robustbits)
 						organ.toxTolerance = 7
 					organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
+					if(prob(40) && H.stat <= DEAD)
 						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
 						H.emote("scream")
 					return TRUE
@@ -147,7 +149,8 @@
 					if(robustbits)
 						organ.flight_level = WINGS_FLYING
 					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='warning'>Your wings feel stiff.</span>")
+					if(H.stat <= DEAD)
+						to_chat(H, "<span class='warning'>Your wings feel stiff.</span>")
 					return TRUE
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
@@ -219,7 +222,8 @@
 	var/mob/living/carbon/human/H = A.affected_mob
 	REMOVE_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	if(A.stage >= 5 && (replaceorgans || replacebody)) //sorry. no disease quartets allowed
-		to_chat(H, "<span class='userdanger'>You feel lighter and springier as your innards lose their clockwork facade.</span>")
+		if(H.stat != DEAD)
+			to_chat(H, "<span class='userdanger'>You feel lighter and springier as your innards lose their clockwork facade.</span>")
 		H.dna.species.regenerate_organs(H, replace_current = TRUE)
 		for(var/obj/item/bodypart/O in H.bodyparts)
 			if(!IS_ORGANIC_LIMB(O))

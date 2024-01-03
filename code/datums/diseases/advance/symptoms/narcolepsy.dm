@@ -46,7 +46,11 @@ Bonus
 		symptom_delay_max = 20
 
 /datum/symptom/narcolepsy/Activate(var/datum/disease/advance/A)
+	if(!..())
+		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat >= DEAD)
+		return
 	//this ticks even when on cooldown
 	switch(sleep_level) //Works sorta like morphine
 		if(10 to 19)

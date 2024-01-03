@@ -35,6 +35,8 @@
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	if(prob(20 * A.stage) && !M.stat && !HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		M.emote(emote)
 		if(A.stage >= 5 && prob(20) && (A.transmission >= 14 || CONFIG_GET(flag/unconditional_virus_spreading) || A.event))

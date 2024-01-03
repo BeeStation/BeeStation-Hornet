@@ -90,12 +90,14 @@
 
 			if(HAS_TRAIT_FROM(M, TRAIT_BLIND, EYE_DAMAGE))
 				if(prob(20))
-					to_chat(M, "<span class='notice'>Your vision slowly returns...</span>")
+					if(M.stat != DEAD)
+						to_chat(M, "<span class='notice'>Your vision slowly returns...</span>")
 					M.cure_blind(EYE_DAMAGE)
 					M.cure_nearsighted(EYE_DAMAGE)
 					M.blur_eyes(35)
 			else if(HAS_TRAIT_FROM(M, TRAIT_NEARSIGHT, EYE_DAMAGE))
-				to_chat(M, "<span class='notice'>You can finally focus your eyes on distant objects.</span>")
+				if(M.stat != DEAD)
+					to_chat(M, "<span class='notice'>You can finally focus your eyes on distant objects.</span>")
 				M.cure_nearsighted(EYE_DAMAGE)
 				M.blur_eyes(10)
 			else if(M.is_blind() || M.eye_blurry)
@@ -104,7 +106,7 @@
 			else if(eyes.damage > 0)
 				eyes.applyOrganDamage(-1)
 		else
-			if(prob(base_message_chance))
+			if(prob(base_message_chance) && M.stat != DEAD)
 				to_chat(M, "<span class='notice'>[pick("Your eyes feel great.","You feel like your eyes can focus more clearly.", "You don't feel the need to blink.","Your ears feel great.","Your healing feels more acute.")]</span>")
 
 
@@ -218,5 +220,5 @@
 						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
 						M.add_splatter_floor(get_turf(M))
 						return
-	if(prob(2))
+	if(prob(2) && M.stat != DEAD)
 		to_chat(M, "<span class='notice'>[pick("You feel healthy!.","You feel energetic!", "You feel rejuvenated!")]</span>")

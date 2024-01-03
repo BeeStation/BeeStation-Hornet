@@ -38,6 +38,8 @@
 	if(!ishuman(A.affected_mob))
 		return
 	var/mob/living/carbon/human/M = A.affected_mob
+	if(M.stat >= DEAD)
+		return
 	if(A.stage >= 4)
 		if(uwu && prob(40))
 			M.say(pick("", "", "", ";", ".h")+pick("Nya", "MIAOW", "Ny- NYAAA", "meow", "NYAAA", "nya", "Ny- meow", "mrrrr", "Mew- Nya") + pick("!", "!!", "~!!", "!~", "~", "", "", ""), forced = "toxoplasmosis")
