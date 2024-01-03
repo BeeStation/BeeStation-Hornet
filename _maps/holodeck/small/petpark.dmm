@@ -16,11 +16,7 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/holofloor,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "k" = (
 /obj/structure/flora/tree/jungle/small,
@@ -42,11 +38,7 @@
 /area/template_noop)
 "r" = (
 /obj/item/trash/plate,
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/holofloor,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "v" = (
 /obj/structure/flora/ausbushes/palebush,
@@ -58,11 +50,7 @@
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
 "x" = (
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/holofloor,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "y" = (
 /obj/structure/flora/ausbushes/pointybush,
@@ -78,11 +66,7 @@
 /area/template_noop)
 "E" = (
 /obj/effect/holodeck_effect/mobspawner/pet,
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/holofloor,
+/turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "G" = (
 /obj/structure/flora/ausbushes/lavendergrass,

@@ -89,7 +89,7 @@
 //island
 
 /datum/biome/grassedge
-	turf_type = /turf/open/floor/plating/dirt/grass
+//	turf_type = /turf/open/floor/plating/dirt/grass
 	flora_density = 90
 	flora_x_offset = 16
 	flora_y_offset = 16
@@ -104,7 +104,7 @@
 	)
 
 /datum/biome/grasslush
-	turf_type = /turf/open/floor/plating/dirt/planetary
+//	turf_type = /turf/open/floor/plating/dirt/planetary
 	flora_density = 120
 	fauna_density = 5
 	flora_x_offset = 16
@@ -138,7 +138,7 @@
 	)
 
 /datum/biome/grassclearing
-	turf_type = /turf/open/floor/plating/dirt/grass
+//	turf_type = /turf/open/floor/plating/dirt/grass
 	flora_density = 80
 	flora_x_offset = 16
 	flora_y_offset = 16
@@ -157,7 +157,7 @@
 
 
 /datum/biome/sand
-	turf_type = /turf/open/floor/plating/beach/sand
+//	turf_type = /turf/open/floor/plating/beach/sand
 	flora_density = 30
 	fauna_density = 3
 	flora_x_offset = 16

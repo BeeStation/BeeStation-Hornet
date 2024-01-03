@@ -88,7 +88,6 @@
 "Hy" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/pen/red,
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
