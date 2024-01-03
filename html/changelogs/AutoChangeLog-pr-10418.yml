@@ -1,5 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - bugfix: The QM's dastardly plan has been foiled. Materials can be removed from
-      techfabs again.
