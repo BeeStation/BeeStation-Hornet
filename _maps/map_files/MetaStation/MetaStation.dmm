@@ -14376,13 +14376,13 @@
 /obj/item/screwdriver{
 	pixel_y = 10
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bvw" = (
 /obj/structure/showcase/cyborg/old{
 	pixel_y = 20
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bvx" = (
 /obj/structure/cable/yellow{
@@ -14409,7 +14409,7 @@
 /obj/structure/filingcabinet{
 	pixel_x = 3
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bvA" = (
 /obj/machinery/light/small{
@@ -14430,7 +14430,7 @@
 	pixel_x = 5;
 	pixel_y = -1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bvB" = (
 /obj/item/kirbyplants{
@@ -14768,13 +14768,13 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bxr" = (
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bxs" = (
 /obj/machinery/computer/security/telescreen{
@@ -14787,7 +14787,7 @@
 	dir = 8;
 	network = "tcommsat"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bxt" = (
 /obj/machinery/light,
@@ -15161,29 +15161,29 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bzo" = (
 /obj/structure/chair/office{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bzp" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bzr" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bzs" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/structure/chair/office,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bzt" = (
 /obj/machinery/power/apc/highcap/five_k{
@@ -15199,7 +15199,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bzv" = (
 /obj/structure/window/reinforced{
@@ -15592,13 +15592,13 @@
 	pixel_y = 4
 	},
 /obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bAV" = (
 /obj/machinery/light/small,
 /obj/item/storage/box/donkpockets,
 /obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bAW" = (
 /obj/structure/table/wood,
@@ -15608,14 +15608,14 @@
 /obj/item/book/manual/wiki/tcomms,
 /obj/item/folder/blue,
 /obj/item/pen,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bAY" = (
 /obj/machinery/atmospherics/components/unary/portables_connector{
 	connect_roundstart = 1
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bAZ" = (
 /obj/machinery/camera{
@@ -15649,7 +15649,7 @@
 	pixel_y = 6
 	},
 /obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bBb" = (
 /obj/structure/window/reinforced{
@@ -16341,22 +16341,29 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bEg" = (
-/obj/structure/showcase/cyborg/old{
-	pixel_y = 20
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "bEh" = (
 /obj/machinery/server/telecomms/receiver/preset_left,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bEj" = (
@@ -16364,6 +16371,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bEk" = (
@@ -16374,6 +16385,9 @@
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
@@ -16643,14 +16657,19 @@
 "bGc" = (
 /obj/machinery/server/telecomms/bus/preset_one,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/effect/turf_decal/stripes/end,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bGd" = (
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "bGf" = (
 /obj/machinery/server/telecomms/bus/preset_three,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/effect/turf_decal/stripes/end,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bGg" = (
@@ -16664,7 +16683,7 @@
 /area/crew_quarters/theatre)
 "bGh" = (
 /obj/machinery/announcement_system,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bGj" = (
 /obj/structure/cable/yellow{
@@ -16953,31 +16972,37 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "bHD" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "bHF" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/manifold,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "bHG" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "bHJ" = (
 /obj/structure/closet/emcloset,
@@ -17271,11 +17296,14 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bJh" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "bJj" = (
 /obj/machinery/door/airlock/maintenance{
@@ -17298,12 +17326,18 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/openup{
+	dir = 8
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bJn" = (
 /obj/machinery/blackbox_recorder,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
 	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
@@ -17664,6 +17698,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes{
+	dir = 5
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bKN" = (
@@ -17671,12 +17708,18 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/openup{
+	dir = 6
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bKP" = (
 /obj/machinery/server/telecomms/processor/preset_four,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 9
 	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
@@ -18027,7 +18070,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "bMq" = (
 /obj/structure/cable/yellow{
@@ -18036,7 +18082,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "bMr" = (
 /obj/structure/cable/yellow{
@@ -18045,7 +18094,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "bMs" = (
 /obj/machinery/power/apc/highcap/five_k{
@@ -18068,7 +18120,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "bMv" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -18151,8 +18206,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel/techmaint,
 /area/tcommsat/server)
 "bMT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -18467,12 +18521,18 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
+/obj/effect/turf_decal/stripes{
+	dir = 10
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bNY" = (
 /obj/machinery/server/telecomms/server/presets/engineering,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 6
 	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
@@ -18484,12 +18544,16 @@
 	network = list("ss13","tcomms")
 	},
 /obj/machinery/ntnet_relay,
-/turf/open/floor/plasteel/dark/telecomms,
+/obj/effect/turf_decal/stripes/box,
+/turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "bOa" = (
 /obj/machinery/server/telecomms/server/presets/medical,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 6
 	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
@@ -18498,10 +18562,16 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes{
+	dir = 10
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bOc" = (
 /obj/machinery/server/telecomms/broadcaster/preset_left,
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bOd" = (
@@ -20304,6 +20374,7 @@
 /area/engine/atmos)
 "bUL" = (
 /obj/machinery/server/telecomms/server/presets/security,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bUQ" = (
@@ -21428,6 +21499,7 @@
 /area/solar/port/aft)
 "ceC" = (
 /obj/machinery/server/telecomms/server/presets/command,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "ceW" = (
@@ -21583,6 +21655,7 @@
 /area/maintenance/disposal/incinerator)
 "cgy" = (
 /obj/machinery/server/telecomms/server/presets/service,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "cgz" = (
@@ -21699,10 +21772,14 @@
 /area/science/lab)
 "chn" = (
 /obj/machinery/server/telecomms/broadcaster/preset_right,
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "cho" = (
 /obj/machinery/server/telecomms/server/presets/supply,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "chp" = (
@@ -28662,6 +28739,7 @@
 "dsr" = (
 /obj/machinery/server/telecomms/hub/preset,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/stripes/end,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "dst" = (
@@ -29023,9 +29101,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "dxI" = (
 /obj/effect/turf_decal/stripes/line{
@@ -31184,6 +31261,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "etb" = (
@@ -31816,6 +31894,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "eIC" = (
@@ -32129,7 +32210,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "eRI" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -34014,6 +34098,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "fEQ" = (
@@ -37862,7 +37947,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "hjB" = (
 /obj/structure/cable/yellow{
@@ -43789,7 +43874,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "jIH" = (
 /obj/machinery/light{
@@ -45199,7 +45284,7 @@
 /obj/structure/showcase/cyborg/old{
 	pixel_y = 20
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "kjw" = (
 /obj/effect/turf_decal/stripes/line{
@@ -45373,10 +45458,13 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "kmC" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/layer4{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "kmH" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -46102,7 +46190,7 @@
 	pixel_x = 9;
 	pixel_y = -24
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "kyV" = (
 /obj/structure/closet/emcloset,
@@ -46926,7 +47014,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "kNZ" = (
 /obj/structure/cable/yellow{
@@ -47791,6 +47882,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"liO" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/open/floor/carpet/grimy,
+/area/tcommsat/computer)
 "ljm" = (
 /obj/machinery/door/airlock{
 	name = "Toilet Unit"
@@ -49555,9 +49653,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/toilet/auxiliary)
 "lWY" = (
-/obj/machinery/door/airlock/hatch{
-	name = "Telecomms Server Room"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -49565,8 +49660,11 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/layer_manifold,
-/turf/open/floor/plasteel/dark,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecomms Server Room"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/open/floor/plasteel/techmaint,
 /area/tcommsat/server)
 "lXq" = (
 /obj/machinery/door/airlock/command{
@@ -49828,17 +49926,16 @@
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "mcw" = (
-/obj/machinery/door/airlock/hatch{
-	name = "Telecomms Server Room"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/dark,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecomms Server Room"
+	},
+/turf/open/floor/plasteel/techmaint,
 /area/tcommsat/server)
 "mcV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -53060,6 +53157,9 @@
 	},
 /obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "npX" = (
@@ -54910,7 +55010,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "nXV" = (
 /obj/machinery/computer/security/qm{
@@ -60464,7 +60567,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "qno" = (
 /obj/structure/showcase/cyborg/old{
@@ -61580,7 +61686,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "qMb" = (
 /obj/effect/turf_decal/stripes/line,
@@ -61596,9 +61705,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -62816,9 +62923,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -64600,7 +64705,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "rXW" = (
 /obj/machinery/door/airlock/maintenance{
@@ -65193,6 +65301,9 @@
 /obj/machinery/server/telecomms/receiver/preset_exploration,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
 	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
@@ -67254,7 +67365,10 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "teT" = (
 /obj/structure/disposalpipe/segment{
@@ -70424,6 +70538,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "utJ" = (
@@ -71993,7 +72110,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "vcc" = (
 /obj/structure/cable/yellow{
@@ -73189,9 +73306,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -73904,10 +74019,10 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "vNk" = (
 /obj/machinery/door/window{
@@ -77595,9 +77710,7 @@
 	name = "medbay camera";
 	network = list("ss13","medbay")
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
@@ -78886,7 +78999,10 @@
 /area/security/prison)
 "xHD" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/engine{
+	initial_gas_mix = "n2=100;TEMP=80";
+	name = "mainframe floor"
+	},
 /area/tcommsat/server)
 "xHE" = (
 /obj/structure/disposalpipe/segment{
@@ -80363,6 +80479,9 @@
 /obj/machinery/server/telecomms/bus/preset_exploration,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
 	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
@@ -135490,7 +135609,7 @@ dkW
 vcb
 vNb
 dxF
-vcb
+liO
 mcw
 bMQ
 lWY

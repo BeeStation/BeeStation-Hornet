@@ -10999,6 +10999,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "bJF" = (
@@ -12613,11 +12614,14 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bSt" = (
-/obj/structure/closet/emcloset,
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
-/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 8;
+	connect_roundstart = 1
+	},
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
 "bSu" = (
@@ -12940,6 +12944,8 @@
 	name = "Telecomms RC";
 	pixel_x = 30
 	},
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
 "bUd" = (
@@ -13384,6 +13390,10 @@
 /area/science/research)
 "bWB" = (
 /obj/machinery/server/telecomms/processor/preset_four,
+/obj/effect/turf_decal/stripes/end,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
 /turf/open/floor/circuit/green,
 /area/tcommsat/server)
 "bWC" = (
@@ -13400,15 +13410,27 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "bWD" = (
 /obj/machinery/server/telecomms/server/presets/medical,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
+	},
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bWE" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark/telecomms,
@@ -13427,6 +13449,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "bWG" = (
@@ -13441,6 +13466,9 @@
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
@@ -13633,14 +13661,28 @@
 /area/tcommsat/server)
 "bXA" = (
 /obj/machinery/server/telecomms/server/presets/science,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bXB" = (
 /obj/machinery/server/telecomms/processor/preset_one,
+/obj/effect/turf_decal/stripes{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bXC" = (
 /obj/machinery/server/telecomms/server/presets/common,
+/obj/effect/turf_decal/stripes{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bXF" = (
@@ -13820,6 +13862,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "bYA" = (
@@ -13839,10 +13884,18 @@
 /area/tcommsat/server)
 "bYB" = (
 /obj/machinery/blackbox_recorder,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bYC" = (
 /obj/machinery/server/telecomms/bus/preset_one,
+/obj/effect/turf_decal/stripes{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "bYH" = (
@@ -13984,6 +14037,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "bZp" = (
@@ -13995,6 +14051,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "bZq" = (
@@ -14691,10 +14748,18 @@
 /area/tcommsat/server)
 "ccg" = (
 /obj/machinery/server/telecomms/message_server/preset,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "cch" = (
 /obj/machinery/server/telecomms/bus/preset_two,
+/obj/effect/turf_decal/stripes{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "ccl" = (
@@ -14819,10 +14884,20 @@
 /area/tcommsat/server)
 "cdd" = (
 /obj/machinery/server/telecomms/server/presets/security,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "cde" = (
 /obj/machinery/server/telecomms/processor/preset_two,
+/obj/effect/turf_decal/stripes{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "cdf" = (
@@ -14980,10 +15055,17 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "cea" = (
 /obj/machinery/server/telecomms/server/presets/command,
+/obj/effect/turf_decal/stripes/end,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "ceb" = (
@@ -14992,6 +15074,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
@@ -15004,6 +15089,9 @@
 	},
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = -32
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
@@ -15018,6 +15106,9 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "cef" = (
@@ -16210,6 +16301,15 @@
 /area/maintenance/disposal/incinerator)
 "cmj" = (
 /obj/machinery/server/telecomms/server/presets/service,
+/obj/effect/turf_decal/stripes{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "cml" = (
@@ -18096,12 +18196,15 @@
 /obj/item/radio/intercom{
 	pixel_y = -35
 	},
-/obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
+	dir = 1;
+	initialize_directions = 1
 	},
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
@@ -19885,6 +19988,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "cSG" = (
@@ -24266,6 +24370,17 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/security/prison)
+"fep" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "few" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -24986,6 +25101,10 @@
 /area/medical/virology)
 "fBP" = (
 /obj/machinery/server/telecomms/receiver/preset_right,
+/obj/effect/turf_decal/stripes/end,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
 /turf/open/floor/circuit/telecomms,
 /area/tcommsat/server)
 "fBV" = (
@@ -26254,6 +26373,12 @@
 	dir = 4;
 	network = list("ss13, engine")
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
+	},
 /turf/open/floor/circuit/telecomms,
 /area/tcommsat/server)
 "ggq" = (
@@ -27046,9 +27171,7 @@
 /area/space/nearstation)
 "gAU" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -29578,6 +29701,10 @@
 /area/engine/engineering)
 "hQg" = (
 /obj/machinery/server/telecomms/bus/preset_three,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "hQn" = (
@@ -29646,6 +29773,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "hSB" = (
@@ -32344,6 +32474,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "jhK" = (
@@ -34055,6 +34186,9 @@
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/manifold/general/hidden{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "jYO" = (
@@ -34269,6 +34403,12 @@
 /area/bridge)
 "kcG" = (
 /obj/machinery/server/telecomms/processor/preset_three,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "kcK" = (
@@ -34651,6 +34791,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "kmD" = (
@@ -38939,6 +39080,12 @@
 /area/hallway/secondary/exit)
 "mlV" = (
 /obj/machinery/server/telecomms/broadcaster/preset_right,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
 /turf/open/floor/circuit/telecomms,
 /area/tcommsat/server)
 "mmg" = (
@@ -44068,7 +44215,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner{
 	dir = 1
 	},
@@ -44076,10 +44222,13 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Server Room";
+	name = "Telecomms Server Room";
 	req_access_txt = "61"
 	},
-/turf/open/floor/plasteel/dark,
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
+	dir = 8
+	},
+/turf/open/floor/plasteel/techmaint,
 /area/tcommsat/computer)
 "oSW" = (
 /obj/machinery/light,
@@ -44166,14 +44315,21 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
 /area/tcommsat/computer)
 "oVe" = (
 /obj/machinery/server/telecomms/hub/preset,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "oVg" = (
@@ -45155,16 +45311,18 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Server Room";
-	req_access_txt = "61"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Telecomms Server Room";
+	req_access_txt = "61"
+	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
 /area/tcommsat/computer)
 "pyB" = (
 /obj/machinery/door/airlock/public/glass{
@@ -45248,6 +45406,10 @@
 /area/medical/medbay/lobby)
 "pAC" = (
 /obj/machinery/server/telecomms/server/presets/supply,
+/obj/effect/turf_decal/stripes{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "pAE" = (
@@ -47293,6 +47455,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "qyw" = (
@@ -49623,6 +49786,9 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
 "rCI" = (
@@ -50329,6 +50495,12 @@
 /area/crew_quarters/kitchen/coldroom)
 "rSr" = (
 /obj/machinery/server/telecomms/server/presets/engineering,
+/obj/effect/turf_decal/stripes{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
+	},
 /turf/open/floor/circuit/green/telecomms,
 /area/tcommsat/server)
 "rSC" = (
@@ -50364,6 +50536,10 @@
 /area/ai_monitored/turret_protected/aisat/hallway)
 "rTt" = (
 /obj/machinery/server/telecomms/bus/preset_four,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/circuit/green,
 /area/tcommsat/server)
 "rTK" = (
@@ -51733,6 +51909,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
@@ -54206,6 +54385,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "tGL" = (
@@ -55379,6 +55561,20 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/dorms)
+"ulD" = (
+/obj/effect/turf_decal/siding/wideplating_new/dark,
+/obj/effect/turf_decal/siding/wideplating_new/dark{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "ulM" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Plumbing Factory";
@@ -55801,6 +55997,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/box,
+/obj/effect/turf_decal/stripes/red/box,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "uwR" = (
@@ -56006,6 +56204,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
@@ -59874,6 +60075,8 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/effect/landmark/event_spawn,
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "wMF" = (
@@ -62638,6 +62841,12 @@
 /obj/machinery/airalarm/server{
 	dir = 4;
 	pixel_x = -22
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
 	},
 /turf/open/floor/circuit/telecomms,
 /area/tcommsat/server)
@@ -88359,9 +88568,9 @@ bVI
 bWF
 rSr
 bXC
-bZp
+ulD
 tGF
-kmA
+fep
 pAC
 cmj
 cec
