@@ -771,7 +771,7 @@
 
 /obj/item/choice_beacon/radial/plushie/generate_options(mob/living/M)
 	var/list/item_list = generate_item_list()
-	if(!item_list.len)
+	if(!length(item_list))
 		return
 	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE)
 	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
