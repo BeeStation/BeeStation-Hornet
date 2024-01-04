@@ -4,9 +4,9 @@
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "RD-server-on"
 	idle_power_usage = 40
+	circuit = /obj/item/circuitboard/machine/rdserver
 	var/datum/techweb/stored_research
 	//Code for point mining here.
-	var/research_disabled = FALSE
 	var/server_id = 0
 	var/base_mining_income = 3.70
 	req_access = list(ACCESS_RD_SERVER)
@@ -39,18 +39,22 @@
 	idle_power_usage = initial(src.idle_power_usage) / max(1, tot_rating)
 
 /obj/machinery/server/rnd/update_icon()
-	if (panel_open)
+	if (machine_stat & MAINT)
 		icon_state = "RD-server-on_t"
 		return
-	if (machine_stat & EMPED || machine_stat & NOPOWER)
+	if (machine_stat & (EMPED|NOPOWER))
 		icon_state = "RD-server-off"
 		return
-	if (research_disabled || machine_stat & OVERHEATED)
+	if (machine_stat & (OVERHEATED|TURNED_OFF))
 		icon_state = "RD-server-halt"
 		return
 	icon_state = "RD-server-on"
 
-
+/obj/machinery/server/rnd/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+	update_icon()
+	return TRUE
 
 /obj/machinery/server/rnd/proc/toggle_disable()
 	set_machine_stat(machine_stat ^ TURNED_OFF)

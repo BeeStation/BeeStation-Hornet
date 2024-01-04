@@ -591,10 +591,12 @@ Class Procs:
 		I.play_tool_sound(src, 50)
 		if(!panel_open)
 			panel_open = TRUE
+			set_machine_stat(machine_stat | MAINT)
 			icon_state = icon_state_open
 			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
 		else
 			panel_open = FALSE
+			set_machine_stat(machine_stat & ~MAINT)
 			icon_state = icon_state_closed
 			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
 		return 1
