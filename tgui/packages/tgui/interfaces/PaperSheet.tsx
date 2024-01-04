@@ -8,7 +8,7 @@ import { Box, Button, Flex, Section, TextArea } from '../components';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
 import { marked } from 'marked';
-import { Component, createRef, RefObject } from 'react';
+import { Component, createRef, RefObject, UIEvent, UIEventHandler } from 'react';
 import { clamp } from 'common/math';
 
 const Z_INDEX_STAMP = 1;
@@ -96,7 +96,7 @@ enum InteractionType {
 
 type PreviewViewProps = {
   scrollableRef: RefObject<HTMLDivElement>;
-  handleOnScroll: (this: GlobalEventHandlers, ev: Event) => any;
+  handleOnScroll: UIEventHandler<HTMLDivElement>;
   textArea: string;
 };
 
@@ -268,14 +268,14 @@ export class PrimaryView extends Component {
 
   // Event handler for the onscroll event. Also gets passed to the <Section>
   // holding the main preview. Updates lastDistanceFromBottom.
-  onScrollHandler: (this: GlobalEventHandlers, ev: Event) => any;
+  onScrollHandler: UIEventHandler<HTMLDivElement>;
 
   constructor(props) {
     super(props);
     this.scrollableRef = createRef();
     this.lastDistanceFromBottom = 0;
 
-    this.onScrollHandler = (ev: Event) => {
+    this.onScrollHandler = (ev: UIEvent) => {
       const scrollable = ev.currentTarget as HTMLDivElement;
       if (scrollable) {
         this.lastDistanceFromBottom = scrollable.scrollHeight - scrollable.scrollTop;

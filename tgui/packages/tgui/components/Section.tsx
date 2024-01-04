@@ -4,12 +4,12 @@
  * @license MIT
  */
 
-import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
-import { ReactNode, RefObject, createRef, useEffect } from 'react';
-import { addScrollableNode, removeScrollableNode } from '../events';
 import { canRender, classes } from 'common/react';
+import { forwardRef, ReactNode, RefObject, UIEventHandler, useRef } from 'react';
 
-export type SectionProps = Partial<{
+import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+
+type Props = Partial<{
   buttons: ReactNode;
   fill: boolean;
   fitted: boolean;
@@ -20,41 +20,34 @@ export type SectionProps = Partial<{
   /** @member Allows external control of scrolling. */
   scrollableRef: RefObject<HTMLDivElement>;
   /** @member Callback function for the `scroll` event */
-  onScroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+  onScroll: UIEventHandler<HTMLDivElement>;
 }> &
   BoxProps;
 
-export const Section = (props: SectionProps) => {
+export const Section = forwardRef((props: Props, forwardedRef: RefObject<HTMLDivElement>) => {
   const {
     className,
     title,
     buttons,
     fill,
     fitted,
+    independent,
     scrollable,
     scrollableHorizontal,
-    independent,
     children,
     onScroll,
     ...rest
   } = props;
 
-  const scrollableRef = props.scrollableRef || createRef();
+  const contentRef = useRef<HTMLDivElement>(null);
+
   const hasTitle = canRender(title) || canRender(buttons);
 
-  useEffect(() => {
-    if (scrollable || scrollableHorizontal) {
-      addScrollableNode(scrollableRef.current as HTMLElement);
-      if (onScroll && scrollableRef.current) {
-        scrollableRef.current.onscroll = onScroll;
-      }
-    }
-    return () => {
-      if (scrollable || scrollableHorizontal) {
-        removeScrollableNode(scrollableRef.current as HTMLElement);
-      }
-    };
-  }, []);
+  const handleMouseEnter = () => {
+    if (!scrollable || !contentRef.current) return;
+
+    contentRef.current.focus();
+  };
 
   return (
     <div
@@ -68,7 +61,8 @@ export const Section = (props: SectionProps) => {
         className,
         computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(rest)}>
+      {...computeBoxProps(rest)}
+      ref={forwardedRef}>
       {hasTitle && (
         <div className="Section__title">
           <span className="Section__titleText">{title}</span>
@@ -76,10 +70,10 @@ export const Section = (props: SectionProps) => {
         </div>
       )}
       <div className="Section__rest">
-        <div onScroll={onScroll as any} className="Section__content">
+        <div className="Section__content" onMouseEnter={handleMouseEnter} onScroll={onScroll} ref={contentRef}>
           {children}
         </div>
       </div>
     </div>
   );
-};
+});
