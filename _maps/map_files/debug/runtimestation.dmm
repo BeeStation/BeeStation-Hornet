@@ -2734,13 +2734,6 @@
 /obj/machinery/rnd/production/protolathe/department,
 /turf/open/floor/plasteel,
 /area/science)
-"On" = (
-/obj/machinery/atmospherics/components/unary/portables_connector{
-	connect_roundstart = 1
-	},
-/obj/machinery/portable_atmospherics/canister/plasma,
-/turf/open/floor/plasteel,
-/area/storage/primary)
 "OU" = (
 /obj/item/disk/tech_disk/debug,
 /turf/open/floor/plasteel,
@@ -2749,11 +2742,6 @@
 /obj/structure/fans/tiny/invisible,
 /turf/open/space/basic,
 /area/space)
-"PY" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible,
-/obj/machinery/meter/atmos,
-/turf/open/floor/plasteel,
-/area/storage/primary)
 "Qt" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -7917,8 +7905,8 @@ dJ
 dJ
 dI
 dJ
-On
-PY
+dJ
+dJ
 dJ
 dJ
 jU
