@@ -155,8 +155,8 @@
 			return_yield = min(return_yield, 1)//1 if above zero, 0 otherwise
 		else
 			return_yield *= (parent.yieldmod)
-	if(return_yield <= complexity)
-		return_yield = 1
+	if(return_yield < complexity)
+		return_yield = min(return_yield, 1) //1 if above zero, 0 otherwise
 	else
 		return_yield -= complexity
 
@@ -386,7 +386,7 @@
 	for(var/datum/plant_gene/trait/traits in genes)
 		if(istype(traits, /datum/plant_gene/trait/plant_type))
 			continue
-		all_traits += " [traits.name],"
+		all_traits += " [traits.name]"
 	text += "- Plant Traits:[all_traits]\n"
 
 	text += "*---------*"

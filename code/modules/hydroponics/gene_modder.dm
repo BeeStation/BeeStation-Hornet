@@ -306,6 +306,10 @@
 					seed.genes -= G
 					if(istype(G, /datum/plant_gene/reagent))
 						seed.reagents_from_genes()
+					if(istype(G, /datum/plant_gene/trait))
+						var/datum/plant_gene/trait/trait = disk.gene
+						seed.complexity -= trait.complexity
+
 				repaint_seed()
 
 		if(operation == "extract")
@@ -345,6 +349,9 @@
 			seed.genes += disk.gene.Copy()
 			if(istype(disk.gene, /datum/plant_gene/reagent))
 				seed.reagents_from_genes()
+			if(istype(disk.gene, /datum/plant_gene/trait))
+				var/datum/plant_gene/trait/trait = disk.gene
+				seed.complexity += trait.complexity
 			repaint_seed()
 
 		operation = null
