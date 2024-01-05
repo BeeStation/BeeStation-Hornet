@@ -136,7 +136,6 @@
 	//Signal automatically gets unattached and reattached when we're moved.
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-		COMSIG_ATOM_EXITED = PROC_REF(on_exit)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
