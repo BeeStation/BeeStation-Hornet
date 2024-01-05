@@ -2,10 +2,11 @@
 	name = "Space Dragon"
 	roundend_category = "space dragons"
 	antagpanel_category = "Space Dragon"
-	job_rank = ROLE_SPACE_DRAGON
+	banning_key = ROLE_SPACE_DRAGON
 	show_in_antagpanel = TRUE
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
+	// TODO: ui_name = "AntagInfoDragon"
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
 	var/datum/action/innate/summon_rift/rift_ability
@@ -57,7 +58,7 @@
 		/area/security/courtroom,
 	))
 
-	var/list/possible_areas = GLOB.sortedAreas.Copy()
+	var/list/possible_areas = GLOB.areas.Copy()
 	for(var/area/possible_area as anything in possible_areas)
 		if(!is_type_in_typecache(possible_area, allowed_areas) || is_type_in_typecache(possible_area, blocked_areas) || initial(possible_area.outdoors))
 			possible_areas -= possible_area

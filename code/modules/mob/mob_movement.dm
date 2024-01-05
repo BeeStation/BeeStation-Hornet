@@ -1,14 +1,4 @@
 /**
-  * Get the current movespeed delay of the mob
-  *
-  * DO NOT OVERRIDE THIS UNLESS YOU ABSOLUTELY HAVE TO.
-  * THIS IS BEING PHASED OUT FOR THE MOVESPEED MODIFICATION SYSTEM.
-  * See mob_movespeed.dm
-  */
-/mob/proc/movement_delay()	//update /living/movement_delay() if you change this
-	return cached_multiplicative_slowdown
-
-/**
   * force move the control_object of your client mob
   *
   * Used in admin possession and called from the client Move proc
@@ -25,9 +15,6 @@
 			mob.control_object.setDir(direct)
 		else
 			mob.control_object.forceMove(get_step(mob.control_object,direct))
-
-#define MOVEMENT_DELAY_BUFFER 0.75
-#define MOVEMENT_DELAY_BUFFER_DELTA 1.25
 
 /**
   * Move a client in a direction
@@ -65,24 +52,29 @@
   * (if you ask me, this should be at the top of the move so you don't dance around)
   *
   */
-/client/Move(n, direct)
-	if(world.time < move_delay) //do not move anything ahead of this check please
+/client/Move(new_loc, direct)
+	// If the movement delay is slightly less than the period from now until the next tick,
+	// let us move and take the additional delay and add it onto the next move. This means that
+	// it will slowly stack until we can lose a tick, where the ticks we lose are proportional
+	// to the slowdowns difference to the next tick step.
+	var/floored_move_delay = FLOOR(move_delay, 1 / world.fps)
+	if(world.time < floored_move_delay) //do not move anything ahead of this check please
 		return FALSE
-	else
-		next_move_dir_add = 0
-		next_move_dir_sub = 0
+	next_move_dir_add = 0
+	next_move_dir_sub = 0
+
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called mutiple times per tick
 	if(!mob || !mob.loc)
 		return FALSE
-	if(!n || !direct)
+	if(!new_loc || !direct)
 		return FALSE
 	if(mob.notransform)
 		return FALSE	//This is sota the goto stop mobs from moving var
 	if(mob.control_object)
 		return Move_object(direct)
 	if(!isliving(mob))
-		return mob.Move(n, direct)
+		return mob.Move(new_loc, direct)
 	if(mob.stat == DEAD)
 		mob.ghostize()
 		return FALSE
@@ -98,7 +90,7 @@
 		return mob.remote_control.relaymove(mob, direct)
 
 	if(isAI(mob))
-		return AIMove(n,direct,mob)
+		return AIMove(new_loc,direct,mob)
 
 	if(Process_Grab()) //are we restrained by someone's grip?
 		return
@@ -116,12 +108,19 @@
 	if(!mob.Process_Spacemove(direct))
 		return FALSE
 
-	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, n) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, new_loc) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
 		return FALSE
 
 	//We are now going to move
-	var/add_delay = mob.movement_delay()
-	if(old_move_delay + (add_delay*MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
+	var/add_delay = mob.cached_multiplicative_slowdown
+	/*
+	mob.set_glide_size(DELAY_TO_GLIDE_SIZE(add_delay * ( (NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? SQRT_2 : 1 ) )) // set it now in case of pulled objects
+	*/
+	//If the move was recent, count using old_move_delay
+	//We want fractional behavior and all
+	if(old_move_delay + world.tick_lag > world.time)
+		//Yes this makes smooth movement stutter if add_delay is too fractional
+		//Yes this is better then the alternative
 		move_delay = old_move_delay
 	else
 		move_delay = world.time
@@ -136,16 +135,24 @@
 			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
 		if(newdir)
 			direct = newdir
-			n = get_step(L, direct)
+			new_loc = get_step(L, direct)
 
 	. = ..()
 
-	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		add_delay *= 1.414214 // sqrt(2)
+	if((direct & (direct - 1)) && mob.loc == new_loc) //moved diagonally successfully
+		add_delay *= sqrt(2)
+	// Record any time that we gained due to sub-tick slowdown
+	var/move_delta = move_delay - floored_move_delay
+	add_delay += move_delta
+	// Apply the movement delay
 	move_delay += add_delay
 	if(.) // If mob is null here, we deserve the runtime
 		if(mob.throwing)
 			mob.throwing.finalize(FALSE)
+
+		// At this point we've moved the client's attached mob. This is one of the only ways to guess that a move was done
+		// as a result of player input and not because they were pulled or any other magic.
+		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVED)
 
 	var/atom/movable/P = mob.pulling
 	if(P && !ismob(P) && P.density)
@@ -193,14 +200,14 @@
 	if(!isliving(mob))
 		return
 	var/mob/living/L = mob
+	L.setDir(direct)
 	switch(L.incorporeal_move)
 		if(INCORPOREAL_MOVE_BASIC)
 			var/T = get_step_multiz(mobloc, direct)
-			if(T)
+			if(T && !istype(T, /turf/closed/indestructible/cordon))
 				L.forceMove(T)
 			else
 				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
-			L.setDir(direct)
 		if(INCORPOREAL_MOVE_SHADOW)
 			if(prob(50))
 				var/locx
@@ -229,10 +236,13 @@
 					else
 						return
 				var/target = locate(locx,locy,mobloc.z)
-				if(target)
+				if(target && !istype(target, /turf/closed/indestructible/cordon))
+					var/lineofturf = getline(mobloc, target)
+					if(locate(/turf/closed/indestructible/cordon) in lineofturf)
+						return //No phasing over cordons
 					L.forceMove(target)
 					var/limit = 2//For only two trailing shadows.
-					for(var/turf/T in getline(mobloc, L.loc))
+					for(var/turf/T in lineofturf)
 						new /obj/effect/temp_visual/dir_setting/ninja/shadow(T, L.dir)
 						limit--
 						if(limit<=0)
@@ -240,9 +250,8 @@
 			else
 				new /obj/effect/temp_visual/dir_setting/ninja/shadow(mobloc, L.dir)
 				var/T = get_step(L,direct)
-				if(T)
+				if(T && !istype(T, /turf/closed/indestructible/cordon))
 					L.forceMove(T)
-			L.setDir(direct)
 		if(INCORPOREAL_MOVE_JAUNT) //Incorporeal move, but blocked by holy-watered tiles and salt piles.
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			if(stepTurf)
@@ -263,8 +272,6 @@
 				L.forceMove(stepTurf)
 			else
 				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
-			L.setDir(direct)
-
 		if(INCORPOREAL_MOVE_EMINENCE) //Incorporeal move for emincence. Blocks move like Jaunt but lets it pass through clockwalls
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			var/turf/loccheck = get_turf(stepTurf)
@@ -283,7 +290,6 @@
 				L.forceMove(stepTurf)
 			else
 				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
-			L.setDir(direct)
 	return TRUE
 
 /**
@@ -357,8 +363,12 @@
 	return
 
 /// Update the gravity status of this mob
-/mob/proc/update_gravity()
-	return
+/mob/proc/update_gravity(has_gravity, override=FALSE)
+	var/speed_change = max(0, has_gravity - STANDARD_GRAVITY)
+	if(!speed_change)
+		remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAVITY, update=TRUE)
+	else
+		add_movespeed_modifier(MOVESPEED_ID_MOB_GRAVITY, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=speed_change, blacklisted_movetypes=FLOATING)
 
 //bodypart selection verbs - Cyberboss
 //8:repeated presses toggles through head - eyes - mouth
@@ -381,8 +391,10 @@
 	if(!check_has_body_select())
 		return
 
+	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
+
 	var/next_in_line
-	switch(mob.zone_selected)
+	switch(selector.selecting)
 		if(BODY_ZONE_HEAD)
 			next_in_line = BODY_ZONE_PRECISE_EYES
 		if(BODY_ZONE_PRECISE_EYES)
@@ -390,7 +402,6 @@
 		else
 			next_in_line = BODY_ZONE_HEAD
 
-	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line, mob)
 
 ///Hidden verb to target the right arm, bound to 4
@@ -458,6 +469,34 @@
 
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(BODY_ZONE_L_LEG, mob)
+
+/client/verb/body_up()
+	set name = "body-up"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+
+	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
+	switch (selector.selecting)
+		if (BODY_GROUP_LEGS, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			selector.set_selected_zone(BODY_GROUP_ARMS, mob)
+		if (BODY_GROUP_ARMS, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			selector.set_selected_zone(BODY_GROUP_CHEST_HEAD, mob)
+
+/client/verb/body_down()
+	set name = "body-down"
+	set hidden = 1
+
+	if(!check_has_body_select())
+		return
+
+	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
+	switch (selector.selecting)
+		if (BODY_GROUP_CHEST_HEAD, BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_GROIN)
+			selector.set_selected_zone(BODY_GROUP_ARMS, mob)
+		if (BODY_GROUP_ARMS, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+			selector.set_selected_zone(BODY_GROUP_LEGS, mob)
 
 ///Verb to toggle the walk or run status
 /client/verb/toggle_walk_run()

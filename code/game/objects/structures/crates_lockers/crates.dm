@@ -13,9 +13,6 @@
 	allow_objects = TRUE
 	allow_dense = TRUE
 	dense_when_open = TRUE
-	climbable = TRUE
-	climb_time = 10 //real fast, because let's be honest stepping into or onto a crate is easy
-	climb_stun = 0 //climbing onto crates isn't hard, guys
 	delivery_icon = "deliverycrate"
 	door_anim_time = 3
 	door_anim_angle = 180
@@ -25,6 +22,7 @@
 	open_sound_volume = 35
 	close_sound_volume = 50
 	drag_slowdown = 0
+	var/crate_climb_time = 20
 	var/azimuth_angle_2 = 138 //in this context the azimuth angle for over 90 degree
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
@@ -36,6 +34,11 @@
 		animation_math = new/list()
 	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"])
 		animation_list()
+	AddElement(/datum/element/climbable)
+
+/obj/structure/closet/crate/Destroy()
+	QDEL_NULL(manifest)
+	return ..()
 
 /obj/structure/closet/crate/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -120,14 +123,26 @@
 	if(manifest)
 		tear_manifest(user)
 
+/* just make it the same for now
+/obj/structure/closet/crate/after_open(mob/living/user, force)
+	. = ..()
+	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
+
+/obj/structure/closet/crate/after_close(mob/living/user, force)
+	. = ..()
+	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
+*/
+
 /obj/structure/closet/crate/open(mob/living/user)
 	. = ..()
 	if(. && manifest)
 		to_chat(user, "<span class='notice'>The manifest is torn off [src].</span>")
-		playsound(src, 'sound/items/poster_ripped.ogg', 75, 1)
+		playsound(src, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove(get_turf(src))
 		manifest = null
-		update_icon()
+		update_appearance()
 
 /obj/structure/closet/crate/proc/tear_manifest(mob/user)
 	to_chat(user, "<span class='notice'>You tear the manifest off of [src].</span>")
@@ -297,3 +312,48 @@
 	..()
 	for(var/i in 1 to 5)
 		new /obj/item/coin/silver(src)
+
+/obj/structure/closet/crate/capsule
+	name = "bluespace capsule"
+	desc = "A capsule that can shrink in size for easy transportation of most goods."
+	icon = 'icons/obj/crates.dmi'
+	icon_state = "capsule"
+	open_sound = 'sound/machines/capsule_open.ogg'
+	close_sound = 'sound/machines/capsule_close.ogg'
+	icon_door = null
+	mob_storage_capacity = 0
+	dense_when_open = FALSE
+	///Becomes TRUE when the crate is being closed to ensure the compression sequence completes as expected.
+	var/closing = FALSE
+
+/obj/structure/closet/crate/capsule/update_icon()
+	cut_overlays()
+	icon_state = "capsule[opened ? "_open" : "_close"]"
+
+/obj/structure/closet/crate/capsule/animate_door(closing)
+	return FALSE
+
+/obj/structure/closet/crate/capsule/insertion_allowed(atom/movable/AM)
+	if(!isitem(AM))
+		return FALSE //Capsule pod can only hold items, not mobs, structures or otherwise
+	var/obj/item/I = AM
+	if(I.w_class >= WEIGHT_CLASS_BULKY) //capsule pod can't hold bulky or larger objects
+		return FALSE
+	return ..()
+
+/obj/structure/closet/crate/capsule/close(mob/living/user)
+	if(!closing)
+		closing = TRUE
+		addtimer(CALLBACK(src, PROC_REF(compress)), 2 SECONDS)
+		return ..()
+
+/obj/structure/closet/crate/capsule/open(mob/living/user)
+	if(!closing)
+		return ..()
+
+/obj/structure/closet/crate/capsule/proc/compress()
+	visible_message("<span class='notice'>[src] compresses back into a small capsule!.</span>")
+	var/obj/item/bluespace_capsule/C = new(loc)
+	for(var/atom/movable/A in contents)
+		A.forceMove(C)
+	qdel(src)

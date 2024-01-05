@@ -16,7 +16,7 @@
 	icon_state = "welding"
 	item_state = "welding"
 	clothing_flags = SNUG_FIT
-	materials = list(/datum/material/iron = 1750, /datum/material/glass = 400)
+	custom_materials = list(/datum/material/iron=1750, /datum/material/glass=400)
 	flash_protect = 2
 	tint = 2
 	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60, STAMINA = 5)
@@ -228,14 +228,33 @@
 	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
 	icon_state = "hair_vlong"
 	item_state = "pwig"
-	flags_inv = HIDEHAIR
+	flags_inv = HIDEHAIR	//Instead of being handled as a clothing item, it overrides the hair values in /datum/species/proc/handle_hair
+	slot_flags = ITEM_SLOT_HEAD
+	worn_icon = 'icons/mob/human_face.dmi'
+	worn_icon_state = "bald"
 	var/hair_style = "Very Long Hair"
 	var/hair_color = "#000"
+	var/gradient_style = "None"
+	var/gradient_color = "000"
 	var/adjustablecolor = TRUE //can color be changed manually?
+	strip_delay = 10 //It's fake hair, can't be too hard to just grab and pull it off
+	var/obj/item/clothing/head/hat_attached_to = null
 
 /obj/item/clothing/head/wig/Initialize(mapload)
 	. = ..()
 	update_icon()
+
+/obj/item/clothing/head/wig/Destroy()
+	. = ..()
+	if(hat_attached_to)
+		hat_attached_to.attached_wig = null
+
+/obj/item/clothing/head/wig/dropped(mob/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head == src)
+			H.update_inv_head()
 
 /obj/item/clothing/head/wig/update_icon()
 	cut_overlays()
@@ -248,17 +267,6 @@
 		M.color = hair_color
 		add_overlay(M)
 
-/obj/item/clothing/head/wig/worn_overlays(mutable_appearance/standing, isinhands = FALSE, file2use)
-	. = list()
-	if(!isinhands)
-		var/datum/sprite_accessory/S = GLOB.hair_styles_list[hair_style]
-		if(!S)
-			return
-		var/mutable_appearance/M = mutable_appearance(S.icon, S.icon_state,layer = -HAIR_LAYER)
-		M.appearance_flags |= RESET_COLOR
-		M.color = hair_color
-		. += M
-
 /obj/item/clothing/head/wig/attack_self(mob/user)
 	var/new_style = input(user, "Select a hair style", "Wig Styling")  as null|anything in (GLOB.hair_styles_list - "Bald")
 	if(!user.canUseTopic(src, BE_CLOSE))
@@ -267,7 +275,23 @@
 		hair_style = new_style
 		user.visible_message("<span class='notice'>[user] changes \the [src]'s hairstyle to [new_style].</span>", "<span class='notice'>You change \the [src]'s hairstyle to [new_style].</span>")
 	if(adjustablecolor)
-		hair_color = input(usr,"","Choose Color",hair_color) as color|null
+		hair_color = tgui_color_picker(usr,"","Choose Color",hair_color)
+		var/picked_gradient_style
+		picked_gradient_style = input(usr, "", "Choose Gradient")  as null|anything in GLOB.hair_gradients_list
+		if(picked_gradient_style)
+			gradient_style = picked_gradient_style
+			if(gradient_style != "None")
+				var/picked_hair_gradient = tgui_color_picker(user, "", "Choose Gradient Color", "#" + gradient_color)
+				if(picked_hair_gradient)
+					gradient_color = sanitize_hexcolor(picked_hair_gradient)
+				else
+					gradient_color = "000"
+			else
+				gradient_color = "000"
+		else
+			gradient_style = "None"
+			gradient_color = "000"
+
 	update_icon()
 
 /obj/item/clothing/head/wig/random/Initialize(mapload)
@@ -288,10 +312,12 @@
 	. = ..()
 
 /obj/item/clothing/head/wig/natural/equipped(mob/living/carbon/human/user, slot)
-	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
+	. = ..()
+	if(ishuman(user) && (slot == ITEM_SLOT_HEAD || slot == ITEM_SLOT_NECK))
 		hair_color = "#[user.hair_color]"
+		gradient_style = user.gradient_style
+		gradient_color = "#[user.gradient_color]"
 		update_icon()
-		user.update_inv_head()
 
 /obj/item/clothing/head/bronze
 	name = "bronze hat"
@@ -310,6 +336,7 @@
 	armor = list(MELEE = 0,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = -5, FIRE = 0, ACID = 0, STAMINA = 50)
 	equip_delay_other = 140
 	var/datum/brain_trauma/mild/phobia/conspiracies/paranoia
+	var/mutable_appearance/psychic_overlay
 
 /obj/item/clothing/head/foilhat/equipped(mob/living/carbon/human/user, slot)
 	..()
@@ -322,6 +349,11 @@
 
 		user.gain_trauma(paranoia, TRAUMA_RESILIENCE_MAGIC)
 		to_chat(user, "<span class='warning'>As you don the foiled hat, an entire world of conspiracy theories and seemingly insane ideas suddenly rush into your mind. What you once thought unbelievable suddenly seems.. undeniable. Everything is connected and nothing happens just by accident. You know too much and now they're out to get you. </span>")
+
+		psychic_overlay = mutable_appearance()
+		psychic_overlay.appearance = user.appearance
+		psychic_overlay.plane = ANTI_PSYCHIC_PLANE
+		user.add_overlay(psychic_overlay)
 
 /obj/item/clothing/head/foilhat/MouseDrop(atom/over_object)
 	//God Im sorry
@@ -339,6 +371,7 @@
 	if(isliving(user))
 		var/mob/living/L = user
 		L.sec_hud_set_implants()
+	user.cut_overlay(psychic_overlay)
 
 /obj/item/clothing/head/foilhat/attack_hand(mob/user)
 	if(iscarbon(user))

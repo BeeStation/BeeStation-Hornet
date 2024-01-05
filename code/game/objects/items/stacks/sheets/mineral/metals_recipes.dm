@@ -3,7 +3,6 @@
 GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("stool",										/obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	new/datum/stack_recipe("bar stool",									/obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
-	new/datum/stack_recipe("chair",										/obj/structure/chair, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS), \
 
 	null, \
 	new/datum/stack_recipe_list("office chairs", list( \
@@ -94,6 +93,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("airlock controller frame",					/obj/item/wallframe/advanced_airlock_controller, 2), \
 	new/datum/stack_recipe("fire alarm frame",							/obj/item/wallframe/firealarm, 2), \
 	new/datum/stack_recipe("extinguisher cabinet frame",				/obj/item/wallframe/extinguisher_cabinet, 2), \
+	new/datum/stack_recipe("light switch frame",						/obj/item/wallframe/light_switch, 1), \
 	new/datum/stack_recipe("button frame",								/obj/item/wallframe/button, 1), \
 	null, \
 	new/datum/stack_recipe("iron door",									/obj/structure/mineral_door/iron, 20, one_per_turf = TRUE, on_floor = TRUE), \
@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 STACKSIZE_MACRO(/obj/item/stack/sheet/iron)
 
 /obj/item/stack/sheet/iron/cyborg
-	materials = list()
+	mats_per_unit = null
 	is_cyborg = 1
 	cost = 500
 
@@ -169,7 +169,7 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 STACKSIZE_MACRO(/obj/item/stack/sheet/brass)
 
 /obj/item/stack/sheet/brass/cyborg
-	materials = list()
+	custom_materials = null
 	is_cyborg = 1
 	cost = 500
 

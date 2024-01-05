@@ -106,8 +106,6 @@
 	config_entry_value = 2
 	min_val = 0
 
-/datum/config_entry/flag/use_gimmick_objectives
-
 /datum/config_entry/number/brother_objectives_amount
 	config_entry_value = 2
 	min_val = 0
@@ -446,3 +444,5 @@
 /datum/config_entry/flag/spare_enforce_coc
 
 /datum/config_entry/flag/station_traits
+
+/datum/config_entry/flag/dark_unstaffed_departments

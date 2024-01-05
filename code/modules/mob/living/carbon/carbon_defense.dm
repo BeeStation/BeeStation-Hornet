@@ -38,7 +38,7 @@
 	if(check_glasses && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))
 		return glasses
 
-/mob/living/carbon/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+/mob/living/carbon/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/bodypart/affecting = get_bodypart(def_zone)
 	if(affecting && affecting.dismemberable && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		affecting.dismember(P.damtype)
@@ -72,13 +72,14 @@
 
 /mob/living/carbon/attacked_by(obj/item/I, mob/living/user)
 	var/obj/item/bodypart/affecting
-	affecting = get_bodypart(check_zone(user.zone_selected))
+	affecting = get_bodypart(check_zone(user.get_combat_bodyzone(src)))
 	if(!affecting) //missing limb? we select the first bodypart (you can never have zero, because of chest)
 		affecting = bodyparts[1]
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
 	if(I.force)
-		apply_damage(I.force, I.damtype, affecting)
+		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
+		apply_damage(I.force, I.damtype, affecting, armour_block)
 		if(I.damtype == BRUTE && (IS_ORGANIC_LIMB(affecting)))
 			if(I.is_sharp() || I.force >= 10)
 				I.add_mob_blood(src)
@@ -273,10 +274,29 @@
 			return
 		M.visible_message("<span class='notice'>[M] shakes [src] trying to get [p_them()] up!</span>", \
 						"<span class='notice'>You shake [src] trying to get [p_them()] up!</span>")
-	else if(M.zone_selected == BODY_ZONE_CHEST)
+	else if(M.is_zone_selected(BODY_ZONE_CHEST))
 		M.visible_message("<span class='notice'>[M] hugs [src] to make [p_them()] feel better!</span>", \
 					"<span class='notice'>You hug [src] to make [p_them()] feel better!</span>")
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/hug)
+
+		// Warm them up with hugs
+		share_bodytemperature(M)
+		if(bodytemperature > M.bodytemperature)
+			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/warmhug, src) // Hugger got a warm hug
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/hug) // Reciver always gets a mood for being hugged
+		else
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/warmhug, M) // You got a warm hug
+
+		// Let people know if they hugged someone really warm or really cold
+		if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+			to_chat(src, "<span class='warning'>It feels like [M] is over heating as [M.p_they()] hug[M.p_s()] you.</span>")
+		else if(M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+			to_chat(src, "<span class='warning'>It feels like [M] is freezing as [M.p_they()] hug[M.p_s()] you.</span>")
+
+		if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+			to_chat(M, "<span class='warning'>It feels like [src] is over heating as you hug [p_them()].</span>")
+		else if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
+			to_chat(M, "<span class='warning'>It feels like [src] is freezing as you hug [p_them()].</span>")
+
 		if(HAS_TRAIT(M, TRAIT_FRIENDLY))
 			var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 			if (mood.sanity >= SANITY_GREAT)
@@ -285,17 +305,19 @@
 				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/betterhug, M)
 		for(var/datum/brain_trauma/trauma in M.get_traumas())
 			trauma.on_hug(M, src)
-	else if(M.zone_selected == BODY_ZONE_HEAD)
+	else if(M.is_zone_selected(BODY_ZONE_HEAD))
 		M.visible_message("<span class='notice'>[M] pats [src] on the head.</span>", \
 					"<span class='notice'>You pat [src] on the head.</span>")
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "headpat", /datum/mood_event/headpat, M)
-	else if((M.zone_selected == BODY_ZONE_L_ARM) || (M.zone_selected == BODY_ZONE_R_ARM))
-		if(!get_bodypart(check_zone(M.zone_selected)))
-			to_chat(M, "<span class='warning'>[src] does not have a [M.zone_selected == BODY_ZONE_L_ARM ? "left" : "right"] arm!</span>")
+		for(var/datum/brain_trauma/trauma in M.get_traumas())
+			trauma.on_hug(M, src)
+	else if((M.is_zone_selected(BODY_ZONE_L_ARM)) || (M.is_zone_selected(BODY_ZONE_R_ARM)))
+		if(!get_bodypart(check_zone(M.get_combat_bodyzone(src))))
+			to_chat(M, "<span class='warning'>[src] does not have a [M.get_combat_bodyzone(src) == BODY_ZONE_L_ARM ? "left" : "right"] arm!</span>")
 		else
 			M.visible_message("<span class='notice'>[M] shakes [src]'s hand.</span>", \
 						"<span class='notice'>You shake [src]'s hand.</span>")
-	else if(M.zone_selected == BODY_ZONE_PRECISE_GROIN)
+	else if(M.is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE))
 		to_chat(M, "<span class='warning'>ERP is not allowed on this server!</span>")
 	AdjustStun(-60)
 	AdjustKnockdown(-60)
@@ -332,7 +354,7 @@
 	if(NOFLASH in dna?.species?.species_traits)
 		return
 	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
-	if(!eyes || HAS_TRAIT(src, TRAIT_BLIND)) //can't flash what can't see!
+	if(!eyes || (!override_blindness_check && HAS_TRAIT(src, TRAIT_BLIND))) //can't flash what can't see!
 		return
 	. = ..()
 
@@ -355,7 +377,7 @@
 			eyes.applyOrganDamage(rand(12, 16))
 
 		if(eyes.damage > 10)
-			blind_eyes(damage)
+			adjust_blindness(damage)
 			blur_eyes(damage * rand(3, 6))
 
 			if(eyes.damage > 20)
@@ -431,3 +453,24 @@
 	var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
 	if(istype(ears) && !ears.deaf)
 		. = TRUE
+
+/mob/living/carbon/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(isnull(.))
+		return
+	if(. <= 50)
+		if(getOxyLoss() > 50)
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+	else if(getOxyLoss() <= 50)
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+
+
+/mob/living/carbon/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(isnull(.))
+		return
+	if(. <= 50)
+		if(getOxyLoss() > 50)
+			ADD_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)
+	else if(getOxyLoss() <= 50)
+		REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, OXYLOSS_TRAIT)

@@ -23,18 +23,22 @@
 
 	var/list/play_records = owner.prefs.exp
 	if (!play_records.len)
-		owner.set_exp_from_db()
-		play_records = owner.prefs.exp
-		if (!play_records.len)
-			return list("failReason" = JOB_REPORT_MENU_FAIL_REASON_NO_RECORDS)
+		// We can't invoke this directly right now, since it's blocking, but this will ensure a cache hit next time.
+		INVOKE_ASYNC(owner, TYPE_PROC_REF(/client, set_exp_from_db))
+		return list("failReason" = JOB_REPORT_MENU_FAIL_REASON_NO_RECORDS)
 
 	var/list/data = list()
 	data["jobPlaytimes"] = list()
+	data["jobRemovedPlaytimes"] = list()
 	data["specialPlaytimes"] = list()
 
 	for (var/job_name in SSjob.name_occupations)
 		var/playtime = play_records[job_name] ? text2num(play_records[job_name]) : 0
 		data["jobPlaytimes"][job_name] = playtime
+
+	for (var/job_name in GLOB.exp_removed_jobs)
+		var/playtime = play_records[job_name] ? text2num(play_records[job_name]) : 0
+		data["jobRemovedPlaytimes"][job_name] = playtime
 
 	for (var/special_name in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
 		var/playtime = play_records[special_name] ? text2num(play_records[special_name]) : 0

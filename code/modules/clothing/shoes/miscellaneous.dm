@@ -86,7 +86,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
-	LoadComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50)
+	LoadComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
 	. = ..()
@@ -136,6 +136,8 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 /obj/item/clothing/shoes/jackboots/fast
+	name = "modified jackboots"
+	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."
 	slowdown = -1
 
 /obj/item/clothing/shoes/winterboots

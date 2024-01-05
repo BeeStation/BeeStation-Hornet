@@ -3,6 +3,7 @@
 	name = "captain's jumpsuit"
 	icon_state = "captain"
 	item_state = "b_suit"
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 10)
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 

@@ -241,25 +241,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
-"G" = (
-/obj/machinery/light,
-/obj/machinery/conveyor{
-	id = "MailConv"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/supply)
-"H" = (
+"F" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/conveyor{
 	id = "MailConv"
 	},
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("ss13","cargo")
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"G" = (
+/obj/machinery/light,
+/obj/machinery/conveyor{
+	id = "MailConv"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/supply)
 "I" = (
@@ -449,7 +445,7 @@ A
 g
 g
 s
-H
+F
 s
 g
 c

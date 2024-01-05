@@ -1,7 +1,7 @@
 /datum/antagonist/fugitive
 	name = "Fugitive"
 	roundend_category = "Fugitive"
-	job_rank = ROLE_FUGITIVE
+	banning_key = ROLE_FUGITIVE
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Fugitives"
 	show_to_ghosts = TRUE

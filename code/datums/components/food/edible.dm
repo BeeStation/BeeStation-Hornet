@@ -39,6 +39,8 @@ Behavior that's still missing from this component that original food items had t
 	var/datum/callback/after_eat
 	///Callback to be ran for when you finish eating something
 	var/datum/callback/on_consume
+	///Callback to be ran for when the code check if the food is liked, allowing for unique overrides for special foods like donuts with cops.
+	var/datum/callback/check_liked
 	///Last time we checked for food likes
 	var/last_check_time
 	///The initial reagents of this food when it is made
@@ -50,7 +52,8 @@ Behavior that's still missing from this component that original food items had t
 	///The type of atom this creates when the object is microwaved.
 	var/microwaved_type
 
-/datum/component/edible/Initialize(list/initial_reagents,
+/datum/component/edible/Initialize(
+	list/initial_reagents,
 	food_flags = NONE,
 	foodtypes = NONE,
 	volume = 50,
@@ -63,8 +66,10 @@ Behavior that's still missing from this component that original food items had t
 	datum/callback/pre_eat,
 	datum/callback/on_compost,
 	datum/callback/after_eat,
-	datum/callback/on_consume
-)
+	datum/callback/on_consume,
+	datum/callback/check_liked,
+	)
+
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -87,8 +92,6 @@ Behavior that's still missing from this component that original food items had t
 	src.bite_consumption = bite_consumption
 	src.food_flags = food_flags
 	src.foodtypes = foodtypes
-	src.initial_reagents = initial_reagents
-	src.tastes = tastes
 	src.eat_time = eat_time
 	src.eatverbs = string_list(eatverbs)
 	src.junkiness = junkiness
@@ -99,6 +102,7 @@ Behavior that's still missing from this component that original food items had t
 	src.initial_reagents = string_assoc_list(initial_reagents)
 	src.tastes = string_assoc_list(tastes)
 	src.microwaved_type = microwaved_type
+	src.check_liked = check_liked
 
 	var/atom/owner = parent
 
@@ -111,20 +115,23 @@ Behavior that's still missing from this component that original food items had t
 		else
 			owner.reagents.add_reagent(rid, amount)
 
-/datum/component/edible/InheritComponent(datum/component/C,
+/datum/component/edible/InheritComponent(
+	datum/component/C,
 	i_am_original,
 	list/initial_reagents,
 	food_flags = NONE,
 	foodtypes = NONE,
 	volume = 50,
-	eat_time = 30,
+	eat_time = 10,
 	list/tastes,
 	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 	bite_consumption = 2,
+	microwaved_type,
 	datum/callback/pre_eat,
 	datum/callback/on_compost,
 	datum/callback/after_eat,
-	datum/callback/on_consume
+	datum/callback/on_consume,
+	datum/callback/check_liked,
 	)
 
 	. = ..()
@@ -202,14 +209,14 @@ Behavior that's still missing from this component that original food items had t
 	for(var/obj/item/crafted_part in this_food.contents)
 		crafted_part.reagents?.trans_to(this_food.reagents, crafted_part.reagents.maximum_volume, CRAFTED_FOOD_INGREDIENT_REAGENT_MODIFIER)
 
-	var/list/objects_to_delete = list()
+	var/list/objects_to_delete = this_food.contents.Copy()
 
 	// Remove all non recipe objects from the contents
 	for(var/content_object in this_food.contents)
-		for(var/recipe_object in recipe.real_parts)
+		for(var/recipe_object in recipe.parts)
 			if(istype(content_object, recipe_object))
-				continue
-		objects_to_delete += content_object
+				objects_to_delete -= content_object
+				break
 
 	QDEL_LIST(objects_to_delete)
 
@@ -229,9 +236,8 @@ Behavior that's still missing from this component that original food items had t
 
 	if(!microwaved_type)
 		new /obj/item/reagent_containers/food/snacks/badrecipe(parent_turf)
-		qdel(src)
+		qdel(parent)
 		return
-
 
 	var/obj/item/result
 
@@ -242,6 +248,8 @@ Behavior that's still missing from this component that original food items had t
 	SEND_SIGNAL(result, COMSIG_ITEM_MICROWAVE_COOKED, parent, efficiency)
 
 	SSblackbox.record_feedback("tally", "food_made", 1, result.type)
+	qdel(parent)
+	return COMPONENT_SUCCESFUL_MICROWAVE
 
 ///Corrects the reagents on the newly cooked food
 /datum/component/edible/proc/on_microwave_cooked(datum/source, obj/item/source_item, cooking_efficiency = 1)
@@ -275,6 +283,9 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/proc/TryToEat(mob/living/eater, mob/living/feeder)
 
 	set waitfor = FALSE // We might end up sleeping here, so we don't want to hold up anything
+
+	if(QDELETED(parent))
+		return
 
 	var/atom/owner = parent
 
@@ -363,6 +374,7 @@ Behavior that's still missing from this component that original food items had t
 	var/atom/owner = parent
 
 	if(!owner?.reagents)
+		stack_trace("[eater] failed to bite [owner], because [owner] had no reagents.")
 		return FALSE
 	if(eater.satiety > -200)
 		eater.satiety -= junkiness
@@ -421,16 +433,31 @@ Behavior that's still missing from this component that original food items had t
 		if(foodtypes & tongue.toxic_food)
 			to_chat(human_eater, "<span class='warning'>You don't feel so good...</span>")
 			human_eater.adjust_disgust(25 + 30 * fraction)
-	else
+		return // Later checks are irrelevant if you have ageusia
+
+	var/food_taste_reaction
+
+	if(check_liked) //Callback handling; use this as an override for special food like donuts
+		food_taste_reaction = check_liked.Invoke(fraction, human_eater)
+
+	if(!food_taste_reaction)
 		if(foodtypes & tongue.toxic_food)
+			food_taste_reaction = FOOD_TOXIC
+		else if(foodtypes & tongue.disliked_food)
+			food_taste_reaction = FOOD_DISLIKED
+		else if(foodtypes & tongue.liked_food)
+			food_taste_reaction = FOOD_LIKED
+
+	switch(food_taste_reaction)
+		if(FOOD_TOXIC)
 			to_chat(human_eater,"<span class='warning'>What the hell was that thing?!</span>")
 			human_eater.adjust_disgust(25 + 30 * fraction)
 			SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "toxic_food", /datum/mood_event/disgusting_food)
-		else if(foodtypes & tongue.disliked_food)
+		if(FOOD_DISLIKED)
 			to_chat(human_eater,"<span class='notice'>That didn't taste very good...</span>")
 			human_eater.adjust_disgust(11 + 15 * fraction)
 			SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
-		else if(foodtypes & tongue.liked_food)
+		if(FOOD_LIKED)
 			to_chat(human_eater,"<span class='notice'>I love this taste!</span>")
 			human_eater.adjust_disgust(-5 + -2.5 * fraction)
 			SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "fav_food", /datum/mood_event/favorite_food)

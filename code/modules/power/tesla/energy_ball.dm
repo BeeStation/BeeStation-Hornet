@@ -11,6 +11,7 @@
 	appearance_flags = LONG_GLIDE
 	density = TRUE
 	plane = MASSIVE_OBJ_PLANE
+	zmm_flags = ZMM_WIDE_LOAD
 	light_range = 6
 	move_resist = INFINITY
 	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
@@ -69,7 +70,7 @@
 	for (var/ball in orbiting_balls)
 		if(TICK_CHECK)
 			return
-		var/range = rand(1, CLAMP(orbiting_balls.len, 3, 7))
+		var/range = rand(1, clamp(orbiting_balls.len, 3, 7))
 		//Miniballs don't explode.
 		tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TESLA_ENERGY_MINI_BALL_FLAGS)
 
@@ -150,8 +151,9 @@
 		var/mob/living/carbon/C = user
 		to_chat(C, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
 		var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in C.internal_organs
-		C.ghostize(0)
+		C.ghostize(FALSE)
 		qdel(rip_u)
+		C.investigate_log("had [C.p_their()] brain dusted by touching [src] with telekinesis.", INVESTIGATE_DEATHS)
 		C.death()
 
 /obj/anomaly/energy_ball/proc/dust_mobs(atom/A)
@@ -165,6 +167,7 @@
 		if(GR.anchored)
 			return
 	var/mob/living/carbon/C = A
+	C.investigate_log("has been dusted by an energy ball.", INVESTIGATE_DEATHS)
 	C.dust()
 
 //Less intensive energy ball for the orbiting ones.
@@ -292,7 +295,7 @@
 	//Alright, we've done our loop, now lets see if was anything interesting in range
 	if(closest_atom)
 		//common stuff
-		source.Beam(closest_atom, icon_state="lightning[rand(1,12)]", time=5, maxdistance = INFINITY)
+		source.Beam(closest_atom, icon_state="lightning[rand(1,12)]", time = 5)
 		if(!(tesla_flags & TESLA_ALLOW_DUPLICATES))
 			LAZYSET(shocked_targets, closest_atom, TRUE)
 		var/zapdir = get_dir(source, closest_atom)

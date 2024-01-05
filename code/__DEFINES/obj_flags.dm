@@ -9,11 +9,7 @@
 #define ON_BLUEPRINTS			(1<<5)  //! Are we visible on the station blueprints at roundstart?
 #define UNIQUE_RENAME			(1<<6)  //! can you customize the description/name of the thing?
 #define USES_TGUI				(1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
-#define BLOCK_Z_OUT_DOWN		(1<<8)  // Should this object block z falling from loc?
-#define BLOCK_Z_OUT_UP			(1<<9) // Should this object block z uprise from loc?
-#define BLOCK_Z_IN_DOWN			(1<<10) // Should this object block z falling from above?
-#define BLOCK_Z_IN_UP			(1<<11) // Should this object block z uprise from below?
-#define OBJ_EMPED				(1<<12) // Object is affected by EMP
+#define OBJ_EMPED				(1<<8)  //! Object is affected by EMP
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
@@ -35,6 +31,7 @@
 #define WAS_THROWN				(1<<14) //if the item was thrown and shouldn't have the drop_item animation applied
 #define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
 #define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
+#define ISCARVABLE			    (1<<17) //! Examine will not read out this item
 
 // Flags for the clothing_flags var on /obj/item/clothing
 

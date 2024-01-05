@@ -97,7 +97,7 @@
 	icon_door = "black"
 
 /obj/structure/closet/wardrobe/chaplain_black/PopulateContents()
-	new /obj/item/choice_beacon/holy(src)
+	new /obj/item/choice_beacon/radial/holy(src)
 	new /obj/item/clothing/accessory/pocketprotector/cosmetology(src)
 	new /obj/item/clothing/under/rank/civilian/chaplain(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
@@ -214,8 +214,8 @@
 		/obj/item/clothing/under/rank/medical/doctor/green = 1,
 		/obj/item/clothing/under/rank/medical/doctor/purple = 1,
 		/obj/item/clothing/under/rank/medical = 3,
-		/obj/item/clothing/suit/toggle/labcoat/med = 3,
-		/obj/item/clothing/suit/toggle/labcoat/med/paramedic = 3,
+		/obj/item/clothing/suit/toggle/labcoat = 3,
+		/obj/item/clothing/suit/toggle/labcoat/paramedic = 3,
 		/obj/item/clothing/shoes/sneakers/white = 3,
 		/obj/item/clothing/head/soft/paramedic = 3,
 		/obj/item/clothing/head/beret/med = 3)

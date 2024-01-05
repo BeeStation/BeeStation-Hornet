@@ -4,11 +4,13 @@
 	name = "Cultist"
 	roundend_category = "cultists"
 	antagpanel_category = "Cult"
+	ui_name = "AntagInfoBloodCult"
 	antag_moodlet = /datum/mood_event/cult
 	var/datum/action/innate/cult/comm/communion = new
 	var/datum/action/innate/cult/mastervote/vote = new
 	var/datum/action/innate/cult/blood_magic/magic = new
-	job_rank = ROLE_CULTIST
+	banning_key = ROLE_CULTIST
+	required_living_playtime = 4
 	var/ignore_implant = FALSE
 	var/give_equipment = FALSE
 	var/datum/team/cult/cult_team
@@ -50,7 +52,7 @@
 
 /datum/antagonist/cult/greet()
 	to_chat(owner, "<span class='userdanger'>You are a member of the cult!</span>")
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Cult",
 		"Use your ritual dagger to draw runes with your blood and expand your cult until you have enough influence to summon the great Nar'Sie!")
@@ -67,7 +69,6 @@
 
 	if(cult_team.blood_target && cult_team.blood_target_image && current.client)
 		current.client.images += cult_team.blood_target_image
-
 
 /datum/antagonist/cult/proc/equip_cultist(metal=TRUE)
 	var/mob/living/carbon/C = owner.current
@@ -140,7 +141,8 @@
 		H.eye_color = initial(H.eye_color)
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
 		REMOVE_TRAIT(H, CULT_EYES, null)
-		H.remove_overlay(HALO_LAYER)
+		if (H.remove_overlay(HALO_LAYER))
+			REMOVE_LUM_SOURCE(H, LUM_SOURCE_HOLY)
 		H.update_body()
 
 /datum/antagonist/cult/on_removal()
@@ -240,7 +242,8 @@
 		H.eye_color = initial(H.eye_color)
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
 		REMOVE_TRAIT(H, CULT_EYES, null)
-		H.remove_overlay(HALO_LAYER)
+		if (H.remove_overlay(HALO_LAYER))
+			REMOVE_LUM_SOURCE(H, LUM_SOURCE_HOLY)
 		H.update_body()
 
 /datum/team/cult
@@ -286,6 +289,7 @@
 				log_game("The blood cult was given halos at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(ascend), B.current), 200)
 		cult_ascendent = TRUE
+		set_dynamic_high_impact_event("cult has gained halos")
 
 
 /datum/team/cult/proc/rise(cultist)
@@ -301,7 +305,9 @@
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		var/istate = pick("halo1","halo2","halo3","halo4","halo5","halo6")
-		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
+		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER))
+		new_halo_overlay.overlays.Add(emissive_appearance('icons/effects/32x64.dmi', istate, CALCULATE_MOB_OVERLAY_LAYER(HALO_LAYER), 160))
+		ADD_LUM_SOURCE(H, LUM_SOURCE_HOLY)
 		H.overlays_standing[HALO_LAYER] = new_halo_overlay
 		H.apply_overlay(HALO_LAYER)
 
@@ -395,7 +401,7 @@
 	..()
 	var/sanity = 0
 	while(summon_spots.len < SUMMON_POSSIBILITIES && sanity < 100)
-		var/area/summon_area = pick(GLOB.sortedAreas - summon_spots)
+		var/area/summon_area = pick(GLOB.areas - summon_spots)
 		if(summon_area && is_station_level(summon_area.z) && (summon_area.area_flags & VALID_TERRITORY))
 			summon_spots += summon_area
 		sanity++
@@ -436,10 +442,7 @@
 		parts += "<b>The cultists' objectives were:</b>"
 		var/count = 1
 		for(var/datum/objective/objective in objectives)
-			if(objective.check_completion())
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-			else
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			parts += "<b>Objective #[count]</b>: [objective.get_completion_message()]"
 			count++
 
 	if(members.len)

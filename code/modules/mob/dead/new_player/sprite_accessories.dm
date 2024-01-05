@@ -51,6 +51,8 @@
 /datum/sprite_accessory
 	var/icon			//the icon file the accessory is located in
 	var/icon_state		//the icon_state of the accessory
+	var/emissive_state	//state of the emissive overlay
+	var/emissive_alpha = 255	//Alpha of the emissive
 	var/name			//the preview name of the accessory
 	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 	var/gender_specific //Something that can be worn by either gender, but looks different on each
@@ -74,6 +76,17 @@
 	// try to spell
 	// you do not need to define _s or _l sub-states, game automatically does this for you
 
+/// Don't move these two, they go first
+/datum/sprite_accessory/hair/bald
+	name = "Bald"
+	icon_state = null
+
+/datum/sprite_accessory/hair/bald2
+	name = "Bald 2"
+	icon_state = "hair_bald2"
+
+// --------
+
 /datum/sprite_accessory/hair/afro
 	name = "Afro"
 	icon_state = "hair_afro"
@@ -89,14 +102,6 @@
 /datum/sprite_accessory/hair/antenna
 	name = "Ahoge"
 	icon_state = "hair_antenna"
-
-/datum/sprite_accessory/hair/bald
-	name = "Bald"
-	icon_state = null
-
-/datum/sprite_accessory/hair/bald2
-	name = "Bald 2"
-	icon_state = "hair_bald2"
 
 /datum/sprite_accessory/hair/balding
 	name = "Balding Hair"
@@ -907,6 +912,12 @@
 
 // please make sure they're sorted alphabetically and categorized
 
+/// This one goes first. Don't move it
+/datum/sprite_accessory/facial_hair/shaved
+	name = "Shaved"
+	icon_state = null
+	gender = NEUTER
+
 /datum/sprite_accessory/facial_hair/eyebrows
 	name = "Eyebrows"
 	icon_state = "facial_eyebrows"
@@ -934,7 +945,6 @@
 /datum/sprite_accessory/facial_hair/croppedfullbeard
 	name = "Beard (Cropped Fullbeard)"
 	icon_state = "facial_croppedfullbeard"
-
 
 /datum/sprite_accessory/facial_hair/gt
 	name = "Beard (Goatee)"
@@ -1067,11 +1077,6 @@
 /datum/sprite_accessory/facial_hair/sideburn
 	name = "Sideburns"
 	icon_state = "facial_sideburn"
-
-/datum/sprite_accessory/facial_hair/shaved
-	name = "Shaved"
-	icon_state = null
-	gender = NEUTER
 
 ///////////////////////////
 // Underwear Definitions //
@@ -1848,19 +1853,21 @@
 
 /datum/sprite_accessory/wings/apid
 	name = "Bee"
+	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
 	icon_state = "apid"
 	color_src = 0
-	dimension_x = 46
+	dimension_x = 32
 	center = TRUE
-	dimension_y = 34
+	dimension_y = 32
 
 /datum/sprite_accessory/wings_open/apid
 	name = "Bee"
+	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
 	icon_state = "apid"
 	color_src = 0
-	dimension_x = 46
+	dimension_x = 32
 	center = TRUE
-	dimension_y = 34
+	dimension_y = 32
 
 /datum/sprite_accessory/wings/robot
 	name = "Robot"
@@ -2116,6 +2123,46 @@
 	name = "Snow"
 	icon_state = "snow"
 
+/datum/sprite_accessory/moth_wings/witchwing
+	name = "Witch Wing"
+	icon_state = "witchwing"
+
+/datum/sprite_accessory/moth_wingsopen/witchwing
+	name = "Witch Wing"
+	icon_state = "witchwing"
+
+/datum/sprite_accessory/moth_wings/plasmafire
+	name = "Plasmafire"
+	icon_state = "plasmafire"
+
+/datum/sprite_accessory/moth_wingsopen/plasmafire
+	name = "Plasmafire"
+	icon_state = "plasmafire"
+
+/datum/sprite_accessory/moth_wings/bluespace
+	name = "Bluespace"
+	icon_state = "bluespace"
+
+/datum/sprite_accessory/moth_wingsopen/bluespace
+	name = "Bluespace"
+	icon_state = "bluespace"
+
+/datum/sprite_accessory/moth_wings/brown
+	name = "Brown"
+	icon_state = "brown"
+
+/datum/sprite_accessory/moth_wingsopen/brown
+	name = "Brown"
+	icon_state = "brown"
+
+/datum/sprite_accessory/moth_wings/rosy
+	name = "Rosy"
+	icon_state = "rosy"
+
+/datum/sprite_accessory/moth_wingsopen/rosy
+	name = "Rosy"
+	icon_state = "rosy"
+
 /datum/sprite_accessory/moth_wings/angel
 	name = "Angel"
 	icon_state = "angel"
@@ -2199,6 +2246,26 @@
 	name = "Snow"
 	icon_state = "snow"
 
+/datum/sprite_accessory/moth_antennae/witchwing
+	name = "Witch Wing"
+	icon_state = "witchwing"
+
+/datum/sprite_accessory/moth_antennae/plasmafire
+	name = "Plasmafire"
+	icon_state = "plasmafire"
+
+/datum/sprite_accessory/moth_antennae/bluespace
+	name = "Bluespace"
+	icon_state = "bluespace"
+
+/datum/sprite_accessory/moth_antennae/brown
+	name = "Brown"
+	icon_state = "brown"
+
+/datum/sprite_accessory/moth_antennae/rosy
+	name = "Rosy"
+	icon_state = "rosy"
+
 /datum/sprite_accessory/moth_markings // the markings that moths can have. finally something other than the boring tan
 	icon = 'icons/mob/moth_markings.dmi'
 	color_src = null
@@ -2252,10 +2319,16 @@
 	name = "Moon Fly"
 	icon_state = "moonfly"
 
+/datum/sprite_accessory/moth_markings/witchwing
+	name = "Witch Wing"
+	icon_state = "witchwing"
+
 // IPC accessories.
 
 /datum/sprite_accessory/ipc_screens
 	icon = 'icons/mob/ipc_accessories.dmi'
+	emissive_state = "m_ipc_screen_emissive"
+	emissive_alpha = 60
 	color_src = EYECOLOR
 
 /datum/sprite_accessory/ipc_screens/blue
@@ -2401,7 +2474,7 @@
 
 /datum/sprite_accessory/ipc_antennas/none
 	name = "None"
-	icon_state = "None"
+	icon_state = "none"
 
 /datum/sprite_accessory/ipc_antennas/angled
 	name = "Angled"
@@ -2452,10 +2525,12 @@
 /datum/sprite_accessory/insect_type/fly
 	name = "Common Fly"
 	limbs_id = "fly"
+	gender_specific = FALSE
 
 /datum/sprite_accessory/insect_type/bee
 	name = "Hoverfly"
 	limbs_id = "bee"
+	gender_specific = TRUE
 
 /datum/sprite_accessory/ipc_chassis/mcgreyscale
 	name = "Morpheus Cyberkinetics (Custom)"
@@ -2497,6 +2572,52 @@
 /datum/sprite_accessory/ipc_chassis/zenghupharmaceuticals
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
+
+//Psyphoza caps
+
+/datum/sprite_accessory/psyphoza_cap
+	icon = 'icons/mob/psyphoza_caps.dmi'
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/psyphoza_cap/wide
+	name = "Portobello"
+	icon_state = "wide"
+
+/datum/sprite_accessory/psyphoza_cap/cup
+	name = "Chanterelle"
+	icon_state = "cup"
+
+/datum/sprite_accessory/psyphoza_cap/round
+	name = "Psilocybe"
+	icon_state = "round"
+
+/datum/sprite_accessory/psyphoza_cap/flat
+	name = "Pleurotus"
+	icon_state = "flat"
+
+/datum/sprite_accessory/psyphoza_cap/string
+	name = "Aseroe"
+	icon_state = "string"
+
+/datum/sprite_accessory/psyphoza_cap/fuzz
+	name = "Enoki"
+	icon_state = "fuzz"
+
+/datum/sprite_accessory/psyphoza_cap/rizz
+	name = "Verpa"
+	icon_state = "rizz"
+
+/datum/sprite_accessory/psyphoza_cap/brain
+	name = "Laetiporus"
+	icon_state = "brain"
+
+/datum/sprite_accessory/psyphoza_cap/crown
+	name = "Morel"
+	icon_state = "crown"
+
+/datum/sprite_accessory/psyphoza_cap/sponge
+	name = "Helvella"
+	icon_state = "sponge"
 
 //apids
 

@@ -85,6 +85,7 @@
 	gust.Grant(src)
 	small_sprite = new
 	small_sprite.Grant(src)
+	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/space_dragon/proc/living_revive(source)
 	SIGNAL_HANDLER
@@ -173,6 +174,23 @@
 	empty_contents()
 	. = ..()
 
+/mob/living/simple_animal/hostile/space_dragon/ex_act(severity, target, origin)
+	set waitfor = FALSE
+	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
+		return
+	// Deal with parent operations
+	contents_explosion(severity, target)
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
+	// Run bomb armour
+	var/bomb_armor = (100 - getarmor(null, BOMB)) / 100
+	switch (severity)
+		if (EXPLODE_DEVASTATE)
+			adjustBruteLoss(180 * bomb_armor)
+		if (EXPLODE_HEAVY)
+			adjustBruteLoss(80 * bomb_armor)
+		if(EXPLODE_LIGHT)
+			adjustBruteLoss(30 * bomb_armor)
+
 /**
   * Allows space dragon to choose its own name.
   *
@@ -195,7 +213,7 @@
   * If an invalid color is given, will re-prompt the dragon until a proper color is chosen.
   */
 /mob/living/simple_animal/hostile/space_dragon/proc/color_selection()
-	chosen_color = input(src,"What would you like your color to be?","Choose Your Color", COLOR_WHITE) as color|null
+	chosen_color = tgui_color_picker(src,"What would you like your color to be?","Choose Your Color", COLOR_WHITE)
 	if(!chosen_color) //redo proc until we get a color
 		to_chat(src, "<span class='warning'>Not a valid color, please try again.</span>")
 		color_selection()
@@ -418,9 +436,10 @@
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
 	var/message_a = say_quote(message)
-	var/rendered = "<font color=\"#44aaff\">Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></font>"
+	var/valid_span_class = "srt_radio carpspeak"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
-		rendered = "<span class='big'>[rendered]</span>"
+		valid_span_class += " big"
+	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && ("carp" in S.faction))
 			to_chat(S, rendered)

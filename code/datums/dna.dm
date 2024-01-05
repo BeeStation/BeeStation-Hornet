@@ -275,7 +275,7 @@
 	uni_identity = generate_uni_identity()
 	if(!skip_index) //I hate this
 		generate_dna_blocks()
-	features = random_features()
+	features = random_features(holder.gender)
 
 
 /datum/dna/stored //subtype used by brain mob's stored_dna
@@ -302,7 +302,7 @@
 
 	var/desired_size = GLOB.body_sizes[features["body_size"]]
 
-	if(desired_size == current_body_size)
+	if(desired_size == current_body_size || current_body_size == 0)
 		return
 
 	var/change_multiplier = desired_size / current_body_size
@@ -401,7 +401,7 @@
 /mob/living/carbon/proc/create_dna()
 	dna = new /datum/dna(src)
 	if(!dna.species)
-		var/rando_race = pick(GLOB.roundstart_races)
+		var/rando_race = pick(get_selectable_species())
 		dna.species = new rando_race()
 
 //proc used to update the mob's appearance after its dna UI has been changed
@@ -432,6 +432,10 @@
 		if(part.no_update)
 			continue
 		part.update_limb(dropping_limb = FALSE, source = src, is_creating = TRUE)
+	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
+	if(organ_eyes)
+		organ_eyes.eye_color = eye_color
+		organ_eyes.old_eye_color = eye_color
 	if(icon_update)
 		update_body()
 		update_hair()
@@ -464,7 +468,7 @@
 
 //Return the active mutation of a type if there is one
 /datum/dna/proc/get_mutation(A)
-	for(var/datum/mutation/HM as() in mutations)
+	for(var/datum/mutation/HM in mutations)
 		if(HM.type == A)
 			return HM
 
@@ -651,7 +655,7 @@
 				if(length(elligible_organs))
 					var/obj/item/organ/O = pick(elligible_organs)
 					O.Remove(src)
-					visible_message("<span class='danger'>[src] vomits up their [O.name]!</span>", "<span class='danger'>You vomit up your [O.name]!</span>") //no "vomit up your the heart"
+					visible_message("<span class='danger'>[src] vomits up [p_their()] [O.name]!</span>", "<span class='danger'>You vomit up your [O.name]!</span>") //no "vomit up your the heart"
 					O.forceMove(drop_location())
 					if(prob(20))
 						O.animate_atom_living()
@@ -661,11 +665,14 @@
 	else
 		switch(rand(0,5))
 			if(0)
+				investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
 				gib()
 			if(1)
+				investigate_log("has been dusted by DNA instability.", INVESTIGATE_DEATHS)
 				dust()
 
 			if(2)
+				investigate_log("has been killed by DNA instability.", INVESTIGATE_DEATHS)
 				death()
 				petrify(INFINITY)
 			if(3)
@@ -674,6 +681,7 @@
 					if(BP)
 						BP.dismember()
 					else
+						investigate_log("has been gibbed by DNA instability.", INVESTIGATE_DEATHS)
 						gib()
 				else
 					set_species(/datum/species/dullahan)

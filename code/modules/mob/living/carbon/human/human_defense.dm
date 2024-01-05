@@ -1,4 +1,4 @@
-/mob/living/carbon/human/getarmor(def_zone, type)
+/mob/living/carbon/human/getarmor(def_zone, type, penetration)
 	var/armorval = 0
 	var/organnum = 0
 
@@ -6,23 +6,35 @@
 		if(isbodypart(def_zone))
 			var/obj/item/bodypart/bp = def_zone
 			if(bp)
-				return checkarmor(def_zone, type)
+				return checkarmor(def_zone, type, penetration)
 		var/obj/item/bodypart/affecting = get_bodypart(check_zone(def_zone))
 		if(affecting)
-			return checkarmor(affecting, type)
+			return checkarmor(affecting, type, penetration)
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		armorval += checkarmor(BP, type)
+		armorval += checkarmor(BP, type, penetration)
 		organnum++
 	return (armorval/max(organnum, 1))
 
-
-/mob/living/carbon/human/proc/checkarmor(obj/item/bodypart/def_zone, d_type)
+/// Check the armour for a specified bodyzone and damagetype.
+/// Returns a value with 0 representing 0% protection and 100 representing 100% protection.
+/// 50 + 50 = (1 - (1 * 0.5 * 0.5) = 75%)
+/// 100 + 50 = (1 - (1 * 0 * 0.5) = 100%)
+/// 50 + (-50) = (1 - (1 * 0.5 * 1.5) = 25%)
+/// 100 + (-50) = (1 - (1 * 0 * 1.5) = 100%)
+/// -50 = (1 - (1 * 1.5) = -50%)
+/// Any armour that exceeds 100% protection will be clamped down to 100%
+/// Input armour values should never exceed 100%, or be at 100% as 100% represents
+/// full protection outside of armour penetration.
+/// The penetration value will affect the armour value for each individual armour peice directly,
+/// before it is clamped to 100%. This means that an armour of 130% with a penetration of 20% will become
+/// an armour value of 130 - (130 * 0.2) = 104% ~= 100%.
+/mob/living/carbon/human/proc/checkarmor(obj/item/bodypart/def_zone, d_type, penetration)
 	if(!d_type)
 		return 0
-	var/protection = 0
+	var/protection = 1
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, ears, wear_id, wear_neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)
@@ -30,17 +42,17 @@
 		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.get_armor_rating(d_type, src)
+				protection *= 1 - min((C.get_armor_rating(d_type, src) / 100) * (1 - (penetration / 100)), 1)
 
-	protection += physiology.armor.getRating(d_type)
-	return protection
+	protection *= 1 - CLAMP01(physiology.armor.getRating(d_type) / 100)
+	return (1 - protection) * 100
 
-/mob/living/carbon/human/on_hit(obj/item/projectile/P)
+/mob/living/carbon/human/on_hit(obj/projectile/P)
 	if(dna?.species)
 		dna.species.on_hit(P, src)
 
 
-/mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone, piercing_hit = FALSE)
+/mob/living/carbon/human/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
 	if(dna && dna.species)
 		var/spec_return = dna.species.bullet_act(P, src)
 		if(spec_return)
@@ -164,10 +176,10 @@
 
 	var/obj/item/bodypart/affecting
 	if(user == src)
-		affecting = get_bodypart(check_zone(user.zone_selected)) //stabbing yourself always hits the right target
+		affecting = get_bodypart(check_zone(user.get_combat_bodyzone(src))) //stabbing yourself always hits the right target
 	else
-		affecting = get_bodypart(ran_zone(user.zone_selected))
-	var/target_area = parse_zone(check_zone(user.zone_selected)) //our intended target
+		affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
+	var/target_area = parse_zone(check_zone(user.get_combat_bodyzone(src))) //our intended target
 	if(affecting)
 		if(I.force && I.damtype != STAMINA && (!IS_ORGANIC_LIMB(affecting))) // Bodpart_robotic sparks when hit, but only when it does real damage
 			if(I.force >= 5)
@@ -194,7 +206,7 @@
 		var/message = "[user] has [hulk_verb]ed [src]!"
 		visible_message("<span class='danger'>[message]</span>", \
 								"<span class='userdanger'>[message]</span>")
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.zone_selected))
+		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.get_combat_bodyzone(src)))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
 		var/armor_block = run_armor_check(affecting, MELEE,"","",10)
@@ -245,7 +257,7 @@
 		if(M.a_intent == INTENT_HARM)
 			if (w_uniform)
 				w_uniform.add_fingerprint(M)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
+			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			var/armor_block = run_armor_check(affecting, MELEE,"","",10)
@@ -254,7 +266,7 @@
 			visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
 				"<span class='userdanger'>[M] slashes at you!</span>")
 			log_combat(M, src, "attacked")
-			if(!dismembering_strike(M, M.zone_selected)) //Dismemberment successful
+			if(!dismembering_strike(M, M.get_combat_bodyzone(src))) //Dismemberment successful
 				return 1
 			apply_damage(20, BRUTE, affecting, armor_block)
 
@@ -262,7 +274,7 @@
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			Knockdown(20)
 			log_combat(M, src, "tackled")
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
+			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			var/armor_block = run_armor_check(affecting, MELEE,"","",10)
@@ -279,12 +291,26 @@
 			return 0
 		if(stat != DEAD)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.zone_selected))
+			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			var/armor_block = run_armor_check(affecting, MELEE)
 			apply_damage(damage, BRUTE, affecting, armor_block)
 
+/mob/living/carbon/human/attack_basic_mob(mob/living/basic/user)
+	. = ..()
+	if(!.)
+		return
+	if(check_shields(user, user.melee_damage, "the [user.name]", MELEE_ATTACK, user.armour_penetration))
+		return FALSE
+	var/dam_zone = dismembering_strike(user, pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+	if(!dam_zone) //Dismemberment successful
+		return TRUE
+	var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
+	if(!affecting)
+		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
+	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -386,6 +412,7 @@
 							SSexplosions.med_mov_atom += thing
 						if(EXPLODE_LIGHT)
 							SSexplosions.low_mov_atom += thing
+				investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 				gib()
 				return
 			else
@@ -644,23 +671,19 @@
 		I.acid_act(acidpwr, acid_volume)
 	return 1
 
+///The point value is how much they affect the singularity's size
 /mob/living/carbon/human/singularity_act()
-	var/gain = 20
-
+	. = 20
 
 	if (client)
 		client.give_award(/datum/award/achievement/misc/singularity_death, client.mob)
 
-
 	if(mind)
 		if((mind.assigned_role == JOB_NAME_STATIONENGINEER) || (mind.assigned_role == JOB_NAME_CHIEFENGINEER) )
-			gain = 100
+			. = 100
 		if(mind.assigned_role == JOB_NAME_CLOWN)
-			gain = rand(-1000, 1000)
-	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
-	gib()
-
-	return(gain)
+			. = rand(-1000, 1000)
+	..()
 
 /mob/living/carbon/human/help_shake_act(mob/living/carbon/M)
 	if(!istype(M))

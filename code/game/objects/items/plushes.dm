@@ -473,8 +473,16 @@
 	icon_state = "narplush"
 	divine = TRUE
 	var/clashing
-	var/is_invoker = TRUE
+	var/invoker_charges = 2
 	gender = FEMALE	//it's canon if the toy is
+
+/obj/item/toy/plush/narplush/examine(mob/user)
+	. = ..()
+	if(invoker_charges == 0)
+		. += "<span class='notice'>She looks tired.</span>"
+		return
+	if(IS_CULTIST(user))
+		. += "<span class='warning'>She has [invoker_charges] [invoker_charges == 1 ? "charge" : "charges"] left!</span>"
 
 /obj/item/toy/plush/narplush/Moved()
 	. = ..()
@@ -483,8 +491,7 @@
 		P.clash_of_the_plushies(src)
 
 /obj/item/toy/plush/narplush/hugbox
-	desc = "A small stuffed doll of the elder goddess Nar'Sie. Who thought this was a good children's toy? <b>It looks sad.</b>"
-	is_invoker = FALSE
+	invoker_charges = 0
 
 /obj/item/toy/plush/lizardplushie
 	name = "lizard plushie"
@@ -655,6 +662,31 @@
 	name = "moonfly moth plushie"
 	desc = "An adorable mothperson plushy. It's a nightly bug!"
 	icon_state = "moffplush_moonfly"
+
+/obj/item/toy/plush/moth/witchwing
+	name = "witchwing moth plushie"
+	desc = "An adorable mothperson plushy. It's an enchanted bug!"
+	icon_state = "moffplush_witchwing"
+
+/obj/item/toy/plush/moth/bluespace
+	name = "bluespace moth plushie"
+	desc = "An adorable mothperson plushy. It's a teleporting bug!"
+	icon_state = "moffplush_bluespace"
+
+/obj/item/toy/plush/moth/plasmafire
+	name = "plasmafire moth plushie"
+	desc = "An adorable mothperson plushy. It's a plasma bug!"
+	icon_state = "moffplush_plasmafire"
+
+/obj/item/toy/plush/moth/brown
+	name = "brown moth plushie"
+	desc = "An adorable mothperson plushy. It's a brown bug!"
+	icon_state = "moffplush_brown"
+
+/obj/item/toy/plush/moth/rosy
+	name = "rosy moth plushie"
+	desc = "An adorable mothperson plushy. It's a cute bug!"
+	icon_state = "moffplush_rosy"
 
 /obj/item/toy/plush/moth/error
 	name = "error moth plushie"

@@ -1,5 +1,6 @@
 /turf/open
 	plane = FLOOR_PLANE
+	can_hit = FALSE
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1.5\
 	)
@@ -23,7 +24,7 @@
 /turf/open/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_IN_DOWN)
+			if(O.z_flags & Z_BLOCK_IN_DOWN)
 				return FALSE
 		return TRUE
 	return FALSE
@@ -32,7 +33,7 @@
 /turf/open/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
 	if(direction == UP)
 		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_OUT_UP)
+			if(O.z_flags & Z_BLOCK_OUT_UP)
 				return FALSE
 		return TRUE
 	return FALSE
@@ -54,13 +55,11 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = TRUE
+	resistance_flags = INDESTRUCTIBLE
 
 /turf/open/indestructible/Melt()
 	to_be_destroyed = FALSE
 	return src
-
-/turf/open/indestructible/singularity_act()
-	return
 
 /turf/open/indestructible/TerraformTurf(path, new_baseturf, flags, defer_change = FALSE, ignore_air = FALSE)
 	return
@@ -147,6 +146,7 @@
 	icon_state = "bluespace"
 	baseturfs = /turf/open/indestructible/airblock
 	CanAtmosPass = ATMOS_PASS_NO
+	init_air = FALSE
 
 /turf/open/Initalize_Atmos(times_fired)
 	if(!istype(air, /datum/gas_mixture/turf))
@@ -173,7 +173,7 @@
 	for(var/obj/I in contents)
 		if(!HAS_TRAIT(I, TRAIT_FROZEN) && !(I.obj_flags & FREEZE_PROOF))
 			I.AddElement(/datum/element/frozen)
-			
+
 	for(var/mob/living/L in contents)
 		if(L.bodytemperature <= 50)
 			L.apply_status_effect(/datum/status_effect/freon)

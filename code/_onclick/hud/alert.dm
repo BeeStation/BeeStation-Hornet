@@ -303,7 +303,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	add_overlay(receiving)
 	src.receiving = receiving
 	src.offerer = offerer
-	src.offerer = offerer
+	src.taker = taker
 	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, PROC_REF(check_in_range))
 
 /atom/movable/screen/alert/give/Click(location, control, params)
@@ -314,7 +314,10 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /// An overrideable proc used simply to hand over the item when claimed, this is a proc so that high-fives can override them since nothing is actually transferred
 /atom/movable/screen/alert/give/proc/handle_transfer()
-	var/mob/living/carbon/taker = owner
+	var/mob/living/carbon/taker = owner || src.taker
+	if(!taker)
+		qdel(src)
+		return
 	taker.take(offerer, receiving)
 
 /// Simply checks if the other person is still in range
@@ -495,23 +498,14 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 //GUARDIANS
 
-/atom/movable/screen/alert/cancharge
-	name = "Charge Ready"
-	desc = "You are ready to charge at a location!"
-	icon_state = "guardian_charge"
+/atom/movable/screen/alert/holoparasite
+	icon = 'icons/mob/holoparasite.dmi'
 	alerttooltipstyle = "parasite"
 
-/atom/movable/screen/alert/canstealth
-	name = "Stealth Ready"
-	desc = "You are ready to enter stealth!"
-	icon_state = "guardian_canstealth"
-	alerttooltipstyle = "parasite"
-
-/atom/movable/screen/alert/instealth
-	name = "In Stealth"
-	desc = "You are in stealth and your next attack will do bonus damage!"
-	icon_state = "guardian_instealth"
-	alerttooltipstyle = "parasite"
+/atom/movable/screen/alert/holoparasite/anchored
+	name = "Anchored"
+	desc = "You are anchored to your summoner, and will remain behind them until you manually move!"
+	icon_state = "anchored"
 
 //SILICONS
 
@@ -629,7 +623,7 @@ so as to remain in compliance with the most up-to-date laws."
 		if(NOTIFY_ATTACK)
 			target.attack_ghost(ghost_owner)
 		if(NOTIFY_ORBIT)
-			ghost_owner.ManualFollow(target)
+			ghost_owner.check_orbitable(target)
 
 //OBJECT-BASED
 
@@ -704,8 +698,8 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)
 		return
-	var/paramslist = params2list(params)
-	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
 		return
 	if(usr != owner)

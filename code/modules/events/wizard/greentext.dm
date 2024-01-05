@@ -34,7 +34,7 @@
 
 /obj/item/greentext/Initialize(mapload)
 	. = ..()
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	roundend_callback = CALLBACK(src,PROC_REF(check_winner))
 	SSticker.OnRoundend(roundend_callback)
 
@@ -85,7 +85,6 @@
 
 	LAZYREMOVE(SSticker.round_end_events, roundend_callback)
 	roundend_callback = null //This ought to free the callback datum, and prevent us from harddeling
-	GLOB.poi_list.Remove(src)
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
 		var/message = "<span class='warning'>A dark temptation has passed from this world"

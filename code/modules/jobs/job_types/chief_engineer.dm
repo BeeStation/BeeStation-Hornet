@@ -1,7 +1,9 @@
 /datum/job/chief_engineer
 	title = JOB_NAME_CHIEFENGINEER
 	flag = CHIEF
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
+	description = "Oversee the engineers and atmospheric technicians, keep a watchful eye on the station's engine, gravity generator, and telecomms. Send your staff to repair hull breaches and damaged equipment as necessary."
+	department_for_prefs = DEPT_BITFLAG_ENG
+	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Engineering")
@@ -41,6 +43,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chief_engineer
 	)
 
+	minimal_lightup_areas = list(/area/crew_quarters/heads/chief, /area/engine/atmos)
+
 /datum/outfit/job/chief_engineer
 	name = JOB_NAME_CHIEFENGINEER
 	jobtype = /datum/job/chief_engineer
@@ -58,7 +62,7 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
-	box = /obj/item/storage/box/engineer
+	box = /obj/item/storage/box/survival/engineer
 	pda_slot = ITEM_SLOT_LPOCKET
 	chameleon_extras = /obj/item/stamp/chief_engineer
 

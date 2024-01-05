@@ -9,7 +9,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
-	materials = list(/datum/material/iron=10000, /datum/material/glass=2500)
+	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=2500)
 
 	var/on = TRUE
 	var/code = 2
@@ -24,9 +24,9 @@
 	SSradio.remove_object(src, frequency)
 	return ..()
 
-/obj/item/electropack/suicide_act(mob/user)
+/obj/item/electropack/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] hooks [user.p_them()]self to the electropack and spams the trigger! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (FIRELOSS)
+	return FIRELOSS
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/electropack/attack_hand(mob/user)

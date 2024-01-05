@@ -105,7 +105,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/hilbertshotel/proc/sendToNewRoom(var/roomNumber, var/mob/user)
     var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
-    var/datum/map_generator/placer
+    var/datum/async_map_generator/placer
     if(ruinSpawned)
         mysteryRoom = GLOB.hhmysteryRoomNumber
         if(roomNumber == mysteryRoom)
@@ -496,6 +496,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	back = /obj/item/storage/backpack/satchel/leather
 	suit = /obj/item/clothing/suit/toggle/labcoat
 	use_cooldown = TRUE
+	banType = ROLE_HOTEL_STAFF
 
 /obj/item/paper/crumpled/docslogs
 	name = "Research Logs"

@@ -56,7 +56,7 @@
 
 /obj/item/organ/cyberimp/chest/reviver/on_life()
 	if(reviving)
-		if(owner.stat == UNCONSCIOUS)
+		if(owner.stat)
 			addtimer(CALLBACK(src, PROC_REF(heal)), 30)
 		else
 			cooldown = revive_cost + world.time
@@ -66,7 +66,7 @@
 
 	if(cooldown > world.time)
 		return
-	if(owner.stat != UNCONSCIOUS)
+	if(!owner.stat)
 		return
 	if(owner.suiciding)
 		return
@@ -123,6 +123,7 @@
 	Unlike regular jetpacks, this device has no stabilization system."
 	slot = ORGAN_SLOT_THRUSTERS
 	icon_state = "imp_jetpack"
+	base_icon_state = "imp_jetpack"
 	implant_overlay = null
 	implant_color = null
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
@@ -130,13 +131,13 @@
 	var/on = FALSE
 	var/datum/effect_system/trail_follow/ion/ion_trail
 
-/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/cyberimp/chest/thrusters/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	if(!ion_trail)
 		ion_trail = new
 	ion_trail.set_up(M)
 
-/obj/item/organ/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/cyberimp/chest/thrusters/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(on)
 		toggle(silent = TRUE)
 	..()
@@ -154,7 +155,7 @@
 		if(allow_thrust(THRUST_REQUIREMENT_SPACEMOVE))
 			ion_trail.start()
 			RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
-			owner.add_movespeed_modifier(MOVESPEED_ID_CYBER_THRUSTER, priority=100, multiplicative_slowdown=-2, movetypes=FLOATING, conflict=MOVE_CONFLICT_JETPACK)
+			JETPACK_SPEED_CHECK(owner, MOVESPEED_ID_CYBER_THRUSTER, -1, TRUE)
 			if(!silent)
 				to_chat(owner, "<span class='notice'>You turn your thrusters set on.</span>")
 	else
@@ -166,14 +167,9 @@
 		on = FALSE
 	update_icon()
 
-/obj/item/organ/cyberimp/chest/thrusters/update_icon()
-	if(on)
-		icon_state = "imp_jetpack-on"
-	else
-		icon_state = "imp_jetpack"
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+/obj/item/organ/cyberimp/chest/thrusters/update_icon_state()
+	icon_state = "[base_icon_state][on ? "-on" : null]"
+	return ..()
 
 /obj/item/organ/cyberimp/chest/thrusters/proc/move_react()
 	SIGNAL_HANDLER

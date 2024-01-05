@@ -43,6 +43,11 @@
 	mine_type = /obj/effect/mine/explosive/traitor
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/deployablemine/traitor/toy
+	name = "toy rubber ducky mine"
+	desc = "A rubber duck with a flash inside of it. Plant it on the floor to arm it. Will only work once!"
+	mine_type = /obj/effect/mine/explosive/traitor/toy
+
 /obj/item/deployablemine/traitor/bigboom
 	name = "high yield exploding rubber duck"
 	desc = "A pressure activated explosive disguised as a rubber duck. Plant it to arm. This version is fitted with high yield X4 for a larger blast."
@@ -141,7 +146,7 @@
 		else
 			triggered = 1
 			triggermine(target)
-					
+
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	visible_message("<span class='danger'>[victim] sets off [icon2html(src, viewers(src))] [src]!</span>")
@@ -173,7 +178,7 @@
 	range_heavy = 2
 	range_light = 3
 	range_flash = 4
-	disarm_time = 400
+	disarm_time = 40 SECONDS
 	disarm_product = /obj/item/deployablemine/traitor
 
 /obj/effect/mine/explosive/traitor/bigboom
@@ -185,6 +190,18 @@
 
 /obj/effect/mine/explosive/mineEffect(mob/victim)
 	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
+
+/obj/effect/mine/explosive/traitor/toy
+	disarm_time = 2 SECONDS
+	disarm_product = /obj/item/deployablemine/traitor/toy
+
+/obj/effect/mine/explosive/traitor/toy/mineEffect(mob/victim)
+	if(isliving(victim))
+		var/mob/living/honked = victim
+		honked.flash_act()
+		var/obj/item/assembly/flash/handheld/burnt_out = new(loc)
+		new /obj/item/bikehorn/rubberducky(loc)
+		burnt_out.burn_out()
 
 /obj/effect/mine/stun
 	name = "stun mine"
@@ -220,7 +237,7 @@
 
 /obj/effect/mine/shrapnel
 	name = "shrapnel mine"
-	var/shrapnel_type = /obj/item/projectile/bullet/shrapnel
+	var/shrapnel_type = /obj/projectile/bullet/shrapnel
 	var/shrapnel_magnitude = 3
 
 /obj/effect/mine/shrapnel/mineEffect(mob/victim)
@@ -228,7 +245,7 @@
 
 /obj/effect/mine/shrapnel/sting
 	name = "stinger mine"
-	shrapnel_type = /obj/item/projectile/bullet/pellet/stingball
+	shrapnel_type = /obj/projectile/bullet/pellet/stingball
 
 /obj/effect/mine/kickmine
 	name = "kick mine"

@@ -14,6 +14,7 @@
 
 	var/list/speak = list()
 	var/list/speak_emote = list()//	Emotes while speaking IE: Ian [emote], [text] -- Ian barks, "WOOF!". Spoken text is generated from the speak variable.
+	var/speak_language = /datum/language/common // set this to a desired language path when list/speak should be spoken in a specific language. Dog barking / cat meowing / rat squeak would need to be metalanguage.
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
 	var/list/emote_see = list()		//Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
@@ -140,14 +141,14 @@
 		..()
 
 /mob/living/simple_animal/updatehealth()
-	..()
-	health = CLAMP(health, 0, maxHealth)
+	. = ..()
+	health = clamp(health, 0, maxHealth)
 	update_health_hud()
 
 /mob/living/simple_animal/update_health_hud()
 	if(!hud_used)
 		return
-	var/severity = 5 - CLAMP(FLOOR((health / maxHealth) * 5, 1), 0, 5)
+	var/severity = 5 - clamp(FLOOR((health / maxHealth) * 5, 1), 0, 5)
 	if(severity > 0)
 		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 	else
@@ -199,7 +200,7 @@
 						length += emote_see.len
 					var/randomValue = rand(1,length)
 					if(randomValue <= speak.len)
-						say(pick(speak), forced = "simple_animal")
+						say(pick(speak), language = speak_language, forced = "simple_animal")
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
@@ -207,7 +208,7 @@
 						else
 							emote("me [pick(emote_hear)]", 2)
 				else
-					say(pick(speak), forced = "simple_animal")
+					say(pick(speak), language = speak_language, forced = "simple_animal")
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					emote("me", 1, pick(emote_see))
@@ -461,8 +462,15 @@
 	else
 		..()
 
+/mob/living/simple_animal/update_resting()
+	if(resting)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	return ..()
+
 /mob/living/simple_animal/update_mobility(value_otherwise = TRUE)
-	if(IsUnconscious() || IsParalyzed() || IsStun() || IsKnockdown() || stat || resting)
+	if(HAS_TRAIT_NOT_FROM(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT))
 		drop_all_held_items()
 		mobility_flags = NONE
 	else if(buckled || IsImmobilized())
@@ -489,6 +497,7 @@
 
 	if(changed)
 		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT)
+	UPDATE_OO_IF_PRESENT
 
 /mob/living/simple_animal/proc/sentience_act(mob/user) //Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF) // To prevent any weirdness.
@@ -506,6 +515,14 @@
 	see_invisible = initial(see_invisible)
 	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
+
+	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
+		sight |= (SEE_MOBS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_in_dark = max(see_in_dark, 8)
 
 	if(client.eye != src)
 		var/atom/A = client.eye
@@ -632,3 +649,8 @@
 	if (AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
 		toggle_ai(initial(AIStatus))
+
+/mob/living/simple_animal/give_mind(mob/user)
+	. = ..()
+	if(.)
+		sentience_act(user)

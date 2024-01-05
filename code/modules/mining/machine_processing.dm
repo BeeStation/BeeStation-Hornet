@@ -24,7 +24,7 @@
 /obj/machinery/mineral/proc/register_input_turf()
 	input_turf = get_step(src, input_dir)
 	if(input_turf) // make sure there is actually a turf
-		RegisterSignal(input_turf, list(COMSIG_ATOM_CREATED, COMSIG_ATOM_ENTERED), PROC_REF(pickup_item))
+		RegisterSignals(input_turf, list(COMSIG_ATOM_CREATED, COMSIG_ATOM_ENTERED), PROC_REF(pickup_item))
 
 /// Unregisters signals that are registered the machine's input turf, if it has one.
 /obj/machinery/mineral/proc/unregister_input_turf()
@@ -155,11 +155,25 @@
 			machine.toggle_auto_shutdown()
 
 		if("set_smelt_amount")
-			machine.smelt_amount_limit = CLAMP(text2num(params["amount"]), 1, 100)
+			machine.smelt_amount_limit = clamp(text2num(params["amount"]), 1, 100)
 
 /obj/machinery/mineral/processing_unit_console/Destroy()
 	machine.console = null
 	return ..()
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
+	if(istype(buffer, /obj/machinery/mineral/processing_unit))
+		if(get_area(buffer) != get_area(src))
+			to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. %-</font color>")
+			return NONE
+		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
+		machine = buffer
+		machine.console = src
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
+	return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/mineral/processing_unit_console/attackby(obj/item/W, mob/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
@@ -169,23 +183,6 @@
 		return
 
 	if(default_deconstruction_crowbar(W))
-		return
-
-	if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, W))
-			return
-		var/obj/item/multitool/P = W
-
-		if(istype(P.buffer, /obj/machinery/mineral/processing_unit))
-			if(get_area(P.buffer) != get_area(src))
-				to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. %-</font color>")
-				return
-			to_chat(user, "<font color = #666633>-% Successfully linked [P.buffer] with [src] %-</font color>")
-			machine = P.buffer
-			machine.console = src
-		else
-			P.buffer = src
-			to_chat(user, "<font color = #666633>-% Successfully stored [REF(P.buffer)] [P.buffer.name] in buffer %-</font color>")
 		return
 
 	return ..()
@@ -223,7 +220,7 @@
 	proximity_monitor = new(src, 1)
 	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/gold, /datum/material/diamond, /datum/material/plasma, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace), INFINITY, TRUE, /obj/item/stack)
 	stored_research = new /datum/techweb/specialized/autounlocking/smelter
-	selected_material = getmaterialref(/datum/material/iron)
+	selected_material = SSmaterials.GetMaterialRef(/datum/material/iron)
 
 /obj/machinery/mineral/processing_unit/Destroy()
 	if(console)
@@ -263,25 +260,22 @@
 	if(default_deconstruction_crowbar(W))
 		return
 
-	if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, W))
-			return
-		var/obj/item/multitool/P = W
-
-		if(istype(P.buffer, /obj/machinery/mineral/processing_unit_console))
-			if(get_area(P.buffer) != get_area(src))
-				to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. %-</font color>")
-				return
-			to_chat(user, "<font color = #666633>-% Successfully linked [P.buffer] with [src] %-</font color>")
-			console = P.buffer
-			console.machine = src
-		else
-			P.buffer = src
-			to_chat(user, "<font color = #666633>-% Successfully stored [REF(P.buffer)] [P.buffer.name] in buffer %-</font color>")
-		return
-
 	return ..()
 
+REGISTER_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit)
+	if(istype(buffer, /obj/machinery/mineral/processing_unit_console))
+		if(get_area(buffer) != get_area(src))
+			to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. %-</font color>")
+			return NONE
+		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
+		console = buffer
+		console.machine = src
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
+	return COMPONENT_BUFFER_RECIEVED
+c
 /obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/stack/ore/O)
 	if(QDELETED(O))
 		return

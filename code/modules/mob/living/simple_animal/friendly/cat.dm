@@ -9,6 +9,7 @@
 	gender = MALE
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("purrs", "meows")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("meows.", "mews.")
 	emote_see = list("shakes its head.", "shivers.")
 	speak_chance = 1
@@ -23,7 +24,7 @@
 	unsuitable_atmos_damage = 1
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/organ/tongue/cat = 1)
+	butcher_results = list(/obj/item/food/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/organ/tongue/cat = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -261,7 +262,7 @@
 	maxHealth = 50
 	gender = FEMALE
 	butcher_results = list(/obj/item/organ/brain = 1, /obj/item/organ/heart = 1, /obj/item/food/cakeslice/birthday = 3,  \
-	/obj/item/reagent_containers/food/snacks/meat/slab = 2)
+	/obj/item/food/meat/slab = 2)
 	response_harm = "takes a bite out of"
 	attacked_sound = 'sound/items/eatfood.ogg'
 	deathmessage = "loses its false life and collapses!"
@@ -292,7 +293,7 @@
 /mob/living/simple_animal/pet/cat/cak/Move()
 	. = ..()
 	if(. && !stat)
-		for(var/obj/item/reagent_containers/food/snacks/donut/D in get_turf(src)) //Frosts nearby donuts!
+		for(var/obj/item/food/donut/D in get_turf(src)) //Frosts nearby donuts!
 			if(!D.is_decorated)
 				D.decorate_donut()
 
@@ -311,7 +312,7 @@
 	icon_dead = "breadcat_dead"
 	collar_type = null
 	held_state = "breadcat"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/organ/tongue/cat = 1, /obj/item/food/breadslice/plain = 1)
+	butcher_results = list(/obj/item/food/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/organ/tongue/cat = 1, /obj/item/food/breadslice/plain = 1)
 
 /mob/living/simple_animal/pet/cat/halal
 	name = "arabian cat"

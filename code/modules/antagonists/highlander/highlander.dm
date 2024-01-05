@@ -5,6 +5,7 @@
 	show_name_in_check_antagonists = TRUE
 	can_elimination_hijack = ELIMINATION_ENABLED
 	count_against_dynamic_roll_chance = FALSE
+	banning_key = BAN_ROLE_ALL_ANTAGONISTS
 
 /datum/antagonist/highlander/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = owner.current || mob_override

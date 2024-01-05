@@ -4,7 +4,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-old"
 	density = TRUE
-	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	move_resist = INFINITY
 	opacity = FALSE
 	anchored = TRUE
@@ -270,7 +270,7 @@
 	use_stored_power(50)
 
 /obj/machinery/shieldwallgen/proc/use_stored_power(amount)
-	power = CLAMP(power - amount, 0, maximum_stored_power)
+	power = clamp(power - amount, 0, maximum_stored_power)
 	update_activity()
 
 /obj/machinery/shieldwallgen/proc/update_activity()
@@ -409,7 +409,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shieldwall"
 	density = TRUE
-	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 3
 	var/needs_power = FALSE
@@ -425,6 +425,7 @@
 		setDir(get_dir(gen_primary, gen_secondary))
 	for(var/mob/living/L in get_turf(src))
 		visible_message("<span class='danger'>\The [src] is suddenly occupying the same space as \the [L]!</span>")
+		L.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
 		L.gib()
 	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, PROC_REF(block_singularity))
 
@@ -469,5 +470,5 @@
 	if(istype(mover) && (mover.pass_flags & PASSTRANSPARENT))
 		return prob(20)
 	else
-		if(istype(mover, /obj/item/projectile))
+		if(istype(mover, /obj/projectile))
 			return prob(10)

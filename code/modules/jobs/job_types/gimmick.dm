@@ -1,6 +1,9 @@
 /datum/job/gimmick //gimmick var must be set to true for all gimmick jobs BUT the parent
 	title = JOB_NAME_GIMMICK
 	flag = GIMMICK
+	description = "Use your unique position to provide a service or entertain the crew."
+	department_for_prefs = DEPT_BITFLAG_ASSISTANT
+	show_in_prefs = TRUE
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
@@ -23,15 +26,18 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
 	)
+
 /datum/outfit/job/gimmick
 	can_be_admin_equipped = FALSE // we want just the parent outfit to be unequippable since this leads to problems
 
 /datum/job/gimmick/barber
 	title = JOB_NAME_BARBER
 	flag = BARBER
+	description = "Give the crew haircuts using the variety of tools at your disposal, and provide less professional and cosmetic surgeries."
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	gimmick = TRUE
+	show_in_prefs = FALSE
 
 	outfit = /datum/outfit/job/gimmick/barber
 
@@ -44,6 +50,9 @@
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
 
 	rpg_title = "Scissorhands"
+
+	minimal_lightup_areas = list(/area/medical/morgue)
+
 /datum/outfit/job/gimmick/barber
 	name = JOB_NAME_BARBER
 	jobtype = /datum/job/gimmick/barber
@@ -59,9 +68,11 @@
 /datum/job/gimmick/stage_magician
 	title = JOB_NAME_STAGEMAGICIAN
 	flag = MAGICIAN
+	description = "Use your special tools to provide entertainment for the crew, show them than you can do more than simple parlor magic tricks."
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	gimmick = TRUE
+	show_in_prefs = FALSE
 
 	outfit = /datum/outfit/job/gimmick/stage_magician
 
@@ -77,6 +88,9 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/magic
 	)
+
+	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+
 /datum/outfit/job/gimmick/stage_magician
 	name = JOB_NAME_STAGEMAGICIAN
 	jobtype = /datum/job/gimmick/stage_magician
@@ -89,15 +103,17 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/white
 	l_hand = /obj/item/cane
-	backpack_contents = list(/obj/item/choice_beacon/magic=1)
+	backpack_contents = list(/obj/item/choice_beacon/radial/magic=1)
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/psychiatrist
 	title = JOB_NAME_PSYCHIATRIST
 	flag = PSYCHIATRIST
+	description = "Provide therapy to the crew through talk sessions, psychoactive drugs, and careful consideration of their thoughts and feelings. Provide mental evaluations for Security."
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	gimmick = TRUE
+	show_in_prefs = FALSE
 
 	outfit = /datum/outfit/job/gimmick/psychiatrist
 
@@ -111,6 +127,7 @@
 	mind_traits = list(TRAIT_MADNESS_IMMUNE, TRAIT_MEDICAL_METABOLISM)
 
 	rpg_title = "Enchanter"
+
 /datum/outfit/job/gimmick/psychiatrist //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
 	name = JOB_NAME_PSYCHIATRIST
 	jobtype = /datum/job/gimmick/psychiatrist
@@ -125,7 +142,9 @@
 /datum/job/gimmick/vip
 	title = JOB_NAME_VIP
 	flag = CELEBRITY
+	description = "Flaunt around your wealth, organize posh parties and other high life activities with your near-bottomless budget."
 	gimmick = TRUE
+	show_in_prefs = FALSE
 
 	outfit = /datum/outfit/job/gimmick/vip
 
@@ -141,6 +160,7 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/vip
 	)
+
 /datum/outfit/job/gimmick/vip
 	name = JOB_NAME_VIP
 	jobtype = /datum/job/gimmick/vip

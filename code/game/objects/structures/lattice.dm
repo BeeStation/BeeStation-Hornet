@@ -6,7 +6,7 @@
 	base_icon_state = "lattice"
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
-	canSmoothWith = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE)
+	canSmoothWith = list(SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_LATTICE)
 	density = FALSE
 	anchored = TRUE
 	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 0)
@@ -15,7 +15,7 @@
 	plane = FLOOR_PLANE
 	var/number_of_rods = 1
 	//	flags = CONDUCT_1
-	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN
+	z_flags = Z_BLOCK_OUT_DOWN
 
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
@@ -54,14 +54,15 @@
 /obj/structure/lattice/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if(the_rcd.mode == RCD_FLOORWALL)
 		return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 1)
+	return FALSE
 
 /obj/structure/lattice/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
-	if(passed_mode == RCD_FLOORWALL)
+	if(passed_mode == RCD_FLOORWALL && isspaceturf(src.loc)) // Don't want it trying to place a tile over in-station catwalks.
 		to_chat(user, "<span class='notice'>You build a floor.</span>")
+		log_attack("[key_name(user)] has constructed a floor over space at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 		var/turf/T = src.loc
-		if(isspaceturf(T))
-			T.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-			return TRUE
+		T.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		return TRUE
 	return FALSE
 
 /obj/structure/lattice/singularity_pull(S, current_size)

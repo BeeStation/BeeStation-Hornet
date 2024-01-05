@@ -15,6 +15,7 @@
     "skipLibCheck": true,
     "strict": false,
     "target": "ES3",
+    "strictNullChecks": true,
     "baseUrl": "./packages"
   },
   "include": ["*.d.ts", "packages"]

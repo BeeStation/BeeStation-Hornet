@@ -15,8 +15,7 @@ export const handleComponentMount = function (this: Modal) {
   Byond.subscribeTo('open', (data) => {
     const channel = CHANNELS.indexOf(data.channel) || 0;
     this.setState({
-      buttonContent:
-        RADIO_PREFIXES[this.fields.radioPrefix]?.label || CHANNELS[channel],
+      buttonContent: RADIO_PREFIXES[this.fields.radioPrefix]?.label || CHANNELS[channel],
       channel,
     });
     setTimeout(() => {

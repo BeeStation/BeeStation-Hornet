@@ -130,7 +130,7 @@
 			borgo.toggle_ionpulse()
 
 		if("lampIntensity")
-			borgo.lamp_intensity = CLAMP(text2num(params["ref"]), 1, 5)
+			borgo.lamp_intensity = clamp(text2num(params["ref"]), 1, 5)
 			borgo.toggle_headlamp(FALSE, TRUE)
 
 		if("selfDestruct")
@@ -149,4 +149,4 @@
 	if(tablet)
 		var/datum/tgui/active_ui = SStgui.get_open_ui(tablet.borgo, src)
 		if(active_ui)
-			active_ui.send_full_update()
+			active_ui.send_full_update(bypass_cooldown = TRUE)

@@ -45,6 +45,9 @@
 
 	light_color = LIGHT_COLOR_PINK
 
+	reveal_camera_mob = TRUE
+	camera_mob_icon_state = "xeno"
+
 /obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
 	. = ..()
 	slime_place_action = new
@@ -73,9 +76,9 @@
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
 	eyeobj = new /mob/camera/ai_eye/remote/xenobio(get_turf(src))
 	eyeobj.origin = src
-	eyeobj.visible_icon = TRUE
-	eyeobj.icon = 'icons/mob/cameramob.dmi'
-	eyeobj.icon_state = "generic_camera"
+	eyeobj.icon = camera_mob_icon
+	eyeobj.icon_state = camera_mob_icon_state
+	RevealCameraMob()
 
 /obj/machinery/computer/camera_advanced/xenobio/GrantActions(mob/living/user)
 	..()
@@ -147,7 +150,7 @@
 		stored_slimes -= deleted
 
 /obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
+	if(istype(O, /obj/item/food/monkeycube))
 		monkeys++
 		to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
 		qdel(O)
@@ -156,7 +159,7 @@
 		var/obj/item/storage/P = O
 		var/loaded = FALSE
 		for(var/obj/G in P.contents)
-			if(istype(G, /obj/item/reagent_containers/food/snacks/monkeycube))
+			if(istype(G, /obj/item/food/monkeycube))
 				loaded = TRUE
 				monkeys++
 				qdel(G)
@@ -175,12 +178,15 @@
 		return
 	..()
 
-/obj/machinery/computer/camera_advanced/xenobio/multitool_act(mob/living/user, obj/item/multitool/I)
-	if (istype(I) && istype(I.buffer,/obj/machinery/monkey_recycler))
-		to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
-		connected_recycler = I.buffer
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
+	if (istype(buffer,/obj/machinery/monkey_recycler) && connected_recycler != buffer)
+		to_chat(user, "<span class='notice'>You link [src] with [buffer] in [buffer_parent] buffer.</span>")
+		connected_recycler = buffer
 		connected_recycler.connected += src
-		return TRUE
+		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /datum/action/innate/slime_place
 	name = "Place Slimes"

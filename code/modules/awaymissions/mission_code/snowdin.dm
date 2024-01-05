@@ -150,6 +150,8 @@
 	baseturfs = /turf/open/lava/plasma
 	slowdown = 2
 
+	resistance_flags = INDESTRUCTIBLE
+
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PURPLE
@@ -577,7 +579,7 @@
 	icon_state = "sleeper"
 	roundstart = FALSE
 	death = FALSE
-	faction = ROLE_SYNDICATE
+	faction = FACTION_SYNDICATE
 	outfit = /datum/outfit/snowsyndie
 	short_desc = "You are a syndicate operative recently awoken from cryostasis in an underground outpost."
 	flavour_text = "You are a syndicate operative recently awoken from cryostasis in an underground outpost. Monitor Nanotrasen communications and record information. All intruders should be \

@@ -18,14 +18,15 @@
 	var/mutable_appearance/accessory_overlay
 	var/freshly_laundered = FALSE
 
-/obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
+/obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
 		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform")
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer)
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "uniformblood")
+			. += mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer)
 		if(accessory_overlay)
+			accessory_overlay.layer = item_layer
 			. += accessory_overlay
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
@@ -216,9 +217,10 @@
 	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/compile_monkey_icon()
+	var/identity = "[type]_[icon_state]" //Allows using multiple icon states for piece of clothing
 	//If the icon, for this type of clothing, is already made by something else, don't make it again
-	if(GLOB.monkey_icon_cache[type])
-		monkey_icon = GLOB.monkey_icon_cache[type]
+	if(GLOB.monkey_icon_cache[identity])
+		monkey_icon = GLOB.monkey_icon_cache[identity]
 		return
 
 	//Start with a base and align it with the mask
@@ -280,4 +282,4 @@
 
 	//Finished!
 	monkey_icon = base
-	GLOB.monkey_icon_cache[type] = icon(monkey_icon) //Don't create a reference to monkey icon
+	GLOB.monkey_icon_cache[identity] = icon(monkey_icon) //Don't create a reference to monkey icon

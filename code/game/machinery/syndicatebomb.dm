@@ -37,6 +37,9 @@
 	wires = new /datum/wires/syndicatebomb(src)
 	if(payload)
 		payload = new payload(src)
+		if (istype(payload, /obj/item/bombcore))
+			var/obj/item/bombcore/installed_bomb = payload
+			installed_bomb.installed = TRUE
 	update_icon()
 	countdown = new(src)
 	end_processing()
@@ -150,6 +153,9 @@
 			if(payload)
 				to_chat(user, "<span class='notice'>You carefully pry out [payload].</span>")
 				payload.forceMove(drop_location())
+				var/obj/item/bombcore/bomb_payload = payload
+				if (istype(bomb_payload))
+					bomb_payload.installed = FALSE
 				payload = null
 			else
 				to_chat(user, "<span class='warning'>There isn't anything in here to remove!</span>")
@@ -162,6 +168,9 @@
 			if(!user.transferItemToLoc(I, src))
 				return
 			payload = I
+			var/obj/item/bombcore/bomb_payload = payload
+			if (istype(bomb_payload))
+				bomb_payload.installed = TRUE
 			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
 		else
 			to_chat(user, "<span class='warning'>[payload] is already loaded into [src]! You'll have to remove it first.</span>")
@@ -212,7 +221,7 @@
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
 	var/new_timer = input(user, "Please set the timer.", "Timer", "[timer_set]") as num
 	if(in_range(src, user) && isliving(user)) //No running off and setting bombs from across the station
-		timer_set = CLAMP(new_timer, minimum_timer, maximum_timer)
+		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
 		loc.visible_message("<span class='notice'>[icon2html(src, viewers(src))] timer set for [timer_set] seconds.</span>")
 	if(alert(user,"Would you like to start the countdown now?",,"Yes","No") == "Yes" && in_range(src, user) && isliving(user))
 		if(active)
@@ -282,7 +291,10 @@
 	lefthand_file = 'icons/mob/inhands/equipment/shields_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/shields_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 // We detonate upon being exploded.
 	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
+	/// Indicates if the bombcore is inside a valid bomb and is ready to explode. Set this to true to allow for activation.
+	var/installed = FALSE
 	var/adminlog = null
 	var/range_heavy = 3
 	var/range_medium = 9
@@ -299,7 +311,7 @@
 /obj/item/bombcore/proc/detonate()
 	if(!loc)
 		return
-	if(!istype(loc, /obj/machinery/syndicatebomb))
+	if(!installed)
 		qdel(src)
 		return
 
@@ -362,7 +374,7 @@
 	qdel(src)
 
 /obj/item/bombcore/badmin/summon
-	var/summon_path = /obj/item/reagent_containers/food/snacks/cookie
+	var/summon_path = /obj/item/food/cookie
 	var/amt_summon = 1
 
 /obj/item/bombcore/badmin/summon/detonate()

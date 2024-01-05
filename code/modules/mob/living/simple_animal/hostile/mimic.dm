@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 
 /mob/living/simple_animal/hostile/mimic/copy/Life()
 	..()
-	if(idledamage && !target && !ckey) //Objects eventually revert to normal if no one is around to terrorize
+	if(idledamage && !target && !mind) //Objects eventually revert to normal if no one is around to terrorize
 		adjustBruteLoss(1)
 	for(var/mob/living/M in contents) //a fix for animated statues from the flesh to stone spell
 		death()
@@ -187,9 +187,9 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 				melee_damage *= 2
 		else if(isitem(O))
 			var/obj/item/I = O
-			health = 15 * I.w_class
+			health = 8 * I.w_class
 			melee_damage = 2 + I.force
-			move_to_delay = 2 * I.w_class + 1
+			move_to_delay = I.w_class + 1
 		maxHealth = health
 		if(user)
 			creator = user

@@ -25,7 +25,7 @@
 		return 0
 
 
-	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
+	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 
 	playsound(D.loc, A.dna.species.attack_sound, 25, 1, -1)
@@ -46,12 +46,13 @@
 			log_combat(A, D, "knocked out (boxing) ")
 		else if(!(D.mobility_flags & MOBILITY_STAND))
 			D.force_say(A)
-	return 1
+	return TRUE
 
 /obj/item/clothing/gloves/boxing
 	var/datum/martial_art/boxing/style = new
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
+	..()
 	if(!ishuman(user))
 		return
 	if(slot == ITEM_SLOT_GLOVES)

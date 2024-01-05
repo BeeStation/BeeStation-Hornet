@@ -276,6 +276,15 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/bluespace_capsule
+	name = "Bluespace Capsule"
+	id = "bluespace_capsule"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 3000, /datum/material/titanium = 1000, /datum/material/diamond = 500, /datum/material/bluespace = 500)
+	build_path = /obj/item/bluespace_capsule
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL
+
 /////////////////////////////////////////
 ////////////Janitor Designs//////////////
 /////////////////////////////////////////
@@ -443,12 +452,12 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/pepperspray
-	name = "Pepper Spray"
-	desc = "Manufactured by UhangInc, used to blind and down an opponent quickly. Printed pepper sprays do not contain reagents."
+	name = "Peppercloud Deployer"
+	desc = "Manufactured by UhangInc, used to rapidly deploy a peppercloud providing an area denial effect. Printed peppercloud canisters do not contain reagents and need to be filled."
 	id = "pepperspray"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000)
-	build_path = /obj/item/reagent_containers/spray/pepper/empty
+	build_path = /obj/item/reagent_containers/peppercloud_deployer/empty
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -531,3 +540,13 @@
 	build_path = /obj/item/stack/sticky_tape/pointy
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/paper_reader
+	name = "Eletronic Paper Reader"
+	desc = "A device to read papers for blind people."
+	id = "epaperread"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron=200, /datum/material/glass = 100)
+	build_path = /obj/item/paper_reader
+	category = list("Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL

@@ -60,10 +60,16 @@
 	SEND_SIGNAL(M, COMSIG_MOB_ITEM_ATTACKBY, user, src)
 
 	var/nonharmfulhit = FALSE
-	if(item_flags & NOBLUDGEON)
-		nonharmfulhit = TRUE
 
 	if(user.a_intent == INTENT_HELP && !(item_flags & ISWEAPON))
+		nonharmfulhit = TRUE
+	for(var/datum/surgery/S in M.surgeries)
+		if(S.failed_step)
+			nonharmfulhit = FALSE //No freebies, if you fail a surgery step you should hit your patient
+			S.failed_step = FALSE //In theory the hit should only happen once, upon failing the step
+			break
+
+	if(item_flags & NOBLUDGEON)
 		nonharmfulhit = TRUE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM) && !nonharmfulhit)
@@ -71,9 +77,9 @@
 		nonharmfulhit = TRUE
 
 	if(!force || nonharmfulhit)
-		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
+		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else if(hitsound)
-		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+		playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
 	M.lastattacker = user.real_name
 	M.lastattackerckey = user.ckey
@@ -104,21 +110,25 @@
 	user.do_attack_animation(O)
 	O.attacked_by(src, user)
 
-/atom/movable/proc/attacked_by()
+/atom/proc/attacked_by()
 	return
 
-/obj/attacked_by(obj/item/I, mob/living/user)
-	if(I.force)
-		user.visible_message("<span class='danger'>[user] hits [src] with [I]!</span>", \
-					"<span class='danger'>You hit [src] with [I]!</span>", null, COMBAT_MESSAGE_RANGE)
-		//only witnesses close by and the victim see a hit message.
-		log_combat(user, src, "attacked", I)
-	take_damage(I.force, I.damtype, MELEE, 1)
+/obj/attacked_by(obj/item/attacking_item, mob/living/user)
+	if(!attacking_item.force)
+		return
+
+	var/damage = take_damage(attacking_item.force, attacking_item.damtype, MELEE, 1)
+
+	//only witnesses close by and the victim see a hit message.
+	user.visible_message("<span class='danger'>[user] hits [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]</span>", \
+		"<span class='danger'>You hit [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]</span>", null, COMBAT_MESSAGE_RANGE)
+	log_combat(user, src, "attacked", attacking_item)
 
 /mob/living/attacked_by(obj/item/I, mob/living/user)
 	send_item_attack_message(I, user)
 	if(I.force)
-		apply_damage(I.force, I.damtype)
+		var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
+		apply_damage(I.force, I.damtype, blocked = armour_block)
 		if(I.damtype == BRUTE)
 			if(prob(33))
 				I.add_mob_blood(src)
@@ -134,6 +144,12 @@
 	else
 		return ..()
 
+/mob/living/basic/attacked_by(obj/item/I, mob/living/user)
+	if(!attack_threshold_check(I.force, I.damtype, MELEE, FALSE))
+		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), TRUE, -1)
+	else
+		return ..()
+
 // Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
 // Click parameters is the params string from byond Click() code, see that documentation.
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -144,9 +160,9 @@
 /obj/item/proc/get_clamped_volume()
 	if(w_class)
 		if(force)
-			return CLAMP((force + w_class) * 4, 30, 100)// Add the item's force to its weight class and multiply by 4, then clamp the value between 30 and 100
+			return clamp((force + w_class) * 4, 30, 100)// Add the item's force to its weight class and multiply by 4, then clamp the value between 30 and 100
 		else
-			return CLAMP(w_class * 6, 10, 100) // Multiply the item's weight class by 6, then clamp the value between 10 and 100
+			return clamp(w_class * 6, 10, 100) // Multiply the item's weight class by 6, then clamp the value between 10 and 100
 
 /mob/living/proc/send_item_attack_message(obj/item/I, mob/living/user, hit_area)
 	var/message_verb = "attacked"

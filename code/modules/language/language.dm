@@ -21,23 +21,38 @@
 	var/space_chance = 55        // Likelihood of getting a space in the random scramble string
 	var/list/spans = list()
 	var/list/scramble_cache = list()
-	var/default_priority = 0          // the language that an atom knows with the highest "default_priority" is selected by default.
+	var/default_priority = 0          // the language that an atom knows with the highest "default_priority" is selected by default. if -1, it will not be chosen as dafault by auto-update.
 
 	// if you are seeing someone speak popcorn language, then something is wrong.
 	var/icon = 'icons/misc/language.dmi'
 	var/icon_state = "popcorn"
 
+/// Returns TRUE/FALSE based on seeing a language icon is validated to a given hearer in the parameter.
 /datum/language/proc/display_icon(atom/movable/hearer)
+ 	// ghosts want to know how it is going.
+	if((flags & LANGUAGE_ALWAYS_SHOW_ICON_TO_GHOSTS) && \
+			(isobserver(hearer) || (HAS_TRAIT(hearer, TRAIT_METALANGUAGE_KEY_ALLOWED) && istype(src, /datum/language/metalanguage))))
+		return TRUE
+
 	var/understands = hearer.has_language(src.type)
-	if(flags & LANGUAGE_HIDE_ICON_IF_UNDERSTOOD && understands)
-		return FALSE
-	if(!understands)
+	if(understands)
+		// It's something common so that you don't have to see a language icon
+		// or, it's not a valid language that should show a language icon
+		if((flags & LANGUAGE_HIDE_ICON_IF_UNDERSTOOD) || (flags & LANGUAGE_HIDE_ICON_TO_YOURSELF))
+			return FALSE
+
+	else
+		// Standard to Galatic Common
 		if(flags & LANGUAGE_ALWAYS_SHOW_ICON_IF_NOT_UNDERSTOOD)
 			return TRUE
+
+		// You'll typically end here - not being able to see a language icon
 		if(!HAS_TRAIT(hearer, TRAIT_LINGUIST))
 			return FALSE
-		else if(flags & LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD_WITH_LINGUIST_TRAIT)
+		else if(flags & LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD__LINGUIST_ONLY) // don't merge with the if above. it's different check.
 			return FALSE
+
+	// If you reach here, you'd be a linguist quirk holder, and will be eligible to see a lang icon
 	return TRUE
 
 /datum/language/proc/get_icon()

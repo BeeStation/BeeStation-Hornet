@@ -23,11 +23,11 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/chainhit.ogg'
-	materials = list(/datum/material/iron = 1000)
+	custom_materials = list(/datum/material/iron = 1000)
 
-/obj/item/melee/chainofcommand/suicide_act(mob/user)
+/obj/item/melee/chainofcommand/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/melee/synthetic_arm_blade
 	name = "synthetic arm blade"
@@ -69,7 +69,7 @@
 	sharpness = IS_SHARP
 	attack_verb = list("slashed", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
-	materials = list(/datum/material/iron = 1000)
+	custom_materials = list(/datum/material/iron = 1000)
 
 
 /obj/item/melee/sabre/Initialize(mapload)
@@ -231,11 +231,12 @@
 //Police Baton
 /obj/item/melee/classic_baton/police
 	name = "police baton"
+	stun_animation = TRUE
 
 /obj/item/melee/classic_baton/police/attack(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
-	var/def_check = target.getarmor(type = MELEE)
+	var/def_check = target.getarmor(type = MELEE, penetration = armour_penetration)
 
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
@@ -291,19 +292,20 @@
 				user.do_attack_animation(target)
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
 			additional_effects_carbon(target, user)
-			if((user.zone_selected == BODY_ZONE_HEAD) || (user.zone_selected == BODY_ZONE_CHEST))
+			if((user.is_zone_selected(BODY_ZONE_HEAD)) || (user.is_zone_selected(BODY_ZONE_CHEST)))
 				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_CHEST, def_check)
 				log_combat(user, target, "stunned", src)
 				target.visible_message(desc["visiblestun"], desc["localstun"])
-			if((user.zone_selected == BODY_ZONE_R_LEG) || (user.zone_selected == BODY_ZONE_L_LEG))
+			if((user.is_zone_selected(BODY_ZONE_R_LEG)) || (user.is_zone_selected(BODY_ZONE_L_LEG)))
 				target.Knockdown(30)
 				log_combat(user, target, "tripped", src)
 				target.visible_message(desc["visibletrip"], desc["localtrip"])
-			if(user.zone_selected == BODY_ZONE_L_ARM)
+			var/combat_zone = user.get_combat_bodyzone(target)
+			if(combat_zone == BODY_ZONE_L_ARM)
 				target.apply_damage(50, STAMINA, BODY_ZONE_L_ARM, def_check)
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
-			if(user.zone_selected == BODY_ZONE_R_ARM)
+			if(combat_zone == BODY_ZONE_R_ARM)
 				target.apply_damage(50, STAMINA, BODY_ZONE_R_ARM, def_check)
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
@@ -325,6 +327,7 @@
 	force = 12
 	cooldown = 10
 	stamina_damage = 20
+	stun_animation = TRUE
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
@@ -335,6 +338,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	stamina_damage = 0
+	stun_animation = FALSE
 	item_state = null
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -355,7 +359,7 @@
 		return ..()
 	return 0
 
-/obj/item/melee/classic_baton/telescopic/suicide_act(mob/user)
+/obj/item/melee/classic_baton/telescopic/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/brain/B = H.getorgan(/obj/item/organ/brain)
 
@@ -371,7 +375,7 @@
 			H.internal_organs -= B
 			qdel(B)
 		new /obj/effect/gibspawner/generic(H.drop_location(), H)
-		return (BRUTELOSS)
+		return BRUTELOSS
 
 /obj/item/melee/classic_baton/police/telescopic/attack_self(mob/user)
 	on = !on
@@ -656,13 +660,13 @@
 	"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 	consume_everything()
 
-/obj/item/melee/supermatter_sword/bullet_act(obj/item/projectile/P)
+/obj/item/melee/supermatter_sword/bullet_act(obj/projectile/P)
 	visible_message("<span class='danger'>[P] smacks into [src] and rapidly flashes to ash.</span>",\
 	"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 	consume_everything(P)
 	return BULLET_ACT_HIT
 
-/obj/item/melee/supermatter_sword/suicide_act(mob/user)
+/obj/item/melee/supermatter_sword/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] touches [src]'s blade. It looks like [user.p_theyre()] tired of waiting for the radiation to kill [user.p_them()]!</span>")
 	user.dropItemToGround(src, TRUE)
 	shard.Bumped(user)
@@ -708,7 +712,7 @@
 	if(!ishuman(target))
 		return
 
-	switch(user.zone_selected)
+	switch(user.get_combat_bodyzone(target))
 		if(BODY_ZONE_L_ARM)
 			whip_disarm(user, target, "left")
 		if(BODY_ZONE_R_ARM)
@@ -739,7 +743,7 @@
 	target.visible_message("<span class='danger'>[user] knocks [target] off [target.p_their()] feet!</span>", "<span class='userdanger'>[user] yanks your legs out from under you!</span>")
 
 /obj/item/melee/curator_whip/proc/whip_lash(mob/living/user, mob/living/target)
-	if(target.getarmor(type = MELEE) < 16)
+	if(target.getarmor(type = MELEE, penetration = armour_penetration) < 16)
 		target.emote("scream")
 		target.visible_message("<span class='danger'>[user] whips [target]!</span>", "<span class='userdanger'>[user] whips you! It stings!</span>")
 
@@ -753,7 +757,7 @@
 	item_flags = ISWEAPON
 	force = 0
 	attack_verb = list("hit", "poked")
-	var/obj/item/reagent_containers/food/snacks/sausage/held_sausage
+	var/obj/item/food/sausage/held_sausage
 	var/static/list/ovens
 	var/on = FALSE
 	var/datum/beam/beam
@@ -778,7 +782,7 @@
 
 /obj/item/melee/roastingstick/attackby(atom/target, mob/user)
 	..()
-	if (istype(target, /obj/item/reagent_containers/food/snacks/sausage))
+	if (istype(target, /obj/item/food/sausage))
 		if (!on)
 			to_chat(user, "<span class='warning'>You must extend [src] to attach anything to it!</span>")
 			return
@@ -798,12 +802,10 @@
 		held_sausage = null
 	update_icon()
 
-/obj/item/melee/roastingstick/update_icon()
+/obj/item/melee/roastingstick/update_overlays()
 	. = ..()
-	cut_overlays()
 	if (held_sausage)
-		var/mutable_appearance/sausage = mutable_appearance(icon, "roastingstick_sausage")
-		add_overlay(sausage)
+		. += mutable_appearance(icon, "roastingstick_sausage")
 
 /obj/item/melee/roastingstick/proc/extend(user)
 	to_chat(user, "<span class='warning'>You extend [src].</span>")
@@ -833,7 +835,7 @@
 		if(istype(target, /obj/anomaly) && get_dist(user, target) < 10)
 			to_chat(user, "You send [held_sausage] towards [target].")
 			playsound(src, 'sound/items/rped.ogg', 50, 1)
-			beam = user.Beam(target,icon_state="rped_upgrade",time=100)
+			beam = user.Beam(target,icon_state="rped_upgrade", time = 10 SECONDS)
 		else if (user.Adjacent(target))
 			to_chat(user, "You extend [src] towards [target].")
 			playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)

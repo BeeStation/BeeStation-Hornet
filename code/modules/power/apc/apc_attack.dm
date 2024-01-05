@@ -25,7 +25,7 @@
 		var/turf/host_turf = get_turf(src)
 		if(!host_turf)
 			CRASH("attackby on APC when it's not on a turf")
-		if (host_turf.intact)
+		if (host_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 			to_chat(user, "<span class='warning'>You must remove the floor plating in front of the APC first!</span>")
 			return
 		else if (terminal)
@@ -260,7 +260,7 @@
 			)                                                            \
 		)
 			if(!loud)
-				to_chat(user, "<span class='danger'>\The [src] has eee disabled!</span>")
+				to_chat(user, "<span class='danger'>\The [src] has been disabled!</span>")
 			return FALSE
 	return TRUE
 
@@ -271,7 +271,7 @@
 
 /obj/machinery/power/apc/proc/set_broken()
 	if(malfai && operating)
-		malfai.malf_picker.processing_time = CLAMP(malfai.malf_picker.processing_time - 10,0,1000)
+		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	machine_stat |= BROKEN
 	operating = FALSE
 	if(occupier)

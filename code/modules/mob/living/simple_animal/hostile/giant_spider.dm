@@ -30,7 +30,7 @@
 	speed = 1
 	turns_per_move = 5
 	see_in_dark = 10
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8)
+	butcher_results = list(/obj/item/food/meat/slab/spider = 2, /obj/item/food/spiderleg = 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
@@ -65,7 +65,6 @@
 	var/enriched_fed = 0
 	var/datum/action/innate/spider/lay_eggs/lay_eggs //the ability to lay eggs, granted to broodmothers
 	var/datum/team/spiders/spider_team = null //utilized by AI controlled broodmothers to pass antag team info onto their eggs without a mind
-	role = ROLE_SPIDER
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -186,6 +185,7 @@
 				if(isliving(cocoon_target))
 					var/mob/living/L = cocoon_target
 					if(L.stat != DEAD)
+						L.investigate_log("has been killed by being wrapped in a cocoon.", INVESTIGATE_DEATHS)
 						L.death() //If it's not already dead, we want it dead regardless of nourishment
 					if(L.blood_volume >= BLOOD_VOLUME_BAD && !isipc(L)) //IPCs and drained mobs are not nourishing.
 						L.blood_volume = 0 //Remove all fluids from this mob so they are no longer nourishing.
@@ -309,8 +309,8 @@
 					addtimer(CALLBACK(src, PROC_REF(GiveUp)), 20 SECONDS) //to prevent infinite chases
 		if(heal_target && get_dist(src, heal_target) <= 1)
 			UnarmedAttack(heal_target)
-			if(heal_target.health >= heal_target.maxHealth)
-				GiveUp(heal_target)
+			if(!heal_target || heal_target.health >= heal_target.maxHealth)
+				GiveUp()
 	..() //Do normal stuff after giving priority to healing attempts
 
 //Broodmothers have well rounded stats and are able to lay eggs, but somewhat slow.
@@ -329,7 +329,11 @@
 	web_speed = 0.25
 
 	gender = FEMALE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8, /obj/item/reagent_containers/food/snacks/spidereggs = 4)
+	butcher_results = list(
+		/obj/item/food/meat/slab/spider = 2,
+		/obj/item/food/spiderleg = 8,
+		/obj/item/reagent_containers/food/snacks/spidereggs = 4
+	)
 	var/obj/effect/proc_holder/spider/wrap/wrap
 	var/datum/action/innate/spider/set_directive/set_directive
 	/// Allows the spider to use spider comms
@@ -419,6 +423,16 @@
 	status_flags = NONE
 	mob_size = MOB_SIZE_LARGE
 	web_speed = 0.5
+	var/datum/action/innate/spider/block/block //Guards are huge and can block doorways
+
+/mob/living/simple_animal/hostile/poison/giant_spider/guard/Initialize(mapload)
+	. = ..()
+	block = new
+	block.Grant(src)
+
+/mob/living/simple_animal/hostile/poison/giant_spider/guard/Destroy()
+	QDEL_NULL(block)
+	return ..()
 
 // Ice spiders - for when you want a spider that really doesn't care about atmos
 /mob/living/simple_animal/hostile/poison/giant_spider/ice
@@ -482,6 +496,21 @@
 		spider.stop_automated_movement = FALSE
 	else
 		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
+
+/datum/action/innate/spider/block
+	name = "Block Passage"
+	desc = "Use your massive size to prevent others from passing by you."
+	button_icon_state = "block"
+
+/datum/action/innate/spider/block/Activate()
+	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
+		return
+	if(owner.a_intent == INTENT_HELP)
+		owner.a_intent = INTENT_HARM
+		owner.visible_message("<span class='notice'>[owner] widens its stance and blocks passage around it.</span>","<span class='notice'>You are now blocking others from passing around you.</span>")
+	else
+		owner.a_intent = INTENT_HELP
+		owner.visible_message("<span class='notice'>[owner] loosens up and allows others to pass again.</span>","<span class='notice'>You are no longer blocking others from passing around you.</span>")
 
 /obj/effect/proc_holder/spider/Click()
 	if(!istype(usr, /mob/living/simple_animal/hostile/poison/giant_spider))
@@ -584,7 +613,7 @@
 		return FALSE
 
 	ranged_ability_user.visible_message("<span class='danger'>[ranged_ability_user] throws a web!", "<span class='notice'>You throw the web!</span>")
-	var/obj/item/projectile/bullet/spidernet/A = new /obj/item/projectile/bullet/spidernet(ranged_ability_user.loc)
+	var/obj/projectile/bullet/spidernet/A = new /obj/projectile/bullet/spidernet(ranged_ability_user.loc)
 	A.preparePixelProjectile(target, ranged_ability_user, params)
 	A.firer = ranged_ability_user
 	A.fire()

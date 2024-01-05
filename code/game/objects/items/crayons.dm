@@ -74,7 +74,7 @@
 /obj/item/toy/crayon/proc/isValidSurface(surface)
 	return istype(surface, /turf/open/floor)
 
-/obj/item/toy/crayon/suicide_act(mob/user)
+/obj/item/toy/crayon/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is jamming [src] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS|OXYLOSS)
 
@@ -237,7 +237,7 @@
 				paint_mode = PAINT_NORMAL
 		if("select_colour")
 			if(can_change_colour)
-				var/chosen_colour = input(usr,"","Choose Color",paint_color) as color|null
+				var/chosen_colour = tgui_color_picker(usr,"","Choose Color",paint_color)
 
 				if (!isnull(chosen_colour))
 					paint_color = chosen_colour
@@ -332,13 +332,13 @@
 			else
 				graf_rot = 0
 
-	var/list/click_params = params2list(params)
+	var/list/modifiers = params2list(params)
 	var/clickx
 	var/clicky
 
-	if(click_params && click_params["icon-x"] && click_params["icon-y"])
-		clickx = CLAMP(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-		clicky = CLAMP(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+	if(LAZYACCESS(modifiers, ICON_X) && LAZYACCESS(modifiers, ICON_Y))
+		clickx = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
+		clicky = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
 
 	if(pre_noise)
 		audible_message("<span class='notice'>You hear spraying.</span>")
@@ -540,10 +540,10 @@
 	new /obj/item/toy/crayon/black(src)
 	update_icon()
 
-/obj/item/storage/crayons/update_icon()
-	cut_overlays()
+/obj/item/storage/crayons/update_overlays()
+	. = ..()
 	for(var/obj/item/toy/crayon/crayon in contents)
-		add_overlay(mutable_appearance('icons/obj/crayons.dmi', crayon.crayon_color))
+		. += mutable_appearance('icons/obj/crayons.dmi', crayon.crayon_color)
 
 /obj/item/storage/crayons/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/toy/crayon))
@@ -602,11 +602,18 @@
 	pre_noise = TRUE
 	post_noise = FALSE
 
+	var/static/list/spraycan_touch_normally
+
+/obj/item/toy/crayon/spraycan/Initialize()
+	. = ..()
+	if(!spraycan_touch_normally)
+		spraycan_touch_normally = typecacheof(list(/obj/machinery/modular_fabricator/autolathe, /obj/structure/closet, /obj/machinery/disposal))
+
 /obj/item/toy/crayon/spraycan/isValidSurface(surface)
 	return (istype(surface, /turf/open/floor) || istype(surface, /turf/closed/wall))
 
 
-/obj/item/toy/crayon/spraycan/suicide_act(mob/user)
+/obj/item/toy/crayon/spraycan/suicide_act(mob/living/user)
 	var/mob/living/carbon/human/H = user
 	if(is_capped || !actually_paints)
 		user.visible_message("<span class='suicide'>[user] shakes up [src] with a rattle and lifts it to [user.p_their()] mouth, but nothing happens!</span>")
@@ -628,8 +635,7 @@
 		var/fraction = min(1, used / reagents.maximum_volume)
 		reagents.reaction(user, VAPOR, fraction * volume_multiplier)
 		reagents.trans_to(user, used, volume_multiplier, transfered_by = user)
-
-		return (OXYLOSS)
+		return OXYLOSS
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
@@ -651,14 +657,13 @@
 
 /obj/item/toy/crayon/spraycan/pre_attack(atom/target, mob/user, proximity, params)
 	if(!proximity)
-		return
+		return ..()
 
 	if(is_capped)
-		if(istype(target, /obj/machinery/modular_fabricator/autolathe))
+		if(is_type_in_typecache(target, spraycan_touch_normally) || target.GetComponent(/datum/component/storage))
 			return ..()
-		else
-			to_chat(user, "<span class='warning'>Take the cap off first!</span>")
-			return
+		to_chat(user, "<span class='warning'>Take the cap off first!</span>")
+		return
 
 	if(check_empty(user))
 		return
@@ -673,7 +678,7 @@
 
 		if(C.client)
 			C.blur_eyes(3)
-			C.blind_eyes(1)
+			C.adjust_blindness(1)
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
 			C.confused = max(C.confused, 3)
 			C.Paralyze(60)
@@ -691,7 +696,7 @@
 
 	if(isobj(target) && !(target.flags_1 & UNPAINTABLE_1))
 		if(actually_paints)
-			if(color_hex2num(paint_color) < 350 && !istype(target, /obj/structure/window)) //Colors too dark are rejected
+			if(is_color_dark_without_saturation(paint_color, 33) && !istype(target, /obj/structure/window)) //Colors too dark are rejected
 				if(isclothing(target))
 					var/obj/item/clothing/C = target
 					if(((C.flags_cover & HEADCOVERSEYES) || (C.flags_cover & MASKCOVERSEYES) || (C.flags_cover & GLASSESCOVERSEYES)) && !HAS_TRAIT(C, TRAIT_SPRAYPAINTED))
@@ -711,7 +716,7 @@
 
 			target.add_atom_colour(paint_color, WASHABLE_COLOUR_PRIORITY)
 			if(istype(target, /obj/structure/window))
-				if(color_hex2num(paint_color) < 255)
+				if(is_color_dark_without_saturation(paint_color, 50))
 					target.set_opacity(255)
 				else
 					target.set_opacity(initial(target.opacity))
@@ -730,13 +735,16 @@
 
 	. = ..()
 
-/obj/item/toy/crayon/spraycan/update_icon()
+/obj/item/toy/crayon/spraycan/update_icon_state()
 	icon_state = is_capped ? icon_capped : icon_uncapped
+	return ..()
+
+/obj/item/toy/crayon/spraycan/update_overlays()
+	. = ..()
 	if(use_overlays)
-		cut_overlays()
 		var/mutable_appearance/spray_overlay = mutable_appearance('icons/obj/crayons.dmi', "[is_capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 		spray_overlay.color = paint_color
-		add_overlay(spray_overlay)
+		. += spray_overlay
 
 /obj/item/toy/crayon/spraycan/borg
 	name = "cyborg spraycan"

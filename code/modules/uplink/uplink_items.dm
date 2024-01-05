@@ -166,6 +166,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	log_uplink_purchase(user, A)
 	return A
 
+/datum/uplink_item/proc/can_be_refunded(obj/item/item, datum/component/uplink/uplink)
+	return refundable
+
 //Discounts (dynamically filled above)
 /datum/uplink_item/discounts
 	category = "Discounts"
@@ -446,9 +449,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/poisonknife
 	name = "Poisoned Knife"
-	desc = "A knife that is made of two razor sharp blades, it has a secret compartment in the handle to store liquids which are injected when stabbing something."
-	item = /obj/item/kitchen/knife/poison
-	cost = 8 // all in all it's not super stealthy and you have to get some chemicals yourself
+	desc = "A knife that is made of two razor sharp blades, it has a secret compartment in the handle to store liquids which are injected when stabbing something. Can hold up to forty units of reagents but comes empty."
+	item = /obj/item/knife/poison
+	cost = 6 // all in all it's not super stealthy and you have to get some chemicals yourself
 
 /datum/uplink_item/dangerous/rawketlawnchair
 	name = "84mm Rocket Propelled Grenade Launcher"
@@ -516,7 +519,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Bulldog Shotgun"
 	desc = "A fully-loaded semi-automatic drum-fed shotgun. Compatible with all 12g rounds. Designed for close \
 			quarter anti-personnel engagements."
-	item = /obj/item/gun/ballistic/shotgun/bulldog
+	item = /obj/item/gun/ballistic/shotgun/automatic/bulldog
 	cost = 8
 	surplus = 40
 	purchasable_from = UPLINK_NUKE_OPS
@@ -582,16 +585,26 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/gloves/rapid
 	cost = 8
 
-/datum/uplink_item/dangerous/guardian
+/datum/uplink_item/dangerous/holoparasite
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an \
 			organic host as a home base and source of fuel. Holoparasites come in various types and share damage with their host."
-	item = /obj/item/guardiancreator/tech
+	item = /obj/item/holoparasite_creator/tech
 	cost = 18
 	surplus = 10
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	player_minimum = 25
 	restricted = TRUE
+	refundable = TRUE
+
+/**
+ * Only allow holoparasites to be refunded if the injector is unused.
+ */
+/datum/uplink_item/dangerous/holoparasite/can_be_refunded(obj/item/item, datum/component/uplink/uplink)
+	if(!istype(item, /obj/item/holoparasite_creator/tech))
+		return FALSE
+	var/obj/item/holoparasite_creator/tech/holopara_creator = item
+	return (holopara_creator.builder.uses == initial(holopara_creator.uses)) && !holopara_creator.builder.waiting
 
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
@@ -636,6 +649,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 7
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
+/datum/uplink_item/dangerous/derringer
+	name = "'Infiltrator' Coat Pistol"
+	desc = "For the deeply embedded agent; a very compact dual-barreled handgun chambered in .38-special. Compatible with \
+			standard production NT speed loaders. Loaded with .38 Match ammunition and includes a spare speedloader."
+	item = /obj/item/storage/box/syndie_kit/derringer
+	cost = 4
+	purchasable_from = ~UPLINK_CLOWN_OPS
+
 /datum/uplink_item/dangerous/bolt_action
 	name = "Surplus Rifle"
 	desc = "A horribly outdated bolt action weapon. You've got to be desperate to use this."
@@ -648,6 +669,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Revolver"
 	desc = "A brutally simple Syndicate revolver that fires .357 Magnum rounds and has 7 chambers."
 	item = /obj/item/gun/ballistic/revolver
+	player_minimum = 25
 	cost = 12
 	surplus = 50
 	purchasable_from = ~UPLINK_CLOWN_OPS
@@ -810,10 +832,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
+	desc = "A spring loaded, single-use syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
 			strong anesthetic and a chemical that prevents the target from speaking. \
-			The pen holds one dose of the mixture, and can be refilled with any chemicals. Note that before the target \
-			falls asleep, they will be able to move and act."
+			The mixture that the pen comes with can be replaced as long as the pen hasn't been used already. Note that the mechanism takes time to \
+			trigger, is obvious to anyone nearby (excluding the target) and the victim may still be able to move and act for a brief period of time before falling unconcious."
 	item = /obj/item/pen/sleepy
 	cost = 5
 	purchasable_from = ~UPLINK_NUKE_OPS
@@ -914,7 +936,60 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A speed loader that contains seven additional .357 Magnum rounds; usable with the Syndicate revolver. \
 			For when you really need a lot of things dead."
 	item = /obj/item/ammo_box/a357
+	player_minimum = 25
 	cost = 2
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38
+	name = ".38-special Speed Loader"
+	desc = "A standard issue .38-special speed loader, for use with the Detective's revolver or 'Infiltrator' coat pistol."
+	item = /obj/item/ammo_box/c38
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38blister
+	name = ".38-special 'Blister' Speed Loader"
+	desc = "For when you can't deside between a coat pistol and a dart pistol! These 6 cartridges can \
+			be injected with up to 10 units of your favorite poison for remote application via sidearm."
+	item = /obj/item/ammo_box/c38/dart
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38dumdum
+	name = ".38-special DumDum Speed Loader"
+	desc = "6 specialized fragmenting .38-special catridges, excellent for dispatching unarmored targets. \
+			Shrapnel can embed within the victim and provide a debilitating effect. Not advised for use \
+			against armored targets."
+	item = /obj/item/ammo_box/c38/dumdum
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38iceblox
+	name = ".38-special Iceblox Speed Loader"
+	desc = "6 .38-special Iceblox cartridges, 'guaranteed' to free your target to the core."
+	item = /obj/item/ammo_box/c38/iceblox
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38hotshot
+	name = ".38-special Hot Shot Speed Loader"
+	desc = "6 .38-special Hot Shot cartridges. Set your target ablaze with this specialized thermal payload."
+	item = /obj/item/ammo_box/c38/hotshot
+	cost = 1
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/c38emp
+	name = ".38-special 'BLK_OUT' Speed Loader"
+	desc = "6 specialized 'anti-silicon' .38-special cartridges that release a minor EMP on impact with a hard surface. \
+			From Silicons, to IPCs, to any machinery or energy-based weapons in use by security, leave them in the dark."
+	item = /obj/item/ammo_box/c38/emp
+	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 
@@ -1108,7 +1183,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Bombanana"
 	desc = "A banana with an explosive taste! discard the peel quickly, as it will explode with the force of a Syndicate minibomb \
 		a few seconds after the banana is eaten."
-	item = /obj/item/reagent_containers/food/snacks/grown/banana/bombanana
+	item = /obj/item/food/grown/banana/bombanana
 	cost = 4 //it is a bit cheaper than a minibomb because you have to take off your helmet to eat it, which is how you arm it
 	surplus = 0
 	purchasable_from = UPLINK_CLOWN_OPS
@@ -1599,6 +1674,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A disk containing the procedure to perform a brainwashing surgery, allowing you to implant an objective onto a target. \
 	Insert into an Operating Console to enable the procedure."
 	item = /obj/item/disk/surgery/brainwashing
+	player_minimum = 25
 	cost = 5
 
 /datum/uplink_item/device_tools/briefcase_launchpad
@@ -1639,13 +1715,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	illegal_tech = FALSE
 
 /datum/uplink_item/device_tools/syndicate_teleporter
-	name = "Experimental Syndicate Teleporter"
-	desc = "The Syndicate teleporter is a handheld device that teleports the user 4-8 meters forward. \
-			Beware, teleporting into a wall will make the teleporter do a parallel emergency teleport, \
-			but if that emergency teleport fails, it will kill you instantly. \
-			Has 4 charges, recharges automatically. Warranty voided if exposed to EMP."
-	item = /obj/item/storage/box/syndie_kit/teleporter
-	cost = 8
+	name = "Experimental Syndicate Jaunter"
+	desc = "The Syndicate jaunter is a handheld device that jaunts the user 4-8 meters forward. \
+		Anyone caught in the wake of the jaunter will be knocked off their feet and recieve minor damage. \
+		Due to the Syndicate's more limited research of teleportation technologies, it is incapable of phasing the user \
+		through solid matter nor is it capable of teleporting them across longer ranges."
+	item = /obj/item/teleporter
+	cost = 7
 
 /datum/uplink_item/device_tools/frame
 	name = "F.R.A.M.E. PDA Disk"
@@ -1688,6 +1764,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Glue"
 	desc = "A cheap bottle of one use syndicate brand super glue. \
 			Use on any item to make it undroppable. \
+			When applied, will stick the item in either thirty seconds or instantly upon dropping or picking it up. \
 			Be careful not to glue an item you're already holding!"
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	item = /obj/item/syndie_glue
@@ -1772,7 +1849,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/encryptionkey/syndicate
 	cost = 2
 	surplus = 75
-	purchasable_from = ~UPLINK_INCURSION
+	purchasable_from = ~(UPLINK_INCURSION | UPLINK_EXCOMMUNICATE)
 	restricted = TRUE
 
 /datum/uplink_item/device_tools/syndietome
@@ -1862,7 +1939,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Used just like a regular headset, but can be disabled to use external headsets normally and to avoid detection."
 	item = /obj/item/storage/box/syndie_kit/imp_radio
 	cost = 4
-	purchasable_from = ~UPLINK_INCURSION //To prevent traitors from immediately outing the hunters to security.
+	purchasable_from = ~(UPLINK_INCURSION | UPLINK_EXCOMMUNICATE) //To prevent traitors from immediately outing the hunters to security.
 	restricted = TRUE
 
 /datum/uplink_item/implants/reviver
@@ -2025,16 +2102,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_ROBOTICIST, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
 	cost = 3
 
-/datum/uplink_item/role_restricted/perfect_surgeon
-	name = "Syndicate Surgery Implant"
-	desc = "A powerful brain implant, capable of uploading perfect, forbidden surgical knowledge to its users mind, \
-			allowing them to do just about any surgery, anywhere, without making any (unintentional) mistakes. \
-			Comes with a syndicate autosurgeon for immediate self-application."
-	item = /obj/item/autosurgeon/syndicate/perfect_surgeon
-	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_ROBOTICIST, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
-	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
-	cost = 12
-
 /datum/uplink_item/role_restricted/syndicate_mmi
 	name = "Syndicate MMI"
 	desc = "An MMI which autmatically applies the Syndimov laws to any borg it is placed in. Great for adding known allies to assist you with a little more stealth than a fully emagged borg."
@@ -2173,17 +2240,24 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
 
+/datum/uplink_item/role_restricted/shadowmutationtoxin
+	name = "Shadow Person Mutation Toxin"
+	desc = "Become one with the night, Rumors have it that there is a secret sect dedicated to the shadows and must be of their species to unlock it, be aware however, you will take damage in the light."
+	item = /obj/item/reagent_containers/hypospray/medipen/shadow_species_mutator
+	cost = 5
+	restricted_roles = list(JOB_NAME_CHAPLAIN)
+
 /datum/uplink_item/role_restricted/spanish_flu
 	name = "Spanish Flu Culture"
-	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell.\
-			At least. thats what the label says"
+	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell. \
+			At least, that's what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
 	cost = 12
 	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
 
 /datum/uplink_item/role_restricted/retrovirus
 	name = "Retrovirus Culture Bottle"
-	desc = "A bottle of contagious DNA bugs, which will manually rearrange the DNA of hosts.\
+	desc = "A bottle of contagious DNA bugs, which will manually rearrange the DNA of hosts. \
 			At least, that's what the label says."
 	item = /obj/item/reagent_containers/glass/bottle/retrovirus
 	cost = 12
@@ -2191,7 +2265,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/role_restricted/anxiety
 	name = "Anxiety Culture Bottle"
-	desc = "A bottle of pure contagious autism.\
+	desc = "A bottle of contagious anxiety-inducing virus. \
 			At least, that's what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/anxiety
 	cost = 4
@@ -2218,7 +2292,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Holocarp Parasites"
 	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
 			to act as a servant and guardian to their host."
-	item = /obj/item/guardiancreator/carp
+	item = /obj/item/holoparasite_creator/carp
 	cost = 18
 	surplus = 5
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)

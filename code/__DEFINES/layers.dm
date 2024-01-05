@@ -8,17 +8,19 @@
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
 
-
-#define GRAVITY_PULSE_PLANE -11
+#define GRAVITY_PULSE_PLANE -89
 #define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
 
-#define OPENSPACE_LAYER 600 //Openspace layer over all
-#define OPENSPACE_PLANE -9 //Openspace plane below all turfs
-#define OPENSPACE_BACKDROP_PLANE -8 //Black square just over openspace plane to guaranteed cover all in openspace turf
-
+//#define ZMIMIC_MIN_PLANE -80
+// ZMIMIC: -----------  -80 to -70
+// Highest plane used by zmimic, occupies up to -ZMIMIC_MAX_DEPTH
+#define ZMIMIC_MAX_PLANE -70
+/// The maxiumum number of planes deep we'll go before we just dump everything on the same plane.
+#define ZMIMIC_MAX_DEPTH 10
 
 #define FLOOR_PLANE -7
 #define GAME_PLANE -4
+#define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
 
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
@@ -72,13 +74,14 @@
 #define BELOW_MOB_LAYER 3.7
 #define LYING_MOB_LAYER 3.8
 //#define MOB_LAYER 4 //For easy recordkeeping; this is a byond define
-#define MOB_SHIELD_LAYER 4.01
-#define ABOVE_MOB_LAYER 4.1
-#define WALL_OBJ_LAYER 4.25
-#define EDGED_TURF_LAYER 4.3
-#define ON_EDGED_TURF_LAYER 4.35
-#define LARGE_MOB_LAYER 4.4
-#define ABOVE_ALL_MOB_LAYER 4.5
+#define MOB_MAX_CLOTHING_LAYER 4.1
+#define MOB_SHIELD_LAYER 4.11
+#define ABOVE_MOB_LAYER 4.2
+#define WALL_OBJ_LAYER 4.35
+#define EDGED_TURF_LAYER 4.4
+#define ON_EDGED_TURF_LAYER 4.45
+#define LARGE_MOB_LAYER 4.5
+#define ABOVE_ALL_MOB_LAYER 4.6
 
 #define METEOR_SHADOW_LAYER 4.69
 #define METEOR_LAYER 4.7
@@ -87,22 +90,29 @@
 #define SPACEVINE_MOB_LAYER 4.9
 //#define FLY_LAYER 5 //For easy recordkeeping; this is a byond define
 #define GASFIRE_LAYER 5.05
+#define MIMICKED_LIGHTING_LAYER 5.06
 #define RIPPLE_LAYER 5.1
+
+#define TEXT_EFFECT_UI_LAYER 5.90 // text effects shouldn't be displayed behind.
+	// maybe it should be custom layer category like 'UI_LAYER 6'
 
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
 #define AREA_PLANE 60
+#define TEXT_EFFECT_PLANE 65
 #define MASSIVE_OBJ_PLANE 70
 #define GHOST_PLANE 80
 #define POINT_PLANE 90
-
-#define RAD_TEXT_PLANE 90
 
 #define DATA_HUD_PLANE 15
 
 //---------- LIGHTING -------------
 ///Normal 1 per turf dynamic lighting objects
 #define LIGHTING_PLANE 100
+#define LIGHTING_PLANE_ADDITIVE 101
+
+/// The plane for managing the global starlight effect
+#define STARLIGHT_PLANE 105
 
 ///Lighting objects that are "free floating"
 #define O_LIGHTING_VISUAL_PLANE 110
@@ -121,23 +131,15 @@
 #define EMISSIVE_PLANE 150
 #define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
 
-///This plane masks the emissive plane to "block" it. Byond is wacky, this is the only way to get things to look like they're actually blocking said glowing lights.
-#define EMISSIVE_BLOCKER_PLANE 160
-#define EMISSIVE_BLOCKER_RENDER_TARGET "*EMISSIVE_BLOCKER_PLANE"
-
-///This plane is "unblockable" emissives. It does the same thing as the emissive plane but isn't masked by the emissive blocker plane. Use for on-mob and movable emissives.
-#define EMISSIVE_UNBLOCKABLE_PLANE 170
-#define EMISSIVE_UNBLOCKABLE_RENDER_TARGET "*EMISSIVE_UNBLOCKABLE_PLANE"
-
 ///---------------- MISC -----------------------
 
 ///AI Camera Static
 #define CAMERA_STATIC_PLANE 200
 
 ///Popup Chat Messages
-#define RUNECHAT_PLANE 250
+#define RUNECHAT_PLANE 650
 /// Plane for balloon text (text that fades up)
-#define BALLOON_CHAT_PLANE 31
+#define BALLOON_CHAT_PLANE 651
 
 ///--------------- FULLSCREEN IMAGES ------------
 #define FULLSCREEN_PLANE 500
@@ -148,6 +150,15 @@
 #define CRIT_LAYER 5
 #define CURSE_LAYER 6
 
+///--------------- PSYCHIC & BLIND IMAGES ------------
+//Plane for highlighting objects - most soul glimmers
+#define PSYCHIC_PLANE 550
+#define PSYCHIC_PLANE_RENDER_TARGET "*PSYCHIC_PLANE_RENDER_TARGET"
+//Plane for not-highlighting objects - most hiding cult stuff
+#define ANTI_PSYCHIC_PLANE 551
+#define ANTI_PSYCHIC_PLANE_RENDER_TARGET "*ANTI_PSYCHIC_PLANE_RENDER_TARGET"
+//Plane for blind stuff
+#define BLIND_FEATURE_PLANE 552
 
 //-------------------- Rendering ---------------------
 #define RENDER_PLANE_GAME 990
@@ -157,7 +168,12 @@
 //-------------------- HUD ---------------------
 //HUD layer defines
 #define HUD_PLANE 1000
+#define HUD_LAYER 25
+#define HUD_RENDER_TARGET "HUD_PLANE"
+
 #define ABOVE_HUD_PLANE 1100
+#define ABOVE_HUD_RENDER_TARGET "ABOVE_HUD_PLANE"
+
 ///1000 is an unimportant number, it's just to normalize copied layers
 #define RADIAL_LAYER 1000
 

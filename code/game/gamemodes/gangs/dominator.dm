@@ -11,7 +11,7 @@
 	anchored = TRUE
 	layer = HIGH_OBJ_LAYER
 	max_integrity = 300
-	integrity_failure = 100
+	integrity_failure = 0.33
 	move_resist = INFINITY
 	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 10, ACID = 70, STAMINA = 0)
 	var/datum/team/gang/gang
@@ -24,7 +24,7 @@
 /obj/machinery/dominator/Initialize(mapload)
 	. = ..()
 	set_light(2)
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	spark_system = new
 	spark_system.set_up(5, TRUE, src)
 	countdown = new(src)
@@ -33,7 +33,6 @@
 /obj/machinery/dominator/Destroy()
 	if(!(stat & BROKEN))
 		set_broken()
-	GLOB.poi_list.Remove(src)
 	gang = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(countdown)

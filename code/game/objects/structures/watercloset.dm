@@ -260,10 +260,7 @@
 	if(busy)
 		to_chat(user, "<span class='notice'>Someone's already washing here.</span>")
 		return
-	var/selected_area = parse_zone(user.zone_selected)
-	var/washing_face = 0
-	if(selected_area in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES))
-		washing_face = 1
+	var/washing_face = user.is_zone_selected(BODY_ZONE_HEAD)
 	user.visible_message("<span class='notice'>[user] starts washing [user.p_their()] [washing_face ? "face" : "hands"]...</span>", \
 						"<span class='notice'>You start washing your [washing_face ? "face" : "hands"]...</span>")
 	busy = TRUE
@@ -401,11 +398,6 @@
 	density = FALSE
 	var/open = TRUE
 
-/obj/structure/curtain/proc/toggle()
-	open = !open
-
-	update_appearance()
-
 /obj/structure/curtain/update_icon()
 	if(!open)
 		icon_state = "[icon_type]-closed"
@@ -423,7 +415,7 @@
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
 	if (istype(W, /obj/item/toy/crayon))
-		color = input(user,"","Choose Color",color) as color
+		color = tgui_color_picker(user,"","Choose Color",color)
 	else
 		return ..()
 
@@ -448,8 +440,7 @@
 	. = ..()
 	if(.)
 		return
-	playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
-	toggle()
+	toggle(user)
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/cotton/cloth (loc, 2)
@@ -472,3 +463,25 @@
 	icon_state = "bounty-open"
 	color = null
 	alpha = 255
+
+/obj/structure/curtain/proc/toggle(mob/M)
+    if (check(M))
+        open = !open
+        playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
+        update_appearance()
+
+/obj/structure/curtain/proc/check(mob/M)
+    return TRUE
+
+/obj/structure/curtain/directional
+	icon_type = "bounty"
+	icon_state = "bounty-open"
+	color = null
+	alpha = 255
+	name = "window curtain"
+
+/obj/structure/curtain/directional/check(mob/M)
+	if (get_dir(src, M) & dir)
+		return TRUE
+	else
+		return FALSE

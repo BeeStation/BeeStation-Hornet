@@ -20,6 +20,9 @@
 	#define EXAMINE_POSITION_BEFORE (1<<1)
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED (1<<0)
+//from base of atom/attack_basic_mob(): (/mob/user)
+#define COMSIG_ATOM_ATTACK_BASIC_MOB "attack_basic_mob"
+
 ///	from base of [/atom/proc/update_appearance]: (updates)
 #define COMSIG_ATOM_UPDATE_APPEARANCE "atom_update_appearance"
 	/// If returned from [COMSIG_ATOM_UPDATE_APPEARANCE] it prevents the atom from updating its name.
@@ -54,7 +57,7 @@
 	#define COMPONENT_ATOM_BLOCK_EXIT 1
 ///! from base of atom/Exited(): (atom/movable/exiting, atom/newloc)
 #define COMSIG_ATOM_EXITED "atom_exited"
-///! from base of atom/ex_act(): (severity, target)
+///from the [EX_ACT] wrapper macro: (severity, target)
 #define COMSIG_ATOM_EX_ACT "atom_ex_act"
 ///from base of atom/Bumped(): (/atom/movable)
 #define COMSIG_ATOM_BUMPED "atom_bumped"
@@ -62,10 +65,15 @@
 #define COMSIG_ATOM_EMP_ACT "atom_emp_act"
 ///! from base of atom/fire_act(): (exposed_temperature, exposed_volume)
 #define COMSIG_ATOM_FIRE_ACT "atom_fire_act"
-///! from base of atom/bullet_act(): (/obj/item/projectile, def_zone)
+///! from base of atom/bullet_act(): (/obj/projectile, def_zone)
 #define COMSIG_ATOM_BULLET_ACT "atom_bullet_act"
+	#define COMSIG_ATOM_BULLET_ACT_HIT			(1 << 0)
+	#define COMSIG_ATOM_BULLET_ACT_BLOCK		(1 << 1)
+	#define COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE	(1 << 2)
 ///from base of atom/CheckParts(): (list/parts_list, datum/crafting_recipe/R)
 #define COMSIG_ATOM_CHECKPARTS "atom_checkparts"
+///from base of atom/CheckParts(): (atom/movable/new_craft) - The atom has just been used in a crafting recipe and has been moved inside new_craft.
+#define COMSIG_ATOM_USED_IN_CRAFT "atom_used_in_craft"
 ///! from base of atom/blob_act(): (/obj/structure/blob)
 #define COMSIG_ATOM_BLOB_ACT "atom_blob_act"
 /// if returned, forces nothing to happen when the atom is attacked by a blob
@@ -86,7 +94,7 @@
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"
 ///! from base of atom/teleport_act(): ()
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
-///! from base of atom/Exited(): (mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+///! from base of atom/Exited(): (mob/user, obj/item/extrapolator/extrapolator, dry_run, list/result)
 #define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"
 ///!from base of atom/singularity_pull(): (/datum/component/singularity, current_size)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"
@@ -171,3 +179,10 @@
 #define COMSIG_ATOM_SHOULD_EMAG "atom_should_emag"
 /// Do the emag action (if CHECK is FALSE)
 #define COMSIG_ATOM_ON_EMAG "atom_on_emag"
+
+/////////////////
+/// Radio jamming signals
+/////////////////
+
+#define COMSIG_ATOM_JAMMED "become_jammed"						//! Relayed to atoms when they become jammed if they have the jam_receiver components.
+#define COMSIG_ATOM_UNJAMMED "become_unjammed"					//! Relayed to atoms when they become unjammed if they have the jam_receiver components.

@@ -16,7 +16,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	name = "identification console"
 	desc = "You can use this to manage jobs and ID access."
 	icon_screen = "id"
-	icon_keyboard = "id_key"
+	icon_keyboard = "generic_key"
 	req_one_access = list(ACCESS_HEADS, ACCESS_CHANGE_IDS)
 	circuit = /obj/item/circuitboard/computer/card
 	var/mode = 0
@@ -401,8 +401,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if (authenticated && inserted_modify_id)
 
-			var/carddesc = text("")
-			var/jobs = text("")
+			var/carddesc = ""
+			var/jobs = ""
 			if( authenticated == 2)
 				carddesc += {"<script type="text/javascript">
 									function markRed(){
@@ -918,7 +918,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						return
 			if (!(printing))
 				printing = 1
-				var/target_name = input("Write the bank owner's name", "Account owner's name?")
+				var/target_name = reject_bad_text(stripped_input("Write the bank owner's name", "Account owner's name?"), MAX_NAME_LEN)
 				if(!target_name)
 					printing = null
 					return

@@ -1,7 +1,7 @@
 /// Support unit gets its own very basic antag datum for admin logging.
 /datum/antagonist/contractor_support
 	name = "Contractor Support Unit"
-	job_rank = ROLE_TRAITOR
+	banning_key = ROLE_TRAITOR
 	antag_moodlet = /datum/mood_event/focused
 
 	show_in_roundend = FALSE /// We're already adding them in to the contractor's roundend.
@@ -182,7 +182,7 @@
 	if (.)
 		to_chat(user, "<span class='notice'>The uplink vibrates quietly, connecting to nearby agents...</span>")
 
-		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the Contractor Support Unit for [user.real_name]?", ROLE_PAI, null, FALSE, 100, POLL_IGNORE_CONTRACTOR_SUPPORT)
+		var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the Contractor Support Unit for [user.real_name]?", ROLE_CONTRACTOR_SUPPORT_UNIT, null, 10 SECONDS)
 
 		if(LAZYLEN(candidates))
 			var/mob/dead/observer/C = pick(candidates)
@@ -294,6 +294,7 @@
 	name = "contractor pinpointer"
 	desc = "A handheld tracking device that locks onto certain signals. Ignores suit sensors, but is much less accurate."
 	icon_state = "pinpointer_syndicate"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	minimum_range = 25
 	has_owner = TRUE
 	ignore_suit_sensor_level = TRUE

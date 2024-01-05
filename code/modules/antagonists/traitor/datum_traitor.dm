@@ -5,18 +5,24 @@
 	name = "Traitor"
 	roundend_category = "traitors"
 	antagpanel_category = "Traitor"
-	job_rank = ROLE_TRAITOR
+	banning_key = ROLE_TRAITOR
+	required_living_playtime = 4
 	antag_moodlet = /datum/mood_event/focused
+	ui_name = "AntagInfoTraitor"
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
 	var/special_role = ROLE_TRAITOR
 	/// Shown when giving uplinks and codewords to the player
 	var/employer = "The Syndicate"
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
+	var/datum/weakref/uplink_ref
 	var/datum/contractor_hub/contractor_hub
+	/// If this specific traitor has been assigned codewords. This is not always true, because it varies by faction.
+	var/has_codewords = FALSE
 
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
 		traitor_kind = TRAITOR_AI
+		ui_name = "AntagInfoMalf"
 
 	SSticker.mode.traitors += owner
 	owner.special_role = special_role
@@ -52,6 +58,22 @@
 	owner.special_role = null
 	..()
 
+/datum/antagonist/traitor/ui_static_data(mob/user)
+	var/datum/component/uplink/uplink = uplink_ref?.resolve()
+	var/list/data = list()
+	data["antag_name"] = name
+	data["has_codewords"] = has_codewords
+	if(has_codewords)
+		data["phrases"] = jointext(GLOB.syndicate_code_phrase, ", ")
+		data["responses"] = jointext(GLOB.syndicate_code_response, ", ")
+	data["code"] = uplink?.unlock_code
+	data["failsafe_code"] = uplink?.failsafe_code
+	data["has_uplink"] = uplink ? TRUE : FALSE
+	if(uplink)
+		data["uplink_unlock_info"] = uplink.unlock_text
+	data["objectives"] = get_objectives()
+	return data
+
 /datum/antagonist/traitor/proc/handle_hearing(datum/source, list/hearing_args)
 	SIGNAL_HANDLER
 	var/message = hearing_args[HEARING_RAW_MESSAGE]
@@ -74,12 +96,21 @@
 			forge_human_objectives()
 
 /datum/antagonist/traitor/greet()
-	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.special_role].</span>")
-	owner.announce_objectives()
-	if(owner.current.client)
-		owner.current.client.tgui_panel?.give_antagonist_popup("Traitor", "Complete your objectives, no matter the cost.")
+	var/list/msg = list()
+	msg += "<span class='alertsyndie'>You are the [owner.special_role].</span>"
+	msg += "<span class='alertsyndie'>Use the 'Open [owner.special_role] Information' action at the top left in order to review your objectives and codewords!</span>"
+	to_chat(owner.current, EXAMINE_BLOCK(msg.Join("\n")))
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Traitor",
+		"Complete your objectives, no matter the cost.")
 	if(traitor_kind == TRAITOR_AI)
 		give_codewords() // humans get this assigned by their faction
+
+/datum/antagonist/traitor/proc/forge_single_objective()
+	switch(traitor_kind)
+		if(TRAITOR_AI)
+			return forge_single_AI_objective()
+		else
+			return forge_single_human_objective()
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
@@ -95,11 +126,11 @@
 	switch(traitor_kind)
 		if(TRAITOR_AI)
 			add_law_zero()
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 			owner.current.grant_language(/datum/language/codespeak, TRUE, TRUE, LANGUAGE_MALF)
 		if(TRAITOR_HUMAN)
 			ui_interact(owner.current)
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -121,6 +152,7 @@
 /datum/antagonist/traitor/proc/give_codewords()
 	if(!owner.current || !istype(faction))
 		return
+	has_codewords = TRUE
 	give_codewords_to_player(owner.current, src, faction.name)
 
 /proc/give_codewords_to_player(mob/player, datum/antagonist/antag_datum, employer = "The Syndicate")
@@ -140,7 +172,10 @@
 
 /datum/antagonist/traitor/proc/equip(var/silent = FALSE)
 	if(traitor_kind == TRAITOR_HUMAN)
-		owner.equip_traitor(employer, silent, src)
+		var/obj/item/uplink_loc = owner.equip_traitor(employer, silent, src)
+		var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
+		if(uplink)
+			uplink_ref = WEAKREF(uplink)
 
 /datum/antagonist/traitor/proc/assign_exchange_role()
 	//set faction
@@ -203,12 +238,8 @@
 	if(objectives.len)//If the traitor had no objectives, don't need to process this.
 		var/count = 1
 		for(var/datum/objective/objective in objectives)
-			if(objective.check_completion() && !objective.optional)
-				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-			else if (objective.optional)
-				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='greentext'>Optional.</span>"
-			else
-				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			objectives_text += "<br><B>Objective #[count]</B>: [objective.get_completion_message()]"
+			if(!objective.check_completion())
 				traitorwin = FALSE
 			count++
 
@@ -294,3 +325,8 @@
 
 /datum/antagonist/traitor/is_gamemode_hero()
 	return SSticker.mode.name == "traitor"
+
+/datum/antagonist/traitor/excommunicate
+	name = "Excommunicate Traitor"
+	banning_key = ROLE_EXCOMM
+	special_role = ROLE_EXCOMM

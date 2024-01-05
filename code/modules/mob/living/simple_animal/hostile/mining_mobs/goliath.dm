@@ -10,9 +10,9 @@
 	icon_gib = "syndicate_gib"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	mouse_opacity = MOUSE_OPACITY_ICON
-	move_to_delay = 40
+	move_to_delay = 2 SECONDS
 	ranged = 1
-	ranged_cooldown_time = 120
+	ranged_cooldown_time = 80
 	friendly = "wails at"
 	speak_emote = list("bellows")
 	vision_range = 4
@@ -92,7 +92,7 @@
 	throw_message = "does nothing to the tough hide of the"
 	pre_attack_icon = "goliath2"
 	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
+	butcher_results = list(/obj/item/food/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/goliath_hide = 1)
 	loot = list()
 	stat_attack = UNCONSCIOUS
@@ -117,7 +117,7 @@
 	pre_attack_icon = "Goliath_preattack"
 	throw_message = "does nothing to the rocky hide of the"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide) //A throwback to the asteroid days
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
+	butcher_results = list(/obj/item/food/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
 	guaranteed_butcher_results = list()
 	crusher_drop_mod = 30
 	wander = FALSE
@@ -187,7 +187,8 @@
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
-		L.Stun(100)
+		L.Stun(1 SECONDS)
+		L.Knockdown(6 SECONDS)
 		L.adjustBruteLoss(rand(10,15))
 		latched = TRUE
 	if(!latched)

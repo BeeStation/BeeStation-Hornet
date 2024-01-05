@@ -11,7 +11,7 @@
 
 /mob/living/carbon/monkey/punpun/Initialize(mapload)
 	// Init our blacklists.
-	relic_hat_blacklist = typecacheof(list(/obj/item/clothing/head/chameleon), only_root_path = TRUE)
+	relic_hat_blacklist = typecacheof(list(/obj/item/clothing/head/chameleon,/obj/item/clothing/head/monkey_sentience_helmet), only_root_path = TRUE)
 	relic_mask_blacklist = typecacheof(list(/obj/item/clothing/mask/facehugger, /obj/item/clothing/mask/chameleon), only_root_path = TRUE)
 
 	// Read memory

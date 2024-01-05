@@ -20,11 +20,11 @@ export const createStore = (reducer, enhancer) => {
 
   const getState = () => currentState;
 
-  const subscribe = listener => {
+  const subscribe = (listener) => {
     listeners.push(listener);
   };
 
-  const dispatch = action => {
+  const dispatch = (action) => {
     currentState = reducer(currentState, action);
     for (let i = 0; i < listeners.length; i++) {
       listeners[i]();
@@ -49,27 +49,27 @@ export const createStore = (reducer, enhancer) => {
  * actions.
  */
 export const applyMiddleware = (...middlewares) => {
-  return createStore => (reducer, ...args) => {
-    const store = createStore(reducer, ...args);
+  return (createStore) =>
+    (reducer, ...args) => {
+      const store = createStore(reducer, ...args);
 
-    let dispatch = () => {
-      throw new Error(
-        'Dispatching while constructing your middleware is not allowed.');
+      let dispatch = () => {
+        throw new Error('Dispatching while constructing your middleware is not allowed.');
+      };
+
+      const storeApi = {
+        getState: store.getState,
+        dispatch: (action, ...args) => dispatch(action, ...args),
+      };
+
+      const chain = middlewares.map((middleware) => middleware(storeApi));
+      dispatch = compose(...chain)(store.dispatch);
+
+      return {
+        ...store,
+        dispatch,
+      };
     };
-
-    const storeApi = {
-      getState: store.getState,
-      dispatch: (action, ...args) => dispatch(action, ...args),
-    };
-
-    const chain = middlewares.map(middleware => middleware(storeApi));
-    dispatch = compose(...chain)(store.dispatch);
-
-    return {
-      ...store,
-      dispatch,
-    };
-  };
 };
 
 /**
@@ -80,7 +80,7 @@ export const applyMiddleware = (...middlewares) => {
  * in the state that are not present in the reducers object. This function
  * is also more flexible than the redux counterpart.
  */
-export const combineReducers = reducersObj => {
+export const combineReducers = (reducersObj) => {
   const keys = Object.keys(reducersObj);
   let hasChanged = false;
   return (prevState = {}, action) => {
@@ -94,9 +94,7 @@ export const combineReducers = reducersObj => {
         nextState[key] = nextDomainState;
       }
     }
-    return hasChanged
-      ? nextState
-      : prevState;
+    return hasChanged ? nextState : prevState;
   };
 };
 
@@ -136,15 +134,14 @@ export const createAction = (type, prepare = null) => {
   };
   actionCreator.toString = () => '' + type;
   actionCreator.type = type;
-  actionCreator.match = action => action.type === type;
+  actionCreator.match = (action) => action.type === type;
   return actionCreator;
 };
-
 
 // Implementation specific
 // --------------------------------------------------------
 
-export const useDispatch = context => {
+export const useDispatch = (context) => {
   return context.store.dispatch;
 };
 

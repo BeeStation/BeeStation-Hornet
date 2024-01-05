@@ -61,6 +61,9 @@
 	/// state checking on if it should be shown to a viewer.
 	var/datum/weakref/camera_holder
 
+	///If TRUE, staff can read paper everywhere, but usually from requests panel.
+	var/request_state = FALSE
+
 /obj/item/paper/Initialize(mapload)
 	. = ..()
 	pixel_y = rand(-8, 8)
@@ -139,7 +142,7 @@
 		for(var/datum/paper_field/text as anything in new_paper.raw_field_input_data)
 			text.field_data.colour = new_color
 
-
+	new_paper.input_field_count = input_field_count
 	new_paper.raw_stamp_data = copy_raw_stamps()
 	new_paper.stamp_cache = stamp_cache?.Copy()
 	new_paper.update_icon_state()
@@ -294,13 +297,13 @@
 			return
 	var/n_name = stripped_input(usr, "What would you like to label the paper?", "Paper Labelling", null, MAX_NAME_LEN)
 	if(((loc == usr || istype(loc, /obj/item/clipboard)) && usr.stat == CONSCIOUS))
-		name = "paper[(n_name ? text("- '[n_name]'") : null)]"
+		name = "paper[(n_name ? "- '[n_name]'" : null)]"
 	add_fingerprint(usr)
 	update_static_data()
 
-/obj/item/paper/suicide_act(mob/user)
+/obj/item/paper/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
@@ -316,7 +319,7 @@
 		// Are we on fire?  Hard ot read if so
 	if(resistance_flags & ON_FIRE)
 		return UI_CLOSE
-	if(camera_holder && can_show_to_mob_through_camera(user))
+	if(camera_holder && can_show_to_mob_through_camera(user) || request_state)
 		return UI_UPDATE
 	if(!in_range(user,src))
 		return UI_CLOSE
@@ -373,7 +376,7 @@
 		return
 
 	// Handle writing items.
-	var/writing_stats = attacking_item.get_writing_implement_details()
+	var/writing_stats = istype(attacking_item) ? attacking_item.get_writing_implement_details() : null
 
 	if(!writing_stats)
 		ui_interact(user)
@@ -476,7 +479,7 @@
 		if(clipboard.pen)
 			holding = clipboard.pen
 
-	data["held_item_details"] = holding?.get_writing_implement_details()
+	data["held_item_details"] = istype(holding) ? holding.get_writing_implement_details() : null
 
 	// If the paper is on an unwritable noticeboard, clear the held item details so it's read-only.
 	if(istype(loc, /obj/structure/noticeboard))
@@ -523,14 +526,14 @@
 
 			add_stamp(stamp_class, stamp_x, stamp_y, stamp_rotation, stamp_icon_state)
 			user.visible_message("<span class='notice'>[user] stamps [src] with \the [holding.name]!</span>", "<span class='notice'>You stamp [src] with \the [holding.name]!</span>")
-
+			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			update_appearance()
-			update_static_data(user, ui)
+			update_static_data_for_all_viewers()
 			return TRUE
 
 		if("add_text")
 			var/paper_input = params["text"]
-			var/this_input_length = length(paper_input)
+			var/this_input_length = length_char(paper_input)
 
 			if(this_input_length == 0)
 				to_chat(user, pick("Writing block strikes again!", "You forgot to write anthing!"))
@@ -568,7 +571,7 @@
 			log_paper("[key_name(user)] wrote to [name]: \"[paper_input]\"")
 			to_chat(user, "You have added to your paper masterpiece!");
 
-			update_static_data(user, ui)
+			update_static_data_for_all_viewers()
 			update_appearance()
 			return TRUE
 		if("fill_input_field")
@@ -595,7 +598,7 @@
 
 			for(var/field_key in field_data)
 				var/field_text = field_data[field_key]
-				var/text_length = length(field_text)
+				var/text_length = length_char(field_text)
 				if(text_length > MAX_PAPER_INPUT_FIELD_LENGTH)
 					log_paper("[key_name(user)] tried to write to field [field_key] with text over the max limit ([text_length] out of [MAX_PAPER_INPUT_FIELD_LENGTH]) with the following text: [field_text]")
 					return TRUE
@@ -606,7 +609,7 @@
 				if(!add_field_input(field_key, field_text, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], user.real_name))
 					log_paper("[key_name(user)] tried to write to field [field_key] when it already has data, with the following text: [field_text]")
 
-			update_static_data(user, ui)
+			update_static_data_for_all_viewers()
 			return TRUE
 
 /obj/item/paper/proc/get_input_field_count(raw_text)
@@ -626,7 +629,7 @@
 /obj/item/paper/proc/get_total_length()
 	var/total_length = 0
 	for(var/datum/paper_input/entry as anything in raw_text_inputs)
-		total_length += length(entry.raw_text)
+		total_length += length_char(entry.raw_text)
 
 	return total_length
 

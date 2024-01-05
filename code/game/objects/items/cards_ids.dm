@@ -41,13 +41,13 @@
 	.=..()
 	update_icon()
 
-/obj/item/card/data/update_icon()
-	cut_overlays()
+/obj/item/card/data/update_overlays()
+	. = ..()
 	if(detail_color == COLOR_FLOORTILE_GRAY)
 		return
 	var/mutable_appearance/detail_overlay = mutable_appearance('icons/obj/card.dmi', "[icon_state]-color")
 	detail_overlay.color = detail_color
-	add_overlay(detail_overlay)
+	. += detail_overlay
 
 /obj/item/card/data/full_color
 	desc = "A plastic magstripe card for simple and speedy data storage and transfer. This one has the entire card colored."
@@ -69,12 +69,18 @@
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON | ISWEAPON
 	var/prox_check = TRUE //If the emag requires you to be in range
+	var/charges = 4
+	var/max_charges = 4
+	var/list/charge_timers = list()
+	var/charge_time = 30 SECONDS
+	var/updating = FALSE
+	var/sound/recharge_sound
+	var/soundvary = TRUE
 
-/obj/item/card/emag/bluespace
-	name = "bluespace cryptographic sequencer"
-	desc = "It's a blue card with a magnetic strip attached to some circuitry. It appears to have some sort of transmitter attached to it."
-	icon_state = "emag_bs"
-	prox_check = FALSE
+/obj/item/card/emag/Initialize(mapload)
+	. = ..()
+	update_appearance(updates = UPDATE_OVERLAYS)
+	recharge_sound = sound('sound/machines/twobeep.ogg', FALSE, FALSE, 0, 10)
 
 /obj/item/card/emag/attack()
 	return
@@ -84,8 +90,58 @@
 	var/atom/A = target
 	if(!proximity && prox_check)
 		return
-	log_combat(user, A, "attempted to emag")
-	A.use_emag(user)
+	log_combat(user, A, "attempted to emag with [charges] charges")
+	A.use_emag(user, src)
+
+/obj/item/card/emag/proc/use_charge()
+	charges--
+	charge_timers.Add(addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time, TIMER_STOPPABLE))
+	INVOKE_ASYNC(src, PROC_REF(do_animation))
+
+/obj/item/card/emag/proc/recharge()
+	charges = min(charges+1, max_charges)
+	if(soundvary)
+		recharge_sound.frequency = get_rand_frequency()
+	if(get_dist(src, usr) == 0)
+		SEND_SOUND(usr, recharge_sound)
+	charge_timers.Remove(charge_timers[1])
+	INVOKE_ASYNC(src, PROC_REF(do_animation))
+
+/obj/item/card/emag/proc/do_animation()
+	updating = TRUE
+	update_appearance(updates = UPDATE_OVERLAYS)
+	sleep(3)
+	updating = FALSE
+	update_appearance(updates = UPDATE_OVERLAYS)
+
+/obj/item/card/emag/examine(mob/user)
+	. = ..()
+	switch(charges)
+		if(2 to INFINITY)
+			. += "<span class='notice'>It has [charges] charges remaining.</span>"
+		if(1)
+			. += "<span class='notice'>It has [charges] charge remaining.</span>"
+		if(-INFINITY to 0)
+			. += "<span class='warning'>It's out of charges!</span>"
+
+/obj/item/card/emag/update_overlays()
+	. = ..()
+	if(updating)
+		. += "emag_progress"
+	else
+		switch(charges)
+			if(-INFINITY to 0)
+				. += "emag_0"
+			if(10 to INFINITY)
+				. += "emag_9"
+			if(1 to 9)
+				. += "emag_[charges]"
+
+/obj/item/card/emag/bluespace
+	name = "bluespace cryptographic sequencer"
+	desc = "It's a blue card with a magnetic strip attached to some circuitry. It appears to have some sort of transmitter attached to it."
+	icon_state = "emag_bs"
+	prox_check = FALSE
 
 /obj/item/card/emagfake
 	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry. Closer inspection shows that this card is a poorly made replica, with a \"DonkCo\" logo stamped on the back."
@@ -124,6 +180,7 @@
 	. = ..()
 	if(mapload && access_txt)
 		access = text2access(access_txt)
+	//RegisterSignal(src, COMSIG_ATOM_UPDATED_ICON, PROC_REFupdate_in_wallet))
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
@@ -341,6 +398,18 @@
 	return src
 
 /*
+/// Called on COMSIG_ATOM_UPDATED_ICON. Updates the visuals of the wallet this card is in.
+/obj/item/card/id/proc/update_in_wallet()
+	SIGNAL_HANDLER
+
+	if(istype(loc, /obj/item/storage/wallet))
+		var/obj/item/storage/wallet/powergaming = loc
+		if(powergaming.front_id == src)
+			powergaming.update_label()
+			powergaming.update_appearance()
+*/
+
+/*
 Usage:
 update_label()
 	Sets the id name to whatever registered_name and assignment is
@@ -458,6 +527,8 @@ update_label("John Doe", "Clowny")
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over the ID, copying its access.</span>")
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
+	if(chameleon_action.hidden)
+		return ..()
 	if(isliving(user) && user.mind)
 		var/first_use = registered_name ? FALSE : TRUE
 		if(!(user.mind.special_role || anyone)) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
@@ -474,7 +545,7 @@ update_label("John Doe", "Clowny")
 				assignment = "Assistant"
 
 			var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
-			input_name = reject_bad_name(input_name)
+			input_name = reject_bad_name(input_name, allow_numbers = TRUE)
 			if(!input_name)
 				// Invalid/blank names give a randomly generated one.
 				if(user.gender == MALE)
@@ -529,6 +600,22 @@ update_label("John Doe", "Clowny")
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+
+/obj/item/card/id/syndicate/attackby(obj/item/W, mob/user, params)
+	if(W.tool_behaviour == TOOL_MULTITOOL)
+		if(chameleon_action.hidden)
+			chameleon_action.hidden = FALSE
+			actions += chameleon_action
+			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the agent ID ([name]) with [W]")
+			return
+		else
+			chameleon_action.hidden = TRUE
+			actions -= chameleon_action
+			chameleon_action.Remove(user)
+			log_game("[key_name(user)] has locked the disguise of the agent ID ([name]) with [W]")
+			return
+	. = ..()
 
 // broken chameleon agent card
 /obj/item/card/id/syndicate/broken

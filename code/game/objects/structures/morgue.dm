@@ -88,13 +88,13 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 		if(!user.is_literate())
 			to_chat(user, "<span class='notice'>You scribble illegibly on the side of [src]!</span>")
 			return
-		var/t = stripped_input(user, "What would you like the label to be?", text("[]", name), null)
+		var/t = stripped_input(user, "What would you like the label to be?", "[name]", null)
 		if (user.get_active_held_item() != P)
 			return
 		if(!user.canUseTopic(src, BE_CLOSE))
 			return
 		if (t)
-			name = text("[]- '[]'", initial(name), t)
+			name = "[initial(name)]- '[t]'"
 		else
 			name = initial(name)
 	else
@@ -273,7 +273,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 				log_combat(user, M, "cremated")
 			else
 				M.log_message("was cremated", LOG_ATTACK)
-			M.death(1)
+			if(user.stat != DEAD)
+				user.investigate_log("has died from being cremated.", INVESTIGATE_DEATHS)
+			M.death(TRUE)
 			if(M) //some animals get automatically deleted on death.
 				M.ghostize()
 				qdel(M)
@@ -302,7 +304,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/structure/bodycontainer/crematorium/creamatorium/cremate(mob/user)
 	var/list/icecreams = new()
 	for(var/i_scream in GetAllContents(/mob/living))
-		var/obj/item/reagent_containers/food/snacks/icecream/IC = new()
+		var/obj/item/food/icecream/IC = new()
 		IC.set_cone_type("waffle")
 		IC.add_mob_flavor(i_scream)
 		icecreams += IC

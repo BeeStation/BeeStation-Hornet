@@ -203,8 +203,8 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "bt" = (
-/obj/machinery/vending/cola/random{
-	extended_inventory = 1
+/obj/effect/spawner/randomvend/cola{
+	hacked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -2901,7 +2901,7 @@
 "lb" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
-/obj/machinery/atmospherics/pipe/simple/supplymain/visible{
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -3061,7 +3061,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "lt" = (
-/obj/machinery/atmospherics/pipe/simple/supplymain/visible,
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "lu" = (
@@ -3125,7 +3125,7 @@
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder,
 /obj/item/kitchen/rollingpin,
-/obj/item/kitchen/knife{
+/obj/item/knife/kitchen{
 	pixel_x = 6
 	},
 /turf/open/floor/wood,
@@ -3391,8 +3391,8 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "mk" = (
-/obj/machinery/atmospherics/pipe/manifold/supplymain/visible,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/cyan/visible,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "mm" = (
@@ -3477,7 +3477,7 @@
 "my" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /obj/item/reagent_containers/food/condiment/enzyme,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/food/chocolatebar,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -3595,7 +3595,7 @@
 	frequency = 1442;
 	name = "Toxins Supply Control";
 	output_tag = "syndie_lavaland_tox_out";
-	sensors = list("syndie_lavaland_tox_sensor" = "Tank")
+	sensors = list("syndie_lavaland_tox_sensor"="Tank")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -4265,7 +4265,7 @@
 	frequency = 1442;
 	name = "Oxygen Supply Control";
 	output_tag = "syndie_lavaland_o2_out";
-	sensors = list("syndie_lavaland_o2_sensor" = "Tank")
+	sensors = list("syndie_lavaland_o2_sensor"="Tank")
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/plasteel,
@@ -4402,7 +4402,7 @@
 	frequency = 1442;
 	name = "Nitrogen Supply Control";
 	output_tag = "syndie_lavaland_n2_out";
-	sensors = list("syndie_lavaland_n2_sensor" = "Tank")
+	sensors = list("syndie_lavaland_n2_sensor"="Tank")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted,
@@ -4523,8 +4523,8 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "xu" = (
-/obj/machinery/vending/snack/random{
-	extended_inventory = 1
+/obj/effect/spawner/randomvend/snack{
+	hacked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -4637,11 +4637,11 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "zB" = (
-/obj/machinery/atmospherics/pipe/simple/supplymain/visible{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "zK" = (
@@ -5084,13 +5084,13 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "Ko" = (
-/obj/machinery/atmospherics/pipe/simple/supplymain/visible{
-	dir = 4
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Kv" = (
@@ -5103,7 +5103,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "KU" = (
-/obj/machinery/computer/camera_advanced,
+/obj/machinery/computer/camera_advanced/syndie,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)

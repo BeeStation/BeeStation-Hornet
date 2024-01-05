@@ -74,6 +74,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/pickup_sound
 	///Sound uses when dropping the item, or when its thrown.
 	var/drop_sound
+	///Whether or not we use stealthy audio levels for this item's attack sounds
+	var/stealthy_audio = FALSE
+
 	/// The weight class of an object. Used to determine tons of things, like if it's too cumbersome for you to drag, if it can fit in certain storage items, how long it takes to burn, and more. See _DEFINES/inventory.dm to see all weight classes.
 	var/w_class = WEIGHT_CLASS_NORMAL
 	/// This is used to determine on which inventory slots an item can fit.
@@ -133,9 +136,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/strip_delay = 40
 	/// In deciseconds, how long it takes to break out of an item by using resist. ex: handcuffs
 	var/breakouttime = 0
-
-	/// List of materials it contains as the keys and the quantities as the vals. Like when you pop it into an autolathe these are the materials you get out of it. Also used in microwaves to see if there is enough iron to make it explode. Oh yeah it's used for a ton of other things too. Less exciting things though.
-	var/list/materials
 
 	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/list/attack_verb
@@ -221,18 +221,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///Icon for monkey
 	var/icon/monkey_icon
 
+	var/canMouseDown = FALSE
+
+	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
+	var/vendor_icon_preview = null
+
 
 /obj/item/Initialize(mapload)
-
-	materials =	typelist("materials", materials)
-
-	if(materials) //Otherwise, use the instances already provided.
-		var/list/temp_list = list()
-		for(var/i in materials) //Go through all of our materials, get the subsystem instance, and then replace the list.
-			var/amount = materials[i]
-			var/datum/material/M = getmaterialref(i)
-			temp_list[M] = amount
-		materials = temp_list
 
 	if (attack_verb)
 		attack_verb = typelist("attack_verb", attack_verb)
@@ -305,7 +300,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //TOXLOSS = 4
 //OXYLOSS = 8
 //Output a creative message and then return the damagetype done
-/obj/item/proc/suicide_act(mob/user)
+/obj/item/proc/suicide_act(mob/living/user)
 	return
 
 /obj/item/set_greyscale(list/colors, new_config, new_worn_config, new_inhand_left, new_inhand_right)
@@ -422,9 +417,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	// Extractable materials. Only shows the names, not the amounts.
 	research_msg += ".<br><font color='purple'>Extractable materials:</font> "
-	if (materials.len)
+	if (custom_materials.len)
 		sep = ""
-		for(var/mat in materials)
+		for(var/mat in custom_materials)
 			research_msg += sep
 			research_msg += CallMaterialName(mat)
 			sep = ", "
@@ -449,6 +444,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 	if(anchored)
 		return
+
+	. = TRUE
 
 	if(resistance_flags & ON_FIRE)
 		var/mob/living/carbon/C = user
@@ -502,10 +499,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
+	. = FALSE
 	remove_outline()
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
 		user.dropItemToGround(src)
+		return TRUE
 
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
@@ -581,15 +580,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
 		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack!</span>")
 		return 0
-	if(owner.a_intent == INTENT_HELP) //you can choose not to block an attack
-		return 0
 	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src) //you can still parry with the offhand
 		return 0
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(block_flags & BLOCKING_PROJECTILE)
 			if(P.movement_type & PHASING) //you can't block piercing rounds!
 				return 0
+			// Recalculate the relative_dir based on the projectile angle
+			relative_dir = dir2angle(angle2dir(P.Angle)) - dir2angle(owner.dir)
 		else
 			return 0
 	if(owner.m_intent == MOVE_INTENT_WALK)
@@ -631,7 +630,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			blockhand = BODY_ZONE_L_ARM
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(P.damage_type != STAMINA)// disablers dont do shit to shields
 			attackforce = (P.damage)
 	else if(isitem(hitby))
@@ -690,6 +689,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	log_item(user, INVESTIGATE_VERB_DROPPED)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
+	user.update_equipment_speed_mods()
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -712,6 +712,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // for items that can be placed in multiple slots
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
 	for(var/X in actions)
@@ -728,6 +729,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
 		else if(slot == ITEM_SLOT_HANDS)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
+	user.update_equipment_speed_mods()
+
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -968,6 +971,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return ..()
 	return 0
 
+/obj/item/attack_basic_mob(mob/living/basic/user)
+	if (obj_flags & CAN_BE_HIT)
+		return ..()
+	return 0
+
 /obj/item/mech_melee_attack(obj/mecha/M)
 	return 0
 
@@ -991,7 +999,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		..()
 
 /obj/item/proc/microwave_act(obj/machinery/microwave/M)
-	SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M) & COMPONENT_SUCCESFUL_MICROWAVE)
+		return
 	if(istype(M) && M.dirty < 100)
 		M.dirty++
 
@@ -1044,8 +1053,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && (usr.client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TIPS) && !QDELETED(src))
-		var/timedelay = usr.client.prefs.tip_delay/100
+	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips) && !QDELETED(src))
+		var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
 	var/mob/living/L = usr
@@ -1066,14 +1075,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/apply_outline(colour = null)
 	if(!(item_flags & PICKED_UP || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
-	if(usr.client)
-		if(!(usr.client.prefs.toggles & PREFTOGGLE_OUTLINE_ENABLED))
-			return
+	if(!usr.client?.prefs?.read_player_preference(/datum/preference/toggle/item_outlines))
+		return
 	if(!colour)
-		if(usr.client)
-			colour = usr.client.prefs.outline_color
-			if(!colour)
-				colour = COLOR_BLUE_GRAY
+		if(usr?.client?.prefs)
+			colour = usr.client.prefs.read_player_preference(/datum/preference/color/outline_color)
 		else
 			colour = COLOR_BLUE_GRAY
 	add_filter(HOVER_OUTLINE_FILTER, 1, list(type="outline", size=1, color=colour))
@@ -1175,6 +1181,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return TRUE
 
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
+	SHOULD_BE_PURE(TRUE)
 	return !HAS_TRAIT(src, TRAIT_NODROP)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
@@ -1210,6 +1217,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & DROPDEL)
 		QDEL_NULL(src)
 		return TRUE
+	if(istype(src, /obj/item/shrapnel))
+		src.disableEmbedding()
 
 /**
   * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targetting the target.
@@ -1307,7 +1316,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				found_mats++
 
 		//if there's glass in it and the glass is more than 60% of the item, then we can shatter it
-		if(custom_materials[getmaterialref(/datum/material/glass)] >= total_material_amount * 0.60)
+		if(custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)] >= total_material_amount * 0.60)
 			if(prob(66)) //66% chance to break it
 				/// The glass shard that is spawned into the source item
 				var/obj/item/shard/broken_glass = new /obj/item/shard(loc)
@@ -1346,6 +1355,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return discover_after
 
 #undef MAX_MATS_PER_BITE
+
+/**
+ * Updates all action buttons associated with this item
+ *
+ * Arguments:
+ * * status_only - Update only current availability status of the buttons to show if they are ready or not to use
+ * * force - Force buttons update even if the given button icon state has not changed
+ */
+/obj/item/proc/update_action_buttons(status_only = FALSE, force = FALSE)
+	for(var/datum/action/current_action as anything in actions)
+		current_action.UpdateButtonIcon(status_only, force)
 
 /**
  * * An interrupt for offering an item to other people, called mainly from [/mob/living/carbon/proc/give], in case you want to run your own offer behavior instead.
@@ -1388,3 +1408,41 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  */
 /obj/item/proc/get_writing_implement_details()
 	return null
+
+/// Increases weight class by one class and returns true, or else returns false
+/obj/item/proc/weight_class_up()
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY)
+			w_class = WEIGHT_CLASS_SMALL
+		if(WEIGHT_CLASS_SMALL)
+			w_class = WEIGHT_CLASS_NORMAL
+		if(WEIGHT_CLASS_NORMAL)
+			w_class = WEIGHT_CLASS_LARGE
+		if(WEIGHT_CLASS_LARGE)
+			w_class = WEIGHT_CLASS_BULKY
+		if(WEIGHT_CLASS_BULKY)
+			w_class = WEIGHT_CLASS_HUGE
+		if(WEIGHT_CLASS_HUGE)
+			w_class = WEIGHT_CLASS_GIGANTIC
+		else
+			return FALSE
+	return TRUE
+
+/// Decreases weight class by one class and returns true, or else returns false
+/obj/item/proc/weight_class_down()
+	switch(w_class)
+		if(WEIGHT_CLASS_SMALL)
+			w_class = WEIGHT_CLASS_TINY
+		if(WEIGHT_CLASS_NORMAL)
+			w_class = WEIGHT_CLASS_SMALL
+		if(WEIGHT_CLASS_LARGE)
+			w_class = WEIGHT_CLASS_NORMAL
+		if(WEIGHT_CLASS_BULKY)
+			w_class = WEIGHT_CLASS_LARGE
+		if(WEIGHT_CLASS_HUGE)
+			w_class = WEIGHT_CLASS_BULKY
+		if(WEIGHT_CLASS_GIGANTIC)
+			w_class = WEIGHT_CLASS_HUGE
+		else
+			return FALSE
+	return TRUE

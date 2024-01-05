@@ -91,8 +91,9 @@
 		var/obj/item/stack/S = I
 
 		if(is_type_in_list(S, list(/obj/item/stack/sheet/iron, /obj/item/stack/rods, /obj/item/stack/tile/plasteel, /obj/item/stack/tile/light)))
-			if(S.materials[/datum/material/iron])
-				S.cost = S.materials[/datum/material/iron] * 0.25
+			if(S.custom_materials && custom_materials.len)
+				if(S.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)])
+					S.cost = S.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)] * 0.25
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
 
 		else if(istype(S, /obj/item/stack/sheet/glass))
@@ -121,7 +122,7 @@
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/beacon)
 
 		if(S?.source)
-			S.materials = list()
+			S.set_custom_materials(null)
 			S.is_cyborg = 1
 
 	if(I.loc != src)
@@ -310,7 +311,7 @@
 		/obj/item/circular_saw,
 		/obj/item/blood_filter,
 		/obj/item/extinguisher/mini,
-		/obj/item/roller/robo,
+		/obj/item/rollerbed/robo,
 		/obj/item/borg/cyborghug/medical,
 		/obj/item/stack/medical/gauze/cyborg,
 		/obj/item/organ_storage,
@@ -439,7 +440,7 @@
 		/obj/item/holosign_creator/cyborg,
 		/obj/item/borg/cyborghug/peacekeeper,
 		/obj/item/extinguisher,
-		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/reagent_containers/peppercloud_deployer,
 		/obj/item/borg/projectile_dampen)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
 	ratvar_modules = list(
@@ -707,7 +708,7 @@
 		/obj/item/surgicaldrill,
 		/obj/item/scalpel,
 		/obj/item/melee/transforming/energy/sword/cyborg/saw,
-		/obj/item/roller/robo,
+		/obj/item/rollerbed/robo,
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg,
 		/obj/item/extinguisher/mini,

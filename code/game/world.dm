@@ -2,12 +2,47 @@
 
 GLOBAL_VAR(restart_counter)
 
+/**
+ * WORLD INITIALIZATION
+ * THIS IS THE INIT ORDER:
+ *
+ * BYOND =>
+ * - (secret init native) =>
+ *   - world.Genesis() =>
+ *     - world.init_byond_tracy()
+ *   - (/static variable inits, reverse declaration order)
+ * - Master/New()
+ * - (all pre-mapped atoms) /atom/New()
+ * - world.New()
+ *
+ * Now listen up because I want to make something clear:
+ * If something is not in this list it should almost definitely be handled by a subsystem Initialize()ing
+ * If whatever it is that needs doing doesn't fit in a subsystem you probably aren't trying hard enough tbhfam
+ *
+ * GOT IT MEMORIZED?
+ * - Dominion/Cyberboss
+ */
+
+/**
+ * THIS !!!SINGLE!!! PROC IS WHERE ANY FORM OF INIITIALIZATION THAT CAN'T BE PERFORMED IN MASTER/NEW() IS DONE
+ * NOWHERE THE FUCK ELSE
+ * I DON'T CARE HOW MANY LAYERS OF DEBUG/PROFILE/TRACE WE HAVE, YOU JUST HAVE TO DEAL WITH THIS PROC EXISTING
+ * I'M NOT EVEN GOING TO TELL YOU WHERE IT'S CALLED FROM BECAUSE I'M DECLARING THAT FORBIDDEN KNOWLEDGE
+ * SO HELP ME GOD IF I FIND ABSTRACTION LAYERS OVER THIS!
+ */
+/world/proc/Genesis()
+	// auxtools has to go BEFORE tracy, otherwise tracy will clobber its hook addresses
+	AUXTOOLS_CHECK(AUXMOS)
+	#ifdef USE_BYOND_TRACY
+	#warn USE_BYOND_TRACY is enabled
+	init_byond_tracy()
+	#endif
+	// Anything else that needs to happen before /world/New() goes here.
+	// On TG this includes debugger init and intializing Master, but for now we'll leave that as a BYOND global.
+
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()
-	//Keep the auxtools stuff at the top
-	AUXTOOLS_CHECK(AUXMOS)
-
 	log_world("World loaded at [time_stamp()]!")
 	SSmetrics.world_init_time = REALTIMEOFDAY // Important
 
@@ -125,6 +160,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.world_job_debug_log = "[GLOB.log_directory]/job_debug.log"
 	GLOB.world_paper_log = "[GLOB.log_directory]/paper.log"
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
+	GLOB.prefs_log = "[GLOB.log_directory]/preferences.log"
 
 #ifdef UNIT_TESTS
 	GLOB.test_log = file("[GLOB.log_directory]/tests.log")
@@ -145,6 +181,7 @@ GLOBAL_VAR(restart_counter)
 	start_log(GLOB.world_job_debug_log)
 	start_log(GLOB.world_id_log)
 	start_log(GLOB.tgui_log)
+	start_log(GLOB.prefs_log)
 
 	GLOB.changelog_hash = md5('html/changelog.html') //for telling if the changelog has changed recently
 	if(fexists(GLOB.config_error_log))
@@ -375,3 +412,41 @@ GLOBAL_VAR(restart_counter)
 	world.refresh_atmos_grid()
 
 /world/proc/refresh_atmos_grid()
+
+/world/proc/change_fps(new_value = 20)
+	if(new_value <= 0)
+		CRASH("change_fps() called with [new_value] new_value.")
+	if(fps == new_value)
+		return //No change required.
+
+	fps = new_value
+	on_tickrate_change()
+
+/* UNUSED. uncomment if using
+/world/proc/change_tick_lag(new_value = 0.5)
+	if(new_value <= 0)
+		CRASH("change_tick_lag() called with [new_value] new_value.")
+	if(tick_lag == new_value)
+		return //No change required.
+
+	tick_lag = new_value
+	on_tickrate_change()
+*/
+
+/world/proc/on_tickrate_change()
+	SStimer?.reset_buckets()
+
+/world/proc/init_byond_tracy()
+	var/library
+
+	switch (system_type)
+		if (MS_WINDOWS)
+			library = "prof.dll"
+		if (UNIX)
+			library = "libprof.so"
+		else
+			CRASH("Unsupported platform: [system_type]")
+
+	var/init_result = LIBCALL(library, "init")("block")
+	if (init_result != "0")
+		CRASH("Error initializing byond-tracy: [init_result]")

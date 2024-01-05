@@ -1,6 +1,8 @@
 /datum/job/quartermaster
 	title = JOB_NAME_QUARTERMASTER
 	flag = QUARTERMASTER
+	description = "Oversee and direct cargo technicians to fulfill requests for supplies and keep the station well stocked, request funds from department budgets to cover costs, deny frivolous orders when money is tight, and sell anything the station doesn't need."
+	department_for_prefs = DEPT_BITFLAG_CAR
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -26,6 +28,13 @@
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo_technician
+	)
+
+	minimal_lightup_areas = list(
+		/area/quartermaster/qm,
+		/area/quartermaster/qm_bedroom,
+		/area/quartermaster/exploration_prep,
+		/area/quartermaster/exploration_dock
 	)
 
 /datum/outfit/job/quartermaster

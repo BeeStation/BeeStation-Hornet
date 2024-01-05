@@ -13,7 +13,7 @@
 
 	w_class = WEIGHT_CLASS_SMALL
 
-	materials = list(/datum/material/iron=50, /datum/material/glass=50)
+	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
 
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
@@ -89,7 +89,7 @@
 	else
 		return TRUE
 
-/obj/item/airlock_painter/suicide_act(mob/user)
+/obj/item/airlock_painter/suicide_act(mob/living/user)
 	var/obj/item/organ/lungs/L = user.getorganslot(ORGAN_SLOT_LUNGS)
 
 	if(can_use(user) && L)
@@ -342,7 +342,7 @@
 			stored_color = selected_color
 		if("pick custom color")
 			if(supports_custom_color)
-				var/chosen_color = input(usr, "Pick new color", "[src]", "yellow") as color|null
+				var/chosen_color = tgui_color_picker(usr, "Pick new color", "[src]", COLOR_YELLOW)
 				if(!chosen_color || QDELETED(src) || usr.incapacitated() || !usr.is_holding(src))
 					return
 				stored_custom_color = chosen_color
@@ -352,6 +352,7 @@
 
 /datum/asset/spritesheet/decals
 	name = "floor_decals"
+	cross_round_cachable = TRUE
 
 	/// The floor icon used for blend_preview_floor()
 	var/preview_floor_icon = 'icons/turf/floors.dmi'
@@ -386,7 +387,7 @@
 	var/icon/final = blend_preview_floor(icon('icons/turf/decals.dmi', "[decal][icon_state_color ? "_" : ""][icon_state_color]", dir))
 	Insert("[decal]_[dir]_[color]", final)
 
-/datum/asset/spritesheet/decals/register()
+/datum/asset/spritesheet/decals/create_spritesheets()
 	// Must actually create because initial(type) doesn't work for /lists for some reason.
 	var/obj/item/airlock_painter/decal/painter = new painter_type()
 
@@ -398,7 +399,6 @@
 				insert_state(decal[2], dir[2], "custom")
 
 	qdel(painter)
-	return ..()
 
 /obj/item/airlock_painter/decal/debug
 	name = "extreme decal painter"

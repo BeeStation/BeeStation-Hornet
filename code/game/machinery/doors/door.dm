@@ -9,7 +9,7 @@
 	layer = OPEN_DOOR_LAYER
 	power_channel = AREA_USAGE_ENVIRON
 	pass_flags_self = PASSDOORS
-	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	max_integrity = 350
 	armor = list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70, STAMINA = 0)
 	CanAtmosPass = ATMOS_PASS_DENSITY
@@ -83,10 +83,6 @@
 	else
 		layer = initial(layer)
 
-/obj/machinery/door/power_change()
-	..()
-	update_icon()
-
 /obj/machinery/door/Destroy()
 	update_freelook_sight()
 	GLOB.airlocks -= src
@@ -97,7 +93,7 @@
 
 /obj/machinery/door/Bumped(atom/movable/AM)
 	. = ..()
-	if(operating || (obj_flags & EMAGGED))
+	if(operating)
 		return
 	if(ismob(AM))
 		var/mob/B = AM
@@ -152,7 +148,7 @@
 /// Helper method for bumpopen() and try_to_activate_door(). Don't override.
 /obj/machinery/door/proc/activate_door_base(mob/user, can_close_door)
 	add_fingerprint(user)
-	if(operating || (obj_flags & EMAGGED))
+	if(operating)
 		return
 	// Cutting WIRE_IDSCAN disables normal entry
 	if(!id_scan_hacked() && allowed(user))
@@ -197,8 +193,8 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/door/proc/unrestricted_side(mob/M) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)
-	return get_dir(src, M) & unres_sides
+/obj/machinery/door/proc/unrestricted_side(mob/opener) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)
+	return get_dir(src, opener) & unres_sides
 
 /obj/machinery/door/proc/try_to_weld(obj/item/weldingtool/W, mob/user)
 	return
@@ -309,7 +305,7 @@
 	set_opacity(0)
 	sleep(open_speed)
 	set_density(FALSE)
-	obj_flags &= ~(BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
+	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	sleep(open_speed)
 	layer = initial(layer)
 	update_appearance()
@@ -340,10 +336,10 @@
 	layer = closingLayer
 	if(air_tight)
 		set_density(TRUE)
-		obj_flags |= BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+		z_flags |= Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	sleep(open_speed)
 	set_density(TRUE)
-	obj_flags |= BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+	z_flags |= Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	sleep(open_speed)
 	update_icon()
 	if(visible && !glass)
@@ -370,7 +366,7 @@
 			L.emote("roar")
 		else if(ishuman(L)) //For humans
 			var/armour = L.run_armor_check(BODY_ZONE_CHEST, MELEE)
-			var/multiplier = CLAMP(1 - (armour * 0.01), 0, 1)
+			var/multiplier = clamp(1 - (armour * 0.01), 0, 1)
 			L.adjustBruteLoss(multiplier * DOOR_CRUSH_DAMAGE)
 			L.emote("scream")
 			if(!L.IsParalyzed())

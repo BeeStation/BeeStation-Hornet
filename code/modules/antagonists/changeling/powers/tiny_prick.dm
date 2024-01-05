@@ -114,7 +114,7 @@
 		if(ismonkey(C))
 			C = C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI)
 		var/datum/status_effect/ling_transformation/previous_transformation = C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION)
-		C.apply_status_effect(STATUS_EFFECT_LING_TRANSFORMATION, new_dna, previous_transformation?.original_dna)
+		C.apply_status_effect(STATUS_EFFECT_LING_TRANSFORMATION, new_dna, istype(previous_transformation) ? previous_transformation.original_dna : null)
 	COOLDOWN_START(src, next_sting, TRANSFORM_STING_COOLDOWN)
 
 
@@ -220,7 +220,7 @@
 	log_combat(user, target, "stung", "blind sting")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
 	target.become_nearsighted(EYE_DAMAGE)
-	target.blind_eyes(20)
+	target.adjust_blindness(20)
 	target.blur_eyes(40)
 	return TRUE
 
