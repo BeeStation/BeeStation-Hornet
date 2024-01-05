@@ -16,6 +16,9 @@
 	///How rare is this trait? 100 being common, and 1 being very rare
 	var/rarity = 100
 
+	///Does this trait reigster targets?
+	var/register_targets = TRUE
+
 	///How much time does this trait add to the artifact cooldownm
 	var/cooldown = 0 SECONDS
 
@@ -26,11 +29,10 @@
 	var/list/targets = list()
 
 	///Characteristics for deduction
-	var/weight = 0
-	var/conductivity = 0
+	var/weight = 0 //KG
+	var/conductivity = 0 //microsiemens per centimeter - I had to look this up
 
 /datum/xenoartifact_trait/minor
-/datum/xenoartifact_trait/major
 /datum/xenoartifact_trait/malfunction
 
 /datum/xenoartifact_trait/New(atom/_parent)
@@ -53,9 +55,9 @@
 //Cleanly register an effected target
 /datum/xenoartifact_trait/proc/register_target(atom/target, do_trigger = FALSE)
 	if(do_trigger)
-		trigger(target)
+		trigger(null, priority, target)
 	targets += target
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target))
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)
 	
 //Cleanly unregister an effected target
 /datum/xenoartifact_trait/proc/unregister_target(datum/source, do_untrigger = TRUE)
@@ -64,18 +66,33 @@
 	if(do_untrigger) //This will only happen in the event something is unregistered before we can untrigger, which is needed for QDELs
 		un_trigger(source)
 	targets -= source
+	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
-/datum/xenoartifact_trait/proc/trigger(atom/A, _priority)
+//A can be passed manually for debug
+/datum/xenoartifact_trait/proc/trigger(datum/source, _priority, atom/A)
 	SIGNAL_HANDLER
 
-	if(_priority != priority)
+	if(_priority != priority && _priority)
 		return
-	register_target(A)
+	if(!register_targets)
+		return
+	//If we've been given an override
+	if(A)
+		register_target(A)
+	//Otherwise just use the artifact's target list
+	else if(length(parent.targets))
+		for(var/atom/I in parent.targets)
+			register_target(I)
 	return
 
+//Most traits will handle this on their own
 /datum/xenoartifact_trait/proc/un_trigger(atom/A)
 	unregister_target(A, FALSE)
 	return
+
+/datum/xenoartifact_trait/proc/dump_targets()
+	for(var/i in targets)
+		unregister_target(i)
 
 ///Proc used to compile trait weights into a list
 /proc/compile_artifact_weights(path)

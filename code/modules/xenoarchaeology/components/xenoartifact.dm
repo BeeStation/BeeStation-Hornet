@@ -50,6 +50,9 @@
 	///Cooldown override. If this is true, we're on cooldown
 	var/cooldown_override = FALSE
 
+	///List of targets we can pass to our traits
+	var/list/targets = list()
+
 /datum/component/xenoartifact/New(list/raw_args, type, list/traits)
 	. = ..()
 	generate_xenoa_statics()
@@ -95,12 +98,15 @@
 	else if(use_cooldown_timer)
 		reset_timer(use_cooldown_timer)
 	//Timer setup
-	addtimer(CALLBACK(src, PROC_REF(reset_timer), use_cooldown), TIMER_STOPPABLE)
+	use_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), use_cooldown, TIMER_STOPPABLE)
 	//Trait triggers
 	for(var/i in GLOB.xenoartifact_trait_priorities)
 		SEND_SIGNAL(src, XENOA_TRIGGER, i)
 	//Malfunctions
 	handle_malfunctions()
+	//Cleanup targets
+	for(var/atom/A in targets)
+		unregister_target(A)
 
 /datum/component/xenoartifact/proc/build_traits(list/trait_list, amount)
 	if(!length(trait_list))
@@ -138,6 +144,16 @@
 	var/list/focus_traits
 	focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
 	build_traits(focus_traits, artifact_type.trait_malfunctions)
+
+/datum/component/xenoartifact/proc/register_target(atom/target)
+	targets += target
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)
+
+/datum/component/xenoartifact/proc/unregister_target(datum/source)
+	SIGNAL_HANDLER
+
+	targets -= source
+	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
 ///material datums
 /datum/component/xenoartifact_material
