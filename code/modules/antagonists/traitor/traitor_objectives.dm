@@ -2,7 +2,7 @@
 	var/is_hijacker = FALSE
 	if (GLOB.joined_player_list.len >= 30) // Less murderboning on lowpop thanks
 		is_hijacker = prob(10)
-	var/is_martyr = prob(20)
+	var/is_martyr = prob(12)
 
 	var/objectives_to_assign = CONFIG_GET(number/traitor_objectives_amount)
 	if(is_hijacker)
@@ -45,7 +45,7 @@
 	// Finally, set up our traitor's backstory!
 	setup_backstories(!is_hijacker && is_martyr && martyr_compatibility, is_hijacker)
 
-/datum/antagonist/traitor/proc/forge_single_human_objective() //Returns how many objectives are added
+/datum/antagonist/traitor/proc/forge_single_human_objective(is_martyr) //Returns how many objectives are added
 	.=1
 	// Lower chance of spawning due to the few open objectives there are
 	if(prob(20))
@@ -70,7 +70,7 @@
 			add_objective(obj)
 			return
 
-	if(prob(50))
+	if(is_martyr || prob(50)) // martyr can't steal stuff, since they die, so they have to have a kill objective
 		var/list/active_ais = active_ais()
 		if(active_ais.len && prob(100/GLOB.joined_player_list.len))
 			var/datum/objective/destroy/destroy_objective = new
