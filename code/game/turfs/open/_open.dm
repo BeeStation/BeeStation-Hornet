@@ -282,8 +282,7 @@
 		air.adjust_moles(GAS_PLUOXIUM, pulse_strength/4000)
 
 /turf/open/proc/break_tile(force, allow_base)
-	if(!damage_overlays)
-		LAZYINITLIST(damage_overlays)
+	LAZYINITLIST(damage_overlays)
 	var/list/options = list()
 	if(islist(baseturfs)) //Somehow 
 		options = baseturfs.Copy() //This is weird
@@ -314,8 +313,7 @@
 	broken = TRUE
 
 /turf/open/burn_tile(force)
-	if(!damage_overlays)
-		LAZYINITLIST(damage_overlays)
+	LAZYINITLIST(damage_overlays)
 	if(burnt && !force || use_burnt_literal)
 		if(use_burnt_literal)
 			icon_state = pick(get_burnt_states())
