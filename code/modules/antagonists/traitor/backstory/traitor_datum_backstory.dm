@@ -57,29 +57,3 @@
 
 /datum/antagonist/traitor/proc/set_backstory(datum/traitor_backstory/new_backstory)
 	backstory = new_backstory
-
-/// Useful debug proc. Remove this before merge.
-/*/proc/backstory_objectives()
-	var/backstory_html = "<body>"
-	for(var/datum/traitor_backstory/path as anything in subtypesof(/datum/traitor_backstory))
-		var/datum/traitor_backstory/backstory = GLOB.traitor_backstories["[path]"]
-		if(!istype(backstory))
-			continue
-		for(var/faction in list(TRAITOR_FACTION_SYNDICATE, TRAITOR_FACTION_BLACK_MARKET, TRAITOR_FACTION_INDEPENDENT))
-			if(!(faction in backstory.allowed_factions))
-				continue
-			backstory_html += "<h1>[backstory.name] ([faction])</h1>"
-			backstory_html += "<p>[backstory.description]</p>"
-			for(var/datum/objective_filterable/objective_backstory/obj_path as anything in subtypesof(/datum/objective_filterable/objective_backstory/assassinate))
-				var/datum/objective_filterable/objective_backstory/obj_backstory = GLOB.traitor_objective_backstories["[obj_path]"]
-				if(!istype(obj_backstory))
-					continue
-				if(!obj_backstory.is_recommended(backstory, faction))
-					continue
-				backstory_html += "<h2>Why? [obj_backstory.title]</h2>"
-				if(faction != TRAITOR_FACTION_INDEPENDENT)
-					backstory_html += "<blockquote>[obj_backstory.faction_text]</blockquote>"
-				backstory_html += "<p>[obj_backstory.personal_text]</p>"
-	backstory_html += "</body>"
-	usr << browse(backstory_html, "window=backstory_list")
-*/

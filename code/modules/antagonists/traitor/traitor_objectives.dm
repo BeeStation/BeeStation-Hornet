@@ -34,22 +34,14 @@
 			if(!O.martyr_compatible) // You can't succeed in stealing if you're dead.
 				martyr_compatibility = FALSE
 				break
-
 		if(is_martyr && martyr_compatibility)
 			var/datum/objective/martyr/martyr_objective = new
 			martyr_objective.owner = owner
 			add_objective(martyr_objective)
-			return
-
-		else
-			if(is_martyr && martyr_compatibility)
-				var/datum/objective/martyr/martyr_objective = new
-				martyr_objective.owner = owner
-				add_objective(martyr_objective)
-			else if(!(locate(/datum/objective/escape) in objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = owner
-				add_objective(escape_objective)
+		else if(!(locate(/datum/objective/escape) in objectives))
+			var/datum/objective/escape/escape_objective = new
+			escape_objective.owner = owner
+			add_objective(escape_objective)
 	// Finally, set up our traitor's backstory!
 	setup_backstories(!is_hijacker && is_martyr && martyr_compatibility, is_hijacker)
 

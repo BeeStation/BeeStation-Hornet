@@ -14,7 +14,7 @@ export const TraitorObjectivesMenu = (_, context) => {
   let [selected_backstory, set_selected_backstory] = useLocalState(context, 'traitor_selected_backstory', null);
   const set_selected_faction = (faction) => {
     set_selected_faction_backend(faction);
-    if (selected_backstory && !all_backstories[selected_backstory].allowed_factions.includes(faction)) {
+    if (selected_backstory && !all_backstories[selected_backstory].allowed_factions?.includes(faction)) {
       set_selected_backstory(null);
     }
   };
@@ -379,7 +379,7 @@ const SelectBackstoryMenu = (
   let current_faction_key = faction || selected_faction;
 
   let allowed_backstories_filtered = Object.values(all_backstories)
-    .filter((value) => value.allowed_factions.includes(current_faction_key) && allowed_backstories.includes(value.path))
+    .filter((value) => value.allowed_factions?.includes(current_faction_key) && allowed_backstories.includes(value.path))
     .map((value) => value.path);
   if (allowed_backstories_filtered.length === 0) {
     return <Dimmer>No valid backstories found. This is likely a bug. Please reload or reopen the menu.</Dimmer>;
@@ -429,10 +429,10 @@ const SelectBackstoryMenu = (
           {all_motivations.map((motivation) => (
             <Button.Checkbox
               key={motivation + '-checkbox'}
-              icon={motivations.includes(motivation) ? MOTIVATION_ICONS[motivation] : 'square-o'}
+              icon={motivations?.includes(motivation) ? MOTIVATION_ICONS[motivation] : 'square-o'}
               content={motivation}
               onClick={() => toggle_motivation(motivation)}
-              checked={motivations.includes(motivation)}
+              checked={motivations?.includes(motivation)}
             />
           ))}
         </Section>
@@ -448,7 +448,7 @@ const SelectBackstoryMenu = (
               style={{ padding: '0.66em 0.5em', 'overflow-y': 'scroll', direction: 'rtl' }}>
               <Tabs vertical style={{ direction: 'ltr' }} textAlign="right">
                 {Object.values(all_backstories)
-                  .filter((v) => allowed_backstories_filtered.includes(v.path))
+                  .filter((v) => allowed_backstories_filtered?.includes(v.path))
                   .map((backstory) => (
                     <BackstoryTab
                       path={backstory.path}
@@ -457,8 +457,8 @@ const SelectBackstoryMenu = (
                       selected={current_backstory_key === backstory.path}
                       set_selected_backstory={set_selected_backstory}
                       is_recommended_objectives={recommended_backstories.includes(backstory.path)}
-                      recommendation_count={backstory.motivations.filter((r) => motivations.includes(r)).length}
-                      matches_all_recommendations={motivations.filter((r) => !backstory.motivations.includes(r)).length === 0}
+                      recommendation_count={backstory.motivations.filter((r) => motivations?.includes(r)).length}
+                      matches_all_recommendations={motivations.filter((r) => !backstory.motivations?.includes(r)).length === 0}
                     />
                   ))}
               </Tabs>
@@ -504,7 +504,7 @@ const BackstorySection = (
       buttons={
         <>
           {Object.entries(MOTIVATION_ICONS)
-            .filter(([k, v]) => backstory.motivations.includes(k))
+            .filter(([k, v]) => backstory.motivations?.includes(k))
             .map(([motivation, icon]) => (
               <Tooltip key={'icon-motivation-tooltip-' + motivation} content={motivation}>
                 <Icon fontSize={1.75} key={'icon-motivation-' + motivation} mr={1} mt={1} pr={0.5} pl={0.5} name={icon} />
