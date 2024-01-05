@@ -14,7 +14,7 @@
 	///Other traits this trait wont work with.
 	var/list/blacklist_traits = list()
 	///How rare is this trait? 100 being common, and 1 being very rare
-	var/rarity = 100
+	var/rarity = XENOA_TRAIT_WEIGHT_COMMON
 
 	///Does this trait reigster targets?
 	var/register_targets = TRUE
@@ -25,12 +25,12 @@
 	///What trait priority we use
 	var/priority = TRAIT_PRIORITY_ACTIVATOR
 
-	///List of things we've effected. used to automatically reigster & unregister targets.
+	///List of things we've effected. used to automatically reigster & unregister targets. Don't confuse with parent targets, which is things we want to effect
 	var/list/targets = list()
 
 	///Characteristics for deduction
 	var/weight = 0 //KG
-	var/conductivity = 0 //microsiemens per centimeter - I had to look this up
+	var/conductivity = 0 //microsiemens per centimeter - I had to look this up - Don't worry about making this accurate / reasonable
 
 /datum/xenoartifact_trait/minor
 /datum/xenoartifact_trait/malfunction
@@ -41,11 +41,13 @@
 	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(remove_parent))
 	//Setup trigger signals
 	RegisterSignal(parent, XENOA_TRIGGER, PROC_REF(trigger))
+	//Appearance
+	generate_trait_appearance(parent.parent)
 
 /datum/xenoartifact_trait/Destroy(force, ...)
 	. = ..()
 	for(var/atom/A in targets)
-		unregister_target(A)
+		unregister_target(A, TRUE)
 
 /datum/xenoartifact_trait/proc/remove_parent(datum/source)
 	SIGNAL_HANDLER
@@ -57,10 +59,10 @@
 	if(do_trigger)
 		trigger(null, priority, target)
 	targets += target
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target_signal), TRUE)
 	
 //Cleanly unregister an effected target
-/datum/xenoartifact_trait/proc/unregister_target(datum/source, do_untrigger = TRUE)
+/datum/xenoartifact_trait/proc/unregister_target(datum/source, do_untrigger = FALSE)
 	SIGNAL_HANDLER
 
 	if(do_untrigger) //This will only happen in the event something is unregistered before we can untrigger, which is needed for QDELs
@@ -68,7 +70,11 @@
 	targets -= source
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
-//A can be passed manually for debug
+/datum/xenoartifact_trait/proc/unregister_target_signal(datum/source)
+	SIGNAL_HANDLER
+
+	unregister_target(source, TRUE)
+
 /datum/xenoartifact_trait/proc/trigger(datum/source, _priority, atom/A)
 	SIGNAL_HANDLER
 
@@ -76,7 +82,7 @@
 		return
 	if(!register_targets)
 		return
-	//If we've been given an override
+	//If we've been given an override - This is pretty much for testing here, so don't sweat implementing it elsewhere
 	if(A)
 		register_target(A)
 	//Otherwise just use the artifact's target list
@@ -86,13 +92,26 @@
 	return
 
 //Most traits will handle this on their own
-/datum/xenoartifact_trait/proc/un_trigger(atom/A)
-	unregister_target(A, FALSE)
+/datum/xenoartifact_trait/proc/un_trigger(atom/A, handle_parent = FALSE)
+	if(A)
+		unregister_target(A)
+	//Parent targets, we shouldn't need this casually, only for niche cases
+	if(length(parent.targets) && handle_parent)
+		for(var/atom/I in parent.targets)
+			unregister_target(I)
+	//Our targets
+	if(length(targets))
+		for(var/atom/I in targets)
+			unregister_target(I)
 	return
 
 /datum/xenoartifact_trait/proc/dump_targets()
 	for(var/i in targets)
-		unregister_target(i)
+		unregister_target(i, TRUE)
+
+//If we want this trait to modify the artifact's appearance
+/datum/xenoartifact_trait/proc/generate_trait_appearance(atom/target)
+	return
 
 ///Proc used to compile trait weights into a list
 /proc/compile_artifact_weights(path)

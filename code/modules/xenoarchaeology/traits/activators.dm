@@ -21,7 +21,6 @@
 	label_name = "Sturdy"
 	label_desc = "The artifact seems to be made of a sturdy material.\nThis material seems to be triggered by physical interaction."
 	weight = 3
-	conductivity = 0.5
 
 /datum/xenoartifact_trait/activator/strudy/New()
 	. = ..()
