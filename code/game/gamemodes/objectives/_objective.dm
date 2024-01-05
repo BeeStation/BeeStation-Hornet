@@ -23,8 +23,6 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/optional = FALSE
 	/// Used to check if obj owner can buy murderbone stuff
 	var/murderbone_flag = FALSE
-	/// Additional flavor text, giving a fun flair to the objective. Short and sweet, not lore related.
-	var/flavor_text
 
 /datum/objective/New(var/text)
 	if(text)

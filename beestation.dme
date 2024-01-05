@@ -2108,8 +2108,6 @@
 #include "code\modules\antagonists\traitor\backstory\traitor_datum_backstory.dm"
 #include "code\modules\antagonists\traitor\backstory\traitor_factions.dm"
 #include "code\modules\antagonists\traitor\backstory\traitor_objective_ui.dm"
-#include "code\modules\antagonists\traitor\backstory\objectives\_objective_backstory.dm"
-#include "code\modules\antagonists\traitor\backstory\objectives\assassinate_backstories.dm"
 #include "code\modules\antagonists\traitor\equipment\contractor.dm"
 #include "code\modules\antagonists\traitor\equipment\Malf_Modules.dm"
 #include "code\modules\antagonists\traitor\IAA\internal_affairs.dm"

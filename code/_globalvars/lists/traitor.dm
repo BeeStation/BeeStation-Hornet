@@ -1,7 +1,5 @@
 /// Associative list of /datum/traitor_backstory path strings to datums
 GLOBAL_LIST_INIT(traitor_backstories, generate_traitor_backstories())
-/// Associative list of /datum/objective_filterable/objective_backstory path strings to datums
-GLOBAL_LIST_INIT(traitor_objective_backstories, generate_traitor_objective_backstories())
 /// Associative list of /datum/traitor_faction keys to datums
 GLOBAL_LIST_INIT(traitor_factions_to_datum, generate_traitor_factions())
 GLOBAL_LIST_INIT(traitor_factions, assoc_to_keys(GLOB.traitor_factions_to_datum))
@@ -10,14 +8,6 @@ GLOBAL_LIST_INIT(traitor_factions, assoc_to_keys(GLOB.traitor_factions_to_datum)
 	var/list/result = list()
 	for(var/datum/traitor_backstory/path as anything in subtypesof(/datum/traitor_backstory))
 		if(isnull(initial(path.name)))
-			continue
-		result["[path]"] = new path()
-	return result
-
-/proc/generate_traitor_objective_backstories()
-	var/list/result = list()
-	for(var/datum/objective_filterable/objective_backstory/path as anything in subtypesof(/datum/objective_filterable/objective_backstory))
-		if(isnull(initial(path.title)))
 			continue
 		result["[path]"] = new path()
 	return result
