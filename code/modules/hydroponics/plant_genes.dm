@@ -170,6 +170,10 @@
 	var/trait_id // must be set and equal for any two traits of the same type
 	var/complexity = 0
 
+/datum/plant_gene/trait/get_name()
+	if(complexity != 0)
+		return "[name] [complexity] complexity"
+	else  return "[name]"
 /datum/plant_gene/trait/Copy()
 	var/datum/plant_gene/trait/G = ..()
 	G.rate = rate

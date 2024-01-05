@@ -206,6 +206,7 @@
 		L["type"] = "trait"
 		L["id"] = get_gene_id(gene)
 		L["trait_id"] = trait_gene.trait_id
+		L["complexity"] = trait_gene.complexity
 
 /obj/machinery/plantgenes/ui_static_data(mob/user)
 	var/list/data = list()
