@@ -42,7 +42,7 @@
 	//Majors
 	major_traits = get_trait_list_desc(major_traits, GLOB.xenoa_majors)
 	//Malfs
-	malfunction_list = get_trait_list_desc(malfunction_list, GLOB.xenoa_malfs)
+	malfunction_list = get_trait_list_desc(malfunction_list, GLOB.xenoa_malfunctions)
 
 /obj/item/xenoartifact_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -99,7 +99,7 @@
 //Get a list of all the specified trait types names, actually
 /obj/item/xenoartifact_labeler/proc/get_trait_list_desc(list/traits, list/trait_type)
 	for(var/datum/xenoartifact_trait/X as() in trait_type)
-		traits += (initial(X.desc) || initial(X.label_name))
+		traits += (initial(X.label_desc) || initial(X.label_name))
 	return traits
 
 /obj/item/xenoartifact_labeler/proc/look_for(list/place, culprit) //This isn't really needed but, It's easier to use as a function. What does this even do?
@@ -155,7 +155,7 @@
 //This is just a hacky way of getting the info from a datum using its desc becuase I wrote this last and it's not heartbreaking
 /obj/item/xenoartifact_labeler/proc/desc2datum(udesc)
 	for(var/datum/xenoartifact_trait/X as() in GLOB.xenoa_all_traits)
-		if((udesc == initial(X.desc)) || (udesc == initial(X.label_name)))
+		if((udesc == initial(X.label_desc)) || (udesc == initial(X.label_name)))
 			return X
 	CRASH("The xenoartifact trait description '[udesc]' doesn't have a corresponding trait. Something fucked up.")
 
@@ -203,7 +203,7 @@
 			xenoa_target.name = name
 		if(info)
 			var/textinfo = list2text(info)
-			xenoa_target.label_desc = "There's a sticker attached, it says-\n[textinfo]"
+			xenoa_target.desc += "There's a sticker attached, it says-\n[textinfo]"
 		return TRUE
 
 /obj/item/xenoartifact_label/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -227,12 +227,15 @@
 	if(!xenop)
 		return
 	xenop.modifier = initial(xenop.modifier)
+	/*
+	TODO: - Racc
 	for(var/t in trait_list)
 		trait = new t
 		if(X.get_trait(trait))
 			xenop.modifier += 0.15
 		else
 			xenop.modifier -= 0.35
+	*/
 
 /obj/item/xenoartifact_label/proc/list2text(list/listo) //list2params acting weird. Probably already a function for this.
 	var/text = ""
@@ -248,6 +251,9 @@
 	return
 
 /obj/item/xenoartifact_labeler/debug/create_label(new_name)
+	return
+	/*
+	TODO: - Racc
 	var/obj/item/xenoartifact/A = new(get_turf(loc), XENOA_DEBUGIUM)
 	say("Created [A] at [A.loc]")
 	A.charge_req = 100
@@ -261,3 +267,4 @@
 	for(var/datum/xenoartifact_trait/t as() in A.traits) //Setup new ones
 		t.on_init(A)
 	A = null
+	*/

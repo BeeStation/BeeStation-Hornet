@@ -207,9 +207,12 @@
 				for(var/datum/xenoartifact_trait/T as() in L?.trait_list)
 					var/color = rgb(255, 0, 0)
 					//using tertiary operator breaks it
+					/*
+					TODO: - Racc
 					if(locate(T) in A.traits)
 						color =rgb(0, 255, 0)
-					var/name = (initial(T.desc) || initial(T.label_name))
+					*/
+					var/name = (initial(T.label_desc) || initial(T.label_name))
 					info += {"<span style="color: [color];">\n[name]</span>"}
 					entry.traits += list(list("name" = "[name]", "color" = "[color]"))
 

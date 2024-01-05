@@ -1,3 +1,10 @@
+/*
+TODO
+
+Make artifacts into item components
+
+*/
+
 /obj/item/xenoartifact
 	name = "artifact"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'

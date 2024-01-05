@@ -1,20 +1,41 @@
-//Xenoartifact defines
-//Material defines. Used for characteristic generation
-///Silly toys
-#define XENOA_BLUESPACE "#1e7cff"
-///Associated weapons
-#define XENOA_PLASMA "#ff00c8"
-///Broken Enigmas
-#define XENOA_URANIUM "#00ff0d"
-///Wildcard, may god have mercy
-#define XENOA_BANANIUM "#ffd900"
+//Material defines
+///Safe
+#define XENOA_BLUESPACE /datum/component/xenoartifact_material
+///Mild
+#define XENOA_PLASMA /datum/component/xenoartifact_material
+///Dangerous
+#define XENOA_URANIUM /datum/component/xenoartifact_material
+///Wildcard
+#define XENOA_BANANIUM /datum/component/xenoartifact_material
 ///The gods are about to do something stupid
-#define XENOA_DEBUGIUM "#ff4800"
+#define XENOA_DEBUGIUM /datum/component/xenoartifact_material
+
+//Trait priorities
+#define TRAIT_PRIORITY_ACTIVATOR 1
+#define TRAIT_PRIORITY_MINOR 2
+#define TRAIT_PRIORITY_MAJOR 4
+#define TRAIT_PRIORITY_MALFUNCTION 3
+
+///Signal for artifact trigger
+#define XENOA_TRIGGER "xenoa_trigger"
+
+///generic starting cooldown timer for triggers
+#define XENOA_GENERIC_COOLDOWN 8 SECONDS
+
+//Artifact trait strengths
+#define XENOA_TRAIT_STRENGTH_NORMAL 50
+#define XENOA_TRAIT_STRENGTH_MILD 75
+#define XENOA_TRAIT_STRENGTH_STRONG 100
+
+/*
+old content
+*/
 
 ///trait flags
 #define BLUESPACE_TRAIT			(1<<0)
 #define PLASMA_TRAIT			(1<<1)
 #define URANIUM_TRAIT			(1<<2)
+#define BANANIUM_TRAIT			(1<<3)
 
 //Also not materials but also related
 ///Process type on burn
