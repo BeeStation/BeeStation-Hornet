@@ -1,0 +1,7 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - balance: Added Engineering Mech Access, Medbay Mech Access and Mining Mech Access
+      to the Roboticist and Research Director.
+  - balance: Changed mechs from requiring all the assigned keycodes to only one of
+      them to enter.
