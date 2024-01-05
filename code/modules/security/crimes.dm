@@ -8,6 +8,9 @@
 #define CRIME_MAJOR "Major"
 #define CRIME_CAPITAL "Capital"
 
+/* This is overwritten by the config (space_law.json as of writting this), this only exists as a backup in case the game fails to load said file.
+Do not modify this unless you know what you're doing. */
+
 /datum/crime
 	var/name
 	var/tooltip
