@@ -168,6 +168,7 @@
 	var/rate = 0.05
 	var/examine_line = ""
 	var/trait_id // must be set and equal for any two traits of the same type
+	var/complexity = 0
 
 /datum/plant_gene/trait/Copy()
 	var/datum/plant_gene/trait/G = ..()
@@ -251,6 +252,7 @@
 	// Also affects plant batteries see capatative cell production datum
 	name = "Electrical Activity"
 	rate = 0.2
+	complexity = 1
 
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/food/grown/G, mob/living/carbon/C)
 	var/power = round(G.seed.potency*rate)
@@ -314,6 +316,7 @@
 	name = "Shadow Emission"
 	rate = 0.04
 	glow_color = "#AAD84B"
+	complexity = 1
 
 /datum/plant_gene/trait/glow/shadow/glow_power(obj/item/seeds/S)
 	return -max(S.potency*(rate*0.2), 0.2)
@@ -362,6 +365,7 @@
 	// Teleport radius is calculated as max(round(potency*rate), 1)
 	name = "Bluespace Activity"
 	rate = 0.1
+	complexity = 1
 
 /datum/plant_gene/trait/teleport/on_squash(obj/item/food/grown/G, atom/target)
 	if(isliving(target))
@@ -394,6 +398,7 @@
 	name = "Densified Chemicals"
 	rate = 2
 	trait_id = "chem_boost"
+	complexity = 2
 
 /datum/plant_gene/trait/maxchem/on_new(obj/item/food/grown/G, newloc)
 	..()
@@ -401,6 +406,7 @@
 
 /datum/plant_gene/trait/repeated_harvest
 	name = "Perennial Growth"
+	complexity = 2
 
 /datum/plant_gene/trait/repeated_harvest/can_add(obj/item/seeds/S)
 	if(!..())
@@ -411,6 +417,7 @@
 
 /datum/plant_gene/trait/battery
 	name = "Capacitive Cell Production"
+	complexity = 1
 
 /datum/plant_gene/trait/battery/on_attackby(obj/item/food/grown/G, obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/cable_coil))
@@ -439,6 +446,7 @@
 
 /datum/plant_gene/trait/stinging
 	name = "Hypodermic Prickles"
+	complexity = 3
 
 /datum/plant_gene/trait/stinging/on_slip(obj/item/food/grown/G, atom/target)
 	if(!isliving(target) || !G.reagents || !G.reagents.total_volume)
@@ -527,6 +535,7 @@
 	name = "Richer Juice"
 	rate = 2
 	trait_id = "chem_boost"
+	complexity = 2
 
 /datum/plant_gene/trait/plant_type // Parent type
 	name = "you shouldn't see this"

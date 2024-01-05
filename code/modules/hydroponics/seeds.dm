@@ -26,6 +26,7 @@
 	var/potency = 10				// The 'power' of a plant. Generally effects the amount of reagent in a plant, also used in other ways.
 	var/growthstages = 6			// Amount of growth sprites the plant has.
 	var/rarity = 0					// How rare the plant is. Used for giving points to cargo when shipping off to CentCom.
+	var/complexity = 0				// How many powerful genes the plant has.
 	var/list/mutatelist = list()	// The type of plants that this plant can mutate into.
 	var/list/genes = list()			// Plant genes are stored here, see plant_genes.dm for more info.
 	var/list/reagents_add = list()
@@ -70,6 +71,9 @@
 		for(var/reag_id in reagents_add)
 			genes += new /datum/plant_gene/reagent(reag_id, reagents_add[reag_id])
 		reagents_from_genes() //quality coding
+
+	for(var/datum/plant_gene/trait/each_comp in genes)
+		complexity += each_comp.complexity
 
 /obj/item/seeds/proc/Copy()
 	var/obj/item/seeds/S = new type(null, 1)
@@ -151,6 +155,10 @@
 			return_yield = min(return_yield, 1)//1 if above zero, 0 otherwise
 		else
 			return_yield *= (parent.yieldmod)
+	if(return_yield <= complexity)
+		return_yield = 1
+	else
+		return_yield -= complexity
 
 	return return_yield
 
