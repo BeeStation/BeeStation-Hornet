@@ -3904,6 +3904,9 @@
 	name = "Solitary confinement timer";
 	pixel_y = 32
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "awc" = (
@@ -31622,6 +31625,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/courtroom)
+"dDL" = (
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	id_tag = "prisonereducation";
+	name = "Prison access";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/delivery/red,
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "dDM" = (
 /obj/structure/bodycontainer/morgue{
 	dir = 2
@@ -52712,6 +52725,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
+"kaF" = (
+/obj/effect/spawner/structure/window/reinforced/tinted,
+/obj/structure/sign/poster/official/do_not_question{
+	pixel_y = -32
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "kbc" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall,
@@ -73595,9 +73615,7 @@
 /area/science/research)
 "rgE" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/sign/poster/official/do_not_question{
-	pixel_y = -32
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "rhc" = (
@@ -81992,6 +82010,14 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
+"unB" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/plasteel/dark,
+/area/security/brig)
 "unY" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -86309,6 +86335,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
+"vIq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "vIB" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/armor/vest{
@@ -86647,11 +86679,6 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "vNs" = (
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrig";
-	name = "Prison Release";
-	req_access_txt = "63"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -86678,6 +86705,11 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "outerbrig";
+	name = "Prison Release";
+	req_one_access_txt = "1;4"
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "vOb" = (
@@ -147567,7 +147599,7 @@ uUP
 bgZ
 hgX
 kjy
-kjy
+unB
 aFm
 awb
 xRZ
@@ -147825,8 +147857,8 @@ bgZ
 lqD
 lqD
 rgE
-aFm
-xRZ
+dDL
+vIq
 sDL
 tKP
 uTN
@@ -148087,7 +148119,7 @@ nhw
 neZ
 aKV
 nhw
-neZ
+kaF
 aKV
 kLl
 qaU

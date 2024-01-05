@@ -8870,6 +8870,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "cHW" = (
@@ -12599,9 +12600,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -21550,6 +21548,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"gXj" = (
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	id_tag = "prisonereducation";
+	name = "Prison access";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/delivery/red,
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "gXl" = (
 /obj/machinery/light_switch{
 	pixel_x = -25
@@ -28428,6 +28436,9 @@
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "jmv" = (
@@ -42988,6 +42999,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
+"nVx" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "nVG" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 1
@@ -50803,11 +50819,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrig";
-	name = "Prison Release";
-	req_access_txt = "63"
-	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
 	},
@@ -50821,6 +50832,11 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "Secure Gate";
 	name = "Brig Blast door"
+	},
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "outerbrig";
+	name = "Prison Release";
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -68202,8 +68218,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/crayons,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -73300,6 +73316,13 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
+"xXP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear/red,
+/turf/open/floor/prison,
+/area/security/prison)
 "xXY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -113688,10 +113711,10 @@ wEz
 eeC
 kQQ
 cHH
-bPa
+uKT
 wof
-fLs
-uTQ
+fhB
+xCE
 mfh
 uoP
 xgq
@@ -113944,9 +113967,9 @@ pYy
 vcZ
 wLv
 uUG
-kXL
-bPa
-fLs
+nVx
+gXj
+xXP
 dVd
 tpd
 uKT

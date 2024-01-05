@@ -3105,14 +3105,13 @@
 	name = "Security Locker Room"
 	})
 "baW" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 23
-	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
 	},
-/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Locker Room"
@@ -6853,6 +6852,7 @@
 	color = "#DE3A3A"
 	},
 /obj/item/kirbyplants/random,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Locker Room"
@@ -6922,11 +6922,6 @@
 	},
 /area/hallway/primary/central)
 "cmk" = (
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrig";
-	name = "Prison Release";
-	req_access_txt = "63"
-	},
 /obj/effect/turf_decal/delivery/red,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/unres{
@@ -6935,6 +6930,11 @@
 /obj/machinery/door/poddoor/preopen{
 	id = "brigentrance";
 	name = "Brig Blast door"
+	},
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "outerbrig";
+	name = "Prison Release";
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison/shielded)
@@ -29065,6 +29065,9 @@
 	pixel_y = 2
 	},
 /obj/item/book/manual/wiki/sopsecurity,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 23
+	},
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Locker Room"
@@ -33670,6 +33673,12 @@
 "kIv" = (
 /obj/structure/sign/poster/random{
 	pixel_x = -32
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
 /turf/open/floor/prison,
 /area/security/prison/shielded)
@@ -67062,6 +67071,16 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"vmq" = (
+/obj/machinery/camera/autoname{
+	dir = 5;
+	network = list("ss13","medbay")
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison/shielded)
 "vmM" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -70106,6 +70125,16 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/plasteel/tech,
 /area/engine/engine_room)
+"wmq" = (
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	id_tag = "prisonereducation";
+	name = "Prison access";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/delivery/red,
+/turf/open/floor/plasteel/dark,
+/area/security/prison/shielded)
 "wms" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable,
@@ -74619,6 +74648,12 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
+"xJE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/prison,
+/area/security/prison/shielded)
 "xJF" = (
 /obj/structure/sign/departments/medbay/alt2,
 /turf/closed/wall,
@@ -105532,7 +105567,7 @@ ifC
 qEr
 ifC
 ifC
-ifC
+wmq
 ifC
 jKo
 jKo
@@ -105789,8 +105824,8 @@ ers
 qJq
 ers
 kIv
-qGF
-iCL
+xJE
+vmq
 sjp
 qpR
 gGL

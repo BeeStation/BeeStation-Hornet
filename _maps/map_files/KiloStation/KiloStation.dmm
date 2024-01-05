@@ -1384,6 +1384,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "aeo" = (
@@ -54541,6 +54544,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics)
+"jjI" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/caution/stand_clear,
+/turf/open/floor/prison,
+/area/security/prison)
 "jjM" = (
 /obj/effect/landmark/observer_start,
 /obj/structure/disposalpipe/segment{
@@ -56050,6 +56061,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "jLO" = (
@@ -56989,10 +57003,6 @@
 /area/maintenance/port)
 "khO" = (
 /obj/machinery/genpop_interface,
-/obj/item/paper{
-	name = "Prisoner Intake guidelines";
-	default_raw_text = "**Prisoner processing guidelines** <br><br><br>Scan the ID of the future convict, or manually input their name. <br>Select the crime they are being brigged for.<br>Select modifers that are applicable to the case, if there are any.<br>Print the prisoner ID. <br><br>Take the prisoner to one of the prisoner lockers, and strip them of their belongings.<br>Lock the belongings of the convict inside of the locker using **their** prisoner ID.<br>Dress the convict in a prison outfit, give them their ID, then walk them through the turnstile before removing the handcuffs.<br><br>Job done!"
-	},
 /turf/closed/wall/r_wall,
 /area/security/prison)
 "kib" = (
@@ -58475,6 +58485,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
+"kTN" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "kUH" = (
 /obj/effect/decal/cleanable/food/flour,
 /obj/effect/turf_decal/stripes/line{
@@ -64178,6 +64197,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -79663,6 +79685,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"tCs" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/prison,
+/area/security/prison)
 "tDc" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
@@ -80614,15 +80643,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
-"tZR" = (
-/obj/machinery/computer/cryopod{
-	pixel_x = 32
-	},
-/obj/machinery/genpop_interface{
-	pixel_y = 32
-	},
-/turf/open/floor/holofloor/plating,
-/area/holodeck/prison)
 "uad" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -80734,6 +80754,16 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics/cloning)
+"udc" = (
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	id_tag = "prisonereducation";
+	name = "Prison access";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/delivery/red,
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "udv" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
@@ -89413,10 +89443,6 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "xEH" = (
-/obj/item/paper{
-	name = "Prison Workshop Guidelines";
-	default_raw_text = "**Prison Workshop Guidelines** <br><br>Hello future rehabilitated convict! Nanotrasen welcomes you aboard one of its cutting edge detention facility!<br><br>Here you'll find the key to your future, the workshop! That's right, Nanotrasen has committed to a revolutionary rehabilitation program, to help lost individuals such as yourself work away their misdeeds.<br><br>With your trusty prison export scanner, you too can get reduced sentences! So far we have two workshops, a donut workshop, and a plushes workshop!<br><br>Simply swipe your prisoner ID on the prison export scanner to link it your account, and then get working! **Don't forget to scan any donuts or plush you make!**<br><br>Once you want to redeem your precious earned time, simply swipe your card again on the scanner, and voila! You've become a useful contribution to the station! How does it feel? Pretty good right?<br><br>We hope you have a *productive* time at Nanotrasen!"
-	},
 /obj/machinery/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
@@ -90245,17 +90271,17 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "xZz" = (
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrig";
-	name = "Prison Release";
-	req_access_txt = "63"
-	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
+	},
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "outerbrig";
+	name = "Prison Release";
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -109153,7 +109179,7 @@ ajZ
 ajZ
 ajZ
 wjh
-tVT
+tCs
 aav
 jLy
 iJD
@@ -109406,12 +109432,12 @@ bPr
 aav
 ajZ
 ajZ
-tZR
+ajZ
 ajZ
 ajZ
 rRy
-tVT
-aav
+jjI
+udc
 nvY
 vRa
 eNy
@@ -109669,7 +109695,7 @@ ajZ
 jOP
 ael
 aav
-cpr
+kTN
 tIj
 inh
 ama

@@ -62283,7 +62283,7 @@
 	aiControlDisabled = 1;
 	id_tag = "prisonereducation";
 	name = "Prison Acess";
-	req_access_txt = "63"
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -65562,15 +65562,15 @@
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
 "tdM" = (
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrig";
-	name = "Prison Release";
-	req_access_txt = "63"
-	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "outerbrig";
+	name = "Prison Release";
+	req_one_access_txt = "1;4"
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "tfc" = (

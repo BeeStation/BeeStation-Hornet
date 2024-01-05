@@ -10749,6 +10749,14 @@
 "bQZ" = (
 /turf/closed/wall/r_wall,
 /area/science/misc_lab)
+"bRb" = (
+/obj/machinery/door_timer{
+	id = "cell";
+	name = "Solitary confinement timer";
+	pixel_y = 32
+	},
+/turf/closed/wall/r_wall,
+/area/security/prison)
 "bRl" = (
 /obj/machinery/gateway{
 	dir = 8
@@ -19778,9 +19786,11 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "dGB" = (
-/obj/effect/turf_decal/tile/red/half/contrasted,
-/obj/structure/table,
-/turf/open/floor/plasteel,
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/turf/open/floor/plasteel/dark,
 /area/security/brig)
 "dGF" = (
 /turf/closed/wall/r_wall,
@@ -20347,6 +20357,15 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"dUr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/caution/stand_clear/red{
+	dir = 8
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "dUJ" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -24057,10 +24076,11 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "fQB" = (
-/obj/structure/closet/crate,
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/item/storage/crayons,
+/obj/structure/table/reinforced,
 /turf/open/floor/prison,
 /area/security/prison)
 "fRf" = (
@@ -24552,6 +24572,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"fZN" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/closed/wall/r_wall,
+/area/security/prison)
 "fZY" = (
 /obj/effect/turf_decal/bot_white/right,
 /obj/structure/closet/crate/goldcrate,
@@ -26884,6 +26910,16 @@
 /obj/machinery/vending/medical,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"hjp" = (
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	id_tag = "prisonereducation";
+	name = "Prison access";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/delivery/red,
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "hju" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -27932,11 +27968,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "hJQ" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 4
+/obj/machinery/computer/cargo/request{
+	dir = 8
 	},
-/obj/structure/table,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/security/brig)
 "hJR" = (
 /obj/structure/disposalpipe/segment,
@@ -29044,7 +29079,7 @@
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "outerbrig";
 	name = "Prison Release";
-	req_access_txt = "63"
+	req_one_access_txt = "1;4"
 	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 8
@@ -30243,14 +30278,17 @@
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "iJj" = (
-/obj/machinery/computer/secure_data{
-	dir = 4
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
 	},
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("ss13","engine")
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/security/brig)
 "iJs" = (
 /obj/structure/table/reinforced,
@@ -30288,6 +30326,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -33532,11 +33573,13 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "kon" = (
-/obj/machinery/computer/cargo/request{
-	dir = 4
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/structure/window/reinforced,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/security/brig)
 "koq" = (
 /obj/structure/disposalpipe/segment{
@@ -34301,10 +34344,6 @@
 /obj/machinery/computer/holodeck/prison{
 	dir = 4
 	},
-/obj/item/paper{
-	name = "Workshop control instructions";
-	default_raw_text = "**Prison Workshop Guidelines**<br><br>In compliance with section 6-1 of the Intersystems agreement on prisoner rehabilitation, Nanotrasen is to provide amenities to convicts with the aim of rehabilitating them into society.<br><br>As such, we have fitted your station with an revolutionary workshop holodeck that will offer a space for convicts to work in exchange for reduced prison sentences.<br><br>So far there are two workshops, a donut assembly line, and a plushes sweatshop. You may change them at your leisure depending on the station needs.<br><br>We are aware of the security risks posed by this endeavour, as convicts will get access to tools that may prove detrimental to the stability of the prison. As such we have fitted your console with an **emergency shutdown** button that will unload the current workshop. Be aware that we are compelled by interstellar law to reload a random program after 2 minutes.<br><br>All items contained within the workshop will be unloaded once the program is changed, except for the goods the prisoners will have produced. Be aware that any items **taken out of the area** will not be unloaded by the console, as such it is your duty as warden to make sure that prisoners aren't stashing dangerous weapons inside the prison."
-	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "kJe" = (
@@ -35048,11 +35087,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
-"kZK" = (
-/obj/structure/easel,
-/obj/item/canvas/twentythree_twentythree,
-/turf/open/floor/prison,
-/area/security/prison)
 "kZO" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
@@ -35303,16 +35337,6 @@
 "lfJ" = (
 /turf/closed/wall,
 /area/ai_monitored/turret_protected/ai_upload)
-"lfS" = (
-/obj/item/paper{
-	name = "Prison Workshop Guidelines";
-	default_raw_text = "**Prison Workshop Guidelines** <br><br>Hello future rehabilitated convict! Nanotrasen welcomes you aboard one of its cutting edge detention facility!<br><br>Here you'll find the key to your future, the workshop! That's right, Nanotrasen has committed to a revolutionary rehabilitation program, to help lost individuals such as yourself work away their misdeeds.<br><br>With your trusty prison export scanner, you too can get reduced sentences! So far we have two workshops, a donut workshop, and a plushes workshop!<br><br>Simply swipe your prisoner ID on the prison export scanner to link it your account, and then get working! **Don't forget to scan any donuts or plush you make!**<br><br>Once you want to redeem your precious earned time, simply swipe your card again on the scanner, and voila! You've become a useful contribution to the station! How does it feel? Pretty good right?<br><br>We hope you have a *productive* time at Nanotrasen!"
-	},
-/obj/effect/turf_decal{
-	dir = 1
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "lgk" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -36761,15 +36785,6 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/entry)
-"lMx" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "lMB" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -37143,9 +37158,6 @@
 /turf/open/floor/plating,
 /area/gateway)
 "lWJ" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
@@ -37154,6 +37166,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -37200,6 +37215,9 @@
 /obj/item/wrench,
 /obj/machinery/atmospherics/pipe/manifold/general/visible,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
 "lXQ" = (
@@ -40695,6 +40713,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
+"nCW" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/structure/chair/office{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "nCY" = (
 /obj/structure/table,
 /obj/machinery/fax/eng,
@@ -40917,9 +40942,14 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "nIO" = (
-/obj/machinery/vending/coffee,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -46605,6 +46635,12 @@
 /obj/item/clothing/head/chefhat,
 /turf/open/floor/prison,
 /area/security/prison)
+"qIc" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "qIl" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -50555,6 +50591,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"svW" = (
+/obj/machinery/computer/security{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/brig)
 "swj" = (
 /obj/machinery/atmospherics/components/binary/valve{
 	dir = 4;
@@ -51379,6 +51424,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
+"sOd" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "sOs" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/abandoned,
@@ -52209,7 +52260,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/closet/crate,
+/obj/item/canvas/twentythree_twentythree,
+/obj/structure/easel,
 /turf/open/floor/prison,
 /area/security/prison)
 "tfu" = (
@@ -54401,10 +54453,6 @@
 /area/crew_quarters/locker)
 "ugt" = (
 /obj/machinery/genpop_interface,
-/obj/item/paper{
-	name = "Prisoner Intake guidelines";
-	default_raw_text = "**Prisoner processing guidelines** <br><br><br>Scan the ID of the future convict, or manually input their name. <br>Select the crime they are being brigged for.<br>Select modifers that are applicable to the case, if there are any.<br>Print the prisoner ID. <br><br>Take the prisoner to one of the prisoner lockers, and strip them of their belongings.<br>Lock the belongings of the convict inside of the locker using **their** prisoner ID.<br>Dress the convict in a prison outfit, give them their ID, then walk them through the turnstile before removing the handcuffs.<br><br>Job done!"
-	},
 /turf/closed/wall/r_wall,
 /area/security/warden)
 "ugE" = (
@@ -58119,6 +58167,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science)
+"whk" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "whp" = (
 /obj/effect/turf_decal/tile/dark_blue{
 	dir = 4
@@ -59856,13 +59908,15 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "xbu" = (
-/obj/machinery/computer/security{
-	dir = 4
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("ss13","engine")
 	},
-/obj/structure/window/reinforced{
+/obj/machinery/vending/coffee,
+/obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel,
 /area/security/brig)
 "xbA" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -59977,10 +60031,9 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "xdY" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
-/obj/structure/table,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "xeb" = (
@@ -61578,7 +61631,6 @@
 /turf/open/floor/plating,
 /area/engine/atmos)
 "xNT" = (
-/obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -61587,6 +61639,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -61885,11 +61940,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
-"xWi" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/crayons,
-/turf/open/floor/prison,
-/area/security/prison)
 "xWw" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 4
@@ -86936,8 +86986,8 @@ mov
 mov
 mov
 mov
-fQB
-teR
+sOd
+vpy
 sZr
 fax
 oiM
@@ -87707,7 +87757,7 @@ mov
 mov
 mov
 mov
-lfS
+jwi
 hVC
 xzl
 xzl
@@ -88474,13 +88524,13 @@ afA
 afA
 afA
 afA
-aai
-aai
+fZN
+bRb
 aai
 aai
 vRj
 hVC
-xWi
+mIr
 iJs
 eRf
 mIr
@@ -88992,10 +89042,10 @@ vBj
 jZo
 njm
 ebo
+dUr
+qIc
 uOR
 oXa
-kZK
-jNX
 jNX
 xvE
 bEb
@@ -89249,7 +89299,7 @@ ebo
 ebo
 aai
 aai
-aai
+hjp
 njN
 aai
 ePz
@@ -89761,9 +89811,9 @@ uLl
 wDi
 afM
 afM
-qQJ
-lMx
-qQJ
+afM
+afM
+afM
 lWJ
 chb
 fmc
@@ -91813,8 +91863,8 @@ hYB
 pOb
 psy
 xdY
-afM
-afM
+nCW
+whk
 iKh
 afM
 wul
@@ -92070,7 +92120,7 @@ sgW
 aaZ
 aiX
 hJQ
-dGB
+svW
 dGB
 xNT
 rFL

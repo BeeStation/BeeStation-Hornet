@@ -26,7 +26,6 @@
 	circuit = /obj/item/circuitboard/machine/turnstile
 	var/state = TURNSTILE_SECURED
 
-
 /obj/item/circuitboard/machine/turnstile
 	name = "Turnstile circuitboard"
 	desc = "The circuit board for a turnstile machine."
@@ -137,6 +136,7 @@
 	//Signal automatically gets unattached and reattached when we're moved.
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_exit)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -145,6 +145,18 @@
 	if(istype(arrived, /mob))
 		flick("operate", src)
 		playsound(src,'sound/items/ratchet.ogg',50,0,3)
+		if(arrived.pulledby) // don't do anything else for prisoners that are being escorted.
+			return
+		if(istype(arrived, /mob/living/carbon/human)) //we only want to prevent prisoners from being able to reuse their ID card.
+			var/mob/living/carbon/human/H = arrived
+			var/obj/item/card/id/id_card = H.get_idcard(hand_first = TRUE)
+			if(ACCESS_PRISONER in id_card?.GetAccess())
+				id_card.access -= list(ACCESS_PRISONER) //Prisoner IDs can only be used once
+				addtimer(CALLBACK(src, PROC_REF(exit_push), H), 2)
+
+/obj/machinery/turnstile/proc/exit_push(atom/movable/pushed) //Just "pushes" prisoners that are being released out of the turnstile so that they don't trap themselves.
+	var/movedir = pushed.dir
+	pushed.Move(get_step(pushed, movedir), movedir)
 
 ///Handle movables (especially mobs) bumping into us.
 /obj/machinery/turnstile/Bumped(atom/movable/movable)
@@ -220,7 +232,7 @@
 		return TRUE //Allow certain things declared with pass_flags_self through wihout side effects
 	if(machine_stat & BROKEN)
 		return FALSE
-	if(get_dir(loc, target) == dir) //Always let people through in one direction. Not used at the moment.
+	if(mover.dir == dir) //Always let people through in one direction.
 		return TRUE
 	var/allowed = allowed(mover)
 	//Ridden vehicles are blacklisted because they are items that have buckled mobs to them when this proc can only be called on mobs...
@@ -644,7 +656,7 @@ GLOBAL_LIST_EMPTY(prisoner_ids)
 /obj/item/card/id/prisoner/examine(mob/user)
 	. = ..()
 	if(sentence)
-		. += "<span class='notice'>You have served [DisplayTimeText(served_time, 1)] out of [DisplayTimeText(sentence, 1)].</span>"
+		. += "<span class='notice'>You have served [DisplayTimeText(served_time*10, 1)] out of [DisplayTimeText(sentence*10, 1)].</span>"
 	if(crime)
 		. += "<span class='warning'>It appears its holder was convicted of: <b>[crime]</b></span>"
 
