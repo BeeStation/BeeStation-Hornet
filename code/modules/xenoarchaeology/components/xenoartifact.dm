@@ -4,6 +4,12 @@
 
 //TODO: Replace all instances of this - Racc
 /obj/item/xenoartifact
+	icon_state = "skub"
+
+/obj/item/xenoartifact/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/xenoartifact)
+
 /datum/component/xenoartifact_pricing ///Pricing component for shipping solution. Consider swapping to cargo after change.
 	///Buying and selling related, based on guess qaulity
 	var/modifier = 0.5
@@ -32,6 +38,9 @@
 	///What strenght are our traits operating at?
 	var/trait_strength = XENOA_TRAIT_STRENGTH_STRONG
 
+	///Level of instability, associated with gaining malfunctions
+	var/instability = 0
+
 	///What type of artifact are we?
 	var/datum/component/xenoartifact_material/artifact_type
 
@@ -43,6 +52,8 @@
 
 /datum/component/xenoartifact/New(list/raw_args, type, list/traits)
 	. = ..()
+	generate_xenoa_statics()
+
 	//Setup our typing
 	artifact_type = type || pick_weight(GLOB.xenoartifact_material_weights)
 	artifact_type = new artifact_type()
@@ -53,7 +64,7 @@
 			if(!artifact_traits[T.priority])
 				artifact_traits[T.priority] = list()
 			//handle adding trait
-			T = new T(parent)
+			T = new T(src)
 			artifact_traits[T.priority] += T
 			blacklisted_traits += T.blacklist_traits
 			blacklisted_traits += T
@@ -88,16 +99,22 @@
 	//Trait triggers
 	for(var/i in GLOB.xenoartifact_trait_priorities)
 		SEND_SIGNAL(src, XENOA_TRIGGER, i)
+	//Malfunctions
+	handle_malfunctions()
 
 /datum/component/xenoartifact/proc/build_traits(list/trait_list, amount)
+	if(!length(trait_list))
+		CRASH("TODO: - Racc")
+	var/list/options = trait_list
+	options -= blacklisted_traits
 	for(var/i in 1 to amount)
 		//Pick a random trait
-		var/datum/xenoartifact_trait/T = pick_weight(trait_list-blacklisted_traits)
+		var/datum/xenoartifact_trait/T = pick_weight(options)
 		//List building
-		if(!artifact_traits[T.priority])
-			artifact_traits[T.priority] = list()
+		if(!artifact_traits[initial(T.priority)])
+			artifact_traits[initial(T.priority)] = list()
 		//handle trait adding
-		T = new T(parent)
+		T = new T(src)
 		artifact_traits[T.priority] += T
 		blacklisted_traits += T.blacklist_traits
 		blacklisted_traits += T
@@ -115,6 +132,13 @@
 			time += T.cooldown
 	return time
 
+/datum/component/xenoartifact/proc/handle_malfunctions()
+	if(!prob(instability))
+		return
+	var/list/focus_traits
+	focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
+	build_traits(focus_traits, artifact_type.trait_malfunctions)
+
 ///material datums
 /datum/component/xenoartifact_material
 	var/name = "debugium"
@@ -125,7 +149,10 @@
 	var/trait_activators = 1
 	var/trait_minors = 3
 	var/trait_majors = 1
-	var/trait_malfunctions = 1
+	var/trait_malfunctions = 0
+
+	///How much we increase artifact instability by for every use
+	var/instability_step = 0
 
 /datum/component/xenoartifact_material/proc/get_trait_list()
 	return GLOB.xenoa_all_traits

@@ -10,7 +10,7 @@
 	var/label_desc
 
 	///Asscoiated flags for artifact typing and such
-	var/flags = NONE
+	var/flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT | BANANIUM_TRAIT
 	///Other traits this trait wont work with.
 	var/list/blacklist_traits = list()
 	///How rare is this trait? 100 being common, and 1 being very rare
@@ -24,6 +24,10 @@
 
 	///List of things we've effected. used to automatically reigster & unregister targets.
 	var/list/targets = list()
+
+	///Characteristics for deduction
+	var/weight = 0
+	var/conductivity = 0
 
 /datum/xenoartifact_trait/minor
 /datum/xenoartifact_trait/major
@@ -80,13 +84,13 @@
 	var/list/temp = subtypesof(path)
 	var/list/weighted = list()
 	for(var/datum/xenoartifact_trait/T as() in temp)
-		weighted += list((T) = initial(T.rarity))
+		weighted += list((T) = initial(T.rarity)) //The (T) will not work if it is T
 	return weighted
 
 ///Compile a blacklist of traits from a given flag/s
-/proc/compile_artifact_blacklist(var/flags)
+/proc/compile_artifact_whitelist(var/flags)
 	var/list/output = list()
 	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
-		if(!(initial(T.flags) & flags))
+		if((initial(T.flags) & flags))
 			output += T
 	return output

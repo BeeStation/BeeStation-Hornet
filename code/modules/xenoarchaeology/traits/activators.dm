@@ -15,6 +15,8 @@
     This trait activates the artifact when it's used, like a generic item
 */
 
+/datum/xenoartifact_trait/activator/strudy
+
 /datum/xenoartifact_trait/activator/strudy/New()
     . = ..()
     RegisterSignal(parent.parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(trigger_artifact))

@@ -222,7 +222,7 @@
 	forceMove(get_turf(target))
 
 /obj/item/xenoartifact_label/proc/calculate_modifier(obj/item/xenoartifact/X) //Modifier based off preformance of slueth. To:Do revisit this, complexity would be nice
-	var/datum/xenoartifact_trait/trait
+	//var/datum/xenoartifact_trait/trait //TODO: - Racc
 	var/datum/component/xenoartifact_pricing/xenop = X.GetComponent(/datum/component/xenoartifact_pricing)
 	if(!xenop)
 		return

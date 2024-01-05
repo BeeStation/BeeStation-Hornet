@@ -203,7 +203,7 @@
 
 				//append sticker traits & pass it off
 				var/obj/item/xenoartifact_label/L = (locate(/obj/item/xenoartifact_label) in selling_item.contents)
-				var/obj/item/xenoartifact/A = selling_item
+				//var/obj/item/xenoartifact/A = selling_item //TODO: - Racc
 				for(var/datum/xenoartifact_trait/T as() in L?.trait_list)
 					var/color = rgb(255, 0, 0)
 					//using tertiary operator breaks it

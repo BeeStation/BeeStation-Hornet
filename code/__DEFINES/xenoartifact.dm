@@ -11,10 +11,10 @@
 #define XENOA_DEBUGIUM /datum/component/xenoartifact_material
 
 //Trait priorities
-#define TRAIT_PRIORITY_ACTIVATOR 1
-#define TRAIT_PRIORITY_MINOR 2
-#define TRAIT_PRIORITY_MAJOR 4
-#define TRAIT_PRIORITY_MALFUNCTION 3
+#define TRAIT_PRIORITY_ACTIVATOR "activator"
+#define TRAIT_PRIORITY_MINOR "minor"
+#define TRAIT_PRIORITY_MAJOR "major"
+#define TRAIT_PRIORITY_MALFUNCTION "malfunction"
 
 ///Signal for artifact trigger
 #define XENOA_TRIGGER "xenoa_trigger"
@@ -27,15 +27,15 @@
 #define XENOA_TRAIT_STRENGTH_MILD 75
 #define XENOA_TRAIT_STRENGTH_STRONG 100
 
-/*
-old content
-*/
-
 ///trait flags
 #define BLUESPACE_TRAIT			(1<<0)
 #define PLASMA_TRAIT			(1<<1)
 #define URANIUM_TRAIT			(1<<2)
 #define BANANIUM_TRAIT			(1<<3)
+
+/*
+old content
+*/
 
 //Also not materials but also related
 ///Process type on burn

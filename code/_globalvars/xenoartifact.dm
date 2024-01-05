@@ -11,10 +11,10 @@ GLOBAL_LIST(xenoa_malfunctions)
 GLOBAL_LIST(xenoa_all_traits)
 
 ///Blacklist for traits
-GLOBAL_LIST(xenoa_bluespace_blacklist)
-GLOBAL_LIST(xenoa_plasma_blacklist)
-GLOBAL_LIST(xenoa_uranium_blacklist)
-GLOBAL_LIST(xenoa_bananium_blacklist)
+GLOBAL_LIST(xenoa_bluespace_traits)
+GLOBAL_LIST(xenoa_plasma_traits)
+GLOBAL_LIST(xenoa_uranium_traits)
+GLOBAL_LIST(xenoa_bananium_traits)
 
 ///List of emotes for emote-trait
 GLOBAL_LIST_INIT(xenoa_emote, list(/datum/emote/flip, /datum/emote/spin, /datum/emote/living/laugh, 
@@ -24,6 +24,9 @@ GLOBAL_LIST_INIT(xenoa_emote, list(/datum/emote/flip, /datum/emote/spin, /datum/
 
 ///Fill globals
 /proc/generate_xenoa_statics()
+	if(length(GLOB.xenoa_all_traits))
+		return
+
 	GLOB.xenoa_seller_names -= ""
 	GLOB.xenoa_seller_dialogue -= ""
 	GLOB.xenoa_artifact_names -= ""
@@ -34,10 +37,10 @@ GLOBAL_LIST_INIT(xenoa_emote, list(/datum/emote/flip, /datum/emote/spin, /datum/
 	GLOB.xenoa_malfunctions = compile_artifact_weights(/datum/xenoartifact_trait/malfunction)
 	GLOB.xenoa_all_traits = compile_artifact_weights(/datum/xenoartifact_trait)
 
-	GLOB.xenoa_bluespace_blacklist = compile_artifact_blacklist(BLUESPACE_TRAIT)
-	GLOB.xenoa_plasma_blacklist = compile_artifact_blacklist(PLASMA_TRAIT)
-	GLOB.xenoa_uranium_blacklist = compile_artifact_blacklist(URANIUM_TRAIT)
-	GLOB.xenoa_uranium_blacklist = compile_artifact_blacklist(BANANIUM_TRAIT)
+	GLOB.xenoa_bluespace_traits = compile_artifact_whitelist(BLUESPACE_TRAIT)
+	GLOB.xenoa_plasma_traits = compile_artifact_whitelist(PLASMA_TRAIT)
+	GLOB.xenoa_uranium_traits = compile_artifact_whitelist(URANIUM_TRAIT)
+	GLOB.xenoa_uranium_traits = compile_artifact_whitelist(BANANIUM_TRAIT)
 
 /*
 New content
@@ -46,5 +49,5 @@ New content
 ///Material weights, basically rarity
 GLOBAL_LIST_INIT(xenoartifact_material_weights, list(XENOA_BLUESPACE = 10, XENOA_PLASMA = 5, XENOA_URANIUM = 3, XENOA_BANANIUM = 1))
 
-///Trait priority list
-GLOBAL_LIST_INIT(xenoartifact_trait_priorities, list(TRAIT_PRIORITY_ACTIVATOR, TRAIT_PRIORITY_MINOR, TRAIT_PRIORITY_MAJOR, TRAIT_PRIORITY_MALFUNCTION))
+///Trait priority list - The order is important and it represents priotity
+GLOBAL_LIST_INIT(xenoartifact_trait_priorities, list(TRAIT_PRIORITY_ACTIVATOR, TRAIT_PRIORITY_MINOR, TRAIT_PRIORITY_MALFUNCTION, TRAIT_PRIORITY_MAJOR))
