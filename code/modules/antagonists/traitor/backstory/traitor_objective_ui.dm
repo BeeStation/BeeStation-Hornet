@@ -1,29 +1,31 @@
 /datum/antagonist/traitor
 	ui_name = "TraitorObjectivesMenu"
-	var/datum/action/innate/traitor_menu/menu
+
+/// We will handle this ourselves, thank you.
+/datum/antagonist/traitor/make_info_button()
+	return null
 
 /datum/antagonist/traitor/proc/add_menu_action()
-	if(menu != null)
+	if(info_button_ref?.resolve() != null)
 		return
-	menu = new /datum/action/innate/traitor_menu(src)
+	var/datum/action/antag_info/traitor_menu/menu = new(src)
 	menu.Grant(owner.current)
+	info_button_ref = WEAKREF(menu)
 
-/datum/action/innate/traitor_menu
-	name = "Traitor Objectives"
-	desc = "View and customize your traitor faction, backstory, objectives, and objective backstories."
+/datum/action/antag_info/traitor_menu
+	name = "Traitor Info and Backstory"
+	desc = "View and customize your traitor faction, backstory, objectives, codewords, uplink location, \
+	and objective backstories."
 	button_icon_state = "traitor_objectives"
 	background_icon_state = "bg_agent"
-	var/datum/antagonist/traitor/ownerantag
 
-/datum/action/innate/traitor_menu/New(datum/H)
+/datum/action/antag_info/traitor_menu/New(datum/H)
 	. = ..()
+	name = "Traitor Info and Backstory"
 	button.name = name
-	ownerantag = H
-
-/datum/action/innate/traitor_menu/Activate()
-	ownerantag.ui_interact(owner)
 
 /datum/antagonist/traitor/ui_data(mob/user)
+
 	var/list/data = list()
 	data["allowed_factions"] = allowed_factions
 	data["allowed_backstories"] = allowed_backstories
@@ -33,6 +35,21 @@
 		data["backstory"] = "[backstory.type]"
 	if(istype(faction))
 		data["faction"] = faction.key
+		data["employer"] = employer
+
+	var/datum/component/uplink/uplink = uplink_ref?.resolve()
+	data["antag_name"] = name
+	data["has_codewords"] = has_codewords
+	if(has_codewords)
+		data["phrases"] = jointext(GLOB.syndicate_code_phrase, ", ")
+		data["responses"] = jointext(GLOB.syndicate_code_response, ", ")
+	data["code"] = uplink?.unlock_code
+	data["failsafe_code"] = uplink?.failsafe_code
+	data["has_uplink"] = uplink ? TRUE : FALSE
+	if(uplink)
+		data["uplink_unlock_info"] = uplink.unlock_text
+	data["objectives"] = get_objectives()
+
 	return data
 
 /datum/antagonist/traitor/ui_static_data(mob/user)
@@ -79,12 +96,12 @@
 				return TRUE
 			if(!("[selected_backstory.type]" in allowed_backstories))
 				return TRUE
-			set_faction(selected_faction)
+			if(!istype(faction))
+				set_faction(selected_faction)
 			set_backstory(selected_backstory)
 			return TRUE
 		if("gimme_uplink")
 			if(istype(faction))
 				return TRUE
 			set_faction(GLOB.traitor_factions_to_datum[TRAITOR_FACTION_SYNDICATE])
-			SStgui.close_user_uis(usr, src)
-			return FALSE
+			return TRUE

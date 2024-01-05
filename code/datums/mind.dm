@@ -363,11 +363,11 @@
 		U.setup_unlock_code()
 		if(!silent)
 			if(uplink_loc == R)
-				U.unlock_text = "[employer] has cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
+				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features."
 			else if(uplink_loc == PDA)
-				U.unlock_text = "[employer] has cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
+				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features."
 			else if(uplink_loc == P)
-				U.unlock_text = "[employer] has cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
+				U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."
 			to_chat(traitor_mob, "<span class='boldnotice'>[U.unlock_text]</span>")
 
 		if(uplink_owner)
@@ -379,7 +379,7 @@
 		I.implant(traitor_mob, null, silent = TRUE)
 		var/datum/component/uplink/U = I.GetComponent(/datum/component/uplink)
 		if(!silent)
-			U.unlock_text = "[employer] has cunningly implanted you with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it."
+			U.unlock_text = "[employer] [employer == "You" ? "have" : "has"] cunningly implanted [employer == "You" ? "yourself" : "you"] with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it."
 			to_chat(traitor_mob, "<span class='boldnotice'>[U.unlock_text]</span>")
 		return I
 

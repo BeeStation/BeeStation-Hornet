@@ -26,7 +26,6 @@
 	to_chat(owner.current, "<span class='alertsyndie'>You are the Contractor Support Unit.</span>")
 	owner.announce_objectives()
 	if(owner.current)
-		give_codewords_to_player(owner.current, src)
 		if(owner.current.client)
 			owner.current.client.tgui_panel?.give_antagonist_popup("Contractor Support Unit", "Follow your contractor's orders.")
 

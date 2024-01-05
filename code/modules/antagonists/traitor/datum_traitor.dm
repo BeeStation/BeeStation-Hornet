@@ -8,7 +8,6 @@
 	banning_key = ROLE_TRAITOR
 	required_living_playtime = 4
 	antag_moodlet = /datum/mood_event/focused
-	ui_name = "AntagInfoTraitor"
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
 	var/special_role = ROLE_TRAITOR
 	/// Shown when giving uplinks and codewords to the player
@@ -48,31 +47,11 @@
 		QDEL_NULL(A.radio.keyslot)
 		A.radio.recalculateChannels()
 
-	if(menu)
-		menu.Remove(owner.current)
-		QDEL_NULL(menu)
-
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
 		to_chat(owner.current,"<span class='userdanger'> You are no longer the [special_role]! </span>")
 	owner.special_role = null
 	..()
-
-/datum/antagonist/traitor/ui_static_data(mob/user)
-	var/datum/component/uplink/uplink = uplink_ref?.resolve()
-	var/list/data = list()
-	data["antag_name"] = name
-	data["has_codewords"] = has_codewords
-	if(has_codewords)
-		data["phrases"] = jointext(GLOB.syndicate_code_phrase, ", ")
-		data["responses"] = jointext(GLOB.syndicate_code_response, ", ")
-	data["code"] = uplink?.unlock_code
-	data["failsafe_code"] = uplink?.failsafe_code
-	data["has_uplink"] = uplink ? TRUE : FALSE
-	if(uplink)
-		data["uplink_unlock_info"] = uplink.unlock_text
-	data["objectives"] = get_objectives()
-	return data
 
 /datum/antagonist/traitor/proc/handle_hearing(datum/source, list/hearing_args)
 	SIGNAL_HANDLER
@@ -98,19 +77,12 @@
 /datum/antagonist/traitor/greet()
 	var/list/msg = list()
 	msg += "<span class='alertsyndie'>You are the [owner.special_role].</span>"
-	msg += "<span class='alertsyndie'>Use the 'Open [owner.special_role] Information' action at the top left in order to review your objectives and codewords!</span>"
+	msg += "<span class='alertsyndie'>Use the 'Traitor Info and Backstory' action at the top left in order to select a backstory and review your objectives, uplink location, and codewords!</span>"
 	to_chat(owner.current, EXAMINE_BLOCK(msg.Join("\n")))
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Traitor",
 		"Complete your objectives, no matter the cost.")
 	if(traitor_kind == TRAITOR_AI)
-		give_codewords() // humans get this assigned by their faction
-
-/datum/antagonist/traitor/proc/forge_single_objective()
-	switch(traitor_kind)
-		if(TRAITOR_AI)
-			return forge_single_AI_objective()
-		else
-			return forge_single_human_objective()
+		has_codewords = TRUE
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
@@ -149,26 +121,11 @@
 		A.hack_software = FALSE
 	UnregisterSignal(owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
+/// Enables displaying codewords to this traitor.
 /datum/antagonist/traitor/proc/give_codewords()
 	if(!owner.current || !istype(faction))
 		return
 	has_codewords = TRUE
-	give_codewords_to_player(owner.current, src, faction.name)
-
-/proc/give_codewords_to_player(mob/player, datum/antagonist/antag_datum, employer = "The Syndicate")
-	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
-	var/responses = jointext(GLOB.syndicate_code_response, ", ")
-
-	to_chat(player, "<U><B>[employer] have provided you with the following codewords to identify fellow agents:</B></U>")
-	to_chat(player, "<B>Code Phrase</B>: <span class='blue'>[phrases]</span>")
-	to_chat(player, "<B>Code Response</B>: <span class='red'>[responses]</span>")
-
-	if(istype(antag_datum))
-		antag_datum.antag_memory += "<b>Code Phrase</b>: <span class='blue'>[phrases]</span><br>"
-		antag_datum.antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
-
-	to_chat(player, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-	to_chat(player, "<span class='alertwarning'>You memorize the codewords, allowing you to recognise them when heard.</span>")
 
 /datum/antagonist/traitor/proc/equip(var/silent = FALSE)
 	if(traitor_kind == TRAITOR_HUMAN)

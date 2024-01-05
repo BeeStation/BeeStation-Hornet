@@ -43,9 +43,7 @@
 		return
 	var/no_faction = isnull(faction)
 	faction = new_faction
-	employer = new_faction.name
-	if(new_faction.key == TRAITOR_FACTION_INDEPENDENT)
-		employer = "You" // "Independent has cunningly disguised a syndicate uplink" doesn't quite work
+	employer = new_faction.employer_name
 	if(forced)
 		// If the UI is open, force it to recognize the new faction
 		ui_update()
@@ -55,7 +53,6 @@
 	if(no_faction)
 		if(new_faction.give_codewords)
 			give_codewords()
-		show_tips("traitor_[new_faction.key]")
 		equip(silent)
 
 /datum/antagonist/traitor/proc/set_backstory(datum/traitor_backstory/new_backstory)
