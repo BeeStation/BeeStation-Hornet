@@ -33,28 +33,18 @@
 			recommended_backstories += "[path]"
 
 	add_menu_action()
-	// Force set faction after 4 minutes, since it has gameplay impacts.
-	addtimer(CALLBACK(src, PROC_REF(set_faction), GLOB.traitor_factions_to_datum[TRAITOR_FACTION_SYNDICATE], TRUE), 4 MINUTES)
 
-/datum/antagonist/traitor/proc/set_faction(datum/traitor_faction/new_faction, forced = FALSE)
+/datum/antagonist/traitor/proc/set_faction(datum/traitor_faction/new_faction)
 	if(!istype(new_faction))
-		return
-	if(forced && istype(faction))
 		return
 	var/no_faction = isnull(faction)
 	faction = new_faction
 	employer = new_faction.employer_name
-	if(forced)
-		// If the UI is open, force it to recognize the new faction
-		ui_update()
-		if(owner.current)
-			to_chat(owner.current, "<span class='big warning'>Your traitor faction has been forcibly set to [new_faction.name], \
-			because too much time has passed without a backstory being selected. You may now select a backstory, but your faction cannot be changed.</span>")
 	if(no_faction)
 		if(new_faction.give_codewords)
 			give_codewords()
 		equip(silent)
-	log_game("[key_name(owner)] selected traitor faction [new_faction.name][forced ? " (Forced by timeout)" : ""]")
+	log_game("[key_name(owner)] selected traitor faction [new_faction.name]")
 
 /datum/antagonist/traitor/proc/set_backstory(datum/traitor_backstory/new_backstory)
 	backstory = new_backstory

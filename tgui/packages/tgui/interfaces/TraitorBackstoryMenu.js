@@ -3,7 +3,7 @@ import { Button, Dimmer, Stack, Box, Section, Tabs, Flex, Icon, Tooltip } from '
 import { Window } from '../layouts';
 import { AntagInfoTraitorContent } from './AntagInfoTraitor';
 
-export const TraitorObjectivesMenu = (_, context) => {
+export const TraitorBackstoryMenu = (_, context) => {
   const { data } = useBackend(context);
   const { all_backstories = {}, all_factions = {}, backstory, faction } = data;
   let has_backstory = all_backstories[backstory];
@@ -80,7 +80,7 @@ export const TraitorObjectivesMenu = (_, context) => {
               {tabIndex === 1 ? (
                 <AntagInfoTraitorContent />
               ) : has_backstory ? (
-                <BackstoryObjectivesMenu />
+                <BackstoryDetails />
               ) : (
                 <SelectBackstoryMenu
                   set_ui_phase={set_ui_phase}
@@ -107,22 +107,15 @@ const IntroductionMenu = ({ set_ui_phase }, context) => {
         <Stack.Item fontSize="14px">
           <Stack vertical textAlign="center">
             <Stack.Item fontSize="28px" mb={5} maxWidth="80vw">
-              Traitor Objective Backstory Generator
+              Traitor Backstory Generator
             </Stack.Item>
             <Stack.Item maxWidth="80vw">
               This menu is a tool for you to use as an antagonist, giving a foundation for your character&apos;s motivations and
               reasoning for being a traitor.
             </Stack.Item>
             <Stack.Item maxWidth="80vw">
-              As such, it&apos;s not required that you use it, but you would be doing a disservice to your fellow players.
-            </Stack.Item>
-            <Stack.Item maxWidth="80vw">
               Please <strong>select a faction</strong> - a short description of each will be given. You will{' '}
               <strong>not</strong> be able to change this after your main backstory is locked in, so choose wisely.
-            </Stack.Item>
-            <Stack.Item maxWidth="80vw">
-              You have 4 minutes to select a backstory, otherwise your faction is forced to Syndicate and you can then select a
-              backstory.
             </Stack.Item>
           </Stack>
         </Stack.Item>
@@ -137,20 +130,6 @@ const IntroductionMenu = ({ set_ui_phase }, context) => {
             }}
           />
         </Stack.Item>
-        {!faction && (
-          <Stack.Item>
-            <Button.Confirm
-              mt={1}
-              fontSize="15px"
-              color="bad"
-              content="Gimme Uplink!"
-              tooltip="Your faction will be set to The Syndicate, and you will not be able to change it."
-              onClick={() => {
-                act('gimme_uplink');
-              }}
-            />
-          </Stack.Item>
-        )}
       </Stack>
     </Dimmer>
   );
@@ -576,7 +555,7 @@ const BackstoryTab = ({
   );
 };
 
-const BackstoryObjectivesMenu = (_, context) => {
+const BackstoryDetails = (_, context) => {
   const { data } = useBackend(context);
   const { backstory, all_backstories = {} } = data;
   return <BackstorySection fill backstory={all_backstories[backstory]} />;

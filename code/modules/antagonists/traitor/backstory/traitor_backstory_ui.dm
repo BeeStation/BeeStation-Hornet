@@ -1,5 +1,5 @@
 /datum/antagonist/traitor
-	ui_name = "TraitorObjectivesMenu"
+	ui_name = "TraitorBackstoryMenu"
 
 /// We will handle this ourselves, thank you.
 /datum/antagonist/traitor/make_info_button()
@@ -99,9 +99,4 @@
 			if(!istype(faction))
 				set_faction(selected_faction)
 			set_backstory(selected_backstory)
-			return TRUE
-		if("gimme_uplink")
-			if(istype(faction))
-				return TRUE
-			set_faction(GLOB.traitor_factions_to_datum[TRAITOR_FACTION_SYNDICATE])
 			return TRUE
