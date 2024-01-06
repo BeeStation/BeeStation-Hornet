@@ -2,7 +2,6 @@
 
 /datum/objective/destroy
 	name = "destroy AI"
-	martyr_compatible = 1
 
 /datum/objective/destroy/find_target(list/dupe_search_range, list/blacklist)
 	var/list/possible_targets = list()

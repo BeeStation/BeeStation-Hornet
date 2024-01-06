@@ -18,7 +18,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	/// If the objective is to be marked as completed, regardless of any conditions. Currently only used for custom objectives.
 	var/completed = FALSE
 	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
-	var/martyr_compatible = FALSE
+	var/martyr_compatible = TRUE
 	/// Whether the objective should show up as optional in the roundend screen
 	var/optional = FALSE
 	/// Used to check if obj owner can buy murderbone stuff

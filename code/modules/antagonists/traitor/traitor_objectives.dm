@@ -2,7 +2,7 @@
 	var/is_hijacker = FALSE
 	if (GLOB.joined_player_list.len >= 30) // Less murderboning on lowpop thanks
 		is_hijacker = prob(10)
-	var/is_martyr = prob(12)
+	var/is_martyr = prob(5)
 
 	var/objectives_to_assign = CONFIG_GET(number/traitor_objectives_amount)
 	if(is_hijacker)
@@ -30,6 +30,7 @@
 			hijack_objective.owner = owner
 			add_objective(hijack_objective)
 	else
+		// This check is just extra insurance now, we shouldn't assign non-martyr objectives in the first place.
 		for(var/datum/objective/O in objectives)
 			if(!O.martyr_compatible) // You can't succeed in stealing if you're dead.
 				martyr_compatibility = FALSE

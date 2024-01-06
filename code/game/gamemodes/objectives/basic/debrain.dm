@@ -1,5 +1,6 @@
 /datum/objective/debrain
 	name = "debrain"
+	martyr_compatible = FALSE
 	var/target_role_type=0
 
 /datum/objective/debrain/find_target_by_role(role, role_type=FALSE,invert=FALSE)
