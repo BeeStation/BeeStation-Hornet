@@ -117,6 +117,7 @@
 		return FALSE	//PLEASE no.
 	if((var_name in careful_edits) && (var_value % world.icon_size) != 0)
 		return FALSE
+		
 	switch(var_name)
 		if(NAMEOF(src, anchored))
 			set_anchored(var_value)
