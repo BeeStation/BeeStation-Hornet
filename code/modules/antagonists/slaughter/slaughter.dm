@@ -61,10 +61,10 @@
 
 
 /datum/antagonist/imp
-	name = "Imp"
-	antagpanel_category = "Devil"
+	name = "\improper Imp"
 	show_in_antagpanel = FALSE
 	show_in_roundend = FALSE
+	antagpanel_category = "Devil"
 
 /datum/antagonist/imp/on_gain()
 	. = ..()

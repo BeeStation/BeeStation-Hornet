@@ -1005,7 +1005,9 @@
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
 		target = input(src, "Which body to control?") as null|anything in sort_names(possible)
 
-	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
+	if(isnull(target))
+		return
+	if (target.stat == DEAD || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
 		return
 
 	if(target.is_jammed(JAMMER_PROTECTION_AI_SHELL))

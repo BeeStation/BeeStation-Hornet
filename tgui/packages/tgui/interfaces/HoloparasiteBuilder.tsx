@@ -270,7 +270,7 @@ const BasicNameInput = (_props, context) => {
     act,
     data: { custom_name, max_lengths, themed_name, validation },
   } = useBackend<Info>(context);
-  const set_name = (_, name: string) => {
+  const set_holopara_name = (_, name: string) => {
     act('set:name', { 'name': name });
   };
   return (
@@ -284,8 +284,8 @@ const BasicNameInput = (_props, context) => {
           maxLength={max_lengths.name}
           placeholder={`${themed_name} Name`}
           width="100%"
-          onChange={set_name}
-          onInput={set_name}
+          onChange={set_holopara_name}
+          onInput={set_holopara_name}
         />
       </Stack.Item>
       <Stack.Item>

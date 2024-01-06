@@ -30,12 +30,16 @@
 */
 
 /datum/mind
+	/// Key of the mob
 	var/key
-	var/name				//replaces mob/var/original_name
-	var/ghostname			//replaces name for observers name if set
-	/// The last living mob this mind occupied - if the player is dead, this is their body.
+	/// The name linked to this mind
+	var/name
+	/// replaces name for observers name if set
+	var/ghostname
+	/// Current mob this mind datum is attached to
 	var/mob/living/current
-	var/active = 0
+	/// Is this mind active?
+	var/active = FALSE
 
 	var/memory
 	var/list/quirks = list()

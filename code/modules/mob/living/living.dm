@@ -10,8 +10,7 @@
 	. = ..()
 	register_init_signals()
 	if(unique_name)
-		name = "[name] ([rand(1, 1000)])"
-		real_name = name
+		set_name()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
@@ -1366,6 +1365,11 @@
 	var/obj/item/clothing/head/mob_holder/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
 	L.visible_message("<span class='warning'>[L] scoops up [src]!</span>")
 	L.put_in_hands(holder)
+
+/mob/living/proc/set_name()
+	numba = rand(1, 1000)
+	name = "[name] ([numba])"
+	real_name = name
 
 /mob/living/proc/mob_try_pickup(mob/living/user)
 	if(!ishuman(user))

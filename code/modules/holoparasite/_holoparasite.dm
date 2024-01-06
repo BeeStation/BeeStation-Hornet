@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	/**
 	 * The name of the holoparasite, formatted with the [accent_color] in a <font> tag.
-	 * Automatically set by [set_name()].
+	 * Automatically set by [set_holopara_name()].
 	 */
 	var/color_name
 	/// Notes left by the summoner of the holoparasite.
@@ -114,7 +114,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	set_accent_color(_accent_color || pick(GLOB.color_list_rainbow), silent = TRUE)
 	set_theme(_theme)
 	if(length(_name))
-		set_name(_name, internal = TRUE)
+		set_holopara_name(_name, internal = TRUE)
 	if(length(_notes))
 		notes = _notes
 	set_summoner(_summoner)
