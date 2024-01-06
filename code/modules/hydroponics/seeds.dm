@@ -148,6 +148,8 @@
 // Harvest procs
 /obj/item/seeds/proc/getYield()
 	var/return_yield = yield
+	if (yield==0)
+	return 0
 
 	var/obj/machinery/hydroponics/parent = loc
 	if(istype(loc, /obj/machinery/hydroponics))
