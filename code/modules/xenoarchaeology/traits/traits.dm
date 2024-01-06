@@ -27,6 +27,8 @@
 
 	///List of things we've effected. used to automatically reigster & unregister targets. Don't confuse with parent targets, which is things we want to effect
 	var/list/targets = list()
+	///Extra target range we add to the artifact
+	var/extra_target_range = 0
 
 	///Characteristics for deduction
 	var/weight = 0 //KG
@@ -43,6 +45,8 @@
 	RegisterSignal(parent, XENOA_TRIGGER, PROC_REF(trigger))
 	//Appearance
 	generate_trait_appearance(parent.parent)
+	//Stats
+	parent.target_range += extra_target_range
 
 /datum/xenoartifact_trait/Destroy(force, ...)
 	. = ..()
@@ -66,7 +70,7 @@
 	SIGNAL_HANDLER
 
 	if(do_untrigger) //This will only happen in the event something is unregistered before we can untrigger, which is needed for QDELs
-		un_trigger(source)
+		un_trigger(source, override = source)
 	targets -= source
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
@@ -75,16 +79,18 @@
 
 	unregister_target(source, TRUE)
 
-/datum/xenoartifact_trait/proc/trigger(datum/source, _priority, atom/A)
+/datum/xenoartifact_trait/proc/trigger(datum/source, _priority, atom/override)
 	SIGNAL_HANDLER
 
+	. = TRUE
 	if(_priority != priority && _priority)
-		return
+		return FALSE
 	if(!register_targets)
 		return
-	//If we've been given an override - This is pretty much for testing here, so don't sweat implementing it elsewhere
-	if(A)
-		register_target(A)
+	//If we've been given an override
+	if(override)
+		register_target(override)
+		return
 	//Otherwise just use the artifact's target list
 	else if(length(parent.targets))
 		for(var/atom/I in parent.targets)
@@ -92,9 +98,10 @@
 	return
 
 //Most traits will handle this on their own
-/datum/xenoartifact_trait/proc/un_trigger(atom/A, handle_parent = FALSE)
-	if(A)
-		unregister_target(A)
+/datum/xenoartifact_trait/proc/un_trigger(atom/override, handle_parent = FALSE)
+	if(override)
+		unregister_target(override)
+		return
 	//Parent targets, we shouldn't need this casually, only for niche cases
 	if(length(parent.targets) && handle_parent)
 		for(var/atom/I in parent.targets)

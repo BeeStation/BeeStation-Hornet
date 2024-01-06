@@ -256,13 +256,13 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/xenoartifact_labeler
-	name = "Artifact Labeler"
+/datum/design/xenoartifact_labeller
+	name = "xenoartifact_labeller"
 	desc = "A scientific labeler used to warn others of the dangers of an alien artifact."
 	id = "xenoa_labeler"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000, /datum/material/silver = 1000, /datum/material/gold = 3000)
-	build_path = /obj/item/xenoartifact_labeler
+	build_path = /obj/item/xenoartifact_labeller
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 

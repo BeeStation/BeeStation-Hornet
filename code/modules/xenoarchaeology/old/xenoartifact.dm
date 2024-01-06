@@ -211,7 +211,7 @@ Make artifacts into item components
 		qdel(locate(/obj/item/xenoartifact_label) in contents)
 
 	//Let people label in peace
-	if(istype(I, /obj/item/xenoartifact_label) || istype(I, /obj/item/xenoartifact_labeler))
+	if(istype(I, /obj/item/xenoartifact_label) || istype(I, /obj/item/xenoartifact_labeller))
 		return
 
 	//abort if safety

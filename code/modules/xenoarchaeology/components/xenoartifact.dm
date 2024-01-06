@@ -6,10 +6,6 @@
 /obj/item/xenoartifact
 	icon_state = "skub"
 
-/obj/item/xenoartifact/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/xenoartifact)
-
 /datum/component/xenoartifact_pricing ///Pricing component for shipping solution. Consider swapping to cargo after change.
 	///Buying and selling related, based on guess qaulity
 	var/modifier = 0.5
@@ -54,11 +50,13 @@
 
 	///List of targets we can pass to our traits
 	var/list/targets = list()
+	///Maximum range we can register targets from
+	var/target_range = 1
 
 	///Description for the material, based on the traits - Update this with get_material_desc() when you add traits
 	var/material_description = ""
 
-/datum/component/xenoartifact/New(list/raw_args, type, list/traits)
+/datum/component/xenoartifact/Initialize(type, list/traits)
 	. = ..()
 	generate_xenoa_statics()
 
@@ -69,11 +67,11 @@
 	//If we're force-generating traits
 	if(traits)
 		for(var/datum/xenoartifact_trait/T as() in traits)
+			T = new T(src)
 			//List building
 			if(!artifact_traits[T.priority])
 				artifact_traits[T.priority] = list()
 			//handle adding trait
-			T = new T(src)
 			artifact_traits[T.priority] += T
 			blacklisted_traits += T.blacklist_traits
 			blacklisted_traits += T
@@ -128,11 +126,11 @@
 	for(var/i in 1 to amount)
 		//Pick a random trait
 		var/datum/xenoartifact_trait/T = pick_weight(options)
-		//List building
-		if(!artifact_traits[initial(T.priority)])
-			artifact_traits[initial(T.priority)] = list()
-		//handle trait adding
 		T = new T(src)
+		//List building
+		if(!artifact_traits[T.priority])
+			artifact_traits[T.priority] = list()
+		//handle trait adding
 		artifact_traits[T.priority] += T
 		blacklisted_traits += T.blacklist_traits
 		blacklisted_traits += T
@@ -150,8 +148,10 @@
 			time += T.cooldown
 	return time
 
-/datum/component/xenoartifact/proc/handle_malfunctions()
+/datum/component/xenoartifact/proc/handle_malfunctions(itterate = TRUE)
 	if(!prob(instability))
+		if(itterate)
+			instability += artifact_type.instability_step
 		return
 	var/list/focus_traits
 	focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
@@ -160,6 +160,9 @@
 /datum/component/xenoartifact/proc/register_target(atom/target, force)
 	//Don't register new targets unless the cooldown is finished
 	if(use_cooldown_timer && !force)
+		return
+	//Range check
+	if(get_dist(get_turf(parent), get_turf(target))> target_range)
 		return
 	targets += target
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)
@@ -184,11 +187,26 @@
 					examine_text += "<span class='info'>- [T.label_name]</span>"
 	return
 
+//Build the description for the scientific examination
 /datum/component/xenoartifact/proc/get_material_desc()
 	var/temp = ""
+	var/list/description_category = list()
+	//Get descriptions from each category
 	for(var/i in artifact_traits)
 		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
-			temp = "[temp][T.examine_desc ? "[T.examine_desc] " : ""]"
+			if(!description_category[i])
+				description_category[i] = list()
+			if(T.examine_desc) //Avoid adding null, so later logic works
+				description_category[i] += initial(T.examine_desc)
+	//Pick one from each category to build an entire description
+	var/unknown_used = FALSE
+	for(var/i in description_category)
+		//Descriptor
+		if(length(description_category[i]))
+			temp = "[temp][pick(description_category[i])] "
+		else if(!unknown_used)
+			temp = "[temp]unknown "
+			unknown_used = TRUE
 	return temp
 
 ///material datums
