@@ -20,19 +20,18 @@
 	if(!player_ckey || isnull(roles) || (islist(roles) && !length(roles)))
 		return
 	player_ckey = ckey(player_ckey)
-	var/client/C = GLOB.directory[player_ckey]
-	if(C)
-		if(!C.ban_cache)
-			build_ban_cache(C)
-		if(!C || !C.ban_cache) // disconnected during SQL query
-			return
+	var/client/player_client = GLOB.directory[player_ckey]
+	if(player_client)
+		var/list/ban_cache = retrieve_ban_cache(player_client)
+		if(!islist(ban_cache))
+			return // Disconnected while building the list.
 		if(islist(roles))
-			for(var/R in roles)
-				if(!R)
+			for(var/role in roles)
+				if(!role)
 					continue
-				if(check_role_ban(C.ban_cache, R))
+				if(check_role_ban(ban_cache, role))
 					return TRUE //they're banned from at least one role, no need to keep checking
-		else if(check_role_ban(C.ban_cache, roles))
+		else if(check_role_ban(ban_cache, roles))
 			return TRUE
 	else
 		var/values = list(
@@ -115,33 +114,76 @@
 		. += list(list("id" = query_check_ban.item[1], "bantime" = query_check_ban.item[2], "round_id" = query_check_ban.item[3], "expiration_time" = query_check_ban.item[4], "duration" = query_check_ban.item[5], "applies_to_admins" = query_check_ban.item[6], "reason" = query_check_ban.item[7], "server_name" = query_check_ban.item[8], "global_ban" = query_check_ban.item[9], "key" = query_check_ban.item[10], "ip" = query_check_ban.item[11], "computerid" = query_check_ban.item[12], "admin_key" = query_check_ban.item[13]))
 	qdel(query_check_ban)
 
-/proc/build_ban_cache(client/C)
+/// Gets the ban cache of the passed in client
+/// If the cache has not been generated, we start off a query
+/// If we still have a query going for this request, we just sleep until it's recieved back
+/proc/retrieve_ban_cache(client/player_client)
+	if(QDELETED(player_client))
+		return
+
+	if(player_client.ban_cache)
+		return player_client.ban_cache
+
+	var/config_delay = CONFIG_GET(number/blocking_query_timeout) SECONDS
+	// If we haven't got a query going right now, or we've timed out on the old query
+	if(player_client.ban_cache_start + config_delay < REALTIMEOFDAY)
+		return build_ban_cache(player_client)
+
+	// Ok so we've got a request going, lets start a wait cycle
+	// If we wait longer then config/db_ban_timeout we'll send another request
+	// We use timeofday here because we're talking human time
+	// We do NOT cache the start time because it can update, and we want it to be able to
+	while(player_client && player_client?.ban_cache_start + config_delay >= REALTIMEOFDAY && !player_client?.ban_cache)
+		// Wait a decisecond or two would ya?
+		// If this causes lag on client join, increase this delay. it doesn't need to be too fast since this should
+		// Realllly only happen near Login, and we're unlikely to make any new requests in that time
+		stoplag(2)
+
+	// If we have a ban cache, use it. if we've timed out, go ahead and start another query would you?
+	// This will update any other sleep loops, so we should only run one at a time
+	return player_client?.ban_cache || build_ban_cache(player_client)
+
+/proc/build_ban_cache(client/player_client)
 	if(!SSdbcore.Connect())
 		return
-	if(C && istype(C))
-		C.ban_cache = list()
-		var/is_admin = FALSE
-		if(GLOB.admin_datums[C.ckey] || GLOB.deadmins[C.ckey])
-			is_admin = TRUE
+	if(QDELETED(player_client))
+		return
+	var/current_time = REALTIMEOFDAY
+	player_client.ban_cache_start = current_time
 
-		var/ssqlname = CONFIG_GET(string/serversqlname)
-		var/server_check
-		if(CONFIG_GET(flag/respect_global_bans))
-			server_check = "(server_name = '[ssqlname]' OR global_ban = '1')"
-		else
-			server_check = "server_name = '[ssqlname]'"
+	var/ckey = player_client.ckey
+	var/list/ban_cache = list()
+	var/is_admin = FALSE
+	if(GLOB.admin_datums[ckey] || GLOB.deadmins[ckey])
+		is_admin = TRUE
 
-		var/datum/DBQuery/query_build_ban_cache = SSdbcore.NewQuery(
-			"SELECT role, applies_to_admins FROM [format_table_name("ban")] WHERE ckey = :ckey AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) AND [server_check]",
-			list("ckey" = C.ckey))
-		if(!query_build_ban_cache.warn_execute())
-			qdel(query_build_ban_cache)
-			return
-		while(query_build_ban_cache.NextRow())
-			if(is_admin && !text2num(query_build_ban_cache.item[2]))
-				continue
-			C.ban_cache[query_build_ban_cache.item[1]] = TRUE
+	var/ssqlname = CONFIG_GET(string/serversqlname)
+	var/server_check
+	if(CONFIG_GET(flag/respect_global_bans))
+		server_check = "(server_name = '[ssqlname]' OR global_ban = '1')"
+	else
+		server_check = "server_name = '[ssqlname]'"
+
+	var/datum/DBQuery/query_build_ban_cache = SSdbcore.NewQuery(
+		"SELECT role, applies_to_admins FROM [format_table_name("ban")] WHERE ckey = :ckey AND unbanned_datetime IS NULL AND (expiration_time IS NULL OR expiration_time > NOW()) AND [server_check]",
+		list("ckey" = ckey))
+	var/query_successful = query_build_ban_cache.warn_execute()
+	// After we sleep, we check if this was the most recent cache build, and if so we clear our start time
+	if(player_client?.ban_cache_start == current_time)
+		player_client.ban_cache_start = 0
+	if(!query_successful)
 		qdel(query_build_ban_cache)
+		return
+
+	while(query_build_ban_cache.NextRow())
+		if(is_admin && !text2num(query_build_ban_cache.item[2])) // check if applies to admins
+			continue
+		ban_cache[query_build_ban_cache.item[1]] = TRUE
+	qdel(query_build_ban_cache)
+	if(QDELETED(player_client)) // Disconnected while working with the DB.
+		return
+	player_client.ban_cache = ban_cache
+	return ban_cache
 
 /datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins, reason, edit_id, page, admin_key, global_ban = TRUE, force_cryo_after = FALSE)
 	var/suppressor
