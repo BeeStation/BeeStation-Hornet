@@ -1,0 +1,4 @@
+author: Impish_Delights
+delete-after: true
+changes:
+  - bugfix: Regular bandoliers hold shotgun ammo again. Whoops.
