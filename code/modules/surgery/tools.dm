@@ -221,6 +221,29 @@
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = IS_SHARP
 
+/obj/item/hacksaw
+	name = "hacksaw"
+	desc = "A hacksaw with a metal-cutting blade attached. You could use it as a regular saw in a pinch."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "hacksaw"
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	throwhitsound =  'sound/weapons/pierce.ogg'
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	item_state = "wrench"
+	flags_1 = CONDUCT_1
+	force = 7
+	w_class = WEIGHT_CLASS_NORMAL
+	custom_materials = list(/datum/material/iron=12000)
+	attack_verb = list("attacked", "slashed", "sawed", "cut")
+	sharpness = IS_SHARP
+	tool_behaviour = TOOL_SAW
+	toolspeed = 2
+
+/obj/item/hacksaw/Initialize(mapload)
+	. = ..() //Much worse than a circular saw for butchering. Slower, less efficient, better chance for bonus items however.
+	AddComponent(/datum/component/butchering, 40 * toolspeed, 80, 10, 'sound/items/hacksaw.ogg')
+
 /obj/item/surgical_drapes
 	name = "surgical drapes"
 	desc = "Nanotrasen brand surgical drapes provide optimal safety and infection control."
