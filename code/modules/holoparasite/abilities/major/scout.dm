@@ -63,7 +63,7 @@
 	RegisterSignal(owner, COMSIG_MOB_CLICKON, PROC_REF(on_click))
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(owner, COMSIG_HOLOPARA_SETUP_HUD, PROC_REF(on_hud_setup))
-	RegisterSignal(owner, list(COMSIG_HOLOPARA_SET_HUD_HEALTH, COMSIG_HOLOPARA_SET_HUD_STATUS), PROC_REF(on_medhud))
+	RegisterSignals(owner, list(COMSIG_HOLOPARA_SET_HUD_HEALTH, COMSIG_HOLOPARA_SET_HUD_STATUS), PROC_REF(on_medhud))
 	RegisterSignal(owner, COMSIG_HOLOPARA_POST_MANIFEST, PROC_REF(on_post_manifest))
 	RegisterSignal(owner, COMSIG_HOLOPARA_RECALL, PROC_REF(on_recall))
 	RegisterSignal(owner, COMSIG_HOLOPARA_STAT, PROC_REF(on_stat))
@@ -351,7 +351,7 @@
 	owner.incorporeal_move = FALSE
 	stalking = target
 	to_chat(owner, "<span class='notice'>You begin to stalk <span class='name'>[target]</span>, following [target.p_their()] every move from behind your cloak.</span>")
-	RegisterSignal(target, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE), PROC_REF(on_stalked_moved))
+	RegisterSignals(target, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE), PROC_REF(on_stalked_moved))
 	RegisterSignal(target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_stalked_pre_qdel))
 	on_stalked_moved(target)
 	deadchat_broadcast("<span class='ghostalert'><span class='name'>[owner.real_name]</span> has begun to stalk <span class='name'>[target.real_name]</span>!</span>", follow_target = owner, turf_target = get_turf(owner))

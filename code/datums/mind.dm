@@ -870,7 +870,21 @@
 	return holoparasite_holder
 
 /datum/mind/proc/setup_soul_glimmer()
-	var/list/options = GLOB.SOUL_GLIMMER_COLORS_LOW
-	if(length(SSticker.minds) >= SOUL_GLIMMER_LOWER_POP)
-		options += GLOB.SOUL_GLIMMER_COLORS_MID
-	soul_glimmer = pick(options)
+	// initialise to calculate how many soul colours will be given to people
+	var/static/max_soul_pool
+	if(!max_soul_pool)
+		var/pop_value = length(GLOB.player_list)
+		var/decrement = SOUL_GLIMMER_POP_REQ_CREEP_STARTING
+		while(pop_value > 0)
+			pop_value -= decrement++ // 4, 5, 6, 7...
+			max_soul_pool++
+			if(max_soul_pool >= length(GLOB.soul_glimmer_colors))
+				break // Failsafe loop even if our codebase won't have +100 pop count...
+		max_soul_pool = clamp(max_soul_pool, SOUL_GLIMMER_MINIMUM_POP_COLOR, length(GLOB.soul_glimmer_colors))
+
+	// build a list for colours to give
+	var/static/list/options_to_give
+	if(!length(options_to_give))
+		options_to_give = GLOB.soul_glimmer_colors.Copy(1, max_soul_pool+1) // Copy(1, 3) = copy items 1-2. Not 3. Be careful.
+
+	soul_glimmer = pick_n_take(options_to_give)

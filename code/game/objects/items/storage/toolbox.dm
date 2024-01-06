@@ -12,10 +12,10 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ISWEAPON
-	materials = list(/datum/material/iron = 500)
 	attack_verb = list("robusted")
 	hitsound = 'sound/weapons/smash.ogg'
 	custom_materials = list(/datum/material/iron = 500) //Toolboxes by default use iron as their core, custom material.
+	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
 	var/latches = "single_latch"
 	var/has_latches = TRUE
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
@@ -44,7 +44,7 @@
 	name = "emergency toolbox"
 	icon_state = "red"
 	item_state = "toolbox_red"
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/emergency/PopulateContents()
 	new /obj/item/crowbar/red(src)
@@ -63,13 +63,13 @@
 	name = "rusty red toolbox"
 	icon_state = "toolbox_red_old"
 	has_latches = FALSE
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
 	icon_state = "blue"
 	item_state = "toolbox_blue"
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/mechanical/PopulateContents()
 	new /obj/item/screwdriver(src)
@@ -83,7 +83,7 @@
 	name = "rusty blue toolbox"
 	icon_state = "toolbox_blue_old"
 	has_latches = FALSE
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/heirloomtoolbox //Not actually a toolbox at all, just an heirloom
 	name = "family toolbox"
@@ -137,7 +137,7 @@
 	name = "electrical toolbox"
 	icon_state = "yellow"
 	item_state = "toolbox_yellow"
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/electrical/PopulateContents()
 	var/pickedcolor = pick("red","yellow","green","blue","pink","orange","cyan","white")
@@ -158,7 +158,7 @@
 	item_state = "toolbox_syndi"
 	force = 15
 	throwforce = 18
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/syndicate/ComponentInitialize()
 	. = ..()
@@ -178,7 +178,7 @@
 	name = "mechanical toolbox"
 	icon_state = "blue"
 	item_state = "toolbox_blue"
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/drone/PopulateContents()
 	var/pickedcolor = pick("red","yellow","green","blue","pink","orange","cyan","white")
@@ -199,7 +199,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("robusted", "crushed", "smashed")
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/brass/ComponentInitialize()
 	. = ..()
@@ -224,7 +224,7 @@
 	icon_state = "green"
 	item_state = "artistic_toolbox"
 	w_class = WEIGHT_CLASS_GIGANTIC //Holds more than a regular toolbox!
-	material_flags = MATERIAL_NO_COLOR
+	material_flags = NONE
 
 /obj/item/storage/toolbox/artistic/ComponentInitialize()
 	. = ..()
@@ -245,7 +245,7 @@
 	new /obj/item/stack/cable_coil/white(src)
 
 /obj/item/storage/toolbox/ammo
-	name = "ammo box"
+	name = "ammo box (7.62mm)"
 	desc = "It contains a few clips."
 	icon_state = "ammobox"
 	item_state = "ammobox"
@@ -260,6 +260,23 @@
 	new /obj/item/ammo_box/a762(src)
 	new /obj/item/ammo_box/a762(src)
 	new /obj/item/ammo_box/a762(src)
+
+/obj/item/storage/toolbox/ammo/c38
+	name = "ammo crate (.38)"
+	desc = "It contains a few boxes of bullets."
+
+/obj/item/storage/toolbox/ammo/c38/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 10
+	STR.max_items = 5
+
+/obj/item/storage/toolbox/ammo/c38/PopulateContents()
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
+	new /obj/item/ammo_box/c38/box(src)
 
 //floorbot assembly
 /obj/item/storage/toolbox/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)

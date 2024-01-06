@@ -16,7 +16,7 @@
 	icon_state = "welding"
 	item_state = "welding"
 	clothing_flags = SNUG_FIT
-	materials = list(/datum/material/iron = 1750, /datum/material/glass = 400)
+	custom_materials = list(/datum/material/iron=1750, /datum/material/glass=400)
 	flash_protect = 2
 	tint = 2
 	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60, STAMINA = 5)
