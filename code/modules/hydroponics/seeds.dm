@@ -155,8 +155,8 @@
 			return_yield = min(return_yield, 1)//1 if above zero, 0 otherwise
 		else
 			return_yield *= (parent.yieldmod)
-	if(return_yield < complexity)
-		return_yield = min(return_yield, 1) //1 if above zero, 0 otherwise
+	if(return_yield <= complexity)
+		return_yield = clamp(return_yield, 0, 1)
 	else
 		return_yield -= complexity
 
