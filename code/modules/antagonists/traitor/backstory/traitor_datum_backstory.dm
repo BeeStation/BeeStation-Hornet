@@ -54,6 +54,8 @@
 		if(new_faction.give_codewords)
 			give_codewords()
 		equip(silent)
+	log_game("[key_name(owner)] selected traitor faction [new_faction.name][forced ? " (Forced by timeout)" : ""]")
 
 /datum/antagonist/traitor/proc/set_backstory(datum/traitor_backstory/new_backstory)
 	backstory = new_backstory
+	log_game("[key_name(owner)] selected traitor backstory [new_backstory.name]")

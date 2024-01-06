@@ -173,6 +173,19 @@
 		where = "In your [equipped_slot]"
 	to_chat(mob, "<BR><BR><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><BR>")
 
+/datum/antagonist/traitor/antag_panel_data()
+	// Traitor Backstory
+	var/backstory_text = "<b>Traitor Backstory:</b><br>"
+	if(istype(faction))
+		backstory_text += "<b>Faction:</b> <span class='tooltip' style=\"font-size: 12px\">\[ [faction.name]<span class='tooltiptext' style=\"width: 320px; padding: 5px;\">[faction.description]</span> \]</span><br>"
+	else
+		backstory_text += "<font color='red'>No faction selected!</font><br>"
+	if(istype(backstory))
+		backstory_text += "<b>Backstory:</b> <span class='tooltip' style=\"font-size: 12px\">\[ [backstory.name]<span class='tooltiptext' style=\"width: 320px; padding: 5px;\">[backstory.description]</span> \]</span><br>"
+	else
+		backstory_text += "<font color='red'>No backstory selected!</font><br>"
+	return backstory_text
+
 //TODO Collate
 /datum/antagonist/traitor/roundend_report()
 	var/list/result = list()
