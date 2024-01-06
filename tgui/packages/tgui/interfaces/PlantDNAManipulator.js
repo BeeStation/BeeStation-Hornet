@@ -164,7 +164,7 @@ const PlantDNAManipulatorHeader = (props, context) => {
 
 const PlantDNAManipulatorContent = (props, context) => {
   const { act, data } = useBackend(context);
-  const { seed, core_genes, reagent_genes, trait_genes } = data;
+  const { seed, core_genes, reagent_genes, trait_genes, complexity } = data;
 
   if (!seed) {
     return (
@@ -179,7 +179,7 @@ const PlantDNAManipulatorContent = (props, context) => {
     <>
       <PlantDNAManipulatorGenes label="Core genes" type="core" list={core_genes} />
       <PlantDNAManipulatorGenes label="Reagent genes" type="reagent" list={reagent_genes} />
-      <PlantDNAManipulatorGenes label="Trait genes" type="trait" list={trait_genes} />
+      <PlantDNAManipulatorGenes label={'Trait genes ' + complexity + ' complexity'} type="trait" list={trait_genes} />
     </>
   );
 };

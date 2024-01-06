@@ -134,6 +134,7 @@
 	data["core_genes"] = build_gene_list(core_genes, /datum/plant_gene/core)
 	data["reagent_genes"] = build_gene_list(reagent_genes, /datum/plant_gene/reagent)
 	data["trait_genes"] = build_gene_list(trait_genes, /datum/plant_gene/trait)
+	data["complexity"] = seed.complexity
 
 	data["machine_stats"] = build_machine_stats()
 	data["skip_confirmation"] = skip_confirmation
