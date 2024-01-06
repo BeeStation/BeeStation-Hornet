@@ -12,8 +12,11 @@
 	var/datum/help_ui/mentor/mentor_interface
 	/// If this mentor datum is inactive due to de-adminning.
 	var/dementored = FALSE
+	/// If this mentor datum was created due to someone being an admin, but not a mentor.
+	/// This is used so that deadminning doesn't remove verbs if someone is both a mentor and an admin.
+	var/for_admin = FALSE
 
-/datum/mentors/New(ckey)
+/datum/mentors/New(ckey, for_admin)
 	if(!ckey)
 		QDEL_IN(src, 0)
 		stack_trace("Mentor datum created without a ckey: [ckey]")
@@ -25,6 +28,7 @@
 		return
 	name = "[ckey]'s mentor datum"
 	href_token = GenerateToken()
+	src.for_admin = for_admin
 	GLOB.mentor_datums[target] = src
 	// If they're logged in, let's assign their mentor datum now.
 	var/client/C = GLOB.directory[ckey]
@@ -39,7 +43,10 @@
 		return
 	owner = C
 	owner.mentor_datum = src
-	activate()
+	if(for_admin)
+		activate()
+	else
+		owner.add_mentor_verbs()
 	if(!check_rights_for(owner, R_ADMIN)) // add nonadmins to the mentor list.
 		GLOB.mentors |= owner
 
@@ -97,6 +104,8 @@
 
 
 /datum/mentors/proc/activate()
+	if(!for_admin)
+		return
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -106,6 +115,8 @@
 	owner.add_mentor_verbs()
 
 /datum/mentors/proc/deactivate()
+	if(!for_admin)
+		return
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")

@@ -28,7 +28,7 @@
 			continue
 		if(findtextEx(line, "#", 1, 2))
 			continue
-		new /datum/mentors(line)
+		new /datum/mentors(line, for_admin = FALSE)
 	return TRUE
 
 /// Loads mentors from the ss13_mentors table
@@ -51,7 +51,7 @@
 		if(!ckey)
 			stack_trace("Invalid mentor row in database with null ckey with id: [id] and raw data: [raw_ckey]")
 			continue
-		new /datum/mentors(ckey)
+		new /datum/mentors(ckey, for_admin = FALSE)
 	qdel(query_load_mentors)
 	return TRUE
 
@@ -69,6 +69,6 @@
 		return TRUE
 	// They're an admin, but not a mentor. Create them a mentor datum. This is automatically assigned.
 	else if(check_rights_for(src, R_ADMIN))
-		new /datum/mentors(ckey)
+		new /datum/mentors(ckey, for_admin = TRUE)
 		return TRUE
 	return FALSE
