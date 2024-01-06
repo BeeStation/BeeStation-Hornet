@@ -1,0 +1,2 @@
+/obj/machinery/tcomms : /obj/machinery/server/telecomms{@OLD}
+/obj/machinery/rnd/server : /obj/machinery/server/rnd{@OLD}
