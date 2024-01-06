@@ -10,6 +10,8 @@
 	var/href_token
 	/// The Mentor Ticket Manager interface
 	var/datum/help_ui/mentor/mentor_interface
+	/// If this mentor datum is inactive due to de-adminning.
+	var/dementored = FALSE
 
 /datum/mentors/New(ckey)
 	if(!ckey)
@@ -37,7 +39,7 @@
 		return
 	owner = C
 	owner.mentor_datum = src
-	owner.add_mentor_verbs()
+	activate()
 	if(!check_rights_for(owner, R_ADMIN)) // add nonadmins to the mentor list.
 		GLOB.mentors |= owner
 
@@ -77,6 +79,9 @@
 		log_href_exploit(usr, " Tried to use the mentor panel without having the correct mentor datum.")
 		return
 
+	if(dementored)
+		return
+
 	if(!CheckMentorHREF(href, href_list))
 		return
 
@@ -90,3 +95,21 @@
 	else if(href_list["mhelp_tickets"])
 		GLOB.mhelp_tickets.BrowseTickets(usr)
 
+
+/datum/mentors/proc/activate()
+	if(IsAdminAdvancedProcCall())
+		var/msg = " has tried to elevate permissions!"
+		message_admins("[key_name_admin(usr)][msg]")
+		log_admin("[key_name(usr)][msg]")
+		return
+	dementored = FALSE
+	owner.add_mentor_verbs()
+
+/datum/mentors/proc/deactivate()
+	if(IsAdminAdvancedProcCall())
+		var/msg = " has tried to elevate permissions!"
+		message_admins("[key_name_admin(usr)][msg]")
+		log_admin("[key_name(usr)][msg]")
+		return
+	dementored = TRUE
+	owner.remove_mentor_verbs()
