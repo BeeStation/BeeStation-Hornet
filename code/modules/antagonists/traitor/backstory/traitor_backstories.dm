@@ -114,8 +114,7 @@
 	name = "The Sadist"
 	description = "I want power, not over people, but over life, to inflict pain and suffering is my road to power. \
 	They want a killer? I shall play their little game if it helps me fulfill my morbid desires. \
-	No, I do not want money or influence, power over the souls that inhabit this station is my payment. \
-	Hahahahah. <font color=\"red\"><b>HAHAHAHAHAHAHAHAHAH. HAHAHAHAHHAHHH!!!!! KILL!!! KILL!!!! KILL!!!!!! BURN!!!!!</b></font>"
+	No, I do not want money or influence, power over the souls that inhabit this station is my payment."
 	allowed_factions = list(
 		TRAITOR_FACTION_SYNDICATE,
 		TRAITOR_FACTION_INDEPENDENT
