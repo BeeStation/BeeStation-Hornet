@@ -37,9 +37,8 @@
 /obj/projectile/bullet/p50/utility
 	armour_penetration = 0
 	damage = 20
+	dismemberment = 0
 	knockdown = 0
-	paralyze = 0
-	dismemberment = 0 //Why would EMP and Soporific rounds remove limbs? At 20 damage??
 	breakthings = FALSE
 	// Cannot pass through things like normal rounds
 	projectile_piercing = NONE
