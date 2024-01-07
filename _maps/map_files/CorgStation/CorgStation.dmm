@@ -7595,13 +7595,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"ciV" = (
-/obj/machinery/door/window/brigdoor/security/cell/southleft{
-	id = "cell";
-	name = "Solitary confinement"
-	},
-/turf/closed/wall/r_wall,
-/area/security/warden)
 "ciW" = (
 /obj/item/storage/toolbox/electrical,
 /obj/machinery/airalarm/directional/west,
@@ -111659,7 +111652,7 @@ izC
 ghw
 umx
 kSp
-ciV
+tTo
 gXo
 vvb
 xzy
