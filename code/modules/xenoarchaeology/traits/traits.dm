@@ -79,7 +79,7 @@
 
 	unregister_target(source, TRUE)
 
-/datum/xenoartifact_trait/proc/trigger(datum/source, _priority, atom/override)
+/datum/xenoartifact_trait/proc/trigger(datum/source, _priority, atom/override, var/list/focus)
 	SIGNAL_HANDLER
 
 	. = TRUE
@@ -87,6 +87,8 @@
 		return FALSE
 	if(!register_targets)
 		return
+	//Handle focus
+	focus = override ? list(override) : targets
 	//If we've been given an override
 	if(override)
 		register_target(override)
@@ -98,7 +100,10 @@
 	return
 
 //Most traits will handle this on their own
-/datum/xenoartifact_trait/proc/un_trigger(atom/override, handle_parent = FALSE)
+/datum/xenoartifact_trait/proc/un_trigger(atom/override, handle_parent = FALSE, var/list/focus)
+	//Handle Focus
+	focus = override ? list(override) : targets
+	//Override
 	if(override)
 		unregister_target(override)
 		return

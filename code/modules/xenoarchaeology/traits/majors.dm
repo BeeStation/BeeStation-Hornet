@@ -12,12 +12,11 @@
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
 	conductivity = 10
 
-/datum/xenoartifact_trait/major/shock/trigger(datum/source, _priority, atom/override)
+/datum/xenoartifact_trait/major/shock/trigger(datum/source, _priority, atom/override, var/list/focus)
 	. = ..()
 	if(!.)
 		dump_targets()
 		return
-	var/list/focus = override ? list(override) : targets
 	if(length(focus))
 		playsound(get_turf(parent.parent), 'sound/machines/defib_zap.ogg', 50, TRUE)
 	for(var/atom/target in focus)
@@ -28,6 +27,8 @@
 		else if(istype(target, /obj/item/stock_parts/cell))
 			var/obj/item/stock_parts/cell/C = target
 			C.give((parent.trait_strength/100)*C.maxcharge) //Yes, this is potentially potentially powerful, but it will be cool
+		var/atom/log_atom = parent.parent
+		log_game("[parent] in [log_atom] electrocuted [key_name_admin(target)] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 	dump_targets() //Get rid of anything else, since we can't interact with it
 
 /*
@@ -44,12 +45,11 @@
 	///Maximum time we hold people for
 	var/hold_time = 15 SECONDS
 
-/datum/xenoartifact_trait/major/hollow/trigger(datum/source, _priority, atom/override)
+/datum/xenoartifact_trait/major/hollow/trigger(datum/source, _priority, atom/override, var/list/focus)
 	. = ..()
 	if(!.)
 		dump_targets()
 		return
-	var/list/focus = override ? list(override) : targets
 	for(var/atom/target in focus)
 		if(ismovable(target))
 			var/atom/movable/M = target
@@ -68,8 +68,7 @@
 		else
 			unregister_target(target)
 
-/datum/xenoartifact_trait/major/hollow/un_trigger(atom/override, handle_parent = FALSE)
-	var/list/focus = override ? list(override) : targets
+/datum/xenoartifact_trait/major/hollow/un_trigger(atom/override, handle_parent = FALSE, var/list/focus)
 	if(!length(focus))
 		return ..()
 	var/atom/movable/AM = parent.parent
@@ -85,7 +84,6 @@
 	Temporal
 	Creates a timestop object at the position of the artfiact
 */
-
 /datum/xenoartifact_trait/major/timestop
 	label_name = "Temporal"
 	label_desc = "Temporal: The artifact seems to contain temporal components. Triggering these components will create a temporal rift."
@@ -95,7 +93,7 @@
 	///Maximum time we stop time for
 	var/max_time = 10 SECONDS
 
-/datum/xenoartifact_trait/major/timestop/trigger(datum/source, _priority, atom/override)
+/datum/xenoartifact_trait/major/timestop/trigger(datum/source, _priority, atom/override, var/list/focus)
 	. = ..()
 	if(!.)
 		return
@@ -124,12 +122,11 @@
 	. = ..()
 	choosen_projectile = pick(possible_projectiles)
 
-/datum/xenoartifact_trait/major/projectile/trigger(datum/source, _priority, atom/override)
+/datum/xenoartifact_trait/major/projectile/trigger(datum/source, _priority, atom/override, var/list/focus)
 	. = ..()
 	if(!.)
 		dump_targets()
 		return
-	var/list/focus = override ? list(override) : targets
 	for(var/atom/target in focus)
 		var/turf/T = get_turf(target)
 		if(get_turf(parent.parent) == T)
@@ -142,7 +139,7 @@
 	
 
 /*
-	Fuzzy
+	Bestialized
 	The artifact shoots the target with a random projectile
 */
 /datum/xenoartifact_trait/major/animalize ///All of this is stolen from corgium.
@@ -161,21 +158,21 @@
 	. = ..()
 	choosen_animal = pick(possible_animals)
 
-/datum/xenoartifact_trait/major/animalize/trigger(datum/source, _priority, atom/override)
+/datum/xenoartifact_trait/major/animalize/trigger(datum/source, _priority, atom/override, var/list/focus)
 	. = ..()
 	if(!.)
 		dump_targets()
 		return
-	var/list/focus = override ? list(override) : targets
 	for(var/mob/living/target in focus)
 		if(istype(target, choosen_animal) || IS_DEAD_OR_INCAP(target))
 			continue
 		transform(target)
+		var/atom/log_atom = parent.parent
+		log_game("[parent] in [log_atom] transformed [key_name_admin(target)] into [choosen_animal] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 		//Add timer to undo this
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/xenoartifact_trait, un_trigger), target), animal_time*(parent.trait_strength/100))
 
-/datum/xenoartifact_trait/major/animalize/un_trigger(atom/override, handle_parent = FALSE)
-	var/list/focus = override ? list(override) : targets
+/datum/xenoartifact_trait/major/animalize/un_trigger(atom/override, handle_parent = FALSE, var/list/focus)
 	if(!length(focus))
 		return ..()
 	//Restore every swap holder
@@ -206,7 +203,6 @@
 	EMP
 	Creates an EMP effect at the position of the artfiact
 */
-
 /datum/xenoartifact_trait/major/emp
 	label_name = "EMP"
 	label_desc = "EMP: The artifact seems to contain electromagnetic pulsing components. Triggering these components will create an EMP."
@@ -215,7 +211,7 @@
 	register_targets = FALSE
 	rarity = XENOA_TRAIT_WEIGHT_RARE
 
-/datum/xenoartifact_trait/major/emp/trigger(datum/source, _priority, atom/override)
+/datum/xenoartifact_trait/major/emp/trigger(datum/source, _priority, atom/override, var/list/focus)
 	. = ..()
 	if(!.)
 		return
@@ -226,13 +222,14 @@
 	if(!T)
 		return
 	playsound(T, 'sound/magic/disable_tech.ogg', 50, TRUE)
-	empulse(T, max(1, parent.trait_strength*0.04), max(1, parent.trait_strength*0.08, 1))
+	empulse(T, max(1, parent.trait_strength*0.03), max(1, parent.trait_strength*0.05, 1))
+	var/atom/log_atom = parent.parent
+	log_game("[parent] in [log_atom] made an EMP at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 
 /*
 	Invisible
 	TODO: Consider removing this - Racc
 */
-
 //datum/xenoartifact_trait/major/invisible 
 
 /*
@@ -245,17 +242,18 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	flags =  XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
 
-/datum/xenoartifact_trait/major/displaced/trigger(datum/source, _priority, atom/override)
+/datum/xenoartifact_trait/major/displaced/trigger(datum/source, _priority, atom/override, var/list/focus)
 	. = ..()
 	if(!.)
 		dump_targets()
 		return
-	var/list/focus = override ? list(override) : targets
 	if(length(focus))
 		playsound(get_turf(parent.parent), 'sound/machines/defib_zap.ogg', 50, TRUE)
 	for(var/atom/movable/target in focus)
 		if(!target.anchored)
 			do_teleport(target, get_turf(target), (parent.trait_strength*0.3)+1, channel = TELEPORT_CHANNEL_BLUESPACE)
+			var/atom/log_atom = parent.parent
+			log_game("[parent] in [log_atom] teleported [key_name_admin(target)] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 		unregister_target(target)
 	dump_targets()
 
@@ -263,14 +261,12 @@
 	Illuminating
 	Toggles a light on the artifact
 */
-
 /datum/xenoartifact_trait/major/illuminating
 	label_name = "Illuminating"
 	label_desc = "Illuminating: The artifact seems to contain illuminating components. Triggering these components will cause the artifact to illuminate."
 	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
-	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT
 	register_targets = FALSE
-	rarity = XENOA_TRAIT_WEIGHT_RARE
 	///List of possible colors
 	var/list/possible_colors = list(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK)
 	///Our actual color
@@ -282,7 +278,7 @@
 	. = ..()
 	color = pick(possible_colors)
 
-/datum/xenoartifact_trait/major/illuminating/trigger(datum/source, _priority, atom/override)
+/datum/xenoartifact_trait/major/illuminating/trigger(datum/source, _priority, atom/override, var/list/focus)
 	. = ..()
 	if(!.)
 		return
@@ -292,3 +288,85 @@
 		light_source.set_light(parent.trait_strength*0.04, min(parent.trait_strength*0.1, 10), color)
 	else
 		light_source.set_light(0, 0)
+
+/*
+	Obstructing
+	Builds forcefields around the artifact
+*/
+/datum/xenoartifact_trait/major/forcefield
+	label_name = "Obstructing"
+	label_desc = "Obstructing: The artifact seems to contain obstructing components. Triggering these components will cause the artifact to build walls around itself."
+	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	register_targets = FALSE
+	///What wall size are we making?
+	var/wall_size
+	///Max time we keep walls around for
+	var/wall_time = 8 SECONDS
+
+/datum/xenoartifact_trait/major/forcefield/New(atom/_parent)
+	. = ..()
+	wall_size = pick(1, 2, 3)
+
+/datum/xenoartifact_trait/major/forcefield/trigger(datum/source, _priority, atom/override, var/list/focus)
+	. = ..()
+	if(!.)
+		return
+	//Don't use a switch case, we just pass through the ifs and add walls as we go
+	if(wall_size >= 1)
+		new /obj/effect/forcefield/xenoartifact_type(get_turf(parent.parent), (parent.trait_strength*wall_time))
+	if(wall_size >= 2)
+		//If we're not making a symetrical design, pick a random orientation
+		var/outcome = pick(0, 1)
+		if(outcome || wall_size >= 3)
+			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, NORTH), (parent.trait_strength*wall_time))
+			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, SOUTH), (parent.trait_strength*wall_time))
+		else
+			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, EAST), (parent.trait_strength*wall_time))
+			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, WEST), (parent.trait_strength*wall_time))
+	if(wall_size >= 3)
+		new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, WEST), (parent.trait_strength*wall_time))
+		new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, EAST), (parent.trait_strength*wall_time))
+
+//Special wall type for artifact. Throw any extra code or special logic in here
+/obj/effect/forcefield/xenoartifact_type
+	desc = "An impenetrable artifact wall."
+
+/*
+	Healing
+	TODO: Consider re-designing this - Racc
+*/
+//datum/xenoartifact_trait/major/heal 
+
+/*
+	Hypodermic
+	Injects the target with a random, safe, chemical
+*/
+/datum/xenoartifact_trait/major/chem
+	label_name = "Hypodermic"
+	label_desc = "Hypodermic: The artifact seems to contain chemical components. Triggering these components will inject the target with a chemical."
+	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	///What chemical we're injecting
+	var/datum/reagent/formula
+	///max amount we can inject people with
+	var/formula_amount
+
+/datum/xenoartifact_trait/major/chem/New(atom/_parent)
+	. = ..()
+	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
+	formula_amount = initial(formula.overdose_threshold)
+
+/datum/xenoartifact_trait/major/chem/trigger(datum/source, _priority, atom/override, var/list/focus)
+	. = ..()
+	if(!.)
+		return
+	for(var/atom/target in focus)
+		if(target.reagents)
+			playsound(get_turf(target), pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE)
+			var/datum/reagents/R = target.reagents
+			R.add_reagent(formula, formula_amount*(parent.trait_strength/100))
+			var/atom/log_atom = parent.parent
+			log_game("[parent] in [log_atom] injected [key_name_admin(target)] with [formula_amount*(parent.trait_strength/100)]u of [formula] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
+		unregister_target(target)
+	dump_targets()
