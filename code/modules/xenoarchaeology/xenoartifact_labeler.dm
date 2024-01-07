@@ -37,10 +37,10 @@
 	. = ..()
 	generate_xenoa_statics()
 	//generate data for trait names
-	//activator_traits = get_trait_list_names(GLOB.xenoa_activators)
-	//minor_traits = get_trait_list_names(GLOB.xenoa_minors)
+	activator_traits = get_trait_list_names(GLOB.xenoa_activators)
+	minor_traits = get_trait_list_names(GLOB.xenoa_minors)
 	major_traits = get_trait_list_names(GLOB.xenoa_majors)
-	//malfunction_list = get_trait_list_names(GLOB.xenoa_malfunctions)
+	malfunction_list = get_trait_list_names(GLOB.xenoa_malfunctions)
 
 /obj/item/xenoartifact_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
