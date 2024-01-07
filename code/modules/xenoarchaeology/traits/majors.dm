@@ -9,7 +9,7 @@
 	label_name = "Electrified"
 	label_desc = "The artifact seems to contain electrifying components. Triggering these components will shock the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
-	flags = PLASMA_TRAIT | URANIUM_TRAIT | BANANIUM_TRAIT
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
 	conductivity = 10
 
 /datum/xenoartifact_trait/major/shock/trigger(datum/source, _priority, atom/override)
@@ -39,7 +39,7 @@
 	label_name = "Hollow"
 	label_desc = "The artifact seems to contain hollow components. Triggering these components will capture the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT | BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
 	weight = -10
 	///Maximum time we hold people for
 	var/hold_time = 15 SECONDS
@@ -90,7 +90,7 @@
 	label_name = "Temporal"
 	label_desc = "Temporal: The artifact seems to contain temporal components. Triggering these components will create a temporal rift."
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
-	flags = URANIUM_TRAIT | BANANIUM_TRAIT
+	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
 	register_targets = FALSE
 	///Maximum time we stop time for
 	var/max_time = 10 SECONDS
@@ -112,7 +112,7 @@
 	examine_desc = "barreled"
 	label_name = "Barreled"
 	label_desc = "Barreled: The artifact seems to contain projectile components. Triggering these components will produce a projectile."
-	flags = PLASMA_TRAIT | URANIUM_TRAIT | BANANIUM_TRAIT
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	extra_target_range = 2
 	///List of projectiles we *could* shoot
@@ -148,7 +148,7 @@
 /datum/xenoartifact_trait/major/animalize ///All of this is stolen from corgium.
 	label_name = "Bestialized"
 	label_desc = "Bestialized: The artifact contains transforming components. Triggering these components transforms the target into an animal."
-	flags = BLUESPACE_TRAIT | BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	///List of potential animals we could turn people into
 	var/list/possible_animals = list(/mob/living/simple_animal/pet/dog/corgi)
@@ -201,3 +201,94 @@
 	H = new(new_animal, src, target)
 	RegisterSignal(new_animal, COMSIG_MOB_DEATH, PROC_REF(un_trigger))
 	return new_animal
+
+/*
+	EMP
+	Creates an EMP effect at the position of the artfiact
+*/
+
+/datum/xenoartifact_trait/major/emp
+	label_name = "EMP"
+	label_desc = "EMP: The artifact seems to contain electromagnetic pulsing components. Triggering these components will create an EMP."
+	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	register_targets = FALSE
+	rarity = XENOA_TRAIT_WEIGHT_RARE
+
+/datum/xenoartifact_trait/major/emp/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	INVOKE_ASYNC(src, PROC_REF(do_emp)) //empluse() calls stoplag(), which calls sleep()
+
+/datum/xenoartifact_trait/major/emp/proc/do_emp()
+	var/turf/T = get_turf(parent.parent)
+	if(!T)
+		return
+	playsound(T, 'sound/magic/disable_tech.ogg', 50, TRUE)
+	empulse(T, max(1, parent.trait_strength*0.04), max(1, parent.trait_strength*0.08, 1))
+
+/*
+	Invisible
+	TODO: Consider removing this - Racc
+*/
+
+/datum/xenoartifact_trait/major/invisible 
+
+/*
+	Displaced
+	Teleports the target to a random nearby turf
+*/
+/datum/xenoartifact_trait/major/displaced
+	label_name = "Displaced"
+	label_desc = "The artifact seems to contain displacing components. Triggering these components will 'displace' the target."
+	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
+	flags =  XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+
+/datum/xenoartifact_trait/major/displaced/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		dump_targets()
+		return
+	var/list/focus = override ? list(override) : targets
+	if(length(focus))
+		playsound(get_turf(parent.parent), 'sound/machines/defib_zap.ogg', 50, TRUE)
+	for(var/atom/movable/target in focus)
+		if(!target.anchored)
+			do_teleport(target, get_turf(target), (parent.trait_strength*0.3)+1, channel = TELEPORT_CHANNEL_BLUESPACE)
+		unregister_target(target)
+	dump_targets()
+
+/*
+	Illuminating
+	Toggles a light on the artifact
+*/
+
+/datum/xenoartifact_trait/major/illuminating
+	label_name = "Illuminating"
+	label_desc = "Illuminating: The artifact seems to contain illuminating components. Triggering these components will cause the artifact to illuminate."
+	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	register_targets = FALSE
+	rarity = XENOA_TRAIT_WEIGHT_RARE
+	///List of possible colors
+	var/list/possible_colors = list(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK)
+	///Our actual color
+	var/color
+	///Are we currently lit?
+	var/lit = FALSE
+
+/datum/xenoartifact_trait/major/illuminating/New(atom/_parent)
+	. = ..()
+	color = pick(possible_colors)
+
+/datum/xenoartifact_trait/major/illuminating/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	lit = !lit
+	var/atom/light_source = parent.parent
+	if(lit)
+		light_source.set_light(parent.trait_strength*0.08, max(parent.trait_strength*0.05, 5), color)
+	else
+		light_source.set_light(0, 0)

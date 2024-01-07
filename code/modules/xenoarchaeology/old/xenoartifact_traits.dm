@@ -19,7 +19,7 @@
 /datum/xenoartifact_trait/major
 
 /datum/xenoartifact_trait/malfunction
-	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator
 	///How much an activator trait can output on a standard, modified by the artifacts charge_req and circumstances.

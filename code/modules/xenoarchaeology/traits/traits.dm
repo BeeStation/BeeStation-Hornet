@@ -10,7 +10,7 @@
 	var/label_desc
 
 	///Asscoiated flags for artifact typing and such
-	var/flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT | BANANIUM_TRAIT
+	var/flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
 	///Other traits this trait wont work with.
 	var/list/blacklist_traits = list()
 	///How rare is this trait? 100 being common, and 1 being very rare

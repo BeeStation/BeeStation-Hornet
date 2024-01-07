@@ -11,10 +11,10 @@ GLOBAL_LIST(xenoa_malfunctions)
 GLOBAL_LIST(xenoa_all_traits)
 
 ///Blacklist for traits
-GLOBAL_LIST(xenoa_bluespace_traits)
-GLOBAL_LIST(xenoa_plasma_traits)
-GLOBAL_LIST(xenoa_uranium_traits)
-GLOBAL_LIST(xenoa_bananium_traits)
+GLOBAL_LIST(xenoa_XENOA_BLUESPACE_TRAITs)
+GLOBAL_LIST(xenoa_XENOA_PLASMA_TRAITs)
+GLOBAL_LIST(xenoa_XENOA_URANIUM_TRAITs)
+GLOBAL_LIST(xenoa_XENOA_BANANIUM_TRAITs)
 
 ///List of emotes for emote-trait
 GLOBAL_LIST_INIT(xenoa_emote, list(/datum/emote/flip, /datum/emote/spin, /datum/emote/living/laugh, 
@@ -37,10 +37,10 @@ GLOBAL_LIST_INIT(xenoa_emote, list(/datum/emote/flip, /datum/emote/spin, /datum/
 	GLOB.xenoa_malfunctions = compile_artifact_weights(/datum/xenoartifact_trait/malfunction)
 	GLOB.xenoa_all_traits = compile_artifact_weights(/datum/xenoartifact_trait)
 
-	GLOB.xenoa_bluespace_traits = compile_artifact_whitelist(BLUESPACE_TRAIT)
-	GLOB.xenoa_plasma_traits = compile_artifact_whitelist(PLASMA_TRAIT)
-	GLOB.xenoa_uranium_traits = compile_artifact_whitelist(URANIUM_TRAIT)
-	GLOB.xenoa_uranium_traits = compile_artifact_whitelist(BANANIUM_TRAIT)
+	GLOB.xenoa_XENOA_BLUESPACE_TRAITs = compile_artifact_whitelist(XENOA_BLUESPACE_TRAIT)
+	GLOB.xenoa_XENOA_PLASMA_TRAITs = compile_artifact_whitelist(XENOA_PLASMA_TRAIT)
+	GLOB.xenoa_XENOA_URANIUM_TRAITs = compile_artifact_whitelist(XENOA_URANIUM_TRAIT)
+	GLOB.xenoa_XENOA_URANIUM_TRAITs = compile_artifact_whitelist(XENOA_BANANIUM_TRAIT)
 
 /*
 New content

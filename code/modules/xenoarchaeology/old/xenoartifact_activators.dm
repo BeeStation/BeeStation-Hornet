@@ -7,7 +7,7 @@
 	label_desc = "Sturdy: The material is sturdy. The amount of force applied seems to directly correlate to the size of the reaction."
 	charge = 25
 	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, COMSIG_ITEM_ATTACK_SELF, COMSIG_ITEM_AFTERATTACK)
-	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT
 	weight = 30
 
 /datum/xenoartifact_trait/activator/impact/pass_input(datum/source, obj/item/thing, mob/user, atom/target)
@@ -23,7 +23,7 @@
 	label_desc = "Flammable: The material is flammable, and seems to react when ignited."
 	charge = 25
 	signals = list(COMSIG_PARENT_ATTACKBY)
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/burn/on_init(obj/item/xenoartifact/X)
 	..()
@@ -47,7 +47,7 @@
 	charge = 25
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/capacitive)
 	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, COMSIG_ITEM_ATTACK_SELF, COMSIG_ITEM_AFTERATTACK)
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/clock/on_init(obj/item/xenoartifact/X)
 	..()
@@ -74,7 +74,7 @@
 	label_desc = "Signal: The material receives radio frequencies and reacts when a matching code is delivered."
 	charge = 25
 	signals = list(XENOA_SIGNAL)
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/signal/on_init(obj/item/xenoartifact/X)
 	..()
@@ -102,7 +102,7 @@
 	label_desc = "Charged: The material has a natural power draw. Supplying any current to this will cause a reaction."
 	charge = 25
 	signals = list(COMSIG_PARENT_ATTACKBY)
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/batteryneed/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
@@ -126,7 +126,7 @@
 	charge = 25
 	signals = list(COMSIG_ITEM_PICKUP)
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/anchor, /datum/xenoartifact_trait/major/distablizer)
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/weighted/pass_input(datum/source, obj/item/thing, mob/living/carbon/user, mob/living/carbon/human/target)
 	var/obj/item/clothing/gloves/artifact_pinchers/P
@@ -147,7 +147,7 @@
 	charge = 25
 	blacklist_traits = (/datum/xenoartifact_trait/minor/dense)
 	signals = list(COMSIG_MOVABLE_IMPACT)
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/pitch/pass_input(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source

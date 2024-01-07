@@ -5,7 +5,7 @@
 /datum/xenoartifact_trait/major/capture
 	desc = "Hollow"
 	label_desc = "Hollow: The shape is hollow, however the inside is deceptively large."
-	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT
 	var/spawn_russian = FALSE
 
 /datum/xenoartifact_trait/major/capture/on_init(obj/item/xenoartifact/X)
@@ -45,7 +45,7 @@
 /datum/xenoartifact_trait/major/shock
 	desc = "Conductive"
 	label_desc = "Conductive: The shape resembles two lighting forks. Subtle arcs seem to leaps across them."
-	flags = PLASMA_TRAIT | URANIUM_TRAIT
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/shock/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='notice'>You feel a slight static after touching the [X.name].</span>")
@@ -88,7 +88,7 @@
 /datum/xenoartifact_trait/major/laser
 	desc = "Barreled"
 	label_desc = "Barreled: The shape resembles the barrel of a gun. It's possible that it might dispense candy."
-	flags = PLASMA_TRAIT | URANIUM_TRAIT
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/laser/activate(obj/item/xenoartifact/X, atom/target, mob/living/user)
 	//light target on fire if we're close
@@ -120,7 +120,7 @@
 /datum/xenoartifact_trait/major/corginator ///All of this is stolen from corgium.
 	desc = "Fuzzy" //Weirdchamp
 	label_desc = "Fuzzy: The shape is hard to discern under all the hair sprouting out from the surface. You swear you've heard it bark before."
-	flags = BLUESPACE_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT
 	///List of all affected targets, used for early qdel
 	var/list/victims = list()
 	///Ref to timer - if corgi is deleted early remove this reference to the puppy
@@ -186,7 +186,7 @@
 /datum/xenoartifact_trait/major/emp
 	label_name = "EMP"
 	label_desc = "EMP: The shape of the Artifact doesn't resemble anything particularly interesting. Technology around the Artifact seems to malfunction."
-	flags = URANIUM_TRAIT
+	flags = XENOA_URANIUM_TRAIT
 	weight = 25 //annoying trait
 
 /datum/xenoartifact_trait/major/emp/activate(obj/item/xenoartifact/X)
@@ -237,7 +237,7 @@
 /datum/xenoartifact_trait/major/teleporting
 	desc = "Displaced"
 	label_desc = "Displaced: The shape's state is unstable, causing it to shift through planes at a localized axis. Just ask someone from science..."
-	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/teleporting/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	if(istype(target, /atom/movable))
@@ -251,7 +251,7 @@
 /datum/xenoartifact_trait/major/lamp
 	label_name = "Lamp"
 	label_desc = "Lamp: The Artifact emits light. Nothing in its shape suggests this."
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT
 	var/light_mod
 
 /datum/xenoartifact_trait/major/lamp/on_init(obj/item/xenoartifact/X)
@@ -272,7 +272,7 @@
 /datum/xenoartifact_trait/major/forcefield
 	label_name = "Wall"
 	label_desc = "Wall: The Artifact produces a resonance that forms impenetrable walls. Here's one you'll never crawl!"
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT
 	var/size
 
 /datum/xenoartifact_trait/major/forcefield/on_init(obj/item/xenoartifact/X)
@@ -304,7 +304,7 @@
 /datum/xenoartifact_trait/major/heal
 	label_name = "Healing"
 	label_desc = "Healing: The Artifact repeairs any damaged organic tissue the targat may contain. Widely considered the Holy Grail of Artifact traits."
-	flags = BLUESPACE_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT
 	weight = 25
 	var/healing_type
 
@@ -335,7 +335,7 @@
 /datum/xenoartifact_trait/major/chem
 	desc = "Hypodermic"
 	label_desc = "Hypodermic: The Artifact's shape is comprised of many twisting tubes and vials, it seems a liquid may be inside."
-	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/long)
 	var/datum/reagent/formula
 	var/amount
@@ -357,7 +357,7 @@
 /datum/xenoartifact_trait/major/push
 	label_name = "Push"
 	label_desc = "Push: The Artifact pushes anything not bolted down. The shape doesn't suggest this."
-	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/push/activate(obj/item/xenoartifact/X, atom/target)
 	if(ismovable(target))
@@ -373,7 +373,7 @@
 /datum/xenoartifact_trait/major/pull
 	label_name = "Pull"
 	label_desc = "Pull: The Artifact pulls anything not bolted down. The shape doesn't suggest this."
-	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/pull/on_init(obj/item/xenoartifact/X)
 	X.max_range += 1
@@ -395,7 +395,7 @@
 	desc = "Horned"
 	label_name = "Horn"
 	label_desc = "Horn: The Artifact's shape resembles a horn. These Artifacts are widely deployed by the most clever clowns."
-	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT
 	var/sound
 
 /datum/xenoartifact_trait/major/horn/on_init(obj/item/xenoartifact/X)
@@ -414,7 +414,7 @@
 /datum/xenoartifact_trait/major/gas
 	desc = "Porous"
 	label_desc = "Porous: The Artifact absorbs a specific nearby gas and replaces it with an undeterminable one."
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT
 	var/static/list/valid_inputs = list(
 		/datum/gas/oxygen = 6,
 		/datum/gas/nitrogen = 3,
@@ -460,7 +460,7 @@
 	desc = "Destabilizing"
 	label_desc = "Destabilizing: The Artifact collapses an improper bluespace matrix on the target, sending them to an unknown location."
 	weight = 25
-	flags = URANIUM_TRAIT
+	flags = XENOA_URANIUM_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/aura)
 	var/obj/item/xenoartifact/exit
 
@@ -505,7 +505,7 @@
 /datum/xenoartifact_trait/major/smokey
 	desc = "Dissipating"
 	label_desc = "Dissipating: The Artifact is dissipating as if it was made of smoke."
-	flags = URANIUM_TRAIT | PLASMA_TRAIT | BLUESPACE_TRAIT
+	flags = XENOA_URANIUM_TRAIT | XENOA_PLASMA_TRAIT | XENOA_BLUESPACE_TRAIT
 
 /datum/xenoartifact_trait/major/smokey/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
 	var/datum/effect_system/smoke_spread/E = new()
@@ -518,7 +518,7 @@
 /datum/xenoartifact_trait/major/marker
 	label_name = "Marker"
 	label_desc = "Marker: The Artifact causes the target to refract a unique color index."
-	flags = PLASMA_TRAIT | BLUESPACE_TRAIT
+	flags = XENOA_PLASMA_TRAIT | XENOA_BLUESPACE_TRAIT
 	///The color this artifact dispenses
 	var/color
 
@@ -537,7 +537,7 @@
 /datum/xenoartifact_trait/major/emote
 	label_name = "Emotional"
 	label_desc = "Emotional: The Artifact causes the target to experience, or preform, a random emotion."
-	flags = PLASMA_TRAIT | BLUESPACE_TRAIT | URANIUM_TRAIT
+	flags = XENOA_PLASMA_TRAIT | XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT
 	///Emote to preform
 	var/datum/emote/emote
 
