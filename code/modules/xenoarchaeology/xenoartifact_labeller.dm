@@ -51,19 +51,14 @@
 /obj/item/xenoartifact_labeller/ui_data(mob/user)
 	var/list/data = list()
 	data["selected_activator_traits"] = selected_activator_traits
-	data["selected_minor_traits"] = selected_minor_traits
-	data["selected_major_traits"] = selected_major_traits
-	data["selected_malfunction_traits"] = selected_malfunction_traits
-	data["info_list"] = info_list
-	return data
-
-/obj/item/xenoartifact_labeller/ui_static_data(mob/user)
-	. = ..()
-	var/list/data = list()
 	data["activator_traits"] = activator_traits
+	data["selected_minor_traits"] = selected_minor_traits
 	data["minor_traits"] = minor_traits
+	data["selected_major_traits"] = selected_major_traits
 	data["major_traits"] = major_traits
+	data["selected_malfunction_traits"] = selected_malfunction_traits
 	data["malfunction_list"] = malfunction_list
+	data["info_list"] = info_list
 	return data
 
 /obj/item/xenoartifact_labeller/ui_act(action, params)

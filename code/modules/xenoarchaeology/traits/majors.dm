@@ -132,7 +132,7 @@
 	var/list/focus = override ? list(override) : targets
 	for(var/atom/target in focus)
 		var/turf/T = get_turf(target)
-		if(isturf(target))
+		if(get_turf(parent.parent) == T)
 			T = get_edge_target_turf(parent.parent, pick(NORTH, EAST, SOUTH, WEST))
 		var/obj/projectile/P = new choosen_projectile()
 		P.preparePixelProjectile(T, parent.parent)
@@ -289,6 +289,6 @@
 	lit = !lit
 	var/atom/light_source = parent.parent
 	if(lit)
-		light_source.set_light(parent.trait_strength*0.08, max(parent.trait_strength*0.05, 5), color)
+		light_source.set_light(parent.trait_strength*0.04, min(parent.trait_strength*0.1, 10), color)
 	else
 		light_source.set_light(0, 0)

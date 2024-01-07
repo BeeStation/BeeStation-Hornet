@@ -6,6 +6,10 @@
 /obj/item/xenoartifact
 	icon_state = "skub"
 
+/obj/item/xenoartifact/with_traits/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/xenoartifact)
+
 /datum/component/xenoartifact_pricing ///Pricing component for shipping solution. Consider swapping to cargo after change.
 	///Buying and selling related, based on guess qaulity
 	var/modifier = 0.5
