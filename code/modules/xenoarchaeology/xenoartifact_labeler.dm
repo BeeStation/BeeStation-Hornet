@@ -1,8 +1,8 @@
 //TODO: Redo this code, or just improve it - Racc
-/obj/item/xenoartifact_labeller
-	name = "artifact labeller"
+/obj/item/xenoartifact_labeler
+	name = "artifact labeler"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact_tech.dmi'
-	icon_state = "xenoartifact_labeller"
+	icon_state = "xenoartifact_labeler"
 	desc = "A tool scientists use to label their alien bombs."
 	throw_speed = 3
 	throw_range = 5
@@ -33,35 +33,40 @@
 	///Cooldown for stickers
 	COOLDOWN_DECLARE(sticker_cooldown)
 
-/obj/item/xenoartifact_labeller/Initialize(mapload)
+/obj/item/xenoartifact_labeler/Initialize(mapload)
 	. = ..()
 	generate_xenoa_statics()
 	//generate data for trait names
-	activator_traits = get_trait_list_names(GLOB.xenoa_activators)
-	minor_traits = get_trait_list_names(GLOB.xenoa_minors)
+	//activator_traits = get_trait_list_names(GLOB.xenoa_activators)
+	//minor_traits = get_trait_list_names(GLOB.xenoa_minors)
 	major_traits = get_trait_list_names(GLOB.xenoa_majors)
-	malfunction_list = get_trait_list_names(GLOB.xenoa_malfunctions)
+	//malfunction_list = get_trait_list_names(GLOB.xenoa_malfunctions)
 
-/obj/item/xenoartifact_labeller/ui_interact(mob/user, datum/tgui/ui)
+/obj/item/xenoartifact_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "XenoartifactLabeller")
+		ui = new(user, src, "XenoartifactLabeler")
 		ui.open()
 
-/obj/item/xenoartifact_labeller/ui_data(mob/user)
+/obj/item/xenoartifact_labeler/ui_data(mob/user)
 	var/list/data = list()
 	data["selected_activator_traits"] = selected_activator_traits
 	data["activator_traits"] = activator_traits
+
 	data["selected_minor_traits"] = selected_minor_traits
 	data["minor_traits"] = minor_traits
+
 	data["selected_major_traits"] = selected_major_traits
 	data["major_traits"] = major_traits
+
 	data["selected_malfunction_traits"] = selected_malfunction_traits
 	data["malfunction_list"] = malfunction_list
+
 	data["info_list"] = info_list
+
 	return data
 
-/obj/item/xenoartifact_labeller/ui_act(action, params)
+/obj/item/xenoartifact_labeler/ui_act(action, params)
 	if(..())
 		return
 	
@@ -90,18 +95,18 @@
 	return TRUE
 
 //Get a list of all the specified trait types names
-/obj/item/xenoartifact_labeller/proc/get_trait_list_names(list/trait_type)
+/obj/item/xenoartifact_labeler/proc/get_trait_list_names(list/trait_type)
 	var/list/temp = list()
 	for(var/datum/xenoartifact_trait/T as() in trait_type)
 		temp += initial(T.label_name)
 	return temp
 
-/obj/item/xenoartifact_labeller/proc/look_for(list/place, culprit) //This isn't really needed but, It's easier to use as a function. What does this even do?
+/obj/item/xenoartifact_labeler/proc/look_for(list/place, culprit) //This isn't really needed but, It's easier to use as a function. What does this even do?
 	if(place.Find(culprit))
 		return TRUE
 	return FALSE
 
-/obj/item/xenoartifact_labeller/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/xenoartifact_labeler/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
 	if(proximity_flag && COOLDOWN_FINISHED(src, sticker_cooldown))
 		COOLDOWN_START(src, sticker_cooldown, 5 SECONDS)
@@ -110,7 +115,7 @@
 		to_chat(user, "<span class='warning'>The labeler is still printing.</span>")
 
 ///reset all the options
-/obj/item/xenoartifact_labeller/proc/clear_selection()
+/obj/item/xenoartifact_labeler/proc/clear_selection()
 	sticker_name = null
 	info_list = list()
 	sticker_traits = list()
@@ -120,7 +125,7 @@
 	selected_malfunction_traits = list()
 	ui_update()
 
-/obj/item/xenoartifact_labeller/proc/create_label(new_name, mob/target, mob/user)
+/obj/item/xenoartifact_labeler/proc/create_label(new_name, mob/target, mob/user)
 	var/obj/item/xenoartifact_label/P = new(get_turf(src))
 	if(new_name)
 		P.name = new_name
@@ -129,7 +134,7 @@
 	P.info = selected_activator_traits+selected_minor_traits+selected_major_traits+selected_malfunction_traits
 	P.attempt_attach(target, user, TRUE)
 
-/obj/item/xenoartifact_labeller/proc/trait_toggle(action, toggle_type, var/list/trait_list, var/list/active_trait_list)
+/obj/item/xenoartifact_labeler/proc/trait_toggle(action, toggle_type, var/list/trait_list, var/list/active_trait_list)
 	var/datum/xenoartifact_trait/description_holder
 	var/new_trait
 	for(var/t in trait_list)
@@ -147,13 +152,13 @@
 			sticker_traits -= new_trait
 
 //This is just a hacky way of getting the info from a datum using its desc becuase I wrote this last and it's not heartbreaking
-/obj/item/xenoartifact_labeller/proc/desc2datum(udesc)
+/obj/item/xenoartifact_labeler/proc/desc2datum(udesc)
 	for(var/datum/xenoartifact_trait/X as() in GLOB.xenoa_all_traits)
 		if((udesc == initial(X.label_desc)) || (udesc == initial(X.label_name)))
 			return X
 	CRASH("The xenoartifact trait description '[udesc]' doesn't have a corresponding trait. Something fucked up.")
 
-// Not to be confused with labeller
+// Not to be confused with labeler
 /obj/item/xenoartifact_label
 	icon = 'icons/obj/xenoarchaeology/xenoartifact_sticker.dmi'
 	icon_state = "sticker_star"
@@ -237,13 +242,13 @@
 		text = "[text] [X]\n"
 	return text
 
-/obj/item/xenoartifact_labeller/debug
+/obj/item/xenoartifact_labeler/debug
 	name = "xenoartifact debug labeler"
 	desc = "Use to create specific Xenoartifacts"
 
-/obj/item/xenoartifact_labeller/debug/afterattack(atom/target, mob/user)
+/obj/item/xenoartifact_labeler/debug/afterattack(atom/target, mob/user)
 	return
 
-/obj/item/xenoartifact_labeller/debug/create_label(new_name)
+/obj/item/xenoartifact_labeler/debug/create_label(new_name)
 	var/obj/item/xenoartifact/A = new(get_turf(loc))
 	A.AddComponent(/datum/component/xenoartifact, /datum/component/xenoartifact_material, sticker_traits)

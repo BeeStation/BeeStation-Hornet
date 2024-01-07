@@ -4140,7 +4140,7 @@
 #include "code\modules\wiremod\shell\server.dm"
 #include "code\modules\wiremod\shell\shell_items.dm"
 #include "code\modules\xenoarchaeology\xenoartifact_console.dm"
-#include "code\modules\xenoarchaeology\xenoartifact_labeller.dm"
+#include "code\modules\xenoarchaeology\xenoartifact_labeler.dm"
 #include "code\modules\xenoarchaeology\components\xenoartifact.dm"
 #include "code\modules\xenoarchaeology\traits\activators.dm"
 #include "code\modules\xenoarchaeology\traits\majors.dm"

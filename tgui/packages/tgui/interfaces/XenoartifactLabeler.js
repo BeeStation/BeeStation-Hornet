@@ -2,18 +2,18 @@ import { useBackend } from '../backend';
 import { Button, Section, Box, Flex, Input, BlockQuote } from '../components';
 import { Window } from '../layouts';
 
-export const XenoartifactLabeller = (props, context) => {
+export const XenoartifactLabeler = (props, context) => {
   return (
     <Window width={350} height={500}>
       <Window.Content scrollable={0}>
-        <XenoartifactlabellerSticker />
+        <XenoartifactlabelerSticker />
         <Flex direction="row">
           <Flex.Item>
-            <XenoartifactlabellerTraits />
+            <XenoartifactlabelerTraits />
           </Flex.Item>
 
           <Flex.Item>
-            <XenoartifactlabellerInfo />
+            <XenoartifactlabelerInfo />
           </Flex.Item>
         </Flex>
       </Window.Content>
@@ -21,7 +21,7 @@ export const XenoartifactLabeller = (props, context) => {
   );
 };
 
-const XenoartifactlabellerTraits = (props, context) => {
+const XenoartifactlabelerTraits = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     selected_activator_traits,
@@ -49,7 +49,7 @@ const XenoartifactlabellerTraits = (props, context) => {
       <Section title="Material">
         <Box>
           {sorted_activators.map((trait) => (
-            <XenoartifactlabellerGenerateList
+            <XenoartifactlabelerGenerateList
               specific_trait={trait}
               check_against={selected_activator_traits}
               key={trait}
@@ -61,7 +61,7 @@ const XenoartifactlabellerTraits = (props, context) => {
       <Section title="Notes">
         <Box>
           {sorted_minors.map((trait) => (
-            <XenoartifactlabellerGenerateList
+            <XenoartifactlabelerGenerateList
               specific_trait={trait}
               check_against={selected_minor_traits}
               key={trait}
@@ -73,7 +73,7 @@ const XenoartifactlabellerTraits = (props, context) => {
       <Section title="Shape">
         <Box>
           {sorted_majors.map((trait) => (
-            <XenoartifactlabellerGenerateList
+            <XenoartifactlabelerGenerateList
               specific_trait={trait}
               check_against={selected_major_traits}
               key={trait}
@@ -85,7 +85,7 @@ const XenoartifactlabellerTraits = (props, context) => {
       <Section title="Malfunction">
         <Box>
           {sorted_malfs.map((trait) => (
-            <XenoartifactlabellerGenerateList
+            <XenoartifactlabelerGenerateList
               key={trait}
               specific_trait={trait}
               check_against={selected_malfunction_traits}
@@ -98,19 +98,19 @@ const XenoartifactlabellerTraits = (props, context) => {
   );
 };
 
-const XenoartifactlabellerInfo = (props, context) => {
+const XenoartifactlabelerInfo = (props, context) => {
   const { act, data } = useBackend(context);
   const { info_list } = data;
   return (
     <Box px={1} overflowY="auto" height="425px">
       {info_list.map((info) => (
-        <XenoartifactlabellerGenerateInfo info={info} key={info} />
+        <XenoartifactlabelerGenerateInfo info={info} key={info} />
       ))}
     </Box>
   );
 };
 
-const XenoartifactlabellerGenerateList = (props, context) => {
+const XenoartifactlabelerGenerateList = (props, context) => {
   const { act } = useBackend(context);
   const { specific_trait, check_against, trait_type } = props;
   return (
@@ -124,7 +124,7 @@ const XenoartifactlabellerGenerateList = (props, context) => {
   );
 };
 
-const XenoartifactlabellerGenerateInfo = (props, context) => {
+const XenoartifactlabelerGenerateInfo = (props, context) => {
   const { act } = useBackend(context);
   const { info } = props;
   return (
@@ -136,7 +136,7 @@ const XenoartifactlabellerGenerateInfo = (props, context) => {
   );
 };
 
-const XenoartifactlabellerSticker = (props, context) => {
+const XenoartifactlabelerSticker = (props, context) => {
   const { act } = useBackend(context);
   return (
     <Box>

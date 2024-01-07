@@ -233,7 +233,7 @@
 	TODO: Consider removing this - Racc
 */
 
-/datum/xenoartifact_trait/major/invisible 
+//datum/xenoartifact_trait/major/invisible 
 
 /*
 	Displaced
@@ -241,7 +241,7 @@
 */
 /datum/xenoartifact_trait/major/displaced
 	label_name = "Displaced"
-	label_desc = "The artifact seems to contain displacing components. Triggering these components will 'displace' the target."
+	label_desc = "The artifact seems to contain displacing components. Triggering these components will displace the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	flags =  XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
 
