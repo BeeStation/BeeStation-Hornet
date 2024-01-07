@@ -11881,10 +11881,10 @@
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "dIg" = (
+/obj/effect/turf_decal/tile/red,
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "dIv" = (
@@ -19221,9 +19221,6 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
 /obj/structure/chair{
 	dir = 8
 	},
@@ -19557,8 +19554,9 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/structure/chair{
-	dir = 8
+/obj/item/kirbyplants/random,
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -41884,6 +41882,13 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"nFq" = (
+/obj/machinery/computer/shuttle_flight/labor,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "nFy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -44756,6 +44761,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
+"oAh" = (
+/obj/effect/turf_decal/tile/red,
+/obj/item/kirbyplants/random,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "oAp" = (
 /obj/machinery/camera/autoname,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -48385,11 +48398,14 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "pOC" = (
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+/obj/machinery/camera/autoname{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -63485,16 +63501,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
-"uMI" = (
-/obj/machinery/computer/shuttle_flight/labor,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "uMY" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -64331,6 +64337,13 @@
 /obj/effect/turf_decal/tile/black/fourcorners,
 /turf/open/floor/prison,
 /area/security/prison)
+"vbq" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "vbv" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -64775,11 +64788,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
-"viT" = (
-/obj/effect/turf_decal/tile/red,
-/obj/item/kirbyplants/random,
-/turf/open/floor/plasteel,
-/area/security/brig)
 "viZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -112379,11 +112387,11 @@ aMT
 aMT
 aMT
 opr
-aMT
+opr
 aMT
 iaD
 aMT
-opr
+aMT
 qBt
 anT
 aMT
@@ -112636,13 +112644,13 @@ aMT
 aMT
 aMT
 opr
-aMT
-aMT
-aMT
-aMT
 opr
 aMT
-opr
+aMT
+aMT
+aMT
+aMT
+aMT
 aMT
 aMT
 aMT
@@ -112893,13 +112901,13 @@ aMT
 aMT
 aMT
 opr
-aMT
-aMT
-aMT
-aMT
 opr
 aMT
-opr
+aMT
+aMT
+aMT
+aMT
+aMT
 aMT
 aMT
 aMT
@@ -113150,13 +113158,13 @@ aMT
 aMT
 aMT
 opr
-aMT
-aMT
-aMT
-aMT
 opr
 aMT
-opr
+aMT
+aMT
+aMT
+aMT
+aMT
 aMT
 aMT
 aMT
@@ -113407,13 +113415,13 @@ aMT
 aMT
 aMT
 opr
-aMT
-aMT
-aMT
-aMT
 opr
 aMT
-opr
+aMT
+aMT
+aMT
+aMT
+aMT
 aMT
 aMT
 aMT
@@ -113664,13 +113672,13 @@ aMT
 aMT
 aMT
 opr
-aMT
-aMT
-aMT
-aMT
 opr
 aMT
-opr
+aMT
+aMT
+aMT
+aMT
+aMT
 aMT
 aMT
 aMT
@@ -113921,16 +113929,16 @@ aMT
 aMT
 aMT
 iaD
-aMT
+opr
 aMT
 aMT
 aMT
 qBt
-aMT
 opr
 duF
 duF
 qGt
+bpE
 bpE
 bpE
 kAp
@@ -114178,16 +114186,16 @@ aMT
 aMT
 aMT
 iaD
-aMT
+opr
 aMT
 aMT
 aMT
 qBt
 anT
-opr
 duF
-uMI
+nFq
 nKv
+vbq
 shM
 fKe
 fKe
@@ -114441,15 +114449,15 @@ anT
 anT
 qBt
 anT
-opr
 duF
 kXL
-viT
+oAh
+dIg
 pOC
 dIg
 glh
 gqs
-viT
+kXL
 psL
 qug
 oAG
@@ -114697,8 +114705,8 @@ iaD
 aMT
 iaD
 qBt
-aMT
 opr
+duF
 duF
 duF
 duF
