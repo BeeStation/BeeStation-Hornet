@@ -42,7 +42,10 @@
 #define ZMIMIC_LIGHT_BLEED
 
 /// If this is uncommented, will profile mapload atom initializations
-// #define PROFILE_MAPLOAD_INIT_ATOM
+//#define PROFILE_MAPLOAD_INIT_ATOM
+#ifdef PROFILE_MAPLOAD_INIT_ATOM
+#warn PROFILE_MAPLOAD_INIT_ATOM creates very large profiles, do not leave this on!
+#endif
 
 //#define UNIT_TESTS			//If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
 
