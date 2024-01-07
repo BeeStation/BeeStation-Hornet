@@ -45,7 +45,7 @@
 /obj/item/xenoartifact_labeller/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "XenoartifactLabeler")
+		ui = new(user, src, "XenoartifactLabeller")
 		ui.open()
 
 /obj/item/xenoartifact_labeller/ui_data(mob/user)
