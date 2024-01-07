@@ -54,9 +54,8 @@
 
 /turf/closed/mineral/random/jungle
 	baseturfs = /turf/open/floor/plating/dirt/dark
-	mineral_spawn_chances = /datum/mineral_spawn_chances/jungle
 
-/datum/mineral_spawn_chances/jungle/get_chances()
+/turf/closed/mineral/random/jungle/mineral_chances()
 	return list(
 		/obj/item/stack/ore/uranium = 5,
 		/obj/item/stack/ore/diamond = 1,

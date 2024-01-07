@@ -122,13 +122,12 @@
 
 
 /turf/closed/mineral/random
-	// Using a datum avoids initializing the list in the (init) proc.
-	var/datum/mineral_spawn_chances/mineral_spawn_chances = /datum/mineral_spawn_chances/default
-	var/list/mineral_spawn_chance_list = null
 	var/mineralChance = 13
 
-/datum/mineral_spawn_chances/default/get_chances()
-	return list( //Currently, Adamantine won't spawn as it has no uses. -Durandan
+// Returns a list of the chances for minerals to spawn.
+/// Will only run once, and will then be cached.
+/turf/closed/mineral/random/proc/mineral_chances()
+	return list(
 		/obj/item/stack/ore/uranium = 5,
 		/obj/item/stack/ore/diamond = 1,
 		/obj/item/stack/ore/gold = 10,
@@ -142,11 +141,15 @@
 	)
 
 /turf/closed/mineral/random/Initialize(mapload)
-	mineral_spawn_chance_list = GLOB.mineral_spawn_chances[mineral_spawn_chances]
+	var/static/list/mineral_chances_by_type = list()
 	. = ..()
 
 	if (prob(mineralChance))
-		var/path = pick_weight(mineral_spawn_chance_list)
+		var/list/spawn_chance_list = mineral_chances_by_type[type]
+		if (isnull(spawn_chance_list))
+			mineral_chances_by_type[type] = expand_weights(mineral_chances())
+			spawn_chance_list = mineral_chances_by_type[type]
+		var/path = pick(spawn_chance_list)
 		if(ispath(path, /turf))
 			var/turf/T = ChangeTurf(path,null,CHANGETURF_IGNORE_AIR)
 
@@ -169,9 +172,8 @@
 /turf/closed/mineral/random/high_chance
 	icon_state = "rock_highchance"
 	mineralChance = 25
-	mineral_spawn_chances = /datum/mineral_spawn_chances/high_chance
 
-/datum/mineral_spawn_chances/high_chance/get_chances()
+/turf/closed/mineral/random/high_chance/mineral_chances()
 	return list(
 		/obj/item/stack/ore/uranium = 35,
 		/obj/item/stack/ore/diamond = 30,
@@ -189,9 +191,8 @@
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	defer_change = 1
-	mineral_spawn_chances = /datum/mineral_spawn_chances/high_chance_volcanic
 
-/datum/mineral_spawn_chances/high_chance_volcanic/get_chances()
+/turf/closed/mineral/random/high_chance/volcanic/mineral_chances()
 	return list(
 		/obj/item/stack/ore/uranium = 35,
 		/obj/item/stack/ore/diamond = 30,
@@ -206,9 +207,8 @@
 /turf/closed/mineral/random/low_chance
 	icon_state = "rock_lowchance"
 	mineralChance = 6
-	mineral_spawn_chances = /datum/mineral_spawn_chances/low_chance
 
-/datum/mineral_spawn_chances/low_chance/get_chances()
+/turf/closed/mineral/random/low_chance/mineral_chances()
 	return list(
 		/obj/item/stack/ore/uranium = 2,
 		/obj/item/stack/ore/diamond = 1,
@@ -234,7 +234,20 @@
 	initial_gas_mix = FROZEN_ATMOS
 	defer_change = TRUE
 	mineralChance = 6
-	mineral_spawn_chances = /datum/mineral_spawn_chances/low_chance
+
+/turf/closed/mineral/random/snowmountain/cavern/mineral_chances()
+	return list(
+		/obj/item/stack/ore/uranium = 2,
+		/obj/item/stack/ore/diamond = 1,
+		/obj/item/stack/ore/gold = 4,
+		/obj/item/stack/ore/titanium = 4,
+		/obj/item/stack/ore/silver = 6,
+		/obj/item/stack/ore/copper = 6,
+		/obj/item/stack/ore/plasma = 15,
+		/obj/item/stack/ore/iron = 40,
+		/turf/closed/mineral/gibtonite = 2,
+		/obj/item/stack/ore/bluespace_crystal = 1,
+	)
 
 /turf/closed/mineral/random/volcanic
 	environment_type = "basalt"
@@ -244,9 +257,8 @@
 	defer_change = 1
 
 	mineralChance = 10
-	mineral_spawn_chances = /datum/mineral_spawn_chances/volcanic
 
-/datum/mineral_spawn_chances/volcanic/get_chances()
+/turf/closed/mineral/random/volcanic/mineral_chances()
 	return list(
 		/obj/item/stack/ore/uranium = 5,
 		/obj/item/stack/ore/diamond = 1,
@@ -262,9 +274,8 @@
 
 /turf/closed/mineral/random/labormineral
 	icon_state = "rock_labor"
-	mineral_spawn_chances = /datum/mineral_spawn_chances/labor_mineral
 
-/datum/mineral_spawn_chances/labor_mineral/get_chances()
+/turf/closed/mineral/random/labormineral/mineral_chances()
 	return list(
 		/obj/item/stack/ore/uranium = 3,
 		/obj/item/stack/ore/diamond = 1,
@@ -283,9 +294,8 @@
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	defer_change = 1
-	mineral_spawn_chances = /datum/mineral_spawn_chances/labor_mineral_volcanic
 
-/datum/mineral_spawn_chances/labor_mineral_volcanic/get_chances()
+/turf/closed/mineral/random/labormineral/volcanic/mineral_chances()
 	return list(
 		/obj/item/stack/ore/uranium = 3,
 		/obj/item/stack/ore/diamond = 1,
