@@ -40,7 +40,7 @@
 	tiled_dirt = FALSE
 	max_integrity = 100
 
-/turf/open/floor/wood/get_damage_states()
+/turf/open/floor/wood/broken_states()
 	return GLOB.wood_turf_damage
 
 /turf/open/floor/wood/broken
@@ -50,7 +50,7 @@
 	icon_state = "wood_big"
 	variants = list("wood_big", "wood_big1", "wood_big2", "wood_big3", "wood_big4")
 
-/turf/open/floor/wood/big/get_damage_states()
+/turf/open/floor/wood/big/broken_states()
 	return GLOB.wood_big_turf_damage
 
 /turf/open/floor/wood/examine(mob/user)

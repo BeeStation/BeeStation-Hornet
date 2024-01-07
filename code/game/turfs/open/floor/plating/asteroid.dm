@@ -148,7 +148,7 @@
 	bullet_bounce_sound = null
 	digResult = /obj/item/stack/sheet/snow
 
-/turf/open/floor/plating/asteroid/snow/get_burnt_states()
+/turf/open/floor/plating/asteroid/snow/burnt_states()
 	return list("snow_dug")
 
 /turf/open/floor/plating/asteroid/snow/burn_tile()

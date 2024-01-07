@@ -13,7 +13,7 @@
 	tiled_dirt = FALSE
 	max_integrity = 250
 
-/turf/open/floor/light/get_damage_states()
+/turf/open/floor/light/broken_states()
 	return list("light_broken")
 
 /turf/open/floor/light/examine(mob/user)
