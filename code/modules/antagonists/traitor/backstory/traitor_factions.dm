@@ -29,7 +29,7 @@
 	description = "You're in it for the money, or because you were forced into it.\n\
 	The monetary potential aboard a Nanotrasen station is huge, and there are actors willing to take advantage of your position.\n\
 	Your employer expects nothing but good results - and you'd better give it to them, lest you face the consequences.\n\
-	You won't have the same benefits as working with the Syndicate - no codewords or communication methods, and limited potential allies. \
+	You won't have the same benefits as working with the Syndicate - <strong><font color='yellow'>no codewords</font></strong> or communication methods, and limited potential allies. \
 	Just hope that your goals align with the other traitors.\n\
 	Get the job done right, and you will be paid in full - or simply freed of your debts.\n"
 	key = TRAITOR_FACTION_BLACK_MARKET
@@ -39,6 +39,6 @@
 	employer_name = "You"
 	description = "Not for the faint of heart, being an independent traitor requires superior roleplay abilities, and superior traitor skills. \n\
 	You are a person who holds grudges, and has been hurt greatly by Nanotrasen.\n\
-	You will have no allies, and you can only get by on your stolen Syndicate uplink. You have one chance, don't blow it. \n\
+	You will have no allies, <strong><font color='yellow'>no codewords</font></strong>, and you can only get by on your stolen Syndicate uplink. You have one chance, don't blow it. \n\
 	<strong>It's personal.</strong>"
 	key = TRAITOR_FACTION_INDEPENDENT
