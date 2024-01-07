@@ -45,7 +45,9 @@
 			give_codewords()
 		equip(silent)
 	log_game("[key_name(owner)] selected traitor faction [new_faction.name]")
+	SSblackbox.record_feedback("tally", "traitor_faction_selected", 1, new_faction.name)
 
 /datum/antagonist/traitor/proc/set_backstory(datum/traitor_backstory/new_backstory)
 	backstory = new_backstory
 	log_game("[key_name(owner)] selected traitor backstory [new_backstory.name]")
+	SSblackbox.record_feedback("tally", "traitor_backstory_selected", 1, new_backstory.name)
