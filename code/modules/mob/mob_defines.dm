@@ -227,9 +227,9 @@
 	///Is the mob actively shifting?
 	var/shifting
 
-	///Currently possesses a typing indicator icon
-	var/typing_indicator = FALSE
-	/// Thinking indicator - mob has input window open
-	var/thinking_indicator = FALSE
+	/// The icon currently used for the typing indicator's bubble	
+	var/active_typing_indicator = FALSE
+	/// The icon currently used for the thinking indicator's bubble
+	var/active_thinking_indicator = FALSE
 	/// User is thinking in character. Used to revert to thinking state after stop_typing
 	var/thinking_IC = FALSE
