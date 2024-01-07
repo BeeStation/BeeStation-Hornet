@@ -231,5 +231,7 @@
 	var/active_typing_indicator = FALSE
 	/// The icon currently used for the thinking indicator's bubble
 	var/active_thinking_indicator = FALSE
+	/// The icon currently used for the blind typing indicator's bubble
+	var/active_blind_typing_indicator = FALSE
 	/// User is thinking in character. Used to revert to thinking state after stop_typing
 	var/thinking_IC = FALSE
