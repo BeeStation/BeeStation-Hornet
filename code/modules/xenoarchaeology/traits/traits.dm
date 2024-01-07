@@ -27,6 +27,8 @@
 
 	///List of things we've effected. used to automatically reigster & unregister targets. Don't confuse with parent targets, which is things we want to effect
 	var/list/targets = list()
+	///A distinct list of targets, incorporating overrides
+	var/list/focus = list()
 	///Extra target range we add to the artifact
 	var/extra_target_range = 0
 
@@ -79,7 +81,7 @@
 
 	unregister_target(source, TRUE)
 
-/datum/xenoartifact_trait/proc/trigger(datum/source, _priority, atom/override, var/list/focus)
+/datum/xenoartifact_trait/proc/trigger(datum/source, _priority, atom/override)
 	SIGNAL_HANDLER
 
 	. = TRUE
@@ -87,26 +89,22 @@
 		return FALSE
 	if(!register_targets)
 		return
-	//Handle focus
-	focus = override ? list(override) : targets
 	//If we've been given an override
 	if(override)
 		register_target(override)
-		return
 	//Otherwise just use the artifact's target list
 	else if(length(parent.targets))
 		for(var/atom/I in parent.targets)
 			register_target(I)
+	//Handle focus
+	focus = override ? list(override) : targets
 	return
 
 //Most traits will handle this on their own
-/datum/xenoartifact_trait/proc/un_trigger(atom/override, handle_parent = FALSE, var/list/focus)
-	//Handle Focus
-	focus = override ? list(override) : targets
+/datum/xenoartifact_trait/proc/un_trigger(atom/override, handle_parent = FALSE)
 	//Override
 	if(override)
 		unregister_target(override)
-		return
 	//Parent targets, we shouldn't need this casually, only for niche cases
 	if(length(parent.targets) && handle_parent)
 		for(var/atom/I in parent.targets)
@@ -115,11 +113,17 @@
 	if(length(targets))
 		for(var/atom/I in targets)
 			unregister_target(I)
+	//Handle Focus
+	clear_focus()
 	return
 
 /datum/xenoartifact_trait/proc/dump_targets()
 	for(var/i in targets)
 		unregister_target(i, TRUE)
+
+//Call this when you're finished with the focus in the trigger() proc, un_trigger() handles itself
+/datum/xenoartifact_trait/proc/clear_focus()
+	focus = list()
 
 //If we want this trait to modify the artifact's appearance
 /datum/xenoartifact_trait/proc/generate_trait_appearance(atom/target)

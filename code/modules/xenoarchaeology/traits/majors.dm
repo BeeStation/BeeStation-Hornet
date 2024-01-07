@@ -12,7 +12,7 @@
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
 	conductivity = 10
 
-/datum/xenoartifact_trait/major/shock/trigger(datum/source, _priority, atom/override, var/list/focus)
+/datum/xenoartifact_trait/major/shock/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
 		dump_targets()
@@ -30,6 +30,7 @@
 		var/atom/log_atom = parent.parent
 		log_game("[parent] in [log_atom] electrocuted [key_name_admin(target)] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 	dump_targets() //Get rid of anything else, since we can't interact with it
+	clear_focus()
 
 /*
 	Hollow
@@ -45,7 +46,7 @@
 	///Maximum time we hold people for
 	var/hold_time = 15 SECONDS
 
-/datum/xenoartifact_trait/major/hollow/trigger(datum/source, _priority, atom/override, var/list/focus)
+/datum/xenoartifact_trait/major/hollow/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
 		dump_targets()
@@ -67,8 +68,10 @@
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/xenoartifact_trait, un_trigger), M), hold_time*(parent.trait_strength/100))
 		else
 			unregister_target(target)
+	clear_focus()
 
-/datum/xenoartifact_trait/major/hollow/un_trigger(atom/override, handle_parent = FALSE, var/list/focus)
+/datum/xenoartifact_trait/major/hollow/un_trigger(atom/override, handle_parent = FALSE)
+	focus = override ? list(override) : targets
 	if(!length(focus))
 		return ..()
 	var/atom/movable/AM = parent.parent
@@ -93,7 +96,7 @@
 	///Maximum time we stop time for
 	var/max_time = 10 SECONDS
 
-/datum/xenoartifact_trait/major/timestop/trigger(datum/source, _priority, atom/override, var/list/focus)
+/datum/xenoartifact_trait/major/timestop/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
 		return
@@ -122,7 +125,7 @@
 	. = ..()
 	choosen_projectile = pick(possible_projectiles)
 
-/datum/xenoartifact_trait/major/projectile/trigger(datum/source, _priority, atom/override, var/list/focus)
+/datum/xenoartifact_trait/major/projectile/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
 		dump_targets()
@@ -136,7 +139,7 @@
 		P.fire()
 		playsound(get_turf(parent.parent), 'sound/mecha/mech_shield_deflect.ogg', 50, TRUE)
 	dump_targets()
-	
+	clear_focus()
 
 /*
 	Bestialized
@@ -158,7 +161,7 @@
 	. = ..()
 	choosen_animal = pick(possible_animals)
 
-/datum/xenoartifact_trait/major/animalize/trigger(datum/source, _priority, atom/override, var/list/focus)
+/datum/xenoartifact_trait/major/animalize/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
 		dump_targets()
@@ -171,8 +174,10 @@
 		log_game("[parent] in [log_atom] transformed [key_name_admin(target)] into [choosen_animal] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 		//Add timer to undo this
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/xenoartifact_trait, un_trigger), target), animal_time*(parent.trait_strength/100))
+	clear_focus()
 
-/datum/xenoartifact_trait/major/animalize/un_trigger(atom/override, handle_parent = FALSE, var/list/focus)
+/datum/xenoartifact_trait/major/animalize/un_trigger(atom/override, handle_parent = FALSE)
+	focus = override ? list(override) : targets
 	if(!length(focus))
 		return ..()
 	//Restore every swap holder
@@ -211,7 +216,7 @@
 	register_targets = FALSE
 	rarity = XENOA_TRAIT_WEIGHT_RARE
 
-/datum/xenoartifact_trait/major/emp/trigger(datum/source, _priority, atom/override, var/list/focus)
+/datum/xenoartifact_trait/major/emp/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
 		return
@@ -242,7 +247,7 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	flags =  XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
 
-/datum/xenoartifact_trait/major/displaced/trigger(datum/source, _priority, atom/override, var/list/focus)
+/datum/xenoartifact_trait/major/displaced/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
 		dump_targets()
@@ -256,6 +261,7 @@
 			log_game("[parent] in [log_atom] teleported [key_name_admin(target)] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 		unregister_target(target)
 	dump_targets()
+	clear_focus()
 
 /*
 	Illuminating
@@ -278,7 +284,7 @@
 	. = ..()
 	color = pick(possible_colors)
 
-/datum/xenoartifact_trait/major/illuminating/trigger(datum/source, _priority, atom/override, var/list/focus)
+/datum/xenoartifact_trait/major/illuminating/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
 		return
@@ -308,7 +314,7 @@
 	. = ..()
 	wall_size = pick(1, 2, 3)
 
-/datum/xenoartifact_trait/major/forcefield/trigger(datum/source, _priority, atom/override, var/list/focus)
+/datum/xenoartifact_trait/major/forcefield/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
 		return
@@ -351,13 +357,14 @@
 	var/datum/reagent/formula
 	///max amount we can inject people with
 	var/formula_amount
+	var/generic_amount = 10
 
 /datum/xenoartifact_trait/major/chem/New(atom/_parent)
 	. = ..()
 	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
-	formula_amount = initial(formula.overdose_threshold)
+	formula_amount = initial(formula.overdose_threshold) || generic_amount
 
-/datum/xenoartifact_trait/major/chem/trigger(datum/source, _priority, atom/override, var/list/focus)
+/datum/xenoartifact_trait/major/chem/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
 		return
@@ -370,3 +377,41 @@
 			log_game("[parent] in [log_atom] injected [key_name_admin(target)] with [formula_amount*(parent.trait_strength/100)]u of [formula] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 		unregister_target(target)
 	dump_targets()
+	clear_focus()
+
+/*
+	Force
+	Inacts a pushing or pulling force on the target
+*/
+/datum/xenoartifact_trait/major/force
+	label_name = "Forcing"
+	label_desc = "Forcing: The artifact seems to contain impulsing components. Triggering these components will impulse, either pushing or pulling, the target."
+	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	///Max force we can use, aka how far we throw things
+	var/max_force = 7
+	///Force direction, push or pull
+	var/force_dir
+
+/datum/xenoartifact_trait/major/force/New(atom/_parent)
+	. = ..()
+	force_dir = rand(0, 1)
+
+/datum/xenoartifact_trait/major/force/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	for(var/atom/movable/target in focus)
+		if(target.anchored)
+			return
+		var/turf/parent_turf = get_turf(parent.parent)
+		var/turf/T
+		if(force_dir)
+			T = get_edge_target_turf(parent_turf, get_dir(parent_turf, get_turf(target)) || pick(NORTH, EAST, SOUTH, WEST))
+		else
+			T = parent_turf
+		target.throw_at(T, max_force*(parent.trait_strength/100), 4)
+		unregister_target(target)
+	dump_targets()
+	clear_focus()
+
