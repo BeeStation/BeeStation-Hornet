@@ -15,7 +15,6 @@
 /datum/xenoartifact_trait/major/shock/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
-		dump_targets()
 		return
 	if(length(focus))
 		playsound(get_turf(parent.parent), 'sound/machines/defib_zap.ogg', 50, TRUE)
@@ -23,7 +22,6 @@
 		if(iscarbon(target))
 			var/mob/living/carbon/victim = target
 			victim.electrocute_act(parent.trait_strength*0.25, parent.parent, 1, 1) //Deal a max of 25
-			unregister_target(target)
 		else if(istype(target, /obj/item/stock_parts/cell))
 			var/obj/item/stock_parts/cell/C = target
 			C.give((parent.trait_strength/100)*C.maxcharge) //Yes, this is potentially potentially powerful, but it will be cool
@@ -49,7 +47,6 @@
 /datum/xenoartifact_trait/major/hollow/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
-		dump_targets()
 		return
 	for(var/atom/target in focus)
 		if(ismovable(target))
@@ -128,7 +125,6 @@
 /datum/xenoartifact_trait/major/projectile/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
-		dump_targets()
 		return
 	for(var/atom/target in focus)
 		var/turf/T = get_turf(target)
@@ -164,7 +160,6 @@
 /datum/xenoartifact_trait/major/animalize/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
-		dump_targets()
 		return
 	for(var/mob/living/target in focus)
 		if(istype(target, choosen_animal) || IS_DEAD_OR_INCAP(target))
@@ -250,7 +245,6 @@
 /datum/xenoartifact_trait/major/displaced/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
-		dump_targets()
 		return
 	if(length(focus))
 		playsound(get_turf(parent.parent), 'sound/machines/defib_zap.ogg', 50, TRUE)
@@ -357,12 +351,12 @@
 	var/datum/reagent/formula
 	///max amount we can inject people with
 	var/formula_amount
-	var/generic_amount = 10
+	var/generic_amount = 11
 
 /datum/xenoartifact_trait/major/chem/New(atom/_parent)
 	. = ..()
 	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
-	formula_amount = initial(formula.overdose_threshold) || generic_amount
+	formula_amount = (initial(formula.overdose_threshold) || generic_amount) - 1
 
 /datum/xenoartifact_trait/major/chem/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -415,3 +409,209 @@
 	dump_targets()
 	clear_focus()
 
+
+/*
+	Echoing
+	The artifact plays a random sound
+*/
+/datum/xenoartifact_trait/major/noise
+	label_name = "Echoing"
+	label_desc = "Echoing: The artifact seems to contain echoing components. Triggering these components will cause the artifact to make a noise."
+	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT
+	register_targets = FALSE
+	///List of possible noises
+	var/list/possible_noises = list('sound/effects/adminhelp.ogg', 'sound/effects/applause.ogg', 'sound/effects/bubbles.ogg',
+					'sound/effects/empulse.ogg', 'sound/effects/explosion1.ogg', 'sound/effects/explosion_distant.ogg',
+					'sound/effects/laughtrack.ogg', 'sound/effects/magic.ogg', 'sound/effects/meteorimpact.ogg',
+					'sound/effects/phasein.ogg', 'sound/effects/supermatter.ogg', 'sound/weapons/armbomb.ogg',
+					'sound/weapons/blade1.ogg')
+	///The noise we will make
+	var/noise
+
+/datum/xenoartifact_trait/major/noise/New(atom/_parent)
+	. = ..()
+	noise = pick(possible_noises)
+
+/datum/xenoartifact_trait/major/noise/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	playsound(get_turf(parent.parent), noise, 50, FALSE)
+
+/*
+	Porous
+	The artifact replaces one random gas with another
+*/
+/datum/xenoartifact_trait/major/gas
+	label_name = "Porous"
+	label_desc = "Porous: The artifact seems to contain porous components. Triggering these components will cause the artifact to exchange one gas with another."
+	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	register_targets = FALSE
+	///Possible target gasses
+	var/list/target_gasses = list(
+		/datum/gas/oxygen = 6,
+		/datum/gas/nitrogen = 3,
+		/datum/gas/plasma = 1,
+		/datum/gas/carbon_dioxide = 1,
+		/datum/gas/water_vapor = 3
+	)
+	///Possible exchange gasses
+	var/list/exchange_gasses = list(
+		/datum/gas/bz = 3,
+		/datum/gas/hypernoblium = 1,
+		/datum/gas/plasma = 3,
+		/datum/gas/tritium = 2,
+		/datum/gas/nitryl = 1
+	)
+	///Choosen target gas
+	var/datum/gas/choosen_target
+	///Choosen exchange gas
+	var/datum/gas/choosen_exchange
+	///Max amount of moles we exchange at once
+	var/max_moles = 10
+
+/datum/xenoartifact_trait/major/gas/New(atom/_parent)
+	. = ..()
+	choosen_target = pick_weight(target_gasses)
+	choosen_exchange = pick_weight(exchange_gasses)
+
+/datum/xenoartifact_trait/major/gas/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	var/turf/T = get_turf(parent.parent)
+	var/datum/gas_mixture/air = T.return_air()
+	var/input_id = initial(choosen_target.id)
+	var/output_id = initial(choosen_exchange.id)
+	var/moles = min(air.get_moles(input_id), max_moles)
+	air.adjust_moles(input_id, -moles)
+	air.adjust_moles(output_id, moles)
+
+/*
+	Destabilizing
+	Send the target to the shadow realm
+*/
+/datum/xenoartifact_trait/major/shadow_realm
+	label_name = "Destabilizing"
+	label_desc = "Destabilizing: The artifact seems to contain destabilizing components. Triggering these components will cause the artifact transport the target to another realm."
+	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
+	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	rarity = XENOA_TRAIT_WEIGHT_EPIC
+
+/datum/xenoartifact_trait/major/shadow_realm/New(atom/_parent)
+	. = ..()
+	GLOB.destabliization_exits += parent.parent
+
+/datum/xenoartifact_trait/major/shadow_realm/Destroy(force, ...)
+	. = ..()
+	GLOB.destabliization_exits -= parent.parent
+
+/datum/xenoartifact_trait/major/shadow_realm/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	for(var/atom/movable/target in focus)
+		if(!target.anchored)
+			continue
+		//handle being held
+		var/atom/movable/AM = parent.parent
+		if(!isturf(AM.loc) && locate(AM.loc) in focus)
+			AM.forceMove(get_turf(AM.loc))
+		//Banish target
+		target.forceMove(pick(GLOB.destabilization_spawns))
+	dump_targets()
+	clear_focus()
+
+/*
+	Dissipating
+	The artifact spawns a cloud of smoke
+*/
+/datum/xenoartifact_trait/major/smoke
+	label_name = "Dissipating"
+	label_desc = "Dissipating: The artifact seems to contain dissipating components. Triggering these components will cause the artifact to create a cloud of smoke."
+	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	register_targets = FALSE
+	///The maximum size of our smoke stack in turfs, I think
+	var/max_size = 6
+
+/datum/xenoartifact_trait/major/smoke/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	var/datum/effect_system/smoke_spread/E = new()
+	E.set_up(max_size*(parent.trait_strength/100), get_turf(parent.parent))
+	E.start()
+
+/*
+	Marking
+	Colors the target
+*/
+/datum/xenoartifact_trait/major/color
+	label_name = "Marking"
+	label_desc = "Marking: The artifact seems to contain colorizing components. Triggering these components will color the target."
+	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT
+	///Possible colors
+	var/list/possible_colors = list(COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_PURPLE, COLOR_ORANGE, COLOR_YELLOW, COLOR_CYAN, COLOR_PINK, "all")
+	///Choosen color
+	var/color
+
+/datum/xenoartifact_trait/major/color/New(atom/_parent)
+	. = ..()
+	color = pick(possible_colors)
+
+/datum/xenoartifact_trait/major/color/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	for(var/atom/target in focus)
+		//These colors can be washed off
+		//TODO: make that know ;3 - Racc
+		if(color == "all")
+			target.color = pick(possible_colors)
+		else
+			target.color = color
+	dump_targets() //Get rid of anything else, since we can't interact with it
+	clear_focus()
+
+/*
+	Enthusing
+	Colors the target
+*/
+/datum/xenoartifact_trait/major/emote
+	label_name = "Enthusing"
+	label_desc = "Enthusing: The artifact seems to contain emoting components. Triggering these components will cause the target to emote."
+	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT
+	///List of possible emotes
+	var/list/possible_emotes = list(/datum/emote/flip, /datum/emote/spin, /datum/emote/living/laugh, 
+	/datum/emote/living/scream, /datum/emote/living/tremble, /datum/emote/living/whimper,
+	/datum/emote/living/smile, /datum/emote/living/pout, /datum/emote/living/gag,
+	/datum/emote/living/deathgasp, /datum/emote/living/dance, /datum/emote/living/blush)
+	///Emote to preform
+	var/datum/emote/emote
+
+/datum/xenoartifact_trait/major/emote/New(atom/_parent)
+	. = ..()
+	emote = pick(possible_emotes)
+	emote = new emote()
+
+/datum/xenoartifact_trait/major/emote/Destroy(force, ...)
+	. = ..()
+	QDEL_NULL(emote)
+
+/datum/xenoartifact_trait/major/emote/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	for(var/mob/living/carbon/target in focus)
+		INVOKE_ASYNC(src, PROC_REF(run_emote), target) 
+	//TODO: Add a default hint - Racc
+	dump_targets() //Get rid of anything else, since we can't interact with it
+	clear_focus()
+
+/datum/xenoartifact_trait/major/emote/proc/run_emote(mob/living/carbon/target)
+	emote.run_emote(target)

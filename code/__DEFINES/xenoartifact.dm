@@ -28,10 +28,10 @@
 #define XENOA_TRAIT_STRENGTH_STRONG 100
 
 ///trait flags
-#define XENOA_BLUESPACE_TRAIT			(1<<0)
+#define XENOA_BLUESPACE_TRAIT		(1<<0)
 #define XENOA_PLASMA_TRAIT			(1<<1)
 #define XENOA_URANIUM_TRAIT			(1<<2)
-#define XENOA_BANANIUM_TRAIT			(1<<3)
+#define XENOA_BANANIUM_TRAIT		(1<<3)
 
 ///trait cooldowns
 #define XENOA_TRAIT_COOLDOWN_EXTRA_SAFE -3 SECONDS

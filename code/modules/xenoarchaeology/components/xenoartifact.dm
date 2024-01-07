@@ -71,7 +71,9 @@
 	//If we're force-generating traits
 	if(traits)
 		for(var/datum/xenoartifact_trait/T as() in traits)
-			T = new T(src)
+			if(ispath(T)) //We can either pass paths, or initialized traits
+				T = new T(src) 
+			//TODO: Setup a proc for traits to register a new parent - Racc
 			//List building
 			if(!artifact_traits[T.priority])
 				artifact_traits[T.priority] = list()
