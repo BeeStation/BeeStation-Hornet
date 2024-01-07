@@ -54,12 +54,12 @@
 
 /obj/structure/closet/secure_closet/genpop
 	name = "Prisoner locker"
-	desc = "A locker to store a prisoner's valuables, that they can collect at a later date."
+	desc = "A locker used to store a prisoner's valuables, that they can collect at a later date."
 	req_access = list(ACCESS_BRIG)
 	anchored = TRUE
 	locked = FALSE
 	var/registered_name = null
-
+	var/assigned_id = null
 
 /obj/structure/closet/secure_closet/genpop/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/card/id))
@@ -76,8 +76,19 @@
 				say("Invalid, please assign this locker to prisoners first before handling it!") // Prevents officers from "forgetting" to assign lockers to the prisoners they are handling.
 				return
 			else
-				locked = !locked
-				update_icon()
+				var/unassign = alert(user, "Do you want to unassign this locker?", "Prisoner locker", "Yes", "No")
+				switch(unassign)
+					if("Yes")
+						var/obj/item/card/id/prisoner/P = assigned_id
+						P.assigned_locker = null
+						registered_name = null
+						desc = initial(desc)
+						locked = FALSE
+						update_icon()
+						playsound(src, 'sound/machines/ping.ogg', 50, 0)
+					if("No")
+						locked = FALSE
+						update_icon()
 				return
 		//Handle setting a new ID.
 		if(!registered_name)
@@ -87,8 +98,9 @@
 					to_chat(user, "<span class='notice'>This ID card is already registered to a locker.</span>")
 					return
 				P.assigned_locker = src
+				assigned_id = I
 				registered_name = I.registered_name
-				desc = "Assigned to: [I.registered_name]."
+				desc = "A locker used to store a prisoner's valuables, that they can collect at a later date.\nCurrently assigned to: [I.registered_name]. Swipe a security officer ID to unassign it."
 				say("Locker sealed. Assignee: [I.registered_name]")
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 				locked = TRUE
