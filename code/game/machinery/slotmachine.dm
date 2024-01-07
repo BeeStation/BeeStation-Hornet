@@ -23,6 +23,10 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/computer/slot_machine
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	var/money = 3000 //How much money it has CONSUMED
 	var/plays = 0
 	var/working = 0
