@@ -29,6 +29,7 @@
 	RegisterSignal(parent.parent, COMSIG_MOVABLE_IMPACT, PROC_REF(translation_type_a))
 	RegisterSignal(parent.parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(translation_type_a))
 	RegisterSignal(parent.parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(translation_type_c))
+	RegisterSignal(parent.parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(translation_type_d))
 
 /datum/xenoartifact_trait/activator/strudy/proc/translation_type_a(datum/source, atom/target)
 	SIGNAL_HANDLER
@@ -45,5 +46,14 @@
 /datum/xenoartifact_trait/activator/strudy/proc/translation_type_c(datum/source, atom/target, atom/item)
 	SIGNAL_HANDLER
 
+	parent.register_target(target)
+	trigger_artifact()
+
+/datum/xenoartifact_trait/activator/strudy/proc/translation_type_d(datum/source, atom/target)
+	SIGNAL_HANDLER
+
+	var/atom/A = parent.parent
+	if(!A.density)
+		return
 	parent.register_target(target)
 	trigger_artifact()

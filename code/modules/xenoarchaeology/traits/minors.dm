@@ -207,7 +207,7 @@
 		if(length(parent.targets) > (max_extra_targets * (parent.trait_strength/100)))
 			continue
 		//Only add mobs or items
-		if(!ismob(target) || !isobj(target))
+		if(!ismob(target) && !isobj(target))
 			continue
 		parent.register_target(target)
 

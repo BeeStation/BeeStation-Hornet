@@ -189,7 +189,7 @@
 	if(!istype(target))
 		return
 	//Check for a mob swap holder, and deny the transform if we find one
-	var/obj/shapeshift_holder/H = locate(/obj/shapeshift_holder) in target
+	var/obj/shapeshift_holder/H = (locate(/obj/shapeshift_holder) in target) || istype(target.loc, /obj/shapeshift_holder) ? target.loc : null
 	if(H)
 		playsound(get_turf(target), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
