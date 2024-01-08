@@ -46,11 +46,7 @@
 		var/datum/universal_icon/final_icon = lizard.copy()
 
 		if (sprite_accessory.icon_state != "none")
-			var/datum/universal_icon/body_markings_icon = uni_icon(
-				'icons/mob/mutant_bodyparts.dmi',
-				"m_body_markings_[sprite_accessory.icon_state]_ADJ",
-				dir = SOUTH
-			)
+			var/datum/universal_icon/body_markings_icon = uni_icon('icons/mob/mutant_bodyparts.dmi', "m_body_markings_[sprite_accessory.icon_state]_ADJ", dir = SOUTH)
 
 			final_icon.blend_icon(body_markings_icon, ICON_OVERLAY)
 

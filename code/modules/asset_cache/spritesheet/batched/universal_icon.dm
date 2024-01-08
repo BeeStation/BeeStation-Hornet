@@ -9,13 +9,7 @@
 	var/frame
 	var/datum/icon_transformer/transform
 
-/// Constructs a universal icon. This is done in the same manner as the icon() BYOND proc.
-/// "color" will not do anything if a transform is provided. Blend it yourself or use color_transform().
-/// Do note that transforms are NOT COPIED, and are internally lists. So take care not to re-use transforms.
-/proc/uni_icon(icon/I, icon_state="", dir=SOUTH, frame=1, datum/icon_transformer/transform=null, color=null)
-	RETURN_TYPE(/datum/universal_icon)
-	return new /datum/universal_icon(I, icon_state, dir, frame, transform, color)
-
+/// Don't instantiate these yourself, use uni_icon.
 /datum/universal_icon/New(icon/icon_file, icon_state="", dir=SOUTH, frame=1, datum/icon_transformer/transform=null, color=null)
 	#ifdef UNIT_TESTS
 	// This check is kinda slow and shouldn't fail unless a developer makes a mistake. So it'll get caught in unit tests.
@@ -106,6 +100,10 @@
 					stack_trace("Invalid icon found in icon transformer during apply()! [icon_object]")
 					continue
 				target.Blend(icon_object.to_icon(), target["blend_mode"])
+			if(RUSTG_ICONFORGE_SCALE)
+				target.Scale(target["width"], target["height"])
+			if(RUSTG_ICONFORGE_CROP)
+				target.Crop(target["x1"], target["y1"], target["x2"], target["y2"])
 	return target
 
 /datum/icon_transformer/proc/copy()
