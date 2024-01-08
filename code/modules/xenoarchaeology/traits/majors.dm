@@ -11,6 +11,8 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
 	conductivity = 10
+	///max damage
+	var/max_damage = 25
 
 /datum/xenoartifact_trait/major/shock/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -21,7 +23,7 @@
 	for(var/atom/target in focus)
 		if(iscarbon(target))
 			var/mob/living/carbon/victim = target
-			victim.electrocute_act(parent.trait_strength*0.25, parent.parent, 1, 1) //Deal a max of 25
+			victim.electrocute_act(max_damage*(parent.trait_strength/100), parent.parent, 1, 1) //Deal a max of 25
 		else if(istype(target, /obj/item/stock_parts/cell))
 			var/obj/item/stock_parts/cell/C = target
 			C.give((parent.trait_strength/100)*C.maxcharge) //Yes, this is potentially potentially powerful, but it will be cool

@@ -168,7 +168,7 @@
 	if(use_cooldown_timer && !force)
 		return
 	//Range check
-	if(get_dist(get_turf(parent), get_turf(target))> target_range)
+	if(get_dist(get_turf(parent), get_turf(target))> target_range && !force)
 		return
 	targets += target
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)
