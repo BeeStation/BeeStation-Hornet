@@ -24,6 +24,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 	var/list/exported_atoms = list()	//names of atoms sold/deleted by export
 	var/list/total_amount = list()		//export instance => total count of sold objects of its type, only exists if any were sold
 	var/list/total_value = list()		//export instance => total value of sold objects
+	var/list/exported_atoms_ref = list() //if they're not deleted they go in here for use.
 
 // external_report works as "transaction" object, pass same one in if you're doing more than one export in single go
 /proc/export_item_and_contents(atom/movable/AM, allowed_categories = EXPORT_CARGO, apply_elastic = TRUE, delete_unsold = TRUE, dry_run=FALSE, datum/export_report/external_report)
@@ -48,6 +49,8 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 			if(E.applies_to(thing, allowed_categories, apply_elastic))
 				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
 				report.exported_atoms += " [thing.name]"
+				if(!QDELETED(thing))
+					report.exported_atoms_ref += thing
 				break
 		if(!dry_run && (sold || delete_unsold))
 			if(ismob(thing))
