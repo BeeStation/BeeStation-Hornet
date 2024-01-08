@@ -112,6 +112,17 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20
 
+/obj/item/ammo_box/c38/box
+	name = "ammo box (.38)"
+	desc = "A small pack of .38 cartridges"
+	icon_state = "357OLD"
+	ammo_type = /obj/item/ammo_casing/c38
+	max_ammo = 7
+	multiple_sprites = 1
+	custom_materials = list(/datum/material/iron = 22000)
+	bullet_cost = list(/datum/material/iron = 21000)
+	base_cost = list(/datum/material/iron = 1000)
+
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"
 	icon_state = "40mm"

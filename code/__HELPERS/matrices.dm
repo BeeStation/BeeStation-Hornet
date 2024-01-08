@@ -2,6 +2,8 @@
 #define LUMA_R 0.213
 #define LUMA_G 0.715
 #define LUMA_B 0.072
+/// Helper macro for compile time translation
+#define TRANSLATE_MATRIX(offset_x, offset_y) matrix(1, 0, (offset_x), 0, 1, (offset_y))
 
 /// Datum which stores information about a matrix decomposed with decompose().
 /datum/decompose_matrix
