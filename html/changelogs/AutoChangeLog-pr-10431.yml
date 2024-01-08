@@ -1,4 +1,0 @@
-author: Mothblocks, itsmeow
-delete-after: true
-changes:
-  - code_imp: Deferred light emergency power cell creation, saving 165ms of init time.
