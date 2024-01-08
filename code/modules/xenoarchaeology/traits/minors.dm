@@ -178,10 +178,9 @@
 	playsound(get_turf(parent.parent), 'sound/effects/glass_step.ogg', 50, TRUE)
 	if(current_uses)
 		current_uses -= 1
-		if(!current_uses)
-			playsound(get_turf(parent.parent), 'sound/effects/glassbr1.ogg', 50, TRUE)
 	else if(prob(50)) //After we run out of uses, there is a 50% on use for it to break
 		parent.cooldown_override = TRUE
+		playsound(get_turf(parent.parent), 'sound/effects/glassbr1.ogg', 50, TRUE)
 		//TODO: Make this calcify the artifact - Racc
 
 /*
@@ -201,8 +200,8 @@
 	. = ..()
 	if(!.)
 		return
-	for(var/atom/movable/target in oview(parent.target_range, get_turf(parent.parent)))
-		if(length(parent.targets) > (max_extra_targets * (parent.trait_strength/100)) || target.anchored)
+	for(var/atom/target in oview(parent.target_range, get_turf(parent.parent)))
+		if(length(parent.targets) > (max_extra_targets * (parent.trait_strength/100)))
 			continue
 		parent.register_target(target)
 

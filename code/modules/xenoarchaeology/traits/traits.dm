@@ -52,8 +52,7 @@
 
 /datum/xenoartifact_trait/Destroy(force, ...)
 	. = ..()
-	for(var/atom/A in targets)
-		unregister_target(A, TRUE)
+	dump_targets()
 
 /datum/xenoartifact_trait/proc/remove_parent(datum/source)
 	SIGNAL_HANDLER

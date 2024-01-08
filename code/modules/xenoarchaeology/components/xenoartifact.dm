@@ -68,13 +68,17 @@
 	artifact_type = type || pick_weight(GLOB.xenoartifact_material_weights)
 	artifact_type = new artifact_type()
 
+	//Build priotity list
+	for(var/i in GLOB.xenoartifact_trait_priorities)
+		artifact_traits[T.priority] = list()
+
 	//If we're force-generating traits
 	if(traits)
 		for(var/datum/xenoartifact_trait/T as() in traits)
 			if(ispath(T)) //We can either pass paths, or initialized traits
 				T = new T(src) 
 			//TODO: Setup a proc for traits to register a new parent - Racc
-			//List building
+			//List building, handle custom priorities, just appened to the end
 			if(!artifact_traits[T.priority])
 				artifact_traits[T.priority] = list()
 			//handle adding trait
