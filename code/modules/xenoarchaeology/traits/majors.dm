@@ -2,7 +2,7 @@
 	priority = TRAIT_PRIORITY_MAJOR
 
 /*
-	Shock
+	Electrified
 	Electrocutes the mob target, or charges the cell target
 */
 /datum/xenoartifact_trait/major/shock
@@ -374,7 +374,7 @@
 	clear_focus()
 
 /*
-	Force
+	Forcing
 	Inacts a pushing or pulling force on the target
 */
 /datum/xenoartifact_trait/major/force
@@ -513,7 +513,7 @@
 	if(!.)
 		return
 	for(var/atom/movable/target in focus)
-		if(!target.anchored)
+		if(target.anchored)
 			continue
 		//handle being held
 		var/atom/movable/AM = parent.parent
