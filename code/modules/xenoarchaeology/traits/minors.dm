@@ -37,6 +37,7 @@
 /datum/xenoartifact_trait/minor/capacitive/New()
 	. = ..()
 	current_charge = max_charges
+	parent.cooldown_disabled = TRUE
 
 /datum/xenoartifact_trait/minor/capacitive/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -45,9 +46,11 @@
 	if(current_charge)
 		parent.reset_timer()
 		current_charge -= 1
+		parent.cooldown_disabled = TRUE
 	else
 		playsound(get_turf(parent.parent), 'sound/machines/capacitor_charge.ogg', 50, TRUE)
 		current_charge = max_charges
+		parent.cooldown_disabled = FALSE
 
 /*
 	Dense
@@ -194,7 +197,7 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	extra_target_range = 2
 	///Max amount of extra targets we can have
-	var/max_extra_targets = 5
+	var/max_extra_targets = 10
 
 /datum/xenoartifact_trait/minor/aura/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -202,6 +205,9 @@
 		return
 	for(var/atom/target in oview(parent.target_range, get_turf(parent.parent)))
 		if(length(parent.targets) > (max_extra_targets * (parent.trait_strength/100)))
+			continue
+		//Only add mobs or items
+		if(!ismob(target) || !isobj(target))
 			continue
 		parent.register_target(target)
 

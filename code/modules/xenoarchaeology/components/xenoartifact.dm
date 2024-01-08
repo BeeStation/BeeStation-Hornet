@@ -51,6 +51,8 @@
 	var/trait_cooldown = 0 SECONDS
 	///Cooldown override. If this is true, we're on cooldown
 	var/cooldown_override = FALSE
+	///Is cooldown disabled
+	var/cooldown_disabled = FALSE
 
 	///List of targets we can pass to our traits
 	var/list/targets = list()
@@ -70,7 +72,7 @@
 
 	//Build priotity list
 	for(var/i in GLOB.xenoartifact_trait_priorities)
-		artifact_traits[T.priority] = list()
+		artifact_traits[i] = list()
 
 	//If we're force-generating traits
 	if(traits)
@@ -117,8 +119,6 @@
 		return
 	else if(use_cooldown_timer)
 		reset_timer(use_cooldown_timer)
-	//Timer setup
-	use_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), use_cooldown + trait_cooldown, TIMER_STOPPABLE)
 	//Trait triggers
 	for(var/i in GLOB.xenoartifact_trait_priorities)
 		SEND_SIGNAL(src, XENOA_TRIGGER, i)
@@ -127,6 +127,9 @@
 	//Cleanup targets
 	for(var/atom/A in targets)
 		unregister_target(A)
+	//Timer setup
+	if(!cooldown_disabled)
+		use_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), use_cooldown + trait_cooldown, TIMER_STOPPABLE)
 
 /datum/component/xenoartifact/proc/build_traits(list/trait_list, amount)
 	if(!length(trait_list))

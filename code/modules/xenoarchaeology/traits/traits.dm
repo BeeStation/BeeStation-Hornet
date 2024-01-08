@@ -58,6 +58,7 @@
 	SIGNAL_HANDLER
 
 	parent = null
+	dump_targets()
 
 //Cleanly register an effected target
 /datum/xenoartifact_trait/proc/register_target(atom/target, do_trigger = FALSE)
