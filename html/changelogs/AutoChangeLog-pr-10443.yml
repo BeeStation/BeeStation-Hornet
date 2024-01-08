@@ -1,5 +1,0 @@
-author: rkz, dakae
-delete-after: true
-changes:
-  - bugfix: Plasma no longer has broken material amounts due to /datum/export fuckery
-  - bugfix: fixed broken material export formatting
