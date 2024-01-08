@@ -16,6 +16,9 @@
 	if(QDELETED(src) && !transfer)
 		new /obj/item/c_tube(T)
 
+/obj/item/stack/wrapping_paper/small
+	desc = "Wrap packages with this festive paper to make gifts. This roll looks a bit skimpy."
+	amount = 10
 
 /* Package Wrap */
 
@@ -116,6 +119,11 @@
 	. = ..()
 	if(QDELETED(src) && !transfer)
 		new /obj/item/c_tube(T)
+
+/obj/item/stack/package_wrap/small
+	desc = "You can use this to wrap items in. This roll looks a bit skimpy."
+	w_class = WEIGHT_CLASS_SMALL
+	amount = 5
 
 /obj/item/c_tube
 	name = "cardboard tube"

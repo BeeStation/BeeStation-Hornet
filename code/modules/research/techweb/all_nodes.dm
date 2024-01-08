@@ -22,6 +22,7 @@
 		"design_disk",
 		"dest_tagger",
 		"destructive_analyzer",
+		"epaperread",
 		"experimentor",
 		"fax",
 		"glasses_prescription",
@@ -43,6 +44,7 @@
 		"rdserver",
 		"rdservercontrol",
 		"rglass",
+		"salestagger",
 		"sec_38",
 		"sec_38b",
 		"sec_beanbag_slug",
@@ -57,7 +59,6 @@
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
-		"epaperread"
 	)
 
 /datum/techweb_node/mmi

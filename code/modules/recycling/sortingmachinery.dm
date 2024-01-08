@@ -8,15 +8,20 @@
 	var/giftwrapped = FALSE
 	var/sortTag = 0
 	var/obj/item/paper/note
+	var/obj/item/barcode/sticker
 
 /obj/structure/big_delivery/Initialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
 /obj/structure/big_delivery/interact(mob/user)
-	if(do_after(user, 3, src, progress = TRUE))
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
-		qdel(src)
+	to_chat(user, "<span class='notice'>You start to unwrap the package...</span>")
+	if(!do_after(user, 3, src, target = user, progress = TRUE))
+		return
+	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
+	new /obj/effect/decal/cleanable/wrapping(get_turf(user))
+	unwrap_contents()
+	qdel(src)
 
 /obj/structure/big_delivery/Destroy()
 	var/turf/T = get_turf(src)
@@ -42,6 +47,8 @@
 		else
 			. += "There's a [note.name] attached to it..."
 			. += note.examine(user)
+	if(sticker)
+		. += "There's a barcode attached to the side."
 
 /obj/structure/big_delivery/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/dest_tagger))
@@ -51,7 +58,7 @@
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
-			playsound(loc, 'sound/machines/twobeep_high.ogg', 100, 1)
+			playsound(loc, 'sound/machines/twobeep_high.ogg', 100, TRUE)
 
 	else if(istype(W, /obj/item/pen))
 		if(!user.is_literate())
@@ -84,10 +91,51 @@
 			return
 		user.visible_message("<span class='notice'>[user] attaches [W] to [src].</span>", "<span class='notice'>You attach [W] to [src].</span>")
 		note = W
+		var/overlaystring = "[icon_state]_note"
 		if(giftwrapped)
-			add_overlay(copytext("[icon_state]_note",5))
+			overlaystring = copytext(overlaystring, 5) //5 == length("gift") + 1
+		add_overlay(overlaystring)
+
+	else if(istype(W, /obj/item/sales_tagger))
+		var/obj/item/sales_tagger/tagger = W
+		if(sticker)
+			to_chat(user, "<span class='warning'>This package already has a barcode attached!</span>")
 			return
-		add_overlay("[icon_state]_note")
+		if(!(tagger.payments_acc))
+			to_chat(user, "<span class='warning'>Swipe an ID on [tagger] first!</span>")
+			return
+		if(tagger.paper_count <= 0)
+			to_chat(user, "<span class='warning'>[tagger] is out of paper!</span>")
+			return
+		user.visible_message("<span class='notice'>[user] attaches a barcode to [src].</span>", "<span class='notice'>You attach a barcode to [src].</span>")
+		tagger.paper_count -= 1
+		sticker = new /obj/item/barcode(src)
+		sticker.payments_acc = tagger.payments_acc	//new tag gets the tagger's current account.
+		sticker.percent_cut = tagger.percent_cut	//same, but for the percentage taken.
+
+		var/list/wrap_contents = src.GetAllContents()
+		for(var/obj/I in wrap_contents)
+			I.AddComponent(/datum/component/pricetag, sticker.payments_acc, tagger.percent_cut)
+		var/overlaystring = "[icon_state]_tag"
+		if(giftwrapped)
+			overlaystring = copytext(overlaystring, 5)
+		add_overlay(overlaystring)
+	else if(istype(W, /obj/item/barcode))
+		var/obj/item/barcode/stickerA = W
+		if(sticker)
+			to_chat(user, "<span class='warning'>This package already has a barcode attached!</span>")
+			return
+		if(!(stickerA.payments_acc))
+			to_chat(user, "<span class='warning'>This barcode seems to be invalid. Guess it's trash now.</span>")
+			return
+		if(!user.transferItemToLoc(W, src))
+			to_chat(user, "<span class='warning'>For some reason, you can't attach [W]!</span>")
+			return
+		sticker = stickerA
+		var/overlaystring = "[icon_state]_tag"
+		if(giftwrapped)
+			overlaystring = copytext_char(overlaystring, 5) //5 == length("gift") + 1
+		add_overlay(overlaystring)
 
 	else
 		return ..()
@@ -103,12 +151,19 @@
 			return
 		to_chat(user, "<span class='notice'>You successfully removed [O]'s wrapping !</span>")
 		O.forceMove(loc)
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
+		new /obj/effect/decal/cleanable/wrapping(get_turf(user))
+		unwrap_contents()
 		qdel(src)
 	else
 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
 			to_chat(user, "<span class='warning'>You fail to remove [O]'s wrapping!</span>")
 
+/obj/structure/big_delivery/proc/unwrap_contents()
+	if(!sticker)
+		return
+	for(var/obj/I in src.GetAllContents())
+		SEND_SIGNAL(I, COMSIG_STRUCTURE_UNWRAPPED)
 
 /obj/structure/big_delivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
 	SIGNAL_HANDLER
@@ -124,6 +179,7 @@
 	var/giftwrapped = 0
 	var/sortTag = 0
 	var/obj/item/paper/note
+	var/obj/item/barcode/sticker
 
 /obj/item/small_delivery/contents_explosion(severity, target)
 	for(var/thing in contents)
@@ -143,13 +199,20 @@
 		else
 			. += "There's a [note.name] attached to it..."
 			. += note.examine(user)
+	if(sticker)
+		. += "There's a barcode attached to the side."
 
 /obj/item/small_delivery/attack_self(mob/user)
+	to_chat(user, "<span class='notice'>You start to unwrap the package...</span>")
+	if(!do_after(user, 15, target = user))
+		return
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
+	unwrap_contents()
 	for(var/X in contents)
 		var/atom/movable/AM = X
 		user.put_in_hands(AM)
-	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
+	new /obj/effect/decal/cleanable/wrapping(get_turf(user))
 	qdel(src)
 
 /obj/item/small_delivery/attack_self_tk(mob/user)
@@ -163,7 +226,9 @@
 		for(var/X in contents)
 			var/atom/movable/AM = X
 			AM.forceMove(src.loc)
-	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
+	new /obj/effect/decal/cleanable/wrapping(get_turf(user))
+	unwrap_contents()
 	qdel(src)
 
 /obj/item/small_delivery/attackby(obj/item/W, mob/user, params)
@@ -207,10 +272,41 @@
 			return
 		user.visible_message("<span class='notice'>[user] attaches [W] to [src].</span>", "<span class='notice'>You attach [W] to [src].</span>")
 		note = W
+		var/overlaystring = "[icon_state]_note"
 		if(giftwrapped)
-			add_overlay(copytext("[icon_state]_note",5))
+			overlaystring = copytext_char(overlaystring, 5) //5 == length("gift") + 1
+		add_overlay(overlaystring)
+
+	else if(istype(W, /obj/item/sales_tagger))
+		var/obj/item/sales_tagger/tagger = W
+		if(sticker)
+			to_chat(user, "<span class='warning'>This package already has a barcode attached!</span>")
 			return
-		add_overlay("[icon_state]_note")
+		if(!(tagger.payments_acc))
+			to_chat(user, "<span class='warning'>Swipe an ID on [tagger] first!</span>")
+			return
+		if(tagger.paper_count <= 0)
+			to_chat(user, "<span class='warning'>[tagger] is out of paper!</span>")
+			return
+		user.visible_message("<span class='notice'>[user] attaches a barcode to [src].</span>", "<span class='notice'>You attach a barcode to [src].</span>")
+		tagger.paper_count -= 1
+		sticker = new /obj/item/barcode(src)
+		sticker.payments_acc = tagger.payments_acc	//new tag gets the tagger's current account.
+		sticker.percent_cut = tagger.percent_cut	//as above, as before.
+
+		var/list/wrap_contents = src.GetAllContents()
+		for(var/obj/I in wrap_contents)
+			I.AddComponent(/datum/component/pricetag, sticker.payments_acc, tagger.percent_cut)
+		var/overlaystring = "[icon_state]_tag"
+		if(giftwrapped)
+			overlaystring = copytext(overlaystring, 5)
+		add_overlay(overlaystring)
+
+/obj/item/small_delivery/proc/unwrap_contents()
+	if(!sticker)
+		return
+	for(var/obj/I in src.GetAllContents())
+		SEND_SIGNAL(I, COMSIG_ITEM_UNWRAPPED)
 
 /obj/item/small_delivery/Initialize(mapload)
 	. = ..()
@@ -274,3 +370,90 @@
 		var/n = text2num(href_list["nextTag"])
 		currTag = n
 	openwindow(usr)
+
+/obj/item/sales_tagger
+	name = "sales tagger"
+	desc = "A scanner that lets you tag wrapped items for sale, splitting the profit between you and cargo. Ctrl-Click to clear the registered account."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "salestagger"
+	item_state = "electronic"
+	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_BELT
+	///The account which is recieving the split profits.
+	var/datum/bank_account/payments_acc = null
+	var/paper_count = 10
+	var/max_paper_count = 20
+	///Details the percentage the scanned account recieves off the final sale.
+	var/percent_cut = 20
+
+/obj/item/sales_tagger/examine(mob/user)
+	. = ..()
+	. += "[src] has [paper_count]/[max_paper_count] available barcodes. Refill with paper."
+	. += "Profit split on sale is currently set to [percent_cut]%."
+
+/obj/item/sales_tagger/attackby(obj/item/I, mob/living/user, params)
+	. = ..()
+	if(istype(I, /obj/item/card/id))
+		var/obj/item/card/id/potential_acc = I
+		if(potential_acc.registered_account)
+			payments_acc = potential_acc.registered_account
+			playsound(src, 'sound/machines/ping.ogg', 40, TRUE)
+			to_chat(user, "<span class='notice'>[src] registers the ID card. Tag a wrapped item to create a barcode.</span>")
+		else if(!potential_acc.registered_account)
+			to_chat(user, "<span class='warning'>This ID card has no account registered!</span>")
+			return
+		else if(payments_acc != potential_acc.registered_account)
+			to_chat(user, "<span class='notice'>ID card already registered.</span>")
+	if(istype(I, /obj/item/paper))
+		if (!(paper_count >=  max_paper_count))
+			paper_count += 10
+			qdel(I)
+			if (paper_count >=  max_paper_count)
+				paper_count = max_paper_count
+				to_chat(user, "<span class='notice'>[src]'s paper supply is now full.</span>")
+				return
+			to_chat(user, "<span class='notice'>You refill [src]'s paper supply, you have [paper_count] left.</span>")
+			return
+		else
+			to_chat(user, "<span class='notice'>[src]'s paper supply is full.</span>")
+			return
+
+/obj/item/sales_tagger/attack_self(mob/user)
+	. = ..()
+	if(paper_count <=  0)
+		to_chat(user, "<span class='warning'>You're out of paper!'.</span>")
+		return
+	if(!payments_acc)
+		to_chat(user, "<span class='warning'>You need to swipe [src] with an ID card first.</span>")
+		return
+	paper_count -= 1
+	playsound(src, 'sound/machines/click.ogg', 40, TRUE)
+	to_chat(user, "<span class='notice'>You print a new barcode.</span>")
+	var/obj/item/barcode/new_barcode = new /obj/item/barcode(src)
+	new_barcode.payments_acc = payments_acc		//The sticker gets the scanner's registered account.
+	user.put_in_hands(new_barcode)
+
+/obj/item/sales_tagger/CtrlClick(mob/user)
+	. = ..()
+	payments_acc = null
+	to_chat(user, "<span class='notice'>You clear the registered account.</span>")
+
+/obj/item/sales_tagger/AltClick(mob/user)
+	. = ..()
+	var/potential_cut = input("How much would you like to payout to the registered card?","Percentage Profit") as num|null
+	if(!potential_cut)
+		percent_cut = 50
+	percent_cut = clamp(round(potential_cut, 1), 1, 50)
+	to_chat(user, "<span class='notice'>[percent_cut]% profit will be recieved if a package with a barcode is sold.</span>")
+
+/obj/item/barcode
+	name = "Barcode tag"
+	desc = "A tiny tag, associated with a crewmember's account. Attach to a wrapped item to give that account a portion of the wrapped item's profit."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "barcode"
+	w_class = WEIGHT_CLASS_TINY
+	///All values inheirited from the sales tagger it came from.
+	var/datum/bank_account/payments_acc = null
+	var/percent_cut = 5

@@ -30,6 +30,8 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 	if(!GLOB.exports_list.len)
 		setupExports()
 
+	var/profit_ratio = 1 //Percentage that gets sent to the seller, rest goes to cargo.
+
 	var/list/contents = AM.GetAllContents()
 
 	var/datum/export_report/report = external_report
@@ -46,7 +48,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 			if(!E)
 				continue
 			if(E.applies_to(thing, allowed_categories, apply_elastic))
-				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
+				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic, profit_ratio)
 				report.exported_atoms += " [thing.name]"
 				break
 		if(!dry_run && (sold || delete_unsold))
@@ -161,10 +163,17 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 	var/the_cost = get_cost(O, allowed_categories , apply_elastic)
 	///Quantity of the object in question.
 	var/amount = get_amount(O)
+	var/profit_ratio = 0
 
 	if(amount <=0 || the_cost <=0)
 		return FALSE
-
+	if(dry_run == FALSE)
+		if(SEND_SIGNAL(O, COMSIG_ITEM_SOLD, item_value = get_cost(O, allowed_categories , apply_elastic)) & COMSIG_ITEM_SPLIT_VALUE)
+			profit_ratio = SEND_SIGNAL(O, COMSIG_ITEM_SPLIT_PROFIT)
+			the_cost = the_cost*((100-profit_ratio)/100)
+	else
+		profit_ratio = SEND_SIGNAL(O, COMSIG_ITEM_SPLIT_PROFIT)
+		the_cost = the_cost*((100-profit_ratio)/100)
 	report.total_value[src] += the_cost
 
 	if(istype(O, /datum/export/material))
