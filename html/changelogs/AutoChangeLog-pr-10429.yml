@@ -1,0 +1,6 @@
+author: LemonInTheDark, MrStonedOne, itsmeow
+delete-after: true
+changes:
+  - code_imp: Optimized how the master controller distributes roundstart subsystem
+      initializations, greatly reducing the amount of time between the round starting
+      and gaining the ability to move.
