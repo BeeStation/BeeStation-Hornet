@@ -1,0 +1,5 @@
+author: Mothblocks, LemonInTheDark, itsmeow
+delete-after: true
+changes:
+  - code_imp: Optimized various atom initializations, reducing init times by ~0.4sec.
+  - bugfix: Fixed slot machines being invisible.
