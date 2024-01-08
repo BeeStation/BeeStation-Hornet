@@ -43,8 +43,10 @@
 		. += "<span class='notice'>The turnstile panel is tightly <b>screwed</b> to the frame.</span>"
 	if(state == TURNSTILE_CIRCUIT_EXPOSED)
 		. += "<span class='notice'>The turnstile circuitboard is exposed, you could <b>pry it</b> from the frame.</span>"
-	if(state == TURNSTILE_SHELL)
-		. += "<span class='notice'>The turnstile frame is empty, ready to be sliced apart through <b>welding</b>.</span>"
+	if(state == TURNSTILE_SHELL && anchored)
+		. += "<span class='notice'>The turnstile frame is empty but firmly <b>wrenched</b> to the floor.</span>"
+	if(state == TURNSTILE_SHELL && !anchored)
+		. += "<span class='notice'>The turnstile frame is empty and unsecured, ready to be sliced through <b>welding</b>.</span>"
 
 //Executive officer's line variant. For rule of cool.
 /*/obj/machinery/turnstile/xo
@@ -150,6 +152,13 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
+
+/obj/machinery/turnstile/proc/can_be_rotated(mob/user, rotation_type)
+	if(!anchored && state == TURNSTILE_SHELL)
+		return TRUE
+	to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
+	return FALSE
 
 /obj/machinery/turnstile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -162,11 +171,12 @@
 			var/mob/living/carbon/human/H = arrived
 			var/obj/item/card/id/id_card = H.get_idcard(hand_first = TRUE)
 			if(ACCESS_PRISONER in id_card?.GetAccess())
-				id_card.access -= list(ACCESS_PRISONER) //Prisoner IDs can only be used once
+				id_card.access -= list(ACCESS_PRISONER) //Prisoner IDs can only be used once to exit the turnstile
+				to_chat(H, "<span class='warning'>Your prisoner ID access has been purged, you won't be able to exit the prison through the turnstile again!</span>")
 				addtimer(CALLBACK(src, PROC_REF(exit_push), H), 2)
 
 /obj/machinery/turnstile/proc/exit_push(atom/movable/pushed) //Just "pushes" prisoners that are being released out of the turnstile so that they don't trap themselves.
-	var/movedir = pushed.dir
+	var/movedir = turn(dir, 180) //Set to be the opposite of the turnstile dir, as that would always be the exit, unless the turnstile has been built incorrectly.
 	pushed.Move(get_step(pushed, movedir), movedir)
 
 ///Handle movables (especially mobs) bumping into us.
@@ -183,18 +193,38 @@
 	playsound(src,'sound/machines/deniedbeep.ogg',50,0,3)
 
 ///Shock attacker if we're broken
-/obj/machinery/turnstile/attackby(obj/item/item, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "turnstile", "turnstile", item))
+/obj/machinery/turnstile/attackby(obj/item/I, mob/user, params)
+	if(default_deconstruction_screwdriver(user, "turnstile", "turnstile", I))
 		update_appearance()//add proper panel icons
 		state = TURNSTILE_CIRCUIT_EXPOSED
 		return
-	if(item.tool_behaviour == TOOL_CROWBAR && panel_open && circuit != null)
-		to_chat(user, "<span class='notice'>You start tearing out the circuitry...")
+	if(I.tool_behaviour == TOOL_CROWBAR && panel_open && circuit != null)
+		to_chat(user, "<span class='notice'>You start tearing out the circuitry...</span>")
 		if(do_after(user, 3 SECONDS))
+			I.play_tool_sound(src, 50)
 			circuit.forceMove(loc)
 			circuit = null
 			state = TURNSTILE_SHELL
 		return
+	if(istype(I, /obj/item/circuitboard/machine/turnstile) && state == TURNSTILE_SHELL && anchored)
+		to_chat(user, "<span class='notice'>You add the circuitboard to the frame.</span>")
+		circuit = new/obj/item/circuitboard/machine/turnstile(src)
+		qdel(I)
+		state = TURNSTILE_CIRCUIT_EXPOSED
+		return
+	if(I.tool_behaviour == TOOL_WRENCH && state == TURNSTILE_SHELL)
+		if(anchored)
+			to_chat(user, "<span class='notice'>You unanchor the turnstile frame...</span>")
+			if(do_after(user, 3 SECONDS))
+				I.play_tool_sound(src, 50)
+				anchored = FALSE
+			return
+		if(!anchored)
+			to_chat(user, "<span class='notice'>You start anchoring the turnstile frame...</span>")
+			if(do_after(user, 3 SECONDS))
+				I.play_tool_sound(src, 50)
+				anchored = TRUE
+			return
 	. = ..()
 	if(machine_stat & BROKEN)
 		try_shock(user)
@@ -603,7 +633,7 @@
 
 		// For adjusting the time of pre-existing prisoners
 		if("adjust_time")
-			var/obj/item/card/id/prisoner/id = locate() in GLOB.prisoner_ids
+			var/obj/item/card/id/prisoner/id = locate(params["id"]) in GLOB.prisoner_ids
 			var/value = text2num(params["adjust"])
 			if(!istype(id))
 				return
@@ -614,7 +644,7 @@
 				id.sentence = clamp(id.sentence + value , 0 , MAX_TIMER)
 
 		if("release")
-			var/obj/item/card/id/prisoner/id = locate() in GLOB.prisoner_ids
+			var/obj/item/card/id/prisoner/id = locate(params["id"]) in GLOB.prisoner_ids
 			if(!istype(id))
 				return
 			if(alert("Are you sure you want to release [id.registered_name]", "Prisoner Release", "Yes", "No") != "Yes")
@@ -624,7 +654,7 @@
 			usr.log_message("[key_name(usr)] has early-released [id] ([id.loc])", LOG_ATTACK)
 			id.served_time = id.sentence
 		if("escaped")
-			var/obj/item/card/id/prisoner/id = locate() in GLOB.prisoner_ids
+			var/obj/item/card/id/prisoner/id = locate(params["id"]) in GLOB.prisoner_ids
 			if(!istype(id))
 				return
 			if(alert("Do you want to reset the sentence of [id.registered_name]?", "Confirmation", "Yes", "No") != "Yes")

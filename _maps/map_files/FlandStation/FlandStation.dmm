@@ -50951,6 +50951,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/machinery/light/small,
 /turf/open/floor/prison,
 /area/security/prison/shielded)
 "nlt" = (
@@ -53186,9 +53187,6 @@
 /area/security/checkpoint/medical)
 "nMC" = (
 /obj/structure/chair,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/security/prison/shielded)
 "nMK" = (
@@ -58014,11 +58012,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/turnstile{
-	dir = 4
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery/red,
+/obj/machinery/turnstile{
+	dir = 1
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "peu" = (
@@ -63087,9 +63085,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/machinery/light/small{
-	dir = 8
 	},
 /turf/open/floor/prison,
 /area/security/prison/shielded)
@@ -87151,13 +87146,8 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
-	},
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrig";
-	name = "Prison Release";
-	req_one_access_txt = "1;4"
+/obj/machinery/turnstile{
+	dir = 4
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
@@ -91857,6 +91847,9 @@
 	pixel_y = 32
 	},
 /obj/item/kirbyplants/random,
+/obj/machinery/turnstile{
+	dir = 4
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "xaP" = (
@@ -97385,6 +97378,12 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/warehouse)
+"yen" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/security/prison/shielded)
 "yer" = (
 /turf/open/floor/plasteel/ridged/steel,
 /area/engine/storage_shared)
@@ -133997,7 +133996,7 @@ mzB
 sDy
 wrM
 wYw
-toy
+yen
 nMC
 lhD
 qpN

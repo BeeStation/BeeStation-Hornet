@@ -2232,10 +2232,6 @@
 "agX" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/structure/closet/secure_closet/genpop,
-/obj/machinery/light{
-	dir = 4;
-	light_color = "#e8eaff"
-	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "agZ" = (
@@ -7154,7 +7150,10 @@
 /area/maintenance/starboard/fore)
 "avJ" = (
 /obj/structure/closet/crate/bin,
-/obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Brig Cells";
+	dir = 1
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "avL" = (
@@ -10165,9 +10164,6 @@
 "aGE" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
-	},
-/obj/machinery/light{
-	dir = 8
 	},
 /obj/structure/chair{
 	dir = 4
@@ -47006,6 +47002,10 @@
 	dir = 1
 	},
 /obj/structure/closet/secure_closet/genpop,
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "gfr" = (
@@ -51363,9 +51363,6 @@
 /turf/closed/wall,
 /area/quartermaster/warehouse)
 "hXz" = (
-/obj/machinery/turnstile{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -51376,6 +51373,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery/red,
+/obj/machinery/turnstile{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "hXA" = (
@@ -58701,6 +58701,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
+"laq" = (
+/obj/machinery/turnstile,
+/turf/closed/wall/r_wall,
+/area/security/prison)
 "laK" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 9
@@ -70409,6 +70413,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/machinery/light/small,
 /turf/open/floor/prison,
 /area/security/prison)
 "pWQ" = (
@@ -73935,6 +73940,9 @@
 	dir = 1;
 	pixel_y = -22
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "rqC" = (
@@ -76581,10 +76589,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/surgery)
 "srG" = (
-/obj/machinery/camera{
-	c_tag = "Brig Cells";
-	dir = 1
-	},
+/obj/machinery/light,
 /turf/open/floor/prison,
 /area/security/prison)
 "srJ" = (
@@ -90271,17 +90276,9 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "xZz" = (
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
-	},
 /obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrig";
-	name = "Prison Release";
-	req_one_access_txt = "1;4"
+/obj/machinery/turnstile{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -114830,7 +114827,7 @@ aer
 cwO
 bUa
 aav
-aav
+laq
 aav
 aav
 aav

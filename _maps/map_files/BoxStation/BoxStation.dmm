@@ -3239,6 +3239,9 @@
 "aKK" = (
 /obj/structure/table,
 /obj/machinery/recharger,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/main)
 "aKL" = (
@@ -17907,9 +17910,6 @@
 	buildstackamount = 0;
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/wood,
 /area/security/detectives_office)
@@ -19278,12 +19278,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"dsM" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/bombcloset/security,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel,
-/area/security/main)
 "dto" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
@@ -19363,13 +19357,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/ai_monitored/storage/eva)
-"dua" = (
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "dud" = (
 /obj/structure/chair{
 	dir = 8
@@ -23938,15 +23925,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 8
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -28224,9 +28210,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "hOp" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -28825,6 +28808,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/command)
+"iam" = (
+/obj/machinery/light,
+/turf/open/space/basic,
+/area/space)
 "iaG" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -29076,14 +29063,6 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "ihu" = (
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrig";
-	name = "Prison Release";
-	req_one_access_txt = "1;4"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -29106,6 +29085,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/machinery/turnstile{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -29741,7 +29723,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/light,
 /obj/machinery/camera/autoname{
 	dir = 1;
 	network = list("minisat")
@@ -30280,10 +30261,6 @@
 "iJj" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
-	},
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -33472,9 +33449,6 @@
 "knf" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/machinery/light{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -40661,6 +40635,11 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai_upload)
+"nBn" = (
+/obj/structure/closet/l3closet/security,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/security/main)
 "nBC" = (
 /obj/machinery/power/turbine{
 	luminosity = 2
@@ -43224,9 +43203,8 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "oUL" = (
-/obj/machinery/light{
-	dir = 4;
-	light_color = "#c1caff"
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -45602,8 +45580,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/turnstile,
 /obj/machinery/door/firedoor,
+/obj/machinery/turnstile{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "qhu" = (
@@ -47924,13 +47904,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
-"rkl" = (
-/obj/machinery/light{
-	dir = 4;
-	light_color = "#c1caff"
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "rkm" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -48917,6 +48890,13 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
+/turf/open/floor/plasteel,
+/area/security/brig)
+"rGu" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "rGD" = (
@@ -50621,6 +50601,12 @@
 	},
 /turf/open/floor/carpet,
 /area/library)
+"swu" = (
+/obj/structure/closet/bombcloset/security,
+/obj/effect/turf_decal/bot,
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/security/main)
 "swy" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -54812,9 +54798,6 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "uoH" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
 /obj/structure/sign/warning/pods{
@@ -54823,6 +54806,10 @@
 /obj/machinery/camera/autoname{
 	dir = 8;
 	network = list("ss13","engine")
+	},
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -55678,11 +55665,11 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "uOl" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/l3closet/security,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/structure/closet/secure_closet/security/sec,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/security/main)
 "uOw" = (
@@ -56735,9 +56722,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 4;
-	light_color = "#e8eaff"
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -57729,22 +57715,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
-"vUB" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 4;
-	light_color = "#e8eaff"
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/fore)
 "vVj" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/yellow{
@@ -62401,9 +62371,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
-	},
-/obj/machinery/light{
-	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -87478,7 +87445,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+iam
 aaa
 aaa
 aaa
@@ -89052,7 +89019,7 @@ bEb
 jNX
 saC
 jNX
-rkl
+jNX
 aai
 aai
 gNK
@@ -89543,7 +89510,7 @@ lYF
 agj
 wJw
 jFS
-wJu
+rGu
 aiX
 nNX
 xCi
@@ -89801,7 +89768,7 @@ ipO
 aGw
 fcH
 afM
-dua
+afM
 fSP
 lYF
 bOm
@@ -91620,7 +91587,7 @@ rgo
 wLe
 ptH
 fIp
-vUB
+fIp
 bXG
 hMV
 cfE
@@ -93410,8 +93377,8 @@ cQb
 wGV
 oEc
 kYS
-mSY
-afU
+ygx
+ygx
 afU
 afU
 uum
@@ -93925,7 +93892,7 @@ afU
 qHe
 kYS
 afU
-ygx
+swu
 adR
 tGB
 bhg
@@ -94182,7 +94149,7 @@ afU
 qHe
 kYS
 afU
-ygx
+nBn
 adR
 hxU
 bhg
@@ -94438,7 +94405,7 @@ rTv
 uoH
 qHe
 uOl
-dsM
+afW
 afW
 xQV
 aoJ

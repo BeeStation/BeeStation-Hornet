@@ -46425,6 +46425,9 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "hMK" = (
@@ -68468,15 +68471,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/escape)
-"pvQ" = (
-/obj/machinery/light{
-	light_color = "#7AC3FF"
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/security/prison)
 "pvU" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /obj/effect/decal/cleanable/dirt,
@@ -71830,9 +71824,6 @@
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai)
 "qBK" = (
-/obj/machinery/turnstile{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -71845,6 +71836,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/turnstile,
 /turf/open/floor/prison,
 /area/security/prison)
 "qCt" = (
@@ -76547,6 +76539,7 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/light/small,
 /turf/open/floor/prison,
 /area/security/prison)
 "sgR" = (
@@ -83665,9 +83658,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/camera/autoname{
 	dir = 10;
 	network = list("ss13","medbay")
@@ -86688,9 +86678,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
@@ -86701,14 +86688,9 @@
 	id = "brigfront";
 	name = "Brig Blast door"
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrig";
-	name = "Prison Release";
-	req_one_access_txt = "1;4"
+/obj/machinery/turnstile{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -144012,7 +143994,7 @@ rHf
 bZI
 gOk
 mCT
-pvQ
+vDS
 aFm
 aFm
 aFm
