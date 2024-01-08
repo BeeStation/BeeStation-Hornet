@@ -1,5 +1,0 @@
-author: PinkSuzuky, Absolucy, Rkz
-delete-after: true
-changes:
-  - bugfix: Alternate Appearances (Such as when you're holding a potted plant) are
-      no longer removed when a living thing gets gibbed.
