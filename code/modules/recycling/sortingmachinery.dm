@@ -132,6 +132,9 @@
 			to_chat(user, "<span class='warning'>For some reason, you can't attach [W]!</span>")
 			return
 		sticker = stickerA
+		var/list/wrap_contents = src.GetAllContents()
+		for(var/obj/I in wrap_contents)
+			I.AddComponent(/datum/component/pricetag, sticker.payments_acc, sticker.percent_cut)
 		var/overlaystring = "[icon_state]_tag"
 		if(giftwrapped)
 			overlaystring = copytext_char(overlaystring, 5) //5 == length("gift") + 1
