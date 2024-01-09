@@ -23209,6 +23209,9 @@
 /obj/machinery/turnstile{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "hAD" = (
@@ -52669,6 +52672,10 @@
 	dir = 4;
 	pixel_y = -5
 	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = -5
+	},
 /turf/open/floor/carpet,
 /area/hallway/primary/fore)
 "rie" = (
@@ -55047,9 +55054,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "rUU" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/chair/fancy/comfy{
 	dir = 4
 	},

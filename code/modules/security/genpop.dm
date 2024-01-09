@@ -280,6 +280,7 @@
 	if(istype(mover, /obj/vehicle/ridden) && mover.buckled_mobs)
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50)
 		say("ERROR. For security reasons, wheelchairs and other ridden devices are not allowed through the turnstile.")
+		flick("deny", src)
 		return FALSE
 	//Everyone with access can drag you out. Prisoners can't drag each other out
 	if(!allowed && mover.pulledby && ishuman(mover.pulledby))
