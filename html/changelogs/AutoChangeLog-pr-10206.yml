@@ -1,0 +1,5 @@
+author: rkz, spookydonut
+delete-after: true
+changes:
+  - server: removed SS_NO_TICK_CHECK for alleged free performance in night cycles,
+      shuttle, & sun subsystems
