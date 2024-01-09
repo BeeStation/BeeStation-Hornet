@@ -76,6 +76,9 @@
 #define VV_HK_ADDCOMPONENT "addcomponent"
 #define VV_HK_MODIFY_TRAITS "modtraits"
 
+// /datum/weakref
+#define VV_HK_TRACK_REF "track_ref"
+
 // /atom
 #define VV_HK_MODIFY_TRANSFORM "atom_transform"
 #define VV_HK_MODIFY_GREYSCALE "modify_greyscale"
