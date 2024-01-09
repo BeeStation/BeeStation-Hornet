@@ -243,7 +243,7 @@
 		return
 	for(var/atom/M in targets)
 		//We have to check the range ourselves
-		if(get_dist(get_turf(parent.parent), get_turf(M)) <= range)
+		if(get_dist(get_turf(sentient_artifact.parent), get_turf(M)) <= range)
 			sentient_artifact.register_target(M, TRUE)
 	if(length(sentient_artifact.targets))	
 		sentient_artifact.trigger(TRUE)
@@ -413,16 +413,30 @@
 		A.block_upgrade_walk = old_block_upgrade
 
 /*
-	Light
+	Aerodynamic
 	Makes the artifact easy to throw
 */
-//datum/xenoartifact_trait/minor/light
+/datum/xenoartifact_trait/minor/aerodynamic
+	examine_desc = "aerodynamic"
+	label_name = "Aerodynamic"
+	label_desc = "Aerodynamic: The Artifact's design seems to incorporate shielAerodynamicded elements. This will allow the artifact to be thrown further."
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	///Old throw range
+	var/old_throw_range
 
-/*
-	Heavy
-	Makes the artifact hard to throw
-*/
-//datum/xenoartifact_trait/minor/heavy
+/datum/xenoartifact_trait/minor/aerodynamic/New(atom/_parent)
+	. = ..()
+	var/atom/movable/A = parent.parent
+	if(ismovable(A))
+		old_throw_range = A.throw_range
+		A.throw_range = 9
+
+/datum/xenoartifact_trait/minor/aerodynamic/Destroy(force, ...)
+	. = ..()
+	var/atom/movable/A = parent.parent
+	if(ismovable(A))
+		A.throw_range = old_throw_range
 
 /*
 	Signaller
@@ -451,6 +465,7 @@
 /datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
 	. = ..()
 	SSradio.remove_object(src, FREQ_SIGNALER)
+	QDEL_NULL(signal)
 
 /datum/xenoartifact_trait/minor/signaller/trigger(datum/source, _priority, atom/override)
 	. = ..()
