@@ -59,7 +59,6 @@
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		icon_x_offset = 4
 		icon_y_offset = 4
-		icon = smooth_icon
 	return ..()
 
 /turf/open/floor/plating/ashplanet/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
