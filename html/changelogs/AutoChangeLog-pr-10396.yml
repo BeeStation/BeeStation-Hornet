@@ -1,0 +1,7 @@
+author: EvilDragonfiend (QoL), Mothblocks (TG weakref docs)
+delete-after: true
+changes:
+  - code_imp: Weakref VV QoL - View the original reference. Available from weakref
+      vv window
+  - code_imp: added 2 variables at weakref datum to diagnose at glance
+  - code_imp: added weakref docs
