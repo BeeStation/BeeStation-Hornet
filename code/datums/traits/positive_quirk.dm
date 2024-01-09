@@ -80,7 +80,7 @@
 
 /datum/quirk/light_step
 	name = "Light Step"
-	desc = "You walk with a gentle step; stepping on sharp objects is quieter, less painful and you won't leave footprints behind you."
+	desc = "You walk with a gentle step; stepping on sharp objects is quieter, less painful and you won't leave footprints behind you. Also, your hands and clothes will not get messed in case of stepping in blood.""
 	icon = "shoe-prints"
 	value = 1
 	mob_trait = TRAIT_LIGHT_STEP
