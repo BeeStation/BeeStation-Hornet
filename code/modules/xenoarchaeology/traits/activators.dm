@@ -77,7 +77,7 @@
 	var/obj/item/I = item
 	if(isitem(I) && I.is_hot())
 		lit = TRUE
-		search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown)
+		search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 		START_PROCESSING(SSobj, src)
 
 /datum/xenoartifact_trait/activator/flammable/process(delta_time)
@@ -127,7 +127,7 @@
 
 /datum/xenoartifact_trait/activator/timed/New(atom/_parent)
 	. = ..()
-	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown)
+	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 	START_PROCESSING(SSobj, src)
 
 /datum/xenoartifact_trait/activator/timed/trigger_artifact(atom/target, force)

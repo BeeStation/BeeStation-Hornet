@@ -478,6 +478,9 @@
 		return
 	radio_connection.post_signal(src, signal)
 
+/datum/xenoartifact_trait/minor/signaller/proc/receive_signal(datum/signal/signal)
+	return
+
 /*
 	Anchor
 	Anchors the artifact

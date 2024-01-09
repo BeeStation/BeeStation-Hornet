@@ -411,7 +411,6 @@
 	dump_targets()
 	clear_focus()
 
-
 /*
 	Echoing
 	The artifact plays a random sound
