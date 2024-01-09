@@ -876,14 +876,17 @@
 	S.action.Grant(src)
 
 ///Remove a spell from the mobs spell list
-/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell)
+/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell, delete_spell = TRUE)
 	if(!spell)
 		return
 	for(var/X in mob_spell_list)
 		var/obj/effect/proc_holder/spell/S = X
 		if(istype(S, spell))
 			mob_spell_list -= S
-			qdel(S)
+			if(delete_spell)
+				qdel(S)
+			else
+				S.action.Remove(src)
 
 ///Return any anti magic atom on this mob that matches the magic type
 /mob/proc/anti_magic_check(magic = TRUE, holy = FALSE, major = TRUE, self = FALSE)

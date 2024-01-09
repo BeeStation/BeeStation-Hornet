@@ -218,7 +218,7 @@
 		if(length(description_category[i]))
 			temp = "[temp][pick(description_category[i])] "
 		else if(!unknown_used)
-			temp = "[temp]unknown "
+			temp = "unknown [temp]"
 			unknown_used = TRUE
 	return temp
 
