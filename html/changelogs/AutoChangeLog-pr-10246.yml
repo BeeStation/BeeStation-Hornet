@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - code_imp: get_active_held_item and is_holding_item_of_type now returns null instead
+      of a zero
