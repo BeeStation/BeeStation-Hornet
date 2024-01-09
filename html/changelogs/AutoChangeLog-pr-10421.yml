@@ -1,0 +1,4 @@
+author: ToasterBan
+delete-after: true
+changes:
+  - bugfix: Mindbreaker Toxin now properly prevents hallucinations in RDS
