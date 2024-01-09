@@ -301,3 +301,41 @@
 */
 //datum/xenoartifact_trait/minor/heavy
 
+/*
+	Signaller
+	Sends a signal when the artifact is activated
+*/
+/datum/xenoartifact_trait/minor/signaller
+	label_name = "Signaller"
+	label_desc = "Signaller: The Artifact's design seems to incorporate signalling elements. This will cause the artifact to send a signal when activated."
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	///Signal code
+	var/code
+	///Signal frequency
+	var/datum/radio_frequency/radio_connection
+	//Signal
+	var/datum/signal/signal
+	
+/datum/xenoartifact_trait/minor/signaller/New(atom/_parent)
+	. = ..()
+	//Code
+	code = rand(0, 100)
+	//Signal
+	signal = new(list("code" = code))
+	//Frequency
+	radio_connection = SSradio.add_object(src, FREQ_SIGNALER, "[RADIO_XENOA]_[REF(src)]")
+
+/datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
+	. = ..()
+	SSradio.remove_object(src, FREQ_SIGNALER)
+
+/datum/xenoartifact_trait/minor/signaller/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	INVOKE_ASYNC(src, PROC_REF(do_signal))
+
+/datum/xenoartifact_trait/minor/signaller/proc/do_signal()
+	if(!radio_connection || !signal)
+		return
+	radio_connection.post_signal(src, signal)
