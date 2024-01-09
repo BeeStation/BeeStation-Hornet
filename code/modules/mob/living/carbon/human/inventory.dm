@@ -141,6 +141,10 @@
 	if(!not_handled)
 		I.equipped(src, slot)
 
+		// Send a signal for when we equip an item that used to cover our feet/shoes. Used for bloody feet
+		if((I.body_parts_covered & FEET) || (I.flags_inv | I.transparent_protection) & HIDESHOES)
+			SEND_SIGNAL(src, COMSIG_CARBON_EQUIP_SHOECOVER, I, slot, initial, redraw_mob, swap)
+
 	return not_handled //For future deeper overrides
 
 /mob/living/carbon/human/equipped_speed_mods()
@@ -228,6 +232,10 @@
 		s_store = null
 		if(!QDELETED(src))
 			update_inv_s_store()
+
+	// Send a signal for when we unequip an item that used to cover our feet/shoes. Used for bloody feet
+	if((I.body_parts_covered & FEET) || (I.flags_inv | I.transparent_protection) & HIDESHOES)
+		SEND_SIGNAL(src, COMSIG_CARBON_UNEQUIP_SHOECOVER, I, force, newloc, no_move, invdrop, silent)
 
 /mob/living/carbon/human/toggle_internals(obj/item/tank, is_external = FALSE)
 	// Just close the tank if it's the one the mob already has open.

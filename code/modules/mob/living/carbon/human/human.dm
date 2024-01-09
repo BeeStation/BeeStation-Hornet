@@ -28,13 +28,14 @@
 
 	. = ..()
 
-	AddComponent(/datum/component/personal_crafting)
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
+	AddComponent(/datum/component/personal_crafting)
+	AddComponent(/datum/component/bloodysoles/feet)
+	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
 	AddElement(/datum/element/mechanical_repair)
 
 /mob/living/carbon/human/proc/setup_human_dna()

@@ -70,27 +70,15 @@
 
 //Add "bloodiness" of this blood's type, to the human's shoes
 //This is on /cleanable because fuck this ancient mess
-/obj/effect/decal/cleanable/proc/on_entered(datum/source, atom/movable/O)
+/obj/effect/decal/cleanable/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+	if(iscarbon(AM) && blood_state && bloodiness >= 40)
+		SEND_SIGNAL(AM, COMSIG_STEP_ON_BLOOD, src)
+		update_appearance()
 
-	if(ishuman(O))
-		var/mob/living/carbon/human/H = O
-		if(H.shoes && blood_state && bloodiness && !HAS_TRAIT(H, TRAIT_LIGHT_STEP))
-			var/obj/item/clothing/shoes/S = H.shoes
-			if(!S.can_be_bloody)
-				return
-			var/add_blood = 0
-			if(bloodiness >= BLOOD_GAIN_PER_STEP)
-				add_blood = BLOOD_GAIN_PER_STEP
-			else
-				add_blood = bloodiness
-			bloodiness -= add_blood
-			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS,S.bloody_shoes[blood_state]+add_blood)
-			S.add_blood_DNA(return_blood_DNA())
-			S.blood_state = blood_state
-			update_icon()
-			H.update_inv_shoes()
-
+/**
+ * Checks if this decal is a valid decal that can be blood crawled in.
+ */
 /obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
 	if((blood_state != BLOOD_STATE_OIL) && (blood_state != BLOOD_STATE_NOT_BLOODY))
 		return bloodiness
