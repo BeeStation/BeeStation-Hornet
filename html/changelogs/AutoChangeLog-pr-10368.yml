@@ -1,0 +1,5 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - tweak: Making tables from iron will produce the default tables again, instead
+      of 'iron tables'
