@@ -25,7 +25,7 @@
 	active_power_usage = 200
 	power_channel = AREA_USAGE_EQUIP
 	max_integrity = 300
-	integrity_failure = 100
+	integrity_failure = 0.33
 	/// A reference to an `/obj/item/paper` inside the copier, if one is inserted. Otherwise null.
 	var/obj/item/paper/paper_copy
 	/// A reference to an `/obj/item/photo` inside the copier, if one is inserted. Otherwise null.

@@ -15,7 +15,7 @@
 	var/alt_inhands_file = 'icons/mob/alienqueen.dmi'
 	var/game_end_timer
 
-/mob/living/carbon/alien/humanoid/royal/can_inject()
+/mob/living/carbon/alien/humanoid/royal/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
 	return FALSE
 
 /mob/living/carbon/alien/humanoid/royal/queen/proc/maidify()

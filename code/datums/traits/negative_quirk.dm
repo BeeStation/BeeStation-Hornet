@@ -144,7 +144,6 @@
 	if(is_species(H, /datum/species/moth) && prob(50))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
 	else
-		//surely there is a better way to do this
 		switch(quirk_holder.assigned_role)
 			//Service jobs
 			if(JOB_NAME_CLOWN)
@@ -427,7 +426,7 @@
 	var/slot_string = "limb"
 
 /datum/quirk/prosthetic_limb/on_spawn()
-	var/limb_slot = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/limb_slot = read_choice_preference(/datum/preference/choiced/quirk/prosthetic_limb_location) || pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) // default to random
 	var/mob/living/carbon/human/H = quirk_target
 	var/obj/item/bodypart/old_part = H.get_bodypart(limb_slot)
 	var/obj/item/bodypart/prosthetic
@@ -542,6 +541,7 @@
 
 /datum/quirk/junkie/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
+	reagent_type = reagent_type || read_choice_preference(/datum/preference/choiced/quirk/junkie_drug)
 	if (!reagent_type)
 		reagent_type = pick(drug_list)
 	reagent_instance = new reagent_type()
@@ -603,7 +603,9 @@
 	process = TRUE
 
 /datum/quirk/junkie/smoker/on_spawn()
-	drug_container_type = pick(/obj/item/storage/fancy/cigarettes,
+	drug_container_type = read_choice_preference(/datum/preference/choiced/quirk/smoker_cigarettes)
+	if(!drug_container_type)
+		drug_container_type = pick(/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/fancy/cigarettes/cigpack_midori,
 		/obj/item/storage/fancy/cigarettes/cigpack_uplift,
 		/obj/item/storage/fancy/cigarettes/cigpack_robust,
@@ -648,7 +650,9 @@
 	var/obj/item/reagent_containers/food/drinks/bottle/drink_instance
 
 /datum/quirk/alcoholic/on_spawn()
-	drink_instance = pick(drink_types)
+	drink_instance = read_choice_preference(/datum/preference/choiced/quirk/alcohol_type)
+	if(!drink_instance)
+		drink_instance = pick(drink_types)
 	drink_instance = new drink_instance()
 	var/list/slots = list("in your backpack" = ITEM_SLOT_BACKPACK)
 	var/mob/living/carbon/human/H = quirk_target
@@ -709,7 +713,7 @@
 	var/trauma
 
 /datum/quirk/trauma/add()
-	trauma = new trauma_type
+	trauma = new trauma_type(read_choice_preference(/datum/preference/choiced/quirk/phobia))
 	var/mob/living/carbon/human/H = quirk_target
 	H.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 

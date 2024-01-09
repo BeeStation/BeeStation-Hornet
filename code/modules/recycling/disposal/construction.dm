@@ -34,7 +34,7 @@
 		var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
 		rotcomp.BaseRot(null,ROTATION_FLIP)
 
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 	if(!initial(pipe_type.density)) //This prevents dense disposals machinery from being hidable under floor tiles
 		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)

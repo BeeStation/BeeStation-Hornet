@@ -6,7 +6,7 @@
 	density = TRUE
 	drag_slowdown = 1.5		// Same as a prone mob
 	max_integrity = 200
-	integrity_failure = 50
+	integrity_failure = 0.25
 	armor = list(MELEE = 20,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60, STAMINA = 0)
 	pass_flags_self = LETPASSCLICKS
 	var/contents_initialised = FALSE
@@ -46,11 +46,17 @@
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
 
 /obj/structure/closet/Initialize(mapload)
-	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
-		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	. = ..()
+	// if closed, any item at the crate's loc is put in the contents
+	if (mapload && !opened)
+		. = INITIALIZE_HINT_LATELOAD
 	populate_contents_immediate()
 	update_icon()
+
+/obj/structure/closet/LateInitialize()
+	. = ..()
+
+	take_contents()
 
 /// Used to immediately fill a closet on spawn.
 /// Use this if you are spawning any items which can be tracked inside the closet.
