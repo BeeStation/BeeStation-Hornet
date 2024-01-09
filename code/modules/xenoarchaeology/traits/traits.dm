@@ -36,9 +36,6 @@
 	var/weight = 0 //KG
 	var/conductivity = 0 //microsiemens per centimeter - I had to look this up - Don't worry about making this accurate / reasonable
 
-/datum/xenoartifact_trait/minor
-/datum/xenoartifact_trait/malfunction
-
 /datum/xenoartifact_trait/New(atom/_parent)
 	. = ..()
 	parent = _parent
