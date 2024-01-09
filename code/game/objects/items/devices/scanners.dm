@@ -999,7 +999,7 @@ GENE SCANNER
 	name = "virus extrapolator"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "extrapolator_scan"
-	desc = "A bulky scanning device, used to extract genetic material of potential pathogens"
+	desc = "A bulky scanning device, used to extract genetic material of potential pathogens."
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
@@ -1167,7 +1167,14 @@ GENE SCANNER
 				var/datum/disease/advance/advance_disease = disease
 				if(advance_disease.stealth >= maximum_stealth) //the extrapolator can detect diseases of higher stealth than a normal scanner
 					continue
-				message += "<span class='info'><b>[advance_disease.name]</b>, [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
+				var/list/properties
+				if(!advance_disease.mutable)
+					LAZYADD(properties, "immutable")
+				if(advance_disease.faltered)
+					LAZYADD(properties, "faltered")
+				if(advance_disease.carrier)
+					LAZYADD(properties, "carrier")
+				message += "<span class='info'><b>[advance_disease.name]</b>[LAZYLEN(properties) ? " ([properties.Join(", ")])" : ""], [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
 				if(extracted_ids[advance_disease.GetDiseaseID()])
 					message += "<span class='info italics'>This virus has been extracted by \the [src] previously.</span>"
 				message += "<span class='info bold'>[advance_disease.name] has the following symptoms:</span>"
@@ -1250,6 +1257,8 @@ GENE SCANNER
  */
 /obj/item/extrapolator/proc/create_culture(mob/living/user, datum/disease/advance/disease)
 	. = FALSE
+	disease = disease.Copy()
+	disease.dormant = FALSE
 	var/list/data = list("viruses" = list(disease))
 	if(user.get_active_held_item() != src)
 		to_chat(user, "<span class='warning'>The extrapolator must be held in your active hand to work!</span>")

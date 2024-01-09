@@ -34,13 +34,16 @@
 	return
 
 /turf/open/floor/plating/ashplanet
-	icon = 'icons/turf/mining.dmi'
+	icon = MAP_SWITCH('icons/turf/floors/ash.dmi', 'icons/turf/mining.dmi')
 	icon_state = "ash"
 	base_icon_state = "ash"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	// This is static
+	// Done like this to avoid needing to make it dynamic and save cpu time
+	// 4 to the left, 4 down
+	transform = MAP_SWITCH(TRANSLATE_MATRIX(MINERAL_WALL_OFFSET, MINERAL_WALL_OFFSET), matrix())
 	gender = PLURAL
 	name = "ash"
-	var/smooth_icon = 'icons/turf/floors/ash.dmi'
 	desc = "The ground is covered in volcanic ash."
 	baseturfs = /turf/open/floor/plating/ashplanet/wateryrock //I assume this will be a chasm eventually, once this becomes an actual surface
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
@@ -57,7 +60,7 @@
 		icon_x_offset = 4
 		icon_y_offset = 4
 		icon = smooth_icon
-	. = ..()
+	return ..()
 
 /turf/open/floor/plating/ashplanet/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -77,8 +80,8 @@
 /turf/open/floor/plating/ashplanet/rocky
 	gender = PLURAL
 	name = "rocky ground"
+	icon = MAP_SWITCH('icons/turf/floors/rocky_ash.dmi', 'icons/turf/mining.dmi')
 	icon_state = "rockyash"
-	smooth_icon = 'icons/turf/floors/rocky_ash.dmi'
 	layer = MID_TURF_LAYER
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
@@ -88,13 +91,16 @@
 /turf/open/floor/plating/ashplanet/wateryrock
 	gender = PLURAL
 	name = "wet rocky ground"
+	icon = 'icons/turf/mining.dmi'
 	icon_state = "wateryrock"
 	slowdown = 2
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	// Disable smoothing and remove the offset matrix
 	smoothing_flags = NONE
+	transform = matrix()
 
 /turf/open/floor/plating/ashplanet/wateryrock/Initialize(mapload)
 	icon_state = "[icon_state][rand(1, 9)]"
