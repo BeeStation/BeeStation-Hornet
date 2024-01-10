@@ -1,5 +1,0 @@
-author: Impish_Delights
-delete-after: true
-changes:
-  - balance: Sniper rounds no longer paralyze for 10 seconds, causing half a second
-      of knockdown instead.
