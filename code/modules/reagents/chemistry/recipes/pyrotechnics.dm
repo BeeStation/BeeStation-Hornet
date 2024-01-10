@@ -1,6 +1,4 @@
 /datum/chemical_reaction/reagent_explosion
-	name = "Generic explosive"
-	id = "reagent_explosion"
 	var/strengthdiv = 10
 	var/modifier = 0
 
@@ -35,8 +33,6 @@
 	log_game("[src] created at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"]." )
 
 /datum/chemical_reaction/reagent_explosion/nitroglycerin
-	name = "Nitroglycerin"
-	id = /datum/reagent/nitroglycerin
 	results = list(/datum/reagent/nitroglycerin = 2)
 	required_reagents = list(/datum/reagent/glycerol = 1, /datum/reagent/toxin/acid/fluacid = 1, /datum/reagent/toxin/acid = 1)
 	strengthdiv = 2
@@ -48,22 +44,16 @@
 	..()
 
 /datum/chemical_reaction/reagent_explosion/nitroglycerin_explosion
-	name = "Nitroglycerin explosion"
-	id = "nitroglycerin_explosion"
 	required_reagents = list(/datum/reagent/nitroglycerin = 1)
 	required_temp = 474
 	strengthdiv = 2
 
 
 /datum/chemical_reaction/reagent_explosion/potassium_explosion
-	name = "Potassium Water explosion"
-	id = "potassium_explosion"
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/potassium = 1)
 	strengthdiv = 10
 
 /datum/chemical_reaction/reagent_explosion/potassium_explosion/holyboom
-	name = "Holy Explosion"
-	id = "holyboom"
 	required_reagents = list(/datum/reagent/water/holywater = 1, /datum/reagent/potassium = 1)
 
 /datum/chemical_reaction/reagent_explosion/potassium_explosion/holyboom/on_reaction(datum/reagents/holder, created_volume)
@@ -88,8 +78,6 @@
 			C.IgniteMob()
 
 /datum/chemical_reaction/plasma
-	name = "Plasma Flash"
-	id = /datum/reagent/toxin/plasma
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 	required_temp = 320 //extremely volatile
 
@@ -98,8 +86,6 @@
 	holder.clear_reagents()
 
 /datum/chemical_reaction/blackpowder
-	name = "Black Powder"
-	id = /datum/reagent/blackpowder
 	results = list(/datum/reagent/blackpowder = 3)
 	required_reagents = list(/datum/reagent/saltpetre = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/sulfur = 1)
 
@@ -107,8 +93,6 @@
 	reaction_alert_admins(holder)
 
 /datum/chemical_reaction/reagent_explosion/blackpowder_explosion
-	name = "Black Powder explosion"
-	id = "blackpowder_explosion"
 	required_reagents = list(/datum/reagent/blackpowder = 1)
 	required_temp = 474
 	strengthdiv = 6
@@ -119,14 +103,10 @@
 	addtimer(CALLBACK(src, PROC_REF(explode), holder, created_volume, modifier, strengthdiv), rand(5,10) SECONDS)
 
 /datum/chemical_reaction/thermite
-	name = "Thermite"
-	id = /datum/reagent/thermite
 	results = list(/datum/reagent/thermite = 3)
 	required_reagents = list(/datum/reagent/aluminium = 1, /datum/reagent/iron = 1, /datum/reagent/oxygen = 1)
 
 /datum/chemical_reaction/emp_pulse
-	name = "EMP Pulse"
-	id = "emp_pulse"
 	required_reagents = list(/datum/reagent/uranium = 1, /datum/reagent/iron = 1) // Yes, laugh, it's the best recipe I could think of that makes a little bit of sense
 
 /datum/chemical_reaction/emp_pulse/on_reaction(datum/reagents/holder, created_volume)
@@ -138,8 +118,6 @@
 
 
 /datum/chemical_reaction/beesplosion
-	name = "Bee Explosion"
-	id = "beesplosion"
 	required_reagents = list(/datum/reagent/consumable/honey = 1, /datum/reagent/medicine/strange_reagent = 1, /datum/reagent/uranium/radium = 1)
 
 /datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
@@ -161,14 +139,10 @@
 
 
 /datum/chemical_reaction/stabilizing_agent
-	name = /datum/reagent/stabilizing_agent
-	id = /datum/reagent/stabilizing_agent
 	results = list(/datum/reagent/stabilizing_agent = 3)
 	required_reagents = list(/datum/reagent/iron = 1, /datum/reagent/oxygen = 1, /datum/reagent/hydrogen = 1)
 
 /datum/chemical_reaction/clf3
-	name = "Chlorine Trifluoride"
-	id = /datum/reagent/clf3
 	results = list(/datum/reagent/clf3 = 4)
 	required_reagents = list(/datum/reagent/chlorine = 1, /datum/reagent/fluorine = 3)
 	required_temp = 424
@@ -181,8 +155,6 @@
 	holder.chem_temp = 1000 // hot as shit
 
 /datum/chemical_reaction/reagent_explosion/methsplosion
-	name = "Strong meth explosion"
-	id = "methboom1"
 	required_temp = 380 //slightly above the meth mix time.
 	required_reagents = list(/datum/reagent/drug/methamphetamine = 1)
 	strengthdiv = 6
@@ -198,14 +170,10 @@
 	..()
 
 /datum/chemical_reaction/reagent_explosion/methsplosion/methboom2
-	name = "Weak meth explosion"
-	id = "methboom2"
 	required_reagents = list(/datum/reagent/diethylamine = 1, /datum/reagent/iodine = 1, /datum/reagent/phosphorus = 1, /datum/reagent/hydrogen = 1) //diethylamine is often left over from mixing the ephedrine.
 	required_temp = 300 //room temperature, chilling it even a little will prevent the explosion
 
 /datum/chemical_reaction/sorium
-	name = "Sorium"
-	id = /datum/reagent/sorium
 	results = list(/datum/reagent/sorium = 4)
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/oxygen = 1, /datum/reagent/nitrogen = 1, /datum/reagent/carbon = 1)
 
@@ -218,8 +186,6 @@
 	goonchem_vortex(T, 1, range)
 
 /datum/chemical_reaction/sorium_vortex
-	name = "Sorium vortex"
-	id = "sorium_vortex"
 	required_reagents = list(/datum/reagent/sorium = 1)
 	required_temp = 474
 
@@ -229,8 +195,6 @@
 	goonchem_vortex(T, 1, range)
 
 /datum/chemical_reaction/liquid_dark_matter
-	name = "Liquid Dark Matter"
-	id = /datum/reagent/liquid_dark_matter
 	results = list(/datum/reagent/liquid_dark_matter = 3)
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/carbon = 1)
 
@@ -243,8 +207,6 @@
 	goonchem_vortex(T, 0, range)
 
 /datum/chemical_reaction/ldm_vortex
-	name = "LDM Vortex"
-	id = "ldm_vortex"
 	required_reagents = list(/datum/reagent/liquid_dark_matter = 1)
 	required_temp = 474
 
@@ -254,8 +216,6 @@
 	goonchem_vortex(T, 0, range)
 
 /datum/chemical_reaction/flash_powder
-	name = "Flash powder"
-	id = /datum/reagent/flash_powder
 	results = list(/datum/reagent/flash_powder = 3)
 	required_reagents = list(/datum/reagent/aluminium = 1, /datum/reagent/potassium = 1, /datum/reagent/sulfur = 1 )
 
@@ -277,8 +237,6 @@
 	holder.remove_reagent(/datum/reagent/flash_powder, created_volume*3)
 
 /datum/chemical_reaction/flash_powder_flash
-	name = "Flash powder activation"
-	id = "flash_powder_flash"
 	required_reagents = list(/datum/reagent/flash_powder = 1)
 	required_temp = 374
 
@@ -297,8 +255,6 @@
 				C.Stun(100)
 
 /datum/chemical_reaction/smoke_powder
-	name = /datum/reagent/smoke_powder
-	id = /datum/reagent/smoke_powder
 	results = list(/datum/reagent/smoke_powder = 3)
 	required_reagents = list(/datum/reagent/potassium = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/phosphorus = 1)
 
@@ -318,8 +274,6 @@
 		holder.clear_reagents()
 
 /datum/chemical_reaction/smoke_powder_smoke
-	name = "Smoke powder smoke"
-	id = "smoke_powder_smoke"
 	required_reagents = list(/datum/reagent/smoke_powder = 1)
 	required_temp = 374
 	mob_react = FALSE
@@ -337,8 +291,6 @@
 		holder.clear_reagents()
 
 /datum/chemical_reaction/sonic_powder
-	name = /datum/reagent/sonic_powder
-	id = /datum/reagent/sonic_powder
 	results = list(/datum/reagent/sonic_powder = 3)
 	required_reagents = list(/datum/reagent/oxygen = 1, /datum/reagent/consumable/space_cola = 1, /datum/reagent/phosphorus = 1)
 
@@ -352,8 +304,6 @@
 		C.soundbang_act(1, 100, rand(0, 5))
 
 /datum/chemical_reaction/sonic_powder_deafen
-	name = "Sonic powder deafen"
-	id = "sonic_powder_deafen"
 	required_reagents = list(/datum/reagent/sonic_powder = 1)
 	required_temp = 374
 
@@ -364,8 +314,6 @@
 		C.soundbang_act(1, 100, rand(0, 5))
 
 /datum/chemical_reaction/phlogiston
-	name = "Phlogiston"
-	id = /datum/reagent/phlogiston
 	results = list(/datum/reagent/phlogiston = 3)
 	required_reagents = list(/datum/reagent/phosphorus = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/stable_plasma = 1)
 
@@ -380,14 +328,10 @@
 	return
 
 /datum/chemical_reaction/napalm
-	name = "Napalm"
-	id = /datum/reagent/napalm
 	results = list(/datum/reagent/napalm = 3)
 	required_reagents = list(/datum/reagent/oil = 1, /datum/reagent/fuel = 1, /datum/reagent/consumable/ethanol = 1 )
 
 /datum/chemical_reaction/cryostylane
-	name = /datum/reagent/cryostylane
-	id = /datum/reagent/cryostylane
 	results = list(/datum/reagent/cryostylane = 3)
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/stable_plasma = 1, /datum/reagent/nitrogen = 1)
 
@@ -396,8 +340,6 @@
 	return
 
 /datum/chemical_reaction/cryostylane_oxygen
-	name = "ephemeral cryostylane reaction"
-	id = "cryostylane_oxygen"
 	results = list(/datum/reagent/cryostylane = 1)
 	required_reagents = list(/datum/reagent/cryostylane = 1, /datum/reagent/oxygen = 1)
 	mob_react = FALSE
@@ -406,8 +348,6 @@
 	holder.chem_temp = max(holder.chem_temp - 10*created_volume,0)
 
 /datum/chemical_reaction/pyrosium_oxygen
-	name = "ephemeral pyrosium reaction"
-	id = "pyrosium_oxygen"
 	results = list(/datum/reagent/pyrosium = 1)
 	required_reagents = list(/datum/reagent/pyrosium = 1, /datum/reagent/oxygen = 1)
 	mob_react = FALSE
@@ -416,8 +356,6 @@
 	holder.chem_temp += 10*created_volume
 
 /datum/chemical_reaction/pyrosium
-	name = /datum/reagent/pyrosium
-	id = /datum/reagent/pyrosium
 	results = list(/datum/reagent/pyrosium = 3)
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/phosphorus = 1)
 
@@ -426,23 +364,17 @@
 	return
 
 /datum/chemical_reaction/teslium
-	name = "Teslium"
-	id = /datum/reagent/teslium
 	results = list(/datum/reagent/teslium = 3)
 	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/silver = 1, /datum/reagent/blackpowder = 1)
 	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
 	required_temp = 400
 
 /datum/chemical_reaction/energized_jelly
-	name = "Energized Jelly"
-	id = /datum/reagent/teslium/energized_jelly
 	results = list(/datum/reagent/teslium/energized_jelly = 2)
 	required_reagents = list(/datum/reagent/toxin/slimejelly = 1, /datum/reagent/teslium = 1)
 	mix_message = "<span class='danger'>The slime jelly starts glowing intermittently.</span>"
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning
-	name = "Teslium Destabilization"
-	id = "teslium_lightning"
 	required_reagents = list(/datum/reagent/teslium = 1, /datum/reagent/water = 1)
 	strengthdiv = 100
 	modifier = -100
@@ -472,28 +404,21 @@
 	playsound(holder.my_atom, 'sound/machines/defib_zap.ogg', 50, TRUE)
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning/heat
-	id = "teslium_lightning2"
 	required_temp = 474
 	required_reagents = list(/datum/reagent/teslium = 1)
 
 /datum/chemical_reaction/reagent_explosion/nitrous_oxide
-	name = "N2O explosion"
-	id = "n2o_explosion"
 	required_reagents = list(/datum/reagent/nitrous_oxide = 1)
 	strengthdiv = 7
 	required_temp = 575
 	modifier = 1
 
 /datum/chemical_reaction/firefighting_foam
-	name = "Firefighting Foam"
-	id = /datum/reagent/firefighting_foam
 	results = list(/datum/reagent/firefighting_foam = 3)
 	required_reagents = list(/datum/reagent/stabilizing_agent = 1,/datum/reagent/fluorosurfactant = 1,/datum/reagent/carbon = 1)
 	required_temp = 200
 	is_cold_recipe = 1
 
 /datum/chemical_reaction/reagent_explosion/cults_explosion
-	name = "Cults Explosion"
-	id = "cults_explosion"
 	required_reagents = list(/datum/reagent/consumable/ethanol/ratvander = 1, /datum/reagent/consumable/ethanol/narsour = 1)
 	strengthdiv = 10
