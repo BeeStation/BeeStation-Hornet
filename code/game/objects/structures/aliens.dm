@@ -128,7 +128,7 @@
 	var/growth_cooldown_high = 200
 	var/static/list/blacklisted_turfs
 
-#ifdef UNIT_TESTING //Used to make sure all results of randomizing the icon can be tested.
+#ifdef UNIT_TESTS //Used to make sure all results of randomizing the icon can be tested.
 
 /obj/structure/alien/weeds/unit_test
 	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
@@ -142,7 +142,7 @@
 	icon = 'icons/obj/smooth_structures/alien/weeds3.dmi'
 	base_icon_state = "weeds3"
 
-#endif //UNIT_TESTING
+#endif //UNIT_TESTS
 
 /obj/structure/alien/weeds/Initialize(mapload)
 	. = ..()
