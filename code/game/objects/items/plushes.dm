@@ -725,11 +725,7 @@
 	name = "plushie delivery beacon"
 	desc = "Summon your new friend!"
 	icon_state = "gangtool-plushie"
-	var/static/list/plushie_list
-
-/obj/item/choice_beacon/radial/plushie/Initialize(mapload)
-	. = ..()
-	plushie_list = list(
+	var/static/list/plushie_list = list(
 		/obj/item/toy/plush/bubbleplush,
 		/obj/item/toy/plush/carpplushie,
 		/obj/item/toy/plush/plushvar,

@@ -287,7 +287,7 @@
 
 /datum/quirk/plushielover
 	name = "Plushie lover"
-	desc = "You love your squishy friends so much. You start with a plushie delivery beacon"
+	desc = "You love your squishy friends so much. You start with a plushie delivery beacon."
 	icon = "heart"
 	value = 1
 	mob_trait = TRAIT_PLUSHIELOVER
