@@ -25,9 +25,9 @@
 		return COMPONENT_INCOMPATIBLE
 	parent_atom = parent
 
-	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/on_equip)
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_drop)
-	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, .proc/on_clean)
+	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED,  PROC_REF(on_drop))
+	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT,  PROC_REF(on_clean))
 
 /**
   * Unregisters from the wielder if necessary
@@ -104,8 +104,8 @@
 
 	equipped_slot = slot
 	wielder = equipper
-	RegisterSignal(wielder, COMSIG_MOVABLE_MOVED, .proc/on_moved)
-	RegisterSignal(wielder, COMSIG_STEP_ON_BLOOD, .proc/on_step_blood)
+	RegisterSignal(wielder, COMSIG_MOVABLE_MOVED,  PROC_REF(on_moved))
+	RegisterSignal(wielder, COMSIG_STEP_ON_BLOOD,  PROC_REF(on_step_blood))
 
 /**
   * Called when the parent item has been dropped
@@ -233,11 +233,11 @@
 	if(!bloody_feet)
 		bloody_feet = mutable_appearance('icons/effects/blood.dmi', "shoeblood", SHOES_LAYER)
 
-	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, .proc/on_clean)
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/on_moved)
-	RegisterSignal(parent, COMSIG_STEP_ON_BLOOD, .proc/on_step_blood)
-	RegisterSignal(parent, COMSIG_CARBON_UNEQUIP_SHOECOVER, .proc/unequip_shoecover)
-	RegisterSignal(parent, COMSIG_CARBON_EQUIP_SHOECOVER, .proc/equip_shoecover)
+	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT,  PROC_REF(on_clean))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED,  PROC_REF(/on_moved))
+	RegisterSignal(parent, COMSIG_STEP_ON_BLOOD,  PROC_REF(on_step_blood))
+	RegisterSignal(parent, COMSIG_CARBON_UNEQUIP_SHOECOVER,  PROC_REF(unequip_shoecover))
+	RegisterSignal(parent, COMSIG_CARBON_EQUIP_SHOECOVER,  PROC_REF(equip_shoecover))
 
 /datum/component/bloodysoles/feet/update_icon()
 	if(ishuman(wielder))
