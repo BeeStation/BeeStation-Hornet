@@ -14,10 +14,6 @@
 	var/offset = 0
 	var/equipped_before_drop = FALSE
 
-/obj/item/clothing/shoes/ComponentInitialize()
-	. = ..()
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
-
 /obj/item/clothing/shoes/suicide_act(mob/living/carbon/user)
 	if(prob(50))
 		user.visible_message("<span class='suicide'>[user] begins tying \the [src] up waaay too tightly! It looks like [user.p_theyre()] trying to commit suicide!</span>")

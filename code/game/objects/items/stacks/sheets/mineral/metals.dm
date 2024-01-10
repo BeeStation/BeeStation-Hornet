@@ -27,6 +27,7 @@ Metals Sheets
 	merge_type = /obj/item/stack/sheet/iron
 	grind_results = list(/datum/reagent/iron = 20)
 	point_value = 2
+	tableVariant = /obj/structure/table
 	material_type = /datum/material/iron
 	matter_amount = 4
 
