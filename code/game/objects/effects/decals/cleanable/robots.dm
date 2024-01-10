@@ -10,6 +10,7 @@
 	blood_state = BLOOD_STATE_OIL
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	mergeable_decal = FALSE
+	//beauty = -50
 
 /obj/effect/decal/cleanable/robot_debris/Initialize()
 	. = ..()
