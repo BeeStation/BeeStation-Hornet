@@ -15,6 +15,7 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	baseturfs = /turf/open/floor/plating
 	var/plates_type = /obj/item/stack/tile/plasteel
 	var/plates = MAX_PRISON_PLATES
 	var/wrenching = FALSE
@@ -31,9 +32,7 @@
 
 /turf/open/floor/prison/make_plating(force = 0)
 	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-	if(force)
-		..()
-	return //unplateable
+	return
 
 /turf/open/floor/prison/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return

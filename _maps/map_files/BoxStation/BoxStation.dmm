@@ -24558,12 +24558,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"fZN" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/closed/wall/r_wall,
-/area/security/prison)
 "fZY" = (
 /obj/effect/turf_decal/bot_white/right,
 /obj/structure/closet/crate/goldcrate,
@@ -40571,12 +40565,10 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "nzn" = (
-/obj/structure/closet{
-	name = "Evidence Closet"
-	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "nzr" = (
@@ -43432,12 +43424,10 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "pcx" = (
-/obj/structure/closet{
-	name = "Evidence Closet"
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/evidence,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "pcB" = (
@@ -48507,13 +48497,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
-"rwF" = (
-/obj/machinery/light{
-	dir = 1;
-	pixel_y = -31
-	},
-/turf/closed/wall/r_wall,
-/area/security/execution/transfer)
 "rwH" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -87461,7 +87444,7 @@ afA
 afA
 afA
 afA
-rwF
+afA
 mov
 mov
 mov
@@ -88491,7 +88474,7 @@ afA
 afA
 afA
 afA
-fZN
+aai
 bRb
 aai
 aai
