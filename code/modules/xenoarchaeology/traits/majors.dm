@@ -37,7 +37,7 @@
 	Captures the target for an amount of time
 */
 /datum/xenoartifact_trait/major/hollow
-	examine_desc = "hollow"
+	material_desc = "hollow"
 	label_name = "Hollow"
 	label_desc = "The artifact seems to contain hollow components. Triggering these components will capture the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
@@ -109,7 +109,7 @@
 	The artifact shoots the target with a random projectile
 */
 /datum/xenoartifact_trait/major/projectile
-	examine_desc = "barreled"
+	material_desc = "barreled"
 	label_name = "Barreled"
 	label_desc = "Barreled: The artifact seems to contain projectile components. Triggering these components will produce a projectile."
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT

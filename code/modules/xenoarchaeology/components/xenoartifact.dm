@@ -209,8 +209,8 @@
 		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
 			if(!description_category[i])
 				description_category[i] = list()
-			if(T.examine_desc) //Avoid adding null, so later logic works
-				description_category[i] += initial(T.examine_desc)
+			if(T.material_desc) //Avoid adding null, so later logic works
+				description_category[i] += initial(T.material_desc)
 	//Pick one from each category to build an entire description
 	var/unknown_used = FALSE
 	for(var/i in description_category)
@@ -221,6 +221,22 @@
 			temp = "unknown [temp]"
 			unknown_used = TRUE
 	return temp
+
+/datum/component/xenoartifact/proc/get_material_weight()
+	var/total_weight = 0
+	//Get descriptions from each category
+	for(var/i in artifact_traits)
+		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
+			total_weight += T.weight
+	return total_weight
+
+/datum/component/xenoartifact/proc/get_material_conductivity()
+	var/total_conductivity = 0
+	//Get descriptions from each category
+	for(var/i in artifact_traits)
+		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
+			total_conductivity += T.conductivity
+	return total_conductivity
 
 ///material datums
 /datum/component/xenoartifact_material

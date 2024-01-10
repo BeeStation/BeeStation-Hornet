@@ -6,7 +6,7 @@
 /obj/item/circuitboard/machine/xenoartifact_inbox
 	name = "bluespace straythread pad (Machine Board)"
 	icon_state = "science"
-	build_path = /obj/machinery/xenoartifact_inbox
+	build_path = /obj/machinery/xenoarchaeology_inbox
 	req_components = list(
 		/obj/item/stack/ore/bluespace_crystal = 1,
 		/obj/item/stock_parts/capacitor = 1,
@@ -35,7 +35,7 @@
 	var/current_tab = "Listings"
 	var/current_tab_info = "Here you can find listings for various research samples, usually fresh from the field. These samples aren't distrubuted by the Nanotrasen affiliated cargo system, so instead listing data is sourced from stray bluespace-threads."
 	///used for 'shipping'
-	var/obj/machinery/xenoartifact_inbox/linked_inbox
+	var/obj/machinery/xenoarchaeology_inbox/linked_inbox
 	///List of linked machines for UI purposes
 	var/list/linked_machines = list()
 	///Which science server receives points
@@ -240,14 +240,14 @@
 	ui_update()
 
 /obj/machinery/computer/xenoartifact_console/proc/sync_devices()
-	for(var/obj/machinery/xenoartifact_inbox/I in oview(9,src))
+	for(var/obj/machinery/xenoarchaeology_inbox/I in oview(9,src))
 		if(I.linked_console || I.panel_open)
 			return
 		if(!(linked_inbox))
 			linked_inbox = I
 			linked_machines += I.name
 			I.linked_console = src
-			I.RegisterSignal(src, COMSIG_PARENT_QDELETING, /obj/machinery/xenoartifact_inbox/proc/on_machine_del)
+			I.RegisterSignal(src, COMSIG_PARENT_QDELETING, /obj/machinery/xenoarchaeology_inbox/proc/on_machine_del)
 			RegisterSignal(I, COMSIG_PARENT_QDELETING, PROC_REF(on_inbox_del))
 			say("Successfully linked [I].")
 			return
@@ -261,7 +261,7 @@
 #undef STABILITY_COST
 #undef STABILITY_GAIN
 
-/obj/machinery/xenoartifact_inbox
+/obj/machinery/xenoarchaeology_inbox
 	name = "bluespace straythread pad" //Science words
 	desc = "This machine takes advantage of bluespace thread manipulation to highjack in-coming and out-going bluespace signals. Science uses it to deliver their very legal purchases." //All very sciencey
 	icon = 'icons/obj/telescience.dmi'
@@ -269,12 +269,12 @@
 	circuit = /obj/item/circuitboard/machine/xenoartifact_inbox
 	var/linked_console
 
-/obj/machinery/xenoartifact_inbox/proc/on_machine_del()
+/obj/machinery/xenoarchaeology_inbox/proc/on_machine_del()
 	SIGNAL_HANDLER
 	UnregisterSignal(linked_console, COMSIG_PARENT_QDELETING)
 	linked_console = null
 
-/obj/machinery/xenoartifact_inbox/Destroy()
+/obj/machinery/xenoarchaeology_inbox/Destroy()
 	. = ..()
 	on_machine_del()
 

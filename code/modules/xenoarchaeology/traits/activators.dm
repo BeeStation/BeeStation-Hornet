@@ -40,7 +40,7 @@
 	This trait activates the artifact when it's used, like a generic item
 */
 /datum/xenoartifact_trait/activator/strudy
-	examine_desc = "sturdy"
+	material_desc = "sturdy"
 	label_name = "Sturdy"
 	label_desc = "Sturdy: The artifact seems to be made of a sturdy material. This material seems to be triggered by physical interaction."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
@@ -59,7 +59,7 @@
 	This trait activates the artifact when it's lit
 */
 /datum/xenoartifact_trait/activator/flammable
-	examine_desc = "flammable"
+	material_desc = "flammable"
 	label_name = "Flammable"
 	label_desc = "Flammable: The artifact seems to be made of a flammable material. This material seems to be triggered by heat interaction."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT

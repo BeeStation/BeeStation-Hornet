@@ -3,7 +3,7 @@
 	var/datum/component/xenoartifact/parent
 
 	///Acts as a descriptor for when examining - 'reinforced' 'electrified' 'hollow'
-	var/examine_desc
+	var/material_desc
 	///Used when labeler needs a name and trait is too sneaky to have a descriptor when examining.
 	var/label_name
 	///Something briefly explaining it in inagame terms.
@@ -33,8 +33,8 @@
 	var/extra_target_range = 0
 
 	///Characteristics for deduction
-	var/weight = 0 //KG
-	var/conductivity = 0 //microsiemens per centimeter - I had to look this up - Don't worry about making this accurate / reasonable
+	var/weight = 1 //KG
+	var/conductivity = 1 //microsiemens per centimeter - I had to look this up - Don't worry about making this accurate / reasonable
 
 /datum/xenoartifact_trait/New(atom/_parent)
 	. = ..()

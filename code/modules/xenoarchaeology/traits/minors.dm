@@ -7,7 +7,7 @@
 	Increases the artifact trait strength by 25%
 */
 /datum/xenoartifact_trait/minor/charged
-	examine_desc = "charged"
+	material_desc = "charged"
 	label_name = "Charged"
 	label_desc = "Charged: The Artifact's design seems to incorporate looping elements. This will cause the artifact to produce more powerful effects."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
@@ -25,7 +25,7 @@
 	Gives the artifact extra uses
 */
 /datum/xenoartifact_trait/minor/capacitive
-	examine_desc = "capacitive"
+	material_desc = "capacitive"
 	label_name = "Capacitive"
 	label_desc = "Capacitive: The Artifact's design seems to incorporate a capacitive elements. This will cause the artifact to have more uses."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
@@ -57,7 +57,7 @@
 	Makes the artifact behave like a structure
 */
 /datum/xenoartifact_trait/minor/dense
-	examine_desc = "dense"
+	material_desc = "dense"
 	label_name = "Dense"
 	label_desc = "Dense: The Artifact's design seems to incorporate dense elements. This will cause the artifact to be much heavier than usual."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
@@ -93,7 +93,7 @@
 	Makes the artifact sharp
 */
 /datum/xenoartifact_trait/minor/sharp
-	examine_desc = "sharp"
+	material_desc = "sharp"
 	label_name = "Sharp"
 	label_desc = "Sharp: The Artifact's design seems to incorporate sharp elements. This will cause the artifact to pbe sharper than usual."
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
@@ -135,7 +135,7 @@
 	Decreases the artifact's initial cooldown by XENOA_TRAIT_COOLDOWN_EXTRA_SAFE seconds
 */
 /datum/xenoartifact_trait/minor/cooling
-	examine_desc = "cooling"
+	material_desc = "cooling"
 	label_name = "Cooling"
 	label_desc = "Cooling: The Artifact's design seems to incorporate cooling elements. This will cause the artifact to cooldown faster."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
@@ -253,7 +253,7 @@
 	The artifact has limited uses
 */
 /datum/xenoartifact_trait/minor/delicate
-	examine_desc = "delicate"
+	material_desc = "delicate"
 	label_name = "Delicate"
 	label_desc = "Delicate: The Artifact's design seems to delicate cooling elements. This will cause the artifact to potentially break."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
@@ -318,7 +318,7 @@
 	Increases target range
 */
 /datum/xenoartifact_trait/minor/scoped
-	examine_desc = "scoped"
+	material_desc = "scoped"
 	label_name = "Scoped"
 	label_desc = "Scoped: The Artifact's design seems to incorporate scoped elements. This will cause the artifact to have a larger target range."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
@@ -329,7 +329,7 @@
 	Allows the artifact to be worn in the glove slot
 */
 /datum/xenoartifact_trait/minor/ringed
-	examine_desc = "ringed"
+	material_desc = "ringed"
 	label_name = "Ringed"
 	label_desc = "Ringed: The Artifact's design seems to incorporate ringed elements. This will allow the artifact to be worn."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
@@ -376,7 +376,7 @@
 	Makes the artifact act like a shield
 */
 /datum/xenoartifact_trait/minor/shielded
-	examine_desc = "shielded"
+	material_desc = "shielded"
 	label_name = "Shielded"
 	label_desc = "Shielded: The Artifact's design seems to incorporate shielded elements. This will allow the artifact to be used like a shield."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
@@ -417,7 +417,7 @@
 	Makes the artifact easy to throw
 */
 /datum/xenoartifact_trait/minor/aerodynamic
-	examine_desc = "aerodynamic"
+	material_desc = "aerodynamic"
 	label_name = "Aerodynamic"
 	label_desc = "Aerodynamic: The Artifact's design seems to incorporate shielAerodynamicded elements. This will allow the artifact to be thrown further."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
@@ -527,7 +527,7 @@
 	makes the artifact slippery
 */
 /datum/xenoartifact_trait/minor/slippery
-	examine_desc = "slippery"
+	material_desc = "slippery"
 	label_name = "Slippery"
 	label_desc = "Slippery: The Artifact's design seems to incorporate slippery elements. This will cause the artifact to be slippery."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT

@@ -15810,6 +15810,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/xenoartifact/scale,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "bAz" = (
@@ -52580,6 +52581,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/xenoartifact/calibrator,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "ncI" = (
@@ -54541,6 +54543,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/xenoartifact/conductor,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "nRS" = (
