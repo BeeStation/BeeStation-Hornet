@@ -113,11 +113,12 @@
 	desc = "A thick resin surface covers the floor."
 	anchored = TRUE
 	density = FALSE
-	layer = TURF_LAYER
+	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
-	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
-	icon_state = "weeds1-255"
-	base_icon_state = "weeds1"
+	icon = MAP_SWITCH('icons/obj/smooth_structures/alien/weeds1.dmi', 'icons/mob/alien.dmi')
+	icon_state = "weeds1"
+	base_icon_state = "weeds"
+	transform = MAP_SWITCH(TRANSLATE_MATRIX(-4, -4), matrix())
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS)
@@ -126,8 +127,22 @@
 	var/growth_cooldown_low = 150
 	var/growth_cooldown_high = 200
 	var/static/list/blacklisted_turfs
-	pixel_x = -4
-	pixel_y = -4 //so the sprites line up right in the map editor
+
+#ifdef UNIT_TESTING //Used to make sure all results of randomizing the icon can be tested.
+
+/obj/structure/alien/weeds/unit_test
+	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
+	base_icon_state = "weeds1"
+
+/obj/structure/alien/weeds/unit_test_two
+	icon = 'icons/obj/smooth_structures/alien/weeds2.dmi'
+	base_icon_state = "weeds2"
+
+/obj/structure/alien/weeds/unit_test_three
+	icon = 'icons/obj/smooth_structures/alien/weeds3.dmi'
+	base_icon_state = "weeds3"
+
+#endif //UNIT_TESTING
 
 /obj/structure/alien/weeds/Initialize(mapload)
 	. = ..()
@@ -140,7 +155,8 @@
 
 
 	last_expand = world.time + rand(growth_cooldown_low, growth_cooldown_high)
-	if(icon == initial(icon))
+
+	if(base_icon_state == "weeds")
 		switch(rand(1,3))
 			if(1)
 				icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
@@ -176,20 +192,15 @@
 /obj/structure/alien/weeds/node
 	name = "glowing resin"
 	desc = "Blue bioluminescence shines from beneath the surface."
-	icon = 'icons/mob/alien.dmi'
+	icon = MAP_SWITCH('icons/obj/smooth_structures/alien/weednode.dmi', 'icons/mob/alien.dmi')
 	icon_state = "weednode"
 	base_icon_state = "weednode"
 	light_color = LIGHT_COLOR_BLUE
 	light_power = 0.5
 	var/lon_range = 4
 	var/node_range = NODERANGE
-	pixel_x = 0
-	pixel_y = 0
 
 /obj/structure/alien/weeds/node/Initialize(mapload)
-	pixel_x = -4
-	pixel_y = -4
-	icon = 'icons/obj/smooth_structures/alien/weednode.dmi'
 	. = ..()
 	set_light(lon_range)
 	var/obj/structure/alien/weeds/W = locate(/obj/structure/alien/weeds) in loc
