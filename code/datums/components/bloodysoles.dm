@@ -234,7 +234,7 @@
 		bloody_feet = mutable_appearance('icons/effects/blood.dmi', "shoeblood", SHOES_LAYER)
 
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT,  PROC_REF(on_clean))
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED,  PROC_REF(/on_moved))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED,  PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_STEP_ON_BLOOD,  PROC_REF(on_step_blood))
 	RegisterSignal(parent, COMSIG_CARBON_UNEQUIP_SHOECOVER,  PROC_REF(unequip_shoecover))
 	RegisterSignal(parent, COMSIG_CARBON_EQUIP_SHOECOVER,  PROC_REF(equip_shoecover))
