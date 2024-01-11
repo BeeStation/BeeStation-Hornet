@@ -25554,13 +25554,15 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/item/tank/internals/oxygen/yellow{
-	pixel_x = 3
+/obj/structure/closet/crate/engineering{
+	name = "Radiation Collector Arrays crate"
 	},
-/obj/item/tank/internals/oxygen/yellow{
-	pixel_x = -2
-	},
+/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/rad_collector/anchored,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "cPI" = (
@@ -35483,9 +35485,11 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
 "gcQ" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
+	},
+/obj/structure/chair/fancy/bench{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
@@ -47079,9 +47083,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/chair/fancy/bench{
-	dir = 4
-	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "kKG" = (
@@ -53644,10 +53645,16 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/item/tank/internals/oxygen/yellow{
+	pixel_x = -2
+	},
+/obj/item/tank/internals/oxygen/yellow{
+	pixel_x = 3
+	},
 /obj/item/clothing/gloves/color/yellow{
 	pixel_y = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "nrx" = (
@@ -54946,21 +54953,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"nQc" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/chair/fancy/bench{
-	dir = 4
-	},
-/obj/structure/chair/fancy/bench{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/engine/engineering)
 "nQq" = (
 /obj/item/radio/intercom{
 	pixel_y = 20
@@ -56699,9 +56691,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "owy" = (
-/obj/machinery/power/rad_collector/anchored,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
+	},
+/obj/structure/chair/fancy/bench{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
@@ -60153,9 +60147,6 @@
 "pUV" = (
 /obj/structure/cable{
 	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -64218,7 +64209,9 @@
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "rBB" = (
-/obj/machinery/power/rad_collector/anchored,
+/obj/structure/chair/fancy/bench{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "rBE" = (
@@ -127755,7 +127748,7 @@ fwb
 axY
 lpl
 ozU
-nQc
+kKE
 kKE
 hvp
 ojD
@@ -128784,13 +128777,13 @@ axY
 tbI
 dNM
 aUV
-rBB
+ddZ
 pUV
 dpa
 skN
 dpa
 kUz
-rBB
+ddZ
 aUV
 dNM
 dut
