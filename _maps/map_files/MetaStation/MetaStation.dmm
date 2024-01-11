@@ -8310,7 +8310,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access_txt = "3"
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -13356,10 +13356,6 @@
 /turf/open/floor/plating,
 /area/crew_quarters/toilet/auxiliary)
 "bzC" = (
-/obj/machinery/door/airlock/security{
-	name = "Evidence Storage";
-	req_one_access_txt = "1;4"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -13376,7 +13372,7 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access_txt = "3"
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
