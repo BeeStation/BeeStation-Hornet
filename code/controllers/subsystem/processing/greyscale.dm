@@ -61,7 +61,7 @@ PROCESSING_SUBSYSTEM_DEF(greyscale)
 	var/cached = gags_cache[uid]
 	if(cached)
 		return cached
-	var/path = "data/gags/gags-[uid].dmi"
+	var/path = "tmp/gags/gags-[uid].dmi"
 	var/err = rustg_iconforge_gags(type, colors, path)
 	if(err != "OK")
 		CRASH(err)
