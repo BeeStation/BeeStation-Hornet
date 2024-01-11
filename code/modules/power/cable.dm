@@ -507,9 +507,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	set category = "Object"
 	set src in usr
 
-	//if(!usr.canUseTopic(src, BE_CLOSE))
-	//	return
-
 	var/picked = input(usr, "Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
 	cable_color = picked
 	update_icon()
