@@ -30,10 +30,6 @@
 /turf/open/floor/prison/burn_tile() // consider changing this
 	return //unburnable
 
-/turf/open/floor/prison/make_plating(force = 0)
-	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-	return
-
 /turf/open/floor/prison/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
 
@@ -46,7 +42,6 @@
 		to_chat(user, "<span class='notice'>You begin prying open the tile...</span>")
 		if(do_after(user, 4 SECONDS))
 			return ..()
-
 
 /turf/open/floor/prison/wrench_act(mob/living/user, obj/item/I)
 	if(!wrenching && plates >0)
@@ -63,7 +58,7 @@
 
 /turf/open/floor/prison/update_icon_state()
 	icon_state = "prisonfloor[plates]"
-	. = ..()
+	return ..()
 
 /turf/open/floor/prison/attackby(obj/item/object, mob/living/user, params)
 	if(plates< MAX_PRISON_PLATES && istype(object, plates_type))
@@ -72,10 +67,7 @@
 		plates += 1
 		update_icon_state()
 		return
-	. = ..()
-
-/turf/open/floor/prison/attack_paw(mob/user)
-	return attack_hand(user)
+	return ..()
 
 
 #undef MAX_PRISON_PLATES

@@ -162,27 +162,36 @@
 
 /obj/machinery/turnstile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
-	if(istype(arrived, /mob))
-		flick("operate", src)
-		playsound(src,'sound/items/ratchet.ogg',50,0,3)
-		if(arrived.pulledby) // don't do anything else for prisoners that are being escorted.
-			return
-		if(istype(arrived, /mob/living/carbon/human)) //we only want to prevent prisoners from being able to reuse their ID card.
-			var/mob/living/carbon/human/H = arrived
-			var/obj/item/card/id/id_card = H.get_idcard(hand_first = TRUE)
-			if(ACCESS_PRISONER in id_card?.GetAccess())
-				id_card.access -= list(ACCESS_PRISONER) //Prisoner IDs can only be used once to exit the turnstile
-				to_chat(H, "<span class='warning'>Your prisoner ID access has been purged, you won't be able to exit the prison through the turnstile again!</span>")
-				addtimer(CALLBACK(src, PROC_REF(exit_push), H), 2)
+	if(!istype(arrived, /mob))
+		return
+	flick("operate", src)
+	playsound(src,'sound/items/ratchet.ogg',50,0,3)
+	if(arrived.pulledby) // don't do anything else for prisoners that are being escorted.
+		return
+	if(!istype(arrived, /mob/living/carbon/human)) //we only want to prevent prisoners from being able to reuse their ID card.
+		return
+	var/mob/living/carbon/human/H = arrived
+	var/obj/item/card/id/id_card = H.get_idcard(hand_first = TRUE)
+	if(ACCESS_PRISONER in id_card?.GetAccess())
+		id_card.access -= list(ACCESS_PRISONER) //Prisoner IDs can only be used once to exit the turnstile
+		to_chat(H, "<span class='warning'>Your prisoner ID access has been purged, you won't be able to exit the prison through the turnstile again!</span>")
+		addtimer(CALLBACK(src, PROC_REF(exit_push), H), 2)
 
 /obj/machinery/turnstile/proc/exit_push(atom/movable/pushed) //Just "pushes" prisoners that are being released out of the turnstile so that they don't trap themselves.
-	var/movedir = turn(dir, 180) //Set to be the opposite of the turnstile dir, as that would always be the exit, unless the turnstile has been built incorrectly.
-	pushed.Move(get_step(pushed, movedir), movedir)
+	var/our_turf = get_turf(src)
+	var/pushed_turf = get_turf(pushed)
+	if(our_turf == pushed_turf)
+		var/movedir = turn(dir, 180) //Set to be the opposite of the turnstile dir, as that would always be the exit, unless the turnstile has been built incorrectly.
+		pushed.Move(get_step(pushed, movedir), movedir)
 
 ///Handle movables (especially mobs) bumping into us.
 /obj/machinery/turnstile/Bumped(atom/movable/movable)
 	. = ..()
-	if(!istype(movable, /mob)) //just let non-mobs bump
+	if(!ismob(movable)) //Try to mimmick how airlocks act when bumped by items and the likes. Except when pulled (for crates and beds etc.)
+		if(movable.pulledby)
+			return
+		flick("deny", src)
+		playsound(src,'sound/machines/deniedbeep.ogg',50,0,3)
 		return
 	if(machine_stat & BROKEN) //try to shock mobs if we're broken
 		try_shock(movable)
@@ -274,14 +283,18 @@
 	if(machine_stat & BROKEN)
 		return FALSE
 	if(mover.dir == dir) //Always let people through in one direction.
+		if(!ismob(mover) && !(mover.pulledby))//Thrown items bump anyway.
+			return FALSE
 		return TRUE
-	var/allowed = allowed(mover)
-	//Ridden vehicles are blacklisted because they are items that have buckled mobs to them when this proc can only be called on mobs...
-	if(istype(mover, /obj/vehicle/ridden) && mover.buckled_mobs)
-		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50)
-		say("ERROR. For security reasons, wheelchairs and other ridden devices are not allowed through the turnstile.")
-		flick("deny", src)
+	if(!ismob(mover) && mover.pulledby)
+		return(allowed(mover.pulledby))
+	if(istype(mover, /obj/vehicle/ridden) && mover.buckled_mobs) //Wheelchairs and such
+		for(var/mob/living/carbon/human/H in mover.buckled_mobs)
+			return(allowed(H))
+	if(!ismob(mover)) // Last check before we move on to mobs in case somehow a non-mob wasn't caught
 		return FALSE
+
+	var/allowed = allowed(mover)
 	//Everyone with access can drag you out. Prisoners can't drag each other out
 	if(!allowed && mover.pulledby && ishuman(mover.pulledby))
 		var/mob/living/carbon/human/H = mover.pulledby
@@ -289,16 +302,24 @@
 		if(ACCESS_PRISONER in id_card?.GetAccess())
 			return FALSE
 		else
-			allowed = allowed(mover.pulledby)
-	if(mover.buckled_mobs) //Piggyback rides aren't allowed because they could allow escape way too easily
-		for(var/mob/living/carbon/human/H in mover.buckled_mobs)
+			return(allowed(H))
+	//Piggyback/fireman carry rides between prisoners aren't allowed because they could allow escape way too easily
+	if(allowed && mover.buckled_mobs && ishuman(mover)) // This check is for the one that is carrying.
+		var/mob/living/carbon/human/H = mover
+		if(H.buckled_mobs.len>= 1)
+			id_card = H.get_idcard(hand_first = TRUE)
 			if(ACCESS_PRISONER in id_card?.GetAccess())
 				return FALSE
-			else
-				allowed = allowed(mover.buckled_mobs)
-	if(allowed)
-		return TRUE
-	return FALSE
+	if(!allowed) //This check is for the one that is carried. Not returning TRUE here prevents the movement altogether. Even for interactions that we want, such as brig phys carrying injured prisoners away.
+		var/mob/living/carbon/human/H = mover
+		if(H.buckled)
+			if(ishuman(H.buckled)) //additional check for roller beds and the likes.
+				var/mob/living/carbon/human/B = H.buckled
+				id_card = B.get_idcard(hand_first = TRUE)
+				if(ACCESS_PRISONER in id_card?.GetAccess())
+					return FALSE
+			return TRUE
+	return(allowed)
 
 ///Shock user if we can
 /obj/machinery/turnstile/proc/try_shock(mob/user)

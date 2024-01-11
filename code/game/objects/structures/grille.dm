@@ -327,7 +327,6 @@
 		var/datum/powernet/P = C.powernet
 		if(initialized_device && P.avail != 0)
 			src.device.activate()
-			..()
 		..()
 
 /obj/structure/grille/prison/obj_break()
@@ -338,9 +337,8 @@
 		if(P)
 			if(initialized_device && P.avail != 0)
 				src.device.activate()
-				..()
 	..()
 
 /obj/structure/grille/prison/Destroy()
 	QDEL_NULL(device)
-	..()
+	return ..()

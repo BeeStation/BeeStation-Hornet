@@ -8302,16 +8302,16 @@
 /turf/closed/wall,
 /area/storage/tools)
 "aZu" = (
-/obj/machinery/door/airlock/security{
-	name = "Evidence Storage";
-	req_access_txt = "3"
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security{
+	name = "Evidence Storage";
+	req_access_txt = "3"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "aZv" = (
@@ -13374,6 +13374,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/door/airlock/security{
+	name = "Evidence Storage";
+	req_access_txt = "3"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "bzD" = (
