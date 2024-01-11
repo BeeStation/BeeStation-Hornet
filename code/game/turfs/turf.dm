@@ -574,5 +574,20 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			for(var/mob/M in O.contents)
 				. += M
 
+
 /turf/proc/get_turf_texture()
 	return
+
+/**
+  * Called when this turf is being washed. Washing a turf will also wash any mopable floor decals
+  */
+/turf/wash(clean_types)
+	. = ..()
+
+	for(var/am in src)
+		if(am == src)
+			continue
+		var/atom/movable/movable_content = am
+		if(!ismopable(movable_content))
+			continue
+		movable_content.wash(clean_types)
