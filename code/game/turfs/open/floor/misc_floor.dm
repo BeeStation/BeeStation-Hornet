@@ -132,6 +132,9 @@
 	. = ..()
 	make_traction()
 
+/turf/open/floor/noslip/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
+	return
+
 /turf/open/floor/noslip/standard
 	name = "high-traction floor"
 	icon_state = "floor"
