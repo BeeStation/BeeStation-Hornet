@@ -2942,10 +2942,6 @@
 /obj/structure/closet/radiation,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"aok" = (
-/obj/structure/lattice,
-/turf/open/space,
-/area/maintenance/starboard/fore)
 "aom" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -5487,13 +5483,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/brig)
-"aCq" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 9
-	},
-/turf/open/space,
-/area/space)
 "aCr" = (
 /obj/machinery/door/airlock/security{
 	name = "Court Cell";
@@ -27792,11 +27781,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
-"dhZ" = (
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/open/space,
-/area/space)
 "dib" = (
 /obj/structure/table/wood,
 /obj/item/lipstick{
@@ -36716,6 +36700,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
+"gHk" = (
+/obj/structure/grille,
+/obj/structure/grille,
+/obj/structure/grille,
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "gHE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -40672,13 +40662,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/aisat)
-"inY" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 10
-	},
-/turf/open/space,
-/area/space)
 "ioi" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
@@ -44093,11 +44076,6 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/tcommsat/computer)
-"jIe" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/open/space/basic,
-/area/space)
 "jIH" = (
 /obj/machinery/light{
 	dir = 8
@@ -46834,11 +46812,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
-"kGl" = (
-/obj/structure/lattice,
-/obj/structure/girder/reinforced,
-/turf/open/space/basic,
-/area/space)
 "kGJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -53473,6 +53446,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/grille,
+/obj/structure/grille,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "nnO" = (
@@ -55436,10 +55410,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
-"nXX" = (
-/obj/structure/lattice,
-/turf/open/space,
-/area/space)
 "nYh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -61435,13 +61405,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/morgue)
-"quG" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/open/space,
-/area/space)
 "quL" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/pool{
@@ -67541,7 +67504,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "sTi" = (
-/obj/structure/grille,
 /turf/open/floor/plating/airless,
 /area/space)
 "sTu" = (
@@ -69717,12 +69679,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
-"tMS" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/space,
-/area/space)
 "tMW" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -69888,10 +69844,6 @@
 /obj/effect/turf_decal/trimline/purple/filled/warning,
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"tRM" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
 "tRS" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -70387,11 +70339,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
-"tZX" = (
-/obj/structure/lattice,
-/obj/structure/grille/broken,
-/turf/open/space,
-/area/space)
 "ubt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -71448,6 +71395,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/grille,
+/obj/structure/grille,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "uwt" = (
@@ -71755,10 +71703,6 @@
 	},
 /turf/open/floor/grass,
 /area/medical/patients_rooms)
-"uBh" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/space)
 "uBm" = (
 /obj/machinery/requests_console{
 	department = "AI";
@@ -72477,11 +72421,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"uRO" = (
-/obj/structure/grille/broken,
-/obj/structure/lattice,
-/turf/open/space,
-/area/space)
 "uSe" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -73350,13 +73289,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/fore)
-"vko" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/space,
-/area/space)
 "vkr" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -114580,7 +114512,7 @@ aaa
 aaa
 aaa
 aaa
-aac
+aav
 aaa
 aaa
 aaa
@@ -115348,25 +115280,25 @@ aaa
 aaa
 aaa
 aaa
-nXX
+aav
 aaa
-nXX
+aav
 aaa
 aaa
-nXX
+aav
 aaa
-nXX
+aav
 aaa
-nXX
+aav
 aaa
-nXX
-nXX
-uBh
-uBh
-inY
-aCq
-inY
-aCq
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
 aaa
 aaa
 aaa
@@ -115605,24 +115537,24 @@ aaa
 aaa
 aaa
 aaa
-nXX
+aav
 aaa
-nXX
-aaa
-aaa
-nXX
-aaa
-nXX
-aaa
-nXX
+aav
 aaa
 aaa
-nXX
-nXX
-nXX
+aav
+aaa
+aav
+aaa
+aav
 aaa
 aaa
-nXX
+aav
+aav
+aav
+aaa
+aaa
+aav
 aaa
 aaa
 aaa
@@ -115860,26 +115792,26 @@ aaa
 aaa
 aaa
 aaa
-dHk
-dHk
-nXX
-dHk
-dHk
-dHk
-dHk
-dHk
-dHk
-tZX
-dHk
-dHk
-dHk
-dHk
-dHk
-tZX
-dHk
-jIe
-jIe
-nXX
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aaa
+aaa
+aav
 aaa
 aaa
 aaa
@@ -116117,26 +116049,26 @@ aaa
 aaa
 aaa
 aaa
-nXX
+aav
 aaa
 aaa
 pvJ
 pvJ
 pvJ
 pvJ
-kGl
+aaa
 pvJ
 pvJ
 pvJ
 pvJ
-kGl
-tRM
 aaa
 aaa
-nXX
-nXX
-nXX
-nXX
+aaa
+aaa
+aav
+aav
+aav
+aav
 aaa
 aaa
 aaa
@@ -116374,26 +116306,26 @@ aaa
 aaa
 aaa
 aaa
-nXX
-nXX
-nXX
-dHk
-dHk
-dHk
-dHk
-tZX
-dHk
-dHk
-dHk
-dHk
-tZX
-dHk
-dHk
-dHk
-nXX
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
 aaa
-nXX
-nXX
+aav
+aav
 aaa
 aaa
 aaa
@@ -116647,10 +116579,10 @@ aaa
 aaa
 aaa
 aaa
-nXX
+aav
 aaa
 aaa
-uRO
+aav
 aaa
 aaa
 aaa
@@ -116904,10 +116836,10 @@ aaa
 aaa
 aaa
 aaa
-nXX
-uRO
+aav
+aav
 aaa
-uRO
+aav
 aaa
 aaa
 aaa
@@ -117162,7 +117094,7 @@ aaa
 aaa
 aaa
 aaa
-dhZ
+aav
 aaa
 sTi
 aaa
@@ -117419,9 +117351,9 @@ aaa
 aaa
 aaa
 aaa
-uRO
+aav
 aaa
-dHk
+aav
 aaa
 aaa
 aaa
@@ -117676,9 +117608,9 @@ aaa
 aaa
 aaa
 aaa
-nXX
-nXX
-dHk
+aav
+aav
+aav
 aaa
 aaa
 aaa
@@ -117933,9 +117865,9 @@ aaa
 aaa
 aaa
 aaa
-uRO
+aav
 aaa
-dHk
+aav
 aaa
 aaa
 aaa
@@ -118190,9 +118122,9 @@ aaa
 aaa
 aaa
 aaa
-dhZ
+aav
 aaa
-uRO
+aav
 aaa
 aaa
 aaa
@@ -118447,9 +118379,9 @@ aaa
 aaa
 aaa
 aaa
-dhZ
+aav
 aaa
-dHk
+aav
 aaa
 aaa
 aaa
@@ -118704,9 +118636,9 @@ aaa
 aaa
 aaa
 aaa
-uRO
+aav
 aaa
-dHk
+aav
 aaa
 aaa
 aaa
@@ -118946,7 +118878,7 @@ aaa
 aaa
 aaa
 aaa
-aac
+aav
 aaa
 aaa
 aaa
@@ -118961,9 +118893,9 @@ aaa
 aaa
 aaa
 aaa
-uRO
+aav
 aaa
-dHk
+aav
 aaa
 aaa
 aaa
@@ -119218,9 +119150,9 @@ aaa
 aaa
 aaa
 aaa
-dhZ
+aav
 aaa
-dHk
+aav
 aaa
 aaa
 aaa
@@ -119475,10 +119407,10 @@ aaa
 aaa
 aaa
 aaa
-dhZ
-nXX
-uRO
-nXX
+aav
+aav
+aav
+aav
 aaa
 aaa
 aaf
@@ -119732,7 +119664,7 @@ aaa
 aaa
 aaa
 aaa
-dhZ
+aav
 aaa
 sTi
 aaa
@@ -119989,9 +119921,9 @@ aaa
 aaa
 aaa
 aaa
-uRO
+aav
 aaa
-dHk
+aav
 aaa
 aaa
 aaa
@@ -120246,10 +120178,10 @@ aaa
 aaa
 aaa
 aaa
-dHk
+aav
 aaa
-dHk
-nXX
+aav
+aav
 aaa
 aaa
 aag
@@ -120503,9 +120435,9 @@ aaa
 aaa
 aaa
 aaa
-dHk
+aav
 aaa
-tZX
+aav
 aaa
 aaa
 aaa
@@ -120760,9 +120692,9 @@ aaa
 aaa
 aaa
 aaa
-dHk
+aav
 aaa
-dHk
+aav
 aaa
 aaa
 aaa
@@ -121017,10 +120949,10 @@ aaa
 aaa
 aaa
 aaa
-dHk
+aav
 aaa
-dHk
-dHk
+aav
+aav
 aaa
 aaa
 aaa
@@ -121269,14 +121201,14 @@ aaa
 aaa
 aaa
 aaa
-dHk
-dHk
-dHk
-dHk
-dHk
-dHk
-dHk
-dHk
+aav
+aav
+aav
+aav
+aav
+aav
+aav
+aav
 aaa
 aaa
 aaa
@@ -121521,20 +121453,20 @@ aaa
 aaa
 aaa
 aaa
-dHk
-dHk
-dHk
-dHk
-dHk
-dHk
+aav
+aav
+aav
+aav
+aav
+aav
 aaa
-quG
-tMS
-tMS
-tMS
-tMS
-tMS
-vko
+aav
+aav
+aav
+aav
+aav
+aav
+aav
 aaa
 aaa
 aaa
@@ -125929,7 +125861,7 @@ uZp
 nPu
 nSX
 dqT
-aok
+aaf
 aaf
 ack
 dea
@@ -126186,7 +126118,7 @@ atl
 auy
 gch
 dqT
-aok
+aaf
 lMJ
 ack
 ack
@@ -129787,7 +129719,7 @@ aaa
 aaa
 lMJ
 bKK
-kJY
+phY
 qJV
 vde
 frA
@@ -130301,7 +130233,7 @@ aaa
 aaa
 lMJ
 bKK
-kJY
+phY
 hIT
 vde
 frA
@@ -130558,7 +130490,7 @@ aaa
 aaa
 lMJ
 bKK
-kJY
+phY
 hIT
 vde
 frA
@@ -132357,7 +132289,7 @@ aaa
 aaa
 lMJ
 bKK
-siF
+gHk
 anS
 lXy
 cPy
