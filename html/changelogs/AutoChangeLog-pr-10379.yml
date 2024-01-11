@@ -1,7 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - rscdel: Removed the indicator that determines whether or not events were triggered
-      "randomly" to prevent confusion and harassment of administrative staff moving
-      forward. All event triggers will share the same message regardless of whether
-      they were triggered by the random event system, an admin or dynamic.

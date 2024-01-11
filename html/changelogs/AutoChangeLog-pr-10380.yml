@@ -1,5 +1,0 @@
-author: rkz, TemporalOroboros, Cowbin
-delete-after: true
-changes:
-  - bugfix: fixes cyborgs being unable to refill from loose stacks
-  - code_imp: removes redundant cyborg typepaths

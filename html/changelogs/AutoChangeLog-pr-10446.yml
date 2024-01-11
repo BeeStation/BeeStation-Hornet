@@ -1,4 +1,0 @@
-author: Miliviu
-delete-after: true
-changes:
-  - bugfix: Fixed being able to get infinite glass and wires disassembling Disco Tiles
