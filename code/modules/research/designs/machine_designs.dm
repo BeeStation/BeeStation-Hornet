@@ -676,14 +676,6 @@
 	category = list ("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/board/xenia_listing_inbox
-	name = "Machine Design (Bluespace Straythread Pad)"
-	desc = "The circuit board for a bluespace straythread pad."
-	id = "xenoa_list_pad"
-	build_path = /obj/item/circuitboard/machine/xenoartifact_inbox
-	category = list ("Research Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
-
 /datum/design/board/minor_botanical_dispenser
 	name = "Machine Design (Minor Botanical Chemical Dispenser)"
 	desc = "The circuit board for a minor botanical chemical dispenser."

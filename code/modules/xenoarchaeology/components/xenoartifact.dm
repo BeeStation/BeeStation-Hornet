@@ -42,7 +42,7 @@
 	var/instability = 0
 
 	///What type of artifact are we?
-	var/datum/component/xenoartifact_material/artifact_type
+	var/datum/xenoartifact_material/artifact_type
 
 	///Cooldown logic for uses
 	var/use_cooldown = XENOA_GENERIC_COOLDOWN
@@ -239,7 +239,7 @@
 	return total_conductivity
 
 ///material datums
-/datum/component/xenoartifact_material
+/datum/xenoartifact_material
 	var/name = "debugium"
 	///What color we associate with this material
 	var/material_color = "#ff4800"
@@ -253,5 +253,19 @@
 	///How much we increase artifact instability by for every use
 	var/instability_step = 0
 
-/datum/component/xenoartifact_material/proc/get_trait_list()
+/datum/xenoartifact_material/proc/get_trait_list()
 	return GLOB.xenoa_all_traits
+
+/datum/xenoartifact_material/bananium
+	name = "bananium"
+	material_color = "#f2ff00"
+	instability_step = 0.5
+
+/datum/xenoartifact_material/bananium/get_trait_list()
+	return GLOB.xenoa_bananium_traits
+
+/datum/xenoartifact_material/uranium
+
+/datum/xenoartifact_material/plasma
+
+/datum/xenoartifact_material/bluespace

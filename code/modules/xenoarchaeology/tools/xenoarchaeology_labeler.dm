@@ -147,7 +147,7 @@
 
 /obj/item/xenoarchaeology_labeler/debug/create_label(new_name)
 	var/obj/item/xenoartifact/A = new(get_turf(loc))
-	A.AddComponent(/datum/component/xenoartifact, /datum/component/xenoartifact_material, label_traits)
+	A.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, label_traits)
 
 /*
 	Sticker for labeler, so we can label artifact's with their traits
@@ -175,6 +175,10 @@
 	sticker_icon_state = "[icon_state]_small"
 	return ..()
 
+/obj/item/sticker/xenoartifact_label/examine(mob/user)
+	. = ..()
+	. += examine_override
+
 /obj/item/sticker/xenoartifact_label/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!can_stick(target) || !proximity_flag)
@@ -189,4 +193,5 @@
 /obj/item/sticker/xenoartifact_label/proc/parent_examine(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
 
+	examine_text += "<span class='notice'>There is an artifact label attached.</span>"
 	examine_text += examine_override

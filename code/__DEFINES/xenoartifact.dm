@@ -1,14 +1,14 @@
 //Material defines
 ///Safe
-#define XENOA_BLUESPACE /datum/component/xenoartifact_material
+#define XENOA_BLUESPACE /datum/xenoartifact_material/bluespace
 ///Mild
-#define XENOA_PLASMA /datum/component/xenoartifact_material
+#define XENOA_PLASMA /datum/xenoartifact_material/plasma
 ///Dangerous
-#define XENOA_URANIUM /datum/component/xenoartifact_material
+#define XENOA_URANIUM /datum/xenoartifact_material/uranium
 ///Wildcard
-#define XENOA_BANANIUM /datum/component/xenoartifact_material
+#define XENOA_BANANIUM /datum/xenoartifact_material/bananium
 ///The gods are about to do something stupid
-#define XENOA_DEBUGIUM /datum/component/xenoartifact_material
+#define XENOA_DEBUGIUM /datum/xenoartifact_material
 
 //Trait priorities
 #define TRAIT_PRIORITY_ACTIVATOR "activator"
