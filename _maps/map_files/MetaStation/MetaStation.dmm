@@ -52289,19 +52289,6 @@
 /obj/machinery/fax/service,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
-"nKf" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/spawner/randomarcade,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/space/basic,
-/area/space)
 "nKz" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -101584,7 +101571,7 @@ aaa
 aaa
 aaa
 aaa
-nKf
+aaa
 aaa
 aaa
 tgs
