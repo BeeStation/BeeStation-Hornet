@@ -356,16 +356,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		if(!can_adjust && adjusted) //we deadjust the uniform if it's now unadjustable
 			toggle_jumpsuit_adjust()
 
-/obj/item/gun/energy/laser/practice/dye_item(dye_color, dye_key)
-	. = ..()
-	if(.)
-		cut_overlays()
-
-/obj/item/food/grown/banana/dye_item(dye_color, dye_key)
-	. = ..()
-	if(.)
-		add_overlay()
-
 /obj/item/clothing/head/soft/dye_item(dye_color, dye_key)
 	var/list/dyes = list(DYE_MIME, DYE_CLOWN, DYE_LAW, DYE_CAPTAIN, DYE_HOP, DYE_HOS, DYE_CE)
 	. = ..()
