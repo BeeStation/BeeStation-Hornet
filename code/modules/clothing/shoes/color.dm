@@ -3,7 +3,6 @@
 	greyscale_colors = "#545454#ffffff"
 	greyscale_config = /datum/greyscale_config/sneakers
 	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
-	dying_key = DYE_REGISTRY_SNEAKERS
 
 /obj/item/clothing/shoes/sneakers/black
 	name = "black shoes"
