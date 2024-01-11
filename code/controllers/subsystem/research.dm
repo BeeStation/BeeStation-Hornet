@@ -44,7 +44,6 @@ SUBSYSTEM_DEF(research)
 	// 2) Scientists using their shuttle to go to ruins
 	// 3) Giving miners a scanner
 	// 4) Scanning station pets
-	// 5) Using the experimentor on maint devices
 	// (probably more added since this comment was written.)
 	science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, 2500)
 	admin_tech = new /datum/techweb/admin

@@ -5,7 +5,7 @@
 #define INVESTIGATE_DEATHS "deaths"
 #define INVESTIGATE_ENGINES "engines"
 #define INVESTIGATE_EXONET "exonet"
-#define INVESTIGATE_EXPERIMENTOR "experimentor"
+#define INVESTIGATE_PEPPERSPRAY "pepperspray"
 #define INVESTIGATE_GRAVITY "gravity"
 #define INVESTIGATE_HALLUCINATIONS "hallucinations"
 #define INVESTIGATE_ITEMS "items"

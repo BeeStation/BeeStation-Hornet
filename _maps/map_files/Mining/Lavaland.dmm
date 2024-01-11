@@ -5311,11 +5311,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/carpet/blue,
 /area/mine/living_quarters)
-"Nz" = (
-/obj/machinery/rnd/experimentor,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/engine,
-/area/mine/science)
 "NB" = (
 /obj/structure/camera_assembly{
 	dir = 6
@@ -50311,7 +50306,7 @@ mp
 qy
 zA
 cE
-Nz
+YW
 mp
 Zd
 Zd

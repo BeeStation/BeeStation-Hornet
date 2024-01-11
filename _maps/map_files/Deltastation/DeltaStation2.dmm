@@ -14000,11 +14000,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
-"bwI" = (
-/obj/machinery/rnd/experimentor,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/science/xenobiology)
 "bwJ" = (
 /obj/structure/rack,
 /obj/structure/cable/yellow{
@@ -28759,6 +28754,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
+"cVV" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/engine,
+/area/science/explab)
 "cWa" = (
 /obj/structure/cable/white,
 /obj/effect/spawner/structure/window/reinforced,
@@ -32083,17 +32082,14 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "dwd" = (
-/obj/machinery/camera{
-	c_tag = "Science - Experimentor";
-	dir = 1;
-	name = "science camera";
-	network = list("ss13","rd")
+/mob/living/simple_animal/pet/dog/pug{
+	density = 0;
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/science/explab)
 "dwe" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light,
+/obj/effect/turf_decal/caution,
 /turf/open/floor/engine,
 /area/science/explab)
 "dwg" = (
@@ -49086,9 +49082,6 @@
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "iqw" = (
-/obj/machinery/computer/rdconsole/experiment{
-	dir = 1
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -52252,12 +52245,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/medical/medbay/central)
-"jAD" = (
-/mob/living/simple_animal/pet/dog/pug{
-	name = "Swanson"
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "jAE" = (
 /obj/machinery/rnd/production/techfab/department/medical,
 /obj/machinery/light{
@@ -56341,6 +56328,13 @@
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"kRS" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/caution{
+	dir = 1
+	},
+/turf/open/floor/engine,
+/area/science/explab)
 "kSf" = (
 /obj/structure/table/reinforced,
 /obj/structure/reagent_dispensers/peppertank{
@@ -57789,6 +57783,18 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"lss" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/camera/autoname{
+	dir = 8;
+	network = list("ss13","rd")
+	},
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/engine,
+/area/science/explab)
 "lsO" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -62908,10 +62914,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/science/xenobiology)
-"ncP" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine,
-/area/science/explab)
 "ndc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -81508,6 +81510,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
+"tuY" = (
+/obj/effect/turf_decal/delivery,
+/obj/item/beacon,
+/turf/open/floor/engine,
+/area/science/explab)
 "tvg" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel,
@@ -121647,7 +121654,7 @@ inh
 gCy
 inh
 inh
-bwI
+inh
 cMY
 wvW
 pRU
@@ -124743,7 +124750,7 @@ hPA
 gGX
 drI
 duw
-duw
+cVV
 dwd
 djA
 lgV
@@ -124999,8 +125006,8 @@ awv
 xDF
 vXL
 drJ
-duw
-duw
+kRS
+bIW
 dwe
 djA
 oPM
@@ -125256,9 +125263,9 @@ nZh
 fjH
 fqY
 drK
-jAD
-bIW
-ncP
+duw
+tuY
+duw
 djA
 rYh
 ceb
@@ -125514,7 +125521,7 @@ xQY
 fDO
 drI
 duw
-duw
+lss
 duw
 djA
 jGQ

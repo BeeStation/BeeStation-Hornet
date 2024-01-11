@@ -9353,7 +9353,6 @@
 /turf/open/floor/plating,
 /area/science/robotics/lab)
 "bus" = (
-/obj/machinery/rnd/experimentor,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/engine,
 /area/science/misc_lab)
@@ -27046,9 +27045,7 @@
 /area/space/nearstation)
 "gAU" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -27339,7 +27336,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/item/book/manual/wiki/experimentor,
 /obj/item/storage/box/beakers{
 	pixel_x = 2;
 	pixel_y = 2
@@ -31202,15 +31198,13 @@
 /turf/open/floor/plasteel,
 /area/security/main)
 "iET" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/xenoartifact,
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/xenoartifact_console{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/east,
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "iFl" = (
@@ -38268,9 +38262,10 @@
 /area/quartermaster/office)
 "lRv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/rdconsole/experiment{
+/obj/machinery/computer/xenoartifact_console{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "lRI" = (

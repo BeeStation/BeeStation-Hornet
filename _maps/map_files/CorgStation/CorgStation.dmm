@@ -6357,8 +6357,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -10145,6 +10144,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"dfx" = (
+/mob/living/simple_animal/pet/dog/pug{
+	density = 0;
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/science/explab)
 "dfA" = (
 /obj/machinery/light{
 	dir = 8
@@ -29924,8 +29930,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -34986,8 +34991,8 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "lqs" = (
-/obj/machinery/camera/autoname{
-	dir = 4
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/science/explab)
@@ -36565,11 +36570,11 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/warehouse)
 "lQm" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/storage/toolbox/mechanical,
+/obj/item/xenoartifact,
+/obj/structure/rack,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "lQs" = (
@@ -38759,8 +38764,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -43421,6 +43425,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"nYP" = (
+/obj/effect/turf_decal/caution,
+/turf/open/floor/engine,
+/area/science/explab)
 "nYV" = (
 /obj/machinery/bluespace_beacon,
 /obj/effect/turf_decal/stripes/line{
@@ -43937,7 +43945,6 @@
 /area/tcommsat/server)
 "ohX" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/experimentor,
 /obj/machinery/requests_console{
 	pixel_x = -32
 	},
@@ -46413,6 +46420,9 @@
 	pixel_x = 29;
 	pixel_y = -2
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/engine,
 /area/science/explab)
 "paW" = (
@@ -48057,6 +48067,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
+"pEv" = (
+/obj/machinery/camera/autoname{
+	dir = 6
+	},
+/turf/open/floor/engine,
+/area/science/explab)
 "pEy" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -50609,8 +50625,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -53375,7 +53390,8 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "rnW" = (
-/mob/living/simple_animal/pet/dog/pug,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/engine,
 /area/science/explab)
 "rok" = (
@@ -56663,9 +56679,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "sqK" = (
-/obj/machinery/xenoartifact_inbox,
 /obj/effect/turf_decal/delivery,
-/obj/item/xenoartifact,
 /turf/open/floor/engine,
 /area/science/explab)
 "srf" = (
@@ -56674,6 +56688,13 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"sry" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/caution{
+	dir = 1
+	},
+/turf/open/floor/engine,
+/area/science/explab)
 "srD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -57994,7 +58015,9 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "sNz" = (
-/obj/machinery/rnd/experimentor,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/xenoartifact_inbox,
+/obj/item/xenoartifact,
 /turf/open/floor/engine,
 /area/science/explab)
 "sNC" = (
@@ -63847,7 +63870,8 @@
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/computer/rdconsole/experiment,
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "uNE" = (
@@ -67119,12 +67143,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
-"vNZ" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "vOc" = (
 /obj/machinery/computer/apc_control{
 	dir = 1
@@ -71609,6 +71627,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "xqo" = (
+/obj/effect/turf_decal/delivery,
 /obj/item/beacon,
 /turf/open/floor/engine,
 /area/science/explab)
@@ -71930,6 +71949,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"xwB" = (
+/obj/item/xenoartifact,
+/turf/open/space/basic,
+/area/space)
 "xwH" = (
 /obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
 /turf/open/floor/plasteel,
@@ -80872,7 +80895,7 @@ aMT
 aMT
 aMT
 aMT
-aMT
+xwB
 aMT
 aMT
 aMT
@@ -102614,7 +102637,7 @@ kIy
 lWn
 ejA
 sqK
-ejA
+dfx
 hSX
 qxn
 jHk
@@ -102869,9 +102892,9 @@ iUv
 mHr
 kIy
 iJI
-ejA
+sry
 sNz
-ejA
+nYP
 hSX
 uNv
 wMM
@@ -103126,7 +103149,7 @@ oDm
 jvu
 ilJ
 lWn
-ejA
+pEv
 xqo
 ejA
 lWn
@@ -103383,7 +103406,7 @@ nzk
 jvu
 ilJ
 lWn
-vNZ
+ejA
 rnW
 ejA
 eoW
