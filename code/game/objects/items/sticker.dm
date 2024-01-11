@@ -1,3 +1,4 @@
+//TODO: Moves these to a define file - Racc
 #define STICKER_STATE_STUCK "STICKER_STATE_STUCK"
 #define STICKER_STATE_ITEM "STICKER_STATE_ITEM"
 
@@ -60,7 +61,7 @@
 	pixel_x = 0
 	pixel_y = 0
 
-/obj/item/sticker/after/attackby(obj/item/I, mob/living/user, params)
+/obj/item/sticker/attackby(obj/item/I, mob/living/user, params)
 	//If we're stuck to something, pass the attack to our loc
 	if(sticker_state == STICKER_STATE_STUCK)
 		var/atom/A = loc
@@ -88,6 +89,3 @@
 
 /obj/item/sticker/proc/can_stick(atom/target)
 	return ismovable(target) ? TRUE : FALSE
-
-#undef STICKER_STATE_STUCK
-#undef STICKER_STATE_ITEM

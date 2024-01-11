@@ -22,14 +22,15 @@
 	var/list/selected_malfunction_traits = list()
 	var/list/malfunction_list = list()
 
-	///trait dialogue essentially
+	///List of descriptions for selected traits
 	var/list/info_list = list()
 
-	///passed down to sticker
-	var/list/sticker_traits = list()
+	///List of selected traits we'll put on the label
+	var/list/label_traits = list()
 
 	///Cooldown for stickers
-	COOLDOWN_DECLARE(sticker_cooldown)
+	var/sticker_cooldown = 5 SECONDS
+	COOLDOWN_DECLARE(sticker_cooldown_timer)
 
 /obj/item/xenoarchaeology_labeler/Initialize(mapload)
 	. = ..()
@@ -69,18 +70,19 @@
 	if(..())
 		return
 	
-	if(action == "print_traits" && COOLDOWN_FINISHED(src, sticker_cooldown))
-		COOLDOWN_START(src, sticker_cooldown, 5 SECONDS)
+	//print label
+	if(action == "print_traits" && COOLDOWN_FINISHED(src, sticker_cooldown_timer))
+		COOLDOWN_START(src, sticker_cooldown_timer, sticker_cooldown)
 		create_label()
 		return
-	else if(!COOLDOWN_FINISHED(src, sticker_cooldown) && isliving(loc))
+	else if(!COOLDOWN_FINISHED(src, sticker_cooldown_timer) && isliving(loc))
 		var/mob/living/user = loc
 		to_chat(user, "<span class='warning'>The labeler is still printing.</span>")
-
+	//Clear selections
 	if(action == "clear_traits")
 		clear_selection()
 		return
-
+	//Toggle traits
 	trait_toggle(action, "activator", activator_traits, selected_activator_traits)
 	trait_toggle(action, "minor", minor_traits, selected_minor_traits)
 	trait_toggle(action, "major", major_traits, selected_major_traits)
@@ -94,25 +96,21 @@
 	var/list/temp = list()
 	for(var/datum/xenoartifact_trait/T as() in trait_type)
 		temp += initial(T.label_name)
+		
 	return temp
-
-/obj/item/xenoarchaeology_labeler/proc/look_for(list/place, culprit) //This isn't really needed but, It's easier to use as a function. What does this even do?
-	if(place.Find(culprit))
-		return TRUE
-	return FALSE
 
 /obj/item/xenoarchaeology_labeler/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
-	if(proximity_flag && COOLDOWN_FINISHED(src, sticker_cooldown))
-		COOLDOWN_START(src, sticker_cooldown, 5 SECONDS)
+	if(proximity_flag && COOLDOWN_FINISHED(src, sticker_cooldown_timer))
+		COOLDOWN_START(src, sticker_cooldown_timer, 5 SECONDS)
 		create_label(target, user)
-	else if(!COOLDOWN_FINISHED(src, sticker_cooldown))
+	else if(!COOLDOWN_FINISHED(src, sticker_cooldown_timer))
 		to_chat(user, "<span class='warning'>The labeler is still printing.</span>")
 
 ///reset all the options
 /obj/item/xenoarchaeology_labeler/proc/clear_selection()
 	info_list = list()
-	sticker_traits = list()
+	label_traits = list()
 	selected_activator_traits = list()
 	selected_minor_traits = list()
 	selected_major_traits = list()
@@ -120,45 +118,36 @@
 	ui_update()
 
 /obj/item/xenoarchaeology_labeler/proc/create_label(mob/target, mob/user)
-	var/obj/item/sticker/xenoartifact_label/P = new(get_turf(src))
-	P.traits = sticker_traits
-	P.info = selected_activator_traits+selected_minor_traits+selected_major_traits+selected_malfunction_traits
-	P.afterattack(target, user, TRUE)
+	var/obj/item/sticker/xenoartifact_label/P = new(get_turf(src), label_traits)
+	if(target && user)
+		P.afterattack(target, user, TRUE)
 
 /obj/item/xenoarchaeology_labeler/proc/trait_toggle(action, toggle_type, var/list/trait_list, var/list/active_trait_list)
-	var/datum/xenoartifact_trait/description_holder
-	var/new_trait
 	for(var/t in trait_list)
-		new_trait = desc2datum(t)
-		description_holder = new_trait
 		if(action != "assign_[toggle_type]_[t]")
 			continue
-		if(!look_for(active_trait_list, t))
-			active_trait_list += t
-			info_list += initial(description_holder.label_desc)
-			sticker_traits += new_trait
-		else
+		var/datum/xenoartifact_trait/description_holder = GLOB.xenoa_all_traits_keyed[t]
+		if(t in active_trait_list)
 			active_trait_list -= t
 			info_list -= initial(description_holder.label_desc)
-			sticker_traits -= new_trait
-
-//This is just a hacky way of getting the info from a datum using its desc becuase I wrote this last and it's not heartbreaking
-/obj/item/xenoarchaeology_labeler/proc/desc2datum(udesc)
-	for(var/datum/xenoartifact_trait/X as() in GLOB.xenoa_all_traits)
-		if((udesc == initial(X.label_desc)) || (udesc == initial(X.label_name)))
-			return X
-	CRASH("The xenoartifact trait description '[udesc]' doesn't have a corresponding trait. Something fucked up.")
+			label_traits -= GLOB.xenoa_all_traits_keyed[t]
+		else
+			active_trait_list += t
+			info_list += initial(description_holder.label_desc)
+			label_traits += GLOB.xenoa_all_traits_keyed[t]
 
 /obj/item/xenoarchaeology_labeler/debug
 	name = "xenoartifact debug labeler"
 	desc = "Use to create specific Xenoartifacts"
+	icon_state = "labeler_debug"
+	sticker_cooldown = 0 SECONDS
 
 /obj/item/xenoarchaeology_labeler/debug/afterattack(atom/target, mob/user)
 	return
 
 /obj/item/xenoarchaeology_labeler/debug/create_label(new_name)
 	var/obj/item/xenoartifact/A = new(get_turf(loc))
-	A.AddComponent(/datum/component/xenoartifact, /datum/component/xenoartifact_material, sticker_traits)
+	A.AddComponent(/datum/component/xenoartifact, /datum/component/xenoartifact_material, label_traits)
 
 /*
 	Sticker for labeler, so we can label artifact's with their traits
@@ -170,12 +159,34 @@
 	desc = "An adhesive label, for artifacts."
 	do_outline = FALSE
 	///List of artifact traits we're labelling
-	var/list/traits
-	//
-	var/info = ""
+	var/list/traits = list()
+	///A special examine description built from the traits we have
+	var/examine_override = ""
 
-/obj/item/sticker/xenoartifact_label/Initialize()
+/obj/item/sticker/xenoartifact_label/Initialize(mapload, list/_traits)
+	//Setup traits & examine desc
+	traits = _traits
+	if(length(traits))
+		examine_override = "Traits:"
+		for(var/datum/xenoartifact_trait/T as() in traits)
+			examine_override = "[examine_override]\n	- [initial(T.label_name)]"
 	//Setup a random appearance
 	icon_state = "sticker_[pick(list("star", "box", "tri", "round"))]"
 	sticker_icon_state = "[icon_state]_small"
 	return ..()
+
+/obj/item/sticker/xenoartifact_label/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!can_stick(target) || !proximity_flag)
+		return
+	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(parent_examine))
+
+/obj/item/sticker/xenoartifact_label/attack_hand(mob/user)
+	if(sticker_state == STICKER_STATE_STUCK)
+		UnregisterSignal(loc, COMSIG_PARENT_EXAMINE)
+	. = ..()
+
+/obj/item/sticker/xenoartifact_label/proc/parent_examine(datum/source, mob/user, list/examine_text)
+	SIGNAL_HANDLER
+
+	examine_text += examine_override

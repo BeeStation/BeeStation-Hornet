@@ -9,6 +9,8 @@ GLOBAL_LIST(xenoa_minors)
 GLOBAL_LIST(xenoa_majors)
 GLOBAL_LIST(xenoa_malfunctions)
 GLOBAL_LIST(xenoa_all_traits)
+///All traits indexed by name
+GLOBAL_LIST(xenoa_all_traits_keyed)
 
 ///Blacklist for traits
 GLOBAL_LIST(xenoa_XENOA_BLUESPACE_TRAITs)
@@ -30,6 +32,7 @@ GLOBAL_LIST(xenoa_XENOA_BANANIUM_TRAITs)
 	GLOB.xenoa_majors = compile_artifact_weights(/datum/xenoartifact_trait/major)
 	GLOB.xenoa_malfunctions = compile_artifact_weights(/datum/xenoartifact_trait/malfunction)
 	GLOB.xenoa_all_traits = compile_artifact_weights(/datum/xenoartifact_trait)
+	GLOB.xenoa_all_traits_keyed = compile_artifact_weights(/datum/xenoartifact_trait, TRUE)
 
 	GLOB.xenoa_XENOA_BLUESPACE_TRAITs = compile_artifact_whitelist(XENOA_BLUESPACE_TRAIT)
 	GLOB.xenoa_XENOA_PLASMA_TRAITs = compile_artifact_whitelist(XENOA_PLASMA_TRAIT)

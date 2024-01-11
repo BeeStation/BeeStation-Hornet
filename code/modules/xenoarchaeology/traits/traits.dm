@@ -127,13 +127,16 @@
 	return
 
 ///Proc used to compile trait weights into a list
-/proc/compile_artifact_weights(path)
+/proc/compile_artifact_weights(path, keyed = FALSE)
 	if(!ispath(path))
 		return
 	var/list/temp = subtypesof(path)
 	var/list/weighted = list()
 	for(var/datum/xenoartifact_trait/T as() in temp)
-		weighted += list((T) = initial(T.rarity)) //The (T) will not work if it is T
+		if(keyed)
+			weighted += list(initial(T.label_name) = (T))
+		else
+			weighted += list((T) = initial(T.rarity)) //The (T) will not work if it is T
 	return weighted
 
 ///Compile a blacklist of traits from a given flag/s
