@@ -36700,12 +36700,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
-"gHk" = (
-/obj/structure/grille,
-/obj/structure/grille,
-/obj/structure/grille,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "gHE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -43668,14 +43662,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/medical/patients_rooms)
-"jxX" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space,
-/area/space/nearstation)
 "jyc" = (
 /obj/item/radio/intercom{
 	pixel_x = -31;
@@ -65122,7 +65108,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/grille,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "rVC" = (
@@ -132289,7 +132274,7 @@ aaa
 aaa
 lMJ
 bKK
-gHk
+siF
 anS
 lXy
 cPy
@@ -134097,7 +134082,7 @@ aaa
 aaa
 anT
 aaa
-jxX
+aTQ
 aTQ
 aTQ
 aTQ
