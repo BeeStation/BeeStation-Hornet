@@ -249,3 +249,14 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+
+/obj/item/clothing/under/color/rainbow/denied
+	name = "ERROR jumpsuit"
+	desc = "An error! A glitch! Wearing this for too long will make you go insane..."
+	icon_state = "denied"
+	item_state = null
+
+/obj/item/clothing/under/color/rainbow/denied/skirt
+	name = "ERROR jumpskirt"
+	icon_state = "denied_skirt"
+	dying_key = DYE_REGISTRY_JUMPSKIRT

@@ -119,3 +119,8 @@
 	soft_color = "cargo"
 
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
+
+/obj/item/clothing/head/soft/denied
+	name = "ERROR cap"
+	desc = "It's a baseball hat in a tasteless ERROR ERROR ERROR ERROR ERROR ERROR!!!!"
+	icon_state = "deniedsoft"

@@ -158,6 +158,13 @@
 	item_state = "browngloves"
 	worn_icon_state = "browngloves"
 
+/obj/item/clothing/gloves/color/denied
+	name = "ERROR gloves"
+	desc = "With these gloves you will be like the legendary Midas. Except instead of turning to gold everthing you touch will become -REDACTED-."
+	icon_state = "denied"
+	item_state = "redgloves"
+	worn_icon_state = "deniedgloves"
+
 /obj/item/clothing/gloves/color/captain
 	desc = "Regal blue gloves, with a nice gold trim, a diamond anti-shock coating, and an integrated thermal barrier. Swanky."
 	name = "captain's gloves"

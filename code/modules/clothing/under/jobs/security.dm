@@ -201,13 +201,19 @@
  * Navy uniforms
  */
 
+/obj/item/clothing/under/rank/security/head_of_security/parade
+	name = "head of security's parade uniform"
+	desc = "An head of security's luxury-wear, for special occasions."
+	icon_state = "hos_parade_male"
+	item_state = "r_suit"
+	can_adjust = FALSE
+
 /obj/item/clothing/under/rank/security/head_of_security/parade/female
 	name = "head of security's parade uniform"
 	desc = "A female head of security's luxury-wear, for special occasions."
 	icon_state = "hos_parade_fem"
 	item_state = "r_suit"
 	fitted = FEMALE_UNIFORM_TOP
-	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/security/warden/formal
 	desc = "The insignia on this uniform tells you that this uniform belongs to the Warden."

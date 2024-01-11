@@ -118,9 +118,20 @@
 	name = "white beret"
 	icon_state = "beret_white"
 
-/obj/item/clothing/head/beret/color/green
-	name = "green beret"
-	color = "#9ed63a"
+/obj/item/clothing/head/beret/rainbow
+	name = "rainbow beret"
+	desc = "The result of a passionate relationship between a mime and a clown."
+	icon_state = "beret_rainbow"
+
+/obj/item/clothing/head/beret/mime
+	name = "invisible beret"
+	desc = "Only a very scholarly mime is able to cram enough mimery into a beret for this to happen."
+	icon_state = "beret_mime"
+
+/obj/item/clothing/head/beret/clown
+	name = "H.O.N.K tactical beret"
+	desc = "A tactical berret to be used during the enacting of the most dangerous of pranks."
+	icon_state = "beret_clown"
 
 /obj/item/clothing/head/beret/vintage
 	name = "vintage beret"

@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RAINBOW = /obj/item/clothing/under/color/rainbow,
 		DYE_MIME = /obj/item/clothing/under/rank/civilian/mime,
 		DYE_CLOWN = /obj/item/clothing/under/rank/civilian/clown,
-		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster/turtleneck,
+		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster,
 		DYE_LAW = /obj/item/clothing/under/suit/black,
 		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain,
 		DYE_HOP = /obj/item/clothing/under/rank/civilian/head_of_personnel,
@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer,
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director,
 		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer,
-		DYE_REDCOAT = /obj/item/clothing/under/costume/redcoat, //TODO /obj/item/clothing/under/costume/denyed
+		DYE_DENIED = /obj/item/clothing/under/color/rainbow/denied,
 		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer
 	),
 	DYE_REGISTRY_JUMPSKIRT = list(
@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RAINBOW = /obj/item/clothing/under/color/jumpskirt/rainbow,
 		DYE_MIME = /obj/item/clothing/under/rank/civilian/mime/skirt,
 		DYE_CLOWN = /obj/item/clothing/under/rank/civilian/clown/sexy,
-		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster/turtleneck/skirt,
+		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster/skirt,
 		DYE_LAW = /obj/item/clothing/under/suit/black/skirt,
 		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain/skirt,
 		DYE_HOP = /obj/item/clothing/under/rank/civilian/head_of_personnel/skirt,
@@ -43,8 +43,14 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CE = /obj/item/clothing/under/rank/engineering/chief_engineer/skirt,
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director/skirt,
 		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt,
-		DYE_REDCOAT = /obj/item/clothing/under/costume/redcoat, //TODO /obj/item/clothing/under/costume/denyed
+		DYE_DENIED = /obj/item/clothing/under/color/rainbow/denied/skirt,
 		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer/skirt
+	),
+	DYE_REGISTRY_SUITS = list(
+		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster/turtleneck,
+		DYE_LAW = /obj/item/clothing/under/rank/civilian/lawyer/black,
+		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain/parade,
+		DYE_HOS = /obj/item/clothing/under/rank/security/head_of_security/parade
 	),
 	DYE_REGISTRY_GLOVES = list(
 		DYE_RED = /obj/item/clothing/gloves/color/red,
@@ -58,14 +64,14 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RAINBOW = /obj/item/clothing/gloves/color/rainbow,
 		DYE_MIME = /obj/item/clothing/gloves/color/white,
 		DYE_CLOWN = /obj/item/clothing/gloves/color/rainbow,
-		DYE_QM = /obj/item/clothing/gloves/color/brown,
+		DYE_QM = /obj/item/clothing/gloves/fingerless,
 		DYE_CAPTAIN = /obj/item/clothing/gloves/color/captain,
 		DYE_HOP = /obj/item/clothing/gloves/color/grey,
 		DYE_HOS = /obj/item/clothing/gloves/color/black,
 		DYE_CE = /obj/item/clothing/gloves/color/yellow,
 		DYE_RD = /obj/item/clothing/gloves/color/grey,
 		DYE_CMO = /obj/item/clothing/gloves/color/latex/nitrile,
-		DYE_REDCOAT = /obj/item/clothing/gloves/color/white,
+		DYE_DENIED = /obj/item/clothing/gloves/color/denied,
 		DYE_SECURITY = /obj/item/clothing/gloves/color/black
 	),
 	DYE_REGISTRY_SNEAKERS = list(
@@ -85,6 +91,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CE = /obj/item/clothing/shoes/sneakers/brown,
 		DYE_RD = /obj/item/clothing/shoes/sneakers/brown,
 		DYE_CMO = /obj/item/clothing/shoes/sneakers/brown,
+		DYE_DENIED = /obj/item/clothing/shoes/sneakers/rainbow/denied,
 		DYE_SECURITY = /obj/item/clothing/shoes/jackboots
 	),
 
@@ -108,29 +115,21 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CE = /obj/item/clothing/head/hardhat/white,
 		DYE_RD = /obj/item/clothing/head/soft/purple,
 		DYE_CMO = /obj/item/clothing/head/soft,
-		DYE_REDCOAT = /obj/item/clothing/head/soft,
+		DYE_DENIED = /obj/item/clothing/head/soft/denied,
 		DYE_SECURITY = /obj/item/clothing/head/soft/sec
 	),
 
 	DYE_REGISTRY_BERET = list(
-		DYE_RED = /obj/item/clothing/head/beret/color/green,
-		DYE_ORANGE = /obj/item/clothing/head/beret/color/green,
-		DYE_YELLOW = /obj/item/clothing/head/beret/color/green,
-		DYE_GREEN = /obj/item/clothing/head/beret/color/green,
-		DYE_BLUE = /obj/item/clothing/head/beret/color/green,
-		DYE_PURPLE = /obj/item/clothing/head/beret/color/green,
-		DYE_BLACK = /obj/item/clothing/head/beret/black,
 		DYE_WHITE = /obj/item/clothing/head/beret/color,
-		DYE_RAINBOW = /obj/item/clothing/head/beret/color/green,
-		DYE_MIME = /obj/item/clothing/head/beret/color/green,
-		DYE_CLOWN = /obj/item/clothing/head/beret/color/green,
+		DYE_RAINBOW = /obj/item/clothing/head/beret/rainbow,
+		DYE_MIME = /obj/item/clothing/head/beret/mime,
+		DYE_CLOWN = /obj/item/clothing/head/beret/clown,
 		DYE_QM = /obj/item/clothing/head/beret/supply,
-		DYE_LAW = /obj/item/clothing/head/beret/color/green,
-		DYE_CAPTAIN = /obj/item/clothing/head/beret/color/green,
-		DYE_HOP = /obj/item/clothing/head/beret/color/green,
+		DYE_LAW = /obj/item/clothing/head/beret/black,
+		DYE_CAPTAIN = /obj/item/clothing/head/beret/captain,
 		DYE_HOS = /obj/item/clothing/head/HoS/beret,
 		DYE_CE = /obj/item/clothing/head/beret/ce,
-		DYE_RD = /obj/item/clothing/head/beret/color/green,
+		DYE_RD = /obj/item/clothing/head/beret/sci,
 		DYE_CMO = /obj/item/clothing/head/beret/cmo,
 		DYE_SECURITY = /obj/item/clothing/head/beret/sec
 	),
@@ -143,7 +142,8 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_BLUE = /obj/item/storage/belt/fannypack/blue,
 		DYE_PURPLE = /obj/item/storage/belt/fannypack/purple,
 		DYE_BLACK = /obj/item/storage/belt/fannypack/black,
-		DYE_WHITE = /obj/item/storage/belt/fannypack/white
+		DYE_WHITE = /obj/item/storage/belt/fannypack/white,
+		DYE_DENIED = /obj/item/storage/belt/fannypack/red
 	),
 	DYE_REGISTRY_BEDSHEET = list(
 		DYE_RED = /obj/item/bedsheet/red,
@@ -165,22 +165,17 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CE = /obj/item/bedsheet/ce,
 		DYE_RD = /obj/item/bedsheet/rd,
 		DYE_CMO = /obj/item/bedsheet/cmo,
-		DYE_COSMIC = /obj/item/bedsheet/cosmos
+		DYE_COSMIC = /obj/item/bedsheet/cosmos,
+		DYE_DENIED = /obj/item/bedsheet/cult
 	),
 	DYE_REGISTRY_GUN = list(
-		DYE_CLOWN = /obj/item/food/grown/banana,
-		DYE_SECURITY = /obj/item/gun/energy/laser/practice,
-		DYE_HOS = /obj/item/gun/energy/laser/practice
+		DYE_CLOWN = /obj/item/food/grown/banana
 	),
 	DYE_REGISTRY_BANANA = list(
-		DYE_CLOWN = /obj/item/gun/energy/laser,
-		DYE_SECURITY = /obj/item/food/grown/banana,
-		DYE_HOS = /obj/item/food/grown/banana
+		DYE_CLOWN = /obj/item/gun/ballistic/shotgun/riot
 	),
 	DYE_REGISTRY_PEEL = list(
-		DYE_CLOWN = /obj/item/caution,
-		DYE_SECURITY = /obj/item/grown/bananapeel,
-		DYE_HOS = /obj/item/grown/bananapeel
+		DYE_CLOWN = /obj/item/caution
 	)
 ))
 
@@ -262,10 +257,37 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		AM.machine_wash(src)
 
 	busy = FALSE
+	if(!color_source)
+		for(var/obj/item/item in contents)
+			item.add_atom_colour(initial(item.color), FIXED_COLOUR_PRIORITY)
+			item.icon_state = initial(item.icon_state)
+			item.item_state = initial(item.item_state)
+			item.worn_icon_state = initial(item.worn_icon_state)
+			item.inhand_x_dimension = initial(item.inhand_x_dimension)
+			item.inhand_y_dimension = initial(item.inhand_y_dimension)
+			item.name = initial(item.name)
+			item.desc = initial(item.desc)
+			if(initial(item.greyscale_config) && initial(item.greyscale_colors))
+				item.set_greyscale(
+					colors=initial(item.greyscale_colors),
+					new_config=initial(item.greyscale_config),
+					new_worn_config=initial(item.greyscale_config_worn),
+					new_inhand_left=initial(item.greyscale_config_inhand_left),
+					new_inhand_right=initial(item.greyscale_config_inhand_right)
+				)
+			else
+				item.icon = initial(item.icon)
+				item.lefthand_file = initial(item.lefthand_file)
+				item.righthand_file = initial(item.righthand_file)
+				item.worn_icon = initial(item.worn_icon)
 	if(color_source)
 		color_source = null
 		for(var/obj/item/book/manual/book in contents)
 			qdel(book)
+		for(var/obj/item/paper/paper in contents)
+			qdel(paper)
+
+
 	update_icon()
 	soundloop.stop()
 
