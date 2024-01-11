@@ -202,6 +202,11 @@
 /datum/mood_event/sad_empath/add_effects(mob/sadtarget)
 	description = "<span class='warning'>[sadtarget.name] seems upset...</span>"
 
+/datum/mood_event/artbad
+	description = "<span class='warning'>I've produced better art than that from my ass.</span>\n"
+	mood_change = -2
+	timeout = 2 MINUTES
+
 /datum/mood_event/sacrifice_bad
 	description ="<span class='warning'>Those darn savages!</span>"
 	mood_change = -5
@@ -210,7 +215,7 @@
 /datum/mood_event/artbad
 	description = "<span class='warning'>I've produced better art than that from my ass.</span>"
 	mood_change = -2
-	timeout = 1200
+	timeout = 2 MINUTES
 
 /datum/mood_event/gates_of_mansus
 	description = "<span class='boldwarning'>LIVING IN A PERFORMANCE IS WORSE THAN DEATH</span>"
