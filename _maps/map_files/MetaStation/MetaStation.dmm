@@ -53473,7 +53473,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/grille,
-/obj/structure/grille,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "nnO" = (
@@ -71449,7 +71448,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/grille,
-/obj/structure/grille,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "uwt" = (
@@ -74335,12 +74333,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"vDM" = (
-/obj/structure/grille,
-/obj/structure/grille,
-/obj/structure/grille,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "vDQ" = (
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
@@ -129795,7 +129787,7 @@ aaa
 aaa
 lMJ
 bKK
-phY
+kJY
 qJV
 vde
 frA
@@ -130309,7 +130301,7 @@ aaa
 aaa
 lMJ
 bKK
-phY
+kJY
 hIT
 vde
 frA
@@ -130566,7 +130558,7 @@ aaa
 aaa
 lMJ
 bKK
-phY
+kJY
 hIT
 vde
 frA
@@ -132365,7 +132357,7 @@ aaa
 aaa
 lMJ
 bKK
-vDM
+siF
 anS
 lXy
 cPy
