@@ -1,5 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: Fixes a bug where Gas Miners could effectively halt Auxmos
-  - bugfix: A few things no longer unnecessarily update turf adjacency
