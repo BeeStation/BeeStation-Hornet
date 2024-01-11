@@ -123,7 +123,7 @@
 	var/turfverb = "uproot"
 	tiled_dirt = FALSE
 	max_integrity = 80
-	transform = MAP_SWITCH(TRANSLATE_MATRIX(9, 9), matrix())
+	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
 
 /turf/open/floor/grass/no_border
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN)
