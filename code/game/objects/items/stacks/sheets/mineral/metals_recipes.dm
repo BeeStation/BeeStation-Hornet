@@ -107,11 +107,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/iron)
 
-/obj/item/stack/sheet/iron/cyborg
-	mats_per_unit = null
-	is_cyborg = 1
-	cost = 500
-
 /* Plasteel */
 
 GLOBAL_LIST_INIT(plasteel_recipes, list ( \

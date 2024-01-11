@@ -27,8 +27,11 @@ Metals Sheets
 	merge_type = /obj/item/stack/sheet/iron
 	grind_results = list(/datum/reagent/iron = 20)
 	point_value = 2
+	tableVariant = /obj/structure/table
 	material_type = /datum/material/iron
 	matter_amount = 4
+	cost = 500
+	source = /datum/robot_energy_storage/metal
 
 /obj/item/stack/sheet/iron/ratvar_act()
 	new /obj/item/stack/sheet/brass(loc, amount)
