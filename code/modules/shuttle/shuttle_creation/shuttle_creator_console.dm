@@ -4,6 +4,9 @@
 	desc = "You should not have access to this, please report this as a bug"
 	networks = list()
 	use_power = NO_POWER_USE
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	var/obj/item/shuttle_creator/owner_rsd
 	var/datum/action/innate/shuttle_creator/designate_area/area_action = new
 	var/datum/action/innate/shuttle_creator/designate_turf/turf_action = new
