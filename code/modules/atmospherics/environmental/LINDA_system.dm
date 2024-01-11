@@ -145,6 +145,9 @@
 
 	return adjacent_turfs
 
+/**
+ * For the love of all that is holy, DO NOT SET `command` TO TRUE ON HOTCODE. This will cause atmos to freeze up for considerable amounts at a time.
+ */
 /atom/proc/air_update_turf(command = 0)
 	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
 		return
