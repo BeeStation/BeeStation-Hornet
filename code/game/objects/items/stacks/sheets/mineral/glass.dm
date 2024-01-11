@@ -81,20 +81,24 @@
 	..()
 
 /obj/item/stack/sheet/rglass/cyborg
-	custom_materials = null
-	var/datum/robot_energy_storage/glasource
-	var/metcost = 250
+	mats_per_unit = null
+	cost = 250
+	source = /datum/robot_energy_storage/metal
+
+	/// What energy storage this draws glass from as a robot module.
+	var/datum/robot_energy_storage/glasource = /datum/robot_energy_storage/glass
+	/// The amount of energy this draws from the glass source per stack unit.
 	var/glacost = 500
 
 /obj/item/stack/sheet/rglass/cyborg/get_amount()
-	return min(round(source.energy / metcost), round(glasource.energy / glacost))
+	return min(round(source.energy / cost), round(glasource.energy / glacost))
 
 /obj/item/stack/sheet/rglass/cyborg/use(used, transfer = FALSE) // Requires special checks, because it uses two storages
-	source.use_charge(used * metcost)
+	source.use_charge(used * cost)
 	glasource.use_charge(used * glacost)
 
 /obj/item/stack/sheet/rglass/cyborg/add(amount)
-	source.add_charge(amount * metcost)
+	source.add_charge(amount * cost)
 	glasource.add_charge(amount * glacost)
 
 /obj/item/stack/sheet/rglass/get_main_recipes()
