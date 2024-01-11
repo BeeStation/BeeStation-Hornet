@@ -128,7 +128,7 @@
 /turf/open/floor/grass/no_border
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN)
 	canSmoothWith = list()
-	transform = MAP_SWITCH(TRANSLATE_MATRIX(0, 0), matrix())
+	transform = MAP_SWITCH(matrix(), matrix())
 
 /turf/open/floor/grass/Initialize(mapload)
 	. = ..()
@@ -238,7 +238,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
-	transform = MAP_SWITCH(TRANSLATE_MATRIX(0, 0), matrix())
+	transform = MAP_SWITCH(matrix(), matrix())
 
 /turf/open/floor/grass/snow/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -279,7 +279,7 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	transform = MAP_SWITCH(TRANSLATE_MATRIX(0, 0), matrix())
+	transform = MAP_SWITCH(matrix(), matrix())
 
 /turf/open/floor/grass/fakebasalt/Initialize(mapload)
 	. = ..()
