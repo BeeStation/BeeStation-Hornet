@@ -475,9 +475,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -22490,8 +22487,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/space/nearstation)
 "cnS" = (
@@ -25468,8 +25463,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/space/nearstation)
@@ -38690,11 +38683,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"hyP" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space,
-/area/space/nearstation)
 "hzl" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
@@ -48304,11 +48292,6 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/prison)
-"llW" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "lmF" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -50252,18 +50235,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"mdx" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/open/space,
-/area/space/nearstation)
 "mdA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -53431,7 +53402,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/grille,
 /obj/structure/grille,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -58285,14 +58255,6 @@
 	icon_state = "platingdmg2"
 	},
 /area/medical/morgue)
-"phY" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/grille,
-/obj/structure/grille,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "pij" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -65599,17 +65561,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"seJ" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/open/space,
-/area/space/nearstation)
 "seX" = (
 /obj/structure/table,
 /obj/item/radio/intercom{
@@ -70000,16 +69951,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
-"tUq" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/turf/open/space,
-/area/space/nearstation)
 "tUu" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -71379,7 +71320,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/grille,
 /obj/structure/grille,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -127669,7 +127609,7 @@ lMJ
 lMJ
 lMJ
 lMJ
-hyP
+aaf
 anT
 aaf
 aaf
@@ -128178,7 +128118,7 @@ ddZ
 tFu
 cPH
 axY
-llW
+lMJ
 lMJ
 lMJ
 lMJ
@@ -128435,7 +128375,7 @@ ddZ
 ddZ
 iuO
 axY
-llW
+lMJ
 lMJ
 lMJ
 lMJ
@@ -129704,7 +129644,7 @@ aaa
 aaa
 lMJ
 bKK
-phY
+kJY
 qJV
 vde
 frA
@@ -130218,7 +130158,7 @@ aaa
 aaa
 lMJ
 bKK
-phY
+kJY
 hIT
 vde
 frA
@@ -130475,7 +130415,7 @@ aaa
 aaa
 lMJ
 bKK
-phY
+kJY
 hIT
 vde
 frA
@@ -130732,7 +130672,7 @@ aaa
 aaa
 dFf
 bKK
-phY
+kJY
 hIT
 eWG
 pqh
@@ -130989,7 +130929,7 @@ aaa
 aaa
 dFf
 bKK
-phY
+kJY
 hIT
 dNN
 frA
@@ -131246,7 +131186,7 @@ aaa
 aaa
 dFf
 bKK
-phY
+kJY
 hIT
 vde
 frA
@@ -131503,7 +131443,7 @@ aaa
 aaa
 dFf
 bKK
-phY
+kJY
 aEC
 wGd
 itO
@@ -132279,14 +132219,14 @@ anS
 lXy
 cPy
 cPy
-mdx
-cnM
-cnM
-seJ
+abr
 cnM
 cnM
 abr
-tUq
+cnM
+cnM
+abr
+cnM
 cnM
 tbC
 anS
@@ -133835,7 +133775,7 @@ lMJ
 lMJ
 lMJ
 lMJ
-llW
+lMJ
 lMJ
 rIV
 xER
