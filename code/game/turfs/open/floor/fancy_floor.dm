@@ -123,14 +123,12 @@
 	var/turfverb = "uproot"
 	tiled_dirt = FALSE
 	max_integrity = 80
-	icon_x_offset = 9
-	icon_y_offset = 9
+	transform = MAP_SWITCH(TRANSLATE_MATRIX(9, 9), matrix())
 
 /turf/open/floor/grass/no_border
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN)
 	canSmoothWith = list()
-	icon_x_offset = 0
-	icon_y_offset = 0
+	transform = MAP_SWITCH(TRANSLATE_MATRIX(0, 0), matrix())
 
 /turf/open/floor/grass/Initialize(mapload)
 	. = ..()
@@ -240,8 +238,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
-	icon_x_offset = 0
-	icon_y_offset = 0
+	transform = MAP_SWITCH(TRANSLATE_MATRIX(0, 0), matrix())
 
 /turf/open/floor/grass/snow/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
@@ -282,8 +279,7 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	icon_x_offset = 0
-	icon_y_offset = 0
+	transform = MAP_SWITCH(TRANSLATE_MATRIX(0, 0), matrix())
 
 /turf/open/floor/grass/fakebasalt/Initialize(mapload)
 	. = ..()

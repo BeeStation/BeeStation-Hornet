@@ -62,18 +62,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
-	///Is this tile high traction / non slip
-	var/traction = FALSE
-
 	///Ref to texture mask overlay
 	var/texture_mask_overlay
 
 	///Can this floor be an underlay, for turf damage
 	var/can_underlay = TRUE
-
-	///Offsets for non-32 turfs - This will be the distance of the pixel border around your icon, grass.dmi is 9 pixels, because the border is 9 pixels
-	var/icon_x_offset = 0
-	var/icon_y_offset = 0
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
@@ -145,18 +138,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		update_air_ref(-1)
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()))
 
-	if(traction)
-		make_traction()
-
 	//Handle turf texture
-	if(get_turf_texture())
-		add_turf_texture(get_turf_texture())
-
-	//Handle icon border
-	if(icon_x_offset || icon_y_offset)
-		var/matrix/M = new
-		M.Translate(-icon_x_offset, -icon_y_offset)
-		transform = M
+	var/datum/turf_texture/TT = get_turf_texture()
+	if(TT)
+		add_turf_texture(TT)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -558,8 +543,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		var/mutable_appearance/MA = mutable_appearance(icon, "no_slip")
 		MA.blend_mode = BLEND_OVERLAY
 		add_overlay(MA)
-	//handle switch
-	traction = TRUE
 
 ///Add our relevant floor texture, if we can / need
 /turf/proc/add_turf_texture(list/textures, force)

@@ -17,8 +17,6 @@
 	layer = EDGED_TURF_LAYER
 	initial_temperature = 293.15
 	max_integrity = 200
-	icon_x_offset = 4
-	icon_y_offset = 4
 	var/environment_type = "asteroid"
 	var/turf/open/floor/plating/turf_type = /turf/open/floor/plating/asteroid/airless
 	var/obj/item/stack/ore/mineralType = null

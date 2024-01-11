@@ -130,16 +130,12 @@
 
 /turf/open/floor/noslip/Initialize(mapload)
 	. = ..()
-	//Add no-slip overlay
-	var/mutable_appearance/MA = mutable_appearance(icon, "no_slip")
-	MA.blend_mode = BLEND_OVERLAY
-	add_overlay(MA)
+	make_traction()
 
 /turf/open/floor/noslip/standard
 	name = "high-traction floor"
 	icon_state = "floor"
 	floor_tile = /obj/item/stack/tile/noslip/standard
-	traction = TRUE
 
 /turf/open/floor/noslip/white
 	name = "high-traction floor"
