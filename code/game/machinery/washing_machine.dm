@@ -118,7 +118,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_DENIED = /obj/item/clothing/head/soft/denied,
 		DYE_SECURITY = /obj/item/clothing/head/soft/sec
 	),
-
 	DYE_REGISTRY_BERET = list(
 		DYE_WHITE = /obj/item/clothing/head/beret/color,
 		DYE_RAINBOW = /obj/item/clothing/head/beret/rainbow,
@@ -133,7 +132,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CMO = /obj/item/clothing/head/beret/cmo,
 		DYE_SECURITY = /obj/item/clothing/head/beret/sec
 	),
-
 	DYE_REGISTRY_FANNYPACK = list(
 		DYE_RED = /obj/item/storage/belt/fannypack/red,
 		DYE_ORANGE = /obj/item/storage/belt/fannypack/orange,
