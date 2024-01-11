@@ -25554,15 +25554,11 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/closet/crate/engineering{
-	name = "Radiation Collector Arrays crate"
+/obj/structure/table,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = 4
 	},
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/power/rad_collector/anchored,
-/obj/machinery/power/rad_collector/anchored,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "cPI" = (
@@ -32774,6 +32770,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/power/rad_collector/anchored,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "ffd" = (
@@ -41077,6 +41074,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/power/rad_collector/anchored,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "iue" = (
@@ -53644,16 +53642,12 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/table,
-/obj/item/clothing/gloves/color/yellow,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/item/tank/internals/oxygen/yellow{
 	pixel_x = -2
 	},
 /obj/item/tank/internals/oxygen/yellow{
 	pixel_x = 3
-	},
-/obj/item/clothing/gloves/color/yellow{
-	pixel_y = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
@@ -57596,15 +57590,15 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Laser Room";
-	req_access_txt = "10"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Extra Engine Room";
+	req_access_txt = "10"
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -57644,6 +57638,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/power/rad_collector/anchored,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "oQV" = (
@@ -59761,7 +59756,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Laser Room";
+	name = "Extra Engine Room";
 	req_access_txt = "10"
 	},
 /turf/open/floor/plating,
