@@ -438,7 +438,7 @@
 				/obj/item/circuitboard/machine/nanite_programmer,
 				/obj/item/circuitboard/machine/nanite_program_hub,
 				/obj/item/circuitboard/machine/xenoartifact_inbox,
-				/obj/item/circuitboard/computer/xenoartifact_console
+				/obj/item/circuitboard/computer/xenoarchaeology_console
 				)
 
 /obj/effect/spawner/lootdrop/techstorage/security

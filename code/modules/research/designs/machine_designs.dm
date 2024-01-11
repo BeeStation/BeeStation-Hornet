@@ -672,7 +672,7 @@
 	name = "Computer Design (Research and Development Listing Console)"
 	desc = "The circuit board for a research listing console."
 	id = "xenoa_list_console"
-	build_path = /obj/item/circuitboard/computer/xenoartifact_console
+	build_path = /obj/item/circuitboard/computer/xenoarchaeology_console
 	category = list ("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 

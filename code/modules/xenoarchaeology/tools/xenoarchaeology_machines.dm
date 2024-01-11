@@ -2,7 +2,7 @@
 	Misc machines used to interact with artifact traits
 */
 
-/obj/machinery/xenoarchaeology
+/obj/machinery/xenoarchaeology_machine
 	icon = 'icons/obj/xenoarchaeology/xenoartifact_tech.dmi'
 	///Do we move the artifact to our turf, or inside us?
 	var/move_inside = FALSE
@@ -10,7 +10,7 @@
 	var/list/held_contents = list()
 	var/max_contents = 1
 
-/obj/machinery/xenoarchaeology/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/xenoarchaeology_machine/attackby(obj/item/I, mob/living/user, params)
 	var/list/modifiers = params2list(params)
 	var/atom/target = get_target()
 	//Prechecks
@@ -31,32 +31,32 @@
 	else
 		return ..()
 	
-/obj/machinery/xenoarchaeology/attack_hand(mob/living/user)
+/obj/machinery/xenoarchaeology_machine/attack_hand(mob/living/user)
 	. = ..()
 	for(var/atom/movable/A in held_contents)
 		A.forceMove(get_turf(src))
 		unregister_contents(A)
 
-/obj/machinery/xenoarchaeology/proc/register_contents(atom/A)
+/obj/machinery/xenoarchaeology_machine/proc/register_contents(atom/A)
 	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(unregister_contents))
 	held_contents += A
 
-/obj/machinery/xenoarchaeology/proc/unregister_contents(datum/source)
+/obj/machinery/xenoarchaeology_machine/proc/unregister_contents(datum/source)
 	SIGNAL_HANDLER
 
 	held_contents -= source
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
-/obj/machinery/xenoarchaeology/proc/get_target()
+/obj/machinery/xenoarchaeology_machine/proc/get_target()
 	return move_inside ? src : drop_location()
 
 /*
 	Scale, measures artifact weight
 */
-/obj/machinery/xenoarchaeology/scale
+/obj/machinery/xenoarchaeology_machine/scale
 	icon_state = "scale"
 
-/obj/machinery/xenoarchaeology/scale/attack_hand(mob/living/user)
+/obj/machinery/xenoarchaeology_machine/scale/attack_hand(mob/living/user)
 	. = ..()
 	///Get the combined weight of all artifacts in our target
 	var/atom/target = get_target()
@@ -79,10 +79,10 @@
 /*
 	Conductor, measures artifact conductivty
 */
-/obj/machinery/xenoarchaeology/conductor
+/obj/machinery/xenoarchaeology_machine/conductor
 	icon_state = "conductor"
 
-/obj/machinery/xenoarchaeology/conductor/attack_hand(mob/living/user)
+/obj/machinery/xenoarchaeology_machine/conductor/attack_hand(mob/living/user)
 	. = ..()
 	///Get the combined conductivity of all artifacts in our target
 	var/atom/target = get_target()
@@ -103,6 +103,6 @@
 /*
 	Calibrator, calibrates artifacts
 */
-/obj/machinery/xenoarchaeology/calibrator
+/obj/machinery/xenoarchaeology_machine/calibrator
 	icon_state = "calibrator"
 	move_inside = TRUE

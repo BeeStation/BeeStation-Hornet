@@ -1,7 +1,7 @@
-/obj/item/circuitboard/computer/xenoartifact_console
+/obj/item/circuitboard/computer/xenoarchaeology_console
 	name = "research and development listing console (Computer Board)"
 	icon_state = "science"
-	build_path = /obj/machinery/computer/xenoartifact_console
+	build_path = /obj/machinery/computer/xenoarchaeology_console
 
 /obj/item/circuitboard/machine/xenoartifact_inbox
 	name = "bluespace straythread pad (Machine Board)"
@@ -19,12 +19,12 @@
 ///Stability gained on-tick
 #define STABILITY_GAIN 5
 
-/obj/machinery/computer/xenoartifact_console
+/obj/machinery/computer/xenoarchaeology_console
 	name = "research and development listing console"
 	desc = "A science console used to source sellers, and buyers, for various blacklisted research objects."
-	icon_screen = "xenoartifact_console"
+	icon_screen = "xenoarchaeology_console"
 	icon_keyboard = "rd_key"
-	circuit = /obj/item/circuitboard/computer/xenoartifact_console
+	circuit = /obj/item/circuitboard/computer/xenoarchaeology_console
 
 	///Sellers give artifacts
 	var/list/sellers = list()
@@ -47,7 +47,7 @@
 	///Stability - lowers as people buy artifacts, stops spam buying
 	var/stability = 100
 
-/obj/machinery/computer/xenoartifact_console/Initialize()
+/obj/machinery/computer/xenoarchaeology_console/Initialize()
 	. = ..()
 	linked_techweb = SSresearch.science_tech
 	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
@@ -63,7 +63,7 @@
 	//Start processing to gain stability
 	START_PROCESSING(SSobj, src)
 
-/obj/machinery/computer/xenoartifact_console/Destroy()
+/obj/machinery/computer/xenoarchaeology_console/Destroy()
 	. = ..()
 	on_inbox_del()
 	qdel(sellers)
@@ -71,19 +71,19 @@
 	qdel(sold_artifacts)
 	STOP_PROCESSING(SSobj, src)
 
-/obj/machinery/computer/xenoartifact_console/process()
+/obj/machinery/computer/xenoarchaeology_console/process()
 	stability = min(100, stability + STABILITY_GAIN)
 	//Update UI every 3 seconds, may be delayed
 	if(world.time % 3 == 0)
 		ui_update()
 
-/obj/machinery/computer/xenoartifact_console/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/computer/xenoarchaeology_console/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "XenoartifactConsole")
 		ui.open()
 
-/obj/machinery/computer/xenoartifact_console/ui_data(mob/user)
+/obj/machinery/computer/xenoarchaeology_console/ui_data(mob/user)
 	var/list/data = list()
 	data["points"] = budget ? budget.account_balance : 0
 	data["seller"] = list()
@@ -117,7 +117,7 @@
 
 	return data
 
-/obj/machinery/computer/xenoartifact_console/ui_act(action, params) //I should probably use a switch statement for this but, the for statements look painful
+/obj/machinery/computer/xenoarchaeology_console/ui_act(action, params) //I should probably use a switch statement for this but, the for statements look painful
 	. = TRUE
 	if(..())
 		return
@@ -167,7 +167,7 @@
 	update_icon()
 
 //Auto sells item on pad, finds seller for you
-/obj/machinery/computer/xenoartifact_console/proc/sell()
+/obj/machinery/computer/xenoarchaeology_console/proc/sell()
 	if(!linked_inbox)
 		say("Error. No linked hardware.")
 		return
@@ -202,9 +202,9 @@
 				info = "[entry.main]\n[entry.gain]\n"
 
 				//append sticker traits & pass it off
-				var/obj/item/xenoartifact_label/L = (locate(/obj/item/xenoartifact_label) in selling_item.contents)
+				var/obj/item/sticker/xenoartifact_label/L = (locate(/obj/item/sticker/xenoartifact_label) in selling_item.contents)
 				//var/obj/item/xenoartifact/A = selling_item //TODO: - Racc
-				for(var/datum/xenoartifact_trait/T as() in L?.trait_list)
+				for(var/datum/xenoartifact_trait/T as() in L?.traits)
 					var/color = rgb(255, 0, 0)
 					//using tertiary operator breaks it
 					/*
@@ -227,19 +227,19 @@
 		say(info)
 
 
-/obj/machinery/computer/xenoartifact_console/proc/generate_new_seller() //Called after a short period
+/obj/machinery/computer/xenoarchaeology_console/proc/generate_new_seller() //Called after a short period
 	var/datum/xenoartifact_seller/S = new
 	S.generate()
 	sellers += S
 	ui_update()
 
-/obj/machinery/computer/xenoartifact_console/proc/generate_new_buyer()
+/obj/machinery/computer/xenoarchaeology_console/proc/generate_new_buyer()
 	var/datum/xenoartifact_seller/buyer/B = new
 	B.generate()
 	buyers += B
 	ui_update()
 
-/obj/machinery/computer/xenoartifact_console/proc/sync_devices()
+/obj/machinery/computer/xenoarchaeology_console/proc/sync_devices()
 	for(var/obj/machinery/xenoarchaeology_inbox/I in oview(9,src))
 		if(I.linked_console || I.panel_open)
 			return
@@ -253,7 +253,7 @@
 			return
 	say("Unable to find linkable hadrware.")
 
-/obj/machinery/computer/xenoartifact_console/proc/on_inbox_del() //Hard del measures
+/obj/machinery/computer/xenoarchaeology_console/proc/on_inbox_del() //Hard del measures
 	SIGNAL_HANDLER
 	UnregisterSignal(linked_inbox, COMSIG_PARENT_QDELETING)
 	linked_inbox = null
