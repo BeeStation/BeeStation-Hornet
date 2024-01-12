@@ -14,15 +14,25 @@
 	var/datum/techweb/linked_techweb
 	///Which department's budget receives profit
 	var/datum/bank_account/budget
+
 	///Stability - lowers as people buy artifacts, stops spam buying
 	var/stability = 100
 
+	///List of current listing sellers
+	var/list/sellers = list(/datum/rnd_lister/artifact_seller/bastard)
+
 /obj/machinery/computer/xenoarchaeology_console/Initialize()
 	. = ..()
+	//Link relevant stuff
 	linked_techweb = SSresearch.science_tech
 	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
 	//Start processing to gain stability
 	START_PROCESSING(SSobj, src)
+	///Build seller list
+	var/list/new_sellers = sellers.Copy()
+	sellers = list()
+	for(var/datum/rnd_lister/S as() in new_sellers)
+		sellers += new S()
 
 /obj/machinery/computer/xenoarchaeology_console/Destroy()
 	. = ..()

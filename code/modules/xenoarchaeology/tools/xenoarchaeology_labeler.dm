@@ -152,6 +152,7 @@
 /*
 	Sticker for labeler, so we can label artifact's with their traits
 */
+
 /obj/item/sticker/xenoartifact_label
 	icon = 'icons/obj/xenoarchaeology/xenoartifact_sticker.dmi'
 	icon_state = "sticker_star"
@@ -162,6 +163,8 @@
 	var/list/traits = list()
 	///A special examine description built from the traits we have
 	var/examine_override = ""
+	///The original custom price of the item we're going to label
+	var/old_custom_price
 
 /obj/item/sticker/xenoartifact_label/Initialize(mapload, list/_traits)
 	//Setup traits & examine desc
@@ -180,14 +183,32 @@
 	. += examine_override
 
 /obj/item/sticker/xenoartifact_label/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
+	//If you somehow make traits start working with mobs, remove this isliving() check
+	if(!isliving(target) && (locate(/obj/item/sticker/xenoartifact_label) in target.contents))
+		to_chat(user, "<span class='watning'>[target] already has a label!</span>")
+		return
 	. = ..()
 	if(!can_stick(target) || !proximity_flag)
 		return
+	//Set custom price with the artifact component
+	var/datum/component/xenoartifact/artifact = target.GetComponent(/datum/component/xenoartifact)
+	if(artifact)
+		old_custom_price = target.custom_price
+		for(var/i in artifact.artifact_traits)
+			for(var/datum/xenoartifact_trait/T as() in artifact.artifact_traits[i])
+				if(locate(T) in traits)
+					target.custom_price *= XENOA_LABEL_REWARD
+				else
+					target.custom_price *= XENOA_LABEL_PUNISHMENT
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(parent_examine))
 
 /obj/item/sticker/xenoartifact_label/attack_hand(mob/user)
 	if(sticker_state == STICKER_STATE_STUCK)
 		UnregisterSignal(loc, COMSIG_PARENT_EXAMINE)
+	//Set custom price back
+	var/datum/component/xenoartifact/artifact = loc.GetComponent(/datum/component/xenoartifact)
+	if(artifact)
+		loc.custom_price = old_custom_price
 	. = ..()
 
 /obj/item/sticker/xenoartifact_label/proc/parent_examine(datum/source, mob/user, list/examine_text)

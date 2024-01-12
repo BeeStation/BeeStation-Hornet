@@ -39,12 +39,16 @@
 #define XENOA_TRAIT_COOLDOWN_DANGEROUS 5 SECONDS
 #define XENOA_TRAIT_COOLDOWN_GAMER 8 SECONDS
 
-//trait weights, for rarities
+///trait weights, for rarities
 #define XENOA_TRAIT_WEIGHT_COMMON 100
 #define XENOA_TRAIT_WEIGHT_UNCOMMON 80
 #define XENOA_TRAIT_WEIGHT_RARE 50
 #define XENOA_TRAIT_WEIGHT_EPIC 10
 #define XENOA_TRAIT_WEIGHT_MYTHIC 1
+
+///Label reward and punishment values
+#define XENOA_LABEL_REWARD 1.8 //Increases custom price by %80
+#define XENOA_LABEL_PUNISHMENT 0.5 //Decreases price by 50%
 
 /*
 old content
@@ -61,9 +65,6 @@ old content
 #define XENOA_SOLD_DP 350
 ///Reserach point reward (modifer)
 #define XENOA_RP 2.5
-
-///Max vendors / buyers in each catergory
-#define XENOA_MAX_VENDORS 8
 
 ///Chance to avoid target if wearing bomb suit
 #define XENOA_DEFLECT_CHANCE 45

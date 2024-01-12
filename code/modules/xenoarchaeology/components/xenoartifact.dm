@@ -65,10 +65,12 @@
 /datum/component/xenoartifact/Initialize(type, list/traits)
 	. = ..()
 	generate_xenoa_statics()
+	var/atom/A = parent
 
 	//Setup our typing
 	artifact_type = type || pick_weight(GLOB.xenoartifact_material_weights)
 	artifact_type = new artifact_type()
+	A.custom_price = A.custom_price || artifact_type.custom_price
 
 	//Build priotity list
 	for(var/i in GLOB.xenoartifact_trait_priorities)
@@ -252,6 +254,9 @@
 
 	///How much we increase artifact instability by for every use
 	var/instability_step = 0
+
+	///Custom price we use if the item doesn't have its own
+	var/custom_price = 100
 
 /datum/xenoartifact_material/proc/get_trait_list()
 	return GLOB.xenoa_all_traits
