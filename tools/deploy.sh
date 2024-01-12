@@ -11,9 +11,9 @@ fi
 
 mkdir -p \
     $1/_maps \
-	$1/auxtools \
-	$1/code/datums/greyscale/json_configs \
-	$1/icons \
+    $1/auxtools \
+    $1/code/datums/greyscale/json_configs \
+    $1/icons \
     $1/sound/runtime \
     $1/strings \
     $1/tgui/public \
