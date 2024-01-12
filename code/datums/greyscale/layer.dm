@@ -92,9 +92,14 @@
 
 /datum/greyscale_layer/icon_state/Initialize(icon_file)
 	. = ..()
+	#ifdef UNIT_TESTS
+	// icon_states is slow as fuck and rustg is no better in this case.
+	// We don't use GAGS enough to care if some fool puts in the wrong iconstate in the live editor, and furthermore sacrifice 0.2sec of init for said fools
+	// Because configs are loaded by the greyscale subsystem this should always catch during unit tests :)
 	var/list/icon_states = icon_states(icon_file)
 	if(!(icon_state in icon_states))
 		CRASH("Configured icon state \[[icon_state]\] was not found in [icon_file]. Double check your json configuration.")
+	#endif
 	icon = new(icon_file, icon_state)
 
 	if(length(color_ids) > 1)
