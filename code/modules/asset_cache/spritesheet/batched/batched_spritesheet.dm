@@ -27,6 +27,9 @@
 	/// If we should avoid propogating 'invalid dir' errors from rust-g. Because sometimes, you just don't know what dirs are valid.
 	var/ignore_dir_errors = FALSE
 
+	/// Forces use of the smart cache. This is for unit tests, please respect the config <3
+	var/force_cache = FALSE
+
 	/// If there is currently an async job, its ID
 	var/job_id = null
 	/// If there is currently an async cache job, its ID.
@@ -171,7 +174,7 @@
 	// Remove the cache, since it's invalid if we get to this point.
 	fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[name].json")
 
-	var/do_cache = CONFIG_GET(flag/smart_cache_assets)
+	var/do_cache = CONFIG_GET(flag/smart_cache_assets) || force_cache
 	var/data_out
 	if(yield || !isnull(job_id))
 		if(isnull(job_id))
@@ -260,7 +263,7 @@
 	return out.Join("\n")
 
 /datum/asset/spritesheet_batched/proc/read_from_cache()
-	if(!CONFIG_GET(flag/smart_cache_assets))
+	if(!CONFIG_GET(flag/smart_cache_assets) && !force_cache)
 		return FALSE
 	// this is already guaranteed to exist.
 	var/css_fname = "data/spritesheets/spritesheet_[name].css"
