@@ -15975,16 +15975,17 @@
 "bPx" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor/northright{
-	dir = 4;
+	dir = 8;
 	name = "Warden's Desk";
 	req_access_txt = "3"
-	},
-/obj/machinery/door/window/westleft{
-	name = "Warden's Desk"
 	},
 /obj/item/folder/red,
 /obj/item/pen,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/window/westleft{
+	name = "Warden's Desk";
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "bPC" = (
@@ -82412,6 +82413,11 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/window/brigdoor/northright{
+	dir = 4;
+	name = "Warden's Desk";
+	req_access_txt = "3"
+	},
 /turf/closed/wall/r_wall,
 /area/security/warden)
 "upy" = (
