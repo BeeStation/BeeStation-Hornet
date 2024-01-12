@@ -348,6 +348,11 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(WM.color_source)
 		dye_item(WM.color_source.dye_color)
 
+/obj/item/gun/energy/laser/practice/dye_item(dye_color, dye_key)
+	. = ..()
+	if(.)
+		cut_overlays()
+
 /obj/item/clothing/under/dye_item(dye_color, dye_key)
 	. = ..()
 	if(.)
