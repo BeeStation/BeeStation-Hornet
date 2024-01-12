@@ -202,6 +202,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
+"aY" = (
+/obj/structure/lattice{
+	name = "The supports of the universe";
+	desc = "A not so lightweight support lattice. These hold our universe together."
+	},
+/turf/open/space/basic,
+/area/space)
 "bd" = (
 /obj/machinery/light{
 	dir = 4
@@ -367,6 +374,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"bK" = (
+/obj/structure/table/reinforced,
+/obj/item/food/mint,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "bL" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
@@ -1577,18 +1593,6 @@
 /obj/machinery/door/window/westleft,
 /turf/open/floor/mineral/titanium,
 /area/centcom/evac)
-"hN" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 7;
-	id = "supply_away";
-	json_key = "cargo";
-	name = "CentCom";
-	width = 20
-	},
-/turf/open/space,
-/area/space)
 "hR" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -2244,13 +2248,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/control)
-"jZ" = (
-/obj/structure/lattice{
-	name = "The supports of the universe";
-	desc = "A not so lightweight support lattice. These hold our universe together."
-	},
-/turf/open/space/basic,
-/area/space)
 "kl" = (
 /turf/open/floor/wood,
 /area/centcom/control)
@@ -2514,27 +2511,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
 /area/centcom/supplypod)
-"lA" = (
-/obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/food/grown/potato,
-/obj/item/food/grown/potato,
-/obj/item/food/grown/whitebeet,
-/obj/item/food/grown/whitebeet,
-/obj/item/food/grown/tomato,
-/obj/item/food/grown/tomato,
-/obj/item/food/grown/rice,
-/obj/item/food/grown/rice,
-/obj/item/food/grown/icepepper,
-/obj/item/food/grown/icepepper,
-/obj/item/food/grown/citrus/lemon,
-/obj/item/food/grown/citrus/lime,
-/obj/item/food/grown/citrus/orange,
-/obj/item/food/grown/cherries,
-/obj/item/food/grown/apple,
-/obj/item/food/grown/ambrosia/deus,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/tdome/tdomeobserve)
 "lG" = (
 /obj/machinery/light{
 	dir = 1
@@ -4870,9 +4846,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/evac)
-"xt" = (
-/turf/open/floor/plating,
-/area/start)
 "xD" = (
 /obj/structure/filingcabinet/medical,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -4939,6 +4912,9 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel/dark,
 /area/centcom/supplypod)
+"yg" = (
+/turf/open/floor/plating,
+/area/start)
 "yh" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
@@ -5210,15 +5186,6 @@
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/centcom/evac)
-"zS" = (
-/obj/structure/table/reinforced,
-/obj/item/food/mint,
-/obj/item/reagent_containers/food/condiment/enzyme{
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/tdome/tdomeobserve)
 "zY" = (
 /turf/closed/indestructible/riveted,
 /area/tear_in_reality)
@@ -5306,28 +5273,18 @@
 "At" = (
 /turf/open/floor/plasteel/yellowsiding,
 /area/centcom/evac)
-"AC" = (
-/obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/food/meat/slab/bear,
-/obj/item/food/meat/slab/bear,
-/obj/item/food/meat/slab/bear,
-/obj/item/food/meat/slab/bear,
-/obj/item/food/meat/slab/goliath,
-/obj/item/food/meat/slab/goliath,
-/obj/item/food/meat/slab/goliath,
-/obj/item/food/meat/slab/goliath,
-/obj/item/food/meat/slab/xeno,
-/obj/item/food/meat/slab/xeno,
-/obj/item/food/meat/slab/xeno,
-/obj/item/food/meat/slab/xeno,
-/obj/item/food/spaghetti/raw,
-/obj/item/food/spaghetti/raw,
-/obj/item/food/meat/rawcutlet,
-/obj/item/food/meat/rawcutlet,
-/obj/item/food/meat/rawcutlet,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/tdome/tdomeobserve)
+"AA" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 8;
+	height = 7;
+	id = "supply_away";
+	json_key = "cargo";
+	name = "CentCom";
+	width = 20
+	},
+/turf/open/space,
+/area/space)
 "AD" = (
 /obj/structure/table/wood,
 /obj/item/folder,
@@ -5475,6 +5432,32 @@
 /obj/machinery/computer/pandemic,
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
+"Bx" = (
+/obj/structure/closet/secure_closet/freezer/meat/open,
+/obj/item/food/meat/rawbacon,
+/obj/item/food/meat/rawbacon,
+/obj/item/food/meat/rawbacon,
+/obj/item/food/meat/rawbacon,
+/obj/item/food/meat/slab/killertomato,
+/obj/item/food/meat/slab/killertomato,
+/obj/item/food/meat/slab/killertomato,
+/obj/item/food/meat/slab/killertomato,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/sausage,
+/obj/item/food/sausage,
+/obj/item/food/meat/rawcutlet,
+/obj/item/food/meat/rawcutlet,
+/obj/item/food/meat/rawcutlet,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "BB" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/lockbox/loyalty,
@@ -5613,32 +5596,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
-/area/tdome/tdomeobserve)
-"Cn" = (
-/obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/food/meat/rawbacon,
-/obj/item/food/meat/rawbacon,
-/obj/item/food/meat/rawbacon,
-/obj/item/food/meat/rawbacon,
-/obj/item/food/meat/slab/killertomato,
-/obj/item/food/meat/slab/killertomato,
-/obj/item/food/meat/slab/killertomato,
-/obj/item/food/meat/slab/killertomato,
-/obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/meat/slab/human/mutant/lizard,
-/obj/item/food/sausage,
-/obj/item/food/sausage,
-/obj/item/food/meat/rawcutlet,
-/obj/item/food/meat/rawcutlet,
-/obj/item/food/meat/rawcutlet,
-/obj/item/food/fishmeat/carp,
-/obj/item/food/fishmeat/carp,
-/obj/item/food/fishmeat/carp,
-/obj/item/food/fishmeat/carp,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "CB" = (
 /obj/structure/closet/secure_closet/ertMed,
@@ -6016,6 +5973,28 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/centcom/supply)
+"Fq" = (
+/obj/structure/closet/secure_closet/freezer/meat/open,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/goliath,
+/obj/item/food/meat/slab/goliath,
+/obj/item/food/meat/slab/goliath,
+/obj/item/food/meat/slab/goliath,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/spaghetti/raw,
+/obj/item/food/spaghetti/raw,
+/obj/item/food/meat/rawcutlet,
+/obj/item/food/meat/rawcutlet,
+/obj/item/food/meat/rawcutlet,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "Fr" = (
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
@@ -6232,30 +6211,6 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/tdome/tdomeobserve)
-"Gq" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/item/food/grown/banana,
-/obj/item/food/grown/banana,
-/obj/item/food/grown/wheat,
-/obj/item/food/grown/wheat,
-/obj/item/food/grown/vanillapod,
-/obj/item/food/grown/vanillapod,
-/obj/item/food/grown/sugarcane,
-/obj/item/food/grown/sugarcane,
-/obj/item/food/grown/oat,
-/obj/item/food/grown/oat,
-/obj/item/food/grown/grapes,
-/obj/item/food/grown/grapes,
-/obj/item/food/grown/corn,
-/obj/item/food/grown/corn,
-/obj/item/food/grown/chili,
-/obj/item/food/grown/chili,
-/obj/item/food/grown/carrot,
-/obj/item/food/grown/apple,
-/obj/item/food/grown/ambrosia/vulgaris,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "Gt" = (
 /obj/structure/window{
@@ -7680,6 +7635,30 @@
 /obj/structure/table/optable,
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
+"NB" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/carrot,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/vulgaris,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "ND" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -8167,6 +8146,27 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
+"Qq" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/citrus/lemon,
+/obj/item/food/grown/citrus/lime,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/cherries,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/deus,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/tdome/tdomeobserve)
 "Qu" = (
 /obj/structure/bookcase/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -11821,9 +11821,9 @@ fX
 fX
 fX
 fX
-xt
-xt
-xt
+yg
+yg
+yg
 fX
 fX
 fX
@@ -12078,9 +12078,9 @@ fX
 fX
 fX
 fX
-xt
+yg
 fY
-xt
+yg
 fX
 fX
 fX
@@ -12335,9 +12335,9 @@ fX
 fX
 fX
 fX
-xt
-xt
-xt
+yg
+yg
+yg
 fX
 fX
 fX
@@ -48969,7 +48969,7 @@ aa
 aa
 aa
 aa
-hN
+AA
 aa
 aa
 aa
@@ -50558,10 +50558,10 @@ Ev
 ai
 ZL
 Ep
-Cn
+Bx
 VN
 Ti
-zS
+bK
 NR
 hg
 gJ
@@ -50815,7 +50815,7 @@ Ev
 as
 cL
 EK
-lA
+Qq
 Gc
 Uk
 Gc
@@ -51329,7 +51329,7 @@ MW
 Th
 Zn
 EK
-Gq
+NB
 Gc
 QK
 Gy
@@ -51586,7 +51586,7 @@ dP
 VD
 Gh
 Ep
-AC
+Fq
 Uk
 Hq
 Gx
@@ -75546,6 +75546,6 @@ Rk
 Rk
 Rk
 Rk
-jZ
-jZ
+aY
+aY
 "}

@@ -84,7 +84,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
 "eH" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "fv" = (
