@@ -1297,7 +1297,7 @@
 	max_supply = 1
 	access = ACCESS_CE
 	access_budget = ACCESS_CE
-	contains = list(/obj/machinery/atmospherics/components/trinary/nuclear_reactor)
+	contains = list(/obj/item/circuitboard/machine/rbmk)
 	crate_name = "nuclear engine crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	dangerous = TRUE

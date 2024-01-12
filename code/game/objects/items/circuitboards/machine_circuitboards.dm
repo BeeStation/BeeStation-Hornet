@@ -214,6 +214,12 @@
 	build_path = /obj/machinery/power/generator
 	req_components = list()
 
+/obj/item/circuitboard/machine/rbmk
+	name = "Advanced Gas-Cooled Nuclear Reactor (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/atmospherics/components/trinary/nuclear_reactor
+	req_components = list() //TO DO: Add required components to make a nuclear reactor
+
 /obj/item/circuitboard/machine/ntnet_relay
 	name = "NTNet relay (Machine Board)"
 	icon_state = "engineering"
