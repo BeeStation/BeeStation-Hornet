@@ -269,11 +269,11 @@
 		tab_data["divider_3"] = GENERATE_STAT_DIVIDER
 		var/datum/controller/subsystem/queue_node = Master.last_type_processed
 		if (queue_node)
-			tab_data["Last Processed:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.flags & SS_NO_TICK_CHECK) ? " (No Tick Check)" : ""][(queue_node.flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
+			tab_data["Last Processed:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
 		queue_node = Master.queue_head
 		var/i = 0
 		while (queue_node)
-			tab_data["Queue [i++]:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.flags & SS_NO_TICK_CHECK) ? " (No Tick Check)" : ""][(queue_node.flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
+			tab_data["Queue [i++]:"] = GENERATE_STAT_TEXT("[queue_node.name] \[FI: [queue_node.next_fire - world.time]ds\] [(queue_node.flags & SS_TICKER) ? " (Ticker)" : ""][(queue_node.flags & SS_BACKGROUND) ? " (Background)" : ""][(queue_node.flags & SS_KEEP_TIMING) ? " (Keep Timing)" : ""]")
 			queue_node = queue_node.queue_next
 		tab_data["divider_4"] = GENERATE_STAT_DIVIDER
 		for (var/j in 1 to length(Master.previous_ticks))
