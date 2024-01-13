@@ -511,7 +511,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		diagnostic_tick = previous_ticks[circular_queue_head = (circular_queue_head % length(previous_ticks)) + 1]
 		diagnostic_tick.fired_subsystems.len = 0
 		diagnostic_tick.tick_number = world.time
-		diagnostic_tick.total = 0
 
 	//keep running while we have stuff to run and we haven't gone over a tick
 	//	this is so subsystems paused eariler can use tick time that later subsystems never used
