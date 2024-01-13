@@ -9,7 +9,7 @@
 	label_name = "Electrified"
 	label_desc = "The artifact seems to contain electrifying components. Triggering these components will shock the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
-	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	conductivity = 10
 	///max damage
 	var/max_damage = 25
@@ -41,7 +41,7 @@
 	label_name = "Hollow"
 	label_desc = "The artifact seems to contain hollow components. Triggering these components will capture the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = -10
 	///Maximum time we hold people for
 	var/hold_time = 15 SECONDS
@@ -63,6 +63,10 @@
 			M.forceMove(parent.parent)
 			//Buckle targets to artifact
 			AM.buckle_mob(M)
+			//Paralyze so they don't break shit, I know they would if they were able to move
+			if(isliving(AM))
+				var/mob/living/L = AM
+				L.Paralyze(hold_time*(parent.trait_strength/100))
 			//Add timer to undo this - becuase the hold time is longer than an actual artifact cooldown, we need to do this per-mob
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/xenoartifact_trait, un_trigger), M), hold_time*(parent.trait_strength/100))
 		else
@@ -90,7 +94,7 @@
 	label_name = "Temporal"
 	label_desc = "Temporal: The artifact seems to contain temporal components. Triggering these components will create a temporal rift."
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
-	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
 	///Maximum time we stop time for
 	var/max_time = 10 SECONDS
@@ -112,7 +116,7 @@
 	material_desc = "barreled"
 	label_name = "Barreled"
 	label_desc = "Barreled: The artifact seems to contain projectile components. Triggering these components will produce a projectile."
-	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	extra_target_range = 2
 	///List of projectiles we *could* shoot
@@ -146,7 +150,7 @@
 /datum/xenoartifact_trait/major/animalize ///All of this is stolen from corgium.
 	label_name = "Bestialized"
 	label_desc = "Bestialized: The artifact contains transforming components. Triggering these components transforms the target into an animal."
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	///List of potential animals we could turn people into
 	var/list/possible_animals = list(/mob/living/simple_animal/pet/dog/corgi)
@@ -209,7 +213,7 @@
 	label_name = "EMP"
 	label_desc = "EMP: The artifact seems to contain electromagnetic pulsing components. Triggering these components will create an EMP."
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
-	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
 	rarity = XENOA_TRAIT_WEIGHT_RARE
 
@@ -242,7 +246,7 @@
 	label_name = "Displaced"
 	label_desc = "The artifact seems to contain displacing components. Triggering these components will displace the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
-	flags =  XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags =  XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 
 /datum/xenoartifact_trait/major/displaced/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -267,7 +271,7 @@
 	label_name = "Illuminating"
 	label_desc = "Illuminating: The artifact seems to contain illuminating components. Triggering these components will cause the artifact to illuminate."
 	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
 	///List of possible colors
 	var/list/possible_colors = list(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK)
@@ -299,7 +303,7 @@
 	label_name = "Obstructing"
 	label_desc = "Obstructing: The artifact seems to contain obstructing components. Triggering these components will cause the artifact to build walls around itself."
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
 	///What wall size are we making?
 	var/wall_size
@@ -348,7 +352,7 @@
 	label_name = "Hypodermic"
 	label_desc = "Hypodermic: The artifact seems to contain chemical components. Triggering these components will inject the target with a chemical."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
-	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///What chemical we're injecting
 	var/datum/reagent/formula
 	///max amount we can inject people with
@@ -383,7 +387,7 @@
 	label_name = "Forcing"
 	label_desc = "Forcing: The artifact seems to contain impulsing components. Triggering these components will impulse, either pushing or pulling, the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///Max force we can use, aka how far we throw things
 	var/max_force = 7
 	///Force direction, push or pull
@@ -419,7 +423,7 @@
 	label_name = "Echoing"
 	label_desc = "Echoing: The artifact seems to contain echoing components. Triggering these components will cause the artifact to make a noise."
 	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
 	///List of possible noises
 	var/list/possible_noises = list('sound/effects/adminhelp.ogg', 'sound/effects/applause.ogg', 'sound/effects/bubbles.ogg',
@@ -448,7 +452,7 @@
 	label_name = "Porous"
 	label_desc = "Porous: The artifact seems to contain porous components. Triggering these components will cause the artifact to exchange one gas with another."
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
 	///Possible target gasses
 	var/list/target_gasses = list(
@@ -498,7 +502,7 @@
 	label_name = "Destabilizing"
 	label_desc = "Destabilizing: The artifact seems to contain destabilizing components. Triggering these components will cause the artifact transport the target to another realm."
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
-	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	rarity = XENOA_TRAIT_WEIGHT_EPIC
 
 /datum/xenoartifact_trait/major/shadow_realm/New(atom/_parent)
@@ -533,7 +537,7 @@
 	label_name = "Dissipating"
 	label_desc = "Dissipating: The artifact seems to contain dissipating components. Triggering these components will cause the artifact to create a cloud of smoke."
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
 	///The maximum size of our smoke stack in turfs, I think
 	var/max_size = 6
@@ -554,7 +558,7 @@
 	label_name = "Marking"
 	label_desc = "Marking: The artifact seems to contain colorizing components. Triggering these components will color the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///Possible colors
 	var/list/possible_colors = list(COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_PURPLE, COLOR_ORANGE, COLOR_YELLOW, COLOR_CYAN, COLOR_PINK, "all")
 	///Choosen color
@@ -586,7 +590,7 @@
 	label_name = "Enthusing"
 	label_desc = "Enthusing: The artifact seems to contain emoting components. Triggering these components will cause the target to emote."
 	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///List of possible emotes
 	var/list/possible_emotes = list(/datum/emote/flip, /datum/emote/spin, /datum/emote/living/laugh, 
 	/datum/emote/living/scream, /datum/emote/living/tremble, /datum/emote/living/whimper,

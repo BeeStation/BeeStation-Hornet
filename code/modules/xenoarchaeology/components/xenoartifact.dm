@@ -2,6 +2,7 @@
 	Items with this component will act like alien artifatcs
 */
 
+//Item presets for generic shit
 /obj/item/xenoartifact
 	name = "artifact"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
@@ -67,9 +68,9 @@
 
 	///What the old appearance of the parent was, for resetting their appearance
 	var/mutable_appearance/old_appearance
- 
-/datum/component/xenoartifact/item/Initialize(type, list/traits, do_appearance = TRUE, do_mask = FALSE)
-	. = ..()
+
+	///Do we make pearls when we're destroyed?
+	var/make_pearls = FALSE
 
 /datum/component/xenoartifact/Initialize(type, list/traits, do_appearance = TRUE, do_mask = TRUE)
 	. = ..()
@@ -134,11 +135,6 @@
 
 /datum/component/xenoartifact/Destroy(force, silent)
 	. = ..()
-	//Delete our traits
-	for(var/i in artifact_traits)
-		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
-			artifact_traits[i] -= T
-			qdel(T)
 	//Reset parent's visuals
 	var/atom/A = parent
 	A.remove_filter("texture_overlay")
@@ -147,6 +143,14 @@
 	//TOODO: make sure this doesn't cause issues - Racc
 	A.appearance = old_appearance
 	old_appearance = null
+	//Delete and/or 'pearl' our traits
+	for(var/i in artifact_traits)
+		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
+			artifact_traits[i] -= T
+			if(make_pearls)
+				new /obj/item/trait_pearl(get_turf(parent), T.type)
+			qdel(T)
+		
 
 ///Used to trigger all our traits in order
 /datum/component/xenoartifact/proc/trigger(force)
@@ -361,3 +365,11 @@
 
 /datum/xenoartifact_material/bluespace/get_trait_list()
 	return GLOB.xenoa_bluespace_traits
+
+//Artificial
+/datum/xenoartifact_material/pearl
+	name = "pearl"
+	material_color = "#f1ffca"
+	instability_step = 50
+	texture_icon_states = list("texture-pearl1", "texture-pearl2", "texture-pearl3")
+	mask_icon_states = list("mask-pearl1") //This is pretty much a place holder, since artificial artifacts use the item as a mask

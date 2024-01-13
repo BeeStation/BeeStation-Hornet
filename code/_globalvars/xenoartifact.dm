@@ -17,6 +17,7 @@ GLOBAL_LIST(xenoa_bluespace_traits)
 GLOBAL_LIST(xenoa_plasma_traits)
 GLOBAL_LIST(xenoa_uranium_traits)
 GLOBAL_LIST(xenoa_bananium_traits)
+GLOBAL_LIST(xenoa_pearl_traits)
 
 ///Fill globals
 /proc/generate_xenoa_statics()
@@ -38,6 +39,7 @@ GLOBAL_LIST(xenoa_bananium_traits)
 	GLOB.xenoa_plasma_traits = compile_artifact_whitelist(XENOA_PLASMA_TRAIT)
 	GLOB.xenoa_uranium_traits = compile_artifact_whitelist(XENOA_URANIUM_TRAIT)
 	GLOB.xenoa_bananium_traits = compile_artifact_whitelist(XENOA_BANANIUM_TRAIT)
+	GLOB.xenoa_pearl_traits = compile_artifact_whitelist(XENOA_PEARL_TRAIT)
 
 ///Material weights, basically rarity
 GLOBAL_LIST_INIT(xenoartifact_material_weights, list(XENOA_BLUESPACE = 10, XENOA_PLASMA = 8, XENOA_URANIUM = 5, XENOA_BANANIUM = 1))

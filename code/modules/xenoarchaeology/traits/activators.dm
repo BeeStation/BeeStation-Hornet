@@ -43,7 +43,7 @@
 	material_desc = "sturdy"
 	label_name = "Sturdy"
 	label_desc = "Sturdy: The artifact seems to be made of a sturdy material. This material seems to be triggered by physical interaction."
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 
 /datum/xenoartifact_trait/activator/strudy/New(atom/_parent)
 	. = ..()
@@ -62,7 +62,7 @@
 	material_desc = "flammable"
 	label_name = "Flammable"
 	label_desc = "Flammable: The artifact seems to be made of a flammable material. This material seems to be triggered by heat interaction."
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///Are we 'lit' and looking for targets
 	var/lit = FALSE
 	///Search cooldown logic
@@ -109,7 +109,7 @@
 /datum/xenoartifact_trait/activator/timed
 	label_name = "Timed"
 	label_desc = "Timed: The artifact seems to be made of a harmonizing material. This material seems to activate on a timer, which can be enabled or disabled."
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///Are we looking for targets
 	var/searching = FALSE
 	///Search cooldown logic
@@ -163,7 +163,7 @@
 /datum/xenoartifact_trait/activator/signal
 	label_name = "Signal"
 	label_desc = "Signal: The artifact seems to be made of a radio sensitive material. This material seems to be triggered by radio pulses."
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///Signal code
 	var/code
 	///Signal frequency
@@ -207,7 +207,7 @@
 /datum/xenoartifact_trait/activator/cell
 	label_name = "Cell"
 	label_desc = "Cell: The artifact seems to be made of a capacitive material. This material seems to be triggered by eletric currents, such as cells."
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 
 /datum/xenoartifact_trait/activator/cell/New(atom/_parent)
 	. = ..()
@@ -226,7 +226,7 @@
 /datum/xenoartifact_trait/activator/weighted
 	label_name = "Weighted"
 	label_desc = "Weighted: The artifact seems to be made of a weighted material. This material seems to be triggered by motion, such as being picked up."
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 
 /datum/xenoartifact_trait/activator/weighted/New(atom/_parent)
@@ -243,7 +243,7 @@
 /datum/xenoartifact_trait/activator/pitched
 	label_name = "Pitched"
 	label_desc = "Pitched: The artifact seems to be made of an aerodynamic material. This material seems to be triggered by motion, such as being thrown."
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 
 /datum/xenoartifact_trait/activator/pitched/New(atom/_parent)

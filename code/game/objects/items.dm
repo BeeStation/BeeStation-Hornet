@@ -1455,3 +1455,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			return FALSE
 
+/obj/item/rad_act(strength)
+	. = ..()
+	//TODO: Add some actual logic to this - Racc
+	var/datum/component/xenoartifact/X = GetComponent(/datum/component/xenoartifact)
+	if(!X)
+		AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, null, TRUE, FALSE)

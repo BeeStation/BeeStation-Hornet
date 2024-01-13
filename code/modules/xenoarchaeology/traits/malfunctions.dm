@@ -9,7 +9,7 @@
 /datum/xenoartifact_trait/malfunction/bear
 	label_name = "P.B.R."
 	label_desc = "Parallel Bearspace Retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
-	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///List of our current bears
 	var/list/bears = list()
 	///How much can we bear?
@@ -40,7 +40,7 @@
 /datum/xenoartifact_trait/malfunction/strip
 	label_name = "B.A.D."
 	label_desc = "Bluespace Axis Desync: A strange malfunction causes the Artifact to remove articles from the target."
-	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = TRUE
 
 /datum/xenoartifact_trait/malfunction/strip/trigger(datum/source, _priority, atom/override)
@@ -66,7 +66,7 @@
 /datum/xenoartifact_trait/malfunction/trauma
 	label_name = "C.D.E."
 	label_desc = "Cerebral Dysfunction Emergence: A strange malfunction causes the Artifact to cause traumas to emerge in the target."
-	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = TRUE
 	///Possbile traumas
 	var/list/possible_traumas = list(
@@ -98,7 +98,7 @@
 /datum/xenoartifact_trait/malfunction/heated
 	label_name = "M.A.C."
 	label_desc = "Mass Area Combustion: A strange malfunction that causes the Artifact to violently combust."
-	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 
 /datum/xenoartifact_trait/malfunction/heated/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -140,7 +140,7 @@
 /datum/xenoartifact_trait/malfunction/radiation
 	label_name = "R.P.E."
 	label_desc = "Rapid Particle Emmision: A strange malfunction that causes the Artifact to irradiate itself and its targets."
-	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = TRUE
 	///Max amount of radiation we can deal
 	var/max_rad = 25
@@ -163,7 +163,7 @@
 /datum/xenoartifact_trait/malfunction/twin
 	label_name = "M.B.C."
 	label_desc = "Mirrored Bluespace Collapse: The Artifact produces an arguably maleviolent clone of target."
-	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = TRUE
 	///List of our evil clones
 	var/list/clones = list()
@@ -226,7 +226,7 @@
 /datum/xenoartifact_trait/malfunction/explosion
 	label_name = "E.E.E."
 	label_desc = "Expansive Explosive Emition: A strange malfunction that causes the Artifact to explode."
-	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	rarity = XENOA_TRAIT_WEIGHT_RARE
 	///Max explosion stat
 	var/max_explosion = 5
@@ -259,7 +259,7 @@
 /datum/xenoartifact_trait/malfunction/hallucination
 	label_name = "M.H.I."
 	label_desc = "Mass Hallucinatory Injection: The Artifact causes the target to hallucinate."
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_PLASMA_TRAIT | XENOA_BANANIUM_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_PLASMA_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = TRUE
 
 /datum/xenoartifact_trait/malfunction/hallucination/trigger(datum/source, _priority, atom/override)

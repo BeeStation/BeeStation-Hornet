@@ -145,9 +145,9 @@
 //Create an artifact with all the traits we have selected, but from the item we target
 /obj/item/xenoarchaeology_labeler/debug/afterattack(atom/target, mob/user)
 	if(length(label_traits))
-		target.AddComponent(/datum/component/xenoartifact/item, /datum/xenoartifact_material, label_traits)
+		target.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, label_traits, TRUE, FALSE)
 	else
-		target.AddComponent(/datum/component/xenoartifact/item, /datum/xenoartifact_material)
+		target.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, null, TRUE, FALSE)
 
 //Create an artifact with all the traits we hve selected
 /obj/item/xenoarchaeology_labeler/debug/create_label(new_name)

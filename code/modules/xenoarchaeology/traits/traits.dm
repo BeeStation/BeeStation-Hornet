@@ -10,7 +10,7 @@
 	var/label_desc
 
 	///Asscoiated flags for artifact typing and such
-	var/flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT
+	var/flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///Other traits this trait wont work with.
 	var/list/blacklist_traits = list()
 	///How rare is this trait? 100 being common, and 1 being very rare
@@ -160,3 +160,17 @@
 		if((initial(T.flags) & flags))
 			output += T
 	return output
+
+//This holds individual traits
+/obj/item/trait_pearl
+	name = "xenopearl"
+	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
+	icon_state = "trait_pearl"
+	w_class = WEIGHT_CLASS_TINY
+	desc = "A smooth alien pearl."
+	///What trait do we have stored
+	var/datum/xenoartifact_trait/stored_trait
+
+/obj/item/trait_pearl/Initialize(mapload, trait)
+	. = ..()
+	stored_trait = trait

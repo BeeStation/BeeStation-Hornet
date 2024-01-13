@@ -7,6 +7,8 @@
 #define XENOA_URANIUM /datum/xenoartifact_material/uranium
 ///Wildcard
 #define XENOA_BANANIUM /datum/xenoartifact_material/bananium
+///Artificial
+#define XENOA_PEARL /datum/xenoartifact_material/pearl
 ///The gods are about to do something stupid
 #define XENOA_DEBUGIUM /datum/xenoartifact_material
 
@@ -32,6 +34,7 @@
 #define XENOA_PLASMA_TRAIT			(1<<1)
 #define XENOA_URANIUM_TRAIT			(1<<2)
 #define XENOA_BANANIUM_TRAIT		(1<<3)
+#define XENOA_PEARL_TRAIT		    (1<<4)
 
 ///trait cooldowns
 #define XENOA_TRAIT_COOLDOWN_EXTRA_SAFE -3 SECONDS
