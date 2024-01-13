@@ -4,30 +4,16 @@
 
 //TODO: Replace all instances of this - Racc
 /obj/item/xenoartifact
-	icon_state = "skub"
+	name = "artifact"
+	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
+	icon_state = "map_editor"
+	w_class = WEIGHT_CLASS_NORMAL
+	desc = "A strange alien device. What could it possibly do?"
+	throw_range = 3
 
 /obj/item/xenoartifact/with_traits/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/xenoartifact)
-
-/datum/component/xenoartifact_pricing ///Pricing component for shipping solution. Consider swapping to cargo after change.
-	///Buying and selling related, based on guess qaulity
-	var/modifier = 0.5
-	///default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
-	var/price
-
-/datum/component/xenoartifact_pricing/Initialize(...)
-	RegisterSignal(parent, XENOA_CHANGE_PRICE, PROC_REF(update_price))
-	..()
-
-/datum/component/xenoartifact_pricing/Destroy(force, silent)
-	UnregisterSignal(parent, XENOA_CHANGE_PRICE)
-	..()
-
-///Typically used to change internally
-/datum/component/xenoartifact_pricing/proc/update_price(datum/source, f_price)
-	price = f_price
-
 
 /datum/component/xenoartifact
 	///List of artifact-traits we have : list(PRIORITY = list(trait))
@@ -62,7 +48,13 @@
 	///Description for the material, based on the traits - Update this with get_material_desc() when you add traits
 	var/material_description = ""
 
-/datum/component/xenoartifact/Initialize(type, list/traits)
+	///What the old appearance of the parent was, for resetting their appearance
+	var/mutable_appearance/old_appearance
+ 
+/datum/component/xenoartifact/item/Initialize(type, list/traits, do_appearance = TRUE, do_mask = FALSE)
+	. = ..()
+
+/datum/component/xenoartifact/Initialize(type, list/traits, do_appearance = TRUE, do_mask = TRUE)
 	. = ..()
 	generate_xenoa_statics()
 	var/atom/A = parent
@@ -71,6 +63,23 @@
 	artifact_type = type || pick_weight(GLOB.xenoartifact_material_weights)
 	artifact_type = new artifact_type()
 	A.custom_price = A.custom_price || artifact_type.custom_price
+	//Build appearance from material
+	if(do_mask)
+		old_appearance = A.appearance
+		var/old_name = A.name
+		//Build the silhouette of the artifact
+		var/mutable_appearance/MA = artifact_type.get_mask()
+		MA.plane = A.plane
+		A.appearance = MA
+		//Reset name
+		A.name = old_name
+	if(do_appearance)
+		//Overlay the material texture
+		var/icon/MA = artifact_type.get_texture()
+		A.add_filter("texture_overlay", 1, layering_filter(icon = MA, blend_mode = BLEND_INSET_OVERLAY))
+		//Throw on some outlines
+		A.add_filter("outline_1", 2, outline_filter(1, "#000"))
+		A.add_filter("outline_2", 3, outline_filter(1, artifact_type.material_color))
 
 	//Build priotity list
 	for(var/i in GLOB.xenoartifact_trait_priorities)
@@ -80,7 +89,10 @@
 	if(traits)
 		for(var/datum/xenoartifact_trait/T as() in traits)
 			if(ispath(T)) //We can either pass paths, or initialized traits
-				T = new T(src) 
+				T = new T(src)
+			else
+				T.remove_parent()
+				T.register_parent(src)
 			//TODO: Setup a proc for traits to register a new parent - Racc
 			//List building, handle custom priorities, just appened to the end
 			if(!artifact_traits[T.priority])
@@ -89,6 +101,7 @@
 			artifact_traits[T.priority] += T
 			blacklisted_traits += T.blacklist_traits
 			blacklisted_traits += T
+
 	//Otherwise, randomly generate our own traits
 	else
 		var/list/focus_traits
@@ -113,6 +126,21 @@
 	material_description = get_material_desc()
 	//Setup description stuff
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
+
+/datum/component/xenoartifact/Destroy(force, silent)
+	. = ..()
+	//Delete our traits
+	for(var/i in artifact_traits)
+		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
+			artifact_traits[i] -= T
+			qdel(T)
+	//Reset parent's visuals
+	var/atom/A = parent
+	A.remove_filter("texture_overlay")
+	A.remove_filter("outline_1")
+	A.remove_filter("outline_2")
+	A.appearance = old_appearance
+	old_appearance = null
 
 ///Used to trigger all our traits in order
 /datum/component/xenoartifact/proc/trigger(force)
@@ -258,13 +286,28 @@
 	///Custom price we use if the item doesn't have its own
 	var/custom_price = 100
 
+	///Artifact textures
+	var/texture_icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
+	var/list/texture_icon_states = list("texture-debug1", "texture-debug2", "texture-debug3")
+	///Artifact masks
+	var/mask_icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
+	var/list/mask_icon_states = list("map_editor")
+
+//Set this proc to return a pre-made list so we can avoid some overhead
 /datum/xenoartifact_material/proc/get_trait_list()
 	return GLOB.xenoa_all_traits
+
+/datum/xenoartifact_material/proc/get_texture()
+	return icon(texture_icon, pick(texture_icon_states))
+
+/datum/xenoartifact_material/proc/get_mask()
+	return mutable_appearance(mask_icon, pick(mask_icon_states))
 
 /datum/xenoartifact_material/bananium
 	name = "bananium"
 	material_color = "#f2ff00"
 	instability_step = 0.5
+	texture_icon_states = list("texture-bananium1", "texture-bananium2", "texture-bananium3")
 
 /datum/xenoartifact_material/bananium/get_trait_list()
 	return GLOB.xenoa_bananium_traits

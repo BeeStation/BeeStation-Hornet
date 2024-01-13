@@ -38,7 +38,15 @@
 
 /datum/xenoartifact_trait/New(atom/_parent)
 	. = ..()
-	parent = _parent
+	register_parent(_parent)
+
+/datum/xenoartifact_trait/Destroy(force, ...)
+	. = ..()
+	dump_targets()
+
+//The reason this is a seperate proc is so we can init the trait and swap its artifact component parent around
+/datum/xenoartifact_trait/proc/register_parent(datum/source)
+	parent = source
 	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(remove_parent))
 	//Setup trigger signals
 	RegisterSignal(parent, XENOA_TRIGGER, PROC_REF(trigger))
@@ -47,13 +55,16 @@
 	//Stats
 	parent.target_range += extra_target_range
 
-/datum/xenoartifact_trait/Destroy(force, ...)
-	. = ..()
-	dump_targets()
-
+//Remeber to call this before setting a new parent
 /datum/xenoartifact_trait/proc/remove_parent(datum/source)
 	SIGNAL_HANDLER
 
+	//Detach from current parent
+	if(parent)
+		UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(parent, XENOA_TRIGGER)
+		parent.target_range -= extra_target_range
+		cut_trait_appearance(parent.parent)
 	parent = null
 	dump_targets()
 
@@ -124,6 +135,9 @@
 
 //If we want this trait to modify the artifact's appearance
 /datum/xenoartifact_trait/proc/generate_trait_appearance(atom/target)
+	return
+
+/datum/xenoartifact_trait/proc/cut_trait_appearance(atom/target)
 	return
 
 ///Proc used to compile trait weights into a list
