@@ -2,6 +2,7 @@
 	name = "cabinet"
 	desc = "Old will forever be in fashion."
 	icon_state = "cabinet"
+	icon_door = "cabinet_nl"
 	resistance_flags = FLAMMABLE
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
@@ -9,12 +10,7 @@
 	close_sound_volume = 50
 	max_integrity = 70
 	door_anim_time = 0 // no animation
-
-/obj/structure/closet/acloset
-	name = "strange closet"
-	desc = "It looks alien!"
-	icon_state = "alien"
-
+	can_weld_shut = FALSE
 
 /obj/structure/closet/gimmick
 	name = "administrative supply closet"

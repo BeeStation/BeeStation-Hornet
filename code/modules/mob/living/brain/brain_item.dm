@@ -80,7 +80,7 @@
 	name = "[L.name]'s brain"
 	if(brainmob || decoy_override)
 		return
-	if(!L.mind)
+	if (!L.mind)
 		return
 	brainmob = new(src)
 	brainmob.name = L.real_name

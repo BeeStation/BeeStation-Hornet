@@ -175,6 +175,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		else
 			log_talk(message, LOG_SAY, forced_by = forced, custom_say_emote = message_mods[MODE_CUSTOM_SAY_EMOTE])
 
+	if(message_mods[RADIO_KEY] == RADIO_KEY_UPLINK) // only uplink needs this
+		message_mods[MODE_UNTREATED_MESSAGE] = message // let's store the original message before treating those
 	message = treat_message(message) // unfortunately we still need this
 	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
 	if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
@@ -318,7 +320,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	for(var/mob/M in listening)
 		if(M.client?.prefs && !M.client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat))
 			speech_bubble_recipients.Add(M.client)
-	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
+	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", (-TYPING_LAYER))
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(animate_speechbubble), I, speech_bubble_recipients, 30)
 

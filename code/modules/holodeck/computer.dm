@@ -25,6 +25,9 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 #define HOLODECK_CD 2 SECONDS
 #define HOLODECK_DMG_CD 5 SECONDS
 
+/// typecache for turfs that should be considered ok during floorchecks.
+/// A linked turf being anything not in this typecache will cause the holodeck to perform an emergency shutdown.
+GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf/open/floor/holofloor, /turf/closed)))
 
 /obj/machinery/computer/holodeck
 	name = "holodeck control console"
@@ -230,7 +233,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 	log_game("[key_name(usr)] has loaded the holodeck program '[program]' at [loc_name(src)].")
 	template = SSmapping.holodeck_templates[map_id]
-	var/datum/map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
+	var/datum/async_map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
 	template_placer.on_completion(CALLBACK(src, PROC_REF(finish_spawn), template))
 
 ///finalizes objects in the spawned list
@@ -356,13 +359,12 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	load_program(offline_program, TRUE)
 	ui_update()
 
-///returns TRUE if the entire floor of the holodeck is intact, returns FALSE if any are broken
+///returns TRUE if all floors of the holodeck are present, returns FALSE if any are broken or removed
 /obj/machinery/computer/holodeck/proc/floorcheck()
 	for(var/turf/holo_floor in linked)
-		if(isspaceturf(holo_floor))
-			return FALSE
-		if(!holo_floor.intact)
-			return FALSE
+		if (is_type_in_typecache(holo_floor, GLOB.typecache_holodeck_linked_floorcheck_ok))
+			continue
+		return FALSE
 	return TRUE
 
 ///changes all weapons in the holodeck to do stamina damage if set

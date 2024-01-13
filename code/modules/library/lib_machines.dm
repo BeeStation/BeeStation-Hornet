@@ -22,7 +22,7 @@
 
 	//these muthafuckas arent supposed to smooth
 	base_icon_state = null
-	smoothing_flags = null
+	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
 
@@ -343,6 +343,13 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			dat += "<A href='?src=[REF(src)];printbible=1'>\[Bible\]</A><BR>"
 			dat += "<A href='?src=[REF(src)];printspacelaw=1'>\[Space Law\]</A><BR>"
 			dat += "<A href='?src=[REF(src)];printposter=1'>\[Poster\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopcmd=1'>\[Command SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopsec=1'>\[Security SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopeng=1'>\[Engineering SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopsup=1'>\[Supply SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopsci=1'>\[Science SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopmed=1'>\[Medical SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopsvc=1'>\[Service SOP\]</A><BR>"
 			dat += "<A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(8)
 			dat += "<h3>Accessing Forbidden Lore Vault v 1.3</h3>"
@@ -547,6 +554,55 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
+	if(href_list["printsopcmd"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopcommand(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopsec"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopsecurity(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopeng"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopengineering(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopsup"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopsupply(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopsci"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopscience(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopmed"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopmedical(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopsvc"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopservice(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
 	add_fingerprint(usr)
 	updateUsrDialog()
 

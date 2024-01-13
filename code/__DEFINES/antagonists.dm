@@ -102,6 +102,14 @@
 /// A define used in ritual priority for heretics.
 #define MAX_KNOWLEDGE_PRIORITY 100
 
+/// The maximum (and optimal) number of sacrifice targets a heretic should roll.
+#define HERETIC_MAX_SAC_TARGETS 4
+
+//Cult Construct defines
+
+#define CONSTRUCT_JUGGERNAUT "Juggernaut"
+#define CONSTRUCT_WRAITH "Wraith"
+#define CONSTRUCT_ARTIFICER "Artificer"
 
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40

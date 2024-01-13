@@ -120,7 +120,6 @@ Class Procs:
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
 	var/obj/item/circuitboard/circuit // Circuit to be created and inserted when the machinery is created
-	var/damage_deflection = 0
 
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
@@ -298,6 +297,20 @@ Class Procs:
 		if(occupant == movable_atom)
 			occupant = null
 
+/**
+ * Puts passed object in to user's hand
+ *
+ * Puts the passed object in to the users hand if they are adjacent.
+ * If the user is not adjacent then place the object on top of the machine.
+ *
+ * Vars:
+ * * object (obj) The object to be moved in to the users hand.
+ * * user (mob/living) The user to recive the object
+ */
+/obj/machinery/proc/try_put_in_hand(obj/object, mob/living/user)
+	if(!user.CanReach(src) || !user.put_in_hands(object))
+		object.forceMove(drop_location())
+
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
 
@@ -448,8 +461,8 @@ Class Procs:
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		user.visible_message("<span class='danger'>[user.name] smashes against \the [src.name] with its paws.</span>", null, null, COMBAT_MESSAGE_RANGE)
-		take_damage(4, BRUTE, MELEE, 1)
+		var/damage = take_damage(4, BRUTE, MELEE, 1)
+		user.visible_message("<span class='danger'>[user] smashes [src] with [user.p_their()] paws[damage ? "." : ", without leaving a mark!"]</span>", null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/machinery/attack_robot(mob/user)
 	if(!(interaction_flags_machine & INTERACT_MACHINE_ALLOW_SILICON) && !IsAdminGhost(user))
@@ -672,6 +685,13 @@ Class Procs:
 						break
 				for(var/obj/item/B in W.contents)
 					if(istype(B, P) && istype(A, P))
+						// If it's a corrupt or rigged cell, attempting to send it through Bluespace could have unforeseen consequences.
+						if(istype(B, /obj/item/stock_parts/cell) && W.works_from_distance)
+							var/obj/item/stock_parts/cell/checked_cell = B
+							// If it's rigged or corrupted, max the charge. Then explode it.
+							if(checked_cell.rigged || checked_cell.corrupted)
+								checked_cell.charge = checked_cell.maxcharge
+								checked_cell.explode()
 						if(B.get_part_rating() > A.get_part_rating())
 							if(istype(B,/obj/item/stack)) //conveniently this will mean A is also a stack and I will kill the first person to prove me wrong
 								var/obj/item/stack/SA = A
@@ -727,6 +747,8 @@ Class Procs:
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()
+	if(circuit)
+		circuit.configure_machine(src)
 	return
 
 //called on deconstruction before the final deletion

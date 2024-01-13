@@ -22,6 +22,10 @@
 		apparent_species = ", \an [dna.species.name]"
 	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
 
+	//Psychic soul stuff
+	if(HAS_TRAIT(user, TRAIT_PSYCHIC_SENSE) && mind)
+		to_chat(user, "<span class='notice'>[src] has a <span class='[GLOB.soul_glimmer_cfc_list[mind.soul_glimmer]]'>[mind.soul_glimmer]</span> presence.")
+
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING) && !(w_uniform.item_flags & EXAMINE_SKIP))
 		//accessory
@@ -310,7 +314,7 @@
 				msg += "<span class='deadsay'>[t_He] do[t_es]n't appear to be [t_him]self.</span>\n"
 			if(!key)
 				msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"
-			else if(!client || client.is_afk())
+			else if(!client)
 				msg += "[t_He] [t_has] a blank, absent-minded stare and appears completely unresponsive to anything. [t_He] may snap out of it soon.\n"
 
 	//handcuffed?

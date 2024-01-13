@@ -389,11 +389,11 @@
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
-	desc = "A helmet made from durathread and leather."
+	desc = "A helmet made from durathread, a strong material commonly used for ballistic protection."
 	icon_state = "durathread"
 	item_state = "durathread"
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 30, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50, STAMINA = 30)
+	armor = list(MELEE = 20,  BULLET = 40, LASER = 30, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50, STAMINA = 30)
 	strip_delay = 60
 
 /obj/item/clothing/head/helmet/rus_helmet
@@ -413,3 +413,12 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	armor = list(MELEE = 25,  BULLET = 20, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 50, RAD = 20, FIRE = -10, ACID = 50, STAMINA = 20)
+
+/obj/item/clothing/head/helmet/outlaw
+	name = "outlaw's hat"
+	desc = "Keeps the sun out of your eyes while on the run from Johnny Law."
+	icon_state = "cowboy"
+	item_state = "cowboy"
+	worn_icon_state = "cowboy_outlaw"
+	body_parts_covered = HEAD
+	armor = list(MELEE = 25,  BULLET = 25, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 30, RAD = 20, FIRE = 0, ACID = 40, STAMINA = 25)

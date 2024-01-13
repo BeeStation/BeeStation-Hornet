@@ -35,7 +35,7 @@
 		preference_data[db_key] = isnull(value) ? null : preference.deserialize(value, prefs)
 		any_data = TRUE
 	qdel(Q)
-	log_preferences("[prefs.parent.ckey]: Successfully loaded datumized character preferences[!any_data ? " (no records found)" : ""].")
+	log_preferences("[prefs.parent.ckey]: Successfully loaded datumized player preferences[!any_data ? " (no records found)" : ""].")
 	return any_data ? PREFERENCE_LOAD_SUCCESS : PREFERENCE_LOAD_NO_DATA
 
 /datum/preferences_holder/preferences_player/write_data(datum/preferences/prefs)
@@ -51,6 +51,8 @@
 		if(!istype(preference))
 			log_preferences("[prefs.parent.ckey]: ERROR - Datumized player preferences write found invalid db_key [db_key] in dirty preferences list (2).")
 			CRASH("Could not find preference with db_key [db_key] when writing to database.")
+		if(preference.disable_serialization)
+			continue
 		if(preference.preference_type != pref_type)
 			log_preferences("[prefs.parent.ckey]: ERROR - Datumized player preferences write found invalid preference type [preference.preference_type] for [db_key] (want [pref_type]).")
 			CRASH("Invalid preference located from db_key [db_key] for the preference type [pref_type] (had [preference.preference_type])")

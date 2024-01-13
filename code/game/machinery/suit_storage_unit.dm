@@ -295,6 +295,7 @@
 		src,
 		choices,
 		custom_check = CALLBACK(src, PROC_REF(check_interactable), user),
+		require_near = !issiliconoradminghost(user),
 	)
 
 	if (!choice)
@@ -326,14 +327,15 @@
 			var/obj/item/item_to_dispense = vars[choice]
 			if (item_to_dispense)
 				vars[choice] = null
-				user.put_in_hands(item_to_dispense)
+				try_put_in_hand(item_to_dispense, user)
+			else
+				var/obj/item/in_hands = user.get_active_held_item()
+				if (in_hands)
+					attackby(in_hands, user)
 
 	interact(user)
 
 /obj/machinery/suit_storage_unit/proc/check_interactable(mob/user)
-	if (state_open && !powered())
-		return FALSE
-
 	if (!state_open && !can_interact(user))
 		return FALSE
 
@@ -449,11 +451,9 @@
 		if(mob_occupant)
 			things_to_clear += mob_occupant
 			things_to_clear += mob_occupant.GetAllContents()
-		for(var/atom/movable/AM in things_to_clear) //Scorches away blood and forensic evidence, although the SSU itself is unaffected
-			SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRONG)
-			var/datum/component/radioactive/contamination = AM.GetComponent(/datum/component/radioactive)
-			if(contamination)
-				qdel(contamination)
+		for(var/am in things_to_clear) //Scorches away blood and forensic evidence, although the SSU itself is unaffected
+			var/atom/movable/dirty_movable = am
+			dirty_movable.wash(CLEAN_ALL)
 		open_machine(FALSE)
 		if(mob_occupant)
 			dump_inventory_contents()

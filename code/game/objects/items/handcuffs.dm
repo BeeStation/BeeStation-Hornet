@@ -35,7 +35,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	breakouttime = 1 MINUTES
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0)
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
@@ -100,7 +100,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sinewcuff"
 	item_state = "sinewcuff"
-	materials = null
+	custom_materials = null
 	color = null
 
 /obj/item/restraints/handcuffs/cable
@@ -111,7 +111,7 @@
 	color = "#ff0000"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	materials = list(/datum/material/iron=150, /datum/material/glass=75)
+	custom_materials = list(/datum/material/iron=150, /datum/material/glass=75)
 	breakouttime = 30 SECONDS
 	cuffsound = 'sound/weapons/cablecuff.ogg'
 
@@ -184,7 +184,7 @@
 	icon_state = "cuff"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	materials = list()
+	custom_materials = null
 	breakouttime = 450 //Deciseconds = 45s
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 	color = null
@@ -230,8 +230,9 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/restraints/legcuffs/beartrap/update_icon()
+/obj/item/restraints/legcuffs/beartrap/update_icon_state()
 	icon_state = "[initial(icon_state)][armed]"
+	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is sticking [user.p_their()] head in the [src.name]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -242,12 +243,12 @@
 	..()
 	if(ishuman(user) && !user.stat && !user.restrained())
 		armed = !armed
-		update_icon()
+		update_appearance()
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
 /obj/item/restraints/legcuffs/beartrap/proc/close_trap()
 	armed = FALSE
-	update_icon()
+	update_appearance()
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 
 /obj/item/restraints/legcuffs/beartrap/proc/spring_trap(datum/source, AM as mob|obj)

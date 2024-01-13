@@ -151,10 +151,10 @@
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 	update_step_speed()
 
-/obj/mecha/update_icon()
-	if (silicon_pilot && silicon_icon_state)
+/obj/mecha/update_icon_state()
+	if(silicon_pilot && silicon_icon_state)
 		icon_state = silicon_icon_state
-	. = ..()
+	return ..()
 
 /obj/mecha/get_cell()
 	return cell
@@ -1103,8 +1103,8 @@
 /////////////////////////
 
 /obj/mecha/proc/operation_allowed(mob/M)
-	req_access = operation_req_access
-	req_one_access = list()
+	req_access = list()
+	req_one_access = operation_req_access
 	return allowed(M)
 
 /obj/mecha/proc/internals_access_allowed(mob/M)

@@ -10,6 +10,7 @@
 	blood_state = BLOOD_STATE_OIL
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	mergeable_decal = FALSE
+	clean_type = CLEAN_TYPE_BLOOD
 
 /obj/effect/decal/cleanable/robot_debris/Initialize()
 	. = ..()
@@ -75,6 +76,7 @@
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_OIL
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	clean_type = CLEAN_TYPE_BLOOD
 
 /obj/effect/decal/cleanable/oil/Initialize(mapload)
 	. = ..()

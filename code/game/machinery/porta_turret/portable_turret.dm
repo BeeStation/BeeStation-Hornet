@@ -9,47 +9,67 @@
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "turretCover"
 	layer = OBJ_LAYER
-	invisibility = INVISIBILITY_MAXIMUM //the turret is invisible if it's inside its cover
+	//the turret is invisible if it's inside its cover
+	invisibility = INVISIBILITY_MAXIMUM
 	density = TRUE
 	desc = "A covered turret that shoots at its enemies."
-	use_power = IDLE_POWER_USE				//this turret uses and requires power
-	idle_power_usage = 100		//when inactive, this turret takes up constant 50 Equipment power
-	active_power_usage = 600	//when active, this turret takes up constant 300 Equipment power
+	//this turret uses and requires power
+	use_power = IDLE_POWER_USE
+	//when inactive, this turret takes up constant 50 Equipment power
+	idle_power_usage = 100
+	//when active, this turret takes up constant 300 Equipment power
+	active_power_usage = 600
 	req_access = list(ACCESS_SECURITY)
-	power_channel = AREA_USAGE_EQUIP	//drains power from the EQUIPMENT channel
+	//drains power from the EQUIPMENT channel
+	power_channel = AREA_USAGE_EQUIP
 
-	var/uses_stored = TRUE	//if TRUE this will cause the turret to stop working if the stored_gun var is null in process()
+	//if TRUE this will cause the turret to stop working if the stored_gun var is null in process()
+	var/uses_stored = TRUE
 
 	base_icon_state = "standard"
 	var/scan_range = 7
-	var/atom/base = null //for turrets inside other objects
+	//for turrets inside other objects
+	var/atom/base = null
 
-	var/raised = 0			//if the turret cover is "open" and the turret is raised
-	var/raising= 0			//if the turret is currently opening or closing its cover
+	//if the turret cover is "open" and the turret is raised
+	var/raised = 0
+	//if the turret is currently opening or closing its cover
+	var/raising= 0
 
-	max_integrity = 160		//the turret's health
-	integrity_failure = 80
-	armor = list(MELEE = 50,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	//the turret's health
+	max_integrity = 160
+	integrity_failure = 0.5
+	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
 
-	var/locked = TRUE			//if the turret's behaviour control access is locked
-	var/controllock = FALSE		//if the turret responds to control panels
+	//if the turret's behaviour control access is locked
+	var/locked = TRUE
+	//if the turret responds to control panels
+	var/controllock = FALSE
 
-	var/installation = /obj/item/gun/energy/e_gun/turret		//the type of weapon installed by default
+	//the type of weapon installed by default
+	var/installation = /obj/item/gun/energy/e_gun/turret
 	var/obj/item/gun/stored_gun = null
-	var/gun_charge = 0		//the charge of the gun when retrieved from wreckage
+	//the charge of the gun when retrieved from wreckage
+	var/gun_charge = 0
 
 	var/mode = TURRET_STUN
 
-	var/stun_projectile = null		//stun mode projectile type
+	//stun mode projectile type
+	var/stun_projectile = null
 	var/stun_projectile_sound
-	var/lethal_projectile = null	//lethal mode projectile type
+	//lethal mode projectile type
+	var/lethal_projectile = null
 	var/lethal_projectile_sound
 
-	var/reqpower = 500		//power needed per shot
-	var/always_up = 0		//Will stay active
-	var/has_cover = 1		//Hides the cover
+	//power needed per shot
+	var/reqpower = 500
+	//Will stay active
+	var/always_up = 0
+	//Hides the cover
+	var/has_cover = 1
 
-	var/obj/machinery/porta_turret_cover/cover = null	//the cover that is covering this turret
+	//the cover that is covering this turret
+	var/obj/machinery/porta_turret_cover/cover = null
 
 	var/last_fired = 0		//world.time the turret last fired
 	var/shot_delay = 15		//ticks until next shot (1.5 ?)
@@ -725,7 +745,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 /obj/machinery/porta_turret/syndicate/pod
 	name = "syndicate semi-auto turret"
 	desc = "A ballistic semi-automatic auto-turret."
-	integrity_failure = 20
+	integrity_failure = 0.5
 	max_integrity = 40
 	stun_projectile = /obj/projectile/bullet/syndicate_turret
 	lethal_projectile = /obj/projectile/bullet/syndicate_turret
@@ -815,7 +835,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 /obj/machinery/porta_turret/centcom_shuttle/weak
 	max_integrity = 120
-	integrity_failure = 60
+	integrity_failure = 0.5
 	name = "Old Laser Turret"
 	desc = "A turret built with substandard parts and run down further with age. Still capable of delivering lethal lasers to the odd space carp, but not much else."
 	stun_projectile = /obj/projectile/beam/weak/penetrator
@@ -1020,7 +1040,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 	desc = "Used for building turret control panels."
 	icon_state = "apc"
 	result_path = /obj/machinery/turretid
-	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
+	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/gun/proc/get_turret_properties()
 	. = list()

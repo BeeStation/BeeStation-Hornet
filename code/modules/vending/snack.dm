@@ -7,8 +7,8 @@
 	products = list(/obj/item/reagent_containers/food/snacks/spacetwinkie = 6,
 					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 6,
 					/obj/item/reagent_containers/food/snacks/candy = 6,
-		            /obj/item/reagent_containers/food/snacks/chips = 6,
-		            /obj/item/reagent_containers/food/snacks/sosjerky = 6,
+					/obj/item/reagent_containers/food/snacks/chips = 6,
+					/obj/item/reagent_containers/food/snacks/sosjerky = 6,
 					/obj/item/reagent_containers/food/snacks/no_raisin = 6,
 					/obj/item/reagent_containers/food/drinks/dry_ramen = 3,
 					/obj/item/reagent_containers/food/snacks/energybar = 6)
@@ -87,20 +87,6 @@
 	else
 		dish_quants[S.name] = 1
 	sort_list(dish_quants)
-
-/obj/machinery/vending/snack/random
-	name = "\improper Random Snackies"
-	icon_state = "random_snack"
-	desc = "Uh oh!"
-	circuit = null
-
-/obj/machinery/vending/snack/random/Initialize(mapload)
-	// No need to call parent, we're not doing anything with this machine. Just picking a new type of machine to use, spawning it and deleting ourselves.
-	SHOULD_CALL_PARENT(FALSE)
-
-	var/T = pick(subtypesof(/obj/machinery/vending/snack) - /obj/machinery/vending/snack/random)
-	new T(loc)
-	return INITIALIZE_HINT_QDEL
 
 /obj/machinery/vending/snack/blue
 	icon_state = "snackblue"

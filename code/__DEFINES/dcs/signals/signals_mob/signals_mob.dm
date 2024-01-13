@@ -12,11 +12,19 @@
 #define COMSIG_MOB_ALTCLICKON "mob_altclickon"				//from base of mob/AltClickOn(): (atom/A)
 	#define COMSIG_MOB_CANCEL_CLICKON 1
 
+/// From base of /mob/living/simple_animal/bot/proc/bot_step()
+#define COMSIG_MOB_BOT_PRE_STEP "mob_bot_pre_step"
+	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
+	#define COMPONENT_MOB_BOT_BLOCK_PRE_STEP COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+/// From base of /mob/living/simple_animal/bot/proc/bot_step()
+#define COMSIG_MOB_BOT_STEP "mob_bot_step"
+
 /// From base of /client/Move()
 #define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"
 	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
 	#define COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
-	/// From base of /client/Move()
+/// From base of /client/Move()
+#define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
 
 	/// Should we stop the current living movement attempt
 	#define COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
@@ -63,5 +71,3 @@
 ///Called after a client connects to a mob and all UI elements have been setup
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
 #define COMSIG_MOB_MOUSE_SCROLL_ON "comsig_mob_mouse_scroll_on"	//! from base of /mob/MouseWheelOn(): (atom/A, delta_x, delta_y, params)
-#define COMSIG_MOB_CLIENT_AFK "comsig_mob_client_afk"			//! from base of /client/on_afk(): ()
-#define COMSIG_MOB_CLIENT_UNAFK "comsig_mob_client_unafk"			//! from base of /client/on_unafk(): ()

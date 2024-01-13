@@ -10,8 +10,8 @@
 	item_state = "gun"
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	materials = list(/datum/material/iron=2000)
-	w_class = WEIGHT_CLASS_NORMAL
+	custom_materials = list(/datum/material/iron=2000)
+	w_class = WEIGHT_CLASS_LARGE
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -90,6 +90,14 @@
 	var/pb_knockback = 0
 	var/ranged_cooldown = 0
 
+	// Equipping
+	/// The slowdown applied to mobs upon a gun being equipped
+	var/equip_slowdown = 0.5
+	/// The time it takes for a gun to count as equipped, null to get a precalculated value
+	var/equip_time = null
+	/// The timer ID of our equipping action
+	VAR_PRIVATE/equip_timer_id
+
 /obj/item/gun/Initialize(mapload)
 	. = ..()
 	if(pin)
@@ -102,8 +110,13 @@
 	if(!canMouseDown) //Some things like beam rifles override this.
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
+	if (isnull(equip_time))
+		// Light guns: 1.5 second equip time
+		// Medium guns: 2 second equip time
+		// Heavy guns: 2.5 second equip time
+		equip_time = weapon_weight * 5 + 10
 	if(isnull(spread_unwielded))
-		spread_unwielded = weapon_weight * 20 + 20
+		spread_unwielded = weapon_weight * 10 + 10
 	if(requires_wielding)
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
 		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(unwield))
@@ -139,7 +152,7 @@
 		pin = null
 	if(A == chambered)
 		chambered = null
-		update_icon()
+		update_appearance(UPDATE_ICON)
 	if(A == bayonet)
 		clear_bayonet()
 	if(A == gun_light)
@@ -178,6 +191,39 @@
 	. = ..()
 	if(zoomed && user.get_active_held_item() != src)
 		zoom(user, user.dir, FALSE) //we can only stay zoomed in if it's in our hands	//yeah and we only unzoom if we're actually zoomed using the gun!!
+	if (slot == ITEM_SLOT_HANDS)
+		ranged_cooldown = max(world.time + equip_time, ranged_cooldown)
+		user.client?.give_cooldown_cursor(ranged_cooldown - world.time)
+		equip_timer_id = addtimer(CALLBACK(src, PROC_REF(clear_gun_equip_slowdown), user), equip_time, TIMER_STOPPABLE)
+		user.add_movespeed_modifier(MOVESPEED_ID_GUN_EQUIP, multiplicative_slowdown = equip_slowdown, movetypes = GROUND)
+	else
+		clear_gun_equip_slowdown(user)
+		if (equip_timer_id)
+			deltimer(equip_timer_id)
+			equip_timer_id = null
+
+/obj/item/gun/pickup(mob/user)
+	..()
+	if(azoom)
+		azoom.Grant(user)
+
+/obj/item/gun/dropped(mob/user)
+	..()
+	if(azoom)
+		azoom.Remove(user)
+	if(zoomed)
+		zoom(user, user.dir)
+	update_icon()
+	user.client?.clear_cooldown_cursor()
+	clear_gun_equip_slowdown(user)
+	if (equip_timer_id)
+		deltimer(equip_timer_id)
+		equip_timer_id = null
+
+/obj/item/gun/proc/clear_gun_equip_slowdown(mob/living/user)
+	slowdown = initial(slowdown)
+	user.remove_movespeed_modifier(MOVESPEED_ID_GUN_EQUIP)
+	equip_timer_id = null
 
 //called after the gun has successfully fired its chambered ammo.
 /obj/item/gun/proc/process_chamber()
@@ -257,7 +303,7 @@
 			return
 		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
 			return
-		if(target == user && user.zone_selected != BODY_ZONE_PRECISE_MOUTH) //so we can't shoot ourselves (unless mouth selected)
+		if(target == user && user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)) //so we can't shoot ourselves (unless mouth selected)
 			return
 
 	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
@@ -266,7 +312,15 @@
 			return
 
 	if(flag)
-		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		var/simplified_mode = user.client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED
+		var/mob/living/living_target = target
+		if (!simplified_mode)
+			if(user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
+				handle_suicide(user, target, params)
+				return
+		// On simplified mode, contextually determine if we want to suicide them
+		// If the target is ourselves, they are buckled, restrained or lying down then suicide them
+		else if(user.is_zone_selected(BODY_ZONE_HEAD) && istype(living_target) && (user == target || living_target.restrained() || living_target.buckled || living_target.IsUnconscious()))
 			handle_suicide(user, target, params)
 			return
 
@@ -339,7 +393,7 @@
 /obj/item/gun/proc/recharge_newshot()
 	return
 
-/obj/item/gun/proc/process_burst(mob/living/user, atom/target, message = TRUE, params=null, zone_override = "", sprd = 0, randomized_gun_spread = 0, randomized_bonus_spread = 0, rand_spr = 0, iteration = 0)
+/obj/item/gun/proc/process_burst(mob/living/user, atom/target, message = TRUE, params=null, zone_override = "", min_gun_sprd = 0, randomized_gun_spread = 0, randomized_bonus_spread = 0, rand_spr = 0, iteration = 0)
 	if(!user || !firing_burst)
 		firing_burst = FALSE
 		return FALSE
@@ -352,10 +406,12 @@
 			if(chambered.harmful) // Is the bullet chambered harmful?
 				to_chat(user, "<span class='notice'> [src] is lethally chambered! You don't want to risk harming anyone...</span>")
 				return
+		var/sprd = 0
 		if(randomspread)
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
 		else //Smart spread
 			sprd = round((((rand_spr/burst_size) * iteration) - (0.5 + (rand_spr * 0.25))) * (randomized_gun_spread + randomized_bonus_spread))
+		sprd = max(min_gun_sprd, abs(sprd)) * SIGN(sprd)
 		before_firing(target,user)
 		if(!chambered.fire_casing(target, user, params, ,suppressed, zone_override, sprd, spread_multiplier, src))
 			shoot_with_empty_chamber(user)
@@ -373,7 +429,7 @@
 		firing_burst = FALSE
 		return FALSE
 	process_chamber()
-	update_icon()
+	update_appearance(UPDATE_ICON)
 	return TRUE
 
 /obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0, aimed = FALSE)
@@ -389,35 +445,33 @@
 
 	var/sprd = 0
 	var/min_gun_sprd = 0
-	var/min_rand_sprd = 0
-	var/randomized_gun_spread = 0
 	var/rand_spr = rand()
 
 	if(wild_spread)
-		var/S
-		S = sprd * wild_factor //If a gun has WILD SPREAD get the minimum by multiplying spread by its WILD FACTOR
-		min_gun_sprd = round(S, 0.5) //Clean up that value a tiny bit
-		S = spread_unwielded * wild_factor //Do the same for the gun's unwielded spread
-		min_rand_sprd = round(S, 0.5)
-	if(spread)
-		randomized_gun_spread =	rand(min_gun_sprd,spread)
+		if (is_wielded)
+			//If a gun has WILD SPREAD get the minimum by multiplying spread by its WILD FACTOR
+			min_gun_sprd = round(spread * wild_factor, 0.5)
+		else
+			//Do the same for the gun's unwielded spread
+			min_gun_sprd = round(spread_unwielded * wild_factor, 0.5)
+	bonus_spread = user.get_weapon_inaccuracy_modifier(target, src)
 	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex //Does not modify minimum spread, only maximum spread
 		bonus_spread += 25
 	if(!is_wielded && requires_wielding)
 		bonus_spread += spread_unwielded
-	var/randomized_bonus_spread = rand(min_rand_sprd, bonus_spread)
 
 	if(burst_size > 1)
 		firing_burst = TRUE
 		for(var/i = 1 to burst_size)
-			addtimer(CALLBACK(src, PROC_REF(process_burst), user, target, message, params, zone_override, sprd, randomized_gun_spread, randomized_bonus_spread, rand_spr, i), fire_delay * (i - 1))
+			addtimer(CALLBACK(src, PROC_REF(process_burst), user, target, message, params, zone_override, min_gun_sprd, spread, bonus_spread, rand_spr, i), fire_delay * (i - 1))
 	else
 		if(chambered)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 				if(chambered.harmful) // Is the bullet chambered harmful?
 					to_chat(user, "<span class='notice'> [src] is lethally chambered! You don't want to risk harming anyone...</span>")
 					return
-			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
+			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (spread + bonus_spread))
+			sprd = max(min_gun_sprd, abs(sprd)) * SIGN(sprd)
 			before_firing(target, user, aimed)
 			if(!chambered.fire_casing(target, user, params, , suppressed, zone_override, sprd, spread_multiplier, src))
 				shoot_with_empty_chamber(user)
@@ -431,7 +485,7 @@
 			shoot_with_empty_chamber(user)
 			return
 		process_chamber()
-		update_icon()
+		update_appearance(UPDATE_ICON)
 		semicd = TRUE
 		addtimer(CALLBACK(src, PROC_REF(reset_semicd)), fire_delay)
 
@@ -652,7 +706,7 @@
 	update_gunlight()
 
 /obj/item/gun/proc/update_gunlight()
-	update_icon()
+	update_appearance(UPDATE_ICON)
 	update_action_buttons()
 
 /obj/item/gun/pickup(mob/user)
@@ -666,8 +720,6 @@
 		azoom.Remove(user)
 	if(zoomed)
 		zoom(user, user.dir)
-	update_icon()
-	user.client?.clear_cooldown_cursor()
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params, bypass_timer)
 	if(!ishuman(user) || !ishuman(target))
@@ -688,7 +740,7 @@
 
 	semicd = TRUE
 
-	if(!bypass_timer && (!do_after(user, 12 SECONDS, target) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH))
+	if(!bypass_timer && (!do_after(user, 12 SECONDS, target) || !user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH)))
 		if(user)
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided not to shoot.</span>")
