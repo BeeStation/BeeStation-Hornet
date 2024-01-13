@@ -1,5 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Quick equip belt hotkey now respects the functionality of storage items
-      that can't be opened and will not quickly remove items.
