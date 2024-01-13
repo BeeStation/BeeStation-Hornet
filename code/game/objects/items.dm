@@ -74,6 +74,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/pickup_sound
 	///Sound uses when dropping the item, or when its thrown.
 	var/drop_sound
+	///Whether or not we use stealthy audio levels for this item's attack sounds
+	var/stealthy_audio = FALSE
+
 	/// The weight class of an object. Used to determine tons of things, like if it's too cumbersome for you to drag, if it can fit in certain storage items, how long it takes to burn, and more. See _DEFINES/inventory.dm to see all weight classes.
 	var/w_class = WEIGHT_CLASS_NORMAL
 	/// This is used to determine on which inventory slots an item can fit.
@@ -133,9 +136,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/strip_delay = 40
 	/// In deciseconds, how long it takes to break out of an item by using resist. ex: handcuffs
 	var/breakouttime = 0
-
-	/// List of materials it contains as the keys and the quantities as the vals. Like when you pop it into an autolathe these are the materials you get out of it. Also used in microwaves to see if there is enough iron to make it explode. Oh yeah it's used for a ton of other things too. Less exciting things though.
-	var/list/materials
 
 	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/list/attack_verb
@@ -221,18 +221,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///Icon for monkey
 	var/icon/monkey_icon
 
+	var/canMouseDown = FALSE
+
+	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
+	var/vendor_icon_preview = null
+
 
 /obj/item/Initialize(mapload)
-
-	materials =	typelist("materials", materials)
-
-	if(materials) //Otherwise, use the instances already provided.
-		var/list/temp_list = list()
-		for(var/i in materials) //Go through all of our materials, get the subsystem instance, and then replace the list.
-			var/amount = materials[i]
-			var/datum/material/M = getmaterialref(i)
-			temp_list[M] = amount
-		materials = temp_list
 
 	if (attack_verb)
 		attack_verb = typelist("attack_verb", attack_verb)
@@ -422,9 +417,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	// Extractable materials. Only shows the names, not the amounts.
 	research_msg += ".<br><font color='purple'>Extractable materials:</font> "
-	if (materials.len)
+	if (custom_materials.len)
 		sep = ""
-		for(var/mat in materials)
+		for(var/mat in custom_materials)
 			research_msg += sep
 			research_msg += CallMaterialName(mat)
 			sep = ", "
@@ -449,6 +444,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 	if(anchored)
 		return
+
+	. = TRUE
 
 	if(resistance_flags & ON_FIRE)
 		var/mob/living/carbon/C = user
@@ -502,10 +499,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
+	. = FALSE
 	remove_outline()
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
 		user.dropItemToGround(src)
+		return TRUE
 
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE
@@ -1317,7 +1316,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				found_mats++
 
 		//if there's glass in it and the glass is more than 60% of the item, then we can shatter it
-		if(custom_materials[getmaterialref(/datum/material/glass)] >= total_material_amount * 0.60)
+		if(custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)] >= total_material_amount * 0.60)
 			if(prob(66)) //66% chance to break it
 				/// The glass shard that is spawned into the source item
 				var/obj/item/shard/broken_glass = new /obj/item/shard(loc)
@@ -1409,3 +1408,49 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
  */
 /obj/item/proc/get_writing_implement_details()
 	return null
+
+/// Increases weight class by one class and returns true, or else returns false
+/obj/item/proc/weight_class_up()
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY)
+			w_class = WEIGHT_CLASS_SMALL
+		if(WEIGHT_CLASS_SMALL)
+			w_class = WEIGHT_CLASS_NORMAL
+		if(WEIGHT_CLASS_NORMAL)
+			w_class = WEIGHT_CLASS_LARGE
+		if(WEIGHT_CLASS_LARGE)
+			w_class = WEIGHT_CLASS_BULKY
+		if(WEIGHT_CLASS_BULKY)
+			w_class = WEIGHT_CLASS_HUGE
+		if(WEIGHT_CLASS_HUGE)
+			w_class = WEIGHT_CLASS_GIGANTIC
+		else
+			return FALSE
+	return TRUE
+
+/// Decreases weight class by one class and returns true, or else returns false
+/obj/item/proc/weight_class_down()
+	switch(w_class)
+		if(WEIGHT_CLASS_SMALL)
+			w_class = WEIGHT_CLASS_TINY
+		if(WEIGHT_CLASS_NORMAL)
+			w_class = WEIGHT_CLASS_SMALL
+		if(WEIGHT_CLASS_LARGE)
+			w_class = WEIGHT_CLASS_NORMAL
+		if(WEIGHT_CLASS_BULKY)
+			w_class = WEIGHT_CLASS_LARGE
+		if(WEIGHT_CLASS_HUGE)
+			w_class = WEIGHT_CLASS_BULKY
+		if(WEIGHT_CLASS_GIGANTIC)
+			w_class = WEIGHT_CLASS_HUGE
+		else
+			return FALSE
+	return TRUE
+
+// Update icons if this is being carried by a mob
+/obj/item/wash(clean_types)
+	. = ..()
+
+	if(ismob(loc))
+		var/mob/mob_loc = loc
+		mob_loc.regenerate_icons()

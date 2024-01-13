@@ -4,16 +4,17 @@
 	icon = 'icons/obj/beds_chairs/chairs.dmi'
 	icon_state = "chair"
 	anchored = TRUE
-	can_buckle = 1
+	can_buckle = TRUE
 	buckle_lying = 0 //you sit in a chair, not lay
 	resistance_flags = NONE
 	max_integrity = 250
-	integrity_failure = 25
+	integrity_failure = 0.1
+	custom_materials = list(/datum/material/iron = 2000)
 	move_resist = MOVE_FORCE_WEAK
+	layer = OBJ_LAYER
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
-	layer = OBJ_LAYER
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
 	var/colorable = FALSE
@@ -23,11 +24,6 @@
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 	if(!has_buckled_mobs())
 		. += "<span class='notice'>Drag your sprite to sit in it.</span>"
-
-/obj/structure/chair/Initialize(mapload)
-	. = ..()
-	if(!anchored)	//why would you put these on the shuttle?
-		addtimer(CALLBACK(src, PROC_REF(RemoveFromLatejoin)), 0)
 
 /obj/structure/chair/ComponentInitialize()
 	. = ..()
@@ -49,16 +45,18 @@
 	return FALSE
 
 /obj/structure/chair/Destroy()
-	RemoveFromLatejoin()
-	return ..()
-
-/obj/structure/chair/proc/RemoveFromLatejoin()
 	SSjob.latejoin_trackers -= src	//These may be here due to the arrivals shuttle
+	return ..()
 
 /obj/structure/chair/deconstruct()
 	// If we have materials, and don't have the NOCONSTRUCT flag
-	if(buildstacktype && (!(flags_1 & NODECONSTRUCT_1)))
-		new buildstacktype(loc,buildstackamount)
+	if(!(flags_1 & NODECONSTRUCT_1))
+		if(buildstacktype)
+			new buildstacktype(loc,buildstackamount)
+		else
+			for(var/i in custom_materials)
+				var/datum/material/M = i
+				new M.sheet_type(loc, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
 	..()
 
 /obj/structure/chair/attack_paw(mob/user)
@@ -147,6 +145,12 @@
 
 /obj/structure/chair/mime/post_unbuckle_mob(mob/living/M)
 	M.pixel_y -= 5
+
+///Material chair
+/obj/structure/chair/greyscale
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	item_chair = /obj/item/chair/greyscale
+	buildstacktype = null //Custom mats handle this
 
 /obj/structure/chair/wood
 	icon_state = "wooden_chair"
@@ -249,6 +253,7 @@
 	anchored = FALSE
 	resistance_flags = FLAMMABLE
 	max_integrity = 150
+	custom_materials = list(/datum/material/plastic = 2000)
 	buildstacktype = /obj/item/stack/sheet/plastic
 	buildstackamount = 1
 	item_chair = /obj/item/chair/plastic
@@ -393,7 +398,8 @@
 		if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
 			return
 		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
-		var/C = new item_chair(loc)
+		var/obj/item/C = new item_chair(loc)
+		C.set_custom_materials(custom_materials)
 		TransferComponents(C)
 		usr.put_in_hands(C)
 		qdel(src)

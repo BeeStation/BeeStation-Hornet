@@ -22,6 +22,7 @@
 	clawfootstep = FOOTSTEP_WOOD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	max_integrity = 50
 
 /turf/open/floor/bamboo/examine(mob/user)
 	. = ..()
@@ -36,6 +37,7 @@
 	clawfootstep = FOOTSTEP_WOOD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	max_integrity = 100
 
 /turf/open/floor/wood/examine(mob/user)
 	. = ..()
@@ -101,6 +103,7 @@
 	var/ore_type = /obj/item/stack/ore/glass
 	var/turfverb = "uproot"
 	tiled_dirt = FALSE
+	max_integrity = 80
 
 /turf/open/floor/grass/Initialize(mapload)
 	. = ..()
@@ -261,6 +264,7 @@
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	max_integrity = 150
 
 /turf/open/floor/carpet/examine(mob/user)
 	. = ..()
@@ -369,6 +373,7 @@
 	icon_state = "eighties"
 	floor_tile = /obj/item/stack/tile/eighties
 	broken_states = list("damaged")
+	max_integrity = 150
 
 /turf/open/floor/carpet/narsie_act(force, ignore_mobs, probability = 20)
 	. = (prob(probability) || force)
@@ -400,6 +405,7 @@
 	icon = 'icons/turf/floors/Chasms.dmi'
 	icon_state = "chasms-0"
 	tiled_dirt = FALSE
+	max_integrity = 100
 
 /turf/open/floor/fakepit/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
@@ -413,6 +419,7 @@
 	broken_states = list("damaged")
 	plane = PLANE_SPACE
 	tiled_dirt = FALSE
+	max_integrity = 100
 	fullbright_type = FULLBRIGHT_STARLIGHT
 	luminosity = 2
 
@@ -436,6 +443,7 @@
 	clawfootstep = FOOTSTEP_WOOD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	max_integrity = 120
 
 /turf/open/floor/wax/airless
 	initial_gas_mix = AIRLESS_ATMOS

@@ -73,6 +73,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
+	if(integrity == null)
+		integrity = max_integrity
+
 	// by default, vis_contents is inherited from the turf that was here before.
 	// Checking length(vis_contents) in a proc this hot has huge wins for performance.
 	//if (length(vis_contents)) - this doesn't seem to help performance on Bee
@@ -245,23 +248,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			C.wiringGuiUpdate(user)
 		C.is_empty(user)
 
-/turf/attackby(obj/item/C, mob/user, params)
-	if(..())
-		return TRUE
-	if(can_lay_cable() && istype(C, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = C
-		for(var/obj/structure/cable/LC in src)
-			if(!LC.d1 || !LC.d2)
-				LC.attackby(C,user)
-				return
-		coil.place_turf(src, user)
-		return TRUE
-
-	else if(istype(C, /obj/item/rcl))
-		handleRCL(C, user)
-
-	return FALSE
-
 //There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
 /turf/Enter(atom/movable/mover)
 	// Do not call ..()
@@ -396,14 +382,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 ////////////////////////////////////////////////////
 
-/turf/singularity_act()
-	if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
-		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
-			if(HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
-				O.singularity_act()
-	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-	return(2)
-
 /turf/proc/can_have_cabling()
 	return TRUE
 
@@ -413,46 +391,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/visibilityChanged()
 	GLOB.cameranet.updateVisibility(src)
 
-/turf/proc/burn_tile()
-	return
-
 /turf/proc/is_shielded()
 	return
-
-/turf/contents_explosion(severity, target)
-
-	for(var/thing in contents)
-		var/atom/atom_thing = thing
-		if(!QDELETED(atom_thing))
-			if(ismovable(atom_thing))
-				var/atom/movable/movable_thing = atom_thing
-				if(!movable_thing.ex_check(explosion_id))
-					continue
-				switch(severity)
-					if(EXPLODE_DEVASTATE)
-						SSexplosions.high_mov_atom += movable_thing
-					if(EXPLODE_HEAVY)
-						SSexplosions.med_mov_atom += movable_thing
-					if(EXPLODE_LIGHT)
-						SSexplosions.low_mov_atom += movable_thing
-
-/turf/narsie_act(force, ignore_mobs, probability = 20)
-	. = (prob(probability) || force)
-	for(var/I in src)
-		var/atom/A = I
-		if(ignore_mobs && ismob(A))
-			continue
-		if(ismob(A) || .)
-			A.narsie_act()
-
-/turf/ratvar_act(force, ignore_mobs, probability = 40)
-	. = (prob(probability) || force)
-	for(var/I in src)
-		var/atom/A = I
-		if(ignore_mobs && ismob(A))
-			continue
-		if(ismob(A) || .)
-			A.ratvar_act()
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
@@ -477,35 +417,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/proc/is_transition_turf()
 	return
-
-/turf/acid_act(acidpwr, acid_volume)
-	. = 1
-	var/acid_type = /obj/effect/acid
-	if(acidpwr >= 200) //alien acid power
-		acid_type = /obj/effect/acid/alien
-	var/has_acid_effect = FALSE
-	for(var/obj/O in src)
-		if(istype(O, acid_type))
-			var/obj/effect/acid/A = O
-			A.acid_level = min(acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
-			has_acid_effect = 1
-			continue
-		if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
-			continue
-
-		O.acid_act(acidpwr, acid_volume)
-	if(!has_acid_effect)
-		new acid_type(src, acidpwr, acid_volume)
-
-/turf/proc/acid_melt()
-	return
-
-/turf/rust_heretic_act()
-	if(HAS_TRAIT(src, TRAIT_RUSTY))
-		return
-
-	AddElement(/datum/element/rust)
-	return TRUE
 
 /// When someone falls over onto this turf (Knockdown() or similar), not related to zfalls
 /turf/handle_fall(mob/faller)
@@ -559,11 +470,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			var/datum/reagent/consumable/nutri_check = R
 			if(nutri_check.nutriment_factor >0)
 				M.reagents.remove_reagent(R.type, min(R.volume, 10))
-
-//Whatever happens after high temperature fire dies out or thermite reaction works.
-//Should return new turf
-/turf/proc/Melt()
-	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/proc/check_gravity()
 	return TRUE
@@ -619,3 +525,29 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(istype(loc, /area/chapel))
 		return TRUE
 	return FALSE
+
+/// returns a list of all mobs inside of a turf.
+/// likely detects mobs hiding in a closet.
+/turf/proc/get_all_mobs()
+	. = list()
+	for(var/each in contents)
+		if(ismob(each))
+			. += each
+		else if(isstructure(each))
+			var/obj/O = each
+			for(var/mob/M in O.contents)
+				. += M
+
+/**
+  * Called when this turf is being washed. Washing a turf will also wash any mopable floor decals
+  */
+/turf/wash(clean_types)
+	. = ..()
+
+	for(var/am in src)
+		if(am == src)
+			continue
+		var/atom/movable/movable_content = am
+		if(!ismopable(movable_content))
+			continue
+		movable_content.wash(clean_types)

@@ -748,14 +748,6 @@
 	},
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/snowforest)
-"ch" = (
-/obj/structure/flora/stump{
-	desc = "Breaking it should be easy.";
-	max_integrity = 20;
-	name = "old stump"
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/cabin/snowforest)
 "ci" = (
 /obj/structure/chair/wood,
 /turf/open/floor/wood,
@@ -917,14 +909,6 @@
 	name = "theatre piano"
 	},
 /turf/open/floor/wood,
-/area/awaymission/cabin)
-"cG" = (
-/obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/turf/open/floor/plasteel/freezer,
 /area/awaymission/cabin)
 "cH" = (
 /obj/structure/cable/yellow{
@@ -1208,12 +1192,6 @@
 /obj/structure/fence/door,
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/snowforest)
-"dz" = (
-/turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
-	},
-/area/awaymission/cabin/snowforest)
 "dA" = (
 /turf/closed/wall/ice,
 /area/awaymission/cabin/snowforest)
@@ -1359,11 +1337,6 @@
 	},
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
-"ea" = (
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/turf/open/floor/plating/ice/smooth,
-/area/awaymission/cabin/snowforest)
 "eb" = (
 /obj/structure/closet,
 /obj/item/clothing/suit/hooded/wintercoat,
@@ -1945,19 +1918,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/cabin/caves/mountain)
-"ga" = (
-/mob/living/simple_animal/hostile/bear/snow{
-	desc = "It's a polar bear, in space, but not actually in space. It's actually on a planet. This is a planet.";
-	melee_damage = 15;
-	name = "fat space polar bear";
-	speed = 3;
-	wander = 0
-	},
-/turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
-	},
-/area/awaymission/cabin/snowforest)
 "gb" = (
 /obj/machinery/door/airlock/centcom{
 	desc = "Look at what you have done.";
@@ -1990,11 +1950,6 @@
 	desc = "Jail.";
 	name = "Jail Cell 7217"
 	},
-/area/awaymission/cabin/caves/mountain)
-"gg" = (
-/obj/structure/weightmachine/stacklifter,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/engine,
 /area/awaymission/cabin/caves/mountain)
 "gh" = (
 /obj/structure/weightmachine/weightlifter,
@@ -2228,17 +2183,6 @@
 "gW" = (
 /obj/structure/flora/tree/dead,
 /turf/open/floor/plating/asteroid/snow,
-/area/awaymission/cabin/snowforest)
-"gX" = (
-/obj/structure/flora/stump{
-	desc = "Breaking it should be easy.";
-	max_integrity = 20;
-	name = "old stump"
-	},
-/turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
-	},
 /area/awaymission/cabin/snowforest)
 "gY" = (
 /obj/structure/table/wood,
@@ -2789,11 +2733,6 @@
 "iC" = (
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
-"iD" = (
-/obj/structure/closet/acloset,
-/obj/item/clothing/suit/hooded/bloated_human,
-/turf/open/floor/plating/snowed,
-/area/awaymission/cabin/caves)
 "iE" = (
 /obj/effect/decal/cleanable/shreds,
 /turf/open/floor/plating/asteroid/snow,
@@ -2815,11 +2754,6 @@
 /area/awaymission/cabin/caves)
 "iH" = (
 /obj/structure/table/glass,
-/turf/open/floor/plating/snowed,
-/area/awaymission/cabin/caves)
-"iI" = (
-/obj/structure/closet/acloset,
-/obj/item/toy/foamblade,
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
 "iJ" = (
@@ -3519,19 +3453,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
-"ky" = (
-/obj/structure/flora/stump{
-	desc = "Breaking it should be easy.";
-	max_integrity = 20;
-	name = "old stump"
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/cabin/caves)
 "kz" = (
 /obj/structure/statue/snow/snowman{
 	anchored = 1;
@@ -3546,13 +3467,6 @@
 	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
-"kA" = (
-/obj/effect/decal/cleanable/blood,
-/turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
-	},
-/area/awaymission/cabin/snowforest)
 "kB" = (
 /obj/structure/statue/snow/snowman{
 	anchored = 1;
@@ -4182,43 +4096,6 @@
 /area/awaymission/cabin/caves/sovietcave)
 "lW" = (
 /obj/structure/flora/tree/dead,
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/cabin/caves)
-"lX" = (
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
-	},
-/area/awaymission/cabin/caves)
-"lY" = (
-/turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
-	},
-/area/awaymission/cabin/caves)
-"lZ" = (
-/obj/effect/decal/cleanable/blood,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
-	},
-/area/awaymission/cabin/caves)
-"ma" = (
-/obj/structure/flora/stump{
-	desc = "Breaking it should be easy.";
-	max_integrity = 20;
-	name = "old stump"
-	},
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
 "mb" = (
@@ -4959,6 +4836,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"ou" = (
+/obj/structure/flora/stump{
+	desc = "Breaking it should be easy.";
+	name = "old stump"
+	},
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 6
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/cabin/caves)
 "qH" = (
 /obj/structure/ladder/unbreakable/rune{
 	alpha = 0;
@@ -4977,6 +4866,11 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"qK" = (
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/turf/open/floor/plating/ice/smooth,
+/area/awaymission/cabin/snowforest)
 "rp" = (
 /obj/item/toy/spinningtoy{
 	anchored = 1;
@@ -4985,6 +4879,12 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"rx" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating/asteroid/snow{
+	name = "packed snow"
+	},
+/area/awaymission/cabin/snowforest)
 "rP" = (
 /obj/structure/fluff/empty_sleeper{
 	desc = "An open sleeper. It looks as though it would be awaiting another patient, were it not LOCKED BEHIND BARS!!!";
@@ -4993,6 +4893,15 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"rY" = (
+/turf/open/floor/plating/asteroid/snow{
+	name = "packed snow"
+	},
+/area/awaymission/cabin/snowforest)
+"sq" = (
+/obj/item/toy/foamblade,
+/turf/open/floor/plating/snowed,
+/area/awaymission/cabin/caves)
 "sU" = (
 /obj/effect/light_emitter{
 	name = "outdoor light";
@@ -5009,6 +4918,16 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"xb" = (
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 6
+	},
+/turf/open/floor/plating/asteroid/snow{
+	name = "packed snow"
+	},
+/area/awaymission/cabin/caves)
 "xn" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
@@ -5021,6 +4940,20 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"ya" = (
+/obj/structure/flora/stump{
+	desc = "Breaking it should be easy.";
+	name = "old stump"
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/cabin/caves)
+"yI" = (
+/obj/structure/flora/stump{
+	desc = "Breaking it should be easy.";
+	name = "old stump"
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/cabin/snowforest)
 "zK" = (
 /obj/structure/sign/poster/official/no_erp{
 	pixel_y = -32
@@ -5036,6 +4969,11 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"BX" = (
+/obj/structure/weightmachine/weightlifter,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/engine,
 /area/awaymission/cabin/caves/mountain)
 "Cq" = (
 /obj/item/nullrod/claymore/multiverse{
@@ -5075,6 +5013,17 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"FM" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 6
+	},
+/turf/open/floor/plating/asteroid/snow{
+	name = "packed snow"
+	},
+/area/awaymission/cabin/caves)
 "Gi" = (
 /obj/structure/showcase/mecha/marauder{
 	desc = "Used by vigilantes to fight the ruffians causing trouble in neighborhoods and space stations";
@@ -5084,6 +5033,14 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
+"Go" = (
+/obj/structure/closet/secure_closet/freezer/meat/open,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/turf/open/floor/plasteel/freezer,
+/area/awaymission/cabin)
 "Ha" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -5106,8 +5063,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"HC" = (
+/obj/item/clothing/suit/hooded/bloated_human,
+/turf/open/floor/plating/snowed,
+/area/awaymission/cabin/caves)
 "Ik" = (
-/obj/item/reagent_containers/food/snacks/egg/rainbow{
+/obj/item/food/egg/rainbow{
 	desc = "Was an egg really worth this much effort?";
 	name = "easter egg"
 	},
@@ -5148,6 +5109,15 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"MF" = (
+/obj/structure/flora/stump{
+	desc = "Breaking it should be easy.";
+	name = "old stump"
+	},
+/turf/open/floor/plating/asteroid/snow{
+	name = "packed snow"
+	},
+/area/awaymission/cabin/snowforest)
 "MH" = (
 /obj/structure/sign/poster/official/space_cops{
 	pixel_y = 32
@@ -5282,6 +5252,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"Yi" = (
+/mob/living/simple_animal/hostile/bear/snow{
+	desc = "It's a polar bear, in space, but not actually in space. It's actually on a planet. This is a planet.";
+	melee_damage = 15;
+	name = "fat space polar bear";
+	speed = 3;
+	wander = 0
+	},
+/turf/open/floor/plating/asteroid/snow{
+	name = "packed snow"
+	},
+/area/awaymission/cabin/snowforest)
 "Yn" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
@@ -5295,6 +5277,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"Zk" = (
+/turf/open/floor/plating/asteroid/snow{
+	name = "packed snow"
+	},
+/area/awaymission/cabin/caves)
 
 (1,1,1) = {"
 ab
@@ -14052,7 +14039,7 @@ fp
 Km
 TC
 fp
-gg
+BX
 gs
 gv
 gy
@@ -16560,7 +16547,7 @@ ab
 ab
 ab
 kx
-ma
+ya
 kx
 ac
 ac
@@ -17598,7 +17585,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -18885,7 +18872,7 @@ ac
 ac
 eO
 ac
-ch
+yI
 ac
 mq
 mu
@@ -28295,7 +28282,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -29146,7 +29133,7 @@ dj
 dj
 dj
 dj
-ea
+qK
 dj
 dj
 dj
@@ -29402,9 +29389,9 @@ dj
 dj
 dj
 dY
-ea
+qK
 dY
-ea
+qK
 dY
 dj
 dj
@@ -29574,12 +29561,12 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -29660,7 +29647,7 @@ dj
 dj
 dj
 dY
-ea
+qK
 dY
 dj
 dj
@@ -29841,7 +29828,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -30856,24 +30843,24 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
-ch
-ac
-ac
-ac
-ac
-ch
+yI
 ac
 ac
 ac
 ac
+yI
 ac
 ac
 ac
-ch
+ac
+ac
+ac
+ac
+yI
 ac
 ac
 ac
@@ -31640,7 +31627,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -31873,7 +31860,7 @@ ab
 ab
 kx
 ac
-ch
+yI
 ac
 ac
 ac
@@ -32134,7 +32121,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -32142,7 +32129,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -32416,7 +32403,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -32447,7 +32434,7 @@ bB
 bY
 is
 dt
-cG
+Go
 an
 aq
 bh
@@ -32651,7 +32638,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -32915,13 +32902,13 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -33418,13 +33405,13 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -33942,7 +33929,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -34185,7 +34172,7 @@ ab
 kx
 it
 ac
-ch
+yI
 ac
 ac
 ac
@@ -34451,7 +34438,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -34469,7 +34456,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -34973,12 +34960,12 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -35219,7 +35206,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -35470,7 +35457,7 @@ kx
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -35723,7 +35710,7 @@ ab
 ab
 ab
 kx
-ch
+yI
 ac
 ac
 ac
@@ -36004,7 +35991,7 @@ ad
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -36244,7 +36231,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -36753,7 +36740,7 @@ ab
 kx
 kx
 ac
-ch
+yI
 ac
 ac
 ac
@@ -36779,7 +36766,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -37784,7 +37771,7 @@ kx
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -37812,7 +37799,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -38044,7 +38031,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ad
@@ -38060,12 +38047,12 @@ eA
 ad
 ac
 ac
-ch
+yI
 ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -38394,16 +38381,16 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-lX
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+xb
 ab
 ab
 ab
@@ -38589,7 +38576,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -38651,17 +38638,17 @@ es
 ac
 ac
 dx
-dz
-dz
-dz
-dz
-dz
-gX
-dz
-dz
-dz
-lX
-lX
+rY
+rY
+rY
+rY
+rY
+MF
+rY
+rY
+rY
+xb
+xb
 ab
 ab
 ab
@@ -38834,7 +38821,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -38908,18 +38895,18 @@ ac
 ac
 ac
 dy
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-gX
-dz
-lX
-lX
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+MF
+rY
+xb
+xb
 ab
 ab
 ab
@@ -39165,21 +39152,21 @@ ac
 ac
 ac
 dx
-dz
-ga
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-lX
-lX
-lX
-lX
+rY
+Yi
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+xb
+xb
+xb
+xb
 ab
 ab
 ab
@@ -39422,22 +39409,22 @@ ac
 ac
 ac
 dL
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-lX
-lX
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+xb
+xb
 ab
 ab
 ab
@@ -39544,9 +39531,9 @@ gx
 gx
 iz
 iz
-iD
+HC
 iH
-iI
+sq
 iz
 iz
 gx
@@ -39581,9 +39568,9 @@ ab
 kx
 kx
 ac
-ch
+yI
 ac
-ch
+yI
 ac
 ac
 ac
@@ -39609,7 +39596,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -39623,7 +39610,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -39679,22 +39666,22 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-lX
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+xb
 ab
 ab
 ab
@@ -39862,7 +39849,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -39936,23 +39923,23 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-gX
-dz
-dz
-dz
-dz
-dz
-gX
-dz
-lX
-lX
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+MF
+rY
+rY
+rY
+rY
+rY
+MF
+rY
+xb
+xb
 ab
 ab
 ab
@@ -40126,7 +40113,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -40193,24 +40180,24 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-gX
-dz
-dz
-dz
-dz
-dz
-lX
-lX
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+MF
+rY
+rY
+rY
+rY
+rY
+xb
+xb
 ab
 ab
 ab
@@ -40357,7 +40344,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ag
 cZ
@@ -40373,7 +40360,7 @@ bS
 cZ
 fc
 ac
-ch
+yI
 ac
 ac
 ac
@@ -40450,25 +40437,25 @@ ac
 ac
 ac
 dx
-dz
-gX
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-lX
-lX
+rY
+MF
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+xb
+xb
 ab
 ab
 ab
@@ -40607,7 +40594,7 @@ ab
 ab
 ab
 kx
-ch
+yI
 ac
 ac
 ac
@@ -40644,18 +40631,18 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -40707,25 +40694,25 @@ ac
 gP
 ac
 dx
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-lX
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+xb
 ab
 ab
 ab
@@ -40964,25 +40951,25 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-lX
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+xb
 ab
 ab
 ab
@@ -41123,7 +41110,7 @@ ab
 kx
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -41221,25 +41208,25 @@ ac
 ac
 ac
 dx
-dz
-dz
-gX
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-kA
-lX
+rY
+rY
+MF
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rY
+rx
+xb
 ab
 ab
 ab
@@ -41478,10 +41465,10 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-dz
+rY
+rY
+rY
+rY
 aG
 dg
 dg
@@ -41496,8 +41483,8 @@ hZ
 dg
 dg
 if
-lX
-lY
+xb
+Zk
 ab
 ab
 ab
@@ -41640,7 +41627,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -41675,12 +41662,12 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -41735,10 +41722,10 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-dz
+rY
+rY
+rY
+rY
 bK
 dr
 dW
@@ -41753,7 +41740,7 @@ dF
 ic
 dp
 nh
-lX
+xb
 ab
 ab
 ab
@@ -41892,7 +41879,7 @@ ab
 ab
 ab
 kx
-ch
+yI
 ac
 ac
 ac
@@ -41926,7 +41913,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -41992,10 +41979,10 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-kA
+rY
+rY
+rY
+rx
 bK
 dW
 dW
@@ -42010,7 +41997,7 @@ dW
 dW
 dr
 nh
-lX
+xb
 ab
 ab
 ab
@@ -42178,7 +42165,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -42249,10 +42236,10 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-dz
+rY
+rY
+rY
+rY
 da
 dk
 dW
@@ -42267,8 +42254,8 @@ dG
 dW
 id
 ni
-lX
-lY
+xb
+Zk
 ab
 ab
 ab
@@ -42405,7 +42392,7 @@ ab
 ab
 ab
 kx
-ky
+ou
 ac
 ac
 ac
@@ -42430,7 +42417,7 @@ cZ
 fc
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -42506,10 +42493,10 @@ ac
 ac
 ac
 dx
-dz
-gX
-dz
-dz
+rY
+MF
+rY
+rY
 de
 dl
 dr
@@ -42524,7 +42511,7 @@ dG
 dW
 id
 ni
-lZ
+FM
 ab
 ab
 ab
@@ -42667,7 +42654,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -42702,7 +42689,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -42763,10 +42750,10 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-dz
+rY
+rY
+rY
+rY
 dc
 dm
 dW
@@ -42781,8 +42768,8 @@ dG
 dW
 id
 ni
-lX
-lY
+xb
+Zk
 ab
 ab
 ab
@@ -42921,13 +42908,13 @@ kx
 kx
 ac
 ac
-ch
+yI
 ac
 ac
 ac
 ac
 ac
-ch
+yI
 ac
 ey
 ez
@@ -42968,7 +42955,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -43020,10 +43007,10 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-dz
+rY
+rY
+rY
+rY
 dd
 dn
 dW
@@ -43038,7 +43025,7 @@ dG
 dW
 ie
 ni
-lX
+xb
 ab
 ab
 ab
@@ -43174,7 +43161,7 @@ ab
 ab
 ab
 ab
-ky
+ou
 ac
 ac
 ac
@@ -43209,15 +43196,11 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
-ch
-ac
-ac
-ac
-ac
+yI
 ac
 ac
 ac
@@ -43228,7 +43211,11 @@ ac
 ac
 ac
 ac
-ch
+ac
+ac
+ac
+ac
+yI
 ac
 ac
 ac
@@ -43277,10 +43264,10 @@ ac
 ac
 ac
 dx
-dz
-dz
-dz
-dz
+rY
+rY
+rY
+rY
 dd
 dn
 hY
@@ -43295,7 +43282,7 @@ dG
 dW
 id
 ni
-lX
+xb
 ab
 ab
 ab
@@ -43446,17 +43433,12 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
 ac
-ch
-ac
-ac
-ac
-ac
-ac
+yI
 ac
 ac
 ac
@@ -43477,7 +43459,12 @@ ac
 ac
 ac
 ac
-ch
+ac
+ac
+ac
+ac
+ac
+yI
 ac
 ac
 ac
@@ -43534,10 +43521,10 @@ ac
 gP
 ac
 dx
-dz
-dz
-dz
-dz
+rY
+rY
+rY
+rY
 de
 do
 dW
@@ -43552,7 +43539,7 @@ dG
 dw
 id
 nj
-lX
+xb
 ab
 ab
 ab
@@ -43690,30 +43677,30 @@ ab
 ab
 kx
 ac
-ch
+yI
 ac
 ac
 ac
-ch
-ac
-ac
-ac
-ac
-ac
-ch
+yI
 ac
 ac
 ac
 ac
 ac
+yI
 ac
 ac
 ac
 ac
-ch
 ac
 ac
-ch
+ac
+ac
+ac
+yI
+ac
+ac
+yI
 ac
 ac
 ac
@@ -43791,10 +43778,10 @@ ac
 kx
 kx
 lP
-lX
-dz
-gX
-dz
+xb
+rY
+MF
+rY
 de
 dl
 dW
@@ -43809,7 +43796,7 @@ dI
 dr
 ie
 ni
-lX
+xb
 ab
 ab
 ab
@@ -43953,7 +43940,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -43961,7 +43948,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -43974,7 +43961,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -44048,10 +44035,10 @@ it
 kx
 ab
 ab
-lX
-lX
-dz
-dz
+xb
+xb
+rY
+rY
 da
 dk
 dw
@@ -44066,7 +44053,7 @@ dG
 dW
 id
 ni
-lX
+xb
 ab
 ab
 ab
@@ -44212,11 +44199,11 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -44306,9 +44293,9 @@ ab
 ab
 ab
 ab
-lX
-lX
-kA
+xb
+xb
+rx
 bK
 dW
 dW
@@ -44323,7 +44310,7 @@ dW
 dW
 dW
 nh
-lX
+xb
 ab
 ab
 ab
@@ -44461,7 +44448,7 @@ ab
 ab
 kx
 kx
-ch
+yI
 ac
 ac
 ac
@@ -44478,7 +44465,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -44490,7 +44477,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 kx
 kx
@@ -44564,8 +44551,8 @@ ab
 ab
 ab
 ab
-lX
-lX
+xb
+xb
 bK
 dp
 dr
@@ -44580,7 +44567,7 @@ dK
 dW
 dp
 nh
-lX
+xb
 ab
 ab
 ab
@@ -44727,7 +44714,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -44740,7 +44727,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -44822,7 +44809,7 @@ ab
 ab
 ab
 ab
-lX
+xb
 df
 dq
 dq
@@ -44837,7 +44824,7 @@ dM
 dq
 dq
 nk
-lX
+xb
 ab
 ab
 ab
@@ -44978,23 +44965,23 @@ kx
 kx
 ac
 ac
-ch
+yI
 ac
 ac
 ac
-ch
-ac
-ac
-ac
-ac
-ch
+yI
 ac
 ac
 ac
 ac
+yI
 ac
 ac
-ch
+ac
+ac
+ac
+ac
+yI
 ac
 ac
 ac
@@ -45079,22 +45066,22 @@ ab
 ab
 ab
 ab
-lX
-lX
-lX
-dz
-dz
-lX
-lX
-lX
-dz
-dz
-dz
-lX
-lX
-lX
-lX
-lZ
+xb
+xb
+xb
+rY
+rY
+xb
+xb
+xb
+rY
+rY
+rY
+xb
+xb
+xb
+xb
+FM
 gx
 gx
 gx
@@ -45257,9 +45244,9 @@ kx
 kx
 kx
 ac
-ch
+yI
 ac
-ch
+yI
 kx
 kx
 ab
@@ -45338,20 +45325,20 @@ ab
 ab
 ab
 ab
-lX
-lX
-lZ
-lX
+xb
+xb
+FM
+xb
 ab
-lX
-lX
-lX
-lZ
-lX
+xb
+xb
+xb
+FM
+xb
 ab
 gx
-lX
-lY
+xb
+Zk
 iL
 it
 gx
@@ -45503,7 +45490,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 kx
 kx
@@ -45596,14 +45583,14 @@ ab
 ab
 ab
 ab
-lY
+Zk
 ab
 ab
 ab
-lY
+Zk
 ab
 ab
-lY
+Zk
 ab
 ab
 gx
@@ -45752,12 +45739,12 @@ ac
 gW
 ac
 ac
-ch
+yI
 ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac
@@ -46012,7 +45999,7 @@ ac
 ac
 ac
 ac
-ch
+yI
 ac
 ac
 ac

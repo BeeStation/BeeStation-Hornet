@@ -250,7 +250,7 @@
 	icon_state = "defibcompact"
 	item_state = "defibcompact"
 	worn_icon_state = "defibcompact"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
@@ -465,7 +465,7 @@
 	var/mob/living/carbon/H = M
 
 
-	if(user.zone_selected != BODY_ZONE_CHEST)
+	if(!user.is_zone_selected(BODY_ZONE_CHEST))
 		to_chat(user, "<span class='warning'>You need to target your patient's chest with [src]!</span>")
 		return
 

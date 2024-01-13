@@ -13,13 +13,13 @@
 /obj/item/storage/firstaid
 	name = "first-aid kit"
 	desc = "It's an emergency medical kit for those serious boo-boos."
+	icon = 'icons/obj/storage/medkit.dmi'
 	icon_state = "firstaid"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
-	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_LARGE
 	var/skin_type = MEDBOT_SKIN_DEFAULT
 	var/empty = FALSE
 	var/damagetype_healed //defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
@@ -60,11 +60,13 @@
 
 //First MD kit
 /obj/item/storage/firstaid/medical
-	name = "medical aid kit"
-	icon_state = "firstaid-surgery"
-	item_state = "firstaid-surgery"
-	desc = "A high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
-	skin_type = MEDBOT_SKIN_SURGERY
+	name = "doctor's bag"
+	icon_state = "firstaid-surgeryalt"
+	item_state = "firstaid-surgeryalt"
+	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
+	skin_type = null
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/storage/firstaid/medical/ComponentInitialize()
 	. = ..()
@@ -90,7 +92,7 @@
 		/obj/item/reagent_containers/hypospray,
 		/obj/item/sensor_device,
 		/obj/item/radio,
-		/obj/item/clothing/gloves/,
+		/obj/item/clothing/gloves,
 		/obj/item/lazarus_injector,
 		/obj/item/bikehorn/rubberducky,
 		/obj/item/clothing/mask/surgical,
@@ -136,13 +138,6 @@
 		/obj/item/hemostat = 1,
 		/obj/item/cautery = 1)
 	generate_items_inside(items_inside,src)
-
-/obj/item/storage/firstaid/medical/doctorbag
-	name = "doctor's bag"
-	icon_state = "firstaid-surgeryalt"
-	item_state = "firstaid-surgeryalt"
-	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
-	skin_type = null
 
 //First Aid kit (ancient)
 /obj/item/storage/firstaid/ancient
@@ -386,7 +381,44 @@
 /obj/item/storage/firstaid/tactical/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_w_class = WEIGHT_CLASS_LARGE
+	STR.max_items = 7
+	STR.max_combined_w_class = 56 //any combination of allowed items
+
+	//Surgical tools, medkit supplies, compact defibrillator and a few odds and ends but not as much as medbelt
+	var/static/list/can_hold = typecacheof(list(
+		/obj/item/healthanalyzer,
+		/obj/item/dnainjector,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_containers/medspray,
+		/obj/item/storage/pill_bottle,
+		/obj/item/stack/medical,
+		/obj/item/flashlight/pen,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/surgical_drapes,
+		/obj/item/scalpel,
+		/obj/item/circular_saw,
+		/obj/item/surgicaldrill,
+		/obj/item/retractor,
+		/obj/item/cautery,
+		/obj/item/hemostat,
+		/obj/item/blood_filter,
+		/obj/item/clothing/neck/stethoscope,
+		/obj/item/reagent_containers/blood,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/gun/syringe/syndicate,
+		/obj/item/implantcase,
+		/obj/item/implant,
+		/obj/item/implanter,
+		/obj/item/pinpointer/crew,
+		/obj/item/defibrillator/compact
+		))
+	STR.can_hold = can_hold
+
 
 /obj/item/storage/firstaid/tactical/PopulateContents()
 	if(empty)

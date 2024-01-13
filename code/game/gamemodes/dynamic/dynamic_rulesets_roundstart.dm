@@ -546,11 +546,11 @@
 	var/rampupdelta = 5
 
 /datum/dynamic_ruleset/roundstart/meteor/rule_process()
-	if(nometeors || meteordelay > world.time - SSticker.round_start_time)
+	if(nometeors || meteordelay > (mode.simulated_time || world.time) - SSticker.round_start_time)
 		return
 
 	var/list/wavetype = GLOB.meteors_normal
-	var/meteorminutes = (world.time - SSticker.round_start_time - meteordelay) / 10 / 60
+	var/meteorminutes = ((mode.simulated_time || world.time) - SSticker.round_start_time - meteordelay) / 10 / 60
 
 	if (prob(meteorminutes))
 		wavetype = GLOB.meteors_threatening
@@ -611,7 +611,7 @@
 		if(!ismob(servant_mind?.current)) // user disconnected and was not assigned a mob.
 			log_game("DYNAMIC: Clockcult mind \"[servant_mind?.key]\" was lost during execute() - adding a cogscarab.")
 			assigned -= servant_mind
-			var/obj/effect/mob_spawn/drone/cogscarab = new(pick_n_take(spawns))
+			new /obj/effect/mob_spawn/drone/cogscarab(pick_n_take(spawns))
 			continue
 		servant_mind.current.forceMove(pick_n_take(spawns))
 		servant_mind.current.set_species(/datum/species/human)

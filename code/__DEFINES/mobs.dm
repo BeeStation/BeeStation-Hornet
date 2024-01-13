@@ -148,6 +148,26 @@
 #define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
 
+GLOBAL_LIST_INIT(available_random_trauma_list, list(
+	"spiders" = 5,
+	"space" = 2,
+	"security" = 5,
+	"clowns" = 5,
+	"greytide" = 5,
+	"lizards" = 5,
+	"skeletons" = 5,
+	"snakes" = 5,
+	"robots" = 4,
+	"doctors" = 4,
+	"authority" = 5,
+	"the supernatural" = 5,
+	"aliens" = 5,
+	"strangers" = 5,
+	"birds" = 5,
+	"falling" = 5,
+	"anime" = 5
+))
+
 /// This trauma cannot be cured through "special" means, such as nanites or viruses.
 #define TRAUMA_SPECIAL_CURE_PROOF	(1<<0)
 /// This trauma transfers on cloning.
@@ -284,7 +304,8 @@
 #define AI_OFF		3
 #define AI_Z_OFF	4
 
-//determines if a mob can smash through it
+/// An AI hint which tells the AI what it should break.
+/// Note that mobs being able to break walls and r-walls is determined by their attack force.
 #define ENVIRONMENT_SMASH_NONE			0
 #define ENVIRONMENT_SMASH_STRUCTURES	(1<<0) 	//crates, lockers, ect
 #define ENVIRONMENT_SMASH_WALLS			(1<<1)  //walls
@@ -419,6 +440,9 @@
 #define THROW_MODE_TOGGLE 1
 #define THROW_MODE_HOLD 2
 
+/// Converts the layer into a float layer that is within the bounds of the defined maximum mob clothing layer
+/// The bigger the input layer, the deeper it will be (mutations layer is at the bottom, so has a float layer of FLOAT_LAYER - 0.1).
+#define CALCULATE_MOB_OVERLAY_LAYER(_layer) (FLOAT_LAYER - (_layer) * ((MOB_MAX_CLOTHING_LAYER - MOB_LAYER) / TOTAL_LAYERS))
 
 // Mob Overlays Indexes
 /// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;

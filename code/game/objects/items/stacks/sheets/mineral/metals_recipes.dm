@@ -3,7 +3,6 @@
 GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("stool",										/obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	new/datum/stack_recipe("bar stool",									/obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
-	new/datum/stack_recipe("chair",										/obj/structure/chair, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS), \
 
 	null, \
 	new/datum/stack_recipe_list("office chairs", list( \
@@ -107,11 +106,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/iron)
 
-/obj/item/stack/sheet/iron/cyborg
-	materials = list()
-	is_cyborg = 1
-	cost = 500
-
 /* Plasteel */
 
 GLOBAL_LIST_INIT(plasteel_recipes, list ( \
@@ -170,7 +164,7 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 STACKSIZE_MACRO(/obj/item/stack/sheet/brass)
 
 /obj/item/stack/sheet/brass/cyborg
-	materials = list()
+	custom_materials = null
 	is_cyborg = 1
 	cost = 500
 

@@ -16,6 +16,7 @@
 	door_hinge = 5.5
 	door_anim_angle = 90
 	azimuth_angle_2 = 0.35
+	door_anim_time = 0 // no animation
 
 /obj/structure/closet/crate/critter/Initialize(mapload)
 	. = ..()

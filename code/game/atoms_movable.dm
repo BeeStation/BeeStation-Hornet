@@ -66,13 +66,15 @@
 	. = ..()
 	switch(blocks_emissive)
 		if(EMISSIVE_BLOCK_GENERIC)
-			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, 0 , EMISSIVE_BLOCKER_PLANE)
+			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE)
 			gen_emissive_blocker.dir = dir
-			gen_emissive_blocker.appearance_flags |= appearance_flags
+			gen_emissive_blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
+			gen_emissive_blocker.color = GLOB.em_blocker_matrix
 			add_overlay(list(gen_emissive_blocker))
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
 			em_block = new(src, render_target)
+			update_appearance(UPDATE_OVERLAYS)
 	if(opacity)
 		AddElement(/datum/element/light_blocking)
 
@@ -91,9 +93,10 @@
 	if(!blocks_emissive)
 		return
 	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
-		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, 0, EMISSIVE_BLOCKER_PLANE)
+		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE)
 		gen_emissive_blocker.dir = dir
-		gen_emissive_blocker.appearance_flags |= appearance_flags
+		gen_emissive_blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
+		gen_emissive_blocker.color = GLOB.em_blocker_matrix
 		return gen_emissive_blocker
 	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
 		if(!em_block && !QDELETED(src))
@@ -405,7 +408,7 @@
 			return
 
 	if(!loc || (loc == oldloc && oldloc != newloc))
-		last_move = 0
+		last_move = null
 		return
 
 	if(. && pulling && pulling == pullee && pulling != moving_from_pull) //we were pulling a thing and didn't lose it during our move.
@@ -421,6 +424,7 @@
 			check_pulling()
 
 	last_move = direct
+	last_move_time = world.time
 
 	if(set_dir_on_move && flat_direct)
 		setDir(flat_direct)
@@ -680,6 +684,10 @@
 	if(QDELETED(src))
 		CRASH("Qdeleted thing being thrown around.")
 
+	//Snowflake case for click masks
+	if (istype(target, /atom/movable/screen))
+		target = target.loc
+
 	if (!target || speed <= 0)
 		return
 
@@ -688,6 +696,7 @@
 
 	if (pulledby)
 		pulledby.stop_pulling()
+	
 
 	//They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
 	if (thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag*2)
@@ -719,7 +728,7 @@
 	if(QDELETED(thrower) || !istype(thrower))
 		thrower = null //Let's not pass an invalid reference.
 	else
-		target_zone = thrower.zone_selected
+		target_zone = thrower.get_combat_bodyzone(target)
 
 	var/datum/thrownthing/TT = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
 
@@ -767,6 +776,7 @@
 		if(!buckled_mob.Move(newloc, direct))
 			doMove(buckled_mob.loc) //forceMove breaks buckles on stairs, use doMove
 			last_move = buckled_mob.last_move
+			last_move_time = world.time
 			return FALSE
 	return TRUE
 

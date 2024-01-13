@@ -139,7 +139,8 @@
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
 
 /datum/quirk/multilingual/add()
-	if(!known_language)
+	known_language = read_choice_preference(/datum/preference/choiced/quirk/multilingual_language)
+	if(!known_language) // default to random
 		set_up_language()
 	var/datum/language_holder/LH = quirk_holder.get_language_holder()
 	LH.grant_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
