@@ -168,13 +168,12 @@
 		use_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), max(0, use_cooldown + trait_cooldown), TIMER_STOPPABLE)
 
 /datum/component/xenoartifact/proc/build_traits(list/trait_list, amount)
-	if(!length(trait_list))
-		CRASH("Something extrodinarily fucked has happened in the artifact component.")
 	var/list/options = trait_list
 	options -= blacklisted_traits
 	for(var/i in 1 to amount)
 		//Pick a random trait
 		var/datum/xenoartifact_trait/T = pick_weight(options)
+		options -= T
 		add_individual_trait(T)
 	
 //Cooldown finish logic goes here
