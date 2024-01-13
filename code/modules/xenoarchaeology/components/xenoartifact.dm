@@ -139,6 +139,7 @@
 	A.remove_filter("texture_overlay")
 	A.remove_filter("outline_1")
 	A.remove_filter("outline_2")
+	//TOODO: make sure this doesn't cause issues - Racc
 	A.appearance = old_appearance
 	old_appearance = null
 
