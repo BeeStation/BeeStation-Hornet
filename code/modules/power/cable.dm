@@ -502,12 +502,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	source = /datum/robot_energy_storage/wire
 	var/cable_color = "red"
 
-/obj/item/stack/cable_coil/verb/change_wirecolor_verb()
-	set name = "Change Cable Color"
-	set category = "Object"
-	set src in usr
-
-	var/picked = input(usr, "Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
+/obj/item/stack/cable_coil/attack_self(mob/user)
+	if(!iscyborg(user))
+		. = ..()
+		return
+	var/picked = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
 	cable_color = picked
 	update_icon()
 
