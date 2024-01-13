@@ -17,8 +17,8 @@
 	parent.trait_strength *= 1.25
 
 /datum/xenoartifact_trait/minor/charged/Destroy(force, ...)
-	. = ..()
 	parent.trait_strength /= 1.25
+	return ..()
 
 /*
 	Capacitive
@@ -81,12 +81,12 @@
 		A.interaction_flags_item = INTERACT_ATOM_ATTACK_HAND
 
 /datum/xenoartifact_trait/minor/dense/Destroy(force, ...)
-	. = ..()
 	var/obj/item/A = parent.parent
 	A.density = old_density
 	A.interaction_flags_atom = old_atom_flag
 	if(isitem(A))
 		A.interaction_flags_item = old_item_flag
+	return ..()
 
 /*
 	Sharp
@@ -123,12 +123,12 @@
 		A.attack_verb = attack_verbs
 
 /datum/xenoartifact_trait/minor/sharp/Destroy(force, ...)
-	. = ..()
 	var/obj/item/A = parent.parent
 	if(isitem(A))
 		A.sharpness = old_sharp
 		A.force = old_force
 		A.attack_verb = old_verbs
+	return ..()
 
 /*
 	Cooling
@@ -162,9 +162,9 @@
 		mob_spawner = new(parent.parent, src)
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
-	. = ..()
 	QDEL_NULL(sentience)
 	QDEL_NULL(mob_spawner)
+	return ..()
 
 /datum/xenoartifact_trait/minor/sentient/proc/handle_ghost(datum/source, mob/M, list/examine_text)
 	if(isobserver(M) && !sentience?.key && (alert(M, "Are you sure you want to control of [sentience]?", "Assume control of [sentience]", "Yes", "No") == "Yes"))
@@ -272,9 +272,9 @@
 	A.alpha *= 0.7
 
 /datum/xenoartifact_trait/minor/delicate/Destroy(force, ...)
-	. = ..()
 	var/atom/A = parent.parent
 	A.alpha /= 0.7	
+	return ..()
 
 /datum/xenoartifact_trait/minor/delicate/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -353,11 +353,11 @@
 		RegisterSignal(A, COMSIG_ITEM_DROPPED, PROC_REF(drop_action))
 
 /datum/xenoartifact_trait/minor/ringed/Destroy(force, ...)
-	. = ..()
 	var/obj/item/A = parent.parent
 	if(isitem(A))
 		A.slot_flags = old_wearable
 	QDEL_NULL(artifact_action)
+	return ..()
 
 /datum/xenoartifact_trait/minor/ringed/proc/equip_action(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
@@ -405,12 +405,12 @@
 		A.block_upgrade_walk = 1
 
 /datum/xenoartifact_trait/minor/shielded/Destroy(force, ...)
-	. = ..()
 	var/obj/item/A = parent.parent
 	if(isitem(A))
 		A.block_level = old_block_level
 		A.block_power = old_block_power
 		A.block_upgrade_walk = old_block_upgrade
+	return ..()
 
 /*
 	Aerodynamic
@@ -433,10 +433,10 @@
 		A.throw_range = 9
 
 /datum/xenoartifact_trait/minor/aerodynamic/Destroy(force, ...)
-	. = ..()
 	var/atom/movable/A = parent.parent
 	if(ismovable(A))
 		A.throw_range = old_throw_range
+	return ..()
 
 /*
 	Signaller
@@ -463,9 +463,9 @@
 	radio_connection = SSradio.add_object(src, FREQ_SIGNALER, "[RADIO_XENOA]_[REF(src)]")
 
 /datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
-	. = ..()
 	SSradio.remove_object(src, FREQ_SIGNALER)
 	QDEL_NULL(signal)
+	return ..()
 
 /datum/xenoartifact_trait/minor/signaller/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -499,10 +499,10 @@
 		RegisterSignal(AM, COMSIG_ATOM_TOOL_ACT(TOOL_WRENCH), PROC_REF(toggle_anchor))
 
 /datum/xenoartifact_trait/minor/anchor/Destroy(force, ...)
-	. = ..()
 	var/atom/movable/AM = parent.parent
 	if(ismovable(AM))
 		AM.anchored = FALSE
+	return ..()
 
 /datum/xenoartifact_trait/minor/anchor/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -541,8 +541,8 @@
 	slip_comp = A.AddComponent(/datum/component/slippery, 60)
 
 /datum/xenoartifact_trait/minor/slippery/Destroy(force, ...)
-	. = ..()
 	QDEL_NULL(slip_comp)
+	return ..()
 
 /*
 	Haunted
@@ -566,8 +566,8 @@
 			 "activate" = CALLBACK(src, PROC_REF(activate_parent), A)), 8 SECONDS))
 
 /datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)
-	. = ..()
 	QDEL_NULL(controller)
+	return ..()
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(atom/movable/target, dir)
 	//Make any mobs drop this before it moves

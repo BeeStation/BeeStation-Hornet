@@ -182,9 +182,9 @@
 	radio_connection.add_listener(src)
 
 /datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
-	. = ..()
 	SSradio.remove_object(src, FREQ_SIGNALER)
 	QDEL_NULL(signal)
+	return ..()
 
 /datum/xenoartifact_trait/activator/signal/proc/receive_signal(datum/signal/signal)
 	if(!signal)

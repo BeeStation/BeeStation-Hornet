@@ -70,7 +70,7 @@
 	var/mutable_appearance/old_appearance
 
 	///Do we make pearls when we're destroyed?
-	var/make_pearls = FALSE
+	var/make_pearls = TRUE //TODO: Remeber to disable this when you're done testing - Racc
 
 /datum/component/xenoartifact/Initialize(type, list/traits, do_appearance = TRUE, do_mask = TRUE)
 	. = ..()
@@ -134,7 +134,6 @@
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
 
 /datum/component/xenoartifact/Destroy(force, silent)
-	. = ..()
 	//Reset parent's visuals
 	var/atom/A = parent
 	A.remove_filter("texture_overlay")
@@ -150,7 +149,8 @@
 			if(make_pearls)
 				new /obj/item/trait_pearl(get_turf(parent), T.type)
 			qdel(T)
-		
+	
+	return ..()	
 
 ///Used to trigger all our traits in order
 /datum/component/xenoartifact/proc/trigger(force)

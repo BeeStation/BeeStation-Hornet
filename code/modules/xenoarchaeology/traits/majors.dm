@@ -510,8 +510,8 @@
 	GLOB.destabliization_exits += parent.parent
 
 /datum/xenoartifact_trait/major/shadow_realm/Destroy(force, ...)
-	. = ..()
 	GLOB.destabliization_exits -= parent.parent
+	return ..()
 
 /datum/xenoartifact_trait/major/shadow_realm/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -605,8 +605,8 @@
 	emote = new emote()
 
 /datum/xenoartifact_trait/major/emote/Destroy(force, ...)
-	. = ..()
 	QDEL_NULL(emote)
+	return ..()
 
 /datum/xenoartifact_trait/major/emote/trigger(datum/source, _priority, atom/override)
 	. = ..()
