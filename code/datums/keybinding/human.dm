@@ -58,7 +58,7 @@
 		return TRUE
 	var/datum/component/storage/STR = equipped_belt.GetComponent(/datum/component/storage)
 	if(!STR.can_be_opened)
-		STR.quick_empty(H)
+		return FALSE
 	var/obj/item/stored = equipped_belt.contents[equipped_belt.contents.len]
 	if(!stored || stored.on_found(H))
 		return TRUE
