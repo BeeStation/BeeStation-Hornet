@@ -40,7 +40,6 @@
 	name = "black skirt"
 	desc = "A black skirt, very fancy!"
 	icon_state = "blackskirt"
-	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/dress/skirt/blue
 	name = "blue skirt"
