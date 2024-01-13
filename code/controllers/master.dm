@@ -578,7 +578,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				diagnostic_tick.fired_subsystems[queue_node] = diagnostic_tick.fired_subsystems[queue_node] + tick_usage
 			else
 				diagnostic_tick.fired_subsystems[queue_node] = tick_usage
-			diagnostic_tick.total += tick_usage
 
 			if (state == SS_RUNNING)
 				state = SS_IDLE
@@ -727,7 +726,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /datum/mc_tick
 	var/tick_number = 0
-	var/total = 0
 	/// Assoc list containing a list of the subsystems that were fired
 	/// along with how much time thye used this tick
 	var/list/fired_subsystems = list()
@@ -737,7 +735,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/list/tickers = list()
 	for (var/datum/controller/subsystem/ss as() in fired_subsystems)
 		if (ss.flags & SS_TICKER)
-			tickers += "([ss.name]: [100 * fired_subsystems[ss]/total]%)"
+			tickers += "([ss.name]: [TICK_DELTA_TO_MS(fired_subsystems[ss])]ms)"
 		else
-			output += "([ss.name]: [100 * fired_subsystems[ss]/total]%)"
+			output += "([ss.name]: [TICK_DELTA_TO_MS(fired_subsystems[ss])]ms)"
 	return "Systems: [jointext(output, " | ")] ######## Tickers: [jointext(tickers, " | ")]"
