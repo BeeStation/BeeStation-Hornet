@@ -4,7 +4,7 @@
 	name =".50 bullet"
 	speed = 0.2
 	damage = 70
-	paralyze = 100
+	knockdown = 5
 	dismemberment = 50
 	armour_penetration = 50
 	// Will penetrate but damage anything not a wall
@@ -25,7 +25,7 @@
 	// Phase directly through everything else
 	projectile_phasing = (ALL & ~(PASSMOB | PASSMACHINE | PASSTRANSPARENT | PASSGRILLE | PASSDOORS | PASSFLAPS | PASSSTRUCTURE))
 	dismemberment = 0 //It goes through you cleanly.
-	paralyze = 0
+	knockdown = 0
 	breakthings = FALSE
 
 /obj/projectile/bullet/p50/penetrator/shuttle //Nukeop Shuttle Variety
@@ -38,7 +38,7 @@
 	armour_penetration = 0
 	damage = 20
 	dismemberment = 0
-	paralyze = 0
+	knockdown = 0
 	breakthings = FALSE
 	// Cannot pass through things like normal rounds
 	projectile_piercing = NONE

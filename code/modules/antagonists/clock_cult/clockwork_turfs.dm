@@ -44,25 +44,27 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/destructible/clockwork/wall_gear
 	baseturfs = /turf/open/floor/clockwork/reebe
-	var/obj/effect/clockwork/overlay/wall/realappearance
+	max_integrity = 1000
+	damage_deflection = 0
 	var/d_state = INTACT
 	flags_1 = NOJAUNT_1
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_BRASS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALLS)
 
 /turf/closed/wall/clockwork/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/wall(src)
 	new /obj/effect/temp_visual/ratvar/beam(src)
-	realappearance = new /obj/effect/clockwork/overlay/wall(src)
-	realappearance.linked = src
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src) //We already smooth ourself in /turf/Initialize()
 
 /turf/closed/wall/clockwork/Destroy()
-	if(realappearance)
-		qdel(realappearance)
-		realappearance = null
-	return ..()
+	. = ..()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/closed/wall/clockwork/ReplaceWithLattice()
 	..()
@@ -79,14 +81,6 @@
 
 /turf/closed/wall/clockwork/ratvar_act()
 	return 0
-
-/turf/closed/wall/clockwork/attack_animal(mob/living/simple_animal/M)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	if(!M.environment_smash)
-		return
-	playsound(src, 'sound/effects/bang.ogg', 50, 1)
-	to_chat(M, "<span class='warning'>This wall is far too strong for you to destroy.</span>")
 
 /turf/closed/wall/clockwork/dismantle_wall(devastated=0, explode=0)
 	if(devastated)
@@ -156,16 +150,8 @@
 
 /turf/closed/wall/clockwork/update_icon()
 	. = ..()
-	if(d_state == INTACT)
-		realappearance.icon_state = "clockwork_wall"
-		smoothing_flags = SMOOTH_BITMASK
-		QUEUE_SMOOTH_NEIGHBORS(src)
-		QUEUE_SMOOTH(src)
-	else
-		realappearance.icon_state = "clockwork_wall-[d_state]"
-		smoothing_flags = NUKE_ON_EXPLODING
-		clear_smooth_overlays()
-	realappearance.update_icon()
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 	return
 
 //=================================================
@@ -180,6 +166,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	resistance_flags = INDESTRUCTIBLE
 	var/dropped_brass
 	var/uses_overlay = TRUE
 	var/obj/effect/clockwork/overlay/floor/realappearance
@@ -242,9 +229,6 @@
 /turf/open/floor/clockwork/ratvar_act(force, ignore_mobs)
 	return 0
 
-/turf/open/floor/clockwork/ex_act(severity, target)
-	return
-
 /turf/open/floor/clockwork/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	return
 
@@ -289,6 +273,8 @@
 	name = "cog lattice"
 	desc = "A lightweight support lattice. These hold the Justicar's station together."
 	icon = 'icons/obj/smooth_structures/catwalks/lattice_clockwork.dmi'
+	icon_state = "lattice_clockwork-255"
+	base_icon_state = "lattice_clockwork"
 
 /obj/structure/lattice/clockwork/Initialize(mapload)
 	. = ..()

@@ -12,6 +12,7 @@
 /obj/item/storage/backpack
 	name = "backpack"
 	desc = "You wear this on your back and put items into it."
+	icon = 'icons/obj/storage/backpack.dmi'
 	icon_state = "backpack"
 	item_state = "backpack"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
@@ -24,8 +25,8 @@
 /obj/item/storage/backpack/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 21
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 28
+	STR.max_w_class = WEIGHT_CLASS_LARGE
 	STR.max_items = 21
 
 /*
@@ -58,7 +59,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.allow_big_nesting = TRUE
 	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
-	STR.max_combined_w_class = 35
+	STR.max_combined_w_class = 70
 
 /obj/item/storage/backpack/holding/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is jumping into [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -97,6 +98,7 @@
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
 	desc = "Space Santa uses this to deliver presents to all the nice children in space in Christmas! Wow, it's pretty big!"
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "giftbag0"
 	item_state = "giftbag"
 	w_class = WEIGHT_CLASS_BULKY
@@ -392,7 +394,7 @@
 /obj/item/storage/backpack/duffelbag/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 30
+	STR.max_combined_w_class = 40
 
 /obj/item/storage/backpack/duffelbag/captain
 	name = "captain's duffel bag"
@@ -490,7 +492,7 @@
 
 /obj/item/storage/backpack/duffelbag/clown/cream_pie/PopulateContents()
 	for(var/i in 1 to 10)
-		new /obj/item/reagent_containers/food/snacks/pie/cream(src)
+		new /obj/item/food/pie/cream(src)
 
 /obj/item/storage/backpack/fireproof
 	resistance_flags = FIRE_PROOF

@@ -141,7 +141,9 @@
 	if(!target || !isturf(loc))
 		return FALSE
 	if(istype(target, /atom/movable/screen))
-		return FALSE
+		var/atom/movable/screen/S = target
+		if(!S.can_throw_target)
+			return FALSE
 
 	var/atom/movable/thrown_thing
 	var/obj/item/I = get_active_held_item()
@@ -597,7 +599,6 @@
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 	if(E)
 		. += E.tint
-
 	else
 		. += INFINITY
 
@@ -753,6 +754,9 @@
 				set_stat(SOFT_CRIT)
 			else
 				set_stat(CONSCIOUS)
+			if(!is_blind())
+				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+				B?.RemoveComponent()
 		update_mobility()
 	update_damage_hud()
 	update_health_hud()
@@ -843,8 +847,9 @@
 	..()
 
 /mob/living/carbon/fakefire(var/fire_icon = "Generic_mob_burning")
-	var/mutable_appearance/new_fire_overlay = mutable_appearance('icons/mob/OnFire.dmi', fire_icon, -FIRE_LAYER)
+	var/mutable_appearance/new_fire_overlay = mutable_appearance('icons/mob/OnFire.dmi', fire_icon, CALCULATE_MOB_OVERLAY_LAYER(FIRE_LAYER))
 	new_fire_overlay.appearance_flags = RESET_COLOR
+	new_fire_overlay.overlays.Add(emissive_appearance('icons/mob/OnFire.dmi', fire_icon, CALCULATE_MOB_OVERLAY_LAYER(FIRE_LAYER)))
 	overlays_standing[FIRE_LAYER] = new_fire_overlay
 	apply_overlay(FIRE_LAYER)
 
@@ -1061,6 +1066,50 @@
 	if(mood)
 		if(mood.sanity < SANITY_UNSTABLE)
 			return TRUE
+
+/mob/living/carbon/wash(clean_types)
+	. = ..()
+
+	// Wash equipped stuff that cannot be covered
+	for(var/obj/item/held_thing in held_items)
+		if(held_thing.wash(clean_types))
+			. = TRUE
+
+	if(back?.wash(clean_types))
+		update_inv_back(0)
+		. = TRUE
+
+	if(head?.wash(clean_types))
+		update_inv_head()
+		. = TRUE
+
+	// Check and wash stuff that can be covered
+	var/list/obscured = check_obscured_slots()
+
+	// If the eyes are covered by anything but glasses, that thing will be covering any potential glasses as well.
+	if(glasses && is_eyes_covered(FALSE, TRUE, TRUE) && glasses.wash(clean_types))
+		update_inv_glasses()
+		. = TRUE
+
+	if(wear_mask && !(ITEM_SLOT_MASK in obscured) && wear_mask.wash(clean_types))
+		update_inv_wear_mask()
+		. = TRUE
+
+	if(ears && !(ITEM_SLOT_EARS in obscured) && ears.wash(clean_types))
+		update_inv_ears()
+		. = TRUE
+
+	if(wear_neck && !(ITEM_SLOT_NECK in obscured) && wear_neck.wash(clean_types))
+		update_inv_neck()
+		. = TRUE
+
+	if(shoes && !(ITEM_SLOT_FEET in obscured) && shoes.wash(clean_types))
+		update_inv_shoes()
+		. = TRUE
+
+	if(gloves && !(ITEM_SLOT_GLOVES in obscured) && gloves.wash(clean_types))
+		update_inv_gloves()
+		. = TRUE
 
 /mob/living/carbon/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
 	var/opposite_gender = gender != ngender

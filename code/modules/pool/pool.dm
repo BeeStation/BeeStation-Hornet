@@ -52,7 +52,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 
 /turf/open/indestructible/sound/pool/Entered(atom/movable/AM)
 	. = ..()
-	SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
+	AM.wash(CLEAN_TYPE_WEAK)
 	if(isliving(AM))
 		var/datum/component/swimming/S = AM.GetComponent(/datum/component/swimming) //You can't get in the pool unless you're swimming.
 		if(!S)
@@ -96,20 +96,6 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	if(do_after(user, 4 SECONDS, target = dropping))
 		splash(dropping)
 
-/datum/mood_event/poolparty
-	description = "<span class='nicegreen'>I love swimming!.</span>\n"
-	mood_change = 2
-	timeout = 2 MINUTES
-
-/datum/mood_event/robotpool
-	description = "<span class='warning'>I really wasn't built with water resistance in mind...</span>\n"
-	mood_change = -3
-	timeout = 2 MINUTES
-
-/datum/mood_event/poolwet
-	description = "<span class='warning'>Eugh! my clothes are soaking wet from that swim.</span>\n"
-	mood_change = -4
-	timeout = 4 MINUTES
 
 /turf/open/indestructible/sound/pool/proc/splash(mob/user)
 	user.forceMove(src)

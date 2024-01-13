@@ -57,6 +57,9 @@
 	..()
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)
+	. = ..()
+	if(!data)
+		return
 	// taste data can sometimes be ("salt" = 3, "chips" = 1)
 	// and we want it to be in the form ("salt" = 0.75, "chips" = 0.25)
 	// which is called "normalizing"
@@ -388,6 +391,8 @@
 	taste_description = "mushroom"
 
 /datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/M)
+	if(ispsyphoza(M))
+		return
 	if(!M.slurring)
 		M.slurring = 1
 	switch(current_cycle)
@@ -669,16 +674,16 @@
 
 /datum/reagent/consumable/maltodextrin
 	name = "Maltodextrin"
-	description = "A common filler found in processed foods. Leaves you feeling full without providing substantial nutritional value."
+	description = "A common filler found in processed foods. Foods containing it will leave you feeling full for a much shorter time."
 	color = "#ffffff"
 	chem_flags = CHEMICAL_RNG_GENERAL
 	taste_mult = 0.1 // Taste the salt and sugar not the cheap carbs
 	taste_description = "processed goodness"
-	nutriment_factor = 0 // Actual nutriment provided by other reagents
-	metabolization_rate = 0.075 * REAGENTS_METABOLISM
+	nutriment_factor = 0
+	metabolization_rate = 0.05 * REAGENTS_METABOLISM //Each unit will last 50 ticks
 
-/datum/reagent/consumable/maltodextrin/on_mob_end_metabolize(mob/living/M)
-	M.adjust_nutrition(current_cycle*-0.7)
+/datum/reagent/consumable/maltodextrin/on_mob_life(mob/living/carbon/M)
+	M.adjust_nutrition(-0.3) //Each unit will match nutriment 1:1 when completely processed
 	..()
 
 ////Lavaland Flora Reagents////

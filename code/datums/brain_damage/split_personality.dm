@@ -31,7 +31,7 @@
 	if(owner.stat == DEAD || !owner.mind)
 		qdel(src)
 		return
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [owner]'s split personality?", ROLE_SPLIT_PERSONALITY, null, 7.5 SECONDS, stranger_backseat)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [owner]'s split personality?", ROLE_SPLIT_PERSONALITY, null, 7.5 SECONDS, stranger_backseat)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		stranger_backseat.key = C.key
@@ -196,7 +196,7 @@
 
 /datum/brain_trauma/severe/split_personality/brainwashing/get_ghost()
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [owner]'s brainwashed mind?", ROLE_TRAITOR, null, 7.5 SECONDS, stranger_backseat, ignore_category = FALSE)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [owner]'s brainwashed mind?", ROLE_TRAITOR, null, 7.5 SECONDS, stranger_backseat, ignore_category = FALSE)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		stranger_backseat.key = C.key

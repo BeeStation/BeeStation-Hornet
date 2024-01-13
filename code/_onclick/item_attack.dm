@@ -77,9 +77,9 @@
 		nonharmfulhit = TRUE
 
 	if(!force || nonharmfulhit)
-		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
+		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else if(hitsound)
-		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+		playsound(loc, hitsound, get_clamped_volume(), TRUE, extrarange = stealthy_audio ? SILENCED_SOUND_EXTRARANGE : -1, falloff_distance = 0)
 
 	M.lastattacker = user.real_name
 	M.lastattackerckey = user.ckey
@@ -110,16 +110,19 @@
 	user.do_attack_animation(O)
 	O.attacked_by(src, user)
 
-/atom/movable/proc/attacked_by()
+/atom/proc/attacked_by()
 	return
 
-/obj/attacked_by(obj/item/I, mob/living/user)
-	if(I.force)
-		user.visible_message("<span class='danger'>[user] hits [src] with [I]!</span>", \
-					"<span class='danger'>You hit [src] with [I]!</span>", null, COMBAT_MESSAGE_RANGE)
-		//only witnesses close by and the victim see a hit message.
-		log_combat(user, src, "attacked", I)
-	take_damage(I.force, I.damtype, MELEE, 1)
+/obj/attacked_by(obj/item/attacking_item, mob/living/user)
+	if(!attacking_item.force)
+		return
+
+	var/damage = take_damage(attacking_item.force, attacking_item.damtype, MELEE, 1)
+
+	//only witnesses close by and the victim see a hit message.
+	user.visible_message("<span class='danger'>[user] hits [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]</span>", \
+		"<span class='danger'>You hit [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]</span>", null, COMBAT_MESSAGE_RANGE)
+	log_combat(user, src, "attacked", attacking_item)
 
 /mob/living/attacked_by(obj/item/I, mob/living/user)
 	send_item_attack_message(I, user)

@@ -24,7 +24,7 @@ mrdoombringer sez: and remember kids, if you try and PR a fix for this item's gr
 for further reading, please see: https://github.com/tgstation/tgstation/pull/30173 and https://translate.google.com/translate?sl=auto&tl=en&js=y&prev=_t&hl=en&ie=UTF-8&u=%2F%2Flurkmore.to%2FSS13&edit-text=&act=url
 */
 /obj/item/banhammer/attack(mob/M, mob/user)
-	if(user.zone_selected == BODY_ZONE_HEAD)
+	if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = FALSE))
 		M.visible_message("<span class='danger'>[user] are stroking the head of [M] with a bangammer</span>", "<span class='userdanger'>[user] are stroking the head with a bangammer</span>", "you hear a bangammer stroking a head");
 	else
 		M.visible_message("<span class='danger'>[M] has been banned FOR NO REISIN by [user]</span>", "<span class='userdanger'>You have been banned FOR NO REISIN by [user]</span>", "you hear a banhammer banning someone")
@@ -43,7 +43,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 2
 	throwforce = 1
 	block_upgrade_walk = 1
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	item_flags = ISWEAPON
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
@@ -230,7 +230,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 15
 	throwforce = 10
 	armour_penetration = 15
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	block_level = 0
@@ -279,7 +279,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = ISWEAPON
-	materials = list(/datum/material/iron=1150, /datum/material/glass=75)
+	custom_materials = list(/datum/material/iron=1150, /datum/material/glass=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
@@ -328,7 +328,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_flags = ISWEAPON
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
-	materials = list(/datum/material/iron=500, /datum/material/glass=500)
+	custom_materials = list(/datum/material/iron=500, /datum/material/glass=500)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/throwing_star/stamina
@@ -371,7 +371,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 6
-	materials = list(/datum/material/iron=12000)
+	custom_materials = list(/datum/material/iron=12000)
 	hitsound = 'sound/weapons/genhit.ogg'
 	attack_verb = list("stubbed", "poked")
 	resistance_flags = FIRE_PROOF
@@ -457,7 +457,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(/datum/material/iron=50)
+	custom_materials = list(/datum/material/iron=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
 
 /obj/item/staff
@@ -513,6 +513,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/ectoplasm/angelic
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "angelplasm"
+
+/obj/item/ectoplasm/mystic
+	icon_state = "mysticplasm"
 
 /obj/item/mounted_chainsaw
 	name = "mounted chainsaw template"
@@ -609,11 +612,17 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throw_speed = 5
 	throw_range = 2
 	attack_verb = list("busted")
+	var/impressiveness = 45
+
+/obj/item/statuebust/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/art, impressiveness)
 
 /obj/item/statuebust/hippocratic
 	name = "hippocrates bust"
 	desc = "A bust of the famous Greek physician Hippocrates of Kos, often referred to as the father of western medicine."
 	icon_state = "hippocratic"
+	impressiveness = 50
 
 /obj/item/melee/chainofcommand/tailwhip
 	name = "liz o' nine tails"
@@ -634,7 +643,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_upgrade_walk = 1
 	force = 12
 	throwforce = 4
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	attack_verb = list("smacked", "whacked", "slammed", "smashed")
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/vehicle/ridden/scooter/skateboard
@@ -811,7 +820,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	user.do_attack_animation(M)
 
 	var/slap_volume = 50
-	if(user.zone_selected == BODY_ZONE_HEAD || user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+	if(user.is_zone_selected(BODY_ZONE_HEAD, precise_only = TRUE) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, simplified_probability = 50))
 		user.visible_message("<span class='danger'>[user] slaps [M] in the face!</span>",
 			"<span class='notice'>You slap [M] in the face!</span>",
 			"<span class='hear'>You hear a slap.</span>")

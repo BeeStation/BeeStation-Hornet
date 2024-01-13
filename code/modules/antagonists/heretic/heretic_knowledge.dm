@@ -182,6 +182,8 @@
 	var/limit = 1
 	/// A list of weakrefs to all items we've created.
 	var/list/datum/weakref/created_items
+	// Destroys the item furthest from user if over the amount limit
+	var/destroy_if_over_limit = FALSE
 
 /datum/heretic_knowledge/limited_amount/Destroy(force, ...)
 	LAZYCLEARLIST(created_items)
@@ -193,9 +195,23 @@
 		if(QDELETED(real_thing))
 			LAZYREMOVE(created_items, ref)
 
-	if(LAZYLEN(created_items) >= limit)
+	if(LAZYLEN(created_items) >= limit && !destroy_if_over_limit)
 		loc.balloon_alert(user, "ritual failed, at limit!")
 		return FALSE
+	else if(LAZYLEN(created_items) >= limit && destroy_if_over_limit)
+		var/atom/furthest
+		var/furthest_distance
+		for(var/datum/weakref/ref in created_items)
+			if(!furthest)
+				furthest = ref.resolve()
+				furthest_distance = get_dist(user, furthest)
+			else
+				var/atom/prospective = ref.resolve()
+				if(get_dist(user, prospective)>furthest_distance)
+					furthest = prospective
+		playsound(furthest, "shatter", 100, TRUE)
+		if(!QDELETED(furthest))
+			qdel(furthest)
 
 	return TRUE
 
@@ -285,7 +301,7 @@
 	animate(summoned, 10 SECONDS, alpha = 155)
 
 	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [summoned.real_name]?", ROLE_HERETIC, null, 10 SECONDS, summoned)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [summoned.real_name]?", ROLE_HERETIC, null, 10 SECONDS, summoned)
 	if(!LAZYLEN(candidates))
 		loc.balloon_alert(user, "Ritual failed, no ghosts")
 		animate(summoned, 0.5 SECONDS, alpha = 0)
@@ -392,7 +408,7 @@
 
 /datum/heretic_knowledge/knowledge_ritual/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
-	our_heretic.knowledge_points += KNOWLEDGE_RITUAL_POINTS
+	our_heretic.adjust_knowledge_points(KNOWLEDGE_RITUAL_POINTS)
 	was_completed = TRUE
 
 	var/drain_message = pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))

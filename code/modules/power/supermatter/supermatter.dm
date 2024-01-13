@@ -16,6 +16,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/uid = 1
 	var/static/gl_uid = 1
 	light_range = 4
+	// this thing bright as hell (to increase bloom)
+	light_power = 5
+	light_color = "#ffe016"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	critical_machine = TRUE
@@ -262,11 +265,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/proc/alarm()
 	switch(get_status())
 		if(SUPERMATTER_DELAMINATING)
-			playsound(src, 'sound/misc/bloblarm.ogg', 100)
+			playsound(src, 'sound/misc/bloblarm.ogg', 100, FALSE, 40, 30, falloff_distance = 10)
 		if(SUPERMATTER_EMERGENCY)
-			playsound(src, 'sound/machines/engine_alert1.ogg', 100)
+			playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_DANGER)
-			playsound(src, 'sound/machines/engine_alert2.ogg', 100)
+			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
 		if(SUPERMATTER_WARNING)
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 
@@ -291,26 +294,41 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			distort.icon_state = "SM_base"
 			distort.pixel_x = -32
 			distort.pixel_y = -32
+			light_range = 4
+			light_power = 5
+			light_color = "#ffe016"
 		if(SUPERMATTER_NORMAL, SUPERMATTER_NOTIFY, SUPERMATTER_WARNING)
 			distort.icon = 'icons/effects/96x96.dmi'
 			distort.icon_state = "SM_base_active"
 			distort.pixel_x = -32
 			distort.pixel_y = -32
+			light_range = 4
+			light_power = 7
+			light_color = "#ffe016"
 		if(SUPERMATTER_DANGER)
 			distort.icon = 'icons/effects/160x160.dmi'
 			distort.icon_state = "SM_delam_1"
 			distort.pixel_x = -64
 			distort.pixel_y = -64
+			light_range = 5
+			light_power = 10
+			light_color = "#ffb516"
 		if(SUPERMATTER_EMERGENCY)
 			distort.icon = 'icons/effects/224x224.dmi'
 			distort.icon_state = "SM_delam_2"
 			distort.pixel_x = -96
 			distort.pixel_y = -96
+			light_range = 6
+			light_power = 10
+			light_color = "#ff9208"
 		if(SUPERMATTER_DELAMINATING)
 			distort.icon = 'icons/effects/288x288.dmi'
 			distort.icon_state = "SM_delam_3"
 			distort.pixel_x = -128
 			distort.pixel_y = -128
+			light_range = 7
+			light_power = 15
+			light_color = "#ff5006"
 	return distort
 
 /obj/machinery/power/supermatter_crystal/proc/countdown()
@@ -392,9 +410,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(last_accent_sound < world.time && prob(20))
 		var/aggression = min(((damage / 800) * (power / 2500)), 1.0) * 100
 		if(damage >= 300)
-			playsound(src, "smdelam", max(50, aggression), FALSE, 10)
+			playsound(src, "smdelam", max(50, aggression), FALSE, 40, 30, falloff_distance = 10)
 		else
-			playsound(src, "smcalm", max(50, aggression), FALSE, 10)
+			playsound(src, "smcalm", max(50, aggression), FALSE, 25, 25, falloff_distance = 10)
 		var/next_sound = round((100 - aggression) * 5)
 		last_accent_sound = world.time + max(SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN, next_sound)
 
@@ -942,7 +960,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			. = zapdir
 
 	if(target_mob)
-		target_mob.electrocute_act(rand(5,10), "Supermatter Discharge Bolt", 1, stun = 0)
+		target_mob.electrocute_act(rand(5,10), "Supermatter Discharge Bolt", 1, SHOCK_NOSTUN)
 		if(prob(15))
 			supermatter_zap(target_mob, 5, power / 2)
 			supermatter_zap(target_mob, 5, power / 2)
