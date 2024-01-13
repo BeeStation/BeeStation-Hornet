@@ -40,7 +40,7 @@ GLOBAL_LIST(xenoa_bananium_traits)
 	GLOB.xenoa_bananium_traits = compile_artifact_whitelist(XENOA_BANANIUM_TRAIT)
 
 ///Material weights, basically rarity
-GLOBAL_LIST_INIT(xenoartifact_material_weights, list(XENOA_BLUESPACE = 10, XENOA_PLASMA = 5, XENOA_URANIUM = 3, XENOA_BANANIUM = 1))
+GLOBAL_LIST_INIT(xenoartifact_material_weights, list(XENOA_BLUESPACE = 10, XENOA_PLASMA = 8, XENOA_URANIUM = 5, XENOA_BANANIUM = 1))
 
 ///Trait priority list - The order is important and it represents priotity
 GLOBAL_LIST_INIT(xenoartifact_trait_priorities, list(TRAIT_PRIORITY_ACTIVATOR, TRAIT_PRIORITY_MINOR, TRAIT_PRIORITY_MALFUNCTION, TRAIT_PRIORITY_MAJOR))

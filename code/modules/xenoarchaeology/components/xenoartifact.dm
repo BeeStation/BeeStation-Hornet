@@ -95,7 +95,7 @@
 		var/icon/MA = artifact_type.get_texture()
 		A.add_filter("texture_overlay", 1, layering_filter(icon = MA, blend_mode = BLEND_INSET_OVERLAY))
 		//Throw on some outlines
-		A.add_filter("outline_1", 2, outline_filter(1, "#000"))
+		A.add_filter("outline_1", 2, outline_filter(2, "#000"))
 		A.add_filter("outline_2", 3, outline_filter(1, artifact_type.material_color))
 
 	//Build priotity list
@@ -338,14 +338,23 @@
 	instability_step = 25
 	texture_icon_states = list("texture-uranium1", "texture-uranium2", "texture-uranium3")
 
+/datum/xenoartifact_material/uranium/get_trait_list()
+	return GLOB.xenoa_uranium_traits
+
 /datum/xenoartifact_material/plasma
 	name = "plasma"
 	material_color = "#f200ffff"
 	instability_step = 5
 	texture_icon_states = list("texture-plasma1", "texture-plasma2", "texture-plasma3")
 
+/datum/xenoartifact_material/plasma/get_trait_list()
+	return GLOB.xenoa_plasma_traits
+
 /datum/xenoartifact_material/bluespace
 	name = "bluespace"
 	material_color = "#006affff"
 	instability_step = 1
 	texture_icon_states = list("texture-bluespace1", "texture-bluespace2", "texture-bluespace3")
+
+/datum/xenoartifact_material/bluespace/get_trait_list()
+	return GLOB.xenoa_bluespace_traits
