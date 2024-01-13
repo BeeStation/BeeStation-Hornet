@@ -72137,18 +72137,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
-"qHE" = (
-/obj/structure/lattice,
-/mob/living/simple_animal/bot/secbot{
-	arrest_type = 1;
-	health = 45;
-	icon_state = "secbot1";
-	idcheck = 1;
-	name = "Sergeant-at-Armsky";
-	weaponscheck = 1
-	},
-/turf/open/space,
-/area/space/nearstation)
 "qHP" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
@@ -144719,7 +144707,7 @@ aad
 aad
 abj
 aaa
-qHE
+aad
 aaa
 aaa
 aad
