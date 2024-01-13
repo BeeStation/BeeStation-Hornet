@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	. = ..()
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
 
-/obj/machinery/microwave/Destroy()
+/obj/machinery/washing_machine/Destroy()
 	QDEL_NULL(soundloop)
 	. = ..()
 
@@ -371,7 +371,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 			flippable = TRUE
 
 /obj/item/clothing/glasses/machine_wash(obj/machinery/washing_machine/WM)
-	if(HAS_TRAIT(src, TRAIT_SPRAYPAINTED))
+	if(HAS_TRAIT_FROM(src, TRAIT_SPRAYPAINTED, CRAYON_TRAIT))
 		flash_protect -= 1
 		tint -= 2
 		REMOVE_TRAIT(src, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
