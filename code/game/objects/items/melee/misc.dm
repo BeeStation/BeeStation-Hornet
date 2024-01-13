@@ -338,7 +338,7 @@
 	stun_animation = TRUE
 
 //Former Wooden Baton
-/obj/item/melee/classic_baton/police/beater
+/obj/item/melee/classic_baton/police/tonfa
 	name = "Police Tonfa"
 	desc = "Favored by hot headed Security Officers who don't want to get in trouble with CentCom but still want to get that nostalgic feeling of beating some criminal scum upside the head with a chunk of wood."
 	icon_state = "beater"
@@ -357,9 +357,7 @@
 	/// [mob] = [world.time where the cooldown ends]
 	var/static/list/trip_cooldowns = list()
 
-/obj/item/melee/classic_baton/police/beater/attack(mob/living/target, mob/living/user)
-	if(!on)
-		return ..()
+/obj/item/melee/classic_baton/police/tonfa/attack(mob/living/target, mob/living/user)
 	var/def_check = target.getarmor(type = MELEE, penetration = armour_penetration)
 
 	add_fingerprint(user)
@@ -377,20 +375,9 @@
 	if(iscyborg(target))
 		// We don't stun if we're on harm.
 		if (user.a_intent != INTENT_HARM)
-			if (affect_silicon)
-				var/list/desc = get_silicon_stun_description(target, user)
-
-				target.flash_act(affect_silicon = TRUE)
-				target.Paralyze(stun_time_silicon)
-				additional_effects_silicon(target, user)
-
-				user.visible_message(desc["visible"], desc["local"])
-				playsound(get_turf(src), on_stun_sound, 100, TRUE, -1)
-
-				if (stun_animation)
-					user.do_attack_animation(target)
-			else
-				..()
+			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
+			user.do_attack_animation(target)
+			return
 		else
 			..()
 		return
@@ -399,10 +386,8 @@
 	if (user.a_intent == INTENT_HARM)
 		if(!..())
 			return
-		if(!iscyborg(target))
-			return
 	else
-		if(COOLDOWN_FINISHED(src, cooldown_check))
+		if(cooldown_check <= world.time)
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
@@ -417,16 +402,15 @@
 			var/obj/item/bodypart/Rl = target.get_bodypart(BODY_ZONE_R_LEG)
 			var/mob/living/carbon/human/T = target
 
-			if (stun_animation)
-				user.do_attack_animation(target)
+			user.do_attack_animation(target)
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
 			additional_effects_carbon(target, user)
-			if((user.zone_selected == BODY_ZONE_CHEST))
+			if(user.is_zone_selected(BODY_ZONE_CHEST) || user.is_zone_selected(BODY_ZONE_PRECISE_GROIN))
 				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_CHEST, def_check)
 				log_combat(user, target, "stunned", src)
 				target.visible_message(desc["visiblestun"], desc["localstun"])
 
-			if((user.zone_selected == BODY_ZONE_HEAD))
+			else if(user.is_zone_selected(BODY_ZONE_HEAD) || user.is_zone_selected(BODY_ZONE_PRECISE_EYES) || user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH))
 				target.apply_damage(14, STAMINA, BODY_ZONE_HEAD, def_check)
 
 				if(target.staminaloss > 89 && !target.has_status_effect(STATUS_EFFECT_SLEEPING) && (!sleep_cooldowns[target] || COOLDOWN_FINISHED(src, sleep_cooldowns[target])))
@@ -446,7 +430,7 @@
 					log_combat(user, target, "stunned", src)
 					target.visible_message(desc["visiblestun"], desc["localstun"])
 
-			if(user.zone_selected == BODY_ZONE_L_LEG)
+			else if(user.is_zone_selected(BODY_ZONE_L_LEG))
 				log_combat(user, target, "stunned", src)
 				target.visible_message(desc["visibleleg"], desc["localleg"])
 				if (Rl.get_staminaloss() < 26 && Ra.get_staminaloss() < 26 && La.get_staminaloss() < 26)
@@ -467,7 +451,7 @@
 					playsound(usr.loc, "sound/misc/slip.ogg", 30, 1)
 					COOLDOWN_START(src, trip_cooldowns[target], 3 SECONDS)
 
-			if(user.zone_selected == BODY_ZONE_R_LEG)
+			else if(user.is_zone_selected(BODY_ZONE_R_LEG))
 				log_combat(user, target, "stunned", src)
 				target.visible_message(desc["visibleleg"], desc["localleg"])
 				if (Ll.get_staminaloss() < 26 && Ra.get_staminaloss() < 26 && La.get_staminaloss() < 26)
@@ -488,7 +472,7 @@
 					target.visible_message(desc["visibletrip"], desc["localtrip"])
 					COOLDOWN_START(src, trip_cooldowns[target], 3 SECONDS)
 
-			if(user.zone_selected == BODY_ZONE_L_ARM)
+			else if(user.is_zone_selected(BODY_ZONE_L_ARM))
 				if(!La.get_staminaloss() == 50)
 					log_combat(user, target, "stunned", src)
 					target.visible_message(desc["visiblearm"], desc["localarm"])
@@ -504,7 +488,7 @@
 				else
 					target.apply_damage(4, STAMINA, BODY_ZONE_CHEST, def_check)
 
-			if(user.zone_selected == BODY_ZONE_R_ARM)
+			else if(user.is_zone_selected(BODY_ZONE_R_ARM))
 				if(!Ra.get_staminaloss() == 50)
 					log_combat(user, target, "stunned", src)
 					target.visible_message(desc["visiblearm"], desc["localarm"])
