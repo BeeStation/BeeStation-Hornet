@@ -56,7 +56,40 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">13 January 2024</h2>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">There is now a Unit Test for Icon Smoothing</li>
+				<li class="bugfix">The following computers are now visible: Bank Machines, Cryopod Console, Old pod terminals, Pandemic 3000s, and Syndicate Droppod computers.</li>
+				<li class="bugfix">Alien weeds, Alien nodes and Jungle Chasms now appear correctly in the map editor.</li>
+				<li class="bugfix">The Advanced Camera and Xeno Archeology consoles no longer runtime under certain conditions.</li>
+				<li class="bugfix">Copper, Bamboo and Clockwork walls/falsewalls have working smoothing values.</li>
+				<li class="bugfix">Copper falsewalls stay visible when used.</li>
+				<li class="bugfix">Bamboo falsewalls are now visible.</li>
+				<li class="bugfix">Resolved a small visual issue on Bamboo and Titanium falsewalls when used.</li>
+				<li class="bugfix">Clockwork walls now appear smooth when in line of sight</li>
+				<li class="bugfix">Ash rock walls now actually show up</li>
+			</ul>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">Redid the icons for the Crates, Closets and the mulebot</li>
+				<li class="code_imp">Overhauled the Crates&Locker code for overlays and emissives</li>
+				<li class="code_imp">Crate climbing times has been re-enabled, now climb time will be different between opened and closed crates!</li>
+				<li class="refactor">Sorted the icons for the storage icons (crates, backpacks, misc storage...)</li>
+				<li class="rscadd">Made the name more intuitive for when looking up the Rapid part dispenser and it's bluespace variant</li>
+			</ul>
+			<h3 class="author">rkz, Haukeschaumann, Skoglol updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">refactored and cleaned up electrocute_act proc. Shocking and the like.</li>
+				<li class="rscadd">Fireman carrying, Piggybacking... basically most forms of buckling/attaching a mob to another mob now propogates shocks. If your buddy gets zapped w/o gloves, you're getting zapped too!</li>
+			</ul>
+
 			<h2 class="date">11 January 2024</h2>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes a bug where Gas Miners could effectively halt Auxmos</li>
+				<li class="bugfix">A few things no longer unnecessarily update turf adjacency</li>
+			</ul>
 			<h3 class="author">Miliviu updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Fixed being able to get infinite glass and wires disassembling Disco Tiles</li>
@@ -794,120 +827,6 @@
 			<h3 class="author">Rukofamicom updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscadd">Adds the toy rubber duck mine, crafted by hand from a rubber ducky and a flash. You can probably guess what it does when you step on the mine from its components.</li>
-			</ul>
-
-			<h2 class="date">11 November 2023</h2>
-			<h3 class="author">rkz, TemporalOroboros updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">teslium & black powder explosions now correctly pass their strengthdiv & modifier values to reagent_explosion/proc/explode</li>
-				<li class="tweak">slightly more concise blackpowder explosion text span</li>
-			</ul>
-
-			<h2 class="date">10 November 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed some heretic spells restarting the cooldown even though they failed (cleave, blood siphon, mansus link, nightwatcher's rebirth)</li>
-				<li class="bugfix">Fixed Nightwatcher's Rebirth causing toxin damage to oozeling users, when it should be healing them of toxin damage.</li>
-				<li class="bugfix">Fixed a runtime error when accidentally using Blood Siphon on a non-living target.</li>
-			</ul>
-			<h3 class="author">BeeLover66 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Radio channels no longer always default to common when no encryption key is installed</li>
-				<li class="rscadd">There is now a warning message when you try to transmit to a channel without the proper encryption key</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">The .357 revolver and speedloader now require at least 25 players in order to be bought from the uplink</li>
-				<li class="tweak">Made vendors show pills and bottles better</li>
-				<li class="code_imp">added a vendor_icon_preview var to obj/item, which is an icon state shown when the item is sold at vendors, pulled from the item's icon file</li>
-			</ul>
-			<h3 class="author">Dejaku51 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added relative coords components which lets you get relative coordinates to target from circuit POV (requires line of sight)</li>
-				<li class="code_imp">Changed can_see default value of length var to 7</li>
-				<li class="tweak">Added information about needing to be secured to server and scanner gate shell</li>
-				<li class="bugfix">Fixed scanner gate shell outputting turf instead of scanned object</li>
-				<li class="bugfix">made securing a shell after inserting circuit work</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">mime invisible walls, agent stealth box, heretic influence, and mobs in lockers/closets will be visible to ghosts.</li>
-				<li class="bugfix">Lazarus injector will not accidentally change faction status when it has a player mind.</li>
-				<li class="bugfix">Mobs with player mind that are revived by Lazarus injector will have their AI status off, so that people will not be attacked randomly.</li>
-				<li class="rscadd">Lazarus injector will not revive a mob with an unrevivable mind. If it revives a mob, it will notify its ghost.</li>
-			</ul>
-			<h3 class="author">JixS4v updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Unwrapping crates takes 0.3 seconds now.</li>
-				<li class="tweak">Heretics now shatter the blade farthest away from them when they make a new blade at the limit.</li>
-				<li class="tweak">Gives the detective a chem scanner in the PDA</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Overhauled the moodlet code to linebreak whenever a new moodlet is added</li>
-				<li class="code_imp">Moved the pool moodlet into their own dedicated files.</li>
-				<li class="bugfix">Fixed the moodlet on the Syndicate Balloon</li>
-				<li class="rscdel">removed and reworked an overused meme moodlet description</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Necrotic Metabolism will no longer allow symtpoms to process in dead hosts, instead it will allow dead bodies to spread the disease via airbourne transmission which no longer happens by default.</li>
-				<li class="refactor">Refactors most turf breaking mechanics, removing environment smash in exchange for damage. This means most simplemobs will be able to break turfs slowly now.</li>
-				<li class="balance">Turfs now have integrity and can be damaged like normal objects.</li>
-				<li class="tweak">Tweaks dynamic's endgame, making only specific threats capable of spawning after the midround spawn time limit has passed (100 minute mark) and making dynamic ignore the cost of threats after that point has passed.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">bluespace capsules can't be deepfried anymore.</li>
-				<li class="code_imp">Cleaned up safe Initialization code slightly</li>
-				<li class="bugfix">Morphs may no longer utilize stomach abilities while ventcrawling. This means no more victims or items left inside of atmos pipes where they are nearly impossible to find.</li>
-				<li class="rscadd">Adds a new "Large" weight class for items, between normal and bulky. Largel items fit inside of backpacks, but take up twice as much space as normal items do.</li>
-				<li class="balance">Several normal items have been changed to Large, including boxes, guns, stun batons, and a variety of other items without major balance implications.</li>
-				<li class="tweak">Belts of all varieties are now bulky items and no longer fit into backpacks.</li>
-				<li class="tweak">Boxes have had their storage capacity reduced dramatically so that the space they take up inside of a bag matches the amount of storage space they have inside.</li>
-				<li class="tweak">The emergency internals box that all players spawn with is smaller than most other boxes, but may only store emergency equipment and tiny items.</li>
-				<li class="tweak">All backpacks have had an increase in their base storage capacity to make up for the loss of storage space in your roundstart box.</li>
-				<li class="tweak">Fanny packs have had their storage capacity increased from 3 slots to 5, and may now hold normal sized items. Fanny packs are primarily craftable by botanists and are considered belts.</li>
-				<li class="tweak">All other belts now have 7 slots if they didn't already, this most notably impacts security officers who will find their belts have 2 additional slots.</li>
-				<li class="tweak">Most security personnel now spawn with a loaded belt instead of a loose baton, cuffs and flash.</li>
-				<li class="tweak">Detectives now spawn with a 5-slot "utility" belt that holds some of their tools that were previously loose. This belt is actually just a renamed fanny pack and can hold anything they want however.</li>
-				<li class="tweak">Holsters now have one less slot, and may hold loose bullets instead of only full clips. Detective holsters no longer spawn pre-loaded with ammo.</li>
-				<li class="tweak">Boxes of shotgun ammo no longer fit in sec belts, however individual shotgun shells do.</li>
-				<li class="tweak">Medkits are now large items instead of bulky and can fit into bags again. These same medkits no longer fit in suit slots or belt slots.</li>
-				<li class="tweak">The extra large medkit that several medical roles spawn with is now a "doctor's bag". The doctor's bag fits in in the suit slot of all labcoats, including those previously excluded from storing medkits.</li>
-				<li class="tweak">Compressed matter cartridges now fit inside of construction bags</li>
-				<li class="tweak">The emergency survival boxes everyone spawns with have a new icon showing they contain an emergency O2 tank.</li>
-				<li class="code_imp">Adds a new procs to `obj/item/` for increasing and decreasing weight by one class</li>
-			</ul>
-			<h3 class="author">Tyranicranger4, San7890, Dragomagol, Melbert, Mothblocks updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Adds logging to Lavaland elite creation</li>
-				<li class="admin">Adds logging to BSA aiming (seperate from firing)</li>
-				<li class="admin">Adds logging to going DNR</li>
-				<li class="admin">Adds logging to creating areas using blueprints (seperate from modifying them)</li>
-				<li class="admin">Adds logging plus an admin notification for when non-roundstart upload consoles are created</li>
-				<li class="admin">Renames the undelay round end button from "End Round Normally" to "Undelay Round End"</li>
-				<li class="tweak">BSArtillery aiming now uses a tgui input list</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Fixed compile warnings</li>
-				<li class="bugfix">Fixed clockcult mid-init disconnections incorrectly spawning regular drones instead of cogscarabs.</li>
-			</ul>
-			<h3 class="author">rkz, IndieanaJones, tralezab, Angustmeta updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">adds completely new sprites and sounds for Venus Human Traps!</li>
-				<li class="bugfix">Cleans up VHTs to no longer instantly kill you due to spaghetti, and their tether knockdown ability actually works!</li>
-				<li class="balance">Did I mention it no longer INSTANTLY KILLS YOU?</li>
-				<li class="tweak">Observers now have a timer to which they can see when a new VHT will be born from a flower pod!</li>
-				<li class="tweak">Observers can now control VHTs</li>
-				<li class="bugfix">cleaned up some misc shitcode</li>
-			</ul>
-			<h3 class="author">theoctopusempress updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Recipe for Standard glitter</li>
-				<li class="rscadd">Recipes for pink, white and blue glitter</li>
-				<li class="tweak">Changed name of Generic glitter to Standard glitter and changed its description</li>
 			</ul>
 		</div>
 
