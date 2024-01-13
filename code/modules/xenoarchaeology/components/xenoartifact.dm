@@ -328,6 +328,7 @@
 	material_color = "#f2ff00"
 	instability_step = 0.5
 	texture_icon_states = list("texture-bananium1", "texture-bananium2", "texture-bananium3")
+	mask_icon_states = list("mask-bananium1")
 
 /datum/xenoartifact_material/bananium/get_trait_list()
 	return GLOB.xenoa_bananium_traits
@@ -337,6 +338,7 @@
 	material_color = "#88ff00ff"
 	instability_step = 25
 	texture_icon_states = list("texture-uranium1", "texture-uranium2", "texture-uranium3")
+	mask_icon_states = list("mask-uranium1")
 
 /datum/xenoartifact_material/uranium/get_trait_list()
 	return GLOB.xenoa_uranium_traits
@@ -346,6 +348,7 @@
 	material_color = "#f200ffff"
 	instability_step = 5
 	texture_icon_states = list("texture-plasma1", "texture-plasma2", "texture-plasma3")
+	mask_icon_states = list("mask-plasma1")
 
 /datum/xenoartifact_material/plasma/get_trait_list()
 	return GLOB.xenoa_plasma_traits
@@ -355,6 +358,7 @@
 	material_color = "#006affff"
 	instability_step = 1
 	texture_icon_states = list("texture-bluespace1", "texture-bluespace2", "texture-bluespace3")
+	mask_icon_states = list("mask-bluespace1")
 
 /datum/xenoartifact_material/bluespace/get_trait_list()
 	return GLOB.xenoa_bluespace_traits
