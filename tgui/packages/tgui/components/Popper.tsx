@@ -1,3 +1,5 @@
+/* eslint-disable react/no-deprecated */
+// TODO: Rewrite as an FC, remove this lint disable
 import { createPopper } from '@popperjs/core';
 import { ArgumentsOf } from 'common/types';
 import { Component, CSSProperties, JSXElementConstructor, PropsWithChildren, ReactElement, RefObject } from 'react';

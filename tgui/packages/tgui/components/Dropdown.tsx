@@ -1,3 +1,5 @@
+/* eslint-disable react/no-deprecated */
+// TODO: Rewrite as an FC, remove this lint disable
 import { createPopper, VirtualElement } from '@popperjs/core';
 import { classes } from 'common/react';
 import { Component, ReactNode } from 'react';
