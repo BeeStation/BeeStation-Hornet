@@ -1,0 +1,16 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - code_imp: There is now a Unit Test for Icon Smoothing
+  - bugfix: 'The following computers are now visible: Bank Machines, Cryopod Console,
+      Old pod terminals, Pandemic 3000s, and Syndicate Droppod computers.'
+  - bugfix: Alien weeds, Alien nodes and Jungle Chasms now appear correctly in the
+      map editor.
+  - bugfix: The Advanced Camera and Xeno Archeology consoles no longer runtime under
+      certain conditions.
+  - bugfix: Copper, Bamboo and Clockwork walls/falsewalls have working smoothing values.
+  - bugfix: Copper falsewalls stay visible when used.
+  - bugfix: Bamboo falsewalls are now visible.
+  - bugfix: Resolved a small visual issue on Bamboo and Titanium falsewalls when used.
+  - bugfix: Clockwork walls now appear smooth when in line of sight
+  - bugfix: Ash rock walls now actually show up
