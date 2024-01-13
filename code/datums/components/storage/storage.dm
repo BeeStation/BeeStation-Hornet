@@ -375,9 +375,6 @@
 	closer.screen_loc = "[screen_start_x + cols]:[screen_pixel_x],[screen_start_y]:[screen_pixel_y]"
 
 /datum/component/storage/proc/show_to(mob/M)
-	if(!can_be_opened)
-		to_chat(M, "<span class='warning'>You shouldn't rummage through garbage!</span>")
-		return FALSE
 	if(!M.client)
 		return FALSE
 	var/atom/real_location = real_location()
@@ -801,6 +798,8 @@
 		if(locked)
 			var/atom/host = parent
 			host.balloon_alert(user, "[host] is locked.")
+		else if(!can_be_opened)
+			to_chat(user, "<span class='warning'>You shouldn't rummage through garbage!</span>")
 		else
 			show_to(user)
 
@@ -839,7 +838,9 @@
 		var/atom/host = parent
 		host.balloon_alert(user, "[host] is locked.")
 		return COMPONENT_INTERCEPT_ALT
-
+	if(!can_be_opened)
+		to_chat(user, "<span class='warning'>You shouldn't rummage through garbage!</span>")
+		return COMPONENT_INTERCEPT_ALT
 	var/atom/A = parent
 	if(!quickdraw)
 		A.add_fingerprint(user)
