@@ -1,0 +1,10 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - imageadd: Redid the icons for the Crates, Closets and the mulebot
+  - code_imp: Overhauled the Crates&Locker code for overlays and emissives
+  - code_imp: Crate climbing times has been re-enabled, now climb time will be different
+      between opened and closed crates!
+  - refactor: Sorted the icons for the storage icons (crates, backpacks, misc storage...)
+  - rscadd: Made the name more intuitive for when looking up the Rapid part dispenser
+      and it's bluespace variant
