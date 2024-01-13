@@ -65,6 +65,8 @@
 		UnregisterSignal(parent, XENOA_TRIGGER)
 		parent.target_range -= extra_target_range
 		cut_trait_appearance(parent.parent)
+	//TODO: If we ever need trait pearls to keep the initialized trait, remove this - Racc
+	qdel(src)
 	parent = null
 	dump_targets()
 

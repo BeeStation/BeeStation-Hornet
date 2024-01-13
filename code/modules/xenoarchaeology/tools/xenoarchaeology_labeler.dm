@@ -151,7 +151,7 @@
 
 //Create an artifact with all the traits we hve selected
 /obj/item/xenoarchaeology_labeler/debug/create_label(new_name)
-	var/obj/item/xenoartifact/A = new(get_turf(loc))
+	var/obj/item/xenoartifact/no_traits/A = new(get_turf(loc))
 	A.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, label_traits)
 
 /*

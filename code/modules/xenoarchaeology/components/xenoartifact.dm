@@ -12,6 +12,8 @@
 	throw_range = 3
 	///What type of artifact
 	var/datum/xenoartifact_material/artifact_type
+	///Use this for debugging or admin shit
+	var/spawn_with_traits = TRUE
 
 /obj/item/xenoartifact/Initialize(mapload, _artifact_type)
 	. = ..()
@@ -19,7 +21,8 @@
 
 /obj/item/xenoartifact/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/xenoartifact, artifact_type)
+	if(spawn_with_traits)
+		AddComponent(/datum/component/xenoartifact, artifact_type)
 
 //Maint variant for loot, has a 80% chance of being safe, 20% of not
 /obj/item/xenoartifact/maint/ComponentInitialize()
@@ -32,6 +35,9 @@
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
 	var/datum/component/xenoartifact/X = GetComponent(/datum/component/xenoartifact)
 	X?.add_individual_trait(/datum/xenoartifact_trait/misc/objective)
+
+/obj/item/xenoartifact/no_traits
+	spawn_with_traits = FALSE
 
 /datum/component/xenoartifact
 	///List of artifact-traits we have : list(PRIORITY = list(trait))
@@ -134,23 +140,24 @@
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
 
 /datum/component/xenoartifact/Destroy(force, silent)
-	//Reset parent's visuals
-	var/atom/A = parent
-	A.remove_filter("texture_overlay")
-	A.remove_filter("outline_1")
-	A.remove_filter("outline_2")
-	//TOODO: make sure this doesn't cause issues - Racc
-	A.appearance = old_appearance
-	old_appearance = null
+	if(!QDELETED(parent))
+		//Reset parent's visuals
+		var/atom/A = parent
+		A.remove_filter("texture_overlay")
+		A.remove_filter("outline_1")
+		A.remove_filter("outline_2")
+		//TOODO: make sure this doesn't cause issues - Racc
+		A.appearance = old_appearance
+		old_appearance = null
 	//Delete and/or 'pearl' our traits
 	for(var/i in artifact_traits)
 		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
 			artifact_traits[i] -= T
 			if(make_pearls)
 				new /obj/item/trait_pearl(get_turf(parent), T.type)
-			qdel(T)
-	
-	return ..()	
+			if(!QDELETED(T))
+				qdel(T)
+	return ..()
 
 ///Used to trigger all our traits in order
 /datum/component/xenoartifact/proc/trigger(force)
