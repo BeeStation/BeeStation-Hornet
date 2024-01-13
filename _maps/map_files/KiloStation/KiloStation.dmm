@@ -52288,7 +52288,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics)
 "hZy" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/camera{
@@ -53223,7 +53223,7 @@
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "iww" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
@@ -74247,7 +74247,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,

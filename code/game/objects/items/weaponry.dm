@@ -612,11 +612,17 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throw_speed = 5
 	throw_range = 2
 	attack_verb = list("busted")
+	var/impressiveness = 45
+
+/obj/item/statuebust/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/art, impressiveness)
 
 /obj/item/statuebust/hippocratic
 	name = "hippocrates bust"
 	desc = "A bust of the famous Greek physician Hippocrates of Kos, often referred to as the father of western medicine."
 	icon_state = "hippocratic"
+	impressiveness = 50
 
 /obj/item/melee/chainofcommand/tailwhip
 	name = "liz o' nine tails"

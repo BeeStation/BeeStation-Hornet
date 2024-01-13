@@ -6049,7 +6049,7 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "aTk" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /turf/open/floor/plasteel/white/corner{
 	dir = 1
 	},
@@ -7143,7 +7143,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
 "bdi" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "bdq" = (
@@ -32569,7 +32569,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "jnT" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "jnY" = (
@@ -34523,7 +34523,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "kiu" = (
@@ -39832,6 +39832,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "mJR" = (
@@ -45543,6 +45544,14 @@
 /obj/machinery/recharger,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"pJk" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white/corner{
+	dir = 1
+	},
+/area/hallway/primary/starboard)
 "pJv" = (
 /turf/open/floor/grass,
 /area/hallway/primary/central)
@@ -100645,7 +100654,7 @@ aVz
 aVz
 aYJ
 aJI
-bbz
+pJk
 aYV
 aYV
 aYV
@@ -102444,7 +102453,7 @@ aVH
 aXn
 aYN
 aJI
-bbz
+pJk
 aYV
 aYV
 aYV
@@ -103218,7 +103227,7 @@ aRJ
 kRy
 aYV
 aYV
-aYV
+beE
 xJf
 xJf
 ddd
@@ -103990,7 +103999,7 @@ aYV
 aYV
 aYV
 aYV
-beE
+aYV
 xJf
 biE
 bpL

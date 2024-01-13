@@ -49894,7 +49894,7 @@
 	},
 /area/maintenance/starboard/fore)
 "mZk" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
@@ -90983,7 +90983,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/structure/window/reinforced{
 	dir = 4
 	},

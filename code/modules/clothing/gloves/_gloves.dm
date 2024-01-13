@@ -17,16 +17,11 @@
 	var/cut_type = null
 	dying_key = DYE_REGISTRY_GLOVES
 
-/obj/item/clothing/gloves/ComponentInitialize()
+/obj/item/clothing/gloves/wash(clean_types)
 	. = ..()
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
-
-/obj/item/clothing/gloves/proc/clean_blood(datum/source, strength)
-	SIGNAL_HANDLER
-
-	if(strength < CLEAN_STRENGTH_BLOOD)
-		return
-	transfer_blood = 0
+	if((clean_types & CLEAN_TYPE_BLOOD) && transfer_blood > 0)
+		transfer_blood = 0
+		return TRUE
 
 /obj/item/clothing/gloves/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>\the [src] are forcing [user]'s hands around [user.p_their()] neck! It looks like the gloves are possessed!</span>")
