@@ -4149,6 +4149,7 @@
 #include "code\modules\xenoarchaeology\traits\majors.dm"
 #include "code\modules\xenoarchaeology\traits\malfunctions.dm"
 #include "code\modules\xenoarchaeology\traits\minors.dm"
+#include "code\modules\xenoarchaeology\traits\misc.dm"
 #include "code\modules\xenoarchaeology\traits\traits.dm"
 #include "code\modules\zombie\items.dm"
 #include "code\modules\zombie\organs.dm"

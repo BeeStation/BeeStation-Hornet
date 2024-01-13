@@ -2,7 +2,6 @@
 	Items with this component will act like alien artifatcs
 */
 
-//TODO: Replace all instances of this - Racc
 /obj/item/xenoartifact
 	name = "artifact"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
@@ -10,10 +9,28 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	desc = "A strange alien device. What could it possibly do?"
 	throw_range = 3
+	///What type of artifact
+	var/datum/xenoartifact_material/artifact_type
 
-/obj/item/xenoartifact/with_traits/ComponentInitialize()
+/obj/item/xenoartifact/Initialize(mapload, _artifact_type)
 	. = ..()
-	AddComponent(/datum/component/xenoartifact)
+	artifact_type = _artifact_type || artifact_type
+
+/obj/item/xenoartifact/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/xenoartifact, artifact_type)
+
+//Maint variant for loot, has a 80% chance of being safe, 20% of not
+/obj/item/xenoartifact/maint/ComponentInitialize()
+	artifact_type = prob(80) ? /datum/xenoartifact_material/bluespace : null
+	return ..()
+
+//Objective variant, simply has the objective trait
+/obj/item/xenoartifact/objective/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
+	var/datum/component/xenoartifact/X = GetComponent(/datum/component/xenoartifact)
+	X?.add_individual_trait(/datum/xenoartifact_trait/misc/objective)
 
 /datum/component/xenoartifact
 	///List of artifact-traits we have : list(PRIORITY = list(trait))
@@ -88,19 +105,7 @@
 	//If we're force-generating traits
 	if(traits)
 		for(var/datum/xenoartifact_trait/T as() in traits)
-			if(ispath(T)) //We can either pass paths, or initialized traits
-				T = new T(src)
-			else
-				T.remove_parent()
-				T.register_parent(src)
-			//TODO: Setup a proc for traits to register a new parent - Racc
-			//List building, handle custom priorities, just appened to the end
-			if(!artifact_traits[T.priority])
-				artifact_traits[T.priority] = list()
-			//handle adding trait
-			artifact_traits[T.priority] += T
-			blacklisted_traits += T.blacklist_traits
-			blacklisted_traits += T
+			add_individual_trait(T)
 
 	//Otherwise, randomly generate our own traits
 	else
@@ -170,14 +175,7 @@
 	for(var/i in 1 to amount)
 		//Pick a random trait
 		var/datum/xenoartifact_trait/T = pick_weight(options)
-		T = new T(src)
-		//List building
-		if(!artifact_traits[T.priority])
-			artifact_traits[T.priority] = list()
-		//handle trait adding
-		artifact_traits[T.priority] += T
-		blacklisted_traits += T.blacklist_traits
-		blacklisted_traits += T
+		add_individual_trait(T)
 	
 //Cooldown finish logic goes here
 /datum/component/xenoartifact/proc/reset_timer()
@@ -269,6 +267,27 @@
 			total_conductivity += T.conductivity
 	return total_conductivity
 
+/datum/component/xenoartifact/proc/add_individual_trait(datum/xenoartifact_trait/trait, force = TRUE)
+	//Is this trait in the blacklist?
+	if((locate(trait) in blacklisted_traits) && !force)
+		return FALSE
+	//We can either pass paths, or initialized traits
+	if(ispath(trait))
+		trait = new trait(src)
+	else
+		trait.remove_parent()
+		trait.register_parent(src)
+	//TODO: Setup a proc for traits to register a new parent - Racc
+	//List building, handle custom priorities, just appened to the end
+	if(!artifact_traits[trait.priority])
+		artifact_traits[trait.priority] = list()
+	//handle adding trait
+	artifact_traits[trait.priority] += trait
+	blacklisted_traits += trait.blacklist_traits
+	blacklisted_traits += trait
+
+	return TRUE
+
 ///material datums
 /datum/xenoartifact_material
 	var/name = "debugium"
@@ -314,7 +333,19 @@
 	return GLOB.xenoa_bananium_traits
 
 /datum/xenoartifact_material/uranium
+	name = "uranium"
+	material_color = "#88ff00ff"
+	instability_step = 25
+	texture_icon_states = list("texture-uranium1", "texture-uranium2", "texture-uranium3")
 
 /datum/xenoartifact_material/plasma
+	name = "plasma"
+	material_color = "#f200ffff"
+	instability_step = 5
+	texture_icon_states = list("texture-plasma1", "texture-plasma2", "texture-plasma3")
 
 /datum/xenoartifact_material/bluespace
+	name = "bluespace"
+	material_color = "#006affff"
+	instability_step = 1
+	texture_icon_states = list("texture-bluespace1", "texture-bluespace2", "texture-bluespace3")

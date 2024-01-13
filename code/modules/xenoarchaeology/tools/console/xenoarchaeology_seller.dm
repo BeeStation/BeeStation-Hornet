@@ -75,7 +75,7 @@
 
 /datum/rnd_lister/artifact_seller/get_new_stock()
 	var/datum/xenoartifact_material = pick_weight(artifact_types)
-	var/obj/item/xenoartifact/artifact = new()
+	var/obj/item/xenoartifact/artifact = new(null, xenoartifact_material)
 	artifact.AddComponent(/datum/component/xenoartifact, xenoartifact_material)
 	return artifact
 
