@@ -348,7 +348,7 @@
 			user.put_in_hands(source_code_hdd)
 			source_code_hdd = null
 			return TRUE
-		to_chat(user, "<span class='danger'>You delicately cut the wire. [hdd_wires] wire\s left...")
+		to_chat(user, "<span class='danger'>You delicately cut the wire. [hdd_wires] wire\s left...</span>")
 	return TRUE
 
 /obj/machinery/rnd/server/master/on_deconstruction()
