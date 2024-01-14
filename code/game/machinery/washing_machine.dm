@@ -336,7 +336,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	. = ..()
 	if(.)
 		if(dye_color in dyes)
-			flippable = FALSE //Making Hats unflippable so it doesn't break the illusion of the dye if the result isn't a flippable hat
+			flippable = FALSE //Making hats unflippable so it doesn't break the illusion of the dye if the result isn't a flippable hat
 		else
 			flippable = TRUE
 
