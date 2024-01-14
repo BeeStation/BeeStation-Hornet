@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Monkeys can no longer rip apart DNA scanners from the inside.
