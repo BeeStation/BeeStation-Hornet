@@ -136,7 +136,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/computer_hardware/hard_drive/cluster/hdd_theft
-	name = "r&d server hard disk drive"
+	name = "\improper R&D server hard disk drive"
 	desc = "The hard drive containing sensitive data on alternate universes. Simply holding it pulls your mind towards unconsciously dabbing."
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "project_yog" //hi from yogs!
