@@ -321,7 +321,7 @@
 			to_chat(user, "<span class='danger'>You remove the last screw from [src]'s front panel.</span>")
 			add_overlay("RD-server-hdd-panel-open")
 			return TRUE
-		to_chat(user, "<span class='danger'>The screw breaks as you remove it. Only [front_panel_screws] left...")
+		to_chat(user, "<span class='danger'>The screw breaks as you remove it. Only [front_panel_screws] left...</span>")
 	return TRUE
 
 /obj/machinery/rnd/server/master/crowbar_act(mob/living/user, obj/item/tool)
