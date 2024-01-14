@@ -344,7 +344,7 @@
 
 		if(hdd_wires <= 0)
 			deconstruction_state = HDD_CUT_LOOSE
-			to_chat(user, "<span class='danger'>You cut the final wire and remove [source_code_hdd].")
+			to_chat(user, "<span class='danger'>You cut the final wire and remove [source_code_hdd].</span>")
 			user.put_in_hands(source_code_hdd)
 			source_code_hdd = null
 			return TRUE
