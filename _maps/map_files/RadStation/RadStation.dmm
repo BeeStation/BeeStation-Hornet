@@ -57434,6 +57434,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=1";
+	dir = 1;
+	freq = 1400;
+	location = "Bridge"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "slx" = (
@@ -71261,15 +71267,6 @@
 /obj/structure/sign/departments/minsky/security/evac,
 /turf/closed/wall,
 /area/ai_monitored/storage/eva)
-"wFB" = (
-/obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=1";
-	dir = 1;
-	freq = 1400;
-	location = "Bridge"
-	},
-/turf/closed/wall/r_wall,
-/area/security/prison/shielded)
 "wFC" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -105742,7 +105739,7 @@ gNI
 tKm
 tRH
 dIl
-wFB
+ifC
 ifC
 ifC
 mKn

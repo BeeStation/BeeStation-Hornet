@@ -19687,9 +19687,6 @@
 /obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space)
-"gqE" = (
-/turf/closed/wall/mineral/plastitanium,
-/area/security/brig)
 "gqP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -23003,6 +23000,9 @@
 "huQ" = (
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
+"huX" = (
+/turf/closed/wall,
+/area/space)
 "hvo" = (
 /obj/structure/cable/white{
 	icon_state = "1-2"
@@ -23708,6 +23708,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/turret_protected/aisat/foyer)
+"hGG" = (
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hop)
 "hGM" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -31826,12 +31829,6 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
-"ksw" = (
-/obj/machinery/turnstile{
-	dir = 8
-	},
-/turf/closed/wall,
-/area/crew_quarters/heads/hop)
 "ksC" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/electrical,
@@ -32361,9 +32358,6 @@
 	dir = 8
 	},
 /area/science/research)
-"kzr" = (
-/turf/open/space/basic,
-/area/security/brig)
 "kzG" = (
 /obj/structure/table/wood,
 /obj/item/instrument/violin,
@@ -109325,7 +109319,7 @@ uGg
 khz
 oBl
 xVD
-xvC
+hGG
 bgr
 uGg
 qJy
@@ -109586,7 +109580,7 @@ vbD
 sAT
 uGg
 shJ
-ksw
+shJ
 ahe
 gZb
 wbc
@@ -110066,7 +110060,7 @@ qBt
 aMT
 aMT
 koA
-opr
+aMT
 aMT
 aMT
 aMT
@@ -110325,11 +110319,11 @@ aMT
 aXj
 anT
 aXj
+aMT
+aMT
+aMT
+aMT
 sVp
-aMT
-aMT
-opr
-aMT
 aMT
 anT
 anT
@@ -110583,11 +110577,11 @@ anT
 iaD
 qBt
 lfQ
-kzr
 aMT
 aMT
 aMT
-gqE
+huX
+aMT
 aMT
 aMT
 aMT
@@ -110840,11 +110834,11 @@ iaD
 iaD
 qBt
 lfQ
-kzr
 aMT
 aMT
 aMT
-hmy
+huX
+aMT
 aMT
 aMT
 aMT
@@ -111097,10 +111091,10 @@ aMT
 gqf
 qBt
 lfQ
-kzr
+aMT
 miv
 aMT
-aMT
+huX
 duF
 rri
 rri

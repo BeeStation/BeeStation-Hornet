@@ -27292,6 +27292,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/service)
+"htq" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "htE" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -48253,10 +48263,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"rsq" = (
-/obj/machinery/light,
-/turf/open/space/basic,
-/area/space)
 "rsz" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -56189,8 +56195,7 @@
 	id = "executionfireblast"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/security/execution/transfer)
 "veo" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -60567,7 +60572,7 @@
 /area/maintenance/starboard)
 "xph" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/security/brig)
 "xpk" = (
 /obj/structure/disposalpipe/segment{
@@ -87191,7 +87196,7 @@ aaa
 aaa
 aaa
 aaa
-tzI
+htq
 cYY
 cYY
 cYY
@@ -87432,7 +87437,7 @@ aaa
 aaa
 aaa
 aaa
-rsq
+aaa
 aaa
 aaa
 aaa
