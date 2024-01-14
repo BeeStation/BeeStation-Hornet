@@ -1,0 +1,8 @@
+author: Varo (with the help of the good people in discord)
+delete-after: true
+changes:
+  - rscadd: Adds a plushie delivery beacon.
+  - rscadd: Adds a plushie lover trait (+1)
+  - tweak: changes the instrument delivery beacon sprite
+  - tweak: changes the "musician" trait description to be more representative of its
+      actual use.
