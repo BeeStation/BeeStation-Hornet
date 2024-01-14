@@ -137,7 +137,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	to_chat(H, "<span class='danger'>Encrypted source code detected. Overloading storage device...")
 	if(do_after(H, 30 SECONDS, target = src))
 		overload_source_code_hdd()
-		to_chat(H, "<span class='danger'>Sabotage complete. Storage device overloaded.")
+		to_chat(H, "<span class='danger'>Sabotage complete. Storage device overloaded.</span>")
 		var/datum/antagonist/ninja/ninja_antag = H.mind.has_antag_datum(/datum/antagonist/ninja)
 		if(!ninja_antag)
 			return
