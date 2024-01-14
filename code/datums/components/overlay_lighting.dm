@@ -119,6 +119,7 @@
 	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_COLOR, PROC_REF(set_color))
 	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_ON, PROC_REF(on_toggle))
 	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_FLAGS, PROC_REF(on_light_flags_change))
+	RegisterSignal(parent, COMSIG_ATOM_USED_IN_CRAFT, PROC_REF(on_parent_crafted))
 	var/atom/movable/movable_parent = parent
 	if(movable_parent.light_flags & LIGHT_ATTACHED)
 		overlay_lighting_flags |= LIGHTING_ATTACHED
@@ -140,6 +141,7 @@
 		COMSIG_ATOM_SET_LIGHT_COLOR,
 		COMSIG_ATOM_SET_LIGHT_ON,
 		COMSIG_ATOM_SET_LIGHT_FLAGS,
+		COMSIG_ATOM_USED_IN_CRAFT,
 		))
 	if(directional)
 		UnregisterSignal(parent, COMSIG_ATOM_DIR_CHANGE)
@@ -454,6 +456,8 @@
 			final_distance = i
 			break
 		scanning = next_turf
+/datum/component/overlay_lighting/proc/on_parent_crafted(datum/source, atom/movable/new_craft)
+	SIGNAL_HANDLER
 
 	current_holder.underlays -= visible_mask
 
@@ -496,6 +500,13 @@
 	current_direction = newdir
 	if(overlay_lighting_flags & LIGHTING_ON)
 		make_luminosity_update()
+
+	if(!istype(new_craft))
+		return
+
+	UnregisterSignal(parent, COMSIG_ATOM_USED_IN_CRAFT)
+	RegisterSignal(new_craft, COMSIG_ATOM_USED_IN_CRAFT, PROC_REF(on_parent_crafted))
+	set_parent_attached_to(new_craft)
 
 #undef LIGHTING_ON
 #undef LIGHTING_ATTACHED

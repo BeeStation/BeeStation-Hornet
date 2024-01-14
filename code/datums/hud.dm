@@ -128,7 +128,6 @@ GLOBAL_LIST_INIT(huds, list(
 	SIGNAL_HANDLER
 
 	remove_hud_from(source, TRUE)
-	remove_from_hud(source)
 
 /datum/atom_hud/proc/show_hud_images_after_cooldown(M)
 	if(queued_to_see[M])

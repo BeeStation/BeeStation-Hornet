@@ -88,7 +88,7 @@
 /obj/item/slime_extract/grey/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			var/obj/item/reagent_containers/food/snacks/monkeycube/M = new(drop_location())
+			var/obj/item/food/monkeycube/M = new(drop_location())
 			user.put_in_active_hand(M)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>You spit out a monkey cube.</span>")
@@ -750,7 +750,7 @@
 	to_chat(user, "<span class='notice'>You offer [src] to [SM]...</span>")
 	being_used = TRUE
 
-	var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_SENTIENCE, null, 5 SECONDS, SM)
+	var/list/candidates = poll_candidates_for_mob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_SENTIENCE, null, 5 SECONDS, SM)
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		SM.key = C.key
@@ -1116,7 +1116,7 @@
 	item_state = "tile-bluespace"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	materials = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
@@ -1133,7 +1133,7 @@
 	item_state = "tile-sepia"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	materials = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10
 	throw_speed = 0.1
 	throw_range = 28

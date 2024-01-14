@@ -12,6 +12,7 @@
 
 	var/needs_update = FALSE
 	var/turf/myturf
+	var/mutable_appearance/additive_underlay
 
 /atom/movable/lighting_object/Initialize(mapload)
 	. = ..()
@@ -23,6 +24,9 @@
 		qdel(myturf.lighting_object, force = TRUE)
 	myturf.lighting_object = src
 	myturf.luminosity = 0
+
+	additive_underlay = mutable_appearance(LIGHTING_ICON, "light", FLOAT_LAYER, LIGHTING_PLANE_ADDITIVE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM)
+	additive_underlay.blend_mode = BLEND_ADD
 
 	needs_update = TRUE
 	SSlighting.objects_queue += src
@@ -37,6 +41,7 @@
 		if (isturf(myturf))
 			myturf.lighting_object = null
 			myturf.luminosity = initial(myturf.luminosity)
+			myturf.underlays -= additive_underlay
 		myturf = null
 
 		return ..()
@@ -113,6 +118,36 @@
 			00, 00, 00, 01
 		)
 
+	if(cr.applying_additive || cg.applying_additive || cb.applying_additive || ca.applying_additive)
+		myturf.underlays -= additive_underlay
+		additive_underlay.icon_state = "light"
+		var/arr = cr.add_r
+		var/arb = cr.add_b
+		var/arg = cr.add_g
+
+		var/agr = cg.add_r
+		var/agb = cg.add_b
+		var/agg = cg.add_g
+
+		var/abr = cb.add_r
+		var/abb = cb.add_b
+		var/abg = cb.add_g
+
+		var/aarr = ca.add_r
+		var/aarb = ca.add_b
+		var/aarg = ca.add_g
+
+		additive_underlay.color = list(
+			arr, arg, arb, 00,
+			agr, agg, agb, 00,
+			abr, abg, abb, 00,
+			aarr, aarg, aarb, 00,
+			00, 00, 00, 01
+		)
+		myturf.underlays += additive_underlay
+	else
+		myturf.underlays -= additive_underlay
+
 	luminosity = set_luminosity
 
 	if (myturf.above)
@@ -122,6 +157,9 @@
 			myturf.above.update_mimic()
 
 // Variety of overrides so the overlays don't get affected by weird things.
+
+/atom/movable/lighting_object/update_luminosity()
+	return
 
 /atom/movable/lighting_object/ex_act(severity)
 	return 0
@@ -136,6 +174,10 @@
 	return
 
 /atom/movable/lighting_object/onTransitZ()
+	return
+
+/atom/movable/lighting_object/wash(clean_types)
+	SHOULD_CALL_PARENT(FALSE)
 	return
 
 // Override here to prevent things accidentally moving around overlays.

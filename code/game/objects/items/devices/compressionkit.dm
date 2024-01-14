@@ -41,7 +41,7 @@
 
 /obj/item/compressionkit/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	if(!proximity || !target)
+	if(!proximity || !target || length(user.progressbars))
 		return
 	else
 		if(charges == 0)

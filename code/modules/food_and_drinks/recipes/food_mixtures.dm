@@ -18,7 +18,7 @@
 /datum/chemical_reaction/tofu/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/tofu(location)
+		new /obj/item/food/tofu(location)
 	return
 
 /datum/chemical_reaction/chocolate_bar
@@ -29,7 +29,7 @@
 /datum/chemical_reaction/chocolate_bar/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/chocolatebar(location)
+		new /obj/item/food/chocolatebar(location)
 	return
 
 
@@ -42,7 +42,7 @@
 /datum/chemical_reaction/chocolate_bar2/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/chocolatebar(location)
+		new /obj/item/food/chocolatebar(location)
 	return
 
 /datum/chemical_reaction/hot_cocoa
@@ -112,7 +112,7 @@
 /datum/chemical_reaction/synthmeat/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/meat/slab/synthmeat(location)
+		new /obj/item/food/meat/slab/synthmeat(location)
 
 /datum/chemical_reaction/hot_ramen
 	name = "Hot Ramen"
@@ -130,12 +130,12 @@
 	name = "Imitation Carpmeat"
 	id = "imitationcarpmeat"
 	required_reagents = list(/datum/reagent/toxin/carpotoxin = 5)
-	required_container = /obj/item/reagent_containers/food/snacks/tofu
+	required_container = /obj/item/food/tofu
 	mix_message = "The mixture becomes similar to carp meat."
 
 /datum/chemical_reaction/imitationcarpmeat/on_reaction(datum/reagents/holder)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/reagent_containers/food/snacks/carpmeat/imitation(location)
+	new /obj/item/food/fishmeat/carp/imitation(location)
 	if(holder && holder.my_atom)
 		qdel(holder.my_atom)
 
@@ -174,7 +174,7 @@
 
 /datum/chemical_reaction/ricebowl/on_reaction(datum/reagents/holder)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/reagent_containers/food/snacks/salad/ricebowl(location)
+	new /obj/item/food/salad/ricebowl(location)
 	if(holder?.my_atom)
 		qdel(holder.my_atom)
 

@@ -62,15 +62,6 @@
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
-"an" = (
-/obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
-	},
-/obj/item/reagent_containers/food/snacks/meatball,
-/turf/open/floor/plasteel/airless/dark{
-	icon_state = "bus"
-	},
-/area/ruin/unpowered/no_grav)
 "ao" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/airless/dark{
@@ -82,36 +73,6 @@
 	icon_state = "backseat";
 	pixel_y = 15
 	},
-/turf/open/floor/plasteel/airless/dark{
-	icon_state = "bus"
-	},
-/area/ruin/unpowered/no_grav)
-"aq" = (
-/obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
-	},
-/obj/item/reagent_containers/food/snacks/meatball,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/airless/dark{
-	icon_state = "bus"
-	},
-/area/ruin/unpowered/no_grav)
-"ar" = (
-/obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
-	},
-/obj/item/reagent_containers/food/snacks/grown/cherry_bomb,
-/turf/open/floor/plasteel/airless/dark{
-	icon_state = "bus"
-	},
-/area/ruin/unpowered/no_grav)
-"as" = (
-/obj/structure/fluff/bus/passable/seat/driver{
-	icon_state = "driverseat";
-	pixel_y = 17
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
@@ -155,16 +116,6 @@
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
-"aA" = (
-/obj/structure/fluff/bus/passable,
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meatball,
-/obj/item/reagent_containers/food/snacks/meatball,
-/obj/item/reagent_containers/food/snacks/meatball,
-/turf/open/floor/plasteel/airless/dark{
-	icon_state = "bus"
-	},
-/area/ruin/unpowered/no_grav)
 "aB" = (
 /obj/structure/fluff/bus/passable,
 /obj/effect/mine/sound/bwoink,
@@ -176,13 +127,6 @@
 /obj/structure/fluff/bus/passable,
 /obj/item/reagent_containers/food/condiment/saltshaker,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/airless/dark{
-	icon_state = "bus"
-	},
-/area/ruin/unpowered/no_grav)
-"aD" = (
-/obj/structure/fluff/bus/passable,
-/obj/item/reagent_containers/food/snacks/meatball,
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
@@ -255,10 +199,6 @@
 /obj/effect/decal/cleanable/robot_debris/old,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
-"aP" = (
-/obj/item/reagent_containers/food/snacks/meatball,
-/turf/open/floor/plating/asteroid/airless,
-/area/ruin/unpowered/no_grav)
 "aQ" = (
 /obj/item/reagent_containers/glass/rag,
 /turf/open/floor/plating/asteroid/airless,
@@ -276,16 +216,6 @@
 /obj/effect/decal/remains/human,
 /obj/item/clothing/head/helmet/space,
 /turf/open/floor/plating/asteroid/airless,
-/area/ruin/unpowered/no_grav)
-"aU" = (
-/obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/meatball,
-/turf/open/floor/plasteel/airless/dark{
-	icon_state = "bus"
-	},
 /area/ruin/unpowered/no_grav)
 "aV" = (
 /obj/structure/fluff/bus/passable/seat{
@@ -315,14 +245,6 @@
 /obj/item/clothing/suit/space,
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
-"aZ" = (
-/obj/structure/fluff/bus/passable,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/meatball,
-/turf/open/floor/plasteel/airless/dark{
-	icon_state = "bus"
-	},
-/area/ruin/unpowered/no_grav)
 "ba" = (
 /obj/structure/fluff/bus/passable,
 /obj/item/banhammer,
@@ -333,6 +255,84 @@
 "bb" = (
 /obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"cF" = (
+/obj/structure/fluff/bus/passable/seat{
+	icon_state = "backseat"
+	},
+/obj/item/food/meatball,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/airless/dark{
+	icon_state = "bus"
+	},
+/area/ruin/unpowered/no_grav)
+"dJ" = (
+/obj/structure/fluff/bus/passable,
+/obj/item/food/meatball,
+/turf/open/floor/plasteel/airless/dark{
+	icon_state = "bus"
+	},
+/area/ruin/unpowered/no_grav)
+"jo" = (
+/obj/structure/fluff/bus/passable/seat{
+	icon_state = "backseat"
+	},
+/obj/item/food/grown/cherry_bomb,
+/turf/open/floor/plasteel/airless/dark{
+	icon_state = "bus"
+	},
+/area/ruin/unpowered/no_grav)
+"jx" = (
+/obj/structure/fluff/bus/passable,
+/obj/structure/closet/crate/freezer,
+/obj/item/food/meatball,
+/obj/item/food/meatball,
+/obj/item/food/meatball,
+/turf/open/floor/plasteel/airless/dark{
+	icon_state = "bus"
+	},
+/area/ruin/unpowered/no_grav)
+"sB" = (
+/obj/structure/fluff/bus/passable/seat{
+	icon_state = "backseat"
+	},
+/obj/item/food/meatball,
+/turf/open/floor/plasteel/airless/dark{
+	icon_state = "bus"
+	},
+/area/ruin/unpowered/no_grav)
+"Ao" = (
+/obj/structure/fluff/bus/passable,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/food/meatball,
+/turf/open/floor/plasteel/airless/dark{
+	icon_state = "bus"
+	},
+/area/ruin/unpowered/no_grav)
+"Au" = (
+/obj/structure/fluff/bus/passable/seat{
+	icon_state = "backseat"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/food/meatball,
+/turf/open/floor/plasteel/airless/dark{
+	icon_state = "bus"
+	},
+/area/ruin/unpowered/no_grav)
+"EG" = (
+/obj/item/food/meatball,
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"RI" = (
+/obj/structure/fluff/bus/passable/seat/driver{
+	icon_state = "driverseat";
+	pixel_y = 17
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/food/grown/citrus/orange,
+/turf/open/floor/plasteel/airless/dark{
+	icon_state = "bus"
+	},
 /area/ruin/unpowered/no_grav)
 "XA" = (
 /obj/structure/fluff/bus/passable/seat{
@@ -397,9 +397,9 @@ ab
 ad
 aw
 ad
-aP
+EG
 aj
-aU
+Au
 az
 aI
 ad
@@ -420,7 +420,7 @@ ad
 ad
 aj
 am
-aZ
+Ao
 aK
 ad
 ad
@@ -459,7 +459,7 @@ ax
 aI
 ad
 aj
-aU
+Au
 az
 aJ
 ad
@@ -474,7 +474,7 @@ ab
 ad
 ad
 aj
-an
+sB
 ay
 aJ
 ad
@@ -515,7 +515,7 @@ ab
 ad
 aj
 ao
-aA
+jx
 aJ
 aQ
 ad
@@ -554,7 +554,7 @@ ab
 ab
 ad
 aj
-aq
+cF
 aC
 aL
 ad
@@ -574,7 +574,7 @@ ab
 af
 ad
 aj
-ar
+jo
 ax
 aJ
 ad
@@ -595,7 +595,7 @@ ag
 ad
 aj
 am
-aD
+dJ
 aJ
 ad
 aO
@@ -614,12 +614,12 @@ ab
 ah
 ad
 aj
-as
+RI
 aE
 aM
 ad
 ad
-aP
+EG
 ad
 aa
 aa

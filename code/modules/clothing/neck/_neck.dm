@@ -6,14 +6,14 @@
 	strip_delay = 40
 	equip_delay_other = 40
 
-/obj/item/clothing/neck/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
+/obj/item/clothing/neck/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
 		if(body_parts_covered & HEAD)
 			if(damaged_clothes)
-				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask")
+				. += mutable_appearance('icons/effects/item_damage.dmi', "damagedmask", item_layer)
 			if(HAS_BLOOD_DNA(src))
-				. += mutable_appearance('icons/effects/blood.dmi', "maskblood")
+				. += mutable_appearance('icons/effects/blood.dmi', "maskblood", item_layer)
 
 /obj/item/clothing/neck/tie
 	name = "tie"
@@ -63,8 +63,6 @@
 /obj/item/clothing/neck/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && isliving(user))
 		if(user.a_intent == INTENT_HELP)
-			var/body_part = parse_zone(user.zone_selected)
-
 			var/heart_strength = "<span class='danger'>no</span>"
 			var/lung_strength = "<span class='danger'>no</span>"
 
@@ -84,8 +82,9 @@
 			if(M.stat == DEAD && heart && world.time - M.timeofdeath < DEFIB_TIME_LIMIT * 10)
 				heart_strength = "<span class='boldannounce'>a faint, fluttery</span>"
 
-			var/diagnosis = (body_part == BODY_ZONE_CHEST ? "You hear [heart_strength] pulse and [lung_strength] respiration." : "You faintly hear [heart_strength] pulse.")
-			user.visible_message("[user] places [src] against [M]'s [body_part] and listens attentively.", "<span class='notice'>You place [src] against [M]'s [body_part]. [diagnosis]</span>")
+			var/diagnosis = (user.is_zone_selected(BODY_ZONE_CHEST) ? "You hear [heart_strength] pulse and [lung_strength] respiration." : "You faintly hear [heart_strength] pulse.")
+			var/bodypart = parse_zone(user.is_zone_selected(BODY_ZONE_CHEST) ? BODY_ZONE_CHEST : user.get_combat_bodyzone(M))
+			user.visible_message("[user] places [src] against [M]'s [bodypart] and listens attentively.", "<span class='notice'>You place [src] against [M]'s [bodypart]. [diagnosis]</span>")
 			return
 	return ..(M,user)
 
@@ -199,10 +198,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/sourceBandanaType
 
-/obj/item/clothing/neck/neckerchief/worn_overlays(mutable_appearance/standing, isinhands)
+/obj/item/clothing/neck/neckerchief/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
 	if(!isinhands)
-		var/mutable_appearance/realOverlay = mutable_appearance('icons/mob/mask.dmi', icon_state)
+		var/mutable_appearance/realOverlay = mutable_appearance('icons/mob/mask.dmi', icon_state, item_layer)
 		realOverlay.pixel_y = -3
 		. += realOverlay
 

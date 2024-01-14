@@ -4,7 +4,7 @@
 	icon_state = "seed-nettle"
 	species = "nettle"
 	plantname = "Nettles"
-	product = /obj/item/reagent_containers/food/snacks/grown/nettle
+	product = /obj/item/food/grown/nettle
 	lifespan = 30
 	endurance = 40 // tuff like a toiger
 	yield = 4
@@ -19,7 +19,7 @@
 	icon_state = "seed-deathnettle"
 	species = "deathnettle"
 	plantname = "Death Nettles"
-	product = /obj/item/reagent_containers/food/snacks/grown/nettle/death
+	product = /obj/item/food/grown/nettle/death
 	endurance = 25
 	maturation = 8
 	yield = 2
@@ -28,12 +28,13 @@
 	reagents_add = list(/datum/reagent/toxin/acid/fluacid = 0.12)
 	rarity = 20
 
-/obj/item/reagent_containers/food/snacks/grown/nettle // "snack"
+/obj/item/food/grown/nettle // "snack". yeah. try eating it, pussy
 	seed = /obj/item/seeds/nettle
 	name = "nettle"
 	desc = "It's probably <B>not</B> wise to touch it with bare hands..."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "nettle"
+	bite_consumption_mod = 2
 	lefthand_file = 'icons/mob/inhands/weapons/plants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/plants_righthand.dmi'
 	damtype = BURN
@@ -45,11 +46,11 @@
 	throw_range = 3
 	attack_verb = list("stung")
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/suicide_act(mob/living/user)
+/obj/item/food/grown/nettle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is eating some of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS|TOXLOSS)
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/pickup(mob/living/user)
+/obj/item/food/grown/nettle/pickup(mob/living/user)
 	..()
 	if(!iscarbon(user))
 		return FALSE
@@ -66,7 +67,7 @@
 	to_chat(C, "<span class='userdanger'>The nettle burns your bare hand!</span>")
 	return TRUE
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
+/obj/item/food/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
 	. = ..()
 	if(!proximity)
 		return
@@ -76,34 +77,35 @@
 		to_chat(usr, "All the leaves have fallen off the nettle from violent whacking.")
 		qdel(src)
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/basic
+/obj/item/food/grown/nettle/basic
 	seed = /obj/item/seeds/nettle
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/basic/add_juice()
-	..()
+/obj/item/food/grown/nettle/basic/Initialize(mapload, obj/item/seeds/new_seed)
+	. = ..()
 	force = round((5 + seed.potency / 5), 1)
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/death
+/obj/item/food/grown/nettle/death
 	seed = /obj/item/seeds/nettle/death
 	name = "deathnettle"
 	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounce'>rage</span> in you just from looking at it!"
 	icon_state = "deathnettle"
+	bite_consumption_mod = 4 // I guess if you really wanted to
 	force = 25
 	throwforce = 12
 	discovery_points = 300
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/death/add_juice()
-	..()
+/obj/item/food/grown/nettle/death/Initialize(mapload, obj/item/seeds/new_seed)
+	. = ..()
 	force = round((5 + seed.potency / 5), 1)
 	throwforce = round((2 + seed.potency / 10), 1)
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/death/pickup(mob/living/carbon/user)
+/obj/item/food/grown/nettle/death/pickup(mob/living/carbon/user)
 	if(..())
 		if(prob(50))
 			user.Paralyze(100)
 			to_chat(user, "<span class='userdanger'>You are stunned by [src] as you try picking it up!</span>")
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/death/attack(mob/living/M, mob/user)
+/obj/item/food/grown/nettle/death/attack(mob/living/M, mob/user)
 	if(!M.can_inject(user) && user.a_intent == INTENT_HARM)
 		to_chat(user, "<span class='warning'>The [src] harmlessly bounces off of [M]! They're protected from its needles!</span>")
 		return FALSE

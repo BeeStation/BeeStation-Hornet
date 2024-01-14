@@ -134,7 +134,7 @@
 /area/shuttle/escape/luxury)
 "ay" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/notasandwich,
+/obj/item/food/notasandwich,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "az" = (
@@ -142,24 +142,9 @@
 /obj/item/food/spaghetti/pastatomato,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
-"aA" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/kebab/tofu,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
-"aB" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/honkdae,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
 "aC" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/enchiladas,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
-"aD" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/candiedapple,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aE" = (
@@ -169,7 +154,7 @@
 /area/shuttle/escape/luxury)
 "aF" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/benedict,
+/obj/item/food/benedict,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aG" = (
@@ -184,12 +169,12 @@
 /area/shuttle/escape/luxury)
 "aI" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/dulcedebatataslice,
+/obj/item/food/pieslice/dulcedebatata,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aJ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/salad/validsalad,
+/obj/item/food/salad/validsalad,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aK" = (
@@ -199,7 +184,7 @@
 /area/shuttle/escape/luxury)
 "aL" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/chawanmushi,
+/obj/item/food/chawanmushi,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aM" = (
@@ -220,12 +205,12 @@
 /area/shuttle/escape/luxury)
 "aP" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grilledcheese,
+/obj/item/food/grilled_cheese_sandwich,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aQ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/jelliedtoast/cherry,
+/obj/item/food/jelliedtoast/cherry,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aR" = (
@@ -241,11 +226,6 @@
 "aT" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/spaghetti/copypasta,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
-"aU" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/bearsteak,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aV" = (
@@ -265,12 +245,12 @@
 /area/shuttle/escape/luxury)
 "aY" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/hotdog,
+/obj/item/food/hotdog,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aZ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/pie/grapetart,
+/obj/item/food/pie/grapetart,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "ba" = (
@@ -341,14 +321,29 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
+"cx" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/honkdae,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
 "hA" = (
 /obj/structure/table/optable,
 /obj/item/surgical_drapes,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
+"js" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/candiedapple,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
 "nZ" = (
 /obj/item/pool/pool_noodle,
 /turf/open/indestructible/sound/pool,
+/area/shuttle/escape/luxury)
+"rw" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/bearsteak,
+/turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "vB" = (
 /obj/item/kirbyplants{
@@ -395,6 +390,11 @@
 /obj/item/circular_saw,
 /obj/structure/table/wood/fancy,
 /turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"SN" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/kebab/tofu,
+/turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "Ui" = (
 /obj/item/pool/rubber_ring,
@@ -556,7 +556,7 @@ ag
 ab
 aj
 au
-aA
+SN
 aQ
 bd
 aj
@@ -572,7 +572,7 @@ ao
 ab
 aj
 au
-aB
+cx
 aR
 bd
 aj
@@ -604,7 +604,7 @@ af
 ab
 aj
 au
-aD
+js
 aT
 bd
 aj
@@ -621,7 +621,7 @@ ab
 aj
 au
 aE
-aU
+rw
 bd
 aj
 Jr

@@ -485,13 +485,12 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	max_amount = MAXCOIL
 	amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
-	var/cable_color = "red"
 	desc = "A coil of insulated power cable."
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
-	materials = list(/datum/material/iron=10, /datum/material/glass=5)
+	mats_per_unit = list(/datum/material/iron=10, /datum/material/glass=5)
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
@@ -499,13 +498,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	full_w_class = WEIGHT_CLASS_SMALL
 	grind_results = list(/datum/reagent/copper = 2) //2 copper per cable in the coil
 	usesound = 'sound/items/deconstruct.ogg'
-
-/obj/item/stack/cable_coil/cyborg
-	is_cyborg = 1
-	materials = list()
 	cost = 1
+	source = /datum/robot_energy_storage/wire
+	var/cable_color = "red"
 
-/obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
+/obj/item/stack/cable_coil/attack_self(mob/user)
 	var/picked = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
 	cable_color = picked
 	update_icon()
@@ -517,8 +514,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
-/obj/item/stack/cable_coil/get_recipes()
-	return GLOB.cable_coil_recipes
+/obj/item/stack/cable_coil/get_main_recipes()
+	. = ..()
+	. += GLOB.cable_coil_recipes
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount = null, param_color = null)
 	. = ..()
@@ -823,9 +821,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	icon_state = "coil2"
 
 /obj/item/stack/cable_coil/cut/Initialize(mapload)
-	. = ..()
 	if(!amount)
 		amount = rand(1,2)
+	. = ..()
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
 	update_icon()
