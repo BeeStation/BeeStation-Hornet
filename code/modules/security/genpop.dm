@@ -287,10 +287,10 @@
 			return FALSE
 		return TRUE
 	if(!ismob(mover) && mover.pulledby)
-		return(allowed(mover.pulledby))
+		return allowed(mover.pulledby)
 	if(istype(mover, /obj/vehicle/ridden) && mover.buckled_mobs) //Wheelchairs and such
 		for(var/mob/living/carbon/human/H in mover.buckled_mobs)
-			return(allowed(H))
+			return allowed(H)
 	if(!ismob(mover)) // Last check before we move on to mobs in case somehow a non-mob wasn't caught
 		return FALSE
 
@@ -302,24 +302,23 @@
 		if(ACCESS_PRISONER in id_card?.GetAccess())
 			return FALSE
 		else
-			return(allowed(H))
-	//Piggyback/fireman carry rides between prisoners aren't allowed because they could allow escape way too easily
+			return allowed(H)
+	//Piggyback/fireman carry rides between prisoners aren't allowed because they could make escapes way too easily
 	if(allowed && mover.buckled_mobs && ishuman(mover)) // This check is for the one that is carrying.
 		var/mob/living/carbon/human/H = mover
-		if(H.buckled_mobs.len>= 1)
+		if(length(H.buckled_mobs))
 			id_card = H.get_idcard(hand_first = TRUE)
 			if(ACCESS_PRISONER in id_card?.GetAccess())
 				return FALSE
 	if(!allowed) //This check is for the one that is carried. Not returning TRUE here prevents the movement altogether. Even for interactions that we want, such as brig phys carrying injured prisoners away.
 		var/mob/living/carbon/human/H = mover
-		if(H.buckled)
-			if(ishuman(H.buckled)) //additional check for roller beds and the likes.
-				var/mob/living/carbon/human/B = H.buckled
-				id_card = B.get_idcard(hand_first = TRUE)
-				if(ACCESS_PRISONER in id_card?.GetAccess())
-					return FALSE
-			return TRUE
-	return(allowed)
+		if(ishuman(H.buckled)) //additional check for roller beds and the likes.
+			var/mob/living/carbon/human/B = H.buckled
+			id_card = B.get_idcard(hand_first = TRUE)
+			if(ACCESS_PRISONER in id_card?.GetAccess())
+				return FALSE
+		return TRUE
+	return allowed
 
 ///Shock user if we can
 /obj/machinery/turnstile/proc/try_shock(mob/user)
