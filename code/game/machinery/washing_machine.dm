@@ -242,10 +242,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		var/atom/movable/AM = X
 		AM.wash(CLEAN_WASH)
 		AM.machine_wash(src)
-		if(!color_source && isitem(X))
-			var/obj/item/I = X
-			I.appearance_change(I)
-			I.desc = initial(I.desc)
 	if(color_source)
 		color_source = null
 		for(var/obj/item/book/manual/book in contents)
@@ -317,6 +313,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	if(WM.color_source)
 		dye_item(WM.color_source.dye_color)
+	else
+		appearance_change(src)
+		src.desc = initial(src)
 
 /obj/item/gun/energy/laser/practice/dye_item(dye_color, dye_key)
 	. = ..()
