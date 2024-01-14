@@ -160,7 +160,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 		return
 
 	stored_research.set_points_all(0)
-	to_chat(H, "<span class='danger'>Sabotage complete. Research notes corrupted.")
+	to_chat(H, "<span class='danger'>Sabotage complete. Research notes corrupted.</span>")
 	var/datum/antagonist/ninja/ninja_antag = H.mind.has_antag_datum(/datum/antagonist/ninja)
 	if(!ninja_antag)
 		return
