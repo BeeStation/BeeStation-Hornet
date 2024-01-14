@@ -358,7 +358,7 @@
 		if(usr)
 			var/mob/user = usr
 
-			message_admins("[ADMIN_LOOKUPFLW(user)] deconstructed [ADMIN_JMP(src)], destroying [source_code_hdd] inside.")
+			message_admins("[key_name_admin(user)] deconstructed [ADMIN_JMP(src)], destroying [source_code_hdd] inside.")
 			log_game("[key_name(user)] deconstructed [src], destroying [source_code_hdd] inside.")
 			return ..()
 
