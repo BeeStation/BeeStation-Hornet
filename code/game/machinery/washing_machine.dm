@@ -194,10 +194,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	. = ..()
 	soundloop = new(src,  FALSE)
 
-/obj/machinery/washing_machine/ComponentInitialize()
-	. = ..()
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
-
 /obj/machinery/washing_machine/Destroy()
 	QDEL_NULL(soundloop)
 	. = ..()
@@ -241,51 +237,21 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		M.Translate(rand(-3, 3), rand(-1, 3))
 		animate(src, transform=M, time=2)
 
-/obj/machinery/washing_machine/wash(clean_types)
-	. = ..()
-	if(!busy && bloody_mess && (clean_types & CLEAN_TYPE_BLOOD))
-		bloody_mess = FALSE
-		update_icon()
-		. = TRUE
-
 /obj/machinery/washing_machine/proc/wash_cycle()
 	for(var/X in contents)
 		var/atom/movable/AM = X
 		AM.wash(CLEAN_WASH)
 		AM.machine_wash(src)
-
-	busy = FALSE
-	if(!color_source)
-		for(var/obj/item/item in contents)
-			item.add_atom_colour(initial(item.color), FIXED_COLOUR_PRIORITY)
-			item.icon_state = initial(item.icon_state)
-			item.item_state = initial(item.item_state)
-			item.worn_icon_state = initial(item.worn_icon_state)
-			item.inhand_x_dimension = initial(item.inhand_x_dimension)
-			item.inhand_y_dimension = initial(item.inhand_y_dimension)
-			item.name = initial(item.name)
-			item.desc = initial(item.desc)
-			if(initial(item.greyscale_config) && initial(item.greyscale_colors))
-				item.set_greyscale(
-					colors=initial(item.greyscale_colors),
-					new_config=initial(item.greyscale_config),
-					new_worn_config=initial(item.greyscale_config_worn),
-					new_inhand_left=initial(item.greyscale_config_inhand_left),
-					new_inhand_right=initial(item.greyscale_config_inhand_right)
-				)
-			else
-				item.icon = initial(item.icon)
-				item.lefthand_file = initial(item.lefthand_file)
-				item.righthand_file = initial(item.righthand_file)
-				item.worn_icon = initial(item.worn_icon)
+		if(!color_source && isitem(X))
+			var/obj/item/I = X
+			I.appearance_change(I)
 	if(color_source)
 		color_source = null
 		for(var/obj/item/book/manual/book in contents)
 			qdel(book)
 		for(var/obj/item/paper/paper in contents)
 			qdel(paper)
-
-
+	busy = FALSE
 	update_icon()
 	soundloop.stop()
 
@@ -301,6 +267,11 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	var/obj/item/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
 	if(!target_type)
 		return FALSE
+	appearance_change(target_type)
+	desc = "[initial(target_type.desc)] The colors look a little dodgy."
+	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
+
+/obj/item/proc/appearance_change(var/obj/item/target_type)
 	if(initial(target_type.greyscale_config) && initial(target_type.greyscale_colors))
 		set_greyscale(
 			colors=initial(target_type.greyscale_colors),
@@ -322,8 +293,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	inhand_x_dimension = initial(target_type.inhand_x_dimension)
 	inhand_y_dimension = initial(target_type.inhand_y_dimension)
 	name = initial(target_type.name)
-	desc = "[initial(target_type.desc)] The colors look a little dodgy."
-	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
 
 //what happens to this object when washed inside a washing machine
 /atom/movable/proc/machine_wash(obj/machinery/washing_machine/WM)
