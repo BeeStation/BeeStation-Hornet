@@ -161,6 +161,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// If there are less than this many players readied, threat level will be lowered.
 	/// This number should be kept fairly low, as there are other measures that population
 	/// impacts Dynamic, such as the requirements variable on rulesets.
+	/// This also affects when 'lategame' round-ending will be disabled
 	var/low_pop_player_threshold = 20
 
 	/// The maximum threat that can roll with *zero* players.
@@ -678,6 +679,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				if(CHECK_BITFIELD(new_rule.flags, ONLY_RULESET))
 					only_ruleset_executed = TRUE
 				log_game("DYNAMIC: Making a call to a specific ruleset...[new_rule.name]!")
+				if((new_rule.flags & LATEGAME_RULESET) && ignore_cost && is_lategame())
+					new_rule.lategame_spawned = TRUE
 				executed_rules += new_rule
 				if (new_rule.persistent)
 					current_rules += new_rule
@@ -864,7 +867,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			return rand(90, 100)
 
 /datum/game_mode/dynamic/proc/is_lategame()
-	return (get_time() - SSticker.round_start_time) > midround_upper_bound
+	return (get_time() - SSticker.round_start_time) > midround_upper_bound && length(current_players[CURRENT_LIVING_PLAYERS]) >= low_pop_player_threshold
 
 /// Log to messages and to the game
 /datum/game_mode/dynamic/proc/dynamic_log(text)
