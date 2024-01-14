@@ -49,6 +49,11 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
 	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_BRIGPHYSICIAN)
 
+/datum/gear/suit/wintercoat/brig_doc
+	display_name = "brig physician's winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/brigphys
+	allowed_roles = list(JOB_NAME_BRIGPHYSICIAN)
+
 /datum/gear/suit/wintercoat/science
 	display_name = "science winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
