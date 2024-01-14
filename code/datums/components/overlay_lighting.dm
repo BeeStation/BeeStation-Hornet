@@ -278,6 +278,8 @@
 ///Called when the current_holder is qdeleted, to remove the light effect.
 /datum/component/overlay_lighting/proc/on_holder_qdel(atom/movable/source, force)
 	SIGNAL_HANDLER
+	if(QDELETED(current_holder))
+		return
 	UnregisterSignal(current_holder, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
 	if(directional)
 		UnregisterSignal(current_holder, COMSIG_ATOM_DIR_CHANGE)
@@ -420,11 +422,13 @@
 /datum/component/overlay_lighting/proc/turn_on()
 	if(overlay_lighting_flags & LIGHTING_ON)
 		return
+	overlay_lighting_flags |= LIGHTING_ON
 	if(current_holder)
+		add_dynamic_lumi()
 		if(directional)
 			cast_directional_light()
-		add_dynamic_lumi()
-	overlay_lighting_flags |= LIGHTING_ON
+	if(current_holder && current_holder != parent && current_holder != parent_attached_to)
+		RegisterSignal(current_holder, COMSIG_MOVABLE_MOVED, PROC_REF(on_holder_moved))
 	get_new_turfs()
 
 
@@ -435,6 +439,8 @@
 	if(current_holder)
 		remove_dynamic_lumi()
 	overlay_lighting_flags &= ~LIGHTING_ON
+	if(current_holder && current_holder != parent && current_holder != parent_attached_to)
+		UnregisterSignal(current_holder, COMSIG_MOVABLE_MOVED)
 	clean_old_turfs()
 
 
@@ -513,6 +519,14 @@
 	UnregisterSignal(parent, COMSIG_ATOM_USED_IN_CRAFT)
 	RegisterSignal(new_craft, COMSIG_ATOM_USED_IN_CRAFT, PROC_REF(on_parent_crafted))
 	set_parent_attached_to(new_craft)
+
+/*
+/// Handles putting the source for overlay lights into the light eater queue since we aren't tracked by [/atom/var/light_sources]
+/datum/component/overlay_lighting/proc/on_light_eater(datum/source, list/light_queue, datum/light_eater)
+	SIGNAL_HANDLER
+	light_queue[parent] = TRUE
+	return NONE
+*/
 
 #undef LIGHTING_ON
 #undef LIGHTING_ATTACHED

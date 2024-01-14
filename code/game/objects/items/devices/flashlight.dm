@@ -42,18 +42,18 @@
 	if(light_system == STATIC_LIGHT)
 		update_light()
 
-/obj/item/flashlight/proc/toggle_light(mob/user)
+/obj/item/flashlight/proc/toggle_lights(mob/user)
 	on = !on
 	playsound(user, on ? sound_on : sound_off, 40, TRUE)
 	update_brightness(user)
 	update_action_buttons()
 
 /obj/item/flashlight/attack_self(mob/user)
-	toggle_light(user)
+	toggle_lights(user)
 
 /obj/item/flashlight/suicide_act(mob/living/carbon/human/user)
 	if (user.is_blind())
-		user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on... but [user.p_theyre()] blind!</span>")
+		user.visible_message("<span class ='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on... but [user.p_theyre()] blind!</span>")
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
@@ -492,7 +492,7 @@
 
 /obj/item/flashlight/glowstick/update_icon_state()
 	icon_state = "[base_icon_state][(fuel <= 0) ? "-empty" : ""]"
-	inhand_icon_state = "[base_icon_state][((fuel > 0) && on) ? "-on" : ""]"
+	item_state = "[base_icon_state][((fuel > 0) && on) ? "-on" : ""]"
 	return ..()
 
 /obj/item/flashlight/glowstick/update_overlays()
