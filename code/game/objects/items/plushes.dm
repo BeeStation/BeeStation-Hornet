@@ -728,8 +728,6 @@
 	var/static/list/plushie_list = list(
 		/obj/item/toy/plush/bubbleplush,
 		/obj/item/toy/plush/carpplushie,
-		/obj/item/toy/plush/plushvar,
-		/obj/item/toy/plush/narplush,
 		/obj/item/toy/plush/snakeplushie,
 		/obj/item/toy/plush/lizardplushie,
 		/obj/item/toy/plush/slimeplushie,
