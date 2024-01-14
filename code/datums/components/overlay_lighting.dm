@@ -456,8 +456,6 @@
 			final_distance = i
 			break
 		scanning = next_turf
-/datum/component/overlay_lighting/proc/on_parent_crafted(datum/source, atom/movable/new_craft)
-	SIGNAL_HANDLER
 
 	current_holder.underlays -= visible_mask
 
@@ -500,6 +498,9 @@
 	current_direction = newdir
 	if(overlay_lighting_flags & LIGHTING_ON)
 		make_luminosity_update()
+
+/datum/component/overlay_lighting/proc/on_parent_crafted(datum/source, atom/movable/new_craft)
+	SIGNAL_HANDLER
 
 	if(!istype(new_craft))
 		return
