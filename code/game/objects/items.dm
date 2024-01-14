@@ -1447,17 +1447,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return FALSE
 	return TRUE
 
-/obj/item/rad_act(strength)
-	. = ..()
-	//TODO: Add some actual logic to this - Racc
-	var/datum/component/xenoartifact/X = GetComponent(/datum/component/xenoartifact)
-	if(!X)
-		AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, null, TRUE, FALSE)
-
 // Update icons if this is being carried by a mob
 /obj/item/wash(clean_types)
 	. = ..()
-
 	if(ismob(loc))
 		var/mob/mob_loc = loc
 		mob_loc.regenerate_icons()
