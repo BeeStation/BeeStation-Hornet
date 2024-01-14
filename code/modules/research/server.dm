@@ -312,7 +312,7 @@
 	if(deconstruction_state != HDD_PANEL_CLOSED)
 		return FALSE
 
-	to_chat(user, "<span class='danger'>You can see [front_panel_screws] screw\s. You start unscrewing [front_panel_screws == 1 ? "it" : "them"]...")
+	to_chat(user, "<span class='danger'>You can see [front_panel_screws] screw\s. You start unscrewing [front_panel_screws == 1 ? "it" : "them"]...</span>")
 	while(tool.use_tool(src, user, 7.5 SECONDS, volume=100))
 		front_panel_screws--
 
