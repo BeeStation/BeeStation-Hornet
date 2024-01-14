@@ -338,7 +338,7 @@
 	if(deconstruction_state != HDD_PRIED)
 		return FALSE
 
-	to_chat(user, "<span class='danger'>There are [hdd_wires] wire\s connected to [source_code_hdd]. You start cutting [hdd_wires == 1 ? "it" : "them"]...")
+	to_chat(user, "<span class='danger'>There are [hdd_wires] wire\s connected to [source_code_hdd]. You start cutting [hdd_wires == 1 ? "it" : "them"]...</span>")
 	while(tool.use_tool(src, user, 7.5 SECONDS, volume=100))
 		hdd_wires--
 
