@@ -74,11 +74,15 @@
 
 	///What the old appearance of the parent was, for resetting their appearance
 	var/mutable_appearance/old_appearance
+	///Do we edit the parent's texture?
+	var/do_texture = TRUE
+	///Do we edit the parent's silhouette?
+	var/do_mask = TRUE
 
 	///Do we make pearls when we're destroyed?
 	var/make_pearls = TRUE //TODO: Remeber to disable this when you're done testing - Racc
 
-/datum/component/xenoartifact/Initialize(type, list/traits, do_appearance = TRUE, do_mask = TRUE)
+/datum/component/xenoartifact/Initialize(type, list/traits, _do_appearance = TRUE, _do_mask = TRUE)
 	. = ..()
 	generate_xenoa_statics()
 	var/atom/A = parent
@@ -87,23 +91,12 @@
 	artifact_type = type || pick_weight(GLOB.xenoartifact_material_weights)
 	artifact_type = new artifact_type()
 	A.custom_price = A.custom_price || artifact_type.custom_price
+
 	//Build appearance from material
-	if(do_mask)
-		old_appearance = A.appearance
-		var/old_name = A.name
-		//Build the silhouette of the artifact
-		var/mutable_appearance/MA = artifact_type.get_mask()
-		MA.plane = A.plane
-		A.appearance = MA
-		//Reset name
-		A.name = old_name
-	if(do_appearance)
-		//Overlay the material texture
-		var/icon/MA = artifact_type.get_texture()
-		A.add_filter("texture_overlay", 1, layering_filter(icon = MA, blend_mode = BLEND_INSET_OVERLAY))
-		//Throw on some outlines
-		A.add_filter("outline_1", 2, outline_filter(2, "#000"))
-		A.add_filter("outline_2", 3, outline_filter(1, artifact_type.material_color))
+	old_appearance = A.appearance
+	do_texture = _do_appearance
+	do_mask = _do_mask
+	build_material_appearance()
 
 	//Build priotity list
 	for(var/i in GLOB.xenoartifact_trait_priorities)
@@ -298,7 +291,45 @@
 
 	return TRUE
 
-///material datums
+//Calcifies - breaks - the artifact
+/datum/component/xenoartifact/proc/calcify(override_cooldown = TRUE)
+	//Appearnce
+	artifact_type = new /datum/xenoartifact_material/calcified()
+	var/old_mask = do_mask
+	do_mask = FALSE
+	build_material_appearance()
+	do_mask = old_mask
+	//Disable artifact
+	cooldown_override = TRUE
+
+//Build the artifact's appearance
+/datum/component/xenoartifact/proc/build_material_appearance()
+	var/atom/A = parent
+	//Remove old filters, if they exist
+	A.remove_filter("texture_overlay")
+	A.remove_filter("outline_1")
+	A.remove_filter("outline_2")
+	//Apply new stuff
+	if(do_mask)
+		var/old_name = A.name //Appearance stuff tends to fuck with names
+		//Build the silhouette of the artifact
+		var/mutable_appearance/MA = artifact_type.get_mask()
+		MA.plane = A.plane //This is important lol
+		A.appearance = MA
+		//Reset name
+		A.name = old_name
+	if(do_texture)
+		//Overlay the material texture
+		var/icon/I = artifact_type.get_texture()
+		A.add_filter("texture_overlay", 1, layering_filter(icon = I, blend_mode = BLEND_INSET_OVERLAY))
+		//Throw on some outlines
+		A.add_filter("outline_1", 2, outline_filter(2, "#000"))
+		A.add_filter("outline_2", 3, outline_filter(1, artifact_type.material_color))
+
+/*
+	material datums
+*/
+
 /datum/xenoartifact_material
 	var/name = "debugium"
 	///What color we associate with this material
@@ -380,3 +411,9 @@
 	instability_step = 50
 	texture_icon_states = list("texture-pearl1", "texture-pearl2", "texture-pearl3")
 	mask_icon_states = list("mask-pearl1") //This is pretty much a place holder, since artificial artifacts use the item as a mask
+
+//Calcified
+/datum/xenoartifact_material/calcified
+	name = "calcified"
+	material_color = "#726387"
+	texture_icon_states = list("texture-calcified1", "texture-calcified2", "texture-calcified3")

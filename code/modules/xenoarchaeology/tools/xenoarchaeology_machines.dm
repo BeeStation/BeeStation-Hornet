@@ -33,9 +33,7 @@
 	
 /obj/machinery/xenoarchaeology_machine/attack_hand(mob/living/user)
 	. = ..()
-	for(var/atom/movable/A in held_contents)
-		A.forceMove(get_turf(src))
-		unregister_contents(A)
+	empty_contents()
 
 /obj/machinery/xenoarchaeology_machine/proc/register_contents(atom/A)
 	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(unregister_contents))
@@ -49,6 +47,11 @@
 
 /obj/machinery/xenoarchaeology_machine/proc/get_target()
 	return move_inside ? src : drop_location()
+
+/obj/machinery/xenoarchaeology_machine/proc/empty_contents()
+	for(var/atom/movable/A in held_contents)
+		A.forceMove(get_turf(src))
+		unregister_contents(A)
 
 /*
 	Scale, measures artifact weight
@@ -106,3 +109,47 @@
 /obj/machinery/xenoarchaeology_machine/calibrator
 	icon_state = "calibrator"
 	move_inside = TRUE
+
+/obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
+	. = ..()
+	. += "<span>Alt-Click to calibrate inserted artifacts.</span>"
+
+/obj/machinery/xenoarchaeology_machine/calibrator/AltClick(mob/user)
+	. = ..()
+	if(!length(held_contents))
+		playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
+		return
+	for(var/atom/A as() in contents)
+		var/solid_as = TRUE
+		//Once we find an artifact-
+		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
+		//We then want to find a sticker attached to it-
+		var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in A.contents
+		//Then we'll check the label traits against the artifact's
+		if(!X || !L)
+			playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
+			empty_contents()
+			continue
+		for(var/i in X.artifact_traits)
+			for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
+				if(!(locate(T) in L.traits))
+					//Forgive malfunctions - this is readable, forgive the nesting
+					if(!istype(T, /datum/xenoartifact_trait/malfunction))
+						solid_as = FALSE
+		//TODO: make this calcify the artifact - Racc
+		if(!solid_as)
+			X.calcify()
+			playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
+			empty_contents()
+			return
+		playsound(get_turf(src), 'sound/machines/ding.ogg', 60)
+		//Disable malfunctions
+		X.artifact_type.instability_step = 0
+		//Prompt user to delete or keep malfunctions
+		var/decision = tgui_alert(user, "Do you want to calcify [A]'s malfunctions?", "Remove Malfunctions", list("Yes", "No"))
+		if(decision == "Yes")
+			for(var/i in X.artifact_traits)
+				for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
+					if(istype(T, /datum/xenoartifact_trait/malfunction))
+						qdel(T)
+		empty_contents()

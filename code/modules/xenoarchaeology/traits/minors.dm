@@ -284,7 +284,7 @@
 	if(current_uses)
 		current_uses -= 1
 	else if(prob(50)) //After we run out of uses, there is a 50% on use for it to break
-		parent.cooldown_override = TRUE
+		parent.calcify()
 		playsound(get_turf(parent.parent), 'sound/effects/glassbr1.ogg', 50, TRUE)
 		//TODO: Make this calcify the artifact - Racc
 

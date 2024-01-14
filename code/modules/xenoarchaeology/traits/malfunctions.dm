@@ -249,8 +249,7 @@
 
 /datum/xenoartifact_trait/malfunction/explosion/proc/explode()
 	explosion(get_turf(parent.parent), max_explosion/3*(parent.trait_strength/100), max_explosion/2*(parent.trait_strength/100), max_explosion*(parent.trait_strength/100), max_explosion*(parent.trait_strength/100))
-	//TODO: Make this calcify the artifact - Racc
-	parent.cooldown_override = TRUE
+	parent.calcify()
 
 /*
 	Mass Hallucinatory Injection
