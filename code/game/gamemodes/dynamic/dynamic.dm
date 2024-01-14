@@ -162,7 +162,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// This number should be kept fairly low, as there are other measures that population
 	/// impacts Dynamic, such as the requirements variable on rulesets.
 	/// This also affects when 'lategame' round-ending will be disabled
-	var/low_pop_player_threshold = 20
+	var/low_pop_player_threshold = 22
 
 	/// The maximum threat that can roll with *zero* players.
 	/// As the number of players approaches `low_pop_player_threshold`, the maximum
@@ -665,22 +665,16 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			if(threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking && high_impact_ruleset_active())
 				return FALSE
 
-	// Stop respecting cost once we reach the late game stage
-	ignore_cost = ignore_cost || is_lategame()
-
 	var/population =  current_players[CURRENT_LIVING_PLAYERS].len
-	if((new_rule.acceptable(population, threat_level) && (ignore_cost || new_rule.cost <= mid_round_budget)) || forced)
+	if((new_rule.acceptable(population, threat_level) && new_rule.cost <= mid_round_budget) || forced)
 		new_rule.trim_candidates()
 		if (new_rule.ready(forced))
-			if (!ignore_cost)
-				spend_midround_budget(new_rule.cost, threat_log, "[worldtime2text()]: Forced rule [new_rule.name]")
+			spend_midround_budget(new_rule.cost, threat_log, "[worldtime2text()]: Forced rule [new_rule.name]")
 			new_rule.pre_execute(population)
 			if (new_rule.execute(forced)) // This should never fail since ready() returned 1
 				if(CHECK_BITFIELD(new_rule.flags, ONLY_RULESET))
 					only_ruleset_executed = TRUE
 				log_game("DYNAMIC: Making a call to a specific ruleset...[new_rule.name]!")
-				if((new_rule.flags & LATEGAME_RULESET) && ignore_cost && is_lategame())
-					new_rule.lategame_spawned = TRUE
 				executed_rules += new_rule
 				if (new_rule.persistent)
 					current_rules += new_rule
@@ -753,7 +747,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				continue
 			if (CHECK_BITFIELD(rule.flags, INTACT_STATION_RULESET) && !is_station_intact())
 				continue
-			if (rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && mid_round_budget >= rule.cost)
+			if (rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && (mid_round_budget >= rule.cost || (is_lategame() && (rule.flags & LATEGAME_RULESET))))
 				// No stacking : only one round-ender, unless threat level > stacking_limit.
 				if (threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
 					if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET) && high_impact_ruleset_active())
@@ -867,7 +861,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			return rand(90, 100)
 
 /datum/game_mode/dynamic/proc/is_lategame()
-	return (get_time() - SSticker.round_start_time) > midround_upper_bound && length(current_players[CURRENT_LIVING_PLAYERS]) >= low_pop_player_threshold
+	return (get_time() - SSticker.round_start_time) > midround_upper_bound && (simulated ? simulated_alive_players : length(current_players[CURRENT_LIVING_PLAYERS])) >= low_pop_player_threshold
 
 /// Log to messages and to the game
 /datum/game_mode/dynamic/proc/dynamic_log(text)

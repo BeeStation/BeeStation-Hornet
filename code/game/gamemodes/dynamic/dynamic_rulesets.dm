@@ -179,7 +179,8 @@
 /// Runs from gamemode process() if ruleset fails to start, like delayed rulesets not getting valid candidates.
 /// This one only handles refunding the threat, override in ruleset to clean up the rest.
 /datum/dynamic_ruleset/proc/clean_up()
-	mode.refund_threat(cost + (scaled_times * scaling_cost))
+	if(!lategame_spawned) // lategame execute failures shouldn't refund
+		mode.refund_threat(cost + (scaled_times * scaling_cost))
 	var/msg = "[ruletype] [name] refunded [cost + (scaled_times * scaling_cost)]. Failed to execute."
 	mode.threat_log += "[worldtime2text()]: [msg]"
 	message_admins(msg)
