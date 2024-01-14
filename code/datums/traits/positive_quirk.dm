@@ -286,7 +286,7 @@
 	H.equip_to_slot_or_del(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACKPACK)
 
 /datum/quirk/plushielover
-	name = "Plushie lover"
+	name = "Plushie Lover"
 	desc = "You love your squishy friends so much. You start with a plushie delivery beacon."
 	icon = "heart"
 	value = 1
