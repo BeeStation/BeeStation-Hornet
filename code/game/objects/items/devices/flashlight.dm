@@ -16,10 +16,12 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
-	var/on = FALSE
+	/// The sound the light makes when it's turned on
 	var/sound_on = 'sound/items/flashlight_on.ogg'
+	/// The sound the light makes when it's turned off
 	var/sound_off = 'sound/items/flashlight_off.ogg'
-
+	/// Is the light turned on or off currently
+	var/on = FALSE
 
 /obj/item/flashlight/Initialize(mapload)
 	. = ..()
@@ -40,12 +42,14 @@
 	if(light_system == STATIC_LIGHT)
 		update_light()
 
-
-/obj/item/flashlight/attack_self(mob/user)
+/obj/item/flashlight/proc/toggle_light(mob/user)
 	on = !on
+	playsound(user, on ? sound_on : sound_off, 40, TRUE)
 	update_brightness(user)
 	update_action_buttons()
-	return 1
+
+/obj/item/flashlight/attack_self(mob/user)
+	toggle_light(user)
 
 /obj/item/flashlight/suicide_act(mob/living/carbon/human/user)
 	if (user.is_blind())
@@ -449,6 +453,7 @@
 	light_system = MOVABLE_LIGHT
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
+	base_icon_state = "glowstick"
 	item_state = "glowstick"
 	grind_results = list(/datum/reagent/phenol = 15, /datum/reagent/hydrogen = 10, /datum/reagent/oxygen = 5) //Meth-in-a-stick
 	var/burn_pickup = FALSE	//If true, fuel will only decrease after being picked up or used in hand (Useful for mapping)
@@ -474,24 +479,30 @@
 
 /obj/item/flashlight/glowstick/proc/turn_off()
 	on = FALSE
-	update_icon()
+	update_appearance()
 
-/obj/item/flashlight/glowstick/update_icon()
-	item_state = "glowstick"
-	cut_overlays()
+/obj/item/flashlight/glowstick/update_appearance(updates=ALL)
+	. = ..()
 	if(fuel <= 0)
-		icon_state = "glowstick-empty"
-		cut_overlays()
 		set_light_on(FALSE)
-	else if(on)
-		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
-		glowstick_overlay.color = color
-		add_overlay(glowstick_overlay)
-		item_state = "glowstick-on"
+		return
+	if(on)
 		set_light_on(TRUE)
-	else
-		icon_state = "glowstick"
-		cut_overlays()
+		return
+
+/obj/item/flashlight/glowstick/update_icon_state()
+	icon_state = "[base_icon_state][(fuel <= 0) ? "-empty" : ""]"
+	inhand_icon_state = "[base_icon_state][((fuel > 0) && on) ? "-on" : ""]"
+	return ..()
+
+/obj/item/flashlight/glowstick/update_overlays()
+	. = ..()
+	if(fuel <= 0 && !on)
+		return
+
+	var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
+	glowstick_overlay.color = color
+	. += glowstick_overlay
 
 /obj/item/flashlight/glowstick/pickup(mob/user)
 	..()
