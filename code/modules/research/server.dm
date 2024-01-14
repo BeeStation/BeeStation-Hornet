@@ -330,7 +330,7 @@
 
 	to_chat(user, "<span class='danger'>You can see [source_code_hdd] in a secure housing behind the front panel. You begin to pry it loose...")
 	if(tool.use_tool(src, user, 15 SECONDS, volume=100))
-		to_chat(user, "<span class='danger'>You destroy the housing, prying [source_code_hdd] free.")
+		to_chat(user, "<span class='danger'>You destroy the housing, prying [source_code_hdd] free.</span>")
 		deconstruction_state = HDD_PRIED
 	return TRUE
 
