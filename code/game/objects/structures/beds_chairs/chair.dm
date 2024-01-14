@@ -25,11 +25,6 @@
 	if(!has_buckled_mobs())
 		. += "<span class='notice'>Drag your sprite to sit in it.</span>"
 
-/obj/structure/chair/Initialize(mapload)
-	. = ..()
-	if(!anchored)	//why would you put these on the shuttle?
-		addtimer(CALLBACK(src, PROC_REF(RemoveFromLatejoin)), 0)
-
 /obj/structure/chair/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE, CALLBACK(src, PROC_REF(can_user_rotate)),CALLBACK(src, PROC_REF(can_be_rotated)),null)
@@ -50,11 +45,8 @@
 	return FALSE
 
 /obj/structure/chair/Destroy()
-	RemoveFromLatejoin()
-	return ..()
-
-/obj/structure/chair/proc/RemoveFromLatejoin()
 	SSjob.latejoin_trackers -= src	//These may be here due to the arrivals shuttle
+	return ..()
 
 /obj/structure/chair/deconstruct()
 	// If we have materials, and don't have the NOCONSTRUCT flag
