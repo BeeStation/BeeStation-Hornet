@@ -38,13 +38,6 @@
 		return FALSE
 
 /obj/machinery/rnd/attackby(obj/item/O, mob/user, params)
-	if (default_deconstruction_screwdriver(user, "[initial(icon_state)]_t", initial(icon_state), O))
-		return
-	if(default_deconstruction_crowbar(O))
-		return
-	if(panel_open && is_wire_tool(O))
-		wires.interact(user)
-		return TRUE
 	if(is_refillable() && O.is_drainable())
 		return FALSE //inserting reagents into the machine
 	if(Insert_Item(O, user))
