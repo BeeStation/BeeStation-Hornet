@@ -11,8 +11,9 @@
 		            /obj/item/toy/cards/deck/cas/black = 3,
 		            /obj/item/toy/cards/deck/unum = 3,
 					/obj/item/toy/cards/deck/tarot = 3,
-					/obj/item/hourglass = 2,
+					/obj/item/hourglass = 2
 					)
+
 	contraband = list(/obj/item/dice/fudge = 9,
 					/obj/item/instrument/musicalmoth = 1)
 	premium = list(/obj/item/melee/skateboard/pro = 3,
