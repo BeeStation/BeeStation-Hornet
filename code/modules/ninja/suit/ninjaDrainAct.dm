@@ -153,7 +153,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 	. = DRAIN_RD_HACK_FAILED
 
-	to_chat(H, "<span class='danger'>Research notes detected. Corrupting data...")
+	to_chat(H, "<span class='danger'>Research notes detected. Corrupting data...</span>")
 	AI_notify_hack()
 
 	if(!do_after(H, 30 SECONDS, target = src))
