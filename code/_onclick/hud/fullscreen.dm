@@ -210,10 +210,6 @@
 	///What mob we belong to - for orientation
 	var/mob/mob_owner
 
-/atom/movable/screen/fullscreen/pov_mask/Initialize(mapload)
-	. = ..()
-	add_filter("blur", 1, gauss_blur_filter(10))
-
 /atom/movable/screen/fullscreen/pov_mask/Destroy()
 	. = ..()
 	mob_owner = null
