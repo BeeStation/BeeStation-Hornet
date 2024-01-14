@@ -1,0 +1,11 @@
+author: Pink Solene
+delete-after: true
+changes:
+  - rscadd: added a white bandana
+  - imageadd: added a white bandana sprite
+  - imagedel: removed duplicate bandana sprites
+  - tweak: creating a white bandana out of cloth actually creates a white bandana
+      instead of a botany bandana now
+  - code_imp: changed the parent of bandanas to be a white bandana and made a bandana/botany
+      variant for the botany one, then made the necessary changes to ensure botany
+      bandanas appear where they are expected.
