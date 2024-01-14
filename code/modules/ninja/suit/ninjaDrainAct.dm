@@ -134,7 +134,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	to_chat(H, "<span class='notice'>Hacking \the [src]...</span>")
 	AI_notify_hack()
 
-	to_chat(H, "<span class='danger'>Encrypted source code detected. Overloading storage device...")
+	to_chat(H, "<span class='danger'>Encrypted source code detected. Overloading storage device...</span>")
 	if(do_after(H, 30 SECONDS, target = src))
 		overload_source_code_hdd()
 		to_chat(H, "<span class='danger'>Sabotage complete. Storage device overloaded.</span>")
