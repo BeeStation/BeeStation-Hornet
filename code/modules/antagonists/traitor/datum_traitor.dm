@@ -202,11 +202,10 @@
 			kill_objective.find_target()
 			add_objective(kill_objective)
 	else
-		if(prob(50))
-			var/datum/objective/steal/steal_objective = new
-			steal_objective.owner = owner
-			steal_objective.find_target()
-			add_objective(steal_objective)
+		var/datum/objective/steal/steal_objective = new
+		steal_objective.owner = owner
+		steal_objective.find_target()
+		add_objective(steal_objective)
 
 /datum/antagonist/traitor/proc/forge_single_AI_objective()
 	.=1
