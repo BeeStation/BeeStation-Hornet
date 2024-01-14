@@ -424,7 +424,11 @@
 	else
 		icon_file = initial(item.icon)
 	var/icon_state = initial(item.icon_state)
-
+	if(ispath(item, /obj/item))
+		var/obj/item/fake_item = item
+		if(initial(fake_item.vendor_icon_preview))
+			icon_state = initial(fake_item.vendor_icon_preview)
+			icon_file = initial(fake_item.icon)
 	#ifdef UNIT_TESTS
 	var/icon_states_list = icon_states(icon_file)
 	if (!(icon_state in icon_states_list))
@@ -487,6 +491,49 @@
 		if(I)
 			I.Scale(42, 42) // 32px is too small. 42px might be fine...
 		Insert(imgid, I, icon_state)
+
+// basically admin debugging tool assets
+/datum/asset/spritesheet/tools
+	name = "tools"
+	cross_round_cachable = TRUE
+
+/datum/asset/spritesheet/tools/create_spritesheets()
+	var/list/cache_targets = list(
+		TOOL_CROWBAR = icon('icons/obj/tools.dmi', "crowbar", SOUTH, 1),
+		TOOL_MULTITOOL = icon('icons/obj/device.dmi', "multitool", SOUTH, 1),
+		TOOL_SCREWDRIVER = icon('icons/obj/tools.dmi', "screwdriver_map", SOUTH, 1),
+		TOOL_WIRECUTTER = icon('icons/obj/tools.dmi', "cutters_map", SOUTH, 1),
+		TOOL_WRENCH = icon('icons/obj/tools.dmi', "wrench", SOUTH, 1),
+		TOOL_WELDER = icon('icons/obj/tools.dmi', "welder", SOUTH, 1),
+		TOOL_ANALYZER = icon('icons/obj/device.dmi', "analyzer", SOUTH, 1),
+		"wires" = icon('icons/obj/power.dmi', "coil", SOUTH, 1),
+
+		TOOL_RETRACTOR = icon('icons/obj/surgery.dmi', "retractor", SOUTH, 1),
+		TOOL_HEMOSTAT = icon('icons/obj/surgery.dmi', "hemostat", SOUTH, 1),
+		TOOL_CAUTERY = icon('icons/obj/surgery.dmi', "cautery", SOUTH, 1),
+		TOOL_DRILL = icon('icons/obj/surgery.dmi', "drill", SOUTH, 1),
+		TOOL_SCALPEL = icon('icons/obj/surgery.dmi', "scalpel", SOUTH, 1),
+		TOOL_SAW = icon('icons/obj/surgery.dmi', "saw", SOUTH, 1),
+		TOOL_BLOODFILTER = icon('icons/obj/surgery.dmi', "bloodfilter", SOUTH, 1),
+		"drapes" = icon('icons/obj/surgery.dmi', "surgical_drapes", SOUTH, 1),
+
+		TOOL_MINING = icon('icons/obj/mining.dmi', "minipick", SOUTH, 1),
+		TOOL_SHOVEL = icon('icons/obj/mining.dmi', "shovel", SOUTH, 1),
+		"cultivator" = icon('icons/obj/items_and_weapons.dmi', "cultivator", SOUTH, 1),
+		"spade" = icon('icons/obj/mining.dmi', "spade", SOUTH, 1),
+		TOOL_RUSTSCRAPER = icon('icons/obj/tools.dmi', "wirebrush", SOUTH, 1),
+		TOOL_ROLLINGPIN = icon('icons/obj/kitchen.dmi', "rolling_pin", SOUTH, 1),
+		TOOL_BIKEHORN = icon('icons/obj/items_and_weapons.dmi', "bike_horn", SOUTH, 1),
+		"debug_placeholder" = icon('icons/obj/device.dmi', "hypertool", SOUTH, 1)
+	)
+	for(var/each in cache_targets)
+
+		var/icon/I = cache_targets[each]
+		if(!I)
+			stack_trace("Sometime's wrong to create an image asset in '/datum/asset/spritesheet/tools'. [each] is null.")
+			continue
+		I.Scale(32, 32)
+		Insert(each, I)
 
 /datum/asset/simple/bee_antags
 	assets = list(

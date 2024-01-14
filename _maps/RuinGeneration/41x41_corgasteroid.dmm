@@ -207,8 +207,8 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "lO" = (
-/obj/structure/chair/comfy/black{
-	dir = 1
+/obj/structure/chair/stool{
+	dir = 8
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
@@ -220,15 +220,11 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "mi" = (
-/obj/structure/chair/stool,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+/obj/structure/chair/stool{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
-"mj" = (
-/obj/structure/chair/comfy/black{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
@@ -424,12 +420,6 @@
 	name = "Escape Airlock"
 	},
 /turf/open/floor/plating,
-/area/ruin/unpowered)
-"wl" = (
-/obj/structure/chair/comfy/black{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "wr" = (
 /obj/machinery/advanced_airlock_controller/directional/east,
@@ -824,10 +814,6 @@
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
-"Nz" = (
-/obj/structure/chair/comfy/black,
-/turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
 "Ok" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -1093,7 +1079,9 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "YT" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 
@@ -2623,13 +2611,13 @@ sq
 jZ
 jZ
 jZ
-YT
-YT
-YT
+lO
+lO
+lO
 jZ
 jZ
 jZ
-wl
+jZ
 eq
 vZ
 vZ
@@ -2715,7 +2703,7 @@ jZ
 jZ
 jZ
 jZ
-mj
+jZ
 eq
 vZ
 vZ
@@ -2754,9 +2742,9 @@ zL
 zL
 nz
 nz
-Nz
+jZ
 Vo
-lO
+jZ
 zL
 zL
 zL

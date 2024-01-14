@@ -8,7 +8,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
-	materials = list(/datum/material/iron=60, /datum/material/glass=30)
+	custom_materials = list(/datum/material/iron=60, /datum/material/glass=30)
 	force = 2
 	throwforce = 0
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
@@ -88,15 +88,18 @@
 	eject(usr)
 
 
-/obj/item/taperecorder/update_icon()
+/obj/item/taperecorder/update_icon_state()
 	if(!mytape)
 		icon_state = "taperecorder_empty"
-	else if(recording)
+		return ..()
+	if(recording)
 		icon_state = "taperecorder_recording"
-	else if(playing)
+		return ..()
+	if(playing)
 		icon_state = "taperecorder_playing"
-	else
-		icon_state = "taperecorder_idle"
+		return ..()
+	icon_state = "taperecorder_idle"
+	return ..()
 
 
 /obj/item/taperecorder/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
@@ -275,7 +278,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(/datum/material/iron=20, /datum/material/glass=5)
+	custom_materials = list(/datum/material/iron=20, /datum/material/glass=5)
 	force = 1
 	throwforce = 0
 	var/max_capacity = 600

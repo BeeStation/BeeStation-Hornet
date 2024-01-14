@@ -112,7 +112,8 @@ It is possible to destroy the net by the occupant or someone else.
 		// After we remove items, at least give them what they need to live.
 		H.dna.species.give_important_for_life(H)
 	// Teleport
-	var/turf/safe_location = get_safe_random_station_turfs()
+	var/turf/picked_station_level = get_random_station_turf()	//Don't want to limit this specifically to z 2 in case we get multi-z in rotation
+	var/turf/safe_location = find_safe_turf(picked_station_level.z, extended_safety_checks = TRUE, dense_atoms = FALSE)
 	do_teleport(target, safe_location, channel = TELEPORT_CHANNEL_FREE, forced = TRUE)
 	target.Unconscious(3 SECONDS)
 

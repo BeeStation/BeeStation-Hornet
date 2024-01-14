@@ -16,9 +16,11 @@
 	fire_rate = 3
 	automatic = 0
 	weapon_weight = WEAPON_LIGHT
+	equip_time = 1 SECONDS
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
+	caliber = "10mm"
 
 /obj/item/gun/ballistic/automatic/pistol/locker
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors. This one is rusted from being inside of a locker for so long."
@@ -45,9 +47,10 @@
 	tac_reloads = FALSE
 	fire_sound_volume = 60
 	spread = 18 //Innate spread of 18 degrees, unwielded spread of 48; Stechkin is unwielded 40
-	spread_unwielded = 30 //Manually set unwielded spread to 30; Equivelant weight to 0.5 (Stechkin has weight 1)
+	weapon_weight = WEAPON_LIGHT * 0.5 //Equivelant weight to 0.5 (Stechkin has weight 1)
 	wild_spread = TRUE
 	wild_factor = 0.70 //Minimum spread is 70% of spread value
+	equip_time = 0
 
 /obj/item/gun/ballistic/automatic/pistol/der38/twelveshooter //For debugging only, or meme shit
 	name = "palm pistol devastator"
@@ -64,6 +67,7 @@
 
 /obj/item/gun/ballistic/automatic/pistol/m1911/no_mag
 	spawnwithmagazine = FALSE
+	caliber = ".45"
 
 /obj/item/gun/ballistic/automatic/pistol/deagle
 	name = "\improper Desert Eagle"
@@ -73,6 +77,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m50
 	can_suppress = FALSE
 	mag_display = TRUE
+	equip_time = 2 SECONDS
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
@@ -100,9 +105,9 @@
 	desc = "A 2 dimensional gun.. what?"
 	icon_state = "flatgun"
 
-/obj/item/gun/ballistic/automatic/pistol/stickman/pickup(mob/living/user)
+/obj/item/gun/ballistic/automatic/pistol/stickman/equipped(mob/user, slot)
 	..()
-	to_chat(user, "<span class='notice'>As you try to pick up [src], it slips out of your grip..</span>")
+	to_chat(user, "<span class='notice'>As you try to manipulate [src], it slips out of your possession..</span>")
 	if(prob(50))
 		to_chat(user, "<span class='notice'>..and vanishes from your vision! Where the hell did it go?</span>")
 		qdel(src)

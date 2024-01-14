@@ -64,8 +64,8 @@
 			customname = "custom"
 			break
 	if(ingredients.len == 1) //first ingredient
-		if(istype(S, /obj/item/reagent_containers/food/snacks/meat))
-			var/obj/item/reagent_containers/food/snacks/meat/M = S
+		if(istype(S, /obj/item/food/meat))
+			var/obj/item/food/meat/M = S
 			if(M.subjectname)
 				customname = "[M.subjectname]"
 			else if(M.subjectjob)
@@ -151,14 +151,6 @@
 //////////////      Customizable Food Types     /////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
-/obj/item/reagent_containers/food/snacks/customizable/burger
-	name = "burger"
-	desc = "A timeless classic."
-	ingredients_placement = INGREDIENTS_STACKPLUSTOP
-	icon = 'icons/obj/food/burgerbread.dmi'
-	icon_state = "custburg"
-	foodtype = GRAIN
-
 /obj/item/reagent_containers/food/snacks/customizable/kebab
 	name = "kebab"
 	desc = "Delicious food on a stick."
@@ -167,15 +159,6 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
 	ingMax = 6
 	icon_state = "rod"
-
-/obj/item/reagent_containers/food/snacks/customizable/pasta
-	name = "spaghetti"
-	desc = "Noodles. With stuff. Delicious."
-	ingredients_placement = INGREDIENTS_SCATTER
-	ingMax = 6
-	icon = 'icons/obj/food/spaghetti.dmi'
-	icon_state = "spaghettiboiled"
-	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/customizable/pie
 	name = "pie"
@@ -216,7 +199,7 @@
 	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "bowl"
 	reagent_flags = OPENCONTAINER
-	materials = list(/datum/material/glass = 500)
+	custom_materials = list(/datum/material/glass = 500)
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/reagent_containers/glass/bowl/attackby(obj/item/I,mob/user, params)

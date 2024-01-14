@@ -16,7 +16,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	sexes = FALSE
 	damage_overlay_type = ""
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/golem
+	meat = /obj/item/food/meat/slab/human/mutant/golem
 	species_language_holder = /datum/language_holder/golem
 	// To prevent golem subtypes from overwhelming the odds when random species
 	// changes, only the Random Golem type can be chosen
@@ -86,7 +86,7 @@
 /datum/species/golem/adamantine
 	name = "Adamantine Golem"
 	id = SPECIES_GOLEM_ADAMANTINE
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/golem/adamantine
+	meat = /obj/item/food/meat/slab/human/mutant/golem/adamantine
 	mutant_organs = list(/obj/item/organ/adamantine_resonator, /obj/item/organ/vocal_cords/adamantine)
 	fixed_mut_color = "4ed"
 	info_text = "As an <span class='danger'>Adamantine Golem</span>, you possess special vocal cords allowing you to \"resonate\" messages to all golems. Your unique mineral makeup makes you immune to most types of magic."
@@ -129,6 +129,7 @@
 	if(H.bodytemperature > 850 && H.on_fire && prob(25))
 		explosion(get_turf(H),1,2,4,flame_range = 5)
 		if(H)
+			H.investigate_log("has been gibbed as [H.p_their()] body explodes.", INVESTIGATE_DEATHS)
 			H.gib()
 	if(H.fire_stacks < 2) //flammable
 		H.adjust_fire_stacks(1)
@@ -437,7 +438,7 @@
 				var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
 				// redirect the projectile
 				P.firer = H
-				P.preparePixelProjectile(locate(CLAMP(new_x, 1, world.maxx), CLAMP(new_y, 1, world.maxy), H.z), H)
+				P.preparePixelProjectile(locate(clamp(new_x, 1, world.maxx), clamp(new_y, 1, world.maxy), H.z), H)
 			return BULLET_ACT_FORCE_PIERCE
 	return ..()
 
@@ -1144,7 +1145,7 @@
 		playsound(get_turf(owner),'sound/magic/RATTLEMEBONES2.ogg', 100)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			var/mutable_appearance/badtime = mutable_appearance('icons/mob/human_parts.dmi', "b_golem_eyes", -FIRE_LAYER-0.5)
+			var/mutable_appearance/badtime = mutable_appearance('icons/mob/human_parts.dmi', "b_golem_eyes", CALCULATE_MOB_OVERLAY_LAYER(FIRE_LAYER))
 			badtime.appearance_flags = RESET_COLOR
 			H.overlays_standing[FIRE_LAYER+0.5] = badtime
 			H.apply_overlay(FIRE_LAYER+0.5)
@@ -1187,7 +1188,7 @@
 		H.dropItemToGround(W)
 	for(var/i in 1 to rand(3,5))
 		new /obj/item/stack/sheet/snow(get_turf(H))
-	new /obj/item/reagent_containers/food/snacks/grown/carrot(get_turf(H))
+	new /obj/item/food/grown/carrot(get_turf(H))
 	qdel(H)
 
 /datum/species/golem/snow/on_species_gain(mob/living/carbon/C, datum/species/old_species)

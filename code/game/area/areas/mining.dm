@@ -125,6 +125,7 @@
 	ambient_buzz = 'sound/ambience/magma.ogg'
 	ambient_buzz_vol = 20
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED
+	color_correction = /datum/client_colour/area_color/warm
 
 /area/lavaland/surface
 	name = "Lavaland"

@@ -123,7 +123,7 @@
 	name = "bronze medal"
 	desc = "A bronze medal."
 	icon_state = "bronze"
-	materials = list(/datum/material/iron=1000)
+	custom_materials = list(/datum/material/iron=1000)
 	resistance_flags = FIRE_PROOF
 	var/medaltype = "medal" //Sprite used for medalbox
 	var/commended = FALSE
@@ -191,7 +191,7 @@
 	desc = "A silver medal."
 	icon_state = "silver"
 	medaltype = "medal-silver"
-	materials = list(/datum/material/silver=1000)
+	custom_materials = list(/datum/material/silver=1000)
 
 /obj/item/clothing/accessory/medal/silver/valor
 	name = "medal of valor"
@@ -210,7 +210,7 @@
 	desc = "A prestigious golden medal."
 	icon_state = "gold"
 	medaltype = "medal-gold"
-	materials = list(/datum/material/gold=1000)
+	custom_materials = list(/datum/material/gold=1000)
 
 /obj/item/clothing/accessory/medal/gold/captain
 	name = "medal of captaincy"
@@ -228,7 +228,7 @@
 	icon_state = "plasma"
 	medaltype = "medal-plasma"
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = -10, ACID = 0, STAMINA = 0) //It's made of plasma. Of course it's flammable.
-	materials = list(/datum/material/plasma=1000)
+	custom_materials = list(/datum/material/plasma=1000)
 
 /obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
@@ -385,8 +385,6 @@
 /obj/item/clothing/accessory/holster/detective/Initialize(mapload)
 	. = ..()
 	new /obj/item/gun/ballistic/revolver/detective(src)
-	new /obj/item/ammo_box/c38/match/bouncy(src)
-	new /obj/item/ammo_box/c38/match/bouncy(src)
 
 //Poppy Pin
 /obj/item/clothing/accessory/poppy_pin

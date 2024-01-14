@@ -87,6 +87,7 @@ GLOBAL_LIST(admin_antag_list)
 		info_button.Remove(old_body)
 		info_button.Grant(new_body)
 	apply_innate_effects(new_body)
+	give_antag_moodies()
 	if(count_against_dynamic_roll_chance && new_body.stat != DEAD)
 		new_body.add_to_current_living_antags()
 
@@ -144,7 +145,7 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [name]?", banning_key, null, 7.5 SECONDS, owner.current, ignore_category = FALSE)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [name]?", banning_key, null, 7.5 SECONDS, owner.current, ignore_category = FALSE)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")

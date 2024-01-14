@@ -7,7 +7,7 @@
 	icon_state = "glass_empty"
 	amount_per_transfer_from_this = 10
 	volume = 50
-	materials = list(/datum/material/glass=500)
+	custom_materials = list(/datum/material/glass=500)
 	max_integrity = 20
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
@@ -48,7 +48,7 @@
 	amount_per_transfer_from_this = 15
 	possible_transfer_amounts = list()
 	volume = 15
-	materials = list(/datum/material/glass=100)
+	custom_materials = list(/datum/material/glass=100)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change(changetype)
 	cut_overlays()
@@ -82,18 +82,21 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/filled/soda
 	name = "Soda Water"
 	list_reagents = list(/datum/reagent/consumable/sodawater = 50)
+	vendor_icon_preview = "glass_clear"
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/filled/cola
 	name = "Space Cola"
 	list_reagents = list(/datum/reagent/consumable/space_cola = 50)
+	vendor_icon_preview = "glass_brown"
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/filled/nuka_cola
 	name = "Nuka Cola"
 	list_reagents = list(/datum/reagent/consumable/nuka_cola = 50)
+	vendor_icon_preview = "nuka_colaglass"
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
-		var/obj/item/reagent_containers/food/snacks/egg/E = I
+	if(istype(I, /obj/item/food/egg)) //breaking eggs
+		var/obj/item/food/egg/E = I
 		if(reagents)
 			if(reagents.total_volume >= reagents.maximum_volume)
 				to_chat(user, "<span class='notice'>[src] is full.</span>")

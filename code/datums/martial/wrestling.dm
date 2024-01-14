@@ -299,11 +299,11 @@
 				if (2)
 					D.adjustBruteLoss(rand(20,30))
 				if (3)
-					D.ex_act(EXPLODE_LIGHT)
+					EX_ACT(D, EXPLODE_LIGHT)
 				else
 					D.adjustBruteLoss(rand(10,20))
 		else
-			D.ex_act(EXPLODE_LIGHT)
+			EX_ACT(D, EXPLODE_LIGHT)
 
 	else
 		if (A)
@@ -416,7 +416,7 @@
 
 		if (falling == 1)
 			if (prob(33) || D.stat)
-				D.ex_act(EXPLODE_LIGHT)
+				EX_ACT(D, EXPLODE_LIGHT)
 			else
 				D.adjustBruteLoss(rand(20,30))
 		else
@@ -455,6 +455,7 @@
 	var/datum/martial_art/wrestling/style = new
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
+	. = ..()
 	if(!ishuman(user))
 		return
 	if(slot == ITEM_SLOT_BELT)
@@ -463,7 +464,7 @@
 	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
-	..()
+	. = ..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user

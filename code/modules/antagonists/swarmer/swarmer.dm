@@ -4,7 +4,7 @@
 	desc = "A shell of swarmer that was completely powered down. It can no longer activate itself."
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_unactivated"
-	materials = list(/datum/material/iron=10000, /datum/material/glass=4000)
+	custom_materials = list(/datum/material/iron=10000, /datum/material/glass=4000)
 
 /obj/effect/mob_spawn/swarmer
 	name = "unactivated swarmer"
@@ -193,8 +193,9 @@
 	return 0
 
 /obj/item/IntegrateAmount() //returns the amount of resources gained when eating this item
-	if(materials[getmaterialref(/datum/material/iron)] || materials[getmaterialref(/datum/material/glass)])
-		return 1
+	if(custom_materials)
+		if(custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)] || custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)])
+			return 1
 	return ..()
 
 /obj/item/gun/swarmer_act()//Stops you from eating the entire armory
@@ -444,7 +445,7 @@
 	if(resource_gain)
 		resources += resource_gain
 		add_to_total_resources_eaten(resource_gain)
-		do_attack_animation(target)
+		do_attack_animation(target, no_effect = TRUE)
 		changeNext_move(CLICK_CD_MELEE)
 		var/obj/effect/temp_visual/swarmer/integrate/I = new /obj/effect/temp_visual/swarmer/integrate(get_turf(target))
 		I.pixel_x = target.pixel_x
@@ -469,7 +470,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisIntegrate(atom/movable/target)
 	new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
-	do_attack_animation(target)
+	do_attack_animation(target, no_effect = TRUE)
 	changeNext_move(CLICK_CD_MELEE)
 	SSexplosions.low_mov_atom += target
 
@@ -506,13 +507,13 @@
 	playsound(src,'sound/effects/sparks4.ogg',50,1)
 	do_teleport(target, F, 0, channel = TELEPORT_CHANNEL_BLUESPACE)
 
-/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	if(!tesla_shock)
+/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	if(!(flags & SHOCK_TESLA))
 		return FALSE
 	return ..()
 
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(obj/machinery/target)
-	do_attack_animation(target)
+	do_attack_animation(target, no_effect = TRUE)
 	to_chat(src, "<span class='info'>We begin to dismantle this machine. We will need to be uninterrupted.</span>")
 	var/obj/effect/temp_visual/swarmer/dismantle/D = new /obj/effect/temp_visual/swarmer/dismantle(get_turf(target))
 	D.pixel_x = target.pixel_x
@@ -528,7 +529,7 @@
 		N.pixel_x = target.pixel_x
 		N.pixel_y = target.pixel_y
 		N.pixel_z = target.pixel_z
-		target.dropContents()
+		target.dump_contents()
 		if(istype(target, /obj/machinery/computer))
 			var/obj/machinery/computer/C = target
 			if(C.circuit)
@@ -607,7 +608,7 @@
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer) && !L.incorporeal_move)
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(0, src, 1, 1, 1)
+			L.electrocute_act(0, src, 1, flags = SHOCK_NOGLOVES|SHOCK_ILLUSION)
 			if(iscyborg(L))
 				L.Paralyze(100)
 			qdel(src)

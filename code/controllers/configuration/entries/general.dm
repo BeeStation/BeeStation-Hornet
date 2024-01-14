@@ -83,6 +83,8 @@
 
 /datum/config_entry/flag/log_world_topic	// log all world.Topic() calls
 
+/datum/config_entry/flag/log_preferences	// log all preferences loading and changes
+
 /// log speech indicators(started/stopped speaking)
 /datum/config_entry/flag/log_speech_indicators
 
@@ -160,6 +162,14 @@
 	config_entry_value = TICK_LIMIT_MC_INIT_DEFAULT
 	min_val = 0 //oranges warned us
 	integer = FALSE
+
+/datum/config_entry/flag/mc_diagnostics
+
+/datum/config_entry/flag/mc_diagnostics/ValidateAndSet(str_val)
+	. = ..()
+	if (!.)
+		return FALSE
+	Master.diagnostic_mode = config_entry_value
 
 /datum/config_entry/flag/admin_legacy_system	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system
 	protection = CONFIG_ENTRY_LOCKED
@@ -612,6 +622,5 @@
 
 
 /datum/config_entry/flag/enable_mrat
-
 
 /datum/config_entry/string/discord_ooc_tag

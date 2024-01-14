@@ -72,7 +72,7 @@
 		else
 			add_overlay(screen_icon_state_menu)
 
-	if(cpu && cpu.obj_integrity <= cpu.integrity_failure)
+	if(cpu && cpu.obj_integrity <= cpu.integrity_failure * cpu.max_integrity)
 		add_overlay("bsod")
 		add_overlay("broken")
 
@@ -111,8 +111,7 @@
 		set_machine_stat(machine_stat & ~NOPOWER)
 		update_icon()
 		return
-	..()
-	update_icon()
+	. = ..()
 
 /obj/machinery/modular_computer/screwdriver_act(mob/user, obj/item/tool)
 	if(cpu)
