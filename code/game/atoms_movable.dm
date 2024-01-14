@@ -83,10 +83,6 @@
 		if(MOVABLE_LIGHT_DIRECTIONAL)
 			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
 
-	QDEL_NULL(em_block)
-
-	if(pulling)
-		stop_pulling()
 	if(isturf(loc))
 		var/turf/T = loc
 		T.update_above() // Z-Mimic
@@ -699,7 +695,7 @@
 
 	if (pulledby)
 		pulledby.stop_pulling()
-	
+
 
 	//They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
 	if (thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag*2)
