@@ -42,9 +42,9 @@
 	speak_language = /datum/language/metalanguage // everyone should understand happy easter
 	emote_hear = list("hops.")
 	emote_see = list("hops around","bounces up and down")
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 1)
+	butcher_results = list(/obj/item/food/meat/slab = 1)
 	egg_type = /obj/item/food/egg/loaded
-	food_type = /obj/item/reagent_containers/food/snacks/grown/carrot
+	food_type = /obj/item/food/grown/carrot
 	eggsleft = 10
 	eggsFertile = FALSE
 	icon_prefix = "rabbit"
@@ -64,7 +64,7 @@
 //Easter Baskets
 /obj/item/storage/bag/easterbasket
 	name = "Easter Basket"
-	icon = 'icons/mob/easter.dmi'
+	icon = 'icons/obj/storage/basket.dmi'
 	icon_state = "basket"
 
 /obj/item/storage/bag/easterbasket/Initialize(mapload)
@@ -121,7 +121,7 @@
 /obj/item/food/egg/proc/dispensePrize(turf/where)
 	var/won = pick(/obj/item/clothing/head/bunnyhead,
 	/obj/item/clothing/suit/bunnysuit,
-	/obj/item/reagent_containers/food/snacks/grown/carrot,
+	/obj/item/food/grown/carrot,
 	/obj/item/food/chocolateegg,
 	/obj/item/toy/balloon,
 	/obj/item/toy/gun,
@@ -183,7 +183,7 @@
 		/datum/reagent/consumable/sodiumchloride = 1,
 		/datum/reagent/consumable/blackpepper = 1,
 		/obj/item/food/boiledegg = 1,
-		/obj/item/reagent_containers/food/snacks/meatball = 1
+		/obj/item/food/meatball = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/scotchegg
 	subcategory = CAT_MISCFOOD
@@ -192,7 +192,7 @@
 	name = "Mammi"
 	reqs = list(
 		/obj/item/food/bread/plain = 1,
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 1,
+		/obj/item/food/chocolatebar = 1,
 		/datum/reagent/consumable/milk = 5
 	)
 	result = /obj/item/food/soup/mammi
@@ -210,7 +210,7 @@
 	name = "Chocolate bunny"
 	reqs = list(
 		/datum/reagent/consumable/sugar = 2,
-		/obj/item/reagent_containers/food/snacks/chocolatebar = 1
+		/obj/item/food/chocolatebar = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/chocolatebunny
 	subcategory = CAT_MISCFOOD

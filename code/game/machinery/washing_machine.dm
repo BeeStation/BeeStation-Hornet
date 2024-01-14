@@ -118,10 +118,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	var/obj/item/color_source
 	var/max_wash_capacity = 5
 
-/obj/machinery/washing_machine/ComponentInitialize()
-	. = ..()
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
-
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
 	if(!busy)
@@ -160,17 +156,17 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		M.Translate(rand(-3, 3), rand(-1, 3))
 		animate(src, transform=M, time=2)
 
-/obj/machinery/washing_machine/proc/clean_blood()
-	SIGNAL_HANDLER
-
-	if(!busy)
+/obj/machinery/washing_machine/wash(clean_types)
+	. = ..()
+	if(!busy && bloody_mess && (clean_types & CLEAN_TYPE_BLOOD))
 		bloody_mess = FALSE
 		update_icon()
+		. = TRUE
 
 /obj/machinery/washing_machine/proc/wash_cycle()
 	for(var/X in contents)
 		var/atom/movable/AM = X
-		SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
+		AM.wash(CLEAN_WASH)
 		AM.machine_wash(src)
 
 	busy = FALSE
@@ -219,7 +215,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	return
 
 /obj/item/clothing/suit/hooded/ian_costume/machine_wash(obj/machinery/washing_machine/WM)
-	new /obj/item/reagent_containers/food/snacks/meat/slab/corgi(loc)
+	new /obj/item/food/meat/slab/corgi(loc)
 	qdel(src)
 
 /obj/item/clothing/head/mob_holder/machine_wash(obj/machinery/washing_machine/WM)

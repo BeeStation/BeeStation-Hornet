@@ -6,7 +6,7 @@
 	maximum = 100
 
 /datum/preference/numeric/bloom/create_default_value()
-	return round((ADDITIVE_LIGHTING_PLANE_ALPHA_NORMAL / 255) * 100)
+	return 30
 
 /datum/preference/numeric/bloom/apply_to_client(client/client, value)
 	client.mob?.update_sight()
