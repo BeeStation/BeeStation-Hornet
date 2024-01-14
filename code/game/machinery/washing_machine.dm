@@ -245,6 +245,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		if(!color_source && isitem(X))
 			var/obj/item/I = X
 			I.appearance_change(I)
+			I.desc = initial(I.desc)
 	if(color_source)
 		color_source = null
 		for(var/obj/item/book/manual/book in contents)
