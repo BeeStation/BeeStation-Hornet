@@ -1,0 +1,4 @@
+author: ToasterBan
+delete-after: true
+changes:
+  - bugfix: Chicken Nugget boxes now properly function
