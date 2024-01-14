@@ -62,6 +62,8 @@
 	item_state = "black_suit_fem"
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = FEMALE_UNIFORM_TOP
+	//There is no alt sprite
+	can_adjust = FALSE
 
 /obj/item/clothing/under/suit/green
 	name = "green suit"
