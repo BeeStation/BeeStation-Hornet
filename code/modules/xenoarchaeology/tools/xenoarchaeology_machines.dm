@@ -143,8 +143,8 @@
 			empty_contents()
 			return
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 60)
-		//Disable malfunctions
-		X.artifact_type.instability_step = 0
+		//Calibrate the artifact
+		X.calibrate()
 		//Prompt user to delete or keep malfunctions
 		var/decision = tgui_alert(user, "Do you want to calcify [A]'s malfunctions?", "Remove Malfunctions", list("Yes", "No"))
 		if(decision == "Yes")

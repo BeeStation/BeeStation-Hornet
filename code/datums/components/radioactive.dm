@@ -46,8 +46,8 @@
 		radiation_pulse(parent, strength, RAD_DISTANCE_COEFFICIENT*RAD_DISTANCE_COEFFICIENT_COMPONENT_MULTIPLIER, FALSE, can_contaminate)
 		//Handle artifact transformation
 		var/obj/item/I = parent
-		//TODO: Review this - Racc
-		if(isitem(I) && prob(0.1)) //if you ever make non-items artifacts, change this check
+		//TODO: Review this logic, maybe make it easier - Racc
+		if(isitem(I) && prob(1)) //if you ever make non-items artifacts, change this check
 			var/datum/component/xenoartifact/X = I.GetComponent(/datum/component/xenoartifact)
 			if(!X)
 				AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, null, TRUE, FALSE)

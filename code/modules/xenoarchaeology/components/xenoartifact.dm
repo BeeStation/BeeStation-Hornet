@@ -139,7 +139,7 @@
 		A.remove_filter("texture_overlay")
 		A.remove_filter("outline_1")
 		A.remove_filter("outline_2")
-		//TOODO: make sure this doesn't cause issues - Racc
+		//TODO: make sure this doesn't cause issues - Racc
 		A.appearance = old_appearance
 		old_appearance = null
 	//Delete and/or 'pearl' our traits
@@ -291,7 +291,7 @@
 
 	return TRUE
 
-//Calcifies - breaks - the artifact
+//Calcifies, aka breaks, the artifact
 /datum/component/xenoartifact/proc/calcify(override_cooldown = TRUE)
 	//Appearnce
 	artifact_type = new /datum/xenoartifact_material/calcified()
@@ -301,6 +301,18 @@
 	do_mask = old_mask
 	//Disable artifact
 	cooldown_override = TRUE
+
+
+//Calibrates. Does the opposite of calcify
+/datum/component/xenoartifact/proc/calibrate()
+	var/atom/A = parent
+	//Stats
+	artifact_type.instability_step = 0
+	//Effect
+	var/mutable_appearance/MA = mutable_appearance('icons/obj/xenoarchaeology/xenoartifact.dmi', "calibrated")
+	MA.blend_mode = BLEND_ADD
+	MA.color = artifact_type.material_color
+	A.add_overlay(MA)
 
 //Build the artifact's appearance
 /datum/component/xenoartifact/proc/build_material_appearance()
