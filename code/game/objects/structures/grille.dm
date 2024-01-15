@@ -302,3 +302,43 @@
 	rods_broken = FALSE
 	grille_type = /obj/structure/grille
 	broken_type = null
+
+/obj/structure/grille/prison //grilles that trigger prison lockdown under some circumstances
+	name = "prison grille"
+	desc = "a set of rods under current used to protect the prison wing. An alarm will go off if they are breached."
+	var/obj/item/assembly/control/device
+	var/id = "Prisongate"
+	var/initialized_device = FALSE
+
+/obj/structure/grille/prison/proc/setup_device()
+	device = new /obj/item/assembly/control
+	device.id = id
+	initialized_device = 1
+
+/obj/structure/grille/prison/Initialize()
+	..()
+	if(!initialized_device)
+		setup_device()
+
+/obj/structure/grille/prison/deconstruct()
+	var/turf/T = get_turf(src)
+	var/obj/structure/cable/C = T.get_cable_node()
+	if(C?.powernet)
+		var/datum/powernet/P = C.powernet
+		if(initialized_device && P.avail != 0)
+			src.device.activate()
+		..()
+
+/obj/structure/grille/prison/obj_break()
+	var/turf/T = get_turf(src)
+	var/obj/structure/cable/C = T.get_cable_node()
+	if(C?.powernet)
+		var/datum/powernet/P = C.powernet
+		if(P)
+			if(initialized_device && P.avail != 0)
+				src.device.activate()
+	..()
+
+/obj/structure/grille/prison/Destroy()
+	QDEL_NULL(device)
+	return ..()
