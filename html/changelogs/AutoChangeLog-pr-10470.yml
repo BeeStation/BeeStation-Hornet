@@ -1,0 +1,11 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed Dynamic spawning Wizard at literally any population.
+  - bugfix: Fixed the roundend display not showing when something was executed as
+      a 'lategame' round-ender.
+  - tweak: Dynamic will now no longer trigger 'lategame' round-enders below 22 population,
+      to allow rounds to come to their natural end via the shuttle vote.
+  - balance: Tweaked the minimum population for some antagonists, moving most antags
+      that start at 25-pop to 22-pop. This is to improve the overlap between the lategame
+      injector and antagonist variety.
