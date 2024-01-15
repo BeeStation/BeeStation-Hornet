@@ -1,0 +1,12 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - tweak: Resprites the majority of ``floors.dmi``
+  - rscadd: Add overlays and variables for non-slip floors
+  - rscadd: Adds procedural visual damage to floors
+  - rscadd: Add area & turf dependant 'grime'
+  - tweak: Improve open turf variant system
+  - tweak: Changes all mapping occurrences of old broken tiles
+  - tweak: Change all occurrences of non-slip floor tiles to new system
+  - tweak: Re-maps some areas to better match the new tile appearances
+  - tweak: Resprites decals to match new flooring
