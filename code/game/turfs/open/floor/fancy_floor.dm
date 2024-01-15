@@ -31,6 +31,7 @@
 /turf/open/floor/wood
 	desc = "Stylish dark wood."
 	icon_state = "wood"
+	variants = list("wood", "wood1", "wood2", "wood3", "wood4", "wood5", "wood6")
 	floor_tile = /obj/item/stack/tile/wood
 	footstep = FOOTSTEP_WOOD
 	barefootstep = FOOTSTEP_WOOD_BAREFOOT
@@ -38,6 +39,19 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 	max_integrity = 100
+
+/turf/open/floor/wood/broken_states()
+	return GLOB.wood_turf_damage
+
+/turf/open/floor/wood/broken
+	broken = TRUE
+
+/turf/open/floor/wood/big
+	icon_state = "wood_big"
+	variants = list("wood_big", "wood_big1", "wood_big2", "wood_big3", "wood_big4")
+
+/turf/open/floor/wood/big/broken_states()
+	return GLOB.wood_big_turf_damage
 
 /turf/open/floor/wood/examine(mob/user)
 	. = ..()
@@ -91,19 +105,30 @@
 /turf/open/floor/grass
 	name = "grass patch"
 	desc = "You can't tell if this is real grass or just cheap plastic imitation."
+	icon = 'icons/turf/floors/grass.dmi'
 	icon_state = "grass"
+	base_icon_state = "grass"
 	floor_tile = /obj/item/stack/tile/grass
-	broken_states = list("sand")
 	flags_1 = NONE
 	bullet_bounce_sound = null
+	layer = EDGED_TURF_LAYER
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_GRASS)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_GRASS)
 	var/ore_type = /obj/item/stack/ore/glass
 	var/turfverb = "uproot"
 	tiled_dirt = FALSE
 	max_integrity = 80
+	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
+
+/turf/open/floor/grass/no_border
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN)
+	canSmoothWith = list()
+	transform = null
 
 /turf/open/floor/grass/Initialize(mapload)
 	. = ..()
@@ -115,12 +140,21 @@
 		user.visible_message("[user] digs up [src].", "<span class='notice'>You [turfverb] [src].</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
+	else if(C.sharpness != IS_BLUNT)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
+		icon_state = "grass"
+		smoothing_groups = list()
+		canSmoothWith = list()
+		transform = null
+		playsound(src, 'sound/items/wirecutter.ogg')
 	if(..())
 		return
 
 /turf/open/floor/grass/fairy //like grass but fae-er
 	name = "fairygrass patch"
 	desc = "Something about this grass makes you want to frolic. Or get high."
+	icon = 'icons/turf/floors/grass_fairy.dmi'
 	icon_state = "fairygrass"
 	floor_tile = /obj/item/stack/tile/fairygrass
 	light_range = 2
@@ -200,6 +234,12 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
+	smoothing_flags = NONE
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+
+	transform = null
+
 /turf/open/floor/grass/snow/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return
 
@@ -239,6 +279,10 @@
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	smoothing_flags = NONE
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	transform = null
 
 /turf/open/floor/grass/fakebasalt/Initialize(mapload)
 	. = ..()
@@ -368,8 +412,6 @@
 	desc = "This one takes you back."
 	icon_state = "eighties"
 	floor_tile = /obj/item/stack/tile/eighties
-	broken_states = list("damaged")
-	max_integrity = 150
 
 /turf/open/floor/carpet/narsie_act(force, ignore_mobs, probability = 20)
 	. = (prob(probability) || force)
@@ -416,7 +458,6 @@
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
 	floor_tile = /obj/item/stack/tile/fakespace
-	broken_states = list("damaged")
 	plane = PLANE_SPACE
 	tiled_dirt = FALSE
 	max_integrity = 100
@@ -447,3 +488,20 @@
 
 /turf/open/floor/wax/airless
 	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/concrete
+	name = "concrete"
+	icon_state = "conc_smooth"
+	desc = "Cement Das Conk Creet Baybee."
+	footstep = FOOTSTEP_GENERIC_HEAVY
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	tiled_dirt = FALSE
+	max_integrity = 120
+
+/turf/open/floor/concrete/slab
+	icon_state = "conc_slab"
+
+/turf/open/floor/concrete/tile
+	icon_state = "conc_tiles"
