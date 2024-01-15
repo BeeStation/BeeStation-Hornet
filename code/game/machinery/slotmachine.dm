@@ -19,10 +19,18 @@
 	desc = "Gambling for the antisocial."
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots1"
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/computer/slot_machine
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	var/money = 3000 //How much money it has CONSUMED
 	var/plays = 0
 	var/working = 0
@@ -30,7 +38,7 @@
 	var/jackpots = 0
 	var/paymode = HOLOCHIP //toggles between HOLOCHIP/COIN, defined above
 	var/cointype = /obj/item/coin/iron //default cointype
-	var/list/coinvalues = list()
+	var/static/list/coinvalues
 	var/list/reels = list(list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0, list("", "", "") = 0)
 	var/list/symbols = list(SEVEN = 1, "<font color='orange'>&</font>" = 2, "<font color='yellow'>@</font>" = 2, "<font color='green'>$</font>" = 2, "<font color='blue'>?</font>" = 2, "<font color='grey'>#</font>" = 2, "<font color='white'>!</font>" = 2, "<font color='fuchsia'>%</font>" = 2) //if people are winning too much, multiply every number in this list by 2 and see if they are still winning too much.
 
@@ -41,17 +49,20 @@
 	jackpots = rand(1, 4) //false hope
 	plays = rand(75, 200)
 
-	toggle_reel_spin(1) //The reels won't spin unless we activate them
+	INVOKE_ASYNC(src, PROC_REF(toggle_reel_spin), TRUE) //The reels won't spin unless we activate them
 
 	var/list/reel = reels[1]
 	for(var/i in 1 to reel.len) //Populate the reels.
 		randomize_reels()
 
-	toggle_reel_spin(0)
+	INVOKE_ASYNC(src, PROC_REF(toggle_reel_spin), FALSE)
+	if (isnull(coinvalues))
+		coinvalues = list()
 
-	for(cointype in typesof(/obj/item/coin))
-		var/obj/item/coin/C = new cointype
-		coinvalues["[cointype]"] = C.get_item_credit_value()
+		for(cointype in typesof(/obj/item/coin))
+			var/obj/item/coin/C = new cointype
+			coinvalues["[cointype]"] = C.get_item_credit_value()
+			qdel(C) //Sigh
 
 /obj/machinery/computer/slot_machine/Destroy()
 	if(balance)

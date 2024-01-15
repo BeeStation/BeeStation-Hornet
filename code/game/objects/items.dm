@@ -1446,3 +1446,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			return FALSE
 	return TRUE
+
+// Update icons if this is being carried by a mob
+/obj/item/wash(clean_types)
+	. = ..()
+
+	if(ismob(loc))
+		var/mob/mob_loc = loc
+		mob_loc.regenerate_icons()
