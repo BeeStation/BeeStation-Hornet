@@ -59,6 +59,9 @@
 	update_wiz_icons_added(owner.current)
 
 /datum/antagonist/wizard/proc/send_to_lair()
+	// And now we ensure that its loaded
+	SSmapping.lazy_load_template(LAZY_TEMPLATE_KEY_WIZARDDEN)
+
 	if(!owner || !owner.current)
 		return
 	if(!GLOB.wizardstart.len)

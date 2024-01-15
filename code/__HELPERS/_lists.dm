@@ -770,6 +770,14 @@
 		last_value = value
 
 /**
+ * Converts a list of coordinates, or an assosciative list if passed, into a turf by calling locate(x, y, z) based on the values in the list
+ */
+/proc/coords2turf(list/coords)
+	if("x" in coords)
+		return locate(coords["x"], coords["y"], coords["z"])
+	return locate(coords[1], coords[2], coords[3])
+
+/**
  * Converts a normal array list to an associated list, with the keys being the original values, and the value being the index of the value in the original list.
  * All keys are converted to strings.
  * Example: list("a", "b", 1, 2, 3) -> list("a" = 1, "b" = 2, "1" = 3, "2" = 4, "3" = 5)
