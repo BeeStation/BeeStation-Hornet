@@ -15,7 +15,7 @@
 
 /// Adds the GPS component to this item.
 /obj/item/gps/proc/add_gps_component()
-	AddComponent(/datum/component/gps/item, gpstag)
+	AddComponent(/datum/component/gps/item, gpstag, FALSE)
 
 /obj/item/gps/science
 	icon_state = "gps-s"

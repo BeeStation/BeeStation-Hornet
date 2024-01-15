@@ -29,6 +29,7 @@
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
+/obj/item/gps,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "i" = (
@@ -158,6 +159,12 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
