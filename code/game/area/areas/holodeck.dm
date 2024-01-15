@@ -54,6 +54,10 @@
 
 /area/holodeck/rec_center/offstation_one
 	name = "\improper Recreational Holodeck"
+//Prison holodeck will be 4x7
+/area/holodeck/prison
+	name = "\improper Workshop"
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
-/area/holodeck/small //7x7 internal
+/area/holodeck/small //7x7
 	name = "\improper Small Recreational Holodeck"
