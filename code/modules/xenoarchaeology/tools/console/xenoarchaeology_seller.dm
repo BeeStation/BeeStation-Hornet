@@ -19,7 +19,7 @@
 	var/restock_time = 1 MINUTES
 	///What science thingy are they selling
 	var/atom/stock_type
-	var/list/current_stock
+	var/list/current_stock = list()
 	var/max_stock = 1
 
 /datum/rnd_lister/New()

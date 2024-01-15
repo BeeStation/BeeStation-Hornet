@@ -57,7 +57,7 @@
 
 	data["sellers"] = list()
 	for(var/datum/rnd_lister/seller as() in sellers)
-		var/list/stock = list(list("name" = "test", "description" = "test_desc"))
+		var/list/stock = list(list("name" = "test", "description" = "test_desc"), list("name" = "test", "description" = "test_desc"))
 		for(var/atom/A as() in seller.current_stock)
 			stock += list(list("name" = "pepper", "description" = "spicy"))
 		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = stock))
