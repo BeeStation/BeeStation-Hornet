@@ -88,7 +88,12 @@
 /// Mainly here to facilitate delayed rulesets. All midround/latejoin rulesets are executed with a timered callback to this proc.
 /datum/game_mode/dynamic/proc/execute_midround_latejoin_rule(sent_rule)
 	var/datum/dynamic_ruleset/rule = sent_rule
-	spend_midround_budget(rule.cost, threat_log, "[worldtime2text()]: [rule.ruletype] [rule.name]")
+	if(mid_round_budget >= rule.cost)
+		spend_midround_budget(rule.cost, threat_log, "[worldtime2text()]: [rule.ruletype] [rule.name]")
+	else if((rule.flags & LATEGAME_RULESET) && is_lategame())
+		rule.lategame_spawned = TRUE
+	else
+		CRASH("execute_midround_latejoin_rule was somehow called with an invalid state - cost is too high, but it's also not a lategame execution?")
 	if (simulated)
 		if(rule.flags & ONLY_RULESET)
 			only_ruleset_executed = TRUE

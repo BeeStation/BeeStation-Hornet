@@ -1,4 +1,0 @@
-author: Tsar-Salat
-delete-after: true
-changes:
-  - bugfix: Cable color no longer overrides cable stackcrafting
