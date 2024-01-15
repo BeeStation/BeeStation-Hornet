@@ -5,17 +5,25 @@
  */
 
 import { canRender, classes } from 'common/react';
-import { forwardRef, ReactNode, RefObject, UIEventHandler, useRef } from 'react';
+import { forwardRef, ReactNode, RefObject, UIEventHandler, useEffect, useRef } from 'react';
 
+import { addScrollableNode, removeScrollableNode } from '../events';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = Partial<{
+  /** Buttons to render aside the section title. */
   buttons: ReactNode;
+  /** If true, fills all available vertical space. */
   fill: boolean;
+  /** If true, removes all section padding. */
   fitted: boolean;
+  /** Removes darkening effect */
   independent: boolean;
+  /** Shows or hides the scrollbar. */
   scrollable: boolean;
+  /** Shows or hides the horizontal scrollbar. */
   scrollableHorizontal: boolean;
+  /** Title of the section. */
   title: ReactNode;
   /** @member Allows external control of scrolling. */
   scrollableRef: RefObject<HTMLDivElement>;
@@ -24,18 +32,45 @@ type Props = Partial<{
 }> &
   BoxProps;
 
+/**
+ * ## Section
+ * Section is a surface that displays content and actions on a single topic.
+ *
+ * They should be easy to scan for relevant and actionable information.
+ * Elements, like text and images, should be placed in them in a way that
+ * clearly indicates hierarchy.
+ *
+ * Sections can now be nested, and will automatically font size of the
+ * header according to their nesting level. Previously this was done via `level`
+ * prop, but now it is automatically calculated.
+ *
+ * Section can also be titled to clearly define its purpose.
+ *
+ * ```tsx
+ * <Section title="Cargo">Here you can order supply crates.</Section>
+ * ```
+ *
+ * If you want to have a button on the right side of an section title
+ * (for example, to perform some sort of action), there is a way to do that:
+ *
+ * ```tsx
+ * <Section title="Cargo" buttons={<Button>Send shuttle</Button>}>
+ *   Here you can order supply crates.
+ * </Section>
+ * ```
+ */
 export const Section = forwardRef((props: Props, forwardedRef: RefObject<HTMLDivElement>) => {
   const {
-    className,
-    title,
     buttons,
+    children,
+    className,
     fill,
     fitted,
     independent,
+    onScroll,
     scrollable,
     scrollableHorizontal,
-    children,
-    onScroll,
+    title,
     ...rest
   } = props;
 
@@ -43,11 +78,17 @@ export const Section = forwardRef((props: Props, forwardedRef: RefObject<HTMLDiv
 
   const hasTitle = canRender(title) || canRender(buttons);
 
-  const handleMouseEnter = () => {
-    if (!scrollable || !contentRef.current) return;
+  /** We want to be able to scroll on hover, but using focus will steal it from inputs */
+  useEffect(() => {
+    if (!contentRef.current) return;
+    if (!scrollable && !scrollableHorizontal) return;
 
-    contentRef.current.focus();
-  };
+    addScrollableNode(contentRef.current);
+
+    return () => {
+      removeScrollableNode(contentRef.current!);
+    };
+  }, []);
 
   return (
     <div
@@ -70,7 +111,7 @@ export const Section = forwardRef((props: Props, forwardedRef: RefObject<HTMLDiv
         </div>
       )}
       <div className="Section__rest">
-        <div className="Section__content" onMouseEnter={handleMouseEnter} onScroll={onScroll} ref={contentRef}>
+        <div className="Section__content" onScroll={onScroll} ref={contentRef}>
           {children}
         </div>
       </div>
