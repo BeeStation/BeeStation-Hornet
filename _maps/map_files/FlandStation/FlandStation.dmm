@@ -41095,7 +41095,6 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/book/manual/wiki/experimentor,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
 "kPc" = (
@@ -91670,9 +91669,6 @@
 	},
 /obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_y = 6
-	},
-/obj/item/circuitboard/machine/experimentor{
-	desc = "You have a vague memory of what this machine used to do, but whatever it was, it's nowadays useless."
 	},
 /turf/open/floor/plasteel/vaporwave,
 /area/crew_quarters/heads/hor)

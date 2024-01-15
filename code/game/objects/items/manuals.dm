@@ -345,13 +345,6 @@
 	title = "Research and Development 101"
 	page_link = "Guide_to_Research_and_Development"
 
-/obj/item/book/manual/wiki/experimentor
-	name = "Mentoring your Experiments"
-	icon_state = "rdbook"
-	author = "Dr. H.P. Kritz"
-	title = "Mentoring your Experiments"
-	page_link = "Experimentor"
-
 /obj/item/book/manual/wiki/medical_cloning
 	name = "Cloning techniques of the 26th century"
 	icon_state ="bookCloning"
