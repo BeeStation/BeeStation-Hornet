@@ -74,6 +74,7 @@
 
 	///What the old appearance of the parent was, for resetting their appearance
 	var/mutable_appearance/old_appearance
+	var/old_name
 	///Do we edit the parent's texture?
 	var/do_texture = TRUE
 	///Do we edit the parent's silhouette?
@@ -94,6 +95,7 @@
 
 	//Build appearance from material
 	old_appearance = A.appearance
+	old_name = A.name
 	do_texture = _do_appearance
 	do_mask = _do_mask
 	build_material_appearance()
@@ -141,6 +143,7 @@
 		A.remove_filter("outline_2")
 		//TODO: make sure this doesn't cause issues - Racc
 		A.appearance = old_appearance
+		A.name = old_name
 		old_appearance = null
 	//Delete and/or 'pearl' our traits
 	for(var/i in artifact_traits)
@@ -323,13 +326,12 @@
 	A.remove_filter("outline_2")
 	//Apply new stuff
 	if(do_mask)
-		var/old_name = A.name //Appearance stuff tends to fuck with names
 		//Build the silhouette of the artifact
 		var/mutable_appearance/MA = artifact_type.get_mask()
 		MA.plane = A.plane //This is important lol
 		A.appearance = MA
 		//Reset name
-		A.name = old_name
+		A.name = "[artifact_type.name] [old_name]"
 	if(do_texture)
 		//Overlay the material texture
 		var/icon/I = artifact_type.get_texture()
