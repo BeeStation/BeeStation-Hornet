@@ -50,6 +50,15 @@
 		ui = new(user, src, "XenoartifactConsole")
 		ui.open()
 
+/obj/machinery/computer/xenoarchaeology_console/ui_data(mob/user)
+	var/list/data = list()
+
+	data["sellers"] = list()
+	for(var/datum/rnd_lister/seller as() in sellers)
+		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = list("test")))
+
+	return data
+
 //Circuitboard for this console
 /obj/item/circuitboard/computer/xenoarchaeology_console
 	name = "research and development listing console (Computer Board)"

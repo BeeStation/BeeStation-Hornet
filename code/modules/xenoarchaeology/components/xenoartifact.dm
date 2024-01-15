@@ -180,9 +180,9 @@
 	for(var/i in 1 to amount)
 		//Pick a random trait
 		var/datum/xenoartifact_trait/T = pick_weight(options)
-		options -= T
 		add_individual_trait(T)
-	
+		options -= blacklisted_traits
+
 //Cooldown finish logic goes here
 /datum/component/xenoartifact/proc/reset_timer()
 	if(use_cooldown_timer)
