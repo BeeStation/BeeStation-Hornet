@@ -172,7 +172,7 @@
 
 /turf/open/floor/plating/beach/water/Entered(atom/movable/AM)
 	. = ..()
-	SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
+	SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT)
 	if(isliving(AM))
 		var/datum/component/swimming/S = AM.GetComponent(/datum/component/swimming) //You can't get in the pool unless you're swimming.
 		if(!S)
