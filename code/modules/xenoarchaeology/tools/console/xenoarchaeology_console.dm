@@ -21,6 +21,8 @@
 	///List of current listing sellers
 	var/list/sellers = list(/datum/rnd_lister/artifact_seller/bastard)
 
+	var/list/test = list()
+
 /obj/machinery/computer/xenoarchaeology_console/Initialize()
 	. = ..()
 	//Link relevant stuff
@@ -55,8 +57,11 @@
 
 	data["sellers"] = list()
 	for(var/datum/rnd_lister/seller as() in sellers)
-		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = list("test")))
-
+		var/list/stock = list(list("name" = "test", "description" = "test_desc"))
+		for(var/atom/A as() in seller.current_stock)
+			stock += list(list("name" = "pepper", "description" = "spicy"))
+		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = stock))
+	test = data
 	return data
 
 //Circuitboard for this console
