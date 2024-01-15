@@ -109,11 +109,13 @@
 
 	switch(holder.gender)
 		if(MALE)
-			L[DNA_GENDER_BLOCK] = construct_block(G_MALE, 3)
+			L[DNA_GENDER_BLOCK] = construct_block(G_MALE, GENDERS)
 		if(FEMALE)
-			L[DNA_GENDER_BLOCK] = construct_block(G_FEMALE, 3)
+			L[DNA_GENDER_BLOCK] = construct_block(G_FEMALE, GENDERS)
+		if(NEUTER)
+			L[DNA_GENDER_BLOCK] = construct_block(G_NEUTER, GENDERS)
 		else
-			L[DNA_GENDER_BLOCK] = construct_block(G_PLURAL, 3)
+			L[DNA_GENDER_BLOCK] = construct_block(G_PLURAL, GENDERS)
 	if(ishuman(holder))
 		var/mob/living/carbon/human/H = holder
 		if(!GLOB.hair_styles_list.len)
@@ -207,11 +209,13 @@
 		if(DNA_GENDER_BLOCK)
 			switch(H.gender)
 				if(MALE)
-					setblock(uni_identity, blocknumber, construct_block(G_MALE, 3))
+					setblock(uni_identity, blocknumber, construct_block(G_MALE, GENDERS))
 				if(FEMALE)
-					setblock(uni_identity, blocknumber, construct_block(G_FEMALE, 3))
+					setblock(uni_identity, blocknumber, construct_block(G_FEMALE, GENDERS))
+				if(NEUTER)
+					setblock(uni_identity, blocknumber, construct_block(G_NEUTER, GENDERS))
 				else
-					setblock(uni_identity, blocknumber, construct_block(G_PLURAL, 3))
+					setblock(uni_identity, blocknumber, construct_block(G_PLURAL, GENDERS))
 		if(DNA_FACIAL_HAIR_STYLE_BLOCK)
 			setblock(uni_identity, blocknumber, construct_block(GLOB.facial_hair_styles_list.Find(H.facial_hair_style), GLOB.facial_hair_styles_list.len))
 		if(DNA_HAIR_STYLE_BLOCK)
@@ -408,11 +412,13 @@
 /mob/living/carbon/proc/updateappearance(icon_update=1, mutcolor_update=0, mutations_overlay_update=0)
 	if(!has_dna())
 		return
-	switch(deconstruct_block(getblock(dna.uni_identity, DNA_GENDER_BLOCK), 3))
+	switch(deconstruct_block(getblock(dna.uni_identity, DNA_GENDER_BLOCK), GENDERS))
 		if(G_MALE)
 			set_gender(MALE, TRUE, forced = TRUE)
 		if(G_FEMALE)
 			set_gender(FEMALE, TRUE, forced = TRUE)
+		if(G_NEUTER)
+			set_gender(NEUTER, TRUE, forced = TRUE)
 		else
 			set_gender(PLURAL, TRUE, forced = TRUE)
 

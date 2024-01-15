@@ -248,7 +248,7 @@ const GenderButton = (
           <TrackOutsideClicks onOutsideClick={() => setGenderMenuOpen(false)} removeOnOutsideClick>
             <Box className="theme-generic-yellow">
               <Stack className="PopupWindow" ml={0.5} p={0.5}>
-                {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
+                {[Gender.Male, Gender.Female, Gender.Other, Gender.Neutral].map((gender) => {
                   return (
                     <Stack.Item key={gender}>
                       <Button
