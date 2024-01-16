@@ -119,7 +119,7 @@ def update_path(dmm_data, replacement_string, verbose=False):
                 if prop_name == "@OLD":
                     out_props = dict(old_props)
                     continue
-                if prop_value == "@SKIP":
+                if prop_value == "@SKIP" and prop_name in out_props:
                     out_props.pop(prop_name)
                     continue
                 if prop_value.startswith("@OLD"):
