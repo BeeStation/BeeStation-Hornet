@@ -60692,24 +60692,10 @@
 /turf/open/floor/plasteel/dark,
 /area/lawoffice)
 "nHW" = (
-/obj/item/storage/box/sec_barricades,
-/obj/structure/table,
 /obj/item/key/security,
 /obj/item/key/security,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
-	},
-/obj/item/survivalcapsule/capsule_checkpoint{
-	pixel_y = -4
-	},
-/obj/item/survivalcapsule/capsule_checkpoint,
-/obj/item/survivalcapsule/capsule_checkpoint{
-	pixel_y = 4
-	},
-/obj/item/survivalcapsule/barricade,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
