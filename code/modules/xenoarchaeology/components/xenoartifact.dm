@@ -329,9 +329,12 @@
 		//Build the silhouette of the artifact
 		var/mutable_appearance/MA = artifact_type.get_mask()
 		MA.plane = A.plane //This is important lol
+		MA.layer = A.layer
 		A.appearance = MA
 		//Reset name
+		var/old_desc = A.desc
 		A.name = "[artifact_type.name] [old_name]"
+		A.desc = old_desc //Appearance resets this shit
 	if(do_texture)
 		//Overlay the material texture
 		var/icon/I = artifact_type.get_texture()

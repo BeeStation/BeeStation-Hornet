@@ -112,7 +112,18 @@
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()
-	. += "<span>Alt-Click to calibrate inserted artifacts.</span>"
+	. += "<span class='notice'>Alt-Click to calibrate inserted artifacts.</span>"
+
+/obj/machinery/xenoarchaeology_machine/calibrator/attack_hand(mob/living/user)
+	if(length(contents))
+		return ..()
+	else
+		var/turf/T = get_turf(src)
+		for(var/obj/item/I in T.contents)
+			if(move_inside && length(held_contents) >= max_contents)
+				return
+			I.forceMove(src)
+			register_contents(I)
 
 /obj/machinery/xenoarchaeology_machine/calibrator/AltClick(mob/user)
 	. = ..()
@@ -127,6 +138,8 @@
 		var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in A.contents
 		//Then we'll check the label traits against the artifact's
 		if(!X || !L)
+			if(!L)
+				say("No label detected!")
 			playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
 			empty_contents()
 			continue

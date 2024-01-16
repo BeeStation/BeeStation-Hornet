@@ -318,21 +318,22 @@
 	. = ..()
 	if(!.)
 		return
+	var/time = wall_time*(parent.trait_strength/100)
 	//Don't use a switch case, we just pass through the ifs and add walls as we go
 	if(wall_size >= 1)
-		new /obj/effect/forcefield/xenoartifact_type(get_turf(parent.parent), (parent.trait_strength*wall_time))
+		new /obj/effect/forcefield/xenoartifact_type(get_turf(parent.parent), time)
 	if(wall_size >= 2)
 		//If we're not making a symetrical design, pick a random orientation
 		var/outcome = pick(0, 1)
 		if(outcome || wall_size >= 3)
-			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, NORTH), (parent.trait_strength*wall_time))
-			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, SOUTH), (parent.trait_strength*wall_time))
+			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, NORTH), time)
+			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, SOUTH), time)
 		else
-			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, EAST), (parent.trait_strength*wall_time))
-			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, WEST), (parent.trait_strength*wall_time))
+			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, EAST), time)
+			new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, WEST), time)
 	if(wall_size >= 3)
-		new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, WEST), (parent.trait_strength*wall_time))
-		new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, EAST), (parent.trait_strength*wall_time))
+		new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, WEST), time)
+		new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, EAST), time)
 
 //Special wall type for artifact. Throw any extra code or special logic in here
 /obj/effect/forcefield/xenoartifact_type

@@ -21855,11 +21855,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -21868,9 +21863,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
@@ -36580,24 +36572,11 @@
 /area/crew_quarters/bar)
 "iaH" = (
 /obj/structure/table,
-/obj/item/xenoarchaeology_labeler,
-/obj/item/xenoarchaeology_labeler{
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /obj/item/clothing/neck/stethoscope,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "iaK" = (
@@ -43154,6 +43133,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/xenoarchaeology_labeler{
+	pixel_y = 6
+	},
+/obj/item/xenoarchaeology_labeler,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "kFB" = (
@@ -55513,15 +55496,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"pyq" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/dark,
-/area/science/explab)
 "pyU" = (
 /obj/effect/spawner/randomvend/cola,
 /turf/open/floor/carpet,
@@ -56088,9 +56062,6 @@
 /obj/effect/turf_decal/trimline/purple/filled/end{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/airalarm{
 	dir = 8;
 	pixel_x = 24
@@ -56098,16 +56069,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 6
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
@@ -113719,7 +113682,7 @@ cgq
 iZs
 iZs
 iZs
-pyq
+iZs
 ity
 jET
 hju

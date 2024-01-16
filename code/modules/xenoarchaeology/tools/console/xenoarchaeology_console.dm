@@ -64,6 +64,9 @@
 		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = stock, "id" = REF(seller)))
 	//Stability
 	data["stability"] = stability
+	///Cash available
+	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+	data["money"] = D.account_balance
 	
 	return data
 
@@ -74,29 +77,26 @@
 	switch(action)
 		//Purchase items
 		if("stock_purchase")
+			//If we got no instability
+			if(!stability)
+				say("Insufficient straythread stability!")
+				return
 			//Locate seller and purchase our item from them
 			var/datum/rnd_lister/seller = locate(params["seller_id"])
+			//If we got no cash
+			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+			if(seller.get_price(locate(params["item_id"])) > D.account_balance)
+				say("Insufficient funds!")
+				return
 			var/datum/supply_pack/SP = seller?.buy_stock(locate(params["item_id"]))
 			//Ship the pack
-			var/datum/supply_order/SO = new(SP, null, null, null, "Research Material Requisition")
+			var/datum/supply_order/SO = new(SP, null, null, null, "Research Material Requisition", D)
 			SO.generateRequisition(get_turf(src))
-			//Landing zone shit
-			var/LZ = get_turf(src)
-			var/area/landingzone = GLOB.areas_by_type[/area/quartermaster/storage]
-			var/list/empty_turfs
-			if(!landingzone)
-				WARNING("[src] couldnt find a Quartermaster/Storage (aka cargobay) area on the station, and as such it has set the supplypod landingzone to the area it resides in.")
-				landingzone = get_area(src)
-			for(var/turf/open/floor/T in landingzone.get_contained_turfs())
-				if(T.is_blocked_turf())
-					continue
-				LAZYADD(empty_turfs, T)
-				CHECK_TICK
-			if(empty_turfs?.len)
-				LZ = pick(empty_turfs)
-			//FIRE!
-			new /obj/effect/pod_landingzone(LZ, /obj/structure/closet/supplypod/bluespacepod, SO)
-			
+			//TODO: For whatever reason this doesn't auto approve - Racc
+			SSsupply.shoppinglist += SO
+			//Take our toll
+			stability = clamp(stability-STABILITY_COST, 0, 100)
+
 	ui_update()
 
 //Circuitboard for this console
