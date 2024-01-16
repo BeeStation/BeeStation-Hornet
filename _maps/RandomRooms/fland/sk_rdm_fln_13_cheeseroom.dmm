@@ -110,7 +110,7 @@
 /turf/open/floor/plasteel/vaporwave,
 /area/template_noop)
 "M" = (
-/obj/item/reagent_containers/food/snacks/butteredtoast,
+/obj/item/food/butteredtoast,
 /obj/effect/decal/cleanable/crayon,
 /obj/structure/table/wood/fancy/black,
 /turf/open/floor/plating{

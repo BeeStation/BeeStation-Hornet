@@ -50191,7 +50191,7 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "pJH" = (
-/obj/item/reagent_containers/food/snacks/butteredtoast,
+/obj/item/food/butteredtoast,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
