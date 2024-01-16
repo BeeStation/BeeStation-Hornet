@@ -35907,7 +35907,6 @@
 /turf/open/floor/plasteel,
 /area/hydroponics/garden)
 "loX" = (
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/table,
 /obj/item/folder/red,
