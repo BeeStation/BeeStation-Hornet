@@ -58,7 +58,7 @@
 			continue
 		to_chat(each_mob, "<span class='warning'>A wave of dread washes over you...</span>")
 		each_mob.adjust_blindness(1.5) // very mild blindness
-		each_mob.Knockdown(5)
+		each_mob.Knockdown(10)
 		each_mob.emote("scream")
 		each_mob.Jitter(50)
 		each_mob.hallucination = each_mob.hallucination + 20
