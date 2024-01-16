@@ -3232,16 +3232,15 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "aMe" = (
-/obj/machinery/door/airlock{
-	id_tag = "Cell";
-	name = "Bathroom"
-	},
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Cell Bathroom"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -8441,9 +8440,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "cxY" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /turf/open/floor/plasteel/freezer,
@@ -8505,6 +8501,9 @@
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
+	},
+/obj/machinery/light{
+	light_color = "#7AC3FF"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -11266,18 +11265,14 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/qm)
 "dwe" = (
-/obj/machinery/door/airlock{
-	id_tag = "Cell";
-	name = "Prison Showers"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Visitors Centre"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -13132,6 +13127,11 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/structure/bedsheetbin,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/table,
 /turf/open/floor/plasteel/freezer,
 /area/security/prison)
 "ecP" = (
@@ -13839,6 +13839,26 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
+"ept" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/mob/living/simple_animal/hostile/retaliate/frog{
+	attacked_sound = 'sound/effects/huuu.ogg';
+	density = 0;
+	desc = "How long has it been here? Who knows. What were her crimes? Who knows. But shes tougher than you.";
+	head_icon = 'icons/mob/pets_held.dmi';
+	held_state = "";
+	icon = 'icons/mob/animal.dmi';
+	icon_dead = "frog_dead";
+	icon_living = "frog";
+	icon_state = "frog";
+	name = "Prison Frog";
+	pixel_y = 12;
+	stepped_sound = null
+	},
+/turf/open/floor/plasteel/freezer,
+/area/security/prison)
 "epu" = (
 /obj/effect/landmark/blobstart,
 /obj/structure/cable/yellow{
@@ -14539,6 +14559,9 @@
 "eBw" = (
 /obj/structure/chair/fancy/bench/right{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -17274,6 +17297,9 @@
 	},
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/effect/turf_decal/tile/black/fourcorners,
+/obj/machinery/light{
+	light_color = "#7AC3FF"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "fyI" = (
@@ -29593,16 +29619,15 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "jEb" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/structure/window/reinforced/tinted,
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
+/obj/structure/table/reinforced,
+/obj/structure/desk_bell,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
 /turf/open/floor/wood,
 /area/security/prison)
 "jEd" = (
@@ -37892,6 +37917,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
+"mnx" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/security/prison)
 "mnA" = (
 /obj/machinery/air_sensor/atmos/oxygen_tank,
 /turf/open/floor/engine/o2,
@@ -42743,9 +42773,8 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/door/airlock{
-	id_tag = "Cell";
-	name = "Bathroom"
+/obj/machinery/door/airlock/public/glass{
+	name = "Cell Showers"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -45965,6 +45994,16 @@
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /turf/open/floor/plasteel,
 /area/science/lab)
+"oXc" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "oXf" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 8
@@ -53409,6 +53448,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"rws" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "rwG" = (
 /obj/machinery/light{
 	dir = 1
@@ -57731,7 +57777,6 @@
 /area/chapel/office)
 "sQR" = (
 /obj/item/toy/beach_ball/holoball,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/wood,
 /area/security/prison)
 "sQT" = (
@@ -60180,15 +60225,14 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "tJW" = (
-/obj/machinery/door/airlock{
-	id_tag = "Cell";
-	name = "Cell"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Visitors Centre"
 	},
 /turf/open/floor/plating,
 /area/security/prison)
@@ -66502,6 +66546,10 @@
 	dir = 8
 	},
 /obj/item/bedsheet/red,
+/obj/item/toy/plush/moth/monarch{
+	pixel_x = 7;
+	pixel_y = -5
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "vJJ" = (
@@ -69484,7 +69532,6 @@
 	dir = 8
 	},
 /obj/item/bedsheet/red,
-/obj/item/toy/plush/moth/monarch,
 /turf/open/floor/prison,
 /area/security/prison)
 "wLr" = (
@@ -69967,6 +70014,9 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -71054,9 +71104,12 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/structure/window/reinforced/tinted,
-/obj/structure/window/reinforced/tinted{
-	dir = 1
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	pixel_y = 1
 	},
 /turf/open/floor/wood,
 /area/security/prison)
@@ -73415,6 +73468,10 @@
 	},
 /obj/machinery/airalarm/directional/east,
 /obj/item/bedsheet/red,
+/obj/item/toy/plush/flushed{
+	pixel_x = 7;
+	pixel_y = -5
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "xXD" = (
@@ -73450,9 +73507,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/machinery/door/airlock{
-	id_tag = "Cell";
-	name = "Prison Showers"
+/obj/machinery/door/airlock/public/glass{
+	name = "Visitors Centre"
 	},
 /turf/open/floor/wood,
 /area/security/prison)
@@ -73709,12 +73765,15 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
-/obj/structure/window/reinforced/tinted,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	pixel_y = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -73858,16 +73917,15 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
-/obj/structure/window/reinforced/tinted,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/table/reinforced,
+/obj/structure/desk_bell,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
 /turf/open/floor/prison,
 /area/security/prison)
 "yfj" = (
@@ -112347,7 +112405,7 @@ hiI
 rQi
 hiI
 wSJ
-uKT
+mnx
 qDq
 gvZ
 uKT
@@ -112604,11 +112662,11 @@ tjK
 rvg
 tjK
 eBw
-uKT
+mnx
 mVz
 cgd
 xXX
-jzx
+hdb
 jzx
 vLi
 tPJ
@@ -112855,13 +112913,13 @@ jMo
 xrG
 fMl
 cgq
-loO
+rws
 vYT
 loO
 loO
 loO
-loO
-uKT
+oXc
+mnx
 ikH
 uwR
 uKT
@@ -113634,7 +113692,7 @@ nSg
 jrR
 dKb
 mdT
-cxY
+rGg
 uKT
 edV
 whY
@@ -113891,7 +113949,7 @@ nmg
 mST
 iYj
 gYK
-rGg
+ept
 uKT
 sKs
 ele
