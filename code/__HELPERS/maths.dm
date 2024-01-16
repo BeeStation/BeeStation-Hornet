@@ -177,6 +177,19 @@
 		max = min
 
 	. = val_respected + val_to_add
+	/*  NOTE:
+		instead of doing `. = second_param`, I made the param added to the original value.
+	 	that's because setting the second param with a calculation looked ugly at proc augmenting
+			example)
+				second parameter as "val_to_add"
+				M.hallucination = clamp_respected(M.hallucination, 5, 0, 60)
+					v.s.
+				second parameter as "val_to_set"
+				M.hallucination = clamp_respected(M.hallucination, M.hallucination + 5, 0, 60)
+		to be honest, the second one can cover most things, but I don't want a bloated augment
+		but also this proc doesn't do much things yet...
+	*/
+
 	if(. > max)
 		return max(max, val_respected)
 	else if(. < min)
