@@ -32,14 +32,14 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken3"
 	},
 /area/template_noop)
 "n" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken6"
 	},
 /area/template_noop)
 "t" = (
@@ -130,7 +130,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "K" = (

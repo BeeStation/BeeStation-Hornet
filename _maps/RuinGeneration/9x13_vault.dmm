@@ -50,7 +50,7 @@
 "t" = (
 /obj/item/weldingtool/mini,
 /turf/open/floor/plating/airless{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/ruin/unpowered)
 "u" = (

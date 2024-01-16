@@ -12,7 +12,7 @@
 	},
 /obj/item/newspaper,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken6"
 	},
 /area/template_noop)
 "f" = (

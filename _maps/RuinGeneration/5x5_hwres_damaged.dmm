@@ -8,22 +8,23 @@
 "d" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"i" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/ruin/unpowered)
 "m" = (
-/turf/template_noop,
-/area/template_noop)
+/turf/open/space/basic,
+/area/ruin/unpowered)
 "p" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "t" = (
 /obj/structure/lattice,
-/turf/template_noop,
-/area/template_noop)
-"C" = (
-/turf/open/floor/plasteel,
+/turf/open/space/basic,
 /area/ruin/unpowered)
-"D" = (
-/obj/item/kirbyplants/random,
+"C" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "F" = (
@@ -59,9 +60,9 @@ p
 "}
 (4,1,1) = {"
 m
-t
+i
 d
-D
+C
 F
 "}
 (5,1,1) = {"

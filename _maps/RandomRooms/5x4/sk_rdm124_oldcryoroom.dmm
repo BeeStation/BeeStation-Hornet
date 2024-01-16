@@ -40,7 +40,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "h" = (

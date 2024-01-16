@@ -1777,15 +1777,15 @@
 	pixel_x = 3;
 	pixel_y = -1
 	},
-/obj/item/food/cookie{
+/obj/item/reagent_containers/food/snacks/cookie{
 	pixel_x = -2;
 	pixel_y = -2
 	},
-/obj/item/food/cookie{
+/obj/item/reagent_containers/food/snacks/cookie{
 	pixel_x = -5;
 	pixel_y = -5
 	},
-/obj/item/food/chocolatebar,
+/obj/item/reagent_containers/food/snacks/chocolatebar,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bar)
 "wb" = (
@@ -2112,13 +2112,13 @@
 	locked = 0;
 	name = "fridge"
 	},
-/obj/item/food/sausage,
+/obj/item/reagent_containers/food/snacks/sausage,
 /obj/item/reagent_containers/food/drinks/beer{
 	pixel_x = -3;
 	pixel_y = 3
 	},
 /obj/item/reagent_containers/food/drinks/beer,
-/obj/item/food/sandwich,
+/obj/item/reagent_containers/food/snacks/sandwich,
 /obj/structure/spider/stickyweb,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,

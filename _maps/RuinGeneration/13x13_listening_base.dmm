@@ -13,8 +13,8 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/listeningstation)
 "cX" = (
-/obj/effect/spawner/randomvend/snack{
-	hacked = 1
+/obj/machinery/vending/snack/random{
+	extended_inventory = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -35,6 +35,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -91,6 +92,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -150,6 +152,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -203,6 +206,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -221,6 +225,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -236,6 +241,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -264,6 +270,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -321,11 +328,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/photo_album,
 /obj/machinery/light/small,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "rx" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+	dir = 2;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -386,10 +395,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "ty" = (
 /obj/effect/decal/cleanable/dirt,
@@ -433,10 +443,11 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "xp" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -444,14 +455,15 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/listeningstation)
 "xC" = (
-/obj/effect/spawner/randomvend/cola{
-	hacked = 1
+/obj/machinery/vending/cola/random{
+	extended_inventory = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -462,6 +474,7 @@
 "xP" = (
 /obj/structure/table/reinforced,
 /obj/machinery/firealarm{
+	dir = 2;
 	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -497,6 +510,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -513,6 +527,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 10;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -588,6 +603,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -649,11 +665,11 @@
 /obj/structure/table/wood,
 /obj/item/ammo_box/magazine/m10mm,
 /obj/item/paper/fluff/ruins/listeningstation/briefing,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "FP" = (
 /obj/structure/bookcase/random,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "Kg" = (
 /obj/structure/closet/crate/freezer,
@@ -665,6 +681,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -684,6 +701,7 @@
 	dir = 1
 	},
 /obj/machinery/firealarm{
+	dir = 2;
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -691,6 +709,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -715,7 +734,7 @@
 /obj/item/storage/box/donkpockets{
 	pixel_x = 2
 	},
-/obj/item/food/chocolatebar,
+/obj/item/reagent_containers/food/snacks/chocolatebar,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{
@@ -728,6 +747,7 @@
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -772,6 +792,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -784,6 +805,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -842,6 +864,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -860,6 +883,7 @@
 "XB" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -870,6 +894,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},
@@ -889,7 +914,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/listeningstation)
 "YS" = (
-/obj/machinery/computer/message_monitor,
+/obj/machinery/computer/message_monitor{
+	dir = 2
+	},
 /obj/machinery/airalarm/syndicate{
 	pixel_y = 24
 	},
@@ -907,6 +934,7 @@
 "Zp" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1;
+	piping_layer = 3;
 	pixel_x = 5;
 	pixel_y = 5
 	},

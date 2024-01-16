@@ -238,7 +238,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/manifold/purple/hidden,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/shuttle/hunter)
 "jC" = (
@@ -333,7 +333,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg2"
 	},
 /area/shuttle/hunter)
 "oH" = (
@@ -567,7 +567,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/shuttle/hunter)
 "yl" = (

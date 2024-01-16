@@ -21,7 +21,7 @@
 /area/template_noop)
 "f" = (
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "g" = (
@@ -34,13 +34,13 @@
 /area/template_noop)
 "i" = (
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "j" = (
 /obj/structure/girder,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "k" = (
@@ -50,7 +50,7 @@
 "l" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 

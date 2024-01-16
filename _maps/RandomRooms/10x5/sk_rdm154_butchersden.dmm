@@ -32,12 +32,17 @@
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/open/floor/plating,
 /area/template_noop)
+"p" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/template_noop)
 "u" = (
 /turf/closed/wall,
 /area/template_noop)
 "w" = (
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "x" = (
@@ -101,7 +106,7 @@
 /obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
 /obj/structure/closet/secure_closet/freezer/meat,
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/knife/butcher,
+/obj/item/kitchen/knife/butcher,
 /turf/open/floor/plating,
 /area/template_noop)
 "O" = (
@@ -116,7 +121,7 @@
 "Q" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "R" = (
@@ -130,7 +135,7 @@
 "W" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "X" = (
@@ -181,7 +186,7 @@ c
 F
 "}
 (6,1,1) = {"
-w
+p
 J
 R
 W

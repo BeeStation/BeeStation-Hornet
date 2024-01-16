@@ -185,7 +185,7 @@
 /area/ruin/space/has_grav/powered/ancient_shuttle)
 "aU" = (
 /turf/open/floor/plating/airless{
-	broken = 1
+	icon_state = "platingdmg2"
 	},
 /area/space/nearstation)
 "aV" = (
@@ -237,6 +237,11 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
+"NJ" = (
+/turf/open/floor/plating/airless{
+	icon_state = "platingdmg1"
+	},
+/area/space/nearstation)
 "Pu" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -482,7 +487,7 @@ aa
 ad
 aq
 aC
-aU
+NJ
 aM
 aa
 aa

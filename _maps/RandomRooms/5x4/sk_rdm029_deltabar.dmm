@@ -52,7 +52,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken3"
 	},
 /area/template_noop)
 "h" = (
@@ -91,7 +91,7 @@
 "n" = (
 /obj/structure/chair/stool/bar,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "o" = (

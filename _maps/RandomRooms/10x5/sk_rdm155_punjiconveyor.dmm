@@ -7,7 +7,7 @@
 /area/template_noop)
 "d" = (
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "i" = (
@@ -26,7 +26,7 @@
 /obj/item/restraints/handcuffs/cable,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "r" = (
@@ -75,7 +75,7 @@
 /area/template_noop)
 "M" = (
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "P" = (

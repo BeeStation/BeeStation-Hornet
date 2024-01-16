@@ -747,7 +747,7 @@
 /area/awaymission/beach)
 "ce" = (
 /obj/effect/turf_decal/sand,
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /turf/open/floor/plating/beach/sand,
 /area/awaymission/beach)
 "cf" = (
@@ -857,11 +857,11 @@
 /area/awaymission/beach)
 "cw" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/food/meat/slab/goliath,
-/obj/item/food/meat/slab/xeno,
-/obj/item/food/meat/slab/spider,
-/obj/item/food/meat/slab/killertomato,
-/obj/item/food/meat/slab/bear,
+/obj/item/reagent_containers/food/snacks/meat/slab/goliath,
+/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
+/obj/item/reagent_containers/food/snacks/meat/slab/spider,
+/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
+/obj/item/reagent_containers/food/snacks/meat/slab/bear,
 /turf/open/floor/wood,
 /area/awaymission/beach)
 "cx" = (

@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"s" = (
-/obj/item/kirbyplants/random,
+"r" = (
+/obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "w" = (
@@ -35,9 +35,9 @@ C
 "}
 (2,1,1) = {"
 C
+r
 K
 K
-s
 C
 "}
 (3,1,1) = {"

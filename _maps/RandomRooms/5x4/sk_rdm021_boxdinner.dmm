@@ -17,7 +17,7 @@
 /area/template_noop)
 "d" = (
 /obj/structure/table,
-/obj/item/food/donut,
+/obj/item/reagent_containers/food/snacks/donut,
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (

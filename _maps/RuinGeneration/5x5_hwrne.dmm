@@ -5,10 +5,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"o" = (
-/obj/item/kirbyplants/random,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "r" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 4
@@ -19,6 +15,10 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "G" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"N" = (
+/obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
@@ -51,9 +51,9 @@ s
 "}
 (4,1,1) = {"
 s
-o
 G
 G
+N
 s
 "}
 (5,1,1) = {"

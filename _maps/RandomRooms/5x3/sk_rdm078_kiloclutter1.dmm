@@ -30,7 +30,7 @@
 "c" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "d" = (
@@ -65,7 +65,7 @@
 /obj/effect/spawner/lootdrop/trap,
 /obj/effect/trap/nexus/trickyspawner/shitsec,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "h" = (
@@ -80,7 +80,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "j" = (
@@ -94,10 +94,16 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"S" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/template_noop)
 
 (1,1,1) = {"
 a
-c
+S
 h
 "}
 (2,1,1) = {"

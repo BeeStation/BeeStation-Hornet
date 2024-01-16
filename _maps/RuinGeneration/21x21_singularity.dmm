@@ -25,6 +25,10 @@
 /obj/machinery/the_singularitygen,
 /turf/open/floor/plating,
 /area/template_noop)
+"m" = (
+/obj/effect/decal/fakelattice,
+/turf/template_noop/open,
+/area/template_noop)
 "o" = (
 /obj/machinery/field/generator,
 /turf/open/floor/plating,
@@ -236,13 +240,13 @@ c
 c
 C
 t
-a
+m
 t
-a
+m
 t
-a
+m
 t
-a
+m
 t
 C
 x
@@ -258,7 +262,7 @@ c
 c
 c
 R
-a
+m
 o
 t
 S
@@ -266,7 +270,7 @@ S
 S
 t
 o
-a
+m
 R
 E
 c
@@ -304,7 +308,7 @@ c
 c
 c
 R
-a
+m
 S
 a
 S
@@ -312,7 +316,7 @@ S
 S
 a
 S
-a
+m
 R
 E
 c
@@ -350,7 +354,7 @@ c
 c
 c
 R
-a
+m
 S
 a
 S
@@ -358,7 +362,7 @@ S
 S
 a
 S
-a
+m
 R
 E
 c
@@ -396,7 +400,7 @@ c
 c
 c
 R
-a
+m
 o
 t
 S
@@ -404,7 +408,7 @@ S
 S
 t
 o
-a
+m
 R
 E
 c
@@ -420,13 +424,13 @@ c
 c
 C
 t
-a
+m
 t
-a
+m
 t
-a
+m
 t
-a
+m
 t
 C
 x

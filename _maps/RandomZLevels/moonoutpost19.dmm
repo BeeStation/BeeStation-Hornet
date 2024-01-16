@@ -1718,7 +1718,7 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "eF" = (
@@ -3525,7 +3525,7 @@
 /obj/item/stack/rods,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/moonoutpost19/research)
 "iE" = (
@@ -3767,7 +3767,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/awaymission/moonoutpost19/research)
 "jl" = (
@@ -4238,7 +4238,7 @@
 "kp" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
-/obj/item/knife/kitchen,
+/obj/item/kitchen/knife,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -5293,7 +5293,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/awaymission/moonoutpost19/research)
 "nf" = (
@@ -5736,7 +5736,7 @@
 "pe" = (
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1;
+	icon_state = "platingdmg1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
@@ -5767,7 +5767,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1;
+	icon_state = "platingdmg1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
@@ -5886,13 +5886,13 @@
 /obj/item/paper/fluff/awaymissions/moonoutpost19/log/ivan,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/moonoutpost19/research)
 "sJ" = (
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg2"
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "uI" = (
@@ -5939,6 +5939,12 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/moonoutpost19/arrivals)
+"wd" = (
+/turf/open/floor/plating{
+	heat_capacity = 1e+006;
+	icon_state = "platingdmg1"
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "wp" = (
 /obj/item/cigbutt,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -5952,7 +5958,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "wP" = (
@@ -5971,7 +5977,7 @@
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/moonoutpost19/research)
 "xg" = (
@@ -5987,10 +5993,10 @@
 	name = "meat fridge";
 	req_access_txt = "201"
 	},
-/obj/item/food/meat/slab/monkey,
-/obj/item/food/meat/slab/monkey,
-/obj/item/food/meat/slab/monkey,
-/obj/item/food/meat/slab/monkey,
+/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
 /turf/open/floor/plasteel/showroomfloor{
 	heat_capacity = 1e+006;
 	initial_temperature = 273.15
@@ -6071,7 +6077,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1;
+	icon_state = "platingdmg1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
@@ -6112,7 +6118,7 @@
 "Bh" = (
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/moonoutpost19/research)
 "Bn" = (
@@ -6208,7 +6214,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1;
+	icon_state = "platingdmg3";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
@@ -6299,7 +6305,7 @@
 /obj/structure/chair/stool,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "GN" = (
@@ -6332,7 +6338,7 @@
 /obj/item/stack/rods,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1;
+	icon_state = "platingdmg3";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
@@ -6368,7 +6374,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/awaymission/moonoutpost19/research)
 "In" = (
@@ -6406,7 +6412,7 @@
 /obj/item/pickaxe,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1;
+	icon_state = "platingdmg3";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
@@ -6462,7 +6468,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/moonoutpost19/research)
 "LQ" = (
@@ -6536,7 +6542,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1;
+	icon_state = "platingdmg1";
 	initial_gas_mix = "co2=48.7;n2=13.2;o2=32.4;TEMP=251";
 	initial_temperature = 251
 	},
@@ -6576,7 +6582,7 @@
 /obj/item/poster/random_contraband,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/awaymission/moonoutpost19/research)
 "Qs" = (
@@ -6588,7 +6594,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg2"
 	},
 /area/awaymission/moonoutpost19/research)
 "QH" = (
@@ -6702,6 +6708,12 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/moonoutpost19/syndicate)
+"Vz" = (
+/turf/open/floor/plating{
+	heat_capacity = 1e+006;
+	icon_state = "platingdmg3"
+	},
+/area/awaymission/moonoutpost19/arrivals)
 "Wf" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -40864,7 +40876,7 @@ hJ
 hJ
 hJ
 hI
-sJ
+Vz
 hI
 hJ
 hJ
@@ -41114,7 +41126,7 @@ jH
 kl
 kI
 kV
-sJ
+Vz
 lM
 lN
 lN
@@ -41892,7 +41904,7 @@ ba
 ba
 hI
 nm
-sJ
+wd
 hI
 hJ
 hJ
@@ -42143,7 +42155,7 @@ jF
 jF
 LV
 hJ
-sJ
+wd
 hI
 ba
 ba

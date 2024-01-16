@@ -248,7 +248,7 @@
 /turf/open/floor/plasteel,
 /area/mine/storage)
 "ca" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "cd" = (
@@ -907,8 +907,8 @@
 "gD" = (
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
 /obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/food/tofu/prison,
-/obj/item/knife/kitchen,
+/obj/item/reagent_containers/food/snacks/tofu/prison,
+/obj/item/kitchen/knife,
 /obj/item/reagent_containers/food/condiment/enzyme,
 /obj/item/kitchen/rollingpin,
 /obj/item/wrench,
@@ -919,7 +919,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
 "gH" = (
@@ -1209,7 +1211,7 @@
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "iy" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "iz" = (
@@ -1923,7 +1925,7 @@
 	network = list("mine")
 	},
 /obj/structure/table,
-/obj/item/storage/firstaid/medical,
+/obj/item/storage/firstaid/medical/doctorbag,
 /turf/open/floor/plasteel/white,
 /area/mine/living_quarters)
 "nf" = (
@@ -5930,6 +5932,7 @@
 	height = 6;
 	id = "laborcamp_away";
 	name = "labor camp";
+	roundstart_template = null;
 	width = 12
 	},
 /turf/open/floor/plating/lavaland,
@@ -6785,7 +6788,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/reagent_containers/food/drinks/beer{
 	desc = "Whatever it is, it reeks of foul, putrid froth.";
-	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing=15);
+	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing = 15);
 	name = "Delta-Down";
 	pixel_x = 5;
 	pixel_y = 5

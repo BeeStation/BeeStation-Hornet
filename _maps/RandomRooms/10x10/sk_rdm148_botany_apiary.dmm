@@ -72,12 +72,12 @@
 "n" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "o" = (
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "p" = (
@@ -117,7 +117,7 @@
 /area/template_noop)
 "v" = (
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "x" = (

@@ -863,10 +863,10 @@
 /area/awaymission/cabin)
 "cG" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/food/meat/slab/synthmeat,
-/obj/item/food/meat/slab/synthmeat,
-/obj/item/food/meat/slab/synthmeat,
-/obj/item/food/meat/slab/synthmeat,
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/cabin)
 "cH" = (
@@ -1279,8 +1279,8 @@
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
 "ea" = (
-/obj/item/food/fishmeat/carp,
-/obj/item/food/fishmeat/carp,
+/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/item/reagent_containers/food/snacks/carpmeat,
 /turf/open/floor/plating/ice/smooth,
 /area/awaymission/cabin/snowforest)
 "eb" = (
@@ -1768,6 +1768,7 @@
 "fv" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
+	max_integrity = 20;
 	name = "old stump"
 	},
 /obj/effect/light_emitter{
@@ -1835,6 +1836,7 @@
 "fQ" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
+	max_integrity = 20;
 	name = "old stump"
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -4680,7 +4682,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/cabin)
 "oo" = (
@@ -4696,13 +4698,14 @@
 /area/awaymission/cabin/caves/mountain)
 "pa" = (
 /turf/open/floor/wood/cold{
-	broken = 1
+	icon_state = "wood-broken7"
 	},
 /area/awaymission/cabin/caves)
 "pn" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow"
+	name = "packed snow";
+	slowdown = 0
 	},
 /area/awaymission/cabin/snowforest)
 "qH" = (
@@ -4726,8 +4729,14 @@
 "qN" = (
 /obj/structure/barricade/wooden/snowed,
 /turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
+	},
+/area/awaymission/cabin/caves)
+"qY" = (
+/turf/open/floor/wood/cold{
+	icon_state = "wood-broken"
 	},
 /area/awaymission/cabin/caves)
 "rp" = (
@@ -4783,7 +4792,8 @@
 	wander = 0
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow"
+	name = "packed snow";
+	slowdown = 0
 	},
 /area/awaymission/cabin/snowforest)
 "yG" = (
@@ -4791,12 +4801,13 @@
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
 /area/awaymission/cabin/caves)
 "yM" = (
-/obj/item/food/burger/ghost{
+/obj/item/reagent_containers/food/snacks/burger/ghost{
 	desc = "I killed a burger for you. Hope you're grateful, bastards.";
 	pixel_x = -2;
 	pixel_y = 4
@@ -4816,13 +4827,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/cabin)
 "zo" = (
 /obj/vehicle/ridden/atv,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/cabin)
 "zJ" = (
@@ -4830,6 +4841,7 @@
 	pixel_x = 32
 	},
 /turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -4843,7 +4855,7 @@
 /area/awaymission/cabin/caves/mountain)
 "zP" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/knife/carrotshiv,
+/obj/item/kitchen/knife/carrotshiv,
 /obj/effect/decal/cleanable/glitter/blue{
 	desc = "It looks like fancy glitter to me.";
 	name = "icy wind"
@@ -4870,6 +4882,7 @@
 "CV" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
+	max_integrity = 20;
 	name = "old stump"
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -4891,6 +4904,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"Eb" = (
+/turf/open/floor/wood/cold{
+	icon_state = "wood-broken3"
+	},
+/area/awaymission/cabin/caves)
 "Fm" = (
 /obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/head/helmet/police{
@@ -4906,13 +4924,14 @@
 /area/awaymission/cabin/caves/mountain)
 "FF" = (
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow"
+	name = "packed snow";
+	slowdown = 0
 	},
 /area/awaymission/cabin/snowforest)
 "FZ" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/awaymission/cabin)
 "Gc" = (
@@ -4924,6 +4943,7 @@
 	wander = 0
 	},
 /turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -4938,6 +4958,7 @@
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
 "GF" = (
+/obj/structure/closet/acloset,
 /obj/item/toy/foamblade,
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
@@ -4966,11 +4987,11 @@
 "HW" = (
 /obj/item/shovel,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/cabin)
 "Ik" = (
-/obj/item/food/egg/rainbow{
+/obj/item/reagent_containers/food/snacks/egg/rainbow{
 	desc = "Was an egg really worth this much effort?";
 	name = "easter egg"
 	},
@@ -5014,7 +5035,7 @@
 "Kn" = (
 /obj/machinery/light,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/cabin)
 "Mv" = (
@@ -5025,7 +5046,8 @@
 	set_luminosity = 6
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow"
+	name = "packed snow";
+	slowdown = 0
 	},
 /area/awaymission/cabin/caves)
 "MH" = (
@@ -5040,17 +5062,23 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
+"MK" = (
+/turf/open/floor/wood/cold{
+	icon_state = "wood-broken4"
+	},
+/area/awaymission/cabin/caves)
 "ND" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
 /area/awaymission/cabin/caves)
 "NR" = (
-/obj/structure/weightmachine/weightlifter,
+/obj/structure/weightmachine/stacklifter,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
 /area/awaymission/cabin/caves/mountain)
@@ -5060,7 +5088,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/cabin)
 "Pw" = (
@@ -5104,7 +5132,8 @@
 /area/awaymission/cabin/caves/mountain)
 "Rg" = (
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow"
+	name = "packed snow";
+	slowdown = 0
 	},
 /area/awaymission/cabin/caves)
 "RR" = (
@@ -5150,16 +5179,18 @@
 /obj/effect/baseturf_helper/asteroid/snow,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/cabin)
 "VU" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
+	max_integrity = 20;
 	name = "old stump"
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow"
+	name = "packed snow";
+	slowdown = 0
 	},
 /area/awaymission/cabin/snowforest)
 "Wa" = (
@@ -5183,7 +5214,8 @@
 	set_luminosity = 6
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow"
+	name = "packed snow";
+	slowdown = 0
 	},
 /area/awaymission/cabin/caves)
 "Wl" = (
@@ -5203,7 +5235,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/cabin)
 "Wx" = (
@@ -5221,6 +5253,7 @@
 /area/awaymission/cabin/caves/mountain)
 "Xq" = (
 /turf/open/floor/plating/asteroid/snow{
+	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -5247,7 +5280,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/cabin)
 "YJ" = (
@@ -5258,6 +5291,7 @@
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
 "Zk" = (
+/obj/structure/closet/acloset,
 /obj/item/clothing/suit/hooded/bloated_human,
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
@@ -21538,7 +21572,7 @@ ab
 it
 it
 it
-pa
+qY
 ki
 ki
 ki
@@ -25138,7 +25172,7 @@ ki
 ki
 ki
 ki
-pa
+Eb
 it
 it
 gx
@@ -25393,7 +25427,7 @@ it
 ki
 ki
 ki
-pa
+MK
 ki
 ki
 it

@@ -60,7 +60,7 @@
 /obj/item/clothing/mask/surgical,
 /obj/item/clothing/mask/breath/medical,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg2"
 	},
 /area/template_noop)
 

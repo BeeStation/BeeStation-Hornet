@@ -21,7 +21,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "i" = (
@@ -40,12 +40,12 @@
 "l" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "m" = (
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "n" = (
@@ -134,7 +134,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "D" = (
@@ -177,7 +177,7 @@
 /area/template_noop)
 "O" = (
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "Q" = (
@@ -223,7 +223,7 @@
 /area/template_noop)
 "X" = (
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "Z" = (

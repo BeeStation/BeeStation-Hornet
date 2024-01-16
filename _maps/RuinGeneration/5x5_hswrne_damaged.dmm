@@ -8,8 +8,8 @@
 /area/ruin/unpowered)
 "o" = (
 /obj/structure/lattice,
-/turf/template_noop,
-/area/template_noop)
+/turf/open/space/basic,
+/area/ruin/unpowered)
 "q" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
@@ -20,8 +20,8 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "H" = (
-/turf/template_noop,
-/area/template_noop)
+/turf/open/space/basic,
+/area/ruin/unpowered)
 "N" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)

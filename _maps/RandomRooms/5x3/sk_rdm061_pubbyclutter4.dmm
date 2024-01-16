@@ -48,11 +48,11 @@
 /area/template_noop)
 "z" = (
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "E" = (
-/obj/item/food/canned/beans,
+/obj/item/reagent_containers/food/snacks/canned/beans,
 /turf/open/floor/plating,
 /area/template_noop)
 

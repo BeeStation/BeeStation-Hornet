@@ -76,7 +76,7 @@
 /area/lavaland/surface/outdoors)
 "p" = (
 /obj/structure/table/survival_pod,
-/obj/item/knife/combat/survival,
+/obj/item/kitchen/knife/combat/survival,
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "q" = (

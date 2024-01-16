@@ -11,7 +11,7 @@
 	icon_state = "papercorner"
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "cL" = (
@@ -44,13 +44,13 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "gy" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/remains/human,
-/obj/item/knife/kitchen{
+/obj/item/kitchen/knife{
 	pixel_x = 18;
 	pixel_y = 8
 	},
@@ -186,7 +186,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "qv" = (
@@ -199,7 +199,7 @@
 	icon_state = "papercorner"
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "qH" = (
@@ -252,7 +252,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken4"
 	},
 /area/template_noop)
 "vA" = (
@@ -268,7 +268,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken4"
 	},
 /area/template_noop)
 "yf" = (
@@ -309,7 +309,7 @@
 	icon_state = "papercorner"
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "AX" = (
@@ -469,7 +469,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "Mo" = (
@@ -549,7 +549,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "RT" = (
@@ -611,7 +611,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "WJ" = (
@@ -626,7 +626,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "Yg" = (
@@ -636,7 +636,7 @@
 	icon_state = "paperstack"
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "YS" = (

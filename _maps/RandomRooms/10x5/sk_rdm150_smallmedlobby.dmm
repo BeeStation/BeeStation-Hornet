@@ -16,7 +16,7 @@
 /area/template_noop)
 "i" = (
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "l" = (
@@ -64,6 +64,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
+"z" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/template_noop)
 "A" = (
 /obj/machinery/light{
 	dir = 1
@@ -91,7 +96,7 @@
 /area/template_noop)
 "G" = (
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg2"
 	},
 /area/template_noop)
 "J" = (
@@ -180,7 +185,7 @@ a
 (2,1,1) = {"
 T
 S
-G
+z
 c
 F
 "}

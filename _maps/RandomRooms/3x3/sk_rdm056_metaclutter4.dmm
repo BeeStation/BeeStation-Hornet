@@ -14,7 +14,7 @@
 "e" = (
 /obj/item/storage/toolbox/emergency,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "f" = (

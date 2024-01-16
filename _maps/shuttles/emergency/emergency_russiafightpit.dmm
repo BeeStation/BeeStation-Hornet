@@ -156,7 +156,7 @@
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "aC" = (
-/obj/item/knife/kitchen,
+/obj/item/kitchen/knife,
 /turf/open/floor/engine,
 /area/shuttle/escape)
 "aD" = (

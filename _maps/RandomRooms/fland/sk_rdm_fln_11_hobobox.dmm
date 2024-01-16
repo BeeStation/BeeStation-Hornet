@@ -43,13 +43,13 @@
 /obj/structure/grille/broken,
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "k" = (
 /obj/structure/bonfire,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "m" = (
@@ -68,7 +68,7 @@
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "s" = (
@@ -122,7 +122,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "E" = (
@@ -143,7 +143,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "I" = (
@@ -181,7 +181,7 @@
 "S" = (
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "T" = (

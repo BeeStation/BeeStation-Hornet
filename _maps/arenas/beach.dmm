@@ -51,11 +51,11 @@
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "k" = (
-/obj/item/food/meat/crab,
+/obj/item/reagent_containers/food/snacks/meat/crab,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "l" = (
-/obj/item/food/burger/crab,
+/obj/item/reagent_containers/food/snacks/burger/crab,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "m" = (

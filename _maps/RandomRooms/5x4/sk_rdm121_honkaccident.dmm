@@ -2,14 +2,14 @@
 "b" = (
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "c" = (
 /obj/item/grown/bananapeel,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "d" = (
@@ -17,14 +17,14 @@
 /obj/effect/trap/nexus/darkness,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "e" = (
 /obj/effect/decal/cleanable/ash,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "g" = (
@@ -34,7 +34,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "h" = (
@@ -54,7 +54,7 @@
 /obj/effect/spawner/lootdrop/clowntrap,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "B" = (
@@ -85,7 +85,7 @@
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "Y" = (

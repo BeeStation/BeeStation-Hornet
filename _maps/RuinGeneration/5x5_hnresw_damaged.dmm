@@ -32,8 +32,8 @@
 /area/ruin/unpowered)
 "X" = (
 /obj/structure/lattice,
-/turf/template_noop,
-/area/template_noop)
+/turf/open/space/basic,
+/area/ruin/unpowered)
 
 (1,1,1) = {"
 m

@@ -10,7 +10,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/item/food/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
@@ -19,7 +19,7 @@
 /obj/effect/spawner/lootdrop/clowntrap,
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 

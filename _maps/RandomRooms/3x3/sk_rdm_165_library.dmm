@@ -14,7 +14,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "u" = (

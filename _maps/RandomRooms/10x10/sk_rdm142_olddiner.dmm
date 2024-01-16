@@ -19,7 +19,7 @@
 "hL" = (
 /obj/structure/table_frame/wood,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "ig" = (
@@ -69,6 +69,11 @@
 "tO" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/carpet/royalblack,
+/area/template_noop)
+"tR" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
 /area/template_noop)
 "ut" = (
 /obj/item/stack/sheet/wood,
@@ -125,7 +130,7 @@
 /area/template_noop)
 "yH" = (
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "ze" = (
@@ -151,7 +156,7 @@
 	pixel_x = 32
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "Bw" = (
@@ -167,12 +172,17 @@
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"DL" = (
+/turf/open/floor/wood{
+	icon_state = "wood-broken4"
 	},
 /area/template_noop)
 "Eg" = (
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "FF" = (
@@ -189,7 +199,7 @@
 /area/template_noop)
 "Hd" = (
 /obj/structure/table/wood,
-/obj/item/knife/kitchen,
+/obj/item/kitchen/knife,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Il" = (
@@ -210,7 +220,7 @@
 /area/template_noop)
 "Ok" = (
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "Os" = (
@@ -327,7 +337,7 @@ SJ
 iU
 "}
 (3,1,1) = {"
-Eg
+DL
 Os
 SJ
 SJ
@@ -351,7 +361,7 @@ QG
 Ch
 "}
 (5,1,1) = {"
-Eg
+tR
 Dz
 Wn
 tO

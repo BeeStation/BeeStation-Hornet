@@ -18,13 +18,13 @@
 /area/template_noop)
 "h" = (
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "l" = (
 /obj/item/stack/tile/wood,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken6"
 	},
 /area/template_noop)
 "q" = (
@@ -60,7 +60,7 @@
 /obj/structure/safe/floor,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "G" = (

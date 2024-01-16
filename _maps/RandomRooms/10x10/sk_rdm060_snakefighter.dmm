@@ -38,7 +38,7 @@
 /obj/structure/sign/departments/science{
 	pixel_y = 32
 	},
-/obj/item/knife/kitchen,
+/obj/item/kitchen/knife,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -240,17 +240,17 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "R" = (
-/obj/item/food/meat/slab/monkey,
+/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (
 /obj/structure/closet,
-/obj/item/food/meat/slab/monkey,
+/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
 "U" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/food/meat/slab/monkey,
+/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
 "W" = (
@@ -273,7 +273,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken4"
 	},
 /area/template_noop)
 

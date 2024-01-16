@@ -23,7 +23,7 @@
 "ai" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "ak" = (
@@ -41,7 +41,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/xeno,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "ao" = (
@@ -87,14 +87,14 @@
 "az" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "aA" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "aB" = (
@@ -185,7 +185,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/nexus/doorbolt,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "aQ" = (
@@ -232,7 +232,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "aW" = (
@@ -271,6 +271,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
+"yD" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/template_noop)
 "Ac" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
@@ -294,7 +300,7 @@ az
 ab
 ac
 aE
-ai
+yD
 ac
 ab
 ab
@@ -385,7 +391,7 @@ aD
 ae
 "}
 (9,1,1) = {"
-ai
+yD
 aL
 aU
 ao

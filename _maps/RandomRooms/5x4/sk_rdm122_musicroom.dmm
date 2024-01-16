@@ -25,7 +25,7 @@
 /area/template_noop)
 "c" = (
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "wood-broken3"
 	},
 /area/template_noop)
 "d" = (

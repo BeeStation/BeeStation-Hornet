@@ -48,7 +48,7 @@
 	pixel_y = 22
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken4"
 	},
 /area/template_noop)
 "y" = (

@@ -612,7 +612,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bT" = (
-/obj/effect/spawner/randomarcade,
+/obj/machinery/computer/arcade,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bU" = (

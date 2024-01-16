@@ -23,8 +23,8 @@
 /area/awaymission/BMPship)
 "bn" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/meat/slab,
-/obj/item/food/meat/slab,
+/obj/item/reagent_containers/food/snacks/meat/slab,
+/obj/item/reagent_containers/food/snacks/meat/slab,
 /turf/open/floor/plasteel/white,
 /area/awaymission/BMPship/Aft)
 "bH" = (
@@ -54,7 +54,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/awaymission/BMPship/Midship)
 "cF" = (
@@ -153,6 +153,11 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Midship)
+"fS" = (
+/turf/open/floor/plating/airless{
+	icon_state = "platingdmg1"
+	},
+/area/awaymission/BMPship/Midship)
 "gA" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -195,7 +200,7 @@
 /area/awaymission/BMPship/Aft)
 "hY" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/meat,
+/obj/item/reagent_containers/food/snacks/meat,
 /turf/open/floor/plasteel/showroomfloor,
 /area/awaymission/BMPship/Aft)
 "ia" = (
@@ -384,7 +389,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/BMPship/Midship)
 "lA" = (
@@ -398,7 +403,7 @@
 /area/awaymission/BMPship/Aft)
 "lV" = (
 /turf/open/floor/plating/airless{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/BMPship/Fore)
 "lW" = (
@@ -474,7 +479,7 @@
 /area/awaymission/BMPship/Aft)
 "oc" = (
 /turf/open/floor/plating/airless{
-	broken = 1
+	icon_state = "platingdmg2"
 	},
 /area/awaymission/BMPship/Midship)
 "oh" = (
@@ -528,7 +533,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/airless{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/BMPship/Fore)
 "oY" = (
@@ -675,7 +680,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/BMPship/Fore)
 "sp" = (
@@ -748,7 +753,7 @@
 	dir = 4;
 	id = "meatConvey2"
 	},
-/obj/item/knife/kitchen,
+/obj/item/kitchen/knife,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Midship)
 "tB" = (
@@ -830,7 +835,7 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/titanium,
 /turf/open/floor/plating{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/BMPship/Aft)
 "vY" = (
@@ -852,7 +857,7 @@
 /area/awaymission/BMPship/Aft)
 "wj" = (
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/awaymission/BMPship/Fore)
 "ww" = (
@@ -895,13 +900,18 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
+"yi" = (
+/turf/open/floor/plating/airless{
+	icon_state = "platingdmg3"
+	},
+/area/awaymission/BMPship/Midship)
 "ym" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plasteel/white,
 /area/awaymission/BMPship/Aft)
 "yx" = (
 /obj/structure/table,
-/obj/item/knife/kitchen,
+/obj/item/kitchen/knife,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Midship)
@@ -980,6 +990,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Aft)
+"AB" = (
+/turf/open/floor/plasteel{
+	icon_state = "platingdmg1"
+	},
+/area/awaymission/BMPship/Midship)
 "AR" = (
 /obj/machinery/sleeper,
 /turf/open/floor/plating/airless,
@@ -1144,6 +1159,11 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Fore)
+"Dq" = (
+/turf/open/floor/plating/airless{
+	icon_state = "platingdmg1"
+	},
+/area/awaymission/BMPship/Fore)
 "Ds" = (
 /obj/item/reagent_containers/food/drinks/beer,
 /turf/open/floor/plasteel,
@@ -1160,7 +1180,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/airless{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/awaymission/BMPship/Fore)
 "DT" = (
@@ -1215,7 +1235,7 @@
 /area/awaymission/BMPship)
 "Fn" = (
 /turf/open/floor/plasteel{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/BMPship/Midship)
 "Fs" = (
@@ -1276,7 +1296,7 @@
 "GA" = (
 /obj/item/shard,
 /turf/open/floor/plating/airless{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/awaymission/BMPship/Fore)
 "GH" = (
@@ -1337,7 +1357,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/knife/kitchen,
+/obj/item/kitchen/knife,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "HJ" = (
@@ -1379,7 +1399,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/item/knife/kitchen,
+/obj/item/kitchen/knife,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Midship)
@@ -1515,8 +1535,8 @@
 "Ly" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/organ/brain,
-/obj/item/food/meat/slab,
-/obj/item/food/meat/slab/human/mutant/slime,
+/obj/item/reagent_containers/food/snacks/meat/slab,
+/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1587,7 +1607,7 @@
 "ML" = (
 /obj/item/multitool,
 /turf/open/floor/plating/airless{
-	broken = 1
+	icon_state = "platingdmg2"
 	},
 /area/awaymission/BMPship)
 "MX" = (
@@ -1630,7 +1650,7 @@
 "Op" = (
 /obj/structure/cable,
 /turf/open/floor/plating/airless{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/BMPship/Fore)
 "Or" = (
@@ -1808,7 +1828,7 @@
 "Sp" = (
 /obj/structure/chair/stool,
 /turf/open/floor/plating/airless{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/BMPship/Fore)
 "Ss" = (
@@ -1853,7 +1873,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/plating/airless{
-	broken = 1
+	icon_state = "platingdmg3"
 	},
 /area/awaymission/BMPship/Fore)
 "Tp" = (
@@ -1904,8 +1924,8 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/hugemushroomslice,
 /obj/item/organ/appendix,
-/obj/item/food/meat/slab,
-/obj/item/food/meat/slab/human/mutant/golem/adamantine,
+/obj/item/reagent_containers/food/snacks/meat/slab,
+/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/golem/adamantine,
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
@@ -1957,6 +1977,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Midship)
+"UT" = (
+/turf/open/floor/plating/airless{
+	icon_state = "platingdmg2"
+	},
+/area/awaymission/BMPship/Fore)
 "UU" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
@@ -2035,7 +2060,7 @@
 /area/awaymission/BMPship/Aft)
 "Wy" = (
 /turf/open/floor/plating/airless{
-	burnt = 1
+	icon_state = "panelscorched"
 	},
 /area/awaymission/BMPship/Midship)
 "WJ" = (
@@ -2104,9 +2129,9 @@
 /area/awaymission/BMPship/Midship)
 "XX" = (
 /obj/structure/table,
-/obj/item/knife/butcher,
+/obj/item/kitchen/knife/butcher,
 /obj/item/reagent_containers/food/drinks/beer,
-/obj/item/food/meat,
+/obj/item/reagent_containers/food/snacks/meat,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -2192,8 +2217,8 @@
 "ZG" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/organ/appendix,
-/obj/item/food/meat/slab,
-/obj/item/food/meat/slab/human/mutant/golem,
+/obj/item/reagent_containers/food/snacks/meat/slab,
+/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/golem,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -2641,7 +2666,7 @@ SS
 Vu
 Vu
 zU
-lV
+Dq
 Fz
 aa
 Pa
@@ -2693,7 +2718,7 @@ Vu
 Vu
 zU
 Fz
-lV
+UT
 Fz
 aa
 aa
@@ -3003,7 +3028,7 @@ zU
 zU
 zU
 MB
-lV
+UT
 lV
 Zi
 qA
@@ -3106,7 +3131,7 @@ jW
 VT
 ol
 lg
-lV
+Dq
 lg
 qA
 qA
@@ -3155,7 +3180,7 @@ wY
 UU
 UU
 VT
-lV
+Dq
 QG
 lg
 zU
@@ -3459,7 +3484,7 @@ TS
 TS
 Ii
 ww
-Fn
+AB
 DT
 qA
 qA
@@ -3597,7 +3622,7 @@ Pa
 aa
 tB
 VT
-oc
+fS
 VT
 XX
 CT
@@ -3646,7 +3671,7 @@ Pa
 aa
 Fc
 tB
-oc
+fS
 mu
 Wy
 VT
@@ -3697,7 +3722,7 @@ aa
 Pa
 tB
 oc
-oc
+yi
 Wy
 mu
 VT
@@ -3747,9 +3772,9 @@ aa
 aa
 ik
 VT
-oc
+yi
 mu
-oc
+yi
 JO
 VT
 Gu
@@ -3767,10 +3792,10 @@ ht
 sx
 UU
 WN
-oc
+fS
 BP
 Fg
-oc
+fS
 VT
 XZ
 qA
@@ -3921,7 +3946,7 @@ sx
 UU
 Bu
 mu
-oc
+fS
 mu
 mu
 mu
@@ -4026,7 +4051,7 @@ cv
 mu
 mu
 mu
-oc
+yi
 WN
 Fm
 Fm

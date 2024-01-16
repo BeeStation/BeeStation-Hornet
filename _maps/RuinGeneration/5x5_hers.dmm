@@ -20,7 +20,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "A" = (
-/obj/item/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (

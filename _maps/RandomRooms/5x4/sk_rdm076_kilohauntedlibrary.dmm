@@ -5,7 +5,7 @@
 	dir = 2
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "d" = (
@@ -51,7 +51,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "j" = (
@@ -62,7 +62,7 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "m" = (
@@ -75,7 +75,7 @@
 /area/template_noop)
 "n" = (
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken6"
 	},
 /area/template_noop)
 "o" = (
@@ -110,7 +110,7 @@
 "t" = (
 /obj/effect/trap/nexus/darkness,
 /turf/open/floor/wood{
-	broken = 1
+	icon_state = "wood-broken3"
 	},
 /area/template_noop)
 "v" = (
