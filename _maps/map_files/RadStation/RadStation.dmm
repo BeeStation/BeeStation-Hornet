@@ -18352,10 +18352,6 @@
 /obj/item/pickaxe/drill,
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
-"fMn" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "fMC" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
@@ -96755,7 +96751,7 @@ ewB
 ewB
 ewB
 ewB
-fMn
+ewB
 gsA
 ewB
 ewB
