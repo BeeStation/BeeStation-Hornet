@@ -18409,6 +18409,10 @@
 	pixel_y = 5
 	},
 /obj/structure/window/reinforced,
+/obj/machinery/door/window/brigdoor/westleft{
+	req_access_txt = "3";
+	name = "specialized weapons"
+	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "fMW" = (
@@ -19498,6 +19502,10 @@
 	layer = 2.9;
 	pixel_x = -5;
 	pixel_y = 4
+	},
+/obj/machinery/recharger{
+	pixel_x = 7;
+	pixel_y = 3
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -20759,7 +20767,6 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/hos,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -25415,36 +25422,12 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "hVV" = (
-/obj/effect/turf_decal/bot,
-/obj/item/clothing/suit/armor/riot{
-	pixel_y = 4
-	},
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/head/helmet/riot{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/clothing/head/helmet/riot{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/shield/riot{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/shield/riot{
-	pixel_x = 1;
-	pixel_y = -3
-	},
 /obj/item/radio/intercom{
 	dir = 1;
 	pixel_x = 1;
 	pixel_y = 23
 	},
 /obj/structure/rack,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "hVY" = (
@@ -27375,11 +27358,6 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
 	},
-/obj/structure/table/wood,
-/obj/machinery/recharger{
-	pixel_x = 7;
-	pixel_y = 3
-	},
 /obj/machinery/button/door{
 	id = "hosroom";
 	name = "Space Shutters Control";
@@ -27394,6 +27372,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -42
 	},
+/obj/structure/closet/secure_closet/hos,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "iIs" = (
@@ -30912,6 +30891,31 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
+"jMJ" = (
+/obj/effect/turf_decal/bot,
+/obj/item/clothing/suit/armor/riot{
+	pixel_y = 4
+	},
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/head/helmet/riot{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/clothing/head/helmet/riot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/shield/riot{
+	pixel_x = -3;
+	pixel_y = 1
+	},
+/obj/item/shield/riot{
+	pixel_x = 1;
+	pixel_y = -3
+	},
+/obj/structure/rack,
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "jMT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
@@ -34788,6 +34792,15 @@
 "kZu" = (
 /obj/structure/closet/secure_closet/injection,
 /obj/item/storage/toolbox/mechanical,
+/obj/item/stack/sheet/wood{
+	amount = 20
+	},
+/obj/item/stack/cable_coil/red{
+	amount = 10
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 3
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "kZz" = (
@@ -46866,6 +46879,11 @@
 	pixel_y = -21;
 	pixel_x = -8
 	},
+/obj/item/storage/lockbox/loyalty,
+/obj/machinery/door/window/brigdoor/westleft{
+	req_access_txt = "3";
+	name = "mind shields"
+	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "oOn" = (
@@ -49457,11 +49475,6 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/chief)
-"pEP" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "pEZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool{
@@ -58437,7 +58450,6 @@
 /obj/item/security_barricade{
 	pixel_y = 5
 	},
-/obj/item/storage/lockbox/loyalty,
 /obj/item/storage/secure/safe{
 	name = "armory safe A";
 	pixel_x = 6;
@@ -103239,7 +103251,7 @@ uYx
 tqK
 cIf
 hsz
-pEP
+pHx
 oMO
 uYx
 kpc
@@ -104011,7 +104023,7 @@ szy
 goa
 rHv
 bnk
-pHx
+jMJ
 qVx
 xvS
 jfL
