@@ -5920,14 +5920,21 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_edge/red{
-	dir = 1
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_tri/red,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -6305,9 +6312,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_edge/red{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
@@ -6332,6 +6336,16 @@
 	pixel_x = -36;
 	pixel_y = 1;
 	req_access_txt = "1"
+	},
+/obj/effect/turf_decal/guideline/guideline_tri/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 9
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red,
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -7913,9 +7927,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_tri/red{
-	dir = 1
-	},
+/obj/effect/turf_decal/guideline/guideline_edge/red,
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Viewing Hall"
@@ -9302,11 +9314,12 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_edge/red{
-	dir = 8
-	},
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -20214,6 +20227,19 @@
 	},
 /turf/open/floor/plating,
 /area/storage/primary)
+"gmg" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "gmv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -29573,30 +29599,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
-"jsW" = (
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/loading_area{
-	pixel_y = -8
-	},
-/turf/open/floor/plasteel,
-/area/security/main{
-	name = "Security Viewing Hall"
-	})
 "jth" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -34860,22 +34862,16 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 10
-	},
-/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_tri/red,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 5
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -47001,9 +46997,18 @@
 /obj/structure/chair/fancy/bench{
 	dir = 1
 	},
-/obj/effect/turf_decal/guideline/guideline_edge/red,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -34
+	},
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red,
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 5
+	},
+/obj/effect/turf_decal/guideline/guideline_tri/red{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -47560,9 +47565,12 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_edge/red,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -64729,11 +64737,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_edge/red{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 5
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -76690,7 +76699,18 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_edge/red,
+/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_half_edge/red{
+	dir = 6
+	},
+/obj/effect/turf_decal/guideline/guideline_tri/red{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Viewing Hall"
@@ -104859,7 +104879,7 @@ dXY
 aap
 uwo
 ceM
-icK
+gmg
 uEC
 eBC
 lQG
@@ -106921,7 +106941,7 @@ kBx
 fsn
 dja
 jMp
-jsW
+ixv
 oOB
 ntc
 eSQ
