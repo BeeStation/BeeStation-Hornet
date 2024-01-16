@@ -143,10 +143,10 @@
 	return
 
 /datum/xenoartifact_trait/proc/setup_generic_item_hint()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(hint_translation_type_a))
+	RegisterSignal(parent.parent, COMSIG_PARENT_ATTACKBY, PROC_REF(hint_translation_type_a))
 
 /datum/xenoartifact_trait/proc/setup_generic_touch_hint()
-	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(hint_translation_type_b))
+	RegisterSignal(parent.parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(hint_translation_type_b))
 
 /datum/xenoartifact_trait/proc/hint_translation_type_a(datum/source, obj/item, mob/living, params)
 	SIGNAL_HANDLER
@@ -161,7 +161,7 @@
 /datum/xenoartifact_trait/proc/do_hint(mob/user, atom/item)
 	//If they have science goggles, or equivilent, they are shown exatcly what trait this is
 	if(user?.can_see_reagents())
-		var/atom/A = parent
+		var/atom/A = parent.parent
 		A.balloon_alert(user, label_name, parent.artifact_type.material_color, TRUE)
 	return
 

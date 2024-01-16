@@ -1,6 +1,15 @@
+/*
+	Malfunction
+	These traits cause the xenoartifact to malfunction, typically making the artifact wrose
+	
+	* weight - All malfunctions should have a weight that is a multiple of 7
+	* conductivity - If a malfunction should have conductivity, it will be a multiple of 7 too
+*/
 /datum/xenoartifact_trait/malfunction
 	priority = TRAIT_PRIORITY_MALFUNCTION
 	register_targets = FALSE
+	weight = 7
+	conductivity = 0
 
 /*
 	Parallel Bearspace Retrieval

@@ -1,6 +1,16 @@
+/*
+	Minors
+	These traits cause the xenoartifact to behave uniquely, just misc shit
+	
+	* weight - All minors should have a weight that is a multiple of 5
+	* conductivity - If a minor should have conductivity, it will be a multiple of 5 too
+*/
+
 /datum/xenoartifact_trait/minor
 	priority = TRAIT_PRIORITY_MINOR
 	register_targets = FALSE
+	weight = 5
+	conductivity = 0
 
 /*
 	Charged
@@ -11,6 +21,8 @@
 	label_name = "Charged"
 	label_desc = "Charged: The Artifact's design seems to incorporate looping elements. This will cause the artifact to produce more powerful effects."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 10
+	conductivity = 15
 
 /datum/xenoartifact_trait/minor/charged/New(atom/_parent)
 	. = ..()
@@ -34,6 +46,8 @@
 	label_name = "Capacitive"
 	label_desc = "Capacitive: The Artifact's design seems to incorporate a capacitive elements. This will cause the artifact to have more uses."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 15
+	conductivity = 30
 	///How many extra charges do we get?
 	var/max_charges = 2
 	///How many extra charges do we have?
@@ -67,6 +81,7 @@
 	label_desc = "Dense: The Artifact's design seems to incorporate dense elements. This will cause the artifact to be much heavier than usual."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/ringed, /datum/xenoartifact_trait/minor/shielded, /datum/xenoartifact_trait/minor/aerodynamic, /datum/xenoartifact_trait/minor/slippery)
+	weight = 30
 	///Old value tracker
 	var/old_density
 	var/old_atom_flag
@@ -145,7 +160,16 @@
 	label_name = "Cooling"
 	label_desc = "Cooling: The Artifact's design seems to incorporate cooling elements. This will cause the artifact to cooldown faster."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
+	cooldown = -5 SECONDS //Point of balance
+	weight = 15
+
+/datum/xenoartifact_trait/minor/cooling/New(atom/_parent)
+	. = ..()
+	setup_generic_touch_hint()
+
+/datum/xenoartifact_trait/minor/cooling/do_hint(mob/user, atom/item)
+	. = ..()
+	to_chat(user, "<span class='warning'>[parent.parent] feels cool to the touch!</span>")
 
 /*
 	Sentient
@@ -155,6 +179,7 @@
 	label_name = "Senitent"
 	label_desc = "Senitent: The Artifact's design seems to incorporate sentient elements. This will cause the artifact to have a mind of its own."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 30
 	///Mob who lives inside the artifact, and who we give actions to
 	var/mob/living/simple_animal/shade/sentience
 	///Mob spawner for ghosts
@@ -263,6 +288,7 @@
 	label_name = "Delicate"
 	label_desc = "Delicate: The Artifact's design seems to delicate cooling elements. This will cause the artifact to potentially break."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = -5
 	///Max amount of uses
 	var/max_uses
 	///How many uses we have left
@@ -303,6 +329,8 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	extra_target_range = 2
+	weight = 15
+	conductivity = 5
 	///Max amount of extra targets we can have
 	var/max_extra_targets = 10
 
@@ -328,6 +356,8 @@
 	label_desc = "Scoped: The Artifact's design seems to incorporate scoped elements. This will cause the artifact to have a larger target range."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	extra_target_range = 9
+	weight = 10
+	conductivity = 15
 
 /*
 	Ringed
@@ -386,6 +416,7 @@
 	label_desc = "Shielded: The Artifact's design seems to incorporate shielded elements. This will allow the artifact to be used like a shield."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	weight = 15
 	///Old block level
 	var/old_block_level
 	var/max_block_level = 4
@@ -427,6 +458,7 @@
 	label_desc = "Aerodynamic: The Artifact's design seems to incorporate shielAerodynamicded elements. This will allow the artifact to be thrown further."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	weight = -5
 	///Old throw range
 	var/old_throw_range
 
@@ -451,6 +483,7 @@
 	label_name = "Signaller"
 	label_desc = "Signaller: The Artifact's design seems to incorporate signalling elements. This will cause the artifact to send a signal when activated."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	conductivity = 15
 	///Signal code
 	var/code
 	///Signal frequency
@@ -466,6 +499,7 @@
 	signal = new(list("code" = code))
 	//Frequency
 	radio_connection = SSradio.add_object(src, FREQ_SIGNALER, "[RADIO_XENOA]_[REF(src)]")
+	setup_generic_item_hint()
 
 /datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
 	SSradio.remove_object(src, FREQ_SIGNALER)
@@ -477,6 +511,11 @@
 	if(!.)
 		return
 	INVOKE_ASYNC(src, PROC_REF(do_signal))
+
+/datum/xenoartifact_trait/minor/signaller/do_hint(mob/user, atom/item)
+	. = ..()
+	if(istype(item, /obj/item/analyzer))
+		to_chat(user, "<span class='warning'>[item] detects a frequency & code of [FREQ_SIGNALER]-[code]!</span>")
 
 /datum/xenoartifact_trait/minor/signaller/proc/do_signal()
 	if(!radio_connection || !signal)
@@ -496,6 +535,7 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	extra_target_range = 2
+	weight = 10
 
 /datum/xenoartifact_trait/minor/anchor/New(atom/_parent)
 	. = ..()
@@ -537,6 +577,7 @@
 	label_desc = "Slippery: The Artifact's design seems to incorporate slippery elements. This will cause the artifact to be slippery."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	conductivity = 5
 	///Refernce to slip component for later cleanup
 	var/datum/component/slippery/slip_comp
 
@@ -557,6 +598,7 @@
 	label_name = "Haunted"
 	label_desc = "Haunted: The Artifact's design seems to incorporate incorporeal elements. This will cause the artifact to move unexpectedly."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	conductivity = 35
 	///Refernce to move component for later cleanup
 	var/datum/component/deadchat_control/controller
 

@@ -1,5 +1,14 @@
+/*
+	Major
+	These traits cause the xenoartifact to do a specific action
+	
+	* weight - All majors should have a weight that is a multiple of 3
+	* conductivity - If a major should have conductivity, it will be a multiple of 3 too
+*/
 /datum/xenoartifact_trait/major
 	priority = TRAIT_PRIORITY_MAJOR
+	weight = 3
+	conductivity = 0
 
 /*
 	Electrified
@@ -10,7 +19,7 @@
 	label_desc = "The artifact seems to contain electrifying components. Triggering these components will shock the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	conductivity = 10
+	conductivity = 27
 	///max damage
 	var/max_damage = 25
 
@@ -43,6 +52,7 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = -10
+	weight = 27
 	///Maximum time we hold people for
 	var/hold_time = 15 SECONDS
 
@@ -96,6 +106,7 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
+	weight = 24
 	///Maximum time we stop time for
 	var/max_time = 10 SECONDS
 
@@ -119,6 +130,7 @@
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	extra_target_range = 2
+	weight = 21
 	///List of projectiles we *could* shoot
 	var/list/possible_projectiles = list(/obj/projectile/beam/disabler, /obj/projectile/beam/laser, /obj/projectile/seedling, /obj/projectile/beam/xray, /obj/projectile/bullet)
 	///The projectile type we *will* shoot
@@ -152,6 +164,8 @@
 	label_desc = "Bestialized: The artifact contains transforming components. Triggering these components transforms the target into an animal."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
+	weight = 15
+	conductivity = 12
 	///List of potential animals we could turn people into
 	var/list/possible_animals = list(/mob/living/simple_animal/pet/dog/corgi)
 	///The animal we will turn people into
@@ -216,6 +230,8 @@
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
 	rarity = XENOA_TRAIT_WEIGHT_RARE
+	weight = 9
+	conductivity = 36
 
 /datum/xenoartifact_trait/major/emp/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -247,6 +263,8 @@
 	label_desc = "The artifact seems to contain displacing components. Triggering these components will displace the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	flags =  XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 15
+	conductivity = 15
 
 /datum/xenoartifact_trait/major/displaced/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -273,6 +291,7 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
+	weight = 18
 	///List of possible colors
 	var/list/possible_colors = list(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK)
 	///Our actual color
@@ -305,6 +324,7 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
+	weight = 33
 	///What wall size are we making?
 	var/wall_size
 	///Max time we keep walls around for
@@ -354,6 +374,7 @@
 	label_desc = "Hypodermic: The artifact seems to contain chemical components. Triggering these components will inject the target with a chemical."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 30
 	///What chemical we're injecting
 	var/datum/reagent/formula
 	///max amount we can inject people with
@@ -389,6 +410,8 @@
 	label_desc = "Forcing: The artifact seems to contain impulsing components. Triggering these components will impulse, either pushing or pulling, the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 21
+	conductivity = 27
 	///Max force we can use, aka how far we throw things
 	var/max_force = 7
 	///Force direction, push or pull
@@ -455,6 +478,7 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
+	weight = 15
 	///Possible target gasses
 	var/list/target_gasses = list(
 		/datum/gas/oxygen = 6,
@@ -505,6 +529,8 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
 	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	rarity = XENOA_TRAIT_WEIGHT_EPIC
+	weight = 36
+	conductivity = 36
 
 /datum/xenoartifact_trait/major/shadow_realm/New(atom/_parent)
 	. = ..()
@@ -540,6 +566,7 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	register_targets = FALSE
+	weight = 6
 	///The maximum size of our smoke stack in turfs, I think
 	var/max_size = 6
 

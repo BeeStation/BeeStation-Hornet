@@ -143,7 +143,7 @@
 	var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
 	if(istype(pinchy))
 		pinchy.safety = !pinchy.safety
-		var/datum/component/anti_artifact/A = pinch.GetComponent(/datum/component/anti_artifact)
+		var/datum/component/anti_artifact/A = pinchy.GetComponent(/datum/component/anti_artifact)
 		if(pinchy.safety && !A)
 			pinchy.AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 		else if(A)
@@ -152,4 +152,6 @@
 
 /datum/action/item_action/artifact_pincher_mode/UpdateButtonIcon(status_only = FALSE, force)
 	if(..()) //button available
-		button.icon_state = (pinchy.safety ? "template_active" : "template")
+		var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
+		if(istype(pinchy))
+			button.icon_state = (pinchy.safety ? "template_active" : "template")
