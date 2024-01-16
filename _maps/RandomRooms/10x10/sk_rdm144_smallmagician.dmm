@@ -23,7 +23,7 @@
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/wood,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "g" = (
@@ -118,7 +118,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "x" = (
@@ -130,7 +130,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "z" = (
@@ -179,7 +179,7 @@
 /area/template_noop)
 "I" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "J" = (
@@ -269,7 +269,7 @@
 "Z" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 
