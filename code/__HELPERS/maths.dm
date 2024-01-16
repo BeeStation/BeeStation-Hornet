@@ -169,14 +169,14 @@
 
 /// similar to clamp() but can return value outside of the range min-max, when the original value was outside of the range.
 /// So, this means it respects the original value - that's why it's named respected.
-/proc/clamp_respected(val_respected, calc_syntax, min, max)
+/proc/clamp_respected(val_respected, val_to_add, min, max)
 	if(min > max)
 		stack_trace("why the fuck do you use this as 'min > max'?")
 		var/temp = min
 		min = max
 		max = min
 
-	. = val_respected + calc_syntax
+	. = val_respected + val_to_add
 	if(. > max)
 		return max(max, val_respected)
 	else if(. < min)
