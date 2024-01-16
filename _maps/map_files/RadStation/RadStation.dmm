@@ -7399,11 +7399,6 @@
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plasteel,
 /area/maintenance/department/security)
-"cuw" = (
-/obj/structure/lattice,
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "cuM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -13281,7 +13276,6 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -35453,11 +35447,6 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/carpet/royalblack,
 /area/maintenance/port/aft)
-"lku" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/open/space/basic,
-/area/space/nearstation)
 "lkv" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 9
@@ -96760,7 +96749,7 @@ ewB
 gsA
 ewB
 gsA
-cuw
+jGx
 gsA
 ewB
 ewB
@@ -97281,7 +97270,7 @@ gsA
 gsA
 gsA
 emI
-cuw
+jGx
 gsA
 ewB
 gsA
@@ -104979,7 +104968,7 @@ gsA
 gsA
 gsA
 gsA
-lku
+pia
 uYx
 fMH
 mUX
