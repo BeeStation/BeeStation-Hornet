@@ -6,5 +6,6 @@
 /obj/item/reagent_containers/food/snacks/notasandwich : /obj/item/food/notasandwich{@OLD}
 /obj/item/reagent_containers/food/snacks/hotdog : /obj/item/food/hotdog{@OLD}
 /obj/item/reagent_containers/food/snacks/butteredtoast : /obj/item/food/butteredtoast{@OLD}
-/obj/item/reagent_containers/food/snacks/jelliedtoast : /obj/item/food/jelliedtoast/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/jelliedtoast : /obj/item/food/jelliedtoast{@OLD}
+/obj/item/reagent_containers/food/snacks/jelliedtoast/@SUBTYPES : /obj/item/food/jelliedtoast/@SUBTYPES{@OLD}
 /obj/item/reagent_containers/food/snacks/twobread : /obj/item/food/twobread{@OLD}
