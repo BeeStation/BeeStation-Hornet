@@ -1,7 +1,6 @@
 /obj/effect/anomaly/insanity_pulse
 	name = "sanity disruption pulse anomaly"
 	icon_state = "purplecrack"
-	aSignal = null // we don't have this yet
 
 	COOLDOWN_DECLARE(pulse_cooldown)
 	var/pulse_interval = 10 SECONDS
@@ -53,9 +52,13 @@
 	if((!isspaceturf(target_turf) && isopenturf(target_turf)) || isopenspace(target_turf)) // you don't see what's comming...
 		new /obj/effect/temp_visual/mining_scanner(target_turf) // actually, making effects for every turf is laggy. This is good to reduce lags.
 	for(var/mob/living/each_mob in target_turf.get_all_mobs()) // hiding in a closet? No, no, you cheater
+		if(each_mob.anti_artifact_check())
+			to_chat(each_mob, "<span class='notice'>A weird energy from you blocks the pulse.</span>")
+			each_mob.adjust_blurriness(2.5)
+			continue
 		to_chat(each_mob, "<span class='warning'>A wave of dread washes over you...</span>")
-		each_mob.adjust_blindness(30)
-		each_mob.Knockdown(10)
+		each_mob.adjust_blindness(1.5) // very mild blindness
+		each_mob.Knockdown(5)
 		each_mob.emote("scream")
 		each_mob.Jitter(50)
 		each_mob.hallucination = each_mob.hallucination + 20

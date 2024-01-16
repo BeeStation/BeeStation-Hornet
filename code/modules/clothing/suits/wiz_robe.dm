@@ -78,7 +78,14 @@
 
 /obj/item/clothing/suit/wizrobe/ComponentInitialize()
 	. = ..()
+	add_anti_artifact()
+
+/obj/item/clothing/suit/wizrobe/proc/add_anti_artifact()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
+
+// fake robe can't protect artifact
+/obj/item/clothing/suit/wizrobe/fake/add_anti_artifact()
+	return
 
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"
