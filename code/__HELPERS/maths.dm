@@ -179,7 +179,7 @@
 	. = val_respected + val_to_add
 	/*  NOTE:
 		instead of doing `. = second_param`, I made the param added to the original value.
-	 	that's because setting the second param with a calculation looked ugly at proc augmenting
+	 	that's because setting the return value by the second param with a calculation looked ugly at proc augmenting
 			example)
 				second parameter as "val_to_add"
 				M.hallucination = clamp_respected(M.hallucination, 5, 0, 60)
