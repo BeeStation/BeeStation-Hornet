@@ -50,7 +50,7 @@
 		if(isitem(I) && prob(1)) //if you ever make non-items artifacts, change this check
 			var/datum/component/xenoartifact/X = I.GetComponent(/datum/component/xenoartifact)
 			if(!X)
-				AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, null, TRUE, FALSE)
+				I.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, null, TRUE, FALSE)
 	if(!hl3_release_date)
 		return
 	strength -= strength / hl3_release_date

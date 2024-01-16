@@ -19,7 +19,7 @@
 	var/stability = 100
 
 	///List of current listing sellers
-	var/list/sellers = list(/datum/rnd_lister/artifact_seller/bastard)
+	var/list/sellers = list(/datum/rnd_lister/artifact_seller/bastard, /datum/rnd_lister/artifact_seller/bastard/two)
 
 	var/list/test = list()
 
@@ -55,13 +55,16 @@
 /obj/machinery/computer/xenoarchaeology_console/ui_data(mob/user)
 	var/list/data = list()
 
+	//Seller data
 	data["sellers"] = list()
 	for(var/datum/rnd_lister/seller as() in sellers)
-		var/list/stock = list(list("name" = "test", "description" = "test_desc"), list("name" = "test", "description" = "test_desc"))
+		var/list/stock = list()
 		for(var/atom/A as() in seller.current_stock)
-			stock += list(list("name" = "pepper", "description" = "spicy"))
+			stock += list(list("name" = A?.name, "description" = A?.desc))
 		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = stock))
-	test = data
+	//Stability
+	data["stability"] = stability
+	
 	return data
 
 //Circuitboard for this console

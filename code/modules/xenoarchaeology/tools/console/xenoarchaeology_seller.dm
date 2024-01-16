@@ -89,6 +89,9 @@
 	dialogue = "What are you standing there for? come closer."
 	personality = SELLER_PERSONALITY_STINGY
 
+/datum/rnd_lister/artifact_seller/bastard/two
+	name = "SidorovichII"
+
 /*
 	Supply pack for this system
 	Whenever a listing is purchased, a supply pack with the purchased items is returned
