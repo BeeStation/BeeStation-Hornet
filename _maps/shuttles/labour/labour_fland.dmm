@@ -224,7 +224,7 @@
 	pixel_y = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/gps,
+/obj/item/gps/security,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "N" = (

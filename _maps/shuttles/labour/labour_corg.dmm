@@ -29,7 +29,7 @@
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
-/obj/item/gps,
+/obj/item/gps/security,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "h" = (
