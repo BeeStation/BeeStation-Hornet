@@ -28939,6 +28939,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
+"fcT" = (
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/explab)
 "fcY" = (
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -46802,9 +46808,6 @@
 /turf/open/space,
 /area/ai_monitored/security/armory)
 "mft" = (
-/obj/item/radio/intercom{
-	pixel_y = 21
-	},
 /obj/machinery/xenoarchaeology_machine/scale,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
@@ -113679,7 +113682,7 @@ ccv
 bST
 vcc
 cgq
-iZs
+fcT
 iZs
 iZs
 iZs

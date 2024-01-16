@@ -10,10 +10,10 @@ export const XenoartifactConsole = (props, context) => {
   return (
     <Window width={800} height={500}>
       <Window.Content scrollable>
-        <Box>
-          {`Research Budget: ${money}`}
-        </Box>
+        <BlockQuote>{`Research Budget: ${money}`}</BlockQuote>
+        <Divider/>
         <ProgressBar value = {stability/100} ranges={{good: [0.5, Infinity], average: [0.25, 0.5], bad: [-Infinity, 0.25],}}/>
+        <Divider/>
         <Section>
           <BlockQuote>
             {"Purchase research materials from independant sellers, using the science budget. Purchased items will be routed through cargo."}
@@ -40,9 +40,8 @@ const XenoartifactConsoleSellerEntry = (props, context) => {
         <BlockQuote>{`${value["dialogue"]}`}</BlockQuote>
         <Divider/>
         {stock.map((stock_list) => (
-          <Section title={`${stock_list["name"]}`} mx={5} independant={true} key={stock_list}>
+          <Section title={`${stock_list["name"]}`} mx={5} independant={true} buttons={<Button icon={'shopping-cart'} onClick={() => act(`stock_purchase`, {item_id: stock_list["id"], seller_id: value["id"],})}/>} key={stock_list}>
             <BlockQuote>{`${stock_list["description"]}`}</BlockQuote>
-            <Button icon={'shopping-cart'} onClick={() => act(`stock_purchase`, {item_id: stock_list["id"], seller_id: value["id"],})}/>
             <Divider/>
           </Section>
         ))}

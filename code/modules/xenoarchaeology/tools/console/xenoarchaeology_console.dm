@@ -21,8 +21,6 @@
 	///List of current listing sellers
 	var/list/sellers = list(/datum/rnd_lister/artifact_seller/bastard, /datum/rnd_lister/artifact_seller/bastard, /datum/rnd_lister/artifact_seller/bastard)
 
-	var/list/test = list()
-
 /obj/machinery/computer/xenoarchaeology_console/Initialize()
 	. = ..()
 	//Link relevant stuff
@@ -67,7 +65,7 @@
 	///Cash available
 	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	data["money"] = D.account_balance
-	
+
 	return data
 
 /obj/machinery/computer/xenoarchaeology_console/ui_act(action, params)
@@ -92,7 +90,6 @@
 			//Ship the pack
 			var/datum/supply_order/SO = new(SP, null, null, null, "Research Material Requisition", D)
 			SO.generateRequisition(get_turf(src))
-			//TODO: For whatever reason this doesn't auto approve - Racc
 			SSsupply.shoppinglist += SO
 			//Take our toll
 			stability = clamp(stability-STABILITY_COST, 0, 100)

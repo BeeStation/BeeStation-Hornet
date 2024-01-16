@@ -8,7 +8,7 @@
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
 	icon_state = "map_editor"
 	w_class = WEIGHT_CLASS_NORMAL
-	desc = "A strange alien device. What could it possibly do?"
+	desc = "A strange alien artifact. What could it possibly do?"
 	throw_range = 3
 	///What type of artifact
 	var/datum/xenoartifact_material/artifact_type
@@ -211,6 +211,10 @@
 		return
 	//Range check
 	if(get_dist(get_turf(parent), get_turf(target))> target_range && !force)
+		return
+	//Anti-artifact check
+	var/mob/M = target
+	if(M.anti_artifact_check())
 		return
 	targets += target
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)

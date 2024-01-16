@@ -15,10 +15,15 @@
 /datum/xenoartifact_trait/minor/charged/New(atom/_parent)
 	. = ..()
 	parent.trait_strength *= 1.25
+	setup_generic_touch_hint()
 
 /datum/xenoartifact_trait/minor/charged/Destroy(force, ...)
 	parent.trait_strength /= 1.25
 	return ..()
+
+/datum/xenoartifact_trait/minor/charged/do_hint(mob/user, atom/item)
+	. = ..()
+	to_chat(user, "<span class='warning'>Your hair stands on end!</span>")
 
 /*
 	Capacitive
