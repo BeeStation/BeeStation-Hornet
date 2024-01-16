@@ -46,7 +46,7 @@
 	dir = 1
 	},
 /obj/item/stack/sheet/cotton/cloth/five,
-/obj/item/knife/combat/survival,
+/obj/item/kitchen/knife/combat/survival,
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/pod/dark,

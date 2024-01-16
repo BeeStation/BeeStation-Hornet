@@ -18,7 +18,7 @@
 /area/ruin/unpowered)
 "dn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "dG" = (

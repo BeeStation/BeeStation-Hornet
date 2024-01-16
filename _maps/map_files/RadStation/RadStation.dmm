@@ -3331,7 +3331,7 @@
 /obj/machinery/conveyor{
 	id = "HB"
 	},
-/mob/living/basic/mothroach,
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/security/prison)
 "bez" = (
@@ -3563,9 +3563,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "bin" = (
@@ -3947,7 +3945,7 @@
 /obj/item/reagent_containers/syringe{
 	pixel_y = 10
 	},
-/obj/item/food/grown/random{
+/obj/item/reagent_containers/food/snacks/grown/random{
 	pixel_x = -3;
 	pixel_y = 21
 	},
@@ -4547,7 +4545,7 @@
 	dir = 5;
 	id = "HB"
 	},
-/mob/living/basic/mothroach,
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/security/prison)
 "bzv" = (
@@ -5374,7 +5372,7 @@
 /obj/structure/sign/painting/library{
 	pixel_y = 32
 	},
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/plasteel,
 /area/medical/break_room)
@@ -5677,7 +5675,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
-/mob/living/basic/mothroach{
+/mob/living/simple_animal/mothroach{
 	density = 0;
 	desc = "A festive mothroach";
 	name = "Erster"
@@ -6362,9 +6360,7 @@
 "cdH" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/plasteel,
 /area/maintenance/department/engine)
 "cdQ" = (
@@ -8103,9 +8099,7 @@
 /area/engine/engineering)
 "cEF" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/plasteel/cafeteria,
 /area/maintenance/port/aft)
 "cEU" = (
@@ -9157,9 +9151,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cXE" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "cXH" = (
@@ -9509,7 +9501,7 @@
 	dir = 9;
 	id = "HB"
 	},
-/mob/living/basic/mothroach,
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/security/prison)
 "ddL" = (
@@ -9554,7 +9546,7 @@
 /obj/structure/bodycontainer/crematorium{
 	id = "cremawheat"
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "deg" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -10917,7 +10909,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "dAa" = (
 /obj/effect/decal/cleanable/dirt,
@@ -11593,9 +11585,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk/over,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
 "dJh" = (
@@ -12533,7 +12523,7 @@
 /area/engine/atmos)
 "dWQ" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/basic/mothroach,
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/grass,
 /area/hallway/primary/central)
 "dWR" = (
@@ -13729,9 +13719,9 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
 "ert" = (
-/obj/machinery/power/emitter/welded{
+/obj/machinery/power/emitter/anchored{
 	dir = 2;
-	= None
+	state = 2
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -15810,7 +15800,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/food/grown/flower/harebell{
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/item/candle/infinite{
@@ -15989,7 +15979,7 @@
 /area/crew_quarters/dorms)
 "eYH" = (
 /obj/structure/table_frame/wood,
-/obj/item/knife,
+/obj/item/kitchen/knife,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/cafeteria,
 /area/maintenance/port/aft)
@@ -18166,7 +18156,7 @@
 /area/crew_quarters/dorms)
 "fGF" = (
 /obj/machinery/airalarm/directional/west,
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/research)
@@ -18361,9 +18351,7 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "fKp" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/carpet/royalblack,
 /area/maintenance/port/aft)
 "fKs" = (
@@ -19493,7 +19481,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 23
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/crew_quarters/dorms)
 "gbg" = (
 /obj/structure/lattice,
@@ -21068,7 +21056,7 @@
 	name = "Relic Closet";
 	req_access_txt = "27"
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "gzt" = (
 /obj/structure/closet/emcloset/anchored,
@@ -23492,7 +23480,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/food/grown/apple{
+/obj/item/reagent_containers/food/snacks/grown/apple{
 	pixel_x = -3;
 	pixel_y = 2
 	},
@@ -28699,9 +28687,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "jap" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "jaC" = (
@@ -28898,7 +28884,7 @@
 /area/science/research)
 "jcE" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
-/obj/item/food/grown/flower/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_x = 1;
 	pixel_y = 4
 	},
@@ -30396,9 +30382,7 @@
 /obj/item/ammo_casing/c46x30mm,
 /obj/item/ammo_casing/c46x30mm,
 /obj/item/ammo_casing/c46x30mm,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "jAD" = (
@@ -30698,9 +30682,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/over,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
@@ -30841,7 +30823,7 @@
 "jGC" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light/small,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/crew_quarters/dorms)
 "jGD" = (
 /obj/item/kirbyplants/random,
@@ -31597,7 +31579,7 @@
 /area/engine/engine_room)
 "jTg" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "jTj" = (
@@ -32282,7 +32264,7 @@
 /turf/open/space/basic,
 /area/solar/port/fore)
 "khc" = (
-/obj/structure/weightmachine/weightlifter,
+/obj/structure/weightmachine/stacklifter,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -35542,7 +35524,7 @@
 	dir = 6;
 	id = "HB"
 	},
-/mob/living/basic/mothroach,
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/security/prison)
 "lfZ" = (
@@ -35862,7 +35844,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
 /obj/item/soulstone/anybody/chaplain,
 /obj/item/organ/heart,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "lmb" = (
 /obj/effect/turf_decal/tile/purple,
@@ -37723,7 +37705,7 @@
 	dir = 10;
 	layer = 3.1
 	},
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
 	},
@@ -39551,9 +39533,7 @@
 /area/hallway/primary/port)
 "muZ" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "mvj" = (
@@ -41234,7 +41214,7 @@
 	pixel_y = 1
 	},
 /obj/effect/turf_decal/stripes/corner,
-/obj/item/food/piedough,
+/obj/item/reagent_containers/food/snacks/piedough,
 /obj/machinery/light_switch{
 	pixel_x = 21
 	},
@@ -41570,7 +41550,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/firealarm/directional/north,
@@ -42108,9 +42088,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "niE" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /obj/effect/decal/cleanable/insectguts,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
@@ -43439,7 +43417,7 @@
 	dir = 1;
 	id = "HB"
 	},
-/mob/living/basic/mothroach,
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/security/prison)
 "nCb" = (
@@ -44679,7 +44657,7 @@
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/food/mint,
+/obj/item/reagent_containers/food/snacks/mint,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	id = "Chefwindow";
@@ -45968,9 +45946,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -46565,7 +46541,7 @@
 	dir = 10;
 	id = "HB"
 	},
-/mob/living/basic/mothroach,
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/security/prison)
 "oCW" = (
@@ -47348,9 +47324,9 @@
 	},
 /area/quartermaster/exploration_prep)
 "oOw" = (
-/obj/machinery/power/emitter/welded{
+/obj/machinery/power/emitter/anchored{
 	dir = 2;
-	= None
+	state = 2
 	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
@@ -47590,7 +47566,7 @@
 	pixel_x = 2;
 	pixel_y = -31
 	},
-/obj/item/food/grown/tomato/blood{
+/obj/item/reagent_containers/food/snacks/grown/tomato/blood{
 	pixel_x = 7;
 	pixel_y = 8
 	},
@@ -47777,10 +47753,10 @@
 /area/engine/break_room)
 "oVm" = (
 /obj/structure/table,
-/obj/item/food/dough{
+/obj/item/reagent_containers/food/snacks/dough{
 	pixel_x = -4
 	},
-/obj/item/food/dough{
+/obj/item/reagent_containers/food/snacks/dough{
 	pixel_y = 1
 	},
 /obj/item/kitchen/rollingpin{
@@ -48064,7 +48040,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 1
 	},
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "paq" = (
@@ -48624,7 +48600,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "pkt" = (
 /obj/structure/extinguisher_cabinet{
@@ -49991,7 +49967,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/item/knife/carrotshiv{
+/obj/item/kitchen/knife/carrotshiv{
 	pixel_x = 9;
 	pixel_y = 9
 	},
@@ -50817,7 +50793,7 @@
 	dir = 1;
 	id = "HB"
 	},
-/mob/living/basic/mothroach,
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/security/prison)
 "pSM" = (
@@ -52017,7 +51993,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/food/grown/flower/harebell{
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/item/candle/infinite{
@@ -54701,7 +54677,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/power/apc/auto_name/north{
@@ -55730,8 +55706,8 @@
 "rvD" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/turf_decal/bot,
-/obj/item/food/meat/slab/penguin,
-/obj/item/food/meat/slab/penguin,
+/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
+/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
@@ -56116,9 +56092,9 @@
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/item/food/grown/flower/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
 /obj/structure/table/wood/fancy,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "rCc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -57867,7 +57843,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/airalarm/directional/east,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "sgg" = (
 /obj/structure/plasticflaps/opaque,
@@ -58662,7 +58638,7 @@
 	alpha = 180;
 	dir = 8
 	},
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/item/radio/intercom{
 	dir = 8;
 	freerange = 1;
@@ -58967,7 +58943,7 @@
 /turf/open/floor/plasteel,
 /area/science/explab)
 "sAw" = (
-/obj/item/food/grown/flower/harebell{
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/structure/table/wood/fancy/purple,
@@ -59223,7 +59199,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/food/grown/flower/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 4
 	},
 /obj/machinery/airalarm/directional/east,
@@ -59408,7 +59384,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/firealarm/directional/south,
-/obj/item/food/grown/shell/gatfruit,
+/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit,
 /obj/item/gun/ballistic/automatic/pistol/deagle,
 /obj/item/gun/ballistic/revolver/russian,
 /turf/open/floor/plasteel/dark,
@@ -60310,7 +60286,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "sWO" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/research)
@@ -60396,7 +60372,7 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
 	},
-/obj/item/food/grown/flower/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 4
 	},
 /obj/structure/table/wood/fancy/purple,
@@ -61473,9 +61449,7 @@
 /area/crew_quarters/heads/hor)
 "tnB" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
 "tnC" = (
@@ -63124,7 +63098,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/item/radio/intercom{
@@ -65793,7 +65767,7 @@
 "uCx" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "uCA" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
@@ -68329,9 +68303,7 @@
 /area/ai_monitored/storage/satellite)
 "vqu" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "vqC" = (
@@ -70660,9 +70632,9 @@
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical)
 "wcw" = (
-/obj/machinery/power/emitter/welded{
+/obj/machinery/power/emitter/anchored{
 	dir = 2;
-	= None
+	state = 2
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -71046,7 +71018,7 @@
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
 "wiy" = (
-/obj/structure/weightmachine/weightlifter,
+/obj/structure/weightmachine/stacklifter,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -72850,7 +72822,7 @@
 	},
 /area/hallway/secondary/exit/departure_lounge)
 "wOk" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/guideline/guideline_edge/yellow{
 	dir = 4
@@ -75552,7 +75524,7 @@
 /obj/machinery/conveyor{
 	id = "HB"
 	},
-/mob/living/basic/mothroach,
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/security/prison)
 "xEU" = (
@@ -76927,19 +76899,19 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/item/food/grown/carrot{
+/obj/item/reagent_containers/food/snacks/grown/carrot{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/food/grown/carrot{
+/obj/item/reagent_containers/food/snacks/grown/carrot{
 	pixel_x = -1;
 	pixel_y = 11
 	},
-/obj/item/food/grown/carrot{
+/obj/item/reagent_containers/food/snacks/grown/carrot{
 	pixel_x = -6;
 	pixel_y = 12
 	},
-/obj/item/food/grown/carrot{
+/obj/item/reagent_containers/food/snacks/grown/carrot{
 	pixel_x = -1;
 	pixel_y = 6
 	},

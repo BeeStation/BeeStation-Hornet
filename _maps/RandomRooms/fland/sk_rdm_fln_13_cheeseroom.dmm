@@ -128,13 +128,13 @@
 /area/template_noop)
 "U" = (
 /obj/structure/table,
-/obj/item/food/cheesyburrito,
+/obj/item/reagent_containers/food/snacks/cheesyburrito,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plasteel/techmaint,
 /area/template_noop)
 "W" = (
 /obj/structure/table,
-/obj/item/food/cheesynachos,
+/obj/item/reagent_containers/food/snacks/cheesynachos,
 /obj/effect/decal/cleanable/crayon,
 /obj/machinery/light{
 	dir = 8

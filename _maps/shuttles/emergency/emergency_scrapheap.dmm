@@ -248,13 +248,13 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aX" = (
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/shuttle/escape)
 "aY" = (
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/shuttle/escape)
 "bc" = (
 /obj/machinery/status_display/evac,

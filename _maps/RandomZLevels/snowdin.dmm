@@ -1278,7 +1278,7 @@
 /area/awaymission/snowdin/post/kitchen)
 "dU" = (
 /obj/structure/table,
-/obj/item/knife,
+/obj/item/kitchen/knife,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/kitchen)
@@ -1496,7 +1496,7 @@
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/kitchen)
 "eC" = (
-/obj/item/knife{
+/obj/item/kitchen/knife{
 	pixel_x = 6;
 	pixel_y = 6
 	},
@@ -5243,17 +5243,17 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pc" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pd" = (
 /obj/structure/bed,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pe" = (
 /obj/structure/table,
@@ -5395,14 +5395,14 @@
 /area/awaymission/snowdin/cave/cavern)
 "pB" = (
 /obj/structure/table/wood,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pC" = (
 /obj/item/chair,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pD" = (
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "pE" = (
 /turf/closed/wall/mineral/cult,
@@ -5603,7 +5603,7 @@
 /area/awaymission/snowdin/post/cavern2)
 "qk" = (
 /obj/structure/closet/cabinet,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "ql" = (
 /turf/open/floor/plating{
@@ -5760,7 +5760,7 @@
 /obj/machinery/door/airlock{
 	name = "Private Quarters"
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/cavern2)
 "qH" = (
 /turf/open/floor/engine/cult,
@@ -10844,19 +10844,19 @@
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/mining_main/mechbay)
 "HT" = (
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "HU" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "HV" = (
 /obj/machinery/door/airlock{
 	name = "Private Quarters"
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "HW" = (
 /turf/open/floor/plasteel,
@@ -10933,15 +10933,15 @@
 "Iq" = (
 /obj/structure/bed,
 /obj/item/bedsheet/grey,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "Ir" = (
 /obj/structure/closet/cabinet,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "Is" = (
 /obj/structure/table/wood,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "It" = (
 /obj/machinery/light{
@@ -11252,7 +11252,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/awaymission/snowdin/post/mining_main)
 "JN" = (
 /obj/structure/closet/crate{
@@ -12401,7 +12401,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/mining_dock)
 "PO" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/research)
@@ -12730,7 +12730,7 @@
 /turf/open/floor/plasteel/dark,
 /area/awaymission/snowdin/cave)
 "RD" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/research)
@@ -12761,7 +12761,7 @@
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "RM" = (
-/obj/item/knife,
+/obj/item/kitchen/knife,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
 	},
