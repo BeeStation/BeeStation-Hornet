@@ -1,6 +1,6 @@
-/obj/item/food/sandwich : /obj/item/reagent_containers/food/snacks/sandwich{@OLD}
-
-/obj/item/food/grilled_cheese_sandwich : /obj/item/reagent_containers/food/snacks/grilledcheese{@OLD}
-/obj/item/food/jellysandwich : /obj/item/reagent_containers/food/snacks/jellysandwich{@OLD}
-/obj/item/food/notasandwich : /obj/item/reagent_containers/food/snacks/notasandwich{@OLD}
-/obj/item/food/hotdog : /obj/item/reagent_containers/food/snacks/hotdog{@OLD}
+/obj/item/reagent_containers/food/snacks/sandwich : /obj/item/food/sandwich{@OLD}
+/obj/item/reagent_containers/food/snacks/grilledcheese : /obj/item/food/grilled_cheese_sandwich{@OLD}
+/obj/item/reagent_containers/food/snacks/jellysandwich : /obj/item/food/jellysandwich{@OLD}
+/obj/item/reagent_containers/food/snacks/jellysandwich/@SUBTYPES : /obj/item/food/jellysandwich/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/notasandwich : /obj/item/food/notasandwich{@OLD}
+/obj/item/reagent_containers/food/snacks/hotdog : /obj/item/food/hotdog{@OLD}
