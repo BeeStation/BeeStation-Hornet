@@ -19,7 +19,7 @@
 	var/stability = 100
 
 	///List of current listing sellers
-	var/list/sellers = list(/datum/rnd_lister/artifact_seller/bastard, /datum/rnd_lister/artifact_seller/bastard/two)
+	var/list/sellers = list(/datum/rnd_lister/artifact_seller/bastard, /datum/rnd_lister/artifact_seller/bastard, /datum/rnd_lister/artifact_seller/bastard)
 
 	var/list/test = list()
 
@@ -60,7 +60,7 @@
 	for(var/datum/rnd_lister/seller as() in sellers)
 		var/list/stock = list()
 		for(var/atom/A as() in seller.current_stock)
-			stock += list(list("name" = A?.name, "description" = A?.desc, "id" = REF(A)))
+			stock += list(list("name" = A?.name, "description" = A?.desc, "id" = REF(A), "cost" = A?.custom_price || 0))
 		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = stock, "id" = REF(seller)))
 	//Stability
 	data["stability"] = stability
@@ -80,7 +80,22 @@
 			//Ship the pack
 			var/datum/supply_order/SO = new(SP, null, null, null, "Research Material Requisition")
 			SO.generateRequisition(get_turf(src))
-			new /obj/effect/pod_landingzone(get_turf(src), /obj/structure/closet/supplypod, SO)
+			//Landing zone shit
+			var/LZ = get_turf(src)
+			var/area/landingzone = GLOB.areas_by_type[/area/quartermaster/storage]
+			var/list/empty_turfs
+			if(!landingzone)
+				WARNING("[src] couldnt find a Quartermaster/Storage (aka cargobay) area on the station, and as such it has set the supplypod landingzone to the area it resides in.")
+				landingzone = get_area(src)
+			for(var/turf/open/floor/T in landingzone.get_contained_turfs())
+				if(T.is_blocked_turf())
+					continue
+				LAZYADD(empty_turfs, T)
+				CHECK_TICK
+			if(empty_turfs?.len)
+				LZ = pick(empty_turfs)
+			//FIRE!
+			new /obj/effect/pod_landingzone(LZ, /obj/structure/closet/supplypod/bluespacepod, SO)
 			
 	ui_update()
 
