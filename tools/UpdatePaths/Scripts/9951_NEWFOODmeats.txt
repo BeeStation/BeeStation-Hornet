@@ -6,6 +6,8 @@
 /obj/item/reagent_containers/food/snacks/meat/rawbacon : /obj/item/food/meat/rawbacon{@OLD}
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet : /obj/item/food/meat/rawcutlet{@OLD}
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet/@SUBTYPES : /obj/item/food/meat/rawcutlet/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/monkeycube : /obj/item/food/monkeycube{@OLD}
+/obj/item/reagent_containers/food/snacks/monkeycube/@SUBTYPES : /obj/item/food/monkeycube/@SUBTYPES{@OLD}
 /obj/item/reagent_containers/food/snacks/carpmeat/icantbelieveitsnotcarp : /obj/item/food/fishmeat{@OLD}
 /obj/item/reagent_containers/food/snacks/carpmeat/imitation : /obj/item/food/fishmeat/carp/imitation{@OLD}
 /obj/item/reagent_containers/food/snacks/carpmeat : /obj/item/food/fishmeat/carp{@OLD}
