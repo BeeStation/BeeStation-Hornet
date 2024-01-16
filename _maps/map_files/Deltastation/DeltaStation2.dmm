@@ -87285,7 +87285,7 @@
 "vYI" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/security/brig)
 "vYM" = (

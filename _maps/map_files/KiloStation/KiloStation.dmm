@@ -1643,7 +1643,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/security/execution/education)
 "afN" = (
@@ -15843,7 +15843,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/maintenance/aft)
 "bCA" = (
@@ -17734,7 +17734,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "bMB" = (
@@ -18322,7 +18322,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/security/main)
 "bPh" = (
@@ -21821,7 +21821,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cgt" = (
@@ -22993,7 +22993,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "ckE" = (
@@ -23177,7 +23177,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cls" = (
@@ -23187,7 +23187,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "clt" = (
@@ -23450,7 +23450,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cmm" = (
@@ -24151,7 +24151,7 @@
 	},
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/solars/port/aft)
 "cqa" = (
@@ -24845,7 +24845,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/security/main)
 "cta" = (
@@ -25158,7 +25158,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/maintenance/solars/port/aft)
 "cuY" = (
@@ -28915,7 +28915,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/security/execution/education)
 "cJG" = (
@@ -28935,7 +28935,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/security/execution/education)
 "cJI" = (
@@ -29137,7 +29137,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/maintenance/aft)
 "cKx" = (
@@ -29212,7 +29212,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cKN" = (
@@ -29748,7 +29748,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cME" = (
@@ -29770,7 +29770,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/solars/port/aft)
 "cMF" = (
@@ -29790,7 +29790,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/solars/port/aft)
 "cMG" = (
@@ -29800,7 +29800,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "cMI" = (
@@ -30489,7 +30489,7 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/maintenance/solars/port/aft)
 "cPy" = (
@@ -53904,7 +53904,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "lmw" = (
@@ -54650,14 +54650,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/engineering)
-"lxO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/maintenance/aft)
 "lxT" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -65936,7 +65928,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/maintenance/port/aft)
 "pAX" = (
@@ -115716,8 +115708,8 @@ aMM
 sfB
 faK
 jnr
-lxO
-lxO
+faK
+faK
 cKw
 wNk
 cKE
