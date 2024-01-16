@@ -144,12 +144,6 @@
 
 	if(!brain)
 		brain = new(src)
-
-	if(!brain.brainmob)
-		if(brainmob)
-			qdel(brainmob) //hopefully this isn't incredibly short sighted and ignorant and breaks everything
-		brain.transfer_identity(L)
-
 	brainmob = brain.brainmob
 	brainmob.container = src
 	brain.name = "[brainmob.real_name]'s brain"
