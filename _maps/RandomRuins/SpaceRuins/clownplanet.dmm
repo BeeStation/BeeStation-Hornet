@@ -346,7 +346,7 @@
 /turf/open/floor/bluespace,
 /area/ruin/powered/clownplanet)
 "bh" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/stripes/white/box,
 /turf/open/floor/bluespace,
 /area/ruin/powered/clownplanet)
@@ -360,7 +360,7 @@
 	},
 /area/ruin/powered/clownplanet)
 "bk" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/stripes/white/box,
 /turf/open/floor/bluespace,
 /area/ruin/powered/clownplanet)

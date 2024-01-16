@@ -55,7 +55,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "v" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

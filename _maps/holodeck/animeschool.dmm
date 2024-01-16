@@ -30,7 +30,7 @@
 /area/template_noop)
 "E" = (
 /obj/structure/table/wood,
-/obj/item/food/grown/apple,
+/obj/item/reagent_containers/food/snacks/grown/apple,
 /turf/open/floor/holofloor,
 /area/template_noop)
 "H" = (

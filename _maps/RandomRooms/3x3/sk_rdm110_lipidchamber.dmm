@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "g" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "l" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9,11 +9,11 @@
 	icon_state = "bulb-empty";
 	dir = 4
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "r" = (
 /obj/machinery/fat_sucker,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "A" = (
 /obj/effect/decal/cleanable/dirt,
@@ -21,12 +21,12 @@
 	icon_state = "bulb-broken";
 	dir = 8
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "T" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/up,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "V" = (
 /obj/effect/decal/cleanable/dirt,
@@ -34,10 +34,10 @@
 	icon_state = "tracks";
 	dir = 10
 	},
-/obj/item/food/meat/slab/human{
+/obj/item/reagent_containers/food/snacks/meat/slab/human{
 	pixel_y = 10
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 
 (1,1,1) = {"

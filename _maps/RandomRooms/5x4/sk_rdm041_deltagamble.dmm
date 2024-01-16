@@ -69,7 +69,7 @@
 /area/template_noop)
 "n" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/cockroach,
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/wood{
 	icon_state = "wood-broken5"
 	},

@@ -532,6 +532,10 @@
 	},
 /turf/open/floor/pod/light,
 /area/ruin/powered/beach)
+"rY" = (
+/obj/structure/weightmachine/stacklifter,
+/turf/open/floor/plating/beach/sand,
+/area/ruin/powered/beach)
 "sy" = (
 /obj/effect/turf_decal/caution{
 	dir = 4
@@ -755,7 +759,7 @@ bW
 ad
 ar
 ar
-bb
+rY
 ar
 bb
 ar
@@ -819,7 +823,7 @@ ar
 ap
 az
 ar
-bb
+rY
 ar
 bb
 ar

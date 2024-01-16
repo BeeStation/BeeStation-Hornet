@@ -23,7 +23,7 @@
 	},
 /area/template_noop)
 "k" = (
-/obj/item/food/burger/corgi,
+/obj/item/reagent_containers/food/snacks/burger/corgi,
 /obj/structure/table,
 /obj/machinery/microwave{
 	pixel_y = 8
@@ -71,7 +71,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/obj/item/knife/butcher,
+/obj/item/kitchen/knife/butcher,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/toy/plush/snakeplushie,
 /obj/effect/turf_decal/bot,
