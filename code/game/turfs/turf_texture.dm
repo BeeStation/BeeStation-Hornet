@@ -12,7 +12,7 @@
 	///The opacity of the texture used
 	var/alpha = 255
 	///Color adjustment - this isn't used often
-	var/color = "#ffffffff"
+	var/color = "#fff"
 	///The priority of this texture
 	var/priority = 1
 	///Is this texture cleanable?
@@ -21,18 +21,20 @@
 //Effect object we use to hold our groceries
 /obj/effect/turf_texture
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	blend_mode = BLEND_MULTIPLY
+	plane = FLOOR_PLANE
+	appearance_flags = KEEP_TOGETHER
 	///Associated texture
 	var/datum/turf_texture/parent_texture
 
 /obj/effect/turf_texture/Initialize(mapload, datum/turf_texture/_texture)
 	. = ..()
 	var/datum/turf_texture/texture = new _texture()
-	var/mutable_appearance/MA = mutable_appearance(texture.icon, texture.icon_state, plane = FLOOR_PLANE, alpha = 0, color = texture.color)
-	MA.appearance_flags = RESET_ALPHA | RESET_COLOR	
-	MA.alpha = texture.alpha //Why do I have to set this here, why can't it just work in the proc?
-	MA.blend_mode = BLEND_MULTIPLY
+	var/mutable_appearance/MA = mutable_appearance(texture.icon, texture.icon_state)
 	add_overlay(MA)
 	parent_texture = _texture
+	color = texture.color
+	alpha = texture.alpha
 
 //Subtle hallway wear & tear
 /datum/turf_texture/hallway
