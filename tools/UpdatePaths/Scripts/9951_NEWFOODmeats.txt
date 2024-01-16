@@ -33,7 +33,6 @@
 /obj/item/reagent_containers/food/snacks/spidereggsham : /obj/item/food/spidereggsham{@OLD}
 /obj/item/reagent_containers/food/snacks/sashimi : /obj/item/food/sashimi{@OLD}
 /obj/item/reagent_containers/food/snacks/nugget : /obj/item/food/nugget{@OLD}
-/obj/item/reagent_containers/food/snacks/nugget/@SUBTYPES : /obj/item/food/nugget/@SUBTYPES{@OLD}
 /obj/item/reagent_containers/food/snacks/pigblanket : /obj/item/food/pigblanket{@OLD}
 /obj/item/reagent_containers/food/snacks/bbqribs : /obj/item/food/bbqribs{@OLD}
 /obj/item/reagent_containers/food/snacks/meatclown : /obj/item/food/meatclown{@OLD}
