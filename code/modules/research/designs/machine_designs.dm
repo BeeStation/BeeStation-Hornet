@@ -699,3 +699,19 @@
 	build_path = /obj/item/circuitboard/machine/fax
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SERVICE
 	category = list("Misc. Machinery")
+
+/datum/design/board/turnstile
+	name = "Machine Design (Turnstile)"
+	desc = "The circuit board for a turnstile machine."
+	id = "turnstile"
+	build_path = /obj/item/circuitboard/machine/turnstile
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	category = list("Misc. Machinery")
+
+/datum/design/board/genpop_interface
+	name = "Machine Design (Prisoner Management Interface)"
+	desc = "The circuit board for a prisonner management interface."
+	id = "genpop_interface"
+	build_path = /obj/item/electronics/genpop_interface
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	category = list("Misc. Machinery")
