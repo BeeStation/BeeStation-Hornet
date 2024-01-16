@@ -204,4 +204,4 @@
 /turf/open/floor/holofloor/monotile/light
 	name = "light holotile"
 	desc = "A really big light steel holotile."
-	icon_state = "monotile_light"
+	icon_state = "grey_full"
