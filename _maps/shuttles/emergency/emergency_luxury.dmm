@@ -199,7 +199,7 @@
 /area/shuttle/escape/luxury)
 "aQ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/jelliedtoast/cherry,
+/obj/item/food/jelliedtoast/cherry,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aR" = (
@@ -229,7 +229,7 @@
 /area/shuttle/escape/luxury)
 "aX" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/customizable/pizza,
+/obj/item/food/pizza/dank,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aY" = (
@@ -310,11 +310,6 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"gn" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/shuttle/escape/luxury)
 "hA" = (
 /obj/structure/table/optable,
 /obj/item/surgical_drapes,
@@ -328,11 +323,6 @@
 "nZ" = (
 /obj/item/pool/pool_noodle,
 /turf/open/indestructible/sound/pool,
-/area/shuttle/escape/luxury)
-"rQ" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken"
-	},
 /area/shuttle/escape/luxury)
 "vB" = (
 /obj/item/kirbyplants{
@@ -348,7 +338,7 @@
 /area/shuttle/escape/luxury)
 "wc" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/shuttle/escape/luxury)
 "wf" = (
@@ -383,7 +373,7 @@
 "OH" = (
 /obj/machinery/light/small,
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/shuttle/escape/luxury)
 "OL" = (
@@ -455,7 +445,7 @@ ab
 "}
 (3,1,1) = {"
 ab
-gn
+wc
 ag
 ab
 ab
@@ -519,7 +509,7 @@ ab
 "}
 (7,1,1) = {"
 ab
-rQ
+wc
 ag
 ab
 aj
@@ -600,7 +590,7 @@ ab
 (12,1,1) = {"
 ac
 ag
-gn
+wc
 ab
 aj
 au

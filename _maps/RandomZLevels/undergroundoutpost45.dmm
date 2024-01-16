@@ -303,7 +303,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "bq" = (
@@ -1049,7 +1049,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "dO" = (
@@ -1404,17 +1404,6 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
-"eX" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "platingdmg2"
-	},
-/area/awaymission/undergroundoutpost45/central)
 "eZ" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -1449,7 +1438,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "fm" = (
@@ -4721,13 +4710,6 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/research)
-"nq" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "platingdmg2"
-	},
-/area/awaymission/undergroundoutpost45/central)
 "nr" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -5423,7 +5405,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "oS" = (
@@ -5618,7 +5600,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "po" = (
@@ -5849,18 +5831,6 @@
 	},
 /turf/open/floor/plasteel/white{
 	heat_capacity = 1e+006
-	},
-/area/awaymission/undergroundoutpost45/research)
-"pO" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "platingdmg3"
 	},
 /area/awaymission/undergroundoutpost45/research)
 "pQ" = (
@@ -6509,7 +6479,7 @@
 "rm" = (
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "ro" = (
@@ -7557,7 +7527,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "tA" = (
@@ -7835,7 +7805,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "ui" = (
@@ -8313,7 +8283,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "vs" = (
@@ -8997,7 +8967,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "xg" = (
@@ -9694,7 +9664,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "yH" = (
@@ -9861,12 +9831,6 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/engineering)
-"AI" = (
-/turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "platingdmg3"
-	},
-/area/awaymission/undergroundoutpost45/central)
 "AL" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -10010,7 +9974,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "Ce" = (
@@ -10025,7 +9989,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "Cg" = (
@@ -10130,7 +10094,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "DJ" = (
@@ -10172,7 +10136,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "DX" = (
@@ -10250,7 +10214,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "EK" = (
@@ -10306,7 +10270,7 @@
 /obj/structure/grille,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "Fm" = (
@@ -10398,7 +10362,7 @@
 "FR" = (
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "FZ" = (
@@ -10559,7 +10523,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "GO" = (
@@ -10602,7 +10566,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "Hc" = (
@@ -10829,7 +10793,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "Jr" = (
@@ -10850,7 +10814,7 @@
 /obj/item/clothing/mask/breath,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "Jt" = (
@@ -11004,7 +10968,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "KO" = (
@@ -11018,7 +10982,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "KQ" = (
@@ -11083,7 +11047,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "Ln" = (
@@ -11127,7 +11091,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "LF" = (
@@ -11340,7 +11304,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "Nj" = (
@@ -11513,15 +11477,6 @@
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/engineering)
-"Ps" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
-	},
-/area/awaymission/undergroundoutpost45/central)
 "Pz" = (
 /obj/structure/chair/fancy/comfy,
 /obj/effect/decal/cleanable/dirt,
@@ -11549,7 +11504,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "PX" = (
@@ -11621,7 +11576,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "QB" = (
@@ -11662,7 +11617,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "QJ" = (
@@ -11780,7 +11735,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "Rv" = (
@@ -11805,7 +11760,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "RP" = (
@@ -11985,7 +11940,7 @@
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/gateway)
 "Ty" = (
@@ -11996,7 +11951,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "TB" = (
@@ -12137,7 +12092,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "UD" = (
@@ -12162,7 +12117,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "UN" = (
@@ -12186,7 +12141,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "UX" = (
@@ -12198,7 +12153,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "Vb" = (
@@ -12395,7 +12350,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "VU" = (
@@ -12693,7 +12648,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "Zk" = (
@@ -12737,7 +12692,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "ZB" = (
@@ -12758,7 +12713,7 @@
 /obj/item/storage/belt/utility,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "ZF" = (
@@ -12768,7 +12723,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/central)
 "ZI" = (
@@ -12802,7 +12757,7 @@
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006;
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/undergroundoutpost45/research)
 "ZL" = (
@@ -41447,7 +41402,7 @@ aC
 bq
 bq
 bq
-AI
+rm
 bY
 aC
 rm
@@ -41997,7 +41952,7 @@ gz
 ns
 nN
 nj
-pO
+UX
 nN
 nN
 xb
@@ -42222,7 +42177,7 @@ bP
 cb
 cq
 ct
-nq
+uh
 cq
 dk
 an
@@ -42990,7 +42945,7 @@ aS
 bA
 aF
 bP
-Ps
+pn
 aC
 cx
 cI
@@ -44003,7 +43958,7 @@ ad
 ae
 ag
 rm
-AI
+rm
 ar
 as
 at
@@ -44259,7 +44214,7 @@ ad
 ad
 ae
 ag
-AI
+rm
 ap
 fu
 ag
@@ -48648,7 +48603,7 @@ bX
 bX
 an
 cS
-Ps
+pn
 aC
 FH
 ze
@@ -49171,7 +49126,7 @@ eF
 ct
 ct
 VR
-eX
+PQ
 gb
 gj
 Zh

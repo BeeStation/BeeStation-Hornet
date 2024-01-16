@@ -204,7 +204,7 @@
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "bt" = (
 /obj/effect/spawner/randomvend/cola{
-	extended_inventory = 1
+	hacked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -3039,7 +3039,7 @@
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder,
 /obj/item/kitchen/rollingpin,
-/obj/item/knife{
+/obj/item/knife/kitchen{
 	pixel_x = 6
 	},
 /turf/open/floor/wood,
@@ -4449,7 +4449,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "xu" = (
 /obj/effect/spawner/randomvend/snack{
-	extended_inventory = 1
+	hacked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -4471,7 +4471,7 @@
 	pixel_y = 6
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "xG" = (

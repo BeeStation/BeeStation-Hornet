@@ -323,7 +323,7 @@
 /area/ruin/space/has_grav/listeningstation)
 "aY" = (
 /obj/effect/spawner/randomvend/snack{
-	extended_inventory = 1
+	hacked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -406,7 +406,7 @@
 /area/ruin/space/has_grav/listeningstation)
 "bh" = (
 /obj/effect/spawner/randomvend/cola{
-	extended_inventory = 1
+	hacked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,

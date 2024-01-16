@@ -1768,7 +1768,6 @@
 "fv" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
-	max_integrity = 20;
 	name = "old stump"
 	},
 /obj/effect/light_emitter{
@@ -1836,7 +1835,6 @@
 "fQ" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
-	max_integrity = 20;
 	name = "old stump"
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -4682,7 +4680,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/cabin)
 "oo" = (
@@ -4698,14 +4696,13 @@
 /area/awaymission/cabin/caves/mountain)
 "pa" = (
 /turf/open/floor/wood/cold{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/awaymission/cabin/caves)
 "pn" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/snowforest)
 "qH" = (
@@ -4729,14 +4726,8 @@
 "qN" = (
 /obj/structure/barricade/wooden/snowed,
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
-	},
-/area/awaymission/cabin/caves)
-"qY" = (
-/turf/open/floor/wood/cold{
-	icon_state = "wood-broken"
 	},
 /area/awaymission/cabin/caves)
 "rp" = (
@@ -4792,8 +4783,7 @@
 	wander = 0
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/snowforest)
 "yG" = (
@@ -4801,7 +4791,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -4827,13 +4816,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/cabin)
 "zo" = (
 /obj/vehicle/ridden/atv,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/cabin)
 "zJ" = (
@@ -4841,7 +4830,6 @@
 	pixel_x = 32
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -4882,7 +4870,6 @@
 "CV" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
-	max_integrity = 20;
 	name = "old stump"
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -4904,11 +4891,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
-"Eb" = (
-/turf/open/floor/wood/cold{
-	icon_state = "wood-broken3"
-	},
-/area/awaymission/cabin/caves)
 "Fm" = (
 /obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/head/helmet/police{
@@ -4924,14 +4906,13 @@
 /area/awaymission/cabin/caves/mountain)
 "FF" = (
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/snowforest)
 "FZ" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/awaymission/cabin)
 "Gc" = (
@@ -4943,7 +4924,6 @@
 	wander = 0
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -4958,7 +4938,6 @@
 /turf/open/indestructible,
 /area/awaymission/cabin/caves/mountain)
 "GF" = (
-/obj/structure/closet/acloset,
 /obj/item/toy/foamblade,
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
@@ -4987,7 +4966,7 @@
 "HW" = (
 /obj/item/shovel,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/awaymission/cabin)
 "Ik" = (
@@ -5035,7 +5014,7 @@
 "Kn" = (
 /obj/machinery/light,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/cabin)
 "Mv" = (
@@ -5046,8 +5025,7 @@
 	set_luminosity = 6
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/caves)
 "MH" = (
@@ -5062,17 +5040,11 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
-"MK" = (
-/turf/open/floor/wood/cold{
-	icon_state = "wood-broken4"
-	},
-/area/awaymission/cabin/caves)
 "ND" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -5088,7 +5060,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/cabin)
 "Pw" = (
@@ -5132,8 +5104,7 @@
 /area/awaymission/cabin/caves/mountain)
 "Rg" = (
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/caves)
 "RR" = (
@@ -5179,18 +5150,16 @@
 /obj/effect/baseturf_helper/asteroid/snow,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/cabin)
 "VU" = (
 /obj/structure/flora/stump{
 	desc = "Breaking it should be easy.";
-	max_integrity = 20;
 	name = "old stump"
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/snowforest)
 "Wa" = (
@@ -5214,8 +5183,7 @@
 	set_luminosity = 6
 	},
 /turf/open/floor/plating/asteroid/snow{
-	name = "packed snow";
-	slowdown = 0
+	name = "packed snow"
 	},
 /area/awaymission/cabin/caves)
 "Wl" = (
@@ -5235,7 +5203,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/cabin)
 "Wx" = (
@@ -5253,7 +5221,6 @@
 /area/awaymission/cabin/caves/mountain)
 "Xq" = (
 /turf/open/floor/plating/asteroid/snow{
-	floor_variance = 0;
 	icon_state = "snow_dug";
 	slowdown = 1
 	},
@@ -5280,7 +5247,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/awaymission/cabin)
 "YJ" = (
@@ -5291,7 +5258,6 @@
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
 "Zk" = (
-/obj/structure/closet/acloset,
 /obj/item/clothing/suit/hooded/bloated_human,
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/caves)
@@ -21572,7 +21538,7 @@ ab
 it
 it
 it
-qY
+pa
 ki
 ki
 ki
@@ -25172,7 +25138,7 @@ ki
 ki
 ki
 ki
-Eb
+pa
 it
 it
 gx
@@ -25427,7 +25393,7 @@ it
 ki
 ki
 ki
-MK
+pa
 ki
 ki
 it

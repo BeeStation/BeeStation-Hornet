@@ -1045,7 +1045,9 @@
 "ID" = (
 /obj/structure/closet/crate/internals,
 /mob/living/simple_animal/bot/medbot,
-/mob/living/simple_animal/bot/atmosbot,
+/mob/living/simple_animal/bot/atmosbot{
+	on = 0
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
