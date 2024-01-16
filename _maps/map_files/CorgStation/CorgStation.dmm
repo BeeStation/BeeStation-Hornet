@@ -16862,7 +16862,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
-/area/hallway/primary/aft)
+/area/hydroponics/garden)
 "fqH" = (
 /turf/open/floor/plasteel/chapel{
 	dir = 10
@@ -18048,7 +18048,7 @@
 	name = "Garden"
 	},
 /turf/open/floor/plating,
-/area/hallway/primary/aft)
+/area/hydroponics/garden)
 "fLx" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -43248,10 +43248,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"nZM" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/hydroponics/garden)
 "nZV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -66358,6 +66354,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/tools)
+"vGg" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/hydroponics/garden)
 "vGB" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -97208,7 +97208,7 @@ dKo
 dKo
 dKo
 dKo
-erm
+vGg
 iiO
 tfx
 eLC
@@ -97465,7 +97465,7 @@ wUf
 vZC
 frg
 oCP
-rdA
+dKo
 wSl
 rRd
 uFi
@@ -98236,7 +98236,7 @@ wun
 vkL
 frg
 fMA
-rdA
+dKo
 vFP
 rRd
 erm
@@ -98492,8 +98492,8 @@ dKo
 dKo
 dKo
 dKo
-nZM
-rdA
+dKo
+dKo
 vFP
 rRd
 erm
