@@ -23576,8 +23576,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/emitter/welded{
-	dir = 1;
-	= None
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 4
@@ -30292,9 +30291,7 @@
 /area/ai_monitored/security/armory)
 "fDA" = (
 /obj/structure/cable/white,
-/obj/machinery/power/emitter/welded{
-	 = None
-	},
+/obj/machinery/power/emitter/welded,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -68677,8 +68674,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/emitter/welded{
-	dir = 1;
-	= None
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,

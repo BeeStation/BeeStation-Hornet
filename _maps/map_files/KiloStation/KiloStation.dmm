@@ -13775,8 +13775,7 @@
 /area/hallway/primary/starboard)
 "brA" = (
 /obj/machinery/power/emitter/welded{
-	dir = 4;
-	= None
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -29652,8 +29651,7 @@
 /area/hallway/primary/central)
 "cNr" = (
 /obj/machinery/power/emitter/welded{
-	dir = 8;
-	= None
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -30263,8 +30261,7 @@
 	dir = 8
 	},
 /obj/machinery/power/emitter/welded{
-	dir = 4;
-	= None
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,

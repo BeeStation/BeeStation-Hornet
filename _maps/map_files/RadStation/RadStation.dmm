@@ -13730,8 +13730,7 @@
 /area/maintenance/starboard/aft)
 "ert" = (
 /obj/machinery/power/emitter/welded{
-	dir = 2;
-	= None
+	dir = 2
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -47349,8 +47348,7 @@
 /area/quartermaster/exploration_prep)
 "oOw" = (
 /obj/machinery/power/emitter/welded{
-	dir = 2;
-	= None
+	dir = 2
 	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
@@ -70661,8 +70659,7 @@
 /area/maintenance/department/medical)
 "wcw" = (
 /obj/machinery/power/emitter/welded{
-	dir = 2;
-	= None
+	dir = 2
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"

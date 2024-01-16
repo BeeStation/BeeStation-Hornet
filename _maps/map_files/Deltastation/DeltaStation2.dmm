@@ -2567,8 +2567,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/emitter/welded{
-	dir = 1;
-	= None
+	dir = 1
 	},
 /turf/open/floor/circuit/green,
 /area/engine/atmospherics_engine)

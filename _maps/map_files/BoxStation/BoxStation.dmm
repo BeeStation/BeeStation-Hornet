@@ -16223,8 +16223,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/emitter/welded{
-	dir = 4;
-	= None
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -17539,8 +17538,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/emitter/welded{
-	dir = 8;
-	= None
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
