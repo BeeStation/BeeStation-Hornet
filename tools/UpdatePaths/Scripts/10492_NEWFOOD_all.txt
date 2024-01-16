@@ -1,5 +1,9 @@
 /obj/item/reagent_containers/food/snacks/burger : /obj/item/food/burger{@OLD}
-/obj/item/reagent_containers/food/snacks/pizza : /obj/item/food/pizza/pizza{@OLD}
+/obj/item/reagent_containers/food/snacks/burger/@SUBTYPES : /obj/item/food/burger/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/pizza : /obj/item/food/pizza{@OLD}
+/obj/item/reagent_containers/food/snacks/pizza/@SUBTYPES : /obj/item/food/pizza/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/pizzaslice : /obj/item/food/pizzaslice{@OLD}
+/obj/item/reagent_containers/food/snacks/pizzaslice/@SUBTYPES : /obj/item/food/pizzaslice/@SUBTYPES{@OLD}
 
 
 /obj/item/reagent_containers/food/snacks/dough : /obj/item/food/dough{@OLD}
@@ -50,6 +54,8 @@
 /obj/item/reagent_containers/food/snacks/cherrycupcake/blue : /obj/item/food/cherrycupcake/blue{@OLD}
 /obj/item/reagent_containers/food/snacks/honeybun : /obj/item/food/honeybun{@OLD}
 /obj/item/reagent_containers/food/snacks/ravtart : /obj/item/food/ravtart{@OLD}
+/obj/item/reagent_containers/food/snacks/pie : /obj/item/food/pie{@OLD}
+/obj/item/reagent_containers/food/snacks/pie/@SUBTYPES : /obj/item/food/pie/@SUBTYPES{@OLD}
 
 
 /obj/item/reagent_containers/food/snacks/dolphinmeat : /obj/item/food/meat/slab/dolphinmeat{@OLD}
