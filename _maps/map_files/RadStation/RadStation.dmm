@@ -1122,9 +1122,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -1999,17 +1996,11 @@
 /area/hallway/primary/port)
 "aIQ" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
@@ -2730,6 +2721,9 @@
 	color = "#DE3A3A"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "aUb" = (
@@ -6314,12 +6308,33 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch for the medbay foyer.";
+	id = "outerbrign";
+	name = "Brig Exterior Doors Control";
+	normaldoorcontrol = 1;
+	pixel_x = -26;
+	pixel_y = 7;
+	req_access_txt = "1"
+	},
+/obj/machinery/button/door{
+	id = "brigentrance";
+	name = "Brig Lockdown Control";
+	pixel_x = -26;
+	pixel_y = -5;
+	req_access_txt = "1"
+	},
+/obj/machinery/button/flasher{
+	id = "brigentryaux";
+	pixel_x = -36;
+	pixel_y = 1;
+	req_access_txt = "1"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -7135,7 +7150,7 @@
 "crc" = (
 /obj/machinery/door/airlock/security{
 	name = "Prison intake";
-	req_access_txt = "63"
+	req_access_txt = "1"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -20608,6 +20623,9 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/bridge)
 "guk" = (
@@ -25169,8 +25187,10 @@
 	},
 /obj/item/radio/intercom{
 	freerange = 1;
-	name = "Common Channel";
-	pixel_x = 25
+	name = "Prison intercom";
+	pixel_x = 25;
+	desc = "Talk through this. It looks like it has been modified to not broadcast.";
+	prison_radio = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison/shielded)
@@ -31472,7 +31492,9 @@
 	},
 /obj/item/radio/intercom{
 	freerange = 1;
-	name = "Common Channel";
+	name = "Prison intercom";
+	desc = "Talk through this. It looks like it has been modified to not broadcast.";
+	prison_radio = 1;
 	pixel_y = -25
 	},
 /turf/open/floor/plasteel,
@@ -31792,7 +31814,9 @@
 	},
 /obj/item/radio/intercom{
 	freerange = 1;
-	name = "Common Channel";
+	name = "Prison intercom";
+	desc = "Talk through this. It looks like it has been modified to not broadcast.";
+	prison_radio = 1;
 	pixel_x = -25
 	},
 /turf/open/floor/prison,
@@ -33971,6 +33995,8 @@
 "kNn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow,
+/obj/machinery/power/apc/auto_name/west,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "kNF" = (
@@ -35664,6 +35690,11 @@
 	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/machinery/flasher{
+	id = "brigentryaux";
+	pixel_x = 25;
+	range = 3
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -40984,11 +41015,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/flasher{
-	id = "brigentryaux";
-	pixel_x = 25;
-	range = 3
-	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
@@ -41740,7 +41766,8 @@
 	dir = 8
 	},
 /obj/machinery/door/window/brigdoor/southright{
-	name = "evidence chute"
+	name = "evidence chute";
+	req_access_txt = "1"
 	},
 /obj/machinery/disposal/deliveryChute,
 /turf/open/floor/plasteel,
@@ -43084,16 +43111,18 @@
 /area/solar/starboard/aft)
 "nBy" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Common Channel";
-	pixel_y = 25
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Prison intercom";
+	desc = "Talk through this. It looks like it has been modified to not broadcast.";
+	prison_radio = 1;
+	pixel_y = 25
 	},
 /turf/open/floor/prison,
 /area/security/prison/shielded)
@@ -55707,9 +55736,6 @@
 	dir = 2;
 	network = list("ss13","security")
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
 /obj/machinery/power/apc/auto_name/east,
 /obj/effect/turf_decal/guideline/guideline_half_edge/red{
 	dir = 4
@@ -55723,6 +55749,9 @@
 /obj/effect/turf_decal/guideline/guideline_tri/red,
 /obj/structure/disposalpipe/segment{
 	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -60960,13 +60989,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment{
 	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -65401,28 +65430,6 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
-/obj/machinery/button/door{
-	desc = "A remote control switch for the medbay foyer.";
-	id = "outerbrign";
-	name = "Brig Exterior Doors Control";
-	normaldoorcontrol = 1;
-	pixel_x = -26;
-	pixel_y = 7;
-	req_access_txt = "1"
-	},
-/obj/machinery/button/flasher{
-	id = "brigentryaux";
-	pixel_x = -36;
-	pixel_y = 1;
-	req_access_txt = "1"
-	},
-/obj/machinery/button/door{
-	id = "brigentrance";
-	name = "Brig Lockdown Control";
-	pixel_x = -26;
-	pixel_y = -5;
-	req_access_txt = "1"
-	},
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "innerbrign";
 	name = "Brig";
@@ -67670,6 +67677,7 @@
 /obj/effect/turf_decal/guideline/guideline_half_edge/red{
 	dir = 10
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "vpn" = (
@@ -73904,14 +73912,16 @@
 	dir = 9;
 	network = list("ss13","prison")
 	},
-/obj/item/radio/intercom{
-	freerange = 1;
-	name = "Common Channel";
-	pixel_x = 25
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4;
 	layer = 2
+	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Prison intercom";
+	pixel_x = 25;
+	desc = "Talk through this. It looks like it has been modified to not broadcast.";
+	prison_radio = 1
 	},
 /turf/open/floor/wood,
 /area/security/prison/shielded)
