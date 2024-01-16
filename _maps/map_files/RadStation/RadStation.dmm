@@ -24014,6 +24014,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "hxw" = (
@@ -49632,6 +49635,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/structure/guillotine,
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "pHD" = (
@@ -99924,7 +99928,7 @@ fHK
 vIB
 wIy
 vIB
-fad
+bAj
 nLc
 iTy
 mQU
