@@ -63504,10 +63504,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
-"ubp" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "ubG" = (
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
@@ -96824,7 +96820,7 @@ ewB
 ewB
 ewB
 ewB
-ubp
+ewB
 gsA
 ewB
 ewB
