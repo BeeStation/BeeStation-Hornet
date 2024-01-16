@@ -60,7 +60,7 @@
 /area/template_noop)
 "n" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/template_noop)
 "o" = (
@@ -106,11 +106,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"M" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/template_noop)
 "R" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -126,7 +121,7 @@
 
 (1,1,1) = {"
 p
-M
+n
 f
 k
 "}

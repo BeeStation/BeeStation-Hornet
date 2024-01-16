@@ -329,6 +329,7 @@
 	},
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn{
 	name = "\improper TOZ-1";
+	reinforced = 1;
 	pixel_y = -7
 	},
 /obj/effect/decal/cleanable/robot_debris{
@@ -612,7 +613,12 @@
 	},
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn{
 	name = "\improper TOZ-1";
+	reinforced = 1;
 	pixel_y = -4
+	},
+/obj/item/hacksaw{
+	pixel_x = -2;
+	pixel_y = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/hunter)
@@ -964,7 +970,7 @@
 	dir = 10
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/shuttle/hunter)
 "SC" = (

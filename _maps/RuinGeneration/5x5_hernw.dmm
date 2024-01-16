@@ -2,6 +2,10 @@
 "o" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"q" = (
+/obj/item/kirbyplants/random,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "u" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
@@ -20,10 +24,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"R" = (
-/obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "U" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -37,9 +37,9 @@ U
 "}
 (2,1,1) = {"
 U
+q
 o
 o
-R
 U
 "}
 (3,1,1) = {"

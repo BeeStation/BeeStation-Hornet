@@ -6,13 +6,13 @@
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/rack,
 /obj/item/storage/box/ingredients/carnivore,
-/obj/item/food/bun,
-/obj/item/food/bun,
-/obj/item/food/bun,
-/obj/item/food/bun,
-/obj/item/food/bun,
-/obj/item/food/bun,
-/obj/item/food/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
+/obj/item/reagent_containers/food/snacks/bun,
 /turf/open/floor/grass,
 /area/template_noop)
 "c" = (
@@ -71,7 +71,7 @@
 /area/template_noop)
 "v" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "w" = (
@@ -81,7 +81,7 @@
 /obj/item/knife/butcher,
 /obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "z" = (
@@ -153,7 +153,7 @@
 /obj/structure/chair/stool/bar,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "J" = (
@@ -164,7 +164,7 @@
 /area/template_noop)
 "K" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/food/bun,
+/obj/item/reagent_containers/food/snacks/bun,
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "L" = (
@@ -184,7 +184,7 @@
 /area/template_noop)
 "O" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "Q" = (
@@ -202,7 +202,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "T" = (
@@ -213,11 +213,6 @@
 /obj/structure/window/reinforced/spawner/north,
 /mob/living/simple_animal/mouse/white,
 /turf/open/floor/grass,
-/area/template_noop)
-"Y" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
 /area/template_noop)
 
 (1,1,1) = {"
@@ -242,7 +237,7 @@ g
 G
 "}
 (4,1,1) = {"
-Y
+v
 V
 z
 g
@@ -286,7 +281,7 @@ N
 (10,1,1) = {"
 a
 J
-Y
+v
 T
 a
 "}

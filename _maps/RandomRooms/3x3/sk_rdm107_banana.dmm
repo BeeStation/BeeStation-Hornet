@@ -19,7 +19,7 @@
 /obj/effect/spawner/lootdrop/clowntrap,
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 

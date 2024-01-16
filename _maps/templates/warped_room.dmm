@@ -101,7 +101,7 @@
 "u" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/soda_cans/cola,
-/obj/item/knife,
+/obj/item/knife/kitchen,
 /obj/item/kitchen/rollingpin,
 /turf/open/indestructible/hotelwood,
 /area/warped_room)

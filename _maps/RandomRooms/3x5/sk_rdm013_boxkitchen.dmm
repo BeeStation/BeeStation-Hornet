@@ -37,7 +37,7 @@
 /area/template_noop)
 "h" = (
 /obj/structure/table,
-/obj/item/knife,
+/obj/item/knife/kitchen,
 /obj/item/storage/box/donkpockets,
 /turf/open/floor/plating,
 /area/template_noop)

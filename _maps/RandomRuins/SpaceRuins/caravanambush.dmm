@@ -60,7 +60,7 @@
 /area/template_noop)
 "ak" = (
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter3)
 "an" = (
@@ -245,7 +245,7 @@
 	},
 /obj/effect/gibspawner/human,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "bi" = (
@@ -331,7 +331,7 @@
 	amount = 1
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/ruin/unpowered)
 "fZ" = (
@@ -490,7 +490,7 @@
 	name = "Cargo Blast Door"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "hp" = (
@@ -507,7 +507,7 @@
 	name = "Cargo Blast Door"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "hr" = (
@@ -802,20 +802,20 @@
 	icon_state = "pile"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "iz" = (
 /obj/item/shard,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter3)
 "iA" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter3)
 "iB" = (
@@ -1151,7 +1151,7 @@
 "kd" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "ke" = (
@@ -1221,14 +1221,9 @@
 "lD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/ruin/unpowered)
-"oX" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
-	},
-/area/shuttle/caravan/freighter3)
 "tH" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
@@ -5332,7 +5327,7 @@ aN
 hv
 ia
 iA
-oX
+ak
 ap
 aa
 aa

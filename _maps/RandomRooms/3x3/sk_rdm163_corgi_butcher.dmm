@@ -19,7 +19,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "k" = (
@@ -81,7 +81,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "N" = (
@@ -94,7 +94,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "X" = (

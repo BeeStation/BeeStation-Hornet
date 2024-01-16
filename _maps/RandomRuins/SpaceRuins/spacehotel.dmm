@@ -1854,7 +1854,7 @@
 /area/ruin/space/has_grav/hotel/dock)
 "fY" = (
 /obj/structure/table,
-/obj/item/knife,
+/obj/item/knife/kitchen,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -2003,7 +2003,7 @@
 /area/ruin/space/has_grav/hotel/bar)
 "gD" = (
 /obj/structure/table,
-/obj/item/knife,
+/obj/item/knife/kitchen,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/hotel/bar)
 "gE" = (
@@ -2254,7 +2254,7 @@
 /area/ruin/space/has_grav/hotel/bar)
 "hw" = (
 /obj/structure/table,
-/obj/item/knife,
+/obj/item/knife/kitchen,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/space/has_grav/hotel/bar)
 "hx" = (

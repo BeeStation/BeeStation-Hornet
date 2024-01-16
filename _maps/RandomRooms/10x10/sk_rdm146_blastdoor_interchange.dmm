@@ -15,7 +15,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/four,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "bd" = (
@@ -52,7 +52,7 @@
 /area/template_noop)
 "eD" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/template_noop)
 "eQ" = (
@@ -70,7 +70,7 @@
 /area/template_noop)
 "go" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "hh" = (
@@ -82,11 +82,6 @@
 /area/template_noop)
 "hM" = (
 /turf/closed/wall,
-/area/template_noop)
-"hN" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
 /area/template_noop)
 "hZ" = (
 /turf/open/floor/plating,
@@ -162,7 +157,7 @@
 "rm" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "rP" = (
@@ -233,7 +228,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "xK" = (
@@ -452,7 +447,7 @@ iv
 iv
 aT
 hM
-hN
+eD
 Sg
 hM
 aC

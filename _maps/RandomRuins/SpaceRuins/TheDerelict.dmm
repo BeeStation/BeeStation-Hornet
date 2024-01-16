@@ -26,7 +26,7 @@
 /area/solar/derelict_starboard)
 "af" = (
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/solar/derelict_starboard)
 "ag" = (
@@ -4256,7 +4256,7 @@
 	name = "Derelict Solar Array"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/solar/derelict_aft)
 "or" = (
@@ -4335,7 +4335,7 @@
 /area/solar/derelict_aft)
 "oy" = (
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/solar/derelict_aft)
 "oz" = (
@@ -4517,11 +4517,6 @@
 "Uz" = (
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"UW" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
-	},
-/area/solar/derelict_aft)
 "Vz" = (
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/derelict/hallway/primary/port)
@@ -11080,7 +11075,7 @@ nV
 nB
 aa
 aa
-UW
+oy
 dk
 aa
 dk

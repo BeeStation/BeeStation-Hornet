@@ -73,7 +73,7 @@
 /area/template_noop)
 "q" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "r" = (
@@ -92,7 +92,7 @@
 "t" = (
 /obj/effect/decal/cleanable/ash,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "u" = (
@@ -115,7 +115,7 @@
 "x" = (
 /obj/item/paper/crumpled,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "y" = (
@@ -177,7 +177,7 @@
 /area/template_noop)
 "J" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "K" = (
@@ -219,11 +219,6 @@
 "R" = (
 /obj/machinery/light,
 /turf/open/floor/plasteel,
-/area/template_noop)
-"W" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
 /area/template_noop)
 
 (1,1,1) = {"
@@ -282,7 +277,7 @@ q
 x
 d
 k
-W
+J
 N
 b
 "}

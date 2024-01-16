@@ -1913,7 +1913,7 @@
 /turf/open/floor/mineral/titanium,
 /area/centcom/evac)
 "hP" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "hR" = (
@@ -10831,7 +10831,7 @@
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = -8
 	},
-/obj/item/knife,
+/obj/item/knife/kitchen,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},

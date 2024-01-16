@@ -4,12 +4,7 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/template_noop)
-"b" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	burnt = 1
 	},
 /area/template_noop)
 "c" = (
@@ -28,7 +23,7 @@
 "h" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "j" = (
@@ -101,12 +96,12 @@
 "C" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "D" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "E" = (
@@ -142,7 +137,7 @@
 "K" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "L" = (
@@ -156,11 +151,6 @@
 "M" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
 /turf/open/floor/plating,
-/area/template_noop)
-"O" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg2"
-	},
 /area/template_noop)
 "P" = (
 /obj/machinery/light/small{
@@ -235,7 +225,7 @@ R
 T
 Q
 l
-O
+D
 m
 "}
 (6,1,1) = {"
@@ -255,7 +245,7 @@ t
 (8,1,1) = {"
 y
 M
-b
+D
 M
 P
 "}

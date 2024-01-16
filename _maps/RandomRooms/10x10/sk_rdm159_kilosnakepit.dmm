@@ -44,7 +44,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "cm" = (
@@ -142,7 +142,7 @@
 /area/template_noop)
 "jx" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/template_noop)
 "ke" = (
@@ -200,14 +200,14 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/template_noop)
 "np" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/template_noop)
 "nH" = (
@@ -218,7 +218,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/template_noop)
 "ol" = (
@@ -272,7 +272,7 @@
 	pixel_x = -32
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "uF" = (
@@ -280,7 +280,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/template_noop)
 "uH" = (
@@ -364,7 +364,7 @@
 "As" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "BB" = (
@@ -373,7 +373,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "BT" = (
@@ -443,7 +443,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "Jx" = (
@@ -535,7 +535,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "OG" = (
@@ -548,7 +548,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/template_noop)
 "Qy" = (
@@ -569,7 +569,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "Ry" = (
@@ -597,12 +597,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"SQ" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/template_noop)
 "SR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -626,7 +620,7 @@
 "VY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "WC" = (
@@ -660,7 +654,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/template_noop)
 
@@ -778,7 +772,7 @@ BT
 Kp
 XD
 Mr
-SQ
+VY
 cj
 mO
 LU

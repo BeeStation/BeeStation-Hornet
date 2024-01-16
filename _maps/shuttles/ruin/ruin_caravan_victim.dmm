@@ -498,7 +498,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "xz" = (
@@ -572,7 +572,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "BN" = (
@@ -715,7 +715,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "Jc" = (
@@ -734,7 +734,7 @@
 "Jp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "Jv" = (
@@ -930,7 +930,7 @@
 "Ua" = (
 /obj/structure/girder,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter1)
 "Ur" = (

@@ -26,6 +26,43 @@
 	},
 /turf/open/floor/plating,
 /area/tdome/arena)
+"ae" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"af" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"ag" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
 "ah" = (
 /obj/machinery/seed_extractor,
 /turf/open/floor/plating,
@@ -75,6 +112,42 @@
 /obj/structure/rack,
 /obj/item/plant_analyzer,
 /obj/item/cultivator,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"aq" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"ar" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"as" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "at" = (
@@ -185,6 +258,39 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
+"aJ" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
+"aK" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
+"aL" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
 "aM" = (
 /obj/machinery/shower{
 	dir = 1
@@ -220,6 +326,44 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool,
 /turf/open/floor/plasteel,
+/area/tdome/arena)
+"aR" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/washing_machine,
+/turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
+"aS" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/item/toy/dummy,
+/turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
+"aT" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
 "aU" = (
 /obj/structure/table,

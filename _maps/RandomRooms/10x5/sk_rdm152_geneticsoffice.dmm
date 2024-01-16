@@ -43,11 +43,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/template_noop)
-"m" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/template_noop)
 "n" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -144,7 +139,7 @@
 /area/template_noop)
 "T" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "V" = (
@@ -159,7 +154,7 @@
 /area/template_noop)
 "X" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "Z" = (
@@ -197,7 +192,7 @@ D
 Q
 "}
 (5,1,1) = {"
-m
+X
 W
 H
 B
@@ -212,7 +207,7 @@ M
 "}
 (7,1,1) = {"
 X
-m
+X
 V
 g
 M

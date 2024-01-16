@@ -413,7 +413,7 @@
 "bf" = (
 /obj/item/stack/sheet/iron,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "bg" = (
@@ -424,7 +424,7 @@
 	amount = 2
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "bh" = (
@@ -564,7 +564,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "bw" = (
@@ -791,7 +791,7 @@
 	},
 /obj/item/shard,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "ci" = (
@@ -1003,7 +1003,7 @@
 /area/ruin/space/has_grav/onehalf/hallway)
 "cL" = (
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "cM" = (
@@ -1105,14 +1105,14 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "dd" = (
 /obj/structure/grille,
 /obj/item/shard,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "de" = (
@@ -1199,11 +1199,6 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"hy" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
-	},
-/area/ruin/space/has_grav/onehalf/hallway)
 "Ky" = (
 /turf/template_noop,
 /area/space/nearstation)
@@ -1211,11 +1206,6 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
-"OG" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
-	},
-/area/ruin/space/has_grav/onehalf/hallway)
 
 (1,1,1) = {"
 aa
@@ -1267,7 +1257,7 @@ aa
 ae
 ak
 ax
-hy
+cL
 ax
 bg
 bw
@@ -1294,7 +1284,7 @@ aT
 bh
 bw
 ak
-OG
+cL
 aa
 aa
 aa
@@ -1470,7 +1460,7 @@ aW
 bj
 bA
 bS
-OG
+cL
 ax
 ct
 cK

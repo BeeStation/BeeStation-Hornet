@@ -72,10 +72,6 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"dz" = (
-/obj/structure/chair/comfy/black,
-/turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
 "eq" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -133,12 +129,6 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
-"hm" = (
-/obj/structure/chair/comfy/black{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
 "hn" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
@@ -217,7 +207,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "lO" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "mf" = (
@@ -228,7 +220,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "mi" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -654,12 +648,6 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"Fe" = (
-/obj/structure/chair/comfy/black{
-	dir = 8
-	},
-/turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
 "Fv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -812,12 +800,6 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"Nq" = (
-/obj/structure/chair/comfy/black{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Nr" = (
 /obj/structure/lattice/catwalk,
@@ -1094,6 +1076,12 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered)
+"YT" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 
@@ -2451,8 +2439,8 @@ jZ
 jZ
 jZ
 jZ
-lO
-lO
+YT
+YT
 mi
 jZ
 DU
@@ -2629,7 +2617,7 @@ lO
 jZ
 jZ
 jZ
-Nq
+jZ
 eq
 vZ
 vZ
@@ -2715,7 +2703,7 @@ jZ
 jZ
 jZ
 jZ
-Fe
+jZ
 eq
 vZ
 vZ
@@ -2754,9 +2742,9 @@ zL
 zL
 nz
 nz
-dz
+jZ
 Vo
-hm
+jZ
 zL
 zL
 zL
