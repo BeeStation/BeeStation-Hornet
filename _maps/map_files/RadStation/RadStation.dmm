@@ -39312,28 +39312,6 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "mAH" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/flashbangs{
-	pixel_x = -3;
-	pixel_y = 9
-	},
-/obj/item/storage/box/firingpins{
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/obj/item/survivalcapsule/capsule_checkpoint{
-	pixel_y = -4
-	},
-/obj/item/survivalcapsule/capsule_checkpoint,
-/obj/item/survivalcapsule/capsule_checkpoint{
-	pixel_y = 4
-	},
-/obj/item/survivalcapsule/barricade,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -60864,6 +60842,14 @@
 	pixel_x = 5;
 	pixel_y = 4
 	},
+/obj/item/survivalcapsule/capsule_checkpoint{
+	pixel_y = 4
+	},
+/obj/item/survivalcapsule/capsule_checkpoint,
+/obj/item/survivalcapsule/capsule_checkpoint{
+	pixel_y = -4
+	},
+/obj/item/survivalcapsule/barricade,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "tqN" = (
