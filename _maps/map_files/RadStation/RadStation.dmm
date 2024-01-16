@@ -59159,7 +59159,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-/area/space/nearstation)
+/area/security/brig)
 "sKg" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
 	alpha = 200;
@@ -97673,10 +97673,10 @@ yeA
 gsA
 gsA
 gsA
-ewB
-ewB
+fHK
+fHK
 sJA
-ewB
+fHK
 yeA
 yeA
 gsA
@@ -97933,7 +97933,7 @@ gsA
 fHK
 pGd
 wWq
-ewB
+fHK
 gsA
 gsA
 gsA
@@ -98190,8 +98190,8 @@ iqg
 fHK
 fHK
 gCz
-ewB
-ewB
+fHK
+fHK
 pia
 gsA
 gsA
