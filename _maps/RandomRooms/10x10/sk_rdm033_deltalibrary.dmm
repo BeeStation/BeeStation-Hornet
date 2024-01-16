@@ -24,7 +24,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "e" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "f" = (
 /obj/item/kirbyplants/random,
@@ -68,7 +68,7 @@
 "m" = (
 /obj/structure/chair/office,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "n" = (
 /obj/structure/chair/office,
@@ -80,7 +80,7 @@
 "o" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/kirbyplants/random,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "p" = (
 /obj/effect/decal/cleanable/dirt,
@@ -91,7 +91,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "r" = (
 /obj/structure/table/wood,
@@ -108,7 +108,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "u" = (
 /obj/structure/bookcase/random/fiction,
@@ -118,7 +118,7 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "w" = (
 /obj/structure/table/wood,
@@ -154,11 +154,11 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "B" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "C" = (
 /obj/effect/decal/cleanable/dirt,
@@ -188,7 +188,9 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "I" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach{
+	 = None
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "J" = (
@@ -290,7 +292,7 @@
 /area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 
 (1,1,1) = {"

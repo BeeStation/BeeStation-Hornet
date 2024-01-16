@@ -863,10 +863,10 @@
 /area/awaymission/cabin)
 "cG" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/cabin)
 "cH" = (
@@ -1279,8 +1279,8 @@
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
 "ea" = (
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
 /turf/open/floor/plating/ice/smooth,
 /area/awaymission/cabin/snowforest)
 "eb" = (
@@ -4807,7 +4807,7 @@
 	},
 /area/awaymission/cabin/caves)
 "yM" = (
-/obj/item/reagent_containers/food/snacks/burger/ghost{
+/obj/item/food/burger/ghost{
 	desc = "I killed a burger for you. Hope you're grateful, bastards.";
 	pixel_x = -2;
 	pixel_y = 4
@@ -4855,7 +4855,7 @@
 /area/awaymission/cabin/caves/mountain)
 "zP" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/kitchen/knife/carrotshiv,
+/obj/item/knife/carrotshiv,
 /obj/effect/decal/cleanable/glitter/blue{
 	desc = "It looks like fancy glitter to me.";
 	name = "icy wind"
@@ -4991,7 +4991,7 @@
 	},
 /area/awaymission/cabin)
 "Ik" = (
-/obj/item/reagent_containers/food/snacks/egg/rainbow{
+/obj/item/food/egg/rainbow{
 	desc = "Was an egg really worth this much effort?";
 	name = "easter egg"
 	},
@@ -5078,7 +5078,7 @@
 	},
 /area/awaymission/cabin/caves)
 "NR" = (
-/obj/structure/weightmachine/stacklifter,
+/obj/structure/weightmachine/weightlifter,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
 /area/awaymission/cabin/caves/mountain)

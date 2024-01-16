@@ -547,10 +547,6 @@
 /obj/structure/closet/athletic_mixed,
 /turf/open/floor/pod/dark,
 /area/ruin/powered/beach)
-"wI" = (
-/obj/structure/weightmachine/stacklifter,
-/turf/open/floor/plating/beach/sand,
-/area/ruin/powered/beach)
 "wY" = (
 /turf/open/floor/pod/light,
 /area/ruin/powered/beach)
@@ -759,7 +755,7 @@ bW
 ad
 ar
 ar
-wI
+bb
 ar
 bb
 ar
@@ -823,7 +819,7 @@ ar
 ap
 az
 ar
-wI
+bb
 ar
 bb
 ar

@@ -248,7 +248,7 @@
 /turf/open/floor/plasteel,
 /area/mine/storage)
 "ca" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "cd" = (
@@ -907,8 +907,8 @@
 "gD" = (
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
 /obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/snacks/tofu/prison,
-/obj/item/kitchen/knife,
+/obj/item/food/tofu/prison,
+/obj/item/knife,
 /obj/item/reagent_containers/food/condiment/enzyme,
 /obj/item/kitchen/rollingpin,
 /obj/item/wrench,
@@ -1211,7 +1211,7 @@
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "iy" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "iz" = (
@@ -1925,7 +1925,7 @@
 	network = list("mine")
 	},
 /obj/structure/table,
-/obj/item/storage/firstaid/medical/doctorbag,
+/obj/item/storage/firstaid/medical,
 /turf/open/floor/plasteel/white,
 /area/mine/living_quarters)
 "nf" = (
