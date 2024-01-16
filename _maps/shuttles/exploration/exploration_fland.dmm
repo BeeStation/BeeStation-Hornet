@@ -828,7 +828,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/shuttle/exploration)
 "RG" = (
