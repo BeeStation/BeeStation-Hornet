@@ -27,7 +27,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "al" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -214,7 +214,7 @@
 "aO" = (
 /obj/structure/table/wood,
 /obj/item/storage/pill_bottle/dice,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "aP" = (
 /obj/machinery/vending/hydronutrients,
@@ -369,7 +369,7 @@
 	color = "#596479";
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "bA" = (
 /obj/structure/table,
@@ -428,7 +428,7 @@
 /area/centcom/control)
 "bK" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_y = 5
 	},
@@ -496,7 +496,7 @@
 	pixel_y = 2
 	},
 /obj/item/lighter,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "ca" = (
 /obj/machinery/button/door/indestructible{
@@ -789,7 +789,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/evac)
 "di" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/corgi,
+/obj/item/food/meat/slab/corgi,
 /turf/open/floor/grass,
 /area/wizard_station)
 "dk" = (
@@ -1135,7 +1135,7 @@
 	desc = "A badge of upmost glory.";
 	name = "thunderdome badge"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tdome/tdomeobserve)
 "ez" = (
 /obj/structure/table/wood,
@@ -1200,7 +1200,7 @@
 /obj/structure/table/wood,
 /obj/machinery/computer/security/wooden_tv,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "eJ" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
@@ -1320,7 +1320,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "fk" = (
 /obj/structure/table/reinforced,
@@ -1495,7 +1495,7 @@
 /turf/open/floor/plasteel,
 /area/tdome/arena_source)
 "fR" = (
-/obj/item/reagent_containers/food/snacks/egg/rainbow{
+/obj/item/food/egg/rainbow{
 	desc = "I bet you think you're pretty clever... well you are.";
 	name = "easter egg"
 	},
@@ -1833,7 +1833,7 @@
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "hp" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "hq" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
@@ -2590,7 +2590,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/control)
 "kd" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime,
+/obj/item/food/meat/slab/human/mutant/slime,
 /turf/open/floor/grass,
 /area/wizard_station)
 "ki" = (
@@ -2790,7 +2790,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 24
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "lr" = (
 /turf/closed/indestructible/fakedoor{
@@ -3079,7 +3079,7 @@
 /area/centcom/supply)
 "mH" = (
 /obj/machinery/computer/card/centcom,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "mI" = (
 /obj/item/clipboard,
@@ -3090,7 +3090,7 @@
 	},
 /obj/item/stamp,
 /obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "mQ" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -3292,7 +3292,7 @@
 "nO" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/donut_box,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "nS" = (
 /obj/machinery/door/airlock/silver{
@@ -3352,11 +3352,11 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "og" = (
 /obj/machinery/photocopier,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "oh" = (
 /obj/machinery/door/window/brigdoor{
@@ -3367,7 +3367,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "os" = (
 /obj/structure/table/reinforced,
@@ -3434,7 +3434,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "oF" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -3449,7 +3449,7 @@
 	},
 /obj/item/stamp,
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "oM" = (
 /obj/structure/table/reinforced,
@@ -3475,7 +3475,7 @@
 /obj/item/clothing/accessory/medal/silver{
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tdome/tdomeobserve)
 "oQ" = (
 /obj/machinery/vending/snack,
@@ -3545,7 +3545,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "px" = (
 /obj/structure/chair{
@@ -3694,7 +3694,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "qd" = (
 /obj/item/kirbyplants{
@@ -3723,7 +3723,7 @@
 /obj/structure/cable/white{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "qn" = (
 /obj/structure/filingcabinet/filingcabinet,
@@ -3975,7 +3975,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
 "rq" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tdome/tdomeadmin)
 "rr" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -4311,7 +4311,7 @@
 /area/centcom/ferry)
 "sF" = (
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "sH" = (
 /obj/machinery/door/airlock/vault{
@@ -4330,7 +4330,7 @@
 "sI" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tdome/tdomeobserve)
 "sL" = (
 /obj/machinery/door/airlock/centcom{
@@ -4541,7 +4541,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "tw" = (
 /obj/structure/barricade/security/ctf,
@@ -4759,7 +4759,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "ua" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
@@ -4806,7 +4806,7 @@
 /area/syndicate_mothership/control)
 "uj" = (
 /obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "ul" = (
 /obj/machinery/computer/emergency_shuttle{
@@ -4849,7 +4849,7 @@
 /obj/structure/cable/white{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "uz" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -4873,7 +4873,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen/fourcolor,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "uC" = (
 /obj/machinery/computer/camera_advanced/wizard,
@@ -4958,7 +4958,7 @@
 	pixel_y = 3
 	},
 /obj/item/stamp,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "uY" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -5072,7 +5072,7 @@
 /area/syndicate_mothership/control)
 "vr" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "vt" = (
 /obj/structure/rack,
@@ -5215,7 +5215,7 @@
 /obj/item/gavelblock,
 /obj/item/gavelhammer,
 /obj/structure/window/reinforced,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "vS" = (
 /obj/effect/turf_decal/delivery,
@@ -5460,7 +5460,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "wM" = (
 /obj/structure/chair/wood/wings{
@@ -5892,7 +5892,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/control)
 "yu" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
 /turf/open/floor/grass,
 /area/wizard_station)
 "yy" = (
@@ -5907,7 +5907,7 @@
 /obj/item/clipboard,
 /obj/item/folder/blue,
 /obj/item/stamp/law,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "yB" = (
 /obj/effect/turf_decal/tile/blue{
@@ -6230,7 +6230,7 @@
 /obj/structure/destructible/cult/talisman{
 	desc = "An altar dedicated to the Wizards' Federation"
 	},
-/obj/item/kitchen/knife/ritual,
+/obj/item/knife/ritual,
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "zP" = (
@@ -6275,7 +6275,7 @@
 /area/centcom/control)
 "Ad" = (
 /obj/machinery/computer/communications,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "Ah" = (
 /obj/structure/chair/office{
@@ -6378,7 +6378,7 @@
 	buildstackamount = 0;
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "AD" = (
 /obj/structure/table/wood,
@@ -6552,27 +6552,27 @@
 /area/centcom/evac)
 "Bx" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/meat/rawbacon,
-/obj/item/reagent_containers/food/snacks/meat/rawbacon,
-/obj/item/reagent_containers/food/snacks/meat/rawbacon,
-/obj/item/reagent_containers/food/snacks/meat/rawbacon,
-/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
-/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
-/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
-/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
-/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
-/obj/item/reagent_containers/food/snacks/sausage,
-/obj/item/reagent_containers/food/snacks/sausage,
-/obj/item/reagent_containers/food/snacks/meat/rawcutlet,
-/obj/item/reagent_containers/food/snacks/meat/rawcutlet,
-/obj/item/reagent_containers/food/snacks/meat/rawcutlet,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/item/food/meat/rawbacon,
+/obj/item/food/meat/rawbacon,
+/obj/item/food/meat/rawbacon,
+/obj/item/food/meat/rawbacon,
+/obj/item/food/meat/slab/killertomato,
+/obj/item/food/meat/slab/killertomato,
+/obj/item/food/meat/slab/killertomato,
+/obj/item/food/meat/slab/killertomato,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/meat/slab/human/mutant/lizard,
+/obj/item/food/sausage,
+/obj/item/food/sausage,
+/obj/item/food/meat/rawcutlet,
+/obj/item/food/meat/rawcutlet,
+/obj/item/food/meat/rawcutlet,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
@@ -6724,7 +6724,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tdome/tdomeadmin)
 "Ca" = (
 /obj/structure/chair/office{
@@ -6749,7 +6749,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "Ci" = (
 /obj/machinery/light{
@@ -6776,15 +6776,15 @@
 /obj/item/clothing/accessory/medal{
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tdome/tdomeobserve)
 "CA" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
+/obj/item/food/fishmeat/carp,
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
 "CB" = (
@@ -6889,7 +6889,7 @@
 /area/centcom/control)
 "CR" = (
 /obj/structure/chair/office,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "CS" = (
 /turf/open/floor/plasteel/stairs/left{
@@ -6932,7 +6932,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "Di" = (
 /turf/closed/indestructible/riveted,
@@ -6944,7 +6944,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "Dk" = (
 /obj/structure/table/glass,
@@ -7010,7 +7010,7 @@
 	name = "Captain RC";
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "Dy" = (
 /obj/structure/table/glass,
@@ -7208,7 +7208,7 @@
 "El" = (
 /obj/structure/table/wood,
 /obj/item/storage/bag/tray,
-/obj/item/reagent_containers/food/snacks/burger/spell,
+/obj/item/food/burger/spell,
 /turf/open/floor/carpet,
 /area/wizard_station)
 "Em" = (
@@ -7248,7 +7248,7 @@
 /area/tdome/tdomeobserve)
 "Eu" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/sashimi,
+/obj/item/food/sashimi,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "Ev" = (
@@ -7390,7 +7390,7 @@
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/taperecorder,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "Fa" = (
 /obj/structure/table/wood,
@@ -7458,27 +7458,27 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "Fq" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/meat/slab/bear,
-/obj/item/reagent_containers/food/snacks/meat/slab/bear,
-/obj/item/reagent_containers/food/snacks/meat/slab/bear,
-/obj/item/reagent_containers/food/snacks/meat/slab/bear,
-/obj/item/reagent_containers/food/snacks/meat/slab/goliath,
-/obj/item/reagent_containers/food/snacks/meat/slab/goliath,
-/obj/item/reagent_containers/food/snacks/meat/slab/goliath,
-/obj/item/reagent_containers/food/snacks/meat/slab/goliath,
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/bear,
+/obj/item/food/meat/slab/goliath,
+/obj/item/food/meat/slab/goliath,
+/obj/item/food/meat/slab/goliath,
+/obj/item/food/meat/slab/goliath,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/meat/slab/xeno,
+/obj/item/food/meat/slab/xeno,
 /obj/item/food/spaghetti/raw,
 /obj/item/food/spaghetti/raw,
-/obj/item/reagent_containers/food/snacks/meat/rawcutlet,
-/obj/item/reagent_containers/food/snacks/meat/rawcutlet,
-/obj/item/reagent_containers/food/snacks/meat/rawcutlet,
+/obj/item/food/meat/rawcutlet,
+/obj/item/food/meat/rawcutlet,
+/obj/item/food/meat/rawcutlet,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
@@ -7788,7 +7788,7 @@
 	desc = "Talk smack through this.";
 	syndie = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "GB" = (
 /obj/structure/noticeboard{
@@ -7822,7 +7822,7 @@
 /area/tdome/tdomeobserve)
 "GM" = (
 /obj/structure/chair/fancy/comfy,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "GN" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -7960,7 +7960,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "HE" = (
 /obj/structure/sink{
@@ -7985,7 +7985,7 @@
 /turf/open/floor/plasteel/white,
 /area/tdome/tdomeobserve)
 "HG" = (
-/obj/item/reagent_containers/food/snacks/egg/rainbow{
+/obj/item/food/egg/rainbow{
 	desc = "I bet you think you're pretty clever... well you are.";
 	name = "easter egg"
 	},
@@ -8019,7 +8019,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "HS" = (
 /obj/machinery/door/airlock/centcom{
@@ -8184,7 +8184,7 @@
 	},
 /obj/item/megaphone,
 /obj/structure/window/reinforced,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "IL" = (
 /obj/effect/landmark/thunderdome/one,
@@ -8542,7 +8542,7 @@
 	pixel_y = 5
 	},
 /obj/item/clothing/accessory/medal/gold,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/tdome/tdomeobserve)
 "Kg" = (
 /turf/closed/indestructible/fakedoor{
@@ -8568,7 +8568,7 @@
 /obj/item/clipboard,
 /obj/item/folder/blue,
 /obj/item/stamp/law,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "Kj" = (
 /obj/machinery/door/airlock/external{
@@ -8852,7 +8852,7 @@
 	name = "CentCom Stand";
 	req_access_txt = "109"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "Lp" = (
 /obj/structure/table/wood,
@@ -9443,25 +9443,25 @@
 /area/centcom/evac)
 "NB" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/banana,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/vanillapod,
-/obj/item/reagent_containers/food/snacks/grown/vanillapod,
-/obj/item/reagent_containers/food/snacks/grown/sugarcane,
-/obj/item/reagent_containers/food/snacks/grown/sugarcane,
-/obj/item/reagent_containers/food/snacks/grown/oat,
-/obj/item/reagent_containers/food/snacks/grown/oat,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/corn,
-/obj/item/reagent_containers/food/snacks/grown/corn,
-/obj/item/reagent_containers/food/snacks/grown/chili,
-/obj/item/reagent_containers/food/snacks/grown/chili,
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/apple,
-/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/banana,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/vanillapod,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/sugarcane,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/oat,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/corn,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/chili,
+/obj/item/food/grown/carrot,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/vulgaris,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
@@ -9515,7 +9515,7 @@
 /turf/closed/indestructible/riveted,
 /area/ctf)
 "NJ" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
+/obj/item/food/meat/slab/xeno,
 /turf/open/floor/grass,
 /area/wizard_station)
 "NK" = (
@@ -9601,7 +9601,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "NY" = (
 /obj/machinery/shower{
@@ -9641,7 +9641,7 @@
 "Oe" = (
 /obj/structure/chair/fancy/comfy,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "Og" = (
 /obj/machinery/power/emitter/ctf{
@@ -10021,7 +10021,7 @@
 /obj/structure/chair/fancy/comfy{
 	color = "#596479"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "PV" = (
 /obj/effect/turf_decal/stripes/line{
@@ -10046,7 +10046,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "Qa" = (
 /obj/structure/chair{
@@ -10057,7 +10057,7 @@
 	pixel_x = -32;
 	syndie = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "Qc" = (
 /obj/machinery/vending/snack,
@@ -10127,22 +10127,22 @@
 /area/centcom/control)
 "Qq" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/whitebeet,
-/obj/item/reagent_containers/food/snacks/grown/whitebeet,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
-/obj/item/reagent_containers/food/snacks/grown/rice,
-/obj/item/reagent_containers/food/snacks/grown/rice,
-/obj/item/reagent_containers/food/snacks/grown/icepepper,
-/obj/item/reagent_containers/food/snacks/grown/icepepper,
-/obj/item/reagent_containers/food/snacks/grown/citrus/lemon,
-/obj/item/reagent_containers/food/snacks/grown/citrus/lime,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/obj/item/reagent_containers/food/snacks/grown/cherries,
-/obj/item/reagent_containers/food/snacks/grown/apple,
-/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/whitebeet,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/tomato,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/rice,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/icepepper,
+/obj/item/food/grown/citrus/lemon,
+/obj/item/food/grown/citrus/lime,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/cherries,
+/obj/item/food/grown/apple,
+/obj/item/food/grown/ambrosia/deus,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
@@ -10228,7 +10228,7 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "QI" = (
 /obj/structure/toilet{
@@ -10473,7 +10473,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -24
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "RK" = (
 /obj/structure/table/reinforced,
@@ -10831,7 +10831,7 @@
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = -8
 	},
-/obj/item/kitchen/knife,
+/obj/item/knife,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -10909,13 +10909,13 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen/fourcolor,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "Tx" = (
 /obj/machinery/computer/card/centcom{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "Ty" = (
 /obj/structure/table/reinforced,
@@ -11054,7 +11054,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "Ug" = (
 /obj/structure/table/wood,
@@ -11090,7 +11090,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "Uk" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -11183,13 +11183,13 @@
 	desc = "Talk smack through this.";
 	syndie = 1
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "UB" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen/fourcolor,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "UC" = (
 /obj/machinery/computer/security{
@@ -11449,7 +11449,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "VD" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -11623,7 +11623,7 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
 "Wv" = (
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "Ww" = (
 /obj/structure/table/reinforced,
@@ -12071,7 +12071,7 @@
 /area/centcom/control)
 "Yf" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chawanmushi,
+/obj/item/food/chawanmushi,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "Yg" = (
@@ -12457,7 +12457,7 @@
 /obj/machinery/newscaster{
 	pixel_x = 32
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/control)
 "ZC" = (
 /obj/structure/table/wood,
@@ -12577,7 +12577,7 @@
 	network = list("rd","minisat");
 	pixel_y = 28
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/centcom/ferry)
 "ZZ" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,

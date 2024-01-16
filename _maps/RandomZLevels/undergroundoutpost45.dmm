@@ -2369,7 +2369,7 @@
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hS" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5;
 	heat_capacity = 1e+006
@@ -8960,7 +8960,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -9838,7 +9838,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/awaystart,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -9877,7 +9877,7 @@
 "AO" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/soda_cans/cola,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -10038,7 +10038,7 @@
 	},
 /area/awaymission/undergroundoutpost45/gateway)
 "Ci" = (
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -10627,10 +10627,10 @@
 	},
 /area/awaymission/undergroundoutpost45/engineering)
 "Hl" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
 /obj/structure/closet/secure_closet/freezer{
 	locked = 0;
 	name = "meat fridge";
@@ -10665,7 +10665,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -10718,7 +10718,7 @@
 /obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -11132,7 +11132,7 @@
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "LF" = (
 /obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -11695,7 +11695,7 @@
 "QU" = (
 /obj/structure/table/wood,
 /obj/item/newspaper,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -11770,7 +11770,7 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -12503,7 +12503,7 @@
 "Xv" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/ripley_build_and_repair,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -12584,7 +12584,7 @@
 /area/awaymission/undergroundoutpost45/engineering)
 "YA" = (
 /obj/effect/landmark/awaystart,
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)
@@ -12749,7 +12749,7 @@
 	pixel_x = 4;
 	pixel_y = 2
 	},
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	heat_capacity = 1e+006
 	},
 /area/awaymission/undergroundoutpost45/central)

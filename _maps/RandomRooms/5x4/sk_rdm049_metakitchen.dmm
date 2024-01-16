@@ -27,7 +27,7 @@
 /area/template_noop)
 "e" = (
 /obj/structure/closet/crate/bin,
-/obj/item/kitchen/knife,
+/obj/item/knife,
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (

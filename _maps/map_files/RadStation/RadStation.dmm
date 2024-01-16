@@ -3945,7 +3945,7 @@
 /obj/item/reagent_containers/syringe{
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/snacks/grown/random{
+/obj/item/food/grown/random{
 	pixel_x = -3;
 	pixel_y = 21
 	},
@@ -5372,7 +5372,7 @@
 /obj/structure/sign/painting/library{
 	pixel_y = 32
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/plasteel,
 /area/medical/break_room)
@@ -9546,7 +9546,7 @@
 /obj/structure/bodycontainer/crematorium{
 	id = "cremawheat"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "deg" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -10909,7 +10909,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "dAa" = (
 /obj/effect/decal/cleanable/dirt,
@@ -13719,7 +13719,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
 "ert" = (
-/obj/machinery/power/emitter/anchored{
+/obj/machinery/power/emitter/welded{
 	dir = 2;
 	state = 2
 	},
@@ -15800,7 +15800,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/item/candle/infinite{
@@ -15979,7 +15979,7 @@
 /area/crew_quarters/dorms)
 "eYH" = (
 /obj/structure/table_frame/wood,
-/obj/item/kitchen/knife,
+/obj/item/knife,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/cafeteria,
 /area/maintenance/port/aft)
@@ -18156,7 +18156,7 @@
 /area/crew_quarters/dorms)
 "fGF" = (
 /obj/machinery/airalarm/directional/west,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/research)
@@ -19481,7 +19481,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 23
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
 "gbg" = (
 /obj/structure/lattice,
@@ -21056,7 +21056,7 @@
 	name = "Relic Closet";
 	req_access_txt = "27"
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "gzt" = (
 /obj/structure/closet/emcloset/anchored,
@@ -23480,7 +23480,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/apple{
+/obj/item/food/grown/apple{
 	pixel_x = -3;
 	pixel_y = 2
 	},
@@ -28884,7 +28884,7 @@
 /area/science/research)
 "jcE" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_x = 1;
 	pixel_y = 4
 	},
@@ -30823,7 +30823,7 @@
 "jGC" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light/small,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
 "jGD" = (
 /obj/item/kirbyplants/random,
@@ -31579,7 +31579,7 @@
 /area/engine/engine_room)
 "jTg" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "jTj" = (
@@ -32264,7 +32264,7 @@
 /turf/open/space/basic,
 /area/solar/port/fore)
 "khc" = (
-/obj/structure/weightmachine/stacklifter,
+/obj/structure/weightmachine/weightlifter,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -35844,7 +35844,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
 /obj/item/soulstone/anybody/chaplain,
 /obj/item/organ/heart,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "lmb" = (
 /obj/effect/turf_decal/tile/purple,
@@ -37705,7 +37705,7 @@
 	dir = 10;
 	layer = 3.1
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
 	},
@@ -41214,7 +41214,7 @@
 	pixel_y = 1
 	},
 /obj/effect/turf_decal/stripes/corner,
-/obj/item/reagent_containers/food/snacks/piedough,
+/obj/item/food/piedough,
 /obj/machinery/light_switch{
 	pixel_x = 21
 	},
@@ -41550,7 +41550,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/firealarm/directional/north,
@@ -44657,7 +44657,7 @@
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	id = "Chefwindow";
@@ -47324,7 +47324,7 @@
 	},
 /area/quartermaster/exploration_prep)
 "oOw" = (
-/obj/machinery/power/emitter/anchored{
+/obj/machinery/power/emitter/welded{
 	dir = 2;
 	state = 2
 	},
@@ -47566,7 +47566,7 @@
 	pixel_x = 2;
 	pixel_y = -31
 	},
-/obj/item/reagent_containers/food/snacks/grown/tomato/blood{
+/obj/item/food/grown/tomato/blood{
 	pixel_x = 7;
 	pixel_y = 8
 	},
@@ -47753,10 +47753,10 @@
 /area/engine/break_room)
 "oVm" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/dough{
+/obj/item/food/dough{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/snacks/dough{
+/obj/item/food/dough{
 	pixel_y = 1
 	},
 /obj/item/kitchen/rollingpin{
@@ -48040,7 +48040,7 @@
 /obj/effect/turf_decal/guideline/guideline_edge/red{
 	dir = 1
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "paq" = (
@@ -48600,7 +48600,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "pkt" = (
 /obj/structure/extinguisher_cabinet{
@@ -49967,7 +49967,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/item/kitchen/knife/carrotshiv{
+/obj/item/knife/carrotshiv{
 	pixel_x = 9;
 	pixel_y = 9
 	},
@@ -51993,7 +51993,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/item/candle/infinite{
@@ -54677,7 +54677,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/power/apc/auto_name/north{
@@ -55706,8 +55706,8 @@
 "rvD" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
-/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
@@ -56092,9 +56092,9 @@
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
 /obj/structure/table/wood/fancy,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "rCc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -57843,7 +57843,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/airalarm/directional/east,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "sgg" = (
 /obj/structure/plasticflaps/opaque,
@@ -58638,7 +58638,7 @@
 	alpha = 180;
 	dir = 8
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/item/radio/intercom{
 	dir = 8;
 	freerange = 1;
@@ -58943,7 +58943,7 @@
 /turf/open/floor/plasteel,
 /area/science/explab)
 "sAw" = (
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/structure/table/wood/fancy/purple,
@@ -59199,7 +59199,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_y = 4
 	},
 /obj/machinery/airalarm/directional/east,
@@ -59384,7 +59384,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/firealarm/directional/south,
-/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit,
+/obj/item/food/grown/shell/gatfruit,
 /obj/item/gun/ballistic/automatic/pistol/deagle,
 /obj/item/gun/ballistic/revolver/russian,
 /turf/open/floor/plasteel/dark,
@@ -60286,7 +60286,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "sWO" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/research)
@@ -60372,7 +60372,7 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_y = 4
 	},
 /obj/structure/table/wood/fancy/purple,
@@ -63098,7 +63098,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/item/radio/intercom{
@@ -65767,7 +65767,7 @@
 "uCx" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "uCA" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
@@ -70632,7 +70632,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical)
 "wcw" = (
-/obj/machinery/power/emitter/anchored{
+/obj/machinery/power/emitter/welded{
 	dir = 2;
 	state = 2
 	},
@@ -71018,7 +71018,7 @@
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
 "wiy" = (
-/obj/structure/weightmachine/stacklifter,
+/obj/structure/weightmachine/weightlifter,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -72822,7 +72822,7 @@
 	},
 /area/hallway/secondary/exit/departure_lounge)
 "wOk" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/guideline/guideline_edge/yellow{
 	dir = 4
@@ -76899,19 +76899,19 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -1;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -6;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -1;
 	pixel_y = 6
 	},
