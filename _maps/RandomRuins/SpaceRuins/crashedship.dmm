@@ -200,7 +200,7 @@
 /area/awaymission/BMPship/Aft)
 "hY" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/meat,
 /turf/open/floor/plasteel/showroomfloor,
 /area/awaymission/BMPship/Aft)
 "ia" = (
@@ -2131,7 +2131,7 @@
 /obj/structure/table,
 /obj/item/knife/butcher,
 /obj/item/reagent_containers/food/drinks/beer,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/meat,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
