@@ -1405,13 +1405,13 @@
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2 * REM, 150) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
 	M.adjustCloneLoss(-1 * REM, 0)
 	M.adjustStaminaLoss(-30 * REM, 0)
-	M.jitteriness = min(max(0, M.jitteriness + 3), 30)
-	M.druggy = min(max(0, M.druggy + 10), 15) //See above
+	M.jitteriness = clamp_respected(M.jitteriness, 3, 0, 30)
+	M.druggy = clamp_respected(M.druggy, 10, 0, 30) //See above
 	..()
 	. = 1
 
 /datum/reagent/medicine/earthsblood/overdose_process(mob/living/M)
-	M.hallucination = min(max(0, M.hallucination + 5), 60)
+	M.hallucination = clamp_respected(M.hallucination, 5, 0, 60)
 	M.adjustToxLoss(5 * REM, 0)
 	..()
 	. = 1
@@ -1646,7 +1646,7 @@
 	. = 1
 
 /datum/reagent/medicine/psicodine/overdose_process(mob/living/M)
-	M.hallucination = min(max(0, M.hallucination + 5), 60)
+	M.hallucination = clamp_respected(M.hallucination, 5, 0, 60)
 	M.adjustToxLoss(1, 0)
 	..()
 	. = 1

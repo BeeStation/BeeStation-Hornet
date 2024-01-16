@@ -37,8 +37,7 @@
 
 		// Everyone else
 		var/dist = sqrt(1 / max(1, get_dist(near, location)))
-		near.hallucination += strength * dist
-		near.hallucination = clamp(near.hallucination, 0, 150)
+		near.hallucination = clamp_respected(near.hallucination, strength * dist, 0, 150)
 		var/list/messages = list(
 			"You feel your conscious mind fall apart!",
 			"Reality warps around you!",
