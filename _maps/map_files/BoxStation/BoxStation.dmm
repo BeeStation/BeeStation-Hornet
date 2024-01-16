@@ -42667,9 +42667,7 @@
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "ozX" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "oAt" = (
@@ -60103,9 +60101,7 @@
 /area/science/robotics/lab)
 "wVH" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/carpet,
 /area/vacant_room/office)
 "wVL" = (

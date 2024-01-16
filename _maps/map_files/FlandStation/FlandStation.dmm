@@ -9403,9 +9403,7 @@
 /area/hallway/primary/aft)
 "cwR" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "cxh" = (
@@ -12541,9 +12539,7 @@
 /turf/open/floor/plasteel/checker,
 /area/quartermaster/storage)
 "dnu" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /obj/structure/railing/corner{
 	dir = 4
 	},
@@ -15205,9 +15201,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "dWP" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
@@ -19692,9 +19686,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "fec" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate{
@@ -26266,9 +26258,7 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "gNA" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "gNB" = (
@@ -27213,9 +27203,7 @@
 /turf/open/floor/plating,
 /area/maintenance/central)
 "haD" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "haF" = (
@@ -35693,9 +35681,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/surgery)
 "jjB" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "jjG" = (
@@ -35771,9 +35757,7 @@
 /turf/open/floor/vault,
 /area/science/server)
 "jjW" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -38576,9 +38560,7 @@
 /area/security/execution/transfer)
 "jWO" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "jXh" = (
@@ -40833,9 +40815,7 @@
 /area/quartermaster/storage)
 "kCh" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -42055,9 +42035,7 @@
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "kRD" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
@@ -48666,9 +48644,7 @@
 "myD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -72397,9 +72373,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "swW" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -73400,8 +73374,7 @@
 /mob/living/basic/cockroach{
 	desc = "carlos.";
 	maxHealth = 2;
-	name = "carlos";
-	= None
+	name = "carlos"
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -80907,9 +80880,7 @@
 /area/security/checkpoint)
 "uCf" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "uCg" = (
@@ -81330,9 +81301,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "uId" = (
@@ -83992,9 +83961,7 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
 "voW" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},

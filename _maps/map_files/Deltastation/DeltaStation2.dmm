@@ -52742,9 +52742,7 @@
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
 "kea" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "kej" = (
@@ -63308,9 +63306,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
@@ -68067,9 +68063,7 @@
 /turf/open/floor/plasteel,
 /area/security/execution/transfer)
 "peN" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "peV" = (
@@ -78683,9 +78677,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "sIW" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "sIX" = (
@@ -83735,9 +83727,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/patients_rooms)
 "uvV" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/carpet/grimy,
 /area/vacant_room/office)
 "uwc" = (
@@ -84206,9 +84196,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "uEJ" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -86669,9 +86657,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -92026,9 +92012,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "wYY" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "wZk" = (
@@ -93599,9 +93583,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "xBm" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "xBv" = (

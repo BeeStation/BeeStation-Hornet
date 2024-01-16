@@ -35409,8 +35409,7 @@
 	dir = 4
 	},
 /mob/living/basic/cockroach{
-	dir = 1;
-	= None
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/aft)
@@ -60944,9 +60943,7 @@
 	},
 /area/science/robotics/lab)
 "ruj" = (
-/mob/living/basic/cockroach{
-	 = None
-	},
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "ruC" = (
