@@ -1028,8 +1028,7 @@
 /area/science/test_area)
 "aja" = (
 /obj/machinery/power/emitter/welded{
-	dir = 4;
-	= None
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
