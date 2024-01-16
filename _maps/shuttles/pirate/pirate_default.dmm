@@ -69,26 +69,26 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/grown/wheat{
+/obj/item/food/grown/wheat{
 	pixel_x = 9
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat{
+/obj/item/food/grown/wheat{
 	pixel_x = -8;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat{
+/obj/item/food/grown/wheat{
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat{
+/obj/item/food/grown/wheat{
 	pixel_x = -7;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat{
+/obj/item/food/grown/wheat{
 	pixel_x = 2;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat{
+/obj/item/food/grown/wheat{
 	pixel_x = -6;
 	pixel_y = -3
 	},

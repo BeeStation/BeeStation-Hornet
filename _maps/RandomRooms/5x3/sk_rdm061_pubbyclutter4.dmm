@@ -52,7 +52,7 @@
 	},
 /area/template_noop)
 "E" = (
-/obj/item/reagent_containers/food/snacks/canned/beans,
+/obj/item/food/canned/beans,
 /turf/open/floor/plating,
 /area/template_noop)
 

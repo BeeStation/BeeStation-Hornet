@@ -113,7 +113,7 @@
 /area/shuttle/escape/luxury)
 "ay" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/notasandwich,
+/obj/item/food/notasandwich,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "az" = (
@@ -123,27 +123,27 @@
 /area/shuttle/escape/luxury)
 "aB" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/honkdae,
+/obj/item/food/honkdae,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aC" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/enchiladas,
+/obj/item/food/enchiladas,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aD" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/candiedapple,
+/obj/item/food/candiedapple,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aE" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/burger/baconburger,
+/obj/item/food/burger/baconburger,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aF" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/benedict,
+/obj/item/food/benedict,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aG" = (
@@ -168,12 +168,12 @@
 /area/shuttle/escape/luxury)
 "aK" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/carneburrito,
+/obj/item/food/carneburrito,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aL" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/chawanmushi,
+/obj/item/food/chawanmushi,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aM" = (
@@ -189,12 +189,12 @@
 /area/shuttle/escape/luxury)
 "aO" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/khachapuri,
+/obj/item/food/khachapuri,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aP" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grilledcheese,
+/obj/item/food/grilled_cheese_sandwich,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aQ" = (
@@ -204,7 +204,7 @@
 /area/shuttle/escape/luxury)
 "aR" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/honeybun,
+/obj/item/food/honeybun,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aS" = (
@@ -224,7 +224,7 @@
 /area/shuttle/escape/luxury)
 "aW" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/cherrycupcake,
+/obj/item/food/cherrycupcake,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aX" = (
@@ -234,17 +234,17 @@
 /area/shuttle/escape/luxury)
 "aY" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/hotdog,
+/obj/item/food/hotdog,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aZ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/pie/grapetart,
+/obj/item/food/pie/grapetart,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "ba" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/burger/superbite,
+/obj/item/food/burger/superbite,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "bb" = (
@@ -322,7 +322,7 @@
 /area/shuttle/escape/luxury)
 "lN" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/bearsteak,
+/obj/item/food/bearsteak,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "nZ" = (
@@ -373,7 +373,7 @@
 /area/shuttle/escape/luxury)
 "GS" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/kebab/tofu,
+/obj/item/food/kebab/tofu,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "Jr" = (

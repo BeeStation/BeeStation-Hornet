@@ -50,7 +50,7 @@
 "gy" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/remains/human,
-/obj/item/kitchen/knife{
+/obj/item/knife{
 	pixel_x = 18;
 	pixel_y = 8
 	},
