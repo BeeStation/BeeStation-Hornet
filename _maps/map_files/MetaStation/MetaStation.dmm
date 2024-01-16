@@ -42179,7 +42179,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg1"
 	},
 /area/maintenance/fore)
 "knF" = (
@@ -66945,7 +66945,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	broken = 1
+	icon_state = "platingdmg2"
 	},
 /area/maintenance/fore)
 "tQn" = (
