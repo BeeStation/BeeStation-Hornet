@@ -326,4 +326,4 @@
 		M.equip_to_slot_or_del(new alignment.gang.hat(M),ITEM_SLOT_HEAD)
 
 	M.mind.special_role = "Gangster"
-	M.equipOutfit(/datum/outfit/crook)
+// CROOK OUTFIT HERE

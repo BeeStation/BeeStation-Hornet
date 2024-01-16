@@ -57,17 +57,6 @@
 	cost = 10
 	item_path = /obj/item/toy/crayon/spraycan/gang
 
-/datum/gang_item/essentials/implant_breaker
-	name = "Reprogramming Implant"
-	id = "implant_breaker"
-	cost = 25
-	item_path = /obj/item/implanter/gang
-	spawn_msg = "<span class='notice'>The <b>reprogramming implant</b> is a single use implant that will reprogram its target to be part of your gang. Not strong enough to break the latest NT mindshield implants, or reprogram Lieutenants.</span>"
-
-/datum/gang_item/essentials/implant_breaker/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/O = new item_path(get_turf(user), gang)
-	user.put_in_hands(O)
-
 /datum/gang_item/essentials/gangtool
 	id = "gangtool"
 	cost = 50
@@ -126,7 +115,7 @@
 ///////////////////
 
 /datum/gang_item/clothing
-	category = "Purchase Gang Clothes (Only the jumpsuit, hat and suit give you added influence):"
+	category = "Purchase Gang Clothes (Wearing your):"
 
 /datum/gang_item/clothing/basic
 	name = "Gang Uniform"
@@ -141,7 +130,7 @@
 	new gang.hat(uniform_box)
 
 	user.put_in_hands(uniform_box)
-	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
+	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence.")
 	return TRUE
 
 /datum/gang_item/clothing/armor
@@ -192,57 +181,6 @@
 	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
 	return TRUE
 
-/datum/gang_item/clothing/mask
-	name = "Golden Death Mask"
-	id = "mask"
-	cost = 50
-	item_path = /obj/item/clothing/mask/gskull
-
-/obj/item/clothing/mask/gskull
-	name = "golden death mask"
-	icon_state = "gskull"
-	desc = "Strike terror, and envy, into the hearts of your enemies."
-
-/datum/gang_item/clothing/shoes
-	name = "Bling Boots"
-	id = "boots"
-	cost = 50
-	item_path = /obj/item/clothing/shoes/gang
-
-/obj/item/clothing/shoes/gang
-	name = "blinged-out boots"
-	desc = "Stand aside peasants."
-	icon_state = "bling"
-
-/datum/gang_item/clothing/neck
-	name = "Gold Necklace"
-	id = "necklace"
-	cost = 25
-	item_path = /obj/item/clothing/neck/necklace/dope
-
-/datum/gang_item/clothing/hands
-	name = "Decorative Brass Knuckles"
-	id = "hand"
-	cost = 50
-	item_path = /obj/item/clothing/gloves/gang
-
-/obj/item/clothing/gloves/gang
-	name = "braggadocio's brass knuckles"
-	desc = "Purely decorative, don't find out the hard way."
-	icon_state = "knuckles"
-	w_class = 3
-
-/datum/gang_item/clothing/belt
-	name = "Badass Belt"
-	id = "belt"
-	cost = 25
-	item_path = /obj/item/storage/belt/military/gang
-
-/obj/item/storage/belt/military/gang
-	name = "badass belt"
-	icon_state = "gangbelt"
-	item_state = "gang"
-	desc = "The belt buckle simply reads 'BAMF'."
 
 ///////////////////
 //WEAPONS
@@ -257,11 +195,6 @@
 	cost = 50
 	item_path = /obj/item/grenade/empgrenade
 
-/datum/gang_item/weapon/c4
-	name = "C4 Explosive"
-	id = "c4"
-	cost = 100
-	item_path = /obj/item/grenade/plastic/c4
 
 /datum/gang_item/weapon/switchblade
 	name = "Switchblade"

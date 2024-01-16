@@ -5,6 +5,11 @@
 // You also need to make a gang graffiti, that will go in crayondecal.dmi inside our icons(not tg's), with the same name of the gang it's assigned to. Nothing else,just the icon.
 // Those are all required. If one is missed, stuff could break.
 
+////////////////////
+// ENABLED: CLANDESTINE, CARP, CYBER
+////////////////////
+
+// Generic criminal band, Syndicate backed.
 /datum/team/gang/clandestine
 	name = "Clandestine"
 	color = "#FF0000"
@@ -68,6 +73,7 @@
 	outfit = /obj/item/clothing/under/color/brown
 	suit = /obj/item/clothing/suit/toggle/owlwings/griffinwings
 
+// Self-augmenting and robot shit.
 /datum/team/gang/cyber
 	name = "Cyber"
 	color = "#0000FF"
@@ -124,6 +130,7 @@
 	outfit = /obj/item/clothing/under/color/white
 	suit = /obj/item/clothing/suit/nerdshirt
 
+// Space carp people.
 /datum/team/gang/sleepingcarp
 	name = "Sleeping Carp"
 	color = "#800080"

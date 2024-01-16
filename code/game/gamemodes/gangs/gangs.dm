@@ -69,13 +69,14 @@ GLOBAL_LIST_EMPTY(gangs)
 /proc/is_gang_boss(mob/M)
 	return M?.mind?.has_antag_datum(/datum/antagonist/gang/boss)
 
+//TODO: REVISIT THIS
 /datum/game_mode/gang/set_round_result()
 	..()
 	var/datum/team/gang/winner
 	var/winner_territories = 0
 	for(var/datum/team/gang/G in GLOB.gangs)
 		var/compare_territories = LAZYLEN(G.territories)
-		if (!winner || compare_territories > winner_territories || (compare_territories == winner_territories && G.victory_points > winner.victory_points))
+		if (!winner || compare_territories > winner_territories || (compare_territories == winner_territories))
 			winner = G
 			winner_territories = LAZYLEN(winner.territories)
 

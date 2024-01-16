@@ -156,6 +156,7 @@
 	name = "Gang boss"
 	hud_type = "gang_boss"
 	message_name = "Leader"
+	var/datum/action/innate/gang/invitation/inv = new
 
 /datum/antagonist/gang/boss/on_gain()
 	..()
@@ -166,6 +167,10 @@
 	if(gang)
 		gang.leaders -= owner
 	..()
+
+/datum/antagonist/gang/boss/apply_innate_effects(mob/living/mob_override)
+	..()
+	inv.Grant(owner.current)
 
 /datum/antagonist/gang/boss/antag_listing_name()
 	return ..() + "(Boss)"
@@ -288,7 +293,7 @@
 	var/color
 	var/winner = FALSE //winner winner chicken dinner
 	var/influence = 0 // influence of the gang, based on how many territories they own. Can be used to buy weapons and tools from a gang uplink.
-	var/victory_points = 0 // influence earned throughout the round, used at eotg to calculate most efficient gang
+	var/reputation = 0 // influence earned throughout the round, used at eotg to calculate most efficient gang
 	var/next_point_time
 	var/recalls = MAXIMUM_RECALLS // Once this reaches 0, this gang cannot force recall the shuttle with their gangtool anymore
 	var/obj/item/clothing/head/hat
@@ -385,7 +390,6 @@
 
 	var/new_influence = update_influence()
 	influence =	min(999,influence+new_influence)
-	victory_points += new_influence
 	if(new_influence > 0)
 		message += "Gang influence has increased by [new_influence] for defending [territories.len] territories and [uniformed] swag.<BR>"
 	message += "Your gang now has <b>[influence] influence</b>.<BR>"
