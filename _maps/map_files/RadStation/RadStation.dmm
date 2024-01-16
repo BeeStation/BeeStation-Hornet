@@ -296,6 +296,12 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"ade" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/wood,
+/area/security/prison/shielded)
 "ads" = (
 /obj/structure/closet/secure_closet/personal/patient,
 /obj/effect/turf_decal/bot{
@@ -6105,7 +6111,10 @@
 	name = "Solitary confinement timer";
 	pixel_x = 32
 	},
-/turf/open/floor/prison,
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "caI" = (
 /obj/structure/sign/warning/radiation_shelter{
@@ -9212,6 +9221,10 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
+"daa" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
+/area/security/prison/shielded)
 "dap" = (
 /obj/machinery/gateway{
 	dir = 10
@@ -16826,7 +16839,10 @@
 /obj/structure/chair/stool{
 	dir = 4
 	},
-/turf/open/floor/prison,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "fnD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -17255,6 +17271,12 @@
 	},
 /turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
+"fun" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/security/prison/shielded)
 "fup" = (
 /obj/machinery/light/small{
 	brightness = 3;
@@ -25757,7 +25779,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/prison,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "ief" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -41076,7 +41101,7 @@
 /area/maintenance/department/engine)
 "mYz" = (
 /obj/structure/table,
-/turf/open/floor/prison,
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "mYL" = (
 /obj/structure/cable/yellow{
@@ -43992,7 +44017,11 @@
 /obj/machinery/computer/arcade{
 	dir = 8
 	},
-/turf/open/floor/prison,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4;
+	layer = 2
+	},
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "nQt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -44215,7 +44244,7 @@
 /obj/structure/chair/stool{
 	dir = 4
 	},
-/turf/open/floor/prison,
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "nTI" = (
 /obj/machinery/camera/autoname{
@@ -44920,6 +44949,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/maintenance/port/aft)
+"oiw" = (
+/obj/structure/closet/crate/bin,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/wood,
+/area/security/prison/shielded)
 "oiI" = (
 /turf/closed/wall,
 /area/vacant_room/office)
@@ -45607,7 +45643,11 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/turf/open/floor/prison,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4;
+	layer = 2
+	},
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "otE" = (
 /turf/closed/wall,
@@ -56181,6 +56221,15 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/medical/exam_room)
+"rMW" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/security/prison/shielded)
 "rNe" = (
 /obj/machinery/light{
 	dir = 4
@@ -66637,7 +66686,7 @@
 	pixel_x = -5;
 	pixel_y = 1
 	},
-/turf/open/floor/prison,
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "uZs" = (
 /obj/structure/chair/office{
@@ -70653,7 +70702,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/prison,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4;
+	layer = 2
+	},
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "wnT" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -71505,7 +71558,7 @@
 /obj/structure/table,
 /obj/item/paper,
 /obj/item/pen,
-/turf/open/floor/prison,
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "wGM" = (
 /turf/closed/wall/r_wall,
@@ -72047,6 +72100,9 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"wNH" = (
+/turf/open/floor/wood,
+/area/security/prison/shielded)
 "wNN" = (
 /obj/item/target/alien/anchored,
 /obj/effect/turf_decal/box/red,
@@ -73830,7 +73886,11 @@
 	name = "Common Channel";
 	pixel_x = 25
 	},
-/turf/open/floor/prison,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4;
+	layer = 2
+	},
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "xtK" = (
 /obj/effect/turf_decal/caution,
@@ -73844,7 +73904,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/turf/open/floor/prison,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "xtQ" = (
 /turf/closed/wall,
@@ -75061,7 +75125,11 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/turf/open/floor/prison,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4;
+	layer = 2
+	},
+/turf/open/floor/wood,
 /area/security/prison/shielded)
 "xJF" = (
 /obj/structure/sign/departments/medbay/alt2,
@@ -107010,9 +107078,9 @@ iee
 fnz
 fnz
 fnz
-pvz
-mut
-pvz
+fun
+rMW
+ade
 uMa
 gVP
 pVO
@@ -107267,9 +107335,9 @@ xtP
 uZg
 wGK
 mYz
-pvz
+wNH
 nTv
-pvz
+daa
 rCn
 ifC
 ifC
@@ -107526,7 +107594,7 @@ wnJ
 otv
 xtF
 nQr
-xmp
+oiw
 pxh
 gdY
 qUY
