@@ -1,2 +1,3 @@
-/obj/machinery/power/emitter/anchored{state = @ANY} : /obj/machinery/power/emitter/welded{@OLD; state = @SKIP}
+/obj/machinery/power/emitter/anchored{state = @ANY, dir = @UNSET} : /obj/machinery/power/emitter/welded
+/obj/machinery/power/emitter/anchored{dir = @ANY, state = @ANY} : /obj/machinery/power/emitter/welded{dir = @OLD}
 /obj/machinery/power/emitter/anchored{state = @UNSET} : /obj/machinery/power/emitter/welded{@OLD}
