@@ -9,7 +9,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
@@ -19,7 +19,7 @@
 /area/template_noop)
 "j" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "k" = (
 /obj/effect/decal/cleanable/dirt,
@@ -75,14 +75,14 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "C" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/folder/red,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "D" = (
 /obj/effect/decal/cleanable/dirt,
@@ -93,7 +93,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "F" = (
 /obj/effect/decal/cleanable/dirt,
@@ -104,7 +104,7 @@
 /area/template_noop)
 "G" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance,
@@ -137,7 +137,7 @@
 "S" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "T" = (
 /obj/structure/chair/office,
@@ -148,12 +148,12 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "X" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/dirt,

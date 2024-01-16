@@ -1349,7 +1349,7 @@
 /turf/closed/wall/r_wall,
 /area/asteroid/nearstation)
 "asL" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -1838,7 +1838,7 @@
 /area/crew_quarters/heads/cmo)
 "ayx" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -9601,8 +9601,8 @@
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
 /obj/item/reagent_containers/glass/bowl,
-/obj/item/food/grown/tomato,
-/obj/item/food/dough,
+/obj/item/reagent_containers/food/snacks/grown/tomato,
+/obj/item/reagent_containers/food/snacks/dough,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -10092,7 +10092,7 @@
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
-/obj/structure/weightmachine/weightlifter,
+/obj/structure/weightmachine/stacklifter,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -11128,7 +11128,7 @@
 /turf/open/floor/plasteel/dark/side,
 /area/engine/atmos)
 "cUp" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -12186,7 +12186,7 @@
 /area/hallway/secondary/entry)
 "diY" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -12841,7 +12841,7 @@
 /turf/open/floor/plating,
 /area/bridge)
 "dsm" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
 "dst" = (
@@ -12900,7 +12900,7 @@
 	pixel_y = 24
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -13057,7 +13057,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "dva" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -15611,7 +15611,7 @@
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
 "edp" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/sepia,
 /area/engine/break_room)
@@ -15796,7 +15796,7 @@
 /area/maintenance/department/medical)
 "ehz" = (
 /obj/structure/closet/crate/bin,
-/obj/item/food/donut/chaos,
+/obj/item/reagent_containers/food/snacks/donut/chaos,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
@@ -15888,7 +15888,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/central)
 "eiZ" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -19912,10 +19912,10 @@
 /area/bridge)
 "fhD" = (
 /obj/structure/table,
-/obj/item/food/pie/cream,
+/obj/item/reagent_containers/food/snacks/pie/cream,
 /obj/effect/turf_decal/bot,
 /obj/item/kitchen/rollingpin,
-/obj/item/food/hotdog,
+/obj/item/reagent_containers/food/snacks/hotdog,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -20950,7 +20950,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/department/medical)
 "fuY" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/machinery/light,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
@@ -21077,7 +21077,7 @@
 	},
 /area/security/nuke_storage)
 "fwE" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room/council)
@@ -22174,7 +22174,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room)
 "fKk" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/port)
@@ -25460,25 +25460,25 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "gCA" = (
-/obj/item/food/canned/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/food/canned/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/food/canned/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = -2
 	},
-/obj/item/food/canned/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = 5
 	},
-/obj/item/food/canned/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = 1;
 	pixel_y = -3
 	},
-/obj/item/food/canned/beans{
+/obj/item/reagent_containers/food/snacks/canned/beans{
 	pixel_x = 8;
 	pixel_y = -3
 	},
@@ -29397,7 +29397,7 @@
 /area/crew_quarters/heads/captain/private)
 "hGA" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "hGC" = (
@@ -36209,7 +36209,7 @@
 	},
 /area/maintenance/starboard/central)
 "jrf" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -37107,13 +37107,13 @@
 /obj/item/seeds/pumpkin{
 	pixel_x = -6
 	},
-/obj/item/food/grown/wheat,
-/obj/item/food/grown/watermelon,
-/obj/item/food/grown/grapes,
-/obj/item/food/grown/tomato,
+/obj/item/reagent_containers/food/snacks/grown/wheat,
+/obj/item/reagent_containers/food/snacks/grown/watermelon,
+/obj/item/reagent_containers/food/snacks/grown/grapes,
+/obj/item/reagent_containers/food/snacks/grown/tomato,
 /obj/effect/turf_decal/bot,
 /obj/structure/table,
-/obj/item/food/grown/pumpkin{
+/obj/item/reagent_containers/food/snacks/grown/pumpkin{
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/siding/wideplating_new{
@@ -41649,7 +41649,7 @@
 /obj/item/reagent_containers/food/condiment/flour{
 	pixel_x = 4
 	},
-/obj/item/food/chocolatebar,
+/obj/item/reagent_containers/food/snacks/chocolatebar,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -43122,7 +43122,7 @@
 	},
 /area/hallway/primary/starboard)
 "ldV" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -44821,7 +44821,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/food/grown/tomato/blood{
+/obj/item/reagent_containers/food/snacks/grown/tomato/blood{
 	pixel_x = 7;
 	pixel_y = 8
 	},
@@ -45088,7 +45088,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/crew_quarters/bar)
 "lCx" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -48534,7 +48534,7 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "mwS" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
@@ -49398,7 +49398,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "mIj" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -49660,7 +49660,7 @@
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
 /obj/item/storage/box/ingredients/wildcard,
-/obj/item/food/mint,
+/obj/item/reagent_containers/food/snacks/mint,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -52575,7 +52575,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "nxr" = (
-/obj/item/food/donut,
+/obj/item/reagent_containers/food/snacks/donut,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -55438,7 +55438,7 @@
 	pixel_y = 4
 	},
 /obj/item/pen,
-/obj/item/food/cookie,
+/obj/item/reagent_containers/food/snacks/cookie,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -57777,11 +57777,11 @@
 /area/maintenance/starboard/fore)
 "oSV" = (
 /obj/structure/table/wood,
-/obj/item/food/grown/flower/geranium{
+/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/food/grown/flower/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
@@ -59812,7 +59812,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "pvZ" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -61112,7 +61112,7 @@
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "pLW" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -61991,7 +61991,7 @@
 "pZm" = (
 /obj/structure/rack,
 /obj/item/cane,
-/obj/item/food/grown/mushroom/glowshroom,
+/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "pZo" = (
@@ -62306,7 +62306,7 @@
 /area/security/warden)
 "qcG" = (
 /obj/structure/table/wood,
-/obj/item/food/pie/cream,
+/obj/item/reagent_containers/food/snacks/pie/cream,
 /obj/item/clothing/head/lobsterhat,
 /obj/machinery/airalarm{
 	dir = 1;
@@ -64454,7 +64454,7 @@
 /obj/item/wrench,
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/food/condiment/enzyme,
-/obj/item/knife,
+/obj/item/kitchen/knife,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
@@ -64991,6 +64991,13 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/plasteel/sepia,
 /area/engine/engineering)
+"qGr" = (
+/obj/structure/weightmachine/stacklifter,
+/obj/effect/turf_decal/bot_white,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/plasteel/techmaint,
+/area/security/prison)
 "qGw" = (
 /obj/structure/closet/crate,
 /obj/item/coin/silver,
@@ -66291,7 +66298,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/crew_quarters/bar)
 "qXx" = (
 /obj/effect/turf_decal/stripes/line{
@@ -67086,7 +67093,7 @@
 	},
 /area/docking/arrival)
 "riC" = (
-/obj/structure/weightmachine/weightlifter,
+/obj/structure/weightmachine/stacklifter,
 /obj/effect/turf_decal/bot_white,
 /obj/structure/window/reinforced{
 	dir = 1
@@ -67403,7 +67410,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/security/brig)
 "rmj" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -69753,7 +69760,7 @@
 	},
 /area/engine/atmos)
 "rOz" = (
-/obj/machinery/power/emitter/welded{
+/obj/machinery/power/emitter/anchored{
 	dir = 4;
 	state = 2
 	},
@@ -70999,7 +71006,7 @@
 	},
 /area/maintenance/aft)
 "sei" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
@@ -72293,7 +72300,7 @@
 /area/hallway/primary/port)
 "swe" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -72576,10 +72583,10 @@
 /area/crew_quarters/bar/atrium)
 "sza" = (
 /obj/structure/table,
-/obj/item/food/canned/beefbroth{
+/obj/item/reagent_containers/food/snacks/canned/beefbroth{
 	pixel_x = -4
 	},
-/obj/item/food/canned/peaches{
+/obj/item/reagent_containers/food/snacks/canned/peaches{
 	pixel_x = 4
 	},
 /turf/open/floor/plasteel/techmaint,
@@ -72927,14 +72934,14 @@
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "sCN" = (
-/obj/item/food/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /obj/structure/table/wood,
 /obj/machinery/button/massdriver{
 	id = "chapelgun";
 	name = "Chapel Mass Driver";
 	pixel_y = -24
 	},
-/obj/item/food/grown/flower/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/siding/wideplating/dark/corner{
@@ -75281,7 +75288,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/starboard/fore)
 "tjh" = (
-/obj/machinery/power/emitter/welded{
+/obj/machinery/power/emitter/anchored{
 	dir = 8;
 	state = 2
 	},
@@ -77738,7 +77745,7 @@
 /area/teleporter)
 "tPo" = (
 /obj/structure/table,
-/obj/item/food/mint{
+/obj/item/reagent_containers/food/snacks/mint{
 	pixel_y = 9
 	},
 /obj/item/reagent_containers/food/condiment/peppermill{
@@ -78159,7 +78166,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "tTY" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -78710,7 +78717,7 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
 "ubo" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -79112,7 +79119,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "uir" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light/small{
 	dir = 8
@@ -80011,7 +80018,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/fitness/recreation)
 "usO" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -80509,7 +80516,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/food/donut/jelly/choco,
+/obj/item/reagent_containers/food/snacks/donut/jelly/choco,
 /obj/item/lighter{
 	pixel_x = 4;
 	pixel_y = 4
@@ -80982,7 +80989,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/vacant_room/commissary/commissaryFood)
 "uDC" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light,
 /turf/open/floor/plasteel/sepia,
@@ -81294,7 +81301,7 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "uIa" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/port)
@@ -82985,6 +82992,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
+"vdn" = (
+/obj/structure/weightmachine/stacklifter,
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/plasteel/techmaint,
+/area/crew_quarters/fitness/recreation)
 "vdt" = (
 /obj/machinery/airalarm{
 	dir = 1;
@@ -85072,7 +85084,7 @@
 	},
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
 /obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/food/tofu/prison,
+/obj/item/reagent_containers/food/snacks/tofu/prison,
 /turf/open/floor/plasteel/dark,
 /area/vacant_room/commissary/commissaryFood)
 "vyg" = (
@@ -85708,7 +85720,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/crew_quarters/bar)
 "vFU" = (
 /obj/machinery/light_switch{
@@ -87415,7 +87427,7 @@
 /area/hallway/primary/central)
 "vYN" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/structure/railing{
 	dir = 8
 	},
@@ -87437,7 +87449,7 @@
 /area/maintenance/port)
 "vYX" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -89130,7 +89142,7 @@
 /turf/open/floor/plating,
 /area/security/range)
 "wuq" = (
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
@@ -89590,7 +89602,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/crew_quarters/bar)
 "wAn" = (
 /obj/effect/spawner/structure/window,
@@ -90373,10 +90385,10 @@
 /area/science/lobby)
 "wKc" = (
 /obj/structure/rack,
-/obj/item/food/grown/wheat,
-/obj/item/food/grown/grapes,
-/obj/item/food/grown/watermelon,
-/obj/item/food/grown/citrus/orange,
+/obj/item/reagent_containers/food/snacks/grown/wheat,
+/obj/item/reagent_containers/food/snacks/grown/grapes,
+/obj/item/reagent_containers/food/snacks/grown/watermelon,
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
@@ -91528,7 +91540,7 @@
 /area/maintenance/disposal/incinerator)
 "wVw" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -94255,7 +94267,7 @@
 /obj/structure/table,
 /obj/item/hemostat,
 /obj/item/hatchet,
-/obj/item/knife,
+/obj/item/kitchen/knife,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -95018,7 +95030,7 @@
 /area/engine/atmos)
 "xDT" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/randomvend/cola,
+/obj/machinery/vending/cola/random,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "xDU" = (
@@ -96427,7 +96439,7 @@
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary/commissary2)
 "xSF" = (
-/obj/effect/spawner/randomvend/snack,
+/obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/camera{
 	c_tag = "Locker Room - Arcade";
@@ -134548,7 +134560,7 @@ vZC
 dxG
 vUr
 vQH
-mii
+qGr
 mii
 oeZ
 oft
@@ -139188,7 +139200,7 @@ xzx
 bhR
 mAy
 iWe
-qrm
+vdn
 iWe
 qrm
 qNl
@@ -139704,7 +139716,7 @@ nhN
 iWe
 pUF
 iWe
-qrm
+vdn
 qNl
 nHZ
 azA

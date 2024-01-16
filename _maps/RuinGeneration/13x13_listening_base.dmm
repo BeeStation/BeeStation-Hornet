@@ -13,7 +13,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/listeningstation)
 "cX" = (
-/obj/effect/spawner/randomvend/snack{
+/obj/machinery/vending/snack/random{
 	extended_inventory = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -328,7 +328,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/photo_album,
 /obj/machinery/light/small,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "rx" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
@@ -399,7 +399,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "ty" = (
 /obj/effect/decal/cleanable/dirt,
@@ -447,7 +447,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "xp" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -462,7 +462,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/listeningstation)
 "xC" = (
-/obj/effect/spawner/randomvend/cola{
+/obj/machinery/vending/cola/random{
 	extended_inventory = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -665,11 +665,11 @@
 /obj/structure/table/wood,
 /obj/item/ammo_box/magazine/m10mm,
 /obj/item/paper/fluff/ruins/listeningstation/briefing,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "FP" = (
 /obj/structure/bookcase/random,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plasteel/grimy,
 /area/ruin/space/has_grav/listeningstation)
 "Kg" = (
 /obj/structure/closet/crate/freezer,
@@ -734,7 +734,7 @@
 /obj/item/storage/box/donkpockets{
 	pixel_x = 2
 	},
-/obj/item/food/chocolatebar,
+/obj/item/reagent_containers/food/snacks/chocolatebar,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{

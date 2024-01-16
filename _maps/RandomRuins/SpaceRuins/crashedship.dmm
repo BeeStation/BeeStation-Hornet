@@ -23,8 +23,8 @@
 /area/awaymission/BMPship)
 "bn" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/food/meat/slab,
-/obj/item/food/meat/slab,
+/obj/item/reagent_containers/food/snacks/meat/slab,
+/obj/item/reagent_containers/food/snacks/meat/slab,
 /turf/open/floor/plasteel/white,
 /area/awaymission/BMPship/Aft)
 "bH" = (
@@ -753,7 +753,7 @@
 	dir = 4;
 	id = "meatConvey2"
 	},
-/obj/item/knife,
+/obj/item/kitchen/knife,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Midship)
 "tB" = (
@@ -911,7 +911,7 @@
 /area/awaymission/BMPship/Aft)
 "yx" = (
 /obj/structure/table,
-/obj/item/knife,
+/obj/item/kitchen/knife,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Midship)
@@ -1357,7 +1357,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/knife,
+/obj/item/kitchen/knife,
 /turf/open/floor/plating,
 /area/awaymission/BMPship/Aft)
 "HJ" = (
@@ -1399,7 +1399,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/item/knife,
+/obj/item/kitchen/knife,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Midship)
@@ -1535,8 +1535,8 @@
 "Ly" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/organ/brain,
-/obj/item/food/meat/slab,
-/obj/item/food/meat/slab/human/mutant/slime,
+/obj/item/reagent_containers/food/snacks/meat/slab,
+/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1924,8 +1924,8 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/hugemushroomslice,
 /obj/item/organ/appendix,
-/obj/item/food/meat/slab,
-/obj/item/food/meat/slab/human/mutant/golem/adamantine,
+/obj/item/reagent_containers/food/snacks/meat/slab,
+/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/golem/adamantine,
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
@@ -2129,7 +2129,7 @@
 /area/awaymission/BMPship/Midship)
 "XX" = (
 /obj/structure/table,
-/obj/item/knife/butcher,
+/obj/item/kitchen/knife/butcher,
 /obj/item/reagent_containers/food/drinks/beer,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -2217,8 +2217,8 @@
 "ZG" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/organ/appendix,
-/obj/item/food/meat/slab,
-/obj/item/food/meat/slab/human/mutant/golem,
+/obj/item/reagent_containers/food/snacks/meat/slab,
+/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/golem,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
