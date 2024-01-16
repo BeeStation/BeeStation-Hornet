@@ -3,7 +3,7 @@
 	icon_state = "purplecrack"
 
 	COOLDOWN_DECLARE(pulse_cooldown)
-	var/pulse_interval = 10 SECONDS
+	var/pulse_interval = 7 SECONDS
 
 	var/weak_pulse_power = 8
 	var/strong_pulse_power = 150
