@@ -67,7 +67,7 @@
 		SET_BITFLAG_LIST(smoothing_groups)
 		SET_BITFLAG_LIST(canSmoothWith)
 		QUEUE_SMOOTH(src)
-		if(smoothing_flags)
+		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH_NEIGHBORS(src)
 		update_appearance()
 

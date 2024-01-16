@@ -1,14 +1,13 @@
 /datum/orbital_objective/artifact
 	name = "Artifact Recovery"
-	var/generated = FALSE
-	//The blackbox required to recover.
-	var/obj/item/xenoartifact/objective/linked_artifact
+	var/datum/weakref/weakref_artifact
 	min_payout = 5000
 	max_payout = 25000
 
 /datum/orbital_objective/artifact/generate_objective_stuff(turf/chosen_turf)
-	generated = TRUE
-	linked_artifact = new(chosen_turf)
+	var/obj/item/xenoartifact/objective/linked_artifact = new(chosen_turf)
+	weakref_artifact = WEAKREF(linked_artifact)
+
 	var/list/turfs = RANGE_TURFS(30, linked_artifact)
 	var/list/valid_turfs = list()
 	for(var/turf/open/floor/F in turfs)
@@ -31,11 +30,15 @@
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
 /datum/orbital_objective/artifact/check_failed()
-	if(!generated)
+	if(!weakref_artifact) // It looks fail-check is executed before we fully initialise the explo mission.
 		return FALSE
-	if(is_station_level(linked_artifact.z))
-		complete_objective()
+	var/obj/item/xenoartifact/objective/linked_artifact = weakref_artifact.resolve()
+	if(QDELETED(linked_artifact)) // failed to resolve or qdeleted means it never success
+		return TRUE
+	if(!(linked_artifact?.flags_1 & INITIALIZED_1)) // We checked this too early.
 		return FALSE
-	if(!QDELETED(linked_artifact))
+	if(!is_station_level(linked_artifact.z)) // It's not a real failure. Let's wait...
 		return FALSE
-	return TRUE
+
+	complete_objective()
+	return FALSE

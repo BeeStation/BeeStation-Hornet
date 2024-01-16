@@ -65,7 +65,8 @@
 
 /obj/machinery/computer/xenoartifact_console/Destroy()
 	. = ..()
-	on_inbox_del()
+	if(linked_inbox)
+		on_inbox_del()
 	qdel(sellers)
 	qdel(buyers)
 	qdel(sold_artifacts)
@@ -244,7 +245,7 @@
 			linked_inbox = I
 			linked_machines += I.name
 			I.linked_console = src
-			I.RegisterSignal(src, COMSIG_PARENT_QDELETING, /obj/machinery/xenoartifact_inbox/proc/on_machine_del)
+			I.RegisterSignal(src, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/obj/machinery/xenoartifact_inbox, on_machine_del))
 			RegisterSignal(I, COMSIG_PARENT_QDELETING, PROC_REF(on_inbox_del))
 			say("Successfully linked [I].")
 			return

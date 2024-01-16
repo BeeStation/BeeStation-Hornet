@@ -808,6 +808,65 @@
 		var/item = pick(contains)
 		new item(C)
 
+/datum/supply_pack/security/armory/western
+	name = "Western Frontier Crate"
+	desc = "Howdy Pardner, this here is the finest collection of frontier gear for the aspiring cowboy, sheriff, or Wild West desperado on this side of the solar system. Unfortunately, we've had to lock this down with Armory access to put the postmaster general at ease."
+	cost = 4000
+	contraband = TRUE
+	max_supply = 3
+	contains = list(/obj/item/ammo_box/c38/box,
+					/obj/item/storage/toolbox/ammo/c38,
+					/obj/item/mob_lasso,
+					/obj/item/clothing/shoes/workboots/mining,
+					/obj/item/clothing/gloves/botanic_leather,
+					/obj/item/clothing/gloves/color/black,
+					/obj/item/clothing/head/cowboy,
+					/obj/item/clothing/head/sombrero,
+					/obj/item/clothing/head/sombrero/green,
+					/obj/item/storage/belt/bandolier/western,
+					/obj/item/gun/ballistic/rifle/leveraction,
+					/obj/item/gun/ballistic/rifle/leveraction)
+	var/wear_outer = list(/obj/item/clothing/suit/apron/overalls,
+					/obj/item/clothing/suit/poncho,
+					/obj/item/clothing/suit/poncho/green,
+					/obj/item/clothing/suit/poncho/red)
+	var/wear_under = list(/obj/item/clothing/under/misc/overalls,
+					/obj/item/clothing/under/misc/overalls,
+					/obj/item/clothing/under/misc/overalls,
+					/obj/item/clothing/under/suit/sl,
+					/obj/item/clothing/under/suit/sl)
+	var/cursed = list(/obj/item/clothing/head/helmet/outlaw,
+					/obj/item/clothing/mask/fakemoustache,
+					/obj/item/clothing/suit/poncho/ponchoshame/outlaw,
+					/obj/item/clothing/under/suit/sl,
+					/obj/item/clothing/shoes/workboots/mining,
+					/obj/item/clothing/gloves/color/black,
+					/obj/item/storage/belt/bandolier/western/filled,
+					/obj/item/gun/ballistic/rifle/leveraction,
+					/obj/item/gun/ballistic/revolver/detective/cowboy,
+					/obj/item/clothing/accessory/holster,
+					/obj/item/paper/crumpled/bloody/cursed_western)
+	crate_name = "western frontier crate"
+
+/datum/supply_pack/security/armory/western/fill(obj/structure/closet/crate/C)
+	if (prob(1) && prob(10)) //0.001% chance of rolling instead of normal contents //Jackpot Babey!!!
+		C.name = "cursed gunslinger crate"
+		C.color = COLOR_GRAY
+		for(var/item in cursed)
+			new item(C)
+	else
+		for(var/i in 1 to 6)
+			var/item = pick(contains)
+			new item(C)
+		for(var/i in 1 to 2)
+			var/item_outer = pick(wear_outer)
+			new item_outer(C)
+		for(var/i in 1 to 3)
+			var/item_under = pick(wear_under)
+			new item_under(C)
+		new /obj/item/clothing/mask/fakemoustache(C)
+		new /obj/item/clothing/mask/fakemoustache(C)
+
 /datum/supply_pack/security/armory/smartmine
 	name = "Smart Mine Crate"
 	desc = "Contains three nonlethal pressure activated stun mines capable of ignoring mindshieled personnel. Requires Armory access to open."

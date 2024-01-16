@@ -149,6 +149,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lights_always_start_on = TRUE
 	color_correction = /datum/client_colour/area_color/cold_ish
 
+/area/maintenance/get_turf_textures()
+	return GLOB.turf_texture_maint
+
 //Maintenance - Departmental
 
 /area/maintenance/department/chapel
@@ -209,6 +212,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/department/science
 	name = "Science Maintenance"
 	icon_state = "maint_sci"
+
+/area/maintenance/department/science/get_turf_textures()
+	return GLOB.turf_texture_hallway
 
 /area/maintenance/department/science/central
 	name = "Central Science Maintenance"
@@ -384,6 +390,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
 	lighting_brightness_tube = 8
+
+/area/hallway/get_turf_textures()
+	return GLOB.turf_texture_hallway
 
 /area/hallway/primary
 	name = "Primary Hallway"
@@ -591,6 +600,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	lights_always_start_on = TRUE
 	color_correction = /datum/client_colour/area_color/warm_ish
+
+/area/crew_quarters/get_turf_textures()
+	return GLOB.turf_texture_hallway
 
 /area/crew_quarters/dorms
 	name = "Dormitories"
@@ -833,6 +845,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/engineering
 	name = "Engineering"
 	icon_state = "engine"
+
+/area/engine/engineering/get_turf_textures()
+	return GLOB.turf_texture_hallway
 
 /area/engineering/hallway
 	name = "Engineering Hallway"
@@ -1145,6 +1160,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	color_correction = /datum/client_colour/area_color/warm_ish
 
+/area/security/get_turf_textures()
+	return GLOB.turf_texture_hallway
+
 /area/security/main
 	name = "Security Office"
 	icon_state = "security"
@@ -1299,6 +1317,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
 	color_correction = /datum/client_colour/area_color/warm_yellow
 
+/area/quartermaster/get_turf_textures()
+	return GLOB.turf_texture_hallway
+
 /area/quartermaster/sorting
 	name = "Delivery Office"
 	icon_state = "cargo_delivery"
@@ -1374,6 +1395,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	area_flags = HIDDEN_STASH_LOCATION | VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	color_correction = /datum/client_colour/area_color/cold_ish
+
+/area/hydroponics/get_turf_textures()
+	return GLOB.turf_texture_hallway
 
 /area/hydroponics/garden
 	name = "Garden"
@@ -1465,6 +1489,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Robotics"
 	icon_state = "robotics"
 
+/area/science/robotics/get_turf_textures()
+	return GLOB.turf_texture_hallway
+
 /area/science/robotics/mechbay
 	name = "Mech Bay"
 	icon_state = "mechbay"
@@ -1504,6 +1531,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/storage/primary
 	name = "Primary Tool Storage"
 	icon_state = "primarystorage"
+
+/area/storage/primary/get_turf_textures()
+	return GLOB.turf_texture_hallway
 
 /area/storage/art
 	name = "Art Supply Storage"
