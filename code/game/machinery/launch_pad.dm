@@ -137,6 +137,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
 	teleporting = TRUE
 
+	new /obj/effect/temp_visual/launchpad(target, teleport_speed)
 
 	sleep(teleport_speed)
 
@@ -186,6 +187,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 			var/mob/T = ROI
 			log_msg += "[key_name(T)][on_chair]"
 		else
+			// Non-mobs can be sent if placed on the powerful pad, but cannot be pulled
+			if (!sending)
+				continue
 			log_msg += "[ROI.name]"
 			if (istype(ROI, /obj/structure/closet))
 				log_msg += " ("
@@ -243,6 +247,19 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	if(closed)
 		return FALSE
 	return ..()
+
+/obj/machinery/launchpad/briefcase/attack_hand(mob/living/user)
+	. = ..()
+	if(!briefcase || !usr.can_hold_items())
+		return
+	if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
+		return
+	usr.visible_message("<span class='notice'>[usr] starts closing [src]...</span>", "<span class='notice'>You start closing [src]...</span>")
+	if(do_after(usr, 30, target = usr))
+		usr.put_in_hands(briefcase)
+		moveToNullspace() //hides it from suitcase contents
+		closed = TRUE
+		update_indicator()
 
 /obj/machinery/launchpad/briefcase/MouseDrop(over_object, src_location, over_location)
 	. = ..()

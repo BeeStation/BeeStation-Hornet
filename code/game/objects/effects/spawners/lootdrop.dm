@@ -115,9 +115,9 @@
 			/obj/item/food/salad/jungle,
 			/obj/item/food/salad/aesirsalad)
 	var/mains = list(
-			/obj/item/reagent_containers/food/snacks/bearsteak,
+			/obj/item/food/bearsteak,
 			/obj/item/food/enchiladas,
-			/obj/item/reagent_containers/food/snacks/stewedsoymeat,
+			/obj/item/food/stewedsoymeat,
 			/obj/item/food/burger/bigbite,
 			/obj/item/food/burger/superbite,
 			/obj/item/food/burger/fivealarm)
@@ -282,7 +282,7 @@
 		/obj/item/clothing/mask/gas/clown_hat = 4,
 		/obj/item/clothing/shoes/clown_shoes = 3,
 		/obj/item/bikehorn = 5,
-		/obj/item/reagent_containers/food/snacks/pie/cream = 3)
+		/obj/item/food/pie/cream = 3)
 
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner
 	name = "2% chance xeno egg spawner"

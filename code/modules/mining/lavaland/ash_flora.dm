@@ -11,7 +11,7 @@
 	var/harvested_name = "shortened mushrooms"
 	var/harvested_desc = "Some quickly regrowing mushrooms, formerly known to be quite large."
 	var/needs_sharp_harvest = TRUE
-	var/harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings
+	var/harvest = /obj/item/food/grown/ash_flora/shavings
 	var/harvest_amount_low = 1
 	var/harvest_amount_high = 3
 	var/harvest_time = 60
@@ -86,7 +86,7 @@
 	desc = "A number of mushrooms, each of which surrounds a greenish sporangium with a number of leaf-like structures."
 	harvested_name = "leafless mushrooms"
 	harvested_desc = "A bunch of formerly-leafed mushrooms, with their sporangiums exposed. Scandalous?"
-	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf
+	harvest = /obj/item/food/grown/ash_flora/mushroom_leaf
 	needs_sharp_harvest = FALSE
 	harvest_amount_high = 4
 	harvest_time = 20
@@ -102,7 +102,7 @@
 	desc = "Several mushrooms, the larger of which have a ring of conks at the midpoint of their stems."
 	harvested_name = "small mushrooms"
 	harvested_desc = "Several small mushrooms near the stumps of what likely were larger mushrooms."
-	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap
+	harvest = /obj/item/food/grown/ash_flora/mushroom_cap
 	harvest_amount_high = 4
 	harvest_time = 50
 	harvest_message_low = "You slice the cap off a mushroom."
@@ -119,7 +119,7 @@
 	light_power = 2.1
 	harvested_name = "tiny mushrooms"
 	harvested_desc = "A few tiny mushrooms around larger stumps. You can already see them growing back."
-	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem
+	harvest = /obj/item/food/grown/ash_flora/mushroom_stem
 	harvest_amount_high = 4
 	harvest_time = 40
 	harvest_message_low = "You pick and slice the cap off a mushroom, leaving the stem."
@@ -134,7 +134,7 @@
 	desc = "Several prickly cacti, brimming with ripe fruit and covered in a thin layer of ash."
 	harvested_name = "cacti"
 	harvested_desc = "A bunch of prickly cacti. You can see fruits slowly growing beneath the covering of ash."
-	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit
+	harvest = /obj/item/food/grown/ash_flora/cactus_fruit
 	needs_sharp_harvest = FALSE
 	harvest_amount_high = 2
 	harvest_time = 10
@@ -149,7 +149,7 @@
 	icon_state = "xpod"
 	name = "strange plant"
 	desc = "An alient plant born under warming glow of space radiation. What mysteries does it hold? Botanist should know."
-	harvest = /obj/item/reagent_containers/food/snacks/grown/random
+	harvest = /obj/item/food/grown/random
 	needs_sharp_harvest = FALSE
 	harvest_amount_high = 2
 	harvest_time = 10
@@ -166,7 +166,7 @@
 
 //SNACKS
 
-/obj/item/reagent_containers/food/snacks/grown/ash_flora
+/obj/item/food/grown/ash_flora
 	name = "mushroom shavings"
 	desc = "Some shavings from a tall mushroom. With enough, might serve as a bowl."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
@@ -177,35 +177,35 @@
 	seed = /obj/item/seeds/lavaland/polypore
 	wine_power = 20
 
-/obj/item/reagent_containers/food/snacks/grown/ash_flora/Initialize(mapload)
+/obj/item/food/grown/ash_flora/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-4, 4)
 	pixel_y = rand(-4, 4)
 
-/obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings //So we can't craft bowls from everything.
+/obj/item/food/grown/ash_flora/shavings //So we can't craft bowls from everything.
 
-/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf
+/obj/item/food/grown/ash_flora/mushroom_leaf
 	name = "mushroom leaf"
 	desc = "A leaf, from a mushroom."
 	icon_state = "mushroom_leaf"
 	seed = /obj/item/seeds/lavaland/porcini
 	wine_power = 40
 
-/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap
+/obj/item/food/grown/ash_flora/mushroom_cap
 	name = "mushroom cap"
 	desc = "The cap of a large mushroom."
 	icon_state = "mushroom_cap"
 	seed = /obj/item/seeds/lavaland/inocybe
 	wine_power = 70
 
-/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem
+/obj/item/food/grown/ash_flora/mushroom_stem
 	name = "mushroom stem"
 	desc = "A long mushroom stem. It's slightly glowing."
 	icon_state = "mushroom_stem"
 	seed = /obj/item/seeds/lavaland/ember
 	wine_power = 60
 
-/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit
+/obj/item/food/grown/ash_flora/cactus_fruit
 	name = "cactus fruit"
 	desc = "A cactus fruit covered in a thick, reddish skin. And some ash."
 	icon_state = "cactus_fruit"
@@ -234,7 +234,7 @@
 	icon_state = "seed-cactus"
 	species = "cactus"
 	plantname = "Fruiting Cactus"
-	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit
+	product = /obj/item/food/grown/ash_flora/cactus_fruit
 	genes = list(/datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	growthstages = 2
@@ -246,7 +246,7 @@
 	icon_state = "mycelium-polypore"
 	species = "polypore"
 	plantname = "Polypore Mushrooms"
-	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings
+	product = /obj/item/food/grown/ash_flora/shavings
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list(/datum/reagent/consumable/sugar = 0.06, /datum/reagent/consumable/ethanol = 0.04, /datum/reagent/stabilizing_agent = 0.06, /datum/reagent/toxin/minttoxin = 0.02)
@@ -257,7 +257,7 @@
 	icon_state = "mycelium-porcini"
 	species = "porcini"
 	plantname = "Porcini Mushrooms"
-	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf
+	product = /obj/item/food/grown/ash_flora/mushroom_leaf
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.06, /datum/reagent/consumable/vitfro = 0.04, /datum/reagent/drug/nicotine = 0.04)
@@ -269,7 +269,7 @@
 	icon_state = "mycelium-inocybe"
 	species = "inocybe"
 	plantname = "Inocybe Mushrooms"
-	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap
+	product = /obj/item/food/grown/ash_flora/mushroom_cap
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list(/datum/reagent/toxin/mindbreaker = 0.04, /datum/reagent/consumable/entpoly = 0.08, /datum/reagent/drug/mushroomhallucinogen = 0.04)
@@ -280,7 +280,7 @@
 	icon_state = "mycelium-ember"
 	species = "ember"
 	plantname = "Embershroom Mushrooms"
-	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem
+	product = /obj/item/food/grown/ash_flora/mushroom_stem
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/glow, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list(/datum/reagent/consumable/tinlux = 0.04, /datum/reagent/consumable/nutriment/vitamin = 0.02, /datum/reagent/drug/space_drugs = 0.02)
@@ -290,7 +290,7 @@
 /datum/crafting_recipe/mushroom_bowl
 	name = "Mushroom Bowl"
 	result = /obj/item/reagent_containers/glass/bowl/mushroom_bowl
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings = 5)
+	reqs = list(/obj/item/food/grown/ash_flora/shavings = 5)
 	time = 30
 	category = CAT_PRIMAL
 
