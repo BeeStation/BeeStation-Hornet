@@ -1,9 +1,9 @@
 /obj/item/reagent_containers/food/snacks/dough : /obj/item/food/dough{@OLD}
 /obj/item/reagent_containers/food/snacks/flatdough : /obj/item/food/flatdough{@OLD}
+/obj/item/reagent_containers/food/snacks/pizzabread : /obj/item/food/pizzabread{@OLD}
 /obj/item/reagent_containers/food/snacks/doughslice : /obj/item/food/doughslice{@OLD}
 /obj/item/reagent_containers/food/snacks/bun : /obj/item/food/bun{@OLD}
 /obj/item/reagent_containers/food/snacks/cakebatter : /obj/item/food/cakebatter{@OLD}
-/obj/item/reagent_containers/food/snacks/piedough : /obj/item/food/piedough{@OLD}
 /obj/item/reagent_containers/food/snacks/pastrybase : /obj/item/food/pastrybase{@OLD}
 /obj/item/reagent_containers/food/snacks/tortilla : /obj/item/food/tortilla{@OLD}
 /obj/item/reagent_containers/food/snacks/burrito : /obj/item/food/burrito{@OLD}

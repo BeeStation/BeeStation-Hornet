@@ -25,5 +25,3 @@
 /obj/item/reagent_containers/food/snacks/cherrycupcake/blue : /obj/item/food/cherrycupcake/blue{@OLD}
 /obj/item/reagent_containers/food/snacks/honeybun : /obj/item/food/honeybun{@OLD}
 /obj/item/reagent_containers/food/snacks/ravtart : /obj/item/food/ravtart{@OLD}
-/obj/item/reagent_containers/food/snacks/pie : /obj/item/food/pie{@OLD}
-/obj/item/reagent_containers/food/snacks/pie/@SUBTYPES : /obj/item/food/pie/@SUBTYPES{@OLD}

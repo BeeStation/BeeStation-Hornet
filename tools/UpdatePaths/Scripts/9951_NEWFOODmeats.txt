@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/food/snacks/dolphinmeat : /obj/item/food/meat/slab/dolphinmeat{@OLD}
+/obj/item/reagent_containers/food/snacks/meat : /obj/item/food/meat{@OLD}
 /obj/item/reagent_containers/food/snacks/meat/slab : /obj/item/food/meat/slab{@OLD}
 /obj/item/reagent_containers/food/snacks/meat/slab/@SUBTYPES : /obj/item/food/meat/slab/@SUBTYPES{@OLD}
 /obj/item/reagent_containers/food/snacks/meat/steak : /obj/item/food/meat/steak{@OLD}
@@ -6,6 +7,7 @@
 /obj/item/reagent_containers/food/snacks/meat/rawbacon : /obj/item/food/meat/rawbacon{@OLD}
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet : /obj/item/food/meat/rawcutlet{@OLD}
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet/@SUBTYPES : /obj/item/food/meat/rawcutlet/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/meat/@SUBTYPES : /obj/item/food/meat/@SUBTYPES{@OLD}
 /obj/item/reagent_containers/food/snacks/monkeycube : /obj/item/food/monkeycube{@OLD}
 /obj/item/reagent_containers/food/snacks/monkeycube/@SUBTYPES : /obj/item/food/monkeycube/@SUBTYPES{@OLD}
 /obj/item/reagent_containers/food/snacks/carpmeat/icantbelieveitsnotcarp : /obj/item/food/fishmeat{@OLD}
