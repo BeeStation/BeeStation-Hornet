@@ -61059,10 +61059,6 @@
 	dir = 1;
 	name = "Defendant"
 	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "tos" = (
@@ -61140,10 +61136,6 @@
 /obj/machinery/light,
 /obj/structure/chair/fancy/bench/pew{
 	dir = 1
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
@@ -62254,13 +62246,6 @@
 	dir = 4
 	},
 /area/science/lobby)
-"tFq" = (
-/obj/item/radio/intercom{
-	pixel_y = -35
-	},
-/obj/structure/tank_dispenser/oxygen,
-/turf/open/floor/plasteel,
-/area/security/brig)
 "tFr" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/aimodule_harmless,
@@ -71604,10 +71589,6 @@
 /obj/structure/chair/fancy/bench/pew/right{
 	dir = 1;
 	name = "Defendant"
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
@@ -97319,7 +97300,7 @@ yeA
 fHK
 hLc
 fHK
-vIB
+yeA
 fHK
 eWz
 fHK
@@ -97576,7 +97557,7 @@ yeA
 fHK
 axV
 fHK
-tFq
+vIB
 fHK
 frI
 fHK
