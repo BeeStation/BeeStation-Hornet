@@ -1406,7 +1406,7 @@
 	M.adjustCloneLoss(-1 * REM, 0)
 	M.adjustStaminaLoss(-30 * REM, 0)
 	M.jitteriness = clamp_respected(M.jitteriness, 3, 0, 30)
-	M.druggy = clamp_respected(M.druggy, 10, 0, 30) //See above
+	M.druggy = clamp_respected(M.druggy, 10, 0, 15) //See above
 	..()
 	. = 1
 
