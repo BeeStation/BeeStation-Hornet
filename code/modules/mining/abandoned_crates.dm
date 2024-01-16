@@ -241,7 +241,7 @@
 		if(97)
 			new /obj/item/clothing/mask/balaclava
 			new /obj/item/gun/ballistic/automatic/pistol(src)
-			new /obj/item/ammo_box/magazine/m10mm(src)
+			new /obj/item/ammo_box/magazine/m9mm(src)
 		if(98)
 			new /obj/item/katana/cursed(src)
 		if(99)

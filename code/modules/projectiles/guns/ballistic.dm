@@ -51,8 +51,9 @@
 	//BOLT_TYPE_PUMP: Functions identically to BOLT_TYPE_STANDARD, but requires two hands to rack the bolt.
 	//Examples: Pump-action shotguns
 	//BOLT_TYPE_TWO_STEP: Functions identically to BOLT_TYPE_PUMP (and thus, STANDARD), but each interaction with the bolt toggles between locked (open) & unlocked (closed).
-	//Examples: Mosin nagant, pipe guns
+	//Examples: Mosin nagant, lever action rifle
 	var/bolt_type = BOLT_TYPE_STANDARD
+	var/one_handed_bolt = FALSE //For BOLT_TYPE_TWO_STEP guns that only require one hand to bolt (Volcanic Pistol)
 	var/bolt_locked = FALSE //Used for locking bolt and open bolt guns. Set a bit differently for the two but prevents firing when true for both.
 	var/bolt_wording = "bolt" //bolt, slide, etc.
 	var/semi_auto = TRUE //Whether the gun has to be racked each shot or not.
@@ -179,7 +180,7 @@
 				return
 			bolt_locked = FALSE
 		if(BOLT_TYPE_TWO_STEP)
-			if(!is_wielded && !HAS_TRAIT(user, TRAIT_NICE_SHOT))
+			if(!is_wielded && !HAS_TRAIT(user, TRAIT_NICE_SHOT) && !one_handed_bolt)
 				to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
 				return
 				//If it's locked (open), drop the bolt to close and unlock it

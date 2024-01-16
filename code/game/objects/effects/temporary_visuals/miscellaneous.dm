@@ -373,23 +373,49 @@
 	return ..()
 
 /obj/effect/temp_visual/impact_effect/red_laser
+	light_system = MOVABLE_LIGHT
+	light_range = 1
+	light_power = 1
+	light_color = LIGHT_COLOR_RED
+	light_flags = LIGHT_NO_LUMCOUNT
 	icon_state = "impact_laser"
 	duration = 4
+
+/obj/effect/temp_visual/impact_effect/red_laser/flare
+	light_color = LIGHT_COLOR_FLARE
+
+/obj/effect/temp_visual/impact_effect/red_laser/light_cyan
+	light_color = LIGHT_COLOR_LIGHT_CYAN
 
 /obj/effect/temp_visual/impact_effect/red_laser/wall
 	icon_state = "impact_laser_wall"
 	duration = 10
 
 /obj/effect/temp_visual/impact_effect/blue_laser
-	icon_state = "impact_laser_blue"
+	light_system = MOVABLE_LIGHT
+	light_range = 1
+	light_power = 1
+	light_color = LIGHT_COLOR_BLUE
+	light_flags = LIGHT_NO_LUMCOUNT
+	icon_state = "impact_laser"
 	duration = 4
 
 /obj/effect/temp_visual/impact_effect/green_laser
-	icon_state = "impact_laser_green"
+	light_system = MOVABLE_LIGHT
+	light_range = 1
+	light_power = 1
+	light_color = LIGHT_COLOR_GREEN
+	light_flags = LIGHT_NO_LUMCOUNT
+	icon_state = "impact_laser"
 	duration = 4
 
 /obj/effect/temp_visual/impact_effect/purple_laser
-	icon_state = "impact_laser_purple"
+	light_system = MOVABLE_LIGHT
+	light_range = 1
+	light_power = 1
+	light_color = LIGHT_COLOR_PURPLE
+	light_flags = LIGHT_NO_LUMCOUNT
+	icon_state = "impact_laser"
 	duration = 4
 
 /obj/effect/temp_visual/impact_effect/ion

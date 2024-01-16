@@ -543,8 +543,8 @@
 	dangerous_craft = TRUE
 
 /datum/crafting_recipe/piperifle
-	name = "Singleshot Pipe Rifle"
-	result = /obj/item/gun/ballistic/rifle/pipe
+	name = "Lever Action Pipe Rifle"
+	result = /obj/item/gun/ballistic/rifle/leveraction/pipe
 	reqs = list(/obj/item/weaponcrafting/receiver = 1,
 				/obj/item/pipe = 1,
 				/obj/item/weaponcrafting/stock = 1,

@@ -23,6 +23,16 @@
 	muzzle_type = /obj/effect/projectile/muzzle/laser
 	impact_type = /obj/effect/projectile/impact/laser
 
+/obj/projectile/beam/laser/l9mm
+	damage = 15
+	light_color = LIGHT_COLOR_FLARE
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/flare
+
+/obj/projectile/beam/laser/l9mm/disabler
+	damage_type = STAMINA
+	light_color = LIGHT_COLOR_LIGHT_CYAN
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/light_cyan
+
 /obj/projectile/beam/laser/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"

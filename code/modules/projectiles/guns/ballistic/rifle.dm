@@ -19,6 +19,7 @@
 	..()
 	add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
 
+
 /obj/item/gun/ballistic/rifle/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
 	if(sawn_off == TRUE)
 		if(!is_wielded)
@@ -135,46 +136,51 @@
 	w_class = WEIGHT_CLASS_BULKY
 	no_pin_required = TRUE //Nothing stops frontier justice
 	bolt_wording = "lever"
-	cartridge_wording = "cartridge"
+	cartridge_wording = "bullet"
 	recoil = 0.5
-	bolt_type = BOLT_TYPE_PUMP
+	bolt_type = BOLT_TYPE_TWO_STEP
 	fire_sound_volume = 70
 
-///////////////////////
-//  7.62 PIPE RIFLE  //
-///////////////////////
+///////////////////////////////
+//  LEVER ACTION PIPE RIFLE  //
+///////////////////////////////
 
-/obj/item/gun/ballistic/rifle/pipe
-	name = "pipe rifle"
-	desc = "It's amazing what you can do with some scrap wood and spare pipes."
+/obj/item/gun/ballistic/rifle/leveraction/pipe
+	name = "lever action pipe rifle"
+	desc = "A design that arcons back to the 19th Century. Chambered for .38"
 	can_sawoff = TRUE
-	sawn_name = "pipe pistol"
-	sawn_desc = "Why have more gun, when less gun can do!"
+	sawn_name = "volcanic pipe pistol"
+	sawn_desc = "A design that is as outdated now as it was when it was still a novelty. Chambered for .38"
 	icon_state = "piperifle"
 	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
 	item_state = "shotgun_improv"
-	sawn_item_state = "shotgun_improv_shorty"
+	sawn_item_state = "lever_improv_shorty"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	bolt_type = BOLT_TYPE_NO_BOLT
-	cartridge_wording = "cartridge"
+	mag_type = /obj/item/ammo_box/magazine/internal/leveraction/pipe
 	slot_flags = null
-	mag_type = /obj/item/ammo_box/magazine/internal/piperifle
-	no_pin_required = TRUE
-	w_class = WEIGHT_CLASS_BULKY
 	force = 8
 	recoil = 0.8
+	spread = 5
+	fire_sound_volume = 50
 	var/slung = FALSE
 
-/obj/item/gun/ballistic/rifle/pipe/examine(mob/user)
+/obj/item/gun/ballistic/rifle/leveraction/pipe/update_icon()
+	..()
+	if(slung)
+		add_overlay("[icon_state]_sling")
+	else
+		cut_overlay("[icon_state]_sling")
+
+/obj/item/gun/ballistic/rifle/leveraction/pipe/examine(mob/user)
 	. = ..()
 	if (slung)
 		. += "It has a shoulder sling fashioned from spare cable attached."
 	else
 		. += "You could improvise a shoulder sling from some cabling..."
 
-/obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/ballistic/rifle/leveraction/pipe/attackby(obj/item/A, mob/user, params)
 	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
 		if(slung)
@@ -189,9 +195,17 @@
 		else
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
 
-/obj/item/gun/ballistic/rifle/pipe/sawoff(mob/user)
+/obj/item/gun/ballistic/rifle/leveraction/pipe/sawoff(mob/user)
 	. = ..()
 	if(. && slung) //sawing off the gun removes the sling
 		new /obj/item/stack/cable_coil(get_turf(src), 10)
 		slung = FALSE
 		update_icon()
+	damage_multiplier = 0.7
+	fire_sound_volume = 35
+	rack_sound_volume = 40
+	lock_back_sound_volume = 40
+	bolt_drop_sound_volume = 40
+	w_class = WEIGHT_CLASS_SMALL
+	weapon_weight = WEAPON_LIGHT
+	one_handed_bolt = TRUE
