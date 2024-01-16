@@ -55,7 +55,11 @@
 			A.flags_1 |= ADMIN_SPAWNED_1
 	else
 		for(var/item in contains)
-			new item(C)
+			if(ispath(item))
+				new item(C)
+			else if(ismovable(item))
+				var/atom/movable/MA = item
+				MA.forceMove(C)
 
 // If you add something to this list, please group it by type and sort it alphabetically instead of just jamming it in like an animal
 

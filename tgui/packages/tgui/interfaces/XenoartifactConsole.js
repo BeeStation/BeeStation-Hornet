@@ -11,6 +11,12 @@ export const XenoartifactConsole = (props, context) => {
     <Window width={800} height={500}>
       <Window.Content scrollable>
         <ProgressBar value = {stability/100} ranges={{good: [0.5, Infinity], average: [0.25, 0.5], bad: [-Infinity, 0.25],}}/>
+        <Section>
+          <BlockQuote>
+            {"Purchase research materials from independant sellers, using the science budget. Purchased items will be routed through cargo."}
+          </BlockQuote>
+        </Section>
+        <Divider/>
         <Flex wrap = {"wrap"}>
           {sellers.map((value) => (
             <XenoartifactConsoleSellerEntry value = {value} key={value}/>
@@ -27,13 +33,13 @@ const XenoartifactConsoleSellerEntry = (props, context) => {
   const stock = value["stock"] || [];
   return (
     <Flex.Item>
-      <Section title={`${value["name"]}`} px={2} py={1}>
+      <Section title={`${value["name"]}`} px={2} py={1} independant={true}>
         <BlockQuote>{`${value["dialogue"]}`}</BlockQuote>
         <Divider/>
         {stock.map((stock_list) => (
           <Section title={`${stock_list["name"]}`} mx={5} independant={true} key={stock_list}>
             <BlockQuote>{`${stock_list["description"]}`}</BlockQuote>
-            <Button icon={'shopping-cart'}/>
+            <Button icon={'shopping-cart'} onClick={() => act(`stock_purchase`, {item_id: stock_list["id"], seller_id: value["id"],})}/>
             <Divider/>
           </Section>
         ))}

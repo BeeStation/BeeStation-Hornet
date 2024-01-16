@@ -74,9 +74,8 @@
 	var/list/artifact_types = list(XENOA_BLUESPACE = 1, XENOA_PLASMA = 1, XENOA_URANIUM = 1, XENOA_BANANIUM = 1)
 
 /datum/rnd_lister/artifact_seller/get_new_stock()
-	var/datum/xenoartifact_material = pick_weight(artifact_types)
-	var/obj/item/xenoartifact/artifact = new(null, xenoartifact_material)
-	artifact.AddComponent(/datum/component/xenoartifact, xenoartifact_material)
+	var/datum/xenoartifact_material/M = pick_weight(artifact_types)
+	var/obj/item/xenoartifact/artifact = new(null, M)
 	return artifact
 
 /*

@@ -60,12 +60,29 @@
 	for(var/datum/rnd_lister/seller as() in sellers)
 		var/list/stock = list()
 		for(var/atom/A as() in seller.current_stock)
-			stock += list(list("name" = A?.name, "description" = A?.desc))
-		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = stock))
+			stock += list(list("name" = A?.name, "description" = A?.desc, "id" = REF(A)))
+		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = stock, "id" = REF(seller)))
 	//Stability
 	data["stability"] = stability
 	
 	return data
+
+/obj/machinery/computer/xenoarchaeology_console/ui_act(action, params)
+	if(..())
+		return
+	
+	switch(action)
+		//Purchase items
+		if("stock_purchase")
+			//Locate seller and purchase our item from them
+			var/datum/rnd_lister/seller = locate(params["seller_id"])
+			var/datum/supply_pack/SP = seller?.buy_stock(locate(params["item_id"]))
+			//Ship the pack
+			var/datum/supply_order/SO = new(SP, null, null, null, "Research Material Requisition")
+			SO.generateRequisition(get_turf(src))
+			new /obj/effect/pod_landingzone(get_turf(src), /obj/structure/closet/supplypod, SO)
+			
+	ui_update()
 
 //Circuitboard for this console
 /obj/item/circuitboard/computer/xenoarchaeology_console

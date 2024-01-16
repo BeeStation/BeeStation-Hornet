@@ -88,7 +88,6 @@
 	trait_toggle(action, "major", major_traits, selected_major_traits)
 	trait_toggle(action, "malfunction", malfunction_list, selected_malfunction_traits)
 
-	update_icon()
 	return TRUE
 
 //Get a list of all the specified trait types names
