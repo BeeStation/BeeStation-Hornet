@@ -31,7 +31,7 @@
 /turf/template_noop,
 /area/template_noop)
 "G" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "J" = (
@@ -43,7 +43,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Q" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (

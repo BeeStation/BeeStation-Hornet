@@ -86,7 +86,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "ax" = (
-/obj/item/reagent_containers/food/snacks/nugget/dog,
+/obj/item/food/nugget/dog,
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/powered)
 "ay" = (
@@ -147,11 +147,11 @@
 /area/ruin/space/has_grav/powered)
 "aM" = (
 /obj/structure/closet/secure_closet/freezer,
-/obj/item/reagent_containers/food/snacks/nugget/dog,
-/obj/item/reagent_containers/food/snacks/nugget/dog,
-/obj/item/reagent_containers/food/snacks/nugget/dog,
-/obj/item/reagent_containers/food/snacks/nugget/dog,
-/obj/item/reagent_containers/food/snacks/nugget/dog,
+/obj/item/food/nugget/dog,
+/obj/item/food/nugget/dog,
+/obj/item/food/nugget/dog,
+/obj/item/food/nugget/dog,
+/obj/item/food/nugget/dog,
 /turf/open/floor/plasteel/checker,
 /area/ruin/space/has_grav/powered)
 "aN" = (
@@ -252,7 +252,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "bh" = (
-/obj/item/reagent_containers/food/snacks/nugget/dog,
+/obj/item/food/nugget/dog,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 

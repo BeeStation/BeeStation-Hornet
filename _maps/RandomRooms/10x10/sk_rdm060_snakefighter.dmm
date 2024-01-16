@@ -38,7 +38,7 @@
 /obj/structure/sign/departments/science{
 	pixel_y = 32
 	},
-/obj/item/kitchen/knife,
+/obj/item/knife,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -240,17 +240,17 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "R" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
 "T" = (
 /obj/structure/closet,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
 "U" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
 "W" = (

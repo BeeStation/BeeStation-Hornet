@@ -87,7 +87,7 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/ruin/powered/animal_hospital)
 "aJ" = (
-/turf/open/floor/plasteel/grimy{
+/turf/open/floor/carpet/grimy{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
@@ -500,22 +500,22 @@
 /area/ruin/powered/animal_hospital)
 "me" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
-/obj/item/reagent_containers/food/snacks/cookie{
+/obj/item/food/cookie{
 	name = "doggie biscuit"
 	},
 /obj/machinery/light{
@@ -1064,7 +1064,7 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "Qm" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
