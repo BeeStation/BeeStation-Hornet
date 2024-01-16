@@ -1,6 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed the UpdatePaths scripts for newfood.
-  - code_imp: Added UpdatePaths for various recent PRs.
-  - bugfix: Fixed UpdatePaths leaving behind None artefacts when `@SKIP` is used.
