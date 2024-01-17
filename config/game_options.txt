@@ -663,6 +663,9 @@ DISABLE_LOCAL_BANS
 
 ## Virology tweaks
 
+## Allow the Virologist job to be picked.
+#ALLOW_VIROLOGIST
+
 ##Uncomment to allow most virus recipes to work
 #CHEMVIRO_ALLOWED
 

@@ -447,6 +447,8 @@
 
 /datum/config_entry/flag/dark_unstaffed_departments
 
+/datum/config_entry/flag/allow_virologist
+
 /datum/config_entry/flag/chemviro_allowed
 
 /datum/config_entry/flag/isolation_allowed
