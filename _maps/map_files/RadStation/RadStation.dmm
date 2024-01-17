@@ -24148,6 +24148,10 @@
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},
+/obj/machinery/camera/autoname{
+	network = list("ss13","security");
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig/dock)
 "hxw" = (
@@ -61491,15 +61495,15 @@
 /area/medical/medbay/lobby)
 "trr" = (
 /obj/structure/curtain/bounty,
-/obj/machinery/door/airlock/security/glass{
-	name = "Re-Education Chamber";
-	req_access_txt = "3"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/door/airlock/security{
+	name = "Re-Education Chamber";
+	req_access_txt = "3"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "trw" = (
@@ -73344,9 +73348,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "xjm" = (
-/obj/machinery/camera/autoname{
-	network = list("ss13","security")
-	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
