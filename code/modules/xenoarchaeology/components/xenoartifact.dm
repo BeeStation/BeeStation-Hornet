@@ -299,7 +299,7 @@
 	//handle adding trait
 	artifact_traits[trait.priority] += trait
 	blacklisted_traits += trait.blacklist_traits
-	blacklisted_traits += trait
+	blacklisted_traits += trait.type
 
 	return TRUE
 
