@@ -11407,7 +11407,7 @@
 /area/security/brig/dock)
 "dHv" = (
 /obj/item/paper/crumpled{
-	default_raw_text = s;
+	default_raw_text = "It's been 8 days since I entered this room. Dammed rad storm, they won't let me out, won't let me see my family. I'm growing increasingly frustrated with this multitool. I don't know how much longer I can survive here, I've run out of what snacks and water I could find. The hunger is getting worse, and I can feel the thirst growing. If I don't get out of here soon, I fear I won't make it. Damnit, why didn't I learn how to hack airlocks?! I can't die here! I just can't.";
 	pixel_x = -1;
 	pixel_y = -14
 	},
