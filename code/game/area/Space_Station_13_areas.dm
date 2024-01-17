@@ -1176,6 +1176,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	mood_message = "<span class='warning'>I hate cramped brig cells.\n</span>"
 
+/area/security/brig/dock
+	name = "Brig Dock"
+
+/area/security/brig/medbay
+	name = "Brig Bay"
+
+
 /area/security/courtroom
 	name = "Courtroom"
 	icon_state = "courtroom"
@@ -1232,7 +1239,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/security/execution/education
 	name = "Prisoner Education Chamber"
-
+	
 /area/security/nuke_storage
 	name = "Vault"
 	icon_state = "nuke_storage"
