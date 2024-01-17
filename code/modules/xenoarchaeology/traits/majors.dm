@@ -27,8 +27,7 @@
 	. = ..()
 	if(!.)
 		return
-	if(length(focus))
-		playsound(get_turf(parent.parent), 'sound/machines/defib_zap.ogg', 50, TRUE)
+	playsound(get_turf(parent.parent), 'sound/machines/defib_zap.ogg', 50, TRUE)
 	for(var/atom/target in focus)
 		if(iscarbon(target))
 			var/mob/living/carbon/victim = target
@@ -270,8 +269,6 @@
 	. = ..()
 	if(!.)
 		return
-	if(length(focus))
-		playsound(get_turf(parent.parent), 'sound/machines/defib_zap.ogg', 50, TRUE)
 	for(var/atom/movable/target in focus)
 		if(!target.anchored)
 			do_teleport(target, get_turf(target), (parent.trait_strength*0.3)+1, channel = TELEPORT_CHANNEL_BLUESPACE)

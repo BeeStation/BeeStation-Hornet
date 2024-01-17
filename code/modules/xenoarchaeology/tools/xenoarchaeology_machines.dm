@@ -10,6 +10,10 @@
 	var/list/held_contents = list()
 	var/max_contents = 1
 
+/obj/machinery/xenoarchaeology_machine/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_artifact)
+
 /obj/machinery/xenoarchaeology_machine/attackby(obj/item/I, mob/living/user, params)
 	var/list/modifiers = params2list(params)
 	var/atom/target = get_target()

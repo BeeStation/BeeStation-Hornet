@@ -221,6 +221,12 @@
 			slot = ITEM_SLOT_GLOVES
 	if(isliving(M) && M.anti_artifact_check(FALSE, slot))
 		return
+	//Just check if the thing itself has the anti-component
+	var/datum/component/anti_artifact/A = target.GetComponent(/datum/component/anti_artifact)
+	if(A?.charges)
+		A.charges -= 1
+		return
+	//Regular target follow through
 	targets += target
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)
 
