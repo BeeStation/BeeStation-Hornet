@@ -68,6 +68,11 @@
 		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
 		if(X)
 			total_weight += X.get_material_weight()
+		//If there's a label and we're obliged to 'help' the player
+		var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in A.contents
+		if(L)
+			for(var/datum/xenoartifact_trait/T as() in L.traits)
+				say("[T.label_name] - Weight: [T.weight]")
 		else if(isitem(A) || isliving(A))
 			if(isliving(A) && prob(1))
 				say("Unexpected Fatass Detected!")
@@ -94,6 +99,10 @@
 		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
 		if(X)
 			total_conductivity += X.get_material_conductivity()
+		var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in A.contents
+		if(L)
+			for(var/datum/xenoartifact_trait/T as() in L.traits)
+				say("[T.label_name] - Conductivity: [T.conductivity]")
 		else if(isitem(A) || isliving(A))
 			say("Unexpected Item Detected!")
 			return

@@ -14,10 +14,10 @@
 	var/override_cooldown = FALSE
 
 //Throw custom cooldown logic in here
-/datum/xenoartifact_trait/activator/proc/trigger_artifact(atom/target)
+/datum/xenoartifact_trait/activator/proc/trigger_artifact(atom/target, type = XENOA_ACTIVATION_CONTACT, force)
 	SIGNAL_HANDLER
 
-	parent.register_target(target)
+	parent.register_target(target, force, type)
 	parent.trigger()
 	return
 
@@ -63,6 +63,19 @@
 	RegisterSignal(parent.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
 	RegisterSignal(parent.parent, COMSIG_ITEM_AFTERATTACK, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_c))
 	RegisterSignal(parent.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+
+/datum/xenoartifact_trait/activator/strudy/translation_type_b(datum/source, atom/item, atom/target)
+	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
+
+/datum/xenoartifact_trait/activator/strudy/translation_type_d(datum/source, atom/item, atom/target)
+	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
+
+/datum/xenoartifact_trait/activator/strudy/translation_type_a(datum/source, atom/target)
+	var/atom/A = parent.parent
+	if(A.loc == target)
+		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
+		return
+	trigger_artifact(target)
 
 /*
 	Flammable
@@ -141,7 +154,7 @@
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 	START_PROCESSING(SSobj, src)
 
-/datum/xenoartifact_trait/activator/timed/trigger_artifact(atom/target, force)
+/datum/xenoartifact_trait/activator/timed/trigger_artifact(atom/target, type, force)
 	if(force)
 		return ..()
 	else 
@@ -156,7 +169,7 @@
 		//Only add mobs
 		if(!ismob(target))
 			continue
-		trigger_artifact(target, TRUE)
+		trigger_artifact(target, XENOA_ACTIVATION_CONTACT, TRUE)
 		break
 	if(!length(parent.targets))
 		parent.trigger()
@@ -206,7 +219,7 @@
 		//Only add mobs
 		if(!ismob(target))
 			continue
-		trigger_artifact(target, TRUE)
+		trigger_artifact(target, XENOA_ACTIVATION_CONTACT)
 		break
 	if(!length(parent.targets))
 		parent.trigger()
@@ -230,8 +243,7 @@
 	var/obj/item/stock_parts/cell/C = item
 	if(istype(C) && C.charge-(C.maxcharge*0.25) >= 0)
 		C.use(C.maxcharge*0.25)
-		C.say("[target] is gay")
-		trigger_artifact(target)
+		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/cell/do_hint(mob/user, atom/item)
 	if(istype(item, /obj/item/multitool))
@@ -254,7 +266,7 @@
 	RegisterSignal(parent.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 
 /datum/xenoartifact_trait/activator/weighted/translation_type_d(datum/source, atom/target)
-	trigger_artifact(target)
+	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
 /*
 	Pitched

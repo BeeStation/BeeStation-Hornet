@@ -205,7 +205,7 @@
 	focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
 	build_traits(focus_traits, artifact_type.trait_malfunctions)
 
-/datum/component/xenoartifact/proc/register_target(atom/target, force)
+/datum/component/xenoartifact/proc/register_target(atom/target, force, type)
 	//Don't register new targets unless the cooldown is finished
 	if(use_cooldown_timer && !force)
 		return
@@ -214,7 +214,12 @@
 		return
 	//Anti-artifact check
 	var/mob/M = target
-	if(M.anti_artifact_check())
+	var/slot = ~ITEM_SLOT_GLOVES
+	//Throw you custom clothing block logic here
+	switch(type)
+		if(XENOA_ACTIVATION_TOUCH)
+			slot = ITEM_SLOT_GLOVES
+	if(M.anti_artifact_check(FALSE, slot))
 		return
 	targets += target
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)

@@ -621,7 +621,7 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///List of possible emotes
 	var/list/possible_emotes = list(/datum/emote/flip, /datum/emote/spin, /datum/emote/living/laugh, 
-	/datum/emote/living/scream, /datum/emote/living/tremble, /datum/emote/living/whimper,
+	/datum/emote/living/shiver, /datum/emote/living/tremble, /datum/emote/living/whimper,
 	/datum/emote/living/smile, /datum/emote/living/pout, /datum/emote/living/gag,
 	/datum/emote/living/deathgasp, /datum/emote/living/dance, /datum/emote/living/blush)
 	///Emote to preform

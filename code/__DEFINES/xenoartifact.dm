@@ -53,15 +53,13 @@
 #define XENOA_LABEL_REWARD 1.8 //Increases custom price by %80
 #define XENOA_LABEL_PUNISHMENT 0.5 //Decreases price by 50%
 
+///Types of artifact activation
+#define XENOA_ACTIVATION_TOUCH "XENOA_ACTIVATION_TOUCH"
+#define XENOA_ACTIVATION_CONTACT "XENOA_ACTIVATION_CONTACT"
+
 /*
 old content
 */
-
-//Also not materials but also related
-///Process type on burn
-#define PROCESS_TYPE_LIT "is_lit"
-///Process type on ticking
-#define PROCESS_TYPE_TICK "is_tick"
 
 ///Discovery point reward
 #define XENOA_DP 350
