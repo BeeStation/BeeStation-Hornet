@@ -19,12 +19,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/labor)
-"h" = (
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_x = 32
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/labor)
 "i" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/labor)
@@ -43,6 +37,14 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"u" = (
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_x = -32
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "w" = (
 /obj/machinery/mineral/stacking_machine/laborstacker{
@@ -123,11 +125,6 @@
 	name = "Mining Shuttle External Airlock"
 	},
 /turf/open/floor/pod/dark,
-/area/shuttle/labor)
-"H" = (
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "I" = (
 /obj/item/clothing/suit/hazardvest{
@@ -299,8 +296,8 @@ i
 V
 R
 b
-b
-H
+u
+x
 x
 X
 I
@@ -311,8 +308,8 @@ e
 V
 p
 b
-b
 c
+N
 N
 N
 m
@@ -323,8 +320,8 @@ e
 V
 K
 C
-h
 w
+y
 O
 y
 E

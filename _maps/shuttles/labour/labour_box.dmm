@@ -51,15 +51,12 @@
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "j" = (
+/obj/structure/window/reinforced,
 /obj/machinery/button/flasher{
 	id = "gulagshuttleflasher";
 	name = "Flash Control";
 	req_access_txt = "1";
 	pixel_x = -25
-	},
-/obj/machinery/door/window/southleft{
-	name = "Gulag";
-	req_one_access_txt = "63;42;38"
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -130,16 +127,28 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/labor)
 "L" = (
-/obj/structure/window/reinforced,
+/obj/machinery/door/window/southleft{
+	name = "Gulag";
+	req_one_access_txt = "63;42;38"
+	},
 /obj/structure/window/reinforced{
 	dir = 4;
 	layer = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
+"Q" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/labor)
 "S" = (
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
@@ -161,7 +170,7 @@ c
 f
 j
 S
-l
+Q
 p
 r
 s
