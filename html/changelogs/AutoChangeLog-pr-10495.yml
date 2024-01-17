@@ -1,0 +1,5 @@
+author: Miliviu
+delete-after: true
+changes:
+  - bugfix: Fixed the bug where force feeding unintentionally resulted in the feeder
+      eating the food, instead of the intended recipient
