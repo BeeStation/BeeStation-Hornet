@@ -300,6 +300,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/security/prison/shielded)
 "ads" = (
@@ -2634,7 +2637,7 @@
 	aiControlDisabled = 1;
 	id_tag = "prisonereducation";
 	name = "Prison access";
-	req_one_access_txt = "1;4"
+	req_one_access_txt = "3"
 	},
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/turf_decal/stripes/line{
@@ -3123,7 +3126,7 @@
 /area/storage/tech)
 "bay" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Security Medical";
+	name = "Brig Bay";
 	req_one_access_txt = "1;34;5"
 	},
 /obj/machinery/door/firedoor,
@@ -9259,6 +9262,9 @@
 /area/maintenance/department/security)
 "daa" = (
 /obj/effect/turf_decal/siding/wood,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/security/prison/shielded)
 "dap" = (
@@ -19629,7 +19635,9 @@
 /turf/open/floor/plasteel/tech,
 /area/engine/engine_room)
 "gdY" = (
-/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/airlock/public/glass{
+	name = "visitation area"
+	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -26488,16 +26496,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/office)
-"ioR" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/turf/open/floor/prison,
-/area/security/prison/shielded)
 "ipw" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -28738,6 +28736,16 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/engine/storage)
+"jcb" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/prison,
+/area/security/prison/shielded)
 "jcl" = (
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -41608,7 +41616,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing";
+	name = "Prisoner Dock";
 	req_access_txt = "1"
 	},
 /obj/machinery/door/firedoor,
@@ -44385,9 +44393,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
 "nTv" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
-	},
 /obj/structure/chair/stool{
 	dir = 4
 	},
@@ -48515,7 +48520,9 @@
 /area/engine/engine_room)
 "pmH" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/airlock/public/glass{
+	name = "visitation area"
+	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
@@ -56394,15 +56401,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/medical/exam_room)
-"rMW" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/security/prison/shielded)
 "rNe" = (
 /obj/machinery/light{
 	dir = 4
@@ -61658,7 +61656,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing";
+	name = "Brig Dock";
 	req_access_txt = "1"
 	},
 /obj/machinery/door/firedoor,
@@ -68453,7 +68451,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Gear Room";
-	req_one_access_txt = "1;4"
+	req_one_access_txt = "1"
 	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -106994,8 +106992,8 @@ iin
 iin
 iin
 iin
-ioR
 iin
+jcb
 dHc
 aSW
 sgG
@@ -107251,7 +107249,7 @@ fnz
 fnz
 fnz
 fun
-rMW
+fun
 ade
 uMa
 gVP
