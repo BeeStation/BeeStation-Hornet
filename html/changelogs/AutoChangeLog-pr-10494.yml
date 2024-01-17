@@ -1,5 +1,0 @@
-author: Powerfulbacon, Haliris
-delete-after: true
-changes:
-  - bugfix: Fixed turnstile not checking for access proper
-  - code_imp: Cleaned up turnstile code
