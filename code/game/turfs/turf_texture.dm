@@ -19,7 +19,7 @@
 	var/cleanable = TRUE
 
 //Effect object we use to hold our groceries
-/obj/effect/turf_texture
+/atom/movable/turf_texture
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blend_mode = BLEND_MULTIPLY
 	plane = FLOOR_PLANE
@@ -27,7 +27,7 @@
 	///Associated texture
 	var/datum/turf_texture/parent_texture
 
-/obj/effect/turf_texture/Initialize(mapload, datum/turf_texture/_texture)
+/atom/movable/turf_texture/Initialize(mapload, datum/turf_texture/_texture)
 	. = ..()
 	var/datum/turf_texture/texture = new _texture()
 	var/mutable_appearance/MA = mutable_appearance(texture.icon, texture.icon_state)

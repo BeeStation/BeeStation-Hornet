@@ -558,7 +558,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		vis_contents += load_turf_texture(turf_texture)
 
 /turf/proc/clean_turf_texture()
-	for(var/obj/effect/turf_texture/TF in vis_contents)
+	for(var/atom/movable/turf_texture/TF in vis_contents)
 		if(initial(TF.parent_texture?.cleanable))
 			vis_contents -= TF
 
