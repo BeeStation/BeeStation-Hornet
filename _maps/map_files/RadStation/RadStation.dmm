@@ -2059,7 +2059,9 @@
 /turf/open/space/basic,
 /area/space)
 "aJO" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	desc = "In case of emergency please stand inside the locker and close the door"
+	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -18561,7 +18563,7 @@
 "fOe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/blobstart,
+/obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "fOg" = (
@@ -21943,6 +21945,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/airalarm/directional/south,
+/obj/effect/landmark/blobstart,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/captain/private)
 "gNL" = (
@@ -40536,6 +40539,12 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/medical/chemistry)
+"mMT" = (
+/obj/structure/sign/departments/holy,
+/obj/structure/sign/departments/holy,
+/obj/structure/closet/emcloset,
+/turf/closed/wall,
+/area/chapel/main)
 "mMV" = (
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -68067,6 +68076,11 @@
 	},
 /turf/open/floor/noslip/white,
 /area/medical/sleeper)
+"vvg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating,
+/area/maintenance/department/bridge)
 "vvi" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "quarantineshutters";
@@ -108259,7 +108273,7 @@ pJV
 bOj
 hsm
 lyT
-oif
+vvg
 oif
 gnD
 gtY
@@ -115984,7 +115998,7 @@ wII
 lvs
 gaY
 wII
-jiR
+mMT
 xPG
 jZC
 aWD
