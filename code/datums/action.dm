@@ -559,6 +559,13 @@
 	owner.forceMove(box)
 	owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
 
+/datum/action/item_action/portaseeder_dissolve
+	name = "Activate Seed Extractor"
+
+/datum/action/item_action/portaseeder_dissolve/Trigger()
+	var/obj/item/storage/bag/plants/portaseeder/H = target
+	H.dissolve_contents()
+
 //Preset for spells
 /datum/action/spell_action
 	check_flags = NONE
@@ -795,3 +802,4 @@
 	target.layer = old_layer
 	target.plane = old_plane
 	current_button.appearance_cache = target.appearance
+
