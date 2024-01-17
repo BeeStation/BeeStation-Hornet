@@ -219,7 +219,7 @@
 	switch(type)
 		if(XENOA_ACTIVATION_TOUCH)
 			slot = ITEM_SLOT_GLOVES
-	if(M.anti_artifact_check(FALSE, slot))
+	if(isliving(M) && M.anti_artifact_check(FALSE, slot))
 		return
 	targets += target
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)

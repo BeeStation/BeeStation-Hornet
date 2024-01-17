@@ -72,7 +72,7 @@
 		var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in A.contents
 		if(L)
 			for(var/datum/xenoartifact_trait/T as() in L.traits)
-				say("[T.label_name] - Weight: [T.weight]")
+				say("[initial(T.label_name)] - Weight: [initial(T.weight)]")
 		else if(isitem(A) || isliving(A))
 			if(isliving(A) && prob(1))
 				say("Unexpected Fatass Detected!")
@@ -102,7 +102,7 @@
 		var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in A.contents
 		if(L)
 			for(var/datum/xenoartifact_trait/T as() in L.traits)
-				say("[T.label_name] - Conductivity: [T.conductivity]")
+				say("[initial(T.label_name)] - Conductivity: [initial(T.conductivity)]")
 		else if(isitem(A) || isliving(A))
 			say("Unexpected Item Detected!")
 			return
