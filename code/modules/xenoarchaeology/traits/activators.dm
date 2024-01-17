@@ -226,10 +226,17 @@
 	RegisterSignal(parent.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 
 /datum/xenoartifact_trait/activator/cell/translation_type_b(datum/source, atom/item, atom/target)
+	do_hint(target, item)
 	var/obj/item/stock_parts/cell/C = item
 	if(istype(C) && C.charge-(C.maxcharge*0.25) >= 0)
 		C.use(C.maxcharge*0.25)
+		C.say("[target] is gay")
 		trigger_artifact(target)
+
+/datum/xenoartifact_trait/activator/cell/do_hint(mob/user, atom/item)
+	if(istype(item, /obj/item/multitool))
+		to_chat(user, "<span class='warning'>[item] detects a capacitive draw of 25%!</span>")
+		return ..()
 
 /*
 	Weighted

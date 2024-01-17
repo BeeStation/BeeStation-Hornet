@@ -299,14 +299,6 @@
 	//Generate uses
 	max_uses = pick(list(3, 6, 9))
 	current_uses = max_uses
-	//TODO: Move this to the didicated appearance proc - Racc
-	var/atom/A = parent.parent
-	A.alpha *= 0.7
-
-/datum/xenoartifact_trait/minor/delicate/Destroy(force, ...)
-	var/atom/A = parent.parent
-	A.alpha /= 0.7	
-	return ..()
 
 /datum/xenoartifact_trait/minor/delicate/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -318,6 +310,14 @@
 	else if(prob(50)) //After we run out of uses, there is a 50% on use for it to break
 		parent.calcify()
 		playsound(get_turf(parent.parent), 'sound/effects/glassbr1.ogg', 50, TRUE)
+
+/datum/xenoartifact_trait/minor/delicate/generate_trait_appearance(atom/target)
+	. = ..()
+	target.alpha *= 0.7
+
+/datum/xenoartifact_trait/minor/delicate/cut_trait_appearance(atom/target)
+	. = ..()
+	target.alpha /= 0.7
 
 /*
 	Aura
@@ -513,9 +513,9 @@
 	INVOKE_ASYNC(src, PROC_REF(do_signal))
 
 /datum/xenoartifact_trait/minor/signaller/do_hint(mob/user, atom/item)
-	. = ..()
 	if(istype(item, /obj/item/analyzer))
 		to_chat(user, "<span class='warning'>[item] detects a frequency & code of [FREQ_SIGNALER]-[code]!</span>")
+		return ..()
 
 /datum/xenoartifact_trait/minor/signaller/proc/do_signal()
 	if(!radio_connection || !signal)
