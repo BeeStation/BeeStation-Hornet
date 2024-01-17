@@ -179,6 +179,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	GLOB.areas += src
 	power_usage = new /list(AREA_USAGE_LEN) // Some atoms would like to use power in Initialize()
 	alarm_manager = new(src) // just in case
+	
 	return ..()
 
 /**
@@ -658,6 +659,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		. = FALSE
 	if(mood_job_reverse)
 		return !.  // the most eye bleeding syntax ive written
+
+/area/proc/get_turf_textures()
+	return list()
 
 /// returns a name of the area. some subtype area needs to return different value.
 /area/proc/get_navigation_area_name()

@@ -20,7 +20,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = OPEN_DOOR_LAYER
 	//Seccies and brig phys may always pass, either way.
-	req_one_access = list(ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_PRISONER)
+	req_one_access = list(ACCESS_BRIG, ACCESS_BRIGPHYS)
 	//Cooldown so we don't shock a million times a second
 	COOLDOWN_DECLARE(shock_cooldown)
 	circuit = /obj/item/circuitboard/machine/turnstile
@@ -282,43 +282,44 @@
 		return TRUE //Allow certain things declared with pass_flags_self through wihout side effects
 	if(machine_stat & BROKEN)
 		return FALSE
-	if(mover.dir == dir) //Always let people through in one direction.
-		if(!ismob(mover) && !(mover.pulledby))//Thrown items bump anyway.
-			return FALSE
+	// Let everything through in 1 direction
+	if(mover.dir == dir)
 		return TRUE
-	if(!ismob(mover) && mover.pulledby)
-		return allowed(mover.pulledby)
-	if(istype(mover, /obj/vehicle/ridden) && mover.buckled_mobs) //Wheelchairs and such
-		for(var/mob/living/carbon/human/H in mover.buckled_mobs)
-			return allowed(H)
-	if(!ismob(mover)) // Last check before we move on to mobs in case somehow a non-mob wasn't caught
-		return FALSE
-
-	var/allowed = allowed(mover)
-	//Everyone with access can drag you out. Prisoners can't drag each other out
-	if(!allowed && mover.pulledby && ishuman(mover.pulledby))
-		var/mob/living/carbon/human/H = mover.pulledby
-		id_card = H.get_idcard(hand_first = TRUE)
+	// Call the default allowed functionality, handles:
+	// - Mobs with security access
+	// - Mobs with security access that are buckled to a vehicle
+	// - Monkeys carrying ID cards
+	// - Objects trying to pass through that have security access
+	// This doesn't handle prisoner access
+	if (ismob(mover) && allowed(mover))
+		return TRUE
+	// Allow us through if the thing pulling us is allowed through
+	if(ismob(mover.pulledby) && allowed(mover.pulledby))
+		return TRUE
+	// From this point on, we are assuming that the mover is a living entity
+	if (isliving(mover))
+		// Block anyone if they are carrying someone
+		if (length(mover.buckled_mobs))
+			return FALSE
+		// At this point, allow anyone with prisoner access on their direct ID card through
+		// although reject anyone attempting to pass without prisoner access
+		var/mob/living/living_prisoner = mover
+		id_card = living_prisoner.get_idcard(hand_first = TRUE)
 		if(ACCESS_PRISONER in id_card?.GetAccess())
+			return TRUE
+	// Handle the prisoner being in a wheelchair
+	// check if someone riding on / buckled to them has access
+	if (!length(mover.buckled_mobs))
+		return FALSE
+	// Reject the moving thing if anyone inside of the moving thing doesn't have access
+	for(var/mob/living/buckled in mover.buckled_mobs)
+		if(mover == buckled || buckled == mover) // just in case to prevent a possible infinite loop scenario (but it won't happen)
+			continue
+		id_card = buckled.get_idcard(hand_first = TRUE)
+		// If we aren't allowed through normally and we don't have prisoner access, reject
+		if (!allowed(buckled) && !(ACCESS_PRISONER in id_card?.GetAccess()))
 			return FALSE
-		else
-			return allowed(H)
-	//Piggyback/fireman carry rides between prisoners aren't allowed because they could make escapes way too easily
-	if(allowed && mover.buckled_mobs && ishuman(mover)) // This check is for the one that is carrying.
-		var/mob/living/carbon/human/H = mover
-		if(length(H.buckled_mobs))
-			id_card = H.get_idcard(hand_first = TRUE)
-			if(ACCESS_PRISONER in id_card?.GetAccess())
-				return FALSE
-	if(!allowed) //This check is for the one that is carried. Not returning TRUE here prevents the movement altogether. Even for interactions that we want, such as brig phys carrying injured prisoners away.
-		var/mob/living/carbon/human/H = mover
-		if(ishuman(H.buckled)) //additional check for roller beds and the likes.
-			var/mob/living/carbon/human/B = H.buckled
-			id_card = B.get_idcard(hand_first = TRUE)
-			if(ACCESS_PRISONER in id_card?.GetAccess())
-				return FALSE
-		return TRUE
-	return allowed
+	return TRUE
 
 ///Shock user if we can
 /obj/machinery/turnstile/proc/try_shock(mob/user)
