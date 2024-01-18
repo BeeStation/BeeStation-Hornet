@@ -16,6 +16,10 @@ Dockerfile @crossedfall
 /tools @crossedfall
 /config @crossedfall
 
+# crossedfall (explicitly disowned)
+
+/tools/UpdatePaths/Scripts/
+
 # powerfulbacon
 
 /code/game/machinery/shuttle @powerfulbacon
@@ -30,7 +34,6 @@ Dockerfile @crossedfall
 # itsmeow
 
 /code/game/gamemodes/dynamic @itsmeow
-/code/modules/modular_computers @itsmeow
 /tools/MapTileAggregator.py @itsmeow
 /code/modules/admin/player_panel.dm @itsmeow
 /code/modules/tgui/ @itsmeow
