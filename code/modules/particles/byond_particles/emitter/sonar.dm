@@ -18,7 +18,7 @@
 	scale = list(2, 2)
 	grow = list(-0.1, -0.1)
 	icon = 'icons/effects/particles/misc.dmi'
-	icon_state = list("circle")
+	icon_state = list("circle_1")
 
 /particles/sonar/out
 	color = "#55ff00"

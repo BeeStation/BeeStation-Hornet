@@ -23,6 +23,8 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = 10
 	conductivity = 15
+	///Reference to our particle holder
+	var/atom/movable/particle_holder
 
 /datum/xenoartifact_trait/minor/charged/New(atom/_parent)
 	. = ..()
@@ -36,6 +38,23 @@
 /datum/xenoartifact_trait/minor/charged/do_hint(mob/user, atom/item)
 	. = ..()
 	to_chat(user, "<span class='warning'>Your hair stands on end!</span>")
+
+/datum/xenoartifact_trait/minor/charged/generate_trait_appearance(atom/movable/target)
+	. = ..()
+	if(!ismovable(target))
+		return
+	//Build particle holder
+	particle_holder = new(parent.parent)
+	particle_holder.add_emitter(/obj/emitter/electrified, "electrified", 10)
+	//Layer onto parent
+	target.vis_contents += particle_holder
+
+/datum/xenoartifact_trait/minor/charged/cut_trait_appearance(atom/movable/target)
+	. = ..()
+	if(!ismovable(target))
+		return
+	target.vis_contents -= particle_holder
+	QDEL_NULL(particle_holder)
 
 /*
 	Capacitive
@@ -162,6 +181,7 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = -5 SECONDS //Point of balance
 	weight = 15
+	var/atom/movable/particle_holder
 
 /datum/xenoartifact_trait/minor/cooling/New(atom/_parent)
 	. = ..()
@@ -170,6 +190,23 @@
 /datum/xenoartifact_trait/minor/cooling/do_hint(mob/user, atom/item)
 	. = ..()
 	to_chat(user, "<span class='warning'>[parent.parent] feels cool to the touch!</span>")
+
+/datum/xenoartifact_trait/minor/cooling/generate_trait_appearance(atom/movable/target)
+	. = ..()
+	if(!ismovable(target))
+		return
+	//Build particle holder
+	particle_holder = new(parent.parent)
+	particle_holder.add_emitter(/obj/emitter/snow_smoke, "snow_smoke", 10)
+	//Layer onto parent
+	target.vis_contents += particle_holder
+
+/datum/xenoartifact_trait/minor/cooling/cut_trait_appearance(atom/movable/target)
+	. = ..()
+	if(!ismovable(target))
+		return
+	target.vis_contents -= particle_holder
+	QDEL_NULL(particle_holder)
 
 /*
 	Sentient
@@ -484,15 +521,13 @@
 	label_desc = "Signaller: The Artifact's design seems to incorporate signalling elements. This will cause the artifact to send a signal when activated."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	conductivity = 15
+	var/atom/movable/particle_holder
 	///Signal code
 	var/code
 	///Signal frequency
 	var/datum/radio_frequency/radio_connection
 	//Signal
 	var/datum/signal/signal
-
-	///Reference to our particle holder
-	var/atom/movable/particle_holder
 	
 /datum/xenoartifact_trait/minor/signaller/New(atom/_parent)
 	. = ..()
@@ -527,10 +562,8 @@
 	. = ..()
 	if(!ismovable(target))
 		return
-	//Build particle holder
 	particle_holder = new(parent.parent)
 	particle_holder.add_emitter(/obj/emitter/sonar/out, "sonar", 10)
-	//Layer onto parent
 	target.vis_contents += particle_holder
 
 /datum/xenoartifact_trait/minor/signaller/cut_trait_appearance(atom/movable/target)

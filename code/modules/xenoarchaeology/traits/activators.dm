@@ -199,7 +199,8 @@
 	//Signal
 	var/datum/signal/signal
 
-	///Reference to our particle holder - we need to use holders & filters, otherwise shit gets fucky with filters
+	///Reference to our particle holder - we need to use holders & vis contents, otherwise shit gets fucky with filters
+	//TODO: Make this a dedicated subtype with no mouse opacity - Racc
 	var/atom/movable/particle_holder
 
 /datum/xenoartifact_trait/activator/signal/New(atom/_parent)
