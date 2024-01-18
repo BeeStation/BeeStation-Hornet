@@ -28,7 +28,7 @@
 	stuck_appearance = build_stuck_appearance()
 	//Sticker outline
 	if(do_outline)
-		add_filter("sticker_outline", 1, outline_filter(1.5, "#fff"))
+		add_filter("sticker_outline", 1, outline_filter(1.1, "#fff", flags = OUTLINE_SQUARE))
 
 /obj/item/sticker/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

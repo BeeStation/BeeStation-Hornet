@@ -123,6 +123,10 @@
 		parent.trigger()
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 
+/datum/xenoartifact_trait/activator/flammable/get_dictionary_hint()
+	. = ..()
+	return list(list("icon" = "wrench", "desc" = "This trait can be triggered with a 'hot' tool."))
+
 /datum/xenoartifact_trait/activator/flammable/proc/reset_timer()
 	if(search_cooldown_timer)
 		deltimer(search_cooldown_timer)

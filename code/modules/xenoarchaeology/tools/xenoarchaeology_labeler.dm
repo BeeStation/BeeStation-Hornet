@@ -91,6 +91,7 @@
 	trait_toggle(action, "minor", minor_traits, selected_minor_traits)
 	trait_toggle(action, "major", major_traits, selected_major_traits)
 	trait_toggle(action, "malfunction", malfunction_list, selected_malfunction_traits)
+	build_info_list()
 
 	return TRUE
 
@@ -129,15 +130,27 @@
 	for(var/t in trait_list)
 		if(action != "assign_[toggle_type]_[t]")
 			continue
-		var/datum/xenoartifact_trait/description_holder = GLOB.xenoa_all_traits_keyed[t]
 		if(t in active_trait_list)
 			active_trait_list -= t
-			info_list -= initial(description_holder.label_desc)
 			label_traits -= GLOB.xenoa_all_traits_keyed[t]
 		else
 			active_trait_list += t
-			info_list += initial(description_holder.label_desc)
 			label_traits += GLOB.xenoa_all_traits_keyed[t]
+
+//Idk how efficient this is
+/obj/item/xenoarchaeology_labeler/proc/build_info_list()
+	var/list/focus = list()
+	focus += selected_activator_traits
+	focus += selected_minor_traits
+	focus += selected_major_traits
+	focus += selected_malfunction_traits
+
+	info_list = list()
+	for(var/t in focus)
+		var/datum/xenoartifact_trait/description_holder = GLOB.xenoa_all_traits_keyed[t]
+		description_holder = new description_holder()
+		info_list += list(list("desc" = description_holder.label_desc, "hints" = description_holder.get_dictionary_hint()))
+		qdel(description_holder)
 
 /obj/item/xenoarchaeology_labeler/debug
 	name = "xenoartifact debug labeler"

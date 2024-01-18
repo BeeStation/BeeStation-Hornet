@@ -165,6 +165,9 @@
 		A.balloon_alert(user, label_name, parent.artifact_type.material_color, TRUE)
 	return
 
+/datum/xenoartifact_trait/proc/get_dictionary_hint()
+	return list()
+
 ///Proc used to compile trait weights into a list
 /proc/compile_artifact_weights(path, keyed = FALSE)
 	if(!ispath(path))

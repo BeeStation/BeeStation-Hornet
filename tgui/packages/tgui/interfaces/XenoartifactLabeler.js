@@ -1,17 +1,16 @@
 import { useBackend } from '../backend';
-import { Button, Section, Box, Flex, Input, BlockQuote } from '../components';
+import { Button, Section, Box, Flex, Input, BlockQuote, Icon, Divider } from '../components';
 import { Window } from '../layouts';
 
 export const XenoartifactLabeler = (props, context) => {
   return (
-    <Window width={350} height={500}>
+    <Window width={500} height={500}>
       <Window.Content scrollable={0}>
         <XenoartifactlabelerSticker />
         <Flex direction="row">
           <Flex.Item>
             <XenoartifactlabelerTraits />
           </Flex.Item>
-
           <Flex.Item>
             <XenoartifactlabelerInfo />
           </Flex.Item>
@@ -58,6 +57,7 @@ const XenoartifactlabelerTraits = (props, context) => {
           ))}
         </Box>
       </Section>
+      <Divider/>
       <Section title="Notes">
         <Box>
           {sorted_minors.map((trait) => (
@@ -70,6 +70,7 @@ const XenoartifactlabelerTraits = (props, context) => {
           ))}
         </Box>
       </Section>
+      <Divider/>
       <Section title="Shape">
         <Box>
           {sorted_majors.map((trait) => (
@@ -82,6 +83,7 @@ const XenoartifactlabelerTraits = (props, context) => {
           ))}
         </Box>
       </Section>
+       <Divider/>
       <Section title="Malfunction">
         <Box>
           {sorted_malfs.map((trait) => (
@@ -130,7 +132,10 @@ const XenoartifactlabelerGenerateInfo = (props, context) => {
   return (
     <Section>
       <Box italic>
-        <BlockQuote>{`${info}`}</BlockQuote>
+        <BlockQuote>{`${info["desc"]}`}</BlockQuote>
+        {info["hints"].map((hint) => (
+          <Button icon={hint["icon"]} tooltip={hint["desc"]}/>
+        ))}
       </Box>
     </Section>
   );
