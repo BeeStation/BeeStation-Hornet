@@ -83,6 +83,9 @@
 	///Do we make pearls when we're destroyed?
 	var/make_pearls = TRUE //TODO: Remeber to disable this when you're done testing - Racc
 
+	///Do we play a sound? - This is mostly here for admins to disable when they're doing gimmicks
+	var/play_hint_sound = TRUE
+
 /datum/component/xenoartifact/Initialize(type, list/traits, _do_appearance = TRUE, _do_mask = TRUE)
 	. = ..()
 	generate_xenoa_statics()
@@ -162,6 +165,9 @@
 		return
 	else if(use_cooldown_timer)
 		reset_timer(use_cooldown_timer)
+	//Sound hint
+	if(play_hint_sound)
+		playsound(get_turf(parent), 'sound/magic/blink.ogg', 60, TRUE)
 	//Trait triggers
 	for(var/i in GLOB.xenoartifact_trait_priorities)
 		SEND_SIGNAL(src, XENOA_TRIGGER, i)

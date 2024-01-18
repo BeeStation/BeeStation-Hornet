@@ -3368,6 +3368,7 @@
 #include "code\modules\particles\byond_particles\emitter\misc.dm"
 #include "code\modules\particles\byond_particles\emitter\sm_particles.dm"
 #include "code\modules\particles\byond_particles\emitter\smoke.dm"
+#include "code\modules\particles\byond_particles\emitter\sonar.dm"
 #include "code\modules\particles\byond_particles\emitter\spark.dm"
 #include "code\modules\particles\byond_particles\emitter\weather.dm"
 #include "code\modules\particles\byond_particles\particle\burst.dm"

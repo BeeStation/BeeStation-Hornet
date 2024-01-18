@@ -68,6 +68,9 @@
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/strudy/translation_type_d(datum/source, atom/item, atom/target)
+	var/atom/A = parent.parent
+	if(!isliving(A.loc))
+		return
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/strudy/translation_type_a(datum/source, atom/target)
@@ -165,6 +168,7 @@
 		return
 	if(search_cooldown_timer)
 		return
+	playsound(get_turf(parent.parent), 'sound/effects/clock_tick.ogg', 60, TRUE)
 	for(var/atom/target in oview(parent.target_range, get_turf(parent.parent)))
 		//Only add mobs
 		if(!ismob(target))
@@ -195,6 +199,9 @@
 	//Signal
 	var/datum/signal/signal
 
+	///Reference to our particle holder - we need to use holders & filters, otherwise shit gets fucky with filters
+	var/atom/movable/particle_holder
+
 /datum/xenoartifact_trait/activator/signal/New(atom/_parent)
 	. = ..()
 	//Code
@@ -205,10 +212,35 @@
 	radio_connection = SSradio.add_object(src, FREQ_SIGNALER, "[RADIO_XENOA]_[REF(src)]")
 	radio_connection.add_listener(src)
 
+	setup_generic_item_hint()
+	addtimer(CALLBACK(src, PROC_REF(do_sonar)), 5 SECONDS)
+
 /datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
 	SSradio.remove_object(src, FREQ_SIGNALER)
 	QDEL_NULL(signal)
 	return ..()
+
+/datum/xenoartifact_trait/activator/signal/generate_trait_appearance(atom/movable/target)
+	. = ..()
+	if(!ismovable(target))
+		return
+	//Build particle holder
+	particle_holder = new(parent.parent)
+	particle_holder.add_emitter(/obj/emitter/sonar, "sonar", 9)
+	//Layer onto parent
+	target.vis_contents += particle_holder
+
+/datum/xenoartifact_trait/activator/signal/cut_trait_appearance(atom/movable/target)
+	. = ..()
+	if(!ismovable(target))
+		return
+	target.vis_contents -= particle_holder
+	QDEL_NULL(particle_holder)
+
+/datum/xenoartifact_trait/activator/signal/do_hint(mob/user, atom/item)
+	if(istype(item, /obj/item/analyzer))
+		to_chat(user, "<span class='warning'>[item] detects an input frequency & code of [FREQ_SIGNALER]-[code]!</span>")
+		return ..()
 
 /datum/xenoartifact_trait/activator/signal/proc/receive_signal(datum/signal/signal)
 	if(!signal)
@@ -223,6 +255,13 @@
 		break
 	if(!length(parent.targets))
 		parent.trigger()
+
+/datum/xenoartifact_trait/activator/signal/proc/do_sonar(repeat = TRUE)
+	if(QDELETED(src))
+		return
+	playsound(get_turf(parent.parent), 'sound/effects/ping.ogg', 60, TRUE)
+	var/rand_time = rand(5, 15) SECONDS
+	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time)
 
 /*
 	Cell
@@ -277,9 +316,8 @@
 	label_desc = "Pitched: The artifact seems to be made of an aerodynamic material. This material seems to be triggered by motion, such as being thrown."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
-	weight = 24
+	weight = -8
 
 /datum/xenoartifact_trait/activator/pitched/New(atom/_parent)
 	. = ..()
 	RegisterSignal(parent.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
-	

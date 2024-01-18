@@ -490,6 +490,9 @@
 	var/datum/radio_frequency/radio_connection
 	//Signal
 	var/datum/signal/signal
+
+	///Reference to our particle holder
+	var/atom/movable/particle_holder
 	
 /datum/xenoartifact_trait/minor/signaller/New(atom/_parent)
 	. = ..()
@@ -499,7 +502,10 @@
 	signal = new(list("code" = code))
 	//Frequency
 	radio_connection = SSradio.add_object(src, FREQ_SIGNALER, "[RADIO_XENOA]_[REF(src)]")
+
 	setup_generic_item_hint()
+	if(!(locate(/datum/xenoartifact_trait/activator) in parent.artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
+		addtimer(CALLBACK(src, PROC_REF(do_sonar)), 5 SECONDS)
 
 /datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
 	SSradio.remove_object(src, FREQ_SIGNALER)
@@ -514,8 +520,25 @@
 
 /datum/xenoartifact_trait/minor/signaller/do_hint(mob/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
-		to_chat(user, "<span class='warning'>[item] detects a frequency & code of [FREQ_SIGNALER]-[code]!</span>")
+		to_chat(user, "<span class='warning'>[item] detects an output frequency & code of [FREQ_SIGNALER]-[code]!</span>")
 		return ..()
+
+/datum/xenoartifact_trait/minor/signaller/generate_trait_appearance(atom/movable/target)
+	. = ..()
+	if(!ismovable(target))
+		return
+	//Build particle holder
+	particle_holder = new(parent.parent)
+	particle_holder.add_emitter(/obj/emitter/sonar/out, "sonar", 10)
+	//Layer onto parent
+	target.vis_contents += particle_holder
+
+/datum/xenoartifact_trait/minor/signaller/cut_trait_appearance(atom/movable/target)
+	. = ..()
+	if(!ismovable(target))
+		return
+	target.vis_contents -= particle_holder
+	QDEL_NULL(particle_holder)
 
 /datum/xenoartifact_trait/minor/signaller/proc/do_signal()
 	if(!radio_connection || !signal)
@@ -524,6 +547,13 @@
 
 /datum/xenoartifact_trait/minor/signaller/proc/receive_signal(datum/signal/signal)
 	return
+
+/datum/xenoartifact_trait/minor/signaller/proc/do_sonar(repeat = TRUE)
+	if(QDELETED(src))
+		return
+	playsound(get_turf(parent.parent), 'sound/effects/ping.ogg', 60, TRUE)
+	var/rand_time = rand(5, 15) SECONDS
+	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time)
 
 /*
 	Anchor
