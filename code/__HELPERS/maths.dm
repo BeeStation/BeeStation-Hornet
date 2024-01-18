@@ -166,38 +166,3 @@
 		stack_trace("No code length forwarded as argument")
 	while(length(.) < n_length)
 		. += "[rand(0, 9)]" // we directly write into the return value (.) here
-
-/// similar to clamp() but can return value outside of the range min-max, when the original value was outside of the range.
-/// So, this means it respects the original value - that's why it's named respected.
-/proc/clamp_respected(val_respected, val_to_add, min, max)
-	if(min > max)
-		stack_trace("why the fuck do you use this as 'min > max'?")
-		var/temp = min
-		min = max
-		max = min
-
-	. = val_respected + val_to_add
-	/*  NOTE:
-		instead of doing `. = second_param`, I made the param added to the original value.
-	 	that's because setting the return value by the second param with a calculation looked ugly at proc augmenting
-			example)
-				second parameter as "val_to_add"
-				M.hallucination = clamp_respected(M.hallucination, 5, 0, 60)
-					v.s.
-				second parameter as "val_to_set"
-				M.hallucination = clamp_respected(M.hallucination, M.hallucination + 5, 0, 60)
-		to be honest, the second one can cover most things, but I don't want a bloated augment
-		but also this proc doesn't do much things yet...
-	*/
-
-	if(. > max)
-		return max(max, val_respected)
-	else if(. < min)
-		return min(min, val_respected)
-	/*
-		<sample results>
-			val 15, add 5,  min 0, max 10 = 15	(val 15 is prioritised. won't return 15+5)
-			val 5,  add 10, min 0, max 10 = 10	(max 10 is prioritised. won't return 5+10)
-			val 5,  add -10, min 0, max 10 = 0 	(min 0 is prioritised. won't return 5-10)
-			val -5, add -10, min 0, max 10 = -5	(val -5 is prioritised. won't return -5-10)
-	*/

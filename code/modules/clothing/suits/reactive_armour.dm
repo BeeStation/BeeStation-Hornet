@@ -361,7 +361,7 @@
 
 /obj/item/clothing/suit/armor/reactive/hallucinating/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message("<span class='danger'>[src] blocks [attack_text], but pulls a massive charge of mental energy into [owner] from the surrounding environment!</span>")
-	owner.hallucination = clamp_respected(owner.hallucination, 25, 0, 150)
+	owner.hallucination = ADDCLAMP(owner.hallucination, 25, 0, 150)
 	return TRUE
 
 //Bioscrambling

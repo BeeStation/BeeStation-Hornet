@@ -239,3 +239,20 @@
 /// Gives the number of pixels in an orthogonal line of tiles.
 #define TILES_TO_PIXELS(tiles)			(tiles * PIXELS)
 // )
+
+/// Similar to clamp(). This is identical to 'x + y' thing, but add to 'x' will be limited within low-high range.
+/// If val_respected is already outside of low-high range, it will return val_respected, instead of the value within the range.
+#define ADDCLAMP(val_respected, val_to_add, low, high) ( \
+		val_respected + val_to_add >= high \
+		? max(val_respected, high) \
+		: val_respected + val_to_add <= low \
+		? min(val_respected, low) \
+		: val_respected + val_to_add \
+	)
+/*
+	<sample results>
+		val 15, add 5,  low 0, high 10 = 15	(returns val 15. won't return 15+5)
+		val 5,  add 10, low 0, high 10 = 10	(returns high 10. won't return 5+10)
+		val 5,  add -10, low 0, high 10 = 0 (returns low 0. won't return 5-10)
+		val -5, add -10, low 0, high 10 = -5 (returns val -5. won't return -5-10)
+*/

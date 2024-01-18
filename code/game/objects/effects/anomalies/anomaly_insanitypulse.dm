@@ -58,4 +58,4 @@
 		each_mob.Knockdown(10)
 		each_mob.emote("scream")
 		each_mob.Jitter(50)
-		each_mob.hallucination = clamp_respected(each_mob.hallucination, 20, 0, 100)
+		each_mob.hallucination = ADDCLAMP(each_mob.hallucination, 20, 0, 100)
