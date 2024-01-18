@@ -243,11 +243,11 @@
 /// Similar to clamp(). This is identical to 'x + y' thing, but add to 'x' will be limited within low-high range.
 /// If val_respected is already outside of low-high range, it will return val_respected, instead of the value within the range.
 #define ADDCLAMP(val_respected, val_to_add, low, high) ( \
-		val_respected + val_to_add >= high \
-		? max(val_respected, high) \
-		: val_respected + val_to_add <= low \
-		? min(val_respected, low) \
-		: val_respected + val_to_add \
+		((val_respected) + (val_to_add)) >= (high) \
+		? max((val_respected), (high)) \
+		: ((val_respected) + (val_to_add)) <= (low) \
+		? min((val_respected), (low)) \
+		: ((val_respected) + (val_to_add)) \
 	)
 /*
 	<sample results>
