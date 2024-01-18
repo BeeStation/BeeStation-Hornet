@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///If your race bleeds something other than bog standard blood, change this to reagent id. For example, ethereals bleed liquid electricity.
 	var/datum/reagent/exotic_blood
 	var/exotic_bloodtype = "" //If your race uses a non standard bloodtype (A+, O-, AB-, etc)
-	var/meat = /obj/item/reagent_containers/food/snacks/meat/slab/human //What the species drops on gibbing
+	var/meat = /obj/item/food/meat/slab/human //What the species drops on gibbing
 	var/skinned_type
 	var/list/no_equip = list()	// slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
@@ -883,6 +883,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if("apid_headstripe" in mutant_bodyparts)
 		if(!H.dna.features["apid_headstripe"] || H.dna.features["apid_headstripe"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
 			bodyparts_to_add -= "apid_headstripe"
+	if("psyphoza_cap" in mutant_bodyparts)
+		if(!H.dna.features["psyphoza_cap"] || H.dna.features["psyphoza_cap"] == "None" || !HD)
+			bodyparts_to_add -= "psyphoza_cap"
+
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
 	///Digi handling
@@ -979,6 +983,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.apid_stripes_list[H.dna.features["apid_stripes"]]
 				if("apid_headstripes")
 					S = GLOB.apid_headstripes_list[H.dna.features["apid_headstripes"]]
+				if("psyphoza_cap")
+					S = GLOB.psyphoza_cap_list[H.dna.features["psyphoza_cap"]]
 			if(!S || S.icon_state == "none")
 				continue
 
@@ -1491,9 +1497,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/spec_emp_act(mob/living/carbon/human/H, severity)
 	return
 
-/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = 0, override = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
-	return
-
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(!((target.health < 0 || HAS_TRAIT(target, TRAIT_FAKEDEATH)) && !(target.mobility_flags & MOBILITY_STAND)))
 		target.help_shake_act(user)
@@ -1520,7 +1523,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return TRUE
 	else
 		//Steal them shoes
-		if(!(target.mobility_flags & MOBILITY_STAND) && (user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG) && user.a_intent == INTENT_GRAB && target.shoes)
+		if(!(target.mobility_flags & MOBILITY_STAND) && (user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && user.a_intent == INTENT_GRAB && target.shoes)
 			if(HAS_TRAIT(target.shoes, TRAIT_NODROP))
 				target.grabbedby(user)
 				return TRUE
@@ -1563,7 +1566,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/damage = user.dna.species.punchdamage
 
-		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
+		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
 
 		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
@@ -1620,7 +1623,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
-		SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, user.zone_selected)
+		SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, user.get_combat_bodyzone(target))
 
 		var/turf/target_oldturf = target.loc
 		var/shove_dir = get_dir(user.loc, target_oldturf)
@@ -2855,3 +2858,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	qdel(temp_holder)
 
 	return to_add
+
+//generic action proc for keybind stuff
+/datum/species/proc/primary_species_action()
+	return

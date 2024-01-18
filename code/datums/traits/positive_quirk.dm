@@ -89,7 +89,7 @@
 
 /datum/quirk/musician
 	name = "Musician"
-	desc = "You can tune handheld musical instruments to play melodies that clear certain negative effects and soothe the soul."
+	desc = "You can tune handheld musical instruments to play melodies that clear certain negative effects and soothe the soul. You start with a delivery beacon."
 	icon = "guitar"
 	value = 1
 	mob_trait = TRAIT_MUSICIAN
@@ -139,7 +139,8 @@
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
 
 /datum/quirk/multilingual/add()
-	if(!known_language)
+	known_language = read_choice_preference(/datum/preference/choiced/quirk/multilingual_language)
+	if(!known_language) // default to random
 		set_up_language()
 	var/datum/language_holder/LH = quirk_holder.get_language_holder()
 	LH.grant_language(known_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
@@ -283,3 +284,21 @@
 /datum/quirk/proskater/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	H.equip_to_slot_or_del(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACKPACK)
+
+/datum/quirk/plushielover
+	name = "Plushie Lover"
+	desc = "You love your squishy friends so much. You start with a plushie delivery beacon."
+	icon = "heart"
+	value = 1
+	mob_trait = TRAIT_PLUSHIELOVER
+	gain_text = "<span class='notice'>You can't wait to hug a plushie!.</span>"
+	lose_text = "<span class='danger'>You don't feel that passion for plushies anymore.</span>"
+
+/datum/quirk/plushielover/on_spawn()
+	var/mob/living/carbon/human/H = quirk_target
+	var/obj/item/choice_beacon/radial/plushie/B = new(get_turf(H))
+	var/list/slots = list (
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"hands" = ITEM_SLOT_HANDS,
+	)
+	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)

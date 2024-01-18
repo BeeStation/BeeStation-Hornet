@@ -9,8 +9,8 @@
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_NUDE
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
-	type_of_meat = /obj/item/reagent_containers/food/snacks/meat/slab/monkey
+	butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
+	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
@@ -40,6 +40,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/lay_down)
+
+	icon_state = null
 
 	if(unique_name) //used to exclude pun pun
 		gender = pick(MALE, FEMALE)

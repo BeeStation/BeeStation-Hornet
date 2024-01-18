@@ -80,6 +80,7 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 	var/image/I = image(icon = 'icons/effects/blood.dmi', icon_state = null, loc = src)
 	I.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cult_runes", I)
+	generate_psychic_mask()
 
 /obj/effect/rune/examine(mob/user)
 	. = ..()
@@ -974,6 +975,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 		affecting.grab_ghost()
 		affecting = null
 		rune_in_use = FALSE
+
+/mob/living/carbon/human/cult_ghost/Initialize(mapload)
+	. = ..()
+	generate_psychic_mask()
 
 /mob/living/carbon/human/cult_ghost/spill_organs(no_brain, no_organs, no_bodyparts) //cult ghosts never drop a brain
 	no_brain = TRUE

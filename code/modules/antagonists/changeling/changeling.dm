@@ -387,7 +387,7 @@
 		if(B)
 			B.organ_flags &= ~ORGAN_VITAL
 			B.decoy_override = TRUE
-		RegisterSignal(C, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), PROC_REF(stingAtom))
+		RegisterSignals(C, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), PROC_REF(stingAtom))
 	update_changeling_icons_added()
 
 /datum/antagonist/changeling/remove_innate_effects()

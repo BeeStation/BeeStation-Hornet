@@ -18,7 +18,7 @@
 	possible_locs = list(BODY_ZONE_HEAD)
 	abductor_surgery_blacklist = TRUE
 
-/datum/surgery/advanced/brainwashing/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/advanced/brainwashing/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!..())
 		return FALSE
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
@@ -35,7 +35,7 @@
 	failure_sound = 'sound/surgery/organ2.ogg'
 	var/objective
 
-/datum/surgery_step/brainwash/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/brainwash/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	objective = stripped_input(user, "Choose the objective to imprint on your victim's brain.", "Brainwashing", null, MAX_MESSAGE_LEN)
 	if(!objective)
 		return -1
@@ -43,7 +43,7 @@
 		"[user] begins to fix [target]'s brain.",
 		"[user] begins to perform surgery on [target]'s brain.")
 
-/datum/surgery_step/brainwash/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/brainwash/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(!target.mind)
 		to_chat(user, "<span class='warning'>[target] doesn't respond to the brainwashing, as if [target.p_they()] lacked a mind...</span>")
 		return FALSE
@@ -59,7 +59,7 @@
 	log_game("[key_name(user)] surgically brainwashed [key_name(target)] with the objective '[objective]'.")
 	return TRUE
 
-/datum/surgery_step/brainwash/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/brainwash/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(target.getorganslot(ORGAN_SLOT_BRAIN))
 		display_results(user, target, "<span class='warning'>You screw up, bruising the brain tissue!</span>",
 			"<span class='warning'>[user] screws up, causing brain damage!</span>",

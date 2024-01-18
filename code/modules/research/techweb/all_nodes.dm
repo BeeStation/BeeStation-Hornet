@@ -57,6 +57,7 @@
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
+		"epaperread"
 	)
 
 /datum/techweb_node/mmi
@@ -1563,6 +1564,8 @@
 		"pepperspray",
 		"seclite",
 		"zipties",
+		"turnstile",
+		"genpop_interface",
 	)
 	prereq_ids = list("base")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)

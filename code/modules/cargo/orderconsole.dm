@@ -158,9 +158,9 @@
 				SSshuttle.supply.export_categories = get_export_categories()
 				SSshuttle.moveShuttle("supply", "supply_away", TRUE)
 				say("The supply shuttle is departing.")
-				investigate_log("[key_name(usr)] sent the supply shuttle away.", INVESTIGATE_CARGO)
+				usr.investigate_log(" sent the supply shuttle away.", INVESTIGATE_CARGO)
 			else
-				investigate_log("[key_name(usr)] called the supply shuttle.", INVESTIGATE_CARGO)
+				usr.investigate_log(" called the supply shuttle.", INVESTIGATE_CARGO)
 				say("The supply shuttle has been called and will arrive in [SSshuttle.supply.timeLeft(600)] minutes.")
 				SSshuttle.moveShuttle("supply", "supply_home", TRUE)
 			. = TRUE

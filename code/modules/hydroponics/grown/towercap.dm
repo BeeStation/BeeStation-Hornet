@@ -45,10 +45,10 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	var/plank_type = /obj/item/stack/sheet/wood
 	var/plank_name = "wooden planks"
-	var/static/list/accepted = typecacheof(list(/obj/item/reagent_containers/food/snacks/grown/tobacco,
-	/obj/item/reagent_containers/food/snacks/grown/tea,
-	/obj/item/reagent_containers/food/snacks/grown/ambrosia,
-	/obj/item/reagent_containers/food/snacks/grown/wheat))
+	var/static/list/accepted = typecacheof(list(/obj/item/food/grown/tobacco,
+	/obj/item/food/grown/tea,
+	/obj/item/food/grown/ambrosia,
+	/obj/item/food/grown/wheat))
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
 	if(W.is_sharp())
@@ -66,8 +66,8 @@
 		qdel(src)
 
 	if(CheckAccepted(W))
-		var/obj/item/reagent_containers/food/snacks/grown/leaf = W
-		if(leaf.dry)
+		var/obj/item/food/grown/leaf = W
+		if(HAS_TRAIT(leaf, TRAIT_DRIED))
 			user.show_message("<span class='notice'>You wrap \the [W] around the log, turning it into a torch!</span>")
 			var/obj/item/flashlight/flare/torch/T = new /obj/item/flashlight/flare/torch(user.loc)
 			usr.dropItemToGround(W)

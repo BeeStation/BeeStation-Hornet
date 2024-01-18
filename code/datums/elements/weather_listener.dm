@@ -37,7 +37,7 @@
 	if(!(new_z in fitting_z_levels))
 		return
 	var/datum/component/our_comp = source.AddComponent(/datum/component/area_sound_manager, playlist, list(), COMSIG_MOB_LOGOUT, fitting_z_levels)
-	our_comp.RegisterSignal(SSdcs, sound_change_signals, /datum/component/area_sound_manager/proc/handle_change)
+	our_comp.RegisterSignals(SSdcs, sound_change_signals, /datum/component/area_sound_manager/proc/handle_change)
 
 /datum/element/weather_listener/proc/handle_logout(datum/source)
 	SIGNAL_HANDLER
