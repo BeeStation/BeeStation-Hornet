@@ -25,25 +25,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
-"i" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/turf/open/floor/holofloor/monotile/steel,
-/area/template_noop)
-"j" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/holofloor/monotile/steel,
-/area/template_noop)
-"m" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
-/turf/open/floor/holofloor/monotile/steel,
-/area/template_noop)
 "n" = (
 /obj/structure/loom,
 /obj/item/stack/sheet/cotton,
@@ -58,22 +39,11 @@
 /area/template_noop)
 "o" = (
 /obj/structure/table/reinforced,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
-	},
 /obj/item/stack/sheet/cotton/cloth,
 /obj/item/stack/sheet/cotton/cloth,
 /obj/item/stack/sheet/cotton,
 /obj/item/stack/sheet/cotton,
 /turf/open/floor/holofloor/monotile/dark,
-/area/template_noop)
-"p" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "u" = (
 /obj/effect/turf_decal/caution,
@@ -102,10 +72,6 @@
 /obj/effect/turf_decal/loading_area,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/holofloor/monotile/dark,
-/area/template_noop)
-"A" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "D" = (
 /turf/open/floor/holofloor/monotile/dark,
@@ -196,20 +162,20 @@ n
 D
 w
 o
-p
+d
 "}
 (4,1,1) = {"
 E
 c
-j
-i
+d
+d
 a
 "}
 (5,1,1) = {"
 E
 c
-A
-m
+d
+d
 d
 "}
 (6,1,1) = {"

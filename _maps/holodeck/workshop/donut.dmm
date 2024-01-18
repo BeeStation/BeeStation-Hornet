@@ -14,16 +14,6 @@
 /obj/item/reagent_containers/glass/beaker/large,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
-"c" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/turf/open/floor/holofloor/monotile/light,
-/area/template_noop)
-"e" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/holofloor/monotile/light,
-/area/template_noop)
 "f" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
@@ -33,43 +23,7 @@
 /obj/item/soap,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
-"g" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/turf/open/floor/holofloor/monotile/light,
-/area/template_noop)
 "h" = (
-/turf/open/floor/holofloor/monotile/light,
-/area/template_noop)
-"l" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/dark_blue/fourcorners,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/soymilk,
-/obj/item/reagent_containers/food/condiment/soymilk,
-/turf/open/floor/holofloor/monotile/steel,
-/area/template_noop)
-"o" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/turf/open/floor/holofloor/monotile/light,
-/area/template_noop)
-"q" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
 /turf/open/floor/holofloor/monotile/light,
 /area/template_noop)
 "r" = (
@@ -81,26 +35,26 @@
 "t" = (
 /obj/structure/reagent_dispensers/cooking_oil,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/structure/sign/poster/official/moth1{
 	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "u" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "v" = (
@@ -124,44 +78,30 @@
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "y" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/freezer,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
-"z" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/holofloor/monotile/light,
-/area/template_noop)
 "B" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
+/obj/structure/reagent_dispensers/watertank/high,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
-"D" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/caution/stand_clear/white,
-/obj/effect/turf_decal/tile/neutral/fourcorners,
-/turf/open/floor/holofloor/monotile/steel,
-/area/template_noop)
 "F" = (
 /obj/machinery/light/floor,
+/turf/open/floor/holofloor/monotile/light,
+/area/template_noop)
+"G" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/tile/dark_blue/fourcorners,
+/obj/structure/closet/crate/freezer,
+/obj/item/storage/fancy/egg_box,
+/obj/item/storage/fancy/egg_box,
 /turf/open/floor/holofloor/monotile/light,
 /area/template_noop)
 "H" = (
@@ -191,12 +131,22 @@
 /obj/item/reagent_containers/food/condiment/sugar,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
-"K" = (
+"J" = (
+/obj/effect/turf_decal/caution/stand_clear/white,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/obj/structure/rack,
-/obj/item/knife/kitchen,
-/obj/item/knife/kitchen,
-/obj/item/lighter,
+/turf/open/floor/holofloor/monotile/steel,
+/area/template_noop)
+"K" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners,
+/obj/item/clipboard{
+	name = "menu"
+	},
+/obj/item/paper,
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "M" = (
@@ -216,31 +166,28 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /obj/item/toy/figure/chef,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/item/reagent_containers/food/condiment/enzyme,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "P" = (
+/obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/reagent_dispensers/watertank/high,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "Q" = (
-/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/obj/structure/rack,
+/obj/item/knife/kitchen,
+/obj/item/knife/kitchen,
+/obj/item/lighter,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
-/obj/item/clipboard{
-	name = "menu"
-	},
-/obj/item/paper,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/hand_labeler,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "V" = (
@@ -258,7 +205,6 @@
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "W" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/structure/closet/crate/freezer,
 /obj/effect/turf_decal/bot,
 /obj/item/food/grown/berries,
@@ -268,21 +214,21 @@
 /obj/item/food/grown/berries,
 /obj/item/food/grown/berries,
 /obj/item/food/grown/berries,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "Y" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners,
 /obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /obj/structure/closet/crate/freezer,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
-/obj/item/food/egg,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/food/condiment/soymilk,
+/obj/item/reagent_containers/food/condiment/soymilk,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 
@@ -296,36 +242,36 @@ K
 (2,1,1) = {"
 b
 F
-z
-c
-a
+h
+h
+G
 "}
 (3,1,1) = {"
 N
 h
 r
-g
-D
+h
+a
 "}
 (4,1,1) = {"
 W
 h
 I
-o
-a
+h
+J
 "}
 (5,1,1) = {"
 Y
 h
 x
-o
-l
+h
+a
 "}
 (6,1,1) = {"
 y
 F
-e
-q
+h
+h
 u
 "}
 (7,1,1) = {"
