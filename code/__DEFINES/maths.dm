@@ -249,6 +249,7 @@
 		? min((val_respected), (low)) \
 		: ((val_respected) + (val_to_add)) \
 	)
+// note: the reason why it has 'equal(=)' in the condition is that it can early return as the result is the same so that we won't calculate the obvious result again unnecessarily.
 /*
 	<sample results>
 		val 15, add 5,  low 0, high 10 = 15	(returns val 15. won't return 15+5)
