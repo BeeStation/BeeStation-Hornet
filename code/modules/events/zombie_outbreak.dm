@@ -2,7 +2,7 @@
 	name = "Zombie Outbreak"
 	typepath = /datum/round_event/zombie_outbreak
 	weight = 5
-	max_occurrences = 1
+	max_occurrences = 0 //disabled for now due to being possible with random viruses
 	min_players = 30
 
 /datum/round_event/zombie_outbreak
