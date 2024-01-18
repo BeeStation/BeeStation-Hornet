@@ -166,7 +166,9 @@
 	if(istype(O, /obj/item/storage/bag/tray))
 		var/obj/item/storage/T = O
 		var/loaded = 0
-		for(var/obj/item/reagent_containers/food/snacks/S in T.contents)
+		for(var/obj/S in T.contents)
+			if(!IS_EDIBLE(S))
+				continue
 			if(ingredients.len >= max_n_of_items)
 				to_chat(user, "<span class='warning'>\The [src] is full, you can't put anything in!</span>")
 				return TRUE
@@ -307,7 +309,7 @@
 		return
 	time--
 	use_power(500)
-	addtimer(CALLBACK(src, .proc/loop, type, time, wait), wait)
+	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait), wait)
 
 /obj/machinery/microwave/proc/loop_finish()
 	operating = FALSE
@@ -315,8 +317,9 @@
 	var/iron = 0
 	for(var/obj/item/O in ingredients)
 		O.microwave_act(src)
-		if(O.materials[/datum/material/iron])
-			iron += O.materials[/datum/material/iron]
+		if(O.custom_materials && length(O.custom_materials))
+			if(O.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)])
+				iron += O.custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)]
 
 	if(iron)
 		spark()
@@ -324,10 +327,13 @@
 		if(prob(max(iron / 2, 33)))
 			explosion(loc, 0, 1, 2)
 	else
-		dropContents(ingredients)
-		ingredients.Cut()
+		dump_inventory_contents()
 
 	after_finish_loop()
+
+/obj/machinery/microwave/dump_inventory_contents()
+	. = ..()
+	ingredients.Cut()
 
 /obj/machinery/microwave/proc/pre_fail()
 	broken = 2

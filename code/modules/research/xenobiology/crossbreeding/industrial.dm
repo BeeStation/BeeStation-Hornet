@@ -42,7 +42,7 @@ Industrial extracts:
 	if(plasmaabsorbed >= plasmarequired)
 		playsound(src, 'sound/effects/attackblob.ogg', 50, 1)
 		plasmaabsorbed -= plasmarequired
-		for(var/i = 0, i < itemamount, i++)
+		for(var/i in 1 to itemamount)
 			do_after_spawn(new itempath(get_turf(src)))
 	else if(IsWorking)
 		playsound(src, 'sound/effects/bubbles.ogg', 5, 1)
@@ -54,7 +54,7 @@ Industrial extracts:
 /obj/item/slimecross/industrial/grey
 	colour = "grey"
 	effect_desc = "Produces monkey cubes."
-	itempath = /obj/item/reagent_containers/food/snacks/monkeycube
+	itempath = /obj/item/food/monkeycube
 	itemamount = 5
 
 /obj/item/slimecross/industrial/orange
@@ -175,6 +175,7 @@ Industrial extracts:
 	effect_desc = "Produces IEDs."
 	plasmarequired = 4
 	itempath = /obj/item/grenade/iedcasing
+	dangerous = TRUE
 
 /obj/item/slimecross/industrial/black //What does this have to do with black slimes? No clue! Fun, though
 	colour = "black"

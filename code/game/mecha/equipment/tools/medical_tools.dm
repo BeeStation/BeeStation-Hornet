@@ -334,7 +334,7 @@
 								R += "[A.name] ([num2text(A.volume)]"
 						mechsyringe.icon_state = initial(mechsyringe.icon_state)
 						mechsyringe.icon = initial(mechsyringe.icon)
-						mechsyringe.reagents.expose(M, INJECT)
+						mechsyringe.reagents.reaction(M, INJECT)
 						mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume, transfered_by = originaloccupant)
 						M.take_bodypart_damage(2)
 						log_combat(originaloccupant, M, "shot", "syringegun")
@@ -452,17 +452,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/load_syringe(obj/item/reagent_containers/syringe/S)
 	if(syringes.len<max_syringes)
-		if(get_dist(src,S) >= 2)
-			occupant_message("The syringe is too far away.")
-			return 0
-		for(var/obj/structure/D in S.loc)//Basic level check for structures in the way (Like grilles and windows)
-			if(!(D.CanPass(S,src.loc)))
-				occupant_message("Unable to load syringe.")
-				return 0
-		for(var/obj/machinery/door/D in S.loc)//Checks for doors
-			if(!(D.CanPass(S,src.loc)))
-				occupant_message("Unable to load syringe.")
-				return 0
+		if(!chassis.Adjacent(S))
+			occupant_message("Unable to load syringe")
+			return FALSE
 		S.reagents.trans_to(src, S.reagents.total_volume, transfered_by = chassis.occupant)
 		S.forceMove(src)
 		syringes += S
@@ -530,7 +522,7 @@
 	range = MECHA_MELEE|MECHA_RANGED
 	equip_cooldown = 0
 	var/obj/item/gun/medbeam/mech/medigun
-	materials = list(/datum/material/iron = 15000, /datum/material/glass = 8000, /datum/material/plasma = 3000, /datum/material/gold = 8000, /datum/material/diamond = 2000)
+	custom_materials = list(/datum/material/iron = 15000, /datum/material/glass = 8000, /datum/material/plasma = 3000, /datum/material/gold = 8000, /datum/material/diamond = 2000)
 
 /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam/Initialize(mapload)
 	. = ..()

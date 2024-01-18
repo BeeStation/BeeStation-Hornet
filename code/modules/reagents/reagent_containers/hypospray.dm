@@ -43,7 +43,7 @@
 		playsound(loc, pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE)
 
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
-		reagents.expose(M, INJECT, fraction)
+		reagents.reaction(M, INJECT, fraction)
 		if(M.reagents)
 			var/trans = 0
 			if(!infinite)
@@ -66,7 +66,7 @@
 		return
 	if(isturf(usr.loc) && src.loc == usr)
 		to_chat(usr, "<span class='notice'>You empty \the [src] onto the floor.</span>")
-		reagents.expose(usr.loc)
+		reagents.reaction(usr.loc)
 		src.reagents.clear_reagents()
 
 /obj/item/reagent_containers/hypospray/CMO
@@ -225,7 +225,7 @@
 	item_state = "survpen"
 	volume = 57
 	amount_per_transfer_from_this = 57
-	list_reagents = list(/datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/tricordrazine = 15, /datum/reagent/medicine/epinephrine = 10, /datum/reagent/medicine/lavaland_extract = 2, /datum/reagent/medicine/omnizine = 5)
+	list_reagents = list(/datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/regen_jelly = 15, /datum/reagent/medicine/epinephrine = 10, /datum/reagent/medicine/lavaland_extract = 2, /datum/reagent/medicine/omnizine = 5)
 
 /obj/item/reagent_containers/hypospray/medipen/species_mutator
 	name = "species mutator medipen"
@@ -258,3 +258,12 @@
 	ignore_flags = 0
 	reagent_flags = NONE
 	list_reagents = list(/datum/reagent/magillitis = 5)
+
+/obj/item/reagent_containers/hypospray/medipen/shadow_species_mutator
+	name = "Shadow Person mutator autoinjector"
+	desc = "Become one with the shadows, and change your race to a Shadow Person today!"
+	icon_state = "syndipen"
+	item_state = "tbpen"
+	volume = 10
+	amount_per_transfer_from_this = 10
+	list_reagents = list(/datum/reagent/mutationtoxin/shadow = 10)

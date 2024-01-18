@@ -3,7 +3,6 @@
 GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("stool",										/obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
 	new/datum/stack_recipe("bar stool",									/obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE, time = 1.5 SECONDS), \
-	new/datum/stack_recipe("chair",										/obj/structure/chair, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS), \
 
 	null, \
 	new/datum/stack_recipe_list("office chairs", list( \
@@ -94,9 +93,12 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("airlock controller frame",					/obj/item/wallframe/advanced_airlock_controller, 2), \
 	new/datum/stack_recipe("fire alarm frame",							/obj/item/wallframe/firealarm, 2), \
 	new/datum/stack_recipe("extinguisher cabinet frame",				/obj/item/wallframe/extinguisher_cabinet, 2), \
+	new/datum/stack_recipe("light switch frame",						/obj/item/wallframe/light_switch, 1), \
 	new/datum/stack_recipe("button frame",								/obj/item/wallframe/button, 1), \
+	new/datum/stack_recipe("prisoner interface frame",					/obj/item/wallframe/genpop_interface, 5), \
 	null, \
 	new/datum/stack_recipe("iron door",									/obj/structure/mineral_door/iron, 20, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("desk bell", 								/obj/structure/desk_bell, 2, time = 3 SECONDS), \
 	new/datum/stack_recipe("filing cabinet", 							/obj/structure/filingcabinet, 2, one_per_turf = TRUE, on_floor = TRUE, time = 10 SECONDS), \
 	new/datum/stack_recipe("floodlight frame",							/obj/structure/floodlight_frame, 5, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("shower frame",								/obj/structure/showerframe, 2, time = 2 SECONDS), \
@@ -104,11 +106,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/iron)
-
-/obj/item/stack/sheet/iron/cyborg
-	materials = list()
-	is_cyborg = 1
-	cost = 500
 
 /* Plasteel */
 
@@ -168,7 +165,7 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 STACKSIZE_MACRO(/obj/item/stack/sheet/brass)
 
 /obj/item/stack/sheet/brass/cyborg
-	materials = list()
+	custom_materials = null
 	is_cyborg = 1
 	cost = 500
 

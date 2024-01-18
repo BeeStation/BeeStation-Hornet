@@ -125,7 +125,7 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_tracking/try_attach_part(mob/user, obj/mecha/M)
-	if(!do_mob(user, M, 15))
+	if(!do_after(user, 15, M))
 		return
 	if(!..())
 		return
@@ -141,7 +141,7 @@
 		return
 	if(chassis)
 		chassis.emp_act(EMP_HEAVY)
-		addtimer(CALLBACK(src, /obj/item/mecha_parts/mecha_tracking/proc/recharge), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_tracking, recharge)), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		recharging = TRUE
 
 /**

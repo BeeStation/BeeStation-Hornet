@@ -1,7 +1,7 @@
 
 /obj/effect/proc_holder/spell/aimed
 	name = "aimed projectile spell"
-	var/projectile_type = /obj/item/projectile/magic/teleport
+	var/projectile_type = /obj/projectile/magic/teleport
 	var/deactive_msg = "You discharge your projectile..."
 	var/active_msg = "You charge your projectile!"
 	base_icon_state = "projectile"
@@ -77,7 +77,7 @@
 	if(!projectile_type)
 		return
 	for(var/i in 1 to projectiles_per_fire)
-		var/obj/item/projectile/P = new projectile_type(user.loc, spell_level)
+		var/obj/projectile/P = new projectile_type(user.loc, spell_level)
 		P.firer = user
 		P.preparePixelProjectile(target, user)
 		for(var/V in projectile_var_overrides)
@@ -87,7 +87,7 @@
 		P.fire()
 	return TRUE
 
-/obj/effect/proc_holder/spell/aimed/proc/ready_projectile(obj/item/projectile/P, atom/target, mob/user, iteration)
+/obj/effect/proc_holder/spell/aimed/proc/ready_projectile(obj/projectile/P, atom/target, mob/user, iteration)
 	return
 
 /obj/effect/proc_holder/spell/aimed/lightningbolt
@@ -97,7 +97,7 @@
 	charge_max = 150
 	clothes_req = FALSE
 	invocation = "UN'LTD P'WAH"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	cooldown_min = 50
 	base_icon_state = "lightning"
 	action_icon_state = "lightning0"
@@ -106,7 +106,7 @@
 	projectile_var_overrides = list("tesla_range" = 15, "tesla_power" = 20000, "tesla_flags" = TESLA_MOB_DAMAGE)
 	active_msg = "You energize your hand with arcane lightning!"
 	deactive_msg = "You let the energy flow out of your hands back into yourself..."
-	projectile_type = /obj/item/projectile/magic/aoe/lightning
+	projectile_type = /obj/projectile/magic/aoe/lightning
 
 /obj/effect/proc_holder/spell/aimed/fireball
 	name = "Fireball"
@@ -115,10 +115,10 @@
 	charge_max = 140
 	clothes_req = TRUE
 	invocation = "ONI SOMA"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	range = 20
 	cooldown_min = 40 //10 deciseconds reduction per rank
-	projectile_type = /obj/item/projectile/magic/fireball
+	projectile_type = /obj/projectile/magic/fireball
 	base_icon_state = "fireball"
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/fireball.ogg'
@@ -133,12 +133,12 @@
 	charge_max = 90
 	clothes_req = FALSE
 	invocation = "Sigi'lu M'Fan 'Tasia"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	range = 40
 	cooldown_min = 30
 	projectile_amount = 5
 	projectiles_per_fire = 7
-	projectile_type = /obj/item/projectile/spellcard
+	projectile_type = /obj/projectile/spellcard
 	base_icon_state = "spellcard"
 	action_icon_state = "spellcard0"
 	var/datum/weakref/current_target_weakref
@@ -151,7 +151,7 @@
 
 /obj/effect/proc_holder/spell/aimed/spell_cards/on_activation(mob/M)
 	QDEL_NULL(lockon_component)
-	lockon_component = M.AddComponent(/datum/component/lockon_aiming, 5, typecacheof(list(/mob/living)), 1, null, CALLBACK(src, .proc/on_lockon_component))
+	lockon_component = M.AddComponent(/datum/component/lockon_aiming, 5, typecacheof(list(/mob/living)), 1, null, CALLBACK(src, PROC_REF(on_lockon_component)))
 
 /obj/effect/proc_holder/spell/aimed/spell_cards/proc/on_lockon_component(list/locked_weakrefs)
 	if(!length(locked_weakrefs))
@@ -166,7 +166,7 @@
 /obj/effect/proc_holder/spell/aimed/spell_cards/on_deactivation(mob/M)
 	QDEL_NULL(lockon_component)
 
-/obj/effect/proc_holder/spell/aimed/spell_cards/ready_projectile(obj/item/projectile/P, atom/target, mob/user, iteration)
+/obj/effect/proc_holder/spell/aimed/spell_cards/ready_projectile(obj/projectile/P, atom/target, mob/user, iteration)
 	if(current_target_weakref)
 		var/atom/A = current_target_weakref.resolve()
 		if(A && get_dist(A, user) < 7)

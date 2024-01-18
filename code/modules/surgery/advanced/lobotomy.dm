@@ -13,7 +13,7 @@
 	possible_locs = list(BODY_ZONE_HEAD)
 	requires_bodypart_type = 0
 
-/datum/surgery/advanced/lobotomy/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/advanced/lobotomy/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!..())
 		return FALSE
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
@@ -23,7 +23,7 @@
 
 /datum/surgery_step/lobotomize
 	name = "perform lobotomy"
-	implements = list(TOOL_SCALPEL = 85, /obj/item/melee/transforming/energy/sword = 55, /obj/item/kitchen/knife = 35,
+	implements = list(TOOL_SCALPEL = 85, /obj/item/melee/transforming/energy/sword = 55, /obj/item/knife = 35,
 		/obj/item/shard = 25, /obj/item = 20)
 	time = 100
 	preop_sound = 'sound/surgery/scalpel1.ogg'
@@ -35,30 +35,33 @@
 		return FALSE
 	return TRUE
 
-/datum/surgery_step/lobotomize/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/lobotomize/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You begin to perform a lobotomy on [target]'s brain...</span>",
 		"[user] begins to perform a lobotomy on [target]'s brain.",
 		"[user] begins to perform surgery on [target]'s brain.")
 
-/datum/surgery_step/lobotomize/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/lobotomize/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You succeed in lobotomizing [target].</span>",
 			"[user] successfully lobotomizes [target]!",
 			"[user] completes the surgery on [target]'s brain.")
 	target.cure_all_traumas(TRAUMA_RESILIENCE_LOBOTOMY)
 	if(target.mind && target.mind.has_antag_datum(/datum/antagonist/brainwashed))
-		target.mind.remove_antag_datum(/datum/antagonist/brainwashed)
-	switch(rand(0,3))//Now let's see what hopefully-not-important part of the brain we cut off
+		unbrainwash(target)
+	switch(rand(0, 3))//Now let's see what hopefully-not-important part of the brain we cut off
 		if(1)
 			target.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_MAGIC)
 		if(2)
-			target.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_MAGIC)
+			if(HAS_TRAIT(target, TRAIT_SPECIAL_TRAUMA_BOOST) && prob(50))
+				target.gain_trauma_type(BRAIN_TRAUMA_SPECIAL, TRAUMA_RESILIENCE_MAGIC)
+			else
+				target.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_MAGIC)
 		if(3)
 			target.gain_trauma_type(BRAIN_TRAUMA_SPECIAL, TRAUMA_RESILIENCE_MAGIC)
 		else
 			SWITCH_EMPTY_STATEMENT
 	return TRUE
 
-/datum/surgery_step/lobotomize/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/lobotomize/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		display_results(user, target, "<span class='warning'>You remove the wrong part, causing more damage!</span>",
@@ -69,7 +72,10 @@
 			if(1)
 				target.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_MAGIC)
 			if(2)
-				target.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_MAGIC)
+				if(HAS_TRAIT(target, TRAIT_SPECIAL_TRAUMA_BOOST) && prob(50))
+					target.gain_trauma_type(BRAIN_TRAUMA_SPECIAL, TRAUMA_RESILIENCE_MAGIC)
+				else
+					target.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_MAGIC)
 			if(3)
 				target.gain_trauma_type(BRAIN_TRAUMA_SPECIAL, TRAUMA_RESILIENCE_MAGIC)
 	else

@@ -1,14 +1,21 @@
 // Aiming component, ported from NSV
 
+// Defines for aiming "levels"
+#define GUN_NOT_AIMED 0
+#define GUN_AIMED 1
+#define GUN_AIMED_POINTBLANK 2
+
 // Defines for stages and radial choices
 #define START "start"
 #define RAISE_HANDS "raise_hands"
 #define DROP_WEAPON "drop_weapon"
 #define DROP_TO_FLOOR "drop_to_floor"
 #define CANCEL "cancel"
-#define FIRE "fire"
+#define SHOOT "shoot"
 #define SURRENDER "surrender"
 #define IGNORE "ignore"
+#define POINTBLANK "pointblank"
+#define LET_GO "let_go"
 
 /datum/component/aiming
 	can_transfer = FALSE
@@ -17,6 +24,7 @@
 	var/obj/item/target_held = null
 	var/datum/radial_menu/persistent/choice_menu // Radial menu for the user
 	var/datum/radial_menu/persistent/choice_menu_target // Radial menu for the target
+	var/holding_at_gunpoint = FALSE // used for boosting shot damage
 	COOLDOWN_DECLARE(aiming_cooldown) // 5 second cooldown so you can't spam aiming for faster bullets
 	COOLDOWN_DECLARE(voiceline_cooldown) // 2 seconds, prevents spamming commands
 	COOLDOWN_DECLARE(notification_cooldown) // 5 seconds, prevents spamming the equip notification/sound
@@ -24,8 +32,8 @@
 /datum/component/aiming/Initialize(source)
 	if(!istype(parent, /obj/item))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/on_parent_equip)
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_parent_unequip)
+	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_parent_equip))
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_parent_unequip))
 
 /datum/component/aiming/proc/aim(mob/user, mob/target)
 	if(QDELETED(user) || QDELETED(target)) // We lost the user or target somehow
@@ -44,13 +52,13 @@
 	new /obj/effect/temp_visual/aiming(get_turf(target))
 
 	// Register signals to alert our user if the target does something shifty.
-	RegisterSignal(target, COMSIG_MOB_EQUIPPED_ITEM, .proc/on_equip)
-	RegisterSignal(target, COMSIG_MOB_DROPPED_ITEM, .proc/on_drop)
-	RegisterSignal(src.target, COMSIG_LIVING_STATUS_PARALYZE, .proc/on_paralyze)
+	RegisterSignal(target, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(on_equip))
+	RegisterSignal(target, COMSIG_MOB_DROPPED_ITEM, PROC_REF(on_drop))
+	RegisterSignal(src.target, COMSIG_LIVING_STATUS_PARALYZE, PROC_REF(on_paralyze))
 
 	// Registers movement signals
-	RegisterSignal(src.user, COMSIG_MOVABLE_MOVED, .proc/on_move)
-	RegisterSignal(src.target, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(src.user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	RegisterSignal(src.target, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
 	// Shows the radials to the aimer and target
 	aim_react(src.target)
@@ -66,7 +74,7 @@ Handles equipping/unequipping and pointing with the parent weapon.
 /datum/component/aiming/proc/on_parent_equip(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 	if(slot == ITEM_SLOT_HANDS)
-		RegisterSignal(equipper, COMSIG_MOB_POINTED, .proc/do_aim)
+		RegisterSignal(equipper, COMSIG_MOB_POINTED, PROC_REF(do_aim))
 		user = equipper
 	else // Putting a weapon into storage/direct storage equip by loadout
 		on_parent_unequip()
@@ -78,7 +86,7 @@ Handles equipping/unequipping and pointing with the parent weapon.
 		return
 	if(user.get_active_held_item() != parent) // We don't have the gun selected, abort
 		return
-	INVOKE_ASYNC(src, .proc/aim, user, target) // Start aiming
+	INVOKE_ASYNC(src, PROC_REF(aim), user, target) // Start aiming
 
 // Cleans up the user and stops aiming if we're aiming. Used for stowing/dropping a weapon
 /datum/component/aiming/proc/on_parent_unequip()
@@ -131,6 +139,21 @@ Methods to alert the aimer about events (Surrendering/equipping an item/dropping
 	user.balloon_alert(user, "You can't see [target] anymore!")
 	stop_aiming()
 
+/datum/component/aiming/proc/on_resist()
+	SIGNAL_HANDLER
+	target.balloon_alert(user, "Tries to break free!")
+
+/datum/component/aiming/proc/stop_holding()
+	SIGNAL_HANDLER
+	var/obj/item/held = user.get_active_held_item()
+	user.visible_message("<span class='warning'>[user] stops holding \the [held] at [target]'s temple!</span>", \
+				"<span class='notice'>You stop holding \the [held] at [target]'s temple</span>", ignored_mobs = list(target))
+	to_chat(target, "<span class='warning'>[user] stops holding \the [held] at your temple!</span>")
+	user.balloon_alert_to_viewers("Lets go of [target]", "Let go of [target]", ignored_mobs = list(target), show_in_chat = FALSE)
+	user.balloon_alert(target, "[user] Lets go of you", show_in_chat = FALSE)
+	remove_pointblank()
+	show_ui(user, target, START)
+
 /**
 
 Method to show a radial menu to the person who's aiming, in stages:
@@ -143,27 +166,37 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 
 /datum/component/aiming/proc/show_ui(mob/user, mob/target, stage)
 	var/list/options = list()
-	var/list/possible_actions = list(CANCEL, FIRE)
+	var/list/possible_actions = list(CANCEL, SHOOT)
 	switch(stage)
 		if(START)
 			possible_actions += RAISE_HANDS
 			possible_actions += DROP_WEAPON
+			possible_actions += POINTBLANK
 		if(RAISE_HANDS)
 			possible_actions += DROP_TO_FLOOR
 			possible_actions += RAISE_HANDS
+			possible_actions += POINTBLANK
 		if(DROP_WEAPON)
 			possible_actions += DROP_TO_FLOOR
 			possible_actions += DROP_WEAPON
 			possible_actions += RAISE_HANDS
+			possible_actions += POINTBLANK
 		if(DROP_TO_FLOOR)
 			possible_actions += DROP_TO_FLOOR
 			possible_actions += DROP_WEAPON
+			possible_actions += POINTBLANK
+		if(LET_GO)
+			possible_actions += RAISE_HANDS
+			possible_actions += DROP_WEAPON
+			possible_actions += POINTBLANK
+	if(holding_at_gunpoint)
+		possible_actions += LET_GO
 	for(var/option in possible_actions)
 		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
 	if(choice_menu)
 		choice_menu.change_choices(options)
 		return
-	choice_menu = show_radial_menu_persistent(user, user, options, select_proc = CALLBACK(src, .proc/act))
+	choice_menu = show_radial_menu_persistent(user, user, options, select_proc = CALLBACK(src, PROC_REF(act)))
 
 /datum/component/aiming/proc/act(choice)
 	if(QDELETED(user) || QDELETED(target)) // We lost our user or target somehow, abort aiming
@@ -172,7 +205,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	if(!choice)
 		stop_aiming()
 		return
-	if(choice != CANCEL && choice != FIRE) // Handling voiceline cooldowns and mimes
+	if(choice != CANCEL && choice != SHOOT) // Handling voiceline cooldowns and mimes
 		if(!COOLDOWN_FINISHED(src, voiceline_cooldown))
 			to_chat(user, "<span class = 'warning'>You've already given a command recently!</span>")
 			show_ui(user, target, choice)
@@ -186,8 +219,11 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		if(CANCEL) //first off, are they telling us to stop aiming?
 			stop_aiming()
 			return
-		if(FIRE)
-			fire()
+		if(SHOOT)
+			if(holding_at_gunpoint)
+				shoot(4)
+			else
+				shoot()
 			return
 		if(RAISE_HANDS)
 			user.say(pick("Put your hands above your head!", "Hands! Now!", "Hands up!"), forced = "Weapon aiming")
@@ -195,18 +231,75 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			user.say(pick("Drop your weapon!", "Weapon down! Now!", "Drop it!"), forced = "Weapon aiming")
 		if(DROP_TO_FLOOR)
 			user.say(pick("On the ground! Now!", "Lie down and place your hands behind your head!", "Get down on the ground!"), forced = "Weapon aiming")
+		if(POINTBLANK)
+			if(get_dist(target, user) > 1)
+				to_chat(user, "<span class='warning'>You need to be closer to [target] to hold [target.p_them()] at gunpoint!</span>")
+				return
+			if(isdead(target))
+				to_chat(user, "<span class='warning'>You can't hold dead things at gunpoint!</span>")
+				return
+			var/obj/item/held = user.get_active_held_item()
+			if(!held)
+				to_chat(user, "<span class='warning'>You can't hold someone at gunpoint with an empty hand!</span>")
+				return
+			if(!user.pulling || user.pulling != target)
+				to_chat(user, "<span class='warning'>You start to grab \the [target].</span>")
+				to_chat(target, "<span class='warning'>[user] starts to grab you!</span>")
+				if(!do_after(user, 2 SECONDS, target))
+					to_chat(user, "<span class='warning>You fail to grab [target]!</span>")
+					return
+				var/mob/living/carbon/human/H = user
+				user.a_intent = INTENT_GRAB
+				H.dna.species.spec_attack_hand(user, target)
+				return
+			if(user.grab_state < GRAB_AGGRESSIVE)
+				to_chat(user, "<span class='warning'>You start to strengthen your grip on [target].</span>")
+				to_chat(target, "<span class='warning'>[user] starts to strengthen their grip on you!</span>")
+				if(!do_after(user, 2 SECONDS, target))
+					to_chat(user, "<span class='warning>You fail to strengthen your grip on [target]!</span>")
+					return
+				var/mob/living/carbon/human/H = user
+				user.a_intent = INTENT_GRAB
+				H.dna.species.spec_attack_hand(user, target)
+				return
+			if(user.pulling != target)
+				return
+			user.say(pick("Freeze!", "Don't move!", "Don't twitch a muscle!", "Don't you dare move!", "Hold still!"), forced = "Weapon aiming")
+			user.visible_message("<span class='warning'>[user] lines up \the [held] with [target]'s temple!</span>", \
+			"<span class='notice'>You line up \the [held] with [target]'s temple</span>", ignored_mobs = list(target))
+			to_chat(target, "<span class='warning'>[user] lines up \the [held] with your temple!</span>")
+			user.balloon_alert_to_viewers("Holds [target] at gunpoint!", "Holding [target] at gunpoint!", ignored_mobs = list(target), show_in_chat = FALSE)
+			user.balloon_alert(target, "Holds you at gunpoint!", show_in_chat = FALSE)
+			setup_pointblank()
+		if(LET_GO)
+			stop_holding()
 	aim_react(target)
 	COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
 	show_ui(user, target, choice)
 
-/datum/component/aiming/proc/fire()
+/datum/component/aiming/proc/setup_pointblank()
+	holding_at_gunpoint = TRUE
+	RegisterSignal(src.target, COMSIG_LIVING_RESIST, PROC_REF(on_resist))
+	RegisterSignal(src.target, COMSIG_MOVABLE_NO_LONGER_PULLED, PROC_REF(stop_holding))
+
+/datum/component/aiming/proc/remove_pointblank()
+	if(!holding_at_gunpoint)
+		return
+	holding_at_gunpoint = FALSE
+	UnregisterSignal(src.target, COMSIG_LIVING_RESIST)
+	UnregisterSignal(src.target, COMSIG_MOVABLE_NO_LONGER_PULLED)
+
+/datum/component/aiming/proc/shoot()
 	var/obj/item/held = user.get_active_held_item()
 	if(held != parent)
 		stop_aiming()
 		return FALSE
-	if(istype(parent, /obj/item/gun)) // If we have a gun, fire it at the target
+	if(istype(parent, /obj/item/gun)) // If we have a gun, shoot it at the target
 		var/obj/item/gun/G = parent
-		G.afterattack(target, user, null, null, TRUE)
+		if(holding_at_gunpoint)
+			G.afterattack(target, user, null, null, GUN_AIMED_POINTBLANK)
+		else
+			G.afterattack(target, user, null, null, GUN_AIMED)
 		stop_aiming()
 		return TRUE
 	if(isitem(parent)) // Otherwise, just wave it at them
@@ -227,6 +320,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	// Clean up the menu if it's still open
 	QDEL_NULL(choice_menu)
 	QDEL_NULL(choice_menu_target)
+	remove_pointblank()
 	target = null
 
 /datum/component/aiming/proc/aim_react(mob/target)
@@ -236,7 +330,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	var/list/options = list()
 	for(var/option in list(SURRENDER, IGNORE))
 		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
-	choice_menu_target = show_radial_menu_persistent(target, target, options, select_proc = CALLBACK(src, .proc/aim_react_act))
+	choice_menu_target = show_radial_menu_persistent(target, target, options, select_proc = CALLBACK(src, PROC_REF(aim_react_act)))
 
 /datum/component/aiming/proc/aim_react_act(choice)
 	if(choice == SURRENDER)
@@ -257,7 +351,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	layer = ABOVE_MOB_LAYER
 
 // Initializes aiming component in bananas
-/obj/item/reagent_containers/food/snacks/grown/banana/ComponentInitialize()
+/obj/item/food/grown/banana/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/aiming)
 
@@ -266,6 +360,8 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 #undef DROP_WEAPON
 #undef DROP_TO_FLOOR
 #undef CANCEL
-#undef FIRE
+#undef SHOOT
 #undef SURRENDER
 #undef IGNORE
+#undef POINTBLANK
+#undef LET_GO

@@ -30,7 +30,7 @@
 
 //Floor Stomp - brute and stamina damage if target isn't standing
 /datum/martial_art/karate/proc/floorKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
+	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if(!can_use(A))
 		return FALSE
 	if(!(D.mobility_flags & MOBILITY_STAND))
@@ -46,7 +46,7 @@
 
 //Calf Kick - paralyse one leg with stamina damage
 /datum/martial_art/karate/proc/calfKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/def_check = D.getarmor(BODY_ZONE_L_LEG, "melee")
+	var/def_check = D.getarmor(BODY_ZONE_L_LEG, MELEE)
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
@@ -61,7 +61,7 @@
 
 //Jumping Knee - brief knockdown and decent stamina damage
 /datum/martial_art/karate/proc/jumpingKnee(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
+	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)

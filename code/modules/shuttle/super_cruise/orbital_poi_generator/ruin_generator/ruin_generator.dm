@@ -20,10 +20,10 @@
  * can go past the border. No attachment points can be generated past the border.
  */
 /proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
-	var/datum/map_generator/space_ruin/ruin = new(center_x, center_y, center_z, border_x, border_y, linked_objective, forced_decoration, ruin_event)
+	var/datum/async_map_generator/space_ruin/ruin = new(center_x, center_y, center_z, border_x, border_y, linked_objective, forced_decoration, ruin_event)
 	ruin.generate()
 
-/datum/map_generator/space_ruin
+/datum/async_map_generator/space_ruin
 	/// The X position to start generating the ruin at
 	var/center_x
 	/// The Y position to start generating the ruin at
@@ -69,7 +69,7 @@
 
 	var/stage = 0
 
-/datum/map_generator/space_ruin/New(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
+/datum/async_map_generator/space_ruin/New(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
 	. = ..()
 	src.center_x = center_x
 	src.center_y = center_y
@@ -94,7 +94,7 @@
 				var/datum/generator_settings/instance = new generator_type()
 				if(instance.probability != 0)
 					generator_settings_cache[instance] = instance.probability
-		generator_settings = pickweight(generator_settings_cache)
+		generator_settings = pick_weight(generator_settings_cache)
 
 	//Pause the air on the target z-level
 	SSair.pause_z(center_z)
@@ -121,12 +121,12 @@
 	structure_damage_prob = generator_settings.structure_damage_prob
 	floor_break_prob = generator_settings.floor_break_prob
 
-/datum/map_generator/space_ruin/complete()
+/datum/async_map_generator/space_ruin/complete()
 	..()
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = FALSE
 
-/datum/map_generator/space_ruin/execute_run()
+/datum/async_map_generator/space_ruin/execute_run()
 	..()
 	switch (stage)
 		if (0)
@@ -147,9 +147,9 @@
 			CRASH("Ruin generator in invalid state: [stage]")
 	return FALSE
 
-/datum/map_generator/space_ruin/proc/ruin_placer_run()
+/datum/async_map_generator/space_ruin/proc/ruin_placer_run()
 	// Lets pause for a bit to let the map generator catch up
-	if (length(SSmap_generator.executing_generators) > 15)
+	if (length(SSasync_map_generator.executing_generators) > 15)
 		return FALSE
 	sanity --
 	if(sanity < 0)
@@ -249,7 +249,7 @@
 		ishallway ? hallway_connections.len-- : room_connections.len--
 		return !length(hallway_connections) && !length(room_connections)
 	//Pick a ruin and spawn it.
-	var/list/selected_ruin = pickweight_ruin(valid_ruins)
+	var/list/selected_ruin = pick_weight_ruin(valid_ruins)
 	//Spawn the ruin
 	//Get the port offset position
 	var/port_offset_x = selected_ruin["port_offset_x"]
@@ -333,7 +333,7 @@
 
 	return !length(hallway_connections) && !length(room_connections)
 
-/datum/map_generator/space_ruin/proc/post_generation()
+/datum/async_map_generator/space_ruin/proc/post_generation()
 	//Lets place doors
 	for(var/door_pos in placed_room_entrances)
 		var/splitextdoor = splittext(door_pos, "_")
@@ -364,9 +364,9 @@
 					b2.setDir(WEST)
 
 	//Repopulate areas
-	repopulate_sorted_areas()
+	require_area_resort()
 
-/datum/map_generator/space_ruin/proc/put_shit_everywhere()
+/datum/async_map_generator/space_ruin/proc/put_shit_everywhere()
 	//Place trash
 	var/place = blocked_turfs[shit_index]
 	//Increment shit index
@@ -387,19 +387,19 @@
 	if(prob(floor_break_prob) && istype(T, /turf/open/floor/plasteel))
 		T = T.ScrapeAway()
 	//Spawn floortrash.
-	var/new_floortrash = pickweight(floortrash)
+	var/new_floortrash = pick_weight(floortrash)
 	if(ispath(new_floortrash))
 		new new_floortrash(T)
 	//Check for walls and spawn walltrash
 	for(var/direction in GLOB.cardinals)
 		var/turf/T1 = get_step(T, direction)
 		if(isclosedturf(T1))
-			var/new_directional_walltrash = pickweight(directional_walltrash)
+			var/new_directional_walltrash = pick_weight(directional_walltrash)
 			if(ispath(new_directional_walltrash))
 				var/atom/A = new new_directional_walltrash(T)
 				A.setDir(direction)
 			else
-				var/new_nondirectional_walltrash = pickweight(nondirectional_walltrash)
+				var/new_nondirectional_walltrash = pick_weight(nondirectional_walltrash)
 				if(ispath(new_nondirectional_walltrash))
 					var/atom/A = new new_nondirectional_walltrash(T)
 					switch(direction)
@@ -413,7 +413,7 @@
 							A.pixel_x = -32
 			break
 
-/datum/map_generator/space_ruin/proc/finalize()
+/datum/async_map_generator/space_ruin/proc/finalize()
 
 	//Generate objective stuff
 	if(linked_objective)
@@ -426,7 +426,7 @@
 			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z)
 			if(isspaceturf(T))
 				continue
-			if(is_blocked_turf(T, FALSE))
+			if(T.is_blocked_turf(FALSE))
 				continue
 			linked_objective.generate_objective_stuff(T)
 			break
@@ -460,7 +460,7 @@
 
 	log_mapping("Finished generating ruin at [center_x], [center_y], [center_z]")
 
-/proc/pickweight_ruin(list/L)
+/proc/pick_weight_ruin(list/L)
 	var/total = 0
 	for (var/list/ruin_part as() in L)
 		total += ruin_part["weight"]

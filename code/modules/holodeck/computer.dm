@@ -25,6 +25,9 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 #define HOLODECK_CD 2 SECONDS
 #define HOLODECK_DMG_CD 5 SECONDS
 
+/// typecache for turfs that should be considered ok during floorchecks.
+/// A linked turf being anything not in this typecache will cause the holodeck to perform an emergency shutdown.
+GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf/open/floor/holofloor, /turf/closed)))
 
 /obj/machinery/computer/holodeck
 	name = "holodeck control console"
@@ -65,7 +68,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	var/list/emag_programs
 
 	///subtypes of this (but not this itself) are loadable programs
-	var/program_type = /datum/map_template/holodeck
+	var/program_type = /datum/map_template/holodeck/recreation
 
 	///every holo object created by the holodeck goes in here to track it
 	var/list/spawned = list()
@@ -172,6 +175,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		if("safety")
 			if((obj_flags & EMAGGED) && program)
 				emergency_shutdown()
+			log_game("[key_name(usr)] has [(obj_flags & EMAGGED ? "enabled" : "disabled" )] the holodeck safety settings at [loc_name(src)].")
 			nerf(obj_flags & EMAGGED,FALSE)
 			obj_flags ^= EMAGGED
 			say("Safeties reset. Restarting...")
@@ -182,7 +186,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	for(var/turf/possible_blacklist as anything in get_affected_turfs(placement))
 		if (possible_blacklist.holodeck_compatible)
 			continue
-		input_blacklist += possible_blacklist
+		input_blacklist[possible_blacklist] = TRUE
 
 ///loads the template whose id string it was given ("offline_program" loads datum/map_template/holodeck/offline)
 /obj/machinery/computer/holodeck/proc/load_program(map_id, force = FALSE, add_delay = TRUE)
@@ -227,15 +231,16 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 				holo_turf.baseturfs -= baseturf
 				holo_turf.baseturfs += /turf/open/floor/holofloor/plating
 
+	log_game("[key_name(usr)] has loaded the holodeck program '[program]' at [loc_name(src)].")
 	template = SSmapping.holodeck_templates[map_id]
-	var/datum/map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
-	template_placer.on_completion(CALLBACK(src, .proc/finish_spawn, template))
+	var/datum/async_map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
+	template_placer.on_completion(CALLBACK(src, PROC_REF(finish_spawn), template))
 
 ///finalizes objects in the spawned list
 /obj/machinery/computer/holodeck/proc/finish_spawn()
 	spawned = template.created_atoms //populate the spawned list with the atoms belonging to the holodeck
 
-	if(istype(template, /datum/map_template/holodeck/thunderdome1218) && !SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM])
+	if(istype(template, /datum/map_template/holodeck/recreation/thunderdome1218) && !SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM])
 		say("Special note from \"1218 AD\" developer: I see you too are interested in the REAL dark ages of humanity! I've made this program also unlock some interesting shuttle designs on any communication console around. Have fun!")
 		SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM] = TRUE
 
@@ -246,7 +251,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 			spawned -= holo_atom
 			continue
 
-		RegisterSignal(holo_atom, COMSIG_PARENT_PREQDELETED, .proc/remove_from_holo_lists)
+		RegisterSignal(holo_atom, COMSIG_PARENT_PREQDELETED, PROC_REF(remove_from_holo_lists))
 		holo_atom.flags_1 |= HOLOGRAM_1
 
 		if(isholoeffect(holo_atom))//activates holo effects and transfers them from the spawned list into the effects list
@@ -256,10 +261,10 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 			var/atom/holo_effect_product = holo_effect.activate(src)//change name
 			if(istype(holo_effect_product))
 				spawned += holo_effect_product // we want mobs or objects spawned via holoeffects to be tracked as objects
-				RegisterSignal(holo_effect_product, COMSIG_PARENT_PREQDELETED, .proc/remove_from_holo_lists)
+				RegisterSignal(holo_effect_product, COMSIG_PARENT_PREQDELETED, PROC_REF(remove_from_holo_lists))
 			if(islist(holo_effect_product))
 				for(var/atom/atom_product as anything in holo_effect_product)
-					RegisterSignal(atom_product, COMSIG_PARENT_PREQDELETED, .proc/remove_from_holo_lists)
+					RegisterSignal(atom_product, COMSIG_PARENT_PREQDELETED, PROC_REF(remove_from_holo_lists))
 			continue
 
 		if(isobj(holo_atom))
@@ -336,7 +341,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 	if(toggleOn)
 		if(last_program && (last_program != offline_program))
-			addtimer(CALLBACK(src,.proc/load_program, last_program, TRUE), 25)
+			addtimer(CALLBACK(src,PROC_REF(load_program), last_program, TRUE), 25)
 		active = TRUE
 	else
 		last_program = program
@@ -345,7 +350,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 /obj/machinery/computer/holodeck/power_change()
 	. = ..()
-	INVOKE_ASYNC(src, .proc/toggle_power, !machine_stat)
+	INVOKE_ASYNC(src, PROC_REF(toggle_power), !machine_stat)
 
 ///shuts down the holodeck and force loads the offline_program
 /obj/machinery/computer/holodeck/proc/emergency_shutdown()
@@ -354,13 +359,12 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	load_program(offline_program, TRUE)
 	ui_update()
 
-///returns TRUE if the entire floor of the holodeck is intact, returns FALSE if any are broken
+///returns TRUE if all floors of the holodeck are present, returns FALSE if any are broken or removed
 /obj/machinery/computer/holodeck/proc/floorcheck()
 	for(var/turf/holo_floor in linked)
-		if(isspaceturf(holo_floor))
-			return FALSE
-		if(!holo_floor.intact)
-			return FALSE
+		if (is_type_in_typecache(holo_floor, GLOB.typecache_holodeck_linked_floorcheck_ok))
+			continue
+		return FALSE
 	return TRUE
 
 ///changes all weapons in the holodeck to do stamina damage if set

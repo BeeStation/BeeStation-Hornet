@@ -69,7 +69,7 @@
 	if(bigZ % 2 == 0)
 		offByOneOffset = 0
 
-	for(var/i = lilZ, i <= bigZ+offByOneOffset, i++)
+	for(var/i in lilZ to bigZ+offByOneOffset)
 		var/theRadius = radius
 		if(i != sphereMagic)
 			theRadius = max(radius/max((2*abs(sphereMagic-i)),1),1)
@@ -108,7 +108,7 @@
 	if(!modules || !modules.len)
 		return
 	for(var/datum/mapGeneratorModule/mod in modules)
-		INVOKE_ASYNC(mod, /datum/mapGeneratorModule.proc/generate)
+		INVOKE_ASYNC(mod, TYPE_PROC_REF(/datum/mapGeneratorModule, generate))
 
 
 //Requests the mapGeneratorModule(s) to (re)generate this one turf
@@ -119,7 +119,7 @@
 	if(!modules || !modules.len)
 		return
 	for(var/datum/mapGeneratorModule/mod in modules)
-		INVOKE_ASYNC(mod, /datum/mapGeneratorModule.proc/place, T)
+		INVOKE_ASYNC(mod, TYPE_PROC_REF(/datum/mapGeneratorModule, place), T)
 
 
 //Replaces all paths in the module list with actual module datums

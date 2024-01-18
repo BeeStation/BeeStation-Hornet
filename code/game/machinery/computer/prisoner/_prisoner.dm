@@ -1,5 +1,5 @@
 /obj/machinery/computer/prisoner
-	var/obj/item/card/id/prisoner/contained_id
+	var/obj/item/card/id/gulag/contained_id
 
 /obj/machinery/computer/prisoner/Destroy()
 	if(contained_id)
@@ -19,10 +19,10 @@
 		return
 	id_eject(user)
 
-/obj/machinery/computer/prisoner/proc/id_insert(mob/user, obj/item/card/id/prisoner/P)
+/obj/machinery/computer/prisoner/proc/id_insert(mob/user, obj/item/card/id/gulag/P)
 	if(!P)
 		var/obj/item/held_item = user.get_active_held_item()
-		if(istype(held_item, /obj/item/card/id/prisoner))
+		if(istype(held_item, /obj/item/card/id/gulag))
 			P = held_item
 
 	if(istype(P))
@@ -52,7 +52,7 @@
 		updateUsrDialog()
 
 /obj/machinery/computer/prisoner/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/card/id/prisoner))
+	if(istype(I, /obj/item/card/id/gulag))
 		id_insert(user, I)
 	else
 		return ..()

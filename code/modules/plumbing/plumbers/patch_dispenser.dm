@@ -23,6 +23,7 @@
 /obj/machinery/plumbing/patch_dispenser/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/patch_dispenser/process()
 	if(machine_stat & NOPOWER)
@@ -64,7 +65,7 @@
 		return
 	switch(action)
 		if("change_patch_size")
-			patch_size = CLAMP(text2num(params["volume"]), 0, 40)
+			patch_size = clamp(text2num(params["volume"]), 0, 40)
 			. = TRUE
 		if("change_patch_name")
 			var/new_name = stripped_input(usr, "Enter a patch name.", name, patch_name)

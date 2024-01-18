@@ -67,7 +67,7 @@
 	var/icon/bluespace
 
 /datum/status_effect/slimerecall/on_apply()
-	RegisterSignal(owner, COMSIG_LIVING_RESIST, .proc/resistField)
+	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(resistField))
 	to_chat(owner, "<span class='danger'>You feel a sudden tug from an unknown force, and feel a pull to bluespace!</span>")
 	to_chat(owner, "<span class='notice'>Resist if you wish avoid the force!</span>")
 	bluespace = icon('icons/effects/effects.dmi',"chronofield")
@@ -89,6 +89,7 @@
 		"<span class='warning'>The unknown force snatches briefly you from reality, and deposits you next to [target]!</span>")
 	do_sparks(3, TRUE, owner)
 	owner.forceMove(target.loc)
+	log_game("[key_name(owner)] was forcefully teleported to [AREACOORD(target)] with a chilling bluespace target, used by [key_name(target)]")
 
 /atom/movable/screen/alert/status_effect/freon/stasis
 	desc = "You're frozen inside of a protective ice cube! While inside, you can't do anything, but are immune to harm! Resist to get out."
@@ -101,7 +102,7 @@
 	var/obj/structure/ice_stasis/cube
 
 /datum/status_effect/frozenstasis/on_apply()
-	RegisterSignal(owner, COMSIG_LIVING_RESIST, .proc/breakCube)
+	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(breakCube))
 	cube = new /obj/structure/ice_stasis(get_turf(owner))
 	owner.forceMove(cube)
 	owner.status_flags |= GODMODE
@@ -476,7 +477,7 @@
 	colour = "orange"
 
 /datum/status_effect/stabilized/orange/tick()
-	var/body_temperature_difference = BODYTEMP_NORMAL - owner.bodytemperature
+	var/body_temperature_difference = owner.get_body_temp_normal(apply_change=FALSE) - owner.bodytemperature
 	owner.adjust_bodytemperature(min(5,body_temperature_difference))
 	return ..()
 
@@ -526,7 +527,7 @@
 		cooldown = max_cooldown
 		var/list/sheets = list()
 		for(var/obj/item/stack/sheet/S in owner.GetAllContents())
-			if(S.amount < S.max_amount)
+			if(S.amount < S.max_amount && !istype(S, /obj/item/stack/sheet/telecrystal))
 				sheets += S
 
 		if(sheets.len > 0)
@@ -606,12 +607,12 @@
 			to_chat(owner, "<span class='notice'>[linked_extract] coats you in a watery goo, extinguishing the flames.</span>")
 	var/obj/O = owner.get_active_held_item()
 	if(O)
-		O.extinguish() //All shamelessly copied from water's expose_obj, since I didn't seem to be able to get it here for some reason.
+		O.extinguish() //All shamelessly copied from water's reaction_obj, since I didn't seem to be able to get it here for some reason.
 		O.acid_level = 0
 	// Monkey cube
-	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
+	if(istype(O, /obj/item/food/monkeycube))
 		to_chat(owner, "<span class='warning'>[linked_extract] kept your hands wet! It makes [O] expand!</span>")
-		var/obj/item/reagent_containers/food/snacks/monkeycube/cube = O
+		var/obj/item/food/monkeycube/cube = O
 		cube.Expand()
 
 	// Dehydrated carp
@@ -969,11 +970,11 @@
 /datum/status_effect/stabilized/rainbow/tick()
 	if(owner.health <= 0)
 		var/obj/item/slimecross/stabilized/rainbow/X = linked_extract
-		if(istype(X))
-			if(X.regencore)
-				X.regencore.afterattack(owner,owner,TRUE)
-				X.regencore = null
-				owner.visible_message("<span class='warning'>[owner] flashes a rainbow of colors, and [owner.p_their()] skin is coated in a milky regenerative goo!</span>")
-				qdel(src)
-				qdel(linked_extract)
+		if(istype(X) && X.regencore)
+			owner.visible_message("<span class='warning'>[owner] flashes a rainbow of colors, and [owner.p_their()] skin is coated in a milky regenerative goo!</span>")
+			X.regencore.core_effect_before(owner, owner)
+			X.regencore.core_effect(owner, owner)
+			X.regencore = null
+			qdel(src)
+			qdel(linked_extract)
 	return ..()

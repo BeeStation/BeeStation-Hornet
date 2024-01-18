@@ -15,8 +15,8 @@
 	processing_flags = START_PROCESSING_MANUALLY
 
 	layer = BELOW_OBJ_LAYER
-	var/points = 0
-	var/sheet_per_ore = 1
+	var/stored_points = 0
+	var/ore_multiplier = 1
 	var/list/ore_values = list(/datum/material/iron = 2, /datum/material/glass = 2, /datum/material/copper = 6, /datum/material/plasma = 19,  /datum/material/silver = 20, /datum/material/gold = 23, /datum/material/titanium = 38, /datum/material/uranium = 38, /datum/material/diamond = 63, /datum/material/bluespace = 63, /datum/material/bananium = 63)
 	/// Variable that holds a timer which is used for callbacks to `send_console_message()`. Used for preventing multiple calls to this proc while the ORM is eating a stack of ores.
 	var/console_notify_timer
@@ -31,21 +31,21 @@
 
 /obj/machinery/mineral/ore_redemption/Destroy()
 	QDEL_NULL(stored_research)
-	materials = null
+	custom_materials = null
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
-	var/sheet_per_ore_temp = 1
+	var/ore_multiplier_temp = 1
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		sheet_per_ore_temp = 0.65 + (0.15 * B.rating) 
+		ore_multiplier_temp = 0.65 + (0.35 * B.rating)
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		sheet_per_ore_temp += (0.20 * L.rating)
-	sheet_per_ore = round(sheet_per_ore_temp, 0.01)
+		ore_multiplier += (0.20 * L.rating)
+	ore_multiplier = round(ore_multiplier_temp, 0.01)
 
 /obj/machinery/mineral/ore_redemption/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Smelting <b>[sheet_per_ore]</b> sheet(s) per piece of ore.</span>"
+		. += "<span class='notice'>The status display reads: Smelting <b>[ore_multiplier]</b> sheet(s) per piece of ore.</span>"
 	if(panel_open)
 		. += "<span class='notice'>Alt-click to rotate the input and output direction.</span>"
 
@@ -66,15 +66,15 @@
 	if(!material_amount)
 		qdel(O) //no materials, incinerate it
 
-	else if(!mat_container.has_space(material_amount * sheet_per_ore * O.amount)) //if there is no space, eject it
+	else if(!mat_container.has_space(material_amount * O.amount)) //if there is no space, eject it
 		unload_mineral(O)
 
 	else
 		if(O?.refined_type)
-			points += O.points * O.amount
-		var/mats = O.materials & mat_container.materials
+			stored_points += O.points * O.amount
+		var/mats = O.custom_materials & mat_container.materials
 		var/amount = O.amount
-		mat_container.insert_item(O, sheet_per_ore) //insert it
+		mat_container.insert_item(O, ore_multiplier) //insert it
 		materials.silo_log(src, "smelted", amount, "someone", mats)
 		qdel(O)
 
@@ -157,7 +157,7 @@
 
 	if(!console_notify_timer)
 		// gives 5 seconds for a load of ores to be sucked up by the ORM before it sends out request console notifications. This should be enough time for most deposits that people make
-		console_notify_timer = addtimer(CALLBACK(src, .proc/send_console_message), 5 SECONDS)
+		console_notify_timer = addtimer(CALLBACK(src, PROC_REF(send_console_message)), 5 SECONDS)
 
 /obj/machinery/mineral/ore_redemption/default_unfasten_wrench(mob/user, obj/item/I)
 	. = ..()
@@ -217,7 +217,7 @@
 
 /obj/machinery/mineral/ore_redemption/ui_data(mob/user)
 	var/list/data = list()
-	data["unclaimedPoints"] = points
+	data["unclaimedPoints"] = stored_points
 
 	data["materials"] = list()
 	var/datum/component/material_container/mat_container = materials.mat_container
@@ -263,16 +263,22 @@
 	var/datum/component/material_container/mat_container = materials.mat_container
 	switch(action)
 		if("Claim")
-			var/mob/M = usr
-			var/obj/item/card/id/I = M.get_idcard(TRUE)
-			if(points)
-				if(I?.mining_points += points)
-					points = 0
-					. = TRUE
-				else
-					to_chat(usr, "<span class='warning'>No ID detected.</span>")
-			else
+			if(!stored_points)
 				to_chat(usr, "<span class='warning'>No points to claim.</span>")
+				return
+
+			var/mob/living/user = usr
+			var/obj/item/card/id/user_id_card = user.get_idcard(TRUE)
+			if(!user_id_card)
+				to_chat(usr, "<span class='warning'>No ID detected.</span>")
+				return
+			if(!user_id_card.registered_account)
+				to_chat(usr, "<span class='warning'>No bank account detected on the ID card.</span>")
+				return
+
+			user_id_card.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, stored_points)
+			stored_points = 0
+			. = TRUE
 		if("Release")
 			if(!mat_container)
 				return
@@ -334,9 +340,9 @@
 				return
 			var/alloy_id = params["id"]
 			var/datum/design/alloy = stored_research.isDesignResearchedID(alloy_id)
-			var/mob/M = usr
-			var/obj/item/card/id/I = M.get_idcard(TRUE)
-			if((check_access(I) || allowed(usr)) && alloy)
+			var/mob/living/user = usr
+			var/obj/item/card/id/user_id_card = user.get_idcard(TRUE)
+			if((check_access(user_id_card) || allowed(usr)) && alloy)
 				var/smelt_amount = can_smelt_alloy(alloy)
 				var/desired = 0
 				if (params["sheets"])
@@ -344,6 +350,8 @@
 				else
 					desired = input("How many sheets?", "How many sheets would you like to smelt?", 1) as null|num
 				var/amount = round(min(desired,50,smelt_amount))
+				if(amount < 1) //no negative mats
+					return
 				mat_container.use_materials(alloy.materials, amount)
 				materials.silo_log(src, "released", -amount, "sheets", alloy.materials)
 				var/output
@@ -359,10 +367,6 @@
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
 	do_sparks(5, TRUE, src)
 	..()
-
-/obj/machinery/mineral/ore_redemption/power_change()
-	..()
-	update_icon()
 
 /obj/machinery/mineral/ore_redemption/update_icon()
 	if(powered())

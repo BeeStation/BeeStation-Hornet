@@ -9,13 +9,14 @@
 	lefthand_file = 'icons/mob/inhands/misc/chairs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/chairs_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
+	item_flags = ISWEAPON
 	force = 8
 	throwforce = 10
 	block_upgrade_walk = 1
 	block_power = 20
 	throw_range = 3
 	hitsound = 'sound/items/trayhit1.ogg'
-	materials = list(/datum/material/iron = 2000)
+	custom_materials = list(/datum/material/iron = 2000)
 	var/break_chance = 5 //Likely hood of smashing the chair.
 	var/obj/structure/chair/origin_type = /obj/structure/chair
 
@@ -43,6 +44,7 @@
 
 	user.visible_message("<span class='notice'>[user] rights \the [src.name].</span>", "<span class='notice'>You right \the [name].</span>")
 	var/obj/structure/chair/C = new origin_type(get_turf(loc))
+	C.set_custom_materials(custom_materials)
 	TransferComponents(C)
 	C.setDir(dir)
 	qdel(src)
@@ -52,11 +54,11 @@
 	if(!stack_type)
 		return
 	var/remaining_mats = initial(origin_type.buildstackamount)
-	remaining_mats-- //Part of the chair was rendered completely unusable. It magically dissapears. Maybe make some dirt?
+	remaining_mats-- //Part of the chair was rendered completely unusable. It magically disappears. Maybe make some dirt?
 	if(remaining_mats)
 		for(var/M=1 to remaining_mats)
 			new stack_type(get_turf(loc))
-	else if(materials[/datum/material/iron])
+	else if(custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)])
 		new /obj/item/stack/rods(get_turf(loc), 2)
 	qdel(src)
 
@@ -78,8 +80,12 @@
 	icon_state = "chair_fancy_toppled"
 	item_state = "chair_fancy"
 	hitsound = 'sound/items/trayhit2.ogg'
-	materials = list(/datum/material/iron = 3000)
+	custom_materials = list(/datum/material/iron = 3000)
 	origin_type = /obj/structure/chair/fancy
+
+/obj/item/chair/greyscale
+	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	origin_type = /obj/structure/chair/greyscale
 
 /obj/item/chair/stool
 	name = "stool"
@@ -103,7 +109,7 @@
 	item_state = "stool_bamboo"
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/stool/bamboo
-	materials = null
+	custom_materials = null
 	break_chance = 50	//Submissive and breakable unlike the chad iron stool
 
 /obj/item/chair/stool/narsie_act()
@@ -118,7 +124,7 @@
 	max_integrity = 70
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/wood
-	materials = null
+	custom_materials = null
 	break_chance = 50
 
 /obj/item/chair/wood/narsie_act()
@@ -142,7 +148,7 @@
 	throw_range = 4
 	origin_type = /obj/structure/chair/fancy/plastic
 	hitsound = 'sound/weapons/genhit1.ogg'
-	materials = list(/datum/material/plastic = 2000)//duh
+	custom_materials = list(/datum/material/plastic = 2000)//duh
 	break_chance = 15 //Submissive and breakable, but can handle an angry demon
 
 /obj/item/chair/plastic/narsie_act()

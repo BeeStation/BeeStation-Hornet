@@ -3,10 +3,10 @@
 	var/desc = "A mutation."
 	var/locked
 	var/quality
-	var/text_gain_indication = ""
-	var/text_lose_indication = ""
 	var/static/list/visual_indicators = list()
 	var/obj/effect/proc_holder/spell/power
+	/// A list of traits to apply to the user whenever this mutation is active.
+	var/list/traits
 	var/layer_used = MUTATIONS_LAYER //which mutation layer to use
 	var/list/species_allowed = list() //to restrict mutation to only certain species
 	var/list/mobtypes_allowed = list() //to restrict mutation to only certain mobs
@@ -44,13 +44,15 @@
 	. = ..()
 	class = class_
 	if(timer)
-		addtimer(CALLBACK(src, .proc/remove), timer)
+		addtimer(CALLBACK(src, PROC_REF(remove)), timer)
 		timed = TRUE
 	if(copymut && istype(copymut, /datum/mutation))
 		copy_mutation(copymut)
+	if(traits && !islist(traits))
+		traits = list(traits)
 
 /datum/mutation/proc/on_acquiring(mob/living/carbon/C)
-	if(!C || !istype(C) || C.stat == DEAD || !C.has_dna() || (src in C.dna.mutations))
+	if(!istype(C) || C.stat == DEAD || !C.has_dna() || (src in C.dna.mutations))
 		return TRUE
 	if(length(mobtypes_allowed) && !mobtypes_allowed.Find(C.type))
 		return TRUE
@@ -68,10 +70,10 @@
 	owner = C
 	dna = C.dna
 	dna.mutations += src
-	if(text_gain_indication)
-		to_chat(owner, text_gain_indication)
 	if(length(visual_indicators))
 		var/list/mut_overlay = list(get_visual_indicator())
+		for (var/mutable_appearance/ma in mut_overlay)
+			ma.layer = CALCULATE_MOB_OVERLAY_LAYER(layer_used)
 		if(owner.overlays_standing[layer_used])
 			mut_overlay = owner.overlays_standing[layer_used]
 			mut_overlay |= get_visual_indicator()
@@ -80,8 +82,10 @@
 		owner.apply_overlay(layer_used)
 	grant_spell() //we do checks here so nothing about hulk getting magic
 	if(!modified && can_chromosome == CHROMOSOME_USED)
-		addtimer(CALLBACK(src, .proc/modify, 5)) //gonna want children calling ..() to run first
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/on_move)
+		addtimer(CALLBACK(src, PROC_REF(modify), 5)) //gonna want children calling ..() to run first
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	for(var/trait in traits)
+		ADD_TRAIT(C, trait, "[type]")
 
 /datum/mutation/proc/get_visual_indicator()
 	return
@@ -100,9 +104,7 @@
 	return
 
 /datum/mutation/proc/on_losing(mob/living/carbon/owner)
-	if(owner && istype(owner) && (owner.dna.mutations.Remove(src)))
-		if(text_lose_indication && owner.stat != DEAD)
-			to_chat(owner, text_lose_indication)
+	if(istype(owner) && (owner.dna.mutations.Remove(src)))
 		if(length(visual_indicators))
 			var/list/mut_overlay = list()
 			if(owner.overlays_standing[layer_used])
@@ -115,8 +117,9 @@
 			owner.RemoveSpell(power)
 			qdel(src)
 		UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
-		return 0
-	return 1
+		REMOVE_TRAITS_IN(owner, "[type]")
+		return FALSE
+	return TRUE
 
 /mob/living/carbon/proc/update_mutations_overlay()
 	if(!has_dna())
@@ -149,7 +152,7 @@
 	modified = TRUE
 
 /datum/mutation/proc/copy_mutation(datum/mutation/HM)
-	if(!HM)
+	if(!istype(HM))
 		return
 	chromosome_name = HM.chromosome_name
 	stabilizer_coeff = HM.stabilizer_coeff
@@ -179,7 +182,10 @@
 	if(!ispath(power) || !owner)
 		return FALSE
 
-	power = new power()
+	if(ispath(power, /obj/effect/proc_holder/spell/targeted/touch/mutation))
+		power = new power(null, src)
+	else
+		power = new power()
 	power.action_background_icon_state = "bg_tech_blue_on"
 	power.panel = "Genetic"
 	owner.AddSpell(power)

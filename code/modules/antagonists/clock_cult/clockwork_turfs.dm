@@ -44,25 +44,27 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/destructible/clockwork/wall_gear
 	baseturfs = /turf/open/floor/clockwork/reebe
-	var/obj/effect/clockwork/overlay/wall/realappearence
+	max_integrity = 1000
+	damage_deflection = 0
 	var/d_state = INTACT
 	flags_1 = NOJAUNT_1
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_BRASS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALLS)
 
 /turf/closed/wall/clockwork/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/wall(src)
 	new /obj/effect/temp_visual/ratvar/beam(src)
-	realappearence = new /obj/effect/clockwork/overlay/wall(src)
-	realappearence.linked = src
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src) //We already smooth ourself in /turf/Initialize()
 
 /turf/closed/wall/clockwork/Destroy()
-	if(realappearence)
-		qdel(realappearence)
-		realappearence = null
-	return ..()
+	. = ..()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/closed/wall/clockwork/ReplaceWithLattice()
 	..()
@@ -75,7 +77,7 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /turf/closed/wall/clockwork/ratvar_act()
 	return 0
@@ -148,16 +150,8 @@
 
 /turf/closed/wall/clockwork/update_icon()
 	. = ..()
-	if(d_state == INTACT)
-		realappearence.icon_state = "clockwork_wall"
-		smoothing_flags = SMOOTH_BITMASK
-		QUEUE_SMOOTH_NEIGHBORS(src)
-		QUEUE_SMOOTH(src)
-	else
-		realappearence.icon_state = "clockwork_wall-[d_state]"
-		smoothing_flags = NUKE_ON_EXPLODING
-		clear_smooth_overlays()
-	realappearence.update_icon()
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 	return
 
 //=================================================
@@ -172,9 +166,10 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	resistance_flags = INDESTRUCTIBLE
 	var/dropped_brass
 	var/uses_overlay = TRUE
-	var/obj/effect/clockwork/overlay/floor/realappearence
+	var/obj/effect/clockwork/overlay/floor/realappearance
 
 /turf/open/floor/clockwork/Bless() //Who needs holy blessings when you have DADDY RATVAR? <- I did not write this, just saying
 	return
@@ -184,12 +179,12 @@
 	if(uses_overlay)
 		new /obj/effect/temp_visual/ratvar/floor(src)
 		new /obj/effect/temp_visual/ratvar/beam(src)
-		realappearence = new /obj/effect/clockwork/overlay/floor(src)
-		realappearence.linked = src
+		realappearance = new /obj/effect/clockwork/overlay/floor(src)
+		realappearance.linked = src
 
 /turf/open/floor/clockwork/Destroy()
-	if(uses_overlay && realappearence)
-		QDEL_NULL(realappearence)
+	if(uses_overlay && realappearance)
+		QDEL_NULL(realappearance)
 	return ..()
 
 /turf/open/floor/clockwork/ReplaceWithLattice()
@@ -229,13 +224,10 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /turf/open/floor/clockwork/ratvar_act(force, ignore_mobs)
 	return 0
-
-/turf/open/floor/clockwork/ex_act(severity, target)
-	return
 
 /turf/open/floor/clockwork/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	return
@@ -281,6 +273,8 @@
 	name = "cog lattice"
 	desc = "A lightweight support lattice. These hold the Justicar's station together."
 	icon = 'icons/obj/smooth_structures/catwalks/lattice_clockwork.dmi'
+	icon_state = "lattice_clockwork-255"
+	base_icon_state = "lattice_clockwork"
 
 /obj/structure/lattice/clockwork/Initialize(mapload)
 	. = ..()
@@ -309,7 +303,7 @@
 	icon_state = "catwalk_clockwork-0"
 	base_icon_state = "catwalk_clockwork"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_OPEN_FLOOR)
+	smoothing_groups = list(SMOOTH_GROUP_OPEN_FLOOR, SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_LATTICE)
 	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
@@ -381,7 +375,7 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /obj/machinery/door/airlock/clockwork/ratvar_act()
 	return 0
@@ -452,7 +446,7 @@
 
 /obj/machinery/door/airlock/clockwork/glass
 	glass = TRUE
-	opacity = 0
+	opacity = FALSE
 
 //=================================================
 //Servant Blocker: Doesn't allow servants to pass
@@ -498,7 +492,7 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /obj/structure/grille/ratvar/ratvar_act()
 	return
@@ -525,7 +519,7 @@
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
-	armor = list("melee" = 40, "bullet" = -20, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 40,  BULLET = -20, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, RAD = 100, FIRE = 80, ACID = 100, STAMINA = 0)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	decon_speed = 40
 	glass_type = /obj/item/stack/sheet/brass
@@ -552,7 +546,7 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /obj/structure/window/reinforced/clockwork/ratvar_act()
 	return FALSE
@@ -569,9 +563,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE)
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
-	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 120
-	level = 3
 	glass_amount = 2
 
 /obj/structure/window/reinforced/clockwork/spawnDebris(location)

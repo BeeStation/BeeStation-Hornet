@@ -21,10 +21,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/computer/turbolift{
-	shuttle_id = "snowdin_mining";
-	time_between_stops = 50
-	},
 /turf/open/floor/engine,
 /area/shuttle/snowdin/elevator2)
 "J" = (
@@ -36,11 +32,9 @@
 	name = "mining elevator";
 	width = 5
 	},
-/obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plating,
 /area/shuttle/snowdin/elevator2)
 "R" = (
-/obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plating,
 /area/shuttle/snowdin/elevator2)
 

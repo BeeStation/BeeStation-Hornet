@@ -3,12 +3,12 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	var/knife_damage
 
-	var/static/list/default_connections = list(COMSIG_ATOM_ENTERED = .proc/knife_crossed)
+	var/static/list/default_connections = list(COMSIG_ATOM_ENTERED = PROC_REF(knife_crossed))
 
 /datum/component/knife_attached_to_movable/Initialize(damage = 0)
 	knife_damage = damage
-	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/knife_crossed)
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/knife_move)
+	RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(knife_crossed))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(knife_move))
 	add_connect_loc_behalf_to_parent()
 
 /datum/component/knife_attached_to_movable/proc/add_connect_loc_behalf_to_parent()

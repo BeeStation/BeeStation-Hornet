@@ -104,7 +104,7 @@
 
 
 /obj/machinery/iv_drip/attackby(obj/item/W, mob/user, params)
-	if(is_type_in_typecache(W, drip_containers))
+	if(is_type_in_typecache(W, drip_containers) || IS_EDIBLE(W))
 		if(beaker)
 			to_chat(user, "<span class='warning'>There is already a reagent container loaded!</span>")
 			return
@@ -144,7 +144,7 @@
 					// speed up transfer on blood packs
 					transfer_amount *= 2
 				var/fraction = min(transfer_amount*delta_time/beaker.reagents.total_volume, 1) //the fraction that is transfered of the total volume
-				beaker.reagents.expose(attached, INJECT, fraction, FALSE) //make reagents reacts, but don't spam messages
+				beaker.reagents.reaction(attached, INJECT, fraction, FALSE) //make reagents reacts, but don't spam messages
 				beaker.reagents.trans_to(attached, transfer_amount)
 				update_icon()
 
@@ -239,7 +239,7 @@
 		return
 	if(user.is_holding_item_of_type(/obj/item/clothing/mask/breath) && can_convert)
 		visible_message("<span class='warning'>[user] attempts to attach the breath mask to [src].</span>", "<span class='notice'>You attempt to attach the breath mask to [src].</span>")
-		if(!do_after(user, 100, FALSE, src))
+		if(!do_after(user, 100, src, timed_action_flags = IGNORE_HELD_ITEM))
 			to_chat(user, "<span class='warning'>You fail to attach the breath mask to [src]!</span>")
 			return
 		var/item = user.is_holding_item_of_type(/obj/item/clothing/mask/breath)
@@ -259,15 +259,18 @@
 	can_convert = FALSE
 
 /obj/machinery/iv_drip/saline/Initialize(mapload)
-    . = ..()
-    beaker = new /obj/item/reagent_containers/glass/saline(src)
+	. = ..()
+	beaker = new /obj/item/reagent_containers/glass/saline(src)
 
-/obj/machinery/iv_drip/saline/update_icon()
-    return
+/obj/machinery/iv_drip/saline/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/update_icon_blocker)
 
 /obj/machinery/iv_drip/saline/eject_beaker()
-    return
+	return
+
 /obj/machinery/iv_drip/saline/toggle_mode()
 	return
+
 #undef IV_TAKING
 #undef IV_INJECTING

@@ -24,9 +24,9 @@
 	singular_name = "human skin piece"
 	novariants = FALSE
 
-/obj/item/stack/sheet/animalhide/human/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.human_recipes
-	return ..()
+/obj/item/stack/sheet/animalhide/human/get_main_recipes()
+	. = ..()
+	. += GLOB.human_recipes
 
 /* Corgi hide */
 
@@ -37,9 +37,9 @@
 	icon_state = "sheet-corgi"
 	item_state = "sheet-corgi"
 
-/obj/item/stack/sheet/animalhide/corgi/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.corgi_recipes
-	return ..()
+/obj/item/stack/sheet/animalhide/corgi/get_main_recipes()
+	. = ..()
+	. += GLOB.corgi_recipes
 
 /* Mothroach hide */
 
@@ -59,9 +59,9 @@
 	icon_state = "sheet-gondola"
 	item_state = "sheet-gondola"
 
-/obj/item/stack/sheet/animalhide/gondola/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.gondola_recipes
-	return ..()
+/obj/item/stack/sheet/animalhide/gondola/get_main_recipes()
+	. = ..()
+	. += GLOB.gondola_recipes
 
 /* Cot hide */
 
@@ -81,9 +81,9 @@
 	icon_state = "sheet-monkey"
 	icon_state = "sheet-monkey"
 
-/obj/item/stack/sheet/animalhide/monkey/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.monkey_recipes
-	return ..()
+/obj/item/stack/sheet/animalhide/monkey/get_main_recipes()
+	. = ..()
+	. += GLOB.monkey_recipes
 
 /* Lizard hide */
 
@@ -103,9 +103,9 @@
 	icon_state = "sheet-xeno"
 	item_state = "sheet-xeno"
 
-/obj/item/stack/sheet/animalhide/xeno/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.xeno_recipes
-	return ..()
+/obj/item/stack/sheet/animalhide/xeno/get_main_recipes()
+	. = ..()
+	. += GLOB.xeno_recipes
 
 /* Ashdrake hide */
 

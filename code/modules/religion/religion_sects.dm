@@ -42,13 +42,16 @@
 	var/list/active_rites
 	/// Whether the structure has CANDLE OVERLAYS!
 	var/candle_overlay = TRUE
+	/// Whether the altar of the gods is anchored
+	var/altar_anchored = TRUE
 
+/datum/religion_sect/proc/is_available(mob/user)
+    return TRUE // basically all available
 
 /datum/religion_sect/New()
 	. = ..()
 	if(desired_items)
 		desired_items_typecache = typecacheof(desired_items)
-	on_select()
 
 /// Activates once selected
 /datum/religion_sect/proc/on_select()
@@ -164,9 +167,9 @@
 		eth_stomach.adjust_charge(60)
 		did_we_charge = TRUE
 
-	//if we're not targetting a robot part we stop early
-	var/obj/item/bodypart/bodypart = blessed.get_bodypart(chap.zone_selected)
-	if(!IS_ORGANIC_LIMB(bodypart))
+	//if we're not targeting a robot part we stop early
+	var/obj/item/bodypart/bodypart = blessed.get_bodypart(chap.get_combat_bodyzone(target, zone_context = BODYZONE_CONTEXT_ROBOTIC_LIMB_HEALING))
+	if(IS_ORGANIC_LIMB(bodypart))
 		if(!did_we_charge)
 			to_chat(chap, "<span class='warning'>[GLOB.deity] scoffs at the idea of healing such fleshy matter!</span>")
 		else
@@ -251,8 +254,6 @@
 	qdel(N)
 	return TRUE
 
-
-
 /**** Carp Sect ****/
 
 /datum/religion_sect/carp_sect
@@ -262,7 +263,7 @@
 	tgui_icon = "fish"
 	alignment = ALIGNMENT_NEUT
 	max_favor = 10000
-	desired_items = list(/obj/item/reagent_containers/food/snacks/meat/slab)
+	desired_items = list(/obj/item/food/meat/slab)
 	rites_list = list(/datum/religion_rites/summon_carp, /datum/religion_rites/flood_area, /datum/religion_rites/summon_carpsuit)
 	altar_icon_state = "convertaltar-blue"
 
@@ -276,10 +277,83 @@
 	return TRUE
 
 /datum/religion_sect/carp_sect/on_sacrifice(obj/item/N, mob/living/L) //and this
-	var/obj/item/reagent_containers/food/snacks/meat/meat = N
+	var/obj/item/food/meat/meat = N
 	if(!istype(meat)) //how...
 		return
 	adjust_favor(20, L)
 	to_chat(L, "<span class='notice'>You offer [meat] to [GLOB.deity], pleasing them and gaining 20 favor in the process.</span>")
 	qdel(N)
 	return TRUE
+
+/**** Plant Sect ****/
+
+/datum/religion_sect/plant_sect
+	name = "Nature"
+	desc = "A sect dedicated to nature, plants, and animals. Sacrificing seeds grants you favor."
+	quote = "Living plant people? What has the world come to!"
+	tgui_icon = "tree"
+	alignment = ALIGNMENT_GOOD
+	max_favor = 10000
+	desired_items = list(/obj/item/seeds)
+	rites_list = list(/datum/religion_rites/create_podperson, /datum/religion_rites/create_sandstone, /datum/religion_rites/grass_generator, /datum/religion_rites/summon_animals)
+	altar_icon_state = "convertaltar-green"
+
+//plant bibles don't heal or do anything special apart from the standard holy water blessings
+/datum/religion_sect/plant_sect/sect_bless(mob/living/blessed, mob/living/user)
+	return TRUE
+
+/datum/religion_sect/plant_sect/on_sacrifice(obj/item/N, mob/living/L)
+	if(!istype(N, /obj/item/seeds))
+		return
+	adjust_favor(25, L)
+	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 25 favor in the process.</span>")
+	qdel(N)
+	return TRUE
+
+/**** Shadow Sect ****/
+
+/datum/religion_sect/shadow_sect
+	starter = FALSE
+	name = "Shadow"
+	desc = "A sect dedicated to the darkness. The manifested obelisks will generate favor from being in darkness."
+	quote = "Turn out the lights, and let the darkness cover the world!"
+	tgui_icon = "moon"
+	alignment = ALIGNMENT_EVIL
+	favor = 100 //Starts off with enough favor to make an obelisk
+	max_favor = 25000
+	desired_items = list(/obj/item/flashlight)
+	rites_list = list(/datum/religion_rites/expand_shadows,/datum/religion_rites/shadow_obelisk, /datum/religion_rites/shadow_conversion,/datum/religion_rites/shadow_blessing,/datum/religion_rites/shadow_eyes)
+	altar_icon_state = "convertaltar-dark"
+	var/light_reach = 1
+	var/light_power = 0
+	var/list/obelisks = list()
+
+/datum/religion_sect/shadow_sect/is_available(mob/user)
+    if(isshadow(user))
+        return TRUE
+    return FALSE
+
+//Shadow bibles don't heal or do anything special apart from the standard holy water blessings
+/datum/religion_sect/shadow_sect/sect_bless(mob/living/blessed, mob/living/user)
+	return TRUE
+
+/datum/religion_sect/shadow_sect/on_sacrifice(obj/item/N, mob/living/L)
+	if(!istype(N, /obj/item/flashlight))
+		return
+	adjust_favor(5, L)
+	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 5 favor in the process.</span>")
+	qdel(N)
+	return TRUE
+
+/datum/religion_sect/shadow_sect/on_select(atom/religious_tool, mob/living/user)
+	. = ..()
+	if(!religious_tool || !user)
+		return
+	religious_tool.AddComponent(/datum/component/dark_favor, user)
+
+/datum/religion_sect/shadow_sect/on_conversion(mob/living/chap) //When sect is selected, and when a new chaplain joins after sect has been selected
+	. = ..()
+	if(is_special_character(chap))
+		to_chat(chap,  "<span class='big notice'>As you are an antagonist role, you are free to spread darkness across the station.</span>")
+	else
+		to_chat(chap,  "<span class='userdanger'>You are not an antagonist, please do not spread darkness outside of the chapel without Command Staff approval.</span>")

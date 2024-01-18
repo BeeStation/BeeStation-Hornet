@@ -17,7 +17,7 @@
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
-	materials = list(/datum/material/iron=750)
+	custom_materials = list(/datum/material/iron=750)
 	var/drain_rate = 2000000	// amount of power to drain per tick
 	var/power_drained = 0 		// has drained this much power
 	var/max_power = 6e8		// maximum power that can be drained before exploding
@@ -25,8 +25,9 @@
 	var/admins_warned = FALSE // stop spam, only warn the admins once that we are about to boom
 
 	var/obj/structure/cable/attached		// the attached cable
+	item_flags = NO_PIXEL_RANDOM_DROP
 
-/obj/item/powersink/update_icon()
+/obj/item/powersink/update_icon_state()
 	icon_state = "powersink[mode == OPERATING]"
 	return ..()
 
@@ -64,7 +65,7 @@
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(mode == DISCONNECTED)
 			var/turf/T = loc
-			if(isturf(T) && !T.intact)
+			if(isturf(T) && T.underfloor_accessibility >= UNDERFLOOR_INTERACTABLE)
 				attached = locate() in T
 				if(!attached)
 					to_chat(user, "<span class='warning'>\The [src] must be placed over an exposed, powered cable node!</span>")

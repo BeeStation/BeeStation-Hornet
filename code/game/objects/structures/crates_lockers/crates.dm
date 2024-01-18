@@ -5,7 +5,7 @@
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
-	icon = 'icons/obj/crates.dmi'
+	icon = 'icons/obj/storage/crates.dmi'
 	icon_state = "crate"
 	req_access = null
 	can_weld_shut = FALSE
@@ -13,31 +13,34 @@
 	allow_objects = TRUE
 	allow_dense = TRUE
 	dense_when_open = TRUE
-	climbable = TRUE
-	climb_time = 10 //real fast, because let's be honest stepping into or onto a crate is easy
-	climb_stun = 0 //climbing onto crates isn't hard, guys
 	delivery_icon = "deliverycrate"
 	door_anim_time = 3
-	door_anim_angle = 180
-	door_hinge = 3.5
+	door_anim_angle = 120 // how fast the angle should go?
+	door_hinge = 1 //how high the hinge should go?
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
 	open_sound_volume = 35
 	close_sound_volume = 50
-	drag_slowdown = 0
-	var/azimuth_angle_2 = 138 //in this context the azimuth angle for over 90 degree
-	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
+	drag_slowdown = 1.5
+	imacrate = TRUE
+	var/crate_climb_time = 20
+	var/azimuth_angle_2 = 180 //in this context the azimuth angle for over 90 degree
 	var/radius_2 = 1.35
 	var/static/list/animation_math //assoc list with pre calculated values
 
 /obj/structure/closet/crate/Initialize(mapload)
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0) //add element in closed state before parent init opens it(if it does)
 	. = ..()
 	if(animation_math == null) //checks if there is already a list for animation_math if not creates one to avoid runtimes
 		animation_math = new/list()
 	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"])
 		animation_list()
 
-/obj/structure/closet/crate/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/closet/crate/Destroy()
+	QDEL_NULL(manifest)
+	return ..()
+
+/obj/structure/closet/crate/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(!istype(mover, /obj/structure/closet))
 		var/obj/structure/closet/crate/locatedcrate = locate(/obj/structure/closet/crate) in get_turf(mover)
@@ -46,23 +49,6 @@
 				return TRUE
 			if(!locatedcrate.opened) //otherwise, if the located crate is closed, allow entering
 				return TRUE
-
-/obj/structure/closet/crate/update_icon()
-	cut_overlays()
-	if(!opened)
-		layer = OBJ_LAYER
-		if(!is_animating_door)
-			if(icon_door)
-				add_overlay("[icon_door]_door")
-			else
-				add_overlay("[icon_state]_door")
-	else
-		layer = BELOW_OBJ_LAYER
-		if(!is_animating_door)
-			if(icon_door_override)
-				add_overlay("[icon_door]_open")
-			else
-				add_overlay("[icon_state]_open")
 
 /obj/structure/closet/crate/animate_door(var/closing = FALSE)
 	if(!door_anim_time)
@@ -75,7 +61,7 @@
 	var/num_steps = door_anim_time / world.tick_lag
 	var/list/animation_math_list = animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"]
 	for(var/I in 0 to num_steps)
-		var/door_state = I == (closing ? num_steps : 0) ? "[icon_door || icon_state]_door" : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
+		var/door_state = I == (closing ? num_steps : 0) ? "[icon_door || icon_state]_door" : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? "[icon_state]_back" : "[icon_door || icon_state]_door"
 		var/door_layer = I == (closing ? num_steps : 0) ? ABOVE_MOB_LAYER : animation_math_list[closing ? 2 * num_steps - I : num_steps + I] <= 0 ? FLOAT_LAYER : ABOVE_MOB_LAYER
 		var/matrix/M = get_door_transform(I == (closing ? num_steps : 0) ? 0 : animation_math_list[closing ? num_steps - I : I], I == (closing ? num_steps : 0) ? 1 : animation_math_list[closing ?  2 * num_steps - I : num_steps + I])
 		if(I == 0)
@@ -86,7 +72,7 @@
 			animate(door_obj, transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
 		else
 			animate(transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag)
-	addtimer(CALLBACK(src,.proc/end_door_animation),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src,PROC_REF(end_door_animation)),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /obj/structure/closet/crate/end_door_animation()
 	is_animating_door = FALSE
@@ -120,14 +106,25 @@
 	if(manifest)
 		tear_manifest(user)
 
+/obj/structure/closet/crate/after_open(mob/living/user, force)
+	. = ..()
+	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
+
+/obj/structure/closet/crate/after_close(mob/living/user)
+	. = ..()
+	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
+
+
 /obj/structure/closet/crate/open(mob/living/user)
 	. = ..()
 	if(. && manifest)
 		to_chat(user, "<span class='notice'>The manifest is torn off [src].</span>")
-		playsound(src, 'sound/items/poster_ripped.ogg', 75, 1)
+		playsound(src, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove(get_turf(src))
 		manifest = null
-		update_icon()
+		update_appearance()
 
 /obj/structure/closet/crate/proc/tear_manifest(mob/user)
 	to_chat(user, "<span class='notice'>You tear the manifest off of [src].</span>")
@@ -165,7 +162,6 @@
 	desc = "A heavy, metal trashcart with wheels."
 	name = "trash cart"
 	icon_state = "trashcart"
-	door_anim_time = 0
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
@@ -176,9 +172,6 @@
 	desc = "A freezer."
 	name = "freezer"
 	icon_state = "freezer"
-	door_hinge = 5
-	door_anim_angle = 165
-	azimuth_angle_2 = 145
 
 //Snowflake organ freezer code
 //Order is important, since we check source, we need to do the check whenever we have all the organs in the crate
@@ -297,3 +290,48 @@
 	..()
 	for(var/i in 1 to 5)
 		new /obj/item/coin/silver(src)
+
+/obj/structure/closet/crate/capsule
+	name = "bluespace capsule"
+	desc = "A capsule that can shrink in size for easy transportation of most goods."
+	icon = 'icons/obj/storage/crates.dmi'
+	icon_state = "capsule"
+	open_sound = 'sound/machines/capsule_open.ogg'
+	close_sound = 'sound/machines/capsule_close.ogg'
+	icon_door = null
+	mob_storage_capacity = 0
+	dense_when_open = FALSE
+	///Becomes TRUE when the crate is being closed to ensure the compression sequence completes as expected.
+	var/closing = FALSE
+
+/obj/structure/closet/crate/capsule/update_icon()
+	cut_overlays()
+	icon_state = "capsule[opened ? "_open" : "_close"]"
+
+/obj/structure/closet/crate/capsule/animate_door(closing)
+	return FALSE
+
+/obj/structure/closet/crate/capsule/insertion_allowed(atom/movable/AM)
+	if(!isitem(AM))
+		return FALSE //Capsule pod can only hold items, not mobs, structures or otherwise
+	var/obj/item/I = AM
+	if(I.w_class >= WEIGHT_CLASS_BULKY) //capsule pod can't hold bulky or larger objects
+		return FALSE
+	return ..()
+
+/obj/structure/closet/crate/capsule/close(mob/living/user)
+	if(!closing)
+		closing = TRUE
+		addtimer(CALLBACK(src, PROC_REF(compress)), 2 SECONDS)
+		return ..()
+
+/obj/structure/closet/crate/capsule/open(mob/living/user)
+	if(!closing)
+		return ..()
+
+/obj/structure/closet/crate/capsule/proc/compress()
+	visible_message("<span class='notice'>[src] compresses back into a small capsule!.</span>")
+	var/obj/item/bluespace_capsule/C = new(loc)
+	for(var/atom/movable/A in contents)
+		A.forceMove(C)
+	qdel(src)

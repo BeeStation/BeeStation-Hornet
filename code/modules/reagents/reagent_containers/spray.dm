@@ -6,7 +6,7 @@
 	item_state = "cleaner"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	item_flags = NOBLUDGEON
+	item_flags = NOBLUDGEON | ISWEAPON
 	reagent_flags = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
@@ -56,7 +56,7 @@
 
 	log_combat(user, T, "sprayed", src, addition="which had [contained]")
 	log_game("[key_name(user)] fired [contained] from \a [src] at [AREACOORD(T)].") //copypasta falling out of my pockets
-	return
+	return TRUE
 
 
 /obj/item/reagent_containers/spray/proc/spray(atom/A, mob/user)
@@ -109,7 +109,7 @@
 		return
 	if(isturf(usr.loc) && src.loc == usr)
 		to_chat(usr, "<span class='notice'>You empty \the [src] onto the floor.</span>")
-		reagents.expose(usr.loc)
+		reagents.reaction(usr.loc)
 		src.reagents.clear_reagents()
 
 /obj/item/reagent_containers/spray/on_reagent_change(changetype)
@@ -121,7 +121,7 @@
 
 	if(total_reagent_weight && amount_of_reagents) //don't bother if the container is empty - DIV/0
 		var/average_reagent_weight = total_reagent_weight / amount_of_reagents
-		spray_range = CLAMP(round((initial(spray_range) / average_reagent_weight) - ((amount_of_reagents - 1) * 1)), 3, 5) //spray distance between 3 and 5 tiles rounded down; extra reagents lose a tile
+		spray_range = clamp(round((initial(spray_range) / average_reagent_weight) - ((amount_of_reagents - 1) * 1)), 3, 5) //spray distance between 3 and 5 tiles rounded down; extra reagents lose a tile
 	else
 		spray_range = initial(spray_range)
 	if(stream_mode == 0)
@@ -136,9 +136,9 @@
 	amount_per_transfer_from_this = 2
 	stream_amount = 5
 
-/obj/item/reagent_containers/spray/cleaner/suicide_act(mob/user)
+/obj/item/reagent_containers/spray/cleaner/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is putting the nozzle of \the [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	if(do_mob(user,user,30))
+	if(do_after(user, 3 SECONDS))
 		if(reagents.total_volume >= amount_per_transfer_from_this)//if not empty
 			user.visible_message("<span class='suicide'>[user] pulls the trigger!</span>")
 			src.spray(user)
@@ -156,34 +156,6 @@
 	volume = 50
 	desc = "Gyaro brand spray tan. Do not spray near eyes or other orifices."
 	list_reagents = list(/datum/reagent/spraytan = 50)
-
-
-//pepperspray
-/obj/item/reagent_containers/spray/pepper
-	name = "pepperspray"
-	desc = "Manufactured by UhangInc, used to blind and down an opponent quickly."
-	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "pepperspray"
-	item_state = "pepperspray"
-	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	volume = 50
-	stream_range = 4
-	amount_per_transfer_from_this = 5
-	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 50)
-
-/obj/item/reagent_containers/spray/pepper/empty //for protolathe printing
-	list_reagents = null
-
-/obj/item/reagent_containers/spray/pepper/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins huffing \the [src]! It looks like [user.p_theyre()] getting a dirty high!</span>")
-	return OXYLOSS
-
-// Fix pepperspraying yourself
-/obj/item/reagent_containers/spray/pepper/afterattack(atom/A as mob|obj, mob/user)
-	if (A.loc == user)
-		return
-	. = ..()
 
 //water flower
 /obj/item/reagent_containers/spray/waterflower
@@ -257,7 +229,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	throwforce = 0
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	stream_mode = 1
 	current_range = 7
 	spray_range = 4
@@ -278,7 +250,7 @@
 	var/turf/T2 = get_step(T,turn(direction, -90))
 	var/list/the_targets = list(T,T1,T2)
 
-	for(var/i=1, i<=3, i++) // intialize sprays
+	for(var/i in 1 to 3) // intialize sprays
 		if(reagents.total_volume < 1)
 			return
 		..(the_targets[i], user)
@@ -384,6 +356,6 @@
 
 /obj/item/reagent_containers/spray/cyborg/acid
 	name = "acid spray"
-	desc = "A spray filled with sulphuric acid for offensive use."
+	desc = "A spray filled with sulfuric acid for offensive use."
 	color = "#00FF32"
 	set_reagent = /datum/reagent/toxin/acid

@@ -2,8 +2,7 @@
 	dupe_mode = COMPONENT_DUPE_ALLOWED
 	var/list/datum/disease/diseases //make sure these are the static, non-processing versions!
 	var/expire_time
-	var/min_clean_strength = CLEAN_WEAK
-
+	var/required_clean_types = CLEAN_TYPE_DISEASE
 
 /datum/component/infective/Initialize(list/datum/disease/_diseases, expire_in)
 	if(islist(_diseases))
@@ -20,23 +19,23 @@
 		return COMPONENT_INCOMPATIBLE
 
 	var/static/list/disease_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/try_infect_crossed,
+		COMSIG_ATOM_ENTERED = PROC_REF(try_infect_crossed),
 	)
 	AddComponent(/datum/component/connect_loc_behalf, parent, disease_connections)
 
-	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean)
-	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, .proc/try_infect_buckle)
-	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, .proc/try_infect_collide)
-	RegisterSignal(parent, COMSIG_MOVABLE_IMPACT_ZONE, .proc/try_infect_impact_zone)
-	RegisterSignal(parent, COMSIG_ATOM_EXTRAPOLATOR_ACT, .proc/extrapolation)
+	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean))
+	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, PROC_REF(try_infect_buckle))
+	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(try_infect_collide))
+	RegisterSignal(parent, COMSIG_MOVABLE_IMPACT_ZONE, PROC_REF(try_infect_impact_zone))
+	RegisterSignal(parent, COMSIG_ATOM_EXTRAPOLATOR_ACT, PROC_REF(extrapolation))
 	if(isitem(parent))
-		RegisterSignal(parent, COMSIG_ITEM_ATTACK_ZONE, .proc/try_infect_attack_zone)
-		RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/try_infect_attack)
-		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/try_infect_equipped)
+		RegisterSignal(parent, COMSIG_ITEM_ATTACK_ZONE, PROC_REF(try_infect_attack_zone))
+		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_infect_attack))
+		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(try_infect_equipped))
 		if(istype(parent, /obj/item/reagent_containers/food/snacks))
-			RegisterSignal(parent, COMSIG_FOOD_EATEN, .proc/try_infect_eat)
+			RegisterSignal(parent, COMSIG_FOOD_EATEN, PROC_REF(try_infect_eat))
 	else if(istype(parent, /obj/effect/decal/cleanable/blood/gibs))
-		RegisterSignal(parent, COMSIG_GIBS_STREAK, .proc/try_infect_streak)
+		RegisterSignal(parent, COMSIG_GIBS_STREAK, PROC_REF(try_infect_streak))
 
 /datum/component/infective/proc/try_infect_eat(datum/source, mob/living/eater, mob/living/feeder)
 	SIGNAL_HANDLER
@@ -45,11 +44,10 @@
 		eater.ForceContractDisease(V)
 	try_infect(feeder, BODY_ZONE_L_ARM)
 
-/datum/component/infective/proc/clean(datum/source, clean_strength)
-	SIGNAL_HANDLER
-
-	if(clean_strength >= min_clean_strength)
+/datum/component/infective/proc/clean(datum/source, clean_types)
+	if(clean_types & required_clean_types)
 		qdel(src)
+		return TRUE
 
 /datum/component/infective/proc/try_infect_buckle(datum/source, mob/M, force)
 	SIGNAL_HANDLER
@@ -116,10 +114,6 @@
 	for(var/V in diseases)
 		L.ContactContractDisease(V, target_zone)
 
-/datum/component/infective/proc/extrapolation(datum/source, mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+/datum/component/infective/proc/extrapolation(datum/source, mob/user, obj/item/extrapolator/extrapolator, dry_run = FALSE, list/result)
 	SIGNAL_HANDLER
-
-	if(scan)
-		E.scan(source, diseases, user)
-	else
-		INVOKE_ASYNC(E, /obj/item/extrapolator.proc/extrapolate, source, diseases, user)
+	EXTRAPOLATOR_ACT_ADD_DISEASES(result, diseases)

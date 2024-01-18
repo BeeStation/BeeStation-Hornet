@@ -32,7 +32,7 @@
 		amount_per_transfer_from_this = initial(amount_per_transfer_from_this)
 	to_chat(user, "<span class='notice'>You will now apply the medspray's contents in [squirt_mode ? "short bursts":"extended sprays"]. You'll now use [amount_per_transfer_from_this] units per use.</span>")
 
-/obj/item/reagent_containers/medspray/attack(mob/living/carbon/M, mob/user, def_zone)
+/obj/item/reagent_containers/medspray/attack(mob/living/carbon/M, mob/user)
 	if(!iscarbon(M))
 		return
 
@@ -40,7 +40,19 @@
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
 
-	var/obj/item/bodypart/affecting = M.get_bodypart(check_zone(user.zone_selected))
+	var/datum/task/target_zone_task = user.select_bodyzone(M, FALSE, BODYZONE_STYLE_MEDICAL)
+	target_zone_task.continue_with(CALLBACK(src, PROC_REF(do_spray), M, user))
+
+/obj/item/reagent_containers/medspray/proc/do_spray(mob/living/carbon/M, mob/user, def_zone)
+	if (!def_zone)
+		return
+	if (!user.can_interact_with(M, TRUE))
+		balloon_alert(user, "[M] is too far away!")
+		return
+	if (!user.can_interact_with(src, TRUE))
+		balloon_alert(user, "[src] is too far away!")
+		return
+	var/obj/item/bodypart/affecting = M.get_bodypart(check_zone(def_zone))
 	if(!affecting)
 		balloon_alert(user, "The limb is missing.")
 		return
@@ -51,7 +63,7 @@
 	if(M == user)
 		M.visible_message("<span class='notice'>[user] attempts to [apply_method] [src] on [user.p_them()]self.</span>")
 		if(self_delay)
-			if(!do_mob(user, M, self_delay))
+			if(!do_after(user, self_delay, M))
 				return
 			if(!reagents || !reagents.total_volume)
 				return
@@ -61,7 +73,7 @@
 		log_combat(user, M, "attempted to apply", src, reagents.log_list())
 		M.visible_message("<span class='danger'>[user] attempts to [apply_method] [src] on [M].</span>", \
 							"<span class='userdanger'>[user] attempts to [apply_method] [src] on [M].</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, target = M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return
@@ -74,6 +86,8 @@
 	else
 		log_combat(user, M, "applied", src, reagents.log_list())
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
+		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
+		reagents.reaction(M, apply_type, fraction, affecting = affecting)
 		reagents.trans_to(M, amount_per_transfer_from_this, transfered_by = user)
 	return
 

@@ -5,14 +5,15 @@
 */
 
 // The default UI style is the first one in the list
-GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
+GLOBAL_LIST_INIT(available_ui_styles, list(
 	"Midnight" = 'icons/mob/screen_midnight.dmi',
-	"Retro" = 'icons/mob/screen_retro.dmi',
 	"Plasmafire" = 'icons/mob/screen_plasmafire.dmi',
 	"Slimecore" = 'icons/mob/screen_slimecore.dmi',
 	"Operative" = 'icons/mob/screen_operative.dmi',
-	"Clockwork" = 'icons/mob/screen_clockwork.dmi'
-)))
+	"Clockwork" = 'icons/mob/screen_clockwork.dmi',
+	"Trasen-Knox" = 'icons/mob/screen_trasenknox.dmi',
+	"Retro" = 'icons/mob/screen_retro.dmi'
+))
 
 /proc/ui_style2icon(ui_style)
 	return GLOB.available_ui_styles[ui_style] || GLOB.available_ui_styles[GLOB.available_ui_styles[1]]
@@ -42,6 +43,8 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	var/atom/movable/screen/throw_icon
 	var/atom/movable/screen/module_store_icon
 
+	var/custom_hud_locs = FALSE
+
 	var/list/static_inventory = list() //the screen objects which are static
 	var/list/toggleable_inventory = list() //the screen objects which can be hidden
 	var/list/atom/movable/screen/hotkeybuttons = list() //the buttons that can be used via hotkeys
@@ -69,16 +72,16 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 
 	if (!ui_style)
 		// will fall back to the default if any of these are null
-		ui_style = ui_style2icon(owner.client && owner.client.prefs && owner.client.prefs.UI_style)
+		ui_style = ui_style2icon(owner.client?.prefs?.read_player_preference(/datum/preference/choiced/ui_style))
 
 	hide_actions_toggle = new
 	hide_actions_toggle.InitialiseIcon(src)
 	if(mymob.client)
-		hide_actions_toggle.locked = mymob.client.prefs.toggles2 & PREFTOGGLE_2_LOCKED_BUTTONS
+		hide_actions_toggle.locked = mymob.client.prefs.read_player_preference(/datum/preference/toggle/buttons_locked)
 
 	hand_slots = list()
 
-	for(var/mytype in subtypesof(/atom/movable/screen/plane_master)- /atom/movable/screen/plane_master/rendering_plate)
+	for(var/mytype in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/rendering_plate)
 		var/atom/movable/screen/plane_master/instance = new mytype()
 		plane_masters["[instance.plane]"] = instance
 		instance.backdrop(mymob)
@@ -142,6 +145,9 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	if(!screenmob.client)
 		return FALSE
 
+	if(screenmob.client.prefs?.character_preview_view) // Changing HUDs clears the screen, we need to reregister then.
+		screenmob.client.prefs.character_preview_view.unregister_from_client(screenmob.client)
+
 	screenmob.client.screen = list()
 	screenmob.client.apply_clickcatcher()
 
@@ -167,7 +173,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 
 			screenmob.client.screen += hide_actions_toggle
 
-			if(action_intent)
+			if(action_intent && !custom_hud_locs)
 				action_intent.screen_loc = initial(action_intent.screen_loc) //Restore intent selection to the original position
 
 		if(HUD_STYLE_REDUCED)	//Reduced HUD
@@ -188,7 +194,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 				var/atom/movable/screen/hand = hand_slots[h]
 				if(hand)
 					screenmob.client.screen += hand
-			if(action_intent)
+			if(action_intent && !custom_hud_locs)
 				screenmob.client.screen += action_intent		//we want the intent switcher visible
 				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
 
@@ -219,6 +225,9 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 			show_hud(hud_version, M)
 	else if (viewmob.hud_used)
 		viewmob.hud_used.plane_masters_update()
+
+	if(screenmob.client.prefs?.character_preview_view) // Changing HUDs clears the screen, we need to reregister then.
+		screenmob.client.prefs.character_preview_view.register_to_client(screenmob.client)
 
 	return TRUE
 

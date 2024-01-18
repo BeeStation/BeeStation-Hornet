@@ -90,9 +90,8 @@
 			ai.client.eye = src
 		update_ai_detect_hud()
 		//Holopad
-		if(istype(ai.current, /obj/machinery/holopad))
-			var/obj/machinery/holopad/H = ai.current
-			H.move_hologram(ai, destination)
+		if(istype(ai.current_holopad, /obj/machinery/holopad))
+			ai.current_holopad.move_hologram(ai, destination)
 		if(ai.camera_light_on)
 			ai.light_cameras()
 		if(ai.master_multicam)
@@ -128,6 +127,7 @@
 
 /mob/camera/ai_eye/Destroy()
 	if(ai)
+		transfer_observers_to(ai) // eye mob is destroyed for some reason...
 		ai.all_eyes -= src
 		ai = null
 	for(var/V in visibleCameraChunks)
@@ -175,11 +175,10 @@
 
 // Return to the Core.
 /mob/living/silicon/ai/proc/view_core()
-	if(istype(current,/obj/machinery/holopad))
-		var/obj/machinery/holopad/H = current
-		H.clear_holo(src)
+	if(istype(current_holopad, /obj/machinery/holopad))
+		current_holopad.clear_holo(src)
 	else
-		current = null
+		current_holopad = null
 	if(ai_tracking_target)
 		ai_stop_tracking()
 	unset_machine()
@@ -188,18 +187,19 @@
 		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
 		create_eye()
 
-	eyeobj?.setLoc(loc)
+	transfer_observers_to(eyeobj) // ai core to eyemob
+	eyeobj.setLoc(loc)
 
 /mob/living/silicon/ai/proc/create_eye()
-	if(eyeobj)
-		return
-	eyeobj = new /mob/camera/ai_eye()
-	all_eyes += eyeobj
-	eyeobj.ai = src
-	eyeobj.setLoc(loc)
-	eyeobj.name = "[name] (AI Eye)"
-	eyeobj.real_name = eyeobj.name
-	set_eyeobj_visible(TRUE)
+	if(!eyeobj || QDELETED(eyeobj))
+		eyeobj = new /mob/camera/ai_eye()
+		all_eyes += eyeobj
+		eyeobj.ai = src
+		eyeobj.setLoc(loc)
+		eyeobj.name = "[name] (AI Eye)"
+		eyeobj.real_name = eyeobj.name
+		set_eyeobj_visible(TRUE)
+		transfer_observers_to(eyeobj)
 
 /mob/living/silicon/ai/proc/set_eyeobj_visible(state = TRUE)
 	if(!eyeobj)

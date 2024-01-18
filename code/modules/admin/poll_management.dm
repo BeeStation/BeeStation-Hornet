@@ -328,7 +328,7 @@ SELECT p.text, pv.rating, COUNT(*)
 					output += "<hr style='background:#000000; border:0; height:3px'>"
 	var/datum/browser/panel = new(usr, "pmpanel", "Poll Management Panel", 780, 640)
 	panel.add_stylesheet("admin_panelscss", 'html/admin/admin_panels.css')
-	if(usr.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI) //some browsers (IE8) have trouble with unsupported css3 elements that break the panel's functionality, so we won't load those if a user is in no frills tgui mode since that's for similar compatability support
+	if(usr.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy)) //some browsers (IE8) have trouble with unsupported css3 elements that break the panel's functionality, so we won't load those if a user is in no frills tgui mode since that's for similar compatability support
 		panel.add_stylesheet("admin_panelscss3", 'html/admin/admin_panels_css3.css')
 	panel.set_content(jointext(output, ""))
 	panel.open()
@@ -638,7 +638,7 @@ SELECT p.text, pv.rating, COUNT(*)
 		panel_height = 320
 	var/datum/browser/panel = new(usr, "popanel", "Poll Option Panel", 370, panel_height)
 	panel.add_stylesheet("admin_panelscss", 'html/admin/admin_panels.css')
-	if(usr.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI) //some browsers (IE8) have trouble with unsupported css3 elements that break the panel's functionality, so we won't load those if a user is in no frills tgui mode since that's for similar compatability support
+	if(usr.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy)) //some browsers (IE8) have trouble with unsupported css3 elements that break the panel's functionality, so we won't load those if a user is in no frills tgui mode since that's for similar compatability support
 		panel.add_stylesheet("admin_panelscss3", 'html/admin/admin_panels_css3.css')
 	panel.set_content(jointext(output, ""))
 	panel.open()
@@ -808,7 +808,7 @@ SELECT p.text, pv.rating, COUNT(*)
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
-	var/datum/DBQuery/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT byond_key FROM [format_table_name("player")] AS p WHERE p.ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0), IF(starttime > NOW() AND endtime < NOW(), 1, 0), minimumplaytime FROM [format_table_name("poll_question")] AS q WHERE deleted = 0")
+	var/datum/DBQuery/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT byond_key FROM [format_table_name("player")] AS p WHERE p.ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0), IF(starttime < NOW() AND NOW() < endtime, 1, 0), minimumplaytime FROM [format_table_name("poll_question")] AS q WHERE deleted = 0")
 	if(!query_load_polls.Execute())
 		qdel(query_load_polls)
 		return

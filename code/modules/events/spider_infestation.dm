@@ -37,7 +37,7 @@
 		message_admins("An event attempted to spawn spiders but no suitable vents were found. Aborting.")
 		return MAP_ERROR
 
-	var/list/candidates = get_candidates(ROLE_SPIDER, null, ROLE_SPIDER)
+	var/list/candidates = get_candidates(ROLE_SPIDER, /datum/role_preference/midround_ghost/spider, POLL_IGNORE_SPIDER)
 
 	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS
@@ -48,12 +48,13 @@
 		var/obj/vent = pick_n_take(vents)
 		var/client/C = pick_n_take(candidates)
 
-		var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/spooder = new(vent.loc)
+		var/mob/living/simple_animal/hostile/poison/giant_spider/broodmother/spooder = new(vent.loc)
 		spooder.key = C.key
 		var/datum/antagonist/spider/spider_antag = spooder.mind.has_antag_datum(/datum/antagonist/spider)
 		spider_antag.set_spider_team(spider_team)
 		if(fed)
-			spooder.enriched_fed++ // Give our spiders some friends to help them get started
+			spooder.fed += 3 // Give our spiders some friends to help them get started
+			spooder.lay_eggs.UpdateButtonIcon()
 			fed--
 		spawncount--
 		message_admins("[ADMIN_LOOKUPFLW(spooder)] has been made into a spider by an event.")

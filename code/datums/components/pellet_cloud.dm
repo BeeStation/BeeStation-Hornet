@@ -67,14 +67,14 @@
 	return ..()
 
 /datum/component/pellet_cloud/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, .proc/nullspace_parent)
+	RegisterSignal(parent, COMSIG_PARENT_PREQDELETED, PROC_REF(nullspace_parent))
 	if(isammocasing(parent))
-		RegisterSignal(parent, COMSIG_PELLET_CLOUD_INIT, .proc/create_casing_pellets)
+		RegisterSignal(parent, COMSIG_PELLET_CLOUD_INIT, PROC_REF(create_casing_pellets))
 	else if(isgrenade(parent))
-		RegisterSignal(parent, COMSIG_GRENADE_ARMED, .proc/grenade_armed)
-		RegisterSignal(parent, COMSIG_GRENADE_PRIME, .proc/create_blast_pellets)
+		RegisterSignal(parent, COMSIG_GRENADE_ARMED, PROC_REF(grenade_armed))
+		RegisterSignal(parent, COMSIG_GRENADE_PRIME, PROC_REF(create_blast_pellets))
 	else if(islandmine(parent))
-		RegisterSignal(parent, COMSIG_MINE_TRIGGERED, .proc/create_blast_pellets)
+		RegisterSignal(parent, COMSIG_MINE_TRIGGERED, PROC_REF(create_blast_pellets))
 
 /datum/component/pellet_cloud/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_PARENT_PREQDELETED, COMSIG_PELLET_CLOUD_INIT, COMSIG_GRENADE_PRIME, COMSIG_GRENADE_ARMED, COMSIG_MOVABLE_MOVED, COMSIG_MINE_TRIGGERED, COMSIG_ITEM_DROPPED))
@@ -91,7 +91,7 @@
 	shooter = user
 	var/turf/targloc = get_turf(target)
 	if(!zone_override)
-		zone_override = shooter.zone_selected
+		zone_override = shooter.get_combat_bodyzone(target)
 
 	for(var/i in 1 to num_pellets)
 		shell.ready_proj(target, user, SUPPRESSED_VERY, zone_override, fired_from)
@@ -101,13 +101,13 @@
 			else //Smart spread
 				spread = round((i / num_pellets - 0.5) * distro)
 
-		RegisterSignal(shell.BB, COMSIG_PROJECTILE_SELF_ON_HIT, .proc/pellet_hit)
-		RegisterSignal(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), .proc/pellet_range)
+		RegisterSignal(shell.BB, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
+		RegisterSignals(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), PROC_REF(pellet_range))
 		pellets += shell.BB
 		var/turf/current_loc = get_turf(user)
 		if(!istype(targloc) || !istype(current_loc))
 			return
-		INVOKE_ASYNC(shell, /obj/item/ammo_casing.proc/throw_proj, target, targloc, shooter, params, spread)
+		INVOKE_ASYNC(shell, TYPE_PROC_REF(/obj/item/ammo_casing, throw_proj), target, targloc, shooter, params, spread)
 		if(i != num_pellets)
 			shell.newshot()
 
@@ -122,7 +122,7 @@
 	var/atom/A = parent
 
 	if(isgrenade(parent)) // handle_martyrs can reduce the radius and thus the number of pellets we produce if someone dives on top of a frag grenade
-		INVOKE_ASYNC(src, .proc/handle_martyrs, lanced_by) // note that we can modify radius in this proc
+		INVOKE_ASYNC(src, PROC_REF(handle_martyrs), lanced_by) // note that we can modify radius in this proc
 
 	if(radius < 1)
 		return
@@ -132,7 +132,7 @@
 
 	for(var/T in all_the_turfs_were_gonna_lacerate)
 		var/turf/shootat_turf = T
-		INVOKE_ASYNC(src, .proc/pew, shootat_turf)
+		INVOKE_ASYNC(src, PROC_REF(pew), shootat_turf)
 
 /**
   * handle_martyrs() is used for grenades that shoot shrapnel to check if anyone threw themselves/were thrown on top of the grenade, thus absorbing a good chunk of the shrapnel
@@ -180,7 +180,7 @@
 		pellet_delta -= round(pellets_absorbed * 0.5)
 
 		if(martyr.stat != DEAD && martyr.client)
-			RegisterSignal(martyr, COMSIG_PARENT_QDELETING, .proc/on_target_qdel, override=TRUE)
+			RegisterSignal(martyr, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
 
 		for(var/i in 1 to round(pellets_absorbed * 0.5))
 			pew(martyr)
@@ -189,23 +189,45 @@
 			break
 
 ///One of our pellets hit something, record what it was and check if we're done (terminated == num_pellets)
-/datum/component/pellet_cloud/proc/pellet_hit(obj/item/projectile/P, atom/movable/firer, atom/target, Angle)
+/datum/component/pellet_cloud/proc/pellet_hit(obj/projectile/P, atom/movable/firer, atom/target, Angle)
 	SIGNAL_HANDLER
 
 	pellets -= P
 	terminated++
 	hits++
-	targets_hit[target]++
-	if(targets_hit[target] == 1)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/on_target_qdel, override=TRUE)
+	var/damage = TRUE
+	/* WOUNDS
+	if(iscarbon(target) && hit_zone)
+		var/mob/living/carbon/hit_carbon = target
+		hit_part = hit_carbon.get_bodypart(hit_zone)
+		if(hit_part)
+			target = hit_part
+			if(P.wound_bonus != CANT_WOUND) // handle wounding
+				// unfortunately, due to how pellet clouds handle finalizing only after every pellet is accounted for, that also means there might be a short delay in dealing wounds if one pellet goes wide
+				// while buckshot may reach a target or miss it all in one tick, we also have to account for possible ricochets that may take a bit longer to hit the target
+				if(isnull(wound_info_by_part[hit_part]))
+					wound_info_by_part[hit_part] = list(0, 0, 0)
+				wound_info_by_part[hit_part][CLOUD_POSITION_DAMAGE] += P.damage // these account for decay
+				wound_info_by_part[hit_part][CLOUD_POSITION_W_BONUS] += P.wound_bonus
+				wound_info_by_part[hit_part][CLOUD_POSITION_BW_BONUS] += P.bare_wound_bonus
+				P.wound_bonus = CANT_WOUND // actual wounding will be handled aggregate
+	*/
+	if(isobj(target))
+		var/obj/hit_object = target
+		if(hit_object.damage_deflection > P.damage || !P.damage)
+			damage = FALSE
+
+	LAZYADDASSOC(targets_hit[target], "hits", 1)
+	LAZYSET(targets_hit[target], "damage", damage)
+	if(targets_hit[target]["hits"] == 1)
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
 	UnregisterSignal(P, list(COMSIG_PARENT_QDELETING, COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PROJECTILE_SELF_ON_HIT))
 	if(terminated == num_pellets)
 		finalize()
 
 ///One of our pellets disappeared due to hitting their max range (or just somehow got qdel'd), remove it from our list and check if we're done (terminated == num_pellets)
-/datum/component/pellet_cloud/proc/pellet_range(obj/item/projectile/P)
+/datum/component/pellet_cloud/proc/pellet_range(obj/projectile/P)
 	SIGNAL_HANDLER
-
 	pellets -= P
 	terminated++
 	UnregisterSignal(P, list(COMSIG_PARENT_QDELETING, COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PROJECTILE_SELF_ON_HIT))
@@ -214,35 +236,49 @@
 
 /// Minor convenience function for creating each shrapnel piece with circle explosions, mostly stolen from the MIRV component
 /datum/component/pellet_cloud/proc/pew(atom/target, spread=0)
-	var/obj/item/projectile/P = new projectile_type(get_turf(parent))
+	var/obj/projectile/P = new projectile_type(get_turf(parent))
 
 	//Shooting Code:
-	P.spread = spread
+	P.spread = 0
 	P.original = target
 	P.fired_from = parent
 	P.firer = parent // don't hit ourself that would be really annoying
 	P.impacted = list(parent = TRUE) // don't hit the target we hit already with the flak
 	P.suppressed = SUPPRESSED_VERY // set the projectiles to make no message so we can do our own aggregate message
 	P.preparePixelProjectile(target, parent)
-	RegisterSignal(P, COMSIG_PROJECTILE_SELF_ON_HIT, .proc/pellet_hit)
-	RegisterSignal(P, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), .proc/pellet_range)
+	RegisterSignal(P, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
+	RegisterSignals(P, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), PROC_REF(pellet_range))
 	pellets += P
 	P.fire()
 
 ///All of our pellets are accounted for, time to go target by target and tell them how many things they got hit by.
 /datum/component/pellet_cloud/proc/finalize()
-	var/obj/item/projectile/P = projectile_type
+	var/obj/projectile/P = projectile_type
 	var/proj_name = initial(P.name)
 
 	for(var/atom/target in targets_hit)
-		var/num_hits = targets_hit[target]
+		var/num_hits = targets_hit[target]["hits"]
+		var/damage = targets_hit[target]["damage"]
 		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+		var/obj/item/bodypart/hit_part
+		if(isbodypart(target))
+			hit_part = target
+			if(!hit_part.owner) //only bother doing the thing if it was a limb just laying on the ground lol.
+				hit_part = null //so the visible_message later on doesn't generate extra text.
+			else
+				target = hit_part.owner
+
+		var/limb_hit_text = ""
+		if(hit_part)
+			limb_hit_text = " in the [hit_part.plaintext_zone]"
+
 		if(num_hits > 1)
-			target.visible_message("<span class='danger'>[target] is hit by [num_hits] [proj_name]s!</span>", null, null, COMBAT_MESSAGE_RANGE, target)
-			to_chat(target, "<span class='userdanger'>You're hit by [num_hits] [proj_name]s!</span>")
+			target.visible_message("<span class='danger'>[target] is hit by [num_hits] [proj_name][plural_s(proj_name)][limb_hit_text][damage ? "" : ", without leaving a mark"]!</span>", null, null, COMBAT_MESSAGE_RANGE, target)
+			to_chat(target, "<span class='userdanger'>You're hit by [num_hits] [proj_name]s[limb_hit_text]!</span>")
 		else
-			target.visible_message("<span class='danger'>[target] is hit by a [proj_name]!</span>", null, null, COMBAT_MESSAGE_RANGE, target)
-			to_chat(target, "<span class='userdanger'>You're hit by a [proj_name]!</span>")
+			target.visible_message("<span class='danger'>[target] is hit by a [proj_name][limb_hit_text][damage ? "" : ", without leaving a mark"]!</span>", null, null, COMBAT_MESSAGE_RANGE, target)
+			to_chat(target, "<span class='userdanger'>You're hit by a [proj_name][limb_hit_text]!</span>")
+
 	UnregisterSignal(parent, COMSIG_PARENT_PREQDELETED)
 	if(queued_delete)
 		qdel(parent)
@@ -255,10 +291,10 @@
 	if(ismob(nade.loc))
 		shooter = nade.loc
 	LAZYINITLIST(bodies)
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/grenade_dropped)
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/grenade_moved)
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(grenade_dropped))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(grenade_moved))
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXITED =.proc/grenade_uncrossed,
+		COMSIG_ATOM_EXITED =PROC_REF(grenade_uncrossed),
 	)
 	AddComponent(/datum/component/connect_loc_behalf, parent, loc_connections)
 
@@ -275,7 +311,7 @@
 
 	LAZYCLEARLIST(bodies)
 	for(var/mob/living/L in get_turf(parent))
-		RegisterSignal(L, COMSIG_PARENT_QDELETING, .proc/on_target_qdel, override=TRUE)
+		RegisterSignal(L, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
 		bodies += L
 
 /// Someone who was originally "under" the grenade has moved off the tile and is now eligible for being a martyr and "covering" it

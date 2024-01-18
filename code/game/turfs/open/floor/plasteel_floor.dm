@@ -1,9 +1,9 @@
 /turf/open/floor/plasteel
 	icon_state = "floor"
 	floor_tile = /obj/item/stack/tile/plasteel
-	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	burnt_states = list("floorscorched1", "floorscorched2")
 
+/turf/open/floor/plasteel/get_turf_texture()
+	return GLOB.turf_texture_plasteel
 
 /turf/open/floor/plasteel/examine(mob/user)
 	. = ..()
@@ -15,6 +15,7 @@
 		new /obj/effect/temp_visual/glowing_rune(src)
 	var/atom/changed_turf = ChangeTurf(/turf/open/floor/plating)
 	changed_turf.AddElement(/datum/element/rust)
+	return TRUE
 
 /turf/open/floor/plasteel/update_icon_state()
 	if(broken || burnt)
@@ -125,12 +126,6 @@
 
 /turf/open/floor/plasteel/freezer/airless
 	initial_gas_mix = AIRLESS_ATMOS
-
-
-/turf/open/floor/plasteel/grimy
-	icon_state = "grimy"
-	base_icon_state = "grimy"
-	tiled_dirt = FALSE
 
 /turf/open/floor/plasteel/cafeteria
 	icon_state = "cafeteria"

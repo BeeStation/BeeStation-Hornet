@@ -8,7 +8,7 @@
 		damageoverlaytemp = 0
 		update_damage_hud()
 
-	if(!IsInStasis())
+	if(!IS_IN_STASIS(src))
 
 		//Reagent processing needs to come before breathing, to prevent edge cases.
 		if(stat != DEAD)
@@ -230,7 +230,7 @@
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (breath.get_moles(GAS_PLASMA)/safe_tox_max) * 10
-		adjustToxLoss(CLAMP(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
+		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
@@ -276,19 +276,23 @@
 /mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
 	return
 
+/// Attempts to take a breath from the external or internal air tank.
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
-	if(internal)
-		if(internal.loc != src && !(wear_mask.clothing_flags & MASKEXTENDRANGE)) // If the mask has extended range, do not check for internal.loc
-			internal = null
-			update_internals_hud_icon(0)
-		else if ((!wear_mask || !(wear_mask.clothing_flags & MASKINTERNALS)) && !getorganslot(ORGAN_SLOT_BREATHING_TUBE))
-			internal = null
-			update_internals_hud_icon(0)
-		else
-			update_internals_hud_icon(1)
-			. = internal.remove_air_volume(volume_needed)
-			if(!.)
-				return FALSE //to differentiate between no internals and active, but empty internals
+	if(invalid_internals())
+		// Unexpectely lost breathing apparatus and ability to breathe from the internal air tank.
+		cutoff_internals()
+		return
+	if(external)
+		. = external.remove_air_volume(volume_needed)
+		update_internals_hud_icon(1)
+	else if(internal)
+		. = internal.remove_air_volume(volume_needed)
+		update_internals_hud_icon(1)
+	else
+		// Return without taking a breath if there is no air tank.
+		return
+	// To differentiate between no internals and active, but empty internals.
+	return . || FALSE
 
 /mob/living/carbon/proc/handle_blood()
 	return
@@ -297,7 +301,7 @@
 	var/stam_regen = FALSE
 	if(stam_regen_start_time <= world.time)
 		stam_regen = TRUE
-		if(stam_paralyzed)
+		if(HAS_TRAIT_FROM(src, TRAIT_INCAPACITATED, STAMINA))
 			. |= BODYPART_LIFE_UPDATE_HEALTH //make sure we remove the stamcrit
 	var/bodyparts_with_stam = 0
 	var/stam_heal_multiplier = 1
@@ -313,7 +317,7 @@
 		force_heal = max(0, total_stamina_loss - 120) / max(bodyparts_with_stam, 1)
 	//Increase damage the more stam damage
 	//Incraesed stamina healing when above 50 stamloss, up to 2x healing rate when at 100 stamloss.
-	stam_heal_multiplier = CLAMP(total_stamina_loss / 50, 1, 2)
+	stam_heal_multiplier = clamp(total_stamina_loss / 50, 1, 2)
 	//Heal bodypart stamina damage
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.needs_processing)
@@ -368,7 +372,7 @@ In addition, severe effects won't always trigger unless the drink is poisonously
 All effects don't start immediately, but rather get worse over time; the rate is affected by the imbiber's alcohol tolerance
 
 0: Non-alcoholic
-1-10: Barely classifiable as alcohol - occassional slurring
+1-10: Barely classifiable as alcohol - occasional slurring
 11-20: Slight alcohol content - slurring
 21-30: Below average - imbiber begins to look slightly drunk
 31-40: Just below average - no unique effects
@@ -394,10 +398,11 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 												"What if we use a language that was written on a napkin and created over 1 weekend for all of our servers?"))
 
 //this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
-/mob/living/carbon/handle_status_effects()
+/mob/living/carbon/handle_status_effects(delta_time)
 	..()
 
 	var/restingpwr = 1 + 4 * resting
+	var/adjusted_restingpwr = restingpwr * delta_time
 
 	//Dizziness
 	if(dizziness)
@@ -431,60 +436,60 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 						C.pixel_x -= pixel_x_diff
 						C.pixel_y -= pixel_y_diff
 			src = oldsrc
-		dizziness = max(dizziness - restingpwr, 0)
+		dizziness = max(dizziness - adjusted_restingpwr, 0)
 
 	if(drowsyness)
-		drowsyness = max(drowsyness - restingpwr, 0)
+		drowsyness = max(drowsyness - adjusted_restingpwr, 0)
 		blur_eyes(2)
-		if(prob(5))
+		if(DT_PROB(5, delta_time))
 			AdjustSleeping(20)
 			Unconscious(100)
 
 	//Jitteriness
 	if(jitteriness)
 		do_jitter_animation(jitteriness)
-		jitteriness = max(jitteriness - restingpwr, 0)
+		jitteriness = max(jitteriness - adjusted_restingpwr, 0)
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "jittery", /datum/mood_event/jittery)
 	else
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "jittery")
 
 	if(stuttering)
-		stuttering = max(stuttering-1, 0)
+		stuttering = max(stuttering - delta_time, 0)
 
 	if(slurring)
-		slurring = max(slurring-1,0)
+		slurring = max(slurring - delta_time,0)
 
 	if(cultslurring)
-		cultslurring = max(cultslurring-1, 0)
+		cultslurring = max(cultslurring - delta_time, 0)
 
 	if(clockslurring)
-		clockslurring = max(clockslurring-1, 0)
+		clockslurring = max(clockslurring - delta_time, 0)
 
 	if(silent)
-		silent = max(silent-1, 0)
+		silent = max(silent - delta_time, 0)
 
 	if(druggy)
-		adjust_drugginess(-1)
+		adjust_drugginess(-delta_time)
 
 	if(hallucination)
 		handle_hallucinations()
 
 	if(drunkenness)
-		drunkenness = max(drunkenness - (drunkenness * 0.04) - 0.01, 0)
+		drunkenness = max(drunkenness - ((drunkenness * 0.04) * delta_time) - 0.01, 0)
 		if(drunkenness >= 6)
 			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "drunk", /datum/mood_event/drunk)
-			if(prob(25))
-				slurring += 2
-			jitteriness = max(jitteriness - 3, 0)
+			if(DT_PROB(25, delta_time))
+				slurring += 2 * delta_time
+			jitteriness = max(jitteriness - (3 * delta_time), 0)
 			if(HAS_TRAIT(src, TRAIT_DRUNK_HEALING))
-				adjustBruteLoss(-0.12, FALSE)
-				adjustFireLoss(-0.06, FALSE)
+				adjustBruteLoss(-0.12 * delta_time, FALSE)
+				adjustFireLoss(-0.06 * delta_time, FALSE)
 		else
 			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "drunk")
 			sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 		if(drunkenness >= 11 && slurring < 5)
-			slurring += 1.2
+			slurring += 1.2 * delta_time
 
 		if(mind && (mind.assigned_role == JOB_NAME_SCIENTIST || mind.assigned_role == JOB_NAME_RESEARCHDIRECTOR))
 			if(SSresearch.science_tech)
@@ -495,47 +500,47 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 						ballmer_percent = 1
 					else
 						ballmer_percent = (-abs(drunkenness - 13.35) / 0.9) + 1
-					if(prob(5))
+					if(DT_PROB(5, delta_time))
 						say(pick(GLOB.ballmer_good_msg), forced = "ballmer")
 					SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_GENERIC = BALLMER_POINTS * ballmer_percent))
 				if(drunkenness > 26) // by this point you're into windows ME territory
-					if(prob(5))
+					if(DT_PROB(5, delta_time))
 						SSresearch.science_tech.remove_point_list(list(TECHWEB_POINT_TYPE_GENERIC = BALLMER_POINTS))
 						say(pick(GLOB.ballmer_windows_me_msg), forced = "ballmer")
 
 		if(drunkenness >= 41)
-			if(prob(25))
-				confused += 2
+			if(DT_PROB(25, delta_time))
+				confused += 2 * delta_time
 			Dizzy(10)
 			if(HAS_TRAIT(src, TRAIT_DRUNK_HEALING)) // effects stack with lower tiers
-				adjustBruteLoss(-0.3, FALSE)
-				adjustFireLoss(-0.15, FALSE)
+				adjustBruteLoss(-0.3 * delta_time, FALSE)
+				adjustFireLoss(-0.15 * delta_time, FALSE)
 
 		if(drunkenness >= 51)
-			if(prob(3))
-				confused += 15
+			if(DT_PROB(3, delta_time))
+				confused += 15 * delta_time
 				vomit() // vomiting clears toxloss, consider this a blessing
 			Dizzy(25)
 
 		if(drunkenness >= 61)
-			if(prob(50))
-				blur_eyes(5)
+			if(DT_PROB(50, delta_time))
+				blur_eyes(5 * delta_time)
 			if(HAS_TRAIT(src, TRAIT_DRUNK_HEALING))
-				adjustBruteLoss(-0.4, FALSE)
-				adjustFireLoss(-0.2, FALSE)
+				adjustBruteLoss(-0.4 * delta_time, FALSE)
+				adjustFireLoss(-0.2 * delta_time, FALSE)
 
 		if(drunkenness >= 71)
-			blur_eyes(5)
+			blur_eyes(5 * delta_time)
 
 		if(drunkenness >= 81)
-			adjustToxLoss(1)
-			if(prob(5) && !stat)
+			adjustToxLoss(delta_time)
+			if(DT_PROB(5, delta_time) && !stat)
 				to_chat(src, "<span class='warning'>Maybe you should lie down for a bit.</span>")
 
 		if(drunkenness >= 91)
-			adjustToxLoss(1)
-			adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.4)
-			if(prob(20) && !stat)
+			adjustToxLoss(delta_time)
+			adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.4 * delta_time)
+			if(DT_PROB(20, delta_time) && !stat)
 				if(SSshuttle.emergency.mode == SHUTTLE_DOCKED && is_station_level(z)) //QoL mainly
 					to_chat(src, "<span class='warning'>You're so tired, but you can't miss that shuttle.</span>")
 				else
@@ -543,20 +548,138 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 					Sleeping(900)
 
 		if(drunkenness >= 101)
-			adjustToxLoss(2) //Let's be honest you shouldn't be alive by now
+			adjustToxLoss(2 * delta_time) //Let's be honest you shouldn't be alive by now
 
-//used in human and monkey handle_environment()
-/mob/living/carbon/proc/natural_bodytemperature_stabilization()
-	var/body_temperature_difference = BODYTEMP_NORMAL - bodytemperature
-	switch(bodytemperature)
-		if(-INFINITY to BODYTEMP_COLD_DAMAGE_LIMIT) //Cold damage limit is 50 below the default, the temperature where you start to feel effects.
-			return max((body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
-		if(BODYTEMP_COLD_DAMAGE_LIMIT to BODYTEMP_NORMAL)
-			return max(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, min(body_temperature_difference, BODYTEMP_AUTORECOVERY_MINIMUM/4))
-		if(BODYTEMP_NORMAL to BODYTEMP_HEAT_DAMAGE_LIMIT) // Heat damage limit is 50 above the default, the temperature where you start to feel effects.
-			return min(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, max(body_temperature_difference, -BODYTEMP_AUTORECOVERY_MINIMUM/4))
-		if(BODYTEMP_HEAT_DAMAGE_LIMIT to INFINITY)
-			return min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
+/// Base carbon environment handler, adds natural stabilization
+/mob/living/carbon/handle_environment(datum/gas_mixture/environment)
+	var/areatemp = get_temperature(environment)
+
+	if(stat != DEAD) // If you are dead your body does not stabilize naturally
+		natural_bodytemperature_stabilization(environment)
+
+	if(!on_fire || areatemp > bodytemperature) // If we are not on fire or the area is hotter
+		adjust_bodytemperature((areatemp - bodytemperature), use_insulation=TRUE, use_steps=TRUE)
+
+/**
+ * Used to stabilize the body temperature back to normal on living mobs
+ *
+ * vars:
+ * * environment The environment gas mix
+ */
+/mob/living/carbon/proc/natural_bodytemperature_stabilization(datum/gas_mixture/environment)
+	var/areatemp = get_temperature(environment)
+	var/body_temperature_difference = get_body_temp_normal() - bodytemperature
+	var/natural_change = 0
+
+	// We are very cold, increate body temperature
+	if(bodytemperature <= BODYTEMP_COLD_DAMAGE_LIMIT)
+		natural_change = max((body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR), \
+			BODYTEMP_AUTORECOVERY_MINIMUM)
+
+	// we are cold, reduce the minimum increment and do not jump over the difference
+	else if(bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT && bodytemperature < get_body_temp_normal())
+		natural_change = max(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, \
+			min(body_temperature_difference, BODYTEMP_AUTORECOVERY_MINIMUM / 4))
+
+	// We are hot, reduce the minimum increment and do not jump below the difference
+	else if(bodytemperature > get_body_temp_normal() && bodytemperature <= BODYTEMP_HEAT_DAMAGE_LIMIT)
+		natural_change = min(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, \
+			max(body_temperature_difference, -(BODYTEMP_AUTORECOVERY_MINIMUM / 4)))
+
+	// We are very hot, reduce the body temperature
+	else if(bodytemperature >= BODYTEMP_HEAT_DAMAGE_LIMIT)
+		natural_change = min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)
+
+	var/thermal_protection = 1 - get_insulation_protection(areatemp) // invert the protection
+	if(areatemp > bodytemperature) // It is hot here
+		if(bodytemperature < get_body_temp_normal())
+			// Our bodytemp is below normal we are cold, insulation helps us retain body heat
+			// and will reduce the heat we lose to the environment
+			natural_change = (thermal_protection + 1) * natural_change
+		else
+			// Our bodytemp is above normal and sweating, insulation hinders out ability to reduce heat
+			// but will reduce the amount of heat we get from the environment
+			natural_change = (1 / (thermal_protection + 1)) * natural_change
+	else // It is cold here
+		if(!on_fire) // If on fire ignore ignore local temperature in cold areas
+			if(bodytemperature < get_body_temp_normal())
+				// Our bodytemp is below normal, insulation helps us retain body heat
+				// and will reduce the heat we lose to the environment
+				natural_change = (thermal_protection + 1) * natural_change
+			else
+				// Our bodytemp is above normal and sweating, insulation hinders out ability to reduce heat
+				// but will reduce the amount of heat we get from the environment
+				natural_change = (1 / (thermal_protection + 1)) * natural_change
+
+	// Apply the natural stabilization changes
+	adjust_bodytemperature(natural_change)
+
+/**
+ * Get the insulation that is appropriate to the temperature you're being exposed to.
+ * All clothing, natural insulation, and traits are combined returning a single value.
+ *
+ * required temperature The Temperature that you're being exposed to
+ *
+ * return the percentage of protection as a value from 0 - 1
+**/
+/mob/living/carbon/proc/get_insulation_protection(temperature)
+	return (temperature > bodytemperature) ? get_heat_protection(temperature) : get_cold_protection(temperature)
+
+/// This returns the percentage of protection from heat as a value from 0 - 1
+/// temperature is the temperature you're being exposed to
+/mob/living/carbon/proc/get_heat_protection(temperature)
+	return heat_protection
+
+/// This returns the percentage of protection from cold as a value from 0 - 1
+/// temperature is the temperature you're being exposed to
+/mob/living/carbon/proc/get_cold_protection(temperature)
+	return cold_protection
+
+/**
+ * Have two mobs share body heat between each other.
+ * Account for the insulation and max temperature change range for the mob
+ *
+ * vars:
+ * * M The mob/living/carbon that is sharing body heat
+ */
+/mob/living/carbon/proc/share_bodytemperature(mob/living/carbon/M)
+	var/temp_diff = bodytemperature - M.bodytemperature
+	if(temp_diff > 0) // you are warm share the heat of life
+		M.adjust_bodytemperature(temp_diff, use_insulation=TRUE, use_steps=TRUE) // warm up the giver
+		adjust_bodytemperature((temp_diff * -1), use_insulation=TRUE, use_steps=TRUE) // cool down the reciver
+
+	else // they are warmer leech from them
+		adjust_bodytemperature(temp_diff, use_insulation=TRUE, use_steps=TRUE) // warm up the reciver
+		M.adjust_bodytemperature((temp_diff * -1), use_insulation=TRUE, use_steps=TRUE) // cool down the giver
+
+/**
+ * Adjust the body temperature of a mob
+ * expanded for carbon mobs allowing the use of insulation and change steps
+ *
+ * vars:
+ * * amount The amount of degrees to change body temperature by
+ * * min_temp (optional) The minimum body temperature after adjustment
+ * * max_temp (optional) The maximum body temperature after adjustment
+ * * use_insulation (optional) modifies the amount based on the amount of insulation the mob has
+ * * use_steps (optional) Use the body temp divisors and max change rates
+ * * hardsuit_fix (optional) num bodytemp_normal - H.bodytemperature Use hardsuit override until hardsuits fix is done...
+ */
+/mob/living/carbon/adjust_bodytemperature(amount, min_temp=0, max_temp=INFINITY, use_insulation=FALSE, use_steps=FALSE, \
+											hardsuit_fix=FALSE)
+	// apply insulation to the amount of change
+	if(use_insulation)
+		amount *= (1 - get_insulation_protection(bodytemperature + amount))
+
+	// Extra calculation for hardsuits to bleed off heat
+	if(hardsuit_fix)
+		amount += hardsuit_fix
+
+	// Use the bodytemp divisors to get the change step, with max step size
+	if(use_steps)
+		amount = (amount > 0) ? min(amount / BODYTEMP_HEAT_DIVISOR, BODYTEMP_HEATING_MAX) : max(amount / BODYTEMP_COLD_DIVISOR, BODYTEMP_COOLING_MAX)
+
+	if(bodytemperature >= min_temp && bodytemperature <= max_temp)
+		bodytemperature = clamp(bodytemperature + amount,min_temp,max_temp)
 
 /////////
 //LIVER//

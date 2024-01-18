@@ -13,9 +13,15 @@
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
 		playsound(loc, 'sound/items/welder.ogg', 100, 1)
 
+/obj/structure/spider/attackby(obj/item/I, mob/living/user, params)
+	if(I.damtype != BURN)
+		if(prob(35))
+			user.transferItemToLoc(I, drop_location())
+			to_chat(user, "<span class='danger'>The [I] gets stuck in \the [src]!</span>")
+	return ..()
 
 /obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BURN)
 				damage_amount *= 2
@@ -32,18 +38,27 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/spider/stickyweb/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	if(isliving(AM) && !istype(AM, /mob/living/simple_animal/hostile/poison/giant_spider))
+		var/mob/living/L = AM
+		if(!L.IsImmobilized()) //Don't spam the shit out of them if they're being dragged by a spider
+			to_chat(L, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
+		L.Immobilize(1.5 SECONDS)
+	if(ismecha(AM))
+		var/obj/mecha/mech = AM
+		mech.step_restricted += 1 SECONDS //unlike the above, this one stacks based on number of webs. Punch the webs to destroy them you dolt.
+		if(mech.occupant && !mech.step_restricted)
+			to_chat(mech.occupant, "<span class='danger'>\the [mech] gets stuck in \the [src]!</span>")
+
+/obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider))
-		return TRUE
-	else if(isliving(mover))
-		if(istype(mover.pulledby, /mob/living/simple_animal/hostile/poison/giant_spider))
-			return TRUE
-		if(prob(50))
-			to_chat(mover, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
-			return FALSE
-	else if(istype(mover, /obj/item/projectile))
+	if(istype(mover, /obj/projectile))
 		return prob(30)
 
 /obj/structure/spider/eggcluster
@@ -52,24 +67,29 @@
 	icon_state = "eggs"
 	var/amount_grown = 0
 	// Spawn info
-	var/spawns_remaining = 2
+	var/spawns_remaining = 1
 	var/enriched_spawns = 0
 	var/using_enriched_spawn = FALSE
-	var/enriched_spawn_prob = 50 // Probability (%) of someone who clicks on an eggcluster getting an enriched spawn if one's available
+	// Probability (%) an egg cluster presenting enriched spawn choices
+	var/enriched_spawn_prob = 25
 	// Team info
 	var/datum/team/spiders/spider_team
 	var/list/faction = list("spiders")
 	// Whether or not a ghost can use the cluster to become a spider.
 	var/ghost_ready = FALSE
 	var/grow_time = 60 // Grow time (in seconds because delta-time)
-	// The types of spiders the egg sac can produce.
+	// The types of spiders the egg sac can produce by default.
 	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
-								/mob/living/simple_animal/hostile/poison/giant_spider/nurse)
-	// The types of spiders the egg sac produces when we have enriched spawns left (laying spider ate a human)
-	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula,
-							/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
-							/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
+								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
+								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster)
+	// The types of spiders the egg sac produces when we proc an enriched spawn
+	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
+								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
+								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster,
+								/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
+								/mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	pixel_x = rand(3,-3)
@@ -80,11 +100,15 @@
 /obj/structure/spider/eggcluster/process(delta_time)
 	amount_grown += delta_time
 	if(amount_grown >= grow_time && !ghost_ready) // 1 minute to grow
+		if(enriched_spawns && prob(enriched_spawn_prob))
+			using_enriched_spawn = TRUE
 		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
 		ghost_ready = TRUE
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
+	if(amount_grown >= grow_time *3)
+		make_AI_spider()
 
 /obj/structure/spider/eggcluster/Topic(href, href_list)
 	if(..())
@@ -96,6 +120,8 @@
 
 /obj/structure/spider/eggcluster/attack_ghost(mob/user)
 	. = ..()
+	if(!user?.client?.can_take_ghost_spawner(ROLE_SPIDER, TRUE, is_ghost_role = FALSE))
+		return
 	if(ghost_ready)
 		make_spider(user)
 	else
@@ -106,7 +132,6 @@
 		take_damage(5, BURN, 0, 0)
 
 /obj/structure/spider/eggcluster/Destroy()
-	GLOB.poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
 	if(!LAZYLEN(spawners))
@@ -125,10 +150,9 @@
 	// Get what spiders the user can choose, and check to make sure their choice makes sense
 	var/list/to_spawn = list()
 	var/list/spider_list = list()
-	if(!spider_team) // We don't have a team, just make one up
-		spider_team = new()
-	if(enriched_spawns && !using_enriched_spawn && (prob(enriched_spawn_prob) || !spawns_remaining))
-		using_enriched_spawn = TRUE
+	if(!spider_team) // If this object is created by anything other than a broodmother, it will not have a team
+		spider_team = new() //So we make one to keep all future spiders on the same team
+	if(using_enriched_spawn)
 		to_spawn = potential_enriched_spawns
 	else
 		to_spawn = potential_spawns
@@ -136,16 +160,21 @@
 		var/mob/living/simple_animal/spider = choice
 		spider_list[initial(spider.name)] = choice
 	var/chosen_spider = input("Spider Type", "Egg Cluster") as null|anything in spider_list
-	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !(spawns_remaining || enriched_spawns))
-		using_enriched_spawn = FALSE
+	//Player does not get to spawn if the eggs were destroyed or consumed, and we also want to return if no choice was made.
+	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !spawns_remaining)
 		return FALSE
-	if(spider_list[chosen_spider] in potential_enriched_spawns)
-		enriched_spawns--
-	else
-		spawns_remaining--
+	//if spider chosen is not in the basic spawn list, it is special
+	//turn off enriched spawns so only one special spider per proc activation
 	if(using_enriched_spawn)
-		using_enriched_spawn = FALSE
-
+		if(!(spider_list[chosen_spider] in potential_spawns))
+			using_enriched_spawn = FALSE
+	//Failsafe to prevent chosing special spider spawns after someone else has already chosen one
+	//Multiple players can be presented the dialogue box to choose enriched spawns at the same time
+	//and we don't want them choosing a special spider after the spawn has already been consumed
+	else if(!(spider_list[chosen_spider] in potential_spawns))
+		to_chat(user, "<span class='warning'>Special spawn already used by another player!</span>")
+		return FALSE
+	spawns_remaining--
 	// Setup our spooder
 	var/spider_to_spawn = spider_list[chosen_spider]
 	var/mob/living/simple_animal/hostile/poison/giant_spider/new_spider = new spider_to_spawn(get_turf(src))
@@ -155,16 +184,31 @@
 	spider_antag.set_spider_team(spider_team)
 
 	// Check to see if we need to delete ourselves
-	if(!enriched_spawns && !spawns_remaining)
+	if(!spawns_remaining)
 		qdel(src)
 	return TRUE
+
+/obj/structure/spider/eggcluster/proc/make_AI_spider()
+	var/mob/living/simple_animal/hostile/poison/giant_spider/random_spider
+	if(using_enriched_spawn)
+		random_spider = pick(potential_enriched_spawns)
+		using_enriched_spawn = FALSE
+	else
+		random_spider = pick(potential_spawns)
+	random_spider = new random_spider(get_turf(src))
+	random_spider.faction = faction.Copy()
+	random_spider.spider_team = spider_team
+	random_spider.set_playable(ROLE_SPIDER, POLL_IGNORE_SPIDER)
+	spawns_remaining--
+	if(!spawns_remaining)
+		qdel(src)
 
 /obj/structure/spider/spiderling
 	name = "spiderling"
 	desc = "It never stays still for long."
 	icon_state = "spiderling"
 	anchored = FALSE
-	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	layer = PROJECTILE_HIT_THRESHOLD_LAYER
 	max_integrity = 3
 	var/amount_grown = 0
 	var/grow_as = null
@@ -181,6 +225,7 @@
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
 	START_PROCESSING(SSobj, src)
+	AddElement(/datum/element/point_of_interest)
 	AddComponent(/datum/component/swarming)
 
 /obj/structure/spider/spiderling/hunter
@@ -189,14 +234,14 @@
 /obj/structure/spider/spiderling/nurse
 	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/nurse
 
-/obj/structure/spider/spiderling/midwife
-	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife
+/obj/structure/spider/spiderling/broodmother
+	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/broodmother
 
 /obj/structure/spider/spiderling/viper
 	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
 
-/obj/structure/spider/spiderling/tarantula
-	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/tarantula
+/obj/structure/spider/spiderling/netcaster
+	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/netcaster
 
 /obj/structure/spider/spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
@@ -266,7 +311,7 @@
 		if(amount_grown >= 100)
 			if(!grow_as)
 				if(prob(3))
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula, /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
+					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/netcaster, /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 				else
 					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)

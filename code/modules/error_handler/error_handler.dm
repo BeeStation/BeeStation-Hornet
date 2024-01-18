@@ -132,6 +132,9 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		GLOB.current_test.Fail("[main_line]\n[desclines.Join("\n")]")
 #endif
 
+	if (Debugger?.enabled)
+		to_chat(world, "<span class='alertwarning'>[main_line]</span>", MESSAGE_TYPE_DEBUG)
+
 
 	// This writes the regular format (unwrapping newlines and inserting timestamps as needed).
 	log_runtime("runtime error: [E.name]\n[E.desc]")

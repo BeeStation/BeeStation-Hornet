@@ -3,6 +3,7 @@
 	desc = "..."
 	icon = 'icons/obj/chemical.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 	/// this is to support when you don't want to display "bottle" part with a custom name. i.e.) "Bica-Kelo mix" rather than "Bica-Kelo mix bottle"
 	var/label_name
 	///How many units are we currently transferring?
@@ -25,6 +26,8 @@
 	var/list/fill_icon_thresholds
 	///Optional custom name for reagent fill icon_state prefix
 	var/fill_icon_state
+	///Icon for the "label", if the holder was renamed
+	var/label_icon
 	///Does this container prevent grinding?
 	var/prevent_grinding = FALSE
 
@@ -84,13 +87,6 @@
 		return FALSE
 	return TRUE
 
-/obj/item/reagent_containers/ex_act()
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			R.on_ex_act()
-	if(!QDELETED(src))
-		return ..()
-
 /obj/item/reagent_containers/fire_act(exposed_temperature, exposed_volume)
 	reagents.expose_temperature(exposed_temperature)
 	return ..()
@@ -102,7 +98,7 @@
 /obj/item/reagent_containers/proc/bartender_check(atom/target)
 	. = FALSE
 	var/mob/thrown_by = thrownby?.resolve()
-	if(target.CanPass(src, get_turf(src)) && thrown_by && HAS_TRAIT(thrown_by, TRAIT_BOOZE_SLIDER))
+	if(target.CanPass(src, get_dir(target, src)) && thrown_by && HAS_TRAIT(thrown_by, TRAIT_BOOZE_SLIDER))
 		. = TRUE
 
 /obj/item/reagent_containers/proc/SplashReagents(atom/target, thrown = FALSE)
@@ -122,7 +118,7 @@
 
 		if(thrownby)
 			log_combat(thrown_by, M, "splashed", R)
-		reagents.expose(target, TOUCH)
+		reagents.reaction(target, TOUCH)
 
 	else if(bartender_check(target) && thrown)
 		visible_message("<span class='notice'>[src] lands onto the [target.name] without spilling a single drop.</span>")
@@ -134,7 +130,7 @@
 			log_game("[key_name(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [AREACOORD(target)].")
 			message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [ADMIN_VERBOSEJMP(target)].")
 		visible_message("<span class='notice'>[src] spills its contents all over [target].</span>")
-		reagents.expose(target, TOUCH)
+		reagents.reaction(target, TOUCH)
 		if(QDELETED(src))
 			return
 
@@ -157,6 +153,9 @@
 	cut_overlays()
 
 	if(!reagents.total_volume)
+		if(label_icon && (name != initial(name) || desc != initial(desc)))
+			var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
+			add_overlay(label)
 		return ..()
 	var/fill_name = fill_icon_state ? fill_icon_state : icon_state
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[fill_name][fill_icon_thresholds[1]]")
@@ -170,16 +169,14 @@
 
 	filling.color = mix_color_from_reagents(reagents.reagent_list)
 	add_overlay(filling)
+	if(label_icon && (name != initial(name) || desc != initial(desc)))
+		var/mutable_appearance/label = mutable_appearance('icons/obj/chemical.dmi', "[label_icon]")
+		add_overlay(label)
 	return ..()
 
-/obj/item/reagent_containers/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = FALSE)
-	var/datum/reagent/blood/B = locate() in reagents.reagent_list
-	if(!B)
-		SEND_SIGNAL(src, COMSIG_ATOM_EXTRAPOLATOR_ACT, user, E, scan)
-		return FALSE
-	if(scan)
-		E.scan(src, B.get_diseases(), user)
-		return TRUE
-	else
-		E.extrapolate(src, B.get_diseases(), user, TRUE)
-		return TRUE
+/obj/item/reagent_containers/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	// Always attempt to isolate diseases from reagent containers, if possible.
+	. = ..()
+	EXTRAPOLATOR_ACT_SET(., EXTRAPOLATOR_ACT_PRIORITY_ISOLATE)
+	var/datum/reagent/blood/blood = reagents.get_reagent(/datum/reagent/blood)
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., blood?.get_diseases())

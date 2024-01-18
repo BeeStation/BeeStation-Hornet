@@ -10,17 +10,25 @@
 /turf/open/floor/plating
 	name = "plating"
 	icon_state = "plating"
-	intact = FALSE
+	overfloor_placed = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	baseturfs = /turf/baseturf_bottom
 	footstep = FOOTSTEP_PLATING
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	max_integrity = 900
+	var/attachment_holes = TRUE
+
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1\
 	)
 
-	var/attachment_holes = TRUE
+/turf/open/floor/plating/get_turf_texture()
+	return GLOB.turf_texture_plating
+
+/turf/open/floor/plating/broken
+	broken = TRUE
 
 /turf/open/floor/plating/examine(mob/user)
 	. = ..()
@@ -33,10 +41,6 @@
 		. += "<span class='notice'>You might be able to build ontop of it with some <i>tiles</i>...</span>"
 
 /turf/open/floor/plating/Initialize(mapload)
-	if (!broken_states)
-		broken_states = list("platingdmg1", "platingdmg2", "platingdmg3")
-	if (!burnt_states)
-		burnt_states = list("panelscorched")
 	. = ..()
 	if(!attachment_holes || (!broken && !burnt))
 		icon_plating = icon_state
@@ -82,13 +86,29 @@
 					R.use(1)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
 				return
+	if(istype(C, /obj/item/stack/sheet/plasteel) && attachment_holes)
+		if(broken || burnt)
+			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
+			return
+		var/obj/item/stack/sheet/iron/R = C
+		if (R.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need one sheet to make a prison secure floor!</span>")
+			return
+		else
+			to_chat(user, "<span class='notice'>You begin reinforcing the floor to secure the plating..</span>")
+			if(do_after(user, 30, target = src))
+				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/prison))
+					PlaceOnTop(/turf/open/floor/prison, flags = CHANGETURF_INHERIT_AIR)
+					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
+					R.use(1)
+					to_chat(user, "<span class='notice'>You secure the plating.</span>")
+				return
 	else if(istype(C, /obj/item/stack/tile) && !locate(/obj/structure/lattice/catwalk, src))
 		if(!broken && !burnt)
 			for(var/obj/O in src)
-				if(O.level == 1) //ex. pipes laid underneath a tile
-					for(var/M in O.buckled_mobs)
-						to_chat(user, "<span class='warning'>Someone is buckled to \the [O]! Unbuckle [M] to move \him out of the way.</span>")
-						return
+				for(var/M in O.buckled_mobs)
+					to_chat(user, "<span class='warning'>Someone is buckled to \the [O]! Unbuckle [M] to move \him out of the way.</span>")
+					return
 			var/obj/item/stack/tile/W = C
 			if(!W.use(1))
 				return
@@ -122,6 +142,7 @@
 	name = "metal foam plating"
 	desc = "Thin, fragile flooring created with metal foam."
 	icon_state = "foam_plating"
+	max_integrity = 300
 
 /turf/open/floor/plating/foam/burn_tile()
 	return //jetfuel can't melt steel foam
@@ -157,6 +178,7 @@
 /turf/open/floor/plating/foam/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	if(passed_mode == RCD_FLOORWALL)
 		to_chat(user, "<span class='notice'>You build a floor.</span>")
+		log_attack("[key_name(user)] has constructed a floor over metalfoam plating at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 		ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return TRUE
 	return FALSE

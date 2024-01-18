@@ -4,7 +4,7 @@
 
 	var/datum/map_template/template
 
-	var/map = input(src, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template") as null|anything in sortList(SSmapping.map_templates)
+	var/map = input(src, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template") as null|anything in sort_list(SSmapping.map_templates)
 	if(!map)
 		return
 	template = SSmapping.map_templates[map]
@@ -20,11 +20,11 @@
 		preview += item
 	images += preview
 	if(alert(src,"Confirm location.","Template Confirm","Yes","No") == "Yes")
-		var/datum/map_generator/template_placer = template.load(T, centered = TRUE)
-		template_placer.on_completion(CALLBACK(src, .proc/after_map_load, template.name))
+		var/datum/async_map_generator/template_placer = template.load(T, centered = TRUE)
+		template_placer.on_completion(CALLBACK(src, PROC_REF(after_map_load), template.name))
 	images -= preview
 
-/client/proc/after_map_load(template_name, datum/map_generator/map_place/map_generator, turf/T)
+/client/proc/after_map_load(template_name, datum/async_map_generator/map_place/async_map_generator, turf/T)
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] has placed a map template ([template_name]) at [ADMIN_COORDJMP(T)]</span>")
 
 /client/proc/map_template_upload()

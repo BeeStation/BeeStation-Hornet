@@ -60,6 +60,7 @@
 ///////////////////////////////// KNOCKDOWN /////////////////////////////////////
 
 /mob/living/proc/IsKnockdown() //If we're knocked down
+	SHOULD_NOT_OVERRIDE(TRUE)
 	return has_status_effect(STATUS_EFFECT_KNOCKDOWN)
 
 /mob/living/proc/AmountKnockdown() //How many deciseconds remain in our knockdown
@@ -378,53 +379,27 @@
 			priority_absorb_key["stuns_absorbed"] += amount
 		return TRUE
 
-/////////////////////////////////// STASIS ///////////////////////////////////
-
-/mob/living/proc/IsInStasis()
-	. = has_status_effect(STATUS_EFFECT_STASIS)
-
-/mob/living/proc/SetStasis(apply, updating = TRUE)
-	. = apply ? apply_status_effect(STATUS_EFFECT_STASIS, null, updating) : remove_status_effect(STATUS_EFFECT_STASIS)
-
-/////////////////////////////////// DISABILITIES ////////////////////////////////////
-/mob/living/proc/add_quirk(quirktype, spawn_effects) //separate proc due to the way these ones are handled
-	if(HAS_TRAIT(src, quirktype))
-		return
-	var/datum/quirk/T = quirktype
-	var/qname = initial(T.name)
-	if(!SSquirks || !SSquirks.quirks[qname])
-		return
-	new quirktype (src, spawn_effects)
-	return TRUE
-
-/mob/living/proc/remove_quirk(quirktype)
-	for(var/datum/quirk/Q in roundstart_quirks)
-		if(Q.type == quirktype)
-			qdel(Q)
-			return TRUE
-	return FALSE
-
-/mob/living/proc/remove_all_quirks()
-	for(var/datum/quirk/Q in roundstart_quirks)
-		qdel(Q)
+/////////////////////////////////// QUIRKS ///////////////////////////////////
+/* These are here to make checking quirks more straightforward, actual functionality is in mind.dm */
 
 /mob/living/proc/has_quirk(quirktype)
-	for(var/datum/quirk/Q in roundstart_quirks)
-		if(Q.type == quirktype)
-			return TRUE
-	return FALSE
+	return src.mind?.has_quirk(quirktype)
 
 /////////////////////////////////// TRAIT PROCS ////////////////////////////////////
 
-/mob/living/proc/cure_blind(source)
+/mob/living/proc/cure_blind(source, can_see = TRUE)
+	if(!can_see)
+		return
 	REMOVE_TRAIT(src, TRAIT_BLIND, source)
 	if(!is_blind())
-		adjust_blindness(-1)
+		update_blindness()
 
-/mob/living/proc/become_blind(source)
-	if(!is_blind())
-		blind_eyes(1)
-	ADD_TRAIT(src, TRAIT_BLIND, source)
+/mob/living/proc/become_blind(source, overlay, add_color)
+	if(!HAS_TRAIT(src, TRAIT_BLIND)) // not blind already, add trait then overlay
+		ADD_TRAIT(src, TRAIT_BLIND, source)
+		update_blindness(overlay, add_color)
+	else
+		ADD_TRAIT(src, TRAIT_BLIND, source)
 
 /mob/living/proc/cure_nearsighted(source)
 	REMOVE_TRAIT(src, TRAIT_NEARSIGHT, source)
@@ -456,7 +431,6 @@
 	REMOVE_TRAIT(src, TRAIT_DEATHCOMA, source)
 	if(stat != DEAD)
 		tod = null
-	update_stat()
 
 /mob/living/proc/fakedeath(source, silent = FALSE)
 	if(stat == DEAD)
@@ -470,7 +444,6 @@
 	ADD_TRAIT(src, TRAIT_FAKEDEATH, source)
 	ADD_TRAIT(src, TRAIT_DEATHCOMA, source)
 	tod = station_time_timestamp()
-	update_stat()
 
 /mob/living/proc/unignore_slowdown(source)
 	REMOVE_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)

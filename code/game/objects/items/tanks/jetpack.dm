@@ -52,9 +52,7 @@
 	else
 		turn_off(user)
 		to_chat(user, "<span class='notice'>You turn the jetpack off.</span>")
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/tank/jetpack/equipped(mob/user, slot)
 	..()
@@ -67,6 +65,7 @@
 	..()
 	lose_known_user()
 
+// Sets our known user to user, letting them use the jetpack.
 /obj/item/tank/jetpack/proc/update_known_user(mob/user)
 	if(user == known_user)
 		return
@@ -77,9 +76,10 @@
 		on_user_add()
 
 /obj/item/tank/jetpack/proc/on_user_add()
-	RegisterSignal(known_user, COMSIG_MOVABLE_MOVED, .proc/move_react)
-	RegisterSignal(known_user, COMSIG_PARENT_QDELETING, .proc/lose_known_user)
+	RegisterSignal(known_user, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
+	RegisterSignal(known_user, COMSIG_PARENT_QDELETING, PROC_REF(lose_known_user))
 
+/// Resets our current user, preventing them from using the jetpack.
 /obj/item/tank/jetpack/proc/lose_known_user()
 	SIGNAL_HANDLER
 	if(known_user)
@@ -98,8 +98,8 @@
 	icon_state = "[initial(icon_state)]-on"
 	if(ion_trail)
 		ion_trail.start()
-	if(full_speed)
-		known_user.add_movespeed_modifier(MOVESPEED_ID_JETPACK, priority=100, multiplicative_slowdown=-2, movetypes=FLOATING, conflict=MOVE_CONFLICT_JETPACK)
+
+	JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
 
 /obj/item/tank/jetpack/proc/turn_off(mob/user)
 	if(!known_user)
@@ -116,6 +116,8 @@
 	SIGNAL_HANDLER
 	if(on)
 		allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
+		// Update speed according to pressure
+		JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)
@@ -129,14 +131,13 @@
 
 	return TRUE
 
-/obj/item/tank/jetpack/suicide_act(mob/user)
-	if (istype(user, /mob/living/carbon/human/))
-		var/mob/living/carbon/human/H = user
-		H.forcesay("WHAT THE FUCK IS CARBON DIOXIDE?")
-		H.visible_message("<span class='suicide'>[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!</span>")
-		return (OXYLOSS)
-	else
-		..()
+/obj/item/tank/jetpack/suicide_act(mob/living/user)
+	if (!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	H.say(";WHAT THE FUCK IS CARBON DIOXIDE?", forced="jetpack suicide")
+	H.visible_message("<span class='suicide'>[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!</span>")
+	return OXYLOSS
 
 /obj/item/tank/jetpack/improvised
 	name = "improvised jetpack"
@@ -182,7 +183,7 @@
 	item_state = "jetpack-mini"
 	volume = 40
 	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 
 /obj/item/tank/jetpack/oxygen/captain
@@ -190,7 +191,7 @@
 	desc = "A compact, lightweight jetpack containing a high amount of compressed oxygen."
 	icon_state = "jetpack-captain"
 	item_state = "jetpack-captain"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	volume = 90
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
@@ -225,7 +226,7 @@
 /obj/item/tank/jetpack/combustion/on_user_add()
 	..()
 	on_user_dir_change(null, null, known_user.dir)
-	RegisterSignal(known_user, COMSIG_ATOM_DIR_CHANGE, .proc/on_user_dir_change)
+	RegisterSignal(known_user, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_user_dir_change))
 
 /obj/item/tank/jetpack/combustion/on_user_loss()
 	..()
@@ -325,7 +326,7 @@
 		if(tilt_timer)
 			deltimer(tilt_timer)
 		animate(known_user, transform = M, time = 2)
-		tilt_timer = addtimer(CALLBACK(src, .proc/reset_animation, known_user), 2, TIMER_STOPPABLE)
+		tilt_timer = addtimer(CALLBACK(src, PROC_REF(reset_animation), known_user), 2, TIMER_STOPPABLE)
 
 /obj/item/tank/jetpack/combustion/proc/reset_animation(mob/who)
 	animate(who, transform = null, time = 2)
@@ -382,7 +383,8 @@
 	distribute_pressure = 0
 	gas_type = GAS_CO2
 
-
+// Integrated suit jetpacks
+// These use the tanks of a suit's suit storage instead of an internal tank, and their parent hardsuit assigns their known user.
 /obj/item/tank/jetpack/suit
 	name = "hardsuit jetpack upgrade"
 	desc = "A modular, compact set of thrusters designed to integrate with a hardsuit. It is fueled by a tank inserted into the suit's storage compartment."
@@ -396,12 +398,16 @@
 	full_speed = FALSE
 	var/datum/gas_mixture/temp_air_contents
 	var/obj/item/tank/internals/tank = null
-	var/mob/living/carbon/human/cur_user
 
 /obj/item/tank/jetpack/suit/Initialize(mapload)
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 	temp_air_contents = air_contents
+
+/obj/item/tank/jetpack/suit/Destroy()
+	tank = null
+	QDEL_NULL(temp_air_contents)
+	. = ..()
 
 /obj/item/tank/jetpack/suit/attack_self()
 	return
@@ -417,32 +423,30 @@
 		return
 	..()
 
+// This override checks to see if we're actually in a hardsuit and that we have a tank before we turn on, then makes sure we turn off if the hardsuit tank is lost.
 /obj/item/tank/jetpack/suit/turn_on(mob/user)
 	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc) || loc.loc != user)
 		return
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
 	air_contents = tank.air_contents
+	RegisterSignals(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_tank_drop))
 	START_PROCESSING(SSobj, src)
-	cur_user = user
 	..()
 
+// This override kills our tank reference before shutting off and resets our tank contents.
 /obj/item/tank/jetpack/suit/turn_off(mob/user)
-	tank = null
+	if(!isnull(tank))
+		UnregisterSignal(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING))
+		tank = null
 	air_contents = temp_air_contents
 	STOP_PROCESSING(SSobj, src)
-	cur_user = null
 	..()
 
-/obj/item/tank/jetpack/suit/process()
-	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc))
-		turn_off(cur_user)
-		return
-	var/mob/living/carbon/human/H = loc.loc
-	if(!tank || tank != H.s_store)
-		turn_off(cur_user)
-		return
-	..()
+/// Called when our connected hardsuit tank is removed from the hardsuit or destroyed.
+/obj/item/tank/jetpack/suit/proc/on_tank_drop()
+	SIGNAL_HANDLER
+	turn_off(known_user)
 
 /// Returns any jetpack on this mob that can be used
 /mob/proc/get_jetpack()

@@ -6,10 +6,11 @@
 
 /obj/item/circuit_component/pop
 	display_name = "Pop Component"
-	display_desc = "Removes the last or first entry of a list and returns it."
+	desc = "Removes the last or first entry of a list and returns it."
 
 	//The list port
 	var/datum/port/input/list_port
+	var/datum/port/input/option/options_port
 
 	//The output
 	var/datum/port/output/output_value
@@ -18,14 +19,14 @@
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 /obj/item/circuit_component/pop/populate_options()
-	options = list(
+	var/static/list/options = list(
 		COMP_POP_POP,
 		COMP_POP_DEQUEUE
 	)
+	options_port = add_option_port("Mode", options, COMP_POP_POP)
 
 
-/obj/item/circuit_component/pop/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/pop/populate_ports()
 	list_port = add_input_port("List", PORT_TYPE_LIST)
 	output_list = add_output_port("New List", PORT_TYPE_LIST)
 	output_value = add_output_port("Value", PORT_TYPE_ANY)
@@ -41,12 +42,12 @@
 	if(.)
 		return
 
-	var/list/input_list = list_port.input_value
+	var/list/input_list = list_port.value
 	input_list = input_list?.Copy() //Same as in the append component
 	var/result = null
 
 	if(input_list)
-		switch(current_option)
+		switch(options_port.value)
 			if(COMP_POP_POP)
 				result = pop(input_list)
 			if(COMP_POP_DEQUEUE)

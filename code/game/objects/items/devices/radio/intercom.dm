@@ -19,7 +19,7 @@
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		return
-	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/AreaPowerCheck)
+	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(AreaPowerCheck))
 
 /obj/item/radio/intercom/examine(mob/user)
 	. = ..()
@@ -161,7 +161,7 @@
 	result_path = /obj/item/radio/intercom/unscrewed
 	pixel_shift = 29
 	inverse = TRUE
-	materials = list(/datum/material/iron = 75, /datum/material/glass = 25)
+	custom_materials = list(/datum/material/iron = 75, /datum/material/glass = 25)
 
 /obj/item/radio/intercom/chapel
 	name = "Confessional intercom"

@@ -247,8 +247,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 	tX = text2num(tX[2])
 	tZ = origin.z
 	var/list/actual_view = getviewsize(C ? C.view : world.view)
-	tX = CLAMP(origin.x + round(actual_view[1] / 2) - tX, 1, world.maxx)
-	tY = CLAMP(origin.y + round(actual_view[2] / 2) - tY, 1, world.maxy)
+	tX = clamp(origin.x + round(actual_view[1] / 2) - tX, 1, world.maxx)
+	tY = clamp(origin.y + round(actual_view[2] / 2) - tY, 1, world.maxy)
 	return locate(tX, tY, tZ)
 
 ///similar function to RANGE_TURFS(), but will search spiralling outwards from the center (like the above, but only turfs)
@@ -304,6 +304,27 @@ Turf and target are separate in case you want to teleport some distance from a t
 			CHECK_TICK
 
 	return turf_list
+
+/// returns square lines(edges). if value is out of turf index, it won't be included
+/// * radius 0 will return the center turf itself
+/proc/get_edge_turfs(atom/center, radius)
+	if(!center.x || !center.y || !center.z)
+		CRASH("center [center] has no xyz ([center.x],[center.y],[center.z])")
+	if(radius <= 0)
+		return list(get_turf(center))
+	var/left = center.x - radius
+	var/right = center.x + radius
+	var/bottom = center.y - radius
+	var/top = center.y + radius
+	. = list()
+	if (left >= 1)
+		. += block(locate(left, min(top, world.maxy), center.z), locate(left, max(bottom, 1), center.z))
+	if (right <= world.maxx)
+		. += block(locate(right, min(top, world.maxy), center.z), locate(right, max(bottom, 1), center.z))
+	if (bottom >= 1)
+		. += block(locate(max(left + 1, 1), bottom, center.z), locate(min(right - 1, world.maxx), bottom, center.z))
+	if (top <= world.maxy)
+		. += block(locate(max(left + 1, 1), top, center.z), locate(min(right - 1, world.maxx), top, center.z))
 
 ///Returns a random turf on the station
 /proc/get_random_station_turf()
@@ -370,10 +391,25 @@ Turf and target are separate in case you want to teleport some distance from a t
 				return FALSE
 	return TRUE
 
-/proc/turf_can_climb(turf/target)
-	if(!isopenspace(target))
+/proc/is_turf_safe(turf/open/floor/floor)
+	// It's probably not safe if it's not a floor.
+	if(!istype(floor))
 		return FALSE
-	for(var/obj/structure/S in target)
-		if(S.can_climb_through())
-			return TRUE
-	return FALSE
+	var/datum/gas_mixture/air = floor.air
+	// Certainly unsafe if it completely lacks air.
+	if(QDELETED(air))
+		return FALSE
+	// Can most things breathe?
+	for(var/id in air.get_gases())
+		if(id in GLOB.hardcoded_gases)
+			continue
+		return FALSE
+	if(air.get_moles(GAS_O2) < 16 || air.get_moles(GAS_PLASMA) || air.get_moles(GAS_CO2) >= 10)
+		return FALSE
+	var/temperature = air.return_temperature()
+	if(temperature <= 270 || temperature >= 360)
+		return FALSE
+	var/pressure = air.return_pressure()
+	if(pressure <= 20 || pressure >= 550)
+		return FALSE
+	return TRUE

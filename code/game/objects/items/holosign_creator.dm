@@ -18,6 +18,7 @@
 	var/creation_time = 0 //time to create a holosign in deciseconds.
 	var/holosign_type = /obj/structure/holosign/wetsign
 	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
+	var/ranged = FALSE
 
 /obj/item/holosign_creator/Initialize(mapload)
 	. = ..()
@@ -28,7 +29,7 @@
 
 /obj/item/holosign_creator/afterattack(atom/target, mob/user, flag)
 	. = ..()
-	if(flag)
+	if(flag || ranged)
 		if(!check_allowed_items(target, 1))
 			return
 		var/turf/T = get_turf(target)
@@ -37,7 +38,7 @@
 			to_chat(user, "<span class='notice'>You use [src] to deactivate [H].</span>")
 			qdel(H)
 		else
-			if(!is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
+			if(!T.is_blocked_turf(TRUE)) //can't put holograms on a tile that has dense stuff
 				if(holocreator_busy)
 					to_chat(user, "<span class='notice'>[src] is busy creating a hologram.</span>")
 					return
@@ -51,7 +52,7 @@
 						holocreator_busy = FALSE
 						if(length(signs) >= max_signs)
 							return
-						if(is_blocked_turf(T, TRUE)) //don't try to sneak dense stuff on our tile during the wait.
+						if(T.is_blocked_turf(TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
 					H = new holosign_type(get_turf(target), src)
 					if(length(signs) == max_signs)

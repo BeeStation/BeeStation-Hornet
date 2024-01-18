@@ -4,18 +4,19 @@
 	var/goal = 45000
 
 /datum/station_goal/bluespace_tap/get_report()
-	return {"<b>Bluespace Harvester Experiment</b><br>
-	Another research station has developed a device called a Bluespace Harvester.
-	It reaches through bluespace into other dimensions to shift through them for interesting objects.<br>
-	Due to unforseen circumstances the large-scale test of the prototype could not be completed on the original research station. It will instead be carried out on your station.
-	Acquire the circuit board, construct the device over a wire knot and feed it enough power to generate [goal] mining points by shift end.
-	<br><br>
-	Be advised that the device is experimental and might act in slightly unforseen ways if sufficiently powered.
-	<br>
-	Nanotrasen Science Directorate"}
+	return list(
+	"<blockquote><b>Bluespace Harvester Experiment</b>",
+	"Another research station has developed a device called a Bluespace Harvester.",
+	"It reaches through bluespace into other dimensions to shift through them for interesting objects.",
+	"Due to unforeseen circumstances the large-scale test of the prototype could not be completed on the original research station. It will instead be carried out on your station.",
+	"Acquire the circuit board, construct the device over a wire knot and feed it enough power to generate [goal] mining points by shift end.",
+	"",
+	"Be advised that the device is experimental and might act in slightly unforeseen ways if sufficiently powered.",
+	"Nanotrasen Science Directorate</blockquote>",
+	).Join("\n")
 
 /datum/station_goal/bluespace_tap/on_report()
-	var/datum/supply_pack/engineering/bluespace_tap/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/bluespace_tap]
+	var/datum/supply_pack/engineering/bluespace_tap/P = SSsupply.supply_packs[/datum/supply_pack/engineering/bluespace_tap]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_tap/check_completion()
@@ -143,23 +144,23 @@
 	name = "fancy food"
 	lootcount = 3
 	loot = list(
-		/obj/item/reagent_containers/food/snacks/burger/crab,
+		/obj/item/food/burger/crab,
 		/obj/item/reagent_containers/food/snacks/crab_rangoon,
 		/obj/item/reagent_containers/food/snacks/scotchegg,
-		/obj/item/reagent_containers/food/snacks/pancakes/chocolatechip,
+		/obj/item/food/pancakes/chocolatechip,
 		/obj/item/reagent_containers/food/snacks/carrotfries,
 		/obj/item/reagent_containers/food/snacks/chocolatebunny,
-		/obj/item/reagent_containers/food/snacks/benedict,
-		/obj/item/reagent_containers/food/snacks/cornedbeef,
-		/obj/item/reagent_containers/food/snacks/soup/meatball,
-		/obj/item/reagent_containers/food/snacks/soup/monkeysdelight,
-		/obj/item/reagent_containers/food/snacks/soup/stew,
-		/obj/item/reagent_containers/food/snacks/soup/hotchili,
-		/obj/item/reagent_containers/food/snacks/burrito,
-		/obj/item/reagent_containers/food/snacks/burger/fish,
-		/obj/item/reagent_containers/food/snacks/cubancarp,
-		/obj/item/reagent_containers/food/snacks/fishandchips,
-		/obj/item/reagent_containers/food/snacks/pie/meatpie,
+		/obj/item/food/benedict,
+		/obj/item/food/cornedbeef,
+		/obj/item/food/soup/meatball,
+		/obj/item/food/soup/monkeysdelight,
+		/obj/item/food/soup/stew,
+		/obj/item/food/soup/hotchili,
+		/obj/item/food/burrito,
+		/obj/item/food/burger/fish,
+		/obj/item/food/cubancarp,
+		/obj/item/food/fishandchips,
+		/obj/item/food/pie/meatpie,
 		/obj/item/pizzabox,
 	)
 
@@ -423,7 +424,7 @@
 
 /obj/item/paper/bluespace_tap
 	name = "paper- 'The Experimental NT Bluespace Harvester - Mining other universes for science and profit!'"
-	info = "<h1>Important Instructions!</h1>Please follow all setup instructions to ensure proper operation. <br>\
+	default_raw_text = "<h1>Important Instructions!</h1>Please follow all setup instructions to ensure proper operation. <br>\
 	1. Create a wire node with ample access to spare power. The device operates independently of APCs. <br>\
 	2. Create a machine frame as normal on the wire node, taking into account the device's dimensions (3 by 3 meters). <br>\
 	3. Insert wiring, circuit board and required components and finish construction according to NT engineering standards. <br>\

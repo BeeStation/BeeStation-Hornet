@@ -1,5 +1,8 @@
 #define CULT_POLL_WAIT 2400
 
+/// 200 proc calls deep and shit breaks, this is a bit lower to give some safety room
+#define MAX_PROC_DEPTH 195 // no idea where to put this
+
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
 	if(!A)
@@ -23,19 +26,29 @@
 			get_area(get_ranged_target_turf(center, SOUTH, 1)),
 			get_area(get_ranged_target_turf(center, EAST, 1)),
 			get_area(get_ranged_target_turf(center, WEST, 1)))
-	listclearnulls(.)
+	list_clear_nulls(.)
 
 /proc/get_open_turf_in_dir(atom/center, dir)
-	var/turf/open/T = get_ranged_target_turf(center, dir, 1)
+	var/turf/open/T = get_step(center, dir)
 	if(istype(T))
 		return T
 
 /proc/get_adjacent_open_turfs(atom/center)
-	. = list(get_open_turf_in_dir(center, NORTH),
-			get_open_turf_in_dir(center, SOUTH),
-			get_open_turf_in_dir(center, EAST),
-			get_open_turf_in_dir(center, WEST))
-	listclearnulls(.)
+	var/list/hand_back = list()
+	// Inlined get_open_turf_in_dir, just to be fast
+	var/turf/open/new_turf = get_step(center, NORTH)
+	if(istype(new_turf))
+		hand_back += new_turf
+	new_turf = get_step(center, SOUTH)
+	if(istype(new_turf))
+		hand_back += new_turf
+	new_turf = get_step(center, EAST)
+	if(istype(new_turf))
+		hand_back += new_turf
+	new_turf = get_step(center, WEST)
+	if(istype(new_turf))
+		hand_back += new_turf
+	return hand_back
 
 /proc/get_adjacent_open_areas(atom/center)
 	. = list()
@@ -232,7 +245,7 @@
  * vars:
  * * view_radius is distance we look for potential hearers
  * * source is obviously the source attom from where we start looking
- * * invis_flags is for if we want to include invisible mobs or even ghosts etc the default value 0 means only visible mobs are included SEE_INVISIBLE_OBSERVER would also include ghosts.
+ * * invis_flags is for if we want to include invisible mobs or even ghosts etc the default value 0 means only visible mobs are included SEE_INVISIBLE_SPIRIT would also include ghosts.
  */
 /proc/get_hearers_in_view(view_radius, atom/source, invis_flags = 0)
 	var/turf/center_turf = get_turf(source)
@@ -247,14 +260,13 @@
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
-	for(var/obj/item/radio/R in radios)
-		if(R.canhear_range != -1)
-			. |= get_hearers_in_view(R.canhear_range, R)
+	for(var/obj/item/radio/radio in radios)
+		if(radio.canhear_range != -1)
+			. |= get_hearers_in_view(radio.canhear_range, radio)
 		else
-			if(istype(R.loc, /obj/item/implant))
-				var/obj/item/implant/I = R.loc
-				if(I.imp_in)
-					. |= I.imp_in
+			var/list/specific_hearers = radio.get_specific_hearers()
+			if(specific_hearers)
+				. |= specific_hearers
 
 #define SIGNV(X) ((X<0)?-1:1)
 
@@ -268,7 +280,7 @@
 			Y1+=s
 			while(Y1!=Y2)
 				T=locate(X1,Y1,Z)
-				if(T.opacity)
+				if(IS_OPAQUE_TURF(T))
 					return 0
 				Y1+=s
 	else
@@ -284,7 +296,7 @@
 			else
 				X1+=signX //Line exits tile horizontally
 			T=locate(X1,Y1,Z)
-			if(T.opacity)
+			if(IS_OPAQUE_TURF(T))
 				return 0
 	return 1
 #undef SIGNV
@@ -327,11 +339,22 @@
 			break
 
 /proc/get_mob_by_ckey(key)
-	var/ckey = ckey(key) //just to be safe
+	var/mob_ckey = ckey(key) //just to be safe
+	if(!mob_ckey)
+		return
 	for(var/mob/M as() in GLOB.player_list)
-		if(M?.ckey == ckey)
+		if(M?.ckey == mob_ckey)
 			return M
-	return null
+
+/proc/get_ckey_last_living(key, healthy = FALSE)
+	var/mob_ckey = ckey(key) //just to be safe
+	if(!mob_ckey)
+		return
+	for(var/mob/living/potential_target as() in GLOB.mob_living_list)
+		if(QDELETED(potential_target) || (healthy && potential_target.stat))
+			continue
+		if(potential_target.ckey == mob_ckey || (!length(potential_target.ckey) && ckey(potential_target.mind?.key) == mob_ckey))
+			return potential_target
 
 /proc/considered_alive(datum/mind/M, enforce_human = TRUE)
 	if(M?.current)
@@ -364,12 +387,16 @@
 	for(var/client/C in show_to)
 		C.images -= I
 
+/// Shows an image to all clients, then removes that image after the duration.
+/// If you want an overlay applied to the object which will show to all clients, use
+/// flick_overlay_static
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/remove_images_from_clients, I, show_to), duration, TIMER_CLIENT_TIME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_images_from_clients), I, show_to), duration, TIMER_CLIENT_TIME)
 
-/proc/flick_overlay_view(image/I, atom/target, duration) //wrapper for the above, flicks to everyone who can see the target atom
+/// Displays an image to clients that can see a target object.
+/proc/flick_overlay_view(image/I, atom/target, duration)
 	var/list/viewing = list()
 	for(var/mob/M as() in viewers(target))
 		if(M.client)
@@ -397,67 +424,67 @@
 			active_players++
 	return active_players
 
-/proc/showCandidatePollWindow(mob/M, poll_time, Question, list/candidates, ignore_category, time_passed, flashwindow = TRUE)
+/proc/show_candidate_poll_window(mob/candidate_mob, poll_time, question, list/candidates, ignore_category, time_passed, flashwindow = TRUE)
 	set waitfor = 0
 
-	SEND_SOUND(M, 'sound/misc/notice2.ogg') //Alerting them to their consideration
+	SEND_SOUND(candidate_mob, 'sound/misc/notice2.ogg') //Alerting them to their consideration
 	if(flashwindow)
-		window_flash(M.client)
-	switch(ignore_category ? askuser(M,Question,"Please answer in [DisplayTimeText(poll_time)]!","Yes","No","Never for this round", StealFocus=0, Timeout=poll_time) : askuser(M,Question,"Please answer in [DisplayTimeText(poll_time)]!","Yes","No", StealFocus=0, Timeout=poll_time))
-		if(1)
-			to_chat(M, "<span class='notice'>Choice registered: Yes.</span>")
+		window_flash(candidate_mob.client)
+	var/list/answers = ignore_category ? list("Yes", "No", "Never for this round") : list("Yes", "No")
+	switch(tgui_alert(candidate_mob, question, "A limited-time role has appeared!", answers, poll_time, autofocus = FALSE))
+		if("Yes")
+			to_chat(candidate_mob, "<span class='notice'>Choice registered: Yes.</span>")
 			if(time_passed + poll_time <= world.time)
-				to_chat(M, "<span class='danger'>Sorry, you answered too late to be considered!</span>")
-				SEND_SOUND(M, 'sound/machines/buzz-sigh.ogg')
-				candidates -= M
+				to_chat(candidate_mob, "<span class='danger'>Sorry, you answered too late to be considered!</span>")
+				SEND_SOUND(candidate_mob, 'sound/machines/buzz-sigh.ogg')
+				candidates -= candidate_mob
 			else
-				candidates += M
-		if(2)
-			to_chat(M, "<span class='danger'>Choice registered: No.</span>")
-			candidates -= M
-		if(3)
-			var/list/L = GLOB.poll_ignore[ignore_category]
-			if(!L)
+				candidates += candidate_mob
+		if("No")
+			to_chat(candidate_mob, "<span class='danger'>Choice registered: No.</span>")
+			candidates -= candidate_mob
+		if("Never for this round")
+			var/list/ignore_list = GLOB.poll_ignore[ignore_category]
+			if(!ignore_list)
 				GLOB.poll_ignore[ignore_category] = list()
-			GLOB.poll_ignore[ignore_category] += M.ckey
-			to_chat(M, "<span class='danger'>Choice registered: Never for this round.</span>")
-			candidates -= M
+			GLOB.poll_ignore[ignore_category] += candidate_mob.ckey
+			to_chat(candidate_mob, "<span class='danger'>Choice registered: Never for this round.</span>")
+			candidates -= candidate_mob
 		else
-			candidates -= M
+			candidates -= candidate_mob
 
-/proc/pollGhostCandidates(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE, req_hours = 0)
+/proc/poll_ghost_candidates(question, jobban_type, role_preference_key, poll_time = 30 SECONDS, ignore_category = null, flashwindow = TRUE, req_hours = 0)
 	var/list/candidates = list()
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
 		return candidates
 
-	for(var/mob/dead/observer/G in GLOB.player_list)
-		candidates += G
+	for(var/mob/dead/observer/ghost_player in GLOB.player_list)
+		candidates += ghost_player
 
-	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates, req_hours)
+	return poll_candidates(question, jobban_type, role_preference_key, poll_time, ignore_category, flashwindow, candidates, req_hours)
 
-/proc/pollCandidates(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE, list/group = null, req_hours = 0)
+/proc/poll_candidates(question, banning_key, role_preference_key = null, poll_time = 300, poll_ignore_key = null, flashwindow = TRUE, list/group = null, req_hours = 0)
 	var/time_passed = world.time
-	if (!Question)
-		Question = "Would you like to be a special role?"
+	if (!question)
+		question = "Would you like to be a special role?"
+	if(isnull(poll_ignore_key)) // FALSE will not put one, no matter what
+		if(role_preference_key)
+			poll_ignore_key = "role_[role_preference_key]"
+		else if(banning_key)
+			poll_ignore_key = "ban_[role_preference_key]"
 	var/list/result = list()
-	for(var/m in group)
-		var/mob/M = m
-		if(!M.key || !M.client || (ignore_category && GLOB.poll_ignore[ignore_category] && (M.ckey in GLOB.poll_ignore[ignore_category])))
+	for(var/mob/candidate_mob as anything in group)
+		if(QDELETED(candidate_mob) || !candidate_mob.key || !candidate_mob.client)
 			continue
-		if(be_special_flag)
-			if(!(M.client.prefs) || !(be_special_flag in M.client.prefs.be_special))
-				continue
-		if(gametypeCheck)
-			if(!gametypeCheck.age_check(M.client))
-				continue
-		if(jobbanType)
-			if(QDELETED(M) || is_banned_from(M.ckey, list(jobbanType, ROLE_SYNDICATE)))
-				continue
-		if(req_hours) //minimum living hour count
-			if((M.client.get_exp_living(TRUE)/60) < req_hours)
-				continue
+		if(!candidate_mob.client.should_include_for_role(
+			banning_key = banning_key,
+			role_preference_key = role_preference_key,
+			poll_ignore_key = poll_ignore_key,
+			req_hours = req_hours
+		))
+			continue
 
-		showCandidatePollWindow(M, poll_time, Question, result, ignore_category, time_passed, flashwindow)
+		show_candidate_poll_window(candidate_mob, poll_time, question, result, poll_ignore_key, time_passed, flashwindow)
 	sleep(poll_time)
 
 	//Check all our candidates, to make sure they didn't log off or get deleted during the wait period.
@@ -465,28 +492,50 @@
 		if(!M.key || !M.client)
 			result -= M
 
-	listclearnulls(result)
+	list_clear_nulls(result)
 
 	return result
 
-/proc/pollCandidatesForMob(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, mob/M, ignore_category = null)
-	var/list/L = pollGhostCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category)
-	if(QDELETED(M) || !M.loc)
-		return list()
-	return L
+/**
+ * Returns a list of ghosts that are eligible to take over and wish to be considered for a mob.
+ *
+ * Arguments:
+ * * question - Question to show players as part of poll
+ * * jobban_type - Type of jobban to use to filter out potential candidates.
+ * * poll_time - Length of time in deciseconds that the poll input box exists before closing.
+ * * target_mob - The mob that is being polled for.
+ * * ignore_category - Unknown/needs further documentation.
+ */
+/proc/poll_candidates_for_mob(question, jobban_type, role_preference_key, poll_time = 30 SECONDS, mob/target_mob, ignore_category = null)
+	var/list/possible_candidates = poll_ghost_candidates(question, jobban_type, role_preference_key, poll_time, ignore_category)
 
-/proc/pollCandidatesForMobs(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, list/mobs, ignore_category = null)
-	var/list/L = pollGhostCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category)
+	if(QDELETED(target_mob) || !target_mob.loc)
+		return list()
+
+	return possible_candidates
+
+/**
+ * Returns a list of ghosts that are eligible to take over and wish to be considered for a mob.
+ *
+ * Arguments:
+ * * question - question to show players as part of poll
+ * * jobban_type - Type of jobban to use to filter out potential candidates.
+ *
+ * * poll_time - Length of time in deciseconds that the poll input box exists before closing.
+ * * mobs - The list of mobs being polled for. This list is mutated and invalid mobs are removed from it before the proc returns.
+ * * ignore_category - The notification preference that hides the prompt.
+ */
+/proc/poll_candidates_for_mobs(question, jobban_type, role_preference_key, poll_time = 30 SECONDS, list/mobs, ignore_category = null)
+	var/list/candidate_list = poll_ghost_candidates(question, jobban_type, role_preference_key, poll_time, ignore_category)
+
 	var/i=1
-	for(var/v in mobs)
-		var/atom/A = v
-		if(QDELETED(A) || !A.loc)
+	for(var/mob/potential_mob as anything in mobs)
+		if(QDELETED(potential_mob) || !potential_mob.loc)
 			mobs.Cut(i,i+1)
 		else
 			++i
-	return L
 
-/proc/poll_helper(var/mob/living/M)
+	return candidate_list
 
 /proc/makeBody(mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
 	if(!G_found || !G_found.key)
@@ -496,7 +545,7 @@
 	var/mob/living/carbon/human/new_character = new//The mob being spawned.
 	SSjob.SendToLateJoin(new_character)
 
-	G_found.client.prefs.active_character.copy_to(new_character)
+	G_found.client.prefs.apply_prefs_to(new_character)
 	new_character.dna.update_dna_identity()
 	new_character.key = G_found.key
 
@@ -512,7 +561,7 @@
 		var/mob/M = C
 		if(M.client)
 			C = M.client
-	if(!C || (!(C.prefs.toggles2 & PREFTOGGLE_2_WINDOW_FLASHING) && !ignorepref))
+	if(!C || (!C.prefs.read_player_preference(/datum/preference/toggle/window_flashing) && !ignorepref))
 		return
 	winset(C, "mainwindow", "flash=5")
 
@@ -578,7 +627,7 @@
 				continue
 
 		if (!isspaceturf(found_turf))
-			if (!is_blocked_turf(found_turf))
+			if (!found_turf.is_blocked_turf())
 				possible_loc.Add(found_turf)
 
 	// Need at least one free location.
@@ -605,13 +654,12 @@
   * Arguments:
   * * Question: String, what do you want to ask them
   * * jobbanType: List, Which roles/jobs to exclude from being asked
-  * * gametypeCheck: Datum, Check if they have the time required for that role
-  * * be_special_flag: Bool, Only notify ghosts with special antag on
+  * * role_preference_key:
   * * poll_time: Integer, How long to poll for in deciseconds(0.1s)
   * * ignore_category: Define, ignore_category: People with this category(defined in poll_ignore.dm) turned off dont get the message
   * * flashwindow: Bool, Flash their window to grab their attention
   */
-/proc/pollMentorGhostCandidates(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE)
+/proc/poll_mentor_ghost_candidates(question, jobban_type, role_preference_key, poll_time = 300, ignore_category = null, flashwindow = TRUE)
 	var/list/candidates = list()
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
 		return candidates
@@ -620,7 +668,7 @@
 		if(G.client?.is_mentor())
 			candidates += G
 
-	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates)
+	return poll_candidates(question, jobban_type, role_preference_key, poll_time, ignore_category, flashwindow, candidates)
 
 /**
   * Poll mentor ghosts to take control of a mob
@@ -630,14 +678,13 @@
   * Arguments:
   * * Question: String, what do you want to ask them
   * * jobbanType: List, Which roles/jobs to exclude from being asked
-  * * gametypeCheck: Datum, Check if they have the time required for that role
-  * * be_special_flag: Bool, Only notify ghosts with special antag on
+  * * role_preference_key: Bool, Only notify ghosts with special antag on
   * * poll_time: Integer, How long to poll for in deciseconds(0.1s)
   * * M: Mob, /mob to offer
   * * ignore_category: Unknown
   */
-/proc/pollMentorCandidatesForMob(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, mob/M, ignore_category = null)
-	var/list/L = pollMentorGhostCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category)
+/proc/pollMentorCandidatesForMob(Question, jobbanType, role_preference_key, poll_time = 300, mob/M, ignore_category = null)
+	var/list/L = poll_mentor_ghost_candidates(Question, jobbanType, role_preference_key, poll_time, ignore_category)
 	if(!M || QDELETED(M) || !M.loc)
 		return list()
 	return L

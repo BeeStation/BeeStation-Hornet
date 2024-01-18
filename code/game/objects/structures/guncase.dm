@@ -2,11 +2,11 @@
 /obj/structure/guncase
 	name = "gun locker"
 	desc = "A locker that holds guns."
-	icon = 'icons/obj/closet.dmi'
+	icon = 'icons/obj/storage/closet.dmi'
 	icon_state = "shotguncase"
 	anchored = FALSE
 	density = TRUE
-	opacity = 0
+	opacity = FALSE
 	var/case_type = ""
 	var/gun_category = /obj/item/gun
 	var/open = TRUE

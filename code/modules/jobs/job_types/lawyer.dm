@@ -1,6 +1,8 @@
 /datum/job/lawyer
 	title = JOB_NAME_LAWYER
 	flag = LAWYER
+	description = "Ensure Security follows Space Law and Standard Operating Procedure perfectly, represent your clients in trials and other legal troubles, make sure the crew is treated fairly by the men in red."
+	department_for_prefs = DEPT_BITFLAG_CIV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -26,6 +28,8 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/lawyer
 	)
+
+	minimal_lightup_areas = list(/area/lawoffice)
 
 /datum/outfit/job/lawyer
 	name = JOB_NAME_LAWYER

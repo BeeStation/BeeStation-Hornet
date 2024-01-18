@@ -64,11 +64,11 @@
 		var/mob/living/L = occupant
 		if(!iscarbon(L) || HAS_TRAIT(L, TRAIT_POWERHUNGRY) || !(MOB_ORGANIC in L?.mob_biotypes))
 			occupant.forceMove(drop_location())
-			occupant = null
+			set_occupant(null)
 			return
 
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
-		addtimer(CALLBACK(src, .proc/start_extracting), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(start_extracting)), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
 		update_icon()
 
 /obj/machinery/fat_sucker/open_machine(mob/user)
@@ -185,20 +185,20 @@
 		var/mob/living/carbon/C = occupant
 		if(C.type_of_meat)
 			// Someone changed component rating high enough so it requires negative amount of nutrients to create a meat slab
-			if(nutrient_to_meat < 0)
+			if(nutrient_to_meat <= 0) // Megaddd, please don't crash the server again
 				occupant.forceMove(drop_location())
-				occupant = null
+				set_occupant(null)
 				explosion(loc, 0, 1, 2, 3, TRUE)
 				qdel(src)
 				return
 			if(nutrients >= nutrient_to_meat * 2)
-				C.put_in_hands(new /obj/item/reagent_containers/food/snacks/cookie (), TRUE)
+				C.put_in_hands(new /obj/item/food/cookie, del_on_fail = TRUE)
 			while(nutrients >= nutrient_to_meat)
 				nutrients -= nutrient_to_meat
 				new C.type_of_meat (drop_location())
 			while(nutrients >= nutrient_to_meat / 3)
 				nutrients -= nutrient_to_meat / 3
-				new /obj/item/reagent_containers/food/snacks/meat/rawcutlet/plain (drop_location())
+				new /obj/item/food/meat/rawcutlet/plain (drop_location())
 			nutrients = 0
 
 /obj/machinery/fat_sucker/screwdriver_act(mob/living/user, obj/item/I)

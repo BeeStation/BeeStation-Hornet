@@ -19,7 +19,7 @@ Contents:
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/stock_parts/cell)
 	slowdown = 1
 	resistance_flags = LAVA_PROOF | ACID_PROOF
-	armor = list("melee" = 60, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100, "stamina" = 60)
+	armor = list(MELEE = 60,  BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 100, ACID = 100, STAMINA = 60)
 	strip_delay = 12
 
 	actions_types = list(/datum/action/item_action/initialize_ninja_suit, /datum/action/item_action/ninjasmoke, /datum/action/item_action/ninjaboost, /datum/action/item_action/ninjapulse, /datum/action/item_action/ninjastar, /datum/action/item_action/ninjanet, /datum/action/item_action/ninja_sword_recall, /datum/action/item_action/ninja_stealth, /datum/action/item_action/toggle_glove)
@@ -85,7 +85,7 @@ Contents:
 
 /obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot)
 	. = ..()
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, .proc/terminate)
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(terminate))
 
 /obj/item/clothing/suit/space/space_ninja/dropped(mob/user)
 	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
@@ -144,7 +144,7 @@ Contents:
 	return TRUE
 
 /obj/item/clothing/suit/space/space_ninja/proc/lockIcons(mob/living/carbon/human/H)
-	icon_state = H.gender==FEMALE ? "s-ninjanf" : "s-ninjan"
+	icon_state = H.dna.features["body_model"] == FEMALE ? "s-ninjanf" : "s-ninjan"
 	H.gloves.icon_state = "s-ninjan"
 	H.gloves.item_state = "s-ninjan"
 

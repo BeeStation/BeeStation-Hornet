@@ -14,9 +14,9 @@
 	use_power = IDLE_POWER_USE
 	can_unwrench = TRUE
 	welded = FALSE
-	level = 1
 	layer = GAS_SCRUBBER_LAYER
 	shift_underlay_only = FALSE
+	hide = TRUE
 
 	interacts_with_air = TRUE
 
@@ -156,7 +156,7 @@
 		"device" = "VP",
 		"timestamp" = world.time,
 		"power" = on,
-		"direction" = pump_direction ? "release" : "siphon",
+		"direction" = pump_direction,
 		"checks" = pressure_checks,
 		"internal" = internal_pressure_bound,
 		"external" = external_pressure_bound,
@@ -219,13 +219,13 @@
 
 	if("set_internal_pressure" in signal.data)
 		var/old_pressure = internal_pressure_bound
-		internal_pressure_bound = CLAMP(text2num(signal.data["set_internal_pressure"]),0,ONE_ATMOSPHERE*50)
+		internal_pressure_bound = clamp(text2num(signal.data["set_internal_pressure"]),0,ONE_ATMOSPHERE*50)
 		if(old_pressure != internal_pressure_bound)
 			investigate_log(" internal pressure was set to [internal_pressure_bound] by [key_name(signal_sender)]",INVESTIGATE_ATMOS)
 
 	if("set_external_pressure" in signal.data)
 		var/old_pressure = external_pressure_bound
-		external_pressure_bound = CLAMP(text2num(signal.data["set_external_pressure"]),0,ONE_ATMOSPHERE*50)
+		external_pressure_bound = clamp(text2num(signal.data["set_external_pressure"]),0,ONE_ATMOSPHERE*50)
 		if(old_pressure != external_pressure_bound)
 			investigate_log(" external pressure was set to [external_pressure_bound] by [key_name(signal_sender)]",INVESTIGATE_ATMOS)
 
@@ -236,10 +236,10 @@
 		internal_pressure_bound = 0
 
 	if("adjust_internal_pressure" in signal.data)
-		internal_pressure_bound = CLAMP(internal_pressure_bound + text2num(signal.data["adjust_internal_pressure"]),0,ONE_ATMOSPHERE*50)
+		internal_pressure_bound = clamp(internal_pressure_bound + text2num(signal.data["adjust_internal_pressure"]),0,ONE_ATMOSPHERE*50)
 
 	if("adjust_external_pressure" in signal.data)
-		external_pressure_bound = CLAMP(external_pressure_bound + text2num(signal.data["adjust_external_pressure"]),0,ONE_ATMOSPHERE*50)
+		external_pressure_bound = clamp(external_pressure_bound + text2num(signal.data["adjust_external_pressure"]),0,ONE_ATMOSPHERE*50)
 
 	if("init" in signal.data)
 		name = signal.data["init"]
@@ -280,12 +280,12 @@
 	if(welded)
 		. += "It seems welded shut."
 
-/obj/machinery/atmospherics/components/unary/vent_pump/power_change()
-	..()
-	update_icon_nopipes()
-
 /obj/machinery/atmospherics/components/unary/vent_pump/can_crawl_through()
-	return !welded
+	return !(machine_stat & BROKEN) && !welded
+
+/obj/machinery/atmospherics/components/unary/vent_pump/power_change()
+	. = ..()
+	update_icon_nopipes()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/attack_alien(mob/user)
 	if(!welded || !(do_after(user, 20, target = src)))
@@ -359,9 +359,9 @@
 	on = TRUE
 	icon_state = "vent_map_siphon_on-3"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output
 	name = "plasma tank output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_TOX
+	id_tag = ATMOS_GAS_MONITOR_OUTPUT_PLASMA
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/oxygen_output
 	name = "oxygen tank output inlet"
 	id_tag = ATMOS_GAS_MONITOR_OUTPUT_O2
@@ -440,6 +440,14 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/air_output
 	name = "air mix tank output inlet"
 	id_tag = ATMOS_GAS_MONITOR_OUTPUT_AIR
+
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/toxins_waste_output
+	name = "toxins waste output inlet"
+	id_tag = ATMOS_GAS_MONITOR_OUTPUT_TOXINS_WASTE
+
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/atmos/sm_waste
+	name = "supermatter waste output inlet"
+	id_tag = ATMOS_GAS_MONITOR_OUTPUT_SM_WASTE
 
 #undef INT_BOUND
 #undef EXT_BOUND

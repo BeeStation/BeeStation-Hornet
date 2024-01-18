@@ -26,6 +26,9 @@
 	var/piping_layer = PIPING_LAYER_DEFAULT
 	var/pipe_flags = NONE
 
+	///This only works on pipes, because they have 1000 subtypes which need to be visible and invisible under tiles, so we track this here
+	var/hide = TRUE
+
 	var/static/list/iconsetids = list()
 	var/static/list/pipeimages = list()
 
@@ -39,7 +42,6 @@
 	var/on = FALSE
 	/// whether it can be painted
 	var/paintable = FALSE
-	var/interacts_with_air = FALSE
 
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
@@ -55,24 +57,19 @@
 		normalize_cardinal_directions()
 	nodes = new(device_type)
 	if (!armor)
-		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70, "stamina" = 0)
+		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70, STAMINA = 0)
 	..()
 	if(process)
-		if(interacts_with_air)
-			SSair.atmos_air_machinery += src
-		else
-			SSair.atmos_machinery += src
+		SSair.start_processing_machine(src)
 	SetInitDirections()
 
 /obj/machinery/atmospherics/Destroy()
 	for(var/i in 1 to device_type)
 		nullifyNode(i)
 
-	SSair.atmos_machinery -= src
-	SSair.atmos_air_machinery -= src
+	SSair.stop_processing_machine(src)
 	SSair.pipenets_needing_rebuilt -= src
 
-	dropContents()
 	if(pipe_vision_img)
 		qdel(pipe_vision_img)
 
@@ -192,11 +189,6 @@
 	if(!can_unwrench(user))
 		return ..()
 
-	var/turf/T = get_turf(src)
-	if (level==1 && isturf(T) && T.intact)
-		to_chat(user, "<span class='warning'>You must remove the plating first!</span>")
-		return TRUE
-
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	add_fingerprint(user)
@@ -284,8 +276,6 @@
 		add_atom_colour(obj_color, FIXED_COLOUR_PRIORITY)
 		pipe_color = obj_color
 	setPipingLayer(set_layer)
-	var/turf/T = get_turf(src)
-	level = T.intact ? 2 : 1
 	atmosinit()
 	var/list/nodes = pipeline_expansion()
 	for(var/obj/machinery/atmospherics/A in nodes)
@@ -326,6 +316,8 @@
 				if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 					user.last_played_vent = world.time
 					playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
+					if(prob(1))
+						audible_message("<span class='warning'>You hear something crawling through the ducts...</span>")
 	else if(is_type_in_typecache(src, GLOB.ventcrawl_machinery) && can_crawl_through()) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 		user.forceMove(loc)
 		user.visible_message("<span class='notice'>You hear something squeezing through the ducts...</span>", "<span class='notice'>You climb out the ventilation system.")
@@ -338,7 +330,7 @@
 		L.handle_ventcrawl(src)
 		return
 
-
+/// Whether ventcrawling creatures can move in or out of this machine.
 /obj/machinery/atmospherics/proc/can_crawl_through()
 	return TRUE
 

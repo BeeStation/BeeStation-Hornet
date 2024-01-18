@@ -3,9 +3,9 @@
 
 	name = "passive vent"
 	desc = "It is an open vent."
-	can_unwrench = TRUE
 
-	level = 1
+	can_unwrench = TRUE
+	hide = TRUE
 	interacts_with_air = TRUE
 	layer = GAS_SCRUBBER_LAYER
 	shift_underlay_only = FALSE
@@ -42,7 +42,7 @@
 		update_parents()
 
 /obj/machinery/atmospherics/components/unary/passive_vent/can_crawl_through()
-	return TRUE
+	return TRUE // we don't care about power or being broken
 
 /obj/machinery/atmospherics/components/unary/passive_vent/layer2
 	piping_layer = 2

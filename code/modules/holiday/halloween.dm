@@ -8,16 +8,16 @@
 /datum/recipe/sugarcookie/spookyskull
 	reagents = list(/datum/reagent/consumable/flour = 5, /datum/reagent/consumable/sugar = 5, /datum/reagent/consumable/milk = 5)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/food/egg,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sugarcookie/spookyskull
+	result = /obj/item/food/cookie/sugar/spookyskull
 
 /datum/recipe/sugarcookie/spookycoffin
 	reagents = list(/datum/reagent/consumable/flour = 5, /datum/reagent/consumable/sugar = 5, /datum/reagent/consumable/coffee = 5)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/food/egg,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sugarcookie/spookycoffin
+	result = /obj/item/food/cookie/sugar/spookycoffin
 
 //////////////////////////////
 //Spookoween trapped closets//
@@ -183,6 +183,7 @@
 	icon_dead = "scary_clown"
 	icon_gib = "scary_clown"
 	speak = list("...", ". . .")
+	speak_language = /datum/language/metalanguage
 	maxHealth = 1e6
 	health = 1e6
 	emote_see = list("silently stares")

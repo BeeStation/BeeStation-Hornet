@@ -8,7 +8,7 @@
 	icon_state = null
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
-	reagent_flags = OPENCONTAINER
+	reagent_flags = OPENCONTAINER | DUNKABLE
 	var/gulp_size = 5 //This is now officially broken ... need to think of a nice way to fix it.
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	volume = 50
@@ -34,11 +34,11 @@
 		return 0
 	var/gulp_amount = gulp_size
 	if(M == user)
-		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH && !beingChugged)
+		if(user.is_zone_selected(BODY_ZONE_PRECISE_MOUTH, precise_only = TRUE) && !beingChugged)
 			beingChugged = TRUE
 			user.visible_message("<span class='notice'>[user] starts chugging [src].</span>", \
 				"<span class='notice'>You start chugging [src].</span>")
-			if(!do_mob(user, M))
+			if(!do_after(user, target = M))
 				return
 			if(!reagents || !reagents.total_volume)
 				return
@@ -55,7 +55,7 @@
 	else
 		M.visible_message("<span class='danger'>[user] attempts to feed [M] the contents of [src].</span>", \
 			"<span class='userdanger'>[user] attempts to feed you the contents of [src].</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, target = M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The drink might be empty after the delay, such as by spam-feeding
@@ -65,7 +65,7 @@
 
 	var/fraction = min(gulp_amount/reagents.total_volume, 1)
 	checkLiked(fraction, M)
-	reagents.expose(M, INGEST, fraction)
+	reagents.reaction(M, INGEST, fraction)
 	reagents.trans_to(M, gulp_amount, transfered_by = user)
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return 1
@@ -91,7 +91,7 @@
 		if(iscyborg(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 			var/mob/living/silicon/robot/bro = user
 			bro.cell.use(30)
-			addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 600)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent), refill, trans), 600)
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if (!is_refillable())
@@ -143,7 +143,7 @@
 	qdel(src)
 	target.Bumped(B)
 
-/obj/item/reagent_containers/food/drinks/bullet_act(obj/item/projectile/P)
+/obj/item/reagent_containers/food/drinks/bullet_act(obj/projectile/P)
 	. = ..()
 	if(!(P.nodamage) && P.damage_type == BRUTE && !QDELETED(src))
 		var/atom/T = get_turf(src)
@@ -165,7 +165,7 @@
 	force = 1
 	throwforce = 1
 	amount_per_transfer_from_this = 5
-	materials = list(/datum/material/iron=100)
+	custom_materials = list(/datum/material/iron=100)
 	possible_transfer_amounts = list()
 	volume = 5
 	flags_1 = CONDUCT_1
@@ -181,7 +181,7 @@
 	force = 14
 	throwforce = 10
 	amount_per_transfer_from_this = 20
-	materials = list(/datum/material/gold=1000)
+	custom_materials = list(/datum/material/gold=1000)
 	volume = 150
 
 /obj/item/reagent_containers/food/drinks/trophy/silver_cup
@@ -192,7 +192,7 @@
 	force = 10
 	throwforce = 8
 	amount_per_transfer_from_this = 15
-	materials = list(/datum/material/silver=800)
+	custom_materials = list(/datum/material/silver=800)
 	volume = 100
 
 
@@ -204,7 +204,7 @@
 	force = 5
 	throwforce = 4
 	amount_per_transfer_from_this = 10
-	materials = list(/datum/material/iron=400)
+	custom_materials = list(/datum/material/iron=400)
 	volume = 25
 
 ///////////////////////////////////////////////Drinks
@@ -213,7 +213,7 @@
 //	Formatting is the same as food.
 
 /obj/item/reagent_containers/food/drinks/coffee
-	name = "robust coffee"
+	name = "Robust coffee"
 	desc = "Careful, the beverage you're about to enjoy is extremely hot."
 	icon_state = "coffee"
 	list_reagents = list(/datum/reagent/consumable/coffee = 30)
@@ -221,6 +221,15 @@
 	resistance_flags = FREEZE_PROOF
 	isGlass = FALSE
 	foodtype = BREAKFAST
+
+/obj/item/reagent_containers/food/drinks/bubble_tea
+	name = "Bubble tea"
+	desc = "Refreshing! You aren't sure what those things in the bottom are."
+	icon_state = "bubble_tea"
+	list_reagents = list(/datum/reagent/consumable/bubble_tea = 50)
+	foodtype = SUGAR
+	spillable = TRUE
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
@@ -262,12 +271,15 @@
 	resistance_flags = FREEZE_PROOF
 	custom_price = 42
 
-
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"
 	desc = "Just add 5ml of water, self heats! A taste that reminds you of your school years. Now new with salty flavour!"
 	icon_state = "ramen"
-	list_reagents = list(/datum/reagent/consumable/dry_ramen = 15, /datum/reagent/consumable/sodiumchloride = 3)
+	list_reagents = list(
+		/datum/reagent/consumable/dry_ramen = 15,
+		/datum/reagent/consumable/sodiumchloride = 3,
+		/datum/reagent/consumable/maltodextrin = 5
+	)
 	foodtype = GRAIN
 	isGlass = FALSE
 	custom_price = 38
@@ -420,7 +432,7 @@
 	name = "shaker"
 	desc = "A metal shaker to mix drinks in."
 	icon_state = "shaker"
-	materials = list(/datum/material/iron=1500)
+	custom_materials = list(/datum/material/iron=1500)
 	amount_per_transfer_from_this = 10
 	volume = 100
 	isGlass = FALSE
@@ -430,7 +442,7 @@
 	desc = "Every good spaceman knows it's a good idea to bring along a couple of pints of whiskey wherever they go."
 	custom_price = 30
 	icon_state = "flask"
-	materials = list(/datum/material/iron=250)
+	custom_materials = list(/datum/material/iron=250)
 	volume = 60
 	isGlass = FALSE
 
@@ -438,7 +450,7 @@
 	name = "captain's flask"
 	desc = "A gold flask belonging to the captain."
 	icon_state = "flask_gold"
-	materials = list(/datum/material/gold=500)
+	custom_materials = list(/datum/material/gold=500)
 
 /obj/item/reagent_containers/food/drinks/flask/det
 	name = "detective's flask"
@@ -488,7 +500,7 @@
 	return TOXLOSS
 
 /obj/item/reagent_containers/food/drinks/soda_cans/attack(mob/M, mob/user)
-	if(M == user && !src.reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == BODY_ZONE_HEAD)
+	if(M == user && !src.reagents.total_volume && user.a_intent == INTENT_HARM && user.is_zone_selected(BODY_ZONE_HEAD))
 		user.visible_message("<span class='warning'>[user] crushes the can of [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush the can of [src] on your forehead.</span>")
 		playsound(user.loc,'sound/weapons/pierce.ogg', rand(10,50), 1)
 		var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)
@@ -496,7 +508,7 @@
 		qdel(src)
 	..()
 
-/obj/item/reagent_containers/food/drinks/soda_cans/bullet_act(obj/item/projectile/P)
+/obj/item/reagent_containers/food/drinks/soda_cans/bullet_act(obj/projectile/P)
 	. = ..()
 	if(!(P.nodamage) && P.damage_type == BRUTE && !QDELETED(src))
 		var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(src.loc)

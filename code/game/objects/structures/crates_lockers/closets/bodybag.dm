@@ -71,7 +71,7 @@
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr))
 			return
-		if(opened)
+		if(opened && !close())
 			to_chat(usr, "<span class='warning'>You wrestle with [src], but it won't fold while unzipped.</span>")
 			return
 		if(contents.len)

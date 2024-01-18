@@ -84,7 +84,7 @@
 	else
 		M.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>", \
 			"<span class='warning'>[user] attempts to feed you from [src].</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, target = M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The condiment might be empty after the delay.
@@ -93,7 +93,7 @@
 		log_combat(user, M, "fed", reagents.log_list())
 
 	var/fraction = min(10/reagents.total_volume, 1)
-	reagents.expose(M, INGEST, fraction)
+	reagents.reaction(M, INGEST, fraction)
 	reagents.trans_to(M, 10, transfered_by = user)
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return 1
@@ -116,7 +116,7 @@
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
 
 	//Something like a glass or a food item. Player probably wants to transfer TO it.
-	else if(target.is_drainable() || istype(target, /obj/item/reagent_containers/food/snacks))
+	else if(target.is_drainable() || IS_EDIBLE(target))
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty!</span>")
 			return
@@ -152,7 +152,7 @@
 	volume = 20
 	list_reagents = list(/datum/reagent/consumable/sodiumchloride = 20)
 
-/obj/item/reagent_containers/food/condiment/saltshaker/suicide_act(mob/user)
+/obj/item/reagent_containers/food/condiment/saltshaker/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	var/newname = "[name]"
 	name = "[user.name]"
@@ -198,7 +198,7 @@
 	desc = "A big bag of flour. Good for baking!"
 	icon_state = "flour"
 	item_state = "flour"
-	list_reagents = list(/datum/reagent/consumable/flour = 30)
+	list_reagents = list(/datum/reagent/consumable/flour = 50)
 
 /obj/item/reagent_containers/food/condiment/soymilk
 	name = "soy milk"
@@ -214,7 +214,7 @@
 	desc = "A big bag of rice. Good for cooking!"
 	icon_state = "rice"
 	item_state = "flour"
-	list_reagents = list(/datum/reagent/consumable/rice = 30)
+	list_reagents = list(/datum/reagent/consumable/rice = 50)
 
 /obj/item/reagent_containers/food/condiment/soysauce
 	name = "soy sauce"

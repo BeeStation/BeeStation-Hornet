@@ -24,6 +24,10 @@
 #define START_PROCESSING(Processor, Datum) if (!(Datum.datum_flags & DF_ISPROCESSING)) {Datum.datum_flags |= DF_ISPROCESSING;Processor.processing += Datum}
 #define STOP_PROCESSING(Processor, Datum) Datum.datum_flags &= ~DF_ISPROCESSING;Processor.processing -= Datum
 
+//some arbitrary defines to be used by self-pruning global lists. (see master_controller)
+/// Used to trigger object removal from a processing list
+#define PROCESS_KILL 26
+
 //! SubSystem flags (Please design any new flags so that the default is off, to make adding flags to subsystems easier)
 
 /// subsystem does not initialize.
@@ -38,24 +42,21 @@
 /// SS_BACKGROUND has its own priority bracket, this overrides SS_TICKER's priority bump
 #define SS_BACKGROUND 4
 
-/// subsystem does not tick check, and should not run unless there is enough time (or its running behind (unless background))
-#define SS_NO_TICK_CHECK 8
-
 /** Treat wait as a tick count, not DS, run every wait ticks. */
 /// (also forces it to run first in the tick (unless SS_BACKGROUND))
 /// (We don't want to be choked out by other subsystems queuing into us)
 /// (implies all runlevels because of how it works)
 /// This is designed for basically anything that works as a mini-mc (like SStimer)
-#define SS_TICKER 16
+#define SS_TICKER 8
 
 /** keep the subsystem's timing on point by firing early if it fired late last fire because of lag */
 /// ie: if a 20ds subsystem fires say 5 ds late due to lag or what not, its next fire would be in 15ds, not 20ds.
-#define SS_KEEP_TIMING 32
+#define SS_KEEP_TIMING 16
 
 /** Calculate its next fire after its fired. */
 /// (IE: if a 5ds wait SS takes 2ds to run, its next fire should be 5ds away, not 3ds like it normally would be)
 /// This flag overrides SS_KEEP_TIMING
-#define SS_POST_FIRE_TIMING 64
+#define SS_POST_FIRE_TIMING 32
 
 //! SUBSYSTEM STATES
 #define SS_IDLE 0		/// ain't doing shit.

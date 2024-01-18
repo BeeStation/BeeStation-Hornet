@@ -54,7 +54,7 @@
 	if(is_operational)
 		if(prob(50 / severity))
 			on = !on
-		update_icon()
+		update_appearance()
 
 
 /obj/machinery/portable_atmospherics/scrubber/ui_state(mob/user)
@@ -94,7 +94,7 @@
 				on = FALSE
 				update_icon()
 		else if(on && holding)
-			investigate_log("[key_name(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
+			user.investigate_log("started a transfer into [holding].", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/scrubber/ui_act(action, params)
 	if(..())
@@ -111,7 +111,7 @@
 			scrubbing ^= params["val"]
 			. = TRUE
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/portable_atmospherics/scrubber/huge
 	name = "huge air scrubber"

@@ -76,7 +76,7 @@
 	/// The color of the space dragon.
 	var/chosen_color
 	/// If the dragon is allowed to summon rifts or not
-	var/can_summon_rifts = FALSE
+	var/can_summon_rifts = TRUE
 
 
 /mob/living/simple_animal/hostile/space_dragon/Initialize(mapload)
@@ -85,6 +85,7 @@
 	gust.Grant(src)
 	small_sprite = new
 	small_sprite.Grant(src)
+	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/space_dragon/proc/living_revive(source)
 	SIGNAL_HANDLER
@@ -140,7 +141,7 @@
 			to_chat(src, "<span class='warning'>You begin to swallow [L] whole...</span>")
 			is_swallowing = TRUE
 			if(do_after(src, 3 SECONDS, target = L))
-				RegisterSignal(L, COMSIG_LIVING_REVIVE, .proc/living_revive)
+				RegisterSignal(L, COMSIG_LIVING_REVIVE, PROC_REF(living_revive))
 				if(eat(L))
 					adjustHealth(-L.maxHealth * 0.5)
 			is_swallowing = FALSE
@@ -148,7 +149,7 @@
 	. = ..()
 	if(istype(target, /obj/mecha))
 		var/obj/mecha/M = target
-		M.take_damage(50, BRUTE, "melee", 1)
+		M.take_damage(50, BRUTE, MELEE, 1)
 
 /mob/living/simple_animal/hostile/space_dragon/Move()
 	if(!using_special)
@@ -173,6 +174,23 @@
 	empty_contents()
 	. = ..()
 
+/mob/living/simple_animal/hostile/space_dragon/ex_act(severity, target, origin)
+	set waitfor = FALSE
+	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
+		return
+	// Deal with parent operations
+	contents_explosion(severity, target)
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
+	// Run bomb armour
+	var/bomb_armor = (100 - getarmor(null, BOMB)) / 100
+	switch (severity)
+		if (EXPLODE_DEVASTATE)
+			adjustBruteLoss(180 * bomb_armor)
+		if (EXPLODE_HEAVY)
+			adjustBruteLoss(80 * bomb_armor)
+		if(EXPLODE_LIGHT)
+			adjustBruteLoss(30 * bomb_armor)
+
 /**
   * Allows space dragon to choose its own name.
   *
@@ -195,7 +213,7 @@
   * If an invalid color is given, will re-prompt the dragon until a proper color is chosen.
   */
 /mob/living/simple_animal/hostile/space_dragon/proc/color_selection()
-	chosen_color = input(src,"What would you like your color to be?","Choose Your Color", COLOR_WHITE) as color|null
+	chosen_color = tgui_color_picker(src,"What would you like your color to be?","Choose Your Color", COLOR_WHITE)
 	if(!chosen_color) //redo proc until we get a color
 		to_chat(src, "<span class='warning'>Not a valid color, please try again.</span>")
 		color_selection()
@@ -277,7 +295,7 @@
 			if(D.density)
 				return
 		delayFire += 1.0
-		addtimer(CALLBACK(src, .proc/dragon_fire_line, T), delayFire)
+		addtimer(CALLBACK(src, PROC_REF(dragon_fire_line), T), delayFire)
 
 /**
   * What occurs on each tile to actually create the fire.
@@ -307,7 +325,7 @@
 		if(M in hit_list)
 			continue
 		hit_list += M
-		M.take_damage(50, BRUTE, "melee", 1)
+		M.take_damage(50, BRUTE, MELEE, 1)
 
 /**
   * Handles consuming and storing consumed things inside Space Dragon
@@ -361,7 +379,7 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/start_carp_speedboost(mob/living/target)
 	target.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 2))
 	target.add_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE, multiplicative_slowdown = -0.5)
-	addtimer(CALLBACK(src, .proc/end_carp_speedboost, target), 8 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(end_carp_speedboost), target), 8 SECONDS)
 
 /**
  * Remove the speed boost from carps when hit by space dragon's flame breath
@@ -386,7 +404,7 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/useGust(animate = TRUE)
 	if(animate)
 		animate(src, pixel_y = 20, time = 1 SECONDS)
-		addtimer(CALLBACK(src, .proc/useGust, FALSE), 1.2 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(useGust), FALSE), 1.2 SECONDS)
 		return
 	pixel_y = 0
 	if(!small_sprite.small)
@@ -405,7 +423,7 @@
 		var/throwtarget = get_edge_target_turf(target, dir_to_target)
 		candidate.safe_throw_at(throwtarget, 10, 1, src)
 		candidate.Paralyze(50)
-	addtimer(CALLBACK(src, .proc/reset_status), 4 + ((tiredness * tiredness_mult) / 10))
+	addtimer(CALLBACK(src, PROC_REF(reset_status)), 4 + ((tiredness * tiredness_mult) / 10))
 	tiredness = tiredness + (gust_tiredness * tiredness_mult)
 
 /mob/living/proc/carp_talk(message, shown_name = real_name)
@@ -418,9 +436,10 @@
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
 	var/message_a = say_quote(message)
-	var/rendered = "<font color=\"#44aaff\">Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></font>"
+	var/valid_span_class = "srt_radio carpspeak"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
-		rendered = "<span class='big'>[rendered]</span>"
+		valid_span_class += " big"
+	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && ("carp" in S.faction))
 			to_chat(S, rendered)

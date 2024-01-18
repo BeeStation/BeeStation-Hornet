@@ -267,6 +267,14 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, SHAMEBRERO_TRAIT)
 
+/obj/item/clothing/suit/poncho/ponchoshame/outlaw
+	desc = "You broke the rules of the duel, and drew your gun before High Noon. This poncho will rest on your shoulders eternally, just like your shame."
+	icon_state = "ponchoshame_alt"
+	item_state = "ponchoshame_alt"
+	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 30, BIO = 30, RAD = 20, FIRE = 0, ACID = 30, STAMINA = 35)
+	body_parts_covered = CHEST|GROIN
+	allowed = list(/obj/item/gun/ballistic/shotgun/lever_action, /obj/item/gun/ballistic/rifle/leveraction, /obj/item/gun/ballistic/revolver)
+
 /obj/item/clothing/suit/whitedress
 	name = "white dress"
 	desc = "A fancy white dress."
@@ -354,11 +362,11 @@
 
 /obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"
-	armor = list("melee" = 20, "bullet" = 20, "laser" = 20,"energy" = 40, "bomb" = 0, "bio" = 60, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 40)
+	armor = list(MELEE = 20,  BULLET = 20, LASER = 20, ENERGY = 40, BOMB = 0, BIO = 60, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 40)
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood/syndie
 
 /obj/item/clothing/head/hooded/bee_hood/syndie
-	armor = list("melee" = 20, "bullet" = 20, "laser" = 20,"energy" = 40, "bomb" = 0, "bio" = 60, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 40)
+	armor = list(MELEE = 20,  BULLET = 20, LASER = 20, ENERGY = 40, BOMB = 0, BIO = 60, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 40)
 
 /obj/item/clothing/suit/hooded/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
 	name = "bloated human suit"
@@ -488,7 +496,7 @@
 	desc = "A thick jacket with a rubbery, water-resistant shell."
 	icon_state = "pufferjacket"
 	item_state = "hostrench"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
 /obj/item/clothing/suit/jacket/puffer/vest
 	name = "puffer vest"
@@ -497,7 +505,7 @@
 	item_state = "armor"
 	body_parts_covered = CHEST|GROIN
 	cold_protection = CHEST|GROIN
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 30, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 30, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
 /obj/item/clothing/suit/jacket/miljacket
 	name = "military jacket"
@@ -578,7 +586,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = CHEST|GROIN
 	attack_verb = list("warned", "cautioned", "smashed")
-	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 5,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	pocket_storage_component_path = null
 
 
 
@@ -592,8 +601,15 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	cold_protection = CHEST|GROIN|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	allowed = list(
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
+	)
 
 /obj/item/clothing/head/hooded/winterhood
 	name = "winter hood"
@@ -608,7 +624,7 @@
 	name = "captain's winter coat"
 	icon_state = "coatcaptain"
 	item_state = "coatcaptain"
-	armor = list("melee" = 25, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 20)
+	armor = list(MELEE = 25,  BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 50, STAMINA = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
 
 /obj/item/clothing/suit/hooded/wintercoat/captain/Initialize(mapload)
@@ -622,8 +638,9 @@
 	name = "security winter coat"
 	icon_state = "coatsecurity"
 	item_state = "coatsecurity"
-	armor = list("melee" = 25, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45, "stamina" = 20)
+	armor = list(MELEE = 25,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
+	slowdown = 0.05
 
 /obj/item/clothing/suit/hooded/wintercoat/security/Initialize(mapload)
 	. = ..()
@@ -632,23 +649,223 @@
 /obj/item/clothing/head/hooded/winterhood/security
 	icon_state = "winterhood_security"
 
+/obj/item/clothing/suit/hooded/wintercoat/detective
+	name = "detective winter coat"
+	icon_state = "coatdetective"
+	item_state = "coatdetective"
+	allowed = list(
+		/obj/item/tank/internals,
+		/obj/item/melee/classic_baton,
+		/obj/item/gun/ballistic/revolver/detective,
+		/obj/item/detective_scanner,
+		/obj/item/flashlight,
+		/obj/item/taperecorder,
+		/obj/item/reagent_containers/peppercloud_deployer,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
+	)
+	armor = list(MELEE = 25,  BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 40)
+	heat_protection = CHEST|GROIN|ARMS
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/detective
+
+/obj/item/clothing/head/hooded/winterhood/detective
+	icon_state = "winterhood_detective"
+	armor = list(MELEE = 25,  BULLET = 10, LASER = 25, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 30)
+
+/obj/item/clothing/suit/hooded/wintercoat/brigphys
+	name = "brig physician winter coat"
+	icon_state = "coatbrigphys"
+	item_state = "coatbrigphys"
+	allowed = list(
+		/obj/item/analyzer,
+		/obj/item/dnainjector,
+		/obj/item/flashlight/pen,
+		/obj/item/healthanalyzer,
+		/obj/item/paper,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/sensor_device,
+		/obj/item/stack/medical,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/storage/firstaid/medical,
+		/obj/item/storage/pill_bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
+	)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 20, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20)
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/brigphys
+
+/obj/item/clothing/head/hooded/winterhood/brigphys
+	icon_state = "winterhood_brigphys"
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 20, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 20)
+
 /obj/item/clothing/suit/hooded/wintercoat/medical
 	name = "medical winter coat"
 	icon_state = "coatmedical"
 	item_state = "coatmedical"
-	allowed = list(/obj/item/analyzer, /obj/item/sensor_device, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/police/telescopic, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 0, "acid" = 45, "stamina" = 0)
+	allowed = list(
+		/obj/item/analyzer,
+		/obj/item/dnainjector,
+		/obj/item/flashlight/pen,
+		/obj/item/healthanalyzer,
+		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/paper,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/sensor_device,
+		/obj/item/stack/medical,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/storage/firstaid/medical,
+		/obj/item/storage/pill_bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
+	)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical
 
 /obj/item/clothing/head/hooded/winterhood/medical
 	icon_state = "winterhood_medical"
+
+/obj/item/clothing/suit/hooded/wintercoat/virologist
+	name = "virology winter coat"
+	icon_state = "coatviro"
+	item_state = "coatviro"
+	allowed = list(
+		/obj/item/extrapolator,
+		/obj/item/analyzer,
+		/obj/item/flashlight/pen,
+		/obj/item/healthanalyzer,
+		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/paper,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/sensor_device,
+		/obj/item/stack/medical,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/storage/firstaid/medical,
+		/obj/item/storage/pill_bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
+	)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 80, RAD = 0, FIRE = 0, ACID = 15, STAMINA = 0)
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/virologist
+
+/obj/item/clothing/head/hooded/winterhood/virologist
+	icon_state = "winterhood_viro"
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+
+/obj/item/clothing/suit/hooded/wintercoat/chemist
+	name = "chemist winter coat"
+	desc = "A heavy jacket made from hardy 'synthetic' animal furs capable of enduring most chemical mishaps."
+	icon_state = "coatchem"
+	item_state = "coatchem"
+	allowed = list(
+		/obj/item/grenade/chem_grenade,
+		/obj/item/analyzer,
+		/obj/item/flashlight/pen,
+		/obj/item/healthanalyzer,
+		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/paper,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/sensor_device,
+		/obj/item/stack/medical,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/storage/firstaid/medical,
+		/obj/item/storage/pill_bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
+	)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 40, STAMINA = 0)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/chemist
+
+/obj/item/clothing/head/hooded/winterhood/chemist
+	icon_state = "winterhood_chem"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/head/hooded/winterhood/virologist
+	icon_state = "winterhood_viro"
+
+/obj/item/clothing/suit/hooded/wintercoat/geneticist
+	name = "geneticist winter coat"
+	icon_state = "coatgene"
+	item_state = "coatgene"
+	allowed = list(
+		/obj/item/dnainjector,
+		/obj/item/sequence_scanner,
+		/obj/item/analyzer,
+		/obj/item/flashlight/pen,
+		/obj/item/healthanalyzer,
+		/obj/item/melee/classic_baton/police/telescopic,
+		/obj/item/paper,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/sensor_device,
+		/obj/item/stack/medical,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/storage/firstaid/medical,
+		/obj/item/storage/pill_bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
+	)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 20, RAD = 30, FIRE = 0, ACID = 45, STAMINA = 0)
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/geneticist
+
+/obj/item/clothing/head/hooded/winterhood/geneticist
+	icon_state = "winterhood_gene"
 
 /obj/item/clothing/suit/hooded/wintercoat/science
 	name = "science winter coat"
 	icon_state = "coatscience"
 	item_state = "coatscience"
 	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/police/telescopic, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/science
 
 /obj/item/clothing/head/hooded/winterhood/science
@@ -658,7 +875,7 @@
 	name = "engineering winter coat"
 	icon_state = "coatengineer"
 	item_state = "coatengineer"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 30, "acid" = 45, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 20, FIRE = 30, ACID = 45, STAMINA = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering
 
@@ -689,20 +906,70 @@
 	icon_state = "coatcargo"
 	item_state = "coatcargo"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/cargo
+	allowed = list(
+		/obj/item/hand_labeler,
+		/obj/item/stack/package_wrap,
+		/obj/item/dest_tagger,
+		/obj/item/clipboard,
+		/obj/item/stamp,
+		/obj/item/export_scanner,
+		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
+	)
+
 
 /obj/item/clothing/head/hooded/winterhood/cargo
 	icon_state = "winterhood_cargo"
 
 /obj/item/clothing/suit/hooded/wintercoat/miner
 	name = "mining winter coat"
+	desc = "A heavy jacket made from 'synthetic' animal furs. It is quite armoured and well suited to explore harsh environments."
 	icon_state = "coatminer"
 	item_state = "coatminer"
-	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	allowed = list(
+		/obj/item/pickaxe,
+		/obj/item/flashlight,
+		/obj/item/tank/internals,
+		/obj/item/lighter,
+		/obj/item/resonator,
+		/obj/item/mining_scanner,
+		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/toy,
+		/obj/item/storage/fancy/cigarettes,
+		/obj/item/lighter
+	)
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	heat_protection = CHEST|GROIN|ARMS
+	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 10, RAD = 20, FIRE = 50, ACID = 50, STAMINA = 20)
+	resistance_flags = FIRE_PROOF
+	high_pressure_multiplier = 0.4
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
 
+/obj/item/clothing/suit/hooded/wintercoat/miner/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/armor_plate)
+
 /obj/item/clothing/head/hooded/winterhood/miner
+	desc = "A hood attached to a heavy winter jacket. It is quite armoured and well suited to explore harsh environments."
 	icon_state = "winterhood_miner"
+	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
+	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 10, RAD = 20, FIRE = 50, ACID = 50, STAMINA = 20)
+	resistance_flags = FIRE_PROOF
+	high_pressure_multiplier = 0.4
+
+/obj/item/clothing/head/hooded/winterhood/miner/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/armor_plate)
 
 //Old winter coats
 
@@ -768,6 +1035,14 @@
 /obj/item/clothing/head/hooded/winterhood/hydro/old
 	icon_state = "old_winterhood_hydro"
 
+/obj/item/clothing/suit/hooded/wintercoat/cargo/old
+	name = "cargo winter coat"
+	icon_state = "old_coatcargo"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/cargo/old
+
+/obj/item/clothing/head/hooded/winterhood/cargo/old
+	icon_state = "old_winterhood_cargo"
+
 //end of winter coats
 
 /obj/item/clothing/suit/spookyghost
@@ -782,7 +1057,7 @@
 	desc = "A big and clanky suit made of bronze that offers no protection and looks very unfashionable. Nice."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass_old"
-	armor = list("melee" = 5, "bullet" = 0, "laser" = -5, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 30)
+	armor = list(MELEE = 5,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 30)
 
 /obj/item/clothing/suit/ghost_sheet
 	name = "ghost sheet"
@@ -815,7 +1090,7 @@
 	icon_state = "softshell"
 	item_state = "softshell"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/radio)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 30, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 30, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	togglename = "zipper"
 	body_parts_covered = CHEST|GROIN|ARMS
 
@@ -829,7 +1104,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	cold_protection = CHEST|GROIN|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 	hoodtype = /obj/item/clothing/head/hooded/hoodie
 
@@ -946,11 +1221,11 @@
 	name = "durathread hoodie"
 	desc = "A hoodie made from durathread, its resilient fibres provide some protection to the wearer."
 	color = "#8291a1"
-	armor = list("melee" = 15, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
+	armor = list(MELEE = 15, BULLET = 25, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, STAMINA = 30)
 	hoodtype = /obj/item/clothing/head/hooded/hoodie/durathread
 
 /obj/item/clothing/head/hooded/hoodie/durathread
 	name = "durathread hoodie hood"
 	desc = "A duratread hood attached to your hoodie, robust as."
-	armor = list("melee" = 5, "laser" = 5, "fire" = 20, "acid" = 5, "bomb" = 5, "stamina" = 15)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, FIRE = 20, ACID = 5, BOMB = 5, STAMINA = 15)
 	color = "#8291a1"

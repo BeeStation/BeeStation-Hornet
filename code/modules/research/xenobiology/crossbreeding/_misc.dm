@@ -170,7 +170,7 @@ Slimecrossing Items
 	icon_state = "frozen"
 	density = TRUE
 	max_integrity = 100
-	armor = list("melee" = 30, "bullet" = 50, "laser" = -50, "energy" = -50, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = -80, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 30,  BULLET = 50, LASER = -50, ENERGY = -50, BOMB = 0, BIO = 100, RAD = 100, FIRE = -80, ACID = 30, STAMINA = 0)
 
 /obj/structure/ice_stasis/Initialize(mapload)
 	. = ..()
@@ -198,7 +198,7 @@ Slimecrossing Items
 		to_chat(user, "<span class='warning'>The capture device only works on simple creatures.</span>")
 		return
 	if(M.mind)
-		INVOKE_ASYNC(src, .proc/offer_entry, M, user)
+		INVOKE_ASYNC(src, PROC_REF(offer_entry), M, user)
 		return
 	else
 		if(istype(M, /mob/living/simple_animal/hostile) && !("neutral" in M.faction))

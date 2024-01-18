@@ -18,14 +18,15 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "fire0"
 	max_integrity = 250
-	integrity_failure = 100
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
+	integrity_failure = 0.4
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
 	power_channel = AREA_USAGE_ENVIRON
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
+	zmm_flags = ZMM_MANGLE_PLANES
 
 	light_power = 0
 	light_range = 7
@@ -64,7 +65,7 @@
 	update_appearance()
 	myarea = get_area(src)
 	LAZYADD(myarea.firealarms, src)
-	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, .proc/handle_alert)
+	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
 
 /obj/machinery/firealarm/proc/handle_alert(datum/source, new_alert)
 	SIGNAL_HANDLER
@@ -75,10 +76,6 @@
 	myarea.firereset(src)
 	LAZYREMOVE(myarea.firealarms, src)
 	return ..()
-
-/obj/machinery/firealarm/power_change()
-	..()
-	update_appearance()
 
 /obj/machinery/firealarm/update_overlays()
 	. = ..()
@@ -91,24 +88,29 @@
 	if(is_station_level(z))
 		. += "fire_[GLOB.security_level]"
 		. += mutable_appearance(icon, "fire_[GLOB.security_level]")
-		. += emissive_appearance(icon, "fire_[GLOB.security_level]", alpha = src.alpha)
+		. += emissive_appearance(icon, "fire_[GLOB.security_level]", layer, alpha = 255)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
 		. += "fire_[SEC_LEVEL_GREEN]"
 		. += mutable_appearance(icon, "fire_[SEC_LEVEL_GREEN]")
-		. += emissive_appearance(icon, "fire_[SEC_LEVEL_GREEN]", alpha = src.alpha)
+		. += emissive_appearance(icon, "fire_[SEC_LEVEL_GREEN]", layer, alpha = 255)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 	if(!detecting || !A.fire) //If this is false, leave the green light missing. A good hint to anyone paying attention.
 		. += "fire_off"
 		. += mutable_appearance(icon, "fire_off")
-		. += emissive_appearance(icon, "fire_off", alpha = src.alpha)
+		. += emissive_appearance(icon, "fire_off", layer, alpha = 255)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else if(obj_flags & EMAGGED)
 		. += "fire_emagged"
 		. += mutable_appearance(icon, "fire_emagged")
-		. += emissive_appearance(icon, "fire_emagged", alpha = src.alpha)
+		. += emissive_appearance(icon, "fire_emagged", layer, alpha = 255)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
 		. += "fire_on"
 		. += mutable_appearance(icon, "fire_on")
-		. += emissive_appearance(icon, "fire_on", alpha = src.alpha)
+		. += emissive_appearance(icon, "fire_on", layer, alpha = 255)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/firealarm/emp_act(severity)
 	. = ..()

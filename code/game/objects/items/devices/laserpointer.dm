@@ -8,7 +8,7 @@
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
-	materials = list(/datum/material/iron=500, /datum/material/glass=500)
+	custom_materials = list(/datum/material/iron=500, /datum/material/glass=500)
 	w_class = WEIGHT_CLASS_SMALL
 	var/turf/pointer_loc
 	var/energy = 5
@@ -99,7 +99,7 @@
 	//human/alien mobs
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
+		if(user.is_zone_selected(BODY_ZONE_PRECISE_EYES))
 			log_combat(user, C, "shone in the eyes", src)
 
 			var/severity = 1
@@ -165,12 +165,12 @@
 	//laser pointer image
 	icon_state = "pointer_[pointer_icon_state]"
 	var/image/I = image('icons/obj/projectiles.dmi',targloc,pointer_icon_state,10)
-	var/list/click_params = params2list(params)
-	if(click_params)
-		if(click_params["icon-x"])
-			I.pixel_x = (text2num(click_params["icon-x"]) - 16)
-		if(click_params["icon-y"])
-			I.pixel_y = (text2num(click_params["icon-y"]) - 16)
+	var/list/modifiers = params2list(params)
+	if(modifiers)
+		if(LAZYACCESS(modifiers, ICON_X))
+			I.pixel_x = (text2num(LAZYACCESS(modifiers, ICON_X)) - 16)
+		if(LAZYACCESS(modifiers, ICON_Y))
+			I.pixel_y = (text2num(LAZYACCESS(modifiers, ICON_Y)) - 16)
 	else
 		I.pixel_x = target.pixel_x + rand(-5,5)
 		I.pixel_y = target.pixel_y + rand(-5,5)

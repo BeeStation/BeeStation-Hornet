@@ -25,7 +25,7 @@ SUBSYSTEM_DEF(processing)
 	if (!resumed)
 		currentrun = processing.Copy()
 
-	var/continuous_delta_time = last_time_fired == 0 ? wait : world.timeofday - last_time_fired
+	var/continuous_delta_time = last_time_fired == 0 ? wait : (clamp(world.timeofday - last_time_fired, 0.5 * wait, 2 * wait))
 	last_time_fired = world.timeofday
 
 	//cache for sanic speed (lists are references anyways)

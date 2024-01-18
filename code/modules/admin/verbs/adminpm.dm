@@ -31,7 +31,7 @@
 				targets["[T.mob.real_name](as [T.mob.name]) - [T]"] = T
 		else
 			targets["(No Mob) - [T]"] = T
-	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sortList(targets)
+	var/target = tgui_input_list(src, "To whom shall we send a message?", "Admin PM", items = sort_list(targets))
 	cmd_admin_pm(targets[target],null)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -55,14 +55,14 @@
 
 	if(AH)
 		message_admins("[key_name_admin(src)] has started replying to [key_name_admin(C, 0, 0)]'s admin help.")
-	var/msg = stripped_multiline_input(src,"Message:", "Private message to [C.holder?.fakekey ? "an Administrator" : key_name(C, 0, 0)].")
+	var/msg = tgui_input_text(src, "Message:", "Private message to [C.holder?.fakekey ? "an Administrator" : key_name(C, 0, 0)].", multiline = TRUE) // tgui_input_text encodes by default
 	if (!msg)
 		message_admins("[key_name_admin(src)] has cancelled their reply to [key_name_admin(C, 0, 0)]'s admin help.")
 		return
-	cmd_admin_pm(whom, msg)
+	cmd_admin_pm(whom, msg, html_encoded = TRUE)
 	AH.Claim()
 
-/client/proc/cmd_ahelp_reply_instant(whom, msg)
+/client/proc/cmd_ahelp_reply_instant(whom, msg, html_encoded = FALSE)
 	if(prefs.muted & MUTE_ADMINHELP)
 		to_chat(src, "<span class='danger'>Error: Admin-PM: You are unable to use admin PM-s (muted).</span>", type = MESSAGE_TYPE_ADMINPM)
 		return
@@ -80,11 +80,11 @@
 
 	if (!msg)
 		return
-	cmd_admin_pm(whom, msg)
+	cmd_admin_pm(whom, msg, html_encoded)
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
-/client/proc/cmd_admin_pm(whom, msg)
+/client/proc/cmd_admin_pm(whom, msg, html_encoded = FALSE)
 	if(prefs.muted & MUTE_ADMINHELP)
 		to_chat(src, "<span class='danger'>Error: Admin-PM: You are unable to use admin PM-s (muted).</span>", type = MESSAGE_TYPE_ADMINPM)
 		return
@@ -106,12 +106,11 @@
 	else if(istype(whom, /client))
 		recipient = whom
 
-	var/html_encoded = FALSE
 	if(external)
 		if(!externalreplyamount)	//to prevent people from spamming irc/discord
 			return
 		if(!msg)
-			msg = stripped_multiline_input(src,"Message:", "Private message to Administrator")
+			msg = tgui_input_text(src, "Message:", "Private message to Administrator", multiline = TRUE)
 			html_encoded = TRUE
 		if(!msg)
 			return
@@ -128,13 +127,12 @@
 					to_chat(src, msg)
 				return
 			else if(msg) // you want to continue if there's no message instead of returning now
-				current_adminhelp_ticket.MessageNoRecipient(msg)
+				current_adminhelp_ticket.MessageNoRecipient(msg, sanitized = html_encoded)
 				return
 
 		//get message text, limit it's length.and clean/escape html
 		if(!msg)
-			msg = stripped_multiline_input(src,"Message:", "Private message to [recipient.holder?.fakekey ? "an Administrator" : key_name(recipient, 0, 0)].")
-			msg = trim(msg)
+			msg = tgui_input_text(src,"Message:", "Private message to [recipient.holder?.fakekey ? "an Administrator" : key_name(recipient, 0, 0)].", multiline = TRUE)
 			if(!msg)
 				return
 			// we need to not HTML encode again or you get &#39;s instead of 's
@@ -148,14 +146,14 @@
 				if(holder)
 					to_chat(src, "<span class='danger'>Error: Admin-PM: Client not found.</span>", type = MESSAGE_TYPE_ADMINPM)
 				else
-					current_adminhelp_ticket.MessageNoRecipient(msg)
+					current_adminhelp_ticket.MessageNoRecipient(msg, sanitized = html_encoded)
 				return
 
 	if (src.handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return
 
 	//clean the message if it's not sent by a high-rank admin
-	if(!check_rights(R_SERVER|R_DEBUG,0)||external)//no sending html to the poor bots
+	if(external || !check_rights(R_SERVER|R_DEBUG, FALSE))//no sending html to the poor bots
 		msg = sanitize_simple(msg)
 		if(!html_encoded)
 			msg = html_encode(msg)
@@ -193,14 +191,14 @@
 				to_chat(src, "<span class='notice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>", type = MESSAGE_TYPE_ADMINPM)
 
 			//play the receiving admin the adminhelp sound (if they have them enabled)
-			if(recipient.prefs.toggles & PREFTOGGLE_SOUND_ADMINHELP)
+			if(recipient.prefs.read_player_preference(/datum/preference/toggle/sound_adminhelp))
 				SEND_SOUND(recipient, sound('sound/effects/adminhelp.ogg'))
 
 		else
 			if(holder)	//sender is an admin but recipient is not. Do BIG RED TEXT
 				if(!recipient.current_adminhelp_ticket)
 					var/datum/help_ticket/admin/ticket = new(recipient)
-					ticket.Create(msg, TRUE)
+					ticket.Create(msg, sanitized = html_encoded, is_bwoink = TRUE)
 
 				to_chat(recipient, "<font color='red' size='4'><b>-- Administrator private message --</b></font>", type = MESSAGE_TYPE_ADMINPM)
 				to_chat(recipient, "<span class='adminsay'>Admin PM from-<b>[key_name(src, recipient, 0)]</b>: <span class='linkify'>[msg]</span></span>", type = MESSAGE_TYPE_ADMINPM)
@@ -221,10 +219,10 @@
 							sendername = holder.fakekey
 						else
 							sendername = key
-						var/reply = stripped_multiline_input(recipient, msg,"Admin PM from-[sendername]", "")		//show message and await a reply
+						var/reply = tgui_input_text(recipient, msg, "Admin PM from-[sendername]", "", multiline = TRUE)		//show message and await a reply. tgui_input_text encodes by default.
 						if(recipient && reply)
 							if(sender)
-								recipient.cmd_admin_pm(sender,reply)										//sender is still about, let's reply to them
+								recipient.cmd_admin_pm(sender, reply, html_encoded = TRUE) // sender is still about, let's reply to them.
 							else
 								adminhelp(reply)													//sender has left, adminhelp instead
 						return

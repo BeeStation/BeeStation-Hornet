@@ -114,7 +114,7 @@
 	if(gangtool?.free_pen)
 		return "(GET ONE FREE)"
 	return ..()
-	
+
 /datum/gang_item/essentials/reinforce
 	name = "Call Reinforcments"
 	id = "reinforce"
@@ -173,7 +173,7 @@
 	var/obj/item/storage/box/armor_box = new (get_turf(user))
 
 	var/obj/item/clothing/suit/suit = new gang.suit(armor_box)
-	suit.clothing_flags |= STOPSPRESSUREDAMAGE | THICKMATERIAL
+	suit.clothing_flags |= STOPSPRESSUREDAMAGE | THICKMATERIAL | HEADINTERNALS
 	suit.cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	suit.heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	suit.min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -356,11 +356,11 @@
 		if (7)
 			O = new /obj/item/storage/pill_bottle/psicodine(T)
 		if (8)
-			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis(T)
+			O = new /obj/item/food/grown/cannabis(T)
 		if (9)
-			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow(T)
+			O = new /obj/item/food/grown/cannabis/rainbow(T)
 		if (10)
-			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis/white(T)
+			O = new /obj/item/food/grown/cannabis/white(T)
 	if (O)
 		user.put_in_hands(O)
 

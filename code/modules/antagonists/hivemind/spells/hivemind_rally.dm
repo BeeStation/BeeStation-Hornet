@@ -4,7 +4,7 @@
 	panel = "Hivemind Abilities"
 	charge_max = 3000
 	range = 7
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = 0
 	max_targets = 0
 	include_user = 1

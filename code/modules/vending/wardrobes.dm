@@ -97,6 +97,7 @@
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
 					/obj/item/clothing/under/rank/engineering/engineer = 3,
 					/obj/item/clothing/under/rank/engineering/engineer/hazard = 3,
+					/obj/item/clothing/under/rank/engineering/engineer/skirt = 3,
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/shoes/workboots = 3,
 					/obj/item/clothing/head/hardhat = 3,
@@ -123,6 +124,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 					/obj/item/clothing/under/rank/engineering/atmospheric_technician = 3,
+					/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt = 3,
 					/obj/item/clothing/shoes/sneakers/black = 3,
 					/obj/item/clothing/head/beret/atmos = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old = 3)
@@ -157,7 +159,8 @@
 					/obj/item/clothing/under/plasmaman/mailman = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2
 	)
-	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1)
+	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1,
+					/obj/item/clothing/suit/hooded/wintercoat/cargo/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	dept_req_for_free = ACCOUNT_CAR_BITFLAG
 /obj/item/vending_refill/wardrobe/cargo_wardrobe
@@ -238,7 +241,7 @@
 					/obj/item/clothing/under/rank/civilian/hydroponics/skirt = 3,
 					/obj/item/clothing/under/plasmaman/botany = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/botany = 3,
-					/obj/item/clothing/mask/bandana = 3,
+					/obj/item/clothing/mask/bandana/botany = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3,
 					/obj/item/clothing/head/cowboy = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/hydro/old = 3)
@@ -254,7 +257,8 @@
 	product_ads = "Glasses for your eyes and literature for your soul, Curadrobe has it all!; Impress & enthrall your library guests with Curadrobe's extended line of pens!"
 	vend_reply = "Thank you for using the CuraDrobe!"
 	light_color = LIGHT_COLOR_WHITE
-	products = list(/obj/item/clothing/under/rank/civilian/curator/skirt = 2,
+	products = list(/obj/item/clothing/under/rank/civilian/curator = 2,
+					/obj/item/clothing/under/rank/civilian/curator/skirt = 2,
 					/obj/item/pen = 4,
 					/obj/item/pen/red = 2,
 					/obj/item/pen/blue = 2,
@@ -454,6 +458,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/chemist = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/chemist = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/chemist = 2,
 					/obj/item/storage/backpack/chemistry = 2,
 					/obj/item/storage/backpack/satchel/chem = 2,
 					/obj/item/storage/bag/chemistry = 2,
@@ -475,6 +480,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/genetics = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/genetics = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/geneticist = 2,
 					/obj/item/storage/backpack/genetics = 2,
 					/obj/item/storage/backpack/satchel/gen = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/gene_wardrobe
@@ -494,6 +500,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/viro = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/virologist = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/virologist = 2,
 					/obj/item/clothing/mask/surgical = 2,
 					/obj/item/storage/backpack/virology = 2,
 					/obj/item/storage/backpack/satchel/vir = 2)
@@ -515,6 +522,7 @@
 					/obj/item/clothing/under/rank/security/detective/skirt = 2,
 					/obj/item/clothing/shoes/sneakers/brown = 2,
 					/obj/item/clothing/suit/det_suit = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/detective = 2,
 					/obj/item/clothing/head/fedora/det_hat = 2,
 					/obj/item/clothing/under/rank/security/detective/grey = 2,
 					/obj/item/clothing/under/rank/security/detective/grey/skirt = 2,
@@ -522,12 +530,12 @@
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/suit/det_suit/grey = 1,
 					/obj/item/clothing/suit/det_suit/noir = 1,
-					/obj/item/clothing/head/fedora = 2,
+					/obj/item/clothing/head/fedora/det_hat/noir = 2,
 					/obj/item/clothing/gloves/color/black = 2,
 					/obj/item/clothing/gloves/color/latex = 2,
 					/obj/item/reagent_containers/food/drinks/flask/det = 2,
 					/obj/item/storage/fancy/cigarettes = 5)
-	premium = list(/obj/item/clothing/head/flatcap = 1)
+	premium = list(/obj/item/clothing/head/flatcap = 1, /obj/item/clothing/suit/armor/vest/det_suit = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/det_wardrobe
 	extra_price = 350
 	dept_req_for_free = ACCOUNT_SEC_BITFLAG

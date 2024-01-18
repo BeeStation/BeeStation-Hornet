@@ -3,109 +3,109 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 // Someone for the love of god kill whoever indented this with spaces
 /obj/item/hilbertshotel
-    name = "Hilbert's Hotel"
-    desc = "A sphere of what appears to be an intricate network of bluespace. Observing it in detail seems to give you a headache as you try to comprehend the infinite amount of infinitesimally distinct points on its surface."
-    icon_state = "hilbertshotel"
-    w_class = WEIGHT_CLASS_SMALL
-    resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-    var/datum/map_template/hilbertshotel/hotelRoomTemp
-    var/datum/map_template/hilbertshotel/empty/hotelRoomTempEmpty
-    var/datum/map_template/hilbertshotel/lore/hotelRoomTempLore
-    var/list/activeRooms = list()
-    var/list/storedRooms = list()
-    var/storageTurf
-    //Lore Stuff
-    var/ruinSpawned = FALSE
-    var/mysteryRoom
+	name = "Hilbert's Hotel"
+	desc = "A sphere of what appears to be an intricate network of bluespace. Observing it in detail seems to give you a headache as you try to comprehend the infinite amount of infinitesimally distinct points on its surface."
+	icon_state = "hilbertshotel"
+	w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	var/datum/map_template/hilbertshotel/hotelRoomTemp
+	var/datum/map_template/hilbertshotel/empty/hotelRoomTempEmpty
+	var/datum/map_template/hilbertshotel/lore/hotelRoomTempLore
+	var/list/activeRooms = list()
+	var/list/storedRooms = list()
+	var/storageTurf
+	//Lore Stuff
+	var/ruinSpawned = FALSE
+	var/mysteryRoom
 
 /obj/item/hilbertshotel/Initialize(mapload)
-    . = ..()
-    //Load templates
-    hotelRoomTemp = new()
-    hotelRoomTempEmpty = new()
-    hotelRoomTempLore = new()
-    var/area/currentArea = get_area(src)
-    if(currentArea.type == /area/ruin/space/has_grav/hilbertresearchfacility)
-        ruinSpawned = TRUE
+	. = ..()
+	//Load templates
+	hotelRoomTemp = new()
+	hotelRoomTempEmpty = new()
+	hotelRoomTempLore = new()
+	var/area/currentArea = get_area(src)
+	if(currentArea.type == /area/ruin/space/has_grav/hilbertresearchfacility)
+		ruinSpawned = TRUE
 
 /obj/item/hilbertshotel/Destroy()
-    ejectRooms()
-    return ..()
+	ejectRooms()
+	return ..()
 
 /obj/item/hilbertshotel/attack(mob/living/M, mob/living/user)
-    if(M.mind)
-        to_chat(user, "<span class='notice'>You invite [M] to the hotel.</span>")
-        promptAndCheckIn(M)
-    else
-        to_chat(user, "<span class='warning'>[M] is not intelligent enough to understand how to use this device!</span>")
+	if(M.mind)
+		to_chat(user, "<span class='notice'>You invite [M] to the hotel.</span>")
+		promptAndCheckIn(M)
+	else
+		to_chat(user, "<span class='warning'>[M] is not intelligent enough to understand how to use this device!</span>")
 
 /obj/item/hilbertshotel/attack_self(mob/user)
-    . = ..()
-    promptAndCheckIn(user)
+	. = ..()
+	promptAndCheckIn(user)
 
 /obj/item/hilbertshotel/proc/promptAndCheckIn(mob/user)
-    var/chosenRoomNumber = input(user, "What number room will you be checking into?", "Room Number") as null|num
-    if(!chosenRoomNumber)
-        return
-    if(chosenRoomNumber > SHORT_REAL_LIMIT)
-        to_chat(user, "<span class='warning'>You have to check out the first [SHORT_REAL_LIMIT] rooms before you can go to a higher numbered one!</span>")
-        return
-    if((chosenRoomNumber < 1) || (chosenRoomNumber != round(chosenRoomNumber)))
-        to_chat(user, "<span class='warning'>That is not a valid room number!</span>")
-        return
-    if(ismob(loc))
-        if(user == loc) //Not always the same as user
-            forceMove(get_turf(user))
-    if(!storageTurf) //Blame subsystems for not allowing this to be in Initialize
-        if(!GLOB.hhStorageTurf)
-            var/datum/map_template/hilbertshotelstorage/storageTemp = new()
-            var/datum/turf_reservation/storageReservation = SSmapping.RequestBlockReservation(3, 3)
-            storageTemp.load(locate(storageReservation.bottom_left_coords[1], storageReservation.bottom_left_coords[2], storageReservation.bottom_left_coords[3]))
-            GLOB.hhStorageTurf = locate(storageReservation.bottom_left_coords[1]+1, storageReservation.bottom_left_coords[2]+1, storageReservation.bottom_left_coords[3])
-        else
-            storageTurf = GLOB.hhStorageTurf
-    if(tryActiveRoom(chosenRoomNumber, user))
-        return
-    if(tryStoredRoom(chosenRoomNumber, user))
-        return
-    sendToNewRoom(chosenRoomNumber, user)
+	var/chosenRoomNumber = input(user, "What number room will you be checking into?", "Room Number") as null|num
+	if(!chosenRoomNumber)
+		return
+	if(chosenRoomNumber > SHORT_REAL_LIMIT)
+		to_chat(user, "<span class='warning'>You have to check out the first [SHORT_REAL_LIMIT] rooms before you can go to a higher numbered one!</span>")
+		return
+	if((chosenRoomNumber < 1) || (chosenRoomNumber != round(chosenRoomNumber)))
+		to_chat(user, "<span class='warning'>That is not a valid room number!</span>")
+		return
+	if(ismob(loc))
+		if(user == loc) //Not always the same as user
+			forceMove(get_turf(user))
+	if(!storageTurf) //Blame subsystems for not allowing this to be in Initialize
+		if(!GLOB.hhStorageTurf)
+			var/datum/map_template/hilbertshotelstorage/storageTemp = new()
+			var/datum/turf_reservation/storageReservation = SSmapping.RequestBlockReservation(3, 3)
+			storageTemp.load(locate(storageReservation.bottom_left_coords[1], storageReservation.bottom_left_coords[2], storageReservation.bottom_left_coords[3]))
+			GLOB.hhStorageTurf = locate(storageReservation.bottom_left_coords[1]+1, storageReservation.bottom_left_coords[2]+1, storageReservation.bottom_left_coords[3])
+		else
+			storageTurf = GLOB.hhStorageTurf
+	if(tryActiveRoom(chosenRoomNumber, user))
+		return
+	if(tryStoredRoom(chosenRoomNumber, user))
+		return
+	sendToNewRoom(chosenRoomNumber, user)
 
 
 /obj/item/hilbertshotel/proc/tryActiveRoom(var/roomNumber, var/mob/user)
-    if(activeRooms["[roomNumber]"])
-        var/datum/turf_reservation/roomReservation = activeRooms["[roomNumber]"]
-        do_sparks(3, FALSE, get_turf(user))
-        user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
-        return TRUE
-    else
-        return FALSE
+	if(activeRooms["[roomNumber]"])
+		var/datum/turf_reservation/roomReservation = activeRooms["[roomNumber]"]
+		do_sparks(3, FALSE, get_turf(user))
+		user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
+		return TRUE
+	else
+		return FALSE
 
 /obj/item/hilbertshotel/proc/tryStoredRoom(var/roomNumber, var/mob/user)
-    if(storedRooms["[roomNumber]"])
-        var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
-        hotelRoomTempEmpty.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
-        var/turfNumber = 1
-        for(var/i=0, i<hotelRoomTemp.width, i++)
-            for(var/j=0, j<hotelRoomTemp.height, j++)
-                for(var/atom/movable/A in storedRooms["[roomNumber]"][turfNumber])
-                    if(istype(A.loc, /obj/item/abstracthotelstorage))//Don't want to recall something thats been moved
-                        A.forceMove(locate(roomReservation.bottom_left_coords[1] + i, roomReservation.bottom_left_coords[2] + j, roomReservation.bottom_left_coords[3]))
-                turfNumber++
-        for(var/obj/item/abstracthotelstorage/S in storageTurf)
-            if((S.roomNumber == roomNumber) && (S.parentSphere == src))
-                qdel(S)
-        storedRooms -= "[roomNumber]"
-        activeRooms["[roomNumber]"] = roomReservation
-        linkTurfs(roomReservation, roomNumber)
-        do_sparks(3, FALSE, get_turf(user))
-        user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
-        return TRUE
-    else
-        return FALSE
+	if(storedRooms["[roomNumber]"])
+		var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
+		hotelRoomTempEmpty.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
+		var/turfNumber = 1
+		for(var/x in 0 to hotelRoomTemp.width-1)
+			for(var/y in 0 to hotelRoomTemp.height-1)
+				for(var/atom/movable/A in storedRooms["[roomNumber]"][turfNumber])
+					if(istype(A.loc, /obj/item/abstracthotelstorage))//Don't want to recall something thats been moved
+						A.forceMove(locate(roomReservation.bottom_left_coords[1] + x, roomReservation.bottom_left_coords[2] + y, roomReservation.bottom_left_coords[3]))
+				turfNumber++
+		for(var/obj/item/abstracthotelstorage/S in storageTurf)
+			if((S.roomNumber == roomNumber) && (S.parentSphere == src))
+				qdel(S)
+		storedRooms -= "[roomNumber]"
+		activeRooms["[roomNumber]"] = roomReservation
+		linkTurfs(roomReservation, roomNumber)
+		do_sparks(3, FALSE, get_turf(user))
+		user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
+		return TRUE
+	else
+		return FALSE
 
 /obj/item/hilbertshotel/proc/sendToNewRoom(var/roomNumber, var/mob/user)
     var/datum/turf_reservation/roomReservation = SSmapping.RequestBlockReservation(hotelRoomTemp.width, hotelRoomTemp.height)
-    var/datum/map_generator/placer
+    var/datum/async_map_generator/placer
     if(ruinSpawned)
         mysteryRoom = GLOB.hhmysteryRoomNumber
         if(roomNumber == mysteryRoom)
@@ -115,84 +115,84 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     else
         placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
     activeRooms["[roomNumber]"] = roomReservation
-    placer.on_completion(CALLBACK(src, .proc/linkTurfs, roomReservation, roomNumber))
+    placer.on_completion(CALLBACK(src, PROC_REF(linkTurfs), roomReservation, roomNumber))
     do_sparks(3, FALSE, get_turf(user))
     user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
 
 /obj/item/hilbertshotel/proc/linkTurfs(var/datum/turf_reservation/currentReservation, var/currentRoomnumber)
-    var/area/hilbertshotel/currentArea = get_area(locate(currentReservation.bottom_left_coords[1], currentReservation.bottom_left_coords[2], currentReservation.bottom_left_coords[3]))
-    currentArea.name = "Hilbert's Hotel Room [currentRoomnumber]"
-    currentArea.parentSphere = src
-    currentArea.storageTurf = storageTurf
-    currentArea.roomnumber = currentRoomnumber
-    currentArea.reservation = currentReservation
-    currentArea.virtual_z_value = get_new_virtual_z()
-    for(var/turf/closed/indestructible/hoteldoor/door in currentArea)
-        door.parentSphere = src
-        door.desc = "The door to this hotel room. The placard reads 'Room [currentRoomnumber]'. Strange, this door doesnt even seem openable. The doorknob, however, seems to buzz with unusual energy...<br /><span class='info'>Alt-Click to look through the peephole.</span>"
-    for(var/turf/open/space/bluespace/BSturf in currentArea)
-        BSturf.parentSphere = src
+	var/area/hilbertshotel/currentArea = get_area(locate(currentReservation.bottom_left_coords[1], currentReservation.bottom_left_coords[2], currentReservation.bottom_left_coords[3]))
+	currentArea.name = "Hilbert's Hotel Room [currentRoomnumber]"
+	currentArea.parentSphere = src
+	currentArea.storageTurf = storageTurf
+	currentArea.roomnumber = currentRoomnumber
+	currentArea.reservation = currentReservation
+	currentArea.virtual_z_value = get_new_virtual_z()
+	for(var/turf/closed/indestructible/hoteldoor/door in currentArea)
+		door.parentSphere = src
+		door.desc = "The door to this hotel room. The placard reads 'Room [currentRoomnumber]'. Strange, this door doesnt even seem openable. The doorknob, however, seems to buzz with unusual energy...<br /><span class='info'>Alt-Click to look through the peephole.</span>"
+	for(var/turf/open/space/bluespace/BSturf in currentArea)
+		BSturf.parentSphere = src
 
 /obj/item/hilbertshotel/proc/ejectRooms()
-    if(activeRooms.len)
-        for(var/x in activeRooms)
-            var/datum/turf_reservation/room = activeRooms[x]
-            for(var/i=0, i<hotelRoomTemp.width, i++)
-                for(var/j=0, j<hotelRoomTemp.height, j++)
-                    for(var/atom/movable/A in locate(room.bottom_left_coords[1] + i, room.bottom_left_coords[2] + j, room.bottom_left_coords[3]))
-                        if(ismob(A))
-                            var/mob/M = A
-                            if(M.mind)
-                                to_chat(M, "<span class='warning'>As the sphere breaks apart, you're suddenly ejected into the depths of space!")
-                        var/max = world.maxx-TRANSITIONEDGE
-                        var/min = 1+TRANSITIONEDGE
-                        var/list/possible_transtitons = list()
-                        for(var/AZ in SSmapping.z_list)
-                            var/datum/space_level/D = AZ
-                            if (D.linkage == CROSSLINKED)
-                                possible_transtitons += D.z_value
-                        var/_z = pick(possible_transtitons)
-                        var/_x = rand(min,max)
-                        var/_y = rand(min,max)
-                        var/turf/T = locate(_x, _y, _z)
-                        A.forceMove(T)
-            qdel(room)
+	if(activeRooms.len)
+		for(var/x in activeRooms)
+			var/datum/turf_reservation/room = activeRooms[x]
+			for(var/i in 0 to hotelRoomTemp.width-1)
+				for(var/j in 0 to hotelRoomTemp.height-1)
+					for(var/atom/movable/A in locate(room.bottom_left_coords[1] + i, room.bottom_left_coords[2] + j, room.bottom_left_coords[3]))
+						if(ismob(A))
+							var/mob/M = A
+							if(M.mind)
+								to_chat(M, "<span class='warning'>As the sphere breaks apart, you're suddenly ejected into the depths of space!")
+						var/max = world.maxx-TRANSITIONEDGE
+						var/min = 1+TRANSITIONEDGE
+						var/list/possible_transitions = list()
+						for(var/AZ in SSmapping.z_list)
+							var/datum/space_level/D = AZ
+							if (D.linkage == CROSSLINKED)
+								possible_transitions += D.z_value
+						var/_z = pick(possible_transitions)
+						var/_x = rand(min,max)
+						var/_y = rand(min,max)
+						var/turf/T = locate(_x, _y, _z)
+						A.forceMove(T)
+			qdel(room)
 
-    if(storedRooms.len)
-        for(var/x in storedRooms)
-            var/list/atomList = storedRooms[x]
-            for(var/atom/movable/A in atomList)
-                var/max = world.maxx-TRANSITIONEDGE
-                var/min = 1+TRANSITIONEDGE
-                var/list/possible_transtitons = list()
-                for(var/AZ in SSmapping.z_list)
-                    var/datum/space_level/D = AZ
-                    if (D.linkage == CROSSLINKED)
-                        possible_transtitons += D.z_value
-                var/_z = pick(possible_transtitons)
-                var/_x = rand(min,max)
-                var/_y = rand(min,max)
-                var/turf/T = locate(_x, _y, _z)
-                A.forceMove(T)
+	if(storedRooms.len)
+		for(var/x in storedRooms)
+			var/list/atomList = storedRooms[x]
+			for(var/atom/movable/A in atomList)
+				var/max = world.maxx-TRANSITIONEDGE
+				var/min = 1+TRANSITIONEDGE
+				var/list/possible_transitions = list()
+				for(var/AZ in SSmapping.z_list)
+					var/datum/space_level/D = AZ
+					if (D.linkage == CROSSLINKED)
+						possible_transitions += D.z_value
+				var/_z = pick(possible_transitions)
+				var/_x = rand(min,max)
+				var/_y = rand(min,max)
+				var/turf/T = locate(_x, _y, _z)
+				A.forceMove(T)
 
 //Template Stuff
 /datum/map_template/hilbertshotel
-    name = "Hilbert's Hotel Room"
-    mappath = '_maps/templates/hilbertshotel.dmm'
-    var/landingZoneRelativeX = 2
-    var/landingZoneRelativeY = 8
+	name = "Hilbert's Hotel Room"
+	mappath = '_maps/templates/hilbertshotel.dmm'
+	var/landingZoneRelativeX = 2
+	var/landingZoneRelativeY = 8
 
 /datum/map_template/hilbertshotel/empty
-    name = "Empty Hilbert's Hotel Room"
-    mappath = '_maps/templates/hilbertshotelempty.dmm'
+	name = "Empty Hilbert's Hotel Room"
+	mappath = '_maps/templates/hilbertshotelempty.dmm'
 
 /datum/map_template/hilbertshotel/lore
-    name = "Doctor Hilbert's Deathbed"
-    mappath = '_maps/templates/hilbertshotellore.dmm'
+	name = "Doctor Hilbert's Deathbed"
+	mappath = '_maps/templates/hilbertshotellore.dmm'
 
 /datum/map_template/hilbertshotelstorage
-    name = "Hilbert's Hotel Storage"
-    mappath = '_maps/templates/hilbertshotelstorage.dmm'
+	name = "Hilbert's Hotel Storage"
+	mappath = '_maps/templates/hilbertshotelstorage.dmm'
 
 
 //Turfs and Areas
@@ -205,29 +205,29 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	canSmoothWith = list(SMOOTH_GROUP_HOTEL_WALLS)
 
 /turf/open/indestructible/hotelwood
-    desc = "Stylish dark wood with extra reinforcement. Secured firmly to the floor to prevent tampering."
-    icon_state = "wood"
-    footstep = FOOTSTEP_WOOD
-    tiled_dirt = FALSE
+	desc = "Stylish dark wood with extra reinforcement. Secured firmly to the floor to prevent tampering."
+	icon_state = "wood"
+	footstep = FOOTSTEP_WOOD
+	tiled_dirt = FALSE
 
 /turf/open/indestructible/hoteltile
-    desc = "Smooth tile with extra reinforcement. Secured firmly to the floor to prevent tampering."
-    icon_state = "showroomfloor"
-    footstep = FOOTSTEP_FLOOR
-    tiled_dirt = FALSE
+	desc = "Smooth tile with extra reinforcement. Secured firmly to the floor to prevent tampering."
+	icon_state = "showroomfloor"
+	footstep = FOOTSTEP_FLOOR
+	tiled_dirt = FALSE
 
 /turf/open/space/bluespace
-    name = "\proper bluespace hyperzone"
-    icon_state = "bluespace"
-    baseturfs = /turf/open/space/bluespace
-    flags_1 = NOJAUNT_1
-    explosion_block = INFINITY
-    var/obj/item/hilbertshotel/parentSphere
+	name = "\proper bluespace hyperzone"
+	icon_state = "bluespace"
+	baseturfs = /turf/open/space/bluespace
+	flags_1 = NOJAUNT_1
+	explosion_block = INFINITY
+	var/obj/item/hilbertshotel/parentSphere
 
 /turf/open/space/bluespace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-    . = ..()
-    arrived.forceMove(get_turf(parentSphere))
-    do_sparks(3, FALSE, get_turf(arrived))
+	. = ..()
+	arrived.forceMove(get_turf(parentSphere))
+	do_sparks(3, FALSE, get_turf(arrived))
 
 /turf/closed/indestructible/hoteldoor
 	name = "Hotel Door"
@@ -279,204 +279,204 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	user.throw_at(pickedgoal, 7, 3)
 
 /turf/closed/indestructible/hoteldoor/attack_ghost(mob/dead/observer/user)
-    if(!isobserver(user) || !parentSphere)
-        return ..()
-    user.forceMove(get_turf(parentSphere))
+	if(!isobserver(user) || !parentSphere)
+		return ..()
+	user.forceMove(get_turf(parentSphere))
 
 //If only this could be simplified...
 /turf/closed/indestructible/hoteldoor/attack_tk(mob/user)
-    return //need to be close.
+	return //need to be close.
 
 /turf/closed/indestructible/hoteldoor/attack_hand(mob/user)
-    promptExit(user)
+	promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/attack_animal(mob/user)
-    promptExit(user)
+	promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/attack_paw(mob/user)
-    promptExit(user)
+	promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/attack_hulk(mob/living/carbon/human/user, does_attack_animation)
-    promptExit(user)
+	promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/attack_larva(mob/user)
-    promptExit(user)
+	promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/attack_slime(mob/user)
-    promptExit(user)
+	promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/attack_robot(mob/user)
-    if(get_dist(get_turf(src), get_turf(user)) <= 1)
-        promptExit(user)
+	if(get_dist(get_turf(src), get_turf(user)) <= 1)
+		promptExit(user)
 
 /turf/closed/indestructible/hoteldoor/AltClick(mob/user)
-    . = ..()
-    if(get_dist(get_turf(src), get_turf(user)) <= 1)
-        to_chat(user, "<span class='notice'>You peak through the door's bluespace peephole...</span>")
-        user.reset_perspective(parentSphere)
-        user.set_machine(src)
-        var/datum/action/peepholeCancel/PHC = new
-        user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
-        PHC.Grant(user)
+	. = ..()
+	if(get_dist(get_turf(src), get_turf(user)) <= 1)
+		to_chat(user, "<span class='notice'>You peak through the door's bluespace peephole...</span>")
+		user.reset_perspective(parentSphere)
+		user.set_machine(src)
+		var/datum/action/peepholeCancel/PHC = new
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
+		PHC.Grant(user)
 
 /turf/closed/indestructible/hoteldoor/check_eye(mob/user)
-    if(get_dist(get_turf(src), get_turf(user)) >= 2)
-        user.unset_machine()
-        for(var/datum/action/peepholeCancel/PHC in user.actions)
-            PHC.Trigger()
+	if(get_dist(get_turf(src), get_turf(user)) >= 2)
+		user.unset_machine()
+		for(var/datum/action/peepholeCancel/PHC in user.actions)
+			PHC.Trigger()
 
 /datum/action/peepholeCancel
-    name = "Cancel View"
-    desc = "Stop looking through the bluespace peephole."
-    button_icon_state = "cancel_peephole"
+	name = "Cancel View"
+	desc = "Stop looking through the bluespace peephole."
+	button_icon_state = "cancel_peephole"
 
 /datum/action/peepholeCancel/Trigger()
-    . = ..()
-    to_chat(owner, "<span class='warning'>You move away from the peephole.</span>")
-    owner.reset_perspective()
-    owner.clear_fullscreen("remote_view", 0)
-    qdel(src)
+	. = ..()
+	to_chat(owner, "<span class='warning'>You move away from the peephole.</span>")
+	owner.reset_perspective()
+	owner.clear_fullscreen("remote_view", 0)
+	qdel(src)
 
 /area/hilbertshotel
-    name = "Hilbert's Hotel Room"
-    icon_state = "hilbertshotel"
-    requires_power = FALSE
-    has_gravity = TRUE
-    teleport_restriction = TELEPORT_ALLOW_NONE
-    area_flags = HIDDEN_AREA
-    dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-    ambientsounds = list('sound/ambience/servicebell.ogg')
-    var/roomnumber = 0
-    var/obj/item/hilbertshotel/parentSphere
-    var/datum/turf_reservation/reservation
-    var/turf/storageTurf
-    var/virtual_z_value
+	name = "Hilbert's Hotel Room"
+	icon_state = "hilbertshotel"
+	requires_power = FALSE
+	has_gravity = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
+	area_flags = HIDDEN_AREA
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	ambientsounds = list('sound/ambience/servicebell.ogg')
+	var/roomnumber = 0
+	var/obj/item/hilbertshotel/parentSphere
+	var/datum/turf_reservation/reservation
+	var/turf/storageTurf
+	var/virtual_z_value
 
 /area/hilbertshotel/get_virtual_z(turf/T)
-    if(virtual_z_value)
-        return virtual_z_value
-    else
-        return ..(T)
+	if(virtual_z_value)
+		return virtual_z_value
+	else
+		return ..(T)
 
 /area/hilbertshotel/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-    . = ..()
-    if(istype(arrived, /obj/item/hilbertshotel))
-        relocate(arrived)
-    var/list/obj/item/hilbertshotel/hotels = arrived.GetAllContents(/obj/item/hilbertshotel)
-    for(var/obj/item/hilbertshotel/H in hotels)
-        if(parentSphere == H)
-            relocate(H)
+	. = ..()
+	if(istype(arrived, /obj/item/hilbertshotel))
+		relocate(arrived)
+	var/list/obj/item/hilbertshotel/hotels = arrived.GetAllContents(/obj/item/hilbertshotel)
+	for(var/obj/item/hilbertshotel/H in hotels)
+		if(parentSphere == H)
+			relocate(H)
 
 /area/hilbertshotel/proc/relocate(obj/item/hilbertshotel/H)
-    if(prob(0.135685)) //Because screw you
-        qdel(H)
-        return
-    var/turf/targetturf = find_safe_turf()
-    if(!targetturf)
-        if(GLOB.blobstart.len > 0)
-            targetturf = get_turf(pick(GLOB.blobstart))
-        else
-            CRASH("Unable to find a blobstart landmark")
-    var/turf/T = get_turf(H)
-    var/area/A = T.loc
-    log_game("[H] entered itself. Moving it to [loc_name(targetturf)].")
-    message_admins("[H] entered itself. Moving it to [ADMIN_VERBOSEJMP(targetturf)].")
-    for(var/mob/M in A)
-        to_chat(M, "<span class='danger'>[H] almost implodes in upon itself, but quickly rebounds, shooting off into a random point in space!</span>")
-    H.forceMove(targetturf)
+	if(prob(0.135685)) //Because screw you
+		qdel(H)
+		return
+	var/turf/targetturf = find_safe_turf()
+	if(!targetturf)
+		if(GLOB.blobstart.len > 0)
+			targetturf = get_turf(pick(GLOB.blobstart))
+		else
+			CRASH("Unable to find a blobstart landmark")
+	var/turf/T = get_turf(H)
+	var/area/A = T.loc
+	log_game("[H] entered itself. Moving it to [loc_name(targetturf)].")
+	message_admins("[H] entered itself. Moving it to [ADMIN_VERBOSEJMP(targetturf)].")
+	for(var/mob/M in A)
+		to_chat(M, "<span class='danger'>[H] almost implodes in upon itself, but quickly rebounds, shooting off into a random point in space!</span>")
+	H.forceMove(targetturf)
 
 /area/hilbertshotel/Exited(atom/movable/gone, direction)
-    . = ..()
-    if(ismob(gone))
-        var/mob/M = gone
-        if(M.mind)
-            var/stillPopulated = FALSE
-            var/list/currentLivingMobs = GetAllContents(/mob/living) //Got to catch anyone hiding in anything
-            for(var/mob/living/L in currentLivingMobs) //Check to see if theres any sentient mobs left.
-                if(L.mind)
-                    stillPopulated = TRUE
-                    break
-            if(!stillPopulated)
-                storeRoom()
+	. = ..()
+	if(ismob(gone))
+		var/mob/M = gone
+		if(M.mind)
+			var/stillPopulated = FALSE
+			var/list/currentLivingMobs = GetAllContents(/mob/living) //Got to catch anyone hiding in anything
+			for(var/mob/living/L in currentLivingMobs) //Check to see if theres any sentient mobs left.
+				if(L.mind)
+					stillPopulated = TRUE
+					break
+			if(!stillPopulated)
+				storeRoom()
 
 /area/hilbertshotel/proc/storeRoom()
-    var/roomSize = (reservation.top_right_coords[1]-reservation.bottom_left_coords[1]+1)*(reservation.top_right_coords[2]-reservation.bottom_left_coords[2]+1)
-    var/storage[roomSize]
-    var/turfNumber = 1
-    var/obj/item/abstracthotelstorage/storageObj = new(storageTurf)
-    storageObj.roomNumber = roomnumber
-    storageObj.parentSphere = parentSphere
-    storageObj.name = "Room [roomnumber] Storage"
-    for(var/i=0, i<parentSphere.hotelRoomTemp.width, i++)
-        for(var/j=0, j<parentSphere.hotelRoomTemp.height, j++)
-            var/list/turfContents = list()
-            for(var/atom/movable/A in locate(reservation.bottom_left_coords[1] + i, reservation.bottom_left_coords[2] + j, reservation.bottom_left_coords[3]))
-                if(ismob(A) && !isliving(A))
-                    continue //Don't want to store ghosts
-                turfContents += A
-                A.forceMove(storageObj)
-            storage[turfNumber] = turfContents
-            turfNumber++
-    parentSphere.storedRooms["[roomnumber]"] = storage
-    parentSphere.activeRooms -= "[roomnumber]"
-    qdel(reservation)
+	var/roomSize = (reservation.top_right_coords[1]-reservation.bottom_left_coords[1]+1)*(reservation.top_right_coords[2]-reservation.bottom_left_coords[2]+1)
+	var/storage[roomSize]
+	var/turfNumber = 1
+	var/obj/item/abstracthotelstorage/storageObj = new(storageTurf)
+	storageObj.roomNumber = roomnumber
+	storageObj.parentSphere = parentSphere
+	storageObj.name = "Room [roomnumber] Storage"
+	for(var/x in 0 to parentSphere.hotelRoomTemp.width-1)
+		for(var/y in 0 to parentSphere.hotelRoomTemp.height-1)
+			var/list/turfContents = list()
+			for(var/atom/movable/A in locate(reservation.bottom_left_coords[1] + x, reservation.bottom_left_coords[2] + y, reservation.bottom_left_coords[3]))
+				if(ismob(A) && !isliving(A))
+					continue //Don't want to store ghosts
+				turfContents += A
+				A.forceMove(storageObj)
+			storage[turfNumber] = turfContents
+			turfNumber++
+	parentSphere.storedRooms["[roomnumber]"] = storage
+	parentSphere.activeRooms -= "[roomnumber]"
+	qdel(reservation)
 
 /area/hilbertshotelstorage
-    name = "Hilbert's Hotel Storage Room"
-    icon_state = "hilbertshotel"
-    requires_power = FALSE
-    area_flags = HIDDEN_AREA | UNIQUE_AREA
-    has_gravity = TRUE
-    teleport_restriction = TELEPORT_ALLOW_NONE
+	name = "Hilbert's Hotel Storage Room"
+	icon_state = "hilbertshotel"
+	requires_power = FALSE
+	area_flags = HIDDEN_AREA | UNIQUE_AREA
+	has_gravity = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /obj/item/abstracthotelstorage
-    anchored = TRUE
-    invisibility = INVISIBILITY_ABSTRACT
-    resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-    item_flags = ABSTRACT
-    var/roomNumber
-    var/obj/item/hilbertshotel/parentSphere
+	anchored = TRUE
+	invisibility = INVISIBILITY_ABSTRACT
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	item_flags = ABSTRACT
+	var/roomNumber
+	var/obj/item/hilbertshotel/parentSphere
 
 /obj/item/abstracthotelstorage/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-    . = ..()
-    if(ismob(arrived))
-        var/mob/M = arrived
-        M.notransform = TRUE
+	. = ..()
+	if(ismob(arrived))
+		var/mob/M = arrived
+		M.notransform = TRUE
 
 /obj/item/abstracthotelstorage/Exited(atom/movable/gone, direction)
-    . = ..()
-    if(ismob(gone))
-        var/mob/M = gone
-        M.notransform = FALSE
+	. = ..()
+	if(ismob(gone))
+		var/mob/M = gone
+		M.notransform = FALSE
 
 //Space Ruin stuff
 /area/ruin/space/has_grav/hilbertresearchfacility
-    name = "Hilbert Research Facility"
+	name = "Hilbert Research Facility"
 
 /obj/item/analyzer/hilbertsanalyzer
-    name = "custom rigged analyzer"
-    desc = "A hand-held environmental scanner which reports current gas levels. This one seems custom rigged to additionally be able to analyze some sort of bluespace device."
-    icon_state = "hilbertsanalyzer"
+	name = "custom rigged analyzer"
+	desc = "A hand-held environmental scanner which reports current gas levels. This one seems custom rigged to additionally be able to analyze some sort of bluespace device."
+	icon_state = "hilbertsanalyzer"
 
 /obj/item/analyzer/hilbertsanalyzer/afterattack(atom/target, mob/user, proximity)
-    . = ..()
-    if(istype(target, /obj/item/hilbertshotel))
-        if(!proximity)
-            to_chat(user, "<span class='warning'>It's to far away to scan!</span>")
-            return
-        var/obj/item/hilbertshotel/sphere = target
-        if(sphere.activeRooms.len)
-            to_chat(user, "Currently Occupied Rooms:")
-            for(var/roomnumber in sphere.activeRooms)
-                to_chat(user, roomnumber)
-        else
-            to_chat(user, "No currenty occupied rooms.")
-        if(sphere.storedRooms.len)
-            to_chat(user, "Vacated Rooms:")
-            for(var/roomnumber in sphere.storedRooms)
-                to_chat(user, roomnumber)
-        else
-            to_chat(user, "No vacated rooms.")
+	. = ..()
+	if(istype(target, /obj/item/hilbertshotel))
+		if(!proximity)
+			to_chat(user, "<span class='warning'>It's to far away to scan!</span>")
+			return
+		var/obj/item/hilbertshotel/sphere = target
+		if(sphere.activeRooms.len)
+			to_chat(user, "Currently Occupied Rooms:")
+			for(var/roomnumber in sphere.activeRooms)
+				to_chat(user, roomnumber)
+		else
+			to_chat(user, "No currenty occupied rooms.")
+		if(sphere.storedRooms.len)
+			to_chat(user, "Vacated Rooms:")
+			for(var/roomnumber in sphere.storedRooms)
+				to_chat(user, roomnumber)
+		else
+			to_chat(user, "No vacated rooms.")
 
 /obj/effect/mob_spawn/human/doctorhilbert
 	name = "Doctor Hilbert"
@@ -496,6 +496,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	back = /obj/item/storage/backpack/satchel/leather
 	suit = /obj/item/clothing/suit/toggle/labcoat
 	use_cooldown = TRUE
+	banType = ROLE_HOTEL_STAFF
 
 /obj/item/paper/crumpled/docslogs
 	name = "Research Logs"
@@ -503,7 +504,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 /obj/item/paper/crumpled/docslogs/Initialize(mapload)
 	. = ..()
 	GLOB.hhmysteryRoomNumber = rand(1, SHORT_REAL_LIMIT)
-	info = {"<h4><center>Research Logs</center></h4>
+	default_raw_text = {"<h4><center>Research Logs</center></h4>
 	I might just be onto something here!<br>
 	The strange space-warping properties of bluespace have been known about for awhile now, but I might be on the verge of discovering a new way of harnessing it.<br>
 	It's too soon to say for sure, but this might be the start of something quite important!<br>
@@ -529,7 +530,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/paper/crumpled/robertsworkjournal
 	name = "Work Journal"
-	info = {"<h4>First Week!</h4>
+	default_raw_text = {"<h4>First Week!</h4>
 	First week on the new job. It's a secretarial position, but hey, whatever pays the bills. Plus it seems like some interesting stuff goes on here.<br>
 	Doc says its best that I don't openly talk about his research with others, I guess he doesn't want it getting out or something. I've caught myself slipping a few times when talking to others, it's hard not to brag about something this cool!<br>
 	I'm not really sure why I'm choosing to journal this. Doc seems to log everything. He says it's incase he discovers anything important.<br>
@@ -555,7 +556,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/paper/crumpled/bloody/docsdeathnote
 	name = "note"
-	info = {"This is it isn't it?<br>
+	default_raw_text = {"This is it isn't it?<br>
 	No one's coming to help, that much has become clear.<br>
 	Sure, it's lonely, but do I have much choice? At least I brought the analyzer with me, they shouldn't be able to find me without it.<br>
 	Who knows who's waiting for me out there. Its either die out there in their hands, or die a slower, slightly more comfortable death in here.<br>
@@ -572,7 +573,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/paper/crumpled/hilbertsstaffnotice
 	name = "An apology letter to our guests"
-	info = {"Due to a bluespace malfunction, one of our recent visitors got stranded in out of our rooms for a <b>REDACTED</b> amount of time.<br>
+	default_raw_text = {"Due to a bluespace malfunction, one of our recent visitors got stranded in out of our rooms for a <b>REDACTED</b> amount of time.<br>
 	In desperation they tried breaking down the door and have irreparably damaged the door handle in the process.<br>
 	Upon investigation, we have discovered that anyone who would tug too hard on door handle would be pulled inside of the door and sent off into an unknown location.<br>
 	As such, each room has received the equipment necessary to ensure our dear guests do not suffer the adverse effects of being sent into space.<br>

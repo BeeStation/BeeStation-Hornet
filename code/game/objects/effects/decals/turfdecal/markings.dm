@@ -285,7 +285,7 @@
 
 /obj/effect/turf_decal/siding/wood
 	icon_state = "siding_wood_line"
-	color = "#55391A"
+	color = "#b16a4c"
 
 /obj/effect/turf_decal/siding/wood/corner
 	icon_state = "siding_wood_corner"
@@ -457,3 +457,15 @@
 
 /obj/effect/turf_decal/siding/wideplating_new/terracotta/end
 	icon_state = "siding_wideplating_new_end"
+
+/obj/effect/turf_decal/numbers
+	icon_state = "number_0-1"
+
+/obj/effect/turf_decal/numbers/two_nine
+	icon_state = "number_2-9"
+
+/obj/effect/turf_decal/techfloor
+	icon_state = "techfloor_edges"
+
+/obj/effect/turf_decal/techfloor/corners
+	icon_state = "techfloor_corners"

@@ -8,9 +8,10 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
+	item_flags = ISWEAPON
 	attack_verb = list("enforced the law upon")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
 
 	var/stunforce = 75
 	var/turned_on = FALSE
@@ -22,9 +23,9 @@
 /obj/item/melee/baton/get_cell()
 	return cell
 
-/obj/item/melee/baton/suicide_act(mob/user)
+/obj/item/melee/baton/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (FIRELOSS)
+	return FIRELOSS
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -70,7 +71,7 @@
 			playsound(src, "sparks", 75, TRUE, -1)
 
 
-/obj/item/melee/baton/update_icon()
+/obj/item/melee/baton/update_icon_state()
 	if(obj_flags & OBJ_EMPED)
 		icon_state = "[initial(icon_state)]"
 	else if(turned_on)
@@ -79,6 +80,7 @@
 		icon_state = "[initial(icon_state)]_nocell"
 	else
 		icon_state = "[initial(icon_state)]"
+	return ..()
 
 /obj/item/melee/baton/examine(mob/user)
 	. = ..()
@@ -175,8 +177,8 @@
 		if(!deductcharge(hitcost))
 			return FALSE
 
-	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
-	var/armor_block = target.run_armor_check(affecting, "stamina")
+	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
+	var/armor_block = target.run_armor_check(affecting, STAMINA)
 	// L.adjustStaminaLoss(stunforce)
 	target.apply_damage(stunforce, STAMINA, affecting, armor_block)
 	target.apply_effect(EFFECT_STUTTER, stunforce)
@@ -194,7 +196,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.forcesay(GLOB.hit_appends)
+		H.force_say(user)
 
 
 	return 1
@@ -204,7 +206,7 @@
 	if (!(. & EMP_PROTECT_SELF) && !(obj_flags & OBJ_EMPED))
 		obj_flags |= OBJ_EMPED
 		update_icon()
-		addtimer(CALLBACK(src, .proc/emp_reset), rand(1, 200 / severity))
+		addtimer(CALLBACK(src, PROC_REF(emp_reset)), rand(1, 200 / severity))
 		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
 
 /obj/item/melee/baton/proc/emp_reset()

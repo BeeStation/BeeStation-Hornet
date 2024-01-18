@@ -12,6 +12,7 @@
 	item_state = "rack_parts"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	item_flags = ISWEAPON
 
 	var/ticking = FALSE
 	var/time_left = 60 //seconds remaining until pop
@@ -43,7 +44,7 @@
 		soundloop.stop()
 		soundloop2.stop()
 		to_chat(loc, "<span class='userdanger'>*ding*</span>")
-		addtimer(CALLBACK(src, .proc/snap), 2)
+		addtimer(CALLBACK(src, PROC_REF(snap)), 2)
 
 /obj/item/reverse_bear_trap/attack_hand(mob/user)
 	if(iscarbon(user))
@@ -111,6 +112,7 @@
 		playsound(src, 'sound/effects/snap.ogg', 75, TRUE, frequency = 0.5)
 		playsound(src, 'sound/effects/splat.ogg', 50, TRUE, frequency = 0.5)
 		jill.apply_damage(9999, BRUTE, BODY_ZONE_HEAD)
+		jill.investigate_log("has been killed by [src].", INVESTIGATE_DEATHS)
 		jill.death() //just in case, for some reason, they're still alive
 		flash_color(jill, flash_color = "#FF0000", flash_time = 100)
 
