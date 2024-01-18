@@ -33,18 +33,8 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"af" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/shuttle/escape/luxury)
 "ag" = (
 /turf/open/floor/wood,
-/area/shuttle/escape/luxury)
-"ah" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken"
-	},
 /area/shuttle/escape/luxury)
 "ai" = (
 /turf/open/floor/wood{
@@ -66,21 +56,10 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"am" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/shuttle/escape/luxury)
 "an" = (
 /obj/machinery/light/small,
 /turf/open/floor/wood{
 	icon_state = "wood-broken2"
-	},
-/area/shuttle/escape/luxury)
-"ao" = (
-/obj/machinery/light/small,
-/turf/open/floor/wood{
-	icon_state = "wood-broken6"
 	},
 /area/shuttle/escape/luxury)
 "ap" = (
@@ -193,11 +172,6 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"aN" = (
-/obj/structure/table/wood/fancy,
-/obj/item/food/melonfruitbowl,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
 "aO" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/khachapuri,
@@ -216,11 +190,6 @@
 "aR" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/honeybun,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
-"aS" = (
-/obj/structure/table/wood/fancy,
-/obj/item/food/eggplantparm,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aT" = (
@@ -326,6 +295,12 @@
 /obj/item/food/honkdae,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
+"ex" = (
+/obj/machinery/light/small,
+/turf/open/floor/wood{
+	broken = 1
+	},
+/area/shuttle/escape/luxury)
 "hA" = (
 /obj/structure/table/optable,
 /obj/item/surgical_drapes,
@@ -373,9 +348,24 @@
 /obj/machinery/vending/wallmed,
 /turf/closed/indestructible/riveted/uranium,
 /area/shuttle/escape/luxury)
+"Be" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/eggplantparm,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
+"Cx" = (
+/turf/open/floor/wood{
+	broken = 1
+	},
+/area/shuttle/escape/luxury)
 "CU" = (
 /obj/effect/turf_decal/pool/corner,
 /turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"Eg" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/melonfruitbowl,
+/turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "Jr" = (
 /obj/effect/turf_decal/pool,
@@ -440,7 +430,7 @@ aa
 (2,1,1) = {"
 ab
 ab
-am
+Cx
 ab
 ab
 as
@@ -455,7 +445,7 @@ ab
 "}
 (3,1,1) = {"
 ab
-af
+Cx
 ag
 ab
 ab
@@ -509,7 +499,7 @@ ab
 aj
 au
 ax
-aN
+Eg
 bd
 aj
 CU
@@ -519,7 +509,7 @@ ab
 "}
 (7,1,1) = {"
 ab
-ah
+Cx
 ag
 ab
 aj
@@ -568,7 +558,7 @@ ab
 (10,1,1) = {"
 ab
 ai
-ao
+ex
 ab
 aj
 au
@@ -589,7 +579,7 @@ ab
 aj
 au
 aC
-aS
+Be
 bd
 aj
 Jr
@@ -600,7 +590,7 @@ ab
 (12,1,1) = {"
 ac
 ag
-af
+Cx
 ab
 aj
 au

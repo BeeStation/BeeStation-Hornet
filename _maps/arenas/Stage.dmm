@@ -77,15 +77,6 @@
 "m" = (
 /turf/open/floor/plasteel/stairs,
 /area/tdome/arena)
-"n" = (
-/obj/structure/chair/fancy/sofa/old/left{
-	color = "#c45c57";
-	dir = 8
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/tdome/arena)
 "o" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 10
@@ -194,12 +185,21 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/tdome/arena)
-"G" = (
+"T" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/food/popcorn{
 	pixel_y = 5
 	},
 /turf/open/floor/wood,
+/area/tdome/arena)
+"U" = (
+/obj/structure/chair/fancy/sofa/old/left{
+	color = "#c45c57";
+	dir = 8
+	},
+/turf/open/floor/wood{
+	broken = 1
+	},
 /area/tdome/arena)
 "V" = (
 /obj/structure/railing/corner{
@@ -230,7 +230,7 @@ y
 e
 b
 k
-G
+T
 q
 x
 B
@@ -239,8 +239,8 @@ y
 (3,1,1) = {"
 e
 c
-G
-G
+T
+T
 q
 x
 A
@@ -249,7 +249,7 @@ A
 (4,1,1) = {"
 e
 c
-G
+T
 p
 u
 y
@@ -259,7 +259,7 @@ A
 (5,1,1) = {"
 e
 d
-G
+T
 q
 X
 y
@@ -279,7 +279,7 @@ A
 (7,1,1) = {"
 e
 f
-G
+T
 q
 X
 y
@@ -289,7 +289,7 @@ A
 (8,1,1) = {"
 e
 c
-G
+T
 q
 X
 y
@@ -299,7 +299,7 @@ A
 (9,1,1) = {"
 e
 g
-G
+T
 q
 X
 z
@@ -319,7 +319,7 @@ A
 (11,1,1) = {"
 e
 f
-G
+T
 q
 X
 y
@@ -329,7 +329,7 @@ A
 (12,1,1) = {"
 e
 c
-G
+T
 s
 V
 y
@@ -339,8 +339,8 @@ A
 (13,1,1) = {"
 e
 c
-G
-G
+T
+T
 q
 x
 A
@@ -349,8 +349,8 @@ A
 (14,1,1) = {"
 e
 h
-n
-G
+U
+T
 q
 x
 y

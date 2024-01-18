@@ -133,6 +133,23 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
+"lK" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot{
+	name = "emergency rations"
+	},
+/obj/item/food/rationpack,
+/obj/item/food/rationpack,
+/obj/item/food/rationpack,
+/obj/item/food/rationpack,
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/hunter)
 "lN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -180,23 +197,6 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
-"nz" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot{
-	name = "emergency rations"
-	},
-/obj/item/food/rationpack,
-/obj/item/food/rationpack,
-/obj/item/food/rationpack,
-/obj/item/food/rationpack,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/turf/open/floor/plasteel/techmaint,
 /area/shuttle/hunter)
 "nF" = (
 /obj/structure/noticeboard{
@@ -598,18 +598,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
-"Dg" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken6"
-	},
-/area/shuttle/hunter)
 "Dv" = (
 /obj/structure/table,
 /obj/item/ammo_box/a762{
@@ -950,6 +938,18 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
+"RN" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/wood{
+	broken = 1
+	},
+/area/shuttle/hunter)
 "Sk" = (
 /obj/structure/table,
 /obj/machinery/microwave{
@@ -1264,7 +1264,7 @@ cM
 (13,1,1) = {"
 Al
 vH
-Dg
+RN
 OG
 sr
 oM
@@ -1299,7 +1299,7 @@ ca
 Ca
 Al
 si
-nz
+lK
 At
 vy
 "}

@@ -16,7 +16,7 @@
 
 /obj/item/mjolnir/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjolnir1", attacksound="sparks")
+	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound="sparks")
 
 /obj/item/mjolnir/update_icon_state()
 	icon_state = "mjollnir0"
