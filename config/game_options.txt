@@ -673,7 +673,7 @@ ALLOW_VIROLOGIST
 #ISOLATION_ALLOWED
 
 ##Uncomment to allow Formaldehyde to be used to neuter viruses, as well as other utility chems (synaptizine, cryostylane) to function
-#NEUTER_ALLOWED
+NEUTER_ALLOWED
 
 ##Uncomment to allow viruses to be mixed to combine symptoms
 MIXVIRUS_ALLOWED
