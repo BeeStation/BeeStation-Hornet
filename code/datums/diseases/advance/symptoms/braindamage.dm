@@ -21,6 +21,9 @@
 	. = ..()
 	if(A.transmission >= 12 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.transmission >= 7))
 		severity += 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>transmission 7:</b> The disease's damage reaches lethal levels.<br>\
+					  <b>Speed 6:</b> Host's brain develops even more traumas than normal."
 
 /datum/symptom/braindamage/Start(datum/disease/advance/A)
 	if(!..())

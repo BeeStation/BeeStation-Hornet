@@ -292,7 +292,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	if(A.stealth >= 2) //if you combine this with pituitary disruption, you have the two most downside-heavy symptoms available
 		severity -= 1
-	if(A.transmission >= 8  || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
+	if(A.transmission >= 8 || A.event)
 		severity += 1
 
 /datum/symptom/EMP/Start(datum/disease/advance/A)
@@ -300,7 +300,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		return
 	if(A.stealth >= 2)
 		cellheal = TRUE
-	if(A.transmission >= 8 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
+	if(A.transmission >= 8 || A.event)
 		bigemp = TRUE
 
 /datum/symptom/EMP/Activate(datum/disease/advance/A)
@@ -346,6 +346,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	if(A.transmission >= 6 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		severity -= 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Transmission 4:</b> The sweat production ramps up to the point that it puts out fires in the general vicinity.<br>\
+					<b>Always:</b> The symptom heals toxin damage and purges chemicals.<br>\
+					<b>Stage speed 6:</b> The host's sweat contains traces of ammonia."
 
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
@@ -424,6 +428,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		severity -= 1
 		if(A.transmission >= 8)
 			severity -= 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health.<br>\
+					<b>Transmission 8:</b> The disease becomes more active, activating in a smaller temperature range."
 
 /datum/symptom/teleport/Start(datum/disease/advance/A)
 	if(!..())
@@ -495,6 +502,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		severity -= 1
 		if(A.stage_rate >= 12)
 			severity += 3
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors.<br>\
+					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced. The disease will also regenerate lost limbs."
+
 
 /datum/symptom/growth/Start(datum/disease/advance/A)
 	if(!..())
@@ -610,6 +621,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if((((A.stealth >= 2) && (A.transmission >= 6) && CONFIG_GET(flag/special_symptom_thresholds)) || A.event) && A.process_dead)
 		severity -= 1
 		bodies = list("Vampir", "Blood")
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b> The virus recycles excess absorbed blood into restorative biomass, healing brute damage.<br>\
+					<b>Stage Speed 5:</b> The virus grows more aggressive, assimilating blood and healing at a faster rate, but also draining the host's blood quicker<br>\
+					<b>Transmission 6:</b> The virus aggressively assimilates blood, resulting in contiguous blood pools being absorbed by the virus, as well as sucking blood out of open wounds of subjects in physical contact with the host."
 
 /datum/symptom/vampirism/Start(datum/disease/advance/A)
 	if(!..())
@@ -841,6 +856,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		prefixes = list("Symbiotic ")
 	if(A.stage_rate >= 6)
 		severity = (severity * 2)
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b>The gestating larvae can consume toxins in the host's bloodstream.<br>\
+					<b>Stage Speed 6:</b> More larvae are born, and they leave the host faster."
 
 /datum/symptom/parasite/Start(datum/disease/advance/A)
 	if(!..())

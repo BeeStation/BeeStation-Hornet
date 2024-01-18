@@ -68,6 +68,9 @@
 		severity -= 1
 	if(A.resistance >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		severity -= 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Stage Speed 6:</b> The disease also kills off contaminated cells, converting Toxin damage to Brute damage, at an efficient rate.<br>\
+					<b>Always:</b> The disease also kills off genetically damaged cells and their neighbors, converting Cellular damage into Burn damage, at an inefficient rate."
 
 /datum/symptom/radconversion/Start(datum/disease/advance/A)
 	if(!..())

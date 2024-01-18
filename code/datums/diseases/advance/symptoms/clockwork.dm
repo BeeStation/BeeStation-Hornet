@@ -30,6 +30,10 @@
 			severity -= 3//net benefits: 2 damage reduction, flight if you have wings, filter out low amounts of gas, durable ears, flash protection, a liver half as good as an upgraded cyberliver, and flight if you are a winged species
 	if(A.resistance >= 4)//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
 		severity += 1 //at this stage, even one EMP will hurt, a lot.
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
+                      <b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+                      <b>Stage Speed 6:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 
 
 /datum/symptom/robotic_adaptation/Start(datum/disease/advance/A)

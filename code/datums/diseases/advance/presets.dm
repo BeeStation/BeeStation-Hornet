@@ -164,5 +164,5 @@
 		dormant_disease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 		dormant_disease.spread_text = "None"
 		dormant_disease.visibility_flags |= HIDDEN_SCANNER
-		ForceContractDisease(dormant_disease)
+		ForceContractDisease(dormant_disease, FALSE, TRUE)
 		return TRUE

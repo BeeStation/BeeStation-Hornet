@@ -358,25 +358,24 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 //Virology helper- if virologist is enabled, set airlocks to virology access, set
 /obj/effect/mapping_helpers/virology
 	name = "virology mapping helper"
-	desc = "Place this on each viro airlock to change its acces, a smoke machine to turn it to a pet, and a plant to turn it to a virodrobe when virologist is enabled."
+	desc = "Place this on each viro airlock to change its access, a smoke machine to turn it to a pet, and a plant to turn it to a virodrobe when virologist is enabled."
 /obj/effect/mapping_helpers/virology/Initialize(mapload)
 	.=..()
 	if(CONFIG_GET(flag/allow_virologist))
 		for(var/obj/A in loc)
-			switch(A.type)
-				if(/obj/machinery/door/airlock)
-					var/obj/machinery/door/airlock/airlock = A
-					airlock.req_access_txt = "39"
-					if(airlock.type == /obj/machinery/door/airlock/maintenance || airlock.type == /obj/machinery/door/airlock/maintenance_hatch)
-						airlock.name = "Virology Maintenance"
-					else
-						airlock.name = "Virology Lab"
-				if(/obj/machinery/smoke_machine)
-					qdel(A)
-					new /obj/structure/bed/dogbed/vector(src.loc)
-					new /mob/living/simple_animal/pet/hamster/vector(src.loc)
-				if(/obj/item/kirbyplants/random)
-					qdel(A)
-					new /obj/machinery/vending/wardrobe/viro_wardrobe(src.loc)
+			if(istype(A, /obj/machinery/door/airlock/))
+				var/obj/machinery/door/airlock/airlock = A
+				airlock.req_access_txt = "39"
+				if(airlock.type == /obj/machinery/door/airlock/maintenance || airlock.type == /obj/machinery/door/airlock/maintenance_hatch)
+					airlock.name = "Virology Maintenance"
+				else
+					airlock.name = "Virology Lab"
+			if(istype(A, /obj/machinery/smoke_machine))
+				qdel(A)
+				new /obj/structure/bed/dogbed/vector(src.loc)
+				new /mob/living/simple_animal/pet/hamster/vector(src.loc)
+			if(istype(A, /obj/item/kirbyplants/random))
+				qdel(A)
+				new /obj/machinery/vending/wardrobe/viro_wardrobe(src.loc)
 
 

@@ -104,8 +104,9 @@
 	id = "memezombiesfast"
 	armor = 0
 	speedmod = 0
+	inherent_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_HUMANOID) //mob organic, so still susceptible to the disease that created it
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
-	mutanthands = /obj/item/zombie_hand
+	mutanthands = /obj/item/zombie_hand/infectious
 
 // Your skin falls off
 /datum/species/human/krokodil_addict

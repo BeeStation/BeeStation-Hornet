@@ -40,7 +40,7 @@
 	)
 	minimal_lightup_areas = list(/area/medical/virology)
 
-/datum/job/ai/config_check()
+/datum/job/virologist/config_check()
 	return CONFIG_GET(flag/allow_virologist)
 
 /datum/outfit/job/virologist

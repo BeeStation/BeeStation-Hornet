@@ -39,6 +39,9 @@ Bonus
 	. = ..()
 	if(A.resistance >= 12 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 8)) //goodbye eyes
 		severity += 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Resistance 8:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
+					  <b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/visionloss/Start(datum/disease/advance/A)
 	if(!..())

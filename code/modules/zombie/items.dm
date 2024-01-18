@@ -44,11 +44,12 @@
 				if(viral && isliving(user))
 					var/mob/living/L = user
 					var/mob/living/T = target
-					for(var/datum/disease/D in L.diseases)
-						if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
+					for(var/datum/disease/advance/D in L.diseases)
+						if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED) || D.dormant)
 							continue
 						T.ForceContractDisease(D)
-				try_to_zombie_infect(target)
+				else
+					try_to_zombie_infect(target)
 		else
 			check_feast(target, user)
 	if((istype(target, /obj/structure) || istype(target, /obj/machinery)) && viral)
