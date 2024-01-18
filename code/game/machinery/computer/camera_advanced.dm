@@ -38,6 +38,13 @@
 		if(lock_override & CAMERA_LOCK_CENTCOM)
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_CENTCOM)
 
+/obj/machinery/computer/camera_advanced/attack_ghost(mob/dead/observer/ghost)
+	. = ..()
+	if(.)
+		return
+	if(current_user && eyeobj)
+		ghost.check_orbitable(eyeobj) // ghost QoL
+
 /obj/machinery/computer/camera_advanced/syndie
 	icon_keyboard = "syndie_key"
 	circuit = /obj/item/circuitboard/computer/advanced_camera
@@ -62,14 +69,14 @@
 	RevealCameraMob()
 
 /obj/machinery/computer/camera_advanced/proc/RevealCameraMob()
-	if(reveal_camera_mob)
+	if(reveal_camera_mob && eyeobj)
 		eyeobj.visible_icon = TRUE
 		eyeobj.invisibility = INVISIBILITY_OBSERVER
-		if(current_user && eyeobj) // indent is correct: do not transfer ghosts unless it's revealed
+		if(current_user) // indent is correct: do not transfer ghosts unless it's revealed
 			current_user.transfer_observers_to(eyeobj)
 
 /obj/machinery/computer/camera_advanced/proc/ConcealCameraMob()
-	if(reveal_camera_mob)
+	if(reveal_camera_mob && eyeobj)
 		eyeobj.visible_icon = FALSE
 		eyeobj.invisibility = INVISIBILITY_ABSTRACT
 	if(current_user && eyeobj) // indent is correct: transfer ghosts when nobody uses

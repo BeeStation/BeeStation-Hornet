@@ -1,3 +1,8 @@
+/**
+ * TILE STACKS
+ *
+ * Allows us to place a turf on a plating.
+ */
 /obj/item/stack/tile
 	name = "broken tile"
 	singular_name = "broken tile"
@@ -12,6 +17,7 @@
 	throw_range = 7
 	max_amount = 60
 	novariants = TRUE
+	material_flags = MATERIAL_EFFECTS
 	/// What type of turf does this tile produce.
 	var/turf_type = null
 	/// Determines certain welder interactions.
@@ -32,6 +38,27 @@
 	. = ..()
 	if(tile_reskin_types)
 		. += "<span class='notice'>Use while in your hand to change what type of [src] you want.</span>"
+
+/obj/item/stack/tile/examine(mob/user)
+	. = ..()
+	if(tile_reskin_types || tile_rotate_dirs)
+		. += span_notice("Use while in your hand to change what type of [src] you want.")
+	if(throwforce && !is_cyborg) //do not want to divide by zero or show the message to borgs who can't throw
+		var/verb
+		switch(CEILING(MAX_LIVING_HEALTH / throwforce, 1)) //throws to crit a human
+			if(1 to 3)
+				verb = "superb"
+			if(4 to 6)
+				verb = "great"
+			if(7 to 9)
+				verb = "good"
+			if(10 to 12)
+				verb = "fairly decent"
+			if(13 to 15)
+				verb = "mediocre"
+		if(!verb)
+			return
+		. += span_notice("Those could work as a [verb] throwing weapon.")
 
 /obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_WELDER)
@@ -496,19 +523,16 @@
 	icon_state = "tile"
 	item_state = "tile"
 	force = 6
-	materials = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10
 	flags_1 = CONDUCT_1
 	turf_type = /turf/open/floor/plasteel
 	mineralType = "iron"
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
-
-/obj/item/stack/tile/plasteel/cyborg
-	desc = "The ground you walk on." //Not the usual floor tile desc as that refers to throwing, Cyborgs can't do that - RR
-	materials = list() // All other Borg versions of items have no Iron or Glass - RR
-	is_cyborg = 1
+	matter_amount = 1
 	cost = 125
+	source = /datum/robot_energy_storage/metal
 
 //Monotiles
 
@@ -517,7 +541,7 @@
 	singular_name = "steel mono tile"
 	desc = "A really big steel tile compared to the standard station tiles."
 	icon_state = "tile"
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile
 
 /obj/item/stack/tile/mono/dark
@@ -525,7 +549,7 @@
 	singular_name = "dark mono tile"
 	desc = "A really big (dark) steel tile compared to the standard station tiles."
 	icon_state = "tile"
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/dark
 
 /obj/item/stack/tile/mono/light
@@ -533,7 +557,7 @@
 	singular_name = "light mono tile"
 	desc = "A really big (shiny) steel tile compared to the standard station tiles."
 	icon_state = "tile"
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/light
 
 //Bay grids
@@ -542,7 +566,7 @@
 	singular_name = "grey grid tile"
 	desc = "A gridded version of the standard station tiles."
 	icon_state = "tile_grid"
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/grid
 
 /obj/item/stack/tile/ridge
@@ -550,7 +574,7 @@
 	singular_name = "grey ridge tile"
 	desc = "A ridged version of the standard station tiles."
 	icon_state = "tile_ridged"
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/ridged
 
 //Techtiles
@@ -559,7 +583,7 @@
 	singular_name = "grey techfloor tile"
 	desc = "A fancy tile usually found in secure areas and engineering bays."
 	icon_state = "tile_tech_grey"
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/tech
 
 /obj/item/stack/tile/techgrid
@@ -567,7 +591,7 @@
 	singular_name = "grid techfloor tile"
 	desc = "A fancy tile usually found in secure areas and engineering bays, this one has a grid pattern."
 	icon_state = "tile_tech_grid"
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/tech/grid
 
 /obj/item/stack/tile/techmaint
@@ -575,7 +599,7 @@
 	singular_name = "dark techfloor tile"
 	desc = "A fancy tile usually found in secure areas and engineering bays, this one is dark."
 	icon_state = "tile_tech_maint"
-	materials = list(/datum/material/iron=500)
+	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/techmaint
 
 // Glass floors
@@ -612,7 +636,7 @@
 	singular_name = "dock tile"
 	desc = "A bulky chunk of flooring capable of holding the weight of a shuttle."
 	icon_state = "tile_dock"
-	materials = list(/datum/material/iron=500, /datum/material/plasma=500)
+	custom_materials = list(/datum/material/iron=500, /datum/material/plasma=500)
 	turf_type = /turf/open/floor/dock
 
 /obj/item/stack/tile/drydock
@@ -620,5 +644,54 @@
 	singular_name = "dry dock tile"
 	desc = "An extra-bulky chunk of flooring capable of supporting shuttle construction."
 	icon_state = "tile_drydock"
-	materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
+	custom_materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
 	turf_type = /turf/open/floor/dock/drydock
+
+// Glass floors
+/obj/item/stack/tile/glass
+	name = "glass floor"
+	singular_name = "glass floor tile"
+	desc = "Glass window floors, to let you see... Whatever that is down there."
+	icon_state = "tile_glass"
+	turf_type = /turf/open/floor/glass
+	merge_type = /obj/item/stack/tile/glass
+	custom_materials = list(/datum/material/glass=500) // 4 tiles per sheet
+
+/obj/item/stack/tile/glass/sixty
+	amount = 60
+
+/obj/item/stack/tile/rglass
+	name = "reinforced glass floor"
+	singular_name = "reinforced glass floor tile"
+	desc = "Reinforced glass window floors. These bad boys are 50% stronger than their predecessors!"
+	icon_state = "tile_rglass"
+	turf_type = /turf/open/floor/glass/reinforced
+	merge_type = /obj/item/stack/tile/rglass
+	custom_materials = list(/datum/material/iron=250, /datum/material/glass=250) // 4 tiles per sheet
+
+/obj/item/stack/tile/rglass/sixty
+	amount = 60
+
+/obj/item/stack/tile/glass/plasma
+	name = "plasma glass floor"
+	singular_name = "plasma glass floor tile"
+	desc = "Plasma glass window floors, for when... Whatever is down there is too scary for normal glass."
+	icon_state = "tile_pglass"
+	turf_type = /turf/open/floor/glass/plasma
+	merge_type = /obj/item/stack/tile/glass/plasma
+	custom_materials = list(/datum/material/plasma =500)
+
+/obj/item/stack/tile/glass/plasma
+	amount = 60
+
+/obj/item/stack/tile/rglass/plasma
+	name = "reinforced plasma glass floor"
+	singular_name = "reinforced plasma glass floor tile"
+	desc = "Reinforced plasma glass window floors, because whatever's downstairs should really stay down there."
+	icon_state = "tile_rpglass"
+	turf_type = /turf/open/floor/glass/reinforced/plasma
+	merge_type = /obj/item/stack/tile/rglass/plasma
+	custom_materials = list(/datum/material/iron = 250, /datum/material/plasma = 250)
+
+/obj/item/stack/tile/rglass/plasma
+	amount = 60

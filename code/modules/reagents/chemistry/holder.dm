@@ -199,7 +199,8 @@
 			var/transfer_amount = T.volume * part
 			if(preserve_data)
 				trans_data = copy_data(T)
-			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1) //we only handle reaction after every reagent has been transfered.
+			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE)) //we only handle reaction after every reagent has been transfered.
+				continue
 			if(method)
 				R.react_single(T, target_atom, method, part, show_message)
 				T.on_transfer(target_atom, method, transfer_amount * multiplier)
@@ -218,7 +219,8 @@
 			var/transfer_amount = amount
 			if(amount > T.volume)
 				transfer_amount = T.volume
-			R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = 1)
+			if(!R.add_reagent(T.type, transfer_amount * multiplier, trans_data, chem_temp, no_react = TRUE)) //we only handle reaction after every reagent has been transfered.
+				continue
 			to_transfer = max(to_transfer - transfer_amount , 0)
 			if(method)
 				R.react_single(T, target_atom, method, transfer_amount, show_message)
@@ -460,7 +462,7 @@
 				if(required_temp == 0 || (is_cold_recipe && chem_temp <= required_temp) || (!is_cold_recipe && chem_temp >= required_temp))
 					meets_temp_requirement = 1
 
-				if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && meets_temp_requirement)
+				if(total_matching_reagents == total_required_reagents && total_matching_catalysts == total_required_catalysts && matching_container && matching_other && meets_temp_requirement && C.can_react(src))
 					possible_reactions  += C
 
 		if(possible_reactions.len)
@@ -640,6 +642,9 @@
 	if(amount <= 0)
 		return FALSE
 
+	if(SEND_SIGNAL(src, COMSIG_REAGENTS_PRE_ADD_REAGENT, reagent, amount, reagtemp, data, no_react) & COMPONENT_CANCEL_REAGENT_ADD)
+		return FALSE
+
 	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent]
 	if(!D)
 		WARNING("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
@@ -685,9 +690,7 @@
 	cached_reagents += R
 	R.holder = src
 	R.volume = amount
-	if(data)
-		R.data = data
-		R.on_new(data)
+	R.on_new(data)
 
 	if(isliving(my_atom))
 		R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete

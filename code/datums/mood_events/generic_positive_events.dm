@@ -19,6 +19,11 @@
 /datum/mood_event/besthug/add_effects(mob/friend)
 	description = "<span class='nicegreen'>[friend.name] is great to be around, [friend.p_they()] makes me feel so happy!</span>"
 
+/datum/mood_event/warmhug
+	description = "<span class='nicegreen'>Warm cozy hugs are the best!</span>\n"
+	mood_change = 1
+	timeout = 2 MINUTES
+
 /datum/mood_event/headpat
 	description = "<span class='nicegreen'>Headpats are lovely!</span>"
 	mood_change = 1
@@ -158,6 +163,21 @@
 	description = "<span class='nicegreen'>The shoes are a clown's legacy, I never want to take them off!</span>"
 	mood_change = 5
 
+/datum/mood_event/artok
+	description = "<span class='nicegreen'>It's nice to see people are making art around here.</span>\n"
+	mood_change = 2
+	timeout = 2 MINUTES
+
+/datum/mood_event/artgood
+	description = "<span class='nicegreen'>What a thought-provoking piece of art. I'll remember that for a while.</span>\n"
+	mood_change = 3
+	timeout = 3 MINUTES
+
+/datum/mood_event/artgreat
+	description = "<span class='nicegreen'>That work of art was so great it made me believe in the goodness of humanity. Says a lot in a place like this.</span>\n"
+	mood_change = 4
+	timeout = 4 MINUTES
+
 /datum/mood_event/sacrifice_good
 	description ="<span class='nicegreen'>The gods are pleased with this offering!</span>"
 	mood_change = 5
@@ -186,6 +206,11 @@
 /datum/mood_event/hope_lavaland
 	description = "<span class='nicegreen'>What a peculiar emblem. It makes me feel hopeful for my future.</span>"
 	mood_change = 5
+
+/datum/mood_event/holy_consumption
+	description = "Truly, that was the food of the Divine!"
+	mood_change = 1 // 1 + 5 from it being liked food makes it as good as jolly
+	timeout = 3 MINUTES
 
 /datum/mood_event/nanite_happiness
 	description = "<span class='nicegreen robot'>+++++++HAPPINESS ENHANCEMENT+++++++</span>"

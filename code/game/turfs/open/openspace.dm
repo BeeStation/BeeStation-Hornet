@@ -1,7 +1,7 @@
 /turf/open/openspace
 	name = "open space"
 	desc = "Watch your step!"
-	icon_state = "transparent"
+	icon_state = "invisible"
 	baseturfs = /turf/open/openspace
 	CanAtmosPassVertical = ATMOS_PASS_YES
 	overfloor_placed = FALSE

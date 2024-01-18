@@ -24,21 +24,27 @@
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
-	var/list/debris = list()
 
-/obj/machinery/door/window/Initialize(mapload, set_dir)
+/obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
 	if(set_dir)
 		setDir(set_dir)
 	if(req_access?.len)
 		icon_state = "[icon_state]"
 		base_state = icon_state
-	for(var/i in 1 to shards)
-		debris += new /obj/item/shard(src)
-	if(rods)
-		debris += new /obj/item/stack/rods(src, rods)
-	if(cable)
-		debris += new /obj/item/stack/cable_coil(src, cable)
+
+	if(unres_sides)
+		//remove unres_sides from directions it can't be bumped from
+		switch(dir)
+			if(NORTH,SOUTH)
+				unres_sides &= ~EAST
+				unres_sides &= ~WEST
+			if(EAST,WEST)
+				unres_sides &= ~NORTH
+				unres_sides &= ~SOUTH
+
+	src.unres_sides = unres_sides
+	update_icon()
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
@@ -47,10 +53,13 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 
+/obj/machinery/door/window/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/ntnet_interface)
+
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
 	air_update_turf(1)
-	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	electronics = null
@@ -205,11 +214,23 @@
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
-		for(var/obj/fragment in debris)
-			fragment.forceMove(get_turf(src))
-			transfer_fingerprints_to(fragment)
-			debris -= fragment
+		if(shards)
+			drop_amount(/obj/item/shard, shards)
+		if(rods)
+			drop_amount(/obj/item/stack/rods, shards)
+		if(cable)
+			drop_amount(/obj/item/stack/cable_coil, cable)
 	qdel(src)
+
+/obj/machinery/door/window/proc/drop_amount(path, amt)
+	if(amt <= 0 || amt > 10) // please no more than 10
+		return
+	if(!ispath(path, /obj))
+		return
+	var/turf/T = get_turf(src)
+	for(var/i in 1 to amt)
+		var/obj/fragment = new path(T)
+		transfer_fingerprints_to(fragment)
 
 /obj/machinery/door/window/narsie_act()
 	add_atom_colour("#7D1919", FIXED_COLOUR_PRIORITY)
@@ -343,7 +364,7 @@
 	// Cutting WIRE_IDSCAN grants remote access... or it would, if we could hack windowdoors.
 	return id_scan_hacked() || ..()
 
-/obj/machinery/door/window/proc/ntnet_receive(datum/source, datum/netdata/data)
+/obj/machinery/door/window/proc/ntnet_receive(datum/netdata/data)
 	// Check if the airlock is powered.
 	if(!hasPower())
 		return
@@ -352,10 +373,13 @@
 	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return
 
+	// Check packet access level.
+	if(!check_access_ntnet(data))
+		return
 
 	// Handle received packet.
-	var/command = data.data["data"]
-	var/command_value = data.data["data_secondary"]
+	var/command = lowertext(data.data["data"])
+	var/command_value = lowertext(data.data["data_secondary"])
 	switch(command)
 		if("open")
 			if(command_value == "on" && !density)
@@ -370,6 +394,20 @@
 				INVOKE_ASYNC(src, PROC_REF(close))
 		if("touch")
 			INVOKE_ASYNC(src, PROC_REF(open_and_close))
+
+/obj/machinery/door/window/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
+	switch(the_rcd.mode)
+		if(RCD_DECONSTRUCT)
+			return list("mode" = RCD_DECONSTRUCT, "delay" = 50, "cost" = 32)
+	return FALSE
+
+/obj/machinery/door/window/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+	switch(passed_mode)
+		if(RCD_DECONSTRUCT)
+			to_chat(user, "<span class='notice'>You deconstruct the windoor.</span>")
+			qdel(src)
+			return TRUE
+	return FALSE
 
 /obj/machinery/door/window/brigdoor
 	name = "secure door"
@@ -402,10 +440,10 @@
 	operationdelay = 10
 	var/made_glow = FALSE
 
-/obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
-	. = ..()
-	for(var/i in 1 to 2)
-		debris += new/obj/item/clockwork/alloy_shards/medium/gear_bit/large(src)
+/obj/machinery/door/window/clockwork/deconstruct(disassembled)
+	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
+		drop_amount(/obj/item/clockwork/alloy_shards/medium/gear_bit/large, 2)
+	return ..()
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)

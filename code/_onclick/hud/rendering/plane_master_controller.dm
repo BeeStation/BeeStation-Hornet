@@ -12,6 +12,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 	. = ..()
 	if(!istype(hud))
 		return
+
 	owner_hud = hud
 	var/assoc_controlled_planes = list()
 	for(var/i in controlled_planes)
@@ -94,4 +95,5 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 		GHOST_PLANE,
 		POINT_PLANE,
 		LIGHTING_PLANE,
+		LIGHTING_PLANE_ADDITIVE,
 	)

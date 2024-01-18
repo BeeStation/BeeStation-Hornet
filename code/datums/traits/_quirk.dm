@@ -8,7 +8,7 @@
 	var/icon
 	var/value = 0
 	var/list/restricted_mobtypes = list(/mob/living/carbon/human) //specifies valid mobtypes, have a good reason to change this
-	var/list/restricted_species //specifies valid species, use /datum/species/ 
+	var/list/restricted_species //specifies valid species, use /datum/species/
 	var/species_whitelist = TRUE //whether restricted_species is a whitelist or a blacklist
 	var/gain_text
 	var/lose_text
@@ -133,6 +133,12 @@
 		if(!length(dat))
 			return "None"
 		return dat.Join("<br>")
+
+/datum/quirk/proc/read_choice_preference(path)
+	var/client/qclient = GLOB.directory[ckey(quirk_holder.key)]
+	var/pref = qclient?.prefs.read_character_preference(path)
+	if(pref != "Random")
+		return pref
 
 /*
 

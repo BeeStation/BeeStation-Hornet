@@ -11,7 +11,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "d" = (
@@ -37,14 +37,14 @@
 /area/template_noop)
 "h" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "i" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "k" = (
@@ -117,7 +117,7 @@
 "w" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "x" = (
@@ -155,7 +155,7 @@
 /area/template_noop)
 "C" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "D" = (
@@ -215,11 +215,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
-/area/template_noop)
-"O" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
 /area/template_noop)
 "P" = (
 /obj/machinery/light/built,
@@ -347,7 +342,7 @@ a
 C
 J
 f
-O
+C
 a
 "}
 (10,1,1) = {"

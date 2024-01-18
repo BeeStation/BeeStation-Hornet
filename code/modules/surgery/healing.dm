@@ -33,7 +33,7 @@
 /datum/surgery_step/heal/proc/get_progress(mob/user, mob/living/carbon/target, brute_healed, burn_healed)
 	return
 
-/datum/surgery_step/heal/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/heal/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	var/woundtype
 	if(brutehealing && burnhealing)
 		woundtype = "wounds"
@@ -49,13 +49,13 @@
 		"[user] attempts to patch some of [target]'s [woundtype].")
 
 
-/datum/surgery_step/heal/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
+/datum/surgery_step/heal/initiate(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	if(..())
 		while((brutehealing && target.getBruteLoss()) || (burnhealing && target.getFireLoss()))
 			if(!..())
 				break
 
-/datum/surgery_step/heal/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/heal/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	var/umsg = "You succeed in fixing some of [target]'s wounds" //no period, add initial space to "addons"
 	var/tmsg = "[user] fixes some of [target]'s wounds" //see above
 	var/urhealedamt_brute = brutehealing
@@ -67,7 +67,7 @@
 		else //less healing bonus for the dead since they're expected to have lots of damage to begin with (to make TW into defib not TOO simple)
 			urhealedamt_brute += round((target.getBruteLoss()/ (missinghpbonus*5)),0.1)
 			urhealedamt_burn += round((target.getFireLoss()/ (missinghpbonus*5)),0.1)
-	if(!get_location_accessible(target, target_zone))
+	if(!get_location_accessible(target, surgery.location))
 		urhealedamt_brute *= 0.55
 		urhealedamt_burn *= 0.55
 		umsg += " as best as you can while [target.p_they()] [target.p_have()] clothing on"
@@ -83,7 +83,7 @@
 		the_surgery.antispam = TRUE
 	return TRUE
 
-/datum/surgery_step/heal/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/heal/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='warning'>You screwed up!</span>",
 		"<span class='warning'>[user] screws up!</span>",
 		"<span class='notice'>[user] fixes some of [target]'s wounds.</span>", TRUE)
@@ -325,7 +325,7 @@
 	success_sound = 'sound/surgery/retractor2.ogg'
 	failure_sound = 'sound/surgery/organ1.ogg'
 
-/datum/surgery_step/heal/combo/upgraded/femto/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/heal/combo/upgraded/femto/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='warning'>You screwed up!</span>",
 		"<span class='warning'>[user] screws up!</span>",
 		"<span class='notice'>[user] fixes some of [target]'s wounds.</span>", TRUE)

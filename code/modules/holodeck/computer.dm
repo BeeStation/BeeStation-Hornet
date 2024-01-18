@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	var/list/emag_programs
 
 	///subtypes of this (but not this itself) are loadable programs
-	var/program_type = /datum/map_template/holodeck
+	var/program_type = /datum/map_template/holodeck/recreation
 
 	///every holo object created by the holodeck goes in here to track it
 	var/list/spawned = list()
@@ -233,14 +233,14 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 	log_game("[key_name(usr)] has loaded the holodeck program '[program]' at [loc_name(src)].")
 	template = SSmapping.holodeck_templates[map_id]
-	var/datum/map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
+	var/datum/async_map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
 	template_placer.on_completion(CALLBACK(src, PROC_REF(finish_spawn), template))
 
 ///finalizes objects in the spawned list
 /obj/machinery/computer/holodeck/proc/finish_spawn()
 	spawned = template.created_atoms //populate the spawned list with the atoms belonging to the holodeck
 
-	if(istype(template, /datum/map_template/holodeck/thunderdome1218) && !SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM])
+	if(istype(template, /datum/map_template/holodeck/recreation/thunderdome1218) && !SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM])
 		say("Special note from \"1218 AD\" developer: I see you too are interested in the REAL dark ages of humanity! I've made this program also unlock some interesting shuttle designs on any communication console around. Have fun!")
 		SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM] = TRUE
 

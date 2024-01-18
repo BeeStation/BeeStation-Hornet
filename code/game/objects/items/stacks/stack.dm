@@ -18,6 +18,8 @@
 /obj/item/stack
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
+	material_modifier = 0.05 //5%, so that a 50 sheet stack has the effect of 5k materials instead of 100k.
+	var/list/datum/stack_recipe/recipes
 	///The name of the thing when it's singular
 	var/singular_name
 	///The amount of thing in the stack
@@ -36,27 +38,16 @@
 	var/full_w_class = WEIGHT_CLASS_NORMAL
 	//Determines whether the item should update it's sprites based on amount.
 	var/novariants = TRUE
+	//list that tells you how much is in a single unit.
+	var/list/mats_per_unit
+	///Datum material type that this stack is made of
+	var/material_type
 	///Stores table variant to be built from this stack
 	var/obj/structure/table/tableVariant
-
-	//NOTE: When adding grind_results, the amounts should be for an INDIVIDUAL ITEM - these amounts will be multiplied by the stack size in on_grind()
-
-/obj/item/stack/on_grind()
-	for(var/i in 1 to length(grind_results)) //This should only call if it's ground, so no need to check if grind_results exists
-		grind_results[grind_results[i]] *= get_amount() //Gets the key at position i, then the reagent amount of that key, then multiplies it by stack size
-
-/obj/item/stack/grind_requirements()
-	if(is_cyborg)
-		to_chat(usr, "<span class='danger'>[src] is electronically synthesized in your chassis and can't be ground up!</span>")
-		return
-	return TRUE
-
-/obj/item/stack/proc/get_recipes()
-	SHOULD_CALL_PARENT(FALSE)
-	return
+	/// Amount of matter for RCD
+	var/matter_amount = 0
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
-	. = ..()
 	if(new_amount != null)
 		amount = new_amount
 	if(user)
@@ -64,12 +55,28 @@
 	check_max_amount()
 	if(!merge_type)
 		merge_type = type
+
+	if(LAZYLEN(mats_per_unit))
+		set_mats_per_unit(mats_per_unit, 1)
+	else if(LAZYLEN(custom_materials))
+		set_mats_per_unit(custom_materials, amount ? 1/amount : 1)
+
+	. = ..()
 	if(merge)
 		for(var/obj/item/stack/S in loc)
-			if(S.merge_type == merge_type)
+			if(can_merge(S))
 				merge(S)
 				if(QDELETED(src))
 					return
+	var/list/temp_recipes = get_main_recipes()
+	recipes = temp_recipes.Copy()
+	if(material_type)
+		var/datum/material/M = SSmaterials.GetMaterialRef(material_type) //First/main material
+		for(var/i in M.categories)
+			switch(i)
+				if(MAT_CATEGORY_BASE_RECIPES)
+					var/list/temp = SSmaterials.rigid_stack_recipes.Copy()
+					recipes += temp
 	update_weight()
 	update_icon()
 	var/static/list/loc_connections = list(
@@ -77,11 +84,46 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+/** Sets the amount of materials per unit for this stack.
+  *
+  * Arguments:
+  * - [mats][/list]: The value to set the mats per unit to.
+  * - multiplier: The amount to multiply the mats per unit by. Defaults to 1.
+  */
+/obj/item/stack/proc/set_mats_per_unit(list/mats, multiplier=1)
+	mats_per_unit = SSmaterials.FindOrCreateMaterialCombo(mats, multiplier)
+	update_custom_materials()
+
+/** Updates the custom materials list of this stack.
+  */
+/obj/item/stack/proc/update_custom_materials()
+	set_custom_materials(mats_per_unit, amount, is_update=TRUE)
+
+/**
+ * Override to make things like metalgen accurately set custom materials
+ */
+/obj/item/stack/set_custom_materials(list/materials, multiplier=1, is_update=FALSE)
+	return is_update ? ..() : set_mats_per_unit(materials, multiplier/(amount || 1))
+
+/obj/item/stack/on_grind()
+	for(var/i in 1 to length(grind_results)) //This should only call if it's ground, so no need to check if grind_results exists
+		grind_results[grind_results[i]] *= get_amount() //Gets the key at position i, then the reagent amount of that key, then multiplies it by stack size
+
+/obj/item/stack/grind_requirements()
+	if(is_cyborg)
+		to_chat(usr, "<span class='warning'>[src] is electronically synthesized in your chassis and can't be ground up!</span>")
+		return
+	return TRUE
+
 /obj/item/stack/proc/check_max_amount()
 	while(amount > max_amount)
 		amount -= max_amount
 		ui_update()
 		new type(loc, max_amount, FALSE)
+
+/obj/item/stack/proc/get_main_recipes()
+	SHOULD_CALL_PARENT(TRUE)
+	return list()//empty list
 
 /obj/item/stack/proc/update_weight()
 	if(amount <= (max_amount * (1/3)))
@@ -200,7 +242,7 @@
 
 /obj/item/stack/ui_static_data(mob/user)
 	var/list/data = list()
-	data["recipes"] = recursively_build_recipes(get_recipes())
+	data["recipes"] = recursively_build_recipes(recipes)
 	return data
 
 /obj/item/stack/ui_act(action, params)
@@ -214,7 +256,7 @@
 				qdel(src)
 				return
 			var/datum/stack_recipe/R = locate(params["ref"])
-			if(!is_valid_recipe(R, get_recipes())) //href exploit protection
+			if(!is_valid_recipe(R, recipes)) //href exploit protection
 				return
 			var/multiplier = text2num(params["multiplier"])
 			if(!isnum_safe(multiplier) || (multiplier <= 0)) //href exploit protection
@@ -242,13 +284,12 @@
 				O.setDir(usr.dir)
 			use(R.req_amount * multiplier)
 
-			/* // We don't have R.applies_mats, leaving this in here for convenience in case we get it
-			if(R.applies_mats && custom_materials && custom_materials.len)
-				var/list/used_materials = list()
-				for(var/i in custom_materials)
-					used_materials[SSmaterials.GetMaterialRef(i)] = R.req_amount / R.res_amount * (MINERAL_MATERIAL_AMOUNT / custom_materials.len)
-				O.set_custom_materials(used_materials)
-			*/
+			if(R.applies_mats && LAZYLEN(mats_per_unit))
+				if(isstack(O))
+					var/obj/item/stack/crafted_stack = O
+					crafted_stack.set_mats_per_unit(mats_per_unit, R.req_amount / R.res_amount)
+				else
+					O.set_custom_materials(mats_per_unit, R.req_amount / R.res_amount)
 
 			if(QDELETED(O))
 				return //It's a stack and has already been merged
@@ -323,8 +364,10 @@
 	if(amount < used)
 		return FALSE
 	amount -= used
-	if(check)
-		zero_amount()
+	if(check && zero_amount())
+		return TRUE
+	if(length(mats_per_unit))
+		update_custom_materials()
 	update_icon()
 	ui_update()
 	update_weight()
@@ -350,15 +393,35 @@
 		return TRUE
 	return FALSE
 
-/obj/item/stack/proc/add(amount)
-	if(is_cyborg)
-		source.add_charge(amount * cost)
+/** Adds some number of units to this stack.
+  *
+  * Arguments:
+  * - _amount: The number of units to add to this stack.
+  */
+/obj/item/stack/proc/add(_amount)
+	if (is_cyborg)
+		source.add_charge(_amount * cost)
 	else
-		src.amount += amount
-		check_max_amount()
+		amount += _amount
+	if(length(mats_per_unit))
+		update_custom_materials()
 	update_icon()
 	update_weight()
 	ui_update()
+
+/** Checks whether this stack can merge itself into another stack.
+  *
+  * Arguments:
+  * - [check][/obj/item/stack]: The stack to check for mergeability.
+  */
+/obj/item/stack/proc/can_merge(obj/item/stack/check)
+	if(!istype(check, merge_type))
+		return FALSE
+	if(mats_per_unit != check.mats_per_unit)
+		return FALSE
+	if(is_cyborg)	// No merging cyborg stacks into other stacks
+		return FALSE
+	return TRUE
 
 /obj/item/stack/proc/merge(obj/item/stack/S) //Merge src into S, as much as possible
 	if(QDELETED(S) || QDELETED(src) || S == src) //amusingly this can cause a stack to consume itself, let's not allow that.
@@ -378,11 +441,11 @@
 /obj/item/stack/proc/on_entered(datum/source, obj/O)
 	SIGNAL_HANDLER
 
-	if(merge_check(O) && !O.throwing)
+	if(can_merge(O) && !O.throwing)
 		INVOKE_ASYNC(src, PROC_REF(merge), O)
 
 /obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(merge_check(AM))
+	if(can_merge(AM))
 		merge(AM)
 	return ..()
 
@@ -391,9 +454,9 @@
 	if(user.get_inactive_held_item() == src)
 		if(zero_amount())
 			return
-		return change_stack(user,1)
+		return split_stack(user, 1)
 	else
-		return ..()
+		. = ..()
 
 /obj/item/stack/AltClick(mob/living/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -411,14 +474,21 @@
 		if(!stackmaterial || stackmaterial < 0 || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 			return
 		else
-			change_stack(user, stackmaterial)
+			split_stack(user, stackmaterial)
 			to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
 
-/obj/item/stack/proc/change_stack(mob/user, amount)
+/** Splits the stack into two stacks.
+  *
+  * Arguments:
+  * - [user][/mob]: The mob splitting the stack.
+  * - amount: The number of units to split from this stack.
+  */
+/obj/item/stack/proc/split_stack(mob/user, amount)
 	if(!use(amount, TRUE, FALSE))
-		return FALSE
+		return null
 	var/obj/item/stack/F = new type(user ? user : drop_location(), amount, FALSE)
 	. = F
+	F.set_mats_per_unit(mats_per_unit, 1) // Required for greyscale sheets and tiles.
 	F.copy_evidences(src)
 	if(user)
 		if(!user.put_in_hands(F, merge_stacks = FALSE))
@@ -428,22 +498,12 @@
 	zero_amount()
 
 /obj/item/stack/attackby(obj/item/W, mob/user, params)
-	if(merge_check(W))
+	if(can_merge(W))
 		var/obj/item/stack/S = W
 		if(merge(S))
 			to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
 	else
 		return ..()
-
-/obj/item/stack/proc/merge_check(obj/O)
-	if(istype(O,merge_type))
-		if(!istype(O,/obj/item/stack)) //Not a stack, but can be stacked.
-			return TRUE
-		else
-			var/obj/item/stack/ostack = O
-			if(istype(src,ostack.merge_type)) //Merge types have to go in both directions, so inheritance != stackable together
-				return TRUE
-	return FALSE
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/from)
 	add_blood_DNA(from.return_blood_DNA())
@@ -478,8 +538,9 @@
 	var/on_floor = FALSE
 	///Do we do placement checks while placing the recipe?
 	var/placement_checks = FALSE
+	var/applies_mats = FALSE
 
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE )
+/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, applies_mats = FALSE)
 	src.title = title
 	src.result_type = result_type
 	src.req_amount = req_amount
@@ -489,6 +550,8 @@
 	src.one_per_turf = one_per_turf
 	src.on_floor = on_floor
 	src.placement_checks = placement_checks
+	src.applies_mats = applies_mats
+
 /*
  * Recipe list datum
  */

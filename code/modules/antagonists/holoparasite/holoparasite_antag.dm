@@ -144,8 +144,8 @@
 /datum/antagonist/holoparasite/apply_innate_effects()
 	. = ..()
 	RegisterSignal(owner, COMSIG_HOLOPARA_SET_SUMMONER, PROC_REF(on_set_summoner))
-	RegisterSignal(owner, list(COMSIG_HOLOPARA_SET_ACCENT_COLOR, COMSIG_HOLOPARA_SET_THEME), PROC_REF(do_update_static_data))
-	RegisterSignal(stats, list(COMSIG_HOLOPARA_STATS_SET_MAJOR_ABILITY, COMSIG_HOLOPARA_STATS_ADD_LESSER_ABILITY, COMSIG_HOLOPARA_STATS_TAKE_LESSER_ABILITY, COMSIG_HOLOPARA_STATS_SET_WEAPON), PROC_REF(do_update_static_data))
+	RegisterSignals(owner, list(COMSIG_HOLOPARA_SET_ACCENT_COLOR, COMSIG_HOLOPARA_SET_THEME), PROC_REF(do_update_static_data))
+	RegisterSignals(stats, list(COMSIG_HOLOPARA_STATS_SET_MAJOR_ABILITY, COMSIG_HOLOPARA_STATS_ADD_LESSER_ABILITY, COMSIG_HOLOPARA_STATS_TAKE_LESSER_ABILITY, COMSIG_HOLOPARA_STATS_SET_WEAPON), PROC_REF(do_update_static_data))
 
 /datum/antagonist/holoparasite/remove_innate_effects()
 	. = ..()

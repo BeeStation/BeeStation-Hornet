@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Tweaks dynamic's endgame, making only specific threats capable of spawning
-      after the midround spawn time limit has passed (100 minute mark) and making
-      dynamic ignore the cost of threats after that point has passed.
