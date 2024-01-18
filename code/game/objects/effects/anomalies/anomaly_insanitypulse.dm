@@ -54,7 +54,7 @@
 		new /obj/effect/temp_visual/mining_scanner(target_turf) // actually, making effects for every turf is laggy. This is good to reduce lags.
 	for(var/mob/living/each_mob in target_turf.get_all_mobs()) // hiding in a closet? No, no, you cheater
 		to_chat(each_mob, "<span class='warning'>A wave of dread washes over you...</span>")
-		each_mob.adjust_blindness(30)
+		each_mob.adjust_blindness(5)
 		each_mob.Knockdown(10)
 		each_mob.emote("scream")
 		each_mob.Jitter(50)
