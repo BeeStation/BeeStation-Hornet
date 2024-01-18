@@ -170,17 +170,7 @@
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/whole_words = strings("owo_talk.json", "wowds")
 		var/list/owo_sounds = strings("owo_talk.json", "sounds")
-
-		for(var/key in whole_words)
-			var/value = whole_words[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
-			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
-			message = replacetextEx(message, " [key]", " [value]")
 
 		for(var/key in owo_sounds)
 			var/value = owo_sounds[key]
@@ -192,6 +182,6 @@
 			message = replacetextEx(message, "[key]", "[value]")
 
 		if(prob(3))
-			message += pick(" Nya!"," Meow!"," OwO!!", " Nya-nya!", " Nyaaa~")
+			message += pick(" Nya!"," Meow!", " Mrooww~", " Mew...")
 	speech_args[SPEECH_MESSAGE] = trim(message)
 
