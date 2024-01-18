@@ -3,8 +3,8 @@
 	typepath = /datum/round_event/anomaly/insanity_pulse
 
 	min_players = 15
-	max_occurrences = 2
-	weight = 25
+	max_occurrences = 1
+	weight = 20
 	// This has a high chance to appear, but needs more players
 
 /datum/round_event/anomaly/insanity_pulse
