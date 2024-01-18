@@ -71,15 +71,26 @@
 /obj/item/food/grown/apple,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
+"w" = (
+/obj/structure/closet/crate/freezer,
+/obj/effect/turf_decal/bot,
+/obj/item/food/grown/berries,
+/obj/item/food/grown/berries,
+/obj/item/food/grown/berries,
+/obj/item/food/grown/berries,
+/obj/item/food/grown/berries,
+/obj/item/food/grown/berries,
+/obj/item/food/grown/berries,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/holofloor/monotile/steel,
+/area/template_noop)
 "x" = (
 /obj/structure/table/reinforced,
 /obj/machinery/microwave,
 /obj/effect/turf_decal/tile/neutral/fourcorners,
-/turf/open/floor/holofloor/monotile/steel,
-/area/template_noop)
-"y" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "B" = (
@@ -167,7 +178,9 @@
 /obj/effect/turf_decal/tile/dark_blue/fourcorners,
 /obj/item/toy/figure/chef,
 /obj/item/reagent_containers/food/condiment/enzyme,
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "P" = (
@@ -205,18 +218,8 @@
 /turf/open/floor/holofloor/monotile/steel,
 /area/template_noop)
 "W" = (
-/obj/structure/closet/crate/freezer,
-/obj/effect/turf_decal/bot,
-/obj/item/food/grown/berries,
-/obj/item/food/grown/berries,
-/obj/item/food/grown/berries,
-/obj/item/food/grown/berries,
-/obj/item/food/grown/berries,
-/obj/item/food/grown/berries,
-/obj/item/food/grown/berries,
-/obj/effect/turf_decal/tile/dark_blue/fourcorners,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/holofloor/monotile/steel,
+/obj/effect/turf_decal/tile/neutral/fourcorners,
+/turf/open/floor/holofloor/monotile/light,
 /area/template_noop)
 "Y" = (
 /obj/effect/turf_decal/bot,
@@ -261,14 +264,14 @@ h
 J
 "}
 (5,1,1) = {"
-Y
+w
 h
 x
 h
 a
 "}
 (6,1,1) = {"
-y
+Y
 F
 h
 h
