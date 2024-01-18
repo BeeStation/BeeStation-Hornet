@@ -5,7 +5,8 @@
 /obj/item/sticker
 	name = "sticker"
 	desc = "An adhesive graphic."
-	icon_state = "madeyoulook"
+	icon = 'icons/obj/sticker.dmi'
+	icon_state = "happy"
 	vis_flags = VIS_INHERIT_ID
 	w_class = WEIGHT_CLASS_TINY
 	appearance_flags = TILE_BOUND | PIXEL_SCALE | RESET_COLOR | RESET_ALPHA
@@ -17,7 +18,7 @@
 	var/mutable_appearance/stuck_appearance
 	///Sticker icon
 	var/sticker_icon
-	var/sticker_icon_state = "skub"
+	var/sticker_icon_state = "happy_sticker"
 	///Do we add an outline?
 	var/do_outline = TRUE
 
