@@ -1,0 +1,1 @@
+/turf/open/floor/@SUBTYPES{icon_state = "panelscorched"} : /turf/open/floor/@SUBTYPES{@OLD; burnt = 1; icon_state = @SKIP}
