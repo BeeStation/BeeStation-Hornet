@@ -5,7 +5,7 @@
 	icon_state = "glass-0"
 	base_icon_state = "glass"
 	baseturfs = /turf/open/openspace
-	intact = TRUE //fuck it yall can remove them, can't really fix the plating though :/
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS)
@@ -14,15 +14,20 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	floor_tile = /obj/item/stack/tile/glass
+	overfloor_placed = FALSE
+
+	z_flags = Z_MIMIC_DEFAULTS
+
+/turf/open/floor/glass/broken_states()
+	return GLOB.glass_turf_damage
 
 /turf/open/floor/glass/Initialize(mapload)
 	icon_state = "" //Prevent the normal icon from appearing behind the smooth overlays
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
-/turf/open/floor/glass/LateInitialize()
-	. = ..()
-	AddElement(/datum/element/turf_z_transparency)
+/turf/open/floor/glass/make_plating()
+	return
 
 /turf/open/floor/glass/reinforced
 	name = "Reinforced glass floor"
@@ -32,6 +37,17 @@
 	base_icon_state = "reinf_glass"
 	floor_tile = /obj/item/stack/tile/rglass
 
+/*
+/turf/open/floor/glass/reinforced/icemoon
+	initial_gas_mix = ICEMOON_DEFAULT_ATMOS
+*/
+
+/turf/open/floor/glass/airless
+	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/floor/glass/reinforced/broken_states()
+	return GLOB.reinfglass_turf_damage
+
 /turf/open/floor/glass/plasma
 	name = "plasma glass floor"
 	desc = "Studies by the Nanotrasen Materials Safety Division have not yet determined if this is safe to jump on, do so at your own risk."
@@ -39,6 +55,7 @@
 	icon_state = "plasma_glass-0"
 	base_icon_state = "plasma_glass"
 	floor_tile = /obj/item/stack/tile/glass/plasma
+	heat_capacity = INFINITY
 
 /turf/open/floor/glass/reinforced/plasma
 	name = "reinforced plasma glass floor"

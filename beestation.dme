@@ -806,7 +806,6 @@
 #include "code\datums\elements\rust.dm"
 #include "code\datums\elements\squish.dm"
 #include "code\datums\elements\strippable.dm"
-#include "code\datums\elements\turf_transparency.dm"
 #include "code\datums\elements\undertile.dm"
 #include "code\datums\elements\update_icon_blocker.dm"
 #include "code\datums\elements\update_icon_updates_onmob.dm"

@@ -1,7 +1,5 @@
+/// Anything above a lattice should go here.
 /turf/open/floor
-	//NOTE: Floor code has been refactored, many procs were removed and refactored
-	//- you should use istype() if you want to find out whether a floor has a certain type
-	//- floor_tile is now a path, and not a tile obj
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
 	base_icon_state = "floor"
@@ -13,21 +11,25 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+
 	thermal_conductivity = 0.04
 	heat_capacity = 10000
 	tiled_dirt = TRUE
-	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
-	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
 	overfloor_placed = TRUE
 
 	var/icon_plating = "plating"
-	var/floor_tile = null //tile that this floor drops
+	/// Path of the tile that this floor drops
+	var/floor_tile = null
 
 /turf/open/floor/Initialize(mapload)
 	. = ..()
+
 	if(mapload && prob(33))
 		MakeDirty()
+
 	if(is_station_level(z))
 		GLOB.station_turfs += src
 
@@ -129,25 +131,33 @@
 			new floor_tile(src)
 	return make_plating()
 
+/turf/open/floor/proc/has_tile()
+	return floor_tile
+
+/turf/open/floor/proc/spawn_tile()
+	if(!has_tile())
+		return null
+	return new floor_tile(src)
+
 /turf/open/floor/singularity_pull(S, current_size)
 	..()
-	if(current_size == STAGE_THREE)
-		if(prob(30))
+	var/sheer = FALSE
+	switch(current_size)
+		if(STAGE_THREE)
+			if(prob(30))
+				sheer = TRUE
+		if(STAGE_FOUR)
+			if(prob(50))
+				sheer = TRUE
+		if(STAGE_FIVE to INFINITY)
 			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
-	else if(current_size == STAGE_FOUR)
-		if(prob(50))
-			if(floor_tile)
-				new floor_tile(src)
-				make_plating()
-	else if(current_size >= STAGE_FIVE)
-		if(floor_tile)
-			if(prob(70))
-				new floor_tile(src)
-				make_plating()
-		else if(prob(50))
-			ReplaceWithLattice()
+				if(prob(70))
+					sheer = TRUE
+			else if(prob(50) && (/turf/open/space in baseturfs))
+				ReplaceWithLattice()
+	if(sheer)
+		if(has_tile())
+			remove_tile(null, TRUE, TRUE, TRUE)
 
 /turf/open/floor/narsie_act(force, ignore_mobs, probability = 20)
 	. = ..()
