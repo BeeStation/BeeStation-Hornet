@@ -10,6 +10,7 @@
 #define UNIQUE_RENAME			(1<<6)  //! can you customize the description/name of the thing?
 #define USES_TGUI				(1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
 #define OBJ_EMPED				(1<<8)  //! Object is affected by EMP
+#define SCANNED					(1<<9)  //! Object has been scanned by the prison_scanner
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
@@ -31,6 +32,7 @@
 #define WAS_THROWN				(1<<14) //if the item was thrown and shouldn't have the drop_item animation applied
 #define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
 #define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
+#define ISCARVABLE			    (1<<17) //! Examine will not read out this item
 
 // Flags for the clothing_flags var on /obj/item/clothing
 

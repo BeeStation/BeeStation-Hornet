@@ -52,7 +52,7 @@
 	power_channel = AREA_USAGE_ENVIRON
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
-	integrity_failure = 80
+	integrity_failure = 0.2
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
@@ -742,16 +742,16 @@
 			scan()
 			. = TRUE
 		if("interior_pressure")
-			interior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			interior_pressure = clamp(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
 			. = TRUE
 		if("exterior_pressure")
-			exterior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			exterior_pressure = clamp(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
 			. = TRUE
 		if("depressurization_margin")
-			depressurization_margin = CLAMP(text2num(params["pressure"]), 0.15, 40)
+			depressurization_margin = clamp(text2num(params["pressure"]), 0.15, 40)
 			. = TRUE
 		if("skip_delay")
-			skip_delay = CLAMP(text2num(params["skip_delay"]), 0, 1200)
+			skip_delay = clamp(text2num(params["skip_delay"]), 0, 1200)
 			. = TRUE
 
 	if(.)

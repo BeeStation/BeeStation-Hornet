@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/box/lethalshot,
 		/obj/item/storage/box/gorillacubes,
 		/obj/item/storage/box/teargas,
-		/obj/item/storage/box/security/radio,
+		/obj/item/storage/box/survival/security,
 		/obj/item/storage/box/medsprays,
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/storage/box/syndie_kit/bee_grenades,
@@ -324,7 +324,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
-	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
+	var/list/participants = poll_ghost_candidates("Would you like to partake in BATTLE ROYALE?")
 	var/turf/spawn_turf = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
@@ -434,10 +434,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	center_turf = center
 
 /obj/effect/death_wall/proc/decrease_size()
-	var/minx = CLAMP(center_turf.x - current_radius, 1, 255)
-	var/maxx = CLAMP(center_turf.x + current_radius, 1, 255)
-	var/miny = CLAMP(center_turf.y - current_radius, 1, 255)
-	var/maxy = CLAMP(center_turf.y + current_radius, 1, 255)
+	var/minx = clamp(center_turf.x - current_radius, 1, 255)
+	var/maxx = clamp(center_turf.x + current_radius, 1, 255)
+	var/miny = clamp(center_turf.y - current_radius, 1, 255)
+	var/maxy = clamp(center_turf.y + current_radius, 1, 255)
 	if(y == maxy || y == miny)
 		//We have nowhere to move to so are deleted
 		if(x == minx || x == minx + 1 || x == maxx || x == maxx - 1)

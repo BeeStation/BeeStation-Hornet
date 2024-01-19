@@ -125,14 +125,19 @@
 /datum/component/swimming/proc/drown(mob/living/victim)
 	if(victim.losebreath < 1)
 		victim.losebreath += 1
+	var/shouldemote = TRUE
+	if(victim.stat > CONSCIOUS)
+		shouldemote = FALSE //Unconscious/dead people shouldn't emote
 	ticks_drowned ++
-	if(prob(20))
-		victim.emote("cough")
-	else if(prob(25))
-		victim.emote("gasp")
+	if(shouldemote)
+		if(prob(20))
+			victim.emote("cough")
+		else if(prob(25))
+			victim.emote("gasp")
 	if(ticks_drowned > 20)
 		if(prob(10))
-			victim.visible_message("<span class='warning'>[victim] falls unconscious for a moment!</span>")
+			if(shouldemote)
+				victim.visible_message("<span class='warning'>[victim] falls unconscious for a moment!</span>")
 			victim.Unconscious(10)
 
 /datum/component/swimming/proc/start_drowning(mob/living/victim)

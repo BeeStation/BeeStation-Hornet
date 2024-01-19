@@ -20,16 +20,17 @@
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	var/atom/movable/AM = parent
-	if(!AM.reagents)
+	var/atom/movable/parent_movable = parent
+	if(!parent_movable.reagents)
 		return COMPONENT_INCOMPATIBLE
-	reagents = AM.reagents
+
+	reagents = parent_movable.reagents
 	turn_connects = _turn_connects
 
-	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), PROC_REF(disable))
-	RegisterSignal(parent, list(COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH), PROC_REF(toggle_active))
-	RegisterSignal(parent, list(COMSIG_OBJ_HIDE), PROC_REF(hide))
-	RegisterSignal(parent, list(COMSIG_ATOM_UPDATE_OVERLAYS), PROC_REF(create_overlays)) //create overlays also gets called after init (no idea by what it just happens)
+	RegisterSignals(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), PROC_REF(disable))
+	RegisterSignals(parent, list(COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH), PROC_REF(toggle_active))
+	RegisterSignal(parent, COMSIG_OBJ_HIDE, PROC_REF(hide))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(create_overlays)) //create overlays also gets called after init (no idea by what it just happens)
 
 	if(start)
 		//timer 0 so it can finish returning initialize, after which we're added to the parent.
@@ -37,7 +38,7 @@
 		addtimer(CALLBACK(src, PROC_REF(enable)), 0)
 
 /datum/component/plumbing/process()
-	if(!demand_connects || !reagents)		// This actually shouldn't happen, but better safe than sorry
+	if(!demand_connects || !reagents) // This actually shouldn't happen, but better safe than sorry
 		return PROCESS_KILL
 	if(reagents.total_volume < reagents.maximum_volume)
 		for(var/D in GLOB.cardinals)
@@ -113,20 +114,24 @@
 			continue
 
 		var/image/I
+
+		switch(D)
+			if(NORTH)
+				direction = "north"
+			if(SOUTH)
+				direction = "south"
+			if(EAST)
+				direction = "east"
+			if(WEST)
+				direction = "west"
+
 		if(turn_connects)
-			switch(D)
-				if(NORTH)
-					direction = "north"
-				if(SOUTH)
-					direction = "south"
-				if(EAST)
-					direction = "east"
-				if(WEST)
-					direction = "west"
 			I = image('icons/obj/plumbing/plumbers.dmi', "[direction]-[color]", layer = AM.layer - 1)
+
 		else
-			I = image('icons/obj/plumbing/plumbers.dmi', color, layer = AM.layer - 1) //color is not color as in the var, it's just the name
+			I = image('icons/obj/plumbing/plumbers.dmi', "[direction]-[color]-s", layer = AM.layer - 1) //color is not color as in the var, it's just the name
 			I.dir = D
+
 		overlays += I
 
 ///we stop acting like a plumbing thing and disconnect if we are, so we can safely be moved and stuff
@@ -229,10 +234,12 @@
 		net.add_plumber(src, dir)
 		net.add_plumber(P, opposite_dir)
 
-/datum/component/plumbing/proc/hide(atom/movable/AM, intact)
+/datum/component/plumbing/proc/hide(atom/movable/AM, should_hide)
+	SIGNAL_HANDLER
 
-	tile_covered = intact
+	tile_covered = should_hide
 	AM.update_appearance()
+
 
 ///has one pipe input that only takes, example is manual output pipe
 /datum/component/plumbing/simple_demand

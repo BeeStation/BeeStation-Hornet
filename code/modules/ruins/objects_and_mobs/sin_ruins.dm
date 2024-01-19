@@ -23,6 +23,7 @@
 
 	if(user.stat)
 		to_chat(user, "<span class='userdanger'>No... just one more try...</span>")
+		user.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
 		user.gib()
 	else
 		user.visible_message("<span class='warning'>[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!</span>", "<span class='warning'>You feel a draining as you pull the lever, but you \
@@ -48,7 +49,7 @@
 /obj/structure/cursed_money
 	name = "bag of money"
 	desc = "RICH! YES! YOU KNEW IT WAS WORTH IT! YOU'RE RICH! RICH! RICH!"
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "moneybag"
 	anchored = FALSE
 	density = TRUE

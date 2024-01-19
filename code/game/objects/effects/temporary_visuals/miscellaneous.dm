@@ -97,13 +97,25 @@
 	icon_state = "phaseout"
 
 /obj/effect/temp_visual/dir_setting/wraith
-	name = "blood"
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "phase_shift2"
-	duration = 12
+	name = "shadow"
+	icon = 'icons/mob/cult.dmi'
+	icon_state = "phase_shift2_cult"
+	duration = 0.6 SECONDS
+
+/obj/effect/temp_visual/dir_setting/wraith/angelic
+	icon_state = "phase_shift2_holy"
+
+/obj/effect/temp_visual/dir_setting/wraith/mystic
+	icon_state = "phase_shift2_wizard"
 
 /obj/effect/temp_visual/dir_setting/wraith/out
-	icon_state = "phase_shift"
+	icon_state = "phase_shift_cult"
+
+/obj/effect/temp_visual/dir_setting/wraith/out/angelic
+	icon_state = "phase_shift_holy"
+
+/obj/effect/temp_visual/dir_setting/wraith/out/mystic
+	icon_state = "phase_shift_wizard"
 
 /obj/effect/temp_visual/dir_setting/tailsweep
 	icon_state = "tailsweep"
@@ -144,10 +156,6 @@
 
 /obj/effect/temp_visual/dir_setting/curse/hand
 	icon_state = "cursehand"
-
-/obj/effect/temp_visual/dir_setting/curse/hand/Initialize(mapload, set_dir, handedness)
-	. = ..()
-	update_icon()
 
 /obj/effect/temp_visual/bsa_splash
 	name = "\improper Bluespace energy wave"
@@ -497,16 +505,20 @@
 	else
 		update_icon()
 
-/obj/effect/constructing_effect/update_icon()
+/obj/effect/constructing_effect/update_icon_state()
 	icon_state = "rcd"
 	if (delay < 10)
 		icon_state += "_shortest"
+		return ..()
 	else if (delay < 20)
 		icon_state += "_shorter"
+		return ..()
 	else if (delay < 37)
 		icon_state += "_short"
+		return ..()
 	if (status == RCD_DECONSTRUCT)
 		icon_state += "_reverse"
+	return ..()
 
 /obj/effect/constructing_effect/proc/end_animation()
 	if (status == RCD_DECONSTRUCT)
@@ -562,3 +574,12 @@
 	layer = FLY_LAYER
 	duration = 4.8
 	mouse_opacity = 0
+
+/obj/effect/temp_visual/launchpad
+	icon_state = "shield"
+	alpha = 0
+
+/obj/effect/temp_visual/launchpad/Initialize(mapload, time)
+	duration = time
+	animate(src, time=time, alpha=255)
+	return ..()

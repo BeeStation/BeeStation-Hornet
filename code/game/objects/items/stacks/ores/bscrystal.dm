@@ -7,7 +7,7 @@
 	singular_name = "bluespace crystal"
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = ISWEAPON
-	materials = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT)
 	points = 63
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
 	refined_type = /obj/item/stack/ore/bluespace_crystal/refined
@@ -59,7 +59,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/bluespace_crystal)
 	name = "artificial bluespace crystal"
 	desc = "An artificially made bluespace crystal, it looks delicate."
 	icon_state = "synthetic_bluespace_crystal"
-	materials = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT*0.5)
+	mats_per_unit = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT*0.5)
 	blink_range = 4 // Not as good as the REAL BSC!
 	points = 1 //nice try, unfortunateley, they're cheap imitations, have a point for your effort.
 	refined_type = null

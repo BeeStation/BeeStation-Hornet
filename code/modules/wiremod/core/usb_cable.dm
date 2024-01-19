@@ -80,7 +80,7 @@
 
 	return ..()
 
-/obj/item/usb_cable/suicide_act(mob/user)
+/obj/item/usb_cable/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 

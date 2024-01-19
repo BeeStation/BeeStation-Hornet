@@ -7,8 +7,8 @@
 	products = list(/obj/item/reagent_containers/food/snacks/spacetwinkie = 6,
 					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 6,
 					/obj/item/reagent_containers/food/snacks/candy = 6,
-		            /obj/item/reagent_containers/food/snacks/chips = 6,
-		            /obj/item/reagent_containers/food/snacks/sosjerky = 6,
+					/obj/item/reagent_containers/food/snacks/chips = 6,
+					/obj/item/reagent_containers/food/snacks/sosjerky = 6,
 					/obj/item/reagent_containers/food/snacks/no_raisin = 6,
 					/obj/item/reagent_containers/food/drinks/dry_ramen = 3,
 					/obj/item/reagent_containers/food/snacks/energybar = 6)
@@ -87,17 +87,6 @@
 	else
 		dish_quants[S.name] = 1
 	sort_list(dish_quants)
-
-/obj/machinery/vending/snack/random
-	name = "\improper Random Snackies"
-	icon_state = "random_snack"
-	desc = "Uh oh!"
-
-/obj/machinery/vending/snack/random/Initialize(mapload)
-	..()
-	var/T = pick(subtypesof(/obj/machinery/vending/snack) - /obj/machinery/vending/snack/random)
-	new T(loc)
-	return INITIALIZE_HINT_QDEL
 
 /obj/machinery/vending/snack/blue
 	icon_state = "snackblue"

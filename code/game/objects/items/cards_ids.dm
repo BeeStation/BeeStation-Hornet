@@ -41,13 +41,13 @@
 	.=..()
 	update_icon()
 
-/obj/item/card/data/update_icon()
-	cut_overlays()
+/obj/item/card/data/update_overlays()
+	. = ..()
 	if(detail_color == COLOR_FLOORTILE_GRAY)
 		return
 	var/mutable_appearance/detail_overlay = mutable_appearance('icons/obj/card.dmi', "[icon_state]-color")
 	detail_overlay.color = detail_color
-	add_overlay(detail_overlay)
+	. += detail_overlay
 
 /obj/item/card/data/full_color
 	desc = "A plastic magstripe card for simple and speedy data storage and transfer. This one has the entire card colored."
@@ -180,6 +180,7 @@
 	. = ..()
 	if(mapload && access_txt)
 		access = text2access(access_txt)
+	//RegisterSignal(src, COMSIG_ATOM_UPDATED_ICON, PROC_REFupdate_in_wallet))
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
@@ -397,6 +398,18 @@
 	return src
 
 /*
+/// Called on COMSIG_ATOM_UPDATED_ICON. Updates the visuals of the wallet this card is in.
+/obj/item/card/id/proc/update_in_wallet()
+	SIGNAL_HANDLER
+
+	if(istype(loc, /obj/item/storage/wallet))
+		var/obj/item/storage/wallet/powergaming = loc
+		if(powergaming.front_id == src)
+			powergaming.update_label()
+			powergaming.update_appearance()
+*/
+
+/*
 Usage:
 update_label()
 	Sets the id name to whatever registered_name and assignment is
@@ -483,13 +496,13 @@ update_label("John Doe", "Clowny")
 		/obj/item/card/id/pass/mining_access_card,
 		/obj/item/card/mining_point_card,
 		/obj/item/card/id,
-		/obj/item/card/id/prisoner/one,
-		/obj/item/card/id/prisoner/two,
-		/obj/item/card/id/prisoner/three,
-		/obj/item/card/id/prisoner/four,
-		/obj/item/card/id/prisoner/five,
-		/obj/item/card/id/prisoner/six,
-		/obj/item/card/id/prisoner/seven,
+		/obj/item/card/id/gulag/one,
+		/obj/item/card/id/gulag/two,
+		/obj/item/card/id/gulag/three,
+		/obj/item/card/id/gulag/four,
+		/obj/item/card/id/gulag/five,
+		/obj/item/card/id/gulag/six,
+		/obj/item/card/id/gulag/seven,
 		/obj/item/card/id/departmental_budget,
 		/obj/item/card/id/syndicate/anyone,
 		/obj/item/card/id/syndicate/nuke_leader,
@@ -532,7 +545,7 @@ update_label("John Doe", "Clowny")
 				assignment = "Assistant"
 
 			var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
-			input_name = reject_bad_name(input_name)
+			input_name = reject_bad_name(input_name, allow_numbers = TRUE)
 			if(!input_name)
 				// Invalid/blank names give a randomly generated one.
 				if(user.gender == MALE)
@@ -755,7 +768,7 @@ update_label("John Doe", "Clowny")
 	. = ..()
 	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)
 
-/obj/item/card/id/prisoner
+/obj/item/card/id/gulag
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
 	icon_state = "orange"
@@ -767,7 +780,7 @@ update_label("John Doe", "Clowny")
 	var/permanent = FALSE
 	hud_state = JOB_HUD_PRISONER
 
-/obj/item/card/id/prisoner/examine(mob/user)
+/obj/item/card/id/gulag/examine(mob/user)
 	. = ..()
 
 	if(!permanent)
@@ -776,31 +789,31 @@ update_label("John Doe", "Clowny")
 	else
 		. += "<span class='notice'>The mark on the ID indicates the sentence is permanent.</span>"
 
-/obj/item/card/id/prisoner/one
+/obj/item/card/id/gulag/one
 	name = "Prisoner #13-001"
 	registered_name = "Prisoner #13-001"
 
-/obj/item/card/id/prisoner/two
+/obj/item/card/id/gulag/two
 	name = "Prisoner #13-002"
 	registered_name = "Prisoner #13-002"
 
-/obj/item/card/id/prisoner/three
+/obj/item/card/id/gulag/three
 	name = "Prisoner #13-003"
 	registered_name = "Prisoner #13-003"
 
-/obj/item/card/id/prisoner/four
+/obj/item/card/id/gulag/four
 	name = "Prisoner #13-004"
 	registered_name = "Prisoner #13-004"
 
-/obj/item/card/id/prisoner/five
+/obj/item/card/id/gulag/five
 	name = "Prisoner #13-005"
 	registered_name = "Prisoner #13-005"
 
-/obj/item/card/id/prisoner/six
+/obj/item/card/id/gulag/six
 	name = "Prisoner #13-006"
 	registered_name = "Prisoner #13-006"
 
-/obj/item/card/id/prisoner/seven
+/obj/item/card/id/gulag/seven
 	name = "Prisoner #13-007"
 	registered_name = "Prisoner #13-007"
 

@@ -40,19 +40,18 @@
 	jobtype = /datum/job/detective
 
 	id = /obj/item/card/id/job/detective
-	belt = /obj/item/modular_computer/tablet/pda/detective
+	belt = /obj/item/storage/belt/fannypack/detective
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/detective
 	neck = /obj/item/clothing/neck/tie/detective
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/det_suit
+	suit_store = /obj/item/melee/classic_baton/police
 	gloves = /obj/item/clothing/gloves/color/black
 	head = /obj/item/clothing/head/fedora/det_hat
-	l_pocket = /obj/item/toy/crayon/white
+	l_pocket = /obj/item/modular_computer/tablet/pda/detective
 	r_pocket = /obj/item/lighter
-	backpack_contents = list(/obj/item/storage/box/evidence=1,\
-		/obj/item/detective_scanner=1,\
-		/obj/item/melee/classic_baton/police=1)
+
 	mask = /obj/item/clothing/mask/cigarette
 
 	implants = list(/obj/item/implant/mindshield)
@@ -68,3 +67,7 @@
 	if(visualsOnly)
 		return
 
+/obj/item/storage/belt/fannypack/detective/PopulateContents()
+	new /obj/item/storage/box/evidence(src)
+	new /obj/item/detective_scanner(src)
+	new /obj/item/toy/crayon/white(src)

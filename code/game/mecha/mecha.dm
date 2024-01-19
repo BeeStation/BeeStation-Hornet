@@ -151,10 +151,10 @@
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 	update_step_speed()
 
-/obj/mecha/update_icon()
-	if (silicon_pilot && silicon_icon_state)
+/obj/mecha/update_icon_state()
+	if(silicon_pilot && silicon_icon_state)
 		icon_state = silicon_icon_state
-	. = ..()
+	return ..()
 
 /obj/mecha/get_cell()
 	return cell
@@ -167,11 +167,11 @@
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
-	var/mob/living/silicon/ai/AI
+	var/mob/living/silicon/ai/ai
 	for(var/mob/M in src) //Let's just be ultra sure
 		if(isAI(M))
 			occupant = null
-			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+			ai = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
 		else
 			M.forceMove(loc)
 	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
@@ -185,8 +185,9 @@
 		qdel(capacitor)
 	if(internal_tank)
 		qdel(internal_tank)
-	if(AI)
-		AI.gib() //No wreck, no AI to recover
+	if(ai)
+		ai.investigate_log("has been gibbed by having their mech destroyed.", INVESTIGATE_DEATHS)
+		ai.gib() //No wreck, no AI to recover
 	STOP_PROCESSING(SSobj, src)
 	equipment.Cut()
 	cell = null
@@ -1055,6 +1056,7 @@
 		var/mob/living/silicon/ai/AI = occupant
 		if(forced)//This should only happen if there are multiple AIs in a round, and at least one is Malf.
 			RemoveActions(occupant)
+			occupant.investigate_log("has been gibbed by being forced out of their mech by another AI.", INVESTIGATE_DEATHS)
 			occupant.gib()  //If one Malf decides to steal a mech from another AI (even other Malfs!), they are destroyed, as they have nowhere to go when replaced.
 			occupant = null
 			silicon_pilot = FALSE
@@ -1101,8 +1103,8 @@
 /////////////////////////
 
 /obj/mecha/proc/operation_allowed(mob/M)
-	req_access = operation_req_access
-	req_one_access = list()
+	req_access = list()
+	req_one_access = operation_req_access
 	return allowed(M)
 
 /obj/mecha/proc/internals_access_allowed(mob/M)

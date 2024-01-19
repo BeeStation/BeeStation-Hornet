@@ -27,6 +27,8 @@ GLOBAL_LIST_INIT(megacarp_first_names, world.file2list("strings/names/megacarp1.
 GLOBAL_LIST_INIT(megacarp_last_names, world.file2list("strings/names/megacarp2.txt"))
 GLOBAL_LIST_INIT(oozeling_first_names, world.file2list("strings/names/ooze_first.txt"))
 GLOBAL_LIST_INIT(oozeling_last_names, world.file2list("strings/names/ooze_last.txt"))
+GLOBAL_LIST_INIT(psyphoza_first_names, world.file2list("strings/names/psyphoza_first.txt"))
+GLOBAL_LIST_INIT(psyphoza_last_names, world.file2list("strings/names/psyphoza_last.txt"))
 
 GLOBAL_LIST_INIT(verbs, world.file2list("strings/names/verbs.txt"))
 GLOBAL_LIST_INIT(ing_verbs, world.file2list("strings/names/ing_verbs.txt"))

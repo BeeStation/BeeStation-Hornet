@@ -13,7 +13,7 @@
 /area/template_noop)
 "f" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "i" = (
@@ -44,7 +44,7 @@
 /area/template_noop)
 "B" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "M" = (

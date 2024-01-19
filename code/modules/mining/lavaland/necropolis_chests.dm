@@ -552,7 +552,7 @@
 /obj/item/shared_storage
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/crates.dmi'
 	icon_state = "cultpack"
 	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
@@ -734,7 +734,7 @@
 	"Both modes will build up existing bleed effects, doing a burst of high damage if the bleed is built up high enough.\n"+\
 	"Transforming it immediately after an attack causes the next attack to come out faster.</span>"
 
-/obj/item/melee/transforming/cleaving_saw/suicide_act(mob/user)
+/obj/item/melee/transforming/cleaving_saw/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	transform_cooldown = 0
 	transform_weapon(user, TRUE)
@@ -858,7 +858,7 @@
 	if(href_list["orbit"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			ghost.ManualFollow(src)
+			ghost.check_orbitable(src)
 
 /obj/item/melee/ghost_sword/process()
 	ghost_check()
@@ -872,7 +872,7 @@
 		var/atom/A = thing
 		A.transfer_observers_to(src)
 
-	for(var/i in orbiters?.orbiters)
+	for(var/i in orbit_datum?.current_orbiters)
 		if(!isobserver(i))
 			continue
 		var/mob/dead/observer/G = i
@@ -891,13 +891,13 @@
 	force = 0
 	var/ghost_counter = ghost_check()
 
-	force = CLAMP((ghost_counter * 4), 0, 75)
+	force = clamp((ghost_counter * 4), 0, 75)
 	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirits!</span>")
 	..()
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/ghost_counter = ghost_check()
-	final_block_chance += CLAMP((ghost_counter * 5), 0, 75)
+	final_block_chance += clamp((ghost_counter * 5), 0, 75)
 	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
 	return ..()
 

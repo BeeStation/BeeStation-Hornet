@@ -11,6 +11,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_TURF_CHASM)
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	bullet_bounce_sound = null //abandon all hope ye who enter
+	resistance_flags = INDESTRUCTIBLE
 
 /turf/open/chasm/Initialize(mapload)
 	. = ..()
@@ -98,6 +99,8 @@
 // Chasms for the jungle, with planetary atmos and a different icon
 /turf/open/chasm/jungle
 	icon = 'icons/turf/floors/junglechasm.dmi'
+	icon_state = "junglechasm-0"
+	base_icon_state = "junglechasm"
 	initial_gas_mix = OPENTURF_LOW_PRESSURE
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/chasm/jungle
