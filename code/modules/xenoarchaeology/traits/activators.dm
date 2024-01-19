@@ -10,6 +10,7 @@
 	register_targets = FALSE
 	weight = 8
 	conductivity = 0
+	can_pearl = FALSE
 	///Do we override the artifact's generic cooldown?
 	var/override_cooldown = FALSE
 

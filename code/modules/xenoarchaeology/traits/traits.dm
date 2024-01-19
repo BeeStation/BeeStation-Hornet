@@ -35,6 +35,12 @@
 	///How much extra value does this trait apply to the artifact - It's important this is applied before anyone can use stickers on the artifact
 	var/extra_value = 0
 
+	///Does this trait contribute to calibration
+	var/contribute_calibration = TRUE
+
+	///Can this trait be made a pearl?
+	var/can_pearl = TRUE
+
 	///Characteristics for deduction
 	var/weight = 1 //KG
 	var/conductivity = 1 //microsiemens per centimeter - I had to look this up - Don't worry about making this accurate / reasonable

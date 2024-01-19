@@ -10,6 +10,8 @@
 	register_targets = FALSE
 	weight = 7
 	conductivity = 0
+	contribute_calibration = FALSE
+	can_pearl = FALSE
 
 /*
 	Parallel Bearspace Retrieval

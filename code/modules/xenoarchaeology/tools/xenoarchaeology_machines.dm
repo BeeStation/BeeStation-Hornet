@@ -155,8 +155,7 @@
 		for(var/i in X.artifact_traits)
 			for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
 				if(!(locate(T) in L.traits))
-					//Forgive malfunctions - this is readable, forgive the nesting
-					if(!istype(T, /datum/xenoartifact_trait/malfunction))
+					if(T.contribute_calibration)
 						solid_as = FALSE
 		//TODO: make this calcify the artifact - Racc
 		if(!solid_as)

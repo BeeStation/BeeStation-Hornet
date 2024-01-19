@@ -152,7 +152,7 @@
 	for(var/i in artifact_traits)
 		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
 			artifact_traits[i] -= T
-			if(make_pearls)
+			if(make_pearls && T.can_pearl)
 				new /obj/item/trait_pearl(get_turf(parent), T.type)
 			if(!QDELETED(T))
 				qdel(T)
@@ -385,7 +385,7 @@
 	. = ..()
 	//Add a custom check to stop the beam shooting off into infinity, artifacts fuck with default beam stuff
 	if(!isturf(target.loc))
-		targer = get_turf(target.loc)
+		target = get_turf(target.loc)
 
 /*
 	material datums

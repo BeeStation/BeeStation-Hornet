@@ -4073,6 +4073,7 @@
 #include "code\modules\wiremod\components\abstract\compare.dm"
 #include "code\modules\wiremod\components\abstract\indexer.dm"
 #include "code\modules\wiremod\components\abstract\module.dm"
+#include "code\modules\wiremod\components\action\artifact.dm"
 #include "code\modules\wiremod\components\action\light.dm"
 #include "code\modules\wiremod\components\action\mmi.dm"
 #include "code\modules\wiremod\components\action\pathfind.dm"
