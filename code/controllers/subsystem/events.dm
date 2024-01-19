@@ -117,30 +117,27 @@ SUBSYSTEM_DEF(events)
 
 	var/gamemode = SSticker.mode.config_tag
 	var/players_amt = get_active_player_count(alive_check = 1, afk_check = 1, human_check = 1)
-	// Only alive, non-AFK human players count towards this.
-
-	var/sum_of_weights = 0
-	for(var/datum/round_event_control/respawn/E in respawn_control)
-		if(!E.canSpawnEvent(players_amt, gamemode))
-			continue
-		if(E.weight < 0)						//for round-start events etc.
-			var/res = TriggerEvent(E)
-			if(res == EVENT_INTERRUPTED)
-				continue	//like it never happened
-			if(res == EVENT_CANT_RUN)
-				return
-		sum_of_weights += E.weight
-
-	sum_of_weights = rand(0,sum_of_weights)	//reusing this variable. It now represents the 'weight' we want to select
+	var/list/rolling_events = list() //temporary list to call pick_n_take() on.
 
 	for(var/datum/round_event_control/respawn/E in respawn_control)
-		if(!E.canSpawnEvent(players_amt, gamemode))
-			continue
-		sum_of_weights -= E.weight
+		rolling_events += E
+	var/rolling = TRUE
 
-		if(sum_of_weights <= 0)				//we've hit our goal
-			if(TriggerEvent(E))
-				return
+	while(rolling)
+		if(MC_TICK_CHECK)
+			message_admins("Respawn Event has failed to trigger after MC_TICK_CHECK returned TRUE!")
+			rolling = FALSE
+			return
+		if(!length(rolling_events))
+			message_admins("Respawn Event has failed to trigger after emptying its pool!")
+			rolling = FALSE
+			return
+		var/datum/round_event_control/respawn/R = pick_n_take(rolling_events)
+		if(!R.canSpawnEvent(players_amt, gamemode))
+			continue
+		if(TriggerEvent(R))
+			rolling = FALSE
+			return
 
 //allows a client to trigger an event
 //aka Badmin Central

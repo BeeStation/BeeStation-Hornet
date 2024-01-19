@@ -1,8 +1,6 @@
 /datum/round_event_control/respawn/prisoner
 	name = "Prisoners"
 	typepath = /datum/round_event/ghost_role/prisoner
-	weight = 100
-	earliest_start = 1 MINUTES	//The earliest world.time that an event can start (round-duration in deciseconds) default: 20 mins
 	min_players = 0			//The minimum amount of alive, non-AFK human players on server required to start the event.
 	max_occurrences = 1		//The maximum number of times this event can occur (naturally), it can still be forced.
 	cannot_spawn_after_shuttlecall = TRUE	// Prevents the event from spawning after the shuttle was called
