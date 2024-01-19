@@ -45,7 +45,7 @@ const XenoartifactlabelerTraits = (props, context) => {
 
   return (
     <Box px={1} grow={1} overflowY="auto" height="425px" width="150px">
-      <Section title="Material">
+      <Section title="Activator Traits">
         <Box>
           {sorted_activators.map((trait) => (
             <XenoartifactlabelerGenerateList
@@ -58,7 +58,7 @@ const XenoartifactlabelerTraits = (props, context) => {
         </Box>
       </Section>
       <Divider/>
-      <Section title="Notes">
+      <Section title="Minor Traits">
         <Box>
           {sorted_minors.map((trait) => (
             <XenoartifactlabelerGenerateList
@@ -71,7 +71,7 @@ const XenoartifactlabelerTraits = (props, context) => {
         </Box>
       </Section>
       <Divider/>
-      <Section title="Shape">
+      <Section title="Major Traits">
         <Box>
           {sorted_majors.map((trait) => (
             <XenoartifactlabelerGenerateList
@@ -84,7 +84,7 @@ const XenoartifactlabelerTraits = (props, context) => {
         </Box>
       </Section>
        <Divider/>
-      <Section title="Malfunction">
+      <Section title="Malfunction Traits">
         <Box>
           {sorted_malfs.map((trait) => (
             <XenoartifactlabelerGenerateList

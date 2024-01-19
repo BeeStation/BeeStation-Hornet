@@ -32,6 +32,9 @@
 	///Extra target range we add to the artifact
 	var/extra_target_range = 0
 
+	///How much extra value does this trait apply to the artifact - It's important this is applied before anyone can use stickers on the artifact
+	var/extra_value = 0
+
 	///Characteristics for deduction
 	var/weight = 1 //KG
 	var/conductivity = 1 //microsiemens per centimeter - I had to look this up - Don't worry about making this accurate / reasonable
@@ -53,7 +56,9 @@
 	//Appearance
 	generate_trait_appearance(parent.parent)
 	//Stats
+	var/atom/A = parent.parent
 	parent.target_range += extra_target_range
+	A.custom_price += extra_value
 
 //Remeber to call this before setting a new parent
 /datum/xenoartifact_trait/proc/remove_parent(datum/source)
@@ -63,7 +68,9 @@
 	if(parent)
 		UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
 		UnregisterSignal(parent, XENOA_TRIGGER)
+		var/atom/A = parent.parent
 		parent.target_range -= extra_target_range
+		A.custom_price -= extra_value
 		cut_trait_appearance(parent.parent)
 	//TODO: If we ever need trait pearls to keep the initialized trait, remove this - Racc
 	qdel(src)

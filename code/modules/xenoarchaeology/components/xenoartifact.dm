@@ -408,6 +408,7 @@
 	instability_step = 0.5
 	texture_icon_states = list("texture-bananium1", "texture-bananium2", "texture-bananium3")
 	mask_icon_states = list("mask-bananium1")
+	custom_price = 500
 
 /datum/xenoartifact_material/bananium/get_trait_list()
 	return GLOB.xenoa_bananium_traits
@@ -418,6 +419,7 @@
 	instability_step = 25
 	texture_icon_states = list("texture-uranium1", "texture-uranium2", "texture-uranium3")
 	mask_icon_states = list("mask-uranium1")
+	custom_price = 450
 
 /datum/xenoartifact_material/uranium/get_trait_list()
 	return GLOB.xenoa_uranium_traits
@@ -428,6 +430,7 @@
 	instability_step = 5
 	texture_icon_states = list("texture-plasma1", "texture-plasma2", "texture-plasma3")
 	mask_icon_states = list("mask-plasma1")
+	custom_price = 250
 
 /datum/xenoartifact_material/plasma/get_trait_list()
 	return GLOB.xenoa_plasma_traits
@@ -448,7 +451,7 @@
 	material_color = "#f1ffca"
 	instability_step = 50
 	texture_icon_states = list("texture-pearl1", "texture-pearl2", "texture-pearl3")
-	mask_icon_states = list("mask-pearl1") //This is pretty much a place holder, since artificial artifacts use the item as a mask
+	custom_price = 500
 
 //Calcified
 /datum/xenoartifact_material/calcified

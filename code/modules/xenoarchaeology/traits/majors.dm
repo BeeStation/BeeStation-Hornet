@@ -95,6 +95,10 @@
 				M.forceMove(get_turf(AM))
 	return ..()
 
+/datum/xenoartifact_trait/major/hollow/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
+
 /*
 	Temporal
 	Creates a timestop object at the position of the artfiact
@@ -153,6 +157,10 @@
 		playsound(get_turf(parent.parent), 'sound/mecha/mech_shield_deflect.ogg', 50, TRUE)
 	dump_targets()
 	clear_focus()
+
+/datum/xenoartifact_trait/major/projectile/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
 
 /*
 	Bestialized

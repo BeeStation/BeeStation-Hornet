@@ -56,6 +56,10 @@
 	target.vis_contents -= particle_holder
 	QDEL_NULL(particle_holder)
 
+/datum/xenoartifact_trait/minor/charged/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_INHAND)
+
 /*
 	Capacitive
 	Gives the artifact extra uses
@@ -89,6 +93,10 @@
 		playsound(get_turf(parent.parent), 'sound/machines/capacitor_charge.ogg', 50, TRUE)
 		current_charge = max_charges
 		parent.cooldown_disabled = FALSE
+
+/datum/xenoartifact_trait/minor/capacitive/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
 
 /*
 	Dense
@@ -127,6 +135,10 @@
 	if(isitem(A))
 		A.interaction_flags_item = old_item_flag
 	return ..()
+
+/datum/xenoartifact_trait/minor/dense/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
 
 /*
 	Sharp
@@ -170,6 +182,10 @@
 		A.attack_verb = old_verbs
 	return ..()
 
+/datum/xenoartifact_trait/minor/sharp/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
+
 /*
 	Cooling
 	Decreases the artifact's initial cooldown by XENOA_TRAIT_COOLDOWN_EXTRA_SAFE seconds
@@ -197,7 +213,7 @@
 		return
 	//Build particle holder
 	particle_holder = new(parent.parent)
-	particle_holder.add_emitter(/obj/emitter/snow_smoke, "snow_smoke", 10)
+	particle_holder.add_emitter(/obj/emitter/snow_smoke, "snow_smoke", 10) //TODO: make this a proper effect, it's a placeholder for now - Racc
 	//Layer onto parent
 	target.vis_contents += particle_holder
 
@@ -207,6 +223,10 @@
 		return
 	target.vis_contents -= particle_holder
 	QDEL_NULL(particle_holder)
+
+/datum/xenoartifact_trait/minor/cooling/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_INHAND)
 
 /*
 	Sentient
@@ -356,6 +376,10 @@
 	. = ..()
 	target.alpha /= 0.7
 
+/datum/xenoartifact_trait/minor/delicate/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
+
 /*
 	Aura
 	Adds nearby atoms to the target list
@@ -395,6 +419,10 @@
 	extra_target_range = 9
 	weight = 10
 	conductivity = 15
+
+/datum/xenoartifact_trait/minor/scoped/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
 
 /*
 	Ringed
@@ -443,6 +471,10 @@
 
 	user.RemoveSpell(artifact_action, FALSE)
 
+/datum/xenoartifact_trait/minor/delicate/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
+
 /*
 	Shielded
 	Makes the artifact act like a shield
@@ -485,6 +517,10 @@
 		A.block_upgrade_walk = old_block_upgrade
 	return ..()
 
+/datum/xenoartifact_trait/minor/shielded/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
+
 /*
 	Aerodynamic
 	Makes the artifact easy to throw
@@ -511,6 +547,10 @@
 	if(ismovable(A))
 		A.throw_range = old_throw_range
 	return ..()
+
+/datum/xenoartifact_trait/minor/aerodynamic/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
 
 /*
 	Signaller
@@ -588,6 +628,10 @@
 	var/rand_time = rand(5, 15) SECONDS
 	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time)
 
+/datum/xenoartifact_trait/minor/signaller/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its output code & frequency"))
+
 /*
 	Anchor
 	Anchors the artifact
@@ -652,6 +696,10 @@
 /datum/xenoartifact_trait/minor/slippery/Destroy(force, ...)
 	QDEL_NULL(slip_comp)
 	return ..()
+
+/datum/xenoartifact_trait/slippery/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
 
 /*
 	Haunted

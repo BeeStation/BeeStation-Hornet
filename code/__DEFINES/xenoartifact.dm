@@ -57,6 +57,12 @@
 #define XENOA_ACTIVATION_TOUCH "XENOA_ACTIVATION_TOUCH"
 #define XENOA_ACTIVATION_CONTACT "XENOA_ACTIVATION_CONTACT"
 
+///Common defines for trait hints
+#define XENOA_TRAIT_HINT_MATERIAL list("icon" = "eye", "desc" = "This trait can appear in the artifact's material description.")
+#define XENOA_TRAIT_HINT_INHAND list("icon" = "search", "desc" = "This trait can be detected by 'feeling' the artifact.")
+#define XENOA_TRAIT_HINT_TRIGGER(X) list("icon" = "wrench", "desc" = "This trait can be triggered with a [X].")
+#define XENOA_TRAIT_HINT_DETECT(X) list("icon" = "search", "desc" = "This trait can be detected with a [X].")
+
 /*
 old content
 */

@@ -80,6 +80,8 @@
 		return
 	trigger_artifact(target)
 
+/datum/xenoartifact_trait/activator/strudy/get_dictionary_hint()
+	return list(XENOA_TRAIT_HINT_MATERIAL)
 /*
 	Flammable
 	This trait activates the artifact when it's lit
@@ -125,7 +127,7 @@
 
 /datum/xenoartifact_trait/activator/flammable/get_dictionary_hint()
 	. = ..()
-	return list(list("icon" = "wrench", "desc" = "This trait can be triggered with a 'hot' tool."))
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_TRIGGER("'hot' tool"), list("icon" = "exclamation", "desc" = "This trait will, after an arming time, activate on the nearest living target."))
 
 /datum/xenoartifact_trait/activator/flammable/proc/reset_timer()
 	if(search_cooldown_timer)
@@ -182,6 +184,10 @@
 	if(!length(parent.targets))
 		parent.trigger()
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
+
+/datum/xenoartifact_trait/activator/timed/get_dictionary_hint()
+	. = ..()
+	return list(list("icon" = "exclamation", "desc" = "This trait will, after an arming time, activate on the nearest living target, periodically."))
 
 /datum/xenoartifact_trait/activator/timed/proc/reset_timer()
 	if(search_cooldown_timer)
@@ -247,6 +253,10 @@
 		to_chat(user, "<span class='warning'>[item] detects an input frequency & code of [FREQ_SIGNALER]-[code]!</span>")
 		return ..()
 
+/datum/xenoartifact_trait/activator/signal/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TRIGGER("signaller assembly"), XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its trigger code & frequency"), list("icon" = "exclamation", "desc" = "This trait will activate on the nearest living target."))
+
 /datum/xenoartifact_trait/activator/signal/proc/receive_signal(datum/signal/signal)
 	if(!signal)
 		return
@@ -293,6 +303,10 @@
 	if(istype(item, /obj/item/multitool))
 		to_chat(user, "<span class='warning'>[item] detects a capacitive draw of 25%!</span>")
 		return ..()
+
+/datum/xenoartifact_trait/activator/cell/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TRIGGER("charged cell"), XENOA_TRAIT_HINT_DETECT("multitool"))
 
 /*
 	Weighted
