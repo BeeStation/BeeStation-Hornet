@@ -88,7 +88,7 @@
 				return
 			var/datum/supply_pack/SP = seller?.buy_stock(locate(params["item_id"]))
 			//Ship the pack
-			var/datum/supply_order/SO = new(SP, null, null, null, "Research Material Requisition", D)
+			var/datum/supply_order/SO = new(SP, "NA", "NA", null, "Research Material Requisition", D)
 			SO.generateRequisition(get_turf(src))
 			SSsupply.shoppinglist += SO
 			//Take our toll

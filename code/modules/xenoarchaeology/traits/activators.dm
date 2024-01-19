@@ -29,11 +29,15 @@
 /datum/xenoartifact_trait/activator/proc/translation_type_b(datum/source, atom/item, atom/target)
 	SIGNAL_HANDLER
 
+	if(check_item_safety(item))
+		return
 	trigger_artifact(target)
 
 /datum/xenoartifact_trait/activator/proc/translation_type_c(datum/source, atom/target, atom/item)
 	SIGNAL_HANDLER
 
+	if(check_item_safety(item))
+		return
 	trigger_artifact(target)
 
 /datum/xenoartifact_trait/activator/proc/translation_type_d(datum/source, atom/target)
@@ -43,6 +47,13 @@
 	if(!A.density)
 		return
 	trigger_artifact(target)
+
+/datum/xenoartifact_trait/activator/proc/check_item_safety(atom/item)
+	var/datum/component/anti_artifact/A = item.GetComponent(/datum/component/anti_artifact)
+	if(A?.charges)
+		A.charges -= 1
+		return TRUE
+	return FALSE
 
 /*
 	Sturdy
@@ -65,11 +76,13 @@
 	RegisterSignal(parent.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 
 /datum/xenoartifact_trait/activator/strudy/translation_type_b(datum/source, atom/item, atom/target)
+	if(check_item_safety(item))
+		return
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/strudy/translation_type_d(datum/source, atom/item, atom/target)
 	var/atom/A = parent.parent
-	if(!isliving(A.loc))
+	if(!isliving(A.loc) || check_item_safety(item))
 		return
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
@@ -103,7 +116,7 @@
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_b(datum/source, atom/item, atom/target)
 	var/obj/item/I = item
-	if(isitem(I) && I.is_hot())
+	if(isitem(I) && I.is_hot() && !check_item_safety(item))
 		lit = TRUE
 		search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 		START_PROCESSING(SSobj, src)
@@ -184,6 +197,24 @@
 	if(!length(parent.targets))
 		parent.trigger()
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
+
+/datum/xenoartifact_trait/activator/timed/translation_type_b(datum/source, atom/item, atom/target)
+	if(check_item_safety(item))
+		return
+	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
+
+/datum/xenoartifact_trait/activator/timed/translation_type_d(datum/source, atom/item, atom/target)
+	var/atom/A = parent.parent
+	if(!isliving(A.loc) || check_item_safety(item))
+		return
+	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
+
+/datum/xenoartifact_trait/activator/timed/translation_type_a(datum/source, atom/target)
+	var/atom/A = parent.parent
+	if(A.loc == target)
+		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
+		return
+	trigger_artifact(target)
 
 /datum/xenoartifact_trait/activator/timed/get_dictionary_hint()
 	. = ..()
@@ -295,7 +326,7 @@
 /datum/xenoartifact_trait/activator/cell/translation_type_b(datum/source, atom/item, atom/target)
 	do_hint(target, item)
 	var/obj/item/stock_parts/cell/C = item
-	if(istype(C) && C.charge-(C.maxcharge*0.25) >= 0)
+	if(istype(C) && C.charge-(C.maxcharge*0.25) >= 0 && !check_item_safety(item))
 		C.use(C.maxcharge*0.25)
 		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 

@@ -7,6 +7,7 @@ export const XenoartifactLabeler = (props, context) => {
     <Window width={500} height={500}>
       <Window.Content scrollable={0}>
         <XenoartifactlabelerSticker />
+        <Divider/>
         <Flex direction="row">
           <Flex.Item>
             <XenoartifactlabelerTraits />

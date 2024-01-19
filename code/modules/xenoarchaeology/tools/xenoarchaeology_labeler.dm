@@ -199,6 +199,10 @@
 	sticker_icon_state = "[icon_state]_small"
 	return ..()
 
+/obj/item/sticker/xenoartifact_label/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/anti_artifact)
+
 /obj/item/sticker/xenoartifact_label/examine(mob/user)
 	. = ..()
 	. += examine_override

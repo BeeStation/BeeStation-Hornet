@@ -40,7 +40,7 @@ const XenoartifactConsoleSellerEntry = (props, context) => {
         <BlockQuote>{`${value["dialogue"]}`}</BlockQuote>
         <Divider/>
         {stock.map((stock_list) => (
-          <Section title={`${stock_list["name"]}`} mx={5} independant={true} buttons={<Button icon={'shopping-cart'} onClick={() => act(`stock_purchase`, {item_id: stock_list["id"], seller_id: value["id"],})}/>} key={stock_list}>
+          <Section title={`${stock_list["name"]}`} mx={5} independant={true} buttons={<Button icon={'shopping-cart'} onClick={() => act(`stock_purchase`, {item_id: stock_list["id"], seller_id: value["id"],})}>{`$${stock_list["cost"]}`}</Button>} key={stock_list}>
             <BlockQuote>{`${stock_list["description"]}`}</BlockQuote>
             <Divider/>
           </Section>
