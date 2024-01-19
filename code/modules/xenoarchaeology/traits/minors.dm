@@ -777,7 +777,7 @@
 		return
 	playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper.ogg', 60, TRUE)
 	var/rand_time = rand(26, 34) SECONDS
-	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time)
+	addtimer(CALLBACK(src, PROC_REF(do_wail)), rand_time)
 
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(atom/movable/target, dir)
