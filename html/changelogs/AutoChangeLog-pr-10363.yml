@@ -1,0 +1,9 @@
+author: Pink Sosokey
+delete-after: true
+changes:
+  - bugfix: Fixed a bug involving the Beecoin Shop and white hoodies where only the
+      hood would be purchasable.
+  - rscadd: Added the gold cross necklace to fix the duplicate instance of gold necklaces
+      on the bee shop. This means anyone who owns 'necklace, gold' will now have the
+      cross necklace, with 'dope necklace' remaining the old version.
+  - imageadd: Created sprites for the cross necklace.
