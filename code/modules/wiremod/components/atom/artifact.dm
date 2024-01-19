@@ -18,11 +18,12 @@
 
 /obj/item/circuit_component/artifact/get_ui_notices()
 	. = ..()
+	. += create_ui_notice("Speech Cooldown", "orange", "stopwatch")
 
 /obj/item/circuit_component/artifact/populate_ports()
-	target = add_input_port("Target", PORT_TYPE_ATOM, trigger = null)
+	target = add_input_port("Target", PORT_TYPE_ATOM)
 
 /obj/item/circuit_component/artifact/input_received(datum/port/input/port)
-	if(target.value)
-		artifact_comp.register_target(target.value)
+	if(target?.value)
+		artifact_comp.register_target(target.value, FALSE, XENOA_ACTIVATION_CONTACT)
 		artifact_comp.trigger()

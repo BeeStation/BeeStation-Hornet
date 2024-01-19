@@ -18,9 +18,12 @@
 /datum/xenoartifact_trait/activator/proc/trigger_artifact(atom/target, type = XENOA_ACTIVATION_CONTACT, force)
 	SIGNAL_HANDLER
 
+	//Trait check - This is different from an anti artifact check and should be done here to avoid activations, this trait is a helper essentially
+	if(HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
+		return FALSE
 	parent.register_target(target, force, type)
 	parent.trigger()
-	return
+	return TRUE
 
 /datum/xenoartifact_trait/activator/proc/translation_type_a(datum/source, atom/target)
 	SIGNAL_HANDLER
@@ -50,9 +53,13 @@
 	trigger_artifact(target)
 
 /datum/xenoartifact_trait/activator/proc/check_item_safety(atom/item)
+	//Anti artifact check
 	var/datum/component/anti_artifact/A = item.GetComponent(/datum/component/anti_artifact)
 	if(A?.charges)
 		A.charges -= 1
+		return TRUE
+	//Trait check
+	if(HAS_TRAIT(item, TRAIT_ARTIFACT_IGNORE))
 		return TRUE
 	return FALSE
 
@@ -91,7 +98,7 @@
 
 /datum/xenoartifact_trait/activator/strudy/translation_type_a(datum/source, atom/target)
 	var/atom/A = parent?.parent
-	if(A.loc == target)
+	if(isliving(A.loc))
 		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 		return
 	trigger_artifact(target)
@@ -181,8 +188,8 @@
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 	START_PROCESSING(SSobj, src)
 
-/datum/xenoartifact_trait/activator/timed/trigger_artifact(atom/target, type, force)
-	if(force)
+/datum/xenoartifact_trait/activator/timed/trigger_artifact(atom/target, type, force, do_real_trigger)
+	if(do_real_trigger)
 		return ..()
 	else 
 		searching = !searching
@@ -197,7 +204,7 @@
 		//Only add mobs
 		if(!ismob(target))
 			continue
-		trigger_artifact(target, XENOA_ACTIVATION_CONTACT, TRUE)
+		trigger_artifact(target, XENOA_ACTIVATION_CONTACT, FALSE, TRUE)
 		break
 	if(!length(parent.targets))
 		parent.trigger()
@@ -216,7 +223,7 @@
 
 /datum/xenoartifact_trait/activator/timed/translation_type_a(datum/source, atom/target)
 	var/atom/A = parent?.parent
-	if(A.loc == target)
+	if(isliving(A.loc))
 		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 		return
 	trigger_artifact(target)

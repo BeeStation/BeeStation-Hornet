@@ -10,6 +10,10 @@
 	var/list/held_contents = list()
 	var/max_contents = 1
 
+/obj/machinery/xenoarchaeology_machine/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
+
 /obj/machinery/xenoarchaeology_machine/attackby(obj/item/I, mob/living/user, params)
 	var/list/modifiers = params2list(params)
 	var/atom/target = get_target()
@@ -145,19 +149,26 @@
 		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
 		//We then want to find a sticker attached to it-
 		var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in A.contents
-		//Then we'll check the label traits against the artifact's
-		if(!X || !L)
+		//Early checks
+		if(!X || !L || X?.calibrated || X?.calcified)
+			var/decision = "No"
 			if(!L)
 				say("No label detected!")
-			playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
-			empty_contents()
-			continue
-		for(var/i in X.artifact_traits)
-			for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
-				if(!(locate(T) in L.traits))
-					if(T.contribute_calibration)
-						solid_as = FALSE
-		//TODO: make this calcify the artifact - Racc
+				decision = tgui_alert(user, "Do you want to continue, this will destroy [A]?", "Calcify Artifact", list("Yes", "No"))
+			if(decision == "No")
+				playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
+				empty_contents()
+				continue
+			else
+				solid_as = FALSE
+		//Loop through traits and see if we're fucked or not
+		if(solid_as) //This is kinda wacky but it's for a player option so idc
+			for(var/i in X.artifact_traits)
+				for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
+					if(!(locate(T) in L.traits))
+						if(T.contribute_calibration)
+							solid_as = FALSE
+		//If we're cooked
 		if(!solid_as)
 			X.calcify()
 			playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)

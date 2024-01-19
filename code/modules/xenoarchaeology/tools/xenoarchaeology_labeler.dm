@@ -34,6 +34,7 @@
 
 /obj/item/xenoarchaeology_labeler/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
 	generate_xenoa_statics()
 	//generate data for trait names
 	activator_traits = get_trait_list_names(GLOB.xenoa_activators)
@@ -184,6 +185,7 @@
 	var/old_custom_price
 
 /obj/item/sticker/xenoartifact_label/Initialize(mapload, list/_traits)
+	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
 	//Setup traits & examine desc
 	traits = _traits
 	if(length(traits))

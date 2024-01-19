@@ -86,6 +86,10 @@
 	///Do we play a sound? - This is mostly here for admins to disable when they're doing gimmicks
 	var/play_hint_sound = TRUE
 
+	///States
+	var/calcified = FALSE
+	var/calibrated = FALSE
+
 /datum/component/xenoartifact/Initialize(type, list/traits, _do_appearance = TRUE, _do_mask = TRUE)
 	. = ..()
 	generate_xenoa_statics()
@@ -172,7 +176,8 @@
 	for(var/i in GLOB.xenoartifact_trait_priorities)
 		SEND_SIGNAL(src, XENOA_TRIGGER, i)
 	//Malfunctions
-	handle_malfunctions()
+	if(!calibrated)
+		handle_malfunctions()
 	//Cleanup targets
 	for(var/atom/A in targets)
 		unregister_target(A)
@@ -211,7 +216,7 @@
 	focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
 	build_traits(focus_traits, artifact_type.trait_malfunctions)
 
-/datum/component/xenoartifact/proc/register_target(atom/target, force, type)
+/datum/component/xenoartifact/proc/register_target(atom/target, force, type = XENOA_ACTIVATION_CONTACT)
 	//Don't register new targets unless the cooldown is finished
 	if(use_cooldown_timer && !force)
 		return
@@ -322,6 +327,7 @@
 	artifact_type = new /datum/xenoartifact_material/calcified()
 	var/old_mask = do_mask
 	do_mask = FALSE
+	calcified = TRUE
 	build_material_appearance()
 	do_mask = old_mask
 	//Disable artifact
@@ -332,7 +338,7 @@
 /datum/component/xenoartifact/proc/calibrate()
 	var/atom/A = parent
 	//Stats
-	artifact_type.instability_step = 0
+	calibrated = TRUE
 	//Effect
 	var/mutable_appearance/MA = mutable_appearance('icons/obj/xenoarchaeology/xenoartifact.dmi', "calibrated")
 	MA.blend_mode = BLEND_ADD
@@ -367,7 +373,7 @@
 
 ///Create a hint beam from the artifact to the target
 /datum/component/xenoartifact/proc/create_beam(atom/movable/target)
-	if(!get_turf(target))
+	if(!get_turf(target) || locate(parent) in target.contents)
 		return
 	var/atom/A = parent
 	var/datum/beam/xenoa_beam/B = new((!isturf(A.loc) ? A.loc : A), target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
@@ -384,7 +390,7 @@
 /datum/beam/xenoa_beam/redrawing(atom/movable/mover, atom/oldloc, direction)
 	. = ..()
 	//Add a custom check to stop the beam shooting off into infinity, artifacts fuck with default beam stuff
-	if(!isturf(target.loc))
+	if(!isturf(target?.loc))
 		target = get_turf(target.loc)
 
 /*

@@ -260,9 +260,11 @@
 
 /datum/xenoartifact_trait/minor/sentient/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	if(SSticker.HasRoundStarted())
 		get_canidate()
-	else if(parent?.parent)
+	else
 		mob_spawner = new(parent.parent, src)
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
