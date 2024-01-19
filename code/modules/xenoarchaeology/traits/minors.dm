@@ -264,14 +264,9 @@
 		return
 	//Setup ghost canidates and mob spawners
 	if(SSticker.HasRoundStarted())
-		get_canidate()
+		INVOKE_ASYNC(src, PROC_REF(get_canidate))
 	else
 		mob_spawner = new(parent.parent, src)
-	//Do a fancy animation
-	//TODO: Replace this - Racc
-	if(!sentience)
-		var/atom/A = parent.parent
-		A.Shake(duration = -1)
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	QDEL_NULL(sentience)
@@ -286,8 +281,9 @@
 	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the maleviolent force inside the [parent?.parent]?", ROLE_SENTIENT_XENOARTIFACT, null, 8 SECONDS)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/O = pick(candidates)
-		setup_sentience(O.ckey)
-		return
+		if(istype(O)) //I though LAZYLEN would catch this, I guess NULL is getting injected somewhere
+			setup_sentience(O.ckey)
+			return
 	mob_spawner = new(parent?.parent, src)
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(ckey)
@@ -775,7 +771,7 @@
 /datum/xenoartifact_trait/minor/haunted/proc/do_wail(repeat = TRUE)
 	if(QDELETED(src))
 		return
-	playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper.ogg', 60, TRUE)
+	playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper.ogg', 40, TRUE)
 	var/rand_time = rand(26, 34) SECONDS
 	addtimer(CALLBACK(src, PROC_REF(do_wail)), rand_time)
 

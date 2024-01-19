@@ -154,7 +154,8 @@
 			var/decision = "No"
 			if(!L)
 				say("No label detected!")
-				decision = tgui_alert(user, "Do you want to continue, this will destroy [A]?", "Calcify Artifact", list("Yes", "No"))
+				if(X && !X.calcified)
+					decision = tgui_alert(user, "Do you want to continue, this will destroy [A]?", "Calcify Artifact", list("Yes", "No"))
 			if(decision == "No")
 				playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
 				empty_contents()
