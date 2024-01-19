@@ -4,6 +4,9 @@
 	door_anim_squish = 0.22
 	door_anim_angle = 123
 	door_anim_time = 2.50
+	icon_emagged = "freezer_emagged"
+	icon_locked = "freezer_locked"
+	icon_unlocked = "freezer_unlocked"
 
 /obj/structure/closet/secure_closet/freezer/Destroy()
 	recursive_organ_check(src)

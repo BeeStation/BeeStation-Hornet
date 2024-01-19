@@ -100,10 +100,6 @@
 /obj/structure/mecha_wreckage/ripley,
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
-"A" = (
-/obj/vehicle/sealed/mecha/working/ripley,
-/turf/open/floor/mineral/titanium/yellow/airless,
-/area/ruin/space/has_grav/powered/mechtransport)
 "B" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/mineral/titanium/yellow/airless,
@@ -153,16 +149,6 @@
 /obj/item/stack/tile/plasteel,
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
-"M" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
-	},
-/area/ruin/space/has_grav/powered/mechtransport)
-"N" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
-	},
-/area/ruin/space/has_grav/powered/mechtransport)
 "O" = (
 /obj/structure/mecha_wreckage/odysseus,
 /turf/open/floor/mineral/titanium/yellow/airless,
@@ -175,11 +161,6 @@
 /obj/structure/mecha_wreckage/gygax,
 /turf/open/floor/mineral/titanium/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
-"R" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
-	},
-/area/ruin/space/has_grav/powered/mechtransport)
 "S" = (
 /obj/item/stack/rods,
 /turf/open/floor/plating/airless,
@@ -187,9 +168,18 @@
 "T" = (
 /turf/template_noop,
 /area/ruin/space/has_grav/powered/mechtransport)
+"U" = (
+/obj/vehicle/sealed/mecha/working/ripley,
+/turf/open/floor/mineral/titanium/yellow/airless,
+/area/ruin/space/has_grav/powered/mechtransport)
 "V" = (
 /obj/item/stack/rods,
 /turf/template_noop,
+/area/ruin/space/has_grav/powered/mechtransport)
+"W" = (
+/turf/open/floor/plating/airless{
+	broken = 1
+	},
 /area/ruin/space/has_grav/powered/mechtransport)
 "X" = (
 /obj/structure/shuttle/engine/propulsion,
@@ -207,7 +197,7 @@ d
 d
 G
 I
-M
+W
 P
 T
 T
@@ -226,7 +216,7 @@ H
 S
 H
 I
-R
+W
 V
 T
 "}
@@ -241,7 +231,7 @@ w
 F
 w
 H
-N
+W
 I
 I
 T
@@ -321,7 +311,7 @@ d
 d
 d
 u
-A
+U
 y
 w
 w

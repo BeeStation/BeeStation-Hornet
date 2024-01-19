@@ -24,7 +24,6 @@
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
-	var/list/debris = list()
 
 /obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
@@ -33,12 +32,6 @@
 	if(req_access?.len)
 		icon_state = "[icon_state]"
 		base_state = icon_state
-	for(var/i in 1 to shards)
-		debris += new /obj/item/shard(src)
-	if(rods)
-		debris += new /obj/item/stack/rods(src, rods)
-	if(cable)
-		debris += new /obj/item/stack/cable_coil(src, cable)
 
 	if(unres_sides)
 		//remove unres_sides from directions it can't be bumped from
@@ -67,7 +60,6 @@
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
 	air_update_turf(1)
-	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	electronics = null
@@ -224,11 +216,23 @@
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
-		for(var/obj/fragment in debris)
-			fragment.forceMove(get_turf(src))
-			transfer_fingerprints_to(fragment)
-			debris -= fragment
+		if(shards)
+			drop_amount(/obj/item/shard, shards)
+		if(rods)
+			drop_amount(/obj/item/stack/rods, shards)
+		if(cable)
+			drop_amount(/obj/item/stack/cable_coil, cable)
 	qdel(src)
+
+/obj/machinery/door/window/proc/drop_amount(path, amt)
+	if(amt <= 0 || amt > 10) // please no more than 10
+		return
+	if(!ispath(path, /obj))
+		return
+	var/turf/T = get_turf(src)
+	for(var/i in 1 to amt)
+		var/obj/fragment = new path(T)
+		transfer_fingerprints_to(fragment)
 
 /obj/machinery/door/window/narsie_act()
 	add_atom_colour("#7D1919", FIXED_COLOUR_PRIORITY)
@@ -438,10 +442,10 @@
 	operationdelay = 10
 	var/made_glow = FALSE
 
-/obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
-	. = ..()
-	for(var/i in 1 to 2)
-		debris += new/obj/item/clockwork/alloy_shards/medium/gear_bit/large(src)
+/obj/machinery/door/window/clockwork/deconstruct(disassembled)
+	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
+		drop_amount(/obj/item/clockwork/alloy_shards/medium/gear_bit/large, 2)
+	return ..()
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)

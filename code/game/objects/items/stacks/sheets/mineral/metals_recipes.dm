@@ -95,6 +95,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("extinguisher cabinet frame",				/obj/item/wallframe/extinguisher_cabinet, 2), \
 	new/datum/stack_recipe("light switch frame",						/obj/item/wallframe/light_switch, 1), \
 	new/datum/stack_recipe("button frame",								/obj/item/wallframe/button, 1), \
+	new/datum/stack_recipe("prisoner interface frame",					/obj/item/wallframe/genpop_interface, 5), \
 	null, \
 	new/datum/stack_recipe("iron door",									/obj/structure/mineral_door/iron, 20, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("desk bell", 								/obj/structure/desk_bell, 2, time = 3 SECONDS), \
@@ -105,11 +106,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/iron)
-
-/obj/item/stack/sheet/iron/cyborg
-	mats_per_unit = null
-	is_cyborg = 1
-	cost = 500
 
 /* Plasteel */
 
