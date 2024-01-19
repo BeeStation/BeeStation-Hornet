@@ -41,10 +41,6 @@
 	major_traits = get_trait_list_names(GLOB.xenoa_majors)
 	malfunction_list = get_trait_list_names(GLOB.xenoa_malfunctions)
 
-/obj/item/xenoarchaeology_labeler/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/anti_artifact)
-
 /obj/item/xenoarchaeology_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -198,10 +194,6 @@
 	icon_state = "sticker_[pick(list("star", "box", "tri", "round"))]"
 	sticker_icon_state = "[icon_state]_small"
 	return ..()
-
-/obj/item/sticker/xenoartifact_label/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/anti_artifact)
 
 /obj/item/sticker/xenoartifact_label/examine(mob/user)
 	. = ..()

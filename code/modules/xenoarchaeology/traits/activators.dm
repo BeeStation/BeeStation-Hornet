@@ -43,7 +43,7 @@
 /datum/xenoartifact_trait/activator/proc/translation_type_d(datum/source, atom/target)
 	SIGNAL_HANDLER
 
-	var/atom/A = parent.parent
+	var/atom/A = parent?.parent
 	if(!A.density)
 		return
 	trigger_artifact(target)
@@ -68,12 +68,14 @@
 
 /datum/xenoartifact_trait/activator/strudy/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	//Register all the relevant signals we trigger from
-	RegisterSignal(parent.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
-	RegisterSignal(parent.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
-	RegisterSignal(parent.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
-	RegisterSignal(parent.parent, COMSIG_ITEM_AFTERATTACK, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_c))
-	RegisterSignal(parent.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+	RegisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	RegisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	RegisterSignal(parent?.parent, COMSIG_ITEM_AFTERATTACK, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_c))
+	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 
 /datum/xenoartifact_trait/activator/strudy/translation_type_b(datum/source, atom/item, atom/target)
 	if(check_item_safety(item))
@@ -81,13 +83,13 @@
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/strudy/translation_type_d(datum/source, atom/item, atom/target)
-	var/atom/A = parent.parent
+	var/atom/A = parent?.parent
 	if(!isliving(A.loc) || check_item_safety(item))
 		return
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/strudy/translation_type_a(datum/source, atom/target)
-	var/atom/A = parent.parent
+	var/atom/A = parent?.parent
 	if(A.loc == target)
 		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 		return
@@ -112,7 +114,9 @@
 
 /datum/xenoartifact_trait/activator/flammable/New(atom/_parent)
 	. = ..()
-	RegisterSignal(parent.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+	if(!parent?.parent)
+		return
+	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_b(datum/source, atom/item, atom/target)
 	var/obj/item/I = item
@@ -126,7 +130,7 @@
 		return ..()
 	if(search_cooldown_timer)
 		return
-	for(var/atom/target in oview(parent.target_range, get_turf(parent.parent)))
+	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
 		//Only add mobs
 		if(!ismob(target))
 			continue
@@ -164,15 +168,15 @@
 
 /datum/xenoartifact_trait/activator/timed/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	//Register all the relevant signals we trigger from
-	RegisterSignal(parent.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
-	RegisterSignal(parent.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
-	RegisterSignal(parent.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
-	RegisterSignal(parent.parent, COMSIG_ITEM_AFTERATTACK, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_c))
-	RegisterSignal(parent.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+	RegisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	RegisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	RegisterSignal(parent?.parent, COMSIG_ITEM_AFTERATTACK, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_c))
+	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 
-/datum/xenoartifact_trait/activator/timed/New(atom/_parent)
-	. = ..()
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 	START_PROCESSING(SSobj, src)
 
@@ -187,8 +191,8 @@
 		return
 	if(search_cooldown_timer)
 		return
-	playsound(get_turf(parent.parent), 'sound/effects/clock_tick.ogg', 60, TRUE)
-	for(var/atom/target in oview(parent.target_range, get_turf(parent.parent)))
+	playsound(get_turf(parent?.parent), 'sound/effects/clock_tick.ogg', 60, TRUE)
+	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
 		//Only add mobs
 		if(!ismob(target))
 			continue
@@ -204,13 +208,13 @@
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/timed/translation_type_d(datum/source, atom/item, atom/target)
-	var/atom/A = parent.parent
+	var/atom/A = parent?.parent
 	if(!isliving(A.loc) || check_item_safety(item))
 		return
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/timed/translation_type_a(datum/source, atom/target)
-	var/atom/A = parent.parent
+	var/atom/A = parent?.parent
 	if(A.loc == target)
 		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 		return
@@ -246,6 +250,8 @@
 
 /datum/xenoartifact_trait/activator/signal/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	//Code
 	code = rand(0, 100)
 	//Signal
@@ -267,7 +273,7 @@
 	if(!ismovable(target))
 		return
 	//Build particle holder
-	particle_holder = new(parent.parent)
+	particle_holder = new(parent?.parent)
 	particle_holder.add_emitter(/obj/emitter/sonar, "sonar", 9)
 	//Layer onto parent
 	target.vis_contents += particle_holder
@@ -293,7 +299,7 @@
 		return
 	if(signal.data["code"] != code)
 		return
-	for(var/atom/target in oview(parent.target_range, get_turf(parent.parent)))
+	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
 		//Only add mobs
 		if(!ismob(target))
 			continue
@@ -305,7 +311,7 @@
 /datum/xenoartifact_trait/activator/signal/proc/do_sonar(repeat = TRUE)
 	if(QDELETED(src))
 		return
-	playsound(get_turf(parent.parent), 'sound/effects/ping.ogg', 60, TRUE)
+	playsound(get_turf(parent?.parent), 'sound/effects/ping.ogg', 60, TRUE)
 	var/rand_time = rand(5, 15) SECONDS
 	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time)
 
@@ -321,7 +327,9 @@
 
 /datum/xenoartifact_trait/activator/cell/New(atom/_parent)
 	. = ..()
-	RegisterSignal(parent.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+	if(!parent?.parent)
+		return
+	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 
 /datum/xenoartifact_trait/activator/cell/translation_type_b(datum/source, atom/item, atom/target)
 	do_hint(target, item)
@@ -352,7 +360,9 @@
 
 /datum/xenoartifact_trait/activator/weighted/New(atom/_parent)
 	. = ..()
-	RegisterSignal(parent.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+	if(!parent?.parent)
+		return
+	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 
 /datum/xenoartifact_trait/activator/weighted/translation_type_d(datum/source, atom/target)
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
@@ -370,4 +380,6 @@
 
 /datum/xenoartifact_trait/activator/pitched/New(atom/_parent)
 	. = ..()
-	RegisterSignal(parent.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	if(!parent?.parent)
+		return
+	RegisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))

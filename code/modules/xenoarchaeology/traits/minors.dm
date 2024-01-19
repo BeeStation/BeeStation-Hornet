@@ -28,10 +28,14 @@
 
 /datum/xenoartifact_trait/minor/charged/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	parent.trait_strength *= 1.25
 	setup_generic_touch_hint()
 
 /datum/xenoartifact_trait/minor/charged/Destroy(force, ...)
+	if(!parent?.parent)
+		return ..()
 	parent.trait_strength /= 1.25
 	return ..()
 
@@ -44,7 +48,7 @@
 	if(!ismovable(target))
 		return
 	//Build particle holder
-	particle_holder = new(parent.parent)
+	particle_holder = new(parent?.parent)
 	particle_holder.add_emitter(/obj/emitter/electrified, "electrified", 10)
 	//Layer onto parent
 	target.vis_contents += particle_holder
@@ -78,6 +82,8 @@
 
 /datum/xenoartifact_trait/minor/capacitive/New()
 	. = ..()
+	if(!parent?.parent)
+		return
 	current_charge = max_charges
 	parent.cooldown_disabled = TRUE
 
@@ -90,7 +96,7 @@
 		current_charge -= 1
 		parent.cooldown_disabled = TRUE
 	else
-		playsound(get_turf(parent.parent), 'sound/machines/capacitor_charge.ogg', 50, TRUE)
+		playsound(get_turf(parent?.parent), 'sound/machines/capacitor_charge.ogg', 50, TRUE)
 		current_charge = max_charges
 		parent.cooldown_disabled = FALSE
 
@@ -116,6 +122,8 @@
 
 /datum/xenoartifact_trait/minor/dense/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	var/obj/item/A = parent.parent
 	//Density
 	old_density = A.density
@@ -129,6 +137,8 @@
 		A.interaction_flags_item = INTERACT_ATOM_ATTACK_HAND
 
 /datum/xenoartifact_trait/minor/dense/Destroy(force, ...)
+	if(!parent?.parent)
+		return ..()
 	var/obj/item/A = parent.parent
 	A.density = old_density
 	A.interaction_flags_atom = old_atom_flag
@@ -162,6 +172,8 @@
 
 /datum/xenoartifact_trait/minor/sharp/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	var/obj/item/A = parent.parent
 	if(isitem(A))
 		//Sharpness
@@ -175,6 +187,8 @@
 		A.attack_verb = attack_verbs
 
 /datum/xenoartifact_trait/minor/sharp/Destroy(force, ...)
+	if(!parent?.parent)
+		return
 	var/obj/item/A = parent.parent
 	if(isitem(A))
 		A.sharpness = old_sharp
@@ -201,18 +215,20 @@
 
 /datum/xenoartifact_trait/minor/cooling/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	setup_generic_touch_hint()
 
 /datum/xenoartifact_trait/minor/cooling/do_hint(mob/user, atom/item)
 	. = ..()
-	to_chat(user, "<span class='warning'>[parent.parent] feels cool to the touch!</span>")
+	to_chat(user, "<span class='warning'>[parent?.parent] feels cool to the touch!</span>")
 
 /datum/xenoartifact_trait/minor/cooling/generate_trait_appearance(atom/movable/target)
 	. = ..()
 	if(!ismovable(target))
 		return
 	//Build particle holder
-	particle_holder = new(parent.parent)
+	particle_holder = new(parent?.parent)
 	particle_holder.add_emitter(/obj/emitter/snow_smoke, "snow_smoke", 10) //TODO: make this a proper effect, it's a placeholder for now - Racc
 	//Layer onto parent
 	target.vis_contents += particle_holder
@@ -246,7 +262,7 @@
 	. = ..()
 	if(SSticker.HasRoundStarted())
 		get_canidate()
-	else
+	else if(parent?.parent)
 		mob_spawner = new(parent.parent, src)
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
@@ -259,29 +275,29 @@
 		sentience.key = M.ckey
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate()
-	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the maleviolent force inside the [parent.parent]?", ROLE_SENTIENT_XENOARTIFACT, null, 8 SECONDS)
+	var/list/mob/dead/observer/candidates = poll_ghost_candidates("Do you want to play as the maleviolent force inside the [parent?.parent]?", ROLE_SENTIENT_XENOARTIFACT, null, 8 SECONDS)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/O = pick(candidates)
 		setup_sentience(O.ckey)
 		return
-	mob_spawner = new(parent.parent, src)
+	mob_spawner = new(parent?.parent, src)
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(ckey)
 	//Sentience
-	sentience = new(parent.parent)
+	sentience = new(parent?.parent)
 	sentience.name = pick(GLOB.xenoa_artifact_names)
-	sentience.real_name = "[sentience.name] - [parent.parent]"
+	sentience.real_name = "[sentience.name] - [parent?.parent]"
 	sentience.key = ckey
 	sentience.status_flags |= GODMODE
 	//Action
-	var/obj/effect/proc_holder/spell/targeted/artifact_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/artifact_senitent_action(parent.parent, parent)
+	var/obj/effect/proc_holder/spell/targeted/artifact_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/artifact_senitent_action(parent?.parent, parent)
 	sentience.AddSpell(P)
 	//Display traits to sentience
 	to_chat(sentience, "<span class='notice'>Your traits are: \n</span>")
 	for(var/datum/xenoartifact_trait/T in parent.artifact_traits)
 		to_chat(sentience, "<span class='notice'>[T.label_name]\n</span>")
 		sentience.add_memory(T.label_name)
-	playsound(get_turf(parent.parent), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
+	playsound(get_turf(parent?.parent), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 	//Cleanup
 	QDEL_NULL(mob_spawner)
 
@@ -361,12 +377,12 @@
 	. = ..()
 	if(!.)
 		return
-	playsound(get_turf(parent.parent), 'sound/effects/glass_step.ogg', 50, TRUE)
+	playsound(get_turf(parent?.parent), 'sound/effects/glass_step.ogg', 50, TRUE)
 	if(current_uses)
 		current_uses -= 1
 	else if(prob(50)) //After we run out of uses, there is a 50% on use for it to break
 		parent.calcify()
-		playsound(get_turf(parent.parent), 'sound/effects/glassbr1.ogg', 50, TRUE)
+		playsound(get_turf(parent?.parent), 'sound/effects/glassbr1.ogg', 50, TRUE)
 
 /datum/xenoartifact_trait/minor/delicate/generate_trait_appearance(atom/target)
 	. = ..()
@@ -399,11 +415,11 @@
 	. = ..()
 	if(!.)
 		return
-	for(var/atom/target in oview(parent.target_range, get_turf(parent.parent)))
+	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
 		if(length(parent.targets) > (max_extra_targets * (parent.trait_strength/100)))
 			continue
 		//Only add mobs or items
-		if(!ismob(target) && !isobj(target))
+		if(!ismob(target) && !isitem(target))
 			continue
 		parent.register_target(target)
 
@@ -441,6 +457,8 @@
 
 /datum/xenoartifact_trait/minor/ringed/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	//Artifact action
 	artifact_action = new /obj/effect/proc_holder/spell/targeted/artifact_senitent_action(parent.parent, parent)
 	//Item equipping
@@ -453,16 +471,18 @@
 		RegisterSignal(A, COMSIG_ITEM_DROPPED, PROC_REF(drop_action))
 
 /datum/xenoartifact_trait/minor/ringed/Destroy(force, ...)
+	QDEL_NULL(artifact_action)
+	if(!parent?.parent)
+		return ..()
 	var/obj/item/A = parent.parent
 	if(isitem(A))
 		A.slot_flags = old_wearable
-	QDEL_NULL(artifact_action)
 	return ..()
 
 /datum/xenoartifact_trait/minor/ringed/proc/equip_action(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 
-	var/obj/item/A = parent.parent
+	var/obj/item/A = parent?.parent
 	if(isitem(A) && A.slot_flags & slot)
 		equipper.AddSpell(artifact_action)
 
@@ -497,6 +517,8 @@
 
 /datum/xenoartifact_trait/minor/shielded/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	var/obj/item/A = parent.parent
 	if(isitem(A))
 		//Level
@@ -510,6 +532,8 @@
 		A.block_upgrade_walk = 1
 
 /datum/xenoartifact_trait/minor/shielded/Destroy(force, ...)
+	if(!parent?.parent)
+		return ..()
 	var/obj/item/A = parent.parent
 	if(isitem(A))
 		A.block_level = old_block_level
@@ -537,12 +561,16 @@
 
 /datum/xenoartifact_trait/minor/aerodynamic/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	var/atom/movable/A = parent.parent
 	if(ismovable(A))
 		old_throw_range = A.throw_range
 		A.throw_range = 9
 
 /datum/xenoartifact_trait/minor/aerodynamic/Destroy(force, ...)
+	if(!parent?.parent)
+		return ..()
 	var/atom/movable/A = parent.parent
 	if(ismovable(A))
 		A.throw_range = old_throw_range
@@ -602,7 +630,7 @@
 	. = ..()
 	if(!ismovable(target))
 		return
-	particle_holder = new(parent.parent)
+	particle_holder = new(parent?.parent)
 	particle_holder.add_emitter(/obj/emitter/sonar/out, "sonar", 10)
 	target.vis_contents += particle_holder
 
@@ -624,7 +652,7 @@
 /datum/xenoartifact_trait/minor/signaller/proc/do_sonar(repeat = TRUE)
 	if(QDELETED(src))
 		return
-	playsound(get_turf(parent.parent), 'sound/effects/ping.ogg', 60, TRUE)
+	playsound(get_turf(parent?.parent), 'sound/effects/ping.ogg', 60, TRUE)
 	var/rand_time = rand(5, 15) SECONDS
 	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time)
 
@@ -646,11 +674,15 @@
 
 /datum/xenoartifact_trait/minor/anchor/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	var/atom/movable/AM = parent.parent
 	if(ismovable(AM))
 		RegisterSignal(AM, COMSIG_ATOM_TOOL_ACT(TOOL_WRENCH), PROC_REF(toggle_anchor))
 
 /datum/xenoartifact_trait/minor/anchor/Destroy(force, ...)
+	if(!parent?.parent)
+		return ..()
 	var/atom/movable/AM = parent.parent
 	if(ismovable(AM))
 		AM.anchored = FALSE
@@ -665,7 +697,7 @@
 /datum/xenoartifact_trait/minor/anchor/proc/toggle_anchor(datum/source, mob/living/user, obj/item/I, list/recipes)
 	SIGNAL_HANDLER
 
-	var/atom/movable/AM = parent.parent
+	var/atom/movable/AM = parent?.parent
 	//handle being held
 	if(isliving(AM.loc))
 		var/mob/living/M = AM.loc
@@ -690,6 +722,8 @@
 
 /datum/xenoartifact_trait/minor/slippery/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	var/atom/A = parent.parent
 	slip_comp = A.AddComponent(/datum/component/slippery, 60)
 
@@ -715,6 +749,8 @@
 
 /datum/xenoartifact_trait/minor/haunted/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	var/atom/A = parent.parent
 	controller = A._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
 			 "up" = CALLBACK(src, PROC_REF(haunted_step), A, NORTH),
@@ -737,7 +773,7 @@
 
 /datum/xenoartifact_trait/minor/haunted/proc/activate_parent()
 	//Find a target
-	for(var/atom/target in oview(parent.target_range, get_turf(parent.parent)))
+	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
 		parent.register_target(target, TRUE)
 		parent.trigger(TRUE)
 		return

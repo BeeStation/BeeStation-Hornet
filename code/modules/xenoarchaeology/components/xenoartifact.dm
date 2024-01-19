@@ -233,6 +233,7 @@
 		A.charges -= 1
 		return
 	//Regular target follow through
+	create_beam(target)
 	targets += target
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target), TRUE)
 
@@ -363,6 +364,28 @@
 		//Throw on some outlines
 		A.add_filter("outline_1", 2, outline_filter(2, "#000"))
 		A.add_filter("outline_2", 3, outline_filter(1, artifact_type.material_color))
+
+///Create a hint beam from the artifact to the target
+/datum/component/xenoartifact/proc/create_beam(atom/movable/target)
+	if(!get_turf(target))
+		return
+	var/atom/A = parent
+	var/datum/beam/xenoa_beam/B = new((!isturf(A.loc) ? A.loc : A), target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
+	B.color_override = artifact_type.material_color
+	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam, Start))
+
+/*
+	Artifact beam subtype
+*/
+
+/obj/effect/ebeam/xenoa_ebeam
+	name = "artifact beam"
+
+/datum/beam/xenoa_beam/redrawing(atom/movable/mover, atom/oldloc, direction)
+	. = ..()
+	//Add a custom check to stop the beam shooting off into infinity, artifacts fuck with default beam stuff
+	if(!isturf(target.loc))
+		targer = get_turf(target.loc)
 
 /*
 	material datums

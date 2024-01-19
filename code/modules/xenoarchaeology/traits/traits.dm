@@ -41,7 +41,8 @@
 
 /datum/xenoartifact_trait/New(atom/_parent)
 	. = ..()
-	register_parent(_parent)
+	if(_parent)
+		register_parent(_parent)
 
 /datum/xenoartifact_trait/Destroy(force, ...)
 	. = ..()
