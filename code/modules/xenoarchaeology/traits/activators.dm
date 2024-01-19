@@ -191,7 +191,11 @@
 /datum/xenoartifact_trait/activator/timed/trigger_artifact(atom/target, type, force, do_real_trigger)
 	if(do_real_trigger)
 		return ..()
-	else 
+	else
+		if(HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
+			return FALSE
+		if(parent.anti_check(target, type))
+			return FALSE
 		searching = !searching
 
 /datum/xenoartifact_trait/activator/timed/process(delta_time)

@@ -262,10 +262,16 @@
 	. = ..()
 	if(!parent?.parent)
 		return
+	//Setup ghost canidates and mob spawners
 	if(SSticker.HasRoundStarted())
 		get_canidate()
 	else
 		mob_spawner = new(parent.parent, src)
+	//Do a fancy animation
+	//TODO: Replace this - Racc
+	if(!sentience)
+		var/atom/A = parent.parent
+		A.Shake(duration = -1)
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	QDEL_NULL(sentience)
@@ -610,7 +616,7 @@
 
 	setup_generic_item_hint()
 	if(!(locate(/datum/xenoartifact_trait/activator) in parent.artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
-		addtimer(CALLBACK(src, PROC_REF(do_sonar)), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(do_sonar)), 2 SECONDS)
 
 /datum/xenoartifact_trait/minor/signaller/Destroy(force, ...)
 	SSradio.remove_object(src, FREQ_SIGNALER)
@@ -655,7 +661,7 @@
 	if(QDELETED(src))
 		return
 	playsound(get_turf(parent?.parent), 'sound/effects/ping.ogg', 60, TRUE)
-	var/rand_time = rand(5, 15) SECONDS
+	var/rand_time = rand(6, 12) SECONDS
 	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time)
 
 /datum/xenoartifact_trait/minor/signaller/get_dictionary_hint()
@@ -760,10 +766,19 @@
 			 "left" = CALLBACK(src, PROC_REF(haunted_step), A, WEST),
 			 "right" = CALLBACK(src, PROC_REF(haunted_step), A, EAST),
 			 "activate" = CALLBACK(src, PROC_REF(activate_parent), A)), 8 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(do_wail)), 17 SECONDS)
 
 /datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)
 	QDEL_NULL(controller)
 	return ..()
+
+/datum/xenoartifact_trait/minor/haunted/proc/do_wail(repeat = TRUE)
+	if(QDELETED(src))
+		return
+	playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper.ogg', 60, TRUE)
+	var/rand_time = rand(26, 34) SECONDS
+	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time)
+
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(atom/movable/target, dir)
 	//Make any mobs drop this before it moves

@@ -224,18 +224,10 @@
 	if(get_dist(get_turf(parent), get_turf(target))> target_range && !force)
 		return
 	//Anti-artifact check
-	var/mob/M = target
-	var/slot = ~ITEM_SLOT_GLOVES
-	//Throw you custom clothing block logic here
-	switch(type)
-		if(XENOA_ACTIVATION_TOUCH)
-			slot = ITEM_SLOT_GLOVES
-	if(isliving(M) && M.anti_artifact_check(FALSE, slot))
+	if(anti_check(target, type))
 		return
-	//Just check if the thing itself has the anti-component
-	var/datum/component/anti_artifact/A = target.GetComponent(/datum/component/anti_artifact)
-	if(A?.charges)
-		A.charges -= 1
+	//Prexisting check
+	if(target & targets && !force)
 		return
 	//Regular target follow through
 	create_beam(target)
@@ -379,6 +371,22 @@
 	var/datum/beam/xenoa_beam/B = new((!isturf(A.loc) ? A.loc : A), target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
 	B.color_override = artifact_type.material_color
 	INVOKE_ASYNC(B, TYPE_PROC_REF(/datum/beam, Start))
+
+/datum/component/xenoartifact/proc/anti_check(atom/target, type = XENOA_ACTIVATION_CONTACT)
+	var/mob/M = target
+	var/slot = ~ITEM_SLOT_GLOVES
+	//Throw you custom clothing block logic here
+	switch(type)
+		if(XENOA_ACTIVATION_TOUCH)
+			slot = ITEM_SLOT_GLOVES
+	if(isliving(M) && M.anti_artifact_check(FALSE, slot))
+		return TRUE
+	//Just check if the thing itself has the anti-component
+	var/datum/component/anti_artifact/A = target.GetComponent(/datum/component/anti_artifact)
+	if(A?.charges && prob(A.chance))
+		A.charges -= 1
+		return TRUE
+	return FALSE
 
 /*
 	Artifact beam subtype
