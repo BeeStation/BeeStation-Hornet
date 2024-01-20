@@ -4164,6 +4164,7 @@
 #include "code\modules\wiremod\shell\scanner_gate.dm"
 #include "code\modules\wiremod\shell\server.dm"
 #include "code\modules\wiremod\shell\shell_items.dm"
+#include "code\modules\xenoarchaeology\components\materials.dm"
 #include "code\modules\xenoarchaeology\components\xenoartifact.dm"
 #include "code\modules\xenoarchaeology\tools\xenoarchaeology_labeler.dm"
 #include "code\modules\xenoarchaeology\tools\xenoarchaeology_machines.dm"

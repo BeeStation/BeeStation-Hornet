@@ -100,6 +100,9 @@
 			var/atom/movable/M = target
 			if(M.loc == AM)
 				M.forceMove(get_turf(AM))
+				var/mob/living/L = M
+				if(isliving(M))
+					L.Knockdown(2 SECONDS)
 	return ..()
 
 /datum/xenoartifact_trait/major/hollow/get_dictionary_hint()
@@ -221,6 +224,7 @@
 	for(var/mob/living/target in focus)
 		var/obj/shapeshift_holder/H = (locate(/obj/shapeshift_holder) in target) || istype(target.loc, /obj/shapeshift_holder) ? target.loc : null
 		H?.restore(FALSE, FALSE)
+		target.Knockdown(2 SECONDS)
 		REMOVE_TRAIT(target, TRAIT_NOBREATH, TRAIT_GENERIC)
 	return ..()
 

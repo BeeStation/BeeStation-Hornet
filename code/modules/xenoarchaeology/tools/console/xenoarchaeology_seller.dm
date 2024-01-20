@@ -58,6 +58,7 @@
 	//TODO: Move this to an init argument of the supply pack
 	var/datum/supply_pack/science_listing/SL = new()
 	SL.contains = list(A)
+	SL.max_supply = 1
 	return SL
 
 /datum/rnd_lister/proc/replenish_stock(amount = 1)
@@ -98,6 +99,7 @@
 	hidden = TRUE
 	crate_name = "research material container"
 	crate_type = /obj/structure/closet/crate/science
+	access_any = TRUE
 
 #undef SELLER_PERSONALITY_GENEROUS
 #undef SELLER_PERSONALITY_NORMAL

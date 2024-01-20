@@ -38,3 +38,5 @@
 #define COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE "!starlight_colour_change"
 /// Called whenever the crew manifest is updated
 #define COMSIG_GLOB_CREW_MANIFEST_UPDATE "!crew_manifest_update"
+/// Called whenever something is sold through exports
+#define COMSIG_GLOB_ATOM_SOLD "!tom_sold"
