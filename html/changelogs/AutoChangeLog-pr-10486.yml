@@ -1,0 +1,10 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - tweak: Sanity Disruptor now less appear on dynamic. it still has pop lock, but
+      has the same chance to all anomalies'
+  - tweak: Sanity Disruptor blinds people very very shortly than +60 seconds
+  - tweak: Sanity Disruptor pulse can be protected by xenoartifact protective gears
+  - tweak: Sanity Disruptor interval pulses a little bit often (10s to 7s)
+  - bugfix: Sanity Disruptor can be neutralised by signal.
+  - balance: fake wizard robe now protects artifact 75%, instead of 100%.
