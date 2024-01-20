@@ -657,3 +657,28 @@
 	new /obj/item/clothing/mask/gas/clown_hat(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/implanter/sad_trombone(src)
+
+// -----------------------------
+//           mail bag
+// -----------------------------
+
+/obj/item/storage/backpack/duffelbag/mail
+	name = "mail bag"
+	desc = "A bag for letters, envelopes, and other postage."
+	icon_state = "mailbag"
+	item_state = "mailbag"
+	slowdown = 0
+
+/obj/item/storage/backpack/duffelbag/mail/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 32
+	STR.max_items = 32
+	STR.display_numerical_stacking = FALSE
+	STR.can_hold = typecacheof (list(	/obj/item/mail,
+										/obj/item/small_delivery,
+										/obj/item/paper,
+										/obj/item/reagent_containers/food/condiment/milk,
+										/obj/item/food/bread/plain
+									))

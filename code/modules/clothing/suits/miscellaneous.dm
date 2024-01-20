@@ -620,6 +620,15 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHAIR|HIDEEARS
 
+/obj/item/clothing/suit/hooded/wintercoat/white
+	name = "white winter coat"
+	icon_state = "coatwhite"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/white
+
+/obj/item/clothing/head/hooded/winterhood/white
+	name = "winter hood"
+	icon_state = "winterhood_white"
+
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
 	icon_state = "coatcaptain"
@@ -903,6 +912,7 @@
 
 /obj/item/clothing/suit/hooded/wintercoat/cargo
 	name = "cargo winter coat"
+	desc = "A heavy jacket made from 'synthetic' animal furs. It's especially tailored to hold Cargo related items including a mailbag."
 	icon_state = "coatcargo"
 	item_state = "coatcargo"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/cargo
@@ -919,7 +929,8 @@
 		/obj/item/tank/internals/plasmaman,
 		/obj/item/toy,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/lighter
+		/obj/item/lighter,
+		/obj/item/storage/backpack/duffelbag/mail
 	)
 
 
