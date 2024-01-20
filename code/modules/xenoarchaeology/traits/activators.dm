@@ -19,7 +19,7 @@
 	SIGNAL_HANDLER
 
 	//Trait check - This is different from an anti artifact check and should be done here to avoid activations, this trait is a helper essentially
-	if(HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
+	if(target && HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
 		return FALSE
 	parent.register_target(target, force, type)
 	parent.trigger()

@@ -30,16 +30,3 @@
     friction = 0.2
     gravity = list(0, 0.95)
     grow = 0.05
-
-///Snow smoke, idk
-/obj/emitter/snow_smoke
-	alpha = 200
-	particles = new/particles/electrified/snow_smoke
-
-/obj/emitter/snow_smoke/Initialize(mapload)
-	. = ..()
-	add_filter("blur", 1, list(type="blur", size=1))
-
-/particles/electrified/snow_smoke
-    icon = 'icons/effects/particles/smoke.dmi'
-    icon_state = list("steam_1" = 1, "steam_2" = 1, "steam_3" = 2)
