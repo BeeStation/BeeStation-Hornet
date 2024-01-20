@@ -14,7 +14,7 @@
 
 /obj/item/circuit_component/artifact/ComponentInitialize()
 	. = ..()
-	artifact_comp = AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, null, FALSE, FALSE)
+	artifact_comp = AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, list(), FALSE, FALSE)
 
 /obj/item/circuit_component/artifact/get_ui_notices()
 	. = ..()
@@ -27,3 +27,25 @@
 	if(target?.value)
 		artifact_comp.register_target(target.value, FALSE, XENOA_ACTIVATION_CONTACT)
 		artifact_comp.trigger()
+
+/obj/item/circuit_component/artifact/attackby(obj/item/I, mob/living/user, params)
+	. = ..()
+	//Pearls
+	var/obj/item/trait_pearl/P = I
+	if(istype(P))
+		if(!artifact_comp.add_individual_trait(P.stored_trait))
+			playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
+		else
+			P.forceMove(src)
+
+/obj/item/circuit_component/artifact/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	//Dump the pearls
+	for(var/obj/item/trait_pearl/P in contents)
+		P.forceMove(get_turf(src))
+	//Clear the artifact's traits
+	for(var/i in artifact_comp.artifact_traits)
+		for(var/datum/xenoartifact_trait/T as() in artifact_comp.artifact_traits[i])
+			artifact_comp.artifact_traits[i] -= T
+			qdel(T)
+		

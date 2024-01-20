@@ -146,7 +146,7 @@
 	for(var/t in focus)
 		var/datum/xenoartifact_trait/description_holder = GLOB.xenoa_all_traits_keyed[t]
 		description_holder = new description_holder()
-		info_list += list(list("desc" = description_holder.label_desc, "hints" = description_holder.get_dictionary_hint()))
+		info_list += list(list("name" = description_holder.label_name,"desc" = description_holder.label_desc, "hints" = description_holder.get_dictionary_hint()))
 		qdel(description_holder)
 
 /obj/item/xenoarchaeology_labeler/debug

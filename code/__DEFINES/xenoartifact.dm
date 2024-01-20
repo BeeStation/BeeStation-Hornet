@@ -62,6 +62,9 @@
 #define XENOA_TRAIT_HINT_INHAND list("icon" = "search", "desc" = "This trait can be detected by 'feeling' the artifact.")
 #define XENOA_TRAIT_HINT_TRIGGER(X) list("icon" = "wrench", "desc" = "This trait can be triggered with a [X].")
 #define XENOA_TRAIT_HINT_DETECT(X) list("icon" = "search", "desc" = "This trait can be detected with a [X].")
+#define XENOA_TRAIT_HINT_TWIN list("icon" = "clone", "desc" = "This trait has sister traits which perform a similar, but unqiue, action.")
+#define XENOA_TRAIT_HINT_TWIN_VARIANT(X) list("icon" = "fingerprint", "desc" = "This variant will [X].")
+#define XENOA_TRAIT_HINT_RANDOMISED list("icon" = "dice", "desc" = "This trait's effects may differ between instances.")
 
 /*
 old content

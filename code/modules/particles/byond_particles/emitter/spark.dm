@@ -24,11 +24,12 @@
 	lifespan = 10
 	fade = 2
 	fadein = 1
-	position = generator("box", list(-6, -6, -6), list(6, 6, 6), UNIFORM_RAND)
+	position = generator("box", list(-5, -5, -5), list(5, 5, 5), UNIFORM_RAND)
 	velocity = generator("box", list(-3, -3, -3), list(3, 3, 3), UNIFORM_RAND)
-	friction = 0.15
+	rotation = generator("num", 0, 360, UNIFORM_RAND)
+	friction = 0.21
 	color = "#94f3ff"
-	scale = list(0.15, 0.15)
+	scale = list(0.14, 0.14)
 	grow = list(0.1, 0.1)
 	icon = 'icons/effects/particles/misc.dmi'
 	icon_state = list("static_1")

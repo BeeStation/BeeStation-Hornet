@@ -398,7 +398,7 @@
 
 /datum/xenoartifact_trait/minor/delicate/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_MATERIAL)
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_RANDOMISED)
 
 /*
 	Aura
@@ -547,7 +547,7 @@
 
 /datum/xenoartifact_trait/minor/shielded/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_MATERIAL)
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_RANDOMISED)
 
 /*
 	Aerodynamic
@@ -610,6 +610,8 @@
 	//Frequency
 	radio_connection = SSradio.add_object(src, FREQ_SIGNALER, "[RADIO_XENOA]_[REF(src)]")
 
+	if(!parent?.parent)
+		return
 	setup_generic_item_hint()
 	if(!(locate(/datum/xenoartifact_trait/activator) in parent.artifact_traits[TRAIT_PRIORITY_ACTIVATOR]))
 		addtimer(CALLBACK(src, PROC_REF(do_sonar)), 2 SECONDS)
@@ -662,7 +664,7 @@
 
 /datum/xenoartifact_trait/minor/signaller/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its output code & frequency"))
+	return list(XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its output code & frequency"), XENOA_TRAIT_HINT_RANDOMISED)
 
 /*
 	Anchor
@@ -735,7 +737,7 @@
 	QDEL_NULL(slip_comp)
 	return ..()
 
-/datum/xenoartifact_trait/slippery/get_dictionary_hint()
+/datum/xenoartifact_trait/minor/slippery/get_dictionary_hint()
 	. = ..()
 	return list(XENOA_TRAIT_HINT_MATERIAL)
 

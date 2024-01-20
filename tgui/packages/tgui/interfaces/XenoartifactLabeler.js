@@ -131,7 +131,7 @@ const XenoartifactlabelerGenerateInfo = (props, context) => {
   const { act } = useBackend(context);
   const { info } = props;
   return (
-    <Section>
+    <Section title={info["name"]}>
       <Box italic>
         <BlockQuote>{`${info["desc"]}`}</BlockQuote>
         {info["hints"].map((hint) => (

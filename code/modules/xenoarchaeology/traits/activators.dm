@@ -304,7 +304,7 @@
 
 /datum/xenoartifact_trait/activator/signal/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_TRIGGER("signaller assembly"), XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its trigger code & frequency"), list("icon" = "exclamation", "desc" = "This trait will activate on the nearest living target."))
+	return list(XENOA_TRAIT_HINT_TRIGGER("signaller assembly"), XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its trigger code & frequency"), XENOA_TRAIT_HINT_RANDOMISED, list("icon" = "exclamation", "desc" = "This trait will activate on the nearest living target."))
 
 /datum/xenoartifact_trait/activator/signal/proc/receive_signal(datum/signal/signal)
 	if(!signal)

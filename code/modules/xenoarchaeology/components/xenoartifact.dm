@@ -208,9 +208,13 @@
 	return time
 
 /datum/component/xenoartifact/proc/handle_malfunctions(itterate = TRUE)
+	//Instability rolls
 	if(!prob(instability))
 		if(itterate)
 			instability += artifact_type.instability_step
+		return
+	//Max malfunction checks, against our material
+	if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) >= artifact_type.max_trait_malfunctions)
 		return
 	var/list/focus_traits
 	focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
@@ -227,7 +231,7 @@
 	if(anti_check(target, type))
 		return
 	//Prexisting check
-	if(target & targets && !force)
+	if((target in targets) && !force)
 		return
 	//Regular target follow through
 	create_beam(target)
@@ -296,6 +300,11 @@
 	//Is this trait in the blacklist?
 	if((locate(trait) in blacklisted_traits) && !force)
 		return FALSE
+	//Double check our material restrictions
+	var/list/trait_type = list(/datum/xenoartifact_trait/activator, /datum/xenoartifact_trait/minor, /datum/xenoartifact_trait/major, /datum/xenoartifact_trait/malfunction)
+	for(var/datum/xenoartifact_trait/i in trait_type)
+		if(istype(trait, i) && length(artifact_traits[initial(i.priority)]) >= artifact_type)
+			return FALSE
 	//We can either pass paths, or initialized traits
 	if(ispath(trait))
 		trait = new trait(src)
@@ -396,10 +405,12 @@
 	name = "artifact beam"
 
 /datum/beam/xenoa_beam/redrawing(atom/movable/mover, atom/oldloc, direction)
-	. = ..()
-	//Add a custom check to stop the beam shooting off into infinity, artifacts fuck with default beam stuff
-	if(!isturf(target?.loc))
-		target = get_turf(target.loc)
+	//Add a custom check to stop the beam shooting off into infinity, artifact traits fuck with default beam stuff
+	if(!isturf(target?.loc) || oldloc?.z != target?.z)
+		target =  get_turf(oldloc)
+		if(!target)
+			qdel(src)
+	return ..()
 
 /*
 	material datums
@@ -410,11 +421,14 @@
 	///What color we associate with this material
 	var/material_color = "#ff4800"
 
-	///Trait info, how many of each trait are we allowed
+	///Trait info, how many of each trait are we allowed / start with
 	var/trait_activators = 1
 	var/trait_minors = 3
 	var/trait_majors = 1
 	var/trait_malfunctions = 0
+
+	///How many malfunctions can we gain, maximum
+	var/max_trait_malfunctions = 1
 
 	///How much we increase artifact instability by for every use
 	var/instability_step = 0
@@ -457,6 +471,8 @@
 	texture_icon_states = list("texture-uranium1", "texture-uranium2", "texture-uranium3")
 	mask_icon_states = list("mask-uranium1")
 	custom_price = 450
+	trait_malfunctions = 1
+	max_trait_malfunctions = 2
 
 /datum/xenoartifact_material/uranium/get_trait_list()
 	return GLOB.xenoa_uranium_traits

@@ -3,6 +3,8 @@
 	register_targets = FALSE
 	weight = 0
 	conductivity = 0
+	contribute_calibration = FALSE
+	can_pearl = FALSE
 
 /datum/xenoartifact_trait/misc/objective
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/delicate)

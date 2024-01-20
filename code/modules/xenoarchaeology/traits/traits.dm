@@ -1,3 +1,8 @@
+/*
+	For laternate versions of traits, that you want as seperate on the labeler, use the format-
+	'trait_name Δ' 'trait_name Σ' 'trait_name Ω', for up to three alternates, add more symbols if you have a trait with 4 alts or more
+*/
+
 /datum/xenoartifact_trait
 	///Reference to the artifact
 	var/datum/component/xenoartifact/parent

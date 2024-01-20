@@ -10,6 +10,13 @@
 	weight = 3
 	conductivity = 0
 
+/datum/xenoartifact_trait/major/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	//TODO: Reconsider - Racc
+	for(var/mob/living/M as() in oview(9, get_turf(parent.parent)))
+		if(istype(M))
+			do_hint(M)
+
 /*
 	Electrified
 	Electrocutes the mob target, or charges the cell target
@@ -160,13 +167,13 @@
 
 /datum/xenoartifact_trait/major/projectile/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_MATERIAL)
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_RANDOMISED)
 
 /*
 	Bestialized
 	The artifact shoots the target with a random projectile
 */
-/datum/xenoartifact_trait/major/animalize ///All of this is stolen from corgium.
+/datum/xenoartifact_trait/major/animalize
 	label_name = "Bestialized"
 	label_desc = "Bestialized: The artifact contains transforming components. Triggering these components transforms the target into an animal."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
@@ -179,6 +186,14 @@
 	var/mob/choosen_animal
 	///How long we keep them as animals
 	var/animal_time = 15 SECONDS
+
+/datum/xenoartifact_trait/major/animalize/mothroach
+	label_name = "Bestialized Δ"
+	possible_animals = list(/mob/living/basic/mothroach)
+
+/datum/xenoartifact_trait/major/animalize/mothroach/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a mothroach"))
 
 /datum/xenoartifact_trait/major/animalize/New(atom/_parent)
 	. = ..()
@@ -208,6 +223,10 @@
 		H?.restore(FALSE, FALSE)
 		REMOVE_TRAIT(target, TRAIT_NOBREATH, TRAIT_GENERIC)
 	return ..()
+
+/datum/xenoartifact_trait/major/animalize/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a corgi"))
 
 //Transform a valid target into our choosen animal
 /datum/xenoartifact_trait/major/animalize/proc/transform(mob/living/target)
@@ -319,6 +338,10 @@
 	else
 		light_source.set_light(0, 0)
 
+/datum/xenoartifact_trait/major/illuminating/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_RANDOMISED)
+
 /*
 	Obstructing
 	Builds forcefields around the artifact
@@ -359,6 +382,10 @@
 	if(wall_size >= 3)
 		new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, WEST), time)
 		new /obj/effect/forcefield/xenoartifact_type(get_step(parent.parent, EAST), time)
+
+/datum/xenoartifact_trait/major/forcefield/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_RANDOMISED)
 
 //Special wall type for artifact. Throw any extra code or special logic in here
 /obj/effect/forcefield/xenoartifact_type
@@ -406,13 +433,17 @@
 	dump_targets()
 	clear_focus()
 
+/datum/xenoartifact_trait/major/chem/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_RANDOMISED)
+
 /*
 	Forcing
 	Inacts a pushing or pulling force on the target
 */
 /datum/xenoartifact_trait/major/force
 	label_name = "Forcing"
-	label_desc = "Forcing: The artifact seems to contain impulsing components. Triggering these components will impulse, either pushing or pulling, the target."
+	label_desc = "Forcing: The artifact seems to contain impulsing components. Triggering these components will impulse, push or pull, the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = 21
@@ -420,11 +451,14 @@
 	///Max force we can use, aka how far we throw things
 	var/max_force = 7
 	///Force direction, push or pull
-	var/force_dir
+	var/force_dir = 1
 
-/datum/xenoartifact_trait/major/force/New(atom/_parent)
-	. = ..()
-	force_dir = rand(0, 1)
+/datum/xenoartifact_trait/major/force/pull
+	label_name = "Forcing Δ"
+	force_dir = 0
+
+/datum/xenoartifact_trait/major/force/pull/get_dictionary_hint()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("pull the target"))
 
 /datum/xenoartifact_trait/major/force/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -443,6 +477,9 @@
 		unregister_target(target)
 	dump_targets()
 	clear_focus()
+
+/datum/xenoartifact_trait/major/force/get_dictionary_hint()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("push the target"))
 
 /*
 	Echoing
@@ -472,6 +509,10 @@
 	if(!.)
 		return
 	playsound(get_turf(parent.parent), noise, 50, FALSE)
+
+/datum/xenoartifact_trait/major/noise/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_RANDOMISED)
 
 /*
 	Porous
@@ -523,6 +564,10 @@
 	var/moles = min(air.get_moles(input_id), max_moles)
 	air.adjust_moles(input_id, -moles)
 	air.adjust_moles(output_id, moles)
+
+/datum/xenoartifact_trait/makor/gas/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_RANDOMISED)
 
 /*
 	Destabilizing
@@ -615,6 +660,10 @@
 	dump_targets() //Get rid of anything else, since we can't interact with it
 	clear_focus()
 
+/datum/xenoartifact_trait/major/color/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_RANDOMISED)
+
 /*
 	Enthusing
 	Colors the target
@@ -653,3 +702,7 @@
 
 /datum/xenoartifact_trait/major/emote/proc/run_emote(mob/living/carbon/target)
 	emote.run_emote(target)
+
+/datum/xenoartifact_trait/major/emote/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_RANDOMISED)
