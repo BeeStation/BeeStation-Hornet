@@ -20,6 +20,7 @@
 
 	///radio used by the console to send messages on science channel
 	var/obj/item/radio/headset/radio
+	//TODO: Add a toggle for these - Racc
 	///Do we do purchase notices on the radio?
 	var/radio_purchase_notice = TRUE
 	///Do we do solved notices on the radio?

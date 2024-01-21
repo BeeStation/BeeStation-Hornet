@@ -50,7 +50,7 @@
 
 /obj/emitter/electrified/Initialize(mapload)
     . = ..()
-    add_filter("bloom" , 1 , list(type="bloom", size=3, offset = 0.5, alpha = 220))
+    add_filter("bloom" , 1 , list(type="bloom", size=1, offset = 0.5, alpha = 220))
 
 /particles/electrified
 	count = 10
@@ -68,7 +68,7 @@
 	icon = 'icons/effects/particles/misc.dmi'
 	icon_state = list("static_1")
 
-///Electrified
+///Calibartion spiral thing
 /obj/emitter/spiral
 	plane = ABOVE_LIGHTING_PLANE
 

@@ -59,6 +59,7 @@
 	var/datum/supply_pack/science_listing/SL = new()
 	SL.contains = list(A)
 	SL.cost = A.custom_price
+	SL.current_supply = max(1, SL.current_supply) //Bruh
 	return SL
 
 /datum/rnd_lister/proc/replenish_stock(amount = 1)
@@ -102,6 +103,7 @@
 	access_any = TRUE
 	max_supply = 1
 	current_supply = 1
+	can_secure = FALSE
 
 #undef SELLER_PERSONALITY_GENEROUS
 #undef SELLER_PERSONALITY_NORMAL

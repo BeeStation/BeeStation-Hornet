@@ -8,7 +8,7 @@ export const XenoartifactConsole = (props, context) => {
   const { stability, money } = data;
   const sellers = data.sellers || [];
   return (
-    <Window width={800} height={500}>
+    <Window width={900} height={500}>
       <Window.Content scrollable>
         <BlockQuote align='start'>{`Research Budget: ${money}`}</BlockQuote>
         <Divider/>
