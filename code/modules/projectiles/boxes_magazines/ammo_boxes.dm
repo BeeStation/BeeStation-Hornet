@@ -225,3 +225,9 @@
 	icon_state = "46x30ic"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 	max_ammo = 20
+
+/obj/item/ammo_box/c46improvised
+	name = "ammo box (4.6x30mm Improvised)"
+	icon_state = "46x30improvised"
+	ammo_type = /obj/item/ammo_casing/c46x30mm/improvised
+	max_ammo = 20

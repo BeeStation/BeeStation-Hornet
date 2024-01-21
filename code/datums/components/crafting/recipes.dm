@@ -477,6 +477,20 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
+/datum/crafting_recipe/improv46x30box
+	name = "Improvised 46x30mm Ammmo Box"
+	result = /obj/item/ammo_box/c46improvised
+	reqs = list(/obj/item/grenade/chem_grenade = 20,
+				/obj/item/stack/sheet/iron = 25,
+				/obj/item/stack/cable_coil = 30,
+				/obj/item/stack/cardboard = 1,
+				/datum/reagent/fuel = 100)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
 /datum/crafting_recipe/pipesmg_mag
 	name = "Pipe Repeater Magazine"
 	result = /obj/item/ammo_box/magazine/pipem9mm

@@ -22,6 +22,11 @@
 	caliber = "4.6x30mm"
 	projectile_type = /obj/projectile/bullet/c46x30mm_rubber
 
+/obj/item/ammo_casing/c46x30mm/improvised
+	name = "4.6x30mm improvised bullet casing."
+	desc = "A 4.6x30mm improvised bullet casing"
+	projectile_type = /obj/projectile/bullet/c46x30mm_improvised
+
 // .45 (M1911 + C20r)
 
 /obj/item/ammo_casing/c45
