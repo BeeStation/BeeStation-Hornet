@@ -52,6 +52,7 @@
 /turf/open/floor/holofloor/grass
 	gender = PLURAL
 	name = "lush grass"
+	icon = 'icons/turf/floors/grass.dmi'
 	icon_state = "grass"
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
@@ -155,6 +156,7 @@
 
 /turf/open/floor/holofloor/wood
 	icon_state = "wood"
+	variants = list("wood", "wood1", "wood2", "wood3", "wood4")
 	tiled_dirt = FALSE
 
 /turf/open/floor/holofloor/snow
@@ -206,4 +208,4 @@
 /turf/open/floor/holofloor/monotile/light
 	name = "light holotile"
 	desc = "A really big light steel holotile."
-	icon_state = "monotile_light"
+	icon_state = "grey_full"

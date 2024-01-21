@@ -338,6 +338,11 @@
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_ICE)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
 
+/turf/open/floor/plating/ice/smooth/red
+	icon = 'icons/turf/floors/red_ice.dmi'
+	icon_state = "red_ice-0"
+	base_icon_state = "red_ice"
+
 /turf/open/floor/plating/ice/colder
 	initial_temperature = 140
 

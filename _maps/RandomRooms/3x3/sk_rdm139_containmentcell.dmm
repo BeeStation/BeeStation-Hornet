@@ -10,7 +10,7 @@
 /obj/effect/trap/nexus/doorbolt,
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "G" = (

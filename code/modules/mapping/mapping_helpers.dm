@@ -331,3 +331,26 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	. = ..()
 	var/area/A = get_area(get_turf(src))
 	A.color_correction = color_correction
+
+//Make any turf non-slip
+/obj/effect/mapping_helpers/make_non_slip
+	name = "non slip helper"
+	icon_state = "no_slip"
+	///Do we add the grippy visual
+	var/grip_visual = TRUE
+
+/obj/effect/mapping_helpers/make_non_slip/Initialize(mapload)
+	. = ..()
+	var/turf/T = get_turf(src)
+	T?.make_traction(grip_visual)
+
+//Change this areas turf texture
+/obj/effect/mapping_helpers/tile_breaker
+	name = "area turf texture helper"
+	icon_state = "tile_breaker"
+
+/obj/effect/mapping_helpers/tile_breaker/Initialize(mapload)
+	. = ..()
+	var/turf/open/floor/T = get_turf(src)
+	if(istype(T, /turf/open/floor))
+		T.break_tile()

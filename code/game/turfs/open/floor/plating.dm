@@ -24,6 +24,12 @@
 		pipe_astar_cost = 1\
 	)
 
+/turf/open/floor/plating/get_turf_texture()
+	return GLOB.turf_texture_plating
+
+/turf/open/floor/plating/broken
+	broken = TRUE
+
 /turf/open/floor/plating/examine(mob/user)
 	. = ..()
 	if(broken || burnt)
@@ -35,10 +41,6 @@
 		. += "<span class='notice'>You might be able to build ontop of it with some <i>tiles</i>...</span>"
 
 /turf/open/floor/plating/Initialize(mapload)
-	if (!broken_states)
-		broken_states = list("platingdmg1", "platingdmg2", "platingdmg3")
-	if (!burnt_states)
-		burnt_states = list("panelscorched")
 	. = ..()
 	if(!attachment_holes || (!broken && !burnt))
 		icon_plating = icon_state
