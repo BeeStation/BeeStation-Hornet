@@ -930,7 +930,7 @@
 		/obj/item/toy,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/lighter,
-		/obj/item/storage/backpack/duffelbag/mail
+		/obj/item/storage/backpack/satchel/mail
 	)
 
 

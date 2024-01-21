@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("plant bag",								/obj/item/storage/bag/plants, 4, time = 4 SECONDS), \
 	new/datum/stack_recipe("book bag",								/obj/item/storage/bag/books, 4, time = 4 SECONDS), \
-	new/datum/stack_recipe("mail bag",								/obj/item/storage/backpack/duffelbag/mail, 4, time = 4 SECONDS), \
+	new/datum/stack_recipe("mail bag",								/obj/item/storage/backpack/satchel/mail, 4, time = 4 SECONDS), \
 	new/datum/stack_recipe("mining satchel",						/obj/item/storage/bag/ore, 4, time = 4 SECONDS), \
 	new/datum/stack_recipe("chemistry bag",							/obj/item/storage/bag/chemistry, 4, time = 4 SECONDS), \
 	new/datum/stack_recipe("bio bag",								/obj/item/storage/bag/bio, 4, time = 4 SECONDS), \
