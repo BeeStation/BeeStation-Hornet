@@ -1703,11 +1703,12 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "ats" = (
-/obj/structure/railing{
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/effect/turf_decal{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/black/fourcorners,
-/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/prison,
 /area/security/prison)
 "atw" = (
@@ -2844,10 +2845,15 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/structure/rack,
 /turf/open/floor/prison,
 /area/security/prison)
 "aHj" = (
@@ -4001,20 +4007,13 @@
 /turf/open/floor/plating,
 /area/engine/engine_room)
 "aUK" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 2;
-	pixel_y = 1
-	},
-/obj/item/book/manual/chef_recipes{
-	pixel_x = 2;
-	pixel_y = 6
-	},
 /obj/effect/turf_decal{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/effect/turf_decal/tile/black/fourcorners,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/bowl,
 /turf/open/floor/prison,
 /area/security/prison)
 "aUL" = (
@@ -8561,9 +8560,6 @@
 /obj/machinery/light{
 	light_color = "#7AC3FF"
 	},
-/obj/machinery/computer/arcade/battle{
-	dir = 1
-	},
 /turf/open/floor/prison,
 /area/security/prison)
 "cyY" = (
@@ -11760,20 +11756,15 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/obj/structure/rack,
-/obj/item/prison_scanner,
-/obj/item/prison_scanner,
-/obj/item/prison_scanner,
-/obj/item/prison_scanner,
-/obj/item/prison_scanner,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
+/obj/structure/rack,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/prison,
 /area/security/prison)
 "dEw" = (
@@ -14104,12 +14095,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/cryopod{
-	dir = 4
-	},
-/obj/machinery/computer/cryopod{
-	pixel_y = 32
-	},
+/obj/machinery/computer/arcade/battle,
 /turf/open/floor/prison,
 /area/security/prison)
 "esk" = (
@@ -17291,22 +17277,6 @@
 /area/maintenance/starboard/central)
 "fyF" = (
 /obj/structure/table/reinforced,
-/obj/item/food/grown/carrot{
-	pixel_x = -1;
-	pixel_y = 6
-	},
-/obj/item/food/grown/carrot{
-	pixel_x = -6;
-	pixel_y = 12
-	},
-/obj/item/food/grown/carrot{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/food/grown/carrot{
-	pixel_x = -1;
-	pixel_y = 11
-	},
 /obj/effect/turf_decal{
 	dir = 1
 	},
@@ -17314,6 +17284,14 @@
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/machinery/light{
 	light_color = "#7AC3FF"
+	},
+/obj/item/book/manual/chef_recipes{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_x = 2;
+	pixel_y = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -17703,13 +17681,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "fFQ" = (
-/obj/effect/turf_decal{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
-/obj/machinery/computer/arcade/orion_trail{
-	dir = 1
-	},
 /turf/open/floor/prison,
 /area/security/prison)
 "fFS" = (
@@ -27114,6 +27086,7 @@
 /obj/machinery/door_timer{
 	pixel_y = 32
 	},
+/obj/machinery/computer/arcade/orion_trail,
 /turf/open/floor/prison,
 /area/security/prison)
 "iJq" = (
@@ -54293,6 +54266,11 @@
 	dir = 4;
 	light_color = "#c1caff"
 	},
+/obj/structure/table/reinforced,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "rFZ" = (
@@ -63955,13 +63933,18 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "uNP" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/bowl,
 /obj/effect/turf_decal{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/effect/turf_decal/tile/black/fourcorners,
+/obj/structure/table/reinforced,
+/obj/item/clothing/head/chefhat,
+/obj/item/kitchen/rollingpin,
+/obj/item/reagent_containers/food/condiment/flour{
+	pixel_x = -2;
+	pixel_y = 13
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "uNY" = (
@@ -64617,14 +64600,14 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "uZc" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -69452,6 +69435,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "wEh" = (
@@ -71487,9 +71473,21 @@
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/structure/table/reinforced,
-/obj/machinery/microwave{
-	pixel_x = -3;
+/obj/item/food/grown/carrot{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/food/grown/carrot{
+	pixel_x = -1;
 	pixel_y = 6
+	},
+/obj/item/food/grown/carrot{
+	pixel_x = -1;
+	pixel_y = 11
+	},
+/obj/item/food/grown/carrot{
+	pixel_x = -6;
+	pixel_y = 12
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -73719,18 +73717,17 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/warehouse)
 "xWe" = (
-/obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/food/condiment/flour{
-	pixel_x = -2;
-	pixel_y = 13
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/machinery/cryopod{
+	dir = 8
 	},
-/obj/item/clothing/head/chefhat,
 /obj/effect/turf_decal{
-	dir = 1
+	dir = 4
 	},
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/black/fourcorners,
-/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/machinery/computer/cryopod{
+	pixel_y = -32
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "xWf" = (
