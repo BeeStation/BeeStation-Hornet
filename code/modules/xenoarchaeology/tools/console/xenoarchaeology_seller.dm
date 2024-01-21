@@ -58,7 +58,7 @@
 	//TODO: Move this to an init argument of the supply pack
 	var/datum/supply_pack/science_listing/SL = new()
 	SL.contains = list(A)
-	Sl.cost = A.custom_price
+	SL.cost = A.custom_price
 	return SL
 
 /datum/rnd_lister/proc/replenish_stock(amount = 1)
