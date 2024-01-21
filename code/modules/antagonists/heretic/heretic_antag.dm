@@ -697,7 +697,7 @@
 
 /datum/objective/major_sacrifice/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
-	return completed || length(heretic_datum?.high_value_sacrifices) >= target_amount
+	return completed || (heretic_datum?.high_value_sacrifices >= target_amount)
 
 /// Heretic's research objective. "Research" is heretic knowledge nodes (You start with some).
 /datum/objective/heretic_research
