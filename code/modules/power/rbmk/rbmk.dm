@@ -16,6 +16,8 @@
 
 #define RBMK_POWER_FLAVOURISER 8000 //To turn those KWs into something usable
 
+#define REACTOR_COUNTDOWN_TIME 30 SECONDS
+
 //Reference: Heaters go up to 500K.
 //Hot plasmaburn: 14164.95 C.
 
@@ -83,7 +85,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	light_color = LIGHT_COLOR_CYAN
 	dir = 8 //Less headache inducing :))
 	circuit = /obj/item/circuitboard/machine/rbmk
-	var/id = null //Change me mappers
+	var/id = "default_reactor_for_lazy_mappers" //Change me mappers
 	//Variables essential to operation
 	var/temperature = 0 //Lose control of this -> Meltdown
 	var/vessel_integrity = 400 //How long can the reactor withstand overpressure / meltdown? This gives you a fair chance to react to even a massive pipe fire
@@ -111,6 +113,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
 	var/datum/looping_sound/rbmk/alarm
+	var/obj/item/radio/radio
+	var/radio_key = /obj/item/encryptionkey/headset_eng
+	var/engineering_channel = "Engineering"
+	var/common_channel = null
 
 //Use this in your maps if you want everything to be preset.
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset
@@ -124,6 +130,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/Destroy()
 	QDEL_NULL(alarm)
+	QDEL_NULL(radio)
 	. = ..()
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/examine(mob/user)
@@ -225,6 +232,18 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	AddElement(/datum/element/point_of_interest)
+	radio = new(src)
+	radio.keyslot = new radio_key
+	radio.listening = 0
+	radio.recalculateChannels()
+	piping_layer = PIPING_LAYER_DEFAULT
+
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/on_construction()
+	var/obj/item/circuitboard/machine/rbmk/board = circuit
+	if(board)
+		piping_layer = board.pipe_layer
+	return ..(dir, piping_layer)
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/on_entered(datum/source, atom/movable/AM, oldloc)
 	SIGNAL_HANDLER
@@ -296,6 +315,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 				coolant_output.adjust_moles(GAS_TRITIUM, total_fuel_moles/20) //Shove out tritium into the air when it's fuelled. You need to filter this off, or you're gonna have a bad time.
 			var/turf/T = get_turf(src)
 			var/obj/structure/cable/C = T.get_cable_node()
+			if (!C)
+				return
 			C.get_connections()
 			C.add_avail(last_power_produced)
 
@@ -391,6 +412,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//First alert condition: Overheat
 	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
 		alert = TRUE
+		for(var/i in REACTOR_COUNTDOWN_TIME to 0 step -10)
+			radio.talk_into(src, "Warning: Reactor overheating. Nuclear meltdown imminent.", engineering_channel, language = get_selected_language())
 		if(temperature >= RBMK_TEMPERATURE_MELTDOWN)
 			var/temp_damage = min(temperature/100, initial(vessel_integrity)/40)	//40 seconds to meltdown from full integrity, worst-case. Bit less than blowout since it's harder to spike heat that much.
 			vessel_integrity -= temp_damage
@@ -408,6 +431,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	if(pressure >= RBMK_PRESSURE_CRITICAL)
 		alert = TRUE
 		//shake_animation(0.5)
+		for(var/i in REACTOR_COUNTDOWN_TIME to 0 step -10)
+			radio.talk_into(src, "Warning: Reactor overpressurized. Blowout imminent.", engineering_channel, language = get_selected_language())
 		playsound(loc, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
 		T.atmos_spawn_air("water_vapor=[pressure/100];TEMP=[temperature+273.15]")
 		// Warning: Pressure reaching critical thresholds!
@@ -420,8 +445,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	if(!rbmkzlevel) //Can't be bothered to do this any other way ;)
 		return
 
-	// warning alarm is going on or off = var/warning
-	// turn the alarm on or off = var/alert
+	// Warning alarm variable is used to make sure the alarm is not overlapping.  var/warning
+	// To turn the alarm on or off = var/alert
 
 	if (alert)
 		if (warning)

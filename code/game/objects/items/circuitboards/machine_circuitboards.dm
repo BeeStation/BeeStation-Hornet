@@ -218,6 +218,7 @@
 	name = "Advanced Gas-Cooled Nuclear Reactor (Machine Board)"
 	icon_state = "engineering"
 	build_path = /obj/machinery/atmospherics/components/trinary/nuclear_reactor
+	var/pipe_layer = PIPING_LAYER_DEFAULT
 	req_components = list() //TO DO: Add required components to make a nuclear reactor
 
 /obj/item/circuitboard/machine/ntnet_relay
