@@ -178,6 +178,8 @@
 		if(E)
 			E.admin_setup(usr)
 			var/datum/round_event/event = E.runEvent()
+			if(event.cancel_event)
+				return
 			if(event.announceWhen>0)
 				event.processing = FALSE
 				var/prompt = alert(usr, "Would you like to alert the crew?", "Alert", "Yes", "No", "Cancel")

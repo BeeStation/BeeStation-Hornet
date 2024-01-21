@@ -1,4 +1,4 @@
-#define RANDOM_EVENT_ADMIN_INTERVENTION_TIME 30
+#define RANDOM_EVENT_ADMIN_INTERVENTION_TIME (30 SECONDS)
 
 //this singleton datum is used by the events controller to dictate how it selects events
 /datum/round_event_control
@@ -20,7 +20,6 @@
 	var/holidayID = ""				//string which should be in the SSeventss.holidays list if you wish this event to be holiday-specific
 									//anything with a (non-null) holidayID which does not match holiday, cannot run.
 	var/wizardevent = FALSE
-	var/random = FALSE				//If the event has occured randomly, or if it was forced by an admin or in-game occurrence
 	var/alert_observers = TRUE		//should we let the ghosts and admins know this event is firing
 									//should be disabled on events that fire a lot
 
@@ -86,9 +85,9 @@
 
 	triggering = TRUE
 	if (alert_observers)
-		message_admins("Random Event triggering in [RANDOM_EVENT_ADMIN_INTERVENTION_TIME] seconds: [name] (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
+		message_admins("Random Event triggering in [DisplayTimeText(RANDOM_EVENT_ADMIN_INTERVENTION_TIME)]: [name] (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
 		play_sound_to_all_admins('sound/effects/admin_alert.ogg')
-		sleep(RANDOM_EVENT_ADMIN_INTERVENTION_TIME SECONDS)
+		sleep(RANDOM_EVENT_ADMIN_INTERVENTION_TIME)
 		var/gamemode = SSticker.mode.config_tag
 		var/players_amt = get_active_player_count(alive_check = TRUE, afk_check = TRUE, human_check = TRUE)
 		if(!canSpawnEvent(players_amt, gamemode))
@@ -111,23 +110,49 @@
 		log_admin_private("[key_name(usr)] cancelled event [name].")
 		SSblackbox.record_feedback("tally", "event_admin_cancelled", 1, typepath)
 
-/datum/round_event_control/proc/runEvent()
+/datum/round_event_control/proc/runEvent(random = FALSE)
+	/*
+	* We clear our signals first so we dont cancel a wanted event by accident,
+	* the majority of time the admin will probably want to cancel a single midround spawned random events
+	* and not multiple events called by others admins
+	* * In the worst case scenario we can still recall a event which we cancelled by accident, which is much better then to have a unwanted event
+	*/
+	UnregisterSignal(SSdcs, COMSIG_GLOB_RANDOM_EVENT)
 	var/datum/round_event/E = new typepath()
 	E.current_players = get_active_player_count(alive_check = 1, afk_check = 1, human_check = 1)
 	E.control = src
-	SSblackbox.record_feedback("tally", "event_ran", 1, "[E]")
 	occurrences++
 
 	testing("[time2text(world.time, "hh:mm:ss")] [E.type]")
+	triggering = TRUE
+
+	if (alert_observers)
+		message_admins("Random Event triggering in [DisplayTimeText(RANDOM_EVENT_ADMIN_INTERVENTION_TIME)]: [name] (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
+		sleep(RANDOM_EVENT_ADMIN_INTERVENTION_TIME)
+
+	if(!triggering)
+		RegisterSignal(SSdcs, COMSIG_GLOB_RANDOM_EVENT, .proc/stop_random_event)
+		E.cancel_event = TRUE
+		return E
+
+	triggering = FALSE
 	if(random)
 		log_game("Random Event triggering: [name] ([typepath])")
-	if (alert_observers)
+
+	if(alert_observers)
 		deadchat_broadcast("<span class='deadsay'><b>[name]</b> has just been triggered!</span>") //STOP ASSUMING IT'S BADMINS!
+
+	SSblackbox.record_feedback("tally", "event_ran", 1, "[E]")
 	return E
 
 //Special admins setup
 /datum/round_event_control/proc/admin_setup()
 	return
+
+//Returns the component for the listener
+/datum/round_event_control/proc/stop_random_event()
+	SIGNAL_HANDLER
+	return CANCEL_RANDOM_EVENT
 
 /datum/round_event	//NOTE: Times are measured in master controller ticks!
 	var/processing = TRUE
@@ -141,6 +166,8 @@
 	var/activeFor		= 0	//How long the event has existed. You don't need to change this.
 	var/current_players	= 0 //Amount of of alive, non-AFK human players on server at the time of event start
 	var/fakeable = TRUE		//Can be faked by fake news event.
+	/// Whether a admin wants this event to be cancelled
+	var/cancel_event = FALSE
 
 //Called first before processing.
 //Allows you to setup your event, such as randomly
@@ -194,6 +221,11 @@
 //This proc will handle the calls to the appropiate procs.
 /datum/round_event/process()
 	if(!processing)
+		return
+
+	if(SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RANDOM_EVENT, src) & CANCEL_RANDOM_EVENT)
+		processing = FALSE
+		kill()
 		return
 
 	if(activeFor == startWhen)
