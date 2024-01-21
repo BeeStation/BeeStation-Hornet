@@ -222,7 +222,7 @@
 
 /datum/gear/suit/hoodie/white
 	display_name = "white hoodie"
-	path = /obj/item/clothing/head/hooded/hoodie
+	path = /obj/item/clothing/suit/hooded/hoodie
 
 /datum/gear/suit/hoodie/blue
 	display_name = "blue hoodie"
