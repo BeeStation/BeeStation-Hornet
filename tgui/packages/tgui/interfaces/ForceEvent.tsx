@@ -78,11 +78,7 @@ export const ForceEvent = (props, context) => {
 };
 
 export const PanelOptions = (props, context) => {
-  const [searchQuery, setSearchQuery] = useLocalState(
-    context,
-    'searchQuery',
-    ''
-  );
+  const [searchQuery, setSearchQuery] = useLocalState(context, 'searchQuery', '');
 
   const [announce, setAnnounce] = useLocalState(context, 'announce', true);
 
@@ -92,19 +88,10 @@ export const PanelOptions = (props, context) => {
         <Icon name="search" />
       </Stack.Item>
       <Stack.Item grow>
-        <Input
-          autoFocus
-          fluid
-          onInput={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search..."
-          value={searchQuery}
-        />
+        <Input autoFocus fluid onInput={(e) => setSearchQuery(e.target.value)} placeholder="Search..." value={searchQuery} />
       </Stack.Item>
       <Stack.Item>
-        <Button.Checkbox
-          fluid
-          checked={announce}
-          onClick={() => setAnnounce(!announce)}>
+        <Button.Checkbox fluid checked={announce} onClick={() => setAnnounce(!announce)}>
           Announce
         </Button.Checkbox>
       </Stack.Item>
@@ -170,11 +157,7 @@ export const EventTabs = (props, context) => {
   const { data } = useBackend<ForceEventData>(context);
   const { categories } = data;
 
-  const [category, setCategory] = useLocalState(
-    context,
-    'category',
-    categories[0]
-  );
+  const [category, setCategory] = useLocalState(context, 'category', categories[0]);
 
   const layerCats = paginate(categories, CATEGORY_PAGE_ITEMS);
 
@@ -183,11 +166,7 @@ export const EventTabs = (props, context) => {
       {layerCats.map((page, i) => (
         <Tabs mb="-3px" fluid key={i}>
           {page.map((cat) => (
-            <Tabs.Tab
-              selected={category === cat}
-              icon={cat.icon}
-              key={cat.icon}
-              onClick={() => setCategory(cat)}>
+            <Tabs.Tab selected={category === cat} icon={cat.icon} key={cat.icon} onClick={() => setCategory(cat)}>
               {cat.name}
             </Tabs.Tab>
           ))}
