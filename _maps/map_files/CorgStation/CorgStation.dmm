@@ -591,13 +591,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/science/shuttle)
-"aen" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/structure/disposalpipe/junction/flip,
-/turf/open/floor/plasteel,
-/area/security/brig)
 "aew" = (
 /obj/machinery/atmospherics/components/binary/volume_pump{
 	dir = 4;
@@ -9655,11 +9648,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "cVa" = (
-/obj/structure/disposalpipe/junction/flip{
+/obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -13436,16 +13426,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/warden)
-"eeC" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "eeE" = (
 /obj/machinery/biogenerator,
 /obj/machinery/door/window/eastleft{
@@ -29564,15 +29544,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/maintenance/department/science/central)
-"jCg" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "jCx" = (
 /obj/machinery/light/small/broken{
 	dir = 4
@@ -33419,13 +33390,11 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "kTz" = (
@@ -38733,16 +38702,15 @@
 /area/maintenance/port)
 "mxS" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -47471,9 +47439,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -47482,6 +47447,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -49232,7 +49200,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
@@ -49241,6 +49208,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/junction/flip{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -50926,9 +50896,6 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/security_officer,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -67284,9 +67251,6 @@
 /area/hallway/secondary/exit)
 "vPV" = (
 /obj/machinery/light/floor,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -67297,6 +67261,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "vQa" = (
@@ -68692,13 +68657,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
-"woj" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -114309,11 +114267,11 @@ jxp
 pgn
 mEM
 qBc
-aen
-jCg
+jxp
+jxp
 pvo
-woj
-eeC
+jxp
+jxp
 cVa
 kMe
 tfn
