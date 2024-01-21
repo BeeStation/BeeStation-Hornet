@@ -77,43 +77,43 @@
 
 /obj/item/ammo_box/c38_box
 	name = "ammo box (.38)"
-	icon_state = "45box"
+	icon_state = "38base"
 	ammo_type = /obj/item/ammo_casing/c38
 	max_ammo = 6
 
 /obj/item/ammo_box/c38_boxrubber
 	name = "ammo box (.38 Rubber)"
-	icon_state = "45box"
+	icon_state = "38rubber"
 	ammo_type = /obj/item/ammo_casing/c38/match/bouncy
 	max_ammo = 6
 
 /obj/item/ammo_box/c38_boxtrac
 	name = "ammo box (.38 TRAC)"
-	icon_state = "45box"
+	icon_state = "38trac"
 	ammo_type = /obj/item/ammo_casing/c38/trac
 	max_ammo = 6
 
 /obj/item/ammo_box/c38_boxhotshot
 	name = "ammo box (.38 Hot Shot)"
-	icon_state = "45box"
+	icon_state = "38hotshot"
 	ammo_type = /obj/item/ammo_casing/c38/hotshot
 	max_ammo = 6
 
 /obj/item/ammo_box/c38_boxiceblox
 	name = "ammo box (.38 Iceblox)"
-	icon_state = "45box"
+	icon_state = "38iceblox"
 	ammo_type = /obj/item/ammo_casing/c38/iceblox
 	max_ammo = 6
 
 /obj/item/ammo_box/c38_boxdumdum
 	name = "ammo box (.38 DumDum)"
-	icon_state = "45box"
+	icon_state = "38dumdum"
 	ammo_type = /obj/projectile/bullet/c38/dumdum
 	max_ammo = 6
 
 /obj/item/ammo_box/c38_boxmatch
 	name = "ammo box (.38 Match)"
-	icon_state = "45box"
+	icon_state = "38match"
 	ammo_type = /obj/projectile/bullet/c38/match
 	max_ammo = 6
 
@@ -204,24 +204,24 @@
 
 /obj/item/ammo_box/c46
 	name = "ammo box (4.6x30mm)"
-	icon_state = "45box"
+	icon_state = "46x30base"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	max_ammo = 20
 
 /obj/item/ammo_box/c46rubber
 	name = "ammo box (4.6x30mm Rubber)"
-	icon_state = "45box"
+	icon_state = "46x30rubber"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/rubber
 	max_ammo = 20
 
 /obj/item/ammo_box/c46ap
 	name = "ammo box (4.6x30mm AP)"
-	icon_state = "45box"
+	icon_state = "46x30ap"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
 	max_ammo = 20
 
 /obj/item/ammo_box/c46inc
 	name = "ammo box (4.6x30mm IC)"
-	icon_state = "45box"
+	icon_state = "46x30ic"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 	max_ammo = 20
