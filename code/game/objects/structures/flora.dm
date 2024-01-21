@@ -11,8 +11,6 @@
 	pixel_x = -16
 	layer = FLY_LAYER
 	var/log_amount = 10
-	var/obj/log_type = /obj/item/grown/log/tree
-	var/obj/structure/stump_type = /obj/structure/flora/stump
 
 /obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
 	if(log_amount && (!(flags_1 & NODECONSTRUCT_1)))
@@ -24,11 +22,10 @@
 				user.visible_message("<span class='notice'>[user] fells [src] with the [W].</span>","<span class='notice'>You fell [src] with the [W].</span>", "You hear the sound of a tree falling.")
 				playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100 , 0, 0)
 				for(var/i=1 to log_amount)
-					new log_type(get_turf(src))
+					new /obj/item/grown/log/tree(get_turf(src))
 
-				if(stump_type)
-					var/obj/structure/S = new stump_type(loc)
-					S.name = "[name] stump"
+				var/obj/structure/flora/stump/S = new(loc)
+				S.name = "[name] stump"
 
 				qdel(src)
 
@@ -113,21 +110,6 @@
 	. = ..()
 	icon_state = pick("palm1","palm2")
 	pixel_x = 0
-
-/obj/structure/flora/tree/splinter
-	name = "splinter tree"
-	icon = 'icons/obj/flora/icelandtrees.dmi'
-	icon_state = "tree_1"
-	desc = "A crooked and metallic structure vaguely resembling a tree."
-	log_amount = 1
-	log_type = /obj/item/stack/sheet/splinter
-	stump_type = null
-	pixel_x = -32
-
-/obj/structure/flora/tree/splinter/Initialize(mapload)
-	icon_state = "tree_[rand(1, 5)]"
-	log_amount = rand(5, 7)
-	. = ..()
 
 /obj/structure/festivus
 	name = "festivus pole"
@@ -323,26 +305,6 @@
 /obj/structure/flora/ausbushes/fullgrass/Initialize(mapload)
 	icon_state = "fullgrass_[rand(1, 3)]"
 	. = ..()
-
-/obj/structure/flora/splinter_bush
-	name = "splinter bush"
-	icon = 'icons/obj/flora/icelandflora.dmi'
-	icon_state = "sharpbush_1"
-	desc = "A crooked and metallic structure vaguely resembling a bush."
-	anchored = TRUE
-	var/splinter_amount = 0
-
-/obj/structure/flora/splinter_bush/Initialize(mapload)
-	icon_state = "sharpbush_[rand(1, 7)]"
-	splinter_amount = rand(1, 4)
-	. = ..()
-
-/obj/structure/flora/splinter_bush/deconstruct()
-	for(var/i=1 to splinter_amount)
-		new /obj/item/stack/sheet/splinter(get_turf(src))
-	if(prob(25))
-		new /obj/item/reagent_containers/glass/hexapod(get_turf(src))
-	return ..()
 
 /obj/item/kirbyplants
 	name = "potted plant"

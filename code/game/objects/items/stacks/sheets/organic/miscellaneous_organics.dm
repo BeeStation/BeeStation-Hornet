@@ -56,36 +56,3 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	. = ..()
 	. += GLOB.sinew_recipes
 
-/obj/item/stack/sheet/splinter
-	name = "splinters"
-	icon_state = "sheet-trenchshards"
-	item_state = "sheet-trenchshards"
-	icon = 'icons/obj/stacks/organic.dmi'
-	singular_name = "splinter"
-	desc = "Shards gathered from the abyss. These prick your fingers slightly when you hold them, and you reckon they'd stick if you threw them at someone."
-	force = 5
-	throwforce = 10
-	max_amount = 15
-	embedding = list("armour_block" = 30, "embed_chance" = 50)
-	throw_speed = 5
-	grind_results = list(/datum/reagent/silver = 10)
-	merge_type = /obj/item/stack/sheet/splinter
-	sharpness = IS_SHARP
-
-/obj/item/stack/sheet/splinter/Initialize(mapload)
-	AddComponent(/datum/component/caltrop, force, _flags=CALTROP_BYPASS_SHOES|CALTROP_NO_PARALYSIS)
-	. = ..()
-
-/obj/item/stack/sheet/splinter/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
-	. = ..()
-	var/hit_hand = ((thrower.active_hand_index % 2 == 0) ? "r_" : "l_") + "arm"
-	if(ishuman(thrower))
-		var/mob/living/carbon/human/H = thrower
-		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
-			to_chat(H, "<span class='warning'>[src] cuts into your hand as you throw it!</span>")
-			H.apply_damage(src.force*0.5, BRUTE, hit_hand)
-	else if(ismonkey(thrower))
-		var/mob/living/carbon/monkey/M = thrower
-		if(!HAS_TRAIT(M, TRAIT_PIERCEIMMUNE))
-			to_chat(M, "<span class='warning'>[src] cuts into your hand as you throw it!</span>")
-			M.apply_damage(src.force*0.5, BRUTE, hit_hand)
