@@ -2,6 +2,8 @@
 	name = "Create Devil"
 	typepath = /datum/round_event/ghost_role/devil
 	max_occurrences = 0
+	category = EVENT_CATEGORY_ENTITIES
+	description = "Converts some members of the crew into Devils. You are responsible for all the shitcode that emerges..."
 
 /datum/round_event/ghost_role/devil
 	var/success_spawn = 0

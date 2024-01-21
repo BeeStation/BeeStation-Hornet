@@ -5,6 +5,8 @@
 	min_players = 20
 	dynamic_should_hijack = TRUE
 	can_malf_fake_alert = TRUE
+	category = EVENT_CATEGORY_ENTITIES
+	description = "Spawns spider eggs, ready to hatch."
 
 /datum/round_event/ghost_role/spider_infestation
 	role_name = ROLE_SPIDER

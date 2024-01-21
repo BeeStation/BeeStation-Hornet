@@ -3,8 +3,8 @@
 	typepath = /datum/round_event/floor_cluwne
 	max_occurrences = 1
 	min_players = 20
-	category = EVENT_CATEGORY_INVASION
-	description = "An evil beast emerges, grasping for your legs..."
+	category = EVENT_CATEGORY_ENTITIES
+	description = "Spawns a Floor Cluwne, which will grab & pull crew under the tiles..."
 
 
 /datum/round_event/floor_cluwne/start()

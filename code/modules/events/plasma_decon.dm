@@ -2,6 +2,8 @@
 	name = "Plasma decontamination"
 	typepath = /datum/round_event/plasma_decon
 	max_occurrences = 0
+	category = EVENT_CATEGORY_ENGINEERING
+	description = "Decontaminates distro & connected unary vents of plasma. Get blueballed, griffman."
 
 /datum/round_event/plasma_decon
 	announce_when	= 1

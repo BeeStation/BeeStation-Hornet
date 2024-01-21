@@ -4,6 +4,8 @@
 	max_occurrences = 3
 	weight = 20
 	earliest_start = 10
+	category = EVENT_CATEGORY_BUREAUCRATIC
+	description = "Selects a random bounty, announces it, and increases the price for delivering said bounty."
 
 /datum/round_event/high_priority_bounty/announce(fake)
 	priority_announce("Central Command has issued a high-priority cargo bounty. Details have been sent to all bounty consoles.", "Nanotrasen Bounty Program", SSstation.announcer.get_rand_alert_sound())

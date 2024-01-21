@@ -1,9 +1,9 @@
 ///Allows an admin to force an event
 /client/proc/forceEvent()
 	set name = "Trigger Event"
-	set category = "Round" //"Admin.Events", for when our statpanel doesnt suck ass
+	set category = "Admin.Events"
 
-	if(!holder ||!check_rights(R_FUN))
+	if(!holder || !check_rights(R_FUN))
 		return
 
 	holder.forceEvent()

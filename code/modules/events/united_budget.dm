@@ -2,6 +2,8 @@
 	name = "United budget - Setup"
 	typepath = /datum/round_event/united_budget_setup
 	max_occurrences = 0
+	category = EVENT_CATEGORY_BUREAUCRATIC
+	description = "Setup the United Budget event. Unifying all budget cards into the same account."
 
 /datum/round_event/united_budget_setup
 	announce_when	= 0
@@ -36,6 +38,8 @@
 	name = "United budget - Cancel"
 	typepath = /datum/round_event/united_budget_cancel
 	max_occurrences = 0
+	category = EVENT_CATEGORY_BUREAUCRATIC
+	description = "Cancels the United Budget event. Dismembering all budget cards from the same account."
 
 /datum/round_event/united_budget_cancel
 	announce_when	= 0

@@ -4,6 +4,8 @@
 	weight = 5
 	max_occurrences = 1
 	min_players = 30
+	category = EVENT_CATEGORY_ENTITIES
+	description = "1/10th of the Station crew is infected with a zombie tumor."
 
 /datum/round_event/zombie_outbreak
 	fakeable = FALSE

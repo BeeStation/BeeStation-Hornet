@@ -4,6 +4,8 @@
 	typepath = /datum/round_event/asteroid_impact
 	weight = -1
 	max_occurrences = 0
+	category = EVENT_CATEGORY_SPACE
+	description = "Spawns round-ending meteors."
 
 /datum/round_event/asteroid_impact
 	//Should be enough time to escape.

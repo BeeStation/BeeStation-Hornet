@@ -8,6 +8,8 @@
 	dynamic_should_hijack = TRUE
 	cannot_spawn_after_shuttlecall = TRUE
 	can_malf_fake_alert = TRUE
+	category = EVENT_CATEGORY_ENTITIES
+	description = "A xenomorph larva spawns on a random vent."
 
 /datum/round_event_control/alien_infestation/canSpawnEvent()
 	. = ..()
