@@ -50,8 +50,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 				report.exported_atoms += " [thing.name]"
 				break
 
-		//Send signal before it's potentially deleted
-		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
+			SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
 
 		if(!dry_run && (sold || delete_unsold))
 			if(ismob(thing))
@@ -81,6 +80,9 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 				sold = E.sell_object(thing, report, dry_run, allowed_categories , apply_elastic)
 				report.exported_atoms += " [thing.name]"
 				break
+			
+			SEND_GLOBAL_SIGNAL(COMSIG_GLOB_ATOM_SOLD, thing, sold)
+
 		if(!dry_run && (sold || delete_unsold))
 			if(ismob(thing))
 				thing.investigate_log("deleted through cargo export",INVESTIGATE_CARGO)
@@ -180,6 +182,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 		if(apply_elastic)
 			cost *= NUM_E**(-1*k_elasticity*amount)		//marginal cost modifier
 		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[the_cost]"))
+
 	return TRUE
 
 // Total printout for the cargo console.

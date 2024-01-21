@@ -10,16 +10,7 @@ export const XenoartifactConsole = (props, context) => {
   return (
     <Window width={800} height={500}>
       <Window.Content scrollable>
-        <Flex justify='space-between'>
-          <Flex.Item>
-            <BlockQuote align='start'>{`Research Budget: ${money}`}</BlockQuote>
-          </Flex.Item>
-          <Flex.Item align='end'>
-            <Button onClick={() => act(`send`)}>{"Send Cargo Shuttle"}</Button>
-          </Flex.Item>
-        </Flex>
-        <Divider/>
-        <ProgressBar value = {stability/100} ranges={{good: [0.5, Infinity], average: [0.25, 0.5], bad: [-Infinity, 0.25],}}/>
+        <BlockQuote align='start'>{`Research Budget: ${money}`}</BlockQuote>
         <Divider/>
         <Section>
           <BlockQuote>

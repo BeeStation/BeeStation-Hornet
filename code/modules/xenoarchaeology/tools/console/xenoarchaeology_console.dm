@@ -15,9 +15,6 @@
 	///Which department's budget receives profit
 	var/datum/bank_account/budget
 
-	///Stability - lowers as people buy artifacts, stops spam buying
-	var/stability = 100
-
 	///List of current listing sellers
 	var/list/sellers = list(/datum/rnd_lister/artifact_seller/bastard, /datum/rnd_lister/artifact_seller/bastard, /datum/rnd_lister/artifact_seller/bastard)
 
@@ -28,23 +25,11 @@
 	///Do we do solved notices on the radio?
 	var/radio_solved_notice = TRUE
 
-	///Are we allowed to call the cargo shuttle?
-	var/can_call_shuttle = TRUE
-
-	///Generic messages we modify to match the situation
-	var/safety_warning = "For safety and ethical reasons, the automated supply shuttle \
-		cannot transport live organisms, human remains, classified nuclear weaponry, \
-		homing beacons, mail, or machinery housing any form of artificial intelligence."
-	var/blockade_warning = "Bluespace instability detected. Shuttle movement impossible."
-	var/permission_warning = "Invalid access! Scan Quartermaster ID, or equivilent, to enable."
-
 /obj/machinery/computer/xenoarchaeology_console/Initialize()
 	. = ..()
 	//Link relevant stuff
 	linked_techweb = SSresearch.science_tech
 	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
-	//Start processing to gain stability
-	START_PROCESSING(SSobj, src)
 	///Build seller list //TODO: Clear these on destroy - Racc
 	var/list/new_sellers = sellers.Copy()
 	sellers = list()
@@ -59,12 +44,6 @@
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(radio)
-
-/obj/machinery/computer/xenoarchaeology_console/process()
-	stability = min(100, stability + STABILITY_GAIN)
-	//Update UI every 3 seconds, may be delayed
-	if(world.time % 3 == 0)
-		ui_update()
 
 /obj/machinery/computer/xenoarchaeology_console/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -82,8 +61,6 @@
 		for(var/atom/A as() in seller.current_stock)
 			stock += list(list("name" = A?.name, "description" = A?.desc, "id" = REF(A), "cost" = seller.get_price(A) || 0))
 		data["sellers"] += list(list("name" = seller.name, "dialogue" = seller.dialogue, "stock" = stock, "id" = REF(seller)))
-	//Stability
-	data["stability"] = stability
 	//Cash available
 	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	data["money"] = D.account_balance
@@ -97,10 +74,6 @@
 	switch(action)
 		//Purchase items
 		if("stock_purchase")
-			//If we got no instability
-			if(!stability)
-				say("Insufficient straythread stability!")
-				return
 			//Locate seller and purchase our item from them
 			var/datum/rnd_lister/seller = locate(params["seller_id"])
 			//If we got no cash
@@ -127,41 +100,14 @@
 			var/datum/supply_order/SO = new(SP, name, rank, ckey, "Research Material Requisition", D)
 			SO.generateRequisition(get_turf(src))
 			SSsupply.shoppinglist += SO
-			//Take our toll
-			stability = clamp(stability-STABILITY_COST, 0, 100)
-		if("send")
-			if(!can_call_shuttle)
-				say(permission_warning)
-				return
-			if(!SSshuttle.supply.canMove())
-				say(safety_warning)
-				return
-			if(SSshuttle.supplyBlocked)
-				say(blockade_warning)
-				return
-			if(SSshuttle.supply.getDockedId() == "supply_home")
-				SSshuttle.supply.export_categories = EXPORT_CARGO
-				SSshuttle.moveShuttle("supply", "supply_away", TRUE)
-				say("The supply shuttle is departing.")
-				usr.investigate_log(" sent the supply shuttle away.", INVESTIGATE_RESEARCH)
-			else
-				usr.investigate_log(" called the supply shuttle.", INVESTIGATE_RESEARCH)
-				say("The supply shuttle has been called and will arrive in [SSshuttle.supply.timeLeft(600)] minutes.")
-				SSshuttle.moveShuttle("supply", "supply_home", TRUE)
-			. = TRUE
 
 	ui_update()
-
-/obj/machinery/computer/xenoarchaeology_console/attackby(obj/item/C, mob/user)
-	. = ..()
-	var/obj/item/card/id/I = C
-	if(istype(I) && (ACCESS_HEADS in I.access))
-		can_call_shuttle = !can_call_shuttle
-		say("Toggled shuttle permission. Shuttle permission [can_call_shuttle ? "enabled" : "disabled"].")
 
 /obj/machinery/computer/xenoarchaeology_console/proc/check_sold(datum/source, atom/movable/AM, sold)
 	SIGNAL_HANDLER
 
+	radio?.talk_into(src, "test", RADIO_CHANNEL_SCIENCE)
+			
 	var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in AM.contents
 	var/datum/component/xenoartifact/X = AM.GetComponent(/datum/component/xenoartifact)
 	if(X && L)

@@ -213,12 +213,17 @@
 	var/datum/component/xenoartifact/artifact = target.GetComponent(/datum/component/xenoartifact)
 	if(artifact)
 		old_custom_price = target.custom_price
+		//Build list of artifact's traits
+		var/list/artifact_traits = list()
 		for(var/i in artifact.artifact_traits)
 			for(var/datum/xenoartifact_trait/T as() in artifact.artifact_traits[i])
-				if(locate(T) in traits)
-					target.custom_price *= XENOA_LABEL_REWARD
-				else
-					target.custom_price *= XENOA_LABEL_PUNISHMENT
+				artifact_traits += T
+		//Compare them to ours
+		for(var/datum/xenoartifact_trait/T as() in traits)
+			if(locate(T) in artifact_traits)
+				target.custom_price *= XENOA_LABEL_REWARD
+			else
+				target.custom_price *= XENOA_LABEL_PUNISHMENT
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(parent_examine))
 
 /obj/item/sticker/xenoartifact_label/attack_hand(mob/user)

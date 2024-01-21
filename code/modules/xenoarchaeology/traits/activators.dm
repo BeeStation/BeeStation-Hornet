@@ -92,7 +92,7 @@
 
 /datum/xenoartifact_trait/activator/strudy/translation_type_d(datum/source, atom/item, atom/target)
 	var/atom/A = parent?.parent
-	if(!isliving(A.loc) || check_item_safety(item))
+	if(!isliving(A.loc) && !A.density || check_item_safety(item))
 		return
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
@@ -257,8 +257,7 @@
 	var/datum/signal/signal
 
 	///Reference to our particle holder - we need to use holders & vis contents, otherwise shit gets fucky with filters
-	//TODO: Make this a dedicated subtype with no mouse opacity - Racc
-	var/atom/movable/particle_holder
+	var/atom/movable/artifact_particle_holder/particle_holder
 
 /datum/xenoartifact_trait/activator/signal/New(atom/_parent)
 	. = ..()

@@ -18,6 +18,7 @@
 /obj/item/xenoartifact/Initialize(mapload, _artifact_type)
 	. = ..()
 	artifact_type = _artifact_type || artifact_type
+	ADD_TRAIT(src, TRAIT_IGNORE_EXPORT_SCAN, GENERIC_ITEM_TRAIT)
 
 /obj/item/xenoartifact/ComponentInitialize()
 	. = ..()
@@ -38,6 +39,26 @@
 
 /obj/item/xenoartifact/no_traits
 	spawn_with_traits = FALSE
+
+/*
+	Export datum, so we can sell artifacts for dosh
+*/
+
+/datum/export/artifact
+	unit_name = "xenoartifact"
+	export_types = list(/obj/item/xenoartifact)
+
+/datum/export/artifact/get_cost(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+	cost = O.custom_price
+	return ..()
+
+/datum/export/artifact/applies_to(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+	. = ..()
+	return O.GetComponent(/datum/component/xenoartifact) ? TRUE : .
+
+/*
+	Artifact component
+*/
 
 /datum/component/xenoartifact
 	///List of artifact-traits we have : list(PRIORITY = list(trait))
@@ -89,6 +110,7 @@
 	///States
 	var/calcified = FALSE
 	var/calibrated = FALSE
+	var/atom/movable/artifact_particle_holder/calibrated_holder
 
 /datum/component/xenoartifact/Initialize(type, list/traits, _do_appearance = TRUE, _do_mask = TRUE)
 	. = ..()
@@ -337,14 +359,14 @@
 
 //Calibrates. Does the opposite of calcify
 /datum/component/xenoartifact/proc/calibrate()
-	var/atom/A = parent
+	var/atom/movable/A = parent
 	//Stats
 	calibrated = TRUE
 	//Effect
-	var/mutable_appearance/MA = mutable_appearance('icons/obj/xenoarchaeology/xenoartifact.dmi', "calibrated")
-	MA.blend_mode = BLEND_ADD
-	MA.color = artifact_type.material_color
-	A.add_overlay(MA)
+	calibrated_holder = new(A)
+	var/obj/emitter/spiral/S = calibrated_holder.add_emitter(/obj/emitter/spiral, "calibration", 11)
+	S.setup(artifact_type.material_color)
+	A.vis_contents += calibrated_holder
 
 //Build the artifact's appearance
 /datum/component/xenoartifact/proc/build_material_appearance()
@@ -355,13 +377,13 @@
 	A.remove_filter("outline_2")
 	//Apply new stuff
 	if(do_mask)
+		var/old_desc = A.desc
 		//Build the silhouette of the artifact
 		var/mutable_appearance/MA = artifact_type.get_mask()
 		MA.plane = A.plane //This is important lol
 		MA.layer = A.layer
 		A.appearance = MA
-		//Reset name
-		var/old_desc = A.desc
+		//Rset name & desc
 		A.name = "[artifact_type.name] [old_name]"
 		A.desc = old_desc //Appearance resets this shit
 	if(do_texture)

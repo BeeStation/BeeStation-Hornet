@@ -221,3 +221,7 @@
 /obj/item/trait_pearl/Initialize(mapload, trait)
 	. = ..()
 	stored_trait = trait
+
+///Particle holder for trait appearances - Throw any extras you want in here
+/atom/movable/artifact_particle_holder
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

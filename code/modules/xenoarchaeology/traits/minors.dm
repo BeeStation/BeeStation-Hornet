@@ -24,7 +24,7 @@
 	weight = 10
 	conductivity = 15
 	///Reference to our particle holder
-	var/atom/movable/particle_holder
+	var/atom/movable/artifact_particle_holder/particle_holder
 
 /datum/xenoartifact_trait/minor/charged/New(atom/_parent)
 	. = ..()
@@ -211,7 +211,7 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	cooldown = -5 SECONDS //Point of balance
 	weight = 15
-	var/atom/movable/particle_holder
+	var/atom/movable/artifact_particle_holder/particle_holder
 
 /datum/xenoartifact_trait/minor/cooling/New(atom/_parent)
 	. = ..()
@@ -593,7 +593,7 @@
 	label_desc = "Signaller: The Artifact's design seems to incorporate signalling elements. This will cause the artifact to send a signal when activated."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	conductivity = 15
-	var/atom/movable/particle_holder
+	var/atom/movable/artifact_particle_holder/particle_holder
 	///Signal code
 	var/code
 	///Signal frequency
