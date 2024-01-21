@@ -17,11 +17,7 @@ export const ForceEvent = (props, context) => {
 };
 
 export const EventSearch = (props, context) => {
-  const [searchQuery, setSearchQuery] = useLocalState(
-    context,
-    'searchQuery',
-    ''
-  );
+  const [searchQuery, setSearchQuery] = useLocalState(context, 'searchQuery', '');
 
   return (
     <Section>
@@ -30,13 +26,7 @@ export const EventSearch = (props, context) => {
           <Icon name="search" />
         </Stack.Item>
         <Stack.Item grow>
-          <Input
-            autoFocus
-            fluid
-            onInput={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search..."
-            value={searchQuery}
-          />
+          <Input autoFocus fluid onInput={(e) => setSearchQuery(e.target.value)} placeholder="Search..." value={searchQuery} />
         </Stack.Item>
       </Stack>
     </Section>
@@ -49,10 +39,7 @@ export const EventOptionsPanel = (props, context) => {
   const [announce, setAnnounce] = useLocalState(context, 'announce', true);
 
   return (
-    <Button.Checkbox
-      fluid
-      checked={announce}
-      onClick={() => setAnnounce(!announce)}>
+    <Button.Checkbox fluid checked={announce} onClick={() => setAnnounce(!announce)}>
       Announce event to the crew
     </Button.Checkbox>
   );
@@ -64,9 +51,7 @@ export const EventContent = (props, context) => {
   const categories = Object.values(data.categories);
   const sortCategories = sortBy((category) => category.name);
 
-  return sortCategories(categories).map((category) => (
-    <EventList category={category} key={category.name} />
-  ));
+  return sortCategories(categories).map((category) => <EventList category={category} key={category.name} />);
 };
 
 export const EventList = (props, context) => {
@@ -76,9 +61,7 @@ export const EventList = (props, context) => {
   const [announce] = useLocalState(context, 'announce', true);
 
   const filtered_events = flow([
-    filter((event) =>
-      event.name?.toLowerCase().includes(searchQuery.toLowerCase())
-    ),
+    filter((event) => event.name?.toLowerCase().includes(searchQuery.toLowerCase())),
     sortBy((event) => event.name),
   ])(category.events || []);
 
