@@ -4,7 +4,7 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = "4.6x30mm"
 	max_ammo = 20
-	w_class = weight_class_normal
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/ammo_box/magazine/wt550m9/update_icon()
 	..()
