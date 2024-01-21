@@ -574,3 +574,21 @@
 	label_name = "ketamine"
 	desc = "A small bottle. Contains ketamine, why?"
 	list_reagents = list(/datum/reagent/drug/ketamine = 30)
+
+/obj/item/reagent_containers/glass/bottle/nitric_acid
+	name = "nitric acid bottle"
+	label_name = "nitric acid"
+	desc = "A small bottle. Contains ketamine nitric acid."
+	list_reagents = list(/datum/reagent/nitric_acid = 30)
+
+/obj/item/reagent_containers/glass/bottle/cellulose
+	name = "cellulose bottle"
+	label_name = "cellulose"
+	desc = "A small bottle. Contains cellulose."
+	list_reagents = list(/datum/reagent/cellulose = 10)
+
+/obj/item/reagent_containers/glass/bottle/nitroguanidine
+	name = "nitroguanidine bottle"
+	label_name = "nitroguanidine"
+	desc = "A small bottle. Contains nitroguanidine."
+	list_reagents = list(/datum/reagent/nitroguanidine = 30)

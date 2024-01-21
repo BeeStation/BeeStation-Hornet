@@ -384,28 +384,6 @@
 					/obj/item/clothing/head/fedora/det_hat)
 	crate_name = "forensics crate"
 
-/datum/supply_pack/security/dumdum
-	name = ".38 DumDum Speedloader"
-	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
-	cost = 1200
-	max_supply = 4
-	access = FALSE
-	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
-	contains = list(/obj/item/ammo_box/c38/dumdum)
-	crate_name = ".38 match crate"
-
-/datum/supply_pack/security/match
-	name = ".38 Match Grade Speedloader"
-	desc = "Contains one speedloader of match grade .38 ammunition, perfect for showing off trickshots. Requires Security or Forensics access to open."
-	cost = 1200
-	max_supply = 3
-	access = FALSE
-	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
-	contains = list(/obj/item/ammo_box/c38/match)
-	crate_name = ".38 match crate"
-
 /datum/supply_pack/security/securitybarriers
 	name = "Security Barricades"
 	desc = "Stem the tide with eight security barricades. Requires Security access to open."
@@ -541,23 +519,16 @@
 	access_budget = ACCESS_ARMORY
 	crate_type = /obj/structure/closet/crate/secure/weapon
 
-/datum/supply_pack/security/ammo
-	name = "Ammo Crate"
-	desc = "Contains two 20-round magazines for the WT-550 Auto Rifle, three boxes of buckshot ammo, three boxes of rubber ammo and special .38 speedloaders. Requires Security access to open."
-	cost = 2500
+/datum/supply_pack/security/armory/ammo
+	name = "Smokeless Powder Manufacturing Kit"
+	desc = "Contains three beakers of reagents required to make smokeless powder. Requires Armory access to open."
+	cost = 5000
 	max_supply = 2
-	contains = list(/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/storage/box/lethalshot,
-					/obj/item/storage/box/lethalshot,
-					/obj/item/storage/box/lethalshot,
-					/obj/item/storage/box/rubbershot,
-					/obj/item/storage/box/rubbershot,
-					/obj/item/storage/box/rubbershot,
-					/obj/item/ammo_box/c38/trac,
-					/obj/item/ammo_box/c38/hotshot,
-					/obj/item/ammo_box/c38/iceblox)
-	crate_name = "ammo crate"
+	contains = list(/obj/item/reagent_containers/glass/bottle/nitric_acid,
+					/obj/item/reagent_containers/glass/bottle/cellulose,
+					/obj/item/reagent_containers/glass/bottle/nitroguanidine,
+					/obj/item/reagent_containers/glass/bottle/nitroguanidine)
+	crate_name = "smokeless powder crate"
 
 /datum/supply_pack/security/armory/bulletarmor
 	name = "Bulletproof Armor Crate"
@@ -728,13 +699,10 @@
 
 /datum/supply_pack/security/armory/trackingimp
 	name = "Tracking Implants Crate"
-	desc = "Contains four tracking implants and three tracking speedloaders of tracing .38 ammo. Requires Armory access to open."
+	desc = "Contains four tracking implants. Requires Armory access to open."
 	cost = 1200
 	max_supply = 4
-	contains = list(/obj/item/storage/box/trackimp,
-					/obj/item/ammo_box/c38/trac,
-					/obj/item/ammo_box/c38/trac,
-					/obj/item/ammo_box/c38/trac)
+	contains = list(/obj/item/storage/box/trackimp)
 	crate_name = "tracking implant crate"
 
 /datum/supply_pack/security/armory/laserarmor
@@ -905,23 +873,29 @@
 
 /datum/supply_pack/security/armory/wt550
 	name = "WT-550 Auto Rifle Crate"
-	desc = "Contains two high-powered, semiautomatic rifles chambered in 4.6x30mm. Requires Armory access to open."
+	desc = "Contains three unloaded high-powered, semiautomatic rifles chambered in 4.6x30mm. Requires Armory access to open."
 	cost = 3280 //20%
 	max_supply = 1
-	contains = list(/obj/item/gun/ballistic/automatic/wt550,
-					/obj/item/gun/ballistic/automatic/wt550,
-					/obj/item/gun/ballistic/automatic/wt550)
+	contains = list(/obj/item/gun/ballistic/automatic/wt550/empty,
+					/obj/item/gun/ballistic/automatic/wt550/empty,
+					/obj/item/gun/ballistic/automatic/wt550/empty)
 	crate_name = "auto rifle crate"
 
 /datum/supply_pack/security/armory/wt550ammo
-	name = "WT-550 Auto Rifle Ammo Crate"
-	desc = "Contains four 20-round magazine for the WT-550 Auto Rifle. Each magazine is designed to facilitate rapid tactical reloads. Requires Armory access to open."
+	name = "WT-550 Auto Rifle Magazine Crate"
+	desc = "Contains two empty 20 round magazine for the WT-550 Auto Rifle. Each magazine is designed to facilitate rapid tactical reloads. Requires Armory access to open."
 	cost = 1500
 	max_supply = 5
-	contains = list(/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9)
+	contains = list(/obj/item/ammo_box/magazine/wt550m9/empty,
+					/obj/item/ammo_box/magazine/wt550m9/empty)
+
+/datum/supply_pack/security/armory/revolverammo
+	name = ".38 Speedloader Crate"
+	desc = "Contains two empty 6 round magazine for the Detective's revolver. Requires Armory access to open."
+	cost = 1500
+	max_supply = 5
+	contains = list(/obj/item/ammo_box/c38/empty,
+					/obj/item/ammo_box/c38/empty)
 
 /datum/supply_pack/security/armoury/bsanchor
 	name = "Bluespace Anchoring Device"

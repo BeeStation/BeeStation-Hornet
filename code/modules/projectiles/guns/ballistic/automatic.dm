@@ -103,6 +103,10 @@
 	magazine = new /obj/item/ammo_box/magazine/wt550m9/rubber(src)
 	. = ..()
 
+/obj/item/gun/ballistic/automatic/wt550/empty/Initialize(mapload)
+	spawnwithmagazine = FALSE
+	. = ..()
+
 /obj/item/gun/ballistic/automatic/mini_uzi
 	name = "\improper Type U3 Uzi"
 	desc = "A lightweight submachine gun, for when you really want someone dead. Uses 9mm rounds."

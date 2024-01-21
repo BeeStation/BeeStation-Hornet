@@ -766,6 +766,19 @@
 	results = list(/datum/reagent/pax = 3)
 	required_reagents  = list(/datum/reagent/toxin/mindbreaker = 1, /datum/reagent/medicine/synaptizine = 1, /datum/reagent/water = 1)
 
+/datum/chemical_reaction/nitrocellulose
+	name = "Nitrocellulose"
+	id = /datum/reagent/nitrocellulose
+	results = list(/datum/reagent/nitrocellulose = 4)
+	required_reagents = list(/datum/reagent/nitric_acid = 3, /datum/reagent/cellulose = 1)
+	required_catalysts = list(/datum/reagent/toxin/acid = 5)
+
+/datum/chemical_reaction/smokeless_powder
+	name = "Smokeless powder"
+	id = /datum/reagent/smokeless_powder
+	results = list(/datum/reagent/smokeless_powder = 5)
+	required_reagents = list(/datum/reagent/nitrocellulose = 2, /datum/reagent/nitroguanidine = 3)
+
 
 //////////////////EXPANDED MUTATION TOXINS/////////////////////
 

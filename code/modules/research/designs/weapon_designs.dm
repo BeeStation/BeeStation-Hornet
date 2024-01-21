@@ -3,80 +3,123 @@
 /////////////////////////////////////////
 
 /datum/design/c38/sec
+	name = "Ammo Box (.38)"
+	desc = "A 6 round box of .38 special rounds."
 	id = "sec_38"
 	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 10000, /datum/material/copper = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 10)
+	build_path = /obj/item/ammo_box/c38_box
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/c38b/sec
+	name = "Ammo Box (.38 Rubber)"
+	desc = "A 6 round box of .38 Rubber shot rounds."
 	id = "sec_38b"
 	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 10000, /datum/material/plastic = 3000, /datum/material/copper = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 10)
+	build_path = /obj/item/ammo_box/c38_boxrubber
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/c38_trac
-	name = "Speed Loader (.38 TRAC)"
-	desc = "Designed to quickly reload revolvers. TRAC bullets embed a tracking implant within the target's body."
+	name = "Ammo Box (.38 TRAC)"
+	desc = "A 6 round box of .38 Tracking rounds."
 	id = "c38_trac"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 20000, /datum/material/silver = 5000, /datum/material/gold = 1000)
-	build_path = /obj/item/ammo_box/c38/trac
+	materials = list(/datum/material/iron = 10000, /datum/material/silver = 5000, /datum/material/gold = 1000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 10)
+	build_path = /obj/item/ammo_box/c38_boxtrac
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/c38_hotshot
-	name = "Speed Loader (.38 Hot Shot)"
-	desc = "Designed to quickly reload revolvers. Hot Shot bullets contain an incendiary payload."
+	name = "Ammo Box (.38 Hot Shot)"
+	desc = "A 6 round box of .38 Hot Shot rounds."
 	id = "c38_hotshot"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 20000, /datum/material/plasma = 5000)
-	build_path = /obj/item/ammo_box/c38/hotshot
+	materials = list(/datum/material/iron = 15000, /datum/material/plasma = 5000, /datum/material/copper = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 10)
+	build_path = /obj/item/ammo_box/c38_boxhotshot
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/c38_iceblox
-	name = "Speed Loader (.38 Iceblox)"
-	desc = "Designed to quickly reload revolvers. Iceblox bullets contain a cryogenic payload."
+	name = "Ammo Box (.38 Iceblox)"
+	desc = "A 6 round box of .38 Iceblox rounds"
 	id = "c38_iceblox"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 20000, /datum/material/plasma = 5000)
-	build_path = /obj/item/ammo_box/c38/iceblox
+	materials = list(/datum/material/iron = 20000, /datum/material/plasma = 5000, /datum/material/copper = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 10)
+	build_path = /obj/item/ammo_box/c38_boxiceblox
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/rubbershot/sec
+	name = "Rubber Shot"
+	desc = "A less lethal 12 gauge shotgun shell that fires a spread of rubber pellets."
 	id = "sec_rshot"
 	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/plastic = 10000, /datum/material/copper = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 15)
+	build_path = /obj/item/ammo_casing/shotgun/rubbershot
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/beanbag_slug/sec
+	name = "Beanbag Slug"
+	desc = "A less lethal 12 gauge shotgun round that fires a single weighted projectile."
 	id = "sec_beanbag_slug"
 	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/plastic = 10000, /datum/material/copper = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 15)
+	build_path = /obj/item/ammo_casing/shotgun
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/shotgun_slug/sec
+	name ="Shotgun Slug"
+	desc = "A lethal 12 gauge shotgun round that fires a single hefty slug."
 	id = "sec_slug"
 	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 10000, /datum/material/plastic = 5000, /datum/material/copper = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 15)
+	build_path = /obj/item/ammo_casing/shotgun
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/buckshot_shell/sec
+	name = "Buckshot Shell"
+	desc = "A lethal 12 gauge shotgun round that fires a spread of pellets."
 	id = "sec_bshot"
 	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/plastic = 5000, /datum/material/copper = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 15)
+	build_path = /obj/item/ammo_casing/shotgun/buckshot
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/shotgun_dart/sec
+	name = "Shotgun Dart"
+	desc = "A 12 gauge shotgun round that delivers a chemical payload."
 	id = "sec_dart"
 	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/plastic = 5000, /datum/material/copper = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 15)
+	build_path = /obj/item/ammo_casing/shotgun/dart
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/incendiary_slug/sec
+	name = "Incendiary Slug"
+	desc = "A lethal 12 gauge shotgun round that fires a spread of incendiary pellets."
 	id = "sec_Islug"
 	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/plastic = 5000, /datum/material/copper = 2000, /datum/material/plasma = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 15)
+	build_path = /obj/item/ammo_casing/shotgun/incendiary
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -85,7 +128,8 @@
 	desc = "A 12 gauge anti-material slug. Great for breaching airlocks and windows with minimal shots."
 	id = "sec_Brslug"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 4000)
+	materials = list(/datum/material/iron = 15000, /datum/material/plastic = 5000, /datum/material/copper = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 15)
 	build_path = /obj/item/ammo_casing/shotgun/breacher
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -312,42 +356,46 @@
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-//WT550 Mags
+//WT550 Ammo Boxes
 
-/datum/design/mag_oldsmg
-	name = "WT-550 Auto Gun Magazine (4.6x30mm)"
-	desc = "A 20 round magazine for the out of date security WT-550 Auto Rifle"
-	id = "mag_oldsmg"
+/datum/design/ammo_oldsmg
+	name = "Ammo Box (4.6x30mm)"
+	desc = "A 20 round box of ammo for the WT-550 Auto Rifle."
+	id = "ammo_box_oldsmg"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 4000)
-	build_path = /obj/item/ammo_box/magazine/wt550m9
+	materials = list(/datum/material/iron = 20000, /datum/material/copper = 5000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 75)
+	build_path = /obj/item/ammo_box/c46
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/mag_oldsmg/rubber
-	name = "WT-550 Rubber Auto Gun Magazine (4.6x30mm Rubber)"
-	desc = "A 20 round magazine for the out of date security WT-550 Auto Rifle"
-	id = "mag_oldsmg_rubber"
+/datum/design/ammo_oldsmg/rubber
+	name = "Ammo Box (4.6x30mm Rubber)"
+	desc = "A 20 round box of rubber ammo for the WT-550 Auto Rifle."
+	id = "ammo_box_oldsmg_rubber"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 3000)
-	build_path = /obj/item/ammo_box/magazine/wt550m9/rubber
+	materials = list(/datum/material/iron = 20000, /datum/material/copper = 5000, /datum/material/plastic = 10000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 75)
+	build_path = /obj/item/ammo_box/c46rubber
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/mag_oldsmg/ap_mag
-	name = "WT-550 Auto Gun Armour Piercing Magazine (4.6x30mm AP)"
-	desc = "A 20 round armour piercing magazine for the out of date security WT-550 Auto Rifle"
-	id = "mag_oldsmg_ap"
-	materials = list(/datum/material/iron = 6000, /datum/material/silver = 600)
-	build_path = /obj/item/ammo_box/magazine/wt550m9/wtap
+/datum/design/ammo_oldsmg/ap_mag
+	name = "Ammo Box (4.6x30mm AP)"
+	desc = "A 20 round box of armor piercing ammo for the WT-550 Auto Rifle."
+	id = "ammo_box_oldsmg_ap"
+	materials = list(/datum/material/iron = 25000, /datum/material/copper = 5000, /datum/material/titanium = 10000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 75)
+	build_path = /obj/item/ammo_box/c46ap
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/mag_oldsmg/ic_mag
-	name = "WT-550 Auto Gun Incendiary Magazine (4.6x30mm IC)"
-	desc = "A 20 round armour piercing magazine for the out of date security WT-550 Auto Rifle"
-	id = "mag_oldsmg_ic"
-	materials = list(/datum/material/iron = 6000, /datum/material/silver = 600, /datum/material/glass = 1000)
-	build_path = /obj/item/ammo_box/magazine/wt550m9/wtic
+/datum/design/ammo_oldsmg/ic_mag
+	name = "Ammo Box (4.6x30mm IC)"
+	desc = "A 20 round box of incendiary ammo for the WT-550 Auto Rifle."
+	id = "ammo_box_oldsmg_ic"
+	materials = list(/datum/material/iron = 25000, /datum/material/copper = 5000, /datum/material/plasma = 5000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 75)
+	build_path = /obj/item/ammo_box/c46inc
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/stunshell
@@ -355,7 +403,8 @@
 	desc = "A stunning shell for a shotgun."
 	id = "stunshell"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 200)
+	materials = list(/datum/material/iron = 5000, /datum/material/plastic = 5000, /datum/material/copper = 10000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 15)
 	build_path = /obj/item/ammo_casing/shotgun/stunslug
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -365,7 +414,8 @@
 	desc = "A high-tech shotgun shell which can be loaded with materials to produce unique effects."
 	id = "techshotshell"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 1000, /datum/material/glass = 200)
+	materials = list(/datum/material/iron = 5000, /datum/material/plastic = 5000, /datum/material/copper = 2000, /datum/material/glass = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 20)
 	build_path = /obj/item/ammo_casing/shotgun/techshell
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_SCIENCE
@@ -405,7 +455,8 @@
 	desc = "A shotgun dart designed with similar internals to that of a cryostasis beaker, allowing reagents to not react when inside."
 	id = "shotgundartcryostasis"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 3500)
+	materials = list(/datum/material/silver = 5000, /datum/material/plastic = 5000, /datum/material/copper = 2000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 15)
 	build_path = /obj/item/ammo_casing/shotgun/dart/noreact
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

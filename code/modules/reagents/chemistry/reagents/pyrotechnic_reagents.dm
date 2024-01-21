@@ -328,3 +328,43 @@
 		M.adjust_fire_stacks(-reac_volume)
 		M.ExtinguishMob()
 	..()
+
+/datum/reagent/smokeless_powder
+	name = "Smokeless Powder"
+	description = "A space age propellant for projectiles. New safety innovations have allowed it to remain inert until detonated by a specialized primer."
+	reagent_state = SOLID
+	color = "#555555ff"
+	chem_flags = NONE
+	taste_description = "the potential for catastrophe"
+
+/datum/reagent/nitric_acid
+	name = "Nitric Acid"
+	description = "A highly corrosive acid used in the production of smokeless powder."
+	reagent_state = SOLID
+	color = "#b9b9b94b"
+	chem_flags = NONE
+	taste_description = "an intense burning in your throat"
+
+/datum/reagent/cellulose
+	name = "Cellulose"
+	description = "An inert organic compound used in the production of smokeless powder."
+	reagent_state = SOLID
+	color = "#ffffffcc"
+	chem_flags = NONE
+	taste_description = "nothing"
+
+/datum/reagent/nitrocellulose
+	name = "Nitrocellulose"
+	description = "A highly flammable compound commonly combined with nitroguanidine to produce smokeless powder."
+	reagent_state = SOLID
+	color = "#b1a964ff"
+	chem_flags = NONE
+	taste_description = "burning bitterness"
+
+/datum/reagent/nitroguanidine
+	name = "Nitroguanidine"
+	description = "A dangerous compound commonly combined with nitroguanidine to produce smokeless powder."
+	reagent_state = SOLID
+	color = "#ffffff38"
+	chem_flags = NONE
+	taste_description = "stable potential"

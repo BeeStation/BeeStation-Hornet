@@ -20,6 +20,9 @@
 	multiple_sprites = 1
 	custom_materials = list(/datum/material/iron = 20000)
 
+/obj/item/ammo_box/c38/empty
+	start_empty = TRUE
+
 /obj/item/ammo_box/c38/trac
 	name = "speed loader (.38 TRAC)"
 	desc = "Designed to quickly reload revolvers. TRAC bullets embed a tracking implant within the target's body."
@@ -71,6 +74,48 @@
 	name = "ammo pouch (.38)"
 	ammo_type = /obj/item/ammo_casing/c38
 	max_ammo = 4
+
+/obj/item/ammo_box/c38_box
+	name = "ammo box (.38)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c38
+	max_ammo = 6
+
+/obj/item/ammo_box/c38_boxrubber
+	name = "ammo box (.38 Rubber)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c38/match/bouncy
+	max_ammo = 6
+
+/obj/item/ammo_box/c38_boxtrac
+	name = "ammo box (.38 TRAC)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c38/trac
+	max_ammo = 6
+
+/obj/item/ammo_box/c38_boxhotshot
+	name = "ammo box (.38 Hot Shot)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c38/hotshot
+	max_ammo = 6
+
+/obj/item/ammo_box/c38_boxiceblox
+	name = "ammo box (.38 Iceblox)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c38/iceblox
+	max_ammo = 6
+
+/obj/item/ammo_box/c38_boxdumdum
+	name = "ammo box (.38 DumDum)"
+	icon_state = "45box"
+	ammo_type = /obj/projectile/bullet/c38/dumdum
+	max_ammo = 6
+
+/obj/item/ammo_box/c38_boxmatch
+	name = "ammo box (.38 Match)"
+	icon_state = "45box"
+	ammo_type = /obj/projectile/bullet/c38/match
+	max_ammo = 6
 
 /obj/item/ammo_box/pouch/c38/improv
 	name = "ammo pouch (improv .38)"
@@ -156,3 +201,27 @@
 	icon_state = "foambox_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	custom_materials = list(/datum/material/iron = 50000)
+
+/obj/item/ammo_box/c46
+	name = "ammo box (4.6x30mm)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c46x30mm
+	max_ammo = 20
+
+/obj/item/ammo_box/c46rubber
+	name = "ammo box (4.6x30mm Rubber)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c46x30mm/rubber
+	max_ammo = 20
+
+/obj/item/ammo_box/c46ap
+	name = "ammo box (4.6x30mm AP)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
+	max_ammo = 20
+
+/obj/item/ammo_box/c46inc
+	name = "ammo box (4.6x30mm IC)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
+	max_ammo = 20
