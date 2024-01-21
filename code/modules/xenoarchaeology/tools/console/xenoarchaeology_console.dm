@@ -111,6 +111,7 @@
 			
 	var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in AM.contents
 	var/datum/component/xenoartifact/X = AM.GetComponent(/datum/component/xenoartifact)
+	radio?.talk_into(src, "test2, label is [L], and component is [X].", RADIO_CHANNEL_SCIENCE)
 	if(X && L)
 		//Calculate success rate
 		var/score = 0

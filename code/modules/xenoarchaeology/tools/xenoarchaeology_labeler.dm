@@ -25,6 +25,9 @@
 	///List of descriptions for selected traits
 	var/list/info_list = list()
 
+	///List of trait stats for tooltip shit, this is kinda fucked but who gives a shit
+	var/list/tooltip_stats = list()
+
 	///List of selected traits we'll put on the label
 	var/list/label_traits = list()
 
@@ -64,6 +67,7 @@
 	data["major_traits"] = major_traits
 	data["minor_traits"] = minor_traits
 	data["activator_traits"] = activator_traits
+	data["tooltip_stats"] = tooltip_stats
 
 	return data
 
@@ -96,8 +100,8 @@
 /obj/item/xenoarchaeology_labeler/proc/get_trait_list_names(list/trait_type)
 	var/list/temp = list()
 	for(var/datum/xenoartifact_trait/T as() in trait_type)
-		temp += initial(T.label_name)
-		
+		temp += list(initial(T.label_name))
+		tooltip_stats["[initial(T.label_name)]"] = list("weight" = initial(T.weight), "conductivity" = initial(T.conductivity))
 	return temp
 
 /obj/item/xenoarchaeology_labeler/afterattack(atom/target, mob/user, proximity_flag)

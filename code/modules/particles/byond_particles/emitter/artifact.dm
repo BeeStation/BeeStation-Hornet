@@ -84,7 +84,7 @@
 	fade = 1
 	fadein = 1
 	rotation = generator("num", 0, 360, UNIFORM_RAND)
-	spin = generator("num", 10, 20, UNIFORM_RAND)
+	spin = generator("num", 10, 15, UNIFORM_RAND)
 	friction = 0.21
 	color = "#94f3ff"
 	scale = generator("box", list(1.5, 1.5, 1.5), list(2, 2, 2), UNIFORM_RAND)

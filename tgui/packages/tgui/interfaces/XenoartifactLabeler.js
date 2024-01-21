@@ -49,7 +49,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Section title="Activator Traits">
         <Box>
           {sorted_activators.map((trait) => (
-            <XenoartifactlabelerGenerateList
+            <XenoartifactlabelerGenerateEntry
               specific_trait={trait}
               check_against={selected_activator_traits}
               key={trait}
@@ -62,7 +62,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Section title="Minor Traits">
         <Box>
           {sorted_minors.map((trait) => (
-            <XenoartifactlabelerGenerateList
+            <XenoartifactlabelerGenerateEntry
               specific_trait={trait}
               check_against={selected_minor_traits}
               key={trait}
@@ -75,7 +75,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Section title="Major Traits">
         <Box>
           {sorted_majors.map((trait) => (
-            <XenoartifactlabelerGenerateList
+            <XenoartifactlabelerGenerateEntry
               specific_trait={trait}
               check_against={selected_major_traits}
               key={trait}
@@ -88,7 +88,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Section title="Malfunction Traits">
         <Box>
           {sorted_malfs.map((trait) => (
-            <XenoartifactlabelerGenerateList
+            <XenoartifactlabelerGenerateEntry
               key={trait}
               specific_trait={trait}
               check_against={selected_malfunction_traits}
@@ -113,15 +113,17 @@ const XenoartifactlabelerInfo = (props, context) => {
   );
 };
 
-const XenoartifactlabelerGenerateList = (props, context) => {
-  const { act } = useBackend(context);
+const XenoartifactlabelerGenerateEntry = (props, context) => {
+  const { act, data } = useBackend(context);
   const { specific_trait, check_against, trait_type } = props;
+  const { tooltip_stats } = data;
   return (
     <Box>
       <Button.Checkbox
         content={specific_trait}
         checked={check_against.includes(specific_trait)}
         onClick={() => act(`assign_${trait_type}_${specific_trait}`)}
+        tooltip={`Weight: ${tooltip_stats[specific_trait]["weight"]}, Conductivity: ${tooltip_stats[specific_trait]["conductivity"]}`}
       />
     </Box>
   );
