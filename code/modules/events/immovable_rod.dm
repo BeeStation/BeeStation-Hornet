@@ -14,6 +14,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	max_occurrences = 5
 	var/atom/special_target
 	can_malf_fake_alert = TRUE
+	category = EVENT_CATEGORY_SPACE
+	description = "The station passes through an immovable rod."
 
 
 /datum/round_event_control/immovable_rod/admin_setup()
@@ -25,7 +27,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		special_target = get_turf(usr)
 
 /datum/round_event/immovable_rod
-	announceWhen = 5
+	announce_when = 5
 
 /datum/round_event/immovable_rod/announce(fake)
 	priority_announce("What the fuck was that?!", "General Alert", SSstation.announcer.get_rand_alert_sound())
