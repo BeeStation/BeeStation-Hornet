@@ -156,7 +156,12 @@
 	name = "Gang boss"
 	hud_type = "gang_boss"
 	message_name = "Leader"
-	var/datum/action/innate/gang/invitation/inv = new
+	var/datum/action/innate/gang/invitation/invite = new
+
+/datum/antagonist/gang/boss/Destroy()
+	QDEL_NULL(invite)
+	return ..()
+
 
 /datum/antagonist/gang/boss/on_gain()
 	..()
@@ -169,13 +174,17 @@
 	..()
 
 /datum/antagonist/gang/boss/apply_innate_effects(mob/living/mob_override)
-	..()
-	inv.Grant(owner.current)
+	. = ..()
+	invite.Grant(owner.current)
+
+/datum/antagonist/gang/boss/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	invite.Remove(owner.current)
 
 /datum/antagonist/gang/boss/antag_listing_name()
 	return ..() + "(Boss)"
 
-/datum/antagonist/gang/boss/equip_gang(gangtool = TRUE, pen = TRUE, spraycan = TRUE, hud = TRUE) // usually has to be called separately
+/datum/antagonist/gang/boss/equip_gang(gangtool = TRUE, spraycan = TRUE) // usually has to be called separately
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return
@@ -197,14 +206,6 @@
 			to_chat(H, "The <b>Gangtool</b> in your [where] will allow you to purchase weapons and equipment, send messages to your gang, and recall the emergency shuttle from anywhere on the station.")
 			to_chat(H, "As the gang boss, you can also promote your gang members to <b>lieutenant</b>. Unlike regular gangsters, Lieutenants cannot be deconverted and are able to use recruitment pens and gangtools.")
 
-	if(pen)
-		var/obj/item/pen/gang/T = new()
-		var/where2 = H.equip_in_one_of_slots(T, slots)
-		if (!where2)
-			to_chat(H, "Your Syndicate benefactors were unfortunately unable to get you a recruitment pen to start.")
-		else
-			to_chat(H, "The <b>recruitment pen</b> in your [where2] will help you get your gang started. Stab unsuspecting crew members with it to recruit them.")
-
 	if(spraycan)
 		var/obj/item/toy/crayon/spraycan/gang/SC = new(null,gang)
 		var/where3 = H.equip_in_one_of_slots(SC, slots)
@@ -213,13 +214,6 @@
 		else
 			to_chat(H, "The <b>territory spraycan</b> in your [where3] can be used to claim areas of the station for your gang. The more territory your gang controls, the more influence you get. All gangsters can use these, so distribute them to grow your influence faster.")
 
-	if(hud)
-		var/obj/item/clothing/glasses/hud/security/chameleon/C = new(null,gang)
-		var/where4 = H.equip_in_one_of_slots(C, slots)
-		if (!where4)
-			to_chat(H, "Your Syndicate benefactors were unfortunately unable to get you a chameleon security HUD.")
-		else
-			to_chat(H, "The <b>chameleon security HUD</b> in your [where4] will help you keep track of who is mindshield-implanted, and unable to be recruited.")
 
 // Admin commands for bosses
 /datum/antagonist/gang/boss/admin_add(datum/mind/new_owner,mob/admin)
@@ -286,6 +280,7 @@
 	var/hud_entry_num
 	var/list/leaders = list() // bosses
 	var/max_leaders = MAX_LEADERS_GANG
+	var/max_members = MAX_MEMBERS_GANG
 	var/list/territories = list() // territories owned by the gang.
 	var/list/lost_territories = list() // territories lost by the gang.
 	var/list/new_territories = list() // territories captured by the gang.
