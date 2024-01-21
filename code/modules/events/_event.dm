@@ -143,7 +143,7 @@ Runs the event
 		sleep(RANDOM_EVENT_ADMIN_INTERVENTION_TIME)
 
 	if(!triggering)
-		RegisterSignal(SSdcs, COMSIG_GLOB_RANDOM_EVENT, .proc/stop_random_event)
+		RegisterSignal(SSdcs, COMSIG_GLOB_RANDOM_EVENT, PROC_REF(stop_random_event))
 		E.cancel_event = TRUE
 		return E
 
