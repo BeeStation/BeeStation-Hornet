@@ -194,7 +194,6 @@
 //   ------------------------------
 
 /datum/map_template/holodeck/small
-	linked = /obj/machinery/computer/holodeck/small
 
 /datum/map_template/holodeck/small/offline
 	name = "Holodeck - Offline"
@@ -338,16 +337,4 @@
 	name = "Holodeck - Refueling Station"
 	template_id = "refuelingstation"
 	mappath = "_maps/holodeck/small/refuelingstation.dmm"
-	restricted = TRUE
-
-/datum/map_template/holodeck/small/asylum
-	name = "Holodeck - Asylum"
-	template_id = "asylum"
-	mappath = "_maps/holodeck/asylum.dmm"
-	restricted = TRUE
-
-/datum/map_template/holodeck/small/clownworld
-	name = "Holodeck - Clown World"
-	template_id = "clownworld"
-	mappath = "_maps/holodeck/clownworld.dmm"
 	restricted = TRUE

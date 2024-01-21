@@ -349,10 +349,6 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/item/pen{
-	pixel_x = 4;
-	pixel_y = 5
-	},
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},

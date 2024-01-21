@@ -415,9 +415,10 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	return ..()
 
 /obj/machinery/computer/holodeck/small
-	template = /datum/map_template/holodeck/small
+
 	mapped_start_area = /area/holodeck/small
-	program_type = /datum/map_template/holodeck/small
+	linked = /area/holodeck/small //linked area
+	program_type = /datum/map_template/holodeck/small //load workshop programs
 
 #undef HOLODECK_CD
 #undef HOLODECK_DMG_CD

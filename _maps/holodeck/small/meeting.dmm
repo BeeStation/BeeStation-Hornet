@@ -140,7 +140,6 @@
 	},
 /obj/structure/table/wood/bar,
 /obj/item/paper_bin,
-/obj/item/pen,
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "D" = (
