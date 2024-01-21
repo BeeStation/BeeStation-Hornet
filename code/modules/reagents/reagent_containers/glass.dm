@@ -407,6 +407,7 @@
 	volume = 100
 	amount_per_transfer_from_this = 20
 	cap_icon_state = "bottle_cap"
+	vendor_icon_preview = "waterbottle_large"
 
 /obj/item/reagent_containers/glass/waterbottle/large/empty
 	list_reagents = list()
@@ -490,24 +491,3 @@
 		qdel(src)
 		return
 	return ..()
-
-/obj/item/reagent_containers/glass/hexapod
-	name = "hexapod"
-	desc = "Some kind of spiny metallic organ from a splinter bush, holding some kind of chemical."
-	icon_state = "hexapod"
-	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = list(1, 2, 5)
-	fill_icon_thresholds = list(0)
-	volume = 5
-	reagent_flags = DRAINABLE | TRANSPARENT
-
-/obj/item/reagent_containers/glass/hexapod/Initialize()
-	list_reagents = list(pick(\
-		/datum/reagent/medicine/dexalin,\
-		/datum/reagent/medicine/silver_sulfadiazine,\
-		/datum/reagent/medicine/leporazine,\
-		/datum/reagent/toxin/heparin,\
-		/datum/reagent/toxin/lexorin,\
-		/datum/reagent/toxin/mindbreaker) = 5)
-	. = ..()
-	update_icon()

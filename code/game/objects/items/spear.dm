@@ -12,7 +12,7 @@
 	block_upgrade_walk = 1
 	throwforce = 20
 	throw_speed = 4
-	embedding = list("armour_block" = 60)
+	embedding = list("armour_block" = 60, "max_damage_mult" = 0.5)
 	armour_penetration = 10
 	custom_materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -186,7 +186,7 @@
 	block_upgrade_walk = 1
 	throwforce = 22
 	throw_speed = 4
-	embedding = list("armour_block" = 30)
+	embedding = list("armour_block" = 30, "max_damage_mult" = 0.5)
 	armour_penetration = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
@@ -196,41 +196,3 @@
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, \
 				block_power_wielded=25, icon_wielded="[icon_prefix]1")
-
-/obj/item/spear/splinter
-	icon_prefix = "splinterspear"
-	icon_state = "splinterspear0"
-	name = "splinter spear"
-	desc = "A long, thorned spear made of abyssal splinters and silver. Its tip is incredibly sharp, but you can't find a place to put your hands that doesn't have spikes."
-	throwforce = 30
-	throw_speed = 4
-	block_upgrade_walk = 0
-	embedding = list("armour_block" = 60, "embed_chance" = 80)
-
-	var/datum/component/splintering/splinter
-	var/growth_per_hit = 7
-	var/growth_decay = 0.1
-	var/self_damage_min = 5
-	var/self_damage_max = 10
-	var/blood_siphoned = 20
-	var/embed_damage = 25
-
-/obj/item/spear/splinter/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=22, icon_wielded="[icon_prefix]1")
-
-/obj/item/spear/splinter/equipped(mob/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_HANDS)
-		splinter = user.AddComponent(/datum/component/splintering, src, growth_per_hit, growth_decay, self_damage_min, self_damage_max, blood_siphoned, embed_damage)
-
-/obj/item/spear/splinter/dropped(mob/living/carbon/user)
-	. = ..()
-	QDEL_NULL(splinter)
-
-/obj/item/spear/splinter/update_icon_state()
-	if(splinter && splinter.is_embedded)
-		icon_state = "[icon_prefix]0_stuck"
-	else
-		icon_state = "[icon_prefix]0"
-	..()
