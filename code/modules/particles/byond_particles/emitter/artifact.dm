@@ -40,17 +40,18 @@
 	add_filter("blur", 1, list(type="blur", size=1))
 
 /particles/electrified/snow_smoke
-    icon = 'icons/effects/particles/smoke.dmi'
-    icon_state = list("steam_1" = 1, "steam_2" = 1, "steam_3" = 2)
+	icon = 'icons/effects/particles/smoke.dmi'
+	icon_state = list("steam_1" = 1, "steam_2" = 1, "steam_3" = 2)
 
 ///Electrified
 /obj/emitter/electrified
 	particles = new/particles/electrified
 	plane = ABOVE_LIGHTING_PLANE
+	blend_mode = BLEND_ADD
 
 /obj/emitter/electrified/Initialize(mapload)
-    . = ..()
-    add_filter("bloom" , 1 , list(type="bloom", size=1, offset = 0.5, alpha = 220))
+	. = ..()
+	add_filter("bloom" , 1 , list(type="bloom", size=1, offset = 0.1, alpha = 255))
 
 /particles/electrified
 	count = 10
@@ -64,13 +65,14 @@
 	friction = 0.21
 	color = "#94f3ff"
 	scale = list(0.14, 0.14)
-	grow = list(0.1, 0.1)
+	grow = list(0.08, 0.08)
 	icon = 'icons/effects/particles/misc.dmi'
-	icon_state = list("static_1")
+	icon_state = list("static_1", "static_2")
 
 ///Calibartion spiral thing
 /obj/emitter/spiral
 	plane = ABOVE_LIGHTING_PLANE
+	blend_mode = BLEND_ADD
 
 /obj/emitter/spiral/proc/setup(_color)
 	particles = new/particles/spiral(_color)
@@ -85,10 +87,10 @@
 	spin = generator("num", 10, 20, UNIFORM_RAND)
 	friction = 0.21
 	color = "#94f3ff"
-	scale = generator("box", list(1.2, 1.2, 1.2), list(1.8, 1.8, 1.8), UNIFORM_RAND)
+	scale = generator("box", list(1.5, 1.5, 1.5), list(2, 2, 2), UNIFORM_RAND)
 	grow = list(-0.5, -0.5)
 	icon = 'icons/effects/particles/misc.dmi'
-	icon_state = list("line_1")
+	icon_state = list("line_1", "line_2", "line_3")
 
 /particles/spiral/New(_color)
 	. = ..()

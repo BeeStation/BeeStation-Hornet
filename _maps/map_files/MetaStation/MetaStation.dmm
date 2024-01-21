@@ -36583,6 +36583,8 @@
 	},
 /obj/effect/loot_jobscale/medical/first_aid_kit,
 /obj/item/clothing/neck/stethoscope,
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "iaK" = (

@@ -250,7 +250,7 @@
 	if(get_dist(get_turf(parent), get_turf(target))> target_range && !force)
 		return
 	//Anti-artifact check
-	if(anti_check(target, type))
+	if(anti_check(target, type) && !force)
 		return
 	//Prexisting check
 	if((target in targets) && !force)

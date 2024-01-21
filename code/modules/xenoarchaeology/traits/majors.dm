@@ -13,6 +13,8 @@
 /datum/xenoartifact_trait/major/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	//TODO: Reconsider - Racc
+	if(!.)
+		return
 	for(var/mob/living/M as() in oview(9, get_turf(parent.parent)))
 		if(istype(M))
 			do_hint(M)
@@ -267,7 +269,8 @@
 	. = ..()
 	if(!.)
 		return
-	INVOKE_ASYNC(src, PROC_REF(do_emp)) //empluse() calls stoplag(), which calls sleep()
+	else
+		INVOKE_ASYNC(src, PROC_REF(do_emp)) //empluse() calls stoplag(), which calls sleep()
 
 /datum/xenoartifact_trait/major/emp/proc/do_emp()
 	var/turf/T = get_turf(parent.parent)

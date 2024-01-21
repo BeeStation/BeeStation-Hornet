@@ -21,6 +21,9 @@
 	//Trait check - This is different from an anti artifact check and should be done here to avoid activations, this trait is a helper essentially
 	if(target && HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
 		return FALSE
+	//Stop traits that don't register targets activating when we feel them
+	if(parent.anti_check(target, type))
+		return FALSE
 	parent.register_target(target, force, type)
 	parent.trigger()
 	return TRUE
@@ -125,10 +128,25 @@
 	if(!parent?.parent)
 		return
 	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
+	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+	RegisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+	//TODO: Add indicators for lit  / unlit - Racc
+
+/datum/xenoartifact_trait/activator/flammable/translation_type_a(datum/source, atom/target)
+	lit = FALSE
+
+/datum/xenoartifact_trait/activator/flammable/translation_type_d(datum/source, atom/target)
+	var/atom/A = parent.parent
+	if(A.density)
+		lit = FALSE
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_b(datum/source, atom/item, atom/target)
 	var/obj/item/I = item
 	if(isitem(I) && I.is_hot() && !check_item_safety(item))
+		if(HAS_TRAIT(item, TRAIT_ARTIFACT_IGNORE))
+			return FALSE
+		if(parent.anti_check(target, XENOA_ACTIVATION_TOUCH))
+			return FALSE
 		lit = TRUE
 		search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 		START_PROCESSING(SSobj, src)
@@ -143,11 +161,11 @@
 		if(!ismob(target))
 			continue
 		trigger_artifact(target)
-		lit = FALSE
 		break
 	//We can atleast try triggering with no targets, for traits that don't need 'em
 	if(!length(parent.targets))
 		parent.trigger()
+	lit = FALSE //This is a semi-weird way to do it, but it lets us 'disable' the fuse if we want
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 
 /datum/xenoartifact_trait/activator/flammable/get_dictionary_hint()

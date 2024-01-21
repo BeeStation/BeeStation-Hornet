@@ -166,6 +166,7 @@
 
 /datum/xenoartifact_trait/proc/setup_generic_touch_hint()
 	RegisterSignal(parent.parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(hint_translation_type_b))
+	RegisterSignal(parent.parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(hint_translation_type_b))
 
 /datum/xenoartifact_trait/proc/hint_translation_type_a(datum/source, obj/item, mob/living, params)
 	SIGNAL_HANDLER
@@ -175,6 +176,9 @@
 /datum/xenoartifact_trait/proc/hint_translation_type_b(datum/source, mob/living)
 	SIGNAL_HANDLER
 
+	var/atom/A = parent.parent
+	if(!A.density && A.loc != living)
+		return
 	do_hint(living, null)
 
 /datum/xenoartifact_trait/proc/do_hint(mob/user, atom/item)
