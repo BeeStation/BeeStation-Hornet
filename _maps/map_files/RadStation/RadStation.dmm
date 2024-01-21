@@ -48957,6 +48957,11 @@
 /obj/item/bedsheet/dorms,
 /obj/structure/bed,
 /obj/item/toy/batong,
+/obj/machinery/door_timer{
+	id = "cell";
+	name = "Solitary confinement timer";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "psh" = (
@@ -53925,7 +53930,8 @@
 "qWs" = (
 /obj/machinery/door/window/brigdoor/security/cell/eastleft{
 	req_one_access_txt = "1";
-	name = "Solitary Confinement"
+	name = "Solitary Confinement";
+	id = "cell"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -64151,6 +64157,10 @@
 /obj/effect/landmark/start/security_officer,
 /obj/structure/toilet{
 	pixel_y = 13
+	},
+/obj/machinery/flasher{
+	id = "cell";
+	pixel_x = -25
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
