@@ -709,6 +709,9 @@
 	},
 /obj/effect/turf_decal/guideline/guideline_edge/red,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Viewing Hall"
@@ -1323,6 +1326,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "axk" = (
@@ -1386,6 +1392,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig/dock)
@@ -2885,6 +2894,7 @@
 	name = "Toilet Unit"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/freezer,
 /area/security/prison)
 "aVk" = (
@@ -3168,6 +3178,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/brig/medbay)
@@ -4385,6 +4398,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/security/warden)
 "bvB" = (
@@ -5727,6 +5741,7 @@
 	name = "Gear Room";
 	req_one_access_txt = "1"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Locker Room"
@@ -6464,6 +6479,9 @@
 	name = "Detective's Office";
 	req_access_txt = "4"
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/detectives_office)
 "cgb" = (
@@ -7194,6 +7212,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -17263,6 +17284,9 @@
 	name = "Labor Camp Shuttle Airlock";
 	req_access_txt = "2"
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig/dock)
 "frW" = (
@@ -18535,6 +18559,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "fNg" = (
@@ -18605,6 +18630,7 @@
 	name = "Armory";
 	req_access_txt = "3"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "fOg" = (
@@ -19685,6 +19711,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/prison,
 /area/security/prison)
 "gep" = (
@@ -20550,6 +20578,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hos)
 "gqH" = (
@@ -20593,6 +20622,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/security/brig/dock)
 "grE" = (
@@ -21222,6 +21252,9 @@
 	},
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig/dock)
@@ -25018,6 +25051,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "hLl" = (
@@ -28030,6 +28064,7 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "iPo" = (
@@ -37876,6 +37911,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison/shielded)
 "lWz" = (
@@ -41781,6 +41819,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/dark,
 /area/security/brig/dock)
 "nff" = (
@@ -48715,6 +48754,7 @@
 	color = "#DE3A3A"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Viewing Hall"
@@ -49561,6 +49601,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/security/prison)
@@ -55865,6 +55908,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "rAL" = (
@@ -57302,6 +57348,9 @@
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig/dock)
@@ -59435,6 +59484,9 @@
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig/dock)
@@ -61748,6 +61800,7 @@
 	name = "Re-Education Chamber";
 	req_access_txt = "3"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "trw" = (
@@ -67920,6 +67973,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Viewing Hall"
@@ -68730,6 +68786,9 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Locker Room"
@@ -68877,6 +68936,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/main{
 	name = "Security Viewing Hall"
@@ -69167,6 +69229,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "vHU" = (
@@ -70918,6 +70981,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/ridged/steel,
 /area/crew_quarters/heads/hos)
 "wkK" = (
@@ -70936,6 +71000,9 @@
 	req_one_access_txt = "1"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "wkM" = (
