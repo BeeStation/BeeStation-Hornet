@@ -4,11 +4,10 @@
 
 	max_occurrences = 5
 	weight = 20
-	description = "This anomaly throws things around."
 
 /datum/round_event/anomaly/anomaly_grav
-	start_when = 3
-	announce_when = 20
+	startWhen = 3
+	announceWhen = 20
 	anomaly_path = /obj/effect/anomaly/grav
 
 /datum/round_event/anomaly/anomaly_grav/announce(fake)

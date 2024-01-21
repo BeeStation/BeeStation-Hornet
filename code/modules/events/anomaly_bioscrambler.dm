@@ -5,11 +5,10 @@
 	min_players = 10
 	max_occurrences = 5
 	weight = 20
-	description = "This anomaly replaces the limbs of nearby people."
 
 /datum/round_event/anomaly/anomaly_bioscrambler
-	start_when = 10
-	announce_when = 3
+	startWhen = 10
+	announceWhen = 3
 	anomaly_path = /obj/effect/anomaly/bioscrambler
 
 /datum/round_event/anomaly/anomaly_bioscrambler/announce(fake)

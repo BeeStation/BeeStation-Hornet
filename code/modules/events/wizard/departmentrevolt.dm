@@ -4,7 +4,6 @@
 	typepath = /datum/round_event/wizard/deprevolt
 	max_occurrences = 1
 	earliest_start = 0 MINUTES
-	description = "A department is turned into an independent state."
 
 /datum/round_event/wizard/deprevolt/start()
 

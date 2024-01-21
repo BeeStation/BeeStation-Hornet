@@ -7,8 +7,8 @@
 
 /datum/round_event/asteroid_impact
 	//Should be enough time to escape.
-	start_when = 260
-	announce_when = 1
+	startWhen = 260
+	announceWhen = 1
 
 /datum/round_event/asteroid_impact/announce(fake)
 	priority_announce("A class-A asteroid has been detected on a collision course with the station. Destruction of the station is innevitable.", SSstation.announcer.get_rand_alert_sound())

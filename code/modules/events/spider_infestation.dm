@@ -8,14 +8,14 @@
 
 /datum/round_event/ghost_role/spider_infestation
 	role_name = ROLE_SPIDER
-	announce_when = 400
+	announceWhen = 400
 	fakeable = TRUE
 	minimum_required = 1
 	var/spawncount = 2
 	var/fed = 1
 
 /datum/round_event/ghost_role/spider_infestation/setup()
-	announce_when = rand(announce_when, announce_when + 50)
+	announceWhen = rand(announceWhen, announceWhen + 50)
 
 /datum/round_event/ghost_role/spider_infestation/announce(fake)
 	priority_announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", ANNOUNCER_ALIENS)

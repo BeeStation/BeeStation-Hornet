@@ -4,8 +4,6 @@
 	weight = 0 //its weight is relative to how much stationary and neglected the nuke disk is. See nuclearbomb.dm. Shouldn't be dynamic hijackable.
 	max_occurrences = 1
 	cannot_spawn_after_shuttlecall = TRUE
-	category = EVENT_CATEGORY_INVASION
-	description = "A single nuclear operative assaults the station."
 
 /datum/round_event/ghost_role/operative
 	minimum_required = 1

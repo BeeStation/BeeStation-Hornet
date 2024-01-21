@@ -171,6 +171,30 @@
 					message_admins("[key_name_admin(usr)] tried to create a revenant. Unfortunately, there were no candidates available.")
 					log_admin("[key_name(usr)] failed to create a revenant.")
 
+	else if(href_list["forceevent"])
+		if(!check_rights(R_FUN))
+			return
+		var/datum/round_event_control/E = locate(href_list["forceevent"]) in SSevents.control
+		if(E)
+			E.admin_setup(usr)
+			var/datum/round_event/event = E.runEvent()
+			if(event.announceWhen>0)
+				event.processing = FALSE
+				var/prompt = alert(usr, "Would you like to alert the crew?", "Alert", "Yes", "No", "Cancel")
+				switch(prompt)
+					if("Yes")
+						event.announceChance = 100
+					if("Cancel")
+						event.kill()
+						return
+					if("No")
+						event.announceChance = 0
+				event.on_admin_trigger()
+				event.processing = TRUE
+			message_admins("[key_name_admin(usr)] has triggered an event. ([E.name])")
+			log_admin("[key_name(usr)] has triggered an event. ([E.name])")
+		return
+
 	else if(href_list["editrightsbrowser"])
 		edit_admin_permissions(0)
 

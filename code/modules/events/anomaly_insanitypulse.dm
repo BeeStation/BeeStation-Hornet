@@ -6,8 +6,8 @@
 	max_occurrences = 2
 
 /datum/round_event/anomaly/insanity_pulse
-	start_when = 3
-	announce_when = 10
+	startWhen = 3
+	announceWhen = 10
 	anomaly_path = /obj/effect/anomaly/insanity_pulse
 
 /datum/round_event/anomaly/insanity_pulse/announce(fake)

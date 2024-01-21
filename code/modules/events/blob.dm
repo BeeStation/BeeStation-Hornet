@@ -7,14 +7,12 @@
 	min_players = 20
 
 	dynamic_should_hijack = TRUE
-	category = EVENT_CATEGORY_ENTITIES
-	description = "Spawns a new blob overmind."
 
 	gamemode_blacklist = list("blob") //Just in case a blob survives that long
 	can_malf_fake_alert = TRUE
 
 /datum/round_event/ghost_role/blob
-	announce_chance	= 0
+	announceChance	= 0
 	role_name = "blob overmind"
 	fakeable = TRUE
 

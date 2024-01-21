@@ -94,6 +94,40 @@ SUBSYSTEM_DEF(events)
 		E.random = TRUE
 		E.runEvent()
 
+//allows a client to trigger an event
+//aka Badmin Central
+// > Not in modules/admin
+// REEEEEEEEE
+/client/proc/forceEvent()
+	set name = "Trigger Event"
+	set category = "Round"
+
+	if(!holder ||!check_rights(R_FUN))
+		return
+
+	holder.forceEvent()
+
+/datum/admins/proc/forceEvent()
+	var/dat 	= ""
+	var/normal 	= ""
+	var/magic 	= ""
+	var/holiday = ""
+	for(var/datum/round_event_control/E in SSevents.control)
+		dat = "<BR><A href='?src=[REF(src)];[HrefToken()];forceevent=[REF(E)]'>[E]</A>"
+		if(E.holidayID)
+			holiday	+= dat
+		else if(E.wizardevent)
+			magic 	+= dat
+		else
+			normal 	+= dat
+
+	dat = normal + "<BR>" + magic + "<BR>" + holiday
+
+	var/datum/browser/popup = new(usr, "forceevent", "Force Random Event", 300, 750)
+	popup.set_content(dat)
+	popup.open()
+
+
 /*
 //////////////
 // HOLIDAYS //

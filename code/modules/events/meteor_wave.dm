@@ -8,13 +8,11 @@
 	max_occurrences = 3
 	earliest_start = 30 MINUTES
 	can_malf_fake_alert = TRUE
-	category = EVENT_CATEGORY_SPACE
-	description = "A regular meteor wave."
 
 /datum/round_event/meteor_wave
-	announce_when	= 150
-	start_when = 1
-	end_when = 151
+	announceWhen	= 150
+	startWhen = 1
+	endWhen = 151
 	var/list/wave_type
 	var/wave_name = "normal"
 	var/start_x
@@ -52,7 +50,7 @@
 
 /datum/round_event/meteor_wave/on_admin_trigger()
 	if(alert(usr, "Trigger meteors instantly? (This will not change the alert, just send them quicker. Nobody will ever notice!)", "Meteor Trigger", "Yes", "No") == "Yes")
-		announce_when = 1
+		announceWhen = 1
 		meteor_time = 1 MINUTES
 
 /datum/round_event/meteor_wave/proc/determine_wave_type()
@@ -91,7 +89,6 @@
 	min_players = 20
 	max_occurrences = 3
 	earliest_start = 35 MINUTES
-	description = "A meteor wave with higher chance of big meteors."
 
 /datum/round_event/meteor_wave/threatening
 	wave_name = "threatening"
@@ -103,7 +100,6 @@
 	min_players = 25
 	max_occurrences = 3
 	earliest_start = 45 MINUTES
-	description = "A meteor wave that might summon a tunguska class meteor."
 
 /datum/round_event/meteor_wave/catastrophic
 	wave_name = "catastrophic"

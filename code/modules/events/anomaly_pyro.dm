@@ -4,11 +4,10 @@
 
 	max_occurrences = 5
 	weight = 20
-	description = "This anomaly sets things on fire, and creates a pyroclastic slime."
 
 /datum/round_event/anomaly/anomaly_pyro
-	start_when = 3
-	announce_when = 10
+	startWhen = 3
+	announceWhen = 10
 	anomaly_path = /obj/effect/anomaly/pyro
 
 /datum/round_event/anomaly/anomaly_pyro/announce(fake)

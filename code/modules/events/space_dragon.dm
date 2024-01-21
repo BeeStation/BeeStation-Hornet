@@ -6,13 +6,11 @@
 	min_players = 20
 	dynamic_should_hijack = TRUE
 	cannot_spawn_after_shuttlecall = TRUE
-	category = EVENT_CATEGORY_ENTITIES
-	description = "Spawns a space dragon, which will try to take over the station."
 
 /datum/round_event/ghost_role/space_dragon
 	minimum_required = 1
 	role_name = "Space Dragon"
-	announce_when = 10
+	announceWhen = 10
 
 /datum/round_event/ghost_role/space_dragon/announce(fake)
 	priority_announce("A large organic energy flux has been recorded nearby [station_name()], please stand-by.", "Lifesign Alert")

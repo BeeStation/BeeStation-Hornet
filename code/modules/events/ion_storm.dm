@@ -4,8 +4,6 @@
 	weight = 15
 	min_players = 2
 	can_malf_fake_alert = TRUE
-	category = EVENT_CATEGORY_AI
-	description = "Gives the AI a new, randomized law."
 
 /datum/round_event/ion_storm
 	var/replaceLawsetChance = 25 //chance the AI's lawset is completely replaced with something else per config weights
@@ -15,8 +13,8 @@
 	var/botEmagChance = 1
 	var/ionMessage = null
 	var/lawsource = "Ion Storm"
-	announce_when	= 1
-	announce_chance = 33
+	announceWhen	= 1
+	announceChance = 33
 
 /datum/round_event/ion_storm/add_law_only // special subtype that adds a law only
 	lawsource = "unspecified, please report this to coders"
@@ -27,7 +25,7 @@
 	botEmagChance = 0
 
 /datum/round_event/ion_storm/announce(fake)
-	if(prob(announce_chance) || fake)
+	if(prob(announceChance) || fake)
 		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", ANNOUNCER_IONSTORM)
 
 

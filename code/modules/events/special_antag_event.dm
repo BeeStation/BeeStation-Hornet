@@ -9,7 +9,7 @@
 	var/banning_key = BAN_ROLE_ALL_ANTAGONISTS
 	var/protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN)
 
-/datum/round_event_control/spawn_special_antagonist/runEvent(random = FALSE, announce_chance_override = null, admin_forced = FALSE)
+/datum/round_event_control/spawn_special_antagonist/runEvent()
 	var/datum/round_event/create_special_antag/E = new /datum/round_event/create_special_antag
 	E.antag_datum = antagonist_datum
 	E.role_name = antag_name
