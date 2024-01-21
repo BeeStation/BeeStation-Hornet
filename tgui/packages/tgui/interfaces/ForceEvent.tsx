@@ -1,5 +1,4 @@
 import { paginate } from 'common/collections';
-import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
 import { Stack, Button, Icon, Input, Section, Tabs } from '../components';
 import { Window } from '../layouts';
@@ -49,7 +48,6 @@ type Event = {
   description: string;
   type: string;
   category: string;
-  has_customization: BooleanLike;
 };
 
 type Category = {
@@ -148,16 +146,8 @@ export const EventSection = (props, context) => {
               {eventPage.map((event) => (
                 <Stack.Item grow key={event.type}>
                   <Button
-                    className="Button__rightIcon"
-                    tooltip={
-                      event.description +
-                      (event.has_customization
-                        ? ' Includes admin customization.'
-                        : '')
-                    }
+                    tooltip={event.description}
                     fluid
-                    icon={event.has_customization ? 'gear' : undefined}
-                    iconPosition="right"
                     onClick={() =>
                       act('forceevent', {
                         type: event.type,
