@@ -4,7 +4,7 @@
 	max_occurrences = 0
 
 /datum/round_event/united_budget_setup
-	announceWhen	= 0
+	announce_when	= 0
 
 /datum/round_event/united_budget_setup/announce()
 	priority_announce("Your station has been selected for one of our financial experiments! All station budgets have been united into one, and all budget cards will be linked to one account!", "Central Command Update", SSstation.announcer.get_rand_alert_sound())
@@ -38,7 +38,7 @@
 	max_occurrences = 0
 
 /datum/round_event/united_budget_cancel
-	announceWhen	= 0
+	announce_when	= 0
 
 /datum/round_event/united_budget_cancel/announce()
 	priority_announce("All unified budget accounts have been converted to individual departmental accounts.", "Central Command Update", SSstation.announcer.get_rand_alert_sound())

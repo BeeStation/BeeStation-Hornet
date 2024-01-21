@@ -2,22 +2,24 @@
 
 //this singleton datum is used by the events controller to dictate how it selects events
 /datum/round_event_control
-	var/name						//The human-readable name of the event
-	var/typepath					//The typepath of the event datum /datum/round_event
+	var/name //The human-readable name of the event
+	var/category //The category of the event
+	var/description //The description of the event
+	var/typepath //The typepath of the event datum /datum/round_event
 
-	var/weight = 10					//The weight this event has in the random-selection process.
+	var/weight = 10 //The weight this event has in the random-selection process.
 									//Higher weights are more likely to be picked.
 									//10 is the default weight. 20 is twice more likely; 5 is half as likely as this default.
 									//0 here does NOT disable the event, it just makes it extremely unlikely
 
-	var/earliest_start = 20 MINUTES	//The earliest world.time that an event can start (round-duration in deciseconds) default: 20 mins
-	var/min_players = 0				//The minimum amount of alive, non-AFK human players on server required to start the event.
+	var/earliest_start = 20 MINUTES //The earliest world.time that an event can start (round-duration in deciseconds) default: 20 mins
+	var/min_players = 0 //The minimum amount of alive, non-AFK human players on server required to start the event.
 
-	var/occurrences = 0				//How many times this event has occured
-	var/max_occurrences = 20		//The maximum number of times this event can occur (naturally), it can still be forced.
+	var/occurrences = 0 //How many times this event has occured
+	var/max_occurrences = 20 //The maximum number of times this event can occur (naturally), it can still be forced.
 									//By setting this to 0 you can effectively disable an event.
 
-	var/holidayID = ""				//string which should be in the SSeventss.holidays list if you wish this event to be holiday-specific
+	var/holidayID = "" //string which should be in the SSeventss.holidays list if you wish this event to be holiday-specific
 									//anything with a (non-null) holidayID which does not match holiday, cannot run.
 	var/wizardevent = FALSE
 	var/alert_observers = TRUE		//should we let the ghosts and admins know this event is firing
@@ -46,6 +48,7 @@
 
 
 /datum/round_event_control/wizard
+	category = EVENT_CATEGORY_WIZARD
 	wizardevent = TRUE
 
 // Checks if the event can be spawned. Used by event controller and "false alarm" event.
@@ -123,6 +126,9 @@
 	E.control = src
 	occurrences++
 
+	if(announce_chance_override != null)
+		E.announce_chance = announce_chance_override
+
 	testing("[time2text(world.time, "hh:mm:ss")] [E.type]")
 	triggering = TRUE
 
@@ -139,7 +145,7 @@
 	if(random)
 		log_game("Random Event triggering: [name] ([typepath])")
 
-	if(alert_observers)
+	if (alert_observers && !admin_forced)
 		deadchat_broadcast("<span class='deadsay'><b>[name]</b> has just been triggered!</span>") //STOP ASSUMING IT'S BADMINS!
 
 	SSblackbox.record_feedback("tally", "event_ran", 1, "[E]")
@@ -154,24 +160,34 @@
 	SIGNAL_HANDLER
 	return CANCEL_RANDOM_EVENT
 
-/datum/round_event	//NOTE: Times are measured in master controller ticks!
+/datum/round_event //NOTE: Times are measured in master controller ticks!
 	var/processing = TRUE
 	var/datum/round_event_control/control
 
-	var/startWhen		= 0	//When in the lifetime to call start().
-	var/announceWhen	= 0	//When in the lifetime to call announce(). If you don't want it to announce use announceChance, below.
-	var/announceChance	= 100 // Probability of announcing, used in prob(), 0 to 100, default 100. Used in ion storms currently.
-	var/endWhen			= 0	//When in the lifetime the event should end.
+	/// When in the lifetime to call start().
+	/// This is in seconds - so 1 = ~2 seconds in.
+	var/start_when = 0
+	/// When in the lifetime to call announce(). If you don't want it to announce use announce_chance, below.
+	/// This is in seconds - so 1 = ~2 seconds in.
+	var/announce_when = 0
+	/// Probability of announcing, used in prob(), 0 to 100, default 100. Called in process, and for a second time in the ion storm event.
+	var/announce_chance = 100
+	/// When in the lifetime the event should end.
+	/// This is in seconds - so 1 = ~2 seconds in.
+	var/end_when = 0
 
-	var/activeFor		= 0	//How long the event has existed. You don't need to change this.
-	var/current_players	= 0 //Amount of of alive, non-AFK human players on server at the time of event start
-	var/fakeable = TRUE		//Can be faked by fake news event.
+	/// How long the event has existed. You don't need to change this.
+	var/activeFor = 0
+	/// Amount of of alive, non-AFK human players on server at the time of event start
+	var/current_players = 0
+	/// Can be faked by fake news event.
+	var/fakeable = TRUE
 	/// Whether a admin wants this event to be cancelled
 	var/cancel_event = FALSE
 
 //Called first before processing.
 //Allows you to setup your event, such as randomly
-//setting the startWhen and or announceWhen variables.
+//setting the start_when and or announce_when variables.
 //Only called once.
 //EDIT: if there's anything you want to override within the new() call, it will not be overridden by the time this proc is called.
 //It will only have been overridden by the time we get to announce() start() tick() or end() (anything but setup basically).
@@ -179,7 +195,7 @@
 /datum/round_event/proc/setup()
 	return
 
-//Called when the tick is equal to the startWhen variable.
+//Called when the tick is equal to the start_when variable.
 //Allows you to start before announcing or vice versa.
 //Only called once.
 /datum/round_event/proc/start()
@@ -193,20 +209,20 @@
 		notify_ghosts("[control.name] has an object of interest: [atom_of_interest]!", source=atom_of_interest, action=NOTIFY_ORBIT, header="Something's Interesting!")
 	return
 
-//Called when the tick is equal to the announceWhen variable.
+//Called when the tick is equal to the announce_when variable.
 //Allows you to announce before starting or vice versa.
 //Only called once.
 /datum/round_event/proc/announce(fake)
 	return
 
-//Called on or after the tick counter is equal to startWhen.
+//Called on or after the tick counter is equal to start_when.
 //You can include code related to your event or add your own
 //time stamped events.
 //Called more than once.
 /datum/round_event/proc/tick()
 	return
 
-//Called on or after the tick is equal or more than endWhen
+//Called on or after the tick is equal or more than end_when
 //You can include code related to the event ending.
 //Do not place spawn() in here, instead use tick() to check for
 //the activeFor variable.
@@ -228,28 +244,28 @@
 		kill()
 		return
 
-	if(activeFor == startWhen)
+	if(activeFor == start_when)
 		processing = FALSE
 		start()
 		processing = TRUE
 
-	if(activeFor == announceWhen && prob(announceChance))
+	if(activeFor == announce_when && prob(announce_chance))
 		processing = FALSE
 		announce(FALSE)
 		processing = TRUE
 
-	if(startWhen < activeFor && activeFor < endWhen)
+	if(start_when < activeFor && activeFor < end_when)
 		processing = FALSE
 		tick()
 		processing = TRUE
 
-	if(activeFor == endWhen)
+	if(activeFor == end_when)
 		processing = FALSE
 		end()
 		processing = TRUE
 
 	// Everything is done, let's clean up.
-	if(activeFor >= endWhen && activeFor >= announceWhen && activeFor >= startWhen)
+	if(activeFor >= end_when && activeFor >= announce_when && activeFor >= start_when)
 		processing = FALSE
 		kill()
 
