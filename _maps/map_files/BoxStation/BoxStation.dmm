@@ -7850,8 +7850,8 @@
 	dir = 4
 	},
 /obj/machinery/computer/cryopod{
-	pixel_y = -25;
-	pixel_x = -32
+	pixel_x = -32;
+	pixel_y = -25
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -20800,8 +20800,8 @@
 /obj/machinery/airalarm/directional/north,
 /obj/machinery/button/flasher{
 	id = "cell4";
-	pixel_y = -7;
-	pixel_x = 28
+	pixel_x = 28;
+	pixel_y = -7
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -21258,21 +21258,21 @@
 /obj/machinery/button/door{
 	id = "Secure Gate";
 	name = "Cell Shutters";
-	pixel_y = -32;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = -32
 	},
 /obj/machinery/button/door{
 	id = "Prisongate";
 	name = "Prison Wing Lockdown";
+	pixel_x = -5;
 	pixel_y = -32;
-	req_access_txt = "2";
-	pixel_x = -5
+	req_access_txt = "2"
 	},
 /obj/machinery/button/door{
 	id = "armory";
 	name = "Armory Shutters";
-	req_access_txt = "3";
-	pixel_y = -24
+	pixel_y = -24;
+	req_access_txt = "3"
 	},
 /obj/machinery/door/window/brigdoor/northright{
 	dir = 8;
@@ -25968,9 +25968,6 @@
 	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
-"gFs" = (
-/turf/open/floor/carpet/grimy,
-/area/security/detectives_office)
 "gGm" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/trimline/yellow/filled/corner{
@@ -36539,10 +36536,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"lIq" = (
-/obj/structure/lattice,
-/turf/open/floor/carpet/grimy,
-/area/space/nearstation)
 "lIF" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
@@ -38044,8 +38037,8 @@
 /area/hydroponics)
 "mtT" = (
 /obj/machinery/light_switch{
-	pixel_y = -6;
-	pixel_x = -23
+	pixel_x = -23;
+	pixel_y = -6
 	},
 /obj/machinery/camera/autoname{
 	dir = 4;
@@ -59476,8 +59469,8 @@
 "wTy" = (
 /obj/machinery/cryopod,
 /obj/machinery/computer/cryopod{
-	pixel_y = -25;
-	pixel_x = 32
+	pixel_x = 32;
+	pixel_y = -25
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -61222,8 +61215,8 @@
 	},
 /obj/machinery/light,
 /obj/item/storage/secure/safe{
-	pixel_y = -25;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = -25
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -61313,9 +61306,6 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/grass,
 /area/hallway/secondary/command)
-"xGO" = (
-/turf/open/floor/carpet/grimy,
-/area/maintenance/fore)
 "xGT" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 8;
@@ -89294,9 +89284,9 @@ jnN
 aOr
 gXs
 gXs
-lIq
-lIq
-lIq
+gXs
+gXs
+gXs
 uau
 uwU
 aqR
@@ -89553,9 +89543,9 @@ wQj
 svF
 tsU
 tsU
-gFs
-gFs
-xGO
+tsU
+wQj
+ayE
 aqR
 sse
 ayL
@@ -89811,8 +89801,8 @@ vVa
 eqI
 uEX
 tit
-gFs
-xGO
+wQj
+ayE
 aqR
 pUk
 wMt
