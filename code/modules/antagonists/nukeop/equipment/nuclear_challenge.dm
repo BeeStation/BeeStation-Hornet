@@ -21,7 +21,7 @@
 		return
 
 	declaring_war = TRUE
-	var/are_you_sure = alert(user, "Consult your team carefully before you declare war on [station_name()]. Are you sure you want to alert the enemy crew? [check_pop()? "" : "You will not be provided with any additional equipment given the small size of the crew. "]You have [DisplayTimeText(CHALLENGE_TIME_LIMIT - world.time + SSticker.round_start_time)] to decide", "Declare war?", "Yes", "No")
+	var/are_you_sure = tgui_alert(user, "Consult your team carefully before you declare war on [station_name()]. Are you sure you want to alert the enemy crew? [check_pop()? "" : "You will not be provided with any additional equipment given the small size of the crew. "]You have [DisplayTimeText(CHALLENGE_TIME_LIMIT - world.time + SSticker.round_start_time)] to decide", "Declare war?", list("Yes", "No"))
 	declaring_war = FALSE
 
 	if(!check_allowed(user))
