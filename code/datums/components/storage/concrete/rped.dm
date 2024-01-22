@@ -46,7 +46,7 @@
 	var/datum/progressbar/progress = new(M, length(things), T)
 	while (do_after(M, 10, progress = FALSE, extra_checks = CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 
 /datum/component/storage/concrete/bluespace/rped
 	collection_mode = COLLECT_EVERYTHING
@@ -96,4 +96,4 @@
 	var/datum/progressbar/progress = new(M, length(things), T)
 	while (do_after(M, 10, progress = FALSE, extra_checks = CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
