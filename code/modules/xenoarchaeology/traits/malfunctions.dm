@@ -193,9 +193,8 @@
 			continue
 		var/mob/living/simple_animal/hostile/twin/T = new(get_turf(parent.parent))
 		//Setup appearance for evil twin
-		T.name = target.name
 		T.appearance = target.appearance
-		T.color = COLOR_BLUE
+		T.color = parent.artifact_type.material_color
 		//Handle limit and hardel
 		clones += T
 		RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(handle_death))
@@ -247,14 +246,14 @@
 	if(!.)
 		return
 	var/atom/A = parent.parent
-	A.visible_message("<span class='warning'>The [A] begins to heat up, it's delaminating!</span>")
+	A.visible_message("<span class='warning'>The [A] begins to heat up, it's delaminating!</span>", allow_inside_usr = TRUE)
 	addtimer(CALLBACK(src, PROC_REF(explode)), 10 SECONDS)
 	//Fancy animation
 	//TODO: Picking up and dropping breaks this animation - Racc
 	A.color = COLOR_RED
 	var/matrix/old_transform = A.transform
 	var/matrix/new_transform = A.transform
-	new_transform.Scale(1.5, 1.5)
+	new_transform.Scale(1.3, 1.3)
 	animate(parent.parent, transform = new_transform, time = 0.5 SECONDS, loop = -1, flags = ANIMATION_PARALLEL)
 	animate(transform = old_transform, time = 0.5 SECONDS)
 

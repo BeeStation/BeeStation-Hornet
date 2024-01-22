@@ -97,7 +97,7 @@
 	var/atom/A = parent?.parent
 	if(!isliving(A.loc) && !A.density || check_item_safety(item))
 		return
-	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
+	trigger_artifact(target || item, XENOA_ACTIVATION_TOUCH)
 
 /datum/xenoartifact_trait/activator/strudy/translation_type_a(datum/source, atom/target)
 	var/atom/A = parent?.parent
@@ -443,6 +443,8 @@
 
 /datum/xenoartifact_trait/activator/strudy/hungry/trigger_artifact(atom/target, type, force)
 	. = ..()
+	if(!.)
+		return
 	//Find a food item
 	var/mob/living/M = target
 	var/datum/component/edible/food_item
@@ -467,8 +469,7 @@
 		playsound(AM.loc, 'sound/weapons/bite.ogg', 60, 1, 1)
 		AM.do_attack_animation(M)
 		M.adjustBruteLoss(eat_damage)
-		AM.visible_message("<span class='warning'>[AM] bites [M]!</span>", allow_inside_usr = TRUE)
-		to_chat(M, "<span class='warning'>[AM] bites you!</span>")
+		M.visible_message("<span class='warning'>[AM] bites [M]!</span>", "<span class='warning'>[AM] bites you!</span>")
 		return
 
 	return FALSE

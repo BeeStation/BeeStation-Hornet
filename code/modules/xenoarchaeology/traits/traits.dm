@@ -202,6 +202,8 @@
 	var/list/temp = subtypesof(path)
 	var/list/weighted = list()
 	for(var/datum/xenoartifact_trait/T as() in temp)
+		if(initial(T.flags) & XENOA_MISC_TRAIT)
+			continue
 		if(keyed)
 			weighted += list(initial(T.label_name) = (T))
 		else
@@ -212,6 +214,8 @@
 /proc/compile_artifact_whitelist(var/flags)
 	var/list/output = list()
 	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
+		if(initial(T.flags) & XENOA_MISC_TRAIT)
+			continue
 		if(!ispath(flags))
 			if((initial(T.flags) & flags))
 				output += T

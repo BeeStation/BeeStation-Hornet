@@ -779,7 +779,7 @@
 /datum/xenoartifact_trait/minor/haunted/proc/do_wail(repeat = TRUE)
 	if(QDELETED(src))
 		return
-	playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper.ogg', 40, TRUE)
+	playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper.ogg', 30, TRUE)
 	var/rand_time = rand(26, 34) SECONDS
 	addtimer(CALLBACK(src, PROC_REF(do_wail)), rand_time)
 

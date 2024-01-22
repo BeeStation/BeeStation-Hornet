@@ -5,6 +5,7 @@
 	conductivity = 0
 	contribute_calibration = FALSE
 	can_pearl = FALSE
+	flags = XENOA_MISC_TRAIT
 
 /*
 	Objective trait for exploration artifacts
@@ -30,7 +31,7 @@
 
 /datum/xenoartifact_trait/activator/weighted/closet
 	material_desc = null
-	flags = NONE
+	flags = XENOA_MISC_TRAIT
 
 /datum/xenoartifact_trait/activator/weighted/closet/New(atom/_parent)
 	. = ..()
