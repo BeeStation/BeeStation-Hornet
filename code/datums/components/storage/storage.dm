@@ -8,45 +8,47 @@
 
 /datum/component/storage
 	dupe_mode = COMPONENT_DUPE_UNIQUE
-	var/datum/component/storage/concrete/master		//If not null, all actions act on master and this is just an access point.
+	var/datum/component/storage/concrete/master //If not null, all actions act on master and this is just an access point.
 
-	var/list/can_hold								//if this is set, only things in this typecache will fit, unless
-	var/list/cant_hold								//if this is set, anything in this typecache will not be able to fit.
-	var/list/exception_hold							//if this is set, items in this typecache will ignore size limitations, only respecting max_items
+	var/list/can_hold //if this is set, only items, and their children, will fit
+	var/list/cant_hold //if this is set, items, and their children, won't fit
+	var/list/exception_hold //if set, these items will be the exception to the max size of object that can fit.
 	/// If set can only contain stuff with this single trait present.
 	var/list/can_hold_trait
 
-	var/list/mob/is_using							//lazy list of mobs looking at the contents of this storage.
+	var/can_hold_description
 
-	var/locked = FALSE								//when locked nothing can see inside or use it.
+	var/list/mob/is_using //lazy list of mobs looking at the contents of this storage.
 
-	var/max_w_class = WEIGHT_CLASS_SMALL			//max size of objects that will fit.
-	var/max_combined_w_class = 14					//max combined sizes of objects that will fit.
-	var/max_items = 7								//max number of objects that will fit.
+	var/locked = FALSE //when locked nothing can see inside or use it.
+
+	var/max_w_class = WEIGHT_CLASS_SMALL //max size of objects that will fit.
+	var/max_combined_w_class = 14 //max combined sizes of objects that will fit.
+	var/max_items = 7 //max number of objects that will fit.
 
 	var/emp_shielded = FALSE
 
-	var/silent = FALSE								//whether this makes a message when things are put in.
-	var/click_gather = FALSE						//whether this can be clicked on items to pick it up rather than the other way around.
-	var/rustle_sound = TRUE							//play rustle sound on interact.
-	var/allow_quick_empty = FALSE					//allow empty verb which allows dumping on the floor of everything inside quickly.
-	var/allow_quick_gather = FALSE					//allow toggle mob verb which toggles collecting all items from a tile.
-	var/insert_while_closed = TRUE					//the user can insert items while the storage is closed, if not the user will have to click/alt click to open it before they can insert items
-	var/can_be_opened = TRUE						//if FALSE, the container cannot be opened to look inside
+	var/silent = FALSE //whether this makes a message when things are put in.
+	var/click_gather = FALSE //whether this can be clicked on items to pick it up rather than the other way around.
+	var/rustle_sound = TRUE //play rustle sound on interact.
+	var/allow_quick_empty = FALSE //allow empty verb which allows dumping on the floor of everything inside quickly.
+	var/allow_quick_gather = FALSE //allow toggle mob verb which toggles collecting all items from a tile.
+	var/insert_while_closed = TRUE //the user can insert items while the storage is closed, if not the user will have to click/alt click to open it before they can insert items
+	var/can_be_opened = TRUE //if FALSE, the container cannot be opened to look inside
 
 	var/collection_mode = COLLECT_EVERYTHING
 
-	var/insert_preposition = "in"					//you put things "in" a bag, but "on" a tray.
+	var/insert_preposition = "in" //you put things "in" a bag, but "on" a tray.
 
-	var/display_numerical_stacking = FALSE			//stack things of the same type and show as a single object with a number.
+	var/display_numerical_stacking = FALSE //stack things of the same type and show as a single object with a number.
 
-	var/atom/movable/screen/storage/boxes					//storage display object
-	var/atom/movable/screen/close/closer						//close button object
+	var/atom/movable/screen/storage/boxes //storage display object
+	var/atom/movable/screen/close/closer //close button object
 
-	var/allow_big_nesting = FALSE					//allow storage objects of the same or greater size.
+	var/allow_big_nesting = FALSE //allow storage objects of the same or greater size.
 
-	var/attack_hand_interact = TRUE					//interact on attack hand.
-	var/quickdraw = FALSE							//altclick interact
+	var/attack_hand_interact = TRUE //interact on attack hand.
+	var/quickdraw = FALSE //altclick interact
 
 	var/datum/action/item_action/storage_gather_mode/modeswitch_action
 
@@ -54,11 +56,11 @@
 	var/animated = TRUE
 
 	//Screen variables: Do not mess with these vars unless you know what you're doing. They're not defines so storage that isn't in the same location can be supported in the future.
-	var/screen_max_columns = 7							//These two determine maximum screen sizes.
+	var/screen_max_columns = 7 //These two determine maximum screen sizes.
 	var/screen_max_rows = INFINITY
-	var/screen_pixel_x = 16								//These two are pixel values for screen loc of boxes and closer
+	var/screen_pixel_x = 16 //These two are pixel values for screen loc of boxes and closer
 	var/screen_pixel_y = 16
-	var/screen_start_x = 4								//These two are where the storage starts being rendered, screen_loc wise.
+	var/screen_start_x = 4 //These two are where the storage starts being rendered, screen_loc wise.
 	var/screen_start_y = 2
 	//End
 
@@ -84,6 +86,8 @@
 	RegisterSignal(parent, COMSIG_TRY_STORAGE_HIDE_FROM, PROC_REF(signal_hide_attempt))
 	RegisterSignal(parent, COMSIG_TRY_STORAGE_HIDE_ALL, PROC_REF(close_all))
 	RegisterSignal(parent, COMSIG_TRY_STORAGE_RETURN_INVENTORY, PROC_REF(signal_return_inv))
+
+	RegisterSignal(parent, COMSIG_TOPIC, PROC_REF(topic_handle))
 
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(attackby))
 
@@ -118,7 +122,27 @@
 /datum/component/storage/PreTransfer()
 	update_actions()
 
+/datum/component/storage/proc/set_holdable(can_hold_list, cant_hold_list)
+	can_hold_description = generate_hold_desc(can_hold_list)
+
+	if (can_hold_list != null)
+		can_hold = typecacheof(can_hold_list)
+
+	if (cant_hold_list != null)
+		cant_hold = typecacheof(cant_hold_list)
+
+/datum/component/storage/proc/generate_hold_desc(can_hold_list)
+	var/list/desc = list()
+
+	for(var/valid_type in can_hold_list)
+		var/obj/item/valid_item = valid_type
+		desc += "\a [initial(valid_item.name)]"
+
+	return "\n\t<span class='notice'>[desc.Join("\n\t")]</span>"
+
 /datum/component/storage/proc/update_actions()
+	SIGNAL_HANDLER
+
 	QDEL_NULL(modeswitch_action)
 	if(!isitem(parent) || !allow_quick_gather)
 		return
@@ -507,7 +531,7 @@
 			host.balloon_alert(M, "[host] is locked.")
 			return FALSE
 		if(dump_destination.storage_contents_dump_act(src, M))
-			playsound(A, "rustle", 50, 1, -5)
+			playsound(A, "rustle", 50, TRUE, -5)
 			return TRUE
 	return FALSE
 
@@ -535,7 +559,7 @@
 			SEND_SIGNAL(A, COMSIG_TRY_STORAGE_RETURN_INVENTORY, ret, TRUE)
 	return ret
 
-/datum/component/storage/proc/contents()			//ONLY USE IF YOU NEED TO COPY CONTENTS OF REAL LOCATION, COPYING IS NOT AS FAST AS DIRECT ACCESS!
+/datum/component/storage/proc/contents() //ONLY USE IF YOU NEED TO COPY CONTENTS OF REAL LOCATION, COPYING IS NOT AS FAST AS DIRECT ACCESS!
 	var/atom/real_location = real_location()
 	return real_location.contents.Copy()
 
@@ -547,6 +571,15 @@
 		return FALSE
 	interface |= return_inv(recursive)
 	return TRUE
+
+/datum/component/storage/proc/topic_handle(datum/source, user, href_list)
+	SIGNAL_HANDLER
+
+	if(href_list["show_valid_pocket_items"])
+		handle_show_valid_items(source, user)
+
+/datum/component/storage/proc/handle_show_valid_items(datum/source, user)
+	to_chat(user, "<span class='notice'>[source] can hold: [can_hold_description]</span>")
 
 /datum/component/storage/proc/mousedrop_onto(datum/source, atom/over_object, mob/M)
 	SIGNAL_HANDLER

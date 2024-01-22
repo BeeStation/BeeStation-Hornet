@@ -70,7 +70,7 @@
 /obj/item/storage/bag/easterbasket/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/food/egg,
 		/obj/item/food/chocolateegg,
 		/obj/item/food/boiledegg

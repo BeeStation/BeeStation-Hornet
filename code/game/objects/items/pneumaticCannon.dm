@@ -336,7 +336,7 @@
 	STR.max_w_class = WEIGHT_CLASS_BULKY
 	STR.max_combined_w_class = STR.max_w_class*STR.max_items
 	STR.display_numerical_stacking = TRUE
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/throwing_star/magspear
 		))
 

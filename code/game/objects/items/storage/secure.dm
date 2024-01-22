@@ -178,7 +178,7 @@
 /obj/item/storage/secure/safe/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.cant_hold = typecacheof(list(/obj/item/storage/secure/briefcase))
+	STR.set_holdable(null, list(/obj/item/storage/secure/briefcase))
 	STR.max_w_class = 8						//??
 
 /obj/item/storage/secure/safe/PopulateContents()
@@ -218,8 +218,10 @@ It remains quite flush against the wall, and there only seems to be enough room 
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 1
-	STR.can_hold = typecacheof(list(
-		/obj/item/card/id/))
+	STR.set_holdable(list(
+		/obj/item/card/id/
+		)
+	)
 	l_code = SSjob.spare_id_safe_code
 	l_set = TRUE
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)

@@ -74,7 +74,7 @@
 	STR.max_w_class = WEIGHT_CLASS_BULKY //holds the same equipment as a medibelt
 	STR.max_items = 12
 	STR.max_combined_w_class = 24
-	STR.can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
@@ -386,7 +386,7 @@
 	STR.max_combined_w_class = 56 //any combination of allowed items
 
 	//Surgical tools, medkit supplies, compact defibrillator and a few odds and ends but not as much as medbelt
-	var/static/list/can_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
@@ -417,7 +417,6 @@
 		/obj/item/pinpointer/crew,
 		/obj/item/defibrillator/compact
 		))
-	STR.can_hold = can_hold
 
 
 /obj/item/storage/firstaid/tactical/PopulateContents()
@@ -483,7 +482,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.allow_quick_gather = TRUE
 	STR.click_gather = TRUE
-	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/pill, /obj/item/dice))
+	STR.set_holdable(list(/obj/item/reagent_containers/pill, /obj/item/dice))
 
 /obj/item/storage/pill_bottle/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is trying to get the cap off [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
