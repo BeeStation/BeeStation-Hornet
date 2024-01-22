@@ -170,6 +170,12 @@
 	path = /obj/item/clothing/suit/jacket/letterman_syndie
 	cost = 8000
 
+/datum/gear/suit/jacket/gothic
+	display_name = "gothic coat"
+	path = /obj/item/clothing/suit/gothcoat
+	description = "Perfect for those who want stalk in a corner of a bar."
+	cost = 8000
+
 /datum/gear/suit/jacket/joker
 	display_name = "comedian's coat"
 	path = /obj/item/clothing/suit/joker
