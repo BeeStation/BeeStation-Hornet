@@ -697,10 +697,9 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 21
-	var/static/list/can_western_hold = typecacheof(list(
+	STR.set_holdable(list(
 		/obj/item/ammo_casing/c38
 		))
-	STR.can_hold = can_western_hold
 
 /obj/item/storage/belt/bandolier/western/filled/PopulateContents()
 	for(var/i in 1 to 21)

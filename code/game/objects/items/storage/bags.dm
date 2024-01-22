@@ -234,11 +234,9 @@
 	name = "portable seed extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	icon_state = "portaseeder"
+	actions_types = list(/datum/action/item_action/portaseeder_dissolve)
 
-/obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
-	set name = "Activate Seed Extraction"
-	set category = "Object"
-	set desc = "Activate to convert your plants into plantable seeds."
+/obj/item/storage/bag/plants/portaseeder/proc/dissolve_contents()
 	if(usr.incapacitated())
 		return
 	for(var/obj/item/O in contents)
@@ -480,32 +478,5 @@
 		/obj/item/circuitboard,
 		/obj/item/electronics,
 		/obj/item/rcd_ammo
-		)
-	)
-
-// -----------------------------
-//           mail bag
-// -----------------------------
-
-/obj/item/storage/bag/mail
-	name = "mail bag"
-	desc = "A bag for letters, envelopes, and other postage."
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "mailbag"
-	resistance_flags = FLAMMABLE
-
-/obj/item/storage/bag/mail/ComponentInitialize()
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 32
-	STR.max_items = 32
-	STR.display_numerical_stacking = FALSE
-	STR.set_holdable(list(
-		/obj/item/mail,
-		/obj/item/small_delivery,
-		/obj/item/paper,
-		/obj/item/reagent_containers/food/condiment/milk,
-		/obj/item/food/bread/plain
 		)
 	)
