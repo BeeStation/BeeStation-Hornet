@@ -912,7 +912,7 @@
 
 /obj/item/clothing/suit/hooded/wintercoat/cargo
 	name = "cargo winter coat"
-	desc = "A heavy jacket made from 'synthetic' animal furs. It's especially tailored to hold Cargo related items including a mailbag."
+	desc = "A heavy jacket made from 'synthetic' animal furs. It's especially tailored to hold Cargo related items." // Cargo players if I missed anything let me know
 	icon_state = "coatcargo"
 	item_state = "coatcargo"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/cargo
@@ -929,8 +929,7 @@
 		/obj/item/tank/internals/plasmaman,
 		/obj/item/toy,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/lighter,
-		/obj/item/storage/backpack/satchel/mail
+		/obj/item/lighter
 	)
 
 
