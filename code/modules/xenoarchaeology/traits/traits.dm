@@ -208,8 +208,13 @@
 /proc/compile_artifact_whitelist(var/flags)
 	var/list/output = list()
 	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
-		if((initial(T.flags) & flags))
-			output += T
+		if(!ispath(flags))
+			if((initial(T.flags) & flags))
+				output += T
+		else
+			var/datum/xenoartifact_material/M = flags
+			if((initial(T.flags) & initial(M.trait_flags)))
+				output += T
 	return output
 
 //This holds individual traits

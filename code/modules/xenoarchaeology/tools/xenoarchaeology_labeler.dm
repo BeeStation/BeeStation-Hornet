@@ -102,6 +102,12 @@
 	for(var/datum/xenoartifact_trait/T as() in trait_type)
 		temp += list(initial(T.label_name))
 		tooltip_stats["[initial(T.label_name)]"] = list("weight" = initial(T.weight), "conductivity" = initial(T.conductivity))
+		//Generate material availability
+		var/list/materials = list(XENOA_BLUESPACE, XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM, XENOA_PEARL)
+		tooltip_stats["[initial(T.label_name)]"] += list("availability" = list())
+		for(var/datum/xenoartifact_material/M as() in materials)
+			if(initial(M.trait_flags) & initial(T.flags))
+				tooltip_stats["[initial(T.label_name)]"]["availability"] += list(list("color" = initial(M.material_color)))
 	return temp
 
 /obj/item/xenoarchaeology_labeler/afterattack(atom/target, mob/user, proximity_flag)

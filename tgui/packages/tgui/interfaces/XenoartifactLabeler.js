@@ -130,14 +130,18 @@ const XenoartifactlabelerGenerateEntry = (props, context) => {
 };
 
 const XenoartifactlabelerGenerateInfo = (props, context) => {
-  const { act } = useBackend(context);
+  const { act, data } = useBackend(context);
   const { info } = props;
+  const { tooltip_stats } = data;
   return (
     <Section title={info["name"]}>
       <Box italic>
         <BlockQuote>{`${info["desc"]}`}</BlockQuote>
         {info["hints"].map((hint) => (
           <Button icon={hint["icon"]} tooltip={hint["desc"]}/>
+        ))}
+        {tooltip_stats[info["name"]]["availability"].map((trait) => (
+          <Icon name={'circle'} color={trait["color"]}/>
         ))}
       </Box>
     </Section>

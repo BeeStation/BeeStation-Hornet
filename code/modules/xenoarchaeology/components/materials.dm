@@ -34,6 +34,9 @@
 	///What rate do we convert custom price to research points to?
 	var/rnd_rate = 1.5
 
+	///What traits flags are we associated with
+	var/trait_flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+
 //Set this proc to return a pre-made list so we can avoid some overhead
 /datum/xenoartifact_material/proc/get_trait_list()
 	return GLOB.xenoa_all_traits
@@ -51,40 +54,44 @@
 	texture_icon_states = list("texture-bananium1", "texture-bananium2", "texture-bananium3")
 	mask_icon_states = list("mask-bananium1")
 	custom_price = 500
+	trait_flags = XENOA_BANANIUM_TRAIT
 
 /datum/xenoartifact_material/bananium/get_trait_list()
 	return GLOB.xenoa_bananium_traits
 
 /datum/xenoartifact_material/uranium
 	name = "uranium"
-	material_color = "#88ff00ff"
+	material_color = "#88ff00"
 	instability_step = 25
 	texture_icon_states = list("texture-uranium1", "texture-uranium2", "texture-uranium3")
 	mask_icon_states = list("mask-uranium1")
 	custom_price = 450
 	trait_malfunctions = 1
 	max_trait_malfunctions = 2
+	trait_flags = XENOA_URANIUM_TRAIT
 
 /datum/xenoartifact_material/uranium/get_trait_list()
 	return GLOB.xenoa_uranium_traits
 
 /datum/xenoartifact_material/plasma
 	name = "plasma"
-	material_color = "#f200ffff"
+	material_color = "#f200ff"
 	instability_step = 5
 	texture_icon_states = list("texture-plasma1", "texture-plasma2", "texture-plasma3")
 	mask_icon_states = list("mask-plasma1")
 	custom_price = 250
+	trait_flags = XENOA_PLASMA_TRAIT
 
 /datum/xenoartifact_material/plasma/get_trait_list()
 	return GLOB.xenoa_plasma_traits
 
 /datum/xenoartifact_material/bluespace
 	name = "bluespace"
-	material_color = "#006affff"
+	material_color = "#006aff"
 	instability_step = 1
 	texture_icon_states = list("texture-bluespace1", "texture-bluespace2", "texture-bluespace3")
 	mask_icon_states = list("mask-bluespace1")
+	trait_flags = XENOA_BLUESPACE_TRAIT
 
 /datum/xenoartifact_material/bluespace/get_trait_list()
 	return GLOB.xenoa_bluespace_traits
@@ -96,6 +103,7 @@
 	instability_step = 50
 	texture_icon_states = list("texture-pearl1", "texture-pearl2", "texture-pearl3")
 	custom_price = 500
+	trait_flags = XENOA_PEARL_TRAIT
 
 //Calcified
 /datum/xenoartifact_material/calcified

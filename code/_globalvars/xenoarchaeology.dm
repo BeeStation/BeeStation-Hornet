@@ -24,10 +24,12 @@ GLOBAL_LIST(xenoa_pearl_traits)
 	if(length(GLOB.xenoa_all_traits))
 		return
 
+	//Bruh
 	GLOB.xenoa_seller_names -= ""
 	GLOB.xenoa_seller_dialogue -= ""
 	GLOB.xenoa_artifact_names -= ""
 
+	//List of weights based on trait type
 	GLOB.xenoa_activators = compile_artifact_weights(/datum/xenoartifact_trait/activator)
 	GLOB.xenoa_minors = compile_artifact_weights(/datum/xenoartifact_trait/minor)
 	GLOB.xenoa_majors = compile_artifact_weights(/datum/xenoartifact_trait/major)
@@ -35,11 +37,12 @@ GLOBAL_LIST(xenoa_pearl_traits)
 	GLOB.xenoa_all_traits = compile_artifact_weights(/datum/xenoartifact_trait)
 	GLOB.xenoa_all_traits_keyed = compile_artifact_weights(/datum/xenoartifact_trait, TRUE)
 
-	GLOB.xenoa_bluespace_traits = compile_artifact_whitelist(XENOA_BLUESPACE_TRAIT)
-	GLOB.xenoa_plasma_traits = compile_artifact_whitelist(XENOA_PLASMA_TRAIT)
-	GLOB.xenoa_uranium_traits = compile_artifact_whitelist(XENOA_URANIUM_TRAIT)
-	GLOB.xenoa_bananium_traits = compile_artifact_whitelist(XENOA_BANANIUM_TRAIT)
-	GLOB.xenoa_pearl_traits = compile_artifact_whitelist(XENOA_PEARL_TRAIT)
+	//Traits divided by flavor
+	GLOB.xenoa_bluespace_traits = compile_artifact_whitelist(/datum/xenoartifact_material/bluespace)
+	GLOB.xenoa_plasma_traits = compile_artifact_whitelist(/datum/xenoartifact_material/plasma)
+	GLOB.xenoa_uranium_traits = compile_artifact_whitelist(/datum/xenoartifact_material/uranium)
+	GLOB.xenoa_bananium_traits = compile_artifact_whitelist(/datum/xenoartifact_material/bananium)
+	GLOB.xenoa_pearl_traits = compile_artifact_whitelist(/datum/xenoartifact_material/pearl)
 
 ///Material weights, basically rarity
 GLOBAL_LIST_INIT(xenoartifact_material_weights, list(XENOA_BLUESPACE = 10, XENOA_PLASMA = 8, XENOA_URANIUM = 5, XENOA_BANANIUM = 1))
