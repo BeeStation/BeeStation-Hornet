@@ -37,6 +37,9 @@
 	///What traits flags are we associated with
 	var/trait_flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 
+	///What icon we use in the labeler
+	var/label_icon = "circle"
+
 //Set this proc to return a pre-made list so we can avoid some overhead
 /datum/xenoartifact_material/proc/get_trait_list()
 	return GLOB.xenoa_all_traits
@@ -55,6 +58,7 @@
 	mask_icon_states = list("mask-bananium1")
 	custom_price = 500
 	trait_flags = XENOA_BANANIUM_TRAIT
+	label_icon = "circle"
 
 /datum/xenoartifact_material/bananium/get_trait_list()
 	return GLOB.xenoa_bananium_traits
@@ -69,6 +73,7 @@
 	trait_malfunctions = 1
 	max_trait_malfunctions = 2
 	trait_flags = XENOA_URANIUM_TRAIT
+	label_icon = "certificate"
 
 /datum/xenoartifact_material/uranium/get_trait_list()
 	return GLOB.xenoa_uranium_traits
@@ -81,6 +86,7 @@
 	mask_icon_states = list("mask-plasma1")
 	custom_price = 250
 	trait_flags = XENOA_PLASMA_TRAIT
+	label_icon = "play"
 
 /datum/xenoartifact_material/plasma/get_trait_list()
 	return GLOB.xenoa_plasma_traits
@@ -92,6 +98,7 @@
 	texture_icon_states = list("texture-bluespace1", "texture-bluespace2", "texture-bluespace3")
 	mask_icon_states = list("mask-bluespace1")
 	trait_flags = XENOA_BLUESPACE_TRAIT
+	label_icon = "star"
 
 /datum/xenoartifact_material/bluespace/get_trait_list()
 	return GLOB.xenoa_bluespace_traits
@@ -104,6 +111,7 @@
 	texture_icon_states = list("texture-pearl1", "texture-pearl2", "texture-pearl3")
 	custom_price = 500
 	trait_flags = XENOA_PEARL_TRAIT
+	label_icon = "question"
 
 //Calcified
 /datum/xenoartifact_material/calcified

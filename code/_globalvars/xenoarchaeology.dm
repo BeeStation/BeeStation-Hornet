@@ -50,5 +50,5 @@ GLOBAL_LIST_INIT(xenoartifact_material_weights, list(XENOA_BLUESPACE = 10, XENOA
 ///Trait priority list - The order is important and it represents priotity
 GLOBAL_LIST_INIT(xenoartifact_trait_priorities, list(TRAIT_PRIORITY_ACTIVATOR, TRAIT_PRIORITY_MINOR, TRAIT_PRIORITY_MALFUNCTION, TRAIT_PRIORITY_MAJOR))
 
-///List of research materials we've bought and cargo needs to ship to us
-GLOBAL_LIST_INIT(needs_shipping_science_materials, list())
+///List of 'discovered' traits
+GLOBAL_LIST_INIT(discovered_traits, list())

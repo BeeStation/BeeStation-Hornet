@@ -591,9 +591,13 @@
 
 /datum/xenoartifact_trait/major/shadow_realm/New(atom/_parent)
 	. = ..()
-	GLOB.destabliization_exits += parent.parent
+	if(!parent?.parent)
+		return
+	GLOB.destabliization_exits += parent?.parent
 
 /datum/xenoartifact_trait/major/shadow_realm/Destroy(force, ...)
+	if(!parent?.parent)
+		return
 	GLOB.destabliization_exits -= parent.parent
 	return ..()
 

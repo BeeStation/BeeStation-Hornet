@@ -134,11 +134,14 @@
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_a(datum/source, atom/target)
 	lit = FALSE
+	//Indicator hint
+	indicator_hint()
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_d(datum/source, atom/target)
 	var/atom/A = parent.parent
 	if(A.density)
 		lit = FALSE
+		indicator_hint()
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_b(datum/source, atom/item, atom/target)
 	var/obj/item/I = item
@@ -148,6 +151,7 @@
 		if(parent.anti_check(target, XENOA_ACTIVATION_TOUCH))
 			return FALSE
 		lit = TRUE
+		indicator_hint(1)
 		search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 		START_PROCESSING(SSobj, src)
 
@@ -166,6 +170,7 @@
 	if(!length(parent.targets))
 		parent.trigger()
 	lit = FALSE //This is a semi-weird way to do it, but it lets us 'disable' the fuse if we want
+	indicator_hint()
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 
 /datum/xenoartifact_trait/activator/flammable/get_dictionary_hint()
@@ -176,6 +181,10 @@
 	if(search_cooldown_timer)
 		deltimer(search_cooldown_timer)
 	search_cooldown_timer = null
+
+/datum/xenoartifact_trait/activator/flammable/proc/indicator_hint(engaging = FALSE)
+	var/atom/A = parent?.parent
+	A?.balloon_alert_to_viewers("[A] [engaging ? "snuffs out." : "flicks on"]!")
 
 /*
 	Timed
@@ -215,6 +224,7 @@
 		if(parent.anti_check(target, type))
 			return FALSE
 		searching = !searching
+		indicator_hint(searching)
 
 /datum/xenoartifact_trait/activator/timed/process(delta_time)
 	if(!searching)
@@ -239,7 +249,7 @@
 
 /datum/xenoartifact_trait/activator/timed/translation_type_d(datum/source, atom/item, atom/target)
 	var/atom/A = parent?.parent
-	if(!isliving(A.loc) || check_item_safety(item))
+	if(!isliving(A.loc) && !A.density || check_item_safety(item))
 		return
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
@@ -258,6 +268,11 @@
 	if(search_cooldown_timer)
 		deltimer(search_cooldown_timer)
 	search_cooldown_timer = null
+
+/datum/xenoartifact_trait/activator/timed/proc/indicator_hint(engaging = FALSE)
+	var/atom/A = parent?.parent
+	A?.balloon_alert_to_viewers("[A] [engaging ? "stops ticking." : "starts ticking"]!")
+
 
 /*
 	Signal
@@ -321,7 +336,7 @@
 
 /datum/xenoartifact_trait/activator/signal/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_TRIGGER("signaller assembly"), XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its trigger code & frequency"), XENOA_TRAIT_HINT_RANDOMISED, list("icon" = "exclamation", "desc" = "This trait will activate on the nearest living target."))
+	return list(XENOA_TRAIT_HINT_TRIGGER("signaller assembly"), XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its trigger code & frequency"), XENOA_TRAIT_HINT_RANDOMISED, list("icon" = "exclamation", "desc" = "This trait will activate on the nearest living target."), XENOA_TRAIT_HINT_APPEARANCE("This trait will make radar particles appear around the artifact."))
 
 /datum/xenoartifact_trait/activator/signal/proc/receive_signal(datum/signal/signal)
 	if(!signal)
@@ -412,3 +427,51 @@
 	if(!parent?.parent)
 		return
 	RegisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+
+/*
+	Hungry
+	This trait activates the artifact when it's fed
+*/
+/datum/xenoartifact_trait/activator/strudy/hungry
+	material_desc = null
+	label_name = "Hungry"
+	label_desc = "Hungry: The artifact seems to be made of a semi-living, hungry, material. This material seems to be triggered by feeding interactions."
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 32
+	///How much damage do we deal per bite?
+	var/eat_damage = 3
+
+/datum/xenoartifact_trait/activator/strudy/hungry/trigger_artifact(atom/target, type, force)
+	. = ..()
+	//Find a food item
+	var/mob/living/M = target
+	var/datum/component/edible/food_item
+	if(isliving(M))
+		var/list/sides = list("left", "right")
+		for(var/i in sides)
+			var/atom/A = M.get_held_items_for_side(i)
+			food_item = A?.GetComponent(/datum/component/edible)
+			if(food_item)
+				break
+	if(!food_item)
+		food_item = target?.GetComponent(/datum/component/edible)
+
+	//If food
+	var/atom/movable/AM = parent.parent
+	if(food_item)
+		playsound(AM.loc, 'sound/items/eatfood.ogg', 60, 1, 1)
+		food_item.feed_to_item(src, parent.parent)
+		return
+	//Otherwise, nibble the target
+	if(isliving(M))
+		playsound(AM.loc, 'sound/weapons/bite.ogg', 60, 1, 1)
+		AM.do_attack_animation(M)
+		M.adjustBruteLoss(eat_damage)
+		AM.visible_message("<span class='warning'>[AM] bites [M]!</span>", allow_inside_usr = TRUE)
+		to_chat(M, "<span class='warning'>[AM] bites you!</span>")
+		return
+
+	return FALSE
+
+/datum/xenoartifact_trait/activator/strudy/hungry/get_dictionary_hint()
+	return list()

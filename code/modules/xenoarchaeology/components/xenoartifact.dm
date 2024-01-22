@@ -117,6 +117,9 @@
 	generate_xenoa_statics()
 	var/atom/A = parent
 
+	//Add discovery component
+	A.AddComponent(/datum/component/discoverable/artifact)
+
 	//Setup our typing
 	artifact_type = type || pick_weight(GLOB.xenoartifact_material_weights)
 	artifact_type = new artifact_type()
@@ -165,8 +168,11 @@
 
 /datum/component/xenoartifact/Destroy(force, silent)
 	if(!QDELETED(parent))
-		//Reset parent's visuals
 		var/atom/A = parent
+		//Remove discovery component
+		var/datum/component/discoverable/artifact/X = A.GetComponent(/datum/component/discoverable/artifact)
+		X.RemoveComponent()
+		//Reset parent's visuals
 		A.remove_filter("texture_overlay")
 		A.remove_filter("outline_1")
 		A.remove_filter("outline_2")
@@ -193,7 +199,7 @@
 		reset_timer(use_cooldown_timer)
 	//Sound hint
 	if(play_hint_sound)
-		playsound(get_turf(parent), 'sound/magic/blink.ogg', 60, TRUE)
+		playsound(get_turf(parent), 'sound/magic/blink.ogg', 50, TRUE)
 	//Trait triggers
 	for(var/i in GLOB.xenoartifact_trait_priorities)
 		SEND_SIGNAL(src, XENOA_TRIGGER, i)

@@ -65,6 +65,7 @@
 #define XENOA_TRAIT_HINT_TWIN list("icon" = "clone", "desc" = "This trait has sister traits which perform a similar, but unqiue, action.")
 #define XENOA_TRAIT_HINT_TWIN_VARIANT(X) list("icon" = "fingerprint", "desc" = "This variant will [X].")
 #define XENOA_TRAIT_HINT_RANDOMISED list("icon" = "dice", "desc" = "This trait's effects may differ between instances.")
+#define XENOA_TRAIT_HINT_APPEARANCE(X) list("icon" = "snowflake", "desc" = "This trait's changes the artifact's appearance. [X]")
 
 /*
 old content

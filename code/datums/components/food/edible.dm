@@ -492,3 +492,16 @@ Behavior that's still missing from this component that original food items had t
 		var/satisfaction_text = pick("burps from enjoyment.", "yaps for more!", "woofs twice.", "looks at the area where \the [parent] was.")
 		L.manual_emote(satisfaction_text)
 		qdel(parent)
+
+///Ability to feed food to items?
+/datum/component/edible/proc/feed_to_item(datum/source, atom/movable/eater)
+	SIGNAL_HANDLER
+
+	if(bitecount == 0 || prob(50))
+		eater.visible_message("[eater] nibbles away at \the [parent].", allow_inside_usr = TRUE)
+	bitecount++
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
+	if(bitecount >= 5)
+		var/satisfaction_text = pick("burps from enjoyment.", "looks at the area where \the [parent] was.")
+		eater.visible_message("[eater] [satisfaction_text]", allow_inside_usr = TRUE)
+		qdel(parent)

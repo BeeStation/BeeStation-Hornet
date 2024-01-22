@@ -107,7 +107,7 @@
 		tooltip_stats["[initial(T.label_name)]"] += list("availability" = list())
 		for(var/datum/xenoartifact_material/M as() in materials)
 			if(initial(M.trait_flags) & initial(T.flags))
-				tooltip_stats["[initial(T.label_name)]"]["availability"] += list(list("color" = initial(M.material_color)))
+				tooltip_stats["[initial(T.label_name)]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
 	return temp
 
 /obj/item/xenoarchaeology_labeler/afterattack(atom/target, mob/user, proximity_flag)

@@ -39,6 +39,8 @@
 
 	///How much extra value does this trait apply to the artifact - It's important this is applied before anyone can use stickers on the artifact
 	var/extra_value = 0
+	///How many discovery points does this trait give?
+	var/discovery_reward = 100
 
 	///Does this trait contribute to calibration
 	var/contribute_calibration = TRUE
@@ -66,7 +68,9 @@
 	//Setup trigger signals
 	RegisterSignal(parent, XENOA_TRIGGER, PROC_REF(trigger))
 	//Appearance
-	generate_trait_appearance(parent.parent)
+	//Consider making a dedicated 'thing' for this check
+	if(parent.do_texture)
+		generate_trait_appearance(parent.parent)
 	//Stats
 	var/atom/A = parent.parent
 	parent.target_range += extra_target_range

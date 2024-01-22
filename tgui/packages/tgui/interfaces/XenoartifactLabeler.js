@@ -141,7 +141,7 @@ const XenoartifactlabelerGenerateInfo = (props, context) => {
           <Button icon={hint["icon"]} tooltip={hint["desc"]}/>
         ))}
         {tooltip_stats[info["name"]]["availability"].map((trait) => (
-          <Icon name={'circle'} color={trait["color"]}/>
+          <Icon name={trait["icon"]} color={trait["color"]}/>
         ))}
       </Box>
     </Section>
@@ -151,9 +151,9 @@ const XenoartifactlabelerGenerateInfo = (props, context) => {
 const XenoartifactlabelerSticker = (props, context) => {
   const { act } = useBackend(context);
   return (
-    <Box>
+    <Section>
       <Button content="Print" onClick={() => act('print_traits')} />
       <Button content="Clear" onClick={() => act('clear_traits')} />
-    </Box>
+    </Section>
   );
 };

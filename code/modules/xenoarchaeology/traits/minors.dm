@@ -62,7 +62,7 @@
 
 /datum/xenoartifact_trait/minor/charged/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_INHAND)
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_INHAND, XENOA_TRAIT_HINT_APPEARANCE("This trait will make static particles appear around the artifact."))
 
 /*
 	Capacitive
@@ -86,6 +86,7 @@
 		return
 	current_charge = max_charges
 	parent.cooldown_disabled = TRUE
+	setup_generic_item_hint()
 
 /datum/xenoartifact_trait/minor/capacitive/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -100,9 +101,14 @@
 		current_charge = max_charges
 		parent.cooldown_disabled = FALSE
 
+/datum/xenoartifact_trait/minor/capacitive/do_hint(mob/user, atom/item)
+	. = ..()
+	if(istype(item, /obj/item/multitool))
+		to_chat(user, "<span class='warning'>[item] detects [current_charge] additional charges!</span>")
+
 /datum/xenoartifact_trait/minor/capacitive/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_MATERIAL)
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_DETECT("multitool, which will also reveal the artifact's additional charges."))
 
 /*
 	Dense
@@ -242,7 +248,7 @@
 
 /datum/xenoartifact_trait/minor/cooling/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_INHAND)
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_INHAND, XENOA_TRAIT_HINT_APPEARANCE("This trait will make frost particles appear around the artifact."))
 
 /*
 	Sentient
@@ -398,7 +404,7 @@
 
 /datum/xenoartifact_trait/minor/delicate/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_RANDOMISED)
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_APPEARANCE("This trait will make the artifact noticeably transparent."))
 
 /*
 	Aura
@@ -664,7 +670,7 @@
 
 /datum/xenoartifact_trait/minor/signaller/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its output code & frequency"), XENOA_TRAIT_HINT_RANDOMISED)
+	return list(XENOA_TRAIT_HINT_DETECT("analyzer, which will also reveal its output code & frequency"), XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_APPEARANCE("This trait will make radar particles appear around the artifact."))
 
 /*
 	Anchor
