@@ -17,6 +17,7 @@
 	///Variable to ensure smooth visual stacking on multiple progress bars.
 	var/listindex = 0
 
+
 /datum/progressbar/New(mob/User, goal_number, atom/target)
 	. = ..()
 	if (!istype(target))
@@ -31,12 +32,12 @@
 		return
 	goal = goal_number
 	bar_loc = target
-	bar = image('icons/effects/progessbar.dmi', target, "prog_bar_0")
+	bar = image('icons/effects/progessbar.dmi', bar_loc, "prog_bar_0")
 	bar.plane = ABOVE_HUD_PLANE
 	bar.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	user = User
 
-	LAZYADDASSOC(user.progressbars, bar_loc, src)
+	LAZYADDASSOCLIST(user.progressbars, bar_loc, src)
 	var/list/bars = user.progressbars[bar_loc]
 	listindex = bars.len
 
@@ -77,6 +78,8 @@
 
 ///Called right before the user's Destroy()
 /datum/progressbar/proc/on_user_delete(datum/source)
+	SIGNAL_HANDLER
+
 	user.progressbars = null //We can simply nuke the list and stop worrying about updating other prog bars if the user itself is gone.
 	user = null
 	qdel(src)
@@ -84,6 +87,8 @@
 
 ///Removes the progress bar image from the user_client and nulls the variable, if it exists.
 /datum/progressbar/proc/clean_user_client(datum/source)
+	SIGNAL_HANDLER
+
 	if(!user_client) //Disconnected, already gone.
 		return
 	user_client.images -= bar
@@ -92,6 +97,8 @@
 
 ///Called by user's Login(), it transfers the progress bar image to the new client.
 /datum/progressbar/proc/on_user_login(datum/source)
+	SIGNAL_HANDLER
+
 	if(user_client)
 		if(user_client == user.client) //If this was not client handling I'd condemn this sanity check. But clients are fickle things.
 			return
@@ -109,6 +116,7 @@
 	user_client.images += bar
 	animate(bar, pixel_y = 32 + (PROGRESSBAR_HEIGHT * (listindex - 1)), alpha = 255, time = PROGRESSBAR_ANIMATION_TIME, easing = SINE_EASING)
 
+
 ///Updates the progress bar image visually.
 /datum/progressbar/proc/update(progress)
 	progress = clamp(progress, 0, goal)
@@ -116,6 +124,7 @@
 		return
 	last_progress = progress
 	bar.icon_state = "prog_bar_[round(((progress / goal) * 100), 5)]"
+
 
 ///Called on progress end, be it successful or a failure. Wraps up things to delete the datum and bar.
 /datum/progressbar/proc/end_progress()
@@ -125,6 +134,7 @@
 	animate(bar, alpha = 0, time = PROGRESSBAR_ANIMATION_TIME)
 
 	QDEL_IN(src, PROGRESSBAR_ANIMATION_TIME)
+
 
 #undef PROGRESSBAR_ANIMATION_TIME
 #undef PROGRESSBAR_HEIGHT
