@@ -1,4 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Fix ghosts being able to interact with the holoparasite HUD through Observe.
