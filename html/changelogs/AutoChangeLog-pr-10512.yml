@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed ByondUI elements persisting (such as in the preference menu) and
-      causing lag after changing mobs.
