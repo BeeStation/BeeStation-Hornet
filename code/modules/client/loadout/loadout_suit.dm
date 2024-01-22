@@ -34,6 +34,11 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat
 	cost = 2500
 
+/datum/gear/suit/wintercoat/white
+	display_name = "white winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/white
+	cost = 2500
+
 /datum/gear/suit/wintercoat/captain
 	display_name = "captain's winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/captain
