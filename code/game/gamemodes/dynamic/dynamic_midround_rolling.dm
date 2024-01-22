@@ -48,7 +48,7 @@
 			log_game("DYNAMIC: FAIL: [ruleset] is not acceptable with the current parameters. Alive players: [SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len], threat level: [threat_level]")
 			continue
 
-		if (mid_round_budget < ruleset.cost && !is_lategame())
+		if (mid_round_budget < ruleset.cost && !(is_lategame() && (ruleset.flags & LATEGAME_RULESET)))
 			log_game("DYNAMIC: FAIL: [ruleset] is too expensive, and cannot be bought. Midround budget: [mid_round_budget], ruleset cost: [ruleset.cost]")
 			continue
 

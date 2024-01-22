@@ -9,7 +9,8 @@
 //Finds the opposite limb for the active one (eg: upper left arm will find the item in upper right arm)
 //So we're treating each "pair" of limbs as a team, so "both" refers to them
 /mob/proc/get_inactive_held_item()
-	return get_item_for_held_index(get_inactive_hand_index())
+	var/inactive_hand_index = get_inactive_hand_index()
+	return inactive_hand_index ? get_item_for_held_index(inactive_hand_index) : null
 
 
 //Finds the opposite index for the active one (eg: upper left arm will find the item in upper right arm)
@@ -20,16 +21,15 @@
 		other_hand = active_hand_index-1 //finding the matching "left" limb
 	else
 		other_hand = active_hand_index+1 //finding the matching "right" limb
-	if(other_hand < 0 || other_hand > held_items.len)
+	if(other_hand < 0 || other_hand > length(held_items))
 		other_hand = 0
 	return other_hand
 
 
 /mob/proc/get_item_for_held_index(i)
-	if(i > 0 && i <= held_items.len)
-		return held_items[i]
-	return FALSE
-
+    if(!length(held_items))
+        return null
+    return held_items[i]
 
 //Odd = left. Even = right
 /mob/proc/held_index_to_dir(i)
@@ -62,7 +62,7 @@
 	if(!start)
 		return FALSE
 	var/list/empty_indexes
-	for(var/i in start to held_items.len step 2)
+	for(var/i in start to length(held_items) step 2)
 		if(!held_items[i])
 			if(!all)
 				return i
@@ -84,7 +84,7 @@
 	if(!start)
 		return FALSE
 	var/list/holding_items
-	for(var/i in start to held_items.len step 2)
+	for(var/i in start to length(held_items) step 2)
 		var/obj/item/I = held_items[i]
 		if(I)
 			if(!all)
@@ -97,7 +97,7 @@
 
 /mob/proc/get_empty_held_indexes()
 	var/list/L
-	for(var/i in 1 to held_items.len)
+	for(var/i in 1 to length(held_items))
 		if(!held_items[i])
 			if(!L)
 				L = list()
@@ -119,7 +119,7 @@
 	for(var/obj/item/I in held_items)
 		if(istype(I, typepath))
 			return I
-	return FALSE
+	return null
 
 //Checks if we're holding a tool that has given quality
 //Returns the tool that has the best version of this quality
@@ -162,7 +162,7 @@
 	return FALSE
 
 /mob/proc/can_put_in_hand(I, hand_index)
-	if(hand_index > held_items.len)
+	if(hand_index > length(held_items))
 		return FALSE
 	if(!put_in_hand_check(I))
 		return FALSE
@@ -234,13 +234,13 @@
 			return FALSE
 
 		if (merge_stacks)
-			if (istype(active_stack) && istype(I_stack, active_stack.merge_type))
+			if (istype(active_stack) && active_stack.can_merge(I_stack))
 				if (I_stack.merge(active_stack))
 					to_chat(usr, "<span class='notice'>Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.singular_name]\s.</span>")
 					return TRUE
 			else
 				var/obj/item/stack/inactive_stack = get_inactive_held_item()
-				if (istype(inactive_stack) && istype(I_stack, inactive_stack.merge_type))
+				if (istype(inactive_stack) && inactive_stack.can_merge(I_stack))
 					if (I_stack.merge(inactive_stack))
 						to_chat(usr, "<span class='notice'>Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s.</span>")
 						return TRUE
@@ -477,8 +477,8 @@
 //This is a very rare proc to call (besides admin fuckery) so
 //any cost it has isn't a worry
 /mob/proc/change_number_of_hands(amt)
-	if(amt < held_items.len)
-		for(var/i in held_items.len to amt step -1)
+	if(amt < length(held_items))
+		for(var/i in length(held_items) to amt step -1)
 			dropItemToGround(held_items[i])
 	held_items.len = amt
 
@@ -487,7 +487,7 @@
 
 
 /mob/living/carbon/human/change_number_of_hands(amt)
-	var/old_limbs = held_items.len
+	var/old_limbs = length(held_items)
 	if(amt < old_limbs)
 		for(var/i in hand_bodyparts.len to amt step -1)
 			var/obj/item/bodypart/BP = hand_bodyparts[i]

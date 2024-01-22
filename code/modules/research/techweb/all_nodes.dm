@@ -57,6 +57,7 @@
 		"titaniumglass",
 		"xenoa_labeler",
 		"xlarge_beaker",
+		"epaperread"
 	)
 
 /datum/techweb_node/mmi
@@ -1563,6 +1564,8 @@
 		"pepperspray",
 		"seclite",
 		"zipties",
+		"turnstile",
+		"genpop_interface",
 	)
 	prereq_ids = list("base")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
@@ -1575,8 +1578,9 @@
 	description = "Unlocks new designs that improve rapid devices."
 	design_ids = list(
 		"rcd_upgrade_frames",
+		"rcd_upgrade_furnishing",
 		"rcd_upgrade_simple_circuits",
-		"rpd_upgrade_unwrench",
+		"rpd_upgrade_unwrench"
 	)
 	prereq_ids = list("adv_engi")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)

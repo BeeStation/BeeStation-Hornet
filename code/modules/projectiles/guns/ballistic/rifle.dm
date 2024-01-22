@@ -5,7 +5,7 @@
 	icon_state = "moistnugget"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	bolt_wording = "bolt"
-	bolt_type = BOLT_TYPE_STANDARD
+	bolt_type = BOLT_TYPE_TWO_STEP
 	semi_auto = FALSE
 	internal_magazine = TRUE
 	fire_sound = "sound/weapons/rifleshot.ogg"
@@ -19,40 +19,12 @@
 	..()
 	add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
 
-/obj/item/gun/ballistic/rifle/rack(mob/user = null)
-	if(!is_wielded)
-		to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
-		return
-	if(bolt_locked == FALSE)
-		to_chat(user, "<span class='notice'>You open the bolt of \the [src].</span>")
-		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
-		process_chamber(FALSE, FALSE, FALSE)
-		bolt_locked = TRUE
-		update_icon()
-		return
-	drop_bolt(user)
-
-/obj/item/gun/ballistic/rifle/can_shoot()
-	if (bolt_locked)
-		return FALSE
-	return ..()
-
-/obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
-	if ((istype(A, /obj/item/ammo_casing/a762) || istype(A, /obj/item/ammo_box/a762)) && !bolt_locked)
-		to_chat(user, "<span class='notice'>The bolt is closed!</span>")
-		return
-	return ..()
-
-/obj/item/gun/ballistic/rifle/examine(mob/user)
-	. = ..()
-	. += "The bolt is [bolt_locked ? "open" : "closed"]."
-
 /obj/item/gun/ballistic/rifle/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
 	if(sawn_off == TRUE)
 		if(!is_wielded)
 			recoil = 5
 		else
-			recoil = SAWN_OFF_RECOIL
+			recoil = initial(recoil) + SAWN_OFF_RECOIL
 	. = ..()
 
 ///////////////////////
@@ -73,6 +45,7 @@
 	can_bayonet = TRUE
 	knife_x_offset = 27
 	knife_y_offset = 13
+	recoil = 0.5
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 
@@ -90,6 +63,8 @@
 	name = "enchanted bolt action rifle"
 	desc = "Careful not to lose your head."
 	can_sawoff = FALSE
+	equip_time = 0 SECONDS
+	recoil = 0
 	var/guns_left = 30
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 
@@ -107,6 +82,10 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
+
+/obj/item/gun/ballistic/rifle/boltaction/enchanted/Initialize(mapload)
+	. = ..()
+	chamber_round()
 
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/dropped()
 	guns_left = 0
@@ -133,3 +112,86 @@
 		user.put_in_hands(gun)
 	else
 		user.dropItemToGround(src, TRUE)
+
+///////////////////////
+//   .38 CAL RIFLE   //
+///////////////////////
+
+/obj/item/gun/ballistic/rifle/leveraction
+	name = "lever action rifle"
+	desc = "Straight from the Wild West, this belongs in a museum but has found its way into your hands."
+	icon_state = "leverrifle"
+	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
+	item_state = "leveraction"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
+	slot_flags = ITEM_SLOT_BACK
+	rack_sound = "sound/weapons/leveractionrack.ogg"
+	half_rack_sound = "sound/weapons/leveractionrack_open.ogg"
+	bolt_drop_sound = "sound/weapons/leveractionrack_close.ogg"
+	fire_sound = "sound/weapons/leveractionshot.ogg"
+	mag_type = /obj/item/ammo_box/magazine/internal/leveraction
+	w_class = WEIGHT_CLASS_BULKY
+	no_pin_required = TRUE //Nothing stops frontier justice
+	bolt_wording = "lever"
+	cartridge_wording = "cartridge"
+	recoil = 0.5
+	bolt_type = BOLT_TYPE_PUMP
+	fire_sound_volume = 70
+
+///////////////////////
+//  7.62 PIPE RIFLE  //
+///////////////////////
+
+/obj/item/gun/ballistic/rifle/pipe
+	name = "pipe rifle"
+	desc = "It's amazing what you can do with some scrap wood and spare pipes."
+	can_sawoff = TRUE
+	sawn_name = "pipe pistol"
+	sawn_desc = "Why have more gun, when less gun can do!"
+	icon_state = "piperifle"
+	lefthand_file = 'icons/mob/inhands/weapons/64x_guns_left.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/64x_guns_right.dmi'
+	item_state = "shotgun_improv"
+	sawn_item_state = "shotgun_improv_shorty"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
+	bolt_type = BOLT_TYPE_NO_BOLT
+	cartridge_wording = "cartridge"
+	slot_flags = null
+	mag_type = /obj/item/ammo_box/magazine/internal/piperifle
+	no_pin_required = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+	force = 8
+	recoil = 0.8
+	var/slung = FALSE
+
+/obj/item/gun/ballistic/rifle/pipe/examine(mob/user)
+	. = ..()
+	if (slung)
+		. += "It has a shoulder sling fashioned from spare cable attached."
+	else
+		. += "You could improvise a shoulder sling from some cabling..."
+
+/obj/item/gun/ballistic/rifle/pipe/attackby(obj/item/A, mob/user, params)
+	..()
+	if(istype(A, /obj/item/stack/cable_coil) && !sawn_off)
+		if(slung)
+			to_chat(user, "<span class='warning'>There is already a sling on [src]!</span>")
+			return
+		var/obj/item/stack/cable_coil/C = A
+		if(C.use(10))
+			slot_flags = ITEM_SLOT_BACK
+			to_chat(user, "<span class='notice'>You tie the lengths of cable to the [src], making a sling.</span>")
+			slung = TRUE
+			update_icon()
+		else
+			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
+
+/obj/item/gun/ballistic/rifle/pipe/sawoff(mob/user)
+	. = ..()
+	if(. && slung) //sawing off the gun removes the sling
+		new /obj/item/stack/cable_coil(get_turf(src), 10)
+		slung = FALSE
+		update_icon()

@@ -366,7 +366,7 @@
 	minimum_round_time = 35 MINUTES
 	weight = 3
 	cost = 12
-	minimum_players = 25
+	minimum_players = 22
 	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/blob/generate_ruleset_body(mob/applicant)
@@ -390,7 +390,7 @@
 	minimum_round_time = 40 MINUTES
 	weight = 3
 	cost = 12
-	minimum_players = 25
+	minimum_players = 22
 	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 	var/list/vents
 
@@ -490,7 +490,7 @@
 	required_candidates = 1
 	weight = 4
 	cost = 11
-	minimum_players = 25
+	minimum_players = 22
 	repeatable = TRUE
 	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 	var/list/spawn_locs
@@ -536,7 +536,7 @@
 	required_applicants = 2
 	weight = 4
 	cost = 7
-	minimum_players = 25
+	minimum_players = 22
 	repeatable = TRUE
 	var/datum/team/abductor_team/new_team
 
@@ -623,7 +623,7 @@
 	required_candidates = 0
 	weight = 4
 	cost = 8
-	minimum_players = 27
+	minimum_players = 25
 	repeatable = FALSE
 	flags = LATEGAME_RULESET
 
@@ -692,7 +692,7 @@
 	cost = 11
 	repeatable = TRUE
 	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
-	minimum_players = 27
+	minimum_players = 25
 	var/fed = 1
 	var/list/vents
 	var/datum/team/spiders/spider_team

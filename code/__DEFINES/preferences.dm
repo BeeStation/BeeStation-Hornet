@@ -180,6 +180,9 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 #define PREFERENCE_SHEET_LARGE "preferences_l"
 #define PREFERENCE_SHEET_HUGE "preferences_h"
 
+#define PREFERENCE_BODYZONE_SIMPLIFIED "Simplified Targeting"	// Use the simplified system
+#define PREFERENCE_BODYZONE_INTENT "Precise Targeting"	// Use the bodyzone intent system
+
 /// Stop loading immediately, inform the user. Do not save the data.
 #define PREFERENCE_LOAD_ERROR 0
 /// There is no data to load, they are a guest and will never have this data.
@@ -188,3 +191,4 @@ GLOBAL_PROTECT(undatumized_preference_tags_character)
 #define PREFERENCE_LOAD_NO_DATA 2
 /// Normal behavior - success!
 #define PREFERENCE_LOAD_SUCCESS 3
+
