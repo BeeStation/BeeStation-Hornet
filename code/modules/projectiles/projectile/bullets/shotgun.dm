@@ -104,11 +104,8 @@
 
 /obj/projectile/bullet/pellet/shotgun_improvised
 	tile_dropoff = 0.3		//Come on it does 6 damage don't be like that.
-	damage = 5
-
-/obj/projectile/bullet/pellet/shotgun_improvised/Initialize(mapload)
-	. = ..()
-	range = rand(3, 8)
+	damage = 4
+	armour_penetration = -10
 
 /obj/projectile/bullet/pellet/shotgun_improvised/on_range()
 	do_sparks(1, TRUE, src)
@@ -120,11 +117,12 @@
 	range = 8
 	ricochets_max = 0
 	shrapnel_type = /obj/item/shrapnel/bullet/shotgun/glass
+	armour_penetration = -20
 
 /obj/projectile/bullet/pellet/shotgun_glass/Initialize(mapload)
 	. = ..()
 
-	if(prob(20)) //Each 'pellet' has a 20 percent chance to not shrapnel/attempt embedding
+	if(prob(35)) //Each 'pellet' has a 35 percent chance to not shrapnel/attempt embedding
 		shrapnel_type = null
 
 // Mech Scattershot
