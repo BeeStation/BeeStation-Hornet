@@ -396,6 +396,20 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
+/datum/crafting_recipe/improv46x30box
+	name = "Improvised 4.6x30mm Ammo Box"
+	result = /obj/item/ammo_box/c46improvised
+	reqs = list(/obj/item/grenade/chem_grenade = 20,
+				/obj/item/stack/sheet/iron = 25,
+				/obj/item/stack/cable_coil = 30,
+				/obj/item/stack/sheet/cardboard = 1,
+				/datum/reagent/fuel = 100)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
 /datum/crafting_recipe/a762improv
 	name = "Improvised 7.62 Cartridge"
 	result = /obj/item/ammo_casing/a762/improv
@@ -498,6 +512,19 @@
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/sheet/iron = 1,
 				/obj/item/stack/cable_coil = 2,
+				/datum/reagent/fuel = 20)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/single357
+	name = ".357 Cartridge"
+	result = /obj/item/ammo_casing/a357/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/iron = 3,
+				/obj/item/stack/cable_coil = 2,
 				/datum/reagent/blackpowder = 10)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 5
@@ -505,14 +532,26 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
-/datum/crafting_recipe/improv46x30box
-	name = "Improvised 4.6x30mm Ammmo Box"
-	result = /obj/item/ammo_box/c46improvised
+/datum/crafting_recipe/improv45
+	name = "Improvised .45 Pack"
+	result = /obj/item/ammo_box/pouch/c45/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 7,
+				/obj/item/stack/sheet/iron = 21,
+				/obj/item/stack/cable_coil = 14,
+				/datum/reagent/fuel = 70)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/box45
+	name = ".45 Ammo Box"
+	result = /obj/item/ammo_box/c45
 	reqs = list(/obj/item/grenade/chem_grenade = 20,
-				/obj/item/stack/sheet/iron = 25,
-				/obj/item/stack/cable_coil = 30,
-				/obj/item/stack/sheet/cardboard = 1,
-				/datum/reagent/fuel = 100)
+				/obj/item/stack/sheet/iron = 50,
+				/obj/item/stack/cable_coil = 20,
+				/datum/reagent/blackpowder = 100)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 5
 	category = CAT_WEAPONRY

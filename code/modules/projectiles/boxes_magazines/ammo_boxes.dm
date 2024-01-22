@@ -157,6 +157,12 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20
 
+/obj/item/ammo_box/pouch/c45/improv
+	name = "ammo pouch (.45)"
+	ammo_type = /obj/item/ammo_casing/c45/improv
+	max_ammo = 7
+
+
 /obj/item/ammo_box/c38/box
 	name = "ammo box (.38)"
 	desc = "A small pack of .38 cartridges"

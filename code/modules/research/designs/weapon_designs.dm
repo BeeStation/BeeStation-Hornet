@@ -3,57 +3,57 @@
 /////////////////////////////////////////
 
 /datum/design/c38/sec
-	name = "Ammo Box (.38)"
-	desc = "A 6 round box of .38 special rounds."
+	name = ".38 Special"
+	desc = "A single round of .38 Special."
 	id = "sec_38"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 10000, /datum/material/copper = 2000)
-	reagents_list = list(/datum/reagent/smokeless_powder = 10)
-	build_path = /obj/item/ammo_box/c38_box
+	materials = list(/datum/material/iron = 2000, /datum/material/copper = 500)
+	reagents_list = list(/datum/reagent/smokeless_powder = 5)
+	build_path = /obj/item/ammo_casing/c38
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/c38b/sec
-	name = "Ammo Box (.38 Rubber)"
-	desc = "A 6 round box of .38 Rubber shot rounds."
+	name = ".38 Special Rubbershot"
+	desc = "A single round of .38 Rubber shot."
 	id = "sec_38b"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 10000, /datum/material/plastic = 3000, /datum/material/copper = 2000)
-	reagents_list = list(/datum/reagent/smokeless_powder = 10)
-	build_path = /obj/item/ammo_box/c38_boxrubber
+	materials = list(/datum/material/iron = 2000, /datum/material/plastic = 1000, /datum/material/copper = 500)
+	reagents_list = list(/datum/reagent/smokeless_powder = 5)
+	build_path = /obj/item/ammo_casing/c38/match/bouncy
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/c38_trac
-	name = "Ammo Box (.38 TRAC)"
-	desc = "A 6 round box of .38 Tracking rounds."
+	name = ".38 Special Tracker"
+	desc = "A single round of .38 Tracking rounds."
 	id = "c38_trac"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 10000, /datum/material/silver = 5000, /datum/material/gold = 1000)
-	reagents_list = list(/datum/reagent/smokeless_powder = 10)
-	build_path = /obj/item/ammo_box/c38_boxtrac
+	materials = list(/datum/material/iron = 2000, /datum/material/silver = 5000, /datum/material/gold = 1000)
+	reagents_list = list(/datum/reagent/smokeless_powder = 5)
+	build_path = /obj/item/ammo_casing/c38/trac
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/c38_hotshot
-	name = "Ammo Box (.38 Hot Shot)"
-	desc = "A 6 round box of .38 Hot Shot rounds."
+	name = ".38 Hot Shot"
+	desc = "A single round of .38 Hot Shot."
 	id = "c38_hotshot"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 15000, /datum/material/plasma = 5000, /datum/material/copper = 2000)
-	reagents_list = list(/datum/reagent/smokeless_powder = 10)
-	build_path = /obj/item/ammo_box/c38_boxhotshot
+	materials = list(/datum/material/iron = 2000, /datum/material/plasma = 5000, /datum/material/copper = 500)
+	reagents_list = list(/datum/reagent/smokeless_powder = 5)
+	build_path = /obj/item/ammo_casing/c38/hotshot
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
 /datum/design/c38_iceblox
-	name = "Ammo Box (.38 Iceblox)"
-	desc = "A 6 round box of .38 Iceblox rounds"
+	name = ".38 Iceblox"
+	desc = "A single round of .38 Iceblox"
 	id = "c38_iceblox"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 20000, /datum/material/plasma = 5000, /datum/material/copper = 2000)
-	reagents_list = list(/datum/reagent/smokeless_powder = 10)
-	build_path = /obj/item/ammo_box/c38_boxiceblox
+	materials = list(/datum/material/iron = 2000, /datum/material/plasma = 5000, /datum/material/copper = 500)
+	reagents_list = list(/datum/reagent/smokeless_powder = 5)
+	build_path = /obj/item/ammo_casing/c38/iceblox
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 

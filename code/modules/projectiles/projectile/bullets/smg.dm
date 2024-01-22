@@ -4,6 +4,10 @@
 	name = ".45 bullet"
 	damage = 30
 
+/obj/projectile/bullet/c45/improv
+	name = ".45 bullet"
+	damage = 18
+
 // 4.6x30mm (Autorifles)
 
 /obj/projectile/bullet/c46x30mm
