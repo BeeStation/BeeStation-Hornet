@@ -13,11 +13,6 @@
 	icon_state = "762improv"
 	projectile_type = /obj/projectile/bullet/a762/improv
 
-/obj/item/ammo_casing/a762/improv/hotload
-	name = "7.62 hotload cartridge"
-	desc = "A higher quality handmade 7.62 cartridge. It smells like charcoal."
-	projectile_type = /obj/projectile/bullet/a762/improv/hotload
-
 /obj/item/ammo_casing/a762/enchanted
 	projectile_type = /obj/projectile/bullet/a762_enchanted
 

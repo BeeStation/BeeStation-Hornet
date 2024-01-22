@@ -764,22 +764,6 @@
 	build_path = /obj/item/weaponcrafting/receiver
 	category = list("hacked", "Security")
 
-/datum/design/riot_dart
-	name = "Foam Riot Dart"
-	id = "riot_dart"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 1000) //Discount for making individually - no box = less metal!
-	build_path = /obj/item/ammo_casing/caseless/foam_dart/riot
-	category = list("hacked", "Security")
-
-/datum/design/riot_darts
-	name = "Foam Riot Dart Box"
-	id = "riot_darts"
-	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 50000) //Comes with 40 darts
-	build_path = /obj/item/ammo_box/foambox/riot
-	category = list("hacked", "Security")
-
 /datum/design/cleaver
 	name = "Butcher's Cleaver"
 	id = "cleaver"

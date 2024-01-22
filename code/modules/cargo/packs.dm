@@ -578,21 +578,21 @@
 
 /datum/supply_pack/security/armory/ballistic_single
 	name = "Combat Shotgun Single-Pack"
-	desc = "For when the enemy absolutely needs to be replaced with lead. Contains one Aussec-designed Combat Shotgun, and one Shotgun Bandolier. Requires Armory access to open."
+	desc = "For when the enemy absolutely needs to be replaced with lead. Lead not included! Contains one Aussec-designed Combat Shotgun, and one Shotgun Bandolier. Requires Armory access to open."
 	cost = 2900 //2500 credits per shotgun
 	small_item = TRUE
 	max_supply = 2
-	contains = list(/obj/item/gun/ballistic/shotgun/automatic/combat,
+	contains = list(/obj/item/gun/ballistic/shotgun/automatic/combat/empty,
 					/obj/item/storage/belt/bandolier)
 
 /datum/supply_pack/security/armory/ballistic
 	name = "Combat Shotguns Crate"
-	desc = "For when the enemy absolutely needs to be replaced with lead. Contains three Aussec-designed Combat Shotguns, and three Shotgun Bandoliers. Requires Armory access to open."
+	desc = "For when the enemy absolutely needs to be replaced with lead. Lead not included! Contains three Aussec-designed Combat Shotguns, and three Shotgun Bandoliers. Requires Armory access to open."
 	cost = 6400 //20% discount
 	max_supply = 1
-	contains = list(/obj/item/gun/ballistic/shotgun/automatic/combat,
-					/obj/item/gun/ballistic/shotgun/automatic/combat,
-					/obj/item/gun/ballistic/shotgun/automatic/combat,
+	contains = list(/obj/item/gun/ballistic/shotgun/automatic/combat/empty,
+					/obj/item/gun/ballistic/shotgun/automatic/combat/empty,
+					/obj/item/gun/ballistic/shotgun/automatic/combat/empty,
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier,
 					/obj/item/storage/belt/bandolier)
@@ -600,19 +600,19 @@
 
 /datum/supply_pack/security/armory/riot_shotgun_single
 	name = "Riot Shotgun Single-Pack"
-	desc = "When the clown's slipped you one time too many. Requires armory access to open."
+	desc = "When the clown's slipped you one time too many. No ammo included. Requires armory access to open."
 	cost =  2200 //1800 credits per shotgun
 	max_supply = 2
-	contains = list(/obj/item/gun/ballistic/shotgun/riot)
+	contains = list(/obj/item/gun/ballistic/shotgun/riot/empty)
 
 /datum/supply_pack/security/armory/riot_shotgun
 	name = "Riot Shotguns Crate"
-	desc = "For when the greytide gets out of hand. Contains 3 riot shotguns. Requires armory access to open."
+	desc = "For when the greytide gets out of hand. Contains 3 riot shotguns. No ammo included. Requires armory access to open."
 	cost = 4720 //20% discount
 	max_supply = 1
-	contains = list(/obj/item/gun/ballistic/shotgun/riot,
-					/obj/item/gun/ballistic/shotgun/riot,
-					/obj/item/gun/ballistic/shotgun/riot)
+	contains = list(/obj/item/gun/ballistic/shotgun/riot/empty,
+					/obj/item/gun/ballistic/shotgun/riot/empty,
+					/obj/item/gun/ballistic/shotgun/riot/empty)
 
 /datum/supply_pack/security/armory/energy_single
 	name = "Energy Gun Single-Pack"
@@ -740,13 +740,13 @@
 
 /datum/supply_pack/security/armory/russian
 	name = "Russian Surplus Crate"
-	desc = "Hello Comrade, we have the most modern russian military equipment the black market can offer, for the right price of course. Sadly we couldnt remove the lock so it requires Armory access to open."
+	desc = "Hello Comrade, we have the most modern russian military equipment the black market can offer, for the right price of course. Sadly Yuri lost the key, so have fun hacking it open."
 	cost = 4000
 	contraband = TRUE
 	max_supply = 3
 	contains = list(/obj/item/reagent_containers/food/snacks/rationpack,
-					/obj/item/ammo_box/a762,
-					/obj/item/storage/toolbox/ammo,
+					/obj/item/ammo_box/a762/empty,
+					/obj/item/storage/toolbox/ammo/empty,
 					/obj/item/clothing/suit/armor/vest/russian,
 					/obj/item/clothing/head/helmet/rus_helmet,
 					/obj/item/clothing/shoes/russian,
@@ -759,6 +759,7 @@
 					/obj/item/gun/ballistic/rifle/boltaction,
 					/obj/item/gun/ballistic/rifle/boltaction)
 	crate_name = "surplus military crate"
+	crate_type = /obj/structure/closet/crate/secure/loot/cargo
 
 /datum/supply_pack/security/armory/russian/fill(obj/structure/closet/crate/C)
 	for(var/i in 1 to 10)
@@ -767,13 +768,11 @@
 
 /datum/supply_pack/security/armory/western
 	name = "Western Frontier Crate"
-	desc = "Howdy Pardner, this here is the finest collection of frontier gear for the aspiring cowboy, sheriff, or Wild West desperado on this side of the solar system. Unfortunately, we've had to lock this down with Armory access to put the postmaster general at ease."
+	desc = "Howdy Pardner, this here is the finest collection of frontier gear for the aspiring cowboy, sheriff, or Wild West desperado on this side of the solar system. Unfortunately, some ruffian ran off with the key so you'd better have a safe cracker."
 	cost = 4000
 	contraband = TRUE
 	max_supply = 3
-	contains = list(/obj/item/ammo_box/c38/box,
-					/obj/item/storage/toolbox/ammo/c38,
-					/obj/item/mob_lasso,
+	contains = list(/obj/item/mob_lasso,
 					/obj/item/clothing/shoes/workboots/mining,
 					/obj/item/clothing/gloves/botanic_leather,
 					/obj/item/clothing/gloves/color/black,
@@ -804,6 +803,7 @@
 					/obj/item/clothing/accessory/holster,
 					/obj/item/paper/crumpled/bloody/cursed_western)
 	crate_name = "western frontier crate"
+	crate_type = /obj/structure/closet/crate/secure/loot/cargo
 
 /datum/supply_pack/security/armory/western/fill(obj/structure/closet/crate/C)
 	if (prob(1) && prob(10)) //0.001% chance of rolling instead of normal contents //Jackpot Babey!!!
@@ -865,9 +865,9 @@
 
 /datum/supply_pack/security/armory/wt550_single
 	name = "WT-550 Auto Rifle Single-Pack"
-	desc = "Contains one high-powered, semiautomatic rifles chambered in 4.6x30mm. Requires Armory access to open."
+	desc = "Contains one unloaded high-powered, semiautomatic rifles chambered in 4.6x30mm. Requires Armory access to open."
 	cost = 1600 // 1200 per 1 gun
-	contains = list(/obj/item/gun/ballistic/automatic/wt550)
+	contains = list(/obj/item/gun/ballistic/automatic/wt550/empty)
 	small_item = TRUE
 	max_supply = 3
 

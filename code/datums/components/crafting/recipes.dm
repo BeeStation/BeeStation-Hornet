@@ -423,9 +423,9 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
-/datum/crafting_recipe/a762hotload
-	name = "Hot-Loaded 7.62 Cartridge"
-	result = /obj/item/ammo_casing/a762/improv/hotload
+/datum/crafting_recipe/a762
+	name = "7.62 Cartridge"
+	result = /obj/item/ammo_casing/a762
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/sheet/iron = 1,
 				/obj/item/stack/cable_coil = 1,
