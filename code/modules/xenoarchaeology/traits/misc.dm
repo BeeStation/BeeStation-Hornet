@@ -56,6 +56,7 @@
 	return TRUE
 
 /obj/structure/closet/artifact
+	name = "Bishop" //Proper name
 
 /obj/structure/closet/artifact/ComponentInitialize()
 	. = ..()

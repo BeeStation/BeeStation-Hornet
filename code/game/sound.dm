@@ -253,7 +253,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	S.status = SOUND_UPDATE
 	SEND_SOUND(src, S)
 
-/client/proc/playtitlemusic(vol = 0)
+/client/proc/playtitlemusic(vol = 50)
 	set waitfor = FALSE
 	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
 
