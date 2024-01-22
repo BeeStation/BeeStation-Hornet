@@ -636,10 +636,6 @@
 	name = "Solitary confinement timer";
 	pixel_y = 32
 	},
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("minisat")
-	},
 /turf/open/floor/plasteel/tech,
 /area/security/prison/shielded)
 "aiH" = (
@@ -35221,9 +35217,11 @@
 "kxQ" = (
 /obj/machinery/door/airlock/security{
 	name = "Brig";
-	req_access_txt = "63; 42"
+	req_access_txt = "1";
+	id_tag = "brig_courtroom"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "kyw" = (
@@ -38725,7 +38723,7 @@
 "lYs" = (
 /obj/machinery/door/window/southleft{
 	name = "Court Cell";
-	req_access_txt = "2"
+	req_access_txt = "1"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/window/reinforced{
@@ -45430,6 +45428,9 @@
 	name = "Prison Intercom (General)";
 	pixel_y = 24;
 	prison_radio = 1
+	},
+/obj/machinery/camera/autoname{
+	dir = 6
 	},
 /turf/open/floor/plasteel/tech,
 /area/security/prison/shielded)
