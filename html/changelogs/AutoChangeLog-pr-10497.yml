@@ -1,5 +1,0 @@
-author: ToasterBan
-delete-after: true
-changes:
-  - rscadd: Portable seed extractor is now used via an action button rather than it
-      being a verb
