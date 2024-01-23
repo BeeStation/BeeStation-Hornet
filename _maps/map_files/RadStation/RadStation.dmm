@@ -26206,7 +26206,6 @@
 /area/hallway/primary/fore)
 "iha" = (
 /obj/machinery/vending/medical,
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
 /obj/machinery/newscaster{
 	pixel_y = 34
