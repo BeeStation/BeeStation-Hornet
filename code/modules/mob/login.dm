@@ -20,35 +20,46 @@
   * * grant any actions the mob has to the client
   * * calls [auto_deadmin_on_login](mob.html#proc/auto_deadmin_on_login)
   * * send signal COMSIG_MOB_CLIENT_LOGIN
+  * * client can be deleted mid-execution of this proc, chiefly on parent calls, with lag
   * * attaches the ash listener element so clients can hear weather
   */
 /mob/Login()
+	if(!client)
+		return FALSE
 	add_to_player_list()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access("Mob Login: [key_name(src)] was assigned to a [type]")
 	world.update_status()
-	client.screen = list()				//remove hud items just in case
+	client.screen = list() //remove hud items just in case
 	client.images = list()
 
 	if(!hud_used)
 		create_mob_hud()
+		if(!client)
+			return FALSE
+
 	if(hud_used)
 		hud_used.show_hud(hud_used.hud_version)
+		if(!client)
+			return FALSE
 		hud_used.update_ui_style(ui_style2icon(client.prefs?.read_player_preference(/datum/preference/choiced/ui_style)))
 
 	next_move = 1
 
 	..()
 
-	if (client && key != client.key)
+	if(!client)
+		return FALSE
+
+	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
+
+	if (key != client.key)
 		key = client.key
 	reset_perspective(loc)
 
 	if(loc)
 		loc.on_log(TRUE)
-
-	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
 
 	//readd this mob's HUDs (antag, med, etc)
 	reload_huds()
@@ -97,9 +108,11 @@
 	log_message("Client [key_name(src)] has taken ownership of mob [src]([src.type])", LOG_OWNERSHIP)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
+	client.init_verbs()
 
 	AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
 
+	return TRUE
 
 /**
   * Checks if the attached client is an admin and may deadmin them

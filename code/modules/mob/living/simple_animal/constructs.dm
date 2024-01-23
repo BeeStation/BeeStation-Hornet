@@ -81,7 +81,9 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/construct/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	to_chat(src, playstyle_string)
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
