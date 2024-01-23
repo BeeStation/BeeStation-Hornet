@@ -122,7 +122,7 @@ export const EventSection = (props, context) => {
     EVENT_PAGE_ITEMS
   );
 
-  const sectionTitle = searchQuery ? 'Searching...' : category.name + ' Events';
+  const sectionTitle = searchQuery ? 'Search Results' : category.name + ' Events';
 
   return (
     <Section scrollable fill title={sectionTitle} buttons={<PanelOptions />}>
