@@ -62,6 +62,12 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
+	///Ref to texture mask overlay
+	var/texture_mask_overlay
+
+	///Can this floor be an underlay, for turf damage
+	var/can_underlay = TRUE
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -131,6 +137,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	else
 		update_air_ref(-1)
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()))
+
+	//Handle turf texture
+	var/datum/turf_texture/TT = get_turf_texture()
+	if(TT)
+		add_turf_texture(TT)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -526,6 +537,31 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return TRUE
 	return FALSE
 
+/turf/proc/make_traction(add_visual = TRUE)
+	if(add_visual)
+		//Add overlay
+		var/mutable_appearance/MA = mutable_appearance(icon, "no_slip")
+		MA.blend_mode = BLEND_OVERLAY
+		add_overlay(MA)
+
+///Add our relevant floor texture, if we can / need
+/turf/proc/add_turf_texture(list/textures, force)
+	if(!length(textures) || length(contents) && (locate(/obj/effect/decal/cleanable/dirt) in contents || locate(/obj/effect/decal/cleanable/dirt) in vis_contents))
+		if(!force) //readability
+			return
+	var/datum/turf_texture/turf_texture
+	for(var/datum/turf_texture/TF as() in textures)
+		var/area/A = loc
+		if(TF in A?.get_turf_textures())
+			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF
+	if(turf_texture)
+		vis_contents += load_turf_texture(turf_texture)
+
+/turf/proc/clean_turf_texture()
+	for(var/obj/effect/turf_texture/TF in vis_contents)
+		if(initial(TF.parent_texture?.cleanable))
+			vis_contents -= TF
+
 /// returns a list of all mobs inside of a turf.
 /// likely detects mobs hiding in a closet.
 /turf/proc/get_all_mobs()
@@ -537,6 +573,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			var/obj/O = each
 			for(var/mob/M in O.contents)
 				. += M
+
+
+/turf/proc/get_turf_texture()
+	return
 
 /**
   * Called when this turf is being washed. Washing a turf will also wash any mopable floor decals
