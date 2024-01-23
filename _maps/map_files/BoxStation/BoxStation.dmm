@@ -51861,11 +51861,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"rYX" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/closed/wall,
-/area/space/nearstation)
 "rZb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -58472,10 +58467,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating/airless,
 /area/maintenance/solars/port/aft)
-"uRX" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/wall,
-/area/security/brig)
 "uRZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/frame/computer{
@@ -87847,7 +87838,7 @@ gXs
 eRz
 eRz
 gXs
-rYX
+eRz
 eRz
 gXs
 aai
@@ -92979,7 +92970,7 @@ agj
 agj
 agj
 ssc
-uRX
+agj
 aiX
 uhM
 bTH
