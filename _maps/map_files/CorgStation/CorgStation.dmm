@@ -70674,7 +70674,7 @@
 "xhM" = (
 /obj/structure/marker_beacon,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/secondary/entry)
 "xhX" = (
