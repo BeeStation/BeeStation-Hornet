@@ -17,3 +17,6 @@ burn_out.ogg is a mix from ST303, sophiehall3535 and DaniloSFX
 (https://freesound.org/people/ST303/sounds/201788/)
 (https://freesound.org/people/sophiehall3535/sounds/245942/)
 (https://freesound.org/people/DaniloSFX/sounds/672745/)
+
+/datum/looping_sound/washing_machine sounds made from modifications of a sound by Nkzdra
+(https://freesound.org/people/Nkzdra/sounds/347965/)
