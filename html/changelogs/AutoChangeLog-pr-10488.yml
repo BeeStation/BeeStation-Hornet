@@ -1,5 +1,0 @@
-author: DrDuckedGoose
-delete-after: true
-changes:
-  - bugfix: Fixes turf texture blending
-  - bugfix: Fixes turf states
