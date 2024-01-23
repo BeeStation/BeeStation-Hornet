@@ -1,0 +1,5 @@
+author: PinkSuzuki
+delete-after: true
+changes:
+  - code_imp: adds a missing atribution from the washing machine sounds to the License.txt
+      file
