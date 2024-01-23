@@ -101,6 +101,8 @@
 
 /mob/living/simple_animal/eminence/Login()
 	. = ..()
+	if(!. || !client)
+		return FALSE
 	var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(src, silent=TRUE)
 	S.prefix = CLOCKCULT_PREFIX_EMINENCE
 	to_chat(src, "<span class='large_brass'>You are the Eminence!</span>")

@@ -140,6 +140,8 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 	if(mind && key && key != mind.key) // Ooh, new player!
 		first_time_show_popup = mind.has_antag_datum(/datum/antagonist/holoparasite)
 	. = ..()
+	if(!. || !client)
+		return FALSE
 	if(mind)
 		mind.name = "[real_name]"
 	if(QDELETED(summoner?.current))
