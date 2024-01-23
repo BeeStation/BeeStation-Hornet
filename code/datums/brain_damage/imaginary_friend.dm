@@ -8,6 +8,11 @@
 	var/friend_initialized = FALSE
 
 /datum/brain_trauma/special/imaginary_friend/on_gain()
+	var/mob/living/M = owner
+	// dead or clientless mobs dont get the brain trauma
+	if(M.stat == DEAD || !M.client)
+		qdel(src)
+		return
 	..()
 	make_friend()
 	get_ghost()
