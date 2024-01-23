@@ -23535,10 +23535,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"flo" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/maintenance/fore/secondary)
 "flJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -48734,10 +48730,6 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/service)
-"qLz" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/security/execution/transfer)
 "qLD" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -91945,7 +91937,7 @@ aag
 aaf
 aaf
 aaf
-qLz
+afA
 afA
 afA
 uRi
@@ -98135,7 +98127,7 @@ ahn
 aiA
 aiA
 aiA
-flo
+ahn
 ahn
 apt
 iQx
