@@ -1,0 +1,28 @@
+author: Solene Yoon
+delete-after: true
+changes:
+  - soundadd: Added sounds for the Washing Machine wash cycle.
+  - rscadd: New groups of items are now Dyable (Suits, Hats, Berets and for the clown,
+      Bananas, Practice Laser-Guns and Banana Peels).
+  - tweak: Reworked the REDCOAT dye into DENIED dye of the Denied Stamp.
+  - rscadd: Added ERROR clothing items (Hat, Jumpsuit, Jumpskirt, Shoes and Gloves).
+  - rscadd: DENIED dye will now work on bedsheets to produce what looks like a cultist
+      bedsheet.
+  - rscadd: Added a White Beret, Rainbow Beret, Mime Invisible Beret and H.O.N.K Tactical
+      Beret.
+  - bugfix: Fixed some bugs regarding Washing Machines having to do with Shoes and
+      Jumpskirts being unable to be dyed, Pet Gibbing and Washing Machine cleaning.
+  - tweak: 'QOL Washing Machine Tweaks: (Wash Cycles clean the Washing Machine, Alt-Clicking
+      will close an open Washing Machine and start a new Wash Cycle).'
+  - rscadd: Washing a Dyed item now returns it to normal.
+  - tweak: Accessories (like medals and waistcoats) now retain their colour when attached
+      to a Spray-painted item.
+  - code_imp: added boilerplate code to ensure accessories always appear on top of
+      whatever overlay the clothing may have.
+  - tweak: Colour Sources (Stamps and Crayons) now survive Wash Cycles.
+  - rscadd: Added Space Law book, SOP books and paper as single use colour sources
+      (These don't survive).
+  - tweak: Ensured Colour Dye Registries are attached to the parents of each article
+      of clothing, in order to be able to dye all type of items (e.g you used not
+      to be able to Dye fingerless gloves).
+  - code_imp: added a flippable var for softcaps
