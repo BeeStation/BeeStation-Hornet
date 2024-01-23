@@ -42,8 +42,8 @@
 		can_reclaim = TRUE
 
 	var/obj/item/card/id/I = user.get_idcard(TRUE)
-	if(istype(I, /obj/item/card/id/prisoner))
-		var/obj/item/card/id/prisoner/prisonerID = I
+	if(istype(I, /obj/item/card/id/gulag))
+		var/obj/item/card/id/gulag/prisonerID = I
 		if(prisonerID.points >= prisonerID.goal && !prisonerID.permanent)
 			can_reclaim = TRUE
 

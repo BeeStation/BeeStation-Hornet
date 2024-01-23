@@ -306,7 +306,7 @@
 		if(priority == 3)
 			var/mob/living/m = closest_atom
 			var/shock_damage = (tesla_flags & TESLA_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
-			m.electrocute_act(shock_damage, source, 1, tesla_shock = 1, stun = (tesla_flags & TESLA_MOB_STUN))
+			m.electrocute_act(shock_damage, source, 1, SHOCK_TESLA | ((tesla_flags & TESLA_MOB_STUN) ? NONE : SHOCK_NOSTUN))
 			if(issilicon(m))
 				if((tesla_flags & TESLA_MOB_STUN) && (tesla_flags & TESLA_MOB_DAMAGE))
 					m.emp_act(EMP_LIGHT)
