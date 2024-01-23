@@ -392,7 +392,7 @@
 		var/datum/mind/possible_target = player.mind
 		if(!include_current_targets && (WEAKREF(possible_target) in sac_targets))
 			continue
-		if(possible_target == src)
+		if(possible_target == owner)
 			continue
 		if(!SSjob.name_occupations[possible_target.assigned_role])
 			continue
