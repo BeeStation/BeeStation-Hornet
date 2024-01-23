@@ -8,13 +8,15 @@
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	//beauty = -100
 	clean_type = CLEAN_TYPE_BLOOD
-
+	var/should_dry = TRUE
 	var/dryname = "dried blood" //when the blood lasts long enough, it becomes dry and gets a new name
 	var/drydesc = "Looks like it's been here a while. Eew." //as above
 	var/drytime = 0
 
-/obj/effect/decal/cleanable/blood/Initialize()
+/obj/effect/decal/cleanable/blood/Initialize(mapload)
 	. = ..()
+	if(!should_dry)
+		return
 	if(bloodiness)
 		start_drying()
 	else
@@ -81,6 +83,7 @@
 	desc = "They look like tracks left by wheels."
 	icon_state = "tracks"
 	random_icon_states = null
+	//beauty = -50
 	dryname = "dried tracks"
 	drydesc = "Some old bloody tracks left by wheels. Machines are evil, perhaps."
 
@@ -88,6 +91,7 @@
 	name = "blood"
 	icon = 'icons/effects/blood.dmi'
 	desc = "Your instincts say you shouldn't be following these."
+	//beauty = -50
 	var/list/existing_dirs = list()
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
@@ -105,7 +109,7 @@
 
 	dryname = "rotting gibs"
 	drydesc = "They look bloody and gruesome while some terrible smell fills the air."
-		///Information about the diseases our streaking spawns
+	///Information about the diseases our streaking spawns
 	var/list/streak_diseases
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
@@ -113,11 +117,17 @@
 	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
 
-/obj/effect/decal/cleanable/blood/gibs/dry()
-	. = ..()
+/obj/effect/decal/cleanable/blood/gibs/Destroy()
+	LAZYNULL(streak_diseases)
+	return ..()
 
 /obj/effect/decal/cleanable/blood/gibs/replace_decal(obj/effect/decal/cleanable/C)
 	return FALSE //Never fail to place us
+
+/obj/effect/decal/cleanable/blood/gibs/dry()
+	. = ..()
+	if(!.)
+		return
 
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
 	return
@@ -139,6 +149,7 @@
 	streak(dirs)
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions, mapload = FALSE)
+	LAZYINITLIST(streak_diseases)
 	SEND_SIGNAL(src, COMSIG_GIBS_STREAK, directions, streak_diseases)
 	var/direction = pick(directions)
 	streak_diseases = list()
@@ -189,6 +200,7 @@
 	desc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
 	icon_state = "gib1-old"
 	bloodiness = 0
+	should_dry = FALSE
 	dryname = "old rotting gibs"
 	drydesc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
 	var/list/datum/disease/diseases = list()
@@ -202,6 +214,7 @@
 	if(prob(80))
 		var/datum/disease/advance/new_disease = new /datum/disease/advance/random(rand(3, 6), rand(8, 9), 4)
 		src.diseases += new_disease
+	dry()
 
 /obj/effect/decal/cleanable/blood/gibs/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
 	. = ..()
