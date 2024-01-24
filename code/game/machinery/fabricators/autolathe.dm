@@ -81,6 +81,11 @@
 			security_interface_locked = TRUE
 			. = TRUE
 
+/obj/machinery/modular_fabricator/autolathe/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_HARM)
+		return
+	. = .. ()
+
 /obj/machinery/modular_fabricator/autolathe/attackby(obj/item/O, mob/user, params)
 
 	if((ACCESS_SECURITY in O.GetAccess()) && !(obj_flags & EMAGGED))
@@ -92,7 +97,7 @@
 		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return TRUE
 
-	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
+	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O) && user.a_intent != INTENT_HELP && user.a_intent != INTENT_HARM)
 		return TRUE
 
 	if(default_deconstruction_crowbar(O))
