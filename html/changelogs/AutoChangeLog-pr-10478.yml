@@ -1,0 +1,9 @@
+author: Hardly
+delete-after: true
+changes:
+  - rscadd: Added black beret to clothesmate
+  - rscadd: Added unused clothing such as pharaoh hat, gothic coat, dracula coat and
+      draculass coat to autodrobe
+  - tweak: Moved the beret from autodrobe to clothesmate
+  - rscadd: Brig Physician's Winter Coat can now be bought for 5000 beecoins.
+  - rscadd: Gothic Coat can now be bought for 8000 beecoins.
