@@ -240,15 +240,29 @@
 #define TILES_TO_PIXELS(tiles)			(tiles * PIXELS)
 // )
 
+// value placeholders for ADDCLAMP macro
+GLOBAL_VAR_INIT(addclamp_respect)
+GLOBAL_VAR_INIT(addclamp_add)
+GLOBAL_VAR_INIT(addclamp_low)
+GLOBAL_VAR_INIT(addclamp_high)
+
 /// Similar to clamp(). This is identical to 'x + y' thing, but add to 'x' will be limited within low-high range.
 /// If val_respected is already outside of low-high range, it will return val_respected, instead of the value within the range.
+/// Note: First wrapped codes are value placeholders because this define can be expensive when parameter takes a proc
 #define ADDCLAMP(val_respected, val_to_add, low, high) ( \
-		((val_respected) + (val_to_add)) >= (high) \
-		? max((val_respected), (high)) \
-		: ((val_respected) + (val_to_add)) <= (low) \
-		? min((val_respected), (low)) \
-		: ((val_respected) + (val_to_add)) \
+		( \
+			((GLOB.addclamp_respect = val_respected)||1) && \
+			((GLOB.addclamp_add = val_to_add)||1) && \
+			((GLOB.addclamp_low = low)||1) && \
+			((GLOB.addclamp_high = high)||1) \
+		) && \
+		((GLOB.addclamp_respect) + (GLOB.addclamp_add)) >= (GLOB.addclamp_high) \
+		? max((GLOB.addclamp_respect), (GLOB.addclamp_high)) \
+		: ((GLOB.addclamp_respect) + (GLOB.addclamp_add)) <= (GLOB.addclamp_low) \
+		? min((GLOB.addclamp_respect), (GLOB.addclamp_low)) \
+		: ((GLOB.addclamp_respect) + (GLOB.addclamp_add)) \
 	)
+
 // note: the reason why it has 'equal(=)' in the condition is that it can early return as the result is the same so that we won't calculate the obvious result again unnecessarily.
 /*
 	<sample results>
