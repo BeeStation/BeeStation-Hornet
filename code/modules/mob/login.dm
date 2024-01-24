@@ -35,12 +35,12 @@
 	client.images = list()
 
 	if(!hud_used)
-		create_mob_hud()
+		create_mob_hud() // creating a hud will add it to the client's screen, which can process a disconnect
 		if(!client)
 			return FALSE
 
 	if(hud_used)
-		hud_used.show_hud(hud_used.hud_version)
+		hud_used.show_hud(hud_used.hud_version) // see above, this can process a disconnect
 		if(!client)
 			return FALSE
 		hud_used.update_ui_style(ui_style2icon(client.prefs?.read_player_preference(/datum/preference/choiced/ui_style)))
