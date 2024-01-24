@@ -9,7 +9,7 @@
 	force = 5
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	fire_sound = 'sound/weapons/bowfire.ogg'
-	slot_flags = ITEM_SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK||ITEM_SLOT_SUITSTORE
 	item_flags = NEEDS_PERMIT
 	casing_ejector = FALSE
 	internal_magazine = TRUE
@@ -22,10 +22,12 @@
 
 /obj/item/gun/ballistic/bow/chamber_round()
 	chambered = magazine.get_round(1)
+	slot_flags -= ITEM_SLOT_SUITSTORE
 
 /obj/item/gun/ballistic/bow/process_chamber()
 	chambered = null
 	magazine.get_round(0)
+	slot_flags += ITEM_SLOT_SUITSTORE
 	update_icon()
 
 /obj/item/gun/ballistic/bow/attack_self(mob/living/user)
@@ -36,7 +38,7 @@
 		to_chat(user, "<span class='notice'>You gently release the bowstring, removing the arrow.</span>")
 	else if (get_ammo())
 		var/obj/item/I = user.get_active_held_item()
-		if (do_after(user, 1 SECONDS, I))
+		if (do_after(user, 1.5 SECONDS, I, IGNORE_USER_LOC_CHANGE))
 			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
 			chamber_round()
@@ -63,8 +65,9 @@
 
 /obj/item/gun/ballistic/bow/pipe
 	name = "Pipe Bow"
-	desc = "A crude projectile weapon made from silk string, pipe and lots of bending."
+	desc = "A crude projectile weapon made from cable coil, pipe and lots of bending."
 	icon_state = "pipebow"
 	item_state = "pipebow"
 	icon_state_preview = "pipebow_unloaded"
 	force = 7
+	spread = 10

@@ -3,11 +3,15 @@
 	desc = "How do you even reuse a bullet?"
 	var/ammo_type = /obj/item/ammo_casing/caseless
 	var/dropped = FALSE
+	var/embedds = FALSE
 	impact_effect_type = null
 
 /obj/projectile/bullet/reusable/on_hit(atom/target, blocked = FALSE)
 	. = ..()
-	handle_drop()
+	if(!embedds)
+		handle_drop()
+	else if(embedds && !iscarbon(target))
+		handle_drop()
 
 /obj/projectile/bullet/reusable/on_range()
 	handle_drop()

@@ -281,9 +281,9 @@
 /datum/crafting_recipe/pipebow
 	name = "Pipe Bow"
 	result = /obj/item/gun/ballistic/bow/pipe
-	reqs = list(/obj/item/pipe = 5,
-				/obj/item/stack/sheet/plastic = 15,
-				/obj/item/weaponcrafting/silkstring = 4)
+	reqs = list(/obj/item/pipe = 1,
+				/obj/item/stack/cable_coil = 15)
+	tools = list(TOOL_KNIFE)
 	time = 120
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -295,6 +295,7 @@
 	reqs = list(/obj/item/stack/sheet/wood = 8,
 				/obj/item/stack/sheet/iron = 2,
 				/obj/item/weaponcrafting/silkstring = 4)
+	tools = list(TOOL_KNIFE)
 	time = 120
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -496,6 +497,16 @@
 	reqs = list(/obj/item/stack/sheet/wood = 1,
 				/obj/item/stack/sheet/silk = 1,
 				/obj/item/stack/rods = 1) //1 metal sheet = 2 rods= 2 arrows
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/arrow_glass
+	name = "Improvised Arrow"
+	result = /obj/item/ammo_casing/caseless/arrow/glass
+	time = 30
+	reqs = list(/obj/item/shard = 1,
+				/obj/item/stack/cable_coil = 3,
+				/obj/item/stack/rods = 1)
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
