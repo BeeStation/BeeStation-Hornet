@@ -250,12 +250,12 @@ GLOBAL_VAR(addclamp_high)
 /// If val_respected is already outside of low-high range, it will return val_respected, instead of the value within the range.
 /// Note: First wrapped codes are value placeholders because this define can be expensive when parameter takes a proc
 #define ADDCLAMP(val_respected, val_to_add, low, high) ( \
-		( \
-			((GLOB.addclamp_respect = (val_respected))||1) && \
-			((GLOB.addclamp_add = (val_to_add))||1) && \
-			((GLOB.addclamp_low = (low))||1) && \
-			((GLOB.addclamp_high = (high))||1) \
-		) && \
+	( \
+		((GLOB.addclamp_respect = (val_respected))||1) && \
+		((GLOB.addclamp_add = (val_to_add))||1) && \
+		((GLOB.addclamp_low = (low))||1) && \
+		((GLOB.addclamp_high = (high))||1) \
+	) && \
 	(GLOB.addclamp_respect + GLOB.addclamp_add) >= GLOB.addclamp_high \
 	? max(GLOB.addclamp_respect, GLOB.addclamp_high) \
 	: (GLOB.addclamp_respect + GLOB.addclamp_add) <= GLOB.addclamp_low \
