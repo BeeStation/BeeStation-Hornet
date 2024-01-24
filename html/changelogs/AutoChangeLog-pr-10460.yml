@@ -1,4 +1,0 @@
-author: Miliviu
-delete-after: true
-changes:
-  - bugfix: fixed RCD not being able to build airlocks on top of Firedoors
