@@ -241,10 +241,10 @@
 // )
 
 // value placeholders for ADDCLAMP macro
-GLOBAL_VAR_INIT(addclamp_respect)
-GLOBAL_VAR_INIT(addclamp_add)
-GLOBAL_VAR_INIT(addclamp_low)
-GLOBAL_VAR_INIT(addclamp_high)
+GLOBAL_VAR(addclamp_respect)
+GLOBAL_VAR(addclamp_add)
+GLOBAL_VAR(addclamp_low)
+GLOBAL_VAR(addclamp_high)
 
 /// Similar to clamp(). This is identical to 'x + y' thing, but add to 'x' will be limited within low-high range.
 /// If val_respected is already outside of low-high range, it will return val_respected, instead of the value within the range.
