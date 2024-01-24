@@ -251,17 +251,17 @@ GLOBAL_VAR(addclamp_high)
 /// Note: First wrapped codes are value placeholders because this define can be expensive when parameter takes a proc
 #define ADDCLAMP(val_respected, val_to_add, low, high) ( \
 		( \
-			((GLOB.addclamp_respect = val_respected)||1) && \
-			((GLOB.addclamp_add = val_to_add)||1) && \
-			((GLOB.addclamp_low = low)||1) && \
-			((GLOB.addclamp_high = high)||1) \
+			((GLOB.addclamp_respect = (val_respected))||1) && \
+			((GLOB.addclamp_add = (val_to_add))||1) && \
+			((GLOB.addclamp_low = (low))||1) && \
+			((GLOB.addclamp_high = (high))||1) \
 		) && \
-		((GLOB.addclamp_respect) + (GLOB.addclamp_add)) >= (GLOB.addclamp_high) \
-		? max((GLOB.addclamp_respect), (GLOB.addclamp_high)) \
-		: ((GLOB.addclamp_respect) + (GLOB.addclamp_add)) <= (GLOB.addclamp_low) \
-		? min((GLOB.addclamp_respect), (GLOB.addclamp_low)) \
-		: ((GLOB.addclamp_respect) + (GLOB.addclamp_add)) \
-	)
+	(GLOB.addclamp_respect + GLOB.addclamp_add) >= GLOB.addclamp_high \
+	? max(GLOB.addclamp_respect, GLOB.addclamp_high) \
+	: (GLOB.addclamp_respect + GLOB.addclamp_add) <= GLOB.addclamp_low \
+	? min(GLOB.addclamp_respect, GLOB.addclamp_low) \
+	: GLOB.addclamp_respect + GLOB.addclamp_add \
+)
 
 // note: the reason why it has 'equal(=)' in the condition is that it can early return as the result is the same so that we won't calculate the obvious result again unnecessarily.
 /*
