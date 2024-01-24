@@ -1,0 +1,4 @@
+author: XeonMations
+delete-after: true
+changes:
+  - bugfix: Fixed catwalks removing wiring underneath them despite there being plating
