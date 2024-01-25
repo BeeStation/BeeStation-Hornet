@@ -63,6 +63,10 @@
 /obj/machinery/xenoarchaeology_machine/scale
 	icon_state = "scale"
 
+/obj/machinery/xenoarchaeology_machine/scale/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Interact to measure artifact weight.\nLabeled artifacts will also show label weights, against the total.</span>"
+
 /obj/machinery/xenoarchaeology_machine/scale/attack_hand(mob/living/user)
 	. = ..()
 	///Get the combined weight of all artifacts in our target
@@ -93,6 +97,10 @@
 */
 /obj/machinery/xenoarchaeology_machine/conductor
 	icon_state = "conductor"
+
+/obj/machinery/xenoarchaeology_machine/conductor/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Interact to measure artifact conductivity.\nLabeled artifacts will also show label conductivity, against the total.</span>"
 
 /obj/machinery/xenoarchaeology_machine/conductor/attack_hand(mob/living/user)
 	. = ..()
@@ -125,7 +133,7 @@
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-Click to calibrate inserted artifacts.</span>"
+	. += "<span class='notice'>Alt-Click to calibrate inserted artifacts.\nArtifacts can be calibrated by labeling them 100% correctly, excluding malfunctions.</span>"
 
 /obj/machinery/xenoarchaeology_machine/calibrator/attack_hand(mob/living/user)
 	if(length(contents))

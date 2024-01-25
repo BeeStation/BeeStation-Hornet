@@ -16623,8 +16623,9 @@
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
 "bUM" = (
-/obj/item/xenoartifact,
 /obj/effect/turf_decal/box,
+/obj/item/xenoartifact/tutorial,
+/obj/item/paper/artifact_tutorial,
 /turf/open/floor/engine,
 /area/science/explab)
 "bUQ" = (
@@ -21062,7 +21063,8 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/blobstart,
-/turf/open/floor/noslip/white,
+/obj/effect/mapping_helpers/make_non_slip,
+/turf/open/floor/plasteel/white,
 /area/science/explab)
 "cIH" = (
 /obj/structure/cable/yellow{
@@ -26020,7 +26022,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/research{
-	name = "Experimentation Lab";
+	name = "Xenoarchaeology Lab";
 	req_one_access_txt = "8;49"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -35411,6 +35413,9 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 5
 	},
+/obj/structure/sign/poster/official/xenoarchaeology{
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "hDL" = (
@@ -36583,8 +36588,9 @@
 	},
 /obj/effect/loot_jobscale/medical/first_aid_kit,
 /obj/item/clothing/neck/stethoscope,
-/obj/item/clothing/glasses/science,
-/obj/item/clothing/glasses/science,
+/obj/item/healthanalyzer{
+	pixel_y = 7
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "iaK" = (
@@ -37037,11 +37043,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/structure/closet/crate/science,
-/obj/effect/turf_decal/bot,
-/obj/item/xenoartifact,
-/obj/item/xenoartifact,
-/obj/item/xenoartifact,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -43014,6 +43015,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "kDG" = (
@@ -43134,17 +43136,13 @@
 /area/crew_quarters/dorms)
 "kFA" = (
 /obj/structure/table,
-/obj/item/clothing/gloves/artifact_pinchers,
-/obj/item/clothing/gloves/artifact_pinchers{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/xenoarchaeology_labeler{
-	pixel_y = 6
+/obj/structure/sign/poster/official/xenoarchaeology{
+	pixel_y = -32
 	},
-/obj/item/xenoarchaeology_labeler,
+/obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "kFB" = (
@@ -56664,21 +56662,6 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "pUX" = (
-/obj/structure/rack,
-/obj/item/multitool{
-	pixel_x = 3
-	},
-/obj/item/assembly/igniter,
-/obj/item/analyzer,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/geiger_counter,
-/obj/item/assembly/signaler{
-	pixel_x = -8;
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/bot,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -56686,6 +56669,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/closet/crate/science,
+/obj/item/xenoartifact,
+/obj/item/xenoartifact,
+/obj/item/xenoartifact,
+/obj/item/xenoartifact,
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "pVa" = (
@@ -62033,15 +62022,24 @@
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "rUc" = (
-/obj/structure/rack,
+/obj/effect/turf_decal/bot,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1
 	},
-/obj/effect/turf_decal/bot,
+/obj/item/analyzer{
+	pixel_x = -9
+	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/multitool{
+	pixel_x = -1
+	},
+/obj/item/geiger_counter{
+	pixel_x = 5
+	},
+/obj/structure/table,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "rUd" = (
@@ -66842,14 +66840,22 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "tPq" = (
-/obj/structure/rack,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen,
-/obj/item/book/manual/wiki/xenoarchaeology,
 /obj/effect/turf_decal/bot,
-/obj/item/healthanalyzer,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/table,
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/clothing/gloves/artifact_pinchers{
+	pixel_y = 5
+	},
+/obj/item/xenoarchaeology_labeler,
+/obj/item/xenoarchaeology_labeler{
+	pixel_y = 6
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science{
+	pixel_y = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)

@@ -45,7 +45,7 @@
 	///Does this trait contribute to calibration
 	var/contribute_calibration = TRUE
 
-	///Can this trait be made a pearl?
+	///Can this trait be made a pearl? - aka can this trait be used in circuits
 	var/can_pearl = TRUE
 
 	///Characteristics for deduction
@@ -64,17 +64,21 @@
 //The reason this is a seperate proc is so we can init the trait and swap its artifact component parent around
 /datum/xenoartifact_trait/proc/register_parent(datum/source)
 	parent = source
+	var/atom/movable/AM = parent.parent
 	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(remove_parent))
 	//Setup trigger signals
 	RegisterSignal(parent, XENOA_TRIGGER, PROC_REF(trigger))
+	//If we need to setup signals for pearl stuff
+	if(can_pearl)
+		RegisterSignal(AM, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER), PROC_REF(catch_pearl_tool))
+		RegisterSignal(AM, COMSIG_MOVABLE_MOVED, PROC_REF(catch_move))
 	//Appearance
-	//Consider making a dedicated 'thing' for this check
+	//TODO: Consider making a dedicated 'thing' for this check - Racc
 	if(parent.do_texture)
 		generate_trait_appearance(parent.parent)
 	//Stats
-	var/atom/A = parent.parent
 	parent.target_range += extra_target_range
-	A.custom_price += extra_value
+	AM.custom_price += extra_value
 
 //Remeber to call this before setting a new parent
 /datum/xenoartifact_trait/proc/remove_parent(datum/source)
@@ -88,6 +92,9 @@
 		parent.target_range -= extra_target_range
 		A.custom_price -= extra_value
 		cut_trait_appearance(parent.parent)
+		if(can_pearl)
+			UnregisterSignal(A, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER))
+			UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
 	//TODO: If we ever need trait pearls to keep the initialized trait, remove this - Racc
 	qdel(src)
 	parent = null
@@ -197,6 +204,43 @@
 /datum/xenoartifact_trait/proc/get_dictionary_hint()
 	return list()
 
+//Check the artifact, item, moves to see if we open up for 'pearling'
+/datum/xenoartifact_trait/proc/catch_move(datum/source, atom/target, dir)
+	SIGNAL_HANDLER
+
+	if(!parent.calibrated)
+		return
+	//Check if we're at our heart location, which is based on our weight-x and conductivity-y
+	var/atom/A = parent.parent
+	if(target.x % weight == 0 && target.y % conductivity == 0)
+		//TODO: make an effect for this, see atomic cowboy, is the reference - Racc
+		A.visible_message("<span class='warning'>[A] develops a slight opening!</span>\n<span class='notice'>You could probably use a screwdriver on [A]!</span>", allow_inside_usr = TRUE)
+		//Do effects
+	else
+		//Undo effects
+		return
+
+/datum/xenoartifact_trait/proc/catch_pearl_tool(datum/source, mob/living/user, obj/item/I, list/recipes)
+	SIGNAL_HANDLER
+
+	if(!parent.calibrated)
+		return
+	var/atom/A = parent.parent
+	if(A.x % weight != 0 || A.y % conductivity != 0)
+		return
+	INVOKE_ASYNC(src, PROC_REF(pry_action), user, I)
+
+/datum/xenoartifact_trait/proc/pry_action(mob/living/user, obj/item/I)
+	var/atom/A = parent.parent
+	to_chat(user, "<span class='warning'>You begin to pry [A] open with [I].</span>")
+	if(do_after(user, 5 SECONDS, A))
+		//Screwdriver mini game thing
+		new /obj/item/trait_pearl(get_turf(A), src)
+		parent.remove_individual_trait(src)
+		remove_parent()
+	else
+		to_chat(user, "<span class='warning'>You reconsider...</span>")
+
 ///Proc used to compile trait weights into a list
 /proc/compile_artifact_weights(path, keyed = FALSE)
 	if(!ispath(path))
@@ -227,7 +271,9 @@
 				output += T
 	return output
 
-//This holds individual traits
+/*
+	Container for traits used in circuits
+*/
 /obj/item/trait_pearl
 	name = "xenopearl"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
@@ -240,6 +286,11 @@
 /obj/item/trait_pearl/Initialize(mapload, trait)
 	. = ..()
 	stored_trait = trait
+
+/obj/item/trait_pearl/examine(mob/user)
+	. = ..()
+	if(user.can_see_reagents())
+		. += "<span class='notice'>[src] holds '[initial(stored_trait.label_name)]'.</span>"
 
 ///Particle holder for trait appearances - Throw any extras you want in here
 /atom/movable/artifact_particle_holder

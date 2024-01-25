@@ -76,7 +76,7 @@
 
 /obj/emitter/spiral/New(loc, ...)
 	. = ..()
-	add_filter("blur", 1, gauss_blur_filter(0.5))
+	add_filter("blur", 1, gauss_blur_filter(0.7))
 
 /obj/emitter/spiral/proc/setup(_color)
 	particles = new/particles/spiral(_color)
@@ -88,7 +88,7 @@
 	fade = 1
 	fadein = 1
 	rotation = generator("num", 0, 360, UNIFORM_RAND)
-	spin = generator("num", 10, 15, UNIFORM_RAND)
+	spin = generator("num", 8, 10, UNIFORM_RAND)
 	friction = 0.21
 	color = "#94f3ff"
 	scale = generator("box", list(1.5, 1.5, 1.5), list(2, 2, 2), UNIFORM_RAND)

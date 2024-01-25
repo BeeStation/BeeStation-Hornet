@@ -2,7 +2,9 @@
 	Items with this component will act like alien artifatcs
 */
 
-//Item presets for generic shit
+/*
+	Item presets for generic stuff
+*/
 /obj/item/xenoartifact
 	name = "artifact"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
@@ -12,8 +14,6 @@
 	throw_range = 3
 	///What type of artifact
 	var/datum/xenoartifact_material/artifact_type
-	///Use this for debugging or admin shit
-	var/spawn_with_traits = TRUE
 
 /obj/item/xenoartifact/Initialize(mapload, _artifact_type)
 	. = ..()
@@ -22,23 +22,34 @@
 
 /obj/item/xenoartifact/ComponentInitialize()
 	. = ..()
-	if(spawn_with_traits)
-		AddComponent(/datum/component/xenoartifact, artifact_type)
+	add_artifact_component()
 
-//Maint variant for loot, has a 80% chance of being safe, 20% of not
+/obj/item/xenoartifact/proc/add_artifact_component()
+	AddComponent(/datum/component/xenoartifact, artifact_type)
+
+///Maint variant for loot, has a 80% chance of being safe, 20% of not
 /obj/item/xenoartifact/maint/ComponentInitialize()
 	artifact_type = prob(80) ? /datum/xenoartifact_material/bluespace : null
 	return ..()
 
-//Objective variant, simply has the objective trait
+///Objective variant, simply has the objective trait
 /obj/item/xenoartifact/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
 	var/datum/component/xenoartifact/X = GetComponent(/datum/component/xenoartifact)
 	X?.add_individual_trait(/datum/xenoartifact_trait/misc/objective)
 
+///No trait variant, for debug tools
 /obj/item/xenoartifact/no_traits
-	spawn_with_traits = FALSE
+
+/obj/item/xenoartifact/no_traits/add_artifact_component()
+	return
+
+///Variant for 'tutorial'
+/obj/item/xenoartifact/tutorial
+
+/obj/item/xenoartifact/tutorial/add_artifact_component()
+	AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/bluespace, list(/datum/xenoartifact_trait/activator/strudy, /datum/xenoartifact_trait/minor/slippery, /datum/xenoartifact_trait/minor/charged, /datum/xenoartifact_trait/minor/cooling, /datum/xenoartifact_trait/major/hollow))
 
 /*
 	Export datum, so we can sell artifacts for dosh
@@ -100,9 +111,6 @@
 	var/do_texture = TRUE
 	///Do we edit the parent's silhouette?
 	var/do_mask = TRUE
-
-	///Do we make pearls when we're destroyed?
-	var/make_pearls = TRUE //TODO: Remeber to disable this when you're done testing - Racc
 
 	///Do we play a sound? - This is mostly here for admins to disable when they're doing gimmicks
 	var/play_hint_sound = TRUE
@@ -180,12 +188,10 @@
 		A.appearance = old_appearance
 		A.name = old_name
 		old_appearance = null
-	//Delete and/or 'pearl' our traits
+	//Delete our traits
 	for(var/i in artifact_traits)
 		for(var/datum/xenoartifact_trait/T as() in artifact_traits[i])
 			artifact_traits[i] -= T
-			if(make_pearls && T.can_pearl)
-				new /obj/item/trait_pearl(get_turf(parent), T.type)
 			if(!QDELETED(T))
 				qdel(T)
 	return ..()
@@ -244,9 +250,17 @@
 	//Max malfunction checks, against our material
 	if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) >= artifact_type.max_trait_malfunctions)
 		return
+	//Hint sound
+	var/atom/A = parent
+	playsound(A, 'sound/effects/light_flicker.ogg', 60)
+	A.visible_message("<span class='warning'>[A] makes a concerning sound, as if something has gone terribly wrong...</span>")
+	//Build malfunctions
 	var/list/focus_traits
 	focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
 	build_traits(focus_traits, artifact_type.trait_malfunctions)
+	//Reset instability
+	//TODO: Consider reworking this - Racc
+	instability = 0
 
 /datum/component/xenoartifact/proc/register_target(atom/target, force, type = XENOA_ACTIVATION_CONTACT)
 	//Don't register new targets unless the cooldown is finished
@@ -399,8 +413,8 @@
 		var/icon/I = artifact_type.get_texture()
 		A.add_filter("texture_overlay", 1, layering_filter(icon = I, blend_mode = BLEND_INSET_OVERLAY))
 		//Throw on some outlines
-		A.add_filter("outline_1", 2, outline_filter(2, "#000"))
-		A.add_filter("outline_2", 3, outline_filter(1, artifact_type.material_color))
+		A.add_filter("outline_1", 2, outline_filter(2, "#000", flags = OUTLINE_SHARP))
+		A.add_filter("outline_2", 3, outline_filter(1, artifact_type.material_color, flags = OUTLINE_SHARP))
 
 ///Create a hint beam from the artifact to the target
 /datum/component/xenoartifact/proc/create_beam(atom/movable/target)
@@ -432,6 +446,12 @@
 
 	var/datum/xenoartifact_trait/T = source
 	artifact_traits[T.priority] -= T
+
+/datum/component/xenoartifact/proc/remove_individual_trait(datum/xenoartifact_trait/trait, destroy = FALSE)
+	artifact_traits[trait.priority] -= trait
+	UnregisterSignal(trait, COMSIG_PARENT_QDELETING)
+	if(destroy)
+		qdel(trait)
 
 /*
 	Artifact beam subtype

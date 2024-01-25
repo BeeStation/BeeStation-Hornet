@@ -303,6 +303,9 @@
 	sentience.real_name = "[sentience.name] - [parent?.parent]"
 	sentience.key = ckey
 	sentience.status_flags |= GODMODE
+	//Stop them from wriggling away
+	var/atom/movable/AM = parent.parent
+	AM.buckle_mob(AM, TRUE)
 	//Action
 	var/obj/effect/proc_holder/spell/targeted/artifact_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/artifact_senitent_action(parent?.parent, parent)
 	sentience.AddSpell(P)

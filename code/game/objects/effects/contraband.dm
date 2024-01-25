@@ -667,4 +667,12 @@
 	desc = "A poster begging you to max your suit sensors. Otherwise, you may be harder to locate if you sustain damage."
 	icon_state = "poster50"
 
+/obj/structure/sign/poster/official/xenoarchaeology
+	name = "Xenoarchaeology"
+	desc = "A poster with featuring several diagrams of artifacts.\
+	\n\
+	Artifacts can be labeled and sold through cargo to obtain research & discovery points.\n\
+	Poorly labeled artifacts will yield fewer rewards than accurately labeled ones."
+	icon_state = "poster51"
+
 #undef PLACE_SPEED
