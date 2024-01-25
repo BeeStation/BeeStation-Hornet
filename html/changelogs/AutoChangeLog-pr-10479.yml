@@ -1,0 +1,15 @@
+author: Markus Larsson, PinkSuzuki
+delete-after: true
+changes:
+  - tweak: Changed the full wall and door of the Labour shuttles to now use directional
+      windows and windoor.
+  - balance: Added one recharger on the table on all the Labour shuttles.
+  - balance: Added one GPS on all the Labour shuttles.
+  - balance: Added GPSs to the suit storage units for EVA, Mining, Mining EVA, Exploration,
+      CMO, HoS, and Security.
+  - balance: Added three intercomms to gulag.
+  - balance: Removed two GPS of the four on the outpost in mining.
+  - code_imp: Added parameter to datum/component/gps/Initialize whether or not the
+      GPS should start turned on or not, default true.
+  - imageadd: Security variant of the GPS.
+  - tweak: Renamed gps-s (Science variant) to their radio key equivalent gps-n.
