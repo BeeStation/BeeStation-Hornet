@@ -53690,10 +53690,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"ljP" = (
-/obj/structure/lattice/catwalk,
-/turf/closed/wall,
-/area/maintenance/port/aft)
 "ljW" = (
 /obj/machinery/vending/wardrobe/law_wardrobe,
 /obj/structure/extinguisher_cabinet{
@@ -105621,7 +105617,7 @@ cJK
 cJr
 cJP
 nJQ
-ljP
+ajd
 cmU
 aeU
 aUz
@@ -105878,7 +105874,7 @@ cJL
 cJr
 cnU
 nJQ
-ljP
+ajd
 cmU
 aeU
 crn
