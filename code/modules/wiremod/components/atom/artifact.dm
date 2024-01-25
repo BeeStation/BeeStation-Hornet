@@ -46,6 +46,5 @@
 	//Clear the artifact's traits
 	for(var/i in artifact_comp.artifact_traits)
 		for(var/datum/xenoartifact_trait/T as() in artifact_comp.artifact_traits[i])
-			artifact_comp.artifact_traits[i] -= T
-			qdel(T)
+			qdel(T) //Artifact component should handle harddels
 		

@@ -102,9 +102,9 @@
 		parent.cooldown_disabled = FALSE
 
 /datum/xenoartifact_trait/minor/capacitive/do_hint(mob/user, atom/item)
-	. = ..()
 	if(istype(item, /obj/item/multitool))
 		to_chat(user, "<span class='warning'>[item] detects [current_charge] additional charges!</span>")
+		return ..()
 
 /datum/xenoartifact_trait/minor/capacitive/get_dictionary_hint()
 	. = ..()
@@ -278,6 +278,10 @@
 	QDEL_NULL(sentience)
 	QDEL_NULL(mob_spawner)
 	return ..()
+
+/datum/xenoartifact_trait/minor/sentient/get_dictionary_hint()
+	. = ..()
+	return list(list("icon" = "exclamation", "desc" = "This trait will make the artifact unable to be sold."))
 
 /datum/xenoartifact_trait/minor/sentient/proc/handle_ghost(datum/source, mob/M, list/examine_text)
 	if(isobserver(M) && !sentience?.key && (alert(M, "Are you sure you want to control of [sentience]?", "Assume control of [sentience]", "Yes", "No") == "Yes"))
@@ -717,6 +721,8 @@
 	//Anchor
 	if(ismovable(AM) && isturf(AM.loc))
 		AM.anchored = !AM.anchored
+	//Message
+	AM.visible_message("<span class='warning'>[AM] [AM.anchored ? "anchors to" : "unanchors from"] [get_turf(AM)]!</span>", allow_inside_usr = TRUE)
 
 /*
 	Slippery

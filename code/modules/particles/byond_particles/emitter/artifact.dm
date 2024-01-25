@@ -74,6 +74,10 @@
 	plane = ABOVE_LIGHTING_PLANE
 	blend_mode = BLEND_ADD
 
+/obj/emitter/spiral/New(loc, ...)
+	. = ..()
+	add_filter("blur", 1, gauss_blur_filter(0.5))
+
 /obj/emitter/spiral/proc/setup(_color)
 	particles = new/particles/spiral(_color)
 

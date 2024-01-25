@@ -247,7 +247,7 @@
 		return
 	var/atom/A = parent.parent
 	A.visible_message("<span class='warning'>The [A] begins to heat up, it's delaminating!</span>", allow_inside_usr = TRUE)
-	addtimer(CALLBACK(src, PROC_REF(explode)), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(explode)), 30*(parent.trait_strength/100) SECONDS)
 	//Fancy animation
 	//TODO: Picking up and dropping breaks this animation - Racc
 	A.color = COLOR_RED

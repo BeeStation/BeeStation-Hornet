@@ -189,6 +189,8 @@
 	//If they have science goggles, or equivilent, they are shown exatcly what trait this is
 	if(user?.can_see_reagents())
 		var/atom/A = parent.parent
+		if(!isturf(A.loc))
+			A = A.loc
 		A.balloon_alert(user, label_name, parent.artifact_type.material_color, TRUE)
 	return
 

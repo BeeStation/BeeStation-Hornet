@@ -347,6 +347,8 @@
 	artifact_traits[trait.priority] += trait
 	blacklisted_traits += trait.blacklist_traits
 	blacklisted_traits += trait.type
+	//Ant-hardel stuff
+	RegisterSignal(trait, COMSIG_PARENT_QDELETING, PROC_REF(handle_trait))
 
 	return TRUE
 
@@ -357,11 +359,11 @@
 	var/old_mask = do_mask
 	do_mask = FALSE
 	calcified = TRUE
-	build_material_appearance()
+	if(do_texture)
+		build_material_appearance()
 	do_mask = old_mask
 	//Disable artifact
 	cooldown_override = TRUE
-
 
 //Calibrates. Does the opposite of calcify
 /datum/component/xenoartifact/proc/calibrate()
@@ -424,6 +426,12 @@
 		A.charges -= 1
 		return TRUE
 	return FALSE
+
+/datum/component/xenoartifact/proc/handle_trait(datum/source)
+	SIGNAL_HANDLER
+
+	var/datum/xenoartifact_trait/T = source
+	artifact_traits[T.priority] -= T
 
 /*
 	Artifact beam subtype
