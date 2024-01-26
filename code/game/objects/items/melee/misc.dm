@@ -382,6 +382,7 @@
 		return ..()
 	if (user.a_intent == INTENT_HARM)
 		if(!..())
+			target.apply_damage(force, STAMINA, blocked = def_check)
 			return
 	else if(cooldown_check > world.time)
 		var/wait_desc = get_wait_description()
