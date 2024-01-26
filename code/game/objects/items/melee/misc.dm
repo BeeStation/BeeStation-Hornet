@@ -378,9 +378,7 @@
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
 			user.do_attack_animation(target)
 			return
-		else
-			..()
-		return
+		return ..()
 	if(!isliving(target))
 		return
 	if (user.a_intent == INTENT_HARM)
