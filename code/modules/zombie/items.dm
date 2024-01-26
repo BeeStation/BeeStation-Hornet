@@ -12,7 +12,7 @@
 	var/icon_right = "bloodhand_right"
 	hitsound = 'sound/hallucinations/growl1.ogg'
 	force = 21 // Just enough to break airlocks with melee attacks
-	var/infection_chance = 50
+	var/base_infection_chance = 80
 	damtype = BRUTE
 
 /obj/item/zombie_hand/Initialize(mapload)
@@ -38,7 +38,7 @@
 			var/flesh_wound = ran_zone(user.get_combat_bodyzone(target))
 			if(H.check_shields(src, 0))
 				return
-			if(prob(100-H.getarmor(flesh_wound, MELEE, armour_penetration)))
+			if(prob(base_infection_chance-H.getarmor(flesh_wound, MELEE, armour_penetration)))
 				try_to_zombie_infect(target)
 		else
 			check_feast(target, user)
@@ -49,9 +49,6 @@
 	if(NOZOMBIE in target.dna.species.species_traits)
 		// cannot infect any NOZOMBIE subspecies (such as high functioning
 		// zombies)
-		return
-
-	if(prob(100-infection_chance))
 		return
 
 	var/obj/item/organ/zombie_infection/infection
