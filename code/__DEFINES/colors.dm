@@ -49,6 +49,7 @@
 #define COLOR_BLUE_LIGHT       "#33CCFF"
 #define COLOR_NAVY             "#000080"
 #define COLOR_PINK             "#FFC0CB"
+#define COLOR_BLUSH_PINK "#DE5D83"
 #define COLOR_FADED_PINK 	   "#ff80d5"
 #define COLOR_MAGENTA          "#FF00FF"
 #define COLOR_PURPLE           "#800080"
