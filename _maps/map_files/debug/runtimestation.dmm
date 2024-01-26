@@ -2451,8 +2451,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "mt" = (
-/obj/item/xenoartifact,
 /obj/effect/turf_decal/box,
+/obj/item/xenoartifact/tutorial,
+/obj/item/paper/artifact_tutorial,
 /turf/open/floor/engine,
 /area/science/explab)
 "mG" = (
@@ -2478,6 +2479,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "nq" = (
@@ -2568,7 +2570,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/science/explab)
 "oV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -2643,14 +2645,22 @@
 /turf/open/floor/engine,
 /area/science/explab)
 "sv" = (
-/obj/structure/rack,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen,
-/obj/item/book/manual/wiki/xenoarchaeology,
 /obj/effect/turf_decal/bot,
-/obj/item/healthanalyzer,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/table,
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/clothing/gloves/artifact_pinchers{
+	pixel_y = 5
+	},
+/obj/item/xenoarchaeology_labeler,
+/obj/item/xenoarchaeology_labeler{
+	pixel_y = 6
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science{
+	pixel_y = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -2668,7 +2678,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/research{
-	name = "Experimentation Lab";
+	name = "Xenoarchaeology Lab";
 	req_one_access_txt = "8;49"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -2719,6 +2729,9 @@
 	},
 /obj/effect/loot_jobscale/medical/first_aid_kit,
 /obj/item/clothing/neck/stethoscope,
+/obj/item/healthanalyzer{
+	pixel_y = 7
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "tu" = (
@@ -2782,11 +2795,6 @@
 /obj/machinery/door/airlock,
 /turf/open/floor/plating,
 /area/storage/primary)
-"vG" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/landmark/observer_start,
-/turf/open/floor/plasteel/dark,
-/area/science/explab)
 "vP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -2994,21 +3002,6 @@
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
 "Dg" = (
-/obj/structure/rack,
-/obj/item/multitool{
-	pixel_x = 3
-	},
-/obj/item/assembly/igniter,
-/obj/item/analyzer,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/geiger_counter,
-/obj/item/assembly/signaler{
-	pixel_x = -8;
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/bot,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -3016,6 +3009,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/closet/crate/science,
+/obj/item/xenoartifact,
+/obj/item/xenoartifact,
+/obj/item/xenoartifact,
+/obj/item/xenoartifact,
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "EG" = (
@@ -3111,7 +3110,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/science/explab)
 "HS" = (
 /obj/structure/sign/warning/explosives,
 /turf/closed/wall/r_wall,
@@ -3165,11 +3164,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/structure/closet/crate/science,
-/obj/effect/turf_decal/bot,
-/obj/item/xenoartifact,
-/obj/item/xenoartifact,
-/obj/item/xenoartifact,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -3224,7 +3218,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/science/explab)
 "LY" = (
 /obj/machinery/power/floodlight,
 /obj/structure/cable/yellow{
@@ -3243,6 +3237,9 @@
 	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 5
+	},
+/obj/structure/sign/poster/official/xenoarchaeology{
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
@@ -3290,17 +3287,13 @@
 /area/medical/medbay)
 "QG" = (
 /obj/structure/table,
-/obj/item/clothing/gloves/artifact_pinchers,
-/obj/item/clothing/gloves/artifact_pinchers{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/xenoarchaeology_labeler{
-	pixel_y = 6
+/obj/structure/sign/poster/official/xenoarchaeology{
+	pixel_y = -32
 	},
-/obj/item/xenoarchaeology_labeler,
+/obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "QO" = (
@@ -3329,7 +3322,8 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/blobstart,
-/turf/open/floor/noslip/white,
+/obj/effect/mapping_helpers/make_non_slip,
+/turf/open/floor/plasteel/white,
 /area/science/explab)
 "Rz" = (
 /obj/machinery/xenoarchaeology_machine/conductor,
@@ -3449,15 +3443,24 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "VV" = (
-/obj/structure/rack,
+/obj/effect/turf_decal/bot,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1
 	},
-/obj/effect/turf_decal/bot,
+/obj/item/analyzer{
+	pixel_x = -9
+	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/multitool{
+	pixel_x = -1
+	},
+/obj/item/geiger_counter{
+	pixel_x = 5
+	},
+/obj/structure/table,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "Wh" = (
@@ -9995,7 +9998,7 @@ XQ
 sz
 mt
 rO
-vG
+LE
 Kb
 Cr
 EL
