@@ -75,15 +75,6 @@
 		ganghud.leave_hud(M)
 		set_antag_hud(M, null)
 
-/datum/antagonist/gang/proc/can_be_converted(mob/living/candidate)
-	if(!candidate.mind)
-		return FALSE
-	if(!can_be_owned(candidate.mind))
-		return FALSE
-	var/mob/living/carbon/human/H = candidate
-	if(!istype(H)) //Can't nonhumans
-		return FALSE
-	return TRUE
 
 /datum/antagonist/gang/proc/promote() // Bump up to boss
 	var/datum/team/gang/old_gang = gang
