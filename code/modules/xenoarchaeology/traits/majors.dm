@@ -1,7 +1,7 @@
 /*
 	Major
 	These traits cause the xenoartifact to do a specific action
-	
+
 	* weight - All majors should have a weight that is a multiple of 3
 	* conductivity - If a major should have conductivity, it will be a multiple of 3 too
 */
@@ -284,7 +284,7 @@
 	Invisible
 	TODO: Consider removing this - Racc
 */
-//datum/xenoartifact_trait/major/invisible 
+//datum/xenoartifact_trait/major/invisible
 
 /*
 	Displaced
@@ -401,7 +401,7 @@
 	Healing
 	TODO: Consider re-designing this - Racc
 */
-//datum/xenoartifact_trait/major/heal 
+//datum/xenoartifact_trait/major/heal
 
 /*
 	Hypodermic
@@ -684,7 +684,7 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///List of possible emotes
-	var/list/possible_emotes = list(/datum/emote/flip, /datum/emote/spin, /datum/emote/living/laugh, 
+	var/list/possible_emotes = list(/datum/emote/flip, /datum/emote/spin, /datum/emote/living/laugh,
 	/datum/emote/living/shiver, /datum/emote/living/tremble, /datum/emote/living/whimper,
 	/datum/emote/living/smile, /datum/emote/living/pout, /datum/emote/living/gag,
 	/datum/emote/living/deathgasp, /datum/emote/living/dance, /datum/emote/living/blush)
@@ -705,7 +705,7 @@
 	if(!.)
 		return
 	for(var/mob/living/carbon/target in focus)
-		INVOKE_ASYNC(src, PROC_REF(run_emote), target) 
+		INVOKE_ASYNC(src, PROC_REF(run_emote), target)
 	//TODO: Add a default hint - Racc
 	dump_targets() //Get rid of anything else, since we can't interact with it
 	clear_focus()
