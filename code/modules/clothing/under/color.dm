@@ -21,6 +21,7 @@
 	fitted = FEMALE_UNIFORM_TOP
 	icon_state = "jumpskirt"
 	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
@@ -162,6 +163,14 @@
 	name = "teal jumpskirt"
 	greyscale_colors = "#77f3b7"
 
+/obj/item/clothing/under/color/purple
+	name = "purple jumpsuit"
+	greyscale_colors = "#ad16eb"
+
+/obj/item/clothing/under/color/jumpskirt/purple
+	name = "purple jumpskirt"
+	greyscale_colors = "#ad16eb"
+
 /obj/item/clothing/under/color/lightpurple
 	name = "light purple jumpsuit"
 	greyscale_colors = "#9f70cc"
@@ -245,3 +254,14 @@
 	greyscale_config_worn = null
 	can_adjust = FALSE
 	flags_1 = NONE
+
+/obj/item/clothing/under/color/rainbow/denied
+	name = "ERROR jumpsuit"
+	desc = "An error! A glitch! Wearing this for too long will make you go insane..."
+	icon_state = "denied"
+	item_state = null
+
+/obj/item/clothing/under/color/rainbow/denied/skirt
+	name = "ERROR jumpskirt"
+	icon_state = "denied_skirt"
+	dying_key = DYE_REGISTRY_JUMPSKIRT

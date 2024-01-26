@@ -1137,8 +1137,7 @@
 ///Removes an instance of colour_type from the atom's atom_colours list
 /atom/proc/remove_atom_colour(colour_priority, coloration)
 	if(!atom_colours)
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
+		return
 	if(colour_priority > atom_colours.len)
 		return
 	if(coloration && atom_colours[colour_priority] != coloration)
@@ -1149,10 +1148,9 @@
 
 ///Resets the atom's color to null, and then sets it to the highest priority colour available
 /atom/proc/update_atom_colour()
-	if(!atom_colours)
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
 	color = null
+	if(!atom_colours)
+		return
 	for(var/C in atom_colours)
 		if(islist(C))
 			var/list/L = C
@@ -1162,6 +1160,27 @@
 		else if(C)
 			color = C
 			return
+
+
+/**
+  * Wash this atom
+  *
+  * This will clean it off any temporary stuff like blood. Override this in your item to add custom cleaning behavior.
+  * Returns true if any washing was necessary and thus performed
+  * Arguments:
+  * * clean_types: any of the CLEAN_ constants
+  */
+/atom/proc/wash(clean_types)
+	SHOULD_CALL_PARENT(TRUE)
+
+	. = FALSE
+	if(SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, clean_types))
+		. = TRUE
+
+	// Basically "if has washable coloration"
+	if(length(atom_colours) >= WASHABLE_COLOUR_PRIORITY && atom_colours[WASHABLE_COLOUR_PRIORITY])
+		remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+		return TRUE
 
 /**
   * call back when a var is edited on this atom
@@ -1219,6 +1238,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
+	VV_DROPDOWN_OPTION(VV_HK_RADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	if(greyscale_colors)
@@ -1269,6 +1289,11 @@
 
 	if(href_list[VV_HK_TRIGGER_EMP] && check_rights(R_FUN))
 		usr.client.cmd_admin_emp(src)
+
+	if(href_list[VV_HK_RADIATE] && check_rights(R_FUN))
+		var/strength = input(usr, "Choose the radiation strength.", "Choose the strength.") as num|null
+		if(!isnull(strength))
+			AddComponent(/datum/component/radioactive, strength, src)
 
 	if(href_list[VV_HK_MODIFY_TRANSFORM] && check_rights(R_VAREDIT))
 		var/result = input(usr, "Choose the transformation to apply","Transform Mod") as null|anything in list("Scale","Translate","Rotate")

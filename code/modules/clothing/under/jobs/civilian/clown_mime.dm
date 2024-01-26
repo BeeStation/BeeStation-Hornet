@@ -13,6 +13,7 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 
 /obj/item/clothing/under/rank/civilian/mime/sexy
@@ -94,6 +95,7 @@
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
 	can_adjust = FALSE
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/rank/civilian/clown/Initialize(mapload)
 	. = ..()
