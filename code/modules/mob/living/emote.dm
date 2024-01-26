@@ -16,10 +16,10 @@
 
 /datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-		if(. && ishuman(user)) // Give them a visual blush effect if they're human
-			var/mob/living/carbon/human/human_user = user
-			ADD_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
-			human_user.update_body_parts()
+	if(. && ishuman(user)) // Give them a visual blush effect if they're human
+		var/mob/living/carbon/human/human_user = user
+		ADD_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
+		human_user.update_body()
 
 		// Use a timer to remove the blush effect after the BLUSH_DURATION has passed
 		var/list/key_emotes = GLOB.emote_list["blush"]
@@ -31,7 +31,7 @@
 /datum/emote/living/blush/proc/end_blush(mob/living/carbon/human/human_user)
 	if(!QDELETED(human_user))
 		REMOVE_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
-		human_user.update_body_parts()
+		human_user.update_body()
 
 #undef BLUSH_DURATION
 

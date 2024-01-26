@@ -732,9 +732,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			tears_overlay.color = COLOR_DARK_CYAN
 
 			if(OFFSET_FACE in H.dna.species.offset_features)
-			tears_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
-			tears_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
-			overlays += tears_overlay
+				tears_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
+				tears_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
+				standing += tears_overlay
 
 	//organic body markings
 	if(HAS_MARKINGS in species_traits)
