@@ -26,6 +26,11 @@
 	///Do we do solved notices on the radio?
 	var/radio_solved_notice = TRUE
 
+	///The supply pack we ship stuff in
+	var/datum/supply_pack/console_pack
+	///Our current, if available, order
+	var/datum/supply_order/console_order
+
 /obj/machinery/computer/xenoarchaeology_console/Initialize()
 	. = ..()
 	//Link relevant stuff
@@ -71,7 +76,7 @@
 /obj/machinery/computer/xenoarchaeology_console/ui_act(action, params)
 	if(..())
 		return
-	
+
 	switch(action)
 		//Purchase items
 		if("stock_purchase")
@@ -97,10 +102,21 @@
 				name = usr.real_name
 				rank = "Silicon"
 			//Ship the pack
-			var/datum/supply_pack/SP = seller?.buy_stock(locate(params["item_id"]))
-			var/datum/supply_order/SO = new(SP, name, rank, ckey, "Research Material Requisition", D)
-			SO.generateRequisition(get_turf(src))
-			SSsupply.shoppinglist += SO
+			if(!console_pack)
+				console_pack = new /datum/supply_pack/science_listing()
+				console_pack.contains = list()
+			console_pack?.current_supply = max(1, console_pack.current_supply)
+			if(!console_order || !(locate(console_order) in SSsupply.shoppinglist))
+				console_pack.contains = list()
+				console_pack.cost = 0
+			console_pack.cost += seller?.get_price(locate(params["item_id"]))
+			console_pack.contains += seller?.buy_stock(locate(params["item_id"]))
+			if(console_order)
+				SSsupply.shoppinglist -= console_order
+				qdel(console_order)
+			console_order = new(console_pack, name, rank, ckey, "Research Material Requisition", D)
+			console_order.generateRequisition(get_turf(src))
+			SSsupply.shoppinglist |= console_order
 
 	ui_update()
 
@@ -108,7 +124,7 @@
 	SIGNAL_HANDLER
 
 	radio?.talk_into(src, "test", RADIO_CHANNEL_SCIENCE)
-			
+
 	var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in AM.contents
 	var/datum/component/xenoartifact/X = AM.GetComponent(/datum/component/xenoartifact)
 	radio?.talk_into(src, "test2, label is [L], and component is [X].", RADIO_CHANNEL_SCIENCE)
@@ -121,7 +137,7 @@
 				if(T.contribute_calibration)
 					if(locate(T) in L.traits)
 						score += 1
-					else 
+					else
 						score -= 1
 			max_score += 1
 		var/success_rate = score / max_score
