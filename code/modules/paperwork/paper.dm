@@ -31,6 +31,7 @@
 	max_integrity = 50
 	dog_fashion = /datum/dog_fashion/head
 	color = COLOR_WHITE
+	dye_color = DYE_WHITE
 
 	/// Lazylist of raw, unsanitised, unparsed text inputs that have been made to the paper.
 	var/list/datum/paper_input/raw_text_inputs

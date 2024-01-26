@@ -25,6 +25,7 @@
 	foodtypes = FRUIT
 	juice_results = list(/datum/reagent/consumable/banana = 0)
 	distill_reagent = /datum/reagent/consumable/ethanol/bananahonk
+	dying_key = DYE_REGISTRY_BANANA
 
 /* Wounds
 /obj/item/food/grown/banana/generate_trash(atom/location)
@@ -61,6 +62,7 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
+	dying_key = DYE_REGISTRY_PEEL
 
 /obj/item/grown/bananapeel/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

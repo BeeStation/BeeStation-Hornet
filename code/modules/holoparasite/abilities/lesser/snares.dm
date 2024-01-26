@@ -205,7 +205,7 @@
 	desc = "Arm a surveillance snare below you, which will alert you whenever someone walks over it."
 	icon_state = "snare:arm"
 
-/atom/movable/screen/holoparasite/snare/arm/Click(location, control, params)
+/atom/movable/screen/holoparasite/snare/arm/use()
 	if(ability.arming)
 		return
 	ability.try_arm_snare()
@@ -236,7 +236,7 @@
 /atom/movable/screen/holoparasite/snare/disarm/should_be_transparent()
 	return !length(ability.snares)
 
-/atom/movable/screen/holoparasite/snare/disarm/Click(location, control, params)
+/atom/movable/screen/holoparasite/snare/disarm/use()
 	ability.disarm_snare()
 
 /obj/effect/snare

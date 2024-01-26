@@ -258,7 +258,7 @@
 	icon_state = (ability.warp_mode && !ability.warping) ? disable_icon : initial(icon_state)
 	return ..()
 
-/atom/movable/screen/holoparasite/teleport/warp/Click(location, control, params)
+/atom/movable/screen/holoparasite/teleport/warp/use()
 	if(!COOLDOWN_FINISHED(ability, warp_cooldown))
 		ability.warp_mode = FALSE
 		begin_timer(COOLDOWN_TIMELEFT(ability, warp_cooldown))
@@ -284,7 +284,7 @@
 	desc = "Deploys a bluespace beacon, allowing you to warp things to it later."
 	icon_state = "warp:place"
 
-/atom/movable/screen/holoparasite/teleport/deploy/Click(location, control, params)
+/atom/movable/screen/holoparasite/teleport/deploy/use()
 	if(ability.placing)
 		return
 	ability.try_place_beacon()
