@@ -12,6 +12,7 @@
 	var/icon_right = "bloodhand_right"
 	hitsound = 'sound/hallucinations/growl1.ogg'
 	force = 21 // Just enough to break airlocks with melee attacks
+	infection_chance = 50
 	damtype = BRUTE
 
 /obj/item/zombie_hand/Initialize(mapload)
@@ -48,6 +49,9 @@
 	if(NOZOMBIE in target.dna.species.species_traits)
 		// cannot infect any NOZOMBIE subspecies (such as high functioning
 		// zombies)
+		return
+
+	if(prob(100-infection_chance))
 		return
 
 	var/obj/item/organ/zombie_infection/infection
