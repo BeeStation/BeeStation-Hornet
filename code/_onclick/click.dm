@@ -360,7 +360,7 @@
 
 /*
 	Control+Shift click
-	Unused except for AI
+	Used for AI and Give code
 */
 /mob/proc/CtrlShiftClickOn(atom/A)
 	A.CtrlShiftClick(src)

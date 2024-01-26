@@ -56,6 +56,221 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">25 January 2024</h2>
+			<h3 class="author">Markus Larsson, PinkSuzuki updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Changed the full wall and door of the Labour shuttles to now use directional windows and windoor.</li>
+				<li class="balance">Added one recharger on the table on all the Labour shuttles.</li>
+				<li class="balance">Added one GPS on all the Labour shuttles.</li>
+				<li class="balance">Added GPSs to the suit storage units for EVA, Mining, Mining EVA, Exploration, CMO, HoS, and Security.</li>
+				<li class="balance">Added three intercomms to gulag.</li>
+				<li class="balance">Removed two GPS of the four on the outpost in mining.</li>
+				<li class="code_imp">Added parameter to datum/component/gps/Initialize whether or not the GPS should start turned on or not, default true.</li>
+				<li class="imageadd">Security variant of the GPS.</li>
+				<li class="tweak">Renamed gps-s (Science variant) to their radio key equivalent gps-n.</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">actually fixed the ushanka this time</li>
+			</ul>
+
+			<h2 class="date">24 January 2024</h2>
+			<h3 class="author">Hardly updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added black beret to clothesmate</li>
+				<li class="rscadd">Added unused clothing such as pharaoh hat, gothic coat, dracula coat and draculass coat to autodrobe</li>
+				<li class="tweak">Moved the beret from autodrobe to clothesmate</li>
+				<li class="rscadd">Brig Physician's Winter Coat can now be bought for 5000 beecoins.</li>
+				<li class="rscadd">Gothic Coat can now be bought for 8000 beecoins.</li>
+			</ul>
+			<h3 class="author">Miliviu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed RCD not being able to build airlocks on top of Firedoors</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed catwalks removing wiring underneath them despite there being plating</li>
+			</ul>
+
+			<h2 class="date">23 January 2024</h2>
+			<h3 class="author">Aramix Penwin updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Heretic head of staff sacrifice now completes.</li>
+			</ul>
+			<h3 class="author">DrDuckedGoose updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes turf texture blending</li>
+				<li class="bugfix">Fixes turf states</li>
+			</ul>
+			<h3 class="author">PinkSuzuki updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">adds a missing atribution from the washing machine sounds to the License.txt file</li>
+			</ul>
+			<h3 class="author">Solene Yoon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="soundadd">Added sounds for the Washing Machine wash cycle.</li>
+				<li class="rscadd">New groups of items are now Dyable (Suits, Hats, Berets and for the clown, Bananas, Practice Laser-Guns and Banana Peels).</li>
+				<li class="tweak">Reworked the REDCOAT dye into DENIED dye of the Denied Stamp.</li>
+				<li class="rscadd">Added ERROR clothing items (Hat, Jumpsuit, Jumpskirt, Shoes and Gloves).</li>
+				<li class="rscadd">DENIED dye will now work on bedsheets to produce what looks like a cultist bedsheet.</li>
+				<li class="rscadd">Added a White Beret, Rainbow Beret, Mime Invisible Beret and H.O.N.K Tactical Beret.</li>
+				<li class="bugfix">Fixed some bugs regarding Washing Machines having to do with Shoes and Jumpskirts being unable to be dyed, Pet Gibbing and Washing Machine cleaning.</li>
+				<li class="tweak">QOL Washing Machine Tweaks: (Wash Cycles clean the Washing Machine, Alt-Clicking will close an open Washing Machine and start a new Wash Cycle).</li>
+				<li class="rscadd">Washing a Dyed item now returns it to normal.</li>
+				<li class="tweak">Accessories (like medals and waistcoats) now retain their colour when attached to a Spray-painted item.</li>
+				<li class="code_imp">added boilerplate code to ensure accessories always appear on top of whatever overlay the clothing may have.</li>
+				<li class="tweak">Colour Sources (Stamps and Crayons) now survive Wash Cycles.</li>
+				<li class="rscadd">Added Space Law book, SOP books and paper as single use colour sources (These don't survive).</li>
+				<li class="tweak">Ensured Colour Dye Registries are attached to the parents of each article of clothing, in order to be able to dye all type of items (e.g you used not to be able to Dye fingerless gloves).</li>
+				<li class="code_imp">added a flippable var for softcaps</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed incorrect ushanka sprite when looking east/west</li>
+			</ul>
+
+			<h2 class="date">22 January 2024</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fix ghosts being able to interact with the holoparasite HUD through Observe.</li>
+			</ul>
+			<h3 class="author">Penwin0 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes the heavy-duty saline drip getting the wrong icon.</li>
+			</ul>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Aligned the genpop workshop entrances and remove the useless distros there.</li>
+			</ul>
+			<h3 class="author">Solene Yoon, RKZ updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Mailbag is now a type of Stachel, so they can be used in the back slot.</li>
+				<li class="code_imp">Repathed Mailbag and all references to it to be a subtype of satchel.</li>
+				<li class="tweak">flipped the sprite for the Mailbag to make it consistent with other duffel bags.</li>
+				<li class="imageadd">Added sprites for the Mailbag, inhand and equipped (backslot and belt slot).</li>
+				<li class="tweak">Added a line to the description of cargo winter coats to make it obvious to players it can carry cargo related items.</li>
+				<li class="rscadd">Added a white winter coat and made it available in the bee shop.</li>
+				<li class="imageadd">Added sprites for the white winter coat.</li>
+				<li class="code_imp">RKZ made the mailbag accepted items list less ugly.</li>
+			</ul>
+			<h3 class="author">ToasterBan updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Portable seed extractor is now used via an action button rather than it being a verb</li>
+				<li class="bugfix">Khinkalis can be cooked again</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed ByondUI elements persisting (such as in the preference menu) and causing lag after changing mobs.</li>
+			</ul>
+
+			<h2 class="date">20 January 2024</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Sanity Disruptor now less appear on dynamic. it still has pop lock, but has the same chance to all anomalies'</li>
+				<li class="tweak">Sanity Disruptor blinds people very very shortly than +60 seconds</li>
+				<li class="tweak">Sanity Disruptor pulse can be protected by xenoartifact protective gears</li>
+				<li class="tweak">Sanity Disruptor interval pulses a little bit often (10s to 7s)</li>
+				<li class="bugfix">Sanity Disruptor can be neutralised by signal.</li>
+				<li class="balance">fake wizard robe now protects artifact 75%, instead of 100%.</li>
+			</ul>
+
+			<h2 class="date">19 January 2024</h2>
+			<h3 class="author">Pink Sosokey updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed a bug involving the Beecoin Shop and white hoodies where only the hood would be purchasable.</li>
+				<li class="rscadd">Added the gold cross necklace to fix the duplicate instance of gold necklaces on the bee shop. This means anyone who owns 'necklace, gold' will now have the cross necklace, with 'dope necklace' remaining the old version.</li>
+				<li class="imageadd">Created sprites for the cross necklace.</li>
+			</ul>
+
+			<h2 class="date">17 January 2024</h2>
+			<h3 class="author">Miliviu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed the bug where force feeding unintentionally resulted in the feeder eating the food, instead of the intended recipient</li>
+			</ul>
+			<h3 class="author">Powerfulbacon, Haliris updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed turnstile not checking for access proper</li>
+				<li class="code_imp">Cleaned up turnstile code</li>
+			</ul>
+
+			<h2 class="date">16 January 2024</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Ghosts can no longer open and close cryotubes.</li>
+			</ul>
+			<h3 class="author">DrDuckedGoose updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Update genpop floors</li>
+				<li class="bugfix">Fix broken maint floors</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed the UpdatePaths scripts for newfood.</li>
+				<li class="code_imp">Added UpdatePaths for various recent PRs.</li>
+				<li class="bugfix">Fixed UpdatePaths leaving behind None artefacts when `@SKIP` is used.</li>
+			</ul>
+
+			<h2 class="date">15 January 2024</h2>
+			<h3 class="author">DrDuckedGoose updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Resprites the majority of ``floors.dmi``</li>
+				<li class="rscadd">Add overlays and variables for non-slip floors</li>
+				<li class="rscadd">Adds procedural visual damage to floors</li>
+				<li class="rscadd">Add area & turf dependant 'grime'</li>
+				<li class="tweak">Improve open turf variant system</li>
+				<li class="tweak">Changes all mapping occurrences of old broken tiles</li>
+				<li class="tweak">Change all occurrences of non-slip floor tiles to new system</li>
+				<li class="tweak">Re-maps some areas to better match the new tile appearances</li>
+				<li class="tweak">Resprites decals to match new flooring</li>
+			</ul>
+			<h3 class="author">Haliris with BriggsIDP, Powerfulbacon and TsunamiAnt, Kmc2000 with GoatMonarch, Cdey & Old Oraclestation code updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds the turnstile, genpop interface, prisoner id and genpop lockers from NSV. Added workshop area to brig based on the holodeck code, where prisoners can make donuts or bots and scan them to get reduced sentences. Adds secure floors and prison grilles to help secure the prison area better.</li>
+				<li class="tweak">Changed the path of the previous prisoner id used for gulag (now id/gulag). Updated paths of the current holodeck templates to holodeck/recreational to allow for easier subtypes implementation. Removed holographic flag preventing the crafting menu from working.</li>
+				<li class="imageadd">Added sprites for the turnstile and genpop interface</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed Dynamic spawning Wizard at literally any population.</li>
+				<li class="bugfix">Fixed the roundend display not showing when something was executed as a 'lategame' round-ender.</li>
+				<li class="tweak">Dynamic will now no longer trigger 'lategame' round-enders below 22 population, to allow rounds to come to their natural end via the shuttle vote.</li>
+				<li class="balance">Tweaked the minimum population for some antagonists, moving most antags that start at 25-pop to 22-pop. This is to improve the overlap between the lategame injector and antagonist variety.</li>
+			</ul>
+
+			<h2 class="date">14 January 2024</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Monkeys can no longer rip apart DNA scanners from the inside.</li>
+			</ul>
+			<h3 class="author">Pink Solene updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">added a white bandana</li>
+				<li class="imageadd">added a white bandana sprite</li>
+				<li class="imagedel">removed duplicate bandana sprites</li>
+				<li class="tweak">creating a white bandana out of cloth actually creates a white bandana instead of a botany bandana now</li>
+				<li class="code_imp">changed the parent of bandanas to be a white bandana and made a bandana/botany variant for the botany one, then made the necessary changes to ensure botany bandanas appear where they are expected.</li>
+			</ul>
+			<h3 class="author">PowerfullBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed a runtime related to carpet getting burned by atmospheric fires</li>
+			</ul>
+			<h3 class="author">ToasterBan updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Chicken Nugget boxes now properly function</li>
+				<li class="bugfix">Mjollnir is now visible when wielded in two hands</li>
+			</ul>
+			<h3 class="author">Tsar-Salat updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Cable color no longer overrides cable stackcrafting</li>
+			</ul>
+			<h3 class="author">Varo (with the help of the good people in discord) updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds a plushie delivery beacon.</li>
+				<li class="rscadd">Adds a plushie lover trait (+1)</li>
+				<li class="tweak">changes the instrument delivery beacon sprite</li>
+				<li class="tweak">changes the "musician" trait description to be more representative of its actual use.</li>
+			</ul>
+
 			<h2 class="date">13 January 2024</h2>
 			<h3 class="author">HowToLoLu updated:</h3>
 			<ul class="changes bgimages16">
@@ -749,92 +964,6 @@
 				<li class="code_imp">added chat span classes for sorting only purpose (virtually. These don't exist). when you want a chat to be sorted in a group, you need to use "srt_SOMETHING" in this way: "\<span class='srt_deadchat'>". This example will sort a chat in deadchat group.</li>
 				<li class="bugfix">most bad practices for chat sorting in radio group are fixed. non-radio messages will not be seen in radio group. (especially cult messages)</li>
 				<li class="rscadd">some chats are now sorted into radio: holopara chats, blood/clock cult telepathy, etc</li>
-			</ul>
-
-			<h2 class="date">24 November 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">The Dextrous holoparasite ability is now purely a weapon, rather than a major ability.</li>
-			</ul>
-			<h3 class="author">rkz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed Venus Human Traps vine beams not disappearing after successfully (or unsuccessfully) grabbing a mob</li>
-			</ul>
-			<h3 class="author">rkz, MrStonedOne updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="server">Subsystems now track their average & last tick allocations. Can be checked through View Variables on the designated subsystem</li>
-			</ul>
-
-			<h2 class="date">22 November 2023</h2>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">The antimatter engine has been retired.</li>
-			</ul>
-
-			<h2 class="date">21 November 2023</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Revert "Fixes GetComponents() returning a list with a null entry when there's no component of a given type" #10150</li>
-			</ul>
-
-			<h2 class="date">20 November 2023</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">cleaned up some anomaly codes, and separated the file into multiple dm</li>
-				<li class="rscadd">Sanity Disruptor Anomaly! This will appear at +30 pops with a little bit high chance. Sadly, this doesn't have a core. The anomaly will pulse to make you stunned, blinded, and a little bit hallucinated. Although it's almost harmless.</li>
-				<li class="bugfix">Fixed the original insanity pulse artifact can't send more pulses when it reaches the end of the world map where the item exists. Also, fixed a pulse triggers the effect on a mob twice as it included a turf twice.</li>
-				<li class="code_imp">new turf calculation proc get_edge_turfs() -- By PowerfulBacon</li>
-				<li class="code_imp">Omnitool debug tool now uses TGUI as tool selection instead of the radial options. Also, it has more tool options (wire, botany, bike horn) also, it's tiny item now.</li>
-			</ul>
-			<h3 class="author">RKz, actioninja, Qustinnus updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">adds sound falloff to several sounds that sorely needed it. Includes the Supermatter, mouse squeaking, clown honking, footsteps, generic item attacks musical instruments, and a few other minor items</li>
-				<li class="code_imp">documents the entire sound looping system, adds functionality for further sound loops in the future</li>
-			</ul>
-			<h3 class="author">The-Moon-Itself updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">The wiremod write component has been given the proper ports to function again.</li>
-			</ul>
-
-			<h2 class="date">17 November 2023</h2>
-			<h3 class="author">rkz, Arkatos1 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">converted AI robot controls to TGUI</li>
-			</ul>
-
-			<h2 class="date">16 November 2023</h2>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Megafauna no longer continue attacking dead players ad infinium.</li>
-			</ul>
-			<h3 class="author">rkz, Ghommie updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="server">Fixes GetComponents() returning a list with a null entry when there's no component of a given type</li>
-			</ul>
-
-			<h2 class="date">13 November 2023</h2>
-			<h3 class="author">JixS4v updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Magnetic spearguns can accept spears again.</li>
-				<li class="bugfix">Quivers can have spears placed into them after being taken out.</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Alien embryos properly delete themselves when chestbursting.</li>
-			</ul>
-
-			<h2 class="date">12 November 2023</h2>
-			<h3 class="author">Nakalon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">IPC brains now appear as IPC brains when inside an MMI.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes a compile warning and minimum gun spread calculations.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds the toy rubber duck mine, crafted by hand from a rubber ducky and a flash. You can probably guess what it does when you step on the mine from its components.</li>
 			</ul>
 		</div>
 

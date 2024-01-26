@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("plant bag",								/obj/item/storage/bag/plants, 4, time = 4 SECONDS), \
 	new/datum/stack_recipe("book bag",								/obj/item/storage/bag/books, 4, time = 4 SECONDS), \
-	new/datum/stack_recipe("mail bag",								/obj/item/storage/bag/mail, 4, time = 4 SECONDS), \
+	new/datum/stack_recipe("mail bag",								/obj/item/storage/backpack/satchel/mail, 4, time = 4 SECONDS), \
 	new/datum/stack_recipe("mining satchel",						/obj/item/storage/bag/ore, 4, time = 4 SECONDS), \
 	new/datum/stack_recipe("chemistry bag",							/obj/item/storage/bag/chemistry, 4, time = 4 SECONDS), \
 	new/datum/stack_recipe("bio bag",								/obj/item/storage/bag/bio, 4, time = 4 SECONDS), \
@@ -36,6 +36,9 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	new/datum/stack_recipe("19x19 canvas",							/obj/item/canvas/nineteen_nineteen, 3, time = 3 SECONDS), \
 	new/datum/stack_recipe("23x19 canvas",							/obj/item/canvas/twentythree_nineteen, 4, time = 4 SECONDS), \
 	new/datum/stack_recipe("23x23 canvas",							/obj/item/canvas/twentythree_twentythree, 5, time = 5 SECONDS), \
+	null, \
+	new/datum/stack_recipe("plush fabric",						/obj/item/toy/empty_plush, 5, time = 4 SECONDS), \
+	null, \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/cotton/cloth)
