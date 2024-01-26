@@ -1,7 +1,7 @@
 /*
 	Activators
 	These traits cause the xenoartifact to trigger, activate
-	
+
 	* weight - All activators MUST have a weight that is a multiple of 8
 	* conductivity - If an activator should have conductivity, it will be a multiple of 8 too
 */
@@ -271,7 +271,7 @@
 
 /datum/xenoartifact_trait/activator/timed/proc/indicator_hint(engaging = FALSE)
 	var/atom/A = parent?.parent
-	A?.balloon_alert_to_viewers("[A] [engaging ? "stops ticking." : "starts ticking"]!")
+	A?.balloon_alert_to_viewers("[A] [!engaging ? "stops ticking." : "starts ticking"]!")
 
 
 /*
