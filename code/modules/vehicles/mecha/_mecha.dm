@@ -201,7 +201,7 @@
 	diag_hud_set_mechstat()
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 	update_step_speed()
-	update_icon()
+	update_appearance()
 
 /obj/vehicle/sealed/mecha/Destroy()
 	for(var/M in occupants)
@@ -878,13 +878,14 @@
 
 ///Handles an actual AI (simple_animal mecha pilot) entering the mech
 /obj/vehicle/sealed/mecha/proc/aimob_enter_mech(mob/living/simple_animal/hostile/syndicate/mecha_pilot/pilot_mob)
-	if(pilot_mob?.Adjacent(src))
-		if(occupants)
-			return
-		LAZYADD(occupants, src)
-		pilot_mob.mecha = src
-		pilot_mob.forceMove(src)
-		update_icon()
+	if(!pilot_mob?.Adjacent(src))
+		return
+	if(occupants)
+		return
+	LAZYADD(occupants, src)
+	pilot_mob.mecha = src
+	pilot_mob.forceMove(src)
+	update_appearance()
 
 ///Handles an actual AI (simple_animal mecha pilot) exiting the mech
 /obj/vehicle/sealed/mecha/proc/aimob_exit_mech(mob/living/simple_animal/hostile/syndicate/mecha_pilot/pilot_mob)
@@ -892,7 +893,7 @@
 	if(pilot_mob.mecha == src)
 		pilot_mob.mecha = null
 	pilot_mob.forceMove(get_turf(src))
-	update_icon()
+	update_appearance()
 
 
 /////////////////////////////////////
@@ -1007,30 +1008,30 @@
 		to_chat(user, "<span class='notice'>You stop inserting the MMI.</span>")
 	return FALSE
 
-/obj/vehicle/sealed/mecha/proc/mmi_moved_inside(obj/item/mmi/M, mob/user)
-	if(!(Adjacent(M) && Adjacent(user)))
+/obj/vehicle/sealed/mecha/proc/mmi_moved_inside(obj/item/mmi/brain_obj, mob/user)
+	if(!(Adjacent(brain_obj) && Adjacent(user)))
 		return FALSE
-	if(!M.brain_check(user))
-		return FALSE
-
-	var/mob/living/brain/B = M.brainmob
-	if(!user.transferItemToLoc(M, src))
-		to_chat(user, "<span class='warning'>\the [M] is stuck to your hand, you cannot put it in \the [src]!</span>")
+	if(!brain_obj.brain_check(user))
 		return FALSE
 
+	var/mob/living/brain/brain_mob = brain_obj.brainmob
+	if(!user.transferItemToLoc(brain_obj, src))
+		to_chat(user, "<span class='warning'>\the [brain_obj] is stuck to your hand, you cannot put it in \the [src]!</span>")
+		return FALSE
 
-	M.mecha = src
-	add_occupant(B)//Note this forcemoves the brain into the mech to allow relaymove
+
+	brain_obj.mecha = src
+	add_occupant(brain_mob)//Note this forcemoves the brain into the mech to allow relaymove
 	mecha_flags |= SILICON_PILOT
-	B.reset_perspective(src)
-	B.remote_control = src
-	B.update_mobility()
-	B.update_mouse_pointer()
+	brain_mob.reset_perspective(src)
+	brain_mob.remote_control = src
+	brain_mob.update_mobility()
+	brain_mob.update_mouse_pointer()
 	setDir(dir_in)
-	log_message("[M] moved in as pilot.", LOG_MECHA)
+	log_message("[brain_obj] moved in as pilot.", LOG_MECHA)
 	if(!internal_damage)
-		SEND_SOUND(M, sound('sound/mecha/nominal.ogg',volume=50))
-	log_game("[key_name(user)] has put the MMI/posibrain of [key_name(B)] into [src] at [AREACOORD(src)]")
+		SEND_SOUND(brain_obj, sound('sound/mecha/nominal.ogg',volume=50))
+	log_game("[key_name(user)] has put the MMI/posibrain of [key_name(brain_mob)] into [src] at [AREACOORD(src)]")
 	return TRUE
 
 /obj/vehicle/sealed/mecha/container_resist(mob/living/user)
@@ -1093,7 +1094,7 @@
 				L.reset_perspective()
 				remove_occupant(L)
 			mmi.mecha = null
-			mmi.update_icon()
+			mmi.update_appearance()
 			L.mobility_flags = NONE
 		setDir(dir_in)
 	return ..()
@@ -1104,7 +1105,7 @@
 	RegisterSignal(M, COMSIG_MOB_CLICKON, PROC_REF(on_mouseclick))
 	RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(display_speech_bubble))
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/vehicle/sealed/mecha/remove_occupant(mob/M)
 	UnregisterSignal(M, COMSIG_MOB_DEATH)
@@ -1117,7 +1118,7 @@
 		M.client.view_size.resetToDefault()
 		zoom_mode = 0
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /////////////////////////
 ////// Access stuff /////
