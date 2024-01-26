@@ -25793,9 +25793,7 @@
 /area/space/nearstation)
 "gAU" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -44755,7 +44753,6 @@
 "pKs" = (
 /mob/living/simple_animal/kalo{
 	desc = "The Perma brig's cute grass snake.";
-	icon = 'icons/mob/animal.dmi';
 	icon_dead = "snake_dead";
 	icon_living = "snake";
 	icon_state = "snake";
