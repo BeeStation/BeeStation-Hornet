@@ -11,6 +11,8 @@
 	var/material_desc
 	///Used when labeler needs a name and trait is too sneaky to have a descriptor when examining.
 	var/label_name
+	///Alternate name displayed when hovering
+	var/alt_label_name
 	///Something briefly explaining it in inagame terms.
 	var/label_desc
 
@@ -106,7 +108,7 @@
 		trigger(null, priority, target)
 	targets += target
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(unregister_target_signal), TRUE)
-	
+
 //Cleanly unregister an effected target
 /datum/xenoartifact_trait/proc/unregister_target(datum/source, do_untrigger = FALSE)
 	SIGNAL_HANDLER

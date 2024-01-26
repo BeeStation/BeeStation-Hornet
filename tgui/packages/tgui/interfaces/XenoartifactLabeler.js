@@ -7,7 +7,7 @@ export const XenoartifactLabeler = (props, context) => {
     <Window width={500} height={500}>
       <Window.Content scrollable={0}>
         <XenoartifactlabelerSticker />
-        <Divider/>
+        <Divider />
         <Flex direction="row">
           <Flex.Item>
             <XenoartifactlabelerTraits />
@@ -58,7 +58,7 @@ const XenoartifactlabelerTraits = (props, context) => {
           ))}
         </Box>
       </Section>
-      <Divider/>
+      <Divider />
       <Section title="Minor Traits">
         <Box>
           {sorted_minors.map((trait) => (
@@ -71,7 +71,7 @@ const XenoartifactlabelerTraits = (props, context) => {
           ))}
         </Box>
       </Section>
-      <Divider/>
+      <Divider />
       <Section title="Major Traits">
         <Box>
           {sorted_majors.map((trait) => (
@@ -84,7 +84,7 @@ const XenoartifactlabelerTraits = (props, context) => {
           ))}
         </Box>
       </Section>
-       <Divider/>
+       <Divider />
       <Section title="Malfunction Traits">
         <Box>
           {sorted_malfs.map((trait) => (
@@ -123,7 +123,9 @@ const XenoartifactlabelerGenerateEntry = (props, context) => {
         content={specific_trait}
         checked={check_against.includes(specific_trait)}
         onClick={() => act(`assign_${trait_type}_${specific_trait}`)}
-        tooltip={`Weight: ${tooltip_stats[specific_trait]["weight"]}, Conductivity: ${tooltip_stats[specific_trait]["conductivity"]}`}
+        tooltip={`${tooltip_stats[specific_trait]["alt_name"] ? `${tooltip_stats[specific_trait]["alt_name"]} \n` : ``}
+          Weight: ${tooltip_stats[specific_trait]["weight"]},
+          Conductivity: ${tooltip_stats[specific_trait]["conductivity"]}`}
       />
     </Box>
   );
@@ -138,10 +140,10 @@ const XenoartifactlabelerGenerateInfo = (props, context) => {
       <Box italic>
         <BlockQuote>{`${info["desc"]}`}</BlockQuote>
         {info["hints"].map((hint) => (
-          <Button icon={hint["icon"]} tooltip={hint["desc"]}/>
+          <Button icon={hint["icon"]} tooltip={hint["desc"]} key={info} />
         ))}
         {tooltip_stats[info["name"]]["availability"].map((trait) => (
-          <Icon name={trait["icon"]} color={trait["color"]}/>
+          <Icon name={trait["icon"]} color={trait["color"]} key={trait} />
         ))}
       </Box>
     </Section>

@@ -37,6 +37,8 @@
 	if(!.)
 		return
 	playsound(get_turf(parent.parent), 'sound/machines/defib_zap.ogg', 50, TRUE)
+	do_sparks(3, FALSE, parent.parent)
+	//electrocute targets
 	for(var/atom/target in focus)
 		if(iscarbon(target))
 			var/mob/living/carbon/victim = target
@@ -46,6 +48,8 @@
 			C.give((parent.trait_strength/100)*C.maxcharge) //Yes, this is potentially potentially powerful, but it will be cool
 		var/atom/log_atom = parent.parent
 		log_game("[parent] in [log_atom] electrocuted [key_name_admin(target)] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
+	//If there's an exposed cable below us, charge it
+	//TODO: - Racc
 	dump_targets() //Get rid of anything else, since we can't interact with it
 	clear_focus()
 
@@ -200,6 +204,14 @@
 	. = ..()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a mothroach"))
 
+/datum/xenoartifact_trait/major/animalize/mouse
+	label_name = "Bestialized Σ"
+	possible_animals = list(/mob/living/simple_animal/mouse)
+
+/datum/xenoartifact_trait/major/animalize/mouse/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a mouse"))
+
 /datum/xenoartifact_trait/major/animalize/New(atom/_parent)
 	. = ..()
 	choosen_animal = pick(possible_animals)
@@ -337,6 +349,13 @@
 	. = ..()
 	if(!.)
 		return
+	do_light()
+
+/datum/xenoartifact_trait/major/illuminating/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("produce a randomly colored light"))
+
+/datum/xenoartifact_trait/major/illuminating/proc/do_light()
 	lit = !lit
 	var/atom/light_source = parent.parent
 	if(lit)
@@ -344,9 +363,21 @@
 	else
 		light_source.set_light(0, 0)
 
-/datum/xenoartifact_trait/major/illuminating/get_dictionary_hint()
+/datum/xenoartifact_trait/major/illuminating/shadow
+	label_name = "Illuminating Δ"
+	label_desc = "Illuminating Δ: The artifact seems to contain de-illuminating components. Triggering these components will cause the artifact to de-illuminate."
+
+/datum/xenoartifact_trait/major/illuminating/shadow/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_RANDOMISED)
+	return list(XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("create a localised shadow"))
+
+/datum/xenoartifact_trait/major/illuminating/shadow/do_light()
+	lit = !lit
+	var/atom/light_source = parent.parent
+	if(lit)
+		light_source.set_light(parent.trait_strength*0.04, min(parent.trait_strength*0.1, 10)*-1, color)
+	else
+		light_source.set_light(0, 0)
 
 /*
 	Obstructing
@@ -632,7 +663,7 @@
 
 /datum/xenoartifact_trait/major/smoke/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a corgi"))
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("produce a harmless cloud of smoke"))
 
 /datum/xenoartifact_trait/major/smoke/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -814,3 +845,53 @@
 		var/distance_proportion = max(1 - (distance / (max_flash_range * (parent.trait_strength/100))), 0)
 		if(distance_proportion)
 			M.soundbang_act(1, 200 * distance_proportion, rand(0, 5))
+
+
+/*
+	Plushing
+	Makes plushies
+*/
+
+
+/*
+	Bleeding
+	The artifact bleeds when activated
+*/
+
+/*
+	Moody
+	Changes the target's mood
+*/
+
+/*
+	Chatty
+	Talks, like polly
+*/
+
+/*
+	lissen ghosts - allows the ghosts to insert messages.
+
+	change bodypart sprite - changes the sprite of a limb/bodypart
+
+	radio chatter - anomalously tap into a random used frequency and “speak” sentence picked from predefined,picked from previous node or random
+
+	freeze - target cannot move (resist to escape)
+
+	slowness - target is significantly slowed down (resist to escape)
+
+	speed - target is faster for a time
+
+	burn - engulf target in area fire
+
+	organtraction - extracts a random organ from the target. if valid. must be at X distance from target
+
+	blind - temorary blindness
+	deaf - temporary deafness
+	mute - temporary muteness
+
+	parapalegic - temporary kiera mode
+
+	vomit - causes vomiting. droping the target on the ground for a short time
+
+
+*/

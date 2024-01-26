@@ -74,7 +74,7 @@
 /obj/item/xenoarchaeology_labeler/ui_act(action, params)
 	if(..())
 		return
-	
+
 	//print label
 	if(action == "print_traits" && COOLDOWN_FINISHED(src, sticker_cooldown_timer))
 		COOLDOWN_START(src, sticker_cooldown_timer, sticker_cooldown)
@@ -101,7 +101,7 @@
 	var/list/temp = list()
 	for(var/datum/xenoartifact_trait/T as() in trait_type)
 		temp += list(initial(T.label_name))
-		tooltip_stats["[initial(T.label_name)]"] = list("weight" = initial(T.weight), "conductivity" = initial(T.conductivity))
+		tooltip_stats["[initial(T.label_name)]"] = list("weight" = initial(T.weight), "conductivity" = initial(T.conductivity), "alt_name" = initial(T.alt_label_name))
 		//Generate material availability
 		var/list/materials = list(XENOA_BLUESPACE, XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM, XENOA_PEARL)
 		tooltip_stats["[initial(T.label_name)]"] += list("availability" = list())
