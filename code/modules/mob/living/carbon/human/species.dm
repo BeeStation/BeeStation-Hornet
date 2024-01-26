@@ -726,6 +726,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			blush_overlay.color = COLOR_BLUSH_PINK
 			standing += blush_overlay
 
+		//crying
+		if (HAS_TRAIT(H, TRAIT_CRYING)) // Caused by either using *cry or being pepper sprayed
+			var/mutable_appearance/tears_overlay = mutable_appearance('icons/mob/human_face.dmi', "tears", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+			tears_overlay.color = COLOR_DARK_CYAN
+
+			if(OFFSET_FACE in H.dna.species.offset_features)
+			tears_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
+			tears_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
+			overlays += tears_overlay
+
 	//organic body markings
 	if(HAS_MARKINGS in species_traits)
 		var/obj/item/bodypart/chest/chest = H.get_bodypart(BODY_ZONE_CHEST)

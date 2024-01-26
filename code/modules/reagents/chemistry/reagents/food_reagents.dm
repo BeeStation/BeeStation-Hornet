@@ -305,6 +305,7 @@
 		//check for protection
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
+			victim.emote("cry")
 			victim.blur_eyes(5) // 10 seconds
 			victim.adjust_blindness(3) // 6 seconds
 			victim.Knockdown(3 SECONDS)
