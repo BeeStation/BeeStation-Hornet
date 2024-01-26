@@ -300,7 +300,7 @@
 	stage_prob = max(stage_rate, 2)
 	SetDanger(severity)
 	GenerateCure()
-	symptoms = sort_list(symptoms, , GLOBAL_PROC_REF(cmp_advdisease_symptomid_asc))
+	symptoms = sort_list(symptoms, GLOBAL_PROC_REF(cmp_advdisease_symptomid_asc))
 
 
 
