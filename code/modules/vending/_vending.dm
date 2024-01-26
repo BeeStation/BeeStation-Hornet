@@ -39,9 +39,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	///Does the item have a custom premium price override
 	var/custom_premium_price
 
-	///Whether the product can be recolored by the GAGS system
-	var/colorable
-
 	/// The category the product was in, if any.
 	/// Sourced directly from product_categories.
 	var/category
@@ -316,7 +313,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		R.max_amount = amount
 		R.custom_price = initial(temp.custom_price)
 		R.custom_premium_price = initial(temp.custom_premium_price)
-		R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
 		R.category = product_to_category[typepath]
 		recordlist += R
 
@@ -843,7 +839,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		var/list/product_data = list(
 			name = product_record.name,
 			amount = product_record.amount,
-			colorable = product_record.colorable,
 		)
 
 		.["stock"][product_record.name] = product_data

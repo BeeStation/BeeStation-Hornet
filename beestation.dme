@@ -624,7 +624,6 @@
 #include "code\datums\components\footstep.dm"
 #include "code\datums\components\force_move.dm"
 #include "code\datums\components\forensics.dm"
-#include "code\datums\components\gags_recolorable.dm"
 #include "code\datums\components\gps.dm"
 #include "code\datums\components\gravity_aura.dm"
 #include "code\datums\components\haircolor_clothes.dm"
