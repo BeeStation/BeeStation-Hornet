@@ -34430,6 +34430,7 @@
 /area/bridge)
 "eua" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/item/weldingtool/mini,
 /turf/open/floor/plating{
 	burnt = 1
 	},
