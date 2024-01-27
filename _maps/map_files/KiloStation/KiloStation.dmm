@@ -31188,10 +31188,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/chair,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
 /obj/machinery/light_switch{
 	pixel_x = -7;
 	pixel_y = 34
