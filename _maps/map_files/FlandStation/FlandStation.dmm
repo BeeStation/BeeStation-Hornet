@@ -15404,6 +15404,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel/grid/steel,
 /area/hallway/primary/central)
 "eaK" = (
@@ -32688,6 +32689,14 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"ito" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/landmark/start/detective,
+/turf/open/floor/plasteel,
+/area/security/main)
 "itx" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
@@ -37324,6 +37333,15 @@
 /obj/structure/chair/wood/normal,
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"jDQ" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/xenobiology)
 "jEa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -65220,6 +65238,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "qRg" = (
@@ -75857,6 +75876,7 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
+/obj/effect/landmark/start/warden,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "tCI" = (
@@ -127900,7 +127920,7 @@ tvh
 tvh
 wBt
 uoz
-kKL
+ito
 mMk
 wWu
 vkW
@@ -131054,7 +131074,7 @@ aZB
 dBq
 iQp
 swU
-rcR
+jDQ
 sYZ
 nrL
 nrL
