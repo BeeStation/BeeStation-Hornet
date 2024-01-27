@@ -2996,6 +2996,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"aly" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/maintenance/port/aft)
 "alz" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/stripes/line{
@@ -21730,6 +21736,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "chB" = (
@@ -23263,12 +23272,6 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "cnt" = (
-/obj/machinery/recharger{
-	pixel_x = -7
-	},
-/obj/machinery/recharger{
-	pixel_x = 7
-	},
 /obj/item/radio/intercom{
 	pixel_x = 32;
 	pixel_y = 22
@@ -23295,6 +23298,7 @@
 /obj/item/firing_pin/off_station{
 	pixel_y = 11
 	},
+/obj/machinery/recharger,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "cnu" = (
@@ -49571,6 +49575,9 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/main)
 "jFx" = (
@@ -56487,6 +56494,18 @@
 	burnt = 1
 	},
 /area/quartermaster/warehouse)
+"mev" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/security/main)
 "mez" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2o{
@@ -58624,7 +58643,6 @@
 /area/lawoffice)
 "mTa" = (
 /obj/effect/turf_decal/stripes/corner,
-/obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -58959,6 +58977,9 @@
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -60876,6 +60897,9 @@
 /obj/structure/disposalpipe/junction/flip{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/main)
 "nLx" = (
@@ -61392,9 +61416,8 @@
 	name = "Brig Control Desk";
 	req_access_txt = "3"
 	},
-/obj/item/folder/red,
-/obj/item/pen,
 /obj/item/poster/random_contraband,
+/obj/machinery/recharger,
 /turf/open/floor/plating,
 /area/security/prison)
 "nTy" = (
@@ -63160,11 +63183,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningoffice)
-"oAX" = (
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/maintenance/port/aft)
 "oCl" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -67930,6 +67948,17 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/entry)
+"qhg" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
 "qhk" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -69224,6 +69253,8 @@
 /obj/machinery/door/window/southleft{
 	name = "Brig Control Desk"
 	},
+/obj/item/folder/red,
+/obj/item/pen,
 /turf/open/floor/plating,
 /area/security/warden)
 "qDg" = (
@@ -72556,9 +72587,6 @@
 	dir = 1
 	},
 /obj/structure/chair,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "rKo" = (
@@ -85934,6 +85962,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/security/main)
 "wpy" = (
@@ -90349,6 +90378,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "xQs" = (
@@ -90706,6 +90738,9 @@
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -107389,7 +107424,7 @@ syi
 axx
 jey
 syi
-syi
+mev
 kkS
 jFn
 frK
@@ -107902,7 +107937,7 @@ wwb
 lSl
 exu
 ajx
-giS
+aly
 kdG
 ajd
 jxx
@@ -108159,7 +108194,7 @@ yjT
 yjT
 yjT
 ajx
-oAX
+giS
 mTa
 ajd
 tlK
@@ -114074,7 +114109,7 @@ gMm
 jGR
 iGi
 eMV
-aav
+qhg
 rKj
 kbf
 jMC
@@ -115356,7 +115391,7 @@ wZi
 lhX
 aDH
 swU
-gyc
+qhg
 aav
 gyc
 aav
