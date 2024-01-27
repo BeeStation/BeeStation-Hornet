@@ -724,6 +724,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if (HAS_TRAIT(H, TRAIT_BLUSHING)) // Caused by either the *blush emote or the "drunk" mood event
 			var/mutable_appearance/blush_overlay = mutable_appearance('icons/mob/human_face.dmi', "blush", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER)) //should appear behind the eyes
 			blush_overlay.color = COLOR_BLUSH_PINK
+
+			if(OFFSET_FACE in H.dna.species.offset_features)
+				blush_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
+				blush_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
 			standing += blush_overlay
 
 		//crying
