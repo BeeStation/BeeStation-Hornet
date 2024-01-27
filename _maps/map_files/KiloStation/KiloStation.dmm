@@ -37024,10 +37024,12 @@
 /obj/machinery/disposal/deliveryChute{
 	dir = 4;
 	pixel_x = -8;
-	pixel_y = -2
+	pixel_y = -2;
+	name = "evidence delivery chute"
 	},
 /obj/machinery/door/window/brigdoor/eastright{
-	req_one_access_txt = "1"
+	req_one_access_txt = "1";
+	name = "evidence access"
 	},
 /obj/structure/window/reinforced{
 	dir = 1
