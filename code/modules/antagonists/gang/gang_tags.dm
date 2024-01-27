@@ -12,9 +12,6 @@
 		qdel(src)
 		return
 	gang = G
-	var/area/territory = get_area(src)
-	G.new_territories |= list(territory.type = territory.name)
-
 	name = e_name
 	desc = "A [name] vandalizing the station."
 	icon_state = G.name
@@ -25,6 +22,4 @@
 	if(gang)
 		var/area/territory = get_area(src)
 		gang.territories -= territory.type
-		gang.new_territories -= territory.type
-		gang.lost_territories |= list(territory.type = territory.name)
 	return ..()

@@ -193,7 +193,7 @@
 		if (!where)
 			to_chat(H, "Your Syndicate benefactors were unfortunately unable to get you a Gangtool.")
 		else
-			G.register_device(H)
+//			G.register_device(H)
 			to_chat(H, "The <b>Gangtool</b> in your [where] will allow you to purchase weapons and equipment, send messages to your gang, and recall the emergency shuttle from anywhere on the station.")
 			to_chat(H, "As the gang boss, you can also promote your gang members to <b>lieutenant</b>. Unlike regular gangsters, Lieutenants cannot be deconverted and are able to use recruitment pens and gangtools.")
 
@@ -272,16 +272,14 @@
 	var/list/leaders = list() // bosses
 	var/max_leaders = MAX_LEADERS_GANG
 	var/max_members = MAX_MEMBERS_GANG
-	var/list/territories = list() // territories owned by the gang.
-	var/list/lost_territories = list() // territories lost by the gang.
-	var/list/new_territories = list() // territories captured by the gang.
+	var/list/territories_controlled = list() //territories owned by the gang, used for checking control and for influence/reputation gain.
+	var/list/territories = list() // any territory with a tag from the gang, decals stored in territories for purposes of checking control.
 	var/list/gangtools = list()
 	var/color
 	var/winner = FALSE //winner winner chicken dinner
 	var/influence = 0 // influence of the gang, based on how many territories they own. Can be used to buy weapons and tools from a gang uplink.
 	var/reputation = 0 // influence earned throughout the round, used at eotg to calculate most efficient gang
 	var/next_point_time
-	var/recalls = MAXIMUM_RECALLS // Once this reaches 0, this gang cannot force recall the shuttle with their gangtool anymore
 	var/obj/item/clothing/head/hat
 	var/obj/item/clothing/under/outfit
 	var/obj/item/clothing/suit/suit
@@ -335,52 +333,7 @@
 
 /datum/team/gang/proc/handle_territories()	//influence is counted here
 	next_point_time = world.time + INFLUENCE_INTERVAL
-	if(!leaders.len)
-		return
-	var/added_names = ""
-	var/lost_names = ""
 
-	//Re-add territories that were reclaimed, so if they got tagged over, they can still earn income if they tag it back before the next status report
-	var/list/reclaimed_territories = new_territories & lost_territories
-	territories |= reclaimed_territories
-	new_territories -= reclaimed_territories
-	lost_territories -= reclaimed_territories
-
-	//Process lost territories
-	for(var/area in lost_territories)
-		if(lost_names != "")
-			lost_names += ", "
-		lost_names += "[lost_territories[area]]"
-		territories -= area
-
-	//Calculate and report influence growth
-
-	//Process new territories
-	for(var/area in new_territories)
-		if(added_names != "")
-			added_names += ", "
-		added_names += "[new_territories[area]]"
-		territories += area
-
-	//Report territory changes
-	var/message = "<b>[src] Gang Status Report:</b>.<BR>*---------*<BR>"
-	message += "<b>[new_territories.len] new territories:</b><br><i>[added_names]</i><br>"
-	message += "<b>[lost_territories.len] territories lost:</b><br><i>[lost_names]</i><br>"
-	//Clear the lists
-	new_territories = list()
-	lost_territories = list()
-	var/total_territories = total_claimable_territories()
-	var/control = round((territories.len/total_territories)*100, 1)
-	var/uniformed = count_gang_swag()
-	message += "Your gang now has <b>[control]% control</b> of the station.<BR>*---------*<BR>"
-
-	var/new_influence = update_influence()
-	influence =	min(999,influence+new_influence)
-	if(new_influence > 0)
-		message += "Gang influence has increased by [new_influence] for defending [territories.len] territories and [uniformed] swag.<BR>"
-	message += "Your gang now has <b>[influence] influence</b>.<BR>"
-
-	message_gangtools(message)
 	addtimer(CALLBACK(src, PROC_REF(handle_territories)), INFLUENCE_INTERVAL)
 
 

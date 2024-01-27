@@ -1979,6 +1979,7 @@
 #include "code\modules\antagonists\gang\gang_items.dm"
 #include "code\modules\antagonists\gang\gang_pen.dm"
 #include "code\modules\antagonists\gang\gang_tags.dm"
+#include "code\modules\antagonists\gang\gang_territory.dm"
 #include "code\modules\antagonists\gang\gangtool.dm"
 #include "code\modules\antagonists\greentext\greentext.dm"
 #include "code\modules\antagonists\heretic\heretic_antag.dm"

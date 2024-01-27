@@ -1,19 +1,19 @@
 /datum/gang_item
 	var/name
+	var/desc
 	var/item_path
+	var/category = "item category"
 	var/cost
-	var/spawn_msg
-	var/category
 	var/list/gang_whitelist = list()
 	var/list/gang_blacklist = list()
-	var/id
+	var/list/gang_items
+
 
 /datum/gang_item/proc/purchase(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool, check_canbuy = TRUE)
 	if(check_canbuy && !can_buy(user, gang, gangtool))
 		return FALSE
-	var/real_cost = get_cost(user, gang, gangtool)
 	if(!spawn_item(user, gang, gangtool))
-		gang.adjust_influence(-real_cost)
+		gang.adjust_influence(-cost)
 		to_chat(user, "<span class='notice'>You bought \the [name].</span>")
 		return TRUE
 
@@ -23,106 +23,43 @@
 		user.put_in_hands(O)
 	else
 		return TRUE
-	if(spawn_msg)
-		to_chat(user, spawn_msg)
 
 /datum/gang_item/proc/can_buy(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	return gang && (gang.influence >= get_cost(user, gang, gangtool)) && can_see(user, gang, gangtool)
+	return gang && (gang.influence >= cost)
 
-/datum/gang_item/proc/can_see(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	return TRUE
-
-/datum/gang_item/proc/get_cost(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	return cost
-
-/datum/gang_item/proc/get_cost_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	return "([get_cost(user, gang, gangtool)] Influence)"
-
-/datum/gang_item/proc/get_name_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	return name
-
-/datum/gang_item/proc/get_extra_info(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	return
 
 ///////////////////
 //Essential Gang Tools
 ///////////////////
 
 /datum/gang_item/essentials
-	category = "Purchase Essential Items:"
+	category = "Essential Items"
 
 /datum/gang_item/essentials/spraycan
 	name = "Territory Spraycan"
-	id = "spraycan"
 	cost = 10
 	item_path = /obj/item/toy/crayon/spraycan/gang
 
-/datum/gang_item/essentials/gangtool
-	id = "gangtool"
-	cost = 50
-
-/datum/gang_item/essentials/gangtool/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/item_type
-	if(gang)
-		item_type = /obj/item/device/gangtool/spare/lt
-		if(gang.leaders.len < MAX_LEADERS_GANG)
-			to_chat(user, "<span class='notice'><b>Gangtools</b> allow you to promote a gangster to be your Lieutenant, enabling them to recruit and purchase items like you. Simply have them register the gangtool. You may promote up to [MAX_LEADERS_GANG-gang.leaders.len] more Lieutenants.</span>")
-	else
-		item_type = /obj/item/device/gangtool/spare
-	var/obj/item/device/gangtool/spare/tool = new item_type(user.loc)
-	user.put_in_hands(tool)
-
-/datum/gang_item/essentials/gangtool/get_name_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gang && (gang.leaders.len < gang.max_leaders))
-		return "Promote a Gangster"
-	return "Spare Gangtool"
 
 /datum/gang_item/essentials/spraycan/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/O = new item_path(user.loc, gang)
+	var/obj/item/toy/crayon/spraycan/gang/O = new item_path(user.loc)
 	user.put_in_hands(O)
+	O.gang = gang
+	O.paint_color = gang.color
+	O.update_icon()
 
-/datum/gang_item/essentials/pen
-	name = "Recruitment Pen"
-	id = "pen"
+/datum/gang_item/essentials/gangtool
+	name = "Gangtool"
 	cost = 50
-	item_path = /obj/item/pen/gang
-	spawn_msg = "<span class='notice'>More <b>recruitment pens</b> will allow you to recruit gangsters faster. Only gang leaders can recruit with pens.</span>"
+	item_path = /obj/item/device/gangtool
+	desc = "Spare gangtool to keep stashed in case of arrest."
 
-/datum/gang_item/essentials/pen/purchase(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(..())
-		gangtool.free_pen = FALSE
-		return TRUE
-	return FALSE
 
-/datum/gang_item/essentials/pen/get_cost(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gangtool?.free_pen)
-		return 0
-	return ..()
-
-/datum/gang_item/essentials/pen/get_cost_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gangtool?.free_pen)
-		return "(GET ONE FREE)"
-	return ..()
-
-/datum/gang_item/essentials/reinforce
-	name = "Call Reinforcments"
-	id = "reinforce"
-	cost = 250
-	item_path = /obj/item/antag_spawner/gangster
-
-///////////////////
-//CLOTHING
-///////////////////
-
-/datum/gang_item/clothing
-	category = "Purchase Gang Clothes (Wearing your):"
-
-/datum/gang_item/clothing/basic
+/datum/gang_item/essentials/uniform
 	name = "Gang Uniform"
-	id = "under"
 	cost = 5
 
-/datum/gang_item/clothing/basic/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+/datum/gang_item/essentials/uniform/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/storage/box/uniform_box = new (get_turf(user))
 
 	new gang.outfit(uniform_box)
@@ -133,78 +70,27 @@
 	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence.")
 	return TRUE
 
-/datum/gang_item/clothing/armor
-	name = "Gang Armored Outerwear"
-	id = "armor"
-	cost = 200
-
-/datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/storage/box/armor_box = new (get_turf(user))
-
-	var/obj/item/clothing/suit/suit = new gang.suit(armor_box)
-	suit.armor = suit.armor.setRating(melee = 20, bullet = 35, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 30, acid = 30)
-	suit.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
-
-	var/obj/item/clothing/head/hat = new gang.hat(armor_box)
-	hat.armor = hat.armor.setRating(melee = 20, bullet = 35, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 30, acid = 30)
-	hat.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
-
-	user.put_in_hands(armor_box)
-	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
-	return TRUE
-
-/datum/gang_item/clothing/ssuit
-	name = "Gang Spaceproof Outerwear"
-	id = "ssuit"
-	cost = 200
-
-/datum/gang_item/clothing/ssuit/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/storage/box/armor_box = new (get_turf(user))
-
-	var/obj/item/clothing/suit/suit = new gang.suit(armor_box)
-	suit.clothing_flags |= STOPSPRESSUREDAMAGE | THICKMATERIAL | HEADINTERNALS
-	suit.cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	suit.heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	suit.min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	suit.max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	suit.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
-
-	var/obj/item/clothing/head/hat = new gang.hat(armor_box)
-	hat.clothing_flags |= STOPSPRESSUREDAMAGE | THICKMATERIAL
-	hat.cold_protection = HEAD
-	hat.heat_protection = HEAD
-	hat.min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	hat.max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	hat.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
-
-	user.put_in_hands(armor_box)
-	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
-	return TRUE
-
 
 ///////////////////
 //WEAPONS
 ///////////////////
 
 /datum/gang_item/weapon
-	category = "Purchase Weapons:"
+	category = "Weapons"
 
 /datum/gang_item/weapon/emp
 	name = "EMP Grenade"
-	id = "EMP"
 	cost = 50
 	item_path = /obj/item/grenade/empgrenade
 
 
 /datum/gang_item/weapon/switchblade
 	name = "Switchblade"
-	id = "switchblade"
 	cost = 100
 	item_path = /obj/item/switchblade
 
 /datum/gang_item/weapon/shuriken
 	name = "Shuriken box"
-	id = "shuriken"
 	cost = 150
 	item_path = /obj/item/storage/box/shuriken_box
 
@@ -217,31 +103,26 @@
 
 /datum/gang_item/weapon/pistol
 	name = "10mm Pistol"
-	id = "pistol"
 	cost = 500
 	item_path = /obj/item/gun/ballistic/automatic/pistol
 
 /datum/gang_item/weapon/pistol_ammo
 	name = "10mm Ammo"
-	id = "pistol_ammo"
 	cost = 50
 	item_path = /obj/item/ammo_box/magazine/m10mm
 
 /datum/gang_item/weapon/uzi
 	name = "Uzi SMG"
-	id = "uzi"
 	cost = 500
 	item_path = /obj/item/gun/ballistic/automatic/mini_uzi
 
 /datum/gang_item/weapon/uzi_ammo
 	name = "Uzi Ammo"
-	id = "uzi_ammo"
 	cost = 50
 	item_path = /obj/item/ammo_box/magazine/uzim9mm
 
 /datum/gang_item/weapon/laser
 	name = "Laser Gun"
-	id = "laser"
 	cost = 500
 	item_path = /obj/item/gun/energy/laser/retro
 
@@ -250,23 +131,15 @@
 ///////////////////
 
 /datum/gang_item/equipment
-	category = "Purchase Support Equipment:"
+	category = "Support Equipment"
 
 /datum/gang_item/equipment/healcigs
 	name = "Healing Cigs"
-	id = "healcigs"
 	cost = 20
 	item_path = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 
-/datum/gang_item/equipment/mulah
-	name = "Space Cash (1000cr)"
-	id = "mulah"
-	cost = 25
-	item_path = /obj/item/stack/spacecash/c1000
-
 /datum/gang_item/equipment/drugs
 	name = "Drug Supply"
-	id = "drugs"
 	cost = 50
 	item_path = /obj/item/storage/box
 
@@ -299,13 +172,11 @@
 
 /datum/gang_item/equipment/aids
 	name = "Battlefield Aid Kit"
-	id = "aids"
 	cost = 75
 	item_path = /obj/item/storage/firstaid/shifty/battle
 
 /datum/gang_item/equipment/hangover
 	name = "Bad Trip Kit"
-	id = "hangover"
 	cost = 75
 	item_path = /obj/item/storage/firstaid/shifty/hangover
 

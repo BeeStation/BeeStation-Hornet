@@ -846,34 +846,13 @@
 		to_chat(user, "<span class='warning'>[A] is unsuitable for tagging.</span>")
 		return FALSE
 
-	var/spraying_over = FALSE
-	for(var/obj/effect/decal/gang/gangtag in target)
-		if(istype(gangtag))
-			var/datum/antagonist/gang/GA = user.mind.has_antag_datum(/datum/antagonist/gang)
-			if(gangtag.gang != GA.gang)
-				if (alert)
-					to_chat(user, "<span class='notice'>[gangtag.gang] has been alerted of this takeover!</span>")
-					gangtag.gang.message_gangtools("[get_area(target)] is under attack by an enemy gang!")
-				spraying_over = TRUE
-				break
-
-	for(var/obj/machinery/power/apc in target)
-		to_chat(user, "<span class='warning'>You can't tag an APC.</span>")
-		return FALSE
-
-	var/occupying_gang = territory_claimed(A, user)
-	if(occupying_gang && !spraying_over)
-		to_chat(user, "<span class='danger'>[A] has already been tagged by the [occupying_gang] gang! You must get rid of or spray over the old tag first!</span>")
-		return FALSE
-
-	// If you pass the gaunlet of checks, you're good to proceed
 	return TRUE
 
 /obj/item/toy/crayon/proc/territory_claimed(area/territory, mob/user)
 	for(var/datum/team/gang/G in GLOB.gangs)
-		if(territory.type in (G.territories|G.new_territories))
-			. = G.name
-			break
+		if(territory.type in (G.territories_controlled))
+			return G
+
 
 /obj/item/toy/crayon/proc/tag_for_gang(mob/user, atom/target)
 	//Delete any old markings on this tile, including other gang tags
@@ -881,11 +860,18 @@
 		qdel(old_marking)
 	for(var/obj/effect/decal/gang/old_gang in target)
 		qdel(old_gang)
-
+	var/datum/team/gang/gang_enemy = territory_claimed(get_area(target))
 	var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
 	var/area/territory = get_area(target)
 	new /obj/effect/decal/gang(target,G.gang,"graffiti",0,user)
 	to_chat(user, "<span class='notice'>You tagged [territory] for your gang!</span>")
+	for(var/datum/gang_territory/T in G.gang.territories)
+		if(T.area == territory)
+			found = TRUE
+			T.increase_control()
+			return
+	G.gang.add_territory(territory)
+
 
 /obj/item/toy/crayon/spraycan/gang
 	//desc = "A modified container containing suspicious paint."
@@ -895,12 +881,6 @@
 	pre_noise = FALSE
 	post_noise = TRUE
 
-/obj/item/toy/crayon/spraycan/gang/Initialize(mapload, loc, datum/team/gang/G)
-	.=..()
-	if(G)
-		gang = G
-		paint_color = G.color
-		update_icon()
 
 /obj/item/toy/crayon/spraycan/gang/examine(mob/user)
 	. = ..()
