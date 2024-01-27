@@ -32083,6 +32083,10 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/trunk,
+/obj/machinery/light_switch{
+	pixel_x = 27;
+	pixel_y = -5
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "dCe" = (
@@ -41115,6 +41119,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/light_switch{
+	pixel_x = 10;
+	pixel_y = 27
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "gSq" = (
@@ -43929,10 +43937,6 @@
 	name = "Justice Injections"
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/light_switch{
-	pixel_x = -40;
-	pixel_y = -8
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -43940,6 +43944,10 @@
 /obj/machinery/airalarm{
 	dir = 4;
 	pixel_x = -22
+	},
+/obj/machinery/light_switch{
+	pixel_x = -40;
+	pixel_y = -8
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
@@ -44862,6 +44870,10 @@
 /obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
+	},
+/obj/machinery/light_switch{
+	pixel_x = -7;
+	pixel_y = -24
 	},
 /turf/open/floor/plating{
 	burnt = 1
@@ -48251,12 +48263,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
-"jkT" = (
-/obj/machinery/light_switch{
-	req_one_access_txt = "3"
-	},
-/turf/closed/wall/r_wall/rust,
-/area/security/prison)
 "jle" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
@@ -48815,6 +48821,10 @@
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 5;
 	pixel_y = -1
+	},
+/obj/machinery/light_switch{
+	pixel_x = 27;
+	pixel_y = -4
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/main)
@@ -52549,6 +52559,10 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = 25;
+	pixel_y = -5
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -67743,10 +67757,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_y = 25;
-	pixel_x = -20
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "qdj" = (
@@ -72544,6 +72554,10 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
+/obj/machinery/light_switch{
+	pixel_x = -7;
+	pixel_y = 34
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "rKo" = (
@@ -76296,6 +76310,15 @@
 /obj/structure/closet/secure_closet/genpop,
 /turf/open/floor/plasteel,
 /area/security/prison)
+"sTy" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/machinery/light_switch{
+	pixel_x = 27;
+	pixel_y = 7
+	},
+/turf/open/floor/plasteel,
+/area/security/main)
 "sTz" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-05"
@@ -78369,7 +78392,6 @@
 	},
 /area/maintenance/port)
 "tGc" = (
-/obj/machinery/door/firedoor,
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -79842,6 +79864,10 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
+	},
+/obj/machinery/light_switch{
+	pixel_x = 6;
+	pixel_y = 28
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -107626,7 +107652,7 @@ liB
 liB
 mRz
 hRo
-liB
+sTy
 wpL
 xVA
 iRH
@@ -113026,7 +113052,7 @@ bIK
 qHC
 iQT
 qJa
-jkT
+aat
 cnt
 wGr
 uSG
