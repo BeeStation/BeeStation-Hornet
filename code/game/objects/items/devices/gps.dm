@@ -15,10 +15,10 @@
 
 /// Adds the GPS component to this item.
 /obj/item/gps/proc/add_gps_component()
-	AddComponent(/datum/component/gps/item, gpstag)
+	AddComponent(/datum/component/gps/item, gpstag, FALSE)
 
 /obj/item/gps/science
-	icon_state = "gps-s"
+	icon_state = "gps-n"
 	gpstag = "SCI0"
 
 /obj/item/gps/engineering
@@ -33,6 +33,10 @@
 /obj/item/gps/mining/exploration
 	gpstag = "EXP0"
 	desc = "A positioning system used for long-ranged tracking of important beacons."
+	
+/obj/item/gps/security
+	icon_state = "gps-s"
+	gpstag = "SEC0"
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"

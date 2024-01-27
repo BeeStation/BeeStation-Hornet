@@ -1,0 +1,1 @@
+/obj/item/reagent_containers/food/snacks/canned/@SUBTYPES : /obj/item/food/canned/@SUBTYPES{@OLD}
