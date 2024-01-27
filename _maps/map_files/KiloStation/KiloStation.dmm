@@ -35559,6 +35559,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/camera{
+	c_tag = "Interrogation Room";
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "eIR" = (
@@ -51672,6 +51676,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "Prison Wing";
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "kso" = (
@@ -53086,9 +53094,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -55564,10 +55569,6 @@
 /area/engine/break_room)
 "lPU" = (
 /obj/structure/closet/crate/bin,
-/obj/machinery/camera{
-	c_tag = "Brig Cells";
-	dir = 1
-	},
 /turf/open/floor/prison,
 /area/security/prison)
 "lQc" = (
@@ -57503,11 +57504,6 @@
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "mzu" = (
-/obj/machinery/door/airlock/security{
-	name = "Evidence";
-	req_access_txt = null;
-	req_one_access_txt = "4;1"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -57516,6 +57512,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/security{
+	name = "Evidence Storage";
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -71436,9 +71436,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/closet/secure_closet/evidence,
 /obj/effect/turf_decal/bot,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "ryC" = (
@@ -72374,6 +72371,10 @@
 /area/maintenance/starboard/fore)
 "rPL" = (
 /obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Brig Cells";
+	dir = 1
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "rPM" = (
@@ -81995,9 +81996,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "vkB" = (
@@ -82732,9 +82730,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -90490,20 +90485,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
-"ycZ" = (
-/obj/structure/closet/secure_closet/evidence,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/brig)
 "ydc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -106630,7 +106611,7 @@ bSF
 cog
 cBD
 gvl
-caO
+aad
 rxP
 yjk
 wWo
@@ -106887,8 +106868,8 @@ bSF
 cnR
 aeu
 iUr
-caO
-ycZ
+aad
+qaz
 vwr
 prt
 aaj
