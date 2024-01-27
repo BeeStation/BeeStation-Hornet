@@ -130,8 +130,6 @@
 
 //Find a connecting /obj/machinery/atmospherics in specified direction
 /obj/machinery/atmospherics/proc/findConnecting(direction, prompted_layer)
-	if(!(initialize_directions & direction))
-		return null
 	for(var/obj/machinery/atmospherics/target in get_step_multiz(src, direction))
 		if(target.initialize_directions & get_dir(target,src) && !istype(target, /obj/machinery/atmospherics/pipe/multiz))
 			if(connection_check(target, prompted_layer))
@@ -299,7 +297,7 @@
 #define VENT_SOUND_DELAY 30
 
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
-	if(!direction || !(direction in GLOB.cardinals_multiz)) //cant go this way.
+	if(!(direction & initialize_directions) || !(direction in GLOB.cardinals_multiz)) //cant go this way.
 		return
 	if(user in buckled_mobs)// fixes buckle ventcrawl edgecase fuck bug
 		return
