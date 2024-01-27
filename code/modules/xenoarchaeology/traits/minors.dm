@@ -1,7 +1,7 @@
 /*
 	Minors
 	These traits cause the xenoartifact to behave uniquely, just misc shit
-	
+
 	* weight - All minors should have a weight that is a multiple of 5
 	* conductivity - If a minor should have conductivity, it will be a multiple of 5 too
 */
@@ -366,7 +366,7 @@
 		//We have to check the range ourselves
 		if(get_dist(get_turf(sentient_artifact.parent), get_turf(M)) <= range)
 			sentient_artifact.register_target(M, TRUE)
-	if(length(sentient_artifact.targets))	
+	if(length(sentient_artifact.targets))
 		sentient_artifact.trigger(TRUE)
 
 /*
@@ -613,7 +613,7 @@
 	var/datum/radio_frequency/radio_connection
 	//Signal
 	var/datum/signal/signal
-	
+
 /datum/xenoartifact_trait/minor/signaller/New(atom/_parent)
 	. = ..()
 	//Code
@@ -687,8 +687,6 @@
 	label_name = "Anchor"
 	label_desc = "Anchor: The Artifact's design seems to incorporate anchoring elements. This will cause the artifact to anchor when triggered, it can also be unanchored with typical tools."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
-	extra_target_range = 2
 	weight = 10
 
 /datum/xenoartifact_trait/minor/anchor/New(atom/_parent)
@@ -807,3 +805,96 @@
 		parent.register_target(target, TRUE)
 		parent.trigger(TRUE)
 		return
+
+/*
+	Bleeding
+	The artifact bleeds for a short period after being activated
+*/
+/datum/xenoartifact_trait/minor/bleed
+	label_name = "Bleeding"
+	label_desc = "Bleeding: The Artifact's design seems to incorporate bleeding elements. This will cause the artifact to bleed when triggered."
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 15
+	///Timer stuff to keep track of when we're bleeding
+	var/bleed_duration = 5 SECONDS
+	var/bleed_timer
+
+/datum/xenoartifact_trait/minor/bleed/New(atom/_parent)
+	. = ..()
+	if(!parent?.parent)
+		return
+	var/atom/movable/AM = parent.parent
+	RegisterSignal(AM, COMSIG_MOVABLE_MOVED, PROC_REF(catch_bleed_move))
+
+/datum/xenoartifact_trait/minor/bleed/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!. || bleed_timer)
+		return
+	new /obj/effect/decal/cleanable/blood(get_turf(parent.parent))
+	bleed_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), bleed_duration, TIMER_STOPPABLE)
+
+/datum/xenoartifact_trait/minor/bleed/proc/reset_timer()
+	if(bleed_timer)
+		deltimer(bleed_timer)
+	bleed_timer = null
+
+/datum/xenoartifact_trait/minor/bleed/proc/catch_bleed_move(datum/source, atom/target, dir)
+	SIGNAL_HANDLER
+
+	if(!bleed_timer)
+		return
+	var/obj/effect/decal/cleanable/blood/tracks/T = new /obj/effect/decal/cleanable/blood/tracks(get_turf(parent.parent))
+	T.setDir(dir)
+
+/*
+	Magnetic
+	The artifact attracts metalic objects when activated
+*/
+/datum/xenoartifact_trait/minor/magnetic
+	label_name = "Magnetic"
+	label_desc = "Magnetic: The Artifact's design seems to incorporate magnetic elements. This will cause the artifact to attract metalic objects when triggered."
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 30
+	///Maximum magnetic pull
+	var/max_pull_steps = 2
+	///Maximum range
+	var/max_pull_range = 4
+
+/datum/xenoartifact_trait/minor/magnetic/push
+	label_name = "Magnetic Δ"
+	label_desc = "Magnetic Δ: The Artifact's design seems to incorporate magnetic elements. This will cause the artifact to repulse metalic objects when triggered."
+
+/datum/xenoartifact_trait/minor/magnetic/push/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("push metalic objects away from it"))
+
+/datum/xenoartifact_trait/minor/magnetic/push/magnetic_direction(atom/movable/AM, atom/target)
+	step_away(AM, target)
+
+/datum/xenoartifact_trait/minor/magnetic/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	var/turf/T = get_turf(parent.parent)
+	var/pull_steps = max_pull_steps * (parent.trait_strength/100)
+	var/pull_range = max_pull_range * (parent.trait_strength/100)
+	for(var/obj/M in orange(pull_range, T)) //TODO: Consider condensing these - Racc
+		if(M.anchored || !(M.flags_1 & CONDUCT_1))
+			continue
+		INVOKE_ASYNC(src, PROC_REF(magnetize), M, T, pull_steps)
+	for(var/mob/living/silicon/S in orange(pull_range, T))
+		if(isAI(S))
+			continue
+		INVOKE_ASYNC(src, PROC_REF(magnetize), S, T, pull_steps)
+
+/datum/xenoartifact_trait/minor/magnetic/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("pull metalic objects towards it"))
+
+/datum/xenoartifact_trait/minor/magnetic/proc/magnetize(atom/movable/AM, atom/target, _pull_steps)
+	for(var/i in 1 to _pull_steps)
+		magnetic_direction(AM, target)
+		sleep(1) //TODO: make sure this is cocure - Racc
+
+/datum/xenoartifact_trait/minor/magnetic/proc/magnetic_direction(atom/movable/AM, atom/target)
+	step_towards(AM, target)

@@ -439,7 +439,8 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = 32
 	///How much damage do we deal per bite?
-	var/eat_damage = 3
+	var/eat_damage = 15
+	//TODO: Add an eat timer - Racc
 
 /datum/xenoartifact_trait/activator/strudy/hungry/trigger_artifact(atom/target, type, force)
 	. = ..()

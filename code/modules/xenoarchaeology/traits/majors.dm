@@ -293,12 +293,6 @@
 	log_game("[parent] in [log_atom] made an EMP at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 
 /*
-	Invisible
-	TODO: Consider removing this - Racc
-*/
-//datum/xenoartifact_trait/major/invisible
-
-/*
 	Displaced
 	Teleports the target to a random nearby turf
 */
@@ -846,16 +840,36 @@
 		if(distance_proportion)
 			M.soundbang_act(1, 200 * distance_proportion, rand(0, 5))
 
+/*
+	Combusting
+	Ignites the target
+*/
+/datum/xenoartifact_trait/major/combusting
+	label_name = "Combusting"
+	label_desc = "The artifact seems to contain combusting components. Triggering these components will ignite the target."
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	conductivity = 24
+	weight = 12
+	///max fire stacks
+	var/max_stacks = 6
+
+/datum/xenoartifact_trait/major/combusting/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	for(var/atom/target in focus)
+		if(iscarbon(target))
+			var/mob/living/carbon/victim = target
+			victim.adjust_fire_stacks(max_stacks*(parent.trait_strength/100))
+			victim.IgniteMob()
+		else
+			target.fire_act(1000, 500)
+	dump_targets()
+	clear_focus()
 
 /*
 	Plushing
 	Makes plushies
-*/
-
-
-/*
-	Bleeding
-	The artifact bleeds when activated
 */
 
 /*
@@ -877,21 +891,15 @@
 
 	freeze - target cannot move (resist to escape)
 
-	slowness - target is significantly slowed down (resist to escape)
-
-	speed - target is faster for a time
-
-	burn - engulf target in area fire
-
 	organtraction - extracts a random organ from the target. if valid. must be at X distance from target
 
-	blind - temorary blindness
-	deaf - temporary deafness
-	mute - temporary muteness
+	pacified - target is temporarily pacified
 
-	parapalegic - temporary kiera mode
+	dash - dash self rapidly at target location. damage anything you pass
 
-	vomit - causes vomiting. droping the target on the ground for a short time
+	syphon heat - greatly cools of the area with min temp depending on anomaly max strenght. and the anomaly gains energy proprtional to the heat consumed :boom:
+
+	freeze - reduces target’s temperature down to a min determined by anomaly’s max
 
 
 */

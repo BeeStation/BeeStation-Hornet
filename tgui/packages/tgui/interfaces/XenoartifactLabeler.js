@@ -123,7 +123,7 @@ const XenoartifactlabelerGenerateEntry = (props, context) => {
         content={specific_trait}
         checked={check_against.includes(specific_trait)}
         onClick={() => act(`assign_${trait_type}_${specific_trait}`)}
-        tooltip={`${tooltip_stats[specific_trait]["alt_name"] ? `${tooltip_stats[specific_trait]["alt_name"]} \n` : ``}
+        tooltip={`${tooltip_stats[specific_trait]["alt_name"] ? `${tooltip_stats[specific_trait]["alt_name"]}` : ``}
           Weight: ${tooltip_stats[specific_trait]["weight"]},
           Conductivity: ${tooltip_stats[specific_trait]["conductivity"]}`}
       />
