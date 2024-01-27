@@ -83210,13 +83210,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"vEn" = (
-/obj/structure/table,
-/obj/structure/table,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/red/half/contrasted,
-/turf/open/floor/plasteel,
-/area/maintenance/port/aft)
 "vEC" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -107248,7 +107241,7 @@ teR
 qAr
 yjt
 ooC
-vEn
+gRp
 gRp
 rRK
 amk
