@@ -87,7 +87,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	circuit = /obj/item/circuitboard/machine/rbmk
 	var/id = "default_reactor_for_lazy_mappers" //Change me mappers
 	//Variables essential to operation
-	var/temperature = 0 //Lose control of this -> Meltdown
+	var/temperature =  0//Lose control of this -> Meltdown
 	var/vessel_integrity = 400 //How long can the reactor withstand overpressure / meltdown? This gives you a fair chance to react to even a massive pipe fire
 	var/pressure = 0 //Lose control of this -> Blowout
 	var/K = 0 //Rate of reaction.
@@ -112,15 +112,31 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/last_output_temperature = 0
 	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
+	//Alarm Stuffs.
 	var/datum/looping_sound/rbmk/alarm
 	var/obj/item/radio/radio
 	var/radio_key = /obj/item/encryptionkey/headset_eng
 	var/engineering_channel = "Engineering"
 	var/common_channel = null
+	//Miscellaneous
+	var/static/reactorcount = 0
+	var/lastwarning = 0
+	can_unwrench = 1
 
-//Use this in your maps if you want everything to be preset.
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset
 	id = "default_reactor_for_lazy_mappers"
+//Use this in your maps if you want everything to be preset.
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset/Initialize(mapload)
+	. = ..()
+	var/obj/machinery/atmospherics/pipe/simple/general/hidden/pipe1 = new /obj/machinery/atmospherics/pipe/simple/general/hidden(locate(x-1,y,z))
+	pipe1.dir = 8
+	pipe1.layer = 3
+	var/obj/machinery/atmospherics/pipe/simple/general/hidden/pipe2 = new /obj/machinery/atmospherics/pipe/simple/general/hidden(locate(x+1,y,z))
+	pipe2.dir = 8
+	pipe2.layer = 3
+	var/obj/machinery/atmospherics/pipe/simple/general/hidden/pipe3 = new /obj/machinery/atmospherics/pipe/simple/general/hidden(locate(x,y+1,z))
+	pipe3.dir = 1
+	pipe3.layer = 3
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
@@ -131,6 +147,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/Destroy()
 	QDEL_NULL(alarm)
 	QDEL_NULL(radio)
+	qdel(src)
 	. = ..()
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/examine(mob/user)
@@ -210,6 +227,17 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		to_chat(user, "<span class='notice'>You weld together some of [src]'s cracks. This'll do for now.</span>")
 	return TRUE
 
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/wrench_act(mob/user, obj/item/tool)
+	if(anchored)
+		if(power >= 5)
+			balloon_alert(user, "You can't unwrench the reactor when it has been raised above 5% power!")
+			return
+		if(tool.use_tool(src, user, 40, volume=100))
+			anchored = FALSE
+	else
+		if(tool.use_tool(src, user, 40, volume=100))
+			anchored = TRUE
+
 //Admin procs to mess with the reaction environment.
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/lazy_startup()
@@ -225,6 +253,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/Initialize(mapload)
 	. = ..()
 	icon_state = "reactor_off"
+	reactorcount++
+	src.name = name + " ([reactorcount])"
 	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
 	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
 	alarm = new(src, FALSE)
@@ -291,7 +321,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 				temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
 				vessel_integrity -= temperature / 200 //Think fast loser.
 				take_damage(10) //Just for the sound effect, to let you know you've fucked up.
-				color = "[COLOR_RED]"
 
 	//Now, heat up the output and set our pressure.
 	coolant_output.set_temperature(temperature+273.15) //Heat the coolant output gas that we just had pass through us.
@@ -407,13 +436,13 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/alert = FALSE //If we have an alert condition, we'd best let people know.
 	var/turf/T = get_turf(src)
 	var/rbmkzlevel = T.get_virtual_z_level()
+	var/offset = prob(50) ? -2 : 2
 	if(K <= 0 && temperature <= 0)
 		shut_down()
 	//First alert condition: Overheat
 	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
 		alert = TRUE
-		for(var/i in REACTOR_COUNTDOWN_TIME to 0 step -10)
-			radio.talk_into(src, "Warning: Reactor overheating. Nuclear meltdown imminent.", engineering_channel, language = get_selected_language())
+		alertEngineers()
 		if(temperature >= RBMK_TEMPERATURE_MELTDOWN)
 			var/temp_damage = min(temperature/100, initial(vessel_integrity)/40)	//40 seconds to meltdown from full integrity, worst-case. Bit less than blowout since it's harder to spike heat that much.
 			vessel_integrity -= temp_damage
@@ -430,9 +459,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Second alert condition: Overpressurized (the more lethal one)
 	if(pressure >= RBMK_PRESSURE_CRITICAL)
 		alert = TRUE
-		//shake_animation(0.5)
-		for(var/i in REACTOR_COUNTDOWN_TIME to 0 step -10)
-			radio.talk_into(src, "Warning: Reactor overpressurized. Blowout imminent.", engineering_channel, language = get_selected_language())
+		animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
+		alertEngineers()
 		playsound(loc, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
 		T.atmos_spawn_air("water_vapor=[pressure/100];TEMP=[temperature+273.15]")
 		// Warning: Pressure reaching critical thresholds!
@@ -463,6 +491,18 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		light_color = LIGHT_COLOR_BLUE
 		set_light(10)
 		warning = FALSE
+
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/alertEngineers()
+	if((REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY)
+		if(temperature >= RBMK_TEMPERATURE_CRITICAL)
+			radio.talk_into(src, "Warning: Reactor overpressurized. Blowout imminent.", engineering_channel, language = get_selected_language())
+			SEND_SIGNAL(src, COMSIG_SUPERMATTER_DELAM_ALARM)
+			lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
+		if(pressure >= RBMK_PRESSURE_CRITICAL)
+			radio.talk_into(src, "Warning: Reactor overheating. Nuclear meltdown imminent.", engineering_channel, language = get_selected_language())
+			SEND_SIGNAL(src, COMSIG_SUPERMATTER_DELAM_ALARM)
+			lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
+
 
 
 //Failure condition 1: Meltdown. Achieved by having heat go over tolerances. This is less devastating because it's easier to achieve.
@@ -497,9 +537,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	T.assume_air(coolant_input)
 	T.assume_air(moderator_input)
 	T.assume_air(coolant_output)
+	Destroy()
 	alarm.stop()
 	explosion(get_turf(src), 0, 5, 10, 20, TRUE, TRUE)
-	empulse(get_turf(src), 25, 15)
+	empulse(get_turf(src), 20, 30)
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "failed")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
 
@@ -546,11 +587,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		return // No :)
 	START_PROCESSING(SSmachines, src)
 	desired_k = 1
+	can_unwrench = 0
 	set_light(10)
-	//var/area/AR = get_area(src)
-	//AR.set_looping_ambience('sound/effects/rbmk/reactor_hum.ogg')
 	var/startup_sound = pick('sound/effects/rbmk/startup.ogg', 'sound/effects/rbmk/startup2.ogg')
-	playsound(loc, startup_sound, 100)
+	playsound(loc, startup_sound, 50)
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "started")
 
@@ -558,243 +598,24 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/shut_down()
 	STOP_PROCESSING(SSmachines, src)
 	set_light(0)
-	//var/area/AR = get_area(src)
-	//AR.set_looping_ambience('sound/ambience/shipambience.ogg')
 	K = 0
+	can_unwrench = 1
 	desired_k = 0
 	temperature = 0
 	update_icon()
+
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/get_status()
+	var/turf/T = get_turf(src)
+	if(!T)
+		return NUCLEAR_REACTOR_ERROR
+	if(warning)
+		return SUPERMATTER_DELAMINATING
+	return NUCLEAR_REACTOR_INACTIVE
 
 /obj/item/fuel_rod/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
 	AddComponent(/datum/component/radioactive, 350 , src)
-
-//Controlling the reactor.
-
-/obj/machinery/computer/reactor
-	name = "reactor control console"
-	desc = "Scream"
-	light_color = "#55BA55"
-	light_power = 1
-	light_range = 3
-	icon_state = "oldcomp"
-	icon_screen = "stock_computer"
-	icon_keyboard = null
-	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor = null
-	var/id = "default_reactor_for_lazy_mappers"
-
-/obj/machinery/computer/reactor/Initialize(mapload, obj/item/circuitboard/C)
-	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(link_to_reactor)), 10 SECONDS)
-
-/obj/machinery/computer/reactor/proc/link_to_reactor()
-	for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/asdf in GLOB.machines)
-		if(asdf.id && asdf.id == id)
-			reactor = asdf
-			return TRUE
-	return FALSE
-
-#define FREQ_RBMK_CONTROL 1439.69
-
-/obj/machinery/computer/reactor/control_rods
-	name = "control rod management computer"
-	desc = "A computer which can remotely raise / lower the control rods of a reactor."
-
-/obj/machinery/computer/reactor/control_rods/attack_hand(mob/living/user)
-	. = ..()
-	ui_interact(user)
-
-/obj/machinery/computer/reactor/control_rods/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "RbmkControlRods")
-		ui.open()
-		ui.set_autoupdate(TRUE)
-
-
-/obj/machinery/computer/reactor/control_rods/ui_act(action, params)
-	if(..())
-		return
-	if(!reactor)
-		link_to_reactor()
-		return
-	if(action == "input")
-		var/input = text2num(params["target"])
-		reactor.desired_k = clamp(input, 0, 3)
-
-/obj/machinery/computer/reactor/control_rods/ui_data(mob/user)
-	var/list/data = list()
-	data["control_rods"] = 0
-	data["k"] = 0
-	data["desiredK"] = 0
-	if(reactor)
-		data["k"] = reactor.K
-		data["desiredK"] = reactor.desired_k
-		data["control_rods"] = 100 - (reactor.desired_k / 3 * 100) //Rod insertion is extrapolated as a function of the percentage of K
-	return data
-
-/obj/machinery/computer/reactor/stats
-	name = "reactor statistics console"
-	desc = "A console for monitoring the statistics of a nuclear reactor."
-	var/next_stat_interval = 0
-	var/list/psiData = list()
-	var/list/powerData = list()
-	var/list/tempInputData = list()
-	var/list/tempOutputdata = list()
-
-/obj/machinery/computer/reactor/stats/attack_hand(mob/living/user)
-	. = ..()
-	ui_interact(user)
-
-/obj/machinery/computer/reactor/stats/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	link_to_reactor()
-	if(!ui)
-		ui = new(user, src, "RbmkStats")
-		ui.open()
-		ui.set_autoupdate(TRUE)
-
-/obj/machinery/computer/reactor/stats/process()
-	if(world.time >= next_stat_interval)
-		next_stat_interval = world.time + 1 SECONDS //You only get a slow tick.
-		psiData += (reactor) ? reactor.pressure : 0
-		if(psiData.len > 100) //Only lets you track over a certain timeframe.
-			psiData.Cut(1, 2)
-		powerData += (reactor) ? reactor.power*10 : 0 //We scale up the figure for a consistent:tm: scale
-		if(powerData.len > 100) //Only lets you track over a certain timeframe.
-			powerData.Cut(1, 2)
-		tempInputData += (reactor) ? reactor.last_coolant_temperature : 0 //We scale up the figure for a consistent:tm: scale
-		if(tempInputData.len > 100) //Only lets you track over a certain timeframe.
-			tempInputData.Cut(1, 2)
-		tempOutputdata += (reactor) ? reactor.last_output_temperature : 0 //We scale up the figure for a consistent:tm: scale
-		if(tempOutputdata.len > 100) //Only lets you track over a certain timeframe.
-			tempOutputdata.Cut(1, 2)
-
-/obj/machinery/computer/reactor/stats/ui_data(mob/user)
-	var/list/data = list()
-	data["powerData"] = powerData
-	data["psiData"] = psiData
-	data["tempInputData"] = tempInputData
-	data["tempOutputdata"] = tempOutputdata
-	data["coolantInput"] = reactor ? reactor.last_coolant_temperature : 0
-	data["coolantOutput"] = reactor ? reactor.last_output_temperature : 0
-	data["power"] = reactor ? reactor.power : 0
-	data ["psi"] = reactor ? reactor.pressure : 0
-	return data
-
-/obj/machinery/computer/reactor/fuel_rods
-	name = "Reactor Fuel Management Console"
-	desc = "A console which can remotely raise fuel rods out of nuclear reactors."
-
-/obj/machinery/computer/reactor/fuel_rods/attack_hand(mob/living/user)
-	. = ..()
-	if(!reactor)
-		link_to_reactor()
-		return FALSE
-	if(reactor.power > 20)
-		to_chat(user, "<span class='warning'>You cannot remove fuel from [reactor] when it is above 20% power.</span>")
-		return FALSE
-	if(!reactor.fuel_rods.len)
-		to_chat(user, "<span class='warning'>[reactor] does not have any fuel rods loaded.</span>")
-		return FALSE
-	var/atom/movable/fuel_rod = input(usr, "Select a fuel rod to remove", "[src]", null) as null|anything in reactor.fuel_rods
-	if(!fuel_rod)
-		return
-	playsound(src, pick('sound/effects/rbmk/switch.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
-	fuel_rod.forceMove(get_turf(reactor))
-	reactor.fuel_rods -= fuel_rod
-
-//Preset pumps for mappers. You can also set the id tags yourself.
-/obj/machinery/atmospherics/components/binary/pump/rbmk_input
-	id = "rbmk_input"
-	frequency = FREQ_RBMK_CONTROL
-
-/obj/machinery/atmospherics/components/binary/pump/rbmk_output
-	id = "rbmk_output"
-	frequency = FREQ_RBMK_CONTROL
-
-/obj/machinery/atmospherics/components/binary/pump/rbmk_moderator
-	id = "rbmk_moderator"
-	frequency = FREQ_RBMK_CONTROL
-
-/obj/machinery/computer/reactor/pump
-	name = "reactor inlet valve computer"
-	desc = "A computer which controls valve settings on an advanced gas cooled reactor. Alt click it to remotely set pump pressure."
-	icon_screen = "rbmk_input"
-	id = "rbmk_input"
-	var/datum/radio_frequency/radio_connection
-	var/on = FALSE
-
-/obj/machinery/computer/reactor/pump/AltClick(mob/user)
-	. = ..()
-	var/newPressure = input(user, "Set new output pressure (kPa)", "Remote pump control", null) as num
-	if(!newPressure)
-		return
-	newPressure = clamp(newPressure, 0, MAX_OUTPUT_PRESSURE) //Number sanitization is not handled in the pumps themselves, only during their ui_act which this doesn't use.
-	signal(on, newPressure)
-
-/obj/machinery/computer/reactor/attack_robot(mob/user)
-	. = ..()
-	attack_hand(user)
-
-/obj/machinery/computer/reactor/attack_ai(mob/user)
-	. = ..()
-	attack_hand(user)
-
-/obj/machinery/computer/reactor/pump/attack_hand(mob/living/user)
-	. = ..()
-	if(!is_operational)
-		return FALSE
-	playsound(loc, pick('sound/effects/rbmk/switch.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
-	visible_message("<span class='notice'>[src]'s switch flips [on ? "off" : "on"].</span>")
-	on = !on
-	signal(on)
-
-/obj/machinery/computer/reactor/pump/Initialize(mapload, obj/item/circuitboard/C)
-	. = ..()
-	radio_connection = SSradio.add_object(src, FREQ_RBMK_CONTROL,filter=RADIO_ATMOSIA)
-
-/obj/machinery/computer/reactor/pump/proc/signal(power, set_output_pressure=null)
-	var/datum/signal/signal
-	if(!set_output_pressure) //Yes this is stupid, but technically if you pass through "set_output_pressure" onto the signal, it'll always try and set its output pressure and yeahhh...
-		signal = new(list(
-			"tag" = id,
-			"frequency" = FREQ_RBMK_CONTROL,
-			"timestamp" = world.time,
-			"power" = power,
-			"sigtype" = "command"
-		))
-	else
-		signal = new(list(
-			"tag" = id,
-			"frequency" = FREQ_RBMK_CONTROL,
-			"timestamp" = world.time,
-			"power" = power,
-			"set_output_pressure" = set_output_pressure,
-			"sigtype" = "command"
-		))
-	radio_connection.post_signal(src, signal, filter=RADIO_ATMOSIA)
-
-//Preset subtypes for mappers
-/obj/machinery/computer/reactor/pump/rbmk_input
-	name = "Reactor inlet valve computer"
-	icon_screen = "rbmk_input"
-	id = "rbmk_input"
-
-/obj/machinery/computer/reactor/pump/rbmk_output
-	name = "Reactor output valve computer"
-	icon_screen = "rbmk_output"
-	id = "rbmk_output"
-
-/obj/machinery/computer/reactor/pump/rbmk_moderator
-	name = "Reactor moderator valve computer"
-	icon_screen = "rbmk_moderator"
-	id = "rbmk_moderator"
-
-//SPENT FUEL POOL
-//FINALLY WE CAN RECREATE THE ROBLOX NUCLEAR DISASTER - 18/08/2020
-
 /turf/open/indestructible/sound/pool/spentfuel
 	name = "Spent fuel pool"
 	desc = "A dumping ground for spent nuclear fuel, can you touch the bottom?"
@@ -803,109 +624,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 /turf/open/indestructible/sound/pool/spentfuel/wall
 	icon_state = "spentfuelpoolwall"
-
-//Monitoring program.
-/datum/computer_file/program/nuclear_monitor
-	filename = "rbmkmonitor"
-	filedesc = "Nuclear Reactor Monitoring"
-	ui_header = "smmon_0.gif"
-	program_icon_state = "smmon_0"
-	extended_desc = "This program connects to specially calibrated sensors to provide information on the status of nuclear reactors."
-	requires_ntnet = TRUE
-	transfer_access = ACCESS_CONSTRUCTION
-	category = PROGRAM_CATEGORY_ENGI
-	network_destination = "rbmk monitoring system"
-	size = 2
-	tgui_id = "NtosRbmkStats"
-	program_icon = "radiation"
-	var/active = TRUE //Easy process throttle
-	var/next_stat_interval = 0
-	var/list/psiData = list()
-	var/list/powerData = list()
-	var/list/tempInputData = list()
-	var/list/tempOutputdata = list()
-	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor //Our reactor.
-
-/datum/computer_file/program/nuclear_monitor/process_tick()
-	..()
-	if(!reactor || !active)
-		return FALSE
-	var/stage = 0
-	//This is dirty but i'm lazy wahoo!
-	if(reactor.power > 0)
-		stage = 1
-	if(reactor.power >= 40)
-		stage = 2
-	if(reactor.temperature >= RBMK_TEMPERATURE_OPERATING)
-		stage = 3
-	if(reactor.temperature >= RBMK_TEMPERATURE_CRITICAL)
-		stage = 4
-	if(reactor.temperature >= RBMK_TEMPERATURE_MELTDOWN)
-		stage = 5
-		if(reactor.vessel_integrity <= 100) //Bye bye! GET OUT!
-			stage = 6
-	ui_header = "smmon_[stage].gif"
-	program_icon_state = "smmon_[stage]"
-	if(istype(computer))
-		computer.update_icon()
-	if(world.time >= next_stat_interval)
-		next_stat_interval = world.time + 1 SECONDS //You only get a slow tick.
-		psiData += (reactor) ? reactor.pressure : 0
-		if(psiData.len > 100) //Only lets you track over a certain timeframe.
-			psiData.Cut(1, 2)
-		powerData += (reactor) ? reactor.power*10 : 0 //We scale up the figure for a consistent:tm: scale
-		if(powerData.len > 100) //Only lets you track over a certain timeframe.
-			powerData.Cut(1, 2)
-		tempInputData += (reactor) ? reactor.last_coolant_temperature : 0 //We scale up the figure for a consistent:tm: scale
-		if(tempInputData.len > 100) //Only lets you track over a certain timeframe.
-			tempInputData.Cut(1, 2)
-		tempOutputdata += (reactor) ? reactor.last_output_temperature : 0 //We scale up the figure for a consistent:tm: scale
-		if(tempOutputdata.len > 100) //Only lets you track over a certain timeframe.
-			tempOutputdata.Cut(1, 2)
-
-/datum/computer_file/program/nuclear_monitor/on_start(mob/living/user)
-	. = ..(user)
-	//No reactor? Go find one then.
-	if(!reactor)
-		for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/R in GLOB.machines)
-			if(user.get_virtual_z_level() ==  R.get_virtual_z_level())
-				reactor = R
-				break
-	active = TRUE
-
-/datum/computer_file/program/nuclear_monitor/kill_program(forced = FALSE)
-	active = FALSE
-	..()
-
-/datum/computer_file/program/nuclear_monitor/ui_data()
-	var/list/data = list()
-	data["powerData"] = powerData
-	data["psiData"] = psiData
-	data["tempInputData"] = tempInputData
-	data["tempOutputdata"] = tempOutputdata
-	data["coolantInput"] = reactor ? reactor.last_coolant_temperature : 0
-	data["coolantOutput"] = reactor ? reactor.last_output_temperature : 0
-	data["power"] = reactor ? reactor.power : 0
-	data ["psi"] = reactor ? reactor.pressure : 0
-	return data
-
-/datum/computer_file/program/nuclear_monitor/ui_act(action, params)
-	if(..())
-		return TRUE
-
-	switch(action)
-		if("swap_reactor")
-			var/list/choices = list()
-			for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/R in GLOB.machines)
-				if(usr.get_virtual_z_level() != R.get_virtual_z_level())
-					continue
-				choices += R
-			reactor = input(usr, "What reactor do you wish to monitor?", "[src]", null) as null|anything in choices
-			powerData = list()
-			psiData = list()
-			tempInputData = list()
-			tempOutputdata = list()
-			return TRUE
 
 //Plutonium sludge
 
@@ -981,4 +699,3 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 #undef PLUTONIUM_SLUDGE_RANGE_STRONG
 #undef PLUTONIUM_SLUDGE_RANGE_WEAK
 #undef PLUTONIUM_SLUDGE_CHANCE
-

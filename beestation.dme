@@ -3428,6 +3428,7 @@
 #include "code\modules\power\lighting\light_wallframes.dm"
 #include "code\modules\power\rbmk\fuel_rods.dm"
 #include "code\modules\power\rbmk\rbmk.dm"
+#include "code\modules\power\rbmk\rbmk_monitoring.dm"
 #include "code\modules\power\rbmk\sealant.dm"
 #include "code\modules\power\singularity\anomaly.dm"
 #include "code\modules\power\singularity\boh_tear.dm"
