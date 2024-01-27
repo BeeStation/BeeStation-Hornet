@@ -21553,6 +21553,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/aft)
+"cgE" = (
+/obj/structure/falsewall/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
 "cgG" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -35177,18 +35181,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
-"eJt" = (
-/obj/structure/closet{
-	name = "Evidence Closet"
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/airalarm/directional/south,
-/obj/item/bedsheet/syndie,
-/turf/open/floor/plasteel/dark,
-/area/security/main)
 "eJW" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -39425,6 +39417,18 @@
 	burnt = 1
 	},
 /area/maintenance/central)
+"gkm" = (
+/obj/structure/closet{
+	name = "Evidence Closet"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/airalarm/directional/south,
+/obj/item/bedsheet/syndie,
+/turf/open/floor/plasteel/dark,
+/area/security/main)
 "gkz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
@@ -42026,29 +42030,6 @@
 	dir = 1
 	},
 /area/hallway/primary/fore)
-"hko" = (
-/obj/effect/turf_decal/stripes/corner,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/turf/open/floor/plasteel,
-/area/security/main)
 "hkq" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/corner{
@@ -58631,6 +58612,58 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/surgery)
+"mPY" = (
+/obj/structure/table,
+/obj/effect/turf_decal/stripes/corner,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/recharger,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/turf_decal/stripes/corner,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
+/area/security/main)
 "mQB" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/line{
@@ -79787,25 +79820,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
-"uiH" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/item/clothing/neck/tie/red,
-/obj/item/clothing/head/bowler{
-	pixel_y = 8
-	},
-/obj/item/lipstick/random{
-	pixel_x = 6
-	},
-/obj/machinery/camera/autoname{
-	network = list("ss13", "prison");
-	dir = 9
-	},
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/security/prison)
 "uje" = (
 /obj/structure/grille,
 /turf/open/floor/plating{
@@ -89289,6 +89303,43 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"xsa" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/item/clothing/neck/tie/red,
+/obj/item/clothing/head/bowler{
+	pixel_y = 8
+	},
+/obj/item/lipstick/random{
+	pixel_x = 6
+	},
+/obj/machinery/camera/autoname{
+	network = list("ss13", "prison", "security");
+	dir = 9
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/item/clothing/neck/tie/red,
+/obj/item/clothing/head/bowler{
+	pixel_y = 8
+	},
+/obj/item/lipstick/random{
+	pixel_x = 6
+	},
+/obj/machinery/camera/autoname{
+	network = list("ss13", "prison");
+	dir = 9
+	},
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/security/prison)
 "xsp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -106353,7 +106404,7 @@ bOY
 inV
 fym
 qRj
-eJt
+gkm
 agS
 vEI
 bqh
@@ -109706,7 +109757,7 @@ gny
 hMt
 anb
 fxn
-hko
+mPY
 agP
 fHR
 jdl
@@ -110234,7 +110285,7 @@ cmO
 cqj
 wVu
 wVu
-wVu
+cgE
 cmO
 acm
 acm
@@ -112519,7 +112570,7 @@ cPW
 csS
 dge
 aav
-uiH
+xsa
 sNM
 tfw
 tfw
