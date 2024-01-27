@@ -36144,11 +36144,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/plasteel/techmaint,
 /area/science/lab)
-"jqO" = (
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/maintenance/starboard/central)
 "jrf" = (
 /obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/delivery,
@@ -51977,14 +51972,6 @@
 	c_tag = "Armory - Interior";
 	dir = 6
 	},
-/obj/item/survivalcapsule/capsule_checkpoint{
-	pixel_y = -4
-	},
-/obj/item/survivalcapsule/capsule_checkpoint,
-/obj/item/survivalcapsule/capsule_checkpoint{
-	pixel_y = 4
-	},
-/obj/item/survivalcapsule/barricade,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "nrr" = (
@@ -137760,7 +137747,7 @@ qmc
 ajz
 lGD
 rPR
-jqO
+bxC
 wgE
 tor
 rtW

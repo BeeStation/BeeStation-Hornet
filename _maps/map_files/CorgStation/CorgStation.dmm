@@ -7477,14 +7477,6 @@
 /obj/item/storage/lockbox/loyalty,
 /obj/item/implantcase/tracking,
 /obj/item/implantcase/chem,
-/obj/item/survivalcapsule/capsule_checkpoint{
-	pixel_y = -4
-	},
-/obj/item/survivalcapsule/capsule_checkpoint,
-/obj/item/survivalcapsule/capsule_checkpoint{
-	pixel_y = 4
-	},
-/obj/item/survivalcapsule/barricade,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "chY" = (
@@ -8748,7 +8740,7 @@
 "cGD" = (
 /obj/structure/marker_beacon,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/hallway/secondary/entry)
 "cGE" = (

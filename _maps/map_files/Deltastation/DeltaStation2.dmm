@@ -55197,14 +55197,6 @@
 	pixel_y = 26
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/survivalcapsule/capsule_checkpoint{
-	pixel_y = 4
-	},
-/obj/item/survivalcapsule/capsule_checkpoint,
-/obj/item/survivalcapsule/capsule_checkpoint{
-	pixel_y = -4
-	},
-/obj/item/survivalcapsule/barricade,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "lgJ" = (
@@ -85423,10 +85415,6 @@
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
 "vtO" = (
-/obj/item/radio/intercom{
-	pixel_y = 26
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
 	id_tag = "prisonereducation";
