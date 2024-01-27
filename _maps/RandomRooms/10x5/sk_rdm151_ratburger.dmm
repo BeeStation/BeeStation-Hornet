@@ -71,17 +71,17 @@
 /area/template_noop)
 "v" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "w" = (
 /obj/structure/rack,
 /obj/item/stack/cable_coil/blue,
 /obj/item/stack/cable_coil/blue,
-/obj/item/kitchen/knife/butcher,
+/obj/item/knife/butcher,
 /obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "z" = (
@@ -153,7 +153,7 @@
 /obj/structure/chair/stool/bar,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "J" = (
@@ -184,7 +184,7 @@
 /area/template_noop)
 "O" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "Q" = (
@@ -202,7 +202,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "T" = (
@@ -214,16 +214,11 @@
 /mob/living/simple_animal/mouse/white,
 /turf/open/floor/grass,
 /area/template_noop)
-"Y" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/template_noop)
 
 (1,1,1) = {"
 a
 a
-Y
+v
 H
 a
 "}
@@ -253,7 +248,7 @@ O
 C
 L
 r
-Y
+v
 "}
 (6,1,1) = {"
 S

@@ -10,35 +10,37 @@
 	clothes_req = FALSE
 	range = 9
 
-/obj/effect/proc_holder/spell/pointed/blood_siphon/cast(list/targets, mob/user)
-	if(!isliving(user))
+/obj/effect/proc_holder/spell/pointed/blood_siphon/cast(list/targets, mob/living/user)
+	if(!istype(user))
+		revert_cast()
 		return
-
-	var/mob/living/real_target = targets[1]
-	var/mob/living/living_user = user
-	playsound(user, 'sound/magic/demon_attack1.ogg', 75, TRUE)
-	if(real_target.anti_magic_check())
+	var/mob/living/target = targets[1]
+	if(!istype(target))
+		user.balloon_alert(user, "Invalid target")
+		return
+	playsound(user, 'sound/magic/demon_attack1.ogg', vol = 75, vary = TRUE)
+	if(target.anti_magic_check())
 		user.balloon_alert(user, "Spell blocked")
-		real_target.visible_message(
-			"<span class='danger'>The spell bounces off of [real_target]!</span>",
+		target.visible_message(
+			"<span class='danger'>The spell bounces off of [target]!</span>",
 			"<span class='danger'>The spell bounces off of you!</span>",
 		)
 		return
 
-	real_target.visible_message(
-		"<span class='danger'>[real_target] turns pale as a red glow envelops [real_target.p_them()]!</span>",
+	target.visible_message(
+		"<span class='danger'>[target] turns pale as a red glow envelops [target.p_them()]!</span>",
 		"<span class='danger'>You turn pale as a red glow enevelops you!</span>",
 	)
 
-	real_target.adjustBruteLoss(20)
-	living_user.adjustBruteLoss(-20)
+	target.take_overall_damage(brute = 20)
+	user.heal_overall_damage(brute = 20)
 
-	if(!living_user.blood_volume)
+	if(!user.blood_volume)
 		return
 
-	real_target.blood_volume -= 20
-	if(living_user.blood_volume < BLOOD_VOLUME_MAXIMUM) // we dont want to explode from casting
-		living_user.blood_volume += 20
+	target.blood_volume -= 20
+	if(user.blood_volume < BLOOD_VOLUME_MAXIMUM) // we dont want to explode from casting
+		user.blood_volume += 20
 
 /obj/effect/proc_holder/spell/pointed/blood_siphon/can_target(atom/target, mob/user, silent)
 	if(!isliving(target))

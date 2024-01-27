@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	if(!istype(I) || (I.flags_1 & HOLOGRAM_1) || (I.item_flags & NO_MAT_REDEMPTION))
 		to_chat(user, "<span class='warning'>[M] won't accept [I]!</span>")
 		return
-	var/item_mats = I.materials & materials.materials
+	var/item_mats = I.custom_materials & materials.materials
 	if(!length(item_mats))
 		to_chat(user, "<span class='warning'>[I] does not contain sufficient materials to be accepted by [M].</span>")
 		return
@@ -130,7 +130,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	var/list/logs = GLOB.silo_access_logs[REF(src)]
 	var/len = LAZYLEN(logs)
 	var/num_pages = 1 + round((len - 1) / 30)
-	var/page = CLAMP(log_page, 1, num_pages)
+	var/page = clamp(log_page, 1, num_pages)
 	if(num_pages > 1)
 		for(var/i in 1 to num_pages)
 			if(i == page)

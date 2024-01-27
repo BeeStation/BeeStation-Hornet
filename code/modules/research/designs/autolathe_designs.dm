@@ -358,7 +358,7 @@
 	id = "kitchen_knife"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 12000)
-	build_path = /obj/item/kitchen/knife
+	build_path = /obj/item/knife/kitchen
 	category = list("initial","Dinnerware")
 
 /datum/design/fork
@@ -560,6 +560,14 @@
 	build_path = /obj/item/storage/pill_bottle
 	category = list("initial", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/hacksaw
+	name = "Hacksaw"
+	id = "hacksaw"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron=12000)
+	build_path = /obj/item/hacksaw
+	category = list("hacked", "Medical")
 
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
@@ -873,7 +881,7 @@
 	id = "cleaver"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 18000)
-	build_path = /obj/item/kitchen/knife/butcher
+	build_path = /obj/item/knife/butcher
 	category = list("hacked", "Dinnerware")
 
 /datum/design/spraycan

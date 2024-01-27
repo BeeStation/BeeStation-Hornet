@@ -435,13 +435,13 @@
 				. = TRUE
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/CtrlClick(mob/user)
-	if(user.can_interact_with(src) && !state_open && occupant != user)
+	if(user.canUseTopic(src, !issilicon(user)) && !state_open && occupant != user)
 		on = !on
 		update_icon()
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/AltClick(mob/user)
-	if(user.can_interact_with(src) && occupant != user)
+	if(user.canUseTopic(src, !issilicon(user)) && occupant != user)
 		if(state_open)
 			close_machine()
 		else
@@ -455,7 +455,7 @@
 	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/can_crawl_through()
-	return // can't ventcrawl in or out of cryo.
+	return FALSE // can't ventcrawl in or out of cryo.
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/can_see_pipes()
 	return 0 // you can't see the pipe network when inside a cryo cell.

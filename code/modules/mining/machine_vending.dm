@@ -164,7 +164,7 @@
 		new /datum/data/vendor_equipment("Advanced Plasma Cutter", 		/obj/item/gun/energy/plasmacutter/adv,								4000),
 	//Assorted other equipment
 		new /datum/data/vendor_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
-		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/kitchen/knife/combat/survival,							500),
+		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/knife/combat/survival,							500),
 		new	/datum/data/vendor_equipment("Seclite", 					/obj/item/flashlight/seclite,										500),
 		new /datum/data/vendor_equipment("Advanced Ore Scanner",		/obj/item/t_scanner/adv_mining_scanner,								800),
 		new /datum/data/vendor_equipment("Jaunter",						/obj/item/wormhole_jaunter,											750),
@@ -278,7 +278,7 @@
 	prize_list += list(
 		new /datum/data/vendor_equipment("Extra Id",       				/obj/item/card/id/golem, 				                   		250),
 		new /datum/data/vendor_equipment("Science Goggles",       		/obj/item/clothing/glasses/science,								250),
-		new /datum/data/vendor_equipment("Monkey Cube",					/obj/item/reagent_containers/food/snacks/monkeycube,        	300),
+		new /datum/data/vendor_equipment("Monkey Cube",					/obj/item/food/monkeycube,        	300),
 		new /datum/data/vendor_equipment("Toolbelt",					/obj/item/storage/belt/utility,	    							350),
 		new /datum/data/vendor_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 								500),
 		new /datum/data/vendor_equipment("Grey Slime Extract",			/obj/item/slime_extract/grey,									1000),

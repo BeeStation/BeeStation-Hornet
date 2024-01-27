@@ -296,6 +296,10 @@
 			if(!check_rights(R_ADMIN))
 				return
 			holder.Topic(null, list("sendbacktolobby" = REF(target_mob), "admin_token" = holder.href_token))
+		if("force_cryo")
+			if(!check_rights(R_ADMIN))
+				return
+			holder.Topic(null, list("force_cryo" = isliving(target_mob) ? REF(target_mob) : target_ckey, "admin_token" = holder.href_token))
 
 
 /datum/admins/proc/open_player_panel()

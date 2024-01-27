@@ -122,6 +122,7 @@
 	var/datum/language/piratespeak/L = new
 
 /obj/item/clothing/head/pirate/equipped(mob/user, slot)
+	. = ..()
 	if(!ishuman(user))
 		return
 	if(slot == ITEM_SLOT_HEAD)
@@ -129,7 +130,7 @@
 		to_chat(user, "You suddenly know how to speak like a pirate!")
 
 /obj/item/clothing/head/pirate/dropped(mob/user)
-	..()
+	. = ..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -199,15 +200,15 @@
 	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
 
-/obj/item/clothing/head/fedora/suicide_act(mob/user)
+/obj/item/clothing/head/fedora/suicide_act(mob/living/user)
 	if(user.gender == FEMALE)
-		return 0
+		return
 	var/mob/living/carbon/human/H = user
 	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to be nice to girls.</span>")
 	user.say("M'lady.", forced = "fedora suicide")
 	sleep(10)
 	H.facial_hair_style = "Neckbeard"
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/clothing/head/sombrero
 	name = "sombrero"
@@ -355,6 +356,7 @@
 	desc = "A quality beret, infused with the aroma of chain-smoking, wine-swilling Parisians. You feel less inclined to engage military conflict, for some reason."
 	icon_state = "beret"
 	dynamic_hair_suffix = ""
+	dying_key = DYE_REGISTRY_BERET
 
 /obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
 	. = ..()

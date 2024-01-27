@@ -98,7 +98,7 @@
 	if(slot == ITEM_SLOT_HANDS)
 		return
 	qdel(src)
-	return
+	return ..()
 
 /obj/item/tk_grab/examine(user)
 	if (focus)
@@ -195,9 +195,8 @@
 		focus.layer = old_layer
 		focus.plane = old_plane
 
-/obj/item/tk_grab/suicide_act(mob/user)
+/obj/item/tk_grab/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is using [user.p_their()] telekinesis to choke [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (OXYLOSS)
-
+	return OXYLOSS
 
 #undef TK_MAXRANGE

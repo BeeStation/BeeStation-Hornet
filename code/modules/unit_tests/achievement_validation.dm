@@ -6,7 +6,7 @@
 	for(var/typepath in subtypesof(/datum/award/achievement) - type_blacklist)
 		var/datum/award/achievement/A = typepath
 
-		TEST_ASSERT((!initial(A.database_id) in used_ids),
+		TEST_ASSERT(!(initial(A.database_id) in used_ids),
 			"Reused database_id \"[initial(A.database_id)]\" on achievement [A]")
 		else
 			used_ids += initial(A.database_id)

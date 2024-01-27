@@ -183,6 +183,7 @@
 		qdel(head)
 	else
 		human_user.gib()
+	human_user.investigate_log("has died from using telekinesis on a heretic influence.", INVESTIGATE_DEATHS)
 
 	var/datum/effect_system/reagents_explosion/explosion = new()
 	explosion.set_up(1, get_turf(human_user), TRUE, 0)
@@ -219,6 +220,7 @@
 	GLOB.reality_smash_track.smashes += src
 	heretic_image = image(icon, src, real_icon_state, OBJ_LAYER)
 	generate_name()
+	SSvis_overlays.add_obj_alpha(src, 'icons/effects/heretic.dmi', "pierced_illusion")
 
 /obj/effect/heretic_influence/Destroy()
 	GLOB.reality_smash_track.smashes -= src
@@ -275,7 +277,7 @@
 	balloon_alert(user, "Influence drained")
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
-	heretic_datum.knowledge_points += knowledge_to_gain
+	heretic_datum.adjust_knowledge_points(knowledge_to_gain)
 
 	// Aaand now we delete it
 	after_drain(user)

@@ -11,7 +11,7 @@
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	var/max_amount = 90
 	var/active = FALSE
 	actions_types = list(/datum/action/item_action/rcl_col,/datum/action/item_action/rcl_gui,)
@@ -31,6 +31,7 @@
 /obj/item/rcl/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed)
+	AddElement(/datum/element/update_icon_updates_onmob)
 
 /// triggered on wield of two handed item
 /obj/item/rcl/proc/on_wield(obj/item/source, mob/user)
@@ -112,11 +113,11 @@
 	QDEL_NULL(wiring_gui_menu)
 	return ..()
 
-/obj/item/rcl/update_icon()
+/obj/item/rcl/update_icon_state()
 	if(!loaded)
 		icon_state = "rcl-0"
 		item_state = "rcl-0"
-		return
+		return ..()
 	switch(loaded.amount)
 		if(61 to INFINITY)
 			icon_state = "rcl-30"
@@ -130,6 +131,7 @@
 		else
 			icon_state = "rcl-0"
 			item_state = "rcl-0"
+	return ..()
 
 /obj/item/rcl/proc/is_empty(mob/user, loud = 1)
 	update_icon()
@@ -190,7 +192,7 @@
 		to_chat(user, "<span class='warning'>\The [src] is empty!</span>")
 		return
 
-	if(prob(2) && ghetto) //Give ghetto RCLs a 2% chance to jam, requiring it to be reactviated manually.
+	if(prob(2) && ghetto) //Give ghetto RCLs a 2% chance to jam, requiring it to be reactivated manually.
 		to_chat(user, "<span class='warning'>[src]'s wires jam!</span>")
 		active = FALSE
 		return
@@ -198,7 +200,7 @@
 		if(last)
 			if(get_dist(last, user) == 1) //hacky, but it works
 				var/turf/T = get_turf(user)
-				if(T.intact || !T.can_have_cabling())
+				if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE || !T.can_have_cabling())
 					last = null
 					return
 				if(get_dir(last, user) == last.d2)
@@ -213,7 +215,7 @@
 		loaded.cable_color = colors[current_color_index]
 		last = loaded.place_turf(get_turf(src), user, turn(user.dir, 180))
 		is_empty(user) //If we've run out, display message
-	update_icon()
+	update_appearance()
 
 
 //searches the current tile for a stub cable of the same colour
@@ -223,7 +225,7 @@
 		return
 
 	T = get_turf(user)
-	if(T.intact || !T.can_have_cabling())
+	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE|| !T.can_have_cabling())
 		return
 
 	for(var/obj/structure/cable/C in T)
@@ -280,7 +282,7 @@
 		return
 
 	var/turf/T = get_turf(user)
-	if(T.intact || !T.can_have_cabling())
+	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE || !T.can_have_cabling())
 		return
 
 	loaded.cable_color = colors[current_color_index]
@@ -302,11 +304,11 @@
 	loaded = new()
 	loaded.max_amount = max_amount
 	loaded.amount = max_amount
-	update_icon()
+	update_appearance()
 
 /obj/item/rcl/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/item/rcl/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/rcl_col))
@@ -331,11 +333,11 @@
 	name = "makeshift rapid cable layer"
 	ghetto = TRUE
 
-/obj/item/rcl/ghetto/update_icon()
+/obj/item/rcl/ghetto/update_icon_state()
 	if(!loaded)
 		icon_state = "rclg-0"
 		item_state = "rclg-0"
-		return
+		return ..()
 	switch(loaded.amount)
 		if(1 to INFINITY)
 			icon_state = "rclg-1"
@@ -343,3 +345,4 @@
 		else
 			icon_state = "rclg-1"
 			item_state = "rclg-1"
+	return ..()

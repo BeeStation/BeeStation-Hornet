@@ -88,12 +88,12 @@
 			tag_overlay.pixel_y = boxes.len * 3
 			add_overlay(tag_overlay)
 
-/obj/item/pizzabox/worn_overlays(mutable_appearance/standing, isinhands, icon_file)
+/obj/item/pizzabox/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	var/current_offset = 2
 	if(isinhands)
 		for(var/V in boxes) //add EXTRA BOX per box
-			var/mutable_appearance/M = mutable_appearance(icon_file, item_state)
+			var/mutable_appearance/M = mutable_appearance(icon_file, item_state, item_layer)
 			M.pixel_y = current_offset
 			current_offset += 2
 			. += M
@@ -175,6 +175,17 @@
 			return
 		else
 			to_chat(user, "<span class='notice'>Close [open ? src : newbox] first!</span>")
+	else if(istype(I, /obj/item/food/pizza))
+		if(open)
+			if(pizza)
+				to_chat(user, "<span class='warning'>[src] already has \a [pizza.name]!</span>")
+				return
+			if(!user.transferItemToLoc(I, src))
+				return
+			pizza = I
+			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
+			update_icon()
+			return
 	else if(istype(I, /obj/item/bombcore/miniature/pizza))
 		if(open && !bomb)
 			if(!user.transferItemToLoc(I, src))

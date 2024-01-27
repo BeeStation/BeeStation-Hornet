@@ -34,6 +34,8 @@
 	new /obj/item/storage/box/silver_ids(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 
+	new /obj/item/paper_reader(src)
+
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/cap(src)
 	new /obj/item/door_remote/captain(src)
@@ -79,6 +81,8 @@
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
 
+	new /obj/item/paper_reader(src)
+
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/hop(src)
 	new /obj/item/door_remote/civillian(src)
@@ -119,6 +123,7 @@
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/under/rank/brig_physician(src)
 	new /obj/item/clothing/under/rank/brig_physician/skirt(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/brigphys(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "\proper head of security's locker"
@@ -155,6 +160,8 @@
 	new /obj/item/storage/lockbox/loyalty(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/circuitboard/machine/techfab/department/security(src)
+
+	new /obj/item/paper_reader(src)
 
 	// prioritized items
 	new /obj/item/clothing/neck/cloak/hos(src)
@@ -262,6 +269,7 @@
 	door_anim_time = 0 // no animation
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
+	can_weld_shut = FALSE
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()

@@ -88,7 +88,7 @@
 /obj/item/slime_extract/grey/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			var/obj/item/reagent_containers/food/snacks/monkeycube/M = new(drop_location())
+			var/obj/item/food/monkeycube/M = new(drop_location())
 			user.put_in_active_hand(M)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>You spit out a monkey cube.</span>")
@@ -115,22 +115,22 @@
 		if(SLIME_ACTIVATE_MINOR)
 			user.visible_message("<span class='warning'>[user] starts shaking!</span>","<span class='notice'>Your [name] starts pulsing gently...</span>")
 			if(do_after(user, 4 SECONDS, target = user))
-				var/mob/living/simple_animal/S = create_random_mob(user.drop_location(), FRIENDLY_SPAWN)
-				S.faction |= "neutral"
+				var/mob/living/spawned_mob = create_random_mob(user.drop_location(), FRIENDLY_SPAWN)
+				spawned_mob.faction |= "neutral"
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
-				user.visible_message("<span class='warning'>[user] spits out [S]!</span>", "<span class='notice'>You spit out [S]!</span>")
+				user.visible_message("<span class='warning'>[user] spits out [spawned_mob]!</span>", "<span class='notice'>You spit out [spawned_mob]!</span>")
 				return 30 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user] starts shaking violently!</span>","<span class='warning'>Your [name] starts pulsing violently...</span>")
 			if(do_after(user, 5 SECONDS, target = user))
-				var/mob/living/simple_animal/S = create_random_mob(user.drop_location(), HOSTILE_SPAWN)
+				var/mob/living/spawned_mob = create_random_mob(user.drop_location(), HOSTILE_SPAWN)
 				if(user.a_intent != INTENT_HARM)
-					S.faction |= "neutral"
+					spawned_mob.faction |= "neutral"
 				else
-					S.faction |= "slime"
+					spawned_mob.faction |= "slime"
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
-				user.visible_message("<span class='warning'>[user] spits out [S]!</span>", "<span class='warning'>You spit out [S]!</span>")
+				user.visible_message("<span class='warning'>[user] spits out [spawned_mob]!</span>", "<span class='warning'>You spit out [spawned_mob]!</span>")
 				return 60 SECONDS
 
 /obj/item/slime_extract/silver
@@ -459,6 +459,7 @@
 			if(do_after(user, 6 SECONDS, target = user))
 				to_chat(user, "<span class='userdanger'>You explode!</span>")
 				explosion(get_turf(user), 1 ,3, 6)
+				user.investigate_log("has been gibbed by an oil slime extract explosion.", INVESTIGATE_DEATHS)
 				user.gib()
 				return 60 SECONDS
 			to_chat(user, "<span class='notice'>You stop feeding [src], and the feeling passes.</span>")
@@ -749,7 +750,7 @@
 	to_chat(user, "<span class='notice'>You offer [src] to [SM]...</span>")
 	being_used = TRUE
 
-	var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_SENTIENCE, null, 5 SECONDS, SM)
+	var/list/candidates = poll_candidates_for_mob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_SENTIENCE, null, 5 SECONDS, SM)
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		SM.key = C.key
@@ -877,7 +878,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You feed the slime the stabilizer. It is now less likely to mutate.</span>")
-	M.mutation_chance = CLAMP(M.mutation_chance-15,0,100)
+	M.mutation_chance = clamp(M.mutation_chance-15,0,100)
 	qdel(src)
 
 /obj/item/slimepotion/slime/mutator
@@ -901,7 +902,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You feed the slime the mutator. It is now more likely to mutate.</span>")
-	M.mutation_chance = CLAMP(M.mutation_chance+12,0,100)
+	M.mutation_chance = clamp(M.mutation_chance+12,0,100)
 	M.mutator_used = TRUE
 	qdel(src)
 
@@ -1115,7 +1116,7 @@
 	item_state = "tile-bluespace"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	materials = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
@@ -1132,7 +1133,7 @@
 	item_state = "tile-sepia"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
-	materials = list(/datum/material/iron=500)
+	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10
 	throw_speed = 0.1
 	throw_range = 28

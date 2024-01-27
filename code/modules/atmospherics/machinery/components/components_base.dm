@@ -153,7 +153,6 @@
 		for(var/i in 1 to device_type)
 			var/datum/gas_mixture/air = airs[i]
 			T.assume_air_moles(air, shared_loss)
-		air_update_turf(1)
 
 /obj/machinery/atmospherics/components/proc/safe_input(var/title, var/text, var/default_set)
 	var/new_value = input(usr,text,title,default_set) as num

@@ -27,7 +27,7 @@
 /area/template_noop)
 "e" = (
 /obj/structure/closet/crate/bin,
-/obj/item/kitchen/knife,
+/obj/item/knife/kitchen,
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
@@ -35,12 +35,12 @@
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/glass/beaker,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "g" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "h" = (
@@ -79,7 +79,7 @@
 	amount = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "p" = (

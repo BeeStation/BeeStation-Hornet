@@ -31,6 +31,7 @@
 	max_integrity = 50
 	dog_fashion = /datum/dog_fashion/head
 	color = COLOR_WHITE
+	dye_color = DYE_WHITE
 
 	/// Lazylist of raw, unsanitised, unparsed text inputs that have been made to the paper.
 	var/list/datum/paper_input/raw_text_inputs
@@ -301,9 +302,9 @@
 	add_fingerprint(usr)
 	update_static_data()
 
-/obj/item/paper/suicide_act(mob/user)
+/obj/item/paper/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/paper/examine(mob/user)
 	. = ..()

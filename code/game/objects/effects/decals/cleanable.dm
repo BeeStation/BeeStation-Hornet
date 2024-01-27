@@ -6,6 +6,9 @@
 	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
 	var/mergeable_decal = TRUE //when two of these are on a same tile or do we need to merge them into just one?
 
+	///The type of cleaning required to clean the decal, CLEAN_TYPE_LIGHT_DECAL can be cleaned with mops and soap, CLEAN_TYPE_HARD_DECAL can be cleaned by soap, see __DEFINES/cleaning.dm for the others
+	var/clean_type = CLEAN_TYPE_LIGHT_DECAL
+
 /obj/effect/decal/cleanable/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	if (random_icon_states && (icon_state == initial(icon_state)) && length(random_icon_states) > 0)
@@ -35,7 +38,7 @@
 		return TRUE
 
 /obj/effect/decal/cleanable/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/reagent_containers/glass) || istype(W, /obj/item/reagent_containers/food/drinks))
+	if((istype(W, /obj/item/reagent_containers/glass) && !istype(W, /obj/item/reagent_containers/glass/rag)) || istype(W, /obj/item/reagent_containers/food/drinks))
 		if(src.reagents && W.reagents)
 			. = 1 //so the containers don't splash their content on the src while scooping.
 			if(!src.reagents.total_volume)
@@ -58,12 +61,6 @@
 			to_chat(user, "<span class='notice'>You heat [name] with [W]!</span>")
 	else
 		return ..()
-
-/obj/effect/decal/cleanable/ex_act()
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			R.on_ex_act()
-	..()
 
 /obj/effect/decal/cleanable/fire_act(exposed_temperature, exposed_volume)
 	if(reagents)
@@ -96,6 +93,13 @@
 			S.blood_state = blood_state
 			update_icon()
 			H.update_inv_shoes()
+
+/obj/effect/decal/cleanable/wash(clean_types)
+	. = ..()
+	if (. || (clean_types & clean_type))
+		qdel(src)
+		return TRUE
+	return .
 
 /obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
 	if((blood_state != BLOOD_STATE_OIL) && (blood_state != BLOOD_STATE_NOT_BLOODY))

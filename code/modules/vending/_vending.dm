@@ -51,7 +51,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
 	max_integrity = 300
-	integrity_failure = 100
+	integrity_failure = 0.33
 	armor = list(MELEE = 20,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
@@ -978,11 +978,11 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 					item_price = T.custom_price
 					item_path = T.type
 					if(!base64)
-						if(base64_cache[T.type])
-							base64 = base64_cache[T.type]
+						if(base64_cache["[T.icon]_[T.icon_state]"])
+							base64 = base64_cache["[T.icon]_[T.icon_state]"]
 						else
 							base64 = icon2base64(icon(T.icon, T.icon_state, frame=1))
-							base64_cache[T.type] = base64
+							base64_cache["[T.icon]_[T.icon_state]"] = base64
 					break
 			var/list/data = list(
 				name = O,

@@ -33,18 +33,8 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"af" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/shuttle/escape/luxury)
 "ag" = (
 /turf/open/floor/wood,
-/area/shuttle/escape/luxury)
-"ah" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken"
-	},
 /area/shuttle/escape/luxury)
 "ai" = (
 /turf/open/floor/wood{
@@ -66,21 +56,10 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"am" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/shuttle/escape/luxury)
 "an" = (
 /obj/machinery/light/small,
 /turf/open/floor/wood{
 	icon_state = "wood-broken2"
-	},
-/area/shuttle/escape/luxury)
-"ao" = (
-/obj/machinery/light/small,
-/turf/open/floor/wood{
-	icon_state = "wood-broken6"
 	},
 /area/shuttle/escape/luxury)
 "ap" = (
@@ -134,7 +113,7 @@
 /area/shuttle/escape/luxury)
 "ay" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/notasandwich,
+/obj/item/food/notasandwich,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "az" = (
@@ -142,24 +121,19 @@
 /obj/item/food/spaghetti/pastatomato,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
-"aA" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/kebab/tofu,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
 "aB" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/honkdae,
+/obj/item/food/honkdae,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aC" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/enchiladas,
+/obj/item/food/enchiladas,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aD" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/candiedapple,
+/obj/item/food/candiedapple,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aE" = (
@@ -169,7 +143,7 @@
 /area/shuttle/escape/luxury)
 "aF" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/benedict,
+/obj/item/food/benedict,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aG" = (
@@ -184,22 +158,22 @@
 /area/shuttle/escape/luxury)
 "aI" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/dulcedebatataslice,
+/obj/item/food/pieslice/dulcedebatata,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aJ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/salad/validsalad,
+/obj/item/food/salad/validsalad,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aK" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/carneburrito,
+/obj/item/food/carneburrito,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aL" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/chawanmushi,
+/obj/item/food/chawanmushi,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aM" = (
@@ -215,22 +189,22 @@
 /area/shuttle/escape/luxury)
 "aO" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/khachapuri,
+/obj/item/food/khachapuri,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aP" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grilledcheese,
+/obj/item/food/grilled_cheese_sandwich,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aQ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/jelliedtoast/cherry,
+/obj/item/food/jelliedtoast/cherry,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aR" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/honeybun,
+/obj/item/food/honeybun,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aS" = (
@@ -243,11 +217,6 @@
 /obj/item/food/spaghetti/copypasta,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
-"aU" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/bearsteak,
-/turf/open/floor/carpet,
-/area/shuttle/escape/luxury)
 "aV" = (
 /obj/structure/table/wood/fancy,
 /obj/item/food/spaghetti/boiledspaghetti,
@@ -255,7 +224,7 @@
 /area/shuttle/escape/luxury)
 "aW" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/cherrycupcake,
+/obj/item/food/cherrycupcake,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aX" = (
@@ -265,12 +234,12 @@
 /area/shuttle/escape/luxury)
 "aY" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/hotdog,
+/obj/item/food/hotdog,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aZ" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/pie/grapetart,
+/obj/item/food/pie/grapetart,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "ba" = (
@@ -346,6 +315,11 @@
 /obj/item/surgical_drapes,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
+"lN" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/bearsteak,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
 "nZ" = (
 /obj/item/pool/pool_noodle,
 /turf/open/indestructible/sound/pool,
@@ -361,6 +335,11 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"wc" = (
+/turf/open/floor/wood{
+	broken = 1
+	},
 /area/shuttle/escape/luxury)
 "wf" = (
 /obj/item/kirbyplants{
@@ -382,9 +361,20 @@
 /obj/effect/turf_decal/pool/corner,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
+"GS" = (
+/obj/structure/table/wood/fancy,
+/obj/item/food/kebab/tofu,
+/turf/open/floor/carpet,
+/area/shuttle/escape/luxury)
 "Jr" = (
 /obj/effect/turf_decal/pool,
 /turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"OH" = (
+/obj/machinery/light/small,
+/turf/open/floor/wood{
+	broken = 1
+	},
 /area/shuttle/escape/luxury)
 "OL" = (
 /obj/item/surgicaldrill,
@@ -440,7 +430,7 @@ aa
 (2,1,1) = {"
 ab
 ab
-am
+wc
 ab
 ab
 as
@@ -455,7 +445,7 @@ ab
 "}
 (3,1,1) = {"
 ab
-af
+wc
 ag
 ab
 ab
@@ -519,7 +509,7 @@ ab
 "}
 (7,1,1) = {"
 ab
-ah
+wc
 ag
 ab
 aj
@@ -556,7 +546,7 @@ ag
 ab
 aj
 au
-aA
+GS
 aQ
 bd
 aj
@@ -568,7 +558,7 @@ ab
 (10,1,1) = {"
 ab
 ai
-ao
+OH
 ab
 aj
 au
@@ -600,7 +590,7 @@ ab
 (12,1,1) = {"
 ac
 ag
-af
+wc
 ab
 aj
 au
@@ -621,7 +611,7 @@ ab
 aj
 au
 aE
-aU
+lN
 bd
 aj
 Jr

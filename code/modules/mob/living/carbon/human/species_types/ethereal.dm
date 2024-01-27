@@ -5,7 +5,7 @@
 	attack_verb = "burn"
 	attack_sound = 'sound/weapons/etherealhit.ogg'
 	miss_sound = 'sound/weapons/etherealmiss.ogg'
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ethereal
+	meat = /obj/item/food/meat/slab/human/mutant/ethereal
 	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
@@ -28,6 +28,12 @@
 	species_r_arm = /obj/item/bodypart/r_arm/ethereal
 	species_l_leg = /obj/item/bodypart/l_leg/ethereal
 	species_r_leg = /obj/item/bodypart/r_leg/ethereal
+
+	// Body temperature for ethereals is much higher then humans as they like hotter environments
+	bodytemp_normal = (BODYTEMP_NORMAL + 50)
+	bodytemp_heat_damage_limit = FIRE_MINIMUM_TEMPERATURE_TO_SPREAD // about 150C
+	// Cold temperatures hurt faster as it is harder to move with out the heat energy
+	bodytemp_cold_damage_limit = (T20C - 10) // about 10c
 
 	var/current_color
 	var/EMPeffect = FALSE
