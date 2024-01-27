@@ -31196,17 +31196,6 @@
 	pixel_x = -7;
 	pixel_y = 34
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/structure/chair,
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -44748,20 +44737,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
-"ibb" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/red/half/contrasted,
-/obj/machinery/light_switch{
-	pixel_x = 27;
-	pixel_y = 7
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall,
-/area/maintenance/port/aft)
 "ibl" = (
 /obj/effect/landmark/event_spawn,
 /obj/structure/cable/yellow{
@@ -50839,19 +50814,6 @@
 	pixel_x = -7;
 	pixel_y = -24
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/east,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/closet/bombcloset/security,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -57966,6 +57928,10 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/light_switch{
+	pixel_x = 27;
+	pixel_y = 7
+	},
 /turf/open/floor/plasteel,
 /area/security/main)
 "mHe" = (
@@ -107755,7 +107721,7 @@ kgx
 qlz
 ajx
 ajd
-ibb
+ajd
 ajd
 skI
 iRH
