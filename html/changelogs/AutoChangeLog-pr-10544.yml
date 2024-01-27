@@ -1,0 +1,5 @@
+author: Ratón
+delete-after: true
+changes:
+  - tweak: Zombies infect on a 80% chance (+armor) instead of instantly infecting
+      on hit.
