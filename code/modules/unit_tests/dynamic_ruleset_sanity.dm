@@ -17,10 +17,10 @@
 			continue
 		var/datum/antagonist/antag_datum = initial(ruleset.antag_datum)
 		if (!ispath(antag_datum, /datum/antagonist) || !initial(antag_datum.banning_key))
-			Fail("[ruleset] has no antag_datum with a banning key!")
+			TEST_FAIL("[ruleset] has no antag_datum with a banning key!")
 		var/role_pref = initial(ruleset.role_preference)
 		if (!role_pref || !ispath(role_pref, /datum/role_preference))
-			Fail("[ruleset] has no role preference!")
+			TEST_FAIL("[ruleset] has no role preference!")
 
 	for (var/datum/dynamic_ruleset/midround/ruleset as anything in subtypesof(/datum/dynamic_ruleset/midround) - /datum/dynamic_ruleset/midround/from_ghosts)
 		var/midround_ruleset_style = initial(ruleset.midround_ruleset_style)

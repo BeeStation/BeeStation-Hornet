@@ -19,4 +19,4 @@
 				failing += path
 	if(!length(failing))
 		return
-	Fail("The following clothing items have can_adjust set to true, but have no adjusted icon state: [failing.Join(" \n")]")
+	TEST_FAIL("The following clothing items have can_adjust set to true, but have no adjusted icon state: [failing.Join(" \n")]")
