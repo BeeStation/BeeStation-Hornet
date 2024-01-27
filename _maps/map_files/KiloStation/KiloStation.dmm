@@ -18520,7 +18520,7 @@
 /obj/structure/rack,
 /obj/item/storage/backpack/satchel/eng,
 /obj/item/wirecutters{
-	name = "Syndicate(TM) evidence room wirecutters"
+	name = "Syndicate(TM) Evidence Room Wirecutters"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -21553,10 +21553,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/aft)
-"cgE" = (
-/obj/structure/falsewall/reinforced,
-/turf/open/floor/plating,
-/area/crew_quarters/heads/hos)
 "cgG" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -38175,6 +38171,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
+"fME" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/prison,
+/area/security/prison)
 "fMH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -44072,13 +44073,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
-"hRK" = (
-/obj/effect/turf_decal/tile/black/fourcorners,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/item/trash/candy,
-/turf/open/floor/prison,
-/area/security/prison)
 "hRV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -45139,10 +45133,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison blast door"
-	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "ikp" = (
@@ -46128,6 +46118,19 @@
 	burnt = 1
 	},
 /area/quartermaster/warehouse)
+"iDp" = (
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/effect/turf_decal/bot_white,
+/obj/structure/weightmachine,
+/obj/item/trash/chips{
+	pixel_x = 8;
+	pixel_y = -5
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "iDO" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
@@ -46655,7 +46658,6 @@
 /turf/open/floor/plasteel,
 /area/janitor)
 "iLF" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/item/radio/intercom{
 	freerange = 1;
 	name = "Prison intercom";
@@ -46663,6 +46665,8 @@
 	prison_radio = 1;
 	pixel_y = -26
 	},
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/item/trash/candy,
 /turf/open/floor/prison,
 /area/security/prison)
 "iLV" = (
@@ -51723,7 +51727,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
-/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/prison,
 /area/security/prison)
 "kqb" = (
@@ -57383,22 +57387,13 @@
 	},
 /area/maintenance/fore)
 "msO" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/black/fourcorners,
-/obj/effect/turf_decal/bot_white,
-/obj/structure/weightmachine,
-/obj/item/trash/chips{
-	pixel_x = 8;
-	pixel_y = -5
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
-/obj/structure/railing{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/prison,
 /area/security/prison)
 "mti" = (
@@ -58613,35 +58608,6 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/surgery)
 "mPY" = (
-/obj/structure/table,
-/obj/effect/turf_decal/stripes/corner,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/recharger,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/opposingcorners,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -63471,8 +63437,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/black/fourcorners,
-/obj/effect/turf_decal/bot_white,
-/obj/structure/punching_bag,
+/obj/item/kirbyplants/random,
 /turf/open/floor/prison,
 /area/security/prison)
 "oGf" = (
@@ -64262,6 +64227,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -64390,6 +64359,7 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/tile/black/fourcorners,
 /turf/open/floor/prison,
 /area/security/prison)
 "oVX" = (
@@ -64533,10 +64503,6 @@
 /obj/machinery/turnstile{
 	dir = 4
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "Prisongate";
-	name = "Prison blast door"
-	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "oYk" = (
@@ -64643,10 +64609,8 @@
 /area/engine/engineering)
 "oZJ" = (
 /obj/effect/turf_decal/tile/black/fourcorners,
-/obj/structure/weightmachine/weightlifter,
-/obj/effect/turf_decal/bot_white,
-/obj/structure/railing{
-	dir = 10
+/obj/structure/railing/corner{
+	dir = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -67977,6 +67941,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal/incinerator)
+"qff" = (
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/structure/punching_bag,
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/prison,
+/area/security/prison)
 "qfS" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
@@ -75699,14 +75669,6 @@
 	burnt = 1
 	},
 /area/maintenance/starboard/aft)
-"sJj" = (
-/obj/effect/turf_decal/tile/black/fourcorners,
-/obj/item/kirbyplants/random,
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "sJs" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -78304,6 +78266,7 @@
 /area/engine/atmos)
 "tAB" = (
 /obj/effect/spawner/structure/window,
+/obj/structure/curtain/directional,
 /turf/open/floor/plating,
 /area/security/prison)
 "tAF" = (
@@ -80247,6 +80210,12 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/explab)
+"usP" = (
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/structure/weightmachine/weightlifter,
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/prison,
+/area/security/prison)
 "usQ" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/tank_dispenser,
@@ -82928,6 +82897,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/black/fourcorners,
 /turf/open/floor/prison,
 /area/security/prison)
 "voI" = (
@@ -83518,6 +83488,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
 	},
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
@@ -89304,24 +89278,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "xsa" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/item/clothing/neck/tie/red,
-/obj/item/clothing/head/bowler{
-	pixel_y = 8
-	},
-/obj/item/lipstick/random{
-	pixel_x = 6
-	},
-/obj/machinery/camera/autoname{
-	network = list("ss13", "prison", "security");
-	dir = 9
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -109234,9 +109190,9 @@ kGi
 axc
 eic
 kGi
-iQT
-iQT
-iQT
+iDp
+kfG
+usP
 aav
 cVx
 rKR
@@ -109490,7 +109446,7 @@ aye
 wpm
 lUc
 msO
-sJj
+qHC
 oZJ
 voF
 iLF
@@ -109747,10 +109703,10 @@ nwn
 lTu
 bNn
 kpZ
+fME
 xYG
-hRK
 oVK
-iQT
+qff
 rYB
 uWo
 gny
@@ -110285,7 +110241,7 @@ cmO
 cqj
 wVu
 wVu
-cgE
+wVu
 cmO
 acm
 acm
