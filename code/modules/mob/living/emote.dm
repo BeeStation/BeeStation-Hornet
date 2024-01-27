@@ -26,7 +26,7 @@
 		for(var/datum/emote/living/blush/living_emote in key_emotes)
 
 			// The existing timer restarts if it is already running
-			addtimer(CALLBACK(living_emote, .proc/end_blush, human_user), BLUSH_DURATION, TIMER_UNIQUE | TIMER_OVERRIDE)
+			blush_timer = addtimer(CALLBACK(living_emote, .proc/end_blush, human_user), BLUSH_DURATION, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /datum/emote/living/blush/proc/end_blush(mob/living/carbon/human/human_user)
 	if(!QDELETED(human_user))
