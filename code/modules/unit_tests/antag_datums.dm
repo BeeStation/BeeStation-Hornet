@@ -6,10 +6,9 @@
 		if(ispath(antag, /datum/antagonist/custom))
 			continue
 		var/name = initial(antag.name)
-		if (!name || name == "Antagonist")
-			TEST_FAIL("[antag] has no name set!")
-		if (!initial(antag.banning_key))
-			TEST_FAIL("[antag] has no banning_key set!")
+
+		TEST_ASSERT((name || !name == "Antagonist"), "[antag] has no name set!")
+		TEST_ASSERT((initial(antag.banning_key)), "[antag] has no banning_key set!")
 		var/category = initial(antag.antagpanel_category)
 		if (initial(antag.show_in_antagpanel) && (!category || category == "Uncategorized"))
 			TEST_FAIL("[antag] shows in the antag panel, but has no category set!")
