@@ -717,6 +717,17 @@
 					/obj/item/survivalcapsule/barricade)
 	cost = 2000
 	crate_name = "security barriers crate XL"
+	
+/datum/supply_pack/security/armory/capsule_checkpoints
+	name = "Security Checkpoint capsules"
+	desc = "A 3x3 checkpoint designed for allowing safely searching passing personnel. Requires Security access to open."
+	max_supply = 2
+	access_budget = ACCESS_BRIG
+	contains = list(/obj/item/survivalcapsule/capsule_checkpoint,
+					/obj/item/survivalcapsule/capsule_checkpoint,
+					/obj/item/survivalcapsule/capsule_checkpoint)
+	cost = 1000
+	crate_name = "Security Checkpoint capsule crate"
 
 /datum/supply_pack/security/armory/mindshield
 	name = "Mindshield Implants Crate"
