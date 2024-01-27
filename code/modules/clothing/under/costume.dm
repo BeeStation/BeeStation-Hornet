@@ -40,6 +40,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/costume/schoolgirl/red
 	name = "red schoolgirl uniform"
@@ -70,13 +71,6 @@
 	item_state = "soviet"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/costume/redcoat
-	name = "redcoat uniform"
-	desc = "Looks old."
-	icon_state = "redcoat"
-	item_state = "redcoat"
-	can_adjust = FALSE
-
 /obj/item/clothing/under/costume/kilt
 	name = "kilt"
 	desc = "Includes shoes and plaid."
@@ -85,6 +79,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/costume/kilt/highlander
 	desc = "You're the only one worthy of this kilt."
