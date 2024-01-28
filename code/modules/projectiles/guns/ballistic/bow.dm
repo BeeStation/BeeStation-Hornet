@@ -9,7 +9,7 @@
 	force = 5
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	fire_sound = 'sound/weapons/bowfire.ogg'
-	slot_flags = ITEM_SLOT_BACK||ITEM_SLOT_SUITSTORE
+	slot_flags = ITEM_SLOT_BACK
 	item_flags = NEEDS_PERMIT
 	casing_ejector = FALSE
 	internal_magazine = TRUE
@@ -22,12 +22,10 @@
 
 /obj/item/gun/ballistic/bow/chamber_round()
 	chambered = magazine.get_round(1)
-	slot_flags -= ITEM_SLOT_SUITSTORE
 
 /obj/item/gun/ballistic/bow/process_chamber()
 	chambered = null
 	magazine.get_round(0)
-	slot_flags += ITEM_SLOT_SUITSTORE
 	update_icon()
 
 /obj/item/gun/ballistic/bow/attack_self(mob/living/user)
@@ -51,6 +49,22 @@
 
 /obj/item/gun/ballistic/bow/update_icon()
 	icon_state = "[initial(icon_state)]_[get_ammo() ? (chambered ? "firing" : "loaded") : "unloaded"]"
+	cut_overlays()
+	if(get_ammo())
+		if(istype(chambered, /obj/item/ammo_casing/caseless/arrow/wood))
+			add_overlay("wood_[(chambered ? "firing" : "loaded")]")
+		if(istype(chambered, /obj/item/ammo_casing/caseless/arrow/cloth))
+			var/obj/item/ammo_casing/caseless/arrow/cloth/C = chambered
+			if(!C.lit && !C.burnt)
+				add_overlay("cloth_[(chambered ? "firing" : "loaded")]")
+			else if(C.lit)
+				add_overlay("clothlit_[(chambered ? "firing" : "loaded")]")
+			else if(C.burnt)
+				add_overlay("clothburnt_[(chambered ? "firing" : "loaded")]")
+		else
+			add_overlay("arrow_[(chambered ? "firing" : "loaded")]")
+	else
+		return
 
 /obj/item/gun/ballistic/bow/can_shoot()
 	return chambered
