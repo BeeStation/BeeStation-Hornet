@@ -82,21 +82,31 @@ GLOBAL_VAR(test_log)
 	allocated += instance
 	return instance
 
+/// Logs a test message. Will use GitHub action syntax found at https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions
+/datum/unit_test/proc/log_for_test(text, priority, file, line)
+	var/map_name = SSmapping.config.map_name
+
+	// Need to escape the text to properly support newlines.
+	var/annotation_text = replacetext(text, "%", "%25")
+	annotation_text = replacetext(annotation_text, "\n", "%0A")
+
+	log_world("::[priority] file=[file],line=[line],title=[map_name]: [type]::[annotation_text]")
+
 /proc/RunUnitTest(test_path, list/test_results)
+
 	var/datum/unit_test/test = new test_path
 
 	GLOB.current_test = test
 	var/duration = REALTIMEOFDAY
 
+	log_world("::group::[test_path]")
 	test.Run()
 
 	duration = REALTIMEOFDAY - duration
 	GLOB.current_test = null
 	GLOB.failed_any_test |= !test.succeeded
 
-	var/list/log_entry = list(
-		"[test.succeeded ? TEST_OUTPUT_GREEN("PASS") : TEST_OUTPUT_RED("FAIL")]: [test_path] [duration / 10]s",
-	)
+	var/list/log_entry = list()
 	var/list/fail_reasons = test.fail_reasons
 
 	for(var/reasonID in 1 to LAZYLEN(fail_reasons))
@@ -104,16 +114,22 @@ GLOBAL_VAR(test_log)
 		var/file = fail_reasons[reasonID][2]
 		var/line = fail_reasons[reasonID][3]
 
-		/// Github action annotation.
-		log_world("::error file=[file],line=[line],title=[test_path]::[text]")
+		test.log_for_test(text, "error", file, line)
 
 		// Normal log message
-		log_entry += "\tREASON #[reasonID]: [text] at [file]:[line]"
+		log_entry += "\tFAILURE #[reasonID]: [text] at [file]:[line]"
 
-	for(var/J in 1 to LAZYLEN(fail_reasons))
-		log_entry += "\tREASON #[J]: [fail_reasons[J]]"
 	var/message = log_entry.Join("\n")
 	log_test(message)
+
+	var/test_output_desc = "[test_path] [duration / 10]s"
+	if (test.succeeded)
+		log_world("[TEST_OUTPUT_GREEN("PASS")] [test_output_desc]")
+
+	log_world("::endgroup::")
+
+	if (!test.succeeded)
+		log_world("::error::[TEST_OUTPUT_RED("FAIL")] [test_output_desc]")
 
 	test_results[test_path] = list("status" = test.succeeded ? UNIT_TEST_PASSED : UNIT_TEST_FAILED, "message" = message, "name" = test_path)
 
