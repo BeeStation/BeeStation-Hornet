@@ -67,15 +67,21 @@
 		names += componentsubtypes
 		names += "---Elements---"
 		names += sort_list(subtypesof(/datum/element), GLOBAL_PROC_REF(cmp_typepaths_asc))
-		var/result = input(usr, "Choose a component/element to add","better know what ur fuckin doin pal") as null|anything in names
-		if(!usr || !result || result == "---Components---" || result == "---Elements---")
+
+		var/result = tgui_input_list(usr, "Choose a component/element to add", "Add Component", names)
+		if(isnull(result))
 			return
+		if(!usr || result == "---Components---" || result == "---Elements---")
+			return
+
 		if(QDELETED(target))
 			to_chat(usr, "That thing doesn't exist anymore!")
 			return
+
 		var/list/lst = get_callproc_args()
 		if(!lst)
 			return
+
 		var/datumname = "error"
 		lst.Insert(1, result)
 		if(result in componentsubtypes)
