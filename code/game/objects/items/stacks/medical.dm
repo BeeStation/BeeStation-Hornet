@@ -12,6 +12,9 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	novariants = FALSE
+	item_flags = NOBLUDGEON
+	cost = 250
+	source = /datum/robot_energy_storage/medical
 	///What reagent does it apply?
 	var/list/reagent
 	///Is this for bruises?
@@ -40,7 +43,7 @@
 	if(!iscarbon(M) && !isanimal(M))
 		to_chat(user, "<span class='danger'>You don't know how to apply \the [src] to [M]!</span>")
 		return
-	
+
 	if(M in user.do_afters) //One at a time, please.
 		return
 
@@ -207,8 +210,3 @@
 
 /obj/item/stack/medical/gauze/adv/one
 	amount = 1
-
-/obj/item/stack/medical/gauze/cyborg
-	materials = list()
-	is_cyborg = TRUE
-	cost = 250

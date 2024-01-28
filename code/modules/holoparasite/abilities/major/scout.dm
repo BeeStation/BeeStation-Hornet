@@ -465,7 +465,7 @@
 	icon_state = ability.scouting ? (HUD_CLOAK_ELIGIBLE ? cloak_icon : exit_icon) : initial(icon_state)
 	return ..()
 
-/atom/movable/screen/holoparasite/toggle_scout/Click()
+/atom/movable/screen/holoparasite/toggle_scout/use()
 	if(owner.is_manifested())
 		to_chat(owner, "<span class='warning'>You can only toggle scouting or cloaking while recalled!</span>")
 		return

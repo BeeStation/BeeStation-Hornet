@@ -46,6 +46,23 @@ SUBSYSTEM_DEF(metrics)
 	out["harddel_count"] = length(GLOB.world_qdel_log)
 	out["round_id"] = text2num(GLOB.round_id) // This is so we can filter the metrics by a single round ID
 
+	if (Master.diagnostic_mode)
+		var/list/diagnostic_report = list()
+		for (var/datum/mc_tick/diag_tick in Master.queued_ticks)
+			var/list/current_tick_info = list()
+			for (var/datum/controller/subsystem/ss in diag_tick.fired_subsystems)
+				current_tick_info["[ss.ss_id]"] = diag_tick.fired_subsystems[ss]
+			diagnostic_report["[diag_tick.tick_number]"] = current_tick_info
+		out["master_controller"] = list(
+			"diagnostic_mode" = 1,
+			"diagnostic_report" = diagnostic_report
+		)
+		Master.queued_ticks.Cut()
+	else
+		out["master_controller"] = list(
+			"diagnostic_mode" = 0,
+		)
+
 	var/server_name = CONFIG_GET(string/serversqlname)
 	if(server_name)
 		out["server_name"] = server_name
@@ -56,6 +73,7 @@ SUBSYSTEM_DEF(metrics)
 		ss_data[SS.ss_id] = SS.get_metrics()
 
 	out["subsystems"] = ss_data
+
 	// And send it all
 	return json_encode(out)
 

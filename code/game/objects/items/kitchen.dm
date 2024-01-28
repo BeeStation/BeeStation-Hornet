@@ -24,7 +24,7 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 5
-	materials = list(/datum/material/iron=80)
+	custom_materials = list(/datum/material/iron=80)
 	flags_1 = CONDUCT_1
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'

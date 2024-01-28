@@ -54,3 +54,22 @@
 	mid_length = 10
 	end_sound = 'sound/machines/microwave/microwave-end.ogg'
 	volume = 90
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/washing_machine
+	start_sound = 'sound/machines/washingmachine/washingmachinestart.ogg'
+	start_length = 40
+	mid_sounds = list('sound/machines/washingmachine/washingmid1.ogg'=1,
+					'sound/machines/washingmachine/washingmid2.ogg'=1,
+					'sound/machines/washingmachine/washingmid3.ogg'=1,
+					'sound/machines/washingmachine/washingmid4.ogg'=1,
+					'sound/machines/washingmachine/washingmid5.ogg'=1,
+					'sound/machines/washingmachine/washingmid6.ogg'=1,
+					'sound/machines/washingmachine/washingmid7.ogg'=1,
+					'sound/machines/washingmachine/washingmid8.ogg'=1,)
+	mid_length = 10
+	end_sound = 'sound/machines/washingmachine/washingmachineend.ogg'
+	falloff_exponent = 5
+	falloff_distance = 3
+	volume = 150

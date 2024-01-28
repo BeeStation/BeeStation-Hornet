@@ -124,10 +124,8 @@
 				C.tint -= 2
 				H.update_tint()
 				REMOVE_TRAIT(target, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
-			for(var/obj/effect/decal/cleanable/C in target)
-				qdel(C)
+			target.wash(CLEAN_SCRUB)
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-			SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
 			decreaseUses(user)
 	return
 

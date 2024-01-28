@@ -267,6 +267,14 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, SHAMEBRERO_TRAIT)
 
+/obj/item/clothing/suit/poncho/ponchoshame/outlaw
+	desc = "You broke the rules of the duel, and drew your gun before High Noon. This poncho will rest on your shoulders eternally, just like your shame."
+	icon_state = "ponchoshame_alt"
+	item_state = "ponchoshame_alt"
+	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 30, BIO = 30, RAD = 20, FIRE = 0, ACID = 30, STAMINA = 35)
+	body_parts_covered = CHEST|GROIN
+	allowed = list(/obj/item/gun/ballistic/shotgun/lever_action, /obj/item/gun/ballistic/rifle/leveraction, /obj/item/gun/ballistic/revolver)
+
 /obj/item/clothing/suit/whitedress
 	name = "white dress"
 	desc = "A fancy white dress."
@@ -612,6 +620,15 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHAIR|HIDEEARS
 
+/obj/item/clothing/suit/hooded/wintercoat/white
+	name = "white winter coat"
+	icon_state = "coatwhite"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/white
+
+/obj/item/clothing/head/hooded/winterhood/white
+	name = "winter hood"
+	icon_state = "winterhood_white"
+
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
 	icon_state = "coatcaptain"
@@ -895,6 +912,7 @@
 
 /obj/item/clothing/suit/hooded/wintercoat/cargo
 	name = "cargo winter coat"
+	desc = "A heavy jacket made from 'synthetic' animal furs. It's especially tailored to hold Cargo related items." // Cargo players if I missed anything let me know
 	icon_state = "coatcargo"
 	item_state = "coatcargo"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/cargo

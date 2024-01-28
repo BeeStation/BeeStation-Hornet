@@ -379,7 +379,7 @@
 		parts += "[FOURSPACES]Executed rules:"
 		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
 			if (rule.lategame_spawned)
-				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat (Lategame, threat level ignored)"
+				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -0 threat (Lategame, threat cost ignored)"
 			else
 				parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
 	return parts.Join("<br>")
@@ -746,7 +746,7 @@
 		discordmsg += "Executed rules:\n"
 		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
 			if (rule.lategame_spawned)
-				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat (Lategame, threat level ignored)\n"
+				discordmsg += "[rule.ruletype] - [rule.name]: -0 threat (Lategame, threat cost ignored)\n"
 			else
 				discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
 	var/list/ded = SSblackbox.first_death

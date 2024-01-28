@@ -609,7 +609,7 @@
 
 	//these muthafuckas arent supposed to smooth
 	base_icon_state = null
-	smoothing_flags = null
+	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
 
@@ -690,7 +690,7 @@
 	desc = "A wall mounted safe containing space suits. Will only open in emergencies."
 	anchored = TRUE
 	density = FALSE
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "safe"
 	var/unlocked = FALSE
 

@@ -15,7 +15,7 @@
 	var/old_integ = obj_integrity
 	obj_integrity = max(old_integ - damage_amount, 0)
 	//BREAKING FIRST
-	if(integrity_failure && obj_integrity <= integrity_failure)
+	if(integrity_failure && obj_integrity <= integrity_failure * max_integrity)
 		obj_break(damage_flag)
 
 	//DESTROYING SECOND
@@ -54,6 +54,7 @@
 /obj/ex_act(severity, target)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
+
 	..() //contents explosion
 	if(QDELETED(src))
 		return
@@ -61,20 +62,21 @@
 		take_damage(INFINITY, BRUTE, BOMB, 0)
 		return
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			take_damage(INFINITY, BRUTE, BOMB, 0)
-		if(2)
+		if(EXPLODE_HEAVY)
 			take_damage(rand(100, 250), BRUTE, BOMB, 0)
-		if(3)
+		if(EXPLODE_LIGHT)
 			take_damage(rand(10, 90), BRUTE, BOMB, 0)
 
 /obj/bullet_act(obj/projectile/P)
 	. = ..()
-	playsound(src, P.hitsound, 50, 1)
-	if(P.suppressed != SUPPRESSED_VERY)
-		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>", null, null, COMBAT_MESSAGE_RANGE)
+	playsound(src, P.hitsound, 50, TRUE)
+	var/damage
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
-		take_damage(P.damage, P.damage_type, P.armor_flag, 0, turn(P.dir, 180), P.armour_penetration)
+		damage = take_damage(P.damage, P.damage_type, P.armor_flag, 0, turn(P.dir, 180), P.armour_penetration)
+	if(P.suppressed != SUPPRESSED_VERY)
+		visible_message("<span class='danger'>[src] is hit by \a [P][damage ? "" : ", without leaving a mark"]!</span>", null, null, COMBAT_MESSAGE_RANGE)
 
 /obj/proc/hulk_damage()
 	return 150 //the damage hulks do on punches to this object, is affected by melee armor
@@ -82,13 +84,13 @@
 /obj/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(user.a_intent == INTENT_HARM)
 		..(user, 1)
-		user.visible_message("<span class='danger'>[user] smashes [src]!</span>", "<span class='danger'>You smash [src]!</span>", null, COMBAT_MESSAGE_RANGE)
 		if(density)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced="hulk")
 		else
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
 		take_damage(hulk_damage(), BRUTE, MELEE, 0, get_dir(src, user))
+		user.visible_message("<span class='danger'>[user] smashes [src]!</span>", "<span class='danger'>You smash [src]!</span>", null, COMBAT_MESSAGE_RANGE)
 		return 1
 	return 0
 
@@ -234,6 +236,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		SSfire_burning.processing[src] = src
 		update_appearance()
 		return 1
+	return ..()
 
 //called when the obj is destroyed by fire
 /obj/proc/burn()
@@ -259,7 +262,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
-			buckled_mob.electrocute_act((clamp(round(strength/400), 10, 90) + rand(-5, 5)), src, tesla_shock = 1)
+			buckled_mob.electrocute_act((clamp(round(strength/400), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
 /obj/proc/reset_shocked()
 	obj_flags &= ~BEING_SHOCKED
@@ -284,7 +287,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 //changes max_integrity while retaining current health percentage
 //returns TRUE if the obj broke, FALSE otherwise
-/obj/proc/modify_max_integrity(new_max, can_break = TRUE, damage_type = BRUTE, new_failure_integrity = null)
+/obj/proc/modify_max_integrity(new_max, can_break = TRUE, damage_type = BRUTE)
 	var/current_integrity = obj_integrity
 	var/current_max = max_integrity
 
@@ -295,10 +298,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 	max_integrity = new_max
 
-	if(new_failure_integrity != null)
-		integrity_failure = new_failure_integrity
-
-	if(can_break && integrity_failure && current_integrity <= integrity_failure)
+	if(can_break && integrity_failure && current_integrity <= integrity_failure * max_integrity)
 		obj_break(damage_type)
 		return TRUE
 	return FALSE

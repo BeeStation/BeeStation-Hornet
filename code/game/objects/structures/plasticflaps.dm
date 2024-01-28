@@ -106,9 +106,3 @@
 /obj/structure/plasticflaps/Initialize(mapload)
 	. = ..()
 	air_update_turf(TRUE)
-
-/obj/structure/plasticflaps/Destroy()
-	var/atom/oldloc = loc
-	. = ..()
-	if (oldloc)
-		oldloc.air_update_turf(1)
