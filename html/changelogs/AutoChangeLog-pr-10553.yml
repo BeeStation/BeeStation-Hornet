@@ -1,0 +1,6 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - bugfix: Detectives office is no longer a vacuum on round start.
+  - bugfix: Reconnects AI upload.
+  - bugfix: Detective Booze-O-Mat is no longer maintenance accessible.
