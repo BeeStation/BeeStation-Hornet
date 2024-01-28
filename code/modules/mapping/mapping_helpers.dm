@@ -341,8 +341,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 
 /obj/effect/mapping_helpers/make_non_slip/Initialize(mapload)
 	. = ..()
-	var/turf/T = get_turf(src)
-	T?.make_traction(grip_visual)
+	var/turf/open/T = get_turf(src)
+	if(isopenturf)
+		T?.make_traction(grip_visual)
 
 //Change this areas turf texture
 /obj/effect/mapping_helpers/tile_breaker

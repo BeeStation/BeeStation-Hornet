@@ -23,12 +23,15 @@
 	var/use_broken_literal = FALSE
 	//Do we just swap the state to one of the damage states
 	var/use_burnt_literal = FALSE
-	
+
 	//Refs to filters, for later removal
 	var/list/damage_overlays
 
 	///The variant tiles we can choose from (name = chance, name = chance, name = chance)
 	var/list/variants
+
+	///Is this floor no-slip?
+	var/traction = FALSE
 
 /turf/open/Initialize(mapload)
 	. = ..()
@@ -262,6 +265,8 @@
 		return TRUE
 
 /turf/open/proc/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent)
+	if(traction)
+		return
 	AddComponent(/datum/component/wet_floor, wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 
 /turf/open/proc/MakeDry(wet_setting = TURF_WET_WATER, immediate = FALSE, amount = INFINITY)
@@ -284,7 +289,7 @@
 /turf/open/proc/break_tile(force, allow_base)
 	LAZYINITLIST(damage_overlays)
 	var/list/options = list()
-	if(islist(baseturfs)) //Somehow 
+	if(islist(baseturfs)) //Somehow
 		options = baseturfs.Copy() //This is weird
 	else
 		options += baseturfs
@@ -331,3 +336,11 @@
 
 /turf/open/proc/burnt_states()
 	return GLOB.default_turf_burn
+
+/turf/open/proc/make_traction(add_visual = TRUE)
+	if(add_visual)
+		//Add overlay
+		var/mutable_appearance/MA = mutable_appearance('icons/turf/floors.dmi', "no_slip")
+		MA.blend_mode = BLEND_OVERLAY
+		add_overlay(MA)
+		traction = TRUE
