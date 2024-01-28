@@ -170,3 +170,13 @@
 		made_something = TRUE
 	if(made_something && on_generate_callback)
 		on_generate_callback.Invoke(reagents.total_volume, reagents.maximum_volume)
+
+/**
+ * # venom udder subtype
+ *
+ * Used by snakes, I guess other venomous creatures if you want to.
+ */
+/obj/item/udder/venom
+	name = "venom gland"
+
+
