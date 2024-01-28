@@ -343,4 +343,4 @@
 		var/mutable_appearance/MA = mutable_appearance('icons/turf/floors.dmi', "no_slip")
 		MA.blend_mode = BLEND_OVERLAY
 		add_overlay(MA)
-		traction = TRUE
+	traction = TRUE

@@ -342,7 +342,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/make_non_slip/Initialize(mapload)
 	. = ..()
 	var/turf/open/T = get_turf(src)
-	if(isopenturf)
+	if(isopenturf(T))
 		T?.make_traction(grip_visual)
 
 //Change this areas turf texture
