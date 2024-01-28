@@ -31,7 +31,7 @@
 	icon_state = "arrow_cloth"
 	force = 5
 	armour_penetration = 0
-	heat = 1000
+	heat = 1500
 	light_system = MOVABLE_LIGHT
 	light_range = 2
 	light_power = 0.6
@@ -47,6 +47,11 @@
 /obj/item/ammo_casing/caseless/arrow/cloth/attackby(obj/item/I, mob/user, params)
 	if(I.heat > 1000)
 		ignite()
+
+/obj/item/ammo_casing/caseless/arrow/cloth/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(lit && M.IgniteMob())
+		message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(M)] on fire with [src] at [AREACOORD(user)]")
+		log_game("[key_name(user)] set [key_name(M)] on fire with [src] at [AREACOORD(user)]")
 
 /obj/item/ammo_casing/caseless/arrow/cloth/is_hot()
 	return lit * heat

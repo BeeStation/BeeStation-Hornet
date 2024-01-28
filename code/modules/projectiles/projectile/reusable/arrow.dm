@@ -34,7 +34,7 @@
 /obj/projectile/bullet/reusable/arrow/cloth/fire()
 	if(lit)
 		damage_type = BURN
-		damage = 15
+		damage = 10
 		hitsound = 'sound/items/welder.ogg'
 		set_light_on(lit)
 		update_overlays()
@@ -46,11 +46,14 @@
 	. = .. ()
 
 /obj/projectile/bullet/reusable/arrow/cloth/on_hit(atom/target, blocked)
+	. = ..()
 	if(lit)
 		lit = FALSE
 		burnt = TRUE
 		ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth/burnt
-	. = ..()
+		if(iscarbon(target) && !blocked)
+			var/mob/living/carbon/M = target
+			M.IgniteMob()
 
 /obj/projectile/bullet/reusable/arrow/cloth/update_overlays()
 	. = .. ()

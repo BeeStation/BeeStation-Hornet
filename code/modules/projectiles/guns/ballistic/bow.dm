@@ -51,10 +51,11 @@
 	icon_state = "[initial(icon_state)]_[get_ammo() ? (chambered ? "firing" : "loaded") : "unloaded"]"
 	cut_overlays()
 	if(get_ammo())
-		if(istype(chambered, /obj/item/ammo_casing/caseless/arrow/wood))
+		var/obj/item/ammo_casing/AC = magazine.get_round(1)
+		if(istype(AC, /obj/item/ammo_casing/caseless/arrow/wood))
 			add_overlay("wood_[(chambered ? "firing" : "loaded")]")
-		if(istype(chambered, /obj/item/ammo_casing/caseless/arrow/cloth))
-			var/obj/item/ammo_casing/caseless/arrow/cloth/C = chambered
+		else if(istype(AC, /obj/item/ammo_casing/caseless/arrow/cloth))
+			var/obj/item/ammo_casing/caseless/arrow/cloth/C = AC
 			if(!C.lit && !C.burnt)
 				add_overlay("cloth_[(chambered ? "firing" : "loaded")]")
 			else if(C.lit)
