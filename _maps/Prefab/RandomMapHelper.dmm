@@ -11,11 +11,23 @@
 /turf/closed/wall,
 /area/space)
 "j" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Storage Room";
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
+/turf/open/floor/plating,
+/area/space)
+"t" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
 /turf/open/floor/plating,
 /area/space)
 "w" = (
@@ -211,7 +223,7 @@ K
 K
 K
 K
-j
+t
 "}
 (7,1,1) = {"
 i
