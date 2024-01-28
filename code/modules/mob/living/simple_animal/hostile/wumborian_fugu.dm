@@ -137,9 +137,8 @@
 		A.buffed++
 		A.maxHealth *= 1.5
 		A.health = min(A.maxHealth,A.health*1.5)
-		A.melee_damage = max((A.melee_damage * 2), 10)
+		A.melee_damage = max((A.melee_damage * 1.5), 10)
 		A.transform *= 2
-		A.environment_smash |= ENVIRONMENT_SMASH_STRUCTURES | ENVIRONMENT_SMASH_RWALLS
 		to_chat(user, "<span class='info'>You increase the size of [A], giving it a surge of strength!</span>")
 		qdel(src)
 
