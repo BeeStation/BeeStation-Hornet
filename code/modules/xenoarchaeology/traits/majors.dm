@@ -846,7 +846,7 @@
 */
 /datum/xenoartifact_trait/major/combusting
 	label_name = "Combusting"
-	label_desc = "The artifact seems to contain combusting components. Triggering these components will ignite the target."
+	label_desc = "Combusting: The artifact seems to contain combusting components. Triggering these components will ignite the target."
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	conductivity = 24
 	weight = 12
@@ -868,38 +868,30 @@
 	clear_focus()
 
 /*
+	Freezing
+	Freezes the target
+*/
+/datum/xenoartifact_trait/major/freezing
+	label_name = "Freezing"
+	label_desc = "Freezing: The artifact seems to contain freezing components. Triggering these components will freeze the target."
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	conductivity = 12
+	weight = 24
+
+/datum/xenoartifact_trait/major/freezing/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	for(var/mob/living/target in focus)
+		//Pretty much copied from the wizard traps
+		to_chat(target, "<span class='danger'><B>You're frozen solid!</B></span>")
+		target.Paralyze(20)
+		target.adjust_bodytemperature(-300)
+		target.apply_status_effect(/datum/status_effect/freon)
+	dump_targets()
+	clear_focus()
+
+/*
 	Plushing
 	Makes plushies
-*/
-
-/*
-	Moody
-	Changes the target's mood
-*/
-
-/*
-	Chatty
-	Talks, like polly
-*/
-
-/*
-	lissen ghosts - allows the ghosts to insert messages.
-
-	change bodypart sprite - changes the sprite of a limb/bodypart
-
-	radio chatter - anomalously tap into a random used frequency and “speak” sentence picked from predefined,picked from previous node or random
-
-	freeze - target cannot move (resist to escape)
-
-	organtraction - extracts a random organ from the target. if valid. must be at X distance from target
-
-	pacified - target is temporarily pacified
-
-	dash - dash self rapidly at target location. damage anything you pass
-
-	syphon heat - greatly cools of the area with min temp depending on anomaly max strenght. and the anomaly gains energy proprtional to the heat consumed :boom:
-
-	freeze - reduces target’s temperature down to a min determined by anomaly’s max
-
-
 */

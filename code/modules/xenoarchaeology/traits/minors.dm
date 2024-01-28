@@ -898,3 +898,29 @@
 
 /datum/xenoartifact_trait/minor/magnetic/proc/magnetic_direction(atom/movable/AM, atom/target)
 	step_towards(AM, target)
+
+/*
+	Impulsing
+	The artifact dashes away when activated
+*/
+/datum/xenoartifact_trait/minor/impulse
+	label_name = "Impulsing"
+	label_desc = "Impulsing: The Artifact's design seems to incorporate impulsing elements. This will cause the artifact to have a impulsing away from its current position, when triggered."
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 15
+	conductivity = 10
+	///Max force we can use, aka how far we throw things
+	var/max_force = 7
+
+/datum/xenoartifact_trait/minor/impulse/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	var/turf/T = get_edge_target_turf(get_turf(parent.parent), pick(NORTH, EAST, SOUTH, WEST))
+	var/atom/movable/AM = parent.parent
+	//handle being held
+	if(isliving(AM.loc))
+		var/mob/living/L = AM.loc
+		L.dropItemToGround(AM)
+	//Get the fuck outta dodge
+	AM.throw_at(T, max_force*(parent.trait_strength/100), 4)

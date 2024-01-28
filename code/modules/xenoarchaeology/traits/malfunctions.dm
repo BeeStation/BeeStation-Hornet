@@ -299,8 +299,8 @@
 	clear_focus()
 
 /*
-	Bluespace Axis Desync
-	Strips a random article from the target
+	Spontaneous Stomach Evacuation
+	makes the target puke
 */
 /datum/xenoartifact_trait/malfunction/vomit
 	label_name = "S.S.E."
@@ -321,3 +321,28 @@
 			new /obj/effect/decal/cleanable/vomit(get_turf(parent.parent))
 	dump_targets()
 	clear_focus()
+
+/*
+	Immediate Organ Extraction
+	steals the target's appendix
+*/
+/datum/xenoartifact_trait/malfunction/organ_stealer
+	label_name = "I.O.E"
+	alt_label_name = "Immediate Organ Extraction"
+	label_desc = "Immediate Organ Extraction: A strange malfunction causes the Artifact to extract the target's appendix."
+	flags = XENOA_BLUESPACE_TRAIT| XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	register_targets = TRUE
+	///What organ slot do we yank from
+	var/target_organ_slot = ORGAN_SLOT_APPENDIX
+
+/datum/xenoartifact_trait/malfunction/organ_stealer/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	for(var/mob/living/carbon/M in focus)
+		var/obj/item/organ/O = M.getorganslot(target_organ_slot)
+		O?.Remove(M)
+		O?.forceMove(get_turf(parent.parent))
+	dump_targets()
+	clear_focus()
+
