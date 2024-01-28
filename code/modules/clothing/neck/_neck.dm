@@ -188,10 +188,15 @@
 //////////////
 
 /obj/item/clothing/neck/necklace/dope
-	name = "gold necklace"
+	name = "dope gold necklace"
 	desc = "Damn, it feels good to be a gangster."
 	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "bling"
+
+/obj/item/clothing/neck/necklace/dope/cross
+	name = "gold cross necklace"
+	desc = "In nomine Patris, et Filii, et Spiritus Sancti."
+	icon_state = "cross"
 
 /obj/item/clothing/neck/neckerchief
 	icon = 'icons/obj/clothing/masks.dmi' //In order to reuse the bandana sprite
