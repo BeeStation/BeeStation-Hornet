@@ -291,14 +291,12 @@
 		qdel(src)
 	return TRUE
 
-/obj/item/shard/proc/on_entered(datum/source, mob/living/L)
+/obj/item/shard/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-
-	if(istype(L) && has_gravity(loc))
-		if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
-			playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
-		else
-			playsound(loc, 'sound/effects/glass_step.ogg', 50, 1)
+	if(isliving(AM))
+		var/mob/living/L = AM
+		if(!(L.movement_type & (FLYING|FLOATING)) || L.buckled)
+			playsound(src, 'sound/effects/footstep/glass_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 30 : 50, TRUE)
 
 /obj/item/shard/plasma
 	name = "purple shard"
