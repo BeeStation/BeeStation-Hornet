@@ -121,22 +121,23 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Miscellaneous
 	var/static/reactorcount = 0
 	var/lastwarning = 0
-	can_unwrench = 1
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset
 	id = "default_reactor_for_lazy_mappers"
 //Use this in your maps if you want everything to be preset.
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset/Initialize(mapload)
 	. = ..()
-	var/obj/machinery/atmospherics/pipe/simple/general/hidden/pipe1 = new /obj/machinery/atmospherics/pipe/simple/general/hidden(locate(x-1,y,z))
-	pipe1.dir = 8
-	pipe1.layer = 3
-	var/obj/machinery/atmospherics/pipe/simple/general/hidden/pipe2 = new /obj/machinery/atmospherics/pipe/simple/general/hidden(locate(x+1,y,z))
-	pipe2.dir = 8
-	pipe2.layer = 3
-	var/obj/machinery/atmospherics/pipe/simple/general/hidden/pipe3 = new /obj/machinery/atmospherics/pipe/simple/general/hidden(locate(x,y+1,z))
-	pipe3.dir = 1
-	pipe3.layer = 3
+	var/pipe_type = /obj/machinery/atmospherics/pipe/simple
+	var/obj/machinery/atmospherics/path = pipe_type
+	var/pipe_item_type = initial(path.construction_type) || /obj/item/pipe
+	var/obj/item/pipe/pipe1 = new pipe_item_type(locate(x-1,y,z), pipe_type, 4)
+	var/obj/item/pipe/pipe2 = new pipe_item_type(locate(x+1,y,z), pipe_type, 4)
+	var/obj/item/pipe/pipe3 = new pipe_item_type(locate(x,y+1,z), pipe_type, 1)
+	pipe1.wrench_act()
+	pipe2.wrench_act()
+	pipe3.wrench_act()
+
+
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
@@ -207,36 +208,49 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			vessel_integrity += 10
 			vessel_integrity = clamp(vessel_integrity, 0, initial(vessel_integrity))
 		return TRUE
-	return ..()
-
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/welder_act(mob/living/user, obj/item/I)
-	if(slagged)
-		to_chat(user, "<span class='notice'>You can't repair [src], it's completely slagged!</span>")
-		return FALSE
-	if(power >= 20)
-		to_chat(user, "<span class='notice'>You can't repair [src] while it is running at above 20% power.</span>")
-		return FALSE
-	if(vessel_integrity > 0.5 * initial(vessel_integrity))
-		to_chat(user, "<span class='notice'>[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant.</span>")
-		return FALSE
-	if(I.use_tool(src, user, 0, volume=40))
+	if(W.tool_behaviour == TOOL_WELDER)
+		if(slagged)
+			to_chat(user, "<span class='notice'>You can't repair [src], it's completely slagged!</span>")
+			return FALSE
+		if(power >= 20)
+			to_chat(user, "<span class='notice'>You can't repair [src] while it is running at above 20% power.</span>")
+			return FALSE
 		if(vessel_integrity > 0.5 * initial(vessel_integrity))
 			to_chat(user, "<span class='notice'>[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant.</span>")
 			return FALSE
-		vessel_integrity += 20
-		to_chat(user, "<span class='notice'>You weld together some of [src]'s cracks. This'll do for now.</span>")
-	return TRUE
-
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/wrench_act(mob/user, obj/item/tool)
-	if(anchored)
-		if(power >= 5)
-			balloon_alert(user, "You can't unwrench the reactor when it has been raised above 5% power!")
-			return
-		if(tool.use_tool(src, user, 40, volume=100))
-			anchored = FALSE
-	else
-		if(tool.use_tool(src, user, 40, volume=100))
-			anchored = TRUE
+		if(W.use_tool(src, user, 0, volume=40))
+			if(vessel_integrity > 0.5 * initial(vessel_integrity))
+				to_chat(user, "<span class='notice'>[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant.</span>")
+				return FALSE
+			vessel_integrity += 20
+			to_chat(user, "<span class='notice'>You weld together some of [src]'s cracks. This'll do for now.</span>")
+			return TRUE
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
+		if(power >= 20)
+			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it's still above 20% power!")
+			return FALSE
+		if (fuel_rods.len > 0)
+			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it still has fuel rods inside!.</span>")
+			return FALSE
+		default_deconstruction_screwdriver(user, "reactor_off", "reactor_off", W) //REPLACE SPRITES WITH ACTUAL SPRITES LATER
+	if(W.tool_behaviour == TOOL_CROWBAR)
+		if(panel_open)
+			if(power >= 20)
+				to_chat(user, "<span class='notice'>You can't deconstruct the [src] while it's still above 20% power!")
+				return FALSE
+			if (fuel_rods.len > 0)
+				to_chat(user, "<span class='notice'>You can't deconstruct the [src] while it still has fuel rods inside!.</span>")
+				return FALSE
+			default_deconstruction_crowbar(W)
+		else
+			if(power >= 20)
+				to_chat(user, "<span class='notice'>You can't remove any fuel rods while the [src] is above 20% power!")
+				return FALSE
+			if (fuel_rods.len > 0)
+				to_chat(user, "<span class='notice'>The [src] is empty of fuel rods!.</span>")
+				return FALSE
+			removeFuelRod(user, src)
+	return ..()
 
 //Admin procs to mess with the reaction environment.
 
@@ -277,7 +291,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/on_entered(datum/source, atom/movable/AM, oldloc)
 	SIGNAL_HANDLER
-
 	if(isliving(AM) && temperature > 0)
 		var/mob/living/L = AM
 		L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
@@ -503,7 +516,19 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			SEND_SIGNAL(src, COMSIG_SUPERMATTER_DELAM_ALARM)
 			lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 
-
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/removeFuelRod(mob/user, /obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor)
+	if(src.power > 20)
+		to_chat(user, "<span class='warning'>You cannot remove fuel from [src] when it is above 20% power.</span>")
+		return FALSE
+	if(!src.fuel_rods.len)
+		to_chat(user, "<span class='warning'>[src] does not have any fuel rods loaded.</span>")
+		return FALSE
+	var/atom/movable/fuel_rod = input(usr, "Select a fuel rod to remove", "Fuel Rods List", null) as null|anything in src.fuel_rods
+	if(!fuel_rod)
+		return
+	playsound(src, pick('sound/effects/rbmk/switch.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
+	fuel_rod.forceMove(get_turf(src))
+	src.fuel_rods -= fuel_rod
 
 //Failure condition 1: Meltdown. Achieved by having heat go over tolerances. This is less devastating because it's easier to achieve.
 //Results: Engineering becomes unusable and your engine irreparable

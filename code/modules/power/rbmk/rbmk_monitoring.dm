@@ -220,7 +220,7 @@
 				if(usr.get_virtual_z_level() != R.get_virtual_z_level())
 					continue
 				choices += R
-			reactor = input(usr, "What reactor do you wish to monitor?", "[src]", null) as null|anything in choices
+			reactor = input(usr, "What reactor do you wish to monitor?", "Nuclear Monitoring Selector", null) as null|anything in choices
 			powerData = list()
 			psiData = list()
 			tempInputData = list()
