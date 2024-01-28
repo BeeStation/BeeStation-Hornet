@@ -2,7 +2,7 @@
 /obj/effect/spresent
 	name = "strange present"
 	desc = "It's a ... present?"
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "strangepresent"
 	density = TRUE
 	anchored = FALSE
@@ -72,6 +72,10 @@
 	icon_state = "white"
 	plane = LIGHTING_PLANE
 	blend_mode = BLEND_ADD
+
+/obj/effect/fullbright/starlight
+	plane = STARLIGHT_PLANE
+	transform = matrix(2, 0, 0, 0, 2, 0)
 
 /obj/effect/abstract/marker
 	name = "marker"

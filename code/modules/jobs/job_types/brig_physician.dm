@@ -15,8 +15,8 @@
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/brig_physician
 
-	access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
-	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
+	access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS, ACCESS_MECH_MEDICAL)
+	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS, ACCESS_MECH_MEDICAL)
 
 	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_SEC
@@ -53,6 +53,6 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
-	box = /obj/item/storage/box/security
+	box = /obj/item/storage/box/survival/security
 
 	chameleon_extras = /obj/item/gun/syringe

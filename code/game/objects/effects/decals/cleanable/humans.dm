@@ -6,6 +6,7 @@
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	clean_type = CLEAN_TYPE_BLOOD
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	C.add_blood_DNA(return_blood_DNA())
@@ -19,24 +20,21 @@
 	desc = "Looks like it's been here a while.  Eew."
 	bloodiness = 0
 	icon_state = "floor1-old"
-	var/list/disease = list()
+	var/list/datum/disease/diseases = list()
 
 /obj/effect/decal/cleanable/blood/old/Initialize(mapload, list/datum/disease/diseases)
 	add_blood_DNA(list("Non-human DNA" = random_blood_type())) // Needs to happen before ..()
 	. = ..()
 	icon_state = "[icon_state]-old" //change from the normal blood icon selected from random_icon_states in the parent's Initialize to the old dried up blood.
+	if(length(diseases))
+		src.diseases += diseases
 	if(prob(75))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 4), rand(7, 9), 4)
-		disease += R
+		var/datum/disease/advance/new_disease = new /datum/disease/advance/random(rand(1, 4), rand(7, 9), 4)
+		src.diseases += new_disease
 
-/obj/effect/decal/cleanable/blood/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(!disease.len)
-		return FALSE
-	if(scan)
-		E.scan(src, disease, user)
-	else
-		E.extrapolate(src, disease, user)
-	return TRUE
+/obj/effect/decal/cleanable/blood/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
 
 /obj/effect/decal/cleanable/blood/splatter
 	icon_state = "gibbl1"
@@ -158,25 +156,22 @@
 	desc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
 	bloodiness = 0
 	already_rotting = TRUE
-	var/list/disease = list()
+	var/list/datum/disease/diseases = list()
 
 /obj/effect/decal/cleanable/blood/gibs/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
-	setDir(pick(1,2,4,8))
+	setDir(pick(1, 2, 4, 8))
 	icon_state += "-old"
 	add_blood_DNA(list("Non-human DNA" = random_blood_type()))
+	if(length(diseases))
+		src.diseases += diseases
 	if(prob(80))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), rand(8, 9), 4)
-		disease += R
+		var/datum/disease/advance/new_disease = new /datum/disease/advance/random(rand(3, 6), rand(8, 9), 4)
+		src.diseases += new_disease
 
-/obj/effect/decal/cleanable/blood/gibs/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(!disease.len)
-		return FALSE
-	if(scan)
-		E.scan(src, disease, user)
-	else
-		E.extrapolate(src, disease, user)
-	return TRUE
+/obj/effect/decal/cleanable/blood/gibs/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
 
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"

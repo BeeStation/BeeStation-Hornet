@@ -13,12 +13,14 @@
 	use_power = NO_POWER_USE
 	req_access = null
 	max_integrity = 200
-	integrity_failure = 50
+	integrity_failure = 0.25
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
 	zmm_flags = ZMM_MANGLE_PLANES
+
+	light_power = 0.85
 
 
 
@@ -175,7 +177,7 @@
 	GLOB.apcs_list -= src
 
 	if(malfai && operating)
-		malfai.malf_picker.processing_time = CLAMP(malfai.malf_picker.processing_time - 10,0,1000)
+		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	if(area)
 		area.power_light = FALSE
 		area.power_equip = FALSE
@@ -578,7 +580,7 @@
 
 		//=====Clock Cult=====
 		if(integration_cog && cell.charge >= cell.maxcharge/2)
-			var/power_delta = CLAMP(cell.charge - 20, 0, 20)
+			var/power_delta = clamp(cell.charge - 20, 0, 20)
 			GLOB.clockcult_power += power_delta
 			cell.charge -= power_delta
 

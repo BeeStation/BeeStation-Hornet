@@ -329,6 +329,7 @@
 	},
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn{
 	name = "\improper TOZ-1";
+	reinforced = 1;
 	pixel_y = -7
 	},
 /obj/effect/decal/cleanable/robot_debris{
@@ -597,18 +598,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
-"Dg" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken6"
-	},
-/area/shuttle/hunter)
 "Dv" = (
 /obj/structure/table,
 /obj/item/ammo_box/a762{
@@ -624,7 +613,12 @@
 	},
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn{
 	name = "\improper TOZ-1";
+	reinforced = 1;
 	pixel_y = -4
+	},
+/obj/item/hacksaw{
+	pixel_x = -2;
+	pixel_y = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/hunter)
@@ -795,7 +789,7 @@
 "Ln" = (
 /obj/effect/turf_decal/box/corners,
 /obj/machinery/iv_drip,
-/obj/item/deployable/rollerbed{
+/obj/item/rollerbed{
 	pixel_x = -10;
 	pixel_y = 14
 	},
@@ -944,16 +938,16 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
-"Sk" = (
+"Se" = (
 /obj/structure/table,
 /obj/machinery/microwave{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/meat/slab/bear{
+/obj/item/food/meat/slab/bear{
 	pixel_y = 8;
 	pixel_x = 4
 	},
-/obj/item/reagent_containers/food/snacks/meat/slab/bear{
+/obj/item/food/meat/slab/bear{
 	pixel_y = 1;
 	pixel_x = -3
 	},
@@ -966,6 +960,18 @@
 	dir = 6
 	},
 /turf/open/floor/wood,
+/area/shuttle/hunter)
+"Sp" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/wood{
+	broken = 1
+	},
 /area/shuttle/hunter)
 "SC" = (
 /obj/effect/turf_decal/box/corners{
@@ -1040,7 +1046,7 @@
 	pixel_y = 11
 	},
 /obj/item/gun/ballistic/revolver/russian,
-/obj/item/kitchen/knife/hunting{
+/obj/item/knife/hunting{
 	pixel_y = -1
 	},
 /obj/effect/turf_decal/siding/wood,
@@ -1258,7 +1264,7 @@ cM
 (13,1,1) = {"
 Al
 vH
-Dg
+Sp
 OG
 sr
 oM
@@ -1300,7 +1306,7 @@ vy
 (16,1,1) = {"
 Al
 wj
-Sk
+Se
 Hk
 lN
 nn

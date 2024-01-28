@@ -66,13 +66,15 @@
 	. = ..()
 	switch(blocks_emissive)
 		if(EMISSIVE_BLOCK_GENERIC)
-			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, 0 , EMISSIVE_BLOCKER_PLANE)
+			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE)
 			gen_emissive_blocker.dir = dir
-			gen_emissive_blocker.appearance_flags |= appearance_flags
+			gen_emissive_blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
+			gen_emissive_blocker.color = GLOB.em_blocker_matrix
 			add_overlay(list(gen_emissive_blocker))
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
 			em_block = new(src, render_target)
+			update_appearance(UPDATE_OVERLAYS)
 	if(opacity)
 		AddElement(/datum/element/light_blocking)
 
@@ -91,9 +93,10 @@
 	if(!blocks_emissive)
 		return
 	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
-		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, 0, EMISSIVE_BLOCKER_PLANE)
+		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, layer, EMISSIVE_PLANE)
 		gen_emissive_blocker.dir = dir
-		gen_emissive_blocker.appearance_flags |= appearance_flags
+		gen_emissive_blocker.appearance_flags = EMISSIVE_APPEARANCE_FLAGS
+		gen_emissive_blocker.color = GLOB.em_blocker_matrix
 		return gen_emissive_blocker
 	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
 		if(!em_block && !QDELETED(src))
@@ -164,7 +167,7 @@
 		log_combat(AM, AM.pulledby, "pulled from", src)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
-	AM.pulledby = src
+	AM.set_pulledby(src)
 	setGrabState(state)
 	if(ismob(AM))
 		var/mob/M = AM
@@ -172,17 +175,30 @@
 		if(!supress_message)
 			M.visible_message("<span class='warning'>[src] grabs [M] passively.</span>", \
 				"<span class='danger'>[src] grabs you passively.</span>")
+	SEND_SIGNAL(pulling, COMSIG_MOVABLE_PULLED)
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
-		pulling.pulledby = null
+		if(ismob(pulling?.pulledby))
+			pulling.pulledby.log_message("has stopped pulling [key_name(pulling)]", LOG_ATTACK)
+		if(ismob(pulling))
+			pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)]", LOG_ATTACK)
+		pulling.set_pulledby(null)
 		var/mob/living/ex_pulled = pulling
+		setGrabState(GRAB_PASSIVE)
 		pulling = null
-		setGrabState(0)
 		if(isliving(ex_pulled))
 			var/mob/living/L = ex_pulled
 			L.update_mobility()// mob gets up if it was lyng down in a chokehold
+		SEND_SIGNAL(ex_pulled, COMSIG_MOVABLE_NO_LONGER_PULLED)
+
+///Reports the event of the change in value of the pulledby variable.
+/atom/movable/proc/set_pulledby(new_pulledby)
+	if(new_pulledby == pulledby)
+		return FALSE //null signals there was a change, be sure to return FALSE if none happened here.
+	. = pulledby
+	pulledby = new_pulledby
 
 /atom/movable/proc/Move_Pulled(atom/A)
 	if(!pulling)
@@ -392,7 +408,7 @@
 			return
 
 	if(!loc || (loc == oldloc && oldloc != newloc))
-		last_move = 0
+		last_move = null
 		return
 
 	if(. && pulling && pulling == pullee && pulling != moving_from_pull) //we were pulling a thing and didn't lose it during our move.
@@ -408,6 +424,7 @@
 			check_pulling()
 
 	last_move = direct
+	last_move_time = world.time
 
 	if(set_dir_on_move && flat_direct)
 		setDir(flat_direct)
@@ -506,6 +523,7 @@
 /atom/movable/Cross(atom/movable/AM)
 	. = TRUE
 	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSS, AM)
+	SEND_SIGNAL(AM, COMSIG_MOVABLE_CROSS_OVER, src)
 	return CanPass(AM, get_dir(src, AM))
 
 ///default byond proc that is deprecated for us in lieu of signals. do not call
@@ -666,6 +684,10 @@
 	if(QDELETED(src))
 		CRASH("Qdeleted thing being thrown around.")
 
+	//Snowflake case for click masks
+	if (istype(target, /atom/movable/screen))
+		target = target.loc
+
 	if (!target || speed <= 0)
 		return
 
@@ -674,6 +696,7 @@
 
 	if (pulledby)
 		pulledby.stop_pulling()
+	
 
 	//They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
 	if (thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag*2)
@@ -705,7 +728,7 @@
 	if(QDELETED(thrower) || !istype(thrower))
 		thrower = null //Let's not pass an invalid reference.
 	else
-		target_zone = thrower.zone_selected
+		target_zone = thrower.get_combat_bodyzone(target)
 
 	var/datum/thrownthing/TT = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
 
@@ -753,6 +776,7 @@
 		if(!buckled_mob.Move(newloc, direct))
 			doMove(buckled_mob.loc) //forceMove breaks buckles on stairs, use doMove
 			last_move = buckled_mob.last_move
+			last_move_time = world.time
 			return FALSE
 	return TRUE
 
@@ -850,12 +874,12 @@
 	var/obj/effect/icon/temp/attack_animation_object
 	if(visual_effect_icon)
 		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
-		attack_animation_object = new(A.loc, I, 10)
+		attack_animation_object = new(get_turf(A), I, 10) //A.loc is an area when A is a turf
 	else if(used_item)
 		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
 		I.plane = GAME_PLANE
 		I.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
-		attack_animation_object = new(A.loc, I, 10)
+		attack_animation_object = new(get_turf(A), I, 10)
 
 		// Scale the icon.
 		attack_animation_object.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
@@ -1056,7 +1080,21 @@
 /// Updates the grab state of the movable
 /// This exists to act as a hook for behaviour
 /atom/movable/proc/setGrabState(newstate)
+	if(newstate == grab_state)
+		return
+	SEND_SIGNAL(src, COMSIG_MOVABLE_SET_GRAB_STATE, newstate)
+	. = grab_state
 	grab_state = newstate
+	switch(.) //Previous state.
+		if(GRAB_PASSIVE, GRAB_AGGRESSIVE)
+			if(grab_state >= GRAB_NECK)
+				ADD_TRAIT(pulling, TRAIT_IMMOBILIZED, CHOKEHOLD_TRAIT)
+				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+	switch(grab_state) //Current state.
+		if(GRAB_PASSIVE, GRAB_AGGRESSIVE)
+			if(. >= GRAB_NECK)
+				REMOVE_TRAIT(pulling, TRAIT_IMMOBILIZED, CHOKEHOLD_TRAIT)
+				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 
 /obj/item/proc/do_pickup_animation(atom/target)
 	set waitfor = FALSE

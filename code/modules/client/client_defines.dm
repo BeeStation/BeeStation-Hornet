@@ -12,6 +12,9 @@
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc
 
+	/// Acts the same way holder does towards admin: it holds the mentor datum. if set, the client is a mentor.
+	var/datum/mentors/mentor_datum = null
+
 	/// Whether the client has ai interacting as a ghost enabled or not
 	var/AI_Interact		= 0
 
@@ -112,7 +115,7 @@
 	var/last_completed_asset_job = 0
 
 	/// rate limiting for the crew manifest
-	var/crew_manifest_delay
+	COOLDOWN_DECLARE(crew_manifest_delay)
 
 	//Tick when ghost roles are useable again
 	var/next_ghost_role_tick = 0

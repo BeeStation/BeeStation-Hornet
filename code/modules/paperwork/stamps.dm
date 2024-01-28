@@ -8,11 +8,12 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
-	materials = list(/datum/material/iron=60)
+	custom_materials = list(/datum/material/iron=60)
 	pressure_resistance = 2
 	attack_verb = list("stamped")
+	dye_color = DYE_GREEN
 
-/obj/item/stamp/suicide_act(mob/user)
+/obj/item/stamp/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")
 	playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 	return OXYLOSS
@@ -68,7 +69,7 @@
 /obj/item/stamp/denied
 	name = "\improper DENIED rubber stamp"
 	icon_state = "stamp-deny"
-	dye_color = DYE_REDCOAT
+	dye_color = DYE_DENIED
 
 /obj/item/stamp/void
 	name = "VOID rubber stamp"

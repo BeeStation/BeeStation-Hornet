@@ -31,6 +31,7 @@
 	max_integrity = 50
 	dog_fashion = /datum/dog_fashion/head
 	color = COLOR_WHITE
+	dye_color = DYE_WHITE
 
 	/// Lazylist of raw, unsanitised, unparsed text inputs that have been made to the paper.
 	var/list/datum/paper_input/raw_text_inputs
@@ -60,6 +61,9 @@
 	/// The paper is located in nullspace, and holds a weak ref to the camera that once contained it so the paper can do some
 	/// state checking on if it should be shown to a viewer.
 	var/datum/weakref/camera_holder
+
+	///If TRUE, staff can read paper everywhere, but usually from requests panel.
+	var/request_state = FALSE
 
 /obj/item/paper/Initialize(mapload)
 	. = ..()
@@ -298,9 +302,9 @@
 	add_fingerprint(usr)
 	update_static_data()
 
-/obj/item/paper/suicide_act(mob/user)
+/obj/item/paper/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
@@ -316,7 +320,7 @@
 		// Are we on fire?  Hard ot read if so
 	if(resistance_flags & ON_FIRE)
 		return UI_CLOSE
-	if(camera_holder && can_show_to_mob_through_camera(user))
+	if(camera_holder && can_show_to_mob_through_camera(user) || request_state)
 		return UI_UPDATE
 	if(!in_range(user,src))
 		return UI_CLOSE
@@ -373,7 +377,7 @@
 		return
 
 	// Handle writing items.
-	var/writing_stats = attacking_item.get_writing_implement_details()
+	var/writing_stats = istype(attacking_item) ? attacking_item.get_writing_implement_details() : null
 
 	if(!writing_stats)
 		ui_interact(user)
@@ -476,7 +480,7 @@
 		if(clipboard.pen)
 			holding = clipboard.pen
 
-	data["held_item_details"] = holding?.get_writing_implement_details()
+	data["held_item_details"] = istype(holding) ? holding.get_writing_implement_details() : null
 
 	// If the paper is on an unwritable noticeboard, clear the held item details so it's read-only.
 	if(istype(loc, /obj/structure/noticeboard))

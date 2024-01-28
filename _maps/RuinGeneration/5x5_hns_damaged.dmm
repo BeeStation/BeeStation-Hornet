@@ -9,16 +9,16 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "z" = (
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "D" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "F" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "J" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1

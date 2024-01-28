@@ -14,7 +14,7 @@
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/mouse = 1)
+	butcher_results = list(/obj/item/food/meat/slab/mouse = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
@@ -27,10 +27,10 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
 	chat_color = "#82AF84"
-	var/list/ratdisease = list()
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
-
+	/// A list of diseases carried by this rat.
+	var/list/datum/disease/rat_diseases = list()
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
@@ -42,22 +42,15 @@
 	icon_dead = "mouse_[body_color]_dead"
 	held_state = "mouse_[body_color]"
 	if(prob(75))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 9, 1, infected = src)
-		ratdisease += R
+		rat_diseases += new /datum/disease/advance/random(rand(1, 6), 9, 1, infected = src)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/mob/living/simple_animal/mouse/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(!ratdisease.len)
-		return FALSE
-	if(scan)
-		E.scan(src, ratdisease, user)
-	else
-		E.extrapolate(src, ratdisease, user)
-	return TRUE
-
+/mob/living/simple_animal/mouse/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., rat_diseases)
 
 /mob/living/simple_animal/mouse/proc/splat()
 	src.health = 0
@@ -65,7 +58,7 @@
 	death()
 
 /mob/living/simple_animal/mouse/death(gibbed, toast)
-	var/list/data = list("viruses" = ratdisease)
+	var/list/data = list("viruses" = rat_diseases)
 	if(!ckey)
 		..(1)
 		if(!gibbed)
@@ -91,7 +84,7 @@
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability))
 		var/turf/open/floor/F = get_turf(src)
-		if(istype(F) && !F.intact)
+		if(istype(F) && F.underfloor_accessibility >= UNDERFLOOR_INTERACTABLE)
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
 				if(C.avail())
@@ -145,7 +138,7 @@
 /obj/item/reagent_containers/food/snacks/deadmouse/attackby(obj/item/I, mob/user, params)
 	if(I.is_sharp() && user.a_intent == INTENT_HARM)
 		if(isturf(loc))
-			new /obj/item/reagent_containers/food/snacks/meat/slab/mouse(loc)
+			new /obj/item/food/meat/slab/mouse(loc)
 			to_chat(user, "<span class='notice'>You butcher [src].</span>")
 			qdel(src)
 		else
@@ -155,3 +148,8 @@
 
 /obj/item/reagent_containers/food/snacks/deadmouse/on_grind()
 	reagents.clear_reagents()
+
+/obj/item/reagent_containers/food/snacks/deadmouse/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run)
+	. = ..()
+	if(EXTRAPOLATOR_ACT_CHECK(., EXTRAPOLATOR_ACT_PRIORITY_ISOLATE))
+		. -= EXTRAPOLATOR_RESULT_ACT_PRIORITY

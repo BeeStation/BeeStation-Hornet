@@ -116,7 +116,7 @@
 	message_admins("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 	log_game("DYNAMIC: Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 
-	candidates = pollGhostCandidates("The mode is looking for volunteers to become [initial(antag_datum.name)] for [name]", initial(antag_datum.banning_key), role_preference, poll_time = 300)
+	candidates = poll_ghost_candidates("The mode is looking for volunteers to become [initial(antag_datum.name)] for [name]", initial(antag_datum.banning_key), role_preference, poll_time = 300)
 
 	if(!length(candidates))
 		message_admins("The ruleset [name] received no applications.")
@@ -298,7 +298,7 @@
 	weight = 1
 	cost = 15
 	requirements = REQUIREMENTS_VERY_HIGH_THREAT_NEEDED
-	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET
+	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/ready(forced = FALSE)
 	if(!length(GLOB.wizardstart))
@@ -366,8 +366,8 @@
 	minimum_round_time = 35 MINUTES
 	weight = 3
 	cost = 12
-	minimum_players = 25
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
+	minimum_players = 22
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/blob/generate_ruleset_body(mob/applicant)
 	var/body = applicant.become_overmind()
@@ -390,8 +390,8 @@
 	minimum_round_time = 40 MINUTES
 	weight = 3
 	cost = 12
-	minimum_players = 25
-	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
+	minimum_players = 22
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 	var/list/vents
 
 /datum/dynamic_ruleset/midround/from_ghosts/xenomorph/acceptable(population=0, threat=0)
@@ -490,9 +490,9 @@
 	required_candidates = 1
 	weight = 4
 	cost = 11
-	minimum_players = 25
+	minimum_players = 22
 	repeatable = TRUE
-	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
 	var/list/spawn_locs
 
 /datum/dynamic_ruleset/midround/from_ghosts/space_dragon/ready(forced = FALSE)
@@ -536,7 +536,7 @@
 	required_applicants = 2
 	weight = 4
 	cost = 7
-	minimum_players = 25
+	minimum_players = 22
 	repeatable = TRUE
 	var/datum/team/abductor_team/new_team
 
@@ -623,8 +623,9 @@
 	required_candidates = 0
 	weight = 4
 	cost = 8
-	minimum_players = 27
+	minimum_players = 25
 	repeatable = FALSE
+	flags = LATEGAME_RULESET
 
 /datum/dynamic_ruleset/midround/pirates/acceptable(population=0, threat=0)
 	if (!SSmapping.empty_space)
@@ -690,8 +691,8 @@
 	weight = 3
 	cost = 11
 	repeatable = TRUE
-	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
-	minimum_players = 27
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET|LATEGAME_RULESET
+	minimum_players = 25
 	var/fed = 1
 	var/list/vents
 	var/datum/team/spiders/spider_team
@@ -886,6 +887,7 @@
 	minimum_players = 20
 	repeatable = TRUE
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear, /datum/dynamic_ruleset/roundstart/clockcult)
+	flags = LATEGAME_RULESET
 	var/spawn_loc
 
 /datum/dynamic_ruleset/midround/from_ghosts/ninja/ready(forced)

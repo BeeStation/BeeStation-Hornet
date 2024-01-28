@@ -12,6 +12,8 @@
 	var/icon_right = "bloodhand_right"
 	hitsound = 'sound/hallucinations/growl1.ogg'
 	force = 21 // Just enough to break airlocks with melee attacks
+	/// Base infection chance of 80%, gets lowered with armour
+	var/base_infection_chance = 80
 	damtype = BRUTE
 
 /obj/item/zombie_hand/Initialize(mapload)
@@ -34,10 +36,10 @@
 	else if(isliving(target))
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			var/flesh_wound = ran_zone(user.zone_selected)
+			var/flesh_wound = ran_zone(user.get_combat_bodyzone(target))
 			if(H.check_shields(src, 0))
 				return
-			if(prob(100-H.getarmor(flesh_wound, MELEE, armour_penetration)))
+			if(prob(base_infection_chance-H.getarmor(flesh_wound, MELEE, armour_penetration)))
 				try_to_zombie_infect(target)
 		else
 			check_feast(target, user)
@@ -56,20 +58,17 @@
 		infection = new()
 		infection.Insert(target)
 
-
-
-/obj/item/zombie_hand/suicide_act(mob/user)
+/obj/item/zombie_hand/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is ripping [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	if(isliving(user))
-		var/mob/living/L = user
-		var/obj/item/bodypart/O = L.get_bodypart(BODY_ZONE_HEAD)
-		if(O)
-			O.dismember()
-	return (BRUTELOSS)
+	var/obj/item/bodypart/head = user.get_bodypart(BODY_ZONE_HEAD)
+	if(head)
+		head.dismember()
+	return BRUTELOSS
 
 /obj/item/zombie_hand/proc/check_feast(mob/living/target, mob/living/user)
 	if(target.stat == DEAD)
 		var/hp_gained = target.maxHealth
+		target.investigate_log("has been devoured by a zombie.", INVESTIGATE_DEATHS)
 		target.gib()
 		// zero as argument for no instant health update
 		user.adjustBruteLoss(-hp_gained, 0)

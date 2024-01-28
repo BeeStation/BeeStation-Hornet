@@ -107,7 +107,11 @@
 		return
 
 	for(var/atom/movable/AM in range(radius_range, a))
-		if((AM.flags_1 & HOLOGRAM_1)  || (blacklist && (AM.type in blacklist)))
+		if(blacklist && (AM.type in blacklist))
+			continue
+		else if(istype(get_area(AM), /area/holodeck/prison)) //don't prevent crafting in the prison workshop
+			. += AM
+		else if(AM.flags_1 & HOLOGRAM_1)
 			continue
 		. += AM
 
@@ -199,7 +203,13 @@
 	log_crafting(user, TR.name, result, TR.dangerous_craft)
 	if(!istext(result)) //We made an item and didn't get a fail message
 		if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
-			user.put_in_hands(result)
+			if(!user.put_in_hands(result))
+				var/turf/front_turf = get_step(user, user.dir)
+				if(user.TurfAdjacent(front_turf))
+					if((locate(/obj/structure/table) in front_turf) || (locate(/obj/structure/rack) in front_turf))
+						result.forceMove(front_turf)
+						result.pixel_x = rand(-4, 4)
+						result.pixel_y = rand(-4, 4)
 		else
 			result.forceMove(user.drop_location())
 		to_chat(user, "<span class='notice'>[TR.name] constructed.</span>")

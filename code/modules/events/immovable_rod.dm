@@ -65,6 +65,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination = end
 	special_target = aimed_at
 	AddElement(/datum/element/point_of_interest)
+	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 
 	var/special_target_valid = FALSE
 	if(special_target)
@@ -86,7 +87,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(href_list["orbit"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			ghost.ManualFollow(src)
+			ghost.check_orbitable(src)
 
 /obj/effect/immovablerod/Moved()
 	if(!loc)
@@ -129,7 +130,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	if(isturf(clong) || isobj(clong))
 		if(clong.density)
-			clong.ex_act(EXPLODE_HEAVY)
+			EX_ACT(clong, EXPLODE_HEAVY)
 
 	else if(isliving(clong))
 		penetrate(clong)
@@ -152,7 +153,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		var/mob/living/carbon/human/H = L
 		H.adjustBruteLoss(160)
 	if(L && (L.density || prob(10)))
-		L.ex_act(EXPLODE_HEAVY)
+		EX_ACT(L, EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/attack_hand(mob/living/user)
 	if(ishuman(user))

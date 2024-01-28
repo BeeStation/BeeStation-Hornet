@@ -8,7 +8,7 @@
 #define GENERATE_STAGE_BUILD_COORDINATES 3
 #define GENERATE_STAGE_COMPLETED 4
 
-/datum/map_generator/map_place
+/datum/async_map_generator/map_place
 	/// The map template we are placing
 	var/datum/parsed_map/placing_template
 
@@ -69,7 +69,7 @@
 	var/zcrd
 	var/zexpansion
 
-/datum/map_generator/map_place/New(datum/parsed_map/placing_template, x_offset = 1, y_offset = 1, z_offset = world.maxz + 1, cropMap = FALSE, no_changeturf = FALSE, x_lower = -INFINITY, x_upper = INFINITY, y_lower = -INFINITY, y_upper = INFINITY, placeOnTop = FALSE)
+/datum/async_map_generator/map_place/New(datum/parsed_map/placing_template, x_offset = 1, y_offset = 1, z_offset = world.maxz + 1, cropMap = FALSE, no_changeturf = FALSE, x_lower = -INFINITY, x_upper = INFINITY, y_lower = -INFINITY, y_upper = INFINITY, placeOnTop = FALSE)
 	. = ..()
 	src.placing_template = placing_template
 	src.x_offset = x_offset
@@ -83,7 +83,7 @@
 	src.y_upper = y_upper
 	place_on_top = placeOnTop
 
-/datum/map_generator/map_place/execute_run()
+/datum/async_map_generator/map_place/execute_run()
 	..()
 	if (current_run == GENERATE_STAGE_BUILD_CACHE_START)
 		build_cache_start()
@@ -97,18 +97,18 @@
 		SSatoms.map_loader_stop(REF(src))
 	. = current_run == GENERATE_STAGE_COMPLETED
 
-/datum/map_generator/map_place/proc/set_stage(stage)
+/datum/async_map_generator/map_place/proc/set_stage(stage)
 	run_stage = 1
 	current_run = stage
 
-/datum/map_generator/map_place/get_name()
+/datum/async_map_generator/map_place/get_name()
 	return placing_template?.original_path || "Unkown map"
 
 //======================================
 // COORDINATE BUILDING
 //======================================
 
-/datum/map_generator/map_place/proc/build_coordinates_start()
+/datum/async_map_generator/map_place/proc/build_coordinates_start()
 	//Locate the space key
 	space_key = model_cache[SPACE_KEY]
 	//Set them all to the same reference, so changing one affects the other
@@ -116,7 +116,7 @@
 	//Move to the next stage
 	set_stage(GENERATE_STAGE_BUILD_COORDINATES)
 
-/datum/map_generator/map_place/proc/build_coordinates()
+/datum/async_map_generator/map_place/proc/build_coordinates()
 	while (TRUE)
 		// Perform inner loop first
 		while (gset && current_grid_line <= length(gset.gridLines))
@@ -173,7 +173,7 @@
 		if (TICK_CHECK)
 			return
 
-/datum/map_generator/map_place/proc/build_coordinate_grid_line()
+/datum/async_map_generator/map_place/proc/build_coordinate_grid_line()
 	// Get the current grid line
 	var/line = gset.gridLines[current_grid_line ++]
 	if((ycrd - y_offset + 1) < y_lower || (ycrd - y_offset + 1) > y_upper)				//Reverse operation and check if it is out of bounds of cropping.
@@ -220,7 +220,7 @@
 //======================================
 
 /// Initialize cache building
-/datum/map_generator/map_place/proc/build_cache_start()
+/datum/async_map_generator/map_place/proc/build_cache_start()
 	// Model cache is already setup
 	if (placing_template.modelCache)
 		model_cache = placing_template.modelCache
@@ -236,7 +236,7 @@
 	build_cache_set_model_loop()
 
 /// Build the cache
-/datum/map_generator/map_place/proc/build_cache()
+/datum/async_map_generator/map_place/proc/build_cache()
 	do
 		// dpos loop
 		while (dpos != 0)
@@ -274,7 +274,7 @@
 	while(build_cache_move_next())
 
 /// Move to the next element in the build cache
-/datum/map_generator/map_place/proc/build_cache_move_next()
+/datum/async_map_generator/map_place/proc/build_cache_move_next()
 	run_stage ++
 	//Check if we are still in range
 	if (run_stage > length(grid_models))
@@ -288,7 +288,7 @@
 	return TRUE
 
 /// Start of the grid_model loop
-/datum/map_generator/map_place/proc/build_cache_set_model_loop()
+/datum/async_map_generator/map_place/proc/build_cache_set_model_loop()
 	model = grid_models[model_key]
 	members = list()
 	members_attributes = list()
@@ -298,7 +298,7 @@
 	old_position = 1
 
 /// Constructing members and corresponding variables lists
-/datum/map_generator/map_place/proc/build_cache_construct_members()
+/datum/async_map_generator/map_place/proc/build_cache_construct_members()
 	//finding next member (e.g /turf/unsimulated/wall{icon_state = "rock"} or /area/mine/explored)
 	//find next delimiter (comma here) that's not within {...}
 	dpos = placing_template.find_next_delimiter_position(model, old_position, ",", "{", "}")

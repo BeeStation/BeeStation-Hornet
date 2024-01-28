@@ -80,7 +80,7 @@
 	name = "[L.name]'s brain"
 	if(brainmob || decoy_override)
 		return
-	if(!L.mind)
+	if (!L.mind)
 		return
 	brainmob = new(src)
 	brainmob.name = L.real_name
@@ -178,6 +178,7 @@
 /obj/item/organ/brain/on_life()
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
 		to_chat(owner, "<span class='userdanger'>The last spark of life in your brain fizzles out.</span>")
+		owner.investigate_log("has been killed by brain damage.", INVESTIGATE_DEATHS)
 		owner.death()
 		brain_death = TRUE
 

@@ -13,7 +13,7 @@
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
 
-
+	var/tgui_theme = null // default theme as null is Nanotrasen theme.
 
 	var/max_n_of_items = 1500
 	var/allow_ai_retrieve = FALSE
@@ -40,10 +40,6 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.</span>"
-
-/obj/machinery/smartfridge/power_change()
-	..()
-	update_icon()
 
 /obj/machinery/smartfridge/update_icon()
 	if(!machine_stat)
@@ -166,7 +162,7 @@
 
 
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
-	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/))
+	if(istype(O, /obj/item/food/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/))
 		return TRUE
 	return FALSE
 
@@ -211,11 +207,15 @@
 
 	var/listofitems = list()
 	for (var/I in src)
+		// We do not vend our own components.
+		if(I in component_parts)
+			continue
+
 		var/atom/movable/O = I
 		if (!QDELETED(O))
-			var/md5name = rustg_hash_string(RUSTG_HASH_MD5, O.name)				// This needs to happen because of a bug in a TGUI component, https://github.com/ractivejs/ractive/issues/744
-			if (listofitems[md5name])				// which is fixed in a version we cannot use due to ie8 incompatibility
-				listofitems[md5name]["amount"]++	// The good news is, #30519 made smartfridge UIs non-auto-updating
+			var/md5name = rustg_hash_string(RUSTG_HASH_MD5, O.name)
+			if (listofitems[md5name])
+				listofitems[md5name]["amount"]++
 			else
 				listofitems[md5name] = list("name" = O.name, "type" = O.type, "amount" = 1)
 	sort_list(listofitems)
@@ -223,6 +223,7 @@
 	.["contents"] = listofitems
 	.["name"] = name
 	.["isdryer"] = FALSE
+	.["ui_theme"] = tgui_theme
 
 
 /obj/machinery/smartfridge/handle_atom_del(atom/A) // Update the UIs in case something inside gets deleted
@@ -243,23 +244,28 @@
 			if (params["amount"])
 				desired = text2num(params["amount"])
 			else
-				desired = input("How many items?", "How many items would you like to take out?", 1) as null|num
-
-			if(!isnum_safe(desired) || desired <= 0)
-				return
+				desired = tgui_input_number(usr, "How many items would you like to take out?", "Release", max_value = 50)
+				if(!desired)
+					return FALSE
 
 			if(QDELETED(src) || QDELETED(usr) || !usr.Adjacent(src)) // Sanity checkin' in case stupid stuff happens while we wait for input()
-				return
+				return FALSE
 
-			for(var/obj/item/O in src)
-				if(O.name == params["name"])
-					dispense(O, usr)
+			for(var/obj/item/dispensed_item in src)
+				if(desired <= 0)
+					break
+				// Grab the first item in contents which name matches our passed name.
+				// format_text() is used here to strip \improper and \proper from both names,
+				// which is required for correct string comparison between them.
+				if(format_text(dispensed_item.name) == format_text(params["name"]))
+					if(dispensed_item in component_parts)
+						CRASH("Attempted removal of [dispensed_item] component_part from smartfridge via smartfridge interface.")
+					dispense(dispensed_item, usr)
 					desired--
-					. = TRUE
-					if(desired <= 0)
-						break
-			if (visible_contents && .)
-				update_icon()
+
+			if (visible_contents)
+				update_appearance()
+			return TRUE
 
 
 // ----------------------------
@@ -276,9 +282,16 @@
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
 	. = ..()
-	if(component_parts?.len)
-		component_parts.Cut()
+
+	// Cache the old_parts first, we'll delete it after we've changed component_parts to a new list.
+	// This stops handle_atom_del being called on every part when not necessary.
+	var/list/old_parts = component_parts
+
 	component_parts = null
+	circuit = null
+
+	QDEL_LIST(old_parts)
+	RefreshParts()
 
 /obj/machinery/smartfridge/drying_rack/on_deconstruction()
 	new /obj/item/stack/sheet/wood(drop_location(), 10)
@@ -310,6 +323,16 @@
 			return TRUE
 	return FALSE
 
+/obj/machinery/smartfridge/drying_rack/powered()
+	if(!anchored)
+		return FALSE
+	return ..()
+
+/obj/machinery/smartfridge/drying_rack/power_change()
+	. = ..()
+	if(!powered())
+		toggle_drying(TRUE)
+
 /obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
 	..()
 	update_icon()
@@ -325,16 +348,16 @@
 /obj/machinery/smartfridge/drying_rack/process()
 	..()
 	if(drying)
-		if(rack_dry())//no need to update unless something got dried
-			SStgui.update_uis(src)
-			update_icon()
+		for(var/obj/item/item_iterator in src)
+			if(!accept_check(item_iterator))
+				continue
+			rack_dry(item_iterator)
+
+		SStgui.update_uis(src)
+		update_icon()
 
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
-	if(istype(O, /obj/item/reagent_containers/food/snacks/))
-		var/obj/item/reagent_containers/food/snacks/S = O
-		if(S.dried_type)
-			return TRUE
-	if(istype(O, /obj/item/stack/sheet/leather/wetleather/))
+	if(HAS_TRAIT(O, TRAIT_DRYABLE)) //set on dryable element
 		return TRUE
 	return FALSE
 
@@ -345,26 +368,8 @@
 		drying = TRUE
 	update_icon()
 
-/obj/machinery/smartfridge/drying_rack/proc/rack_dry()
-	for(var/obj/item/reagent_containers/food/snacks/S in src)
-		if(S.dried_type == S.type)//if the dried type is the same as the object's type, don't bother creating a whole new item...
-			S.add_atom_colour("#ad7257", FIXED_COLOUR_PRIORITY)
-			S.dry = TRUE
-			S.forceMove(drop_location())
-		else
-			var/dried = S.dried_type
-			dried = new dried(drop_location())
-			if(istype(dried, /obj/item/reagent_containers)) // If the product is a reagent container, transfer reagents
-				var/obj/item/reagent_containers/R = dried
-				R.reagents.clear_reagents()
-				S.reagents.copy_to(R)
-			qdel(S)
-		return TRUE
-	for(var/obj/item/stack/sheet/leather/wetleather/WL in src)
-		new /obj/item/stack/sheet/leather(drop_location(), WL.amount)
-		qdel(WL)
-		return TRUE
-	return FALSE
+/obj/machinery/smartfridge/drying_rack/proc/rack_dry(obj/item/target)
+	SEND_SIGNAL(target, COMSIG_ITEM_DRIED)
 
 /obj/machinery/smartfridge/drying_rack/emp_act(severity)
 	. = ..()

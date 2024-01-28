@@ -281,7 +281,7 @@
 	id = "bluespace_capsule"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3000, /datum/material/titanium = 1000, /datum/material/diamond = 500, /datum/material/bluespace = 500)
-	build_path = /obj/item/deployable/capsule
+	build_path = /obj/item/bluespace_capsule
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
 
@@ -540,3 +540,13 @@
 	build_path = /obj/item/stack/sticky_tape/pointy
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/paper_reader
+	name = "Eletronic Paper Reader"
+	desc = "A device to read papers for blind people."
+	id = "epaperread"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron=200, /datum/material/glass = 100)
+	build_path = /obj/item/paper_reader
+	category = list("Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_ALL

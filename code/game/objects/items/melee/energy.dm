@@ -20,7 +20,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/melee/transforming/energy/suicide_act(mob/user)
+/obj/item/melee/transforming/energy/suicide_act(mob/living/user)
 	if(!active)
 		transform_weapon(user, TRUE)
 	user.visible_message("<span class='suicide'>[user] is [pick("slitting [user.p_their()] stomach open with", "falling on")] [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>")
@@ -60,7 +60,7 @@
 		if(C.wear_mask)
 			in_mouth = ", barely missing [C.p_their()] nose"
 	. = "<span class='warning'>[user] swings [user.p_their()] [name][in_mouth]. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [A.name] in the process.</span>"
-	playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+	playsound(loc, hitsound, get_clamped_volume(), TRUE, -1)
 	add_fingerprint(user)
 
 /obj/item/melee/transforming/energy/axe
@@ -84,7 +84,7 @@
 	attack_verb_on = list()
 	light_color = "#40ceff"
 
-/obj/item/melee/transforming/energy/axe/suicide_act(mob/user)
+/obj/item/melee/transforming/energy/axe/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] swings [src] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS|FIRELOSS)
 
@@ -135,6 +135,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	sharpness = IS_SHARP
 	light_color = "#40ceff"
+	tool_behaviour = TOOL_SAW
 	toolspeed = 0.7 //faster as a saw
 
 /obj/item/melee/transforming/energy/sword/cyborg

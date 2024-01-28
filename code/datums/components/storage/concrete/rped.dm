@@ -44,7 +44,7 @@
 	to_chat(M, "<span class='notice'>You start dumping out Tier/Cell rating [lowest_rating] parts from [parent].</span>")
 	var/turf/T = get_turf(A)
 	var/datum/progressbar/progress = new(M, length(things), T)
-	while (do_after(M, 10, TRUE, T, FALSE, CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
+	while (do_after(M, 10, progress = FALSE, extra_checks = CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
 		stoplag(1)
 	qdel(progress)
 
@@ -94,6 +94,6 @@
 	to_chat(M, "<span class='notice'>You start dumping out Tier/Cell rating [lowest_rating] parts from [parent].</span>")
 	var/turf/T = get_turf(A)
 	var/datum/progressbar/progress = new(M, length(things), T)
-	while (do_after(M, 10, TRUE, T, FALSE, CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
+	while (do_after(M, 10, progress = FALSE, extra_checks = CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
 		stoplag(1)
 	qdel(progress)

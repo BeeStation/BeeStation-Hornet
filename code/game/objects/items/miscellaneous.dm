@@ -168,7 +168,7 @@
 /obj/item/storage/box/hero/carphunter/PopulateContents()
 	new /obj/item/clothing/suit/space/hardsuit/carp/old(src)
 	new /obj/item/clothing/mask/gas/carp(src)
-	new /obj/item/kitchen/knife/hunting(src)
+	new /obj/item/knife/hunting(src)
 
 /obj/item/storage/box/hero/ronin
 	name = "Sword Saint, Wandering Vagabond - 1600's."

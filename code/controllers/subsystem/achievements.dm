@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(achievements)
 
 	for(var/i in GLOB.clients)
 		var/client/C = i
-		if(!C.player_details.achievements.initialized)
+		if(C?.player_details && !C.player_details.achievements.initialized)
 			C.player_details.achievements.InitializeData()
 
 	return ..()

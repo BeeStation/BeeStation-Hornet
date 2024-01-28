@@ -60,7 +60,13 @@
 	return BULLET_ACT_HIT
 
 /mob/living/bullet_act(obj/projectile/P, def_zone, piercing_hit = FALSE)
-	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	var/bullet_signal = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	if(bullet_signal & COMSIG_ATOM_BULLET_ACT_FORCE_PIERCE)
+		return BULLET_ACT_FORCE_PIERCE
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_BLOCK)
+		return BULLET_ACT_BLOCK
+	else if(bullet_signal & COMSIG_ATOM_BULLET_ACT_HIT)
+		return BULLET_ACT_HIT
 	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
@@ -73,9 +79,9 @@
 
 /obj/item/proc/get_volume_by_throwforce_and_or_w_class()
 		if(throwforce && w_class)
-				return CLAMP((throwforce + w_class) * 5, 30, 100)// Add the item's throwforce to its weight class and multiply by 5, then clamp the value between 30 and 100
+				return clamp((throwforce + (w_class / 2)) * 5, 30, 100)// Add the item's throwforce to its weight class and multiply by 5, then clamp the value between 30 and 100
 		else if(w_class)
-				return CLAMP(w_class * 8, 20, 100) // Multiply the item's weight class by 8, then clamp the value between 20 and 100
+				return clamp(w_class * 4, 20, 100) // Multiply the item's weight class by 8, then clamp the value between 20 and 100
 		else
 				return 0
 
@@ -85,7 +91,7 @@
 		var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
 		var/dtype = BRUTE
 		var/volume = I.get_volume_by_throwforce_and_or_w_class()
-		var/nosell_hit = SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
+		var/nosell_hit = SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, blocked, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
 		if(nosell_hit)
 			skipcatch = TRUE
 			hitpush = FALSE
@@ -154,7 +160,8 @@
 	adjust_fire_stacks(3)
 	IgniteMob()
 
-/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
+/mob/living/proc/grabbedby(mob/living/user, supress_message = FALSE)
+	. = TRUE
 	if(user == src || anchored || !isturf(user.loc))
 		return FALSE
 	if(!user.pulling || user.pulling != src)
@@ -171,7 +178,7 @@
 	grippedby(user)
 
 //proc to upgrade a simple pull into a more aggressive grab.
-/mob/living/proc/grippedby(mob/living/carbon/user, instant = FALSE)
+/mob/living/proc/grippedby(mob/living/user, instant = FALSE)
 	if(user.grab_state < GRAB_KILL)
 		user.changeNext_move(CLICK_CD_GRABBING)
 		var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
@@ -249,6 +256,26 @@
 		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", \
 				"<span class='userdanger'>\The [M.name] glomps you!</span>", null, COMBAT_MESSAGE_RANGE)
 		return TRUE
+
+/mob/living/attack_basic_mob(mob/living/basic/user)
+	if(user.melee_damage == 0)
+		if(user != src)
+			visible_message("<span class='notice'>\The [user] [user.friendly_verb_continuous] [src]!</span>", \
+							"<span class='notice'>\The [user] [user.friendly_verb_continuous] you!</span>", null, COMBAT_MESSAGE_RANGE, user)
+			to_chat(user, "<span class='notice'>You [user.friendly_verb_simple] [src]!</span>")
+		return FALSE
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to hurt anyone!</span>")
+		return FALSE
+
+	if(user.attack_sound)
+		playsound(loc, user.attack_sound, 50, TRUE, TRUE)
+	user.do_attack_animation(src)
+	visible_message("<span class='danger'>\The [user] [user.attack_verb_continuous] [src]!", \
+					"<span class='userdanger'>\The [user] [user.attack_verb_continuous] you!", null, COMBAT_MESSAGE_RANGE, user)
+	to_chat(user, "<span class='danger'>You [user.attack_verb_simple] [src]!")
+	log_combat(user, src, "attacked")
+	return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)
@@ -345,21 +372,26 @@
 	take_bodypart_damage(acidpwr * min(1, acid_volume * 0.1))
 	return 1
 
-/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, safety, tesla_shock, illusion, stun)
-	if(tesla_shock && (flags_1 & TESLA_IGNORE_1))
+///As the name suggests, this should be called to apply electric shocks.
+/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags)
+	shock_damage *= siemens_coeff
+	if((flags & SHOCK_TESLA) && (flags_1 & TESLA_IGNORE_1))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 		return FALSE
-	if(shock_damage > 0)
-		if(!illusion)
-			adjustFireLoss(shock_damage)
-		visible_message(
-			"<span class='danger'>[src] was shocked by \the [source]!</span>", \
-			"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
-			"<span class='italics'>You hear a heavy electrical crack.</span>" \
-		)
-		return shock_damage
+	if(shock_damage < 1)
+		return FALSE
+	if(!(flags & SHOCK_ILLUSION))
+		adjustFireLoss(shock_damage)
+	else
+		adjustStaminaLoss(shock_damage)
+	visible_message(
+		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
+		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
+		"<span class='hear'>You hear a heavy electrical crack.</span>" \
+	)
+	return shock_damage
 
 /mob/living/emp_act(severity)
 	. = ..()
@@ -368,17 +400,19 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
+/*
+ * Singularity acting on every (living)mob will generally lead to a big fat gib, and Mr. Singulo gaining 20 points.
+ * Stuff like clown & engineers with their unique point values are under /mob/living/carbon/human/singularity_act()
+ */
 /mob/living/singularity_act()
-	var/gain = 20
-
 
 	if (client)
 		client.give_award(/datum/award/achievement/misc/singularity_death, client.mob)
 
-
-	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
+	investigate_log("has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
+	investigate_log("has been gibbed by the singularity.", INVESTIGATE_DEATHS)
 	gib()
-	return(gain)
+	return 20 //20 points goes to our lucky winner Mr. Singulo!~
 
 /mob/living/narsie_act()
 	if(status_flags & GODMODE || QDELETED(src))
@@ -394,13 +428,15 @@
 	if(client)
 		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, cultoverride = TRUE)
 	else
-		switch(rand(1, 6))
+		switch(rand(1, 4))
 			if(1)
-				new /mob/living/simple_animal/hostile/construct/armored/hostile(get_turf(src))
+				new /mob/living/simple_animal/hostile/construct/juggernaut/hostile(get_turf(src))
 			if(2)
 				new /mob/living/simple_animal/hostile/construct/wraith/hostile(get_turf(src))
-			if(3 to 6)
-				new /mob/living/simple_animal/hostile/construct/builder/hostile(get_turf(src))
+			if(3)
+				new /mob/living/simple_animal/hostile/construct/artificer/hostile(get_turf(src))
+			if(4)
+				new /mob/living/simple_animal/hostile/construct/proteon/hostile(get_turf(src))
 	spawn_dust()
 	gib()
 	return TRUE
@@ -412,7 +448,7 @@
 		return FALSE
 	if(!override_blindness_check && is_blind())
 		return FALSE
-	if(client.prefs.read_player_preference(/datum/preference/toggle/darkened_flash))
+	if(client?.prefs?.read_player_preference(/datum/preference/toggle/darkened_flash))
 		type = /atom/movable/screen/fullscreen/flash/black
 	overlay_fullscreen("flash", type)
 	addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 2.5 SECONDS), 2.5 SECONDS)
@@ -433,15 +469,9 @@
 	..()
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
-/mob/living/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(istype(E) && diseases.len)
-		if(scan)
-			E.scan(src, diseases, user)
-		else
-			E.extrapolate(src, diseases, user)
-		return TRUE
-	else
-		return FALSE
+/mob/living/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..()
+	EXTRAPOLATOR_ACT_ADD_DISEASES(., diseases)
 
 /mob/living/proc/sethellbound()
 	if(mind)
@@ -455,3 +485,56 @@
 
 /mob/living/proc/force_hit_projectile(obj/projectile/projectile)
 	return FALSE
+
+/mob/living/proc/get_weapon_inaccuracy_modifier(atom/target, obj/item/gun/weapon)
+	. = 0
+	if(HAS_TRAIT(src, TRAIT_POOR_AIM)) //nice shootin' tex
+		. += 25
+	// Unwielded weapons
+	if(!weapon.is_wielded && weapon.requires_wielding)
+		. += weapon.spread_unwielded
+	// Nothing to hold onto, slight penalty for flying around in space
+	var/default_speed = get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
+	var/current_speed = cached_multiplicative_slowdown || total_multiplicative_slowdown()
+	var/move_time = last_move_time
+	// Check for being buckled to mobs and vehicles
+	if (buckled)
+		// If we are on a riding, check that
+		var/datum/component/riding/riding_component = buckled.GetComponent(/datum/component/riding)
+		if (riding_component)
+			current_speed = riding_component.vehicle_move_delay
+			move_time = max(move_time, riding_component.last_vehicle_move)
+		// If we are buckled to a mob, use the speed of the mob we are buckled to instead
+		else if (istype(buckled, /mob))
+			var/mob/buckle_target = buckled
+			current_speed = buckle_target.get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
+			move_time = max(move_time, buckle_target.last_move_time)
+		else
+			// Take the higher value of move time if we don't know what we are buckled to
+			move_time = max(move_time, buckled.last_move_time)
+	// Lower speed is better, so this is reversed
+	var/speed_delta = default_speed - current_speed
+	// Are we holding onto something?
+	var/is_holding = has_gravity(get_turf(src))
+	if (!is_holding)
+		if(locate(/obj/structure/lattice) in range(1, get_turf(src)))
+			is_holding = TRUE
+		else
+			for (var/turf/T as() in RANGE_TURFS(1, src))
+				if (T.density)
+					is_holding = TRUE
+					break
+	// Every 1 faster than default, you get a penalty of 10 accuracy, or 20 if there is no gravity.
+	// If you are moving slower than the default speed, you get a bonus.
+	// This means with the captain's jetpack, the spread cone is 20 degrees.
+	// However, if you aren't moving, this will be 0
+	if (speed_delta > 0)
+		// We haven't moved in 1 second, give us no penalty to aiming
+		if (move_time + 1 SECONDS < world.time)
+			return
+		. += (speed_delta * 10) * (is_holding ? 1 : 2)
+	else
+		// Can only improve up to the maximum improvement, otherwise shotguns gain accuracy when walking
+		// This means walking will improve your accuracy by a total of 12.
+		// This is only really useful if you are using a gun with a shield.
+		. = max(0, . + speed_delta * 8)
