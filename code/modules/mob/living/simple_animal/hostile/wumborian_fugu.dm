@@ -138,6 +138,7 @@
 		A.maxHealth *= 1.5
 		A.health = min(A.maxHealth,A.health*1.5)
 		A.melee_damage = max((A.melee_damage * 1.5), 10)
+		A.obj_damage = max(A.melee_damage, A.obj_damage) //Some mobs already have turbo object damage, and this doesn't need to be boosted. This ensures it's never less than their basic damage though.
 		A.transform *= 2
 		to_chat(user, "<span class='info'>You increase the size of [A], giving it a surge of strength!</span>")
 		qdel(src)
