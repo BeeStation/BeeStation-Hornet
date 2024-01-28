@@ -87,6 +87,7 @@
 	icon_plating = "basalt"
 	environment_type = "basalt"
 	available_states = 12
+	resistance_flags = INDESTRUCTIBLE
 	digResult = /obj/item/stack/ore/glass/basalt
 
 /turf/open/floor/plating/asteroid/basalt/lava //lava underneath
