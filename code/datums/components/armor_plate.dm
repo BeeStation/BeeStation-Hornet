@@ -25,7 +25,7 @@
 		else if (istype(_added_armor, /datum/armor))
 			added_armor = _added_armor
 		else
-			stack_trace("armor_plate.dm/1", "Invalid type [_added_armor.type] passed as _armor_item argument to armorplate component")
+			STACK_TRACE_ADV("Invalid type [_added_armor.type] passed as _armor_item argument to armorplate component")
 	else
 		added_armor = getArmor(arglist(added_armor))
 	var/obj/item/typecast = upgrade_item

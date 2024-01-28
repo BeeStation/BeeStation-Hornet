@@ -433,7 +433,7 @@
 				var/soundLen = 0
 				for (var/playing_sound in sounds_list)
 					if (isnull(playing_sound))
-						stack_trace("centcom_podlunacher.dm/1", "client.SoundQuery() Returned a list containing a null sound! Somehow!")
+						STACK_TRACE_ADV("client.SoundQuery() Returned a list containing a null sound! Somehow!")
 						continue
 					var/sound/found = playing_sound
 					if (found.file == tempSound.file)

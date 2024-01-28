@@ -55,13 +55,13 @@
 // Sensible error messages that tell you exactly what's wrong is the best way to make this easy to use
 /datum/greyscale_config/New()
 	if(!json_config)
-		stack_trace("greyscale_config.dm/1", "Greyscale config object [DebugName()] is missing a json configuration, make sure `json_config` has been assigned a value.")
+		STACK_TRACE_ADV("Greyscale config object [DebugName()] is missing a json configuration, make sure `json_config` has been assigned a value.")
 	string_json_config = "[json_config]"
 	if(!icon_file)
-		stack_trace("greyscale_config.dm/2", "Greyscale config object [DebugName()] is missing an icon file, make sure `icon_file` has been assigned a value.")
+		STACK_TRACE_ADV("Greyscale config object [DebugName()] is missing an icon file, make sure `icon_file` has been assigned a value.")
 	string_icon_file = "[icon_file]"
 	if(!name)
-		stack_trace("greyscale_config.dm/3", "Greyscale config object [DebugName()] is missing a name, make sure `name` has been assigned a value.")
+		STACK_TRACE_ADV("Greyscale config object [DebugName()] is missing a name, make sure `name` has been assigned a value.")
 
 /datum/greyscale_config/Destroy(force, ...)
 	if(!force)
@@ -159,10 +159,10 @@
 	for(var/state in data)
 		var/list/raw_layers = data[state]
 		if(!length(raw_layers))
-			stack_trace("greyscale_config.dm/4", "The json configuration [DebugName()] for icon state '[state]' is missing any layers.")
+			STACK_TRACE_ADV("The json configuration [DebugName()] for icon state '[state]' is missing any layers.")
 			continue
 		if(icon_states[state])
-			stack_trace("greyscale_config.dm/5", "The json configuration [DebugName()] has a duplicate icon state '[state]' and is being overriden.")
+			STACK_TRACE_ADV("The json configuration [DebugName()] has a duplicate icon state '[state]' and is being overriden.")
 		icon_states[state] = ReadLayersFromJson(raw_layers)
 
 /// Takes the json layers configuration and puts it into a more processed format
@@ -205,7 +205,7 @@
 		all_layers += state_layers
 
 		if(length(state_layers) > MAX_SANE_LAYERS)
-			stack_trace("greyscale_config.dm/6", "[DebugName()] icon state '[state]' has [length(state_layers)] layers which is larger than the max of [MAX_SANE_LAYERS].")
+			STACK_TRACE_ADV("[DebugName()] icon state '[state]' has [length(state_layers)] layers which is larger than the max of [MAX_SANE_LAYERS].")
 
 	flat_all_layers = list()
 	var/list/color_groups = list()
@@ -221,7 +221,7 @@
 	for(var/i in 1 to largest_id)
 		if(color_groups["[i]"])
 			continue
-		stack_trace("greyscale_config.dm/7", "Color Ids are required to be sequential and start from 1. [DebugName()] has a max id of [largest_id] but is missing [i].")
+		STACK_TRACE_ADV("Color Ids are required to be sequential and start from 1. [DebugName()] has a max id of [largest_id] but is missing [i].")
 
 	expected_colors = length(color_groups)
 

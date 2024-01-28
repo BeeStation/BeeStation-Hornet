@@ -179,7 +179,7 @@
 		if(!is_station_level(cam.z))//Only show station cameras.
 			continue
 		if(!islist(cam.network))
-			stack_trace("secureye.dm/1", "Camera in a cameranet has invaid camera network")
+			STACK_TRACE_ADV("Camera in a cameranet has invaid camera network")
 			continue
 		if(!length(cam.network & network))
 			continue

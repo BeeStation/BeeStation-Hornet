@@ -308,7 +308,7 @@
 /obj/structure/receiving_pad/Initialize(mapload, datum/holoparasite_ability/lesser/teleport/_ability)
 	. = ..()
 	if(!istype(_ability))
-		stack_trace("receiving_pad/Init", "Attempted to initialize holoparasite beacon without associated ability reference!")
+		STACK_TRACE_ADV("Attempted to initialize holoparasite beacon without associated ability reference!")
 		return INITIALIZE_HINT_QDEL
 	ability = _ability
 	var/image/silicon_image = image(icon = 'icons/mob/holoparasite.dmi', icon_state = null, loc = src)

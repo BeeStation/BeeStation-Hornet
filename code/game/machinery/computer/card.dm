@@ -666,7 +666,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						jobdatum = SSjob.GetJob(t1)
 						if(!jobdatum)
 							to_chat(usr, "<span class='warning'>No log exists for this job.</span>")
-							stack_trace("card.dm/1", "bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
+							STACK_TRACE_ADV("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
 							updateUsrDialog()
 							return
 

@@ -53,7 +53,7 @@
 			crew.forge_objectives()
 			return
 	if(!istype(new_team))
-		stack_trace("pirate.dm/1", "Wrong team type passed to [type] initialization.")
+		STACK_TRACE_ADV("Wrong team type passed to [type] initialization.")
 	crew = new_team
 
 /datum/antagonist/pirate/on_gain()

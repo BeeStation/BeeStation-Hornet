@@ -37,7 +37,7 @@
 		if (loc != myturf)
 			var/turf/oldturf = get_turf(myturf)
 			var/turf/newturf = get_turf(loc)
-			stack_trace("lighting_object.dm/1", "A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
+			STACK_TRACE_ADV("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
 		if (isturf(myturf))
 			myturf.lighting_object = null
 			myturf.luminosity = initial(myturf.luminosity)

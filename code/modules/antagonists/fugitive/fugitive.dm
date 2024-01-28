@@ -46,7 +46,7 @@
 		fugitive_team.forge_team_objectives()
 		return
 	if(!istype(new_team))
-		stack_trace("fugitive.dm/1", "Wrong team type passed to [type] initialization.")
+		STACK_TRACE_ADV("Wrong team type passed to [type] initialization.")
 	fugitive_team = new_team
 
 /datum/antagonist/fugitive/get_team()

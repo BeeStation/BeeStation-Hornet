@@ -13,7 +13,7 @@
 	if(!new_team)
 		return
 	if(!istype(new_team))
-		stack_trace("incursion.dm/1", "Wrong team type passed to [type] initialization.")
+		STACK_TRACE_ADV("Wrong team type passed to [type] initialization.")
 	team = new_team
 
 /datum/antagonist/incursion/get_team()

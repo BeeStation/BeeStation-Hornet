@@ -161,7 +161,7 @@ SUBSYSTEM_DEF(timer)
 		while ((timer = bucket_list[practical_offset]))
 			var/datum/callback/callBack = timer.callBack
 			if (!callBack)
-				stack_trace("timer.dm/1", "Invalid timer: [get_timer_debug_string(timer)] world.time: [world.time], \
+				STACK_TRACE_ADV("Invalid timer: [get_timer_debug_string(timer)] world.time: [world.time], \
 					head_offset: [head_offset], practical_offset: [practical_offset], bucket_joined: [timer.bucket_joined]")
 				if (!timer.spent)
 					bucket_resolution = null // force bucket recreation
@@ -198,14 +198,14 @@ SUBSYSTEM_DEF(timer)
 				// Check for timers that are scheduled to run in the past
 				if (timer.timeToRun < head_offset)
 					bucket_resolution = null // force bucket recreation
-					stack_trace("timer.dm/2", "[i] Invalid timer state: Timer in long run queue with a time to run less then head_offset. \
+					STACK_TRACE_ADV("[i] Invalid timer state: Timer in long run queue with a time to run less then head_offset. \
 						[get_timer_debug_string(timer)] world.time: [world.time], head_offset: [head_offset], practical_offset: [practical_offset]")
 					break
 
 				// Check for timers that are not capable of being scheduled to run without rebuilding buckets
 				if (timer.timeToRun < head_offset + TICKS2DS(practical_offset - 1))
 					bucket_resolution = null // force bucket recreation
-					stack_trace("timer.dm/3", "[i] Invalid timer state: Timer in long run queue that would require a backtrack to transfer to \
+					STACK_TRACE_ADV("[i] Invalid timer state: Timer in long run queue that would require a backtrack to transfer to \
 						short run queue. [get_timer_debug_string(timer)] world.time: [world.time], head_offset: [head_offset], practical_offset: [practical_offset]")
 					break
 
@@ -506,7 +506,7 @@ SUBSYSTEM_DEF(timer)
 		callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
 
 	if (bucket_joined)
-		stack_trace("timer.dm/4", "Bucket already joined! [name]")
+		STACK_TRACE_ADV("Bucket already joined! [name]")
 
 	// Check if this timed event should be diverted to the client time bucket, or the secondary queue
 	var/list/L
@@ -608,7 +608,7 @@ SUBSYSTEM_DEF(timer)
 						. = hash_timer.id
 					return
 	else if(flags & TIMER_OVERRIDE)
-		stack_trace("timer.dm/5", "TIMER_OVERRIDE used without TIMER_UNIQUE")
+		STACK_TRACE_ADV("TIMER_OVERRIDE used without TIMER_UNIQUE")
 
 	var/datum/timedevent/timer = new(callback, wait, flags, timer_subsystem, hash, file && "[file]:[line]")
 	return timer.id

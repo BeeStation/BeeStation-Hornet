@@ -376,7 +376,7 @@
 		return FALSE
 	var/datum/help_ticket/active_ticket = data_glob.get_active_ticket(initiator)
 	if(active_ticket)	//This is a bug
-		stack_trace("_help.dm/1", "Multiple current_tickets in ticket of type [verb_name]")
+		STACK_TRACE_ADV("Multiple current_tickets in ticket of type [verb_name]")
 		active_ticket.AddInteraction("red", "Ticket erroneously left open by code")
 		active_ticket.Close()
 	data_glob.set_active_ticket(initiator, src)

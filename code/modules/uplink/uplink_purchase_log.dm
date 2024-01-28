@@ -10,7 +10,7 @@ GLOBAL_LIST(uplink_purchase_logs_by_key)	//assoc key = /datum/uplink_purchase_lo
 	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
 	if(owner)
 		if(GLOB.uplink_purchase_logs_by_key[owner])
-			stack_trace("uplink_purchase_log.dm/1", "WARNING: DUPLICATE PURCHASE LOGS DETECTED. [_owner] [_parent] [_parent.type]")
+			STACK_TRACE_ADV("WARNING: DUPLICATE PURCHASE LOGS DETECTED. [_owner] [_parent] [_parent.type]")
 			MergeWithAndDel(GLOB.uplink_purchase_logs_by_key[owner])
 		GLOB.uplink_purchase_logs_by_key[owner] = src
 	purchase_log = list()

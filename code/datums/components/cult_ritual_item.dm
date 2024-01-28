@@ -251,13 +251,11 @@
 	var/datum/antagonist/cult/user_antag = cultist.mind.has_antag_datum(/datum/antagonist/cult, TRUE)
 	var/datum/team/cult/user_team = user_antag?.get_team()
 	if(!user_antag || !user_team)
-		stack_trace("cult_ritual_item.dm/1", "[type] - [cultist] attempted to scribe a rune, but did not have an associated [user_antag ? "cult team":"cult antag datum"]!")
-		return FALSE
+		CRASH_RETURN(FALSE, "[type] - [cultist] attempted to scribe a rune, but did not have an associated [user_antag ? "cult team":"cult antag datum"]!")
 
 	if(!LAZYLEN(GLOB.rune_types))
 		to_chat(cultist, "<span class='cult'>There appears to be no runes to scribe. Contact your god about this!</span>")
-		stack_trace("cult_ritual_item.dm/2", "[type] - [cultist] attempted to scribe a rune, but the global rune list is empty!")
-		return FALSE
+		CRASH_RETURN(FALSE, "[type] - [cultist] attempted to scribe a rune, but the global rune list is empty!")
 
 	entered_rune_name = input(cultist, "Choose a rite to scribe.", "Sigils of Power") as null|anything in GLOB.rune_types
 	if(!entered_rune_name || !can_scribe_rune(tool, cultist))
@@ -265,8 +263,7 @@
 
 	rune_to_scribe = GLOB.rune_types[entered_rune_name]
 	if(!ispath(rune_to_scribe))
-		stack_trace("cult_ritual_item.dm/3", "[type] - [cultist] attempted to scribe a rune, but did not find a path from the global rune list!")
-		return FALSE
+		CRASH_RETURN(FALSE, "[type] - [cultist] attempted to scribe a rune, but did not find a path from the global rune list!")
 
 	if(initial(rune_to_scribe.req_keyword))
 		chosen_keyword = stripped_input(cultist, "Enter a keyword for the new rune.", "Words of Power")

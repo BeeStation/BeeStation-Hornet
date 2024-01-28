@@ -412,7 +412,7 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/action/antag_info/IsAvailable(feedback = FALSE)
 	if(!target)
-		stack_trace("antag_datum.dm/1", "[type] was used without a target antag datum!")
+		STACK_TRACE_ADV("[type] was used without a target antag datum!")
 		return FALSE
 	. = ..()
 	if(!.)

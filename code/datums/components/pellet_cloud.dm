@@ -50,7 +50,7 @@
 		return COMPONENT_INCOMPATIBLE
 
 	if(magnitude < 1)
-		stack_trace("pellet_cloud.dm/1", "Invalid magnitude [magnitude] < 1 on pellet_cloud, parent: [parent]")
+		STACK_TRACE_ADV("Invalid magnitude [magnitude] < 1 on pellet_cloud, parent: [parent]")
 		magnitude = 1
 
 	src.projectile_type = projectile_type

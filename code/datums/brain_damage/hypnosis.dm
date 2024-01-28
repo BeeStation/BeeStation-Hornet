@@ -16,7 +16,7 @@
 	try
 		target_phrase = new("(\\b[hypnotic_phrase]\\b)","ig")
 	catch(var/exception/e)
-		stack_trace("hypnosis.dm/No hypnotic phrase", "[e] on [e.file]:[e.line]")
+		STACK_TRACE_ADV("Hypnosis phrase error: [e] on [e.file]:[e.line]")
 		qdel(src)
 	..()
 

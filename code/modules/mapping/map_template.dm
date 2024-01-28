@@ -39,7 +39,7 @@
 
 /datum/map_template/proc/initTemplateBounds(list/bounds, init_atmos = TRUE)
 	if (!bounds) //something went wrong
-		stack_trace("map_template.dm/1", "[name] template failed to initialize correctly!")
+		STACK_TRACE_ADV("[name] template failed to initialize correctly!")
 		return
 
 	var/list/obj/machinery/atmospherics/atmos_machines = list()

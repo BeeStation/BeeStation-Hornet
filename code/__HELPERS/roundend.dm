@@ -179,19 +179,19 @@
 	for(var/V in GLOB.news_network.network_channels)
 		var/datum/feed_channel/channel = V
 		if(!istype(channel))
-			stack_trace("roundend.dm/1", "Non-channel in newscaster channel list")
+			STACK_TRACE_ADV("Non-channel in newscaster channel list")
 			continue
 		file_data["[pos]"] = list("channel name" = "[channel.channel_name]", "author" = "[channel.author]", "censored" = channel.censored ? 1 : 0, "author censored" = channel.author_censor ? 1 : 0, "messages" = list())
 		for(var/M in channel.messages)
 			var/datum/feed_message/message = M
 			if(!istype(message))
-				stack_trace("roundend.dm/2", "Non-message in newscaster channel messages list")
+				STACK_TRACE_ADV("Non-message in newscaster channel messages list")
 				continue
 			var/list/comment_data = list()
 			for(var/C in message.comments)
 				var/datum/feed_comment/comment = C
 				if(!istype(comment))
-					stack_trace("roundend.dm/3", "Non-message in newscaster message comments list")
+					STACK_TRACE_ADV("Non-message in newscaster message comments list")
 					continue
 				comment_data += list(list("author" = "[comment.author]", "time stamp" = "[comment.time_stamp]", "body" = "[comment.body]"))
 			file_data["[pos]"]["messages"] += list(list("author" = "[message.author]", "time stamp" = "[message.time_stamp]", "censored" = message.body_censor ? 1 : 0, "author censored" = message.author_censor ? 1 : 0, "photo file" = "[message.photo_file]", "photo caption" = "[message.caption]", "body" = "[message.body]", "comments" = comment_data))

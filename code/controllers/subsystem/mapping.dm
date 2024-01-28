@@ -686,7 +686,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	var/z_above = level_trait(z_level, ZTRAIT_UP)
 	var/z_below = level_trait(z_level, ZTRAIT_DOWN)
 	if(!(z_above == TRUE || z_above == FALSE || z_above == null) || !(z_below == TRUE || z_below == FALSE || z_below == null))
-		stack_trace("proc/generate_linkages_for_z_level", "Warning, numeric mapping offsets are deprecated. Instead, mark z level connections by setting UP/DOWN to true if the connection is allowed")
+		STACK_TRACE_ADV("Warning, numeric mapping offsets are deprecated. Instead, mark z level connections by setting UP/DOWN to true if the connection is allowed")
 	multiz_levels[z_level] = new /list(LARGEST_Z_LEVEL_INDEX)
 	multiz_levels[z_level][Z_LEVEL_UP] = !!z_above
 	multiz_levels[z_level][Z_LEVEL_DOWN] = !!z_below

@@ -149,7 +149,7 @@
 	var/obj/item/ammo_casing/casing = chambered //Find chambered round
 	if(istype(casing)) //there's a chambered round
 		if(QDELING(casing))
-			stack_trace("ballistic.dm/1", "Trying to move a qdeleted casing of type [casing.type]!")
+			STACK_TRACE_ADV("Trying to move a qdeleted casing of type [casing.type]!")
 			chambered = null
 		else if(casing_ejector || !from_firing)
 			casing.forceMove(drop_location()) //Eject casing onto ground.

@@ -15,7 +15,7 @@
 	var/new_build_path = initial(circuit.build_path)
 
 	if(!ispath(new_build_path))
-		stack_trace("Circuit with incorrect build path: [circuit]")
+		STACK_TRACE_ADV("Circuit with incorrect build path: [circuit]")
 		return INITIALIZE_HINT_QDEL
 
 	var/obj/arcade = new new_build_path(loc)

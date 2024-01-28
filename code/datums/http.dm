@@ -33,7 +33,7 @@
 	id = rustg_http_request_async(method, url, body, headers, build_options())
 
 	if (isnull(text2num(id)))
-		stack_trace("http.dm/1", "Proc error: [id]")
+		STACK_TRACE_ADV("Proc error: [id]")
 		_raw_response = "Proc error: [id]"
 	else
 		in_progress = TRUE

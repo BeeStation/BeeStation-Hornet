@@ -82,7 +82,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/proc/is_unique_objective(possible_target, list/dupe_search_range)
 	if(!islist(dupe_search_range))
-		stack_trace("objective.dm/1", "Non-list passed as duplicate objective search range")
+		STACK_TRACE_ADV("Non-list passed as duplicate objective search range")
 		dupe_search_range = list(dupe_search_range)
 
 	for(var/A in dupe_search_range)

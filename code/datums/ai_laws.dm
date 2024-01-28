@@ -21,12 +21,10 @@
 	var/id = DEFAULT_AI_LAWID
 
 /datum/ai_laws/Destroy(force = FALSE, ...)
-	if(!QDELETED(owner)) //Stopgap to help with laws randomly being lost. This stack_trace will hopefully help find the real issues.
+	if(!QDELETED(owner)) //Stopgap to help with laws randomly being lost. This CRASH will hopefully help find the real issues.
 		if(force) //Unless we're forced...
-			stack_trace("ai_laws.dm/1", "AI law datum for [owner] has been forcefully destroyed incorrectly; the owner variable should be cleared first!")
-			return ..()
-		stack_trace("ai_laws.dm/2", "AI law datum for [owner] has ignored Destroy() call; the owner variable must be cleared first!")
-		return QDEL_HINT_LETMELIVE
+			CRASH_RETURN(..(), "AI law datum for [owner] has been forcefully destroyed incorrectly; the owner variable should be cleared first!")
+		CRASH_RETURN(QDEL_HINT_LETMELIVE, "AI law datum for [owner] has ignored Destroy() call; the owner variable must be cleared first!")
 	owner = null
 	return ..()
 

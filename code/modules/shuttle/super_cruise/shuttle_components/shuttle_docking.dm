@@ -421,7 +421,7 @@
 	var/list/L = list()
 	for(var/V in SSshuttle.stationary)
 		if(!V)
-			stack_trace("shuttle_docking.dm/1", "SSshuttle.stationary have null entry!")
+			STACK_TRACE_ADV("SSshuttle.stationary have null entry!")
 			continue
 		var/obj/docking_port/stationary/S = V
 		if(console.shuttleObject.docking_target.z_in_contents(S.z) && (S.id in console.valid_docks))

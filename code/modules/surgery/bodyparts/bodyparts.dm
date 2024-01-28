@@ -449,7 +449,7 @@
 	. += emissive_blocker(limb.icon, limb.icon_state, limb.layer, limb.alpha)
 
 	if(!icon_exists(limb.icon, limb.icon_state))
-		stack_trace("bodyparts.dm/1", "Limb generated with nonexistant icon. File: [limb.icon] | State: [limb.icon_state]")
+		STACK_TRACE_ADV("Limb generated with nonexistant icon. File: [limb.icon] | State: [limb.icon_state]")
 
 	if(aux_zone) //Hand shit
 		aux = image(limb.icon, "[limb_id]_[aux_zone]", CALCULATE_MOB_OVERLAY_LAYER(aux_layer), image_dir)

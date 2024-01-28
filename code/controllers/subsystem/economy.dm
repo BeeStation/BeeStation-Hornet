@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(economy)
 	if(!length(bank_accounts))
 		return FALSE
 	if(istype(target_id, /datum/bank_account))
-		stack_trace("economy.dm/get_bank_account_by_id", "proc took account type itself, but it is supposed to take account id number.")
+		STACK_TRACE_ADV("proc took account type itself, but it is supposed to take account id number.")
 		return target_id
 	target_id = text2num(target_id) // failsafe to replace the string into number
 	for(var/datum/bank_account/target_account in bank_accounts)
@@ -84,7 +84,7 @@ SUBSYSTEM_DEF(economy)
 	var/datum/bank_account/department/target_budget = budget_id_list[dept_id]
 
 	if(!target_budget)
-		stack_trace("economy.dm/get_budget_account", "failed to get a budget account with the given parameter: [dept_id]")
+		STACK_TRACE_ADV("failed to get a budget account with the given parameter: [dept_id]")
 		return budget_id_list[ACCOUNT_CAR_ID] // this will prevent the game being broken
 
 	if(force || target_budget.is_nonstation_account())  // Warning: do not replace this into `is_nonstation_account(target_budget)` or it will loop. We have 2 types of the procs that have the same name for conveniet purpose.

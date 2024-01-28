@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(construct_radial_images, list(
 			else
 				.[E.key] += E
 		else if(E.message) //Assuming all non-base emotes have this
-			stack_trace("proc/init_emote_list", "Keyless emote: [E.type]")
+			STACK_TRACE_ADV("Keyless emote: [E.type]")
 
 		if(E.key_third_person) //This one is optional
 			if(!.[E.key_third_person])

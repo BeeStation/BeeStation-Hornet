@@ -372,12 +372,12 @@
 	var/obj/effect/landmark/observer_start/backup_loc = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
 	if(!safe_turf)
 		safe_turf = get_turf(backup_loc)
-		stack_trace("sacrifice_knowledge.dm/1", "[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to observer start turf.")
+		STACK_TRACE_ADV("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to observer start turf.")
 
 	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE, forced = TRUE, no_wake = TRUE))
 		safe_turf = get_turf(backup_loc)
 		sac_target.forceMove(safe_turf)
-		stack_trace("sacrifice_knowledge.dm/2", "[type] - return_target was unable to teleport [sac_target] to the observer start turf. Forcemoving.")
+		STACK_TRACE_ADV("[type] - return_target was unable to teleport [sac_target] to the observer start turf. Forcemoving.")
 
 	if(sac_target.stat == DEAD)
 		after_return_dead_target(sac_target)

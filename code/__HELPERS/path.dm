@@ -141,7 +141,7 @@
 /datum/pathfind/proc/search()
 	start = get_turf(caller)
 	if(!start || !end)
-		stack_trace("path.dm", "Invalid A* start or destination")
+		STACK_TRACE_ADV("Invalid A* start or destination")
 		return
 	if(start.z != end.z || start == end ) //no pathfinding between z levels
 		return

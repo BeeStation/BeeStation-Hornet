@@ -234,7 +234,7 @@
 		observer.forceMove(O.loc)
 	else
 		to_chat(src, "<span class='notice'>Teleporting failed. Ahelp an admin please</span>")
-		stack_trace("new_player.dm/1", "There's no freaking observer landmark available on this map or you're making observers before the map is initialised")
+		STACK_TRACE_ADV("There's no freaking observer landmark available on this map or you're making observers before the map is initialised")
 	observer.key = key
 	observer.client = client
 	observer.set_ghost_appearance()

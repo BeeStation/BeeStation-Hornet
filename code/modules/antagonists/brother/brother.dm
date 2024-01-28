@@ -12,7 +12,7 @@
 	if(!new_team)
 		return
 	if(!istype(new_team))
-		stack_trace("brother.dm/1", "Wrong team type passed to [type] initialization.")
+		STACK_TRACE_ADV("Wrong team type passed to [type] initialization.")
 	team = new_team
 
 /datum/antagonist/brother/get_team()
@@ -78,7 +78,7 @@
 		I.span_implant_colour = GLOB.color_list_blood_brothers[team.team_id]
 	else
 		I.span_implant_colour = "cfc_redpurple"
-		stack_trace("brother.dm/2", "Blood brother teams exist more than [length(GLOB.color_list_blood_brothers)] teams, and colour preset is ran out")
+		STACK_TRACE_ADV("Blood brother teams exist more than [length(GLOB.color_list_blood_brothers)] teams, and colour preset is ran out")
 	for(var/datum/mind/M in team.members) // Link the implants of all team members
 		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
 		I.link_implant(T)

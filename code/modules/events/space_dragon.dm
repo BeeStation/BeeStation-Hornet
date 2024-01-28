@@ -19,7 +19,7 @@
 	var/list/spawn_locs = list()
 	for(var/obj/effect/landmark/carpspawn/carp_spawn in GLOB.landmarks_list)
 		if(!isturf(carp_spawn.loc))
-			stack_trace("space_dragon.dm/1", "Carp spawn found not on a turf: [carp_spawn.type] on [isnull(carp_spawn.loc) ? "null" : carp_spawn.loc.type]")
+			STACK_TRACE_ADV("Carp spawn found not on a turf: [carp_spawn.type] on [isnull(carp_spawn.loc) ? "null" : carp_spawn.loc.type]")
 			continue
 		spawn_locs += carp_spawn.loc
 	if(!spawn_locs.len)

@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(ambience)
 		return
 	var/area/current_area = get_area(current_mob)
 	if(!current_area) //Something's gone horribly wrong
-		stack_trace("proc/process_ambience_client", "[key_name(to_process)] has somehow ended up in nullspace. WTF did you do -xoxo ambience subsystem")
+		STACK_TRACE_ADV("[key_name(to_process)] has somehow ended up in nullspace. WTF did you do -xoxo ambience subsystem")
 		ambience_listening_clients -= to_process
 		return
 

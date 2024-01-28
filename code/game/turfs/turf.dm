@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/Initialize(mapload)
 	if(flags_1 & INITIALIZED_1)
-		stack_trace("turf.dm/1", "Warning: [src]([type]) initialized multiple times!")
+		STACK_TRACE_ADV("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
 	if(integrity == null)
@@ -158,7 +158,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
 	if(!changing_turf)
-		stack_trace("turf.dm/2", "Incorrect turf deletion")
+		STACK_TRACE_ADV("Incorrect turf deletion")
 	changing_turf = FALSE
 	if (z_flags & Z_MIMIC_BELOW)
 		cleanup_zmimic()
@@ -305,7 +305,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			return // No replacement baseturf has been given and the current baseturfs value is already a list/assembled
 		if(!baseturfs)
 			current_target = initial(baseturfs) || type // This should never happen but just in case...
-			stack_trace("turf.dm/3", "baseturfs var was null for [type]. Failsafe activated and it has been given a new baseturfs value of [current_target].")
+			STACK_TRACE_ADV("baseturfs var was null for [type]. Failsafe activated and it has been given a new baseturfs value of [current_target].")
 		else
 			current_target = baseturfs
 
@@ -329,7 +329,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if(i > 100)
 			// A baseturfs list over 100 members long is silly
 			// Because of how this is all structured it will only runtime/message once per type
-			stack_trace("turf.dm/4", "A turf <[type]> created a baseturfs list over 100 members long. This is most likely an infinite loop.")
+			STACK_TRACE_ADV("A turf <[type]> created a baseturfs list over 100 members long. This is most likely an infinite loop.")
 			message_admins("A turf <[type]> created a baseturfs list over 100 members long. This is most likely an infinite loop.")
 			break
 		new_baseturfs.Insert(1, next_target)

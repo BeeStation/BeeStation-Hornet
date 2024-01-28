@@ -52,7 +52,7 @@ SUBSYSTEM_DEF(profiler)
 
 /datum/controller/subsystem/profiler/proc/DumpFile()
 #if DM_BUILD < 1506
-	stack_trace("DumpFile/1", "Auto profiling unsupported on this byond version")
+	STACK_TRACE_ADV("Auto profiling unsupported on this byond version")
 	CONFIG_SET(flag/auto_profile, FALSE)
 #else
 	var/timer = TICK_USAGE_REAL
@@ -64,13 +64,13 @@ SUBSYSTEM_DEF(profiler)
 	CHECK_TICK
 
 	if(!length(current_profile_data)) //Would be nice to have explicit proc to check this
-		stack_trace("DumpFile/2", "Warning, profiling stopped manually before dump.")
+		STACK_TRACE_ADV("Warning, profiling stopped manually before dump.")
 	var/prof_file = file("[GLOB.log_directory]/[PROFILER_FILENAME]")
 	if(fexists(prof_file))
 		fdel(prof_file)
 #ifdef SENDMAPS_PROFILE
 	if(!length(current_sendmaps_data)) //Would be nice to have explicit proc to check this
-		stack_trace("DumpFile/3", "Warning, sendmaps profiling stopped manually before dump.")
+		STACK_TRACE_ADV("Warning, sendmaps profiling stopped manually before dump.")
 	var/sendmaps_file = file("[GLOB.log_directory]/[SENDMAPS_FILENAME]")
 	if(fexists(sendmaps_file))
 		fdel(sendmaps_file)

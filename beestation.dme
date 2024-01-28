@@ -24,6 +24,7 @@
 #include "code\__DEFINES\_mob_properties.dm"
 #include "code\__DEFINES\_profile.dm"
 #include "code\__DEFINES\_protect.dm"
+#include "code\__DEFINES\_stack_trace.dm"
 #include "code\__DEFINES\_tick.dm"
 #include "code\__DEFINES\access.dm"
 #include "code\__DEFINES\achievements.dm"

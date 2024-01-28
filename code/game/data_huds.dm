@@ -165,7 +165,7 @@
 		var/icon/I = icon(icon, icon_state, dir)
 		holder.pixel_y = I.Height() - world.icon_size
 	else
-		stack_trace("data_huds.dm/1", "[src] does not have a HEALTH_HUD but updates it!")
+		STACK_TRACE_ADV("[src] does not have a HEALTH_HUD but updates it!")
 
 //for carbon suit sensors
 /mob/living/carbon/med_hud_set_health()
@@ -183,7 +183,7 @@
 		else
 			holder.icon_state = "hudhealthy"
 	else
-		stack_trace("data_huds.dm/2", "[src] does not have a HEALTH_HUD but updates it!")
+		STACK_TRACE_ADV("[src] does not have a HEALTH_HUD but updates it!")
 
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
@@ -234,7 +234,7 @@
 				if(null)
 					holder.icon_state = "hudhealthy"
 	else
-		stack_trace("data_huds.dm/3", "[src] does not have a HEALTH_HUD but updates it!")
+		STACK_TRACE_ADV("[src] does not have a HEALTH_HUD but updates it!")
 
 
 /***********************************************

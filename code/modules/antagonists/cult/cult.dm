@@ -32,7 +32,7 @@
 		cult_team.setup_objectives()
 		return
 	if(!istype(new_team))
-		stack_trace("cult.dm/1", "Wrong team type passed to [type] initialization.")
+		STACK_TRACE_ADV("Wrong team type passed to [type] initialization.")
 	cult_team = new_team
 
 /datum/antagonist/cult/proc/add_objectives()

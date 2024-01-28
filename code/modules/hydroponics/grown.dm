@@ -45,7 +45,7 @@
 		seed = new seed()
 		seed.adjust_potency(50-seed.potency)
 	else if(!seed)
-		stack_trace("Grown object created without a seed. WTF")
+		STACK_TRACE_ADV("Grown object created without a seed. WTF")
 		return INITIALIZE_HINT_QDEL
 
 	pixel_x = base_pixel_x + rand(-5, 5)

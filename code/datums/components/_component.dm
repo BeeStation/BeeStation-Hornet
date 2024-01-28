@@ -50,7 +50,7 @@
 	parent = raw_args[1]
 	var/list/arguments = raw_args.Copy(2)
 	if(Initialize(arglist(arguments)) == COMPONENT_INCOMPATIBLE)
-		stack_trace("component.dm/1", "Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
+		STACK_TRACE_ADV("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
 		qdel(src, TRUE, TRUE)
 		CRASH("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
 
@@ -189,7 +189,7 @@
 
 		if (!(message in known_failures))
 			known_failures[message] = TRUE
-			stack_trace("component.dm/2", "[target] [message]")
+			STACK_TRACE_ADV("[target] [message]")
 
 		RegisterSignals(target, signal_type, proctype, override)
 		return
@@ -202,7 +202,7 @@
 		var/override_message = "[signal_type] overridden. Use override = TRUE to suppress this warning.\nTarget: [target] ([target.type]) Proc: [proctype]"
 		// I need to split singals into their own logs eventually
 		//log_signal(override_message)
-		stack_trace("component.dm/3", override_message)
+		STACK_TRACE_ADV(override_message)
 
 	target_procs[signal_type] = proctype
 	var/list/looked_up = lookup[signal_type]
@@ -219,7 +219,7 @@
 /// Registers multiple signals to the same proc.
 /datum/proc/RegisterSignals(datum/target, list/signal_types, proctype, override = FALSE)
 	if(!islist(signal_types))
-		stack_trace("component.dm/4", "[target] called RegisterSignals() with non-list signal: [signal_types]")
+		STACK_TRACE_ADV("[target] called RegisterSignals() with non-list signal: [signal_types]")
 		RegisterSignal(target, signal_types, proctype, override)
 		return
 	for (var/signal_type in signal_types)
@@ -245,13 +245,13 @@
 	for(var/sig in sig_type_or_types)
 		if(!signal_procs[target][sig])
 			if(!istext(sig))
-				stack_trace("component.dm/5", "We're unregistering with something that isn't a valid signal \[[sig]\], you fucked up")
+				STACK_TRACE_ADV("We're unregistering with something that isn't a valid signal \[[sig]\], you fucked up")
 			continue
 		switch(length(lookup[sig]))
 			if(2)
 				lookup[sig] = (lookup[sig]-src)[1]
 			if(1)
-				stack_trace("component.dm/6", "[target] ([target.type]) somehow has single length list inside comp_lookup")
+				STACK_TRACE_ADV("[target] ([target.type]) somehow has single length list inside comp_lookup")
 				if(src in lookup[sig])
 					lookup -= sig
 					if(!length(lookup))
@@ -310,7 +310,7 @@
 /datum/proc/GetComponent(datum/component/c_type)
 	RETURN_TYPE(c_type)
 	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
-		stack_trace_pure("component.dm/7", "GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
+		STACK_TRACE_ADV_SHOULD_BE_PURE("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
 	var/list/dc = datum_components
 	if(!dc)
 		return null
@@ -321,7 +321,7 @@
 /datum/proc/GetExactComponent(datum/component/c_type)
 	RETURN_TYPE(c_type)
 	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
-		stack_trace("component.dm/8", "GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
+		STACK_TRACE_ADV("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
 	var/list/dc = datum_components
 	if(!dc)
 		return null

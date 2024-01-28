@@ -657,7 +657,7 @@
 	var/turf/starting = get_turf(src)
 	if(isnull(Angle))	//Try to resolve through offsets if there's no angle set.
 		if(isnull(xo) || isnull(yo))
-			stack_trace("projectile.dm/1", "WARNING: Projectile [type] deleted due to being unable to resolve a target after angle was null!")
+			STACK_TRACE_ADV("WARNING: Projectile [type] deleted due to being unable to resolve a target after angle was null!")
 			qdel(src)
 			return
 		var/turf/target = locate(clamp(starting + xo, 1, world.maxx), clamp(starting + yo, 1, world.maxy), starting.z)
@@ -835,7 +835,7 @@
 		xo = targloc.x - curloc.x
 		setAngle(get_angle(src, targloc) + spread)
 	else
-		stack_trace("projectile.dm/2", "WARNING: Projectile [type] fired without either mouse parameters, or a target atom to aim at!")
+		STACK_TRACE_ADV("WARNING: Projectile [type] fired without either mouse parameters, or a target atom to aim at!")
 		qdel(src)
 
 /proc/calculate_projectile_angle_and_pixel_offsets(mob/user, params)

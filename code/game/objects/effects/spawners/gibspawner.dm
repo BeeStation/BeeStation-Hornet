@@ -13,10 +13,10 @@
 	. = ..()
 
 	if(gibtypes.len != gibamounts.len)
-		stack_trace("gibspawner.dm/1", "Gib list amount length mismatch!")
+		STACK_TRACE_ADV("Gib list amount length mismatch!")
 		return
 	if(gibamounts.len != gibdirections.len)
-		stack_trace("gibspawner.dm/2", "Gib list dir length mismatch!")
+		STACK_TRACE_ADV("Gib list dir length mismatch!")
 		return
 
 	var/obj/effect/decal/cleanable/blood/gib = null

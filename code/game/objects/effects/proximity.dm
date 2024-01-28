@@ -105,7 +105,7 @@
 	if(_monitor)
 		monitor = _monitor
 	else
-		stack_trace("proximity.dm/1", "proximity_checker created without host")
+		STACK_TRACE_ADV("proximity_checker created without host")
 		return INITIALIZE_HINT_QDEL
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),

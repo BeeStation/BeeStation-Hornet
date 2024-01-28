@@ -4,14 +4,14 @@
 		return null
 	if (z_list)
 		if (z > z_list.len)
-			stack_trace("traits.dm/1", "Unmanaged z-level [z]! maxz = [world.maxz], z_list.len = [z_list.len]")
+			STACK_TRACE_ADV("Unmanaged z-level [z]! maxz = [world.maxz], z_list.len = [z_list.len]")
 			return list()
 		var/datum/space_level/S = get_level(z)
 		return S.traits[trait]
 	else
 		var/list/default = DEFAULT_MAP_TRAITS
 		if (z > default.len)
-			stack_trace("traits.dm/2", "Unmanaged z-level [z]! maxz = [world.maxz], default.len = [default.len]")
+			STACK_TRACE_ADV("Unmanaged z-level [z]! maxz = [world.maxz], default.len = [default.len]")
 			return list()
 		return default[z][DL_TRAITS][trait]
 

@@ -82,7 +82,7 @@
 	other_atmosmch |= C
 	var/datum/gas_mixture/G = C.returnPipenetAir(src)
 	if(!G)
-		stack_trace("datum_pipeline.dm/1", "addMachineryMember: Null gasmix added to pipeline datum from [C] which is of type [C.type]. Nearby: ([C.x], [C.y], [C.z])")
+		STACK_TRACE_ADV("addMachineryMember: Null gasmix added to pipeline datum from [C] which is of type [C.type]. Nearby: ([C.x], [C.y], [C.z])")
 	other_airs |= G
 
 /datum/pipeline/proc/addMember(obj/machinery/atmospherics/A, obj/machinery/atmospherics/N)
@@ -194,7 +194,7 @@
 /datum/pipeline/proc/return_air()
 	. = other_airs + air
 	if(null in .)
-		stack_trace("datum_pipeline.dm/2", "[src]([REF(src)]) has one or more null gas mixtures, which may cause bugs. Null mixtures will not be considered in reconcile_air().")
+		STACK_TRACE_ADV("[src]([REF(src)]) has one or more null gas mixtures, which may cause bugs. Null mixtures will not be considered in reconcile_air().")
 		list_clear_nulls(.)
 
 /datum/pipeline/proc/empty()

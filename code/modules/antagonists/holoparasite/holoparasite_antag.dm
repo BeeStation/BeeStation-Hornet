@@ -55,7 +55,7 @@
 /datum/antagonist/holoparasite/create_team(datum/team/holoparasites/new_team)
 	if(new_team)
 		if(!istype(new_team))
-			stack_trace("holoparasite.dm/1", "Wrong team type passed to [type] initialization.")
+			STACK_TRACE_ADV("Wrong team type passed to [type] initialization.")
 		team = new_team
 	else if(holder)
 		team = holder.get_holoparasite_team()

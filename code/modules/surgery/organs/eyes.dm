@@ -382,7 +382,7 @@
 	parent = loc
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	if(!istype(parent))
-		stack_trace("eyes.dm/1", "/obj/effect/abstract/eye_lighting added to improper parent ([loc]). Deleting.")
+		STACK_TRACE_ADV("/obj/effect/abstract/eye_lighting added to improper parent ([loc]). Deleting.")
 		return INITIALIZE_HINT_QDEL
 	if(!isnull(light_object_range))
 		set_light_range(light_object_range)

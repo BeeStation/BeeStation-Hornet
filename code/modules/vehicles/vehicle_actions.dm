@@ -82,7 +82,7 @@
 	if(!istype(M))
 		return FALSE
 	for(var/path in occupant_actions[M])
-		stack_trace("vehicle_actions.dm/1", "Leftover action type [path] in vehicle type [type] for mob type [M.type] - THIS SHOULD NOT BE HAPPENING!")
+		STACK_TRACE_ADV("Leftover action type [path] in vehicle type [type] for mob type [M.type] - THIS SHOULD NOT BE HAPPENING!")
 		var/datum/action/action = occupant_actions[M][path]
 		action.Remove(M)
 		occupant_actions[M] -= path

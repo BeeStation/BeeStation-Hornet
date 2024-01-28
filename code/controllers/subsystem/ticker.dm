@@ -395,7 +395,7 @@ SUBSYSTEM_DEF(ticker)
 		if(istype(S))							//we can not runtime here. not in this important of a proc.
 			S.after_round_start()
 		else
-			stack_trace("ticker.dm", "[S] [S.type] found in start landmarks list, which isn't a start landmark!")
+			STACK_TRACE_ADV("[S] [S.type] found in start landmarks list, which isn't a start landmark!")
 
 //These callbacks will fire after roundstart key transfer
 /datum/controller/subsystem/ticker/proc/OnRoundstart(datum/callback/cb)

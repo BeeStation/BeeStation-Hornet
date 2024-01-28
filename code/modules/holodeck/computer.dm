@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 		qdel(src)
 		return
 	else if (!offline_program)
-		stack_trace("computer.dm/1", "Holodeck console created without an offline program")
+		STACK_TRACE_ADV("Holodeck console created without an offline program")
 		qdel(src)
 		return
 

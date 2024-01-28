@@ -114,7 +114,7 @@
 	data["message"] = message
 	if(!meme_pack_data)
 		packin_up()
-		stack_trace("expressconsole.dm/1", "You didn't give the cargo tech good advice, and he ripped the manifest. As a result, there was no pack data for [src]")
+		STACK_TRACE_ADV("You didn't give the cargo tech good advice, and he ripped the manifest. As a result, there was no pack data for [src]")
 	data["supplies"] = meme_pack_data
 	if (cooldown > 0)//cooldown used for printing beacons
 		cooldown--

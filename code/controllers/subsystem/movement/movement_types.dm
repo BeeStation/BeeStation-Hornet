@@ -917,8 +917,7 @@
 	// This is a horrible pattern.
 	// Move loops should almost never need to be one offs. Please don't do this if you can help it
 	if(!istype(moving, /obj/structure/disposalholder))
-		stack_trace("movement_types.dm/1", "You tried to make a [moving.type] object move like a disposals holder, stop that!")
-		return FALSE
+		CRASH_RETURN(FALSE, "You tried to make a [moving.type] object move like a disposals holder, stop that!")
 	return ..()
 
 /datum/move_loop/disposal_holder/move()

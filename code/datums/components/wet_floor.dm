@@ -46,7 +46,7 @@
 	if(istype(T))		//If this is false there is so many things wrong with it.
 		T.cut_overlay(current_overlay)
 	else
-		stack_trace("wet_floor.dm/1", "Warning: Wet floor component wasn't on a turf when being destroyed! This is really bad!")
+		STACK_TRACE_ADV("Warning: Wet floor component wasn't on a turf when being destroyed! This is really bad!")
 	return ..()
 
 /datum/component/wet_floor/proc/update_overlay()
@@ -192,7 +192,7 @@
 	if(!LAZYLEN(time_left_list))
 		if(on_init)
 			var/turf/T = parent
-			stack_trace("wet_floor.dm/2", "Warning: Wet floor component gc'd right after initialization! What a waste of time and CPU! Type = [T? T.type : "ERROR - NO PARENT"], Location = [istype(T)? AREACOORD(T) : "ERROR - INVALID PARENT"].")
+			STACK_TRACE_ADV("Warning: Wet floor component gc'd right after initialization! What a waste of time and CPU! Type = [T? T.type : "ERROR - NO PARENT"], Location = [istype(T)? AREACOORD(T) : "ERROR - INVALID PARENT"].")
 		qdel(src)
 		return TRUE
 	return FALSE

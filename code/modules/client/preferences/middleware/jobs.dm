@@ -43,11 +43,11 @@
 
 		var/department_flag = job.department_for_prefs
 		if (isnull(department_flag))
-			stack_trace("jobs.dm/10", "[job] does not have a department set, yet is a joinable occupation!")
+			STACK_TRACE_ADV("[job] does not have a department set, yet is a joinable occupation!")
 			continue
 
 		if (isnull(job.description))
-			stack_trace("jobs.dm/11", "[job] does not have a description set, yet is a joinable occupation!")
+			STACK_TRACE_ADV("[job] does not have a description set, yet is a joinable occupation!")
 			continue
 
 		var/department_name = GLOB.dept_bitflag_to_name["[department_flag]"]

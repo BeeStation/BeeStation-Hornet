@@ -16,7 +16,7 @@
 		var/datum/thing = input
 		if(thing.datum_flags & DF_USE_TAG)
 			if(!thing.tag)
-				stack_trace("ref.dm", "A ref was requested of an object with DF_USE_TAG set but no tag: [thing]")
+				STACK_TRACE_ADV("A ref was requested of an object with DF_USE_TAG set but no tag: [thing]")
 				thing.datum_flags &= ~DF_USE_TAG
 				return CACHED_REF(thing)
 			else

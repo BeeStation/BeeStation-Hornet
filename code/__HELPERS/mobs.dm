@@ -613,13 +613,13 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /mob/dview/Initialize(mapload) //Properly prevents this mob from gaining huds or joining any global lists
 	SHOULD_CALL_PARENT(FALSE)
 	if(flags_1 & INITIALIZED_1)
-		stack_trace("mobs.dm/Init", "Warning: [src]([type]) initialized multiple times!")
+		STACK_TRACE_ADV("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 	return INITIALIZE_HINT_NORMAL
 
 /mob/dview/Destroy(force = FALSE)
 	if(!ready_to_die)
-		stack_trace("mobs.dm/Destroy", "ALRIGHT WHICH FUCKER TRIED TO DELETE *MY* DVIEW?")
+		STACK_TRACE_ADV("ALRIGHT WHICH FUCKER TRIED TO DELETE *MY* DVIEW?")
 
 		if (!force)
 			return QDEL_HINT_LETMELIVE

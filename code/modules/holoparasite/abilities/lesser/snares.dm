@@ -252,7 +252,7 @@
 /obj/effect/snare/Initialize(mapload, datum/holoparasite_ability/lesser/snare/_ability)
 	. = ..()
 	if(!istype(_ability))
-		stack_trace("snare.dm/Init", "Attempted to initialize holoparasite snare without associated ability reference!")
+		STACK_TRACE_ADV("Attempted to initialize holoparasite snare without associated ability reference!")
 		return INITIALIZE_HINT_QDEL
 	ability = _ability
 	var/image/blank_image = image(icon_state = "blank", loc = src)

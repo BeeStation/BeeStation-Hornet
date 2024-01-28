@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(asset_loading)
 
 /datum/controller/subsystem/asset_loading/proc/queue_asset(datum/asset/queue)
 #ifdef DO_NOT_DEFER_ASSETS
-	stack_trace("asset_loading.dm", "We queued an instance of [queue.type] for lateloading despite not allowing it")
+	STACK_TRACE_ADV("We queued an instance of [queue.type] for lateloading despite not allowing it")
 #endif
 	generate_queue += queue
 

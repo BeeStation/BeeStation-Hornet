@@ -349,13 +349,13 @@
 			COOLDOWN_START(src, production_cooldown, 5 SECONDS)
 			var/id = params["id"]
 			if(!stored_research.researched_designs.Find(id))
-				stack_trace("biogenerator.dm/1", "ID did not map to a researched datum [id]")
+				STACK_TRACE_ADV("ID did not map to a researched datum [id]")
 				return
 			var/datum/design/D = SSresearch.techweb_design_by_id(id)
 			if(D && !istype(D, /datum/design/error_design))
 				create_product(D, amount)
 			else
-				stack_trace("biogenerator.dm/2", "ID could not be turned into a valid techweb design datum [id]")
+				STACK_TRACE_ADV("ID could not be turned into a valid techweb design datum [id]")
 				return
 			return TRUE
 		if("select")

@@ -14,7 +14,7 @@
 	if(!isliving(target))
 		return ELEMENT_INCOMPATIBLE
 	if(!loot)
-		stack_trace("death_drops.dm/1", "death drops element added to [target] with NO LOOT")
+		STACK_TRACE_ADV("death drops element added to [target] with NO LOOT")
 	if(!src.loot)
 		src.loot = loot.Copy()
 	RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(on_death))

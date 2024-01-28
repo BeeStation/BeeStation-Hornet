@@ -6,7 +6,7 @@
 
 /turf/baseturf_skipover/Initialize(mapload)
 	. = ..()
-	stack_trace("baseturf_skipover.dm/1", "[src]([type]) was instanced which should never happen. Changing into the next baseturf down...")
+	STACK_TRACE_ADV("[src]([type]) was instanced which should never happen. Changing into the next baseturf down...")
 	ScrapeAway()
 
 /turf/baseturf_skipover/shuttle

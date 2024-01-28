@@ -239,7 +239,7 @@
 	borgo = loc
 	if(!istype(borgo))
 		borgo = null
-		stack_trace("tablet.dm/Init", "[type] initialized outside of a borg, deleting.")
+		STACK_TRACE_ADV("[type] initialized outside of a borg, deleting.")
 		return INITIALIZE_HINT_QDEL
 
 /obj/item/modular_computer/tablet/integrated/Destroy()
@@ -268,7 +268,7 @@
 		var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
 		self_monitoring = hard_drive.find_file_by_name("borg_self_monitor")
 		if(!self_monitoring)
-			stack_trace("tablet.dm/1", "Cyborg [borgo] ( [borgo.type] ) was somehow missing their self-management app in their tablet. A new copy has been created.")
+			STACK_TRACE_ADV("Cyborg [borgo] ( [borgo.type] ) was somehow missing their self-management app in their tablet. A new copy has been created.")
 			self_monitoring = new(hard_drive)
 			if(!hard_drive.store_file(self_monitoring))
 				qdel(self_monitoring)

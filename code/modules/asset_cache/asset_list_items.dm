@@ -332,7 +332,7 @@
 			icon_state = initial(D.research_icon_state)
 			#ifdef UNIT_TESTS
 			if(!(icon_state in icon_states(icon_file)))
-				stack_trace("asset_list_item.dm/1", "design [D] with icon '[icon_file]' missing state '[icon_state]'")
+				STACK_TRACE_ADV("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
 			#endif
 			I = icon(icon_file, icon_state, SOUTH, 1)
@@ -368,7 +368,7 @@
 			icon_state = initial(item.icon_state)
 			#ifdef UNIT_TESTS
 			if(!(icon_state in icon_states(icon_file)))
-				stack_trace("asset_list_item.dm/2", "design [D] with icon '[icon_file]' missing state '[icon_state]'")
+				STACK_TRACE_ADV("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
 			#endif
 			I = icon(icon_file, icon_state, SOUTH, 1)
@@ -439,7 +439,7 @@
 			else
 				icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
 
-		stack_trace("asset_list_item.dm/3", "[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
+		STACK_TRACE_ADV("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
 		return FALSE
 	#endif
 
@@ -460,7 +460,7 @@
 			continue
 		var/atom/A = R.result
 		if(!ispath(A, /atom))
-			stack_trace("asset_list_item.dm/4", "The recipe '[R.type]' has '[A]' which is not atom. This is because our crafting system is not up-to-date to TG's.")
+			STACK_TRACE_ADV("The recipe '[R.type]' has '[A]' which is not atom. This is because our crafting system is not up-to-date to TG's.")
 			continue
 		if(chached_list[A]) // this prevents an icon to be inserted again
 			continue
@@ -478,7 +478,7 @@
 					icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
 				else
 					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
-			stack_trace("asset_list_item.dm/5", "[A] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
+			STACK_TRACE_ADV("[A] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
 			continue
 		#endif
 
@@ -530,7 +530,7 @@
 
 		var/icon/I = cache_targets[each]
 		if(!I)
-			stack_trace("asset_list_item.dm/6", "Sometime's wrong to create an image asset in '/datum/asset/spritesheet/tools'. [each] is null.")
+			STACK_TRACE_ADV("Sometime's wrong to create an image asset in '/datum/asset/spritesheet/tools'. [each] is null.")
 			continue
 		I.Scale(32, 32)
 		Insert(each, I)
