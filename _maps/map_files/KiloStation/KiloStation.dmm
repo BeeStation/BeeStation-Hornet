@@ -45406,6 +45406,11 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder{
+	pixel_y = 10
+	},
+/obj/item/stack/sheet/mineral/plasma/five,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "icf" = (
@@ -79673,7 +79678,6 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "uve" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -79684,11 +79688,7 @@
 	dir = 1;
 	color = "#439C1E"
 	},
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder{
-	pixel_y = 10
-	},
-/obj/item/stack/sheet/mineral/plasma/five,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "uvk" = (
@@ -87360,6 +87360,7 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "xav" = (
