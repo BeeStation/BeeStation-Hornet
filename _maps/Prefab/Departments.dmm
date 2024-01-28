@@ -1,0 +1,2338 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ac" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry Lab";
+	req_access_txt = "33"
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
+"aj" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/machinery/vending/wardrobe/viro_wardrobe,
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
+"am" = (
+/obj/machinery/door/airlock{
+	name = "Law Office";
+	req_access_txt = "38"
+	},
+/turf/open/floor/carpet/green,
+/area/lawoffice)
+"ap" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/vending/wardrobe/gene_wardrobe,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics)
+"aD" = (
+/obj/item/toy/plush/moth/clockwork,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"aJ" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/science/research)
+"aK" = (
+/obj/machinery/vending/wardrobe/chef_wardrobe,
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen)
+"aR" = (
+/obj/machinery/door/airlock/atmos/glass{
+	req_access_txt = "24"
+	},
+/turf/open/floor/plasteel/tech,
+/area/engine/atmos)
+"aU" = (
+/obj/effect/landmark/start/atmospheric_technician,
+/turf/open/floor/plasteel/tech,
+/area/engine/atmos)
+"aZ" = (
+/obj/item/toy/plush/moth/whitefly,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"ba" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/vending/wardrobe/medi_wardrobe,
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
+"be" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
+	alpha = 180
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	req_one_access_txt = "32"
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"bE" = (
+/obj/item/book/manual/wiki/sopservice,
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
+"bN" = (
+/obj/structure/closet/secure_closet/detective,
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"ca" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/structure/closet/secure_closet/chemical,
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
+"cc" = (
+/mob/living/simple_animal/slime,
+/turf/open/floor/plasteel/grid/steel,
+/area/science/xenobiology)
+"co" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Xenobiology Junction";
+	sortType = 28
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/xenobiology)
+"ct" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/door/airlock/command{
+	name = "Chief Medical Officer's Office";
+	req_access_txt = "40"
+	},
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/heads/cmo)
+"cu" = (
+/obj/machinery/door/poddoor{
+	id = "TrashDoor";
+	name = "Disposals Launch Seal"
+	},
+/turf/open/floor/plating,
+/area/maintenance/disposal)
+"cM" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/mob/living/simple_animal/bot/medbot{
+	name = "Flint, RN"
+	},
+/mob/living/simple_animal/bot/cleanbot/larry{
+	on = 0
+	},
+/mob/living/simple_animal/butterfly{
+	name = "Lisa, PsyD"
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
+"cP" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/fax/med,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/heads/cmo)
+"dc" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "dorms";
+	sortType = 26
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
+	alpha = 200;
+	color = "#267878"
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
+"dv" = (
+/obj/machinery/vending/wardrobe/bar_wardrobe,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/crew_quarters/bar)
+"dA" = (
+/turf/open/floor/plasteel/grid/steel,
+/area/science/xenobiology)
+"dF" = (
+/obj/effect/landmark/start/librarian,
+/turf/open/floor/carpet/royalblack,
+/area/library)
+"dM" = (
+/obj/item/toy/plush/moth/ragged,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"dZ" = (
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
+"ea" = (
+/obj/structure/closet/secure_closet/captains,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
+"ee" = (
+/obj/effect/landmark/start/scientist,
+/turf/open/floor/plasteel/grid/steel,
+/area/science/xenobiology)
+"ei" = (
+/turf/open/floor/plasteel/white,
+/area/science/robotics)
+"et" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Kitchen";
+	sortType = 20
+	},
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen)
+"ew" = (
+/obj/effect/landmark/start/cyborg,
+/mob/living/basic/mothroach{
+	density = 0;
+	desc = "A festive mothroach";
+	name = "Erster"
+	},
+/turf/open/floor/plasteel/white,
+/area/science/robotics)
+"eA" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Medbay";
+	sortType = 9
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
+"eB" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/closet/secure_closet/medical3,
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
+"eJ" = (
+/obj/machinery/door/airlock{
+	name = "Kitchen";
+	req_one_access_txt = "35;28"
+	},
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen)
+"eL" = (
+/obj/effect/landmark/start/virologist,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
+"ff" = (
+/obj/item/toy/plush/moth/poison,
+/turf/open/floor/plasteel,
+/area/space)
+"fz" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/effect/landmark/start/brig_physician,
+/obj/effect/landmark/start/warden,
+/obj/effect/landmark/start/security_officer,
+/turf/open/floor/plasteel,
+/area/security/main{
+	name = "Security Locker Room"
+	})
+"fK" = (
+/obj/item/toy/plush/moth/redish,
+/turf/open/floor/plasteel,
+/area/space)
+"fL" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/item/book/manual/wiki/xenoarchaeology,
+/turf/open/floor/plasteel/white,
+/area/science/research)
+"fZ" = (
+/obj/machinery/vending/wardrobe/atmos_wardrobe,
+/turf/open/floor/plasteel/tech,
+/area/engine/atmos)
+"ga" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Chap";
+	sortType = 17
+	},
+/turf/open/floor/carpet/purple,
+/area/chapel/office)
+"gf" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/heads/cmo)
+"gs" = (
+/obj/item/toy/plush/moth/luna,
+/turf/open/floor/plasteel,
+/area/space)
+"hm" = (
+/obj/item/toy/plush/moth/bluespace,
+/turf/open/floor/plasteel,
+/area/space)
+"hz" = (
+/obj/machinery/conveyor_switch/oneway{
+	id = "packageSort2"
+	},
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/sorting)
+"hQ" = (
+/obj/machinery/door/morgue{
+	name = "Private Study";
+	req_access_txt = "37"
+	},
+/turf/open/floor/carpet/royalblack,
+/area/library)
+"hY" = (
+/obj/machinery/door/airlock/security{
+	name = "Detective's Office";
+	req_access_txt = "4"
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"hZ" = (
+/obj/structure/filingcabinet/security,
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"ia" = (
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
+"ic" = (
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"ih" = (
+/obj/item/toy/plush/moth/witchwing,
+/turf/open/floor/plasteel,
+/area/space)
+"ir" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/item/reagent_containers/glass/bucket{
+	pixel_x = 11;
+	pixel_y = -5
+	},
+/obj/item/mop{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/obj/item/key/janitor,
+/obj/vehicle/ridden/janicart,
+/turf/open/floor/plasteel,
+/area/janitor)
+"iw" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/machinery/vending/wardrobe/sec_wardrobe,
+/turf/open/floor/plasteel,
+/area/security/main{
+	name = "Security Locker Room"
+	})
+"iC" = (
+/obj/structure/girder,
+/turf/open/floor/plating,
+/area/space)
+"jA" = (
+/obj/machinery/mineral/stacking_unit_console{
+	input_dir = 8;
+	machinedir = 8;
+	pixel_y = null
+	},
+/turf/open/floor/plating,
+/area/maintenance/disposal)
+"jF" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/mob/living/carbon/monkey,
+/mob/living/simple_animal/pet/hamster/vector{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
+"jK" = (
+/obj/effect/landmark/start/detective,
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"jS" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Medbay";
+	sortType = 10
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/heads/cmo)
+"jV" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "HOS"
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"kj" = (
+/obj/machinery/suit_storage_unit/captain,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
+"kG" = (
+/obj/structure/destructible/cult/tome,
+/turf/open/floor/carpet/royalblack,
+/area/library)
+"kX" = (
+/obj/machinery/vending/wardrobe/curator_wardrobe,
+/turf/open/floor/carpet/royalblack,
+/area/library)
+"kZ" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
+	alpha = 200;
+	color = "#267878"
+	},
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
+"lt" = (
+/turf/open/floor/engine,
+/area/science/mixing)
+"lE" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/mob/living/simple_animal/pet/dog/bullterrier/walter{
+	density = 0
+	},
+/mob/living/simple_animal/kalo{
+	desc = "The Perma brig's cute grass snake.";
+	icon = 'icons/mob/animal.dmi';
+	icon_dead = "snake_dead";
+	icon_living = "snake";
+	icon_state = "snake";
+	name = "Hugel"
+	},
+/turf/open/floor/plasteel,
+/area/security/main{
+	name = "Security Locker Room"
+	})
+"mo" = (
+/obj/item/toy/plush/moth/lovers,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"mO" = (
+/obj/item/storage/box/beanbag,
+/obj/item/gun/ballistic/shotgun/doublebarrel,
+/obj/item/book/manual/wiki/barman_recipes,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/crew_quarters/bar)
+"mT" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Hydro";
+	sortType = 21
+	},
+/turf/open/floor/grass/no_border,
+/area/hydroponics)
+"nb" = (
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/sorting)
+"ni" = (
+/obj/item/toy/plush/moth/firewatch,
+/turf/open/floor/plasteel,
+/area/space)
+"nn" = (
+/obj/machinery/door/airlock/glass{
+	name = "Hydroponics";
+	req_one_access_txt = "35;28"
+	},
+/turf/open/floor/grass/no_border,
+/area/hydroponics)
+"np" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/turf/open/floor/plasteel,
+/area/security/main{
+	name = "Security Locker Room"
+	})
+"nq" = (
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
+"nr" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
+	alpha = 180
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"nt" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/door/airlock/research{
+	id_tag = "ResearchExt";
+	name = "Research Division";
+	req_one_access_txt = "7;29"
+	},
+/turf/open/floor/plasteel/white,
+/area/science/research)
+"nv" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
+"nG" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "HOP";
+	sortType = 15
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
+"nL" = (
+/obj/structure/closet/crate/wooden/toy,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/theatre/backstage)
+"oa" = (
+/turf/open/floor/carpet/green,
+/area/lawoffice)
+"oq" = (
+/obj/machinery/door/airlock/command{
+	name = "Captain's Quarters";
+	req_access_txt = "20"
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
+"or" = (
+/obj/structure/closet/secure_closet/freezer/cream_pie,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/theatre/backstage)
+"ou" = (
+/obj/machinery/computer/upload/borg{
+	dir = 1
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
+"ow" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Disposal Access";
+	req_one_access_txt = "31;48;26"
+	},
+/turf/open/floor/plating,
+/area/maintenance/disposal)
+"oC" = (
+/obj/machinery/computer/upload/ai{
+	dir = 8
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
+"oG" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	sortType = 12
+	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/science/research)
+"oO" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/structure/janitorialcart,
+/turf/open/floor/plasteel,
+/area/janitor)
+"ph" = (
+/obj/effect/landmark/start/mime,
+/obj/effect/landmark/start/clown,
+/obj/effect/landmark/start/randommaint/magician,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/theatre/backstage)
+"pp" = (
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/heads/chief)
+"pq" = (
+/obj/machinery/door/airlock/mining{
+	name = "Quartermaster's Office";
+	req_access_txt = "41"
+	},
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
+"pT" = (
+/obj/machinery/fax/sec,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"pY" = (
+/obj/effect/landmark/start/geneticist,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics)
+"qf" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Medbay Junction";
+	sortType = 11
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
+"qx" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/machinery/door/airlock/virology/glass{
+	id_tag = null;
+	name = "Virology Ward";
+	req_access_txt = "39"
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
+"qy" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "disposals";
+	sortTypes = list(0,1)
+	},
+/turf/open/floor/plating,
+/area/maintenance/disposal)
+"qz" = (
+/obj/structure/closet/secure_closet/miner,
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
+"qD" = (
+/mob/living/simple_animal/pet/fox/Renault{
+	density = 0;
+	dir = 8;
+	pixel_y = 10
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
+"qJ" = (
+/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/cargo_technician,
+/obj/effect/landmark/start/depsec/supply,
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
+"qL" = (
+/obj/effect/landmark/start/lawyer,
+/turf/open/floor/carpet/green,
+/area/lawoffice)
+"rc" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Security"
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/turf/open/floor/plasteel,
+/area/security/main{
+	name = "Security Locker Room"
+	})
+"rs" = (
+/obj/item/toy/plush/moth/moonfly,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"rN" = (
+/obj/structure/closet/bombcloset,
+/turf/open/floor/engine,
+/area/science/mixing)
+"rP" = (
+/obj/item/book/manual/wiki/sopscience,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/heads/hor)
+"rW" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
+	alpha = 180
+	},
+/obj/effect/landmark/start/depsec/engineering,
+/obj/effect/landmark/start/station_engineer,
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"sn" = (
+/mob/living/simple_animal/bot/mulebot{
+	home_destination = "QM #2";
+	suffix = "#2"
+	},
+/mob/living/simple_animal/sloth/citrus{
+	density = 0
+	},
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
+"sx" = (
+/obj/structure/closet/secure_closet/bar,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/crew_quarters/bar)
+"tb" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Delivery Office";
+	req_access_txt = "50"
+	},
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/sorting)
+"ti" = (
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/exploration_prep)
+"tn" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	sortType = 2
+	},
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
+"ty" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/book/manual/wiki/medicine,
+/obj/item/book/manual/wiki/surgery,
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
+"tB" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
+	alpha = 200;
+	color = "#267878"
+	},
+/obj/structure/closet/wardrobe/yellow,
+/obj/structure/closet/wardrobe/white,
+/obj/structure/closet/wardrobe/red,
+/obj/structure/closet/wardrobe/pink,
+/obj/structure/closet/wardrobe/orange,
+/obj/structure/closet/wardrobe/grey,
+/obj/structure/closet/wardrobe/green,
+/obj/structure/closet/wardrobe/black,
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
+"tK" = (
+/obj/machinery/door/window/eastleft{
+	dir = 8;
+	icon_state = "right";
+	name = "Incoming Mail";
+	req_access_txt = "50"
+	},
+/obj/structure/disposaloutlet{
+	dir = 8;
+	name = "Delivery failed return chute"
+	},
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/sorting)
+"tM" = (
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
+"ui" = (
+/obj/item/toy/plush/moth/rainbow,
+/turf/open/floor/plasteel,
+/area/space)
+"uo" = (
+/obj/machinery/door/poddoor{
+	id = "AIwindows";
+	name = "AI View Blast door"
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
+"uM" = (
+/obj/machinery/vending/wardrobe/hydro_wardrobe,
+/turf/open/floor/grass/no_border,
+/area/hydroponics)
+"uN" = (
+/obj/item/toy/plush/moth/error,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"va" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 8
+	},
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/sorting)
+"vl" = (
+/obj/effect/landmark/start/captain,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
+"vp" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Atmos";
+	sortType = 6
+	},
+/turf/open/floor/plasteel/tech,
+/area/engine/atmos)
+"vW" = (
+/obj/item/toy/plush/moth/gothic,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"vZ" = (
+/obj/machinery/vending/wardrobe/cargo_wardrobe,
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
+"ws" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/item/book/manual/wiki/sopmedical,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/heads/cmo)
+"wA" = (
+/obj/structure/closet/secure_closet/hos,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"wG" = (
+/obj/effect/landmark/start/head_of_security,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"wQ" = (
+/obj/item/toy/plush/moth/snow,
+/turf/open/floor/plasteel,
+/area/space)
+"xd" = (
+/obj/structure/closet/secure_closet/hop,
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
+"xe" = (
+/obj/structure/closet/secure_closet/atmospherics,
+/turf/open/floor/plasteel/tech,
+/area/engine/atmos)
+"xI" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/structure/closet/secure_closet/security/sec{
+	anchored = 1
+	},
+/turf/open/floor/plasteel,
+/area/security/main{
+	name = "Security Locker Room"
+	})
+"xM" = (
+/obj/item/book/manual/hydroponics_pod_people,
+/turf/open/floor/grass/no_border,
+/area/hydroponics)
+"xS" = (
+/obj/item/book/manual/wiki/sopengineering,
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/heads/chief)
+"yb" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "CE";
+	sortType = 5
+	},
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/heads/chief)
+"yf" = (
+/obj/machinery/vending/wardrobe/law_wardrobe,
+/turf/open/floor/carpet/green,
+/area/lawoffice)
+"yv" = (
+/obj/machinery/fax/service,
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
+"yJ" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/effect/landmark/start/depsec/medical,
+/obj/effect/landmark/start/chemist,
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
+"yX" = (
+/obj/machinery/fax/eng,
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/heads/chief)
+"zv" = (
+/obj/effect/landmark/start/quartermaster,
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
+"zx" = (
+/obj/effect/landmark/blobstart,
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/plating,
+/area/space)
+"zK" = (
+/obj/machinery/vending/wardrobe/robo_wardrobe,
+/turf/open/floor/plasteel/white,
+/area/science/robotics)
+"zM" = (
+/obj/machinery/porta_turret/ai{
+	dir = 4
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
+"zT" = (
+/obj/machinery/door/airlock/command{
+	name = "Head of Personnel's Office";
+	req_access_txt = "57"
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
+"zU" = (
+/obj/machinery/door/airlock/science{
+	name = "Toxins Lab";
+	req_access_txt = "49"
+	},
+/turf/open/floor/engine,
+/area/science/mixing)
+"Aj" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/vending/wardrobe/jani_wardrobe,
+/turf/open/floor/plasteel,
+/area/janitor)
+"Az" = (
+/obj/machinery/vending/wardrobe/det_wardrobe,
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"AF" = (
+/obj/item/toy/plush/moth/bluespace,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"AU" = (
+/obj/machinery/fax/bridge,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
+"Bb" = (
+/obj/machinery/mineral/stacking_machine{
+	dir = 4;
+	input_dir = 1;
+	output_dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/disposal)
+"Bo" = (
+/obj/structure/closet,
+/obj/structure/closet/firecloset/full,
+/obj/structure/closet/emcloset,
+/obj/structure/rack,
+/turf/open/floor/plating,
+/area/space)
+"BW" = (
+/obj/machinery/door/airlock/command{
+	name = "Chief Engineer's Office";
+	req_access_txt = "56"
+	},
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/heads/chief)
+"Cb" = (
+/obj/machinery/door/airlock/grunge{
+	name = "Chapel Morgue";
+	req_access_txt = "27"
+	},
+/turf/open/floor/carpet/purple,
+/area/chapel/office)
+"Co" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/maintenance/central)
+"CE" = (
+/obj/machinery/rnd/production/techfab/department/service,
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
+"CM" = (
+/obj/machinery/door/airlock/research/glass{
+	name = "Robotics Lab";
+	req_access_txt = "29"
+	},
+/turf/open/floor/plasteel/white,
+/area/science/robotics)
+"CT" = (
+/obj/effect/landmark/start/ai/secondary,
+/obj/effect/landmark/start/ai,
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
+"De" = (
+/obj/machinery/recycler,
+/turf/open/floor/plating,
+/area/maintenance/disposal)
+"Dg" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/mob/living/simple_animal/pet/cat/Runtime,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/heads/cmo)
+"DR" = (
+/obj/machinery/vending/dinnerware,
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen)
+"DS" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Captain's Desk";
+	departmentType = 5;
+	name = "Captain RC"
+	},
+/obj/item/disk/nuclear,
+/obj/item/book/manual/wiki/sopcommand,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
+"Eb" = (
+/turf/open/floor/plasteel/cafeteria_red,
+/area/crew_quarters/bar)
+"Ec" = (
+/obj/item/toy/plush/moth/rosy,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"Eg" = (
+/obj/machinery/door/airlock{
+	name = "Theatre";
+	req_one_access_txt = "46;37"
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/theatre/backstage)
+"EF" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/effect/landmark/start/randommaint/psychiatrist,
+/obj/effect/landmark/start/medical_doctor,
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
+"EI" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/effect/landmark/start/depsec/science,
+/obj/effect/landmark/start/scientist,
+/turf/open/floor/plasteel/white,
+/area/science/research)
+"EJ" = (
+/mob/living/basic/cockroach,
+/turf/open/floor/plating,
+/area/space)
+"EL" = (
+/obj/effect/landmark/start/chief_engineer,
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/heads/chief)
+"EM" = (
+/obj/effect/landmark/start/cook,
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen)
+"Fa" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/mob/living/carbon/monkey,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics)
+"Fh" = (
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	departmentType = 2
+	},
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/sorting)
+"Fn" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/door/airlock{
+	name = "Custodial Closet";
+	req_access_txt = "26"
+	},
+/turf/open/floor/plasteel,
+/area/janitor)
+"Ft" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Barman";
+	sortType = 19
+	},
+/turf/open/floor/plasteel/cafeteria_red,
+/area/crew_quarters/bar)
+"Fx" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/structure/closet/l3closet/janitor,
+/turf/open/floor/plasteel,
+/area/janitor)
+"Gs" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	sortType = 25
+	},
+/turf/open/floor/engine,
+/area/science/mixing)
+"Gy" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Curator";
+	sortType = 16
+	},
+/turf/open/floor/carpet/royalblack,
+/area/library)
+"GN" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/space)
+"Hb" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/vending/wardrobe/science_wardrobe,
+/turf/open/floor/plasteel/white,
+/area/science/research)
+"HB" = (
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "innerbrign";
+	name = "Brig";
+	req_one_access_txt = "63;38"
+	},
+/turf/open/floor/plasteel,
+/area/security/main{
+	name = "Security Locker Room"
+	})
+"HZ" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	sortType = 3
+	},
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
+"Ih" = (
+/obj/item/book/manual/wiki/robotics_cyborgs,
+/turf/open/floor/plasteel/white,
+/area/science/robotics)
+"Ii" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/structure/closet/l3closet/virology,
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
+"Il" = (
+/obj/item/toy/plush/moth/punished,
+/turf/open/floor/plasteel,
+/area/space)
+"Iu" = (
+/obj/machinery/vendor/exploration,
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/exploration_prep)
+"IO" = (
+/obj/structure/closet/secure_closet/RD,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/heads/hor)
+"Jo" = (
+/obj/item/toy/plush/moth/royal,
+/turf/open/floor/plasteel,
+/area/space)
+"JM" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/mob/living/simple_animal/pet/dog/pug{
+	density = 0;
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/science/research)
+"JN" = (
+/mob/living/simple_animal/hostile/retaliate/goat{
+	name = "Pete"
+	},
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen)
+"JV" = (
+/obj/machinery/suit_storage_unit/exploration,
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/exploration_prep)
+"JX" = (
+/obj/structure/closet/l3closet/virology,
+/turf/open/floor/plasteel/grid/steel,
+/area/science/xenobiology)
+"Kb" = (
+/obj/item/book/codex_gigas,
+/turf/open/floor/carpet/royalblack,
+/area/library)
+"Kg" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/space)
+"Kh" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	sortType = 13
+	},
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/heads/hor)
+"Kp" = (
+/obj/machinery/rnd/production/techfab/department/science,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/heads/hor)
+"Kq" = (
+/obj/item/toy/plush/moth/brown,
+/turf/open/floor/plasteel,
+/area/space)
+"Kr" = (
+/obj/machinery/suit_storage_unit/hos,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"Ky" = (
+/obj/effect/landmark/start/bartender,
+/turf/open/floor/plasteel/cafeteria_red,
+/area/crew_quarters/bar)
+"KD" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
+	alpha = 200;
+	color = "#267878"
+	},
+/obj/machinery/washing_machine,
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
+"KM" = (
+/turf/open/floor/carpet/royalblack,
+/area/library)
+"KV" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/landmark/start/chief_medical_officer,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/heads/cmo)
+"KY" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Bay";
+	req_one_access_txt = "31;48"
+	},
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
+"Lw" = (
+/obj/effect/landmark/start/chaplain,
+/turf/open/floor/carpet/purple,
+/area/chapel/office)
+"LC" = (
+/obj/structure/closet/secure_closet/freezer/meat,
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/structure/closet/secure_closet/freezer/fridge,
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen)
+"LH" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = "MedbayFoyer";
+	name = "Medbay";
+	req_one_access_txt = "5"
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
+"LP" = (
+/turf/open/floor/plasteel/tech,
+/area/engine/atmos)
+"LU" = (
+/obj/effect/landmark/start/scientist,
+/turf/open/floor/engine,
+/area/science/mixing)
+"Mb" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Research Director";
+	req_access_txt = "30"
+	},
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/heads/hor)
+"Mc" = (
+/obj/structure/closet/secure_closet/engineering_chief,
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/heads/chief)
+"Mm" = (
+/obj/machinery/conveyor_switch/oneway{
+	dir = 8;
+	id = "garbage";
+	name = "disposal conveyor"
+	},
+/obj/machinery/button/massdriver{
+	id = "TrashDisp"
+	},
+/obj/structure/lattice/catwalk/over,
+/turf/open/floor/plating,
+/area/maintenance/disposal)
+"Mw" = (
+/obj/structure/disposalpipe/sorting/mail{
+	name = "Captain"
+	},
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
+"MC" = (
+/obj/machinery/mass_driver{
+	dir = 8;
+	id = "TrashDisp"
+	},
+/turf/open/floor/plating,
+/area/maintenance/disposal)
+"MP" = (
+/obj/item/book/manual/wiki/sopsupply,
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
+"Nb" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/machinery/vending/wardrobe/chem_wardrobe,
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
+"Nu" = (
+/obj/effect/landmark/start/botanist,
+/turf/open/floor/grass/no_border,
+/area/hydroponics)
+"NA" = (
+/obj/item/toy/plush/moth,
+/turf/open/floor/plasteel,
+/area/space)
+"NH" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
+	alpha = 200;
+	color = "#267878"
+	},
+/obj/machinery/vending/autodrobe/all_access,
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
+"NO" = (
+/obj/item/toy/plush/moth/plasmafire,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"Oc" = (
+/obj/machinery/door/airlock/highsecurity{
+	name = "AI Core";
+	req_access_txt = "65"
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
+"Oe" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
+	alpha = 180
+	},
+/obj/machinery/vending/wardrobe/engi_wardrobe,
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"Oq" = (
+/obj/machinery/fax/cargo,
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
+"Os" = (
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/heads/hor)
+"Oz" = (
+/turf/open/floor/grass/no_border,
+/area/hydroponics)
+"OT" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Genie";
+	sortType = 23
+	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics)
+"OX" = (
+/obj/item/toy/plush/moth,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"OZ" = (
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
+"Pd" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
+	alpha = 200;
+	color = "#267878"
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Dormitory"
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
+"Pj" = (
+/obj/machinery/door/airlock/command{
+	name = "Head of Security's Office";
+	req_access_txt = "58"
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"Ps" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/janitor)
+"Pz" = (
+/obj/effect/landmark/start/research_director,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/heads/hor)
+"PI" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	sortType = 30
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"PP" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/mob/living/simple_animal/kalo,
+/turf/open/floor/plasteel,
+/area/janitor)
+"PR" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Virology Junction";
+	sortType = 27
+	},
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
+"Qb" = (
+/obj/machinery/fax/law,
+/turf/open/floor/carpet/green,
+/area/lawoffice)
+"Qc" = (
+/obj/machinery/rnd/production/techfab/department/engineering,
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/heads/chief)
+"Qe" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/filingcabinet/medical,
+/turf/open/floor/plasteel/white,
+/area/medical/sleeper)
+"Qi" = (
+/obj/item/book/manual/wiki/detective,
+/obj/item/clothing/glasses/hud/security/sunglasses{
+	pixel_y = 6
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"Qj" = (
+/mob/living/simple_animal/parrot/Poly,
+/turf/open/floor/carpet/royalblue,
+/area/crew_quarters/heads/chief)
+"Qk" = (
+/turf/open/floor/plasteel,
+/area/space)
+"QG" = (
+/obj/effect/landmark/start/roboticist,
+/turf/open/floor/plasteel/white,
+/area/science/robotics)
+"QQ" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/door/airlock/research{
+	name = "Genetics Lab";
+	req_access_txt = "9"
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics)
+"QX" = (
+/obj/machinery/vending/wardrobe/chap_wardrobe,
+/turf/open/floor/carpet/purple,
+/area/chapel/office)
+"Rd" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics)
+"Rm" = (
+/obj/machinery/vendor/mining,
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
+"Rq" = (
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen)
+"RB" = (
+/obj/machinery/door/airlock/research{
+	name = "Exploration Preparation Room";
+	req_one_access_txt = "49;47"
+	},
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/exploration_prep)
+"Sa" = (
+/obj/structure/closet/secure_closet/hydroponics,
+/turf/open/floor/grass/no_border,
+/area/hydroponics)
+"So" = (
+/mob/living/simple_animal/pet/dog/corgi/Ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
+"Sy" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/glowstick,
+/turf/open/floor/plating,
+/area/space)
+"SQ" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
+	alpha = 200;
+	color = "#267878"
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
+"ST" = (
+/obj/item/toy/plush/moth/monarch,
+/turf/open/floor/plasteel,
+/area/space)
+"SY" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/effect/landmark/start/janitor,
+/turf/open/floor/plasteel,
+/area/janitor)
+"Tj" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Theatre";
+	sortType = 18
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/theatre/backstage)
+"Tn" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
+	alpha = 180
+	},
+/obj/structure/closet/secure_closet/engineering_personal,
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"To" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/item/book/manual/wiki/medical_cloning,
+/turf/open/floor/plasteel/dark,
+/area/medical/genetics)
+"Tp" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/rnd/production/techfab/department/medical,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/heads/cmo)
+"Tq" = (
+/mob/living/simple_animal/hostile/retaliate/frog{
+	attacked_sound = 'sound/effects/huuu.ogg';
+	density = 0;
+	desc = "It seems a little sad.";
+	head_icon = 'icons/mob/pets_held.dmi';
+	held_state = "";
+	icon = 'icons/mob/animal.dmi';
+	icon_dead = "frog_dead";
+	icon_living = "frog";
+	icon_state = "frog";
+	name = "Larry";
+	pixel_y = 12;
+	stepped_sound = null
+	},
+/turf/open/floor/grass/no_border,
+/area/hydroponics)
+"Tr" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
+	alpha = 200;
+	color = "#267878"
+	},
+/obj/machinery/vending/clothing,
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
+"TE" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	sortType = 14
+	},
+/turf/open/floor/plasteel/white,
+/area/science/robotics)
+"TS" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/obj/item/book/manual/wiki/infections,
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
+"TZ" = (
+/obj/structure/closet/secure_closet/quartermaster,
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
+"Ud" = (
+/obj/item/toy/plush/moth/deadhead,
+/turf/open/floor/plasteel,
+/area/space)
+"Up" = (
+/mob/living/simple_animal/hostile/carp/lia,
+/mob/living/simple_animal/bot/secbot{
+	arrest_type = 1;
+	health = 45;
+	icon_state = "secbot1";
+	idcheck = 1;
+	name = "Sergeant-at-Armsky";
+	weaponscheck = 1
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"Uq" = (
+/obj/machinery/door/airlock/research/glass{
+	name = "Xenobiology Lab";
+	req_access_txt = "47"
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/xenobiology)
+"Uu" = (
+/obj/machinery/rnd/production/techfab/department/cargo,
+/turf/open/floor/carpet/orange,
+/area/quartermaster/qm)
+"UH" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/CMO,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/heads/cmo)
+"UQ" = (
+/obj/machinery/suit_storage_unit/mining,
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
+"UV" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
+"Vg" = (
+/obj/effect/landmark/start/exploration,
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/exploration_prep)
+"Vk" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
+	alpha = 180
+	},
+/obj/item/book/manual/wiki/engineering_construction,
+/obj/item/book/manual/wiki/engineering_guide,
+/obj/item/book/manual/wiki/engineering_hacking,
+/obj/item/book/manual/wiki/engineering_singulo_tesla,
+/obj/item/book/manual/wiki/tcomms,
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"Vm" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	sortType = 29
+	},
+/turf/open/floor/carpet/green,
+/area/lawoffice)
+"Vy" = (
+/turf/open/floor/carpet/red,
+/area/crew_quarters/theatre/backstage)
+"VA" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Janie";
+	sortType = 22
+	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/janitor)
+"VB" = (
+/obj/item/book/manual/wiki/atmospherics,
+/turf/open/floor/plasteel/tech,
+/area/engine/atmos)
+"VD" = (
+/obj/item/book/manual/wiki/grenades,
+/obj/item/book/manual/wiki/toxins,
+/turf/open/floor/engine,
+/area/science/mixing)
+"VY" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "packageSort2"
+	},
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/sorting)
+"Wp" = (
+/mob/living/simple_animal/chicken{
+	name = "Kentucky";
+	real_name = "Kentucky"
+	},
+/turf/open/floor/plasteel/cafeteria_red,
+/area/crew_quarters/bar)
+"Wu" = (
+/obj/item/toy/plush/moth/random,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"Wx" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
+"WN" = (
+/obj/machinery/door/airlock{
+	name = "Bar Backroom";
+	req_access_txt = "25"
+	},
+/turf/open/floor/plasteel/cafeteria_red,
+/area/crew_quarters/bar)
+"WU" = (
+/obj/structure/disposalpipe/sorting/wrap{
+	dir = 2
+	},
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/sorting)
+"Xh" = (
+/obj/item/storage/box,
+/obj/item/stack/package_wrap,
+/obj/item/dest_tagger,
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/sorting)
+"XC" = (
+/obj/machinery/vending/autodrobe/all_access,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/theatre/backstage)
+"XF" = (
+/turf/open/floor/plasteel/dark,
+/area/space)
+"XW" = (
+/obj/item/book/manual/wiki/security_space_law,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"XZ" = (
+/turf/open/floor/carpet/purple,
+/area/chapel/office)
+"Ya" = (
+/obj/machinery/fax/sci,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/heads/hor)
+"Yg" = (
+/obj/item/storage/book/bible,
+/turf/open/floor/carpet/purple,
+/area/chapel/office)
+"YE" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Bridge";
+	departmentType = 5;
+	name = "ai RC"
+	},
+/obj/item/radio/intercom,
+/obj/item/radio/intercom,
+/obj/item/radio/intercom,
+/obj/item/radio/intercom,
+/obj/machinery/button/door{
+	id = "AIwindows";
+	name = "AI View Blast doors";
+	req_access_txt = "19"
+	},
+/obj/machinery/turretid{
+	control_area = "/area/ai_monitored/turret_protected/ai";
+	name = "AI Chamber turret control"
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
+"YT" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	name = "Engi";
+	sortType = 4
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
+	alpha = 180
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
+"YV" = (
+/mob/living/basic/cockroach,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "garbage"
+	},
+/turf/open/floor/plating,
+/area/maintenance/disposal)
+"YW" = (
+/obj/effect/landmark/start/head_of_personnel,
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
+"Zj" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plating,
+/area/space)
+"Zq" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/item/book/manual/wiki/chemistry,
+/obj/item/book/manual/wiki/plumbing,
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
+"ZA" = (
+/obj/item/book/manual/wiki/cooking_to_serve_man,
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen)
+"ZB" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 2;
+	sortType = 13
+	},
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/exploration_prep)
+"ZM" = (
+/obj/machinery/rnd/production/techfab/department/security,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+
+(1,1,1) = {"
+Mw
+AU
+ea
+Kh
+Ya
+IO
+jS
+cP
+UH
+jV
+pT
+wA
+yb
+yX
+Mc
+HZ
+Oq
+TZ
+"}
+(2,1,1) = {"
+DS
+vl
+qD
+rP
+Pz
+Os
+ws
+KV
+Dg
+XW
+wG
+Up
+xS
+EL
+Qj
+MP
+zv
+nq
+"}
+(3,1,1) = {"
+kj
+OZ
+oq
+Mb
+Kp
+Os
+ct
+Tp
+gf
+Pj
+ZM
+Kr
+BW
+Qc
+pp
+pq
+Uu
+nq
+"}
+(4,1,1) = {"
+nG
+yv
+xd
+oG
+aJ
+aJ
+qf
+Wx
+ca
+rc
+np
+xI
+YT
+nr
+Tn
+tn
+UQ
+qz
+"}
+(5,1,1) = {"
+bE
+YW
+So
+fL
+EI
+JM
+Zq
+yJ
+Wx
+np
+fz
+lE
+Vk
+rW
+nr
+dZ
+qJ
+sn
+"}
+(6,1,1) = {"
+tM
+CE
+zT
+nt
+aJ
+Hb
+ac
+Wx
+Nb
+HB
+np
+iw
+be
+nr
+Oe
+KY
+Rm
+vZ
+"}
+(7,1,1) = {"
+Gy
+kG
+KM
+Gs
+lt
+rN
+eA
+Qe
+eB
+PI
+hZ
+bN
+vp
+LP
+xe
+qy
+De
+Bb
+"}
+(8,1,1) = {"
+Kb
+dF
+KM
+VD
+LU
+lt
+ty
+EF
+cM
+Qi
+jK
+ic
+VB
+aU
+LP
+cu
+Mm
+YV
+"}
+(9,1,1) = {"
+hQ
+KM
+kX
+zU
+lt
+lt
+LH
+nv
+ba
+hY
+ic
+Az
+aR
+LP
+fZ
+ow
+MC
+jA
+"}
+(10,1,1) = {"
+Tj
+Vy
+or
+TE
+ei
+ei
+OT
+Rd
+Rd
+Vm
+Qb
+oa
+Qk
+Qk
+Qk
+WU
+tK
+nb
+"}
+(11,1,1) = {"
+nL
+ph
+Vy
+Ih
+QG
+ew
+To
+pY
+Fa
+oa
+qL
+oa
+Qk
+Il
+Qk
+Xh
+hz
+VY
+"}
+(12,1,1) = {"
+Eg
+Vy
+XC
+CM
+ei
+zK
+QQ
+Rd
+ap
+am
+oa
+yf
+Qk
+Qk
+Qk
+tb
+Fh
+va
+"}
+(13,1,1) = {"
+Ft
+Eb
+sx
+co
+dA
+JX
+PR
+UV
+Ii
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+"}
+(14,1,1) = {"
+mO
+Ky
+Wp
+dA
+ee
+cc
+TS
+eL
+jF
+Qk
+ff
+Qk
+XF
+dM
+XF
+Qk
+hm
+Qk
+"}
+(15,1,1) = {"
+WN
+Eb
+dv
+Uq
+dA
+dA
+qx
+UV
+aj
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+"}
+(16,1,1) = {"
+mT
+Oz
+Sa
+ZB
+JV
+ti
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+"}
+(17,1,1) = {"
+xM
+Nu
+Tq
+ti
+Vg
+ti
+Qk
+NA
+Qk
+XF
+NO
+XF
+Qk
+ui
+Qk
+XF
+OX
+XF
+"}
+(18,1,1) = {"
+nn
+Oz
+uM
+RB
+ti
+Iu
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+"}
+(19,1,1) = {"
+et
+Rq
+LC
+uo
+ia
+zM
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+"}
+(20,1,1) = {"
+ZA
+EM
+JN
+YE
+CT
+ou
+XF
+AF
+XF
+Qk
+ST
+Qk
+XF
+Wu
+XF
+Qk
+ih
+Qk
+"}
+(21,1,1) = {"
+eJ
+aK
+DR
+Oc
+oC
+ia
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+"}
+(22,1,1) = {"
+dc
+SQ
+tB
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+"}
+(23,1,1) = {"
+KD
+kZ
+SQ
+XF
+uN
+XF
+Qk
+Kq
+Qk
+XF
+rs
+XF
+Qk
+fK
+Qk
+XF
+aZ
+XF
+"}
+(24,1,1) = {"
+Pd
+Tr
+NH
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+"}
+(25,1,1) = {"
+ga
+XZ
+XZ
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+"}
+(26,1,1) = {"
+Yg
+Lw
+XZ
+Qk
+ni
+Qk
+XF
+aD
+XF
+Qk
+gs
+Qk
+XF
+Ec
+XF
+Qk
+wQ
+Qk
+"}
+(27,1,1) = {"
+Cb
+XZ
+QX
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+"}
+(28,1,1) = {"
+VA
+oO
+Fx
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+Co
+Zj
+Bo
+"}
+(29,1,1) = {"
+ir
+SY
+PP
+XF
+vW
+XF
+Qk
+Ud
+Qk
+XF
+mo
+XF
+Qk
+Jo
+Qk
+Sy
+zx
+EJ
+"}
+(30,1,1) = {"
+Fn
+Ps
+Aj
+XF
+XF
+XF
+Qk
+Qk
+Qk
+XF
+XF
+XF
+Qk
+Qk
+Qk
+Kg
+iC
+GN
+"}
