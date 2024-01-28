@@ -239,7 +239,7 @@
 /obj/item/choice_beacon/radial/music
 	name = "instrument delivery beacon"
 	desc = "Summon your tool of art."
-	icon_state = "gangtool-red"
+	icon_state = "gangtool-music"
 	var/static/list/instrument_list
 
 /obj/item/choice_beacon/radial/music/Initialize(mapload)

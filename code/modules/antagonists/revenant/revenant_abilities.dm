@@ -40,7 +40,7 @@
 	..()
 
 // Orbit: literally obrits people like how ghosts do
-/mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
+/mob/living/simple_animal/revenant/check_orbitable(atom/A)
 	if(revealed)
 		to_chat(src, "<span class='revenwarning'>You can't orbit while you're revealed!</span>")
 		return
@@ -52,10 +52,7 @@
 		return
 	if(notransform || inhibited || !incorporeal_move_check(A))
 		return
-	var/icon/I = icon(A.icon, A.icon_state, A.dir)
-	var/orbitsize = (I.Width()+I.Height())*0.5
-	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
-	orbit(A, orbitsize)
+	..()
 
 /mob/living/simple_animal/revenant/orbit(atom/target)
 	setDir(SOUTH) // reset dir so the right directional sprites show up
@@ -369,7 +366,7 @@
 			continue
 		L.Beam(M,icon_state="purple_lightning", time = 5)
 		if(!M.anti_magic_check(FALSE, TRUE))
-			M.electrocute_act(shock_damage, L, safety=TRUE)
+			M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
 		do_sparks(4, FALSE, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
 

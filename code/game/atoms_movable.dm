@@ -684,6 +684,10 @@
 	if(QDELETED(src))
 		CRASH("Qdeleted thing being thrown around.")
 
+	//Snowflake case for click masks
+	if (istype(target, /atom/movable/screen))
+		target = target.loc
+
 	if (!target || speed <= 0)
 		return
 
@@ -692,6 +696,7 @@
 
 	if (pulledby)
 		pulledby.stop_pulling()
+	
 
 	//They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
 	if (thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag*2)
@@ -723,7 +728,7 @@
 	if(QDELETED(thrower) || !istype(thrower))
 		thrower = null //Let's not pass an invalid reference.
 	else
-		target_zone = thrower.zone_selected
+		target_zone = thrower.get_combat_bodyzone(target)
 
 	var/datum/thrownthing/TT = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
 

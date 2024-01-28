@@ -104,7 +104,7 @@
 
 
 /obj/machinery/iv_drip/attackby(obj/item/W, mob/user, params)
-	if(is_type_in_typecache(W, drip_containers))
+	if(is_type_in_typecache(W, drip_containers) || IS_EDIBLE(W))
 		if(beaker)
 			to_chat(user, "<span class='warning'>There is already a reagent container loaded!</span>")
 			return
@@ -265,6 +265,9 @@
 /obj/machinery/iv_drip/saline/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/update_icon_blocker)
+
+/obj/machinery/iv_drip/update_icon()
+	return
 
 /obj/machinery/iv_drip/saline/eject_beaker()
 	return
