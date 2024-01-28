@@ -11,8 +11,8 @@
 		else if (!has_scaling_cost && !is_lone)
 			TEST_FAIL("[ruleset] has no scaling cost, but is also not a lone/highlander ruleset.")
 		var/name = initial(ruleset.name)
-		TEST_ASSERT((name),
-			"[ruleset] has no name!")
+		if(!name)
+			TEST_FAIL("[ruleset] has no name!")
 		if(name == "Extended" || name == "Meteor") // These rulesets don't spawn antags and are exempt.
 			continue
 		var/datum/antagonist/antag_datum = initial(ruleset.antag_datum)

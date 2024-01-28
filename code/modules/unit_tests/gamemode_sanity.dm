@@ -4,11 +4,11 @@
 /datum/unit_test/gamemode_sanity/Run()
 	for (var/datum/game_mode/mode as anything in subtypesof(/datum/game_mode))
 		var/name = initial(mode.name)
-		TEST_ASSERT((name),
-			"[mode] has no name set!")
+		if (!name)
+			TEST_FAIL("[mode] has no name set!")
 		var/config_tag = initial(mode.config_tag)
-		TEST_ASSERT((config_tag),
-			"[mode] has no config_tag set!")
+		if (!config_tag)
+			TEST_FAIL("[mode] has no config_tag set!")
 		// These gamemodes don't spawn antags directly and are exempt.
 		if(!initial(mode.required_enemies) && !initial(mode.recommended_enemies))
 			continue

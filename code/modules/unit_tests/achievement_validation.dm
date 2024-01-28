@@ -17,8 +17,8 @@
 		if(length(initial(A.desc)) > 512)
 			TEST_FAIL("Achievement description too long (max 512, got [length(initial(A.desc))]) on achievement [A]")
 
-		TEST_ASSERT(!(initial(A.database_id) > 32),
-			"Achievement database_id too long (max 32, got [length(initial(A.database_id))]) on achievement [A]")
+		if(length(initial(A.database_id)) > 32)
+			TEST_FAIL("Achievement database_id too long (max 32, got [length(initial(A.database_id))]) on achievement [A]")
 
 		if(initial(A.achievement_version) < 0 || initial(A.achievement_version) > 32767)
 			TEST_FAIL("Achievement version out of range (0-32767, got [initial(A.achievement_version)]) on achievement [A]")
