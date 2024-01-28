@@ -1,0 +1,17 @@
+author: itsmeow
+delete-after: true
+changes:
+  - refactor: Optimized asset generation greatly using rustg IconForge (also by itsmeow),
+      greatly reducing post-initialization lag as well as reducing init times and
+      saving server computation.
+  - config: Added 'smart' asset caching, for batched rustg IconForge spritesheets.
+      It is persistent and suitable for use on local, with automatic invalidation.
+  - config: Enabled legacy asset caching for the two remaining spritesheets during
+      local development.
+  - rscadd: Added Debug -> Regenerate Asset Cache verb for legacy spritesheets.
+  - tweak: Replaced many uses of the slow md5asfile() function with rust-g based MD5.
+  - code_imp: Cleaned up the duplicate function vars vendor_icon_preview and icon_state_preview,
+      removing vendor_icon_preview and moving icon_state_preview to /obj/item.
+  - bugfix: Fixed some preferences icons cropping to incorrect scales.
+  - server: The legacy spritesheet cache will no longer be cleared by TGS redeployments,
+      instead the regenerate verb should be used, or delete the files from data/spritesheets/legacy_cache.
