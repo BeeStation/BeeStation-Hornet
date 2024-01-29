@@ -1169,6 +1169,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	
 /area/security/shuttle_dock
 	name = "Security Shuttle Dock"
+	
+/area/security/eva
+	name = "Security E.V.A. Storage"
 
 /area/security/courtroom
 	name = "Courtroom"
