@@ -46,6 +46,13 @@
 	if (magazine.attackby(I, user, params, 1))
 		to_chat(user, "<span class='notice'>You notch the arrow.</span>")
 		update_icon()
+	if(get_ammo())
+		var/obj/item/ammo_casing/caseless/arrow/cloth/AC = magazine.get_round(1)
+		if(istype(AC, /obj/item/ammo_casing/caseless/arrow/cloth))
+			if(I.heat > 900 && AC.lit && !AC.burnt)
+				AC.ignite()
+		else
+			return
 
 /obj/item/gun/ballistic/bow/update_icon()
 	icon_state = "[initial(icon_state)]_[get_ammo() ? (chambered ? "firing" : "loaded") : "unloaded"]"
@@ -54,6 +61,8 @@
 		var/obj/item/ammo_casing/AC = magazine.get_round(1)
 		if(istype(AC, /obj/item/ammo_casing/caseless/arrow/wood))
 			add_overlay("wood_[(chambered ? "firing" : "loaded")]")
+		else if(istype(AC, /obj/item/ammo_casing/caseless/arrow/glass))
+			add_overlay("glass_[(chambered ? "firing" : "loaded")]")
 		else if(istype(AC, /obj/item/ammo_casing/caseless/arrow/cloth))
 			var/obj/item/ammo_casing/caseless/arrow/cloth/C = AC
 			if(!C.lit && !C.burnt)

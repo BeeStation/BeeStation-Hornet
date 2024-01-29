@@ -45,7 +45,7 @@
 	ignite()
 
 /obj/item/ammo_casing/caseless/arrow/cloth/attackby(obj/item/I, mob/user, params)
-	if(I.heat > 1000)
+	if(I.heat > 900)
 		ignite()
 
 /obj/item/ammo_casing/caseless/arrow/cloth/attack(mob/living/carbon/M, mob/living/carbon/user)
@@ -94,9 +94,9 @@
 	. = .. ()
 	cut_overlays()
 	if(lit)
-		. += "arrow_cloth_lit"
+		add_overlay("arrow_cloth_lit")
 	if(burnt)
-		. += "arrow_cloth_burnt"
+		add_overlay("arrow_cloth_burnt")
 
 /obj/item/ammo_casing/caseless/arrow/cloth/burnt
 	name = "burnt cloth arrow"
@@ -126,6 +126,35 @@
 	jostle_pain_mult = 2,
 	remove_pain_mult = 1,
 	rip_time = 5)
+
+/obj/item/ammo_casing/caseless/arrow/bottle
+	name = "bottle arrow"
+	desc = "A tiny bottle tied with string to an arrow. Cute, if not filled with acid."
+	icon_state = "arrow_bottle"
+	force = 5
+	armour_penetration = 0
+	projectile_type = /obj/projectile/bullet/reusable/arrow/bottle
+	var/reagent_amount = 30
+
+/obj/item/ammo_casing/caseless/arrow/bottle/Initialize(mapload)
+	. = ..()
+	create_reagents(reagent_amount, OPENCONTAINER)
+
+/obj/item/ammo_casing/caseless/arrow/bottle/on_reagent_change(changetype)
+	. = ..()
+	update_icon()
+
+/obj/item/ammo_casing/caseless/arrow/bottle/update_icon()
+	. = ..()
+	cut_overlays()
+	add_overlay("arrow_bottle_0")
+	if(reagents)
+		if(reagents.total_volume == 10)
+			add_overlay("arrow_bottle_10")
+		else if(reagents.total_volume == 20)
+			add_overlay("arrow_bottle_20")
+		else if(reagents.total_volume == 30)
+			add_overlay("arrow_bottle_30")
 
 /obj/structure/closet/arrows
 

@@ -35,7 +35,6 @@
 	if(lit)
 		damage_type = BURN
 		damage = 10
-		hitsound = 'sound/items/welder.ogg'
 		set_light_on(lit)
 		update_overlays()
 	else if(burnt)
@@ -46,7 +45,6 @@
 	. = .. ()
 
 /obj/projectile/bullet/reusable/arrow/cloth/on_hit(atom/target, blocked)
-	. = ..()
 	if(lit)
 		lit = FALSE
 		burnt = TRUE
@@ -54,14 +52,15 @@
 		if(iscarbon(target) && !blocked)
 			var/mob/living/carbon/M = target
 			M.IgniteMob()
+	. = ..()
 
 /obj/projectile/bullet/reusable/arrow/cloth/update_overlays()
 	. = .. ()
 	cut_overlays()
 	if(lit)
-		. += "arrow_cloth_lit"
+		add_overlay("arrow_cloth_lit")
 	else if(burnt)
-		. += "arrow_cloth_burnt"
+		add_overlay("arrow_cloth_burnt")
 
 
 /obj/projectile/bullet/reusable/arrow/cloth/burnt
@@ -77,6 +76,23 @@
 	armour_penetration = 0
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/glass
 	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/glass
+
+/obj/projectile/bullet/reusable/arrow/bottle
+	name = "bottle arrow"
+	icon_state = "arrow_bottle"
+	damage = 5
+	armour_penetration = 0
+	hitsound = "shatter"
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/bottle
+	shrapnel_type = /obj/item/ammo_casing/caseless/arrow/bottle
+
+/obj/projectile/bullet/reusable/arrow/bottle/Initialize(mapload)
+	. = ..()
+	create_reagents(30, NO_REACT)
+
+/obj/projectile/bullet/reusable/arrow/bottle/on_hit(atom/target, blocked)
+	. = ..()
+	chem_splash(get_turf(src), 1, list(reagents))
 
 /obj/projectile/bullet/reusable/arrow/ash
 	name = "Ashen arrow"
