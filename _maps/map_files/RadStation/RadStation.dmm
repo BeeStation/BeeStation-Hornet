@@ -7509,7 +7509,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/department/security)
 "cuM" = (
-/obj/structure/sign/poster/random{
+/obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
 /turf/open/floor/prison,
@@ -14203,6 +14203,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison/shielded)
 "eyz" = (
@@ -15453,6 +15454,9 @@
 	light_color = "#e8eaff"
 	},
 /obj/effect/turf_decal/bot,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison{
 	name = "Prison Processing"
@@ -20026,6 +20030,9 @@
 	name = "beetle plushie";
 	desc = "A cute toy that resembles an even cuter beetle."
 	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
 /turf/open/floor/prison,
 /area/security/prison{
 	name = "Prison Dorms"
@@ -23186,6 +23193,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
 	},
 /turf/open/floor/prison,
 /area/security/prison{
@@ -30071,6 +30081,9 @@
 /obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison/shielded)
@@ -41317,6 +41330,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -56919,6 +56935,9 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/open/floor/plasteel,
 /area/security/prison{
 	name = "Prison Visitation"
@@ -71008,6 +71027,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "wer" = (
@@ -72274,6 +72296,9 @@
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
 	},
 /turf/open/floor/plasteel/freezer,
 /area/security/prison{
