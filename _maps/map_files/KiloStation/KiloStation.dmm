@@ -4884,7 +4884,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/port/fore)
 "aui" = (
 /turf/closed/wall/r_wall,
@@ -9291,7 +9291,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/port)
 "aSq" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -31269,9 +31269,6 @@
 /turf/open/floor/plasteel/dark,
 /area/janitor)
 "cYK" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -32585,7 +32582,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	burnt = 1
 	},
 /area/maintenance/solars/port/fore)
 "dzY" = (
@@ -35356,7 +35353,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/space/basic,
+/turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/port)
 "eyW" = (
 /obj/effect/turf_decal/bot,
@@ -36836,7 +36833,7 @@
 	name = "Cloning Maintenance";
 	req_access_txt = "5"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/port/fore)
 "eYq" = (
 /obj/machinery/light_switch{
@@ -40899,7 +40896,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/maintenance/solars/port/fore)
 "gCl" = (
@@ -42268,9 +42265,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/machinery/light/small,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -49495,6 +49489,7 @@
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer2{
 	name = "Atmospherics Cutoff Valve"
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -51015,9 +51010,7 @@
 	req_access_txt = "5"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/port)
 "jZm" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/visible{
@@ -55576,13 +55569,13 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/mob/living/carbon/monkey,
 /obj/machinery/door/window/westleft{
 	name = "Monkey Pen";
 	pixel_y = 1;
 	req_access_txt = "9";
 	dir = 1
 	},
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "lMh" = (
@@ -57479,8 +57472,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
@@ -60702,9 +60695,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -61109,12 +61099,6 @@
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
 /turf/open/floor/plasteel/showroomfloor,
@@ -69743,6 +69727,9 @@
 /obj/structure/disposalpipe/junction/flip{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "qPA" = (
@@ -72542,10 +72529,10 @@
 	dir = 1
 	},
 /mob/living/carbon/monkey,
-/mob/living/carbon/monkey,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "rTd" = (
@@ -75212,17 +75199,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
@@ -82641,9 +82625,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken4"
-	},
+/turf/open/floor/wood,
 /area/maintenance/port/fore)
 "vyn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
