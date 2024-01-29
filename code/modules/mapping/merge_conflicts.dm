@@ -15,4 +15,3 @@
 	log_mapping(msg)
 	to_chat(world, ("<span class='boldannounce'>[msg]</span>"))
 	warning(msg)
-	
