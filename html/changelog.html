@@ -56,6 +56,25 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">28 January 2024</h2>
+			<h3 class="author">MarkusLarsson421 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Detectives office is no longer a vacuum on round start.</li>
+				<li class="bugfix">Reconnects AI upload.</li>
+				<li class="bugfix">Detective Booze-O-Mat is no longer maintenance accessible.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Optimized asset generation greatly using rustg IconForge (also by itsmeow), greatly reducing post-initialization lag as well as reducing init times and saving server computation.</li>
+				<li class="config">Added 'smart' asset caching, for batched rustg IconForge spritesheets. It is persistent and suitable for use on local, with automatic invalidation.</li>
+				<li class="config">Enabled legacy asset caching for the two remaining spritesheets during local development.</li>
+				<li class="rscadd">Added Debug -> Regenerate Asset Cache verb for legacy spritesheets.</li>
+				<li class="tweak">Replaced many uses of the slow md5asfile() function with rust-g based MD5.</li>
+				<li class="code_imp">Cleaned up the duplicate function vars vendor_icon_preview and icon_state_preview, removing vendor_icon_preview and moving icon_state_preview to /obj/item.</li>
+				<li class="bugfix">Fixed some preferences icons cropping to incorrect scales.</li>
+				<li class="server">The legacy spritesheet cache will no longer be cleared by TGS redeployments, instead the regenerate verb should be used, or delete the files from data/spritesheets/legacy_cache.</li>
+			</ul>
+
 			<h2 class="date">27 January 2024</h2>
 			<h3 class="author">Markus Larsson updated:</h3>
 			<ul class="changes bgimages16">
@@ -930,24 +949,6 @@
 				<li class="rscadd">converts pies to newfood</li>
 				<li class="balance">adds protein reagents to meat, xeno, and tofu pies</li>
 				<li class="tweak">adjusts pie foodtypes</li>
-			</ul>
-
-			<h2 class="date">27 November 2023</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">better color calculation code</li>
-				<li class="bugfix">single pure colors (red, green, blue) will not be considered to be too dark.</li>
-			</ul>
-			<h3 class="author">NaN-Blank updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Doubles material values of Plastitanium tiles so that when recycled they return the same materials it takes to create them.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Donk pockets now have their old nutriment value again, and their maltodextrin value has been updated to match this new (old) value as it should.</li>
-				<li class="bugfix">Dank pockets can now be microwaved again</li>
-				<li class="tweak">The amount of maltodextrin in premade donuts and ramen is now correct after having been missed in the previous PR.</li>
-				<li class="code_imp">Adds proper list spacing to snacks_and_vend.dm items containing maltodextrin and cleans up some unused variables</li>
 			</ul>
 		</div>
 

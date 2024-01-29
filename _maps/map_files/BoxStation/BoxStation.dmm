@@ -1182,9 +1182,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"apd" = (
-/turf/closed/wall,
-/area/security/detectives_office)
 "apf" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -5125,9 +5122,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
@@ -8296,10 +8290,13 @@
 	dir = 6
 	},
 /obj/machinery/light,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
+/obj/structure/filingcabinet/security{
+	pixel_x = 8
 	},
-/turf/open/floor/carpet/grimy,
+/obj/structure/filingcabinet{
+	pixel_x = -8
+	},
+/turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "bzJ" = (
 /obj/machinery/computer/mecha{
@@ -20702,7 +20699,7 @@
 	buildstackamount = 0;
 	dir = 8
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/wood,
 /area/security/detectives_office)
 "edc" = (
 /obj/structure/cable/yellow{
@@ -20988,6 +20985,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/item/folder/red{
+	pixel_y = 1
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
@@ -21291,7 +21291,7 @@
 	dir = 4;
 	pixel_y = -3
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "eqT" = (
 /obj/structure/extinguisher_cabinet{
@@ -25375,6 +25375,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"gqx" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "gqQ" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -25970,9 +25979,6 @@
 	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
-"gFs" = (
-/turf/open/floor/carpet/grimy,
-/area/security/detectives_office)
 "gGm" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/trimline/yellow/filled/corner{
@@ -27025,7 +27031,7 @@
 	pixel_x = -11;
 	pixel_y = -21
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/wood,
 /area/security/detectives_office)
 "hhB" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -27974,6 +27980,15 @@
 /mob/living/simple_animal/hostile/retaliate/goose/vomit,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"hFX" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/central)
 "hGa" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -28586,6 +28601,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
+/obj/effect/landmark/start/detective,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "hVk" = (
@@ -30394,9 +30410,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "iPH" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
@@ -32215,7 +32228,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "jMr" = (
 /obj/machinery/computer/slot_machine,
@@ -35882,6 +35895,19 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"luA" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/hud/security/sunglasses{
+	pixel_y = 6
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
 "lvl" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -36571,10 +36597,6 @@
 	dir = 8
 	},
 /turf/open/space,
-/area/space/nearstation)
-"lIq" = (
-/obj/structure/lattice,
-/turf/open/floor/carpet/grimy,
 /area/space/nearstation)
 "lIF" = (
 /obj/structure/disposalpipe/segment,
@@ -38648,7 +38670,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "mJR" = (
 /obj/structure/cable/yellow{
@@ -42196,7 +42218,7 @@
 /obj/item/pen/fountain{
 	pixel_y = 5
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "ooI" = (
 /obj/effect/turf_decal/tile/red,
@@ -52522,19 +52544,18 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "tit" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 10
-	},
 /obj/item/storage/secure/safe{
 	pixel_x = -22
 	},
-/obj/machinery/vending/wardrobe/det_wardrobe,
 /obj/machinery/requests_console{
 	department = "Detective's office";
 	pixel_x = -1;
 	pixel_y = -35
 	},
-/turf/open/floor/carpet/grimy,
+/obj/machinery/vending/boozeomat/all_access{
+	req_access_txt = "4"
+	},
+/turf/closed/wall,
 /area/security/detectives_office)
 "tjd" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
@@ -52925,10 +52946,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
-"tsU" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/carpet/grimy,
-/area/security/detectives_office)
 "tsY" = (
 /turf/closed/wall,
 /area/medical/virology)
@@ -53347,12 +53364,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
-"tBy" = (
-/obj/machinery/vending/boozeomat/all_access{
-	req_access_txt = "4"
-	},
-/turf/closed/wall/r_wall,
-/area/security/detectives_office)
 "tBH" = (
 /obj/machinery/porta_turret/ai{
 	dir = 4
@@ -55241,7 +55252,7 @@
 /area/chapel/main)
 "uwU" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/plating,
 /area/maintenance/fore)
 "uwZ" = (
 /turf/closed/wall,
@@ -55508,8 +55519,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/filingcabinet/security,
-/turf/open/floor/carpet/grimy,
+/obj/machinery/vending/wardrobe/det_wardrobe,
+/turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "uFg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -59733,6 +59744,9 @@
 "wWf" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "wWy" = (
@@ -59986,10 +60000,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
-	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "xcE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -61091,10 +61102,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "xzc" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/effect/landmark/start/detective,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
@@ -61104,7 +61111,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/turf/open/floor/carpet/grimy,
+/turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "xzi" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -61420,9 +61427,6 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/grass,
 /area/hallway/secondary/command)
-"xGO" = (
-/turf/open/floor/carpet/grimy,
-/area/maintenance/fore)
 "xGT" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 8;
@@ -87108,7 +87112,7 @@ yeN
 pKC
 tcO
 wWf
-bBi
+hFX
 aJq
 cMI
 aJq
@@ -89401,9 +89405,9 @@ jnN
 aOr
 gXs
 gXs
-lIq
-lIq
-lIq
+gXs
+gXs
+gXs
 uau
 uwU
 aqR
@@ -89658,11 +89662,11 @@ maf
 wQj
 wQj
 svF
-tsU
-tsU
-gFs
-gFs
-xGO
+svF
+svF
+wQj
+wQj
+aqR
 aqR
 sse
 ayL
@@ -89918,8 +89922,8 @@ vVa
 eqI
 uEX
 tit
-gFs
-xGO
+wQj
+aqR
 aqR
 pUk
 wMt
@@ -90432,7 +90436,7 @@ hEk
 ooG
 xcD
 bzH
-tBy
+wQj
 aqR
 aqR
 sse
@@ -90940,9 +90944,9 @@ aai
 anz
 anz
 anz
-apd
-apd
-apd
+wQj
+wQj
+wQj
 cuy
 nTf
 cuy
