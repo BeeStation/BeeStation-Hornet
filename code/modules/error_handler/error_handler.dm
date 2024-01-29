@@ -1,12 +1,14 @@
 GLOBAL_VAR_INIT(total_runtimes, GLOB.total_runtimes || 0)
 GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
-/exception/var/stack_trace_hint
+/exception/var/true_tracehint
+/exception/var/true_prochint
 
 #ifdef USE_CUSTOM_ERROR_HANDLER
 #define ERROR_USEFUL_LEN 2
 
 /world/Error(exception/E, datum/e_src)
 	GLOB.total_runtimes++
+	E.clean_stack_trace(GLOB.stack_trace_hints[E.name])
 
 	if(!istype(E)) //Something threw an unusual exception
 		log_world("uncaught runtime error: [E]")
@@ -40,10 +42,9 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	if(!error_last_seen) // A runtime is occurring too early in start-up initialization
 		return ..()
 
-	E.stack_trace_hint = GLOB.stack_trace_hints[E.name] // kinda hardcoding, but we don't want these to be stacked together.
 	var/erroruid
-	if(E.stack_trace_hint)
-		erroruid = E.stack_trace_hint
+	if(E.true_tracehint)
+		erroruid = E.true_tracehint
 	else
 		erroruid = "[E.file][E.line]"
 	var/last_seen = error_last_seen[erroruid]
@@ -90,8 +91,8 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 			var/skipcount = abs(error_cooldown[erroruid]) - 1
 			error_cooldown[erroruid] = 0
 			if(skipcount > 0)
-				if(E.stack_trace_hint)
-					SEND_TEXT(world.log, "\[[time_stamp()]] Skipped [skipcount] runtimes in stack_trace [E.stack_trace_hint]: [E.name].")
+				if(E.true_tracehint)
+					SEND_TEXT(world.log, "\[[time_stamp()]] Skipped [skipcount] runtimes in stack_trace [E.true_tracehint]: [E.name].")
 				else
 					SEND_TEXT(world.log, "\[[time_stamp()]] Skipped [skipcount] runtimes in [E.file],[E.line].")
 				GLOB.error_cache.log_error(E, skip_count = skipcount)
@@ -131,8 +132,8 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		GLOB.error_cache.log_error(E, desclines)
 
 	var/main_line
-	if(E.stack_trace_hint)
-		main_line = "\[[time_stamp()]] Runtime in stack_trace [E.stack_trace_hint]: [E.name]"
+	if(E.true_tracehint)
+		main_line = "\[[time_stamp()]] Runtime in stack_trace [E.true_tracehint]: [E.name]"
 	else
 		main_line = "\[[time_stamp()]] Runtime in [E.file],[E.line]: [E]"
 	SEND_TEXT(world.log, main_line)
@@ -152,3 +153,31 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	// This writes the regular format (unwrapping newlines and inserting timestamps as needed).
 	log_runtime("runtime error: [E.name]\n[E.desc]")
 #endif
+
+// asddsfassdasssd
+/// makes stack_trace info look better
+/exception/proc/clean_stack_trace(list/real_hints)
+	if(!real_hints)
+		return
+	true_tracehint = real_hints["tracehint"]
+	true_prochint = real_hints["prochint"]
+
+	// Regex part //
+	////////////////////////////////
+	var/static/regex/proctext
+	if(!proctext) proctext = regex(@"/proc/")
+	var/procname = replacetext(copytext(true_prochint, proctext.Find(true_prochint) + 6), "_", " ")
+
+	////////////////////////////////
+	var/static/regex/newline
+	if(!newline) newline = regex(@"(\r\n|\r|\n)")
+	var/static/regex/toptext
+	if(!toptext) toptext = regex(@"call stack:")
+	var/firsttext_val = newline.Find(desc)
+	var/toptext_val = toptext.Find(desc) + 12
+	var/bottext_val = newline.Find(desc, newline.Find(desc, toptext_val)+1)
+	var/static/regex/tracetext
+	if(!tracetext) tracetext = regex(@"stack[ _]trace", "g")
+
+	desc = "proc name: [procname] ([true_prochint])" + copytext(desc, firsttext_val, toptext_val - 1) + copytext(desc, bottext_val )
+	desc = tracetext.Replace(desc, true_prochint)

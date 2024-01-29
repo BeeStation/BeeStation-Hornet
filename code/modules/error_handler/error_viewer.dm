@@ -110,8 +110,8 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		return // Abnormal exception, don't even bother
 
 	var/erroruid
-	if(e.stack_trace_hint)
-		erroruid = e.stack_trace_hint
+	if(e.true_tracehint)
+		erroruid = e.true_tracehint
 	else
 		erroruid = "[e.file][e.line]"
 	var/datum/error_viewer/error_source/error_source = error_sources[erroruid]
@@ -148,8 +148,8 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		name = "\[[time_stamp()]] Uncaught exceptions"
 		return
 
-	if(e.stack_trace_hint)
-		min_name = "<b>\[[time_stamp()]]</b> Runtime in stack_trace <b>[e.stack_trace_hint]</b>"
+	if(e.true_tracehint)
+		min_name = "<b>\[[time_stamp()]]</b> Runtime in stack_trace <b>[e.true_tracehint]</b>"
 	else
 		min_name = "<b>\[[time_stamp()]]</b> Runtime in <b>[e.file]</b>, line <b>[e.line]</b>"
 	name = min_name + ": <b>[html_encode(e.name)]</b>"
@@ -178,15 +178,15 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		return
 
 	if(skip_count)
-		if(e.stack_trace_hint)
-			name = "\[[time_stamp()]] Skipped [skip_count] runtimes in stack_trace [e.stack_trace_hint]."
+		if(e.true_tracehint)
+			name = "\[[time_stamp()]] Skipped [skip_count] runtimes in stack_trace [e.true_tracehint]."
 		else
 			name = "\[[time_stamp()]] Skipped [skip_count] runtimes in [e.file],[e.line]."
 		is_skip_count = TRUE
 		return
 
-	if(e.stack_trace_hint)
-		min_name = "<b>\[[time_stamp()]]</b> Runtime in stack_trace <b>[e.stack_trace_hint]</b>"
+	if(e.true_tracehint)
+		min_name = "<b>\[[time_stamp()]]</b> Runtime in stack_trace <b>[e.true_tracehint]</b>"
 	else
 		min_name = "<b>\[[time_stamp()]]</b> Runtime in <b>[e.file]</b>, line <b>[e.line]</b>"
 	name = min_name + ": <b>[html_encode(e.name)]</b>"

@@ -1,15 +1,21 @@
 #define STACK_TRACE_ADV(error_detail) \
 	while(1){ \
-		var/static/error_static_detail; \
-		if(!error_static_detail){ try {	throw EXCEPTION("TEMP:NOTHING")} catch(var/exception/TEMP_E) { error_static_detail = "[TEMP_E.file]/[TEMP_E.line]"} } \
+		var/static/list/error_static_detail; \
+		if(!error_static_detail) { \
+			var/temp_world = world; temp_world = temp_world; \
+			error_static_detail = list("tracehint" = "[__FILE__]/[__LINE__]", "prochint" = "[__PROC__]");} \
 		stack_trace(error_static_detail, (error_detail)); \
-		break;}
+		break;};
 
 // READ "stack_trace_pure()" proc
+// TODO: Fix this later with 515
 #define STACK_TRACE_ADV_SHOULD_BE_PURE(error_detail) \
 	while(1){ \
-		var/static/error_static_detail; \
-		if(!error_static_detail){ try {	throw EXCEPTION("TEMP:NOTHING")} catch(var/exception/TEMP_E) { error_static_detail = "[TEMP_E.file]/[TEMP_E.line]"} } \
+		world.log << "should_be_pure_stack_trace"
+		var/static/list/error_static_detail; \
+		if(!error_static_detail) { \
+			var/temp_world = world; temp_world = temp_world; \
+			error_static_detail = list("tracehint" = "[__FILE__]/[__LINE__]", "prochint" = "[__PROC__]");} \
 		stack_trace_pure(error_static_detail, (error_detail)); \
 		break;}
 
