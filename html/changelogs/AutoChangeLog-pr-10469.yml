@@ -1,5 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - tweak: Left clicking an equipped trash bag now unequips it instead of displaying
-      a cheeky message.
