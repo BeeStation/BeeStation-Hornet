@@ -1166,6 +1166,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/main
 	name = "Security Office"
 	icon_state = "security"
+	
+/area/security/shuttle_dock
+	name = "Security Shuttle Dock"
+
+/area/security/courtroom
+	name = "Courtroom"
+	icon_state = "courtroom"
+	sound_environment = SOUND_AREA_LARGE_ENCLOSED
+	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
 
 /area/security/brig
 	name = "Brig"
@@ -1175,12 +1184,23 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_reverse = TRUE
 
 	mood_message = "<span class='warning'>I hate cramped brig cells.\n</span>"
-
-/area/security/courtroom
-	name = "Courtroom"
-	icon_state = "courtroom"
-	sound_environment = SOUND_AREA_LARGE_ENCLOSED
-	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	
+/area/security/brig/evidence
+	name = "Brig Evidencce"
+	mood_bonus = -1
+	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFENGINEER, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFMEDICALOFFICER)
+	mood_job_reverse = TRUE
+	mood_message = "<span class='warning'>Hope they don't have a file on me.\n</span>"
+	
+/area/security/brig/brig_bay/
+	name = "Brig Bay"
+	
+/area/security/brig/interrogation/
+	name = "Brig Interrogation"
+	mood_bonus = -1
+	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN,JOB_NAME_SECURITYOFFICER,JOB_NAME_DETECTIVE)
+	mood_job_reverse = TRUE
+	mood_message = "<span class='warning'>OH GOD OH FUCK!\n</span>"
 
 /area/security/prison
 	name = "Prison Wing"
@@ -1192,6 +1212,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/security/prison/shielded
 	name = "Prison Wing Shielded area"
+	icon_state = "sec_prison"
+	
+/area/security/prison/processing
+	name = "Prison Processing"
 	icon_state = "sec_prison"
 
 /area/security/processing
