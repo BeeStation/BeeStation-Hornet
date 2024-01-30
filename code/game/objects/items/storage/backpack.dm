@@ -12,6 +12,7 @@
 /obj/item/storage/backpack
 	name = "backpack"
 	desc = "You wear this on your back and put items into it."
+	icon = 'icons/obj/storage/backpack.dmi'
 	icon_state = "backpack"
 	item_state = "backpack"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
@@ -97,6 +98,7 @@
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
 	desc = "Space Santa uses this to deliver presents to all the nice children in space in Christmas! Wow, it's pretty big!"
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "giftbag0"
 	item_state = "giftbag"
 	w_class = WEIGHT_CLASS_BULKY
@@ -382,6 +384,38 @@
 /obj/item/storage/backpack/satchel/flat/empty/PopulateContents()
 	return
 
+// -----------------------------
+//           mail bag
+// -----------------------------
+
+/obj/item/storage/backpack/satchel/mail
+	name = "mail bag"
+	desc = "A bag for letters, envelopes, and other postage."
+	icon_state = "mailbag"
+	item_state = "mailbag"
+	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
+
+/obj/item/storage/backpack/satchel/mail/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.allow_quick_gather = TRUE
+	STR.allow_quick_empty = TRUE
+	STR.display_numerical_stacking = TRUE
+	STR.click_gather = TRUE
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 32
+	STR.max_items = 32
+	STR.display_numerical_stacking = FALSE
+	STR.can_hold = typecacheof(list(
+		/obj/item/mail,
+		/obj/item/small_delivery,
+		/obj/item/paper,
+		/obj/item/reagent_containers/food/condiment/milk,
+		/obj/item/food/bread/plain
+		)
+	)
+
+
 /obj/item/storage/backpack/duffelbag
 	name = "duffel bag"
 	desc = "A large duffel bag for holding extra things."
@@ -490,7 +524,7 @@
 
 /obj/item/storage/backpack/duffelbag/clown/cream_pie/PopulateContents()
 	for(var/i in 1 to 10)
-		new /obj/item/reagent_containers/food/snacks/pie/cream(src)
+		new /obj/item/food/pie/cream(src)
 
 /obj/item/storage/backpack/fireproof
 	resistance_flags = FIRE_PROOF

@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - rscadd: mime invisible walls, agent stealth box, heretic influence, and mobs in
-      lockers/closets will be visible to ghosts.

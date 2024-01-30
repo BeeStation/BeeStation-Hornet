@@ -1,7 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - code_imp: Overhauled the moodlet code to linebreak whenever a new moodlet is added
-  - code_imp: Moved the pool moodlet into their own dedicated files.
-  - bugfix: Fixed the moodlet on the Syndicate Balloon
-  - rscdel: removed and reworked an overused meme moodlet description

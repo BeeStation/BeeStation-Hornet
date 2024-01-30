@@ -1,6 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Morphs may no longer utilize stomach abilities while ventcrawling. This
-      means no more victims or items left inside of atmos pipes where they are nearly
-      impossible to find.

@@ -30,9 +30,9 @@ All foods are distributed among various categories. Use common sense.
 */
 /obj/item/reagent_containers/food/snacks
 	name = "snack"
-	desc = "Yummy."
+	desc = "Yummy. Kill the local admin/coder who spawned this."
 	icon = 'icons/obj/food/food.dmi'
-	icon_state = null
+	icon_state = "ERROR"
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
 	obj_flags = UNIQUE_RENAME
