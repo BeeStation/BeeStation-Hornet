@@ -1,13 +1,14 @@
+
 /**
-  * Handles simple payment operations where the cost of the object in question doesn't change.
-  *
-  * What this is useful for:
-  * Basic forms of vending.
-  * Objects that can drain the owner's money linearly.
-  * What this is not useful for:
-  * Things where the seller may want to fluxuate the price of the object.
-  * Improving standardizing every form of payment handing, as some custom handling is specific to that object.
-  **/
+ * Handles simple payment operations where the cost of the object in question doesn't change.
+ *
+ * What this is useful for:
+ * Basic forms of vending.
+ * Objects that can drain the owner's money linearly.
+ * What this is not useful for:
+ * Things where the seller may want to fluxuate the price of the object.
+ * Improving standardizing every form of payment handing, as some custom handling is specific to that object.
+ **/
 /datum/component/payment
 	///Standardized of operation.
 	var/cost = 10
@@ -155,6 +156,7 @@
 		user.balloon_alert(user, "Cost: [total_cost] credits.")
 		return FALSE
 	target_acc.transfer_money(idcard.registered_account, total_cost)
+	//log_econ("[total_cost] credits were spent on [parent] by [user] via [idcard.registered_account.account_holder]'s card.")
 	idcard.registered_account.bank_card_talk("[total_cost] credits deducted from your account.")
 	playsound(src, 'sound/effects/cashregister.ogg', 20, TRUE)
 	//SSeconomy.track_purchase(idcard.registered_account, total_cost, parent)
