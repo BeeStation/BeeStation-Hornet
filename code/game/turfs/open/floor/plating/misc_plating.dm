@@ -75,6 +75,10 @@
 	name = "rocky ground"
 	icon = MAP_SWITCH('icons/turf/floors/rocky_ash.dmi', 'icons/turf/mining.dmi')
 	icon_state = "rockyash"
+	base_icon_state = null
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_ASH_ROCKY)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ASH_ROCKY, SMOOTH_GROUP_CLOSED_TURFS)
+	smoothing_flags = SMOOTH_CORNERS
 	layer = MID_TURF_LAYER
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
@@ -86,6 +90,9 @@
 	name = "wet rocky ground"
 	icon = 'icons/turf/mining.dmi'
 	icon_state = "wateryrock"
+	smoothing_flags = NONE
+	canSmoothWith = null
+	base_icon_state = null
 	slowdown = 2
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
@@ -195,6 +202,11 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_ICE)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_ICE)
+
+/turf/open/floor/plating/ice/smooth/red
+	icon = 'icons/turf/floors/red_ice.dmi'
+	icon_state = "red_ice-0"
+	base_icon_state = "red_ice"
 
 /turf/open/floor/plating/ice/colder
 	initial_temperature = 140

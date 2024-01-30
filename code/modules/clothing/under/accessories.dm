@@ -10,6 +10,7 @@
 	var/minimize_when_attached = TRUE // TRUE if shown as a small icon in corner, FALSE if overlayed
 	var/datum/component/storage/detached_pockets
 	var/attachment_slot = CHEST
+	appearance_flags = TILE_BOUND | RESET_COLOR
 
 /obj/item/clothing/accessory/Destroy()
 	set_detached_pockets(null)

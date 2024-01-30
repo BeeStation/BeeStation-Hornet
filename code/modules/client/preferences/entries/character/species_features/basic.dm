@@ -1,22 +1,22 @@
 /proc/generate_possible_values_for_sprite_accessories_on_head(accessories)
 	var/list/values = possible_values_for_sprite_accessory_list(accessories)
 
-	var/icon/head_icon = icon('icons/mob/human_parts_greyscale.dmi', "human_head_m")
-	head_icon.Blend(skintone2hex("caucasian1", include_tag = TRUE), ICON_MULTIPLY)
+	var/datum/universal_icon/head_icon = uni_icon('icons/mob/human_parts_greyscale.dmi', "human_head_m")
+	head_icon.blend_color(skintone2hex("caucasian1", include_tag = TRUE), ICON_MULTIPLY)
 
 	for (var/name in values)
 		var/datum/sprite_accessory/accessory = accessories[name]
 		if (accessory == null || accessory.icon_state == null)
 			continue
 
-		var/icon/final_icon = new(head_icon)
+		var/datum/universal_icon/final_icon = head_icon.copy()
 
-		var/icon/beard_icon = values[name]
-		beard_icon.Blend("#42250a", ICON_MULTIPLY)
-		final_icon.Blend(beard_icon, ICON_OVERLAY)
+		var/datum/universal_icon/beard_icon = values[name]
+		beard_icon.blend_color("#42250a", ICON_MULTIPLY)
+		final_icon.blend_icon(beard_icon, ICON_OVERLAY)
 
-		final_icon.Crop(10, 19, 22, 31)
-		final_icon.Scale(32, 32)
+		final_icon.crop(10, 19, 22, 31)
+		final_icon.scale(32, 32)
 
 		values[name] = final_icon
 
@@ -129,36 +129,36 @@
 		BODY_ZONE_L_LEG,
 		BODY_ZONE_R_LEG,
 	)
-	var/icon/body_icon = icon('icons/effects/effects.dmi', "nothing")
+	var/datum/universal_icon/body_icon = uni_icon('icons/effects/effects.dmi', "nothing")
 	for (var/body_part in body_parts)
 		var/gender = body_part == BODY_ZONE_CHEST || body_part == BODY_ZONE_HEAD ? "_m" : ""
-		body_icon.Blend(icon('icons/mob/human_parts_greyscale.dmi', "human_[body_part][gender]", dir = NORTH), ICON_OVERLAY)
-	body_icon.Blend(skintone2hex("caucasian1", include_tag = TRUE), ICON_MULTIPLY)
-	var/icon/jumpsuit_icon = icon('icons/mob/clothing/uniform.dmi', "jumpsuit", dir = NORTH)
-	jumpsuit_icon.Blend("#b3b3b3", ICON_MULTIPLY)
-	body_icon.Blend(jumpsuit_icon, ICON_OVERLAY)
+		body_icon.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_[body_part][gender]", dir = NORTH), ICON_OVERLAY)
+	body_icon.blend_color(skintone2hex("caucasian1", include_tag = TRUE), ICON_MULTIPLY)
+	var/datum/universal_icon/jumpsuit_icon = uni_icon('icons/mob/clothing/uniform.dmi', "jumpsuit", dir = NORTH)
+	jumpsuit_icon.blend_color("#b3b3b3", ICON_MULTIPLY)
+	body_icon.blend_icon(jumpsuit_icon, ICON_OVERLAY)
 
 	var/datum/sprite_accessory/hair_accessory = GLOB.hair_styles_list["Very Long Hair 2"]
-	var/icon/hair_icon = icon(hair_accessory.icon, hair_accessory.icon_state, dir = NORTH)
-	hair_icon.Blend("#080501", ICON_MULTIPLY)
+	var/datum/universal_icon/hair_icon = uni_icon(hair_accessory.icon, hair_accessory.icon_state, dir = NORTH)
+	hair_icon.blend_color("#080501", ICON_MULTIPLY)
 
 	for (var/name in values)
 		var/datum/sprite_accessory/accessory = GLOB.hair_gradients_list[name]
 		if (accessory == null)
 			if(accessory.icon_state == null || accessory.icon_state == "none")
-				values[name] = icon('icons/mob/landmarks.dmi', "x")
+				values[name] = uni_icon('icons/mob/landmarks.dmi', "x")
 			continue
 
-		var/icon/final_icon = new(body_icon)
-		var/icon/base_hair_icon = new(hair_icon)
-		var/icon/gradient_hair_icon = icon(hair_accessory.icon, hair_accessory.icon_state, dir = NORTH)
+		var/datum/universal_icon/final_icon = body_icon.copy()
+		var/datum/universal_icon/base_hair_icon = hair_icon.copy()
+		var/datum/universal_icon/gradient_hair_icon = uni_icon(hair_accessory.icon, hair_accessory.icon_state, dir = NORTH)
 
-		var/icon/gradient_icon = values[name]
-		gradient_icon.Blend(gradient_hair_icon, ICON_ADD)
-		gradient_icon.Blend("#42250a", ICON_MULTIPLY)
-		base_hair_icon.Blend(gradient_icon, ICON_OVERLAY)
+		var/datum/universal_icon/gradient_icon = values[name]
+		gradient_icon.blend_icon(gradient_hair_icon, ICON_ADD)
+		gradient_icon.blend_color("#42250a", ICON_MULTIPLY)
+		base_hair_icon.blend_icon(gradient_icon, ICON_OVERLAY)
 
-		final_icon.Blend(base_hair_icon, ICON_OVERLAY)
+		final_icon.blend_icon(base_hair_icon, ICON_OVERLAY)
 		values[name] = final_icon
 
 	return values

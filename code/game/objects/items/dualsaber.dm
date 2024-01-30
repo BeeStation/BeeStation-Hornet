@@ -89,7 +89,6 @@
 
 /obj/item/dualsaber/update_icon()
 	icon_state = "dualsaber0"
-	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
 	..()
 
 /obj/item/dualsaber/suicide_act(mob/living/carbon/user)

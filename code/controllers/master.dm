@@ -76,9 +76,21 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	///used by CHECK_TICK as well so that the procs subsystems call can obey that SS's tick limits
 	var/static/current_ticklimit = TICK_LIMIT_RUNNING
 
+	var/diagnostic_mode = FALSE
+
+	var/list/queued_ticks = list()
+	/// A circular queue for diagnostic purposes
+	var/list/previous_ticks[10]
+	/// The current head of the circular queue
+	var/circular_queue_head = 1
+
 /datum/controller/master/New()
 	if(!config)
 		config = new
+
+	for (var/i in 1 to length(previous_ticks))
+		previous_ticks[i] = new /datum/mc_tick
+
 	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
 
 	if(!random_seed)
@@ -499,9 +511,19 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/tick_precentage
 	var/tick_remaining
 	var/ran = TRUE //this is right
-	var/ran_non_ticker = FALSE
 	var/bg_calc //have we swtiched current_tick_budget to background mode yet?
 	var/tick_usage
+
+	var/datum/mc_tick/diagnostic_tick
+	if (diagnostic_mode)
+		diagnostic_tick = new()
+		diagnostic_tick.tick_number = world.time
+		queued_ticks += diagnostic_tick
+		previous_ticks[circular_queue_head = (circular_queue_head % length(previous_ticks)) + 1] = diagnostic_tick
+	else
+		diagnostic_tick = previous_ticks[circular_queue_head = (circular_queue_head % length(previous_ticks)) + 1]
+		diagnostic_tick.fired_subsystems.len = 0
+		diagnostic_tick.tick_number = world.time
 
 	//keep running while we have stuff to run and we haven't gone over a tick
 	//	this is so subsystems paused eariler can use tick time that later subsystems never used
@@ -521,21 +543,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				queue_node = queue_node.queue_next
 				continue
 
-			//super special case, subsystems where we can't make them pause mid way through
-			//if we can't run them this tick (without going over a tick)
-			//we bump up their priority and attempt to run them next tick
-			//(unless we haven't even ran anything this tick, since its unlikely they will ever be able run
-			//	in those cases, so we just let them run)
-			if (queue_node_flags & SS_NO_TICK_CHECK)
-				if (queue_node.tick_usage > TICK_LIMIT_RUNNING - TICK_USAGE && ran_non_ticker)
-					if (!(queue_node_flags & SS_BACKGROUND))
-						queue_node.queued_priority += queue_priority_count * 0.1
-						queue_priority_count -= queue_node_priority
-						queue_priority_count += queue_node.queued_priority
-						current_tick_budget -= queue_node_priority
-						queue_node = queue_node.queue_next
-					continue
-
 			if (!bg_calc && (queue_node_flags & SS_BACKGROUND))
 				current_tick_budget = queue_priority_count_bg
 				bg_calc = TRUE
@@ -551,8 +558,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 			current_ticklimit = round(TICK_USAGE + tick_precentage)
 
-			if (!(queue_node_flags & SS_TICKER))
-				ran_non_ticker = TRUE
 			ran = TRUE
 
 			queue_node_paused = (queue_node.state == SS_PAUSED || queue_node.state == SS_PAUSING)
@@ -563,6 +568,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			tick_usage = TICK_USAGE
 			var/state = queue_node.ignite(queue_node_paused)
 			tick_usage = TICK_USAGE - tick_usage
+
+			if (diagnostic_tick.fired_subsystems[queue_node])
+				diagnostic_tick.fired_subsystems[queue_node] = diagnostic_tick.fired_subsystems[queue_node] + tick_usage
+			else
+				diagnostic_tick.fired_subsystems[queue_node] = tick_usage
 
 			if (state == SS_RUNNING)
 				state = SS_IDLE
@@ -697,3 +707,23 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	for (var/thing in subsystems)
 		var/datum/controller/subsystem/SS = thing
 		SS.OnConfigLoad()
+
+/**
+ * Diagnostic queue information
+ */
+
+/datum/mc_tick
+	var/tick_number = 0
+	/// Assoc list containing a list of the subsystems that were fired
+	/// along with how much time thye used this tick
+	var/list/fired_subsystems = list()
+
+/datum/mc_tick/proc/get_stat_text()
+	var/list/output = list()
+	var/list/tickers = list()
+	for (var/datum/controller/subsystem/ss as() in fired_subsystems)
+		if (ss.flags & SS_TICKER)
+			tickers += "([ss.name]: [TICK_DELTA_TO_MS(fired_subsystems[ss])]ms)"
+		else
+			output += "([ss.name]: [TICK_DELTA_TO_MS(fired_subsystems[ss])]ms)"
+	return "Systems: [jointext(output, " | ")] ######## Tickers: [jointext(tickers, " | ")]"

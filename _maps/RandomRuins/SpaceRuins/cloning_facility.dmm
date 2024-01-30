@@ -22,112 +22,6 @@
 /obj/structure/window/reinforced/fulltile,
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"ag" = (
-/obj/structure/table,
-/obj/item/flashlight/lamp,
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"ah" = (
-/obj/structure/table,
-/obj/item/pen,
-/obj/item/paper/fluff/ruins/exp_cloning/log,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"ai" = (
-/obj/machinery/dna_scannernew,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"aj" = (
-/obj/machinery/computer/cloning/prototype,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/paper/fluff/ruins/exp_cloning/manual,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"ak" = (
-/obj/machinery/clonepod/experimental,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"al" = (
-/obj/effect/decal/cleanable/vomit/old,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"am" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
 "an" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall,
@@ -176,43 +70,6 @@
 "av" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"aw" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"ax" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/space/has_grav/powered/ancient_shuttle)
-"ay" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
@@ -280,11 +137,6 @@
 /obj/machinery/door/airlock/research/glass,
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"aL" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
-	},
-/area/space/nearstation)
 "aM" = (
 /obj/structure/fluff/broken_flooring{
 	dir = 8;
@@ -333,7 +185,7 @@
 /area/ruin/space/has_grav/powered/ancient_shuttle)
 "aU" = (
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/space/nearstation)
 "aV" = (
@@ -630,7 +482,7 @@ aa
 ad
 aq
 aC
-aL
+aU
 aM
 aa
 aa
