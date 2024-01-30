@@ -124,7 +124,7 @@
 				user.pulling = holochange
 		else
 			user.pulling = holochange
-	//log_econ("[total_cost] credits were spent on [parent] by [user].")
+	log_econ("[total_cost] credits were spent on [parent] by [user].")
 	to_chat(user, "<span class='notice'>Purchase completed with held credits.</span>")
 	playsound(user, 'sound/effects/cashregister.ogg', 20, TRUE)
 	return TRUE
@@ -156,7 +156,7 @@
 		user.balloon_alert(user, "Cost: [total_cost] credits.")
 		return FALSE
 	target_acc.transfer_money(idcard.registered_account, total_cost)
-	//log_econ("[total_cost] credits were spent on [parent] by [user] via [idcard.registered_account.account_holder]'s card.")
+	log_econ("[total_cost] credits were spent on [parent] by [user] via [idcard.registered_account.account_holder]'s card.")
 	idcard.registered_account.bank_card_talk("[total_cost] credits deducted from your account.")
 	playsound(src, 'sound/effects/cashregister.ogg', 20, TRUE)
 	//SSeconomy.track_purchase(idcard.registered_account, total_cost, parent)

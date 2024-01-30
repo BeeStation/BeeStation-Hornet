@@ -142,6 +142,9 @@ LOG_PRAYER
 ## log lawchanges
 LOG_LAW
 
+## log economy actions
+LOG_ECON
+
 ## log viruses
 LOG_VIRUS
 

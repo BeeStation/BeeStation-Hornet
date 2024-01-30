@@ -66,6 +66,8 @@
 /datum/bank_account/proc/transfer_money(datum/bank_account/from, amount)
 	if(from.has_money(amount))
 		adjust_money(amount)
+		SSblackbox.record_feedback("amount", "credits_transferred", amount)
+		log_econ("[amount] credits were transferred from [from.account_holder]'s account to [src.account_holder]")
 		from.adjust_money(-amount)
 		return TRUE
 	return FALSE
@@ -87,6 +89,8 @@
 			money_to_transfer += bonus_per_department[D]
 		if(free)
 			adjust_money(money_to_transfer)
+			SSblackbox.record_feedback("amount", "free_income", money_to_transfer)
+			log_econ("[money_to_transfer] credits were given to [src.account_holder]'s account from income.")
 			if(bonus_per_department[D] > 0) //Get rid of bonus if we have one
 				bonus_per_department[D] = 0
 		else

@@ -779,6 +779,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 						for(var/datum/bank_account/department/D in dept_list)
 							if(D)
 								D.adjust_money(price_to_use)
+								SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
+								log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
 			if(last_shopper != REF(usr) || COOLDOWN_FINISHED(src, purchase_message_cooldown))
 				say("Thank you for shopping with [src]!")
@@ -1044,6 +1046,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/datum/bank_account/owner = private_a
 	if(owner)
 		owner.adjust_money(bought_item.custom_price)
+		SSblackbox.record_feedback("amount", "vending_spent", S.custom_price)
+		log_econ("[S.custom_price] credits were spent on [src] buying a [S] by [owner.account_holder], owned by [private_a.account_holder].")
 		var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 		if(id_card)
 			owner.bank_card_talk("[id_card.registered_name] has bought \a [bought_item] for [bought_item.custom_price] credits at your [name]!")
