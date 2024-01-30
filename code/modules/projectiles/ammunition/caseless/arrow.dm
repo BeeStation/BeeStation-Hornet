@@ -8,6 +8,12 @@
 	throwforce = 3 //good luck hitting someone with the pointy end of the arrow
 	throw_speed = 3
 
+/obj/item/ammo_casing/caseless/arrow/attacked_by(obj/item/attacking_item, mob/living/user)
+	if(istype(attacking_item, /obj/item/gun/ballistic/bow))
+		var/obj/item/gun/ballistic/bow/B = attacking_item
+		B.magazine.attackby(src, user, 0, 1)
+		to_chat(user, "<span class='notice'>You notch the arrow swiftly.</span>")
+
 /obj/item/ammo_casing/caseless/arrow/wood
 	name = "wooden arrow"
 	desc = "A pointy stick carved out of wood. Not really technogically advanced. Don't expect it to pierce any armour... or flesh..."
@@ -45,7 +51,7 @@
 	ignite()
 
 /obj/item/ammo_casing/caseless/arrow/cloth/attackby(obj/item/I, mob/user, params)
-	if(I.heat > 900)
+	if(I.is_hot() > 900)
 		ignite()
 
 /obj/item/ammo_casing/caseless/arrow/cloth/attack(mob/living/carbon/M, mob/living/carbon/user)
@@ -107,6 +113,14 @@
 	burnt = TRUE
 	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/burnt
 
+/obj/item/ammo_casing/caseless/arrow/cloth/burnt/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
+		var/obj/item/stack/sheet/cotton/cloth/C = I
+		if(burnt && C.use(2))
+			qdel(C)
+			new = /obj/item/ammo_casing/caseless/arrow/cloth(get_turf(src),1)
+
+
 /obj/item/ammo_casing/caseless/arrow/glass
 	name = "glass arrow"
 	desc = "A crude 'arrow' with a glass shard as a tip. You don't want to be shot with this."
@@ -155,6 +169,27 @@
 			add_overlay("arrow_bottle_20")
 		else if(reagents.total_volume == 30)
 			add_overlay("arrow_bottle_30")
+
+/obj/item/ammo_casing/caseless/arrow/sm
+	name = "SM arrow"
+	desc = "Weaponized SM. Fear it."
+	icon_state = "arrow_sm"
+	force = 0
+	throwforce = 0
+	armour_penetration = 0
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.8
+	light_on = TRUE
+	light_color = LIGHT_COLOR_HOLY_MAGIC
+	var/shard = TRUE
+	projectile_type = /obj/projectile/bullet/reusable/arrow/sm
+
+/obj/item/ammo_casing/caseless/arrow/sm/update_icon()
+	. = ..()
+	cut_overlays()
+	if(shard)
+		add_overlay("arrow_sm_shard")
 
 /obj/structure/closet/arrows
 

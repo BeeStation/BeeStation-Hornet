@@ -90,6 +90,9 @@
 	var/pb_knockback = 0
 	var/ranged_cooldown = 0
 
+	var/damage_multiplier = 1 //Gun Damage Multiplier that affects the damage dealt by the bullets. This is the base value which wont change a thing.
+	var/speed_multiplier = 1 //Gun Bullet Speed Multiplier that affect bullet speed. This is the base value which wont change a thing. Smaller number meants FASTER.
+
 	// Equipping
 	/// The slowdown applied to mobs upon a gun being equipped
 	var/equip_slowdown = 0.5
@@ -765,12 +768,18 @@
 
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
-	if(aimed == GUN_AIMED && chambered?.BB)
-		chambered.BB.speed = initial(chambered.BB.speed) * 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
-		chambered.BB.damage = initial(chambered.BB.damage) * 1.25
-	if(aimed == GUN_AIMED_POINTBLANK)
-		chambered.BB.speed = initial(chambered.BB.speed) * 0.25 // Much faster bullets because you're holding them literally at the barrel of the gun
-		chambered.BB.damage = initial(chambered.BB.damage) * 4 // Execution
+	if(chambered.BB)
+		var/sm = speed_multiplier
+		var/dm = damage_multiplier
+		if(aimed == GUN_AIMED)
+			sm += 0.75
+			dm += 1.25
+		else if (aimed == GUN_AIMED_POINTBLANK)
+			sm += 0.25
+			dm += 4
+		chambered.BB.speed *= sm
+		chambered.BB.damage *= dm
+		chambered.BB.stamina *= dm
 
 /////////////
 // ZOOMING //

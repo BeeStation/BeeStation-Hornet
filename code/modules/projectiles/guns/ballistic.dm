@@ -34,6 +34,7 @@
 	var/empty_indicator = FALSE //Whether the sprite has an indicator for being empty or not.
 	var/empty_alarm = FALSE //Whether the gun alarms when empty or not.
 	var/special_mags = FALSE //Whether the gun supports multiple special mag types
+	var/ammo_count_visible = TRUE //Whether the ammo count is visible on examine
 	var/alarmed = FALSE
 	//Additional info related to the actual chambering, and to allow loading bullets directly into battery / into var/chambered
 	//Copies the caliber of the magazine in the gun during Initialize() | Must be explicitly set on the gun if it spawns without a magazine ;)
@@ -441,16 +442,17 @@
 
 /obj/item/gun/ballistic/examine(mob/user)
 	. = ..()
-	var/count_chambered = !(bolt_type == BOLT_TYPE_NO_BOLT)
-	. += "It has [get_ammo(count_chambered)] round\s remaining."
-	if (!chambered)
-		. += "It does not seem to have a round chambered."
-	if (bolt_locked)
-		. += "The [bolt_wording] is locked back and needs to be released before firing."
-	if (suppressed)
-		. += "It has a suppressor attached that can be removed with <b>alt+click</b>."
-	if (bolt_type == BOLT_TYPE_PUMP)
-		. += "You can <b>ctrl+click</b> to half-pump \the [src] to directly chamber a [cartridge_wording]."
+	if(ammo_count_visible)
+		var/count_chambered = !(bolt_type == BOLT_TYPE_NO_BOLT)
+		. += "It has [get_ammo(count_chambered)] round\s remaining."
+		if (!chambered)
+			. += "It does not seem to have a round chambered."
+		if (bolt_locked)
+			. += "The [bolt_wording] is locked back and needs to be released before firing."
+		if (suppressed)
+			. += "It has a suppressor attached that can be removed with <b>alt+click</b>."
+		if (bolt_type == BOLT_TYPE_PUMP)
+			. += "You can <b>ctrl+click</b> to half-pump \the [src] to directly chamber a [cartridge_wording]."
 
 /obj/item/gun/ballistic/proc/get_ammo(countchambered = TRUE)
 	var/boolets = 0 //mature var names for mature people

@@ -284,7 +284,7 @@
 	reqs = list(/obj/item/pipe = 1,
 				/obj/item/stack/cable_coil = 15)
 	tools = list(TOOL_KNIFE)
-	time = 120
+	time = 30
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	dangerous_craft = TRUE
@@ -292,11 +292,10 @@
 /datum/crafting_recipe/woodenbow
 	name = "Wooden Bow"
 	result = /obj/item/gun/ballistic/bow
-	reqs = list(/obj/item/stack/sheet/wood = 8,
-				/obj/item/stack/sheet/iron = 2,
-				/obj/item/weaponcrafting/silkstring = 4)
+	reqs = list(/obj/item/stack/sheet/wood = 5,
+				/obj/item/weaponcrafting/silkstring = 1)
 	tools = list(TOOL_KNIFE)
-	time = 120
+	time = 60
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -497,6 +496,47 @@
 	reqs = list(/obj/item/stack/sheet/wood = 1,
 				/obj/item/stack/sheet/silk = 1,
 				/obj/item/stack/rods = 1) //1 metal sheet = 2 rods= 2 arrows
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/arrow_wood
+	name = "Wooden Arrow"
+	result = /obj/item/ammo_casing/caseless/arrow/wood
+	time = 30
+	reqs = list(/obj/item/stack/sheet/wood = 2)
+	tools = list(TOOL_KNIFE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/arrow_cloth
+	name = "Cloth Arrow"
+	result = /obj/item/ammo_casing/caseless/arrow/cloth
+	time = 30
+	reqs = list(/obj/item/stack/sheet/wood = 2,
+				/obj/item/stack/sheet/cotton/cloth = 2)
+	tools = list(TOOL_KNIFE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/arrow_bottle
+	name = "Bottle tied to an Arrow with a string"
+	result = /obj/item/ammo_casing/caseless/arrow/bottle
+	time = 30
+	reqs = list(/obj/item/stack/sheet/wood = 2,
+				/obj/item/stack/cable_coil = 3,
+				/obj/item/reagent_containers/food/drinks/bottle = 1)
+	tools = list(TOOL_KNIFE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/arrow_sm
+	name = "Supermatter Arrow"
+	result = /obj/item/ammo_casing/caseless/arrow/sm
+	time = 30
+	reqs = list(/obj/item/stack/rods = 1,
+				/obj/item/hemostat/supermatter = 1,
+				/obj/item/nuke_core/supermatter_sliver = 1)
+	tools = list(TOOL_KNIFE)
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 

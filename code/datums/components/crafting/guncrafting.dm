@@ -19,3 +19,9 @@
 	desc = "A long piece of Silk that looks like a cable coil."
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "silkstring"
+
+/obj/item/weaponcrafting/energy_crystal
+	name = "energy crystal"
+	desc = "An energy crystal used in the construction of energy weaponry."
+	icon = 'icons/obj/improvised.dmi'
+	icon_state = "crystal"
