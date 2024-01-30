@@ -51004,10 +51004,6 @@
 	req_access_txt = "5"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	name = "Medbay Maintenance";
-	req_access_txt = "5"
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/port)
 "jZm" = (
