@@ -255,3 +255,6 @@
 	department_id = ACCOUNT_GOLEM_ID
 	department_bitflag = NONE
 	exclusive_budget_pool = 13 // oh no, someone used it! damn communism
+
+/datum/bank_account/remote // Bank account not belonging to the local station
+	add_to_accounts = FALSE

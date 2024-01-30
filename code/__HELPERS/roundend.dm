@@ -508,28 +508,53 @@
 ///Generate a report for how much money is on station, as well as the richest crewmember on the station.
 /datum/controller/subsystem/ticker/proc/market_report()
 	var/list/parts = list()
-	parts += "<span class='header'>Station Economic Summary:</span>"
+
 	///This is the richest account on station at roundend.
 	var/datum/bank_account/mr_moneybags
 	///This is the station's total wealth at the end of the round.
 	var/station_vault = 0
 	///How many players joined the round.
 	var/total_players = GLOB.joined_player_list.len
+	var/static/list/typecache_bank = typecacheof(list(/datum/bank_account/department, /datum/bank_account/remote))
 	for(var/i in SSeconomy.bank_accounts)
-		if(istype(i, /datum/bank_account/department) || istype(i, /datum/bank_account/remote))
+		var/datum/bank_account/current_acc = SSeconomy.bank_accounts[i]
+		if(typecache_bank[current_acc.type])
 			continue
-		var/datum/bank_account/current_acc = i
 		station_vault += current_acc.account_balance
 		if(!mr_moneybags || mr_moneybags.account_balance < current_acc.account_balance)
 			mr_moneybags = current_acc
-	parts += "<div class='panel stationborder'>There were [station_vault] credits collected by crew this shift.</div>"
+	parts += "<div class='panel stationborder'><span class='header'>Station Economic Summary:</span><br>"
+	/* Tourist Bots
+	parts += "<span class='service'>Service Statistics:</span><br>"
+	for(var/venue_path in SSrestaurant.all_venues)
+		var/datum/venue/venue = SSrestaurant.all_venues[venue_path]
+		tourist_income += venue.total_income
+		parts += "The [venue] served [venue.customers_served] customer\s and made [venue.total_income] credits.<br>"
+	parts += "In total, they earned [tourist_income] credits[tourist_income ? "!" : "..."]<br>"
+	log_econ("Roundend service income: [tourist_income] credits.")
+	switch(tourist_income)
+		if(0)
+			parts += "[span_redtext("Service did not earn any credits...")]<br>"
+		if(1 to 2000)
+			parts += "[span_redtext("Centcom is displeased. Come on service, surely you can do better than that.")]<br>"
+			award_service(/datum/award/achievement/jobs/service_bad)
+		if(2001 to 4999)
+			parts += "[span_greentext("Centcom is satisfied with service's job today.")]<br>"
+			award_service(/datum/award/achievement/jobs/service_okay)
+		else
+			parts += "<span class='reallybig greentext'>Centcom is incredibly impressed with service today! What a team!</span><br>"
+			award_service(/datum/award/achievement/jobs/service_good)
+
+	parts += "<b>General Statistics:</b><br>"
+	*/
+	parts += "There were [station_vault] credits collected by crew this shift.<br>"
 	if(total_players > 0)
-		parts += "<div class='panel stationborder'>An average of [station_vault/total_players] credits were collected.</div>"
+		parts += "An average of [station_vault/total_players] credits were collected.<br>"
 		log_econ("Roundend credit total: [station_vault] credits. Average Credits: [station_vault/total_players]")
 	if(mr_moneybags)
-		parts += "<div class='panel clockborder'>The most affulent crew member at shift end was <b>[mr_moneybags.account_holder] with [mr_moneybags.account_balance]</b> cr!</div>"
+		parts += "The most affluent crew member at shift end was <b>[mr_moneybags.account_holder] with [mr_moneybags.account_balance]</b> cr!</div>"
 	else
-		parts += "div class = panel redborder'>Somehow, nobody made any money this shift! This'll result in some budget cuts...</div>"
+		parts += "Somehow, nobody made any money this shift! This'll result in some budget cuts...</div>"
 	return parts
 
 /datum/controller/subsystem/ticker/proc/medal_report()
