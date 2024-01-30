@@ -142,7 +142,7 @@
 
 /datum/component/personal_crafting/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/crafting),
+		get_asset_datum(/datum/asset/spritesheet_batched/crafting),
 	)
 
 /datum/component/personal_crafting/proc/check_tools(atom/a, datum/crafting_recipe/R, list/contents)
