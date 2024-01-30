@@ -80,7 +80,9 @@
 #endif				// 1 to use the default behaviour;
 					// 2 for preloading absolutely everything;
 
+//#define LOWMEMORYMODE
 #ifdef LOWMEMORYMODE
+#warn WARNING: Compiling with LOWMEMORYMODE.
 #define FORCE_MAP "runtimestation"
 #endif
 
