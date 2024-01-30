@@ -4885,7 +4885,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/maintenance/port/fore)
+/area/medical/genetics)
 "aui" = (
 /turf/closed/wall/r_wall,
 /area/teleporter)
@@ -8372,12 +8372,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
-"aMg" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/closed/wall/r_wall,
-/area/crew_quarters/heads/cmo)
 "aMh" = (
 /obj/effect/turf_decal/loading_area,
 /obj/effect/turf_decal/stripes/corner{
@@ -9709,7 +9703,7 @@
 	req_access_txt = "5"
 	},
 /turf/open/floor/plasteel/dark,
-/area/medical/morgue)
+/area/medical/genetics/cloning)
 "aVn" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Morgue";
@@ -35354,7 +35348,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/maintenance/port)
+/area/medical/storage)
 "eyW" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/corner,
@@ -36834,7 +36828,7 @@
 	req_access_txt = "5"
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/maintenance/port/fore)
+/area/medical/genetics/cloning)
 "eYq" = (
 /obj/machinery/light_switch{
 	name = "Control Room light switch";
@@ -51010,6 +51004,10 @@
 	req_access_txt = "5"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance{
+	name = "Medbay Maintenance";
+	req_access_txt = "5"
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/port)
 "jZm" = (
@@ -61679,6 +61677,15 @@
 	broken = 1
 	},
 /area/maintenance/starboard)
+"oay" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Surgery Maintenance";
+	req_access_txt = "5"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/showroomfloor,
+/area/maintenance/port)
 "oaH" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
@@ -68932,7 +68939,9 @@
 /area/engine/atmos)
 "qDE" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/closed/wall,
+/turf/open/floor/plating{
+	burnt = 1
+	},
 /area/medical/medbay/central)
 "qDF" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -76354,12 +76363,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
-"thb" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	burnt = 1
-	},
-/area/medical/genetics)
 "the" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/science/shuttledock)
@@ -107833,7 +107836,7 @@ oNr
 oNr
 hpy
 aPA
-aMg
+aPA
 aPc
 aOZ
 aOZ
@@ -108617,7 +108620,7 @@ aQI
 aQI
 aQI
 aQN
-aQN
+oay
 aQN
 aQN
 aQN
@@ -110135,7 +110138,7 @@ ane
 pbO
 rJY
 kvQ
-thb
+lbT
 aNG
 fkI
 hZd
@@ -111420,12 +111423,12 @@ oWb
 cwp
 kik
 hxE
-gbA
-aNu
-aNu
-aNu
+aNt
+aNL
+aNL
+aNL
 aVj
-aNu
+aNL
 aNn
 aNn
 ezd
