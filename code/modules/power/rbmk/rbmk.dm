@@ -127,15 +127,12 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 //Use this in your maps if you want everything to be preset.
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset/Initialize(mapload)
 	. = ..()
-	var/pipe_type = /obj/machinery/atmospherics/pipe/simple
-	var/obj/machinery/atmospherics/path = pipe_type
-	var/pipe_item_type = initial(path.construction_type) || /obj/item/pipe
-	var/obj/item/pipe/pipe1 = new pipe_item_type(locate(x-1,y,z), pipe_type, 4)
-	var/obj/item/pipe/pipe2 = new pipe_item_type(locate(x+1,y,z), pipe_type, 4)
-	var/obj/item/pipe/pipe3 = new pipe_item_type(locate(x,y+1,z), pipe_type, 1)
-	pipe1.wrench_act()
-	pipe2.wrench_act()
-	pipe3.wrench_act()
+	var/obj/machinery/atmospherics/pipe/simple/pipe1 = new /obj/machinery/atmospherics/pipe/simple(locate(x-1,y,z), 4)
+	var/obj/machinery/atmospherics/pipe/simple/pipe2 = new /obj/machinery/atmospherics/pipe/simple(locate(x+1,y,z), 4)
+	var/obj/machinery/atmospherics/pipe/simple/pipe3 = new /obj/machinery/atmospherics/pipe/simple(locate(x,y+1,z), 1)
+	pipe1.dir = 4
+	pipe2.dir = 4
+	pipe3.dir = 1
 
 
 
