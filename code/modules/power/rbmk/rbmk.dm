@@ -106,7 +106,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/last_power_produced = 0 //For logging purposes
 	var/next_flicker = 0 //Light flicker timer
 	var/base_power_modifier = RBMK_POWER_FLAVOURISER
-	var/slagged = FALSE //Is this reactor even usable any more?
+	piping_layer = PIPING_LAYER_DEFAULT
 	//Console statistics.
 	var/last_coolant_temperature = 0
 	var/last_output_temperature = 0
@@ -121,6 +121,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Miscellaneous
 	var/static/reactorcount = 0
 	var/lastwarning = 0
+	var/pipesCreated
+	var/obj/machinery/atmospherics/pipe1
+	var/obj/machinery/atmospherics/pipe2
+	var/obj/machinery/atmospherics/pipe3
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/Initialize(mapload)
 	. = ..()
@@ -139,36 +143,33 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	radio.keyslot = new radio_key
 	radio.listening = 0
 	radio.recalculateChannels()
-	piping_layer = PIPING_LAYER_DEFAULT
+	update_parents()
 
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset //Use this for mapping, mappers. This is also created when a new reactor is made due to pipes
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/on_construction()
-	var/obj/item/circuitboard/machine/rbmk/board = circuit
-	if(board)
-		piping_layer = board.pipe_layer
-	return ..(dir, piping_layer)
-
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset
-	id = "default_reactor_for_lazy_mappers"
-//Use this in your maps if you want everything to be preset.
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset/Initialize(mapload)
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset/Initialize()
 	. = ..()
-	var/obj/machinery/atmospherics/pipe1 = new /obj/machinery/atmospherics/pipe/simple(locate(x-1,y,z))
+	pipesCreated = TRUE
+	pipe1 = new /obj/machinery/atmospherics/pipe/simple(locate(x-1,y,z))
 	pipe1.setDir(4)
-	var/obj/machinery/atmospherics/pipe2 = new /obj/machinery/atmospherics/pipe/simple(locate(x+1,y,z))
+	pipe1.SetInitDirections()
+	pipe1.can_unwrench = FALSE
+	pipe2 = new /obj/machinery/atmospherics/pipe/simple(locate(x+1,y,z))
 	pipe2.setDir(4)
-	var/obj/machinery/atmospherics/pipe3 = new /obj/machinery/atmospherics/pipe/simple(locate(x,y+1,z))
+	pipe2.SetInitDirections()
+	pipe2.can_unwrench = FALSE
+	pipe3 = new /obj/machinery/atmospherics/pipe/simple(locate(x,y+1,z))
 	pipe3.setDir(1)
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/destroyed
-	icon_state = "reactor_slagged"
-	slagged = TRUE
-	vessel_integrity = 0
-
+	pipe3.SetInitDirections()
+	pipe3.can_unwrench = FALSE
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/Destroy()
+	if(pipesCreated)
+		QDEL_NULL(pipe1)
+		QDEL_NULL(pipe2)
+		QDEL_NULL(pipe3)
 	QDEL_NULL(alarm)
 	QDEL_NULL(radio)
-	qdel(src)
 	. = ..()
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/examine(mob/user)
@@ -209,7 +210,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			W.forceMove(src)
 			radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
 		return TRUE
-	if(!slagged && istype(W, /obj/item/sealant))
+	if(istype(W, /obj/item/sealant))
 		if(power >= 20)
 			to_chat(user, "<span class='notice'>You cannot repair [src] while it is running at above 20% power.</span>")
 			return FALSE
@@ -229,9 +230,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			vessel_integrity = clamp(vessel_integrity, 0, initial(vessel_integrity))
 		return TRUE
 	if(W.tool_behaviour == TOOL_WELDER)
-		if(slagged)
-			to_chat(user, "<span class='notice'>You can't repair [src], it's completely slagged!</span>")
-			return FALSE
 		if(power >= 20)
 			to_chat(user, "<span class='notice'>You can't repair [src] while it is running at above 20% power.</span>")
 			return FALSE
@@ -253,6 +251,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it still has fuel rods inside!.</span>")
 			return FALSE
 		default_deconstruction_screwdriver(user, "reactor_off", "reactor_off", W) //REPLACE SPRITES WITH ACTUAL SPRITES LATER
+		return TRUE
 	if(W.tool_behaviour == TOOL_CROWBAR)
 		if(panel_open)
 			if(power >= 20)
@@ -262,6 +261,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 				to_chat(user, "<span class='notice'>You can't deconstruct the [src] while it still has fuel rods inside!.</span>")
 				return FALSE
 			default_deconstruction_crowbar(W)
+			return TRUE
 		else
 			if(power >= 20)
 				to_chat(user, "<span class='notice'>You can't remove any fuel rods while the [src] is above 20% power!")
@@ -270,12 +270,12 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 				to_chat(user, "<span class='notice'>The [src] is empty of fuel rods!.</span>")
 				return FALSE
 			removeFuelRod(user, src)
+			return TRUE
 	return ..()
 
 //Admin procs to mess with the reaction environment.
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/lazy_startup()
-	slagged = FALSE
 	for(var/I=0;I<5;I++)
 		fuel_rods += new /obj/item/fuel_rod(src)
 	start_up()
@@ -300,9 +300,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	return length(fuel_rods)
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/slowprocess()
-	if(slagged)
-		STOP_PROCESSING(SSmachines, src)
-		return
 	//Let's get our gasses sorted out.
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
 	var/datum/gas_mixture/moderator_input = MODERATOR_INPUT_GATE
@@ -528,10 +525,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/meltdown()
 	set waitfor = FALSE
 	SSair.atmos_machinery -= src //Annd we're now just a useless brick.
-	slagged = TRUE
 	update_icon()
 	STOP_PROCESSING(SSmachines, src)
-	icon_state = "reactor_slagged"
 	AddComponent(/datum/component/radioactive, 15000 , src)
 	var/obj/modules/power/rbmk/nuclear_sludge_spawner/NSW = new /obj/modules/power/rbmk/nuclear_sludge_spawner/strong(get_turf(src))
 	var/turf/T = get_turf(src)
@@ -594,15 +589,11 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			icon_state = "reactor_meltdown"
 	if(!has_fuel())
 		icon_state = "reactor_off"
-	if(slagged)
-		icon_state = "reactor_slagged"
 
 
 //Startup, shutdown
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/start_up()
-	if(slagged)
-		return // No :)
 	START_PROCESSING(SSmachines, src)
 	desired_k = 1
 	can_unwrench = 0
