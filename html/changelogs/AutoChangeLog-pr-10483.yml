@@ -1,0 +1,8 @@
+author: Varo, MarkusLarsson421
+delete-after: true
+changes:
+  - tweak: Reworks the lobby, changes the front desk position to where cloning was,
+      moves genetics to the big monkey room, moves cloning where genetic was, adds
+      a surgery room, reworks the CMO office, storage and chemistry room, removes
+      a big part of virology and places it all below chemistry, tweaks some maintenance
+      areas
