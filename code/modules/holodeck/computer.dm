@@ -88,10 +88,10 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 /obj/machinery/computer/holodeck/LateInitialize()//from here linked is populated and the program list is generated. its also set to load the offline program
 	linked = GLOB.areas_by_type[mapped_start_area]
-	#ifdef UNIT_TESTS // This is needed so that the icon smoothing unit test doesn't error when the area doesn't get loaded.
-		if(!linked)
+#ifdef UNIT_TESTS // This is needed so that the icon smoothing unit test doesn't error when the area doesn't get loaded.
+	if(!linked)
 		return
-	#endif
+#endif
 	bottom_left = locate(linked.x, linked.y, src.z)
 
 	var/area/computer_area = get_area(src)
