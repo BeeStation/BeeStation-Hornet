@@ -1,0 +1,5 @@
+author: Markus Larsson, XeonMations
+delete-after: true
+changes:
+  - bugfix: Remapped kilostation's security department to look nicer and function
+      better.
