@@ -56,6 +56,11 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 
+/obj/item/clothing/shoes/sneakers/rainbow/denied
+	name = "ERROR shoes"
+	desc = "What are those?!"
+	icon_state = "denied"
+
 /obj/item/clothing/shoes/sneakers/orange
 	name = "orange shoes"
 	greyscale_colors = "#eb7016#ffffff"

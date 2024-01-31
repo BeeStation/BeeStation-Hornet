@@ -69,7 +69,7 @@
 
 /obj/machinery/plumbing/pill_press/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/medicine_containers),
+		get_asset_datum(/datum/asset/spritesheet_batched/medicine_containers),
 	)
 
 
