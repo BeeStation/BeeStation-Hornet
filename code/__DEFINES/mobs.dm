@@ -430,7 +430,7 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 ///Whether or not to gib when the squashed mob is moved over
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
 
-//Body sizes
+//Generic body sizes
 #define BODY_SIZE_NORMAL 0
 #define BODY_SIZE_SHORT 8
 #define BODY_SIZE_TALL -8

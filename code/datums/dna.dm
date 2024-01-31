@@ -19,11 +19,13 @@
 	var/current_body_size = BODY_SIZE_NORMAL //This is a size multiplier, it starts at "1".
 	//Holder for the displacement appearance, related to species height
 	var/icon/height_displacement
+	var/icon/displacement_fixer
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
 		holder = new_holder
-	height_displacement = icon('icons/effects/64x64.dmi', "test")
+	height_displacement = icon('icons/effects/64x64.dmi', "height_displacement")
+	displacement_fixer = icon('icons/effects/64x64.dmi', "displacement_fixer")
 
 /datum/dna/Destroy()
 	if(iscarbon(holder))
@@ -31,8 +33,10 @@
 		if(cholder?.dna == src)
 			cholder.dna = null
 	holder?.remove_filter("species_height_displacement")
+	holder?.remove_filter("species_height_displacement_fix")
 	holder = null
 	QDEL_NULL(height_displacement)
+	QDEL_NULL(displacement_fixer)
 
 	if(delete_species)
 		QDEL_NULL(species)
@@ -311,9 +315,16 @@
 	if(desired_size == current_body_size)
 		return
 
+	//Weird little fix - if height < 0, our guy gets cut off!! We can fix this by layering an invisible 64x64 icon, aka the displacement
+	holder.remove_filter("height_cutoff_fix")
+	if(desired_size < 0)
+		holder.add_filter("height_cutoff_fix", 1, layering_filter(icon = height_displacement, color = "#ffffff00"))
 	//Build / setup displacement filter
 	holder.remove_filter("species_height_displacement")
-	holder.add_filter("species_height_displacement", 1, displacement_map_filter(icon = height_displacement, x = 16, y = 8, size = desired_size))
+	holder.add_filter("species_height_displacement", 1.1, displacement_map_filter(icon = height_displacement, x = 16, y = 8, size = desired_size))
+	//We fix the displacement offset with pixel shifting
+	holder.remove_filter("species_height_displacement_fix")
+	holder.add_filter("species_height_displacement_fix", 1.2, displacement_map_filter(icon = displacement_fixer, x = 16, y = 8, size = -desired_size))
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return

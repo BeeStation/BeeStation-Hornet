@@ -32,6 +32,8 @@
 	//Fire bad!
 	burnmod = 1.25
 
+	species_height = SPECIES_HEIGHTS(8, 16, 0)
+
 	//Reference to psychic highlight action
 	var/datum/action/item_action/organ_action/psychic_highlight/PH
 
