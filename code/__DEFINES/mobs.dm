@@ -431,9 +431,9 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
 
 //Body sizes
-#define BODY_SIZE_NORMAL 1
-#define BODY_SIZE_SHORT 0.93
-#define BODY_SIZE_TALL 1.03
+#define BODY_SIZE_NORMAL 0
+#define BODY_SIZE_SHORT 8
+#define BODY_SIZE_TALL -8
 
 /// Throw modes, defines whether or not to turn off throw mode after
 #define THROW_MODE_DISABLED 0

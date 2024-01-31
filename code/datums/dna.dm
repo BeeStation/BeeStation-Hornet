@@ -17,17 +17,22 @@
 	var/stability = 100
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
 	var/current_body_size = BODY_SIZE_NORMAL //This is a size multiplier, it starts at "1".
+	//Holder for the displacement appearance, related to species height
+	var/icon/height_displacement
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
 		holder = new_holder
+	height_displacement = icon('icons/effects/64x64.dmi', "test")
 
 /datum/dna/Destroy()
 	if(iscarbon(holder))
 		var/mob/living/carbon/cholder = holder
 		if(cholder?.dna == src)
 			cholder.dna = null
+	holder?.remove_filter("species_height_displacement")
 	holder = null
+	QDEL_NULL(height_displacement)
 
 	if(delete_species)
 		QDEL_NULL(species)
@@ -297,19 +302,18 @@
 
 /////////////////////////// DNA MOB-PROCS //////////////////////
 /datum/dna/proc/update_body_size()
-	if(!holder || !features["body_size"])
+	var/list/heights = species?.get_species_height()
+	if(!holder || !features["body_size"] || !length(heights))
 		return
 
-	var/desired_size = GLOB.body_sizes[features["body_size"]]
+	var/desired_size = heights[features["body_size"]]
 
-	if(desired_size == current_body_size || current_body_size == 0)
+	if(desired_size == current_body_size)
 		return
 
-	var/change_multiplier = desired_size / current_body_size
-	var/translate = ((change_multiplier-1) * 32) * 0.5
-	holder.transform = holder.transform.Scale(change_multiplier)
-	holder.transform = holder.transform.Translate(0, translate)
-	current_body_size = desired_size
+	//Build / setup displacement filter
+	holder.remove_filter("species_height_displacement")
+	holder.add_filter("species_height_displacement", 1, displacement_map_filter(icon = height_displacement, x = 16, y = 8, size = desired_size))
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return

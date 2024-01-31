@@ -179,3 +179,6 @@
 #define G_MALE 1
 #define G_FEMALE 2
 #define G_PLURAL 3
+
+//Size / height stuff
+#define SPECIES_HEIGHTS(x, y, z) list("Normal" = x, "Short" = y, "Tall" = z)
