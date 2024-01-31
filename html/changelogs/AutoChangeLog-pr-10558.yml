@@ -1,0 +1,5 @@
+author: Hardly
+delete-after: true
+changes:
+  - bugfix: Re-added voltaic to the list of languages multilingual quirk users can
+      choose.
