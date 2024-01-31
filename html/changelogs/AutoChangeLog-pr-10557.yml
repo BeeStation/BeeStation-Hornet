@@ -1,0 +1,4 @@
+author: BriggsIDP
+delete-after: true
+changes:
+  - rscadd: Added a Prefab folder and Departments.dmm file for mappers
