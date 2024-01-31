@@ -3463,7 +3463,6 @@
 /area/maintenance/starboard/fore)
 "anV" = (
 /obj/machinery/holopad,
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/showroomfloor,
 /area/quartermaster/exploration_prep)
 "anW" = (
@@ -63172,11 +63171,6 @@
 	broken = 1
 	},
 /area/maintenance/starboard/aft)
-"oOD" = (
-/obj/effect/turf_decal/box,
-/obj/structure/chair/office,
-/turf/open/floor/plasteel/showroomfloor,
-/area/quartermaster/exploration_prep)
 "oOY" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -131990,7 +131984,7 @@ ayw
 uSg
 tNw
 lIC
-oOD
+vVD
 amG
 anV
 oJS

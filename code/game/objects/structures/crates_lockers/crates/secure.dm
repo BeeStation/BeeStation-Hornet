@@ -34,6 +34,17 @@
 	desc = "A secure weapons crate."
 	name = "weapons crate"
 	icon_state = "weapon_crate"
+	
+/obj/structure/closet/crate/secure/weapon/contraband
+	name = "\proper Exploration Contraband crate"
+	desc = "A secure weapons crate."
+	req_one_access = list(ACCESS_EXPLORATION, ACCESS_SECURITY)
+	icon_state = "weapon_crate"
+	
+/obj/structure/closet/crate/secure/weapon/contraband/populate_contents_immediate()
+	..()
+	new /obj/item/reagent_containers/food/drinks/syndicatebeer(src)
+	new /obj/item/reagent_containers/food/drinks/syndicatebeer(src)
 
 /obj/structure/closet/crate/secure/plasma
 	desc = "A secure plasma crate."
