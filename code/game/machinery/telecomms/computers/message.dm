@@ -87,7 +87,7 @@
 
 /obj/machinery/computer/message_monitor/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/chat),
+		get_asset_datum(/datum/asset/spritesheet_batched/chat),
 	)
 
 /obj/machinery/computer/message_monitor/ui_static_data(mob/user)

@@ -56,6 +56,100 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">31 January 2024</h2>
+			<h3 class="author">@BriggsIDP @MarkusLarsson421  updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">new Prefab map folder for any .DME files not used in game, but for mappers to store prefabs permanently</li>
+				<li class="rscadd">RandomMapHelper.dmm</li>
+			</ul>
+			<h3 class="author">BriggsIDP updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a Prefab folder and Departments.dmm file for mappers</li>
+			</ul>
+			<h3 class="author">Hardly updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Re-added voltaic to the list of languages multilingual quirk users can choose.</li>
+			</ul>
+			<h3 class="author">Varo, MarkusLarsson421 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Reworks the lobby, changes the front desk position to where cloning was, moves genetics to the big monkey room, moves cloning where genetic was, adds a surgery room, reworks the CMO office, storage and chemistry room, removes a big part of virology and places it all below chemistry, tweaks some maintenance areas</li>
+			</ul>
+
+			<h2 class="date">29 January 2024</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">improved ISEVEN() and ISODD() macro</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Left clicking an equipped trash bag now unequips it instead of displaying a cheeky message.</li>
+			</ul>
+
+			<h2 class="date">28 January 2024</h2>
+			<h3 class="author">MarkusLarsson421 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Detectives office is no longer a vacuum on round start.</li>
+				<li class="bugfix">Reconnects AI upload.</li>
+				<li class="bugfix">Detective Booze-O-Mat is no longer maintenance accessible.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Optimized asset generation greatly using rustg IconForge (also by itsmeow), greatly reducing post-initialization lag as well as reducing init times and saving server computation.</li>
+				<li class="config">Added 'smart' asset caching, for batched rustg IconForge spritesheets. It is persistent and suitable for use on local, with automatic invalidation.</li>
+				<li class="config">Enabled legacy asset caching for the two remaining spritesheets during local development.</li>
+				<li class="rscadd">Added Debug -> Regenerate Asset Cache verb for legacy spritesheets.</li>
+				<li class="tweak">Replaced many uses of the slow md5asfile() function with rust-g based MD5.</li>
+				<li class="code_imp">Cleaned up the duplicate function vars vendor_icon_preview and icon_state_preview, removing vendor_icon_preview and moving icon_state_preview to /obj/item.</li>
+				<li class="bugfix">Fixed some preferences icons cropping to incorrect scales.</li>
+				<li class="server">The legacy spritesheet cache will no longer be cleared by TGS redeployments, instead the regenerate verb should be used, or delete the files from data/spritesheets/legacy_cache.</li>
+			</ul>
+
+			<h2 class="date">27 January 2024</h2>
+			<h3 class="author">Markus Larsson updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Gave the Brig Phys Medbay Mech Access.</li>
+			</ul>
+			<h3 class="author">Ratón updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Zombies infect on a 80% chance (+armor) instead of instantly infecting on hit.</li>
+			</ul>
+
+			<h2 class="date">25 January 2024</h2>
+			<h3 class="author">Markus Larsson, PinkSuzuki updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Changed the full wall and door of the Labour shuttles to now use directional windows and windoor.</li>
+				<li class="balance">Added one recharger on the table on all the Labour shuttles.</li>
+				<li class="balance">Added one GPS on all the Labour shuttles.</li>
+				<li class="balance">Added GPSs to the suit storage units for EVA, Mining, Mining EVA, Exploration, CMO, HoS, and Security.</li>
+				<li class="balance">Added three intercomms to gulag.</li>
+				<li class="balance">Removed two GPS of the four on the outpost in mining.</li>
+				<li class="code_imp">Added parameter to datum/component/gps/Initialize whether or not the GPS should start turned on or not, default true.</li>
+				<li class="imageadd">Security variant of the GPS.</li>
+				<li class="tweak">Renamed gps-s (Science variant) to their radio key equivalent gps-n.</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">actually fixed the ushanka this time</li>
+			</ul>
+
+			<h2 class="date">24 January 2024</h2>
+			<h3 class="author">Hardly updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added black beret to clothesmate</li>
+				<li class="rscadd">Added unused clothing such as pharaoh hat, gothic coat, dracula coat and draculass coat to autodrobe</li>
+				<li class="tweak">Moved the beret from autodrobe to clothesmate</li>
+				<li class="rscadd">Brig Physician's Winter Coat can now be bought for 5000 beecoins.</li>
+				<li class="rscadd">Gothic Coat can now be bought for 8000 beecoins.</li>
+			</ul>
+			<h3 class="author">Miliviu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed RCD not being able to build airlocks on top of Firedoors</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed catwalks removing wiring underneath them despite there being plating</li>
+			</ul>
+
 			<h2 class="date">23 January 2024</h2>
 			<h3 class="author">Aramix Penwin updated:</h3>
 			<ul class="changes bgimages16">
@@ -860,88 +954,6 @@
 			<h3 class="author">rkz, MrStonedOne updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="server">Fixes being unable to postpone a subsystem whilst its firing</li>
-			</ul>
-
-			<h2 class="date">29 November 2023</h2>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">You can no longer fit every item into a Bluespace RPED by dragging the item into it.</li>
-			</ul>
-			<h3 class="author">JixS4v updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">deadminning gives you mentor status if you were a mentor before becoming an admin</li>
-			</ul>
-			<h3 class="author">rkz, ShizCalev, Timberpoes, rdagan updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">corrupted cells will now blow up the BSRPED user instead of being sent when targeting a machine.</li>
-				<li class="balance">reagents will be removed from beakers upon insertion into a BSRPED</li>
-				<li class="bugfix">fixes cells not inheriting plasma corruption correctly, and blowing up even with no plasma inside</li>
-			</ul>
-
-			<h2 class="date">28 November 2023</h2>
-			<h3 class="author">rkz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">converts pies to newfood</li>
-				<li class="balance">adds protein reagents to meat, xeno, and tofu pies</li>
-				<li class="tweak">adjusts pie foodtypes</li>
-			</ul>
-
-			<h2 class="date">27 November 2023</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">better color calculation code</li>
-				<li class="bugfix">single pure colors (red, green, blue) will not be considered to be too dark.</li>
-			</ul>
-			<h3 class="author">NaN-Blank updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Doubles material values of Plastitanium tiles so that when recycled they return the same materials it takes to create them.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Donk pockets now have their old nutriment value again, and their maltodextrin value has been updated to match this new (old) value as it should.</li>
-				<li class="bugfix">Dank pockets can now be microwaved again</li>
-				<li class="tweak">The amount of maltodextrin in premade donuts and ramen is now correct after having been missed in the previous PR.</li>
-				<li class="code_imp">Adds proper list spacing to snacks_and_vend.dm items containing maltodextrin and cleans up some unused variables</li>
-			</ul>
-
-			<h2 class="date">26 November 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Simplemobs can now properly use intent selection hotkeys (as long as they can use multiple intents already)</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Space-dragons will no longer be instantly killed by devastating explosives.</li>
-			</ul>
-			<h3 class="author">rkz, ArcaneMusic, Tralezab updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">adds new admin tool, the teambuilder! Admins can now easily put identifiable markings on any player and give them a new custom radio, all with a simple machine. Useful for events, or if you want multiple rival syndicates to face each other with the same gear, but also know whos on what team!</li>
-			</ul>
-
-			<h2 class="date">25 November 2023</h2>
-			<h3 class="author">Dejaku51 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added absolute value component for wiremod</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">added chat span classes for sorting only purpose (virtually. These don't exist). when you want a chat to be sorted in a group, you need to use "srt_SOMETHING" in this way: "\<span class='srt_deadchat'>". This example will sort a chat in deadchat group.</li>
-				<li class="bugfix">most bad practices for chat sorting in radio group are fixed. non-radio messages will not be seen in radio group. (especially cult messages)</li>
-				<li class="rscadd">some chats are now sorted into radio: holopara chats, blood/clock cult telepathy, etc</li>
-			</ul>
-
-			<h2 class="date">24 November 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">The Dextrous holoparasite ability is now purely a weapon, rather than a major ability.</li>
-			</ul>
-			<h3 class="author">rkz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed Venus Human Traps vine beams not disappearing after successfully (or unsuccessfully) grabbing a mob</li>
-			</ul>
-			<h3 class="author">rkz, MrStonedOne updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="server">Subsystems now track their average & last tick allocations. Can be checked through View Variables on the designated subsystem</li>
 			</ul>
 		</div>
 
