@@ -94,7 +94,9 @@
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/science/mining,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ak" = (
@@ -104,9 +106,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/closet/crate/secure/weapon/contraband,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "al" = (
@@ -361,9 +361,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aO" = (
@@ -411,7 +408,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/secure/weapon/contraband,
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aU" = (
@@ -443,11 +443,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 1;
-	initialize_directions = 1;
-	piping_layer = 2
-	},
+/obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "aZ" = (
@@ -480,10 +476,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/closet/crate/science/mining,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "MB" = (
@@ -504,7 +497,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 

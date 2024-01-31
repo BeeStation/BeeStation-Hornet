@@ -37549,7 +37549,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/advanced_airlock_controller/directional/south,
 /obj/machinery/light/small{
 	dir = 1
@@ -43123,6 +43122,13 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
+"gVK" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/computer/shuttle_flight/science,
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "gVN" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -53123,8 +53129,14 @@
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "koJ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/components/binary/pump/on/layer4{
+	dir = 1;
+	name = "Shuttle to Station"
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "koM" = (
@@ -64792,7 +64804,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "olA" = (
@@ -68471,10 +68482,6 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "pyH" = (
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
-	},
 /obj/machinery/advanced_airlock_controller/directional/east,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer4{
 	dir = 1
@@ -68482,10 +68489,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
 	name = "Station to Shuttle"
 	},
-/obj/structure/lattice/catwalk,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "pyL" = (
@@ -72506,7 +72517,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "qRA" = (
@@ -81095,15 +81105,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"tSe" = (
-/obj/machinery/computer/shuttle_flight/science{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/science/shuttledock)
 "tSx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -92236,7 +92237,7 @@
 	req_access_txt = "47"
 	},
 /turf/open/floor/plating,
-/area/maintenance/port)
+/area/science/shuttledock)
 "xBm" = (
 /mob/living/basic/cockroach,
 /turf/open/floor/plating,
@@ -119278,12 +119279,12 @@ saw
 saw
 saw
 saw
-caE
-caE
+eaf
+eaf
 xAY
-caE
-caE
-aJD
+eaf
+eaf
+qYo
 aad
 aad
 wiQ
@@ -119538,9 +119539,9 @@ saw
 lJW
 kcF
 hVM
-tSe
 sMH
-aaa
+sMH
+sMH
 aaa
 aaa
 aaa
@@ -120049,7 +120050,7 @@ rCv
 drA
 amV
 saw
-hVM
+gVK
 tJN
 mqR
 olk
@@ -126355,7 +126356,7 @@ aad
 aaO
 jXv
 srI
-aaO
+abf
 aad
 aad
 aad
@@ -126869,7 +126870,7 @@ afT
 aaO
 xLS
 itd
-aaO
+abf
 adq
 abf
 aaO
