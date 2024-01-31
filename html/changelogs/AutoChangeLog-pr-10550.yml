@@ -1,6 +1,0 @@
-author: '@BriggsIDP @MarkusLarsson421 '
-delete-after: true
-changes:
-  - rscadd: new Prefab map folder for any .DME files not used in game, but for mappers
-      to store prefabs permanently
-  - rscadd: RandomMapHelper.dmm
