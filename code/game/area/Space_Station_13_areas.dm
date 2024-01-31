@@ -85,9 +85,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/asteroid/paradice/surface
 	name = "Paradice surface"
-	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 	sound_environment = null
-	fullbright_type = FULLBRIGHT_STARLIGHT
+	luminosity = 1
 
 /area/asteroid/paradice/surface/sand
 	name = "Paradice surface sand"
@@ -95,6 +95,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/asteroid/paradice/surface/water
 	name = "Paradice surface water"
+	ambientsounds = list('sound/ambience/shore.ogg')
 
 /area/asteroid/paradice/surface/grass
 	name = "Paradice surface grass"
