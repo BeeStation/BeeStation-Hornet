@@ -9326,7 +9326,9 @@
 /obj/item/clothing/gloves/maid,
 /obj/item/clothing/accessory/maidapron,
 /turf/open/floor/plasteel/dark,
-/area/security/main)
+/area/security/main{
+	name = "We do not speak of this room"
+	})
 "aYd" = (
 /turf/closed/wall/r_wall,
 /area/science/lab)
@@ -31559,7 +31561,7 @@
 	dir = 8
 	},
 /obj/item/kirbyplants/random,
-/turf/open/floor/plasteel,
+/turf/open/floor/prison,
 /area/security/prison{
 	name = "Prison Visitation"
 	})
@@ -33110,6 +33112,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
+"epE" = (
+/turf/closed/wall/r_wall,
+/area/security/main{
+	name = "We do not speak of this room"
+	})
 "epI" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -33306,7 +33313,9 @@
 	pixel_y = 2
 	},
 /turf/open/floor/plasteel/dark,
-/area/security/main)
+/area/security/main{
+	name = "We do not speak of this room"
+	})
 "eut" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/navbeacon{
@@ -33559,7 +33568,9 @@
 /obj/item/clothing/glasses/blindfold,
 /obj/item/clothing/mask/muzzle,
 /turf/open/floor/plasteel/dark,
-/area/security/main)
+/area/security/main{
+	name = "We do not speak of this room"
+	})
 "eyO" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -36674,7 +36685,9 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
-/area/security/main)
+/area/security/main{
+	name = "We do not speak of this room"
+	})
 "fBk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -38598,7 +38611,9 @@
 	pixel_x = -32
 	},
 /turf/open/floor/plasteel/dark,
-/area/security/main)
+/area/security/main{
+	name = "We do not speak of this room"
+	})
 "gjm" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
@@ -57880,7 +57895,9 @@
 	pixel_y = 28
 	},
 /turf/open/floor/plasteel/dark,
-/area/security/main)
+/area/security/main{
+	name = "We do not speak of this room"
+	})
 "mJA" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/bot,
@@ -61494,7 +61511,9 @@
 "nWR" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /turf/open/floor/plasteel/dark,
-/area/security/main)
+/area/security/main{
+	name = "We do not speak of this room"
+	})
 "nXi" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
@@ -73925,7 +73944,9 @@
 	name = "Brig closet"
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/security/main)
+/area/security/main{
+	name = "We do not speak of this room"
+	})
 "sfN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/crumpled/bloody/docsdeathnote{
@@ -110281,10 +110302,10 @@ tPE
 gSb
 exu
 wgX
-exu
+epE
 giB
 eyz
-exu
+epE
 aUz
 aaa
 aaa
@@ -110538,10 +110559,10 @@ tPE
 cVZ
 kAo
 fBg
-exu
+epE
 mJy
 eus
-exu
+epE
 aaa
 aaa
 aaa
@@ -110798,7 +110819,7 @@ eeZ
 sfI
 nWR
 aXX
-exu
+epE
 acm
 acm
 acm
