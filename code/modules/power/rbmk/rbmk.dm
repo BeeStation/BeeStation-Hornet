@@ -122,20 +122,43 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/static/reactorcount = 0
 	var/lastwarning = 0
 
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/Initialize(mapload)
+	. = ..()
+	icon_state = "reactor_off"
+	reactorcount++
+	src.name = name + " ([reactorcount])"
+	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
+	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
+	alarm = new(src, FALSE)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	AddElement(/datum/element/point_of_interest)
+	radio = new(src)
+	radio.keyslot = new radio_key
+	radio.listening = 0
+	radio.recalculateChannels()
+	piping_layer = PIPING_LAYER_DEFAULT
+
+
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/on_construction()
+	var/obj/item/circuitboard/machine/rbmk/board = circuit
+	if(board)
+		piping_layer = board.pipe_layer
+	return ..(dir, piping_layer)
+
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset
 	id = "default_reactor_for_lazy_mappers"
 //Use this in your maps if you want everything to be preset.
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset/Initialize(mapload)
 	. = ..()
-	var/obj/machinery/atmospherics/pipe/simple/pipe1 = new /obj/machinery/atmospherics/pipe/simple(locate(x-1,y,z), 4)
-	var/obj/machinery/atmospherics/pipe/simple/pipe2 = new /obj/machinery/atmospherics/pipe/simple(locate(x+1,y,z), 4)
-	var/obj/machinery/atmospherics/pipe/simple/pipe3 = new /obj/machinery/atmospherics/pipe/simple(locate(x,y+1,z), 1)
-	pipe1.dir = 4
-	pipe2.dir = 4
-	pipe3.dir = 1
-
-
-
+	var/obj/machinery/atmospherics/pipe1 = new /obj/machinery/atmospherics/pipe/simple(locate(x-1,y,z))
+	pipe1.setDir(4)
+	var/obj/machinery/atmospherics/pipe2 = new /obj/machinery/atmospherics/pipe/simple(locate(x+1,y,z))
+	pipe2.setDir(4)
+	var/obj/machinery/atmospherics/pipe3 = new /obj/machinery/atmospherics/pipe/simple(locate(x,y+1,z))
+	pipe3.setDir(1)
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
 	slagged = TRUE
@@ -261,31 +284,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	for(var/obj/item/fuel_rod/FR in fuel_rods)
 		FR.depletion = 100
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/Initialize(mapload)
-	. = ..()
-	icon_state = "reactor_off"
-	reactorcount++
-	src.name = name + " ([reactorcount])"
-	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
-	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
-	alarm = new(src, FALSE)
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-	AddElement(/datum/element/point_of_interest)
-	radio = new(src)
-	radio.keyslot = new radio_key
-	radio.listening = 0
-	radio.recalculateChannels()
-	piping_layer = PIPING_LAYER_DEFAULT
-
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/on_construction()
-	var/obj/item/circuitboard/machine/rbmk/board = circuit
-	if(board)
-		piping_layer = board.pipe_layer
-	return ..(dir, piping_layer)
-
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/on_entered(datum/source, atom/movable/AM, oldloc)
 	SIGNAL_HANDLER
 	if(isliving(AM) && temperature > 0)
@@ -305,8 +303,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	if(slagged)
 		STOP_PROCESSING(SSmachines, src)
 		return
-
-
 	//Let's get our gasses sorted out.
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
 	var/datum/gas_mixture/moderator_input = MODERATOR_INPUT_GATE
