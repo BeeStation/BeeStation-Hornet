@@ -19328,7 +19328,9 @@
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	req_access_txt = "49"
+	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "dvE" = (
@@ -33933,9 +33935,6 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -33946,6 +33945,11 @@
 	name = "Station to Shuttle";
 	dir = 4
 	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "kJp" = (
@@ -44728,7 +44732,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	req_access_txt = "49"
+	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
 "pPy" = (
@@ -57881,6 +57887,10 @@
 /obj/machinery/atmospherics/components/binary/pump/on/layer4{
 	dir = 8;
 	name = "Shuttle to Station"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)

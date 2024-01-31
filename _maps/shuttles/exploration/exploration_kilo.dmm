@@ -72,12 +72,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "hW" = (
-/obj/machinery/recharger{
-	pixel_x = 6
-	},
-/obj/machinery/recharger{
-	pixel_x = -6
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/table,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -85,6 +79,11 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/item/flashlight/lamp/green{
+	on = 0;
+	pixel_x = -3;
+	pixel_y = 8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -406,11 +405,6 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "Nq" = (
-/obj/item/flashlight/lamp/green{
-	on = 0;
-	pixel_x = -3;
-	pixel_y = 8
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/table,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -418,6 +412,12 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/recharger{
+	pixel_x = 6
+	},
+/obj/machinery/recharger{
+	pixel_x = -6
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)

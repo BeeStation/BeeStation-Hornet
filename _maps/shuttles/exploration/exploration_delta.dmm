@@ -1,14 +1,20 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ae" = (
+/obj/structure/table,
+/obj/item/gps/mining/exploration,
+/obj/machinery/firealarm/directional/east,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "aR" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/template_noop,
 /area/shuttle/exploration)
 "cg" = (
-/obj/structure/chair/fancy/shuttle,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/vendor/exploration,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "cu" = (
@@ -24,6 +30,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
+/obj/structure/closet/crate/bin,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "da" = (
@@ -39,10 +46,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/computer/arcade/orion_trail{
-	dir = 8
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
 	},
-/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "hY" = (
@@ -89,14 +95,38 @@
 	name = "Tom"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ll" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/tank_dispenser/oxygen,
+/obj/machinery/suit_storage_unit/open,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"lm" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"ov" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/closet/crate/science/shuttle,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"ox" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/closet/crate/secure/weapon/contraband,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "oC" = (
@@ -124,25 +154,24 @@
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 9
 	},
-/obj/machinery/telecomms/relay/preset/exploration,
+/obj/structure/tank_dispenser/oxygen,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "qX" = (
-/obj/structure/table,
-/obj/machinery/recharger,
 /obj/machinery/firealarm/directional/west,
+/obj/machinery/suit_storage_unit/open,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "rQ" = (
-/obj/structure/table,
-/obj/item/gps/mining/exploration,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "sz" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/computer/crew,
+/obj/machinery/computer/arcade/orion_trail,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "sE" = (
@@ -186,12 +215,8 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/exploration)
 "vB" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
+/obj/structure/table,
+/obj/machinery/recharger,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "wo" = (
@@ -208,7 +233,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/chair/fancy/shuttle,
+/obj/structure/table,
+/obj/item/storage/box/donkpockets,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "CU" = (
@@ -243,7 +269,8 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/science/mining,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Hf" = (
@@ -278,17 +305,18 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "IP" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "IQ" = (
-/obj/structure/chair/fancy/shuttle,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
+/obj/structure/table,
+/obj/machinery/microwave,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "KL" = (
@@ -298,20 +326,27 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"KT" = (
+/obj/machinery/computer/crew,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "KU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/closet/crate/science/mining,
-/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/unary/tank/air{
+	dir = 1;
+	initialize_directions = 1;
+	piping_layer = 2
+	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Lt" = (
-/obj/structure/closet/crate/science/shuttle,
-/obj/effect/turf_decal/bot,
 /obj/machinery/newscaster{
 	pixel_x = -25
 	},
+/obj/machinery/suit_storage_unit/open,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Nc" = (
@@ -319,12 +354,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Nx" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	frequency = 1453;
 	pixel_y = -30
@@ -334,26 +369,13 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"NT" = (
-/obj/structure/table,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "OE" = (
-/obj/structure/closet/emcloset/anchored,
 /obj/effect/turf_decal/bot,
+/obj/structure/closet/emcloset/anchored,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "OU" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"PA" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
@@ -372,16 +394,16 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "Rp" = (
-/obj/machinery/door/airlock/shuttle,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/shuttle/glass,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Rv" = (
-/obj/effect/turf_decal/bot,
+/obj/machinery/suit_storage_unit/open,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "RQ" = (
@@ -416,6 +438,19 @@
 "Vl" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/exploration)
+"VV" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Wg" = (
+/obj/structure/chair/stool{
+	dir = 1;
+	pixel_y = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Xj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -430,8 +465,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/secure/weapon/contraband,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/telecomms/relay/preset/exploration,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ZX" = (
@@ -471,7 +506,7 @@ sE
 Nx
 da
 sz
-sT
+Wg
 qX
 Rv
 Lt
@@ -486,13 +521,13 @@ Vl
 (3,1,1) = {"
 oC
 po
-ir
+lm
 Rp
-Hf
 Hf
 ts
 Hf
 Hf
+VV
 wo
 Ax
 UK
@@ -503,37 +538,37 @@ hl
 "}
 (4,1,1) = {"
 oC
-oC
-oC
+KT
+ir
 da
 cH
 Nc
-PA
+In
 In
 kp
 ZX
 DM
 Vj
 SA
-GH
+ox
 Rk
 hl
 "}
 (5,1,1) = {"
-RQ
-RQ
-RQ
+oC
+oC
+oC
 da
 cg
 rQ
 vB
-Hf
+sT
 Hf
 tq
 Ax
 hY
 OU
-GH
+ov
 Rk
 hl
 "}
@@ -543,9 +578,9 @@ aR
 aR
 Dl
 IQ
+rQ
 sY
 sT
-Hf
 Hf
 tq
 Ax
@@ -561,8 +596,8 @@ RQ
 RQ
 oC
 BF
-NT
-sT
+rQ
+ae
 hB
 OE
 oH

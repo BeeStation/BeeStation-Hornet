@@ -3116,15 +3116,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/mob/living/simple_animal/chicken/turkey{
-	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
-	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
-	health = 200;
-	maxHealth = 200;
-	melee_damage = 5;
-	minbodytemp = 2.7;
-	name = "Tom"
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
@@ -38489,6 +38480,7 @@
 	name = "Station to Shuttle";
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -74807,7 +74799,6 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/structure/bed/dogbed,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},

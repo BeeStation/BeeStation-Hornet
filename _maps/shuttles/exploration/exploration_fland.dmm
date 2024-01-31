@@ -161,9 +161,6 @@
 /area/shuttle/exploration)
 "jW" = (
 /obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},

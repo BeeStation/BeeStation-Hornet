@@ -4067,8 +4067,7 @@
 /area/quartermaster/storage)
 "aWN" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "aWR" = (
@@ -4129,6 +4128,8 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/end,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "aXu" = (
@@ -6098,9 +6099,6 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/central)
 "bIE" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
@@ -6109,6 +6107,12 @@
 	},
 /obj/machinery/door/airlock/external/glass{
 	req_access_txt = "49"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
@@ -24469,6 +24473,9 @@
 /obj/machinery/door/airlock/external/glass{
 	req_access_txt = "49"
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "hSo" = (
@@ -25164,6 +25171,9 @@
 	},
 /obj/machinery/door/airlock/external/glass{
 	req_access_txt = "49"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
@@ -27696,9 +27706,9 @@
 /area/hallway/primary/starboard)
 "iVw" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/effect/turf_decal/delivery,
 /obj/machinery/light,
 /obj/structure/closet/crate/secure/science,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "iVy" = (
@@ -35731,6 +35741,12 @@
 /obj/machinery/door/airlock/external/glass{
 	req_access_txt = "49"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "lFm" = (
@@ -37487,13 +37503,12 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "mhf" = (
-/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "mhl" = (
@@ -45406,11 +45421,6 @@
 /obj/machinery/atmospherics/pipe/simple/dark/visible,
 /turf/open/floor/plating,
 /area/engine/engine_room)
-"oJf" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/plasteel,
-/area/quartermaster/exploration_prep)
 "oJi" = (
 /obj/machinery/light{
 	dir = 8
@@ -57163,7 +57173,7 @@
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/closet/crate/science,
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "sCp" = (
@@ -62190,6 +62200,10 @@
 /obj/machinery/advanced_airlock_controller/directional/north,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
@@ -72967,10 +72981,10 @@
 /turf/open/floor/grass,
 /area/hallway/secondary/command)
 "xPf" = (
-/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/closet/crate/secure/science,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "xPm" = (
@@ -100319,7 +100333,7 @@ adY
 skV
 fNm
 kWB
-oJf
+aWN
 lSt
 cKw
 lIs

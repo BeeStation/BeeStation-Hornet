@@ -15114,7 +15114,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark/side{
+	dir = 1
+	},
 /area/quartermaster/exploration_prep)
 "eOD" = (
 /obj/machinery/biogenerator,
@@ -15277,6 +15279,8 @@
 	dir = 4;
 	layer = 3
 	},
+/obj/machinery/vendor/exploration,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "eSu" = (
@@ -18659,14 +18663,6 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/library)
-"fPx" = (
-/obj/machinery/disposal/bin,
-/obj/effect/turf_decal/bot,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/exploration_prep)
 "fPW" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -22868,13 +22864,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
-"hff" = (
-/obj/item/kirbyplants/random,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/exploration_prep)
 "hfs" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/glass,
@@ -31863,10 +31852,14 @@
 /turf/open/floor/plasteel/white,
 /area/science/lobby)
 "khB" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
+/obj/machinery/atmospherics/components/binary/pump/on/layer4{
+	dir = 4;
+	name = "Shuttle to Station"
 	},
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "khE" = (
@@ -35303,9 +35296,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "llp" = (
@@ -41124,12 +41115,6 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "ncF" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -41141,11 +41126,14 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller/directional/south,
-/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
-	dir = 8;
-	name = "Station to Shuttle"
-	},
 /obj/structure/lattice/catwalk,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
+	name = "Station to Shuttle";
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "ncG" = (
@@ -56466,7 +56454,9 @@
 	dir = 4;
 	layer = 3
 	},
-/obj/machinery/vendor/exploration,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "rYf" = (
@@ -65684,6 +65674,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/item/kirbyplants/random,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "uRo" = (
@@ -96620,7 +96612,7 @@ cMW
 pyA
 bUE
 mgc
-fPx
+rqR
 khB
 ncF
 cMW
@@ -96877,7 +96869,7 @@ cMW
 aAT
 clu
 kcG
-hff
+rqR
 cGZ
 qsy
 cMW

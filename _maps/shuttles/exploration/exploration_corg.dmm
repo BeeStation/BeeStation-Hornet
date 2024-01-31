@@ -27,6 +27,14 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "bt" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/wooden,
+/obj/item/toy/cards/deck,
+/obj/item/toy/cards/deck/unum,
+/obj/item/toy/cards/deck/cas,
+/obj/item/toy/cards/deck/cas/black{
+	pixel_y = 3
+	},
 /obj/machinery/light/small,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -365,7 +373,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "pd" = (
-/obj/effect/turf_decal/caution,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
@@ -374,6 +381,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/caution{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -425,9 +435,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "tD" = (
-/obj/effect/turf_decal/caution{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
@@ -437,6 +444,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/caution,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "um" = (
@@ -605,6 +613,16 @@
 /obj/machinery/door/airlock/external{
 	req_access_txt = "49"
 	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"AS" = (
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/caution,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "AU" = (
@@ -803,10 +821,8 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "OG" = (
-/obj/structure/closet/crate,
-/obj/item/pickaxe,
-/obj/item/mining_scanner,
 /obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/science/mining,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Pm" = (
@@ -855,6 +871,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "QZ" = (
@@ -882,13 +899,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Sy" = (
-/obj/structure/closet/crate/science,
-/obj/item/circuitboard/computer/shuttle/exploration_shuttle,
 /obj/effect/turf_decal/bot,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
 /obj/item/clothing/under/rank/cargo/exploration,
 /obj/item/gun/energy/e_gun/mini/exploration,
+/obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "SB" = (
@@ -896,14 +910,8 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "SC" = (
+/obj/structure/closet/crate/secure/weapon/contraband,
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/wooden,
-/obj/item/toy/cards/deck,
-/obj/item/toy/cards/deck/unum,
-/obj/item/toy/cards/deck/cas,
-/obj/item/toy/cards/deck/cas/black{
-	pixel_y = 3
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "SG" = (
@@ -1407,7 +1415,7 @@ mr
 ea
 ea
 ea
-uQ
+AS
 CU
 wo
 AN

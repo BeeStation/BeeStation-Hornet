@@ -868,11 +868,6 @@
 "akV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/camera{
-	c_tag = "Science - Shuttle dock";
-	dir = 4;
-	name = "science camera"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /obj/structure/cable/yellow{
@@ -3424,14 +3419,13 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 6
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
 	req_access_txt = "49"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
-/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "aOE" = (
@@ -5750,9 +5744,8 @@
 /turf/open/floor/plating,
 /area/drydock/security)
 "bnZ" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/structure/closet/crate/secure/science,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
 "bob" = (
@@ -9461,6 +9454,9 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
+/obj/item/storage/toolbox/mechanical,
+/obj/structure/table,
+/obj/item/hand_labeler,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
 "cug" = (
@@ -10313,6 +10309,11 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_smes)
+"cEZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "cFX" = (
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 1
@@ -10811,19 +10812,17 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "cLK" = (
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 9
 	},
-/obj/machinery/light/small{
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/components/binary/pump/on/layer4{
+	dir = 4;
+	name = "Shuttle to Station"
+	},
+/obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "cLN" = (
@@ -31096,23 +31095,23 @@
 	},
 /area/engine/atmos)
 "hMw" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/machinery/advanced_airlock_controller{
 	dir = 1;
 	pixel_y = -26
 	},
-/obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
-	dir = 8;
-	name = "Station to Shuttle"
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
+	name = "Station to Shuttle";
+	dir = 8
 	},
-/obj/structure/lattice/catwalk,
+/obj/machinery/light/small,
+/obj/effect/turf_decal/stripes/end,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "hMB" = (
@@ -33052,10 +33051,6 @@
 /turf/open/floor/plating/airless,
 /area/drydock)
 "iml" = (
-/obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
-	},
 /obj/machinery/advanced_airlock_controller/directional/east,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer4{
 	dir = 1
@@ -33063,9 +33058,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
 	name = "Station to Shuttle"
 	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "imm" = (
@@ -44967,9 +44967,6 @@
 "llX" = (
 /obj/machinery/suit_storage_unit/exploration,
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -50625,7 +50622,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/lootdrop/maintenance/three,
-/obj/structure/closet/crate,
+/obj/structure/closet/crate/secure/science,
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/exploration_prep)
 "mLZ" = (
@@ -50945,6 +50942,13 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/techmaint,
 /area/security/checkpoint/customs)
+"mPt" = (
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/machinery/computer/shuttle_flight/science{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "mPQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -52414,6 +52418,12 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
+/obj/machinery/camera{
+	c_tag = "Science - Shuttle dock";
+	dir = 4;
+	name = "science camera"
+	},
+/obj/structure/closet/crate/secure/science,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
 "nkg" = (
@@ -54313,8 +54323,14 @@
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "nHQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/components/binary/pump/on/layer4{
+	dir = 1;
+	name = "Shuttle to Station"
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "nHR" = (
@@ -54683,17 +54699,16 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 5
 	},
-/obj/machinery/door/airlock/external{
-	name = "External Docking Port";
-	req_access_txt = "49"
-	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/lattice/catwalk,
+/obj/machinery/door/airlock/external{
+	name = "External Docking Port";
+	req_access_txt = "49"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "nNp" = (
@@ -60460,14 +60475,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
 	req_access_txt = "49"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 10
-	},
-/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "pqf" = (
@@ -63205,12 +63219,11 @@
 /turf/open/floor/carpet/grimy,
 /area/library)
 "qbz" = (
-/obj/structure/table,
-/obj/item/hand_labeler,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/structure/closet/crate/secure/science,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
 "qbE" = (
@@ -77891,10 +77904,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/door/airlock/external{
-	name = "External Docking Port";
-	req_access_txt = "49"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -77902,7 +77911,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/lattice/catwalk,
+/obj/machinery/door/airlock/external{
+	name = "External Docking Port";
+	req_access_txt = "49"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "tQQ" = (
@@ -87565,9 +87577,6 @@
 "wdF" = (
 /obj/machinery/suit_storage_unit/exploration,
 /obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -88042,11 +88051,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/engine/engine_room)
-"wjP" = (
-/obj/structure/chair/foldable,
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/plasteel/white,
-/area/science/shuttledock)
 "wjS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -91056,9 +91060,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/obj/machinery/computer/shuttle_flight/science{
-	dir = 4
-	},
+/obj/structure/chair/foldable,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
 "wUX" = (
@@ -127854,7 +127856,7 @@ abN
 abN
 abN
 abN
-abN
+waO
 abN
 vLM
 vLM
@@ -128111,9 +128113,9 @@ olW
 otB
 olW
 otB
-soQ
-waO
-vLM
+bbZ
+bbZ
+bbZ
 nnx
 nnx
 nnx
@@ -128367,7 +128369,7 @@ olW
 vSc
 nka
 wUS
-otB
+mPt
 cbH
 nHQ
 tSC
@@ -129137,7 +129139,7 @@ lIP
 lIP
 mTA
 jvV
-wjP
+sAZ
 mNi
 olW
 mzO
@@ -130163,7 +130165,7 @@ nyc
 lIP
 gLR
 qbz
-czW
+cEZ
 uuc
 wOV
 siG
