@@ -145,6 +145,12 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	radio.recalculateChannels()
 	update_parents()
 
+/obj/machinery/atmospherics/components/trinary/nuclear_reactor/on_construction()
+	var/obj/item/circuitboard/machine/rbmk/board = circuit
+	if(board)
+		piping_layer = board.pipe_layer
+	return ..(dir, piping_layer)
+
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset //Use this for mapping, mappers. This is also created when a new reactor is made due to pipes
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset/Initialize()
@@ -154,14 +160,17 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	pipe1.setDir(4)
 	pipe1.SetInitDirections()
 	pipe1.can_unwrench = FALSE
+	pipe1.update_parent()
 	pipe2 = new /obj/machinery/atmospherics/pipe/simple(locate(x+1,y,z))
 	pipe2.setDir(4)
 	pipe2.SetInitDirections()
 	pipe2.can_unwrench = FALSE
+	pipe2.update_parent()
 	pipe3 = new /obj/machinery/atmospherics/pipe/simple(locate(x,y+1,z))
 	pipe3.setDir(1)
 	pipe3.SetInitDirections()
 	pipe3.can_unwrench = FALSE
+	pipe3.update_parent()
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/Destroy()
 	if(pipesCreated)
@@ -247,7 +256,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		if(power >= 20)
 			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it's still above 20% power!")
 			return FALSE
-		if (fuel_rods.len > 0)
+		if (length(fuel_rods) > 0)
 			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it still has fuel rods inside!.</span>")
 			return FALSE
 		default_deconstruction_screwdriver(user, "reactor_off", "reactor_off", W) //REPLACE SPRITES WITH ACTUAL SPRITES LATER
@@ -257,8 +266,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			if(power >= 20)
 				to_chat(user, "<span class='notice'>You can't deconstruct the [src] while it's still above 20% power!")
 				return FALSE
-			if (fuel_rods.len > 0)
-				to_chat(user, "<span class='notice'>You can't deconstruct the [src] while it still has fuel rods inside!.</span>")
+			if (length(fuel_rods) > 0)
+				to_chat(user, "<span class='notice'>You can't deconstruct [src] while it still has fuel rods inside!</span>")
 				return FALSE
 			default_deconstruction_crowbar(W)
 			return TRUE
@@ -266,8 +275,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			if(power >= 20)
 				to_chat(user, "<span class='notice'>You can't remove any fuel rods while the [src] is above 20% power!")
 				return FALSE
-			if (fuel_rods.len > 0)
-				to_chat(user, "<span class='notice'>The [src] is empty of fuel rods!.</span>")
+			if (length(fuel_rods) == 0)
+				to_chat(user, "<span class='notice'>The [src] is empty of fuel rods!</span>")
 				return FALSE
 			removeFuelRod(user, src)
 			return TRUE
@@ -439,7 +448,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/alert = FALSE //If we have an alert condition, we'd best let people know.
 	var/turf/T = get_turf(src)
 	var/rbmkzlevel = T.get_virtual_z_level()
-	var/offset = prob(50) ? -2 : 2
 	if(K <= 0 && temperature <= 0)
 		shut_down()
 	//First alert condition: Overheat
@@ -462,7 +470,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Second alert condition: Overpressurized (the more lethal one)
 	if(pressure >= RBMK_PRESSURE_CRITICAL)
 		alert = TRUE
-		animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 		alertEngineers()
 		playsound(loc, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
 		T.atmos_spawn_air("water_vapor=[pressure/100];TEMP=[temperature+273.15]")
@@ -498,11 +505,11 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/alertEngineers()
 	if((REALTIMEOFDAY - lastwarning) / 10 >= WARNING_DELAY)
 		if(temperature >= RBMK_TEMPERATURE_CRITICAL)
-			radio.talk_into(src, "Warning: Reactor overpressurized. Blowout imminent.", engineering_channel, language = get_selected_language())
+			radio.talk_into(src, "Warning: Reactor overheating. Nuclear meltdown imminent", engineering_channel, language = get_selected_language())
 			SEND_SIGNAL(src, COMSIG_SUPERMATTER_DELAM_ALARM)
 			lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 		if(pressure >= RBMK_PRESSURE_CRITICAL)
-			radio.talk_into(src, "Warning: Reactor overheating. Nuclear meltdown imminent.", engineering_channel, language = get_selected_language())
+			radio.talk_into(src, "Warning: Reactor overpressurized. Blowout imminent.", engineering_channel, language = get_selected_language())
 			SEND_SIGNAL(src, COMSIG_SUPERMATTER_DELAM_ALARM)
 			lastwarning = REALTIMEOFDAY - (WARNING_DELAY * 5)
 
@@ -510,7 +517,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	if(src.power > 20)
 		to_chat(user, "<span class='warning'>You cannot remove fuel from [src] when it is above 20% power.</span>")
 		return FALSE
-	if(!src.fuel_rods.len)
+	if(!length(fuel_rods))
 		to_chat(user, "<span class='warning'>[src] does not have any fuel rods loaded.</span>")
 		return FALSE
 	var/atom/movable/fuel_rod = input(usr, "Select a fuel rod to remove", "Fuel Rods List", null) as null|anything in src.fuel_rods
