@@ -60,7 +60,7 @@
 /area/template_noop)
 "ak" = (
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter3)
 "an" = (
@@ -228,11 +228,6 @@
 	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
-"bd" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
-	},
-/area/shuttle/caravan/freighter3)
 "bg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
@@ -250,7 +245,7 @@
 	},
 /obj/effect/gibspawner/human,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "bi" = (
@@ -336,7 +331,7 @@
 	amount = 1
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/ruin/unpowered)
 "fZ" = (
@@ -495,7 +490,7 @@
 	name = "Cargo Blast Door"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "hp" = (
@@ -512,7 +507,7 @@
 	name = "Cargo Blast Door"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "hr" = (
@@ -807,20 +802,20 @@
 	icon_state = "pile"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "iz" = (
 /obj/item/shard,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter3)
 "iA" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter3)
 "iB" = (
@@ -1156,7 +1151,7 @@
 "kd" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/shuttle/caravan/freighter2)
 "ke" = (
@@ -1226,7 +1221,7 @@
 "lD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/ruin/unpowered)
 "tH" = (
@@ -5385,7 +5380,7 @@ hw
 ib
 iB
 ja
-bd
+ak
 aa
 aa
 aa

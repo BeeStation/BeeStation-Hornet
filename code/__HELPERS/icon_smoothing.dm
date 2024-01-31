@@ -113,6 +113,8 @@ DEFINE_BITFIELD(smoothing_junction, list(
 	smoothing_flags &= ~SMOOTH_QUEUED
 	if(!z) //nullspace are not sending their best
 		CRASH("[type] called smooth_icon() without being on a z-level")
+		// * NOTE: it can throw runtime if the atom is abstract type in nullspace, but somehow it called 'smmoth_icon()' due to smoothing vars.
+		// In this case, you need to nullify values of smoothing_flags and related list vars.
 	if(smoothing_flags & SMOOTH_CORNERS)
 		if(smoothing_flags & SMOOTH_DIAGONAL_CORNERS)
 			corners_diagonal_smooth(calculate_adjacencies())

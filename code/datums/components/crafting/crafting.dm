@@ -107,7 +107,11 @@
 		return
 
 	for(var/atom/movable/AM in range(radius_range, a))
-		if((AM.flags_1 & HOLOGRAM_1)  || (blacklist && (AM.type in blacklist)))
+		if(blacklist && (AM.type in blacklist))
+			continue
+		else if(istype(get_area(AM), /area/holodeck/prison)) //don't prevent crafting in the prison workshop
+			. += AM
+		else if(AM.flags_1 & HOLOGRAM_1)
 			continue
 		. += AM
 
@@ -138,7 +142,7 @@
 
 /datum/component/personal_crafting/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/crafting),
+		get_asset_datum(/datum/asset/spritesheet_batched/crafting),
 	)
 
 /datum/component/personal_crafting/proc/check_tools(atom/a, datum/crafting_recipe/R, list/contents)
