@@ -83680,6 +83680,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/box,
+/obj/machinery/holopad,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/auxiliary{
 	name = "Security Aft"
