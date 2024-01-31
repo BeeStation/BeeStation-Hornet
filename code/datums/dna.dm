@@ -16,7 +16,7 @@
 	var/default_mutation_genes[DNA_MUTATION_BLOCKS] //List of the default genes from this mutation to allow DNA Scanner highlighting
 	var/stability = 100
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
-	var/current_body_size = BODY_SIZE_NORMAL //This is a size multiplier, it starts at "1".
+	var/current_body_size = BODY_SIZE_NORMAL
 	//Holder for the displacement appearance, related to species height
 	var/icon/height_displacement
 	var/icon/displacement_fixer
