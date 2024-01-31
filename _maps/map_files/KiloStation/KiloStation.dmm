@@ -17131,7 +17131,7 @@
 	req_access_txt = "4"
 	},
 /turf/open/floor/plasteel/dark,
-/area/maintenance/port/aft)
+/area/security/detectives_office)
 "bNK" = (
 /turf/closed/wall,
 /area/vacant_room/commissary)
@@ -34678,9 +34678,6 @@
 	name = "Detective's Office Shutter"
 	},
 /obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
@@ -34688,6 +34685,9 @@
 	},
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/brflowers,
+/obj/structure/window/reinforced/tinted/frosted{
+	dir = 8
+	},
 /turf/open/floor/grass,
 /area/security/detectives_office)
 "eRV" = (
@@ -43418,7 +43418,12 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "hSa" = (
@@ -44949,7 +44954,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	broken = 1
@@ -47608,6 +47612,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"jlu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "jly" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/blood/old,
@@ -55024,6 +55034,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"lKZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "lLa" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -59240,8 +59255,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/wrench,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -59912,7 +59925,7 @@
 "nzx" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "security maintenance";
-	req_access_txt = "1"
+	req_one_access_txt = "1;4"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -60017,6 +60030,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
+"nBN" = (
+/obj/structure/falsewall/reinforced,
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/crew_quarters/heads/hos)
 "nBO" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark/corner,
@@ -62339,8 +62358,8 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -64063,9 +64082,6 @@
 	},
 /obj/item/kitchen/fork,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/sign/warning/electricshock{
 	pixel_y = -32
 	},
@@ -66205,14 +66221,14 @@
 	name = "Detective's Office Shutter"
 	},
 /obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/window/reinforced/tinted/frosted{
+	dir = 8
+	},
 /turf/open/floor/grass,
 /area/security/detectives_office)
 "pyM" = (
@@ -75030,7 +75046,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "sDE" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
+	req_one_access_txt = "1;4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -81982,6 +81998,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"vbG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/wrench,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "vbL" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -86788,11 +86809,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -87490,7 +87511,6 @@
 /area/science/robotics/mechbay)
 "wJT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -105826,7 +105846,7 @@ ajd
 jNS
 fYS
 ajd
-cnm
+vbG
 cnm
 ajd
 cnm
@@ -106083,8 +106103,8 @@ awD
 ouv
 dcD
 ajd
-cnm
-cnm
+jlu
+lKZ
 ajd
 cnm
 cnm
@@ -107385,7 +107405,7 @@ kSm
 jrC
 mhB
 cJI
-ajx
+cJr
 bZy
 aer
 bNe
@@ -107642,7 +107662,7 @@ pzF
 fGu
 aPL
 ePM
-akl
+cJI
 doR
 ajd
 jPY
@@ -107899,7 +107919,7 @@ gse
 jLI
 mHA
 fFO
-ajx
+cJr
 fIO
 cmk
 rqH
@@ -108156,7 +108176,7 @@ fVc
 pmm
 war
 plr
-akl
+cJI
 cTa
 ajd
 vIr
@@ -108413,7 +108433,7 @@ lkn
 cTk
 cJr
 cJr
-ajx
+cJr
 bMR
 ajd
 aer
@@ -110736,7 +110756,7 @@ wVu
 gMe
 jth
 wVu
-wVu
+nBN
 wVu
 gMe
 aaa
