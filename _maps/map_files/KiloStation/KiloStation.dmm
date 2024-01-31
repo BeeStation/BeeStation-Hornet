@@ -1648,6 +1648,11 @@
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
+"agb" = (
+/turf/closed/wall/r_wall,
+/area/security/execution/transfer{
+	name = "Security E.V.A. Storage"
+	})
 "age" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/holopad,
@@ -30031,6 +30036,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
+"don" = (
+/turf/closed/wall/r_wall,
+/area/security/main{
+	name = "Brig Bay"
+	})
 "dou" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -30326,7 +30336,9 @@
 /obj/item/lighter,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel,
-/area/security/main)
+/area/security/main{
+	name = "Security E.V.A. Storage"
+	})
 "dta" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -34096,6 +34108,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
+"eJu" = (
+/turf/closed/wall,
+/area/security/execution/transfer{
+	name = "Security E.V.A. Storage"
+	})
 "eJv" = (
 /obj/effect/turf_decal/stripes/openup{
 	dir = 9
@@ -34131,7 +34148,9 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/security/execution/transfer)
+/area/security/execution/transfer{
+	name = "Security E.V.A. Storage"
+	})
 "eJI" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall/r_wall,
@@ -36983,7 +37002,9 @@
 	pixel_y = 26
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "fGZ" = (
 /obj/machinery/computer/med_data{
 	dir = 4
@@ -39999,7 +40020,9 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "gLz" = (
 /obj/structure/sign/departments/cargo{
 	pixel_x = 32;
@@ -46838,7 +46861,9 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
-/area/security/execution/transfer)
+/area/security/execution/transfer{
+	name = "Security E.V.A. Storage"
+	})
 "iYq" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/red/half/contrasted,
@@ -51584,6 +51609,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
+"kyZ" = (
+/turf/closed/wall/r_wall/rust,
+/area/security/execution/transfer{
+	name = "Security E.V.A. Storage"
+	})
 "kzl" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
@@ -52665,7 +52695,9 @@
 /turf/open/floor/plating{
 	broken = 1
 	},
-/area/security/execution/transfer)
+/area/security/execution/transfer{
+	name = "Security E.V.A. Storage"
+	})
 "kVp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -53863,7 +53895,9 @@
 	dir = 1
 	},
 /turf/closed/wall,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "lpl" = (
 /obj/structure/table,
 /obj/effect/turf_decal/stripes/corner,
@@ -56672,7 +56706,9 @@
 	pixel_y = -4
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "mmb" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -57051,6 +57087,11 @@
 	burnt = 1
 	},
 /area/maintenance/aft)
+"msZ" = (
+/turf/closed/wall/rust,
+/area/security/main{
+	name = "Brig Bay"
+	})
 "mti" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -57387,7 +57428,9 @@
 	name = "emergency shower"
 	},
 /turf/open/floor/noslip/white,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "myZ" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/disposalpipe/segment,
@@ -58219,7 +58262,9 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "mOG" = (
 /turf/open/floor/plating{
 	broken = 1
@@ -64946,7 +64991,9 @@
 /turf/open/floor/plating{
 	broken = 1
 	},
-/area/security/execution/transfer)
+/area/security/execution/transfer{
+	name = "Security E.V.A. Storage"
+	})
 "pfq" = (
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 8;
@@ -70033,7 +70080,9 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "qNC" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1
@@ -72893,7 +72942,9 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
-/area/security/execution/transfer)
+/area/security/execution/transfer{
+	name = "Security E.V.A. Storage"
+	})
 "rOz" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
@@ -75679,7 +75730,9 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "sNd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -76814,7 +76867,9 @@
 /turf/open/floor/plating{
 	broken = 1
 	},
-/area/security/execution/transfer)
+/area/security/execution/transfer{
+	name = "Security E.V.A. Storage"
+	})
 "thz" = (
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -77456,7 +77511,9 @@
 /turf/open/floor/plating{
 	broken = 1
 	},
-/area/security/execution/transfer)
+/area/security/execution/transfer{
+	name = "Security E.V.A. Storage"
+	})
 "tpX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -78017,7 +78074,9 @@
 	pixel_y = 5
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "tzZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -78047,7 +78106,9 @@
 	pixel_x = 32
 	},
 /turf/open/floor/plasteel/dark,
-/area/security/execution/transfer)
+/area/security/execution/transfer{
+	name = "Security E.V.A. Storage"
+	})
 "tAF" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -78092,7 +78153,9 @@
 	},
 /obj/machinery/light/small,
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "tBf" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -83752,7 +83815,9 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "vxv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -84473,7 +84538,9 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "vKj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -84826,6 +84893,11 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"vPn" = (
+/turf/closed/wall,
+/area/security/main{
+	name = "Brig Bay"
+	})
 "vPE" = (
 /obj/structure/closet{
 	name = "beekeeping wardrobe"
@@ -86650,7 +86722,9 @@
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plasteel/showroomfloor,
-/area/security/main)
+/area/security/main{
+	name = "Brig Bay"
+	})
 "wtk" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/airalarm{
@@ -108908,10 +108982,10 @@ aVf
 rVp
 wYg
 pSh
-agS
-agS
-agS
-exu
+vPn
+vPn
+vPn
+don
 jxG
 fKl
 fPs
@@ -109168,7 +109242,7 @@ pSh
 wtj
 myS
 lpg
-exu
+don
 shX
 oqS
 bMR
@@ -109425,7 +109499,7 @@ pSh
 vxa
 sMU
 tAP
-exu
+don
 akl
 ajx
 ajx
@@ -109682,7 +109756,7 @@ fxu
 fGK
 qNA
 tzT
-agS
+vPn
 ibw
 nEO
 jxJ
@@ -109939,7 +110013,7 @@ pSh
 mlU
 mOE
 gLn
-aey
+msZ
 mKX
 url
 iyn
@@ -110193,10 +110267,10 @@ aav
 ioo
 mVz
 pSh
-agS
+vPn
 vKc
-agS
-agS
+vPn
+vPn
 jtO
 url
 eRb
@@ -117144,10 +117218,10 @@ pUV
 bFa
 bFa
 bFs
-eAT
+kyZ
 rOd
-kDN
-kDN
+eJu
+eJu
 gTo
 wYl
 jfi
@@ -117661,7 +117735,7 @@ bFs
 iXL
 tAd
 iXL
-qfu
+agb
 uNJ
 wUU
 qca
