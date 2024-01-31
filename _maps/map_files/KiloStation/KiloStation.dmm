@@ -2442,9 +2442,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24
-	},
 /obj/item/kirbyplants{
 	desc = "The son of the legendary Roger, the guardian of the gateway. He has seen better days.";
 	icon_state = "plant-21";
@@ -2453,6 +2450,9 @@
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/quartermaster/exploration_prep)
@@ -2499,6 +2499,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/machinery/recharger,
 /turf/open/floor/plasteel/showroomfloor,
 /area/quartermaster/exploration_prep)
 "ajx" = (
@@ -2853,7 +2854,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/research/glass{
 	name = "exploration shuttle dock";
-	req_one_access_txt = "49"
+	req_access_txt = "49"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -38477,15 +38478,17 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/door/airlock/external{
+	req_access_txt = "49"
+	},
+/obj/machinery/atmospherics/components/binary/pump/on/layer4{
+	dir = 8;
+	name = "Shuttle to Station"
+	},
+/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
+	name = "Station to Shuttle";
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump/layer2{
-	dir = 4;
-	name = "Station to Shuttle"
-	},
-/obj/machinery/door/airlock/external,
-/obj/structure/lattice/catwalk,
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -40712,18 +40715,20 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 9
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
@@ -40826,8 +40831,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
@@ -41216,15 +41219,15 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/quartermaster/exploration_prep)
@@ -42303,27 +42306,9 @@
 	},
 /area/maintenance/fore)
 "hsH" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
-	},
-/obj/structure/table,
-/obj/machinery/recharger{
-	pixel_x = -5;
-	pixel_y = 1
-	},
-/obj/machinery/button/door{
-	id = "explorerstorage";
-	name = "Storage Shutter Toggle";
-	pixel_x = 6;
-	pixel_y = 2;
-	req_access_txt = "49"
 	},
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
@@ -42334,9 +42319,11 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
+/obj/structure/closet/crate/secure/science,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/showroomfloor,
 /area/quartermaster/exploration_prep)
 "hsL" = (
@@ -54590,7 +54577,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vendor/exploration,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -54598,6 +54584,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
+/obj/structure/closet/crate/secure/science,
 /turf/open/floor/plasteel/showroomfloor,
 /area/quartermaster/exploration_prep)
 "lIO" = (
@@ -57629,22 +57616,21 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/west{
-	pixel_x = -24
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
 "mRy" = (
@@ -59288,6 +59274,19 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark/corner,
 /area/hallway/primary/port)
+"nCb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating/airless{
+	initial_gas_mix = "o2=14;n2=23;TEMP=300"
+	},
+/area/quartermaster/exploration_dock)
 "nCe" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -63061,13 +63060,10 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/port_gen/pacman,
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/turf_decal/delivery,
-/obj/item/stack/sheet/mineral/plasma/twenty,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
@@ -63080,9 +63076,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/showroomfloor,
 /area/quartermaster/exploration_prep)
 "oMT" = (
@@ -65842,10 +65836,6 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
-"pEh" = (
-/obj/structure/sign/warning/securearea,
-/turf/closed/wall/r_wall,
-/area/quartermaster/exploration_prep)
 "pEu" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
@@ -69710,6 +69700,12 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/button/door{
+	id = "explorerstorage";
+	name = "Storage Shutter Toggle";
+	req_access_txt = "49";
+	pixel_y = -25
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
 "qXp" = (
@@ -78175,7 +78171,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
@@ -82320,9 +82315,14 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/camera/autoname{
 	dir = 4
+	},
+/obj/machinery/button/door{
+	id = "explorerstorage";
+	name = "Storage Shutter Toggle";
+	pixel_x = -25;
+	req_access_txt = "49"
 	},
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
@@ -132753,9 +132753,9 @@ rQx
 gsd
 gsd
 jRE
-pEh
 uSg
-cEm
+uSg
+uSg
 fVh
 cEm
 uSg
@@ -133014,7 +133014,7 @@ vtq
 gSa
 mRe
 gPj
-dqj
+nCb
 wcu
 hoo
 cEn

@@ -3,7 +3,6 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/machinery/light/small,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -72,10 +71,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ag" = (
@@ -97,7 +93,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/science/mining,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ak" = (
@@ -107,10 +104,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/science/mining,
 /obj/structure/cable/yellow{
-	icon_state = "2-8"
+	icon_state = "1-4"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -229,10 +224,6 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "aA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
@@ -241,6 +232,7 @@
 	},
 /obj/machinery/door/airlock/shuttle/glass,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aB" = (
@@ -288,10 +280,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/airalarm/unlocked{
-	pixel_x = 25;
-	dir = 8
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "aF" = (
@@ -342,11 +331,11 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "aK" = (
-/obj/machinery/camera/preset{
-	dir = 5
-	},
 /obj/machinery/vendor/exploration,
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/camera/preset{
+	dir = 10
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aL" = (
@@ -371,6 +360,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -418,7 +410,8 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/secure/weapon/contraband,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aU" = (
@@ -450,9 +443,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/closet/crate/science/shuttle,
-/obj/machinery/newscaster{
-	pixel_x = -32
+/obj/machinery/atmospherics/components/unary/tank/air{
+	dir = 1;
+	initialize_directions = 1;
+	piping_layer = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
@@ -476,15 +470,20 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/machinery/firealarm/directional/east,
+/obj/machinery/airalarm/unlocked{
+	pixel_x = 25;
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "Kq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/secure/weapon/contraband,
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "MB" = (
@@ -499,6 +498,14 @@
 	dir = 10
 	},
 /turf/open/floor/plating,
+/area/shuttle/exploration)
+"Wy" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/science/shuttle,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 
 (1,1,1) = {"
@@ -572,7 +579,7 @@ MB
 aF
 Kq
 aG
-aT
+Wy
 aL
 ap
 "}

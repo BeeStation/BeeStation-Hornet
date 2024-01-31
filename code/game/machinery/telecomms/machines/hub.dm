@@ -44,4 +44,4 @@
 /obj/machinery/telecomms/hub/preset/exploration
 	id = "Exploration Hub"
 	network = "exploration"
-	autolinkers = list("exp_relay", "exploration", "receiverExp", "broadcasterExp")
+	autolinkers = list("exp_relay", "exploration", "receiverExp", "broadcasterExp", "common", "messaging")

@@ -27,6 +27,9 @@
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/item/stack/sheet/mineral/plasma/ten,
 /obj/machinery/firealarm/directional/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "gl" = (
@@ -65,6 +68,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/light,
 /obj/machinery/vendor/exploration,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "hW" = (
@@ -124,11 +128,20 @@
 	},
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/tile/brown/opposingcorners,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "kU" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/structure/closet/crate/science/shuttle,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "mj" = (
@@ -213,6 +226,7 @@
 /obj/effect/turf_decal/box/corners,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "uU" = (
@@ -272,6 +286,9 @@
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Av" = (
@@ -298,6 +315,18 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"Dv" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/exploration)
+"Eg" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "Fy" = (
 /obj/machinery/microwave{
 	pixel_y = 6
@@ -314,6 +343,9 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "Ij" = (
@@ -321,6 +353,9 @@
 /obj/machinery/light,
 /obj/machinery/firealarm/directional/east,
 /obj/structure/closet/crate/secure/weapon/contraband,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "In" = (
@@ -412,6 +447,9 @@
 /obj/item/toy/beach_ball,
 /obj/item/bikehorn/rubberducky,
 /obj/effect/turf_decal/box,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "Pd" = (
@@ -421,6 +459,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
@@ -444,9 +485,6 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "St" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/door/airlock/shuttle,
 /obj/machinery/door/firedoor,
@@ -464,6 +502,18 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/mob/living/simple_animal/chicken/turkey{
+	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0);
+	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
+	health = 200;
+	maxHealth = 200;
+	melee_damage = 5;
+	minbodytemp = 2.7;
+	name = "Tom"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "SX" = (
@@ -478,6 +528,9 @@
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/machinery/firealarm/directional/north,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "Ta" = (
@@ -516,6 +569,9 @@
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "XD" = (
@@ -552,6 +608,9 @@
 "ZG" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/structure/closet/crate/science/mining,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "ZV" = (
@@ -598,9 +657,9 @@ Vg
 AZ
 TZ
 wE
-wE
+Eg
 St
-pY
+Dv
 pY
 pY
 Nz
@@ -646,9 +705,9 @@ PK
 AZ
 In
 wE
-wE
+Eg
 St
-pY
+Dv
 XZ
 pY
 Nz
