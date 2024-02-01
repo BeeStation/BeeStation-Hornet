@@ -130,7 +130,6 @@
 	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
 	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 	RegisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
-	//TODO: Add indicators for lit  / unlit - Racc
 
 /datum/xenoartifact_trait/activator/flammable/translation_type_a(datum/source, atom/target)
 	lit = FALSE
@@ -440,7 +439,9 @@
 	weight = 32
 	///How much damage do we deal per bite?
 	var/eat_damage = 15
-	//TODO: Add an eat timer - Racc
+	//Timer logic for biting people
+	var/bite_cooldown = 4 SECONDS
+	var/bite_timer
 
 /datum/xenoartifact_trait/activator/strudy/hungry/trigger_artifact(atom/target, type, force)
 	. = ..()
@@ -465,15 +466,21 @@
 		playsound(AM.loc, 'sound/items/eatfood.ogg', 60, 1, 1)
 		food_item.feed_to_item(src, parent.parent)
 		return
-	//Otherwise, nibble the target
-	if(isliving(M))
+	//Otherwise, nibble the target, and spit them out, they're gross, ew
+	if(isliving(M) && !bite_timer)
 		playsound(AM.loc, 'sound/weapons/bite.ogg', 60, 1, 1)
 		AM.do_attack_animation(M)
 		M.adjustBruteLoss(eat_damage)
-		M.visible_message("<span class='warning'>[AM] bites [M]!</span>", "<span class='warning'>[AM] bites you!</span>")
-		return
+		M.visible_message("<span class='warning'>[AM] bites [M]!</span>", "<span class='warning'>[AM] bites you!\n[AM] doesn't like that taste!</span>")
+		addtimer(CALLBACK(src, PROC_REF(handle_timer)), bite_cooldown, TIMER_STOPPABLE)
+		return FALSE
 
 	return FALSE
 
 /datum/xenoartifact_trait/activator/strudy/hungry/get_dictionary_hint()
 	return list()
+
+/datum/xenoartifact_trait/activator/strudy/hungry/proc/handle_timer()
+	if(bite_timer)
+		del_timer(bite_timer)
+	bite_timer = null

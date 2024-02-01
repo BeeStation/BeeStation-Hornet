@@ -353,7 +353,6 @@
 	else
 		trait.remove_parent()
 		trait.register_parent(src)
-	//TODO: Setup a proc for traits to register a new parent - Racc
 	//List building, handle custom priorities, just appened to the end
 	if(!artifact_traits[trait.priority])
 		artifact_traits[trait.priority] = list()
