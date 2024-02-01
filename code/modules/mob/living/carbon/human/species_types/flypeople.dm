@@ -24,6 +24,8 @@
 	species_l_leg = /obj/item/bodypart/l_leg/fly
 	species_r_leg = /obj/item/bodypart/r_leg/fly
 
+	species_height = SPECIES_HEIGHTS(8, 16, 0)
+
 /datum/species/fly/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)

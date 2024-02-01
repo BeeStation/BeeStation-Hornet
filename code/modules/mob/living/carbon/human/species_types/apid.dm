@@ -33,6 +33,8 @@
 	species_l_leg = /obj/item/bodypart/l_leg/apid
 	species_r_leg = /obj/item/bodypart/r_leg/apid
 
+	species_height = SPECIES_HEIGHTS(8, 16, 0)
+
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
 	. = ..()
 	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping() && !HAS_TRAIT(H,TRAIT_RESISTCOLD)) // Sleep when cold, like bees
