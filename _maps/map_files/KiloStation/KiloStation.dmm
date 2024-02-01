@@ -9440,7 +9440,8 @@
 /obj/item/reagent_containers/hypospray/medipen{
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "aYH" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -9562,6 +9563,13 @@
 "aZr" = (
 /turf/closed/wall/r_wall,
 /area/science/research)
+"aZs" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plasteel/dark,
+/area/security/checkpoint/medical)
 "aZv" = (
 /turf/closed/wall,
 /area/science/explab)
@@ -17049,7 +17057,8 @@
 /obj/item/pen{
 	pixel_x = -4
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "bNv" = (
 /obj/structure/disposalpipe/segment{
@@ -17724,6 +17733,15 @@
 	lighting_colour_bulb = "#ffdbb4";
 	lighting_colour_tube = "#ffce99"
 	})
+"bRe" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "bRm" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
@@ -20795,14 +20813,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
@@ -29397,22 +29415,22 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
-	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Medbay Security Post";
-	req_access_txt = "63"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Medbay Security Post";
+	req_access_txt = "63"
 	},
 /turf/open/floor/prison,
 /area/security/checkpoint/medical)
@@ -29759,10 +29777,13 @@
 	},
 /area/maintenance/port/aft)
 "dhQ" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/medical)
 "dhR" = (
@@ -30531,9 +30552,6 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -38233,6 +38251,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "gcw" = (
@@ -45033,12 +45052,6 @@
 "ivm" = (
 /obj/machinery/computer/crew,
 /obj/effect/turf_decal/bot,
-/obj/machinery/requests_console{
-	department = "Security";
-	departmentType = 5;
-	name = "Medbay Checkpoint RC";
-	pixel_y = 30
-	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
 "ivw" = (
@@ -50591,6 +50604,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "keb" = (
@@ -61064,14 +61078,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/item/toy/plush/moth/monarch{
-	pixel_y = -6;
-	pixel_x = 9
-	},
-/obj/item/clothing/mask/gas/clown_hat{
-	pixel_y = -2;
-	pixel_x = 11
-	},
 /obj/structure/chair/fancy/comfy{
 	color = "#354562"
 	},
@@ -61227,7 +61233,8 @@
 	name = "Emergency Medical Lockdown Shutters"
 	},
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel/showroomfloor,
+/obj/effect/turf_decal/tile/dark/opposingcorners,
+/turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "nVn" = (
 /obj/structure/disposalpipe/segment{
@@ -65830,13 +65837,16 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for monitoring medbay to ensure patient safety.";
 	name = "Medbay Monitor";
 	network = list("medical")
+	},
+/obj/machinery/requests_console{
+	department = "Security";
+	departmentType = 5;
+	name = "Medbay Checkpoint RC";
+	pixel_y = 30
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
@@ -67230,6 +67240,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "pRx" = (
@@ -67840,7 +67851,6 @@
 /obj/structure/disposalpipe/junction/flip{
 	dir = 4
 	},
-/obj/machinery/airalarm/directional/south,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -72167,6 +72177,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "rDP" = (
@@ -75662,6 +75674,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "sPa" = (
@@ -75982,6 +75995,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
@@ -77546,13 +77560,13 @@
 	id = "emmd";
 	name = "Emergency Medical Lockdown Shutters"
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "medbay_front_door";
 	name = "Medbay";
 	req_access_txt = "5"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
@@ -78825,9 +78839,7 @@
 /area/engine/atmos)
 "tTB" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/open/floor/plating{
-	burnt = 1
-	},
+/turf/closed/wall,
 /area/maintenance/port/fore)
 "tTH" = (
 /obj/structure/closet/secure_closet/CMO,
@@ -83563,13 +83575,10 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/main)
 "vxv" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating{
 	burnt = 1
 	},
@@ -110958,7 +110967,7 @@ xYj
 aPy
 fQB
 vXr
-dhQ
+aQI
 psB
 dxo
 lYI
@@ -111215,7 +111224,7 @@ jdF
 xaJ
 cUa
 gEs
-aQI
+aZs
 ivm
 rMM
 irT
@@ -115850,8 +115859,8 @@ gWK
 gWK
 tOy
 pRw
-gWK
-gWK
+bRe
+bRe
 rDG
 sOE
 gct
