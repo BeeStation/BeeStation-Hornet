@@ -1,6 +1,8 @@
 /datum/job/chemist
 	title = JOB_NAME_CHEMIST
 	flag = CHEMIST
+	description = "Create healing medicines and fullfill other requests when medicine isn't needed. Label everything you produce correctly to prevent confusion."
+	department_for_prefs = DEPT_BITFLAG_MED
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
@@ -27,6 +29,17 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chemist
 	)
 	biohazard = 25
+
+	lightup_areas = list(
+		/area/medical/surgery,
+		/area/medical/virology,
+		/area/medical/genetics
+	)
+	minimal_lightup_areas = list(
+		/area/medical/morgue,
+		/area/medical/chemistry,
+		/area/medical/apothecary
+	)
 
 /datum/outfit/job/chemist
 	name = JOB_NAME_CHEMIST

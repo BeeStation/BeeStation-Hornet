@@ -34,9 +34,10 @@
 		var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
 		rotcomp.BaseRot(null,ROTATION_FLIP)
 
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
-	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+	if(!initial(pipe_type.density)) //This prevents dense disposals machinery from being hidable under floor tiles
+		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 /obj/structure/disposalconstruct/Move()
 	var/old_dir = dir
@@ -113,7 +114,7 @@
 		var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
 
 		var/turf/T = get_turf(src)
-		if(T.intact && isfloorturf(T))
+		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && isfloorturf(T))
 			var/obj/item/crowbar/held_crowbar = user.is_holding_item_of_type(/obj/item/crowbar)
 			if(!held_crowbar || !T.crowbar_act(user, held_crowbar))
 				to_chat(user, "<span class='warning'>You can only attach the [pipename] if the floor plating is removed!</span>")

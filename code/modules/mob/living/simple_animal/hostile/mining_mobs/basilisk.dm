@@ -10,7 +10,7 @@
 	icon_gib = "syndicate_gib"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	move_to_delay = 20
-	projectiletype = /obj/item/projectile/temp/basilisk
+	projectiletype = /obj/projectile/temp/basilisk
 	projectilesound = 'sound/weapons/pierce.ogg'
 	ranged = 1
 	ranged_message = "stares"
@@ -34,7 +34,7 @@
 				/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER})
 	discovery_points = 2000
 
-/obj/item/projectile/temp/basilisk
+/obj/projectile/temp/basilisk
 	name = "freezing blast"
 	icon_state = "ice_2"
 	damage = 0
@@ -51,11 +51,12 @@
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
+			investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 			gib()
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(140)
-		if(3)
+		if(EXPLODE_LIGHT)
 			adjustBruteLoss(110)
 
 //Watcher
@@ -68,6 +69,7 @@
 	icon_aggro = "watcher"
 	icon_dead = "watcher_dead"
 	pixel_x = -10
+	base_pixel_x = -10
 	throw_message = "bounces harmlessly off of"
 	melee_damage = 15
 	attacktext = "impales"
@@ -103,7 +105,7 @@
 	light_range = 3
 	light_power = 2.5
 	light_color = LIGHT_COLOR_LAVA
-	projectiletype = /obj/item/projectile/temp/basilisk/magmawing
+	projectiletype = /obj/projectile/temp/basilisk/magmawing
 	crusher_loot = /obj/item/crusher_trophy/blaster_tubes/magma_wing
 	crusher_drop_mod = 60
 
@@ -116,12 +118,12 @@
 	icon_dead = "watcher_icewing_dead"
 	maxHealth = 85
 	health = 85
-	projectiletype = /obj/item/projectile/temp/basilisk/icewing
+	projectiletype = /obj/projectile/temp/basilisk/icewing
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/bone = 1) //No sinew; the wings are too fragile to be usable
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing/ice_wing
 	crusher_drop_mod = 30
 
-/obj/item/projectile/temp/basilisk/magmawing
+/obj/projectile/temp/basilisk/magmawing
 	name = "scorching blast"
 	icon_state = "lava"
 	damage = 5
@@ -129,7 +131,7 @@
 	nodamage = FALSE
 	temperature = 500 //Heats you up!
 
-/obj/item/projectile/temp/basilisk/magmawing/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/temp/basilisk/magmawing/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(.)
 		var/mob/living/L = target
@@ -137,12 +139,12 @@
 			L.adjust_fire_stacks(0.1)
 			L.IgniteMob()
 
-/obj/item/projectile/temp/basilisk/icewing
+/obj/projectile/temp/basilisk/icewing
 	damage = 5
 	damage_type = BURN
 	nodamage = FALSE
 
-/obj/item/projectile/temp/basilisk/icewing/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/temp/basilisk/icewing/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(.)
 		var/mob/living/L = target

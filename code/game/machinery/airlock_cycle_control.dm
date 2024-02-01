@@ -52,7 +52,7 @@
 	power_channel = AREA_USAGE_ENVIRON
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
-	integrity_failure = 80
+	integrity_failure = 0.2
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
@@ -148,9 +148,14 @@
 		if(environment)
 			pressure = environment.return_pressure()
 	var/maxpressure = (exterior_pressure && (cyclestate == AIRLOCK_CYCLESTATE_OUTCLOSING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPENING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPEN)) ? exterior_pressure : interior_pressure
-	var/pressure_bars = round(pressure / maxpressure * 5 + 0.01)
+	var/pressure_bars
+	if(maxpressure == 0)
+		//1 is the lowest value found in monitors.dmi
+		pressure_bars = 1
+	else
+		pressure_bars = round(pressure / maxpressure * 5 + 0.01)
 
-	var/new_overlays_hash = "[pressure_bars]-[cyclestate]-[buildstage]-[panel_open]-[machine_stat]-[shorted]-[locked]-\ref[vis_target]"
+	var/new_overlays_hash = "[pressure_bars]-[cyclestate]-[buildstage]-[panel_open]-[machine_stat]-[shorted]-[locked]-[vis_target]"
 	if(use_hash && new_overlays_hash == overlays_hash)
 		return
 	overlays_hash = new_overlays_hash
@@ -737,16 +742,16 @@
 			scan()
 			. = TRUE
 		if("interior_pressure")
-			interior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			interior_pressure = clamp(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
 			. = TRUE
 		if("exterior_pressure")
-			exterior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			exterior_pressure = clamp(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
 			. = TRUE
 		if("depressurization_margin")
-			depressurization_margin = CLAMP(text2num(params["pressure"]), 0.15, 40)
+			depressurization_margin = clamp(text2num(params["pressure"]), 0.15, 40)
 			. = TRUE
 		if("skip_delay")
-			skip_delay = CLAMP(text2num(params["skip_delay"]), 0, 1200)
+			skip_delay = clamp(text2num(params["skip_delay"]), 0, 1200)
 			. = TRUE
 
 	if(.)

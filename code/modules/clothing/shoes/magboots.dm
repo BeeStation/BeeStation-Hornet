@@ -33,9 +33,7 @@
 	to_chat(user, "<span class='notice'>You [magpulse ? "enable" : "disable"] the mag-pulse traction system.</span>")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.has_gravity())
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/clothing/shoes/magboots/negates_gravity()
 	return isspaceturf(get_turf(src)) ? FALSE : magpulse //We don't mimick gravity on space turfs
@@ -79,9 +77,7 @@
 	to_chat(user, "<span class='notice'>You [magpulse ? "enable" : "disable"] the mag-pulse traction system.</span>")
 	user.update_inv_shoes()
 	user.update_gravity(user.has_gravity())
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	update_action_buttons()
 
 /obj/item/clothing/shoes/magboots/crushing
 	desc = "Normal looking magboots that are altered to increase magnetic pull to crush anything underfoot."
@@ -93,7 +89,7 @@
 		return
 	var/turf/T = user.loc
 	for (var/mob/living/A in T)
-		if (A != user && A.lying)
+		if (A != user && !(A.mobility_flags & MOBILITY_STAND))
 			A.adjustBruteLoss(rand(10,13))
 			to_chat(A,"<span class='userdanger'>[user]'s magboots press down on you, crushing you!</span>")
 			INVOKE_ASYNC(A, TYPE_PROC_REF(/mob, emote), "scream")

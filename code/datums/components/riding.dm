@@ -144,8 +144,8 @@
 //BUCKLE HOOKS
 /datum/component/riding/proc/restore_position(mob/living/buckled_mob)
 	if(buckled_mob)
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
+		buckled_mob.pixel_x = buckled_mob.base_pixel_x
+		buckled_mob.pixel_y = buckled_mob.base_pixel_y
 		if(buckled_mob.client)
 			buckled_mob.client.view_size.resetToDefault()
 
@@ -163,7 +163,7 @@
 		Unbuckle(user)
 		return
 
-	if(world.time < last_vehicle_move + ((last_move_diagonal? SQRT_TWO : 1) * vehicle_move_delay * vehicle_move_multiplier))
+	if(world.time < last_vehicle_move + ((last_move_diagonal? sqrt(2) : 1) * vehicle_move_delay * vehicle_move_multiplier))
 		return
 	last_vehicle_move = world.time
 

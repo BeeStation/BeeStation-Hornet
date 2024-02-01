@@ -8,13 +8,7 @@ export const NtosMessenger = (_, context) => {
   const { viewing_messages } = data;
   return (
     <NtosWindow width={400} height={600}>
-      <NtosWindow.Content scrollable>
-        {viewing_messages ? (
-          <MessageListScreen />
-        ) : (
-          <ContactsScreen />
-        )}
-      </NtosWindow.Content>
+      <NtosWindow.Content scrollable>{viewing_messages ? <MessageListScreen /> : <ContactsScreen />}</NtosWindow.Content>
     </NtosWindow>
   );
 };
@@ -29,17 +23,11 @@ const NoIDDimmer = (_, context) => {
             <Stack.Item>
               <Stack ml={-2}>
                 <Stack.Item>
-                  <Icon
-                    color="red"
-                    name="address-card"
-                    size={10}
-                  />
+                  <Icon color="red" name="address-card" size={10} />
                 </Stack.Item>
               </Stack>
             </Stack.Item>
-            <Stack.Item fontSize="18px">
-              Please imprint an ID to continue.
-            </Stack.Item>
+            <Stack.Item fontSize="18px">Please imprint an ID to continue.</Stack.Item>
           </Stack>
         </Dimmer>
       </Stack.Item>
@@ -49,46 +37,32 @@ const NoIDDimmer = (_, context) => {
 
 const MessageListScreen = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    messages = [],
-    emoji_names = [],
-  } = data;
+  const { messages = [], emoji_names = [] } = data;
   return (
     <Stack vertical>
       <Section fill>
-        <Button
-          icon="arrow-left"
-          content="Back"
-          onClick={() => act('PDA_viewMessages')}
-        />
-        <Button
-          icon="trash"
-          content="Clear Messages"
-          onClick={() => act('PDA_clearMessages')}
-        />
+        <Button icon="arrow-left" content="Back" onClick={() => act('PDA_viewMessages')} />
+        <Button icon="trash" content="Clear Messages" onClick={() => act('PDA_clearMessages')} />
       </Section>
-      {messages.map(message => (
+      {messages.map((message) => (
         <>
           <Section fill textAlign="left">
             <Box italic opacity={0.5}>
-              {message.outgoing ? (
-                "(OUTGOING)"
-              ) : (
-                "(INCOMING)"
-              )}
+              {message.outgoing ? '(OUTGOING)' : '(INCOMING)'}
             </Box>
             {message.outgoing ? (
-              <Box bold>
-                {message.target}
-              </Box>
+              <Box bold>{message.target}</Box>
             ) : (
-              <Button transparent
-                content={message.name + " (" + message.job + ")"}
-                onClick={() => act('PDA_sendMessage', {
-                  name: message.name,
-                  job: message.job,
-                  ref: message.ref,
-                })}
+              <Button
+                transparent
+                content={message.name + ' (' + message.job + ')'}
+                onClick={() =>
+                  act('PDA_sendMessage', {
+                    name: message.name,
+                    job: message.job,
+                    ref: message.ref,
+                  })
+                }
               />
             )}
           </Section>
@@ -99,7 +73,8 @@ const MessageListScreen = (props, context) => {
               photo_width={message.photo_width}
               photo_height={message.photo_height}
               emojis={message.emojis}
-              emoji_names={emoji_names} />
+              emoji_names={emoji_names}
+            />
           </Section>
         </>
       ))}
@@ -122,12 +97,8 @@ const ContactsScreen = (props, context) => {
     sending_virus,
   } = data;
   const [searchUser, setSearchUser] = useLocalState(context, 'searchUser', '');
-  const search = createSearch(
-    searchUser,
-    (messengers) => messengers.name + messengers.job
-  );
-  let users
-    = searchUser.length > 0 ? data.messengers.filter(search) : messengers;
+  const search = createSearch(searchUser, (messengers) => messengers.name + messengers.job);
+  let users = searchUser.length > 0 ? data.messengers.filter(search) : messengers;
   return (
     <>
       <Stack vertical>
@@ -151,35 +122,18 @@ const ContactsScreen = (props, context) => {
             />
             <Button
               icon="address-card"
-              content={sending_and_receiving ? "Send / Receive: On" : "Send / Receive: Off"}
+              content={sending_and_receiving ? 'Send / Receive: On' : 'Send / Receive: Off'}
               onClick={() => act('PDA_sAndR')}
             />
-            <Button
-              icon="bell"
-              content="Set Ringtone"
-              onClick={() => act('PDA_ringSet')}
-            />
-            <Button
-              icon="comment"
-              content="View Messages"
-              onClick={() => act('PDA_viewMessages')}
-            />
-            <Button
-              icon="sort"
-              content={`Sort by: ${sortByJob ? "Job" : "Name"}`}
-              onClick={() => act('PDA_changeSortStyle')}
-            />
-            {!!isSilicon && (
-              <Button
-                icon="camera"
-                content="Attach Photo"
-                onClick={() => act('PDA_selectPhoto')} />
-            )}
+            <Button icon="bell" content="Set Ringtone" onClick={() => act('PDA_ringSet')} />
+            <Button icon="comment" content="View Messages" onClick={() => act('PDA_viewMessages')} />
+            <Button icon="sort" content={`Sort by: ${sortByJob ? 'Job' : 'Name'}`} onClick={() => act('PDA_changeSortStyle')} />
+            {!!isSilicon && <Button icon="camera" content="Attach Photo" onClick={() => act('PDA_selectPhoto')} />}
             {!!virus_attach && (
               <Button
                 icon="bug"
-                color={sending_virus ? "bad" : null}
-                content={`Send Virus: ${sending_virus ? "Yes" : "No"}`}
+                color={sending_virus ? 'bad' : null}
+                content={`Send Virus: ${sending_virus ? 'Yes' : 'No'}`}
                 onClick={() => act('PDA_toggleVirus')}
               />
             )}
@@ -193,13 +147,8 @@ const ContactsScreen = (props, context) => {
             Current Photo
           </Section>
           <Section align="center">
-            <Button
-              onClick={() => act('PDA_clearPhoto')}>
-              <Box
-                mt={1}
-                as="img"
-                src={photo ? photo : null}
-              />
+            <Button onClick={() => act('PDA_clearPhoto')}>
+              <Box mt={1} as="img" src={photo ? photo : null} />
             </Button>
           </Section>
         </Stack>
@@ -221,71 +170,54 @@ const ContactsScreen = (props, context) => {
         <Section fill>
           <Stack vertical>
             {users.length === 0 && 'No users found'}
-            {users.map(messenger => (
+            {users.map((messenger) => (
               <Button
                 key={messenger.ref}
                 fluid
-                onClick={() => act('PDA_sendMessage', {
-                  name: messenger.name,
-                  job: messenger.job,
-                  ref: messenger.ref,
-                })}>
+                onClick={() =>
+                  act('PDA_sendMessage', {
+                    name: messenger.name,
+                    job: messenger.job,
+                    ref: messenger.ref,
+                  })
+                }>
                 {messenger.name} ({messenger.job})
               </Button>
             ))}
           </Stack>
-          {!!canSpam && (
-            <Button
-              fluid
-              mt={1}
-              content="Send to all..."
-              onClick={() => act('PDA_sendEveryone')}
-            />
-          )}
+          {!!canSpam && <Button fluid mt={1} content="Send to all..." onClick={() => act('PDA_sendEveryone')} />}
         </Section>
       </Stack>
-      {(!owner && !isSilicon) && (
-        <NoIDDimmer />
-      )}
+      {!owner && !isSilicon && <NoIDDimmer />}
     </>
   );
 };
 
 export const MessageContent = (props) => {
-  const {
-    contents,
-    photo,
-    photo_width,
-    photo_height,
-    emojis,
-    emoji_names,
-  } = props;
+  const { contents, photo, photo_width, photo_height, emojis, emoji_names } = props;
   return (
     <>
-      {
-        contents.split(":").map((part, index, arr) => {
-          if (emojis
-                          && Object.keys(emoji_names).includes(part)) {
-            return (<span
-              key={part}
-              class={`chat16x16 emoji-${part}`} />);
-          } else {
-            // re-add colons from split()
-            // if the next element in the array is not valid emoji
-            return <span key={part}>{part}{arr.length - 1 !== index && (index + 1 >= arr.length || !emojis || !Object.keys(emoji_names).includes(arr[index + 1])) ? ":" : ""}</span>;
-          }
-        })
-      }
+      {contents.split(':').map((part, index, arr) => {
+        if (emojis && Object.keys(emoji_names).includes(part)) {
+          return <span key={part} class={`chat16x16 emoji-${part}`} />;
+        } else {
+          // re-add colons from split()
+          // if the next element in the array is not valid emoji
+          return (
+            <span key={part}>
+              {part}
+              {arr.length - 1 !== index &&
+              (index + 1 >= arr.length || !emojis || !Object.keys(emoji_names).includes(arr[index + 1]))
+                ? ':'
+                : ''}
+            </span>
+          );
+        }
+      })}
       {!!photo && (
         <>
           <br />
-          <Box
-            mt={1}
-            width={`${photo_width}px`}
-            height={`${photo_height}px`}
-            as="img"
-            src={photo}
-          />
+          <Box mt={1} width={`${photo_width}px`} height={`${photo_height}px`} as="img" src={photo} />
         </>
       )}
     </>

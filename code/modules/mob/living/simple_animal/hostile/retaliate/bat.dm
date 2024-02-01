@@ -17,7 +17,7 @@
 	see_in_dark = 10
 	melee_damage = 6
 	attacktext = "bites"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 1)
+	butcher_results = list(/obj/item/food/meat/slab = 1)
 	pass_flags = PASSTABLE
 	faction = list("hostile")
 	attack_sound = 'sound/weapons/bite.ogg'
@@ -46,6 +46,7 @@
 	name = "Sergeant Araneus"
 	real_name = "Sergeant Araneus"
 	desc = "A fierce companion of the Head of Security, this spider has been carefully trained by Nanotrasen specialists. Its beady, staring eyes send shivers down your spine."
+	speak_emote = list("chitters")
 	emote_hear = list("chitters")
 	faction = list("spiders")
 	icon_dead = "guard_dead"

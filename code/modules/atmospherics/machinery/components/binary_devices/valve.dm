@@ -40,6 +40,9 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 		flick("[valve_type]valve_[on][!on]-[set_overlay_offset(piping_layer)]", src)
 	icon_state = "[valve_type]valve_[on ? "on" : "off"]-[set_overlay_offset(piping_layer)]"
 
+/obj/machinery/atmospherics/components/binary/valve/can_crawl_through()
+	return !(machine_stat & BROKEN) && on // valves should block whatever is trying to go through them, regardless of power
+
 /**
  * Called by finish_interact(), switch between open and closed, reconcile the air between two pipelines
  */
@@ -88,7 +91,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 
 /obj/item/circuit_component/digital_valve
 	display_name = "Digital Valve"
-	display_desc = "The interface for communicating with a digital valve."
+	desc = "The interface for communicating with a digital valve."
 
 	var/obj/machinery/atmospherics/components/binary/valve/digital/attached_valve
 
@@ -104,8 +107,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 	/// Sent when the valve is closed
 	var/datum/port/output/closed
 
-/obj/item/circuit_component/digital_valve/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/digital_valve/populate_ports()
 	open = add_input_port("Open", PORT_TYPE_SIGNAL)
 	close = add_input_port("Close", PORT_TYPE_SIGNAL)
 
@@ -132,9 +134,6 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 		closed.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/digital_valve/input_received(datum/port/input/port)
-	. = ..()
-	if(.)
-		return
 
 	if(!attached_valve)
 		return
@@ -143,7 +142,6 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 		attached_valve.set_open(TRUE)
 	if(COMPONENT_TRIGGERED_BY(close, port) && attached_valve.on)
 		attached_valve.set_open(FALSE)
-
 
 /obj/machinery/atmospherics/components/binary/valve/digital/update_icon_nopipes(animation)
 	if(!is_operational)

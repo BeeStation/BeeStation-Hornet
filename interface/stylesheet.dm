@@ -93,6 +93,16 @@ h1.alert, h2.alert		{color: #000000;}
   padding: 10px;
   margin: 10px 20px;
 }
+.death_message {
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border: 2px solid rgb(240, 62, 225);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
 .unconscious			{color: #0000ff;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03ff39;}
@@ -187,6 +197,7 @@ h1.alert, h2.alert		{color: #000000;}
 .reallybig				{font-size: 4;}
 .extremelybig			{font-size: 5;}
 .greentext				{color: #00FF00;	font-size: 3;}
+.infotext				{color: #36f1e2;	font-size: 3;}
 .redtext				{color: #FF0000;	font-size: 3;}
 .clown					{color: #FF69Bf;	font-size: 3; font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
 .singing				{font-family: "Trebuchet MS", cursive, sans-serif; font-style: italic;}

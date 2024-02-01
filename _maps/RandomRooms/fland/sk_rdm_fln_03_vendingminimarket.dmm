@@ -3,7 +3,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "b" = (
-/obj/machinery/vending/cola/random,
+/obj/effect/spawner/randomvend/cola,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -266,7 +266,7 @@
 	},
 /area/template_noop)
 "S" = (
-/obj/machinery/vending/snack/random,
+/obj/effect/spawner/randomvend/snack,
 /obj/machinery/light{
 	dir = 8
 	},

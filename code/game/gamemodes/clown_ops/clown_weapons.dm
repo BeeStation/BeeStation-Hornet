@@ -119,7 +119,7 @@
 /obj/item/melee/transforming/energy/sword/bananium/ignition_effect(atom/A, mob/user)
 	return ""
 
-/obj/item/melee/transforming/energy/sword/bananium/suicide_act(mob/user)
+/obj/item/melee/transforming/energy/sword/bananium/suicide_act(mob/living/user)
 	if(!active)
 		transform_weapon(user, TRUE)
 	user.visible_message("<span class='suicide'>[user] is [pick("slitting [user.p_their()] stomach open with", "falling on")] [src]! It looks like [user.p_theyre()] trying to commit seppuku, but the blade slips off of [user.p_them()] harmlessly!</span>")
@@ -179,19 +179,23 @@
 		return ..()
 
 
-//BOMBANANA
+//BOMBANANA]
 
-/obj/item/reagent_containers/food/snacks/grown/banana/bombanana
-	trash = /obj/item/grown/bananapeel/bombanana
-	bitesize = 1
-	customfoodfilling = FALSE
-	seed = null
+/obj/item/seeds/banana/bombanana
+	name = "pack of bombanana seeds"
+	desc = "They're seeds that grow into bombanana trees. When grown, give to the clown."
+	plantname = "Bombanana Tree"
+	product = /obj/item/food/grown/banana/bombanana
+
+/obj/item/food/grown/banana/bombanana
+	trash_type = /obj/item/grown/bananapeel/bombanana
+	seed = /obj/item/seeds/banana/bombanana
 	tastes = list("explosives" = 10)
-	list_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 1)
+	food_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 1)
 
 /obj/item/grown/bananapeel/bombanana
 	desc = "A peel from a banana. Why is it beeping?"
-	seed = null
+	seed = /obj/item/seeds/banana/bombanana
 	var/det_time = 50
 	var/obj/item/grenade/syndieminibomb/bomb
 
@@ -213,11 +217,11 @@
 	. = ..()
 	QDEL_NULL(bomb)
 
-/obj/item/grown/bananapeel/bombanana/suicide_act(mob/user)
+/obj/item/grown/bananapeel/bombanana/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is deliberately slipping on the [src.name]! It looks like \he's trying to commit suicide.</span>")
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
 	bomb.preprime(user, 0, FALSE)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 //TEARSTACHE GRENADE
 
@@ -285,6 +289,7 @@
 	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. This one has been painted black for maximum fun. HONK!"
 	name = "\improper Dark H.O.N.K"
 	icon_state = "darkhonker"
+	base_icon_state = "darkhonker"
 	max_integrity = 300
 	deflect_chance = 15
 	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 35, BOMB = 20, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)

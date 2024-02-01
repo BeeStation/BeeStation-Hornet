@@ -473,8 +473,16 @@
 	icon_state = "narplush"
 	divine = TRUE
 	var/clashing
-	var/is_invoker = TRUE
+	var/invoker_charges = 2
 	gender = FEMALE	//it's canon if the toy is
+
+/obj/item/toy/plush/narplush/examine(mob/user)
+	. = ..()
+	if(invoker_charges == 0)
+		. += "<span class='notice'>She looks tired.</span>"
+		return
+	if(IS_CULTIST(user))
+		. += "<span class='warning'>She has [invoker_charges] [invoker_charges == 1 ? "charge" : "charges"] left!</span>"
 
 /obj/item/toy/plush/narplush/Moved()
 	. = ..()
@@ -483,8 +491,7 @@
 		P.clash_of_the_plushies(src)
 
 /obj/item/toy/plush/narplush/hugbox
-	desc = "A small stuffed doll of the elder goddess Nar'Sie. Who thought this was a good children's toy? <b>It looks sad.</b>"
-	is_invoker = FALSE
+	invoker_charges = 0
 
 /obj/item/toy/plush/lizardplushie
 	name = "lizard plushie"
@@ -656,6 +663,31 @@
 	desc = "An adorable mothperson plushy. It's a nightly bug!"
 	icon_state = "moffplush_moonfly"
 
+/obj/item/toy/plush/moth/witchwing
+	name = "witchwing moth plushie"
+	desc = "An adorable mothperson plushy. It's an enchanted bug!"
+	icon_state = "moffplush_witchwing"
+
+/obj/item/toy/plush/moth/bluespace
+	name = "bluespace moth plushie"
+	desc = "An adorable mothperson plushy. It's a teleporting bug!"
+	icon_state = "moffplush_bluespace"
+
+/obj/item/toy/plush/moth/plasmafire
+	name = "plasmafire moth plushie"
+	desc = "An adorable mothperson plushy. It's a plasma bug!"
+	icon_state = "moffplush_plasmafire"
+
+/obj/item/toy/plush/moth/brown
+	name = "brown moth plushie"
+	desc = "An adorable mothperson plushy. It's a brown bug!"
+	icon_state = "moffplush_brown"
+
+/obj/item/toy/plush/moth/rosy
+	name = "rosy moth plushie"
+	desc = "An adorable mothperson plushy. It's a cute bug!"
+	icon_state = "moffplush_rosy"
+
 /obj/item/toy/plush/moth/error
 	name = "error moth plushie"
 	desc = "An adorable mothperson plushy. It's a debuggable bug!"
@@ -688,6 +720,77 @@
 	name = "flushed plushie"
 	desc = "Hgrgrhrhg cute."
 	icon_state = "flushplush"
+
+/obj/item/choice_beacon/radial/plushie
+	name = "plushie delivery beacon"
+	desc = "Summon your new friend!"
+	icon_state = "gangtool-plushie"
+	var/static/list/plushie_list = list(
+		/obj/item/toy/plush/bubbleplush,
+		/obj/item/toy/plush/carpplushie,
+		/obj/item/toy/plush/snakeplushie,
+		/obj/item/toy/plush/lizardplushie,
+		/obj/item/toy/plush/slimeplushie,
+		/obj/item/toy/plush/nukeplushie,
+		/obj/item/toy/plush/awakenedplushie,
+		/obj/item/toy/plush/beeplushie,
+		/obj/item/toy/plush/crossed,
+		/obj/item/toy/plush/rouny,
+		/obj/item/toy/plush/runtime,
+		/obj/item/toy/plush/flushed,
+		/obj/item/toy/plush/gondola,
+		/obj/item/toy/plush/moth/atlas,
+		/obj/item/toy/plush/moth/bluespace,
+		/obj/item/toy/plush/moth/brown,
+		/obj/item/toy/plush/moth/clockwork,
+		/obj/item/toy/plush/moth/deadhead,
+		/obj/item/toy/plush/moth/firewatch,
+		/obj/item/toy/plush/moth/gothic,
+		/obj/item/toy/plush/moth/lovers,
+		/obj/item/toy/plush/moth/luna,
+		/obj/item/toy/plush/moth/monarch,
+		/obj/item/toy/plush/moth/moonfly,
+		/obj/item/toy/plush/moth/plasmafire,
+		/obj/item/toy/plush/moth/poison,
+		/obj/item/toy/plush/moth/punished,
+		/obj/item/toy/plush/moth/ragged,
+		/obj/item/toy/plush/moth/rainbow,
+		/obj/item/toy/plush/moth/redish,
+		/obj/item/toy/plush/moth/rosy,
+		/obj/item/toy/plush/moth/royal,
+		/obj/item/toy/plush/moth/snow,
+		/obj/item/toy/plush/moth/whitefly,
+		/obj/item/toy/plush/moth/witchwing
+	)
+
+/obj/item/choice_beacon/radial/plushie/generate_options(mob/living/M)
+	var/list/item_list = generate_item_list()
+	if(!length(item_list))
+		return
+	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE)
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+		for(var/V in plushie_list)
+			var/atom/A = V
+			if(initial(A.name) == choice)
+				spawn_option(A,M)
+				uses--
+				if(!uses)
+					qdel(src)
+				else
+					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
+					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+				return
+
+/obj/item/choice_beacon/radial/plushie/generate_item_list()
+	var/static/list/item_list
+	if(!item_list)
+		item_list = list()
+		for(var/obj/item/toy/plush/I as() in plushie_list)
+			var/image/plushie_icon = image(initial(I.icon), initial(I.icon_state))
+			var/datum/radial_menu_choice/choice = new
+			choice.image = plushie_icon
+			item_list[initial(I.name)] = choice
+	return item_list
 
 /////////////////
 //DONATOR ITEMS//

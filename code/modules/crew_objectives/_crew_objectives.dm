@@ -1,5 +1,5 @@
 /datum/controller/subsystem/job/proc/give_crew_objective(datum/mind/crewMind, mob/M)
-	if(CONFIG_GET(flag/allow_crew_objectives) && ((M?.client?.prefs.toggles2 & PREFTOGGLE_2_CREW_OBJECTIVES) || (crewMind?.current?.client?.prefs.toggles2 & PREFTOGGLE_2_CREW_OBJECTIVES)))
+	if(CONFIG_GET(flag/allow_crew_objectives) && (M?.client?.prefs.read_player_preference(/datum/preference/toggle/crew_objectives) || crewMind?.current?.client?.prefs.read_player_preference(/datum/preference/toggle/crew_objectives)))
 		generate_individual_objectives(crewMind)
 	return
 

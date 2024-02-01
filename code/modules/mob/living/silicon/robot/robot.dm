@@ -9,6 +9,7 @@
 	designation = "Default" //used for displaying the prefix & getting the current module of cyborg
 	has_limbs = 1
 	hud_type = /datum/hud/robot
+	radio = /obj/item/radio/borg
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
@@ -26,6 +27,8 @@
 
 	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
 	var/ratvar = FALSE
+
+	var/datum/action/cleaning_toggle/autoclean_toggle
 
 //Hud stuff
 
@@ -45,7 +48,7 @@
 	var/mutable_appearance/eye_lights
 
 	var/mob/living/silicon/ai/connected_ai = null
-	var/obj/item/stock_parts/cell/cell = null
+	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/high ///If this is a path, this gets created as an object in Initialize.
 
 	var/opened = 0
 	var/emagged = FALSE
@@ -56,8 +59,8 @@
 	var/locked = TRUE
 	var/list/req_access = list(ACCESS_ROBOTICS)
 
-	///Alarm listener datum, handes caring about alarm events and such
-	var/datum/alarm_listener/listener
+	/// Station alert datum for showing alerts UI
+	var/datum/station_alert/alert_control
 
 	var/speed = 0 // VTEC speed boost.
 	var/magpulse = FALSE // Magboot-like effect.
@@ -117,7 +120,7 @@
 	spark_system.attach(src)
 
 	wires = new /datum/wires/robot(src)
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 	RegisterSignal(src, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 
 	robot_modules_background = new()
@@ -126,8 +129,8 @@
 
 	ident = rand(1, 999)
 
-	if(!cell)
-		cell = new /obj/item/stock_parts/cell/high(src)
+	if(ispath(cell))
+		cell = new cell(src)
 
 	create_modularInterface()
 
@@ -137,7 +140,6 @@
 			lawupdate = FALSE
 			wires.ui_update()
 
-	radio = new /obj/item/radio/borg(src)
 	if(!scrambledcodes && !builtInCamera)
 		builtInCamera = new (src)
 		builtInCamera.c_tag = real_name
@@ -177,11 +179,11 @@
 	toner = tonermax
 	diag_hud_set_borgcell()
 
-	listener = new(list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER, ALARM_CAMERA, ALARM_BURGLAR, ALARM_MOTION), list(z))
-	RegisterSignal(listener, COMSIG_ALARM_TRIGGERED, PROC_REF(alarm_triggered))
-	RegisterSignal(listener, COMSIG_ALARM_CLEARED, PROC_REF(alarm_cleared))
-	listener.RegisterSignal(src, COMSIG_LIVING_DEATH, /datum/alarm_listener/proc/prevent_alarm_changes)
-	listener.RegisterSignal(src, COMSIG_LIVING_REVIVE, /datum/alarm_listener/proc/allow_alarm_changes)
+	alert_control = new(src, list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER, ALARM_CAMERA, ALARM_BURGLAR, ALARM_MOTION), list(z))
+	RegisterSignal(alert_control.listener, COMSIG_ALARM_TRIGGERED, PROC_REF(alarm_triggered))
+	RegisterSignal(alert_control.listener, COMSIG_ALARM_CLEARED, PROC_REF(alarm_cleared))
+	alert_control.listener.RegisterSignal(src, COMSIG_LIVING_DEATH, /datum/alarm_listener/proc/prevent_alarm_changes)
+	alert_control.listener.RegisterSignal(src, COMSIG_LIVING_REVIVE, /datum/alarm_listener/proc/allow_alarm_changes)
 
 	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
@@ -234,13 +236,16 @@
 		if(T && istype(radio) && istype(radio.keyslot))
 			radio.keyslot.forceMove(T)
 			radio.keyslot = null
+	if(autoclean_toggle)
+		autoclean_toggle.Remove(usr)
+	QDEL_NULL(autoclean_toggle)
 	QDEL_NULL(wires)
 	QDEL_NULL(eye_lights)
 	QDEL_NULL(inv1)
 	QDEL_NULL(inv2)
 	QDEL_NULL(inv3)
 	QDEL_NULL(spark_system)
-	QDEL_NULL(listener)
+	QDEL_NULL(alert_control)
 	cell = null
 	UnregisterSignal(src, COMSIG_ATOM_ON_EMAG)
 	UnregisterSignal(src, COMSIG_ATOM_SHOULD_EMAG)
@@ -285,8 +290,8 @@
 	var/changed_name = ""
 	if(custom_name)
 		changed_name = custom_name
-	if(changed_name == "" && C && C.prefs.active_character.custom_names["cyborg"] != DEFAULT_CYBORG_NAME)
-		if(apply_pref_name("cyborg", C))
+	if(changed_name == "" && C && C.prefs.read_character_preference(/datum/preference/name/cyborg) != DEFAULT_CYBORG_NAME)
+		if(apply_pref_name(/datum/preference/name/cyborg, C))
 			return //built in camera handled in proc
 	if(!changed_name)
 		changed_name = get_standard_name()
@@ -298,27 +303,6 @@
 
 /mob/living/silicon/robot/proc/get_standard_name()
 	return "[(designation ? "[designation] " : "")][mmi.braintype]-[ident]"
-
-/mob/living/silicon/robot/proc/robot_alerts()
-	var/dat = ""
-	var/list/alarms = listener.alarms
-	for (var/alarm_type in alarms)
-		dat += "<B>[alarm_type]</B><BR>\n"
-		var/list/alerts = alarms[alarm_type]
-		if (length(alerts))
-			for (var/alarm in alerts)
-				var/list/alm = alerts[alarm]
-				var/area/A = alm[1]
-				dat += "<NOBR>"
-				dat += "-- [A.name]"
-				dat += "</NOBR><BR>\n"
-		else
-			dat += "-- All Systems Nominal<BR>\n"
-		dat += "<BR>\n"
-
-	var/datum/browser/alerts = new(usr, "robotalerts", "Current Station Alerts", 400, 410)
-	alerts.set_content(dat)
-	alerts.open()
 
 /mob/living/silicon/robot/proc/ionpulse(thrust = 0.01, use_fuel = TRUE)
 	if(!ionpulse_on)
@@ -633,7 +617,7 @@
 	cut_overlays()
 	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 	icon_state = module.cyborg_base_icon
-	if(stat != DEAD && !(IsUnconscious() || IsStun() || IsParalyzed() || low_power_mode)) //Not dead, not stunned.
+	if(stat != DEAD && !(IsUnconscious() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
 		if(last_flashed && last_flashed + 30 SECONDS >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
@@ -657,7 +641,7 @@
 		else
 			add_overlay("ov-opencover -c")
 	if(hat)
-		var/mutable_appearance/head_overlay = hat.build_worn_icon(default_layer = 20, default_icon_file = 'icons/mob/clothing/head.dmi')
+		var/mutable_appearance/head_overlay = hat.build_worn_icon(src, default_layer = 20, default_icon_file = 'icons/mob/clothing/head.dmi')
 		head_overlay.pixel_y += hat_offset
 		add_overlay(head_overlay)
 	update_fire()
@@ -674,6 +658,7 @@
 		explosion(src.loc,1,2,4,flame_range = 2)
 	else
 		explosion(src.loc,-1,0,2)
+	investigate_log("has self-destructed.", INVESTIGATE_DEATHS)
 	gib()
 
 /mob/living/silicon/robot/proc/UnlinkSelf()
@@ -681,8 +666,7 @@
 		connected_ai.connected_robots -= src
 		src.connected_ai = null
 	lawupdate = FALSE
-	lockcharge = FALSE
-	mobility_flags |= MOBILITY_FLAGS_DEFAULT
+	set_lockcharge(FALSE)
 	scrambledcodes = TRUE_DEVIL
 	//Disconnect it's camera so it's not so easily tracked.
 	if(!QDELETED(builtInCamera))
@@ -713,9 +697,22 @@
 		throw_alert("locked", /atom/movable/screen/alert/locked)
 	else
 		clear_alert("locked")
-	lockcharge = state
+	set_lockcharge(state)
+
+///Reports the event of the change in value of the lockcharge variable.
+/mob/living/silicon/robot/proc/set_lockcharge(new_lockcharge)
+	if(new_lockcharge == lockcharge)
+		return
+	. = lockcharge
+	lockcharge = new_lockcharge
+	if(lockcharge)
+		if(!.)
+			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LOCKED_BORG_TRAIT)
+	else if(.)
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LOCKED_BORG_TRAIT)
 	update_mobility()
 	logevent("System lockdown [lockcharge?"triggered":"released"].")
+
 
 /mob/living/silicon/robot/proc/SetEmagged(new_state)
 	emagged = new_state
@@ -826,6 +823,10 @@
 		cell = null
 	qdel(src)
 
+///This is the subtype that gets created by robot suits. It's needed so that those kind of borgs don't have a useless cell in them
+/mob/living/silicon/robot/nocell
+	cell = null
+
 /mob/living/silicon/robot/modules
 	var/set_module = null
 
@@ -866,7 +867,7 @@
 
 /mob/living/silicon/robot/modules/syndicate
 	icon_state = "synd_sec"
-	faction = list(ROLE_SYNDICATE)
+	faction = list(FACTION_SYNDICATE)
 	bubble_icon = "syndibot"
 	req_access = list(ACCESS_SYNDICATE)
 	lawupdate = FALSE
@@ -877,11 +878,11 @@
 							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
 							<i>Help the operatives secure the disk at all costs!</i></b>"
 	set_module = /obj/item/robot_module/syndicate
+	cell = /obj/item/stock_parts/cell/hyper
+	radio = /obj/item/radio/borg/syndicate
 
 /mob/living/silicon/robot/modules/syndicate/Initialize(mapload)
 	. = ..()
-	cell = new /obj/item/stock_parts/cell/hyper(src, 25000)
-	radio = new /obj/item/radio/borg/syndicate(src)
 	laws = new /datum/ai_laws/syndicate_override()
 	//Add in syndicate access to their ID card.
 	create_access_card(get_all_syndicate_access())
@@ -1025,16 +1026,11 @@
 			death()
 			toggle_headlamp(1)
 			return
-		if(IsUnconscious() || IsStun() || IsKnockdown() || IsParalyzed() || getOxyLoss() > maxHealth*0.5)
-			if(stat == CONSCIOUS)
-				set_stat(UNCONSCIOUS)
-				blind_eyes(1)
-				update_mobility()
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStun() || IsKnockdown() || IsParalyzed())
+			set_stat(UNCONSCIOUS)
 		else
-			if(stat == UNCONSCIOUS)
-				set_stat(CONSCIOUS)
-				adjust_blindness(-1)
-				update_mobility()
+			set_stat(CONSCIOUS)
+	update_mobility()
 	diag_hud_set_status()
 	diag_hud_set_health()
 	diag_hud_set_aishell()
@@ -1105,8 +1101,14 @@
 
 	if(module.clean_on_move)
 		AddElement(/datum/element/cleaning)
+		autoclean_toggle = new()
+		autoclean_toggle.toggle_target = usr
+		autoclean_toggle.Grant(usr)
 	else
 		RemoveElement(/datum/element/cleaning)
+		if(autoclean_toggle)
+			autoclean_toggle.Remove(usr)
+			QDEL_NULL(autoclean_toggle)
 
 	hat_offset = module.hat_offset
 
@@ -1215,7 +1217,11 @@
 	mainframe.diag_hud_set_deployed()
 	if(mainframe.laws)
 		mainframe.laws.show_laws(mainframe) //Always remind the AI when switching
-	mainframe.eyeobj?.setLoc(get_turf(src))
+	if(!mainframe.eyeobj)
+		mainframe.create_eye()
+	mainframe.eyeobj.setLoc(get_turf(src))
+	transfer_observers_to(mainframe.eyeobj) // borg shell to eyemob
+	mainframe.transfer_observers_to(mainframe.eyeobj) // ai core to eyemob
 	mainframe = null
 
 /mob/living/silicon/robot/attack_ai(mob/user)
@@ -1225,6 +1231,7 @@
 
 /mob/living/silicon/robot/shell
 	shell = TRUE
+	cell = null
 
 /mob/living/silicon/robot/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(can_buckle && istype(M) && !(M in buckled_mobs) && ((user!=src)||(a_intent != INTENT_HARM)))

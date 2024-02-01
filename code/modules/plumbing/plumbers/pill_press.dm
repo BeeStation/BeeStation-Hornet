@@ -69,7 +69,7 @@
 
 /obj/machinery/plumbing/pill_press/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/medicine_containers),
+		get_asset_datum(/datum/asset/spritesheet_batched/medicine_containers),
 	)
 
 
@@ -98,7 +98,7 @@
 			chosen_pill_style = "[params["id"]]"
 			. = TRUE
 		if("change_pill_size")
-			pill_size = CLAMP(text2num(params["volume"]), minimum_pill, maximum_pill)
+			pill_size = clamp(text2num(params["volume"]), minimum_pill, maximum_pill)
 			. = TRUE
 		if("change_pill_name")
 			var/new_name = stripped_input(usr, "Enter a pill name.", name, pill_name)

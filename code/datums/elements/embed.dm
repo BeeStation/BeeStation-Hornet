@@ -29,7 +29,7 @@
 	var/armour_block
 	var/payload_type
 
-/datum/element/embed/Attach(datum/target, embed_chance, fall_chance, pain_chance, pain_mult, max_damage_mult, remove_pain_mult, rip_time, ignore_throwspeed_threshold, jostle_chance, jostle_pain_mult, pain_stam_pct, armour_block, projectile_payload=/obj/item/shard)
+/datum/element/embed/Attach(datum/target, embed_chance, fall_chance, pain_chance, pain_mult, max_damage_mult, remove_pain_mult, rip_time, ignore_throwspeed_threshold, jostle_chance, jostle_pain_mult, pain_stam_pct, armour_block)
 	. = ..()
 
 	if(!isitem(target) && !isprojectile(target))
@@ -56,7 +56,8 @@
 			src.armour_block = armour_block
 			initialized = TRUE
 	else
-		payload_type = projectile_payload
+		var/obj/projectile/P = target
+		payload_type = P.shrapnel_type
 		RegisterSignal(target, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(checkEmbedProjectile))
 
 
@@ -69,10 +70,10 @@
 
 
 /// Checking to see if we're gonna embed into a human
-/datum/element/embed/proc/checkEmbed(obj/item/weapon, mob/living/carbon/victim, hit_zone, datum/thrownthing/throwingdatum, forced=FALSE)
+/datum/element/embed/proc/checkEmbed(obj/item/weapon, mob/living/carbon/victim, hit_zone, blocked, datum/thrownthing/throwingdatum, forced=FALSE)
 	SIGNAL_HANDLER
 
-	if(!istype(victim) || HAS_TRAIT(victim, TRAIT_PIERCEIMMUNE))
+	if((!forced && blocked) || !istype(victim) || HAS_TRAIT(victim, TRAIT_PIERCEIMMUNE))
 		return
 
 	var/flying_speed = throwingdatum ? throwingdatum.speed : weapon.throw_speed
@@ -146,7 +147,7 @@
   * If we hit a valid target, we create the shrapnel_type object and immediately call tryEmbed() on it, targeting what we impacted. That will lead
   *	it to call tryForceEmbed() on its own embed element (it's out of our hands here, our projectile is done), where it will run through all the checks it needs to.
   */
-/datum/element/embed/proc/checkEmbedProjectile(obj/item/projectile/P, atom/movable/firer, atom/hit, angle, hit_zone)
+/datum/element/embed/proc/checkEmbedProjectile(obj/projectile/P, atom/movable/firer, atom/hit, angle, hit_zone)
 	SIGNAL_HANDLER
 
 	if(!iscarbon(hit))
@@ -192,5 +193,6 @@
 	else if(isbodypart(target))
 		limb = target
 		C = limb.owner
+		hit_zone = limb.body_zone
 
 	return checkEmbed(I, C, hit_zone, forced=TRUE)

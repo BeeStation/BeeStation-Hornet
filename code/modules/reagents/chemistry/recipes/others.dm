@@ -127,7 +127,7 @@
 /datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct(location)
+		new /obj/item/food/meat/slab/meatproduct(location)
 	return
 
 /datum/chemical_reaction/carbondioxide
@@ -241,14 +241,23 @@
 	var/level_min = 1
 	var/level_max = 2
 
-/datum/chemical_reaction/mix_virus/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/mix_virus/can_react(datum/reagents/holder)
+	return ..() && !isnull(find_virus(holder))
 
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B && B.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.Evolve(level_min, level_max)
-			D.logchanges(holder, "EVOLVE")
+/datum/chemical_reaction/mix_virus/proc/find_virus(datum/reagents/holder)
+	var/datum/reagent/blood/blood = locate(/datum/reagent/blood) in holder.reagent_list
+	if(!length(blood?.data))
+		return
+	for(var/datum/disease/advance/virus in blood.data["viruses"])
+		if(!virus.mutable)
+			continue
+		return virus
+
+/datum/chemical_reaction/mix_virus/on_reaction(datum/reagents/holder, created_volume)
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		target.Evolve(level_min, level_max)
+		target.logchanges(holder, "EVOLVE")
 
 /datum/chemical_reaction/mix_virus/mix_virus_2
 	name = "Mix Virus 2"
@@ -349,13 +358,10 @@
 	required_catalysts = list(/datum/reagent/blood = 1)
 
 /datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, created_volume)
-
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B && B.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.Devolve()
-			D.logchanges(holder, "DEVOLVE")
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		target.Devolve()
+		target.logchanges(holder, "DEVOLVE")
 
 //prevents a random symptom from showing while keeping the stats
 /datum/chemical_reaction/mix_virus/neuter_virus
@@ -365,13 +371,10 @@
 	required_catalysts = list(/datum/reagent/blood = 1)
 
 /datum/chemical_reaction/mix_virus/neuter_virus/on_reaction(datum/reagents/holder, created_volume)
-
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B?.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.Neuter()
-			D.logchanges(holder, "NEUTER")
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		target.Neuter()
+		target.logchanges(holder, "NEUTER")
 
 //prevents the altering of disease symptoms
 /datum/chemical_reaction/mix_virus/preserve_virus
@@ -381,13 +384,10 @@
 	required_catalysts = list(/datum/reagent/blood = 1)
 
 /datum/chemical_reaction/mix_virus/preserve_virus/on_reaction(datum/reagents/holder, created_volume)
-
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B?.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.mutable = FALSE
-			D.logchanges(holder, "PRESERVE")
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		target.mutable = FALSE
+		target.logchanges(holder, "PRESERVE")
 
 //prevents the disease from spreading via symptoms
 /datum/chemical_reaction/mix_virus/falter_virus
@@ -397,15 +397,12 @@
 	required_catalysts = list(/datum/reagent/blood = 1)
 
 /datum/chemical_reaction/mix_virus/falter_virus/on_reaction(datum/reagents/holder, created_volume)
-
-	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
-	if(B?.data)
-		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
-		if(D)
-			D.faltered = TRUE
-			D.spread_flags = DISEASE_SPREAD_FALTERED
-			D.spread_text = "Intentional Injection"
-			D.logchanges(holder, "FALTER")
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		target.faltered = TRUE
+		target.spread_flags = DISEASE_SPREAD_FALTERED
+		target.spread_text = "Intentional Injection"
+		target.logchanges(holder, "FALTER")
 
 
 ////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
@@ -549,8 +546,65 @@
 /datum/chemical_reaction/carpet
 	name = /datum/reagent/carpet
 	id = /datum/reagent/carpet
-	results = list(/datum/reagent/carpet = 2)
+	results = list(/datum/reagent/carpet = 10)
 	required_reagents = list(/datum/reagent/drug/space_drugs = 1, /datum/reagent/blood = 1)
+
+/datum/chemical_reaction/carpet/black
+	name = /datum/reagent/carpet/black
+	id = /datum/reagent/carpet/black
+	results = list(/datum/reagent/carpet/black = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/oil = 0.1)
+
+/datum/chemical_reaction/carpet/blue
+	name = /datum/reagent/carpet/blue
+	id = /datum/reagent/carpet/blue
+	results = list(/datum/reagent/carpet/blue = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/cryostylane = 0.1)
+
+/datum/chemical_reaction/carpet/cyan
+	name = /datum/reagent/carpet/cyan
+	id = /datum/reagent/carpet/cyan
+	results = list(/datum/reagent/carpet/cyan = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/toxin/cyanide = 0.1)
+	//cyan = cyanide get it huehueuhuehuehheuhe
+
+/datum/chemical_reaction/carpet/green
+	name = /datum/reagent/carpet/green
+	id = /datum/reagent/carpet/green
+	results = list(/datum/reagent/carpet/green = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/consumable/ethanol/beer/green = 0.1)
+	//make green beer by grinding up green crayons and mixing with beer
+
+/datum/chemical_reaction/carpet/orange
+	name = /datum/reagent/carpet/orange
+	id = /datum/reagent/carpet/orange
+	results = list(/datum/reagent/carpet/orange = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/consumable/orangejuice = 0.1)
+
+/datum/chemical_reaction/carpet/purple
+	name = /datum/reagent/carpet/purple
+	id = /datum/reagent/carpet/purple
+	results = list(/datum/reagent/carpet/purple = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/medicine/regen_jelly = 0.1)
+	//slimes only party
+
+/datum/chemical_reaction/carpet/red
+	name = /datum/reagent/carpet/red
+	id = /datum/reagent/carpet/red
+	results = list(/datum/reagent/carpet/red = 2)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/liquidgibs = 0.1)
+
+/datum/chemical_reaction/carpet/royalblack
+	name = /datum/reagent/carpet/royal/black
+	id = /datum/reagent/carpet/royal/black
+	results = list(/datum/reagent/carpet/royal/black = 2)
+	required_reagents = list(/datum/reagent/carpet/black = 1, /datum/reagent/royal_bee_jelly = 0.1)
+
+/datum/chemical_reaction/carpet/royalblue
+	name = /datum/reagent/carpet/royal/blue
+	id = /datum/reagent/carpet/royal/blue
+	results = list(/datum/reagent/carpet/royal/blue = 2)
+	required_reagents = list(/datum/reagent/carpet/blue = 1, /datum/reagent/royal_bee_jelly = 0.1)
 
 /datum/chemical_reaction/oil
 	name = "Oil"
@@ -628,6 +682,18 @@
 	results = list(/datum/reagent/concentrated_barbers_aid = 2)
 	required_reagents = list(/datum/reagent/barbers_aid = 1, /datum/reagent/toxin/mutagen = 1)
 
+/datum/chemical_reaction/barbers_afro_mania
+	name = /datum/reagent/barbers_afro_mania
+	id = /datum/reagent/barbers_afro_mania
+	results = list(/datum/reagent/barbers_afro_mania = 2)
+	required_reagents = list(/datum/reagent/concentrated_barbers_aid = 1, /datum/reagent/colorful_reagent = 1)
+
+/datum/chemical_reaction/barbers_shaving_aid
+	name = /datum/reagent/barbers_shaving_aid
+	id = /datum/reagent/barbers_shaving_aid
+	results = list(/datum/reagent/barbers_shaving_aid = 2)
+	required_reagents = list(/datum/reagent/concentrated_barbers_aid = 1, /datum/reagent/napalm = 1)
+
 /datum/chemical_reaction/saltpetre
 	name = /datum/reagent/saltpetre
 	id = /datum/reagent/saltpetre
@@ -668,6 +734,31 @@
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
 		new /obj/item/stack/sheet/plastic(location)
+
+/datum/chemical_reaction/glitter
+	name = "light pink glitter"
+	id = /datum/reagent/glitter
+	results = list(/datum/reagent/glitter = 10)
+	required_reagents = list(/datum/reagent/oil = 5, /datum/reagent/toxin/acid = 2, /datum/reagent/ash = 3, /datum/reagent/aluminium = 2)
+	required_temp = 340 //arbitrarily lower than plastic to prevent conflict
+
+/datum/chemical_reaction/glitter/pink
+	name = "pink glitter"
+	id = /datum/reagent/glitter/pink
+	results = list(/datum/reagent/glitter/pink = 5)
+	required_reagents = list(/datum/reagent/glitter = 5, /datum/reagent/stable_plasma = 1)
+
+/datum/chemical_reaction/glitter/white
+	name = "white glitter"
+	id = /datum/reagent/glitter/white
+	results = list(/datum/reagent/glitter/white = 5)
+	required_reagents = list(/datum/reagent/glitter = 5, /datum/reagent/consumable/sugar = 1)
+
+/datum/chemical_reaction/glitter/blue
+	name = "blue glitter"
+	id = /datum/reagent/glitter/blue
+	results = list(/datum/reagent/glitter/blue = 5)
+	required_reagents = list(/datum/reagent/glitter = 5, /datum/reagent/nitrogen = 1)
 
 /datum/chemical_reaction/pax
 	name = /datum/reagent/pax
@@ -781,3 +872,9 @@
 	id = /datum/reagent/mutationtoxin/plasma
 	results = list(/datum/reagent/mutationtoxin/plasma = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
+
+/datum/chemical_reaction/mutationtoxin/psyphoza
+	name = /datum/reagent/mutationtoxin/psyphoza
+	id = /datum/reagent/mutationtoxin/psyphoza
+	results = list(/datum/reagent/mutationtoxin/psyphoza = 5)
+	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/amatoxin = 5)

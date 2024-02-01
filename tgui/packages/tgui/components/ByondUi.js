@@ -15,7 +15,7 @@ const logger = createLogger('ByondUi');
 // Stack of currently allocated BYOND UI element ids.
 const byondUiStack = [];
 
-const createByondUiElement = elementId => {
+const createByondUiElement = (elementId) => {
   // Reserve an index in the stack
   const index = byondUiStack.length;
   byondUiStack.push(null);
@@ -24,49 +24,52 @@ const createByondUiElement = elementId => {
   logger.log(`allocated '${id}'`);
   // Return a control structure
   return {
-    render: params => {
+    render: (params) => {
       logger.log(`rendering '${id}'`);
       byondUiStack[index] = id;
+      params['is-visible'] = 'true';
       Byond.winset(id, params);
+      Byond.sendMessage('byondui_update', { mounting: true, id: id });
     },
     unmount: () => {
-      logger.log(`unmounting '${id}'`);
-      byondUiStack[index] = null;
+      logger.log(`hiding '${id}'`);
+      // temporarily hides the element, in case the window wants to re-use it. it will be unmounted during window unload.
       Byond.winset(id, {
-        parent: '',
+        'is-visible': 'false',
       });
+      Byond.sendMessage('byondui_update', { mounting: false, id: id });
     },
   };
 };
 
-window.addEventListener('beforeunload', () => {
-  // Cleanly unmount all visible UI elements
+// This is also called by the backend on suspend.
+export const cleanupByondUIs = () => {
+  // Cleanly unmount all UI elements
   for (let index = 0; index < byondUiStack.length; index++) {
     const id = byondUiStack[index];
     if (typeof id === 'string') {
-      logger.log(`unmounting '${id}' (beforeunload)`);
+      logger.log(`unmounting '${id}' (suspend/close/beforeunload)`);
       byondUiStack[index] = null;
       Byond.winset(id, {
-        parent: '',
+        'parent': '',
       });
+      Byond.sendMessage('byondui_update', { mounting: false, id: id });
     }
   }
-});
+};
+
+window.addEventListener('beforeunload', cleanupByondUIs);
+window.addEventListener('close', cleanupByondUIs);
 
 /**
- * Get the bounding box of the DOM element.
+ * Get the bounding box of the DOM element in display-pixels.
  */
-const getBoundingBox = element => {
+const getBoundingBox = (element) => {
+  const pixelRatio = window.devicePixelRatio ?? 1;
   const rect = element.getBoundingClientRect();
   return {
-    pos: [
-      rect.left,
-      rect.top,
-    ],
-    size: [
-      rect.right - rect.left,
-      rect.bottom - rect.top,
-    ],
+    pos: [rect.left * pixelRatio, rect.top * pixelRatio],
+    size: [(rect.right - rect.left) * pixelRatio, (rect.bottom - rect.top) * pixelRatio],
   };
 };
 
@@ -81,16 +84,9 @@ export class ByondUi extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    const {
-      params: prevParams = {},
-      ...prevRest
-    } = this.props;
-    const {
-      params: nextParams = {},
-      ...nextRest
-    } = nextProps;
-    return shallowDiffers(prevParams, nextParams)
-      || shallowDiffers(prevRest, nextRest);
+    const { params: prevParams = {}, ...prevRest } = this.props;
+    const { params: nextParams = {}, ...nextRest } = nextProps;
+    return shallowDiffers(prevParams, nextParams) || shallowDiffers(prevRest, nextRest);
   }
 
   componentDidMount() {
@@ -108,9 +104,7 @@ export class ByondUi extends Component {
     if (Byond.IS_LTE_IE10) {
       return;
     }
-    const {
-      params = {},
-    } = this.props;
+    const { params = {} } = this.props;
     const box = getBoundingBox(this.containerRef.current);
     logger.debug('bounding box', box);
     this.byondUiElement.render({
@@ -133,9 +127,7 @@ export class ByondUi extends Component {
   render() {
     const { params, ...rest } = this.props;
     return (
-      <div
-        ref={this.containerRef}
-        {...computeBoxProps(rest)}>
+      <div ref={this.containerRef} {...computeBoxProps(rest)}>
         {/* Filler */}
         <div style={{ 'min-height': '22px' }} />
       </div>

@@ -6,16 +6,17 @@
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
-	climbable = TRUE
 	pass_flags_self = LETPASSTHROW
 	can_buckle = TRUE
 	buckle_lying = 90 //we turn to you!
+	resistance_flags = INDESTRUCTIBLE
 	///Avoids having to check global everytime by referencing it locally.
 	var/datum/religion_sect/sect_to_altar
 
 /obj/structure/altar_of_gods/Initialize(mapload)
 	. = ..()
 	reflect_sect_in_icons()
+	AddElement(/datum/element/climbable)
 
 /obj/structure/altar_of_gods/ComponentInitialize()
 	. = ..()
@@ -162,3 +163,54 @@
 	if(I.tool_behaviour == TOOL_WRENCH)
 		return
 	return ..()
+
+////Shadow Sect //Original code by DingoDongler
+
+/obj/structure/destructible/religion/shadow_obelisk
+	name = "Shadow Obelisk"
+	desc = "Grants favor from being shrouded in shadows."
+	icon = 'icons/obj/hand_of_god_structures.dmi'
+	icon_state = "shadow-obelisk"
+	anchored = FALSE
+	break_message = "<span class='warning'>The Obelisk crumbles before you!</span>"
+
+/obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/nullrod))
+		if(user.mind?.holy_role == NONE)
+			to_chat(user, "<span class='warning'>Only the faithful may control the disposition of [src]!</span>")
+			return
+		anchored = !anchored
+		user.visible_message("<span class ='notice'>[user] [anchored ? "" : "un"]anchors [src] [anchored ? "to" : "from"] the floor with [I].</span>", "<span class ='notice'>You [anchored ? "" : "un"]anchor [src] [anchored ? "to" : "from"] the floor with [I].</span>")
+		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
+		user.do_attack_animation(src)
+		return
+	if(I.tool_behaviour == TOOL_WRENCH)
+		return
+	return ..()
+
+// Favor generator component. Used on the altar and obelisks
+/datum/component/dark_favor //Original code by DingoDongler
+	var/mob/living/creator
+
+/datum/component/dark_favor/Initialize(mob/living/L)
+	. = ..()
+	if(!L)
+		return
+	creator = L
+	START_PROCESSING(SSobj, src)
+
+/datum/component/dark_favor/Destroy() //Original code by DingoDongler
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/datum/component/dark_favor/process(delta_time) //Original code by DingoDongler
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!istype(parent, /atom) || !istype(creator) || !istype(sect))
+		return
+	var/atom/P = parent
+	var/turf/T = P.loc
+	if(!istype(T))
+		return
+	var/light_amount = T.get_lumcount()
+	var/favor_gained = max(1 - light_amount, 0) * delta_time
+	sect.adjust_favor(favor_gained, creator)

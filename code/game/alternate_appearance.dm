@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	if(alternate_appearances && alternate_appearances[key])
 		return
 	var/list/arguments = args.Copy(2)
-	new type(arglist(arguments))
+	return new type(arglist(arguments))
 
 /datum/atom_hud/alternate_appearance
 	var/appearance_key
@@ -91,8 +91,10 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /datum/atom_hud/alternate_appearance/basic/remove_from_hud(atom/A)
 	. = ..()
+	if(!.)
+		return
 	A.hud_list -= appearance_key
-	if(. && !QDELETED(src))
+	if(!QDELETED(src))
 		qdel(src)
 
 /datum/atom_hud/alternate_appearance/basic/copy_overlays(atom/other, cut_old)
@@ -178,15 +180,15 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		return TRUE
 	return FALSE
 
-/datum/atom_hud/alternate_appearance/basic/onePerson
+/datum/atom_hud/alternate_appearance/basic/one_person
 	var/mob/seer
 
-/datum/atom_hud/alternate_appearance/basic/onePerson/mobShouldSee(mob/M)
+/datum/atom_hud/alternate_appearance/basic/one_person/mobShouldSee(mob/M)
 	if(M == seer)
 		return TRUE
 	return FALSE
 
-/datum/atom_hud/alternate_appearance/basic/onePerson/New(key, image/I, mob/living/M)
+/datum/atom_hud/alternate_appearance/basic/one_person/New(key, image/I, mob/living/M)
 	..(key, I, FALSE)
 	seer = M
 	add_hud_to(seer)

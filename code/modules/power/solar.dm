@@ -15,7 +15,7 @@
 
 	var/id = 0
 	max_integrity = 150
-	integrity_failure = 50
+	integrity_failure = 0.33
 	var/obscured = 0
 	var/sunfrac = 0
 	var/adir = SOUTH // actual dir
@@ -257,12 +257,16 @@
 	name = "solar panel control"
 	desc = "A controller for solar panel arrays."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "computer"
+	icon_state = "computer-0"
+	base_icon_state = "computer"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIRECTIONAL | SMOOTH_BITMASK_SKIP_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_COMPUTERS)
+	canSmoothWith = list(SMOOTH_GROUP_COMPUTERS)
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 250
 	max_integrity = 200
-	integrity_failure = 100
+	integrity_failure = 0.5
 	var/icon_screen = "solar"
 	var/icon_keyboard = "power_key"
 	var/id = 0
@@ -278,6 +282,8 @@
 
 /obj/machinery/power/solar_control/Initialize(mapload)
 	. = ..()
+	QUEUE_SMOOTH(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	if(powernet)
 		set_panels(currentdir)
 	connect_to_network()
@@ -287,6 +293,7 @@
 		M.unset_control()
 	if(connected_tracker)
 		connected_tracker.unset_control()
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 /obj/machinery/power/solar_control/disconnect_from_network()
@@ -378,7 +385,7 @@
 			if(adjust)
 				value = currentdir + adjust
 			if(value != null)
-				currentdir = CLAMP((360 + value) % 360, 0, 359)
+				currentdir = clamp((360 + value) % 360, 0, 359)
 				targetdir = currentdir
 				set_panels(currentdir)
 				. = TRUE
@@ -388,7 +395,7 @@
 			if(adjust)
 				value = trackrate + adjust
 			if(value != null)
-				trackrate = CLAMP(value, -7200, 7200)
+				trackrate = clamp(value, -7200, 7200)
 				if(trackrate)
 					nexttime = world.time + 36000 / abs(trackrate)
 				. = TRUE
@@ -481,11 +488,6 @@
 		S.occlusion()//and
 		S.update_icon() //update it
 
-	update_icon()
-
-
-/obj/machinery/power/solar_control/power_change()
-	..()
 	update_icon()
 
 

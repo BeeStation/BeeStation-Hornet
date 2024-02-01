@@ -9,10 +9,14 @@
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/stack/sheet/brass, /obj/item/clockwork, /obj/item/gun/ballistic/bow/clockwork)
+	var/allow_any = FALSE
+
+/obj/item/clothing/suit/clockwork/anyone
+	allow_any = TRUE
 
 /obj/item/clothing/suit/clockwork/equipped(mob/living/user, slot)
 	. = ..()
-	if(!is_servant_of_ratvar(user))
+	if(!is_servant_of_ratvar(user) && !allow_any)
 		to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
 		user.dropItemToGround(src, TRUE)
 		var/mob/living/carbon/C = user
@@ -90,7 +94,7 @@
 	name = "wraith spectacles"
 	desc = "Mystical glasses that glow with a bright energy. Some say they can see things that shouldn't be seen."
 	icon_state = "wraith_specs"
-	invis_view = SEE_INVISIBLE_OBSERVER
+	invis_view = SEE_INVISIBLE_SPIRIT
 	invis_override = null
 	flash_protect = -1
 	vision_flags = SEE_MOBS

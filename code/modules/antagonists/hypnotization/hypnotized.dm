@@ -26,7 +26,7 @@
 
 /datum/antagonist/hypnotized
 	name = "Hypnotized Victim"
-	job_rank = ROLE_HYPNOTIZED
+	banning_key = ROLE_HYPNOTIZED
 	roundend_category = "hypnotized victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
@@ -46,6 +46,7 @@
 
 
 /datum/antagonist/hypnotized/greet()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/hypnosis.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 	var/i = 1
 	for(var/X in objectives)
 		var/datum/objective/O = X

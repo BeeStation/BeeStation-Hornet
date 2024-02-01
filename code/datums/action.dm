@@ -33,6 +33,7 @@
 
 /datum/action/proc/link_to(Target)
 	target = Target
+	RegisterSignal(Target, COMSIG_ATOM_UPDATED_ICON, PROC_REF(OnUpdatedIcon))
 
 /datum/action/Destroy()
 	if(owner)
@@ -68,7 +69,7 @@
 		M.actions += src
 		if(M.client)
 			M.client.screen += button
-			button.locked = (M.client.prefs.toggles2 & PREFTOGGLE_2_LOCKED_BUTTONS) || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
+			button.locked = M.client.prefs.read_player_preference(/datum/preference/toggle/buttons_locked) || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
 			button.moved = button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE
 			var/obj/effect/proc_holder/spell/spell_proc_holder = button.linked_action.target
 			if(istype(spell_proc_holder) && spell_proc_holder.text_overlay)
@@ -153,6 +154,10 @@
 		current_button.cut_overlays()
 		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
 		current_button.button_icon_state = button_icon_state
+
+/datum/action/proc/OnUpdatedIcon()
+	SIGNAL_HANDLER
+	UpdateButtonIcon()
 
 //Presets for item actions
 /datum/action/item_action
@@ -284,13 +289,13 @@
 		H.toggle_welding_screen(owner)
 
 /datum/action/item_action/toggle_headphones
-	name = "Toggle Headphones"
+	name = "Open Music Menu"
 	desc = "UNTZ UNTZ UNTZ"
 
 /datum/action/item_action/toggle_headphones/Trigger()
 	var/obj/item/clothing/ears/headphones/H = target
 	if(istype(H))
-		H.toggle(owner)
+		H.interact(owner)
 
 /datum/action/item_action/toggle_unfriendly_fire
 	name = "Toggle Friendly Fire \[ON\]"
@@ -553,6 +558,13 @@
 	var/box = new boxtype(owner.drop_location())
 	owner.forceMove(box)
 	owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
+
+/datum/action/item_action/portaseeder_dissolve
+	name = "Activate Seed Extractor"
+
+/datum/action/item_action/portaseeder_dissolve/Trigger()
+	var/obj/item/storage/bag/plants/portaseeder/H = target
+	H.dissolve_contents()
 
 //Preset for spells
 /datum/action/spell_action

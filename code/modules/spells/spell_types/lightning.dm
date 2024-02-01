@@ -57,22 +57,22 @@
 		return
 
 	playsound(get_turf(user), 'sound/magic/lightningbolt.ogg', 50, 1)
-	user.Beam(target,icon_state="lightning[rand(1,12)]",time=5)
+	user.Beam(target,icon_state="lightning[rand(1,12)]", time = 5)
 
 	Bolt(user,target,30,5,user)
 	Reset(user)
 
 /obj/effect/proc_holder/spell/targeted/tesla/proc/Bolt(mob/origin,mob/target,bolt_energy,bounces,mob/user = usr)
-	origin.Beam(target,icon_state="lightning[rand(1,12)]",time=5)
+	origin.Beam(target,icon_state="lightning[rand(1,12)]", time = 5)
 	var/mob/living/carbon/current = target
 	if(current.anti_magic_check())
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 		current.visible_message("<span class='warning'>[current] absorbs the spell, remaining unharmed!</span>", "<span class='userdanger'>You absorb the spell, remaining unharmed!</span>")
 	else if(bounces < 1)
-		current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
+		current.electrocute_act(bolt_energy,"Lightning Bolt",flags = SHOCK_NOGLOVES)
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 	else
-		current.electrocute_act(bolt_energy,"Lightning Bolt",safety=1)
+		current.electrocute_act(bolt_energy,"Lightning Bolt",flags = SHOCK_NOGLOVES)
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 		var/list/possible_targets = new
 		for(var/mob/living/M in view_or_range(range,target,"view"))

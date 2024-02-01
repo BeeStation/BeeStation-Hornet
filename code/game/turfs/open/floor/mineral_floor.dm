@@ -13,13 +13,13 @@
 /turf/open/floor/mineral
 	name = "mineral floor"
 	icon_state = ""
+	material_flags = MATERIAL_EFFECTS
 	var/list/icons
 	tiled_dirt = FALSE
+	max_integrity = 200
 
 
 /turf/open/floor/mineral/Initialize(mapload)
-	if(!broken_states)
-		broken_states = list("[initial(icon_state)]_dam")
 	. = ..()
 	icons = typelist("icons", icons)
 
@@ -38,6 +38,7 @@
 	icon_state = "plasma"
 	floor_tile = /obj/item/stack/tile/mineral/plasma
 	icons = list("plasma","plasma_dam")
+	max_integrity = 200
 
 /turf/open/floor/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
@@ -67,6 +68,7 @@
 	icon_state = "gold"
 	floor_tile = /obj/item/stack/tile/mineral/gold
 	icons = list("gold","gold_dam")
+	max_integrity = 250
 
 //SILVER
 
@@ -75,6 +77,7 @@
 	icon_state = "silver"
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
+	max_integrity = 300
 
 //COPPER
 
@@ -83,6 +86,7 @@
 	icon_state = "copper"
 	floor_tile = /obj/item/stack/tile/mineral/copper
 	icons = list("copper","copper_dam")
+	max_integrity = 175
 
 //TITANIUM (shuttle)
 
@@ -90,7 +94,6 @@
 	name = "shuttle floor"
 	icon_state = "titanium"
 	floor_tile = /obj/item/stack/tile/mineral/titanium
-	broken_states = list("titanium_dam1","titanium_dam2","titanium_dam3","titanium_dam4","titanium_dam5")
 
 /turf/open/floor/mineral/titanium/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -127,7 +130,6 @@
 	name = "titanium floor"
 	icon_state = "titanium_alt"
 	floor_tile = /obj/item/stack/tile/mineral/titanium/alt
-	broken_states = list("titanium_dam1_alt","titanium_dam2_alt","titanium_dam3_alt","titanium_dam4_alt","titanium_dam5_alt")
 
 /turf/open/floor/mineral/titanium/alt/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -141,21 +143,21 @@
 
 /turf/open/floor/mineral/titanium/alt/blue
 	icon_state = "titanium_blue_alt"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/yellow
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/blue
 
 /turf/open/floor/mineral/titanium/alt/blue/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/open/floor/mineral/titanium/alt/white
 	icon_state = "titanium_white_alt"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/yellow
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/white
 
 /turf/open/floor/mineral/titanium/alt/white/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/open/floor/mineral/titanium/alt/purple
 	icon_state = "titanium_purple_alt"
-	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/yellow
+	floor_tile = /obj/item/stack/tile/mineral/titanium/alt/purple
 
 /turf/open/floor/mineral/titanium/alt/purple/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -165,7 +167,6 @@
 	name = "shuttle floor"
 	icon_state = "plastitanium"
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
-	broken_states = list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
 
 /turf/open/floor/mineral/plastitanium/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -186,6 +187,9 @@
 	icon_state = "bananium"
 	floor_tile = /obj/item/stack/tile/mineral/bananium
 	icons = list("bananium","bananium_dam")
+	custom_materials = list(/datum/material/bananium = 500)
+	material_flags = NONE //The slippery comp makes it unpractical for good clown decor. The custom mat one should still slip.
+	max_integrity = 100
 	var/spam_flag = 0
 
 /turf/open/floor/mineral/bananium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -230,6 +234,8 @@
 	icon_state = "diamond"
 	floor_tile = /obj/item/stack/tile/mineral/diamond
 	icons = list("diamond","diamond_dam")
+	max_integrity = 400
+	damage_deflection = 10
 
 //URANIUM
 
@@ -239,6 +245,8 @@
 	icon_state = "uranium"
 	floor_tile = /obj/item/stack/tile/mineral/uranium
 	icons = list("uranium","uranium_dam")
+	max_integrity = 75
+	damage_deflection = 0
 	var/last_event = 0
 	var/active = null
 
@@ -282,6 +290,8 @@
 	floor_tile = /obj/item/stack/tile/mineral/abductor
 	icons = list("alienpod1", "alienpod2", "alienpod3", "alienpod4", "alienpod5", "alienpod6", "alienpod7", "alienpod8", "alienpod9")
 	baseturfs = /turf/open/floor/plating/abductor2
+	max_integrity = 450
+	damage_deflection = 15
 
 /turf/open/floor/mineral/abductor/Initialize(mapload)
 	. = ..()

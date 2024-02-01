@@ -8,7 +8,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
-	materials = list(/datum/material/iron=60, /datum/material/glass=30)
+	custom_materials = list(/datum/material/iron=60, /datum/material/glass=30)
 	force = 2
 	throwforce = 0
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
@@ -88,15 +88,18 @@
 	eject(usr)
 
 
-/obj/item/taperecorder/update_icon()
+/obj/item/taperecorder/update_icon_state()
 	if(!mytape)
 		icon_state = "taperecorder_empty"
-	else if(recording)
+		return ..()
+	if(recording)
 		icon_state = "taperecorder_recording"
-	else if(playing)
+		return ..()
+	if(playing)
 		icon_state = "taperecorder_playing"
-	else
-		icon_state = "taperecorder_idle"
+		return ..()
+	icon_state = "taperecorder_idle"
+	return ..()
 
 
 /obj/item/taperecorder/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
@@ -211,7 +214,8 @@
 	set name = "Print Transcript"
 	set category = "Object"
 
-	if(!can_use(usr))
+	var/list/transcribed_info = mytape.storedinfo
+	if(!length(transcribed_info))
 		return
 	if(!mytape)
 		return
@@ -220,15 +224,41 @@
 		return
 	if(recording || playing)
 		return
+	if(!can_use(usr))
+		return
 
-	to_chat(usr, "<span class='notice'>Transcript printed.</span>")
+	var/transcribed_text = "<b>Transcript:</b><br><br>"
+	var/page_count = 1
+
+	var/tape_name = mytape.name
+	var/initial_tape_name = initial(mytape.name)
+	var/paper_name = "paper- '[tape_name == initial_tape_name ? "Tape" : "[tape_name]"] Transcript'"
+
+	for(var/transcript_excerpt in transcribed_info)
+		var/excerpt_length = length(transcript_excerpt)
+
+		// Very unexpected. Better abort non-gracefully.
+		if(excerpt_length > MAX_PAPER_LENGTH)
+			say("Error: Data corruption detected. Cannot print.")
+			CRASH("Transcript entry has more than [MAX_PAPER_LENGTH] chars: [excerpt_length] chars")
+
+		// If we're going to overflow the paper's length, print the current transcribed text out first and reset to prevent us
+		// going over the paper char count.
+		if((length(transcribed_text) + excerpt_length) > MAX_PAPER_LENGTH)
+			var/obj/item/paper/transcript_paper = new /obj/item/paper(get_turf(src))
+			transcript_paper.add_raw_text(transcribed_text)
+			transcript_paper.name = "[paper_name] page [page_count]"
+			transcript_paper.update_appearance()
+			transcribed_text = ""
+			page_count++
+
+		transcribed_text += "[transcript_excerpt]<br>"
+
 	var/obj/item/paper/transcript_paper = new /obj/item/paper(get_turf(src))
-	var/t1 = "<B>Transcript:</B><BR><BR>"
-	for(var/i in 1 to mytape.storedinfo.len)
-		t1 += "[mytape.storedinfo[i]]<BR>"
-	transcript_paper.add_raw_text(t1)
-	transcript_paper.name = "paper- 'Transcript'"
+	transcript_paper.add_raw_text(transcribed_text)
+	transcript_paper.name = "[paper_name] page [page_count]"
 	transcript_paper.update_appearance()
+	to_chat(usr, "Transcript printed, [page_count] pages.")
 	usr.put_in_hands(transcript_paper)
 	canprint = FALSE
 	addtimer(VARSET_CALLBACK(src, canprint, TRUE), 30 SECONDS)
@@ -248,7 +278,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(/datum/material/iron=20, /datum/material/glass=5)
+	custom_materials = list(/datum/material/iron=20, /datum/material/glass=5)
 	force = 1
 	throwforce = 0
 	var/max_capacity = 600

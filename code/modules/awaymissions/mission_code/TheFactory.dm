@@ -273,7 +273,7 @@
 		playsound(get_turf(src), chosen_sound, 100, 0, 0)
 		var/list/possible_phrases = list("Anomaly spotted! Send backup!","Intruder over here!","Hostile spotted, get them!")
 		var/chosen_phrase = pick(possible_phrases)
-		say(chosen_phrase)
+		say(chosen_phrase, language = speak_language)
 	else
 		return
 
@@ -561,7 +561,7 @@
 	ranged = TRUE
 	rapid = 65
 	rapid_fire_delay = 0.5
-	projectiletype = /obj/item/projectile/beam
+	projectiletype = /obj/projectile/beam
 	ranged_cooldown_time = 110
 	vision_range = 9
 	speak_chance = 0
@@ -784,7 +784,7 @@
 /obj/item/gun/ballistic/shotgun/lever_action
 	name = "lever action shotgun"
 	desc = "A really old shotgun with five shell capacity. This one can fit in a backpack."
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	dual_wield_spread = 0
 	fire_sound_volume = 60    //tried on 90 my eardrums said goodbye
 	item_state = "leveraction"

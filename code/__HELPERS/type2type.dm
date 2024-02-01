@@ -395,7 +395,6 @@
 		else
 			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
 
-
 /// Converts a text color like "red" to a hex color ("#FF0000")
 /proc/color2hex(color)	//web colors
 	if(!color)
@@ -441,10 +440,8 @@
 		else
 			return "#FFFFFF"
 
-
 /**
 This is a weird one: It returns a list of all var names found in the string. These vars must be in the [var_name] format
-
 It's only a proc because it's used in more than one place
 
 Takes a string and a datum. The string is well, obviously the string being checked. The datum is used as a source for var names, to check validity. Otherwise every single word could technically be a variable!
@@ -475,15 +472,6 @@ Takes a string and a datum. The string is well, obviously the string being check
 				for(var/A in value)
 					if(var_source.vars.Find(A))
 						. += A
-
-/// Converts a hex code to a number
-/proc/color_hex2num(A)
-	if(!A || length(A) != length_char(A))
-		return 0
-	var/R = hex2num(copytext(A, 2, 4))
-	var/G = hex2num(copytext(A, 4, 6))
-	var/B = hex2num(copytext(A, 6, 8))
-	return R+G+B
 
 //word of warning: using a matrix like this as a color value will simplify it back to a string after being set
 /proc/color_hex2color_matrix(string)

@@ -44,6 +44,9 @@
 /turf/closed/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
+	smoothing_flags = NONE
+	base_icon_state = null
+	canSmoothWith = null
 
 /turf/closed/wall/ice
 	icon = 'icons/turf/walls/icedmetal_wall.dmi'
@@ -128,3 +131,6 @@
 		qdel(interloper)
 
 	qdel(AM)
+
+/turf/closed/indestructible/cordon/is_holy()
+	return TRUE // The blessed cordon

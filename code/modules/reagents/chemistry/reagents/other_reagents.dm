@@ -34,6 +34,7 @@
 
 
 /datum/reagent/blood/on_new(list/data)
+	. = ..()
 	if(istype(data))
 		SetViruses(src, data)
 
@@ -192,6 +193,7 @@
 	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
 	if(A)
 		A.acid_level = max(A.acid_level - reac_volume*50, 0)
+	T.clean_turf_texture()
 
 /*
  *	Water reaction to an object
@@ -201,8 +203,8 @@
 	O.extinguish()
 	O.acid_level = 0
 	// Monkey cube
-	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
-		var/obj/item/reagent_containers/food/snacks/monkeycube/cube = O
+	if(istype(O, /obj/item/food/monkeycube))
+		var/obj/item/food/monkeycube/cube = O
 		cube.Expand()
 
 	// Dehydrated carp
@@ -478,8 +480,8 @@
 				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
 			else
 				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
-		if(prob(10))
-			M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don???t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."), forced = /datum/reagent/spraytan)
+		if(prob(2))
+			M.say(pick("Shit was SO cash.", "Duuuuuude. Yeah bro.", "Check my muscles, broooo!", "Hell yeah brooo!"), forced = /datum/reagent/spraytan)
 
 #define MUT_MSG_IMMEDIATE 1
 #define MUT_MSG_EXTENDED 2
@@ -707,6 +709,14 @@
 	chem_flags = CHEMICAL_RNG_FUN
 	race = /datum/species/plasmaman
 	taste_description = "plasma"
+
+/datum/reagent/mutationtoxin/psyphoza
+	name = "Psyphoza Mutation Toxin"
+	description = "A fungal-based toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	chem_flags = CHEMICAL_RNG_FUN
+	race = /datum/species/psyphoza
+	taste_description = "fungus"
 
 #undef MUT_MSG_IMMEDIATE
 #undef MUT_MSG_EXTENDED
@@ -1104,6 +1114,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "sourness"
 	reagent_weight = 0.6 //so it sprays further
+	var/clean_types = CLEAN_WASH
 	var/toxic = FALSE //turn to true if someone drinks this, so it won't poison people who are simply getting sprayed down
 
 /datum/reagent/space_cleaner/on_mob_life(mob/living/carbon/M)
@@ -1113,53 +1124,23 @@
 	return TRUE
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, reac_volume)
-	if(istype(O, /obj/effect/decal/cleanable))
-		qdel(O)
-	else
-		if(O)
-			O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-			SEND_SIGNAL(O, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
+	O?.wash(clean_types)
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, reac_volume)
 	if(reac_volume >= 1)
-		T.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-		SEND_SIGNAL(T, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
-		for(var/obj/effect/decal/cleanable/C in T)
-			qdel(C)
+		T.wash(clean_types)
+		for(var/am in T)
+			var/atom/movable/movable_content
+			if(ismopable(movable_content)) // Mopables will be cleaned anyways by the turf wash
+				continue
+			movable_content.wash(clean_types)
 
 		for(var/mob/living/simple_animal/slime/M in T)
 			M.adjustToxLoss(rand(5,10))
 
 /datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
-		M.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				if(H.lip_style)
-					H.lip_style = null
-					H.update_body()
-			for(var/obj/item/I in C.held_items)
-				SEND_SIGNAL(I, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
-			if(C.wear_mask)
-				if(SEND_SIGNAL(C.wear_mask, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
-					C.update_inv_wear_mask()
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = C
-				if(H.head)
-					if(SEND_SIGNAL(H.head, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
-						H.update_inv_head()
-				if(H.wear_suit)
-					if(SEND_SIGNAL(H.wear_suit, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
-						H.update_inv_wear_suit()
-				else if(H.w_uniform)
-					if(SEND_SIGNAL(H.w_uniform, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
-						H.update_inv_w_uniform()
-				if(H.shoes)
-					if(SEND_SIGNAL(H.shoes, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
-						H.update_inv_shoes()
-			SEND_SIGNAL(M, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
+		M.wash(clean_types)
 	else if(method == INGEST || method == INJECT) //why the fuck did you drink space cleaner you fucking buffoon
 		toxic = TRUE
 
@@ -1604,20 +1585,101 @@
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "metal"
 
-
 /datum/reagent/carpet
 	name = "Carpet"
 	description = "For those that need a more creative way to roll out a red carpet."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
-	chem_flags = CHEMICAL_GOAL_BARTENDER_SERVING // this is lame one to put random. at least good as bartender flavor.
+	color = "#771100" //The color of the average carpet! Carpets are brown, not pink!
+	chem_flags = NONE //Way too many of these to be fair to the bartender!
 	taste_description = "carpet" // Your tongue feels furry.
+	var/carpet_type = /turf/open/floor/carpet
 
 /datum/reagent/carpet/reaction_turf(turf/T, reac_volume)
 	if(isplatingturf(T) || istype(T, /turf/open/floor/plasteel))
 		var/turf/open/floor/F = T
-		F.PlaceOnTop(/turf/open/floor/carpet, flags = CHANGETURF_INHERIT_AIR)
+		F.PlaceOnTop(carpet_type, flags = CHANGETURF_INHERIT_AIR)
 	..()
+
+/datum/reagent/carpet/black
+	name = "Black Carpet"
+	description = "The carpet also comes in... BLAPCK" //yes, the typo is intentional
+	color = "#1E1E1E"
+	taste_description = "licorice"
+	carpet_type = /turf/open/floor/carpet/black
+
+/datum/reagent/carpet/blue
+	name = "Blue Carpet"
+	description = "For those that really need to chill out for a while."
+	color = "#0000DC"
+	taste_description = "frozen carpet"
+	carpet_type = /turf/open/floor/carpet/blue
+
+/datum/reagent/carpet/cyan
+	name = "Cyan Carpet"
+	description = "For those that need a throwback to the years of using poison as a construction material. Smells like asbestos."
+	color = "#00B4FF"
+	taste_description = "asbestos"
+	carpet_type = /turf/open/floor/carpet/cyan
+
+/datum/reagent/carpet/green
+	name = "Green Carpet"
+	description = "For those that need the perfect flourish for your green eggs and ham."
+	color = "#A8E61D"
+	taste_description = "Green" //the caps is intentional
+	carpet_type = /turf/open/floor/carpet/green
+
+/datum/reagent/carpet/orange
+	name = "Orange Carpet"
+	description = "For those that prefer a healthy carpet to go along with their healthy diet."
+	color = "#E78108"
+	taste_description = "orange juice"
+	carpet_type = /turf/open/floor/carpet/orange
+
+/datum/reagent/carpet/purple
+	name = "Purple Carpet"
+	description = "For those that need to waste copious amounts of healing jelly in order to look fancy."
+	color = "#91D865"
+	taste_description = "jelly"
+	carpet_type = /turf/open/floor/carpet/purple
+
+/datum/reagent/carpet/red
+	name = "Red Carpet"
+	description = "For those that need an even redder carpet."
+	color = "#731008"
+	taste_description = "blood and gibs"
+	carpet_type = /turf/open/floor/carpet/red
+
+/datum/reagent/carpet/royal
+	name = "Royal Carpet?"
+	description = "For those that break the game and need to make an issue report."
+
+/datum/reagent/carpet/royal/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	if(!M.mind?.assigned_role)
+		return
+	switch(M.mind.assigned_role)
+		if("Chief Medical Officer", "Captain", "Chief Engineer", "Research Director", "Head of Personnel")
+			if(prob(10))
+				to_chat(M, "You feel like royalty.")
+			if(prob(5))
+				M.say(pick("Peasants..","This carpet is worth more than your contracts!","I could fire you at any time..."), forced = "royal carpet")
+		if("Quartermaster")
+			if(prob(15))
+				to_chat(M, "You feel like an impostor...")
+
+/datum/reagent/carpet/royal/black
+	name = "Royal Black Carpet"
+	description = "For those that feel the need to show off their timewasting skills."
+	color = "#000000"
+	taste_description = "royalty"
+	carpet_type = /turf/open/floor/carpet/royalblack
+
+/datum/reagent/carpet/royal/blue
+	name = "Royal Blue Carpet"
+	description = "For those that feel the need to show off their timewasting skills.. in BLUE."
+	color = "#5A64C8"
+	taste_description = "blueyalty" //also intentional
+	carpet_type = /turf/open/floor/carpet/royalblue
 
 /datum/reagent/bromine
 	name = "Bromine"
@@ -1731,6 +1793,37 @@
 			var/mob/living/carbon/human/H = M
 			H.hair_style = "Very Long Hair"
 			H.facial_hair_style = "Beard (Very Long)"
+			H.update_hair()
+
+/datum/reagent/barbers_afro_mania
+	name = "Barber's Afro Mania"
+	description = "Unleash the funk within you."
+	reagent_state = LIQUID
+	color = "#FF8800"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	taste_description = "funky sugar"
+
+/datum/reagent/barbers_afro_mania/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	if(method == TOUCH || method == VAPOR)
+		if(M && ishuman(M))
+			var/mob/living/carbon/human/H = M
+			H.hair_style = "Afro (Large)"
+			H.update_hair()
+
+/datum/reagent/barbers_shaving_aid
+	name = "Barber's Shaving Aid"
+	description = "It seems I messed up. Time to go bald."
+	reagent_state = LIQUID
+	color = "#C0FFAB"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	taste_description = "hairloss"
+
+/datum/reagent/barbers_shaving_aid/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	if(method == TOUCH || method == VAPOR)
+		if(M && ishuman(M))
+			var/mob/living/carbon/human/H = M
+			H.hair_style = "Bald 2"
+			H.facial_hair_style = "Shaved"
 			H.update_hair()
 
 /datum/reagent/saltpetre
@@ -1930,9 +2023,9 @@
 	taste_description = "plastic"
 
 /datum/reagent/glitter
-	name = "Generic Glitter"
-	description = "If you can see this description, contact a coder."
-	color = "#FFFFFF" //pure white
+	name = "light pink glitter"
+	description = "light pink sparkles that get everywhere."
+	color = "#FFFFFF" //base colour of decal is light pink
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY
 	taste_description = "plastic"
 	reagent_state = SOLID
@@ -1994,9 +2087,9 @@
 
 /datum/reagent/peaceborg/confuse/on_mob_life(mob/living/carbon/M)
 	if(M.confused < 6)
-		M.confused = CLAMP(M.confused + 3, 0, 5)
+		M.confused = clamp(M.confused + 3, 0, 5)
 	if(M.dizziness < 6)
-		M.dizziness = CLAMP(M.dizziness + 3, 0, 5)
+		M.dizziness = clamp(M.dizziness + 3, 0, 5)
 	if(prob(20))
 		to_chat(M, "You feel confused and disorientated.")
 	..()
@@ -2171,7 +2264,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 		return
 	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, owner.dir)
 	playsound(spawn_turf, 'sound/effects/curse2.ogg', 80, TRUE, -1)
-	var/obj/item/projectile/curse_hand/hel/hand = new (spawn_turf)
+	var/obj/projectile/curse_hand/hel/hand = new (spawn_turf)
 	hand.preparePixelProjectile(owner, spawn_turf)
 	if(QDELETED(hand)) //safety check if above fails - above has a stack trace if it does fail
 		return

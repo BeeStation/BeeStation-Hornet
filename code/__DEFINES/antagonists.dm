@@ -33,9 +33,6 @@
 #define BLOB_REFLECTOR_COST 15
 #define BLOB_STRAIN_COLOR_LIST list("#BE5532", "#7D6EB4", "#EC8383", "#00E5B1", "#00668B", "#FFF68", "#BBBBAA", "#CD7794", "#57787B", "#3C6EC8", "#AD6570", "#823ABB")
 
-//Overthrow time to update heads obj
-#define OBJECTIVE_UPDATING_TIME 300
-
 //gang dominators
 #define NOT_DOMINATING			-1
 #define MAX_LEADERS_GANG		3
@@ -81,6 +78,11 @@
 /// Define for the heretic faction applied to heretics and heretic mobs.
 #define FACTION_HERETIC "heretics"
 
+#define FACTION_SYNDICATE "Syndicate"
+#define FACTION_BLOB "Blob"
+#define FACTION_ALIEN "Xenomorph"
+#define FACTION_WIZARD "Wizard"
+
 // Heretic path defines.
 #define HERETIC_PATH_START "Heretic Start Path"
 #define HERETIC_PATH_SIDE "Heretic Side Path"
@@ -97,6 +99,14 @@
 /// A define used in ritual priority for heretics.
 #define MAX_KNOWLEDGE_PRIORITY 100
 
+/// The maximum (and optimal) number of sacrifice targets a heretic should roll.
+#define HERETIC_MAX_SAC_TARGETS 4
+
+//Cult Construct defines
+
+#define CONSTRUCT_JUGGERNAUT "Juggernaut"
+#define CONSTRUCT_WRAITH "Wraith"
+#define CONSTRUCT_ARTIFICER "Artificer"
 
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40
@@ -115,6 +125,9 @@
 ///Checks if given mob is an awakened vessel
 #define IS_WOKEVESSEL(mob) (mob.mind?.has_antag_datum(/datum/antagonist/hivevessel))
 
+// Max of all fugitive types
+#define MAXIMUM_TOTAL_FUGITIVES 4
+
 // Fugitive hunter types
 #define FUGITIVE_HUNTER_SPACE_POLICE "space_police"
 #define FUGITIVE_HUNTER_RUSSIAN "russian"
@@ -128,3 +141,6 @@
 
 //Spider webs
 #define MAX_WEBS_PER_TILE 3
+
+/// The dimensions of the antagonist preview icon. Will be scaled to this size.
+#define ANTAGONIST_PREVIEW_ICON_SIZE 96

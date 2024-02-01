@@ -23,6 +23,8 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 	merge_type = /obj/item/stack/marker_beacon
 	max_amount = 100
 	novariants = TRUE
+	cost = 1
+	source = /datum/robot_energy_storage/beacon
 	var/picked_color = "random"
 
 /obj/item/stack/marker_beacon/ten //miners start with 10 of these
@@ -109,6 +111,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
 	if(do_after(user, remove_speed, target = src))
 		var/obj/item/stack/marker_beacon/M = new(loc)
+		if(QDELETED(M))
+			M = locate(/obj/item/stack/marker_beacon) in loc
+		if(!M)
+			return
 		M.picked_color = picked_color
 		M.update_icon()
 		transfer_fingerprints_to(M)

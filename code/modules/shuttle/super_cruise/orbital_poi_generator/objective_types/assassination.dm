@@ -35,8 +35,7 @@
 /datum/orbital_objective/assassination/generate_objective_stuff(turf/chosen_turf)
 	var/mob/living/carbon/human/created_human = new(chosen_turf)
 	//Maybe polling ghosts would be better than the shintience code
-	created_human.role = ROLE_TRAITOR
-	created_human.set_playable()
+	created_human.set_playable(ROLE_SURVIVALIST)
 	created_human.mind_initialize()
 	//Remove nearby dangers
 	for(var/mob/living/simple_animal/hostile/SA in range(10, created_human))
@@ -155,7 +154,7 @@
 	backpack_contents = list(
 		/obj/item/stamp/clown = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/food/grown/banana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		)
 

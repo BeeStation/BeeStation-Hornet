@@ -25,6 +25,63 @@
 	pump.on = TRUE
 	pump.machine_stat = 0
 	SSair.add_to_rebuild_queue(pump)
+	AddComponent(/datum/component/usb_port, list(/obj/item/circuit_component/portable_pump))
+
+/obj/item/circuit_component/portable_pump
+	display_name = "Pump Controller"
+	desc = "The interface for communicating with a portable pump."
+
+	var/obj/machinery/portable_atmospherics/pump/attached_pump
+
+	var/datum/port/input/turn_on
+
+	var/datum/port/input/turn_off
+
+	var/datum/port/input/pump_in
+
+	var/datum/port/input/pump_out
+
+	var/datum/port/input/target_pressure
+
+/obj/item/circuit_component/portable_pump/populate_ports()
+	turn_on = add_input_port("Turn On", PORT_TYPE_SIGNAL)
+	turn_off = add_input_port("Turn Off", PORT_TYPE_SIGNAL)
+
+	pump_in = add_input_port("Set pump IN", PORT_TYPE_SIGNAL)
+	pump_out = add_input_port("Set pump OUT", PORT_TYPE_SIGNAL)
+
+	target_pressure = add_input_port("Target Pressure", PORT_TYPE_NUMBER)
+
+/obj/item/circuit_component/portable_pump/register_usb_parent(atom/movable/shell)
+	. = ..()
+	if(istype(shell, /obj/machinery/portable_atmospherics/pump))
+		attached_pump = shell
+
+/obj/item/circuit_component/portable_pump/unregister_usb_parent(atom/movable/shell)
+	attached_pump = null
+	return ..()
+
+/obj/item/circuit_component/portable_pump/input_received(datum/port/input/port)
+	. = ..()
+	if(.)
+		return
+
+	if(!attached_pump)
+		return
+
+	if(COMPONENT_TRIGGERED_BY(turn_on, port))
+		attached_pump.on = TRUE
+		if(attached_pump.holding && (attached_pump.direction == PUMP_IN))
+			investigate_log("[parent.get_creator()] started a transfer into [attached_pump.holding].", INVESTIGATE_ATMOS)
+	if(COMPONENT_TRIGGERED_BY(turn_off, port))
+		attached_pump.on = FALSE
+	if(COMPONENT_TRIGGERED_BY(pump_in, port))
+		attached_pump.direction = PUMP_IN
+	if(COMPONENT_TRIGGERED_BY(pump_out, port))
+		attached_pump.direction = PUMP_OUT
+	if(COMPONENT_TRIGGERED_BY(target_pressure, port))
+		attached_pump.target_pressure = clamp(round(target_pressure), PUMP_MIN_PRESSURE, PUMP_MAX_PRESSURE)
+		investigate_log("a portable pump was set to [attached_pump.target_pressure] kPa by [parent.get_creator()].", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/pump/Destroy()
 	var/turf/T = get_turf(src)
@@ -81,7 +138,7 @@
 				on = FALSE
 				update_icon()
 		else if(on && holding && direction == PUMP_OUT)
-			investigate_log("[key_name(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
+			user.investigate_log("started a transfer into [holding].", INVESTIGATE_ATMOS)
 
 
 
@@ -127,14 +184,14 @@
 					message_admins("[ADMIN_LOOKUPFLW(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [ADMIN_VERBOSEJMP(src)]")
 					log_admin("[key_name(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [AREACOORD(src)]")
 			else if(on && direction == PUMP_OUT)
-				investigate_log("[key_name(usr)] started a transfer into [holding].", INVESTIGATE_ATMOS)
+				usr.investigate_log(" started a transfer into [holding].", INVESTIGATE_ATMOS)
 			. = TRUE
 		if("direction")
 			if(direction == PUMP_OUT)
 				direction = PUMP_IN
 			else
 				if(on && holding)
-					investigate_log("[key_name(usr)] started a transfer into [holding].", INVESTIGATE_ATMOS)
+					usr.investigate_log(" started a transfer into [holding].", INVESTIGATE_ATMOS)
 				direction = PUMP_OUT
 			. = TRUE
 		if("pressure")

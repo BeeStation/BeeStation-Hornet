@@ -4,7 +4,7 @@
 	name = "picture frame"
 	desc = "The perfect showcase for your favorite deathtrap memories."
 	icon = 'icons/obj/decals.dmi'
-	materials = list()
+	custom_materials = null
 	flags_1 = 0
 	icon_state = "frame-empty"
 	result_path = /obj/structure/sign/picture_frame
@@ -78,6 +78,7 @@
 
 /obj/structure/sign/picture_frame/Initialize(mapload, dir, building)
 	. = ..()
+	AddElement(/datum/element/art, OK_ART)
 	LAZYADD(SSpersistence.photo_frames, src)
 
 /obj/structure/sign/picture_frame/Destroy()

@@ -71,27 +71,25 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	icon_state = "arcade"
 	icon_keyboard = "no_keyboard"
 	icon_screen = "invaders"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
+	light_color = LIGHT_COLOR_GREEN
 	var/list/prize_override
 	var/prizeselect = /obj/item/coin/arcade_token
-	light_color = LIGHT_COLOR_GREEN
 
 /obj/machinery/computer/arcade/proc/Reset()
 	return
 
 /obj/machinery/computer/arcade/Initialize(mapload)
 	. = ..()
-	// If it's a generic arcade machine, pick a random arcade
-	// circuit board for it and make the new machine
-	if(!circuit)
-		var/list/gameodds = list(/obj/item/circuitboard/computer/arcade/battle = 49,
-							/obj/item/circuitboard/computer/arcade/orion_trail = 49,
-							/obj/item/circuitboard/computer/arcade/amputation = 2)
-		var/thegame = pick_weight(gameodds)
-		var/obj/item/circuitboard/CB = new thegame()
-		new CB.build_path(loc, CB)
-		return INITIALIZE_HINT_QDEL
+
 	Reset()
 
 /obj/machinery/computer/arcade/proc/prizevend(mob/user)
@@ -320,6 +318,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		temp = "You have been crushed! GAME OVER"
 		playsound(loc, 'sound/arcade/lose.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
 		if(obj_flags & EMAGGED)
+			usr.investigate_log("has been gibbed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
 			usr.gib()
 		SSblackbox.record_feedback("nested tally", "arcade_results", 1, list("loss", "hp", (obj_flags & EMAGGED ? "emagged":"normal")))
 
@@ -524,6 +523,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 		if(obj_flags & EMAGGED)
 			to_chat(user, "<span class='userdanger'>You're never going to make it to Orion...</span>")
+			user.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
 			user.death()
 			obj_flags &= ~EMAGGED //removes the emagged status after you lose
 			gameStatus = ORION_STATUS_START
@@ -731,6 +731,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			if(settlers.len == 0 || alive == 0)
 				say("The last crewmember [sheriff], shot themselves, GAME OVER!")
 				if(obj_flags & EMAGGED)
+					usr.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
 					usr.death(0)
 					obj_flags &= EMAGGED
 				gameStatus = ORION_STATUS_GAMEOVER
@@ -743,6 +744,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			else if(obj_flags & EMAGGED)
 				if(usr.name == sheriff)
 					say("The crew of the ship chose to kill [usr.name]!")
+					usr.investigate_log("has been killed by an emagged Orion Trail game.", INVESTIGATE_DEATHS)
 					usr.death(0)
 
 			if(event == ORION_TRAIL_LING) //only ends the ORION_TRAIL_LING event, since you can do this action in multiple places

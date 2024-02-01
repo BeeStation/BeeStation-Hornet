@@ -2,7 +2,7 @@
 	id = /obj/item/card/id/silver/spacepol
 	ears = /obj/item/radio/headset/headset_spacepol
 	back = /obj/item/storage/backpack/security
-	box = /obj/item/storage/box/survival
+	box = /obj/item/storage/box/survival/normal
 	var/assignment
 
 /datum/outfit/spacepol/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -38,7 +38,9 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/spacepol
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
-/datum/outfit/spacepol/officer/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/spacepol/officer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
 	if(prob(40))
 		head = /obj/item/clothing/head/helmet/alt
 	else if(prob(20))
@@ -53,7 +55,7 @@
 	r_pocket = /obj/item/restraints/handcuffs/cable
 	ears = /obj/item/radio/headset
 	shoes = /obj/item/clothing/shoes/jackboots
-	box = /obj/item/storage/box/survival
+	box = /obj/item/storage/box/survival/normal
 
 /datum/outfit/bounty/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -105,9 +107,11 @@
 	ears = /obj/item/radio/headset
 	id = /obj/item/card/id/space_russian
 	back = /obj/item/storage/backpack/satchel/leather
-	box = /obj/item/storage/box/survival
+	box = /obj/item/storage/box/survival/normal
 
-/datum/outfit/russian_hunter/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/russian_hunter/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
 	if(prob(50))
 		head = /obj/item/clothing/head/ushanka
 	else if(prob(20))
@@ -128,7 +132,9 @@
 	suit = /obj/item/clothing/suit/security/officer/russian
 	head = /obj/item/clothing/head/helmet/rus_ushanka
 
-/datum/outfit/russian_hunter/leader/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/russian_hunter/leader/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
 	if(prob(50))
 		gloves = /obj/item/clothing/gloves/combat
 	else if(prob(30))

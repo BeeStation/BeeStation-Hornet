@@ -22,7 +22,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		return input(user, message, title) as null|anything in items
 	var/datum/tgui_list_input/input = new(user, message, title, items, default, timeout)
 	input.ui_interact(user)
@@ -56,7 +56,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		return input(user, message, title) as null|anything in items
 	var/datum/tgui_list_input/async/input = new(user, message, title, items, default, callback, timeout)
 	input.ui_interact(user)
@@ -133,6 +133,7 @@
 	if(!ui)
 		ui = new(user, src, "ListInputModal")
 		ui.open()
+		ui.set_autoupdate(timeout > 0)
 
 /datum/tgui_list_input/ui_close(mob/user)
 	. = ..()
@@ -143,20 +144,15 @@
 
 /datum/tgui_list_input/ui_static_data(mob/user)
 	. = list()
+	.["init_value"] = default || items[1]
 	.["items"] = items
+	.["large_buttons"] = !user.client?.prefs || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input_large)
+	.["swapped_buttons"] = !user.client?.prefs || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input_swapped)
+	.["message"] = message
+	.["title"] = title
 
 /datum/tgui_list_input/ui_data(mob/user)
 	. = list()
-	.["init_value"] = default || items[1]
-	.["message"] = message
-	.["preferences"] = list()
-	if(!user.client || !user.client.prefs)
-		.["preferences"]["large_buttons"] = TRUE
-		.["preferences"]["swapped_buttons"] = TRUE
-	else
-		.["preferences"]["large_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
-		.["preferences"]["swapped_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
-	.["title"] = title
 	if(timeout)
 		.["timeout"] = clamp((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS), 0, 1)
 

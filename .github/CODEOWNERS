@@ -16,12 +16,15 @@ Dockerfile @crossedfall
 /tools @crossedfall
 /config @crossedfall
 
+# crossedfall (explicitly disowned)
+
+/tools/UpdatePaths/Scripts/
+
 # powerfulbacon
 
 /code/game/machinery/shuttle @powerfulbacon
 /code/modules/shuttle/super_cruise @powerfulbacon
 /code/modules/shuttle/shuttle_creation @powerfulbacon
-/_maps/map_files/CorgStation @powerfulbacon
 
 # pestoverde322
 
@@ -30,7 +33,6 @@ Dockerfile @crossedfall
 # itsmeow
 
 /code/game/gamemodes/dynamic @itsmeow
-/code/modules/modular_computers @itsmeow
 /tools/MapTileAggregator.py @itsmeow
 /code/modules/admin/player_panel.dm @itsmeow
 /code/modules/tgui/ @itsmeow
@@ -44,5 +46,5 @@ Dockerfile @crossedfall
 
 /tgui/packages/tgui/interfaces/
 /tgui/packages/tgui/styles/interfaces/
-/tgui/packages/tgui-panel/styles/tgchat/chat-dark.scss
-/tgui/packages/tgui-panel/styles/tgchat/chat-light.scss
+/tgui/packages/tgui-panel/styles/goon/chat-dark.scss
+/tgui/packages/tgui-panel/styles/goon/chat-light.scss

@@ -4,8 +4,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
 
-	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
-	var/intact = 1
+	/// If there's a tile over a basic floor that can be ripped out
+	var/overfloor_placed = FALSE
+	/// How accessible underfloor pieces such as wires, pipes, etc are on this turf. Can be HIDDEN, VISIBLE, or INTERACTABLE.
+	var/underfloor_accessibility = UNDERFLOOR_HIDDEN
 
 	// baseturfs can be either a list or a single turf type.
 	// In class definition like here it should always be a single type.
@@ -23,6 +25,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	/// Used for fire, if a melting temperature was reached, it will be destroyed
 	var/to_be_destroyed = 0
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+
+	/// If this turf should initialize atmos adjacent turfs or not
+	/// Optimization, not for setting outside of initialize
+	var/init_air = TRUE
 
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
@@ -56,6 +62,12 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
+	///Ref to texture mask overlay
+	var/texture_mask_overlay
+
+	///Can this floor be an underlay, for turf damage
+	var/can_underlay = TRUE
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -67,30 +79,41 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
-	// by default, vis_contents is inherited from the turf that was here before
+	if(integrity == null)
+		integrity = max_integrity
+
+	// by default, vis_contents is inherited from the turf that was here before.
+	// Checking length(vis_contents) in a proc this hot has huge wins for performance.
+	//if (length(vis_contents)) - this doesn't seem to help performance on Bee
 	vis_contents.Cut()
 
 	assemble_baseturfs()
 
 	levelupdate()
 	if(length(smoothing_groups))
-		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		#ifdef UNIT_TESTS
+		assert_sorted(smoothing_groups, "[type].smoothing_groups")
+		#endif
 		SET_BITFLAG_LIST(smoothing_groups)
 	if(length(canSmoothWith))
-		sortTim(canSmoothWith)
+		#ifdef UNIT_TESTS
+		assert_sorted(canSmoothWith, "[type].canSmoothWith")
+		#endif
 		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
-	visibilityChanged()
 
 	for(var/atom/movable/content as anything in src)
 		Entered(content, null)
 
 	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+	if(fullbright_type && IS_DYNAMIC_LIGHTING(A))
+		if (fullbright_type == FULLBRIGHT_STARLIGHT)
+			add_overlay(GLOB.starlight_overlay)
+		else
+			add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)
@@ -98,18 +121,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
+	if (z_flags & Z_MIMIC_BELOW)
+		setup_zmimic(mapload)
+
 	if (light_power && light_range)
 		update_light()
-
-	// Propogate creation to turfs above and below
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_new(src, DOWN)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_new(src, UP)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
 
 	if (opacity)
 		directional_opacity = ALL_CARDINALS
@@ -122,6 +138,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		update_air_ref(-1)
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()))
 
+	//Handle turf texture
+	var/datum/turf_texture/TT = get_turf_texture()
+	if(TT)
+		add_turf_texture(TT)
+
 	return INITIALIZE_HINT_NORMAL
 
 /turf/proc/__auxtools_update_turf_temp_info()
@@ -130,6 +151,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/proc/set_temperature()
 
+/// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE
 /turf/proc/Initalize_Atmos(times_fired)
 	CALCULATE_ADJACENT_TURFS(src)
 
@@ -138,13 +160,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(!changing_turf)
 		stack_trace("Incorrect turf deletion")
 	changing_turf = FALSE
-	// Propogate deletion to turfs above and below
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_del(src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_del(src, UP)
+	if (z_flags & Z_MIMIC_BELOW)
+		cleanup_zmimic()
 	if(force)
 		..()
 		//this will completely wipe turf state
@@ -154,13 +171,13 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		for(var/I in B.vars)
 			B.vars[I] = null
 		return
-	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
 
-	vis_contents.Cut()
+	if (length(vis_contents))
+		vis_contents.Cut()
 
 /// WARNING WARNING
 /// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
@@ -182,7 +199,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		. = TRUE
 	if(.)
 		return
-	user.Move_Pulled(src)
+	if(user.Move_Pulled(src))
+		user.changeNext_move(CLICK_CD_RAPID)
+	else
+		user.changeNext_move(CLICK_CD_MELEE)
 
 /turf/eminence_act(mob/living/simple_animal/eminence/eminence)
 	if(get_turf(eminence) == src)
@@ -239,23 +259,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			C.wiringGuiUpdate(user)
 		C.is_empty(user)
 
-/turf/attackby(obj/item/C, mob/user, params)
-	if(..())
-		return TRUE
-	if(can_lay_cable() && istype(C, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = C
-		for(var/obj/structure/cable/LC in src)
-			if(!LC.d1 || !LC.d2)
-				LC.attackby(C,user)
-				return
-		coil.place_turf(src, user)
-		return TRUE
-
-	else if(istype(C, /obj/item/rcl))
-		handleRCL(C, user)
-
-	return FALSE
-
 //There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
 /turf/Enter(atom/movable/mover)
 	// Do not call ..()
@@ -294,7 +297,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/turf/current_target
 	if(fake_baseturf_type)
 		if(length(fake_baseturf_type)) // We were given a list, just apply it and move on
-			baseturfs = fake_baseturf_type
+			baseturfs = baseturfs_string_list(fake_baseturf_type, src)
 			return
 		current_target = fake_baseturf_type
 	else
@@ -310,9 +313,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(GLOB.created_baseturf_lists[current_target])
 		var/list/premade_baseturfs = GLOB.created_baseturf_lists[current_target]
 		if(length(premade_baseturfs))
-			baseturfs = premade_baseturfs.Copy()
+			baseturfs = baseturfs_string_list(premade_baseturfs.Copy(), src)
 		else
-			baseturfs = premade_baseturfs
+			baseturfs = baseturfs_string_list(premade_baseturfs, src)
 		return baseturfs
 
 	var/turf/next_target = initial(current_target.baseturfs)
@@ -333,19 +336,18 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		current_target = next_target
 		next_target = initial(current_target.baseturfs)
 
-	baseturfs = new_baseturfs
+	baseturfs = baseturfs_string_list(new_baseturfs, src)
 	GLOB.created_baseturf_lists[new_baseturfs[new_baseturfs.len]] = new_baseturfs.Copy()
 	return new_baseturfs
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.flags_1 & INITIALIZED_1)
-			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, intact)
+			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, underfloor_accessibility < UNDERFLOOR_VISIBLE)
 
 // override for space turfs, since they should never hide anything
 /turf/open/space/levelupdate()
-	for(var/obj/O in src)
-		return
+	return
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
@@ -391,63 +393,17 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 ////////////////////////////////////////////////////
 
-/turf/singularity_act()
-	if(intact)
-		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
-			if(O.invisibility == INVISIBILITY_MAXIMUM)
-				O.singularity_act()
-	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-	return(2)
-
 /turf/proc/can_have_cabling()
 	return TRUE
 
 /turf/proc/can_lay_cable()
-	return can_have_cabling() & !intact
+	return can_have_cabling() && underfloor_accessibility >= UNDERFLOOR_INTERACTABLE
 
 /turf/proc/visibilityChanged()
 	GLOB.cameranet.updateVisibility(src)
 
-/turf/proc/burn_tile()
-	return
-
 /turf/proc/is_shielded()
 	return
-
-/turf/contents_explosion(severity, target)
-
-	for(var/thing in contents)
-		var/atom/atom_thing = thing
-		if(!QDELETED(atom_thing))
-			if(ismovable(atom_thing))
-				var/atom/movable/movable_thing = atom_thing
-				if(!movable_thing.ex_check(explosion_id))
-					continue
-				switch(severity)
-					if(EXPLODE_DEVASTATE)
-						SSexplosions.high_mov_atom += movable_thing
-					if(EXPLODE_HEAVY)
-						SSexplosions.med_mov_atom += movable_thing
-					if(EXPLODE_LIGHT)
-						SSexplosions.low_mov_atom += movable_thing
-
-/turf/narsie_act(force, ignore_mobs, probability = 20)
-	. = (prob(probability) || force)
-	for(var/I in src)
-		var/atom/A = I
-		if(ignore_mobs && ismob(A))
-			continue
-		if(ismob(A) || .)
-			A.narsie_act()
-
-/turf/ratvar_act(force, ignore_mobs, probability = 40)
-	. = (prob(probability) || force)
-	for(var/I in src)
-		var/atom/A = I
-		if(ignore_mobs && ismob(A))
-			continue
-		if(ismob(A) || .)
-			A.ratvar_act()
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
@@ -473,36 +429,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/is_transition_turf()
 	return
 
-/turf/acid_act(acidpwr, acid_volume)
-	. = 1
-	var/acid_type = /obj/effect/acid
-	if(acidpwr >= 200) //alien acid power
-		acid_type = /obj/effect/acid/alien
-	var/has_acid_effect = FALSE
-	for(var/obj/O in src)
-		if(istype(O, acid_type))
-			var/obj/effect/acid/A = O
-			A.acid_level = min(acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
-			has_acid_effect = 1
-			continue
-		O.acid_act(acidpwr, acid_volume)
-	if(!has_acid_effect)
-		new acid_type(src, acidpwr, acid_volume)
-
-/turf/proc/acid_melt()
-	return
-
-/turf/rust_heretic_act()
-	if(HAS_TRAIT(src, TRAIT_RUSTY))
-		return
-
-	AddElement(/datum/element/rust)
-	return TRUE
-
 /// When someone falls over onto this turf (Knockdown() or similar), not related to zfalls
-/turf/handle_fall(mob/faller, forced)
-	if(!forced)
-		return
+/turf/handle_fall(mob/faller)
 	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, 1)
 
@@ -523,7 +451,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/AllowDrop()
 	return TRUE
 
-/turf/proc/add_vomit_floor(mob/living/M, toxvomit = NONE)
+/turf/proc/add_vomit_floor(mob/living/M, toxvomit = NONE, purge = TRUE)
 
 	var/obj/effect/decal/cleanable/vomit/V = new /obj/effect/decal/cleanable/vomit(src, M.get_static_viruses())
 
@@ -537,7 +465,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		V.icon_state = "vomitpurp_[pick(1,4)]"
 	else if (toxvomit == VOMIT_TOXIC)
 		V.icon_state = "vomittox_[pick(1,4)]"
-	if (iscarbon(M))
+	else if (toxvomit == VOMIT_NANITE)
+		V.name = "metallic slurry"
+		V.desc = "A puddle of metallic slurry that looks vaguely like very fine sand. It almost seems like it's moving..."
+		V.icon_state = "vomitnanite_[pick(1,4)]"
+	if (purge && iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.reagents)
 			clear_reagents_to_vomit_pool(C,V)
@@ -549,11 +481,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			var/datum/reagent/consumable/nutri_check = R
 			if(nutri_check.nutriment_factor >0)
 				M.reagents.remove_reagent(R.type, min(R.volume, 10))
-
-//Whatever happens after high temperature fire dies out or thermite reaction works.
-//Should return new turf
-/turf/proc/Melt()
-	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/proc/check_gravity()
 	return TRUE
@@ -578,6 +505,30 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			continue
 		. += turf_to_check
 
+/turf/proc/generate_fake_pierced_realities(centered = TRUE, max_amount = 2)
+	if(max_amount <= 0)
+		return
+	var/to_spawn = pick(1, max_amount)
+	var/spawned = 0
+	var/location_sanity = 0
+	while(spawned < to_spawn && location_sanity < 100)
+		var/precision = pick(5, 15 * max_amount)
+		var/turf/chosen_location = pick(get_safe_random_station_turfs())
+		if(centered)
+			chosen_location = get_teleport_turf(src, precision) //Using the random teleportation logic here to find a destination turf
+		// We don't want them close to each other - at least 1 tile of seperation
+		var/list/nearby_things = range(1, chosen_location)
+		var/obj/effect/heretic_influence/what_if_i_have_one = locate() in nearby_things
+		var/obj/effect/visible_heretic_influence/what_if_i_had_one_but_its_used = locate() in nearby_things
+		if(what_if_i_have_one || what_if_i_had_one_but_its_used || isspaceturf(chosen_location))
+			location_sanity++
+			continue
+		addtimer(CALLBACK(src, PROC_REF(create_new_fake_reality), chosen_location), rand(0, 500))
+		spawned++
+
+/turf/proc/create_new_fake_reality(turf/F)
+	new /obj/effect/visible_heretic_influence(F)
+
 /// Checks if the turf was blessed with holy water OR the area its in is Chapel
 /turf/proc/is_holy()
 	if(locate(/obj/effect/blessing) in src)
@@ -585,3 +536,58 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(istype(loc, /area/chapel))
 		return TRUE
 	return FALSE
+
+/turf/proc/make_traction(add_visual = TRUE)
+	if(add_visual)
+		//Add overlay
+		var/mutable_appearance/MA = mutable_appearance(icon, "no_slip")
+		MA.blend_mode = BLEND_OVERLAY
+		add_overlay(MA)
+
+///Add our relevant floor texture, if we can / need
+/turf/proc/add_turf_texture(list/textures, force)
+	if(!length(textures) || length(contents) && (locate(/obj/effect/decal/cleanable/dirt) in contents || locate(/obj/effect/decal/cleanable/dirt) in vis_contents))
+		if(!force) //readability
+			return
+	var/datum/turf_texture/turf_texture
+	for(var/datum/turf_texture/TF as() in textures)
+		var/area/A = loc
+		if(TF in A?.get_turf_textures())
+			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF
+	if(turf_texture)
+		vis_contents += load_turf_texture(turf_texture)
+
+/turf/proc/clean_turf_texture()
+	for(var/atom/movable/turf_texture/TF in vis_contents)
+		if(initial(TF.parent_texture?.cleanable))
+			vis_contents -= TF
+
+/// returns a list of all mobs inside of a turf.
+/// likely detects mobs hiding in a closet.
+/turf/proc/get_all_mobs()
+	. = list()
+	for(var/each in contents)
+		if(ismob(each))
+			. += each
+		else if(isstructure(each))
+			var/obj/O = each
+			for(var/mob/M in O.contents)
+				. += M
+
+
+/turf/proc/get_turf_texture()
+	return
+
+/**
+  * Called when this turf is being washed. Washing a turf will also wash any mopable floor decals
+  */
+/turf/wash(clean_types)
+	. = ..()
+
+	for(var/am in src)
+		if(am == src)
+			continue
+		var/atom/movable/movable_content = am
+		if(!ismopable(movable_content))
+			continue
+		movable_content.wash(clean_types)

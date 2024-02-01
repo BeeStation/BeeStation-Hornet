@@ -22,7 +22,13 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-      - name: Setup cache
+          cache: 'pip'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+          cache-dependency-path: tgui/yarn.lock
+      - name: Cache SpacemanDMM
         id: cache-spacemandmm
         uses: actions/cache@v3
         with:
@@ -34,8 +40,6 @@ jobs:
       - name: Install Tools
         run: |
           pip install setuptools
-          bash tools/ci/install_node.sh
-          bash tools/ci/install_auxmos.sh
           pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
@@ -69,16 +73,21 @@ jobs:
   run_all_tests:
     runs-on: ubuntu-20.04
     services:
-      mysql:
-        image: mysql:latest
+      mariadb:
+        image: mariadb:latest
         env:
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --health-cmd="mariadb-admin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - uses: actions/checkout@v3
-      - name: Setup cache
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+          cache-dependency-path: tgui/yarn.lock
+      - name: Cache BYOND
         id: cache-byond
         uses: actions/cache@v3
         with:
@@ -110,6 +119,17 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+          cache-dependency-path: tgui/yarn.lock
+      - name: Cache BYOND
+        id: cache-byond
+        uses: actions/cache@v3
+        with:
+          path: C:/byond
+          key: ${{ runner.os }}-byond-cache-${{ hashFiles('dependencies.sh') }}
       - name: Compile
         run: pwsh tools/ci/build.ps1
         env:

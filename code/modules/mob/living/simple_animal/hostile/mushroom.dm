@@ -148,7 +148,7 @@
 		bruised = 1
 
 /mob/living/simple_animal/hostile/mushroom/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/mushroom))
+	if(istype(I, /obj/item/food/grown/mushroom))
 		if(stat == DEAD && !recovery_cooldown)
 			Recover()
 			qdel(I)
@@ -171,7 +171,7 @@
 		if(T.throwforce)
 			Bruise()
 
-/mob/living/simple_animal/hostile/mushroom/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/mushroom/bullet_act(obj/projectile/P)
 	. = ..()
 	if(P.nodamage)
 		Bruise()

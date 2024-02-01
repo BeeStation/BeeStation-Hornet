@@ -98,14 +98,14 @@
 		victim.IgniteMob()
 		return
 	//otherwise shoot laser
-	var/obj/item/projectile/A
+	var/obj/projectile/A
 	switch(X.charge)
 		if(0 to 24)
-			A = new /obj/item/projectile/beam/disabler
+			A = new /obj/projectile/beam/disabler
 		if(25 to 79)
-			A = new /obj/item/projectile/beam/laser
+			A = new /obj/projectile/beam/laser
 		if(80 to 200)
-			A = new /obj/item/projectile/beam/laser/heavylaser
+			A = new /obj/projectile/beam/laser/heavylaser
 	//If target is our own turf, aka someone probably threw us, target a random direction to avoid always shooting east
 	if(istype(target, /turf) && X.loc == target)
 		target = get_edge_target_turf(pick(NORTH, EAST, SOUTH, WEST))

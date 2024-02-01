@@ -45,7 +45,7 @@
 	core = new /obj/item/nuke_core(src)
 	STOP_PROCESSING(SSobj, core)
 	update_icon()
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	previous_level = get_security_level()
 
 /obj/machinery/nuclearbomb/Destroy()
@@ -53,7 +53,6 @@
 	if(!exploding)
 		// If we're not exploding, set the alert level back to normal
 		set_safety()
-	GLOB.poi_list -= src
 	GLOB.nuke_list -= src
 	QDEL_NULL(countdown)
 	QDEL_NULL(core)
@@ -452,6 +451,7 @@
 		set_security_level(SEC_LEVEL_DELTA)
 
 		if (proper_bomb) // Why does this exist
+			set_dynamic_high_impact_event("nuclear bomb has been armed")
 			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
 
 	else
@@ -531,7 +531,7 @@
 
 /obj/machinery/nuclearbomb/proc/really_actually_explode(off_station)
 	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker, TYPE_PROC_REF(/datum/controller/subsystem/ticker, station_explosion_detonation), src))
-	INVOKE_ASYNC(GLOBAL_PROC,PROC_REF(KillEveryoneOnZLevel), get_virtual_z_level())
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(KillEveryoneOnZLevel), get_virtual_z_level())
 
 /obj/machinery/nuclearbomb/proc/get_cinematic_type(off_station)
 	if(off_station < 2)
@@ -612,6 +612,8 @@
 		return
 	for(var/mob/M in GLOB.mob_list)
 		if(M.stat != DEAD && M.get_virtual_z_level() == z)
+			to_chat(M, "<span class='userdanger'>You are shredded to atoms!</span>")
+			M.investigate_log("has been gibbed by a nuclear blast.", INVESTIGATE_DEATHS)
 			M.gib()
 
 /*
@@ -665,7 +667,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	. = ..()
 	AddElement(/datum/element/bed_tuckable, 6, -6, 0)
 	if(!fake)
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
 		last_disk_move = world.time
 		START_PROCESSING(SSobj, src)
 
@@ -733,13 +735,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 		return TRUE
 	return ..()
 
-/obj/item/disk/nuclear/Destroy(force=FALSE)
-	// respawning is handled in /obj/Destroy()
-	if(force)
-		GLOB.poi_list -= src
-	. = ..()
-
-/obj/item/disk/nuclear/suicide_act(mob/user)
+/obj/item/disk/nuclear/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is going delta! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(src, 'sound/machines/alarm.ogg', 50, -1, TRUE)
 	for(var/i in 1 to 100)
@@ -751,7 +747,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY)
 	user.visible_message("<span class='suicide'>[user] is destroyed by the nuclear blast!</span>")
 	user.adjustOxyLoss(200)
-	user.death(0)
+	user.death(FALSE)
 
 /obj/item/disk/nuclear/fake
 	fake = TRUE

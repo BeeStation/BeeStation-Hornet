@@ -19,13 +19,16 @@
 	return ..()
 
 /datum/status_effect/unholy_determination/on_apply()
+	initial_heal()
 	ADD_TRAIT(owner, TRAIT_NOCRITDAMAGE, type)
 	ADD_TRAIT(owner, TRAIT_NOSOFTCRIT, type)
+	ADD_TRAIT(owner, TRAIT_NOBREATH, type)
 	return TRUE
 
 /datum/status_effect/unholy_determination/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_NOCRITDAMAGE, type)
 	REMOVE_TRAIT(owner, TRAIT_NOSOFTCRIT, type)
+	REMOVE_TRAIT(owner, TRAIT_NOBREATH, type)
 
 /datum/status_effect/unholy_determination/tick()
 	// The amount we heal of each damage type per tick. If we're missing legs we heal better because we can't dodge.
@@ -53,6 +56,21 @@
 	adjust_all_damages(healing_amount)
 	adjust_temperature()
 	adjust_bleed_wounds()
+
+/*
+ * Initially heals the owner a bit, ensuring they have no suffocation and no immobility.
+*/
+/datum/status_effect/unholy_determination/proc/initial_heal()
+	owner.ExtinguishMob()
+	// catch your breath
+	owner.losebreath = 0
+	owner.setOxyLoss(0, FALSE)
+	// get back on your feet
+	owner.resting = FALSE
+	owner.setStaminaLoss(0)
+	owner.SetSleeping(0)
+	owner.SetUnconscious(0)
+	owner.SetAllImmobility(0, TRUE)
 
 /*
  * Heals up all the owner a bit, fire stacks and losebreath included.

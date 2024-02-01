@@ -47,7 +47,7 @@
 		. += our_turf
 
 /// Step-towards method of determining whether one atom can see another. Similar to viewers()
-/proc/can_see(atom/source, atom/target, length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
+/proc/can_see(atom/source, atom/target, length=7) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
 	var/turf/current = get_turf(source)
 	var/turf/target_turf = get_turf(target)
 	var/steps = 1
@@ -256,7 +256,7 @@ B --><-- A
 ///Returns a chosen path that is the closest to a list of matches
 /proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 	if (value == FALSE) //nothing should be calling us with a number, so this is safe
-		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
+		value = tgui_input_text(usr, "Enter type to find (blank for all, cancel to cancel)", "Search for type", encode = FALSE)
 		if (isnull(value))
 			return
 	value = trim(value)
@@ -278,7 +278,8 @@ B --><-- A
 	else if(random)
 		chosen = pick(matches) || null
 	else
-		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in sort_list(matches)
+		var/list/sorted_matches = sort_list(matches)
+		chosen = tgui_input_list(usr, "Select a type", "Pick Type", sorted_matches, sorted_matches[1])
 	if(!chosen)
 		return
 	chosen = matches[chosen]

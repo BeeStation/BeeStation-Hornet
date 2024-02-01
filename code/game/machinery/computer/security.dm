@@ -28,7 +28,7 @@
 
 /obj/item/circuit_component/arrest_console_data
 	display_name = "Security Records Data"
-	display_desc = "Outputs the security records data, where it can then be filtered with a Select Query component"
+	desc = "Outputs the security records data, where it can then be filtered with a Select Query component"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The records retrieved
@@ -39,16 +39,9 @@
 
 	var/obj/machinery/computer/secure_data/attached_console
 
-/obj/item/circuit_component/arrest_console_data/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/arrest_console_data/populate_ports()
 	records = add_output_port("Security Records", PORT_TYPE_TABLE)
 	on_fail = add_output_port("Failed", PORT_TYPE_SIGNAL)
-
-/obj/item/circuit_component/arrest_console_data/Destroy()
-	records = null
-	on_fail = null
-	return ..()
-
 
 /obj/item/circuit_component/arrest_console_data/register_usb_parent(atom/movable/parent)
 	. = ..()
@@ -74,9 +67,6 @@
 
 
 /obj/item/circuit_component/arrest_console_data/input_received(datum/port/input/port)
-	. = ..()
-	if(.)
-		return
 
 	if(!attached_console || !attached_console.authenticated)
 		on_fail.set_output(COMPONENT_SIGNAL)
@@ -107,14 +97,14 @@
 
 /obj/item/circuit_component/arrest_console_arrest
 	display_name = "Security Records Set Status"
-	display_desc = "Receives a table to use to set people's arrest status. Table should be from the security records data component. If New Status port isn't set, the status will be decided by the options."
+	desc = "Receives a table to use to set people's arrest status. Table should be from the security records data component. If New Status port isn't set, the status will be decided by the options."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The targets to set the status of.
 	var/datum/port/input/targets
 
-	/// Sets the new status of the targets. If set to null, the status is taken from the options.
-	var/datum/port/input/new_status
+	/// Sets the new status of the targets.
+	var/datum/port/input/option/new_status
 
 	/// Returns the new status set once the setting is complete. Good for locating errors.
 	var/datum/port/output/new_status_set
@@ -141,37 +131,23 @@
 		COMP_STATE_DISCHARGED,
 		COMP_STATE_NONE,
 	)
-	options = component_options
+	new_status = add_option_port("Arrest Options", component_options)
 
-/obj/item/circuit_component/arrest_console_arrest/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/arrest_console_arrest/populate_ports()
 	targets = add_input_port("Targets", PORT_TYPE_TABLE)
-	new_status = add_input_port("New Status", PORT_TYPE_STRING)
 	new_status_set = add_output_port("Set Status", PORT_TYPE_STRING)
 	on_fail = add_output_port("Failed", PORT_TYPE_SIGNAL)
 
-/obj/item/circuit_component/arrest_console_arrest/Destroy()
-	targets = null
-	new_status = null
-	new_status_set = null
-	on_fail = null
-	return ..()
-
 /obj/item/circuit_component/arrest_console_arrest/input_received(datum/port/input/port)
-	. = ..()
-	if(.)
-		return
 
 	if(!attached_console || !attached_console.authenticated)
 		on_fail.set_output(COMPONENT_SIGNAL)
 		return
 
-	var/status_to_set = new_status.input_value
-	if(!status_to_set || !(status_to_set in options))
-		status_to_set = current_option
+	var/status_to_set = new_status.value
 
 	new_status_set.set_output(status_to_set)
-	var/list/target_table = targets.input_value
+	var/list/target_table = targets.value
 	if(!target_table)
 		on_fail.set_output(COMPONENT_SIGNAL)
 		return
@@ -183,12 +159,13 @@
 		if(!sec_record)
 			continue
 
-		successful_set++
+		if(sec_record.fields["criminal"] != status_to_set)
+			successful_set++
+			names_of_entries += target["name"]
 		sec_record.fields["criminal"] = status_to_set
-		names_of_entries += target["name"]
 
 	if(successful_set > 0)
-		investigate_log("[names_of_entries.Join(", ")] have been set to [status_to_set] by [parent.get_creator()].", INVESTIGATE_RECORDS)
+		investigate_log("[parent.get_creator()] has set security records for '[names_of_entries.Join(", ")]' to [status_to_set] via circuits.", INVESTIGATE_RECORDS)
 		if(successful_set > COMP_SECURITY_ARREST_AMOUNT_TO_FLAG)
 			message_admins("[successful_set] security entries have been set to [status_to_set] by [parent.get_creator_admin()]. [ADMIN_COORDJMP(src)]")
 		for(var/mob/living/carbon/human/human as anything in GLOB.carbon_list)
@@ -203,6 +180,13 @@
 	icon_state = "laptop"
 	icon_screen = "seclaptop"
 	icon_keyboard = "laptop_key"
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	clockwork = TRUE //it'd look weird
 	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE
@@ -320,11 +304,11 @@
 									background = "''" //"'background-color:#FFFFFF;'"
 									crimstat = "No Record."
 							dat += "<tr style=[background]>"
-							dat += text("<td><input type='hidden' value='[] [] [] []'></input><A href='?src=[REF(src)];choice=Browse Record;d_rec=[REF(R)]'>[]</a></td>", R.fields["name"], R.fields["id"], R.fields["rank"], R.fields["fingerprint"], R.fields["name"])
-							dat += text("<td>[]</td>", R.fields["id"])
-							dat += text("<td>[]</td>", R.fields["rank"])
-							dat += text("<td>[]</td>", R.fields["fingerprint"])
-							dat += text("<td>[]</td></tr>", crimstat)
+							dat += "<td><input type='hidden' value='[R.fields["name"]] [R.fields["id"]] [R.fields["rank"]] [R.fields["fingerprint"]]'></input><A href='?src=[REF(src)];choice=Browse Record;d_rec=[REF(R)]'>[R.fields["name"]]</a></td>"
+							dat += "<td>[R.fields["id"]]</td>"
+							dat += "<td>[R.fields["rank"]]</td>"
+							dat += "<td>[R.fields["fingerprint"]]</td>"
+							dat += "<td>[crimstat]</td></tr>"
 						dat += {"
 						</table></span>
 						<script type='text/javascript'>
@@ -423,10 +407,10 @@
 						dat += "<br>\nImportant Notes:<br>\n\t<A href='?src=[REF(src)];choice=Edit Field;field=notes'>&nbsp;[active2.fields["notes"]]&nbsp;</A>"
 						dat += "<br><br><font size='4'><b>Comments/Log</b></font><br>"
 						var/counter = 1
-						while(active2.fields[text("com_[]", counter)])
-							dat += (active2.fields[text("com_[]", counter)] + "<BR>")
-							if(active2.fields[text("com_[]", counter)] != "<B>Deleted</B>")
-								dat += text("<A href='?src=[REF(src)];choice=Delete Entry;del_c=[]'>Delete Entry</A><BR><BR>", counter)
+						while(active2.fields["com_[counter]"])
+							dat += (active2.fields["com_[counter]"] + "<BR>")
+							if(active2.fields["com_[counter]"] != "<B>Deleted</B>")
+								dat += "<A href='?src=[REF(src)];choice=Delete Entry;del_c=[counter]'>Delete Entry</A><BR><BR>"
 							counter++
 						dat += "<A href='?src=[REF(src)];choice=Add Entry'>Add Entry</A><br><br>"
 						dat += "<A href='?src=[REF(src)];choice=Delete Record (Security)'>Delete Record (Security Only)</A><br>"
@@ -540,7 +524,7 @@ What a mess.*/
 								GLOB.data_core.payCitation(active2.fields["id"], text2num(href_list["cdataid"]), pay)
 								to_chat(usr, "<span class='notice'>You have paid [pay] credit\s towards your fine.</span>")
 								if (pay == diff || pay > diff || pay >= diff)
-									investigate_log("Citation Paid off: <strong>[p.crimeName]</strong> Fine: [p.fine] | Paid off by [key_name(usr)]", INVESTIGATE_RECORDS)
+									usr.investigate_log(" paid off their citation for <strong>[p.crimeName]</strong> ([p.fine]).", INVESTIGATE_RECORDS)
 									to_chat(usr, "<span class='notice'>The fine has been paid in full.</span>")
 								qdel(C)
 								playsound(src, "terminal_type", 25, FALSE)
@@ -556,13 +540,13 @@ What a mess.*/
 					var/obj/item/paper/printed_paper = new /obj/item/paper( loc )
 					var/final_paper_text = "<CENTER><B>Security Record - (SR-[GLOB.data_core.securityPrintCount])</B></CENTER><BR>"
 					if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))
-						final_paper_text += text("Name: [] ID: []<BR>\nGender: []<BR>\nAge: []<BR>", active1.fields["name"], active1.fields["id"], active1.fields["gender"], active1.fields["age"])
+						final_paper_text += "Name: [active1.fields["name"]] ID: [active1.fields["id"]]<BR>\nGender: [active1.fields["gender"]]<BR>\nAge: [active1.fields["age"]]<BR>"
 						final_paper_text += "\nSpecies: [active1.fields["species"]]<BR>"
-						final_paper_text += text("\nFingerprint: []<BR>\nPhysical Status: []<BR>\nMental Status: []<BR>", active1.fields["fingerprint"], active1.fields["p_stat"], active1.fields["m_stat"])
+						final_paper_text += "\nFingerprint: [active1.fields["fingerprint"]]<BR>\nPhysical Status: [active1.fields["p_stat"]]<BR>\nMental Status: [active1.fields["m_stat"]]<BR>"
 					else
 						final_paper_text += "<B>General Record Lost!</B><BR>"
 					if((istype(active2, /datum/data/record) && GLOB.data_core.security.Find(active2)))
-						final_paper_text += text("<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: []", active2.fields["criminal"])
+						final_paper_text += "<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: [active2.fields["criminal"]]"
 
 						final_paper_text += "<BR>\n<BR>\nCrimes:<BR>\n"
 						final_paper_text +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
@@ -580,15 +564,15 @@ What a mess.*/
 							final_paper_text += "</tr>"
 						final_paper_text += "</table>"
 
-						final_paper_text += text("<BR>\nImportant Notes:<BR>\n\t[]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>", active2.fields["notes"])
+						final_paper_text += "<BR>\nImportant Notes:<BR>\n\t[active2.fields["notes"]]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
 						var/counter = 1
-						while(active2.fields[text("com_[]", counter)])
-							final_paper_text += text("[]<BR>", active2.fields[text("com_[]", counter)])
+						while(active2.fields["com_[counter]"])
+							final_paper_text += "[active2.fields["com_[counter]"]]<BR>"
 							counter++
-						printed_paper.name = text("SR-[] '[]'", GLOB.data_core.securityPrintCount, active1.fields["name"])
+						printed_paper.name = "SR-[GLOB.data_core.securityPrintCount] '[active1.fields["name"]]'"
 					else
 						final_paper_text += "<B>Security Record Lost!</B><BR>"
-						printed_paper.name = text("SR-[] '[]'", GLOB.data_core.securityPrintCount, "Record Lost")
+						printed_paper.name = "SR-[GLOB.data_core.securityPrintCount] 'Record Lost'"
 					final_paper_text += "</TT>"
 					printed_paper.add_raw_text(final_paper_text)
 					printed_paper.update_appearance()
@@ -606,7 +590,7 @@ What a mess.*/
 								default_description += "[c.crimeDetails]\n"
 
 						var/headerText = stripped_input(usr, "Please enter Poster Heading (Max 7 Chars):", "Print Wanted Poster", "WANTED", 8)
-						var/posternum = CLAMP((input("Number of posters to print (Max 5):","Number:",1) as num|null), 1, 5)
+						var/posternum = clamp((input("Number of posters to print (Max 5):","Number:",1) as num|null), 1, 5)
 						var/info = stripped_multiline_input(usr, "Please input a description for the poster:", "Print Wanted Poster", default_description, null)
 						if(info)
 							printing = 1
@@ -625,7 +609,7 @@ What a mess.*/
 						var/default_description = "A poster declaring [missing_name] to be a missing individual, missed by Nanotrasen. Report any sightings to security immediately."
 
 						var/headerText = stripped_input(usr, "Please enter Poster Heading (Max 7 Chars):", "Print Missing Persons Poster", "MISSING", 8)
-						var/posternum = CLAMP((input("Number of posters to print (Max 5):","Number:",1) as num|null), 1, 5)
+						var/posternum = clamp((input("Number of posters to print (Max 5):","Number:",1) as num|null), 1, 5)
 						var/info = stripped_multiline_input(usr, "Please input a description for the poster:", "Print Missing Persons Poster", default_description, null)
 						if(info)
 							printing = 1
@@ -645,7 +629,7 @@ What a mess.*/
 				temp += "<a href='?src=[REF(src)];choice=Clear Screen'>No</a>"
 
 			if("Purge All Records")
-				investigate_log("[key_name(usr)] has purged all the security records.", INVESTIGATE_RECORDS)
+				usr.investigate_log(" has purged all the security records.", INVESTIGATE_RECORDS)
 				for(var/datum/data/record/R in GLOB.data_core.security)
 					qdel(R)
 				GLOB.data_core.security.Cut()
@@ -659,9 +643,9 @@ What a mess.*/
 				if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
 					return
 				var/counter = 1
-				while(active2.fields[text("com_[]", counter)])
+				while(active2.fields["com_[counter]"])
 					counter++
-				active2.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", src.authenticated, src.rank, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+YEAR_OFFSET, t1)
+				active2.fields["com_[counter]"] = "Made by [src.authenticated] ([src.rank]) on [station_time_timestamp()] [time2text(world.realtime, "MMM DD")], [GLOB.year_integer+YEAR_OFFSET]<BR>[t1]"
 
 			if("Delete Record (ALL)")
 				if(active1)
@@ -676,15 +660,15 @@ What a mess.*/
 					temp += "<a href='?src=[REF(src)];choice=Clear Screen'>No</a>"
 
 			if("Delete Entry")
-				if((istype(active2, /datum/data/record) && active2.fields[text("com_[]", href_list["del_c"])]))
-					active2.fields[text("com_[]", href_list["del_c"])] = "<B>Deleted</B>"
+				if((istype(active2, /datum/data/record) && active2.fields["com_[href_list["del_c"]]"]))
+					active2.fields["com_[href_list["del_c"]]"] = "<B>Deleted</B>"
 //RECORD CREATE
 			if("New Record (Security)")
 				if((istype(active1, /datum/data/record) && !( istype(active2, /datum/data/record) )))
 					var/datum/data/record/R = new /datum/data/record()
 					R.fields["name"] = active1.fields["name"]
 					R.fields["id"] = active1.fields["id"]
-					R.name = text("Security Record #[]", R.fields["id"])
+					R.name = "Security Record #[R.fields["id"]]"
 					R.fields["criminal"] = "None"
 					R.fields["crim"] = list()
 					R.fields["notes"] = "No notes."
@@ -715,7 +699,7 @@ What a mess.*/
 				var/datum/data/record/R = new /datum/data/record()
 				R.fields["name"] = active1.fields["name"]
 				R.fields["id"] = active1.fields["id"]
-				R.name = text("Security Record #[]", R.fields["id"])
+				R.name = "Security Record #[R.fields["id"]]"
 				R.fields["criminal"] = "None"
 				R.fields["crim"] = list()
 				R.fields["notes"] = "No notes."
@@ -785,7 +769,7 @@ What a mess.*/
 							active1.fields["age"] = t1
 					if("species")
 						if(istype(active1, /datum/data/record))
-							var/t1 = input("Select a species", "Species Selection") as null|anything in GLOB.roundstart_races
+							var/t1 = input("Select a species", "Species Selection") as null|anything in get_selectable_species()
 							if(!canUseSecurityRecordsConsole(usr, t1, a1))
 								return
 							active1.fields["species"] = t1
@@ -833,7 +817,7 @@ What a mess.*/
 								return
 							var/crime = GLOB.data_core.createCrimeEntry(t1, t2, authenticated, station_time_timestamp())
 							GLOB.data_core.addCrime(active1.fields["id"], crime)
-							investigate_log("New Crime: <strong>[t1]</strong>: [t2] | Added to [active1.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has added a crime '<strong>[t1]</strong>': '[t2]' to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
 					if("crim_delete")
 						if(istype(active1, /datum/data/record))
 							if(href_list["cdataid"])
@@ -847,7 +831,7 @@ What a mess.*/
 								if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
 									return
 								GLOB.data_core.addCrimeDetails(active1.fields["id"], href_list["cdataid"], t1)
-								investigate_log("New Crime details: [t1] | Added to [active1.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
+								usr.investigate_log(" has set crime details ([t1]) to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
 					if("citation_add")
 						if(istype(active1, /datum/data/record))
 							var/maxFine = CONFIG_GET(number/maxfine)
@@ -879,12 +863,13 @@ What a mess.*/
 									signal.send_to_receivers()
 									usr.log_message("(PDA: Citation Server) sent \"[message]\" to [signal.format_target()]", LOG_PDA)
 							GLOB.data_core.addCitation(active1.fields["id"], crime)
-							investigate_log("New Citation: <strong>[t1]</strong> Fine: [fine] | Added to [active1.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has added a citation '<strong>[t1]</strong>' ([fine] credits) to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
 					if("citation_delete")
 						if(istype(active1, /datum/data/record))
 							if(href_list["cdataid"])
 								if(!canUseSecurityRecordsConsole(usr, "delete", null, a2))
 									return
+								usr.investigate_log(" has deleted [active1.fields["name"]]'s citation '[active1.fields["id"]]'.", INVESTIGATE_RECORDS)
 								GLOB.data_core.removeCitation(active1.fields["id"], href_list["cdataid"])
 					if("notes")
 						if(istype(active2, /datum/data/record))
@@ -892,6 +877,7 @@ What a mess.*/
 							if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
 								return
 							active2.fields["notes"] = t1
+							usr.investigate_log(" has set [active1.fields["name"]]'s security records important notes to '[t1]'.", INVESTIGATE_RECORDS)
 					if("criminal")
 						if(istype(active2, /datum/data/record))
 							temp = "<h5>Criminal Status:</h5>"
@@ -943,18 +929,18 @@ What a mess.*/
 									active2.fields["criminal"] = "Paroled"
 								if("released")
 									active2.fields["criminal"] = "Discharged"
-							investigate_log("[active1.fields["name"]] has been set from [old_field] to [active2.fields["criminal"]] by [key_name(usr)].", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has changed [active1.fields["name"]]'s security records status from <strong>[old_field]</strong> to <strong>[active2.fields["criminal"]]</strong>.", INVESTIGATE_RECORDS)
 							for(var/mob/living/carbon/human/H in GLOB.carbon_list)
 								H.sec_hud_set_security_status()
 					if("Delete Record (Security) Execute")
-						investigate_log("[key_name(usr)] has deleted the security records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
+						usr.investigate_log(" has <strong>deleted</strong> the security records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
 						if(active2)
 							qdel(active2)
 							active2 = null
 
 					if("Delete Record (ALL) Execute")
 						if(active1)
-							investigate_log("[key_name(usr)] has deleted all records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has deleted all records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
 							if(isAI(usr) || iscyborg(usr))
 								message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted all records for [active1.fields["name"]] as Borg/AI Player.")
 							for(var/datum/data/record/R in GLOB.data_core.medical)
@@ -1022,7 +1008,7 @@ What a mess.*/
 				if(6)
 					R.fields["m_stat"] = pick("*Insane*", "*Unstable*", "*Watch*", "Stable")
 				if(7)
-					R.fields["species"] = pick(GLOB.roundstart_races)
+					R.fields["species"] = pick(get_selectable_species())
 				if(8)
 					var/datum/data/record/G = pick(GLOB.data_core.general)
 					R.fields["photo_front"] = G.fields["photo_front"]

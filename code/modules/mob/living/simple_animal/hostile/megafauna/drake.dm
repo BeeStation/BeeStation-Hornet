@@ -45,6 +45,7 @@ Difficulty: Medium
 	move_to_delay = 5
 	ranged = TRUE
 	pixel_x = -16
+	base_pixel_x = -16
 	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/dragon)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/ashdrake = 10)
@@ -95,7 +96,7 @@ Difficulty: Medium
 	if(swooping)
 		return
 
-	anger_modifier = CLAMP(((maxHealth - health)/25),0,20)
+	anger_modifier = clamp(((maxHealth - health)/25),0,20)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 	if(client)
@@ -350,18 +351,16 @@ Difficulty: Medium
 	icon_state = "dragon"
 	playsound(loc, 'sound/effects/meteorimpact.ogg', 200, 1)
 	for(var/mob/living/L in orange(1, src))
-		if(L.stat)
-			visible_message("<span class='warning'>[src] slams down on [L], crushing [L.p_them()]!</span>")
-			L.gib()
-		else
-			L.adjustBruteLoss(75)
-			if(L && !QDELETED(L)) // Some mobs are deleted on death
-				var/throw_dir = get_dir(src, L)
-				if(L.loc == loc)
-					throw_dir = pick(GLOB.alldirs)
-				var/throwtarget = get_edge_target_turf(src, throw_dir)
-				L.throw_at(throwtarget, 3)
-				visible_message("<span class='warning'>[L] is thrown clear of [src]!</span>")
+		if(L.stat == DEAD)
+			continue
+		L.adjustBruteLoss(75)
+		if(L && !QDELETED(L)) // Some mobs are deleted on death
+			var/throw_dir = get_dir(src, L)
+			if(L.loc == loc)
+				throw_dir = pick(GLOB.alldirs)
+			var/throwtarget = get_edge_target_turf(src, throw_dir)
+			L.throw_at(throwtarget, 3)
+			visible_message("<span class='warning'>[L] is thrown clear of [src]!</span>")
 	for(var/obj/mecha/M in orange(1, src))
 		M.take_damage(75, BRUTE, MELEE, 1)
 

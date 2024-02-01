@@ -37,7 +37,7 @@
 		message_admins("An event attempted to spawn spiders but no suitable vents were found. Aborting.")
 		return MAP_ERROR
 
-	var/list/candidates = get_candidates(ROLE_SPIDER, null, ROLE_SPIDER)
+	var/list/candidates = get_candidates(ROLE_SPIDER, /datum/role_preference/midround_ghost/spider, POLL_IGNORE_SPIDER)
 
 	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS

@@ -504,19 +504,19 @@ Thresholds
 
 /obj/item/ammo_casing/caseless/pimple
 	variance = 120
-	projectile_type = /obj/item/projectile/pimple
+	projectile_type = /obj/projectile/pimple
 	var/list/diseases
 
 /obj/item/ammo_casing/caseless/pimple/ready_proj(atom/target, mob/living/user, quiet, zone_override, atom/fired_from)
 	. = ..()
 	if(!BB)
 		return
-	if(istype(BB, /obj/item/projectile/pimple))
-		var/obj/item/projectile/pimple/P = BB
+	if(istype(BB, /obj/projectile/pimple))
+		var/obj/projectile/pimple/P = BB
 		P.diseases = diseases
 
 
-/obj/item/projectile/pimple
+/obj/projectile/pimple
 	name = "high-velocity pustule"
 	damage = 4 //and very easily blocked with some bio armor
 	range = 5
@@ -526,7 +526,7 @@ Thresholds
 	armor_flag = BIO
 	var/list/diseases
 
-/obj/item/projectile/pimple/on_hit(atom/target, blocked)
+/obj/projectile/pimple/on_hit(atom/target, blocked)
 	. = ..()
 	var/turf/T = get_turf(target)
 	playsound(T, 'sound/effects/splat.ogg', 50, 1)

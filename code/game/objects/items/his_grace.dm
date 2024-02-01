@@ -31,12 +31,11 @@
 /obj/item/his_grace/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
-	GLOB.poi_list += src
+	AddElement(/datum/element/point_of_interest)
 	RegisterSignal(src, COMSIG_MOVABLE_POST_THROW, PROC_REF(move_gracefully))
 
 /obj/item/his_grace/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
-	GLOB.poi_list -= src
 	for(var/mob/living/L in src)
 		L.forceMove(get_turf(src))
 	return ..()
@@ -202,9 +201,9 @@
 /obj/item/his_grace/proc/adjust_bloodthirst(amt)
 	prev_bloodthirst = bloodthirst
 	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER && !ascended)
-		bloodthirst = CLAMP(bloodthirst + amt, HIS_GRACE_SATIATED, HIS_GRACE_CONSUME_OWNER)
+		bloodthirst = clamp(bloodthirst + amt, HIS_GRACE_SATIATED, HIS_GRACE_CONSUME_OWNER)
 	else if(!ascended)
-		bloodthirst = CLAMP(bloodthirst + amt, HIS_GRACE_CONSUME_OWNER, HIS_GRACE_FALL_ASLEEP)
+		bloodthirst = clamp(bloodthirst + amt, HIS_GRACE_CONSUME_OWNER, HIS_GRACE_FALL_ASLEEP)
 	update_stats()
 
 /obj/item/his_grace/proc/update_stats()

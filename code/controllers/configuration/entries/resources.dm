@@ -28,3 +28,7 @@
 	if (str_var && str_var[length(str_var)] != "/")
 		str_var += "/"
 	return ..(str_var)
+
+/datum/config_entry/flag/cache_assets
+
+/datum/config_entry/flag/smart_cache_assets

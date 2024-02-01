@@ -338,7 +338,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] used the Test Areas debug command checking [log_message].</span>")
 	log_admin("[key_name(usr)] used the Test Areas debug command checking [log_message].")
 
-	for(var/area/A in world)
+	for(var/area/A as anything in GLOB.areas)
 		if(on_station)
 			var/turf/picked = safepick(get_area_turfs(A.type))
 			if(picked && is_station_level(picked.z))
@@ -780,7 +780,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			return
 
 	var/len = GLOB.ruin_landmarks.len
-	seedRuins(SSmapping.levels_by_trait(data[2]), max(1, template.cost), data[3], list(ruinname = template))
+	seedRuins(SSmapping.levels_by_trait(data[2]), max(1, template.cost), data[3], list(ruinname = template), clear_below = TRUE)
 	if (GLOB.ruin_landmarks.len > len)
 		var/obj/effect/landmark/ruin/landmark = GLOB.ruin_landmarks[GLOB.ruin_landmarks.len]
 		log_admin("[key_name(src)] randomly spawned ruin [ruinname] at [COORD(landmark)].")
@@ -994,7 +994,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/list/sorted = list()
 	for (var/source in per_source)
 		sorted += list(list("source" = source, "count" = per_source[source]))
-	sorted = sortTim(sorted, PROC_REF(cmp_timer_data))
+	sorted = sortTim(sorted, GLOBAL_PROC_REF(cmp_timer_data))
 
 	// Now that everything is sorted, compile them into an HTML output
 	var/output = "<table border='1'>"
@@ -1060,3 +1060,36 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	//Print the results
 	to_chat(usr, "<span class='notice'>10000 dview calls resulted in a [total_time_dview]ms overhead. ([total_dview] items located)</span>")
 	to_chat(usr, "<span class='notice'>10000 lum changes resulted in a [total_time_lum]ms overhead. ([total_lum] items located)</span>")
+
+/client/proc/cmd_regenerate_asset_cache()
+	set category = "Debug"
+	set name = "Regenerate Asset Cache"
+	set desc = "Clears the asset cache and regenerates it immediately."
+	if(!CONFIG_GET(flag/cache_assets))
+		to_chat(usr, "<span class='warning'>Asset caching is disabled in the config!</span>")
+		return
+	var/regenerated = 0
+	for(var/datum/asset/A as() in subtypesof(/datum/asset))
+		if(!initial(A.cross_round_cachable))
+			continue
+		if(A == initial(A._abstract))
+			continue
+		var/datum/asset/asset_datum = GLOB.asset_datums[A]
+		asset_datum.regenerate()
+		regenerated++
+	to_chat(usr, "<span class='notice'>Regenerated [regenerated] asset\s.</span>")
+
+/client/proc/cmd_clear_smart_asset_cache()
+	set category = "Debug"
+	set name = "Clear Smart Asset Cache"
+	set desc = "Clears the smart asset cache."
+	if(!CONFIG_GET(flag/smart_cache_assets))
+		to_chat(usr, "<span class='warning'>Smart asset caching is disabled in the config!</span>")
+		return
+	var/cleared = 0
+	for(var/datum/asset/spritesheet_batched/A as() in subtypesof(/datum/asset/spritesheet_batched))
+		if(A == initial(A._abstract))
+			continue
+		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(A.name)].json")
+		cleared++
+	to_chat(usr, "<span class='notice'>Cleared [cleared] asset\s.</span>")

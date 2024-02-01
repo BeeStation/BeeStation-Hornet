@@ -69,7 +69,7 @@
 	if(remote_materials)
 		AddComponent(/datum/component/remote_materials, "modfab", mapload, TRUE, auto_link)
 	else
-		AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium), 0, TRUE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
+		AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium, /datum/material/plastic, /datum/material/adamantine), 0, TRUE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	. = ..()
 	stored_research = new stored_research_type
 
@@ -364,8 +364,8 @@
 	var/datum/component/material_container/materials = get_material_container()
 	materials.retrieve_all()
 
-/obj/machinery/modular_fabricator/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
-	if(ispath(type_inserted, /obj/item/stack/ore/bluespace_crystal))
+/obj/machinery/modular_fabricator/proc/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
+	if(istype(item_inserted, /obj/item/stack/ore/bluespace_crystal))
 		use_power(MINERAL_MATERIAL_AMOUNT / 10)
 	else
 		use_power(min(1000, amount_inserted / 100))
@@ -399,7 +399,7 @@
 	//Only items that can stack should be build en mass, since we now have queues.
 	if(is_stack)
 		multiplier = item_queue[requested_design_id]["amount"]
-	multiplier = CLAMP(multiplier,1,50)
+	multiplier = clamp(multiplier,1,50)
 
 	/////////////////
 
@@ -498,9 +498,6 @@
 	else
 		for(var/i in 1 to multiplier)
 			var/obj/item/new_item = new being_built.build_path(A)
-			new_item.materials.Cut()	//appearantly the material datum gets initialized in a subsystem so there is no need to qdelete it but we still need to empty the list
-			for(var/mat in materials_used)
-				new_item.materials[mat] = materials_used[mat] / multiplier
 
 			if(length(picked_materials))
 				new_item.set_custom_materials(picked_materials, 1 / multiplier) //Ensure we get the non multiplied amount

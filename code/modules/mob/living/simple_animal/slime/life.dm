@@ -5,7 +5,6 @@
 	var/monkey_bonus_damage = 2
 	var/attack_cooldown = 0
 	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
-	role = ROLE_SENTIENCE
 
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
@@ -65,20 +64,24 @@
 	reset_processing()
 
 /mob/living/simple_animal/slime/proc/reset_processing()
-	var/sleeptime = movement_delay()
+	var/sleeptime = cached_multiplicative_slowdown
 	if(sleeptime <= 0)
 		sleeptime = 1
 	addtimer(VARSET_CALLBACK(src, special_process, TRUE), (sleeptime + 2), TIMER_UNIQUE)
 
 /mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
-		return
 
 	var/loc_temp = get_temperature(environment)
+	var/divisor = 10 /// The divisor controls how fast body temperature changes, lower causes faster changes
 
-	adjust_bodytemperature(adjust_body_temperature(bodytemperature, loc_temp, 1))
+	if(abs(loc_temp - bodytemperature) > 50) // If the difference is great, reduce the divisor for faster stabilization
+		divisor = 5
 
-	//Account for massive pressure differences
+	if(loc_temp < bodytemperature) // It is cold here
+		if(!on_fire) // Do not reduce body temp when on fire
+			adjust_bodytemperature((loc_temp - bodytemperature) / divisor)
+	else // This is a hot place
+		adjust_bodytemperature((loc_temp - bodytemperature) / divisor)
 
 	if(bodytemperature < (T0C + 5)) // start calculating temperature damage etc
 
@@ -115,23 +118,6 @@
 
 
 	return //TODO: DEFERRED
-
-/mob/living/simple_animal/slime/proc/adjust_body_temperature(current, loc_temp, boost)
-	var/temperature = current
-	var/difference = abs(current-loc_temp)	//get difference
-	var/increments// = difference/10			//find how many increments apart they are
-	if(difference > 50)
-		increments = difference/5
-	else
-		increments = difference/10
-	var/change = increments*boost	// Get the amount to change by (x per increment)
-	var/temp_change
-	if(current < loc_temp)
-		temperature = min(loc_temp, temperature+change)
-	else if(current > loc_temp)
-		temperature = max(loc_temp, temperature-change)
-	temp_change = (temperature - current)
-	return temp_change
 
 /mob/living/simple_animal/slime/handle_status_effects(delta_time)
 	..()
@@ -546,8 +532,3 @@
 		return 0
 	return 1
 
-
-/mob/living/simple_animal/slime/movement_delay()
-	. = ..()
-	if(transformeffects & SLIME_EFFECT_SEPIA)
-		. *= 0.7

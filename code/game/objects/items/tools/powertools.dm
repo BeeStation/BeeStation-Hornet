@@ -5,7 +5,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(/datum/material/iron=150,/datum/material/silver=50,/datum/material/titanium=25)
+	custom_materials = list(/datum/material/iron=150,/datum/material/silver=50,/datum/material/titanium=25) //done for balance reasons, making them high value for research, but harder to get
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, STAMINA = 0)
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
@@ -62,7 +62,7 @@
 	attack_verb = list("drilled", "screwed", "jabbed")
 	throw_range = 3
 
-/obj/item/powertool/hand_drill/suicide_act(mob/user)
+/obj/item/powertool/hand_drill/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_SCREWDRIVER)
 		user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	else
@@ -72,7 +72,7 @@
 /obj/item/powertool/hand_drill/attack(mob/living/M, mob/living/user)
 	if(!istype(M) || tool_behaviour != TOOL_SCREWDRIVER)
 		return ..()
-	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
+	if(!user.is_zone_selected(BODY_ZONE_PRECISE_EYES, precise_only = TRUE) && !user.is_zone_selected(BODY_ZONE_HEAD, simplified_probability = 40))
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
@@ -133,7 +133,7 @@
 
 	ADD_TRAIT(src, TRAIT_DOOR_PRYER, TRAIT_JAWS_OF_LIFE)
 
-/obj/item/powertool/jaws_of_life/suicide_act(mob/user)
+/obj/item/powertool/jaws_of_life/suicide_act(mob/living/user)
 	if(tool_behaviour == TOOL_CROWBAR)
 		user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src], it looks like [user.p_theyre()] trying to commit suicide!</span>")
 		playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)

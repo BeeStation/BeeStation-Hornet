@@ -1,9 +1,11 @@
 /datum/antagonist/incursion
 	name = "Syndicate Incursion Member"
 	antagpanel_category = "Incursion"
-	job_rank = ROLE_INCURSION
-	var/special_role = ROLE_INCURSION
+	banning_key = ROLE_INCURSION
+	required_living_playtime = 4
+	ui_name = "AntagInfoIncursion"
 	var/datum/team/incursion/team
+	var/datum/weakref/uplink_ref
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
 
@@ -22,7 +24,7 @@
 	for(var/datum/objective/O in team.objectives)
 		objectives += O
 		log_objective(owner, O.explanation_text)
-	owner.special_role = special_role
+	owner.special_role = ROLE_INCURSION
 	finalize_incursion()
 	return ..()
 
@@ -35,6 +37,17 @@
 
 /datum/antagonist/incursion/antag_panel_data()
 	return "Conspirators : [get_team_members()]]"
+
+/datum/antagonist/incursion/ui_static_data(mob/user)
+	var/datum/component/uplink/uplink = uplink_ref?.resolve()
+	var/list/data = list()
+	data["antag_name"] = name
+	data["code"] = uplink?.unlock_code
+	data["failsafe_code"] = uplink?.failsafe_code
+	data["uplink_unlock_info"] = uplink?.unlock_text
+	data["objectives"] = get_objectives()
+	data["members"] = team.get_member_names()
+	return data
 
 /datum/antagonist/incursion/proc/get_team_members()
 	var/list/members = team.members - owner
@@ -69,7 +82,7 @@
 
 /datum/antagonist/incursion/proc/finalize_incursion()
 	equip()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/incursion.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/incursion/admin_add(datum/mind/new_owner,mob/admin)
 	//show list of possible brothers
@@ -91,7 +104,12 @@
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
-	owner.equip_traitor("The Syndicate", FALSE, src, 15)
+	var/obj/item/uplink_loc = owner.equip_traitor("The Syndicate", FALSE, src, 15)
+	var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
+	if(uplink)
+		uplink_ref = WEAKREF(uplink)
+	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
+	syndio.implant(owner.current)
 
 /datum/team/incursion
 	name = "syndicate incursion force"
@@ -153,7 +171,7 @@
 	objectives = list()
 	var/is_hijacker = GLOB.player_details.len >= 35 ? prob(15) : 0
 	for(var/i = 1 to max(1, CONFIG_GET(number/incursion_objective_amount)))
-		forge_single_objective(CLAMP((5 + !is_hijacker)-i, 1, 3), restricted_jobs)	//Hijack = 3, 2, 1, 1 no hijack = 3, 3, 2, 1
+		forge_single_objective(clamp((5 + !is_hijacker)-i, 1, 3), restricted_jobs)	//Hijack = 3, 2, 1, 1 no hijack = 3, 3, 2, 1
 	if(is_hijacker)
 		if(!(locate(/datum/objective/hijack) in objectives))
 			add_objective(new/datum/objective/hijack)
@@ -161,7 +179,7 @@
 		add_objective(new/datum/objective/escape/single, FALSE)
 
 /datum/team/incursion/proc/forge_single_objective(difficulty=1, list/restricted_jobs)
-	difficulty = CLAMP(difficulty, 1, 3)
+	difficulty = clamp(difficulty, 1, 3)
 	switch(difficulty)
 		if(3)
 			if(LAZYLEN(active_ais()) && prob(25))	//25 %
@@ -196,15 +214,15 @@
 
 /datum/team/incursion/proc/generate_traitor_kill_objective(list/restricted_jobs)
 	//Spawn someone as a traitor
-	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(ROLE_EXCOMM, restricted_jobs)
+	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(/datum/antagonist/traitor, /datum/role_preference/antagonist/excommunicate, restricted_jobs)
 	if(!LAZYLEN(people))
 		log_game("Not enough players for incursion role. [LAZYLEN(people)]")
 		return
-	var/datum/mind/target = SSticker.mode.antag_pick(people, ROLE_EXCOMM)
+	var/datum/mind/target = SSticker.mode.antag_pick(people, /datum/role_preference/antagonist/excommunicate)
 	if(!target)
 		log_game("No mind selected.")
 		return
-	target.make_Traitor()
+	target.add_antag_datum(/datum/antagonist/traitor/excommunicate)
 	to_chat(target, "<span class='userdanger'>You have been declared an ex-communicate of the syndicate and are being hunted down.</span>")
 	to_chat(target, "<span class='warning'>You have stolen syndicate objective documents, complete the objectives to throw off the syndicate and sabotage their efforts.</span>")
 	target.store_memory("You have been declared an ex-communicate of the syndicate and are being hunted down by a group of traitors. Be careful!")

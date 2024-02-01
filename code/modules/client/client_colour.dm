@@ -84,7 +84,6 @@
 		var/datum/client_colour/colour = cc
 		if(colour.type == colour_type)
 			qdel(colour)
-			break
 
 /**
   * Gets the resulting colour/tone from client_colours.
@@ -195,6 +194,9 @@
 	override = TRUE
 	fade_in = 20
 	fade_out = 20
+
+/datum/client_colour/monochrome/blind
+	priority = 1
 
 /datum/client_colour/bloodlust
 	priority = PRIORITY_ABSOLUTE // Only anger.

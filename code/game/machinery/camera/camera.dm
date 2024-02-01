@@ -15,11 +15,12 @@
 
 	armor = list(MELEE = 50,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50, STAMINA = 0)
 	max_integrity = 100
-	integrity_failure = 50
+	integrity_failure = 0.5
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
 	var/list/network = list("ss13")
 	var/c_tag = null
 	var/status = TRUE
+	var/current_state = TRUE
 	var/start_active = FALSE //If it ignores the random chance to start broken on round start
 	var/invuln = null
 	var/obj/item/camera_bug/bug = null
@@ -46,7 +47,6 @@
 
 	// Upgrades bitflag
 	var/upgrades = 0
-	var/datum/component/empprotection/emp_component
 
 	var/internal_light = TRUE //Whether it can light up when an AI views it
 
@@ -101,6 +101,16 @@
 
 	alarm_manager = new(src)
 
+/obj/machinery/camera/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/jam_receiver, JAMMER_PROTECTION_CAMERAS)
+	RegisterSignal(src, COMSIG_ATOM_JAMMED, PROC_REF(update_jammed))
+	RegisterSignal(src, COMSIG_ATOM_UNJAMMED, PROC_REF(update_jammed))
+
+/obj/machinery/camera/proc/update_jammed(datum/source)
+	SIGNAL_HANDLER
+	update_camera(null, FALSE)
+
 /obj/machinery/proc/create_prox_monitor()
 	if(!proximity_monitor)
 		proximity_monitor = new(src, 1)
@@ -110,7 +120,7 @@
 	create_prox_monitor()
 
 /obj/machinery/camera/Destroy()
-	if(can_use())
+	if(current_state)
 		toggle_cam(null, 0) //kick anyone viewing out and remove from the camera chunks
 	GLOB.cameranet.removeCamera(src)
 	GLOB.cameranet.cameras -= src
@@ -119,7 +129,6 @@
 		LAZYREMOVE(myarea.cameras, src)
 	QDEL_NULL(alarm_manager)
 	QDEL_NULL(assembly_ref)
-	QDEL_NULL(emp_component)
 	if(bug)
 		bug.bugged_cameras -= c_tag
 		if(bug.current == src)
@@ -297,7 +306,7 @@
 
 			if (O.client?.eye == src)
 				to_chat(O, "[user] holds \a [itemname] up to one of the cameras ...")
-				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
+				O << browse("<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>", "window=[itemname]")
 		return
 
 	if(istype(attacking_item, /obj/item/paper))
@@ -388,7 +397,7 @@
 	qdel(src)
 
 /obj/machinery/camera/update_icon() //TO-DO: Make panel open states, xray camera, and indicator lights overlays instead.
-	if(!status)
+	if(!current_state)
 		icon_state = "[default_camera_icon]_off"
 	else if (machine_stat & EMPED)
 		icon_state = "[default_camera_icon]_emp"
@@ -397,7 +406,13 @@
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
+	update_camera(user, displaymessage)
+
+/obj/machinery/camera/proc/update_camera(mob/user, displaymessage = TRUE)
 	if(can_use())
+		if (current_state)
+			return
+		current_state = TRUE
 		GLOB.cameranet.addCamera(src)
 		if (isturf(loc))
 			myarea = get_area(src)
@@ -405,6 +420,9 @@
 		else
 			myarea = null
 	else
+		if (!current_state)
+			return
+		current_state = FALSE
 		set_light(0)
 		GLOB.cameranet.removeCamera(src)
 		if (isarea(myarea))

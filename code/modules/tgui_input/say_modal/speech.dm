@@ -10,7 +10,7 @@
 /datum/tgui_say/proc/alter_entry(payload)
 	var/entry = payload["entry"]
 	/// No OOC leaks - this will not show any of the message, but instead just the glorf
-	if(!entry || payload["channel"] == OOC_CHANNEL || payload["channel"] == LOOC_CHANNEL || payload["channel"] == ME_CHANNEL)
+	if(!entry || (payload["channel"] in GLOB.leakless_channels))
 		return pick(hurt_phrases)
 	/// Random trimming for larger sentences
 	if(length(entry) > 50)
@@ -46,6 +46,15 @@
 			return TRUE
 		if(LOOC_CHANNEL)
 			client.looc(entry)
+		if(ASAY_CHANNEL)
+			if(client.holder)
+				client.cmd_admin_say(entry)
+		if(DSAY_CHANNEL)
+			if(client.holder)
+				client.dsay(entry)
+		if(MSAY_CHANNEL)
+			if(client.is_mentor())
+				client.cmd_mentor_say(entry)
 	return FALSE
 
 /**
@@ -84,7 +93,7 @@
 		return TRUE
 	if(type == "force")
 		var/target_channel = payload["channel"]
-		if(target_channel == ME_CHANNEL || target_channel == OOC_CHANNEL || target_channel == LOOC_CHANNEL)
+		if(target_channel in GLOB.leakless_channels)
 			target_channel = SAY_CHANNEL // No ooc leaks - redirects the glorf to IC chat, alter_entry will ensure no OOC info is IC by only saying "OW!"
 		delegate_speech(alter_entry(payload), target_channel)
 		return TRUE

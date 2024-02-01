@@ -122,11 +122,11 @@
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "rupee"
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(/datum/material/glass = 500)
+	custom_materials = list(/datum/material/glass = 500)
 
 /obj/item/rupee/Initialize(mapload)
 	. = ..()
-	var/newcolor = color2hex(pick(10;"green", 5;"blue", 3;"red", 1;"purple"))
+	var/newcolor = pick(10;COLOR_GREEN, 5;COLOR_BLUE, 3;COLOR_RED, 1;COLOR_PURPLE)
 	add_atom_colour(newcolor, FIXED_COLOUR_PRIORITY)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),

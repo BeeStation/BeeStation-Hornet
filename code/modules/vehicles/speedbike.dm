@@ -78,9 +78,13 @@
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
 		if(ishuman(A))
 			var/mob/living/carbon/human/H = A
-			H.Paralyze(100)
-			H.adjustStaminaLoss(30)
-			H.apply_damage(rand(20,35), BRUTE)
+			var/multiplier = 1
+			if(HAS_TRAIT(H, TRAIT_PROSKATER))
+				multiplier = 0.3 //70% reduction
+			H.Paralyze(multiplier * 100)
+			H.adjustStaminaLoss(multiplier * 30)
+			if(prob(multiplier * 100))
+				H.apply_damage(rand(20,35), BRUTE)
 			if(!crash_all)
 				H.throw_at(throw_target, 4, 3)
 				visible_message("<span class='danger'>[src] crashes into [H]!</span>")

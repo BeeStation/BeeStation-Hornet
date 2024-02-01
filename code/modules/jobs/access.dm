@@ -1,33 +1,46 @@
 
 ///returns TRUE if this mob has sufficient access to use this object.
 ///Note that this will return FALSE when passed null, unless the door doesn't require any access.
-/obj/proc/allowed(mob/M)
+/obj/proc/allowed(mob/accessor)
+	if(SEND_SIGNAL(src, COMSIG_OBJ_ALLOWED, accessor) & COMPONENT_OBJ_ALLOW)
+		return TRUE
 	//check if it doesn't require any access at all
 	if(src.check_access(null))
 		return TRUE
-	if(issilicon(M))
-		var/mob/living/silicon/S = M
+	if(length(accessor.buckled_mobs) && handle_buckled_access(accessor))
+		return TRUE
+	if(issilicon(accessor))
+		var/mob/living/silicon/S = accessor
 		return check_access(S.internal_id_card)	//AI can do whatever it wants
-	if(IsAdminGhost(M))
+	if(IsAdminGhost(accessor))
 		//Access can't stop the abuse
 		return TRUE
-	else if(istype(M) && SEND_SIGNAL(M, COMSIG_MOB_ALLOWED, src))
+	else if(istype(accessor) && SEND_SIGNAL(accessor, COMSIG_MOB_ALLOWED, src))
 		return TRUE
-	else if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+	else if(ishuman(accessor))
+		var/mob/living/carbon/human/H = accessor
 		//if they are holding or wearing a card that has access, that works
 		if(check_access(H.get_active_held_item()) || src.check_access(H.wear_id))
 			return TRUE
-	else if(ismonkey(M) || isalienadult(M))
-		var/mob/living/carbon/george = M
+	else if(ismonkey(accessor) || isalienadult(accessor))
+		var/mob/living/carbon/george = accessor
 		//they can only hold things :(
 		if(check_access(george.get_active_held_item()))
 			return TRUE
-	else if(isanimal(M))
-		var/mob/living/simple_animal/A = M
+	else if(isanimal(accessor))
+		var/mob/living/simple_animal/A = accessor
 		if(check_access(A.get_active_held_item()) || check_access(A.access_card))
 			return TRUE
 	return FALSE
+
+/obj/proc/handle_buckled_access(mob/accessor)
+	. = FALSE
+	// check if someone riding on / buckled to them has access
+	for(var/mob/living/buckled in accessor.buckled_mobs)
+		if(accessor == buckled || buckled == src) // just in case to prevent a possible infinite loop scenario (but it won't happen)
+			continue
+		if(allowed(buckled))
+			return TRUE
 
 /obj/item/proc/GetAccess()
 	return list()

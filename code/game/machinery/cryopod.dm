@@ -14,6 +14,12 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	desc = "An interface between crew and the cryogenic storage oversight systems."
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "cellconsole_1"
+
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	// circuit = /obj/item/circuitboard/cryopodcontrol
 	density = FALSE
 	layer = ABOVE_WINDOW_LAYER
@@ -338,6 +344,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		else
 			mob_occupant.ghostize(TRUE,SENTIENCE_ERASE)
 	if(mob_occupant.mind)
+		mob_occupant.mind.cryoed = TRUE
 		SEND_SIGNAL(mob_occupant.mind, COMSIG_MIND_CRYOED)
 	QDEL_NULL(occupant)
 	open_machine()

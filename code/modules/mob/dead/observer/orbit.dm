@@ -25,7 +25,7 @@
 		var/ref = params["ref"]
 		var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
 		if (poi != null)
-			owner.ManualFollow(poi)
+			owner.check_orbitable(poi)
 		else
 			return TRUE
 
@@ -57,7 +57,7 @@
 			else if (M.mind == null)
 				npcs += list(serialized)
 			else
-				var/number_of_orbiters = M.orbiters?.orbiters?.len
+				var/number_of_orbiters = M.orbit_datum?.current_orbiters?.len
 				if (number_of_orbiters)
 					serialized["orbiters"] = number_of_orbiters
 
@@ -70,9 +70,9 @@
 					serialized["role_icon"] = "hud[ckey(identification_card.GetJobIcon())]"
 				else if(SSjob.name_occupations[mind.assigned_role])
 					//If we have no ID, use the mind job
-					var/datum/job/located_job = SSjob.GetJob(mind.assigned_role)
-					if (located_job)
-						serialized["role_icon"] = "hud[ckey(located_job.title)]"
+					var/located_job_hud = get_hud_by_jobname(mind.assigned_role, returns_unknown=FALSE)
+					if (located_job_hud)
+						serialized["role_icon"] = "hud[ckey(located_job_hud)]"
 
 				for (var/_A in mind.antag_datums)
 					var/datum/antagonist/A = _A
@@ -105,18 +105,19 @@
 /datum/orbit_menu/ui_assets()
 	return list(
 		get_asset_datum(/datum/asset/simple/orbit),
-		get_asset_datum(/datum/asset/spritesheet/job_icons),
-		get_asset_datum(/datum/asset/spritesheet/antag_hud)
+		get_asset_datum(/datum/asset/spritesheet_batched/job_icons),
+		get_asset_datum(/datum/asset/spritesheet_batched/antag_hud)
 	)
 
-/datum/asset/spritesheet/job_icons
+/datum/asset/spritesheet_batched/job_icons
 	name = "job-icon"
 
-/datum/asset/spritesheet/job_icons/register()
-	var/icon/I = icon('icons/mob/hud.dmi')
+/datum/asset/spritesheet_batched/job_icons/create_spritesheets()
+	var/datum/icon_transformer/transform = new()
 	// Get the job hud part
-	I.Crop(1, 17, 8, 24)
+	transform.crop(1, 17, 8, 24)
 	// Scale it up
-	I.Scale(16, 16)
-	InsertAll("job-icon", I)
-	..()
+	transform.scale(16, 16)
+
+	for (var/icon_state_name in icon_states('icons/mob/hud.dmi'))
+		insert_icon("job-icon-[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))

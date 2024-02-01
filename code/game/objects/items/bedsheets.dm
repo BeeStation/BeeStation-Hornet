@@ -27,8 +27,7 @@
 	AddElement(/datum/element/bed_tuckable, 0, 0, 0)
 
 /obj/item/bedsheet/attack(mob/living/M, mob/user)
-	if(!attempt_initiate_surgery(src, M, user))
-		..()
+	attempt_initiate_surgery(src, M, user)
 
 /obj/item/bedsheet/attack_self(mob/user)
 	if(!user.CanReach(src))		//No telekenetic grabbing.
@@ -46,9 +45,13 @@
 
 /obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
-		var/obj/item/stack/sheet/cotton/cloth/C = new (get_turf(src), 3)
-		transfer_fingerprints_to(C)
-		C.add_fingerprint(user)
+		var/turf/T = get_turf(src)
+		var/obj/item/stack/sheet/cotton/cloth/C = new (T, 3)
+		if(QDELETED(C))
+			C = locate(/obj/item/stack/sheet/cotton/cloth) in T
+		if(C)
+			transfer_fingerprints_to(C)
+			C.add_fingerprint(user)
 		qdel(src)
 		to_chat(user, "<span class='notice'>You tear [src] up.</span>")
 	else

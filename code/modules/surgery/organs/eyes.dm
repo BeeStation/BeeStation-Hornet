@@ -30,15 +30,18 @@
 	var/lighting_alpha
 	var/no_glasses
 	var/damaged	= FALSE	//damaged indicates that our eyes are undergoing some level of negative effect
+	///the type of overlay we use for this eye's blind effect
+	var/atom/movable/screen/fullscreen/blind/blind_type
+	///Can these eyes every be cured of blind? - Each eye atom should handle this themselves, don't make this make you blind
+	var/can_see = TRUE
 
-/obj/item/organ/eyes/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
+/obj/item/organ/eyes/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
 	. = ..()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/HMN = owner
 		old_eye_color = HMN.eye_color
 		if(eye_color)
 			HMN.eye_color = eye_color
-			HMN.regenerate_icons()
 		else
 			eye_color = HMN.eye_color
 		if(HAS_TRAIT(HMN, TRAIT_NIGHT_VISION) && !lighting_alpha)
@@ -48,12 +51,12 @@
 	if(M.has_dna() && ishuman(M))
 		M.dna.species.handle_body(M) //updates eye icon
 
-/obj/item/organ/eyes/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/eyes/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(ishuman(M) && eye_color)
 		var/mob/living/carbon/human/HMN = M
 		HMN.eye_color = old_eye_color
-		HMN.regenerate_icons()
+		HMN.update_body()
 	M.update_tint()
 	M.update_sight()
 
@@ -66,10 +69,10 @@
 		organ_flags &= ~ORGAN_FAILING
 		C.cure_blind(EYE_DAMAGE)
 	//various degrees of "oh fuck my eyes", from "point a laser at your eye" to "staring at the Sun" intensities
-	if(damage > 20)
+	if(damage > 20 && can_see)
 		damaged = TRUE
 		if((organ_flags & ORGAN_FAILING))
-			C.become_blind(EYE_DAMAGE)
+			C.become_blind(EYE_DAMAGE, blind_type)
 		else if(damage > 30)
 			C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 2)
 		else
@@ -174,7 +177,7 @@
 /obj/item/organ/eyes/robotic/flashlight/emp_act(severity)
 	return
 
-/obj/item/organ/eyes/robotic/flashlight/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE)
+/obj/item/organ/eyes/robotic/flashlight/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, pref_load = FALSE)
 	..()
 	if(!eye)
 		eye = new /obj/item/flashlight/eyelight()
@@ -184,7 +187,7 @@
 	M.become_blind("flashlight_eyes")
 
 
-/obj/item/organ/eyes/robotic/flashlight/Remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/eyes/robotic/flashlight/Remove(var/mob/living/carbon/M, var/special = 0, pref_load = FALSE)
 	eye.on = FALSE
 	eye.update_brightness(M)
 	eye.forceMove(src)
@@ -226,7 +229,7 @@
 	terminate_effects()
 	. = ..()
 
-/obj/item/organ/eyes/robotic/glow/Remove(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/eyes/robotic/glow/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
 	terminate_effects()
 	. = ..()
 
@@ -250,12 +253,12 @@
 		activate()
 
 /obj/item/organ/eyes/robotic/glow/proc/prompt_for_controls(mob/user)
-	var/C = input(owner, "Select Color", "Select color", "#ffffff") as color|null
+	var/C = tgui_color_picker(owner, "Select Color", "Select color", "#ffffff")
 	if(!C || QDELETED(src) || QDELETED(user) || QDELETED(owner) || owner != user)
 		return
 	var/range = input(user, "Enter range (0 - [max_light_beam_distance])", "Range Select", 0) as null|num
 
-	set_distance(CLAMP(range, 0, max_light_beam_distance))
+	set_distance(clamp(range, 0, max_light_beam_distance))
 	assume_rgb(C)
 
 /obj/item/organ/eyes/robotic/glow/proc/assume_rgb(newcolor)
@@ -406,3 +409,30 @@
 	name = "apid eyes"
 	desc = "Designed for navigating dark hives, these eyes have improvement to low light vision."
 	see_in_dark = 8
+
+/obj/item/organ/eyes/psyphoza
+	name = "psyphoza eyes"
+	desc = "Conduits for psychic energy, hardly even eyes."
+	icon_state = "psyphoza_eyeballs"
+	actions_types = list(/datum/action/item_action/organ_action/psychic_highlight)
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	blind_type = /atom/movable/screen/fullscreen/blind/psychic
+	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	can_see = FALSE
+
+/obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
+	. = ..()
+	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic, FALSE)
+	M.remove_client_colour(/datum/client_colour/monochrome/blind)
+	//Handle weird ability code
+	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
+	if(P?.removed)
+		P.Grant(M)
+		P?.removed = FALSE
+
+/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
+	M.cure_blind("uncurable", TRUE)
+	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
+	P?.remove()
+	return ..()

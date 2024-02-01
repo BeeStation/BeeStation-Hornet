@@ -4,14 +4,9 @@ import { Window } from '../layouts';
 
 export const BottleDispenser = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    bottle_size,
-    bottle_name,
-  } = data;
+  const { bottle_size, bottle_name } = data;
   return (
-    <Window
-      width={300}
-      height={120}>
+    <Window width={300} height={120}>
       <Window.Content>
         <Section>
           <LabeledList>
@@ -24,15 +19,15 @@ export const BottleDispenser = (props, context) => {
                 maxValue={30}
                 step={1}
                 stepPixelSize={2}
-                onChange={(e, value) => act('change_bottle_size', {
-                  volume: value,
-                })} />
+                onChange={(e, value) =>
+                  act('change_bottle_size', {
+                    volume: value,
+                  })
+                }
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Bottle Name">
-              <Button
-                icon="pencil-alt"
-                content={bottle_name}
-                onClick={() => act('change_bottle_name')} />
+              <Button icon="pencil-alt" content={bottle_name} onClick={() => act('change_bottle_name')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>

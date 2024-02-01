@@ -57,6 +57,9 @@
 	..()
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)
+	. = ..()
+	if(!data)
+		return
 	// taste data can sometimes be ("salt" = 3, "chips" = 1)
 	// and we want it to be in the form ("salt" = 0.75, "chips" = 0.25)
 	// which is called "normalizing"
@@ -101,6 +104,12 @@
 	if(M.satiety < 600)
 		M.satiety += 30
 	. = ..()
+
+/datum/reagent/consumable/nutriment/protein //this is from a tg pr that actually makes use of this reagent. At the moment that I am porting newfood, we are just using it as filler to have something other than vitamins and nutriments.
+	name = "Protein"
+	description = "A natural polyamide made up of amino acids. An essential constituent of mosts known forms of life."
+	brute_heal = 0.8 //Rewards the player for eating a balanced diet.
+	nutriment_factor = 9 * REAGENTS_METABOLISM //45% as calorie dense as corn oil.
 
 /datum/reagent/consumable/cooking_oil
 	name = "Cooking Oil"
@@ -297,7 +306,7 @@
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.blur_eyes(5) // 10 seconds
-			victim.blind_eyes(3) // 6 seconds
+			victim.adjust_blindness(3) // 6 seconds
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
@@ -382,6 +391,8 @@
 	taste_description = "mushroom"
 
 /datum/reagent/drug/mushroomhallucinogen/on_mob_life(mob/living/carbon/M)
+	if(ispsyphoza(M))
+		return
 	if(!M.slurring)
 		M.slurring = 1
 	switch(current_cycle)
@@ -635,7 +646,7 @@
 		else
 			if(!M.eye_blurry)
 				to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
-			M.blind_eyes(2)
+			M.adjust_blindness(2)
 			M.blur_eyes(5)
 	..()
 
@@ -645,7 +656,7 @@
 		M.blur_eyes(4)
 		if(prob(10))
 			to_chat(M, "<span class = 'warning'>Your eyes sting!</span>")
-			M.blind_eyes(2)
+			M.adjust_blindness(2)
 
 
 /datum/reagent/consumable/nutriment/stabilized
@@ -659,6 +670,20 @@
 /datum/reagent/consumable/nutriment/stabilized/on_mob_life(mob/living/carbon/M)
 	if(M.nutrition > NUTRITION_LEVEL_FULL - 25)
 		M.adjust_nutrition(-3*nutriment_factor)
+	..()
+
+/datum/reagent/consumable/maltodextrin
+	name = "Maltodextrin"
+	description = "A common filler found in processed foods. Foods containing it will leave you feeling full for a much shorter time."
+	color = "#ffffff"
+	chem_flags = CHEMICAL_RNG_GENERAL
+	taste_mult = 0.1 // Taste the salt and sugar not the cheap carbs
+	taste_description = "processed goodness"
+	nutriment_factor = 0
+	metabolization_rate = 0.05 * REAGENTS_METABOLISM //Each unit will last 50 ticks
+
+/datum/reagent/consumable/maltodextrin/on_mob_life(mob/living/carbon/M)
+	M.adjust_nutrition(-0.3) //Each unit will match nutriment 1:1 when completely processed
 	..()
 
 ////Lavaland Flora Reagents////
