@@ -115,7 +115,7 @@ const ItemList = (props, context) => {
       );
     } else if (are_contents_illegal) {
       return (
-        <Tooltip content="The catalogue information is labeled as the proudct is implemented with our technology, but this may not be correct. If you're looking for a product with our technology, be careful of purchasing this.">
+        <Tooltip content="The catalogue information is labeled as the product is implemented with our technology, but this may not be correct. If you're looking for a product with our technology, be careful of purchasing this.">
           <Box inline position="relative" mr={1}>
             {entry_name}
           </Box>
