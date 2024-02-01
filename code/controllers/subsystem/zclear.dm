@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(zclear)
 		if(!L)
 			continue
 		//Dead mobs get sent to new ruins
-		if(L.ckey || L.client || L.mind)
+		if(L.ckey || L.client || (L.mind && L.stat == DEAD))
 			var/turf/T = get_turf(L)
 			mob_levels["[T.z]"] = TRUE
 			if(L.stat != DEAD)
