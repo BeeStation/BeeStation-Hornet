@@ -9451,7 +9451,7 @@
 /obj/item/reagent_containers/hypospray/medipen{
 	pixel_y = 5
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/medical/medbay/central)
 "aYH" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -17058,7 +17058,7 @@
 /obj/item/pen{
 	pixel_x = -4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/medical/medbay/central)
 "bNv" = (
 /obj/structure/disposalpipe/segment{
@@ -35131,7 +35131,7 @@
 	id = "chemistry_shutters";
 	name = "Chemistry Lab Shutters"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/medical/chemistry)
 "fas" = (
 /obj/machinery/light,
@@ -49722,7 +49722,6 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/cmo)
 "jNO" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/chair/office/light{
 	dir = 1
 	},
@@ -52432,23 +52431,6 @@
 /turf/closed/wall/r_wall,
 /area/security/execution/transfer)
 "kSa" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/pen,
-/obj/item/radio{
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/table,
 /obj/item/paper_bin{
 	pixel_x = -4;
@@ -57348,9 +57330,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "myS" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
 /obj/machinery/shower{
 	dir = 4;
 	name = "emergency shower"
@@ -58220,6 +58199,13 @@
 	broken = 1
 	},
 /area/maintenance/fore)
+"mOM" = (
+/obj/effect/turf_decal/tile/dark_blue/opposingcorners,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/crew_quarters/heads/cmo)
 "mON" = (
 /obj/machinery/camera{
 	c_tag = "Fore Hallway Robotics Bay";
@@ -61011,7 +60997,7 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/medical/chemistry)
 "nRA" = (
 /obj/effect/turf_decal/stripes/line{
@@ -61245,6 +61231,7 @@
 /area/crew_quarters/bar)
 "nUQ" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics)
 "nUU" = (
@@ -61288,7 +61275,7 @@
 	name = "Emergency Medical Lockdown Shutters"
 	},
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/medical/medbay/central)
 "nVn" = (
 /obj/structure/disposalpipe/segment{
@@ -63847,13 +63834,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics)
 "oPl" = (
@@ -64015,7 +64000,7 @@
 /obj/structure/desk_bell{
 	pixel_x = -8
 	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/plating,
 /area/medical/virology)
 "oQV" = (
 /obj/machinery/light{
@@ -69780,7 +69765,7 @@
 	req_access_txt = "5; 33"
 	},
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/medical/chemistry)
 "qJC" = (
 /obj/effect/turf_decal/stripes/line{
@@ -75619,7 +75604,7 @@
 /area/engine/atmos)
 "sMU" = (
 /obj/effect/landmark/start/brig_physician,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
 /turf/open/floor/plasteel/showroomfloor,
@@ -75820,7 +75805,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8;
@@ -75829,6 +75813,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/cmo)
 "sPZ" = (
@@ -81586,14 +81571,6 @@
 "uQx" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
 /turf/open/floor/plating,
@@ -82094,9 +82071,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
 /obj/structure/table/glass,
 /obj/item/computer_hardware/hard_drive/role/medical{
@@ -82116,6 +82090,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/cmo)
@@ -82306,12 +82283,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/effect/landmark/start/geneticist,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics)
 "vdT" = (
@@ -86520,9 +86499,6 @@
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
 "wrE" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
 /obj/item/toy/figure/cmo{
 	pixel_y = 6;
@@ -90499,7 +90475,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/tile/dark_blue/opposingcorners,
 /obj/structure/chair/fancy/comfy{
 	color = "#596479";
@@ -110000,7 +109975,7 @@ awQ
 aPA
 dfW
 udg
-tUd
+mOM
 tUd
 fpn
 aPc
