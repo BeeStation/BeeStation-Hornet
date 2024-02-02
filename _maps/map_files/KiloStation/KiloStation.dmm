@@ -30602,9 +30602,6 @@
 /obj/structure/girder/displaced,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
-"dyK" = (
-/turf/open/floor/plating,
-/area/security/checkpoint/medical)
 "dyM" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8
@@ -39285,7 +39282,7 @@
 	name = "Chemistry Lab";
 	req_access_txt = "5; 33"
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/dark,
 /area/medical/chemistry)
 "gwk" = (
 /obj/effect/turf_decal/box/corners{
@@ -52448,6 +52445,26 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/pen,
+/obj/item/radio{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
 "kSb" = (
@@ -58298,6 +58315,16 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
+"mRI" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating,
+/area/security/checkpoint/medical)
 "mRV" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -69163,7 +69190,7 @@
 	id = "chemistry_shutters";
 	name = "Chemistry Lab Shutters"
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/dark,
 /area/medical/chemistry)
 "qAp" = (
 /obj/machinery/airalarm/directional/south,
@@ -81556,6 +81583,21 @@
 	broken = 1
 	},
 /area/maintenance/port)
+"uQx" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating,
+/area/security/checkpoint/medical)
 "uQy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -83427,9 +83469,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners,
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics)
 "vuN" = (
@@ -110741,7 +110780,7 @@ sDY
 uwn
 lMg
 wqQ
-aQI
+dhQ
 kSa
 uaI
 iXC
@@ -110998,7 +111037,7 @@ xYj
 aPy
 fQB
 vXr
-dyK
+aQI
 psB
 dxo
 lYI
@@ -111255,7 +111294,7 @@ jdF
 xaJ
 cUa
 ntq
-dhQ
+uQx
 ivm
 rMM
 irT
@@ -111512,7 +111551,7 @@ fQS
 lgT
 uvp
 gEs
-dhQ
+mRI
 tmv
 hNN
 oNy
