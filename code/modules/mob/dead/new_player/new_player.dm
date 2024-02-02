@@ -44,8 +44,9 @@
 
 	var/datum/asset/asset_datum = get_asset_datum(/datum/asset/simple/lobby)
 	asset_datum.send(client)
-	var/output = "<center><p><a href='byond://?src=[REF(src)];show_preferences=1'>Setup Character</a></p>"
+	var/output = "<center><p><a href='byond://?src=[REF(src)];show_tutorial=1'>Tutorial</a></p>"
 
+	output += "<center><p><a href='byond://?src=[REF(src)];show_preferences=1'>Setup Character</a></p>"
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		switch(ready)
 			if(PLAYER_NOT_READY)
@@ -124,6 +125,11 @@
 		preferences.update_static_data(usr)
 		preferences.ui_interact(usr)
 		return 1
+	
+	if(href_list["show_tutorial"])
+		var/datum/tutorial_menu/menu = new(src)
+		menu.ui_interact(src)
+		return
 
 	if(href_list["ready"])
 		var/tready = text2num(href_list["ready"])
@@ -485,10 +491,7 @@
 /mob/dead/new_player/Move()
 	return 0
 
-
-/mob/dead/new_player/proc/close_spawn_windows()
-
-	src << browse(null, "window=latechoices") //closes late choices window
+/mob/proc/close_spawn_windows() // Somehow spawn menu stays open for non-newplayers
 	src << browse(null, "window=playersetup") //closes the player setup window
 	src << browse(null, "window=preferences") //closes job selection
 	src << browse(null, "window=mob_occupation")

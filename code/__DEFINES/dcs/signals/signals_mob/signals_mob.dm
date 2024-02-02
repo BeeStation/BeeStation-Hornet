@@ -71,3 +71,39 @@
 ///Called after a client connects to a mob and all UI elements have been setup
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
 #define COMSIG_MOB_MOUSE_SCROLL_ON "comsig_mob_mouse_scroll_on"	//! from base of /mob/MouseWheelOn(): (atom/A, delta_x, delta_y, params)
+/// From /obj/item/proc/attack_self() : (obj/item/used)
+#define COMSIG_MOB_ITEM_ATTACK_SELF "mob_item_attack_self"
+
+/// From /obj/item/proc/dropped() : (obj/item/dropped)
+#define COMSIG_MOB_ITEM_DROPPED "mob_item_dropped"
+
+
+/// From /obj/item/reagent_container/food/snacks/proc/on_Consume() : (obj/item/reagent_container/food/snacks/eaten_food)
+#define COMSIG_MOB_EATEN_SNACK "mob_eaten_snack"
+
+/// From /atom/proc/attackby() : (atom/attacked, obj/item/attacked_with)
+#define COMSIG_MOB_PARENT_ATTACKBY "mob_parent_attackby"
+
+/// From /obj/item/weapon/gun/proc/reload_into_chamber() : (obj/item/weapon/gun/empty_gun)
+#define COMSIG_MOB_GUN_EMPTY "mob_gun_empty"
+
+/// From /obj/item/weapon/gun/proc/reload() : (obj/item/weapon/gun/reloaded)
+#define COMSIG_MOB_RELOADED_GUN "mob_reloaded_gun"
+
+/// From /mob/proc/get_status_tab_items() : (list/status_list)
+#define COMSIG_MOB_GET_STATUS_TAB_ITEMS "mob_get_status_tab_items"
+
+/// From /datum/tutorial/proc/update_objective() : (new_objective)
+#define COMSIG_MOB_TUTORIAL_UPDATE_OBJECTIVE "mob_tutorial_update_objective"
+
+/// From /mob/proc/swap_hand() : ()
+#define COMSIG_MOB_SWAPPED_HAND "mob_swapped_hand"
+
+/// From /mob/proc/a_intent_change() : (new_intent)
+#define COMSIG_MOB_INTENT_CHANGE "mob_intent_change"
+
+/// From /obj/item/grab/proc/progress_passive() : (mob/living/carbon/human/grabber)
+#define COMSIG_MOB_AGGRESSIVELY_GRABBED "mob_aggressively_grabbed"
+	#define COMSIG_MOB_AGGRESIVE_GRAB_CANCEL (1<<0)
+
+#define COMSIG_MOB_END_TUTORIAL "mob_end_tutorial"
