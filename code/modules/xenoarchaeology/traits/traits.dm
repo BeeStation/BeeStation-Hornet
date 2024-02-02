@@ -233,15 +233,24 @@
 	INVOKE_ASYNC(src, PROC_REF(pry_action), user, I)
 
 /datum/xenoartifact_trait/proc/pry_action(mob/living/user, obj/item/I)
-	var/atom/A = parent.parent
+	var/atom/movable/A = parent.parent
 	to_chat(user, "<span class='warning'>You begin to pry [A] open with [I].</span>")
-	if(do_after(user, 5 SECONDS, A))
-		//Screwdriver mini game thing
+	//Do a fancy little animation
+	A.vis_contents += I
+	//TODO: This might require 515 - Racc
+	//Clean up the animation later
+	addtimer(CALLBACK(src, PROC_REF(pry_action_finish), I), 6 SECONDS)
+	if(do_after(user, 8 SECONDS, A))
 		new /obj/item/trait_pearl(get_turf(A), src)
 		parent.remove_individual_trait(src)
 		remove_parent()
 	else
 		to_chat(user, "<span class='warning'>You reconsider...</span>")
+
+//Cleanup animations or whatever else we did for the pry action
+/datum/xenoartifact_trait/proc/pry_action_finish(obj/item/I)
+	var/atom/movable/A = parent.parent
+	A.vis_contents -= I
 
 ///Proc used to compile trait weights into a list
 /proc/compile_artifact_weights(path, keyed = FALSE)

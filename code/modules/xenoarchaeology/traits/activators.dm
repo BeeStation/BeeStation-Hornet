@@ -482,5 +482,5 @@
 
 /datum/xenoartifact_trait/activator/strudy/hungry/proc/handle_timer()
 	if(bite_timer)
-		del_timer(bite_timer)
+		deltimer(bite_timer)
 	bite_timer = null
