@@ -4067,10 +4067,7 @@
 /obj/item/prison_scanner,
 /obj/item/prison_scanner,
 /obj/structure/rack,
-/obj/machinery/camera/autoname{
-	network = list("ss13", "security");
-	dir = 10
-	},
+/obj/machinery/light,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "aqI" = (
@@ -8992,6 +8989,9 @@
 	},
 /obj/structure/closet/emcloset{
 	name = "emergency prison"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/auxiliary{
@@ -29452,6 +29452,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "dcE" = (
@@ -30432,6 +30435,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
+"dvm" = (
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/holofloor/plating,
+/area/holodeck/prison)
 "dvt" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/red/half/contrasted,
@@ -30667,9 +30677,6 @@
 	},
 /obj/effect/turf_decal/stripes/white/corner{
 	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -31215,9 +31222,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/sign/warning/electricshock{
-	pixel_y = -32
-	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "dKE" = (
@@ -31242,6 +31246,9 @@
 "dLe" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
@@ -37477,7 +37484,7 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/disposalpipe/segment{
-	dir = 5
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
@@ -41669,12 +41676,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/auxiliary{
@@ -50670,6 +50671,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "keb" = (
@@ -51669,11 +51673,11 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
+	},
+/obj/structure/disposalpipe/junction/flip{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
@@ -57939,9 +57943,6 @@
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/evidence,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/item/folder/red{
 	name = "Sinister Red Folder";
 	desc = "Who knows what secrets are contained in here?"
@@ -61128,9 +61129,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/closet/secure_closet/genpop,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/item/radio/intercom{
 	pixel_y = -25
 	},
@@ -61408,9 +61406,6 @@
 	},
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/auxiliary{
 	name = "Security Aft"
@@ -63782,9 +63777,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/closet/secure_closet/evidence{
 	density = 0;
 	opened = 1
@@ -64568,9 +64560,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/auxiliary{
@@ -67867,9 +67856,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
@@ -69182,6 +69168,10 @@
 "qAp" = (
 /obj/machinery/airalarm/directional/south,
 /obj/structure/table/reinforced,
+/obj/machinery/camera/autoname{
+	network = list("ss13", "prison");
+	dir = 10
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "qAt" = (
@@ -72269,6 +72259,9 @@
 	layer = 1
 	},
 /obj/item/kirbyplants/random,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/security/prison)
 "rFr" = (
@@ -77056,6 +77049,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "tkv" = (
@@ -78998,9 +78994,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -82124,10 +82117,10 @@
 /obj/structure/chair{
 	dir = 1
 	},
+/obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "0-8"
 	},
-/obj/machinery/airalarm/directional/south,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "vbN" = (
@@ -82354,12 +82347,10 @@
 /obj/machinery/light_switch{
 	pixel_x = 24
 	},
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/structure/disposalpipe/trunk,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "vfn" = (
@@ -82390,9 +82381,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -82841,6 +82829,9 @@
 	dir = 1;
 	layer = 1
 	},
+/obj/machinery/camera/autoname{
+	network = list("ss13", "prison")
+	},
 /turf/open/floor/wood,
 /area/security/prison)
 "vmP" = (
@@ -83082,15 +83073,15 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
@@ -84119,9 +84110,6 @@
 "vFa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -85460,10 +85448,6 @@
 /area/quartermaster/exploration_dock)
 "wcB" = (
 /obj/structure/flora/ausbushes/leafybush,
-/obj/machinery/camera/autoname{
-	network = list("ss13", "prison");
-	dir = 8
-	},
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/item/reagent_containers/glass/bucket,
 /turf/open/floor/grass,
@@ -86024,6 +86008,9 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
@@ -89420,9 +89407,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -90926,9 +90910,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
 	req_one_access_txt = "1;4"
@@ -91996,12 +91977,9 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/south,
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/closet/secure_closet/genpop,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "yhC" = (
@@ -106935,7 +106913,7 @@ bJv
 aQU
 rjm
 fJP
-wjB
+mgR
 mLN
 paD
 qSR
@@ -107449,7 +107427,7 @@ bJv
 awD
 lRe
 jSZ
-wjB
+mgR
 oNh
 hoX
 uAX
@@ -109253,7 +109231,7 @@ qvH
 qvH
 qvH
 qvH
-qvH
+dvm
 mOC
 ivc
 cMM
