@@ -1,23 +1,3 @@
-#define COOLANT_INPUT_GATE airs[1]
-#define MODERATOR_INPUT_GATE airs[2]
-#define COOLANT_OUTPUT_GATE airs[3]
-
-#define RBMK_TEMPERATURE_OPERATING 640 //Celsius
-#define RBMK_TEMPERATURE_CRITICAL 800 //At this point the entire ship is alerted to a meltdown. This may need altering
-#define RBMK_TEMPERATURE_MELTDOWN 900
-
-#define RBMK_NO_COOLANT_TOLERANCE 5 //How many process()ing ticks the reactor can sustain without coolant before slowly taking damage
-
-#define RBMK_PRESSURE_OPERATING 1000 //PSI
-#define RBMK_PRESSURE_WARNING 1200 //PSI
-#define RBMK_PRESSURE_CRITICAL 1469.59 //PSI
-
-#define RBMK_MAX_CRITICALITY 3 //No more criticality than N for now.
-
-#define RBMK_POWER_FLAVOURISER 8000 //To turn those KWs into something usable
-
-#define REACTOR_COUNTDOWN_TIME 30 SECONDS
-
 //Reference: Heaters go up to 500K.
 //Hot plasmaburn: 14164.95 C.
 
@@ -160,17 +140,14 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	pipe1.setDir(4)
 	pipe1.SetInitDirections()
 	pipe1.can_unwrench = FALSE
-	pipe1.update_parent()
 	pipe2 = new /obj/machinery/atmospherics/pipe/simple(locate(x+1,y,z))
 	pipe2.setDir(4)
 	pipe2.SetInitDirections()
 	pipe2.can_unwrench = FALSE
-	pipe2.update_parent()
 	pipe3 = new /obj/machinery/atmospherics/pipe/simple(locate(x,y+1,z))
 	pipe3.setDir(1)
 	pipe3.SetInitDirections()
 	pipe3.can_unwrench = FALSE
-	pipe3.update_parent()
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/Destroy()
 	if(pipesCreated)
