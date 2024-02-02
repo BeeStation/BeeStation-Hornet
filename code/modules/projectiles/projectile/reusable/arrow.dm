@@ -28,7 +28,7 @@
 	light_power = 0.5
 	light_on = FALSE
 	light_color = LIGHT_COLOR_FIRE
-	heat = 1500
+	var/heat = 1500
 	var/lit = FALSE
 	var/burnt = FALSE
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/cloth
@@ -46,9 +46,6 @@
 		hitsound = initial(hitsound)
 		update_overlays()
 	. = .. ()
-
-/obj/projectile/bullet/reusable/arrow/cloth/cloth/is_hot()
-	return lit * heat
 
 /obj/projectile/bullet/reusable/arrow/cloth/on_hit(atom/target, blocked)
 	if(lit)

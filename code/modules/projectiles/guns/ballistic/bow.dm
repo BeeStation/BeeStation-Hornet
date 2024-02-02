@@ -33,7 +33,7 @@
 	if(bowstring == "energy")
 		damage_multiplier = 1.5
 		speed_multiplier = 0.6
-	else if(bowstring == null) //If for some reason you happen to be able to notch an arro without a bowstring
+	else if(bowstring == null) //If for some reason you happen to be able to notch an arrow without a bowstring
 		damage_multiplier = 0
 		speed_multiplier = 0
 
@@ -67,6 +67,9 @@
 		to_chat(user, "<span class='notice'>You gently release the bowstring, removing the arrow.</span>")
 	else if (get_ammo())
 		var/obj/item/I = user.get_active_held_item()
+		if(!is_wielded)
+			balloon_alert(user, "You need both hands free to fire [src]!")
+			return
 		if (do_after(user, 1.5 SECONDS, I, IGNORE_USER_LOC_CHANGE))
 			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies

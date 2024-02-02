@@ -47,17 +47,17 @@
 	var/burnt = FALSE
 	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth
 
+/obj/item/ammo_casing/caseless/arrow/cloth/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(lit && M.IgniteMob())
+		message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(M)] on fire with [src] at [AREACOORD(user)]")
+		log_game("[key_name(user)] set [key_name(M)] on fire with [src] at [AREACOORD(user)]")
+
 /obj/item/ammo_casing/caseless/arrow/cloth/fire_act(exposed_temperature, exposed_volume)
 	ignite()
 
 /obj/item/ammo_casing/caseless/arrow/cloth/attackby(obj/item/I, mob/user, params)
 	if(I.is_hot() > 900)
 		ignite()
-
-/obj/item/ammo_casing/caseless/arrow/cloth/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(lit && M.IgniteMob())
-		message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(M)] on fire with [src] at [AREACOORD(user)]")
-		log_game("[key_name(user)] set [key_name(M)] on fire with [src] at [AREACOORD(user)]")
 
 /obj/item/ammo_casing/caseless/arrow/cloth/is_hot()
 	return lit * heat
@@ -71,8 +71,8 @@
 	if(!lit && !burnt)
 		playsound(src, "sound/items/match_strike.ogg", 15, TRUE)
 		lit = TRUE
-		arrow.lit = TRUE
 		damtype = BURN
+		arrow.lit = TRUE
 		force = 10
 		hitsound = 'sound/items/welder.ogg'
 		name = "lit [initial(name)]"
@@ -85,9 +85,9 @@
 	var/obj/projectile/bullet/reusable/arrow/cloth/arrow = BB
 	if(lit)
 		lit = FALSE
-		arrow.lit = FALSE
 		burnt = TRUE
 		arrow.burnt = TRUE
+		arrow.lit = FALSE
 		damtype = initial(damtype)
 		force = initial(force)
 		name = "burnt [initial(name)]"
@@ -113,13 +113,24 @@
 	burnt = TRUE
 	projectile_type = /obj/projectile/bullet/reusable/arrow/cloth/burnt
 
-/obj/item/ammo_casing/caseless/arrow/cloth/burnt/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/cotton/cloth))
-		var/obj/item/stack/sheet/cotton/cloth/C = I
-		if(burnt && C.use(2))
-			qdel(C)
-			new = /obj/item/ammo_casing/caseless/arrow/cloth(get_turf(src),1)
+/obj/item/ammo_casing/caseless/arrow/cloth/burnt/attackby(obj/item/I, mob/user)
+	if(replace(I, user))
+		return
+	return ..()
 
+/obj/item/ammo_casing/caseless/arrow/cloth/burnt/proc/replace(obj/item/stack/sheet/cotton/I, mob/user) //Proc for replacing the cotton on the arrow.
+	if(!istype(I)) //Were we clicked on by a sheet of cotton?
+		return FALSE
+	if(I.amount < 2) //Is there less than two sheets of cotton?
+		user.show_message("<span class='notice'>You need at least [2 - I.amount] unit\s of cloth before you can wrap \the [I] onto \the [src].</span>", MSG_VISUAL)
+		return FALSE
+	if(do_after(user, 1 SECONDS, I)) //Short do_after.
+		I.use(2) //Remove two cotton from the stack.
+		user.show_message("<span class='notice'>You wrap \the [I.name] onto the [src].</span>", MSG_VISUAL)
+		new /obj/item/ammo_casing/caseless/arrow/cloth(get_turf(src)) //New arrow.
+		qdel(src) //Delete the old, burnt arrow.
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_casing/caseless/arrow/glass
 	name = "glass arrow"
@@ -196,14 +207,17 @@
 /obj/structure/closet/arrows/PopulateContents()
 	new /obj/item/gun/ballistic/bow/pipe(src)
 	new /obj/item/gun/ballistic/bow/pipe(src)
-	new /obj/item/ammo_casing/caseless/arrow/glass(src)
+	new /obj/item/ammo_casing/caseless/arrow/cloth(src)
+	new /obj/item/ammo_casing/caseless/arrow/cloth(src)
 	new /obj/item/ammo_casing/caseless/arrow/cloth(src)
 	new /obj/item/ammo_casing/caseless/arrow/glass(src)
 	new /obj/item/ammo_casing/caseless/arrow/glass(src)
-	new /obj/item/ammo_casing/caseless/arrow/cloth(src)
+	new /obj/item/ammo_casing/caseless/arrow/glass(src)
 	new /obj/item/ammo_casing/caseless/arrow/wood(src)
 	new /obj/item/ammo_casing/caseless/arrow/wood(src)
 	new /obj/item/ammo_casing/caseless/arrow/wood(src)
+	new /obj/item/lighter(src)
+	new /obj/item/stack/sheet/cotton/cloth/fifty(src)
 	..()
 
 /obj/item/ammo_casing/caseless/arrow/ash
