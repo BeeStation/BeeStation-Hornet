@@ -197,7 +197,7 @@
 
 /datum/map_template/holodeck/small/offline
 	name = "Holodeck - Offline"
-	template_id = "offline"
+	template_id = "small-offline"
 	mappath = "_maps/holodeck/small/offline.dmm"
 
 /datum/map_template/holodeck/small/emptycourt

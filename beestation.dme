@@ -14,6 +14,7 @@
 
 // BEGIN_INCLUDE
 #include "_maps\_basemap.dm"
+#include "_maps\map_files\EchoStation\job_changes.dm"
 #include "code\__byond_version_compat.dm"
 #include "code\_compile_options.dm"
 #include "code\_debugger.dm"
@@ -2795,6 +2796,7 @@
 #include "code\modules\jobs\job_types\station_engineer.dm"
 #include "code\modules\jobs\job_types\virologist.dm"
 #include "code\modules\jobs\job_types\warden.dm"
+#include "code\modules\jobs\map_changes\map_changes.dm"
 #include "code\modules\keybindings\bindings_atom.dm"
 #include "code\modules\keybindings\bindings_client.dm"
 #include "code\modules\keybindings\focus.dm"

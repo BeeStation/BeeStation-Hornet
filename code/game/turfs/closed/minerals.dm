@@ -124,6 +124,9 @@
 /turf/closed/mineral/random
 	var/mineralChance = 13
 
+/turf/closed/mineral/random/air
+	baseturfs = /turf/open/floor/plating/asteroid
+
 // Returns a list of the chances for minerals to spawn.
 /// Will only run once, and will then be cached.
 /turf/closed/mineral/random/proc/mineral_chances()
