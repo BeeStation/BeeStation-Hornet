@@ -1195,10 +1195,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_reverse = TRUE
 	mood_message = "<span class='warning'>Hope they don't have a file on me.\n</span>"
 	
-/area/security/brig/brig_medbay/
+/area/security/brig/brig_medbay
 	name = "Brig Bay"
 	
-/area/security/brig/interrogation/
+/area/security/brig/interrogation
 	name = "Brig Interrogation"
 	mood_bonus = -1
 	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN,JOB_NAME_SECURITYOFFICER,JOB_NAME_DETECTIVE)
