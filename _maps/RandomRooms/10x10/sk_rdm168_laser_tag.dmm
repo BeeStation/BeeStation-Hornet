@@ -58,11 +58,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/space)
-"n" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/structure/window/hollow,
-/turf/open/floor/plating,
-/area/space)
 "o" = (
 /obj/structure/railing{
 	dir = 9
@@ -135,10 +130,6 @@
 /area/space)
 "J" = (
 /turf/open/floor/plasteel/dark,
-/area/space)
-"M" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/wall,
 /area/space)
 "N" = (
 /obj/effect/decal/cleanable/dirt,
@@ -228,7 +219,7 @@ v
 i
 S
 T
-M
+b
 m
 J
 T
@@ -240,8 +231,8 @@ q
 h
 c
 q
-n
-M
+z
+b
 N
 h
 T
@@ -251,8 +242,8 @@ q
 T
 q
 F
-M
-n
+b
+z
 q
 c
 q
@@ -264,7 +255,7 @@ b
 T
 T
 T
-M
+b
 q
 T
 x

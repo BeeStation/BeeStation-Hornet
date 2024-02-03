@@ -31,6 +31,7 @@
 "h" = (
 /obj/effect/decal/cleanable/xenoblood/xsplatter,
 /obj/effect/decal/cleanable/xenoblood/xgibs/limb,
+/obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plating,
 /area/space)
 "i" = (
@@ -75,6 +76,7 @@
 /obj/item/clothing/head/cone{
 	pixel_x = -9
 	},
+/obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plating,
 /area/space)
 
