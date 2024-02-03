@@ -1,0 +1,309 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/item/clothing/suit/redtag,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"b" = (
+/turf/closed/wall,
+/area/space)
+"c" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/food/flour,
+/turf/open/floor/plating,
+/area/space)
+"d" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/open/floor/plating,
+/area/space)
+"e" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"g" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/space)
+"h" = (
+/turf/open/floor/plasteel,
+/area/space)
+"i" = (
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plating,
+/area/space)
+"j" = (
+/obj/effect/decal/cleanable/food/flour,
+/turf/open/floor/plating,
+/area/space)
+"k" = (
+/obj/item/clothing/head/helmet/redtaghelm,
+/obj/machinery/light/small,
+/turf/open/floor/plasteel,
+/area/space)
+"l" = (
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"m" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/skeleton/alive,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/space)
+"n" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/structure/window/hollow,
+/turf/open/floor/plating,
+/area/space)
+"o" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/space)
+"p" = (
+/obj/item/clothing/head/helmet/redtaghelm,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"q" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/space)
+"r" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/space)
+"s" = (
+/obj/item/gun/energy/laser/bluetag,
+/turf/open/floor/plasteel,
+/area/space)
+"u" = (
+/obj/item/clothing/suit/bluetag,
+/turf/open/floor/plating,
+/area/space)
+"v" = (
+/obj/item/shard,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"x" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+"z" = (
+/obj/effect/spawner/structure/window/hollow,
+/turf/open/floor/plating,
+/area/space)
+"A" = (
+/obj/item/gun/energy/laser/bluetag,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"C" = (
+/obj/item/shard,
+/turf/open/floor/plating,
+/area/space)
+"D" = (
+/obj/structure/railing,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"F" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+"G" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/space)
+"H" = (
+/obj/effect/turf_decal/trimline/blue,
+/obj/item/banner/blue,
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"J" = (
+/turf/open/floor/plasteel/dark,
+/area/space)
+"M" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/wall,
+/area/space)
+"N" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/space)
+"O" = (
+/obj/item/banner/red,
+/obj/effect/turf_decal/trimline/red,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"P" = (
+/obj/item/clothing/suit/bluetag,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/space)
+"S" = (
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/space)
+"T" = (
+/turf/open/floor/plating,
+/area/space)
+"U" = (
+/obj/item/clothing/head/helmet/bluetaghelm,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"V" = (
+/obj/item/gun/energy/laser/redtag,
+/turf/open/floor/plasteel/dark,
+/area/space)
+"W" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/suit/redtag,
+/turf/open/floor/plating,
+/area/space)
+"Y" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/space)
+
+(1,1,1) = {"
+H
+U
+J
+U
+T
+q
+T
+b
+J
+Y
+"}
+(2,1,1) = {"
+P
+s
+b
+z
+h
+o
+T
+z
+G
+l
+"}
+(3,1,1) = {"
+A
+b
+b
+u
+q
+q
+T
+C
+e
+J
+"}
+(4,1,1) = {"
+v
+i
+S
+T
+M
+m
+J
+T
+T
+b
+"}
+(5,1,1) = {"
+q
+h
+c
+q
+n
+M
+N
+h
+T
+q
+"}
+(6,1,1) = {"
+T
+q
+F
+M
+n
+q
+c
+q
+q
+q
+"}
+(7,1,1) = {"
+b
+T
+T
+T
+M
+q
+T
+x
+z
+a
+"}
+(8,1,1) = {"
+J
+D
+z
+j
+T
+r
+T
+b
+b
+V
+"}
+(9,1,1) = {"
+g
+D
+z
+T
+d
+W
+z
+b
+V
+k
+"}
+(10,1,1) = {"
+J
+J
+b
+T
+Y
+q
+p
+J
+J
+O
+"}
