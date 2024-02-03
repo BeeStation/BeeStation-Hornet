@@ -22681,7 +22681,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Port Quarter Solar";
-	dir = 4;
+	dir = 6;
 	name = "engineering camera";
 	network = list("ss13","engine")
 	},
