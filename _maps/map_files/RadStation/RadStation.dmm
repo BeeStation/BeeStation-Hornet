@@ -1610,13 +1610,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/security/sec{
-	anchored = 1
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/bot,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -2709,19 +2706,16 @@
 	req_one_access_txt = "3"
 	},
 /obj/effect/turf_decal/delivery/red,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 4
-	},
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "aTw" = (
@@ -9952,13 +9946,17 @@
 /area/science/storage)
 "dja" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/preopen{
 	id = "brigentrance";
 	name = "Brig Blast door"
 	},
 /obj/machinery/turnstile,
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/red/line,
 /turf/open/floor/plasteel/dark,
 /area/security/prison{
 	name = "Prison Processing"
@@ -11287,13 +11285,22 @@
 	pixel_x = -32;
 	pixel_y = null
 	},
-/obj/structure/closet/secure_closet/security/sec{
-	anchored = 1
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/bot,
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -7;
+	pixel_y = 5
+	},
+/obj/item/pen/red{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/folder/red{
+	pixel_x = 5;
+	pixel_y = 6
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -16564,9 +16571,16 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "fhl" = (
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
+	},
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/obj/item/book/manual/wiki/sopsecurity{
+	pixel_x = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main{
@@ -17346,8 +17360,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/external{
-	name = "Labor Camp Shuttle Airlock";
-	req_access_txt = "2"
+	name = "Labor Camp Shuttle Airlock"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -22359,13 +22372,6 @@
 	color = "#DE3A3A";
 	dir = 8
 	},
-/obj/machinery/button/door{
-	id = "armory";
-	name = "Armory Shutters";
-	pixel_y = 25;
-	req_access_txt = "3";
-	pixel_x = -8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -23106,7 +23112,10 @@
 /turf/closed/wall/r_wall,
 /area/bridge)
 "hbo" = (
-/obj/machinery/airalarm/directional/north,
+/obj/structure/sink{
+	dir = 1;
+	pixel_y = 28
+	},
 /turf/open/floor/plasteel/white,
 /area/security/brig/medbay)
 "hby" = (
@@ -29725,10 +29734,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -29748,6 +29753,7 @@
 	id = "brigentrance";
 	name = "Brig Blast door"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "joU" = (
@@ -30555,6 +30561,9 @@
 	network = list("ss13","security");
 	dir = 5
 	},
+/obj/machinery/defibrillator_mount{
+	pixel_x = -32
+	},
 /turf/open/floor/plasteel/white,
 /area/security/brig/medbay)
 "jAx" = (
@@ -31316,9 +31325,6 @@
 	},
 /obj/effect/turf_decal/loading_area{
 	pixel_y = -8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -34303,22 +34309,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -7;
-	pixel_y = 5
-	},
-/obj/item/pen/red{
-	pixel_x = -7;
-	pixel_y = 6
-	},
-/obj/item/folder/red{
-	pixel_x = 5;
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/security/sec{
+	anchored = 1
+	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -41491,10 +41488,6 @@
 	icon_state = "2-8"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -41508,6 +41501,7 @@
 	req_one_access_txt = "63;38"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "mWK" = (
@@ -42166,7 +42160,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/structure/filingcabinet/security,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -46865,7 +46858,12 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
-/obj/structure/filingcabinet,
+/obj/structure/filingcabinet{
+	pixel_x = -8
+	},
+/obj/structure/filingcabinet/security{
+	pixel_x = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig{
 	name = "Brig Evidence"
@@ -48374,9 +48372,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig/dock)
 "pbr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/door_timer{
 	id = "cell";
@@ -51877,30 +51872,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/auxiliary)
-"qeG" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 10
-	},
-/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_tri/red,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/security/main{
-	name = "Security Viewing Hall"
-	})
 "qeK" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
@@ -53555,30 +53526,6 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/techmaint,
 /area/science/xenobiology)
-"qHI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge_alt/red,
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 9
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_tri/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/security/main{
-	name = "Security Viewing Hall"
-	})
 "qHT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -54733,14 +54680,6 @@
 /turf/open/floor/plating,
 /area/medical/genetics/cloning)
 "rbl" = (
-/obj/structure/table,
-/obj/machinery/recharger{
-	pixel_x = -4;
-	pixel_y = 1
-	},
-/obj/item/book/manual/wiki/sopsecurity{
-	pixel_x = 6
-	},
 /obj/machinery/light/small,
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -54752,6 +54691,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/security/sec{
+	anchored = 1
+	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -55821,9 +55764,6 @@
 /turf/open/floor/wood,
 /area/chapel/office)
 "rtX" = (
-/obj/structure/closet/secure_closet/security/sec{
-	anchored = 1
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -55833,7 +55773,6 @@
 	req_access_txt = "1";
 	pixel_x = -25
 	},
-/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -57471,10 +57410,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -57492,6 +57427,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "rXe" = (
@@ -58132,14 +58068,6 @@
 "sgG" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/red/line,
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -58157,6 +58085,11 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/effect/turf_decal/stripes/red/line,
+/obj/effect/turf_decal/stripes/red/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -64110,6 +64043,21 @@
 /obj/effect/turf_decal/guideline/guideline_edge/blue,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
+"tYo" = (
+/obj/machinery/door/airlock/external{
+	name = "Labor Camp Shuttle Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/brig/dock)
 "tYs" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/blue/half,
@@ -66229,10 +66177,6 @@
 /area/crew_quarters/kitchen/coldroom)
 "uEC" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -66246,6 +66190,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "uED" = (
@@ -69624,7 +69569,6 @@
 	name = "Evidence Storage";
 	req_one_access_txt = "1;4"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -72316,6 +72260,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel/dark,
 /area/security/brig/dock)
 "wDw" = (
@@ -72825,10 +72770,6 @@
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
 "wLF" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
@@ -73251,10 +73192,10 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "wSw" = (
-/obj/item/wallframe/defib_mount,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/plasteel/white,
 /area/security/brig/medbay)
 "wSx" = (
@@ -98058,7 +97999,7 @@ rYy
 nEb
 yeA
 nEb
-rYy
+tYo
 nEb
 jSQ
 nEb
@@ -107569,7 +107510,7 @@ mnm
 uzb
 sWG
 ual
-qHI
+cHW
 smH
 oXM
 hLk
@@ -108083,7 +108024,7 @@ eSn
 cNP
 pFk
 njd
-qeG
+eJN
 tQh
 viR
 ntc
