@@ -18,7 +18,7 @@
 				var/source = FALSE
 				if(M == src)
 					source = TRUE
-				var/renderedAI = "<span class='srt_radio binarysay[source ? " binarysayloud" : ""]'>Robotic Talk, <a href='?src=[REF(M)];track=[html_encode(name)]'><span class='name'>[name] ([desig])</span></a> <span class='message'>[message_a]</span></span>" //AI hears itself in loud mode.
+				var/renderedAI = "<span class='srt_radio binarysay'>Robotic Talk, <a href='?src=[REF(M)];track=[html_encode(name)]'><span class='name'>[name] ([desig])</span></a> <span class='message [source ? " binarysayloud" : ""]'>[message_a]</span></span>" //AI hears itself in loud mode.
 				to_chat(M, renderedAI)
 			else if(iscyborg(M))
 				var/mob/living/silicon/robot/borg = M

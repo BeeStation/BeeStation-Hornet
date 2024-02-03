@@ -40,7 +40,7 @@ em						{font-style: normal;	font-weight: bold;}
 .binarysay    			{color: #20c20e; background-color: #000000; display: block;}
 .binarysay a  			{color: #00ff00;}
 .binarysay a:active, .binarysay a:visited {color: #88ff88;}
-.binarysayloud				{color: #20c20e; background-color: #000000; display: block; font-size: 3;}
+.binarysayloud				{color: #20c20e; background-color: #000000; display: block; font-size: 2;}
 .radio					{color: #008000;}
 .sciradio				{color: #993399;}
 .explradio				{color: #7ed4c2;}
