@@ -147,231 +147,24 @@
 	var/suppressor
 	if(check_rights(R_SUPPRESS, FALSE))
 		suppressor = TRUE
-	var/panel_height = 620
-	if(edit_id)
-		panel_height = 240
-	var/datum/browser/panel = new(usr, "banpanel", "Banning Panel", 910, panel_height)
-	panel.add_stylesheet("admin_panelscss", 'html/admin/admin_panels.css')
-	panel.add_stylesheet("banpanelcss", 'html/admin/banpanel.css')
-	var/tgui_fancy = usr.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy)
-	if(tgui_fancy) //some browsers (IE8) have trouble with unsupported css3 elements and DOM methods that break the panel's functionality, so we won't load those if a user is in no frills tgui mode since that's for similar compatability support
-		panel.add_stylesheet("admin_panelscss3", 'html/admin/admin_panels_css3.css')
-		panel.add_script("banpaneljs", 'html/admin/banpanel.js')
-	var/list/output = list("<form method='get' action='?src=[REF(src)]'>[HrefTokenFormField()]")
-	output += {"<input type='hidden' name='src' value='[REF(src)]'>
-	<label class='inputlabel checkbox'>Key:
-	<input type='checkbox' id='keycheck' name='keycheck' value='1'[player_key ? " checked": ""]>
-	<div class='inputbox'></div></label>
-	<input type='text' name='keytext' size='26' value='[player_key]'>
-	<label class='inputlabel checkbox'>IP:
-	<input type='checkbox' id='ipcheck' name='ipcheck' value='1'[isnull(duration) ? " checked" : ""]>
-	<div class='inputbox'></div></label>
-	<input type='text' name='iptext' size='18' value='[player_ip]'>
-	<label class='inputlabel checkbox'>CID:
-	<input type='checkbox' id='cidcheck' name='cidcheck' value='1' checked>
-	<div class='inputbox'></div></label>
-	<input type='text' name='cidtext' size='14' value='[player_cid]'>
-	[(suppressor && !edit_id) ? "" : "<!--"]
-	<label class='inputlabel checkbox banned'>Enable Suppression
-	<input type='checkbox' id='redactioncheck' name='redactioncheck' value='1' onClick='suppression_lock(this)'>
-	<div class='inputbox'></div></label>
-	[(suppressor && !edit_id) ? "" : "-->"]
-	<br>
-	<label class='inputlabel checkbox'>Use IP and CID from last connection of key
-	<input type='checkbox' id='lastconn' name='lastconn' value='1' [(isnull(duration) && !player_ip) || (!player_cid) ? " checked": ""]>
-	<div class='inputbox'></div></label>
-	<label class='inputlabel checkbox'>Applies to Admins
-	<input class='redact_incompatible' type='checkbox' id='applyadmins' name='applyadmins' value='1' [applies_to_admins ? " checked": ""]>
-	<div class='inputbox'></div></label>
-	<label class='inputlabel checkbox'>Force Cryo Afterwards
-	<input class='redact_incompatible' type='checkbox' id='forcecryo' name='forcecryo' value='1' [force_cryo_after ? " checked": ""]>
-	<div class='inputbox'></div></label>
-	<input type='submit' value='Submit'>
-	<br>
-	<div class='row'>
-		<div class='column left'>
-			Duration type
-			<br>
-			<label class='inputlabel radio'>Permanent
-			<input type='radio' id='permanent' name='radioduration' value='permanent'[isnull(duration) ? " checked" : ""]>
-			<div class='inputbox'></div></label>
-			<br>
-			<label class='inputlabel radio'>Temporary
-			<input type='radio' id='temporary' name='radioduration' value='temporary'[duration ? " checked" : ""]>
-			<div class='inputbox'></div></label>
-			<input type='text' name='duration' size='7' value='[duration]'>
-			<div class="select">
-				<select name='intervaltype'>
-					<option value='SECOND'>Seconds</option>
-					<option value='MINUTE' selected>Minutes</option>
-					<option value='HOUR'>Hours</option>
-					<option value='DAY'>Days</option>
-					<option value='WEEK'>Weeks</option>
-					<option value='MONTH'>Months</option>
-					<option value='YEAR'>Years</option>
-				</select>
-			</div>
-		</div>
-		<div class='column middle'>
-			Ban type
-			<br>
-			<label class='inputlabel radio'>Server
-			<input class='redact_force_checked' type='radio' id='server' name='radioban' value='server'[role == "Server" ? " checked" : ""][edit_id ? " disabled" : ""]>
-			<div class='inputbox'></div></label>
-			<br>
-			<label class='inputlabel radio'>Role
-			<input class='redact_incompatible' type='radio' id='role' name='radioban' value='role'[role == "Server" ? "" : " checked"][edit_id ? " disabled" : ""]>
-			<div class='inputbox'></div></label>
-		</div>
-		<div class='column middle'>
-			Severity
-			<br>
-			<label class='inputlabel radio'>None
-			<input class='redact_incompatible' type='radio' id='none' name='radioseverity' value='none'[edit_id ? " disabled" : ""]>
-			<div class='inputbox'></div></label>
-			<label class='inputlabel radio'>Medium
-			<input class='redact_incompatible' type='radio' id='medium' name='radioseverity' value='medium'[edit_id ? " disabled" : ""]>
-			<div class='inputbox'></div></label>
-			<br>
-			<label class='inputlabel radio'>Minor
-			<input class='redact_incompatible' type='radio' id='minor' name='radioseverity' value='minor'[edit_id ? " disabled" : ""]>
-			<div class='inputbox'></div></label>
-			<label class='inputlabel radio'>High
-			<input class='redact_force_checked' type='radio' id='high' name='radioseverity' value='high'[edit_id ? " disabled" : ""]>
-			<div class='inputbox'></div></label>
-		</div>
-		<div class='column right'>
-			Location
-			<br>
-			<label class='inputlabel radio'>Local
 			<input class='redact_incompatible' type='radio' id='servban' name='radioservban' value='local'[isnull(global_ban) ? " checked" : ""] disabled='[CONFIG_GET(flag/disable_local_bans) ? "true" : "false"]'>
-			<div class='inputbox'></div></label>
-			<br>
-			<label class='inputlabel radio'>Global
-			<input class='redact_force_checked' type='radio' id='servban' name='radioservban' value='global'[(global_ban) ? " checked" : "" ] disabled='[CONFIG_GET(flag/disable_local_bans) ? "true" : "false"]'>
-			<div class='inputbox'></div></label>
-		</div>
-		<div class='column'>
-			Reason
-			<br>
-			<textarea class='reason' name='reason'>[reason]</textarea>
-		</div>
-	</div>
-	"}
-	if(edit_id)
-		output += {"<label class='inputlabel checkbox'>Mirror edits to matching bans
-		<input type='checkbox' id='mirroredit' name='mirroredit' value='1'>
-		<div class='inputbox'></div></label>
-		<input type='hidden' name='editid' value='[edit_id]'>
-		<input type='hidden' name='oldkey' value='[player_key]'>
-		<input type='hidden' name='oldip' value='[player_ip]'>
-		<input type='hidden' name='oldcid' value='[player_cid]'>
-		<input type='hidden' name='oldapplies' value='[applies_to_admins]'>
-		<input type='hidden' name='oldduration' value='[duration]'>
-		<input type='hidden' name='oldreason' value='[reason]'>
-		<input type]'hidden' name='oldglobal' value='[global_ban]'
-		<input type='hidden' name='old_globalban' value='[global_ban]'
-		<input type='hidden' name='page' value='[page]'>
-		<input type='hidden' name='adminkey' value='[admin_key]'>
-		<br>
-		When ticked, edits here will also affect bans created with matching ckey, IP, CID and time. Use this to edit all role bans which were made at the same time.
-		"}
-	else
-		output += "<input type='hidden' name='roleban_delimiter' value='1'>"
-		//there's not always a client to use the bancache of so to avoid many individual queries from using is_banned_form we'll build a cache to use here
-		var/banned_from = list()
-		if(player_key)
-			var/datum/DBQuery/query_get_banned_roles = SSdbcore.NewQuery({"
-				SELECT role
-				FROM [format_table_name("ban")]
-				WHERE
-					ckey = :player_ckey AND
-					role <> 'server'
-					AND unbanned_datetime IS NULL
-					AND (expiration_time IS NULL OR expiration_time > NOW())
-			"}, list("player_ckey" = ckey(player_key)))
-			if(!query_get_banned_roles.warn_execute())
-				qdel(query_get_banned_roles)
-				return
-			while(query_get_banned_roles.NextRow())
-				banned_from += query_get_banned_roles.item[1]
-			qdel(query_get_banned_roles)
-		var/break_counter = 0
-		var/fancy_tgui = usr.client.prefs.read_player_preference(/datum/preference/toggle/tgui_fancy)
-		output += "<div class='row'><div class='column'><label class='rolegroup command'><input type='checkbox' name='Command' class='hidden' [fancy_tgui ? " onClick='toggle_checkboxes(this, \"_dep\")'" : ""]>Command</label><div class='content'>"
-		//all heads are listed twice so have a javascript call to toggle both their checkboxes when one is pressed
-		//for simplicity this also includes the captain even though it doesn't do anything
-		for(var/job in GLOB.command_positions)
-			if(break_counter > 0 && (break_counter % 3 == 0))
-				output += "<br>"
-			output += {"<label class='inputlabel checkbox'>[job]
-						<input type='checkbox' id='[job]_com' name='[job]' class='Command' value='1'[fancy_tgui ? " onClick='toggle_head(this, \"_dep\")'" : ""]>
-						<div class='inputbox[(job in banned_from) ? " banned" : ""]'></div></label>
-			"}
-			break_counter++
-		output += "</div></div>"
-		//standard departments all have identical handling
-		var/list/job_lists = list("Security" = GLOB.security_positions,
-							"Engineering" = GLOB.engineering_positions,
-							"Medical" = GLOB.medical_positions,
-							"Science" = GLOB.science_positions,
-							"Supply" = GLOB.supply_positions)
-		for(var/department in job_lists)
-			//the first element is the department head so they need the same javascript call as above
-			output += "<div class='column'><label class='rolegroup [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [fancy_tgui ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
-			output += {"<label class='inputlabel checkbox'>[job_lists[department][1]]
-						<input type='checkbox' id='[job_lists[department][1]]_dep' name='[job_lists[department][1]]' class='[department]' value='1'[fancy_tgui ? " onClick='toggle_head(this, \"_com\")'" : ""]>
-						<div class='inputbox[(job_lists[department][1] in banned_from) ? " banned" : ""]'></div></label>
-			"}
-			break_counter = 1
-			for(var/job in job_lists[department] - job_lists[department][1]) //skip the first element since it's already been done
-				if(break_counter % 3 == 0)
-					output += "<br>"
-				output += {"<label class='inputlabel checkbox'>[job]
-							<input type='checkbox' name='[job]' class='[department]' value='1'>
-							<div class='inputbox[(job in banned_from) ? " banned" : ""]'></div></label>
-				"}
-				break_counter++
-			output += "</div></div>"
-		//departments/groups that don't have command staff would throw a javascript error since there's no corresponding reference for toggle_head()
-		var/list/headless_job_lists = list("Silicon" = GLOB.nonhuman_positions,
-										"Abstract" = list("Appearance", "Emote", "OOC", "DSAY"))
-		for(var/department in headless_job_lists)
-			output += "<div class='column'><label class='rolegroup [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [fancy_tgui ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
-			break_counter = 0
-			for(var/job in headless_job_lists[department])
-				if(break_counter > 0 && (break_counter % 3 == 0))
-					output += "<br>"
-				output += {"<label class='inputlabel checkbox'>[job]
-							<input type='checkbox' name='[job]' class='[department]' value='1'>
-							<div class='inputbox[(job in banned_from) ? " banned" : ""]'></div></label>
-				"}
-				break_counter++
-			output += "</div></div>"
-		var/list/long_job_lists = list(
-			"Civilian" = GLOB.civilian_positions | JOB_NAME_GIMMICK,
-			"Antagonist Positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
-			"Forced Antagonist Positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
-			"Ghost Roles" = list(BAN_ROLE_ALL_GHOST) + GLOB.ghost_role_bannable_roles,
-			"Other" = GLOB.other_bannable_roles,
-		)
+	var/datum/banning_panel/ui = new(usr)
+	ui.ui_interact(usr)
 
-		for(var/department in long_job_lists)
-			output += "<div class='column'><label class='rolegroup long [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [fancy_tgui ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
-			break_counter = 0
-			for(var/job in long_job_lists[department])
-				if(break_counter > 0 && (break_counter % 10 == 0))
-					output += "<br>"
-				output += {"<label class='inputlabel checkbox'>[job]
-							<input type='checkbox' name='[job]' class='[department]' value='1'>
-							<div class='inputbox[(job in banned_from) ? " banned" : ""]'></div></label>
-				"}
-				break_counter++
-			output += "</div></div>"
-		output += "</div>"
-	output += "</form>"
-	panel.set_content(jointext(output, ""))
-	panel.open()
+
+/datum/banning_panel
+
+/datum/banning_panel/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if (!ui)
+		ui = new(user, src, "BanningPanel")
+		ui.open()
+
+/datum/banning_panel/ui_data(mob/user)
+	return null
+
+/datum/banning_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	return
 
 /datum/admins/proc/ban_parse_href(list/href_list)
 	if(!check_rights(R_BAN))
