@@ -159,6 +159,10 @@
 		ui = new(user, src, "BanningPanel")
 		ui.open()
 
+/datum/banning_panel/ui_state(mob/user)
+	return GLOB.admin_holder_state
+
+
 /datum/banning_panel/ui_data(mob/user)
 	return null
 

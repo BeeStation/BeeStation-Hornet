@@ -9,29 +9,45 @@ export const BanningPanel = (props, context) => {
   // const { act, data } = useBackend(context);
 
   return (
-    <Window theme="admin" title="Banning Panel" width={1200} height={500} resizable>
+    <Window theme="admin" title="Banning Panel" resizable>
       <Flex>
         <Flex.Item>
           <Button.Checkbox content="Key" />
+        </Flex.Item>
+        <Flex.Item>
           <Input />
         </Flex.Item>
+      </Flex>
+      <Flex>
         <Flex.Item>
           <Button.Checkbox content="IP" />
+        </Flex.Item>
+        <Flex.Item>
+          <Input />
+        </Flex.Item>
+      </Flex>
+      <Flex>
+        <Flex.Item>
+          <Button.Checkbox content="CID" />
+        </Flex.Item>
+        <Flex.Item>
+          <Input />
+        </Flex.Item>
+      </Flex>
+      <Button.Checkbox content="Enable supression" />
+      <Button.Checkbox content="Use IP and CID from last connection of key" />
+      <Button.Checkbox content="Applies to admins" />
+      <Flex>
+        <Flex.Item>
+          <Dropdown selected={'Temporary'} options={['Permanent', 'Temporary']} />
+        </Flex.Item>
+        <Flex.Item>
           <Input />
         </Flex.Item>
         <Flex.Item>
-          <Button.Checkbox content="CID" />
-          <Input />
+          <Dropdown selected={'Minutes'} options={['Seconds', 'Minutes', 'Hours', 'Days', 'Weeks', 'Months', 'Years']} />
         </Flex.Item>
-        <Button.Checkbox content="Enable supression" />
       </Flex>
-      <Button.Checkbox content="Use IP and CID from last connection of key" />
-      <Button.Checkbox content="Applies to admins" />
-      <Dropdown options={['Permanent', 'Temporary']} />
-      <Input />
-      <Dropdown options={['Seconds', 'Minutes', 'Hours', 'Days', 'Weeks', 'Months', 'Years']} />
-
-      <Window.Content scrollable />
     </Window>
   );
 };
