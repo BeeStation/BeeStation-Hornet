@@ -147,7 +147,6 @@
 	var/suppressor
 	if(check_rights(R_SUPPRESS, FALSE))
 		suppressor = TRUE
-			<input class='redact_incompatible' type='radio' id='servban' name='radioservban' value='local'[isnull(global_ban) ? " checked" : ""] disabled='[CONFIG_GET(flag/disable_local_bans) ? "true" : "false"]'>
 	var/datum/banning_panel/ui = new(usr)
 	ui.ui_interact(usr)
 
