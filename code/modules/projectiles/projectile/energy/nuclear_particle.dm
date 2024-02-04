@@ -52,6 +52,16 @@
 			name = "impossibly strong nuclear particle"
 			damage = 30
 
+/obj/projectile/energy/nuclear_particle/Impact(atom/A)
+	. = ..()
+	//TODO: Consider using some fancy math here, or something - Racc
+	//TODO: Make thise this even targets items - Racc
+	if(isitem(A) && prob(33))
+		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
+		if(!X)
+			A.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, null, TRUE, FALSE)
+			qdel(src) //TODO: Consider this - Racc
+
 /atom/proc/fire_nuclear_particle(angle = rand(0,360), customize = FALSE, custompower = 1e12) //used by fusion to fire random nuclear particles. Fires one particle in a random direction.
 	var/obj/projectile/energy/nuclear_particle/P = new /obj/projectile/energy/nuclear_particle(src)
 	if(customize)

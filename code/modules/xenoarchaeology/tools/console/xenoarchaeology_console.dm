@@ -123,11 +123,11 @@
 /obj/machinery/computer/xenoarchaeology_console/proc/check_sold(datum/source, atom/movable/AM, sold)
 	SIGNAL_HANDLER
 
-	radio?.talk_into(src, "test", RADIO_CHANNEL_SCIENCE)
-
-	var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in AM.contents
-	var/datum/component/xenoartifact/X = AM.GetComponent(/datum/component/xenoartifact)
-	radio?.talk_into(src, "test2, label is [L], and component is [X].", RADIO_CHANNEL_SCIENCE)
+	var/obj/item/sticker/xenoartifact_label/L = AM
+	if(!istype(L))
+		return
+	var/atom/artifact = L.loc
+	var/datum/component/xenoartifact/X = artifact.GetComponent(/datum/component/xenoartifact)
 	if(X && L)
 		//Calculate success rate
 		var/score = 0
@@ -139,26 +139,24 @@
 						score += 1
 					else
 						score -= 1
-			max_score += 1
+				max_score = T.contribute_calibration ?  max_score + 1 : max_score
 		var/success_rate = score / max_score
 		//Rewards
-		var/dp_reward = max(0, AM.custom_price*X.artifact_type.dp_rate)
-		var/rnd_reward = max(0, AM.custom_price*X.artifact_type.rnd_rate)
-		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
+		var/rnd_reward = max(0, (artifact.custom_price*X.artifact_type.rnd_rate)*success_rate)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
 		//Announce victory or fuck up
 		if(radio_solved_notice)
 			var/success_type
 			switch(success_rate)
-				if(0.99 to INFINITY)
+				if(0.9 to INFINITY)
 					success_type = "incredible discovery!"
-				if(0.9 to 0.79)
+				if(0.89 to 0.7)
 					success_type = "admirable research."
-				if(0.7 to 0.3)
+				if(0.69 to 0.3)
 					success_type = "sufficient research."
 				else
 					success_type = "scientific failure."
-			radio?.talk_into(src, "[AM] has been submitted with a success rate of [100*success_rate]% '[success_type]', at [station_time_timestamp()].\nAwarded [dp_reward] Discovery Points, and [rnd_reward] Research Points!", RADIO_CHANNEL_SCIENCE)
+			radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', at [station_time_timestamp()].\nAwarded [rnd_reward] Research Points!", RADIO_CHANNEL_SCIENCE)
 			//TODO: Add monetary reward, cargo already reaps the benehfits of selling it - Racc
 
 //Circuitboard for this console

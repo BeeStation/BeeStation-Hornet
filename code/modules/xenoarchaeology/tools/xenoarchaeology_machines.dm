@@ -34,7 +34,7 @@
 				register_contents(I)
 	else
 		return ..()
-	
+
 /obj/machinery/xenoarchaeology_machine/attack_hand(mob/living/user)
 	. = ..()
 	empty_contents()
@@ -130,6 +130,21 @@
 /obj/machinery/xenoarchaeology_machine/calibrator
 	icon_state = "calibrator"
 	move_inside = TRUE
+	///Which science server receives points
+	var/datum/techweb/linked_techweb
+	///radio used by the console to send messages on science channel
+	var/obj/item/radio/headset/radio
+
+/obj/machinery/xenoarchaeology_machine/calibrator/New(loc, ...)
+	. = ..()
+	//Link relevant stuff
+	linked_techweb = SSresearch.science_tech
+	//Radio setup
+	radio = new /obj/item/radio/headset/headset_sci(src)
+
+/obj/machinery/xenoarchaeology_machine/calibrator/Destroy()
+	. = ..()
+	QDEL_NULL(radio)
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()
@@ -151,7 +166,7 @@
 	if(!length(held_contents))
 		playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
 		return
-	for(var/atom/A as() in contents)
+	for(var/atom/A as() in contents-radio)
 		var/solid_as = TRUE
 		//Once we find an artifact-
 		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
@@ -171,18 +186,30 @@
 			else
 				solid_as = FALSE
 		//Loop through traits and see if we're fucked or not
+		var/score = 0
+		var/max_score = 0
 		if(solid_as) //This is kinda wacky but it's for a player option so idc
 			for(var/i in X.artifact_traits)
 				for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
 					if(!(locate(T) in L.traits))
 						if(T.contribute_calibration)
 							solid_as = FALSE
+					else
+						score += 1
+					max_score = T.contribute_calibration ?  max_score + 1 : max_score
 		//If we're cooked
 		if(!solid_as)
 			X.calcify()
 			playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
 			empty_contents()
 			return
+		//handle science rewards
+		if(score)
+			var/success_rate = score / max_score
+			var/dp_reward = max(0, (A.custom_price*X.artifact_type.dp_rate)*success_rate)
+			linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
+			//Announce this, for honor or shame
+			radio?.talk_into(src, "[A] has been calibrated, and generated [dp_reward] Discovery Points!", RADIO_CHANNEL_SCIENCE)
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 60)
 		//Calibrate the artifact
 		X.calibrate()

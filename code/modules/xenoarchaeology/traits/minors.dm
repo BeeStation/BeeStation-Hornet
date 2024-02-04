@@ -819,13 +819,6 @@
 	var/bleed_duration = 5 SECONDS
 	var/bleed_timer
 
-/datum/xenoartifact_trait/minor/bleed/New(atom/_parent)
-	. = ..()
-	if(!parent?.parent)
-		return
-	var/atom/movable/AM = parent.parent
-	RegisterSignal(AM, COMSIG_MOVABLE_MOVED, PROC_REF(catch_bleed_move))
-
 /datum/xenoartifact_trait/minor/bleed/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!. || bleed_timer)
@@ -838,9 +831,8 @@
 		deltimer(bleed_timer)
 	bleed_timer = null
 
-/datum/xenoartifact_trait/minor/bleed/proc/catch_bleed_move(datum/source, atom/target, dir)
-	SIGNAL_HANDLER
-
+/datum/xenoartifact_trait/minor/bleed/catch_move(datum/source, atom/target, dir)
+	. = ..()
 	if(!bleed_timer)
 		return
 	var/obj/effect/decal/cleanable/blood/tracks/T = new /obj/effect/decal/cleanable/blood/tracks(get_turf(parent.parent))
