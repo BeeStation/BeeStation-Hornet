@@ -147,11 +147,41 @@
 	var/suppressor
 	if(check_rights(R_SUPPRESS, FALSE))
 		suppressor = TRUE
+	else
+		suppressor = FALSE
 	var/datum/banning_panel/ui = new(usr)
+	ui.key_enabled = !isnull(player_key)
+	ui.key = player_key
+	ui.ip = player_ip
+	ui.cid = player_cid
+	ui.duration = duration
+	ui.can_supress = supressor
+	ui.applies_to_admins = applies_to_admins
+	ui.reason = reason
+	ui.force_cryo_after = force_cryo_after
+	ui.ban_type = role
+	ui.use_last_connection = isnull(player_ip) && isnull(player_cid)
+
 	ui.ui_interact(usr)
 
 
 /datum/banning_panel
+	var/key_enabled
+	var/key
+	var/ip_enabled = TRUE
+	var/ip
+	var/cid_enabled = TRUE
+	var/cid
+	var/duration
+	var/can_supress
+	var/applies_to_admins
+	var/reason
+	var/force_cryo_after
+	var/ban_type = "Server"
+	var/duration_type = "Temporary"
+	var/time_units = "Minutes"
+	var/use_last_connection = FALSE
+
 
 /datum/banning_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -164,7 +194,23 @@
 
 
 /datum/banning_panel/ui_data(mob/user)
-	return null
+	var/list/data = list()
+	data["key_enabled"] = key_enabled
+	data["key"] = key
+	data["ip_enabled"] = ip_enabled
+	data["ip"] = ip
+	data["cid_enabled"] = cid_enabled
+	data["cid"] = cid
+	data["duration"] = duration
+	data["can_supress"] = can_supress
+	data["applies_to_admins"] = applies_to_admins
+	data["reason"] = reason
+	data["force_cryo_after"] = force_cryo_after
+	data["ban_type"] = ban_type
+	data["duration_type"] = duration_type
+	data["time_units"] = time_units
+	data["use_last_connection"] = use_last_connection
+
 
 /datum/banning_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	return
