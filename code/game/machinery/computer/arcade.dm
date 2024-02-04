@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 	//these muthafuckas arent supposed to smooth
 	base_icon_state = null
-	smoothing_flags = null
+	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
 
