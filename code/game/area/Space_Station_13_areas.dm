@@ -1203,7 +1203,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_bonus = -1
 	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN,JOB_NAME_SECURITYOFFICER,JOB_NAME_DETECTIVE)
 	mood_job_reverse = TRUE
-	mood_message = "<span class='warning'>Oh God, what do they know?\n</span>"
+	mood_message = "<span class='warning'>Oh God, what do they know? \n</span>"
 
 /area/security/prison
 	name = "Prison Wing"
