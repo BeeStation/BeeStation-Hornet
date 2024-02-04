@@ -39,9 +39,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ce" = (
-/obj/machinery/door/airlock/shuttle{
-	req_access_txt = "49"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -49,7 +46,15 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/mineral/titanium,
+/obj/machinery/door/airlock/shuttle{
+	name = "Shuttle cockpit";
+	req_access_txt = "49"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "cD" = (
 /obj/machinery/atmospherics/components/unary/tank/air{
@@ -58,6 +63,15 @@
 	piping_layer = 2
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"cQ" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -25
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "dc" = (
 /obj/machinery/suit_storage_unit/open,
@@ -106,7 +120,8 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Exploration Shuttle airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -146,6 +161,15 @@
 /area/shuttle/exploration)
 "fO" = (
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"gc" = (
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "ExploIFuckedUp";
+	name = "Vent Engine Room";
+	pixel_x = -25
+	},
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "gJ" = (
 /turf/closed/wall/mineral/titanium,
@@ -305,9 +329,6 @@
 "mk" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
@@ -315,7 +336,8 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Exploration Shuttle airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -336,7 +358,8 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Exploration Shuttle airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -388,9 +411,15 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "pi" = (
-/obj/machinery/telecomms/relay/preset/exploration,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/telecomms/relay/preset/mining,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door/window/eastright{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "pJ" = (
@@ -536,9 +565,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"yM" = (
-/turf/template_noop,
-/area/shuttle/exploration)
 "yU" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -562,6 +588,16 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"zV" = (
+/obj/machinery/door/airlock/shuttle{
+	req_access_txt = "49";
+	name = "Exploration Storage"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "Ac" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -571,7 +607,8 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Exploration Shuttle airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -611,7 +648,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Exploration Shuttle airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -666,7 +704,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Exploration Shuttle airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -677,7 +716,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Exploration Shuttle airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -695,17 +735,6 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"Gj" = (
-/obj/item/radio/intercom{
-	frequency = 1361;
-	name = "Exploration Intercom";
-	freerange = 1;
-	freqlock = 1;
-	pixel_y = 25
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "GI" = (
 /obj/structure/table,
@@ -743,12 +772,13 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "KG" = (
-/obj/machinery/door/airlock/shuttle{
-	req_access_txt = "49"
-	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/shuttle{
+	req_access_txt = "49";
+	name = "Exploration Tank Storage"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Lc" = (
@@ -798,7 +828,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Exploration Shuttle airlock"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -867,18 +898,30 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
+"QL" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon,
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "ExploIFuckedUp";
+	name = "Vent Engine Room";
+	pixel_x = 25
+	},
+/turf/template_noop,
+/area/template_noop)
 "QP" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "QZ" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/layer4{
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/template_noop)
 "Rr" = (
@@ -941,6 +984,8 @@
 "Up" = (
 /obj/machinery/door/firedoor,
 /obj/structure/curtain/directional,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "Uq" = (
@@ -948,14 +993,15 @@
 	id = "ExploIFuckedUp";
 	name = "Engine Room Vent"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "UV" = (
 /obj/machinery/door/airlock/shuttle{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Exploration Tank Storage"
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
@@ -1045,6 +1091,19 @@
 /obj/item/airlock_painter/decal/tile,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
+"WL" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/item/radio/intercom{
+	frequency = 1361;
+	name = "Exploration Intercom";
+	freerange = 1;
+	freqlock = 1;
+	pixel_x = -26
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Xp" = (
 /obj/machinery/light{
 	dir = 8
@@ -1078,9 +1137,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "YF" = (
-/obj/machinery/door/airlock/shuttle{
-	req_access_txt = "49"
-	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1092,10 +1148,20 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/shuttle/glass{
+	autoclose = 0.1;
+	name = "Exploration Engine";
+	req_access_txt = "49"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "YG" = (
 /obj/machinery/door/firedoor,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "YO" = (
@@ -1138,7 +1204,7 @@ QG
 QG
 QG
 yh
-Tw
+QL
 QZ
 Tw
 yh
@@ -1172,7 +1238,7 @@ VA
 Cc
 JG
 gS
-aA
+gc
 hP
 aA
 AU
@@ -1256,7 +1322,7 @@ jB
 Sy
 Dn
 Dn
-KG
+zV
 eP
 nb
 TV
@@ -1353,7 +1419,7 @@ gU
 ZM
 "}
 (14,1,1) = {"
-yM
+ZM
 jB
 ZB
 YR
@@ -1376,7 +1442,7 @@ df
 df
 jB
 df
-Gj
+Pm
 vn
 Pm
 df
@@ -1392,12 +1458,12 @@ bb
 dN
 pd
 hk
-hk
+WL
 Rr
 lS
 te
 hk
-hk
+cQ
 tD
 mk
 XI

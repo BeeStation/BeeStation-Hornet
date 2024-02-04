@@ -4123,13 +4123,12 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
-	name = "Station to Shuttle";
-	dir = 8
-	},
 /obj/machinery/light/small,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/end,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "aXu" = (
@@ -62198,12 +62197,13 @@
 	name = "Shuttle to Station"
 	},
 /obj/machinery/advanced_airlock_controller/directional/north,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
+	},
+/obj/machinery/atmospherics/components/binary/volume_pump/on/layer2{
+	name = "Station to Shuttle";
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)

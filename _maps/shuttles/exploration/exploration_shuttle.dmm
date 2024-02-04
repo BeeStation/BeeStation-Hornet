@@ -25,6 +25,9 @@
 /obj/structure/railing,
 /obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/large,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ac" = (
@@ -34,7 +37,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ad" = (
-/obj/machinery/door/airlock/external/glass,
 /obj/docking_port/mobile{
 	dir = 4;
 	dwidth = 5;
@@ -53,6 +55,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/door/airlock/external{
+	req_access_txt = "49";
+	name = "Exploration Shuttle airlock"
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
@@ -106,10 +112,21 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/closet/crate/secure/weapon/contraband,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/science/shuttle,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "al" = (
+/obj/structure/lattice/catwalk,
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	name = "landing marker";
+	picked_color = "Burgundy"
+	},
 /turf/template_noop,
 /area/template_noop)
 "am" = (
@@ -201,7 +218,13 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/telecomms/relay/preset/exploration,
+/obj/machinery/telecomms/relay/preset/mining,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/eastright{
+	dir = 2
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aw" = (
@@ -294,6 +317,9 @@
 /obj/structure/railing,
 /obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/large,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "aG" = (
@@ -443,8 +469,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/closet/crate/science/shuttle,
-/turf/open/floor/mineral/titanium/blue,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/secure/weapon/contraband,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aZ" = (
 /obj/structure/cable/yellow{
@@ -477,6 +504,7 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/science/mining,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "MB" = (
