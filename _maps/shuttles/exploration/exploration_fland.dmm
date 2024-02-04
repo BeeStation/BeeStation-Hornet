@@ -705,7 +705,6 @@
 /obj/machinery/microwave{
 	pixel_y = 3
 	},
-/obj/structure/table,
 /turf/open/floor/carpet,
 /area/shuttle/exploration)
 "GQ" = (
