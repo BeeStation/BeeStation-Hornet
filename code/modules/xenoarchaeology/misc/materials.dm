@@ -55,7 +55,7 @@
 	material_color = "#f2ff00"
 	instability_step = 0.5
 	texture_icon_states = list("texture-bananium1", "texture-bananium2", "texture-bananium3")
-	mask_icon_states = list("mask-bananium1")
+	mask_icon_states = list("mask-bananium1", "mask-bananium2", "mask-bananium3")
 	custom_price = 500
 	trait_flags = XENOA_BANANIUM_TRAIT
 	label_icon = "circle"
@@ -83,7 +83,7 @@
 	material_color = "#f200ff"
 	instability_step = 5
 	texture_icon_states = list("texture-plasma1", "texture-plasma2", "texture-plasma3")
-	mask_icon_states = list("mask-plasma1")
+	mask_icon_states = list("mask-plasma1", "mask-plasma2", "mask-plasma3")
 	custom_price = 250
 	trait_flags = XENOA_PLASMA_TRAIT
 	label_icon = "play"
