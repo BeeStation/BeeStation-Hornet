@@ -143,7 +143,7 @@
 			C.ban_cache[query_build_ban_cache.item[1]] = TRUE
 		qdel(query_build_ban_cache)
 
-/datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins, reason, edit_id, page, admin_key, global_ban = TRUE, force_cryo_after = FALSE)
+/datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins = FALSE, reason = "", edit_id, page, admin_key, global_ban = TRUE, force_cryo_after = FALSE)
 	var/suppressor
 	if(check_rights(R_SUPPRESS, FALSE))
 		suppressor = TRUE
@@ -168,16 +168,16 @@
 /datum/banning_panel
 	var/key_enabled
 	var/key
-	var/ip_enabled = TRUE
+	var/ip_enabled = FALSE
 	var/ip
 	var/cid_enabled = TRUE
 	var/cid
-	var/duration
+	var/duration = 0
 	var/can_supress
 	var/suppressed = FALSE
-	var/applies_to_admins
-	var/reason
-	var/force_cryo_after
+	var/applies_to_admins = FALSE
+	var/reason = ""
+	var/force_cryo_after = FALSE
 	var/ban_type = "Server"
 	var/duration_type = "Temporary"
 	var/time_units = "Minutes"

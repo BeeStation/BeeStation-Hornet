@@ -9,8 +9,11 @@ export const BanningPanel = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     key_enabled,
+    key,
     ip_enabled,
+    ip,
     cid_enabled,
+    cid,
     applies_to_admins,
     can_supress,
     suppressed,
@@ -22,21 +25,21 @@ export const BanningPanel = (props, context) => {
   } = data;
 
   return (
-    <Window theme="admin" title="Banning Panel" resizable>
+    <Window theme="admin" title="Banning Panel" width={850} height={500} resizable>
       <Window.Content>
         <Section title="Player Information">
           <Stack wrap="wrap">
             <Stack.Item>
               <Button.Checkbox content="Key" checked={key_enabled} onClick={() => act('toggle_key')} />
-              <ConditionalComponent bool={key_enabled} component=<Input /> />
+              <ConditionalComponent bool={key_enabled} component=<Input value={key} /> />
             </Stack.Item>
             <Stack.Item>
               <Button.Checkbox content="IP" checked={ip_enabled} onClick={() => act('toggle_ip')} />
-              <ConditionalComponent bool={ip_enabled} component=<Input /> />
+              <ConditionalComponent bool={ip_enabled} component=<Input value={ip} /> />
             </Stack.Item>
             <Stack.Item>
               <Button.Checkbox content="CID" checked={cid_enabled} onClick={() => act('toggle_cid')} />
-              <ConditionalComponent bool={cid_enabled} component=<Input /> />
+              <ConditionalComponent bool={cid_enabled} component=<Input value={cid} /> />
             </Stack.Item>
             <Stack.Item>
               <ConditionalComponent
