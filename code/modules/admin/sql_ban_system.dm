@@ -155,11 +155,11 @@
 	ui.ip = player_ip
 	ui.cid = player_cid
 	ui.duration = duration
-	ui.can_supress = supressor
+	ui.can_supress = suppressor
 	ui.applies_to_admins = applies_to_admins
 	ui.reason = reason
 	ui.force_cryo_after = force_cryo_after
-	ui.ban_type = role
+	ui.ban_type = isnull(role)? "Server": role
 	ui.use_last_connection = isnull(player_ip) && isnull(player_cid)
 
 	ui.ui_interact(usr)
@@ -174,6 +174,7 @@
 	var/cid
 	var/duration
 	var/can_supress
+	var/suppressed = FALSE
 	var/applies_to_admins
 	var/reason
 	var/force_cryo_after
@@ -210,10 +211,36 @@
 	data["duration_type"] = duration_type
 	data["time_units"] = time_units
 	data["use_last_connection"] = use_last_connection
+	data["suppressed"] = suppressed
 
+	return data
 
 /datum/banning_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	return
+	if(..())
+		return
+	. = TRUE
+	switch (action)
+		if("toggle_key")
+			key_enabled = !key_enabled
+		if ("toggle_ip")
+			ip_enabled = !ip_enabled
+		if ("toggle_cid")
+			cid_enabled = !cid_enabled
+		if ("toggle_suppressed")
+			suppressed = !suppressed
+		if ("toggle_use_last_connection")
+			use_last_connection = !use_last_connection
+		if ("toggle_applies_to_admins")
+			applies_to_admins = !applies_to_admins
+		if ("set_duration_type")
+			duration_type = params["type"]
+		if ("set_time_units")
+			time_units = params["units"]
+		if ("set_ban_type")
+			ban_type = params["type"]
+		else
+			. = FALSE
+
 
 /datum/admins/proc/ban_parse_href(list/href_list)
 	if(!check_rights(R_BAN))

@@ -13,6 +13,7 @@ export const BanningPanel = (props, context) => {
     cid_enabled,
     applies_to_admins,
     can_supress,
+    suppressed,
     duration_type,
     time_units,
     ban_type,
@@ -26,29 +27,49 @@ export const BanningPanel = (props, context) => {
         <Section title="Player Information">
           <Stack wrap="wrap">
             <Stack.Item>
-              <Button.Checkbox content="Key" checked={key_enabled} />
+              <Button.Checkbox content="Key" checked={key_enabled} onClick={() => act('toggle_key')} />
               <ConditionalComponent bool={key_enabled} component=<Input /> />
             </Stack.Item>
             <Stack.Item>
-              <Button.Checkbox content="IP" checked={ip_enabled} />
+              <Button.Checkbox content="IP" checked={ip_enabled} onClick={() => act('toggle_ip')} />
               <ConditionalComponent bool={ip_enabled} component=<Input /> />
             </Stack.Item>
             <Stack.Item>
-              <Button.Checkbox content="CID" checked={cid_enabled} />
+              <Button.Checkbox content="CID" checked={cid_enabled} onClick={() => act('toggle_cid')} />
               <ConditionalComponent bool={cid_enabled} component=<Input /> />
             </Stack.Item>
             <Stack.Item>
-              <ConditionalComponent bool={can_supress} component=<Button.Checkbox content="Enable supression" color="bad" /> />
+              <ConditionalComponent
+                bool={can_supress}
+                component=<Button.Checkbox
+                  content="Enable supression"
+                  color="bad"
+                  checked={suppressed}
+                  onClick={() => act('toggle_suppressed')}
+                />
+              />
             </Stack.Item>
           </Stack>
-          <Button.Checkbox content="Use IP and CID from last connection of key" checked={use_last_connection} />
-          <Button.Checkbox content="Applies to admins" checked={applies_to_admins} />
           <Stack>
             <Stack.Item>
+              <Button.Checkbox
+                content="Use IP and CID from last connection of key"
+                checked={use_last_connection}
+                onClick={() => act('toggle_use_last_connection')}
+              />
+              <Button.Checkbox
+                content="Applies to admins"
+                checked={applies_to_admins}
+                onClick={() => act('toggle_applies_to_admins')}
+              />
               <LabeledList>
                 <LabeledList.Item label="Duration Type" verticalAlign="middle">
                   <Stack>
-                    <Dropdown selected={duration_type} options={['Permanent', 'Temporary']} />
+                    <Dropdown
+                      selected={duration_type}
+                      options={['Permanent', 'Temporary']}
+                      onSelected={(selected) => act('set_duration_type', { type: selected })}
+                    />
                     <ConditionalComponent
                       bool={duration_type === 'Temporary'}
                       component={() => {
@@ -58,6 +79,7 @@ export const BanningPanel = (props, context) => {
                             <Dropdown
                               selected={time_units}
                               options={['Seconds', 'Minutes', 'Hours', 'Days', 'Weeks', 'Months', 'Years']}
+                              onSelected={(selected) => act('set_time_units', { units: selected })}
                             />{' '}
                           </Box>
                         );
@@ -66,7 +88,11 @@ export const BanningPanel = (props, context) => {
                   </Stack>
                 </LabeledList.Item>
                 <LabeledList.Item label="Ban Type" verticalAlign="middle">
-                  <Dropdown selected={ban_type} options={['Server', 'Role']} />
+                  <Dropdown
+                    selected={ban_type}
+                    options={['Server', 'Role']}
+                    onSelected={(selected) => act('set_ban_type', { type: selected })}
+                  />
                 </LabeledList.Item>
               </LabeledList>
             </Stack.Item>
@@ -76,7 +102,7 @@ export const BanningPanel = (props, context) => {
                   <TextArea height="100px" />
                 </LabeledList.Item>
                 <LabeledList.Item>
-                  <Button.Confirm content="Submit" />
+                  <Button.Confirm content="Submit" onClick={() => act('submit_ban')} />
                 </LabeledList.Item>
               </LabeledList>
             </Stack.Item>
