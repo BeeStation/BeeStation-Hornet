@@ -1,4 +1,7 @@
-#define JOB_MODIFCATION_MAP_NAME "EchoStation" //sorry but i'm bring back the pubby config file
+#ifndef JOB_CHANGES_DM_INCLUDED
+#define JOB_CHANGES_DM_INCLUDED
+
+#define JOB_MODIFICATION_MAP_NAME "EchoStation" //sorry but i'm bring back the pubby config file
 
 //do not spawn going to test joining too. last time it runtimed and set me to the loading screen
 /datum/job/atmospheric_technician/New()
@@ -45,3 +48,5 @@
 	..()
 	spawn_positions = 1
 	total_positions = 1
+
+#endif
