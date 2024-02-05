@@ -188,6 +188,8 @@
 			setSanity(sanity+sanity_modifier*delta_time*mood+0.6)
 		if(SANITY_INSANE-1 to SANITY_CRAZY)
 			setSanity(sanity+sanity_modifier*delta_time*mood+0.9)
+		if(-INFINITY to SANITY_INSANE) //makes sure it doesn't get stuck below -1
+			setSanity(0)
 	HandleNutrition(owner)
 
 /datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)
