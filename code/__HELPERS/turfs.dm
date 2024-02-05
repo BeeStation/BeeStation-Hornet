@@ -390,3 +390,26 @@ Turf and target are separate in case you want to teleport some distance from a t
 			if(rail.dir == test_dir || is_fulltile)
 				return FALSE
 	return TRUE
+
+/proc/is_turf_safe(turf/open/floor/floor)
+	// It's probably not safe if it's not a floor.
+	if(!istype(floor))
+		return FALSE
+	var/datum/gas_mixture/air = floor.air
+	// Certainly unsafe if it completely lacks air.
+	if(QDELETED(air))
+		return FALSE
+	// Can most things breathe?
+	for(var/id in air.get_gases())
+		if(id in GLOB.hardcoded_gases)
+			continue
+		return FALSE
+	if(air.get_moles(GAS_O2) < 16 || air.get_moles(GAS_PLASMA) || air.get_moles(GAS_CO2) >= 10)
+		return FALSE
+	var/temperature = air.return_temperature()
+	if(temperature <= 270 || temperature >= 360)
+		return FALSE
+	var/pressure = air.return_pressure()
+	if(pressure <= 20 || pressure >= 550)
+		return FALSE
+	return TRUE

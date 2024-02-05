@@ -359,7 +359,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		new /obj/effect/decal/cleanable/blood(T)
 
 /obj/effect/meteor/meaty/Bump(atom/A)
-	A.ex_act(hitpwr)
+	EX_ACT(A, hitpwr)
 	get_hit()
 
 //Meaty Ore Xeno edition
@@ -416,7 +416,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	hits = 10
 	heavy = 1
 	dropamt = 1
-	meteordrop = list(/obj/item/clothing/head/hardhat/pumpkinhead, /obj/item/reagent_containers/food/snacks/grown/pumpkin)
+	meteordrop = list(/obj/item/clothing/head/hardhat/pumpkinhead, /obj/item/food/grown/pumpkin)
 	threat = 100
 
 /obj/effect/meteor/pumpkin/Initialize(mapload)

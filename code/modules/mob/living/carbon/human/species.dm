@@ -1497,9 +1497,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/spec_emp_act(mob/living/carbon/human/H, severity)
 	return
 
-/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = 0, override = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
-	return
-
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(!((target.health < 0 || HAS_TRAIT(target, TRAIT_FAKEDEATH)) && !(target.mobility_flags & MOBILITY_STAND)))
 		target.help_shake_act(user)
@@ -1526,7 +1523,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return TRUE
 	else
 		//Steal them shoes
-		if(!(target.mobility_flags & MOBILITY_STAND) && (user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG) && user.a_intent == INTENT_GRAB && target.shoes)
+		if(!(target.mobility_flags & MOBILITY_STAND) && (user.is_zone_selected(BODY_ZONE_L_LEG) || user.is_zone_selected(BODY_ZONE_R_LEG)) && user.a_intent == INTENT_GRAB && target.shoes)
 			if(HAS_TRAIT(target.shoes, TRAIT_NODROP))
 				target.grabbedby(user)
 				return TRUE
@@ -1569,7 +1566,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		var/damage = user.dna.species.punchdamage
 
-		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
+		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.get_combat_bodyzone(target)))
 
 		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, 1, -1)
@@ -1626,7 +1623,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
-		SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, user.zone_selected)
+		SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, user.get_combat_bodyzone(target))
 
 		var/turf/target_oldturf = target.loc
 		var/shove_dir = get_dir(user.loc, target_oldturf)

@@ -8,23 +8,23 @@
 /datum/preference/choiced/ethereal_color/init_possible_values()
 	var/list/values = list()
 
-	var/icon/ethereal_base = icon('icons/mob/human_parts_greyscale.dmi', "ethereal_head_m")
-	ethereal_base.Blend(icon('icons/mob/human_parts_greyscale.dmi', "ethereal_chest_m"), ICON_OVERLAY)
-	ethereal_base.Blend(icon('icons/mob/human_parts_greyscale.dmi', "ethereal_l_arm"), ICON_OVERLAY)
-	ethereal_base.Blend(icon('icons/mob/human_parts_greyscale.dmi', "ethereal_r_arm"), ICON_OVERLAY)
+	var/datum/universal_icon/ethereal_base = uni_icon('icons/mob/human_parts_greyscale.dmi', "ethereal_head_m")
+	ethereal_base.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "ethereal_chest_m"), ICON_OVERLAY)
+	ethereal_base.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "ethereal_l_arm"), ICON_OVERLAY)
+	ethereal_base.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "ethereal_r_arm"), ICON_OVERLAY)
 
-	var/icon/eyes = icon('icons/mob/human_face.dmi', "eyes")
-	eyes.Blend(COLOR_BLACK, ICON_MULTIPLY)
-	ethereal_base.Blend(eyes, ICON_OVERLAY)
+	var/datum/universal_icon/eyes = uni_icon('icons/mob/human_face.dmi', "eyes")
+	eyes.blend_color(COLOR_BLACK, ICON_MULTIPLY)
+	ethereal_base.blend_icon(eyes, ICON_OVERLAY)
 
-	ethereal_base.Scale(64, 64)
-	ethereal_base.Crop(15, 64, 15 + 31, 64 - 31)
+	ethereal_base.scale(64, 64)
+	ethereal_base.crop(15, 64 - 31, 15 + 31, 64)
 
 	for (var/name in GLOB.color_list_ethereal)
 		var/color = GLOB.color_list_ethereal[name]
 
-		var/icon/icon = new(ethereal_base)
-		icon.Blend("#[color]", ICON_MULTIPLY)
+		var/datum/universal_icon/icon = ethereal_base.copy()
+		icon.blend_color("#[color]", ICON_MULTIPLY)
 		values[name] = icon
 
 	return values

@@ -123,6 +123,7 @@
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/under/rank/brig_physician(src)
 	new /obj/item/clothing/under/rank/brig_physician/skirt(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/brigphys(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "\proper head of security's locker"
@@ -268,6 +269,7 @@
 	door_anim_time = 0 // no animation
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
+	can_weld_shut = FALSE
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()

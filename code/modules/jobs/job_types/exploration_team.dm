@@ -74,7 +74,6 @@
 	backpack_contents = list(
 		/obj/item/knife/combat/survival=1,\
 		/obj/item/stack/marker_beacon/thirty=1)
-	l_pocket = /obj/item/gps/mining/exploration
 	r_pocket = /obj/item/gun/energy/e_gun/mini/exploration
 
 	backpack = /obj/item/storage/backpack/explorer
