@@ -14,6 +14,7 @@
 		#include "map_files\flandstation\flandstation.dmm"
 		#include "map_files\RadStation\RadStation.dmm"
 		#include "map_files\EchoStation\EchoStation.dmm"
+		
 		#ifdef CIBUILDING
 			#include "templates.dm"
 		#endif
