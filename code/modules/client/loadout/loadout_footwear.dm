@@ -14,6 +14,11 @@
 	display_name = "wooden sandals"
 	path = /obj/item/clothing/shoes/sandal
 
+/datum/gear/footwear/jackboots
+	display_name = "jackboots"
+	path = /obj/item/clothing/shoes/jackboots
+	cost = 4000
+
 /datum/gear/footwear/winterboots
 	display_name = "winter boots"
 	path = /obj/item/clothing/shoes/winterboots
