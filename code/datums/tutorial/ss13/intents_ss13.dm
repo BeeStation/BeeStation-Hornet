@@ -19,7 +19,7 @@
 /datum/tutorial/ss13/intents/proc/require_help()
     tutorial_mob.a_intent_change(INTENT_DISARM)
     message_to_player("Your intent has been changed off of <b>help</b>. Change back to it by pressing <b>[retrieve_bind("select_help_intent")]</b>.")
-    RegisterSignal(tutorial_mob, COMSIG_MOB_INTENT_CHANGE, PROC_REF(on_help_intent))
+//    RegisterSignal(tutorial_mob, COMSIG_MOB_INTENT_CHANGE, PROC_REF(on_help_intent))
 
 /datum/tutorial/ss13/intents/proc/on_help_intent(datum/source, new_intent)
     SIGNAL_HANDLER
@@ -27,7 +27,7 @@
     if(new_intent != INTENT_HELP)
         return
 
-    UnregisterSignal(tutorial_mob, COMSIG_MOB_INTENT_CHANGE)
+ //   UnregisterSignal(tutorial_mob, COMSIG_MOB_INTENT_CHANGE)
 
     var/mob/living/carbon/human/dummy/tutorial_dummy = new(loc_from_corner(2, 3))
     message_to_player("The first of the intents is <b>help</b> intent. It is used to harmlessly touch others, put out fire, give CPR, and similar. Click on the <b>Test Dummy</b> to give them a hug.")

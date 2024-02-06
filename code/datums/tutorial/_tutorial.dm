@@ -130,9 +130,6 @@ GLOBAL_LIST_EMPTY_TYPED(ongoing_tutorials, /datum/tutorial)
 	tutorial_mob.balloon_alert(tutorial_mob, message)
 	to_chat(tutorial_mob, "<span class='notice'>[message]</span>")
 
-/// Updates a player's objective in their status tab
-/datum/tutorial/proc/update_objective(message)
-	SEND_SIGNAL(tutorial_mob, COMSIG_MOB_TUTORIAL_UPDATE_OBJECTIVE, message)
 
 /// Initialize the tutorial mob.
 /datum/tutorial/proc/init_mob()
