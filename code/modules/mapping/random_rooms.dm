@@ -1552,7 +1552,6 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 5
-a
 
 /datum/map_template/random_room/sk_rdm_fln_13
 	name = "Cheese room"
@@ -1561,3 +1560,166 @@ a
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 5
+
+/datum/map_template/random_room/rdm_3x5_autolathe
+	name = "autolathe"
+	room_id = "rdm_autolathe"
+	mappath = "_maps/RandomRooms/3x5/rdm_autolathe.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 3
+	weight = 30
+
+/datum/map_template/random_room/rdm_5x3_autolathe
+	name = "rdm_autolathe"
+	room_id = "rdm_autolathe"
+	mappath = "_maps/RandomRooms/5x3/rdm_autolathe.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 5
+	weight = 30
+
+/datum/map_template/random_room/rdm_dorms
+	name = "dorms"
+	room_id = "rdm_dorms"
+	mappath = "_maps/RandomRooms/10x10/rdm_dorms.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 10
+
+/datum/map_template/random_room/rdm_maintception
+	name = "maintception"
+	room_id = "rdm_maintception"
+	mappath = "_maps/RandomRooms/10x10/rdm_maintception.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 20
+
+/datum/map_template/random_room/rdm_organ_harvesting
+	name = "organ_harvesting"
+	room_id = "rdm_organ_harvesting"
+	mappath = "_maps/RandomRooms/10x10/rdm_organ_harvesting.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 40
+
+/datum/map_template/random_room/rdm_engineering_storage
+	name = "engineering_storage"
+	room_id = "rdm_engineering_storage"
+	mappath = "_maps/RandomRooms/10x5/rdm_engineering_storage.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 30
+
+/datum/map_template/random_room/rdm_pirate_derelict
+	name = "pirate_derelict"
+	room_id = "rdm_pirate_derelict"
+	mappath = "_maps/RandomRooms/10x5/rdm_pirate_derelict.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 20
+
+/datum/map_template/random_room/rdm_solars
+	name = "solars"
+	room_id = "rdm_solars"
+	mappath = "_maps/RandomRooms/5x10/rdm_solars.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 20
+
+/datum/map_template/random_room/rdm_vault_storages
+	name = "vault_storages"
+	room_id = "rdm_vault_storages"
+	mappath = "_maps/RandomRooms/10x5/rdm_vault_storages.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 20
+
+/datum/map_template/random_room/rdm_wrong_departures
+	name = "wrong_departures"
+	room_id = "rdm_wrong_departures"
+	mappath = "_maps/RandomRooms/10x5/rdm_wrong_departures.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 10
+
+/datum/map_template/random_room/rdm_ai_upload
+	name = "ai_upload"
+	room_id = "rdm_ai_upload"
+	mappath = "_maps/RandomRooms/3x3/rdm_ai_upload.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	weight = 30
+
+/datum/map_template/random_room/rdm_blob
+	name = "blob"
+	room_id = "rdm_blob"
+	mappath = "_maps/RandomRooms/3x3/rdm_blob.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	weight = 30
+
+/datum/map_template/random_room/rdm_workout
+	name = "workout"
+	room_id = "rdm_workout"
+	mappath = "_maps/RandomRooms/3x3/rdm_workout.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	weight = 20
+	
+/datum/map_template/random_room/rdm_insane_atmospherics_technician
+	name = "insane_atmospherics_technician"
+	room_id = "rdm_insane_atmospherics_technician"
+	mappath = "_maps/RandomRooms/5x3/rdm_insane_atmospherics_technician.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 3
+	weight = 30
+
+/datum/map_template/random_room/rdm_fast_maints
+	name = "rdm_fast_maints"
+	room_id = "filename"
+	mappath = "_maps/RandomRooms/5x3/rdm_fast_maints.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 5
+	weight = 30
+
+/datum/map_template/random_room/rdm_mad_pete
+	name = "mad_pete"
+	room_id = "rdm_mad_pete"
+	mappath = "_maps/RandomRooms/5x4/rdm_mad_pete.dmm"
+	centerspawner = FALSE
+	template_height = 4
+	template_width = 5
+	weight = 30
+
+/datum/map_template/random_room/rdm_bathroom
+	name = "bathroom"
+	room_id = "rdm_bathroom"
+	mappath = "_maps/RandomRooms/5x4/rdm_bathroom.dmm"
+	centerspawner = FALSE
+	template_height = 4
+	template_width = 5
+	weight = 10
+
+/datum/map_template/random_room/rdm_captain_quarters
+	name = "captain_quarters"
+	room_id = "rdm_captain_quarters"
+	mappath = "_maps/RandomRooms/5x4/rdm_captain_quarters.dmm"
+	centerspawner = FALSE
+	template_height = 4
+	template_width = 5
+	weight = 30
+

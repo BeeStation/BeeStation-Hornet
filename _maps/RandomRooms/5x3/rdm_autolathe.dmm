@@ -1,0 +1,88 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/modular_fabricator/autolathe/hacked,
+/obj/machinery/door/window/westright{
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/item/stack/sheet/iron/twenty,
+/obj/structure/rack,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/structure/lattice/catwalk/over,
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/obj/structure/table,
+/obj/machinery/door/window/westleft{
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"x" = (
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/plating,
+/area/template_noop)
+"I" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"N" = (
+/obj/item/stack/sheet/glass/ten,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"P" = (
+/obj/structure/lattice/catwalk/over,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+c
+n
+n
+"}
+(2,1,1) = {"
+a
+o
+I
+"}
+(3,1,1) = {"
+l
+P
+P
+"}
+(4,1,1) = {"
+N
+P
+x
+"}
+(5,1,1) = {"
+f
+P
+e
+"}
