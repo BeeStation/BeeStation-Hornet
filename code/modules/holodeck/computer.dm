@@ -56,11 +56,11 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	var/area/holodeck/linked
 
 	///what program is loaded right now or is about to be loaded
-	var/program = "offline"
+	var/program = "recreational-offline"
 	var/last_program
 
 	///the default program loaded by this holodeck when spawned and when deactivated
-	var/offline_program = "offline"
+	var/offline_program = "recreational-offline"
 
 	///stores all of the unrestricted holodeck map templates that this computer has access to
 	var/list/program_cache

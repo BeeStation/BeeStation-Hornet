@@ -15,7 +15,7 @@
 
 /datum/map_template/holodeck/recreation/offline
 	name = "Holodeck - Offline"
-	template_id = "offline"
+	template_id = "recreational-offline"
 	mappath = "_maps/holodeck/offline.dmm"
 
 /datum/map_template/holodeck/recreation/emptycourt
@@ -176,7 +176,7 @@
 
 /datum/map_template/holodeck/prison/offline
 	name = "Workshop - Offline"
-	template_id = "offline"
+	template_id = "workshop-offline"
 	mappath = "_maps/holodeck/workshop/offline.dmm"
 
 /datum/map_template/holodeck/prison/donut
