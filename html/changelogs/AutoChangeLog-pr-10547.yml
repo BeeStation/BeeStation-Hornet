@@ -1,4 +1,0 @@
-author: Dakae
-delete-after: true
-changes:
-  - bugfix: Ventcrawling to unconnected equipment is no longer possible
