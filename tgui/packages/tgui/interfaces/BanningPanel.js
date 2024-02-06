@@ -18,38 +18,39 @@ export const BanningPanel = (props, context) => {
     can_supress,
     suppressed,
     duration_type,
+    ban_duration,
     time_units,
     ban_type,
     force_cryo_after, // Rest in piss, forever miss
     use_last_connection,
+    roles,
+    selected_roles,
+    selected_groups,
   } = data;
 
   return (
-    <Window theme="admin" title="Banning Panel" width={850} height={500} resizable>
+    <Window theme="admin" title="Banning Panel" width={850} height={800} resizable>
       <Window.Content>
         <Section title="Player Information">
           <Stack wrap="wrap">
             <Stack.Item>
               <Button.Checkbox content="Key" checked={key_enabled} onClick={() => act('toggle_key')} />
-              <ConditionalComponent bool={key_enabled} component=<Input value={key} /> />
+              <Input value={key} style={key_enabled ? { display: 'inline-block' } : { display: 'none' }} />
             </Stack.Item>
             <Stack.Item>
               <Button.Checkbox content="IP" checked={ip_enabled} onClick={() => act('toggle_ip')} />
-              <ConditionalComponent bool={ip_enabled} component=<Input value={ip} /> />
+              <Input value={ip} style={ip_enabled ? { display: 'inline-block' } : { display: 'none' }} />
             </Stack.Item>
             <Stack.Item>
               <Button.Checkbox content="CID" checked={cid_enabled} onClick={() => act('toggle_cid')} />
-              <ConditionalComponent bool={cid_enabled} component=<Input value={cid} /> />
+              <Input value={cid} style={cid_enabled ? { display: 'inline-block' } : { display: 'none' }} />
             </Stack.Item>
-            <Stack.Item>
-              <ConditionalComponent
-                bool={can_supress}
-                component=<Button.Checkbox
-                  content="Enable supression"
-                  color="bad"
-                  checked={suppressed}
-                  onClick={() => act('toggle_suppressed')}
-                />
+            <Stack.Item style={can_supress ? { display: 'flex' } : { display: 'none' }}>
+              <Button.Checkbox
+                content="Enable supression"
+                color="bad"
+                checked={suppressed}
+                onClick={() => act('toggle_suppressed')}
               />
             </Stack.Item>
           </Stack>
@@ -73,21 +74,14 @@ export const BanningPanel = (props, context) => {
                       options={['Permanent', 'Temporary']}
                       onSelected={(selected) => act('set_duration_type', { type: selected })}
                     />
-                    <ConditionalComponent
-                      bool={duration_type === 'Temporary'}
-                      component={() => {
-                        return (
-                          <Box>
-                            <Input />
-                            <Dropdown
-                              selected={time_units}
-                              options={['Seconds', 'Minutes', 'Hours', 'Days', 'Weeks', 'Months', 'Years']}
-                              onSelected={(selected) => act('set_time_units', { units: selected })}
-                            />{' '}
-                          </Box>
-                        );
-                      }}
-                    />
+                    <Box style={duration_type === 'Temporary' ? { display: 'flex' } : { display: 'none' }}>
+                      <Input value={ban_duration} />
+                      <Dropdown
+                        selected={time_units}
+                        options={['Seconds', 'Minutes', 'Hours', 'Days', 'Weeks', 'Months', 'Years']}
+                        onSelected={(selected) => act('set_time_units', { units: selected })}
+                      />{' '}
+                    </Box>
                   </Stack>
                 </LabeledList.Item>
                 <LabeledList.Item label="Ban Type" verticalAlign="middle">
@@ -111,52 +105,83 @@ export const BanningPanel = (props, context) => {
             </Stack.Item>
           </Stack>
         </Section>
-        <ConditionalComponent bool={ban_type === 'Role'} component=<Roles /> />
+        <Section title="Roles" style={ban_type === 'Role' ? { display: 'block' } : { display: 'none' }}>
+          <Roles selected_roles={selected_roles} roles={roles} selected_groups={selected_groups} />
+        </Section>
       </Window.Content>
     </Window>
   );
 };
 
-const Roles = () => {
+const Roles = (roles, selected_roles, selected_groups) => {
   return (
-    <Section title="Roles" scrollable>
-      <Stack direction="column">
-        <CheckboxCollapsible title="Command Roles" color="blue" />
-        <CheckboxCollapsible title="Security Roles" color="red" />
-        <CheckboxCollapsible title="Engineering Roles" color="orange" />
-        <CheckboxCollapsible title="Medical Roles" color="teal" />
-        <CheckboxCollapsible title="Science Roles" color="purple" />
-        <CheckboxCollapsible title="Supply Roles" color="brown" />
-        <CheckboxCollapsible title="Silicon Roles" color="green" />
-        <CheckboxCollapsible title="Antagonist Positions" color="black" />
-        <CheckboxCollapsible title="Forced Antagonist Positions" color="bad" />
-        <CheckboxCollapsible title="Ghost Roles" color="grey" />
-        <CheckboxCollapsible title="Civilian" color="light-grey">
-          <RolesInCategory roles={['Bartender', 'Botanist', 'Janitor', 'Cook', 'Lawyer', 'Curator', 'Chaplain']} />
-        </CheckboxCollapsible>
-        <CheckboxCollapsible title="Gimmick" color="pink">
-          <RolesInCategory roles={['Clown', 'Mime', 'Assistant', 'Other Gimmick Roles']} />
-        </CheckboxCollapsible>
-        <CheckboxCollapsible title="Other">
-          <Button.Checkbox content="Imaginary Friend" />
-          <Button.Checkbox content="Split Personality" />
-          <Button.Checkbox content="Mind Transfer Potion" />
-          <Button.Checkbox content="Emergency Response Team" />
-        </CheckboxCollapsible>
-        <CheckboxCollapsible title="Abstract">
-          <RolesInCategory roles={['Appearance', 'Emote', 'OOC', 'Dsay']} />
-        </CheckboxCollapsible>
-      </Stack>
-    </Section>
+    <Stack direction="column">
+      <CheckboxCollapsible title="Command Roles" color="blue" checked={selected_groups.includes('command')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['command']} />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible title="Security Roles" color="red">
+        <RolesInCategory
+          selected_roles={selected_roles}
+          roles={roles['security']}
+          checked={selected_roles.includes('security')}
+        />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible title="Engineering Roles" color="orange" checked={selected_groups.includes('engineering')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['engineering']} />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible title="Medical Roles" color="teal" checked={selected_groups.includes('medical')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['medical']} />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible title="Science Roles" color="purple" checked={selected_groups.includes('science')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['science']} />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible title="Supply Roles" color="brown" checked={selected_groups.includes('supply')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['supply']} />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible title="Silicon Roles" color="green" checked={selected_groups.includes('silicon')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['silicon']} />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible
+        title="Antagonist Positions"
+        color="black"
+        checked={selected_groups.includes('antagonist_positions')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['antagonist_positions']} />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible
+        title="Forced Antagonist Positions"
+        color="bad"
+        checked={selected_groups('forced_antagonist_positions')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['forced_antagonist_positions']} />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible title="Ghost Roles" color="grey" checked={selected_groups.includes('ghost_roles')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['ghost_roles']} />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible title="Civilian" color="light-grey" checked={selected_groups.includes('civilian')}>
+        <RolesInCategory
+          selected_roles={selected_roles}
+          roles={<RolesInCategory selected_roles={selected_roles} roles={roles['civilian']} />}
+        />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible title="Gimmick" color="pink" checked={selected_groups.includes('gimmick')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['gimmick']} />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible title="Other" checked={selected_groups.includes('other')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['other']} />
+      </CheckboxCollapsible>
+      <CheckboxCollapsible title="Abstract" checked={selected_groups.includes('abstract')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['abstract']} />
+      </CheckboxCollapsible>
+    </Stack>
   );
 };
 
-const CheckboxCollapsible = ({ color, title, onClick, children }) => {
+const CheckboxCollapsible = ({ color, title, onClick, checked, children }) => {
   return (
     <Flex>
       <Button.Checkbox
         onClick={onClick}
         color={color}
+        checked={checked}
         tooltip="Select all for this category"
         maxHeight="20px"
         verticalAlignContent="middle"
@@ -168,18 +193,12 @@ const CheckboxCollapsible = ({ color, title, onClick, children }) => {
   );
 };
 
-const RolesInCategory = ({ roles, all_checked }) => {
+const RolesInCategory = ({ roles, selected_roles }) => {
   return (
     <Stack wrap>
       {roles.map((role) => {
-        return <Button.Checkbox content={role} key={role} />;
+        return <Button.Checkbox content={role} key={role} checked={selected_roles.includes(role)} />;
       })}
     </Stack>
   );
-};
-
-const ConditionalComponent = ({ bool, component }) => {
-  if (bool) {
-    return component;
-  }
 };

@@ -182,7 +182,26 @@
 	var/duration_type = "Temporary"
 	var/time_units = "Minutes"
 	var/use_last_connection = FALSE
+	var/static/list/static_roles = list("command" = GLOB.command_positions,
+					"security" = GLOB.security_positions,
+					"engineering" = GLOB.engineering_positions,
+					"medical" = GLOB.medical_positions,
+					"science" = GLOB.science_positions,
+					"supply" = GLOB.supply_positions,
+					"civilian" = GLOB.civilian_positions,
+					"gimmick" = list(JOB_NAME_CLOWN,JOB_NAME_MIME,JOB_NAME_GIMMICK,JOB_NAME_ASSISTANT), //Hardcoded since it's not a real category but handy for rolebans
+					"antagonist_positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
+					"forced_antagonist_positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
+					"ghost_roles" = list(BAN_ROLE_ALL_GHOST) + GLOB.ghost_role_bannable_roles,
+					"other" = GLOB.other_bannable_roles)
+	var/static/list/group_list = list("command","security", "engineering", "medical", "science", "supply", "civilian", "gimmick", "antagonist_positions", "forced_antagonist_positions", "ghost_roles", "others")
+	var/list/selected_roles
+	var/list/selected_groups
 
+/datum/banning_panel/New()
+	.=..()
+	selected_roles = list(0)
+	selected_groups = list(0)
 
 /datum/banning_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -209,12 +228,22 @@
 	data["force_cryo_after"] = force_cryo_after
 	data["ban_type"] = ban_type
 	data["duration_type"] = duration_type
+	data["ban_duration"] = duration
 	data["time_units"] = time_units
 	data["use_last_connection"] = use_last_connection
 	data["suppressed"] = suppressed
+	data["selected_roles"] = selected_roles
+	data["selected_groups"] = selected_groups
+	data["roles"] = static_roles
 
 	return data
 
+/*/datum/banning_panel/ui_static_data(mob/user)
+	var/list/data = list()
+
+
+	return data
+*/
 /datum/banning_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
@@ -239,7 +268,18 @@
 		if ("set_ban_type")
 			ban_type = params["type"]
 		else
-			. = FALSE
+			if (action in group_list)
+				if (action in selected_groups)
+					selected_roles -= selected_roles & group_list[action]
+				else
+					selected_roles = selected_roles | group_list[action]
+			else if (action in static_roles)
+				if (action in selected_roles)
+					selected_roles += action
+				else
+					selected_roles -= action
+			else
+				. = FALSE
 
 
 /datum/admins/proc/ban_parse_href(list/href_list)
