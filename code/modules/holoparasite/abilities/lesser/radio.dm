@@ -32,7 +32,7 @@
 	can_talk = master_stats.range >= 4
 	if(master_stats.potential >= 4)
 		binary = TRUE
-		radio.keyslot.translate_binary = TRUE
+		radio.keyslot.binary = TRUE
 	if(!can_talk)
 		radio.wires.cut(WIRE_TX)
 	radio.recalculateChannels()
@@ -48,6 +48,7 @@
 	var/list/keys = list()
 	for(var/channel in radio.channels)
 		keys += REGEX_QUOTE(copytext(GLOB.channel_tokens[channel], 2))
+		keys -= MODE_KEY_BINARY
 	if(binary)
 		keys += MODE_KEY_BINARY
 	prefix_regex = new("^([RADIO_KEY_COMMON]|(([prefixes.Join("|")])([keys.Join("|")])))", "i")
@@ -56,7 +57,7 @@
 	var/list/text = list("<span class='holoparasite bold'>You are able to [can_talk ? "both hear and talk over" : "hear"] most radio channels!</span>")
 	var/list/channels = list("Use [RADIO_KEY_COMMON] for the common frequency")
 	if(binary)
-		channels += "use [MODE_TOKEN_BINARY] for [MODE_BINARY]"
+		channels += "use [RADIO_TOKEN_BINARY] for [MODE_BINARY]"
 	for(var/channel in radio.channels)
 		channels += "use [GLOB.channel_tokens[channel]] for [lowertext(channel)]"
 	text += "<span class='holoparasite'>[english_list(channels)]</span>"

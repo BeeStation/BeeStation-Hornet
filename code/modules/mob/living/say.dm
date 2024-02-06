@@ -24,6 +24,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	// Misc
 	RADIO_KEY_AI_PRIVATE = RADIO_CHANNEL_AI_PRIVATE, // AI Upload channel
+	RADIO_KEY_BINARY = RADIO_CHANNEL_BINARY, //AI Binary channel
 
 
 	//kinda localization -- rastaf0
@@ -49,7 +50,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	"н" = RADIO_CHANNEL_CENTCOM,
 
 	// Misc
-	"щ" = RADIO_CHANNEL_AI_PRIVATE
+	"щ" = RADIO_CHANNEL_AI_PRIVATE,
+	"и" = RADIO_CHANNEL_BINARY
 ))
 
 /mob/living/proc/Ellipsis(original_msg, chance = 50, keep_words)

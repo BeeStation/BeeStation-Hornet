@@ -4,15 +4,15 @@
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "cypherkey"
 	w_class = WEIGHT_CLASS_TINY
-	var/translate_binary = FALSE
 	var/syndie = FALSE
 	var/independent = FALSE
 	var/amplification = FALSE
+	var/binary = FALSE
 	var/list/channels = list()
 
 /obj/item/encryptionkey/Initialize(mapload)
 	. = ..()
-	if(!(translate_binary || syndie || independent || amplification || length(channels)))
+	if(!(binary || syndie || independent || amplification || length(channels)))
 		desc = "An encryption key for a radio headset. Has no special codes in it. You should probably tell a coder!"
 
 /obj/item/encryptionkey/examine(mob/user)
@@ -34,7 +34,8 @@
 	name = "binary translator key"
 	desc = "An encryption key that interchanges the form of anaologue brainwave and binary electric signals."
 	icon_state = "bin_cypherkey"
-	translate_binary = TRUE
+	channels = list(RADIO_CHANNEL_BINARY = 1)
+	binary = TRUE
 
 /obj/item/encryptionkey/amplification
 	name = "amplification module key"
@@ -169,7 +170,7 @@
 	name = "\improper omni radio encryption key"
 	desc = "A god-like key of omni-presence to eavesdrop anything you would want to hear."
 	icon_state = "cent_cypherkey"
-	translate_binary = TRUE
+	binary = TRUE
 	syndie = TRUE
 	independent = TRUE
 	amplification = TRUE
@@ -180,7 +181,8 @@
 		channels |= list("[each]" = 1)
 
 /obj/item/encryptionkey/ai //ported from NT, this goes 'inside' the AI.
-	channels = list(RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_ENGINEERING = 1, RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_MEDICAL = 1, RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_AI_PRIVATE = 1)
+	channels = list(RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_ENGINEERING = 1, RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_MEDICAL = 1, RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_AI_PRIVATE = 1, RADIO_CHANNEL_BINARY = 1)
+	binary = TRUE
 
 /obj/item/encryptionkey/secbot
 	channels = list(RADIO_CHANNEL_AI_PRIVATE = 1, RADIO_CHANNEL_SECURITY = 1)

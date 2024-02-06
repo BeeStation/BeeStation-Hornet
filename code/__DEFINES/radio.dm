@@ -51,6 +51,10 @@
 #define RADIO_KEY_SYNDICATE "t"
 #define RADIO_TOKEN_SYNDICATE ":t"
 
+#define RADIO_CHANNEL_BINARY "Binary"
+#define RADIO_KEY_BINARY "b"
+#define RADIO_TOKEN_BINARY ":b"
+
 #define RADIO_CHANNEL_CENTCOM "CentCom"
 #define RADIO_KEY_CENTCOM "y"
 #define RADIO_TOKEN_CENTCOM ":y"
@@ -65,6 +69,7 @@
 #define MIN_FREE_FREQ 1201 // -------------------------------------------------
 // Frequencies are always odd numbers and range from 1201 to 1599.
 
+#define FREQ_AI_BINARY 1211 //! AI binary comms frequency, low range due to it being *special*, code blocks
 #define FREQ_SYNDICATE 1213  //!  Nuke op comms frequency, dark brown
 #define FREQ_UPLINK 1214   //!  Dummy channel for headset uplink
 #define FREQ_CTF_RED 1215  //!  CTF red team comms frequency, red
