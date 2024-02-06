@@ -70,5 +70,7 @@
 				return
 
 			path = new path
-			path.start_tutorial(usr)
+			var/mob/dead/new_player/new_player = usr
+			new_player.close_spawn_windows()
+			path.init_tutorial(usr)
 			return TRUE

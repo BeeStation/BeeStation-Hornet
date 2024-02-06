@@ -38,14 +38,13 @@ GLOBAL_LIST_EMPTY_TYPED(ongoing_tutorials, /datum/tutorial)
 
 	return ..()
 
-/datum/tutorial/proc/start_tutorial(mob/starting_mob)
+/datum/tutorial/proc/init_tutorial(mob/starting_mob)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(!starting_mob?.client)
 		return FALSE
 
 	ADD_TRAIT(starting_mob, TRAIT_IN_TUTORIAL, TRAIT_SOURCE_TUTORIAL)
-
 	tutorial_mob = starting_mob
 	reservation = SSmapping.RequestBlockReservation(initial(tutorial_template.width), initial(tutorial_template.height))
 	if(!reservation)
@@ -53,12 +52,13 @@ GLOBAL_LIST_EMPTY_TYPED(ongoing_tutorials, /datum/tutorial)
 
 	var/turf/bottom_left_corner_reservation = locate(reservation.bottom_left_coords[1], reservation.bottom_left_coords[2], reservation.bottom_left_coords[3])
 	var/datum/map_template/tutorial/template = new tutorial_template
-	var/test = template.load(bottom_left_corner_reservation, FALSE, TRUE)
-	sleep(20)
+	var/datum/async_map_generator/template_placer = template.load(bottom_left_corner_reservation, FALSE, TRUE)
+	template_placer.on_completion(CALLBACK(src, PROC_REF(start_tutorial), tutorial_mob))
+
+/datum/tutorial/proc/start_tutorial(mob/starting_mob)
 	var/obj/test_landmark = locate(/obj/effect/landmark/tutorial_bottom_left) in GLOB.landmarks_list
 	bottom_left_corner = get_turf(test_landmark)
 	qdel(test_landmark)
-
 	if(!verify_template_loaded())
 		abort_tutorial()
 		return FALSE
