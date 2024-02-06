@@ -1,0 +1,4 @@
+author: Haliris
+delete-after: true
+changes:
+  - bugfix: fixes recreational holodeck loading the wrong offline template.
