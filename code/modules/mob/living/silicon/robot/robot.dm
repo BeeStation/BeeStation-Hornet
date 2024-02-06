@@ -187,8 +187,6 @@
 
 	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
-	radio.subspace_transmission = 1
-	radio.recalculateChannels()
 	logevent("System brought online.")
 
 /**
@@ -232,7 +230,6 @@
 		QDEL_NULL(modularInterface)
 	if(connected_ai)
 		connected_ai.connected_robots -= src
-	QDEL_NULL(radio.keyslot3)
 	if(shell)
 		GLOB.available_ai_shells -= src
 	else
@@ -459,7 +456,6 @@
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER && opened && cell)	// radio
 		if(shell)
 			to_chat(user, "You cannot seem to open the radio compartment.")	//Prevent AI radio key theft
-			return
 		else if(radio)
 			radio.attackby(W,user)//Push it to the radio to let it handle everything
 		else
@@ -502,9 +498,6 @@
 		return
 
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
-		if(shell)
-			to_chat(user, "You cannot seem to open the radio compartment.")	//Prevent AI radio key theft
-			return
 		if(radio)//sanityyyyyy
 			radio.attackby(W,user)//GTFO, you have your own procs
 		else
@@ -1144,7 +1137,6 @@
 	if(!board)
 		upgrades |= new /obj/item/borg/upgrade/ai(src)
 	shell = TRUE
-	radio.keyslot.amplification = TRUE
 	braintype = "AI Shell"
 	name = "[designation] AI Shell [rand(100,999)]"
 	real_name = name
@@ -1162,7 +1154,6 @@
 	//A player forced reset of a borg would drop the module before this is called, so this is for catching edge cases
 		qdel(boris)
 	shell = FALSE
-	radio.keyslot.amplification = FALSE
 	GLOB.available_ai_shells -= src
 	name = "Unformatted Cyborg [rand(100,999)]"
 	real_name = name

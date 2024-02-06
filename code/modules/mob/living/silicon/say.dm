@@ -1,3 +1,43 @@
+/mob/living/proc/robot_talk(message)
+	//Cannot transmit wireless messages while jammed
+	if(is_jammed(JAMMER_PROTECTION_SILICON_COMMS))
+		return
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	log_talk(message, LOG_SAY, tag="binary")
+	var/desig = "Default Cyborg" //ezmode for taters
+	if(issilicon(src))
+		var/mob/living/silicon/S = src
+		desig = trim_left(S.designation + " " + S.job)
+	var/message_a = say_quote(message)
+	var/rendered = "Robotic Talk, <span class='name'>[name]</span> <span class='message'>[message_a]</span>"
+	for(var/mob/M in GLOB.player_list)
+		if(M.binarycheck())
+			if(isAI(M))
+				var/source = FALSE
+				if(M == src)
+					source = TRUE
+				var/renderedAI = "<span class='srt_radio binarysay'>Robotic Talk, <a href='?src=[REF(M)];track=[html_encode(name)]'><span class='name'>[name] ([desig])</span></a> <span class='message [source ? " binarysayloud" : ""]'>[message_a]</span></span>" //AI hears itself in loud mode.
+				to_chat(M, renderedAI)
+			else if(iscyborg(M))
+				var/mob/living/silicon/robot/borg = M
+				var/source = FALSE
+				if(src == borg.connected_ai)
+					source = TRUE
+				to_chat(M, "<span class='srt_radio binarysay[source ? " binarysayloud" : ""]'>[rendered]</span>") //Cyborg only hears master AI on loud mode.
+			else
+				to_chat(M, "<span class='srt_radio binarysay[isAI(src) ? " binarysayloud" : ""]'>[rendered]</span>") //Human with binary channel hears all AIs on loud mode.
+		if(isobserver(M))
+			var/following = src
+			// If the AI talks on binary chat, we still want to follow
+			// it's camera eye, like if it talked on the radio
+			if(isAI(src))
+				var/mob/living/silicon/ai/ai = src
+				following = ai.eyeobj
+			var/link = FOLLOW_LINK(M, following)
+			to_chat(M, "<span class='srt_radio binarysay[isAI(src) ? " binarysayloud" : ""]'>[link] [rendered]</span>") //Observers hear all AI on loud mode.
+
 /mob/living/silicon/binarycheck()
 	return 1
 
@@ -18,4 +58,5 @@
 		if(radio)
 			radio.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
 			return ITALICS | REDUCE_RANGE
+
 	return 0

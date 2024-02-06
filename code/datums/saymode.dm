@@ -49,7 +49,11 @@
 		var/mob/living/simple_animal/drone/D = user
 		D.drone_chat(message)
 		return FALSE
-	return TRUE
+	if(user.binarycheck())
+		user.robot_talk(message)
+		return FALSE
+	return FALSE
+
 
 /datum/saymode/holopad
 	key = "h"

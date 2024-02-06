@@ -188,8 +188,6 @@
 					borg.radio.keyslot.syndie = TRUE
 				else if (channel == "CentCom")
 					borg.radio.keyslot.independent = TRUE
-				else if (channel == "Binary")
-					borg.radio.keyslot.binary = TRUE
 				message_admins("[key_name_admin(user)] added the [channel] radio channel to [ADMIN_LOOKUPFLW(borg)].")
 				log_admin("[key_name(user)] added the [channel] radio channel to [key_name(borg)].")
 			borg.radio.recalculateChannels()

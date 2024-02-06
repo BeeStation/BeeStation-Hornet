@@ -38,10 +38,9 @@
 
 	// Encryption key handling
 	var/obj/item/encryptionkey/keyslot
-	var/obj/item/encryptionkey/keyslot3 //Used ONLY for borgs and their binary encryption key. 3, because apparently 2 is used in normal headsets
+	var/translate_binary = FALSE  // If true, can hear the special binary channel.
 	var/independent = FALSE  // If true, can say/hear on the special CentCom channel.
 	var/syndie = FALSE  // If true, hears all well-known channels automatically, and can say/hear on the Syndicate channel.
-	var/binary = FALSE // If true, hear binary channel and be able to talk over it.
 	var/list/channels = list()  // Map from name (see communications.dm) to on/off. First entry is current department (:h).
 	var/list/secure_radio_connections
 	var/radio_silent = FALSE // If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
@@ -57,24 +56,18 @@
 
 /obj/item/radio/proc/recalculateChannels()
 	channels = list()
-	binary = FALSE
+	translate_binary = FALSE
 	syndie = FALSE
 	independent = FALSE
 	command = initial(command)
 
-	if(keyslot3)
-		for(var/ch_name in keyslot3.channels)
-			if(!(ch_name in channels))
-				channels[ch_name] = keyslot3.channels[ch_name]
-		if(keyslot3.binary)
-			binary = TRUE
 	if(keyslot)
 		for(var/ch_name in keyslot.channels)
 			if(!(ch_name in channels))
 				channels[ch_name] = keyslot.channels[ch_name]
 
-		if(keyslot.binary)
-			binary = TRUE
+		if(keyslot.translate_binary)
+			translate_binary = TRUE
 		if(keyslot.syndie)
 			syndie = TRUE
 		if(keyslot.independent)
@@ -297,11 +290,6 @@
 		signal.levels = list(0)  // reaches all Z-levels
 		signal.broadcast()
 		return
-	if (binary && (freq == FREQ_AI_BINARY)) //Binary channel reaches all z levels, apparently. I'm not changing this in this refactor.
-		signal.data["compression"] = 0
-		signal.levels += list(0)
-		signal.broadcast()
-		return
 
 	// All radios make an attempt to use the subspace system first
 	signal.send_to_receivers()
@@ -355,8 +343,6 @@
 		return FALSE
 	if (freq == FREQ_CENTCOM)
 		return independent  // hard-ignores the z-level check
-	if (freq == FREQ_AI_BINARY)
-		return binary
 	if (!(0 in level))
 		var/turf/position = get_turf(src)
 		if(!position || !(position.get_virtual_z_level() in level))
@@ -431,7 +417,6 @@
 	name = "cyborg radio"
 	subspace_switchable = TRUE
 	dog_fashion = null
-	keyslot3 = new /obj/item/encryptionkey/binary
 
 /obj/item/radio/borg/Initialize(mapload)
 	. = ..()

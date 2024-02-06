@@ -59,7 +59,7 @@
 	var/obj/item/radio/headset/dongle = ears
 	if(!istype(dongle))
 		return FALSE
-	return dongle.binary
+	return dongle.translate_binary
 
 /mob/living/carbon/human/radio(message, list/message_mods = list(), list/spans, language)
 	. = ..()

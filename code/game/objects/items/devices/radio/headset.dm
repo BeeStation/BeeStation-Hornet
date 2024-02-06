@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	RADIO_CHANNEL_SUPPLY = RADIO_TOKEN_SUPPLY,
 	RADIO_CHANNEL_EXPLORATION = RADIO_TOKEN_EXPLORATION,
 	RADIO_CHANNEL_SERVICE = RADIO_TOKEN_SERVICE,
-	RADIO_CHANNEL_BINARY = RADIO_TOKEN_BINARY,
+	MODE_BINARY = MODE_TOKEN_BINARY,
 	RADIO_CHANNEL_AI_PRIVATE = RADIO_TOKEN_AI_PRIVATE
 ))
 
@@ -41,6 +41,8 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	if(item_flags & PICKED_UP && loc == user)
 		// construction of frequency description
 		var/list/avail_chans = list("Use [RADIO_KEY_COMMON] for the currently tuned frequency")
+		if(translate_binary)
+			avail_chans += "use [MODE_TOKEN_BINARY] for [MODE_BINARY]"
 		if(length(channels))
 			for(var/i in 1 to length(channels))
 				if(i == 1)
@@ -340,16 +342,13 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/recalculateChannels()
 	..()
-
-	if(keyslot3)
-		if(keyslot3.binary)
-			binary = TRUE
 	if(keyslot2)
 		for(var/ch_name in keyslot2.channels)
 			if(!(ch_name in src.channels))
 				channels[ch_name] = keyslot2.channels[ch_name]
-		if(keyslot2.binary)
-			binary = TRUE
+
+		if(keyslot2.translate_binary)
+			translate_binary = TRUE
 		if(keyslot2.syndie)
 			syndie = TRUE
 		if (keyslot2.independent)

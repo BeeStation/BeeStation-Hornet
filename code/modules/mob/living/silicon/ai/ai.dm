@@ -134,7 +134,7 @@
 	to_chat(src, "To use something, simply click on it.")
 	to_chat(src, "Use say :b to speak to your cyborgs through binary.")
 	to_chat(src, "For department channels, use the following say commands:")
-	to_chat(src, ":o - AI Private, :c - Command, :s - Security, :e - Engineering, :u - Supply, :v - Service, :m - Medical, :n - Science, :h - Holopad, :b - Binary.") //typically, :h will always use a radios key and send speech to that departmental channel, for AI's it sends it to currently used holopad instead
+	to_chat(src, ":o - AI Private, :c - Command, :s - Security, :e - Engineering, :u - Supply, :v - Service, :m - Medical, :n - Science, :h - Holopad.") //typically, :h will always use a radios key and send speech to that departmental channel, for AI's it sends it to currently used holopad instead
 	show_laws()
 	to_chat(src, "<span class='bold'>These laws may be changed by other players, or by you being the traitor.</span>")
 
