@@ -1455,6 +1455,60 @@
 	template_width = 5
 	weight = 2
 
+/datum/map_template/random_room/sk_rdm170
+	name = "Laser Tag"
+	room_id = "sk_rdm170_laser_tag"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm170_laser_tag.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 2
+
+/datum/map_template/random_room/sk_rdm171
+	name = "Dead Bodies"
+	room_id = "sk_rdm171_dead_bodies"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm171_dead_bodies.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 10
+	weight = 2
+
+/datum/map_template/random_room/sk_rdm172
+	name = "Wizard Closet"
+	room_id = "sk_rdm172_wizard_closet"
+	mappath = "_maps/RandomRooms/3x3/sk_rdm172_wizard_closet.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	weight = 2
+
+/datum/map_template/random_room/sk_rdm173
+name = "Chocolate Room"
+room_id = "sk_rdm173_chocolate"
+mappath = "_maps/RandomRooms/3x5/sk_rdm173_chocolate.dmm"
+centerspawner = FALSE
+template_height = 5
+template_width = 3
+weight = 2
+
+/datum/map_template/random_room/sk_rdm174
+name = "Rat Room"
+room_id = "sk_rdm174_rats"
+mappath = "_maps/RandomRooms/5x3/sk_rdm174_rats.dmm"
+centerspawner = FALSE
+template_height = 3
+template_width = 5
+weight = 2
+
+/datum/map_template/random_room/sk_rdm175
+name = "Shop"
+room_id = "sk_rdm175_shop"
+mappath = "_maps/RandomRooms/5x4/sk_rdm175_shop.dmm"
+centerspawner = FALSE
+template_height = 4
+template_width = 5
+weight = 2
+
 //Flandstation Dedicated Random Room
 
 /datum/map_template/random_room/sk_rdm_fln_01
