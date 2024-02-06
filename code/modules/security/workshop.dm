@@ -76,7 +76,7 @@
 /obj/machinery/computer/holodeck/prison/proc/temporary_down()
 	if(!offline)
 		say("Emergency shutdown engaged. Restarting in 2 minutes...")
-		offline_program = "offline"
+		offline_program = "workshop-offline"
 		emergency_shutdown()
 		offline = TRUE
 		offline_program = pick("donut", "plush")
