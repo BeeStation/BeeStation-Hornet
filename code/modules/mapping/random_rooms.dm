@@ -1722,3 +1722,4 @@
 	template_height = 4
 	template_width = 5
 	weight = 3
+
