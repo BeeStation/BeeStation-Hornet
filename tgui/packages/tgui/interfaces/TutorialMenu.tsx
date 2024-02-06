@@ -36,7 +36,7 @@ export const TutorialMenu = (props, context) => {
                 'position': 'relative',
                 'top': '0px',
               }}
-            >
+              >
               <Tabs>
                 {tutorial_categories.map((item, key) => (
                   <Tabs.Tab
@@ -45,7 +45,7 @@ export const TutorialMenu = (props, context) => {
                     onClick={() => {
                       setCategoryIndex(item.name);
                     }}
-                  >
+                    >
                     {item.name}
                   </Tabs.Tab>
                 ))}
@@ -67,7 +67,7 @@ export const TutorialMenu = (props, context) => {
                           width="100%"
                           key={tutorial.id}
                           onClick={() => setTutorial(tutorial)}
-                        >
+                          >
                           {tutorial.name}
                         </Button>
                       </div>
@@ -87,7 +87,7 @@ export const TutorialMenu = (props, context) => {
                           'justify-content': 'center',
                           'align-items': 'center',
                         }}
-                      >
+                        >
                         <Box key={chosenTutorial.id}>
                           <span className={classes(['tutorial128x128', `${chosenTutorial.image}`])} />
                         </Box>
