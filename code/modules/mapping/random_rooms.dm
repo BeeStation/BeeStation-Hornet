@@ -1568,7 +1568,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
-	weight = 30
+	weight = 3
 
 /datum/map_template/random_room/rdm_5x3_autolathe
 	name = "rdm_autolathe"
@@ -1577,7 +1577,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
-	weight = 30
+	weight = 3
 
 /datum/map_template/random_room/rdm_dorms
 	name = "dorms"
@@ -1586,7 +1586,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 10
+	weight = 1
 
 /datum/map_template/random_room/rdm_maintception
 	name = "maintception"
@@ -1595,7 +1595,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 20
+	weight = 2
 
 /datum/map_template/random_room/rdm_organ_harvesting
 	name = "organ_harvesting"
@@ -1604,7 +1604,7 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-	weight = 40
+	weight = 4
 
 /datum/map_template/random_room/rdm_engineering_storage
 	name = "engineering_storage"
@@ -1613,7 +1613,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	weight = 30
+	weight = 3
 
 /datum/map_template/random_room/rdm_pirate_derelict
 	name = "pirate_derelict"
@@ -1622,7 +1622,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	weight = 20
+	weight = 2
 
 /datum/map_template/random_room/rdm_solars
 	name = "solars"
@@ -1631,7 +1631,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	weight = 20
+	weight = 2
 
 /datum/map_template/random_room/rdm_vault_storages
 	name = "vault_storages"
@@ -1640,7 +1640,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	weight = 20
+	weight = 2
 
 /datum/map_template/random_room/rdm_wrong_departures
 	name = "wrong_departures"
@@ -1649,7 +1649,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
-	weight = 10
+	weight = 1
 
 /datum/map_template/random_room/rdm_ai_upload
 	name = "ai_upload"
@@ -1658,7 +1658,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
-	weight = 30
+	weight = 3
 
 /datum/map_template/random_room/rdm_blob
 	name = "blob"
@@ -1667,7 +1667,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
-	weight = 30
+	weight = 3
 
 /datum/map_template/random_room/rdm_workout
 	name = "workout"
@@ -1676,7 +1676,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3
-	weight = 20
+	weight = 2
 	
 /datum/map_template/random_room/rdm_insane_atmospherics_technician
 	name = "insane_atmospherics_technician"
@@ -1685,7 +1685,7 @@
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 3
-	weight = 30
+	weight = 3
 
 /datum/map_template/random_room/rdm_fast_maints
 	name = "rdm_fast_maints"
@@ -1694,7 +1694,7 @@
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 5
-	weight = 30
+	weight = 3
 
 /datum/map_template/random_room/rdm_mad_pete
 	name = "mad_pete"
@@ -1703,7 +1703,7 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
-	weight = 30
+	weight = 3
 
 /datum/map_template/random_room/rdm_bathroom
 	name = "bathroom"
@@ -1712,7 +1712,7 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
-	weight = 10
+	weight = 1
 
 /datum/map_template/random_room/rdm_captain_quarters
 	name = "captain_quarters"
@@ -1721,5 +1721,4 @@
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
-	weight = 30
-
+	weight = 3
