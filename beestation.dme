@@ -541,6 +541,7 @@
 #include "code\datums\tutorial\_tutorial.dm"
 #include "code\datums\tutorial\_tutorial_menu.dm"
 #include "code\datums\tutorial\ss13\_ss13.dm"
+#include "code\datums\tutorial\ss13\intents_ss13.dm"
 #include "code\datums\tutorial\ss13\basic_ss13.dm"
 #include "code\datums\view.dm"
 #include "code\datums\weakrefs.dm"
