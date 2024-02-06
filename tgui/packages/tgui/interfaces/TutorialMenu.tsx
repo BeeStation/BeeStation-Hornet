@@ -24,16 +24,8 @@ type BackendContext = {
 export const TutorialMenu = (props, context) => {
   const { data, act } = useBackend<BackendContext>(context);
   const { tutorial_categories, completed_tutorials } = data;
-  const [chosenTutorial, setTutorial] = useLocalState<Tutorial | null>(
-    context,
-    'tutorial',
-    null
-  );
-  const [categoryIndex, setCategoryIndex] = useLocalState(
-    context,
-    'category_index',
-    'Space Station 13'
-  );
+  const [chosenTutorial, setTutorial] = useLocalState<Tutorial | null>(context, 'tutorial', null);
+  const [categoryIndex, setCategoryIndex] = useLocalState(context, 'category_index', 'Space Station 13');
   return (
     <Window title="Tutorial Menu" width={800} height={600} theme="usmc">
       <Window.Content>
@@ -43,7 +35,8 @@ export const TutorialMenu = (props, context) => {
               style={{
                 'position': 'relative',
                 'top': '0px',
-              }}>
+              }}
+            >
               <Tabs>
                 {tutorial_categories.map((item, key) => (
                   <Tabs.Tab
@@ -51,7 +44,8 @@ export const TutorialMenu = (props, context) => {
                     selected={item.name === categoryIndex}
                     onClick={() => {
                       setCategoryIndex(item.name);
-                    }}>
+                    }}
+                  >
                     {item.name}
                   </Tabs.Tab>
                 ))}
@@ -65,16 +59,15 @@ export const TutorialMenu = (props, context) => {
                   (tutorial_category) =>
                     tutorial_category.name === categoryIndex &&
                     tutorial_category.tutorials.map((tutorial) => (
-                      <div
-                        style={{ 'padding-bottom': '12px' }}
-                        key={tutorial.id}>
+                      <div style={{ 'padding-bottom': '12px' }} key={tutorial.id}>
                         <Button
                           fontSize="15px"
                           textAlign="center"
                           selected={tutorial === chosenTutorial}
                           width="100%"
                           key={tutorial.id}
-                          onClick={() => setTutorial(tutorial)}>
+                          onClick={() => setTutorial(tutorial)}
+                        >
                           {tutorial.name}
                         </Button>
                       </div>
@@ -93,14 +86,10 @@ export const TutorialMenu = (props, context) => {
                           'display': 'flex',
                           'justify-content': 'center',
                           'align-items': 'center',
-                        }}>
+                        }}
+                      >
                         <Box key={chosenTutorial.id}>
-                          <span
-                            className={classes([
-                              'tutorial128x128',
-                              `${chosenTutorial.image}`,
-                            ])}
-                          />
+                          <span className={classes(['tutorial128x128', `${chosenTutorial.image}`])} />
                         </Box>
                       </div>
                     </Stack.Item>
