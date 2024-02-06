@@ -1,4 +1,0 @@
-author: Hardly
-delete-after: true
-changes:
-  - tweak: Reverted the crate's drag slowdown back to 0.
