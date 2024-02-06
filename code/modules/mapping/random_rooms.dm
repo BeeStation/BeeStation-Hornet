@@ -1483,31 +1483,31 @@
 	weight = 2
 
 /datum/map_template/random_room/sk_rdm173
-name = "Chocolate Room"
-room_id = "sk_rdm173_chocolate"
-mappath = "_maps/RandomRooms/3x5/sk_rdm173_chocolate.dmm"
-centerspawner = FALSE
-template_height = 5
-template_width = 3
-weight = 2
+	name = "Chocolate Room"
+	room_id = "sk_rdm173_chocolate"
+	mappath = "_maps/RandomRooms/3x5/sk_rdm173_chocolate.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 3
+	weight = 2
 
 /datum/map_template/random_room/sk_rdm174
-name = "Rat Room"
-room_id = "sk_rdm174_rats"
-mappath = "_maps/RandomRooms/5x3/sk_rdm174_rats.dmm"
-centerspawner = FALSE
-template_height = 3
-template_width = 5
-weight = 2
+	name = "Rat Room"
+	room_id = "sk_rdm174_rats"
+	mappath = "_maps/RandomRooms/5x3/sk_rdm174_rats.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 5
+	weight = 2
 
 /datum/map_template/random_room/sk_rdm175
-name = "Shop"
-room_id = "sk_rdm175_shop"
-mappath = "_maps/RandomRooms/5x4/sk_rdm175_shop.dmm"
-centerspawner = FALSE
-template_height = 4
-template_width = 5
-weight = 2
+	name = "Shop"
+	room_id = "sk_rdm175_shop"
+	mappath = "_maps/RandomRooms/5x4/sk_rdm175_shop.dmm"
+	centerspawner = FALSE
+	template_height = 4
+	template_width = 5
+	weight = 2
 
 //Flandstation Dedicated Random Room
 
