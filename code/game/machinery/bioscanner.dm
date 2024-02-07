@@ -126,9 +126,9 @@
 
 /obj/machinery/bioscanner/process()
 	..()
-	statusupdate()
+	PatientStatus()
 
-/obj/machinery/bioscanner/proc/statusupdate()
+/obj/machinery/bioscanner/proc/PatientStatus()
 	if(scanning && occupant)
 		var/mob/living/mob_occupant = occupant
 		switch(mob_occupant.stat)
@@ -141,19 +141,18 @@
 			if(DEAD)
 				icon_state = "bscanner_death"
 
-/obj/machinery/bioscanner/proc/startbioscan()
+
+/obj/machinery/bioscanner/proc/startscan()
 	if(!occupant)
 		return
-
-	statusupdate()
-	visible_message("<span class='notice'> The Bio-Scanner thrums to life.</span>")
+	scanning = TRUE
+	PatientStatus()
+	visible_message("<span class='notice'> The Bio-Scanner hums to life.</span>")
 	playsound(src, 'sound/machines/boop.ogg', 75, FALSE, 0)
 	playsound(src, 'sound/machines/capacitor_charge.ogg', 100, TRUE, 2)
-	addtimer(CALLBACK(src, PROC_REF(statusupdate)),30*speed_coeff)
-	bioscanComplete()
+	addtimer(CALLBACK(src, PROC_REF(bioscanComplete)),600*speed_coeff)
 
 /obj/machinery/bioscanner/proc/bioscanComplete()
-
 	var/mob/living/mob_occupant = occupant
 	mob_occupant.rad_act(rand(radiation_dose/2,radiation_dose))
 	icon_state = "bscanner_off"
