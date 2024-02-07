@@ -1,7 +1,7 @@
 
 #define JOB_MODIFICATION_MAP_NAME "EchoStation" //sorry but i'm bring back the pubby config file
 
-//do not spawn going to test joining too. last time it runtimed and set me to the loading screen
+//do not spawn
 MAP_REMOVE_JOB(atmospheric_technician)
 MAP_REMOVE_JOB(bartender)
 MAP_REMOVE_JOB(brig_physician)
