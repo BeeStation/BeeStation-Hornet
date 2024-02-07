@@ -1519,10 +1519,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
-"azD" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/dark,
-/area/security/prison)
 "azK" = (
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 4
@@ -4050,12 +4046,6 @@
 /obj/effect/spawner/lootdrop/maintenance/four,
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/storage)
-"bBj" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "bBR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -14921,6 +14911,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"hSr" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/sign/warning/radiation_shelter{
+	pixel_x = 1;
+	pixel_y = 32
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "hSD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -25852,8 +25852,8 @@
 /area/medical/medbay/central)
 "oCf" = (
 /mob/living/simple_animal/hostile/gorilla{
-	melee_damage = 10;
 	aggro_vision_range = 3;
+	melee_damage = 10;
 	vision_range = 5
 	},
 /turf/open/floor/grass,
@@ -33834,10 +33834,6 @@
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
-"sPv" = (
-/obj/structure/sign/warning/radiation_shelter,
-/turf/closed/wall/r_wall,
-/area/security/prison)
 "sPE" = (
 /obj/machinery/light,
 /obj/item/kirbyplants/random,
@@ -40700,6 +40696,14 @@
 /obj/effect/landmark/start/station_engineer,
 /turf/open/floor/plasteel/tech,
 /area/engine/atmos)
+"wDF" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/sign/warning/radiation_shelter{
+	pixel_x = 33;
+	pixel_y = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "wDK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -43407,8 +43411,8 @@
 /area/science/lab)
 "ydK" = (
 /mob/living/simple_animal/hostile/gorilla{
-	melee_damage = 10;
 	aggro_vision_range = 3;
+	melee_damage = 10;
 	vision_range = 5
 	},
 /turf/open/floor/plating/dirt/planetary,
@@ -118326,7 +118330,7 @@ sRD
 tsp
 sRD
 tsp
-sPv
+sRD
 sRD
 sRD
 sRD
@@ -118841,7 +118845,7 @@ vlt
 qPG
 lGG
 cOP
-azD
+wDF
 sLi
 rUJ
 wCp
@@ -119093,7 +119097,7 @@ jBY
 cIB
 bgS
 bgS
-bBj
+hSr
 hcA
 uQj
 sYf
