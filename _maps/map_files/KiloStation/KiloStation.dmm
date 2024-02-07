@@ -6051,6 +6051,9 @@
 /area/science/xenobiology)
 "aAC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/robotics/lab)
 "aAD" = (
@@ -6250,9 +6253,6 @@
 /area/science/robotics/mechbay)
 "aBw" = (
 /obj/effect/turf_decal/box,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/robotics/lab)
@@ -29551,6 +29551,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "dgD" = (
@@ -29895,6 +29896,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "doR" = (
@@ -33770,6 +33772,9 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/robotics/lab)
@@ -40997,12 +41002,6 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "heD" = (
 /obj/structure/table,
-/obj/item/cautery,
-/obj/item/healthanalyzer,
-/obj/item/surgicaldrill{
-	pixel_y = 5
-	},
-/obj/item/surgical_drapes,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -41010,6 +41009,10 @@
 	name = "Surgery APC"
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/item/storage/backpack/duffelbag/med/implant{
+	pixel_y = 4
+	},
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/surgery)
 "heK" = (
@@ -41165,9 +41168,6 @@
 "hhs" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/item/storage/box/bodybags{
-	pixel_y = 5
-	},
 /obj/item/storage/firstaid/regular{
 	empty = 1;
 	name = "First-Aid (empty)"
@@ -41180,7 +41180,6 @@
 	empty = 1;
 	name = "First-Aid (empty)"
 	},
-/obj/item/stack/package_wrap,
 /obj/item/healthanalyzer,
 /obj/item/healthanalyzer,
 /obj/item/healthanalyzer,
@@ -41189,11 +41188,18 @@
 	name = "science camera";
 	network = list("ss13","rd")
 	},
-/obj/item/radio/intercom{
-	pixel_y = 22
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
+	},
+/obj/item/stack/package_wrap,
+/obj/machinery/power/apc{
+	areastring = "/area/science/robotics/lab";
+	dir = 1;
+	name = "Robotics Lab APC";
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
@@ -41568,22 +41574,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
-"hoj" = (
-/obj/effect/turf_decal/loading_area,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/science/robotics/lab)
 "hoo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -44506,17 +44496,12 @@
 /area/crew_quarters/bar)
 "ilo" = (
 /obj/structure/table,
-/obj/item/retractor,
-/obj/item/hemostat,
-/obj/item/circular_saw,
-/obj/item/blood_filter{
-	pixel_x = -9;
-	pixel_y = 8
-	},
-/obj/item/scalpel{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/item/storage/backpack/duffelbag/med/surgery,
+/obj/item/healthanalyzer{
+	pixel_y = 8;
+	pixel_x = 4
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/surgery)
 "ils" = (
@@ -47740,9 +47725,6 @@
 /area/engine/atmos)
 "jof" = (
 /obj/structure/table,
-/obj/item/surgical_drapes,
-/obj/item/retractor,
-/obj/item/cautery,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -47752,6 +47734,12 @@
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
+	},
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/item/storage/box/bodybags{
+	pixel_y = 5
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
@@ -59125,11 +59113,6 @@
 /area/teleporter)
 "ngJ" = (
 /obj/structure/table,
-/obj/item/circular_saw,
-/obj/item/scalpel{
-	pixel_y = 16
-	},
-/obj/item/hemostat,
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 1
@@ -59137,6 +59120,10 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 4
+	},
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "ngS" = (
@@ -64020,7 +64007,6 @@
 /obj/item/book/manual/wiki/surgery,
 /obj/item/glove_box,
 /obj/item/clothing/mask/surgical,
-/obj/item/clothing/gloves/color/latex,
 /obj/structure/table,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/plasteel/showroomfloor,
@@ -73154,9 +73140,6 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -74092,17 +74075,11 @@
 "sjs" = (
 /obj/machinery/modular_fabricator/exosuit_fab,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/power/apc{
-	areastring = "/area/science/robotics/lab";
-	dir = 1;
-	name = "Robotics Lab APC";
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_y = 22
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
@@ -78667,12 +78644,8 @@
 /area/hydroponics)
 "tLL" = (
 /obj/structure/table,
-/obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/suit/apron/surgical,
 /obj/item/clothing/mask/surgical,
-/obj/item/mmi,
-/obj/item/mmi,
-/obj/item/mmi,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -79197,11 +79170,10 @@
 /area/quartermaster/office)
 "tZJ" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "tZQ" = (
@@ -87936,6 +87908,9 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/robotics/lab)
 "wPi" = (
@@ -89047,7 +89022,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/ecto_sniffer,
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/robotics/lab)
@@ -89692,6 +89666,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "xsh" = (
@@ -128010,7 +127985,7 @@ aWY
 aWY
 aZS
 sjs
-hoj
+xay
 aBw
 rSB
 jof

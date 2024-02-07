@@ -4961,6 +4961,7 @@
 	dir = 8
 	},
 /obj/machinery/anesthetic_machine,
+/obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "bmt" = (
@@ -11008,11 +11009,8 @@
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "drd" = (
-/obj/structure/table,
-/obj/item/retractor,
-/obj/item/hemostat,
 /obj/effect/turf_decal/stripes/line,
-/obj/item/blood_filter,
+/obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/plasteel/white/side,
 /area/medical/surgery)
 "drj" = (
@@ -15660,15 +15658,14 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "eXq" = (
-/obj/structure/table,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/surgical_drapes,
-/obj/item/cautery,
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
+	},
+/obj/structure/closet/secure_closet/medical2{
+	req_access = list(29)
 	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
@@ -18309,12 +18306,10 @@
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/supply)
 "fQp" = (
-/obj/structure/closet/secure_closet/medical2{
-	req_access = list(29)
-	},
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
+/obj/structure/closet/secure_closet/personal/patient,
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "fQu" = (
@@ -20821,14 +20816,16 @@
 /area/solar/starboard/aft)
 "gIU" = (
 /obj/structure/table,
-/obj/item/retractor,
-/obj/item/hemostat,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 4
+	},
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "gIX" = (
@@ -26519,16 +26516,8 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "iAu" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/surgery,
-/obj/item/cautery{
-	pixel_x = 4
-	},
 /obj/effect/turf_decal/stripes/line,
-/obj/item/glove_box{
-	pixel_x = 1;
-	pixel_y = 3
-	},
+/obj/structure/closet/crate/freezer/surplus_limbs,
 /turf/open/floor/plasteel/white/side{
 	dir = 6
 	},
@@ -42797,17 +42786,12 @@
 /area/maintenance/department/chapel/monastery)
 "nSZ" = (
 /obj/structure/table,
-/obj/item/circular_saw{
-	pixel_y = 3
-	},
-/obj/item/scalpel{
-	pixel_y = 14
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/item/surgical_drapes{
-	pixel_y = 4
+/obj/item/storage/backpack/duffelbag/med/implant,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 8
 	},
 /turf/open/floor/plasteel/white/side,
 /area/medical/surgery)
@@ -43573,10 +43557,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
 "ofG" = (
-/obj/structure/table,
-/obj/item/mmi,
-/obj/item/mmi,
-/obj/item/mmi,
+/obj/machinery/anesthetic_machine,
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "ofW" = (
@@ -48804,11 +48785,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "pWC" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
 /obj/machinery/vending/wallmed{
 	pixel_y = -32
 	},
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "pWD" = (
@@ -50295,15 +50276,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
-"qvy" = (
-/obj/structure/closet/crate/freezer/surplus_limbs,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/plasteel/white/side{
-	dir = 9
-	},
-/area/medical/medbay/aft)
 "qvA" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
@@ -54857,9 +54829,8 @@
 /obj/structure/table,
 /obj/item/clothing/suit/apron/surgical,
 /obj/item/clothing/mask/surgical,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/surgicaldrill,
 /obj/effect/turf_decal/stripes/line,
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/plasteel/white/side,
 /area/medical/surgery)
 "rUL" = (
@@ -63640,12 +63611,16 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "uPX" = (
-/obj/structure/closet/crate/freezer/blood,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /obj/machinery/light_switch{
 	pixel_x = 26
+	},
+/obj/item/book/manual/wiki/surgery,
+/obj/item/glove_box{
+	pixel_x = 1;
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 9
@@ -66600,16 +66575,16 @@
 /area/hydroponics)
 "vMJ" = (
 /obj/structure/table,
-/obj/item/circular_saw,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
 /obj/machinery/button/door{
 	id = "robotics_shutters";
 	name = "robotics shutters control";
 	pixel_x = -24;
 	req_access_txt = "29"
 	},
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/item/storage/box/bodybags,
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "vMV" = (
@@ -118110,7 +118085,7 @@ xDD
 irr
 cxQ
 irr
-qvy
+rie
 oaL
 mql
 kfy

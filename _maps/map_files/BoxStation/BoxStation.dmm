@@ -6549,7 +6549,6 @@
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
-/obj/machinery/aug_manipulator,
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "bkx" = (
@@ -7101,9 +7100,10 @@
 /area/engine/atmos)
 "bor" = (
 /obj/structure/table,
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 4
+	},
 /obj/item/clothing/gloves/color/latex,
-/obj/item/surgical_drapes,
-/obj/item/razor,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bou" = (
@@ -7157,21 +7157,18 @@
 /turf/closed/wall,
 /area/science/lab)
 "boD" = (
-/obj/structure/table,
-/obj/item/circular_saw,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/table/optable{
+	name = "Robotics Operating Table"
+	},
+/obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "boE" = (
-/obj/structure/table,
-/obj/item/hemostat,
-/obj/item/cautery{
-	pixel_x = 4
+/obj/machinery/computer/operating{
+	name = "Robotics Operating Computer"
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
@@ -7190,8 +7187,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "boL" = (
-/obj/structure/table,
-/obj/item/retractor,
+/obj/machinery/aug_manipulator,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "boM" = (
@@ -7492,21 +7488,7 @@
 /obj/structure/bodycontainer/morgue,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
-"bsP" = (
-/obj/structure/table/optable{
-	name = "Robotics Operating Table"
-	},
-/obj/effect/landmark/event_spawn,
-/turf/open/floor/plasteel/dark,
-/area/science/robotics/lab)
 "bsQ" = (
-/turf/open/floor/plasteel/dark,
-/area/science/robotics/lab)
-"bsR" = (
-/obj/machinery/computer/operating{
-	dir = 1;
-	name = "Robotics Operating Computer"
-	},
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bsS" = (
@@ -7931,7 +7913,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plating,
 /area/maintenance/aft)
 "bxw" = (
 /obj/machinery/door/airlock/mining/glass{
@@ -27120,7 +27102,6 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "hko" = (
-/obj/structure/closet/secure_closet/medical2,
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "hkC" = (
@@ -31399,6 +31380,11 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/medical/surgery)
+"jrR" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "jsC" = (
 /obj/structure/chair/fancy/comfy,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -34062,7 +34048,7 @@
 /area/maintenance/starboard/fore)
 "kEL" = (
 /obj/machinery/computer/operating{
-	dir = 1
+	dir = 4
 	},
 /obj/machinery/firealarm{
 	dir = 4;
@@ -37460,8 +37446,6 @@
 /area/security/brig)
 "mex" = (
 /obj/structure/table,
-/obj/item/hemostat,
-/obj/item/retractor,
 /obj/machinery/vending/wallmed{
 	pixel_x = -28
 	},
@@ -37470,6 +37454,10 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/item/glove_box,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -38854,10 +38842,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"mQl" = (
-/obj/machinery/anesthetic_machine,
-/turf/open/floor/plasteel/white,
-/area/medical/surgery)
 "mQp" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -44329,8 +44313,9 @@
 /area/maintenance/starboard/aft)
 "pAZ" = (
 /obj/structure/table,
-/obj/item/surgicaldrill,
-/obj/item/glove_box,
+/obj/item/storage/backpack/duffelbag/med/implant{
+	pixel_y = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "pBi" = (
@@ -48200,8 +48185,6 @@
 /area/medical/medbay/central)
 "rop" = (
 /obj/structure/table,
-/obj/item/hemostat,
-/obj/item/retractor,
 /obj/machinery/vending/wallmed{
 	pixel_x = 28
 	},
@@ -48210,6 +48193,10 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/item/glove_box,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -48568,7 +48555,7 @@
 /area/crew_quarters/heads/hop)
 "rwx" = (
 /obj/machinery/computer/operating{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -48873,7 +48860,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/maintenance/aft)
 "rEE" = (
 /obj/structure/table,
@@ -49635,7 +49622,6 @@
 /obj/structure/chair/office/light{
 	dir = 1
 	},
-/obj/item/pen,
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "rYa" = (
@@ -50243,15 +50229,10 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "slV" = (
-/obj/structure/table,
-/obj/item/surgical_drapes,
-/obj/item/cautery{
-	pixel_x = 4
-	},
-/obj/item/blood_filter,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/medical2,
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "smJ" = (
@@ -51142,14 +51123,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "sEo" = (
-/obj/structure/table,
-/obj/item/circular_saw,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/machinery/anesthetic_machine,
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "sEq" = (
@@ -59052,6 +59029,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "wHW" = (
@@ -92409,7 +92387,7 @@ hKs
 aXh
 hdg
 aXN
-aXN
+jrR
 snw
 hKV
 cBD
@@ -97806,7 +97784,7 @@ ovd
 oDx
 jrP
 sEo
-mQl
+hko
 bol
 ezK
 gWM
@@ -98576,7 +98554,7 @@ gWM
 gpA
 ovd
 jrP
-sEo
+slV
 tRo
 tNy
 dyB
@@ -98833,8 +98811,8 @@ gWM
 ovd
 ovd
 jrP
-slV
-mQl
+sEo
+hko
 eGr
 hPg
 gWM
@@ -105249,7 +105227,7 @@ bls
 bfT
 boD
 bsQ
-bsP
+bsQ
 box
 hdh
 lWt
@@ -105506,7 +105484,7 @@ oBA
 bfT
 boL
 bsQ
-bsR
+bsQ
 box
 bWr
 rRU

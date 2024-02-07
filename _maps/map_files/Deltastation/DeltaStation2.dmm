@@ -141,7 +141,6 @@
 /area/solar/starboard/fore)
 "aaw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "aax" = (
@@ -31163,7 +31162,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dFe" = (
@@ -31603,13 +31601,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/storage/box/gloves{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/bodybags,
 /obj/item/borg/upgrade/rename,
 /obj/effect/turf_decal/bot,
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dHx" = (
@@ -31621,10 +31615,11 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/clothing/gloves/color/latex,
-/obj/item/surgical_drapes,
-/obj/item/cautery,
 /obj/effect/turf_decal/bot,
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 4
+	},
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dHz" = (
@@ -31642,9 +31637,6 @@
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "dHB" = (
-/obj/structure/table/reinforced,
-/obj/item/retractor,
-/obj/item/hemostat,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -31652,6 +31644,7 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/aug_manipulator,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dHI" = (
@@ -31854,10 +31847,6 @@
 /area/science/robotics/lab)
 "dIS" = (
 /obj/structure/table/reinforced,
-/obj/item/scalpel{
-	pixel_y = 16
-	},
-/obj/item/circular_saw,
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = -32
 	},
@@ -31865,6 +31854,11 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/storage/box/gloves{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/bodybags,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dIZ" = (
@@ -69956,8 +69950,7 @@
 /turf/open/floor/plasteel/dark/corner,
 /area/engine/storage_shared)
 "qaR" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/aug_manipulator,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "qbk" = (
@@ -80864,9 +80857,6 @@
 "tQK" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/surgery,
-/obj/item/scalpel,
-/obj/item/cautery,
-/obj/item/blood_filter,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
@@ -87111,13 +87101,14 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/transit_tube)
 "vWk" = (
-/obj/item/retractor,
-/obj/item/hemostat,
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
 /obj/machinery/airalarm/directional/north,
+/obj/item/storage/backpack/duffelbag/med/implant{
+	pixel_y = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "vWm" = (
@@ -88853,10 +88844,6 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "wzQ" = (
-/obj/item/circular_saw,
-/obj/item/surgicaldrill{
-	pixel_y = 5
-	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/light{
@@ -88865,6 +88852,9 @@
 /obj/machinery/newscaster{
 	pixel_x = 1;
 	pixel_y = 34
+	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)

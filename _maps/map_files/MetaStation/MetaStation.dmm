@@ -17128,8 +17128,6 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bZB" = (
-/obj/item/retractor,
-/obj/item/hemostat,
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
@@ -17137,6 +17135,9 @@
 /obj/machinery/camera/autoname{
 	dir = 4;
 	network = list("ss13","medbay")
+	},
+/obj/item/storage/backpack/duffelbag/med/implant{
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -20441,10 +20442,7 @@
 /turf/open/floor/plating,
 /area/science/robotics/lab)
 "cDb" = (
-/obj/structure/filingcabinet/chestdrawer{
-	pixel_x = -2;
-	pixel_y = 2
-	},
+/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/button/door{
 	id = "robotics_shutters";
 	name = "robotics shutters control";
@@ -20453,6 +20451,9 @@
 	req_access_txt = "29"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/ecto_sniffer{
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cDd" = (
@@ -20513,6 +20514,10 @@
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/delivery,
+/obj/item/pen{
+	pixel_x = -2;
+	pixel_y = 6
+	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cDi" = (
@@ -20978,10 +20983,6 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/storage/box/bodybags{
-	pixel_x = 2;
-	pixel_y = 2
-	},
 /obj/item/borg/upgrade/rename,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
@@ -26764,10 +26765,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "efo" = (
-/obj/item/circular_saw,
-/obj/item/surgicaldrill{
-	pixel_y = 5
-	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/light{
@@ -26776,6 +26773,9 @@
 /obj/machinery/newscaster{
 	pixel_x = 1;
 	pixel_y = 34
+	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -37722,13 +37722,16 @@
 /area/medical/surgery)
 "iCR" = (
 /obj/structure/table,
-/obj/item/clothing/gloves/color/latex,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 1
+	},
+/obj/item/storage/box/bodybags{
+	pixel_x = 2;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 8
@@ -42820,7 +42823,6 @@
 	pixel_x = 4;
 	pixel_y = -3
 	},
-/obj/item/pen,
 /obj/machinery/door/window/eastright{
 	dir = 8;
 	name = "Genetics Desk";
@@ -57905,6 +57907,7 @@
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/item/pen,
 /turf/open/floor/plasteel,
 /area/medical/genetics)
 "qpE" = (
@@ -60718,6 +60721,7 @@
 /obj/item/razor{
 	pixel_y = 5
 	},
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/plasteel/white/side{
 	dir = 4
 	},
@@ -73441,13 +73445,6 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /turf/open/floor/plasteel/dark,
 /area/science/server)
-"wqA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/ecto_sniffer,
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
 "wqM" = (
 /obj/machinery/door/airlock/external{
 	req_access_txt = "13"
@@ -76801,9 +76798,6 @@
 "xyD" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/surgery,
-/obj/item/scalpel,
-/obj/item/cautery,
-/obj/item/blood_filter,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
@@ -107462,7 +107456,7 @@ cDb
 wCo
 cFd
 cGb
-wqA
+cGb
 cHQ
 cIJ
 cYc

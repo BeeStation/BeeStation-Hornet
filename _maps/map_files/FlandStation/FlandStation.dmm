@@ -4874,6 +4874,16 @@
 	},
 /turf/open/floor/vault,
 /area/engine/engine_room)
+"bdO" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
+/turf/open/floor/plasteel/techmaint,
+/area/medical/morgue)
 "bed" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -7642,11 +7652,15 @@
 	name = "medbay camera";
 	network = list("ss13","medbay")
 	},
-/obj/structure/closet/secure_closet/medical2,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/bot,
+/obj/structure/table/reinforced,
+/obj/item/book/manual/wiki/surgery,
+/obj/item/clothing/gloves/color/latex{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 10
 	},
@@ -38890,13 +38904,8 @@
 /turf/open/floor/grass,
 /area/medical/medbay/lobby)
 "jQE" = (
-/obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/surgery,
-/obj/item/clothing/gloves/color/latex{
-	pixel_x = 4;
-	pixel_y = 4
-	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/machinery/anesthetic_machine,
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
 	},
@@ -62224,8 +62233,11 @@
 /area/crew_quarters/dorms)
 "pXe" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/item/storage/backpack/duffelbag/med/implant,
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	pixel_y = 8
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
 	},
@@ -67589,13 +67601,10 @@
 /area/hallway/primary/port)
 "roX" = (
 /obj/structure/table,
-/obj/item/retractor,
-/obj/item/hemostat,
-/obj/item/cautery,
-/obj/item/circular_saw,
-/obj/item/scalpel{
-	pixel_y = 12
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 4
 	},
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/plasteel/white/side{
 	dir = 1
 	},
@@ -85778,8 +85787,6 @@
 /obj/structure/table/optable{
 	name = "Robotics Operating Table"
 	},
-/obj/item/surgical_drapes,
-/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/plasteel/white/side{
 	dir = 1
 	},
@@ -87257,10 +87264,11 @@
 	},
 /area/docking/arrival)
 "vYC" = (
-/obj/machinery/anesthetic_machine,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/medical2,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark/side{
 	dir = 5
 	},
@@ -123562,7 +123570,7 @@ vcT
 oXE
 dfc
 ooa
-ooa
+bdO
 fiI
 ubt
 byo

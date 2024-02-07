@@ -456,6 +456,20 @@
 	new /obj/item/razor(src)
 	new /obj/item/reagent_containers/medspray/sterilizine(src)
 	new /obj/item/blood_filter(src)
+	
+/obj/item/storage/backpack/duffelbag/med/implant
+	name = "surplus implants duffel bag"
+	desc = "A large duffel bag for holding implants - this one has a material inlay with space for various advanced implants."
+
+/obj/item/storage/backpack/duffelbag/med/implant/PopulateContents()
+	new /obj/item/organ/cyberimp/arm/janitor(src)
+	new /obj/item/organ/cyberimp/arm/botany(src)
+	new /obj/item/organ/cyberimp/arm/surgery(src)
+	new /obj/item/organ/cyberimp/arm/toolset(src)
+	new /obj/item/organ/cyberimp/chest/nutriment(src)
+	new /obj/item/organ/cyberimp/mouth/breathing_tube(src)
+	new /obj/item/organ/eyes/robotic/glow(src)
+	new /obj/item/organ/eyes/robotic/shield(src)
 
 /obj/item/storage/backpack/duffelbag/sec
 	name = "security duffel bag"
