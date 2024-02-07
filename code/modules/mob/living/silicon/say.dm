@@ -27,10 +27,10 @@
 			else if(iscyborg(M))
 				var/mob/living/silicon/robot/borg = M
 				var/loud = FALSE
-				if((src == borg.connected_ai) || (true_ai_core == borg.connected_ai))
+				if((src == borg.connected_ai) || (true_ai_core == borg.connected_ai)) //Cyborg only hears master AI on loud mode.
 					loud = TRUE
 				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <span class='name'>[name]</span> [loud ? "[large_message_a]" : "[message_a]"]</span>"
-				to_chat(M, rendered) //Cyborg only hears master AI on loud mode.
+				to_chat(M, rendered)
 			else
 				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <span class='name'>[name]</span> [message_a]</span>"
 				to_chat(M, rendered)
