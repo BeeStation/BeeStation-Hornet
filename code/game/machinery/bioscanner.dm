@@ -32,7 +32,7 @@
 	var/E
 	for(var/obj/item/stock_parts/scanning_module/B in component_parts)
 		E += B.rating
-	radiation_dose = 200 / E
+	radiation_dose = 400 / E
 
 	// I is scanning power, meaning how fast it scans
 	var/I
@@ -63,11 +63,11 @@
 
 /obj/machinery/bioscanner/close_machine(mob/user)
 	if((isnull(user) || istype(user)) && state_open && !panel_open)
-		icon_state = "bscanner_off"
 		..(user)
 		var/mob/living/mob_occupant = occupant
 		if(mob_occupant && mob_occupant.stat != DEAD)
 			to_chat(mob_occupant, "[enter_message]")
+	ActivityStatus()
 
 /obj/machinery/bioscanner/emp_act(severity)
 	. = ..()
@@ -126,40 +126,54 @@
 
 /obj/machinery/bioscanner/process()
 	..()
-	PatientStatus()
+	ActivityStatus()
 
-/obj/machinery/bioscanner/proc/PatientStatus()
-	if(scanning && occupant)
-		var/mob/living/mob_occupant = occupant
-		switch(mob_occupant.stat)
-			if(CONSCIOUS)
-				icon_state = "bscanner_green"
-			if(SOFT_CRIT)
-				icon_state = "bscanner_yellow"
-			if(UNCONSCIOUS)
-				icon_state = "bscanner_red"
-			if(DEAD)
-				icon_state = "bscanner_death"
+/obj/machinery/bioscanner/proc/ActivityStatus() //doing it like this feels so fucking bad. There has to be a more elegant solution than this.
+	if(!state_open)
+		icon_state= "bscanner_off"
 
+		if(occupant && !state_open)
+			icon_state = "bscanner_green"
+
+			if(occupant && !state_open && scanning)
+				var/mob/living/mob_occupant = occupant
+				switch(mob_occupant.stat)
+					if(CONSCIOUS, SOFT_CRIT)
+						icon_state = "bscanner_yellow"
+					if(UNCONSCIOUS)
+						icon_state = "bscanner_red"
+					if(DEAD)
+						icon_state = "bscanner_death"
+	else
+		icon_state= "bscanner"
 
 /obj/machinery/bioscanner/proc/startscan()
-	if(!occupant)
+	if(state_open)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 75, FALSE, 0)
 		return
-	scanning = TRUE
-	PatientStatus()
-	visible_message("<span class='notice'> The Bio-Scanner hums to life.</span>")
-	playsound(src, 'sound/machines/boop.ogg', 75, FALSE, 0)
-	playsound(src, 'sound/machines/capacitor_charge.ogg', 100, TRUE, 2)
-	addtimer(CALLBACK(src, PROC_REF(bioscanComplete)),600*speed_coeff)
+	else
+		if(!occupant)
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 75, FALSE, 0)
+			return
+		scanning = TRUE
+		ActivityStatus()
+		visible_message("<span class='notice'> The Bio-Scanner hums to life.</span>")
+		playsound(src, 'sound/machines/boop.ogg', 75, FALSE, 0)
+		playsound(src, 'sound/machines/capacitor_charge.ogg', 100, TRUE, 2)
+		addtimer(CALLBACK(src, PROC_REF(bioscanComplete)),300*speed_coeff)
 
 /obj/machinery/bioscanner/proc/bioscanComplete()
-	var/mob/living/mob_occupant = occupant
-	mob_occupant.rad_act(rand(radiation_dose/2,radiation_dose))
-	icon_state = "bscanner_off"
 	scanning = FALSE
+	ActivityStatus()
+	var/mob/living/mob_occupant = occupant
+	mob_occupant.rad_act(rand(radiation_dose/10,radiation_dose))
 	visible_message("<span class='notice'> The Bio-Scanner shuts down.</span>")
 	playsound(src, 'sound/machines/ping.ogg', 75, FALSE, 0)
 	playsound(src, 'sound/machines/capacitor_discharge.ogg', 100, TRUE, 2)
+
+	//TODO:
+	//ADD THE PAPER DISPENSING CODE HERE
+	//WE WANT PAPERS, GODDAMNIT!!
 
 /obj/machinery/bioscanner/ui_state(mob/user)
 	return GLOB.default_state
@@ -167,14 +181,54 @@
 /obj/machinery/bioscanner/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Bioscanner")
+		ui = new(user, src, "Bioscanner", "Biotic Scanning Interface", 850, 500)
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
-/obj/machinery/bioscanner/ui_data()
+
+
+/obj/machinery/bioscanner/ui_data(mob/user)
+	var/list/data = list()
+	data["open"] = state_open
+
+	data["occupant"] = list()
+	if(!isliving(occupant))
+		data["occupied"] = FALSE
+		return data
+	data["occupied"] = TRUE
+	var/mob/living/mob_occupant = occupant
+	data["occupant"]["name"] = mob_occupant.name
+	switch(mob_occupant.stat)
+		if(CONSCIOUS)
+			data["occupant"]["stat"] = "Conscious"
+			data["occupant"]["statstate"] = "good"
+		if(SOFT_CRIT)
+			data["occupant"]["stat"] = "Conscious"
+			data["occupant"]["statstate"] = "average"
+		if(UNCONSCIOUS)
+			data["occupant"]["stat"] = "Unconscious"
+			data["occupant"]["statstate"] = "average"
+		if(DEAD)
+			data["occupant"]["stat"] = "Dead"
+			data["occupant"]["statstate"] = "bad"
+	data["occupant"]["health"] = mob_occupant.health
+	data["occupant"]["maxHealth"] = mob_occupant.maxHealth
+	data["occupant"]["minHealth"] = HEALTH_THRESHOLD_DEAD
+	data["occupant"]["bruteLoss"] = mob_occupant.getBruteLoss()
+	data["occupant"]["oxyLoss"] = mob_occupant.getOxyLoss()
+	data["occupant"]["toxLoss"] = mob_occupant.getToxLoss()
+	data["occupant"]["fireLoss"] = mob_occupant.getFireLoss()
+	return data
 
 /obj/machinery/bioscanner/ui_act(action, params)
+	if(..())
+		return
 
+	switch(action)
+		if("startscan")
+			if(!is_operational)
+				return
+			else
+				startscan()
 /obj/machinery/bioscanner/ui_requires_update(mob/user, datum/tgui/ui)
 	. = ..()
 
