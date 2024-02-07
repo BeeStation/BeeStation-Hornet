@@ -802,7 +802,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/slapper
 	name = "slapper"
 	desc = "This is how real men fight."
-	icon_state = "latexballon"
+	icon_state = "open_hand"
 	item_state = "nothing"
 	force = 0
 	throwforce = 0
@@ -893,7 +893,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/highfive
 	name = "raised hand"
 	desc = "Slap my hand."
-	icon_state = "latexballon"
+	icon_state = "open_hand"
 	item_state = "nothing"
 	hitsound = 'sound/weapons/punchmiss.ogg'
 	force = 0
@@ -1011,3 +1011,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/vibro_weapon/update_icon()
 	icon_state = "hfrequency0"
 	..()
+
+/obj/item/middlefinger
+	name = "middle finger"
+	desc = "If somebody looks at this while it's below your waist, you get to bop them."
+	icon_state = "middle_finger"
+	force = 0
+	throwforce = 0
+	item_flags = DROPDEL | ABSTRACT | ISWEAPON
+	attack_verb = list("flipped you")

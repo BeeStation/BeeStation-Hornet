@@ -659,3 +659,17 @@
 		return
 	var/mob/living/carbon/human/H = user
 	return H?.dna?.species?.get_sniff_sound(H)
+
+/datum/emote/living/flippoff
+	key = "flipoff"
+	key_third_person = "flip offs"
+	restraint_check = TRUE
+
+/datum/emote/living/flipoff/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	var/obj/item/middlefinger/N = new(user)
+	if(user.put_in_hands(N))
+		to_chat(user, "<span class='notice'>You stick out your middle finger.</span>")
+	else
+		qdel(N)
+		to_chat(user, "<span class='warning'>You don't have any free hands to flip someone off.</span>")
