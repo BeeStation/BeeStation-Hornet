@@ -1,52 +1,25 @@
-#ifndef JOB_CHANGES_DM_INCLUDED
-#define JOB_CHANGES_DM_INCLUDED
 
 #define JOB_MODIFICATION_MAP_NAME "EchoStation" //sorry but i'm bring back the pubby config file
 
 //do not spawn going to test joining too. last time it runtimed and set me to the loading screen
-/datum/job/atmospheric_technician/New()
-	..()
-	spawn_positions = 0
-	total_positions = 0
-
-/datum/job/bartender/New()
-	..()
-	spawn_positions = 0
-	total_positions = 0
-
-/datum/job/brig_physician/New()
-	..()
-	spawn_positions = 0
-	total_positions = 0
-
-/datum/job/exploration_crew/New()
-	..()
-	spawn_positions = 0
-	total_positions = 0
-
-/datum/job/geneticist/New()
-	..()
-	spawn_positions = 0
-	total_positions = 0
-
-/datum/job/paramedic/New()
-	..()
-	spawn_positions = 0
-	total_positions = 0
-
-/datum/job/virologist/New()
-	..()
-	spawn_positions = 0
-	total_positions = 0
+MAP_REMOVE_JOB(atmospheric_technician)
+MAP_REMOVE_JOB(bartender)
+MAP_REMOVE_JOB(brig_physician)
+MAP_REMOVE_JOB(exploration_crew)
+MAP_REMOVE_JOB(geneticist)
+MAP_REMOVE_JOB(paramedic)
+MAP_REMOVE_JOB(virologist)
 
 //only one position
 /datum/job/cook/New()
 	..()
+	MAP_JOB_CHECK
 	spawn_positions = 1
 	total_positions = 1
 /datum/job/botanist/New()
 	..()
+	MAP_JOB_CHECK
 	spawn_positions = 1
 	total_positions = 1
 
-#endif
+#undef JOB_MODIFICATION_MAP_NAME
