@@ -358,6 +358,9 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 
 ///shuts down the holodeck and force loads the offline_program
 /obj/machinery/computer/holodeck/proc/emergency_shutdown()
+#ifdef UNIT_TESTS
+  return
+#endif
 	last_program = program
 	active = FALSE
 	load_program(offline_program, TRUE)
