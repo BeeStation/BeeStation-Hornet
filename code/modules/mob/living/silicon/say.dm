@@ -32,7 +32,6 @@
 				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <span class='name'>[name]</span> [loud ? "[large_message_a]" : "[message_a]"]</span>"
 				to_chat(M, rendered) //Cyborg only hears master AI on loud mode.
 			else
-				var/loud = FALSE
 				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <span class='name'>[name]</span> [message_a]</span>"
 				to_chat(M, rendered)
 		if(isobserver(M))
@@ -40,8 +39,9 @@
 			var/loud = isAI(src) || true_ai_core
 			// If the AI talks on binary chat, we still want to follow
 			// it's camera eye, like if it talked on the radio
-			var/mob/living/silicon/ai/ai = src
-			following = ai.eyeobj
+			if(isAI(src))
+				var/mob/living/silicon/ai/ai = src
+				following = ai.eyeobj
 			var/link = FOLLOW_LINK(M, following)
 			var/rendered = "<span class='srt_radio binarysay'>[link] Robotic Talk, <span class='name'>[name]</span> [loud ? "[large_message_a]" : "[message_a]"]</span>" //Observers hear all AI on loud mode.
 			to_chat(M, rendered)
