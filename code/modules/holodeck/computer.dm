@@ -421,7 +421,6 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 /obj/machinery/computer/holodeck/small
 	mapped_start_area = /area/holodeck/small
 	program_type = /datum/map_template/holodeck/small
-	luminosity = 1
 	offline_program = "Small - Offline"
 
 /obj/machinery/computer/holodeck/small/LateInitialize()

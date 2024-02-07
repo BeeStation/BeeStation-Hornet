@@ -25850,6 +25850,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"oCf" = (
+/mob/living/simple_animal/hostile/gorilla{
+	melee_damage = 10;
+	aggro_vision_range = 3;
+	vision_range = 5
+	},
+/turf/open/floor/grass,
+/area/asteroid/paradice/surface/grass)
 "oCE" = (
 /turf/open/openspace,
 /area/engine/atmos)
@@ -26719,7 +26727,7 @@
 /area/crew_quarters/cafeteria)
 "oTt" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/animalhide/mothroach,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "oTE" = (
@@ -26770,6 +26778,10 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/bridge)
+"oVl" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradice/surface)
 "oVK" = (
 /obj/machinery/airalarm/directional/south,
 /obj/structure/closet/secure_closet/exile,
@@ -28579,6 +28591,10 @@
 "qaU" = (
 /turf/open/floor/plasteel,
 /area/maintenance/department/crew_quarters/dorms)
+"qbc" = (
+/obj/effect/mapping_helpers/dead_body_placer,
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradice/surface)
 "qbd" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering Foyer";
@@ -28704,6 +28720,9 @@
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
+"qdY" = (
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradice/surface)
 "qeb" = (
 /obj/effect/spawner/structure/window,
 /obj/structure/barricade/wooden/crude,
@@ -37505,7 +37524,7 @@
 	pixel_y = 19
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradice/surface)
 "uNe" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -43199,7 +43218,7 @@
 	pixel_y = 19
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface/sand)
+/area/asteroid/paradice/surface)
 "xXV" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 2;
@@ -43386,6 +43405,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
+"ydK" = (
+/mob/living/simple_animal/hostile/gorilla{
+	melee_damage = 10;
+	aggro_vision_range = 3;
+	vision_range = 5
+	},
+/turf/open/floor/plating/dirt/planetary,
+/area/asteroid/paradice/surface)
 "ydP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -246592,7 +246619,7 @@ kha
 kha
 kha
 kha
-kha
+iay
 iay
 iay
 iay
@@ -246849,8 +246876,8 @@ kha
 kha
 kha
 kha
-kha
-kha
+qdY
+iay
 iay
 iay
 iay
@@ -247105,10 +247132,10 @@ kha
 kha
 kha
 kha
-kha
-kha
-kha
-kha
+oVl
+qdY
+qdY
+iay
 iay
 iay
 iay
@@ -247361,10 +247388,10 @@ kha
 kha
 kha
 kha
-kha
-kha
-kha
-kha
+qdY
+ydK
+qdY
+qdY
 kha
 kha
 iay
@@ -247618,9 +247645,9 @@ kha
 kha
 kha
 kha
-kha
-kha
-kha
+qdY
+qbc
+ydK
 kha
 kha
 kha
@@ -268367,7 +268394,7 @@ aOY
 aOY
 aOY
 aOY
-aOY
+oCf
 aOY
 aOY
 aOY
@@ -269403,7 +269430,7 @@ aOY
 aOY
 aOY
 aOY
-aOY
+oCf
 aOY
 aOY
 aOY
