@@ -237,20 +237,29 @@
 	to_chat(user, "<span class='warning'>You begin to pry [A] open with [I].</span>")
 	//Do a fancy little animation
 	A.vis_contents += I
-	//TODO: This might require 515 - Racc
+	var/matrix/old_transform = I.transform
+	var/matrix/new_transform = I.transform
+	new_transform.Turn(23)
+	old_transform.Turn(-23)
+	animate(I, transform = new_transform, time = 0.15 SECONDS, loop = -1, easing = JUMP_EASING)
+	animate(transform = old_transform, time = 0.15 SECONDS, easing = JUMP_EASING)
 	//Clean up the animation later
-	addtimer(CALLBACK(src, PROC_REF(pry_action_finish), I), 6 SECONDS)
+	var/cleanup_timer = addtimer(CALLBACK(src, PROC_REF(pry_action_finish), I), 8 SECONDS, TIMER_STOPPABLE)
 	if(do_after(user, 8 SECONDS, A))
 		new /obj/item/trait_pearl(get_turf(A), src)
 		parent.remove_individual_trait(src)
 		remove_parent()
 	else
+		A.vis_contents -= I
+		animate(I, transform = null)
+		deltimer(cleanup_timer)
 		to_chat(user, "<span class='warning'>You reconsider...</span>")
 
 //Cleanup animations or whatever else we did for the pry action
 /datum/xenoartifact_trait/proc/pry_action_finish(obj/item/I)
 	var/atom/movable/A = parent.parent
 	A.vis_contents -= I
+	animate(I, transform = null)
 
 ///Proc used to compile trait weights into a list
 /proc/compile_artifact_weights(path, keyed = FALSE)
