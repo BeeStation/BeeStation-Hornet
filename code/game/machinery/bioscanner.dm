@@ -105,7 +105,7 @@
 	if(default_deconstruction_crowbar(I))
 		return TRUE
 
-/obj/machinery/bioscanner/default_pry_open(obj/item/I) //wew
+/obj/machinery/bioscanner/default_pry_open(obj/item/I)
 	. = !(state_open || scanning || panel_open || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
 	if(.)
 		I.play_tool_sound(src, 50)
@@ -147,20 +147,20 @@
 	else
 		icon_state= "bscanner"
 
-/obj/machinery/bioscanner/proc/startscan()
+/obj/machinery/bioscanner/proc/startscan(mob/user)
 	if(state_open)
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 75, FALSE, 0)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 15, FALSE, 0)
 		return
 	else
 		if(!occupant)
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 75, FALSE, 0)
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 15, FALSE, 0)
 			return
 		scanning = TRUE
 		ActivityStatus()
 		visible_message("<span class='notice'> The Bio-Scanner hums to life.</span>")
 		playsound(src, 'sound/machines/boop.ogg', 75, FALSE, 0)
 		playsound(src, 'sound/machines/capacitor_charge.ogg', 100, TRUE, 2)
-		addtimer(CALLBACK(src, PROC_REF(bioscanComplete)),300*speed_coeff)
+		addtimer(CALLBACK(src, PROC_REF(bioscanComplete), user),300*speed_coeff)
 
 /obj/machinery/bioscanner/proc/bioscanComplete()
 	scanning = FALSE
@@ -171,9 +171,69 @@
 	playsound(src, 'sound/machines/ping.ogg', 75, FALSE, 0)
 	playsound(src, 'sound/machines/capacitor_discharge.ogg', 100, TRUE, 2)
 
-	//TODO:
-	//ADD THE PAPER DISPENSING CODE HERE
-	//WE WANT PAPERS, GODDAMNIT!!
+	//when just using mob_occupant.stat on the paper, it always just returns numbers. so we do this instead. sounds more professional too
+	var/occupantStatus
+	var/occupantColor
+
+	switch(mob_occupant.stat)
+		if(CONSCIOUS)
+			occupantStatus = "Stable"
+			occupantColor = "Green"
+		if (SOFT_CRIT)
+			occupantStatus = "Progressive Shock"
+			occupantColor = "Orange"
+		if(UNCONSCIOUS)
+			occupantStatus = "Fibrillating"
+			occupantColor = "Red"
+		if(DEAD)
+			occupantStatus = "Asystole"
+			occupantColor = "Red"
+
+	//Species check, like many things, stolen from the health analyzer
+	var/mob/living/carbon/human/H = mob_occupant
+	var/datum/species/S = H.dna.species
+	var/mutant = FALSE
+	if(H.dna.check_mutation(HULK))
+		mutant = TRUE
+	else if(S.mutantlungs != initial(S.mutantlungs))
+		mutant = TRUE
+	else if(S.mutant_brain != initial(S.mutant_brain))
+		mutant = TRUE
+	else if(S.mutant_heart != initial(S.mutant_heart))
+		mutant = TRUE
+	else if(S.mutanteyes != initial(S.mutanteyes))
+		mutant = TRUE
+	else if(S.mutantears != initial(S.mutantears))
+		mutant = TRUE
+	else if(S.mutanthands != initial(S.mutanthands))
+		mutant = TRUE
+	else if(S.mutanttongue != initial(S.mutanttongue))
+		mutant = TRUE
+	else if(S.mutanttail != initial(S.mutanttail))
+		mutant = TRUE
+	else if(S.mutantliver != initial(S.mutantliver))
+		mutant = TRUE
+	else if(S.mutantstomach != initial(S.mutantstomach))
+		mutant = TRUE
+
+	//Here we go, the paper, the RESULTS.
+	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
+	paperwork.name = "BIOTIC SCAN RESULT: [mob_occupant]."
+	paperwork.add_raw_text("
+	<i>Station time: [station_time_timestamp()]</i><br>
+	<h1>#Biotic Scan Report</h1><br>
+	<h2>#Nanotrasen Medical Devision</h2><br>
+	<hr />
+	<h1>GENERAL</h1><br>
+	Name: [mob_occupant]<br>
+	Species: [(S.name)][mutant ? "-derived mutant" : ""]<br>
+	<b>Status: <font color=[occupantColor]>[occupantStatus]</font></b><br>
+	DNA: [H.dna.unique_enzymes]<br>
+	Body temperature: [round(mob_occupant.bodytemperature-T0C,0.1)] &deg;C ([round(mob_occupant.bodytemperature*1.8-459.67,0.1)] &deg;F<br>
+	<hr />
+	")
+	paperwork.update_appearance()
+	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 
 /obj/machinery/bioscanner/ui_state(mob/user)
 	return GLOB.default_state
@@ -181,14 +241,14 @@
 /obj/machinery/bioscanner/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Bioscanner", "Biotic Scanning Interface", 850, 500)
+		ui = new(user, src, "Bioscanner", "Biotic Scanning Interface")
 		ui.open()
-
-
 
 /obj/machinery/bioscanner/ui_data(mob/user)
 	var/list/data = list()
 	data["open"] = state_open
+
+	data["scanning"] = scanning
 
 	data["occupant"] = list()
 	if(!isliving(occupant))
@@ -229,6 +289,12 @@
 				return
 			else
 				startscan()
+		if("door")
+			if(state_open)
+				close_machine()
+			else
+				open_machine()
+			. = TRUE
 /obj/machinery/bioscanner/ui_requires_update(mob/user, datum/tgui/ui)
 	. = ..()
 
