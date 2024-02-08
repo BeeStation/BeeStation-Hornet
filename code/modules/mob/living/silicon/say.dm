@@ -22,7 +22,7 @@
 				var/loud = FALSE
 				if(M == src) //AI hears only itself on loud mode.
 					loud = TRUE
-				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <a href='?src=[REF(M)];track=[html_encode(name)]'><span class='name'>[name] ([isAI(M) ? "[desig]" : ""])</span></a> [loud ? "[large_message_a]" : "[message_a]"]</span>"
+				var/rendered = "<span class='srt_radio binarysay'>Robotic Talk, <a href='?src=[REF(M)];track=[html_encode(name)]'><span class='name'>[name] ([desig])</span></a> [loud ? "[large_message_a]" : "[message_a]"]</span>"
 				to_chat(M, rendered)
 			else if(iscyborg(M))
 				var/mob/living/silicon/robot/borg = M
