@@ -2,7 +2,7 @@
 "a" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/sun_kist{
@@ -10,13 +10,13 @@
 	},
 /obj/structure/closet/secure_closet/personal,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "d" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/chair,
 /turf/open/floor/plating/rust,
-/area/space)
+/area/template_noop)
 "j" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/communist_state{
@@ -28,7 +28,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "k" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/window{
@@ -38,20 +38,20 @@
 	pixel_x = -32
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "n" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
 /obj/item/ammo_casing/shotgun/buckshot,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "v" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/syndicate_pistol{
 	pixel_y = -32
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "x" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/ammo_casing/shotgun/buckshot,
@@ -59,7 +59,7 @@
 	pixel_y = -32
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "H" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/crate_spawner,
@@ -71,26 +71,26 @@
 	pixel_x = -24
 	},
 /turf/open/floor/plating/rust,
-/area/space)
+/area/template_noop)
 "M" = (
 /turf/closed/wall/rust,
-/area/space)
+/area/template_noop)
 "P" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "Q" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "R" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/item/toy/batong,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "S" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
@@ -102,7 +102,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
@@ -111,7 +111,7 @@
 	},
 /obj/item/poster/random_contraband,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 
 (1,1,1) = {"
 H

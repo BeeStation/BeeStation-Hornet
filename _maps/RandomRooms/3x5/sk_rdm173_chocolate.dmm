@@ -3,32 +3,32 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "b" = (
 /obj/structure/closet/chefcloset,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "e" = (
 /obj/item/food/cakeslice/chocolate,
 /obj/structure/table,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "l" = (
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "r" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "A" = (
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "S" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "U" = (
 /mob/living/carbon/human/species/felinid{
 	health = 1
@@ -36,7 +36,7 @@
 /obj/item/food/chocolatebar,
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "V" = (
 /obj/item/food/cakeslice/chocolate,
 /obj/structure/table,
@@ -45,13 +45,13 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "W" = (
 /obj/item/food/cakeslice/chocolate,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "X" = (
 /obj/item/food/cakeslice/chocolate,
 /obj/structure/table,
@@ -59,7 +59,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 
 (1,1,1) = {"
 a
