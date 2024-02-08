@@ -35,7 +35,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	window_name = "Automatic Medical Unit v1.1"
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 	path_image_color = "#DDDDFF"
-	var/healthanalyzer = /obj/item/healthanalyzer
+	var/healthsensor = /obj/item/assembly/health
 	var/firstaid = /obj/item/storage/firstaid
 	var/skin = null //based off medkit_X skins in aibots.dmi for your selection; X goes here IE medskin_tox means skin var should be "tox"
 	var/mob/living/carbon/patient = null
@@ -579,7 +579,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 	drop_part(firstaid, Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
-	drop_part(healthanalyzer, Tsec)
+	drop_part(healthsensor, Tsec)
 
 	if(prob(50))
 		drop_part(robot_arm, Tsec)

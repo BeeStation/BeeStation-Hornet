@@ -219,19 +219,7 @@
 	//Here we go, the paper, the RESULTS.
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
 	paperwork.name = "BIOTIC SCAN RESULT: [mob_occupant]."
-	paperwork.add_raw_text("
-	<i>Station time: [station_time_timestamp()]</i><br>
-	<h1>#Biotic Scan Report</h1><br>
-	<h2>#Nanotrasen Medical Devision</h2><br>
-	<hr />
-	<h1>GENERAL</h1><br>
-	Name: [mob_occupant]<br>
-	Species: [(S.name)][mutant ? "-derived mutant" : ""]<br>
-	<b>Status: <font color=[occupantColor]>[occupantStatus]</font></b><br>
-	DNA: [H.dna.unique_enzymes]<br>
-	Body temperature: [round(mob_occupant.bodytemperature-T0C,0.1)] &deg;C ([round(mob_occupant.bodytemperature*1.8-459.67,0.1)] &deg;F<br>
-	<hr />
-	")
+	paperwork.add_raw_text("<i>Station time: [station_time_timestamp()]</i><br><h1>#Biotic Scan Report</h1><br><h2>#Nanotrasen Medical Devision</h2><br><hr /><h1>GENERAL</h1><br>Name: [mob_occupant]<br>Species: [(S.name)][mutant ? "-derived mutant" : ""]<br><b>Status: <font color=[occupantColor]>[occupantStatus]</font></b><br>DNA: [H.dna.unique_enzymes]<br>Body temperature: [round(mob_occupant.bodytemperature-T0C,0.1)] &deg;C ([round(mob_occupant.bodytemperature*1.8-459.67,0.1)] &deg;F<br><hr />")
 	paperwork.update_appearance()
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 

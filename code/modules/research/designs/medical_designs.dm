@@ -162,16 +162,6 @@
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-/datum/design/healthanalyzer_advanced
-	name = "Advanced Health Analyzer"
-	desc = "A hand-held body scanner able to distinguish vital signs of the subject with high accuracy."
-	id = "healthanalyzer_advanced"
-	build_path = /obj/item/healthanalyzer/advanced
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500, /datum/material/silver = 2000, /datum/material/gold = 1500)
-	category = list("Medical Designs")
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
-
 /datum/design/medspray
 	name = "Medical Spray"
 	desc = "A medical spray bottle, designed for precision application, with an unscrewable cap."

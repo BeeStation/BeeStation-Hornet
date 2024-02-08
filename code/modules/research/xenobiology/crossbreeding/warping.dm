@@ -236,7 +236,6 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		/obj/item/reagent_containers/pill/patch/styptic,
 		/obj/item/reagent_containers/pill/patch/synthflesh,
 		/obj/item/reagent_containers/pill/patch/silver_sulf,
-		/obj/item/healthanalyzer,
 		/obj/item/surgical_drapes,
 		/obj/item/scalpel,
 		/obj/item/hemostat,
