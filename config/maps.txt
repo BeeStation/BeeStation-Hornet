@@ -52,7 +52,7 @@ map radstation
 endmap
 
 map echostation
-	maxplayers 20
+	maxplayers 28
 	votable
 endmap
 

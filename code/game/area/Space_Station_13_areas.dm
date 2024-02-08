@@ -77,30 +77,30 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
 
-/area/asteroid/paradice
-	name = "Paradice"
+/area/asteroid/paradise
+	name = "paradise"
 	icon_state = "asteroid"
 	outdoors = TRUE
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
-/area/asteroid/paradice/surface
-	name = "Paradice surface"
+/area/asteroid/paradise/surface
+	name = "paradise surface"
 	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 	sound_environment = null
 
-/area/asteroid/paradice/surface/sand
-	name = "Paradice surface sand"
+/area/asteroid/paradise/surface/sand
+	name = "paradise surface sand"
 	mapGenerator = /datum/mapGenerator/sand_generator
 
-/area/asteroid/paradice/surface/water
-	name = "Paradice surface water"
+/area/asteroid/paradise/surface/water
+	name = "paradise surface water"
 	ambientsounds = list('sound/ambience/shore.ogg')
 	mood_bonus = 1
 	mood_message = "<span class='warning'>The waves sound nice.\n</span>"
 
-/area/asteroid/paradice/surface/grass
-	name = "Paradice surface grass"
+/area/asteroid/paradise/surface/grass
+	name = "paradise surface grass"
 	mapGenerator = /datum/mapGenerator/grass_generator
 
 
@@ -1265,7 +1265,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/security/execution/education
 	name = "Prisoner Education Chamber"
-	
+
 /area/security/nuke_storage
 	name = "Vault"
 	icon_state = "nuke_storage"

@@ -72,7 +72,7 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ade" = (
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
@@ -225,7 +225,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "agz" = (
 /obj/machinery/vending/medical,
 /obj/effect/turf_decal/bot,
@@ -255,7 +255,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "agT" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/start/cyborg,
@@ -965,7 +965,7 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "apH" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/tile/blue/half{
@@ -1249,7 +1249,7 @@
 /area/chapel/main)
 "auP" = (
 /turf/closed/indestructible/rock/bedrock,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "auW" = (
 /obj/machinery/atmospherics/components/binary/valve{
 	dir = 8
@@ -1332,7 +1332,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "aww" = (
 /obj/machinery/atmospherics/pipe/manifold/yellow/visible/layer4{
 	dir = 4
@@ -1620,7 +1620,7 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "aBF" = (
 /obj/machinery/air_sensor/atmos/toxins_mixing_tank,
 /obj/effect/decal/cleanable/blood/old,
@@ -2308,7 +2308,7 @@
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 8
 	},
-/area/asteroid/paradice/surface/water)
+/area/asteroid/paradise/surface/water)
 "aNF" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2409,7 +2409,7 @@
 /area/maintenance/department/science/central)
 "aOY" = (
 /turf/open/floor/grass,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradise/surface/grass)
 "aPc" = (
 /turf/closed/wall,
 /area/science/explab)
@@ -3033,7 +3033,7 @@
 	dir = 4
 	},
 /turf/open/openspace,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "bab" = (
 /obj/machinery/bluespace_beacon,
 /obj/item/beacon{
@@ -3063,7 +3063,7 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 4
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "bbd" = (
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
@@ -3119,7 +3119,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "bdn" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 8
@@ -3190,7 +3190,7 @@
 "bfD" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "bfI" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3390,7 +3390,7 @@
 "blI" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "bmC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3530,7 +3530,7 @@
 /area/space/nearstation)
 "bpk" = (
 /turf/open/openspace,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "bpn" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3935,7 +3935,7 @@
 "bxa" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "bxq" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/curtain/directional{
@@ -4205,7 +4205,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "bHy" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -4472,7 +4472,7 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 10
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "bOY" = (
 /obj/structure/rack,
 /obj/item/stack/package_wrap,
@@ -4695,7 +4695,7 @@
 	dir = 5
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "bVa" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4708,7 +4708,7 @@
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium/survival,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "bVQ" = (
 /turf/closed/indestructible/rock/bedrock,
 /area/science/test_area)
@@ -4827,7 +4827,7 @@
 "bZk" = (
 /obj/effect/landmark/observer_start,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "bZH" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -5241,7 +5241,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "cnM" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -5467,7 +5467,7 @@
 	dir = 5
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "cvt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -5766,7 +5766,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "cCz" = (
 /obj/structure/sign/departments/minsky/security/security,
 /turf/closed/wall/r_wall,
@@ -5943,7 +5943,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "cGt" = (
 /obj/effect/landmark/start/cyborg,
 /obj/structure/cable{
@@ -6257,7 +6257,7 @@
 	dir = 9
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "cSx" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2{
 	dir = 8;
@@ -6337,7 +6337,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plasteel,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "cUr" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -6589,7 +6589,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
 /turf/closed/wall/mineral/titanium/survival,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "dfX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -6741,7 +6741,7 @@
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "dkR" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /obj/structure/reagent_dispensers/water_cooler,
@@ -6829,7 +6829,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "dnm" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/mix_output{
 	dir = 1
@@ -6882,7 +6882,7 @@
 /area/maintenance/department/medical/central)
 "dqM" = (
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradice/surface/sand)
+/area/asteroid/paradise/surface/sand)
 "dqS" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -7118,7 +7118,7 @@
 	dir = 4
 	},
 /turf/open/openspace,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "dyR" = (
 /obj/structure/table,
 /obj/item/rcl/pre_loaded,
@@ -7230,7 +7230,7 @@
 "dBH" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "dCm" = (
 /obj/structure/table_frame/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -7325,7 +7325,7 @@
 "dFo" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "dFu" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -7540,7 +7540,7 @@
 "dJc" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "dJL" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -7589,7 +7589,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "dKx" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -7607,7 +7607,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "dLt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/purple{
@@ -7696,12 +7696,12 @@
 "dOC" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "dOF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "dOT" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -7778,7 +7778,7 @@
 /area/engine/engineering)
 "dRN" = (
 /turf/open/floor/plating/beach/water,
-/area/asteroid/paradice/surface/water)
+/area/asteroid/paradise/surface/water)
 "dRP" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
@@ -8097,7 +8097,7 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "eec" = (
 /obj/structure/railing,
 /turf/open/openspace,
@@ -8375,7 +8375,7 @@
 "enG" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/grass,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradise/surface/grass)
 "eog" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -8406,7 +8406,7 @@
 "eps" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ept" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -8502,7 +8502,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "esx" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -8586,7 +8586,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "eve" = (
 /obj/machinery/light_switch{
 	pixel_x = 23;
@@ -9224,7 +9224,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "eNz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -9288,7 +9288,7 @@
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 1
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ePt" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -9419,7 +9419,7 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 1
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "eST" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -9444,7 +9444,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "eUg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -9466,7 +9466,7 @@
 "eUG" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "eUY" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid,
@@ -9993,7 +9993,7 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "fmo" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
@@ -10048,7 +10048,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "fod" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Starboard Auxiliary Hallway"
@@ -10509,7 +10509,7 @@
 "fxt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/grass,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradise/surface/grass)
 "fxz" = (
 /obj/machinery/turretid{
 	icon_state = "control_stun";
@@ -10563,7 +10563,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/public/glass,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "fBc" = (
 /obj/structure/mirror{
 	pixel_x = -32;
@@ -10596,7 +10596,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "fBG" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior,
@@ -10965,7 +10965,7 @@
 "fOi" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "fOj" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/firealarm/directional/south,
@@ -11017,7 +11017,7 @@
 "fPl" = (
 /obj/structure/bonfire/prelit,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "fPV" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -11135,7 +11135,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "fSh" = (
 /obj/structure/table/wood,
 /obj/item/food/grown/flower/poppy{
@@ -11171,7 +11171,7 @@
 "fSr" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "fSJ" = (
 /obj/machinery/shower{
 	dir = 8;
@@ -11605,7 +11605,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "gbj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
@@ -11768,7 +11768,7 @@
 "geC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface/sand)
+/area/asteroid/paradise/surface/sand)
 "geJ" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/holopad,
@@ -11779,7 +11779,7 @@
 /area/science/lab)
 "geO" = (
 /turf/closed/wall/mineral/titanium/survival,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "geS" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -11808,7 +11808,7 @@
 /area/storage/primary)
 "gfs" = (
 /turf/open/floor/grass,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "gfQ" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -11832,7 +11832,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ggo" = (
 /obj/structure/railing{
 	dir = 1
@@ -11862,14 +11862,14 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 4
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ggY" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ghc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -11885,7 +11885,7 @@
 /area/maintenance/department/science/xenobiology)
 "ghJ" = (
 /turf/open/openspace,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ghT" = (
 /obj/item/wrench,
 /turf/open/floor/plating/airless,
@@ -12264,7 +12264,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "gpR" = (
 /obj/machinery/telecomms/processor/preset_one,
 /obj/effect/turf_decal/stripes/line{
@@ -12321,7 +12321,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "gsF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -13264,7 +13264,7 @@
 	dir = 8
 	},
 /turf/open/openspace,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "gRr" = (
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Teleporter";
@@ -13716,7 +13716,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "hbF" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -14043,7 +14043,7 @@
 /area/engine/atmos)
 "hqd" = (
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "hqu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -14093,7 +14093,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "hsv" = (
 /obj/machinery/field/generator{
 	anchored = 1;
@@ -14554,7 +14554,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "hGZ" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input{
 	dir = 1
@@ -14820,7 +14820,7 @@
 	network = list("ss13","engine")
 	},
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "hPq" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
 /turf/open/floor/carpet/purple,
@@ -15005,7 +15005,7 @@
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 10
 	},
-/area/asteroid/paradice/surface/water)
+/area/asteroid/paradise/surface/water)
 "hUU" = (
 /obj/structure/chair{
 	dir = 1
@@ -15032,14 +15032,14 @@
 /area/crew_quarters/cafeteria)
 "hWl" = (
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "hWR" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "hWZ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -15200,7 +15200,7 @@
 /area/security/brig)
 "iay" = (
 /turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradise/surface/grass)
 "iaG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/grille_or_trash,
@@ -15455,7 +15455,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ijM" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/disposalpipe/segment{
@@ -15506,7 +15506,7 @@
 "ilL" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "imc" = (
 /obj/machinery/computer/communications{
 	dir = 4;
@@ -15602,14 +15602,14 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ioY" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ipb" = (
 /obj/structure/lattice,
 /turf/open/openspace,
@@ -15627,7 +15627,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "irp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -16054,7 +16054,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "iIl" = (
 /obj/machinery/vending/hydroseeds,
 /obj/effect/turf_decal/stripes/line,
@@ -16121,7 +16121,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "iKe" = (
 /obj/machinery/vending/wardrobe/medi_wardrobe,
 /obj/effect/turf_decal/bot,
@@ -16261,7 +16261,7 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 6
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "iNk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/airless,
@@ -16327,7 +16327,7 @@
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 4
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "iQa" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
@@ -16678,7 +16678,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "jdU" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -16719,7 +16719,7 @@
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 1
 	},
-/area/asteroid/paradice/surface/water)
+/area/asteroid/paradise/surface/water)
 "jfU" = (
 /obj/machinery/door/airlock/medical{
 	name = "Psychologist";
@@ -16767,7 +16767,7 @@
 "jgN" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "jhG" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible/layer2,
 /obj/machinery/atmospherics/components/binary/pump{
@@ -16785,7 +16785,7 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "jhN" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -16810,7 +16810,7 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "jij" = (
 /turf/open/openspace,
 /area/security/brig)
@@ -17582,7 +17582,7 @@
 "jEN" = (
 /obj/structure/flora/rock,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "jES" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -17974,7 +17974,7 @@
 	dir = 6
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "jME" = (
 /turf/closed/wall,
 /area/medical/apothecary)
@@ -18304,7 +18304,7 @@
 "jXc" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "jXo" = (
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
@@ -18675,7 +18675,7 @@
 /area/engine/atmos)
 "kha" = (
 /turf/closed/mineral,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "khi" = (
 /obj/machinery/button/door{
 	id = "Cabin4";
@@ -18693,7 +18693,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "khs" = (
 /turf/closed/wall/rust,
 /area/science/lab)
@@ -18730,7 +18730,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "kjC" = (
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
@@ -19052,7 +19052,7 @@
 	dir = 8
 	},
 /turf/open/floor/grass,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradise/surface/grass)
 "ksj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -19142,7 +19142,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "kuW" = (
 /turf/closed/wall/r_wall/rust,
 /area/science/xenobiology)
@@ -19197,7 +19197,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "kwk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/royalblack,
@@ -19496,7 +19496,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "kEQ" = (
 /obj/structure/stairs,
 /turf/open/floor/pod/dark,
@@ -19654,7 +19654,7 @@
 "kMk" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "kMG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -19912,7 +19912,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "kVV" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/light{
@@ -20217,7 +20217,7 @@
 /obj/structure/lattice/catwalk/over,
 /obj/structure/railing,
 /turf/open/floor/plating,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "lhn" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/landmark/start/security_officer,
@@ -20259,7 +20259,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "liA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -21096,7 +21096,7 @@
 /area/hydroponics)
 "lGo" = (
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "lGq" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -21254,7 +21254,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "lLT" = (
 /obj/effect/turf_decal/tile/dark_red/corner_ramp{
 	alpha = 180;
@@ -21566,7 +21566,7 @@
 "lVW" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/closed/wall/mineral/titanium/survival,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "lVX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -21597,7 +21597,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "lWU" = (
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /obj/effect/decal/cleanable/food/tomato_smudge,
@@ -21882,7 +21882,7 @@
 	dir = 4
 	},
 /turf/open/floor/grass,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradise/surface/grass)
 "meb" = (
 /obj/machinery/photocopier,
 /obj/effect/turf_decal/bot{
@@ -21910,7 +21910,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "mfX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/cardboard,
@@ -21920,7 +21920,7 @@
 "mfZ" = (
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "mgk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -22256,7 +22256,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "mtH" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	alpha = 180;
@@ -22497,7 +22497,7 @@
 /obj/structure/flora/rock/pile,
 /obj/machinery/light/small,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "mBS" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -22636,7 +22636,7 @@
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 5
 	},
-/area/asteroid/paradice/surface/water)
+/area/asteroid/paradise/surface/water)
 "mIN" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
@@ -22718,7 +22718,7 @@
 "mKR" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "mLo" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/firecloset/full,
@@ -22866,7 +22866,7 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 5
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "mPj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -23070,7 +23070,7 @@
 /area/maintenance/department/crew_quarters/bar)
 "mTy" = (
 /turf/open/floor/plating/beach/coastline_b,
-/area/asteroid/paradice/surface/water)
+/area/asteroid/paradise/surface/water)
 "mTA" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -23199,7 +23199,7 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 9
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "mYb" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
@@ -23516,7 +23516,7 @@
 	dir = 6
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "nii" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
@@ -23591,7 +23591,7 @@
 /area/crew_quarters/cafeteria)
 "nkH" = (
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "nkK" = (
 /obj/effect/turf_decal/trimline/white/corner{
 	dir = 4
@@ -23613,7 +23613,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "nlf" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/stripes/line{
@@ -23665,7 +23665,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "nlW" = (
 /obj/structure/table/wood,
 /obj/item/paper,
@@ -23807,7 +23807,7 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 8
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "npn" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -23866,13 +23866,13 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "nqD" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/openspace,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "nqP" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/light{
@@ -24127,7 +24127,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "nzZ" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line,
 /obj/structure/railing,
@@ -24189,7 +24189,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "nCX" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 5
@@ -24561,7 +24561,7 @@
 "nQg" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "nQN" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall,
@@ -24600,7 +24600,7 @@
 	dir = 1
 	},
 /turf/open/floor/grass,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradise/surface/grass)
 "nRB" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
@@ -24718,7 +24718,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "nVc" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/barricade/wooden,
@@ -24957,7 +24957,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "oeE" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -25042,7 +25042,7 @@
 	},
 /obj/structure/ladder,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ogs" = (
 /turf/closed/wall/r_wall/rust,
 /area/security/nuke_storage)
@@ -25117,10 +25117,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ojN" = (
 /turf/closed/wall/r_wall,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "okk" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/plasteel,
@@ -25507,7 +25507,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "oub" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
@@ -25560,7 +25560,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ovP" = (
 /obj/structure/railing{
 	dir = 1
@@ -25590,7 +25590,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "oxf" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
@@ -25857,7 +25857,7 @@
 	vision_range = 5
 	},
 /turf/open/floor/grass,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradise/surface/grass)
 "oCE" = (
 /turf/open/openspace,
 /area/engine/atmos)
@@ -26210,7 +26210,7 @@
 "oKu" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "oKy" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/stripes/line{
@@ -26622,7 +26622,7 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "oQQ" = (
 /obj/machinery/camera/autoname{
 	dir = 1;
@@ -26676,7 +26676,7 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "oRI" = (
 /obj/machinery/computer/operating{
 	dir = 1
@@ -26781,7 +26781,7 @@
 "oVl" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "oVK" = (
 /obj/machinery/airalarm/directional/south,
 /obj/structure/closet/secure_closet/exile,
@@ -26907,7 +26907,7 @@
 	dir = 5
 	},
 /turf/open/floor/plasteel,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "oZT" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -27074,7 +27074,7 @@
 	dir = 10
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "pfN" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -27222,7 +27222,7 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "pkS" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -28475,7 +28475,7 @@
 	},
 /obj/item/toy/plush/moth/error,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "pXQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -28517,7 +28517,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "pYJ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -28594,7 +28594,7 @@
 "qbc" = (
 /obj/effect/mapping_helpers/dead_body_placer,
 /turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "qbd" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering Foyer";
@@ -28666,7 +28666,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "qdp" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -28722,7 +28722,7 @@
 	})
 "qdY" = (
 /turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "qeb" = (
 /obj/effect/spawner/structure/window,
 /obj/structure/barricade/wooden/crude,
@@ -28989,7 +28989,7 @@
 	dir = 4
 	},
 /turf/open/openspace,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "qlj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -29015,7 +29015,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "qmz" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
@@ -29177,7 +29177,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "qtI" = (
 /turf/open/openspace,
 /area/bridge)
@@ -29326,7 +29326,7 @@
 	},
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "qwA" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -29581,7 +29581,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "qEd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -30381,7 +30381,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "raH" = (
 /obj/structure/closet/secure_closet/medical2,
 /obj/effect/turf_decal/bot,
@@ -30734,7 +30734,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /turf/open/floor/plating,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "rjD" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -31018,7 +31018,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "rpz" = (
 /obj/structure/railing{
 	dir = 8
@@ -31164,7 +31164,7 @@
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 9
 	},
-/area/asteroid/paradice/surface/water)
+/area/asteroid/paradise/surface/water)
 "rtL" = (
 /obj/machinery/vending/dinnerware,
 /obj/structure/railing{
@@ -31231,7 +31231,7 @@
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 1
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "rxd" = (
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
@@ -31656,7 +31656,7 @@
 "rJS" = (
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "rKg" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
@@ -31724,7 +31724,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "rLL" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -31824,7 +31824,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "rNI" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid,
@@ -32023,7 +32023,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "rTM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/sand/plating,
@@ -32044,7 +32044,7 @@
 	width = 25
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradise/surface/grass)
 "rUJ" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -32075,7 +32075,7 @@
 /area/tcommsat/computer)
 "rVK" = (
 /turf/closed/mineral/random/air,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "rVV" = (
 /obj/machinery/computer/turbine_computer{
 	dir = 1;
@@ -32096,7 +32096,7 @@
 /area/maintenance/department/crew_quarters/dorms)
 "rWy" = (
 /turf/closed/indestructible/riveted,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "rWV" = (
 /obj/structure/ladder,
 /obj/effect/turf_decal/stripes/line{
@@ -32108,7 +32108,7 @@
 "rWZ" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "rXp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -32401,7 +32401,7 @@
 	pixel_y = 3
 	},
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "scw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -32928,7 +32928,7 @@
 /area/science/lab)
 "spN" = (
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "sqh" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -33003,7 +33003,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "stJ" = (
 /turf/open/openspace,
 /area/crew_quarters/heads/cmo)
@@ -33078,7 +33078,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "swo" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
@@ -33202,7 +33202,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "syu" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -33325,7 +33325,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "sEk" = (
 /obj/effect/turf_decal/siding/white{
 	alpha = 100;
@@ -33622,7 +33622,7 @@
 "sLN" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "sMC" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
@@ -33760,7 +33760,7 @@
 "sOR" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "sPk" = (
 /obj/structure/rack,
 /obj/item/electronics/firelock{
@@ -33957,7 +33957,7 @@
 "sTz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "sUh" = (
 /obj/machinery/computer/card/minor/hos,
 /obj/structure/cable/yellow{
@@ -34006,7 +34006,7 @@
 "sVE" = (
 /obj/structure/flora/junglebush/c,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "sVZ" = (
 /turf/open/floor/wood/broken,
 /area/vacant_room/office)
@@ -34081,7 +34081,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "sWP" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/railing{
@@ -34269,7 +34269,7 @@
 /area/chapel/office)
 "tcm" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "tcM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -34330,7 +34330,7 @@
 /area/bridge)
 "tey" = (
 /turf/open/floor/plating/beach/coastline_t,
-/area/asteroid/paradice/surface/sand)
+/area/asteroid/paradise/surface/sand)
 "teC" = (
 /obj/structure/railing{
 	dir = 4
@@ -34969,7 +34969,7 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/tree/jungle,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "tsU" = (
 /obj/machinery/porta_turret/ai{
 	dir = 4
@@ -35698,7 +35698,7 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "tMd" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -35806,7 +35806,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "tPd" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/stasis{
@@ -36156,7 +36156,7 @@
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 4
 	},
-/area/asteroid/paradice/surface/water)
+/area/asteroid/paradise/surface/water)
 "tTM" = (
 /turf/closed/wall,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -36184,7 +36184,7 @@
 "tUy" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "tUN" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
 /obj/structure/chair/office,
@@ -36322,7 +36322,7 @@
 "tZP" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "uao" = (
 /obj/machinery/power/terminal{
 	dir = 8
@@ -36388,7 +36388,7 @@
 "ueF" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ueO" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
 /turf/closed/wall,
@@ -37035,7 +37035,7 @@
 "uyQ" = (
 /obj/structure/flora/tree/jungle,
 /turf/open/floor/grass,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "uyY" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -37184,7 +37184,7 @@
 "uDX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "uDY" = (
 /obj/machinery/requests_console{
 	department = "Science";
@@ -37265,7 +37265,7 @@
 "uFz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradice/surface/sand)
+/area/asteroid/paradise/surface/sand)
 "uFR" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/glowstick/lit,
@@ -37336,7 +37336,7 @@
 "uHc" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "uHM" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
@@ -37524,7 +37524,7 @@
 	pixel_y = 19
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "uNe" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -37978,7 +37978,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "uYV" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/techstorage/medical,
@@ -38074,7 +38074,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "vbu" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -38123,7 +38123,7 @@
 "vcQ" = (
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradise/surface/grass)
 "vcX" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -38270,7 +38270,7 @@
 "vhM" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/grass,
-/area/asteroid/paradice/surface/grass)
+/area/asteroid/paradise/surface/grass)
 "vhQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -38311,7 +38311,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradice/surface/sand)
+/area/asteroid/paradise/surface/sand)
 "vih" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -38709,7 +38709,7 @@
 /area/medical/medbay/central)
 "vvV" = (
 /turf/closed/mineral/bscrystal,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "vwd" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hos)
@@ -38851,7 +38851,7 @@
 /area/maintenance/department/medical/morgue)
 "vBU" = (
 /turf/open/floor/plating/beach/coastline_t,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "vBZ" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -38871,7 +38871,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "vCC" = (
 /obj/item/book/granter/spell/smoke/lesser{
 	pixel_x = -4;
@@ -39005,7 +39005,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "vFQ" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4;
@@ -39762,7 +39762,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "wey" = (
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -39896,7 +39896,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "wht" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -40171,7 +40171,7 @@
 	dir = 4
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "wnT" = (
 /turf/open/floor/dock/drydock,
 /area/quartermaster/storage)
@@ -40290,7 +40290,7 @@
 /area/quartermaster/sorting)
 "wrV" = (
 /turf/closed/wall,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "wsP" = (
 /obj/structure/sign/warning/securearea{
 	desc = "A warning sign which reads 'BOMB RANGE";
@@ -40450,7 +40450,7 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "wxZ" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -40541,12 +40541,12 @@
 /area/crew_quarters/cafeteria)
 "wzr" = (
 /turf/open/space/basic,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "wzv" = (
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 8
 	},
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "wzA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -40642,7 +40642,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "wCp" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -40847,7 +40847,7 @@
 "wGZ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "wHe" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -40867,7 +40867,7 @@
 /area/maintenance/disposal)
 "wHr" = (
 /turf/open/floor/plating/beach/deep_water,
-/area/asteroid/paradice/surface/water)
+/area/asteroid/paradise/surface/water)
 "wHw" = (
 /obj/structure/stairs{
 	dir = 8
@@ -40947,7 +40947,7 @@
 "wJY" = (
 /obj/structure/flora/junglebush/large,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "wKG" = (
 /turf/closed/wall/rust,
 /area/crew_quarters/cryopods)
@@ -40976,7 +40976,7 @@
 "wLY" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "wMw" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -41490,12 +41490,12 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "xbh" = (
 /turf/open/floor/plating/beach/coastline_b{
 	dir = 6
 	},
-/area/asteroid/paradice/surface/water)
+/area/asteroid/paradise/surface/water)
 "xbu" = (
 /obj/machinery/airalarm/directional/south,
 /obj/effect/turf_decal/delivery,
@@ -41799,7 +41799,7 @@
 "xjq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "xjy" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
@@ -42111,7 +42111,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "xrZ" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark/side{
@@ -42138,7 +42138,7 @@
 "xsC" = (
 /obj/effect/forcefield,
 /turf/open/openspace,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "xsH" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -42225,7 +42225,7 @@
 	},
 /obj/effect/landmark/start/randommaint/vip,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "xvi" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -42280,7 +42280,7 @@
 "xwl" = (
 /obj/structure/flora/junglebush,
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "xwm" = (
 /obj/machinery/teleport/station,
 /obj/effect/turf_decal/stripes/line{
@@ -42489,7 +42489,7 @@
 	dir = 1
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "xDf" = (
 /obj/machinery/light{
 	light_color = "#7AC3FF"
@@ -42629,7 +42629,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "xHX" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
@@ -42798,7 +42798,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/basalt,
-/area/asteroid/paradice)
+/area/asteroid/paradise)
 "xLT" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -42870,7 +42870,7 @@
 "xNz" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "xOO" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -43062,7 +43062,7 @@
 /area/medical/exam_room)
 "xUj" = (
 /turf/open/floor/plating/asteroid,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "xUk" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -43218,7 +43218,7 @@
 	pixel_y = 19
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "xXV" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 2;
@@ -43412,7 +43412,7 @@
 	vision_range = 5
 	},
 /turf/open/floor/plating/dirt/planetary,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "ydP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -43431,11 +43431,11 @@
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plasteel,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "yeo" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plasteel/techmaint,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "yer" = (
 /obj/machinery/rnd/production/techfab/department/medical,
 /obj/effect/turf_decal/stripes/box,
@@ -43494,7 +43494,7 @@
 	dir = 8
 	},
 /turf/open/floor/sepia,
-/area/asteroid/paradice/surface)
+/area/asteroid/paradise/surface)
 "yfW" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/decal/cleanable/dirt/dust,
