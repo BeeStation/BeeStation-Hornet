@@ -969,4 +969,3 @@
 	M.silent = max(M.silent, 3)
 	M.confused = max(M.confused, 3)
 	..()
-
