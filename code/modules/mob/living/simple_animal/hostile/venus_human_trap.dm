@@ -156,7 +156,7 @@
 		to_chat(src, "<span class='userdanger'>You are not being nourished by the vines and are withering away! Stay in the vines!</span>")
 	withering = TRUE
 	playsound(src.loc, 'sound/creatures/venus_trap_hurt.ogg', 50, 1)
-	adjustHealth(maxHealth*0.2)
+	adjustHealth(maxHealth*0.05)
 
 /mob/living/simple_animal/hostile/venus_human_trap/Moved(atom/OldLoc, Dir)
 	. = ..()
