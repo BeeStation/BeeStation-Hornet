@@ -1,0 +1,5 @@
+author: XeonMations, Dakae
+delete-after: true
+changes:
+  - bugfix: AIs now talk in loud mode over the binary channel for themselves, their
+      linked borgs and any humans/observers!
