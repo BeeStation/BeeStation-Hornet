@@ -612,10 +612,14 @@
 	race = /datum/species/oozeling
 	taste_description = "grandma's gelatin"
 
-/datum/reagent/medicine/mine_salve/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
-	M.reagents.add_reagent(/datum/reagent/toxin/genetic_instability, 10)
+/datum/reagent/mutationtoxin/jelly/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+	M.reagents.add_reagent(/datum/reagent/genetic_instability, 10)
 
 /datum/reagent/mutationtoxin/jelly/on_mob_life(mob/living/carbon/human/H)
+	if(H.reagents.has_reagent(/datum/reagent/genetic_instability))
+		H.reagents.del_reagent(type)
+		to_chat(H, "<span class='warning'>Your body is too unstable from a recent mutation, the imperfect mutation has no effect!</span>")
+		return FALSE
 	if(isoozeling(H))
 		to_chat(H, "<span class='warning'>Your body shifts and morphs, turning you into another subspecies!</span>")
 		var/species_type
@@ -638,6 +642,14 @@
 		to_chat(H, "<span class='warning'>You've become \a [initial(species_type.name)]!</span>")
 		return TRUE
 	return ..()
+
+//PLACEHOLDER TO STOP EXPLOIT, DO NOT MERGE THIS PR IT WILL BE FIXED PROPERLY
+
+/datum/reagent/genetic_instability
+	name = "Genetic Instability"
+	description = "Cannot slime transform while this is present"
+	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 
 /datum/reagent/mutationtoxin/golem
 	name = "Golem Mutation Toxin"
