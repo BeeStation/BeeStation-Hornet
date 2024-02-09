@@ -612,9 +612,6 @@
 	race = /datum/species/oozeling
 	taste_description = "grandma's gelatin"
 
-/datum/reagent/mutationtoxin/jelly/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
-	M.reagents.add_reagent(/datum/reagent/genetic_instability, 10)
-
 /datum/reagent/mutationtoxin/jelly/on_mob_life(mob/living/carbon/human/H)
 	if(H.reagents.has_reagent(/datum/reagent/genetic_instability))
 		H.reagents.del_reagent(type)
@@ -633,6 +630,7 @@
 			species_type = pick(subtypesof(/datum/species/oozeling))
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
+		M.reagents.add_reagent(/datum/reagent/genetic_instability, 10)
 		return TRUE
 
 	if(current_cycle >= cycles_to_turn) //overwrite since we want subtypes of jelly
@@ -640,6 +638,7 @@
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
 		to_chat(H, "<span class='warning'>You've become \a [initial(species_type.name)]!</span>")
+		M.reagents.add_reagent(/datum/reagent/genetic_instability, 10)
 		return TRUE
 	return ..()
 
