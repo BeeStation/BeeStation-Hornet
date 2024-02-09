@@ -6,7 +6,7 @@ import { toFixed } from 'common/math';
 export const Bioscanner = (props, context) => {
   return (
     <Window>
-      <Window.Content scrollable>
+      <Window.Content>
         <BioscannerUIContent />
       </Window.Content>
     </Window>

@@ -10,6 +10,7 @@
 
 	state_open = TRUE
 	clicksound = 'sound/machines/pda_button1.ogg'
+	var/datum/looping_sound/bioscanner/soundloop
 
 	var/scanning
 	var/enter_message = "<span class='notice'><b>You feel cool air surround you. You go numb as your senses turn inward.</b></span>"
@@ -17,12 +18,19 @@
 	var/speed_coeff
 	var/scan_level
 	var/radiation_dose
+	var/result
 
 /obj/machinery/bioscanner/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living //TODO someone explain to me what this means or does.
 	update_appearance()
 	RefreshParts()
+	soundloop = new(src, FALSE)
+
+/obj/machinery/microwave/Destroy()
+	open_machine()
+	QDEL_NULL(soundloop)
+	. = ..()
 
 /obj/machinery/bioscanner/RefreshParts()
 	scan_level = 0
@@ -158,22 +166,31 @@
 		scanning = TRUE
 		ActivityStatus()
 		visible_message("<span class='notice'> The Bio-Scanner hums to life.</span>")
+		soundloop.start()
 		playsound(src, 'sound/machines/boop.ogg', 75, FALSE, 0)
-		playsound(src, 'sound/machines/capacitor_charge.ogg', 100, TRUE, 2)
-		addtimer(CALLBACK(src, PROC_REF(bioscanComplete), user),300*speed_coeff)
+		addtimer(CALLBACK(src, PROC_REF(bioscanComplete), user),600*speed_coeff)
 
 /obj/machinery/bioscanner/proc/bioscanComplete()
 	scanning = FALSE
 	ActivityStatus()
 	var/mob/living/mob_occupant = occupant
-	mob_occupant.rad_act(rand(radiation_dose/10,radiation_dose))
+	mob_occupant.rad_act(rand(radiation_dose/2,radiation_dose))
 	visible_message("<span class='notice'> The Bio-Scanner shuts down.</span>")
 	playsound(src, 'sound/machines/ping.ogg', 75, FALSE, 0)
-	playsound(src, 'sound/machines/capacitor_discharge.ogg', 100, TRUE, 2)
+	soundloop.stop()
+
+	//Here we go, the paper, the RESULTS.
+	//starting with the general section
 
 	//when just using mob_occupant.stat on the paper, it always just returns numbers. so we do this instead. sounds more professional too
 	var/occupantStatus
 	var/occupantColor
+
+	//Damage specifics
+	var/oxy_loss = mob_occupant.getOxyLoss()
+	var/tox_loss = mob_occupant.getToxLoss()
+	var/fire_loss = mob_occupant.getFireLoss()
+	var/brute_loss = mob_occupant.getBruteLoss()
 
 	switch(mob_occupant.stat)
 		if(CONSCIOUS)
@@ -216,10 +233,109 @@
 	else if(S.mutantstomach != initial(S.mutantstomach))
 		mutant = TRUE
 
-	//Here we go, the paper, the RESULTS.
+	result = "<i>Station time: [station_time_timestamp()]</i><br>\
+				<h1>#Biotic Scan Report</h1><br>\
+				<h2>#Nanotrasen Medical Devision</h2><br>\
+				<hr />\
+				<h1>GENERAL</h1><br>\
+				Name: [mob_occupant]<br>\
+				Species: [(S.name)][mutant ? "-derived mutant" : ""]<br>\
+				<b>Status: <font color=[occupantColor]>[occupantStatus]</font></b><br>\
+				DNA: [H.dna.unique_enzymes]<br>\
+				Body temperature: [round(mob_occupant.bodytemperature-T0C,0.1)] &deg;C ([round(mob_occupant.bodytemperature*1.8-459.67,0.1)] &deg;F<br>"
+
+	//Cardiac Arrest!
+	if(ishuman(H))
+		if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
+			result += "<hr /><b><font color=["red"]>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</font></b>"
+
+	result += "<hr />"
+
+	//Injury
+	result += "<h2>INJURY</h2><br>"
+
+	if(iscarbon(occupant))
+		var/mob/living/carbon/C = occupant
+		var/list/damaged = C.get_damaged_bodyparts(1,1)
+		var/list/dmgreport = list()
+		dmgreport += "<table style='margin-left:3em'><tr><font face='Verdana'>\
+						<td style='width:7em;'><font color='#0000CC'>Damage:</font></td>\
+						<td style='width:5em;'><font color='red'><b>Blunt-Force Tissue</b></font></td>\
+						<td style='width:4em;'><font color='orange'><b>Thermal-Burn Tissue</b></font></td>\
+
+						<tr><td><font color='#0000CC'>Overall:</font></td>\
+						<td><font color='red'>[round(brute_loss,1)]</font></td>\
+						<td><font color='orange'>[round(fire_loss,1)]</font></td></tr>"
+
+		for(var/o in damaged)
+			var/obj/item/bodypart/org = o //head, left arm, right arm, etc.
+			dmgreport += "<tr><td><font color='#0000CC'>[capitalize(parse_zone(org.body_zone))]:</font></td>\
+							<td><font color='red'>[(org.brute_dam > 0) ? "[round(org.brute_dam,1)]" : "0"]</font></td>\
+							<td><font color='orange'>[(org.burn_dam > 0) ? "[round(org.burn_dam,1)]" : "0"]</font></td></tr>"
+		dmgreport += "</font></table>"
+		result += dmgreport.Join()
+
+	result +="<hr />\
+				<b>Radioactive Tissue Damage: [mob_occupant.radiation]</b><br>\
+				<b>Hypoxemic Damage: [oxy_loss]</b><br>\
+				<b>Blood Toxicity: [tox_loss]</b><br>\
+				<b>Lactic Acid Buildup: [mob_occupant.getStaminaLoss()]</b><br>\
+				<b>Chromosomal Damage: [mob_occupant.getCloneLoss()]</b>"
+
+	result += "<hr />"
+
+	//Organs!
+	result += "<h2>ORGANS</h2><br>"
+
+	result += "<hr />"
+
+	//Neural
+	result += "<h2>NEURAL</h2><br>"
+
+	if(!mob_occupant.getorgan(/obj/item/organ/brain))
+		result += "ERROR: Subject lacks a brain.<br>"
+
+	result += "Brain Activity Level: [(200 - mob_occupant.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.<br>"
+
+	var/mob/living/carbon/C = mob_occupant
+	if(LAZYLEN(C.get_traumas()))
+		var/list/trauma_text = list()
+		for(var/datum/brain_trauma/B in C.get_traumas())
+			var/trauma_desc = ""
+			switch(B.resilience)
+				if(TRAUMA_RESILIENCE_SURGERY)
+					trauma_desc += "severe "
+				if(TRAUMA_RESILIENCE_LOBOTOMY)
+					trauma_desc += "deep-rooted "
+				if(TRAUMA_RESILIENCE_MAGIC, TRAUMA_RESILIENCE_ABSOLUTE)
+					trauma_desc += "permanent "
+			trauma_desc += B.scan_desc
+			trauma_text += trauma_desc
+		result += "Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].<br>"
+	else
+		result += "No Cerebral traumas detected.<br>"
+
+	if(length(C.last_mind?.quirks))
+		result += "Subject has the following physiological traits: [C.last_mind.get_quirk_string()]."
+	else
+		result += "Subject has no particular physiological traits.<br>"
+
+	if(mob_occupant.hallucinating())
+		result += "Subject is hallucinating."
+	else
+		result += "Subject is not hallucinating."
+
+	result += "<hr />"
+
+	//Blood
+	result += "<h2>BLOOD</h2><br>"
+
+	result += "<hr />"
+
+	//Then printing it
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
 	paperwork.name = "BIOTIC SCAN RESULT: [mob_occupant]."
-	paperwork.add_raw_text("<i>Station time: [station_time_timestamp()]</i><br><h1>#Biotic Scan Report</h1><br><h2>#Nanotrasen Medical Devision</h2><br><hr /><h1>GENERAL</h1><br>Name: [mob_occupant]<br>Species: [(S.name)][mutant ? "-derived mutant" : ""]<br><b>Status: <font color=[occupantColor]>[occupantStatus]</font></b><br>DNA: [H.dna.unique_enzymes]<br>Body temperature: [round(mob_occupant.bodytemperature-T0C,0.1)] &deg;C ([round(mob_occupant.bodytemperature*1.8-459.67,0.1)] &deg;F<br><hr />")
+	paperwork.add_raw_text(result)
 	paperwork.update_appearance()
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 
