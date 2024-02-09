@@ -630,7 +630,7 @@
 			species_type = pick(subtypesof(/datum/species/oozeling))
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
-		M.reagents.add_reagent(/datum/reagent/genetic_instability, 10)
+		H.reagents.add_reagent(/datum/reagent/genetic_instability, 10)
 		return TRUE
 
 	if(current_cycle >= cycles_to_turn) //overwrite since we want subtypes of jelly
@@ -638,7 +638,7 @@
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
 		to_chat(H, "<span class='warning'>You've become \a [initial(species_type.name)]!</span>")
-		M.reagents.add_reagent(/datum/reagent/genetic_instability, 10)
+		H.reagents.add_reagent(/datum/reagent/genetic_instability, 10)
 		return TRUE
 	return ..()
 
