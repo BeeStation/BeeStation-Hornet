@@ -1,5 +1,4 @@
-
-#define JOB_MODIFICATION_MAP_NAME "EchoStation" //sorry but i'm bring back the pubby config file
+#define JOB_MODIFICATION_MAP_NAME "Echo Station" //sorry but i'm bring back the pubby config file
 
 //do not spawn
 MAP_REMOVE_JOB(atmospheric_technician)
