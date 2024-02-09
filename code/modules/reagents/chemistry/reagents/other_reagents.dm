@@ -612,13 +612,25 @@
 	race = /datum/species/oozeling
 	taste_description = "grandma's gelatin"
 
+/datum/reagent/medicine/mine_salve/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+	M.reagents.add_reagent(/datum/reagent/toxin/genetic_instability, 10)
+
 /datum/reagent/mutationtoxin/jelly/on_mob_life(mob/living/carbon/human/H)
 	if(isoozeling(H))
 		to_chat(H, "<span class='warning'>Your body shifts and morphs, turning you into another subspecies!</span>")
-		var/species_type = pick(subtypesof(/datum/species/oozeling))
+		var/species_type
+		if(isstargazer(H))
+			species_type = /datum/species/oozeling/slime
+		else if(isslimeperson(H))
+			species_type = /datum/species/oozeling/luminescent
+		else if(isluminescent(H))
+			species_type = /datum/species/oozeling/stargazer
+		else //it is not already a subtype, so pick randomly
+			species_type = pick(subtypesof(/datum/species/oozeling))
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
 		return TRUE
+
 	if(current_cycle >= cycles_to_turn) //overwrite since we want subtypes of jelly
 		var/datum/species/species_type = pick(subtypesof(race))
 		H.set_species(species_type)

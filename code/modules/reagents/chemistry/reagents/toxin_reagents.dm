@@ -969,3 +969,16 @@
 	M.silent = max(M.silent, 3)
 	M.confused = max(M.confused, 3)
 	..()
+
+/datum/reagent/toxin/genetic_instability
+	name = "Genetic Instability"
+	description = "A buildup of toxins resulting from rapid mutations"
+	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	toxpwr = 0
+	overdose_threshold = 30
+	metabolization_rate = 0.1
+
+/datum/reagent/toxin/geneetic_instability/overdose_process(mob/living/M)
+	holder.add_reagent(/datum/reagent/toxin/mutagen, 3)
+	holder.remove_reagent(/datum/reagent/toxin/genetic_instability, 2)
+
