@@ -35,6 +35,7 @@ Class Variables:
          NOPOWER -- No power is being supplied to machine.
          MAINT -- machine is currently under going maintenance.
          EMPED -- temporary broken by EMP pulse
+		 OVERHEATED -- machine is overheated
 
 Class Procs:
    Initialize()                     'game/machinery/machine.dm'
@@ -214,9 +215,9 @@ Class Procs:
 ///Called when the value of `machine_stat` changes, so we can react to it.
 /obj/machinery/proc/on_set_machine_stat(old_value)
 	if(old_value & (NOPOWER|BROKEN|MAINT))
-		if(!(machine_stat & (NOPOWER|BROKEN|MAINT))) //From off to on.
+		if(!(machine_stat & (NOPOWER|BROKEN|MAINT|OVERHEATED))) //From off to on.
 			set_is_operational(TRUE)
-	else if(machine_stat & (NOPOWER|BROKEN|MAINT)) //From on to off.
+	else if(machine_stat & (NOPOWER|BROKEN|MAINT|OVERHEATED)) //From on to off.
 		set_is_operational(FALSE)
 
 /obj/machinery/emp_act(severity)
@@ -590,10 +591,12 @@ Class Procs:
 		I.play_tool_sound(src, 50)
 		if(!panel_open)
 			panel_open = TRUE
+			set_machine_stat(machine_stat | MAINT)
 			icon_state = icon_state_open
 			to_chat(user, "<span class='notice'>You open the maintenance hatch of [src].</span>")
 		else
 			panel_open = FALSE
+			set_machine_stat(machine_stat & ~MAINT)
 			icon_state = icon_state_closed
 			to_chat(user, "<span class='notice'>You close the maintenance hatch of [src].</span>")
 		return 1

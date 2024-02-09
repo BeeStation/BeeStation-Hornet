@@ -9,7 +9,7 @@
 	circuit = /obj/item/circuitboard/computer/message_monitor
 	light_color = LIGHT_COLOR_GREEN
 	/// Message server selected to receive data from
-	var/obj/machinery/telecomms/message_server/linked_server
+	var/obj/machinery/server/telecomms/message_server/linked_server
 	/// If the console is currently being hacked by a silicon
 	var/hacking = FALSE
 
@@ -63,11 +63,11 @@
 /obj/machinery/computer/message_monitor/LateInitialize()
 	//If the server isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linked_server)
-		for(var/obj/machinery/telecomms/message_server/S in GLOB.telecomms_list)
+		for(var/obj/machinery/server/telecomms/message_server/S in GLOB.telecomms_list)
 			set_linked_server(S)
 			break
 
-/obj/machinery/computer/message_monitor/proc/set_linked_server(var/obj/machinery/telecomms/message_server/server)
+/obj/machinery/computer/message_monitor/proc/set_linked_server(var/obj/machinery/server/telecomms/message_server/server)
 	if(linked_server)
 		UnregisterSignal(linked_server, COMSIG_PARENT_QDELETING)
 	if(server != linked_server)
@@ -170,8 +170,8 @@
 			return TRUE
 		if("link")
 			var/list/message_servers = list()
-			var/obj/machinery/telecomms/message_server/last
-			for (var/obj/machinery/telecomms/message_server/M in GLOB.telecomms_list)
+			var/obj/machinery/server/telecomms/message_server/last
+			for (var/obj/machinery/server/telecomms/message_server/M in GLOB.telecomms_list)
 				var/key_base = "[M.network] - [M.name]"
 				var/key = key_base
 				var/number = 1
@@ -282,7 +282,7 @@
 /obj/item/paper/monitorkey
 	name = "monitor decryption key"
 
-/obj/item/paper/monitorkey/Initialize(mapload, obj/machinery/telecomms/message_server/server)
+/obj/item/paper/monitorkey/Initialize(mapload, obj/machinery/server/telecomms/message_server/server)
 	..()
 	if (server)
 		print(server)
@@ -290,7 +290,7 @@
 	else
 		return INITIALIZE_HINT_LATELOAD
 
-/obj/item/paper/monitorkey/proc/print(obj/machinery/telecomms/message_server/server)
+/obj/item/paper/monitorkey/proc/print(obj/machinery/server/telecomms/message_server/server)
 	add_raw_text("<h2>Telecommunications Security Notice</h2><br />\
 	<strong><pre>INCOMING TRANSMISSION - KEY RESET REPORT</pre></strong><br />\
 	<p>\
@@ -310,7 +310,7 @@
 	update_appearance()
 
 /obj/item/paper/monitorkey/LateInitialize()
-	for (var/obj/machinery/telecomms/message_server/preset/server in GLOB.telecomms_list)
+	for (var/obj/machinery/server/telecomms/message_server/preset/server in GLOB.telecomms_list)
 		if (server.decryptkey)
 			print(server)
 			break

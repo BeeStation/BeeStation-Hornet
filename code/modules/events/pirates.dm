@@ -150,7 +150,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 
 //interrupt_research
 /obj/machinery/shuttle_scrambler/proc/interrupt_research()
-	for(var/obj/machinery/rnd/server/S in GLOB.machines)
+	for(var/obj/machinery/server/rnd/S in GLOB.machines)
 		if(S.machine_stat & (NOPOWER|BROKEN))
 			continue
 		S.emp_act(1)

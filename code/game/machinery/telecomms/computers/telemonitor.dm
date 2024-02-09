@@ -12,7 +12,7 @@
 
 	var/screen = 0				// the screen number:
 	var/list/machinelist = list()	// the machines located by the computer
-	var/obj/machinery/telecomms/SelectedMachine
+	var/obj/machinery/server/telecomms/SelectedMachine
 
 	var/network = "NULL"		// the network to probe
 
@@ -33,7 +33,7 @@
 			dat += "<br>Current Network: <a href='?src=[REF(src)];network=1'>[network]</a><br>"
 			if(machinelist.len)
 				dat += "<br>Detected Network Entities:<ul>"
-				for(var/obj/machinery/telecomms/T in machinelist)
+				for(var/obj/machinery/server/telecomms/T in machinelist)
 					dat += "<li><a href='?src=[REF(src)];viewmachine=[T.id]'>[REF(T)] [T.name]</a> ([T.id])</li>"
 				dat += "</ul>"
 				dat += "<br><a href='?src=[REF(src)];operation=release'>\[Flush Buffer\]</a>"
@@ -49,7 +49,7 @@
 			dat += "<br>Current Network: [network]<br>"
 			dat += "Selected Network Entity: [SelectedMachine.name] ([SelectedMachine.id])<br>"
 			dat += "Linked Entities: <ol>"
-			for(var/obj/machinery/telecomms/T in SelectedMachine.links)
+			for(var/obj/machinery/server/telecomms/T in SelectedMachine.links)
 				if(!T.hide)
 					dat += "<li><a href='?src=[REF(src)];viewmachine=[T.id]'>[REF(T.id)] [T.name]</a> ([T.id])</li>"
 			dat += "</ol>"
@@ -73,7 +73,7 @@
 
 	if(href_list["viewmachine"])
 		screen = 1
-		for(var/obj/machinery/telecomms/T in machinelist)
+		for(var/obj/machinery/server/telecomms/T in machinelist)
 			if(T.id == href_list["viewmachine"])
 				SelectedMachine = T
 				break
@@ -93,7 +93,7 @@
 					temp = "<font color = #D70B00>- FAILED: CANNOT PROBE WHEN BUFFER FULL -</font color>"
 
 				else
-					for(var/obj/machinery/telecomms/T in urange(25, src))
+					for(var/obj/machinery/server/telecomms/T in urange(25, src))
 						if(T.network == network)
 							machinelist.Add(T)
 

@@ -16,10 +16,20 @@
 
 	var/obj/machinery/portable_atmospherics/connected_device
 
+	var/connect_roundstart = FALSE // try to connect to portable atmos machine on roundstart
+
 /obj/machinery/atmospherics/components/unary/portables_connector/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
 	air_contents.set_volume(0)
+
+/obj/machinery/atmospherics/components/unary/portables_connector/build_network()
+	. = ..()
+	if(connect_roundstart)
+		connect_roundstart = FALSE // we will try only once
+		var/obj/machinery/portable_atmospherics/PA = locate(/obj/machinery/portable_atmospherics/) in loc
+		if(PA)
+			PA.connect(src)
 
 /obj/machinery/atmospherics/components/unary/portables_connector/Destroy()
 	if(connected_device)

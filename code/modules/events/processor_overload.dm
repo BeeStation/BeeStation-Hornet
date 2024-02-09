@@ -27,7 +27,7 @@
 
 
 /datum/round_event/processor_overload/start()
-	for(var/obj/machinery/telecomms/processor/P in GLOB.telecomms_list)
+	for(var/obj/machinery/server/telecomms/processor/P in GLOB.telecomms_list)
 		if(prob(10))
 			announce_to_ghosts(P)
 			// Damage the surrounding area to indicate that it popped

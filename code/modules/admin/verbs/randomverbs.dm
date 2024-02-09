@@ -1239,8 +1239,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(!check_rights(R_ADMIN))
 		return
-	var/obj/machinery/telecomms/message_server/server
-	for(var/obj/machinery/telecomms/message_server/S in GLOB.telecomms_list)
+	var/obj/machinery/server/telecomms/message_server/server
+	for(var/obj/machinery/server/telecomms/message_server/S in GLOB.telecomms_list)
 		server = S
 		break
 	tgui_send_admin_pda(usr, null, server, theme = "admin", allow_send_all = TRUE)

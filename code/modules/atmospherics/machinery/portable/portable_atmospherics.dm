@@ -52,7 +52,6 @@
 
 /obj/machinery/portable_atmospherics/return_analyzable_air()
 	return air_contents
-
 /obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/components/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
