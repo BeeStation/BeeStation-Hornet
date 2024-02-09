@@ -38,13 +38,13 @@
 
 	// E is scanning level, meaning how good it scans.
 	var/E
-	for(var/obj/item/stock_parts/scanning_module/B in component_parts)
+	for(var/obj/item/stock_parts/micro_laser/B in component_parts)
 		E += B.rating
 	radiation_dose = 400 / E
 
 	// I is scanning power, meaning how fast it scans
 	var/I
-	for(var/obj/item/stock_parts/capacitor/M in component_parts)
+	for(var/obj/item/stock_parts/scanning_module/M in component_parts)
 		I += M.rating
 
 	speed_coeff = 1 / I
