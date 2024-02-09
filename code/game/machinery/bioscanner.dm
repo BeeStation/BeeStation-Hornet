@@ -156,19 +156,17 @@
 		icon_state= "bscanner"
 
 /obj/machinery/bioscanner/proc/startscan(mob/user)
-	if(state_open)
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 15, FALSE, 0)
-		return
-	else
-		if(!occupant)
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 15, FALSE, 0)
-			return
+	var/mob/living/mob_occupant = occupant
+	if(!state_open && occupant && iscarbon(mob_occupant))
 		scanning = TRUE
 		ActivityStatus()
 		visible_message("<span class='notice'> The Bio-Scanner hums to life.</span>")
 		soundloop.start()
 		playsound(src, 'sound/machines/boop.ogg', 75, FALSE, 0)
-		addtimer(CALLBACK(src, PROC_REF(bioscanComplete), user),600*speed_coeff)
+		addtimer(CALLBACK(src, PROC_REF(bioscanComplete), user),300*speed_coeff)
+	else
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 15, FALSE, 0)
+		return
 
 /obj/machinery/bioscanner/proc/bioscanComplete()
 	scanning = FALSE
@@ -233,6 +231,8 @@
 	else if(S.mutantstomach != initial(S.mutantstomach))
 		mutant = TRUE
 
+	//General
+
 	result = "<i>Station time: [station_time_timestamp()]</i><br>\
 				<h1>#Biotic Scan Report</h1><br>\
 				<h2>#Nanotrasen Medical Devision</h2><br>\
@@ -248,6 +248,12 @@
 	if(ishuman(H))
 		if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
 			result += "<hr /><b><font color=["red"]>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</font></b>"
+
+	if(mob_occupant.tod && (mob_occupant.stat == DEAD || ((HAS_TRAIT(mob_occupant, TRAIT_FAKEDEATH)))))
+		result += "<span class='info'>Time of Death: [mob_occupant.tod]</span>"
+		var/tdelta = round(world.time - mob_occupant.timeofdeath)
+		if(tdelta < (DEFIB_TIME_LIMIT * 10))
+			result += "<span class='alert'><b>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</b></span>"
 
 	result += "<hr />"
 
@@ -279,13 +285,28 @@
 				<b>Radioactive Tissue Damage: [mob_occupant.radiation]</b><br>\
 				<b>Hypoxemic Damage: [oxy_loss]</b><br>\
 				<b>Blood Toxicity: [tox_loss]</b><br>\
-				<b>Lactic Acid Buildup: [mob_occupant.getStaminaLoss()]</b><br>\
-				<b>Chromosomal Damage: [mob_occupant.getCloneLoss()]</b>"
+				<b>Lactic Acid Buildup: [mob_occupant.getStaminaLoss()]</b><br>"
 
 	result += "<hr />"
 
 	//Organs!
 	result += "<h2>ORGANS</h2><br>"
+
+	for(var/obj/item/bodypart/limb as anything in H.bodyparts)
+		for(var/obj/item/embed as anything in limb.embedded_objects)
+			result += "Foreign object detected in subject's:[limb.name]<br>"
+
+	result += "<hr />"
+
+	//Genetics
+	result += "<h2>GENETICAL</h2><br>"
+
+	result += "Chromosomal Damage: [mob_occupant.getCloneLoss()]<br>"
+
+	if(H.has_dna())
+		result += "Genetic Stability: [H.dna.stability]%.<br>"
+		if(H.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
+			result += "Subject's DNA appears to be in an unstable state."
 
 	result += "<hr />"
 

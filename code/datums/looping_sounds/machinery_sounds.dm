@@ -63,7 +63,7 @@
 	mid_sounds = list('sound/machines/microwave/microwave-mid1.ogg'=10, 'sound/machines/microwave/microwave-mid2.ogg'=1)
 	mid_length = 10
 	end_sound = 'sound/machines/capacitor_discharge.ogg'
-	volume = 20
+	volume = 50
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
