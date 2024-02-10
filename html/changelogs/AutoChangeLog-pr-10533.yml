@@ -1,6 +1,0 @@
-author: Haliris
-delete-after: true
-changes:
-  - tweak: Venus human trap cannot pull anything anymore.
-  - balance: Venus human trap will now lose HP for every second they spend off vines,
-      while healing slowly within them.
