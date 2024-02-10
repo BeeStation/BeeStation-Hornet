@@ -36,7 +36,7 @@
 /datum/species/apid/get_laugh_sound(mob/living/carbon/user)
 	return 'sound/voice/apid/apid_laugh.ogg'
 
-/datum/species/ethereal/get_scream_sound(mob/living/carbon/user)
+/datum/species/apid/get_scream_sound(mob/living/carbon/user)
 	return 'sound/voice/apid/apid_scream.ogg'
 
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
