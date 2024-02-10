@@ -51,10 +51,10 @@
 
 
 /datum/species/ethereal/get_laugh_sound(mob/living/carbon/user)
-	return 'sound/voice/ethereal/laugh_ethereal.ogg'
+	return 'sound/voice/ethereal/ethereal_laugh.ogg'
 
 /datum/species/ethereal/get_scream_sound(mob/living/carbon/user)
-	return 'sound/voice/ethereal/scream_ethereal.ogg'
+	return 'sound/voice/ethereal/ethereal_scream.ogg'
 
 /datum/species/ethereal/Destroy(force)
 	if(ethereal_light)

@@ -33,6 +33,12 @@
 	species_l_leg = /obj/item/bodypart/l_leg/apid
 	species_r_leg = /obj/item/bodypart/r_leg/apid
 
+/datum/species/apid/get_laugh_sound(mob/living/carbon/user)
+	return 'sound/voice/apid/apid_laugh.ogg'
+
+/datum/species/ethereal/get_scream_sound(mob/living/carbon/user)
+	return 'sound/voice/apid/apid_scream.ogg'
+
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
 	. = ..()
 	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping() && !HAS_TRAIT(H,TRAIT_RESISTCOLD)) // Sleep when cold, like bees

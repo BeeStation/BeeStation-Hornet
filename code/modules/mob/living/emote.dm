@@ -16,12 +16,6 @@
 	message_param = "bows to %t"
 	restraint_check = TRUE
 
-/datum/emote/living/burp
-	key = "burp"
-	key_third_person = "burps"
-	message = "burps"
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/choke
 	key = "choke"
 	key_third_person = "chokes"
