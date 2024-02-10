@@ -30170,15 +30170,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/security/brig)
-"qML" = (
-/obj/machinery/button/door{
-	id = "commissaryshutters0";
-	name = s;
-	pixel_y = 32;
-	req_one_access_txt = "7;29;12"
-	},
-/turf/closed/wall/r_wall,
-/area/science/mixing/chamber)
 "qMM" = (
 /obj/machinery/light{
 	dir = 8
@@ -130715,7 +130706,7 @@ vqI
 vqI
 vqI
 vqI
-qML
+cae
 kyk
 aLf
 aej
