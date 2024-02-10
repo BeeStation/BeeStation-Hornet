@@ -902,7 +902,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/highfive
 	name = "raised hand"
 	desc = "Slap my hand."
-	icon_state = "latexballon"
+	icon_state = "open_hand"
 	item_state = "nothing"
 	hitsound = 'sound/weapons/punchmiss.ogg'
 	force = 0
