@@ -50,6 +50,12 @@
 	var/obj/effect/dummy/lighting_obj/ethereal_light
 
 
+/datum/species/ethereal/get_laugh_sound(mob/living/carbon/user)
+	return 'sound/voice/ethereal/laugh_ethereal.ogg'
+
+/datum/species/ethereal/get_scream_sound(mob/living/carbon/user)
+	return 'sound/voice/ethereal/scream_ethereal.ogg'
+
 /datum/species/ethereal/Destroy(force)
 	if(ethereal_light)
 		QDEL_NULL(ethereal_light)
