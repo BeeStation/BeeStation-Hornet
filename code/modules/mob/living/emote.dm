@@ -11,7 +11,7 @@
 
 /datum/emote/living/bow
 	key = "bow"
-	key_third_person = "bows"
+	key_third_person = "bowss"
 	message = "bows"
 	message_param = "bows to %t"
 	restraint_check = TRUE
