@@ -185,7 +185,10 @@
 			brutemod = 2
 
 /datum/species/ethereal/get_scream_sound(mob/living/carbon/user)
-	return 'sound/voice/moth/scream_ethereal.ogg'
+	return 'sound/voice/ethereal/scream_ethereal.ogg'
+
+/datum/species/moth/get_laugh_sound(mob/living/carbon/user)
+	return 'sound/voice/ethereal/laugh_ethereal.ogg'
 
 /datum/species/ethereal/get_cough_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_COUGH_SOUND(user)
