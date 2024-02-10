@@ -212,9 +212,31 @@
 		var/mob/living/carbon/human/fartee = user
 		if(COOLDOWN_FINISHED(fartee, special_emote_cooldown))
 			..()
-			COOLDOWN_START(fartee, special_emote_cooldown, 20 SECONDS)
+			COOLDOWN_START(fartee, special_emote_cooldown, 15 SECONDS)
 		else
 			to_chat(user, "<span class='warning'>You strain, but can't seem to fart again just yet.</span>")
+		return TRUE
+
+/datum/emote/living/carbon/human/burp
+	key = "burp"
+	key_third_person = "burps"
+	message = "burps"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+
+/datum/emote/living/carbon/human/burp/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	return 'sound/misc/burp.ogg'
+
+/datum/emote/living/carbon/human/burp/run_emote(mob/user, params, type_override, intentional)
+	if(ishuman(user))
+		var/mob/living/carbon/human/burpee = user
+		if(COOLDOWN_FINISHED(burpee, special_emote_cooldown))
+			..()
+			COOLDOWN_START(burpee, special_emote_cooldown, 15 SECONDS)
+		else
+			to_chat(user, "<span class='warning'>You try to burp, but can't seem to do it again just yet.</span>")
 		return TRUE
 
 // Robotic Tongue emotes. Beep!
