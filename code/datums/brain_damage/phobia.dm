@@ -159,6 +159,7 @@
 				fear_state = PHOBIA_STATE_TERROR
 				owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE)
 				owner.visible_message("<span class ='danger'>[owner] collapses into a fetal position and cowers in fear!</span>", "<span class ='userdanger'>I'm done for...</span>")
+				owner.Paralyze(80)
 				owner.Jitter(8)
 				stress++
 				if(prob(stress * 5))
