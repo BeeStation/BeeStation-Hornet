@@ -1,0 +1,5 @@
+author: Dakae Reds88
+delete-after: true
+changes:
+  - bugfix: Fixes an exploit related to imperfect mutation toxin
+  - tweak: Imperfect Mutation Toxin no longer instantly transforms the user upon processing
