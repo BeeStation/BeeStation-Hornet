@@ -282,7 +282,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "Shuttle Control";
-	req_one_access_txt = "19"
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
