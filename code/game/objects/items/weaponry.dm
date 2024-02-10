@@ -799,16 +799,25 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_flags = DROPDEL | ABSTRACT | ISWEAPON
 	attack_verb = list("bopped")
 
+/obj/item/middlefinger
+	name = "middle finger"
+	desc = "A gesture says more than a thousand words."
+	icon_state = "middlefinger"
+	force = 0
+	throwforce = 0
+	item_flags = DROPDEL | ABSTRACT | ISWEAPON
+	attack_verb = list("flipped")
 /obj/item/slapper
 	name = "slapper"
 	desc = "This is how real men fight."
-	icon_state = "latexballon"
+	icon_state = "open_hand"
 	item_state = "nothing"
 	force = 0
 	throwforce = 0
 	item_flags = DROPDEL | ABSTRACT | ISWEAPON
 	attack_verb = list("slapped")
 	hitsound = 'sound/effects/snap.ogg'
+
 	/// How many smaller table smacks we can do before we're out
 	var/table_smacks_left = 3
 
