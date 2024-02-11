@@ -5,7 +5,7 @@
 	conductivity = 0
 	contribute_calibration = FALSE
 	can_pearl = FALSE
-	flags = XENOA_MISC_TRAIT
+	flags = XENOA_MISC_TRAIT | XENOA_HIDE_TRAIT
 
 /*
 	Objective trait for exploration artifacts
@@ -31,7 +31,7 @@
 
 /datum/xenoartifact_trait/activator/weighted/closet
 	material_desc = null
-	flags = XENOA_MISC_TRAIT
+	flags = XENOA_MISC_TRAIT | XENOA_HIDE_TRAIT
 
 /datum/xenoartifact_trait/activator/weighted/closet/New(atom/_parent)
 	. = ..()
@@ -57,7 +57,7 @@
 	return TRUE
 
 /obj/structure/closet/artifact
-	name = "Bishop" //Proper name
+	name = "\The Bishop" //Proper name
 
 /obj/structure/closet/artifact/ComponentInitialize()
 	. = ..()

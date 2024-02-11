@@ -36,6 +36,7 @@
 #define XENOA_BANANIUM_TRAIT		(1<<3)
 #define XENOA_PEARL_TRAIT		    (1<<4)
 #define XENOA_MISC_TRAIT		    (1<<5)
+#define XENOA_HIDE_TRAIT		    (1<<6)
 
 ///trait cooldowns
 #define XENOA_TRAIT_COOLDOWN_EXTRA_SAFE -3 SECONDS

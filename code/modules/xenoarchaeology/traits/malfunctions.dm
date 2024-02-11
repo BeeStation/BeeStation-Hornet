@@ -256,24 +256,45 @@
 	rarity = XENOA_TRAIT_WEIGHT_RARE
 	///Max explosion stat
 	var/max_explosion = 5
+	///Are we exploding?
+	var/exploding
+	///Ref to the exploding effect
+	var/atom/movable/exploding_indicator //We can't use an overlay, becuase it breaks filters, and the overlay filter doesn't animate
+
+/datum/xenoartifact_trait/malfunction/explosion/New(atom/_parent)
+	. = ..()
+	var/obj/A = parent.parent
+	//Make the artifact robust so it doesn't destroy itself
+	A.armor = list(MELEE = 20,  BULLET = 0, LASER = 20, ENERGY = 10, BOMB = 500, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 10)
+	//Build indicator appearance
+	exploding_indicator = new()
+	exploding_indicator.appearance = mutable_appearance('icons/obj/xenoarchaeology/xenoartifact.dmi', "explosion_warning", plane = LOWEST_EVER_PLANE)
+	exploding_indicator.render_target = "[REF(exploding_indicator)]"
+	exploding_indicator.vis_flags = VIS_UNDERLAY
+	exploding_indicator.appearance_flags = KEEP_APART
+	//Get it nearby so we can render it later
+	A.vis_contents += exploding_indicator
+
+/datum/xenoartifact_trait/malfunction/explosion/Destroy(force, ...)
+	. = ..()
+	QDEL_NULL(exploding_indicator)
 
 /datum/xenoartifact_trait/malfunction/explosion/trigger(datum/source, _priority, atom/override)
 	. = ..()
-	if(!.)
+	if(!. || exploding)
 		return
+	exploding = TRUE
 	var/atom/A = parent.parent
 	A.visible_message("<span class='warning'>The [A] begins to heat up, it's delaminating!</span>", allow_inside_usr = TRUE)
 	addtimer(CALLBACK(src, PROC_REF(explode)), 30*(parent.trait_strength/100) SECONDS)
-	//Fancy animation
-	//TODO: Picking up and dropping breaks this animation - Racc
-	A.color = COLOR_RED
-	var/matrix/old_transform = A.transform
-	var/matrix/new_transform = A.transform
-	new_transform.Scale(1.3, 1.3)
-	animate(parent.parent, transform = new_transform, time = 0.5 SECONDS, loop = -1, flags = ANIMATION_PARALLEL)
-	animate(transform = old_transform, time = 0.5 SECONDS)
+	//Fancy effect to alert players
+	A.add_filter("explosion_indicator", 1.1, layering_filter(render_source = exploding_indicator.render_target, blend_mode = BLEND_INSET_OVERLAY))
 
 /datum/xenoartifact_trait/malfunction/explosion/proc/explode()
+	var/atom/A = parent.parent
+	A.remove_filter("explosion_indicator")
+	if(parent.calcified) //Let players defuse it
+		return
 	explosion(get_turf(parent.parent), max_explosion/3*(parent.trait_strength/100), max_explosion/2*(parent.trait_strength/100), max_explosion*(parent.trait_strength/100), max_explosion*(parent.trait_strength/100))
 	parent.calcify()
 

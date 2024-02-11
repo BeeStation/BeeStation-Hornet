@@ -215,8 +215,8 @@
 	//Check if we're at our heart location, which is based on our weight-x and conductivity-y
 	var/atom/A = parent.parent
 	if(target.x % weight == 0 && target.y % conductivity == 0)
-		//TODO: make an effect for this, see atomic cowboy, is the reference - Racc
-		A.visible_message("<span class='warning'>[A] develops a slight opening!</span>\n<span class='notice'>You could probably use a screwdriver on [A]!</span>", allow_inside_usr = TRUE)
+		var/atom/target_loc = A.loc
+		target_loc.visible_message("<span class='warning'>[A] develops a slight opening!</span>\n<span class='notice'>You could probably use a screwdriver on [A]!</span>", allow_inside_usr = TRUE)
 		//Do effects
 	else
 		//Undo effects
@@ -268,7 +268,7 @@
 	var/list/temp = subtypesof(path)
 	var/list/weighted = list()
 	for(var/datum/xenoartifact_trait/T as() in temp)
-		if(initial(T.flags) & XENOA_MISC_TRAIT)
+		if(initial(T.flags) & XENOA_HIDE_TRAIT)
 			continue
 		if(keyed)
 			weighted += list(initial(T.label_name) = (T))
@@ -280,7 +280,7 @@
 /proc/compile_artifact_whitelist(var/flags)
 	var/list/output = list()
 	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
-		if(initial(T.flags) & XENOA_MISC_TRAIT)
+		if(initial(T.flags) & XENOA_HIDE_TRAIT)
 			continue
 		if(!ispath(flags))
 			if((initial(T.flags) & flags))

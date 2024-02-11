@@ -414,9 +414,9 @@
 		A.add_filter("texture_overlay", 1, layering_filter(icon = I, blend_mode = BLEND_INSET_OVERLAY))
 		//Throw on some outlines
 		//TODO: Check if this fix is still needed in 515 - Racc from 514
-		A.add_filter("outline_fix", 1.1, outline_filter(0)) //This fixes a weird byond thing. BLEND_INSET_OVERLAY will encrouch on outline 1 if we dont do this
-		A.add_filter("outline_1", 2, outline_filter(1, "#000", flags = OUTLINE_SHARP))
-		A.add_filter("outline_2", 3, outline_filter(1, artifact_type.material_color, flags = OUTLINE_SHARP))
+		A.add_filter("outline_fix", 2, outline_filter(0)) //This fixes a weird byond thing. BLEND_INSET_OVERLAY will encrouch on outline 1 if we dont do this
+		A.add_filter("outline_1", 3, outline_filter(1, "#000", flags = OUTLINE_SHARP))
+		A.add_filter("outline_2", 4, outline_filter(1, artifact_type.material_color, flags = OUTLINE_SHARP))
 
 ///Create a hint beam from the artifact to the target
 /datum/component/xenoartifact/proc/create_beam(atom/movable/target)
