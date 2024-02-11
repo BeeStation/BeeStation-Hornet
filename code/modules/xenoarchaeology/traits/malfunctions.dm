@@ -277,7 +277,7 @@
 	//Get it nearby so we can render it later
 	A.vis_contents += exploding_indicator
 	//Register a signal to cancel the process
-	//TODO XENOA_CALCIFIED signal
+	RegisterSignal(parent, XENOA_CALCIFIED, PROC_REF(cancel_explosion))
 
 /datum/xenoartifact_trait/malfunction/explosion/Destroy(force, ...)
 	. = ..()
@@ -287,20 +287,28 @@
 	. = ..()
 	if(!. || exploding)
 		return
-	exploding = TRUE
 	var/atom/A = parent.parent
 	A.visible_message("<span class='warning'>The [A] begins to heat up, it's delaminating!</span>", allow_inside_usr = TRUE)
-	addtimer(CALLBACK(src, PROC_REF(explode)), 30*(parent.trait_strength/100) SECONDS)
+	exploding = addtimer(CALLBACK(src, PROC_REF(explode)), 30*(parent.trait_strength/100) SECONDS, TIMER_STOPPABLE)
 	//Fancy effect to alert players
 	A.add_filter("explosion_indicator", 1.1, layering_filter(render_source = exploding_indicator.render_target, blend_mode = BLEND_INSET_OVERLAY))
 
 /datum/xenoartifact_trait/malfunction/explosion/proc/explode()
 	var/atom/A = parent.parent
 	A.remove_filter("explosion_indicator")
-	if(parent.calcified) //Let players defuse it
+	if(parent.calcified) //Just in-case this somehow happens
 		return
 	explosion(get_turf(parent.parent), max_explosion/3*(parent.trait_strength/100), max_explosion/2*(parent.trait_strength/100), max_explosion*(parent.trait_strength/100), max_explosion*(parent.trait_strength/100))
 	parent.calcify()
+
+//Tidy stuff up when we're calcified
+/datum/xenoartifact_trait/malfunction/explosion/proc/cancel_explosion()
+	SIGNAL_HANDLER
+
+	var/atom/A = parent.parent
+	A.remove_filter("explosion_indicator")
+	deltimer(exploding)
+	UnregisterSignal(parent, XENOA_CALCIFIED)
 
 /*
 	Mass Hallucinatory Injection

@@ -7,9 +7,8 @@
 	desc = "An adhesive graphic."
 	icon = 'icons/obj/sticker.dmi'
 	icon_state = "happy"
-	vis_flags = VIS_INHERIT_ID
 	w_class = WEIGHT_CLASS_TINY
-	appearance_flags = TILE_BOUND | PIXEL_SCALE | RESET_COLOR | RESET_ALPHA
+	appearance_flags = TILE_BOUND | PIXEL_SCALE | KEEP_APART
 	///Our current state for being stuck or unstuck
 	var/sticker_state = STICKER_STATE_ITEM
 	///Built appearance for item state
@@ -28,7 +27,7 @@
 	stuck_appearance = build_stuck_appearance()
 	//Sticker outline
 	if(do_outline)
-		add_filter("sticker_outline", 1, outline_filter(1.1, "#fff", flags = OUTLINE_SQUARE))
+		add_filter("sticker_outline", 1, outline_filter(1.1, "#fff"))
 
 /obj/item/sticker/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -75,18 +74,26 @@
 	switch(sticker_state)
 		if(STICKER_STATE_ITEM)
 			appearance = item_appearance
+			vis_flags = null
 		if(STICKER_STATE_STUCK)
 			appearance = stuck_appearance
+			vis_flags = VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_INHERIT_DIR
 		else
 			return
-	//We have to update the name everytime, due to how setting appearance works
-	name = initial(name)
 
 /obj/item/sticker/proc/build_item_appearance()
-	return mutable_appearance(src.icon, src.icon_state)
+	return setup_appearance(mutable_appearance(src.icon, src.icon_state))
 
 /obj/item/sticker/proc/build_stuck_appearance()
-	return mutable_appearance(sticker_icon || src.icon, sticker_icon_state || src.icon_state)
+	return setup_appearance(mutable_appearance(sticker_icon || src.icon, sticker_icon_state || src.icon_state))
+
+//used to set appearance stuff that gets reset by appearance assigns
+/obj/item/sticker/proc/setup_appearance(_appearance)
+	var/mutable_appearance/MA = _appearance
+	MA.name = name
+	MA.appearance_flags = appearance_flags
+	MA.desc = desc
+	return MA
 
 /obj/item/sticker/proc/can_stick(atom/target)
-	return ismovable(target) ? TRUE : FALSE
+	return ismovable(target) || iswallturf(target) ? TRUE : FALSE

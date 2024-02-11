@@ -70,21 +70,3 @@
 #define XENOA_TRAIT_HINT_TWIN_VARIANT(X) list("icon" = "fingerprint", "desc" = "This variant will [X].")
 #define XENOA_TRAIT_HINT_RANDOMISED list("icon" = "dice", "desc" = "This trait's effects may differ between instances.")
 #define XENOA_TRAIT_HINT_APPEARANCE(X) list("icon" = "snowflake", "desc" = "This trait's changes the artifact's appearance. [X]")
-
-/*
-old content
-*/
-
-///Discovery point reward
-#define XENOA_DP 350
-#define XENOA_SOLD_DP 350
-///Reserach point reward (modifer)
-#define XENOA_RP 2.5
-
-///Chance to avoid target if wearing bomb suit
-#define XENOA_DEFLECT_CHANCE 45
-
-//Xenoartifact signals.
-#define XENOA_DEFAULT_SIGNAL "xenoa_default_signal"
-#define XENOA_SIGNAL "xenoa_signal"
-#define XENOA_CHANGE_PRICE "xenoa_change_price"

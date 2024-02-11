@@ -19,6 +19,9 @@ GLOBAL_LIST(xenoa_uranium_traits)
 GLOBAL_LIST(xenoa_bananium_traits)
 GLOBAL_LIST(xenoa_pearl_traits)
 
+///Whitelist of items ofr familiar artifacts
+GLOBAL_LIST_INIT(xenoa_familiar_items, list(/obj/item/kitchen/fork))
+
 ///Fill globals
 /proc/generate_xenoa_statics()
 	if(length(GLOB.xenoa_all_traits))
