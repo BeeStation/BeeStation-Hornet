@@ -484,9 +484,3 @@
 	
 /obj/effect/turf_decal/evac/evac_massive_right
 	icon_state = "evac_massive_right"
-	
-	
-	
-	
-	
-	
