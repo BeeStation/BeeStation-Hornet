@@ -8,6 +8,10 @@
 	density = FALSE
 	circuit = /obj/item/circuitboard/machine/bioscanner
 
+	idle_power_usage = 1000
+	active_power_usage = 10000
+	use_power = IDLE_POWER_USE
+
 	state_open = TRUE
 	clicksound = 'sound/machines/pda_button1.ogg'
 	var/datum/looping_sound/bioscanner/soundloop
@@ -22,7 +26,7 @@
 
 /obj/machinery/bioscanner/Initialize(mapload)
 	. = ..()
-	occupant_typecache = GLOB.typecache_living //TODO someone explain to me what this means or does.
+	occupant_typecache = GLOB.typecache_living
 	update_appearance()
 	RefreshParts()
 	soundloop = new(src, FALSE)
@@ -158,6 +162,7 @@
 /obj/machinery/bioscanner/proc/startscan(mob/user)
 	var/mob/living/mob_occupant = occupant
 	if(!scanning && !state_open && occupant && iscarbon(mob_occupant))
+		use_power = ACTIVE_POWER_USE
 		scanning = TRUE
 		ActivityStatus()
 		visible_message("<span class='notice'> The Bio-Scanner hums to life.</span>")
@@ -169,6 +174,7 @@
 		return
 
 /obj/machinery/bioscanner/proc/bioscanComplete()
+	use_power = IDLE_POWER_USE
 	scanning = FALSE
 	ActivityStatus()
 	var/mob/living/mob_occupant = occupant
