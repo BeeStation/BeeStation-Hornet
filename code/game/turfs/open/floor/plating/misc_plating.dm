@@ -106,6 +106,26 @@
 	icon_state = "[icon_state][rand(1, 9)]"
 	. = ..()
 
+/turf/open/floor/plating/grass //it's 100% real
+	name = "lush grass"
+	desc = "Green and warm, makes you want to lay down."
+	icon = 'icons/turf/floors/grass.dmi'
+	icon_state = "grass"
+	base_icon_state = "grass"
+	flags_1 = NONE
+	bullet_bounce_sound = null
+	layer = EDGED_TURF_LAYER
+	footstep = FOOTSTEP_GRASS
+	barefootstep = FOOTSTEP_GRASS
+	clawfootstep = FOOTSTEP_GRASS
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_GRASS)
+	canSmoothWith = list(SMOOTH_GROUP_FLOOR_GRASS)
+	tiled_dirt = FALSE
+	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
+	resistance_flags = INDESTRUCTIBLE
+	var/static/datum/gas_mixture/immutable/planetary
 
 /turf/open/floor/plating/beach
 	name = "beach"

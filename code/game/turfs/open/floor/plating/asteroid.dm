@@ -7,14 +7,12 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
-	baseturfs = /turf/open/floor/plating/asteroid
 	resistance_flags = INDESTRUCTIBLE
 	postdig_icon_change = TRUE
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	max_integrity = 200
 	damage_deflection = 0
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/open/floor/plating/asteroid //Because caves do whacky shit to revert to normal
@@ -77,6 +75,15 @@
 			for(var/obj/item/stack/ore/O in src)
 				SEND_SIGNAL(W, COMSIG_PARENT_ATTACKBY, O)
 
+/turf/open/floor/plating/asteroid/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
+	if(the_rcd.canRturf)
+		return ..()
+
+
+/turf/open/floor/plating/asteroid/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+	if(the_rcd.canRturf)
+		return ..()
+
 /turf/open/floor/plating/lavaland_baseturf
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 
@@ -122,6 +129,10 @@
 	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = TRUE
 	baseturfs = /turf/open/lava/smooth/cold
+
+/turf/open/floor/plating/asteroid/basalt/planetary
+	resistance_flags = INDESTRUCTIBLE
+	var/static/datum/gas_mixture/immutable/planetary
 
 /turf/open/floor/plating/asteroid/airless
 	initial_gas_mix = AIRLESS_ATMOS

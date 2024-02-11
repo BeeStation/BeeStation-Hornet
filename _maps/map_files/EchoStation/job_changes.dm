@@ -15,6 +15,21 @@ MAP_REMOVE_JOB(virologist)
 	MAP_JOB_CHECK
 	spawn_positions = 1
 	total_positions = 1
+/datum/job/chemist/New()
+	..()
+	MAP_JOB_CHECK
+	spawn_positions = 1
+	total_positions = 1
+/datum/job/janitor/New()
+	..()
+	MAP_JOB_CHECK
+	spawn_positions = 1
+	total_positions = 1
+/datum/job/lawyer/New()
+	..()
+	MAP_JOB_CHECK
+	spawn_positions = 1
+	total_positions = 1
 /datum/job/botanist/New()
 	..()
 	MAP_JOB_CHECK
