@@ -51,6 +51,19 @@
 /obj/item/xenoartifact/tutorial/add_artifact_component()
 	AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/bluespace, list(/datum/xenoartifact_trait/activator/strudy, /datum/xenoartifact_trait/minor/slippery, /datum/xenoartifact_trait/minor/charged, /datum/xenoartifact_trait/minor/cooling, /datum/xenoartifact_trait/major/hollow))
 
+///Pre-labeled varient
+/obj/item/xenoartifact/pre_labeled
+
+/obj/item/xenoartifact/pre_labeled/ComponentInitialize()
+	. = ..()
+	var/datum/component/xenoartifact/X = GetComponent(/datum/component/xenoartifact)
+	var/trait_list = list()
+	for(var/i in X.artifact_traits)
+		for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
+			trait_list += T.type
+	var/obj/item/sticker/xenoartifact_label/old/P = new(get_turf(src), trait_list)
+	P.afterattack(src, src, TRUE)
+
 /*
 	Export datum, so we can sell artifacts for dosh
 */
@@ -377,6 +390,8 @@
 	do_mask = old_mask
 	//Disable artifact
 	cooldown_override = TRUE
+
+	SEND_SIGNAL(src, XENOA_CALCIFIED)
 
 //Calibrates. Does the opposite of calcify
 /datum/component/xenoartifact/proc/calibrate()

@@ -263,6 +263,8 @@
 
 /datum/xenoartifact_trait/malfunction/explosion/New(atom/_parent)
 	. = ..()
+	if(!parent?.parent)
+		return
 	var/obj/A = parent.parent
 	//Make the artifact robust so it doesn't destroy itself
 	A.armor = list(MELEE = 20,  BULLET = 0, LASER = 20, ENERGY = 10, BOMB = 500, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 10)
@@ -274,6 +276,8 @@
 	exploding_indicator.appearance_flags = KEEP_APART
 	//Get it nearby so we can render it later
 	A.vis_contents += exploding_indicator
+	//Register a signal to cancel the process
+	//TODO XENOA_CALCIFIED signal
 
 /datum/xenoartifact_trait/malfunction/explosion/Destroy(force, ...)
 	. = ..()

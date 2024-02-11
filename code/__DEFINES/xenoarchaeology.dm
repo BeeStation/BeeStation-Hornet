@@ -20,6 +20,8 @@
 
 ///Signal for artifact trigger
 #define XENOA_TRIGGER "xenoa_trigger"
+///Signal for artifact calcified
+#define XENOA_CALCIFIED "xenoa_calcified"
 
 ///generic starting cooldown timer for triggers
 #define XENOA_GENERIC_COOLDOWN 5 SECONDS

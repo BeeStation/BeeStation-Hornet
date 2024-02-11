@@ -194,6 +194,16 @@
 	///The original custom price of the item we're going to label
 	var/old_custom_price
 
+/obj/item/sticker/xenoartifact_label/old
+	name = "old artifact label"
+	color = "#bd812e"
+
+/obj/item/sticker/xenoartifact_label/old/build_stuck_appearance()
+	var/mutable_appearance/MA = mutable_appearance(sticker_icon || src.icon, sticker_icon_state || src.icon_state)
+	MA.color = color
+	return MA
+
+
 /obj/item/sticker/xenoartifact_label/Initialize(mapload, list/_traits)
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
 	//Setup traits & examine desc
