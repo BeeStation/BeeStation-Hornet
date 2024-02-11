@@ -157,7 +157,7 @@
 
 /obj/machinery/bioscanner/proc/startscan(mob/user)
 	var/mob/living/mob_occupant = occupant
-	if(!state_open && occupant && iscarbon(mob_occupant))
+	if(!scanning && !state_open && occupant && iscarbon(mob_occupant))
 		scanning = TRUE
 		ActivityStatus()
 		visible_message("<span class='notice'> The Bio-Scanner hums to life.</span>")
@@ -250,10 +250,10 @@
 			result += "<hr /><b><font color=["red"]>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</font></b>"
 
 	if(mob_occupant.tod && (mob_occupant.stat == DEAD || ((HAS_TRAIT(mob_occupant, TRAIT_FAKEDEATH)))))
-		result += "<span class='info'>Time of Death: [mob_occupant.tod]</span>"
+		result += "Time of Death: [mob_occupant.tod]<br>"
 		var/tdelta = round(world.time - mob_occupant.timeofdeath)
 		if(tdelta < (DEFIB_TIME_LIMIT * 10))
-			result += "<span class='alert'><b>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</b></span>"
+			result += "<b>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</b><br>"
 
 	result += "<hr />"
 
@@ -291,6 +291,17 @@
 
 	//Organs!
 	result += "<h2>ORGANS</h2><br>"
+
+	if(ishuman(occupant))
+		result += "<b>Detected Internal Organs:</b><br>"
+		for(var/O in H.internal_organs)
+			var/obj/item/organ/organ = O
+			if(organ.damage >= 60)
+				result += " - <b><font color=["red"]>WARNING:[organ.name] at [organ.damage] damage.</b></font><br>"
+			else if(organ.damage >= 30)
+				result += " - <b>[organ.name] at [organ.damage] damage.</b><br>"
+			else
+				result += " - [organ.name] at [organ.damage] damage.<br>"
 
 	for(var/obj/item/bodypart/limb as anything in H.bodyparts)
 		for(var/obj/item/embed as anything in limb.embedded_objects)
@@ -350,6 +361,36 @@
 
 	//Blood
 	result += "<h2>BLOOD</h2><br>"
+
+	if(mob_occupant.has_dna())
+		var/blood_id = C.get_blood_id()
+		if(blood_id)
+			if(ishuman(C))
+				if(H.bleed_rate)
+					result += "<b>Subject currently losing blood.</b><br>"
+			var/blood_percent =  round((C.blood_volume / BLOOD_VOLUME_NORMAL)*100)
+			var/blood_type = C.dna.blood_type
+			if(blood_id != /datum/reagent/blood)//special blood substance
+				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
+				if(R)
+					blood_type = R.name
+				else
+					blood_type = blood_id
+			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
+				result += "Blood level: LOW [blood_percent] %, [C.blood_volume] cl.<br> Blood Type: [blood_type].<br>"
+			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
+				result += "Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl.<br> Blood Type: [blood_type].<br>"
+			else
+				result += "Blood level: [blood_percent] %, [C.blood_volume] cl.<br> Blood Type: [blood_type].<br>"
+
+	for(var/thing in mob_occupant.diseases)
+		var/datum/disease/D = thing
+		if(!(D.visibility_flags & HIDDEN_SCANNER))
+			result += "<b>Warning: [D.form] detected</b><br>\
+			Name: [D.name].<br>\
+			Type: [D.spread_text].<br>\
+			Stage: [D.stage]/[D.max_stages].<br>\
+			Possible Cure: [D.cure_text]<br>"
 
 	result += "<hr />"
 

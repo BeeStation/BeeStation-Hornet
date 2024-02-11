@@ -193,6 +193,11 @@ GENE SCANNER
 	if(isliving(user) && user.incapacitated())
 		return
 
+	if(M.radiation >= 100)
+		to_chat(user, "<span class='alert'>WARNING: SUBJECT RADIATION ABOVE SAFE LEVELS. SCAN ABORTED.</span>", type = MESSAGE_TYPE_WARNING)
+		return
+	M.rad_act(250)
+
 	// the final list of strings to render
 	var/message = list()
 
