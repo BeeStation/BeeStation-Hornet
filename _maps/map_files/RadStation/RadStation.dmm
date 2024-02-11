@@ -376,8 +376,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/bed/roller,
-/obj/item/bedsheet/medical,
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/sleeper)
 "afv" = (
@@ -1459,8 +1458,7 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/freezer/blood,
-/obj/item/defibrillator/loaded,
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel,
 /area/security/brig{
 	name = "Brig medbay"
@@ -34280,7 +34278,6 @@
 	pixel_x = 4;
 	pixel_y = 10
 	},
-/obj/item/healthanalyzer,
 /obj/item/analyzer,
 /obj/item/clothing/gloves/artifact_pinchers{
 	pixel_y = 3
@@ -56224,6 +56221,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
+"rOY" = (
+/obj/structure/curtain,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/defibrillator/loaded,
+/obj/structure/closet/crate/freezer/blood,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "rPf" = (
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
 	dir = 1
@@ -74368,17 +74375,6 @@
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/obj/item/healthanalyzer{
-	pixel_y = 10
-	},
-/obj/item/healthanalyzer{
-	pixel_x = 1;
-	pixel_y = 7
-	},
-/obj/item/healthanalyzer{
-	pixel_x = 3;
-	pixel_y = 4
-	},
 /obj/machinery/requests_console{
 	department = "Robotics Lab";
 	name = "Robotics RC";
@@ -74389,6 +74385,8 @@
 	pixel_x = 32;
 	pixel_y = 1
 	},
+/obj/item/assembly/health,
+/obj/item/assembly/health,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics)
 "xCR" = (
@@ -100356,7 +100354,7 @@ fHK
 pdH
 hfH
 joN
-iOa
+rOY
 uBz
 fIv
 uBz

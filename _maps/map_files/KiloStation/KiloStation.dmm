@@ -36901,13 +36901,11 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
-/obj/machinery/iv_drip,
 /obj/effect/turf_decal/bot,
 /obj/machinery/vending/wallmed/lite{
 	pixel_y = 26
 	},
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/main)
 "fGZ" = (
@@ -40998,7 +40996,6 @@
 "heD" = (
 /obj/structure/table,
 /obj/item/cautery,
-/obj/item/healthanalyzer,
 /obj/item/surgicaldrill{
 	pixel_y = 5
 	},
@@ -41181,9 +41178,6 @@
 	name = "First-Aid (empty)"
 	},
 /obj/item/stack/package_wrap,
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
 /obj/machinery/camera{
 	c_tag = "Robotics Lab";
 	name = "science camera";
@@ -41195,6 +41189,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/item/assembly/health,
+/obj/item/assembly/health,
+/obj/item/assembly/health,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "hhC" = (
@@ -56694,7 +56691,6 @@
 	},
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex,
-/obj/item/healthanalyzer,
 /obj/item/storage/box/bodybags,
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = -3;
@@ -58807,6 +58803,15 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"naN" = (
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/medbay/central)
 "naW" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
@@ -71979,10 +71984,6 @@
 /obj/item/storage/firstaid/regular{
 	pixel_y = 4
 	},
-/obj/item/healthanalyzer{
-	pixel_x = -4;
-	pixel_y = 22
-	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -73441,7 +73442,6 @@
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 9
 	},
-/obj/item/healthanalyzer,
 /obj/machinery/keycard_auth{
 	pixel_x = 6;
 	pixel_y = -24
@@ -77974,7 +77974,6 @@
 /area/maintenance/central)
 "tyY" = (
 /obj/structure/table,
-/obj/item/healthanalyzer,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -84142,17 +84141,17 @@
 /turf/closed/wall/r_wall,
 /area/maintenance/starboard)
 "vGw" = (
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/bed/roller,
-/obj/item/bedsheet/medical,
-/obj/machinery/iv_drip,
 /obj/machinery/light_switch{
 	pixel_x = 25
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/obj/machinery/bioscanner,
+/obj/effect/turf_decal/tile/dark/anticorner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "vGx" = (
 /obj/machinery/light/small,
@@ -89133,20 +89132,17 @@
 	},
 /area/maintenance/fore)
 "xiX" = (
-/obj/effect/turf_decal/tile/blue/half/contrasted{
-	dir = 4
-	},
-/obj/structure/bed/roller,
-/obj/item/bedsheet/medical,
-/obj/machinery/iv_drip,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/corner{
+/obj/machinery/firealarm/directional/north,
+/obj/effect/turf_decal/tile/dark/anticorner{
 	dir = 1
 	},
-/obj/machinery/firealarm/directional/north,
-/turf/open/floor/plasteel/showroomfloor,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "xjc" = (
 /obj/effect/turf_decal/bot,
@@ -91211,12 +91207,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "xUZ" = (
-/obj/effect/turf_decal/tile/blue/half/contrasted,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+/obj/effect/turf_decal/tile/dark/anticorner,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
 	},
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "xVb" = (
 /obj/effect/turf_decal/stripes/line{
@@ -113111,7 +113106,7 @@ gNc
 aNn
 aNn
 xiX
-lHq
+naN
 dpy
 lHq
 lHq

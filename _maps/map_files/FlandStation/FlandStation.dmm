@@ -278,6 +278,9 @@
 /area/engine/atmos)
 "adk" = (
 /obj/machinery/firealarm/directional/north,
+/obj/effect/turf_decal/trimline/blue/filled/line{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "adt" = (
@@ -4004,6 +4007,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/effect/turf_decal/trimline/blue/filled/corner{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "aTo" = (
@@ -4907,10 +4913,6 @@
 /obj/structure/rack,
 /obj/item/analyzer,
 /obj/item/plant_analyzer,
-/obj/item/healthanalyzer{
-	pixel_x = 4;
-	pixel_y = -4
-	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
 "bez" = (
@@ -9429,7 +9431,6 @@
 "csP" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
-/obj/item/healthanalyzer,
 /obj/item/stack/medical/bruise_pack{
 	pixel_x = 4
 	},
@@ -20080,7 +20081,6 @@
 /obj/item/stack/medical/ointment{
 	pixel_y = 4
 	},
-/obj/item/healthanalyzer,
 /obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
@@ -41481,6 +41481,9 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
+/obj/effect/turf_decal/trimline/blue/filled/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "kyZ" = (
@@ -56770,6 +56773,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"owq" = (
+/obj/effect/turf_decal/trimline/blue/filled/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/surgery)
 "owt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -73780,7 +73789,6 @@
 	empty = 1;
 	name = "First-Aid (empty)"
 	},
-/obj/item/healthanalyzer,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "sQn" = (
@@ -76535,7 +76543,6 @@
 	empty = 1;
 	name = "First-Aid (empty)"
 	},
-/obj/item/healthanalyzer,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating{
@@ -82821,7 +82828,6 @@
 "vcf" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
-/obj/item/healthanalyzer,
 /obj/item/stack/medical/bruise_pack{
 	pixel_x = 4
 	},
@@ -93798,7 +93804,10 @@
 	name = "medbay camera";
 	network = list("ss13","medbay")
 	},
-/turf/open/floor/plasteel/white,
+/obj/machinery/bioscanner,
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
 /area/medical/surgery)
 "xwp" = (
 /obj/effect/decal/cleanable/greenglow,
@@ -125895,7 +125904,7 @@ lUT
 lUT
 lhn
 aBo
-xLt
+owq
 aTl
 qlI
 abG
