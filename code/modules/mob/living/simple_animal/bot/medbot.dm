@@ -565,8 +565,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 							if(!reagent_glass.reagents.total_volume)
 								var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')
 								var/message = pick(messagevoice)
-								speak(message)
+								speak(message,radio_channel)
 								playsound(src, messagevoice[message], 50)
+								declare_cooldown = world.time + 100
 					else
 						patient.reagents.add_reagent(reagent_id,injection_amount)
 						log_combat(src, patient, "injected", "internal synthesizer", "[reagent_id]:[injection_amount]")
