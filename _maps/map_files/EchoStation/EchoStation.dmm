@@ -230,7 +230,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "agO" = (
 /obj/structure/chair/office{
@@ -313,7 +313,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "aip" = (
 /obj/structure/railing/corner,
@@ -692,7 +692,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/storage/tech)
 "amM" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted{
@@ -3919,6 +3919,17 @@
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
 /area/maintenance/department/engine/atmos)
+"bzj" = (
+/obj/structure/stairs,
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = -31;
+	pixel_x = -15
+	},
+/turf/open/floor/pod/dark,
+/area/hallway/primary/fore{
+	name = "-1 Primary Hallway"
+	})
 "bAa" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
@@ -3975,7 +3986,7 @@
 	dir = 5
 	},
 /obj/structure/railing/corner,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "bBR" = (
 /obj/effect/turf_decal/stripes/line{
@@ -4998,7 +5009,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "cjQ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -5923,7 +5934,7 @@
 	pixel_x = -10;
 	pixel_y = 19
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "cIp" = (
 /obj/machinery/power/apc/auto_name/north{
@@ -6112,7 +6123,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/security/prison)
 "cPf" = (
 /obj/machinery/light_switch{
@@ -6349,7 +6360,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "cXj" = (
 /obj/structure/railing{
@@ -6386,7 +6397,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "cXI" = (
 /turf/open/floor/plasteel,
@@ -7199,7 +7210,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "dCm" = (
 /obj/structure/table_frame/wood,
@@ -7392,7 +7403,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "dHq" = (
 /obj/effect/turf_decal/stripes/line{
@@ -7608,7 +7619,7 @@
 "dNK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "dNV" = (
 /obj/structure/railing/corner,
@@ -7621,7 +7632,7 @@
 	})
 "dNX" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "dOk" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -7672,7 +7683,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "dPx" = (
 /obj/item/kirbyplants/random,
@@ -8528,7 +8539,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/department/crew_quarters/bar)
 "etN" = (
-/turf/open/floor/grass,
+/turf/open/floor/grass/real,
 /area/asteroid/paradise/surface)
 "etV" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/nitrogen_input{
@@ -8869,7 +8880,7 @@
 /area/maintenance/department/crew_quarters/dorms)
 "eDl" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/grass,
+/turf/open/floor/grass/real,
 /area/asteroid/paradise/surface/grass)
 "eDq" = (
 /obj/machinery/light_switch{
@@ -8905,7 +8916,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "eDW" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -9461,7 +9472,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "eVr" = (
 /obj/machinery/holopad,
@@ -9959,7 +9970,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "fkv" = (
 /obj/structure/railing{
@@ -10425,7 +10436,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "fvY" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -10554,7 +10565,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "fzr" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -10571,7 +10582,7 @@
 	dir = 9
 	},
 /obj/structure/ladder,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "fAb" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -10745,7 +10756,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "fEV" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
@@ -11653,7 +11664,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "gbZ" = (
 /obj/structure/table/reinforced,
@@ -11850,7 +11861,7 @@
 /area/science/research)
 "ggb" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "ggo" = (
 /obj/structure/railing{
@@ -12385,7 +12396,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/grass,
+/turf/open/floor/grass/real,
 /area/asteroid/paradise/surface/grass)
 "gtH" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -13301,7 +13312,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "gRr" = (
 /obj/machinery/door/airlock/hatch{
@@ -13833,7 +13844,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "heR" = (
 /turf/closed/wall,
@@ -13870,7 +13881,7 @@
 "hfW" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "hgB" = (
 /obj/structure/sign/warning/fire,
@@ -14328,7 +14339,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "hwY" = (
 /turf/closed/wall/rust,
@@ -14351,7 +14362,7 @@
 "hyg" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "hyx" = (
 /obj/structure/lattice/catwalk/over,
@@ -15596,7 +15607,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/grass,
+/turf/open/floor/grass/real,
 /area/asteroid/paradise/surface/grass)
 "ikr" = (
 /obj/structure/railing{
@@ -16278,7 +16289,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "iKX" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -16517,7 +16528,7 @@
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/chapel/office)
 "iTA" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
@@ -16920,7 +16931,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "jkp" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -17284,7 +17295,7 @@
 	id = "pod_lavaland1";
 	name = "lavaland"
 	},
-/turf/open/floor/grass,
+/turf/open/floor/grass/real,
 /area/asteroid/paradise/surface/grass)
 "jtQ" = (
 /obj/effect/turf_decal/siding/wood{
@@ -18745,7 +18756,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "kfl" = (
 /turf/closed/wall/r_wall,
@@ -18898,7 +18909,7 @@
 	pixel_x = -16
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "kmg" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -19201,7 +19212,7 @@
 /area/maintenance/department/engine/atmos)
 "krR" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "krV" = (
 /obj/effect/turf_decal/sand/plating,
@@ -19375,7 +19386,7 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/coffin,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/chapel/office)
 "kxe" = (
 /obj/effect/landmark/start/librarian,
@@ -19440,7 +19451,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "kyK" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -19573,7 +19584,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "kBX" = (
 /obj/structure/sign/warning/explosives,
@@ -20109,7 +20120,7 @@
 	melee_damage = 10;
 	vision_range = 5
 	},
-/turf/open/floor/grass,
+/turf/open/floor/grass/real,
 /area/asteroid/paradise/surface/grass)
 "kWH" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -20669,7 +20680,7 @@
 /obj/structure/railing{
 	dir = 10
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "lnK" = (
 /obj/structure/filingcabinet/chestdrawer{
@@ -21289,7 +21300,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "lFO" = (
 /obj/structure/cable/yellow{
@@ -21466,7 +21477,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "lKU" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -21978,7 +21989,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "mbG" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -23087,7 +23098,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "mNm" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -23116,7 +23127,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "mNH" = (
 /obj/machinery/light/small{
@@ -23457,7 +23468,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "mWv" = (
 /obj/effect/turf_decal/box/corners{
@@ -23479,7 +23490,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "mWS" = (
 /obj/structure/curtain/directional{
@@ -23665,7 +23676,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "nbW" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -23679,7 +23690,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/science/mixing)
 "nck" = (
 /obj/effect/turf_decal/stripes/line{
@@ -23823,7 +23834,7 @@
 "nfZ" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "ngb" = (
 /obj/structure/cable{
@@ -23880,7 +23891,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/storage/tech)
 "niw" = (
 /obj/effect/spawner/structure/window,
@@ -24140,7 +24151,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "npn" = (
 /obj/structure/chair/stool{
@@ -24190,7 +24201,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "nrc" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -24544,7 +24555,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "nEl" = (
 /turf/open/floor/plasteel,
@@ -24664,7 +24675,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "nIh" = (
 /obj/machinery/vending/hydronutrients,
@@ -24679,7 +24690,7 @@
 /area/hydroponics)
 "nIp" = (
 /obj/effect/turf_decal/caution/stand_clear,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "nIr" = (
 /obj/effect/turf_decal/stripes/end{
@@ -24688,7 +24699,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/science/mixing)
 "nIw" = (
 /obj/structure/stairs{
@@ -24762,7 +24773,7 @@
 /area/maintenance/department/engine)
 "nKB" = (
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "nKL" = (
 /obj/machinery/smartfridge/chemistry,
@@ -24880,7 +24891,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "nPz" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -25260,7 +25271,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/storage/tech)
 "oeE" = (
 /obj/structure/cable{
@@ -25421,7 +25432,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "ojC" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -25429,7 +25440,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "okk" = (
 /obj/effect/decal/cleanable/blood/splatter,
@@ -25813,7 +25824,7 @@
 	name = "Engi Desk";
 	req_one_access_txt = "32;19"
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
@@ -25895,7 +25906,7 @@
 /area/science/lab)
 "ovD" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "ovP" = (
 /obj/structure/railing{
@@ -26764,7 +26775,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "oNp" = (
 /obj/effect/turf_decal/siding/white{
@@ -27931,7 +27942,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "pyQ" = (
 /obj/machinery/door/poddoor/incinerator_toxmix{
@@ -28002,7 +28013,7 @@
 /area/science/lab)
 "pAy" = (
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "pAJ" = (
 /obj/structure/window/reinforced{
@@ -28785,7 +28796,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/storage/tech)
 "pWT" = (
 /obj/structure/table/wood,
@@ -28905,7 +28916,7 @@
 /area/tcommsat/server)
 "pZd" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/grass,
+/turf/open/floor/grass/real,
 /area/asteroid/paradise/surface/grass)
 "pZC" = (
 /obj/structure/closet,
@@ -29063,7 +29074,7 @@
 	name = "motion-sensitive Technical Storage";
 	network = list("ss13","engine")
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/storage/tech)
 "qdO" = (
 /obj/structure/cable/yellow{
@@ -29346,7 +29357,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "qlj" = (
 /obj/effect/turf_decal/stripes/line{
@@ -29363,7 +29374,7 @@
 	name = "Toxins Launcher Bay Door"
 	},
 /obj/structure/fans/tiny,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/science/mixing)
 "qmz" = (
 /obj/machinery/holopad,
@@ -30062,7 +30073,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "qJo" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -30070,7 +30081,7 @@
 /area/quartermaster/storage)
 "qJs" = (
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/grass,
+/turf/open/floor/grass/real,
 /area/asteroid/paradise/surface/grass)
 "qJK" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -30640,7 +30651,7 @@
 /area/crew_quarters/heads/hop)
 "qZi" = (
 /obj/structure/flora/tree/jungle,
-/turf/open/floor/grass,
+/turf/open/floor/grass/real,
 /area/asteroid/paradise/surface)
 "qZq" = (
 /obj/machinery/light,
@@ -30795,7 +30806,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "rca" = (
 /obj/structure/ladder,
@@ -31539,7 +31550,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "rvl" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -32250,7 +32261,7 @@
 "rQE" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "rQH" = (
 /obj/effect/turf_decal/sand/plating,
@@ -32258,7 +32269,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "rRc" = (
 /obj/structure/table,
@@ -33275,7 +33286,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
@@ -33353,7 +33364,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/grass,
+/turf/open/floor/grass/real,
 /area/asteroid/paradise/surface/grass)
 "stC" = (
 /obj/effect/turf_decal/stripes/line,
@@ -33661,7 +33672,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "sDs" = (
 /obj/structure/chair/fancy/sofa/old/left{
@@ -33965,7 +33976,7 @@
 /area/maintenance/department/eva)
 "sLb" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "sLi" = (
 /obj/machinery/door/airlock/security/glass{
@@ -34313,7 +34324,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "sUh" = (
 /obj/machinery/computer/card/minor/hos,
@@ -34554,7 +34565,7 @@
 "tae" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "tay" = (
 /obj/machinery/disposal/bin,
@@ -35722,7 +35733,7 @@
 "tDr" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/public/glass,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
@@ -35767,7 +35778,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "tFX" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible/layer2{
@@ -36051,7 +36062,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "tMd" = (
 /obj/structure/cable/yellow{
@@ -36514,7 +36525,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "tUN" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
@@ -37034,7 +37045,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "upV" = (
 /obj/structure/railing,
@@ -37051,7 +37062,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "uqk" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/visible{
@@ -37996,7 +38007,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "uRz" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -38047,7 +38058,7 @@
 	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
 	width = 3
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "uSN" = (
 /obj/machinery/door/airlock/command{
@@ -38298,7 +38309,7 @@
 	},
 /area/bridge)
 "uXr" = (
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "uXy" = (
 /obj/machinery/door/airlock/grunge{
@@ -38761,7 +38772,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "vnd" = (
 /obj/effect/turf_decal/stripes/line,
@@ -38983,7 +38994,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "vtn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -39498,7 +39509,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "vMx" = (
 /obj/effect/turf_decal/stripes/line,
@@ -40627,7 +40638,7 @@
 "wsd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/rock/pile,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "wsP" = (
 /obj/structure/sign/warning/securearea{
@@ -40644,7 +40655,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "wtB" = (
 /obj/item/toy/beach_ball/holoball,
@@ -40955,7 +40966,7 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "wBp" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -41374,7 +41385,7 @@
 	name = "Secure Tech Storage";
 	req_access_txt = "19;23"
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/storage/tech)
 "wMY" = (
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
@@ -41734,7 +41745,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "wWf" = (
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "wWC" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -42124,7 +42135,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "xjn" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -42363,7 +42374,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "xpy" = (
 /turf/open/floor/plasteel/dark/side{
@@ -42456,7 +42467,7 @@
 /area/science/research)
 "xqm" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "xqU" = (
 /obj/structure/flora/rock/pile,
@@ -42853,7 +42864,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "xDF" = (
 /obj/machinery/air_sensor/atmos/mix_tank,
@@ -43317,7 +43328,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "xSM" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
@@ -43463,7 +43474,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "xVG" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -43607,7 +43618,7 @@
 /obj/machinery/status_display/ai{
 	pixel_x = -32
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel/techmaint/planetary,
 /area/storage/tech)
 "xZy" = (
 /obj/structure/railing/corner{
@@ -43776,7 +43787,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia,
+/turf/open/floor/sepia/planetary,
 /area/asteroid/paradise/surface)
 "yeZ" = (
 /obj/effect/turf_decal/numbers{
@@ -43917,7 +43928,7 @@
 /turf/closed/wall/r_wall,
 /area/science/lab)
 "yli" = (
-/turf/open/floor/grass,
+/turf/open/floor/grass/real,
 /area/asteroid/paradise/surface/grass)
 "ylx" = (
 /obj/structure/cable{
@@ -189332,7 +189343,7 @@ ayh
 jDL
 gqj
 nZB
-nZB
+bzj
 fgP
 pao
 urV
@@ -190617,7 +190628,7 @@ bYh
 dRo
 ceg
 nZB
-nZB
+bzj
 oam
 oam
 rNg

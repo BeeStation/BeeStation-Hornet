@@ -4,10 +4,11 @@
 /turf/open/floor/plating/asteroid //floor piece
 	gender = PLURAL
 	name = "asteroid sand"
-	baseturfs = /turf/open/floor/plating/asteroid
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
+	baseturfs = /turf/open/floor/plating/asteroid
+	resistance_flags = INDESTRUCTIBLE
 	postdig_icon_change = TRUE
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
