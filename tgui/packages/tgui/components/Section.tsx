@@ -5,7 +5,7 @@
  */
 
 import { canRender, classes } from 'common/react';
-import { forwardRef, ReactNode, RefObject, UIEventHandler, useEffect, useRef } from 'react';
+import { forwardRef, ReactNode, RefObject, useEffect, UIEventHandler } from 'react';
 
 import { addScrollableNode, removeScrollableNode } from '../events';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
@@ -74,19 +74,18 @@ export const Section = forwardRef((props: Props, forwardedRef: RefObject<HTMLDiv
     ...rest
   } = props;
 
-  const contentRef = useRef<HTMLDivElement>(null);
-
   const hasTitle = canRender(title) || canRender(buttons);
 
   /** We want to be able to scroll on hover, but using focus will steal it from inputs */
   useEffect(() => {
-    if (!contentRef.current) return;
+    if (!forwardedRef?.current) return;
     if (!scrollable && !scrollableHorizontal) return;
 
-    addScrollableNode(contentRef.current);
+    addScrollableNode(forwardedRef.current);
 
     return () => {
-      removeScrollableNode(contentRef.current!);
+      if (!forwardedRef?.current) return;
+      removeScrollableNode(forwardedRef.current!);
     };
   }, []);
 
@@ -102,8 +101,7 @@ export const Section = forwardRef((props: Props, forwardedRef: RefObject<HTMLDiv
         className,
         computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(rest)}
-      ref={forwardedRef}>
+      {...computeBoxProps(rest)}>
       {hasTitle && (
         <div className="Section__title">
           <span className="Section__titleText">{title}</span>
@@ -111,7 +109,12 @@ export const Section = forwardRef((props: Props, forwardedRef: RefObject<HTMLDiv
         </div>
       )}
       <div className="Section__rest">
-        <div className="Section__content" onScroll={onScroll} ref={contentRef}>
+        <div
+          className="Section__content"
+          onScroll={onScroll}
+          // For posterity: the forwarded ref needs to be here specifically
+          // to actually let things interact with the scrolling.
+          ref={forwardedRef}>
           {children}
         </div>
       </div>
