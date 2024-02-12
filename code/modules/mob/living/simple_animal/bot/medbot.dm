@@ -35,7 +35,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	window_name = "Automatic Medical Unit v1.1"
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 	path_image_color = "#DDDDFF"
-	var/obj/item/reagent_containers/glass/reagent_glass = null //Can be set to draw from this for reagents.
+	var/obj/item/reagent_containers/reagent_glass = null //Can be set to draw from this for reagents.
 	var/healthanalyzer = /obj/item/healthanalyzer
 	var/firstaid = /obj/item/storage/firstaid
 	var/skin = null //based off medkit_X skins in aibots.dmi for your selection; X goes here IE medskin_tox means skin var should be "tox"
@@ -210,7 +210,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 
 /mob/living/simple_animal/bot/medbot/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/reagent_containers/glass))
+	if(istype(W, /obj/item/reagent_containers))
 		. = 1 //no afterattack
 		if(locked)
 			to_chat(user, "<span class='warning'>You cannot insert a beaker because the panel is locked!</span>")
