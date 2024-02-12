@@ -432,8 +432,8 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 //Generic body sizes
 #define BODY_SIZE_NORMAL 0
-#define BODY_SIZE_SHORT 8
-#define BODY_SIZE_TALL -8
+#define BODY_SIZE_SHORT 4
+#define BODY_SIZE_TALL -4
 
 /// Throw modes, defines whether or not to turn off throw mode after
 #define THROW_MODE_DISABLED 0

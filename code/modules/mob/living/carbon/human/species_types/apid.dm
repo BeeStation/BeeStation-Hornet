@@ -33,7 +33,7 @@
 	species_l_leg = /obj/item/bodypart/l_leg/apid
 	species_r_leg = /obj/item/bodypart/r_leg/apid
 
-	species_height = SPECIES_HEIGHTS(8, 16, 0)
+	species_height = SPECIES_HEIGHTS(4, 8, 0)
 
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
 	. = ..()
