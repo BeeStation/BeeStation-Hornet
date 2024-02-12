@@ -22953,7 +22953,7 @@
 	},
 /obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable/yellow,
-/obj/machinery/iv_drip,
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel,
 /area/security/brig/medbay)
 "gYR" = (
@@ -57082,16 +57082,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
-"rOY" = (
-/obj/structure/curtain,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/item/defibrillator/loaded,
-/obj/structure/closet/crate/freezer/blood,
-/turf/open/floor/plasteel,
-/area/security/brig)
 "rPf" = (
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
 	dir = 1
@@ -69214,6 +69204,7 @@
 	pixel_x = -20;
 	pixel_y = -21
 	},
+/obj/machinery/iv_drip,
 /turf/open/floor/plasteel/white,
 /area/security/brig/medbay)
 "vCB" = (
