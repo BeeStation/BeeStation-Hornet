@@ -36343,10 +36343,10 @@
 	name = "virology camera";
 	network = list("ss13","medbay")
 	},
-/obj/item/reagent_containers/food/snacks/cheesewedge{
+/obj/item/food/cheese/wheel{
 	pixel_x = 18
 	},
-/obj/item/reagent_containers/food/snacks/cheesewedge{
+/obj/item/food/cheese/wheel{
 	pixel_y = -4;
 	pixel_x = 17
 	},

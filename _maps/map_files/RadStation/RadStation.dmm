@@ -18409,8 +18409,8 @@
 	name = "dodgeball 2 of 5"
 	},
 /obj/effect/landmark/start/security_officer,
-/obj/item/reagent_containers/food/snacks/popcorn,
-/obj/item/reagent_containers/food/snacks/deadmouse,
+/obj/item/food/popcorn,
+/obj/item/food/deadmouse,
 /obj/item/trash/raisins,
 /obj/item/trash/syndi_cakes,
 /turf/open/floor/plasteel/dark,
