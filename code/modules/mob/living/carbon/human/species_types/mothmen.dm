@@ -35,7 +35,7 @@
 	species_l_leg = /obj/item/bodypart/l_leg/moth
 	species_r_leg = /obj/item/bodypart/r_leg/moth
 
-	species_height = SPECIES_HEIGHTS(4, 8, 0)
+	species_height = SPECIES_HEIGHTS(1, 2, 0)
 
 /datum/species/moth/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.moth_first)]"

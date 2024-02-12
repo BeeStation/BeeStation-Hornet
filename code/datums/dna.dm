@@ -19,13 +19,11 @@
 	var/current_body_size = BODY_SIZE_NORMAL
 	//Holder for the displacement appearance, related to species height
 	var/icon/height_displacement
-	var/icon/displacement_fixer
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
 		holder = new_holder
 	height_displacement = icon('icons/effects/64x64.dmi', "height_displacement")
-	displacement_fixer = icon('icons/effects/64x64.dmi', "displacement_fixer")
 
 /datum/dna/Destroy()
 	if(iscarbon(holder))
@@ -33,10 +31,8 @@
 		if(cholder?.dna == src)
 			cholder.dna = null
 	holder?.remove_filter("species_height_displacement")
-	holder?.remove_filter("species_height_displacement_fix")
 	holder = null
 	QDEL_NULL(height_displacement)
-	QDEL_NULL(displacement_fixer)
 
 	if(delete_species)
 		QDEL_NULL(species)
@@ -321,9 +317,6 @@
 	//Build / setup displacement filter
 	holder.remove_filter("species_height_displacement")
 	holder.add_filter("species_height_displacement", 1.1, displacement_map_filter(icon = height_displacement, y = 8, size = desired_size))
-	//We fix the displacement offset with pixel shifting
-	holder.remove_filter("species_height_displacement_fix")
-	holder.add_filter("species_height_displacement_fix", 1.2, displacement_map_filter(icon = displacement_fixer, y = 8, size = -desired_size))
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return
