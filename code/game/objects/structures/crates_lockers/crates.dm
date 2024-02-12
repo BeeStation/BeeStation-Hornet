@@ -192,8 +192,6 @@
 	. = ..()
 	recursive_organ_check(src)
 
-
-
 /obj/structure/closet/crate/freezer/blood
 	name = "blood freezer"
 	desc = "A freezer containing packs of blood."
