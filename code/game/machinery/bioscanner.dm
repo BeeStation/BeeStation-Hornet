@@ -77,8 +77,10 @@
 	ActivityStatus()
 
 /obj/machinery/bioscanner/MouseDrop_T(mob/target, mob/user)
-	if(user.stat || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
+	if(user.stat || !iscarbon(target) || !user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You can't do that!</span>")
+		return
+	if(!Adjacent(user) || !user.Adjacent(target))
 		return
 	if(isliving(user))
 		var/mob/living/L = user
