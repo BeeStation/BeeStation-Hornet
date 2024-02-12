@@ -16,8 +16,6 @@
 	var/transaction_style = "Clinical"
 	///Who's getting paid?
 	var/datum/bank_account/target_acc
-	///Does this payment component respect same-department-discount?
-	var/department_discount = FALSE
 	///A static typecache of all the money-based items that can be actively used as currency.
 	var/static/list/allowed_money = typecacheof(list(
 		/obj/item/stack/spacecash,
