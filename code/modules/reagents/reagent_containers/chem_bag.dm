@@ -35,3 +35,6 @@
 		/datum/reagent/medicine/salbutamol = 10
 		) // you are welcome to change the chem contents here
 
+/obj/item/reagent_containers/chem_bag/epi
+	name = "epinephrine reserve bag"
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 200)

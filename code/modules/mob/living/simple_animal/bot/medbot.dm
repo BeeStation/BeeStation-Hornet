@@ -45,7 +45,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/last_found = 0
 	var/last_newpatient_speak = 0 //Don't spam the "HEY I'M COMING" messages
 	var/injection_amount = 15 //How much reagent do we inject at a time?
-	var/heal_threshold = 10 //Start healing when they have this much damage in a category
+	var/heal_threshold = 95 //Start healing when they have this much damage
 	var/declare_crit = 1 //If active, the bot will transmit a critical patient alert to MedHUD users.
 	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
@@ -59,6 +59,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/last_tipping_action_voice = 0
 	var/shut_up = 0 //self explanatory :)
 	var/medibot_counter = 0 //we use this to stop multibotting
+	var/synth_epi = TRUE
+	var/synth_cooldown = 0
 
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
@@ -95,6 +97,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
 	skin = new_skin
+	synth_cooldown += world.time+600
 	update_icon()
 
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
@@ -102,7 +105,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	prev_access = access_card.access.Copy()
 
 	if(mapload)
-		reagent_glass = new /obj/item/reagent_containers/glass/beaker/large/tricord
+		reagent_glass = new /obj/item/reagent_containers/chem_bag/epi
 	if(!GLOB.medibot_unique_id_gen)
 		GLOB.medibot_unique_id_gen = 0
 	medibot_counter = GLOB.medibot_unique_id_gen
@@ -168,6 +171,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		dat += "Critical Patient Alerts: <a href='?src=[REF(src)];critalerts=1'>[declare_crit ? "Yes" : "No"]</a><br>"
 		dat += "Patrol Station: <a href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</a><br>"
 		dat += "Stationary Mode: <a href='?src=[REF(src)];stationary=1'>[stationary_mode ? "Yes" : "No"]</a><br>"
+		dat += "Synthesise Epinephrine: <a href='?src=[REF(src)];synth_epi=1'>[synth_epi ? "Yes" : "No"]</a><br>"
 
 	return dat
 
@@ -180,8 +184,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		heal_threshold += adjust_num
 		if(heal_threshold < 5)
 			heal_threshold = 5
-		if(heal_threshold > 75)
-			heal_threshold = 75
+		if(heal_threshold > 120)
+			heal_threshold = 120
 
 	else if(href_list["adj_inject"])
 		var/adjust_num = text2num(href_list["adj_inject"])
@@ -208,6 +212,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		path = list()
 		update_icon()
 
+	else if(href_list["synth_epi"])
+		synth_epi = !synth_epi
 
 /mob/living/simple_animal/bot/medbot/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/reagent_containers))
@@ -352,6 +358,10 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(!(reagent_glass && reagent_glass.reagents.total_volume))
 		mode = BOT_EMPTY
 		update_icon()
+		if(synth_cooldown < world.time && synth_epi && reagent_glass)
+			reagent_glass.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
+			playsound(src, "sound/effects/bubbles.ogg", 40)
+			synth_cooldown += world.time+600
 		return
 	if(tipped)
 		handle_panic()
@@ -461,7 +471,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		declare(C)
 
 	//If they're injured, we're using a beaker
-	if((reagent_glass) && ((C.getBruteLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getToxLoss() >= heal_threshold) || (C.getOxyLoss() >= (heal_threshold + 15))))
+	if((reagent_glass) && ((C.maxHealth - C.health >= heal_threshold)))
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
 			if(!C.reagents.has_reagent(R.type))
 				return TRUE
@@ -541,7 +551,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 				to_chat(src, "<span class='notice'>[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 15] for oxygen damage.)</span>")
 			var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot/patchedup.ogg',"An apple a day keeps me away." = 'sound/voice/medbot/apple.ogg',"Feel better soon!" = 'sound/voice/medbot/feelbetter.ogg')
 			var/message = pick(messagevoice)
-			speak(message)
+			speak(message, radio_channel)
 			playsound(src, messagevoice[message], 50)
 			bot_reset()
 			return
