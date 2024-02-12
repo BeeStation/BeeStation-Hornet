@@ -477,7 +477,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
 			if(C.reagents.has_reagent(R.type) || check_overdose(C, R.type, injection_amount))
 				S = FALSE
-	return safSeInject
+	return S
 
 /mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_DISARM && !tipped)
@@ -547,7 +547,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 					break
 
 		if(emagged) //Emagged! Time to poison everybody.
-			reagent_id = /datum/reagent/toxin/chloralhydrate
+			reagent_id = "suck"
 
 		if(!reagent_id) //If they don't need any of that they're probably cured!
 			if(C.maxHealth - C.health < heal_threshold)
@@ -581,6 +581,13 @@ GLOBAL_VAR(medibot_unique_id_gen)
 								speak(message,radio_channel)
 								playsound(src, messagevoice[message], 50)
 								declare_cooldown = world.time + 100
+					else if (reagent_id == "suck")
+						if(patient.transfer_blood_to(reagent_glass, injection_amount))
+							patient.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
+								"<span class='userdanger'>[src] is trying to inject you!</span>")
+							log_combat(src, patient, "drained of blood")
+						else
+							to_chat(src, "<span class='warning'>You are unable to draw any blood from [patient]!</span>")
 					else
 						patient.reagents.add_reagent(reagent_id,injection_amount)
 						log_combat(src, patient, "injected", "internal synthesizer", "[reagent_id]:[injection_amount]")
