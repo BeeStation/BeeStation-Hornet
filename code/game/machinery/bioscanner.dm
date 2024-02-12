@@ -1,7 +1,7 @@
 // Bioscanners! Stealing code from sleepers since 2545!
 
 /obj/machinery/bioscanner
-	name = "Bio-Scanner"
+	name = "bio-Scanner"
 	desc = "An enclosed machine used to scan and diagnose patients."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "bscanner"
@@ -17,7 +17,8 @@
 	var/datum/looping_sound/bioscanner/soundloop
 
 	var/scanning
-	var/enter_message = "<span class='notice'><b>You feel cool air surround you. You go numb as your senses turn inward.</b></span>"
+	var/scan_timer
+	var/enter_message = "<span class='notice'><b>You feel a prickling as the scanning beams pass over you.</b></span>"
 
 	var/speed_coeff
 	var/scan_level
@@ -58,12 +59,6 @@
 	. = ..()
 
 /obj/machinery/bioscanner/container_resist(mob/living/user)
-//	visible_message("<span class='notice'> You hear faint prying noises from inside [src]!</span>",
-//		"<span class='notice'> You attempt to pry the door open from the inside! (This will take roughly a minute.)</span>")
-//	if(do_after(user, 4 SECONDS, user))
-//		visible_message("<span class='notice'>[occupant] emerges from [src]!</span>",
-//			"<span class='notice'>You climb out of [src]!</span>")
-//		open_machine()
 	visible_message("<span class='notice'>[occupant] emerges from [src]!</span>",
 		"<span class='notice'>You climb out of [src]!</span>")
 	open_machine()
@@ -81,19 +76,14 @@
 			to_chat(mob_occupant, "[enter_message]")
 	ActivityStatus()
 
-/obj/machinery/bioscanner/emp_act(severity)
-	. = ..()
-	if (. & EMP_PROTECT_SELF)
-		return
-	if(is_operational && occupant)
-		open_machine()
-
 /obj/machinery/bioscanner/MouseDrop_T(mob/target, mob/user)
 	if(user.stat || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
+		to_chat(user, "<span class='warning'>You can't do that!</span>")
 		return
 	if(isliving(user))
 		var/mob/living/L = user
 		if(!(L.mobility_flags & MOBILITY_STAND))
+			to_chat(user, "<span class='warning'>You have to stand to do this!</span>")
 			return
 	close_machine(target)
 
@@ -112,17 +102,8 @@
 	return FALSE
 
 /obj/machinery/bioscanner/crowbar_act(mob/living/user, obj/item/I)
-	if(default_pry_open(I))
-		return TRUE
 	if(default_deconstruction_crowbar(I))
 		return TRUE
-
-/obj/machinery/bioscanner/default_pry_open(obj/item/I)
-	. = !(state_open || scanning || panel_open || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
-	if(.)
-		I.play_tool_sound(src, 50)
-		visible_message("<span class='notice'>[usr] pries open [src].</span>", "<span class='notice'>You pry open [src].</span>")
-		open_machine()
 
 /obj/machinery/bioscanner/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)))
@@ -138,9 +119,25 @@
 
 /obj/machinery/bioscanner/process()
 	..()
+	if(machine_stat == NOPOWER && !state_open)
+		use_power = IDLE_POWER_USE
+		scanning = FALSE
+		soundloop.stop()
+		deltimer(scan_timer)
+		ActivityStatus()
+		open_machine()
+		balloon_alert_to_viewers("Powerloss detected, unlatching door.")
+		playsound(src, 'sound/machines/creak.ogg', 100, FALSE, 0)
 	ActivityStatus()
 
 /obj/machinery/bioscanner/proc/ActivityStatus() //doing it like this feels so fucking bad. There has to be a more elegant solution than this.
+	if(machine_stat == NOPOWER)
+		if(state_open)
+			icon_state= "bscanner"
+		else
+			icon_state= "bscanner_off"
+		return
+
 	if(!state_open)
 		icon_state= "bscanner_off"
 
@@ -152,12 +149,17 @@
 				switch(mob_occupant.stat)
 					if(CONSCIOUS, SOFT_CRIT)
 						icon_state = "bscanner_yellow"
+						return
 					if(UNCONSCIOUS)
 						icon_state = "bscanner_red"
+						return
 					if(DEAD)
 						icon_state = "bscanner_death"
+						return
+			return
 	else
 		icon_state= "bscanner"
+		return
 
 /obj/machinery/bioscanner/proc/startscan(mob/user)
 	var/mob/living/mob_occupant = occupant
@@ -166,9 +168,10 @@
 		scanning = TRUE
 		ActivityStatus()
 		visible_message("<span class='notice'> The Bio-Scanner hums to life.</span>")
+		balloon_alert_to_viewers("Beginning scan cycle.")
 		soundloop.start()
 		playsound(src, 'sound/machines/boop.ogg', 75, FALSE, 0)
-		addtimer(CALLBACK(src, PROC_REF(bioscanComplete), user),300*speed_coeff)
+		scan_timer = addtimer(CALLBACK(src, PROC_REF(bioscanComplete), user), 300*speed_coeff, TIMER_STOPPABLE)
 	else
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 15, FALSE, 0)
 		return
@@ -180,6 +183,7 @@
 	var/mob/living/mob_occupant = occupant
 	mob_occupant.rad_act(rand(radiation_dose/2,radiation_dose))
 	visible_message("<span class='notice'> The Bio-Scanner shuts down.</span>")
+	balloon_alert_to_viewers("Scan complete.")
 	playsound(src, 'sound/machines/ping.ogg', 75, FALSE, 0)
 	soundloop.stop()
 
