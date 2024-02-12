@@ -5,7 +5,7 @@ import { toFixed } from 'common/math';
 
 export const Bioscanner = (props, context) => {
   return (
-    <Window>
+    <Window width={250} height={300}>
       <Window.Content>
         <BioscannerUIContent />
       </Window.Content>
@@ -42,7 +42,7 @@ export const BioscannerUIContent = (props, context) => {
       <Section label="Patient Statistics">
         <Section
           title={occupant.name ? occupant.name : 'No Occupant'}
-          minHeight="185px"
+          minHeight="175px"
           buttons={
             !!occupant.stat && (
               <Box inline bold color={occupant.statstate}>

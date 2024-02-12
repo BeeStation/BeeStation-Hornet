@@ -55,7 +55,36 @@
 	speed_coeff = 1 / I
 	ui_update()
 
-/obj/machinery/bioscanner/update_icon_state()
+/obj/machinery/bioscanner/update_icon()
+
+	//Default if nothing else changes it.
+	icon_state= "bscanner"
+
+	if(machine_stat == NOPOWER)
+		icon_state= "bscanner"
+		return
+
+	if(panel_open)
+		icon_state= "bscanner-o"
+		return
+
+	//If closed, be closed. Unless there's someone in it,
+	if(!state_open)
+		icon_state= "bscanner_off"
+
+		//because then you need the fancy colors.
+		if(occupant)
+			icon_state = "bscanner_green"
+			if(occupant && scanning)
+				var/mob/living/mob_occupant = occupant
+				switch(mob_occupant.stat)
+					if(CONSCIOUS, SOFT_CRIT)
+						icon_state = "bscanner_yellow"
+					if(UNCONSCIOUS)
+						icon_state = "bscanner_red"
+					if(DEAD)
+						icon_state = "bscanner_death"
+		return
 	. = ..()
 
 /obj/machinery/bioscanner/container_resist(mob/living/user)
@@ -65,7 +94,6 @@
 
 /obj/machinery/bioscanner/open_machine()
 	if(!state_open && !panel_open && !scanning)
-		icon_state = "bscanner"
 		..()
 
 /obj/machinery/bioscanner/close_machine(mob/user)
@@ -74,7 +102,6 @@
 		var/mob/living/mob_occupant = occupant
 		if(mob_occupant && mob_occupant.stat != DEAD)
 			to_chat(mob_occupant, "[enter_message]")
-	ActivityStatus()
 
 /obj/machinery/bioscanner/MouseDrop_T(mob/target, mob/user)
 	if(user.stat || !iscarbon(target) || !user.IsAdvancedToolUser())
@@ -99,7 +126,7 @@
 	if(state_open)
 		to_chat(user, "<span class='warning'>[src] must be closed to [panel_open ? "close" : "open"] its maintenance hatch!</span>")
 		return
-	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
+	if(default_deconstruction_screwdriver(user, "bscanner-o", "bscanner_off", I))
 		return
 	return FALSE
 
@@ -126,49 +153,19 @@
 		scanning = FALSE
 		soundloop.stop()
 		deltimer(scan_timer)
-		ActivityStatus()
+		update_icon()
 		open_machine()
 		balloon_alert_to_viewers("Powerloss detected, unlatching door.")
 		playsound(src, 'sound/machines/creak.ogg', 100, FALSE, 0)
-	ActivityStatus()
-
-/obj/machinery/bioscanner/proc/ActivityStatus() //doing it like this feels so fucking bad. There has to be a more elegant solution than this.
-	if(machine_stat == NOPOWER)
-		if(state_open)
-			icon_state= "bscanner"
-		else
-			icon_state= "bscanner_off"
-		return
-
-	if(!state_open)
-		icon_state= "bscanner_off"
-
-		if(occupant && !state_open)
-			icon_state = "bscanner_green"
-
-			if(occupant && !state_open && scanning)
-				var/mob/living/mob_occupant = occupant
-				switch(mob_occupant.stat)
-					if(CONSCIOUS, SOFT_CRIT)
-						icon_state = "bscanner_yellow"
-						return
-					if(UNCONSCIOUS)
-						icon_state = "bscanner_red"
-						return
-					if(DEAD)
-						icon_state = "bscanner_death"
-						return
-			return
 	else
-		icon_state= "bscanner"
-		return
+		update_icon()
 
 /obj/machinery/bioscanner/proc/startscan(mob/user)
 	var/mob/living/mob_occupant = occupant
 	if(!scanning && !state_open && occupant && iscarbon(mob_occupant))
 		use_power = ACTIVE_POWER_USE
 		scanning = TRUE
-		ActivityStatus()
+		update_icon()
 		visible_message("<span class='notice'> The Bio-Scanner hums to life.</span>")
 		balloon_alert_to_viewers("Beginning scan cycle.")
 		soundloop.start()
@@ -181,7 +178,7 @@
 /obj/machinery/bioscanner/proc/bioscanComplete()
 	use_power = IDLE_POWER_USE
 	scanning = FALSE
-	ActivityStatus()
+	update_icon()
 	var/mob/living/mob_occupant = occupant
 	mob_occupant.rad_act(rand(radiation_dose/2,radiation_dose))
 	visible_message("<span class='notice'> The Bio-Scanner shuts down.</span>")
@@ -393,7 +390,7 @@
 			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
 				result += "Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl.<br> Blood Type: [blood_type].<br>"
 			else
-				result += "Blood level: [blood_percent] %, [C.blood_volume] cl.<br> Blood Type: [blood_type].<br>"
+				result += "Blood level: [blood_percent] %, [C.blood_volume] cl.<br> Blood Type: [blood_type]<br>"
 
 	for(var/thing in mob_occupant.diseases)
 		var/datum/disease/D = thing
@@ -404,8 +401,25 @@
 			Stage: [D.stage]/[D.max_stages].<br>\
 			Possible Cure: [D.cure_text]<br>"
 
-	result += "<hr />"
+	result += "<br><b>Reagents:</b><br>"
 
+	//reagents
+	if(istype(mob_occupant))
+		if(mob_occupant.reagents)
+			if(mob_occupant.reagents.reagent_list.len)
+				result += "Subject contains the following reagents:<br>"
+				for(var/datum/reagent/R in mob_occupant.reagents.reagent_list)
+					result += "[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "<b>OVERDOSING</B>" : "."]"
+			else
+				result += "Subject contains no reagents.<br>"
+			if(mob_occupant.reagents.addiction_list.len)
+				result += "Subject is addicted to the following reagents:<br>"
+				for(var/datum/reagent/R in mob_occupant.reagents.addiction_list)
+					result += "[R.name]<br>"
+			else
+				result += "Subject is not addicted to any reagents.<br>"
+
+	result += "<hr />"
 	//Then printing it
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
 	paperwork.name = "BIOTIC SCAN RESULT: [mob_occupant]."
@@ -419,7 +433,7 @@
 /obj/machinery/bioscanner/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Bioscanner", "Biotic Scanning Interface")
+		ui = new(user, src, "Bioscanner", "Biotic Scanner")
 		ui.open()
 
 /obj/machinery/bioscanner/ui_data(mob/user)
