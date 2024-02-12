@@ -316,6 +316,7 @@
 	icon_state = "random_layer1"
 
 /atom/movable/screen/parallax_layer/random/space_gas/Initialize(mapload, view)
+	. = ..()
 	src.add_atom_colour(SSparallax.assign_random_parallax_colour(), ADMIN_COLOUR_PRIORITY)
 
 /atom/movable/screen/parallax_layer/random/asteroids
