@@ -471,10 +471,13 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		declare(C)
 
 	//If they're injured, we're using a beaker
+	var/S = FALSE
 	if((reagent_glass) && ((C.maxHealth - C.health >= heal_threshold)))
+		S = TRUE
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(!C.reagents.has_reagent(R.type))
-				return TRUE
+			if(C.reagents.has_reagent(R.type) || check_overdose(C, R.type, injection_amount))
+				S = FALSE
+	return safSeInject
 
 /mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_DISARM && !tipped)
