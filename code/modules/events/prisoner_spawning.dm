@@ -5,7 +5,7 @@
 	min_players = 20
 	cannot_spawn_after_shuttlecall = TRUE
 
-/datum/round_event/ghost_role/prisoner
+/datum/round_event/ghost_role/prisoner/setup()
 	minimum_required = 1
 	role_name = ROLE_PRISONER
 	fakeable = FALSE
@@ -24,6 +24,7 @@
 	var/result = spawn_prisoners(landing_turf, candidates, spawned_mobs)
 	if(result != SUCCESSFUL_SPAWN)
 		return result
+	priority_announce("A group of High-Priority prisoners has been sent to your Station, Security Personnel, please keep them safe.", "Security Alert", SSstation.announcer.get_rand_report_sound())
 	return SUCCESSFUL_SPAWN
 
 /proc/spawn_prisoners(turf/landing_turf, list/candidates, list/spawned_mobs)
