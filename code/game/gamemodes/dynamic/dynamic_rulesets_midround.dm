@@ -820,7 +820,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//           PPRISONER  (GHOST)             //
+//           PRISONER  (GHOST)            	//
 //                                          //
 //////////////////////////////////////////////
 /datum/dynamic_ruleset/midround/from_ghosts/prisoners
