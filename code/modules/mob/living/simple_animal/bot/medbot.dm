@@ -46,6 +46,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/last_newpatient_speak = 0 //Don't spam the "HEY I'M COMING" messages
 	var/injection_amount = 15 //How much reagent do we inject at a time?
 	var/heal_threshold = 95 //Start healing when they have this much damage
+	var/efficiency = 1.1 //how much of the internal beaker gets used
 	var/declare_crit = 1 //If active, the bot will transmit a critical patient alert to MedHUD users.
 	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
@@ -58,6 +59,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	///The last time we were tipped/righted and said a voice line, to avoid spam
 	var/last_tipping_action_voice = 0
 	var/shut_up = 0 //self explanatory :)
+	var/datum/techweb/linked_techweb
 	var/medibot_counter = 0 //we use this to stop multibotting
 	var/synth_epi = TRUE
 	var/synth_cooldown = 0
@@ -103,6 +105,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
+	linked_techweb = SSresearch.science_tech
 
 	if(mapload)
 		reagent_glass = new /obj/item/reagent_containers/chem_bag/epi
@@ -172,6 +175,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		dat += "Patrol Station: <a href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</a><br>"
 		dat += "Stationary Mode: <a href='?src=[REF(src)];stationary=1'>[stationary_mode ? "Yes" : "No"]</a><br>"
 		dat += "Synthesise Epinephrine: <a href='?src=[REF(src)];synth_epi=1'>[synth_epi ? "Yes" : "No"]</a><br>"
+		dat += "<a href='?src=[REF(src)];hptech=1'>Search for Technological Advancements</a><br>"
 
 	return dat
 
@@ -214,6 +218,22 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 	else if(href_list["synth_epi"])
 		synth_epi = !synth_epi
+
+	else if(href_list["hptech"])
+		var/old_eff = efficiency
+		var/tech_boosters
+		for(var/i in linked_techweb.researched_designs)
+			var/datum/design/surgery/healing/D = SSresearch.techweb_design_by_id(i)
+			if(!istype(D))
+				continue
+			tech_boosters++
+		if(tech_boosters)
+			efficiency = 1+(0.1*tech_boosters)
+			if(old_eff < efficiency)
+				speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
+	update_controls()
+	return
+
 
 /mob/living/simple_animal/bot/medbot/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/reagent_containers))
@@ -574,7 +594,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 							var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
 							log_combat(src, patient, "injected", "beaker source", "[reagentlist]:[injection_amount]")
 							reagent_glass.reagents.reaction(patient, INJECT, fraction)
-							reagent_glass.reagents.trans_to(patient,injection_amount) //Inject from beaker instead.
+							reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker instead.
 							if(!reagent_glass.reagents.total_volume)
 								var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')
 								var/message = pick(messagevoice)
