@@ -552,6 +552,9 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /datum/preference/string
 	abstract_type = /datum/preference/string
 
+	/// What is the maximum length of the value allowed in this field?
+	var/maximum_value_length = 256
+
 	/// The default value of the string, if create_default_value is not specified
 	var/default_value = ""
 
@@ -563,3 +566,6 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /datum/preference/string/is_valid(value)
 	return istext(value)
+
+/datum/preference/string/compile_constant_data()
+	return list("maximum_length" = maximum_value_length)

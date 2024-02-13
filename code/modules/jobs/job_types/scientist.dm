@@ -25,6 +25,7 @@
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_SCIENTIST
+	job_tone = "boom"
 	rpg_title = "Thaumaturgist"
 
 	species_outfits = list(

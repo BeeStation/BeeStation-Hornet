@@ -23,6 +23,7 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_LAWYER
+	job_tone = "objection"
 	rpg_title = "Magistrate"
 
 	species_outfits = list(

@@ -21,6 +21,7 @@
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_JANITOR
+	job_tone = "slip"
 	rpg_title = "Groundskeeper"
 	biohazard = 40//cleaning up hazardous messes puts janitors at extra risk
 

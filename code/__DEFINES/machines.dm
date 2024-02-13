@@ -78,6 +78,12 @@
 #define NTNETSPEED_HIGHSIGNAL 1	//! GQ/s transfer speed when the device is wirelessly connected and on High signal
 #define NTNETSPEED_ETHERNET 2		//! GQ/s transfer speed when the device is using wired connection
 
+/// The default ringtone of the Messenger app.
+#define MESSENGER_RINGTONE_DEFAULT "beep"
+
+/// The maximum length of the ringtone of the Messenger app.
+#define MESSENGER_RINGTONE_MAX_LENGTH 20
+
 // Caps for NTNet logging. Less than 10 would make logging useless anyway, more than 500 may make the log browser too laggy. Defaults to 100 unless user changes it.
 #define MAX_NTNET_LOGS 300
 #define MIN_NTNET_LOGS 10

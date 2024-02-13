@@ -22,6 +22,7 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CLOWN
+	job_tone = "honk"
 	rpg_title = "Jester"
 
 	species_outfits = list(

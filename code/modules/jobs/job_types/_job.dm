@@ -102,6 +102,9 @@
 	///RPG job names, for the memes
 	var/rpg_title
 
+	// Custom ringtone for this job
+	var/job_tone
+
 	/**
 	 * A list of job-specific areas to enable lights for if this job is present at roundstart, whenever minimal access is not in effect.
 	 * This will be combined with minimal_lightup_areas, so no need to duplicate entries.
@@ -113,7 +116,6 @@
 	 * Areas within their department will have their lights turned on automatically, so you should really only use this for areas outside of their department.
 	 */
 	var/list/minimal_lightup_areas = list()
-
 
 /datum/job/New()
 	. = ..()
@@ -381,35 +383,49 @@
 	uniform = text2path(holder)
 
 
-/datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/post_equip(mob/living/carbon/human/equipped, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
-	var/datum/job/J = SSjob.GetJobType(jobtype)
-	if(!J)
-		J = SSjob.GetJob(H.job)
+	var/datum/job/equipped_job = SSjob.GetJobType(jobtype)
 
-	var/obj/item/card/id/C = H.wear_id
-	if(istype(C))
-		C.access = J.get_access()
-		shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
-		C.registered_name = H.real_name
-		C.assignment = J.title
-		C.set_hud_icon_on_spawn(J.title)
-		C.update_label()
-		for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-			if(!H.mind)
+	if(!equipped_job)
+		equipped_job = SSjob.GetJob(equipped.job)
+
+	var/obj/item/card/id/card = equipped.wear_id
+	if(istype(card))
+		card.access = equipped_job.get_access()
+		shuffle_inplace(card.access) // Shuffle access list to make NTNet passkeys less predictable
+		card.registered_name = equipped.real_name
+		card.assignment = equipped_job.title
+		card.set_hud_icon_on_spawn(equipped_job.title)
+		card.update_label()
+		for(var/datum/bank_account/account in SSeconomy.bank_accounts)
+			if(!equipped.mind)
 				continue
-			if(B.account_id == H.mind.account_id)
-				C.registered_account = B
-				B.bank_cards += C
+			if(account.account_id == equipped.mind.account_id)
+				card.registered_account = account
+				account.bank_cards += card
 				break
-		H.sec_hud_set_ID()
 
-	var/obj/item/modular_computer/tablet/pda/PDA = H.get_item_by_slot(pda_slot)
+		equipped.sec_hud_set_ID()
+
+	var/obj/item/modular_computer/tablet/pda/pda = equipped.get_item_by_slot(pda_slot)
+
+	if(istype(pda))
+		pda.saved_identification = equipped.real_name
+		pda.saved_job = equipped_job.title
+		pda.update_ringtone(equipped_job.job_tone)
+
+		var/client/equipped_client = GLOB.directory[ckey(equipped.mind?.key)]
+
+		if(equipped_client)
+			pda.update_ringtone_pref(equipped_client)
+
+	var/obj/item/modular_computer/tablet/pda/PDA = equipped.get_item_by_slot(pda_slot)
 	if(istype(PDA))
-		PDA.saved_identification = C.registered_name
-		PDA.saved_job = C.assignment
+		PDA.saved_identification = card.registered_name
+		PDA.saved_job = card.assignment
 		PDA.update_id_display()
 
 /datum/outfit/job/get_chameleon_disguise_info()
