@@ -272,8 +272,8 @@
 	var/list/leaders = list() // bosses
 	var/max_leaders = MAX_LEADERS_GANG
 	var/max_members = MAX_MEMBERS_GANG
-	var/list/territories_controlled = list() //territories owned by the gang, used for checking control and for influence/reputation gain.
-	var/list/territories = list() // any territory with a tag from the gang, decals stored in territories for purposes of checking control.
+	var/list/new_territories = list() //newly gained territories.
+	var/list/territories = list() // owned territories.
 	var/list/gangtools = list()
 	var/color
 	var/winner = FALSE //winner winner chicken dinner

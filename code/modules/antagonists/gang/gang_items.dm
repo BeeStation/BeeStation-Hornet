@@ -39,6 +39,7 @@
 	name = "Territory Spraycan"
 	cost = 10
 	item_path = /obj/item/toy/crayon/spraycan/gang
+	desc = "Modified spraycan used to claiming specific territories for your gang, increasing your influence."
 
 
 /datum/gang_item/essentials/spraycan/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
@@ -58,6 +59,7 @@
 /datum/gang_item/essentials/uniform
 	name = "Gang Uniform"
 	cost = 5
+	desc = "Full outfit of your gangs uniform, increases your influence and reputation if worn by members, reduces it if not worn at all."
 
 /datum/gang_item/essentials/uniform/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/storage/box/uniform_box = new (get_turf(user))
