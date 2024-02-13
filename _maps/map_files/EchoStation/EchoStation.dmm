@@ -3136,6 +3136,9 @@
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plasteel,
 /area/ai_monitored/turret_protected/aisat/maint)
+"baq" = (
+/turf/closed/wall/r_wall,
+/area/engine/supermatter)
 "baE" = (
 /turf/closed/wall/r_wall,
 /area/chapel/main)
@@ -26600,6 +26603,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"ool" = (
+/obj/docking_port/stationary{
+	dheight = 1;
+	dir = 8;
+	dwidth = 12;
+	height = 17;
+	id = "syndicate_ne";
+	name = "northeast of station";
+	width = 23
+	},
+/turf/open/floor/plating/beach/water,
+/area/asteroid/paradise/surface/water)
 "oor" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -42383,18 +42398,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
-"wAn" = (
-/obj/docking_port/stationary{
-	dheight = 1;
-	dir = 4;
-	dwidth = 12;
-	height = 17;
-	id = "syndicate_ne";
-	name = "northeast of station";
-	width = 23
-	},
-/turf/open/floor/plating/grass,
-/area/asteroid/paradise/surface/grass)
 "wAN" = (
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/white/corner{
@@ -60131,7 +60134,7 @@ prf
 hBg
 hBg
 hBg
-dXI
+baq
 tfH
 jhN
 iZk
@@ -60645,7 +60648,7 @@ pdk
 vmu
 vmu
 vmu
-dXI
+baq
 fzZ
 jhN
 iZk
@@ -246418,7 +246421,7 @@ sNi
 sNi
 sNi
 sNi
-sNi
+ool
 sNi
 sNi
 kiZ
@@ -270062,7 +270065,7 @@ yli
 yli
 yli
 yli
-wAn
+yli
 yli
 yli
 yli
