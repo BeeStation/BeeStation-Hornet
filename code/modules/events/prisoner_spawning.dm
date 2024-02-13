@@ -11,8 +11,6 @@
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/prisoner/spawn_role()
-	for(var/datum/team/prisoner/F in GLOB.antagonist_teams)
-		return MAP_ERROR
 	var/list/possible_spawns = list()
 	for(var/turf/L in GLOB.prisonspawn)
 		possible_spawns += L
