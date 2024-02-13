@@ -39,6 +39,8 @@
 		new /obj/item/clothing/suit/jacket/leather(src)
 	if(prob(20))
 		new /obj/item/clothing/suit/jacket/leather/overcoat(src)
+	if(prob(30))
+		new /obj/item/clothing/shoes/jackboots_replica(src)
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/shoes/sneakers/black(src)
 	for(var/i in 1 to 3)
