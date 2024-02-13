@@ -228,7 +228,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 				continue
 			tech_boosters++
 		if(tech_boosters)
-			efficiency = 1+(0.1*tech_boosters)
+			efficiency = 1+(0.075*tech_boosters)
 			if(old_eff < efficiency)
 				speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
 	update_controls()
