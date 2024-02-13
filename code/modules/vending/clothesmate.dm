@@ -73,6 +73,7 @@
 					/obj/item/clothing/suit/hooded/hoodie/teal = 3,
 					/obj/item/clothing/suit/hooded/hoodie/purple = 3,
 					/obj/item/clothing/shoes/winterboots = 3,
+					/obj/item/clothing/shoes/jackboots_replica = 3,
 		            /obj/item/clothing/shoes/sneakers/black = 4,
 					/obj/item/clothing/shoes/sneakers/brown = 4,
 					/obj/item/clothing/shoes/sneakers/yellow = 4,
