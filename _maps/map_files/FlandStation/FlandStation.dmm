@@ -40370,6 +40370,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "kiO" = (
@@ -46618,6 +46619,7 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "lMS" = (
@@ -56503,6 +56505,12 @@
 /obj/item/screwdriver,
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
+"osO" = (
+/obj/structure/chair/stool,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "osQ" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/line{
@@ -86621,6 +86629,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "vQG" = (
@@ -92500,6 +92509,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "xho" = (
@@ -132881,7 +132891,7 @@ wTi
 hTL
 hTL
 afi
-eNv
+osO
 qEG
 vuT
 xSb

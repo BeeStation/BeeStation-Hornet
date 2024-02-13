@@ -25668,6 +25668,10 @@
 "cQD" = (
 /turf/closed/wall,
 /area/security/checkpoint/science/research)
+"cQF" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "cQH" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -80992,6 +80996,11 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
+"tTP" = (
+/obj/machinery/light/small,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "tUr" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -145059,7 +145068,7 @@ dLy
 gmT
 hwA
 nZc
-nZc
+cQF
 nZc
 fab
 aFm
@@ -146603,7 +146612,7 @@ aFm
 ows
 jsJ
 nWE
-nZc
+cQF
 aFm
 aaa
 aaZ
@@ -147108,7 +147117,7 @@ rwO
 wim
 aFm
 nZc
-ykr
+tTP
 aKV
 uKC
 fCH
@@ -148140,7 +148149,7 @@ rhl
 aKV
 qGw
 fab
-nZc
+cQF
 nZc
 nZc
 nZc
@@ -148389,7 +148398,7 @@ aaa
 aaa
 aaa
 aFm
-nZc
+cQF
 ykr
 aKV
 nZc

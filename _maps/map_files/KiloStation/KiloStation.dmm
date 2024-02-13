@@ -14149,6 +14149,7 @@
 	dir = 8;
 	light_color = "#e8eaff"
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison{
 	name = "Prison Dorms"
@@ -51384,6 +51385,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
+"kvb" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "kvl" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -59059,6 +59065,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
+"ngf" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "ngn" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
@@ -61776,6 +61790,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"ocd" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "ocf" = (
 /obj/structure/table,
 /obj/item/storage/bag/tray,
@@ -67336,6 +67355,7 @@
 	dir = 8;
 	light_color = "#e8eaff"
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison{
 	name = "Prison Dorms"
@@ -89659,6 +89679,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "xrG" = (
@@ -111867,7 +111888,7 @@ mmJ
 ert
 neM
 oTm
-iQT
+ocd
 sgL
 rTW
 mEj
@@ -113666,7 +113687,7 @@ rjd
 lDt
 yjg
 orr
-gMx
+ngf
 tEI
 aat
 nUh
@@ -114691,7 +114712,7 @@ nJB
 nJB
 nJB
 gre
-lFx
+kvb
 lFx
 paA
 gCK

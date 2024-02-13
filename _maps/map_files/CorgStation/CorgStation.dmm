@@ -29218,6 +29218,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "jyg" = (
@@ -39398,6 +39399,11 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
+"mMb" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "mMl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -64988,6 +64994,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "vpH" = (
@@ -69895,6 +69902,7 @@
 /area/hallway/secondary/exit)
 "wSJ" = (
 /obj/effect/turf_decal/tile/black/fourcorners,
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "wSU" = (
@@ -112157,7 +112165,7 @@ hLc
 rQi
 rQi
 rQi
-rQi
+mMb
 hiI
 wSJ
 nGm

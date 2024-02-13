@@ -9053,6 +9053,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "bHq" = (
@@ -23867,6 +23868,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
+"fGZ" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "fHf" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/large{
@@ -29526,6 +29532,14 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"irV" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "isc" = (
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/plasteel/dark,
@@ -43455,6 +43469,11 @@
 	light_color = "#e8eaff"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/prison,
+/area/security/prison)
+"pdw" = (
+/obj/machinery/light/small,
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "pdM" = (
@@ -62171,6 +62190,13 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
+"ydK" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/plasteel/freezer,
+/area/security/prison)
 "ydW" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -87214,10 +87240,10 @@ abF
 acd
 yjC
 acd
-yjC
+ydK
 acd
 yfx
-nfD
+pdw
 acd
 yfx
 nfD
@@ -87718,7 +87744,7 @@ pCd
 vfy
 vfy
 vfy
-vfy
+fGZ
 vfy
 vfy
 vfy
@@ -87727,7 +87753,7 @@ lJQ
 saj
 pdu
 saj
-saj
+irV
 saj
 niX
 wty

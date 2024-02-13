@@ -26142,6 +26142,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "dQI" = (
@@ -29881,6 +29882,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical/central)
+"fyD" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/holofloor/plating,
+/area/holodeck/prison)
 "fyG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -44709,6 +44714,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/break_room)
+"lmh" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "lmF" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -49797,6 +49806,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"nmV" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "nnn" = (
 /obj/effect/landmark/start/medical_doctor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -101195,7 +101209,7 @@ aax
 ttO
 ttO
 ttO
-ttO
+fyD
 ttO
 fzl
 dAL
@@ -101457,7 +101471,7 @@ ttO
 eIz
 dAL
 srs
-dAL
+nmV
 aPV
 gFK
 hra
@@ -102750,7 +102764,7 @@ duA
 gwN
 gwN
 hoq
-srs
+lmh
 awl
 aax
 aax
