@@ -829,7 +829,7 @@
 	role_preference = /datum/role_preference/midround_ghost/prisoner
 	required_type = /mob/dead/observer
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
+	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
 	required_candidates = 1
 	weight = 2
 	cost = 6
