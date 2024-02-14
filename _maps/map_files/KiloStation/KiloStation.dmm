@@ -40784,7 +40784,6 @@
 /area/crew_quarters/fitness/recreation)
 "hbv" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},

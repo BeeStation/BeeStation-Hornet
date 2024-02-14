@@ -49086,10 +49086,6 @@
 /area/science/xenobiology)
 "pmV" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/brute{
-	pixel_x = -5;
-	pixel_y = 10
-	},
 /obj/item/storage/toolbox/mechanical,
 /obj/machinery/light/very_dim/directional/west,
 /turf/open/floor/plasteel/dark,

@@ -53985,10 +53985,6 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/dorms)
 "tTy" = (
-/obj/item/storage/firstaid/regular{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/item/storage/firstaid/regular,
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/red/half/contrasted{

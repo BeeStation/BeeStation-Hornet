@@ -22424,7 +22424,6 @@
 /area/crew_quarters/bar)
 "cTU" = (
 /obj/structure/rack,
-/obj/item/storage/firstaid/regular,
 /obj/item/healthanalyzer{
 	pixel_y = -2
 	},
