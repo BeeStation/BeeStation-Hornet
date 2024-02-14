@@ -11,6 +11,18 @@
 	var/obj/item/extinguisher/stored_extinguisher
 	var/opened = FALSE
 
+/obj/structure/extinguisher_cabinet/north
+	pixel_y = 32
+
+/obj/structure/extinguisher_cabinet/south
+	pixel_y = -32
+
+/obj/structure/extinguisher_cabinet/east
+	pixel_x = 25
+
+/obj/structure/extinguisher_cabinet/west
+	pixel_x = -25
+
 /obj/structure/extinguisher_cabinet/Initialize(mapload, ndir, building)
 	. = ..()
 	if(building)
@@ -159,3 +171,15 @@
 	icon_state = "extinguisher"
 	result_path = /obj/structure/extinguisher_cabinet
 	pixel_shift = -30
+
+/obj/item/wallframe/extinguisher_cabinet/north
+	pixel_y = 32
+
+/obj/item/wallframe/extinguisher_cabinet/south
+	pixel_y = -32
+
+/obj/item/wallframe/extinguisher_cabinet/east
+	pixel_x = 25
+
+/obj/item/wallframe/extinguisher_cabinet/west
+	pixel_x = -25

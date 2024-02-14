@@ -11,6 +11,7 @@
 	armor = list(MELEE = 50,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
 	max_integrity = 200
 	integrity_failure = 0.25
+	dir = NORTH
 	///How much paper is contained within the newscaster?
 	var/paper_remaining = 0
 
@@ -55,6 +56,22 @@
 	var/bounty_value = 1
 	///Text of the currently written bounty
 	var/bounty_text = ""
+
+/obj/machinery/newscaster/directional/north
+	dir = NORTH
+	pixel_y = 32
+
+/obj/machinery/newscaster/directional/south
+	dir = SOUTH
+	pixel_y = -32
+
+/obj/machinery/newscaster/directional/east
+	dir = EAST
+	pixel_x = 32
+
+/obj/machinery/newscaster/directional/west
+	dir = WEST
+	pixel_x = -32
 
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
