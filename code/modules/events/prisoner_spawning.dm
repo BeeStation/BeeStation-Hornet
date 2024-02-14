@@ -34,16 +34,15 @@
         var/mob/living/carbon/human/S = gear_prisoner(i, selected, landing_turf)
         spawned_mobs += S
 
-    // After spawning:
-    playsound(landing_turf, 'sound/weapons/emitter.ogg', 50, TRUE)
-    // Tools so they can actually escape maintenance
-
     return SUCCESSFUL_SPAWN
 
 /proc/gear_prisoner(index, mob/dead/selected, turf/landing_turf)
 	var/datum/mind/player_mind = new /datum/mind(selected.key)
 	player_mind.active = TRUE
-	var/mob/living/carbon/human/S = new(landing_turf)
+	var/mob/living/carbon/human/S = new()
+	var/obj/structure/closet/supplypod/bluespacepod/pod = new()
+	pod.explosionSize = list(0, 0, 0, 0)
+	S.forceMove(pod)
 	player_mind.transfer_to(S)
 	player_mind.assigned_role = ROLE_PRISONER
 	player_mind.special_role = ROLE_PRISONER
@@ -51,6 +50,8 @@
 	player_mind.add_antag_datum(A)
 	var/outfit = /datum/outfit/prisoner
 	S.equipOutfit(outfit)
+
+	new /obj/effect/pod_landingzone(landing_turf, pod)
 
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Prisoner by an event.")
 	log_game("[key_name(S)] was spawned as a Prisoner by an event.")
