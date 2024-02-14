@@ -38261,6 +38261,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"iLG" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "iLI" = (
 /obj/structure/closet/secure_closet/contraband/armory,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -67535,6 +67540,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/aisat)
+"ucH" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "ucX" = (
 /obj/item/trash/candy,
 /obj/effect/decal/cleanable/dirt,
@@ -100429,10 +100438,10 @@ abe
 egY
 kiq
 abe
-srs
+ucH
 mON
 pvZ
-srs
+ucH
 aax
 aaa
 awW
@@ -100936,7 +100945,7 @@ ttO
 ttO
 ttO
 mHg
-dAL
+iLG
 srs
 dAL
 qAn
@@ -102225,7 +102234,7 @@ kZQ
 xgi
 qOU
 tlg
-srs
+ucH
 srs
 uSn
 uSn
@@ -102745,7 +102754,7 @@ duA
 gwN
 gwN
 fNX
-srs
+ucH
 awl
 aax
 aax
