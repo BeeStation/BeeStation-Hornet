@@ -51310,6 +51310,13 @@
 /obj/item/pen,
 /turf/open/floor/carpet/grimy,
 /area/bridge)
+"jPS" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+	dir = 4
+	},
+/turf/open/space,
+/area/engine/atmos)
 "jQx" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -76749,6 +76756,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
+"spy" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/engine/atmos)
 "spB" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -116753,15 +116767,15 @@ aMB
 aRF
 aRF
 aRF
-aWy
+spy
 aMB
 aZS
 aRF
-aWy
+spy
 aMB
 aZS
 aRF
-aWy
+spy
 aMB
 aZS
 aRF
@@ -122409,11 +122423,11 @@ aTh
 aRE
 aTh
 aRE
-aWx
+jPS
 aRE
 aZR
 aRE
-aWx
+jPS
 aRE
 aZR
 bkZ

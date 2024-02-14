@@ -5666,10 +5666,10 @@
 /turf/open/floor/plasteel/dark,
 /area/science/robotics)
 "bRg" = (
-/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
 	dir = 4
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "bRl" = (
@@ -59632,7 +59632,7 @@
 /area/crew_quarters/kitchen)
 "sIn" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/yellow/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "sIo" = (
@@ -115603,8 +115603,8 @@ uGm
 xZZ
 iRY
 htm
-xZZ
-xZZ
+bRg
+bRg
 avH
 drp
 drp
@@ -118682,7 +118682,7 @@ hcF
 htm
 htm
 jII
-xZZ
+bRg
 avH
 htm
 iRY
