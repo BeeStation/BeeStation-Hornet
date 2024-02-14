@@ -1,0 +1,4 @@
+author: spockye
+delete-after: true
+changes:
+  - bugfix: fixed meta Brig and the area around it
