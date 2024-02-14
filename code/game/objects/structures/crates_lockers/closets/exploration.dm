@@ -23,3 +23,4 @@
 	new /obj/item/mining_scanner(src)
 	new /obj/item/gps/mining/exploration(src)
 
+
