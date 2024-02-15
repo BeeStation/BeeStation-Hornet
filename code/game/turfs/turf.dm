@@ -537,13 +537,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return TRUE
 	return FALSE
 
-/turf/proc/make_traction(add_visual = TRUE)
-	if(add_visual)
-		//Add overlay
-		var/mutable_appearance/MA = mutable_appearance(icon, "no_slip")
-		MA.blend_mode = BLEND_OVERLAY
-		add_overlay(MA)
-
 ///Add our relevant floor texture, if we can / need
 /turf/proc/add_turf_texture(list/textures, force)
 	if(!length(textures) || length(contents) && (locate(/obj/effect/decal/cleanable/dirt) in contents || locate(/obj/effect/decal/cleanable/dirt) in vis_contents))

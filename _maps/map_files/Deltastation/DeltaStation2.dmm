@@ -12520,6 +12520,11 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/main)
+"buN" = (
+/obj/machinery/light/small,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "buP" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -25668,10 +25673,6 @@
 "cQD" = (
 /turf/closed/wall,
 /area/security/checkpoint/science/research)
-"cQF" = (
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/security/prison)
 "cQH" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -61204,6 +61205,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
+"ngG" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "ngR" = (
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/storage)
@@ -80996,11 +81001,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
-"tTP" = (
-/obj/machinery/light/small,
-/obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
-/area/security/prison)
 "tUr" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -145068,7 +145068,7 @@ dLy
 gmT
 hwA
 nZc
-cQF
+ngG
 nZc
 fab
 aFm
@@ -146612,7 +146612,7 @@ aFm
 ows
 jsJ
 nWE
-cQF
+ngG
 aFm
 aaa
 aaZ
@@ -147117,7 +147117,7 @@ rwO
 wim
 aFm
 nZc
-tTP
+buN
 aKV
 uKC
 fCH
@@ -148149,7 +148149,7 @@ rhl
 aKV
 qGw
 fab
-cQF
+ngG
 nZc
 nZc
 nZc
@@ -148398,7 +148398,7 @@ aaa
 aaa
 aaa
 aFm
-cQF
+ngG
 ykr
 aKV
 nZc
