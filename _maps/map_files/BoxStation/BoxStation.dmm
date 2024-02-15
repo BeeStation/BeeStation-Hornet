@@ -27940,6 +27940,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"hkh" = (
+/obj/structure/chair/stool,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "hko" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/open/floor/plasteel/white,
@@ -38698,6 +38703,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
+"lPR" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "lQa" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_y = -32
@@ -41112,6 +41121,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"mZj" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "mZy" = (
 /obj/structure/chair{
 	dir = 1
@@ -45892,6 +45914,7 @@
 "pnI" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/airalarm/directional/west,
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "pnL" = (
@@ -54315,6 +54338,7 @@
 	pixel_x = 1;
 	pixel_y = 33
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "sRD" = (
@@ -88599,7 +88623,7 @@ vQe
 tYI
 rnv
 hlq
-fZk
+mZj
 xSq
 aai
 aaa
@@ -89870,7 +89894,7 @@ tNE
 tNE
 mdH
 yfx
-tST
+hkh
 uHL
 pcu
 wBw
@@ -91409,7 +91433,7 @@ sti
 jpp
 wpi
 vCQ
-yfx
+lPR
 xYt
 aai
 aai
