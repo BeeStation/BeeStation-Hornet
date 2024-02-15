@@ -1,0 +1,4 @@
+author: itsmeow, LemonInTheDark, Timberpoes, Rohesie
+delete-after: true
+changes:
+  - code_imp: Improved ban cache loading, reducing post-roundstart lag.
