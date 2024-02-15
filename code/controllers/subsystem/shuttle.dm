@@ -58,8 +58,6 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/obj/docking_port/mobile/preview_shuttle
 
-	var/datum/turf_reservation/preview_reservation
-
 	var/shuttles_loaded = FALSE
 
 /datum/controller/subsystem/shuttle/Initialize(timeofday)
@@ -557,8 +555,6 @@ SUBSYSTEM_DEF(shuttle)
 
 	preview_template = SSshuttle.preview_template
 
-	preview_reservation = SSshuttle.preview_reservation
-
 /datum/controller/subsystem/shuttle/proc/is_in_shuttle_bounds(atom/A)
 	var/area/current = get_area(A)
 	if(istype(current, /area/shuttle) && !istype(current, /area/shuttle/transit))
@@ -698,22 +694,21 @@ SUBSYSTEM_DEF(shuttle)
 	preview_template = null
 	existing_shuttle = null
 	selected = null
-	QDEL_NULL(preview_reservation)
 
 /datum/controller/subsystem/shuttle/proc/load_template(datum/map_template/shuttle/S, datum/variable_ref/shuttle_reference)
 	. = FALSE
 	// load shuttle template, centred at shuttle import landmark,
-	preview_reservation = SSmapping.RequestBlockReservation(S.width, S.height, SSmapping.transit.z_value, /datum/turf_reservation/transit)
+	var/datum/turf_reservation/preview_reservation = SSmapping.RequestBlockReservation(S.width, S.height, SSmapping.transit.z_value, /datum/turf_reservation/transit)
 	if(!preview_reservation)
 		CRASH("failed to reserve an area for shuttle template loading")
 	var/turf/BL = TURF_FROM_COORDS_LIST(preview_reservation.bottom_left_coords)
 	var/datum/async_map_generator/shuttle_loader = S.load(BL, FALSE, TRUE, TRUE, FALSE)
-	shuttle_loader.on_completion(CALLBACK(src, PROC_REF(template_loaded), S, BL, shuttle_reference))
+	shuttle_loader.on_completion(CALLBACK(src, PROC_REF(template_loaded), S, BL, shuttle_reference, preview_reservation))
 	return shuttle_loader
 
 /// Template loaded completed.
 /// Parameters preceeded by _ are discarded and not used.
-/datum/controller/subsystem/shuttle/proc/template_loaded(datum/map_template/shuttle/S, turf/BL, datum/variable_ref/shuttle_reference)
+/datum/controller/subsystem/shuttle/proc/template_loaded(datum/map_template/shuttle/S, turf/BL, datum/variable_ref/shuttle_reference, datum/turf_reservation/preview_reservation)
 	var/affected = S.get_affected_turfs(BL, centered=FALSE)
 
 	var/found = 0
@@ -742,6 +737,8 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	//Everything fine
 	S.post_load(shuttle_reference.value)
+	// Clear the preview reservation
+	qdel(preview_reservation)
 	return TRUE
 
 /datum/controller/subsystem/shuttle/proc/unload_preview()
