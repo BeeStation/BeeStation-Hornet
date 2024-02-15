@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Mentors are no longer reloaded when admin datums are created.
+  - tweak: Admins can no longer see mentor-only verbs when deadminned.
