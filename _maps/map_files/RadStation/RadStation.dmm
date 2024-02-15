@@ -15040,7 +15040,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "eLF" = (
-/obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
@@ -27488,14 +27487,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/storage)
-"iFB" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 3
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/exploration_prep)
 "iFD" = (
 /obj/structure/closet/l3closet/virology,
 /obj/effect/turf_decal/bot,
@@ -31825,6 +31816,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "jWV" = (
@@ -45848,6 +45840,7 @@
 	layer = 3
 	},
 /obj/machinery/suit_storage_unit/exploration,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "ojR" = (
@@ -49319,6 +49312,7 @@
 	pixel_x = 32;
 	pixel_y = -3
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "pqk" = (
@@ -61674,7 +61668,6 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "tmn" = (
-/obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -70618,7 +70611,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "vXW" = (
-/obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -71582,6 +71574,7 @@
 	pixel_x = 31;
 	pixel_y = -1
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "wnp" = (
@@ -99167,7 +99160,7 @@ cMW
 qpz
 vER
 nOq
-iFB
+ekN
 eLF
 tmn
 vXW
