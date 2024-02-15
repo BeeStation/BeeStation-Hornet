@@ -1,4 +1,0 @@
-author: Aramix
-delete-after: true
-changes:
-  - bugfix: IV drip sprite now properly updates again
