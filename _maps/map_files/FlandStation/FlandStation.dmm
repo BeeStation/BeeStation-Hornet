@@ -39768,7 +39768,6 @@
 	},
 /obj/item/clothing/mask/surgical,
 /obj/item/clothing/gloves/color/latex,
-/obj/item/defibrillator/loaded,
 /obj/item/reagent_containers/blood/OPlus,
 /turf/open/floor/plasteel/techmaint,
 /area/security/main)
@@ -91921,7 +91920,6 @@
 	},
 /obj/item/reagent_containers/glass/bottle/charcoal,
 /obj/item/reagent_containers/glass/bottle/epinephrine,
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{

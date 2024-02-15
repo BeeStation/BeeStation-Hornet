@@ -8086,9 +8086,6 @@
 /area/space/nearstation)
 "cri" = (
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -32361,9 +32358,6 @@
 /area/crew_quarters/toilet)
 "kxN" = (
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -57733,7 +57727,6 @@
 /area/maintenance/starboard/secondary)
 "sRh" = (
 /obj/structure/table/reinforced,
-/obj/item/defibrillator/loaded,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -58159,12 +58152,10 @@
 /area/hallway/primary/fore)
 "sXZ" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/blood_filter,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "sYe" = (
