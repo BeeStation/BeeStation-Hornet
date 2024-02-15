@@ -9505,7 +9505,7 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4{
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
 	dir = 10
 	},
 /turf/open/space,
@@ -10325,8 +10325,8 @@
 /obj/machinery/atmospherics/pipe/manifold/yellow/visible{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -11499,7 +11499,7 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4,
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4,
 /turf/open/space,
 /area/space/nearstation)
 "bVI" = (
@@ -12842,8 +12842,8 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "cbF" = (
-/obj/machinery/atmospherics/pipe/manifold/general/visible,
 /obj/item/cigbutt,
+/obj/machinery/atmospherics/pipe/manifold4w/general,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "cbH" = (
@@ -13220,6 +13220,9 @@
 "cdB" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/co2{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -16539,8 +16542,8 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
 	},
 /turf/open/space,
 /area/space/nearstation)
@@ -16550,7 +16553,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4,
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4,
 /turf/open/space,
 /area/space/nearstation)
 "cCI" = (
@@ -16564,7 +16567,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4,
+/obj/machinery/atmospherics/pipe/manifold/dark/visible/layer4{
+	dir = 4
+	},
 /turf/open/space,
 /area/space/nearstation)
 "cCP" = (
@@ -16572,7 +16577,7 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4{
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
 	dir = 5
 	},
 /turf/open/space,
@@ -18050,8 +18055,8 @@
 	dir = 4
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
@@ -19321,7 +19326,7 @@
 "dvE" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4,
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4,
 /turf/open/space,
 /area/space/nearstation)
 "dwb" = (
@@ -20672,7 +20677,7 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4,
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4,
 /turf/open/space,
 /area/space/nearstation)
 "eek" = (
@@ -21896,8 +21901,8 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -27941,6 +27946,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"hGy" = (
+/obj/machinery/atmospherics/pipe/simple/dark/visible{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "hGV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -28889,6 +28900,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
+"ibC" = (
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "Port to Fuel Pipe"
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "ibG" = (
 /obj/machinery/nanite_programmer,
 /obj/effect/turf_decal/bot,
@@ -30728,7 +30745,7 @@
 /area/medical/medbay/central)
 "iYO" = (
 /obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4,
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4,
 /turf/open/space,
 /area/space/nearstation)
 "iYQ" = (
@@ -31467,8 +31484,10 @@
 /area/vacant_room/commissary)
 "juX" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "jvd" = (
@@ -34246,8 +34265,8 @@
 	dir = 8;
 	name = "Mix to Incinerator"
 	},
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -35005,8 +35024,8 @@
 "laj" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -36525,8 +36544,8 @@
 /area/medical/medbay/central)
 "lHZ" = (
 /obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
 	},
 /turf/open/space,
 /area/space/nearstation)
@@ -43072,7 +43091,7 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4,
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4,
 /turf/open/space,
 /area/space/nearstation)
 "oSi" = (
@@ -43316,6 +43335,15 @@
 	},
 /turf/open/space/basic,
 /area/space)
+"oYE" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/orange/visible,
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4,
+/turf/open/space,
+/area/space/nearstation)
 "oZi" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -45006,6 +45034,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
 	},
@@ -49340,6 +49371,17 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
+"rPS" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 4
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/engine/atmos)
 "rPX" = (
 /obj/structure/disposalpipe/segment,
 /turf/closed/wall,
@@ -50961,8 +51003,8 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/violet/visible/layer4{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
 	},
 /turf/open/space,
 /area/space/nearstation)
@@ -56862,7 +56904,9 @@
 "vzF" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "vAh" = (
@@ -59607,6 +59651,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"wWh" = (
+/obj/machinery/atmospherics/pipe/simple/yellow/visible,
+/obj/machinery/atmospherics/pipe/simple/dark/visible/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "wWy" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -96275,8 +96326,8 @@ bVZ
 bZI
 caH
 cbF
-bOd
-bOd
+ibC
+hGy
 bTU
 bOe
 bQu
@@ -96533,7 +96584,7 @@ bXT
 caG
 cbE
 bOd
-bOd
+rcc
 xoB
 cdA
 cfQ
@@ -96790,7 +96841,7 @@ bUS
 bUS
 bXU
 bUS
-bUS
+wWh
 apa
 bMW
 cfQ
@@ -97561,7 +97612,7 @@ lpu
 xNI
 juX
 xNI
-lpu
+rPS
 xHM
 bLK
 bLK
@@ -97814,7 +97865,7 @@ bVv
 edO
 cCH
 dvE
-cCJ
+oYE
 dvE
 cCH
 dvE
