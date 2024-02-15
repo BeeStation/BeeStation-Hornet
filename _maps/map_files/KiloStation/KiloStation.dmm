@@ -34794,9 +34794,6 @@
 	dir = 1
 	},
 /obj/structure/table/optable,
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
@@ -78018,9 +78015,6 @@
 	dir = 8
 	},
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_y = 5
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/main)
 "tzZ" = (

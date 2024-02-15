@@ -22424,9 +22424,6 @@
 /area/crew_quarters/bar)
 "cTU" = (
 /obj/structure/rack,
-/obj/item/healthanalyzer{
-	pixel_y = -2
-	},
 /obj/machinery/camera{
 	c_tag = "Brig - Infirmary";
 	dir = 1
@@ -62927,9 +62924,6 @@
 	pixel_x = -28
 	},
 /obj/structure/table,
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_y = 5
-	},
 /obj/item/clothing/mask/balaclava,
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 5

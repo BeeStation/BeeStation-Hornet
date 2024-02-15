@@ -14594,7 +14594,6 @@
 	dir = 8
 	},
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /obj/item/healthanalyzer,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
@@ -37433,9 +37432,6 @@
 	},
 /obj/item/reagent_containers/glass/bottle/facid{
 	pixel_x = 7
-	},
-/obj/item/storage/backpack/duffelbag/sec/surgery{
-	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
@@ -84643,7 +84639,6 @@
 	icon_state = "4-8"
 	},
 /obj/item/clothing/gloves/color/latex,
-/obj/item/healthanalyzer,
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = -3;
 	pixel_y = 2

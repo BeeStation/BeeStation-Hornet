@@ -48504,7 +48504,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig/dock)
 "pdH" = (
-/obj/item/defibrillator/loaded,
 /obj/structure/closet/crate/freezer/blood,
 /obj/item/rollerbed,
 /obj/item/rollerbed{
@@ -60278,7 +60277,6 @@
 	pixel_x = -7;
 	pixel_y = 12
 	},
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /turf/open/floor/plasteel,
 /area/security/brig/medbay)
 "sRq" = (
@@ -66602,10 +66600,6 @@
 	pixel_y = -4
 	},
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffelbag/med/surgery{
-	pixel_y = 5
-	},
-/obj/item/blood_filter,
 /turf/open/floor/plasteel/dark,
 /area/security/brig/medbay)
 "uJI" = (

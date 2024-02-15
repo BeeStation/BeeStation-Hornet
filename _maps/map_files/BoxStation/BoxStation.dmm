@@ -51563,7 +51563,6 @@
 	dir = 8
 	},
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
