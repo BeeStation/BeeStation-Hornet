@@ -398,7 +398,9 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "ack" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -1012,7 +1014,9 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "aiU" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -3058,7 +3062,9 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "aKJ" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -4063,7 +4069,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/effect/loot_jobscale/armoury/bulletproof_vest,
 /obj/effect/loot_jobscale/armoury/bulletproof_helmet,
 /turf/open/floor/plasteel,
@@ -8794,7 +8802,9 @@
 /area/hallway/secondary/command)
 "cFH" = (
 /obj/structure/closet/secure_closet/personal/patient,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -12638,7 +12648,9 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "dUs" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -13173,7 +13185,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel,
 /area/medical/morgue)
 "edw" = (
@@ -14981,7 +14995,9 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "eLy" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -15628,7 +15644,7 @@
 	dir = 8
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=hall10";
+	codes_txt = "patrol;next_patrol=hall12";
 	location = "hall9"
 	},
 /obj/machinery/door/firedoor,
@@ -20204,7 +20220,9 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "gyZ" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -21908,7 +21926,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -27230,7 +27250,9 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/toilet)
 "iMC" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -29267,18 +29289,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
-"jzx" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=hall11";
-	location = "hall10"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel,
-/area/hallway/primary/starboard)
 "jzB" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 8
@@ -31790,7 +31800,9 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "kpR" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -35103,7 +35115,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "lwg" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -35513,9 +35527,9 @@
 /area/crew_quarters/kitchen)
 "lCs" = (
 /obj/docking_port/stationary/random{
+	dir = 8;
 	id = "pod_lavaland2";
-	name = "lavaland";
-	dir = 8
+	name = "lavaland"
 	},
 /turf/open/space/basic,
 /area/space)
@@ -37952,7 +37966,9 @@
 /turf/open/floor/plasteel,
 /area/storage/tools)
 "moh" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -44654,7 +44670,9 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/starboard/central)
 "ozu" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -46302,9 +46320,9 @@
 /area/quartermaster/warehouse)
 "pec" = (
 /obj/docking_port/stationary/random{
+	dir = 8;
 	id = "pod_lavaland1";
-	name = "lavaland";
-	dir = 8
+	name = "lavaland"
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -46665,7 +46683,9 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/dorms)
 "pke" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -53432,7 +53452,9 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "rxk" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -55165,7 +55187,9 @@
 /turf/open/floor/plasteel,
 /area/science/shuttle)
 "rZa" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -55459,7 +55483,9 @@
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
 "sey" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -58202,9 +58228,9 @@
 /obj/machinery/button/door{
 	id = "Prisongate";
 	name = "Prison Wing Lockdown";
+	pixel_x = -3;
 	pixel_y = -26;
-	req_access_txt = "2";
-	pixel_x = -3
+	req_access_txt = "2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -59099,7 +59125,9 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
 "tsz" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/plasteel/white,
@@ -61446,7 +61474,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "uhc" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -62044,7 +62074,7 @@
 	moveable = 1
 	},
 /obj/machinery/mass_driver{
-	armor = list("melee"=10,"bullet"=10,"laser"=10,"energy"=0,"bomb"=0,"bio"=0,"rad"=0,"fire"=100,"acid"=70);
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70);
 	critical_machine = 1;
 	dir = 8;
 	id = "smeject";
@@ -64373,7 +64403,9 @@
 "vdU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -66509,7 +66541,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
@@ -66982,7 +67016,9 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "vSY" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
@@ -70515,7 +70551,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
 "xeR" = (
@@ -70688,7 +70726,9 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "xio" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -72126,13 +72166,13 @@
 /area/crew_quarters/heads/hos)
 "xHj" = (
 /obj/docking_port/stationary{
+	dir = 8;
 	dwidth = 2;
 	height = 5;
 	id = "laborcamp_home";
 	name = "fore bay 1";
 	roundstart_template = /datum/map_template/shuttle/labour/box;
-	width = 9;
-	dir = 8
+	width = 9
 	},
 /turf/open/space/basic,
 /area/space)
@@ -72847,7 +72887,9 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "xRF" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -73677,8 +73719,8 @@
 /area/security/prison)
 "yfj" = (
 /obj/machinery/power/apc/auto_name/west{
-	pixel_x = -24;
-	name = "Prison"
+	name = "Prison";
+	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -112414,7 +112456,7 @@ uwR
 cgd
 sqh
 sqh
-jzx
+hbK
 vLi
 sqh
 tSC

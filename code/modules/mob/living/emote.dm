@@ -4,10 +4,35 @@
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(/mob/living/simple_animal/slime, /mob/living/brain)
 
+/// The time it takes for the blush visual to be removed
+#define BLUSH_DURATION 5.2 SECONDS
+
 /datum/emote/living/blush
 	key = "blush"
 	key_third_person = "blushes"
 	message = "blushes"
+	/// Timer for the blush visual to wear off
+
+/datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(. && ishuman(user)) // Give them a visual blush effect if they're human
+		var/mob/living/carbon/human/human_user = user
+		ADD_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
+		human_user.update_body()
+
+		// Use a timer to remove the blush effect after the BLUSH_DURATION has passed
+		var/list/key_emotes = GLOB.emote_list["blush"]
+		for(var/datum/emote/living/blush/living_emote in key_emotes)
+
+			// The existing timer restarts if it is already running
+			addtimer(CALLBACK(living_emote, PROC_REF(end_blush), human_user), BLUSH_DURATION, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/datum/emote/living/blush/proc/end_blush(mob/living/carbon/human/human_user)
+	if(!QDELETED(human_user))
+		REMOVE_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
+		human_user.update_body()
+
+#undef BLUSH_DURATION
 
 /datum/emote/living/bow
 	key = "bow"
