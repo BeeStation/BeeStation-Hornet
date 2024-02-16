@@ -37,13 +37,11 @@
 		. += "This capsule has the [template.name] stored."
 		. += template.description
 
-/obj/item/survivalcapsule/attack_self()
+/obj/item/survivalcapsule/attack_self(mob/user)
 	//Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
-	if(!used)
-		loc.visible_message("<span class='warning'>\The [src] begins to shake. Stand back!</span>")
-		used = TRUE
-		sleep(50)
+	
+	if(do_after(user, 30, target = get_turf(src)))
 		var/turf/deploy_location = get_turf(src)
 		var/status = template.check_deploy(deploy_location)
 		switch(status)
@@ -55,7 +53,6 @@
 				src.loc.visible_message("<span class='warning'>\The [src] doesn't have room to deploy! You need to clear a [width]x[height] area!</span>")
 
 		if(status != SHELTER_DEPLOY_ALLOWED)
-			used = FALSE
 			return
 
 		playsound(src, 'sound/effects/phasein.ogg', 100, 1)
