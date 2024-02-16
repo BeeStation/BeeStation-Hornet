@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - code_imp: Optimized GAGS via Rust-g. It is now 250x faster.
