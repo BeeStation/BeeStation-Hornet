@@ -12,12 +12,12 @@
 	for (var/cap_name in GLOB.psyphoza_cap_list)
 		var/datum/sprite_accessory/cap = GLOB.psyphoza_cap_list[cap_name]
 
-		var/icon/icon_with_cap = icon('icons/mob/species/psyphoza/bodyparts.dmi', "psyphoza_head", dir = SOUTH)
+		var/datum/universal_icon/icon_with_cap = uni_icon('icons/mob/species/psyphoza/bodyparts.dmi', "psyphoza_head", dir = SOUTH)
 		if (cap.icon_state != "none")
-			var/icon/screen_icon = icon(cap.icon, "m_psyphoza_cap_[cap.icon_state]_ADJ", dir = SOUTH)
-			icon_with_cap.Blend(screen_icon, ICON_OVERLAY)
-		icon_with_cap.Scale(64, 64)
-		icon_with_cap.Crop(15, 64, 15 + 31, 64 - 31)
+			var/datum/universal_icon/screen_icon = uni_icon(cap.icon, "m_psyphoza_cap_[cap.icon_state]_ADJ", dir = SOUTH)
+			icon_with_cap.blend_icon(screen_icon, ICON_OVERLAY)
+		icon_with_cap.scale(64, 64)
+		icon_with_cap.crop(15, 64 - 31, 15 + 31, 64)
 
 		values[cap.name] = icon_with_cap
 

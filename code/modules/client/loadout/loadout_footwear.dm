@@ -14,6 +14,11 @@
 	display_name = "wooden sandals"
 	path = /obj/item/clothing/shoes/sandal
 
+/datum/gear/footwear/jackboots
+	display_name = "jackboots"
+	path = /obj/item/clothing/shoes/jackboots_replica
+	cost = 4000
+
 /datum/gear/footwear/winterboots
 	display_name = "winter boots"
 	path = /obj/item/clothing/shoes/winterboots
@@ -22,7 +27,7 @@
 /datum/gear/footwear/swagshoes
 	display_name = "swag shoes"
 	path = /obj/item/clothing/shoes/swagshoes
-	cost = 31000 
+	cost = 31000
 
 //Standard shoes
 
