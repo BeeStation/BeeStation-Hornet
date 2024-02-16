@@ -178,7 +178,7 @@
 					if(prob(stress))
 						owner.set_heartattack(TRUE)
 						to_chat(owner, "<span class='userdanger'>Your heart stops!</span>")
-				if(timer && !COOLDOWN_FINISHED(src, timer))
+				else
 					owner.visible_message("<span class ='danger'>[owner] looks ghostly pale, trembling uncontrollably!</span>", "<span class ='userdanger'>This is HELL! OUT!! NOW!!!</span>")
 					owner.Jitter(10)
 
