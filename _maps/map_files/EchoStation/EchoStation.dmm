@@ -659,7 +659,7 @@
 	pixel_y = -18
 	},
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "alO" = (
 /obj/structure/chair/wood,
 /obj/structure/sign/painting/library{
@@ -716,6 +716,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"amg" = (
+/obj/structure/sign/warning/fire,
+/turf/closed/wall/r_wall/rust,
+/area/asteroid/paradise)
 "amw" = (
 /obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -1020,6 +1024,9 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"apP" = (
+/turf/open/floor/plating/beach/sand,
+/area/asteroid/paradise/surface)
 "apX" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction,
@@ -1198,6 +1205,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 10
 	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
@@ -5561,9 +5571,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
-"cqz" = (
-/turf/open/floor/carpet,
-/area/asteroid/paradise/surface/sand)
 "cqD" = (
 /obj/effect/spawner/structure/window,
 /obj/machinery/door/poddoor/preopen{
@@ -5621,6 +5628,12 @@
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plasteel/techmaint/planetary,
 /area/asteroid/paradise/surface)
+"csc" = (
+/obj/machinery/power/turbine{
+	luminosity = 2
+	},
+/turf/open/floor/engine/vacuum,
+/area/maintenance/disposal/incinerator)
 "csB" = (
 /obj/effect/turf_decal/tile/dark_red{
 	alpha = 180;
@@ -6308,6 +6321,7 @@
 	pixel_y = -31;
 	specialfunctions = 4
 	},
+/obj/machinery/light/small,
 /turf/open/floor/plasteel/techmaint/planetary,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
@@ -6382,7 +6396,7 @@
 	pixel_y = 6
 	},
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "cOG" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 1
@@ -6762,6 +6776,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/tech,
 /area/engine/atmos)
+"dav" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating/beach/sand,
+/area/asteroid/paradise/surface)
 "dbm" = (
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -6867,6 +6885,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light,
 /turf/open/floor/plasteel/freezer,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
@@ -7409,7 +7428,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "dxI" = (
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/stripes/line{
@@ -8684,6 +8703,7 @@
 	specialfunctions = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/small,
 /turf/open/floor/plasteel/techmaint/planetary,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
@@ -9150,7 +9170,7 @@
 	},
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "exJ" = (
 /obj/structure/railing{
 	dir = 8
@@ -11397,7 +11417,7 @@
 "fCM" = (
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/carpet,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "fDC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/carbon_output{
 	dir = 4;
@@ -11483,6 +11503,14 @@
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
 	})
+"fGT" = (
+/obj/machinery/power/compressor{
+	comp_id = "incineratorturbine";
+	dir = 1;
+	luminosity = 2
+	},
+/turf/open/floor/engine/vacuum,
+/area/maintenance/disposal/incinerator)
 "fHo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -12330,12 +12358,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
-"fZl" = (
-/obj/machinery/door/poddoor/incinerator_atmos_main,
-/obj/structure/lattice/catwalk/over,
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plating/asteroid,
-/area/maintenance/disposal/incinerator)
 "fZv" = (
 /obj/structure/table/reinforced,
 /obj/item/mmi{
@@ -12705,7 +12727,7 @@
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium/survival,
-/area/asteroid/paradise/surface/grass)
+/area/asteroid/paradise/surface)
 "ghT" = (
 /obj/machinery/air_sensor/atmos/sm_core,
 /turf/open/floor/engine,
@@ -13732,15 +13754,15 @@
 /turf/closed/mineral/iron,
 /area/quartermaster/storage)
 "gHf" = (
-/obj/machinery/door/airlock/public{
-	name = "bathroom"
-	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/door/airlock/public/glass{
+	name = "bathroom"
+	},
 /turf/open/floor/plasteel/freezer,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
@@ -14095,6 +14117,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
+"gPM" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/fore{
+	name = "-1 Primary Hallway"
+	})
 "gQa" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1
@@ -15689,6 +15720,17 @@
 /turf/open/floor/plating/asteroid,
 /area/asteroid/paradise/surface)
 "hGZ" = (
+/obj/machinery/air_sensor{
+	pixel_x = -32;
+	pixel_y = -32
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/sparker{
+	pixel_x = -17;
+	id = "atmos_incinerator_igniter"
+	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input{
 	dir = 1
 	},
@@ -17159,22 +17201,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
-"iyR" = (
-/obj/machinery/power/compressor{
-	comp_id = "incineratorturbine";
-	dir = 1;
-	luminosity = 2
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("ss13, engine")
-	},
-/obj/structure/cable,
-/turf/open/floor/engine/vacuum,
-/area/maintenance/disposal/incinerator)
 "iyS" = (
 /turf/closed/wall,
 /area/medical/exam_room)
@@ -17310,6 +17336,9 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hor)
+"iFC" = (
+/turf/closed/wall/r_wall/rust,
+/area/asteroid/paradise)
 "iGq" = (
 /turf/closed/wall/rust,
 /area/quartermaster/warehouse)
@@ -18574,7 +18603,7 @@
 "jsm" = (
 /obj/item/trash/plate,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "jsp" = (
 /turf/closed/indestructible/rock/bedrock,
 /area/asteroid/paradise)
@@ -19244,7 +19273,8 @@
 	light_color = "#7AC3FF"
 	},
 /obj/machinery/camera/autoname{
-	c_tag = "Captain's Quarters"
+	c_tag = "Captain's Quarters";
+	network = list("ss13","public")
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/barsign{
@@ -20676,7 +20706,7 @@
 "krj" = (
 /obj/item/trash/boritos,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "krw" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -21164,7 +21194,7 @@
 	pixel_x = -16
 	},
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "kDf" = (
 /obj/structure/table,
 /obj/item/storage/backpack{
@@ -21188,11 +21218,10 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "kEO" = (
-/obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/sign/warning/securearea{
 	pixel_y = 32
 	},
-/turf/open/floor/plating/asteroid,
+/turf/closed/wall/r_wall,
 /area/asteroid/paradise)
 "kEQ" = (
 /obj/structure/stairs,
@@ -21725,6 +21754,22 @@
 /obj/machinery/hydroponics/soil,
 /turf/open/floor/plating/grass,
 /area/asteroid/paradise/surface)
+"kXh" = (
+/obj/machinery/power/compressor{
+	comp_id = "incineratorturbine";
+	dir = 1;
+	luminosity = 2
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/cable,
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("ss13, engine")
+	},
+/turf/open/floor/engine/vacuum,
+/area/maintenance/disposal/incinerator)
 "kXq" = (
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
@@ -25155,8 +25200,9 @@
 	name = "-2 Primary Hallway"
 	})
 "mTL" = (
-/obj/structure/sign/warning/fire,
-/turf/closed/wall/r_wall/rust,
+/obj/machinery/door/poddoor/incinerator_atmos_main,
+/obj/effect/turf_decal/sand/plating,
+/turf/open/floor/plating/asteroid,
 /area/maintenance/disposal/incinerator)
 "mTS" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -27707,7 +27753,7 @@
 "owf" = (
 /obj/structure/reagent_dispensers/beerkeg,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "owJ" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark,
@@ -32146,7 +32192,7 @@
 	},
 /obj/item/trash/candy,
 /turf/open/floor/carpet,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "qMM" = (
 /obj/machinery/light{
 	dir = 8
@@ -34232,7 +34278,9 @@
 /turf/open/floor/plasteel,
 /area/security/prison)
 "rKR" = (
-/obj/structure/fermenting_barrel,
+/obj/structure/fermenting_barrel{
+	anchored = 1
+	},
 /turf/open/floor/plating/grass,
 /area/asteroid/paradise/surface)
 "rLa" = (
@@ -37935,7 +37983,7 @@
 "tzT" = (
 /obj/item/trash/syndi_cakes,
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "tAg" = (
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
@@ -38811,6 +38859,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
+"tRR" = (
+/obj/machinery/door/poddoor/incinerator_atmos_main,
+/turf/open/floor/plating/asteroid,
+/area/maintenance/disposal/incinerator)
 "tRY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -38978,8 +39030,8 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "tUh" = (
-/obj/structure/sign/warning/vacuum/external{
-	pixel_y = -32
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
@@ -40175,6 +40227,13 @@
 	initial_gas_mix = "n2=23;o2=14"
 	},
 /area/security/prison)
+"uCw" = (
+/obj/effect/spawner/structure/window/depleteduranium,
+/obj/machinery/atmospherics/pipe/manifold/general/visible{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/maintenance/disposal/incinerator)
 "uCY" = (
 /obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
@@ -41618,7 +41677,7 @@
 	pixel_y = 11
 	},
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "vqp" = (
 /obj/effect/turf_decal/tile/black/opposingcorners{
 	dir = 1
@@ -43211,11 +43270,7 @@
 	icon = 'icons/mob/landmarks.dmi';
 	icon_state = "x"
 	},
-/obj/item/storage/backpack/satchel/flat/empty,
-/obj/item/coin/gold,
-/obj/item/clothing/suit/pirate,
-/obj/item/clothing/head/pirate,
-/obj/item/dualsaber/toy,
+/obj/item/storage/backpack/satchel/flat/treasure,
 /turf/open/floor/plating/beach/sand,
 /area/asteroid/paradise/surface/sand)
 "wnT" = (
@@ -44707,6 +44762,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "xdD" = (
@@ -45705,15 +45763,14 @@
 /turf/open/floor/pod/dark,
 /area/maintenance/department/bridge)
 "xDA" = (
-/obj/machinery/igniter{
-	id = "atmos_incinerator_igniter"
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "1-4"
 	},
-/obj/machinery/air_sensor{
-	pixel_x = -32;
-	pixel_y = -32
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input{
+	dir = 1
 	},
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
@@ -46107,7 +46164,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface/sand)
+/area/asteroid/paradise/surface)
 "xOh" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/components/binary/pump/on{
@@ -58073,8 +58130,8 @@ dzW
 ihL
 dzW
 ihL
-vqI
-vqI
+iFC
+amg
 xqU
 fhM
 vqI
@@ -58327,10 +58384,10 @@ bku
 lIt
 oPT
 urT
-lmF
+uCw
 hGZ
-dzW
-ihL
+kXh
+ibg
 mTL
 gNG
 ccl
@@ -58586,9 +58643,9 @@ fBG
 lLa
 ata
 xDA
-iyR
-ibg
-fZl
+dzW
+ihL
+ihL
 cFP
 xqU
 klh
@@ -58843,9 +58900,9 @@ ufL
 eZf
 lmF
 tUh
-ihL
-ihL
-mTL
+fGT
+csc
+tRR
 mFt
 cEu
 sLz
@@ -59102,7 +59159,7 @@ ihL
 aLz
 ihL
 kEO
-sLz
+amg
 xgK
 sLz
 xTD
@@ -259546,16 +259603,16 @@ dvc
 dvc
 dvc
 dvc
-bMS
-ckI
-bgs
+sNi
+sNi
+sNi
 dvc
 dvc
 dvc
-trd
+nrQ
 aGW
 pbk
-hsh
+gPM
 hsh
 txR
 trd
@@ -259800,16 +259857,16 @@ dvc
 dvc
 dvc
 dvc
-bMS
-ckI
-ckI
-ckI
+sNi
+sNi
+sNi
+sNi
 waB
-yet
+sNi
 dvc
 dvc
 dvc
-trd
+nrQ
 lJE
 csX
 rGM
@@ -260053,26 +260110,26 @@ uYr
 bMS
 ckI
 ckI
-ckI
-ckI
-ckI
-ckI
-ckI
 sNi
 sNi
 sNi
 sNi
-yet
-bgs
+sNi
+sNi
+sNi
+sNi
+sNi
+sNi
+sNi
 dvc
 dvc
-trd
-trd
+nrQ
+nrQ
 vCW
 pbk
 pbk
 fxY
-trd
+kAX
 jOP
 bqg
 bqg
@@ -260320,16 +260377,16 @@ sNi
 sNi
 sNi
 sNi
+sNi
 yet
-bgs
 dvc
 dvc
-trd
-trd
+nrQ
+nrQ
 uVJ
 uVJ
+nrQ
 trd
-kAX
 wsd
 hfK
 ggb
@@ -260582,10 +260639,10 @@ pBm
 csW
 cIX
 uDA
-uDA
+apP
 xNL
 xNL
-uDA
+apP
 sBX
 bqg
 hyg
@@ -260838,11 +260895,11 @@ dQu
 bTi
 bgs
 xwM
-cqz
-uDA
-uDA
+rYt
+apP
+apP
 jsm
-uDA
+apP
 bIK
 bIK
 hfK
@@ -261097,9 +261154,9 @@ yet
 xwM
 fCM
 krj
-uDA
-uDA
-wGC
+apP
+apP
+dav
 cnJ
 hGN
 hyg
@@ -261353,7 +261410,7 @@ sNi
 yet
 csW
 gpg
-uDA
+apP
 alL
 uDA
 nnR
@@ -261612,7 +261669,7 @@ bgs
 csW
 gpg
 cOC
-uDA
+apP
 cnJ
 kqB
 hGN
@@ -261868,8 +261925,8 @@ sNi
 yet
 bgs
 xwM
-cqz
-cqz
+rYt
+rYt
 uDA
 kqB
 wAY
@@ -262125,8 +262182,8 @@ sNi
 sNi
 yet
 xwM
-uDA
-uDA
+apP
+apP
 wGC
 aqa
 nId
@@ -263154,7 +263211,7 @@ sNi
 sNi
 yet
 xwM
-uDA
+apP
 uDA
 wGC
 uXr
@@ -263412,7 +263469,7 @@ sNi
 yet
 xwM
 exI
-uDA
+apP
 bIK
 rzJ
 kqB
@@ -263669,7 +263726,7 @@ axS
 yet
 xwM
 kDa
-uDA
+apP
 uDA
 hyg
 wGC
@@ -263925,7 +263982,7 @@ sNi
 yet
 kiZ
 xwM
-uDA
+apP
 fkk
 aQv
 hfK
@@ -264182,7 +264239,7 @@ sNi
 yet
 jJH
 lyK
-uDA
+apP
 bIK
 xbg
 kqB
@@ -264438,8 +264495,8 @@ sNi
 sNi
 yet
 jNk
-uDA
-uDA
+apP
+apP
 wGC
 nPk
 ooY
@@ -264695,7 +264752,7 @@ sNi
 yet
 kiZ
 ydG
-uDA
+apP
 uDA
 hfK
 kqB
@@ -264952,7 +265009,7 @@ rtt
 kiZ
 qbN
 lyK
-uDA
+apP
 enb
 uDA
 xqm
@@ -265209,7 +265266,7 @@ kiZ
 qbN
 lyK
 tzT
-uDA
+apP
 bIK
 kqB
 bqg
