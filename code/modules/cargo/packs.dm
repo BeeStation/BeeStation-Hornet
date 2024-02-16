@@ -724,7 +724,6 @@
 	max_supply = 2
 	access_budget = ACCESS_BRIG
 	contains = list(/obj/item/survivalcapsule/capsule_checkpoint,
-					/obj/item/survivalcapsule/capsule_checkpoint,
 					/obj/item/survivalcapsule/capsule_checkpoint)
 	cost = 1000
 	crate_name = "Security Checkpoint capsule crate"
