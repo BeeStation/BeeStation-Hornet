@@ -53,9 +53,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "cp" = (
@@ -85,7 +83,8 @@
 	desc = "A remote control switch.";
 	id = "ExploIFuckedUp";
 	name = "Vent Engine Room";
-	pixel_y = 25
+	pixel_y = 25;
+	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate/science/shuttle,
@@ -158,23 +157,14 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"lu" = (
-/obj/structure/table,
-/obj/item/toy/cards/deck/unum{
-	pixel_y = 4
+"ow" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
 	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"rM" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/holopad,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "rN" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "rT" = (
@@ -213,13 +203,18 @@
 	pixel_x = -32;
 	pixel_y = 1
 	},
-/obj/structure/chair/fancy/shuttle,
+/obj/structure/closet/crate/secure/weapon/contraband,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "uD" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/structure/table,
+/obj/item/toy/cards/deck/unum{
+	pixel_y = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -284,6 +279,11 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/item/storage/firstaid/regular{
+	pixel_x = -3;
+	pixel_y = 9
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Ai" = (
@@ -322,11 +322,9 @@
 	dir = 4;
 	pixel_x = -25
 	},
-/obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_x = -3;
-	pixel_y = 9
-	},
+/obj/structure/closet/crate/large,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "DI" = (
@@ -364,7 +362,8 @@
 	desc = "A remote control switch.";
 	id = "ExploIFuckedUp";
 	name = "Vent Engine Room";
-	pixel_y = -25
+	pixel_y = -25;
+	req_access_txt = "49"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/bot,
@@ -390,7 +389,8 @@
 	id = "ExploIFuckedUp";
 	name = "Vent Engine Room";
 	pixel_x = -25;
-	pixel_y = 25
+	pixel_y = 25;
+	req_access_txt = "49"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -444,8 +444,6 @@
 	dir = 8;
 	network = list("ss13","sci")
 	},
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/secure/weapon/contraband,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Qe" = (
@@ -518,6 +516,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "WU" = (
@@ -540,9 +540,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/large,
-/obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 
@@ -579,8 +576,8 @@ gp
 (3,1,1) = {"
 Qe
 an
-Pc
-lu
+tu
+tu
 rN
 vP
 tG
@@ -596,9 +593,9 @@ Qe
 bn
 VT
 sm
-tu
+Pc
 Ac
-tu
+ow
 FX
 Qe
 eL
@@ -611,9 +608,9 @@ lq
 Iv
 gQ
 AX
-rM
+Pc
 uD
-tu
+ow
 Hc
 Qe
 JI
