@@ -76190,6 +76190,8 @@
 	},
 /obj/item/folder/red,
 /obj/item/storage/box/firingpins,
+/obj/item/key/security,
+/obj/item/key/security,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "sUX" = (
@@ -90483,11 +90485,10 @@
 "xHh" = (
 /obj/item/storage/box/sec_barricades,
 /obj/structure/table,
-/obj/item/key/security,
-/obj/item/key/security,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/item/survivalcapsule/capsule_checkpoint,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "xHG" = (

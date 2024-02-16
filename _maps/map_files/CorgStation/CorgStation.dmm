@@ -22662,6 +22662,7 @@
 	},
 /obj/item/storage/box/flashbangs,
 /obj/item/gun/grenadelauncher,
+/obj/item/survivalcapsule/capsule_checkpoint,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "hmS" = (
