@@ -706,17 +706,6 @@
 	crate_name = "incendiary weapons crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
-
-/datum/supply_pack/security/armory/securitybarriersxl
-	name = "Security Barrier Capsules XL"
-	desc = "3x3 Reinforced glass barricades for when the nukies come knocking. Requires Security access to open."
-	small_item = TRUE
-	max_supply = 2
-	contains = list(/obj/item/survivalcapsule/barricade,
-					/obj/item/survivalcapsule/barricade,
-					/obj/item/survivalcapsule/barricade)
-	cost = 2000
-	crate_name = "security barriers crate XL"
 	
 /datum/supply_pack/security/armory/capsule_checkpoints
 	name = "Security Checkpoint capsules"
@@ -724,7 +713,6 @@
 	max_supply = 2
 	access_budget = ACCESS_BRIG
 	contains = list(/obj/item/survivalcapsule/capsule_checkpoint,
-					/obj/item/survivalcapsule/capsule_checkpoint,
 					/obj/item/survivalcapsule/capsule_checkpoint)
 	cost = 1000
 	crate_name = "Security Checkpoint capsule crate"

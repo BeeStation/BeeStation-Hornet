@@ -96,13 +96,6 @@
 	icon_state = "capsuleeng"
 	icon = 'icons/obj/mining.dmi'
 	template_id = "shelter_eta"
-
-/obj/item/survivalcapsule/barricade
-	name = "barricade capsule"
-	desc = "A 3x3 glass barricade designed for security use with energy weapons."
-	icon_state = "capsulesec"
-	icon = 'icons/obj/mining.dmi'
-	template_id = "capsule_barricade"
 	
 /obj/item/survivalcapsule/capsule_checkpoint
 	name = "checkpoint capsule"

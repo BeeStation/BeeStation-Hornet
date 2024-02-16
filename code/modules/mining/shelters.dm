@@ -101,12 +101,6 @@
 	amenities of a standard bluespace shelter."
 	mappath = "_maps/templates/shelter_6.dmm"
 	
-/datum/map_template/shelter/golf
-	name = "Capsule Barricade"
-	shelter_id = "capsule_barricade"
-	description = "A 3x3 glass barricade, perfect for security and laserguns."
-	mappath = "_maps/templates/capsule_barricade.dmm"
-	
 /datum/map_template/shelter/foxtrot
 	name = "Security Checkpoint"
 	shelter_id = "capsule_checkpoint"
