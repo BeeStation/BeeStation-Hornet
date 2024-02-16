@@ -8,22 +8,13 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 
-	///Checked trait
-	var/list/selected_activator_traits = list()
-	///Display names
+	///Checked traits
+	var/list/selected_traits = list()
+	///Trait lists
 	var/list/activator_traits = list()
-
-	var/list/selected_minor_traits = list()
 	var/list/minor_traits = list()
-
-	var/list/selected_major_traits = list()
 	var/list/major_traits = list()
-
-	var/list/selected_malfunction_traits = list()
 	var/list/malfunction_list = list()
-
-	///List of descriptions for selected traits
-	var/list/info_list = list()
 
 	///List of trait stats for tooltip shit, this is kinda fucked but who gives a shit
 	var/list/tooltip_stats = list()
@@ -40,10 +31,10 @@
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
 	generate_xenoa_statics()
 	//generate data for trait names
-	activator_traits = get_trait_list_names(GLOB.xenoa_activators)
-	minor_traits = get_trait_list_names(GLOB.xenoa_minors)
-	major_traits = get_trait_list_names(GLOB.xenoa_majors)
-	malfunction_list = get_trait_list_names(GLOB.xenoa_malfunctions)
+	activator_traits = get_trait_list_stats(GLOB.xenoa_activators)
+	minor_traits = get_trait_list_stats(GLOB.xenoa_minors)
+	major_traits = get_trait_list_stats(GLOB.xenoa_majors)
+	malfunction_list = get_trait_list_stats(GLOB.xenoa_malfunctions)
 
 /obj/item/xenoarchaeology_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -53,11 +44,7 @@
 
 /obj/item/xenoarchaeology_labeler/ui_data(mob/user)
 	var/list/data = list()
-	data["selected_activator_traits"] = selected_activator_traits
-	data["selected_minor_traits"] = selected_minor_traits
-	data["selected_major_traits"] = selected_major_traits
-	data["selected_malfunction_traits"] = selected_malfunction_traits
-	data["info_list"] = info_list
+	data["selected_traits"] = selected_traits
 
 	return data
 
@@ -75,33 +62,40 @@
 	if(..())
 		return
 
-	//print label
-	if(action == "print_traits" && COOLDOWN_FINISHED(src, sticker_cooldown_timer))
-		COOLDOWN_START(src, sticker_cooldown_timer, sticker_cooldown)
-		create_label()
-		return
-	else if(!COOLDOWN_FINISHED(src, sticker_cooldown_timer) && isliving(loc))
-		var/mob/living/user = loc
-		to_chat(user, "<span class='warning'>The labeler is still printing.</span>")
-	//Clear selections
-	if(action == "clear_traits")
-		clear_selection()
-		return
-	//Toggle traits
-	trait_toggle(action, "activator", activator_traits, selected_activator_traits)
-	trait_toggle(action, "minor", minor_traits, selected_minor_traits)
-	trait_toggle(action, "major", major_traits, selected_major_traits)
-	trait_toggle(action, "malfunction", malfunction_list, selected_malfunction_traits)
-	build_info_list()
-
+	switch(action)
+		if("print_traits")
+			if(COOLDOWN_FINISHED(src, sticker_cooldown_timer))
+				COOLDOWN_START(src, sticker_cooldown_timer, sticker_cooldown)
+				create_label()
+			else if(!COOLDOWN_FINISHED(src, sticker_cooldown_timer) && isliving(loc))
+				to_chat(loc, "<span class='warning'>The labeler is still printing.</span>")
+			return
+		if("clear_traits")
+			clear_selection()
+			return
+		if("toggle_trait")
+			var/trait_key = params["trait_name"]
+			var/list/focus = list(activator_traits, minor_traits, major_traits, malfunction_list)
+			for(var/list/i as() in focus)
+				if(!(trait_key in i))
+					continue
+				if(trait_key in selected_traits)
+					selected_traits -= trait_key
+					label_traits -= GLOB.xenoa_all_traits_keyed[trait_key]
+				else
+					selected_traits += trait_key
+					label_traits += GLOB.xenoa_all_traits_keyed[trait_key]
 	return TRUE
 
-//Get a list of all the specified trait types names
-/obj/item/xenoarchaeology_labeler/proc/get_trait_list_names(list/trait_type)
+//Get a list of all the specified trait types stats
+//TODO: Consider baking this
+/obj/item/xenoarchaeology_labeler/proc/get_trait_list_stats(list/trait_type)
 	var/list/temp = list()
 	for(var/datum/xenoartifact_trait/T as() in trait_type)
 		temp += list(initial(T.label_name))
-		tooltip_stats["[initial(T.label_name)]"] = list("weight" = initial(T.weight), "conductivity" = initial(T.conductivity), "alt_name" = initial(T.alt_label_name))
+		var/datum/xenoartifact_trait/hint_holder = new T()
+		tooltip_stats["[initial(T.label_name)]"] = list("weight" = initial(T.weight), "conductivity" = initial(T.conductivity), "alt_name" = initial(T.alt_label_name), "desc" = initial(T.label_desc), "hints" = hint_holder.get_dictionary_hint())
+		qdel(hint_holder)
 		//Generate material availability
 		var/list/materials = list(XENOA_BLUESPACE, XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM, XENOA_PEARL)
 		tooltip_stats["[initial(T.label_name)]"] += list("availability" = list())
@@ -120,44 +114,14 @@
 
 ///reset all the options
 /obj/item/xenoarchaeology_labeler/proc/clear_selection()
-	info_list = list()
 	label_traits = list()
-	selected_activator_traits = list()
-	selected_minor_traits = list()
-	selected_major_traits = list()
-	selected_malfunction_traits = list()
+	selected_traits = list()
 	ui_update()
 
 /obj/item/xenoarchaeology_labeler/proc/create_label(mob/target, mob/user)
 	var/obj/item/sticker/xenoartifact_label/P = new(get_turf(src), label_traits)
 	if(target && user)
 		P.afterattack(target, user, TRUE)
-
-/obj/item/xenoarchaeology_labeler/proc/trait_toggle(action, toggle_type, var/list/trait_list, var/list/active_trait_list)
-	for(var/t in trait_list)
-		if(action != "assign_[toggle_type]_[t]")
-			continue
-		if(t in active_trait_list)
-			active_trait_list -= t
-			label_traits -= GLOB.xenoa_all_traits_keyed[t]
-		else
-			active_trait_list += t
-			label_traits += GLOB.xenoa_all_traits_keyed[t]
-
-//Idk how efficient this is
-/obj/item/xenoarchaeology_labeler/proc/build_info_list()
-	var/list/focus = list()
-	focus += selected_activator_traits
-	focus += selected_minor_traits
-	focus += selected_major_traits
-	focus += selected_malfunction_traits
-
-	info_list = list()
-	for(var/t in focus)
-		var/datum/xenoartifact_trait/description_holder = GLOB.xenoa_all_traits_keyed[t]
-		description_holder = new description_holder()
-		info_list += list(list("name" = description_holder.label_name,"desc" = description_holder.label_desc, "hints" = description_holder.get_dictionary_hint()))
-		qdel(description_holder)
 
 /obj/item/xenoarchaeology_labeler/debug
 	name = "xenoartifact debug labeler"

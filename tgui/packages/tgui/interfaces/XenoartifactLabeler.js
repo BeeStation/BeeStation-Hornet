@@ -24,15 +24,10 @@ export const XenoartifactLabeler = (props, context) => {
 const XenoartifactlabelerTraits = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    selected_activator_traits,
     activator_traits,
-    selected_minor_traits,
     minor_traits,
-    selected_major_traits,
     major_traits,
     malfunction_list,
-    selected_malfunction_traits,
-    info_list,
   } = data;
 
   let alphasort = function (a, b) {
@@ -51,7 +46,6 @@ const XenoartifactlabelerTraits = (props, context) => {
           {sorted_activators.map((trait) => (
             <XenoartifactlabelerGenerateEntry
               specific_trait={trait}
-              check_against={selected_activator_traits}
               key={trait}
               trait_type="activator"
             />
@@ -64,7 +58,6 @@ const XenoartifactlabelerTraits = (props, context) => {
           {sorted_minors.map((trait) => (
             <XenoartifactlabelerGenerateEntry
               specific_trait={trait}
-              check_against={selected_minor_traits}
               key={trait}
               trait_type="minor"
             />
@@ -77,7 +70,6 @@ const XenoartifactlabelerTraits = (props, context) => {
           {sorted_majors.map((trait) => (
             <XenoartifactlabelerGenerateEntry
               specific_trait={trait}
-              check_against={selected_major_traits}
               key={trait}
               trait_type="major"
             />
@@ -91,7 +83,6 @@ const XenoartifactlabelerTraits = (props, context) => {
             <XenoartifactlabelerGenerateEntry
               key={trait}
               specific_trait={trait}
-              check_against={selected_malfunction_traits}
               trait_type="malfunction"
             />
           ))}
@@ -103,10 +94,10 @@ const XenoartifactlabelerTraits = (props, context) => {
 
 const XenoartifactlabelerInfo = (props, context) => {
   const { act, data } = useBackend(context);
-  const { info_list } = data;
+  const { selected_traits } = data;
   return (
     <Box px={1} overflowY="auto" height="425px">
-      {info_list.map((info) => (
+      {selected_traits.map((info) => (
         <XenoartifactlabelerGenerateInfo info={info} key={info} />
       ))}
     </Box>
@@ -115,14 +106,14 @@ const XenoartifactlabelerInfo = (props, context) => {
 
 const XenoartifactlabelerGenerateEntry = (props, context) => {
   const { act, data } = useBackend(context);
-  const { specific_trait, check_against, trait_type } = props;
-  const { tooltip_stats } = data;
+  const { specific_trait, trait_type } = props;
+  const { tooltip_stats, selected_traits } = data;
   return (
     <Box>
       <Button.Checkbox
         content={specific_trait}
-        checked={check_against.includes(specific_trait)}
-        onClick={() => act(`assign_${trait_type}_${specific_trait}`)}
+        checked={selected_traits.includes(specific_trait)}
+        onClick={() => act(`toggle_trait`, { trait_name: specific_trait })}
         tooltip={`${tooltip_stats[specific_trait]["alt_name"] ? `${tooltip_stats[specific_trait]["alt_name"]}` : ``}
           Weight: ${tooltip_stats[specific_trait]["weight"]},
           Conductivity: ${tooltip_stats[specific_trait]["conductivity"]}`}
@@ -136,13 +127,13 @@ const XenoartifactlabelerGenerateInfo = (props, context) => {
   const { info } = props;
   const { tooltip_stats } = data;
   return (
-    <Section title={info["name"]}>
+    <Section title={info}>
       <Box italic>
-        <BlockQuote>{`${info["desc"]}`}</BlockQuote>
-        {info["hints"].map((hint) => (
+        <BlockQuote>{`${tooltip_stats[info]["desc"]}`}</BlockQuote>
+        {tooltip_stats[info]["hints"].map((hint) => (
           <Button icon={hint["icon"]} tooltip={hint["desc"]} key={info} />
         ))}
-        {tooltip_stats[info["name"]]["availability"].map((trait) => (
+        {tooltip_stats[info]["availability"].map((trait) => (
           <Icon name={trait["icon"]} color={trait["color"]} key={trait} />
         ))}
       </Box>
