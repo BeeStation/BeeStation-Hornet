@@ -189,6 +189,7 @@
 	Timed
 	This trait activates the artifact on a timer, which can be toggled on & off
 */
+//TODO: Look up the posibility of making this a subtype of sturdy
 /datum/xenoartifact_trait/activator/timed
 	label_name = "Timed"
 	label_desc = "Timed: The artifact seems to be made of a harmonizing material. This material seems to activate on a timer, which can be enabled or disabled."
@@ -248,6 +249,7 @@
 
 /datum/xenoartifact_trait/activator/timed/translation_type_d(datum/source, atom/item, atom/target)
 	var/atom/A = parent?.parent
+	//TODO: I think this is broken - Racc
 	if(!isliving(A.loc) && !A.density || check_item_safety(item))
 		return
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
