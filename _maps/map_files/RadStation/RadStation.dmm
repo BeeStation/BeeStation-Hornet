@@ -59151,6 +59151,7 @@
 	pixel_y = 28
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/item/survivalcapsule/capsule_checkpoint,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "szF" = (

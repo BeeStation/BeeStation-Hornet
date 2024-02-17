@@ -1,5 +1,0 @@
-author: Programs-The-Station
-delete-after: true
-changes:
-  - rscadd: Adds a "Remove All Overlays" input to the BCI Object Overlay. This does
-      what it says on the box.
