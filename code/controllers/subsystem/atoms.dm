@@ -48,7 +48,7 @@ SUBSYSTEM_DEF(atoms)
 
 #ifdef PROFILE_MAPLOAD_INIT_ATOM
 #define PROFILE_INIT_ATOM_BEGIN(...) var/__profile_stat_time = TICK_USAGE
-#define PROFILE_INIT_ATOM_END(atom) mapload_init_times[##atom.type] += TICK_USAGE_TO_MS(__profile_stat_time)
+#define PROFILE_INIT_ATOM_END(atom) mapload_init_times += list(list(##atom.type, TICK_USAGE_TO_MS(__profile_stat_time)))
 #else
 #define PROFILE_INIT_ATOM_BEGIN(...)
 #define PROFILE_INIT_ATOM_END(...)
@@ -90,8 +90,9 @@ SUBSYSTEM_DEF(atoms)
 #ifdef PROFILE_MAPLOAD_INIT_ATOM
 	var/list/lines = list()
 	lines += "Atom Path,Initialisation Time (ms)"
-	for (var/atom_type in mapload_init_times)
-		var/time = mapload_init_times[atom_type]
+	for (var/data in mapload_init_times)
+		var/atom_type = data[1]
+		var/time = data[2]
 		lines += "[atom_type],[time]"
 	rustg_file_write(jointext(lines, "\n"), "[GLOB.log_directory]/init_times.csv")
 #endif
