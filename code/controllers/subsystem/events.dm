@@ -4,23 +4,30 @@ SUBSYSTEM_DEF(events)
 	runlevels = RUNLEVEL_GAME
 
 	var/list/control = list()	//list of all datum/round_event_control. Used for selecting events based on weight and occurrences.
+	var/list/respawn_control = list() //same as above but for respawn events.
 	var/list/running = list()	//list of all existing /datum/round_event
 	var/list/currentrun = list()
 
 	var/scheduled = 0			//The next world.time that a naturally occuring random event can be selected.
 	var/frequency_lower = 1800	//3 minutes lower bound.
 	var/frequency_upper = 6000	//10 minutes upper bound. Basically an event will happen every 3 to 10 minutes.
+	var/respawn_schedule = 0 //The next world.time for respawn events
 
 	var/list/holidays			//List of all holidays occuring today or null if no holidays
 	var/wizardmode = FALSE
 
 /datum/controller/subsystem/events/Initialize(time, zlevel)
-	for(var/type in typesof(/datum/round_event_control))
+	for(var/type in subtypesof(/datum/round_event_control))
 		var/datum/round_event_control/E = new type()
+
 		if(!E.typepath || !E.auto_add)
 			continue				//don't want this one! leave it for the garbage collector
-		control += E				//add it to the list of all events (controls)
+		if(istype(E, /datum/round_event_control/respawn)) //add to respawn_control if it's a ghost respawn event
+			respawn_control += E
+		else
+			control += E				//add it to the list of all events (controls)
 	reschedule()
+	Respawn_Reschedule()
 	getHoliday()
 	return ..()
 
@@ -48,6 +55,11 @@ SUBSYSTEM_DEF(events)
 	if(scheduled <= world.time)
 		spawnEvent()
 		reschedule()
+
+	if(respawn_schedule <= world.time)
+		Spawn_Respawn_Event()
+		Respawn_Reschedule()
+		//add code for UI update on the ghosts clients
 
 //decides which world.time we should select another random event at.
 /datum/controller/subsystem/events/proc/reschedule()
@@ -93,6 +105,39 @@ SUBSYSTEM_DEF(events)
 	else if(. == EVENT_READY)
 		E.random = TRUE
 		E.runEvent()
+
+//Ghost respawn events, they trigger every few minutes
+/datum/controller/subsystem/events/proc/Respawn_Reschedule()
+	respawn_schedule = world.time + RESPAWN_TIMER
+
+/datum/controller/subsystem/events/proc/Spawn_Respawn_Event()
+	set waitfor = FALSE	//for the admin prompt
+	/*if(!CONFIG_GET(flag/allow_random_events)) // do we want a config option maybe?
+		return*/
+
+	var/gamemode = SSticker.mode.config_tag
+	var/players_amt = get_active_player_count(alive_check = 1, afk_check = 1, human_check = 1)
+	var/list/rolling_events = list() //temporary list to call pick_n_take() on.
+
+	for(var/datum/round_event_control/respawn/E in respawn_control)
+		rolling_events += E
+	var/rolling = TRUE
+
+	while(rolling)
+		if(MC_TICK_CHECK)
+			message_admins("Respawn Event has failed to trigger after MC_TICK_CHECK returned TRUE!")
+			rolling = FALSE
+			return
+		if(!length(rolling_events))
+			message_admins("Respawn Event has failed to trigger after emptying its pool!")
+			rolling = FALSE
+			return
+		var/datum/round_event_control/respawn/R = pick_n_take(rolling_events)
+		if(!R.canSpawnEvent(players_amt, gamemode))
+			continue
+		if(TriggerEvent(R))
+			rolling = FALSE
+			return
 
 //allows a client to trigger an event
 //aka Badmin Central

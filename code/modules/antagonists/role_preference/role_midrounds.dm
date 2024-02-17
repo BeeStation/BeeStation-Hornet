@@ -208,6 +208,18 @@
 
 	return finish_preview_icon(final_icon)
 
+/datum/role_preference/midround_ghost/prisoner
+	name = "Transferred prisoners"
+	description = "Become a transferred prisonner held on SS13 and try to survive!"
+	antag_datum = /datum/antagonist/prisoner
+	preview_outfit = /datum/outfit/prisoner
+
+/datum/outfit/prisoner
+	name = "Transferred prisoners (Preview only)"
+	uniform = /obj/item/clothing/under/color/orange
+	shoes = /obj/item/clothing/shoes/sneakers/orange
+//Look into get_preview_icon()
+
 /datum/role_preference/midround_ghost/devil
 	name = "Devil (Midround)"
 	description = "Sign deals with crewmembers, turn them to the side of the Devil."

@@ -7,3 +7,5 @@
 #define EVENT_READY 1
 #define EVENT_CANCELLED 2
 #define EVENT_INTERRUPTED 3
+
+#define RESPAWN_TIMER 300 //10 minutes

@@ -241,4 +241,10 @@
 	SSevents.running += src
 	return ..()
 
+// Regular respawn events for ghosts to get back into the game.
+/datum/round_event_control/respawn
+	name = "Debug respawn"
+	weight = 100 //Unused by this specific system, the current implementation of respawn events has them rolling all at equal chance.
+	earliest_start = 1 MINUTES
+
 #undef RANDOM_EVENT_ADMIN_INTERVENTION_TIME

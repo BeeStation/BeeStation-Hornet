@@ -923,3 +923,26 @@
 	. = ..()
 	// Set their job in addition to their antag role to be a space ninja for logging purposes
 	new_character.mind.assigned_role = ROLE_NINJA
+
+//////////////////////////////////////////////
+//                                          //
+//           PRISONNERS    (GHOST)          //
+//                                          //
+//////////////////////////////////////////////
+
+/*/datum/dynamic_ruleset/midround/from_ghosts/prisoner
+	name = "Transfered prisoners"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
+	antag_datum = /datum/antagonist/prisoner
+	role_preference = /datum/role_preference/midround_ghost/prisoner //Maybe tie it to another pref or none at all
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	required_enemies = list(1,1,1,1,1,1,1,1,1,1) //This role has no purpose if there is no one staffing security, no matter the state of the round.
+	required_candidates = 1
+	weight = 5
+	cost = 5
+	minimum_players = 12
+	repeatable = TRUE
+	var/dead_mobs_required = 15
+	var/need_extra_spawns_value = 15
+	var/list/spawn_locs
+*/
