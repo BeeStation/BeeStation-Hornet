@@ -12843,7 +12843,7 @@
 /area/engine/atmos)
 "cbF" = (
 /obj/item/cigbutt,
-/obj/machinery/atmospherics/pipe/manifold4w/general,
+/obj/machinery/atmospherics/pipe/manifold4w/general/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "cbH" = (
