@@ -1,0 +1,5 @@
+author: '@MarkusLarsson421, @Nakalon, @XeonMations '
+delete-after: true
+changes:
+  - rscadd: Security Checkpoint capsule
+  - imageadd: Added security themed rail and windoor variant.
