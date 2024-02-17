@@ -1,8 +1,0 @@
-author: Shiraizawa
-delete-after: true
-changes:
-  - tweak: decreased the chance to have a heartattack caused by high stress levels
-      from phobias by 5 times
-  - bugfix: fixed falling into a fainting loop caused by phobias for real now
-  - rscadd: new flavor text when your fear level is high enough to faint, but you
-      fainted recently already (This means you are about to faint if you dont run)
