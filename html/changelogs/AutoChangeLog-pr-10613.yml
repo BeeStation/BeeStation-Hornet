@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Fixes race condition in shuttle loading which caused some issues in certain
+      cases.
