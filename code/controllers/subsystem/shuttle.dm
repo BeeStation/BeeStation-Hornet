@@ -713,7 +713,7 @@ SUBSYSTEM_DEF(shuttle)
 
 /// Template loaded completed.
 /// Parameters preceeded by _ are discarded and not used.
-/datum/controller/subsystem/shuttle/proc/template_loaded(datum/map_template/shuttle/S, turf/BL, datum/variable_ref/shuttle_reference)
+/datum/controller/subsystem/shuttle/proc/template_loaded(datum/map_template/shuttle/S, turf/BL, datum/variable_ref/shuttle_reference, datum/turf_reservation/preview_reservation)
 	var/affected = S.get_affected_turfs(BL, centered=FALSE)
 
 	var/found = 0
@@ -742,6 +742,8 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	//Everything fine
 	S.post_load(shuttle_reference.value)
+	// Clear the preview reservation
+	qdel(preview_reservation)
 	return TRUE
 
 /datum/controller/subsystem/shuttle/proc/unload_preview()

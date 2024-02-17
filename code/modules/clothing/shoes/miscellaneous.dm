@@ -135,6 +135,13 @@
 	permeability_coefficient = 0.05 //Thick soles, and covers the ankle
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
+/obj/item/clothing/shoes/jackboots_replica // loadout cosmetic variant that's just a normal pair of shoes
+	name = "replica jackboots"
+	desc = "A cheap replica of Nanotrasen's Security combat boots. Unlike the real deal. This pair is better fit for everyday wear rather than combat."
+	icon_state = "jackboots"
+	item_state = "jackboots"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 /obj/item/clothing/shoes/jackboots/fast
 	name = "modified jackboots"
 	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."
