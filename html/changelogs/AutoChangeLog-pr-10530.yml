@@ -1,6 +1,0 @@
-author: Ratón
-delete-after: true
-changes:
-  - tweak: Nukies can do war without the TC if the pop is below the required amount
-  - tweak: TGUIfied the nukie war prompt
-  - bugfix: The nukie war time limit display now works properly
