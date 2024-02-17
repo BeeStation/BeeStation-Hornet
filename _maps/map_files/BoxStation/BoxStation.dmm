@@ -15273,6 +15273,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
+"csg" = (
+/obj/item/storage/box/sec_barricades,
+/obj/structure/table,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/item/survivalcapsule/capsule_checkpoint,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "csk" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/airless,
@@ -21343,6 +21353,19 @@
 /obj/machinery/meter,
 /turf/open/floor/plating,
 /area/maintenance/central)
+"elf" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "elt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -34052,16 +34075,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"jUK" = (
-/obj/item/storage/box/sec_barricades,
-/obj/structure/table,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/item/survivalcapsule/capsule_checkpoint,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "jUR" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -44486,6 +44499,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"owj" = (
+/obj/structure/chair/stool,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "owl" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -45890,11 +45908,6 @@
 /obj/structure/closet/l3closet/virology,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"pnI" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/airalarm/directional/west,
-/turf/open/floor/prison,
-/area/security/prison)
 "pnL" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -46546,6 +46559,21 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"pBs" = (
+/obj/effect/turf_decal/tile/red/anticorner_ramp/contrasted{
+	dir = 4
+	},
+/obj/machinery/camera/autoname{
+	dir = 6;
+	network = list("ss13, prison")
+	},
+/obj/structure/sign/warning/radiation_shelter{
+	pixel_x = 1;
+	pixel_y = 33
+	},
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "pBA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -49065,6 +49093,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/nuke_storage)
+"qKr" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "qKI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -54303,20 +54335,6 @@
 	dir = 8
 	},
 /turf/open/floor/prison/dark,
-/area/security/prison)
-"sRB" = (
-/obj/effect/turf_decal/tile/red/anticorner_ramp/contrasted{
-	dir = 4
-	},
-/obj/machinery/camera/autoname{
-	dir = 6;
-	network = list("ss13, prison")
-	},
-/obj/structure/sign/warning/radiation_shelter{
-	pixel_x = 1;
-	pixel_y = 33
-	},
-/turf/open/floor/prison,
 /area/security/prison)
 "sRD" = (
 /obj/machinery/door/airlock/command{
@@ -62170,6 +62188,12 @@
 	dir = 10
 	},
 /area/engine/atmos)
+"wwv" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/airalarm/directional/west,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "wwG" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -88600,7 +88624,7 @@ vQe
 tYI
 rnv
 hlq
-fZk
+elf
 xSq
 aai
 aaa
@@ -89365,7 +89389,7 @@ prM
 llv
 qFa
 xEg
-pnI
+wwv
 vfy
 xQO
 vaO
@@ -89871,7 +89895,7 @@ tNE
 tNE
 mdH
 yfx
-tST
+owj
 uHL
 pcu
 wBw
@@ -91410,7 +91434,7 @@ sti
 jpp
 wpi
 vCQ
-yfx
+qKr
 xYt
 aai
 aai
@@ -91920,7 +91944,7 @@ guI
 tBK
 jkW
 tnE
-sRB
+pBs
 tfO
 oKv
 oKv
@@ -97821,7 +97845,7 @@ kAi
 ted
 lPI
 fRu
-jUK
+csg
 eJm
 mov
 klR

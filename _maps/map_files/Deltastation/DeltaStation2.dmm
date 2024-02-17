@@ -5738,6 +5738,11 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
+"aGr" = (
+/obj/machinery/light/small,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "aGs" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -34965,6 +34970,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/warden)
+"eof" = (
+/obj/item/storage/box/sec_barricades,
+/obj/structure/table/reinforced,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/survivalcapsule/capsule_checkpoint,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "eoC" = (
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
@@ -42216,16 +42231,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"gJD" = (
-/obj/item/storage/box/sec_barricades,
-/obj/structure/table/reinforced,
-/obj/item/radio/intercom{
-	pixel_y = 26
-	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/item/survivalcapsule/capsule_checkpoint,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "gJE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -81566,6 +81571,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
+"ueX" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "ufe" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -145060,7 +145069,7 @@ dLy
 gmT
 hwA
 nZc
-nZc
+ueX
 nZc
 fab
 aFm
@@ -145787,7 +145796,7 @@ aaa
 tFv
 qYo
 bLs
-gJD
+eof
 mCY
 bOB
 kIY
@@ -146604,7 +146613,7 @@ aFm
 ows
 jsJ
 nWE
-nZc
+ueX
 aFm
 aaa
 aaZ
@@ -147109,7 +147118,7 @@ mDJ
 uTE
 aFm
 nZc
-ykr
+aGr
 aKV
 uKC
 fCH
@@ -148141,7 +148150,7 @@ rhl
 aKV
 rIk
 fab
-nZc
+ueX
 nZc
 nZc
 nZc
@@ -148390,7 +148399,7 @@ aaa
 aaa
 aaa
 aFm
-nZc
+ueX
 ykr
 aKV
 nZc
