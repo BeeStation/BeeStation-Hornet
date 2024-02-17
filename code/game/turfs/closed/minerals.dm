@@ -126,6 +126,7 @@
 
 /turf/closed/mineral/random/air
 	baseturfs = /turf/open/floor/plating/asteroid
+	var/static/datum/gas_mixture/immutable/planetary
 
 // Returns a list of the chances for minerals to spawn.
 /// Will only run once, and will then be cached.

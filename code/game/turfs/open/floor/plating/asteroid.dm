@@ -84,6 +84,9 @@
 	if(the_rcd.canRturf)
 		return ..()
 
+/turf/open/floor/plating/asteroid/planetary
+	var/static/datum/gas_mixture/immutable/planetary
+
 /turf/open/floor/plating/lavaland_baseturf
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 
