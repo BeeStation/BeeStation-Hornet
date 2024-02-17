@@ -132,3 +132,14 @@
 /obj/structure/railing/proc/after_rotation(mob/user,rotation_type)
 	ini_dir = dir
 	add_fingerprint(user)
+
+/obj/structure/railing/sec
+	name = "checkpoint railing"
+	desc = "A security wall used in checkpoints. It is just small enough that you can climb over..."
+	icon_state = "railing_sec"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/railing/sec/corner
+	icon_state = "sec_railing_corner"
+	density = FALSE
+	climbable = FALSE
