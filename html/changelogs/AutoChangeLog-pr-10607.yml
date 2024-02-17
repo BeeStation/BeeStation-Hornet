@@ -1,0 +1,4 @@
+author: Miliviu
+delete-after: true
+changes:
+  - rscadd: Add Prisoner event that will spawn a few prisoners in Genpop
