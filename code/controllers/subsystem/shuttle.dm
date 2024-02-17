@@ -703,12 +703,17 @@ SUBSYSTEM_DEF(shuttle)
 		CRASH("failed to reserve an area for shuttle template loading")
 	var/turf/BL = TURF_FROM_COORDS_LIST(preview_reservation.bottom_left_coords)
 	var/datum/async_map_generator/shuttle_loader = S.load(BL, FALSE, TRUE, TRUE, FALSE)
-	shuttle_loader.on_completion(CALLBACK(src, PROC_REF(template_loaded), S, BL, shuttle_reference, preview_reservation))
+	shuttle_loader.on_completion(CALLBACK(src, PROC_REF(template_loaded), S, BL, shuttle_reference))
+	shuttle_loader.on_late_completion(CALLBACK(src, PROC_REF(clear_reservation), preview_reservation))
 	return shuttle_loader
+
+/datum/controller/subsystem/shuttle/proc/clear_reservation(datum/turf_reservation/preview_reservation)
+	// Clear the preview reservation
+	qdel(preview_reservation)
 
 /// Template loaded completed.
 /// Parameters preceeded by _ are discarded and not used.
-/datum/controller/subsystem/shuttle/proc/template_loaded(datum/map_template/shuttle/S, turf/BL, datum/variable_ref/shuttle_reference, datum/turf_reservation/preview_reservation)
+/datum/controller/subsystem/shuttle/proc/template_loaded(datum/map_template/shuttle/S, turf/BL, datum/variable_ref/shuttle_reference)
 	var/affected = S.get_affected_turfs(BL, centered=FALSE)
 
 	var/found = 0
@@ -737,8 +742,6 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	//Everything fine
 	S.post_load(shuttle_reference.value)
-	// Clear the preview reservation
-	qdel(preview_reservation)
 	return TRUE
 
 /datum/controller/subsystem/shuttle/proc/unload_preview()
