@@ -167,7 +167,7 @@ SUBSYSTEM_DEF(atoms)
 				A.LateInitialize()
 		if(INITIALIZE_HINT_QDEL)
 			qdel(A)
-			qdeleted = TRUE
+			return TRUE //Don't need to check anything else since we know it's deleted already
 		else
 			BadInitializeCalls[the_type] |= BAD_INIT_NO_HINT
 

@@ -296,7 +296,7 @@
 	dying_key = DYE_REGISTRY_DOUBLE_BEDSHEET
 
 /obj/item/bedsheet/double/Initialize()
-	..()
+	. = ..()
 	desc += " This one is double."
 
 /obj/item/bedsheet/double/blue
