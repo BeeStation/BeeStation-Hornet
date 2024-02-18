@@ -460,16 +460,18 @@
 /obj/item/storage/backpack/duffelbag/med/implant
 	name = "surplus implants duffel bag"
 	desc = "A large duffel bag for holding implants - this one has a material inlay with space for various advanced implants."
-
+	
 /obj/item/storage/backpack/duffelbag/med/implant/PopulateContents()
-	new /obj/item/organ/cyberimp/arm/janitor(src)
-	new /obj/item/organ/cyberimp/arm/botany(src)
-	new /obj/item/organ/cyberimp/arm/surgery(src)
-	new /obj/item/organ/cyberimp/arm/toolset(src)
-	new /obj/item/organ/cyberimp/chest/nutriment(src)
-	new /obj/item/organ/cyberimp/mouth/breathing_tube(src)
-	new /obj/item/organ/eyes/robotic/glow(src)
-	new /obj/item/organ/eyes/robotic/shield(src)
+	var/implants = list(/obj/item/organ/cyberimp/arm/janitor,
+						/obj/item/organ/cyberimp/arm/botany,
+						/obj/item/organ/cyberimp/arm/surgery,
+						/obj/item/organ/cyberimp/chest/nutriment,
+						/obj/item/organ/cyberimp/mouth/breathing_tube,
+						/obj/item/organ/eyes/robotic/glow,
+						/obj/item/organ/eyes/robotic/shield)
+	for(var/i in 1 to 4)
+		var/ctype = pick(implants)
+		new ctype(src)
 
 /obj/item/storage/backpack/duffelbag/sec
 	name = "security duffel bag"
