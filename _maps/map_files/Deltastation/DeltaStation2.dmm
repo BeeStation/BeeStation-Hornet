@@ -28233,8 +28233,10 @@
 /area/security/brig)
 "dhj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/yellow/visible,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "dho" = (
@@ -51312,9 +51314,7 @@
 /area/bridge)
 "jPS" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/layer_manifold/visible{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/yellow/visible,
 /turf/open/space,
 /area/engine/atmos)
 "jQx" = (
@@ -53604,13 +53604,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/detectives_office)
 "kDa" = (
-/obj/machinery/atmospherics/pipe/simple/yellow/visible{
-	dir = 10
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/warning/securearea{
-	pixel_x = 32
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -53620,6 +53614,9 @@
 	name = "atmospherics camera"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "kDw" = (
@@ -53879,6 +53876,13 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
+"kGY" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 10
+	},
+/turf/open/space,
+/area/engine/atmos)
 "kHm" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -57526,16 +57530,13 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "lTu" = (
-/obj/structure/sign/warning/securearea{
-	pixel_x = 32
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/yellow/visible{
-	dir = 10
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "lTy" = (
@@ -72700,6 +72701,9 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/sign/warning/securearea{
+	pixel_x = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "qXg" = (
@@ -78571,8 +78575,10 @@
 /turf/open/floor/plasteel,
 /area/janitor)
 "sXs" = (
-/obj/machinery/atmospherics/pipe/manifold/yellow/visible,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "sXx" = (
@@ -94374,6 +94380,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/research)
+"yiD" = (
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+	dir = 4
+	},
+/turf/closed/wall/r_wall,
+/area/engine/atmos)
 "yiO" = (
 /obj/structure/table,
 /obj/item/folder/yellow,
@@ -122165,11 +122177,11 @@ aRF
 aTg
 aMB
 aTg
-aRF
+yiD
 aWy
 aMB
 aZS
-aRF
+yiD
 aWy
 aMB
 aZS
@@ -122422,11 +122434,11 @@ aRE
 aTh
 aRE
 aTh
-aRE
+kGY
 jPS
 aRE
 aZR
-aRE
+kGY
 jPS
 aRE
 aZR
