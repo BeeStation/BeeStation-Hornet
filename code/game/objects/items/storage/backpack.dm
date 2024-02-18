@@ -459,7 +459,7 @@
 	
 /obj/item/storage/backpack/duffelbag/med/implant
 	name = "surplus implants duffel bag"
-	desc = "A large duffel bag for holding implants - this one has a material inlay with space for various advanced implants."
+	desc = "A large duffel bag for holding implants - this one has a material inlay with space for various implants."
 	
 /obj/item/storage/backpack/duffelbag/med/implant/PopulateContents()
 	var/implants = list(/obj/item/organ/cyberimp/arm/janitor,
