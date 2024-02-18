@@ -189,10 +189,8 @@
 	return ..()
 
 /obj/structure/closet/crate/freezer/Initialize(mapload)
-	..()
+	. = ..()
 	recursive_organ_check(src)
-
-
 
 /obj/structure/closet/crate/freezer/blood
 	name = "blood freezer"

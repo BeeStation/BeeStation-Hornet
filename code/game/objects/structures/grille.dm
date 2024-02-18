@@ -316,7 +316,7 @@
 	initialized_device = 1
 
 /obj/structure/grille/prison/Initialize()
-	..()
+	. = ..()
 	if(!initialized_device)
 		setup_device()
 

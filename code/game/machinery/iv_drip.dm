@@ -266,7 +266,7 @@
 	. = ..()
 	AddElement(/datum/element/update_icon_blocker)
 
-/obj/machinery/iv_drip/update_icon()
+/obj/machinery/iv_drip/saline/update_icon()
 	return
 
 /obj/machinery/iv_drip/saline/eject_beaker()

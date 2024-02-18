@@ -214,7 +214,7 @@
 	var/scrambled_message = stars(message, star_factor)
 	// Bit of a nasty hardcoded hack, but eh, it works!
 	var/datum/antagonist/traitor/summoner_traitor = owner.summoner.has_antag_datum(/datum/antagonist/traitor)
-	if(summoner_traitor?.should_give_codewords)
+	if(summoner_traitor?.has_codewords)
 		scrambled_message = GLOB.syndicate_code_phrase_regex.Replace(scrambled_message, "<span class='blue'>$1</span>")
 		scrambled_message = GLOB.syndicate_code_response_regex.Replace(scrambled_message, "<span class='red'>$1</span>")
 	// Assemble the message prefix
