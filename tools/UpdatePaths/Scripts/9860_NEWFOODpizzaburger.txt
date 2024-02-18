@@ -1,0 +1,6 @@
+/obj/item/reagent_containers/food/snacks/burger : /obj/item/food/burger{@OLD}
+/obj/item/reagent_containers/food/snacks/burger/@SUBTYPES : /obj/item/food/burger/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/pizza : /obj/item/food/pizza{@OLD}
+/obj/item/reagent_containers/food/snacks/pizza/@SUBTYPES : /obj/item/food/pizza/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/pizzaslice : /obj/item/food/pizzaslice{@OLD}
+/obj/item/reagent_containers/food/snacks/pizzaslice/@SUBTYPES : /obj/item/food/pizzaslice/@SUBTYPES{@OLD}
