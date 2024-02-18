@@ -1,0 +1,5 @@
+author: ToasterBan
+delete-after: true
+changes:
+  - tweak: Anomaly cores can now be used in the destructive analyser for discovery
+      research points
