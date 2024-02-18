@@ -106,6 +106,12 @@
 	shelter_id = "capsule_barricade"
 	description = "A 3x3 glass barricade, perfect for security and laserguns."
 	mappath = "_maps/templates/capsule_barricade.dmm"
+	
+/datum/map_template/shelter/foxtrot
+	name = "Security Checkpoint"
+	shelter_id = "capsule_checkpoint"
+	description = "A 3x3 glass checkpoint designed for allowing safely searching passing personnel."
+	mappath = "_maps/templates/capsule_checkpoint.dmm"
 
 /datum/map_template/shelter/theta
 	name = "Shelter Theta"
