@@ -16602,7 +16602,7 @@
 	dir = 6;
 	network = list("ss13", "prison")
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/prison/dark,
 /area/space)
 "cfg" = (
 /obj/effect/turf_decal/tile/red{
@@ -20828,6 +20828,10 @@
 /obj/structure/table/wood,
 /turf/open/floor/carpet/green,
 /area/chapel/main)
+"cPE" = (
+/obj/item/kirbyplants/random,
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "cPF" = (
 /obj/structure/noticeboard{
 	desc = "A memorial wall for pinning up momentos";
@@ -22114,7 +22118,7 @@
 	prison_radio = 1;
 	pixel_y = 25
 	},
-/turf/open/floor/prison,
+/turf/open/floor/prison/dark,
 /area/security/prison)
 "ddv" = (
 /obj/structure/extinguisher_cabinet{
@@ -28524,7 +28528,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/prison,
+/turf/open/floor/prison/dark,
 /area/security/prison)
 "fpi" = (
 /obj/structure/window/reinforced,
@@ -28580,7 +28584,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/prison/dark,
 /area/space)
 "fqd" = (
 /obj/structure/cable/yellow{
@@ -32911,7 +32915,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/prison,
+/turf/open/floor/prison/dark,
 /area/security/prison)
 "gZB" = (
 /obj/effect/landmark/event_spawn,
@@ -36139,7 +36143,7 @@
 	color = "#DE3A3A";
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/prison/dark,
 /area/space)
 "ilA" = (
 /obj/structure/cable/yellow{
@@ -37947,7 +37951,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/prison/dark,
 /area/space)
 "iSU" = (
 /obj/structure/sign/departments/medbay/alt,
@@ -39527,6 +39531,23 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"jzl" = (
+/obj/effect/turf_decal/tile/dark_red/half/contrasted{
+	color = "#DE3A3A";
+	alpha = 180;
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark_red/corner_ramp/offset{
+	color = "#DE3A3A";
+	alpha = 180;
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/dark_red{
+	color = "#DE3A3A";
+	alpha = 180
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "jzr" = (
 /obj/structure/chair{
 	dir = 4;
@@ -39807,7 +39828,7 @@
 	dir = 8
 	},
 /obj/item/bedsheet/brown,
-/turf/open/floor/prison,
+/turf/open/floor/prison/dark,
 /area/security/prison)
 "jDw" = (
 /obj/machinery/airalarm{
@@ -43465,7 +43486,7 @@
 	prison_radio = 1;
 	pixel_y = 25
 	},
-/turf/open/floor/prison,
+/turf/open/floor/prison/dark,
 /area/security/prison)
 "kPZ" = (
 /obj/structure/closet/emcloset,
@@ -45219,7 +45240,7 @@
 	pixel_x = -25
 	},
 /obj/effect/landmark/start/security_officer,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/prison/dark,
 /area/space)
 "lCe" = (
 /obj/structure/chair{
@@ -46986,7 +47007,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/prisonspawn,
-/turf/open/floor/prison,
+/turf/open/floor/prison/dark,
 /area/security/prison)
 "mkI" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -49763,7 +49784,8 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/turf/open/floor/prison,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/prison/dark,
 /area/security/prison)
 "nlR" = (
 /obj/machinery/requests_console{
@@ -53575,6 +53597,7 @@
 	prison_radio = 1;
 	pixel_y = 25
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/prison,
 /area/security/prison)
 "oBd" = (
@@ -54259,7 +54282,7 @@
 /area/hallway/secondary/command)
 "oNm" = (
 /obj/structure/bookcase/random,
-/turf/open/floor/prison,
+/turf/open/floor/prison/dark,
 /area/security/prison)
 "oNy" = (
 /obj/structure/cable/yellow{
@@ -56377,6 +56400,7 @@
 	},
 /obj/structure/curtain,
 /obj/effect/turf_decal/delivery,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/noslip/white,
 /area/security/prison/vip)
 "pGQ" = (
@@ -58021,6 +58045,15 @@
 /obj/item/gun/ballistic/revolver/russian,
 /turf/open/floor/plasteel/techmaint,
 /area/science/shuttledock)
+"qjP" = (
+/obj/structure/chair/stool,
+/obj/effect/turf_decal/tile/dark_red/corner_ramp{
+	dir = 8;
+	color = "#DE3A3A";
+	alpha = 180
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "qjT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -75822,7 +75855,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/turf/open/floor/prison,
+/turf/open/floor/prison/dark,
 /area/security/prison)
 "wQf" = (
 /obj/machinery/door/airlock/maintenance{
@@ -78140,7 +78173,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/prison/dark,
 /area/space)
 "xCU" = (
 /obj/structure/cable/yellow{
@@ -78605,6 +78638,12 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/patients_rooms)
+"xLP" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "xLS" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -110878,8 +110917,8 @@ ehU
 ckB
 oMj
 sge
-rHV
-oMw
+jzl
+qjP
 mlB
 abe
 abe
@@ -111140,7 +111179,7 @@ oPO
 iem
 abe
 oNm
-qEy
+cPE
 aax
 aje
 aje
@@ -111397,7 +111436,7 @@ gol
 gtb
 foT
 wPT
-fnA
+xLP
 aax
 aje
 sAF
@@ -112168,7 +112207,7 @@ bxS
 pZF
 abe
 nlQ
-qEy
+cPE
 aax
 aje
 jQA
