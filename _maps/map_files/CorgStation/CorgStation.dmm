@@ -28813,7 +28813,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "jlg" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/security/execution/education)
 "jlk" = (
@@ -53819,8 +53818,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "rrT" = (
-/obj/structure/grille,
-/obj/structure/grille,
+/obj/structure/grille,,
 /turf/open/space/basic,
 /area/space/nearstation)
 "rrV" = (
@@ -68342,7 +68340,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
