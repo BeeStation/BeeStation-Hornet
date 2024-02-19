@@ -40620,10 +40620,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
-"jSo" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/security/brig/dock)
 "jSs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -105038,7 +105034,7 @@ adZ
 xxD
 qZG
 rSJ
-jSo
+xGL
 rPE
 dvQ
 kdM
