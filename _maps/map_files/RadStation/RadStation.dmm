@@ -35670,10 +35670,6 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/table/glass,
 /obj/item/book/manual/wiki/grenades,
-/obj/item/screwdriver{
-	pixel_x = -5;
-	pixel_y = 5
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -35682,9 +35678,6 @@
 	pixel_y = 22
 	},
 /obj/item/hand_labeler,
-/obj/item/gun/syringe{
-	pixel_y = 7
-	},
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
 "lfi" = (
@@ -36667,8 +36660,18 @@
 /obj/item/radio/intercom{
 	pixel_x = -27
 	},
-/obj/structure/closet/secure_closet/chemical/plumbing,
 /obj/effect/turf_decal/bot,
+/obj/item/storage/toolbox/medical{
+	pixel_y = 4
+	},
+/obj/structure/table/glass,
+/obj/item/gun/syringe{
+	pixel_y = 7
+	},
+/obj/item/screwdriver{
+	pixel_x = -5;
+	pixel_y = 5
+	},
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
 "lxd" = (

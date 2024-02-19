@@ -8993,6 +8993,10 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "aVo" = (
@@ -30838,6 +30842,10 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "chemistry_shutters";
+	name = "Chemistry Hall Shutters"
+	},
 /turf/open/floor/plating,
 /area/medical/chemistry)
 "dFa" = (
@@ -49742,6 +49750,10 @@
 	name = "Cloning Maintenance";
 	req_access_txt = "5"
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "jPV" = (
@@ -56377,6 +56389,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/storage)
 "mfD" = (
@@ -57633,6 +57649,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics)
@@ -60263,8 +60283,11 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "nCn" = (
-/obj/structure/closet/secure_closet/chemical/plumbing,
 /obj/effect/turf_decal/bot,
+/obj/item/storage/toolbox/medical{
+	pixel_y = 4
+	},
+/obj/structure/table/glass,
 /turf/open/floor/plasteel/dark,
 /area/medical/chemistry)
 "nCK" = (
@@ -66990,6 +67013,10 @@
 	req_access_txt = "5"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "pIR" = (
@@ -78619,6 +78646,10 @@
 	req_access_txt = "5;6;22"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "tKN" = (
@@ -80552,6 +80583,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
 "uxx" = (

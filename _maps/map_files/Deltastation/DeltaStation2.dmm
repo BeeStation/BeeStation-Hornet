@@ -45991,11 +45991,11 @@
 	},
 /obj/item/folder/white{
 	pixel_x = -8;
-	pixel_y = 15
+	pixel_y = 8
 	},
 /obj/item/reagent_containers/glass/beaker/large{
 	pixel_x = 7;
-	pixel_y = 17
+	pixel_y = 8
 	},
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 9;
@@ -46005,14 +46005,6 @@
 /obj/item/reagent_containers/dropper{
 	pixel_x = 1;
 	pixel_y = -4
-	},
-/obj/item/stack/package_wrap{
-	pixel_x = -1;
-	pixel_y = 10
-	},
-/obj/item/hand_labeler{
-	pixel_x = 4;
-	pixel_y = 3
 	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
@@ -87848,7 +87840,18 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/chemical/plumbing,
+/obj/structure/table/glass,
+/obj/item/hand_labeler{
+	pixel_x = 4;
+	pixel_y = 10
+	},
+/obj/item/stack/package_wrap{
+	pixel_x = -1;
+	pixel_y = 10
+	},
+/obj/item/storage/toolbox/medical{
+	pixel_y = 2
+	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
 "whg" = (

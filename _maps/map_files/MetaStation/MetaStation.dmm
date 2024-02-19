@@ -37695,10 +37695,19 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light,
 /obj/structure/table/glass,
-/obj/item/stack/package_wrap,
-/obj/item/hand_labeler,
+/obj/item/hand_labeler{
+	pixel_x = 4;
+	pixel_y = 10
+	},
+/obj/item/stack/package_wrap{
+	pixel_x = -1;
+	pixel_y = 10
+	},
+/obj/item/storage/toolbox/medical{
+	pixel_y = 2
+	},
+/obj/machinery/light,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "iBL" = (

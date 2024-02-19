@@ -149,8 +149,8 @@
 	new /obj/item/storage/box/pillbottles(src)
 	new /obj/item/storage/box/medsprays(src)
 	new /obj/item/storage/box/medsprays(src)
-	new /obj/item/storage/firstaid/advanced/empty
-	new /obj/item/storage/firstaid/advanced/empty
+	new /obj/item/storage/firstaid/advanced/empty(src)
+	new /obj/item/storage/firstaid/advanced/empty(src)
 	new /obj/item/clothing/glasses/science(src)
 	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
 	new /obj/item/reagent_containers/glass/bottle/epinephrine(src)
@@ -180,11 +180,16 @@
 	desc = "For all your plumbing needs (toilet plumbing not included)."
 	
 /obj/structure/closet/secure_closet/chemical/plumbing/PopulateContents()
-	..()
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/stack/ducts/fifty(src)
 	new /obj/item/construction/plumbing(src)
 	new /obj/item/construction/plumbing(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
 	

@@ -174,6 +174,36 @@
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/multitool(src)
 	new /obj/item/clothing/gloves/combat(src)
+	
+/obj/item/storage/toolbox/medical
+	name = "medical toolbox"
+	icon_state = "medical"
+	item_state = "toolbox_medical"
+	material_flags = NONE
+	
+/obj/item/storage/toolbox/medical/PopulateContents()
+	new /obj/item/construction/plumbing(src)
+	new /obj/item/wrench/medical(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	
+/obj/item/storage/toolbox/rcd
+	name = "RCD toolbox"
+	icon_state = "yellow"
+	item_state = "toolbox_yellow"
+	material_flags = NONE
+
+/obj/item/storage/toolbox/rcd/PopulateContents()
+	new /obj/item/construction/rcd(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
 
 /obj/item/storage/toolbox/drone
 	name = "mechanical toolbox"

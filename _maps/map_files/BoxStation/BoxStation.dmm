@@ -6082,6 +6082,7 @@
 	},
 /obj/machinery/cell_charger,
 /obj/machinery/door/firedoor,
+/obj/item/stock_parts/cell/high/plus,
 /turf/open/floor/plating,
 /area/medical/apothecary)
 "biy" = (
@@ -30750,17 +30751,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"itF" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/chemistry)
 "iue" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -31846,6 +31836,13 @@
 	},
 /turf/open/floor/wood,
 /area/lawoffice)
+"iUp" = (
+/obj/structure/table/glass,
+/obj/item/storage/toolbox/medical{
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "iUs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -39230,9 +39227,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "meR" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high/plus,
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
@@ -106381,7 +106375,7 @@ jLS
 brc
 blg
 jLS
-ied
+iUp
 epP
 jLS
 jLS
@@ -107157,7 +107151,7 @@ bre
 jLS
 jLS
 jLS
-itF
+but
 bye
 bzr
 pyN

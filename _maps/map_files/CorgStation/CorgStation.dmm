@@ -11648,10 +11648,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "dDH" = (
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -24
@@ -18763,9 +18759,6 @@
 /turf/open/floor/plasteel,
 /area/science/shuttle)
 "fZa" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -21387,20 +21380,16 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "gQy" = (
-/obj/structure/rack,
-/obj/item/tank/jetpack/carbondioxide,
-/obj/item/tank/jetpack/carbondioxide{
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical{
 	pixel_x = 2;
 	pixel_y = 4
 	},
-/obj/item/tank/jetpack/carbondioxide{
-	pixel_x = -3;
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 1;
 	pixel_y = 2
 	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
+/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "gQA" = (
@@ -26603,7 +26592,10 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "iAK" = (
-/obj/structure/closet/secure_closet/chemical/plumbing,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "iAP" = (
@@ -27111,7 +27103,6 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "iJq" = (
-/obj/effect/decal/cleanable/glass,
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_x = 32
 	},
@@ -28884,9 +28875,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "jri" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -34969,6 +34957,9 @@
 "lsT" = (
 /obj/effect/landmark/start/chemist,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "ltl" = (
@@ -35318,10 +35309,11 @@
 /area/maintenance/starboard/central)
 "lyt" = (
 /obj/structure/table/glass,
-/obj/item/book/manual/wiki/plumbing,
-/obj/item/construction/plumbing,
 /obj/machinery/light_switch{
 	pixel_x = -25
+	},
+/obj/item/storage/toolbox/medical{
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -39292,6 +39284,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
+"mJg" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "mJo" = (
 /turf/closed/wall,
 /area/maintenance/department/bridge)
@@ -65213,16 +65212,6 @@
 /turf/open/floor/plating,
 /area/security/checkpoint/medical)
 "vrp" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/storage/toolbox/mechanical,
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
 	},
@@ -65331,12 +65320,18 @@
 /turf/open/floor/plating/asteroid,
 /area/maintenance/starboard/secondary)
 "vtG" = (
-/obj/structure/closet/crate/rcd,
+/obj/structure/table/reinforced,
 /obj/machinery/door/window/northleft{
 	dir = 4;
 	name = "RCD Storage";
 	pixel_x = 1;
 	req_access_txt = "19"
+	},
+/obj/structure/window/reinforced{
+	pixel_y = 1
+	},
+/obj/item/storage/toolbox/rcd{
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -69012,19 +69007,15 @@
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "wDn" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/northleft{
-	dir = 8;
-	name = "RCD Storage";
-	pixel_x = 1;
-	req_access_txt = "19"
+/obj/structure/rack,
+/obj/item/tank/jetpack/carbondioxide,
+/obj/item/tank/jetpack/carbondioxide{
+	pixel_x = 2;
+	pixel_y = 4
 	},
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_y = 1
+/obj/item/tank/jetpack/carbondioxide{
+	pixel_x = -3;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -99655,7 +99646,7 @@ cYe
 ihY
 vtG
 gQy
-vQm
+oOl
 ihY
 hTf
 vJJ
@@ -100426,7 +100417,7 @@ dhp
 aKT
 iJq
 wDn
-oOl
+vQm
 ihY
 fEM
 lcM
@@ -117663,7 +117654,7 @@ wSu
 uky
 xlG
 jri
-gWJ
+mJg
 gWJ
 xRq
 abL

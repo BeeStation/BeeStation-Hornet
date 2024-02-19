@@ -51579,6 +51579,7 @@
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
 	},
+/obj/item/screwdriver,
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
 "nbL" = (
@@ -53745,6 +53746,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 3
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/apothecary)
@@ -56592,12 +56596,9 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_x = -2;
-	pixel_y = 4
+/obj/item/storage/toolbox/medical{
+	pixel_y = 2
 	},
-/obj/item/screwdriver,
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
 "osQ" = (

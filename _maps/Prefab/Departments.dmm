@@ -311,6 +311,15 @@
 "ic" = (
 /turf/open/floor/wood,
 /area/security/detectives_office)
+"id" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "E.V.A. Storage";
+	req_access_txt = "18"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/space)
 "ir" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/item/reagent_containers/glass/bucket{
@@ -452,6 +461,29 @@
 /area/security/main{
 	name = "Security Locker Room"
 	})
+"me" = (
+/obj/item/stack/sheet/plasteel/fifty{
+	amount = 10;
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 50;
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/stack/rods/fifty{
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/space)
 "mo" = (
 /obj/item/toy/plush/moth/lovers,
 /turf/open/floor/plasteel/dark,
@@ -659,6 +691,15 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain)
+"qE" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "evashutter";
+	name = "E.V.A. Storage Shutter"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/space)
 "qJ" = (
 /obj/effect/landmark/start/shaft_miner,
 /obj/effect/landmark/start/cargo_technician,
@@ -744,6 +785,15 @@
 	},
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/storage)
+"tx" = (
+/obj/structure/tank_dispenser/oxygen{
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/space)
 "ty" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/item/book/manual/wiki/medicine,
@@ -995,6 +1045,12 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
+"Ca" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/space)
 "Cb" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Chapel Morgue";
@@ -1033,6 +1089,18 @@
 /obj/effect/landmark/start/ai,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
+"Dd" = (
+/obj/item/tank/jetpack/carbondioxide,
+/obj/item/clothing/shoes/magboots,
+/obj/item/storage/belt/utility,
+/obj/item/radio,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/item/grenade/chem_grenade/metalfoam{
+	pixel_x = -7
+	},
+/turf/open/floor/plasteel/dark,
+/area/space)
 "De" = (
 /obj/machinery/recycler,
 /turf/open/floor/plating,
@@ -1231,6 +1299,11 @@
 /obj/structure/closet/secure_closet/RD,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
+"IX" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/item/storage/toolbox/medical,
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "Jk" = (
 /obj/structure/sign/warning/pods,
 /turf/open/floor/plasteel/dark,
@@ -1401,8 +1474,10 @@
 /turf/open/floor/grass/no_border,
 /area/hydroponics)
 "NA" = (
-/obj/item/toy/plush/moth,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/open/floor/plasteel/dark,
 /area/space)
 "NH" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
@@ -1537,6 +1612,16 @@
 /obj/effect/landmark/start/roboticist,
 /turf/open/floor/plasteel/white,
 /area/science/robotics)
+"QM" = (
+/obj/machinery/button/door{
+	id = "evashutter";
+	name = "E.V.A. Storage Shutter Toggle";
+	req_access_txt = "19"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/space)
 "QQ" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/machinery/door/airlock/research{
@@ -1545,6 +1630,20 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics)
+"QU" = (
+/obj/item/storage/toolbox/rcd,
+/obj/machinery/door/window/northleft{
+	dir = 8;
+	name = "RCD Storage";
+	req_access_txt = "19"
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/structure/closet/crate/rcd{
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/space)
 "QX" = (
 /obj/machinery/vending/wardrobe/chap_wardrobe,
 /turf/open/floor/carpet/purple,
@@ -1993,7 +2092,7 @@ EI
 JM
 Zq
 yJ
-Wx
+IX
 np
 fz
 lE
@@ -2211,9 +2310,9 @@ Sa
 ZB
 JV
 ti
-Qk
-Qk
-Qk
+qE
+Ca
+tx
 XF
 XF
 XF
@@ -2231,9 +2330,9 @@ Tq
 ti
 Vg
 ti
-Qk
+QM
 NA
-Qk
+QU
 XF
 NO
 XF
@@ -2251,9 +2350,9 @@ uM
 RB
 ti
 Iu
-Qk
-Qk
-Qk
+id
+Dd
+me
 XF
 XF
 XF
