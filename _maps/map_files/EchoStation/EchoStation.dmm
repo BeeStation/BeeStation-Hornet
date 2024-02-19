@@ -8902,8 +8902,8 @@
 "eop" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/freezer/kitchen{
-	req_one_access_txt = "28;25;35";
-	req_access = null
+	req_access = null;
+	req_one_access_txt = "28;25;35"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
@@ -9722,8 +9722,8 @@
 /area/security/brig)
 "eHY" = (
 /obj/structure/closet/secure_closet/freezer/fridge{
-	req_one_access_txt = "28;25;35";
-	req_access = null
+	req_access = null;
+	req_one_access_txt = "28;25;35"
 	},
 /obj/effect/turf_decal/bot,
 /obj/item/food/meat/slab/penguin,
@@ -15831,8 +15831,8 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/sparker{
-	pixel_x = -17;
-	id = "atmos_incinerator_igniter"
+	id = "atmos_incinerator_igniter";
+	pixel_x = -17
 	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/incinerator_input{
 	dir = 1
@@ -22107,8 +22107,8 @@
 "lgq" = (
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/mineral/ore_redemption{
-	layer = 2.5;
-	input_dir = 2
+	input_dir = 2;
+	layer = 2.5
 	},
 /obj/item/food/donkpocket/pizza{
 	pixel_x = 10;
@@ -22186,6 +22186,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"lho" = (
+/obj/structure/girder/displaced,
+/turf/open/floor/plating,
+/area/engine/atmos)
 "lhu" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -36788,12 +36792,6 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
-"sWr" = (
-/obj/structure/girder{
-	anchored = 0
-	},
-/turf/open/floor/plating,
-/area/engine/atmos)
 "sWu" = (
 /obj/machinery/door/window/eastright{
 	base_state = "left";
@@ -57534,7 +57532,7 @@ aby
 dXj
 ssw
 llI
-sWr
+lho
 blO
 cFP
 jiG
