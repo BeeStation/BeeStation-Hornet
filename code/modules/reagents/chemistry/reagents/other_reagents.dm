@@ -2273,3 +2273,17 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	name = "Grasp of the Mansus"
 	description = "The Hand of the Mansus is at your neck."
 	metabolization_rate = 1 * REM
+
+/datum/reagent/eldritchkiss
+	name = "Eldritch Kiss"
+	description = "The lingering touch of eldritch hands pulses through your veins."
+	chem_flags = CHEMICAL_NOT_SYNTH
+
+/datum/reagent/medicine/eldritchkiss/on_mob_life(mob/living/carbon/M)
+	if(M.health <= 20)
+		M.adjustToxLoss(-4*REM, 0, TRUE) //this makes it heal toxinlovers, i think
+		M.adjustBruteLoss(-4*REM, 0)
+		M.adjustFireLoss(-4*REM, 0)
+		M.adjustOxyLoss(-5*REM, 0)
+		. = 1
+	M.losebreath = 0
