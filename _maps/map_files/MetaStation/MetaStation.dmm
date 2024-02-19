@@ -76007,10 +76007,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"wTh" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/security/prison/vip)
 "wTi" = (
 /obj/structure/barricade/wooden,
 /turf/open/floor/plasteel,
@@ -111458,7 +111454,7 @@ aaf
 aaa
 aaa
 aaa
-wTh
+wNS
 ped
 hbv
 llF
@@ -111715,7 +111711,7 @@ aaf
 aaf
 aaa
 aaa
-wTh
+wNS
 hsh
 uwi
 fbl
@@ -111972,7 +111968,7 @@ aaa
 aaf
 aaf
 lMJ
-wTh
+wNS
 mzA
 nLV
 iuq
