@@ -11310,7 +11310,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/chemical,
+/obj/structure/closet/secure_closet/chemical/plumbing,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "dEr" = (
@@ -36661,9 +36661,6 @@
 	pixel_x = -27
 	},
 /obj/effect/turf_decal/bot,
-/obj/item/storage/toolbox/medical{
-	pixel_y = 4
-	},
 /obj/structure/table/glass,
 /obj/item/gun/syringe{
 	pixel_y = 7
@@ -36671,6 +36668,17 @@
 /obj/item/screwdriver{
 	pixel_x = -5;
 	pixel_y = 5
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = 7;
+	pixel_y = 13
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = 5
 	},
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
@@ -63050,12 +63058,11 @@
 /area/medical/virology)
 "tGe" = (
 /obj/structure/table/glass,
-/obj/item/stack/ducts/fifty,
-/obj/item/stack/ducts/fifty,
-/obj/item/construction/plumbing,
-/obj/item/plunger,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/airalarm/directional/north,
+/obj/item/storage/toolbox/medical{
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
 "tGg" = (
@@ -69818,17 +69825,6 @@
 /obj/machinery/camera/autoname{
 	dir = 1;
 	network = list("ss13","medbay")
-	},
-/obj/item/grenade/chem_grenade{
-	pixel_x = 7;
-	pixel_y = 13
-	},
-/obj/item/grenade/chem_grenade{
-	pixel_x = 6;
-	pixel_y = 7
-	},
-/obj/item/grenade/chem_grenade{
-	pixel_x = 5
 	},
 /obj/machinery/airalarm/directional/south,
 /obj/item/assembly/igniter{
@@ -117348,7 +117344,7 @@ qtI
 jPm
 xfN
 mDL
-dEq
+ghZ
 dEq
 dEq
 fGz
