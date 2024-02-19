@@ -32967,6 +32967,7 @@
 "ham" = (
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
+/obj/item/restraints/handcuffs,
 /turf/open/floor/plasteel/dark,
 /area/security)
 "hbi" = (
@@ -38899,6 +38900,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/item/restraints/handcuffs,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "jmb" = (
@@ -44091,6 +44093,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"ldp" = (
+/obj/structure/lattice,
+/turf/closed/wall,
+/area/security/brig/dock)
 "ldE" = (
 /obj/structure/table,
 /obj/machinery/newscaster{
@@ -51267,10 +51273,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"nOG" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/security/execution/education)
 "nOZ" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "MedbayFoyer";
@@ -105034,7 +105036,7 @@ adZ
 xxD
 qZG
 rSJ
-xGL
+ldp
 rPE
 dvQ
 kdM
@@ -111202,8 +111204,8 @@ aaf
 aaa
 aaa
 aaa
-nOG
-nOG
+aaZ
+aaZ
 aaZ
 aaZ
 wNS
