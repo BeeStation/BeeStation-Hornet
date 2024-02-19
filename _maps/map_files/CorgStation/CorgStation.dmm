@@ -39411,7 +39411,6 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "mHo" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/ai_monitored/security/armory)
 "mHr" = (
