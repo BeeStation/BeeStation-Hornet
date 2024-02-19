@@ -192,5 +192,3 @@
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
-	
-	
