@@ -495,7 +495,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if((reagent_glass) && ((C.maxHealth - C.health >= heal_threshold)))
 		S = TRUE
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(C.reagents.has_reagent(R.type) || check_overdose(C, R.type, injection_amount))
+			if(C.reagents.has_reagent(R.type))
 				S = FALSE
 	return S
 
