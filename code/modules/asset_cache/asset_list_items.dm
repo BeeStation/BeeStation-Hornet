@@ -187,7 +187,10 @@
 	name = "emoji"
 
 /datum/asset/spritesheet_batched/emoji/create_spritesheets()
-	insert_all_icons("", 'icons/emoji.dmi')
+	for (var/icon_state_name in icon_states('icons/emoji.dmi'))
+		var/datum/universal_icon/u_icon = uni_icon('icons/emoji.dmi', icon_state_name, SOUTH)
+		u_icon.scale(48, 48)
+		insert_icon("[icon_state_name]", u_icon)
 
 /datum/asset/simple/lobby
 	assets = list(
