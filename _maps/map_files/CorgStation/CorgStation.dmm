@@ -7741,7 +7741,6 @@
 	},
 /obj/machinery/airalarm/directional/east{
 	dir = 1;
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /obj/machinery/light{
@@ -25132,7 +25131,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "ibX" = (
-/obj/structure/lattice/catwalk,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -55674,7 +55672,6 @@
 	name = "Briefing Room";
 	req_one_access_txt = "1;4"
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
