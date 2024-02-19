@@ -32192,8 +32192,6 @@
 "edk" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/bot,
-/obj/item/storage/box/pillbottles,
-/obj/item/storage/box/pillbottles,
 /obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/plasteel/dark,
 /area/medical/chemistry)
@@ -40929,14 +40927,30 @@
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/glasses/science{
-	pixel_x = 4;
+/obj/effect/turf_decal/bot,
+/obj/item/assembly/igniter,
+/obj/item/assembly/igniter,
+/obj/item/assembly/igniter,
+/obj/item/assembly/igniter,
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/clothing/glasses/science,
-/obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = -6
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = -4;
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
@@ -60249,25 +60263,8 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "nCn" = (
-/obj/structure/table/glass,
-/obj/item/assembly/igniter,
-/obj/item/assembly/igniter,
-/obj/item/assembly/timer{
-	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/assembly/timer{
-	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/assembly/timer{
-	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/assembly/igniter,
+/obj/structure/closet/secure_closet/chemical/plumbing,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/medical/chemistry)
 "nCK" = (
@@ -69942,9 +69939,7 @@
 /area/security/checkpoint/medical)
 "qKf" = (
 /obj/structure/cable/yellow,
-/obj/item/storage/box/pillbottles,
 /obj/effect/turf_decal/bot,
-/obj/item/storage/box/pillbottles,
 /obj/structure/closet/secure_closet/chemical,
 /obj/machinery/power/apc/auto_name/west{
 	name = "Chemsitry APC"
@@ -79446,7 +79441,9 @@
 /obj/machinery/reagentgrinder{
 	pixel_y = 5
 	},
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 3
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "udg" = (

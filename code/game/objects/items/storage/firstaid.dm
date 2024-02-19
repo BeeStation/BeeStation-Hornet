@@ -321,6 +321,9 @@
 	desc = "A compact advanced first aid kit designed for treating severe injuries found in the field."
 	w_class = WEIGHT_CLASS_NORMAL //Intended to be used by ERTs or other uncommon roles
 
+/obj/item/storage/firstaid/advanced/empty
+	empty = 1
+
 //First Random kit
 /obj/item/storage/firstaid/random
 	name = "mystery medical kit"
@@ -430,6 +433,9 @@
 		/obj/item/reagent_containers/pill/patch/silver_sulf = 2,
 		/obj/item/clothing/glasses/hud/health/night = 1)
 	generate_items_inside(items_inside,src)
+	
+/obj/item/storage/firstaid/tactical/empty
+	empty = 1
 
 //medibot assembly
 /obj/item/storage/firstaid/attackby(obj/item/bodypart/S, mob/user, params)

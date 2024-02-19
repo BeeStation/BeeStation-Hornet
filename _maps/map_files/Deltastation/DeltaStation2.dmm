@@ -4375,30 +4375,6 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "azJ" = (
-/obj/structure/table/glass,
-/obj/item/clothing/glasses/science{
-	pixel_x = 6;
-	pixel_y = 12
-	},
-/obj/item/clothing/glasses/science{
-	pixel_x = 2;
-	pixel_y = 7
-	},
-/obj/item/stack/cable_coil/white{
-	pixel_x = 3;
-	pixel_y = -1
-	},
-/obj/item/stack/cable_coil/white{
-	pixel_y = -5
-	},
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/screwdriver{
-	pixel_x = -5;
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -4412,6 +4388,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -23
 	},
+/obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "azM" = (
@@ -28163,7 +28140,7 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "diu" = (
-/obj/machinery/smartfridge/chemistry/preloaded,
+/obj/machinery/smartfridge/chemistry,
 /turf/closed/wall,
 /area/medical/chemistry)
 "diK" = (
@@ -35137,45 +35114,18 @@
 	dir = 10
 	},
 /obj/structure/table/glass,
-/obj/item/stack/package_wrap{
-	pixel_x = -1;
-	pixel_y = 10
+/obj/item/book/manual/wiki/chemistry{
+	pixel_x = -4;
+	pixel_y = 4
 	},
-/obj/item/hand_labeler{
+/obj/item/book/manual/wiki/grenades,
+/obj/item/clipboard{
 	pixel_x = 4;
-	pixel_y = 3
+	pixel_y = -4
 	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
+/obj/item/toy/figure/chemist{
+	pixel_x = 4;
+	pixel_y = -4
 	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
@@ -37719,18 +37669,53 @@
 	dir = 10
 	},
 /obj/structure/table/glass,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/reagent_containers/glass/bottle/charcoal{
-	pixel_x = 6
+/obj/item/stack/cable_coil/white{
+	pixel_y = -5
 	},
-/obj/item/reagent_containers/glass/bottle/epinephrine,
-/obj/item/reagent_containers/dropper,
-/obj/item/storage/box/beakers{
+/obj/item/assembly/timer{
+	pixel_x = 10;
+	pixel_y = 6
+	},
+/obj/item/assembly/timer{
+	pixel_x = 10;
+	pixel_y = 6
+	},
+/obj/item/assembly/timer{
+	pixel_x = 10;
+	pixel_y = 6
+	},
+/obj/item/assembly/timer{
+	pixel_x = 10;
+	pixel_y = 6
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -8;
+	pixel_y = 9
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -8;
+	pixel_y = 9
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -8;
+	pixel_y = 9
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -8;
+	pixel_y = 9
+	},
+/obj/item/screwdriver{
 	pixel_x = -5;
-	pixel_y = 10
+	pixel_y = 5
 	},
+/obj/item/stack/cable_coil/white{
+	pixel_x = 3;
+	pixel_y = -1
+	},
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
 "fjH" = (
@@ -45998,16 +45983,36 @@
 	dir = 9
 	},
 /obj/structure/table/glass,
-/obj/machinery/reagentgrinder{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
+	},
+/obj/item/folder/white{
+	pixel_x = -8;
+	pixel_y = 15
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_x = 7;
+	pixel_y = 17
+	},
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 9;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper{
+	pixel_x = 1;
+	pixel_y = -4
+	},
+/obj/item/stack/package_wrap{
+	pixel_x = -1;
+	pixel_y = 10
+	},
+/obj/item/hand_labeler{
+	pixel_x = 4;
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
@@ -77454,7 +77459,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "sFG" = (
-/obj/machinery/smartfridge/chemistry,
+/obj/machinery/smartfridge/chemistry/preloaded,
 /turf/closed/wall/r_wall,
 /area/medical/chemistry)
 "sFV" = (
@@ -84428,32 +84433,8 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "vbA" = (
-/obj/structure/table/glass,
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = 7;
-	pixel_y = 17
-	},
-/obj/item/storage/box/pillbottles{
-	pixel_x = -8;
-	pixel_y = 18
-	},
-/obj/item/storage/box/medsprays{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 9;
-	pixel_y = 7
-	},
-/obj/item/folder/white{
-	pixel_x = -8;
-	pixel_y = 15
-	},
-/obj/item/reagent_containers/dropper{
-	pixel_x = 1;
-	pixel_y = -4
-	},
+/obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "vbH" = (
@@ -87867,7 +87848,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/chemical,
+/obj/structure/closet/secure_closet/chemical/plumbing,
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
 "whg" = (
@@ -91421,21 +91402,16 @@
 	dir = 6
 	},
 /obj/structure/table/glass,
-/obj/item/book/manual/wiki/chemistry{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/book/manual/wiki/grenades,
-/obj/item/clipboard{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/item/toy/figure/chemist{
-	pixel_x = 4;
-	pixel_y = -4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/reagentgrinder{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 3
 	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)

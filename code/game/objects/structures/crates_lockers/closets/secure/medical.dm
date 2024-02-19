@@ -149,16 +149,12 @@
 	new /obj/item/storage/box/pillbottles(src)
 	new /obj/item/storage/box/medsprays(src)
 	new /obj/item/storage/box/medsprays(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/construction/plumbing(src)
-	new /obj/item/construction/plumbing(src)
-	new	/obj/item/plunger(src)
-	new	/obj/item/plunger(src)
-	new /obj/item/rcd_ammo(src)
-	new /obj/item/rcd_ammo(src)
+	new /obj/item/storage/firstaid/advanced/empty
+	new /obj/item/storage/firstaid/advanced/empty
+	new /obj/item/clothing/glasses/science(src)
+	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
+	new /obj/item/reagent_containers/glass/bottle/epinephrine(src)
+	new /obj/item/storage/box/beakers(src)
 
 /obj/structure/closet/secure_closet/chemical/heisenberg //contains one of each beaker, syringe etc.
 	name = "advanced chemical closet"
@@ -178,3 +174,17 @@
 	new /obj/item/construction/plumbing(src)
 	new	/obj/item/plunger(src)
 	new	/obj/item/plunger(src)
+
+/obj/structure/closet/secure_closet/chemical/plumbing
+	name = "chemical plumbing closet"
+	desc = "For all your plumbing needs (toilet plumbing not included)."
+	
+/obj/structure/closet/secure_closet/chemical/plumbing/PopulateContents()
+	..()
+	new /obj/item/stack/ducts/fifty(src)
+	new /obj/item/stack/ducts/fifty(src)
+	new /obj/item/stack/ducts/fifty(src)
+	new /obj/item/stack/ducts/fifty(src)
+	new /obj/item/construction/plumbing(src)
+	new /obj/item/construction/plumbing(src)
+	

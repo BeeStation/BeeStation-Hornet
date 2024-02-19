@@ -1163,6 +1163,11 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/library)
+"GD" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/structure/closet/secure_closet/chemical/plumbing,
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "GN" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /obj/structure/grille/broken,
@@ -1967,7 +1972,7 @@ oG
 aJ
 aJ
 qf
-Wx
+GD
 ca
 rc
 np

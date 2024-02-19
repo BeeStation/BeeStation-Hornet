@@ -6116,44 +6116,11 @@
 /area/maintenance/department/security)
 "bZF" = (
 /obj/structure/table/glass,
-/obj/item/assembly/igniter{
-	pixel_x = -7;
-	pixel_y = 6
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -7;
-	pixel_y = 7
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -8;
-	pixel_y = 7
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -7;
-	pixel_y = 6
-	},
-/obj/item/assembly/timer{
-	pixel_x = -6;
-	pixel_y = -8
-	},
-/obj/item/assembly/timer{
-	pixel_x = -7;
-	pixel_y = -8
-	},
-/obj/item/assembly/timer{
-	pixel_x = -8;
-	pixel_y = -8
-	},
-/obj/item/assembly/timer{
-	pixel_x = -7;
-	pixel_y = -8
-	},
-/obj/item/assembly/timer{
-	pixel_x = -6;
-	pixel_y = -8
-	},
 /obj/machinery/reagentgrinder{
-	pixel_x = 3
+	pixel_y = 8
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_x = -8
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
@@ -20098,11 +20065,11 @@
 /turf/open/floor/wood,
 /area/lawoffice)
 "ggX" = (
-/obj/structure/window/reinforced,
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes,
+/obj/structure/railing,
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
 "gha" = (
@@ -26559,15 +26526,15 @@
 /turf/closed/wall,
 /area/hydroponics)
 "ikB" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/stripes{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/railing{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
 "ikE" = (
@@ -35703,11 +35670,6 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/table/glass,
 /obj/item/book/manual/wiki/grenades,
-/obj/item/stack/cable_coil/random,
-/obj/item/clothing/glasses/science{
-	pixel_x = 2;
-	pixel_y = 4
-	},
 /obj/item/screwdriver{
 	pixel_x = -5;
 	pixel_y = 5
@@ -35718,6 +35680,10 @@
 /obj/machinery/light_switch{
 	pixel_x = 21;
 	pixel_y = 22
+	},
+/obj/item/hand_labeler,
+/obj/item/gun/syringe{
+	pixel_y = 7
 	},
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
@@ -36698,19 +36664,11 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "lwM" = (
-/obj/structure/table/glass,
-/obj/item/clothing/glasses/science{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/stack/cable_coil/random,
-/obj/item/hand_labeler,
-/obj/item/gun/syringe{
-	pixel_y = 7
-	},
 /obj/item/radio/intercom{
 	pixel_x = -27
 	},
+/obj/structure/closet/secure_closet/chemical/plumbing,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
 "lxd" = (
@@ -54650,10 +54608,10 @@
 	name = "Prison Botany"
 	})
 "qZM" = (
-/obj/structure/window/reinforced,
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/stripes,
 /obj/effect/decal/cleanable/blood/old,
+/obj/structure/railing,
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
 "qZR" = (
@@ -58423,7 +58381,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/item/storage/box/pillbottles,
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
 "slj" = (
@@ -62563,7 +62520,6 @@
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
 "tyB" = (
-/obj/structure/window/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes,
 /obj/machinery/light{
@@ -62573,6 +62529,7 @@
 	dir = 1;
 	pixel_y = 29
 	},
+/obj/structure/railing,
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
 "tyE" = (
@@ -66353,7 +66310,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/item/storage/box/medsprays,
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
 "uGh" = (
@@ -66897,14 +66853,14 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "uPp" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes{
 	dir = 1
 	},
 /obj/machinery/light,
+/obj/structure/railing{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
 "uPJ" = (
@@ -69860,30 +69816,59 @@
 	dir = 1;
 	network = list("ss13","medbay")
 	},
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_x = -8;
-	pixel_y = 12
-	},
 /obj/item/grenade/chem_grenade{
-	pixel_x = 12;
+	pixel_x = 7;
 	pixel_y = 13
 	},
 /obj/item/grenade/chem_grenade{
-	pixel_x = 12;
+	pixel_x = 6;
 	pixel_y = 7
 	},
 /obj/item/grenade/chem_grenade{
-	pixel_x = 12
-	},
-/obj/item/storage/box/beakers{
-	pixel_x = -2;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beakers{
-	pixel_x = 1;
-	pixel_y = 2
+	pixel_x = 5
 	},
 /obj/machinery/airalarm/directional/south,
+/obj/item/assembly/igniter{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -7;
+	pixel_y = 6
+	},
+/obj/item/assembly/timer{
+	pixel_x = -6;
+	pixel_y = -8
+	},
+/obj/item/assembly/timer{
+	pixel_x = -7;
+	pixel_y = -8
+	},
+/obj/item/assembly/timer{
+	pixel_x = -8;
+	pixel_y = -8
+	},
+/obj/item/assembly/timer{
+	pixel_x = -7;
+	pixel_y = -8
+	},
+/obj/item/assembly/timer{
+	pixel_x = -6;
+	pixel_y = -8
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/white{
+	pixel_y = 4;
+	pixel_x = 1
+	},
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
 "vMK" = (
@@ -74507,9 +74492,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "xoD" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
@@ -74517,6 +74499,9 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/obj/structure/railing{
 	dir = 1
 	},
 /turf/open/floor/plasteel,

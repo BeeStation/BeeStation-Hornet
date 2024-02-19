@@ -53,7 +53,14 @@
 /obj/structure/rack,
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
-/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -105,11 +112,6 @@
 "t" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plating,
-/area/template_noop)
-"u" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating,
 /area/template_noop)
 "v" = (
@@ -185,6 +187,10 @@
 	},
 /turf/open/floor/dock/drydock,
 /area/template_noop)
+"P" = (
+/obj/structure/closet/secure_closet/chemical/plumbing,
+/turf/open/floor/plating,
+/area/template_noop)
 "T" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -215,9 +221,9 @@ b
 b
 d
 l
-p
+P
 t
-u
+p
 w
 y
 b

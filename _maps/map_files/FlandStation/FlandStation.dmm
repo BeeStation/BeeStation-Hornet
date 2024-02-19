@@ -5787,6 +5787,10 @@
 	name = "Medbay break room maintenance";
 	req_access_txt = "5"
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/medical/break_room)
 "bpP" = (
@@ -13322,8 +13326,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/office)
 "dux" = (
-/obj/structure/closet/wardrobe/chemistry_white,
-/obj/item/storage/box/pillbottles,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
@@ -13335,6 +13337,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -31
 	},
+/obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/apothecary)
 "duI" = (
@@ -14475,7 +14478,6 @@
 /turf/open/floor/carpet/royalblue,
 /area/bridge/meeting_room/council)
 "dLw" = (
-/obj/structure/closet/secure_closet/chemical,
 /obj/effect/turf_decal/tile/purple/opposingcorners,
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
@@ -14483,6 +14485,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/structure/closet/secure_closet/chemical/plumbing,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/apothecary)
 "dLx" = (
@@ -32360,7 +32363,6 @@
 	pixel_y = -24;
 	req_access_txt = "33"
 	},
-/obj/item/storage/pill_bottle,
 /obj/item/reagent_containers/medspray{
 	pixel_x = 6;
 	pixel_y = 6
@@ -32368,6 +32370,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/item/storage/pill_bottle/epinephrine,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/apothecary)
 "ijh" = (
@@ -42956,9 +42959,8 @@
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
+/obj/structure/closet/wardrobe/chemistry_white,
+/obj/item/storage/box/pillbottles,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/apothecary)
 "kTI" = (
@@ -43292,6 +43294,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/curtain{
 	layer = 4.5
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
 	},
 /turf/open/floor/plating,
 /area/medical/cryo)
@@ -51537,6 +51543,44 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/plasteel/sepia,
 /area/engine/engineering)
+"nbG" = (
+/obj/structure/table,
+/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil/white{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = -4
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = -2
+	},
+/obj/item/grenade/chem_grenade,
+/obj/item/assembly/igniter{
+	pixel_x = -6
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -4
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2
+	},
+/obj/item/assembly/timer{
+	pixel_x = 8
+	},
+/obj/item/assembly/timer{
+	pixel_x = 6
+	},
+/obj/item/assembly/timer{
+	pixel_x = 4
+	},
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/effect/turf_decal/tile/green/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "nbL" = (
 /obj/item/reagent_containers/syringe/antiviral{
 	pixel_x = 7;
@@ -58174,6 +58218,10 @@
 	name = "Apothecary Maintenance";
 	req_access_txt = "5;33"
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/department/medical)
 "oRx" = (
@@ -58343,6 +58391,10 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay central maintenance";
 	req_access_txt = "5"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/medical/medbay/central)
@@ -60136,6 +60188,19 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/grid/steel,
 /area/crew_quarters/dorms)
+"ptf" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/effect/turf_decal/tile/green/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "pth" = (
 /obj/structure/flora/rock/pile,
 /turf/closed/mineral,
@@ -60521,13 +60586,6 @@
 "pyK" = (
 /turf/open/floor/carpet,
 /area/medical/exam_room)
-"pyN" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "emmd";
-	name = "Emergency Medical Lockdown Shutters"
-	},
-/turf/closed/wall,
-/area/medical/apothecary)
 "pyX" = (
 /obj/effect/turf_decal/trimline/blue/warning{
 	dir = 1
@@ -84237,47 +84295,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
-"vqX" = (
-/obj/structure/table,
-/obj/item/stack/cable_coil/white,
-/obj/item/stack/cable_coil/white{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/grenade/chem_grenade{
-	pixel_x = -4
-	},
-/obj/item/grenade/chem_grenade{
-	pixel_x = -2
-	},
-/obj/item/grenade/chem_grenade,
-/obj/item/assembly/igniter{
-	pixel_x = -6
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -4
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2
-	},
-/obj/item/assembly/timer{
-	pixel_x = 8
-	},
-/obj/item/assembly/timer{
-	pixel_x = 6
-	},
-/obj/item/assembly/timer{
-	pixel_x = 4
-	},
-/obj/effect/turf_decal/tile/purple/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/apothecary)
 "vro" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line,
@@ -87860,8 +87877,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/bridge)
 "wfJ" = (
-/obj/structure/closet/secure_closet/medical1,
-/obj/item/storage/pill_bottle/epinephrine,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -87869,6 +87884,7 @@
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/apothecary)
 "wgl" = (
@@ -97580,6 +97596,10 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/medical/storage)
 "yjx" = (
@@ -126944,7 +126964,7 @@ pyX
 iGv
 qIH
 iDl
-pyN
+vhU
 ocU
 mwm
 cQB
@@ -127716,7 +127736,7 @@ jWe
 ngh
 nDi
 osI
-lMx
+nbG
 lMx
 wfJ
 maD
@@ -127972,7 +127992,7 @@ dFG
 gyt
 qvn
 pRv
-vqX
+uPL
 lMx
 lMx
 dux
@@ -128229,7 +128249,7 @@ dFG
 iyB
 heB
 ocm
-uPL
+ptf
 uho
 lMx
 nDy
