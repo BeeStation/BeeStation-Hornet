@@ -165,6 +165,10 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "aaR" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "aaS" = (
@@ -408,6 +412,9 @@
 "acs" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -6423,12 +6430,12 @@
 /turf/closed/wall,
 /area/security/checkpoint/engineering)
 "aYw" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
 /obj/machinery/light{
 	dir = 1;
 	light_color = "#c1caff"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -21878,6 +21885,7 @@
 "cZN" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/recharger,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "cZO" = (
@@ -23903,6 +23911,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"dtj" = (
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/fore)
 "dtm" = (
 /obj/item/storage/secure/safe{
 	pixel_x = 6;
@@ -30063,11 +30078,11 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "fQq" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
 /obj/machinery/camera/autoname{
 	network = list("ss13", "security")
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -32950,8 +32965,8 @@
 /turf/open/floor/engine,
 /area/science/explab)
 "ham" = (
-/obj/item/kirbyplants/random,
-/obj/item/survivalcapsule/capsule_checkpoint,
+/obj/machinery/recharger,
+/obj/structure/table/reinforced,
 /turf/open/floor/plasteel/dark,
 /area/security)
 "hbi" = (
@@ -33939,6 +33954,9 @@
 /obj/item/kirbyplants/random,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -35433,6 +35451,7 @@
 	network = list("ss13", "security", "prison");
 	dir = 10
 	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "hWI" = (
@@ -38391,6 +38410,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/item/survivalcapsule/capsule_checkpoint,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "jbC" = (
@@ -39525,6 +39545,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "jza" = (
@@ -48760,10 +48781,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "mRO" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
 /obj/structure/chair,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "mSe" = (
@@ -53249,6 +53270,10 @@
 "ovj" = (
 /turf/closed/wall,
 /area/maintenance/starboard/secondary)
+"ovF" = (
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/plasteel,
+/area/security/prison)
 "ovI" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	color = "#596479";
@@ -55620,10 +55645,13 @@
 /turf/open/floor/carpet/grimy,
 /area/tcommsat/computer)
 "pqS" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
 /obj/effect/spawner/randomvend/cola,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "pre" = (
@@ -62120,6 +62148,12 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"rMI" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/fore)
 "rMN" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -62497,6 +62531,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "rTo" = (
@@ -72819,6 +72854,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"vNB" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/fore)
 "vNG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/grille_or_trash,
@@ -79388,6 +79432,10 @@
 /area/bridge)
 "xYb" = (
 /obj/machinery/vending/coffee,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security/prison)
 "xYd" = (
@@ -104245,8 +104293,8 @@ dYm
 mzy
 wMj
 ayF
-sbU
-lxh
+vNB
+aII
 aJT
 aHx
 aaa
@@ -104502,7 +104550,7 @@ ykp
 ykp
 oZm
 qtx
-sbU
+rMI
 xiH
 rsd
 aHy
@@ -104759,7 +104807,7 @@ vtQ
 tqm
 jvB
 byu
-sbU
+rMI
 hHT
 cfg
 aHx
@@ -105273,7 +105321,7 @@ kIi
 hsb
 rGx
 ayF
-sbU
+rMI
 owZ
 pvx
 aHx
@@ -105787,7 +105835,7 @@ tvZ
 dBF
 ajm
 pqS
-sbU
+aDC
 lxh
 pvx
 aHx
@@ -106300,7 +106348,7 @@ aws
 jtj
 lyx
 key
-sbU
+rMI
 aDC
 dCo
 dph
@@ -106557,7 +106605,7 @@ aws
 aws
 lyx
 iaQ
-sbU
+rMI
 aDC
 lxh
 cWk
@@ -106814,8 +106862,8 @@ rdy
 rXD
 lZD
 ajm
-crq
-aDC
+dtj
+rMI
 jgH
 tIr
 aHy
@@ -107072,7 +107120,7 @@ vZE
 qFq
 adY
 adY
-sbU
+rMI
 lxh
 opd
 aHx
@@ -107329,7 +107377,7 @@ gYD
 ajn
 lep
 ozX
-sbU
+rMI
 lxh
 ujn
 aJT
@@ -107586,7 +107634,7 @@ fNM
 hBF
 sLG
 nnV
-sbU
+aDC
 aEN
 iGB
 aHA
@@ -107824,7 +107872,7 @@ hUj
 riV
 wGL
 hgP
-nBV
+iyr
 nsa
 vGf
 pqs
@@ -110158,7 +110206,7 @@ aax
 abe
 abe
 acs
-aaR
+ovF
 aHD
 aIN
 oop
@@ -110415,7 +110463,7 @@ cXj
 khr
 urR
 acs
-aaR
+ovF
 aHD
 rAm
 ogu
@@ -110929,7 +110977,7 @@ aje
 jID
 abe
 acs
-aaR
+ovF
 aHD
 qXk
 coD
