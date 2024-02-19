@@ -44093,10 +44093,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"ldp" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/security/brig/dock)
 "ldE" = (
 /obj/structure/table,
 /obj/machinery/newscaster{
@@ -105036,7 +105032,7 @@ adZ
 xxD
 qZG
 rSJ
-ldp
+xGL
 rPE
 dvQ
 kdM
