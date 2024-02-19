@@ -78844,10 +78844,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
-"xNE" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/security)
 "xNM" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -105546,7 +105542,7 @@ xGL
 oPZ
 rqr
 lug
-xNE
+oPZ
 xGL
 xfm
 yjv
