@@ -10856,7 +10856,6 @@
 /area/hallway/primary/fore)
 "dow" = (
 /obj/structure/lattice,
-/obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
 "doz" = (
