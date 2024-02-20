@@ -13125,6 +13125,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical/central)
+"gna" = (
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/obj/item/beacon,
+/obj/effect/turf_decal/box,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/turret_protected/aisat/foyer)
 "gnc" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -22828,6 +22837,11 @@
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
 	})
+"lAn" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/girder,
+/turf/open/floor/plating,
+/area/engine/atmos)
 "lAt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -29247,21 +29261,6 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
-"pbl" = (
-/obj/machinery/ai_slipper{
-	uses = 10
-	},
-/obj/item/beacon,
-/obj/effect/turf_decal/box,
-/obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/aisat_interior";
-	name = "Antechamber Turret Control";
-	pixel_x = 31;
-	req_access_txt = "65"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat/foyer)
 "pbw" = (
 /obj/machinery/door/airlock{
 	name = "Hydroponics";
@@ -30155,10 +30154,6 @@
 	dir = 4
 	},
 /area/medical/genetics/cloning)
-"pDR" = (
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plating,
-/area/engine/atmos)
 "pEf" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -57532,7 +57527,7 @@ aby
 dXj
 ssw
 llI
-lho
+tmh
 blO
 cFP
 jiG
@@ -57782,14 +57777,14 @@ dMS
 jOo
 giS
 bJq
-tmh
+lho
 yiO
 xQu
 uSM
 tRy
 ssw
 iiY
-pDR
+lAn
 nXA
 mmp
 nXA
@@ -193967,7 +193962,7 @@ aEi
 lEg
 pPs
 rvW
-pbl
+gna
 uFe
 tfy
 lEg
