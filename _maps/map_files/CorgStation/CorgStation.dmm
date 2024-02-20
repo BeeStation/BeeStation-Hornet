@@ -9693,8 +9693,6 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "cWG" = (
-/obj/structure/lattice,
-/obj/structure/lattice/catwalk,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
