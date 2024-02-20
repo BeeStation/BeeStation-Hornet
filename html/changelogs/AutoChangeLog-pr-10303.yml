@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: Fixes SM throwing runtime when a ghost examines SM
