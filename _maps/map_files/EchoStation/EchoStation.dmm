@@ -270,7 +270,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "agO" = (
 /obj/structure/chair/office{
@@ -344,7 +346,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "aip" = (
 /obj/structure/railing/corner,
@@ -1401,12 +1405,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/camera{
-	c_tag = "AI Chamber Door";
-	dir = 1;
-	name = "core camera";
-	network = list("aicore")
-	},
 /obj/machinery/flasher{
 	id = "AI";
 	name = "Meatbag Pacifier";
@@ -1414,6 +1412,10 @@
 	pixel_y = 1
 	},
 /obj/item/kirbyplants/random,
+/obj/machinery/camera/autoname{
+	dir = 10;
+	network = list("aiupload")
+	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
 "ayh" = (
@@ -2585,11 +2587,6 @@
 	name = "-1 Primary Hallway"
 	})
 "aRO" = (
-/obj/machinery/camera{
-	c_tag = "Bridge - Port";
-	dir = 8;
-	name = "command camera"
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -2606,6 +2603,10 @@
 	},
 /obj/item/restraints/handcuffs{
 	pixel_y = 3
+	},
+/obj/machinery/camera/autoname{
+	c_tag = "Corporate Meeting Room";
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
@@ -2969,9 +2970,9 @@
 /obj/structure/rack,
 /obj/item/circuitboard/machine/telecomms/bus,
 /obj/item/circuitboard/machine/telecomms/broadcaster,
-/obj/machinery/camera{
-	c_tag = "Telecomms - Storage";
-	dir = 4
+/obj/machinery/camera/autoname{
+	dir = 6;
+	network = list("ss13","engine")
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
@@ -4919,13 +4920,12 @@
 "bUy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/machinery/camera{
-	c_tag = "Engineering - Secure Storage";
-	dir = 1;
-	name = "engineering camera"
-	},
 /obj/machinery/power/emitter,
 /obj/machinery/light,
+/obj/machinery/camera/autoname{
+	dir = 1;
+	network = list("ss13","engine")
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "bUA" = (
@@ -5392,7 +5392,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "ckI" = (
 /turf/open/floor/plating/beach/coastline_b{
@@ -5509,7 +5511,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "cnk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6510,12 +6514,10 @@
 	pixel_y = -25
 	},
 /obj/machinery/light,
-/obj/machinery/camera{
-	c_tag = "Cryogenics Lounge";
-	dir = 1;
-	name = "recreation camera"
-	},
 /obj/item/kirbyplants/random,
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
 "cPg" = (
@@ -6757,7 +6759,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "cXj" = (
 /obj/structure/railing{
@@ -6777,7 +6781,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "cXD" = (
 /obj/effect/turf_decal/bot,
@@ -7251,12 +7257,6 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Toxins Burn Chamber";
-	dir = 8;
-	name = "science camera";
-	network = list("ss13","rd")
 	},
 /obj/machinery/light{
 	dir = 4
@@ -7764,7 +7764,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "dCm" = (
 /obj/structure/table_frame/wood,
@@ -7873,7 +7875,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "dGh" = (
 /obj/structure/cable/yellow{
@@ -7905,7 +7909,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "dHq" = (
 /obj/effect/turf_decal/stripes/line{
@@ -8159,7 +8165,9 @@
 	})
 "dNX" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "dOk" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -8223,7 +8231,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "dPx" = (
 /obj/item/kirbyplants/random,
@@ -9097,10 +9107,8 @@
 /area/asteroid/paradise/surface)
 "erO" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/machinery/camera{
-	c_tag = "Bridge - Port";
+/obj/machinery/camera/autoname{
 	dir = 4;
-	name = "command camera";
 	network = list("ss13","public")
 	},
 /turf/open/floor/plating/asteroid/planetary,
@@ -9546,7 +9554,7 @@
 "eBY" = (
 /obj/structure/railing,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 4;
 	network = list("ss13","engine")
 	},
 /turf/open/openspace,
@@ -9704,9 +9712,7 @@
 	dir = 1;
 	pixel_y = 28
 	},
-/obj/machinery/camera{
-	c_tag = "Kitchen"
-	},
+/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "eFS" = (
@@ -10300,7 +10306,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "eVr" = (
 /obj/machinery/holopad,
@@ -10512,6 +10520,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
+"fae" = (
+/obj/machinery/camera/motion{
+	c_tag = "MiniSat Exterior 1";
+	dir = 1;
+	network = list("minisat");
+	view_range = 5
+	},
+/turf/open/openspace,
+/area/ai_monitored/turret_protected/aisat/maint)
 "fah" = (
 /obj/machinery/light,
 /turf/open/openspace,
@@ -10861,7 +10878,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "fkG" = (
 /obj/machinery/light_switch{
@@ -11306,7 +11325,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "fvY" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -11418,7 +11439,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "fzr" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -11620,7 +11643,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "fEV" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
@@ -11987,10 +12012,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Theatre Stage";
-	dir = 4;
-	name = "service camera"
+/obj/machinery/camera/autoname{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
@@ -12017,6 +12040,10 @@
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/plating/airless,
 /area/science/mixing)
+"fPc" = (
+/obj/structure/flora/junglebush/c,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "fPf" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
@@ -12640,7 +12667,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "gbZ" = (
 /obj/structure/table/reinforced,
@@ -12870,17 +12899,6 @@
 "ggs" = (
 /turf/closed/wall/rust,
 /area/maintenance/department/engine)
-"ggB" = (
-/obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Pen #1";
-	dir = 9;
-	network = list("ss13","rd","xeno")
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/engine,
-/area/science/xenobiology)
 "ghc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -14382,7 +14400,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "gRN" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -14945,7 +14965,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "heR" = (
 /turf/closed/wall,
@@ -14982,7 +15004,9 @@
 "hfW" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "hgB" = (
 /obj/structure/sign/warning/fire,
@@ -15221,17 +15245,15 @@
 	pixel_x = 24;
 	pixel_y = 24
 	},
-/obj/machinery/camera{
-	c_tag = "AI Chamber Core";
-	dir = 1;
-	name = "core camera";
-	network = list("aicore")
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/camera/autoname{
+	dir = 10;
+	network = list("aiupload")
 	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
@@ -15264,11 +15286,6 @@
 /area/asteroid/paradise)
 "hrt" = (
 /obj/structure/tank_dispenser,
-/obj/machinery/camera{
-	c_tag = "Toxins Mixers";
-	name = "science camera";
-	network = list("ss13","rd")
-	},
 /obj/effect/turf_decal/stripes/box,
 /obj/structure/sign/painting/library{
 	pixel_x = 1;
@@ -15505,7 +15522,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "hwY" = (
 /turf/closed/wall/rust,
@@ -15634,7 +15653,9 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "hzM" = (
 /obj/effect/landmark/xeno_spawn,
@@ -15817,7 +15838,9 @@
 "hDX" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/airalarm/directional/north,
-/obj/machinery/vending/sustenance,
+/obj/machinery/vending/sustenance{
+	products = list(/obj/item/food/tofu/prison = 24, /obj/item/food/spaghetti/boiledspaghetti = 12, /obj/item/food/candy_corn/prison = 6)
+	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "hDY" = (
@@ -15978,6 +16001,11 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"hJN" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/plating/asteroid/planetary,
+/area/asteroid/paradise)
 "hJS" = (
 /obj/machinery/door/airlock/security{
 	name = "Interrogation";
@@ -16634,21 +16662,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/science/mixing)
-"ict" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Bridge - Port";
-	dir = 4;
-	name = "command camera";
-	network = list("ss13","public")
-	},
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/plasteel,
-/area/hallway/primary/fore{
-	name = "-1 Primary Hallway"
-	})
 "idf" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/grille_or_trash,
@@ -17617,7 +17630,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "iKX" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -18246,7 +18261,9 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "jdU" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -18368,7 +18385,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "jkp" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -19071,7 +19090,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 8;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/plasteel/dark/telecomms{
@@ -20493,7 +20512,9 @@
 	pixel_x = -16
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "kmg" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -20821,7 +20842,9 @@
 /area/maintenance/department/engine/atmos)
 "krR" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "krV" = (
 /obj/effect/turf_decal/sand/plating,
@@ -21037,7 +21060,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "kyK" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -22003,8 +22028,7 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Incinerator";
+/obj/machinery/camera/autoname{
 	dir = 4;
 	network = list("ss13","engine")
 	},
@@ -22532,7 +22556,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "lok" = (
 /obj/effect/turf_decal/delivery,
@@ -23164,7 +23190,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "lFO" = (
 /obj/structure/cable/yellow{
@@ -23325,7 +23353,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "lKU" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -23906,7 +23936,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "mbE" = (
 /obj/structure/railing/corner{
@@ -24154,11 +24186,6 @@
 	},
 /obj/item/clothing/glasses/welding,
 /obj/machinery/airalarm/directional/north,
-/obj/machinery/camera{
-	c_tag = "AI Chamber SMES";
-	name = "core camera";
-	network = list("aicore")
-	},
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -25109,7 +25136,9 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "mNm" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -25132,16 +25161,13 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "mNH" = (
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Pen #1";
-	dir = 8;
-	network = list("ss13","rd","xeno")
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
@@ -25450,7 +25476,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "mWC" = (
 /turf/open/floor/plating/asteroid/basalt/planetary,
@@ -25460,7 +25488,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "mWM" = (
 /obj/machinery/holopad,
@@ -25682,7 +25712,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "ncw" = (
 /obj/structure/cable/yellow{
@@ -25858,7 +25890,9 @@
 "nfZ" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "ngJ" = (
 /obj/structure/flora/rock/pile,
@@ -26155,7 +26189,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "npn" = (
 /obj/structure/chair/stool{
@@ -26205,7 +26241,9 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "nrc" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -26586,7 +26624,9 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "nEl" = (
 /turf/open/floor/plasteel,
@@ -26840,7 +26880,9 @@
 /area/asteroid/paradise/surface)
 "nKB" = (
 /obj/effect/turf_decal/sand/plating,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "nKL" = (
 /obj/machinery/smartfridge/chemistry,
@@ -27235,13 +27277,11 @@
 /turf/closed/wall/r_wall,
 /area/teleporter)
 "oax" = (
-/obj/machinery/camera{
-	c_tag = "Theatre Stage";
-	dir = 4;
-	name = "service camera"
-	},
 /obj/structure/sign/poster/official/suit_sensors{
 	pixel_x = -32
+	},
+/obj/machinery/camera/autoname{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 9
@@ -27447,7 +27487,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "ojC" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -27455,7 +27497,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "okk" = (
 /obj/effect/decal/cleanable/blood/splatter,
@@ -27956,7 +28000,9 @@
 /area/security/prison)
 "ovD" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "ovJ" = (
 /obj/structure/closet{
@@ -28009,7 +28055,8 @@
 /obj/machinery/camera{
 	c_tag = "Interrogation room";
 	dir = 8;
-	network = list("interrogation")
+	network = list("interrogation");
+	name = "Interrogation room"
 	},
 /obj/machinery/light_switch{
 	pixel_x = 21;
@@ -28714,13 +28761,12 @@
 /obj/machinery/power/emitter/welded{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Engineering - Secure Storage";
-	dir = 1;
-	name = "engineering camera"
-	},
 /obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow,
+/obj/machinery/camera/autoname{
+	dir = 1;
+	network = list("ss13","engine")
+	},
 /turf/open/floor/plating,
 /area/engine/engineering)
 "oMA" = (
@@ -28803,7 +28849,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "oNp" = (
 /obj/effect/turf_decal/siding/white{
@@ -30307,10 +30355,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Bridge - Port";
-	dir = 8;
-	name = "command camera"
+/obj/machinery/camera/autoname{
+	dir = 8
 	},
 /turf/open/openspace,
 /area/hallway/primary/fore{
@@ -30370,6 +30416,7 @@
 /area/maintenance/department/bridge)
 "pGA" = (
 /obj/effect/decal/cleanable/blood/old,
+/obj/item/hatchet,
 /turf/open/floor/plating/dirt/planetary,
 /area/asteroid/paradise/surface)
 "pHe" = (
@@ -30523,10 +30570,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Theatre Stage";
-	dir = 8;
-	name = "service camera"
+/obj/machinery/camera/autoname{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark/corner,
 /area/hallway/primary/central{
@@ -31543,7 +31588,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "qlj" = (
 /obj/effect/turf_decal/stripes/line{
@@ -31676,6 +31723,12 @@
 	},
 /obj/machinery/airalarm/directional/west,
 /obj/machinery/monkey_recycler,
+/obj/machinery/camera{
+	c_tag = "Xenobiology Lab";
+	dir = 4;
+	network = list("ss13","rd","xeno");
+	name = "Xeno camera"
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
 "qrl" = (
@@ -32315,7 +32368,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "qJa" = (
 /obj/effect/turf_decal/sand/plating,
@@ -32339,7 +32394,8 @@
 /area/quartermaster/storage)
 "qJN" = (
 /obj/structure/reflector/box{
-	dir = 8
+	dir = 8;
+	anchored = 1
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise)
@@ -32786,7 +32842,8 @@
 	})
 "qUW" = (
 /obj/structure/reflector/box{
-	dir = 1
+	dir = 1;
+	anchored = 1
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/asteroid/planetary,
@@ -33121,7 +33178,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "rca" = (
 /obj/structure/ladder,
@@ -33924,7 +33983,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "rvl" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -34722,7 +34783,9 @@
 "rQE" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "rQH" = (
 /obj/effect/turf_decal/sand/plating,
@@ -34730,7 +34793,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "rRc" = (
 /obj/structure/table,
@@ -35222,10 +35287,8 @@
 /turf/closed/wall/r_wall/rust,
 /area/science/test_area)
 "sdG" = (
-/obj/machinery/camera{
-	c_tag = "Theatre Stage";
-	dir = 8;
-	name = "service camera"
+/obj/machinery/camera/autoname{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central{
@@ -35417,6 +35480,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
+"sip" = (
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("ss13","public")
+	},
+/turf/open/openspace,
+/area/hallway/primary/fore{
+	name = "-1 Primary Hallway"
+	})
 "siz" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 5
@@ -35970,6 +36042,7 @@
 "syx" = (
 /obj/structure/table/wood,
 /obj/item/screwdriver,
+/obj/item/hatchet,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
@@ -36341,7 +36414,9 @@
 /area/maintenance/department/bridge)
 "sLb" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "sLz" = (
 /turf/open/floor/plating/asteroid/basalt/planetary,
@@ -36665,6 +36740,11 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
+"sTa" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/item/hatchet,
+/turf/open/floor/wood,
+/area/asteroid/paradise/surface)
 "sTd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -36716,7 +36796,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "sUg" = (
 /obj/machinery/airalarm/engine{
@@ -37406,11 +37488,6 @@
 "tjd" = (
 /obj/structure/window/reinforced,
 /mob/living/simple_animal/slime,
-/obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Pen #1";
-	dir = 4;
-	network = list("ss13","rd","xeno")
-	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "tju" = (
@@ -37441,17 +37518,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"tjB" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Xenobiology Lab - Pen #1";
-	dir = 4;
-	network = list("ss13","rd","xeno")
-	},
-/turf/open/floor/engine,
-/area/science/xenobiology)
 "tko" = (
 /turf/closed/wall,
 /area/security/detectives_office)
@@ -37518,11 +37584,6 @@
 /obj/item/screwdriver{
 	pixel_x = 4;
 	pixel_y = 1
-	},
-/obj/machinery/camera{
-	c_tag = "AI Chamber SMES";
-	name = "core camera";
-	network = list("aicore")
 	},
 /turf/open/floor/circuit/green{
 	luminosity = 2
@@ -37827,11 +37888,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/camera{
-	c_tag = "Bridge - Port";
-	name = "command camera";
-	network = list("ss13","public")
-	},
 /obj/item/paper/pamphlet/centcom/visitor_info{
 	default_raw_text = "<b> XCC-P5831 Visitor Information </b><br>\ntGreetings, visitor, to  XCC-P5831! As you may know, this outpost was once \ntused as Nanotrasen's CENTRAL COMMAND STATION, organizing and coordinating company \ntprojects across the vastness of space. <br>\ntSince the completion of the much more efficient CC-A5831 on March 8, 2553, XCC-P5831 no longer \ntacts as NT's base of operations but still plays a very important role its corporate affairs; \ntserving as a supply and repair depot, as well as being host to its most important legal proceedings\nt and the thrilling pay-per-view broadcasts of <i>PLASTEEL CHEF</i> and <i>THUNDERDOME LIVE</i>.<br> \ntWe hope you enjoy your stay!";
 	pixel_x = -3;
@@ -37846,6 +37902,9 @@
 	default_raw_text = "<b> XCC-P5831 Visitor Information </b><br>\ntGreetings, visitor, to  XCC-P5831! As you may know, this outpost was once \ntused as Nanotrasen's CENTRAL COMMAND STATION, organizing and coordinating company \ntprojects across the vastness of space. <br>\ntSince the completion of the much more efficient CC-A5831 on March 8, 2553, XCC-P5831 no longer \ntacts as NT's base of operations but still plays a very important role its corporate affairs; \ntserving as a supply and repair depot, as well as being host to its most important legal proceedings\nt and the thrilling pay-per-view broadcasts of <i>PLASTEEL CHEF</i> and <i>THUNDERDOME LIVE</i>.<br> \ntWe hope you enjoy your stay!";
 	pixel_x = 7;
 	pixel_y = 2
+	},
+/obj/machinery/camera/autoname{
+	dir = 9
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/fore{
@@ -38351,7 +38410,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "tFX" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible/layer2{
@@ -38454,7 +38515,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "tHB" = (
 /obj/effect/turf_decal/stripes/line{
@@ -38627,7 +38690,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "tMd" = (
 /obj/structure/cable/yellow{
@@ -39153,7 +39218,9 @@
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "tUN" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
@@ -39626,6 +39693,9 @@
 /obj/structure/sign/painting/library{
 	pixel_y = 32
 	},
+/obj/machinery/camera/autoname{
+	network = list("ss13","medbay","public")
+	},
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "ujX" = (
@@ -39859,7 +39929,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "upV" = (
 /obj/structure/railing,
@@ -39876,7 +39948,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "uqn" = (
 /obj/structure/railing/corner{
@@ -40822,7 +40896,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "uRn" = (
 /obj/effect/turf_decal/stripes/line,
@@ -41096,7 +41172,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "uVJ" = (
 /obj/structure/table/wood,
@@ -41653,7 +41731,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "vnd" = (
 /obj/effect/turf_decal/stripes/line,
@@ -41898,7 +41978,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "vtn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -42103,11 +42185,7 @@
 	pixel_y = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/camera{
-	c_tag = "Bridge - Port";
-	name = "command camera";
-	network = list("ss13","public")
-	},
+/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
@@ -42381,7 +42459,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "vMx" = (
 /obj/effect/turf_decal/stripes/line,
@@ -43565,7 +43645,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "wur" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -44688,7 +44770,9 @@
 /turf/open/floor/plating/grass,
 /area/asteroid/paradise/surface)
 "wWf" = (
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "wWC" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -44894,13 +44978,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/camera{
-	c_tag = "Engineering - Power Monitoring";
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/modular_computer/console/preset/engineering{
 	dir = 8
+	},
+/obj/machinery/camera/autoname{
+	dir = 8;
+	network = list("ss13","engine")
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
@@ -45128,7 +45212,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "xjn" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -45428,7 +45514,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "xpy" = (
 /turf/open/floor/plasteel/dark/side{
@@ -46144,15 +46232,13 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise/surface)
 "xIT" = (
-/obj/machinery/camera{
-	c_tag = "Theatre Stage";
-	dir = 1;
-	name = "service camera"
-	},
 /obj/structure/chair/wood/normal{
 	dir = 1
 	},
 /obj/machinery/light,
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "xIW" = (
@@ -46617,7 +46703,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "xVG" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -46910,7 +46998,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/sepia/planetary,
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
 /area/asteroid/paradise/surface)
 "yeZ" = (
 /obj/effect/turf_decal/numbers{
@@ -47016,7 +47106,7 @@
 /area/medical/patients_rooms)
 "ykM" = (
 /obj/machinery/camera/motion{
-	c_tag = "MiniSat Exterior 3";
+	c_tag = "MiniSat Exterior 2";
 	dir = 1;
 	network = list("minisat");
 	view_range = 5
@@ -60102,7 +60192,7 @@ lCS
 mVg
 cEk
 xqU
-vqI
+blO
 vqI
 vqI
 vqI
@@ -60357,10 +60447,10 @@ wNO
 apY
 biV
 sXB
-vqI
-vqI
-vqI
-vqI
+blO
+cEk
+xqU
+hJN
 vqI
 vqI
 vqI
@@ -60614,10 +60704,10 @@ bcS
 gPs
 idO
 lCS
-oJl
-oJl
-oJl
-vqI
+hJN
+fPc
+ozj
+cEk
 vqI
 vqI
 vqI
@@ -60873,8 +60963,8 @@ qiZ
 lCS
 ndX
 cEk
-vqI
-vqI
+xqU
+fPc
 vqI
 vqI
 vqI
@@ -61131,7 +61221,7 @@ lCS
 eGc
 luk
 ycy
-vqI
+xqU
 vqI
 vqI
 vqI
@@ -61388,7 +61478,7 @@ sXB
 cFP
 vDt
 wyw
-blO
+sLz
 vqI
 vqI
 vqI
@@ -61642,7 +61732,7 @@ tfH
 jhN
 iZk
 sXB
-vqI
+cEk
 mVg
 ccl
 vqI
@@ -61901,7 +61991,7 @@ gPs
 mAp
 sLz
 qUW
-sLz
+cEk
 vqI
 vqI
 vqI
@@ -63161,7 +63251,7 @@ aBu
 tUW
 qrb
 pfN
-tjB
+saP
 kuW
 pXQ
 sXB
@@ -64440,7 +64530,7 @@ heR
 rGk
 iti
 eZt
-ggB
+mNH
 hJA
 cXR
 lUg
@@ -193688,7 +193778,7 @@ nNW
 lsj
 rcQ
 fdh
-ykM
+fae
 aEi
 aEi
 mjZ
@@ -250480,7 +250570,7 @@ yli
 kKh
 lAN
 dTC
-nVI
+sTa
 nVI
 vMa
 wVV
@@ -257723,9 +257813,9 @@ dvc
 nrQ
 nYL
 nYL
-nYL
+sip
 qPX
-ict
+bLn
 pbk
 tDr
 aqa
