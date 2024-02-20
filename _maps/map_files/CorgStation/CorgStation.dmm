@@ -58663,7 +58663,6 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "sWx" = (
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
