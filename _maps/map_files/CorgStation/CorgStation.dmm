@@ -31074,7 +31074,6 @@
 /area/crew_quarters/kitchen)
 "kaO" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
 "kaW" = (
