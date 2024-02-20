@@ -26,7 +26,14 @@
 	return SUCCESSFUL_SPAWN
 
 /proc/spawn_prisoners(turf/landing_turf, list/candidates, list/spawned_mobs)
-    var/member_size = rand(1, 4)
+	var/job_check = 0
+	for (var/mob/M in mode.current_players[CURRENT_LIVING_PLAYERS])
+		if (M.assigned_role == JOB_NAME_SECURITYOFFICER || M.assigned_role == JOB_NAME_HEADOFSECURITY)
+			job_check += 1
+		if (M.assigned_role == JOB_NAME_WARDEN)
+			job_check += 2
+
+    var/member_size = rand(1, round(job_check/2) + 1)
     for(var/i in 1 to member_size)
         var/mob/dead/selected = pick_n_take(candidates)
         if(!selected)
