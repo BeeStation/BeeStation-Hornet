@@ -34466,18 +34466,6 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/space,
 /area/solar/port/aft)
-"egY" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "ehb" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -43156,6 +43144,14 @@
 /area/bridge)
 "hba" = (
 /obj/structure/curtain,
+/obj/structure/lattice,
+/obj/structure/lattice,
+/obj/structure/lattice,
+/obj/structure/lattice,
+/obj/structure/lattice,
+/obj/structure/lattice,
+/obj/structure/lattice,
+/obj/structure/lattice,
 /turf/open/floor/plasteel/freezer,
 /area/security/prison)
 "hby" = (
@@ -64412,6 +64408,13 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
+"ohQ" = (
+/obj/structure/lattice,
+/obj/structure/lattice,
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/closed/wall/r_wall,
+/area/security/execution/transfer)
 "oid" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -93562,6 +93565,18 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"xXl" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "xXm" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -148064,7 +148079,7 @@ aad
 aad
 aaa
 bnG
-bnG
+ohQ
 bnG
 bnG
 bnG
@@ -148622,7 +148637,7 @@ aFm
 aaa
 aaa
 aaa
-sav
+aaa
 bTl
 aaa
 cuM
@@ -149133,10 +149148,10 @@ aFm
 jlH
 pHn
 aFm
-sav
-sav
-sav
-sav
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 cuM
@@ -150381,7 +150396,7 @@ ncT
 bgZ
 aPn
 nJf
-egY
+xXl
 lcd
 bNj
 sav
