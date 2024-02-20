@@ -9692,10 +9692,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"cWG" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "cWH" = (
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/chief)
@@ -19865,6 +19861,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/structure/bed/dogbed/renault,
+/mob/living/simple_animal/pet/fox/Renault,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "gth" = (
@@ -24988,8 +24986,10 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "hZr" = (
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/engine/atmos)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "hZJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -31070,10 +31070,6 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
-"kaO" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "kaW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -57568,10 +57564,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"sEO" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "sEV" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 10
@@ -58658,10 +58650,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
-"sWx" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "sWE" = (
 /obj/structure/chair{
 	dir = 8
@@ -87706,7 +87694,7 @@ aDT
 aLq
 anT
 anT
-sEO
+anT
 anT
 anT
 anT
@@ -90218,8 +90206,8 @@ aMT
 aMT
 aMT
 aMT
-aMT
-aMT
+oTx
+oTx
 aMT
 aMT
 aMT
@@ -90474,9 +90462,9 @@ aMT
 aMT
 aMT
 aMT
+oTx
 aMT
-aMT
-aMT
+anT
 aMT
 aPf
 aPf
@@ -90731,10 +90719,10 @@ aMT
 aMT
 aMT
 aMT
+oTx
 aMT
-aMT
-aMT
-aMT
+anT
+anT
 aPf
 rfG
 qoU
@@ -90988,9 +90976,9 @@ aMT
 aMT
 aMT
 aMT
-aMT
-aMT
-aMT
+oTx
+anT
+anT
 aMT
 acA
 sFR
@@ -91245,11 +91233,11 @@ aMT
 aMT
 aMT
 aMT
+oTx
 aMT
+anT
 aMT
-aMT
-aMT
-hZr
+acA
 sFR
 lkI
 dJn
@@ -91502,9 +91490,9 @@ aMT
 aMT
 aMT
 aMT
-aMT
-aMT
-aMT
+oTx
+anT
+anT
 aMT
 acA
 sFR
@@ -91759,10 +91747,10 @@ aMT
 aMT
 aMT
 aMT
+oTx
 aMT
-aMT
-aMT
-aMT
+anT
+anT
 aPf
 sEV
 gDn
@@ -92016,9 +92004,9 @@ aMT
 aMT
 aMT
 aMT
+oTx
 aMT
-aMT
-aMT
+anT
 aMT
 aPf
 aPf
@@ -92274,8 +92262,8 @@ aMT
 aMT
 aMT
 aMT
-aMT
-aMT
+oTx
+oTx
 aMT
 aMT
 anT
@@ -108728,7 +108716,7 @@ oXf
 aeF
 sjh
 byt
-iSD
+hZr
 aMT
 aMT
 aMT
@@ -111566,7 +111554,7 @@ aMT
 aMT
 aMT
 aMT
-sWx
+qBt
 aMT
 wOJ
 pjY
@@ -111819,11 +111807,11 @@ aMT
 aMT
 aMT
 aMT
-sWx
+qBt
 aMT
 aMT
 aMT
-sWx
+qBt
 aMT
 ali
 cim
@@ -112076,11 +112064,11 @@ aMT
 aMT
 aMT
 aMT
-sWx
+qBt
 aMT
 aMT
 aMT
-sWx
+qBt
 aMT
 wOJ
 oME
@@ -112332,12 +112320,12 @@ anT
 anT
 anT
 anT
-sWx
-sWx
-sWx
-sWx
+qBt
+qBt
+qBt
+qBt
 anT
-sWx
+qBt
 anT
 wOJ
 emE
@@ -112594,7 +112582,7 @@ anT
 aMT
 aMT
 aMT
-sWx
+qBt
 aMT
 aMT
 aMT
@@ -112851,7 +112839,7 @@ anT
 aMT
 aMT
 aMT
-sWx
+qBt
 aMT
 aMT
 aMT
@@ -113876,9 +113864,9 @@ aMT
 aMT
 aMT
 anT
-sWx
-sWx
-sWx
+qBt
+qBt
+qBt
 anT
 aMT
 aMT
@@ -115420,8 +115408,8 @@ iaD
 qBt
 qBt
 qBt
-sWx
-sWx
+qBt
+qBt
 aMT
 aMT
 aMT
@@ -115677,8 +115665,8 @@ iaD
 aMT
 aMT
 aMT
-sWx
-sWx
+qBt
+qBt
 aMT
 aMT
 aMT
@@ -115931,11 +115919,11 @@ aMT
 aMT
 anT
 iaD
-sWx
-sWx
-sWx
-cWG
-cWG
+qBt
+qBt
+qBt
+qBt
+qBt
 aMT
 aMT
 aMT
@@ -116192,7 +116180,7 @@ aMT
 aMT
 aMT
 qBt
-kaO
+qBt
 aMT
 aMT
 aMT
@@ -116448,10 +116436,10 @@ iCB
 anT
 anT
 anT
-sWx
-sWx
-sWx
-sWx
+qBt
+qBt
+qBt
+qBt
 jlg
 jlg
 jlg
