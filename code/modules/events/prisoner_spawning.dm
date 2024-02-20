@@ -27,21 +27,23 @@
 
 /proc/spawn_prisoners(turf/landing_turf, list/candidates, list/spawned_mobs)
 	var/job_check = 0
-	for (var/mob/M in mode.current_players[CURRENT_LIVING_PLAYERS])
-		if (M.assigned_role == JOB_NAME_SECURITYOFFICER || M.assigned_role == JOB_NAME_HEADOFSECURITY)
-			job_check += 1
-		if (M.assigned_role == JOB_NAME_WARDEN)
-			job_check += 2
+	for (var/mob/H in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
+		if(H.mind)
+			var/datum/mind/M = H.mind
+			if (M.assigned_role == JOB_NAME_SECURITYOFFICER || M.assigned_role == JOB_NAME_HEADOFSECURITY)
+				job_check += 1
+			if (M.assigned_role == JOB_NAME_WARDEN)
+				job_check += 2
 
-    var/member_size = rand(1, round(job_check/2) + 1)
-    for(var/i in 1 to member_size)
-        var/mob/dead/selected = pick_n_take(candidates)
-        if(!selected)
-            continue
-        var/mob/living/carbon/human/S = gear_prisoner(i, selected, landing_turf)
-        spawned_mobs += S
+	var/member_size = rand(1, round(job_check/2) + 1)
+	for(var/i in 1 to member_size)
+		var/mob/dead/selected = pick_n_take(candidates)
+		if(!selected)
+			continue
+		var/mob/living/carbon/human/S = gear_prisoner(i, selected, landing_turf)
+		spawned_mobs += S
 
-    return SUCCESSFUL_SPAWN
+	return SUCCESSFUL_SPAWN
 
 /proc/gear_prisoner(index, mob/dead/selected, turf/landing_turf)
 	var/datum/mind/player_mind = new /datum/mind(selected.key)
