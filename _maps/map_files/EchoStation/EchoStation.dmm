@@ -6216,6 +6216,32 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
+"cEM" = (
+/obj/machinery/button/door{
+	id = "Chefwindow";
+	name = "Chef Shutters Control";
+	pixel_y = -27;
+	req_one_access_txt = "28;25;35"
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/clipboard{
+	name = "menu";
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/item/paper{
+	pixel_y = 3
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "Chefwindow";
+	name = "Chef window"
+	},
+/turf/open/floor/plating,
+/area/crew_quarters/kitchen)
 "cEZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -15835,14 +15861,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/quartermaster/storage)
-"hDX" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/airalarm/directional/north,
-/obj/machinery/vending/sustenance{
-	products = list(/obj/item/food/tofu/prison = 24, /obj/item/food/spaghetti/boiledspaghetti = 12, /obj/item/food/candy_corn/prison = 6)
-	},
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "hDY" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -16784,6 +16802,24 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"igs" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/figure/chef,
+/obj/machinery/door/firedoor,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -2;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = 4;
+	pixel_y = 13
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "Chefwindow";
+	name = "Chef window"
+	},
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/kitchen)
 "igz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/modular_computer/console/preset/curator,
@@ -20657,32 +20693,6 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
-"kow" = (
-/obj/machinery/button/door{
-	id = "Chefwindow";
-	name = "Chef Shutters Control";
-	pixel_y = -27;
-	req_one_access_txt = "28;25;35"
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/item/clipboard{
-	name = "menu";
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/item/paper{
-	pixel_y = 3
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "Chefwindow";
-	name = "Chef window"
-	},
-/turf/open/floor/plating,
-/area/crew_quarters/kitchen)
 "koJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -28055,8 +28065,8 @@
 /obj/machinery/camera{
 	c_tag = "Interrogation room";
 	dir = 8;
-	network = list("interrogation");
-	name = "Interrogation room"
+	name = "Interrogation room";
+	network = list("interrogation")
 	},
 /obj/machinery/light_switch{
 	pixel_x = 21;
@@ -31726,8 +31736,8 @@
 /obj/machinery/camera{
 	c_tag = "Xenobiology Lab";
 	dir = 4;
-	network = list("ss13","rd","xeno");
-	name = "Xeno camera"
+	name = "Xeno camera";
+	network = list("ss13","rd","xeno")
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
@@ -32394,8 +32404,8 @@
 /area/quartermaster/storage)
 "qJN" = (
 /obj/structure/reflector/box{
-	dir = 8;
-	anchored = 1
+	anchored = 1;
+	dir = 8
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise)
@@ -32842,8 +32852,8 @@
 	})
 "qUW" = (
 /obj/structure/reflector/box{
-	dir = 1;
-	anchored = 1
+	anchored = 1;
+	dir = 1
 	},
 /obj/effect/turf_decal/sand/plating,
 /turf/open/floor/plating/asteroid/planetary,
@@ -34385,24 +34395,6 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
-"rGY" = (
-/obj/structure/table/reinforced,
-/obj/item/toy/figure/chef,
-/obj/machinery/door/firedoor,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = -2;
-	pixel_y = 14
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = 4;
-	pixel_y = 13
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "Chefwindow";
-	name = "Chef window"
-	},
-/turf/open/floor/plasteel/white,
-/area/crew_quarters/kitchen)
 "rHi" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -41947,6 +41939,24 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/prison/dark,
 /area/security/prison)
+"vsM" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/desk_bell{
+	pixel_x = -6;
+	pixel_y = 9
+	},
+/obj/item/food/mint,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "Chefwindow";
+	name = "Chef window"
+	},
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/kitchen)
 "vsU" = (
 /obj/structure/railing,
 /turf/open/openspace,
@@ -45439,24 +45449,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/science/test_area)
-"xoz" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 8;
-	pixel_y = 8
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/desk_bell{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/item/food/mint,
-/obj/machinery/door/poddoor/shutters{
-	id = "Chefwindow";
-	name = "Chef window"
-	},
-/turf/open/floor/plasteel/white,
-/area/crew_quarters/kitchen)
 "xoN" = (
 /obj/structure/table,
 /obj/item/airlock_painter,
@@ -46442,6 +46434,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"xQh" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/airalarm/directional/north,
+/obj/effect/spawner/randomvend/cola,
+/turf/open/floor/carpet/green,
+/area/crew_quarters/cafeteria)
 "xQn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
@@ -125671,9 +125669,9 @@ afw
 lFh
 fkG
 clO
-rGY
-xoz
-kow
+igs
+vsM
+cEM
 bDD
 tks
 nye
@@ -126182,7 +126180,7 @@ eyu
 wdv
 eyu
 hhu
-hDX
+xQh
 tov
 pUp
 jNl
