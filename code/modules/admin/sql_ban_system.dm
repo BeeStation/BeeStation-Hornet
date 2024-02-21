@@ -230,6 +230,7 @@
 					"medical" = GLOB.medical_positions,
 					"science" = GLOB.science_positions,
 					"supply" = GLOB.supply_positions,
+					"silicon" = GLOB.nonhuman_positions,
 					"civilian" = GLOB.civilian_positions,
 					"gimmick" = list(JOB_NAME_CLOWN,JOB_NAME_MIME,JOB_NAME_GIMMICK,JOB_NAME_ASSISTANT), //Hardcoded since it's not a real category but handy for rolebans
 					"antagonist_positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
@@ -319,27 +320,47 @@
 			duration = params["duration"]
 		if ("update_reason")
 			reason = params["reason"]
-		if ("submit_ban")
-			var/href_list = list()
+		if ("toggle_group")
+			var/group = params["group"]
+			if (selected_groups.Find(group))
+				selected_groups -= group
+				for (var/role in static_roles[group])
+					if (selected_roles.Find(role))
+						selected_roles -= role
+			else
+				selected_groups += group
+				for (var/role in static_roles[group])
+					if (!selected_roles.Find(role))
+						selected_roles += role
 
-			href_list["keycheck"] = key_enabled
-			href_list["keytext"] = key
-			href_list["ipcheck"] = ip_enabled
-			href_list["iptext"] = ip
-			href_list["cidcheck"] = cid_enabled
-			href_list["cidtext"] = cid
-			href_list["lastconn"] = use_last_connection
-			href_list["applyadmins"] = applies_to_admins
-			href_list["forcecryo"] = force_cryo_after
-			href_list["radioduration"] = duration_type
-			href_list["duration"] = duration
-			href_list["intervaltype"] = time_units
-			href_list["reason"] = reason
-			href_list["radioban"] = ban_type
-			href_list["radioseverity"] = "1"
-			href_list["redactioncheck"] = suppressed
-			href_list["editid"] = ""
-			ban_parse_href(href_list)
+		if ("toggle_role")
+			var/role = params["selected_role"]
+			if (selected_roles.Find(role))
+				selected_roles -= role
+			else
+				selected_roles += role
+		if ("submit_ban")
+//			var/href_list = list()
+
+			parse_ban(key, key_enabled, ip_enabled, ip, cid_enabled, cid, use_last_connection, applies_to_admins, duration_type, duration, time_units, 1, reason, 1, ban_type, selected_roles, suppressed, force_cryo_after)
+//			href_list["keycheck"] = key_enabled
+//			href_list["keytext"] = key
+//			href_list["ipcheck"] = ip_enabled
+//			href_list["iptext"] = ip
+//			href_list["cidcheck"] = cid_enabled
+//			href_list["cidtext"] = cid
+//			href_list["lastconn"] = use_last_connection
+//			href_list["applyadmins"] = applies_to_admins
+//			href_list["forcecryo"] = force_cryo_after
+//			href_list["radioduration"] = duration_type
+//			href_list["duration"] = duration
+//			href_list["intervaltype"] = time_units
+//			href_list["reason"] = reason
+//			href_list["radioban"] = ban_type
+//			href_list["radioseverity"] = "1"
+//			href_list["redactioncheck"] = suppressed
+//			href_list["editid"] = ""
+//			ban_parse_href(href_list)
 		else
 			if (action in group_list)
 				if (action in selected_groups)
@@ -353,6 +374,69 @@
 					selected_roles -= action
 			else
 				. = FALSE
+
+/datum/banning_panel/proc/parse_ban(player_key, key_check, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration_type, duration, interval, severity, reason, global_ban, ban_type, list/roles_to_ban, redact = FALSE, force_cryo_after = FALSE)
+	if(!check_rights(R_BAN))
+		return
+	if(!SSdbcore.Connect())
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		return
+
+	var/list/error_state = list()
+	var/edit_id
+	var/mirror_edit
+	var/old_key
+	var/old_ip
+	var/old_cid
+	var/old_applies
+	var/old_globalban
+	var/page
+	var/admin_key
+	var/changes = list()
+
+	roles_to_ban.Remove(0)
+	if(redact && !check_rights(R_SUPPRESS))
+		error_state += "You have attempted to issue a suppressed ban without permission, This incident has been logged."
+		log_admin_private("SUPPRESS: [key_name(usr)] ATTEMPTED TO ISSUE A SUPPRESSED BAN WITHOUT THE REQUISITE RIGHT!")
+	if(key_check && !player_key)
+		error_state += "Key was ticked but none was provided."
+	if(ip_check && !player_ip)
+		error_state += "IP was ticked but none was provided."
+	if(cid_check && !player_cid)
+		error_state += "CID was ticked but none was provided."
+	if(use_last_connection && !ip_check && !cid_check)
+		error_state += "Use last connection was ticked, but neither IP nor CID was."
+	if(applies_to_admins && redact)
+		error_state += "Admin bans can not be suppressed."
+	if(!duration)
+		error_state += "No duration was provided."
+	if(!reason)
+		error_state += "No reason was provided."
+	if(!severity)
+		error_state += "No severity was selected."
+	if(ban_type == "Role" && !roles_to_ban.len)
+		error_state += "Role ban was selected but no roles to ban were selected."
+	if(ban_type != "Server" && redact)
+		error_state += "Suppression may only be applied to server bans."
+	if(duration_type == "Temporary" && !duration)
+		error_state += "Temporary ban was selected but no duration was provided."
+	if(error_state.len)
+		to_chat(usr, "<span class='danger'>Ban not [edit_id ? "edited" : "created"] because the following errors were present:\n[error_state.Join("\n")]</span>")
+		return
+	if(ban_type == "Server")
+		roles_to_ban = list("Server")
+
+	var/mob/user = usr
+	if(!istype(user) || !user.client || !user.client.holder)
+		return
+	var/datum/admins/holder = user.client.holder
+	if(edit_id)
+		holder.edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, mirror_edit, old_key, old_ip, old_cid, old_applies, old_globalban, page, admin_key, changes)
+	else
+		holder.create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, roles_to_ban, redact, force_cryo_after)
+
+
+
 
 /datum/banning_panel/proc/ban_parse_href(list/href_list)
 	if(!check_rights(R_BAN))

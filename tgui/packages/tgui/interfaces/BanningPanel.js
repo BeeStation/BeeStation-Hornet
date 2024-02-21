@@ -106,67 +106,70 @@ export const BanningPanel = (props, context) => {
           </Stack>
         </Section>
         <Section title="Roles" style={ban_type === 'Role' ? { display: 'block' } : { display: 'none' }}>
-          <Roles selected_roles={selected_roles} roles={roles} selected_groups={selected_groups} />
+          <Roles selected_roles={selected_roles} roles={roles} selected_groups={selected_groups} act={act} />
         </Section>
       </Window.Content>
     </Window>
   );
 };
 
-const Roles = ({ roles, selected_roles, selected_groups }) => {
+const Roles = ({ roles, selected_roles, selected_groups, act }) => {
   return (
     <Stack direction="column">
-      <CheckboxCollapsible title="Command Roles" color="blue" checked={selected_groups.includes('command')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['command']} />
+      <CheckboxCollapsible title="Command Roles" onClick={() => act('toggle_group', { group: "command" })} color="blue" checked={selected_groups.includes('command')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['command']} act={act} />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Security Roles" color="red">
+      <CheckboxCollapsible title="Security Roles" onClick={() => act('toggle_group', { group: "security" })} color="blue" checked={selected_groups.includes('security')}>
         <RolesInCategory
           selected_roles={selected_roles}
           roles={roles['security']}
-          checked={selected_roles.includes('security')}
+          act={act}
         />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Engineering Roles" color="orange" checked={selected_groups.includes('engineering')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['engineering']} />
+      <CheckboxCollapsible title="Engineering Roles" onClick={() => act('toggle_group', { group: "engineering" })} color="orange" checked={selected_groups.includes('engineering')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['engineering']} act={act} />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Medical Roles" color="teal" checked={selected_groups.includes('medical')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['medical']} />
+      <CheckboxCollapsible title="Medical Roles" onClick={() => act('toggle_group', { group: "medical" })} color="teal" checked={selected_groups.includes('medical')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['medical']} act={act} />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Science Roles" color="purple" checked={selected_groups.includes('science')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['science']} />
+      <CheckboxCollapsible title="Science Roles" color="purple" onClick={() => act('toggle_group', { group: "science" })} checked={selected_groups.includes('science')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['science']} act={act} />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Supply Roles" color="brown" checked={selected_groups.includes('supply')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['supply']} />
+      <CheckboxCollapsible title="Supply Roles" color="brown" onClick={() => act('toggle_group', { group: "supply" })} checked={selected_groups.includes('supply')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['supply']} act={act} />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Silicon Roles" color="green" checked={selected_groups.includes('silicon')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['silicon']} />
+      <CheckboxCollapsible title="Silicon Roles" color="green" onClick={() => act('toggle_group', { group: "silicon" })} checked={selected_groups.includes('silicon')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['silicon']} act={act} />
       </CheckboxCollapsible>
       <CheckboxCollapsible
         title="Antagonist Positions"
+        onClick={() => act('toggle_group', { group: "antagonist_positions" })}
         color="black"
         checked={selected_groups.includes('antagonist_positions')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['antagonist_positions']} />
+        <RolesInCategory selected_roles={selected_roles} roles={roles['antagonist_positions']} act={act} />
       </CheckboxCollapsible>
       <CheckboxCollapsible
         title="Forced Antagonist Positions"
+        onClick={() => act('toggle_group', { group: "forced_antagonist_positions" })}
         color="bad"
         checked={selected_groups.includes('forced_antagonist_positions')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['forced_antagonist_positions']} />
+        <RolesInCategory selected_roles={selected_roles} roles={roles['forced_antagonist_positions']} act={act} />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Ghost Roles" color="grey" checked={selected_groups.includes('ghost_roles')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['ghost_roles']} />
+      <CheckboxCollapsible title="Ghost Roles" onClick={() => act('toggle_group', { group: "ghost_roles" })} color="grey" checked={selected_groups.includes('ghost_roles')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['ghost_roles']} act={act} />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Civilian" color="light-grey" checked={selected_groups.includes('civilian')}>
+      <CheckboxCollapsible title="Civilian" onClick={() => act('toggle_group', { group: "civilian" })} color="light-grey" checked={selected_groups.includes('civilian')}>
         <RolesInCategory
           selected_roles={selected_roles}
           roles={<RolesInCategory selected_roles={selected_roles} roles={roles['civilian']} />}
+          act={act}
         />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Gimmick" color="pink" checked={selected_groups.includes('gimmick')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['gimmick']} />
+      <CheckboxCollapsible title="Gimmick" onClick={() => act('toggle_group', { group: "gimmick" })} color="pink" checked={selected_groups.includes('gimmick')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['gimmick']} act={act} />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Other" checked={selected_groups.includes('other')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['other']} />
+      <CheckboxCollapsible title="Other" onClick={() => act('toggle_group', { group: "other" })} checked={selected_groups.includes('other')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['other']} act={act} />
       </CheckboxCollapsible>
       <CheckboxCollapsible title="Abstract" checked={selected_groups.includes('abstract')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['abstract']} />
@@ -192,11 +195,11 @@ const CheckboxCollapsible = ({ color, title, onClick, checked, children }) => {
     </Flex>
   );
 };
-const RolesInCategory = ({ roles, selected_roles }) => {
+const RolesInCategory = ({ roles, selected_roles, act }) => {
   return (
     <Stack wrap>
       {roles.map((role) => {
-        return <Button.Checkbox content={role} key={role} checked={selected_roles.includes(role)} />;
+        return <Button.Checkbox content={role} key={role} onClick={() => act('toggle_role', { selected_role: role })} checked={selected_roles.includes(role)} />;
       })}
     </Stack>
   );
