@@ -22,6 +22,11 @@
     path = /obj/item/colorizer/rdcloakroyal
     allowed_roles = list(JOB_NAME_RESEARCHDIRECTOR)
 
+/datum/gear/colorizer/hoscloakknight
+    display_name = "Head of Security's Cloak Colorizer (Cavalier)"
+    path = /obj/item/colorizer/hoscloakknight
+    allowed_roles = list("Head of Security")
+
 /datum/gear/colorizer/iandeathsquad
     display_name = "Ian Colorizer (Death Squad)"
     path = /obj/item/colorizer/iandeathsquad
