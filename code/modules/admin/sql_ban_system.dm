@@ -309,6 +309,37 @@
 			time_units = params["units"]
 		if ("set_ban_type")
 			ban_type = params["type"]
+		if ("update_key")
+			key = params["key"]
+		if ("update_ip")
+			ip = params["ip"]
+		if ("update_cid")
+			cid = params["cid"]
+		if ("update_duration")
+			duration = params["duration"]
+		if ("update_reason")
+			reason = params["reason"]
+		if ("submit_ban")
+			var/href_list = list()
+
+			href_list["keycheck"] = key_enabled
+			href_list["keytext"] = key
+			href_list["ipcheck"] = ip_enabled
+			href_list["iptext"] = ip
+			href_list["cidcheck"] = cid_enabled
+			href_list["cidtext"] = cid
+			href_list["lastconn"] = use_last_connection
+			href_list["applyadmins"] = applies_to_admins
+			href_list["forcecryo"] = force_cryo_after
+			href_list["radioduration"] = duration_type
+			href_list["duration"] = duration
+			href_list["intervaltype"] = time_units
+			href_list["reason"] = reason
+			href_list["radioban"] = ban_type
+			href_list["radioseverity"] = "1"
+			href_list["redactioncheck"] = suppressed
+			href_list["editid"] = ""
+			ban_parse_href(href_list)
 		else
 			if (action in group_list)
 				if (action in selected_groups)
@@ -322,6 +353,161 @@
 					selected_roles -= action
 			else
 				. = FALSE
+
+/datum/banning_panel/proc/ban_parse_href(list/href_list)
+	if(!check_rights(R_BAN))
+		return
+	if(!SSdbcore.Connect())
+		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		return
+	var/list/error_state = list()
+	var/player_key
+	var/ip_check = FALSE
+	var/player_ip
+	var/cid_check = FALSE
+	var/player_cid
+	var/use_last_connection = FALSE
+	var/applies_to_admins = FALSE
+	var/global_ban = TRUE
+	var/duration
+	var/interval
+	var/severity
+	var/reason
+	var/mirror_edit
+	var/edit_id
+	var/old_key
+	var/old_ip
+	var/old_cid
+	var/old_applies
+	var/old_globalban
+	var/page
+	var/admin_key
+	var/redact
+	var/force_cryo_after = FALSE
+	var/list/changes = list()
+	var/list/roles_to_ban = list()
+	if(href_list["redactioncheck"])
+		if(check_rights(R_SUPPRESS))
+			if(!edit_id)
+				redact = TRUE
+			else
+				error_state += "Bans may not have their suppression flag edited. If a ban requiring suppression was accidently issued without it, contact [CONFIG_GET(string/hostedby)] immediately."
+		else
+			error_state += "You have attempted to issue a suppressed ban without permission, This incident has been logged."
+			log_admin_private("SUPPRESS: [key_name(usr)] ATTEMPTED TO ISSUE A SUPPRESSED BAN WITHOUT THE REQUISITE RIGHT!")
+	if(href_list["keycheck"])
+		player_key = href_list["keytext"]
+		if(!player_key)
+			error_state += "Key was ticked but none was provided."
+	if(href_list["ipcheck"])
+		ip_check = TRUE
+	if(href_list["cidcheck"])
+		cid_check = TRUE
+	if(href_list["lastconn"])
+		if(player_key)
+			use_last_connection = TRUE
+	else
+		if(ip_check)
+			player_ip = href_list["iptext"]
+			if(!player_ip && !use_last_connection)
+				error_state += "IP was ticked but none was provided."
+		if(cid_check)
+			player_cid = href_list["cidtext"]
+			if(!player_cid && !use_last_connection)
+				error_state += "CID was ticked but none was provided."
+	if(!use_last_connection && !player_ip && !player_cid && !player_key)
+		error_state += "At least a key, IP or CID must be provided."
+	if(use_last_connection && !ip_check && !cid_check)
+		error_state += "Use last connection was ticked, but neither IP nor CID was."
+	if(href_list["applyadmins"])
+		if(redact)
+			error_state += "Admin bans can not be suppressed."
+		applies_to_admins = TRUE
+	if(href_list["forcecryo"])
+		force_cryo_after = TRUE
+	switch(href_list["radioservban"])
+		if("local")
+			if(CONFIG_GET(flag/disable_local_bans))
+				global_ban = TRUE
+			else
+				global_ban = FALSE
+				if(redact)
+					error_state += "Suppressed bans must be global."
+		if("global")
+			global_ban = TRUE
+	switch(href_list["radioduration"])
+		if("Permanent")
+			duration = null
+		if("Temporary")
+			duration = href_list["duration"]
+			interval = href_list["intervaltype"]
+			if(!duration)
+				error_state += "Temporary ban was selected but no duration was provided."
+		else
+			error_state += "No duration was selected."
+	reason = href_list["reason"]
+	if(!reason)
+		error_state += "No reason was provided."
+	if(href_list["editid"])
+		edit_id = href_list["editid"]
+		if(href_list["mirroredit"])
+			mirror_edit = TRUE
+		old_key = href_list["oldkey"]
+		old_ip = href_list["oldip"]
+		old_cid = href_list["oldcid"]
+		old_globalban = href_list["old_globalban"]
+		page = href_list["page"]
+		admin_key = href_list["adminkey"]
+		if(player_key != old_key)
+			changes += list("Key" = "[old_key] to [player_key]")
+		if(global_ban != old_globalban)
+			changes += list("Ban Location" = "[old_globalban] to [global_ban]")
+		if(player_ip != old_ip)
+			changes += list("IP" = "[old_ip] to [player_ip]")
+		if(player_cid != old_cid)
+			changes += list("CID" = "[old_cid] to [player_cid]")
+		old_applies = text2num(href_list["oldapplies"])
+		if(applies_to_admins != old_applies)
+			changes += list("Applies to admins" = "[old_applies] to [applies_to_admins]")
+		if(duration != href_list["oldduration"])
+			changes += list("Duration" = "[href_list["oldduration"]] MINUTE to [duration] [interval]")
+		if(reason != href_list["oldreason"])
+			changes += list("Reason" = "[href_list["oldreason"]]<br>to<br>[reason]")
+		if(!changes.len)
+			error_state += "No changes were detected."
+	else
+		severity = href_list["radioseverity"]
+		if(!severity)
+			error_state += "No severity was selected."
+		switch(href_list["radioban"])
+			if("Server")
+				roles_to_ban += "Server"
+			if("Role")
+				href_list.Remove("Command", "Security", "Engineering", "Medical", "Science", "Supply", "Silicon", "Abstract", "Civilian", "Ghost and Other Roles", "Antagonist Positions") //remove the role banner hidden input values
+				if(href_list[href_list.len] == "roleban_delimiter")
+					error_state += "Role ban was selected but no roles to ban were selected."
+				else
+					var/delimiter_pos = href_list.Find("roleban_delimiter")
+					href_list.Cut(1, delimiter_pos+1)//remove every list element before and including roleban_delimiter so we have a list of only the roles to ban
+					for(var/key in href_list) //flatten into a list of only unique keys
+						roles_to_ban |= key
+			else
+				error_state += "No ban type was selected."
+	if((href_list["radioban"] != "Server") && redact)
+		error_state += "Suppression may only be applied to server bans."
+	if(error_state.len)
+		to_chat(usr, "<span class='danger'>Ban not [edit_id ? "edited" : "created"] because the following errors were present:\n[error_state.Join("\n")]</span>")
+		return
+	if(edit_id)
+		to_chat(usr, "miau")
+//		edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, mirror_edit, old_key, old_ip, old_cid, old_applies, old_globalban, page, admin_key, changes)
+	else
+		to_chat(usr, "miau create")
+		var/mob/user = usr
+		if(!istype(user) || !user.client || !user.client.holder)
+			return
+		var/datum/admins/holder = user.client.holder
+		holder.create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, roles_to_ban, redact, force_cryo_after)
 
 
 /datum/admins/proc/ban_parse_href(list/href_list)

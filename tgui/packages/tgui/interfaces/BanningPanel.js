@@ -35,15 +35,15 @@ export const BanningPanel = (props, context) => {
           <Stack wrap="wrap">
             <Stack.Item>
               <Button.Checkbox content="Key" checked={key_enabled} onClick={() => act('toggle_key')} />
-              <Input value={key} style={key_enabled ? { display: 'inline-block' } : { display: 'none' }} />
+              <Input value={key} onChange={(e) => act('update_key', { key: e.target.value })} style={key_enabled ? { display: 'inline-block' } : { display: 'none' }} />
             </Stack.Item>
             <Stack.Item>
               <Button.Checkbox content="IP" checked={ip_enabled} onClick={() => act('toggle_ip')} />
-              <Input value={ip} style={ip_enabled ? { display: 'inline-block' } : { display: 'none' }} />
+              <Input value={ip} onChange={(e) => act('update_ip', { ip: e.target.value })} style={ip_enabled ? { display: 'inline-block' } : { display: 'none' }} />
             </Stack.Item>
             <Stack.Item>
               <Button.Checkbox content="CID" checked={cid_enabled} onClick={() => act('toggle_cid')} />
-              <Input value={cid} style={cid_enabled ? { display: 'inline-block' } : { display: 'none' }} />
+              <Input value={cid} onChange={(e) => act('update_cid', { cid: e.target.value })} style={cid_enabled ? { display: 'inline-block' } : { display: 'none' }} />
             </Stack.Item>
             <Stack.Item style={can_supress ? { display: 'flex' } : { display: 'none' }}>
               <Button.Checkbox
@@ -75,7 +75,7 @@ export const BanningPanel = (props, context) => {
                       onSelected={(selected) => act('set_duration_type', { type: selected })}
                     />
                     <Box style={duration_type === 'Temporary' ? { display: 'flex' } : { display: 'none' }}>
-                      <Input value={ban_duration} />
+                      <Input value={ban_duration} onChange={(e) => act('update_duration', { duration: e.target.value })} />
                       <Dropdown
                         selected={time_units}
                         options={['Seconds', 'Minutes', 'Hours', 'Days', 'Weeks', 'Months', 'Years']}
@@ -96,7 +96,7 @@ export const BanningPanel = (props, context) => {
             <Stack.Item>
               <LabeledList>
                 <LabeledList.Item label="Ban Reason" verticalAlign="top">
-                  <TextArea height="100px" />
+                  <TextArea height="100px" onChange={(e) => act('update_reason', { reason: e.target.value })} />
                 </LabeledList.Item>
                 <LabeledList.Item>
                   <Button.Confirm content="Submit" onClick={() => act('submit_ban')} />
@@ -113,7 +113,7 @@ export const BanningPanel = (props, context) => {
   );
 };
 
-const Roles = (roles, selected_roles, selected_groups) => {
+const Roles = ({ roles, selected_roles, selected_groups }) => {
   return (
     <Stack direction="column">
       <CheckboxCollapsible title="Command Roles" color="blue" checked={selected_groups.includes('command')}>
@@ -150,7 +150,7 @@ const Roles = (roles, selected_roles, selected_groups) => {
       <CheckboxCollapsible
         title="Forced Antagonist Positions"
         color="bad"
-        checked={selected_groups('forced_antagonist_positions')}>
+        checked={selected_groups.includes('forced_antagonist_positions')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['forced_antagonist_positions']} />
       </CheckboxCollapsible>
       <CheckboxCollapsible title="Ghost Roles" color="grey" checked={selected_groups.includes('ghost_roles')}>
@@ -192,7 +192,6 @@ const CheckboxCollapsible = ({ color, title, onClick, checked, children }) => {
     </Flex>
   );
 };
-
 const RolesInCategory = ({ roles, selected_roles }) => {
   return (
     <Stack wrap>
