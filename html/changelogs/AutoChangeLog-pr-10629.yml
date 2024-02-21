@@ -1,0 +1,5 @@
+author: Miliviu
+delete-after: true
+changes:
+  - tweak: Now maximum prisoner number scales with Security Team population
+  - bugfix: Prisoners now can spawn in Rad Station
