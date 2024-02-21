@@ -602,6 +602,17 @@
 	SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "happiness_drug")
 	..()
 
+/datum/reagent/drug/formaltenamine/overdose_process(mob/living/M)
+	M.hallucination += 5
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovable(M.loc))
+		for(var/i in 1 to 8)
+			step(M, pick(GLOB.cardinals))
+	if(prob(20))
+		M.emote(pick("twitch","drool","moan"))
+	if(prob(33))
+		M.drop_all_held_items()
+	..()
+
 /datum/reagent/drug/formaltenamine/on_mob_life(mob/living/carbon/M)
 	var/high_message = pick("You feel alive!", "You feel like you need to go faster.", "You feel like you can run the world.")
 	if(prob(5))
@@ -609,7 +620,7 @@
 	M.AdjustKnockdown(-40, FALSE)
 	M.drowsyness = max(0,M.drowsyness-30)
 	M.Jitter(2)
-	if(peddler && !(M.mind.has_antag_datum(/datum/antagonist/gang) || M.mind.has_antag_datum(/datum/antagonist/gang/boss))) //Needs to be owned by a gang and used on non gangsters
+	if(peddler && M.mind && M.client && !(M.mind.has_antag_datum(/datum/antagonist/gang) || M.mind.has_antag_datum(/datum/antagonist/gang/boss))) //Needs to be owned by a gang and used on non gangsters
 		peddler.queued_influence += 1
 		peddler.queued_reputation += 0.1
 	if(prob(5))

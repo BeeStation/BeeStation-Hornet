@@ -32,7 +32,6 @@
 
 /datum/antagonist/gang/farewell()
 	if(ishuman(owner.current))
-		owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] real allegiance!</span>", null, null, null, owner.current)
 		to_chat(owner, "<span class='userdanger'>You are no longer a gangster!</span>")
 
 /datum/antagonist/gang/on_gain()
@@ -148,6 +147,7 @@
 	hud_type = "gang_boss"
 	message_name = "Leader"
 	var/datum/action/innate/gang/invitation/invite = new
+	var/datum/action/innate/gang/promote/promote = new
 
 /datum/antagonist/gang/boss/Destroy()
 	QDEL_NULL(invite)
@@ -167,10 +167,14 @@
 /datum/antagonist/gang/boss/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	invite.Grant(owner.current)
+	if(promote)
+		promote.Grant(owner.current)
 
 /datum/antagonist/gang/boss/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	invite.Remove(owner.current)
+	if(promote)
+		promote.Remove(owner.current)
 
 /datum/antagonist/gang/boss/antag_listing_name()
 	return ..() + "(Boss)"
@@ -193,7 +197,6 @@
 		if (!where)
 			to_chat(H, "Your Syndicate benefactors were unfortunately unable to get you a Gangtool.")
 		else
-//			G.register_device(H)
 			to_chat(H, "The <b>Gangtool</b> in your [where] will allow you to purchase weapons and equipment, send messages to your gang, and recall the emergency shuttle from anywhere on the station.")
 			to_chat(H, "As the gang boss, you can also promote your gang members to <b>lieutenant</b>. Unlike regular gangsters, Lieutenants cannot be deconverted and are able to use recruitment pens and gangtools.")
 
@@ -257,6 +260,7 @@
 /datum/antagonist/gang/boss/lieutenant
 	name = "Gang Lieutenant"
 	message_name = "Lieutenant"
+	promote = null
 
 #define INFLUENCE_SWAG 2
 #define INFLUENCE_TERRITORY 5
