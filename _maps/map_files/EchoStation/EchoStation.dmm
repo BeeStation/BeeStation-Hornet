@@ -1882,6 +1882,15 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plasteel,
 /area/maintenance/department/science/central)
+"aFW" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "aGd" = (
 /obj/structure/stairs{
 	dir = 4
@@ -4703,48 +4712,6 @@
 	dir = 4
 	},
 /area/science/research)
-"bOY" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -9;
-	pixel_y = 5
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 6
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/obj/item/storage/box/papersack{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "bPb" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/purple,
@@ -6081,6 +6048,16 @@
 	},
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
+"cAV" = (
+/obj/machinery/chem_dispenser/drinks/beer,
+/obj/structure/table,
+/obj/structure/sign/painting/library{
+	pixel_x = 1;
+	pixel_y = 29
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "cBs" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/stripes/line,
@@ -9077,6 +9054,21 @@
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
+"epO" = (
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/machinery/chem_dispenser/drinks,
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "epS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -9730,17 +9722,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/maintenance/department/eva)
-"eFJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
-/obj/machinery/camera/autoname,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "eFS" = (
 /turf/open/openspace,
 /area/science/robotics)
@@ -10908,13 +10889,6 @@
 	slowdown = 0
 	},
 /area/asteroid/paradise/surface)
-"fkG" = (
-/obj/machinery/light_switch{
-	pixel_x = 25;
-	pixel_y = 26
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "fkW" = (
 /obj/item/canvas/twentythree_twentythree,
 /obj/item/canvas/twentythree_twentythree,
@@ -12351,6 +12325,16 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"fUl" = (
+/obj/machinery/requests_console{
+	department = "Kitchen";
+	departmentType = 2;
+	pixel_y = 30
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/vending/dinnerware,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "fUD" = (
 /obj/structure/sign/directions/supply{
 	dir = 8
@@ -12716,6 +12700,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
+"gcq" = (
+/obj/machinery/light_switch{
+	pixel_x = 25;
+	pixel_y = 26
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "gcD" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -12861,6 +12853,18 @@
 	},
 /turf/open/floor/plating,
 /area/security/brig)
+"gez" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/sink{
+	dir = 1;
+	pixel_y = 28
+	},
+/obj/machinery/camera/autoname,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "geB" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -15170,17 +15174,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/crew_quarters/dorms)
-"hnm" = (
-/obj/effect/decal/cleanable/food/egg_smudge,
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/white/corner{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "hns" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -17618,6 +17611,22 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"iJz" = (
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
+/obj/machinery/door/airlock/medical/glass{
+	name = "kitchen";
+	req_one_access_txt = "28;25;35"
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 4;
+	pixel_y = 31
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "iKu" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Cryogenic Lounge"
@@ -21930,20 +21939,6 @@
 	},
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
-"kXq" = (
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
-/obj/machinery/chem_dispenser/drinks,
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "kXu" = (
 /obj/machinery/vending/autodrobe/all_access,
 /obj/machinery/airalarm/directional/north,
@@ -22663,6 +22658,48 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/cmo)
+"lsf" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -9;
+	pixel_y = 5
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/storage/box/papersack{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "lsj" = (
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace,
@@ -23183,15 +23220,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall,
 /area/quartermaster/sorting)
-"lFh" = (
-/obj/machinery/chem_dispenser/drinks/beer,
-/obj/structure/table,
-/obj/structure/sign/painting/library{
-	pixel_x = 1;
-	pixel_y = 29
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "lFC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -28886,10 +28914,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine/atmos)
-"oNt" = (
-/obj/effect/landmark/start/cook,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "oNu" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -29734,6 +29758,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
+"pkH" = (
+/obj/machinery/chem_master/condimaster,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen/coldroom)
 "pkS" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -30657,6 +30688,20 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
+"pMh" = (
+/obj/effect/decal/cleanable/food/egg_smudge,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/white/corner{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "pMt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -33917,13 +33962,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"rtL" = (
-/obj/machinery/vending/dinnerware,
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/floor/plasteel/freezer,
-/area/crew_quarters/kitchen/coldroom)
 "rtQ" = (
 /obj/structure/railing{
 	dir = 8
@@ -38053,21 +38091,6 @@
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/science/misc_lab)
-"twg" = (
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
-	},
-/obj/machinery/door/airlock/medical/glass{
-	name = "kitchen";
-	req_one_access_txt = "28;25;35"
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 4;
-	pixel_y = 31
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "tww" = (
 /obj/machinery/light{
 	dir = 8
@@ -38616,15 +38639,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
-"tJA" = (
-/obj/machinery/requests_console{
-	department = "Kitchen";
-	departmentType = 2;
-	pixel_y = 30
-	},
-/obj/machinery/chem_master/condimaster,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "tJV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -39768,6 +39782,11 @@
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
 	})
+"umL" = (
+/obj/effect/landmark/start/cook,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "unj" = (
 /obj/structure/closet/secure_closet/medical3,
 /obj/item/stack/sheet/iron/fifty{
@@ -39845,6 +39864,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"uoB" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "uoF" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -40669,6 +40695,13 @@
 	luminosity = 2
 	},
 /area/security/nuke_storage)
+"uKn" = (
+/obj/machinery/deepfryer,
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "uKq" = (
 /obj/effect/turf_decal/bot,
 /obj/item/robot_suit,
@@ -41491,10 +41524,6 @@
 	},
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise/surface)
-"vfC" = (
-/obj/machinery/deepfryer,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "vfN" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plasteel,
@@ -58337,7 +58366,7 @@ bWw
 eHY
 eop
 weD
-rtL
+pkH
 wys
 iaR
 iaR
@@ -124896,8 +124925,8 @@ ksj
 oBi
 afw
 afw
-eFJ
-hnm
+gez
+pMh
 nED
 xQn
 bTy
@@ -125152,9 +125181,9 @@ eyu
 dGh
 lxo
 afw
-tJA
-oNt
-vfC
+fUl
+umL
+uKn
 rZh
 wbY
 btq
@@ -125409,12 +125438,12 @@ eyu
 bvO
 esW
 afw
-kXq
-rlx
-rlx
+epO
+uoB
+aFW
 rlx
 bYW
-bOY
+lsf
 thc
 nRX
 oBX
@@ -125666,8 +125695,8 @@ eyu
 uXi
 ssT
 afw
-lFh
-fkG
+cAV
+gcq
 clO
 igs
 vsM
@@ -125924,7 +125953,7 @@ hvu
 joo
 afw
 afw
-twg
+iJz
 swh
 kAa
 kAa
