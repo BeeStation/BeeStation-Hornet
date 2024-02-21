@@ -570,3 +570,48 @@
 		M.Jitter(4)
 		M.Dizzy(4)
 	..()
+
+/datum/reagent/drug/formaltenamine //Gang only drug, generates Influence and Reputation when consumed by non gangsters
+	name = "Formaltenamine"
+	description = "An addictive stimulant peddled by Syndicate-adjacent groups in Nanotrasen space."
+	reagent_state = LIQUID
+	color = "#0beeaa"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	addiction_threshold = 5
+	overdose_threshold = 15
+	trippy = TRUE
+	var/datum/team/gang/peddler
+
+/datum/reagent/drug/formaltenamine/on_new(data)
+	if(!data)
+		return
+
+	src.data = data
+	peddler = data["owner"]
+
+/datum/reagent/drug/formaltenamine/on_merge(data)
+	peddler = data["owner"]
+
+/datum/reagent/drug/formaltenamine/on_mob_metabolize(mob/living/L)
+	..()
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.3, blacklisted_movetypes=(FLYING|FLOATING))
+	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug)
+
+/datum/reagent/drug/formaltenamine/on_mob_end_metabolize(mob/living/L)
+	L.remove_movespeed_modifier(type)
+	SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "happiness_drug")
+	..()
+
+/datum/reagent/drug/formaltenamine/on_mob_life(mob/living/carbon/M)
+	var/high_message = pick("You feel alive!", "You feel like you need to go faster.", "You feel like you can run the world.")
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+	M.AdjustKnockdown(-40, FALSE)
+	M.drowsyness = max(0,M.drowsyness-30)
+	M.Jitter(2)
+	if(peddler && !(M.mind.has_antag_datum(/datum/antagonist/gang) || M.mind.has_antag_datum(/datum/antagonist/gang/boss))) //Needs to be owned by a gang and used on non gangsters
+		peddler.queued_influence += 1
+		peddler.queued_reputation += 0.1
+	if(prob(5))
+		M.emote(pick("twitch", "shiver"))
+	..()

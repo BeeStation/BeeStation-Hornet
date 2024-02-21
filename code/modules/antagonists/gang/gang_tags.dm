@@ -22,4 +22,6 @@
 	if(gang)
 		var/area/territory = get_area(src)
 		gang.territories -= territory.type
+		gang.queued_reputation -= 3
+		gang = null
 	return ..()

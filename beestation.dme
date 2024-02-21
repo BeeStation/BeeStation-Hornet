@@ -1976,6 +1976,7 @@
 #include "code\modules\antagonists\gang\gang.dm"
 #include "code\modules\antagonists\gang\gang_actions.dm"
 #include "code\modules\antagonists\gang\gang_datums.dm"
+#include "code\modules\antagonists\gang\gang_equipment.dm"
 #include "code\modules\antagonists\gang\gang_hud.dm"
 #include "code\modules\antagonists\gang\gang_items.dm"
 #include "code\modules\antagonists\gang\gang_pen.dm"

@@ -259,11 +259,12 @@
 	message_name = "Lieutenant"
 
 #define INFLUENCE_SWAG 2
-#define INFLUENCE_TERRITORY 0
+#define INFLUENCE_TERRITORY 5
+#define REPUTATION_TERRITORY 1
 #define INFLUENCE_BASE 20
 
 #define MAXIMUM_RECALLS 1
-#define INFLUENCE_INTERVAL 1800
+#define INFLUENCE_INTERVAL 90
 // Gang team datum. This handles the gang itself.
 /datum/team/gang
 	name = "Gang"
@@ -278,7 +279,9 @@
 	var/color
 	var/winner = FALSE //winner winner chicken dinner
 	var/influence = 0 // influence of the gang, based on how many territories they own. Can be used to buy weapons and tools from a gang uplink.
-	var/reputation = 0 // influence earned throughout the round, used at eotg to calculate most efficient gang
+	var/queued_influence = 0 // influence waiting to be added to the gang.
+	var/reputation = 0 // earned by various means throught the round, decides the winner.
+	var/queued_reputation = 0 // reputation waiting to be added to the gang.
 	var/next_point_time
 	var/obj/item/clothing/head/hat
 	var/obj/item/clothing/under/outfit
@@ -303,7 +306,7 @@
 				CJ.add_antag_datum(bossdatum, src)
 				bossdatum.equip_gang()
 	next_point_time = world.time + INFLUENCE_INTERVAL
-	addtimer(CALLBACK(src, PROC_REF(handle_territories)), INFLUENCE_INTERVAL)
+	addtimer(CALLBACK(src, PROC_REF(handle_resources)), INFLUENCE_INTERVAL)
 
 /datum/team/gang/Destroy()
 	GLOB.gangs -= src
@@ -331,23 +334,26 @@
 	to_chat(gangster, "<font color='red'>You can identify your mates by their <b>large, bright \[G\] <font color='[color]'>icon</font></b>.</font>")
 	gangster.store_memory("You are a member of the [name] Gang!")
 
-/datum/team/gang/proc/handle_territories()	//influence is counted here
+/datum/team/gang/proc/handle_resources()	//influence and reputation is counted here
 	next_point_time = world.time + INFLUENCE_INTERVAL
 
-	addtimer(CALLBACK(src, PROC_REF(handle_territories)), INFLUENCE_INTERVAL)
+	influence =	update_influence() + queued_influence
+	message_admins("Queued Influence:[queued_influence]")
+	queued_influence = 0
+	message_admins("New Influence:[influence]")
 
+	reputation = update_reputation() + queued_reputation
+	message_admins("Queued Reputation:[queued_reputation]")
+	queued_reputation = 0
+	message_admins("New Reputation:[reputation]")
 
-/datum/team/gang/proc/total_claimable_territories()
-	var/list/valid_territories = list()
-	for(var/z in SSmapping.levels_by_trait(ZTRAIT_STATION)) //First, collect all area types on the station zlevel
-		for(var/ar in SSmapping.areas_in_z["[z]"])
-			var/area/A = ar
-			if(!(A.type in valid_territories) && A.area_flags & VALID_TERRITORY)
-				valid_territories |= A.type
-	return valid_territories.len
+	addtimer(CALLBACK(src, PROC_REF(handle_resources)), INFLUENCE_INTERVAL)
 
 /datum/team/gang/proc/update_influence()
 	return min(999,influence + INFLUENCE_BASE + (count_gang_swag()) + LAZYLEN(territories) * INFLUENCE_TERRITORY)
+
+/datum/team/gang/proc/update_reputation()
+	return LAZYLEN(territories) * REPUTATION_TERRITORY
 
 /datum/team/gang/proc/count_gang_swag()
 	//Count swag on gangsters
@@ -360,14 +366,20 @@
 /datum/team/gang/proc/check_gangster_swag(var/mob/living/carbon/human/gangster)
 	//Gangster must be alive and on station
 	var/swag = 1
+	var/wearing
 	if((gangster.stat == DEAD) || !(is_station_level(gangster.z)))
 		return FALSE
 	if (gangster.w_uniform?.type == outfit)
 		swag *= INFLUENCE_SWAG
+		wearing = TRUE
 	if (gangster.wear_suit?.type == suit)
 		swag *= INFLUENCE_SWAG
+		wearing = TRUE
 	if (gangster.head?.type == hat)
 		swag *= INFLUENCE_SWAG
+		wearing = TRUE
+	if(!wearing)
+		return -1
 	return swag
 
 /datum/team/gang/proc/adjust_influence(value)
@@ -390,4 +402,5 @@
 #undef INFLUENCE_INTERVAL
 #undef INFLUENCE_SWAG
 #undef INFLUENCE_TERRITORY
+#undef REPUTATION_TERRITORY
 #undef INFLUENCE_BASE

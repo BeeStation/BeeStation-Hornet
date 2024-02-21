@@ -41,6 +41,7 @@
 	if(!gang)
 		var/datum/antagonist/gang/boss/boss = user.mind.has_antag_datum(/datum/antagonist/gang/boss)
 		gang = boss.gang
+		update_icon()
 
 	ui_interact(user)
 
@@ -51,30 +52,6 @@
 	if(gang)
 		I.color = gang.color
 	overlays.Add(I)
-
-/obj/item/device/gangtool/proc/ping_gang(mob/user)
-	if(!can_use(user))
-		return
-	var/message = stripped_input(user,"Discreetly send a gang-wide message.","Send Message")
-	if(!message || !can_use(user))
-		return
-	if(!is_station_level(user.z))
-		to_chat(user, "<span class='info'>[icon2html(src, user)]Error: Station out of range.</span>")
-		return
-	if(gang.members.len)
-		var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
-		if(!G)
-			return
-		var/ping = "<span class='danger'><B><i>[gang.name] [G.message_name] [user.real_name]</i>: [message]</B></span>"
-		for(var/datum/mind/ganger in gang.members)
-			if(ganger.current && is_station_level(ganger.current.z) && (ganger.current.stat == CONSCIOUS))
-				to_chat(ganger.current, ping)
-		for(var/mob/M in GLOB.dead_mob_list)
-			var/link = FOLLOW_LINK(M, user)
-			to_chat(M, "[link] [ping]")
-		user.log_talk(message,LOG_SAY, tag="[gang.name] gangster")
-
-
 
 
 /obj/item/device/gangtool/proc/can_use(mob/living/carbon/human/user)
@@ -106,9 +83,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "GangTool", name)
-		// This UI is only ever opened by one person,
-		// and never is updated outside of user input.
-		ui.set_autoupdate(FALSE)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/item/device/gangtool/ui_data(mob/user)

@@ -83,6 +83,8 @@
 	var/list/recording_recipe
 
 	var/list/saved_recipes = list()
+	/// data to be passed in make_reagent
+	var/list/data = list()
 
 /obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
@@ -258,7 +260,7 @@
 					if(!cell.use(actual / powerefficiency))
 						say("Not enough energy to complete operation!")
 						return
-					R.add_reagent(reagent, actual)
+					R.add_reagent(reagent, actual, data)
 
 					work_animation()
 			else
@@ -293,7 +295,7 @@
 						if(!cell.use(actual / powerefficiency))
 							say("Not enough energy to complete operation!")
 							return
-						R.add_reagent(reagent, actual)
+						R.add_reagent(reagent, actual, data)
 						work_animation()
 				else
 					recording_recipe[key] += dispense_amount

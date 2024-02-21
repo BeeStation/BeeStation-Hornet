@@ -22,7 +22,6 @@ export const GangTool = (props, context) => {
           </Tabs.Tab>
         </Tabs>
         {tab === 1 && <GenericUplink currencyAmount={influence} currencySymbol="Influence" />}
-        {tab === 2 && <GenericUplink currencyAmount={influence} currencySymbol="Influence" />}
       </Window.Content>
     </Window>
   );

@@ -35,19 +35,6 @@
 /datum/gang_item/essentials
 	category = "Essential Items"
 
-/datum/gang_item/essentials/spraycan
-	name = "Territory Spraycan"
-	cost = 10
-	item_path = /obj/item/toy/crayon/spraycan/gang
-	desc = "Modified spraycan used to claiming specific territories for your gang, increasing your influence."
-
-
-/datum/gang_item/essentials/spraycan/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/toy/crayon/spraycan/gang/O = new item_path(user.loc)
-	user.put_in_hands(O)
-	O.gang = gang
-	O.paint_color = gang.color
-	O.update_icon()
 
 /datum/gang_item/essentials/gangtool
 	name = "Gangtool"
@@ -132,75 +119,51 @@
 //EQUIPMENT
 ///////////////////
 
-/datum/gang_item/equipment
+/datum/gang_item/support
 	category = "Support Equipment"
 
-/datum/gang_item/equipment/healcigs
+/datum/gang_item/support/healcigs
 	name = "Healing Cigs"
+	desc = "A pack of omnizine laced syndicate cigarettes."
 	cost = 20
 	item_path = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 
-/datum/gang_item/equipment/drugs
-	name = "Drug Supply"
-	cost = 50
-	item_path = /obj/item/storage/box
+/datum/gang_item/support/maintpass
+	name = "Maintenance Access Pass"
+	desc = "A small card, that when used on an ID, will grant basic maintenance access."
+	cost = 10
+	item_path = /obj/item/card/id/pass/maintenance
 
-/datum/gang_item/equipment/drugs/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/O
-	var/turf/T = get_turf(user)
-	switch (rand(1,10))
-		if (1)
-			O = new /obj/item/storage/pill_bottle/lsd(T)
-		if (2)
-			O = new /obj/item/storage/pill_bottle/happy(T)
-		if (3)
-			O = new /obj/item/storage/pill_bottle/zoom(T)
-		if (4)
-			O = new /obj/item/storage/pill_bottle/aranesp(T)
-		if (5)
-			O = new /obj/item/storage/pill_bottle/happiness(T)
-		if (6)
-			O = new /obj/item/storage/pill_bottle/psicodine(T)
-		if (7)
-			O = new /obj/item/storage/pill_bottle/psicodine(T)
-		if (8)
-			O = new /obj/item/food/grown/cannabis(T)
-		if (9)
-			O = new /obj/item/food/grown/cannabis/rainbow(T)
-		if (10)
-			O = new /obj/item/food/grown/cannabis/white(T)
-	if (O)
-		user.put_in_hands(O)
+/datum/gang_item/support/medkit
+	name = "Basic Medical Kit"
+	desc = "A small card, that when used on an ID, will grant basic maintenance access."
+	cost = 30
+	item_path = /obj/item/storage/firstaid/regular
 
-/datum/gang_item/equipment/aids
-	name = "Battlefield Aid Kit"
-	cost = 75
-	item_path = /obj/item/storage/firstaid/shifty/battle
+/datum/gang_item/infrep
+	category = "Influence & Reputation"
 
-/datum/gang_item/equipment/hangover
-	name = "Bad Trip Kit"
-	cost = 75
-	item_path = /obj/item/storage/firstaid/shifty/hangover
+/datum/gang_item/infrep/drugs
+	name = "Illicit Drug Dispenser"
+	desc = "Dispenses various kinds of narcotics, including formaltenamine, which grants influence and reputation when consumed by non gangsters."
+	cost = 100
+	item_path = /obj/item/sbeacondrop/drugs
 
-/obj/item/storage/firstaid/shifty
-	name = "shifty medkit"
-	desc = "A shady medkit, assembled out of scraps and leftovers."
-	icon_state = "bezerk"
+/datum/gang_item/infrep/drugs/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/obj/item/sbeacondrop/drugs/O = new item_path(user.loc)
+	user.put_in_hands(O)
+	O.g = gang
 
-/obj/item/storage/firstaid/shifty/battle/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/patch/silver_sulf = 2,
-		/obj/item/reagent_containers/pill/patch/styptic = 2,
-		/obj/item/reagent_containers/medspray/synthflesh = 1,
-		/obj/item/reagent_containers/hypospray/medipen = 1,
-		/obj/item/healthanalyzer = 1)
-	generate_items_inside(items_inside,src)
 
-/obj/item/storage/firstaid/shifty/hangover/PopulateContents()
-	var/static/items_inside = list(
-		/obj/item/storage/pill_bottle/charcoal = 1,
-		/obj/item/reagent_containers/syringe/antitoxin = 1,
-		/obj/item/reagent_containers/hypospray/medipen = 2,
-		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
-		/obj/item/healthanalyzer = 1)
-	generate_items_inside(items_inside,src)
+/datum/gang_item/infrep/spraycan
+	name = "Territory Spraycan"
+	cost = 20
+	item_path = /obj/item/toy/crayon/spraycan/gang
+	desc = "Modified spraycan used to claiming specific territories for your gang, increasing your influence. Also serves to increase your Reputation, but losing territory will decrease it instead."
+
+/datum/gang_item/infrep/spraycan/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/obj/item/toy/crayon/spraycan/gang/O = new item_path(user.loc)
+	user.put_in_hands(O)
+	O.gang = gang
+	O.paint_color = gang.color
+	O.update_icon()
