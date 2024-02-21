@@ -58,13 +58,13 @@
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
 	name = "secure engineering crate"
 	icon_state = "engi_secure_crate"
-	icon_door = "engi_crate"
+	icon_door = "engi_secure_crate"
 
 /obj/structure/closet/crate/secure/science
 	name = "secure science crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
 	icon_state = "sci_secure_crate"
-	icon_door = "sci_crate"
+	icon_door = "sci_secure_crate"
 
 /obj/structure/closet/crate/secure/owned
 	name = "private crate"
