@@ -72,9 +72,9 @@
 	cost = 50
 	item_path = /obj/item/grenade/empgrenade
 
-
 /datum/gang_item/weapon/switchblade
 	name = "Switchblade"
+	desc = "A sharp, concealable, spring-loaded knife with a long blade."
 	cost = 100
 	item_path = /obj/item/switchblade
 
@@ -92,26 +92,31 @@
 
 /datum/gang_item/weapon/pistol
 	name = "10mm Pistol"
+	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
 	cost = 500
 	item_path = /obj/item/gun/ballistic/automatic/pistol
 
 /datum/gang_item/weapon/pistol_ammo
 	name = "10mm Ammo"
+	desc = "A magazine for 10mm pistols."
 	cost = 50
 	item_path = /obj/item/ammo_box/magazine/m10mm
 
 /datum/gang_item/weapon/uzi
 	name = "Uzi SMG"
-	cost = 500
+	desc = "A lightweight submachine gun, for when you really want someone dead. Uses 9mm rounds."
+	cost = 700
 	item_path = /obj/item/gun/ballistic/automatic/mini_uzi
 
 /datum/gang_item/weapon/uzi_ammo
 	name = "Uzi Ammo"
-	cost = 50
+	desc = "A 9mm magazine intended for use with Uzi SMGs."
+	cost = 70
 	item_path = /obj/item/ammo_box/magazine/uzim9mm
 
 /datum/gang_item/weapon/laser
 	name = "Laser Gun"
+	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	cost = 500
 	item_path = /obj/item/gun/energy/laser/retro
 
@@ -140,6 +145,12 @@
 	cost = 30
 	item_path = /obj/item/storage/firstaid/regular
 
+/datum/gang_item/support/smuggler
+	name = "Smuggler's Satchel"
+	desc = "A small satchel, able to fit into tight spaces such as backpacks or under the floor boards."
+	cost = 50
+	item_path = /obj/item/storage/backpack/satchel/flat
+
 /datum/gang_item/infrep
 	category = "Influence & Reputation"
 
@@ -157,9 +168,9 @@
 
 /datum/gang_item/infrep/spraycan
 	name = "Territory Spraycan"
+	desc = "Modified spraycan used to claiming specific territories for your gang, increasing your influence. Also serves to increase your Reputation, but losing territory will decrease it instead."
 	cost = 20
 	item_path = /obj/item/toy/crayon/spraycan/gang
-	desc = "Modified spraycan used to claiming specific territories for your gang, increasing your influence. Also serves to increase your Reputation, but losing territory will decrease it instead."
 
 /datum/gang_item/infrep/spraycan/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/toy/crayon/spraycan/gang/O = new item_path(user.loc)
