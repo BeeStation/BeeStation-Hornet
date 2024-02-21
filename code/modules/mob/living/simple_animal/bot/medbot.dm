@@ -67,7 +67,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
-	skin = "bezerk"
+	skin = MEDBOT_SKIN_BEZERK
 
 /mob/living/simple_animal/bot/medbot/derelict
 	name = "\improper Old Medibot"
@@ -90,7 +90,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		icon_state = "medibots[stationary_mode]"
 		return
 	else if(mode== BOT_EMPTY) //Bot has grey light if empty
-		icon_state = "medibote"
+		icon_state = "medibot_empty"
 	else if(stationary_mode) //Bot has yellow light to indicate stationary mode.
 		icon_state = "medibot2"
 	else
