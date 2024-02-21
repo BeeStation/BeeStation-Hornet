@@ -561,7 +561,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		var/treat_behaviour = null
 		if(!treat_behaviour && reagent_glass && reagent_glass.reagents.total_volume)
 			for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-				if(!C.reagents.has_reagent(R.type) && !check_overdose(patient, R.type, injection_amount))
+				if(!C.reagents.has_reagent(R.type) && !check_overdose(patient, R, injection_amount))
 					treat_behaviour = "internal_beaker"
 					break
 
@@ -578,7 +578,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			bot_reset()
 			return
 		else
-			if(!emagged && (treat_behaviour != "internal_beaker") && check_overdose(patient, treat_behaviour, injection_amount))
+			if(!emagged && (treat_behaviour != "internal_beaker"))
 				soft_reset()
 				return
 			C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
@@ -607,9 +607,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 							log_combat(src, patient, "drained of blood")
 						else
 							to_chat(src, "<span class='warning'>You are unable to draw any blood from [patient]!</span>")
-					else
-						patient.reagents.add_reagent(treat_behaviour,injection_amount)
-						log_combat(src, patient, "injected", "internal synthesizer", "[treat_behaviour]:[injection_amount]")
 					C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
 						"<span class='userdanger'>[src] injects you with its syringe!</span>")
 				else
@@ -626,12 +623,12 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		treat_behaviour = null
 		return
 
-/mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,treat_behaviour,injection_amount)
-	var/datum/reagent/R  = GLOB.chemical_reagents_list[treat_behaviour]
-	if(!R.overdose_threshold) //Some chems do not have an OD threshold
+/mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,datum/reagent/reagent_id,injection_amount)
+	var/R = reagent_id.overdose_threshold
+	if(!R) //Some chems do not have an OD threshold
 		return FALSE
-	var/current_volume = patient.reagents.get_reagent_amount(treat_behaviour)
-	if(current_volume + injection_amount > R.overdose_threshold)
+	var/current_volume = patient.reagents.get_reagent_amount(reagent_id)
+	if(current_volume + injection_amount > R)
 		return TRUE
 	return FALSE
 
