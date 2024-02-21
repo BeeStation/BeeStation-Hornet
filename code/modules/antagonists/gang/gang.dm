@@ -7,6 +7,13 @@
 	var/hud_type = "gangster"
 	var/message_name = "Gangster"
 	var/datum/team/gang/gang
+	var/datum/gang_tracker/gang_tracker = new
+	var/datum/action/innate/gang_tracker/tracker_action
+
+/datum/antagonist/gang/Destroy()
+	QDEL_NULL(gang_tracker)
+	QDEL_NULL(tracker_action)
+	return ..()
 
 /datum/antagonist/gang/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -16,6 +23,8 @@
 
 /datum/antagonist/gang/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/M = mob_override || owner.current
+	tracker_action = new(gang_tracker)
+	tracker_action.Grant(owner.current)
 	update_gang_icons_added(M)
 
 /datum/antagonist/gang/remove_innate_effects(mob/living/mob_override)
@@ -285,6 +294,8 @@
 	var/queued_influence = 0 // influence waiting to be added to the gang.
 	var/reputation = 0 // earned by various means throught the round, decides the winner.
 	var/queued_reputation = 0 // reputation waiting to be added to the gang.
+	var/credits = 0 //ammount of money the gang has.
+	var/list/datum/bank_account/bank_accounts = list() //bank accounts owned by gang members and bank "accounts" stored in safes
 	var/next_point_time
 	var/obj/item/clothing/head/hat
 	var/obj/item/clothing/under/outfit
@@ -356,7 +367,7 @@
 	return min(999,influence + INFLUENCE_BASE + (count_gang_swag()) + LAZYLEN(territories) * INFLUENCE_TERRITORY)
 
 /datum/team/gang/proc/update_reputation()
-	return LAZYLEN(territories) * REPUTATION_TERRITORY
+	return reputation + LAZYLEN(territories) * REPUTATION_TERRITORY
 
 /datum/team/gang/proc/count_gang_swag()
 	//Count swag on gangsters
