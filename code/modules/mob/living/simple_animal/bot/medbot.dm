@@ -62,7 +62,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/datum/techweb/linked_techweb
 	var/medibot_counter = 0 //we use this to stop multibotting
 	var/synth_epi = TRUE
-	var/synth_cooldown = 0
+	COOLDOWN_DECLARE(synth_cooldown)
 
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
@@ -99,7 +99,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
 	skin = new_skin
-	synth_cooldown += world.time+600
 	update_icon()
 
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
@@ -378,10 +377,10 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(!(reagent_glass && reagent_glass.reagents.total_volume))
 		mode = BOT_EMPTY
 		update_icon()
-		if(synth_cooldown < world.time && synth_epi && reagent_glass)
+		if(COOLDOWN_FINISHED(src, synth_cooldown) && synth_epi && reagent_glass)
 			reagent_glass.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
 			playsound(src, "sound/effects/bubbles.ogg", 40)
-			synth_cooldown += world.time+600
+			COOLDOWN_START(src, synth_cooldown, 5 MINUTES)
 		return
 	if(tipped)
 		handle_panic()
@@ -595,7 +594,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 							log_combat(src, patient, "injected", "beaker source", "[reagentlist]:[injection_amount]")
 							reagent_glass.reagents.reaction(patient, INJECT, fraction)
 							reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker instead.
-							if(!reagent_glass.reagents.total_volume)
+							if(!reagent_glass.reagents.total_volume && !synth_epi)
 								var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')
 								var/message = pick(messagevoice)
 								speak(message,radio_channel)
