@@ -16,7 +16,8 @@
 	desc = "A [name] vandalizing the station."
 	icon_state = G.name
 	add_atom_colour(G.color, FIXED_COLOUR_PRIORITY)
-
+	var/area/territory = get_area(src)
+	G.new_territories |= list(territory.type = territory.name)
 
 /obj/effect/decal/gang/Destroy()
 	if(gang)

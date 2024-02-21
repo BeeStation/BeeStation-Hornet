@@ -871,7 +871,7 @@
 
 /obj/item/toy/crayon/proc/territory_claimed(area/territory, mob/user)
 	for(var/datum/team/gang/G in GLOB.gangs)
-		if(territory.type in (G.territories|G.new_territories))
+		if(territory.type in G.territories)
 			. = G.name
 			break
 

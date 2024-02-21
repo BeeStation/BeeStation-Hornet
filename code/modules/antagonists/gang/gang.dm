@@ -273,7 +273,6 @@
 	var/list/leaders = list() // bosses
 	var/max_leaders = MAX_LEADERS_GANG
 	var/max_members = MAX_MEMBERS_GANG
-	var/list/new_territories = list() //newly gained territories.
 	var/list/territories = list() // owned territories.
 	var/list/gangtools = list()
 	var/color
