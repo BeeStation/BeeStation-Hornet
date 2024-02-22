@@ -78,8 +78,8 @@ export const BanningPanel = (props, context) => {
                       <Input value={ban_duration} onChange={(e) => act('update_duration', { duration: e.target.value })} />
                       <Dropdown
                         selected={time_units}
-                        options={['Seconds', 'Minutes', 'Hours', 'Days', 'Weeks', 'Months', 'Years']}
-                        onSelected={(selected) => act('set_time_units', { units: selected })}
+                        options={Object.keys(timeUnitsMapping)}
+                        onSelected={(selected) => act('set_time_units', { units: timeUnitsMapping[selected] })}
                       />{' '}
                     </Box>
                   </Stack>
@@ -158,12 +158,8 @@ const Roles = ({ roles, selected_roles, selected_groups, act }) => {
       <CheckboxCollapsible title="Ghost Roles" onClick={() => act('toggle_group', { group: "ghost_roles" })} color="grey" checked={selected_groups.includes('ghost_roles')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['ghost_roles']} act={act} />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Civilian" onClick={() => act('toggle_group', { group: "civilian" })} color="light-grey" checked={selected_groups.includes('civilian')}>
-        <RolesInCategory
-          selected_roles={selected_roles}
-          roles={<RolesInCategory selected_roles={selected_roles} roles={roles['civilian']} />}
-          act={act}
-        />
+      <CheckboxCollapsible title="Civilian" onClick={() => act('toggle_group', { group: "civilian" })} color="grey" checked={selected_groups.includes('civilian')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['civilian']} act={act} />
       </CheckboxCollapsible>
       <CheckboxCollapsible title="Gimmick" onClick={() => act('toggle_group', { group: "gimmick" })} color="pink" checked={selected_groups.includes('gimmick')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['gimmick']} act={act} />
@@ -172,7 +168,7 @@ const Roles = ({ roles, selected_roles, selected_groups, act }) => {
         <RolesInCategory selected_roles={selected_roles} roles={roles['other']} act={act} />
       </CheckboxCollapsible>
       <CheckboxCollapsible title="Abstract" checked={selected_groups.includes('abstract')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['abstract']} />
+        <RolesInCategory selected_roles={selected_roles} roles={roles['abstract']} act={act} />
       </CheckboxCollapsible>
     </Stack>
   );
@@ -197,10 +193,20 @@ const CheckboxCollapsible = ({ color, title, onClick, checked, children }) => {
 };
 const RolesInCategory = ({ roles, selected_roles, act }) => {
   return (
-    <Stack wrap>
-      {roles.map((role) => {
+    <Stack wrap width="800px">
+    {roles.map((role) => {
         return <Button.Checkbox content={role} key={role} onClick={() => act('toggle_role', { selected_role: role })} checked={selected_roles.includes(role)} />;
       })}
     </Stack>
   );
+};
+
+const timeUnitsMapping = {
+  'Seconds': 'SECOND',
+  'Minutes': 'MINUTE',
+  'Hours': 'HOUR',
+  'Days': 'DAY',
+  'Weeks': 'WEEK',
+  'Months': 'MONTH',
+  'Years': 'YEAR',
 };
