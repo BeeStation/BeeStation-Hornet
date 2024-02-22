@@ -179,9 +179,9 @@ const Roles = ({ roles, selected_roles, selected_groups, act }) => {
       </CheckboxCollapsible>
       <CheckboxCollapsible
         title="Antagonist Positions"
-        onClick={() => act('toggle_group', { group: 'antagonist_positions' })}
+        onClick={() => act('toggle_role', { selected_role: 'All Antagonists' })}
         color="black"
-        checked={selected_groups.includes('antagonist_positions')}>
+        checked={selected_roles.includes('All Antagonists')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['antagonist_positions']} act={act} />
       </CheckboxCollapsible>
       <CheckboxCollapsible
