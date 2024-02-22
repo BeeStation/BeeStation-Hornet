@@ -1909,6 +1909,9 @@
 /area/science/research)
 "awq" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room)
 "aws" = (
@@ -4723,6 +4726,9 @@
 /obj/machinery/gulag_item_reclaimer{
 	pixel_x = -32
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/security/brig/dock)
 "bja" = (
@@ -4805,9 +4811,6 @@
 	},
 /area/chapel/main/monastery)
 "bkd" = (
-/obj/machinery/camera/autoname{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
@@ -10728,6 +10731,9 @@
 /obj/machinery/computer/prisoner/gulag_teleporter_computer{
 	dir = 1
 	},
+/obj/machinery/light{
+	light_color = "#7AC3FF"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig/dock)
 "dmC" = (
@@ -13064,6 +13070,12 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engine_room)
+"eaM" = (
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/department/bridge)
 "eaR" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/visible,
 /obj/structure/cable/yellow{
@@ -22533,9 +22545,6 @@
 	departmentType = 1;
 	pixel_x = -32
 	},
-/obj/machinery/camera/autoname{
-	dir = 4
-	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "hkP" = (
@@ -24134,6 +24143,9 @@
 	name = "Head of Security's Office Shutters";
 	pixel_x = -26
 	},
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "hLB" = (
@@ -25654,9 +25666,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "ilD" = (
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
@@ -26744,12 +26753,17 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "iDr" = (
-/obj/effect/turf_decal/tile/red{
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/camera/autoname{
 	dir = 1
 	},
-/obj/machinery/camera/autoname,
-/turf/open/floor/plasteel,
-/area/security/brig/dock)
+/turf/open/floor/prison,
+/area/security/prison)
 "iDv" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Chemistry Lab";
@@ -29619,6 +29633,12 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plating,
 /area/space)
 "jzR" = (
@@ -31051,6 +31071,13 @@
 /obj/machinery/washing_machine,
 /turf/open/floor/plasteel/freezer,
 /area/security/prison)
+"jZb" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/brig)
 "jZm" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/white{
@@ -39628,8 +39655,9 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "mLV" = (
-/turf/open/floor/plating,
-/area/hydroponics/garden)
+/obj/machinery/camera/autoname,
+/turf/open/floor/holofloor/plating,
+/area/holodeck/prison)
 "mLY" = (
 /turf/closed/wall,
 /area/science/research)
@@ -41754,6 +41782,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "nyJ" = (
@@ -43819,6 +43850,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
+/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel,
 /area/security/brig/dock)
 "oeC" = (
@@ -43929,9 +43961,6 @@
 "ofH" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
-	},
-/obj/machinery/camera/autoname{
-	dir = 10
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -53542,12 +53571,12 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
 "rop" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "rou" = (
@@ -54704,6 +54733,9 @@
 /obj/item/radio/intercom{
 	name = "Common Channel";
 	pixel_x = 27
+	},
+/obj/machinery/camera/autoname{
+	dir = 9
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -56559,6 +56591,14 @@
 /obj/structure/plasticflaps/opaque,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
+"snw" = (
+/obj/effect/turf_decal/stripes/box,
+/obj/machinery/suit_storage_unit/security,
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/space)
 "snH" = (
 /obj/machinery/light/small/broken{
 	dir = 8
@@ -59835,6 +59875,9 @@
 "tse" = (
 /obj/structure/bed/dogbed/ian,
 /mob/living/simple_animal/hostile/carp/lia,
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/carpet/black,
 /area/crew_quarters/heads/hos)
 "tss" = (
@@ -67572,7 +67615,6 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "vRc" = (
-/obj/machinery/camera/autoname,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -73957,6 +73999,9 @@
 	},
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
 "xVa" = (
@@ -97683,7 +97728,7 @@ rPk
 olG
 rPk
 olG
-mLV
+rPk
 rPk
 iiO
 tfx
@@ -110692,7 +110737,7 @@ suZ
 lXw
 gRi
 jjm
-gRi
+eaM
 ktc
 lHh
 ktc
@@ -111703,9 +111748,9 @@ qBt
 aMT
 wOJ
 pjY
-wOJ
+cPL
 ghK
-gfb
+snw
 duF
 hkh
 cIH
@@ -112217,7 +112262,7 @@ qBt
 aMT
 wOJ
 oME
-wOJ
+emE
 ffG
 gfb
 duF
@@ -112483,7 +112528,7 @@ gdO
 sXP
 abr
 rSn
-niz
+jZb
 hmy
 oYQ
 mIf
@@ -114053,7 +114098,7 @@ iDM
 uKT
 bTQ
 kRb
-kcw
+iDr
 nmg
 iPH
 yjT
@@ -115819,7 +115864,7 @@ aMT
 aMT
 aMT
 eIE
-iDr
+vhk
 dpy
 dmz
 iRh
@@ -116616,7 +116661,7 @@ gAE
 mHo
 cfP
 fOv
-hds
+mLV
 hds
 hds
 hds
