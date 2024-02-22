@@ -576,45 +576,42 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			playsound(src, messagevoice[message], 50)
 			bot_reset()
 			return
-		else
-			C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
-				"<span class='userdanger'>[src] is trying to inject you!</span>")
 
-			var/failed = FALSE
-			if(do_after(src, 1 SECONDS, patient))
-				if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
-					if(treat_behaviour == "internal_beaker")
-						if(reagent_glass && reagent_glass.reagents.total_volume)
-							var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
-							var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
-							log_combat(src, patient, "injected", "beaker source", "[reagentlist]:[injection_amount]")
-							reagent_glass.reagents.reaction(patient, INJECT, fraction)
-							reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker instead.
-							if(!reagent_glass.reagents.total_volume && !synth_epi)
-								var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')
-								var/message = pick(messagevoice)
-								speak(message,radio_channel)
-								playsound(src, messagevoice[message], 50)
-								declare_cooldown = world.time + 100
-					else if (treat_behaviour == "suck")
-						if(patient.transfer_blood_to(reagent_glass, injection_amount))
-							patient.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
-								"<span class='userdanger'>[src] is trying to inject you!</span>")
-							log_combat(src, patient, "drained of blood")
-						else
-							to_chat(src, "<span class='warning'>You are unable to draw any blood from [patient]!</span>")
-					C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
-						"<span class='userdanger'>[src] injects you with its syringe!</span>")
-				else
-					failed = TRUE
+		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", "<span class='userdanger'>[src] is trying to inject you!</span>")
+		var/failed = FALSE
+		if(do_after(src, 1 SECONDS, patient))
+			if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
+				if(treat_behaviour == "internal_beaker")
+					if(reagent_glass && reagent_glass.reagents.total_volume)
+						var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
+						var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
+						log_combat(src, patient, "injected", "beaker source", "[reagentlist]:[injection_amount]")
+						reagent_glass.reagents.reaction(patient, INJECT, fraction)
+						reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker instead.
+						if(!reagent_glass.reagents.total_volume && !synth_epi)
+							var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')
+							var/message = pick(messagevoice)
+							speak(message,radio_channel)
+							playsound(src, messagevoice[message], 50)
+							declare_cooldown = world.time + 100
+				else if (treat_behaviour == "suck")
+					if(patient.transfer_blood_to(reagent_glass, injection_amount))
+						patient.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
+							"<span class='userdanger'>[src] is trying to inject you!</span>")
+						log_combat(src, patient, "drained of blood")
+					else
+						to_chat(src, "<span class='warning'>You are unable to draw any blood from [patient]!</span>")
+				C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
+					"<span class='userdanger'>[src] injects you with its syringe!</span>")
 			else
 				failed = TRUE
-
-			if(failed)
-				visible_message("[src] retracts its syringe.")
-			update_icon()
-			soft_reset()
-			return
+		else
+			failed = TRUE
+		if(failed)
+			visible_message("[src] retracts its syringe.")
+		update_icon()
+		soft_reset()
+		return
 
 /mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,datum/reagent/reagent_id,injection_amount)
 	var/R = reagent_id.overdose_threshold
