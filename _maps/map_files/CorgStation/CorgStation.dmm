@@ -5801,15 +5801,18 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "bDX" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate{
+	name = "conveyor belt crate"
+	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "bDY" = (
@@ -8876,10 +8879,15 @@
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "cHg" = (
-/obj/effect/landmark/start/cargo_technician,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/closet/crate{
+	name = "conveyor belt crate"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "cHl" = (
@@ -11436,19 +11444,6 @@
 	},
 /turf/open/floor/plating,
 /area/medical/virology)
-"dzY" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate{
-	name = "conveyor belt crate"
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
 "dzZ" = (
 /obj/structure/reagent_dispensers/cooking_oil,
 /obj/effect/turf_decal/tile/red/opposingcorners{
@@ -15893,10 +15888,6 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/science/shuttle)
-"fbE" = (
-/obj/effect/turf_decal/tile/brown,
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
 "fbF" = (
 /obj/structure/table/wood,
 /obj/item/food/grown/flower/harebell,
@@ -18280,7 +18271,7 @@
 /obj/machinery/requests_console{
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/turf_decal/tile/brown/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "fQa" = (
@@ -18706,9 +18697,11 @@
 /turf/open/floor/plasteel,
 /area/science/shuttle)
 "fYU" = (
-/obj/effect/spawner/room/threexfive,
-/turf/open/floor/plating,
-/area/space)
+/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "fZa" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -21830,10 +21823,13 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "gXN" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -24
+	},
+/mob/living/simple_animal/bot/mulebot,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "gXP" = (
@@ -25337,13 +25333,14 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "ifr" = (
-/obj/effect/turf_decal/tile/brown/half/contrasted,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "ifx" = (
@@ -33858,7 +33855,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
+/obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -37256,15 +37253,16 @@
 /turf/open/floor/plasteel,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "mav" = (
-/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
 /obj/structure/closet/crate{
 	name = "conveyor belt crate"
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "maw" = (
@@ -39073,12 +39071,7 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/warehouse)
 "mBK" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate{
-	name = "conveyor belt crate"
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/landmark/start/cargo_technician,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "mBU" = (
@@ -43058,9 +43051,8 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "nSp" = (
-/obj/effect/turf_decal/bot,
-/mob/living/simple_animal/bot/mulebot,
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "nSA" = (
@@ -44525,19 +44517,12 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "oqr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate{
+	name = "conveyor belt crate"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "oqt" = (
@@ -48143,15 +48128,11 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "pDY" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate{
-	name = "conveyor belt crate"
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "pEe" = (
@@ -48806,8 +48787,14 @@
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "pOs" = (
-/turf/closed/wall,
-/area/space)
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -25
+	},
+/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/mob/living/simple_animal/bot/mulebot,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "pOx" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable/white{
@@ -50822,6 +50809,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
+/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "qvG" = (
@@ -57705,9 +57694,7 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "sGs" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -59962,7 +59949,7 @@
 /area/medical/medbay/lobby)
 "tuC" = (
 /obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted,
+/obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "tuK" = (
@@ -64838,10 +64825,8 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "uYP" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -30
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -67552,6 +67537,8 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "vQz" = (
@@ -68426,12 +68413,15 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "wgx" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Cargo Maintenance";
-	req_access_txt = "31"
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
 	},
-/turf/open/floor/plating,
-/area/space)
+/obj/structure/closet/crate{
+	name = "conveyor belt crate"
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "wgE" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
 /obj/structure/lattice/catwalk,
@@ -69524,7 +69514,7 @@
 "wzl" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/landmark/start/cargo_technician,
-/obj/effect/turf_decal/tile/brown/half/contrasted,
+/obj/effect/turf_decal/tile/brown,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "wzs" = (
@@ -71418,8 +71408,10 @@
 /turf/closed/wall,
 /area/maintenance/disposal)
 "xhr" = (
-/turf/open/floor/plating,
-/area/space)
+/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "xhF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -71705,9 +71697,15 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "xmt" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
-/mob/living/simple_animal/bot/mulebot,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "xmJ" = (
@@ -117910,10 +117908,10 @@ fOv
 eTq
 ivK
 jdN
-pOs
-wgx
-pOs
-pOs
+aWM
+aWM
+aWM
+aWM
 aWM
 gAu
 aWM
@@ -118167,13 +118165,13 @@ fOv
 lcq
 ivK
 jdN
-xhr
-xhr
-fYU
+nSp
+gXN
+pno
 pOs
-uvY
-lPw
-rDO
+fJL
+xmt
+fYU
 aSf
 pyK
 lLj
@@ -118424,11 +118422,11 @@ eBP
 dIK
 mHT
 oXI
-xhr
-xhr
-xhr
-wgx
 uvY
+aZy
+aZy
+aZy
+aZy
 lPw
 rDO
 nKK
@@ -118681,13 +118679,13 @@ dyB
 dyB
 iCF
 jdN
+uvY
 xhr
-xhr
-xhr
-pOs
-sVG
+aZy
+oqr
+aZy
 ifr
-pAn
+rDO
 aSf
 lXJ
 cDP
@@ -118938,13 +118936,13 @@ xGs
 dyB
 caV
 aWM
-aWM
-aWM
-aWM
-aWM
-dXz
-oqr
-dXz
+wgx
+xhr
+aZy
+xhr
+aZy
+ifr
+rDO
 aWM
 aWM
 qPh
@@ -119196,10 +119194,10 @@ jrz
 cnu
 naL
 uYP
-xmt
-pno
 nSp
-fJL
+aZy
+nSp
+aZy
 bDX
 kXt
 aWM
@@ -119452,11 +119450,11 @@ qbs
 evZ
 cqe
 ord
-vfo
 aZy
-vfo
 aZy
-vfo
+aZy
+aZy
+aZy
 sHy
 trf
 pew
@@ -119711,9 +119709,9 @@ wIV
 gNS
 sGs
 vQo
-mav
 aPr
-gXN
+pDY
+aPr
 qvA
 cHt
 cHt
@@ -119966,12 +119964,12 @@ wlK
 owH
 uvY
 aZy
-pDY
+jdB
 cHg
-leJ
 aZy
+xhr
+mBK
 leJ
-aZy
 aZy
 wBb
 aZy
@@ -120223,12 +120221,12 @@ pMP
 dyB
 ryU
 aZy
-dzY
-pih
-pno
+jdB
+mav
 aZy
-mBK
-fbE
+nSp
+aZy
+nSp
 wzl
 cJj
 cJj
