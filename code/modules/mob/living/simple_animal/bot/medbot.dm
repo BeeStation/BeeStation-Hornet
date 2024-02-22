@@ -558,12 +558,11 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			break
 
 
-		var/treat_behaviour = null
+		var/treat_behaviour = "internal_beaker"
 		if(!treat_behaviour && reagent_glass && reagent_glass.reagents.total_volume)
 			for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-				if(!C.reagents.has_reagent(R.type) && !check_overdose(patient, R, injection_amount))
-					treat_behaviour = "internal_beaker"
-					break
+				if(C.reagents.has_reagent(R.type))
+					treat_behaviour = null
 
 		if(emagged) //Emagged! Time to drain everybody.
 			treat_behaviour = "suck"
@@ -578,9 +577,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			bot_reset()
 			return
 		else
-			if(!emagged && (treat_behaviour != "internal_beaker"))
-				soft_reset()
-				return
 			C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
 				"<span class='userdanger'>[src] is trying to inject you!</span>")
 
@@ -619,9 +615,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			update_icon()
 			soft_reset()
 			return
-
-		treat_behaviour = null
-		return
 
 /mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,datum/reagent/reagent_id,injection_amount)
 	var/R = reagent_id.overdose_threshold
