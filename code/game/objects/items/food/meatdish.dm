@@ -218,7 +218,7 @@
 	tastes = list("meat" = 1, "onions" = 1, "garlic" = 1)
 	foodtypes = MEAT | RAW
 	w_class = WEIGHT_CLASS_SMALL
-
+	microwaved_type = /obj/item/food/khinkali
 /obj/item/food/khinkali
 	name = "khinkali"
 	desc = "One hundred khinkalis? Do I look like a pig?"

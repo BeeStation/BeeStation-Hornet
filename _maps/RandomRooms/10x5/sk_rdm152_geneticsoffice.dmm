@@ -54,11 +54,6 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"q" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/template_noop)
 "r" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/light/small{
@@ -144,7 +139,7 @@
 /area/template_noop)
 "T" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "V" = (
@@ -159,7 +154,7 @@
 /area/template_noop)
 "X" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "Z" = (
@@ -197,7 +192,7 @@ D
 Q
 "}
 (5,1,1) = {"
-q
+X
 W
 H
 B
@@ -212,7 +207,7 @@ M
 "}
 (7,1,1) = {"
 X
-q
+X
 V
 g
 M
