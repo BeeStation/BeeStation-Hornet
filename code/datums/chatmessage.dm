@@ -37,6 +37,7 @@
 
 #define COLOR_PERSON_UNKNOWN "#999999"
 #define COLOR_CHAT_EMOTE "#727272"
+#define COLOR_CHAT_EMOTE_FORCE "#615f57"
 
 
 /**
@@ -79,12 +80,13 @@
   * * owner - The mob that owns this overlay, only this mob will be able to view it
   * * extra_classes - Extra classes to apply to the span that holds the text
   * * lifespan - The lifespan of the message in deciseconds
+  * * option_bitflags - flags & options for generating image
   */
-/datum/chatmessage/New(text, atom/target, list/client/hearers, language_icon, list/extra_classes = list(), lifespan = CHAT_MESSAGE_LIFESPAN)
+/datum/chatmessage/New(text, atom/target, list/client/hearers, language_icon, list/extra_classes = list(), lifespan = CHAT_MESSAGE_LIFESPAN, option_bitflags = null)
 	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
-	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, hearers, language_icon, extra_classes, lifespan)
+	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, hearers, language_icon, extra_classes, lifespan, option_bitflags)
 
 /datum/chatmessage/Destroy()
 	if (hearers)
@@ -117,8 +119,9 @@
   * * language - The language this message was spoken in
   * * extra_classes - Extra classes to apply to the span that holds the text
   * * lifespan - The lifespan of the message in deciseconds
+  * * option_bitflags - flags & options for generating image
   */
-/datum/chatmessage/proc/generate_image(text, atom/target, list/client/hearers, datum/language/language, list/extra_classes, lifespan)
+/datum/chatmessage/proc/generate_image(text, atom/target, list/client/hearers, datum/language/language, list/extra_classes, lifespan, option_bitflags)
 	/// Cached icons to show what language the user is speaking
 	var/static/list/language_icons
 
@@ -187,9 +190,9 @@
 		var/image/r_icon = image('icons/UI_Icons/chat/chat_icons.dmi', icon_state = "radio")
 		LAZYADD(prefixes, "\icon[r_icon]")
 	else if (extra_classes.Find("emote"))
-		var/image/r_icon = image('icons/UI_Icons/chat/chat_icons.dmi', icon_state = "emote")
+		var/image/r_icon = image('icons/UI_Icons/chat/chat_icons.dmi', icon_state = CHECK_BITFIELD(option_bitflags, RUNECHAT_OPTION_FORCED_MESSAGE) ? "emote_force" : "emote")
 		LAZYADD(prefixes, "\icon[r_icon]")
-		tgt_color = COLOR_CHAT_EMOTE
+		tgt_color = CHECK_BITFIELD(option_bitflags, RUNECHAT_OPTION_FORCED_MESSAGE) ? COLOR_CHAT_EMOTE_FORCE : COLOR_CHAT_EMOTE
 
 	// Append language icon if the language uses one
 	var/datum/language/language_instance = GLOB.language_datum_instances[language]
@@ -351,7 +354,7 @@
 		for(var/mob/M as() in hearers)
 			if(M?.should_show_chat_message(speaker, message_language, TRUE))
 				clients += M.client
-		new /datum/chatmessage(handled_message, speaker, clients, message_language, list("emote"))
+		new /datum/chatmessage(handled_message, speaker, clients, message_language, list("emote"), option_bitflags = message_mods[CHATMESSAGE_EMOTE_FORCE])
 	else
 		//4 Possible chat message states:
 		//Show Icon, Understand (Most other languages)
