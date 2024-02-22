@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(tgui_panels)
 	))
 	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
 	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/tgfont))
-	window.send_asset(get_asset_datum(/datum/asset/spritesheet/chat))
+	window.send_asset(get_asset_datum(/datum/asset/spritesheet_batched/chat))
 	// Preload assets for /datum/tgui
 	var/datum/asset/asset_tgui = get_asset_datum(/datum/asset/simple/tgui)
 	if(!src.client)

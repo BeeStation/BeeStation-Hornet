@@ -77,7 +77,7 @@
 	var/heavy_burn_msg = "peeling away"
 
 /obj/item/bodypart/Initialize(mapload)
-	..()
+	. = ..()
 	name = "[limb_id] [parse_zone(body_zone)]"
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")

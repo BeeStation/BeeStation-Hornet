@@ -75,8 +75,7 @@
 		magazine = new mag_type(src)
 	if (!caliber)
 		caliber = magazine.caliber
-	if (bolt_type == BOLT_TYPE_NO_BOLT)
-		chamber_round()
+	chamber_round()
 	update_icon()
 
 /obj/item/gun/ballistic/fire_sounds()
