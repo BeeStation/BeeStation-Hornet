@@ -43147,14 +43147,6 @@
 /area/bridge)
 "hba" = (
 /obj/structure/curtain,
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/lattice,
-/obj/structure/lattice,
 /turf/open/floor/plasteel/freezer,
 /area/security/prison)
 "hby" = (
