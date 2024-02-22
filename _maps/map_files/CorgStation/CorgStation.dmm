@@ -19049,8 +19049,8 @@
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
 "gfb" = (
-/obj/machinery/suit_storage_unit/security,
 /obj/effect/turf_decal/stripes/box,
+/obj/machinery/suit_storage_unit/security,
 /turf/open/floor/plasteel/dark,
 /area/space)
 "gfo" = (
@@ -19182,7 +19182,6 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/airalarm/directional/west,
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "ghR" = (
@@ -29641,6 +29640,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/mask/balaclava,
 /obj/item/reagent_containers/syringe,
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "jzW" = (
@@ -72822,13 +72822,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/quartermaster/storage)
-"xEI" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
 "xEN" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
@@ -111710,7 +111703,7 @@ qBt
 aMT
 wOJ
 pjY
-xEI
+wOJ
 ghK
 gfb
 duF
@@ -112224,7 +112217,7 @@ qBt
 aMT
 wOJ
 oME
-emE
+wOJ
 ffG
 gfb
 duF
