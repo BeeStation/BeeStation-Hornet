@@ -186,16 +186,16 @@ const Roles = ({ roles, selected_roles, selected_groups, act }) => {
       </CheckboxCollapsible>
       <CheckboxCollapsible
         title="Forced Antagonist Positions"
-        onClick={() => act('toggle_group', { group: 'forced_antagonist_positions' })}
+        onClick={() => act('toggle_role', { selected_role: 'Forced Antagonists' })}
         color="bad"
-        checked={selected_groups.includes('forced_antagonist_positions')}>
+        checked={selected_roles.includes('Forced Antagonists')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['forced_antagonist_positions']} act={act} />
       </CheckboxCollapsible>
       <CheckboxCollapsible
         title="Ghost Roles"
-        onClick={() => act('toggle_group', { group: 'ghost_roles' })}
+        onClick={() => act('toggle_role', { selected_role: 'Non-Antagonist Ghost Roles' })}
         color="grey"
-        checked={selected_groups.includes('ghost_roles')}>
+        checked={selected_roles.includes('Non-Antagonist Ghost Roles')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['ghost_roles']} act={act} />
       </CheckboxCollapsible>
       <CheckboxCollapsible
