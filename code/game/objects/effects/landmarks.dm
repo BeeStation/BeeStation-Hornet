@@ -325,6 +325,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	SSjob.latejoin_trackers += loc
 	return INITIALIZE_HINT_QDEL
 
+/obj/effect/landmark/prisonspawn
+	name = "prisonspawn"
+	icon_state = "prison_spawn"
+
+/obj/effect/landmark/prisonspawn/Initialize(mapload)
+	..()
+	GLOB.prisonspawn += loc
+	return INITIALIZE_HINT_QDEL
+
 //space carps, magicarps, lone ops, slaughter demons, possibly revenants spawn here
 /obj/effect/landmark/carpspawn
 	name = "carpspawn"
