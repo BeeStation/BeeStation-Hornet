@@ -19,6 +19,11 @@
 	allowed_targets = list(/obj/item/clothing/neck/cloak/hos)
 	apply_icon_state = "knighthoscloak"
 
+/obj/item/colorizer/qmcloakknight
+	name = "Quartermaster's Cloak Colorizer (Cavalier)"
+	allowed_targets = list(/obj/item/clothing/neck/cloak/qm)
+	apply_icon_state = "knightqmcloak"
+
 /obj/item/colorizer/captain_military_uniform
 	name = "Captain's Clothes Colouriser (Military)"
 	desc = "A colouriser that will change the look of the Captain's hat, jumpsuit and carapace to look more militaristic."
