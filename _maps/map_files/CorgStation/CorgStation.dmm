@@ -678,7 +678,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	network = list("ss13","security")
+	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -10452,7 +10454,8 @@
 /area/hallway/secondary/exit/departure_lounge)
 "diF" = (
 /obj/machinery/camera/autoname{
-	dir = 1
+	dir = 1;
+	network = list("ss13","security")
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -11261,7 +11264,8 @@
 	},
 /obj/structure/closet/secure_closet/detective,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13","security")
 	},
 /obj/item/toy/plush/moth/poison{
 	pixel_x = 1
@@ -13543,7 +13547,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13","security")
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -17348,7 +17353,6 @@
 	icon_state = "right";
 	name = "Outer Window"
 	},
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel,
 /area/security/warden)
 "fAh" = (
@@ -18458,7 +18462,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13","security")
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -19081,7 +19086,8 @@
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/suit_storage_unit/security,
 /obj/machinery/camera/autoname{
-	dir = 1
+	dir = 1;
+	network = list("ss13","security")
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -19186,13 +19192,11 @@
 /obj/structure/table,
 /obj/item/melee/baton/loaded,
 /obj/item/restraints/handcuffs,
-/obj/item/folder/red,
-/obj/item/folder/red,
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/storage/box/firingpins,
 /obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/item/storage/lockbox/loyalty,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "ghK" = (
@@ -21454,7 +21458,8 @@
 /area/security/brig)
 "gRi" = (
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13","security")
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -23667,7 +23672,18 @@
 	icon_state = "right";
 	name = "Outer Window"
 	},
-/obj/structure/desk_bell,
+/obj/structure/desk_bell{
+	pixel_x = -5;
+	pixel_y = -7
+	},
+/obj/item/paper_bin{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/obj/item/pen{
+	pixel_y = 5;
+	pixel_x = 2
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "hEw" = (
@@ -24144,7 +24160,8 @@
 	pixel_x = -26
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13","security")
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
@@ -24426,6 +24443,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/machinery/computer/security{
+	network = list("security");
+	name = "brig cameras console"
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "hQI" = (
@@ -26492,7 +26513,8 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13","security")
 	},
 /obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
@@ -30224,7 +30246,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 5;
+	network = list("ss13","security")
 	},
 /turf/open/floor/wood,
 /area/security/prison)
@@ -32309,7 +32332,8 @@
 "ktb" = (
 /obj/machinery/camera/motion{
 	c_tag = "E.V.A. Storage";
-	dir = 9
+	dir = 9;
+	network = list("ss13","security")
 	},
 /obj/item/ammo_box/magazine/wt550m9/rubber{
 	pixel_x = -2;
@@ -37393,7 +37417,8 @@
 /area/security/prison)
 "mbU" = (
 /obj/machinery/camera/autoname{
-	dir = 10
+	dir = 10;
+	network = list("ss13","security")
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -40937,7 +40962,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 6;
+	network = list("ss13","security")
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -42396,6 +42422,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
+"nIC" = (
+/obj/machinery/camera/autoname{
+	dir = 1;
+	network = list("ss13","security")
+	},
+/turf/open/space/basic,
+/area/space)
 "nIH" = (
 /turf/closed/wall/r_wall,
 /area/hallway/primary/fore)
@@ -46702,7 +46735,9 @@
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "pcD" = (
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	network = list("ss13","security")
+	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -48640,7 +48675,8 @@
 	},
 /obj/machinery/gulag_teleporter,
 /obj/machinery/camera/autoname{
-	dir = 1
+	dir = 1;
+	network = list("ss13","security")
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -51930,7 +51966,7 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("aisat")
+	network = list("ss13","security")
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -54575,6 +54611,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"rEB" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow,
+/obj/item/storage/fancy/donut_box,
+/turf/open/floor/plating,
+/area/security/warden)
 "rEC" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -59927,7 +59969,8 @@
 /obj/structure/bed/dogbed/ian,
 /mob/living/simple_animal/hostile/carp/lia,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13","security")
 	},
 /turf/open/floor/carpet/black,
 /area/crew_quarters/heads/hos)
@@ -69130,7 +69173,8 @@
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/camera/autoname{
-	dir = 8
+	dir = 8;
+	network = list("ss13","security")
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -70908,10 +70952,6 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/dorms)
 "wWU" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/item/storage/lockbox/loyalty,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
@@ -70920,6 +70960,10 @@
 	name = "Armory Shutters";
 	req_access_txt = "3";
 	pixel_y = 21
+	},
+/obj/machinery/computer/security{
+	network = list("security");
+	name = "brig cameras console"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -71973,7 +72017,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	network = list("ss13","security")
+	},
 /obj/item/radio/intercom{
 	pixel_y = 21
 	},
@@ -111826,7 +111872,7 @@ aMT
 aMT
 aMT
 qBt
-aHG
+nIC
 aNH
 pjY
 cPL
@@ -113144,7 +113190,7 @@ dHN
 vBE
 cjL
 qsm
-dDl
+rEB
 tch
 wod
 kpV
