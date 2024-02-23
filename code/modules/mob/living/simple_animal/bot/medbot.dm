@@ -623,6 +623,10 @@ GLOBAL_VAR(medibot_unique_id_gen)
 					to_chat(src, "<span class='warning'>You are unable to draw any blood from [patient]!</span>")
 		C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
 			"<span class='userdanger'>[src] injects you with its syringe!</span>")
+		update_icon()
+		soft_reset()
+		return
+
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
