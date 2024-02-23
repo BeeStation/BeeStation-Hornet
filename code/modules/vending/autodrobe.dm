@@ -64,7 +64,7 @@
 					/obj/item/clothing/shoes/griffin = 1,
 					/obj/item/clothing/head/griffin = 1,
 					/obj/item/clothing/suit/apron = 1,
-					/obj/item/clothing/suit/underground_serpent_jacket,
+					/obj/item/clothing/suit/underground_serpents_jacket,
 					/obj/item/clothing/under/suit/waiter = 1,
 					/obj/item/clothing/suit/jacket/miljacket = 1,
 					/obj/item/clothing/under/costume/pirate = 1,
