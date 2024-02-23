@@ -154,7 +154,7 @@
 /turf/open/floor/plating/beach/water
 	gender = PLURAL
 	name = "water"
-	desc = "You get the feeling that nobody's bothered to actually make this water functional..."
+	desc = "Ocean waves: Salty breeze, briny depths, endless blue expanse."
 	icon_state = "water"
 	baseturfs = /turf/open/floor/plating/beach/water
 	slowdown = 3

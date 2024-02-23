@@ -427,7 +427,6 @@ GLOBAL_LIST_INIT(typecache_holodeck_linked_floorcheck_ok, typecacheof(list(/turf
 	offline_program = "Small - Offline"
 
 /obj/machinery/computer/holodeck/small/LateInitialize()
-  linked = /area/holodeck/small
   ..()
 
 #undef HOLODECK_CD
