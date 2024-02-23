@@ -37,7 +37,7 @@
 /datum/component/stash/proc/create_owner_icon(atom/owner)
 	if (!stash_owner.current)
 		return
-	var/image/overlay = image(icon = 'icons/obj/storage.dmi', icon_state = "satchel-flat", loc = owner)
+	var/image/overlay = image(icon = 'icons/obj/storage/backpack.dmi', icon_state = "satchel-flat", loc = owner)
 	overlay.appearance_flags = RESET_ALPHA
 	overlay.alpha = 160
 	overlay.plane = HUD_PLANE

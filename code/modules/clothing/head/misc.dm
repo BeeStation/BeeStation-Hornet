@@ -356,6 +356,7 @@
 	desc = "A quality beret, infused with the aroma of chain-smoking, wine-swilling Parisians. You feel less inclined to engage military conflict, for some reason."
 	icon_state = "beret"
 	dynamic_hair_suffix = ""
+	dying_key = DYE_REGISTRY_BERET
 
 /obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
 	. = ..()

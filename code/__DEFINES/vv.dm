@@ -76,6 +76,9 @@
 #define VV_HK_ADDCOMPONENT "addcomponent"
 #define VV_HK_MODIFY_TRAITS "modtraits"
 
+// /datum/weakref
+#define VV_HK_TRACK_REF "track_ref"
+
 // /atom
 #define VV_HK_MODIFY_TRANSFORM "atom_transform"
 #define VV_HK_MODIFY_GREYSCALE "modify_greyscale"
@@ -83,6 +86,7 @@
 #define VV_HK_TRIGGER_EMP "empulse"
 #define VV_HK_TRIGGER_EXPLOSION "explode"
 #define VV_HK_AUTO_RENAME "auto_rename"
+#define VV_HK_RADIATE "radiate"
 #define VV_HK_EDIT_FILTERS "edit_filters"
 #define VV_HK_EDIT_PARTICLES "edit_particles"
 #define VV_HK_ADD_EMITTER "add_emitter"

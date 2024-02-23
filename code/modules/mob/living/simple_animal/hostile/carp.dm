@@ -161,7 +161,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_DISK_VERIFIER, INNATE_TRAIT) //carp can verify disky
 	ADD_TRAIT(src, TRAIT_CAN_USE_NUKE, INNATE_TRAIT)  //carp SMART
-	colored_disk_mouth = mutable_appearance(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/carp/disk_mouth, greyscale_colors), "disk_mouth")
 
 /mob/living/simple_animal/hostile/carp/cayenne/death(gibbed)
 	if(disky)
@@ -215,6 +214,8 @@
 	. = ..()
 	if(!disky || stat == DEAD)
 		return
+	if (isnull(colored_disk_mouth))
+		colored_disk_mouth = mutable_appearance(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/carp/disk_mouth, greyscale_colors), "disk_mouth")
 	. += colored_disk_mouth
 	. += mutable_appearance(disk_overlay_file, "disk_overlay")
 

@@ -126,7 +126,7 @@
 
 /obj/item/debug/omnitool/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/tools)
+		get_asset_datum(/datum/asset/spritesheet_batched/tools)
 	)
 
 /obj/item/debug/omnitool/ui_data(mob/user)

@@ -33,6 +33,32 @@
 	throw_range = 7
 	force = 0
 
+/*
+ * Empty plushies before stuffing
+ */
+/obj/item/toy/empty_plush //not a plushie subtype because of all the code regarding breeding and weird jokes, this is just a transitory state
+	name = "plush fabric"
+	desc = "An empty plush fabric. Ready to be stuffed with cotton."
+	icon = 'icons/obj/plushes.dmi'
+	lefthand_file = 'icons/mob/inhands/plushes_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
+	icon_state = "debug"
+
+/obj/item/toy/empty_plush/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/stack/sheet/cotton))
+		var/obj/item/stack/S = I
+		if(S.amount< 3)
+			to_chat(user, "<span class'danger'>You need three stacks of cotton to stuff a plush!</span>")
+			return
+		if(do_after(user, 3 SECONDS))
+			var/obj/item/toy/plush/P = pick(subtypesof(/obj/item/toy/plush) - /obj/item/toy/plush/carpplushie/dehy_carp)
+			new P(get_turf(src))
+			to_chat(user, "<span class='notice'>You make a new plush.</span>")
+			S.use(3)
+			qdel(src)
+			return
+	. = ..()
+
 
 /*
  * Balloons

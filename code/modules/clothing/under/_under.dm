@@ -17,16 +17,17 @@
 	var/obj/item/clothing/accessory/attached_accessory
 	var/mutable_appearance/accessory_overlay
 	var/freshly_laundered = FALSE
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 	if(!isinhands)
 		if(damaged_clothes)
-			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer)
+			. += mutable_appearance('icons/effects/item_damage.dmi', "damageduniform", item_layer +  0.0002)
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer)
+			. += mutable_appearance('icons/effects/blood.dmi', "uniformblood", item_layer +  0.0002)
 		if(accessory_overlay)
-			accessory_overlay.layer = item_layer
+			accessory_overlay.layer = item_layer +  0.0001
 			. += accessory_overlay
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
@@ -134,6 +135,7 @@
 
 			var/accessory_color = attached_accessory.icon_state
 			accessory_overlay = mutable_appearance('icons/mob/accessories.dmi', "[accessory_color]")
+			accessory_overlay.appearance_flags |= RESET_COLOR
 			accessory_overlay.alpha = attached_accessory.alpha
 			accessory_overlay.color = attached_accessory.color
 

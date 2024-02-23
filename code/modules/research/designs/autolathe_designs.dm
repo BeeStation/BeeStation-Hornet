@@ -561,6 +561,14 @@
 	category = list("initial", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/hacksaw
+	name = "Hacksaw"
+	id = "hacksaw"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron=12000)
+	build_path = /obj/item/hacksaw
+	category = list("hacked", "Medical")
+
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
 	id = "beanbag_slug"

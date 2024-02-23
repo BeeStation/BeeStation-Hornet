@@ -47,7 +47,7 @@
 /obj/item/storage/briefcase,
 /obj/item/taperecorder,
 /turf/open/floor/wood{
-	icon_state = "wood-broken4"
+	broken = 1
 	},
 /area/template_noop)
 "h" = (
@@ -69,11 +69,6 @@
 "k" = (
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"m" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken7"
-	},
-/area/template_noop)
 "n" = (
 /turf/open/floor/wood,
 /area/template_noop)
@@ -82,7 +77,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/template_noop)
 "p" = (
@@ -108,7 +103,7 @@
 /area/template_noop)
 "r" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "s" = (
@@ -165,11 +160,6 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/template_noop)
-"D" = (
-/turf/open/floor/wood{
-	icon_state = "wood-broken4"
-	},
 /area/template_noop)
 "F" = (
 /obj/structure/table/wood,
@@ -269,7 +259,7 @@ H
 "}
 (4,1,1) = {"
 d
-m
+r
 n
 z
 z
@@ -307,12 +297,12 @@ e
 n
 V
 n
-m
+r
 "}
 (10,1,1) = {"
 i
 r
 w
-D
+r
 e
 "}

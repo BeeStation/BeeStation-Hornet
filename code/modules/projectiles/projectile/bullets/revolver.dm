@@ -97,6 +97,12 @@
 	. = ..()
 	empulse(target, 0, 2)
 
+/obj/projectile/bullet/c38/improv
+	damage = 25
+	ricochets_max = 1
+	ricochet_chance = 80
+	ricochet_auto_aim_range = 0
+
 /obj/projectile/bullet/c38/mime
 	name = "invisible .38 bullet"
 	icon_state = null
@@ -130,6 +136,10 @@
 /obj/projectile/bullet/a357
 	name = ".357 bullet"
 	damage = 60
+
+/obj/projectile/bullet/a357/improv
+	damage = 50
+	armour_penetration = -10
 
 // admin only really, for ocelot memes
 /obj/projectile/bullet/a357/match

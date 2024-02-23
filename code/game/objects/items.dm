@@ -224,7 +224,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/canMouseDown = FALSE
 
 	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
-	var/vendor_icon_preview = null
+	var/icon_state_preview = null
 
 
 /obj/item/Initialize(mapload)
@@ -1446,3 +1446,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			return FALSE
 	return TRUE
+
+// Update icons if this is being carried by a mob
+/obj/item/wash(clean_types)
+	. = ..()
+
+	if(ismob(loc))
+		var/mob/mob_loc = loc
+		mob_loc.regenerate_icons()

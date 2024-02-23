@@ -64,7 +64,7 @@
 //Easter Baskets
 /obj/item/storage/bag/easterbasket
 	name = "Easter Basket"
-	icon = 'icons/mob/easter.dmi'
+	icon = 'icons/obj/storage/basket.dmi'
 	icon_state = "basket"
 
 /obj/item/storage/bag/easterbasket/Initialize(mapload)

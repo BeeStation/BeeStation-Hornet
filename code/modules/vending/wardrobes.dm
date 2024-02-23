@@ -155,7 +155,7 @@
 					/obj/item/clothing/head/mailman = 2,
 					/obj/item/clothing/under/misc/mailman/skirt = 2,
 					/obj/item/clothing/under/misc/mailman = 2,
-					/obj/item/storage/bag/mail = 2,
+					/obj/item/storage/backpack/satchel/mail = 2,
 					/obj/item/clothing/under/plasmaman/mailman = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2
 	)
@@ -208,6 +208,7 @@
 	products = list(/obj/item/clothing/accessory/pocketprotector = 3,
 					/obj/item/storage/backpack/science = 3,
 					/obj/item/storage/backpack/satchel/tox = 3,
+					/obj/item/storage/backpack/duffelbag/science = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/science = 3,
 					/obj/item/clothing/under/rank/rnd/scientist = 3,
 					/obj/item/clothing/under/rank/rnd/scientist/skirt = 3,
@@ -241,7 +242,7 @@
 					/obj/item/clothing/under/rank/civilian/hydroponics/skirt = 3,
 					/obj/item/clothing/under/plasmaman/botany = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/botany = 3,
-					/obj/item/clothing/mask/bandana = 3,
+					/obj/item/clothing/mask/bandana/botany = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3,
 					/obj/item/clothing/head/cowboy = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/hydro/old = 3)
