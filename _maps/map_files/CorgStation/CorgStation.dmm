@@ -21877,16 +21877,11 @@
 /turf/open/floor/carpet/black,
 /area/crew_quarters/heads/hos)
 "gYc" = (
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1423;
-	listening = 0;
-	name = "Interrogation Intercom";
-	pixel_x = -27;
-	pixel_y = -3
-	},
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/machinery/computer/security/telescreen/interrogation{
+	pixel_x = -32
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -48543,7 +48538,9 @@
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai_upload)
 "pIx" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /obj/structure/toilet{
 	dir = 8
 	},
@@ -59705,6 +59702,17 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
+"tnT" = (
+/obj/item/radio/intercom{
+	broadcasting = 1;
+	frequency = 1423;
+	listening = 0;
+	name = "Interrogation Intercom";
+	pixel_x = -27;
+	pixel_y = -3
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/brig)
 "tod" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
@@ -111124,7 +111132,7 @@ duF
 qXX
 teq
 gYc
-sKA
+tnT
 sUe
 duF
 cUd
