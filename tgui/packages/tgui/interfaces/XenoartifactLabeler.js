@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 
 export const XenoartifactLabeler = (props, context) => {
   return (
-    <Window width={500} height={500}>
+    <Window width={500} height={600}>
       <Window.Content scrollable={0}>
         <XenoartifactlabelerSticker />
         <Divider />

@@ -81,7 +81,6 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/reagent_containers/pill/floorpill = 4,
 	/obj/item/reagent_containers/spray/pestspray = 1,
 	/obj/item/reagent_containers/syringe/used = 4,
-	/obj/item/relic = 3,
 	/obj/item/screwdriver = 3,
 	/obj/item/stack/cable_coil/random = 4,
 	/obj/item/stack/cable_coil/random/five = 6,
