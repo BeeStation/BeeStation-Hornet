@@ -64772,6 +64772,12 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/button/door{
+	id = "armory";
+	name = "Armory Shutters";
+	req_access_txt = "3";
+	pixel_y = 21
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "uVR" = (
@@ -70929,12 +70935,6 @@
 "wWU" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
-	},
-/obj/machinery/button/door{
-	id = "armory";
-	name = "Armory Shutters";
-	req_access_txt = "3";
-	pixel_y = 21
 	},
 /obj/machinery/computer/security{
 	network = list("security");
