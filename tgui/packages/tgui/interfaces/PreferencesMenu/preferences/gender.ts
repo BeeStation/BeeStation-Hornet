@@ -2,7 +2,7 @@ export enum Gender {
   Male = 'male',
   Female = 'female',
   Other = 'plural',
-  FuckYouByondYouMadeNeuterTerribleToUseAndNowIGottaSufferBecauseOfItIHateItSoMuchInHere = 'neuter',
+  Other2 = 'neuter',
 }
 
 export const GENDERS = {
