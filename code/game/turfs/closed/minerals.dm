@@ -126,7 +126,13 @@
 
 /turf/closed/mineral/random/air
 	baseturfs = /turf/open/floor/plating/asteroid
-	var/static/datum/gas_mixture/immutable/planetary
+	var/static/gas_mixture/immutable/planetary/GM
+
+/turf/closed/mineral/random/air/Initialize()
+	if(!GM)
+		GM = new
+	air = GM
+	return ..()
 
 // Returns a list of the chances for minerals to spawn.
 /// Will only run once, and will then be cached.

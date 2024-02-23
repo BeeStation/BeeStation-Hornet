@@ -125,26 +125,15 @@
 	max_integrity = 80
 	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
 
-/turf/open/floor/grass/real
-	name = "lush grass"
-	desc = "Green and warm, makes you want to lay down."
-	resistance_flags = INDESTRUCTIBLE
-	var/static/datum/gas_mixture/immutable/planetary
-
-/turf/open/floor/grass/real/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	if(the_rcd.canRturf)
-		return ..()
-
-
-/turf/open/floor/grass/real/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
-	if(the_rcd.canRturf)
-		return ..()
-
 /turf/open/floor/grass/no_border
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	smoothing_flags = NONE
 	transform = null
+
+/turf/open/floor/grass/Initialize(mapload)
+	. = ..()
+	update_icon()
 
 /turf/open/floor/grass/attackby(obj/item/C, mob/user, params)
 	if((C.tool_behaviour == TOOL_SHOVEL) && params)

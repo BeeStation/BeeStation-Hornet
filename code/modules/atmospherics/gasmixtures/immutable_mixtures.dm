@@ -30,3 +30,6 @@
 //breathable planet surface
 /datum/gas_mixture/immutable/planetary
 	initial_temperature = OPENTURF_DEFAULT_ATMOS
+
+/datum/gas_mixture/immutable/planetary/populate()
+	set_moles(OPENTURF_DEFAULT_ATMOS)
