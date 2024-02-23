@@ -145,13 +145,13 @@
 /datum/xenoartifact_trait/major/projectile
 	material_desc = "barreled"
 	label_name = "Barreled"
-	label_desc = "Barreled: The artifact seems to contain projectile components. Triggering these components will produce a projectile."
-	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
+	label_desc = "Barreled: The artifact seems to contain projectile components. Triggering these components will produce a 'safe' projectile."
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT
+	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	extra_target_range = 2
 	weight = 21
 	///List of projectiles we *could* shoot
-	var/list/possible_projectiles = list(/obj/projectile/beam/disabler, /obj/projectile/beam/laser, /obj/projectile/seedling, /obj/projectile/beam/xray, /obj/projectile/bullet)
+	var/list/possible_projectiles = list(/obj/projectile/beam/disabler, /obj/projectile/tentacle, /obj/projectile/beam/lasertag, /obj/projectile/energy/electrode)
 	///The projectile type we *will* shoot
 	var/obj/projectile/choosen_projectile
 
@@ -176,7 +176,20 @@
 
 /datum/xenoartifact_trait/major/projectile/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_RANDOMISED)
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("produce a 'safe' projectile"))
+
+//Unsafe variant
+/datum/xenoartifact_trait/major/projectile/unsafe
+	material_desc = "barreled"
+	label_name = "Barreled Δ"
+	label_desc = "Barreled Δ: The artifact seems to contain projectile components. Triggering these components will produce an unsafe projectile."
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	cooldown = XENOA_TRAIT_COOLDOWN_GAMER
+	possible_projectiles = list(/obj/projectile/beam/laser, /obj/projectile/bullet, /obj/projectile/energy/tesla)
+
+/datum/xenoartifact_trait/major/projectile/unsafe/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("produce an unsafe projectile"))
 
 /*
 	Bestialized
@@ -653,7 +666,7 @@
 	register_targets = FALSE
 	weight = 6
 	///The maximum size of our smoke stack in turfs, I think
-	var/max_size = 6
+	var/max_size = 3
 
 /datum/xenoartifact_trait/major/smoke/get_dictionary_hint()
 	. = ..()
@@ -670,6 +683,22 @@
 	E.set_up(max_size*(parent.trait_strength/100), get_turf(parent.parent))
 	E.start()
 
+//Foam variant
+/datum/xenoartifact_trait/major/smoke/foam
+	label_name = "Dissipating Σ"
+	label_desc = "Dissipating: The artifact seems to contain dissipating components. Triggering these components will cause the artifact to create a body of foam."
+	max_size = 5
+
+/datum/xenoartifact_trait/major/smoke/foam/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("produce a harmless body of foam"))
+
+/datum/xenoartifact_trait/major/smoke/foam/make_smoke()
+	var/datum/effect_system/foam_spread/E = new()
+	E.set_up(max_size*(parent.trait_strength/100), get_turf(parent.parent))
+	E.start()
+
+//Chem smoke variant
 /datum/xenoartifact_trait/major/smoke/chem
 	label_name = "Dissipating Δ"
 	label_desc = "Dissipating Δ: The artifact seems to contain dissipating components. Triggering these components will cause the artifact to create a cloud of smoke containing a random chemical."
@@ -696,6 +725,24 @@
 /datum/xenoartifact_trait/major/smoke/chem/get_dictionary_hint()
 	. = ..()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("create a cloud of smoke containing a random chemical"), XENOA_TRAIT_HINT_RANDOMISED)
+
+
+//Chem foam variant
+/datum/xenoartifact_trait/major/smoke/chem/foam
+	label_name = "Dissipating Ω"
+	label_desc = "Dissipating Ω: The artifact seems to contain dissipating components. Triggering these components will cause the artifact to create a body of foam containing a random chemical."
+	max_size = 5
+
+/datum/xenoartifact_trait/major/smoke/chem/foam/make_smoke()
+	var/datum/effect_system/foam_spread/E = new()
+	var/datum/reagents/R = new(formula_amount)
+	R.add_reagent(formula, formula_amount)
+	E.set_up(max_size*(parent.trait_strength/100), get_turf(parent.parent), R)
+	E.start()
+
+/datum/xenoartifact_trait/major/smoke/chem/foam/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("create a body of foam containing a random chemical"), XENOA_TRAIT_HINT_RANDOMISED)
 
 /*
 	Marking
@@ -917,6 +964,7 @@
 	. = ..()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("make plants age up"))
 
+//Makes plants younger
 /datum/xenoartifact_trait/major/growing/youth
 	label_name = "Flourishing Δ"
 	label_desc = "Flourishing Δ: The artifact seems to contain flourishing components. Triggering these components will age down plant targets."
