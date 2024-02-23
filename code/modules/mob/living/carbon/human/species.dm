@@ -720,6 +720,26 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				eye_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
 			standing += eye_overlay
 
+		// blush
+		if (HAS_TRAIT(H, TRAIT_BLUSHING)) // Caused by either the *blush emote or the "drunk" mood event
+			var/mutable_appearance/blush_overlay = mutable_appearance('icons/mob/human_face.dmi', "blush", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER)) //should appear behind the eyes
+			blush_overlay.color = COLOR_BLUSH_PINK
+
+			if(OFFSET_FACE in H.dna.species.offset_features)
+				blush_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
+				blush_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
+			standing += blush_overlay
+
+		//crying
+		if (HAS_TRAIT(H, TRAIT_CRYING)) // Caused by either using *cry or being pepper sprayed
+			var/mutable_appearance/tears_overlay = mutable_appearance('icons/mob/human_face.dmi', "tears", CALCULATE_MOB_OVERLAY_LAYER(BODY_LAYER))
+			tears_overlay.color = COLOR_DARK_CYAN
+
+			if(OFFSET_FACE in H.dna.species.offset_features)
+				tears_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
+				tears_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
+				standing += tears_overlay
+
 	//organic body markings
 	if(HAS_MARKINGS in species_traits)
 		var/obj/item/bodypart/chest/chest = H.get_bodypart(BODY_ZONE_CHEST)
@@ -2790,7 +2810,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "bolt",
 			SPECIES_PERK_NAME = "Shockingly Tasty",
-			SPECIES_PERK_DESC = "Ethereals can feed on electricity from APCs, powercells, and lights; and do not otherwise need to eat.",
+			SPECIES_PERK_DESC = "[plural_form] can feed on electricity from APCs and powercells; and do not otherwise need to eat.",
 		))
 
 	return to_add
@@ -2850,3 +2870,4 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //generic action proc for keybind stuff
 /datum/species/proc/primary_species_action()
 	return
+

@@ -150,7 +150,8 @@
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50
 #define INIT_ORDER_EXPLOSIONS		-69
-#define INIT_ORDER_ELEVATOR	  -70
+#define INIT_ORDER_ELEVATOR			-70
+#define INIT_ORDER_BAN_CACHE		-98
 #define INIT_ORDER_NATURAL_LIGHT	-120
 #define INIT_ORDER_CHAT				-150 //Should be last to ensure chat remains smooth during init.
 

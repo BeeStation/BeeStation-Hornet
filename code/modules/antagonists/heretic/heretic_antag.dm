@@ -338,6 +338,7 @@
 	var/datum/objective/heretic_research/research_objective = new()
 	research_objective.owner = owner
 	objectives += research_objective
+	log_objective(owner, research_objective.explanation_text)
 
 	var/num_heads = 0
 	for(var/mob/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
@@ -351,11 +352,13 @@
 		sac_objective.target_amount += 2
 		sac_objective.update_explanation_text()
 	objectives += sac_objective
+	log_objective(owner, sac_objective.explanation_text)
 	// Give command sacrifice objective (if there's at least 2 command staff)
 	if(num_heads >= 2)
 		var/datum/objective/major_sacrifice/other_sac_objective = new()
 		other_sac_objective.owner = owner
 		objectives += other_sac_objective
+		log_objective(owner, other_sac_objective.explanation_text)
 
 /**
  * Add [target] as a sacrifice target for the heretic.
