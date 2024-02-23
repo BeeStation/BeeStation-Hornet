@@ -69971,16 +69971,16 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "wGS" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Security E.V.A. Storage";
-	req_access_txt = null;
-	req_one_access_txt = s
-	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Security E.V.A. Storage";
+	req_access_txt = null;
+	req_one_access_txt = "1"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
