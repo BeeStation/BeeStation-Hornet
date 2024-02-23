@@ -162,7 +162,7 @@
 		var/armor = ML.run_armor_check(affecting, MELEE)
 		if(prob(75))
 			ML.apply_damage(rand(1,3), BRUTE, affecting, armor)
-			var/armour_block = H.run_armor_check(affecting, BLEED)
+			var/armour_block = ML.run_armor_check(affecting, BLEED)
 			var/hit_amount = (100 - armour_block) / 100
 			ML.add_bleeding(BLEED_SURFACE * hit_amount)
 			ML.visible_message("<span class='danger'>[name] bites [ML]!</span>", \
