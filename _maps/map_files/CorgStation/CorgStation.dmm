@@ -1196,8 +1196,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
 	name = "Security External Airlock";
 	req_access_txt = "1"
@@ -7632,7 +7632,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/security/main)
 "cir" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
@@ -29648,7 +29648,7 @@
 	name = "Security External Airlock";
 	req_access_txt = "1"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/security/main)
 "jzR" = (
 /obj/structure/disposalpipe/segment{
@@ -45939,7 +45939,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/security/main)
 "oNk" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -47211,7 +47211,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plating,
 /area/security/main)
 "pke" = (
 /obj/machinery/power/apc/auto_name/east,
