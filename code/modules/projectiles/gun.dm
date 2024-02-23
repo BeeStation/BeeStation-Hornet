@@ -119,8 +119,10 @@
 		equip_time = weapon_weight * 2 + 2
 	if (isnull(spread_unwielded))
 		spread_unwielded = weapon_weight * 10 + 10
-	if (!slowdown && has_weapon_slowdown)
-		slowdown = 0.2 + weapon_weight * 0.1
+	if (has_weapon_slowdown)
+		if (!slowdown)
+			slowdown = 0.2 + weapon_weight * 0.1
+		item_flags |= SLOWS_WHILE_IN_HAND
 	if(requires_wielding)
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
 		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(unwield))
