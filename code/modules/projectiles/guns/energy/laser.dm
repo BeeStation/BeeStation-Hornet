@@ -15,6 +15,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0
 	item_flags = NONE
+	dying_key = DYE_REGISTRY_GUN
 
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"

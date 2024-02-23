@@ -73,6 +73,7 @@
 
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox
+	duffelbag = /obj/item/storage/backpack/duffelbag/science
 
 	chameleon_extras = /obj/item/stamp/research_director
 
