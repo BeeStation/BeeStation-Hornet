@@ -2,7 +2,7 @@ export enum Gender {
   Male = 'male',
   Female = 'female',
   Other = 'plural',
-  Neutral = 'neutral',
+  FuckYouByondYouMadeNeuterTerribleToUseAndNowIGottaSufferBecauseOfItIHateItSoMuchInHere = 'neuter',
 }
 
 export const GENDERS = {
@@ -21,7 +21,7 @@ export const GENDERS = {
     text: 'They/Them',
   },
 
-  [Gender.Neutral]: {
+  [Gender.Other2]: {
     icon: 'bullseye',
     text: 'It/Its',
   },
