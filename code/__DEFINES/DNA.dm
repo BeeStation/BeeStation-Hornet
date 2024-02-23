@@ -176,7 +176,7 @@
 #define CHROMOSOME_NONE 1
 #define CHROMOSOME_USED 2
 
-#define GENDERS 4
+#define GENDER_OPTION_SIZE 4
 
 #define G_MALE 1
 #define G_FEMALE 2
