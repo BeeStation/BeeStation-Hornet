@@ -10,6 +10,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 #define MEDBOT_PANIC_AAAA	70
 #define MEDBOT_PANIC_ENDING	90
 #define MEDBOT_PANIC_END	100
+#define MEDIBOT_TREAT_INJECT "inject"
+#define MEDIBOT_TREAT_SUCK "suck"
 
 
 /mob/living/simple_animal/bot/medbot
@@ -48,7 +50,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/heal_threshold = 95 //Start healing when they have this much damage
 	var/efficiency = 1.1 //how much of the internal beaker gets used
 	var/declare_crit = 1 //If active, the bot will transmit a critical patient alert to MedHUD users.
-	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
 	//Are we tipped over? Used to stop the mode from being conflicted.
 	var/tipped = FALSE
@@ -62,7 +63,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/datum/techweb/linked_techweb
 	var/medibot_counter = 0 //we use this to stop multibotting
 	var/synth_epi = TRUE
-	COOLDOWN_DECLARE(synth_cooldown)
+	COOLDOWN_DECLARE(synth_cooldown) //prevents spam of "I need a refill!"
+	COOLDOWN_DECLARE(declare_cooldown) //Prevents spam of critical patient alerts.
 
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
@@ -123,7 +125,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	oldpatient = null
 	oldloc = null
 	last_found = world.time
-	declare_cooldown = 0
+	COOLDOWN_RESET(src, declare_cooldown)
 	update_icon()
 
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
@@ -374,7 +376,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(!..())
 		return
 
-	if(!(reagent_glass && reagent_glass.reagents.total_volume))
+	if(!reagent_glass?.reagents.total_volume)
 		mode = BOT_EMPTY
 		update_icon()
 		if(COOLDOWN_FINISHED(src, synth_cooldown) && synth_epi && reagent_glass)
@@ -490,13 +492,17 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		declare(C)
 
 	//If they're injured, we're using a beaker
-	var/S = FALSE
-	if((reagent_glass) && ((C.maxHealth - C.health >= heal_threshold)))
-		S = TRUE
-		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(C.reagents.has_reagent(R.type))
-				S = FALSE
-	return S
+	if(!reagent_glass?.reagents.total_volume) // no beaker, we can't do that
+		return FALSE
+
+	for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
+		if(C.reagents.has_reagent(R.type))
+			return FALSE
+
+	if(C.maxHealth - C.health >= heal_threshold) // a true patient
+		return TRUE
+
+	return FALSE // we shouldn't get random TRUE cases
 
 /mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_DISARM && !tipped)
@@ -558,14 +564,20 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			break
 
 
-		var/treat_behaviour = "internal_beaker"
-		if(!treat_behaviour && reagent_glass && reagent_glass.reagents.total_volume)
-			for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-				if(C.reagents.has_reagent(R.type))
-					treat_behaviour = null
+		var/treat_behaviour // what this medibot will do?
 
-		if(emagged) //Emagged! Time to drain everybody.
-			treat_behaviour = "suck"
+		if(reagent_glass?.reagents.total_volume) //have a beaker with something?
+			treat_behaviour = MEDIBOT_TREAT_INJECT
+
+			for(var/datum/reagent/each_beaker_reagent in reagent_glass.reagents.reagent_list)
+				if(!C)
+					continue
+				if(C.reagents.has_reagent(each_beaker_reagent.type)) // they have the chems inside them already
+					treat_behaviour = null
+					break
+
+		if(emagged)
+			treat_behaviour = MEDIBOT_TREAT_SUCK // Emagged! Time to drain everybody.
 
 		if(!treat_behaviour) //If they don't need any of that they're probably cured!
 			if(C.maxHealth - C.health < heal_threshold)
@@ -577,50 +589,40 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			bot_reset()
 			return
 
-		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", "<span class='userdanger'>[src] is trying to inject you!</span>")
-		var/failed = FALSE
-		if(do_after(src, 1 SECONDS, patient))
-			if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
-				if(treat_behaviour == "internal_beaker")
-					if(reagent_glass && reagent_glass.reagents.total_volume)
-						var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
-						var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
-						log_combat(src, patient, "injected", "beaker source", "[reagentlist]:[injection_amount]")
-						reagent_glass.reagents.reaction(patient, INJECT, fraction)
-						reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker instead.
-						if(!reagent_glass.reagents.total_volume && !synth_epi)
-							var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')
-							var/message = pick(messagevoice)
-							speak(message,radio_channel)
-							playsound(src, messagevoice[message], 50)
-							declare_cooldown = world.time + 100
-				else if (treat_behaviour == "suck")
-					if(patient.transfer_blood_to(reagent_glass, injection_amount))
-						patient.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
-							"<span class='userdanger'>[src] is trying to inject you!</span>")
-						log_combat(src, patient, "drained of blood")
-					else
-						to_chat(src, "<span class='warning'>You are unable to draw any blood from [patient]!</span>")
-				C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
-					"<span class='userdanger'>[src] injects you with its syringe!</span>")
-			else
-				failed = TRUE
-		else
-			failed = TRUE
-		if(failed)
-			visible_message("[src] retracts its syringe.")
-		update_icon()
-		soft_reset()
-		return
 
-/mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,datum/reagent/reagent_id,injection_amount)
-	var/R = reagent_id.overdose_threshold
-	if(!R) //Some chems do not have an OD threshold
-		return FALSE
-	var/current_volume = patient.reagents.get_reagent_amount(reagent_id)
-	if(current_volume + injection_amount > R)
-		return TRUE
-	return FALSE
+		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", "<span class='userdanger'>[src] is trying to inject you!</span>")
+		if( get_dist(src, patient) > 1 || \
+				!do_after(src, 2 SECONDS, patient) ||\
+				!assess_patient(patient) || \
+				!on)
+			visible_message("[src] retracts its syringe.")
+			update_icon()
+			soft_reset()
+			return
+
+		switch(treat_behaviour)
+			if(MEDIBOT_TREAT_INJECT)
+				if(reagent_glass?.reagents.total_volume)
+					var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
+					var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
+					log_combat(src, patient, "injected", "beaker source", "[reagentlist]:[injection_amount]")
+					reagent_glass.reagents.reaction(patient, INJECT, fraction)
+					reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker instead.
+					if(!reagent_glass.reagents.total_volume && !synth_epi)
+						var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')
+						var/message = pick(messagevoice)
+						speak(message,radio_channel)
+						playsound(src, messagevoice[message], 50)
+						COOLDOWN_START(src, declare_cooldown, 10 SECONDS)
+			if(MEDIBOT_TREAT_SUCK)
+				if(patient.transfer_blood_to(reagent_glass, injection_amount))
+					patient.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
+						"<span class='userdanger'>[src] is trying to inject you!</span>")
+					log_combat(src, patient, "drained of blood")
+				else
+					to_chat(src, "<span class='warning'>You are unable to draw any blood from [patient]!</span>")
+		C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
+			"<span class='userdanger'>[src] injects you with its syringe!</span>")
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
@@ -651,11 +653,11 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		ADD_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)
-	if(declare_cooldown > world.time)
+	if(!COOLDOWN_FINISHED(src, declare_cooldown))
 		return
 	var/area/location = get_area(src)
 	speak("Medical emergency! [crit_patient || "A patient"] is in critical condition at [location]!",radio_channel)
-	declare_cooldown = world.time + 200
+	COOLDOWN_START(src, declare_cooldown, 20 SECONDS)
 
 /obj/machinery/bot_core/medbot
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
