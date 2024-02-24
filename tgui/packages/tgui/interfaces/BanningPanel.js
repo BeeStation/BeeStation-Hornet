@@ -221,7 +221,10 @@ const Roles = ({ roles, selected_roles, selected_groups, act }) => {
         checked={selected_groups.includes('other')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['other']} act={act} />
       </CheckboxCollapsible>
-      <CheckboxCollapsible title="Abstract" checked={selected_groups.includes('abstract')}>
+      <CheckboxCollapsible
+        title="Abstract"
+        onClick={() => act('toggle_group', { group: 'abstract' })}
+        checked={selected_groups.includes('abstract')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['abstract']} act={act} />
       </CheckboxCollapsible>
     </Stack>
