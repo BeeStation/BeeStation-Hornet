@@ -366,9 +366,9 @@
 		log_admin_private("SUPPRESS: [key_name(usr)] ATTEMPTED TO ISSUE A SUPPRESSED BAN WITHOUT THE REQUISITE RIGHT!")
 	if(key_check && !player_key)
 		error_state += "Key was ticked but none was provided."
-	if(ip_check && !player_ip)
+	if(ip_check && !player_ip && !use_last_connection)
 		error_state += "IP was ticked but none was provided."
-	if(cid_check && !player_cid)
+	if(cid_check && !player_cid && !use_last_connection)
 		error_state += "CID was ticked but none was provided."
 	if(use_last_connection && !ip_check && !cid_check)
 		error_state += "Use last connection was ticked, but neither IP nor CID was."
