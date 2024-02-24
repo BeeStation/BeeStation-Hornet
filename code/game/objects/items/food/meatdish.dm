@@ -184,7 +184,7 @@
 	tastes = list("meat" = 1)
 	foodtypes = MEAT | BREAKFAST
 	food_flags = FOOD_FINGER_FOOD
-	eatverbs = list("bite", "chew", "nibble", "deep throat", "gobble", "chomp")
+	eatverbs = list("bite", "chew", "nibble", "gobble", "chomp")
 	w_class = WEIGHT_CLASS_SMALL
 	var/roasted = FALSE
 
