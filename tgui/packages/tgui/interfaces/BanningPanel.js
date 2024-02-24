@@ -57,6 +57,9 @@ export const BanningPanel = (props, context) => {
                 style={cid_enabled ? { display: 'inline-block' } : { display: 'none' }}
               />
             </Stack.Item>
+            <Stack.Item>
+              <Button.Checkbox content="Force Cryo After" checked={force_cryo_after} onClick={() => act('toggle_cryo')} />
+            </Stack.Item>
             <Stack.Item style={can_supress ? { display: 'flex' } : { display: 'none' }}>
               <Button.Checkbox
                 content="Enable supression"

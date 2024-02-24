@@ -292,6 +292,8 @@
 			ip_enabled = !ip_enabled
 		if ("toggle_cid")
 			cid_enabled = !cid_enabled
+		if ("toggle_cryo")
+			force_cryo_after = !force_cryo_after
 		if ("toggle_suppressed")
 			suppressed = !suppressed
 		if ("toggle_use_last_connection")
