@@ -1,0 +1,4 @@
+author: ToasterBan
+delete-after: true
+changes:
+  - bugfix: fixed missing texture files on russian hunter shuttle
