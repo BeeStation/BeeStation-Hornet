@@ -59,7 +59,7 @@
 		target.forceMove(src)
 		occupant = target
 		if(target != user)
-			log_combat(user, occupant, "stuffed ", null, "into [src]")
+			log_combat(user, occupant, "stuffed ", null, "into [src]", important = FALSE)
 		string.Grant(occupant)
 		to_chat(occupant, "<span class='notice'>You are now inside the cake! When you're ready to emerge from the cake in a blaze of confetti and party horns, \
 		pull on the string(<b>It will have to be wound back up with a screwdriver if you want to do it again</b>). If you wish to leave without setting off the confetti, just attempt to move out of the cake!</span>")

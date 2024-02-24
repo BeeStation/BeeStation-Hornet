@@ -386,7 +386,7 @@
 		uses = 0
 		qdel(src)
 		return
-	log_combat(user, M, "used a cult spell on", source.name, "")
+	log_combat(user, M, "used a cult spell on", src, "")
 	M.lastattacker = user.real_name
 	M.lastattackerckey = user.ckey
 
@@ -526,7 +526,7 @@
 				C.update_handcuffed()
 				C.silent += 5
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
-				log_combat(user, C, "shackled")
+				log_combat(user, C, "shackled", src)
 				uses--
 			else
 				to_chat(user, "<span class='warning'>[C] is already bound.</span>")
