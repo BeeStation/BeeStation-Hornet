@@ -84,7 +84,7 @@
 	affected_mob.ghostize(TRUE,SENTIENCE_FORCE)
 	to_chat(affected_mob, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
 
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [affected_mob.name]?", bantype, null, 7.5 SECONDS, affected_mob, ignore_category = FALSE)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as [affected_mob.name]?", bantype, null, 7.5 SECONDS, affected_mob, ignore_category = FALSE)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")
@@ -386,3 +386,24 @@
 	stage5	= list("<span class='userdanger'>You have become one of Legion. You are one with the Necropolis now, and have no other loyalties. Serve well.</span>")
 	new_form = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
 	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD)
+
+/datum/disease/transformation/psyphoza
+	name = "Acute Fungal Infection"
+	cure_text = "Something that would kill off mold."
+	spread_text = "Acute"
+	disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
+	cures = list(/datum/reagent/space_cleaner, /datum/reagent/consumable/milk, /datum/reagent/toxin/plantbgone/weedkiller)
+	cure_chance = 25
+	stage_prob = 3
+	agent = "Acute Fungal Infection"
+	desc = "A system of fungus, taking over the host body."
+	is_mutagenic = TRUE
+	danger = DISEASE_BIOHAZARD
+	visibility_flags = 0
+	stage1	= list("You feel oddly fungal.")
+	stage2	= list("<span class='danger'>You head throbs.</span>")
+	stage3	= list("<span class='danger'>Your vision dims briefly.</span>")
+	stage4	= list("<span class='danger'>You sense something you can't see.</span>")
+	stage5	= list("<span class='danger'>Your head sprouts a cap, and your eyes rupture.</span>")
+	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD)
+	new_form = /mob/living/carbon/human/species/psyphoza

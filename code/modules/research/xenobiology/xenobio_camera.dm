@@ -150,7 +150,7 @@
 		stored_slimes -= deleted
 
 /obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
+	if(istype(O, /obj/item/food/monkeycube))
 		monkeys++
 		to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
 		qdel(O)
@@ -159,7 +159,7 @@
 		var/obj/item/storage/P = O
 		var/loaded = FALSE
 		for(var/obj/G in P.contents)
-			if(istype(G, /obj/item/reagent_containers/food/snacks/monkeycube))
+			if(istype(G, /obj/item/food/monkeycube))
 				loaded = TRUE
 				monkeys++
 				qdel(G)

@@ -200,20 +200,12 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 
 /obj/machinery/deepfryer/proc/start_fry(obj/item/frying_item, mob/user)
 	to_chat(user, "<span class='notice'>You put [frying_item] into [src].</span>")
-	/* making a fryer react to cold stuff(putting a shitton of ice into a fryer for example). We dont have this, but if we ever do want it, here it is. https://github.com/tgstation/tgstation/pull/63073
-	if(istype(frying_item, /obj/item/freeze_cube))
-		log_bomber(user, "put a freeze cube in a", src)
-		visible_message("<span class='userdanger'>[src] starts glowing... Oh no...</span>")
-		playsound(src, 'sound/effects/pray_chaplain.ogg', 100)
-		add_filter("entropic_ray", 10, list("type" = "rays", "size" = 35, "color" = COLOR_VIVID_YELLOW))
-		addtimer(CALLBACK(src, PROC_REF(blow_up)), 5 SECONDS)
-	*/
 
 	frying = frying_item
 	// Give them reagents to put frying oil in
 	if(isnull(frying.reagents))
 		frying.create_reagents(50, INJECTABLE)
-	//ADD_TRAIT(frying, TRAIT_FOOD_CHEF_MADE, REF(user)) //skillchip-related
+	//ADD_TRAIT(frying, TRAIT_FOOD_CHEF_MADE, REF(user)) //Attaching behavior to if the food is made by a chef, later newfood
 	SEND_SIGNAL(frying, COMSIG_ITEM_ENTERED_FRYER)
 
 	icon_state = "fryer_on"

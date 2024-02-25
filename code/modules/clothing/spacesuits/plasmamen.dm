@@ -159,19 +159,19 @@
 		var/datum/action/A=X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands)
+/obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
 	if(!isinhands)
 		if(smile)
-			var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head.dmi', smile_state)
+			var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head.dmi', smile_state, item_layer)
 			M.color = smile_color
 			. += M
 		if(helmet_on)
-			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_state + "_light")
+			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_state + "_light", item_layer)
 		if(!up)
-			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_state + "_weld")
+			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_state + "_weld", item_layer)
 		if(attached_hat)
-			. += attached_hat.build_worn_icon(attached_hat.icon_state, default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head.dmi')
+			. += attached_hat.build_worn_icon(origin, attached_hat.icon_state, default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head.dmi')
 
 /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat()
 	set name = "Remove Hat"
@@ -185,18 +185,12 @@
 	update_icon()
 	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
-/obj/item/clothing/head/helmet/space/plasmaman/ComponentInitialize()
+/obj/item/clothing/head/helmet/space/plasmaman/wash(clean_types)
 	. = ..()
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(wipe_that_smile_off_your_face))
-
-///gets called when receiving the CLEAN_ACT signal from something, i.e soap or a shower. exists to remove any smiley faces drawn on the helmet.
-/obj/item/clothing/head/helmet/space/plasmaman/proc/wipe_that_smile_off_your_face()
-	SIGNAL_HANDLER
-
-	if(smile)
+	if(smile && (clean_types & CLEAN_TYPE_PAINT))
 		smile = FALSE
-		cut_overlays()
 		update_icon()
+		return TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on

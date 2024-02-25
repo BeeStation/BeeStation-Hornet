@@ -45,7 +45,11 @@
 		element["favorite"] = favorites.Find(element["id"])
 		element["digestable"] = TRUE
 		var/base64 = null
-		var/icon_state_temp = consumed.icon_state_preview || consumed.icon_state
+		var/icon_state_temp = consumed.icon_state
+		if(isitem(consumed))
+			var/obj/item/C = consumed
+			if(!isnull(C.icon_state_preview))
+				icon_state_temp = C.icon_state_preview
 		if(icon_state_temp == "" || icon_state_temp == null)
 			if("[consumed.icon]" == "icons/mob/human.dmi")
 				icon_state_temp = "ghost"
@@ -71,6 +75,9 @@
 
 /datum/morph_stomach/ui_act(action, params)
 	if(..())
+		return
+	if(morph.movement_type & VENTCRAWLING)
+		to_chat(morph, "<span class='danger'>It's too cramped, you can't do that here!.</span></span>")
 		return
 	var/ref = params["id"]
 	var/atom/movable/target = locate(ref) in morph.contents

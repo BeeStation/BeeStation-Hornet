@@ -173,7 +173,7 @@
 /area/shuttle/escape)
 "aM" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/food/chocolatebar,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "aN" = (

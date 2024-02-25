@@ -23,7 +23,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/chainhit.ogg'
-	materials = list(/datum/material/iron = 1000)
+	custom_materials = list(/datum/material/iron = 1000)
 
 /obj/item/melee/chainofcommand/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -69,7 +69,7 @@
 	sharpness = IS_SHARP
 	attack_verb = list("slashed", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
-	materials = list(/datum/material/iron = 1000)
+	custom_materials = list(/datum/material/iron = 1000)
 
 
 /obj/item/melee/sabre/Initialize(mapload)
@@ -231,6 +231,7 @@
 //Police Baton
 /obj/item/melee/classic_baton/police
 	name = "police baton"
+	stun_animation = TRUE
 
 /obj/item/melee/classic_baton/police/attack(mob/living/target, mob/living/user)
 	if(!on)
@@ -291,19 +292,20 @@
 				user.do_attack_animation(target)
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
 			additional_effects_carbon(target, user)
-			if((user.zone_selected == BODY_ZONE_HEAD) || (user.zone_selected == BODY_ZONE_CHEST))
+			if((user.is_zone_selected(BODY_ZONE_HEAD)) || (user.is_zone_selected(BODY_ZONE_CHEST)))
 				target.apply_damage(stamina_damage, STAMINA, BODY_ZONE_CHEST, def_check)
 				log_combat(user, target, "stunned", src)
 				target.visible_message(desc["visiblestun"], desc["localstun"])
-			if((user.zone_selected == BODY_ZONE_R_LEG) || (user.zone_selected == BODY_ZONE_L_LEG))
+			if((user.is_zone_selected(BODY_ZONE_R_LEG)) || (user.is_zone_selected(BODY_ZONE_L_LEG)))
 				target.Knockdown(30)
 				log_combat(user, target, "tripped", src)
 				target.visible_message(desc["visibletrip"], desc["localtrip"])
-			if(user.zone_selected == BODY_ZONE_L_ARM)
+			var/combat_zone = user.get_combat_bodyzone(target)
+			if(combat_zone == BODY_ZONE_L_ARM)
 				target.apply_damage(50, STAMINA, BODY_ZONE_L_ARM, def_check)
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
-			if(user.zone_selected == BODY_ZONE_R_ARM)
+			if(combat_zone == BODY_ZONE_R_ARM)
 				target.apply_damage(50, STAMINA, BODY_ZONE_R_ARM, def_check)
 				log_combat(user, target, "disarmed", src)
 				target.visible_message(desc["visibledisarm"], desc["localdisarm"])
@@ -325,6 +327,7 @@
 	force = 12
 	cooldown = 10
 	stamina_damage = 20
+	stun_animation = TRUE
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
@@ -335,6 +338,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	stamina_damage = 0
+	stun_animation = FALSE
 	item_state = null
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -708,7 +712,7 @@
 	if(!ishuman(target))
 		return
 
-	switch(user.zone_selected)
+	switch(user.get_combat_bodyzone(target))
 		if(BODY_ZONE_L_ARM)
 			whip_disarm(user, target, "left")
 		if(BODY_ZONE_R_ARM)
@@ -753,7 +757,7 @@
 	item_flags = ISWEAPON
 	force = 0
 	attack_verb = list("hit", "poked")
-	var/obj/item/reagent_containers/food/snacks/sausage/held_sausage
+	var/obj/item/food/sausage/held_sausage
 	var/static/list/ovens
 	var/on = FALSE
 	var/datum/beam/beam
@@ -778,7 +782,7 @@
 
 /obj/item/melee/roastingstick/attackby(atom/target, mob/user)
 	..()
-	if (istype(target, /obj/item/reagent_containers/food/snacks/sausage))
+	if (istype(target, /obj/item/food/sausage))
 		if (!on)
 			to_chat(user, "<span class='warning'>You must extend [src] to attach anything to it!</span>")
 			return

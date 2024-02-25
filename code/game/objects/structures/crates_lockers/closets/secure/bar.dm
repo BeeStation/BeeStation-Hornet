@@ -9,6 +9,7 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	close_sound_volume = 50
+	can_weld_shut = FALSE
 
 /obj/structure/closet/secure_closet/bar/PopulateContents()
 	..()

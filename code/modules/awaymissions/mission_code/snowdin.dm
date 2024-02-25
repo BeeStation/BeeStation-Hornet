@@ -150,6 +150,8 @@
 	baseturfs = /turf/open/lava/plasma
 	slowdown = 2
 
+	resistance_flags = INDESTRUCTIBLE
+
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PURPLE

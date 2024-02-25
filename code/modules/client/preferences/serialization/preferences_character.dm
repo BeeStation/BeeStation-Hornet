@@ -70,6 +70,8 @@
 		if(!istype(preference))
 			log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences write found invalid db_key [db_key] in dirty preferences list (2).")
 			CRASH("Could not find preference with db_key [db_key] when writing to database.")
+		if(preference.disable_serialization)
+			continue
 		if(preference.preference_type != pref_type)
 			log_preferences("[prefs.parent.ckey]: ERROR - Datumized character preferences write found invalid preference type [preference.preference_type] for [db_key] (want [pref_type]).")
 			CRASH("Invalid preference located from db_key [db_key] for the preference type [pref_type] (had [preference.preference_type])")
@@ -96,6 +98,8 @@
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
 		if (preference.preference_type != PREFERENCE_CHARACTER)
+			continue
+		if(preference.disable_serialization)
 			continue
 		// IMPORTANT: use of initial evades varedits. Filter to only alphanumeric and underscores
 		var/column_name = clean_column_name(preference)

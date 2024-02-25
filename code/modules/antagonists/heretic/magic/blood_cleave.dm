@@ -12,10 +12,12 @@
 	range = 9
 
 /obj/effect/proc_holder/spell/pointed/cleave/cast(list/targets, mob/user)
-	if(!targets.len)
+	if(!length(targets))
+		revert_cast()
 		user.balloon_alert(user, "No targets")
 		return FALSE
 	if(!can_target(targets[1], user))
+		revert_cast()
 		return FALSE
 
 	for(var/mob/living/carbon/human/nearby_human in range(1, targets[1]))

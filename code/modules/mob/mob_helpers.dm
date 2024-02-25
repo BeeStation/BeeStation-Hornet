@@ -480,7 +480,7 @@
 /**
   * Offer control of the passed in mob to dead player
   *
-  * Automatic logging and uses pollCandidatesForMob, how convenient
+  * Automatic logging and uses poll_candidates_for_mob, how convenient
   */
 /proc/offer_control(mob/M)
 	to_chat(M, "Control of your mob has been offered to dead players.")
@@ -498,7 +498,7 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
 
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
@@ -608,3 +608,116 @@
 		return TRUE
 	else if(HAS_TRAIT(src, TRAIT_BARMASTER))
 		return TRUE
+
+/**
+ * Zone selection helpers.
+ *
+ * There are 2 ways to get the zone selected, a combat mode
+ * which determines the zone to target based on what target was
+ * pressed and a non-combat mode which displays a wheel of options.
+ */
+
+/mob/proc/select_bodyzone(atom/target, precise = FALSE, style = BODYZONE_STYLE_DEFAULT, override_zones = null)
+	DECLARE_ASYNC
+	// Get the selected bodyzone
+	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) == PREFERENCE_BODYZONE_SIMPLIFIED)
+		switch (style)
+			if (BODYZONE_STYLE_DEFAULT)
+				ASYNC_RETURN_TASK(select_bodyzone_from_wheel(target, precise, override_zones = override_zones))
+			if (BODYZONE_STYLE_MEDICAL)
+				var/accurate_health = HAS_TRAIT(src, TRAIT_MEDICAL_HUD) || istype(get_inactive_held_item(), /obj/item/healthanalyzer)
+				if (!accurate_health && isliving(target))
+					to_chat(src, "<span class='warning'>You could more easilly determine how injured [target] was if you had a medical hud or a health analyser!</span>")
+				ASYNC_RETURN_TASK(select_bodyzone_from_wheel(target, precise, CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(select_bodyzone_limb_health), accurate_health), override_zones))
+	// Return the value instantly
+	if (precise)
+		ASYNC_RETURN(zone_selected)
+	ASYNC_RETURN(check_zone(zone_selected))
+
+/**
+ * Get the zone that we probably wanted to target. This depends on the context.
+ * If we are in an injection context (quick injects like the hyposray) then we will
+ * target the first part in the group that isn't protected from injections.
+ * If we are in a combat context, then we will randomly pick legs, head and chest and
+ * will pick the arm that the target currently has selected.
+ * Arm target: Disarm target
+ * Leg target: Reduce mobility of target
+ * Head/Chest target: Damage/kill target
+ */
+/mob/proc/get_combat_bodyzone(atom/target = null, precise = FALSE, zone_context = BODYZONE_CONTEXT_COMBAT)
+	// Just grab whatever bodyzone they were targetting
+	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) != PREFERENCE_BODYZONE_SIMPLIFIED)
+		if (!precise)
+			return check_zone(zone_selected)
+		return zone_selected || BODY_ZONE_CHEST
+	// Implicitly determine the bodypart we were trying to target
+	switch (zone_selected)
+		if (BODY_GROUP_CHEST_HEAD)
+			var/head_priority = is_priority_zone(target, BODY_ZONE_HEAD, zone_context)
+			var/chest_priority = is_priority_zone(target, BODY_ZONE_CHEST, zone_context)
+			return head_priority == chest_priority ? (prob(70) ? BODY_ZONE_CHEST : BODY_ZONE_HEAD) : (head_priority ? BODY_ZONE_HEAD : BODY_ZONE_CHEST)
+		if (BODY_GROUP_LEGS)
+			var/left_priority = is_priority_zone(target, BODY_ZONE_L_LEG, zone_context)
+			var/right_priority = is_priority_zone(target, BODY_ZONE_R_LEG, zone_context)
+			return left_priority == right_priority ? pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG) : (left_priority ? BODY_ZONE_R_LEG : BODY_ZONE_R_LEG)
+		if (BODY_GROUP_ARMS)
+			var/left_priority = is_priority_zone(target, BODY_ZONE_L_ARM, zone_context)
+			var/right_priority = is_priority_zone(target, BODY_ZONE_R_ARM, zone_context)
+			return left_priority == right_priority ? pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM) : (left_priority ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)
+
+/mob/proc/is_priority_zone(atom/target, target_zone, context)
+	switch (context)
+		// Prioritise active hand
+		if (BODYZONE_CONTEXT_COMBAT)
+			if (isliving(target))
+				var/mob/living/living_target = target
+				if (living_target.active_hand_index == 1)
+					return target_zone == BODY_ZONE_L_ARM
+				else
+					return target_zone == BODY_ZONE_R_ARM
+			return FALSE
+		// Prioritise things that aren't injection proof
+		if (BODYZONE_CONTEXT_INJECTION)
+			if (isliving(target))
+				var/mob/living/living_target = target
+				return living_target.can_inject(target_zone = target_zone)
+			return FALSE
+		// Prioritise robotic limbs
+		if (BODYZONE_CONTEXT_ROBOTIC_LIMB_HEALING)
+			if (isliving(target))
+				var/mob/living/living_target = target
+				var/obj/item/bodypart/limb = living_target.get_bodypart(target_zone)
+				if (!limb)
+					return FALSE
+				return !IS_ORGANIC_LIMB(limb) && (limb.get_damage() > 0)
+			return FALSE
+
+/// Does the mob have a specific bodyzone group selected?
+/// This will only work if you are using the simplified system (I mean it will work
+/// if the mob isn't, but this proc shouldn't be used for that)
+/mob/proc/is_group_selected(requested_group)
+	return zone_selected == requested_group
+
+/mob/proc/is_zone_selected(requested_zone = BODY_ZONE_CHEST, simplified_probability = 100, precise_only = FALSE, precise = TRUE)
+	if (client?.prefs.read_player_preference(/datum/preference/choiced/zone_select) != PREFERENCE_BODYZONE_SIMPLIFIED)
+		return zone_selected == requested_zone || (!precise && check_zone(zone_selected) == requested_zone)
+	if (precise_only)
+		return FALSE
+	// Check if we randomly don't hit the selected zone
+	if (simplified_probability != 100 && !prob(simplified_probability))
+		return FALSE
+	if (requested_zone == zone_selected)
+		return TRUE
+	switch (zone_selected)
+		if (BODY_GROUP_LEGS)
+			return requested_zone == BODY_ZONE_L_LEG || requested_zone == BODY_ZONE_R_LEG || requested_zone == BODY_ZONE_PRECISE_L_FOOT || requested_zone == BODY_ZONE_PRECISE_R_FOOT || requested_zone == BODY_ZONE_PRECISE_GROIN
+		if (BODY_GROUP_ARMS)
+			return requested_zone == BODY_ZONE_L_ARM || requested_zone == BODY_ZONE_R_ARM || requested_zone == BODY_ZONE_PRECISE_L_HAND || requested_zone == BODY_ZONE_PRECISE_R_HAND
+		if (BODY_GROUP_CHEST_HEAD)
+			return requested_zone == BODY_ZONE_CHEST || requested_zone == BODY_ZONE_HEAD || requested_zone == BODY_ZONE_PRECISE_EYES || requested_zone == BODY_ZONE_PRECISE_MOUTH
+
+/**
+ * Don't use this
+ */
+/mob/proc/_set_zone_selected(zone_selected)
+	src.zone_selected = zone_selected

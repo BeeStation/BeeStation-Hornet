@@ -18,7 +18,7 @@
 	ammo_type = /obj/item/ammo_casing/c38
 	max_ammo = 6
 	multiple_sprites = 1
-	materials = list(/datum/material/iron = 20000)
+	custom_materials = list(/datum/material/iron = 20000)
 
 /obj/item/ammo_box/c38/trac
 	name = "speed loader (.38 TRAC)"
@@ -67,11 +67,29 @@
 	item_flags = DROPDEL
 	ammo_type = /obj/item/ammo_casing/caseless/mime/lethal
 
+/obj/item/ammo_box/pouch/c38
+	name = "ammo pouch (.38)"
+	ammo_type = /obj/item/ammo_casing/c38
+	max_ammo = 4
+
+/obj/item/ammo_box/pouch/c38/improv
+	name = "ammo pouch (improv .38)"
+	ammo_type = /obj/item/ammo_casing/c38/improv
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 30
+
+/obj/item/ammo_box/pouch/c9mm
+	name = "ammo pouch (9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	max_ammo = 6
+
+/obj/item/ammo_box/pouch/c9mm/improv
+	name = "ammo pouch (improv 9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm/improv
 
 /obj/item/ammo_box/c10mm
 	name = "ammo box (10mm)"
@@ -79,11 +97,31 @@
 	ammo_type = /obj/item/ammo_casing/c10mm
 	max_ammo = 20
 
+/obj/item/ammo_box/pouch/c10mm
+	name = "ammo pouch (10mm)"
+	ammo_type = /obj/item/ammo_casing/c10mm
+	max_ammo = 4
+
+/obj/item/ammo_box/pouch/c10mm/improv
+	name = "ammo pouch (improv 10mm)"
+	ammo_type = /obj/item/ammo_casing/c10mm/improv
+
 /obj/item/ammo_box/c45
 	name = "ammo box (.45)"
 	icon_state = "45box"
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20
+
+/obj/item/ammo_box/c38/box
+	name = "ammo box (.38)"
+	desc = "A small pack of .38 cartridges"
+	icon_state = "357OLD"
+	ammo_type = /obj/item/ammo_casing/c38
+	max_ammo = 7
+	multiple_sprites = 1
+	custom_materials = list(/datum/material/iron = 22000)
+	bullet_cost = list(/datum/material/iron = 21000)
+	base_cost = list(/datum/material/iron = 1000)
 
 /obj/item/ammo_box/a40mm
 	name = "ammo box (40mm grenades)"
@@ -112,9 +150,9 @@
 	icon_state = "foambox"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	max_ammo = 40
-	materials = list(/datum/material/iron = 500)
+	custom_materials = list(/datum/material/iron = 500)
 
 /obj/item/ammo_box/foambox/riot
 	icon_state = "foambox_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	materials = list(/datum/material/iron = 50000)
+	custom_materials = list(/datum/material/iron = 50000)

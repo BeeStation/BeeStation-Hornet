@@ -141,7 +141,7 @@
 	else if(owner.get_active_held_item())
 		var/drop_chance = 1
 		var/obj/item/I = owner.get_active_held_item()
-		drop_chance += I.w_class
+		drop_chance += I.w_class / 2
 		if(prob(drop_chance) && owner.dropItemToGround(I))
 			to_chat(owner, "<span class='warning'>You drop [I]!</span>")
 

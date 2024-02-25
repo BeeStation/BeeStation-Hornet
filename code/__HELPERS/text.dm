@@ -62,6 +62,17 @@
 /proc/adminscrub(t,limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
+//Modified proc from strip_html_simple, guts the inbetween of <>
+/proc/strip_html_tags(t,limit=100)
+	var/index_one = findtext_char(t, "<")
+	var/index_two
+	while(index_one)
+		index_two = findtext_char(t, ">")
+		if(index_one >= index_two)
+			break
+		t = splicetext_char(t, index_one, index_two + 1, "") // I hope this + 1 works?
+		index_one = findtext_char(t, "<")
+	return t
 
 //Returns null if there is any bad text in the string
 /proc/reject_bad_text(text, max_length = 512, ascii_only = TRUE, alphanumeric_only = FALSE, underscore_allowed = TRUE)
@@ -1038,6 +1049,8 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 			. = "small"
 		if(WEIGHT_CLASS_NORMAL)
 			. = "normal-sized"
+		if(WEIGHT_CLASS_LARGE)
+			. = "large"
 		if(WEIGHT_CLASS_BULKY)
 			. = "bulky"
 		if(WEIGHT_CLASS_HUGE)

@@ -67,6 +67,9 @@
 
 /datum/holoparasite_ability/major/healing/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/hud, list/huds_to_add)
 	SIGNAL_HANDLER
+	// too lazy to make this code better, this still works. dextrous can use more intents, so our 2-intent hud is just worse.
+	if(istype(owner.stats.weapon, /datum/holoparasite_ability/weapon/dextrous))
+		return
 	hud.action_intent = new /atom/movable/screen/act_intent/holopara_healer
 	hud.action_intent.icon = hud.ui_style
 	hud.action_intent.icon_state = owner.a_intent

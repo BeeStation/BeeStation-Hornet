@@ -39,9 +39,10 @@
 		. += "It is set to [rotation_angle] degrees, and the rotation is [can_rotate ? "unlocked" : "locked"]."
 		if(!admin)
 			if(can_rotate)
-				. += "<span class='notice'>Alt-click to adjust its direction.</span>"
+				. += "<span class='notice'>Use your <b>hand</b> to adjust its direction.</span>"
+				. += "<span class='notice'>Use a <b>screwdriver</b> to lock the rotation.</span>"
 			else
-				. += "<span class='notice'>Use screwdriver to unlock the rotation.</span>"
+				. += "<span class='notice'>Use <b>screwdriver</b> to unlock the rotation.</span>"
 
 /obj/structure/reflector/proc/setAngle(new_angle, force_rotate = FALSE)
 	if(can_rotate || force_rotate)
@@ -170,13 +171,6 @@
 		setAngle(SIMPLIFY_DEGREES(new_angle))
 	return TRUE
 
-/obj/structure/reflector/AltClick(mob/user)
-	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		return
-	else if(finished)
-		rotate(user)
-
-
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX
 
 //SINGLE
@@ -265,3 +259,55 @@
 		return
 	else
 		return ..()
+
+// tgui menu
+
+/obj/structure/reflector/ui_interact(mob/user, datum/tgui/ui)
+	if(!finished)
+		user.balloon_alert(user, "nothing to rotate!")
+		return
+	if(!can_rotate)
+		user.balloon_alert(user, "can't rotate!")
+		return
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Reflector")
+		ui.open()
+
+/obj/structure/reflector/attack_robot(mob/user)
+	ui_interact(user)
+	return
+
+/obj/structure/reflector/ui_state(mob/user)
+	return GLOB.physical_state //Prevents borgs from adjusting this at range
+
+/obj/structure/reflector/ui_data(mob/user)
+	var/list/data = list()
+	data["rotation_angle"] = rotation_angle
+	data["reflector_name"] = name
+
+	return data
+
+/obj/structure/reflector/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
+	switch(action)
+		if("rotate")
+			if (!can_rotate || admin)
+				return FALSE
+			var/new_angle = text2num(params["rotation_angle"])
+			if(isnull(new_angle))
+				log_href_exploit(usr, " inputted a string to [src] instead of a number while interacting with the rotate UI, somehow.")
+				return FALSE
+			setAngle(SIMPLIFY_DEGREES(new_angle))
+			return TRUE
+		if("calculate")
+			if (!can_rotate || admin)
+				return FALSE
+			var/new_angle = rotation_angle + text2num(params["rotation_angle"])
+			if(isnull(new_angle))
+				log_href_exploit(usr, " inputted a string to [src] instead of a number while interacting with the calculate UI, somehow.")
+				return FALSE
+			setAngle(SIMPLIFY_DEGREES(new_angle))
+			return TRUE

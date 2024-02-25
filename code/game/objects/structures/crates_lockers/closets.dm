@@ -1,17 +1,21 @@
 /obj/structure/closet
 	name = "closet"
 	desc = "It's a basic storage unit."
-	icon = 'icons/obj/closet.dmi'
+	icon = 'icons/obj/storage/closet.dmi'
 	icon_state = "generic"
 	density = TRUE
 	drag_slowdown = 1.5		// Same as a prone mob
 	max_integrity = 200
-	integrity_failure = 50
+	integrity_failure = 0.25
 	armor = list(MELEE = 20,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60, STAMINA = 0)
-	pass_flags_self = LETPASSCLICKS
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	pass_flags_self = LETPASSCLICKS | PASSSTRUCTURE
+
 	var/contents_initialised = FALSE
+	var/enable_door_overlay = TRUE
+	var/has_opened_overlay = TRUE
+	var/has_closed_overlay = TRUE
 	var/icon_door = null
-	var/icon_door_override = FALSE //override to have open overlay use icon different to its base's
 	var/secure = FALSE //secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
 	var/opened = FALSE
 	var/welded = FALSE
@@ -37,7 +41,6 @@
 	var/material_drop_amount = 2
 	var/delivery_icon = "deliverycloset" //which icon to use when packagewrapped. null to be unwrappable.
 	var/anchorable = TRUE
-	var/icon_welded = "welded"
 	var/obj/effect/overlay/closet_door/door_obj
 	var/is_animating_door = FALSE
 	var/door_anim_squish = 0.30
@@ -45,12 +48,29 @@
 	var/door_hinge = -6.5
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
 
+	var/icon_emagged = "emagged"
+	var/icon_welded = "welded"
+	var/icon_manifest = "manifest"
+	var/icon_locked = "locked"
+	var/icon_unlocked = "unlocked"
+
+	var/imacrate = FALSE
+
+	//should be just for crates, right?
+	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
+
 /obj/structure/closet/Initialize(mapload)
-	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
-		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	. = ..()
+	// if closed, any item at the crate's loc is put in the contents
+	if (mapload && !opened)
+		. = INITIALIZE_HINT_LATELOAD
 	populate_contents_immediate()
 	update_icon()
+
+/obj/structure/closet/LateInitialize()
+	. = ..()
+
+	take_contents()
 
 /// Used to immediately fill a closet on spawn.
 /// Use this if you are spawning any items which can be tracked inside the closet.
@@ -66,31 +86,49 @@
 	return ..()
 
 /obj/structure/closet/update_icon()
+	. = ..()
 	if(istype(src, /obj/structure/closet/supplypod))
-		return ..()
-	cut_overlays()
-	if(!opened)
-		layer = OBJ_LAYER
-		if(!is_animating_door)
-			if(icon_door)
-				add_overlay("[icon_door]_door")
-			else
-				add_overlay("[icon_state]_door")
-			if(welded)
-				add_overlay(icon_welded)
-			if(secure && !broken)
-				if(locked)
-					add_overlay("locked")
-				else
-					add_overlay("unlocked")
-
+		return
 	else
-		layer = BELOW_OBJ_LAYER
-		if(!is_animating_door)
-			if(icon_door_override)
-				add_overlay("[icon_door]_open")
-			else
-				add_overlay("[icon_state]_open")
+		if (!imacrate)
+			layer = opened ? BELOW_OBJ_LAYER : OBJ_LAYER
+		else
+			layer = BELOW_OBJ_LAYER
+
+	update_mob_alpha()
+/obj/structure/closet/update_overlays()
+	. = ..()
+	closet_update_overlays(.)
+
+/obj/structure/closet/proc/closet_update_overlays(list/new_overlays)
+	. = new_overlays
+	if(enable_door_overlay && !is_animating_door)
+		var/overlay_state = isnull(base_icon_state) ? initial(icon_state) : base_icon_state
+		if(opened && has_opened_overlay)
+			var/mutable_appearance/door_overlay = mutable_appearance(icon, "[overlay_state]_open", alpha = src.alpha)
+			. += door_overlay
+			door_overlay.overlays += emissive_blocker(door_overlay.icon, door_overlay.icon_state, src, alpha = door_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
+		else if(has_closed_overlay)
+			. += "[icon_door || overlay_state]_door"
+	if(welded)
+		. += icon_welded
+	if(broken)
+		. += icon_emagged
+	if(manifest)
+		. += icon_manifest
+	if(!secure || broken ||(opened && !imacrate))
+		return
+
+	//Overlay is similar enough for both that we can use the same mask for both
+	. += emissive_appearance(icon, icon_locked, src.layer)
+	. += locked ? icon_locked : icon_unlocked
+
+/obj/structure/closet/update_appearance(updates=ALL)
+	. = ..()
+	if((opened || broken || !secure) || !imacrate)
+		luminosity = 0
+		return
+	luminosity = 1
 
 /obj/structure/closet/proc/animate_door(var/closing = FALSE)
 	if(!door_anim_time)
@@ -104,7 +142,7 @@
 	for(var/I in 0 to num_steps)
 		var/angle = door_anim_angle * (closing ? 1 - (I/num_steps) : (I/num_steps))
 		var/matrix/M = get_door_transform(angle)
-		var/door_state = angle >= 90 ? "[icon_door_override ? icon_door : icon_state]_back" : "[icon_door || icon_state]_door"
+		var/door_state = angle >= 90 ? "[icon_state]_back" : "[icon_door || icon_state]_door"
 		var/door_layer = angle >= 90 ? FLOAT_LAYER : ABOVE_MOB_LAYER
 
 		if(I == 0)
@@ -201,6 +239,7 @@
 		density = FALSE
 	dump_contents()
 	animate_door(FALSE)
+	update_appearance()
 	update_icon()
 	after_open(user, force)
 	return TRUE
@@ -521,6 +560,7 @@
 	playsound(src, "sparks", 50, 1)
 	broken = TRUE
 	locked = FALSE
+	update_appearance()
 	update_icon()
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)

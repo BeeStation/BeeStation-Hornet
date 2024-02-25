@@ -10,12 +10,12 @@
 	prefixes = list("Zombie ")
 
 /datum/symptom/undead_adaptation/OnAdd(datum/disease/advance/A)
-	A.process_dead = TRUE
 	A.infectable_biotypes |= MOB_UNDEAD
+	A.spread_dead = TRUE
 
 /datum/symptom/undead_adaptation/OnRemove(datum/disease/advance/A)
-	A.process_dead = FALSE
 	A.infectable_biotypes -= MOB_UNDEAD
+	A.spread_dead = FALSE
 
 /datum/symptom/inorganic_adaptation
 	name = "Inorganic Biology"

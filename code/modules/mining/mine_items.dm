@@ -67,6 +67,7 @@
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/survivalcapsule(src)
 	new /obj/item/assault_pod/mining(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
 
 
 /**********************Shuttle Computer**************************/
@@ -102,4 +103,3 @@
 	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
 	name = "Mining car (not for rails)"
 	icon_state = "miningcar"
-	door_anim_time = 0

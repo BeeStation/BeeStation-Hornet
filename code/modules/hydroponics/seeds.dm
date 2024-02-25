@@ -162,7 +162,7 @@
 	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc //needed for TK
 	var/product_name
 	while(t_amount < getYield())
-		var/obj/item/reagent_containers/food/snacks/grown/t_prod = new product(output_loc, src)
+		var/obj/item/food/grown/t_prod = new product(output_loc, src)
 		if(parent.myseed.plantname != initial(parent.myseed.plantname))
 			t_prod.name = parent.myseed.plantname
 		if(parent.myseed.plantdesc)
@@ -181,11 +181,11 @@
 		var/investigated_plantname = get_product_true_name_for_investigate()
 		if(!investigated_plantname)
 			log_game("[key_name(user)] harvested [name]/Location: [AREACOORD(user)]")
-			investigate_log("[key_name(user)] harvested [name]/Location: [AREACOORD(user)]", INVESTIGATE_BOTANY)
+			user.investigate_log("harvested [name]/Location: [AREACOORD(user)]", INVESTIGATE_BOTANY)
 		else
 			var/investigate_data = get_gene_datas_for_investigate()
 			log_game("[key_name(user)] harvested [getYield()] of [investigated_plantname]/[investigate_data]/Location: [AREACOORD(user)]")
-			investigate_log("[key_name(user)] harvested [getYield()] of [investigated_plantname]/[investigate_data]/Location: [AREACOORD(user)]", INVESTIGATE_BOTANY)
+			user.investigate_log("harvested [getYield()] of [investigated_plantname]/[investigate_data]/Location: [AREACOORD(user)]", INVESTIGATE_BOTANY)
 	parent.update_tray(user)
 
 	return result
@@ -208,8 +208,8 @@
 			data = list("blood_type" = "O-")
 		if(rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin)
 			// apple tastes of apple.
-			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))
-				var/obj/item/reagent_containers/food/snacks/grown/grown_edible = T
+			if(istype(T, /obj/item/food/grown))
+				var/obj/item/food/grown/grown_edible = T
 				data = grown_edible.tastes
 
 		T.reagents.add_reagent(rid, amount, data)

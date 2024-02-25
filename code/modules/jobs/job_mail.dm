@@ -132,8 +132,8 @@
 //CLOWN
 /datum/job/clown
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/grown/banana = 20,
-		/obj/item/reagent_containers/food/snacks/pie/cream = 15,
+		/obj/item/food/grown/banana = 20,
+		/obj/item/food/pie/cream = 15,
 		/obj/item/clothing/shoes/clown_shoes/combat = 5,
 		// lube
 		/obj/item/reagent_containers/spray/waterflower/lube = 3,
@@ -153,7 +153,7 @@
 		/obj/item/reagent_containers/food/condiment/soymilk = 15,
 		/obj/item/reagent_containers/food/condiment/milk = 15,
 		//UR SO FAT!
-		/obj/item/reagent_containers/food/snacks/mint = 12,
+		/obj/item/food/mint = 12,
 		/obj/item/storage/box/ingredients/wildcard = 10,
 		//EEEEEEEK
 		/obj/item/storage/box/monkeycubes = 5,
@@ -232,7 +232,7 @@
 	mail_goodies = list(
 		/obj/item/reagent_containers/pill/mutadone = 15,
 		/obj/item/storage/pill_bottle/mannitol = 10,
-		/obj/item/reagent_containers/food/snacks/monkeycube = 10,
+		/obj/item/food/monkeycube = 10,
 		/obj/effect/spawner/mail/genes = 5,
 	)
 
@@ -414,7 +414,7 @@
 		/obj/item/reagent_containers/syringe/used = 15,
 		//keep your workplace clean, please.
 		/obj/item/reagent_containers/spray/cleaner = 15,
-		/obj/item/reagent_containers/food/snacks/monkeycube = 10,
+		/obj/item/food/monkeycube = 10,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 10,
 		/obj/item/reagent_containers/glass/bottle/random_virus/minor = 10,
 		/obj/item/reagent_containers/glass/bottle/random_virus = 5,

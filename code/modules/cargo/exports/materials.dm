@@ -14,10 +14,10 @@
 	if(!isitem(O))
 		return 0
 	var/obj/item/I = O
-	if(!(getmaterialref(material_id) in I.materials))
+	if(!(SSmaterials.GetMaterialRef(material_id) in I.custom_materials))
 		return 0
 
-	var/amount = I.materials[getmaterialref(material_id)]
+	var/amount = I.custom_materials[SSmaterials.GetMaterialRef(material_id)]
 
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/S = I
@@ -32,38 +32,37 @@
 /datum/export/material/bananium
 	cost = 1000
 	material_id = /datum/material/bananium
-	message = "cm<sup>3</sup> of bananium"
+	message = "cm3 of bananium"
 
 /datum/export/material/diamond
 	cost = 500
 	material_id = /datum/material/diamond
-	message = "cm<sup>3</sup> of diamonds"
+	message = "cm3 of diamonds"
 
 /datum/export/material/plasma
 	cost = 200
-	k_elasticity = 0
 	material_id = /datum/material/plasma
-	message = "cm<sup>3</sup> of plasma"
+	message = "cm3 of plasma"
 
 /datum/export/material/uranium
 	cost = 100
 	material_id = /datum/material/uranium
-	message = "cm<sup>3</sup> of uranium"
+	message = "cm3 of uranium"
 
 /datum/export/material/gold
 	cost = 125
 	material_id = /datum/material/gold
-	message = "cm<sup>3</sup> of gold"
+	message = "cm3 of gold"
 
 /datum/export/material/copper
 	cost = 15
 	material_id = /datum/material/copper
-	message = "cm<sup>3</sup> of copper"
+	message = "cm3 of copper"
 
 /datum/export/material/silver
 	cost = 50
 	material_id = /datum/material/silver
-	message = "cm<sup>3</sup> of silver"
+	message = "cm3 of silver"
 
 /datum/export/material/titanium
 	cost = 125
@@ -73,7 +72,7 @@
 /datum/export/material/adamantine
 	cost = 500
 	material_id = /datum/material/adamantine
-	message = "cm<sup>3</sup> of adamantine"
+	message = "cm3 of adamantine"
 
 /datum/export/material/bscrystal
 	cost = 300
@@ -82,12 +81,12 @@
 
 /datum/export/material/plastic
 	cost = 25
-	message = "cm<sup>3</sup> of plastic"
+	message = "cm3 of plastic"
 	material_id = /datum/material/plastic
 
 /datum/export/material/iron
 	cost = 5
-	message = "cm<sup>3</sup> of metal"
+	message = "cm3 of metal"
 	material_id = /datum/material/iron
 	export_types = list(
 		/obj/item/stack/sheet/iron, /obj/item/stack/tile/plasteel,
@@ -95,7 +94,7 @@
 
 /datum/export/material/glass
 	cost = 5
-	message = "cm<sup>3</sup> of glass"
+	message = "cm3 of glass"
 	material_id = /datum/material/glass
 	export_types = list(/obj/item/stack/sheet/glass, /obj/item/stack/ore,
 		/obj/item/shard)

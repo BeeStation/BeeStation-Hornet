@@ -1,6 +1,6 @@
 /obj/structure/scanner_gate_shell
 	name = "circuit scanner gate"
-	desc = "A gate able to perform mid-depth scans on any organisms who pass under it."
+	desc = "A gate able to perform mid-depth scans on any organisms who pass under it. Needs to be secured to work."
 	icon = 'icons/obj/machines/scangate.dmi'
 	icon_state = "scangate"
 	var/scanline_timer
@@ -27,15 +27,13 @@
 /obj/structure/scanner_gate_shell/wrench_act(mob/living/user, obj/item/tool)
 	if(locked)
 		return
-	anchored = !anchored
-	tool.play_tool_sound(src)
-	balloon_alert(user, "You [anchored?"secure":"unsecure"] [src].")
+	default_unfasten_wrench(user, tool)
 	return TRUE
 
-/obj/structure/scanner_gate_shell/proc/on_entered(atom/movable/AM)
+/obj/structure/scanner_gate_shell/proc/on_entered(atom/movable/source, atom/movable/entered)
 	SIGNAL_HANDLER
 	set_scanline("scanning", 10)
-	SEND_SIGNAL(src, COMSIG_SCANGATE_SHELL_PASS, AM)
+	SEND_SIGNAL(src, COMSIG_SCANGATE_SHELL_PASS, entered)
 
 /obj/structure/scanner_gate_shell/proc/set_scanline(type, duration)
 	cut_overlays()

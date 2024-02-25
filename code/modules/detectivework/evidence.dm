@@ -3,7 +3,7 @@
 /obj/item/evidencebag
 	name = "evidence bag"
 	desc = "An empty evidence bag."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "evidenceobj"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
@@ -81,8 +81,15 @@
 	return
 
 /obj/item/storage/box/evidence
-	name = "evidence bag box"
-	desc = "A box claiming to contain evidence bags."
+	name = "evidence box"
+	desc = "A small box specially designed for carrying evidence bags."
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/storage/box/evidence/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 6
+	STR.can_hold = typecacheof(list(/obj/item/evidencebag))
 
 /obj/item/storage/box/evidence/PopulateContents()
 	for(var/i in 1 to 6)

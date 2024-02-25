@@ -113,11 +113,12 @@
 	desc = "A thick resin surface covers the floor."
 	anchored = TRUE
 	density = FALSE
-	layer = TURF_LAYER
+	layer = ABOVE_OPEN_TURF_LAYER
 	plane = FLOOR_PLANE
-	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
-	icon_state = "weeds1-0"
-	base_icon_state = "weeds1"
+	icon = MAP_SWITCH('icons/obj/smooth_structures/alien/weeds1.dmi', 'icons/mob/alien.dmi')
+	icon_state = "weeds1"
+	base_icon_state = "weeds"
+	transform = MAP_SWITCH(TRANSLATE_MATRIX(-4, -4), matrix())
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS)
@@ -127,9 +128,23 @@
 	var/growth_cooldown_high = 200
 	var/static/list/blacklisted_turfs
 
+#ifdef UNIT_TESTS //Used to make sure all results of randomizing the icon can be tested.
+
+/obj/structure/alien/weeds/unit_test
+	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
+	base_icon_state = "weeds1"
+
+/obj/structure/alien/weeds/unit_test_two
+	icon = 'icons/obj/smooth_structures/alien/weeds2.dmi'
+	base_icon_state = "weeds2"
+
+/obj/structure/alien/weeds/unit_test_three
+	icon = 'icons/obj/smooth_structures/alien/weeds3.dmi'
+	base_icon_state = "weeds3"
+
+#endif //UNIT_TESTS
+
 /obj/structure/alien/weeds/Initialize(mapload)
-	pixel_x = -4
-	pixel_y = -4 //so the sprites line up right in the map editor
 	. = ..()
 
 	if(!blacklisted_turfs)
@@ -140,7 +155,8 @@
 
 
 	last_expand = world.time + rand(growth_cooldown_low, growth_cooldown_high)
-	if(icon == initial(icon))
+
+	if(base_icon_state == "weeds")
 		switch(rand(1,3))
 			if(1)
 				icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
@@ -176,7 +192,8 @@
 /obj/structure/alien/weeds/node
 	name = "glowing resin"
 	desc = "Blue bioluminescence shines from beneath the surface."
-	icon_state = "weednode-0"
+	icon = MAP_SWITCH('icons/obj/smooth_structures/alien/weednode.dmi', 'icons/mob/alien.dmi')
+	icon_state = "weednode"
 	base_icon_state = "weednode"
 	light_color = LIGHT_COLOR_BLUE
 	light_power = 0.5
@@ -184,7 +201,6 @@
 	var/node_range = NODERANGE
 
 /obj/structure/alien/weeds/node/Initialize(mapload)
-	icon = 'icons/obj/smooth_structures/alien/weednode.dmi'
 	. = ..()
 	set_light(lon_range)
 	var/obj/structure/alien/weeds/W = locate(/obj/structure/alien/weeds) in loc
@@ -225,7 +241,7 @@
 	density = FALSE
 	anchored = TRUE
 	max_integrity = 100
-	integrity_failure = 5
+	integrity_failure = 0.05
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
 	var/obj/item/clothing/mask/facehugger/child
@@ -239,7 +255,7 @@
 		addtimer(CALLBACK(src, PROC_REF(Grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 	proximity_monitor = new(src, status == GROWN ? 1 : 0)
 	if(status == BURST)
-		obj_integrity = integrity_failure
+		obj_integrity = integrity_failure * max_integrity
 
 /obj/structure/alien/egg/update_icon()
 	..()

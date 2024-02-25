@@ -53,6 +53,7 @@
 #define COLOR_GREEN            "#008000"
 
 #define COLOR_CYAN             "#00FFFF"
+#define COLOR_DARK_CYAN	  	   "#00A2FF"
 #define COLOR_TEAL             "#008080"
 #define COLOR_BLUE             "#0000FF"
 #define COLOR_BLUE_LIGHT       "#33CCFF"
@@ -60,6 +61,7 @@
 #define COLOR_BLUE_GRAY        "#75A2BB"
 
 #define COLOR_PINK             "#FFC0CB"
+#define COLOR_BLUSH_PINK 		"#DE5D83"
 #define COLOR_FADED_PINK 	   "#ff80d5"
 #define COLOR_MAGENTA          "#FF00FF"
 #define COLOR_PURPLE           "#800080"
@@ -118,6 +120,16 @@ GLOBAL_LIST_INIT(color_list_blood_brothers, shuffle(list(
 	"cfc_lime",\
 	"cfc_orange",\
 	"cfc_redorange")))
+
+// Do not use this as a font color. try cfc color formats.
+GLOBAL_LIST_INIT(color_list_rainbow, list(
+	"#FF5050",\
+	"#FF902A",\
+	"#D6B20C",\
+	"#88d818",\
+	"#42c9eb",\
+	"#422ED8",\
+	"#D977FD"))
 
 // Color Filters
 /// Icon filter that creates ambient occlusion

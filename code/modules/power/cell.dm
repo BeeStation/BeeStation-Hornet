@@ -14,10 +14,12 @@
 	/// note %age conveted to actual charge in New
 	var/charge = 0
 	var/maxcharge = 1000
-	materials = list(/datum/material/iron=700, /datum/material/glass=50)
+	custom_materials = list(/datum/material/iron=700, /datum/material/glass=50)
 	grind_results = list(/datum/reagent/lithium = 15, /datum/reagent/iron = 5, /datum/reagent/silicon = 5)
-	/// true if rigged to explode
+	/// If the cell has been booby-trapped by injecting it with plasma. Chance on use() to explode.
 	var/rigged = FALSE
+	/// If the power cell was damaged by an explosion, chance for it to become corrupted and function the same as rigged.
+	var/corrupted = FALSE
 	///how much power is given every tick in a recharger
 	var/chargerate = 100
 	///does it self recharge, over time, or not?
@@ -112,8 +114,8 @@
 	return FIRELOSS
 
 /obj/item/stock_parts/cell/on_reagent_change(changetype)
-	rigged = !isnull(reagents.has_reagent(/datum/reagent/toxin/plasma, 5)) //has_reagent returns the reagent datum
-	..()
+	rigged = (corrupted || reagents.has_reagent(/datum/reagent/toxin/plasma, 5)) //has_reagent returns the reagent datum
+	return ..()
 
 
 /obj/item/stock_parts/cell/proc/explode()
@@ -128,6 +130,10 @@
 		rigged = FALSE
 		corrupt()
 		return
+
+	message_admins("[ADMIN_LOOKUPFLW(usr)] has triggered a rigged/corrupted power cell explosion at [AREACOORD(T)].")
+	log_game("[key_name(usr)] has triggered a rigged/corrupted power cell explosion at [AREACOORD(T)].")
+
 	//explosion(T, 0, 1, 2, 2)
 	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range)
 	qdel(src)
@@ -137,6 +143,7 @@
 	maxcharge = max(maxcharge/2, chargerate)
 	if (prob(10))
 		rigged = TRUE //broken batterys are dangerous
+		corrupted = TRUE
 
 /obj/item/stock_parts/cell/emp_act(severity)
 	. = ..()
@@ -221,7 +228,7 @@
 	name = "\improper Nanotrasen brand rechargeable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
 	maxcharge = 500
-	materials = list(/datum/material/glass=40)
+	custom_materials = list(/datum/material/glass=40)
 
 /obj/item/stock_parts/cell/crap/empty/Initialize(mapload)
 	. = ..()
@@ -232,7 +239,7 @@
 	name = "upgraded power cell"
 	desc = "A power cell with a slightly higher capacity than normal!"
 	maxcharge = 2500
-	materials = list(/datum/material/glass=50)
+	custom_materials = list(/datum/material/glass=50)
 	chargerate = 1000
 
 /obj/item/stock_parts/cell/upgraded/plus
@@ -243,7 +250,7 @@
 /obj/item/stock_parts/cell/secborg
 	name = "security borg rechargeable D battery"
 	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
-	materials = list(/datum/material/glass=40)
+	custom_materials = list(/datum/material/glass=40)
 
 /obj/item/stock_parts/cell/secborg/empty/Initialize(mapload)
 	. = ..()
@@ -267,7 +274,7 @@
 	name = "high-capacity power cell"
 	icon_state = "hcell"
 	maxcharge = 10000
-	materials = list(/datum/material/glass=60)
+	custom_materials = list(/datum/material/glass=60)
 	chargerate = 1500
 	rating = 1
 
@@ -287,7 +294,7 @@
 	name = "super-capacity power cell"
 	icon_state = "scell"
 	maxcharge = 20000
-	materials = list(/datum/material/glass=300)
+	custom_materials = list(/datum/material/glass=300)
 	chargerate = 2000
 	rating = 2
 
@@ -300,7 +307,7 @@
 	name = "hyper-capacity power cell"
 	icon_state = "hpcell"
 	maxcharge = 30000
-	materials = list(/datum/material/glass=400)
+	custom_materials = list(/datum/material/glass=400)
 	chargerate = 3000
 	rating = 3
 
@@ -314,7 +321,7 @@
 	desc = "A rechargeable transdimensional power cell."
 	icon_state = "bscell"
 	maxcharge = 40000
-	materials = list(/datum/material/glass=600)
+	custom_materials = list(/datum/material/glass=600)
 	chargerate = 4000
 	rating = 4
 
@@ -327,7 +334,7 @@
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
 	maxcharge = 30000
-	materials = list(/datum/material/glass=1000)
+	custom_materials = list(/datum/material/glass=1000)
 	rating = 100
 	chargerate = 30000
 
@@ -353,7 +360,7 @@
 	icon_state = "potato"
 	charge = 100
 	maxcharge = 300
-	materials = list()
+	custom_materials = null
 	grown_battery = TRUE //it has the overlays for wires
 
 /obj/item/stock_parts/cell/high/slime
@@ -361,7 +368,7 @@
 	desc = "A yellow slime core infused with plasma, it crackles with power."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
-	materials = list()
+	custom_materials = null
 	rating = 5 //self-recharge makes these desirable
 	self_recharge = TRUE // Infused slime cores self-recharge, over time
 	chargerate = 100
@@ -404,7 +411,7 @@
 	name = "miniature power cell"
 	desc = "A tiny power cell with a very low power capacity. Used in light fixtures to power them in the event of an outage."
 	maxcharge = 120 //Emergency lights use 0.2 W per tick, meaning ~10 minutes of emergency power from a cell
-	materials = list(/datum/material/glass = 20)
+	custom_materials = list(/datum/material/glass = 20)
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/stock_parts/cell/emergency_light/Initialize(mapload)

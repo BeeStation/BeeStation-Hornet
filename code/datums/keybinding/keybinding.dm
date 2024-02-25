@@ -9,6 +9,10 @@
 	/// Does this keybind apply regardless of any modifier keys (SHIFT-, ALT-, CTRL-)?
 	/// Important for movement keys, which need to still activate despite other "hold to toggle" bindings on the modifier keys.
 	var/any_modifier = FALSE
+	/// The typepath of the preference that we must have set to a specific value in order to show
+	var/required_pref_type = null
+	/// The value of the preference outlined in required_pref_type that must be set in order to show this keybinding to the user.
+	var/required_pref_value = null
 
 //I don't know why this is done in New() and not down() when it says down(), but that's how it's currently on tg
 /datum/keybinding/New()
@@ -23,4 +27,6 @@
 	return FALSE
 
 /datum/keybinding/proc/can_use(client/user)
-	return TRUE
+	if (!required_pref_type)
+		return TRUE
+	return user.prefs.read_preference(required_pref_type) == required_pref_value

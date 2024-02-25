@@ -38,6 +38,8 @@
 	if(istype(brain, /obj/item/organ/brain/alien))
 		icon_state = "mmi_brain_alien"
 		braintype = "Xenoborg" //HISS....Beep.
+	if(istype(brain, /obj/item/organ/brain/positron))
+		icon_state = "mmi_brain_IPC"
 	else
 		icon_state = "mmi_brain"
 		braintype = "Cyborg"

@@ -371,6 +371,19 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
+/datum/crafting_recipe/improvisedglassslug
+	name = "Glasspack Shotgun Shell"
+	result = /obj/item/ammo_casing/shotgun/improvised/glasspack
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/glass = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/fuel = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
 /datum/crafting_recipe/laserslug
 	name = "Scatter Laser Shell"
 	result = /obj/item/ammo_casing/shotgun/laserslug
@@ -382,6 +395,99 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
+
+/datum/crafting_recipe/a762improv
+	name = "Improvised 7.62 Cartridge"
+	result = /obj/item/ammo_casing/a762/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/iron = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/fuel = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/a762hotload
+	name = "Hot-Loaded 7.62 Cartridge"
+	result = /obj/item/ammo_casing/a762/improv/hotload
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/iron = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/blackpowder = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/improv9mm_pack
+	name = "Improvised 9mm Ammo Pack"
+	result = /obj/item/ammo_box/pouch/c9mm/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 2,
+				/obj/item/stack/rods = 3,
+				/obj/item/stack/cable_coil = 3,
+				/datum/reagent/fuel = 20,
+				/obj/item/paper = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 15
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/improv10mm_pack
+	name = "Improvised 10mm Ammo Pack"
+	result = /obj/item/ammo_box/pouch/c10mm/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 2,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/stack/cable_coil = 2,
+				/datum/reagent/fuel = 20,
+				/obj/item/paper = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 15
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/improv38_pack
+	name = "Improvised .38 Ammo Pack"
+	result = /obj/item/ammo_box/pouch/c38/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 2,
+				/obj/item/stack/rods = 2,
+				/obj/item/stack/cable_coil = 2,
+				/datum/reagent/fuel = 20,
+				/obj/item/paper = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 15
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/improv357
+	name = "Improvised .357 Cartridge"
+	result = /obj/item/ammo_casing/a357/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/iron = 1,
+				/obj/item/stack/cable_coil = 2,
+				/datum/reagent/blackpowder = 10)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/pipesmg_mag
+	name = "Pipe Repeater Magazine"
+	result = /obj/item/ammo_box/magazine/pipem9mm
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stock_parts/matter_bin = 1,
+				/obj/item/stack/cable_coil = 3,
+				/obj/item/stack/package_wrap = 3)
+	tools = list(TOOL_WELDER, TOOL_WIRECUTTER)
+	time = 50
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/arrow
 	name = "Arrow"
@@ -428,8 +534,38 @@
 	reqs = list(/obj/item/weaponcrafting/receiver = 1,
 				/obj/item/pipe = 1,
 				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/assembly/igniter = 1,
 				/obj/item/stack/package_wrap = 5)
-	tools = list(TOOL_SCREWDRIVER)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	time = 100
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/piperifle
+	name = "Singleshot Pipe Rifle"
+	result = /obj/item/gun/ballistic/rifle/pipe
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/pipe = 1,
+				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/assembly/igniter = 1,
+				/obj/item/stack/package_wrap = 5)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	time = 100
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/pipesmg
+	name = "Mag-Fed Pipe Repeater"
+	result = /obj/item/gun/ballistic/automatic/pipe_smg
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/pipe = 2,
+				/obj/item/stack/rods = 2,
+				/obj/item/stack/sheet/wood = 2,
+				/obj/item/assembly/igniter = 1,
+				/obj/item/stack/package_wrap = 5)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	time = 100
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -788,6 +924,17 @@
 				/obj/item/bikehorn = 1)
 	category = CAT_MISC
 
+/datum/crafting_recipe/flash_ducky
+	name = "Toy Rubber Duck Mine"
+	result = /obj/item/deployablemine/traitor/toy
+	time = 20
+	reqs = list(/obj/item/bikehorn/rubberducky = 1,
+				/obj/item/assembly/flash/handheld = 1,
+				/obj/item/stack/cable_coil = 2,
+				/obj/item/assembly/prox_sensor)
+	blacklist = list(/obj/item/assembly/flash/handheld/strong)
+	category = CAT_MISC
+
 /datum/crafting_recipe/bonedagger
 	name = "Bone Dagger"
 	result = /obj/item/knife/combat/bone
@@ -909,7 +1056,7 @@
 	time = 30
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/aicard = 1,
-					/obj/item/reagent_containers/food/snacks/grown/potato = 1,
+					/obj/item/food/grown/potato = 1,
 					/obj/item/stack/cable_coil = 5)
 	category = CAT_MISC
 
@@ -919,7 +1066,7 @@
 	time = 30
 	tools = list(TOOL_WIRECUTTER)
 	reqs = list(/obj/item/aicard = 1,
-					/obj/item/reagent_containers/food/snacks/grown/pumpkin = 1,
+					/obj/item/food/grown/pumpkin = 1,
 					/obj/item/stack/cable_coil = 5)
 	category = CAT_MISC
 
@@ -992,12 +1139,12 @@
 	result = /obj/item/clothing/accessory/poppy_pin
 	time = 5
 	reqs = list(/obj/item/stack/rods = 1,
-				/obj/item/reagent_containers/food/snacks/grown/flower/poppy = 1)
+				/obj/item/food/grown/flower/poppy = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/poppy_pin_removal
 	name = "Poppy Pin Removal"
-	result = /obj/item/reagent_containers/food/snacks/grown/flower/poppy
+	result = /obj/item/food/grown/flower/poppy
 	time = 5
 	reqs = list(/obj/item/clothing/accessory/poppy_pin = 1)
 

@@ -210,15 +210,23 @@
 	target_types = typecacheof(target_types)
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
-	if(istype(A, /obj/effect/decal/cleanable))
+	if(ismopable(A))
 		anchored = TRUE
 		icon_state = "cleanbot-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING
-		addtimer(CALLBACK(src, PROC_REF(clean), A), 50)
+
+		var/turf/T = get_turf(A)
+		if(do_after(src, 1, target = T))
+			T.wash(CLEAN_SCRUB)
+			visible_message("<span class='notice'>[src] cleans \the [T].</span>")
+			target = null
+
+		mode = BOT_IDLE
+		icon_state = "cleanbot[on]"
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
 		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [A]!</span>")
-		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
+		playsound(src, 'sound/effects/spray2.ogg', 50, TRUE, -6)
 		A.acid_act(75, 10)
 	else if(istype(A, /mob/living/basic/cockroach) || istype(A, /mob/living/simple_animal/mouse))
 		var/mob/living/simple_animal/M = target
@@ -397,7 +405,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/larry/update_icons()
 	if(knife)
-		var/mutable_appearance/knife_overlay = knife.build_worn_icon(default_layer = 20, default_icon_file = 'icons/mob/inhands/misc/larry.dmi')
+		var/mutable_appearance/knife_overlay = knife.build_worn_icon(src, default_layer = 20, default_icon_file = 'icons/mob/inhands/misc/larry.dmi')
 		add_overlay(knife_overlay)
 
 /mob/living/simple_animal/bot/cleanbot/larry/explode()

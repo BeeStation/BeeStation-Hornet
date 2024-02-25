@@ -30,6 +30,9 @@
 	var/rigged = FALSE			// true if rigged to explode
 
 	var/obj/item/stock_parts/cell/cell
+	/// If TRUE, then cell is null, but one is pretending to exist.
+	/// This is to defer emergency cell creation unless necessary, as it is very expensive.
+	var/has_mock_cell = TRUE
 	var/start_with_cell = TRUE	// if true, this fixture generates a very weak cell at roundstart
 
 	var/nightshift_enabled = FALSE	//Currently in night shift mode?
@@ -51,6 +54,7 @@
 
 	///More stress stuff.
 	var/turning_on = FALSE
+	var/roundstart_smoothing = FALSE
 
 /obj/machinery/light/broken
 	status = LIGHT_BROKEN
@@ -121,6 +125,9 @@
 			bulb_colour = A.lighting_colour_tube
 			brightness = A.lighting_brightness_tube
 
+	if(mapload || !SSticker.HasRoundStarted())
+		roundstart_smoothing = TRUE
+
 	if(nightshift_light_color == initial(nightshift_light_color))
 		nightshift_light_color = A.lighting_colour_night
 		nightshift_brightness = A.lighting_brightness_night
@@ -128,8 +135,10 @@
 	if(!mapload) //sync up nightshift lighting for player made lights
 		var/obj/machinery/power/apc/temp_apc = A.apc
 		nightshift_enabled = temp_apc?.nightshift_lights
-	if(start_with_cell && !no_emergency)
-		store_cell(new/obj/item/stock_parts/cell/emergency_light(src))
+
+	if(!start_with_cell || no_emergency)
+		has_mock_cell = FALSE
+
 	spawn(2)
 		switch(fitting)
 			if("tube")
@@ -204,6 +213,10 @@
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
+	if(roundstart_smoothing)
+		roundstart_smoothing = FALSE
+		quiet = TRUE
+		instant = TRUE
 	emergency_mode = FALSE
 	if(on)
 		if(instant)
@@ -282,12 +295,11 @@
 		addtimer(CALLBACK(src, PROC_REF(broken_sparks)), delay, TIMER_UNIQUE | TIMER_NO_HASH_WAIT)
 
 /obj/machinery/light/process()
-	if (!cell)
-		return PROCESS_KILL
 	if(has_power())
-		if (cell.charge == cell.maxcharge)
-			return PROCESS_KILL
-		cell.charge = min(cell.maxcharge, cell.charge + LIGHT_EMERGENCY_POWER_USE) //Recharge emergency power automatically while not using it
+		if(cell)
+			if(cell.charge == cell.maxcharge)
+				return PROCESS_KILL
+			cell.charge = min(cell.maxcharge, cell.charge + LIGHT_EMERGENCY_POWER_USE) //Recharge emergency power automatically while not using it
 	if(emergency_mode && !use_emergency_power(LIGHT_EMERGENCY_POWER_USE))
 		update(FALSE) //Disables emergency mode and sets the color to normal
 
@@ -307,6 +319,10 @@
 	update(FALSE)
 
 /obj/machinery/light/get_cell()
+	if (has_mock_cell)
+		store_cell(new /obj/item/stock_parts/cell/emergency_light(src))
+		has_mock_cell = FALSE
+
 	return cell
 
 // examine verb
@@ -321,8 +337,8 @@
 			. += "The [fitting] is burnt out."
 		if(LIGHT_BROKEN)
 			. += "The [fitting] has been smashed."
-	if(cell)
-		. += "Its backup power charge meter reads [round((cell.charge / cell.maxcharge) * 100, 0.1)]%."
+	if(cell || has_mock_cell)
+		. += "Its backup power charge meter reads [has_mock_cell ? 100 : round((cell.charge / cell.maxcharge) * 100, 0.1)]%."
 
 
 
@@ -406,9 +422,10 @@
 				drop_light_tube()
 			new /obj/item/stack/cable_coil(loc, 1, "red")
 		transfer_fingerprints_to(newlight)
-		if(!QDELETED(cell))
-			newlight.store_cell(cell)
-			cell.forceMove(newlight)
+		var/obj/item/stock_parts/cell/real_cell = get_cell()
+		if(!QDELETED(real_cell))
+			newlight.store_cell(real_cell)
+			real_cell.forceMove(newlight)
 			remove_cell()
 	qdel(src)
 
@@ -456,21 +473,25 @@
 // returns whether this light has emergency power
 // can also return if it has access to a certain amount of that power
 /obj/machinery/light/proc/has_emergency_power(pwr)
-	if(no_emergency || !cell)
+	if(no_emergency || (!cell && !has_mock_cell))
 		return FALSE
+	if (has_mock_cell)
+		return status == LIGHT_OK
 	if(pwr ? cell.charge >= pwr : cell.charge)
 		return status == LIGHT_OK
+	return FALSE
 
 // attempts to use power from the installed emergency cell, returns true if it does and false if it doesn't
 /obj/machinery/light/proc/use_emergency_power(pwr = LIGHT_EMERGENCY_POWER_USE)
 	if(!has_emergency_power(pwr))
 		return FALSE
-	if(cell.charge > 300) //it's meant to handle 120 W, ya doofus
+	var/obj/item/stock_parts/cell/real_cell = get_cell()
+	if(real_cell.charge > 300) // it's meant to handle 120 W, ya doofus
 		visible_message("<span class='warning'>[src] short-circuits from too powerful of a power cell!</span>")
 		burn_out()
 		return FALSE
-	cell.use(pwr)
-	set_light(brightness * bulb_emergency_brightness_mul, max(bulb_emergency_pow_min, bulb_emergency_pow_mul * (cell.charge / cell.maxcharge)), bulb_emergency_colour)
+	real_cell.use(pwr)
+	set_light(brightness * bulb_emergency_brightness_mul, max(bulb_emergency_pow_min, bulb_emergency_pow_mul * (real_cell.charge / real_cell.maxcharge)), bulb_emergency_colour)
 	return TRUE
 
 
@@ -633,7 +654,7 @@
 		for(var/mob/living/L in range(3, src))
 			L.fire_stacks = max(L.fire_stacks, 3)
 			L.IgniteMob()
-			L.electrocute_act(0, "Tesla Light Zap", tesla_shock = TRUE, stun = TRUE)
+			L.electrocute_act(0, "Tesla Light Zap", flags = SHOCK_TESLA)
 		qdel(src)
 	else
 		return ..()

@@ -599,7 +599,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	if(A.transmission >= 4)
 		severity -= 1
-	if((A.stealth >= 2) && (A.transmission >= 6) && A.process_dead)
+	if((A.stealth >= 2) && (A.transmission >= 6) && (MOB_UNDEAD in A.infectable_biotypes))
 		severity -= 1
 		bodies = list("Vampir", "Blood")
 
@@ -613,7 +613,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		maxbloodpoints += 50
 	if(A.stage_rate >= 7)
 		power += 1
-	if((A.stealth >= 2) && (A.transmission >= 6) && A.process_dead) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
+	if((A.stealth >= 2) && (A.transmission >= 6) && (MOB_UNDEAD in A.infectable_biotypes)) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
 		vampire = TRUE
 		maxbloodpoints += 50
 		power += 1

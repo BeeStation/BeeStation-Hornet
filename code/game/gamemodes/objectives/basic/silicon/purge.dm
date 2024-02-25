@@ -1,7 +1,6 @@
 /datum/objective/purge
 	name = "no mutants on shuttle"
 	explanation_text = "Ensure no mutant humanoid species are present aboard the escape shuttle."
-	martyr_compatible = 1
 
 /datum/objective/purge/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)

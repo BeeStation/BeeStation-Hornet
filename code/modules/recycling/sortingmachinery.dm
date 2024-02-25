@@ -1,7 +1,7 @@
 /obj/structure/big_delivery
 	name = "large parcel"
 	desc = "A large delivery parcel."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "deliverycloset"
 	density = TRUE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
@@ -13,8 +13,9 @@
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
 /obj/structure/big_delivery/interact(mob/user)
-	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
-	qdel(src)
+	if(do_after(user, 3, src, progress = TRUE))
+		playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+		qdel(src)
 
 /obj/structure/big_delivery/Destroy()
 	var/turf/T = get_turf(src)
@@ -92,7 +93,7 @@
 /obj/item/small_delivery
 	name = "parcel"
 	desc = "A brown paper delivery parcel."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "deliverypackage3"
 	item_state = "deliverypackage"
 	var/giftwrapped = 0

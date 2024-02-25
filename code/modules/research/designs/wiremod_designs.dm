@@ -53,6 +53,12 @@
 		var/obj/item/circuit_component/component_path = build_path
 		desc = initial(component_path.desc)
 
+/datum/design/component/abs
+	name = "Absolute Component"
+	id = "comp_abs"
+	build_path = /obj/item/circuit_component/abs
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
 /datum/design/component/arbitrary_input_amount/arithmetic
 	name = "Arithmetic Component"
 	id = "comp_arithmetic"
@@ -274,6 +280,11 @@
 	id = "comp_health"
 	build_path = /obj/item/circuit_component/health
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_INPUT_COMPONENTS)
+
+/datum/design/component/bci/relative_coords
+	name = "Get relative coords Component"
+	id = "comp_relative_coords"
+	build_path = /obj/item/circuit_component/relative_coords
 
 /datum/design/component/split
 	name = "Split Component"

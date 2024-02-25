@@ -67,7 +67,7 @@
 /datum/outfit/medical_doctor_changeling_preview
 	name = "Medical Doctor Changeling (Preview only)"
 	uniform = /obj/item/clothing/under/rank/medical/doctor
-	suit =  /obj/item/clothing/suit/toggle/labcoat/med
+	suit =  /obj/item/clothing/suit/toggle/labcoat
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	r_hand = /obj/item/melee/arm_blade
 

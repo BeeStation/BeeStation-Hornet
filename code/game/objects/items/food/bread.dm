@@ -81,16 +81,6 @@
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_MOLD, CELL_VIRUS_TABLE_GENERIC, rand(2, 4), 25)
 */
 
-/obj/item/food/breadslice/moldy
-	name = "moldy bread slice"
-	desc = "Entire stations have been ripped apart over arguing whether this is still good to eat."
-	icon_state = "moldybreadslice"
-	food_reagents = list(
-		/datum/reagent/consumable/nutriment = 2
-	)
-	tastes = list("decaying fungus" = 1)
-	foodtypes = GROSS
-
 /obj/item/food/bread/meat
 	name = "meatbread loaf"
 	desc = "The culinary base of every self-respecting eloquen/tg/entleman."
@@ -256,11 +246,6 @@
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	foodtypes = GRAIN | FRUIT
-
-/obj/item/food/breadslice/custom
-	name = "bread slice"
-	icon_state = "tofubreadslice"
-	foodtypes = GRAIN
 
 /obj/item/food/baguette
 	name = "baguette"

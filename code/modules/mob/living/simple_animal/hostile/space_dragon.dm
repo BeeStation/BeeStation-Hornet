@@ -174,6 +174,23 @@
 	empty_contents()
 	. = ..()
 
+/mob/living/simple_animal/hostile/space_dragon/ex_act(severity, target, origin)
+	set waitfor = FALSE
+	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
+		return
+	// Deal with parent operations
+	contents_explosion(severity, target)
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
+	// Run bomb armour
+	var/bomb_armor = (100 - getarmor(null, BOMB)) / 100
+	switch (severity)
+		if (EXPLODE_DEVASTATE)
+			adjustBruteLoss(180 * bomb_armor)
+		if (EXPLODE_HEAVY)
+			adjustBruteLoss(80 * bomb_armor)
+		if(EXPLODE_LIGHT)
+			adjustBruteLoss(30 * bomb_armor)
+
 /**
   * Allows space dragon to choose its own name.
   *
@@ -419,9 +436,10 @@
 	message = treat_message_min(message)
 	log_talk(message, LOG_SAY)
 	var/message_a = say_quote(message)
-	var/rendered = "<span class='carpspeak'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
+	var/valid_span_class = "srt_radio carpspeak"
 	if(istype(src, /mob/living/simple_animal/hostile/space_dragon))
-		rendered = "<span class='big'>[rendered]</span>"
+		valid_span_class += " big"
+	var/rendered = "<span class='[valid_span_class]'>Carp Wavespeak <span class='name'>[shown_name]</span> <span class='message'>[message_a]</span></span>"
 	for(var/mob/S in GLOB.player_list)
 		if(!S.stat && ("carp" in S.faction))
 			to_chat(S, rendered)

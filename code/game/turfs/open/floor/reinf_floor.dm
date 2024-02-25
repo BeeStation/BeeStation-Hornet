@@ -15,7 +15,7 @@
 	FASTDMM_PROP(\
 		pipe_astar_cost = 15\
 	)
-
+	max_integrity = 500
 
 /turf/open/floor/engine/examine(mob/user)
 	. = ..()
@@ -56,34 +56,6 @@
 			new floor_tile(src, 1)
 		ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 	return TRUE
-
-/turf/open/floor/engine/acid_act(acidpwr, acid_volume)
-	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
-	. = ..()
-
-/turf/open/floor/engine/ex_act(severity,target)
-	var/shielded = is_shielded()
-	contents_explosion(severity, target)
-	if(severity != 1 && shielded && target != src)
-		return
-	if(target == src)
-		ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-		return
-	switch(severity)
-		if(1)
-			if(prob(80))
-				if(!length(baseturfs) || !ispath(baseturfs[baseturfs.len-1], /turf/open/floor))
-					ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-					ReplaceWithLattice()
-				else
-					ScrapeAway(2, flags = CHANGETURF_INHERIT_AIR)
-			else if(prob(50))
-				ScrapeAway(2, flags = CHANGETURF_INHERIT_AIR)
-			else
-				ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-		if(2)
-			if(prob(50))
-				ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/open/floor/engine/singularity_pull(S, current_size)
 	..()
@@ -164,7 +136,8 @@
 
 /turf/open/floor/engine/cult/Initialize(mapload)
 	. = ..()
-	new /obj/effect/temp_visual/cult/turf/floor(src)
+	if(!mapload)
+		new /obj/effect/temp_visual/cult/turf/floor(src)
 	realappearance = new /obj/effect/clockwork/overlay/floor/bloodcult(src)
 	realappearance.linked = src
 

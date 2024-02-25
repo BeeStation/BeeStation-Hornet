@@ -2,95 +2,93 @@
 	if(!istype(M))
 		return
 
-	var/mob/living/carbon/C
-	var/obj/item/bodypart/affecting
-	var/selected_zone = user.zone_selected
-
-	if(iscarbon(M))
-		C = M
-		affecting = C.get_bodypart(check_zone(selected_zone))
-
 	var/datum/surgery/current_surgery
 
 	for(var/datum/surgery/S in M.surgeries)
-		if(S.location == selected_zone)
-			current_surgery = S
+		current_surgery = S
 
 	if(!current_surgery)
-		var/list/all_surgeries = GLOB.surgeries_list.Copy()
-		var/list/available_surgeries = list()
-
-		for(var/datum/surgery/S in all_surgeries)
-			if(!S.possible_locs.Find(selected_zone))
-				continue
-			if(affecting)
-				if(!S.requires_bodypart)
-					continue
-				if(S.requires_bodypart_type && !(affecting.bodytype & S.requires_bodypart_type))
-					continue
-				if(S.requires_real_bodypart && affecting.is_pseudopart)
-					continue
-			else if(C && S.requires_bodypart) //mob with no limb in surgery zone when we need a limb
-				continue
-			if(S.lying_required && (M.mobility_flags & MOBILITY_STAND))
-				continue
-			if(!S.can_start(user, M))
-				continue
-			for(var/path in S.target_mobtypes)
-				if(istype(M, path))
-					available_surgeries[S.name] = S
-					break
-
-		if(!available_surgeries.len)
-			return
-
-		var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in sort_list(available_surgeries)
-		if(P && user && user.Adjacent(M) && (I in user))
-			var/datum/surgery/S = available_surgeries[P]
-
-			for(var/datum/surgery/other in M.surgeries)
-				if(other.location == S.location)
-					return //during the input() another surgery was started at the same location.
-
-			//we check that the surgery is still doable after the input() wait.
-			if(C)
-				affecting = C.get_bodypart(check_zone(selected_zone))
-			if(affecting)
-				if(!S.requires_bodypart)
-					return
-				if(S.requires_bodypart_type && !(affecting.bodytype & S.requires_bodypart_type))
-					return
-			else if(C && S.requires_bodypart)
-				return
-			if(S.lying_required && (M.mobility_flags & MOBILITY_STAND))
-				return
-			if(!S.can_start(user, M))
-				return
-
-			if(S.ignore_clothes || get_location_accessible(M, selected_zone))
-				var/datum/surgery/procedure = new S.type(M, selected_zone, affecting)
-				user.visible_message("[user] drapes [I] over [M]'s [parse_zone(selected_zone)] to prepare for surgery.",
-				"<span class='notice'>You drape [I] over [M]'s [parse_zone(selected_zone)] to prepare for \an [procedure.name].</span>")
-				I.balloon_alert(user, "You drape over [parse_zone(selected_zone)].")
-
-				log_combat(user, M, "operated on", null, "(OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
-			else
-				I.balloon_alert(user, "[parse_zone(selected_zone)] is covered up!")
-
+		var/datum/task/zone_selector = user.select_bodyzone(M, TRUE)
+		zone_selector.continue_with(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(initiate_surgery_at_zone), I, M, user))
 
 	else if(!current_surgery.step_in_progress)
 		attempt_cancel_surgery(current_surgery, I, M, user)
 
 	return 1
 
-/proc/attempt_cancel_surgery(datum/surgery/S, obj/item/I, mob/living/M, mob/user)
-	var/selected_zone = user.zone_selected
+/proc/initiate_surgery_at_zone(obj/item/I, mob/living/M, mob/user, target_zone)
+	var/list/all_surgeries = GLOB.surgeries_list.Copy()
+	var/list/available_surgeries = list()
 
+	var/mob/living/carbon/C
+	if (iscarbon(M))
+		C = M
+
+	var/obj/item/bodypart/affecting = M.get_bodypart(check_zone(target_zone))
+
+	for(var/datum/surgery/S in all_surgeries)
+		if(!S.possible_locs.Find(target_zone))
+			continue
+		if(affecting)
+			if(!S.requires_bodypart)
+				continue
+			if(S.requires_bodypart_type && !(affecting.bodytype & S.requires_bodypart_type))
+				continue
+			if(S.requires_real_bodypart && affecting.is_pseudopart)
+				continue
+		else if(C && S.requires_bodypart) //mob with no limb in surgery zone when we need a limb
+			continue
+		if(S.lying_required && (M.mobility_flags & MOBILITY_STAND))
+			continue
+		if(!S.can_start(user, M, target_zone))
+			continue
+		for(var/path in S.target_mobtypes)
+			if(istype(M, path))
+				available_surgeries[S.name] = S
+				break
+
+	if(!available_surgeries.len)
+		return
+
+	var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in sort_list(available_surgeries)
+	if(P && user && user.Adjacent(M) && (I in user))
+		var/datum/surgery/S = available_surgeries[P]
+
+		for(var/datum/surgery/other in M.surgeries)
+			if(other.location == S.location)
+				return //during the input() another surgery was started at the same location.
+
+		//we check that the surgery is still doable after the input() wait.
+		if(C)
+			affecting = C.get_bodypart(check_zone(target_zone))
+		if(affecting)
+			if(!S.requires_bodypart)
+				return
+			if(S.requires_bodypart_type && !(affecting.bodytype & S.requires_bodypart_type))
+				return
+		else if(C && S.requires_bodypart)
+			return
+		if(S.lying_required && (M.mobility_flags & MOBILITY_STAND))
+			return
+		if(!S.can_start(user, M, target_zone))
+			return
+
+		if(S.ignore_clothes || get_location_accessible(M, target_zone))
+			var/datum/surgery/procedure = new S.type(M, target_zone, affecting)
+			user.visible_message("[user] drapes [I] over [M]'s [parse_zone(target_zone)] to prepare for surgery.",
+			"<span class='notice'>You drape [I] over [M]'s [parse_zone(target_zone)] to prepare for \an [procedure.name].</span>")
+			I.balloon_alert(user, "You drape over [parse_zone(target_zone)].")
+
+			log_combat(user, M, "operated on", null, "(OPERATION TYPE: [procedure.name]) (TARGET AREA: [target_zone])")
+		else
+			I.balloon_alert(user, "[parse_zone(target_zone)] is covered up!")
+
+/proc/attempt_cancel_surgery(datum/surgery/S, obj/item/I, mob/living/M, mob/user)
 	if(S.status == 1)
 		M.surgeries -= S
-		user.visible_message("[user] removes [I] from [M]'s [parse_zone(selected_zone)].", \
-			"<span class='notice'>You remove [I] from [M]'s [parse_zone(selected_zone)].</span>")
-		I.balloon_alert(user, "You remove [I] from [parse_zone(selected_zone)].")
+		user.visible_message("[user] removes [I] from [M]'s [parse_zone(S.location)].", \
+			"<span class='notice'>You remove [I] from [M]'s [parse_zone(S.location)].</span>")
+		I.balloon_alert(user, "You remove [I] from [parse_zone(S.location)].")
 		qdel(S)
 		return
 
@@ -111,8 +109,8 @@
 			to_chat(user, "<span class='warning'>You need to hold a [is_robotic ? "screwdriver" : "cautery"] in your inactive hand to stop [M]'s surgery!</span>")
 			return
 		M.surgeries -= S
-		user.visible_message("<span class='notice'>[user] closes [M]'s [parse_zone(selected_zone)] with [close_tool] and removes [I].</span>", \
-			"<span class='notice'>You close [M]'s [parse_zone(selected_zone)] with [close_tool] and remove [I].</span>")
+		user.visible_message("<span class='notice'>[user] closes [M]'s [parse_zone(S.location)] with [close_tool] and removes [I].</span>", \
+			"<span class='notice'>You close [M]'s [parse_zone(S.location)] with [close_tool] and remove [I].</span>")
 		qdel(S)
 
 /proc/get_location_accessible(mob/M, location)

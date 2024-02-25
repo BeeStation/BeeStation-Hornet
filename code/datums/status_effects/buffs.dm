@@ -567,7 +567,7 @@
 	owner.set_blindness(0)
 	owner.set_blurriness(0)
 	owner.restore_blood()
-	owner.bodytemperature = BODYTEMP_NORMAL
+	owner.bodytemperature = owner.get_body_temp_normal()
 	owner.restoreEars()
 	duration = rand(150, 450) * power
 	return TRUE

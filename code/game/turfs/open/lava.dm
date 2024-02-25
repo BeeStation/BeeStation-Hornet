@@ -6,6 +6,7 @@
 	gender = PLURAL //"That's some lava."
 	baseturfs = /turf/open/lava //lava all the way down
 	slowdown = 2
+	resistance_flags = INDESTRUCTIBLE
 
 	light_range = 2
 	light_power = 0.75
@@ -17,18 +18,12 @@
 	clawfootstep = FOOTSTEP_LAVA
 	heavyfootstep = FOOTSTEP_LAVA
 
-/turf/open/lava/ex_act(severity, target)
-	contents_explosion(severity, target)
-
 /turf/open/lava/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
 
 /turf/open/lava/Melt()
 	to_be_destroyed = FALSE
 	return src
-
-/turf/open/lava/acid_act(acidpwr, acid_volume)
-	return
 
 /turf/open/lava/MakeDry(wet_setting = TURF_WET_WATER)
 	return
@@ -71,9 +66,6 @@
 
 /turf/open/lava/rust_heretic_act()
 	return FALSE
-
-/turf/open/lava/singularity_act()
-	return
 
 /turf/open/lava/singularity_pull(S, current_size)
 	return
