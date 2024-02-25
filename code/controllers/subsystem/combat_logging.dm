@@ -40,10 +40,17 @@ SUBSYSTEM_DEF(combat_logging)
 		used_log.b_status = defender.mind.special_role || "none"
 	used_log.most_recent_entry = world.time
 	// Log the toolname
-	if (attacker == used_log.a)
-		used_log.a_used_tools |= tool_name
-	else if (attacker == used_log.b)
-		used_log.b_used_tools |= tool_name
+	if (islist(tool_name))
+		for (var/tool in tool_name)
+			if (attacker == used_log.a)
+				used_log.a_used_tools |= tool
+			else if (attacker == used_log.b)
+				used_log.b_used_tools |= tool
+	else
+		if (attacker == used_log.a)
+			used_log.a_used_tools |= tool_name
+		else if (attacker == used_log.b)
+			used_log.b_used_tools |= tool_name
 
 #define COMBAT_LOG_VICTOR_NONE 0
 #define COMBAT_LOG_VICTOR_A 1
@@ -148,9 +155,9 @@ SUBSYSTEM_DEF(combat_logging)
 		return "unresolved"
 	if (victor == COMBAT_LOG_VICTOR_NONE)
 		return "mutual_loss"
-	else if (victor == COMBAT_LOG_VICTOR_A)
+	if (victor == COMBAT_LOG_VICTOR_A)
 		return "win"
-	else if (victor == COMBAT_LOG_VICTOR_B)
+	if (victor == COMBAT_LOG_VICTOR_B)
 		return "loss"
 
 /datum/combat_log/proc/get_b_result()
@@ -158,9 +165,9 @@ SUBSYSTEM_DEF(combat_logging)
 		return "unresolved"
 	if (victor == COMBAT_LOG_VICTOR_NONE)
 		return "mutual_loss"
-	else if (victor == COMBAT_LOG_VICTOR_B)
+	if (victor == COMBAT_LOG_VICTOR_B)
 		return "win"
-	else if (victor == COMBAT_LOG_VICTOR_A)
+	if (victor == COMBAT_LOG_VICTOR_A)
 		return "loss"
 
 #undef COMBAT_TIMEOUT
