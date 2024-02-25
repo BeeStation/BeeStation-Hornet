@@ -33,11 +33,11 @@ SUBSYSTEM_DEF(combat_logging)
 	if (!used_log)
 		used_log = new()
 		used_log.a = attacker
-		used_log.a_job = attacker.mind.assigned_role
-		used_log.a_status = attacker.mind.special_role
+		used_log.a_job = attacker.mind.assigned_role || "none"
+		used_log.a_status = attacker.mind.special_role || "none"
 		used_log.b = defender
-		used_log.b_job = defender.mind.assigned_role
-		used_log.b_status = defender.mind.special_role
+		used_log.b_job = defender.mind.assigned_role || "none"
+		used_log.b_status = defender.mind.special_role || "none"
 	used_log.most_recent_entry = world.time
 	// Log the toolname
 	if (attacker == used_log.a)
