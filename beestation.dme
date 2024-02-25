@@ -1014,6 +1014,7 @@
 #include "code\game\gamemodes\objectives\basic\debrain.dm"
 #include "code\game\gamemodes\objectives\basic\destroy_ai.dm"
 #include "code\game\gamemodes\objectives\basic\download.dm"
+#include "code\game\gamemodes\objectives\basic\forgedmanifest.dm"
 #include "code\game\gamemodes\objectives\basic\maroon.dm"
 #include "code\game\gamemodes\objectives\basic\mutiny.dm"
 #include "code\game\gamemodes\objectives\basic\protect.dm"

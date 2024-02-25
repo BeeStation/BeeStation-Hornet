@@ -26,6 +26,7 @@
 		/datum/objective/nuclear,
 		/datum/objective/capture,
 		/datum/objective/absorb,
+		/datum/objective/forged_manifest,
 		/datum/objective/custom
 	),/proc/cmp_typepaths_asc)
 

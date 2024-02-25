@@ -435,12 +435,17 @@
 			steal_objective.find_target()
 			objectives += steal_objective
 			log_objective(owner, steal_objective.explanation_text)
-		else
+		else if(prob(70))
 			var/datum/objective/download/download_objective = new
 			download_objective.owner = owner
 			download_objective.gen_amount_goal()
 			objectives += download_objective
 			log_objective(owner, download_objective.explanation_text)
+		else
+			var/datum/objective/forged_manifest/forged_objective = new
+			forged_objective.owner = owner
+			objectives += forged_objective
+			log_objective(owner, forged_objective.explanation_text)
 
 	var/list/active_ais = active_ais()
 	if(active_ais.len && prob(100/GLOB.joined_player_list.len))

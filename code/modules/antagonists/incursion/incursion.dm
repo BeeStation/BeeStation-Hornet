@@ -204,11 +204,16 @@
 		if(2)
 			if(prob(30))
 				add_objective(new/datum/objective/steal, TRUE)
+			else if(prob(40)) // yes, you forge 2 person info because it's a little bit difficult
+				add_objective(new/datum/objective/forged_manifest, TRUE)
+				add_objective(new/datum/objective/forged_manifest, TRUE)
 			else
 				generate_traitor_kill_objective(restricted_jobs)
 		if(1)
 			if(prob(70))
 				add_objective(new/datum/objective/steal, TRUE)
+			else if(prob(20))
+				add_objective(new/datum/objective/forged_manifest, TRUE)
 			else
 				generate_traitor_kill_objective(restricted_jobs)
 

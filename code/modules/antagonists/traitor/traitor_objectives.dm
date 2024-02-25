@@ -78,6 +78,10 @@
 			destroy_objective.owner = owner
 			destroy_objective.find_target()
 			add_objective(destroy_objective)
+		else if(prob(20))
+			var/datum/objective/forged_manifest/forged_objective = new
+			forged_objective.owner = owner
+			add_objective(forged_objective)
 		else if(prob(30))
 			var/datum/objective/maroon/maroon_objective = new
 			maroon_objective.owner = owner
@@ -94,6 +98,10 @@
 			download_objective.owner = owner
 			download_objective.gen_amount_goal()
 			add_objective(download_objective)
+		else if(prob(20))
+			var/datum/objective/forged_manifest/forged_objective = new
+			forged_objective.owner = owner
+			add_objective(forged_objective)
 		else
 			var/datum/objective/steal/steal_objective = new
 			steal_objective.owner = owner
