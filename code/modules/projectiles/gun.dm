@@ -113,15 +113,15 @@
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
 	if (isnull(equip_time))
-		// Light guns: 0.4 second equip time
-		// Medium guns: 0.6 second equip time
-		// Heavy guns: 0.8 second equip time
-		equip_time = weapon_weight * 2 + 2
+		// Light guns: 0.5 second equip time
+		// Medium guns: 0.8 second equip time
+		// Heavy guns: 1.1 second equip time
+		equip_time = weapon_weight * 3 + 2
 	if (isnull(spread_unwielded))
 		spread_unwielded = weapon_weight * 10 + 10
 	if (has_weapon_slowdown)
 		if (!slowdown)
-			slowdown = 0.2 + weapon_weight * 0.1
+			slowdown = 0.3 + weapon_weight * 0.1
 		item_flags |= SLOWS_WHILE_IN_HAND
 	if(requires_wielding)
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
