@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(combat_logging)
 			current.expire()
 
 /datum/controller/subsystem/combat_logging/proc/log_combat(mob/living/attacker, mob/living/defender, tool_name)
-	if (!attacker.mind || !defender.mind || !tool_name || attacker == defender || !ishuman(attacker) || !ishuman(defender) || attacker.stat == DEAD || defender.stat == DEAD)
+	if (!attacker.mind || !defender.mind || !tool_name || attacker == defender || !ishuman(attacker) || !ishuman(defender) || attacker.stat == DEAD || defender.stat == DEAD || SSticker.current_state != GAME_STATE_PLAYING)
 		return
 	// Attempt to find a combat entry
 	var/datum/combat_log/used_log
