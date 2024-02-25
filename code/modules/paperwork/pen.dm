@@ -23,7 +23,7 @@
 	item_flags = ISWEAPON
 	throw_speed = 3
 	throw_range = 7
-	materials = list(/datum/material/iron=10)
+	custom_materials = list(/datum/material/iron=10)
 	pressure_resistance = 2
 	grind_results = list(/datum/reagent/iron = 2, /datum/reagent/iodine = 1)
 	var/colour = "black"	//what colour the ink is!
@@ -100,7 +100,7 @@
 	throwforce = 5
 	throw_speed = 4
 	colour = "crimson"
-	materials = list(/datum/material/gold = 750)
+	custom_materials = list(/datum/material/gold = 750)
 	sharpness = IS_SHARP
 	resistance_flags = FIRE_PROOF
 	unique_reskin_icon = list("Oak" = "pen-fountain-o",
@@ -312,7 +312,7 @@
 		return ..()
 	if(!istype(M))
 		return ..()
-	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
+	if(!user.is_zone_selected(BODY_ZONE_PRECISE_EYES) && !user.is_zone_selected(BODY_ZONE_HEAD))
 		return ..()
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")

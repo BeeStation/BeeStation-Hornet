@@ -27,8 +27,7 @@
 	AddElement(/datum/element/bed_tuckable, 0, 0, 0)
 
 /obj/item/bedsheet/attack(mob/living/M, mob/user)
-	if(!attempt_initiate_surgery(src, M, user))
-		..()
+	attempt_initiate_surgery(src, M, user)
 
 /obj/item/bedsheet/attack_self(mob/user)
 	if(!user.CanReach(src))		//No telekenetic grabbing.
@@ -297,7 +296,7 @@
 	dying_key = DYE_REGISTRY_DOUBLE_BEDSHEET
 
 /obj/item/bedsheet/double/Initialize()
-	..()
+	. = ..()
 	desc += " This one is double."
 
 /obj/item/bedsheet/double/blue

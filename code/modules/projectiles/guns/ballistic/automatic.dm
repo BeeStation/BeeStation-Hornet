@@ -307,6 +307,26 @@
 	automatic = 0
 	fire_rate = 1.5
 
+// Improv Pipe Sub-Machinegun //
+
+/obj/item/gun/ballistic/automatic/pipe_smg
+	name = "pipe carbine"
+	desc = "A much more sophisticated improvised firearm, loaded from a removable magazine and automatically cycling cartridges. It's a shame it only takes 9mm ammo."
+	icon_state = "pipesmg"
+	item_state = "arg"
+	mag_type = /obj/item/ammo_box/magazine/pipem9mm
+	special_mags = TRUE
+	caliber = "9mm"
+	tac_reloads = FALSE
+	bolt_type = BOLT_TYPE_OPEN
+	no_pin_required = TRUE
+	spawnwithmagazine = FALSE
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BELT
+	actions_types = null
+	fire_rate = 2
+	spread = 10
+
 // Laser rifle (rechargeable magazine) //
 
 /obj/item/gun/ballistic/automatic/laser

@@ -23,21 +23,21 @@
 	description = "Nanotrasen is remembering Saturn day. Ship onion rings to show the station's support."
 	reward = 3000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/onionrings)
+	wanted_types = list(/obj/item/food/onionrings)
 
 /datum/bounty/item/chef/icecreamsandwich
 	name = "Ice Cream Sandwiches"
 	description = "Upper management has been screaming non-stop for ice cream. Please send some."
 	reward = 4000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/icecreamsandwich)
+	wanted_types = list(/obj/item/food/icecreamsandwich)
 
 /datum/bounty/item/chef/strawberryicecreamsandwich
 	name = " Strawberry Ice Cream Sandwiches"
 	description = "Upper management has been screaming non-stop for more flavourful ice cream. Please send some."
 	reward = 5000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/strawberryicecreamsandwich)
+	wanted_types = list(/obj/item/food/strawberryicecreamsandwich)
 
 /datum/bounty/item/chef/bread
 	name = "Bread"
@@ -81,13 +81,13 @@
 	name = "Cuban Carp"
 	description = "To celebrate the birth of Castro XXVII, ship one cuban carp to CentCom."
 	reward = 8000
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/cubancarp)
+	wanted_types = list(/obj/item/food/cubancarp)
 
 /datum/bounty/item/chef/hotdog
 	name = "Hot Dog"
 	description = "Nanotrasen is conducting taste tests to determine the best hot dog recipe. Ship your station's version to participate."
 	reward = 8000
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/hotdog)
+	wanted_types = list(/obj/item/food/hotdog)
 
 /datum/bounty/item/chef/eggplantparm
 	name = "Eggplant Parmigianas"
@@ -107,14 +107,14 @@
 	name = "Chawanmushi"
 	description = "Nanotrasen wants to improve relations with its sister company, Japanotrasen. Ship Chawanmushi immediately."
 	reward = 8000
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/chawanmushi)
+	wanted_types = list(/obj/item/food/chawanmushi)
 
 /datum/bounty/item/chef/kebab
 	name = "Kebabs"
 	description = "Remove all kebab from station you are best food. Ship to CentCom to remove from the premises."
 	reward = 3500
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/kebab)
+	wanted_types = list(/obj/item/food/kebab)
 
 /datum/bounty/item/chef/soylentgreen
 	name = "Soylent Green"

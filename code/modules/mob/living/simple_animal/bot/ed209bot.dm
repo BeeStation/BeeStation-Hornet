@@ -92,8 +92,8 @@
 	last_found = world.time
 	set_weapon()
 
-/mob/living/simple_animal/bot/ed209/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-    return 0
+/mob/living/simple_animal/bot/ed209/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	return 0
 
 /mob/living/simple_animal/bot/ed209/set_custom_texts()
 	text_hack = "You disable [name]'s combat inhibitor."

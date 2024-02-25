@@ -20,7 +20,7 @@ Metals Sheets
 	singular_name = "iron sheet"
 	icon_state = "sheet-metal"
 	item_state = "sheet-metal"
-	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
+	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10
 	flags_1 = CONDUCT_1
 	resistance_flags = FIRE_PROOF
@@ -28,6 +28,10 @@ Metals Sheets
 	grind_results = list(/datum/reagent/iron = 20)
 	point_value = 2
 	tableVariant = /obj/structure/table
+	material_type = /datum/material/iron
+	matter_amount = 4
+	cost = 500
+	source = /datum/robot_energy_storage/metal
 
 /obj/item/stack/sheet/iron/ratvar_act()
 	new /obj/item/stack/sheet/brass(loc, amount)
@@ -37,8 +41,9 @@ Metals Sheets
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
 	qdel(src)
 
-/obj/item/stack/sheet/iron/get_recipes()
-	return GLOB.metal_recipes
+/obj/item/stack/sheet/iron/get_main_recipes()
+	. = ..()
+	. += GLOB.metal_recipes
 
 /obj/item/stack/sheet/iron/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins whacking [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -52,7 +57,7 @@ Metals Sheets
 	desc = "This sheet is an alloy of iron and plasma."
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-metal"
-	materials = list(/datum/material/iron=2000, /datum/material/plasma=2000)
+	mats_per_unit = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10
 	flags_1 = CONDUCT_1
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80, STAMINA = 0)
@@ -61,9 +66,12 @@ Metals Sheets
 	grind_results = list(/datum/reagent/iron = 20, /datum/reagent/toxin/plasma = 20)
 	point_value = 23
 	tableVariant = /obj/structure/table/reinforced
+	matter_amount = 12
+	material_flags = NONE
 
-/obj/item/stack/sheet/plasteel/get_recipes()
-	return GLOB.plasteel_recipes
+/obj/item/stack/sheet/plasteel/get_main_recipes()
+	. = ..()
+	. += GLOB.plasteel_recipes
 
 /* Runed Metal */
 
@@ -93,9 +101,9 @@ Metals Sheets
 		return FALSE
 	return ..()
 
-/obj/item/stack/sheet/runed_metal/get_recipes()
-	return GLOB.runed_metal_recipes
-
+/obj/item/stack/sheet/runed_metal/get_main_recipes()
+	. = ..()
+	. += GLOB.runed_metal_recipes
 
 /* Brass - the cult one */
 
@@ -112,7 +120,7 @@ Metals Sheets
 	throw_range = 3
 	grind_results = list(/datum/reagent/iron = 5, /datum/reagent/teslium = 15)
 	merge_type = /obj/item/stack/sheet/brass
-	materials = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT*0.5, /datum/material/iron=MINERAL_MATERIAL_AMOUNT*0.5)
+	custom_materials = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT*0.5, /datum/material/iron=MINERAL_MATERIAL_AMOUNT*0.5)
 
 /obj/item/stack/sheet/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
@@ -124,8 +132,9 @@ Metals Sheets
 	else
 		return ..()
 
-/obj/item/stack/sheet/brass/get_recipes()
-	return GLOB.brass_recipes
+/obj/item/stack/sheet/brass/get_main_recipes()
+	. = ..()
+	. += GLOB.brass_recipes
 
 /obj/item/stack/sheet/brass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -156,8 +165,9 @@ Metals Sheets
 	else
 		return ..()
 
-/obj/item/stack/sheet/bronze/get_recipes()
-	return GLOB.bronze_recipes
+/obj/item/stack/sheet/bronze/get_main_recipes()
+	. = ..()
+	. += GLOB.bronze_recipes
 
 /obj/item/stack/sheet/bronze/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

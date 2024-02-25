@@ -209,6 +209,7 @@
 	name = "Reebe"
 	icon_state = "yellow"
 	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	has_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_CLOCKWORK
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA

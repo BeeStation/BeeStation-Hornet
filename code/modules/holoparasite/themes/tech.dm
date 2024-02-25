@@ -21,4 +21,5 @@
 	accent_overlay.plane = ABOVE_LIGHTING_PLANE
 	. += accent_overlay
 
-	. += emissive_appearance(initial(holoparasite.icon), "tech:accent:emissive")
+	. += emissive_blocker(initial(holoparasite.icon), initial(holoparasite.icon_state), holoparasite.layer)
+	. += emissive_appearance(initial(holoparasite.icon), "tech:accent:emissive", holoparasite.layer)

@@ -30,7 +30,7 @@
 	speed = 1
 	turns_per_move = 5
 	see_in_dark = 10
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8)
+	butcher_results = list(/obj/item/food/meat/slab/spider = 2, /obj/item/food/spiderleg = 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
@@ -329,7 +329,11 @@
 	web_speed = 0.25
 
 	gender = FEMALE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8, /obj/item/reagent_containers/food/snacks/spidereggs = 4)
+	butcher_results = list(
+		/obj/item/food/meat/slab/spider = 2,
+		/obj/item/food/spiderleg = 8,
+		/obj/item/reagent_containers/food/snacks/spidereggs = 4
+	)
 	var/obj/effect/proc_holder/spider/wrap/wrap
 	var/datum/action/innate/spider/set_directive/set_directive
 	/// Allows the spider to use spider comms

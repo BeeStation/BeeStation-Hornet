@@ -123,17 +123,14 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 // Called after add_reagents creates a new reagent.
 /datum/reagent/proc/on_new(data)
-	return
+	if(data)
+		src.data = data
 
 // Called when two reagents of the same are mixing.
 /datum/reagent/proc/on_merge(data)
 	return
 
 /datum/reagent/proc/on_update(atom/A)
-	return
-
-// Called when the reagent container is hit by an explosion
-/datum/reagent/proc/on_ex_act(severity)
 	return
 
 // Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects

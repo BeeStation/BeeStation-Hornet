@@ -17,7 +17,7 @@
 	buckle_lying = 90
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
-	integrity_failure = 30
+	integrity_failure = 0.35
 	dir = SOUTH
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 2

@@ -12,8 +12,8 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 
 /obj/item/a_gift
 	name = "gift"
-	desc = "PRESENTS!!!! eek!"
-	icon = 'icons/obj/storage.dmi'
+	desc = "PRESENTS!!!! yippie!"
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "giftdeliverypackage3"
 	item_state = "gift"
 	resistance_flags = FLAMMABLE
@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 
 	var/obj/item/I = new contains_type(get_turf(M))
 	M.visible_message("<span class='notice'>[M] unwraps \the [src], finding \a [I] inside!</span>")
-	I.investigate_log("([I.type]) was found in a present by [key_name(M)].", INVESTIGATE_PRESENTS)
+	M.investigate_log("has unwrapped a present containing [I.type].", INVESTIGATE_PRESENTS)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
 
@@ -72,8 +72,8 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 		/obj/item/toy/beach_ball,
 		/obj/item/toy/beach_ball/holoball,
 		/obj/item/banhammer,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
-		/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
+		/obj/item/food/grown/ambrosia/deus,
+		/obj/item/food/grown/ambrosia/vulgaris,
 		/obj/item/paicard,
 		/obj/item/instrument/violin,
 		/obj/item/instrument/guitar,

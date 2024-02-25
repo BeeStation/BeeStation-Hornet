@@ -20,6 +20,10 @@
 	name = "10mm bullet"
 	damage = 30
 
+/obj/projectile/bullet/c10mm/improv
+	name = "10mm bullet"
+	damage = 27
+
 /obj/projectile/bullet/c10mm_ap
 	name = "10mm armor-piercing bullet"
 	damage = 27

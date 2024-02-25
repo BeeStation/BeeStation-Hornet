@@ -609,7 +609,7 @@
 /obj/item/borg/upgrade/rped
 	name = "engineering cyborg RPED"
 	desc = "A rapid part exchange device for the engineering cyborg."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "borgrped"
 	require_module = TRUE
 	module_type = list(/obj/item/robot_module/engineering, /obj/item/robot_module/saboteur)

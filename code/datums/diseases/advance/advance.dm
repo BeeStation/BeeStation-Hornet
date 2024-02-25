@@ -479,7 +479,8 @@
 
 	 // Should be only 1 entry left, but if not let's only return a single entry
 	var/datum/disease/advance/to_return = pick(diseases)
-	to_return.Refresh(1)
+	to_return.dormant = FALSE
+	to_return.Refresh(new_name = TRUE)
 	return to_return
 
 /proc/SetViruses(datum/reagent/R, list/data)

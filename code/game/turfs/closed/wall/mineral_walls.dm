@@ -10,6 +10,7 @@
 	var/active = null
 	smoothing_flags = SMOOTH_BITMASK
 	canSmoothWith = null
+	material_flags = MATERIAL_EFFECTS
 
 /turf/closed/wall/mineral/gold
 	name = "gold wall"

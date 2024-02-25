@@ -351,7 +351,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	layer = ABOVE_MOB_LAYER
 
 // Initializes aiming component in bananas
-/obj/item/reagent_containers/food/snacks/grown/banana/ComponentInitialize()
+/obj/item/food/grown/banana/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/aiming)
 

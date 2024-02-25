@@ -86,25 +86,25 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/cargo)
 "aq" = (
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = -2
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 1;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 8;
 	pixel_y = -3
 	},
@@ -999,25 +999,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bar)
-"dj" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/secure_closet/freezer/fridge/open,
-/obj/item/reagent_containers/food/condiment/flour{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/turf/open/floor/plasteel/cafeteria,
-/area/shuttle/abandoned/bar)
 "dk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1742,6 +1723,25 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/cargo)
+"qi" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/item/reagent_containers/food/condiment/flour{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/food/meat/slab/synthmeat{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/shuttle/abandoned/bar)
 "qY" = (
 /obj/effect/turf_decal/box/white/corners{
 	dir = 4
@@ -1777,24 +1777,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/cargo)
-"rX" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/table,
-/obj/item/storage/fancy/donut_box{
-	pixel_x = -11;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/drinks/beer{
-	pixel_x = 6;
-	pixel_y = 14
-	},
-/obj/item/reagent_containers/food/snacks/chocolatebar{
-	pixel_x = 5;
-	pixel_y = -3
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel,
-/area/shuttle/abandoned/bar)
 "sE" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2277,6 +2259,24 @@
 	pixel_x = 6
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/shuttle/abandoned/bar)
+"GG" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table,
+/obj/item/storage/fancy/donut_box{
+	pixel_x = -11;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/beer{
+	pixel_x = 6;
+	pixel_y = 14
+	},
+/obj/item/food/chocolatebar{
+	pixel_x = 5;
+	pixel_y = -3
+	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/bar)
@@ -3104,7 +3104,7 @@ bq
 bD
 fb
 rl
-rX
+GG
 uW
 Pb
 bD
@@ -3184,7 +3184,7 @@ hg
 cD
 bQ
 cU
-dj
+qi
 dB
 dQ
 ed

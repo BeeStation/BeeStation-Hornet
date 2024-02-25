@@ -260,7 +260,7 @@
 				src.temp = "Are you sure you wish to delete all records?<br>\n\t<A href='?src=[REF(src)];temp=1;del_all2=1'>Yes</A><br>\n\t<A href='?src=[REF(src)];temp=1'>No</A><br>"
 
 			else if(href_list["del_all2"])
-				investigate_log("[key_name(usr)] has deleted all medical records.", INVESTIGATE_RECORDS)
+				usr.investigate_log("has deleted all medical records.", INVESTIGATE_RECORDS)
 				GLOB.data_core.medical.Cut()
 				src.temp = "All records deleted."
 
@@ -273,7 +273,7 @@
 							var/t1 = stripped_input(usr, "Please input fingerprint hash:", "Med. records", src.active1.fields["fingerprint"])
 							if(!canUseMedicalRecordsConsole(usr, t1, a1))
 								return
-							investigate_log("[key_name(usr)] has changed [active1.fields["name"]]'s medical records fingerprint from '[src.active1.fields["fingerprint"]]' to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has changed [active1.fields["name"]]'s medical records fingerprint from '[src.active1.fields["fingerprint"]]' to '[t1]'.", INVESTIGATE_RECORDS)
 							src.active1.fields["fingerprint"] = t1
 					if("gender")
 						if(active1)
@@ -281,20 +281,20 @@
 							if(!canUseMedicalRecordsConsole(usr, t1, a1))
 								return
 							src.active1.fields["gender"] = capitalize(t1)
-							investigate_log("[key_name(usr)] has changed [active1.fields["name"]]'s medical records to indicate they are now '[capitalize(t1)]' gender.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has changed [active1.fields["name"]]'s medical records to indicate they are now '[capitalize(t1)]' gender.", INVESTIGATE_RECORDS)
 					if("age")
 						if(active1)
 							var/t1 = input("Please input age:", "Med. records", src.active1.fields["age"], null)  as num
 							if(!canUseMedicalRecordsConsole(usr, t1, a1))
 								return
 							src.active1.fields["age"] = t1
-							investigate_log("[key_name(usr)] has changed [active1.fields["name"]]'s medical records to indicate they are now '[t1]' old.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has changed [active1.fields["name"]]'s medical records to indicate they are now '[t1]' old.", INVESTIGATE_RECORDS)
 					if("species")
 						if(active1)
 							var/t1 = stripped_input(usr, "Please input species name", "Med. records", src.active1.fields["species"], null)
 							if(!canUseMedicalRecordsConsole(usr, t1, a1))
 								return
-							investigate_log("[key_name(usr)] has changed [active1.fields["name"]]'s medical records species from '[active1.fields["species"]]' to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has changed [active1.fields["name"]]'s medical records species from '[active1.fields["species"]]' to '[t1]'.", INVESTIGATE_RECORDS)
 							active1.fields["species"] = t1
 					if("mi_dis")
 						if(active2)
@@ -302,63 +302,63 @@
 							if(!canUseMedicalRecordsConsole(usr, t1, null, a2))
 								return
 							src.active2.fields["mi_dis"] = t1
-							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s medical records minor disabilities to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has set [active1.fields["name"]]'s medical records minor disabilities to '[t1]'.", INVESTIGATE_RECORDS)
 					if("mi_dis_d")
 						if(active2)
 							var/t1 = stripped_input(usr, "Please summarize minor dis.:", "Med. records", src.active2.fields["mi_dis_d"], null)
 							if(!canUseMedicalRecordsConsole(usr, t1, null, a2))
 								return
 							src.active2.fields["mi_dis_d"] = t1
-							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s medical records minor disabilities summary to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has set [active1.fields["name"]]'s medical records minor disabilities summary to '[t1]'.", INVESTIGATE_RECORDS)
 					if("ma_dis")
 						if(active2)
 							var/t1 = stripped_input(usr, "Please input major disabilities list:", "Med. records", src.active2.fields["ma_dis"], null)
 							if(!canUseMedicalRecordsConsole(usr, t1, null, a2))
 								return
 							src.active2.fields["ma_dis"] = t1
-							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s medical records major disabilities to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has set [active1.fields["name"]]'s medical records major disabilities to '[t1]'.", INVESTIGATE_RECORDS)
 					if("ma_dis_d")
 						if(active2)
 							var/t1 = stripped_input(usr, "Please summarize major dis.:", "Med. records", src.active2.fields["ma_dis_d"], null)
 							if(!canUseMedicalRecordsConsole(usr, t1, null, a2))
 								return
 							src.active2.fields["ma_dis_d"] = t1
-							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s medical records major disabilities summary to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has set [active1.fields["name"]]'s medical records major disabilities summary to '[t1]'.", INVESTIGATE_RECORDS)
 					if("alg")
 						if(active2)
 							var/t1 = stripped_input(usr, "Please state allergies:", "Med. records", src.active2.fields["alg"], null)
 							if(!canUseMedicalRecordsConsole(usr, t1, null, a2))
 								return
 							src.active2.fields["alg"] = t1
-							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s medical records allergies to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has set [active1.fields["name"]]'s medical records allergies to '[t1]'.", INVESTIGATE_RECORDS)
 					if("alg_d")
 						if(active2)
 							var/t1 = stripped_input(usr, "Please summarize allergies:", "Med. records", src.active2.fields["alg_d"], null)
 							if(!canUseMedicalRecordsConsole(usr, t1, null, a2))
 								return
 							src.active2.fields["alg_d"] = t1
-							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s medical records allergies summary to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has set [active1.fields["name"]]'s medical records allergies summary to '[t1]'.", INVESTIGATE_RECORDS)
 					if("cdi")
 						if(active2)
 							var/t1 = stripped_input(usr, "Please state diseases:", "Med. records", src.active2.fields["cdi"], null)
 							if(!canUseMedicalRecordsConsole(usr, t1, null, a2))
 								return
 							src.active2.fields["cdi"] = t1
-							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s medical records diseases to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has set [active1.fields["name"]]'s medical records diseases to '[t1]'.", INVESTIGATE_RECORDS)
 					if("cdi_d")
 						if(active2)
 							var/t1 = stripped_input(usr, "Please summarize diseases:", "Med. records", src.active2.fields["cdi_d"], null)
 							if(!canUseMedicalRecordsConsole(usr, t1, null, a2))
 								return
 							src.active2.fields["cdi_d"] = t1
-							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s medical records diseases summary to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has set [active1.fields["name"]]'s medical records diseases summary to '[t1]'.", INVESTIGATE_RECORDS)
 					if("notes")
 						if(active2)
 							var/t1 = stripped_input(usr, "Please summarize notes:", "Med. records", src.active2.fields["notes"], null)
 							if(!canUseMedicalRecordsConsole(usr, t1, null, a2))
 								return
 							src.active2.fields["notes"] = t1
-							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s medical records notes to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has set [active1.fields["name"]]'s medical records notes to '[t1]'.", INVESTIGATE_RECORDS)
 					if("p_stat")
 						if(active1)
 							src.temp = "<B>Physical Condition:</B><BR>\n\t<A href='?src=[REF(src)];temp=1;p_stat=deceased'>*Deceased*</A><BR>\n\t<A href='?src=[REF(src)];temp=1;p_stat=unconscious'>*Unconscious*</A><BR>\n\t<A href='?src=[REF(src)];temp=1;p_stat=active'>Active</A><BR>\n\t<A href='?src=[REF(src)];temp=1;p_stat=unfit'>Physically Unfit</A><BR>"
@@ -373,7 +373,7 @@
 							var/t1 = stripped_input(usr, "Please input DNA hash:", "Med. records", src.active2.fields["b_dna"], null)
 							if(!canUseMedicalRecordsConsole(usr, t1, null, a2))
 								return
-							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s medical records dna from '[src.active2.fields["b_dna"]]' to '[t1]'.", INVESTIGATE_RECORDS)
+							usr.investigate_log(" has set [active1.fields["name"]]'s medical records dna from '[src.active2.fields["b_dna"]]' to '[t1]'.", INVESTIGATE_RECORDS)
 							src.active2.fields["b_dna"] = t1
 					if("show_photo_front")
 						if(active1)
@@ -440,7 +440,7 @@
 					src.temp = "Are you sure you wish to delete the record (Medical Portion Only)?<br>\n\t<A href='?src=[REF(src)];temp=1;del_r2=1'>Yes</A><br>\n\t<A href='?src=[REF(src)];temp=1'>No</A><br>"
 
 			else if(href_list["del_r2"])
-				investigate_log("[key_name(usr)] has deleted the medical records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
+				usr.investigate_log(" has deleted the medical records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
 				if(active2)
 					qdel(active2)
 					active2 = null
@@ -607,7 +607,7 @@
 
 	//these muthafuckas arent supposed to smooth
 	base_icon_state = null
-	smoothing_flags = null
+	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
 

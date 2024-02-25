@@ -15,6 +15,6 @@
 			CB.Invoke()
 
 	for (var/datum/component/comp in GetComponents(/datum/component/moved_relay))
-		comp.RemoveComponent()
+		qdel(comp)
 
 	return TRUE

@@ -136,7 +136,8 @@
 
 /turf/open/floor/engine/cult/Initialize(mapload)
 	. = ..()
-	new /obj/effect/temp_visual/cult/turf/floor(src)
+	if(!mapload)
+		new /obj/effect/temp_visual/cult/turf/floor(src)
 	realappearance = new /obj/effect/clockwork/overlay/floor/bloodcult(src)
 	realappearance.linked = src
 

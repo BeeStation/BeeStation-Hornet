@@ -23,7 +23,7 @@
 	if(!owner?.current?.contents)
 		return FALSE
 	var/pillcount = target_amount
-	for(var/obj/item/reagent_containers/food/snacks/grown/P in owner.current.get_contents())
+	for(var/obj/item/food/grown/P in owner.current.get_contents())
 		if(P.reagents.has_reagent(targetchem))
 			pillcount--
 	return pillcount <= 0

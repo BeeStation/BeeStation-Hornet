@@ -16,7 +16,7 @@
 	icon_state = "welding"
 	item_state = "welding"
 	clothing_flags = SNUG_FIT
-	materials = list(/datum/material/iron = 1750, /datum/material/glass = 400)
+	custom_materials = list(/datum/material/iron=1750, /datum/material/glass=400)
 	flash_protect = 2
 	tint = 2
 	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60, STAMINA = 5)
@@ -336,6 +336,7 @@
 	armor = list(MELEE = 0,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = -5, FIRE = 0, ACID = 0, STAMINA = 50)
 	equip_delay_other = 140
 	var/datum/brain_trauma/mild/phobia/conspiracies/paranoia
+	var/mutable_appearance/psychic_overlay
 
 /obj/item/clothing/head/foilhat/equipped(mob/living/carbon/human/user, slot)
 	..()
@@ -348,6 +349,11 @@
 
 		user.gain_trauma(paranoia, TRAUMA_RESILIENCE_MAGIC)
 		to_chat(user, "<span class='warning'>As you don the foiled hat, an entire world of conspiracy theories and seemingly insane ideas suddenly rush into your mind. What you once thought unbelievable suddenly seems.. undeniable. Everything is connected and nothing happens just by accident. You know too much and now they're out to get you. </span>")
+
+		psychic_overlay = mutable_appearance()
+		psychic_overlay.appearance = user.appearance
+		psychic_overlay.plane = ANTI_PSYCHIC_PLANE
+		user.add_overlay(psychic_overlay)
 
 /obj/item/clothing/head/foilhat/MouseDrop(atom/over_object)
 	//God Im sorry
@@ -365,6 +371,7 @@
 	if(isliving(user))
 		var/mob/living/L = user
 		L.sec_hud_set_implants()
+	user.cut_overlay(psychic_overlay)
 
 /obj/item/clothing/head/foilhat/attack_hand(mob/user)
 	if(iscarbon(user))

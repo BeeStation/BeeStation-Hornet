@@ -5,22 +5,25 @@
 	var/list/hiddenprints		//assoc ckey = realname/gloves/ckey
 	var/list/blood_DNA			//assoc dna = bloodtype
 	var/list/fibers				//assoc print = print
+	var/list/souls
 
 /datum/component/forensics/InheritComponent(datum/component/forensics/F, original)		//Use of | and |= being different here is INTENTIONAL.
 	fingerprints = fingerprints | F.fingerprints
 	hiddenprints = hiddenprints | F.hiddenprints
 	blood_DNA = blood_DNA | F.blood_DNA
 	fibers = fibers | F.fibers
+	souls = souls | F.souls
 	add_blood_decal()
 	return ..()
 
-/datum/component/forensics/Initialize(new_fingerprints, new_hiddenprints, new_blood_DNA, new_fibers)
+/datum/component/forensics/Initialize(new_fingerprints, new_hiddenprints, new_blood_DNA, new_fibers, new_souls)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	fingerprints = new_fingerprints
 	hiddenprints = new_hiddenprints
 	blood_DNA = new_blood_DNA
 	fibers = new_fibers
+	souls = new_souls
 	add_blood_decal()
 
 /datum/component/forensics/RegisterWithParent()
@@ -49,15 +52,21 @@
 	fibers = null
 	return TRUE
 
-/datum/component/forensics/proc/clean_act(datum/source, strength)
-	SIGNAL_HANDLER
+/datum/component/forensics/proc/wipe_souls(force)
+	if(force)
+		souls = null
+		return TRUE
 
-	if(strength >= CLEAN_STRENGTH_FINGERPRINTS)
+/datum/component/forensics/proc/clean_act(datum/source, clean_types)
+	if(clean_types & CLEAN_TYPE_FINGERPRINTS)
 		wipe_fingerprints()
-	if(strength >= CLEAN_STRENGTH_BLOOD)
+		. = TRUE
+	if(clean_types & CLEAN_TYPE_BLOOD)
 		wipe_blood_DNA()
-	if(strength >= CLEAN_STRENGTH_FIBERS)
+		. = TRUE
+	if(clean_types & CLEAN_TYPE_FIBERS)
 		wipe_fibers()
+		. = TRUE
 
 /datum/component/forensics/proc/add_fingerprint_list(list/_fingerprints)	//list(text)
 	if(!length(_fingerprints))
@@ -80,6 +89,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		add_fibers(H)
+		add_soul(H)
 		if(H.gloves) //Check if the gloves (if any) hide fingerprints
 			var/obj/item/clothing/gloves/G = H.gloves
 			if(G.transfer_prints)
@@ -174,6 +184,19 @@
 	for(var/i in dna)
 		blood_DNA[i] = dna[i]
 	add_blood_decal()
+	return TRUE
+
+/datum/component/forensics/proc/add_soul_list(list/_souls)	//list(text)
+	if(!length(_souls))
+		return
+	LAZYINITLIST(souls)
+	for(var/i in _souls)
+		souls[i] = i
+	return TRUE
+
+/datum/component/forensics/proc/add_soul(mob/living/carbon/human/H)
+	var/glimmer = H.mind?.soul_glimmer || "#000"
+	LAZYSET(souls, glimmer, glimmer)
 	return TRUE
 
 /datum/component/forensics/proc/add_blood_decal()

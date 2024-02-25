@@ -430,7 +430,7 @@
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
 	air_contents = tank.air_contents
-	RegisterSignal(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_tank_drop))
+	RegisterSignals(tank, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_tank_drop))
 	START_PROCESSING(SSobj, src)
 	..()
 

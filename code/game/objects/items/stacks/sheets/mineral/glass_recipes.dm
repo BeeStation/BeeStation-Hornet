@@ -7,12 +7,6 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/glass)
 
-/obj/item/stack/sheet/glass/cyborg
-	materials = list()
-	is_cyborg = 1
-	cost = 500
-
-
 /* Reinforced glass sheets */
 GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	new/datum/stack_recipe("windoor frame", /obj/structure/windoor_assembly, 5, on_floor = TRUE, window_checks = TRUE), \

@@ -15,7 +15,7 @@
 
 	var/id = 0
 	max_integrity = 150
-	integrity_failure = 50
+	integrity_failure = 0.33
 	var/obscured = 0
 	var/sunfrac = 0
 	var/adir = SOUTH // actual dir
@@ -266,7 +266,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 250
 	max_integrity = 200
-	integrity_failure = 100
+	integrity_failure = 0.5
 	var/icon_screen = "solar"
 	var/icon_keyboard = "power_key"
 	var/id = 0

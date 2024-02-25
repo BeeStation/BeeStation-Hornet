@@ -27,7 +27,7 @@
 #define PREFERENCE_TAG_PURCHASED_GEAR	"25"
 #define PREFERENCE_TAG_BE_SPECIAL		"26"
 
-#define NEW_QUERY(thepkey, theckey, thevalue) queries += NewDBQuery("INSERT INTO SS13_preferences (ckey, preference_tag, preference_value) VALUES (:ckey, :pkey, :pval)", list("ckey" = theckey, "pkey" = thepkey, "pval" = thevalue))
+#define NEW_QUERY(thepkey, theckey, thevalue) queries += new_db_query("INSERT INTO SS13_preferences (ckey, preference_tag, preference_value) VALUES (:ckey, :pkey, :pval)", list("ckey" = theckey, "pkey" = thepkey, "pval" = thevalue))
 
 /proc/parse_savefile(owning_ckey, savefile/S)
 	var/list/character_dirs = list()

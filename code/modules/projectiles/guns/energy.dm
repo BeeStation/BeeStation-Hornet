@@ -14,14 +14,12 @@
 	var/select = 1
 	///Can it be charged in a recharger?
 	var/can_charge = TRUE
-	///Do we handle overlays with base update_icon()?
+	///Do we handle overlays with base update_overlays()?
 	var/automatic_charge_overlays = TRUE
 	var/charge_sections = 4
 	ammo_x_offset = 2
 	///if this gun uses a stateful charge bar for more detail
 	var/shaded_charge = FALSE
-	/// stores the gun's previous ammo "ratio" to see if it needs an updated icon
-	var/old_ratio = 0
 	var/selfcharge = 0
 	var/charge_timer = 0
 	var/charge_delay = 8
@@ -29,19 +27,21 @@
 	var/use_cyborg_cell = FALSE
 	///set to true so the gun is given an empty cell
 	var/dead_cell = FALSE
+	/// Should the charge overlay be emissive?
+	var/emissive_charge = TRUE
 
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
 	if(!(. & EMP_PROTECT_CONTENTS))
 		obj_flags |= OBJ_EMPED
-		update_icon()
+		update_appearance(UPDATE_ICON)
 		addtimer(CALLBACK(src, PROC_REF(emp_reset)), rand(1, 200 / severity))
 		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
 
 /obj/item/gun/energy/proc/emp_reset()
 	obj_flags &= ~OBJ_EMPED
 	//Update the icon
-	update_icon()
+	update_appearance(UPDATE_ICON)
 	//Play a sound to indicate re-activation
 	playsound(src, 'sound/machines/capacitor_charge.ogg', 90, TRUE)
 
@@ -63,7 +63,7 @@
 	recharge_newshot(TRUE)
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 /obj/item/gun/energy/fire_sounds()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
@@ -110,7 +110,7 @@
 /obj/item/gun/energy/handle_atom_del(atom/A)
 	if(A == cell)
 		cell = null
-		update_icon(FALSE, TRUE)
+		update_appearance(UPDATE_ICON)
 	return ..()
 
 /obj/item/gun/energy/process(delta_time)
@@ -122,12 +122,12 @@
 		cell.give(100)
 		if(!chambered) //if empty chamber we try to charge a new shot
 			recharge_newshot(TRUE)
-		update_icon()
+		update_appearance(UPDATE_ICON)
 
 /obj/item/gun/energy/attack_self(mob/living/user as mob)
 	if(ammo_type.len > 1)
 		select_fire(user)
-		update_icon()
+		update_appearance(UPDATE_ICON)
 
 /obj/item/gun/energy/can_shoot()
 	//Cannot shoot while EMPed
@@ -181,68 +181,61 @@
 		balloon_alert(user, "You set [src]'s mode to [shot.select_name].")
 	chambered = null
 	recharge_newshot(TRUE)
-	update_icon(TRUE)
+	update_appearance(UPDATE_ICON)
 	return
 
-/obj/item/gun/energy/update_icon(force_update)
+/obj/item/gun/energy/update_icon()
 	if(QDELETED(src))
 		return
-	..()
+	if(!automatic_charge_overlays)
+		return ..()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/itemState = null
+	if(!initial(item_state))
+		itemState = icon_state
+	if (modifystate)
+		if(itemState)
+			itemState += "[shot.select_name]"
+	var/ratio = CEILING(clamp(cell.charge / cell.maxcharge, 0, 1) * charge_sections, 1)
+	if(itemState)
+		itemState += "[ratio]"
+		item_state = itemState
+	return ..()
+
+/obj/item/gun/energy/update_overlays()
+	. = ..()
 	if(!automatic_charge_overlays)
 		return
 	var/ratio = CEILING(clamp(cell.charge / cell.maxcharge, 0, 1) * charge_sections, 1)
 	//Display no power if EMPed
 	if(obj_flags & OBJ_EMPED)
 		ratio = 0
-	if(ratio == old_ratio && !force_update)
-		return
-	old_ratio = ratio
-	cut_overlays()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/iconState = "[icon_state]_charge"
-	var/itemState = null
-	if(!initial(item_state))
-		itemState = icon_state
 	if (modifystate)
-		add_overlay("[icon_state]_[shot.select_name]")
+		. += "[icon_state]_[shot.select_name]"
 		iconState += "_[shot.select_name]"
-		if(itemState)
-			itemState += "[shot.select_name]"
 	if(cell.charge < shot.e_cost)
-		add_overlay("[icon_state]_empty")
+		. += "[icon_state]_empty"
 	else
 		if(!shaded_charge)
-			var/mutable_appearance/charge_overlay = mutable_appearance(icon, iconState)
 			for(var/i = ratio, i >= 1, i--)
+				var/mutable_appearance/charge_overlay = mutable_appearance(icon, iconState)
 				charge_overlay.pixel_x = ammo_x_offset * (i - 1)
 				charge_overlay.pixel_y = ammo_y_offset * (i - 1)
-				add_overlay(charge_overlay)
+				. += charge_overlay
+				if (!emissive_charge)
+					continue
+				var/mutable_appearance/charge_overlay_emissive = emissive_appearance(icon, iconState, layer = src.layer, alpha = 80)
+				ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+				charge_overlay_emissive.pixel_x = ammo_x_offset * (i - 1)
+				charge_overlay_emissive.pixel_y = ammo_y_offset * (i - 1)
+				. += charge_overlay_emissive
 		else
-			add_overlay("[icon_state]_charge[ratio]")
-	if(itemState)
-		itemState += "[ratio]"
-		item_state = itemState
-
-	if(gun_light)
-		var/mutable_appearance/flashlight_overlay
-		var/state = "[gunlight_state][gun_light.on? "_on":""]" //Generic state.
-		if(gun_light.icon_state in icon_states('icons/obj/guns/flashlights.dmi')) //Snowflake state?
-			state = gun_light.icon_state
-		flashlight_overlay = mutable_appearance('icons/obj/guns/flashlights.dmi', state)
-		flashlight_overlay.pixel_x = flight_x_offset
-		flashlight_overlay.pixel_y = flight_y_offset
-		add_overlay(flashlight_overlay)
-
-	if(bayonet)
-		var/mutable_appearance/knife_overlay
-		var/state = "bayonet" //Generic state.
-		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi')) //Snowflake state?
-			state = bayonet.icon_state
-		var/icon/bayonet_icons = 'icons/obj/guns/bayonets.dmi'
-		knife_overlay = mutable_appearance(bayonet_icons, state)
-		knife_overlay.pixel_x = knife_x_offset
-		knife_overlay.pixel_y = knife_y_offset
-		add_overlay(knife_overlay)
+			. += "[icon_state]_charge[ratio]"
+			if (emissive_charge)
+				. += emissive_appearance(icon, "[icon_state]_charge[ratio]", layer = src.layer, alpha = 80)
+				ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/item/gun/energy/suicide_act(mob/living/user)
 	if (istype(user) && can_shoot() && can_trigger_gun(user) && user.get_bodypart(BODY_ZONE_HEAD))
@@ -253,7 +246,7 @@
 			playsound(loc, fire_sound, 50, 1, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			cell.use(shot.e_cost)
-			update_icon()
+			update_appearance(UPDATE_ICON)
 			return(FIRELOSS)
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")

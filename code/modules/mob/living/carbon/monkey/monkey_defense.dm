@@ -22,7 +22,7 @@
 		var/damage = rand(1, 3)
 		if(stat != DEAD)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.zone_selected))
+			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(L.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			apply_damage(damage, BRUTE, affecting)
@@ -42,7 +42,7 @@
 					"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, "punch", 25, 1, -1)
 			var/damage = M.dna.species.punchdamage
-			var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.zone_selected))
+			var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)
 			apply_damage(damage, BRUTE, affecting)
@@ -73,7 +73,7 @@
 					visible_message("<span class='danger'>[M] slashes [name]!</span>", \
 							"<span class='userdanger'>[M] slashes you!</span>", null, COMBAT_MESSAGE_RANGE)
 
-				var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
+				var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
 				log_combat(M, src, "attacked")
 				if(!affecting)
 					affecting = get_bodypart(BODY_ZONE_CHEST)

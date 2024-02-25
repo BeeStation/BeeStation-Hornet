@@ -91,7 +91,7 @@
 		var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
 		var/dtype = BRUTE
 		var/volume = I.get_volume_by_throwforce_and_or_w_class()
-		var/nosell_hit = SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
+		var/nosell_hit = SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, blocked, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
 		if(nosell_hit)
 			skipcatch = TRUE
 			hitpush = FALSE
@@ -372,21 +372,26 @@
 	take_bodypart_damage(acidpwr * min(1, acid_volume * 0.1))
 	return 1
 
-/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, safety, tesla_shock, illusion, stun)
-	if(tesla_shock && (flags_1 & TESLA_IGNORE_1))
+///As the name suggests, this should be called to apply electric shocks.
+/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags)
+	shock_damage *= siemens_coeff
+	if((flags & SHOCK_TESLA) && (flags_1 & TESLA_IGNORE_1))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 		return FALSE
-	if(shock_damage > 0)
-		if(!illusion)
-			adjustFireLoss(shock_damage)
-		visible_message(
-			"<span class='danger'>[src] was shocked by \the [source]!</span>", \
-			"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
-			"<span class='italics'>You hear a heavy electrical crack.</span>" \
-		)
-		return shock_damage
+	if(shock_damage < 1)
+		return FALSE
+	if(!(flags & SHOCK_ILLUSION))
+		adjustFireLoss(shock_damage)
+	else
+		adjustStaminaLoss(shock_damage)
+	visible_message(
+		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
+		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
+		"<span class='hear'>You hear a heavy electrical crack.</span>" \
+	)
+	return shock_damage
 
 /mob/living/emp_act(severity)
 	. = ..()
@@ -395,18 +400,19 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
+/*
+ * Singularity acting on every (living)mob will generally lead to a big fat gib, and Mr. Singulo gaining 20 points.
+ * Stuff like clown & engineers with their unique point values are under /mob/living/carbon/human/singularity_act()
+ */
 /mob/living/singularity_act()
-	var/gain = 20
-
 
 	if (client)
 		client.give_award(/datum/award/achievement/misc/singularity_death, client.mob)
 
-
-	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
+	investigate_log("has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
 	investigate_log("has been gibbed by the singularity.", INVESTIGATE_DEATHS)
 	gib()
-	return(gain)
+	return 20 //20 points goes to our lucky winner Mr. Singulo!~
 
 /mob/living/narsie_act()
 	if(status_flags & GODMODE || QDELETED(src))
@@ -422,13 +428,15 @@
 	if(client)
 		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, cultoverride = TRUE)
 	else
-		switch(rand(1, 6))
+		switch(rand(1, 4))
 			if(1)
-				new /mob/living/simple_animal/hostile/construct/armored/hostile(get_turf(src))
+				new /mob/living/simple_animal/hostile/construct/juggernaut/hostile(get_turf(src))
 			if(2)
 				new /mob/living/simple_animal/hostile/construct/wraith/hostile(get_turf(src))
-			if(3 to 6)
-				new /mob/living/simple_animal/hostile/construct/builder/hostile(get_turf(src))
+			if(3)
+				new /mob/living/simple_animal/hostile/construct/artificer/hostile(get_turf(src))
+			if(4)
+				new /mob/living/simple_animal/hostile/construct/proteon/hostile(get_turf(src))
 	spawn_dust()
 	gib()
 	return TRUE

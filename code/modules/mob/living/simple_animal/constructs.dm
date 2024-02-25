@@ -5,11 +5,11 @@
 	gender = NEUTER
 	mob_biotypes = list(MOB_INORGANIC)
 	speak_emote = list("hisses")
-	response_help  = "thinks better of touching"
+	response_help = "thinks better of touching"
 	response_disarm = "flails at"
-	response_harm   = "punches"
+	response_harm = "punches"
 	speak_chance = 1
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/cult.dmi'
 	speed = 0
 	spacewalk = TRUE
 	a_intent = INTENT_HARM
@@ -42,7 +42,8 @@
 	var/can_repair_self = FALSE
 	var/runetype
 	var/datum/action/innate/cult/create_rune/our_rune
-	var/holy = FALSE
+	/// Theme controls color. THEME_CULT is red THEME_WIZARD is purple and THEME_HOLY is blue
+	var/theme = THEME_CULT
 	chat_color = "#FF6262"
 	mobchatspan = "cultmobsay"
 	discovery_points = 1000
@@ -73,6 +74,7 @@
 		var/pos = 2+spellnum*31
 		our_rune.button.screen_loc = "6:[pos],4:-2"
 		our_rune.button.moved = "6:[pos],4:-2"
+	add_overlay("glow_[icon_state]_[theme]")
 
 /mob/living/simple_animal/hostile/construct/Destroy()
 	QDEL_NULL(our_rune)
@@ -98,7 +100,7 @@
 		var/mob/living/simple_animal/hostile/construct/C = M
 		if(!C.can_repair_constructs || (C == src && !C.can_repair_self))
 			return ..()
-		if(holy != C.holy)
+		if(theme != C.theme)
 			return ..()
 		if(health < maxHealth)
 			adjustHealth(-5)
@@ -120,7 +122,7 @@
 /mob/living/simple_animal/hostile/construct/narsie_act()
 	return
 
-/mob/living/simple_animal/hostile/construct/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
+/mob/living/simple_animal/hostile/construct/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return 0
 
 /mob/living/simple_animal/hostile/construct/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
@@ -129,12 +131,12 @@
 		update_health_hud()
 
 /////////////////Juggernaut///////////////
-/mob/living/simple_animal/hostile/construct/armored
+/mob/living/simple_animal/hostile/construct/juggernaut
 	name = "Juggernaut"
 	real_name = "Juggernaut"
 	desc = "A massive, armored construct built to spearhead attacks and soak up enemy fire."
-	icon_state = "behemoth"
-	icon_living = "behemoth"
+	icon_state = "juggernaut"
+	icon_living = "juggernaut"
 	maxHealth = 150
 	health = 150
 	response_harm = "punches"
@@ -149,17 +151,19 @@
 	move_resist = MOVE_FORCE_STRONG
 	mob_size = MOB_SIZE_LARGE
 	force_threshold = 10
-	construct_spells = list(/obj/effect/proc_holder/spell/targeted/forcewall/cult,
-							/obj/effect/proc_holder/spell/targeted/projectile/dumbfire/juggernaut)
+	construct_spells = list(
+						/obj/effect/proc_holder/spell/targeted/forcewall/cult,
+						/obj/effect/proc_holder/spell/targeted/projectile/dumbfire/juggernaut
+						)
 	runetype = /datum/action/innate/cult/create_rune/wall
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand heavy punishment, \
 						create shield walls, rip apart enemies and walls alike, and even deflect energy weapons.</b>"
 
-/mob/living/simple_animal/hostile/construct/armored/hostile //actually hostile, will move around, hit things
+/mob/living/simple_animal/hostile/construct/juggernaut/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //only token destruction, don't smash the cult wall NO STOP
 
-/mob/living/simple_animal/hostile/construct/armored/bullet_act(obj/projectile/P)
+/mob/living/simple_animal/hostile/construct/juggernaut/bullet_act(obj/projectile/P)
 	if(istype(P, /obj/projectile/energy) || istype(P, /obj/projectile/beam))
 		var/reflectchance = 40 - round(P.damage/3)
 		if(prob(reflectchance))
@@ -188,23 +192,25 @@
 
 	return ..()
 
-//////////////////////////Angelic-Juggernaut////////////////////////////
-/mob/living/simple_animal/hostile/construct/armored/angelic
-	icon_state = "behemoth_angelic"
-	icon_living = "behemoth_angelic"
-	holy = TRUE
+//////////////////////////Juggernaut-alts////////////////////////////
+/mob/living/simple_animal/hostile/construct/juggernaut/angelic
+	theme = THEME_HOLY
 	loot = list(/obj/item/ectoplasm/angelic)
 	chat_color = "#AED2FF"
 
-/mob/living/simple_animal/hostile/construct/armored/noncult
+/mob/living/simple_animal/hostile/construct/juggernaut/mystic
+	theme = THEME_WIZARD
+	loot = list(/obj/item/ectoplasm/mystic)
+
+/mob/living/simple_animal/hostile/construct/juggernaut/noncult
 
 ////////////////////////Wraith/////////////////////////////////////////////
 /mob/living/simple_animal/hostile/construct/wraith
 	name = "Wraith"
 	real_name = "Wraith"
 	desc = "A wicked, clawed shell constructed to assassinate enemies and sow chaos behind enemy lines."
-	icon_state = "floating"
-	icon_living = "floating"
+	icon_state = "wraith"
+	icon_living = "wraith"
 	maxHealth = 65
 	health = 65
 	melee_damage = 20
@@ -242,18 +248,22 @@
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 
-//////////////////////////Angelic-Wraith////////////////////////////
+//////////////////////////Wraith-alts////////////////////////////
 /mob/living/simple_animal/hostile/construct/wraith/angelic
-	icon_state = "floating_angelic"
-	icon_living = "floating_angelic"
-	holy = TRUE
+	theme = THEME_HOLY
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/angelic)
 	loot = list(/obj/item/ectoplasm/angelic)
 	chat_color = "#AED2FF"
+
+/mob/living/simple_animal/hostile/construct/wraith/mystic
+	theme = THEME_WIZARD
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/mystic)
+	loot = list(/obj/item/ectoplasm/mystic)
 
 /mob/living/simple_animal/hostile/construct/wraith/noncult
 
 /////////////////////////////Artificer/////////////////////////
-/mob/living/simple_animal/hostile/construct/builder
+/mob/living/simple_animal/hostile/construct/artificer
 	name = "Artificer"
 	real_name = "Artificer"
 	desc = "A bulbous construct dedicated to building and maintaining the Cult of Nar'Sie's armies."
@@ -269,12 +279,13 @@
 	attacktext = "rams"
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	attack_sound = 'sound/weapons/punch2.ogg'
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/door,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
+	construct_spells = list(
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone,
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+						/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
+						)
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 
 						use magic missile, repair allied constructs, shades, and yourself (by clicking on them), \
@@ -283,7 +294,7 @@
 	can_repair_constructs = TRUE
 	can_repair_self = TRUE
 
-/mob/living/simple_animal/hostile/construct/builder/Found(atom/A) //what have we found here?
+/mob/living/simple_animal/hostile/construct/artificer/Found(atom/A) //what have we found here?
 	if(isconstruct(A)) //is it a construct?
 		var/mob/living/simple_animal/hostile/construct/C = A
 		if(C.health < C.maxHealth) //is it hurt? let's go heal it if it is
@@ -293,13 +304,13 @@
 	else
 		return 0
 
-/mob/living/simple_animal/hostile/construct/builder/CanAttack(atom/the_target)
+/mob/living/simple_animal/hostile/construct/artificer/CanAttack(atom/the_target)
 	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
 		return 0
 	if(Found(the_target) || ..()) //If we Found it or Can_Attack it normally, we Can_Attack it as long as it wasn't invisible
 		return 1 //as a note this shouldn't be added to base hostile mobs because it'll mess up retaliate hostile mobs
 
-/mob/living/simple_animal/hostile/construct/builder/MoveToTarget(var/list/possible_targets)
+/mob/living/simple_animal/hostile/construct/artificer/MoveToTarget(var/list/possible_targets)
 	..()
 	if(isliving(target))
 		var/mob/living/L = target
@@ -310,47 +321,60 @@
 			retreat_distance = null
 			minimum_distance = 1
 
-/mob/living/simple_animal/hostile/construct/builder/Aggro()
+/mob/living/simple_animal/hostile/construct/artificer/Aggro()
 	..()
 	if(isconstruct(target)) //oh the target is a construct no need to flee
 		retreat_distance = null
 		minimum_distance = 1
 
-/mob/living/simple_animal/hostile/construct/builder/LoseAggro()
+/mob/living/simple_animal/hostile/construct/artificer/LoseAggro()
 	..()
 	retreat_distance = initial(retreat_distance)
 	minimum_distance = initial(minimum_distance)
 
-/mob/living/simple_animal/hostile/construct/builder/hostile //actually hostile, will move around, hit things, heal other constructs
+/mob/living/simple_animal/hostile/construct/artificer/hostile //actually hostile, will move around, hit things, heal other constructs
 	AIStatus = AI_ON
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //only token destruction, don't smash the cult wall NO STOP
 
-/////////////////////////////Angelic Artificer/////////////////////////
-/mob/living/simple_animal/hostile/construct/builder/angelic
+/////////////////////////////Artificer-alts/////////////////////////
+/mob/living/simple_animal/hostile/construct/artificer/angelic
 	desc = "A bulbous construct dedicated to building and maintaining holy armies."
-	icon_state = "artificer_angelic"
-	icon_living = "artificer_angelic"
-	holy = TRUE
+	theme = THEME_HOLY
 	chat_color = "#AED2FF"
 	loot = list(/obj/item/ectoplasm/angelic)
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/noncult/purified,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
+	construct_spells = list(
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/purified,
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+						/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
+						)
 
-/mob/living/simple_animal/hostile/construct/builder/noncult
-	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/noncult,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
-							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
+/mob/living/simple_animal/hostile/construct/artificer/mystic
+	theme = THEME_WIZARD
+	loot = list(/obj/item/ectoplasm/mystic)
+	construct_spells = list(
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/mystic,
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+						/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
+						)
+
+/mob/living/simple_animal/hostile/construct/artificer/noncult
+	construct_spells = list(
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/noncult,
+						/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+						/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
+						)
 
 /////////////////////////////Harvester/////////////////////////
 /mob/living/simple_animal/hostile/construct/harvester
 	name = "Harvester"
 	real_name = "Harvester"
 	desc = "A long, thin construct built to herald Nar'Sie's rise. It'll be all over soon."
-	icon_state = "chosen"
-	icon_living = "chosen"
+	icon_state = "harvester"
+	icon_living = "harvester"
 	maxHealth = 40
 	health = 40
 	sight = SEE_MOBS
@@ -407,6 +431,26 @@
 	var/datum/action/innate/seek_prey/seek = new()
 	seek.Grant(src)
 	seek.Activate()
+
+/////////////////////////////Proteon/////////////////////////
+/mob/living/simple_animal/hostile/construct/proteon
+	name = "Proteon"
+	real_name = "Proteon"
+	desc = "A weaker construct meant to scour ruins for objects of Nar'Sie's affection. Those barbed claws are no joke."
+	icon_state = "proteon"
+	icon_living = "proteon"
+	maxHealth = 35
+	health = 35
+	melee_damage = 9
+	retreat_distance = 4 //AI proteons will rapidly move in and out of combat to avoid conflict, but will still target and follow you.
+	attacktext = "pinches"
+	environment_smash = ENVIRONMENT_SMASH_WALLS
+	attack_sound = 'sound/weapons/punch2.ogg'
+	playstyle_string = "<b>You are a Proteon. Your abilities in combat are outmatched by most combat constructs, but you are still fast and nimble. Run metal and supplies, and cooperate with your fellow cultists.</b>"
+
+/mob/living/simple_animal/hostile/construct/proteon/hostile //Style of mob spawned by trapped cult runes in the cleric ruin.
+	AIStatus = AI_ON
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //standard ai construct behavior, breaks things if it wants, but not walls.
 
 ///////////////////////Master-Tracker///////////////////////
 

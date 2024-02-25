@@ -94,7 +94,6 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	mode = dynamic_mode
-	lategame_spawned = mode.is_lategame()
 	..()
 
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
@@ -116,13 +115,12 @@
 		log_game("DYNAMIC: FAIL: [src] failed acceptable: maximum_players ([maximum_players]) < population ([population])")
 		return FALSE
 
-	if (mode.is_lategame())
-		return (flags & LATEGAME_RULESET)
 
 	pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : mode.pop_per_requirement
 	indice_pop = min(requirements.len,round(population/pop_per_requirement)+1)
-	if (threat_level < requirements[indice_pop])
-		log_game("DYNAMIC: FAIL: [src] failed acceptable: threat_level ([threat_level]) < requirement ([requirements[indice_pop]])")
+	var/requirement = requirements[indice_pop]
+	if (threat_level < requirement)
+		log_game("DYNAMIC: FAIL: [src] failed acceptable: threat_level ([threat_level]) < requirement ([requirement])")
 		return FALSE
 
 	return TRUE
@@ -181,7 +179,8 @@
 /// Runs from gamemode process() if ruleset fails to start, like delayed rulesets not getting valid candidates.
 /// This one only handles refunding the threat, override in ruleset to clean up the rest.
 /datum/dynamic_ruleset/proc/clean_up()
-	mode.refund_threat(cost + (scaled_times * scaling_cost))
+	if(!lategame_spawned) // lategame execute failures shouldn't refund
+		mode.refund_threat(cost + (scaled_times * scaling_cost))
 	var/msg = "[ruletype] [name] refunded [cost + (scaled_times * scaling_cost)]. Failed to execute."
 	mode.threat_log += "[worldtime2text()]: [msg]"
 	message_admins(msg)

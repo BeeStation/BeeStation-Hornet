@@ -2,7 +2,6 @@
 	name = "Unknown"
 	real_name = "Unknown"
 	icon = 'icons/mob/human.dmi'
-	icon_state = ""
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
 	COOLDOWN_DECLARE(special_emote_cooldown)
 
@@ -30,7 +29,7 @@
 	. = ..()
 
 	AddComponent(/datum/component/personal_crafting)
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_FACE_ACT, PROC_REF(clean_face))
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -410,7 +409,7 @@
 
 	if(!target_zone)
 		if(user)
-			target_zone = user.zone_selected
+			target_zone = user.get_combat_bodyzone(src, FALSE, BODYZONE_CONTEXT_INJECTION)
 		else
 			target_zone = BODY_ZONE_CHEST
 	// If targeting the head, see if the head item is thin enough.
@@ -596,18 +595,82 @@
 		if(..())
 			dropItemToGround(I)
 
-/mob/living/carbon/human/proc/clean_blood(datum/source, strength)
-	SIGNAL_HANDLER
+/**
+  * Wash the hands, cleaning either the gloves if equipped and not obscured, otherwise the hands themselves if they're not obscured.
+  *
+  * Returns false if we couldn't wash our hands due to them being obscured, otherwise true
+  */
+/mob/living/carbon/human/proc/wash_hands(clean_types)
+	var/list/obscured = check_obscured_slots()
+	if(ITEM_SLOT_GLOVES in obscured)
+		return FALSE
 
-	if(strength < CLEAN_STRENGTH_BLOOD)
-		return
 	if(gloves)
-		if(SEND_SIGNAL(gloves, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
+		if(gloves.wash(clean_types))
 			update_inv_gloves()
-	else
-		if(bloody_hands)
-			bloody_hands = 0
-			update_inv_gloves()
+	else if((clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0)
+		blood_in_hands = 0
+		update_inv_gloves()
+
+	return TRUE
+
+/**
+  * Cleans the lips of any lipstick. Returns TRUE if the lips had any lipstick and was thus cleaned
+  */
+/mob/living/carbon/human/proc/clean_lips()
+	if(isnull(lip_style) && lip_color == initial(lip_color))
+		return FALSE
+	lip_style = null
+	lip_color = initial(lip_color)
+	update_body()
+	return TRUE
+
+/**
+  * Called on the COMSIG_COMPONENT_CLEAN_FACE_ACT signal
+  */
+/mob/living/carbon/human/proc/clean_face(datum/source, clean_types)
+	if(!is_mouth_covered() && clean_lips())
+		. = TRUE
+
+	if(glasses && is_eyes_covered(FALSE, TRUE, TRUE) && glasses.wash(clean_types))
+		update_inv_glasses()
+		. = TRUE
+
+	var/list/obscured = check_obscured_slots()
+	if(wear_mask && !(ITEM_SLOT_MASK in obscured) && wear_mask.wash(clean_types))
+		update_inv_wear_mask()
+		. = TRUE
+
+/**
+  * Called when this human should be washed
+  */
+/mob/living/carbon/human/wash(clean_types)
+	. = ..()
+
+	// Wash equipped stuff that cannot be covered
+	if(wear_suit?.wash(clean_types))
+		update_inv_wear_suit()
+		. = TRUE
+
+	if(belt?.wash(clean_types))
+		update_inv_belt()
+		. = TRUE
+
+	// Check and wash stuff that can be covered
+	var/list/obscured = check_obscured_slots()
+
+	if(w_uniform && !(ITEM_SLOT_ICLOTHING in obscured) && w_uniform.wash(clean_types))
+		update_inv_w_uniform()
+		. = TRUE
+
+	if(!is_mouth_covered() && clean_lips())
+		. = TRUE
+
+	// Wash hands if exposed
+	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && blood_in_hands > 0 && !(ITEM_SLOT_GLOVES in obscured))
+		blood_in_hands = 0
+		update_inv_gloves()
+		. = TRUE
 
 //Turns a mob black, flashes a skeleton overlay
 //Just like a cartoon!
@@ -875,7 +938,7 @@
 	. = ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
-		if(!src.is_busy && (src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
+		if(!src.is_busy && (src.is_zone_selected(BODY_ZONE_HEAD) || src.is_zone_selected(BODY_ZONE_PRECISE_GROIN)) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
 
 			if (!do_after(src, 2.5 SECONDS, T) || get_turf(src) != get_turf(T) || (T.mobility_flags & MOBILITY_STAND) || src.a_intent == INTENT_HELP || src == T) //wait 30ds and make sure the stars still align (Body zone check removed after PR #958)
@@ -884,7 +947,7 @@
 
 			T.Stun(6)
 
-			if(src.zone_selected == BODY_ZONE_HEAD) //curbstomp specific code
+			if(src.is_zone_selected(BODY_ZONE_HEAD)) //curbstomp specific code
 
 				var/increment = (T.lying_angle/90)-2
 				setDir(increment > 0 ? WEST : EAST)
@@ -908,7 +971,8 @@
 
 				log_combat(src, T, "curbstomped")
 
-			else if(src.zone_selected == BODY_ZONE_PRECISE_GROIN) //groinkick specific code
+			// Will be legs only on simplified mode since groin is legs
+			else if(src.is_zone_selected(BODY_ZONE_PRECISE_GROIN)) //groinkick specific code
 
 				var/increment = (T.lying_angle/90)-2
 				setDir(increment > 0 ? WEST : EAST)
@@ -1275,3 +1339,6 @@
 
 /mob/living/carbon/human/species/pumpkin_man
 	race = /datum/species/pod/pumpkin_man
+
+/mob/living/carbon/human/species/psyphoza
+	race = /datum/species/psyphoza

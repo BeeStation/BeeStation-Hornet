@@ -11,21 +11,21 @@
 		/obj/item/food/cakeslice,
 		/obj/item/reagent_containers/food/snacks/store,
 		/obj/item/food/pie,
-		/obj/item/reagent_containers/food/snacks/kebab,
+		/obj/item/food/kebab,
 		/obj/item/food/pizza,
 		/obj/item/food/pizzaslice,
 		/obj/item/food/salad,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/food/meat,
+		/obj/item/food/meat/slab,
 		/obj/item/food/soup,
-		/obj/item/reagent_containers/food/snacks/grown,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom,
+		/obj/item/food/grown,
+		/obj/item/food/grown/mushroom,
 		/obj/item/food/deepfryholder,
 		/obj/item/reagent_containers/food/snacks/clothing,
-		/obj/item/reagent_containers/food/snacks/grown/shell, //base types
+		/obj/item/food/grown/shell, //base types
 		/obj/item/food/bread,
-		/obj/item/reagent_containers/food/snacks/grown/nettle,
-		/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
+		/obj/item/food/grown/nettle,
+		/obj/item/food/grown/shell/gatfruit
 		)
 		blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 

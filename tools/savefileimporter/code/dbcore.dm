@@ -17,7 +17,7 @@
 
 
 
-/proc/NewDBQuery(sql_query, arguments)
+/proc/new_db_query(sql_query, arguments)
 	return new /datum/db_query(GLOB.dbconnection, sql_query, arguments)
 
 /proc/establish_db_connection()
