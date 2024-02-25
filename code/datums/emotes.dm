@@ -85,9 +85,10 @@
 	if(!msg)
 		return TRUE
 
-	user.log_message(intentional ? msg : "(force) [msg]", LOG_EMOTE)
+	var/show_force_icon = user.mind && !intentional // we'll see the forced emote icon from players, not mindless mobs
+	user.log_message(show_force_icon ? "(force) [msg]" : msg, LOG_EMOTE)
 
-	if(!intentional)
+	if(show_force_icon)
 		msg = "[get_emote_force_icon()] [msg]"
 
 	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : null
@@ -108,9 +109,9 @@
 				M.show_message(dchatmsg)
 
 	if(emote_type & EMOTE_AUDIBLE)
-		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE, CHATMESSAGE_EMOTE_FORCE = intentional ? null : RUNECHAT_OPTION_FORCED_MESSAGE), separation = space)
+		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE, CHATMESSAGE_EMOTE_FORCE = show_force_icon ? RUNECHAT_OPTION_FORCED_MESSAGE : null), separation = space)
 	else
-		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE, CHATMESSAGE_EMOTE_FORCE = intentional ? null : RUNECHAT_OPTION_FORCED_MESSAGE), separation = space)
+		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE, CHATMESSAGE_EMOTE_FORCE = show_force_icon ? RUNECHAT_OPTION_FORCED_MESSAGE : null), separation = space)
 	return TRUE
 
 /datum/emote/proc/get_emote_force_icon()
