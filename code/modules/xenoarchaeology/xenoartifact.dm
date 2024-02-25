@@ -426,7 +426,7 @@
 	if(prob(1))
 		material = pick(XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM)
 	difficulty = material
-	..()
+	. = ..()
 
 /datum/component/xenoartifact_pricing ///Pricing component for shipping solution. Consider swapping to cargo after change.
 	///Buying and selling related, based on guess qaulity
@@ -436,7 +436,7 @@
 
 /datum/component/xenoartifact_pricing/Initialize(...)
 	RegisterSignal(parent, XENOA_CHANGE_PRICE, PROC_REF(update_price))
-	..()
+	. = ..()
 
 /datum/component/xenoartifact_pricing/Destroy(force, silent)
 	UnregisterSignal(parent, XENOA_CHANGE_PRICE)
@@ -449,7 +449,7 @@
  ///Objective version for exploration
 /obj/item/xenoartifact/objective/Initialize(mapload, difficulty)
 	traits += new /datum/xenoartifact_trait/special/objective
-	..()
+	. = ..()
 
 /obj/item/xenoartifact/objective/ComponentInitialize()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
