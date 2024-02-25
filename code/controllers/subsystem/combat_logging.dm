@@ -161,7 +161,7 @@ SUBSYSTEM_DEF(combat_logging)
 		return "loss"
 
 /datum/combat_log/proc/get_b_result()
-	if (victor == COMBAT_LOG_VICTOR_NONE)
+	if (victor == COMBAT_LOG_VICTOR_BOTH)
 		return "unresolved"
 	if (victor == COMBAT_LOG_VICTOR_NONE)
 		return "mutual_loss"
