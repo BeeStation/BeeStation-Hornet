@@ -52,6 +52,18 @@ SUBSYSTEM_DEF(combat_logging)
 		else if (attacker == used_log.b)
 			used_log.b_used_tools |= tool_name
 
+/datum/controller/subsystem/combat_logging/proc/generate_stat_tab()
+	var/list/data = list()
+	data["Active Combat"] = GENERATE_STAT_TEXT("Active combat instances will display below. Click to follow the initiator.")
+	for (var/datum/combat_log/log in active_combat_instances)
+		data["[log.a.name] ([log.a_job]) vs [log.b.name] ([log.b_job])"] = list(
+			text = "Click to orbit",
+			type = STAT_BUTTON,
+			action = "orbit",
+			params = list("ref" = REF(log.a))
+		)
+	return data
+
 #define COMBAT_LOG_VICTOR_NONE 0
 #define COMBAT_LOG_VICTOR_A 1
 #define COMBAT_LOG_VICTOR_B 2
