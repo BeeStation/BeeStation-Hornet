@@ -229,7 +229,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 				continue
 			tech_boosters++
 		if(tech_boosters)
-			efficiency = 1+(0.075*tech_boosters)
+			efficiency = 1+(0.075*tech_boosters) //increase efficiency by 7.5% for every surgery researched
 			if(old_eff < efficiency)
 				speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
 	update_controls()
@@ -474,10 +474,10 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(C.suiciding)
 		return FALSE //Kevorkian school of robotic medical assistants.
 
-	if(istype(C.dna.species, /datum/species/ipc))
+	if(C.dna.species.reagent_tag==PROCESS_SYNTHETIC) //robots don't need our medicine
 		return FALSE
 
-	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
+	if(emagged == 2) //Everyone needs our medicine. (Our medicine is bloodloss)
 		return TRUE
 
 	if(ishuman(C))
@@ -491,7 +491,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
 
-	//If they're injured, we're using a beaker
 	if(!reagent_glass?.reagents.total_volume) // no beaker, we can't do that
 		return FALSE
 
@@ -592,7 +591,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		if( get_dist(src, patient) > 1 || \
 				!do_after(src, 2 SECONDS, patient) ||\
 				!assess_patient(patient) || \
-				!on)
+				!on) //are they near us? did they move away? are they still hurt? are we stil on?
 			visible_message("[src] retracts its syringe.")
 			update_icon()
 			soft_reset()
@@ -605,8 +604,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 					var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
 					log_combat(src, patient, "injected", "beaker source", "[reagentlist]:[injection_amount]")
 					reagent_glass.reagents.reaction(patient, INJECT, fraction)
-					reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker instead.
-					if(!reagent_glass.reagents.total_volume && !synth_epi)
+					reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker.
+					if(!reagent_glass.reagents.total_volume && !synth_epi) //when empty, alert medbay unless we're on synth mode
 						var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')
 						var/message = pick(messagevoice)
 						speak(message,radio_channel)
