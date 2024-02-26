@@ -7,8 +7,8 @@
 	item_state = "pepperspray"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	volume = 50
-	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 50)
+	volume = 75
+	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 75)
 
 	item_flags = NOBLUDGEON | ISWEAPON
 	reagent_flags = OPENCONTAINER
@@ -45,7 +45,7 @@
 			return
 
 		playsound(src.loc, 'sound/effects/spray.ogg', 50, 1, -6)
-		var/trans = target.reagents.trans_to(src, 50, transfered_by = user) //transfer 50u , using the spray's transfer amount would take too long to refill
+		var/trans = target.reagents.trans_to(src, 75, transfered_by = user) //transfer 75u , using the spray's transfer amount would take too long to refill
 		to_chat(user, "<span class='notice'>You fill \the [src] with [trans] units of the contents of \the [target].</span>")
 		return
 
@@ -89,13 +89,13 @@
 	if (reagents_removed)
 		reagents.handle_reactions()
 	// Check that we have enough pepperspray remaining
-	if (reagents.get_reagent_amount(/datum/reagent/consumable/condensedcapsaicin) < 15)
+	if (reagents.get_reagent_amount(/datum/reagent/consumable/condensedcapsaicin) < 25)
 		to_chat(user, "<span class='warning'>[src] doesn't contain enough capsaicin to deploy, refill it!<span>")
 		return
 	cooldown_time = world.time + activation_cooldown
-	var/datum/reagents/R = new/datum/reagents(15)
+	var/datum/reagents/R = new/datum/reagents(25)
 	R.my_atom = src
-	reagents.trans_to(R, 15)
+	reagents.trans_to(R, 25)
 	var/datum/effect_system/smoke_spread/chem/smoke = new
 	smoke.set_up(R, 1, center, silent = TRUE, circle = FALSE)
 	playsound(src, 'sound/weapons/grenadelaunch.ogg', 70, FALSE, -2)
