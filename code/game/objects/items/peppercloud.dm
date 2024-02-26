@@ -89,13 +89,13 @@
 	if (reagents_removed)
 		reagents.handle_reactions()
 	// Check that we have enough pepperspray remaining
-	if (reagents.get_reagent_amount(/datum/reagent/consumable/condensedcapsaicin) < 25)
+	if (reagents.get_reagent_amount(/datum/reagent/consumable/condensedcapsaicin) < 15)
 		to_chat(user, "<span class='warning'>[src] doesn't contain enough capsaicin to deploy, refill it!<span>")
 		return
 	cooldown_time = world.time + activation_cooldown
-	var/datum/reagents/R = new/datum/reagents(25)
+	var/datum/reagents/R = new/datum/reagents(15)
 	R.my_atom = src
-	reagents.trans_to(R, 25)
+	reagents.trans_to(R, 15)
 	var/datum/effect_system/smoke_spread/chem/smoke = new
 	smoke.set_up(R, 1, center, silent = TRUE, circle = FALSE)
 	playsound(src, 'sound/weapons/grenadelaunch.ogg', 70, FALSE, -2)
