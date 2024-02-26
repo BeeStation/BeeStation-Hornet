@@ -197,8 +197,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		injection_amount += adjust_num
 		if(injection_amount < 5)
 			injection_amount = 5
-		if(injection_amount > 15)
-			injection_amount = 15
+		if(injection_amount > 30)
+			injection_amount = 30
 
 
 	else if(href_list["eject"] && (!isnull(reagent_glass)))
@@ -566,18 +566,16 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 		var/treat_behaviour // what this medibot will do?
 
-		if(reagent_glass?.reagents.total_volume) //have a beaker with something?
+		if(emagged)
+			treat_behaviour = MEDIBOT_TREAT_SUCK // Emagged! Time to drain everybody.
+
+		if(!treat_behaviour && reagent_glass?.reagents.total_volume) //have a beaker with something?
 			treat_behaviour = MEDIBOT_TREAT_INJECT
 
 			for(var/datum/reagent/each_beaker_reagent in reagent_glass.reagents.reagent_list)
-				if(!C)
-					continue
 				if(C.reagents.has_reagent(each_beaker_reagent.type)) // they have the chems inside them already
 					treat_behaviour = null
 					break
-
-		if(emagged)
-			treat_behaviour = MEDIBOT_TREAT_SUCK // Emagged! Time to drain everybody.
 
 		if(!treat_behaviour) //If they don't need any of that they're probably cured!
 			if(C.maxHealth - C.health < heal_threshold)
