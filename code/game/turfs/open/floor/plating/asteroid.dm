@@ -85,7 +85,7 @@
 		return ..()
 
 /turf/open/floor/plating/asteroid/planetary
-	var/static/gas_mixture/immutable/planetary/GM
+	var/static/datum/gas_mixture/immutable/planetary/GM
 
 /turf/open/floor/plating/asteroid/planetary/Initialize()
 	if(!GM)
@@ -141,7 +141,7 @@
 
 /turf/open/floor/plating/asteroid/basalt/planetary
 	resistance_flags = INDESTRUCTIBLE
-	var/static/gas_mixture/immutable/planetary/GM
+	var/static/datum/gas_mixture/immutable/planetary/GM
 
 /turf/open/floor/plating/asteroid/basalt/planetary/Initialize()
 	if(!GM)

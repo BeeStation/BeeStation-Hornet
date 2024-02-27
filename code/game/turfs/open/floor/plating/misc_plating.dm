@@ -125,7 +125,7 @@
 	tiled_dirt = FALSE
 	transform = MAP_SWITCH(TRANSLATE_MATRIX(-9, -9), matrix())
 	resistance_flags = INDESTRUCTIBLE
-	var/static/gas_mixture/immutable/planetary/GM
+	var/static/datum/gas_mixture/immutable/planetary/GM
 
 /turf/open/floor/plating/grass/Initialize()
 	if(!GM)
