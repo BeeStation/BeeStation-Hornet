@@ -91,7 +91,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/asteroid/paradise/surface/sand
 	name = "paradise surface sand"
-	grass_generator = /datum/grass_generator/sand_generator
+	map_generator = /datum/map_generator/grass_generator
 
 /area/asteroid/paradise/surface/water
 	name = "paradise surface water"
@@ -101,7 +101,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/asteroid/paradise/surface/grass
 	name = "paradise surface grass"
-	grass_generator = /datum/grass_generator/grass_generator
+	map_generator = /datum/map_generator/grass_generator
 
 
 //STATION13
