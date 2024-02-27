@@ -29,100 +29,106 @@ export const BanningPanel = (props, context) => {
   } = data;
 
   return (
-    <Window theme="admin" title="Banning Panel" width={850} height={800} resizable>
+    <Window theme="admin" title="Banning Panel" width={750} height={800} resizable>
       <Window.Content>
         <Section title="Player Information">
-          <Stack wrap="wrap">
-            <Stack.Item>
-              <Button.Checkbox content="Key" checked={key_enabled} onClick={() => act('toggle_key')} />
-              <Input
-                value={key}
-                onChange={(e) => act('update_key', { key: e.target.value })}
-                style={key_enabled ? { display: 'inline-block' } : { display: 'none' }}
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button.Checkbox content="IP" checked={ip_enabled} onClick={() => act('toggle_ip')} />
-              <Input
-                value={ip}
-                onChange={(e) => act('update_ip', { ip: e.target.value })}
-                style={ip_enabled ? { display: 'inline-block' } : { display: 'none' }}
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button.Checkbox content="CID" checked={cid_enabled} onClick={() => act('toggle_cid')} />
-              <Input
-                value={cid}
-                onChange={(e) => act('update_cid', { cid: e.target.value })}
-                style={cid_enabled ? { display: 'inline-block' } : { display: 'none' }}
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button.Checkbox content="Force Cryo After" checked={force_cryo_after} onClick={() => act('toggle_cryo')} />
-            </Stack.Item>
-            <Stack.Item style={can_supress ? { display: 'flex' } : { display: 'none' }}>
-              <Button.Checkbox
-                content="Enable supression"
-                color="bad"
-                checked={suppressed}
-                onClick={() => act('toggle_suppressed')}
-              />
-            </Stack.Item>
-          </Stack>
           <Stack>
-            <Stack.Item>
+            <Flex direction="column">
+              <Flex.Item>
+                <Button.Checkbox content="Key" checked={key_enabled} onClick={() => act('toggle_key')} minWidth="55px" />
+                <Input
+                  value={key}
+                  onChange={(e) => act('update_key', { key: e.target.value })}
+                  style={key_enabled ? { display: 'inline-block' } : { display: 'none' }}
+                />
+              </Flex.Item>
+              <Flex.Item>
+                <Button.Checkbox content="IP" checked={ip_enabled} onClick={() => act('toggle_ip')} minWidth="55px" />
+                <Input
+                  value={ip}
+                  onChange={(e) => act('update_ip', { ip: e.target.value })}
+                  style={ip_enabled ? { display: 'inline-block' } : { display: 'none' }}
+                />
+              </Flex.Item>
+              <Flex.Item>
+                <Button.Checkbox content="CID" checked={cid_enabled} onClick={() => act('toggle_cid')} minWidth="55px" />
+                <Input
+                  value={cid}
+                  onChange={(e) => act('update_cid', { cid: e.target.value })}
+                  style={cid_enabled ? { display: 'inline-block' } : { display: 'none' }}
+                />
+              </Flex.Item>
               <Button.Checkbox
                 content="Use IP and CID from last connection of key"
                 checked={use_last_connection}
                 onClick={() => act('toggle_use_last_connection')}
               />
-              <Button.Checkbox
-                content="Applies to admins"
-                checked={applies_to_admins}
-                onClick={() => act('toggle_applies_to_admins')}
-              />
-              <LabeledList>
-                <LabeledList.Item label="Duration Type" verticalAlign="middle">
-                  <Stack>
-                    <Dropdown
-                      selected={duration_type}
-                      options={['Permanent', 'Temporary']}
-                      onSelected={(selected) => act('set_duration_type', { type: selected })}
-                    />
-                    <Box style={duration_type === 'Temporary' ? { display: 'flex' } : { display: 'none' }}>
-                      <Input value={ban_duration} onChange={(e) => act('update_duration', { duration: e.target.value })} />
-                      <Dropdown
-                        selected={time_units}
-                        options={Object.keys(timeUnitsMapping)}
-                        onSelected={(selected) => act('set_time_units', { units: timeUnitsMapping[selected] })}
-                      />{' '}
-                    </Box>
-                  </Stack>
-                </LabeledList.Item>
-                <LabeledList.Item label="Ban Type" verticalAlign="middle">
-                  <Dropdown
-                    selected={ban_type}
-                    options={['Server', 'Role']}
-                    onSelected={(selected) => act('set_ban_type', { type: selected })}
+            </Flex>
+            <Stack direction="column" mx="10px">
+              <Flex>
+                <Button.Checkbox content="Force Cryo After" checked={force_cryo_after} onClick={() => act('toggle_cryo')} />
+                <Button.Checkbox
+                  content="Applies to admins"
+                  checked={applies_to_admins}
+                  onClick={() => act('toggle_applies_to_admins')}
+                />
+
+                <Box style={can_supress ? { display: 'flex' } : { display: 'none' }}>
+                  <Button.Checkbox
+                    content="Enable supression"
+                    color="bad"
+                    checked={suppressed}
+                    onClick={() => act('toggle_suppressed')}
                   />
-                </LabeledList.Item>
-              </LabeledList>
-            </Stack.Item>
-            <Stack.Item>
-              <LabeledList>
-                <LabeledList.Item label="Ban Reason" verticalAlign="top">
-                  <TextArea height="100px" onChange={(e) => act('update_reason', { reason: e.target.value })} />
-                </LabeledList.Item>
-                <LabeledList.Item>
-                  <Button.Confirm content="Submit" onClick={() => act('submit_ban')} />
-                </LabeledList.Item>
-              </LabeledList>
-            </Stack.Item>
+                </Box>
+              </Flex>
+              <Stack.Item>
+                <LabeledList>
+                  <LabeledList.Item label="Duration Type" verticalAlign="middle">
+                    <Flex>
+                      <Dropdown
+                        selected={duration_type}
+                        options={['Permanent', 'Temporary']}
+                        onSelected={(selected) => act('set_duration_type', { type: selected })}
+                      />
+                      <Box style={duration_type === 'Temporary' ? { display: 'flex' } : { display: 'none' }}>
+                        <Input value={ban_duration} onChange={(e) => act('update_duration', { duration: e.target.value })} />
+                        <Dropdown
+                          selected={time_units}
+                          options={Object.keys(timeUnitsMapping)}
+                          onSelected={(selected) => act('set_time_units', { units: timeUnitsMapping[selected] })}
+                        />{' '}
+                      </Box>
+                    </Flex>
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Ban Type" verticalAlign="middle">
+                    <Dropdown
+                      selected={ban_type}
+                      options={['Server', 'Role']}
+                      onSelected={(selected) => act('set_ban_type', { type: selected })}
+                    />
+                  </LabeledList.Item>
+                </LabeledList>
+              </Stack.Item>
+            </Stack>
           </Stack>
         </Section>
+        <Section title="Ban Reason">
+          <TextArea height="100px" onChange={(e) => act('update_reason', { reason: e.target.value })} />
+        </Section>
+
         <Section title="Roles" style={ban_type === 'Role' ? { display: 'block' } : { display: 'none' }}>
           <Roles selected_roles={selected_roles} roles={roles} selected_groups={selected_groups} act={act} />
         </Section>
+        <Button.Confirm
+          content="Submit"
+          onClick={() => act('submit_ban')}
+          m={0.5}
+          width={7}
+          height={2}
+          color="green"
+          textAlign="center"
+        />
       </Window.Content>
     </Window>
   );
@@ -131,6 +137,13 @@ export const BanningPanel = (props, context) => {
 const Roles = ({ roles, selected_roles, selected_groups, act }) => {
   return (
     <Stack direction="column">
+      <CheckboxCollapsible
+        title="Abstract"
+        onClick={() => act('toggle_group', { group: 'abstract' })}
+        checked={selected_groups.includes('abstract')}>
+        <RolesInCategory selected_roles={selected_roles} roles={roles['abstract']} act={act} />
+      </CheckboxCollapsible>
+
       <CheckboxCollapsible
         title="Command Roles"
         onClick={() => act('toggle_group', { group: 'command' })}
@@ -141,7 +154,7 @@ const Roles = ({ roles, selected_roles, selected_groups, act }) => {
       <CheckboxCollapsible
         title="Security Roles"
         onClick={() => act('toggle_group', { group: 'security' })}
-        color="blue"
+        color="red"
         checked={selected_groups.includes('security')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['security']} act={act} />
       </CheckboxCollapsible>
@@ -221,12 +234,6 @@ const Roles = ({ roles, selected_roles, selected_groups, act }) => {
         checked={selected_groups.includes('other')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['other']} act={act} />
       </CheckboxCollapsible>
-      <CheckboxCollapsible
-        title="Abstract"
-        onClick={() => act('toggle_group', { group: 'abstract' })}
-        checked={selected_groups.includes('abstract')}>
-        <RolesInCategory selected_roles={selected_roles} roles={roles['abstract']} act={act} />
-      </CheckboxCollapsible>
     </Stack>
   );
 };
@@ -242,7 +249,7 @@ const CheckboxCollapsible = ({ color, title, onClick, checked, children }) => {
         maxHeight="20px"
         verticalAlignContent="middle"
       />
-      <Collapsible title={title} color={color} inline>
+      <Collapsible title={title} color={color} inline iconPosition="right">
         {children}
       </Collapsible>
     </Flex>
@@ -250,7 +257,7 @@ const CheckboxCollapsible = ({ color, title, onClick, checked, children }) => {
 };
 const RolesInCategory = ({ roles, selected_roles, act }) => {
   return (
-    <Stack wrap width="800px">
+    <Stack wrap width="600px">
       {roles.map((role) => {
         return (
           <Button.Checkbox
