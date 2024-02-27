@@ -65,7 +65,7 @@ export const BanningPanel = (props, context) => {
               />
             </Flex>
             <Stack direction="column" mx="10px">
-              <Flex>
+              <Flex mb={1}>
                 <Button.Checkbox content="Force Cryo After" checked={force_cryo_after} onClick={() => act('toggle_cryo')} />
                 <Button.Checkbox
                   content="Applies to admins"
