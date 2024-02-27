@@ -90,8 +90,10 @@
 /turf/open/floor/plating/asteroid/planetary/Initialize()
 	if(!GM)
 		GM = new
+	. = ..()
 	air = GM
-	return ..()
+	update_air_ref(2)
+	return
 
 /turf/open/floor/plating/lavaland_baseturf
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
@@ -146,8 +148,10 @@
 /turf/open/floor/plating/asteroid/basalt/planetary/Initialize()
 	if(!GM)
 		GM = new
+	. = ..()
 	air = GM
-	return ..()
+	update_air_ref(2)
+	return
 
 /turf/open/floor/plating/asteroid/airless
 	initial_gas_mix = AIRLESS_ATMOS

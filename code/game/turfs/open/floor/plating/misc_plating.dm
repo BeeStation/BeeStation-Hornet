@@ -130,8 +130,10 @@
 /turf/open/floor/plating/grass/Initialize()
 	if(!GM)
 		GM = new
+	. = ..()
 	air = GM
-	return ..()
+	update_air_ref(2)
+	return
 
 /turf/open/floor/plating/beach
 	name = "beach"
