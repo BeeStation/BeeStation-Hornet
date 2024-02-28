@@ -451,7 +451,10 @@ S			omewhere, somehow, someone's gonna be kissed.</i>"
 
 /obj/item/clothing/shoes/cowboy_black
 	name = "black cowboy boots"
-	desc = "You get the feeling someone might have been hanged in these boots."
+	desc = "Love me as though there were no tomorrow\n\
+	Take me out of this world tonight\n\
+	Take me; make me forget my sorrow\n\
+	So when I wake tomorrow, I`ll know our love was right.</i>"
 	icon_state = "cowboy_black"
 	var/footstep = 1
 
