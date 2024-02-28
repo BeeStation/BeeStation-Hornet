@@ -83,6 +83,9 @@
 					/obj/item/clothing/shoes/sneakers/red = 4,
 					/obj/item/clothing/shoes/sneakers/orange = 4,
 					/obj/item/clothing/shoes/sneakers/white = 4,
+					/obj/item/clothing/shoes/cowboy_white
+					/obj/item/clothing/shoes/cowboy_black
+					/obj/item/clothing/shoes/cowboy_brown
 		            /obj/item/clothing/head/wig/natural  = 4,
 		            /obj/item/clothing/under/dress/skirt/plaid = 2,
 		            /obj/item/clothing/under/dress/skirt/plaid/blue = 2,
@@ -112,6 +115,8 @@
 		            /obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/head/that = 1,
 		            /obj/item/clothing/head/fedora = 1,
+					/obj/item/clothing/head/fedora_white = 1,
+					/obj/item/clothing/head/fedora_beige = 1,
 		            /obj/item/clothing/glasses/monocle = 1,
 		            /obj/item/clothing/head/sombrero = 1,
 		            /obj/item/clothing/suit/poncho = 1,
@@ -145,6 +150,7 @@
 		           /obj/item/clothing/under/pants/mustangjeans = 1,
 		           /obj/item/clothing/neck/necklace/dope = 3,
 		           /obj/item/clothing/suit/jacket/letterman_nanotrasen = 1)
+				   /obj/item/clothing/shoes/cowboy_fancy
 	refill_canister = /obj/item/vending_refill/clothing
 	default_price = 40
 	extra_price = 60

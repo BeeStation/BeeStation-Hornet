@@ -193,7 +193,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
 
-/obj/item/clothing/head/fedora
+/obj/item/clothing/head/
 	name = "fedora"
 	icon_state = "fedora"
 	item_state = "fedora"
@@ -201,6 +201,39 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
 
 /obj/item/clothing/head/fedora/suicide_act(mob/living/user)
+	if(user.gender == FEMALE)
+		return
+	var/mob/living/carbon/human/H = user
+	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to be nice to girls.</span>")
+	user.say("M'lady.", forced = "fedora suicide")
+	sleep(10)
+	H.facial_hair_style = "Neckbeard"
+	return BRUTELOSS
+
+/obj/item/clothing/head/fedora_white
+	name = "white fedora"
+	icon_state = "fedora_white"
+	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
+
+
+/obj/item/clothing/head/fedora_white/suicide_act(mob/living/user)
+	if(user.gender == FEMALE)
+		return
+	var/mob/living/carbon/human/H = user
+	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to be nice to girls.</span>")
+	user.say("M'lady.", forced = "fedora suicide")
+	sleep(10)
+	H.facial_hair_style = "Neckbeard"
+	return BRUTELOSS
+
+/obj/item/clothing/head/fedora_beige
+	name = "beige fedora"
+	icon_state = "fedora_beige"
+	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
+
+/obj/item/clothing/head/fedora_beige/suicide_act(mob/living/user)
 	if(user.gender == FEMALE)
 		return
 	var/mob/living/carbon/human/H = user
@@ -519,3 +552,19 @@
 	name = "maid headband"
 	desc = "Just like from one of those chinese cartoons!"
 	icon_state = "maid_headband"
+
+/obj/item/clothing/head/propeller_hat
+	name = "propeller hat"
+	desc = "A colorful hat with a spinning propeller sat on top."
+	icon_state = "propeller_hat"
+
+/obj/item/clothing/head/soft/fishing_hat
+	name = "legendary fishing hat"
+	desc = "An ancient relic of a bygone era of bountiful catches and endless rivers. Printed on the front is a poem:<i>\n\
+		Women Fear Me\n\
+		Fish Fear Me\n\
+		Men Turn Their Eyes Away From Me\n\
+		As I Walk No Beast Dares Make A Sound In My Presence\n\
+		I Am Alone On This Barren Earth.</i>"
+	icon_state = "fishing_hat"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

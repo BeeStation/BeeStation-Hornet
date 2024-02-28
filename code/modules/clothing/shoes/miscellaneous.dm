@@ -377,3 +377,29 @@
 	desc = "They got me for my foams!"
 	icon_state = "SwagShoes"
 	item_state = "SwagShoes"
+
+/obj/item/clothing/shoes/jester_shoes
+	name = "jester shoes"
+	desc = "Shoes that jingle with every step!!"
+	icon_state = "green_jester_shoes"
+	var/footstep = 1
+
+/obj/item/clothing/shoes/jester_shoes/step_action()
+	if(footstep > 1)
+		playsound(src, "sound/effects/jingle.ogg", 50, 1)
+		footstep = 0
+	else
+		footstep++
+
+/obj/item/clothing/shoes/ducky_shoes
+	name = "ducky shoes"
+	desc = "I got boots, that go *quack quack quack quack quack."
+	icon_state = "ducky_shoes"
+	var/footstep = 1
+
+/obj/item/clothing/shoes/ducky_shoes/step_action()
+	if(footstep > 1)
+		playsound(src, "sound/effects/quack.ogg", 50, 1)
+		footstep = 0
+	else
+		footstep++
