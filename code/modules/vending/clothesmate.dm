@@ -85,7 +85,7 @@
 					/obj/item/clothing/shoes/sneakers/white = 4,
 					/obj/item/clothing/shoes/cowboy_white = 1,
 					/obj/item/clothing/shoes/cowboy_black = 1,
-					/obj/item/clothing/shoes/cowboy_brown = 1,
+					/obj/item/clothing/shoes/cowboy = 1,
 		            /obj/item/clothing/head/wig/natural  = 4,
 		            /obj/item/clothing/under/dress/skirt/plaid = 2,
 		            /obj/item/clothing/under/dress/skirt/plaid/blue = 2,

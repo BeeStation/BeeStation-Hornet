@@ -403,3 +403,79 @@
 		footstep = 0
 	else
 		footstep++
+
+/obj/item/clothing/shoes/cowboy
+	name = "cowboy boots"
+	desc = "A small sticker lets you know they've been inspected for snakes, It is unclear how long ago the inspection took place..."
+	icon_state = "cowboy_brown"
+	var/footstep = 1
+
+/obj/item/clothing/shoes/ducky_shoes/step_action()
+	if(footstep > 1)
+		playsound (src, "spurs1", 50, 1)
+		footstep = 0
+	else
+		footstep++
+/obj/item/clothing/shoes/cowboy_fancy
+	name = "Fancy cowboy boots"
+	desc = "When an irrepressible smile such as yours\n\
+			Warms an old implacable heart such as mine\n\
+			Don't say no because I insist\n\
+S			omewhere, somehow, someone's gonna be kissed.</i>"
+	icon_state = "cowboy_fancy"
+	var/footstep = 1
+
+
+/obj/item/clothing/shoes/ducky_shoes/step_action()
+	if(footstep > 1)
+		playsound (src, "spurs1", 50, 1)
+		footstep = 0
+	else
+		footstep++
+
+/obj/item/clothing/shoes/cowboy_white
+	name = "white cowboy boots"
+	icon_state = "cowboy_white"
+	desc = "Stars of the midnight ranges\n\
+	Shining through the night\n\
+	Stars of the midnight ranges\n\
+	Light my way tonight.</i>"
+	var/footstep = 1
+
+/obj/item/clothing/shoes/cowboy_white/step_action()
+	if(footstep > 1)
+		playsound (src, "spurs1", 50, 1)
+		footstep = 0
+	else
+		footstep++
+
+/obj/item/clothing/shoes/cowboy_black
+	name = "black cowboy boots"
+	desc = "You get the feeling someone might have been hanged in these boots."
+	icon_state = "cowboy_black"
+	var/footstep = 1
+
+/obj/item/clothing/shoes/cowboy_black/step_action()
+	if(footstep > 1)
+		playsound (src, "spurs1", 50, 1)
+		footstep = 0
+	else
+		footstep++
+
+/obj/item/clothing/shoes/cowboy_black_syndicate //Skin for the jackboots, syndicate exclusive
+	name = "black spurred cowboy boots"
+	desc = "And they sing, oh, ain't you glad you're single? And that song ain't so very far from wrong."
+	icon_state = "cowboy_black"
+	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 30)
+	strip_delay = 40
+	resistance_flags = NONE
+	permeability_coefficient = 0.05
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
+	var/footstep = 1
+
+/obj/item/clothing/shoes/cowboy_black_syndicate/step_action()
+	if(footstep > 1)
+		playsound (src, "spurs1", 50, 1)
+		footstep = 0
+	else
+		footstep++
