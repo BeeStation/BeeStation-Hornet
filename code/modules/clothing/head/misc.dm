@@ -558,13 +558,3 @@
 	desc = "A colorful hat with a spinning propeller sat on top."
 	icon_state = "propeller_hat"
 
-/obj/item/clothing/head/soft/fishing_hat
-	name = "legendary fishing hat"
-	desc = "An ancient relic of a bygone era of bountiful catches and endless rivers. Printed on the front is a poem:<i>\n\
-		Women Fear Me\n\
-		Fish Fear Me\n\
-		Men Turn Their Eyes Away From Me\n\
-		As I Walk No Beast Dares Make A Sound In My Presence\n\
-		I Am Alone On This Barren Earth.</i>"
-	icon_state = "fishing_hat"
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
