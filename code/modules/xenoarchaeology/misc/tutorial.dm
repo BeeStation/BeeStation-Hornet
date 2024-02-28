@@ -1,7 +1,9 @@
-//Tutorial paper for labelling artifacts
-/obj/item/paper/artifact_tutorial
-	name = "letter of instruction"
-	default_raw_text = "Hello, ______. \n\
+/*
+	Intro to labelling artifacts
+*/
+
+/obj/item/sticker/sticky_note/artifact_tutorial
+	custom_text = "Hello, ______. \n\
 	\n\
 	I hope you have settled into your new post well, and have begun your research.\
 	Under reccomendation of ______, your outpost has been licensed to research class-X artifacts.\

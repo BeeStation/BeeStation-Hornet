@@ -65,6 +65,9 @@
 	///If TRUE, staff can read paper everywhere, but usually from requests panel.
 	var/request_state = FALSE
 
+	///Range check anchor
+	var/atom/range_check_anchor
+
 /obj/item/paper/Initialize(mapload)
 	. = ..()
 	pixel_y = rand(-8, 8)
@@ -308,7 +311,7 @@
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
-	if(!in_range(user, src) && !isobserver(user))
+	if(!in_range(user, (range_check_anchor || src)) && !isobserver(user))
 		. += "<span class='warning'>You're too far away to read it!</span>"
 		return
 	if(user.can_read(src))
@@ -322,7 +325,7 @@
 		return UI_CLOSE
 	if(camera_holder && can_show_to_mob_through_camera(user) || request_state)
 		return UI_UPDATE
-	if(!in_range(user,src))
+	if(!in_range(user, (range_check_anchor || src)))
 		return UI_CLOSE
 	if(user.incapacitated(TRUE, TRUE) || (isobserver(user) && !IsAdminGhost(user)))
 		return UI_UPDATE
@@ -330,7 +333,7 @@
 	// .. or if you cannot read
 	if(!user.can_read(src))
 		return UI_CLOSE
-	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard))
+	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard) || in_contents_of(/obj/item/sticker/sticky_note))
 		return UI_INTERACTIVE
 	return ..()
 

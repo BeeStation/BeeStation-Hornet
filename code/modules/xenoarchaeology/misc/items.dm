@@ -58,6 +58,13 @@
 */
 /obj/item/xenoartifact/tutorial
 
+/obj/item/xenoartifact/tutorial/Initialize(mapload, _artifact_type)
+	. = ..()
+	var/obj/item/sticker/sticky_note/artifact_tutorial/S = new(loc)
+	S.afterattack(src, src, TRUE)
+	S.pixel_y = rand(-5, 5)
+	S.pixel_x = rand(-5, 5)
+
 /obj/item/xenoartifact/tutorial/add_artifact_component()
 	AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/bluespace, list(/datum/xenoartifact_trait/activator/strudy, /datum/xenoartifact_trait/minor/slippery, /datum/xenoartifact_trait/minor/charged, /datum/xenoartifact_trait/minor/cooling, /datum/xenoartifact_trait/major/hollow))
 
@@ -92,7 +99,7 @@
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/effect/mapping_helpers/make_non_slip/LateInitialize()
+/obj/effect/mapping_helpers/familiar_artifact/LateInitialize()
 	. = ..()
 	var/atom/A = pick(GLOB.xenoa_familiar_items)
 	A = new A(loc)
