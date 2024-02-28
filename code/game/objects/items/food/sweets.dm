@@ -278,7 +278,7 @@
 	slot_flags = ITEM_SLOT_MASK
 
 /obj/item/food/lollipop/swirl
-	name = "swirl lollipop"
+	name = "Swirl lollipop"
 	desc = "A massive rainbow swirlled lollipop. Said to contain extra sugar."
 	icon_state = "swirl_lollipop"
 	food_reagents = list(
