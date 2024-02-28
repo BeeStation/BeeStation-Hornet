@@ -192,5 +192,5 @@
 		/datum/reagent/consumable/caramel = 5,
 		/datum/reagent/drug/happiness = 5,
 		)
-	result = /obj/item/food/lollipop/swirl
+	result = /obj/item/food/lollipop/swirl_lollipop
 	subcategory = CAT_MISCFOOD
