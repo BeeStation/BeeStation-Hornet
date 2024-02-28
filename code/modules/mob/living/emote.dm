@@ -621,7 +621,7 @@
 /datum/emote/living/must_breathe/cough
 	key = "cough"
 	key_third_person = "coughs"
-	message = "coughs!"
+	message = "coughs"
 
 /datum/emote/living/must_breathe/cough/can_run_emote(mob/user, status_check = TRUE, intentional)
 	return ..() && !HAS_TRAIT(user, TRAIT_SOOTHED_THROAT)
@@ -635,7 +635,7 @@
 /datum/emote/living/must_breathe/gasp
 	key = "gasp"
 	key_third_person = "gasps"
-	message = "gasps!"
+	message = "gasps"
 
 /datum/emote/living/must_breathe/gasp/get_sound(mob/living/user)
 	if(!ishuman(user))
@@ -646,12 +646,12 @@
 /datum/emote/living/must_breathe/huff
 	key = "huff"
 	key_third_person = "huffs"
-	message ="lets out a huff!"
+	message ="lets out a huff"
 
 /datum/emote/living/must_breathe/sigh
 	key = "sigh"
 	key_third_person = "sighs"
-	message = "sighs!"
+	message = "sighs"
 	emote_type = EMOTE_AUDIBLE|EMOTE_ANIMATED
 	emote_length = 3 SECONDS
 	overlay_y_offset = -1
@@ -666,7 +666,7 @@
 /datum/emote/living/must_breathe/sneeze
 	key = "sneeze"
 	key_third_person = "sneezes"
-	message = "sneezes!"
+	message = "sneezes"
 
 /datum/emote/living/must_breathe/sneeze/get_sound(mob/living/user)
 	if(!ishuman(user))
@@ -677,7 +677,7 @@
 /datum/emote/living/must_breathe/sniff
 	key = "sniff"
 	key_third_person = "sniffs"
-	message = "sniffs."
+	message = "sniffs"
 
 /datum/emote/living/must_breathe/sniff/get_sound(mob/living/user)
 	if(!ishuman(user))
