@@ -36,7 +36,7 @@ GLOBAL_PROTECT(href_token)
 	/// Player panel
 	var/datum/admin_player_panel/player_panel
 
-	/// Bannig Panel
+	/// Banning Panel
 	var/datum/admin_ban_panel/ban_panel
 
 /datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
