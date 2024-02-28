@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import { useBackend } from '../backend';
-import { Button, Input, TextArea, LabeledList, Section, Box, Dropdown, Stack, Collapsible, Flex } from '../components';
+import { Button, Input, TextArea, LabeledList, Section, Box, Dropdown, Stack, Collapsible, Flex, NumberInput } from '../components';
 import { Window } from '../layouts';
 
 const KEY_REGEX = /^(\[[\d:]+\]) ([\S\s]+?)\/\(([\S\s]+?)\) \(([\s\S]+?) \((\d+, \d+, \d+)\)\) \(Event #(\d+)\)$/;
@@ -92,7 +92,12 @@ export const BanningPanel = (props, context) => {
                         onSelected={(selected) => act('set_duration_type', { type: selected })}
                       />
                       <Box style={duration_type === 'Temporary' ? { display: 'flex' } : { display: 'none' }}>
-                        <Input value={ban_duration} onChange={(e) => act('update_duration', { duration: e.target.value })} />
+                        <NumberInput
+                          value={ban_duration}
+                          animated
+                          minValue={1}
+                          onChange={(e, value) => act('update_duration', { duration: value })}
+                        />
                         <Dropdown
                           selected={time_units}
                           options={Object.keys(timeUnitsMapping)}
