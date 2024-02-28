@@ -461,4 +461,3 @@ S			omewhere, somehow, someone's gonna be kissed.</i>"
 		footstep = 0
 	else
 		footstep++
-
