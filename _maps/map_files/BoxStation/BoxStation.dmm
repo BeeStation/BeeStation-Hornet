@@ -7701,8 +7701,8 @@
 /obj/item/pen,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/westleft{
-	name = "Warden's Desk";
-	dir = 2
+	dir = 2;
+	name = "Warden's Desk"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -8944,7 +8944,9 @@
 /area/medical/cryo)
 "bIp" = (
 /obj/structure/closet/secure_closet/security/med,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -15272,6 +15274,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
+"csg" = (
+/obj/item/storage/box/sec_barricades,
+/obj/structure/table,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/item/survivalcapsule/capsule_checkpoint,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "csk" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating/airless,
@@ -18267,7 +18279,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "cTX" = (
@@ -19028,7 +19042,9 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /obj/item/storage/firstaid/regular,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/machinery/light_switch{
 	pixel_y = -26
@@ -19638,7 +19654,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("ss13", "prison")
+	network = list("ss13","prison")
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
@@ -21342,6 +21358,19 @@
 /obj/machinery/meter,
 /turf/open/floor/plating,
 /area/maintenance/central)
+"elf" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison/dark,
+/area/security/prison)
 "elt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -22116,7 +22145,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8;
 	name = "output gas connector port"
@@ -22553,8 +22584,8 @@
 	},
 /obj/structure/disposalpipe/sorting/mail/flip{
 	dir = 4;
-	sortType = 7;
-	name = "Security Junction"
+	name = "Security Junction";
+	sortType = 7
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
@@ -23254,7 +23285,7 @@
 /obj/effect/landmark/start/security_officer,
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -26609,7 +26640,9 @@
 /area/space/nearstation)
 "gAU" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -28400,8 +28433,8 @@
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
 	name = "Prison Intercom (General)";
-	prison_radio = 1;
-	pixel_y = -25
+	pixel_y = -25;
+	prison_radio = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -30886,7 +30919,9 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet)
@@ -31028,7 +31063,9 @@
 /area/science/research)
 "iAO" = (
 /obj/machinery/telecomms/receiver/preset_exploration,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
@@ -31206,7 +31243,9 @@
 /obj/machinery/computer/xenoartifact_console{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
@@ -31779,7 +31818,9 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -32184,7 +32225,9 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "jbC" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -32428,7 +32471,9 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/locker)
 "jgJ" = (
@@ -32851,7 +32896,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/item/multitool,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -33069,7 +33116,7 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 4;
-	network = list("ss13", "prison")
+	network = list("ss13","prison")
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -33250,8 +33297,8 @@
 	},
 /obj/item/book/manual/wiki/sopcommand,
 /obj/item/book/manual/wiki/sopsecurity{
-	pixel_y = 2;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 2
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -33985,7 +34032,9 @@
 	pixel_y = 3
 	},
 /obj/item/stock_parts/scanning_module,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -34051,15 +34100,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"jUK" = (
-/obj/item/storage/box/sec_barricades,
-/obj/structure/table,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "jUR" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -34148,7 +34188,7 @@
 /obj/structure/chair/fancy/bench/right,
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("ss13", "prison", "security")
+	network = list("ss13","prison","security")
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -35350,8 +35390,8 @@
 /area/medical/virology)
 "kuG" = (
 /obj/item/storage/secure/safe{
-	pixel_y = -25;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = -25
 	},
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -35728,7 +35768,7 @@
 /obj/machinery/camera{
 	c_tag = "Detective's Office";
 	dir = 8;
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /obj/machinery/button/door{
 	id = "detective_shutters";
@@ -36498,7 +36538,9 @@
 /area/ai_monitored/turret_protected/aisat/service)
 "kTU" = (
 /obj/structure/closet,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/plating,
@@ -36666,7 +36708,9 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -41271,7 +41315,9 @@
 /area/crew_quarters/heads/cmo)
 "nck" = (
 /obj/structure/closet/secure_closet/hop,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -42722,8 +42768,8 @@
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
 	name = "Prison Intercom (General)";
-	prison_radio = 1;
-	pixel_y = 25
+	pixel_y = 25;
+	prison_radio = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
@@ -43062,8 +43108,8 @@
 	id = "Toilet1";
 	name = "Lock Control";
 	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_y = 24
+	pixel_y = 24;
+	specialfunctions = 4
 	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet)
@@ -44491,6 +44537,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"owj" = (
+/obj/structure/chair/stool,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "owl" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -45147,8 +45198,8 @@
 	id = "Toilet2";
 	name = "Lock Control";
 	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_y = 24
+	pixel_y = 24;
+	specialfunctions = 4
 	},
 /obj/effect/landmark/start/assistant,
 /obj/machinery/newscaster{
@@ -45643,7 +45694,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/camera/autoname{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -45782,7 +45833,9 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "piG" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -45895,11 +45948,6 @@
 /obj/structure/closet/l3closet/virology,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"pnI" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/airalarm/directional/west,
-/turf/open/floor/prison,
-/area/security/prison)
 "pnL" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -46290,6 +46338,28 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /turf/open/floor/plating,
 /area/security/prison)
+"pva" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/prison)
 "pvv" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -46551,6 +46621,21 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"pBs" = (
+/obj/effect/turf_decal/tile/red/anticorner_ramp/contrasted{
+	dir = 4
+	},
+/obj/machinery/camera/autoname{
+	dir = 6;
+	network = list("ss13, prison")
+	},
+/obj/structure/sign/warning/radiation_shelter{
+	pixel_x = 1;
+	pixel_y = 33
+	},
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "pBA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -47556,7 +47641,7 @@
 /obj/item/toy/figure/hos,
 /obj/machinery/camera/autoname{
 	dir = 6;
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -48051,7 +48136,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -48412,7 +48499,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -49070,6 +49159,10 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/nuke_storage)
+"qKr" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "qKI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -49379,7 +49472,9 @@
 /turf/open/floor/plasteel,
 /area/janitor)
 "qRW" = (
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -49696,7 +49791,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "qZc" = (
@@ -49994,7 +50091,7 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/camera/autoname{
 	dir = 1;
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -54218,7 +54315,9 @@
 /turf/open/floor/plasteel,
 /area/maintenance/aft)
 "sQg" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/machinery/camera/autoname{
 	dir = 1
@@ -54310,20 +54409,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"sRB" = (
-/obj/effect/turf_decal/tile/red/anticorner_ramp/contrasted{
-	dir = 4
-	},
-/obj/machinery/camera/autoname{
-	dir = 6;
-	network = list("ss13, prison")
-	},
-/obj/structure/sign/warning/radiation_shelter{
-	pixel_x = 1;
-	pixel_y = 33
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "sRD" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
@@ -54357,7 +54442,9 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -54494,7 +54581,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -54759,7 +54848,9 @@
 /area/hallway/primary/central)
 "tcT" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -55189,7 +55280,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/chair,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -55427,23 +55520,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"tqA" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/south,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/prison)
 "tqF" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/fore/secondary)
@@ -56109,7 +56185,9 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "tCz" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat/hallway)
@@ -57245,7 +57323,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -58770,13 +58850,13 @@
 "uOQ" = (
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("ss13", "prison")
+	network = list("ss13","prison")
 	},
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
 	name = "Prison Intercom (General)";
-	prison_radio = 1;
-	pixel_x = 25
+	pixel_x = 25;
+	prison_radio = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -59432,7 +59512,9 @@
 /area/security/execution/transfer)
 "vhh" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 4
 	},
@@ -60030,9 +60112,9 @@
 /obj/machinery/button/door{
 	id = "courtcell";
 	name = "Court cell shutters";
+	pixel_x = -24;
 	pixel_y = 8;
-	req_access_txt = "2";
-	pixel_x = -24
+	req_access_txt = "2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
@@ -60159,7 +60241,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -60308,7 +60390,9 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science)
 "vFR" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -62185,6 +62269,12 @@
 	dir = 10
 	},
 /area/engine/atmos)
+"wwv" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/airalarm/directional/west,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "wwG" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -62371,8 +62461,8 @@
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
 	name = "Prison Intercom (General)";
-	prison_radio = 1;
-	pixel_y = -25
+	pixel_y = -25;
+	prison_radio = 1
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -62476,7 +62566,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
@@ -62588,7 +62680,7 @@
 "wIf" = (
 /obj/machinery/camera/autoname{
 	dir = 8;
-	network = list("ss13", "prison")
+	network = list("ss13","prison")
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -62597,9 +62689,9 @@
 /obj/machinery/button/door{
 	id = "courtcell";
 	name = "Court cell shutters";
+	pixel_x = 25;
 	pixel_y = 8;
-	req_access_txt = "2";
-	pixel_x = 25
+	req_access_txt = "2"
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -62870,7 +62962,9 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "wNt" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -62977,7 +63071,7 @@
 /obj/machinery/camera/motion{
 	c_tag = "Armory - External";
 	dir = 1;
-	network = list("ss13", "security")
+	network = list("ss13","security")
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -63585,7 +63679,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "xel" = (
@@ -63729,7 +63825,9 @@
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -63882,16 +63980,16 @@
 /obj/machinery/button/door{
 	id = "Prisongate";
 	name = "Prison Wing Lockdown";
+	pixel_x = -8;
 	pixel_y = -25;
-	req_access_txt = "2";
-	pixel_x = -8
+	req_access_txt = "2"
 	},
 /obj/machinery/button/door{
 	id = "armory";
 	name = "Armory Shutters";
-	req_access_txt = "3";
+	pixel_x = 8;
 	pixel_y = -25;
-	pixel_x = 8
+	req_access_txt = "3"
 	},
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/bot_white,
@@ -65596,7 +65694,9 @@
 	},
 /area/science/research)
 "xWQ" = (
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -65759,7 +65859,9 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "yaG" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -65813,7 +65915,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel/white/side{
 	dir = 4
 	},
@@ -88615,7 +88719,7 @@ vQe
 tYI
 rnv
 hlq
-fZk
+elf
 xSq
 aai
 aaa
@@ -89380,7 +89484,7 @@ prM
 llv
 qFa
 xEg
-pnI
+wwv
 vfy
 xQO
 vaO
@@ -89886,7 +89990,7 @@ tNE
 tNE
 mdH
 yfx
-tST
+owj
 uHL
 pcu
 wBw
@@ -91425,7 +91529,7 @@ sti
 jpp
 wpi
 vCQ
-yfx
+qKr
 xYt
 aai
 aai
@@ -91935,7 +92039,7 @@ guI
 tBK
 jkW
 tnE
-sRB
+pBs
 tfO
 oKv
 oKv
@@ -92707,7 +92811,7 @@ wwG
 bth
 lac
 bVl
-tqA
+pva
 agn
 uVA
 edZ
@@ -97836,7 +97940,7 @@ kAi
 ted
 lPI
 fRu
-jUK
+csg
 eJm
 mov
 klR

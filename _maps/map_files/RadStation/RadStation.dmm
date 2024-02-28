@@ -10935,6 +10935,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "dyM" = (
@@ -17523,6 +17524,7 @@
 /obj/machinery/light/very_dim/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison/shielded)
 "fuX" = (
@@ -29076,6 +29078,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/prison,
 /area/security/prison)
 "jcl" = (
@@ -59149,6 +59152,7 @@
 	pixel_y = 28
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/item/survivalcapsule/capsule_checkpoint,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "szF" = (
@@ -70756,6 +70760,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"wah" = (
+/obj/effect/turf_decal/tile/black/fourcorners,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/plasteel/techmaint,
+/area/security/prison{
+	name = "Prison Botany"
+	})
 "waj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/xenoblood/xgibs/down,
@@ -72292,6 +72303,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
+/obj/effect/landmark/prisonspawn,
 /turf/open/floor/plasteel/freezer,
 /area/security/prison{
 	name = "Prison Toilet"
@@ -107274,7 +107286,7 @@ bjP
 mut
 tla
 xZd
-xZd
+wah
 rId
 ifC
 ifC

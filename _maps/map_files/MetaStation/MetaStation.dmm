@@ -20518,6 +20518,11 @@
 "cDi" = (
 /turf/closed/wall,
 /area/science/robotics/lab)
+"cDs" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "cDv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -22507,6 +22512,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/security/brig)
+"cVt" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "cVx" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -41880,12 +41889,6 @@
 /obj/item/reagent_containers/glass/beaker/large,
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
-"kiu" = (
-/obj/structure/rack,
-/obj/item/storage/box/sec_barricades,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "kiA" = (
 /obj/structure/sign/warning/radiation/rad_area{
 	pixel_y = 32
@@ -46932,6 +46935,13 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
+"mly" = (
+/obj/structure/rack,
+/obj/item/storage/box/sec_barricades,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/survivalcapsule/capsule_checkpoint,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "mlA" = (
 /turf/open/floor/plasteel,
 /area/science/storage)
@@ -100413,10 +100423,10 @@ abe
 egY
 kiq
 abe
-srs
+cVt
 mON
 pvZ
-srs
+cVt
 aax
 aaa
 awW
@@ -100920,7 +100930,7 @@ ttO
 ttO
 ttO
 mHg
-dAL
+cDs
 srs
 dAL
 qAn
@@ -102209,7 +102219,7 @@ kZQ
 xgi
 qOU
 tlg
-srs
+cVt
 srs
 uSn
 uSn
@@ -102729,7 +102739,7 @@ duA
 gwN
 gwN
 fNX
-srs
+cVt
 awl
 aax
 aax
@@ -106059,7 +106069,7 @@ lMJ
 aaf
 aeq
 agc
-kiu
+mly
 saH
 phu
 atT
