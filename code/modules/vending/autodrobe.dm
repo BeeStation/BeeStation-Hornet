@@ -140,7 +140,7 @@
 		              /obj/item/gun/magic/wand = 2,
 		              /obj/item/clothing/glasses/sunglasses/advanced/garb = 1,
 					  /obj/item/clothing/glasses/sunglasses/advanced/gar = 1,
-					  /obj/item/clothing/shoes/ducky_shoes = 1,
+					  /obj/item/clothing/shoes/ducky_shoes = 3,
 		              /obj/item/clothing/glasses/blindfold = 1,
 		              /obj/item/clothing/mask/muzzle = 2)
 	premium = list(/obj/item/clothing/suit/pirate/captain = 2,
