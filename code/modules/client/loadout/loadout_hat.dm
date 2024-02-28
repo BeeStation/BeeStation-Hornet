@@ -207,8 +207,8 @@
 	cost = 5000
 
 /obj/item/gear/hat/fishing_hat
-	display_name = "pirate hat"
-	description = "Yarr. Comes with one free pirate speak manual."
+	display_name = "fishing hat"
+	description = "Warning: Only usable by fishgma males."
 	path = /obj/item/clothing/head/fishing_hat
 	cost = 10000
 
