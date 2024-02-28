@@ -410,9 +410,9 @@
 	icon_state = "cowboy_brown"
 	var/footstep = 1
 
-/obj/item/clothing/shoes/ducky_shoes/step_action()
+/obj/item/clothing/shoes/cowboy/step_action()
 	if(footstep > 1)
-		playsound (src, "spurs1", 50, 1)
+		playsound (src, "sound/effects/footstep/spurs1", 50, 1)
 		footstep = 0
 	else
 		footstep++
@@ -426,9 +426,9 @@ S			omewhere, somehow, someone's gonna be kissed.</i>"
 	var/footstep = 1
 
 
-/obj/item/clothing/shoes/ducky_shoes/step_action()
+/obj/item/clothing/shoes/cowboy_fancy/step_action()
 	if(footstep > 1)
-		playsound (src, "spurs1", 50, 1)
+		playsound (src, "sound/effects/footstep/spurs1", 50, 1)
 		footstep = 0
 	else
 		footstep++
@@ -444,7 +444,7 @@ S			omewhere, somehow, someone's gonna be kissed.</i>"
 
 /obj/item/clothing/shoes/cowboy_white/step_action()
 	if(footstep > 1)
-		playsound (src, "spurs1", 50, 1)
+		playsound (src, "sound/effects/footstep/spurs1", 50, 1)
 		footstep = 0
 	else
 		footstep++
@@ -457,7 +457,7 @@ S			omewhere, somehow, someone's gonna be kissed.</i>"
 
 /obj/item/clothing/shoes/cowboy_black/step_action()
 	if(footstep > 1)
-		playsound (src, "spurs1", 50, 1)
+		playsound (src, "sound/effects/footstep/spurs1", 50, 1)
 		footstep = 0
 	else
 		footstep++
@@ -475,7 +475,7 @@ S			omewhere, somehow, someone's gonna be kissed.</i>"
 
 /obj/item/clothing/shoes/cowboy_black_syndicate/step_action()
 	if(footstep > 1)
-		playsound (src, "spurs1", 50, 1)
+		playsound (src, "sound/effects/footstep/spurs1", 50, 1)
 		footstep = 0
 	else
 		footstep++
