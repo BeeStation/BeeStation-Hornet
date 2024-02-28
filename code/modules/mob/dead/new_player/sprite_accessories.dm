@@ -1900,9 +1900,25 @@
 	name = "Short"
 	icon_state = "short"
 
+/datum/sprite_accessory/frills/damaged
+	name = "Damaged"
+	icon_state = "damaged"
+
 /datum/sprite_accessory/frills/aquatic
 	name = "Aquatic"
 	icon_state = "aqua"
+
+/datum/sprite_accessory/frills/poison
+	name = "Poison Aquatic"
+	icon_state = "poison"
+
+/datum/sprite_accessory/frills/bspines
+	name = "Spines"
+	icon_state = "bspines"
+
+/datum/sprite_accessory/frills/smspines
+	name = "Short Spines"
+	icon_state = "smspines"
 
 /datum/sprite_accessory/spines
 	icon = 'icons/mob/mutant_bodyparts.dmi'
