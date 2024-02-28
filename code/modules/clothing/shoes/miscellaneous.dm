@@ -412,7 +412,7 @@
 
 /obj/item/clothing/shoes/cowboy/step_action()
 	if(footstep > 1)
-		playsound (src, "sound/effects/footstep/spurs1", 50, 1)
+		playsound (src, "sound/effects/footstep/spurs1.ogg", 50, 1)
 		footstep = 0
 	else
 		footstep++
@@ -428,7 +428,7 @@ S			omewhere, somehow, someone's gonna be kissed.</i>"
 
 /obj/item/clothing/shoes/cowboy_fancy/step_action()
 	if(footstep > 1)
-		playsound (src, "sound/effects/footstep/spurs1", 50, 1)
+		playsound (src, "sound/effects/footstep/spurs1.ogg", 50, 1)
 		footstep = 0
 	else
 		footstep++
@@ -444,7 +444,7 @@ S			omewhere, somehow, someone's gonna be kissed.</i>"
 
 /obj/item/clothing/shoes/cowboy_white/step_action()
 	if(footstep > 1)
-		playsound (src, "sound/effects/footstep/spurs1", 50, 1)
+		playsound (src, "sound/effects/footstep/spurs1.ogg", 50, 1)
 		footstep = 0
 	else
 		footstep++
@@ -457,25 +457,8 @@ S			omewhere, somehow, someone's gonna be kissed.</i>"
 
 /obj/item/clothing/shoes/cowboy_black/step_action()
 	if(footstep > 1)
-		playsound (src, "sound/effects/footstep/spurs1", 50, 1)
+		playsound (src, "sound/effects/footstep/spurs1.ogg", 50, 1)
 		footstep = 0
 	else
 		footstep++
 
-/obj/item/clothing/shoes/cowboy_black_syndicate //Skin for the jackboots, syndicate exclusive
-	name = "black spurred cowboy boots"
-	desc = "And they sing, oh, ain't you glad you're single? And that song ain't so very far from wrong."
-	icon_state = "cowboy_black"
-	armor = list(MELEE = 25,  BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 10, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 30)
-	strip_delay = 40
-	resistance_flags = NONE
-	permeability_coefficient = 0.05
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
-	var/footstep = 1
-
-/obj/item/clothing/shoes/cowboy_black_syndicate/step_action()
-	if(footstep > 1)
-		playsound (src, "sound/effects/footstep/spurs1", 50, 1)
-		footstep = 0
-	else
-		footstep++
