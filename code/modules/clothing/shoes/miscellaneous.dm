@@ -416,51 +416,26 @@
 		footstep = 0
 	else
 		footstep++
-/obj/item/clothing/shoes/cowboy_fancy
+/obj/item/clothing/shoes/cowboy/fancy
 	name = "Fancy cowboy boots"
 	desc = "When an irrepressible smile such as yours\n\
 			Warms an old implacable heart such as mine\n\
 			Don't say no because I insist\n\
 S			omewhere, somehow, someone's gonna be kissed.</i>"
 	icon_state = "cowboy_fancy"
-	var/footstep = 1
 
-
-/obj/item/clothing/shoes/cowboy_fancy/step_action()
-	if(footstep > 1)
-		playsound (src, "sound/effects/footstep/spurs1.ogg", 50, 1)
-		footstep = 0
-	else
-		footstep++
-
-/obj/item/clothing/shoes/cowboy_white
+/obj/item/clothing/shoes/cowboy/white
 	name = "white cowboy boots"
-	icon_state = "cowboy_white"
 	desc = "Stars of the midnight ranges\n\
 	Shining through the night\n\
 	Stars of the midnight ranges\n\
 	Light my way tonight.</i>"
-	var/footstep = 1
+	icon_state = "cowboy_white"
 
-/obj/item/clothing/shoes/cowboy_white/step_action()
-	if(footstep > 1)
-		playsound (src, "sound/effects/footstep/spurs1.ogg", 50, 1)
-		footstep = 0
-	else
-		footstep++
-
-/obj/item/clothing/shoes/cowboy_black
+/obj/item/clothing/shoes/cowboy/black
 	name = "black cowboy boots"
 	desc = "Love me as though there were no tomorrow\n\
 	Take me out of this world tonight\n\
 	Take me; make me forget my sorrow\n\
 	So when I wake tomorrow, I`ll know our love was right.</i>"
 	icon_state = "cowboy_black"
-	var/footstep = 1
-
-/obj/item/clothing/shoes/cowboy_black/step_action()
-	if(footstep > 1)
-		playsound (src, "sound/effects/footstep/spurs1.ogg", 50, 1)
-		footstep = 0
-	else
-		footstep++
