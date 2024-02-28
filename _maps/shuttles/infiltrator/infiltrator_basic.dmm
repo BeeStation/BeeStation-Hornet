@@ -442,6 +442,8 @@
 "bQ" = (
 /obj/structure/closet/syndicate/personal,
 /obj/effect/turf_decal/bot_white,
+/obj/item/clothing/shoes/cowboy_black_syndicate,
+/obj/item/clothing/shoes/cowboy_black_syndicate,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/armory)
 "bS" = (
@@ -471,6 +473,8 @@
 "bX" = (
 /obj/structure/closet/syndicate/nuclear,
 /obj/effect/turf_decal/bot_white,
+/obj/item/clothing/shoes/cowboy_black_syndicate,
+/obj/item/clothing/shoes/cowboy_black_syndicate,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/armory)
 "cl" = (
