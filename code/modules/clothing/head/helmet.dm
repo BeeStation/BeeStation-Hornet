@@ -32,14 +32,14 @@
 		// There's a flashlight in us. Remove it first, or it'll be lost forever!
 		var/obj/item/flashlight/seclite/blocking_us = locate() in src
 		if(blocking_us)
-			to_chat(user, "span class='warning'>[blocking_us] is in the way, remove it first!</span>")
+			to_chat(user, "<span class='warning'>[blocking_us] is in the way, remove it first!</span>")
 			return TRUE
 
 		if(!attached_signaler.secured)
-			to_chat(user, "span class='warning'>Secure [attached_signaler] first!</span>")
+			to_chat(user, "<span class='warning'>Secure [attached_signaler] first!</span>")
 			return TRUE
 
-		to_chat(user, "span class='notice'>You add [attached_signaler] to [src].</span>")
+		to_chat(user, "<span class='notice'>You add [attached_signaler] to [src].</span>")
 
 		qdel(attached_signaler)
 		var/obj/item/bot_assembly/secbot/secbot_frame = new(loc)
@@ -83,6 +83,7 @@
 	. = ..()
 	if(.)
 		return
+	//Fails if user incapacitated or try_toggle doesnt complete
 	if(user.incapacitated() || !try_toggle())
 		return
 	up = !up
@@ -90,7 +91,7 @@
 	flags_inv ^= visor_flags_inv
 	flags_cover ^= visor_flags_cover
 	icon_state = "[initial(icon_state)][up ? "up" : ""]"
-	to_chat(user, "span class='notice'[up ? alt_toggle_message : toggle_message] \the [src].</span>")
+	to_chat(user, "<span class='notice'>[up ? alt_toggle_message : toggle_message] \the [src].</span>")
 
 	user.update_inv_head()
 	if(iscarbon(user))
@@ -99,6 +100,11 @@
 
 ///Attempt to toggle the visor. Returns true if it does the thing.
 /obj/item/clothing/head/helmet/toggleable/proc/try_toggle()
+	//Fails if attached seclite, as it blocks the visor from opening
+	var/obj/item/flashlight/seclite/blocking_us = locate() in src
+	if(blocking_us)
+		to_chat(usr, "<span class='warning'>[blocking_us] is in the way, remove it first!</span>")
+		return FALSE
 	return TRUE
 
 /obj/item/clothing/head/helmet/toggleable/riot
@@ -115,6 +121,10 @@
 	visor_flags_inv = HIDEFACE|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+/obj/item/clothing/head/helmet/toggleable/riot/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/seclite_attachable, light_icon_state = "flight")
 
 /obj/item/clothing/head/helmet/toggleable/justice
 	name = "helmet of justice"
