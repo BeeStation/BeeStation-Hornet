@@ -22,9 +22,6 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/alt_desc = null
-	var/toggle_message = null
-	var/alt_toggle_message = null
-	var/active_sound = null
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
 
