@@ -2335,10 +2335,6 @@
 	name = "Witch Wing"
 	icon_state = "witchwing"
 
-/datum/sprite_accessory/moth_markings/strawberry
-	name = "Strawberry"
-	icon_state = "strawberry"
-
 // IPC accessories.
 
 /datum/sprite_accessory/ipc_screens
