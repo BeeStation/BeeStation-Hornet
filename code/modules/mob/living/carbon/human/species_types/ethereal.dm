@@ -52,10 +52,13 @@
 
 
 /datum/species/ethereal/Destroy(force)
-	QDEL_NULL(ethereal_light)
+	if(ethereal_light)
+		QDEL_NULL(ethereal_light)
 	return ..()
 
 /datum/species/ethereal/on_species_gain(mob/living/carbon/new_ethereal, datum/species/old_species, pref_load)
+	ethereal_light = new_ethereal.mob_light()
+
 	. = ..()
 	if(!ishuman(new_ethereal))
 		return
@@ -67,7 +70,7 @@
 	RegisterSignal(ethereal, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 	RegisterSignal(ethereal, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
-	ethereal_light = ethereal.mob_light()
+	//ethereal_light = ethereal.mob_light()
 	spec_updatehealth(ethereal)
 
 	//The following code is literally only to make admin-spawned ethereals not be black.
@@ -94,20 +97,20 @@
 
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/ethereal)
 	. = ..()
-	if(!ethereal_light)
-		return
+	//if(!ethereal_light)
+	//	return
 	if(ethereal.stat != DEAD && !EMPeffect)
 		var/healthpercent = max(ethereal.health, 0) / 100
 		if(!emageffect)
 			current_color = rgb(r2 + ((r1-r2)*healthpercent), g2 + ((g1-g2)*healthpercent), b2 + ((b1-b2)*healthpercent))
 		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
 		ethereal_light.set_light_on(TRUE)
-		fixed_mut_color = current_color
+		fixed_mut_color = copytext_char(current_color, 2)
 	else
 		ethereal_light.set_light_on(FALSE)
 		fixed_mut_color = rgb(128,128,128)
 	ethereal.update_body()
-	ethereal.update_hair()
+	//ethereal.update_hair()
 
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
 	SIGNAL_HANDLER

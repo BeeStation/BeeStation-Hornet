@@ -21,7 +21,7 @@
 	var/failed = FALSE		//to prevent constantly running failing code
 	var/operated = FALSE	//whether the heart's been operated on to fix some of its damages
 	///Color of the heart, is set by the species on gain
-	var/ethereal_color = "#9c3030"
+	//var/ethereal_color = "#9c3030"
 
 
 
