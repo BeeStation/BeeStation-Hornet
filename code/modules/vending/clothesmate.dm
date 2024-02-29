@@ -83,9 +83,9 @@
 					/obj/item/clothing/shoes/sneakers/red = 4,
 					/obj/item/clothing/shoes/sneakers/orange = 4,
 					/obj/item/clothing/shoes/sneakers/white = 4,
-					/obj/item/clothing/shoes/cowboy_white = 1,
-					/obj/item/clothing/shoes/cowboy_black = 1,
 					/obj/item/clothing/shoes/cowboy = 1,
+					/obj/item/clothing/shoes/cowboy/white = 1,
+					/obj/item/clothing/shoes/cowboy/black = 1,
 		            /obj/item/clothing/head/wig/natural  = 4,
 		            /obj/item/clothing/under/dress/skirt/plaid = 2,
 		            /obj/item/clothing/under/dress/skirt/plaid/blue = 2,
@@ -149,7 +149,7 @@
 		        	/obj/item/clothing/suit/jacket/leather/overcoat = 1,
 		      		/obj/item/clothing/under/pants/mustangjeans = 1,
 		        	/obj/item/clothing/neck/necklace/dope = 3,
-					/obj/item/clothing/shoes/cowboy_fancy = 1,
+					/obj/item/clothing/shoes/cowboy/fancy = 1,
 		        	/obj/item/clothing/suit/jacket/letterman_nanotrasen = 1)
 
 	refill_canister = /obj/item/vending_refill/clothing
