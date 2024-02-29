@@ -2278,6 +2278,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	name = "Eldritch Kiss"
 	description = "The lingering touch of eldritch hands pulses through your veins."
 	chem_flags = CHEMICAL_NOT_SYNTH
+	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/medicine/eldritchkiss/on_mob_life(mob/living/carbon/M)
 	if(M.health <= 20)
