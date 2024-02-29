@@ -1,5 +1,8 @@
 /atom/movable
 	layer = OBJ_LAYER
+	glide_size = 8
+	appearance_flags = TILE_BOUND|PIXEL_SCALE
+	
 	var/move_stacks = 0 //how many times a this movable had movement procs called on it since Moved() was last called
 	var/last_move = null
 	var/last_move_time = 0
@@ -33,8 +36,6 @@
 	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
 	var/datum/movement_packet/move_packet
 	var/list/acted_explosions	//for explosion dodging
-	glide_size = 8
-	appearance_flags = TILE_BOUND|PIXEL_SCALE
 	var/datum/forced_movement/force_moving = null	//handled soley by forced_movement.dm
 	var/movement_type = GROUND		//Incase you have multiple types, you automatically use the most useful one. IE: Skating on ice, flippers on water, flying over chasm/space, etc.
 	var/atom/movable/pulling
