@@ -801,6 +801,9 @@
 		if(locked)
 			var/atom/host = parent
 			host.balloon_alert(user, "[host] is locked.")
+		else if(!can_be_opened)
+			user.doUnEquip(parent, FALSE, null, TRUE, silent = TRUE)
+			user.put_in_active_hand(parent)
 		else
 			show_to(user)
 

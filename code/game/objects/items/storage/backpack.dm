@@ -384,6 +384,38 @@
 /obj/item/storage/backpack/satchel/flat/empty/PopulateContents()
 	return
 
+// -----------------------------
+//           mail bag
+// -----------------------------
+
+/obj/item/storage/backpack/satchel/mail
+	name = "mail bag"
+	desc = "A bag for letters, envelopes, and other postage."
+	icon_state = "mailbag"
+	item_state = "mailbag"
+	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
+
+/obj/item/storage/backpack/satchel/mail/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.allow_quick_gather = TRUE
+	STR.allow_quick_empty = TRUE
+	STR.display_numerical_stacking = TRUE
+	STR.click_gather = TRUE
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 32
+	STR.max_items = 32
+	STR.display_numerical_stacking = FALSE
+	STR.can_hold = typecacheof(list(
+		/obj/item/mail,
+		/obj/item/small_delivery,
+		/obj/item/paper,
+		/obj/item/reagent_containers/food/condiment/milk,
+		/obj/item/food/bread/plain
+		)
+	)
+
+
 /obj/item/storage/backpack/duffelbag
 	name = "duffel bag"
 	desc = "A large duffel bag for holding extra things."
@@ -483,6 +515,13 @@
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
+	
+/obj/item/storage/backpack/duffelbag/science
+	name = "science duffel bag"
+	desc = "A large duffel bag for holding extra tools and artifacts."
+	icon_state = "duffel-drone"
+	item_state = "duffel-drone"
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffelbag/clown
 	name = "clown's duffel bag"

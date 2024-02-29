@@ -238,7 +238,7 @@
 	text_overlay.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[length(ability.potential_targets)]</span></center>"
 	. |= text_overlay
 
-/atom/movable/screen/holoparasite/telepathy/Click(location, control, params)
+/atom/movable/screen/holoparasite/telepathy/use()
 	if(!length(ability.potential_targets))
 		to_chat(owner, "<span class='warning'>You haven't recently encountered any beings you can send telepathic messages to!</span>")
 		return

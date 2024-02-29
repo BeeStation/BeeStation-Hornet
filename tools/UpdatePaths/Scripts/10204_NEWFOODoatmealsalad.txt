@@ -1,0 +1,6 @@
+/obj/item/reagent_containers/food/snacks/salad/oatmeal : /obj/item/food/soup/oatmeal{@OLD}
+/obj/item/reagent_containers/food/snacks/soup/milo : /obj/item/food/soup/miso{@OLD}
+/obj/item/reagent_containers/food/snacks/salad : /obj/item/food/salad{@OLD}
+/obj/item/reagent_containers/food/snacks/salad/@SUBTYPES : /obj/item/food/salad/@SUBTYPES{@OLD}
+/obj/item/reagent_containers/food/snacks/soup : /obj/item/food/soup{@OLD}
+/obj/item/reagent_containers/food/snacks/soup/@SUBTYPES : /obj/item/food/soup/@SUBTYPES{@OLD}

@@ -184,7 +184,7 @@
 	tastes = list("meat" = 1)
 	foodtypes = MEAT | BREAKFAST
 	food_flags = FOOD_FINGER_FOOD
-	eatverbs = list("bite", "chew", "nibble", "deep throat", "gobble", "chomp")
+	eatverbs = list("bite", "chew", "nibble", "gobble", "chomp")
 	w_class = WEIGHT_CLASS_SMALL
 	var/roasted = FALSE
 
@@ -218,7 +218,7 @@
 	tastes = list("meat" = 1, "onions" = 1, "garlic" = 1)
 	foodtypes = MEAT | RAW
 	w_class = WEIGHT_CLASS_SMALL
-
+	microwaved_type = /obj/item/food/khinkali
 /obj/item/food/khinkali
 	name = "khinkali"
 	desc = "One hundred khinkalis? Do I look like a pig?"
