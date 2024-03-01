@@ -258,17 +258,3 @@
 	icon_state = "maid_arms"
 	item_state = "maid_arms"
 	worn_icon_state = "maid_arms"
-
-//makes the gloves be able to be sliceable
-
-/obj/item/clothing/gloves/color/yellow/make_processable()
-	AddElement(/datum/element/processable, TOOL_WIRECUTTER, /obj/item/gloves/insulated_fibers, 5, 3 SECONDS, table_required = TRUE)
-
-/obj/item/clothing/gloves/color/fyellow/make_processable()
-	AddElement(/datum/element/processable, TOOL_WIRECUTTER, /obj/item/gloves/insulated_fibers, 1, /obj/item/stack/sheet/cotton/cloth, 4 SECONDS, table_required = TRUE) //you can craft insuls getting 5 budget
-
-/obj/item/gloves/insulated_fibers //used for assistant beer and crafting insuls
-	name = "insulated fibers"
-	desc = "Fibers from insulated gloves. They can be used in recipes or to create new insuls."
-	icon_state = "insul_fibers"
-	item_state = "insul_fibers"
