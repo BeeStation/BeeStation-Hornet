@@ -56,5 +56,4 @@
 //Prison holodeck will be 4x7
 /area/holodeck/prison
 	name = "\improper Workshop"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
