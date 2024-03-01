@@ -94,7 +94,7 @@
 
 /datum/computer_file/program/messenger/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/chat),
+		get_asset_datum(/datum/asset/spritesheet_batched/chat),
 	)
 
 /datum/computer_file/program/messenger/ui_static_data(mob/user)
