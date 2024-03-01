@@ -2529,3 +2529,20 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.adjust_disgust(30)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
+
+//new beers
+
+/datum/reagent/consumable/ethanol/beer/insulated
+	name = "The Insulated"
+	description = "By assistants, for assistants. Greytide Worldwide"
+	color = "#fcff68"
+	taste_description = "grey power and insulated protection"
+	glass_desc = "A freezing pint of The Insulated beer."
+
+/datum/reagent/consumable/ethanol/beer/insulated/on_mob_metabolize(mob/living/L)
+	..()
+	ADD_TRAIT(L, TRAIT_SHOCKIMMUNE, type)
+
+/datum/reagent/consumable/ethanol/beer/insulated/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_SHOCKIMMUNE, type)
+	..()

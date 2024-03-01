@@ -627,3 +627,11 @@
 	desc = "There is no air shortage. Do not drink."
 	icon_state = "air"
 	list_reagents = list(/datum/reagent/nitrogen = 24, /datum/reagent/oxygen = 6)
+
+//new beers
+/obj/item/reagent_containers/food/drinks/beer/insulated
+	name = "The Insulated"
+	desc = "By assistants, for assistants. Greytide Worldwide"
+	icon_state = "beer_insulated"
+	list_reagents = list(/datum/reagent/consumable/ethanol/beer/insulated = 30)
+	foodtype = GRAIN | ALCOHOL

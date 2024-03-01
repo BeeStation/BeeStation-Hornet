@@ -878,3 +878,11 @@
 	id = /datum/reagent/consumable/ethanol/beeffizz
 	results = list(/datum/reagent/consumable/ethanol/beeffizz = 10)
 	required_reagents = list(/datum/reagent/consumable/beefbroth = 7, /datum/reagent/consumable/ice = 2, /datum/reagent/consumable/lemonjuice = 1 )
+
+//////////New Beers//////////////
+/datum/chemical_reaction/beer_insulated
+	name = "The Insulated"
+	id = /datum/reagent/consumable/ethanol/beeffizz
+	results = list(/datum/reagent/consumable/ethanol/beeffizz = 10)
+	required_reagents = list(/datum/reagent/consumable/flour = 10, /datum/reagent/consumable/grey_bull)
+	required_catalysts = list(/datum/reagent/consumable/enzyme = 5)
