@@ -139,3 +139,23 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	desc = "A source of raw socialism, capable of bringing forth the prophesized Soviet Golem."
 	icon_state = "sheet-stalinium"
 	merge_type = /obj/item/stack/sheet/stalinium
+
+//insulated fibers
+
+/obj/item/stack/sheet/insulated_fibers //used for assistant beer and crafting insuls
+	name = "insulated fibers"
+	desc = "Fibers from insulated gloves. They can be used in recipes or to create new insuls."
+	singular_name = "insulated fiber"
+	icon_state = "insulated_fibers"
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
+	item_state = "insulated_fibers"
+	resistance_flags = FLAMMABLE
+	force = 0
+	throwforce = 0
+	merge_type = /obj/item/stack/sheet/insulated_fibers
+	var/pull_effort = 30
+	var/loom_result = /obj/item/stack/sheet/insulated_fibers
+
+/obj/item/stack/sheet/insulated_fibers/get_main_recipes()
+	. = ..()
+	. += GLOB.insulated_fibers_recipes
