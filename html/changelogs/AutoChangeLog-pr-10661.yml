@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Pepperclouds now have 3 uses before needing to be refilled instead of
+      2.
