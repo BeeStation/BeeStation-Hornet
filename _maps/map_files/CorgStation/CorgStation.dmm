@@ -60962,7 +60962,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/pipedispenser/disposal,
+/obj/machinery/pipedispenser,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "tWl" = (
