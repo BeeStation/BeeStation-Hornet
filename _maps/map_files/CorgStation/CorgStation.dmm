@@ -60376,7 +60376,6 @@
 /obj/item/storage/toolbox/electrical{
 	pixel_y = 8
 	},
-/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "tMm" = (

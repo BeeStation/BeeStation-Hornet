@@ -91,6 +91,11 @@
 "s" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/east,
+/obj/machinery/button/door{
+	id = "sciencecargo";
+	name = "Cargo Blast Door Toggle";
+	pixel_y = -25
+	},
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "t" = (
@@ -122,7 +127,9 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "G" = (
-/obj/machinery/door/airlock/titanium/glass,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "sciencecargobolt"
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
@@ -141,6 +148,11 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "K" = (
+/obj/machinery/button/door{
+	id = "sciencecargo";
+	name = "Cargo Blast Door Toggle";
+	pixel_y = 25
+	},
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "M" = (
@@ -177,14 +189,16 @@
 /area/shuttle/science)
 "S" = (
 /obj/machinery/button/door{
-	id = "sciencecargo";
-	name = "Cargo Blast Door Toggle";
-	pixel_x = -24
+	pixel_y = 2;
+	pixel_x = -25;
+	id = "sciencecargobolt"
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "T" = (
-/obj/machinery/door/airlock/titanium/glass,
+/obj/machinery/door/airlock/titanium/glass{
+	id_tag = "sciencecargobolt"
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
