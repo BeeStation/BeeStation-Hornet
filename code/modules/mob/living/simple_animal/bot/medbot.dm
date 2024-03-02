@@ -232,6 +232,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			efficiency = 1+(0.075*tech_boosters) //increase efficiency by 7.5% for every surgery researched
 			if(old_eff < efficiency)
 				speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
+				window_name = "Automatic Medical Unit v[efficiency]"
 	update_controls()
 	return
 
