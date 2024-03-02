@@ -11849,6 +11849,9 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/computer/xenoarchaeology_console{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dNX" = (
@@ -22023,6 +22026,7 @@
 	},
 /obj/machinery/power/floodlight,
 /obj/structure/cable/yellow,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/engine,
 /area/science/explab)
 "gRN" = (
