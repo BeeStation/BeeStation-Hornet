@@ -2291,8 +2291,8 @@
 /turf/open/floor/plasteel,
 /area/science)
 "hl" = (
-/obj/machinery/xenoarchaeology_machine/calibrator,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/xenoarchaeology_machine/calibrator/tutorial,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "hD" = (
@@ -2453,7 +2453,6 @@
 "mt" = (
 /obj/effect/turf_decal/box,
 /obj/item/xenoartifact/tutorial,
-/obj/item/paper/artifact_tutorial,
 /turf/open/floor/engine,
 /area/science/explab)
 "mG" = (
@@ -2645,7 +2644,6 @@
 /turf/open/floor/engine,
 /area/science/explab)
 "sv" = (
-/obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -2694,8 +2692,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel/dark,
 /area/science/explab)
 "sE" = (
 /obj/machinery/power/rtg/advanced,
@@ -3293,6 +3290,7 @@
 /obj/structure/sign/poster/official/xenoarchaeology{
 	pixel_y = -32
 	},
+/obj/item/paicard,
 /obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -3443,7 +3441,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "VV" = (
-/obj/effect/turf_decal/bot,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1

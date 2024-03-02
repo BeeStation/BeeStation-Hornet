@@ -12,12 +12,10 @@
 /obj/item/sticker/sticky_note/Initialize(mapload)
 	. = ..()
 	my_paper = new(src)
-	my_paper.range_check_anchor = src
 	my_paper.add_raw_text(custom_text)
 
 /obj/item/sticker/sticky_note/Destroy()
 	. = ..()
-	my_paper.range_check_anchor = null
 	QDEL_NULL(my_paper)
 
 /obj/item/sticker/sticky_note/examine(mob/user)

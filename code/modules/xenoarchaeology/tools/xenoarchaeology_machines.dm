@@ -135,7 +135,14 @@
 	///radio used by the console to send messages on science channel
 	var/obj/item/radio/headset/radio
 
-/obj/machinery/xenoarchaeology_machine/calibrator/New(loc, ...)
+/obj/machinery/xenoarchaeology_machine/calibrator/tutorial/Initialize(mapload, _artifact_type)
+	. = ..()
+	var/obj/item/sticker/sticky_note/calibrator_tutorial/S = new(loc)
+	S.afterattack(src, src, TRUE)
+	S.pixel_y = rand(-5, 5)
+	S.pixel_x = rand(-5, 5)
+
+/obj/machinery/xenoarchaeology_machine/calibrator/Initialize(mapload, _artifact_type)
 	. = ..()
 	//Link relevant stuff
 	linked_techweb = SSresearch.science_tech
@@ -221,3 +228,17 @@
 					if(istype(T, /datum/xenoartifact_trait/malfunction))
 						qdel(T)
 		empty_contents()
+
+//TODO: Consider revising this explanation - Racc
+/obj/item/sticker/sticky_note/calibrator_tutorial
+	custom_text = "Anomalous Material Calibrator Mk.158\n\
+	\n\
+	The AMC has been supplied to the science staff for the express purpose of\
+	calibrating research anomalous materials i.e. artifacts.\
+	\n\
+	Operation of the AMC is done by labelling anomalous materials and inserting\
+	them into the vessel. If materials are labelled correctly to the highest \
+	degree, the AMC will be able to appropriately calibrate the material, \
+	preventing internal failure.\
+	Failure to label materials sufficiently will result in the immediate\
+	calcification."

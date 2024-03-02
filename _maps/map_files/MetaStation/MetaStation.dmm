@@ -18381,7 +18381,6 @@
 "ckf" = (
 /obj/effect/turf_decal/box,
 /obj/item/xenoartifact/tutorial,
-/obj/item/paper/artifact_tutorial,
 /turf/open/floor/engine,
 /area/science/explab)
 "ckg" = (
@@ -30092,7 +30091,6 @@
 /turf/open/floor/plasteel,
 /area/medical/break_room)
 "fBo" = (
-/obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -38782,8 +38780,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel/dark,
 /area/science/explab)
 "iXO" = (
 /obj/machinery/computer/security/telescreen{
@@ -50232,8 +50229,8 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/science/xenobiology)
 "nyo" = (
-/obj/machinery/xenoarchaeology_machine/calibrator,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/xenoarchaeology_machine/calibrator/tutorial,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "nyv" = (
@@ -73716,7 +73713,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "wuj" = (
-/obj/effect/turf_decal/bot,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1
@@ -76902,6 +76898,7 @@
 /obj/structure/sign/poster/official/xenoarchaeology{
 	pixel_y = -32
 	},
+/obj/item/paicard,
 /obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
