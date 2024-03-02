@@ -11849,9 +11849,6 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/rdconsole/experiment{
-	dir = 8
-	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dNX" = (
