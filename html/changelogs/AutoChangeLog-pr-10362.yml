@@ -1,0 +1,5 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - bugfix: fixed a runtime related to Brig cells timers
+  - bugfix: fixed a runtime related to cockroaches
