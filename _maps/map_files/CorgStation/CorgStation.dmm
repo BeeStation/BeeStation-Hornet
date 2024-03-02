@@ -6152,6 +6152,10 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "bJu" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
 "bJB" = (
@@ -10283,17 +10287,14 @@
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
 "dht" = (
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/maintenance/port)
 "dhu" = (
@@ -16401,10 +16402,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "fjU" = (
@@ -65664,6 +65665,7 @@
 /area/security/prison)
 "vwr" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "vwz" = (
@@ -70485,10 +70487,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/junction/flip{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
 "wZA" = (
@@ -101161,9 +101163,9 @@ xBT
 lao
 nAI
 vhc
+vhc
+vhc
 vql
-vhc
-vhc
 vhc
 vhc
 vAt
@@ -101418,9 +101420,9 @@ wnR
 fjx
 euQ
 lUW
+lUW
+lUW
 fdI
-bTd
-bTd
 evx
 jol
 yeA

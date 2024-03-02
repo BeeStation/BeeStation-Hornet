@@ -218,13 +218,13 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/telecomms/relay/preset/mining,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/machinery/door/window/eastright{
 	dir = 2
 	},
+/obj/machinery/telecomms/relay/preset/exploration,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aw" = (
