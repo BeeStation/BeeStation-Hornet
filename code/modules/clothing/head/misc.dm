@@ -210,38 +210,15 @@
 	H.facial_hair_style = "Neckbeard"
 	return BRUTELOSS
 
-/obj/item/clothing/head/fedora_white
+/obj/item/clothing/head/fedora/white
 	name = "white fedora"
 	icon_state = "fedora_white"
 	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
 
-
-/obj/item/clothing/head/fedora_white/suicide_act(mob/living/user)
-	if(user.gender == FEMALE)
-		return
-	var/mob/living/carbon/human/H = user
-	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to be nice to girls.</span>")
-	user.say("M'lady.", forced = "fedora suicide")
-	sleep(10)
-	H.facial_hair_style = "Neckbeard"
-	return BRUTELOSS
-
-/obj/item/clothing/head/fedora_beige
+/obj/item/clothing/head/fedora/beige
 	name = "beige fedora"
 	icon_state = "fedora_beige"
 	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
-
-/obj/item/clothing/head/fedora_beige/suicide_act(mob/living/user)
-	if(user.gender == FEMALE)
-		return
-	var/mob/living/carbon/human/H = user
-	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to be nice to girls.</span>")
-	user.say("M'lady.", forced = "fedora suicide")
-	sleep(10)
-	H.facial_hair_style = "Neckbeard"
-	return BRUTELOSS
 
 /obj/item/clothing/head/sombrero
 	name = "sombrero"
