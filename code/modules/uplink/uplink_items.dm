@@ -2172,6 +2172,25 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/shoes/clown_shoes/taeclowndo
 	restricted_roles = list(JOB_NAME_CLOWN)
 
+/datum/uplink_item/role_restricted/bananashield
+	name = "Bananium Energy Shield"
+	desc = "A clown's most powerful defensive weapon, this personal shield provides near immunity to ranged energy attacks \
+		by bouncing them back at the ones who fired them. It can also be thrown to bounce off of people, slipping them, \
+		and returning to you even if you miss. WARNING: DO NOT ATTEMPT TO STAND ON SHIELD WHILE DEPLOYED, EVEN IF WEARING ANTI-SLIP SHOES."
+	item = /obj/item/shield/energy/bananium
+	cost = 16
+	surplus = 0
+	restricted_roles = list(JOB_NAME_CLOWN)
+
+/datum/uplink_item/role_restricted/clownsword
+	name = "Bananium Energy Sword"
+	desc = "An energy sword that deals no damage, but will slip anyone it contacts, be it by melee attack, thrown \
+	impact, or just stepping on it. Beware friendly fire, as even anti-slip shoes will not protect against it."
+	item = /obj/item/melee/transforming/energy/sword/bananium
+	cost = 3
+	surplus = 0
+	restricted_roles = list(JOB_NAME_CLOWN)
+
 /datum/uplink_item/role_restricted/superior_honkrender
 	name = "Superior Honkrender"
 	desc = "An ancient artifact recovered from an ancient cave. Opens the way to the Dark Carnival"
