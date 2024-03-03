@@ -4,6 +4,10 @@
 	name = ".45 bullet"
 	damage = 30
 
+/obj/projectile/bullet/c45/improv
+	name = ".45 bullet"
+	damage = 18
+
 // 4.6x30mm (Autorifles)
 
 /obj/projectile/bullet/c46x30mm
@@ -31,3 +35,7 @@
 	ricochet_decay_chance = 0.8
 	ricochet_decay_damage = 0.85
 	armour_penetration = -15
+
+/obj/projectile/bullet/c46x30mm_improvised
+	name = "4.6x30mm improvised bullet"
+	damage = 12

@@ -1777,10 +1777,10 @@
 	description = "This isn't research.. This is reverse-engineering!"
 	prereq_ids = list("weaponry")
 	design_ids = list(
-		"mag_oldsmg_ap",
-		"mag_oldsmg_ic",
-		"mag_oldsmg_rubber",
-		"mag_oldsmg",
+		"ammo_box_oldsmg_ap",
+		"ammo_box_oldsmg_ic",
+		"ammo_box_oldsmg_rubber",
+		"ammo_box_oldsmg",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000

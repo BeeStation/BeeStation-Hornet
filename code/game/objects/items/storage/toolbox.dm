@@ -263,6 +263,25 @@
 	new /obj/item/ammo_box/a762(src)
 	new /obj/item/ammo_box/a762(src)
 
+/obj/item/storage/toolbox/ammo/empty
+	name = "ammo box (7.62mm)"
+	desc = "It contains a few discarded stripper clips."
+	icon = 'icons/obj/storage/case.dmi'
+	icon_state = "ammobox"
+	item_state = "ammobox"
+	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
+	pickup_sound =  'sound/items/handling/ammobox_pickup.ogg'
+
+/obj/item/storage/toolbox/ammo/empty/PopulateContents()
+	new /obj/item/ammo_box/a762/empty(src)
+	new /obj/item/ammo_box/a762/empty(src)
+	new /obj/item/ammo_box/a762/empty(src)
+	new /obj/item/ammo_box/a762/empty(src)
+	new /obj/item/ammo_box/a762/empty(src)
+	new /obj/item/ammo_box/a762/empty(src)
+	new /obj/item/ammo_box/a762/empty(src)
+
+
 /obj/item/storage/toolbox/ammo/c38
 	name = "ammo crate (.38)"
 	desc = "It contains a few boxes of bullets."

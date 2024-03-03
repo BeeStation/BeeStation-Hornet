@@ -11,6 +11,9 @@
 	var/spawned_loot = FALSE
 	tamperproof = 90
 
+/obj/structure/closet/crate/secure/loot/cargo //Use this for crates that are contraband that no one, not even borgs, should be able to open right away
+	spawned_loot = TRUE
+
 /obj/structure/closet/crate/secure/loot/Initialize(mapload)
 	. = ..()
 	var/list/digits = list("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")

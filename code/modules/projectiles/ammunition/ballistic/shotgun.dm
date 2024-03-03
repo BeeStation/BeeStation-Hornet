@@ -95,7 +95,7 @@
 	high_power = FALSE
 	projectile_type = /obj/projectile/bullet/pellet/shotgun_improvised
 	custom_materials = list(/datum/material/iron=250)
-	pellets = 9
+	pellets = 8
 	variance = 15
 
 /obj/item/ammo_casing/shotgun/improvised/glasspack

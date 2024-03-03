@@ -396,6 +396,20 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
+/datum/crafting_recipe/improv46x30box
+	name = "Improvised 4.6x30mm Ammo Box"
+	result = /obj/item/ammo_box/c46improvised
+	reqs = list(/obj/item/grenade/chem_grenade = 20,
+				/obj/item/stack/sheet/iron = 25,
+				/obj/item/stack/cable_coil = 30,
+				/obj/item/stack/sheet/cardboard = 1,
+				/datum/reagent/fuel = 100)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
 /datum/crafting_recipe/a762improv
 	name = "Improvised 7.62 Cartridge"
 	result = /obj/item/ammo_casing/a762/improv
@@ -409,9 +423,9 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
-/datum/crafting_recipe/a762hotload
-	name = "Hot-Loaded 7.62 Cartridge"
-	result = /obj/item/ammo_casing/a762/improv/hotload
+/datum/crafting_recipe/a762
+	name = "7.62 Cartridge"
+	result = /obj/item/ammo_casing/a762
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/sheet/iron = 1,
 				/obj/item/stack/cable_coil = 1,
@@ -436,6 +450,20 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
+/datum/crafting_recipe/box_9mm
+	name = "9mm Ammo Box"
+	result = /obj/item/ammo_box/c9mm
+	reqs = list(/obj/item/grenade/chem_grenade = 30,
+				/obj/item/stack/sheet/iron = 40,
+				/obj/item/stack/cable_coil = 30,
+				/datum/reagent/blackpowder = 50,
+				/obj/item/stack/sheet/cardboard = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 15
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
 /datum/crafting_recipe/improv10mm_pack
 	name = "Improvised 10mm Ammo Pack"
 	result = /obj/item/ammo_box/pouch/c10mm/improv
@@ -444,6 +472,20 @@
 				/obj/item/stack/cable_coil = 2,
 				/datum/reagent/fuel = 20,
 				/obj/item/paper = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 15
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/box_10mm
+	name = "10mm Ammo Box"
+	result = /obj/item/ammo_box/c10mm
+	reqs = list(/obj/item/grenade/chem_grenade = 20,
+				/obj/item/stack/sheet/iron = 30,
+				/obj/item/stack/cable_coil = 20,
+				/datum/reagent/blackpowder = 50,
+				/obj/item/stack/sheet/cardboard = 1)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 15
 	category = CAT_WEAPONRY
@@ -470,7 +512,46 @@
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/sheet/iron = 1,
 				/obj/item/stack/cable_coil = 2,
+				/datum/reagent/fuel = 20)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/single357
+	name = ".357 Cartridge"
+	result = /obj/item/ammo_casing/a357/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/iron = 3,
+				/obj/item/stack/cable_coil = 2,
 				/datum/reagent/blackpowder = 10)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/improv45
+	name = "Improvised .45 Pack"
+	result = /obj/item/ammo_box/pouch/c45/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 7,
+				/obj/item/stack/sheet/iron = 21,
+				/obj/item/stack/cable_coil = 14,
+				/datum/reagent/fuel = 70)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/box45
+	name = ".45 Ammo Box"
+	result = /obj/item/ammo_box/c45
+	reqs = list(/obj/item/grenade/chem_grenade = 20,
+				/obj/item/stack/sheet/iron = 50,
+				/obj/item/stack/cable_coil = 20,
+				/datum/reagent/blackpowder = 100)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 5
 	category = CAT_WEAPONRY

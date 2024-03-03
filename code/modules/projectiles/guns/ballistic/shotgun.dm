@@ -45,6 +45,9 @@
 	can_sawoff = TRUE
 	sawn_desc = "Come with me if you want to live."
 
+/obj/item/gun/ballistic/shotgun/riot/empty
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/empty
+
 // Automatic Shotguns//
 
 /obj/item/gun/ballistic/shotgun/automatic
@@ -59,6 +62,10 @@
 	item_state = "shotgun_combat"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com
 	w_class = WEIGHT_CLASS_HUGE
+
+/obj/item/gun/ballistic/shotgun/automatic/combat/empty
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/com/empty
+
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/AltClick(mob/user)
 	if(loc == user)
