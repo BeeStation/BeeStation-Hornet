@@ -640,7 +640,7 @@
 	name = "Wizard Ale"
 	desc = "Wizard Ale© Made fresh on the mountain by me and all of my army of little owls. We brew it and it's good and it's delicious and it's made of hops that we collect from the prairies. The distant prairies in the woods. Try some...! It won't hurt you, but it may turn you more powerful... and muscular. Coming to a tabern nearn you except it wont because its secret!!"
 	icon_state = "beer_wizard"
-	list_reagents = list(/datum/reagent/consumable/ethanol/beer/insulated = 30)
+	list_reagents = list(/datum/reagent/consumable/ethanol/beer/wizard = 30)
 	foodtype = GRAIN | ALCOHOL
 
 /obj/item/reagent_containers/food/drinks/beer/clown
