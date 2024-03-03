@@ -12,7 +12,7 @@
 
 	outfit = /datum/outfit/job/chaplain
 
-	base_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
+	base_access = list(ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MORGUE, ACCESS_THEATRE)
 	extra_access = list()
 
 	department_flag = CIVILIAN

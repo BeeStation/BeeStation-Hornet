@@ -14,7 +14,7 @@
 	outfit = /datum/outfit/job/cargo_technician
 
 	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
-	extra_access = list(ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION)
+	extra_access = list(ACCESS_QM, ACCESS_MINING, ACCESS_MINING_STATION,ACCESS_MECH_MINING)
 
 	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CAR
