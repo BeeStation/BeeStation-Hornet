@@ -5,11 +5,12 @@
 
 	charge_max = 1800
 
-	var/static/list/special_roles
+	var/static/list/special_roles // security roles + Captain are resistant against this spell
 
 /obj/effect/proc_holder/spell/target_hive/hive_shatter/Initialize(mapload)
 	. = ..()
-	special_roles = GLOB.security_positions.Copy() + JOB_NAME_CAPTAIN
+	if(!special_roles)
+		special_roles = GLOB.security_positions.Copy() + JOB_NAME_CAPTAIN
 
 /obj/effect/proc_holder/spell/target_hive/hive_shatter/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
