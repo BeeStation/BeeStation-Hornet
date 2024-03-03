@@ -7,7 +7,7 @@
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "lizard"
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	can_be_held = TRUE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST, MOB_REPTILE)
 	mob_size = MOB_SIZE_SMALL

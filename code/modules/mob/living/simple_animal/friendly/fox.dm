@@ -23,7 +23,7 @@
 	mobchatspan = "fox"
 	can_be_held = TRUE
 	held_state = "fox"
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	worn_slot_flags = ITEM_SLOT_HEAD
 
 //Captain fox

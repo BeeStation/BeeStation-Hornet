@@ -37,7 +37,7 @@
 	held_state = "cat2"
 	chat_color = "#FFD586"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/pet/cat/Initialize(mapload)
 	. = ..()

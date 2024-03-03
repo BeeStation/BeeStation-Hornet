@@ -12,7 +12,7 @@
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 3
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 	density = FALSE
 	pass_flags = PASSMOB

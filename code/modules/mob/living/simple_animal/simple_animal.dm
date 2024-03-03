@@ -89,7 +89,9 @@
 
 	var/my_z // I don't want to confuse this with client registered_z
 
-	var/do_footstep = FALSE
+	///What kind of footstep this mob should have. Null if it shouldn't have any.
+	var/footstep_type
+
 	///Generic flags
 	var/simple_mob_flags = NONE
 
@@ -108,6 +110,9 @@
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
+
+	if(footstep_type)
+		AddElement(/datum/element/footstep, footstep_type)
 
 /mob/living/simple_animal/ComponentInitialize()
 	. = ..()
@@ -135,10 +140,6 @@
 	. = ..()
 	if(stat == DEAD)
 		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
-
-/mob/living/simple_animal/initialize_footstep()
-	if(do_footstep)
-		..()
 
 /mob/living/simple_animal/updatehealth()
 	. = ..()

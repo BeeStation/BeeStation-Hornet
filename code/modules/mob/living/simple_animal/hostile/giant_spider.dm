@@ -50,6 +50,7 @@
 	unique_name = 1
 	gold_core_spawnable = HOSTILE_SPAWN
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	sentience_type = SENTIENCE_OTHER // not eligible for sentience potions
 	var/busy = SPIDER_IDLE // What a spider's doing
 	var/datum/action/innate/spider/lay_web/lay_web // Web action
@@ -68,7 +69,6 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	do_footstep = TRUE
 	discovery_points = 1000
 	gold_core_spawnable = NO_SPAWN  //Spiders are introduced to the rounds through two types of antagonists
 

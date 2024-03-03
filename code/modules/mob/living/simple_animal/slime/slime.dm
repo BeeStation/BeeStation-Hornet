@@ -40,6 +40,8 @@
 	// for the sake of cleanliness, though, here they are.
 	status_flags = CANUNCONSCIOUS|CANPUSH
 
+	footstep_type = FOOTSTEP_MOB_SLIME
+
 	hud_type = /datum/hud/slime
 	hardattacks = TRUE //A sharp blade wont cut a slime from a mere parry
 
@@ -69,8 +71,6 @@
 	var/mood = "" // To show its face
 	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
 	var/force_stasis = FALSE
-
-	do_footstep = TRUE
 
 	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
 	///////////TIME FOR SUBSPECIES
