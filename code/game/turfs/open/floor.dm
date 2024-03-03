@@ -197,8 +197,8 @@
 			return TRUE
 		if(RCD_LADDER)
 			to_chat(user, "<span class='notice'>You build a ladder.</span>")
-			var/obj/structure/ladder/Ladder = new(src)
-			Ladder.anchored = TRUE
+			var/obj/structure/ladder/L = new(src)
+			L.set_anchored(TRUE)
 			return TRUE
 		if(RCD_AIRLOCK)
 			if(locate(/obj/machinery/door/airlock) in src || locate(/obj/machinery/door/window) in src)
@@ -237,7 +237,7 @@
 				new_airlock.closeOtherId = new_airlock.electronics.passed_cycle_id
 				new_airlock.update_other_id()
 			new_airlock.autoclose = TRUE
-			new_airlock.update_icon()
+			new_airlock.update_appearance()
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			var/previous_turf = initial(name)
@@ -252,7 +252,7 @@
 			to_chat(user, "<span class='notice'>You construct the grille.</span>")
 			log_attack("[key_name(user)] has constructed a grille at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/obj/structure/grille/new_grille = new(src)
-			new_grille.anchored = TRUE
+			new_grille.set_anchored(TRUE)
 			return TRUE
 		if(RCD_MACHINE)
 			if(locate(/obj/structure/frame/machine) in src)
@@ -260,13 +260,13 @@
 			var/obj/structure/frame/machine/new_machine = new(src)
 			new_machine.state = 2
 			new_machine.icon_state = "box_1"
-			new_machine.anchored = TRUE
+			new_machine.set_anchored(TRUE)
 			return TRUE
 		if(RCD_COMPUTER)
 			if(locate(/obj/structure/frame/computer) in src)
 				return FALSE
 			var/obj/structure/frame/computer/new_computer = new(src)
-			new_computer.anchored = TRUE
+			new_computer.set_anchored(TRUE)
 			new_computer.state = 1
 			new_computer.setDir(the_rcd.computer_dir)
 			return TRUE
