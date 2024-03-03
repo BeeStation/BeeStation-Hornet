@@ -12,8 +12,8 @@
 
 	outfit = /datum/outfit/job/curator
 
-	access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
-	minimal_access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
+	base_access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
+	extra_access = list()
 
 	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CIV

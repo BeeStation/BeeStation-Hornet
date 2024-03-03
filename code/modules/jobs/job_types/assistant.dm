@@ -15,8 +15,8 @@ Assistant
 
 	outfit = /datum/outfit/job/assistant
 
-	access = list()			//See /datum/job/assistant/get_access()
-	minimal_access = list()	//See /datum/job/assistant/get_access()
+	base_access = list()	//See /datum/job/assistant/get_access()
+	extra_access = list()	//See /datum/job/assistant/get_access()
 
 	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CIV
@@ -31,11 +31,9 @@ Assistant
 	)
 
 /datum/job/assistant/get_access()
+	. = ..()
 	if(CONFIG_GET(flag/assistants_have_maint_access) || !CONFIG_GET(flag/jobs_have_minimal_access)) //Config has assistant maint access set
-		. = ..()
-		. |= list(ACCESS_MAINT_TUNNELS)
-	else
-		return ..()
+		. |= ACCESS_MAINT_TUNNELS
 
 /datum/outfit/job/assistant
 	name = JOB_NAME_ASSISTANT

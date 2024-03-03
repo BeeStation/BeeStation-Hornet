@@ -19,8 +19,8 @@
 
 	outfit = /datum/outfit/job/captain
 
-	access = list() 			//See get_access()
-	minimal_access = list() 	//See get_access()
+	base_access = list()  //See get_access()
+	extra_access = list() //See get_access()
 
 	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_COM

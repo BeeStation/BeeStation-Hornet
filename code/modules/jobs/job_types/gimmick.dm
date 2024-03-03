@@ -11,8 +11,8 @@
 	selection_color = "#dddddd"
 	exp_type_department = EXP_TYPE_GIMMICK
 
-	access = list(ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS)
+	base_access = list(ACCESS_MAINT_TUNNELS)
+	extra_access = list()
 
 	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CIV
@@ -41,8 +41,8 @@
 
 	outfit = /datum/outfit/job/gimmick/barber
 
-	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	base_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	extra_access = list()
 
 	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
@@ -76,8 +76,8 @@
 
 	outfit = /datum/outfit/job/gimmick/stage_magician
 
-	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	base_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	extra_access = list()
 
 	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
@@ -117,8 +117,8 @@
 
 	outfit = /datum/outfit/job/gimmick/psychiatrist
 
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
+	base_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
+	extra_access = list()
 
 	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED
@@ -148,8 +148,8 @@
 
 	outfit = /datum/outfit/job/gimmick/vip
 
-	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
-	minimal_access = list(ACCESS_MAINT_TUNNELS)
+	base_access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
+	extra_access = list()
 
 	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_VIP
