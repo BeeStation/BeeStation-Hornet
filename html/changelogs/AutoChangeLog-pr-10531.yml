@@ -1,4 +1,0 @@
-author: rkz, mickyan
-delete-after: true
-changes:
-  - rscadd: randomized pixel shifting when throwing items

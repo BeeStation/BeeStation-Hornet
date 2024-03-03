@@ -61,12 +61,43 @@
 			<ul class="changes bgimages16">
 				<li class="rscdel">Removed an offensive word from the list of phobia trigger words.</li>
 			</ul>
+			<h3 class="author">RKz, ShizCalev updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Converted everything to use setAnchored() as opposed to setting the anchored var directly. This means that COMSIG_MOVABLE_SETANCHORED can now actually be used reliably to track if an object's anchored var has changed.</li>
+				<li class="bugfix">The refactor also means that varediting the anchored var will now properly update most items' other states that rely on it being set a certain way.</li>
+				<li class="bugfix">Fixed bookcases having the incorrect icon when they're unanchored.</li>
+				<li class="bugfix">Fixed bookcases not automatically picking up spellbooks / storage books when made/spawned.</li>
+				<li class="bugfix">Fixed bookcases not dropping spellbooks / storage books when deconstructed.</li>
+			</ul>
 			<h3 class="author">ToasterBan updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscadd">You can now name a constructed medbot using a pen on it</li>
 				<li class="rscadd">Chemist PDA job disks now also contain robot management</li>
 				<li class="rscadd">Medbot UI now tells you the name of the beaker/chembag that is inserted in it</li>
 				<li class="tweak">Medbots need to be unlocked to have their beaker/chembag removed</li>
+			</ul>
+			<h3 class="author">rkz, Mickyan, Donkie, willox, Timberpoes, Kush1Push1, AnturK updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">bloody footprints no longer spawn with incorrect steps and don't break when rotated on shuttles</li>
+				<li class="tweak">Blood dripping frequency now scales with blood loss</li>
+				<li class="bugfix">Fixed blood decals occasionally containing more blood than they should</li>
+				<li class="rscadd">Footprints and bloody shoes major update. Hardsuits and bare feet can now get bloody as well. Improved blood spreading behaviour.</li>
+				<li class="bugfix">Shoes will no longer get bloody while wearing something that covers them.</li>
+				<li class="tweak">Blood splatters only make your shoes or feet bloody if the tile is bloody enough,</li>
+				<li class="tweak">Light steps trait prevents clothing from being covered in blood if you step on a bloody tile with your shoes off.</li>
+				<li class="rscadd">Blood dries over time. Usually, 3 or 6 minutes. If a splatter is big enough, it can stay wet up to 15 minutes.</li>
+				<li class="bugfix">The detective's scanner should now always properly output the correct data for scans and should no longer print out blank entries erroneously.</li>
+			</ul>
+			<h3 class="author">rkz, Seris02, ExcessiveUseOfCobblestone updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Dehardcodes milkable component reagent</li>
+				<li class="rscadd">Snakes can now be milked for venom. They don't seem to mind.</li>
+				<li class="bugfix">fixed bad qdels with milkable component</li>
+				<li class="admin">converted VV component list input to TGUI</li>
+			</ul>
+			<h3 class="author">rkz, mickyan updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">randomized pixel shifting when throwing items</li>
 			</ul>
 			<h3 class="author">zeskorion updated:</h3>
 			<ul class="changes bgimages16">
