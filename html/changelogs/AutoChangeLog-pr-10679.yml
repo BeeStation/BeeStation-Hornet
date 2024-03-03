@@ -1,0 +1,8 @@
+author: ToasterBan
+delete-after: true
+changes:
+  - rscadd: You can now name a constructed medbot using a pen on it
+  - rscadd: Chemist PDA job disks now also contain robot management
+  - rscadd: Medbot UI now tells you the name of the beaker/chembag that is inserted
+      in it
+  - tweak: Medbots need to be unlocked to have their beaker/chembag removed
