@@ -27,6 +27,8 @@
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat >= DEAD)
+		return
 	var/realpower = power
 	var/healthchange = min(1 * realpower, (10 * realpower) - currenthealthmodifier)
 	if(isturf(M.loc))

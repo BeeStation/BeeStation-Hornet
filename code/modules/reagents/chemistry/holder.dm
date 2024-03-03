@@ -453,6 +453,9 @@
 
 						if(M.Uses > 0) // added a limit to slime cores -- Muskets requested this
 							matching_other = 1
+
+					else if(C.check_other()) //if a recipe has required_other, call this proc to see if it meets requirements
+						matching_other = 1
 				else
 					if(!C.required_container)
 						matching_container = 1
