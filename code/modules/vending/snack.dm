@@ -12,7 +12,9 @@
 					/obj/item/food/no_raisin = 6,
 					/obj/item/reagent_containers/food/drinks/dry_ramen = 3,
 					/obj/item/food/energybar = 6)
-	contraband = list(/obj/item/food/syndicake = 6)
+	contraband = list(/obj/item/food/syndicake = 6,
+					/obj/item/food/swirl_lollipop = 2)
+
 	refill_canister = /obj/item/vending_refill/snack
 	var/chef_compartment_access = "28" //ACCESS_KITCHEN
 	default_price = 20
