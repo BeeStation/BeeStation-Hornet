@@ -1,0 +1,8 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - rscadd: Full conversion to the new food typepath
+  - bugfix: fixes all instances of machines checking for the old path instead of the
+      new food path, incl. vendors & microwaves
+  - tweak: converts misc.dm to use protein values
+  - tweak: converts snacks_vend.dm to use protein values
