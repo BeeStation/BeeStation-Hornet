@@ -27,7 +27,7 @@
 		/datum/reagent/consumable/nutriment/protein = 3,
 		/datum/reagent/consumable/sugar = 2,
 		/datum/reagent/consumable/sodiumchloride = 2,
-		/datum/reagent/consumable/maltodextrin = 2
+		/datum/reagent/consumable/maltodextrin = 3
 	)
 	junkiness = 25
 	tastes = list("dried meat" = 1)
