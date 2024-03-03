@@ -2531,6 +2531,21 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	. = ..()
 
 //new beers
+/datum/reagent/consumable/ethanol/beer/insulated
+	name = "The Insulated"
+	description = "By assistants, for assistants. Greytide Worldwide"
+	color = "#fcff68"
+	taste_description = "grey power and insulated protection"
+	glass_desc = "A freezing pint of The Insulated beer."
+
+/datum/reagent/consumable/ethanol/beer/insulated/on_mob_metabolize(mob/living/L)
+	..()
+	ADD_TRAIT(L, TRAIT_SHOCKIMMUNE, type)
+
+/datum/reagent/consumable/ethanol/beer/insulated/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_SHOCKIMMUNE, type)
+	..()
+
 /datum/reagent/consumable/ethanol/beer/wizard //https://www.youtube.com/shorts/6XEOl0hw0RY
 	name = "Wizard Ale"
 	description = "Wizard Ale© Made fresh on the mountain by me and all of my army of little owls. We brew it and it's good and it's delicious and it's made of hops that we collect from the prairies. The distant prairies in the woods. Try some...! It won't hurt you, but it may turn you more powerful... and muscular. Coming to a tavern nearn you except it wont because its secret!!"
@@ -2539,9 +2554,10 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A freezing pint of Wizard Ale."
 	boozepwr = 80
 	quality = DRINK_FANTASTIC
-	var/power = /obj/effect/proc_holder/spell/aoe_turf/repulse
+	var/power = /obj/effect/proc_holder/spell/aoe_turf/repulse/beer
+	overdose_threshold = 25
 
-/datum/reagent/consumable/ethanol/beer/wizard/on_mob_metabolize(mob/living/F)
+/datum/reagent/consumable/ethanol/beer/wizard/overdose_start(mob/living/F)
 	to_chat(F, "<span class='warning'>You turn more powerful, and muscular!</span>")
 	power = new power()
 	F.AddSpell(power)
@@ -2558,11 +2574,19 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	taste_description = "clumsy foamy beard"
 	glass_desc = "A freezing pint of HONKBEER."
 	boozepwr = 69
+	var/power = /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pie
+	overdose_threshold = 25
 
-/datum/reagent/consumable/ethanol/beer/clown/on_mob_metabolize(mob/living/L)
+/datum/reagent/consumable/ethanol/beer/clown/overdose_start(mob/living/L)
 	..()
 	ADD_TRAIT(L, TRAIT_CLUMSY, type)
+	to_chat(L, "<span class='warning'>You become clumsy, but unlock the secret pie technique</span>")
+	power = new power()
+	L.AddSpell(power)
+	. = ..()
 
 /datum/reagent/consumable/ethanol/beer/clown/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_CLUMSY, type)
-	..()
+	to_chat(L, "<span class='notice'>Your clumsiness and clown powers dissapear.</span>")
+	L.RemoveSpell(power)
+	return ..()
