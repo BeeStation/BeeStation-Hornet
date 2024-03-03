@@ -86,7 +86,7 @@
 	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
 	/* Note mask_file needed some change due to the change from 513 to 514(the behavior of alpha filters seems to have changed) thats the reason why the mask
 	dmi file for normal airlocks is not 32x32 but 64x64 and for the large airlocks instead of 64x32 its now 96x64 due to the fix to this problem*/
-	var/mask_file = 'icons/obj/doors/airlocks/mask_32x32_airlocks.dmi' // because filters aren't allowed to have icon_states :(
+	var/mask_file = 'icons/obj/doors/mask_32x32_doors.dmi' // because filters aren't allowed to have icon_states :(
 	var/mask_x = 0
 	var/mask_y = 0
 	var/anim_parts = "left=-14,0;right=13,0" //format is "airlock_part=open_px,open_py,move_start_time,move_end_time,aperture_angle"
@@ -602,12 +602,12 @@
 					part.transform = T
 				if(AIRLOCK_CLOSING)
 					part.transform = T
-					animate(part, transform = T, time = open_speed - part.move_end_time, flags = ANIMATION_LINEAR_TRANSFORM)
-					animate(transform = matrix(), time = part.move_end_time - part.move_start_time, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(part, transform = T, time = open_speed - part.move_end_time, easing =  CIRCULAR_EASING, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(transform = matrix(), time = part.move_end_time - part.move_start_time, easing = CIRCULAR_EASING, flags = ANIMATION_LINEAR_TRANSFORM)
 				if(AIRLOCK_OPENING)
 					part.transform = matrix()
-					animate(part, transform = matrix(), time = part.move_start_time, flags = ANIMATION_LINEAR_TRANSFORM)
-					animate(transform = T, time = part.move_end_time - part.move_start_time, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(part, transform = matrix(), time = part.move_start_time, easing = CIRCULAR_EASING, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(transform = T, time = part.move_end_time - part.move_start_time, easing = CIRCULAR_EASING, flags = ANIMATION_LINEAR_TRANSFORM)
 		else
 			switch(state)
 				if(AIRLOCK_CLOSED, AIRLOCK_DENY, AIRLOCK_EMAG)
@@ -619,13 +619,13 @@
 				if(AIRLOCK_CLOSING)
 					part.pixel_x = part.open_px
 					part.pixel_y = part.open_py
-					animate(part, pixel_x = part.open_px, pixel_y = part.open_py, time = open_speed - part.move_end_time)
-					animate(pixel_x = 0, pixel_y = 0, time = part.move_end_time - part.move_start_time)
+					animate(part, pixel_x = part.open_px, pixel_y = part.open_py, time = open_speed - part.move_end_time, easing = CIRCULAR_EASING)
+					animate(pixel_x = 0, pixel_y = 0, time = part.move_end_time - part.move_start_time, easing = CIRCULAR_EASING)
 				if(AIRLOCK_OPENING)
 					part.pixel_x = 0
 					part.pixel_y = 0
-					animate(part, pixel_x = 0, pixel_y = 0, time = part.move_start_time)
-					animate(pixel_x = part.open_px, pixel_y = part.open_py, time = part.move_end_time - part.move_start_time)
+					animate(part, pixel_x = 0, pixel_y = 0, time = part.move_start_time, easing = CIRCULAR_EASING)
+					animate(pixel_x = part.open_px, pixel_y = part.open_py, time = part.move_end_time - part.move_start_time, easing = CIRCULAR_EASING)
 
 	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 
@@ -1440,7 +1440,7 @@
 			A = new /obj/structure/door_assembly(loc)
 			//If you come across a null assemblytype, it will produce the default assembly instead of disintegrating.
 		A.heat_proof_finished = heat_proof //tracks whether there's rglass in
-		A.setAnchored(TRUE)
+		A.set_anchored(TRUE)
 		A.glass = glass
 		A.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 		A.created_name = name
