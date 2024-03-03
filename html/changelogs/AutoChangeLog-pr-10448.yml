@@ -1,0 +1,18 @@
+author: rkz, Mickyan, Donkie, willox, Timberpoes, Kush1Push1, AnturK
+delete-after: true
+changes:
+  - bugfix: bloody footprints no longer spawn with incorrect steps and don't break
+      when rotated on shuttles
+  - tweak: Blood dripping frequency now scales with blood loss
+  - bugfix: Fixed blood decals occasionally containing more blood than they should
+  - rscadd: Footprints and bloody shoes major update. Hardsuits and bare feet can
+      now get bloody as well. Improved blood spreading behaviour.
+  - bugfix: Shoes will no longer get bloody while wearing something that covers them.
+  - tweak: Blood splatters only make your shoes or feet bloody if the tile is bloody
+      enough,
+  - tweak: Light steps trait prevents clothing from being covered in blood if you
+      step on a bloody tile with your shoes off.
+  - rscadd: Blood dries over time. Usually, 3 or 6 minutes. If a splatter is big enough,
+      it can stay wet up to 15 minutes.
+  - bugfix: The detective's scanner should now always properly output the correct
+      data for scans and should no longer print out blank entries erroneously.

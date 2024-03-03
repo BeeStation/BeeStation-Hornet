@@ -65,7 +65,8 @@
 			var/obj/item/reagent_containers/food/snacks/deadmouse/M = new(loc)
 			M.icon_state = icon_dead
 			M.name = name
-			M.reagents.add_reagent(/datum/reagent/blood, 2, data)
+			if(CONFIG_GET(flag/biohazards_allowed))
+				M.reagents.add_reagent(/datum/reagent/blood, 2, data)
 			if(toast)
 				M.add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
 				M.desc = "It's toast."

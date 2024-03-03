@@ -42,7 +42,7 @@
 	if(data && mix_data)
 		if(data["blood_DNA"] != mix_data["blood_DNA"])
 			data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning if the DNA sample doesn't match.
-		if(data["viruses"] || mix_data["viruses"])
+		if((data["viruses"] || mix_data["viruses"]) && CONFIG_GET(flag/mixvirus_allowed))
 
 			var/list/mix1 = data["viruses"]
 			var/list/mix2 = mix_data["viruses"]
@@ -609,23 +609,10 @@
 	description = "A jellyfying toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = /datum/species/oozeling
+	race = list(/datum/species/oozeling/slime,
+					/datum/species/oozeling/luminescent,
+					/datum/species/oozeling/stargazer)
 	taste_description = "grandma's gelatin"
-
-/datum/reagent/mutationtoxin/jelly/on_mob_life(mob/living/carbon/human/H)
-	if(isoozeling(H))
-		to_chat(H, "<span class='warning'>Your body shifts and morphs, turning you into another subspecies!</span>")
-		var/species_type = pick(subtypesof(/datum/species/oozeling))
-		H.set_species(species_type)
-		H.reagents.del_reagent(type)
-		return TRUE
-	if(current_cycle >= cycles_to_turn) //overwrite since we want subtypes of jelly
-		var/datum/species/species_type = pick(subtypesof(race))
-		H.set_species(species_type)
-		H.reagents.del_reagent(type)
-		to_chat(H, "<span class='warning'>You've become \a [initial(species_type.name)]!</span>")
-		return TRUE
-	return ..()
 
 /datum/reagent/mutationtoxin/golem
 	name = "Golem Mutation Toxin"
@@ -642,6 +629,7 @@
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	race = /datum/species/abductor
 	taste_description = "something out of this world... no, universe!"
+
 /datum/reagent/mutationtoxin/ethereal
 	name = "Ethereal Mutation Toxin"
 	description = "A positively electric toxin."

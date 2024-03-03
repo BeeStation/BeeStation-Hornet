@@ -32,6 +32,8 @@
 
 	var/clothing_flags = NONE
 
+	var/can_be_bloody = TRUE
+
 	//Var modification - PLEASE be careful with this I know who you are and where you live
 	var/list/user_vars_to_edit //VARNAME = VARVALUE eg: "name" = "butts"
 	var/list/user_vars_remembered //Auto built by the above + dropped() + equipped()
@@ -56,6 +58,8 @@
 	. = ..()
 	if(ispath(pocket_storage_component_path))
 		LoadComponent(pocket_storage_component_path)
+	if(can_be_bloody && ((body_parts_covered & FEET) || (flags_inv & HIDESHOES)))
+		LoadComponent(/datum/component/bloodysoles)
 
 /obj/item/clothing/MouseDrop(atom/over_object)
 	. = ..()

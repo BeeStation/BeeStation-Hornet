@@ -638,7 +638,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 
 /obj/machinery/vending/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/vending),
+		get_asset_datum(/datum/asset/spritesheet_batched/vending),
 	)
 
 /obj/machinery/vending/ui_state(mob/user)
