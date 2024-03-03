@@ -80,3 +80,6 @@
 			else
 				if(step_towards(X, T) && moving_power > 1)
 					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step_towards), X, T), 2)
+
+/datum/chemical_reaction/proc/check_other() //override this proc if using required_other, and return TRUE to allow the chemical reaction. Slime cores do not use this.
+	return FALSE
