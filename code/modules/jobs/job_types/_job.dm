@@ -273,11 +273,11 @@
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
-		return src.base_access.Copy()
+		return base_access.Copy()
 
-	. = src.base_access.Copy()
+	. = base_access.Copy()
 	if(!CONFIG_GET(flag/jobs_have_minimal_access))
-		. |= src.extra_access
+		. |= extra_access
 
 	if(CONFIG_GET(flag/everyone_has_maint_access)) //Config has global maint access set
 		. |= ACCESS_MAINT_TUNNELS
