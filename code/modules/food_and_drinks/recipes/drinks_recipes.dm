@@ -883,6 +883,20 @@
 /datum/chemical_reaction/beer_insulated
 	name = "The Insulated"
 	id = /datum/reagent/consumable/ethanol/beeffizz
-	results = list(/datum/reagent/consumable/ethanol/beeffizz = 10)
+	results = list(/datum/reagent/consumable/ethanol/beer/insulated = 10)
+	required_reagents = list(/datum/reagent/consumable/flour = 10, /datum/reagent/consumable/grey_bull)
+	required_catalysts = list(/datum/reagent/consumable/enzyme = 5)
+
+/datum/chemical_reaction/beer_wizard
+	name = "Wizard Ale"
+	id = /datum/reagent/consumable/ethanol/beer/wizard
+	results = list(/datum/reagent/consumable/ethanol/beer/wizard = 10)
+	required_reagents = list(/datum/reagent/consumable/flour = 10, /datum/reagent/consumable/grey_bull)
+	required_catalysts = list(/datum/reagent/consumable/enzyme = 5)
+
+/datum/chemical_reaction/beer_clown
+	name = "HONKBEER"
+	id = /datum/reagent/consumable/ethanol/beer/wizard
+	results = list(/datum/reagent/consumable/ethanol/beer/wizard = 10)
 	required_reagents = list(/datum/reagent/consumable/flour = 10, /datum/reagent/consumable/grey_bull)
 	required_catalysts = list(/datum/reagent/consumable/enzyme = 5)

@@ -497,3 +497,8 @@
 	name = "CondiMaster 3000"
 	desc = "Used to create condiments and other cooking supplies."
 	condi = TRUE
+
+/obj/machinery/chem_master/brewingmaster
+	name = "BrewingMaster 2.0"
+	desc = "Used to brew beers."
+	condi = TRUE

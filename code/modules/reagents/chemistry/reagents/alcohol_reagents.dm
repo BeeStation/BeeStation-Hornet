@@ -2546,3 +2546,34 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/beer/insulated/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_SHOCKIMMUNE, type)
 	..()
+
+/datum/reagent/consumable/ethanol/beer/wizard //https://www.youtube.com/shorts/6XEOl0hw0RY
+	name = "Wizard Ale"
+	description = "Wizard Ale© Made fresh on the mountain by me and all of my army of little owls. We brew it and it's good and it's delicious and it's made of hops that we collect from the prairies. The distant prairies in the woods. Try some...! It won't hurt you, but it may turn you more powerful... and muscular. Coming to a tabern nearn you except it wont because its secret!!"
+	color = "#572c4e"
+	taste_description = "magical power"
+	glass_desc = "A freezing pint of Wizard Ale."
+	boozepwr = 80
+
+/datum/reagent/consumable/ethanol/beer/insulated/on_mob_metabolize(mob/living/L)
+	..()
+	ADD_TRAIT(L, TRAIT_SHOCKIMMUNE, type)
+
+/datum/reagent/consumable/ethanol/beer/insulated/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_SHOCKIMMUNE, type)
+	..()
+
+/datum/reagent/consumable/ethanol/beer/clown
+	description = "Clumsy beer made out of the most refined ingredients gathered by the clown agents."
+	color = "#ffbaef"
+	taste_description = "clumsy foamy beard"
+	glass_desc = "A freezing pint of HONKBEER."
+	boozepwr = 69
+
+/datum/reagent/consumable/ethanol/beer/clown/on_mob_metabolize(mob/living/L)
+	..()
+	ADD_TRAIT(L, TRAIT_CLUMSY, type)
+
+/datum/reagent/consumable/ethanol/beer/insulated/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_CLUMSY, type)
+	..()
