@@ -56,6 +56,8 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	if(!unsafe || A.stage < 4)
 		to_chat(M, "<span class='warning'>[pick("You feel hot.", "You feel like you're burning.")]</span>")
 	else

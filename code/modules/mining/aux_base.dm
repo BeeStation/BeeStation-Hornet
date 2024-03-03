@@ -365,7 +365,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 
 	aux_base_console.set_mining_mode() //Lets the colony park the shuttle there, now that it has a dock.
 	to_chat(user, "<span class='notice'>Mining shuttle calibration successful! Shuttle interface available at base console.</span>")
-	anchored = TRUE //Locks in place to mark the landing zone.
+	set_anchored(TRUE) //Locks in place to mark the landing zone.
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 
 /obj/structure/mining_shuttle_beacon/proc/clear_cooldown()
