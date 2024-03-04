@@ -9823,7 +9823,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/space/nearstation)
+/area/ai_monitored/security/armory)
 "bsd" = (
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/dark,
@@ -16610,7 +16610,7 @@
 	network = list("ss13", "prison")
 	},
 /turf/open/floor/prison/dark,
-/area/space)
+/area/security/prison)
 "cfg" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -28600,7 +28600,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/prison/dark,
-/area/space)
+/area/security/prison)
 "fqd" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -29841,9 +29841,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/warden)
-"fNX" = (
-/turf/closed/wall/r_wall,
-/area/space)
 "fOq" = (
 /obj/structure/cable/white{
 	icon_state = "4-8"
@@ -31981,7 +31978,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
-/area/space)
+/area/security/prison)
 "gGB" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -33402,7 +33399,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/space/nearstation)
+/area/ai_monitored/security/armory)
 "hje" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -36164,7 +36161,7 @@
 	dir = 1
 	},
 /turf/open/floor/prison/dark,
-/area/space)
+/area/security/prison)
 "ilA" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -37972,7 +37969,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/prison/dark,
-/area/space)
+/area/security/prison)
 "iSU" = (
 /obj/structure/sign/departments/medbay/alt,
 /turf/closed/wall/r_wall,
@@ -44299,7 +44296,7 @@
 /obj/item/poster/random_official,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
-/area/space)
+/area/ai_monitored/security/armory)
 "lhL" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -45260,7 +45257,7 @@
 	},
 /obj/effect/landmark/start/security_officer,
 /turf/open/floor/prison/dark,
-/area/space)
+/area/security/prison)
 "lCe" = (
 /obj/structure/chair{
 	dir = 8
@@ -55299,7 +55296,7 @@
 /obj/machinery/flasher/portable,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
-/area/space)
+/area/ai_monitored/security/armory)
 "pky" = (
 /obj/item/crowbar,
 /turf/open/floor/plating,
@@ -74848,7 +74845,7 @@
 /turf/open/floor/plating{
 	broken = 1
 	},
-/area/space)
+/area/security/prison)
 "wzy" = (
 /obj/machinery/light,
 /obj/machinery/light_switch{
@@ -78208,7 +78205,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/prison/dark,
-/area/space)
+/area/security/prison)
 "xCU" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -108112,8 +108109,8 @@ wIy
 qkg
 qkg
 aeq
-fNX
-fNX
+aeq
+aeq
 gGA
 wzk
 nsa
@@ -108370,7 +108367,7 @@ xvJ
 xvJ
 bsc
 pkw
-fNX
+aeq
 ilt
 iSO
 lCd
@@ -108627,7 +108624,7 @@ nVe
 oKf
 hja
 lhJ
-fNX
+aeq
 cff
 xCR
 fpZ
