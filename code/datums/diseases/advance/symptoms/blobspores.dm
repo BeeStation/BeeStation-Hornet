@@ -19,24 +19,30 @@
 
 /datum/symptom/blobspores/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 14)
+	if(A.resistance >= 14 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 8))
 		severity += 1
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b> There is a chance to spawn a factory blob, instead of a normal blob.<br> \
+					  <b>Always:</b> Spawns a strong blob instead of a normal blob \
+					  <b>Resistance 8:</b> Has a chance to spawn a blob node instead of a normal blob<br>"
 
 
 /datum/symptom/blobspores/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 11)
+	if(A.resistance >= 11 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		factory_blob = TRUE
-	if(A.resistance >= 8)
+	if(A.resistance >= 8 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		strong_blob = TRUE
-		if(A.resistance >= 14)
+		if(A.resistance >= 14 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.resistance >= 8))
 			node_blob = TRUE
 
 /datum/symptom/blobspores/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(1)
 			if(prob(2))
