@@ -92418,7 +92418,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/light_switch,
 /obj/effect/turf_decal/box,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
