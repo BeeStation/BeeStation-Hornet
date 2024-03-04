@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: Fixed telekinesis mutation throwing runtime when a holder touches an airlock.
+  - code_imp: Telekinesis effect will be shown on an airlock whenever it's telekinetically
+      interacted
