@@ -2537,6 +2537,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	color = "#fcff68"
 	taste_description = "grey power and insulated protection"
 	glass_desc = "A freezing pint of The Insulated beer."
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/beer/insulated/on_mob_metabolize(mob/living/L)
 	..()
@@ -2574,24 +2575,26 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	taste_description = "clumsy foamy beard"
 	glass_desc = "A freezing pint of HONKBEER."
 	boozepwr = 69
+	quality = DRINK_FANTASTIC
 	var/power = /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pie
 	overdose_threshold = 25
 
-/datum/reagent/consumable/ethanol/beer/clown/overdose_start(mob/living/L)
+/datum/reagent/consumable/ethanol/beer/clown/overdose_start(mob/living/carbon/L)
 	. = ..()
-	L.RemoveSpell(power)
+	power = new power()
+	L.AddSpell(power)
 	if(L.mind.assigned_role == JOB_NAME_CLOWN)
-		REMOVE_TRAIT(L, TRAIT_CLUMSY, type)
+		L.dna.remove_mutation(CLOWNMUT)
 		to_chat(L, "<span class='warning'>Your drunkness somehow removed your clumnsiness and you unlock the secret pie technique</span>")
 	else
 		ADD_TRAIT(L, TRAIT_CLUMSY, type)
 		to_chat(L, "<span class='warning'>You become clumsy, but unlock the secret pie technique</span>")
 
-/datum/reagent/consumable/ethanol/beer/clown/on_mob_end_metabolize(mob/living/L)
+/datum/reagent/consumable/ethanol/beer/clown/on_mob_end_metabolize(mob/living/carbon/L)
 	. = ..()
 	L.RemoveSpell(power)
 	if(L.mind.assigned_role == JOB_NAME_CLOWN)
-		ADD_TRAIT(L, TRAIT_CLUMSY, type)
+		L.dna.add_mutation(CLOWNMUT)
 		to_chat(L, "<span class='warning'>Your clumnsiness is back and your clown powers dissapear</span>")
 	else
 		REMOVE_TRAIT(L, TRAIT_CLUMSY, type)
