@@ -6,7 +6,6 @@ These items take a specific time to eat, and can do most of the things our origi
 Behavior that's still missing from this component that original food items had that should either be put into seperate components or somewhere else:
 	Components:
 	Drying component (jerky etc)
-	Customizable component (custom pizzas etc)
 	Processable component (Slicing and cooking behavior essentialy, making it go from item A to B when conditions are met.)
 	Microwavability component
 	Frying component
@@ -78,12 +77,14 @@ Behavior that's still missing from this component that original food items had t
 	RegisterSignal(parent, COMSIG_ATOM_CHECKPARTS, PROC_REF(on_craft))
 	RegisterSignal(parent, COMSIG_ATOM_CREATEDBY_PROCESSING, PROC_REF(on_processed))
 	RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(on_microwave_cooked))
+	RegisterSignal(parent, COMSIG_FOOD_INGREDIENT_ADDED, PROC_REF(edible_ingredient_added))
 	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, PROC_REF(compost))
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
 		RegisterSignal(parent, COMSIG_ITEM_FRIED, PROC_REF(on_fried))
 		RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_ACT, PROC_REF(on_microwaved))
+		RegisterSignal(parent, COMSIG_ITEM_USED_AS_INGREDIENT,  PROC_REF(used_to_customize))
 
 		var/obj/item/item = parent
 		if (!item.grind_results)
@@ -492,3 +493,20 @@ Behavior that's still missing from this component that original food items had t
 		var/satisfaction_text = pick("burps from enjoyment.", "yaps for more!", "woofs twice.", "looks at the area where \the [parent] was.")
 		L.manual_emote(satisfaction_text)
 		qdel(parent)
+
+///Response to being used to customize something
+/datum/component/edible/proc/used_to_customize(datum/source, atom/customized)
+	SIGNAL_HANDLER
+
+	SEND_SIGNAL(customized, COMSIG_FOOD_INGREDIENT_ADDED, src)
+
+///Response to an edible ingredient being added to parent.
+/datum/component/edible/proc/edible_ingredient_added(datum/source, datum/component/edible/ingredient)
+	SIGNAL_HANDLER
+
+	var/datum/component/edible/E = ingredient
+	if (LAZYLEN(E.tastes))
+		tastes = tastes.Copy()
+		for (var/t in E.tastes)
+			tastes[t] += E.tastes[t]
+	foodtypes |= E.foodtypes

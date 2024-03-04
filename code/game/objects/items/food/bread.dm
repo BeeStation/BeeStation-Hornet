@@ -47,6 +47,10 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slice_type = /obj/item/food/breadslice/plain
 
+/obj/item/food/bread/plain/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/bread/empty, CUSTOM_INGREDIENT_ICON_FILL, max_ingredients = 8)
+
 /obj/item/food/breadslice/plain
 	name = "bread slice"
 	desc = "A slice of home."
@@ -55,6 +59,10 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2
 	)
+
+/obj/item/food/breadslice/plain/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/customizable_reagent_holder, null, CUSTOM_INGREDIENT_ICON_STACK)
 
 /*
  * REAL MOLDY FOOD. We just cant support it right now. Start porting after newfood is complete
@@ -246,6 +254,23 @@
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	foodtypes = GRAIN | FRUIT
+
+/obj/item/food/bread/empty
+	name = "bread"
+	icon_state = "tofubread"
+	desc = "It's bread, customized to your wildest dreams."
+	slice_type = /obj/item/food/breadslice/empty
+
+// What you get from cutting a custom bread. Different from custom sliced bread.
+/obj/item/food/breadslice/empty
+	name = "bread slice"
+	icon_state = "tofubreadslice"
+	foodtypes = GRAIN
+	desc = "It's a slice of bread, customized to your wildest dreams."
+
+/obj/item/food/breadslice/empty/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/customizable_reagent_holder, null, CUSTOM_INGREDIENT_ICON_FILL, max_ingredients = 8)
 
 /obj/item/food/baguette
 	name = "baguette"
