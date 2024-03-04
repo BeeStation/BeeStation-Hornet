@@ -4,6 +4,8 @@
 #define SENSORS_TRACKING 3
 #define SENSOR_CHANGE_DELAY 1.5 SECONDS
 
+#define MOTH_EATING_CLOTHING_DAMAGE 15
+
 /obj/item/clothing
 	name = "clothing"
 	resistance_flags = FLAMMABLE
@@ -52,6 +54,9 @@
 	var/high_pressure_multiplier = 1
 	var/static/list/high_pressure_multiplier_types = list(MELEE, BULLET, LASER, ENERGY, BOMB)
 
+	/// A lazily initiated "food" version of the clothing for moths
+	var/obj/item/food/clothing/moth_snack
+
 /obj/item/clothing/Initialize(mapload)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
 		actions_types += /datum/action/item_action/toggle_voice_box
@@ -76,17 +81,45 @@
 /obj/item/food/clothing // fuck you
 	name = "temporary moth clothing snack item"
 	desc = "If you're reading this it means I messed up. This is related to moths eating clothes and I didn't know a better way to do it than making a new food object." // die
-	food_reagents = list(/datum/reagent/consumable/nutriment = 1)
+	bite_consumption = 1
+	// sigh, ok, so it's not ACTUALLY infinite nutrition. this is so you can eat clothes more than...once.
+	// bite_consumption limits how much you actually get, and the take_damage in after eat makes sure you can't abuse this.
+	// ...maybe this was a mistake after all.
+	food_reagents = list(/datum/reagent/consumable/nutriment = INFINITY)
 	tastes = list("dust" = 1, "lint" = 1)
 	foodtypes = CLOTH
 
-/obj/item/clothing/attack(mob/M, mob/user, def_zone)
-	if(user.a_intent != INTENT_HARM && (ismoth(M) || ispsyphoza(M)) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) == 0))
-		var/obj/item/food/clothing/clothing_as_food = new // I shall send you to hell in the next PR
-		clothing_as_food.name = name
-		if(clothing_as_food.attack(M, user, def_zone))
-			take_damage(15, sound_effect=FALSE)
-		qdel(clothing_as_food)
+	/// A weak reference to the clothing that created us
+	var/datum/weakref/clothing
+
+/obj/item/food/clothing/make_edible()
+	AddComponent(/datum/component/edible,\
+		initial_reagents = food_reagents,\
+		food_flags = food_flags,\
+		foodtypes = foodtypes,\
+		volume = max_volume,\
+		eat_time = eat_time,\
+		tastes = tastes,\
+		eatverbs = eatverbs,\
+		bite_consumption = bite_consumption,\
+		microwaved_type = microwaved_type,\
+		junkiness = junkiness,\
+		after_eat = CALLBACK(src, .proc/after_eat))
+
+/obj/item/food/clothing/proc/after_eat(mob/eater)
+	var/obj/item/clothing/resolved_clothing = clothing.resolve()
+	if (resolved_clothing)
+		resolved_clothing.take_damage(MOTH_EATING_CLOTHING_DAMAGE, sound_effect = FALSE)
+	else
+		qdel(src)
+
+/obj/item/clothing/attack(mob/attacker, mob/user, def_zone)
+	if(user.a_intent != INTENT_HARM && (ismoth(attacker) || ispsyphoza(attacker)) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) == 0))
+		if (isnull(moth_snack))
+			moth_snack = new
+			moth_snack.name = name
+			moth_snack.clothing = WEAKREF(src)
+		moth_snack.attack(attacker, user, def_zone)
 	else
 		return ..()
 
@@ -102,6 +135,7 @@
 
 /obj/item/clothing/Destroy()
 	user_vars_remembered = null //Oh god somebody put REFERENCES in here? not to worry, we'll clean it up
+	QDEL_NULL(moth_snack)
 	return ..()
 
 /obj/item/clothing/dropped(mob/user)
@@ -475,3 +509,5 @@ BLIND     // can't see anything
 #undef SENSORS_VITALS
 #undef SENSORS_TRACKING
 #undef SENSOR_CHANGE_DELAY
+
+#undef MOTH_EATING_CLOTHING_DAMAGE
