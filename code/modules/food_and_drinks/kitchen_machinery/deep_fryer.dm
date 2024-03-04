@@ -84,8 +84,8 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 
 /obj/machinery/deepfryer/deconstruct(disassembled)
 	// This handles nulling out frying via exited
-	frying.forceMove(drop_location())
-	return ..()
+	if(frying)
+		frying.forceMove(drop_location())
 
 /obj/machinery/deepfryer/RefreshParts()
 	var/oil_efficiency = 0
@@ -226,6 +226,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 		if(Adjacent(user) && !issilicon(user))
 			user.put_in_hands(frying)
 		return
+
 	else if(user.pulling && user.a_intent == "grab" && iscarbon(user.pulling) && reagents.total_volume)
 		if(user.grab_state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
