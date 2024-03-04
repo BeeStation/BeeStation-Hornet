@@ -45123,10 +45123,6 @@
 /obj/item/book/granter/spell/smoke/lesser,
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
-"hVt" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "hVw" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -80442,7 +80438,7 @@
 /obj/machinery/door/airlock/security{
 	id_tag = "laborexit";
 	name = "Labor Shuttle";
-	req_access_txt = s
+	req_access_txt = "63"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -95166,17 +95162,6 @@
 /obj/item/pen{
 	pixel_x = -3
 	},
-/obj/machinery/door/window/brigdoor/northright{
-	dir = 2;
-	name = "Warden's Desk";
-	req_access_txt = "3"
-	},
-/obj/machinery/door/window/southright{
-	dir = 1;
-	name = "Warden's Desk"
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "ybZ" = (
@@ -150070,7 +150055,7 @@ aaa
 aaa
 aaa
 aaa
-hVt
+wiQ
 aaa
 aad
 aad
@@ -150372,7 +150357,7 @@ biP
 biP
 biP
 biP
-nOg
+aad
 aaa
 aaa
 aaa
@@ -151403,8 +151388,8 @@ biP
 aad
 aaa
 aaa
-sav
-sav
+aaa
+aaa
 cuM
 jQL
 jQL
@@ -152174,7 +152159,7 @@ biP
 aad
 aaa
 aaa
-sav
+aaa
 aaa
 aad
 aaa
@@ -153206,7 +153191,7 @@ aaa
 aaa
 aaa
 aaa
-wiQ
+aaa
 aad
 cuM
 aaa
