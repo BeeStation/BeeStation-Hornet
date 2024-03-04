@@ -48,6 +48,9 @@
 #define WOUND "wound"
 */
 
+/// Involves being eaten
+#define CONSUME "consume"
+
 //bitflag damage defines used for suicide_act
 #define BRUTELOSS (1<<0)
 #define FIRELOSS (1<<1)
