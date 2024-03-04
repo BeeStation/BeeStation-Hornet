@@ -83,8 +83,8 @@
 					selected_traits -= trait_key
 					label_traits -= GLOB.xenoa_all_traits_keyed[trait_key]
 				else
-					selected_traits += trait_key
-					label_traits += GLOB.xenoa_all_traits_keyed[trait_key]
+					selected_traits.Insert(1, trait_key)
+					label_traits.Insert(1, GLOB.xenoa_all_traits_keyed[trait_key])
 	return TRUE
 
 //Get a list of all the specified trait types stats

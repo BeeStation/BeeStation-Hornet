@@ -203,27 +203,11 @@
 	weight = 15
 	conductivity = 12
 	///List of potential animals we could turn people into
-	var/list/possible_animals = list(/mob/living/simple_animal/pet/dog/corgi)
+	var/list/possible_animals = list(/mob/living/simple_animal/pet/dog/corgi, /mob/living/simple_animal/pet/dog/bullterrier, /mob/living/simple_animal/pet/dog/pug)
 	///The animal we will turn people into
 	var/mob/choosen_animal
 	///How long we keep them as animals
 	var/animal_time = 15 SECONDS
-
-/datum/xenoartifact_trait/major/animalize/mothroach
-	label_name = "Bestialized Δ"
-	possible_animals = list(/mob/living/basic/mothroach)
-
-/datum/xenoartifact_trait/major/animalize/mothroach/get_dictionary_hint()
-	. = ..()
-	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a mothroach"))
-
-/datum/xenoartifact_trait/major/animalize/mouse
-	label_name = "Bestialized Σ"
-	possible_animals = list(/mob/living/simple_animal/mouse)
-
-/datum/xenoartifact_trait/major/animalize/mouse/get_dictionary_hint()
-	. = ..()
-	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a mouse"))
 
 /datum/xenoartifact_trait/major/animalize/New(atom/_parent)
 	. = ..()
@@ -257,7 +241,7 @@
 
 /datum/xenoartifact_trait/major/animalize/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a corgi"))
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a dog"))
 
 //Transform a valid target into our choosen animal
 /datum/xenoartifact_trait/major/animalize/proc/transform(mob/living/target)
@@ -275,6 +259,22 @@
 	H = new(new_animal, src, target)
 	RegisterSignal(new_animal, COMSIG_MOB_DEATH, PROC_REF(un_trigger))
 	return new_animal
+
+/datum/xenoartifact_trait/major/animalize/vermin
+	label_name = "Bestialized Δ"
+	possible_animals = list(/mob/living/basic/mothroach, /mob/living/simple_animal/mouse, /mob/living/basic/cockroach)
+
+/datum/xenoartifact_trait/major/animalize/vermin/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a vermin"))
+
+/datum/xenoartifact_trait/major/animalize/dangerous
+	label_name = "Bestialized Σ"
+	possible_animals = list(/mob/living/simple_animal/hostile/bear, /mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/hostile/killertomato)
+
+/datum/xenoartifact_trait/major/animalize/dangerous/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("turn the target into a hostile animal"))
 
 /*
 	EMP
