@@ -2578,15 +2578,21 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	overdose_threshold = 25
 
 /datum/reagent/consumable/ethanol/beer/clown/overdose_start(mob/living/L)
-	..()
-	ADD_TRAIT(L, TRAIT_CLUMSY, type)
-	to_chat(L, "<span class='warning'>You become clumsy, but unlock the secret pie technique</span>")
-	power = new power()
-	L.AddSpell(power)
 	. = ..()
+	L.RemoveSpell(power)
+	if(L.mind.assigned_role == JOB_NAME_CLOWN)
+		REMOVE_TRAIT(L, TRAIT_CLUMSY, type)
+		to_chat(L, "<span class='warning'>Your drunkness somehow removed your clumnsiness and you unlock the secret pie technique</span>")
+	else
+		ADD_TRAIT(L, TRAIT_CLUMSY, type)
+		to_chat(L, "<span class='warning'>You become clumsy, but unlock the secret pie technique</span>")
 
 /datum/reagent/consumable/ethanol/beer/clown/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_CLUMSY, type)
-	to_chat(L, "<span class='notice'>Your clumsiness and clown powers dissapear.</span>")
+	. = ..()
 	L.RemoveSpell(power)
-	return ..()
+	if(L.mind.assigned_role == JOB_NAME_CLOWN)
+		ADD_TRAIT(L, TRAIT_CLUMSY, type)
+		to_chat(L, "<span class='warning'>Your clumnsiness is back and your clown powers dissapear</span>")
+	else
+		REMOVE_TRAIT(L, TRAIT_CLUMSY, type)
+		to_chat(L, "<span class='notice'>Your clumsiness and clown powers dissapear.</span>")
