@@ -29,7 +29,7 @@
 
 /datum/gear/colorizer/qmcloakknight
     display_name = "Quartermaster's Cloak Colorizer (Cavalier)"
-    path = /obj/item/colorizer/hoscloakknight
+    path = /obj/item/colorizer/qmcloakknight
     allowed_roles = list("Quartermaster")
 
 /datum/gear/colorizer/iandeathsquad
