@@ -19,6 +19,7 @@ Exotic mineral Sheets
 	point_value = 50
 	merge_type = /obj/item/stack/sheet/mineral/bananium
 	material_type = /datum/material/bananium
+	walltype = /turf/closed/wall/mineral/bananium
 
 /obj/item/stack/sheet/mineral/bananium/get_main_recipes()
 	. = ..()

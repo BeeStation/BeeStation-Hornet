@@ -584,3 +584,11 @@
 	icon_state = "tile_drydock"
 	custom_materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
 	turf_type = /turf/open/floor/dock/drydock
+
+/obj/item/stack/tile/material
+	name = "tile"
+	singular_name = "floor tile"
+	desc = "A tile of flooring."
+	icon_state = "material_tile"
+	turf_type = /turf/open/floor/material
+	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS

@@ -28,6 +28,7 @@ Mineral Sheets
 	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	sheettype = "sandstone"
 	merge_type = /obj/item/stack/sheet/mineral/sandstone
+	walltype = /turf/closed/wall/mineral/sandstone
 
 /obj/item/stack/sheet/mineral/sandstone/get_main_recipes()
 	. = ..()
@@ -46,6 +47,7 @@ Mineral Sheets
 	point_value = 25
 	merge_type = /obj/item/stack/sheet/mineral/diamond
 	material_type = /datum/material/diamond
+	walltype = /turf/closed/wall/mineral/diamond
 
 /obj/item/stack/sheet/mineral/diamond/get_main_recipes()
 	. = ..()
@@ -64,6 +66,7 @@ Mineral Sheets
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/uranium
 	material_type = /datum/material/uranium
+	walltype = /turf/closed/wall/mineral/uranium
 
 /obj/item/stack/sheet/mineral/uranium/get_main_recipes()
 	. = ..()
@@ -84,6 +87,7 @@ Mineral Sheets
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/plasma
 	material_type = /datum/material/plasma
+	walltype = /turf/closed/wall/mineral/plasma
 
 /obj/item/stack/sheet/mineral/plasma/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -121,6 +125,7 @@ Mineral Sheets
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/gold
 	material_type = /datum/material/gold
+	walltype = /turf/closed/wall/mineral/gold
 
 /obj/item/stack/sheet/mineral/gold/get_main_recipes()
 	. = ..()
@@ -140,6 +145,7 @@ Mineral Sheets
 	merge_type = /obj/item/stack/sheet/mineral/silver
 	material_type = /datum/material/silver
 	tableVariant = /obj/structure/table/optable
+	walltype = /turf/closed/wall/mineral/silver
 
 /obj/item/stack/sheet/mineral/silver/get_main_recipes()
 	. = ..()
@@ -180,6 +186,7 @@ Mineral Sheets
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/titanium
 	material_type = /datum/material/titanium
+	walltype = /turf/closed/wall/mineral/titanium
 
 /obj/item/stack/sheet/mineral/titanium/get_main_recipes()
 	. = ..()
@@ -202,6 +209,7 @@ Mineral Sheets
 	point_value = 45
 	merge_type = /obj/item/stack/sheet/mineral/plastitanium
 	material_flags = NONE
+	walltype = /turf/closed/wall/mineral/plastitanium
 
 /obj/item/stack/sheet/mineral/plastitanium/get_main_recipes()
 	. = ..()
