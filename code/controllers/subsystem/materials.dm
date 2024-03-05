@@ -30,6 +30,11 @@ SUBSYSTEM_DEF(materials)
 		for(var/c in ref.categories)
 			materials_by_category[c] += list(ref)
 
+		// Adds the dupe recipes into multiple material recipes
+		var/list/global_mat_recipes = ref.get_material_recipes()
+		if(global_mat_recipes)
+			global_mat_recipes += SSmaterials.rigid_stack_recipes.Copy()
+
 /datum/controller/subsystem/materials/proc/GetMaterialRef(datum/material/fakemat)
 	if(!materials)
 		InitializeMaterials()
