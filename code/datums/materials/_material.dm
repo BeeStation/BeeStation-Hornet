@@ -37,14 +37,13 @@ Simple datum which is instanced once per type and is used for every object of sa
 	var/turf_sound_override
 	///what texture icon state to overlay
 	var/texture_layer_icon_state
-	///a cached filter for the texture icon
-	var/cached_texture_filter
+	///a cached icon for the texture filter
+	var/cached_texture_filter_icon
 
 /datum/material/New()
 	. = ..()
 	if(texture_layer_icon_state)
-		var/texture_icon = icon('icons/materials/composite.dmi', texture_layer_icon_state)
-		cached_texture_filter = filter(type="layer", icon=texture_icon, blend_mode = BLEND_INSET_OVERLAY)
+		cached_texture_filter_icon = icon('icons/materials/composite.dmi', texture_layer_icon_state)
 
 
 
@@ -57,7 +56,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 			source.alpha = alpha
 		if(texture_layer_icon_state)
 			ADD_KEEP_TOGETHER(source, MATERIAL_SOURCE(src))
-			source.filters += cached_texture_filter
+			source.add_filter("material_texture_[name]",1,layering_filter(icon=cached_texture_filter_icon,blend_mode=BLEND_INSET_OVERLAY))
 
 	if(material_flags & MATERIAL_GREYSCALE)
 		var/config_path = get_greyscale_config_for(source.greyscale_config)
@@ -149,7 +148,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 		if(color)
 			source.remove_atom_colour(FIXED_COLOUR_PRIORITY, color)
 		if(texture_layer_icon_state)
-			source.filters -= cached_texture_filter
+			source.remove_filter("material_texture_[name]")
 			REMOVE_KEEP_TOGETHER(source, MATERIAL_SOURCE(src))
 		source.alpha = initial(source.alpha)
 
