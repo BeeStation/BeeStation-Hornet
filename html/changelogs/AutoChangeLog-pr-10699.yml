@@ -1,0 +1,4 @@
+author: rkz, Mothblocks, ArcaneDefence
+delete-after: true
+changes:
+  - bugfix: moths can eat clothes again (perhaps to the dismay of a few)
