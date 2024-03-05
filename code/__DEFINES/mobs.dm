@@ -90,6 +90,9 @@
 #define DIGITIGRADE_OPTIONAL 1
 #define DIGITIGRADE_FORCED 2
 
+// Health/damage defines
+#define MAX_LIVING_HEALTH 100
+
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
 #define PROCESS_SYNTHETIC 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"

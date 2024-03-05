@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	desc = "Something's bloody meat compressed into a nice solid sheet"
 	singular_name = "meat sheet"
 	icon_state = "sheet-meat"
-	material_flags = MATERIAL_COLOR
+	material_flags = MATERIAL_EFFECTS | MATERIAL_COLOR
 	mats_per_unit = list(/datum/material/meat = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/meat
 	material_type = /datum/material/meat

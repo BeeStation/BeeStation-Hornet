@@ -12,12 +12,11 @@
 	throw_range = 7
 	max_amount = 60
 	novariants = TRUE
+	material_flags = MATERIAL_EFFECTS
 	/// What type of turf does this tile produce.
 	var/turf_type = null
 	/// Determines certain welder interactions.
 	var/mineralType = null
-
-	var/human_maxHealth = 100
 	/// Cached associative lazy list to hold the radial options for tile reskinning. See tile_reskinning.dm for more information. Pattern: list[type] -> image
 	var/list/tile_reskin_types
 
@@ -32,7 +31,7 @@
 	. = ..()
 	if(throwforce && !is_cyborg) //do not want to divide by zero or show the message to borgs who can't throw
 		var/verb
-		switch(CEILING(human_maxHealth / throwforce, 1)) //throws to crit a human
+		switch(CEILING(MAX_LIVING_HEALTH / throwforce, 1)) //throws to crit a human
 			if(1 to 3)
 				verb = "superb"
 			if(4 to 6)
@@ -46,6 +45,11 @@
 		if(!verb)
 			return
 		. += "<span class='notice'>Those could work as a [verb] throwing weapon.</span>"
+
+/obj/item/stack/tile/proc/place_tile(turf/open/T)
+	if(!turf_type || !use(1))
+		return
+	. = T.PlaceOnTop(turf_type, flags = CHANGETURF_INHERIT_AIR)
 
 /obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_WELDER)
@@ -612,4 +616,10 @@
 	throwforce = 10
 	icon_state = "material_tile"
 	turf_type = /turf/open/floor/material
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	merge_type = /obj/item/stack/tile/material
+
+/obj/item/stack/tile/material/place_tile(turf/open/target_plating, mob/user)
+	. = ..()
+	var/turf/open/floor/material/floor = .
+	floor?.set_custom_materials(mats_per_unit)
