@@ -152,13 +152,13 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	dat += "<TT><B>Medical Unit Controls v1.1</B></TT><BR><BR>"
 	dat += "Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A><BR>"
 	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
-	dat += "Beaker: "
-	if(reagent_glass)
-		dat += "<A href='?src=[REF(src)];eject=1'>Loaded \[[reagent_glass.reagents.total_volume]/[reagent_glass.reagents.maximum_volume]\]</a>"
-	else
-		dat += "None Loaded"
 	dat += "<br>Behaviour controls are [locked ? "locked" : "unlocked"]<hr>"
 	if(!locked || issilicon(user) || IsAdminGhost(user))
+		dat += "Beaker: "
+		if(reagent_glass)
+			dat += "<A href='?src=[REF(src)];eject=1'>Loaded \[[reagent_glass.name]: [reagent_glass.reagents.total_volume]/[reagent_glass.reagents.maximum_volume]\]</a><br>"
+		else
+			dat += "None Loaded<br>"
 		dat += "<TT>Healing Threshold: "
 		dat += "<a href='?src=[REF(src)];adj_threshold=-10'>--</a> "
 		dat += "<a href='?src=[REF(src)];adj_threshold=-5'>-</a> "
@@ -232,6 +232,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			efficiency = 1+(0.075*tech_boosters) //increase efficiency by 7.5% for every surgery researched
 			if(old_eff < efficiency)
 				speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
+				window_name = "Automatic Medical Unit v[efficiency]"
 	update_controls()
 	return
 
@@ -662,6 +663,20 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /obj/machinery/bot_core/medbot
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
+
+/mob/living/simple_animal/bot/medbot/attackby(obj/item/I, mob/user, params)
+	..()
+	if(istype(I, /obj/item/pen)&&!locked)
+		rename_bot()
+		return
+
+/mob/living/simple_animal/bot/medbot/proc/rename_bot()
+	var/t = sanitize_name(stripped_input(usr, "Enter new robot name", name, name,MAX_NAME_LEN))
+	if(!t)
+		return
+	if(!in_range(src, usr) && loc != usr)
+		return
+	name = t
 
 #undef MEDBOT_PANIC_NONE
 #undef MEDBOT_PANIC_LOW

@@ -1311,7 +1311,7 @@
 		"adv_biotech",
 		"posibrain",
 	)
-	design_ids = list("healthanalyzer")
+	design_ids = list("extrapolator")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 	hidden = TRUE
