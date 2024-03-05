@@ -63,6 +63,8 @@ Simple datum which is instanced once per type and is used for every object of sa
 		var/config_path = get_greyscale_config_for(source.greyscale_config)
 		source.set_greyscale(greyscale_colors, config_path)
 
+	if(alpha < 255)
+		source.opacity = FALSE
 	if(material_flags & MATERIAL_ADD_PREFIX)
 		source.name = "[name] [source.name]"
 
@@ -91,6 +93,12 @@ Simple datum which is instanced once per type and is used for every object of sa
 
 		if(!istype(o.armor))
 			return
+
+		var/list/current_armor = o.armor?.getList()
+
+		for(var/i in current_armor)
+			temp_armor_list[i] = current_armor[i] * armor_modifiers[i]
+		o.armor = getArmor(arglist(temp_armor_list))
 		*/
 
 	if(!isitem(o))
@@ -126,6 +134,14 @@ Simple datum which is instanced once per type and is used for every object of sa
 		O.clawfootstep = turf_sound_override
 		O.heavyfootstep = turf_sound_override
 	return
+
+/datum/material/proc/get_greyscale_config_for(datum/greyscale_config/config_path)
+	if(!config_path)
+		return
+	for(var/datum/greyscale_config/path as anything in subtypesof(config_path))
+		if(type != initial(path.material_skin))
+			continue
+		return path
 
 ///This proc is called when the material is removed from an object.
 /datum/material/proc/on_removed(atom/source, material_flags)
@@ -176,11 +192,3 @@ Simple datum which is instanced once per type and is used for every object of sa
  */
 /datum/material/proc/on_accidental_mat_consumption(mob/living/carbon/M, obj/item/S)
 	return FALSE
-
-/datum/material/proc/get_greyscale_config_for(datum/greyscale_config/config_path)
-	if(!config_path)
-		return
-	for(var/datum/greyscale_config/path as anything in subtypesof(config_path))
-		if(type != initial(path.material_skin))
-			continue
-		return path
