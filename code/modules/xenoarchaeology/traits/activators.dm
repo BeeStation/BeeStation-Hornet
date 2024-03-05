@@ -70,14 +70,14 @@
 	Sturdy
 	This trait activates the artifact when it's used, like a generic item
 */
-/datum/xenoartifact_trait/activator/strudy
+/datum/xenoartifact_trait/activator/sturdy
 	material_desc = "sturdy"
 	label_name = "Sturdy"
 	label_desc = "Sturdy: The artifact seems to be made of a sturdy material. This material seems to be triggered by physical interaction."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = 16
 
-/datum/xenoartifact_trait/activator/strudy/New(atom/_parent)
+/datum/xenoartifact_trait/activator/sturdy/New(atom/_parent)
 	. = ..()
 	if(!parent?.parent)
 		return
@@ -88,26 +88,90 @@
 	RegisterSignal(parent?.parent, COMSIG_ITEM_AFTERATTACK, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_c))
 	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 
-/datum/xenoartifact_trait/activator/strudy/translation_type_b(datum/source, atom/item, atom/target)
+/datum/xenoartifact_trait/activator/sturdy/translation_type_b(datum/source, atom/item, atom/target)
 	if(check_item_safety(item))
 		return
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 
-/datum/xenoartifact_trait/activator/strudy/translation_type_d(datum/source, atom/item, atom/target)
+/datum/xenoartifact_trait/activator/sturdy/translation_type_d(datum/source, atom/item, atom/target)
 	var/atom/A = parent?.parent
 	if(!isliving(A.loc) && !A.density || check_item_safety(item))
 		return
 	trigger_artifact(target || item, XENOA_ACTIVATION_TOUCH)
 
-/datum/xenoartifact_trait/activator/strudy/translation_type_a(datum/source, atom/target)
+/datum/xenoartifact_trait/activator/sturdy/translation_type_a(datum/source, atom/target)
 	var/atom/A = parent?.parent
 	if(isliving(A.loc))
 		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
 		return
 	trigger_artifact(target)
 
-/datum/xenoartifact_trait/activator/strudy/get_dictionary_hint()
+/datum/xenoartifact_trait/activator/sturdy/get_dictionary_hint()
 	return list(XENOA_TRAIT_HINT_MATERIAL)
+
+/*
+	Timed
+	This trait activates the artifact on a timer, which can be toggled on & off
+*/
+/datum/xenoartifact_trait/activator/sturdy/timed
+	label_name = "Timed"
+	label_desc = "Timed: The artifact seems to be made of a harmonizing material. This material seems to activate on a timer, which can be enabled or disabled."
+	material_desc = null
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 32
+	///Are we looking for targets
+	var/searching = FALSE
+	///Search cooldown logic
+	var/search_cooldown = 4 SECONDS
+	var/search_cooldown_timer
+
+/datum/xenoartifact_trait/activator/sturdy/timed/New(atom/_parent)
+	. = ..()
+	if(!parent?.parent)
+		return
+	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
+	START_PROCESSING(SSobj, src)
+
+/datum/xenoartifact_trait/activator/sturdy/timed/trigger_artifact(atom/target, type, force, do_real_trigger)
+	if(do_real_trigger)
+		return ..()
+	else
+		if(HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
+			return FALSE
+		if(parent.anti_check(target, type))
+			return FALSE
+		searching = !searching
+		indicator_hint(searching)
+
+/datum/xenoartifact_trait/activator/sturdy/timed/process(delta_time)
+	if(!searching)
+		return
+	if(search_cooldown_timer)
+		return
+	playsound(get_turf(parent?.parent), 'sound/effects/clock_tick.ogg', 60, TRUE)
+	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
+		//Only add mobs
+		if(!ismob(target))
+			continue
+		trigger_artifact(target, XENOA_ACTIVATION_CONTACT, FALSE, TRUE)
+		break
+	if(!length(parent.targets))
+		parent.trigger()
+	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
+
+/datum/xenoartifact_trait/activator/sturdy/timed/get_dictionary_hint()
+	. = ..()
+	return list(list("icon" = "exclamation", "desc" = "This trait will, after an arming time, activate on the nearest living target, periodically."))
+
+/datum/xenoartifact_trait/activator/sturdy/timed/proc/reset_timer()
+	if(search_cooldown_timer)
+		deltimer(search_cooldown_timer)
+	search_cooldown_timer = null
+
+/datum/xenoartifact_trait/activator/sturdy/timed/proc/indicator_hint(engaging = FALSE)
+	var/atom/A = parent?.parent
+	A?.balloon_alert_to_viewers("[A] [!engaging ? "stops ticking." : "starts ticking"]!")
+
 /*
 	Flammable
 	This trait activates the artifact when it's lit
@@ -184,96 +248,6 @@
 /datum/xenoartifact_trait/activator/flammable/proc/indicator_hint(engaging = FALSE)
 	var/atom/A = parent?.parent
 	A?.balloon_alert_to_viewers("[A] [engaging ? "snuffs out." : "flicks on"]!")
-
-/*
-	Timed
-	This trait activates the artifact on a timer, which can be toggled on & off
-*/
-//TODO: Look up the posibility of making this a subtype of sturdy
-/datum/xenoartifact_trait/activator/timed
-	label_name = "Timed"
-	label_desc = "Timed: The artifact seems to be made of a harmonizing material. This material seems to activate on a timer, which can be enabled or disabled."
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	weight = 32
-	///Are we looking for targets
-	var/searching = FALSE
-	///Search cooldown logic
-	var/search_cooldown = 4 SECONDS
-	var/search_cooldown_timer
-
-/datum/xenoartifact_trait/activator/timed/New(atom/_parent)
-	. = ..()
-	if(!parent?.parent)
-		return
-	//Register all the relevant signals we trigger from
-	RegisterSignal(parent?.parent, COMSIG_PARENT_ATTACKBY, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_b))
-	RegisterSignal(parent?.parent, COMSIG_MOVABLE_IMPACT, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
-	RegisterSignal(parent?.parent, COMSIG_ITEM_ATTACK_SELF, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
-	RegisterSignal(parent?.parent, COMSIG_ITEM_AFTERATTACK, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_c))
-	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
-
-	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
-	START_PROCESSING(SSobj, src)
-
-/datum/xenoartifact_trait/activator/timed/trigger_artifact(atom/target, type, force, do_real_trigger)
-	if(do_real_trigger)
-		return ..()
-	else
-		if(HAS_TRAIT(target, TRAIT_ARTIFACT_IGNORE))
-			return FALSE
-		if(parent.anti_check(target, type))
-			return FALSE
-		searching = !searching
-		indicator_hint(searching)
-
-/datum/xenoartifact_trait/activator/timed/process(delta_time)
-	if(!searching)
-		return
-	if(search_cooldown_timer)
-		return
-	playsound(get_turf(parent?.parent), 'sound/effects/clock_tick.ogg', 60, TRUE)
-	for(var/atom/target in oview(parent.target_range, get_turf(parent?.parent)))
-		//Only add mobs
-		if(!ismob(target))
-			continue
-		trigger_artifact(target, XENOA_ACTIVATION_CONTACT, FALSE, TRUE)
-		break
-	if(!length(parent.targets))
-		parent.trigger()
-	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
-
-/datum/xenoartifact_trait/activator/timed/translation_type_b(datum/source, atom/item, atom/target)
-	if(check_item_safety(item))
-		return
-	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
-
-/datum/xenoartifact_trait/activator/timed/translation_type_d(datum/source, atom/item, atom/target)
-	var/atom/A = parent?.parent
-	//TODO: I think this is broken - Racc
-	if(!isliving(A.loc) && !A.density || check_item_safety(item))
-		return
-	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
-
-/datum/xenoartifact_trait/activator/timed/translation_type_a(datum/source, atom/target)
-	var/atom/A = parent?.parent
-	if(isliving(A.loc))
-		trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
-		return
-	trigger_artifact(target)
-
-/datum/xenoartifact_trait/activator/timed/get_dictionary_hint()
-	. = ..()
-	return list(list("icon" = "exclamation", "desc" = "This trait will, after an arming time, activate on the nearest living target, periodically."))
-
-/datum/xenoartifact_trait/activator/timed/proc/reset_timer()
-	if(search_cooldown_timer)
-		deltimer(search_cooldown_timer)
-	search_cooldown_timer = null
-
-/datum/xenoartifact_trait/activator/timed/proc/indicator_hint(engaging = FALSE)
-	var/atom/A = parent?.parent
-	A?.balloon_alert_to_viewers("[A] [!engaging ? "stops ticking." : "starts ticking"]!")
-
 
 /*
 	Signal
@@ -433,7 +407,7 @@
 	Hungry
 	This trait activates the artifact when it's fed
 */
-/datum/xenoartifact_trait/activator/strudy/hungry
+/datum/xenoartifact_trait/activator/sturdy/hungry
 	material_desc = null
 	label_name = "Hungry"
 	label_desc = "Hungry: The artifact seems to be made of a semi-living, hungry, material. This material seems to be triggered by feeding interactions."
@@ -445,7 +419,7 @@
 	var/bite_cooldown = 4 SECONDS
 	var/bite_timer
 
-/datum/xenoartifact_trait/activator/strudy/hungry/trigger_artifact(atom/target, type, force)
+/datum/xenoartifact_trait/activator/sturdy/hungry/trigger_artifact(atom/target, type, force)
 	. = ..()
 	if(!.)
 		return
@@ -479,10 +453,10 @@
 
 	return FALSE
 
-/datum/xenoartifact_trait/activator/strudy/hungry/get_dictionary_hint()
+/datum/xenoartifact_trait/activator/sturdy/hungry/get_dictionary_hint()
 	return list()
 
-/datum/xenoartifact_trait/activator/strudy/hungry/proc/handle_timer()
+/datum/xenoartifact_trait/activator/sturdy/hungry/proc/handle_timer()
 	if(bite_timer)
 		deltimer(bite_timer)
 	bite_timer = null

@@ -66,7 +66,7 @@
 	S.pixel_x = rand(-5, 5)
 
 /obj/item/xenoartifact/tutorial/add_artifact_component()
-	AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/bluespace, list(/datum/xenoartifact_trait/activator/strudy, /datum/xenoartifact_trait/minor/slippery, /datum/xenoartifact_trait/minor/charged, /datum/xenoartifact_trait/minor/cooling, /datum/xenoartifact_trait/major/hollow))
+	AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/bluespace, list(/datum/xenoartifact_trait/activator/sturdy, /datum/xenoartifact_trait/minor/slippery, /datum/xenoartifact_trait/minor/charged, /datum/xenoartifact_trait/minor/cooling, /datum/xenoartifact_trait/major/hollow))
 
 /*
 	Pre-labeled variant
