@@ -32,6 +32,8 @@
 
 	var/clothing_flags = NONE
 
+	var/can_be_bloody = TRUE
+
 	//Var modification - PLEASE be careful with this I know who you are and where you live
 	var/list/user_vars_to_edit //VARNAME = VARVALUE eg: "name" = "butts"
 	var/list/user_vars_remembered //Auto built by the above + dropped() + equipped()
@@ -56,6 +58,8 @@
 	. = ..()
 	if(ispath(pocket_storage_component_path))
 		LoadComponent(pocket_storage_component_path)
+	if(can_be_bloody && ((body_parts_covered & FEET) || (flags_inv & HIDESHOES)))
+		LoadComponent(/datum/component/bloodysoles)
 
 /obj/item/clothing/MouseDrop(atom/over_object)
 	. = ..()
@@ -69,16 +73,16 @@
 		if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
 			add_fingerprint(usr)
 
-/obj/item/reagent_containers/food/snacks/clothing
+/obj/item/food/clothing // fuck you
 	name = "temporary moth clothing snack item"
-	desc = "If you're reading this it means I messed up. This is related to moths eating clothes and I didn't know a better way to do it than making a new food object."
-	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
+	desc = "If you're reading this it means I messed up. This is related to moths eating clothes and I didn't know a better way to do it than making a new food object." // die
+	food_reagents = list(/datum/reagent/consumable/nutriment = 1)
 	tastes = list("dust" = 1, "lint" = 1)
-	foodtype = CLOTH
+	foodtypes = CLOTH
 
 /obj/item/clothing/attack(mob/M, mob/user, def_zone)
 	if(user.a_intent != INTENT_HARM && (ismoth(M) || ispsyphoza(M)) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) == 0))
-		var/obj/item/reagent_containers/food/snacks/clothing/clothing_as_food = new
+		var/obj/item/food/clothing/clothing_as_food = new // I shall send you to hell in the next PR
 		clothing_as_food.name = name
 		if(clothing_as_food.attack(M, user, def_zone))
 			take_damage(15, sound_effect=FALSE)
