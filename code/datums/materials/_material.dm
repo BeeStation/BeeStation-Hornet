@@ -96,14 +96,6 @@ Simple datum which is instanced once per type and is used for every object of sa
 	if(!isitem(o))
 		return
 	var/obj/item/item = o
-	if(!item_sound_override)
-		return
-	I.hitsound = item_sound_override
-	I.usesound = item_sound_override
-	I.mob_throw_hit_sound = item_sound_override
-	I.equip_sound = item_sound_override
-	I.pickup_sound = item_sound_override
-	I.drop_sound = item_sound_override
 
 	if(material_flags & MATERIAL_GREYSCALE)
 		var/worn_path = get_greyscale_config_for(item.greyscale_config_worn)
@@ -114,6 +106,15 @@ Simple datum which is instanced once per type and is used for every object of sa
 			new_inhand_left = lefthand_path,
 			new_inhand_right = righthand_path
 		)
+
+	if(!item_sound_override)
+		return
+	item.hitsound = item_sound_override
+	item.usesound = item_sound_override
+	item.mob_throw_hit_sound = item_sound_override
+	item.equip_sound = item_sound_override
+	item.pickup_sound = item_sound_override
+	item.drop_sound = item_sound_override
 
 /datum/material/proc/on_applied_turf(var/turf/T, amount, material_flags)
 	if(isopenturf(T))

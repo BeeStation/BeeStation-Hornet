@@ -2,10 +2,13 @@
 	name = "wall"
 	desc = "A huge chunk of material used to separate rooms."
 	icon = 'icons/turf/walls/materialwall.dmi'
-	icon_state = "wall"
+	icon_state = "materialwall-0"
+	base_icon_state = "materialwall"
 	canSmoothWith = list(/turf/closed/wall/material)
-	smooth = SMOOTH_TRUE
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_MATERIAL_WALLS, SMOOTH_GROUP_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_MATERIAL_WALLS)
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 
 /turf/closed/wall/material/break_wall()
 	for(var/i in custom_materials)
