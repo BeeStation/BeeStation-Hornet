@@ -50,6 +50,11 @@
 	display_name = "fedora"
 	path = /obj/item/clothing/head/fedora
 
+/datum/gear/hat/cowboy
+	display_name = "ranching hat"
+	path = /obj/item/clothing/head/cowboy
+	description = "King of the plains, the half cow half man mutant, the cowboy."
+
 /datum/gear/hat/sombrero
 	display_name = "sombrero"
 	path = /obj/item/clothing/head/sombrero
