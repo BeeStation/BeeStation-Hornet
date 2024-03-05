@@ -950,6 +950,6 @@
 	//handle being held
 	if(isliving(AM.loc))
 		var/mob/living/L = AM.loc
-		L.dropItemToGround(AM)
+		L.dropItemToGround(AM, TRUE) //Use force here, otherwise it doesn't work
 	//Get the fuck outta dodge
 	AM.throw_at(T, max_force*(parent.trait_strength/100), 4)
