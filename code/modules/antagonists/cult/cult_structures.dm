@@ -8,7 +8,7 @@
 	debris = list(/obj/item/stack/sheet/runed_metal = 1)
 
 /obj/structure/destructible/cult/Initialize(mapload)
-	. = ..()	
+	. = ..()
 	generate_psychic_mask()
 
 /obj/structure/destructible/cult/proc/conceal() //for spells that hide cult presence
@@ -23,7 +23,7 @@
 
 /obj/structure/destructible/cult/proc/reveal() //for spells that reveal cult presence
 	set_density(initial(density))
-	invisibility = 0
+	invisibility = INVISIBILITY_DEFAULT
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
 	light_range = initial(light_range)

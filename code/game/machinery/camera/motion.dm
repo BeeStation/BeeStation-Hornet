@@ -71,7 +71,7 @@
 	// Motion cameras outside of an "ai monitored" area will use this to detect stuff.
 	if (!area_motion)
 		//Target must be living and visible enough to the camera
-		if(isliving(AM) && AM.invisibility <= SEE_INVISIBLE_LIVING && AM.alpha >= MOTION_SENSOR_MINIMUM_ALPHA)
+		if(isliving(AM) && AM.invisibility <= SEE_INVISIBLE_EVERYONE_DEFAULT && AM.alpha >= MOTION_SENSOR_MINIMUM_ALPHA)
 			newTarget(AM)
 
 /obj/machinery/camera/motion/thunderdome

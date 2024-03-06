@@ -206,7 +206,7 @@
 		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
 		if(user?.mind?.holy_role)
 			for(var/obj/effect/rune/R in orange(2,user))
-				R.invisibility = 0
+				R.invisibility = INVISIBILITY_DEFAULT
 	if(user?.mind?.holy_role)
 		if(A.reagents && A.reagents.has_reagent(/datum/reagent/water)) // blesses all the water in the holder
 			to_chat(user, "<span class='notice'>You bless [A].</span>")

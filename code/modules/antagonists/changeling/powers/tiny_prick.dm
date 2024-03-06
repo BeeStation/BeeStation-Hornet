@@ -25,7 +25,7 @@
 
 	user.hud_used.lingstingdisplay.icon = icon_icon
 	user.hud_used.lingstingdisplay.icon_state = button_icon_state
-	user.hud_used.lingstingdisplay.invisibility = 0
+	user.hud_used.lingstingdisplay.invisibility = INVISIBILITY_DEFAULT
 
 /datum/action/changeling/sting/proc/unset_sting(mob/user)
 	to_chat(user, "<span class='warning'>We retract our sting, we can't sting anyone for now.</span>")

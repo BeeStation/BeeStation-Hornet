@@ -114,7 +114,7 @@
 	if(new_xeno)
 		new_xeno.mobility_flags = MOBILITY_FLAGS_DEFAULT
 		new_xeno.notransform = 0
-		new_xeno.invisibility = 0
+		new_xeno.invisibility = INVISIBILITY_DEFAULT
 
 	var/mob/living/carbon/host = owner
 	if(kill_on_success)

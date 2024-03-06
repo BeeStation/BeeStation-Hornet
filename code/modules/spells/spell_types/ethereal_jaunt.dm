@@ -90,7 +90,7 @@
 	var/movespeed = 2
 	density = FALSE
 	anchored = TRUE
-	invisibility = 60
+	invisibility = INVISIBILITY_SPIRIT
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/dummy/phased_mob/spell_jaunt/Destroy()

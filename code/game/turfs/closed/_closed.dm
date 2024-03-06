@@ -65,6 +65,7 @@
 	icon_state = ""
 	layer = FLY_LAYER
 	bullet_bounce_sound = null
+	invisibility = INVISIBILITY_DEFAULT
 
 INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 

@@ -285,7 +285,7 @@
 				O.laws = M.laws
 				M.laws.associate(O)
 
-			O.invisibility = 0
+			O.invisibility = INVISIBILITY_DEFAULT
 			//Transfer debug settings to new mob
 			O.custom_name = created_name
 			O.locked = panel_locked

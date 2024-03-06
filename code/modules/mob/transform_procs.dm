@@ -525,7 +525,7 @@
 
 	R.job = JOB_NAME_CYBORG
 	R.gender = gender
-	R.invisibility = 0
+	R.invisibility = INVISIBILITY_DEFAULT
 
 	if(client)
 		R.updatename(client)

@@ -318,7 +318,7 @@
 			set_anchored(FALSE)
 			to_chat(user, "<span class='notice'>You unsecure the exterior bolts on the turret.</span>")
 			power_change()
-			invisibility = 0
+			invisibility = INVISIBILITY_DEFAULT
 			qdel(cover) //deletes the cover, and the turret instance itself becomes its own cover.
 
 	else if(I.GetID())
@@ -391,7 +391,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	. = ..()
 	if(.)
 		power_change()
-		invisibility = 0
+		invisibility = INVISIBILITY_DEFAULT
 		spark_system.start() //creates some sparks because they look cool
 		qdel(cover) //deletes the cover - no need on keeping it there!
 
@@ -423,7 +423,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	for(var/turf_z as() in valid_turfs)
 		var/turf/T = valid_turfs[turf_z]
 		for(var/mob/A as() in hearers(scan_range, T))
-			if(A.invisibility > SEE_INVISIBLE_LIVING)
+			if(A.invisibility > SEE_INVISIBLE_EVERYONE_DEFAULT)
 				continue
 
 			if(check_anomalies)//if it's set to check for simple animals
@@ -501,7 +501,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 		return
 	if(machine_stat & BROKEN)
 		return
-	invisibility = 0
+	invisibility = INVISIBILITY_DEFAULT
 	raising = 1
 	if(cover)
 		flick("popup", cover)
@@ -526,7 +526,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	if(cover)
 		cover.icon_state = "turretCover"
 	raised = 0
-	invisibility = 2
+	invisibility = INVISIBILITY_DEFAULT
 	update_icon()
 
 /obj/machinery/porta_turret/proc/assess_perp(mob/living/carbon/human/perp)

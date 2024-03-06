@@ -198,7 +198,7 @@
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE
 	banType = ROLE_SENTIENT_XENOARTIFACT
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	var/obj/item/xenoartifact/artifact
 
 /obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, var/obj/item/xenoartifact/Z)

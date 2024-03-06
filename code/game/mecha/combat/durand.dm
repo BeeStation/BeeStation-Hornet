@@ -193,7 +193,7 @@ the shield is disabled by means other than the action button (like running out o
 	set_light_on(chassis.defense_mode)
 
 	if(chassis.defense_mode)
-		invisibility = 0
+		invisibility = INVISIBILITY_DEFAULT
 		flick("shield_raise", src)
 		playsound(src, 'sound/mecha/mech_shield_raise.ogg', 50, FALSE)
 		icon_state = "shield"

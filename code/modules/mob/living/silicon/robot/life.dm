@@ -1,5 +1,5 @@
 /mob/living/silicon/robot/Life()
-	set invisibility = 0
+	set invisibility = INVISIBILITY_DEFAULT
 	if (src.notransform)
 		return
 	..()

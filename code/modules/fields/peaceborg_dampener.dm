@@ -52,7 +52,7 @@
 	var/image/I = get_edgeturf_overlay(get_edgeturf_direction(T))
 	var/obj/effect/abstract/proximity_checker/advanced/F = edge_turfs[T]
 	F.appearance = I.appearance
-	F.invisibility = 0
+	F.invisibility = INVISIBILITY_DEFAULT
 	F.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	F.layer = 5
 

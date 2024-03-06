@@ -229,7 +229,7 @@
 	var/image/user_image = null
 
 /mob/camera/ai_eye/remote/update_remote_sight(mob/living/user)
-	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras
+	user.see_invisible = SEE_INVISIBLE_EVERYONE_DEFAULT //can't see ghosts through cameras
 	user.sight = SEE_TURFS | SEE_BLACKNESS
 	user.see_in_dark = 2
 	return TRUE

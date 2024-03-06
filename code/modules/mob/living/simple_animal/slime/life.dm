@@ -7,7 +7,7 @@
 	var/attack_cooldown_time = 20 //How long, in deciseconds, the cooldown of attacks is
 
 /mob/living/simple_animal/slime/Life()
-	set invisibility = 0
+	set invisibility = INVISIBILITY_DEFAULT
 	if(notransform)
 		return
 	alpha = 255

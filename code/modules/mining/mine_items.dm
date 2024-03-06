@@ -4,7 +4,7 @@
 /obj/effect/light_emitter
 	name = "Light emitter"
 	anchored = TRUE
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	var/set_luminosity = 8
 	var/set_cap = 0
 

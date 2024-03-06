@@ -19,7 +19,7 @@
 #define THERMAL_PROTECTION_HAND_RIGHT	0.025
 
 /mob/living/carbon/human/Life()
-	set invisibility = 0
+	set invisibility = INVISIBILITY_DEFAULT
 	if (notransform)
 		return
 

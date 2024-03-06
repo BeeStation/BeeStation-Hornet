@@ -93,7 +93,7 @@
 	plane = POINT_PLANE
 	duration = POINT_TIME
 
-/obj/effect/temp_visual/point/Initialize(mapload, set_invis = 0)
+/obj/effect/temp_visual/point/Initialize(mapload, set_invis = INVISIBILITY_DEFAULT)
 	. = ..()
 	var/atom/old_loc = loc
 	abstract_move(get_turf(src))

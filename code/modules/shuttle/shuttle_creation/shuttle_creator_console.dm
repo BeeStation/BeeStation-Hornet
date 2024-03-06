@@ -37,7 +37,7 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/GrantActions(mob/living/user)
 	..(user)
-	eyeobj.invisibility = SEE_INVISIBLE_LIVING
+	eyeobj.invisibility = SEE_INVISIBLE_EVERYONE_DEFAULT
 	if(area_action)
 		area_action.target = src
 		area_action.Grant(user)

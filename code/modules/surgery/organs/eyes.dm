@@ -26,7 +26,7 @@
 	var/eye_icon_state = "eyes"
 	var/old_eye_color = "fff"
 	var/flash_protect = 0
-	var/see_invisible = SEE_INVISIBLE_LIVING
+	var/see_invisible = SEE_INVISIBLE_EVERYONE_DEFAULT
 	var/lighting_alpha
 	var/no_glasses
 	var/damaged	= FALSE	//damaged indicates that our eyes are undergoing some level of negative effect

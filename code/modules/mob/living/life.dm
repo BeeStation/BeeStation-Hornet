@@ -3,7 +3,7 @@
 
 /mob/living/proc/Life(delta_time, times_fired)
 	set waitfor = FALSE
-	set invisibility = 0
+	set invisibility = INVISIBILITY_DEFAULT
 
 	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, delta_time, times_fired)
 

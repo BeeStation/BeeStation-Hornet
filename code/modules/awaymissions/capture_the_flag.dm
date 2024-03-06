@@ -688,7 +688,7 @@
 	icon_state = "at_shield1"
 	layer = ABOVE_MOB_LAYER
 	alpha = 255
-	invisibility = 0
+	invisibility = INVISIBILITY_DEFAULT
 
 /obj/effect/ctf/ammo/Initialize(mapload)
 	..()

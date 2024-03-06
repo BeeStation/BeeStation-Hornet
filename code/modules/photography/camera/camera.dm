@@ -202,7 +202,7 @@
 				blueprints = TRUE
 	for(var/mob/mob in mobs)
 		// No describing invisible stuff (except ghosts)!
-		if(mob.alpha <= 50 || !((mob.invisibility < SEE_INVISIBLE_LIVING) || (see_ghosts && can_camera_see_atom(mob))))
+		if(mob.alpha <= 50 || !((mob.invisibility < SEE_INVISIBLE_EVERYONE_DEFAULT) || (see_ghosts && can_camera_see_atom(mob))))
 			continue
 		mobs_spotted[mob] = mob.stat
 		if(mob.mind)

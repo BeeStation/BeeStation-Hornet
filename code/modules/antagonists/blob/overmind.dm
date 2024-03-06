@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			A.icon = 'icons/mob/blob.dmi'
 			A.icon_state = "blob_shield"
 			A.layer = BELOW_MOB_LAYER
-			A.invisibility = 0
+			A.invisibility = INVISIBILITY_DEFAULT
 			A.blend_mode = 0
 	var/datum/antagonist/blob/B = mind.has_antag_datum(/datum/antagonist/blob)
 	if(B)

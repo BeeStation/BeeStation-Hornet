@@ -110,7 +110,7 @@
 	plane = ZMIMIC_MAX_PLANE
 	blend_mode = BLEND_MULTIPLY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	invisibility = 0
+	invisibility = INVISIBILITY_DEFAULT
 	if (islist(color))
 		// We're using a color matrix, so just darken the colors across the board.
 		var/list/c_list = color

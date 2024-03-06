@@ -43,7 +43,7 @@
 		stack_trace("([src]): Atom [source] was given an undertile element, but has become dense! This can lead to invisible walls!")
 		return //Returning to actually prevent this from happening
 
-	source.invisibility = covered ? invisibility_level : 0
+	source.invisibility = covered ? invisibility_level : INVISIBILITY_DEFAULT
 
 	var/turf/T = get_turf(source)
 

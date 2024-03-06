@@ -133,7 +133,7 @@
 	if(!search_objects)
 		var/static/target_list = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha)) //mobs are handled via ismob(A)
 		. = list()
-		for(var/atom/A as() in dview(vision_range, get_turf(target_from), SEE_INVISIBLE_MINIMUM))
+		for(var/atom/A as() in dview(vision_range, get_turf(target_from), SEE_INVISIBLE_NOLIGHT))
 			if((ismob(A) && A != src) || target_list[A.type])
 				. += A
 	else

@@ -591,7 +591,7 @@ GLOBAL_LIST_EMPTY(species_list)
 GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 ///Version of view() which ignores darkness, because BYOND doesn't have it (I actually suggested it but it was tagged redundant, BUT HEARERS IS A T- /rant).
-/proc/dview(range = world.view, center, invis_flags = 0)
+/proc/dview(range = world.view, center, invis_flags = INVISIBILITY_DEFAULT)
 	if(!center)
 		return
 
@@ -604,7 +604,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /mob/dview
 	name = "INTERNAL DVIEW MOB"
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	density = FALSE
 	see_in_dark = 1e6
 	move_resist = INFINITY

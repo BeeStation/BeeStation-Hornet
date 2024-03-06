@@ -205,7 +205,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a separate proc so floor cluwne doesn't appear before the animation finishes
-	invisibility = FALSE
+	invisibility = INVISIBILITY_DEFAULT
 	density = TRUE
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Reset_View(screens, colour, mob/living/carbon/human/H)

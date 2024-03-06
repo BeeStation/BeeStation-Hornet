@@ -63,7 +63,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	sight = NONE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
-	see_invisible = SEE_INVISIBLE_LIVING
+	see_invisible = SEE_INVISIBLE_EVERYONE_DEFAULT
 	invisibility = INVISIBILITY_MAXIMUM
 	can_hear_init = TRUE // Enable hearing sensitive trait
 	initial_language_holder = /datum/language_holder/empty // language will be changed from init()

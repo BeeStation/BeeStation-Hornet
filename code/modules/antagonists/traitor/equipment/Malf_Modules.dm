@@ -849,7 +849,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/large/upgrade_cameras/upgrade(mob/living/silicon/ai/AI)
-	AI.see_override = SEE_INVISIBLE_MINIMUM //Night-vision, without which X-ray would be very limited in power.
+	AI.see_override = SEE_INVISIBLE_NOLIGHT //Night-vision, without which X-ray would be very limited in power.
 	AI.update_sight()
 
 	var/upgraded_cameras = 0

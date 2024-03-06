@@ -121,7 +121,7 @@
 		turret_action.Grant(user)
 		actions += turret_action
 
-	eyeobj.invisibility = 0 //When the eye is in use, make it visible to players so they know when someone is building.
+	eyeobj.invisibility = INVISIBILITY_DEFAULT //When the eye is in use, make it visible to players so they know when someone is building.
 
 /obj/machinery/computer/camera_advanced/base_construction/remove_eye_control(mob/living/user)
 	..()

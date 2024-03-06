@@ -15,7 +15,7 @@
 /obj/machinery/porta_turret_cover/Destroy()
 	if(parent_turret)
 		parent_turret.cover = null
-		parent_turret.invisibility = 0
+		parent_turret.invisibility = INVISIBILITY_DEFAULT
 		parent_turret = null
 	return ..()
 
@@ -46,7 +46,7 @@
 		if(!parent_turret.anchored)
 			parent_turret.set_anchored(TRUE)
 			to_chat(user, "<span class='notice'>You secure the exterior bolts on the turret.</span>")
-			parent_turret.invisibility = 0
+			parent_turret.invisibility = INVISIBILITY_DEFAULT
 			parent_turret.update_appearance()
 		else
 			parent_turret.set_anchored(FALSE)

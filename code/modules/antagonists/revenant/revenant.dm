@@ -261,7 +261,7 @@
 	to_chat(src, "<span class='revendanger'>NO! No... it's too late, you can feel your essence [pick("breaking apart", "drifting away")]...</span>")
 	notransform = TRUE
 	revealed = TRUE
-	invisibility = 0
+	invisibility = INVISIBILITY_DEFAULT
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
 	visible_message("<span class='warning'>[src] lets out a waning screech as violet mist swirls around its dissolving body!</span>")
 	icon_state = "revenant_draining"
@@ -294,7 +294,7 @@
 	else //Revenant isn't revealed, whether by force or their own will, so this means they are currently invisible
 		revealed = TRUE
 		incorporeal_move = FALSE
-		invisibility = 0
+		invisibility = INVISIBILITY_DEFAULT
 	update_spooky_icon()
 	orbiting?.end_orbit(src)
 	return TRUE
@@ -305,7 +305,7 @@
 	if(time <= 0)
 		return
 	revealed = TRUE
-	invisibility = 0
+	invisibility = INVISIBILITY_DEFAULT
 	incorporeal_move = FALSE
 	if(!unreveal_time)
 		to_chat(src, "<span class='revendanger'>You have been revealed!</span>")

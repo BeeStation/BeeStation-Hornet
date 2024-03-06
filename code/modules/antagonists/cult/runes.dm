@@ -121,7 +121,7 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 	alpha = 100 //To help ghosts distinguish hidden runes
 
 /obj/effect/rune/proc/reveal() //for talisman of revealing/hiding
-	invisibility = 0
+	invisibility = INVISIBILITY_DEFAULT
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
 
@@ -342,7 +342,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(sacrificial.mind && !sacrificial.suiciding)
 		stone.invisibility = INVISIBILITY_MAXIMUM //so it's not picked up during transfer_soul()
 		stone.transfer_soul("FORCE", sacrificial, usr)
-		stone.invisibility = 0
+		stone.invisibility = INVISIBILITY_DEFAULT
 
 	if(sacrificial)
 		if(iscyborg(sacrificial))

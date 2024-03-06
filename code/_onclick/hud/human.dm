@@ -43,7 +43,7 @@
 	screen_loc = ui_devilsouldisplay
 
 /atom/movable/screen/devil/soul_counter/proc/update_counter(souls = 0)
-	invisibility = 0
+	invisibility = INVISIBILITY_DEFAULT
 	maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#FF0000'>[souls]</font></div>")
 	switch(souls)
 		if(0,null)

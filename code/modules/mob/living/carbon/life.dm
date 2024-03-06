@@ -1,5 +1,5 @@
 /mob/living/carbon/Life()
-	set invisibility = 0
+	set invisibility = INVISIBILITY_DEFAULT
 
 	if(notransform)
 		return
@@ -55,7 +55,7 @@
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
 			changeling.regenerate()
-			hud_used.lingchemdisplay.invisibility = 0
+			hud_used.lingchemdisplay.invisibility = INVISIBILITY_DEFAULT
 			hud_used.lingchemdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(changeling.chem_charges)]</font></div>")
 		else
 			hud_used.lingchemdisplay.invisibility = INVISIBILITY_ABSTRACT

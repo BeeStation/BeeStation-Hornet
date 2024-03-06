@@ -186,7 +186,7 @@
 
 /obj/machinery/jukebox/disco/proc/dance_setup()
 	var/turf/cen = get_turf(src)
-	FOR_DVIEW(var/turf/t, 3, get_turf(src),INVISIBILITY_LIGHTING)
+	FOR_DVIEW(var/turf/t, 3, get_turf(src), INVISIBILITY_LIGHTING)
 		if(t.x == cen.x && t.y > cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_RED
