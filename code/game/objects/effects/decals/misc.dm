@@ -44,7 +44,7 @@
 			break
 
 		//we ignore the puff itself and stuff below the floor
-		if(turf_atom == src || turf_atom.invisibility)
+		if(turf_atom == src || turf_atom.invisibility > SEE_INVISIBLE_EVERYONE_DEFAULT)
 			continue
 
 		if(!stream)
