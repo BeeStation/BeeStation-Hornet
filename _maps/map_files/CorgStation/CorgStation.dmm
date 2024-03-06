@@ -43991,7 +43991,6 @@
 /area/teleporter)
 "oep" = (
 /obj/structure/lattice,
-/obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
 "oeC" = (
@@ -49783,7 +49782,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "qcP" = (
-/obj/structure/table/wood/fancy/red,
 /obj/structure/table/wood/fancy/red,
 /obj/machinery/door/poddoor/shutters{
 	id = "commissaryshutters1";
