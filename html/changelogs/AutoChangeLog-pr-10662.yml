@@ -1,5 +1,0 @@
-author: Aramix
-delete-after: true
-changes:
-  - bugfix: Admins can now use View Variable's Add Component/Element again (adminbus
-      potential)
