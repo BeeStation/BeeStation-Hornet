@@ -1,8 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: Revived 'get_recipes()' proc
-  - code_imp: Base materials now correctly show a dupe version of a craftable object.
-      Currently only a chair is available, and only certain materials like Iron, Plasma
-      sheet, Bananium sheet, etc have this.
-  - bugfix: fixed some materials are not matched to each other
