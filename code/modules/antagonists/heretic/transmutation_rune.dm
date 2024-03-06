@@ -77,7 +77,7 @@
 	for(var/atom/close_atom as anything in range(1, src))
 		if(!ismovable(close_atom))
 			continue
-		if(close_atom.invisibility)
+		if(close_atom.invisibility > INVISIBILITY_OBSERVER || close_atom.invisibility == INVISIBILITY_LIGHTING)
 			continue
 		if(close_atom == user)
 			continue

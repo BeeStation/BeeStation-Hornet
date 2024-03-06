@@ -35,7 +35,7 @@
 				images += new /image/photo(newT, T.loc)
 			for(var/i in T.contents)
 				var/atom/A = i
-				if(!A.invisibility || (see_ghosts && can_camera_see_atom(A)))
+				if(A.invisibility <= SEE_INVISIBLE_EVERYONE_DEFAULT || (see_ghosts && can_camera_see_atom(A)))
 					images += new /image/photo(newT, A)
 		skip_normal = TRUE
 		wipe_images = TRUE
@@ -46,7 +46,7 @@
 			var/turf/T = i
 			images += new /image/photo(T.loc, T)
 			for(var/atom/movable/A in T)
-				if(A.invisibility)
+				if(A.invisibility > SEE_INVISIBLE_EVERYONE_DEFAULT)
 					if(!(see_ghosts && can_camera_see_atom(A)))
 						continue
 				images += new /image/photo(A.loc, A)

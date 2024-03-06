@@ -899,7 +899,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/examine(mob/user)
 	. = ..()
-	if(!invisibility)
+	if(!invisibility <= SEE_INVISIBLE_EVERYONE_DEFAULT)
 		. += "It seems extremely obvious."
 
 /mob/dead/observer/proc/set_invisibility(value)

@@ -441,7 +441,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	I.add_overlay(src)
 	for(var/V in contents)
 		var/atom/A = V
-		if(A.invisibility)
+		if(A.invisibility > SEE_INVISIBLE_EVERYONE_DEFAULT)
 			continue
 		I.add_overlay(A)
 		if(limit)
