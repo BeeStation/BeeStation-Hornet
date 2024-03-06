@@ -381,7 +381,7 @@
 	. = ..()
 	if(!parent?.parent)
 		return
-	RegisterSignal(parent?.parent, COMSIG_ATOM_ATTACK_HAND, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
+	RegisterSignal(parent?.parent, COMSIG_ITEM_EQUIPPED, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_d))
 
 /datum/xenoartifact_trait/activator/weighted/translation_type_d(datum/source, atom/target)
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)

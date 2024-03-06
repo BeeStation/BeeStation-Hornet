@@ -208,7 +208,7 @@
 
 /*
 	Cooling
-	Decreases the artifact's initial cooldown by XENOA_TRAIT_COOLDOWN_EXTRA_SAFE seconds
+	Decreases the artifact's initial cooldown by 5 seconds
 */
 /datum/xenoartifact_trait/minor/cooling
 	material_desc = "cooling"
@@ -461,6 +461,7 @@
 	Ringed
 	Allows the artifact to be worn in the glove slot
 */
+//TODO: Rework this - Racc
 /datum/xenoartifact_trait/minor/ringed
 	material_desc = "ringed"
 	label_name = "Ringed"
@@ -950,6 +951,6 @@
 	//handle being held
 	if(isliving(AM.loc))
 		var/mob/living/L = AM.loc
-		L.dropItemToGround(AM, TRUE) //Use force here, otherwise it doesn't work
+		L.dropItemToGround(AM)
 	//Get the fuck outta dodge
 	AM.throw_at(T, max_force*(parent.trait_strength/100), 4)
