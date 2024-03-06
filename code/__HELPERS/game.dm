@@ -247,7 +247,7 @@
  * * source is obviously the source attom from where we start looking
  * * invis_flags is for if we want to include invisible mobs or even ghosts etc the default value 0 means only visible mobs are included SEE_INVISIBLE_SPIRIT would also include ghosts.
  */
-/proc/get_hearers_in_view(view_radius, atom/source, invis_flags = 0)
+/proc/get_hearers_in_view(view_radius, atom/source, invis_flags = SEE_INVISIBLE_NOLIGHT)
 	var/turf/center_turf = get_turf(source)
 	. = list()
 	if(!center_turf)
