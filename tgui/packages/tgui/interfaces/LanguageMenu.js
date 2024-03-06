@@ -1,59 +1,76 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
+import { classes } from 'common/react';
+import { Button, Box, LabeledList, Section, Flex } from '../components';
 import { Window } from '../layouts';
 
 export const LanguageMenu = (props, context) => {
   const { act, data } = useBackend(context);
-  const { admin_mode, is_living, omnitongue, languages = [], unknown_languages = [] } = data;
+  const { admin_mode, is_living, omnitongue, language_static_data = [], known_languages = [], unknown_languages = [] } = data;
   return (
     <Window theme="generic" width={700} height={600}>
       <Window.Content scrollable>
         <Section title="Known Languages">
           <LabeledList>
-            {languages.map((language) => (
-              <LabeledList.Item
-                key={language.name}
-                label={language.name}
-                buttons={
-                  <>
-                    {!!is_living && (
-                      <Button
-                        content={language.is_default ? 'Default Language' : 'Select as Default'}
-                        disabled={!language.can_speak}
-                        selected={language.is_default}
-                        onClick={() =>
-                          act('select_default', {
-                            language_name: language.name,
-                          })
-                        }
-                      />
-                    )}
-                    {!!admin_mode && (
-                      <>
+            {known_languages.map((each_language) => {
+              const languageData = language_static_data[each_language.name];
+              return (
+                <LabeledList.Item
+                  key={languageData.name}
+                  label={
+                    <Flex>
+                      <Flex.Item m={-0.5}>
+                        <Box className={classes(['chat16x16', 'language-' + languageData.icon_state])} />
+                      </Flex.Item>
+                      <Flex.Item pl={1} align="center">
+                        {languageData.name}
+                      </Flex.Item>
+                    </Flex>
+                  }
+                  buttons={
+                    <>
+                      {!!is_living && (
                         <Button
-                          content="Grant"
+                          content={each_language.is_default ? 'Default Language' : 'Select as Default'}
+                          disabled={!each_language.can_speak}
+                          selected={each_language.is_default}
                           onClick={() =>
-                            act('grant_language', {
-                              language_name: language.name,
+                            act('select_default', {
+                              language_name: languageData.name,
                             })
                           }
                         />
-                        <Button
-                          content="Remove"
-                          onClick={() =>
-                            act('remove_language', {
-                              language_name: language.name,
-                            })
-                          }
-                        />
-                      </>
-                    )}
-                  </>
-                }>
-                {language.desc} Key: ,{language.key} {language.can_understand ? 'Can understand.' : 'Cannot understand.'}{' '}
-                {language.can_speak ? 'Can speak.' : 'Cannot speak.'}
-              </LabeledList.Item>
-            ))}
+                      )}
+                      {!!admin_mode && (
+                        <>
+                          <Button
+                            content="Grant"
+                            onClick={() =>
+                              act('grant_language', {
+                                language_name: languageData.name,
+                              })
+                            }
+                          />
+                          <Button
+                            content="Remove"
+                            onClick={() =>
+                              act('remove_language', {
+                                language_name: languageData.name,
+                              })
+                            }
+                          />
+                        </>
+                      )}
+                    </>
+                  }>
+                  <Box>{languageData.desc}</Box>
+                  <Box pl={2}>Chat key: ,{languageData.key}</Box>
+                  <Box pl={2}>
+                    {each_language.can_understand ? 'Can understand.' : 'Cannot understand.'}{' '}
+                    {each_language.can_speak ? 'Can speak.' : 'Cannot speak.'}
+                  </Box>
+                </LabeledList.Item>
+              );
+            })}
           </LabeledList>
         </Section>
         {!!admin_mode && (
@@ -67,25 +84,42 @@ export const LanguageMenu = (props, context) => {
               />
             }>
             <LabeledList>
-              {unknown_languages.map((language) => (
-                <LabeledList.Item
-                  key={language.name}
-                  label={language.name}
-                  buttons={
-                    <Button
-                      content="Grant"
-                      onClick={() =>
-                        act('grant_language', {
-                          language_name: language.name,
-                        })
-                      }
-                    />
-                  }>
-                  {language.desc} Key: ,{language.key} {!!language.shadow && '(gained from mob)'}{' '}
-                  {language.can_understand ? 'Can understand.' : 'Cannot understand.'}{' '}
-                  {language.can_speak ? 'Can speak.' : 'Cannot speak.'}
-                </LabeledList.Item>
-              ))}
+              {unknown_languages.map((each_language) => {
+                const languageData = language_static_data[each_language.name];
+                return (
+                  <LabeledList.Item
+                    key={languageData.name}
+                    label={
+                      <Flex>
+                        <Flex.Item m={-0.5}>
+                          <Box className={classes(['chat16x16', 'language-' + languageData.icon_state])} />
+                        </Flex.Item>
+                        <Flex.Item pl={1} align="center">
+                          {languageData.name}
+                        </Flex.Item>
+                      </Flex>
+                    }
+                    buttons={
+                      <Button
+                        content="Grant"
+                        onClick={() =>
+                          act('grant_language', {
+                            language_name: languageData.name,
+                          })
+                        }
+                      />
+                    }>
+                    <Box>{languageData.desc}</Box>
+                    <Box pl={2}>
+                      Chat key: ,{languageData.key} {!!languageData.shadow && '(gained from mob)'}
+                    </Box>
+                    <Box pl={2}>
+                      {each_language.can_understand ? 'Can understand.' : 'Cannot understand.'}{' '}
+                      {each_language.can_speak ? 'Can speak.' : 'Cannot speak.'}
+                    </Box>
+                  </LabeledList.Item>
+                );
+              })}
             </LabeledList>
           </Section>
         )}
