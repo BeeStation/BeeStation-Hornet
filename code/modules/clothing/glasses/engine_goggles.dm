@@ -16,7 +16,7 @@
 	vision_flags = NONE
 	darkness_view = 2
 	lighting_alpha = null
-	invis_view = 45
+	invis_view = SEE_INVISIBLE_EVERYONE_DEFAULT
 
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
 	var/mode = MODE_NONE
