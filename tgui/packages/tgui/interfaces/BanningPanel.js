@@ -75,7 +75,7 @@ export const BanningPanel = (props, context) => {
 
                 <Box style={can_supress ? { display: 'flex' } : { display: 'none' }}>
                   <Button.Checkbox
-                    content="Enable supression"
+                    content="Enable suppression"
                     color="bad"
                     checked={suppressed}
                     onClick={() => act('toggle_suppressed')}
