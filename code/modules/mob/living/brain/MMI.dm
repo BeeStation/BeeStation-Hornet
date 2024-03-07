@@ -129,30 +129,25 @@
 
 
 /obj/item/mmi/proc/transfer_identity(mob/living/L) //Same deal as the regular brain proc. Used for human-->robot people.
+	if(!brainmob)
+		brainmob = new(src)
+	brainmob.name = L.real_name
+	brainmob.real_name = L.real_name
+	if(L.has_dna())
+		var/mob/living/carbon/C = L
+		if(!brainmob.stored_dna)
+			brainmob.stored_dna = new /datum/dna/stored(brainmob)
+		C.dna.copy_dna(brainmob.stored_dna)
+	brainmob.container = src
+
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		var/obj/item/organ/brain/newbrain = H.getorgan(/obj/item/organ/brain)
-		if(newbrain)
-			. = TRUE
-			newbrain.Remove(H, TRUE) //this calls newbrain.transfer_identity()
-			newbrain.forceMove(src)
-			if(brain)
-				qdel(brain)
-			if(brainmob)
-				qdel(brainmob)
-			brain = newbrain
-
-	if(!brain)
+		newbrain.forceMove(src)
+		brain = newbrain
+	else if(!brain)
 		brain = new(src)
-
-	if(!brain.brainmob)
-		if(brainmob)
-			qdel(brainmob) //hopefully this isn't incredibly short sighted and ignorant and breaks everything
-		brain.transfer_identity(L)
-
-	brainmob = brain.brainmob
-	brainmob.container = src
-	brain.name = "[brainmob.real_name]'s brain"
+		brain.name = "[L.real_name]'s brain"
 	brain.organ_flags |= ORGAN_FROZEN
 
 	name = "[initial(name)]: [brainmob.real_name]"
