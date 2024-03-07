@@ -37,6 +37,7 @@ export const BanningPanel = (props, context) => {
               <Flex.Item>
                 <Button.Checkbox content="Key" checked={key_enabled} onClick={() => act('toggle_key')} minWidth="55px" />
                 <Input
+                  placeholder="CKEY"
                   value={key}
                   onChange={(e) => act('update_key', { key: e.target.value })}
                   style={key_enabled ? { display: 'inline-block' } : { display: 'none' }}
@@ -45,6 +46,7 @@ export const BanningPanel = (props, context) => {
               <Flex.Item>
                 <Button.Checkbox content="IP" checked={ip_enabled} onClick={() => act('toggle_ip')} minWidth="55px" />
                 <Input
+                  placeholder="IP"
                   value={ip}
                   onChange={(e) => act('update_ip', { ip: e.target.value })}
                   style={ip_enabled ? { display: 'inline-block' } : { display: 'none' }}
@@ -53,6 +55,7 @@ export const BanningPanel = (props, context) => {
               <Flex.Item>
                 <Button.Checkbox content="CID" checked={cid_enabled} onClick={() => act('toggle_cid')} minWidth="55px" />
                 <Input
+                  placeholder="CID"
                   value={cid}
                   onChange={(e) => act('update_cid', { cid: e.target.value })}
                   style={cid_enabled ? { display: 'inline-block' } : { display: 'none' }}
@@ -193,7 +196,7 @@ const Roles = ({ roles, selected_roles, selected_groups, act }) => {
       </CheckboxCollapsible>
       <CheckboxCollapsible
         title="Silicon Roles"
-        color="green"
+        color="yellow"
         onClick={() => act('toggle_group', { group: 'silicon' })}
         checked={selected_groups.includes('silicon')}>
         <RolesInCategory selected_roles={selected_roles} roles={roles['silicon']} act={act} />
