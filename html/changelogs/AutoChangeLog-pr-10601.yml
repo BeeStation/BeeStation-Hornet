@@ -1,0 +1,5 @@
+author: MarkusLarsson421
+delete-after: true
+changes:
+  - imageadd: Added a map sign for Echo Station able to display any of the four floors
+      for mappers to guide players.
