@@ -31,17 +31,23 @@
 	grow = list(0.1, 0.1)
 
 ///Snow smoke, idk
-/obj/emitter/snow_smoke
+/obj/emitter/snow
 	alpha = 200
-	particles = new/particles/electrified/snow_smoke
+	particles = new/particles/snow
 
-/obj/emitter/snow_smoke/Initialize(mapload)
-	. = ..()
-	add_filter("blur", 1, list(type="blur", size=1))
-
-/particles/electrified/snow_smoke
-	icon = 'icons/effects/particles/smoke.dmi'
-	icon_state = list("steam_1" = 1, "steam_2" = 1, "steam_3" = 2)
+/particles/snow
+	icon = 'icons/effects/particles/weather.dmi'
+	icon_state = list("snow_1" = 1, "snow_2" = 1, "snow_3" = 2)
+	color = "#b8fffd"
+	count = 10
+	spawning = 1
+	lifespan = 10
+	fade = 4
+	fadein = 4
+	position = generator("box", list(-15, 10, -15), list(15, 12, 15), UNIFORM_RAND)
+	velocity = list(0, -2, 0)
+	gravity = list(0, 0.1, 0)
+	drift = generator("box", list(-0.2, 0, -0.2), list(0.2, 0, 0.2), UNIFORM_RAND)
 
 ///Electrified
 /obj/emitter/electrified

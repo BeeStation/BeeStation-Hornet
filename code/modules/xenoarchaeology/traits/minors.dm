@@ -235,7 +235,7 @@
 		return
 	//Build particle holder
 	particle_holder = new(parent?.parent)
-	particle_holder.add_emitter(/obj/emitter/snow_smoke, "snow_smoke", 10)
+	particle_holder.add_emitter(/obj/emitter/snow, "snow", 10)
 	//Layer onto parent
 	target.vis_contents += particle_holder
 
