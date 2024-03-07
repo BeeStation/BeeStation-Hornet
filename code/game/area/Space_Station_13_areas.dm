@@ -78,8 +78,34 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
 
-//STATION13
+/area/asteroid/paradise
+	name = "paradise"
+	icon_state = "asteroid"
+	outdoors = TRUE
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
+/area/asteroid/paradise/surface
+	name = "paradise surface"
+	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+	sound_environment = null
+
+/area/asteroid/paradise/surface/sand
+	name = "paradise surface sand"
+	map_generator = /datum/map_generator/grass_generator
+
+/area/asteroid/paradise/surface/water
+	name = "paradise surface water"
+	ambientsounds = list('sound/ambience/shore.ogg')
+	mood_bonus = 1
+	mood_message = "<span class='warning'>The waves sound nice.\n</span>"
+
+/area/asteroid/paradise/surface/grass
+	name = "paradise surface grass"
+	map_generator = /datum/map_generator/grass_generator
+
+
+//STATION13
 //Docking Areas
 
 /area/docking
@@ -1240,7 +1266,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/security/execution/education
 	name = "Prisoner Education Chamber"
-	
+
 /area/security/nuke_storage
 	name = "Vault"
 	icon_state = "nuke_storage"
