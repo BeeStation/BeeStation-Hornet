@@ -1,0 +1,3 @@
+//State defines for stickers
+#define STICKER_STATE_STUCK "STICKER_STATE_STUCK"
+#define STICKER_STATE_ITEM "STICKER_STATE_ITEM"

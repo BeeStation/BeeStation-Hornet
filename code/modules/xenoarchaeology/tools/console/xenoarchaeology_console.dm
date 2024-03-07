@@ -36,7 +36,6 @@
 	//Link relevant stuff
 	linked_techweb = SSresearch.science_tech
 	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
-	///Build seller list //TODO: Clear these on destroy - Racc
 	var/list/new_sellers = sellers.Copy()
 	sellers = list()
 	for(var/datum/rnd_lister/S as() in new_sellers)
@@ -48,6 +47,9 @@
 
 /obj/machinery/computer/xenoarchaeology_console/Destroy()
 	. = ..()
+	for(var/datum/rnd_lister/S as() in sellers)
+		sellers -= S
+		qdel(S)
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(radio)
 

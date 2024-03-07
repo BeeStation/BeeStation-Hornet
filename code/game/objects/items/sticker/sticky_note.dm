@@ -1,4 +1,3 @@
-//TODO: handle icons for written and blank states - Racc
 /obj/item/sticker/sticky_note
 	name = "office note"
 	icon_state = "sticky_note"

@@ -1,4 +1,3 @@
-//TODO: Redo this code, or just improve it - Racc
 /obj/item/xenoarchaeology_labeler
 	name = "artifact labeler"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact_tech.dmi'

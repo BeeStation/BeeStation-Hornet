@@ -12,11 +12,10 @@
 
 /datum/xenoartifact_trait/major/trigger(datum/source, _priority, atom/override)
 	. = ..()
-	//TODO: Reconsider - Racc
 	if(!.)
 		return
-	for(var/mob/living/M as() in oview(9, get_turf(parent.parent)))
-		if(istype(M))
+	for(var/mob/living/M in oview(XENOA_TRAIT_BALLOON_HINT_DIST, get_turf(parent.parent)))
+		if(M.can_see_reagents())
 			do_hint(M)
 
 /*
@@ -31,6 +30,8 @@
 	conductivity = 27
 	///max damage
 	var/max_damage = 25
+	///Max cable charge
+	var/max_cable_charge = 50000
 
 /datum/xenoartifact_trait/major/shock/trigger(datum/source, _priority, atom/override)
 	. = ..()
@@ -49,8 +50,12 @@
 		var/atom/log_atom = parent.parent
 		log_game("[parent] in [log_atom] electrocuted [key_name_admin(target)] at [world.time]. [log_atom] located at [AREACOORD(log_atom)]")
 	//If there's an exposed cable below us, charge it
-	//TODO: - Racc
-	dump_targets() //Get rid of anything else, since we can't interact with it
+	var/obj/structure/cable/C = locate(/obj/structure/cable) in get_turf(parent.parent)
+	//TODO: Make sure it's actually exposed
+	C.powernet?.newavail += max_cable_charge*(parent.trait_strength/100)
+	//Get rid of anything else, since we can't interact with it
+	dump_targets()
+	//Tidy up focus too
 	clear_focus()
 
 /*
@@ -767,13 +772,11 @@
 	if(!.)
 		return
 	for(var/atom/target in focus)
-		//These colors can be washed off
-		//TODO: make that know ;3 - Racc
 		if(color == "all")
-			target.color = pick(possible_colors)
+			target.add_atom_colour(pick(possible_colors), WASHABLE_COLOUR_PRIORITY)
 		else
-			target.color = color
-	dump_targets() //Get rid of anything else, since we can't interact with it
+			target.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
+	dump_targets()
 	clear_focus()
 
 /datum/xenoartifact_trait/major/color/get_dictionary_hint()
@@ -812,8 +815,7 @@
 		return
 	for(var/mob/living/carbon/target in focus)
 		INVOKE_ASYNC(src, PROC_REF(run_emote), target)
-	//TODO: Add a default hint - Racc
-	dump_targets() //Get rid of anything else, since we can't interact with it
+	dump_targets()
 	clear_focus()
 
 /datum/xenoartifact_trait/major/emote/proc/run_emote(mob/living/carbon/target)

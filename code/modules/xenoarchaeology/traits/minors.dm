@@ -235,7 +235,7 @@
 		return
 	//Build particle holder
 	particle_holder = new(parent?.parent)
-	particle_holder.add_emitter(/obj/emitter/snow_smoke, "snow_smoke", 10) //TODO: make this a proper effect, it's a placeholder for now - Racc
+	particle_holder.add_emitter(/obj/emitter/snow_smoke, "snow_smoke", 10)
 	//Layer onto parent
 	target.vis_contents += particle_holder
 
@@ -890,17 +890,6 @@
 	///Maximum range
 	var/max_pull_range = 4
 
-/datum/xenoartifact_trait/minor/magnetic/push
-	label_name = "Magnetic Δ"
-	label_desc = "Magnetic Δ: The artifact's design seems to incorporate magnetic elements. This will cause the artifact to repulse metalic objects when triggered."
-
-/datum/xenoartifact_trait/minor/magnetic/push/get_dictionary_hint()
-	. = ..()
-	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("push metalic objects away from it"))
-
-/datum/xenoartifact_trait/minor/magnetic/push/magnetic_direction(atom/movable/AM, atom/target)
-	step_away(AM, target)
-
 /datum/xenoartifact_trait/minor/magnetic/trigger(datum/source, _priority, atom/override)
 	. = ..()
 	if(!.)
@@ -908,7 +897,7 @@
 	var/turf/T = get_turf(parent.parent)
 	var/pull_steps = max_pull_steps * (parent.trait_strength/100)
 	var/pull_range = max_pull_range * (parent.trait_strength/100)
-	for(var/obj/M in orange(pull_range, T)) //TODO: Consider condensing these - Racc
+	for(var/obj/M in orange(pull_range, T))
 		if(M.anchored || !(M.flags_1 & CONDUCT_1))
 			continue
 		INVOKE_ASYNC(src, PROC_REF(magnetize), M, T, pull_steps)
@@ -924,10 +913,23 @@
 /datum/xenoartifact_trait/minor/magnetic/proc/magnetize(atom/movable/AM, atom/target, _pull_steps)
 	for(var/i in 1 to _pull_steps)
 		magnetic_direction(AM, target)
-		sleep(1) //TODO: make sure this is cocure - Racc
+		sleep(1)
 
 /datum/xenoartifact_trait/minor/magnetic/proc/magnetic_direction(atom/movable/AM, atom/target)
 	step_towards(AM, target)
+
+//Inverse variant
+
+/datum/xenoartifact_trait/minor/magnetic/push
+	label_name = "Magnetic Δ"
+	label_desc = "Magnetic Δ: The artifact's design seems to incorporate magnetic elements. This will cause the artifact to repulse metalic objects when triggered."
+
+/datum/xenoartifact_trait/minor/magnetic/push/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("push metalic objects away from it"))
+
+/datum/xenoartifact_trait/minor/magnetic/push/magnetic_direction(atom/movable/AM, atom/target)
+	step_away(AM, target)
 
 /*
 	Impulsing

@@ -15,11 +15,10 @@
 
 /datum/xenoartifact_trait/malfunction/trigger(datum/source, _priority, atom/override)
 	. = ..()
-	//TODO: Reconsider - Racc
 	if(!.)
 		return
-	for(var/mob/living/M as() in oview(9, get_turf(parent.parent)))
-		if(istype(M))
+	for(var/mob/living/M in oview(XENOA_TRAIT_BALLOON_HINT_DIST, get_turf(parent.parent)))
+		if(M.can_see_reagents())
 			do_hint(M)
 
 /*

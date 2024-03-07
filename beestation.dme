@@ -164,6 +164,7 @@
 #include "code\__DEFINES\stat_tracking.dm"
 #include "code\__DEFINES\station.dm"
 #include "code\__DEFINES\status_effects.dm"
+#include "code\__DEFINES\sticker.dm"
 #include "code\__DEFINES\strippable.dm"
 #include "code\__DEFINES\subsystems.dm"
 #include "code\__DEFINES\supermatter.dm"

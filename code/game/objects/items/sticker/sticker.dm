@@ -1,7 +1,3 @@
-//TODO: Moves these to a define file - Racc
-#define STICKER_STATE_STUCK "STICKER_STATE_STUCK"
-#define STICKER_STATE_ITEM "STICKER_STATE_ITEM"
-
 /obj/item/sticker
 	name = "sticker"
 	desc = "An adhesive graphic."

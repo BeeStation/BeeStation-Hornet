@@ -61,6 +61,9 @@
 #define XENOA_ACTIVATION_TOUCH "XENOA_ACTIVATION_TOUCH"
 #define XENOA_ACTIVATION_CONTACT "XENOA_ACTIVATION_CONTACT"
 
+///Distance for trait name balloon hint
+#define XENOA_TRAIT_BALLOON_HINT_DIST 3
+
 ///Common defines for trait hints
 #define XENOA_TRAIT_HINT_MATERIAL list("icon" = "eye", "desc" = "This trait can appear in the artifact's material description.")
 #define XENOA_TRAIT_HINT_INHAND list("icon" = "search", "desc" = "This trait can be detected by 'feeling' the artifact.")

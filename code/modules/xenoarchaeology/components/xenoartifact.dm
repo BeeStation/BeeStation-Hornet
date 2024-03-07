@@ -115,7 +115,6 @@
 		A.remove_filter("texture_overlay")
 		A.remove_filter("outline_1")
 		A.remove_filter("outline_2")
-		//TODO: make sure this doesn't cause issues - Racc
 		A.appearance = old_appearance
 		A.name = old_name
 		old_appearance = null
@@ -190,7 +189,6 @@
 	focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
 	build_traits(focus_traits, artifact_type.trait_malfunctions)
 	//Reset instability
-	//TODO: Consider reworking this - Racc
 	instability = 0
 
 /datum/component/xenoartifact/proc/register_target(atom/target, force, type = XENOA_ACTIVATION_CONTACT)

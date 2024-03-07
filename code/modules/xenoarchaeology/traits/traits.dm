@@ -75,7 +75,6 @@
 		RegisterSignal(AM, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER), PROC_REF(catch_pearl_tool))
 		RegisterSignal(AM, COMSIG_MOVABLE_MOVED, PROC_REF(catch_move))
 	//Appearance
-	//TODO: Consider making a dedicated 'thing' for this check - Racc
 	if(parent.do_texture)
 		generate_trait_appearance(parent.parent)
 	//Stats
