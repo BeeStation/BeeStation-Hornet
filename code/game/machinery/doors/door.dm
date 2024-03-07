@@ -147,7 +147,8 @@
 
 /// Helper method for bumpopen() and try_to_activate_door(). Don't override.
 /obj/machinery/door/proc/activate_door_base(mob/user, can_close_door)
-	add_fingerprint(user)
+	if(user)
+		add_fingerprint(user)
 	if(operating)
 		return
 	// Cutting WIRE_IDSCAN disables normal entry
@@ -178,9 +179,12 @@
 	// But if we *have* cut the wire, this eventually falls through to attack_hand(), which calls try_to_activate_door(),
 	// which will fail because the door won't work if the wire is cut! Catch-22.
 	// Basically, TK won't work unless the door is all-access.
-	if(!id_scan_hacked() && !allowed())
+
+	if(user.stat || !tkMaxRangeCheck(user, src))
 		return
-	..()
+	new /obj/effect/temp_visual/telekinesis(get_turf(src))
+	add_hiddenprint(user)
+	activate_door_base(null, TRUE)
 
 /// Handles door activation via clicks, through attackby().
 /obj/machinery/door/proc/try_to_activate_door(obj/item/I, mob/user)
