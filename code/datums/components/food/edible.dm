@@ -196,7 +196,7 @@ Behavior that's still missing from this component that original food items had t
 	this_food.create_reagents(volume)
 	original_atom.reagents.copy_to(this_food, original_atom.reagents.total_volume, 1 / chosen_processing_option[TOOL_PROCESSING_AMOUNT])
 
-	if(original_atom.name != initial(original_atom.nam`e))
+	if(original_atom.name != initial(original_atom.name))
 		this_food.name = "slice of [original_atom.name]"
 	if(original_atom.desc != initial(original_atom.desc))
 		this_food.desc = "[original_atom.desc]"
