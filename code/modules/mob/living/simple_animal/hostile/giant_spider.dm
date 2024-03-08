@@ -332,7 +332,7 @@
 	butcher_results = list(
 		/obj/item/food/meat/slab/spider = 2,
 		/obj/item/food/spiderleg = 8,
-		/obj/item/reagent_containers/food/snacks/spidereggs = 4
+		/obj/item/food/spidereggs = 4
 	)
 	var/obj/effect/proc_holder/spider/wrap/wrap
 	var/datum/action/innate/spider/set_directive/set_directive
