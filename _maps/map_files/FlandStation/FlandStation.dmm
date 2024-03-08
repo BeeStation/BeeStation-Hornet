@@ -19288,9 +19288,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/turf_decal/caution{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "eUC" = (
@@ -53684,9 +53681,6 @@
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/caution{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "nEH" = (
@@ -66893,7 +66887,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/turf_decal/caution,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "rfI" = (
@@ -69230,9 +69223,6 @@
 "rIP" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
 	dir = 9
-	},
-/obj/effect/turf_decal/caution{
-	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -92418,8 +92408,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/light_switch,
-/obj/effect/turf_decal/box,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "xgF" = (
