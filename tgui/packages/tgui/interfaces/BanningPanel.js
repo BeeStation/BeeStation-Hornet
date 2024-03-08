@@ -35,31 +35,52 @@ export const BanningPanel = (props, context) => {
           <Stack>
             <Flex direction="column">
               <Flex.Item>
-                <Button.Checkbox content="Key" checked={key_enabled} onClick={() => act('toggle_key')} minWidth="55px" />
-                <Input
-                  placeholder="CKEY"
-                  value={key}
-                  onChange={(e) => act('update_key', { key: e.target.value })}
-                  style={key_enabled ? { display: 'inline-block' } : { display: 'none' }}
-                />
+                <Flex direction="row">
+                  <Flex.Item>
+                    <Button.Checkbox content="Key" checked={key_enabled} onClick={() => act('toggle_key')} minWidth="55px" />
+                  </Flex.Item>
+                  <Flex.Item grow={1}>
+                    <Input
+                      fluid
+                      placeholder="CKEY"
+                      value={key}
+                      onChange={(e) => act('update_key', { key: e.target.value })}
+                      style={key_enabled ? { display: 'block' } : { display: 'none' }}
+                    />
+                  </Flex.Item>
+                </Flex>
               </Flex.Item>
               <Flex.Item>
-                <Button.Checkbox content="IP" checked={ip_enabled} onClick={() => act('toggle_ip')} minWidth="55px" />
-                <Input
-                  placeholder="IP"
-                  value={ip}
-                  onChange={(e) => act('update_ip', { ip: e.target.value })}
-                  style={ip_enabled ? { display: 'inline-block' } : { display: 'none' }}
-                />
+                <Flex direction="row">
+                  <Flex.Item>
+                    <Button.Checkbox content="IP" checked={ip_enabled} onClick={() => act('toggle_ip')} minWidth="55px" />
+                  </Flex.Item>
+                  <Flex.Item grow={1}>
+                    <Input
+                      fluid
+                      placeholder="IP"
+                      value={ip}
+                      onChange={(e) => act('update_ip', { ip: e.target.value })}
+                      style={ip_enabled ? { display: 'block' } : { display: 'none' }}
+                    />
+                  </Flex.Item>
+                </Flex>
               </Flex.Item>
               <Flex.Item>
-                <Button.Checkbox content="CID" checked={cid_enabled} onClick={() => act('toggle_cid')} minWidth="55px" />
-                <Input
-                  placeholder="CID"
-                  value={cid}
-                  onChange={(e) => act('update_cid', { cid: e.target.value })}
-                  style={cid_enabled ? { display: 'inline-block' } : { display: 'none' }}
-                />
+                <Flex direction="row">
+                  <Flex.Item>
+                    <Button.Checkbox content="CID" checked={cid_enabled} onClick={() => act('toggle_cid')} minWidth="55px" />
+                  </Flex.Item>
+                  <Flex.Item grow={1}>
+                    <Input
+                      fluid
+                      placeholder="CID"
+                      value={cid}
+                      onChange={(e) => act('update_cid', { cid: e.target.value })}
+                      style={cid_enabled ? { display: 'block' } : { display: 'none' }}
+                    />
+                  </Flex.Item>
+                </Flex>
               </Flex.Item>
               <Button.Checkbox
                 content="Use IP and CID from last connection of key"
