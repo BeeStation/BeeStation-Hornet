@@ -381,6 +381,15 @@
 
 	..()
 
+/obj/item/storage/backpack/satchel/flat/treasure/PopulateContents()
+	new /obj/item/dualsaber/toy(src)
+	new /obj/item/clothing/suit/pirate(src)
+	new /obj/item/clothing/head/pirate(src)
+	for(var/i in 1 to 3)
+		new /obj/item/coin/gold(src)
+
+	..()
+
 /obj/item/storage/backpack/satchel/flat/empty/PopulateContents()
 	return
 
@@ -515,6 +524,13 @@
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
+	
+/obj/item/storage/backpack/duffelbag/science
+	name = "science duffel bag"
+	desc = "A large duffel bag for holding extra tools and artifacts."
+	icon_state = "duffel-drone"
+	item_state = "duffel-drone"
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffelbag/clown
 	name = "clown's duffel bag"

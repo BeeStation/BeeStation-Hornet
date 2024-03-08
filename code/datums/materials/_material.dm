@@ -18,7 +18,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	///Materials "Traits". its a map of key = category | Value = Bool. Used to define what it can be used for
 	var/list/categories = list()
 	///The type of sheet this material creates. This should be replaced as soon as possible by greyscale sheets
-	var/sheet_type
+	var/obj/item/stack/sheet_type
 	///This is a modifier for force, and resembles the strength of the material
 	var/strength_modifier = 1
 	///This is a modifier for integrity, and resembles the strength of the material
@@ -129,3 +129,16 @@ Simple datum which is instanced once per type and is used for every object of sa
 		if(type != initial(path.material_skin))
 			continue
 		return path
+
+
+/// Returns GLOB.recipes of a material to modify the recipes.
+/// This will be only called once from SSMaterials.
+/datum/material/proc/get_material_recipes()
+	if(!initial(sheet_type.material_type) || !categories[MAT_CATEGORY_BASE_RECIPES])
+		return
+	var/obj/item/stack/dummy_stack = new sheet_type(null) // we make a fake object here
+	if(!dummy_stack)
+		return
+	. = dummy_stack.get_recipes() // because we need to get the global list.
+	// NOTE: returning a GLOB.recipes from each subtype can be a way, but that should override all procs. This is simple.
+	qdel(dummy_stack)

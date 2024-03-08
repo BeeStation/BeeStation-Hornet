@@ -35,6 +35,8 @@
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
+	if(M.stat == DEAD)
+		return
 	switch(A.stage)
 		if(2)
 			if(prob(15) && M.stat != DEAD)

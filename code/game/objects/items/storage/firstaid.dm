@@ -22,7 +22,6 @@
 	w_class = WEIGHT_CLASS_LARGE
 	var/skin_type = MEDBOT_SKIN_DEFAULT
 	var/empty = FALSE
-	var/damagetype_healed //defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
 
 /obj/item/storage/firstaid/regular
 	icon_state = "firstaid"
@@ -161,7 +160,6 @@
 	desc = "A specialized medical kit for when the toxins lab <i>-spontaneously-</i> burns down."
 	icon_state = "firstaid-burn"
 	item_state = "firstaid-burn"
-	damagetype_healed = BURN
 	skin_type = MEDBOT_SKIN_BURN
 
 /obj/item/storage/firstaid/fire/suicide_act(mob/living/carbon/user)
@@ -188,7 +186,6 @@
 	desc = "Used to treat toxic blood content and radiation poisoning."
 	icon_state = "firstaid-toxin"
 	item_state = "firstaid-toxin"
-	damagetype_healed = TOX
 	skin_type = MEDBOT_SKIN_TOXIN
 
 /obj/item/storage/firstaid/toxin/suicide_act(mob/living/carbon/user)
@@ -243,8 +240,6 @@
 	desc = "A box full of oxygen goodies."
 	icon_state = "firstaid-o2"
 	item_state = "firstaid-o2"
-	damagetype_healed = OXY
-	skin_type = MEDBOT_SKIN_OXY
 
 /obj/item/storage/firstaid/o2/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins hitting [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -270,7 +265,6 @@
 	desc = "A first aid kit for when you get toolboxed."
 	icon_state = "firstaid-brute"
 	item_state = "firstaid-brute"
-	damagetype_healed = BRUTE
 	skin_type = MEDBOT_SKIN_BRUTE
 
 /obj/item/storage/firstaid/brute/suicide_act(mob/living/carbon/user)

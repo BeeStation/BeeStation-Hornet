@@ -25,7 +25,7 @@
 	desc = initial(desc)
 
 /obj/item/evidencebag/proc/evidencebagEquip(obj/item/I, mob/user)
-	if(!istype(I) || I.anchored == 1)
+	if(!istype(I) || I.anchored)
 		return
 
 	if(istype(I, /obj/item/evidencebag))

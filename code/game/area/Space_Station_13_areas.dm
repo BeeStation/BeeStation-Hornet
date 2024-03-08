@@ -52,6 +52,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/testroom
 	requires_power = FALSE
+	has_gravity = STANDARD_GRAVITY
 	name = "Test Room"
 	icon_state = "storage"
 
@@ -77,8 +78,34 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
 
-//STATION13
+/area/asteroid/paradise
+	name = "paradise"
+	icon_state = "asteroid"
+	outdoors = TRUE
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | CAVES_ALLOWED
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
+/area/asteroid/paradise/surface
+	name = "paradise surface"
+	ambientsounds = list('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+	sound_environment = null
+
+/area/asteroid/paradise/surface/sand
+	name = "paradise surface sand"
+	map_generator = /datum/map_generator/grass_generator
+
+/area/asteroid/paradise/surface/water
+	name = "paradise surface water"
+	ambientsounds = list('sound/ambience/shore.ogg')
+	mood_bonus = 1
+	mood_message = "<span class='warning'>The waves sound nice.\n</span>"
+
+/area/asteroid/paradise/surface/grass
+	name = "paradise surface grass"
+	map_generator = /datum/map_generator/grass_generator
+
+
+//STATION13
 //Docking Areas
 
 /area/docking
@@ -1175,6 +1202,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_job_reverse = TRUE
 
 	mood_message = "<span class='warning'>I hate cramped brig cells.\n</span>"
+
+/area/security/brig/dock
+	name = "Brig Dock"
+
+/area/security/brig/medbay
+	name = "Brig Bay"
+
 
 /area/security/courtroom
 	name = "Courtroom"

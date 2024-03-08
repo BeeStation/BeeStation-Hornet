@@ -1,0 +1,132 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"g" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"j" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"n" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"p" = (
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"w" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"B" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"C" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"D" = (
+/turf/open/floor/holofloor,
+/area/template_noop)
+"G" = (
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"R" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+"S" = (
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/holofloor,
+/area/template_noop)
+"U" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor,
+/area/template_noop)
+
+(1,1,1) = {"
+g
+R
+R
+b
+B
+B
+p
+"}
+(2,1,1) = {"
+U
+D
+D
+D
+D
+D
+G
+"}
+(3,1,1) = {"
+U
+D
+D
+D
+D
+D
+G
+"}
+(4,1,1) = {"
+U
+D
+D
+D
+D
+D
+G
+"}
+(5,1,1) = {"
+U
+D
+D
+D
+D
+D
+G
+"}
+(6,1,1) = {"
+U
+D
+D
+D
+D
+D
+G
+"}
+(7,1,1) = {"
+C
+w
+w
+j
+S
+S
+n
+"}
