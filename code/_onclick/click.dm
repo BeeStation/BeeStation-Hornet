@@ -177,9 +177,11 @@
 			return TRUE
 	return FALSE
 
+/**
+ * A backwards depth-limited breadth-first-search to see if the target is
+ * logically "in" anything adjacent to us.
+ */
 /atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
-	// A backwards depth-limited breadth-first-search to see if the target is
-	// logically "in" anything adjacent to us.
 	var/list/direct_access = DirectAccess()
 	var/depth = 1 + (view_only ? STORAGE_VIEW_DEPTH : INVENTORY_DEPTH)
 
