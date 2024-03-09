@@ -759,7 +759,7 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_EXTRA_SAFE
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	///Possible colors
-	var/list/possible_colors = list(COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_PURPLE, COLOR_ORANGE, COLOR_YELLOW, COLOR_CYAN, COLOR_PINK, "all")
+	var/list/possible_colors = list(COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_PURPLE, COLOR_ORANGE, COLOR_YELLOW, COLOR_CYAN, COLOR_PINK)
 	///Choosen color
 	var/color
 
@@ -772,20 +772,30 @@
 	if(!.)
 		return
 	for(var/atom/target in focus)
-		if(color == "all")
-			target.add_atom_colour(pick(possible_colors), WASHABLE_COLOUR_PRIORITY)
-		else
-			target.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
+		target.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 	dump_targets()
 	clear_focus()
 
 /datum/xenoartifact_trait/major/color/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_RANDOMISED)
+	return list(XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("apply a set color to the target"))
+
+//Random variant
+/datum/xenoartifact_trait/major/color/random
+	label_name = "Marking Δ"
+	label_desc = "Marking Δ: The artifact seems to contain colorizing components. Triggering these components will color the target."
+
+/datum/xenoartifact_trait/major/color/random/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("apply a random color to the target"))
+
+/datum/xenoartifact_trait/major/color/trigger(datum/source, _priority, atom/override)
+	color = pick(possible_colors)
+	return ..()
 
 /*
 	Enthusing
-	Colors the target
+	Makes the target emote, if they can
 */
 /datum/xenoartifact_trait/major/emote
 	label_name = "Enthusing"
@@ -838,7 +848,7 @@
 	weight = 18
 	conductivity = 18
 	///Maximum flash range
-	var/max_flash_range = 7
+	var/max_flash_range = 5
 
 /datum/xenoartifact_trait/major/flash/trigger(datum/source, _priority, atom/override)
 	. = ..()

@@ -266,7 +266,7 @@
 	flags = XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	rarity = XENOA_TRAIT_WEIGHT_RARE
 	///Max explosion stat
-	var/max_explosion = 5
+	var/max_explosion = 4
 	///Are we exploding?
 	var/exploding
 	///Ref to the exploding effect
@@ -303,10 +303,15 @@
 	exploding = addtimer(CALLBACK(src, PROC_REF(explode)), 30*(parent.trait_strength/100) SECONDS, TIMER_STOPPABLE)
 	//Fancy effect to alert players
 	A.add_filter("explosion_indicator", 1.1, layering_filter(render_source = exploding_indicator.render_target, blend_mode = BLEND_INSET_OVERLAY))
+	A.add_filter("wave_effect", 5, wave_filter(x = 1, size = 0.6))
+	var/filter = A.get_filter("wave_effect")
+	animate(filter, offset = 5, time = 5 SECONDS, loop = -1)
+	animate(offset = 0, time = 5 SECONDS)
 
 /datum/xenoartifact_trait/malfunction/explosion/proc/explode()
 	var/atom/A = parent.parent
 	A.remove_filter("explosion_indicator")
+	A.remove_filter("wave_effect")
 	if(parent.calcified) //Just in-case this somehow happens
 		return
 	explosion(get_turf(parent.parent), max_explosion/3*(parent.trait_strength/100), max_explosion/2*(parent.trait_strength/100), max_explosion*(parent.trait_strength/100), max_explosion*(parent.trait_strength/100))
@@ -318,6 +323,7 @@
 
 	var/atom/A = parent.parent
 	A.remove_filter("explosion_indicator")
+	A.remove_filter("wave_effect")
 	deltimer(exploding)
 	UnregisterSignal(parent, XENOA_CALCIFIED)
 

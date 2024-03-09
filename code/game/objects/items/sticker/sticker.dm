@@ -1,5 +1,5 @@
 /obj/item/sticker
-	name = "sticker"
+	name = "sticker" //Don't bother changing the name or desc for subtypes
 	desc = "An adhesive graphic."
 	icon = 'icons/obj/sticker.dmi'
 	icon_state = "happy"
@@ -16,6 +16,15 @@
 	var/sticker_icon_state = "happy_sticker"
 	///Do we add an outline?
 	var/do_outline = TRUE
+	///Sticker flags
+	var/sticker_flags
+	///Drop rate weight, keep this seperate from rarity for joke
+	var/drop_rate = STICKER_WEIGHT_COMMON
+	///Do we roll for unusual effects
+	var/roll_unusual = TRUE
+
+/obj/item/sticker/smile
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_COMMON
 
 /obj/item/sticker/Initialize(mapload)
 	. = ..()
@@ -23,7 +32,10 @@
 	stuck_appearance = build_stuck_appearance()
 	//Sticker outline
 	if(do_outline)
-		add_filter("sticker_outline", 1, outline_filter(1.1, "#fff"))
+		add_filter("sticker_outline", 1, outline_filter(1.3, "#fff", flags = OUTLINE_SHARP))
+	//Unusual stuff
+	if(roll_unusual)
+		generate_unusual()
 
 /obj/item/sticker/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -65,6 +77,10 @@
 		return
 	return ..()
 
+/obj/item/sticker/examine(mob/user)
+	. = ..()
+	//Throw sticker stats here, like series, rarity, etc.
+
 /obj/item/sticker/update_appearance(updates)
 	. = ..()
 	switch(sticker_state)
@@ -93,3 +109,6 @@
 
 /obj/item/sticker/proc/can_stick(atom/target)
 	return ismovable(target) || iswallturf(target) ? TRUE : FALSE
+
+/obj/item/sticker/proc/generate_unusual()
+	return
