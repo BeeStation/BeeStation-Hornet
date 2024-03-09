@@ -201,11 +201,6 @@
 /obj/item/stack/rods,
 /turf/template_noop,
 /area/ruin/space/has_grav/onehalf/hallway)
-"aI" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
-	},
-/area/ruin/space/has_grav/onehalf/hallway)
 "aJ" = (
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged5"
@@ -418,7 +413,7 @@
 "bf" = (
 /obj/item/stack/sheet/iron,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "bg" = (
@@ -429,7 +424,7 @@
 	amount = 2
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "bh" = (
@@ -569,7 +564,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "bw" = (
@@ -723,11 +718,6 @@
 /obj/item/stack/sheet/iron,
 /turf/template_noop,
 /area/template_noop)
-"bW" = (
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
-	},
-/area/ruin/space/has_grav/onehalf/hallway)
 "bX" = (
 /obj/structure/disposalpipe/segment,
 /obj/item/stack/rods,
@@ -801,7 +791,7 @@
 	},
 /obj/item/shard,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "ci" = (
@@ -1013,7 +1003,7 @@
 /area/ruin/space/has_grav/onehalf/hallway)
 "cL" = (
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "cM" = (
@@ -1115,14 +1105,14 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "dd" = (
 /obj/structure/grille,
 /obj/item/shard,
 /turf/open/floor/plating/airless{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/ruin/space/has_grav/onehalf/hallway)
 "de" = (
@@ -1267,7 +1257,7 @@ aa
 ae
 ak
 ax
-aI
+cL
 ax
 bg
 bw
@@ -1294,7 +1284,7 @@ aT
 bh
 bw
 ak
-bW
+cL
 aa
 aa
 aa
@@ -1470,7 +1460,7 @@ aW
 bj
 bA
 bS
-bW
+cL
 ax
 ct
 cK

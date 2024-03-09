@@ -4,30 +4,29 @@
 
 	if(!LAZYLEN(allowed_food)) //it's static so we only ever do this once
 		var/list/blocked = list(
-		/obj/item/food/spaghetti,
-		/obj/item/food/bread,
-		/obj/item/food/breadslice,
-		/obj/item/food/cake,
-		/obj/item/food/cakeslice,
-		/obj/item/reagent_containers/food/snacks/store,
-		/obj/item/food/pie,
-		/obj/item/reagent_containers/food/snacks/kebab,
-		/obj/item/food/pizza,
-		/obj/item/food/pizzaslice,
-		/obj/item/food/salad,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/reagent_containers/food/snacks/meat/slab,
-		/obj/item/food/soup,
-		/obj/item/reagent_containers/food/snacks/grown,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom,
-		/obj/item/food/deepfryholder,
-		/obj/item/reagent_containers/food/snacks/clothing,
-		/obj/item/reagent_containers/food/snacks/grown/shell, //base types
-		/obj/item/food/bread,
-		/obj/item/reagent_containers/food/snacks/grown/nettle,
-		/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
+			/obj/item/food/bread,
+			/obj/item/food/breadslice,
+			/obj/item/food/cake,
+			/obj/item/food/cakeslice,
+			/obj/item/food/clothing,
+			/obj/item/food/deepfryholder,
+			/obj/item/food/grown,
+			/obj/item/food/grown/ash_flora,
+			/obj/item/food/grown/mushroom,
+			/obj/item/food/grown/nettle,
+			/obj/item/food/grown/shell,
+			/obj/item/food/grown/shell/gatfruit,
+			/obj/item/food/kebab,
+			/obj/item/food/meat,
+			/obj/item/food/meat/slab,
+			/obj/item/food/meat/slab/human/mutant,
+			/obj/item/food/pie,
+			/obj/item/food/pieslice,
+			/obj/item/food/pizza,
+			/obj/item/food/pizzaslice,
+			/obj/item/food/salad,
+			/obj/item/food/soup,
 		)
-		blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
 		var/list/unfiltered_allowed_food = subtypesof(/obj/item/food) - blocked
 		for(var/obj/item/food/food as anything in unfiltered_allowed_food)

@@ -5,8 +5,9 @@
 
 /obj/projectile/bullet/shotgun_beanbag
 	name = "beanbag slug"
-	damage = 5
-	stamina = 55
+	damage = 10
+	stamina = 50
+	armour_penetration = -20
 
 /obj/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
@@ -70,8 +71,22 @@
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot
 	name = "rubbershot pellet"
-	damage = 3
-	stamina = 9
+	damage = 2
+	stamina = 7
+	tile_dropoff = 0.5
+	tile_dropoff_s = 0
+	ricochets_max = 2
+	ricochet_chance = 80
+	ricochet_incidence_leeway = 60
+	ricochet_decay_chance = 0.75
+	armour_penetration = -20
+
+/obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
+	if(damage <= 0 && tile_dropoff_s == 0)
+		damage = 0
+		tile_dropoff = 0
+		tile_dropoff_s = 0.5
+	..()
 
 /obj/projectile/bullet/pellet/shotgun_incapacitate
 	name = "incapacitating pellet"
@@ -93,11 +108,24 @@
 
 /obj/projectile/bullet/pellet/shotgun_improvised/Initialize(mapload)
 	. = ..()
-	range = rand(1, 8)
+	range = rand(3, 8)
 
 /obj/projectile/bullet/pellet/shotgun_improvised/on_range()
 	do_sparks(1, TRUE, src)
 	..()
+
+/obj/projectile/bullet/pellet/shotgun_glass
+	tile_dropoff = 0.5
+	damage = 6
+	range = 8
+	ricochets_max = 0
+	shrapnel_type = /obj/item/shrapnel/bullet/shotgun/glass
+
+/obj/projectile/bullet/pellet/shotgun_glass/Initialize(mapload)
+	. = ..()
+
+	if(prob(20)) //Each 'pellet' has a 20 percent chance to not shrapnel/attempt embedding
+		shrapnel_type = null
 
 // Mech Scattershot
 

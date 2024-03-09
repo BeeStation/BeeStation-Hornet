@@ -2,9 +2,12 @@
 	name = "white cap"
 	desc = "It's a baseball hat in a tasteless white colour."
 	icon_state = "mimesoft"
+	dying_key = DYE_REGISTRY_CAP
 
 	///Is the hat flipped?
 	var/flipped = FALSE
+	///Is the hat flippable?
+	var/flippable = TRUE
 	///The color of the hat. Another knockoff item_color. Nice. Make this into GAGS sprites at some point, please.
 	var/soft_color = "mime"
 
@@ -15,7 +18,7 @@
 		flip(user)
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)
-	if(!user.incapacitated())
+	if(!user.incapacitated() && flippable == TRUE)
 		flipped = !flipped
 		if(flipped)
 			icon_state = "[soft_color]soft_flipped"
@@ -116,3 +119,8 @@
 	soft_color = "cargo"
 
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
+
+/obj/item/clothing/head/soft/denied
+	name = "ERROR cap"
+	desc = "It's a baseball hat in a tasteless ERROR ERROR ERROR ERROR ERROR ERROR!!!!"
+	icon_state = "deniedsoft"

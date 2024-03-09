@@ -5,7 +5,7 @@
 	name = "\improper High-Functioning Zombie"
 	id = "zombie"
 	sexes = 0
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/zombie
+	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	species_traits = list(NOBLOOD,NOZOMBIE,NOTRANSSTING)
 	inherent_traits = list(TRAIT_TOXIMMUNE,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_RADIMMUNE,TRAIT_EASYDISMEMBER,\
 	TRAIT_LIMBATTACHMENT,TRAIT_NOBREATH,TRAIT_NODEATH,TRAIT_FAKEDEATH,TRAIT_NOCLONELOSS)
@@ -99,18 +99,20 @@
 		infection = new()
 		infection.Insert(C)
 
-/datum/species/zombie/infectious/fast
-	name = "\improper Fast Infectious Zombie"
+/datum/species/zombie/infectious/viral
+	name = "\improper Infected Zombie"
 	id = "memezombiesfast"
 	armor = 0
 	speedmod = 0
+	inherent_biotypes = list(MOB_ORGANIC, MOB_UNDEAD, MOB_HUMANOID) //mob organic, so still susceptible to the disease that created it
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
+	mutanthands = /obj/item/zombie_hand/infectious
 
 // Your skin falls off
 /datum/species/human/krokodil_addict
 	name = "\improper Human"
 	id = "goofzombies"
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/zombie
+	meat = /obj/item/food/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/tongue/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 

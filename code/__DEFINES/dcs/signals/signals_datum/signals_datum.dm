@@ -33,27 +33,25 @@
 
 /*******Component Specific Signals*******/
 //Janitor
-#define COMSIG_TURF_IS_WET "check_turf_wet"							//! (): Returns bitflags of wet values.
-#define COMSIG_TURF_MAKE_DRY "make_turf_try"						//! (max_strength, immediate, duration_decrease = INFINITY): Returns bool.
-#define COMSIG_COMPONENT_CLEAN_ACT "clean_act"					//! called on an object to clean it of cleanables. Usualy with soap: (num/strength)
+#define COMSIG_TURF_IS_WET "check_turf_wet"
+///(max_strength, immediate, duration_decrease = INFINITY): Returns bool.
+#define COMSIG_TURF_MAKE_DRY "make_turf_try"
+
+///Called on an object to "clean it", such as removing blood decals/overlays, etc. The clean types bitfield is sent with it. Return TRUE if any cleaning was necessary and thus performed.
+#define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
 
 //Creamed
-#define COMSIG_COMPONENT_CLEAN_FACE_ACT "clean_face_act"		//! called when you wash your face at a sink: (num/strength)
 
-//Food
-
-///from base of obj/item/reagent_containers/food/snacks/attack() & Edible component: (mob/living/eater, mob/feeder)
-#define COMSIG_FOOD_EATEN "food_eaten"
-
-///from base of Component/edible/On_Consume: (mob/living/eater, mob/living/feeder)
-#define COMSIG_FOOD_CONSUMED "food_consumed"
-
-#define COMSIG_ITEM_FRIED "item_fried"
-	#define COMSIG_FRYING_HANDLED (1<<0)
+///called when you wash your face at a sink: (num/strength)
+#define COMSIG_COMPONENT_CLEAN_FACE_ACT "clean_face_act"
 
 //Gibs
 
-#define COMSIG_GIBS_STREAK "gibs_streak"						//! from base of /obj/effect/decal/cleanable/blood/gibs/streak(): (list/directions, list/diseases)
+///from base of /obj/effect/decal/cleanable/blood/gibs/streak(): (list/directions, list/diseases)
+#define COMSIG_GIBS_STREAK "gibs_streak"
+
+/// Called on mobs when they step in blood. (blood_amount, blood_state, list/blood_DNA)
+#define COMSIG_STEP_ON_BLOOD "step_on_blood"
 
 //Diseases
 

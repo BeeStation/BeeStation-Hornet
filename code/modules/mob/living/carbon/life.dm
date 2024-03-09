@@ -481,12 +481,14 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			if(DT_PROB(25, delta_time))
 				slurring += 2 * delta_time
 			jitteriness = max(jitteriness - (3 * delta_time), 0)
+			throw_alert("drunk", /atom/movable/screen/alert/drunk)
 			if(HAS_TRAIT(src, TRAIT_DRUNK_HEALING))
 				adjustBruteLoss(-0.12 * delta_time, FALSE)
 				adjustFireLoss(-0.06 * delta_time, FALSE)
 		else
 			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "drunk")
 			sound_environment_override = SOUND_ENVIRONMENT_NONE
+			clear_alert("drunk")
 
 		if(drunkenness >= 11 && slurring < 5)
 			slurring += 1.2 * delta_time

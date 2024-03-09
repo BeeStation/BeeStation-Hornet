@@ -10,7 +10,7 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 	target_mobtypes = list(/mob/living/carbon) //Feel free to dissect devils but they're magic.
 
-/datum/surgery/advanced/experimental_dissection/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/advanced/experimental_dissection/can_start(mob/user, mob/living/carbon/target, target_zone)
 	. = ..()
 	if(HAS_TRAIT(target, TRAIT_DISSECTED))
 		return FALSE
@@ -25,7 +25,7 @@
 	implements = list(TOOL_SCALPEL = 60, /obj/item/knife = 30, /obj/item/shard = 15)
 	time = 125
 
-/datum/surgery_step/dissection/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/dissection/preop(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] starts dissecting [target].", "<span class='notice'>You start dissecting [target].</span>")
 
 /datum/surgery_step/dissection/proc/check_value(mob/living/carbon/target)
@@ -46,7 +46,7 @@
 				return 3000
 			return 2000
 
-/datum/surgery_step/dissection/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/dissection/success(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] dissects [target]!", "<span class='notice'>You dissect [target], and add your discoveries to the research database!</span>")
 	SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_DISCOVERY = check_value(target)))
 	var/obj/item/bodypart/L = target.get_bodypart(BODY_ZONE_CHEST)
@@ -54,7 +54,7 @@
 	ADD_TRAIT(target, TRAIT_DISSECTED, "surgery")
 	return TRUE
 
-/datum/surgery_step/dissection/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/dissection/failure(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] dissects [target]!", "<span class='notice'>You dissect [target], but do not find anything particularly interesting.</span>")
 	SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_DISCOVERY = (check_value(target) * 0.2)))
 	var/obj/item/bodypart/L = target.get_bodypart(BODY_ZONE_CHEST)

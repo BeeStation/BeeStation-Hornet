@@ -27,7 +27,7 @@
 /obj/item/storage/book/bible
 	name = "bible"
 	desc = "Apply to head repeatedly."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/book.dmi'
 	icon_state = "bible"
 	item_state = "bible"
 	lefthand_file = 'icons/mob/inhands/misc/books_lefthand.dmi'
@@ -81,23 +81,23 @@
 		)
 		if(isnull(unique_reskin))
 			unique_reskin = list( //Unique_reskin is declared here so that the bible can't be reskinned through alt-clicking
-				"Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "bible"),
-				"Quran" = image(icon = 'icons/obj/storage.dmi', icon_state = "koran"),
-				"Scrapbook" = image(icon = 'icons/obj/storage.dmi', icon_state = "scrapbook"),
-				"Burning Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "burning"),
-				"Clown Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "honk1"),
-				"Banana Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "honk2"),
-				"Creeper Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "creeper"),
-				"White Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "white"),
-				"Holy Light" = image(icon = 'icons/obj/storage.dmi', icon_state = "holylight"),
-				"The God Delusion" = image(icon = 'icons/obj/storage.dmi', icon_state = "atheist"),
-				"Tome" = image(icon = 'icons/obj/storage.dmi', icon_state = "tome"),
-				"The King in Yellow" = image(icon = 'icons/obj/storage.dmi', icon_state = "kingyellow"),
-				"Ithaqua" = image(icon = 'icons/obj/storage.dmi', icon_state = "ithaqua"),
-				"Scientology" = image(icon = 'icons/obj/storage.dmi', icon_state = "scientology"),
-				"Melted Bible" = image(icon = 'icons/obj/storage.dmi', icon_state = "melted"),
-				"Necronomicon" = image(icon = 'icons/obj/storage.dmi', icon_state = "necronomicon"),
-				"Insulationism" = image(icon = 'icons/obj/storage.dmi', icon_state = "insuls")
+				"Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "bible"),
+				"Quran" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "koran"),
+				"Scrapbook" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "scrapbook"),
+				"Burning Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "burning"),
+				"Clown Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "honk1"),
+				"Banana Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "honk2"),
+				"Creeper Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "creeper"),
+				"White Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "white"),
+				"Holy Light" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "holylight"),
+				"The God Delusion" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "atheist"),
+				"Tome" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "tome"),
+				"The King in Yellow" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "kingyellow"),
+				"Ithaqua" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "ithaqua"),
+				"Scientology" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "scientology"),
+				"Melted Bible" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "melted"),
+				"Necronomicon" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "necronomicon"),
+				"Insulationism" = image(icon = 'icons/obj/storage/book.dmi', icon_state = "insuls")
 			)
 		reskin_bible(H)
 

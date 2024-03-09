@@ -20,6 +20,7 @@
 
 #define FLOOR_PLANE -7
 #define GAME_PLANE -4
+#define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
 
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
@@ -136,9 +137,9 @@
 #define CAMERA_STATIC_PLANE 200
 
 ///Popup Chat Messages
-#define RUNECHAT_PLANE 250
+#define RUNECHAT_PLANE 650
 /// Plane for balloon text (text that fades up)
-#define BALLOON_CHAT_PLANE 31
+#define BALLOON_CHAT_PLANE 651
 
 ///--------------- FULLSCREEN IMAGES ------------
 #define FULLSCREEN_PLANE 500
@@ -149,6 +150,15 @@
 #define CRIT_LAYER 5
 #define CURSE_LAYER 6
 
+///--------------- PSYCHIC & BLIND IMAGES ------------
+//Plane for highlighting objects - most soul glimmers
+#define PSYCHIC_PLANE 550
+#define PSYCHIC_PLANE_RENDER_TARGET "*PSYCHIC_PLANE_RENDER_TARGET"
+//Plane for not-highlighting objects - most hiding cult stuff
+#define ANTI_PSYCHIC_PLANE 551
+#define ANTI_PSYCHIC_PLANE_RENDER_TARGET "*ANTI_PSYCHIC_PLANE_RENDER_TARGET"
+//Plane for blind stuff
+#define BLIND_FEATURE_PLANE 552
 
 //-------------------- Rendering ---------------------
 #define RENDER_PLANE_GAME 990
@@ -158,7 +168,12 @@
 //-------------------- HUD ---------------------
 //HUD layer defines
 #define HUD_PLANE 1000
+#define HUD_LAYER 25
+#define HUD_RENDER_TARGET "HUD_PLANE"
+
 #define ABOVE_HUD_PLANE 1100
+#define ABOVE_HUD_RENDER_TARGET "ABOVE_HUD_PLANE"
+
 ///1000 is an unimportant number, it's just to normalize copied layers
 #define RADIAL_LAYER 1000
 

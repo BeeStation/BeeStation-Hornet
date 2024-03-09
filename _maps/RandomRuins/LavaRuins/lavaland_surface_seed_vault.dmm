@@ -570,15 +570,15 @@
 /area/ruin/powered/seedvault)
 "yM" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_x = 7;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_x = -2;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_x = -1
 	},
 /turf/open/floor/pod,
@@ -883,7 +883,7 @@
 	pixel_x = -9;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/grown/random{
+/obj/item/food/grown/random{
 	pixel_x = 5;
 	pixel_y = 5
 	},

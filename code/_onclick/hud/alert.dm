@@ -231,7 +231,7 @@ or something covering your eyes."
 		return
 	to_chat(L, "<span class='mind_control'>[command]</span>")
 
-/atom/movable/screen/alert/drunk //Not implemented
+/atom/movable/screen/alert/drunk
 	name = "Drunk"
 	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
 	icon_state = "drunk"
@@ -623,7 +623,7 @@ so as to remain in compliance with the most up-to-date laws."
 		if(NOTIFY_ATTACK)
 			target.attack_ghost(ghost_owner)
 		if(NOTIFY_ORBIT)
-			ghost_owner.ManualFollow(target)
+			ghost_owner.check_orbitable(target)
 
 //OBJECT-BASED
 

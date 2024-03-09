@@ -89,7 +89,7 @@
 			/obj/item/trash/cheesie = 1,
 			/obj/item/trash/candy = 1,
 			/obj/item/trash/chips = 1,
-			/obj/item/reagent_containers/food/snacks/deadmouse = 1,
+			/obj/item/food/deadmouse = 1,
 			/obj/item/trash/pistachios = 1,
 			/obj/item/trash/plate = 1,
 			/obj/item/trash/popcorn = 1,
@@ -115,9 +115,9 @@
 			/obj/item/food/salad/jungle,
 			/obj/item/food/salad/aesirsalad)
 	var/mains = list(
-			/obj/item/reagent_containers/food/snacks/bearsteak,
+			/obj/item/food/bearsteak,
 			/obj/item/food/enchiladas,
-			/obj/item/reagent_containers/food/snacks/stewedsoymeat,
+			/obj/item/food/stewedsoymeat,
 			/obj/item/food/burger/bigbite,
 			/obj/item/food/burger/superbite,
 			/obj/item/food/burger/fivealarm)

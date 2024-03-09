@@ -10,10 +10,9 @@ SUBSYSTEM_DEF(traumas)
 
 /datum/controller/subsystem/traumas/Initialize()
 	//phobia types is to pull from randomly for brain traumas, e.g. conspiracies is for special assignment only
+	//defined in __DEFINES/mobs.dm
 	//5 is the default weight, lower it for more punishing phobias
-	phobia_types = sort_list(list("spiders" = 5, "space" = 2, "security" = 5, "clowns" = 5, "greytide" = 5, "lizards" = 5,
-						"skeletons" = 5, "snakes" = 5, "robots" = 4, "doctors" = 4, "authority" = 5, "the supernatural" = 5,
-						"aliens" = 5, "strangers" = 5, "birds" = 5, "falling" = 5, "anime" = 5))
+	phobia_types = sort_list(GLOB.available_random_trauma_list)
 
 	phobia_words = list(
 		"spiders"   = strings(PHOBIA_FILE, "spiders"),
@@ -114,12 +113,12 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/spear, /obj/item/clothing/mask/gas/old)),
 
 		"lizards"   = typecacheof(list(
-			/obj/item/toy/plush/lizardplushie, /obj/item/reagent_containers/food/snacks/kebab/tail,
+			/obj/item/toy/plush/lizardplushie, /obj/item/food/kebab/tail,
 			/obj/item/organ/tail/lizard, /obj/item/reagent_containers/food/drinks/bottle/lizardwine)),
 
 		"skeletons" = typecacheof(list(
 			/obj/item/organ/tongue/bone, /obj/item/clothing/suit/armor/bone, /obj/item/stack/sheet/bone,
-			/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/skeleton,
+			/obj/item/food/meat/slab/human/mutant/skeleton,
 			/obj/effect/decal/remains/human)),
 
 		"conspiracies" = typecacheof(list(
@@ -202,7 +201,7 @@ SUBSYSTEM_DEF(traumas)
 		"anime" = typecacheof(list(
 			/obj/item/clothing/under/costume/schoolgirl,
 			/obj/item/katana,
-			/obj/item/reagent_containers/food/snacks/sashimi,
+			/obj/item/food/sashimi,
 			/obj/item/food/chawanmushi,
 			/obj/item/reagent_containers/food/drinks/bottle/sake,
 			/obj/item/throwing_star,

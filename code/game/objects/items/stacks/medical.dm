@@ -12,6 +12,9 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	novariants = FALSE
+	item_flags = NOBLUDGEON
+	cost = 250
+	source = /datum/robot_energy_storage/medical
 	///What reagent does it apply?
 	var/list/reagent
 	///Is this for bruises?
@@ -41,6 +44,9 @@
 		to_chat(user, "<span class='danger'>You don't know how to apply \the [src] to [M]!</span>")
 		return
 
+	if(M in user.do_afters) //One at a time, please.
+		return
+
 	if(isanimal(M))
 		var/mob/living/simple_animal/critter = M
 		if(!(critter.healable))
@@ -57,15 +63,33 @@
 		use(1)
 		return
 
+	var/datum/task/select_bodyzone_task = user.select_bodyzone(M, FALSE, BODYZONE_STYLE_MEDICAL)
+	select_bodyzone_task.continue_with(CALLBACK(src, PROC_REF(do_application), M, user))
+
+/obj/item/stack/medical/proc/do_application(mob/living/M, mob/user, zone_selected)
+	if (!zone_selected)
+		return
+	if (!user.can_interact_with(M, TRUE))
+		to_chat(user, "<span class='danger'>You cannot reach [M]!</span>")
+		return
+	if (!user.can_interact_with(src, TRUE))
+		to_chat(user, "<span class='danger'>You cannot reach [src]!</span>")
+		return
+	if(M.stat == DEAD && !stop_bleeding)
+		to_chat(user, "<span class='danger'>\The [M] is dead, you cannot help [M.p_them()]!</span>")
+		return
+	if(!iscarbon(M))
+		to_chat(user, "<span class='danger'>You don't know how to apply \the [src] to [M]!</span>")
+		return
 	var/obj/item/bodypart/affecting
 	var/mob/living/carbon/C = M
-	affecting = C.get_bodypart(check_zone(user.zone_selected))
+	affecting = C.get_bodypart(check_zone(zone_selected))
 
 	if(M in user.do_afters) //One at a time, please.
 		return
 
 	if(!affecting) //Missing limb?
-		to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(user.zone_selected)]!</span>")
+		to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(zone_selected)]!</span>")
 		return
 
 	if(ishuman(C)) //apparently only humans bleed? funky.
@@ -84,7 +108,7 @@
 		return
 
 	if(!(affecting.brute_dam || affecting.burn_dam))
-		to_chat(user, "<span class='warning'>[M]'s [parse_zone(user.zone_selected)] isn't hurt!</span>")
+		to_chat(user, "<span class='warning'>[M]'s [parse_zone(zone_selected)] isn't hurt!</span>")
 		return
 
 	if((affecting.brute_dam && !affecting.burn_dam && !heal_brute) || (affecting.burn_dam && !affecting.brute_dam && !heal_burn)) //suffer
@@ -186,8 +210,3 @@
 
 /obj/item/stack/medical/gauze/adv/one
 	amount = 1
-
-/obj/item/stack/medical/gauze/cyborg
-	materials = list()
-	is_cyborg = TRUE
-	cost = 250

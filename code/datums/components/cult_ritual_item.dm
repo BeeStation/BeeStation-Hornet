@@ -191,7 +191,7 @@
  */
 /datum/component/cult_ritual_item/proc/do_unanchor_structure(obj/structure/cult_structure, mob/living/cultist)
 	playsound(cult_structure, 'sound/items/deconstruct.ogg', 30, TRUE, ignore_walls = FALSE)
-	cult_structure.anchored = !cult_structure.anchored
+	cult_structure.set_anchored(!cult_structure.anchored)
 	to_chat(cultist, "<span class='notice'>You [cult_structure.anchored ? "":"un"]secure \the [cult_structure] [cult_structure.anchored ? "to":"from"] the floor.</span>")
 
 /*

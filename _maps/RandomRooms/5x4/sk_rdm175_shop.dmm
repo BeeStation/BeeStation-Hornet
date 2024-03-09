@@ -1,0 +1,145 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/sun_kist{
+	pixel_y = 32
+	},
+/obj/structure/closet/secure_closet/personal,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/chair,
+/turf/open/floor/plating/rust,
+/area/template_noop)
+"j" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/item/gun/ballistic/shotgun/toy,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/window{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/have_a_puff{
+	pixel_x = -32
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/obj/item/ammo_casing/shotgun/buckshot,
+/turf/open/floor/plating,
+/area/template_noop)
+"v" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/syndicate_pistol{
+	pixel_y = -32
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"x" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/shotgun/buckshot,
+/obj/structure/sign/poster/contraband/rebels_unite{
+	pixel_y = -32
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"H" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/structure/sign/poster/contraband/punch_shit{
+	pixel_y = 32
+	},
+/obj/item/clothing/gloves/cut,
+/obj/item/storage/secure/safe{
+	pixel_x = -24
+	},
+/turf/open/floor/plating/rust,
+/area/template_noop)
+"M" = (
+/turf/closed/wall/rust,
+/area/template_noop)
+"P" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/turf/open/floor/plating,
+/area/template_noop)
+"Q" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plating,
+/area/template_noop)
+"R" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/item/toy/batong,
+/turf/open/floor/plating,
+/area/template_noop)
+"S" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/sign/poster/contraband/fun_police{
+	pixel_y = 32
+	},
+/mob/living/simple_animal/hostile/mimic/crate,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"Z" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/structure/sign/poster/contraband/free_key{
+	pixel_x = 32
+	},
+/obj/item/poster/random_contraband,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+H
+a
+k
+v
+"}
+(2,1,1) = {"
+S
+a
+M
+n
+"}
+(3,1,1) = {"
+a
+a
+R
+a
+"}
+(4,1,1) = {"
+j
+d
+P
+x
+"}
+(5,1,1) = {"
+b
+Q
+Z
+a
+"}

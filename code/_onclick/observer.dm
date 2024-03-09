@@ -9,7 +9,7 @@
 
 	// Things you might plausibly want to follow
 	if(ismovable(A))
-		ManualFollow(A)
+		check_orbitable(A)
 
 	// Otherwise jump
 	else if(A.loc)

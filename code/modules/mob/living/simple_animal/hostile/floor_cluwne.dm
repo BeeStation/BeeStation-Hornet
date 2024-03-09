@@ -152,7 +152,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	return
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)//prevents runtimes with machine fuckery
+/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)//prevents runtimes with machine fuckery
 	return FALSE
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Found_You()
@@ -365,8 +365,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		if(do_after(src, 50, target = H) && eating)
 			H.become_blind()
 			H.invisibility = INVISIBILITY_SPIRIT
-			H.density = FALSE
-			H.anchored = TRUE
+			H.set_density(FALSE)
+			H.set_anchored(TRUE)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100, TIMER_OVERRIDE|TIMER_UNIQUE)
 			visible_message("<span class='danger'>[src] pulls [H] under!</span>")
 			to_chat(H, "<span class='userdanger'>[src] drags you underneath the floor!</span>")
@@ -398,10 +398,10 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			H.cluwneify()
 			H.adjustBruteLoss(30)
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100)
-			H.cure_blind()
+			H.cure_blind(null)
 			H.invisibility = initial(H.invisibility)
 			H.density = initial(H.density)
-			H.anchored = initial(H.anchored)
+			H.set_anchored(initial(H.anchored))
 			H.blur_eyes(10)
 			animate(H.client,color = old_color, time = 20)
 
