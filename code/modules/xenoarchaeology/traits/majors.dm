@@ -86,34 +86,36 @@
 			var/atom/movable/AM = parent.parent
 			//handle being held
 			if(!isturf(AM.loc) && locate(AM.loc) in focus)
-				AM.forceMove(get_turf(AM.loc))
+				if(isliving(AM.loc))
+					var/mob/living/L = AM.loc
+					L.dropItemToGround(AM, TRUE)
+				else
+					AM.forceMove(get_turf(AM.loc))
 			M.forceMove(parent.parent)
 			//Buckle targets to artifact
 			AM.buckle_mob(M)
 			//Paralyze so they don't break shit, I know they would if they were able to move
-			if(isliving(AM))
-				var/mob/living/L = AM
-				L.Paralyze(hold_time*(parent.trait_strength/100))
+			if(isliving(M))
+				var/mob/living/L = M
+				L.Paralyze(hold_time*(parent.trait_strength/100), ignore_canstun = TRUE)
 			//Add timer to undo this - becuase the hold time is longer than an actual artifact cooldown, we need to do this per-mob
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/xenoartifact_trait, un_trigger), M), hold_time*(parent.trait_strength/100))
 		else
 			unregister_target(target)
 	clear_focus()
 
-/datum/xenoartifact_trait/major/hollow/un_trigger(atom/override, handle_parent = FALSE)
+/datum/xenoartifact_trait/major/hollow/un_trigger(atom/override, handle_parent = FALSE, did_cuff)
 	focus = override ? list(override) : targets
 	if(!length(focus))
 		return ..()
 	var/atom/movable/AM = parent.parent
 	AM.unbuckle_all_mobs()
-	for(var/atom/target in focus)
-		if(ismovable(target))
-			var/atom/movable/M = target
-			if(M.loc == AM)
-				M.forceMove(get_turf(AM))
-				var/mob/living/L = M
-				if(isliving(M))
-					L.Knockdown(2 SECONDS)
+	for(var/atom/movable/target in focus)
+		if(target.loc == AM) //If they somehow get out
+			target.forceMove(get_turf(AM))
+			if(isliving(target))
+				var/mob/living/L = target
+				L.Knockdown(2 SECONDS)
 	return ..()
 
 /datum/xenoartifact_trait/major/hollow/get_dictionary_hint()
@@ -653,7 +655,11 @@
 		//handle being held
 		var/atom/movable/AM = parent.parent
 		if(!isturf(AM.loc) && locate(AM.loc) in focus)
-			AM.forceMove(get_turf(AM.loc))
+			if(isliving(AM.loc))
+				var/mob/living/L = AM.loc
+				L.dropItemToGround(AM, TRUE)
+			else
+				AM.forceMove(get_turf(AM.loc))
 		//Banish target
 		target.forceMove(pick(GLOB.destabilization_spawns))
 	dump_targets()
