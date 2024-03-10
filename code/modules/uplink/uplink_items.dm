@@ -717,6 +717,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	purchasable_from = UPLINK_NUKE_OPS
 
+/datum/uplink_item/dangerous/nadefist
+	name = "Grenade Gauntlet"
+	desc = "A fist operated grenade launch platform, not often used with high explosives unless you are brave, bold and stupid\
+			Upon hitting a target, the internal grenade will instantly detonate on the target. \
+			Grenades simply slot in, but a screwdriver is needed to remove them.\
+			It comes with a strap so that no matter how much force is applied, it cannot leave your arms."
+	item = /obj/item/melee/nadefist
+	cost = 8
 
 // Stealthy Weapons
 /datum/uplink_item/stealthy_weapons
