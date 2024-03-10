@@ -189,14 +189,13 @@
 
 	if (target.getStaminaLoss() > target.getMaxHealth() - HEALTH_THRESHOLD_CRIT)
 		target.emote("scream")
-		playsound(src, 'sound/weapons/taserhit.ogg', 10, TRUE, -1)
 
 	if(user)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
 		target.visible_message("<span class='danger'>[user] has electrocuted [target] with [src]!</span>", \
 								"<span class='userdanger'>[user] has electrocuted you with [src]!</span>")
-		log_combat(user, target, "stunned")
+		log_combat(user, target, "stunned", src)
 
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
