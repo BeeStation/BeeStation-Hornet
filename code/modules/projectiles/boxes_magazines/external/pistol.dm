@@ -1,3 +1,5 @@
+// 10mm
+
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
 	desc = "A gun magazine."
@@ -39,8 +41,56 @@
 	else
 		icon_state = "45-[ammo_count()]"
 
-/obj/item/ammo_box/magazine/pistolm9mm
+// 9mm
+
+/obj/item/ammo_box/magazine/m9mm
 	name = "pistol magazine (9mm)"
+	desc = "A gun magazine."
+	icon_state = "9x19p"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = "9mm"
+	max_ammo = 8
+	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/m9mm/fire
+	name = "pistol magazine (9mm Incendiary)"
+	icon_state = "9x19pI"
+	desc = "A gun magazine. Loaded with rounds which ignite the target."
+	ammo_type = /obj/item/ammo_casing/c9mm/inc
+
+/obj/item/ammo_box/magazine/m9mm/hp
+	name = "pistol magazine (9mm HP)"
+	icon_state = "9x19pH"
+	desc= "A gun magazine. Loaded with hollow-point rounds, extremely effective against unarmored targets, but nearly useless against protective clothing."
+	ammo_type = /obj/item/ammo_casing/c9mm/hp
+
+/obj/item/ammo_box/magazine/m9mm/ap
+	name = "pistol magazine (9mm AP)"
+	icon_state = "9x19pA"
+	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets."
+	ammo_type = /obj/item/ammo_casing/c9mm/ap
+
+/obj/item/ammo_box/magazine/m9mm/rubber
+	name = "pistol magazine (9mm Rubber)"
+	icon_state = "9x19pR"
+	desc= "A gun magazine. Loaded with less than lethal rubber rounds, designed to subdue a target without major damage."
+	ammo_type = /obj/item/ammo_casing/c9mm/rubber
+
+/obj/item/ammo_box/magazine/m9mm/laser
+	name = "pistol magazine (9mm Laser Casing)"
+	icon_state = "9x19lc"
+	desc= "A gun magazine. Loaded with the newly designed NT-LC's. Designed to burn the target to death."
+	ammo_type = /obj/item/ammo_casing/c9mm/laser
+
+/obj/item/ammo_box/magazine/m9mm/disabler
+	name = "pistol magazine (9mm Disabler Laser Casing)"
+	icon_state = "9x19dlc"
+	desc= "A gun magazine. Loaded with the newly designed Disabler NT-LC's. Designed to incapacitate the target harmlessly."
+	ammo_type = /obj/item/ammo_casing/c9mm/disabler
+
+// 9mm APS
+/obj/item/ammo_box/magazine/pistolm9mm
+	name = "extended pistol magazine (9mm)"
 	icon_state = "9x19p-8"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"

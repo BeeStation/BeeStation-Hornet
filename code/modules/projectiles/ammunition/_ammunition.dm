@@ -64,23 +64,24 @@
 
 /obj/item/ammo_casing/attackby(obj/item/I, mob/user, params)
 	//Regular boxes of ammo can sweep shells up from the floor, magazines that get insert into guns do not though
-	if(istype(I, /obj/item/ammo_box) && !istype(I, /obj/item/ammo_box/magazine))
+	if(istype(I, /obj/item/ammo_box))
 		var/obj/item/ammo_box/box = I
-		if(isturf(loc))
-			var/boolets = 0
-			for(var/obj/item/ammo_casing/bullet in loc)
-				if (box.stored_ammo.len >= box.max_ammo)
-					break
-				if (bullet.BB)
-					if (box.give_round(bullet, 0))
-						boolets++
+		if(box.can_sweep)
+			if(isturf(loc))
+				var/boolets = 0
+				for(var/obj/item/ammo_casing/bullet in loc)
+					if (box.stored_ammo.len >= box.max_ammo)
+						break
+					if (bullet.BB)
+						if (box.give_round(bullet, 0))
+							boolets++
+					else
+						continue
+				if (boolets > 0)
+					box.update_icon()
+					to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>")
 				else
-					continue
-			if (boolets > 0)
-				box.update_icon()
-				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>")
-			else
-				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
+					to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
 	else
 		return ..()
 

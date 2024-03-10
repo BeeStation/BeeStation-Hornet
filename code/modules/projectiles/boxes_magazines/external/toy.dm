@@ -2,6 +2,7 @@
 	name = "foam force META magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	caliber = "foam_force"
+	can_sweep = TRUE
 
 /obj/item/ammo_box/magazine/toy/smg
 	name = "foam force SMG magazine"

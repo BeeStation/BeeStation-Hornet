@@ -1,40 +1,59 @@
 /obj/item/ammo_box/magazine/wt550m9
-	name = "wt550 magazine (4.6x30mm)"
-	icon_state = "46x30mmt-20"
-	ammo_type = /obj/item/ammo_casing/c46x30mm
-	caliber = "4.6x30mm"
-	max_ammo = 20
+	name = "wT-550 magazine (9mm)"
+	icon_state = "46x30mmt-25"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = "9mm"
+	max_ammo = 25
 
 /obj/item/ammo_box/magazine/wt550m9/update_icon()
 	..()
-	icon_state = "46x30mmt-[round(ammo_count(),4)]"
+	icon_state = "46x30mmt-[round(ammo_count(),5)]"
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
-	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
-	icon_state = "46x30mmtA-20"
-	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
+	name = "WT-550 magazine (Armour Piercing 9mm)"
+	icon_state = "46x30mmtA-25"
+	ammo_type = /obj/item/ammo_casing/c9mm/ap
 
 /obj/item/ammo_box/magazine/wt550m9/wtap/update_icon()
 	..()
-	icon_state = "46x30mmtA-[round(ammo_count(),4)]"
+	icon_state = "46x30mmtA-[round(ammo_count(),5)]"
 
 /obj/item/ammo_box/magazine/wt550m9/wtic
-	name = "wt550 magazine (Incendiary 4.6x30mm)"
-	icon_state = "46x30mmtI-20"
-	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
+	name = "WT-550 magazine (Incendiary 9mm)"
+	icon_state = "46x30mmtI-25"
+	ammo_type = /obj/item/ammo_casing/c9mm/inc
 
 /obj/item/ammo_box/magazine/wt550m9/wtic/update_icon()
 	..()
-	icon_state = "46x30mmtI-[round(ammo_count(),4)]"
+	icon_state = "46x30mmtI-[round(ammo_count(),5)]"
 
 /obj/item/ammo_box/magazine/wt550m9/rubber
-	name = "wt550 rubber magazine (4.6x30mm rubber)"
-	icon_state = "46x30mmtp-20"
-	ammo_type = /obj/item/ammo_casing/c46x30mm/rubber
+	name = "WT-550 rubber magazine (Rubber 9mm)"
+	icon_state = "46x30mmtT-25"
+	ammo_type = /obj/item/ammo_casing/c9mm/rubber
 
 /obj/item/ammo_box/magazine/wt550m9/rubber/update_icon()
 	..()
-	icon_state = "46x30mmtp-[round(ammo_count(),4)]"
+	icon_state = "46x30mmtT-[round(ammo_count(),5)]"
+
+/obj/item/ammo_box/magazine/wt550m9/laser
+	name = "WT-550 NT-LC magazine (9mm Laser Casing)"
+	icon_state = "46x30mmtT-25"
+	ammo_type = /obj/item/ammo_casing/c9mm/laser
+
+/obj/item/ammo_box/magazine/wt550m9/laser/update_icon()
+	..()
+	icon_state = "46x30mmtT-[round(ammo_count(),5)]"
+
+/obj/item/ammo_box/magazine/wt550m9/disabler
+	name = "WT-550 NT-DLC magazine (9mm Disabler Laser Casing)"
+	icon_state = "46x30mmtT-25"
+	ammo_type = /obj/item/ammo_casing/c9mm/disabler
+
+/obj/item/ammo_box/magazine/wt550m9/disabler/update_icon()
+	..()
+	icon_state = "46x30mmtT-[round(ammo_count(),5)]"
+
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
 	icon_state = "uzi9mm-32"

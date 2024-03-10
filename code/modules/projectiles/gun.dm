@@ -20,8 +20,11 @@
 	attack_verb = list("struck", "hit", "bashed")
 
 	var/fire_sound = "gunshot"
+	var/laser_fire_sound = "sound/weapons/laser.ogg"
+	var/disabler_fire_sound = "sound/weapons/taser2.ogg"
 	var/vary_fire_sound = TRUE
 	var/fire_sound_volume = 50
+	var/laser_sound_volume = 50
 	var/dry_fire_sound = 'sound/weapons/gun_dry_fire.ogg'
 	var/suppressed = null	//whether or not a message is displayed when fired
 	var/can_suppress = FALSE
@@ -51,6 +54,8 @@
 	var/wild_spread = FALSE				//Sets a minimum level of bullet spread per shot; meant for difficult to aim / inaccurate guns.
 	var/wild_factor = 0.25				//Multiplied by spread to calculate the 'minimum' spread per shot.
 
+	var/damage_multiplier = 1 //Gun Damage Multiplier that affects the damage dealt by the bullets. This is the base value which wont change a thing.
+	var/speed_multiplier = 1 //Gun Bullet Speed Multiplier that affect bullet speed. This is the base value which wont change a thing.
 	var/is_wielded = FALSE
 
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
@@ -765,13 +770,18 @@
 
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
-	if(aimed == GUN_AIMED && chambered?.BB)
-		chambered.BB.speed = initial(chambered.BB.speed) * 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
-		chambered.BB.damage = initial(chambered.BB.damage) * 1.25
-	if(aimed == GUN_AIMED_POINTBLANK)
-		chambered.BB.speed = initial(chambered.BB.speed) * 0.25 // Much faster bullets because you're holding them literally at the barrel of the gun
-		chambered.BB.damage = initial(chambered.BB.damage) * 4 // Execution
-
+	if(chambered.BB)
+		var/sm = speed_multiplier
+		var/dm = damage_multiplier
+		if(aimed == GUN_AIMED)
+			sm += 0.75
+			dm += 1.25
+		else if (aimed == GUN_AIMED_POINTBLANK)
+			sm += 0.25
+			dm += 4
+		chambered.BB.speed *= sm
+		chambered.BB.damage *= dm
+		chambered.BB.stamina *= dm
 /////////////
 // ZOOMING //
 /////////////

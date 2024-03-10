@@ -854,37 +854,46 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 40
 
 /datum/uplink_item/ammo/pistol
-	name = "10mm Handgun Magazine"
-	desc = "An additional 8-round 10mm magazine; compatible with the Stechkin Pistol."
-	item = /obj/item/ammo_box/magazine/m10mm
+	name = "9mm Handgun Magazine"
+	desc = "An additional 8-round 9mm magazine; compatible with the Stechkin Pistol."
+	item = /obj/item/ammo_box/magazine/m9mm
 	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 
 /datum/uplink_item/ammo/pistolap
-	name = "10mm Armour Piercing Magazine"
-	desc = "An additional 8-round 10mm magazine; compatible with the Stechkin Pistol. \
+	name = "9mm Armour Piercing Magazine"
+	desc = "An additional 8-round 9mm magazine; compatible with the Stechkin Pistol. \
 			These rounds are less effective at injuring the target but penetrate protective gear."
-	item = /obj/item/ammo_box/magazine/m10mm/ap
+	item = /obj/item/ammo_box/magazine/m9mm/ap
 	cost = 2
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 
 /datum/uplink_item/ammo/pistolhp
-	name = "10mm Hollow Point Magazine"
-	desc = "An additional 8-round 10mm magazine; compatible with the Stechkin Pistol. \
+	name = "9mm Hollow Point Magazine"
+	desc = "An additional 8-round 9mm magazine; compatible with the Stechkin Pistol. \
 			These rounds are more damaging but ineffective against armour."
-	item = /obj/item/ammo_box/magazine/m10mm/hp
+	item = /obj/item/ammo_box/magazine/m9mm/hp
 	cost = 3
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 
 /datum/uplink_item/ammo/pistolfire
-	name = "10mm Incendiary Magazine"
-	desc = "An additional 8-round 10mm magazine; compatible with the Stechkin Pistol. \
+	name = "9mm Incendiary Magazine"
+	desc = "An additional 8-round 9mm magazine; compatible with the Stechkin Pistol. \
 			Loaded with incendiary rounds which inflict little damage, but ignite the target."
-	item = /obj/item/ammo_box/magazine/m10mm/fire
+	item = /obj/item/ammo_box/magazine/m9mm/fire
 	cost = 2
+	purchasable_from = ~UPLINK_CLOWN_OPS
+	illegal_tech = FALSE
+
+/datum/uplink_item/ammo/pistolrubber
+	name = "9mm Rubber Magazine"
+	desc = "An additional 8-round 9mm magazine; compatible with the Stechkin Pistol. \
+			Loaded with less than lethal rubber rounds which inflict very little damage, but are capable of incapacitating a target."
+	item = /obj/item/ammo_box/magazine/m9mm/rubber
+	cost = 1
 	purchasable_from = ~UPLINK_CLOWN_OPS
 	illegal_tech = FALSE
 

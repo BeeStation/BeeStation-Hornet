@@ -91,7 +91,7 @@
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	belt = /obj/item/storage/belt/military
-	l_pocket = /obj/item/ammo_box/magazine/m10mm
+	l_pocket = /obj/item/ammo_box/magazine/m9mm
 	r_pocket = /obj/item/grenade/smokebomb
 	id = /obj/item/card/id/syndicate_command
 

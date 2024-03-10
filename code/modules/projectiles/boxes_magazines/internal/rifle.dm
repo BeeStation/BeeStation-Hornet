@@ -19,7 +19,13 @@
 	ammo_type = /obj/item/ammo_casing/c38
 	caliber = "38"
 	max_ammo = 8
-	multiload = FALSE
+	singleload = TRUE
+
+/obj/item/ammo_box/magazine/internal/leveraction/pipe
+	name = "lever action pipe rifle internal magazine"
+	max_ammo = 5
+	start_empty = TRUE
+	singleload = TRUE
 
 /obj/item/ammo_box/magazine/internal/piperifle
 	name = "pipegun internal magazine"

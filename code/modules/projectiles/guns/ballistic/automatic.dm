@@ -82,12 +82,11 @@
 	update_icon()
 
 /obj/item/gun/ballistic/automatic/wt550
-	name = "security auto rifle"
-	desc = "An outdated personal defence weapon. Uses 4.6x30mm rounds and is designated the WT-550 Automatic Rifle."
+	name = "WT-550 Autorifle"
+	desc = "A personal defence weapon used by Security Officers. Fast, light and deadly. Chambered for 9mm."
 	icon_state = "wt550"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
-	can_suppress = FALSE
 	actions_types = list()
 	can_bayonet = TRUE
 	knife_x_offset = 25
@@ -95,9 +94,19 @@
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE
-	fire_rate = 3
+	laser_sound_volume = 50
+	fire_rate = 5
+	spread = 8
+	damage_multiplier = 0.5
 	w_class = WEIGHT_CLASS_BULKY
 	full_auto = TRUE
+
+/obj/item/gun/ballistic/automatic/wt550/fire_sounds()
+	. = ..()
+	if(istype(chambered, /obj/item/ammo_casing/c9mm/laser)) // This needs to exist to ensure that the laser sound plays with the normal shot sound
+		playsound(src, laser_fire_sound, laser_sound_volume, vary_fire_sound)
+	if(istype(chambered, /obj/item/ammo_casing/c9mm/disabler))
+		playsound(src, disabler_fire_sound, laser_sound_volume, vary_fire_sound)
 
 /obj/item/gun/ballistic/automatic/wt550/rubber_loaded/Initialize(mapload)
 	magazine = new /obj/item/ammo_box/magazine/wt550m9/rubber(src)
@@ -318,7 +327,7 @@
 	special_mags = TRUE
 	caliber = "9mm"
 	tac_reloads = FALSE
-	bolt_type = BOLT_TYPE_OPEN
+	bolt_type = BOLT_TYPE_LOCKING
 	no_pin_required = TRUE
 	spawnwithmagazine = FALSE
 	w_class = WEIGHT_CLASS_BULKY
