@@ -1593,8 +1593,9 @@
   * 3 is a verb describing the action (e.g. punched, throwed, kicked, etc.)
   * 4 is a tool with which the action was made (usually an item)
   * 5 is any additional text, which will be appended to the rest of the log line
+  * 6 if an attack isn't important, then it won't be considered for the blackbox combat log outcomes
   */
-/proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
+/proc/log_combat(atom/user, atom/target, what_done, object=null, addition=null, important = TRUE)
 	if(isweakref(user))
 		var/datum/weakref/A_ref = user
 		user = A_ref.resolve()
@@ -1609,7 +1610,7 @@
 		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
-	if(object)
+	if(object && !isitem(object))
 		sobject = " with [object]"
 	var/saddition = ""
 	if(addition)
@@ -1619,6 +1620,11 @@
 
 	var/message = "has [what_done] [starget][postfix]"
 	user.log_message(message, LOG_ATTACK, color="red")
+
+	if (important && isliving(user) && isliving(target))
+		var/mob/living/living_user = user
+		var/datum/tool_atom = object
+		SScombat_logging.log_combat(living_user, living_target, istype(tool_atom) ? tool_atom.type : object)
 
 	if(user != target)
 		var/reverse_message = "has been [what_done] by [ssource][postfix]"

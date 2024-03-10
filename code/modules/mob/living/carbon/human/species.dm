@@ -1613,13 +1613,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
 			if((damage * 1.5) >= 9)
 				target.force_say()
-			log_combat(user, target, "kicked")
+			log_combat(user, target, "kicked", "punch")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
 			target.apply_damage(damage, attack_type, affecting, armor_block)
 			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
 			if(damage >= 9)
 				target.force_say()
-			log_combat(user, target, "punched")
+			log_combat(user, target, "punched", "punch")
 
 /datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return
@@ -1671,11 +1671,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(target_held_item)
 				target.visible_message("<span class='danger'>[user.name] kicks \the [target_held_item] out of [target]'s hand!</span>",
 									"<span class='danger'>[user.name] kicks \the [target_held_item] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
-				log_combat(user, target, "disarms [target_held_item]")
+				log_combat(user, target, "disarms [target_held_item]", "disarm")
 			else
 				target.visible_message("<span class='danger'>[user.name] kicks [target.name] onto [target.p_their()] side!</span>",
 									"<span class='danger'>[user.name] kicks you onto your side!</span>", null, COMBAT_MESSAGE_RANGE)
-				log_combat(user, target, "kicks", "onto their side (paralyzing)")
+				log_combat(user, target, "kicks", "onto their side (paralyzing)", "disarm")
 			target.Paralyze(SHOVE_CHAIN_PARALYZE) //duration slightly shorter than disarm cd
 		if(shove_blocked && !target.is_shove_knockdown_blocked() && !target.buckled)
 			var/directional_blocked = FALSE
@@ -1695,31 +1695,31 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				target.Immobilize(SHOVE_IMMOBILIZE_SOLID)
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name], knocking [target.p_them()] down!</span>",
 					"<span class='danger'>You shove [target.name], knocking [target.p_them()] down!</span>", null, COMBAT_MESSAGE_RANGE)
-				log_combat(user, target, "shoved", "knocking them down")
+				log_combat(user, target, "shoved", "disarm", "knocking them down")
 			else if(target_table)
 				target.Paralyze(SHOVE_KNOCKDOWN_TABLE)
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name] onto \the [target_table]!</span>",
 					"<span class='danger'>You shove [target.name] onto \the [target_table]!</span>", null, COMBAT_MESSAGE_RANGE)
 				target.throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
-				log_combat(user, target, "shoved", "onto [target_table] (table)")
+				log_combat(user, target, "shoved", "disarm", "onto [target_table] (table)")
 			else if(target_collateral_human)
 				target.Knockdown(SHOVE_KNOCKDOWN_HUMAN)
 				target_collateral_human.Knockdown(SHOVE_KNOCKDOWN_COLLATERAL)
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name] into [target_collateral_human.name]!</span>",
 					"<span class='danger'>You shove [target.name] into [target_collateral_human.name]!</span>", null, COMBAT_MESSAGE_RANGE)
-				log_combat(user, target, "shoved", "into [target_collateral_human.name]")
+				log_combat(user, target, "shoved", "disarm", "into [target_collateral_human.name]")
 			else if(target_disposal_bin)
 				target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
 				target.forceMove(target_disposal_bin)
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name] into \the [target_disposal_bin]!</span>",
 					"<span class='danger'>You shove [target.name] into \the [target_disposal_bin]!</span>", null, COMBAT_MESSAGE_RANGE)
-				log_combat(user, target, "shoved", "into [target_disposal_bin] (disposal bin)")
+				log_combat(user, target, "shoved", "disarm", "into [target_disposal_bin] (disposal bin)")
 			else if(target_pool)
 				target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
 				target.forceMove(target_pool)
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name] into \the [target_pool]!</span>",
 					"<span class='danger'>You shove [target.name] into \the [target_pool]!</span>", null, COMBAT_MESSAGE_RANGE)
-				log_combat(user, target, "shoved", "into [target_pool] (swimming pool)")
+				log_combat(user, target, "shoved", "disarm", "into [target_pool] (swimming pool)")
 		else
 			user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
 				"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -1744,7 +1744,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					append_message = "causing them to drop [target_held_item]"
 				else
 					append_message = "loosening their grip on [target_held_item]"*/
-			log_combat(user, target, "shoved")
+			log_combat(user, target, "shoved", "disarm")
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return
