@@ -119,7 +119,7 @@
 
 			var/mob/thrown_by = I.thrownby?.resolve()
 			if(thrown_by)
-				log_combat(thrown_by, src, "threw and hit", I)
+				log_combat(thrown_by, src, "threw and hit", I, important = I.force)
 			if(!incapacitated(FALSE, TRUE)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
 				hitpush = FALSE
 		else
@@ -152,7 +152,7 @@
 		log_combat(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
 	else
 		step_away(src,M)
-		log_combat(M.occupant, src, "pushed", M)
+		log_combat(M.occupant, src, "pushed", M, important = FALSE)
 		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>", \
 						"<span class='warning'>[M] pushes you out of the way.</span>", null, 5)
 

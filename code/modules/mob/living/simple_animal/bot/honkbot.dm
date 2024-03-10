@@ -211,7 +211,7 @@
 				threatlevel = 6 // will never let you go
 			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntime)
 
-			log_combat(src,C,"honked")
+			log_combat(src,C,"honked", src)
 
 			C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
 					"<span class='userdanger'>[src] has honked you!</span>")

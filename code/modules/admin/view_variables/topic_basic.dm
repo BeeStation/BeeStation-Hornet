@@ -86,10 +86,10 @@
 		lst.Insert(1, result)
 		if(result in componentsubtypes)
 			datumname = "component"
-			target._AddComponent(arglist(lst))
+			target._AddComponent(lst)
 		else
 			datumname = "element"
-			target._AddElement(arglist(lst))
+			target._AddElement(lst)
 		log_admin("[key_name(usr)] has added [result] [datumname] to [target].")
 		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [target].</span>")
 

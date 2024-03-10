@@ -1613,13 +1613,13 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
 			if((damage * 1.5) >= 9)
 				target.force_say()
-			log_combat(user, target, "kicked")
+			log_combat(user, target, "kicked", "punch")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
 			target.apply_damage(damage, attack_type, affecting, armor_block)
 			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
 			if(damage >= 9)
 				target.force_say()
-			log_combat(user, target, "punched")
+			log_combat(user, target, "punched", "punch")
 
 /datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return
