@@ -572,12 +572,12 @@
 			if (!silent)
 				visible_message("<span class='danger'>[user.name] kicks \the [target_held_item] out of [src]'s hand!</span>",
 								"<span class='danger'>[user.name] kicks \the [target_held_item] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "disarms [target_held_item]")
+			log_combat(user, src, "disarms [target_held_item]", "disarm")
 		else
 			if (!silent)
 				visible_message("<span class='danger'>[user.name] kicks [name] onto [p_their()] side!</span>",
 								"<span class='danger'>[user.name] kicks you onto your side!</span>", null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "kicks", "onto their side (paralyzing)")
+			log_combat(user, src, "kicks", "disarm", "onto their side (paralyzing)")
 		Paralyze(SHOVE_CHAIN_PARALYZE) //duration slightly shorter than disarm cd
 	if(shove_blocked && !is_shove_knockdown_blocked() && !buckled)
 		var/directional_blocked = FALSE
@@ -598,37 +598,37 @@
 			if (!silent)
 				user.visible_message("<span class='danger'>[user.name] shoves [name], knocking [p_them()] down!</span>",
 					"<span class='danger'>You shove [name], knocking [p_them()] down!</span>", null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "shoved", "knocking them down")
+			log_combat(user, src, "shoved", "disarm", "knocking them down")
 		else if(target_table)
 			Paralyze(SHOVE_KNOCKDOWN_TABLE)
 			if (!silent)
 				user.visible_message("<span class='danger'>[user.name] shoves [name] onto \the [target_table]!</span>",
 					"<span class='danger'>You shove [name] onto \the [target_table]!</span>", null, COMBAT_MESSAGE_RANGE)
 			throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
-			log_combat(user, src, "shoved", "onto [target_table] (table)")
+			log_combat(user, src, "shoved", "disarm", "onto [target_table] (table)")
 		else if(target_collateral_human)
 			Knockdown(SHOVE_KNOCKDOWN_HUMAN)
 			target_collateral_human.Knockdown(SHOVE_KNOCKDOWN_COLLATERAL)
 			if (!silent)
 				user.visible_message("<span class='danger'>[user.name] shoves [name] into [target_collateral_human.name]!</span>",
 					"<span class='danger'>You shove [name] into [target_collateral_human.name]!</span>", null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "shoved", "into [target_collateral_human.name]")
+			log_combat(user, src, "shoved", "disarm", "into [target_collateral_human.name]")
 		else if(target_disposal_bin)
 			Knockdown(SHOVE_KNOCKDOWN_SOLID)
 			forceMove(target_disposal_bin)
 			if (!silent)
 				user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_disposal_bin]!</span>",
 					"<span class='danger'>You shove [name] into \the [target_disposal_bin]!</span>", null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "shoved", "into [target_disposal_bin] (disposal bin)")
+			log_combat(user, src, "shoved", "disarm", "into [target_disposal_bin] (disposal bin)")
 		else if(target_pool)
 			Knockdown(SHOVE_KNOCKDOWN_SOLID)
 			forceMove(target_pool)
 			if (!silent)
 				user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_pool]!</span>",
 					"<span class='danger'>You shove [name] into \the [target_pool]!</span>", null, COMBAT_MESSAGE_RANGE)
-			log_combat(user, src, "shoved", "into [target_pool] (swimming pool)")
+			log_combat(user, src, "shoved", "disarm", "into [target_pool] (swimming pool)")
 	else
 		if (!silent)
 			user.visible_message("<span class='danger'>[user.name] shoves [name]!</span>",
 				"<span class='danger'>You shove [name]!</span>", null, COMBAT_MESSAGE_RANGE)
-		log_combat(user, src, "shoved")
+		log_combat(user, src, "shoved", "disarm")
