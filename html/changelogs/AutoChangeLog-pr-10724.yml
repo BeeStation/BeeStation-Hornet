@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Fixed conflicting holodeck program IDs which resulted in small holodecks
+      overriding the normal sized ones.
