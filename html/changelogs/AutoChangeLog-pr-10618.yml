@@ -1,0 +1,14 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - bugfix: Adjusted the icons for the locker wand
+  - bugfix: Tweaked the fridge door's icon
+  - bugfix: Reimplemented the "soulfull" locker as it's icon was gone
+  - bugfix: Secure crates now have the right door icon
+  - bugfix: The icon for the fishcase is now adressed correctly
+  - imageadd: New tops for the engineering and science secure crates (they didn't
+      even render before)
+  - imageadd: Implemented a visual indicator for loot crates when opened for the first
+      time, aswell fixing the missing "unlocked" icon
+  - imageadd: Reworked a good chunk of the lockers' icons, now security is much redder,
+      aswell rendering some details forgotten in the previous version
