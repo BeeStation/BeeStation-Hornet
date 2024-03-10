@@ -723,6 +723,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Upon hitting a target, the internal grenade will instantly detonate on the target. \
 			Grenades simply slot in, but a screwdriver is needed to remove them.\
 			It comes with a strap so that no matter how much force is applied, it cannot leave your arms."
+	player_minimum = 20
 	item = /obj/item/melee/nadefist
 	cost = 8
 
