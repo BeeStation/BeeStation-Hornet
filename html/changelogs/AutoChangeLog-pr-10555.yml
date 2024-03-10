@@ -1,7 +1,0 @@
-author: rkz, Seris02, ExcessiveUseOfCobblestone
-delete-after: true
-changes:
-  - code_imp: Dehardcodes milkable component reagent
-  - rscadd: Snakes can now be milked for venom. They don't seem to mind.
-  - bugfix: fixed bad qdels with milkable component
-  - admin: converted VV component list input to TGUI

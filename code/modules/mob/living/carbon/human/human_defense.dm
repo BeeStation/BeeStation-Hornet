@@ -265,7 +265,7 @@
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 			visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
 				"<span class='userdanger'>[M] slashes at you!</span>")
-			log_combat(M, src, "attacked")
+			log_combat(M, src, "attacked", M)
 			if(!dismembering_strike(M, M.get_combat_bodyzone(src))) //Dismemberment successful
 				return 1
 			apply_damage(20, BRUTE, affecting, armor_block)
@@ -273,7 +273,7 @@
 		if(M.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			Knockdown(20)
-			log_combat(M, src, "tackled")
+			log_combat(M, src, "tackled", M)
 			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
 			if(!affecting)
 				affecting = get_bodypart(BODY_ZONE_CHEST)

@@ -630,13 +630,6 @@
 	dir = 2
 	},
 /area/awaymission/spacebattle/cruiser)
-"cU" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/fries,
-/turf/open/floor/plasteel/cafeteria{
-	dir = 2
-	},
-/area/awaymission/spacebattle/cruiser)
 "cV" = (
 /obj/structure/table/reinforced,
 /obj/item/food/soup/stew,
@@ -772,10 +765,6 @@
 "dJ" = (
 /obj/item/stack/rods,
 /turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"dK" = (
-/obj/vehicle/sealed/mecha/medical/odysseus,
-/turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "dM" = (
 /obj/structure/closet/crate{
@@ -2007,10 +1996,6 @@
 /obj/item/clothing/suit/space/hardsuit/wizard,
 /turf/open/floor/plasteel/rockvault/alien,
 /area/awaymission/spacebattle/secret)
-"jp" = (
-/obj/vehicle/sealed/mecha/combat/gygax,
-/turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
 "jq" = (
 /obj/structure/closet/crate{
 	name = "Gold Crate"
@@ -2041,12 +2026,6 @@
 "jv" = (
 /mob/living/simple_animal/hostile/nanotrasen/ranged,
 /turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"jz" = (
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
-	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
-	},
-/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "jA" = (
 /mob/living/simple_animal/hostile/nanotrasen/ranged/smg,
@@ -2145,18 +2124,6 @@
 /area/awaymission/spacebattle/cruiser)
 "jU" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/space,
-/turf/open/floor/plasteel/airless,
-/area/awaymission/spacebattle/cruiser)
-"jV" = (
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
-	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
-	},
-/turf/open/floor/plating/airless,
-/area/awaymission/spacebattle/cruiser)
-"jW" = (
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
-	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
-	},
 /turf/open/floor/plasteel/airless,
 /area/awaymission/spacebattle/cruiser)
 "jX" = (
@@ -2396,6 +2363,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
+"nM" = (
+/obj/vehicle/sealed/mecha/combat/gygax,
+/turf/open/floor/plating,
+/area/awaymission/spacebattle/cruiser)
 "nQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/button/door{
@@ -2407,6 +2378,12 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"nU" = (
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
+	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
+	},
+/turf/open/floor/plasteel/airless,
 /area/awaymission/spacebattle/cruiser)
 "om" = (
 /obj/effect/landmark/awaystart,
@@ -2431,6 +2408,19 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/condiment/saltshaker,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"pj" = (
+/obj/structure/table/reinforced,
+/obj/item/food/fries,
+/turf/open/floor/plasteel/cafeteria{
+	dir = 2
+	},
+/area/awaymission/spacebattle/cruiser)
+"pI" = (
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
+	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
+	},
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "qg" = (
@@ -2497,6 +2487,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
+"yZ" = (
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
+	spawn_mecha_type = /obj/vehicle/sealed/mecha/combat/gygax/dark/loaded
+	},
+/turf/open/floor/plating/airless,
+/area/awaymission/spacebattle/cruiser)
 "zS" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate6)
@@ -2553,6 +2549,10 @@
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"Fu" = (
+/obj/vehicle/sealed/mecha/medical/odysseus,
+/turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "FV" = (
 /obj/structure/chair{
@@ -27765,8 +27765,8 @@ cc
 cc
 cc
 bT
-dK
-jp
+Fu
+nM
 cK
 cK
 cK
@@ -31616,7 +31616,7 @@ bT
 cF
 cP
 cP
-cU
+pj
 OJ
 uF
 uF
@@ -31873,7 +31873,7 @@ bT
 cG
 cP
 cP
-cU
+pj
 OJ
 OJ
 OJ
@@ -33440,7 +33440,7 @@ cc
 cc
 cc
 cc
-jz
+pI
 cc
 cc
 cc
@@ -39856,7 +39856,7 @@ fA
 fU
 gh
 cZ
-jV
+yZ
 cZ
 cZ
 hh
@@ -45767,7 +45767,7 @@ ab
 ab
 bT
 jS
-jW
+nU
 jS
 cZ
 ke
@@ -51669,7 +51669,7 @@ cn
 cp
 cn
 cc
-jz
+pI
 cc
 cc
 cc

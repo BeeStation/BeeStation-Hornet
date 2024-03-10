@@ -235,7 +235,7 @@ Behavior that's still missing from this component that original food items had t
 	var/turf/parent_turf = get_turf(parent)
 
 	if(!microwaved_type)
-		new /obj/item/reagent_containers/food/snacks/badrecipe(parent_turf)
+		new /obj/item/food/badrecipe(parent_turf)
 		qdel(parent)
 		return
 
@@ -352,7 +352,7 @@ Behavior that's still missing from this component that original food items had t
 			return
 		if(IsFoodGone(owner, feeder))
 			return
-		log_combat(feeder, eater, "fed", owner.reagents.log_list())
+		log_combat(feeder, eater, "fed", owner.reagents.log_list(), important = FALSE)
 		eater.visible_message(
 			"<span class='danger'>[feeder] forces [eater] to eat [parent]!</span>", \
 			"<span class='userdanger'>[feeder] forces you to eat [parent]!</span>"

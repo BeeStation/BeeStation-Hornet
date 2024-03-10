@@ -252,6 +252,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		reagent_glass = W
 		mode = BOT_IDLE
 		to_chat(user, "<span class='notice'>You insert [W].</span>")
+		var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
+		log_combat(user, src, "inserted a [W] with [reagentlist]" )
+		add_fingerprint(user)
 		show_controls(user)
 		update_icon()
 
