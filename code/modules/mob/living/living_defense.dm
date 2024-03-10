@@ -582,7 +582,7 @@
 	if(shove_blocked && !is_shove_knockdown_blocked() && !buckled)
 		var/directional_blocked = FALSE
 		if(shove_dir in GLOB.cardinals) //Directional checks to make sure that we're not shoving through a windoor or something like that
-			var/target_turf = get_turf(target)
+			var/target_turf = get_turf(src)
 			for(var/obj/O in target_turf)
 				if(O.flags_1 & ON_BORDER_1 && O.dir == shove_dir && O.density)
 					directional_blocked = TRUE
