@@ -13,7 +13,7 @@
 	attack_verb = list("enforced the law upon")
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
 
-	var/stunforce = 75
+	var/stunforce = 40
 	var/turned_on = FALSE
 	var/obj/item/stock_parts/cell/cell
 	var/hitcost = 1000
@@ -184,7 +184,13 @@
 	target.apply_effect(EFFECT_STUTTER, stunforce)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
 	target.stuttering = 20
-	target.do_jitter_animation(20)
+	target.disarm_effect(user, silent = TRUE)
+	target.do_stun_animation()
+
+	if (target.getStaminaLoss() > target.getMaxHealth() - HEALTH_THRESHOLD_CRIT)
+		target.emote("scream")
+		playsound(src, 'sound/weapons/taserhit.ogg', 10, TRUE, -1)
+
 	if(user)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
@@ -225,7 +231,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 3
 	throwforce = 5
-	stunforce = 70
+	stunforce = 40
 	hitcost = 2000
 	throw_hit_chance = 10
 	slot_flags = ITEM_SLOT_BACK
