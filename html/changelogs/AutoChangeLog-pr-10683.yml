@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: 'Fixed runtime `items.dm, line 420: Cannot read null.len`'
