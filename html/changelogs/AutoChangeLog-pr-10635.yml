@@ -1,0 +1,5 @@
+author: jixs4v, Miliviu, Ratón
+delete-after: true
+changes:
+  - admin: Added a new Banning Panel created with TGUI, old panel is still available
+      with the verb old-banning-panel
