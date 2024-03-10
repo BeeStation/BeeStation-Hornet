@@ -20,6 +20,67 @@
 	mobchatspan = "corgi"
 
 	do_footstep = TRUE
+	pet_bonus = TRUE
+	pet_bonus_emote = "woofs happily!"
+	var/turns_since_scan = 0
+	var/obj/movement_target
+
+/mob/living/simple_animal/pet/dog/Life()
+	..()
+
+	//Feeding, chasing food, FOOOOODDDD
+	if(!stat && !resting && !buckled)
+		turns_since_scan++
+		if(turns_since_scan > 5)
+			turns_since_scan = 0
+			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
+				movement_target = null
+				stop_automated_movement = 0
+			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+				movement_target = null
+				stop_automated_movement = 0
+				for(var/obj/item/potential_snack in oview(src,3))
+					if(IS_EDIBLE(potential_snack) && (isturf(potential_snack.loc) || ishuman(potential_snack.loc)))
+						movement_target = potential_snack
+						break
+			if(movement_target)
+				stop_automated_movement = 1
+				step_to(src,movement_target,1)
+				sleep(3)
+				step_to(src,movement_target,1)
+				sleep(3)
+				step_to(src,movement_target,1)
+
+				if(movement_target) //Not redundant due to sleeps, Item can be gone in 6 decisecomds
+					var/turf/T = get_turf(movement_target)
+					if(!T)
+						return
+					if (T.x < src.x)
+						setDir(WEST)
+					else if (T.x > src.x)
+						setDir(EAST)
+					else if (T.y < src.y)
+						setDir(SOUTH)
+					else if (T.y > src.y)
+						setDir(NORTH)
+					else
+						setDir(SOUTH)
+
+					if(!Adjacent(movement_target)) //can't reach food through windows.
+						return
+
+					if(isturf(movement_target.loc))
+						movement_target.attack_animal(src)
+					else if(ishuman(movement_target.loc) )
+						if(prob(20))
+							manual_emote("stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+
+		if(prob(1))
+			manual_emote(pick("dances around.","chases its tail!"))
+			spawn(0)
+				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
+					setDir(i)
+					sleep(1)
 
 //Corgis and pugs are now under one dog subtype
 
@@ -276,10 +337,10 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		if (nofur)
 			to_chat(user, "<span class='warning'> You can't shave this corgi, it doesn't have a fur coat!</span>")
 			return
-		user.visible_message("[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
+		user.visible_message("<span class='notice'>[user] starts to shave [src] using \the [O].</span>", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
 		if(do_after(user, 50, target = src))
-			user.visible_message("[user] shaves [src]'s hair using \the [O].")
-			playsound(loc, 'sound/items/welder2.ogg', 20, 1)
+			user.visible_message("<span class='notice'>[user] shaves [src]'s hair using \the [O].</span>")
+			playsound(loc, 'sound/items/welder2.ogg', 20, TRUE)
 			shaved = TRUE
 			icon_living = "[initial(icon_living)]_shaved"
 			icon_dead = "[initial(icon_living)]_shaved_dead"
@@ -302,7 +363,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 			to_chat(user, "<span class='warning'>You can't put more than one hat on [src]!</span>")
 		return
 	if(!item_to_add)
-		user.visible_message("[user] pets [src].","<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
+		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
 		if(flags_1 & HOLOGRAM_1)
 			return
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
@@ -322,9 +383,9 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		if(health <= 0)
 			to_chat(user, "<span class ='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()].</span>")
 		else if(user)
-			user.visible_message("[user] puts [item_to_add] on [real_name]'s head.  [src] looks at [user] and barks once.",
-				"<span class='notice'>You put [item_to_add] on [real_name]'s head.  [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",
-				"<span class='italics'>You hear a friendly-sounding bark.</span>")
+			user.visible_message("<span class='notice'>[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once.</span>",
+				"<span class='notice'>You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",
+				"<span class='hear'>You hear a friendly-sounding bark.</span>")
 		item_to_add.forceMove(src)
 		src.inventory_head = item_to_add
 		update_corgi_fluff()
@@ -365,8 +426,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	real_name = "Ian"	//Intended to hold the name without altering it.
 	gender = MALE
 	desc = "It's the HoP's beloved corgi."
-	var/turns_since_scan = 0
-	var/obj/movement_target
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
@@ -451,64 +510,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
 
-/mob/living/simple_animal/pet/dog/corgi/Ian/Life()
-	..()
-
-	//Feeding, chasing food, FOOOOODDDD
-	if(!stat && !resting && !buckled)
-		turns_since_scan++
-		if(turns_since_scan > 5)
-			turns_since_scan = 0
-			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
-				movement_target = null
-				stop_automated_movement = 0
-			if(!movement_target || !(src in viewers(3, movement_target.loc)))
-				movement_target = null
-				stop_automated_movement = 0
-				for(var/obj/item/potential_snack in oview(src,3))
-					if(IS_EDIBLE(potential_snack) && (isturf(potential_snack.loc) || ishuman(potential_snack.loc)))
-						movement_target = potential_snack
-						break
-			if(movement_target)
-				stop_automated_movement = 1
-				step_to(src,movement_target,1)
-				sleep(3)
-				step_to(src,movement_target,1)
-				sleep(3)
-				step_to(src,movement_target,1)
-
-				if(movement_target)		//Not redundant due to sleeps, Item can be gone in 6 decisecomds
-					var/turf/T = get_turf(movement_target)
-					if(!T)
-						return
-					if (T.x < src.x)
-						setDir(WEST)
-					else if (T.x > src.x)
-						setDir(EAST)
-					else if (T.y < src.y)
-						setDir(SOUTH)
-					else if (T.y > src.y)
-						setDir(NORTH)
-					else
-						setDir(SOUTH)
-
-					if(!Adjacent(movement_target)) //can't reach food through windows.
-						return
-
-					if(isturf(movement_target.loc) )
-						movement_target.attack_animal(src)
-					else if(ishuman(movement_target.loc) )
-						if(prob(20))
-							INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
-
-		if(prob(1))
-			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("dances around.","chases its tail!"))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					setDir(i)
-					sleep(1)
-
-/mob/living/simple_animal/pet/dog/corgi/Ian/narsie_act()
+/mob/living/simple_animal/pet/dog/corgi/ian/narsie_act()
 	playsound(src, 'sound/magic/demon_dies.ogg', 75, TRUE)
 	var/mob/living/simple_animal/pet/dog/corgi/narsie/N = new(loc)
 	N.setDir(dir)
@@ -665,7 +667,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	response_harm   = "kicks"
 	held_state = "lisa"
 	worn_slot_flags = ITEM_SLOT_HEAD
-	var/turns_since_scan = 0
 	var/puppies = 0
 
 //Lisa already has a cute bow!
@@ -680,43 +681,6 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 
 	if(next_scan_time <= world.time)
 		make_babies()
-
-	if(!stat && !resting && !buckled)
-		if(prob(1))
-			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("dances around.","chases her tail."))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					setDir(i)
-					sleep(1)
-
-/mob/living/simple_animal/pet/dog/pug/Life()
-	..()
-
-	if(!stat && !resting && !buckled)
-		if(prob(1))
-			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("chases its tail."))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					setDir(i)
-					sleep(1)
-
-/mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
-	. = ..()
-	switch(M.a_intent)
-		if("help")
-			wuv(TRUE, M)
-		if("harm")
-			wuv(FALSE, M)
-
-/mob/living/simple_animal/pet/dog/proc/wuv(change, mob/M)
-	if(change)
-		if(M && stat != DEAD) // Added check to see if this mob (the dog) is dead to fix issue 2454
-			new /obj/effect/temp_visual/heart(loc)
-			emote("me", 1, "yaps happily!")
-			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-	else
-		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-			emote("me", 1, "growls!")
 
 /mob/living/simple_animal/pet/dog/corgi/cardigan
 	name = "\improper cardigan corgi"
