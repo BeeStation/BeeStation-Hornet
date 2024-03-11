@@ -52,7 +52,7 @@
 				return
 			else if(!grilled_item && user.transferItemToLoc(I, src))
 				grilled_item = I
-				RegisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, .proc/GrillCompleted)
+				RegisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
 				to_chat(user, "<span class='notice'>You put the [grilled_item] on [src].</span>")
 				update_icon()
 				grill_loop.start()
@@ -126,7 +126,7 @@
 /obj/machinery/grill/proc/finish_grill()
 	SEND_SIGNAL(grilled_item, COMSIG_GRILL_FOOD, grilled_item, grill_time)
 	grill_time = 0
-	UnregisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, .proc/GrillCompleted)
+	UnregisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
 	grill_loop.stop()
 
 ///Called when a food is transformed by the grillable component
