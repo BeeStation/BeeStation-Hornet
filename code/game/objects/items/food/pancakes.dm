@@ -10,7 +10,6 @@
 	tastes = list("pancakes" = 1)
 	foodtypes = GRAIN | SUGAR | BREAKFAST
 	w_class = WEIGHT_CLASS_SMALL
-	burns_on_grill = TRUE
 	///Used as a base name while generating the icon states when stacked
 	var/stack_name = "pancakes"
 
@@ -21,7 +20,6 @@
 	item_state = "rawpancakes"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("milky batter" = 1)
-	burns_on_grill = FALSE
 
 /obj/item/food/pancakes/raw/make_grillable()
 	AddComponent(/datum/component/grillable,\

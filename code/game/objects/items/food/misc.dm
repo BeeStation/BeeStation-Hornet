@@ -77,6 +77,9 @@
 		SSfire_burning.processing -= src
 	qdel(src)
 
+// We override the parent procs here to prevent burned messes from cooking into burned messes.
+/obj/item/food/badrecipe/make_grillable()
+	return
 
 /obj/item/food/spidereggs
 	name = "spider eggs"
