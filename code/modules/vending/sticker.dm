@@ -21,7 +21,7 @@
 
 //You can make this generic if you want to use it elsehwere
 /obj/item/sticker_gacha
-	name = "sticker gacha ball"
+	name = "sticker gacha ball - series 1"
 	desc = "A prize ball. What could be inside!"
 	icon = 'icons/obj/sticker.dmi'
 	icon_state = "gacha_red"

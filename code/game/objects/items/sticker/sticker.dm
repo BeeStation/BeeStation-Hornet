@@ -23,9 +23,6 @@
 	///Do we roll for unusual effects
 	var/roll_unusual = TRUE
 
-/obj/item/sticker/smile
-	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_COMMON
-
 /obj/item/sticker/Initialize(mapload)
 	. = ..()
 	item_appearance = build_item_appearance()
@@ -80,6 +77,7 @@
 /obj/item/sticker/examine(mob/user)
 	. = ..()
 	//Throw sticker stats here, like series, rarity, etc.
+	. += get_stats()
 
 /obj/item/sticker/update_appearance(updates)
 	. = ..()
@@ -111,4 +109,8 @@
 	return ismovable(target) || iswallturf(target) ? TRUE : FALSE
 
 /obj/item/sticker/proc/generate_unusual()
+	return
+
+/obj/item/sticker/proc/get_stats()
+	//TODO: Add case for appending rarity - Racc
 	return
