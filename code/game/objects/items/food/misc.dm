@@ -59,6 +59,14 @@
 	foodtypes = GROSS
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/food/badrecipe/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_GRILLED, .proc/OnGrill)
+
+///Prevents grilling burnt shit from well, burning.
+/obj/item/food/badrecipe/proc/OnGrill()
+	return COMPONENT_HANDLED_GRILLING
+
 /obj/item/food/badrecipe/burn()
 	if(QDELETED(src))
 		return
