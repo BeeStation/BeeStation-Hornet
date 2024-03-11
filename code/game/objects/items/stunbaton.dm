@@ -184,7 +184,16 @@
 	target.apply_effect(EFFECT_STUTTER, stunforce)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
 	target.stuttering = 20
-	target.disarm_effect(user, silent = TRUE)
+
+	// Shoving
+	var/shove_dir = get_dir(user.loc, target.loc)
+	var/turf/target_shove_turf = get_step(target.loc, shove_dir)
+	var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
+	if (target_collateral_human)
+		target.Knockdown(0.5 SECONDS)
+		target_collateral_human.Knockdown(0.5 SECONDS)
+	target.Move(target_shove_turf, shove_dir)
+
 	target.do_stun_animation()
 
 	if (target.getStaminaLoss() > target.getMaxHealth() - HEALTH_THRESHOLD_CRIT)
