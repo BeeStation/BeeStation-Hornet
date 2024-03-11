@@ -717,6 +717,16 @@
 					/obj/item/survivalcapsule/barricade)
 	cost = 2000
 	crate_name = "security barriers crate XL"
+	
+/datum/supply_pack/security/armory/capsule_checkpoints
+	name = "Security Checkpoint capsules"
+	desc = "A 3x3 checkpoint designed for allowing safely searching passing personnel. Requires Security access to open."
+	max_supply = 2
+	access_budget = ACCESS_BRIG
+	contains = list(/obj/item/survivalcapsule/capsule_checkpoint,
+					/obj/item/survivalcapsule/capsule_checkpoint)
+	cost = 1000
+	crate_name = "Security Checkpoint capsule crate"
 
 /datum/supply_pack/security/armory/mindshield
 	name = "Mindshield Implants Crate"
@@ -776,20 +786,22 @@
 	cost = 4000
 	contraband = TRUE
 	max_supply = 3
-	contains = list(/obj/item/reagent_containers/food/snacks/rationpack,
-					/obj/item/ammo_box/a762,
-					/obj/item/storage/toolbox/ammo,
-					/obj/item/clothing/suit/armor/vest/russian,
-					/obj/item/clothing/head/helmet/rus_helmet,
-					/obj/item/clothing/shoes/russian,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/under/syndicate/rus_army,
-					/obj/item/clothing/under/costume/soviet,
-					/obj/item/clothing/mask/russian_balaclava,
-					/obj/item/clothing/head/helmet/rus_ushanka,
-					/obj/item/clothing/suit/armor/vest/russian_coat,
-					/obj/item/gun/ballistic/rifle/boltaction,
-					/obj/item/gun/ballistic/rifle/boltaction)
+	contains = list(
+		/obj/item/food/rationpack,
+		/obj/item/ammo_box/a762,
+		/obj/item/storage/toolbox/ammo,
+		/obj/item/clothing/suit/armor/vest/russian,
+		/obj/item/clothing/head/helmet/rus_helmet,
+		/obj/item/clothing/shoes/russian,
+		/obj/item/clothing/gloves/combat,
+		/obj/item/clothing/under/syndicate/rus_army,
+		/obj/item/clothing/under/costume/soviet,
+		/obj/item/clothing/mask/russian_balaclava,
+		/obj/item/clothing/head/helmet/rus_ushanka,
+		/obj/item/clothing/suit/armor/vest/russian_coat,
+		/obj/item/gun/ballistic/rifle/boltaction,
+		/obj/item/gun/ballistic/rifle/boltaction
+	)
 	crate_name = "surplus military crate"
 
 /datum/supply_pack/security/armory/russian/fill(obj/structure/closet/crate/C)
@@ -1800,21 +1812,29 @@
 	access = ACCESS_MEDICAL
 	contains = list(/obj/machinery/iv_drip/saline)
 
-/datum/supply_pack/medical/randomvirus
+/datum/supply_pack/medical/randomvirus //contains 5 utility viro symptoms. If virus customizing is on, contains 5 random cultures instead
 	name = "Virus Sample Crate"
-	desc = "Contains five random experimental disease cultures for epidemiological research"
-	cost = 6000
+	desc = "Contains five experimental disease cultures for epidemiological research"
+	cost = 3000
 	max_supply = 3
 	access = ACCESS_VIROLOGY
 	access_budget = ACCESS_VIROLOGY
-	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus)
+	contains = list(/obj/item/reagent_containers/glass/bottle/inorganic_virion,
+					/obj/item/reagent_containers/glass/bottle/necrotic_virion,
+					/obj/item/reagent_containers/glass/bottle/evolution_virion,
+					/obj/item/reagent_containers/glass/bottle/adaptation_virion,
+					/obj/item/reagent_containers/glass/bottle/aggression_virion)
 	crate_name = "virus sample crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
+
+/datum/supply_pack/medical/randomvirus/fill(obj/structure/closet/crate/C)
+	for(var/item in contains)
+		if(CONFIG_GET(flag/chemviro_allowed))
+			new /obj/item/reagent_containers/glass/bottle/random_virus(C)
+		else
+			new item(C)
+
 
 /datum/supply_pack/medical/virology
 	name = "Junior Epidemiology Kit"
@@ -1856,17 +1876,6 @@
 					/obj/item/reagent_containers/glass/bottle/anxiety,
 					/obj/item/reagent_containers/glass/bottle/beesease)
 	crate_name = "virus crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
-	dangerous = TRUE
-
-/datum/supply_pack/medical/extrapolator
-	name = "Virus Extrapolator Supply Crate"
-	desc = "Contains 3 Virus Extrapolators should any existing ones be lost or otherwise destroyed."
-	cost = 4500
-	max_supply = 4
-	access = ACCESS_VIROLOGY
-	contains = list(/obj/item/extrapolator, /obj/item/extrapolator, /obj/item/extrapolator)
-	crate_name = "Extrapolator Crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
