@@ -165,6 +165,10 @@
 	id = "vegancakebatter"
 	required_reagents = list(/datum/reagent/consumable/soymilk = 15, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
 
+/datum/chemical_reaction/pancakebatter
+	results = list(/datum/reagent/consumable/pancakebatter = 15)
+	required_reagents = list(/datum/reagent/consumable/eggyolk = 12, /datum/reagent/consumable/milk = 10, /datum/reagent/consumable/flour = 5)
+
 /datum/chemical_reaction/ricebowl
 	name = "Rice Bowl"
 	id = "ricebowl"
@@ -183,3 +187,7 @@
 	id = /datum/reagent/consumable/bbqsauce
 	results = list(/datum/reagent/consumable/bbqsauce = 5)
 	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/consumable/tomatojuice = 1, /datum/reagent/medicine/salglu_solution = 3, /datum/reagent/consumable/blackpepper = 1)
+
+/datum/chemical_reaction/gravy
+	results = list(/datum/reagent/consumable/gravy = 3)
+	required_reagents = list(/datum/reagent/consumable/milk = 1, /datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/flour = 1)
