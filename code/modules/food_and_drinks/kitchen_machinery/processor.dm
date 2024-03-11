@@ -31,8 +31,8 @@
 	if (recipe.output && loc && !QDELETED(src))
 		var/cached_multiplier = (recipe.food_multiplier * rating_amount)
 		for(var/i in 1 to cached_multiplier)
-			var/atom/processed_food = new recipe.output(drop_location())
-			
+			new recipe.output(drop_location())
+
 	if (ismob(what))
 		var/mob/themob = what
 		themob.gib(TRUE,TRUE,TRUE)
