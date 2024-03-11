@@ -318,6 +318,7 @@
 	)
 	tastes = list("bacon" = 1)
 	foodtypes = MEAT | BREAKFAST
+	burns_on_grill = TRUE
 
 /obj/item/food/meat/slab/gondola
 	name = "gondola meat"
