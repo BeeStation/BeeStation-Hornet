@@ -26,9 +26,23 @@
 /obj/machinery/griddle/Initialize()
 	. = ..()
 	grill_loop = new(list(src), FALSE)
-	variant = rand(1,3)
-	RegisterSignal(src, COMSIG_ATOM_EXPOSE_REAGENT, .proc/on_expose_reagent)
+	if(isnum(variant))
+		variant = rand(1,3)
+	//RegisterSignal(src, COMSIG_ATOM_EXPOSE_REAGENT, .proc/on_expose_reagent)
 
+/obj/machinery/griddle/Destroy()
+	QDEL_NULL(grill_loop)
+	return ..()
+
+/obj/machinery/griddle/crowbar_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(flags_1 & NODECONSTRUCT_1)
+		return
+	if(default_deconstruction_crowbar(I, ignore_panel = TRUE))
+		return
+	variant = rand(1,3)
+
+/*
 /obj/machinery/griddle/proc/on_expose_reagent(atom/parent_atom, datum/reagent/exposing_reagent, reac_volume)
 	SIGNAL_HANDLER
 
@@ -44,10 +58,7 @@
 			break
 	visible_message("<span class='notice'>[exposing_reagent] begins to cook on [src].</span>")
 	return NONE
-
-/obj/machinery/griddle/Destroy()
-	QDEL_NULL(grill_loop)
-	return ..()
+*/
 
 /obj/machinery/griddle/crowbar_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -57,17 +68,17 @@
 	if(griddled_objects.len >= max_items)
 		to_chat(user, "<span class='notice'>[src] can't fit more items!</span>")
 		return
-	var/list/click_params = params2list(params)
+	var/list/modifiers = params2list(params)
 	//Center the icon where the user clicked.
-	if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 		return
 	if(user.transferItemToLoc(I, src, silent = FALSE))
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-		I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-		I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+		I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)
+		I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
 		to_chat(user, "<span class='notice'>You place [I] on [src].</span>")
 		AddToGrill(I, user)
-		update_icon()
+		update_appearance()
 	else
 		return ..()
 
@@ -78,7 +89,7 @@
 		begin_processing()
 	else
 		end_processing()
-	update_icon()
+	update_appearance()
 	update_grill_audio()
 
 
@@ -92,6 +103,7 @@
 	update_grill_audio()
 
 /obj/machinery/griddle/proc/ItemRemovedFromGrill(obj/item/I)
+	SIGNAL_HANDLER
 	I.flags_1 &= ~IS_ONTOP_1
 	griddled_objects -= I
 	vis_contents -= I
@@ -112,6 +124,11 @@
 	else
 		grill_loop.stop()
 
+/obj/machinery/griddle/wrench_act(mob/living/user, obj/item/I)
+	..()
+	default_unfasten_wrench(user, I, 2 SECONDS)
+	return TRUE
+
 ///Override to prevent storage dumping onto the griddle until I figure out how to navigate the mess that is storage code to allow me to nicely move the dumped objects onto the griddle.
 /obj/machinery/griddle/get_dumping_location(obj/item/storage/source, mob/user)
 	return
@@ -127,5 +144,5 @@
 			visible_message("<span class='danger'>[griddled_item] doesn't seem to be doing too great on the [src]!</span>")
 
 /obj/machinery/griddle/update_icon_state()
-	. = ..()
 	icon_state = "griddle[variant]_[on ? "on" : "off"]"
+	return ..()

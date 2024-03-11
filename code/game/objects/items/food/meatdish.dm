@@ -166,6 +166,7 @@
 /obj/item/food/raw_meatball
 	name = "raw meatball"
 	desc = "A great meal all round. Not a cord of wood. Kinda raw"
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "raw_meatball"
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
 	tastes = list("meat" = 1)
@@ -179,6 +180,7 @@
 
 /obj/item/food/raw_meatball/make_processable()
 	AddElement(/datum/element/processable, TOOL_ROLLINGPIN, patty_type, 1, 20)
+
 /obj/item/food/raw_meatball/human
 	name = "strange raw meatball"
 	meatball_type = /obj/item/food/meatball/human
@@ -242,6 +244,7 @@
 /obj/item/food/raw_patty
 	name = "raw patty"
 	desc = "I'm.....NOT REAAADDYY."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "raw_patty"
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
 	tastes = list("meat" = 1)
@@ -278,6 +281,7 @@
 /obj/item/food/patty
 	name = "patty"
 	desc = "The nanotrasen patty is the patty for you and me!"
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "patty"
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
 	tastes = list("meat" = 1)

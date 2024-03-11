@@ -41,7 +41,7 @@
 	foodtypes = GRAIN | DAIRY
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/food/cheese_sandwich/MakeGrillable()
+/obj/item/food/cheese_sandwich/make_grillable()
 	AddComponent(/datum/component/grillable, /obj/item/food/grilled_cheese_sandwich, rand(30 SECONDS, 60 SECONDS), TRUE)
 
 /obj/item/food/jellysandwich
