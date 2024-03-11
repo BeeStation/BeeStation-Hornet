@@ -38,6 +38,8 @@
 #define COMSIG_ITEM_GRILLED "item_grill_completed"
 
 #define COMSIG_GRILL_COMPLETED "grill_completed"
+///Called when an object is meant to be grilled through a grill: (atom/fry_object, grill_time)
+#define COMSIG_GRILL_FOOD "item_grill_food"
 
 ///From /datum/component/edible/on_compost(source, /mob/living/user)
 #define COMSIG_EDIBLE_ON_COMPOST "on_compost"
