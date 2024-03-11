@@ -13,45 +13,6 @@
 	///Used as a base name while generating the icon states when stacked
 	var/stack_name = "pancakes"
 
-/obj/item/food/pancakes/raw
-	name = "goopy pancake"
-	desc = "A barely cooked mess that some may mistake for a pancake. It longs for the griddle."
-	icon_state = "rawpancakes_1"
-	item_state = "rawpancakes"
-	food_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
-	tastes = list("milky batter" = 1)
-
-/obj/item/food/pancakes/raw/make_grillable()
-	AddComponent(/datum/component/grillable,\
-				cook_result = /obj/item/food/pancakes,\
-				required_cook_time = rand(30 SECONDS, 40 SECONDS),\
-				positive_result = TRUE,\
-				use_large_steam_sprite = TRUE)
-
-/obj/item/food/pancakes/raw/attackby(obj/item/garnish, mob/living/user, params)
-	var/newresult
-	if(istype(garnish, /obj/item/food/grown/berries))
-		newresult = /obj/item/food/pancakes/blueberry
-		name = "raw blueberry pancake"
-		icon_state = "rawbbpancakes_1"
-		item_state = "rawbbpancakes"
-	else if(istype(garnish, /obj/item/food/chocolatebar))
-		newresult = /obj/item/food/pancakes/chocolatechip
-		name = "raw chocolate chip pancake"
-		icon_state = "rawccpancakes_1"
-		item_state = "rawccpancakes"
-	else
-		return ..()
-	if(newresult)
-		qdel(garnish)
-		to_chat(user, "<span class='notice'>You add [garnish] to [src].</span>")
-		AddComponent(/datum/component/grillable, cook_result = newresult)
-
-/obj/item/food/pancakes/raw/examine(mob/user)
-	. = ..()
-	if(name == initial(name))
-		. += "<span class='notice'>You can modify the pancake by adding <b>blueberries</b> or <b>chocolate</b> before finishing the griddle."
-
 /obj/item/food/pancakes/blueberry
 	name = "blueberry pancake"
 	desc = "A fluffy and delicious blueberry pancake."
