@@ -17,7 +17,7 @@
 	swimming_component = /datum/component/swimming/felinid
 	inert_mutation = CATCLAWS
 
-	species_height = SPECIES_HEIGHTS(1, 2, 0)
+	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
 /datum/species/human/felinid/qualifies_for_rank(rank, list/features)
 	return TRUE

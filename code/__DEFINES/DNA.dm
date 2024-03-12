@@ -181,4 +181,4 @@
 #define G_PLURAL 3
 
 //Size / height stuff
-#define SPECIES_HEIGHTS(x, y, z) list("Normal" = x, "Short" = y, "Tall" = z)
+#define SPECIES_HEIGHTS(x, y, z) list("Short" = x, "Normal" = y, "Tall" = z)
