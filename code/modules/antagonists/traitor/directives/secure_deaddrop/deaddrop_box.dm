@@ -11,7 +11,7 @@
 /obj/item/storage/deaddrop_box/proc/unlock()
 	// You can now break it to your hearts desire
 	obj_flags &= ~INDESTRUCTIBLE
-	var/datum/component/storage = GetComponent(/datum/component/storage)
+	var/datum/component/storage/storage = GetComponent(/datum/component/storage)
 	storage.locked = FALSE
 
 /datum/component/storage/concrete/deaddrop

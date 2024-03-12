@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(directives)
 	if (!resumed)
 		// Find all uplinks
 		for (var/mob/antag in SSticker.mode.current_players[CURRENT_LIVING_ANTAGS])
-			var/datum/component/uplink/uplink = antag.find_syndicate_uplink()
+			var/datum/component/uplink/uplink = antag.mind.find_syndicate_uplink()
 			if (!uplink)
 				continue
 			current += uplink
