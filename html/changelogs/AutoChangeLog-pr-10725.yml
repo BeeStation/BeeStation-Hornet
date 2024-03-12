@@ -1,5 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - balance: Spacemans can now move when getting up from the ground without their
-      legs giving out.
