@@ -343,10 +343,13 @@
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/salami, 6, 3 SECONDS, table_required = TRUE,/*  screentip_verb = "Slice"*/)
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/american_sausage, 1, 3 SECONDS, table_required = TRUE)
 
-/obj/item/food/american_sausage
+/obj/item/food/sausage/american
 	name = "american sausage"
 	desc = "Snip."
 	icon_state = "american_sausage"
+
+/obj/item/food/sausage/american/make_processable() //or else it would make itself? Lmao
+	return
 
 /obj/item/food/salami
 	name = "salami"
