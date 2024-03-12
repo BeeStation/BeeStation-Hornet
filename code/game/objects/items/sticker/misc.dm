@@ -26,6 +26,12 @@
 	sticker_icon_state = "sad_sticker"
 	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_COMMON
 
+/obj/item/sticker/series_1/moth
+	icon_state = "moth"
+	sticker_icon_state = "moth_sticker"
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
+	drop_rate = STICKER_WEIGHT_UNCOMMON
+
 //TODO: Consider tweaking the rarity for these pride ones - Racc
 /obj/item/sticker/series_1/gay
 	icon_state = "gay"

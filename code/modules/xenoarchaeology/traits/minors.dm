@@ -919,7 +919,6 @@
 	step_towards(AM, target)
 
 //Inverse variant
-
 /datum/xenoartifact_trait/minor/magnetic/push
 	label_name = "Magnetic Δ"
 	label_desc = "Magnetic Δ: The artifact's design seems to incorporate magnetic elements. This will cause the artifact to repulse metalic objects when triggered."
