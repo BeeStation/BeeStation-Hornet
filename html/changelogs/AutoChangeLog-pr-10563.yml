@@ -1,5 +1,0 @@
-author: DrDuckedGoose
-delete-after: true
-changes:
-  - tweak: Make height code use displacement maps
-  - rscadd: Add variable heights to species
