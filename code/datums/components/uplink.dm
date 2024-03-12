@@ -68,6 +68,9 @@
 
 	previous_attempts = list()
 
+	// We need to start running this now
+	SSdirectives.can_fire = TRUE
+
 /datum/component/uplink/InheritComponent(datum/component/uplink/U)
 	lockable |= U.lockable
 	active |= U.active

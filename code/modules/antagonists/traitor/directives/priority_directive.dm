@@ -1,9 +1,19 @@
 /datum/priority_directive
 	var/name
 	var/desc
+	var/end_at
 
 /datum/priority_directive/New()
 	. = ..()
+
+/// Return the reward type and amount
+/datum/priority_directive/proc/generate(list/antag_datums, list/player_minds)
+
+/// Check if we have finished early. We always complete after a set time period.
+/datum/priority_directive/proc/is_completed()
+	return FALSE
+
+/datum/priority_directive/proc/finish()
 
 /// Activate the directive, requires a list of traitor datums and security minsd
 /datum/priority_directive/proc/activate(list/antag_datums, list/player_minds)
@@ -21,9 +31,14 @@
 		var/mob/living/mob = mind.current
 		if (!ishuman(mob) || !is_station_level(mob.z))
 			continue
-		if (allowed_roles && !(mind.assigned_role in allowed_roles) && !(mind.special_role in allowed_roles)))
+		if (allowed_roles && !(mind.assigned_role in allowed_roles) && !(mind.special_role in allowed_roles))
 			continue
-		if (disallowed_roles && (mind.assigned_role in disallowed_roles || mind.special_role in disallowed_roles))
+		if (disallowed_roles && ((mind.assigned_role in disallowed_roles) || (mind.special_role in disallowed_roles)))
 			continue
 		targets += mind
 	return pick(targets)
+
+/datum/priority_directive/proc/get_independent_difficulty()
+
+/datum/priority_directive/proc/tc_curve(input)
+	return input
