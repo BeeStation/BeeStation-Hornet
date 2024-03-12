@@ -5,6 +5,14 @@
 		box which will automatically unlock after a set period of time."
 	var/obj/item/storage/deaddrop_box/target
 
+/datum/priority_directive/deaddrop/allocate_teams(list/antag_datums, list/player_minds)
+	if (length(antag_datums) <= 1)
+		reject()
+		return
+	for (var/datum/antagonist/antag in antag_datums)
+		// Create individual teams
+		add_antagonist_team(antag)
+
 /datum/priority_directive/deaddrop/generate(list/antag_datums, list/player_minds)
 	// Spawn the deaddrop package
 	target = new()

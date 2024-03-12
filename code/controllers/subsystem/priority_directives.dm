@@ -1,13 +1,15 @@
 SUBSYSTEM_DEF(directives)
 	name = "Priority Directives"
 	wait = 10 SECONDS
-	var/list/current = list()
 	var/datum/priority_directive/directive = null
 	var/next_directive_time
+	var/list/directives = list()
 
 /datum/controller/subsystem/directives/Initialize(start_timeofday)
 	. = ..()
 	next_directive_time = world.time + rand(20 MINUTES, 30 MINUTES)
+	for (var/directive_type in subtypesof(/datum/priority_directive))
+		directives += new directive_type()
 
 /datum/controller/subsystem/directives/fire(resumed)
 	if (directive)
@@ -18,16 +20,29 @@ SUBSYSTEM_DEF(directives)
 	// Check if we are ready to spawn our next directive
 	if (world.time < next_directive_time)
 		return
-	// Identify all the uplinks and spawn a directive
-	if (!resumed)
-		// Find all uplinks
-		for (var/mob/antag in SSticker.mode.current_players[CURRENT_LIVING_ANTAGS])
-			var/datum/component/uplink/uplink = antag.mind.find_syndicate_uplink()
-			if (!uplink)
-				continue
-			current += uplink
-		if (!length(current))
-			can_fire = FALSE
+	// Find all the antags
+	var/list/antag_datums = list()
+	for (var/mob/antag in GLOB.alive_mob_list)
+		var/datum/component/uplink/uplink = antag.mind.find_syndicate_uplink()
+		if (!uplink || length(antag.mind.antag_datums) == 0)
+			continue
+		antag_datums += antag.mind.antag_datums[1]
+	// Find all the minds
+	var/list/player_minds = list()
+	for (var/mob/player in GLOB.alive_mob_list)
+		if (!ishuman(player) || !is_station_level(player.z) || !player.mind)
+			continue
+		player_minds += player.mind
 	// Bring on the mission
-	directive = new /obj/item/storage/deaddrop_box()
-	directive.activate()
+	var/list/valid_directives = list()
+	for (var/datum/priority_directive/directive in directives)
+		if (!directive.check(antag_datums, player_minds))
+			continue
+		valid_directives += directive
+	if (!length(valid_directives))
+		// Try again in a minute
+		next_directive_time = world.time + 1 MINUTES
+		return
+	var/datum/priority_directive/selected = pick(valid_directives)
+	selected.generate(antag_datums, player_minds)
+	next_directive_time = INFINITY
