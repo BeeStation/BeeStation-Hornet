@@ -202,139 +202,139 @@
 
 /datum/map_template/holodeck/small/emptycourt
 	name = "Holodeck - Empty Court"
-	template_id = "emptycourt"
+	template_id = "emptycourt-small"
 	mappath = "_maps/holodeck/small/emptycourt.dmm"
 
 /datum/map_template/holodeck/small/dodgeball
 	name = "Holodeck - Dodgeball Court"
-	template_id = "dodgeball"
+	template_id = "dodgeball-small"
 	mappath = "_maps/holodeck/small/dodgeball.dmm"
 
 /datum/map_template/holodeck/small/basketball
 	name = "Holodeck - Basketball Court"
-	template_id = "basketball"
+	template_id = "basketball-small"
 	mappath = "_maps/holodeck/small/basketball.dmm"
 
 /datum/map_template/holodeck/small/thunderdome
 	name = "Holodeck - Thunderdome Arena"
-	template_id = "thunderdome"
+	template_id = "thunderdome-small"
 	mappath = "_maps/holodeck/small/thunderdome.dmm"
 
 /datum/map_template/holodeck/small/beach
 	name = "Holodeck - Beach"
-	template_id = "beach"
+	template_id = "beach-small"
 	mappath = "_maps/holodeck/small/beach.dmm"
 
 /datum/map_template/holodeck/small/lounge
 	name = "Holodeck - Lounge"
-	template_id = "lounge"
+	template_id = "lounge-small"
 	mappath = "_maps/holodeck/small/lounge.dmm"
 
 /datum/map_template/holodeck/small/petpark
 	name = "Holodeck - Pet Park"
-	template_id = "petpark"
+	template_id = "petpark-small"
 	mappath = "_maps/holodeck/small/petpark.dmm"
 
 /datum/map_template/holodeck/small/firingrange
 	name = "Holodeck - Firing Range"
-	template_id = "firingrange"
+	template_id = "firingrange-small"
 	mappath = "_maps/holodeck/small/firingrange.dmm"
 
 /datum/map_template/holodeck/small/anime_school
 	name = "Holodeck - Anime School"
-	template_id = "animeschool"
+	template_id = "animeschool-small"
 	mappath = "_maps/holodeck/small/animeschool.dmm"
 
 /datum/map_template/holodeck/small/chapelcourt
 	name = "Holodeck - Chapel Courtroom"
-	template_id = "chapelcourt"
+	template_id = "chapelcourt-small"
 	mappath = "_maps/holodeck/small/chapelcourt.dmm"
 
 /datum/map_template/holodeck/small/spacechess
 	name = "Holodeck - Space Chess"
-	template_id = "spacechess"
+	template_id = "spacechess-small"
 	mappath = "_maps/holodeck/small/spacechess.dmm"
 
 /datum/map_template/holodeck/small/spacecheckers
 	name = "Holodeck - Space Checkers"
-	template_id = "spacecheckers"
+	template_id = "spacecheckers-small"
 	mappath = "_maps/holodeck/small/spacecheckers.dmm"
 
 /datum/map_template/holodeck/small/kobayashi
 	name = "Holodeck - Kobayashi Maru"
-	template_id = "kobayashi"
+	template_id = "kobayashi-small"
 	mappath = "_maps/holodeck/small/kobayashi.dmm"
 
 /datum/map_template/holodeck/small/winterwonderland
 	name = "Holodeck - Winter Wonderland"
-	template_id = "winterwonderland"
+	template_id = "winterwonderland-small"
 	mappath = "_maps/holodeck/small/winterwonderland.dmm"
 
 /datum/map_template/holodeck/small/photobooth
 	name = "Holodeck - Photobooth"
-	template_id = "photobooth"
+	template_id = "photobooth-small"
 	mappath = "_maps/holodeck/small/photobooth.dmm"
 
 /datum/map_template/holodeck/small/skatepark
 	name = "Holodeck - Skatepark"
-	template_id = "skatepark"
+	template_id = "skatepark-small"
 	mappath = "_maps/holodeck/small/skatepark.dmm"
 
 /datum/map_template/holodeck/small/teahouse
 	name = "Holodeck - Japanese Tea House"
-	template_id = "teahouse"
+	template_id = "teahouse-small"
 	mappath = "_maps/holodeck/small/teahouse.dmm"
 
 /datum/map_template/holodeck/small/kitchen
 	name = "Holodeck - Kitchen"
-	template_id = "kitchen"
+	template_id = "kitchen-small"
 	mappath = "_maps/holodeck/small/kitchen.dmm"
 
 /datum/map_template/holodeck/small/meeting
 	name = "Holodeck - Meeting"
-	template_id = "meeting"
+	template_id = "meeting-small"
 	mappath = "_maps/holodeck/small/meeting.dmm"
 
 //bad evil no good programs
 
 /datum/map_template/holodeck/small/medicalsim
 	name = "Holodeck - Emergency Medical"
-	template_id = "medicalsim"
+	template_id = "medicalsim-small"
 	mappath = "_maps/holodeck/small/medicalsim.dmm"
 	restricted = TRUE
 
 /datum/map_template/holodeck/small/thunderdome1218
 	name = "Holodeck - 1218 AD"
-	template_id = "thunderdome1218"
+	template_id = "thunderdome1218-small"
 	mappath = "_maps/holodeck/small/thunderdome1218.dmm"
 	restricted = TRUE
 
 /datum/map_template/holodeck/small/burntest
 	name = "Holodeck - Atmospheric Burn Test"
-	template_id = "burntest"
+	template_id = "burntest-small"
 	mappath = "_maps/holodeck/small/burntest.dmm"
 	restricted = TRUE
 
 /datum/map_template/holodeck/small/wildlifesim
 	name = "Holodeck - Wildlife Simulation"
-	template_id = "wildlifesim"
+	template_id = "wildlifesim-small"
 	mappath = "_maps/holodeck/small/wildlifesim.dmm"
 	restricted = TRUE
 
 /datum/map_template/holodeck/small/holdoutbunker
 	name = "Holodeck - Holdout Bunker"
-	template_id = "holdoutbunker"
+	template_id = "holdoutbunker-small"
 	mappath = "_maps/holodeck/small/holdoutbunker.dmm"
 	restricted = TRUE
 
 /datum/map_template/holodeck/small/anthophillia
 	name = "Holodeck - Anthophillia"
-	template_id = "anthophillia"
+	template_id = "anthophillia-small"
 	mappath = "_maps/holodeck/small/anthophillia.dmm"
 	restricted = TRUE
 
 /datum/map_template/holodeck/small/refuelingstation
 	name = "Holodeck - Refueling Station"
-	template_id = "refuelingstation"
+	template_id = "refuelingstation-small"
 	mappath = "_maps/holodeck/small/refuelingstation.dmm"
 	restricted = TRUE

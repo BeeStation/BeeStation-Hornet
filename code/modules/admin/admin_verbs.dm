@@ -77,7 +77,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/cmd_admin_send_pda_msg,
 	/client/proc/fax_panel, /*send a paper to fax*/
 	)
-GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
+GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel, /client/proc/old_ban_panel))
 GLOBAL_PROTECT(admin_verbs_ban)
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(/client/proc/play_local_sound, /client/proc/play_sound, /client/proc/set_round_end_sound, /client/proc/play_soundtrack))
 GLOBAL_PROTECT(admin_verbs_sounds)
@@ -449,6 +449,14 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		return
 	holder.ban_panel()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Banning Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/old_ban_panel()
+	set name = "Old Banning Panel"
+	set category = "Admin"
+	if(!check_rights(R_BAN))
+		return
+	holder.old_ban_panel()
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Old Banning Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/unban_panel()
 	set name = "Unbanning Panel"
