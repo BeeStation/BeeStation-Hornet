@@ -41,12 +41,6 @@
 	message_param = "bows to %t"
 	restraint_check = TRUE
 
-/datum/emote/living/burp
-	key = "burp"
-	key_third_person = "burps"
-	message = "burps"
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/choke
 	key = "choke"
 	key_third_person = "chokes"
@@ -478,6 +472,19 @@
 		qdel(N)
 		to_chat(user, "<span class='warning'>You don't have any free hands to make a circle with.</span>")
 
+/datum/emote/living/flipoff
+	key = "flipoff"
+	key_third_person = "flipoffs"
+	restraint_check = TRUE
+
+/datum/emote/living/flipoff/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	var/obj/item/middlefinger/N = new(user)
+	if(user.put_in_hands(N))
+		to_chat(user, "<span class='notice'>You close your fist and stick out your middle finger.</span>")
+	else
+		qdel(N)
+		to_chat(user, "<span class='warning'>You have stuff in your hand, you can't flip someone off..</span>")
 /datum/emote/living/slap
 	key = "slap"
 	key_third_person = "slaps"
