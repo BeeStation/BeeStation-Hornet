@@ -146,6 +146,7 @@
 		//Rewards
 		var/rnd_reward = max(0, (artifact.custom_price*X.artifact_type.rnd_rate)*success_rate)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
+		//TODO: Add monetary reward, cargo already reaps the benehfits of selling it - Racc
 		//Announce victory or fuck up
 		if(radio_solved_notice)
 			var/success_type
@@ -159,7 +160,6 @@
 				else
 					success_type = "scientific failure."
 			radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', at [station_time_timestamp()].\nAwarded [rnd_reward] Research Points!", RADIO_CHANNEL_SCIENCE)
-			//TODO: Add monetary reward, cargo already reaps the benehfits of selling it - Racc
 
 //Circuitboard for this console
 /obj/item/circuitboard/computer/xenoarchaeology_console

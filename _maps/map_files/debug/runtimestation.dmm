@@ -3361,6 +3361,11 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/medical/medbay)
+"SH" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/landmark/observer_start,
+/turf/open/floor/plasteel/dark,
+/area/science/explab)
 "SZ" = (
 /obj/effect/turf_decal/trimline/purple/filled/warning{
 	dir = 8
@@ -9995,7 +10000,7 @@ XQ
 sz
 mt
 rO
-LE
+SH
 Kb
 Cr
 EL

@@ -61,6 +61,8 @@
 	Scale, measures artifact weight
 */
 /obj/machinery/xenoarchaeology_machine/scale
+	name = "industrial scale"
+	desc = "A piece of industrial equipment, designed to weigh thousands of kilograms."
 	icon_state = "scale"
 
 /obj/machinery/xenoarchaeology_machine/scale/examine(mob/user)
@@ -98,6 +100,8 @@
 	Conductor, measures artifact conductivty
 */
 /obj/machinery/xenoarchaeology_machine/conductor
+	name = "conducting plate"
+	desc = "A piece of industrial equipment for measuring material conductivity."
 	icon_state = "conductor"
 
 /obj/machinery/xenoarchaeology_machine/conductor/examine(mob/user)
@@ -130,6 +134,8 @@
 	Calibrator, calibrates artifacts
 */
 /obj/machinery/xenoarchaeology_machine/calibrator
+	name = "anomalous material calibrator"
+	desc = "An experimental piece of scientific equipment, designed to calibrate anomalous materials."
 	icon_state = "calibrator"
 	move_inside = TRUE
 	///Which science server receives points
