@@ -391,7 +391,8 @@
 		return
 	if(ban_type == "Server")
 		roles_to_ban = list("Server")
-
+	if(duration_type == "Permanent")
+		duration = null
 	var/mob/user = usr
 	if(!istype(user) || !user.client || !user.client.holder)
 		return
