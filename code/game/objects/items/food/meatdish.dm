@@ -312,6 +312,7 @@
 /obj/item/food/raw_sausage
 	name = "raw sausage"
 	desc = "A piece of mixed, long meat, but then raw"
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "raw_sausage"
 	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 5, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("meat" = 1)
@@ -340,7 +341,7 @@
 
 /obj/item/food/sausage/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/salami, 6, 3 SECONDS, table_required = TRUE,/*  screentip_verb = "Slice"*/)
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/american_sausage, 1, 3 SECONDS)
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/american_sausage, 1, 3 SECONDS, table_required = TRUE)
 
 /obj/item/food/american_sausage
 	name = "american sausage"
