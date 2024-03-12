@@ -170,10 +170,13 @@
 		return FALSE
 	return !held_items[hand_index]
 
-/mob/proc/put_in_hand(obj/item/I, hand_index, forced = FALSE, ignore_anim = TRUE)
+/// * if animation_turf is null or FALSE, it won't do anything.
+/// * if animation_turf is given, pickup animation will be made on the turf.
+/// * if animation_turf is TRUE, pickup animation will be made on mob turf. (failsafe)
+/mob/proc/put_in_hand(obj/item/I, hand_index, forced = FALSE, turf/animation_turf = null)
 	if(forced || can_put_in_hand(I, hand_index))
-		if(isturf(I.loc) && !ignore_anim)
-			I.do_pickup_animation(src)
+		if(animation_turf)
+			I.do_pickup_animation(src, istype(animation_turf) ? animation_turf : null)
 		if(hand_index == null)
 			return FALSE
 		if(get_item_for_held_index(hand_index) != null)
@@ -208,9 +211,12 @@
 		return TRUE
 	return FALSE
 
-//Puts the item into our active hand if possible. returns TRUE on success.
-/mob/proc/put_in_active_hand(obj/item/I, forced = FALSE, ignore_animation = TRUE)
-	return put_in_hand(I, active_hand_index, forced, ignore_animation)
+/// Puts the item into our active hand if possible. returns TRUE on success.
+/// * if animation_turf is null or FALSE, it won't do anything.
+/// * if animation_turf is given, pickup animation will be made on the turf.
+/// * if animation_turf is TRUE, pickup animation will be made on mob turf. (failsafe)
+/mob/proc/put_in_active_hand(obj/item/I, forced = FALSE, turf/animation_turf = null)
+	return put_in_hand(I, active_hand_index, forced, animation_turf)
 
 
 //Puts the item into our inactive hand if possible, returns TRUE on success

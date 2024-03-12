@@ -140,7 +140,17 @@
 	if(new_location)
 		//Reset the items values
 		_removal_reset(AM)
-		AM.forceMove(new_location)
+		if(!ismob(new_location))
+			AM.forceMove(new_location)
+		else // I hate this snowflake but "attempt_pickup()" calls forceMove() twice without this, sending item signal twice...
+			var/mob/taker = new_location
+			var/obj/item/target_item = AM
+			target_item.remove_outline()
+			target_item.add_fingerprint(taker)
+			// not silent && mob should stand on a turf && item is on a proper turf. 'get_turf(loc)' will be sent to the proc to show the animation
+			// if fails any of those, pickup animation will be skipped
+			if(!taker.put_in_active_hand(target_item, FALSE, !silent && isturf(new_location.loc) && get_turf(target_item.loc)))
+				taker.dropItemToGround(target_item) // does the same behaviour from attempt_pickup()
 		//We don't want to call this if the item is being destroyed
 		AM.on_exit_storage(src)
 	else
