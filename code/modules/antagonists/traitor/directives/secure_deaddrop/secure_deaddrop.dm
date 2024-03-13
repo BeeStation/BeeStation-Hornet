@@ -5,29 +5,31 @@
 		box which will automatically unlock after a set period of time."
 	var/obj/item/storage/deaddrop_box/target
 
-/datum/priority_directive/deaddrop/allocate_teams(list/antag_datums, list/player_minds)
+/datum/priority_directive/deaddrop/allocate_teams(list/uplinks, list/player_minds)
 	if (length(antag_datums) <= 1)
 		reject()
 		return
-	for (var/datum/antagonist/antag in antag_datums)
+	for (var/datum/component/uplink/antag in antag_datums)
 		// Create individual teams
 		add_antagonist_team(antag)
 
-/datum/priority_directive/deaddrop/generate(list/antag_datums, list/player_minds)
+/datum/priority_directive/deaddrop/generate(list/uplinks, list/player_minds)
 	// Spawn the deaddrop package
 	target = new()
 	var/tc_count = tc_curve(get_independent_difficulty())
 	new /obj/item/stack/sheet/telecrystal(target, tc_count)
 	// Put the deaddrop somewhere
-	var/list/antag_minds = list()
-	for (var/datum/antagonist/antag in antag_datums)
-		antag_minds += antag.owner
-	new /datum/component/stash(antag_minds, target)
+	var/turf/selected = get_random_station_turf()
+	while (!istype(selected, /turf/open/floor/plasteel))
+		selected = get_random_station_turf()
+	var/secret_bag = new /obj/item/storage/backpack/satchel/flat(selected)
+	SEND_SIGNAL(secret_bag, COMSIG_OBJ_HIDE, selected.underfloor_accessibility < UNDERFLOOR_VISIBLE)
+	new /obj/item/storage/deaddrop_box(secret_bag)
 	// Return the reward generated
 	return list(
 		/obj/item/stack/sheet/telecrystal = tc_count,
 	)
 
-/datum/priority_directive/deaddrop/finish(list/antag_datums, list/player_minds)
+/datum/priority_directive/deaddrop/finish(list/uplinks, list/player_minds)
 	. = ..()
 	target.unlock()

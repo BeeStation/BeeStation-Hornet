@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(directives)
 	name = "Priority Directives"
 	wait = 10 SECONDS
-	var/datum/priority_directive/directive = null
+	var/datum/priority_directive/active_directive = null
 	var/next_directive_time
 	var/list/directives = list()
 
@@ -12,12 +12,12 @@ SUBSYSTEM_DEF(directives)
 		directives += new directive_type()
 
 /datum/controller/subsystem/directives/fire(resumed)
-	if (directive)
+	if (active_directive)
 		// Are we completed or ended?
-		if (directive.is_completed() || world.time > directive.end_at)
-			directive.finish()
+		if (active_directive.is_completed() || world.time > active_directive.end_at)
+			active_directive.finish()
 		return
-	// Check if we are ready to spawn our next directive
+	// Check if we are ready to spawn our next active_directive
 	if (world.time < next_directive_time)
 		return
 	// Find all the antags
@@ -46,3 +46,8 @@ SUBSYSTEM_DEF(directives)
 	var/datum/priority_directive/selected = pick(valid_directives)
 	selected.generate(antag_datums, player_minds)
 	next_directive_time = INFINITY
+	active_directive = selected
+
+/datum/controller/subsystem/directives/proc/get_uplink_data(datum/component/uplink/uplink)
+	var/data = list()
+	return data

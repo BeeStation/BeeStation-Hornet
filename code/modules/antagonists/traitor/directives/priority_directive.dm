@@ -11,10 +11,10 @@
 /datum/priority_directive/proc/check()
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-/datum/priority_directive/proc/allocate_teams(list/antag_datums, list/player_minds)
+/datum/priority_directive/proc/allocate_teams(list/uplinks, list/player_minds)
 
 /// Return the reward type and amount
-/datum/priority_directive/proc/generate(list/antag_datums, list/player_minds)
+/datum/priority_directive/proc/generate(list/uplinks, list/player_minds)
 
 /// Check if we have finished early. We always complete after a set time period.
 /datum/priority_directive/proc/is_completed()
@@ -23,14 +23,14 @@
 /datum/priority_directive/proc/finish()
 
 /// Activate the directive, requires a list of traitor datums and security minsd
-/datum/priority_directive/proc/activate(list/antag_datums, list/player_minds)
+/datum/priority_directive/proc/activate(list/uplinks, list/player_minds)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 /// Advertise this directive to security objectives consoles
 /datum/priority_directive/proc/advertise_security()
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-/datum/priority_directive/proc/add_antagonist_team(list/antag_datums)
+/datum/priority_directive/proc/add_antagonist_team(list/uplinks)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 /// Reject this directive, prevent it from firing
