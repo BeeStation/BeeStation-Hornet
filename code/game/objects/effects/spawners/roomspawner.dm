@@ -96,7 +96,7 @@
 		"sk_rdm157_chess",
 		"sk_rdm159_kilosnakepit",
 		"sk_rdm167_library_ritual",
-		"sk_rdm170_spacewindowroom")
+		"sk_rdm176_spacewindowroom")
 /obj/effect/spawner/room/fivexfour
 	name = "5x4 room spawner"
 	room_width = 5
