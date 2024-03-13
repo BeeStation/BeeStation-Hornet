@@ -1,0 +1,59 @@
+
+@use '../base.scss';
+
+.directives {
+  height: calc(100% - 50px);
+}
+
+.objective_card {
+  position: relative;
+  width: 180px;
+  height: 100px;
+  background: linear-gradient(0deg, #bd404060 0%, #64282860 30%, #00000060 100%);
+  margin: 0px 5px;
+  padding: 4px 4px;
+  border-radius: 4px;
+  transition: background 2s ease;
+  border: 1px solid #ffffff60;
+  overflow: hidden;
+
+  &.selected {
+    border: 2px solid white;
+    background: linear-gradient(0deg, #bd404060 0%, #00000060 100%);
+  }
+}
+
+.reward_overlay {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  box-shadow: 0 0 14px 8px #00000069;
+  background-color: #00000069;
+}
+
+.time_limit {
+  position: absolute;
+  top: 40%;
+  right: 0;
+  left: 0;
+  font-size: x-large;
+  font-family: monospace;
+  text-align: center;
+  vertical-align: middle;
+  color: #c6c6c6;
+}
+
+.directive_container {
+  margin-top: 7px;
+  position: relative;
+  height: 100%;
+}
+
+.directive_radar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  /** Aspect ratio container **/
+  padding-right: 50%;
+}

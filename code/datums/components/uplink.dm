@@ -234,6 +234,11 @@
 			compact_mode = !compact_mode
 			return TRUE
 
+/datum/component/uplink/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/radar_assets),
+	)
+
 /datum/component/uplink/proc/MakePurchase(mob/user, datum/uplink_item/U)
 	if(!istype(U))
 		return

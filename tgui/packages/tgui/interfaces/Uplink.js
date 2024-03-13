@@ -1,8 +1,12 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox } from '../components';
+import { Stack, Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Grid, Divider } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
+import '../styles/components/Uplink.scss';
+import { NtosRadarSyndicate } from './NtosRadarSyndicate';
+import { NtosRadarContent, NtosRadarContentSmall, NtosRadarMap } from './NtosRadar';
+import { TurbineComputer } from './TurbineComputer';
 
 const MAX_SEARCH_RESULTS = 25;
 
@@ -31,9 +35,93 @@ export const Uplink = (props, context) => {
             Priority Directives
           </Tabs.Tab>
         </Tabs>
-        {tab === 0 ? <GenericUplink currencyAmount={telecrystals} currencySymbol="TC" /> : 0}
+        {tab === 0 ? <GenericUplink currencyAmount={telecrystals} currencySymbol="TC" /> : (tab === 1 && <Directives />)}
       </Window.Content>
     </Window>
+  );
+};
+
+const Directives = (props, context) => {
+  const [selected, setSelected] = useLocalState(context, "sel_obj", 0);
+  return (
+    <Flex direction="column" className="directives">
+      <Flex.Item>
+        <Section title="Directives Database">
+          <Flex style={{
+            overflowY: "scroll",
+          }}>
+            <ObjectiveCard selected={selected === 0}
+              onClick={() => {
+                setSelected(0);
+              }} />
+            <ObjectiveCard selected={selected === 1}
+              onClick={() => {
+                setSelected(1);
+              }} />
+            <ObjectiveCard selected={selected === 2}
+              onClick={() => {
+                setSelected(2);
+              }} />
+            <ObjectiveCard selected={selected === 3} objective_info={{
+              name: "Secure Deposit",
+              reward: 7,
+              time_left: 349,
+            }}
+            onClick={() => {
+              setSelected(3);
+            }} />
+          </Flex>
+        </Section>
+      </Flex.Item>
+      <Flex.Item grow={1}>
+        <div className="directive_container">
+          <div className="directive_radar">
+            <NtosRadarMap sig_err="Error..." selected={1} target={{
+              dist: 53,
+              gpsx: 30,
+              gpsy: 60,
+              gpsz: 6,
+              use_rotate: true,
+              rotate_angle: 23,
+              arrowstyle: "ntosradarpointer.png",
+            }} />
+          </div>
+        </div>
+      </Flex.Item>
+    </Flex>
+  );
+};
+
+const ObjectiveCard = (props, context) => {
+  const {
+    objective_info = {
+      name: "Assassination",
+      reward: 0,
+      time_left: null,
+    },
+    selected = 0,
+    onClick,
+  } = props;
+  const {
+    name,
+    reward,
+    time_left,
+  } = objective_info;
+  return (
+    <Flex.Item
+      className={"objective_card " + (selected && "selected")}
+      onClick={onClick}>
+      <Stack vertical>
+        <Stack.Item bold>{name}</Stack.Item>
+        <Stack.Divider />
+      </Stack>
+      <Box className="reward_overlay" align="flex-end" color={reward === 0 ? "orange" : "good"}>
+        {reward === 0 ? "Assignment" : (reward + " TC Reward")}
+      </Box>
+      <Box className="time_limit">
+        {time_left === null ? "--:--" : ("00:" + String(Math.floor(time_left / 60)).padStart(2, '0') + ":" + String(time_left % 60).padStart(2, '0'))}
+      </Box>
+    </Flex.Item>
   );
 };
 
