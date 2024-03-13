@@ -4837,7 +4837,7 @@
 "bDT" = (
 /obj/effect/spawner/room/fivexfour,
 /turf/open/floor/plating,
-/area/science/nanite)
+/area/maintenance/port/central)
 "bEc" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "MiniSat Maintenance";
@@ -13728,6 +13728,9 @@
 "eqb" = (
 /turf/closed/wall,
 /area/library)
+"eqi" = (
+/turf/closed/wall/r_wall,
+/area/maintenance/port/central)
 "eqr" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
@@ -36247,8 +36250,21 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig/dock)
 "lqi" = (
-/turf/closed/wall/r_wall,
-/area/science/nanite)
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/science/research)
 "lqk" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -44084,14 +44100,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/engine,
 /area/security/nuke_storage)
-"nHQ" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	id_tag = "commissarydoor";
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/science/nanite)
 "nIi" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -50145,22 +50153,6 @@
 /obj/machinery/air_sensor/atmos/mix_tank,
 /turf/open/floor/engine/airless,
 /area/engine/atmos)
-"pGt" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/science/research)
 "pGu" = (
 /obj/structure/railing{
 	dir = 4
@@ -60149,9 +60141,6 @@
 /obj/machinery/photocopier,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
-"sSc" = (
-/turf/closed/wall,
-/area/science/nanite)
 "sSl" = (
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/white/half/contrasted{
@@ -65093,9 +65082,6 @@
 /obj/item/aicard,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
-"upN" = (
-/turf/open/floor/plating,
-/area/science/nanite)
 "uql" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plasteel/sepia,
@@ -106577,12 +106563,12 @@ fRc
 fRc
 eXl
 lLD
-sSc
-upN
-upN
-upN
-upN
-lqi
+eXl
+fRc
+fRc
+fRc
+fRc
+eqi
 dYv
 bHp
 tYV
@@ -106834,12 +106820,12 @@ aSr
 eXl
 cOA
 eXl
-sSc
-upN
-upN
-upN
-upN
-lqi
+eXl
+fRc
+fRc
+fRc
+fRc
+eqi
 eYO
 lMu
 aIj
@@ -107091,14 +107077,14 @@ prd
 cOA
 mbP
 xZa
-sSc
-upN
-upN
-upN
-upN
-lqi
+eXl
+fRc
+fRc
+fRc
+fRc
+eqi
 rrY
-pGt
+lqi
 okC
 iEd
 tQl
@@ -107348,12 +107334,12 @@ uLR
 pMZ
 mZq
 oFg
-nHQ
-upN
-upN
-upN
-upN
-lqi
+qRk
+fRc
+fRc
+fRc
+fRc
+eqi
 jWc
 rGV
 ycl
@@ -107605,12 +107591,12 @@ heQ
 eXl
 nJD
 jMT
-sSc
-upN
-upN
-upN
+eXl
+fRc
+fRc
+fRc
 bDT
-lqi
+eqi
 dYv
 lMu
 tPQ
