@@ -1,5 +1,6 @@
 
 @use '../base.scss';
+@use '../colors.scss';
 
 .directives {
   height: calc(100% - 50px);
@@ -55,5 +56,82 @@
   top: 0;
   height: 100%;
   /** Aspect ratio container **/
-  padding-right: 50%;
+  padding-right: calc(50%);
+}
+
+.directive_info {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: calc(50% + 10px);
+}
+
+.directive_section {
+  position: relative;
+  height: 100%;
+}
+
+.directive_prize {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #00000060;
+  display: flex;
+  flex-direction: row;
+  vertical-align: middle;
+  padding: 5px;
+  border-top: 2px solid colors.$primary;
+  border-bottom: 2px solid colors.$primary;
+  border-radius: 4px;
+}
+
+.directive_prize_info {
+  display: flex;
+  flex-direction: row;
+  min-width: 30%;
+  vertical-align: middle;
+  height: 40px;
+  text-align: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.bell_ring {
+  transform-origin: top;
+  animation: ring 1.5s infinite;
+}
+
+@keyframes ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(23deg);
+  }
+  20% {
+    transform: rotate(-18deg);
+  }
+  30% {
+    transform: rotate(15deg);
+  }
+  40% {
+    transform: rotate(-12deg);
+  }
+  50% {
+    transform: rotate(12deg);
+  }
+  60% {
+    transform: rotate(-10deg);
+  }
+  70% {
+    transform: rotate(10deg);
+  }
+  80% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }

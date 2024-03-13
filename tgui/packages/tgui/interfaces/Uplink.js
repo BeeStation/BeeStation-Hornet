@@ -1,12 +1,10 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Stack, Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Grid, Divider } from '../components';
+import { Stack, Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Grid, Divider, Icon, Tooltip } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 import '../styles/components/Uplink.scss';
-import { NtosRadarSyndicate } from './NtosRadarSyndicate';
-import { NtosRadarContent, NtosRadarContentSmall, NtosRadarMap } from './NtosRadar';
-import { TurbineComputer } from './TurbineComputer';
+import { NtosRadarMap } from './NtosRadar';
 
 const MAX_SEARCH_RESULTS = 25;
 
@@ -32,7 +30,10 @@ export const Uplink = (props, context) => {
               onClick={() => {
                 setTab(1);
               }}>
-            Priority Directives
+              Priority Directives
+              <Tooltip content={'New directives are available.'}>
+                <Icon ml={1} name="bell" color="yellow" className='bell_ring' />
+              </Tooltip>
           </Tabs.Tab>
         </Tabs>
         {tab === 0 ? <GenericUplink currencyAmount={telecrystals} currencySymbol="TC" /> : (tab === 1 && <Directives />)}
@@ -76,7 +77,7 @@ const Directives = (props, context) => {
       <Flex.Item grow={1}>
         <div className="directive_container">
           <div className="directive_radar">
-            <NtosRadarMap sig_err="Error..." selected={1} target={{
+            <NtosRadarMap sig_err="Error..." selected={1} rightAlign target={{
               dist: 53,
               gpsx: 30,
               gpsy: 60,
@@ -85,6 +86,48 @@ const Directives = (props, context) => {
               rotate_angle: 23,
               arrowstyle: "ntosradarpointer.png",
             }} />
+          </div>
+          <div className="directive_info">
+            <div className="directive_section Section">
+              <div className="Section__title">
+                <span className="Section__titleText">Objective Details</span>
+              </div>
+              <div className="Section__rest">
+              <div className="Section__content">
+                <Box mb={1} underline bold>Tasks</Box>
+                <Icon inline name='square-o' mr={1} className='directive_check' />
+                <Box inline>Assassinate Burnard Silkwind, the roboticist.</Box>
+                <Box mt={3} mb={1} underline bold>Additional Details</Box>
+                <Box>
+                  This mission is part of your assignment and must be
+                  completed. No additional reward will be provided outside of the
+                  terms that have been defined within your contract of employment.
+                </Box>
+              </div>
+              </div>
+              <div className="directive_prize">
+                <div className="directive_prize_info">
+                  <Flex.Item>
+                    <Icon name='slash' />
+                  </Flex.Item>
+                  <Flex.Item grow>
+                    <Box bold>No Reward</Box>
+                  </Flex.Item>
+                </div>
+                <Flex.Item
+                  grow
+                  height="100%"
+                  align="flex-end"
+                  textAlign="right">
+                  <Button
+                    height="100%"
+                    fontSize={2}
+                    content="Collect Reward"
+                    disabled
+                    icon="hands-helping" />
+                </Flex.Item>
+              </div>
+            </div>
           </div>
         </div>
       </Flex.Item>

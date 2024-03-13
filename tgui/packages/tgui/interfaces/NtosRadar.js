@@ -188,9 +188,10 @@ export class NtosRadarMap extends Component {
 
   render()
   {
-    const { sig_err, selected, target } = this.props;
+    const { sig_err, selected, target, rightAlign } = this.props;
     const { width, height } = this.state;
     const scalingFactor = (width < height ? width : height) / 540;
+    const offset = width - (width < height ? width : height);
     return (
       <div
         style={{
@@ -207,7 +208,7 @@ export class NtosRadarMap extends Component {
           /* Render at a fixed width and height and then scale it */
           'width': '540px',
           'height': '540px',
-          'transform': 'scale(' + scalingFactor + ')',
+          'transform': (rightAlign && ('translate(' + offset + 'px, 0px) ')) + 'scale(' + scalingFactor + ')',
           'transform-origin': 'top left',
           'background-image': 'url("' + resolveAsset('ntosradarbackground.png') + '")',
           'background-position': 'center',
