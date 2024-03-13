@@ -86,8 +86,9 @@
 			return NORTH
 
 /// Converts an angle to a cardinal ss13 direction bitmask
-/proc/angle2dir_cardinal(angle)
-	switch(SIMPLIFY_DEGREES(round(angle, 0.1)))
+/proc/angle2dir_cardinal(degree)
+	degree = SIMPLIFY_DEGREES(degree)
+	switch(round(degree, 0.1))
 		if(315.5 to 360, 0 to 45.5)
 			return NORTH
 		if(45.6 to 135.5)
@@ -472,15 +473,6 @@ Takes a string and a datum. The string is well, obviously the string being check
 				for(var/A in value)
 					if(var_source.vars.Find(A))
 						. += A
-
-/// Converts a hex code to a number
-/proc/color_hex2num(A)
-	if(!A || length(A) != length_char(A))
-		return 0
-	var/R = hex2num(copytext(A, 2, 4))
-	var/G = hex2num(copytext(A, 4, 6))
-	var/B = hex2num(copytext(A, 6, 8))
-	return R+G+B
 
 //word of warning: using a matrix like this as a color value will simplify it back to a string after being set
 /proc/color_hex2color_matrix(string)

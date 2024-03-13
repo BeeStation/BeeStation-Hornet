@@ -77,7 +77,7 @@
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
 	if(I.use_tool(src, user, 1 SECONDS, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
-		setAnchored(!anchored)
+		set_anchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
 
@@ -130,6 +130,16 @@
 		return TRUE
 
 /obj/structure/railing/proc/after_rotation(mob/user,rotation_type)
-	air_update_turf(1)
 	ini_dir = dir
 	add_fingerprint(user)
+
+/obj/structure/railing/sec
+	name = "checkpoint railing"
+	desc = "A security wall used in checkpoints. It is just small enough that you can climb over..."
+	icon_state = "railing_sec"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/railing/sec/corner
+	icon_state = "sec_railing_corner"
+	density = FALSE
+	climbable = FALSE

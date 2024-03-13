@@ -1,12 +1,9 @@
 /obj/machinery/computer/bank_machine
 	name = "bank machine"
 	desc = "A machine used to deposit and withdraw station funds."
-	icon = 'goon/icons/obj/goon_terminals.dmi'
+	icon_screen = "vault"
+	icon_keyboard = "ratvar_key1"
 	idle_power_usage = 100
-	base_icon_state = null // remove these 4 when we start using our own icon.
-	smoothing_flags = NONE
-	smoothing_groups = null
-	canSmoothWith = null
 	var/siphoning = FALSE
 	var/next_warning = 0
 	var/obj/item/radio/radio

@@ -2,6 +2,7 @@
 /turf/baseturf_skipover
 	name = "Baseturf skipover placeholder"
 	desc = "This shouldn't exist"
+	can_underlay = FALSE
 
 /turf/baseturf_skipover/Initialize(mapload)
 	. = ..()
@@ -16,3 +17,4 @@
 	name = "Z-level baseturf placeholder"
 	desc = "Marker for z-level baseturf, usually resolves to space."
 	baseturfs = /turf/baseturf_bottom
+	can_underlay = FALSE

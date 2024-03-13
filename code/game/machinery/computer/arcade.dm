@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 	//these muthafuckas arent supposed to smooth
 	base_icon_state = null
-	smoothing_flags = null
+	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
 
@@ -88,14 +88,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	return
 
 /obj/machinery/computer/arcade/Initialize(mapload)
-	// If it's a generic arcade machine, pick a random arcade
-	// circuit board for it
-	if(!circuit)
-		var/list/gameodds = list(/obj/item/circuitboard/computer/arcade/battle = 49,
-							/obj/item/circuitboard/computer/arcade/orion_trail = 49,
-							/obj/item/circuitboard/computer/arcade/amputation = 2)
-		circuit = pick_weight(gameodds)
-
 	. = ..()
 
 	Reset()

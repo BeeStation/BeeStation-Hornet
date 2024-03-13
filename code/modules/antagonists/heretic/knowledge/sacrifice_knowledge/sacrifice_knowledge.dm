@@ -22,14 +22,11 @@
 	var/skip_this_ritual = FALSE
 	/// A weakref to the mind of our heretic.
 	var/datum/mind/heretic_mind
-	/// Lazylist of minds that we won't pick as targets.
-	var/list/datum/mind/target_blacklist
 	/// An assoc list of [ref] to [timers] - a list of all the timers of people in the shadow realm currently
 	var/return_timers
 
 /datum/heretic_knowledge/hunt_and_sacrifice/Destroy(force, ...)
 	heretic_mind = null
-	LAZYCLEARLIST(target_blacklist)
 	return ..()
 
 /datum/heretic_knowledge/hunt_and_sacrifice/on_research(mob/user, regained = FALSE)
@@ -67,7 +64,7 @@
 	// Let's remove any humans in our atoms list that aren't a sac target
 	for(var/mob/living/carbon/human/sacrifice in atoms)
 		// If the mob's not in soft crit or worse, or isn't one of the sacrifices, remove it from the list
-		if(sacrifice.stat < SOFT_CRIT || !(WEAKREF(sacrifice) in heretic_datum.sac_targets))
+		if(sacrifice.stat < SOFT_CRIT || !heretic_datum.can_sacrifice(sacrifice))
 			atoms -= sacrifice
 
 	// Finally, return TRUE if we have a target in the list
@@ -97,24 +94,10 @@
  * Returns FALSE if no targets are found, TRUE if the targets list was populated.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/obtain_targets(mob/living/user, silent = FALSE)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 
 	// First construct a list of minds that are valid objective targets.
-	var/list/datum/mind/valid_targets = list()
-	for(var/mob/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
-		if(player.mind)
-			var/datum/mind/possible_target = player.mind
-			if(possible_target == user.mind)
-				continue
-			if(possible_target in target_blacklist)
-				continue
-			if(!ishuman(player))
-				continue
-			if(player.stat == DEAD)
-				continue
-			valid_targets += possible_target
-		else
-			continue
-
+	var/list/datum/mind/valid_targets = heretic_datum.possible_sacrifice_targets()
 	if(!length(valid_targets))
 		if(!silent)
 			to_chat(user,"<span class='hierophant'>No sacrifice targets could be found!</span>")
@@ -129,14 +112,14 @@
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle_inplace(valid_targets))
-		if(head_mind.assigned_role in list("Captain", "Head of Personnel", "Chief Engineer", "Head of Security", "Research Director", "Chief Medical Officer"))
+		if(head_mind.assigned_role in GLOB.command_positions)
 			final_targets += head_mind
 			valid_targets -= head_mind
 			break
 
 	// Second target, any security
 	for(var/datum/mind/sec_mind as anything in shuffle_inplace(valid_targets))
-		if(sec_mind.assigned_role in list("Security Officer", "Warden", "Detective", "Head of Security", "Brig Physician", "Deputy"))
+		if(sec_mind.assigned_role in GLOB.security_positions)
 			final_targets += sec_mind
 			valid_targets -= sec_mind
 			break
@@ -154,11 +137,9 @@
 	// If any of our targets failed to aquire,
 	// Let's run a loop until we get four total, grabbing random targets.
 	var/target_sanity = 0
-	while(length(final_targets) < 4 && length(valid_targets) > 4 && target_sanity < 25)
+	while(length(final_targets) < HERETIC_MAX_SAC_TARGETS && length(valid_targets) > HERETIC_MAX_SAC_TARGETS && target_sanity < 25)
 		final_targets += pick_n_take(valid_targets)
 		target_sanity++
-
-	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 
 	if(!silent)
 		to_chat(user, "<span class='danger'>Your targets have been determined. Your Living Heart will allow you to track their position. Go forth, and sacrifice them!</span>")
@@ -184,21 +165,21 @@
 	var/mob/living/carbon/human/sacrifice = locate() in selected_atoms
 	if(!sacrifice)
 		CRASH("[type] sacrifice_process didn't have a human in the atoms list. How'd it make it so far?")
-	if(!(WEAKREF(sacrifice) in heretic_datum.sac_targets))
+	var/datum/mind/sacrifice_mind = get_mind(sacrifice, TRUE)
+	if(!heretic_datum.can_sacrifice(sacrifice_mind))
 		CRASH("[type] sacrifice_process managed to get a non-target human. This is incorrect.")
 
-	if(sacrifice.mind)
-		LAZYADD(target_blacklist, sacrifice.mind)
-	LAZYREMOVE(heretic_datum.sac_targets, WEAKREF(sacrifice))
+	LAZYADD(heretic_datum.target_blacklist, sacrifice_mind)
+	heretic_datum.remove_sacrifice_target(sacrifice_mind)
 
 	to_chat(user, "<span class='hypnophrase'>Your patron accepts your offer.</span>")
 
-	if(sacrifice.mind?.assigned_role in list("Captain", "Head of Personnel", "Chief Engineer", "Head of Security", "Research Director", "Chief Medical Officer"))
-		heretic_datum.knowledge_points++
+	if(sacrifice_mind.assigned_role in GLOB.command_positions)
+		heretic_datum.adjust_knowledge_points(1)
 		heretic_datum.high_value_sacrifices++
 
 	heretic_datum.total_sacrifices++
-	heretic_datum.knowledge_points += 2
+	heretic_datum.adjust_knowledge_points(2)
 
 	if(!begin_sacrifice(sacrifice))
 		disembowel_target(sacrifice)
@@ -243,6 +224,8 @@
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 100), SACRIFICE_SLEEP_DURATION * (2/3))
 
+	// Grab their ghost, just in case they're dead or something.
+	sac_target.grab_ghost()
 	// If our target is dead, try to revive them
 	// and if we fail to revive them, don't proceede the chain
 	if(!sac_target.heal_and_revive(50, "<span class='danger'>[sac_target]'s heart begins to beat with an unholy force as they return from death!</span>"))
@@ -274,13 +257,15 @@
 	if(QDELETED(sac_target))
 		return
 
+	// Grab ghost again, just to be safe.
+	sac_target.grab_ghost()
 	// The target disconnected or something, we shouldn't bother sending them along.
 	if(!sac_target.client || !sac_target.mind)
 		disembowel_target(sac_target)
 		return
 
 	// Send 'em to the destination. If the teleport fails, just disembowel them and stop the chain
-	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
+	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE, no_wake = TRUE))
 		disembowel_target(sac_target)
 		return
 
@@ -389,7 +374,7 @@
 		safe_turf = get_turf(backup_loc)
 		stack_trace("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to observer start turf.")
 
-	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
+	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE, forced = TRUE, no_wake = TRUE))
 		safe_turf = get_turf(backup_loc)
 		sac_target.forceMove(safe_turf)
 		stack_trace("[type] - return_target was unable to teleport [sac_target] to the observer start turf. Forcemoving.")
@@ -482,7 +467,6 @@
 	sac_target.spill_organs()
 	sac_target.apply_damage(250, BRUTE)
 	if(sac_target.stat != DEAD)
-		sac_target.investigate_log("has been killed by heretic sacrifice.", INVESTIGATE_DEATHS)
 		sac_target.death()
 	sac_target.visible_message(
 		"<span class='danger'>[sac_target]'s organs are pulled out of [sac_target.p_their()] chest by shadowy hands!</span>",

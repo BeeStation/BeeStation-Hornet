@@ -32,7 +32,7 @@
 		amount_per_transfer_from_this = initial(amount_per_transfer_from_this)
 	to_chat(user, "<span class='notice'>You will now apply the medspray's contents in [squirt_mode ? "short bursts":"extended sprays"]. You'll now use [amount_per_transfer_from_this] units per use.</span>")
 
-/obj/item/reagent_containers/medspray/attack(mob/living/carbon/M, mob/user, def_zone)
+/obj/item/reagent_containers/medspray/attack(mob/living/carbon/M, mob/user)
 	if(!iscarbon(M))
 		return
 
@@ -40,7 +40,19 @@
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
 
-	var/obj/item/bodypart/affecting = M.get_bodypart(check_zone(user.zone_selected))
+	var/datum/task/target_zone_task = user.select_bodyzone(M, FALSE, BODYZONE_STYLE_MEDICAL)
+	target_zone_task.continue_with(CALLBACK(src, PROC_REF(do_spray), M, user))
+
+/obj/item/reagent_containers/medspray/proc/do_spray(mob/living/carbon/M, mob/user, def_zone)
+	if (!def_zone)
+		return
+	if (!user.can_interact_with(M, TRUE))
+		balloon_alert(user, "[M] is too far away!")
+		return
+	if (!user.can_interact_with(src, TRUE))
+		balloon_alert(user, "[src] is too far away!")
+		return
+	var/obj/item/bodypart/affecting = M.get_bodypart(check_zone(def_zone))
 	if(!affecting)
 		balloon_alert(user, "The limb is missing.")
 		return

@@ -295,7 +295,7 @@
 	if(poly_msg)
 		to_chat(new_mob, poly_msg)
 
-	M.transfer_observers_to(new_mob)
+	M.transfer_observers_to(new_mob, TRUE)
 
 	qdel(M)
 	return new_mob
@@ -432,6 +432,8 @@
 	material_drop_amount = 0
 	var/magic_icon = "cursed"
 	var/weakened_icon = "decursed"
+	icon_door = "cursed"
+	var/weakened_icon_door = "decursed"
 
 /obj/structure/closet/decay/Initialize(mapload)
 	. = ..()
@@ -463,6 +465,7 @@
 
 /obj/structure/closet/decay/proc/unmagify()
 	icon_state = weakened_icon
+	icon_door = weakened_icon_door
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
@@ -594,7 +597,7 @@
 		if(A)
 			poll_message = "[poll_message] Status:[A.name]."
 			ban_key = A.banning_key
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
+	var/list/mob/dead/observer/candidates = poll_candidates_for_mob(poll_message, ban_key, null, 10 SECONDS, M, ignore_category = FALSE)
 	if(M.stat == DEAD)//boo.
 		return
 	if(LAZYLEN(candidates))

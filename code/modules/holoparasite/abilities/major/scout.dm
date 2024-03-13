@@ -63,7 +63,7 @@
 	RegisterSignal(owner, COMSIG_MOB_CLICKON, PROC_REF(on_click))
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(owner, COMSIG_HOLOPARA_SETUP_HUD, PROC_REF(on_hud_setup))
-	RegisterSignal(owner, list(COMSIG_HOLOPARA_SET_HUD_HEALTH, COMSIG_HOLOPARA_SET_HUD_STATUS), PROC_REF(on_medhud))
+	RegisterSignals(owner, list(COMSIG_HOLOPARA_SET_HUD_HEALTH, COMSIG_HOLOPARA_SET_HUD_STATUS), PROC_REF(on_medhud))
 	RegisterSignal(owner, COMSIG_HOLOPARA_POST_MANIFEST, PROC_REF(on_post_manifest))
 	RegisterSignal(owner, COMSIG_HOLOPARA_RECALL, PROC_REF(on_recall))
 	RegisterSignal(owner, COMSIG_HOLOPARA_STAT, PROC_REF(on_stat))
@@ -139,7 +139,7 @@
 /datum/holoparasite_ability/major/scout/proc/on_post_manifest()
 	SIGNAL_HANDLER
 	if(scouting)
-		owner.anchored = TRUE
+		owner.set_anchored(TRUE)
 		owner.incorporeal_move = INCORPOREAL_MOVE_BASIC
 		owner.move_resist = INFINITY
 		owner.set_density(FALSE)
@@ -156,7 +156,7 @@
 /datum/holoparasite_ability/major/scout/proc/on_recall()
 	SIGNAL_HANDLER
 	owner.incorporeal_move = FALSE
-	owner.anchored = FALSE
+	owner.set_anchored(FALSE)
 	owner.move_resist = initial(owner.move_resist)
 	owner.set_density(initial(owner.density))
 	owner.attack_sound = owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND] || initial(owner.attack_sound)
@@ -214,7 +214,7 @@
 	var/scrambled_message = stars(message, star_factor)
 	// Bit of a nasty hardcoded hack, but eh, it works!
 	var/datum/antagonist/traitor/summoner_traitor = owner.summoner.has_antag_datum(/datum/antagonist/traitor)
-	if(summoner_traitor?.should_give_codewords)
+	if(summoner_traitor?.has_codewords)
 		scrambled_message = GLOB.syndicate_code_phrase_regex.Replace(scrambled_message, "<span class='blue'>$1</span>")
 		scrambled_message = GLOB.syndicate_code_response_regex.Replace(scrambled_message, "<span class='red'>$1</span>")
 	// Assemble the message prefix
@@ -351,7 +351,7 @@
 	owner.incorporeal_move = FALSE
 	stalking = target
 	to_chat(owner, "<span class='notice'>You begin to stalk <span class='name'>[target]</span>, following [target.p_their()] every move from behind your cloak.</span>")
-	RegisterSignal(target, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE), PROC_REF(on_stalked_moved))
+	RegisterSignals(target, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE), PROC_REF(on_stalked_moved))
 	RegisterSignal(target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_stalked_pre_qdel))
 	on_stalked_moved(target)
 	deadchat_broadcast("<span class='ghostalert'><span class='name'>[owner.real_name]</span> has begun to stalk <span class='name'>[target.real_name]</span>!</span>", follow_target = owner, turf_target = get_turf(owner))
@@ -372,7 +372,7 @@
 		to_chat(stalking, "<span class='holoparasite italics'>You feel relief as the strange feeling of being watched fades away...</span>")
 	var/out_and_about = scouting && owner.is_manifested()
 	owner.incorporeal_move = out_and_about ? INCORPOREAL_MOVE_BASIC : FALSE
-	owner.anchored = out_and_about
+	owner.set_anchored(out_and_about)
 	UnregisterSignal(stalking, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE, COMSIG_PARENT_PREQDELETED))
 	stalking = null
 	stalkee_was_notified = FALSE
@@ -465,7 +465,7 @@
 	icon_state = ability.scouting ? (HUD_CLOAK_ELIGIBLE ? cloak_icon : exit_icon) : initial(icon_state)
 	return ..()
 
-/atom/movable/screen/holoparasite/toggle_scout/Click()
+/atom/movable/screen/holoparasite/toggle_scout/use()
 	if(owner.is_manifested())
 		to_chat(owner, "<span class='warning'>You can only toggle scouting or cloaking while recalled!</span>")
 		return

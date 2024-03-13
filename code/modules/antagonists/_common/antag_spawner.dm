@@ -58,7 +58,7 @@
 			if(used)
 				to_chat(H, "You already used this contract!")
 				return
-			var/list/candidates = pollGhostCandidates("Do you want to play as a wizard's [href_list["school"]] apprentice?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, 15 SECONDS, ignore_category = POLL_IGNORE_WIZARD_HELPER)
+			var/list/candidates = poll_ghost_candidates("Do you want to play as a wizard's [href_list["school"]] apprentice?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, 15 SECONDS, ignore_category = POLL_IGNORE_WIZARD_HELPER)
 			if(LAZYLEN(candidates))
 				if(QDELETED(src))
 					return
@@ -120,7 +120,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/list/nuke_candidates = pollGhostCandidates("Do you want to play as a syndicate [borg_to_spawn ? "[lowertext(borg_to_spawn)] cyborg":"operative"]?", ROLE_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative, 15 SECONDS)
+	var/list/nuke_candidates = poll_ghost_candidates("Do you want to play as a syndicate [borg_to_spawn ? "[lowertext(borg_to_spawn)] cyborg":"operative"]?", ROLE_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative, 15 SECONDS)
 	if(LAZYLEN(nuke_candidates))
 		if(QDELETED(src) || !check_usability(user))
 			return
@@ -240,7 +240,7 @@
 		return
 	if(used)
 		return
-	var/list/candidates = pollGhostCandidates("Do you want to play as a [initial(demon_type.name)]?", ROLE_SLAUGHTER_DEMON, null, 10 SECONDS, ignore_category = FALSE)
+	var/list/candidates = poll_ghost_candidates("Do you want to play as a [initial(demon_type.name)]?", ROLE_SLAUGHTER_DEMON, null, 10 SECONDS, ignore_category = FALSE)
 	if(LAZYLEN(candidates))
 		if(used || QDELETED(src))
 			return
@@ -292,7 +292,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/list/candidates = pollGhostCandidates("Do you want to play as a gangster reinforcements?", ROLE_GANG, /datum/role_preference/antagonist/gangster, 15 SECONDS)
+	var/list/candidates = poll_ghost_candidates("Do you want to play as a gangster reinforcements?", ROLE_GANG, /datum/role_preference/antagonist/gangster, 15 SECONDS)
 	if(LAZYLEN(candidates))
 		if(QDELETED(src) || !check_usability(user))
 			return

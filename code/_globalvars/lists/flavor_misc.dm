@@ -56,6 +56,7 @@ GLOBAL_LIST_EMPTY(insect_type_list)
 GLOBAL_LIST_EMPTY(apid_antenna_list)
 GLOBAL_LIST_EMPTY(apid_stripes_list)
 GLOBAL_LIST_EMPTY(apid_headstripes_list)
+GLOBAL_LIST_EMPTY(psyphoza_cap_list)
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Cyan" = "00ffff",
@@ -372,4 +373,32 @@ GLOBAL_LIST_INIT(pAI_faces_icons, list(
 	"Sad" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-sad"),
 	"Sunglasses" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-sunglasses"),
 	"What" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-what"),
+))
+
+GLOBAL_LIST_INIT(smoker_cigarettes, list(
+	/obj/item/storage/fancy/cigarettes,
+	/obj/item/storage/fancy/cigarettes/cigpack_midori,
+	/obj/item/storage/fancy/cigarettes/cigpack_uplift,
+	/obj/item/storage/fancy/cigarettes/cigpack_robust,
+	/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+	/obj/item/storage/fancy/cigarettes/cigpack_carp
+))
+
+GLOBAL_LIST_INIT(alcoholic_bottles, list(
+	/obj/item/reagent_containers/food/drinks/bottle/ale,
+	/obj/item/reagent_containers/food/drinks/bottle/beer,
+	/obj/item/reagent_containers/food/drinks/bottle/gin,
+	/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+	/obj/item/reagent_containers/food/drinks/bottle/vodka,
+	/obj/item/reagent_containers/food/drinks/bottle/rum,
+	/obj/item/reagent_containers/food/drinks/bottle/applejack
+))
+
+GLOBAL_LIST_INIT(junkie_drugs, list(
+	/datum/reagent/drug/crank,
+	/datum/reagent/drug/krokodil,
+	/datum/reagent/medicine/morphine,
+	/datum/reagent/drug/happiness,
+	/datum/reagent/drug/methamphetamine,
+	/datum/reagent/drug/ketamine
 ))

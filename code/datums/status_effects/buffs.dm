@@ -370,12 +370,12 @@
 	return TRUE
 
 //Changeling invisibility
-/datum/status_effect/changeling/camoflague
+/datum/status_effect/changeling/camouflage
 	id = "changelingcamo"
-	alert_type = /atom/movable/screen/alert/status_effect/changeling_camoflague
+	alert_type = /atom/movable/screen/alert/status_effect/changeling_camouflage
 	tick_interval = 5
 
-/datum/status_effect/changeling/camoflague/tick()
+/datum/status_effect/changeling/camouflage/tick()
 	if(!..())
 		return
 	if(owner.on_fire)
@@ -383,7 +383,7 @@
 		return
 	owner.alpha = max(owner.alpha - 20, 0)
 
-/datum/status_effect/changeling/camoflague/on_apply()
+/datum/status_effect/changeling/camouflage/on_apply()
 	if(!..())
 		return FALSE
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(slight_increase))
@@ -392,18 +392,18 @@
 	RegisterSignal(owner, COMSIG_ATOM_BUMPED, PROC_REF(slight_increase))
 	return TRUE
 
-/datum/status_effect/changeling/camoflague/on_remove()
+/datum/status_effect/changeling/camouflage/on_remove()
 	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
 	owner.alpha = 255
 
-/datum/status_effect/changeling/camoflague/proc/slight_increase()
+/datum/status_effect/changeling/camouflage/proc/slight_increase()
 	owner.alpha = min(owner.alpha + 15, 255)
 
-/datum/status_effect/changeling/camoflague/proc/large_increase()
+/datum/status_effect/changeling/camouflage/proc/large_increase()
 	owner.alpha = min(owner.alpha + 50, 255)
 
-/atom/movable/screen/alert/status_effect/changeling_camoflague
-	name = "Camoflague"
+/atom/movable/screen/alert/status_effect/changeling_camouflage
+	name = "Camouflage"
 	desc = "We have adapted our skin to refract light around us."
 	icon_state = "changeling_camo"
 
@@ -567,7 +567,7 @@
 	owner.set_blindness(0)
 	owner.set_blurriness(0)
 	owner.restore_blood()
-	owner.bodytemperature = BODYTEMP_NORMAL
+	owner.bodytemperature = owner.get_body_temp_normal()
 	owner.restoreEars()
 	duration = rand(150, 450) * power
 	return TRUE

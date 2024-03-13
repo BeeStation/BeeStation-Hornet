@@ -8,7 +8,7 @@
 		return COMPONENT_INCOMPATIBLE
 	volume = volume_
 	e_range = e_range_
-	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED), PROC_REF(play_footstep))
+	RegisterSignals(parent, list(COMSIG_MOVABLE_MOVED), PROC_REF(play_footstep))
 
 /datum/component/footstep/proc/play_footstep()
 	SIGNAL_HANDLER
@@ -20,9 +20,10 @@
 	var/mob/living/LM = parent
 	var/v = volume
 	var/e = e_range
+
 	if(!T.footstep || LM.buckled || !CHECK_MULTIPLE_BITFIELDS(LM.mobility_flags, MOBILITY_STAND | MOBILITY_MOVE) || LM.throwing || LM.movement_type & (VENTCRAWLING | FLYING))
 		if (!(LM.mobility_flags & MOBILITY_STAND) && !LM.buckled && !(!T.footstep || LM.movement_type & (VENTCRAWLING | FLYING))) //play crawling sound if we're lying
-			playsound(T, 'sound/effects/footstep/crawl1.ogg', 15 * v)
+			playsound(LM, 'sound/effects/footstep/crawl1.ogg', 15 * v, falloff_distance = 1/*, vary = sound_vary*/)
 		return
 
 	if(iscarbon(LM))
@@ -46,7 +47,7 @@
 
 	//for barefooted non-clawed mobs like monkeys
 	if(isbarefoot(LM))
-		playsound(T, pick(GLOB.barefootstep[T.barefootstep][1]),
+		playsound(LM, pick(GLOB.barefootstep[T.barefootstep][1]),
 			GLOB.barefootstep[T.barefootstep][2] * v,
 			TRUE,
 			GLOB.barefootstep[T.barefootstep][3] + e)
@@ -58,7 +59,7 @@
 			v /= 2
 			e -= 5
 
-		playsound(T, pick(GLOB.clawfootstep[T.clawfootstep][1]),
+		playsound(LM, pick(GLOB.clawfootstep[T.clawfootstep][1]),
 				GLOB.clawfootstep[T.clawfootstep][2] * v,
 				TRUE,
 				GLOB.clawfootstep[T.clawfootstep][3] + e)
@@ -66,7 +67,7 @@
 
 	//for megafauna and other large and imtimidating mobs such as the bloodminer
 	if(isheavyfoot(LM))
-		playsound(T, pick(GLOB.heavyfootstep[T.heavyfootstep][1]),
+		playsound(LM, pick(GLOB.heavyfootstep[T.heavyfootstep][1]),
 				GLOB.heavyfootstep[T.heavyfootstep][2] * v,
 				TRUE,
 				GLOB.heavyfootstep[T.heavyfootstep][3] + e)
@@ -74,13 +75,13 @@
 
 	//for slimes
 	if(isslime(LM))
-		playsound(T, 'sound/effects/footstep/slime1.ogg', 15 * v)
+		playsound(LM, 'sound/effects/footstep/slime1.ogg', 15 * v)
 		return
 
 	//for (simple) humanoid mobs (clowns, russians, pirates, etc.)
 	if(isshoefoot(LM))
 		if(!ishuman(LM))
-			playsound(T, pick(GLOB.footstep[T.footstep][1]),
+			playsound(LM, pick(GLOB.footstep[T.footstep][1]),
 				GLOB.footstep[T.footstep][2] * v,
 				TRUE,
 				GLOB.footstep[T.footstep][3] + e)
@@ -90,7 +91,7 @@
 			var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
 
 			if(H.shoes || feetCover) //are we wearing shoes
-				playsound(T, pick(GLOB.footstep[T.footstep][1]),
+				playsound(LM, pick(GLOB.footstep[T.footstep][1]),
 					GLOB.footstep[T.footstep][2] * v,
 					TRUE,
 					GLOB.footstep[T.footstep][3] + e)
@@ -98,10 +99,10 @@
 			//Sound of wearing shoes always plays, special movement sound
 			// IE (server motors wont play bare footed.)
 			if(H.dna.species.special_step_sounds)
-				playsound(T, pick(H.dna.species.special_step_sounds), 50, TRUE)
+				playsound(LM, pick(H.dna.species.special_step_sounds), 50, TRUE)
 
 			else if((!H.shoes && !feetCover)) //are we NOT wearing shoes
-				playsound(T, pick(GLOB.barefootstep[T.barefootstep][1]),
+				playsound(LM, pick(GLOB.barefootstep[T.barefootstep][1]),
 					GLOB.barefootstep[T.barefootstep][2] * v,
 					TRUE,
 					GLOB.barefootstep[T.barefootstep][3] + e)

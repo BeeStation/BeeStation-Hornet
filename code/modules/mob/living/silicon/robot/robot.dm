@@ -641,7 +641,7 @@
 		else
 			add_overlay("ov-opencover -c")
 	if(hat)
-		var/mutable_appearance/head_overlay = hat.build_worn_icon(default_layer = 20, default_icon_file = 'icons/mob/clothing/head.dmi')
+		var/mutable_appearance/head_overlay = hat.build_worn_icon(src, default_layer = 20, default_icon_file = 'icons/mob/clothing/head.dmi')
 		head_overlay.pixel_y += hat_offset
 		add_overlay(head_overlay)
 	update_fire()
@@ -650,7 +650,7 @@
 	var/turf/groundzero = get_turf(src)
 	message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] detonated [key_name_admin(src, client)] at [ADMIN_VERBOSEJMP(groundzero)]!</span>")
 	log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(src)]!</span>")
-	log_combat(usr, src, "detonated cyborg")
+	log_combat(usr, src, "detonated cyborg", "cyborg_detonation")
 	if(connected_ai)
 		to_chat(connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [name]</span><br>")
 

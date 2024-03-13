@@ -33,7 +33,7 @@
 	name = "Principle of Hunger"
 	desc = "Opens up the Path of Flesh to you. \
 		Allows you to transmute a knife and a pool of blood into a Bloody Blade. \
-		You can only create three at a time."
+		You can only create three at a time. Destroys the blade furthest from you if you invoke this ritual at the limit."
 	gain_text = "Hundreds of us starved, but not me... I found strength in my greed."
 	next_knowledge = list(/datum/heretic_knowledge/limited_amount/flesh_grasp)
 	banned_knowledge = list(
@@ -50,6 +50,7 @@
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
 	limit = 3 // Bumped up so they can arm up their ghouls too.
+	destroy_if_over_limit = TRUE
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
 	route = HERETIC_PATH_FLESH
@@ -144,7 +145,7 @@
 	)
 	required_atoms = list(
 		/mob/living/carbon/human = 1,
-		/obj/item/reagent_containers/food/snacks/grown/flower = 1,
+		/obj/item/food/grown/flower = 1,
 	)
 	limit = 2
 	cost = 1
@@ -172,7 +173,7 @@
 
 	if(!soon_to_be_ghoul.mind || !soon_to_be_ghoul.client)
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
-		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, null, 7.5 SECONDS, soon_to_be_ghoul)
+		var/list/mob/dead/observer/candidates = poll_candidates_for_mob("Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, null, 7.5 SECONDS, soon_to_be_ghoul)
 		if(!LAZYLEN(candidates))
 			loc.balloon_alert(user, "Ritual failed, no ghosts")
 			return FALSE

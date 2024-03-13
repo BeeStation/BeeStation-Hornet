@@ -1,5 +1,6 @@
 /turf/open
 	plane = FLOOR_PLANE
+	can_hit = FALSE
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1.5\
 	)
@@ -13,6 +14,31 @@
 	var/barefootstep = null
 	var/clawfootstep = null
 	var/heavyfootstep = null
+
+	var/broken_icon = 'icons/turf/turf_damage.dmi'
+	var/broken = FALSE
+	var/burnt = FALSE
+
+	//Do we just swap the state to one of the damage states
+	var/use_broken_literal = FALSE
+	//Do we just swap the state to one of the damage states
+	var/use_burnt_literal = FALSE
+
+	//Refs to filters, for later removal
+	var/list/damage_overlays
+
+	///The variant tiles we can choose from (name = chance, name = chance, name = chance)
+	var/list/variants
+
+	///Is this floor no-slip?
+	var/traction = FALSE
+
+/turf/open/Initialize(mapload)
+	. = ..()
+	if(broken)
+		break_tile(TRUE)
+	if(burnt)
+		burn_tile(TRUE)
 
 /turf/open/ComponentInitialize()
 	. = ..()
@@ -54,13 +80,11 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = TRUE
+	resistance_flags = INDESTRUCTIBLE
 
 /turf/open/indestructible/Melt()
 	to_be_destroyed = FALSE
 	return src
-
-/turf/open/indestructible/singularity_act()
-	return
 
 /turf/open/indestructible/TerraformTurf(path, new_baseturf, flags, defer_change = FALSE, ignore_air = FALSE)
 	return
@@ -187,10 +211,12 @@
 	for(var/mob/living/simple_animal/slime/M in src)
 		M.apply_water()
 
-	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
-	for(var/obj/effect/O in src)
-		if(is_cleanable(O))
-			qdel(O)
+	wash(CLEAN_WASH)
+	for(var/am in src)
+		var/atom/movable/movable_content = am
+		if(ismopable(movable_content)) // Will have already been washed by the wash call above at this point.
+			continue
+		movable_content.wash(CLEAN_WASH)
 	return TRUE
 
 /turf/open/handle_slip(mob/living/carbon/slipper, knockdown_amount, obj/O, lube, paralyze_amount, force_drop)
@@ -239,6 +265,8 @@
 		return TRUE
 
 /turf/open/proc/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent)
+	if(traction)
+		return
 	AddComponent(/datum/component/wet_floor, wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 
 /turf/open/proc/MakeDry(wet_setting = TURF_WET_WATER, immediate = FALSE, amount = INFINITY)
@@ -257,3 +285,62 @@
 		air.set_moles(GAS_CO2, max(air.get_moles(GAS_CO2)-(pulse_strength/1000),0))
 		air.set_moles(GAS_O2, max(air.get_moles(GAS_O2)-(pulse_strength/2000),0))
 		air.adjust_moles(GAS_PLUOXIUM, pulse_strength/4000)
+
+/turf/open/proc/break_tile(force, allow_base)
+	LAZYINITLIST(damage_overlays)
+	var/list/options = list()
+	if(islist(baseturfs)) //Somehow
+		options = baseturfs.Copy() //This is weird
+	else
+		options += baseturfs
+	if(broken && !force || use_broken_literal || !length(options - GLOB.turf_underlay_blacklist) && !allow_base)
+		if(use_broken_literal)
+			icon_state = pick(broken_states())
+		return
+	var/damage_state
+	if(length(broken_states()))
+		damage_state = pick(broken_states())
+		//Damage mask
+		var/icon/mask = icon(broken_icon, "broken_[damage_state]")
+		add_filter("damage_mask", 1, alpha_mask_filter(icon = mask))
+		damage_overlays += "damage_mask"
+		//Build under-turf icon
+		var/turf/base = pick(options - (allow_base ? null : GLOB.turf_underlay_blacklist))
+		var/icon/under_turf = icon(initial(base.icon), initial(base.icon_state))
+		//Underlay turf icon
+		add_filter("turf_underlay", 2, layering_filter(icon = under_turf, flags = FILTER_UNDERLAY))
+		damage_overlays += "turf_underlay"
+	//Add some dirt 'n shit
+	if(length(broken_states()) && damage_state)
+		var/icon/dirt = icon(broken_icon, "dirt_[damage_state]")
+		add_filter("dirt_overlay", 3, layering_filter(icon = dirt, blend_mode = BLEND_MULTIPLY))
+		damage_overlays += "dirt_overlay"
+	broken = TRUE
+
+/turf/open/burn_tile(force)
+	LAZYINITLIST(damage_overlays)
+	if(burnt && !force || use_burnt_literal)
+		if(use_burnt_literal)
+			icon_state = pick(burnt_states())
+		return
+	if(length(burnt_states()))
+		var/burnt_state = pick(burnt_states())
+		//Add some burnt shit
+		var/icon/burnt_overlay = icon(broken_icon, "burnt_[burnt_state]")
+		add_filter("brunt_overlay", 4, layering_filter(icon = burnt_overlay))
+		damage_overlays += "brunt_overlay"
+	burnt = TRUE
+
+/turf/open/proc/broken_states()
+	return GLOB.default_turf_damage
+
+/turf/open/proc/burnt_states()
+	return GLOB.default_turf_burn
+
+/turf/open/proc/make_traction(add_visual = TRUE)
+	if(add_visual)
+		//Add overlay
+		var/mutable_appearance/MA = mutable_appearance('icons/turf/floors.dmi', "no_slip")
+		MA.blend_mode = BLEND_OVERLAY
+		add_overlay(MA)
+	traction = TRUE

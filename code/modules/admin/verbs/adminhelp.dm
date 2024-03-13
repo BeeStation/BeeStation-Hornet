@@ -133,7 +133,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /datum/help_ticket/admin/reply(whom, msg)
 	usr.client.cmd_ahelp_reply_instant(whom, msg)
 
-/datum/help_ticket/admin/Create(msg, is_bwoink)
+/datum/help_ticket/admin/Create(msg, sanitized = FALSE, is_bwoink)
 	if(!..())
 		return FALSE
 	if(is_bwoink)
@@ -141,7 +141,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		message_admins("<font color='blue'>Ticket [TicketHref("#[id]")] created</font>")
 		Claim()	//Auto claim bwoinks
 	else
-		MessageNoRecipient(msg)
+		MessageNoRecipient(msg, sanitized = sanitized)
 
 		//send it to tgs if nobody is on and tell us how many were on
 		var/admin_number_present = send2tgs_adminless_only(initiator_ckey, "Ticket #[id]: [msg]")

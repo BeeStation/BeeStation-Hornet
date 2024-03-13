@@ -8,7 +8,7 @@
 	desc = "The basic construction for Nanotrasen-Always-Watching-You cameras."
 	icon = 'icons/obj/machines/camera.dmi'
 	icon_state = "cameracase"
-	materials = list(/datum/material/iron=400, /datum/material/glass=250)
+	custom_materials = list(/datum/material/iron=400, /datum/material/glass=250)
 	result_path = /obj/structure/camera_assembly
 
 /obj/structure/camera_assembly
@@ -102,7 +102,7 @@
 			if(W.tool_behaviour == TOOL_WELDER)
 				if(weld(W, user))
 					to_chat(user, "<span class='notice'>You weld [src] securely into place.</span>")
-					setAnchored(TRUE)
+					set_anchored(TRUE)
 					state = STATE_WELDED
 				return
 
@@ -122,7 +122,7 @@
 				if(weld(W, user))
 					to_chat(user, "<span class='notice'>You unweld [src] from its place.</span>")
 					state = STATE_WRENCHED
-					setAnchored(TRUE)
+					set_anchored(TRUE)
 				return
 
 		if(STATE_WIRED)	// Upgrades!

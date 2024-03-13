@@ -2,8 +2,7 @@
 	dupe_mode = COMPONENT_DUPE_ALLOWED
 	var/list/datum/disease/diseases //make sure these are the static, non-processing versions!
 	var/expire_time
-	var/min_clean_strength = CLEAN_WEAK
-
+	var/required_clean_types = CLEAN_TYPE_DISEASE
 
 /datum/component/infective/Initialize(list/datum/disease/_diseases, expire_in)
 	if(islist(_diseases))
@@ -33,8 +32,7 @@
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK_ZONE, PROC_REF(try_infect_attack_zone))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_infect_attack))
 		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(try_infect_equipped))
-		if(istype(parent, /obj/item/reagent_containers/food/snacks))
-			RegisterSignal(parent, COMSIG_FOOD_EATEN, PROC_REF(try_infect_eat))
+		RegisterSignal(parent, COMSIG_FOOD_EATEN, PROC_REF(try_infect_eat))
 	else if(istype(parent, /obj/effect/decal/cleanable/blood/gibs))
 		RegisterSignal(parent, COMSIG_GIBS_STREAK, PROC_REF(try_infect_streak))
 
@@ -45,11 +43,10 @@
 		eater.ForceContractDisease(V)
 	try_infect(feeder, BODY_ZONE_L_ARM)
 
-/datum/component/infective/proc/clean(datum/source, clean_strength)
-	SIGNAL_HANDLER
-
-	if(clean_strength >= min_clean_strength)
+/datum/component/infective/proc/clean(datum/source, clean_types)
+	if(clean_types & required_clean_types)
 		qdel(src)
+		return TRUE
 
 /datum/component/infective/proc/try_infect_buckle(datum/source, mob/M, force)
 	SIGNAL_HANDLER
@@ -109,6 +106,10 @@
 
 /datum/component/infective/proc/try_infect_streak(datum/source, list/directions, list/output_diseases)
 	SIGNAL_HANDLER
+
+	// This blood is not infectable / does not have a diseases list
+	if(!islist(output_diseases))
+		return
 
 	output_diseases |= diseases
 

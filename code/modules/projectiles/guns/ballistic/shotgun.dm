@@ -11,6 +11,8 @@
 	vary_fire_sound = FALSE
 	fire_sound_volume = 90
 	rack_sound = "sound/weapons/shotgunpump.ogg"
+	half_rack_sound = "sound/weapons/shotgunpump_open.ogg"
+	bolt_drop_sound = "sound/weapons/shotgunpump_close.ogg"
 	load_sound = "sound/weapons/shotguninsert.ogg"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
@@ -28,12 +30,6 @@
 	fire_rate = 1 //reee
 	recoil = 1
 	pb_knockback = 2
-
-/obj/item/gun/ballistic/shotgun/blow_up(mob/user)
-	. = 0
-	if(chambered?.BB)
-		process_fire(user, user, FALSE)
-		. = 1
 
 /obj/item/gun/ballistic/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
@@ -99,7 +95,7 @@
 	desc = "A compact semi-auto shotgun designed to fire breaching slugs and create rapid entry points."
 	icon_state = "breachingshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/breaching
-	w_class = WEIGHT_CLASS_NORMAL //compact so it fits in backpacks
+	w_class = WEIGHT_CLASS_LARGE
 
 //Dual Feed Shotgun
 
@@ -155,12 +151,12 @@
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_LARGE
 	weapon_weight = WEAPON_MEDIUM
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_delay = 0
 	pin = /obj/item/firing_pin/implant/pindicate
-	spread_unwielded = 15
+	spread_unwielded = 8
 	actions_types = list()
 	mag_display = TRUE
 	empty_indicator = TRUE
@@ -234,15 +230,51 @@
 	name = "improvised shotgun"
 	desc = "Essentially a tube that aims shotgun shells."
 	icon_state = "ishotgun"
-	item_state = "shotgun"
+	item_state = "shotgun_improv"
+	sawn_item_state = "shotgun_improv_shorty"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	sawn_desc = "I'm just here for the gasoline."
+	no_pin_required = TRUE
 	unique_reskin_icon = null
-	recoil = 2
+	recoil = 1.5
 	var/slung = FALSE
+	var/reinforced = FALSE
+	var/barrel_stress = 0
+
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	if(chambered.BB && !reinforced)
+		var/obj/item/ammo_casing/shotgun/S = chambered
+		if(prob(10 + barrel_stress) && S.high_power)	//Base 10% chance of misfiring. Goes up with each shot of high_power ammo
+			backfire(user)
+			return 0
+
+		else if (S.high_power)
+			barrel_stress += 5
+			if (barrel_stress == 10)
+				to_chat(user, "<span class='warning'>[src]'s barrel is left warped from the force of the shot!</span>")
+			else if (barrel_stress == 25)
+				to_chat(user, "<span class='danger'>[src]'s barrel cracks from the repeated strain!</span>")
+
+		else if (prob(5) && barrel_stress >= 30) // If the barrel is damaged enough to be cracked, flat 5% chance to detonate on low-power ammo as well.
+			backfire(user)
+			return 0
+	..()
+
+/obj/item/gun/ballistic/shotgun/doublebarrel/improvised/proc/backfire(mob/living/user)
+	playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
+	to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
+
+	user.take_bodypart_damage(0,15) //The explosion already does enough damage.
+	explosion(src, 0, 0, 1, 1)
+
+	barrel_stress += 10 //Big damage to barrel, two explosions/misfires will destroy the gun entirely
+	qdel(chambered.BB)
+	chambered.BB = null //Spend the bullet when you misfire and it explodes. What's blowing up otherwise?
+
+	user.dropItemToGround(src)
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
 	..()
@@ -274,14 +306,25 @@
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/examine(mob/user)
 	. = ..()
 	if (slung)
-		. += "It has a shoulder sling fashioned from spare wiring attached."
+		. += "It has a shoulder sling fashioned from spare cable attached."
+	else
+		. += "You could improvise a shoulder sling from some cabling..."
+
+	if (reinforced)
+		. += "The barrel has been reinforced for use with high-power ammunition."
+	else if (barrel_stress < 10)
+		. += "The barrel is in pristine condition."
+	else if (barrel_stress < 20)
+		. += "The barrel seems to be warped mildly..."
+	else
+		. += "The barrel is warped and cracked!"
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/sawn
 	name = "sawn-off improvised shotgun"
 	desc = "A single-shot shotgun. Better not miss."
 	icon_state = "ishotgun"
-	item_state = "gun"
-	w_class = WEIGHT_CLASS_NORMAL
+	item_state = "shotgun_improv_shorty"
+	w_class = WEIGHT_CLASS_LARGE
 	sawn_off = TRUE
 	slot_flags = ITEM_SLOT_BELT
 	recoil = SAWN_OFF_RECOIL
@@ -291,7 +334,6 @@
 	desc = "Range isn't an issue when you can bring your victim to you."
 	icon_state = "hookshotgun"
 	item_state = "shotgun"
-	load_sound = "sound/weapons/shotguninsert.ogg"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bounty
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM

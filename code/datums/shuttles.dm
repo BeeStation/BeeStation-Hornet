@@ -77,7 +77,7 @@
 		turfs[turf] = turf.loc
 	. = ..(T, centered, init_atmos, finalize, register, turfs)
 
-/datum/map_template/shuttle/on_placement_completed(datum/map_generator/map_place/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
+/datum/map_template/shuttle/on_placement_completed(datum/async_map_generator/map_place/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
 	. = ..(map_gen, T, TRUE, parsed, FALSE)
 	if(!.)
 		log_runtime("Failed to load shuttle [map_gen.get_name()].")
@@ -446,6 +446,13 @@
 	admin_notes = "Choo choo motherfucker!"
 	credit_cost = 1000
 
+/datum/map_template/shuttle/emergency/tiny
+	suffix = "tiny"
+	name = "Echo Station Emergency Shuttle"
+	description = "A small emergancy escape shuttle"
+	admin_notes = "A *very* small shuttle"
+	credit_cost = 1000
+
 /datum/map_template/shuttle/emergency/cere
 	suffix = "cere"
 	name = "Cere Station Emergency Shuttle"
@@ -650,9 +657,17 @@
 	suffix = "rad"
 	name = "mining shuttle (Rad)"
 
+/datum/map_template/shuttle/mining/tiny
+	suffix = "tiny"
+	name = "mining shuttle (Tiny)"
+
 /datum/map_template/shuttle/cargo/rad
 	suffix = "rad"
 	name = "cargo ferry (Rad)"
+
+/datum/map_template/shuttle/cargo/tiny
+	suffix = "tiny"
+	name = "cargo ferry (Tiny)"
 
 /datum/map_template/shuttle/science
 	port_id = "science"
@@ -705,6 +720,10 @@
 /datum/map_template/shuttle/arrival/pubby
 	suffix = "pubby"
 	name = "arrival shuttle (Pubby)"
+
+/datum/map_template/shuttle/arrival/tiny
+	suffix = "tiny"
+	name = "arrival shuttle (Tiny)"
 
 /datum/map_template/shuttle/arrival/omega
 	suffix = "omega"

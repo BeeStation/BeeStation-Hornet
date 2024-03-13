@@ -50,7 +50,7 @@
 
 /obj/item/food/burger/human/CheckParts(list/parts_list)
 	..()
-	var/obj/item/reagent_containers/food/snacks/meat/M = locate(/obj/item/reagent_containers/food/snacks/meat/steak/plain/human) in contents
+	var/obj/item/food/meat/M = locate(/obj/item/food/meat/steak/plain/human) in contents
 	if(M)
 		subjectname = M.subjectname
 		subjectjob = M.subjectjob
@@ -562,8 +562,6 @@
 	foodtypes = GRAIN | MEAT | DAIRY | TOXIC | GROSS | FRUIT
 	w_class = WEIGHT_CLASS_NORMAL // The crazy hamburger in the video was bigger than joker's hand therefore i think this weight class is adequate.
 
-/* When custom food is supported again
-
 // empty burger you can customize
 /obj/item/food/burger/empty
 	name = "burger"
@@ -571,5 +569,3 @@
 	icon_state = "custburg"
 	tastes = list("bun")
 	foodtypes = GRAIN
-
-*/

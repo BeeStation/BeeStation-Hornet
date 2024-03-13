@@ -27,7 +27,10 @@
 	return
 
 
-/obj/item/reagent_containers/pill/attack(mob/M, mob/user, obj/item/bodypart/affecting)
+/obj/item/reagent_containers/pill/attack(mob/M, mob/user, def_zone)
+	perform_application(M, user, null)
+
+/obj/item/reagent_containers/pill/proc/perform_application(mob/M, mob/user, obj/item/bodypart/affecting)
 	if(!canconsume(M, user))
 		return FALSE
 	if(iscarbon(M))
@@ -58,7 +61,6 @@
 		reagents.trans_to(M, reagents.total_volume, transfered_by = user)
 	qdel(src)
 	return TRUE
-
 
 /obj/item/reagent_containers/pill/afterattack(obj/target, mob/user , proximity)
 	. = ..()

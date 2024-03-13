@@ -21,22 +21,21 @@ RLD
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(/datum/material/iron=100000)
+	w_class = WEIGHT_CLASS_LARGE
+	custom_materials = list(/datum/material/iron=100000)
 	req_access_txt = "11"
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	var/datum/effect_system/spark_spread/spark_system
 	var/matter = 0
 	var/max_matter = 100
-	var/sheetmultiplier	= 4 //Controls the amount of matter added for each glass/iron sheet, triple for plasteel
-	var/plasteelmultiplier = 3 //Plasteel is worth 3 times more than glass or iron
-	var/plasmarglassmultiplier = 2 //50% less plasma than in plasteel
-	var/rglassmultiplier = 1.5 //One iron sheet, half a glass sheet
 	var/no_ammo_message = "<span class='warning'>The \'Low Ammo\' light on the device blinks yellow.</span>"
 	var/has_ammobar = FALSE	//controls whether or not does update_icon apply ammo indicator overlays
 	var/ammo_sections = 10	//amount of divisions in the ammo indicator overlay/number of ammo indicator states
-	var/upgrade = FALSE
+	/// Bitflags for upgrades
+	var/upgrade = NONE
+	/// Bitflags for banned upgrades
+	var/banned_upgrades = NONE
 	var/datum/component/remote_materials/silo_mats //remote connection to the silo
 	var/silo_link = FALSE //switch to use internal or remote storage
 
@@ -62,58 +61,66 @@ RLD
 	return ..()
 
 /obj/item/construction/attackby(obj/item/W, mob/user, params)
-	if(iscyborg(user))
+	if(istype(W, /obj/item/rcd_upgrade))
+		install_upgrade(W, user)
+		return TRUE
+	if(insert_matter(W, user))
+		return TRUE
+	return ..()
+
+/// Installs an upgrade into the RCD checking if it is already installed, or if it is a banned upgrade
+/obj/item/construction/proc/install_upgrade(obj/item/rcd_upgrade/rcd_up, mob/user)
+	if(rcd_up.upgrade & upgrade)
+		to_chat(user, "<span class='warning'>[src] has already installed this upgrade!</span>")
 		return
-	var/loaded = 0
-	if(istype(W, /obj/item/rcd_ammo))
-		var/obj/item/rcd_ammo/R = W
+	if(rcd_up.upgrade & banned_upgrades)
+		to_chat(user, "<span class='warning'>[src] can't install this upgrade!</span>")
+		return
+	upgrade |= rcd_up.upgrade
+	if((rcd_up.upgrade & RCD_UPGRADE_SILO_LINK) && !silo_mats)
+		silo_mats = AddComponent(/datum/component/remote_materials, "RCD", FALSE, FALSE)
+	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+	qdel(rcd_up)
+
+/// Inserts matter into the RCD allowing it to build
+/obj/item/construction/proc/insert_matter(obj/O, mob/user)
+	if(iscyborg(user))
+		return FALSE
+	var/loaded = FALSE
+	if(istype(O, /obj/item/rcd_ammo))
+		var/obj/item/rcd_ammo/R = O
 		var/load = min(R.ammoamt, max_matter - matter)
 		if(load <= 0)
 			to_chat(user, "<span class='warning'>[src] can't hold any more matter-units!</span>")
-			return
+			return FALSE
 		R.ammoamt -= load
 		if(R.ammoamt <= 0)
 			qdel(R)
 		matter += load
-		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		loaded = 1
-	else if(istype(W, /obj/item/stack/sheet/iron) || istype(W, /obj/item/stack/sheet/glass))
-		loaded = loadwithsheets(W, sheetmultiplier, user)
-	else if(istype(W, /obj/item/stack/sheet/plasteel))
-		loaded = loadwithsheets(W, plasteelmultiplier*sheetmultiplier, user) //12 matter for 1 plasteel sheet
-	else if(istype(W, /obj/item/stack/sheet/plasmarglass))
-		loaded = loadwithsheets(W, plasmarglassmultiplier*sheetmultiplier, user) //8 matter for one plasma rglass sheet
-	else if(istype(W, /obj/item/stack/sheet/rglass))
-		loaded = loadwithsheets(W, rglassmultiplier*sheetmultiplier, user) //6 matter for one rglass sheet
-	else if(istype(W, /obj/item/stack/rods))
-		loaded = loadwithsheets(W, sheetmultiplier * 0.5, user) // 2 matter for 1 rod, as 2 rods are produced from 1 iron
-	else if(istype(W, /obj/item/stack/tile/plasteel))
-		loaded = loadwithsheets(W, sheetmultiplier * 0.25, user) // 1 matter for 1 floortile, as 4 tiles are produced from 1 iron
+		playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+		loaded = TRUE
+	else if(istype(O, /obj/item/stack))
+		loaded = loadwithsheets(O, user)
 	if(loaded)
 		to_chat(user, "<span class='notice'>[src] now holds [matter]/[max_matter] matter-units.</span>")
-	else if(istype(W, /obj/item/rcd_upgrade))
-		var/obj/item/rcd_upgrade/rcd_up = W
-		if(!(upgrade & rcd_up.upgrade))
-			upgrade |= rcd_up.upgrade
-			if((rcd_up.upgrade & RCD_UPGRADE_SILO_LINK) && !silo_mats)
-				silo_mats = AddComponent(/datum/component/remote_materials, "RCD", FALSE, FALSE)
-			playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-			qdel(W)
-	else
-		return ..()
-	update_icon()	//ensures that ammo counters (if present) get updated
+		update_appearance() //ensures that ammo counters (if present) get updated
+	return loaded
 
-/obj/item/construction/proc/loadwithsheets(obj/item/stack/sheet/S, value, mob/user)
+/obj/item/construction/proc/loadwithsheets(obj/item/stack/loaded_stack, mob/user)
+	var/value = loaded_stack.matter_amount
+	if(value <= 0)
+		to_chat(user, "<span class='notice'>You can't insert [loaded_stack.name] into [src]!</span>")
+		return FALSE
 	var/maxsheets = round((max_matter-matter)/value)    //calculate the max number of sheets that will fit in RCD
 	if(maxsheets > 0)
-		var/amount_to_use = min(S.amount, maxsheets)
-		S.use(amount_to_use)
+		var/amount_to_use = min(loaded_stack.amount, maxsheets)
+		loaded_stack.use(amount_to_use)
 		matter += value*amount_to_use
-		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		to_chat(user, "<span class='notice'>You insert [amount_to_use] [S.name] sheets into [src]. </span>")
-		return 1
-	to_chat(user, "<span class='warning'>You can't insert any more [S.name] sheets into [src]!</span>")
-	return 0
+		playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
+		to_chat(user, "<span class='notice'>You insert [amount_to_use] [loaded_stack.name] sheets into [src]. </span>")
+		return TRUE
+	to_chat(user, "<span class='warning'>You can't insert any more [loaded_stack.name] sheets into [src]!</span>")
+	return FALSE
 
 /obj/item/construction/proc/activate()
 	playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -133,7 +140,7 @@ RLD
 		update_icon()
 		return TRUE
 	else
-		var/list/matlist = list(getmaterialref(/datum/material/iron) = 500)
+		var/list/matlist = list(SSmaterials.GetMaterialRef(/datum/material/iron) = 500)
 		if(silo_mats.on_hold())
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
@@ -155,7 +162,7 @@ RLD
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
 			return FALSE
-		. = silo_mats.mat_container?.has_materials(list(getmaterialref(/datum/material/iron) = 500), amount)
+		. = silo_mats.mat_container?.has_materials(list(SSmaterials.GetMaterialRef(/datum/material/iron) = 500), amount)
 	if(!. && user)
 		to_chat(user, no_ammo_message)
 		if(has_ammobar)
@@ -201,6 +208,11 @@ RLD
 	var/airlock_type = /obj/machinery/door/airlock
 	var/airlock_glass = FALSE // So the floor's rcd_act knows how much ammo to use
 	var/window_type = /obj/structure/window/fulltile
+	var/window_glass = RCD_WINDOW_NORMAL
+	var/window_size = RCD_WINDOW_FULLTILE
+	var/furnish_type = /obj/structure/chair
+	var/furnish_cost = 8
+	var/furnish_delay = 10
 	var/advanced_airlock_setting = 1 //Set to 1 if you want more paintjobs available
 	var/delay_mod = 1
 	var/canRturf = FALSE //Variable for R walls to deconstruct them
@@ -211,33 +223,63 @@ RLD
 	user.visible_message("<span class='suicide'>[user] sets the RCD to 'Wall' and points it down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide..</span>")
 	return BRUTELOSS
 
-/obj/item/construction/rcd/verb/toggle_window_type_verb()
-	set name = "RCD : Toggle Window Type"
+/obj/item/construction/rcd/verb/toggle_window_glass_verb()
+	set name = "RCD : Toggle Window Glass"
 	set category = "Object"
 	set src in view(1)
 
 	if(!usr.canUseTopic(src, BE_CLOSE))
 		return
 
-	toggle_window_type(usr)
+	toggle_window_glass(usr)
 
-/obj/item/construction/rcd/proc/toggle_window_type(mob/user)
-	var/window_type_name
-	if (window_type == /obj/structure/window/fulltile)
-		window_type = /obj/structure/window/reinforced/fulltile
-		window_type_name = "reinforced glass"
+/obj/item/construction/rcd/verb/toggle_window_size_verb()
+	set name = "RCD : Toggle Window Size"
+	set category = "Object"
+	set src in view(1)
+
+	if(!usr.canUseTopic(src, BE_CLOSE))
+		return
+
+	toggle_window_size(usr)
+
+/// Toggles the usage of reinforced or normal glass
+/obj/item/construction/rcd/proc/toggle_window_glass(mob/user)
+	if (window_glass != RCD_WINDOW_REINFORCED)
+		set_window_type(user, RCD_WINDOW_REINFORCED, window_size)
+		return
+	set_window_type(user, RCD_WINDOW_NORMAL, window_size)
+
+/// Toggles the usage of directional or full tile windows
+/obj/item/construction/rcd/proc/toggle_window_size(mob/user)
+	if (window_size != RCD_WINDOW_DIRECTIONAL)
+		set_window_type(user, window_glass, RCD_WINDOW_DIRECTIONAL)
+		return
+	set_window_type(user, window_glass, RCD_WINDOW_FULLTILE)
+
+/// Sets the window type to be created based on parameters
+/obj/item/construction/rcd/proc/set_window_type(mob/user, glass, size)
+	window_glass = glass
+	window_size = size
+	if(window_glass == RCD_WINDOW_REINFORCED)
+		if(window_size == RCD_WINDOW_DIRECTIONAL)
+			window_type = /obj/structure/window/reinforced
+		else
+			window_type = /obj/structure/window/reinforced/fulltile
 	else
-		window_type = /obj/structure/window/fulltile
-		window_type_name = "glass"
+		if(window_size == RCD_WINDOW_DIRECTIONAL)
+			window_type = /obj/structure/window
+		else
+			window_type = /obj/structure/window/fulltile
 
-	to_chat(user, "<span class='notice'>You change \the [src]'s window mode to [window_type_name].</span>")
+	to_chat(user, "<span class='notice'>You change \the [src]'s window mode to [window_size] [window_glass] window.</span>")
 
 /obj/item/construction/rcd/proc/toggle_silo_link(mob/user)
 	if(silo_mats)
 		silo_link = !silo_link
 		to_chat(user, "<span class='notice'>You change \the [src]'s storage link state: [silo_link ? "ON" : "OFF"].</span>")
 	else
-		to_chat(user, "<span class='warning'>\the [src] dont have remote storage connection.</span>")
+		to_chat(user, "<span class='warning'>\the [src] doesn't have remote storage connection.</span>")
 
 /obj/item/construction/rcd/proc/get_airlock_image(airlock_type)
 	var/obj/machinery/door/airlock/proto = airlock_type
@@ -276,7 +318,9 @@ RLD
 
 	var/list/solid_or_glass_choices = list(
 		"Solid" = get_airlock_image(/obj/machinery/door/airlock),
-		"Glass" = get_airlock_image(/obj/machinery/door/airlock/glass)
+		"Glass" = get_airlock_image(/obj/machinery/door/airlock/glass),
+		"Windoor" = image(icon = 'icons/mob/radial.dmi', icon_state = "windoor"),
+		"Secure Windoor" = image(icon = 'icons/mob/radial.dmi', icon_state = "secure_windoor")
 	)
 
 	var/list/solid_choices = list(
@@ -403,9 +447,46 @@ RLD
 			else
 				airlock_type = /obj/machinery/door/airlock/glass
 				airlock_glass = TRUE
+		if("Windoor")
+			airlock_type = /obj/machinery/door/window
+			airlock_glass = TRUE
+		if("Secure Windoor")
+			airlock_type = /obj/machinery/door/window/brigdoor
+			airlock_glass = TRUE
 		else
 			airlock_type = /obj/machinery/door/airlock
 			airlock_glass = FALSE
+
+/// Radial menu for choosing the object you want to be created with the furnishing mode
+/obj/item/construction/rcd/proc/change_furnishing_type(mob/user)
+	if(!user)
+		return
+	var/static/list/choices = list(
+		"Chair" = image(icon = 'icons/mob/radial.dmi', icon_state = "chair"),
+		"Stool" = image(icon = 'icons/mob/radial.dmi', icon_state = "stool"),
+		"Table" = image(icon = 'icons/mob/radial.dmi', icon_state = "table"),
+		"Glass Table" = image(icon = 'icons/mob/radial.dmi', icon_state = "glass_table")
+		)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+	if(!check_menu(user))
+		return
+	switch(choice)
+		if("Chair")
+			furnish_type = /obj/structure/chair
+			furnish_cost = 8
+			furnish_delay = 10
+		if("Stool")
+			furnish_type = /obj/structure/chair/stool
+			furnish_cost = 8
+			furnish_delay = 10
+		if("Table")
+			furnish_type = /obj/structure/table
+			furnish_cost = 16
+			furnish_delay = 20
+		if("Glass Table")
+			furnish_type = /obj/structure/table/glass
+			furnish_cost = 16
+			furnish_delay = 20
 
 /obj/item/construction/rcd/proc/rcd_create(atom/A, mob/user)
 	var/list/rcd_results = A.rcd_vals(user, src)
@@ -460,6 +541,10 @@ RLD
 		choices += list(
 		"Silo Link" = image(icon = 'icons/obj/mining.dmi', icon_state = "silo"),
 		)
+	if(upgrade & RCD_UPGRADE_FURNISHING)
+		choices += list(
+		"Furnishing" = image(icon = 'icons/mob/radial.dmi', icon_state = "chair")
+		)
 	if(mode == RCD_AIRLOCK)
 		choices += list(
 		"Change Access" = image(icon = 'icons/mob/radial.dmi', icon_state = "access"),
@@ -467,7 +552,12 @@ RLD
 		)
 	else if(mode == RCD_WINDOWGRILLE)
 		choices += list(
-			"Change Window Type" = image(icon = 'icons/mob/radial.dmi', icon_state = "windowtype")
+		"Change Window Glass" = image(icon = 'icons/mob/radial.dmi', icon_state = "windowtype"),
+		"Change Window Size" = image(icon = 'icons/mob/radial.dmi', icon_state = "windowsize")
+		)
+	else if(mode == RCD_FURNISHING)
+		choices += list(
+		"Change Furnishing Type" = image(icon = 'icons/mob/radial.dmi', icon_state = "chair")
 		)
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
@@ -483,6 +573,8 @@ RLD
 			mode = RCD_WINDOWGRILLE
 		if("Machine Frames")
 			mode = RCD_MACHINE
+		if("Furnishing")
+			mode = RCD_FURNISHING
 		if("Computer Frames")
 			mode = RCD_COMPUTER
 			change_computer_dir(user)
@@ -495,15 +587,21 @@ RLD
 		if("Change Airlock Type")
 			change_airlock_setting(user)
 			return
-		if("Change Window Type")
-			toggle_window_type(user)
+		if("Change Window Glass")
+			toggle_window_glass(user)
+			return
+		if("Change Window Size")
+			toggle_window_size(user)
+			return
+		if("Change Furnishing Type")
+			change_furnishing_type(user)
 			return
 		if("Silo Link")
 			toggle_silo_link(user)
 			return
 		else
 			return
-	playsound(src, 'sound/effects/pop.ogg', 50, 0)
+	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)
 	to_chat(user, "<span class='notice'>You change RCD's mode to '[choice]'.</span>")
 
 /obj/item/construction/rcd/proc/target_check(atom/A, mob/user) // only returns true for stuff the device can actually work with
@@ -543,6 +641,7 @@ RLD
 	no_ammo_message = "<span class='warning'>Insufficient charge.</span>"
 	desc = "A device used to rapidly build walls and floors."
 	canRturf = TRUE
+	banned_upgrades = RCD_UPGRADE_SILO_LINK
 	var/energyfactor = 72
 
 
@@ -598,11 +697,11 @@ RLD
 	w_class = WEIGHT_CLASS_TINY
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	materials = list(/datum/material/iron=12000, /datum/material/glass=8000)
+	custom_materials = list(/datum/material/iron=12000, /datum/material/glass=8000)
 	var/ammoamt = 40
 
 /obj/item/rcd_ammo/large
-	materials = list(/datum/material/iron=48000, /datum/material/glass=32000)
+	custom_materials = list(/datum/material/iron=48000, /datum/material/glass=32000)
 	ammoamt = 160
 
 
@@ -804,14 +903,39 @@ RLD
 	///index, used in the attack self to get the type. stored here since it doesnt change
 	var/list/choices = list()
 	///index, used in the attack self to get the type. stored here since it doesnt change
+	///This list that holds all the plumbing design types the plumberer can construct. Its purpose is to make it easy to make new plumberer subtypes with a different selection of machines.
+	var/list/static/plumbing_design_types
+
 	var/list/name_to_type = list()
 	///
 	var/list/machinery_data = list("cost" = list(), "delay" = list())
 
+
+/obj/item/construction/plumbing/Initialize(mapload)
+	. = ..()
+	set_plumbing_designs()
+
+
+///Set the list of designs this plumbing rcd can make
+/obj/item/construction/plumbing/proc/set_plumbing_designs()
+	plumbing_design_types = list(
+	/obj/machinery/plumbing/input = 5,
+	/obj/machinery/plumbing/output = 5,
+	/obj/machinery/plumbing/tank = 20,
+	/obj/machinery/plumbing/synthesizer = 15,
+	/obj/machinery/plumbing/reaction_chamber = 15,
+	//Above are the most common machinery which is shown on the first cycle. Keep new additions below THIS line, unless they're probably gonna be needed alot
+	/obj/machinery/plumbing/acclimator = 10,
+	/obj/machinery/plumbing/disposer = 10,
+	/obj/machinery/plumbing/filter = 5,
+	/obj/machinery/plumbing/grinder_chemical = 30,
+	/obj/machinery/plumbing/splitter = 5
+)
+
 /obj/item/construction/plumbing/attack_self(mob/user)
 	..()
 	if(!choices.len)
-		for(var/A in subtypesof(/obj/machinery/plumbing))
+		for(var/A in plumbing_design_types)
 			var/obj/machinery/plumbing/M = A
 			if(initial(M.rcd_constructable))
 				choices += list(initial(M.name) = image(icon = initial(M.icon), icon_state = initial(M.icon_state)))
@@ -882,6 +1006,10 @@ RLD
 /obj/item/rcd_upgrade/silo_link
 	desc = "It contains direct silo connection RCD upgrade."
 	upgrade = RCD_UPGRADE_SILO_LINK
+
+/obj/item/rcd_upgrade/furnishing
+	desc = "It contains the design for chairs, stools, tables, and glass tables."
+	upgrade = RCD_UPGRADE_FURNISHING
 
 #undef GLOW_MODE
 #undef LIGHT_MODE

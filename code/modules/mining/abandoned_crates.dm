@@ -41,7 +41,7 @@
 				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
 				locked = FALSE
 				cut_overlays()
-				add_overlay("securecrateg")
+				add_overlay("unlocked_secure")
 				add_overlay("[icon_door || icon_state]_door") //needs to put the door overlayer back cause of this snowflake code
 				tamperproof = 0 // set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
 				if(!spawned_loot)
@@ -124,7 +124,7 @@
 	switch(loot)
 		if(1 to 5) //5% chance
 			new /obj/item/reagent_containers/food/drinks/bottle/rum(src)
-			new /obj/item/reagent_containers/food/snacks/grown/ambrosia/deus(src)
+			new /obj/item/food/grown/ambrosia/deus(src)
 			new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)
 			new /obj/item/lighter(src)
 		if(6 to 10)

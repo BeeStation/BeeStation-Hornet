@@ -12,7 +12,7 @@
 	layer = BELOW_OBJ_LAYER
 	armor = list(MELEE = 50,  BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0, STAMINA = 0)
 	max_integrity = 50
-	integrity_failure = 20
+	integrity_failure = 0.4
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = TRUE
@@ -53,10 +53,9 @@
 		if(RCD_DECONSTRUCT)
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 20, "cost" = 5)
 		if(RCD_WINDOWGRILLE)
-			if(the_rcd.window_type == /obj/structure/window/reinforced/fulltile)
+			if(the_rcd.window_glass == RCD_WINDOW_REINFORCED)
 				return list("mode" = RCD_WINDOWGRILLE, "delay" = 40, "cost" = 12)
-			else
-				return list("mode" = RCD_WINDOWGRILLE, "delay" = 20, "cost" = 8)
+			return list("mode" = RCD_WINDOWGRILLE, "delay" = 20, "cost" = 8)
 	return FALSE
 
 /obj/structure/grille/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
@@ -69,18 +68,18 @@
 		if(RCD_WINDOWGRILLE)
 			if(!isturf(loc))
 				return FALSE
-			var/turf/T = loc
+			var/turf/local_turf = loc
 
 			if(!ispath(the_rcd.window_type, /obj/structure/window))
 				CRASH("Invalid window path type in RCD: [the_rcd.window_type]")
 			var/obj/structure/window/window_path = the_rcd.window_type
-			if(!valid_window_location(T, user.dir, is_fulltile = initial(window_path.fulltile)))
+			if(!valid_window_location(local_turf, user.dir, is_fulltile = initial(window_path.fulltile)))
 				to_chat(user, "<span class='notice'>Already a window in this direction!.</span>")
 				return FALSE
 			to_chat(user, "<span class='notice'>You construct the window.</span>")
 			log_attack("[key_name(user)] has constructed a window at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
-			var/obj/structure/window/WD = new the_rcd.window_type(T, user.dir)
-			WD.setAnchored(TRUE)
+			var/obj/structure/window/WD = new the_rcd.window_type(local_turf, user.dir)
+			WD.set_anchored(TRUE)
 			return TRUE
 	return FALSE
 
@@ -125,7 +124,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] hits [src].</span>", null, null, COMBAT_MESSAGE_RANGE)
-	log_combat(user, src, "hit")
+	log_combat(user, src, "hit", important = FALSE)
 	if(!shock(user, 70))
 		take_damage(rand(5,10), BRUTE, MELEE, 1)
 
@@ -156,7 +155,7 @@
 	else if((W.tool_behaviour == TOOL_SCREWDRIVER) && (isturf(loc) || anchored))
 		if(!shock(user, 90))
 			W.play_tool_sound(src, 100)
-			setAnchored(!anchored)
+			set_anchored(!anchored)
 			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
 								 "<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
 			return
@@ -204,7 +203,7 @@
 				else
 					WD = new/obj/structure/window/fulltile(drop_location()) //normal window
 				WD.setDir(dir_to_set)
-				WD.setAnchored(FALSE)
+				WD.set_anchored(FALSE)
 				WD.state = 0
 				ST.use(2)
 				to_chat(user, "<span class='notice'>You place [WD] on [src].</span>")
@@ -303,3 +302,43 @@
 	rods_broken = FALSE
 	grille_type = /obj/structure/grille
 	broken_type = null
+
+/obj/structure/grille/prison //grilles that trigger prison lockdown under some circumstances
+	name = "prison grille"
+	desc = "a set of rods under current used to protect the prison wing. An alarm will go off if they are breached."
+	var/obj/item/assembly/control/device
+	var/id = "Prisongate"
+	var/initialized_device = FALSE
+
+/obj/structure/grille/prison/proc/setup_device()
+	device = new /obj/item/assembly/control
+	device.id = id
+	initialized_device = 1
+
+/obj/structure/grille/prison/Initialize()
+	. = ..()
+	if(!initialized_device)
+		setup_device()
+
+/obj/structure/grille/prison/deconstruct()
+	var/turf/T = get_turf(src)
+	var/obj/structure/cable/C = T.get_cable_node()
+	if(C?.powernet)
+		var/datum/powernet/P = C.powernet
+		if(initialized_device && P.avail != 0)
+			src.device.activate()
+		..()
+
+/obj/structure/grille/prison/obj_break()
+	var/turf/T = get_turf(src)
+	var/obj/structure/cable/C = T.get_cable_node()
+	if(C?.powernet)
+		var/datum/powernet/P = C.powernet
+		if(P)
+			if(initialized_device && P.avail != 0)
+				src.device.activate()
+	..()
+
+/obj/structure/grille/prison/Destroy()
+	QDEL_NULL(device)
+	return ..()

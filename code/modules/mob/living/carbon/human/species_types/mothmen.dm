@@ -19,7 +19,7 @@
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	var/datum/action/innate/cocoon/cocoon_action
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/moth
+	meat = /obj/item/food/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/eyes/moth
 	mutantwings = /obj/item/organ/wings/moth
 	mutanttongue = /obj/item/organ/tongue/moth
@@ -34,6 +34,8 @@
 	species_r_arm = /obj/item/bodypart/r_arm/moth
 	species_l_leg = /obj/item/bodypart/l_leg/moth
 	species_r_leg = /obj/item/bodypart/r_leg/moth
+
+	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
 /datum/species/moth/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.moth_first)]"

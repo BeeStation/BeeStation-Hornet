@@ -1,13 +1,13 @@
 /obj/item/clothing/shoes/sneakers
 	icon_state = "sneakers"
 	greyscale_colors = "#545454#ffffff"
+	custom_price = 20 // For all sneakers
 	greyscale_config = /datum/greyscale_config/sneakers
 	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
 
 /obj/item/clothing/shoes/sneakers/black
 	name = "black shoes"
 	desc = "A pair of black shoes."
-	custom_price = 20
 	greyscale_colors = "#545454#ffffff"
 
 	cold_protection = FEET
@@ -55,6 +55,11 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+
+/obj/item/clothing/shoes/sneakers/rainbow/denied
+	name = "ERROR shoes"
+	desc = "What are those?!"
+	icon_state = "denied"
 
 /obj/item/clothing/shoes/sneakers/orange
 	name = "orange shoes"

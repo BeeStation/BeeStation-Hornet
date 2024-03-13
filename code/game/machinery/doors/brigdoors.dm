@@ -36,7 +36,7 @@
 	///List of weakrefs to nearby closets
 	var/list/closets = list()
 
-	var/obj/item/radio/Radio //needed to send messages to sec radio
+	var/obj/item/radio/sec_radio //needed to send messages to sec radio
 
 	maptext_height = 26
 	maptext_width = 32
@@ -47,8 +47,8 @@
 /obj/machinery/door_timer/Initialize(mapload)
 	. = ..()
 
-	Radio = new/obj/item/radio(src)
-	Radio.listening = 0
+	sec_radio = new/obj/item/radio(src)
+	sec_radio.listening = FALSE
 
 /obj/machinery/door_timer/Initialize(mapload)
 	. = ..()
@@ -120,8 +120,8 @@
 		return 0
 
 	if(!forced)
-		Radio.set_frequency(FREQ_SECURITY)
-		Radio.talk_into(src, "Timer has expired. Releasing prisoner.", FREQ_SECURITY)
+		sec_radio.set_frequency(FREQ_SECURITY)
+		sec_radio.talk_into(src, "Timer has expired. Releasing prisoner.", FREQ_SECURITY)
 
 	timing = FALSE
 	activation_time = null
@@ -255,18 +255,18 @@
 			var/value = text2num(params["adjust"])
 			if(value)
 				. = !set_timer(time_left()+value)
-				investigate_log("[key_name(usr)] modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)
+				usr.investigate_log(" modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)
 				user.log_message("modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", LOG_ATTACK)
 		if("start")
 			timer_start()
-			investigate_log("[key_name(usr)] has started [id]'s timer of [time_left(seconds = TRUE)] seconds", INVESTIGATE_RECORDS)
+			usr.investigate_log(" has started [id]'s timer of [time_left(seconds = TRUE)] seconds", INVESTIGATE_RECORDS)
 			user.log_message("has started [id]'s timer of [time_left(seconds = TRUE)] seconds", LOG_ATTACK)
 		if("stop")
-			investigate_log("[key_name(usr)] has stopped [id]'s timer of [time_left(seconds = TRUE)] seconds", INVESTIGATE_RECORDS)
+			usr.investigate_log(" has stopped [id]'s timer of [time_left(seconds = TRUE)] seconds", INVESTIGATE_RECORDS)
 			user.log_message("[key_name(usr)] has stopped [id]'s timer of [time_left(seconds = TRUE)] seconds", LOG_ATTACK)
 			timer_end(forced = TRUE)
 		if("flash")
-			investigate_log("[key_name(usr)] has flashed cell [id]", INVESTIGATE_RECORDS)
+			usr.investigate_log(" has flashed cell [id]", INVESTIGATE_RECORDS)
 			user.log_message("[key_name(usr)] has flashed cell [id]", LOG_ATTACK)
 			for(var/datum/weakref/flash_ref as anything in flashers)
 				var/obj/machinery/flasher/flasher = flash_ref.resolve()
@@ -285,7 +285,7 @@
 				if("long")
 					preset_time = CONFIG_GET(number/brig_timer_preset_long) MINUTES
 			. = !set_timer(preset_time)
-			investigate_log("[key_name(usr)] set cell [id]'s timer to [preset_time/10] seconds", INVESTIGATE_RECORDS)
+			usr.investigate_log(" set cell [id]'s timer to [preset_time/10] seconds", INVESTIGATE_RECORDS)
 			user.log_message("set cell [id]'s timer to [preset_time/10] seconds", LOG_ATTACK)
 			if(timing)
 				activation_time = REALTIMEOFDAY

@@ -49,11 +49,9 @@
 	tastes = list("bread" = 1)
 	foodtypes = GRAIN
 
-/*
 /obj/item/food/pizzabread/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/pizza/margherita, CUSTOM_INGREDIENT_ICON_SCATTER, max_ingredients = 12)
-*/
 
 /obj/item/food/doughslice
 	name = "dough slice"
@@ -81,11 +79,9 @@
 	tastes = list("bun" = 1) // the bun tastes of bun.
 	foodtypes = GRAIN
 
-/*
 /obj/item/food/bun/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/burger/empty, CUSTOM_INGREDIENT_ICON_STACKPLUSTOP)
-*/
 
 /obj/item/food/cakebatter
 	name = "cake batter"
@@ -111,7 +107,7 @@
 	desc = "Cook it to get a pie."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "piedough"
-	microwaved_type = /obj/item/reagent_containers/food/snacks/pie/plain
+	microwaved_type = /obj/item/food/pie/plain
 	food_reagents = list(/datum/reagent/consumable/nutriment = 9)
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN | DAIRY

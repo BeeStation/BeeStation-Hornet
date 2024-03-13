@@ -10,9 +10,9 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	var/datum/component/storage/concrete/master		//If not null, all actions act on master and this is just an access point.
 
-	var/list/can_hold								//if this is set, only things in this typecache will fit.
+	var/list/can_hold								//if this is set, only things in this typecache will fit, unless
 	var/list/cant_hold								//if this is set, anything in this typecache will not be able to fit.
-	var/list/exception_hold							//if set, these items will be the exception to the max size of object that can fit.
+	var/list/exception_hold							//if this is set, items in this typecache will ignore size limitations, only respecting max_items
 	/// If set can only contain stuff with this single trait present.
 	var/list/can_hold_trait
 
@@ -284,6 +284,8 @@
 		if(I.loc != real_location)
 			continue
 		remove_from_storage(I, target)
+		I.pixel_x = rand(-10,10)
+		I.pixel_y = rand(-10,10)
 		if(trigger_on_found && I.on_found())
 			return FALSE
 		if(TICK_CHECK)
@@ -601,7 +603,7 @@
 		if(iscarbon(M) || isdrone(M))
 			var/mob/living/L = M
 			if(!L.incapacitated() && I == L.get_active_held_item())
-				if(!SEND_SIGNAL(I, COMSIG_CONTAINS_STORAGE) && can_be_inserted(I, FALSE))	//If it has storage it should be trying to dump, not insert.
+				if(!SEND_SIGNAL(I, COMSIG_CONTAINS_STORAGE) && can_be_inserted(I, FALSE, L))	//If it has storage it should be trying to dump, not insert.
 					handle_item_insertion(I, FALSE, L)
 
 //This proc return 1 if the item can be picked up and 0 if it can't.
@@ -635,17 +637,19 @@
 		if(!stop_messages)
 			host.balloon_alert(M, "It doesn't fit")
 		return FALSE
-	if(I.w_class > max_w_class)
-		if(!stop_messages)
-			host.balloon_alert(M, "[I] is too big")
-		return FALSE
-	var/sum_w_class = I.w_class
-	for(var/obj/item/_I in real_location)
-		sum_w_class += _I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
-	if(sum_w_class > max_combined_w_class)
-		if(!stop_messages)
-			host.balloon_alert(M, "[host] is full")
-		return FALSE
+	if(!length(exception_hold) || !is_type_in_typecache(I, exception_hold))
+		if(I.w_class > max_w_class)
+			if(!stop_messages)
+				host.balloon_alert(M, "[I] is too big")
+			return FALSE
+		var/sum_w_class = I.w_class
+		for(var/obj/item/_I in real_location)
+			if(!length(exception_hold) || !is_type_in_typecache(I, exception_hold)) //we want to exclude items that are part of the exception list from counting toward capacity.
+				sum_w_class += _I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
+		if(sum_w_class > max_combined_w_class)
+			if(!stop_messages)
+				host.balloon_alert(M, "[host] is full")
+			return FALSE
 	if(isitem(host))
 		var/obj/item/IP = host
 		var/datum/component/storage/STR_I = I.GetComponent(/datum/component/storage)
@@ -799,6 +803,9 @@
 		if(locked)
 			var/atom/host = parent
 			host.balloon_alert(user, "[host] is locked.")
+		else if(!can_be_opened)
+			user.doUnEquip(parent, FALSE, null, TRUE, silent = TRUE)
+			user.put_in_active_hand(parent)
 		else
 			show_to(user)
 

@@ -59,6 +59,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	dna.features["ipc_screen"] = "BSOD"
 	dna.features["ipc_antenna"] = "None"
 	dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
+	dna.features["psyphoza_cap"] = "Portobello"
 
 //Inefficient pooling/caching way.
 GLOBAL_LIST_EMPTY(human_dummy_list)
