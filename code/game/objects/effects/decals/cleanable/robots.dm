@@ -10,6 +10,7 @@
 	blood_state = BLOOD_STATE_OIL
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	mergeable_decal = FALSE
+	//beauty = -50
 	clean_type = CLEAN_TYPE_BLOOD
 
 /obj/effect/decal/cleanable/robot_debris/Initialize()
@@ -86,7 +87,7 @@
 	var/attacked_by_hot_thing = I.is_hot()
 	if(attacked_by_hot_thing)
 		visible_message("<span class='warning'>[user] tries to ignite [src] with [I]!</span>", "<span class='warning'>You try to ignite [src] with [I].</span>")
-		log_combat(user, src, (attacked_by_hot_thing < 480) ? "tried to ignite" : "ignited", I)
+		log_combat(user, src, (attacked_by_hot_thing < 480) ? "tried to ignite" : "ignited", I, important = FALSE)
 		fire_act(attacked_by_hot_thing)
 		return
 	return ..()

@@ -356,6 +356,31 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	if(istype(T, /turf/open/floor))
 		T.break_tile()
 
+//Virology helper- if virologist is enabled, set airlocks to virology access, set
+/obj/effect/mapping_helpers/virology
+	name = "virology mapping helper"
+	desc = "Place this on each viro airlock to change its access, a smoke machine to turn it to a pet, and a plant to turn it to a virodrobe when virologist is enabled."
+/obj/effect/mapping_helpers/virology/Initialize(mapload)
+	.=..()
+	if(CONFIG_GET(flag/allow_virologist))
+		for(var/obj/A in loc)
+			if(istype(A, /obj/machinery/door/airlock/))
+				var/obj/machinery/door/airlock/airlock = A
+				airlock.req_access_txt = "39"
+				if(airlock.type == /obj/machinery/door/airlock/maintenance || airlock.type == /obj/machinery/door/airlock/maintenance_hatch)
+					airlock.name = "Virology Maintenance"
+				else
+					airlock.name = "Virology Lab"
+			if(istype(A, /obj/machinery/smoke_machine))
+				qdel(A)
+				new /obj/structure/bed/dogbed/vector(src.loc)
+				new /mob/living/simple_animal/pet/hamster/vector(src.loc)
+			if(istype(A, /obj/item/kirbyplants/random))
+				qdel(A)
+				new /obj/machinery/vending/wardrobe/viro_wardrobe(src.loc)
+
+
+
 // This will put directional windows to adjucant turfs if airs will likely be vaccuumed.
 // Putting this on a space turf is recommended. If you put this on an open tile, it will place directional windows anyway.
 // If a turf is not valid to put a tile, it will automatically make a turf for failsafe.
