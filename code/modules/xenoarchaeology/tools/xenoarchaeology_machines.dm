@@ -181,6 +181,7 @@
 	if(!length(held_contents))
 		playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
 		return
+	//TODO: Revisit this code - Racc
 	for(var/atom/A as() in contents-radio)
 		var/solid_as = TRUE
 		//Once we find an artifact-
@@ -190,9 +191,9 @@
 		//Early checks
 		if(!X || !L || X?.calibrated || X?.calcified)
 			var/decision = "No"
-			if(!L)
+			if(!L && X)
 				say("No label detected!")
-				if(X && !X.calcified)
+				if(!X.calcified)
 					decision = tgui_alert(user, "Do you want to continue, this will destroy [A]?", "Calcify Artifact", list("Yes", "No"))
 			if(decision == "No")
 				playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)

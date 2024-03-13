@@ -143,23 +143,28 @@
 						score -= 1
 				max_score = T.contribute_calibration ?  max_score + 1 : max_score
 		var/success_rate = score / max_score
-		//Rewards
+		//Rewards //TODO: Check if this style of comments is allowed, I like them - Racc
+			//Research Points
 		var/rnd_reward = max(0, (artifact.custom_price*X.artifact_type.rnd_rate)*success_rate)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
-		//TODO: Add monetary reward, cargo already reaps the benehfits of selling it - Racc
+			//Money //TODO: Check if this is sufficient - Racc
+		var/monetary_reward = ((artifact.custom_price * success_rate * 2)^1.5) * (success_rate >= 0.5 ? 1 : 0)
+		budget.adjust_money(monetary_reward)
 		//Announce victory or fuck up
 		if(radio_solved_notice)
 			var/success_type
 			switch(success_rate)
 				if(0.9 to INFINITY)
-					success_type = "incredible discovery!"
+					success_type = "incredible discovery"
 				if(0.89 to 0.7)
-					success_type = "admirable research."
+					success_type = "admirable research"
 				if(0.69 to 0.3)
-					success_type = "sufficient research."
+					success_type = "sufficient research"
 				else
-					success_type = "scientific failure."
-			radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', at [station_time_timestamp()].\nAwarded [rnd_reward] Research Points!", RADIO_CHANNEL_SCIENCE)
+					success_type = prob(50) ? "scientific failure." : "who let the clown in?"
+			radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
+			at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, and a monetary commision of $[monetary_reward].",\
+			RADIO_CHANNEL_SCIENCE)
 
 //Circuitboard for this console
 /obj/item/circuitboard/computer/xenoarchaeology_console
