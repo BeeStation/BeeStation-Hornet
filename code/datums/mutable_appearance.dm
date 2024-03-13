@@ -31,6 +31,7 @@
 	// We do this because emissives and blockers can be applied to the same item and in that case
 	// we do not want the item to block its own emissive overlay.
 	var/mutable_appearance/appearance = mutable_appearance(icon, icon_state, layer + 0.01, EMISSIVE_PLANE, alpha, appearance_flags | EMISSIVE_APPEARANCE_FLAGS)
+	appearance.filters = usr.filters
 	var/list/found = GLOB.emissive_color[alpha+1]
 	if (!found)
 		found = GLOB.emissive_color[alpha+1] = list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,alpha/255, 1,1,1,0)
