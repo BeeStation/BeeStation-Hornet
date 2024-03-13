@@ -21,6 +21,8 @@ const ParticleIntegerEntry = (props) => {
     <Tooltip position="bottom" content={tooltip}>
       <NumberInput
         value={value}
+        minValue={-Infinity}
+        maxValue={Infinity}
         stepPixelSize={5}
         width="39px"
         onDrag={(e, value) =>
@@ -49,6 +51,8 @@ const ParticleMatrixEntry = (props) => {
         {value.map((val, i) => (
           <NumberInput
             value={val}
+            minValue={-Infinity}
+            maxValue={Infinity}
             key={i}
             onDrag={(e, v) => {
               value[i] = v;
@@ -114,6 +118,8 @@ const ParticleFloatNonGenEntry = (props) => {
     <Tooltip position="bottom" content={tooltip}>
       <NumberInput
         value={value}
+        minValue={-Infinity}
+        maxValue={Infinity}
         stepPixelSize={4}
         step={step}
         format={(value) => toFixed(value, numberOfDecimalDigits(step))}
@@ -187,6 +193,8 @@ const ParticleVectorNonGenEntryVarLen = (len) => {
           {value.map((val, i) => (
             <NumberInput
               value={val}
+              minValue={-Infinity}
+              maxValue={Infinity}
               key={i}
               width="40px"
               onDrag={(e, v) => {
@@ -659,6 +667,8 @@ export const Particool = (props) => {
           </Box>
           <NumberInput
             value={step}
+            minValue={-Infinity}
+            maxValue={Infinity}
             step={0.001}
             format={(value) => toFixed(value, numberOfDecimalDigits(step))}
             width="70px"

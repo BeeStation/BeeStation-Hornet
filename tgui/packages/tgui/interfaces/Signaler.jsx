@@ -24,7 +24,7 @@ export const SignalerContent = (props) => {
         </Grid.Column>
         <Grid.Column>
           <NumberInput
-            animate
+            animated
             unit="kHz"
             step={0.2}
             stepPixelSize={6}
@@ -59,7 +59,7 @@ export const SignalerContent = (props) => {
         </Grid.Column>
         <Grid.Column>
           <NumberInput
-            animate
+            animated
             step={1}
             stepPixelSize={6}
             minValue={1}

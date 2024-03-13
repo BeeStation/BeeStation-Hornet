@@ -133,7 +133,13 @@ export const FaxMainPanel = (props) => {
 
               <h4>
                 Y Coordinate:{' '}
-                <NumberInput width="45px" minValue={0} value={stampCoordY} onChange={(_, v) => setStampCoordY(v)} />
+                <NumberInput
+                  width="45px"
+                  minValue={0}
+                  maxValue={+Infinity}
+                  value={stampCoordY}
+                  onChange={(_, v) => setStampCoordY(v)}
+                />
               </h4>
 
               <Box textAlign="center">

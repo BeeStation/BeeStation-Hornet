@@ -55,6 +55,8 @@ const FilterFloatEntry = (props) => {
       </Box>
       <NumberInput
         value={step}
+        minValue={-Infinity}
+        maxValue={Infinity}
         step={0.001}
         format={(value) => toFixed(value, 4)}
         width="70px"
@@ -213,6 +215,8 @@ const FilterEntry = (props) => {
         <>
           <NumberInput
             value={priority}
+            minValue={-Infinity}
+            maxValue={Infinity}
             stepPixelSize={10}
             width="60px"
             onChange={(e, value) =>

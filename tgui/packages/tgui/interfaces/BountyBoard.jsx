@@ -114,7 +114,7 @@ const NewBountyMenu = (_) => {
       buttons={
         <>
           <NumberInput
-            animate
+            animated
             unit="cr"
             minValue={1}
             maxValue={1000}

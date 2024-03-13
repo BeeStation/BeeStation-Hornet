@@ -530,7 +530,6 @@ const AirAlarmAirConditioningControls = (_props) => {
               maxValue={max}
               onChange={(_e, target: number) => act('set_ac_target', { target })}
               unit="K"
-              tooltip="Change the target temperature of the heater"
               disabled={!enabled}
             />
             <Button

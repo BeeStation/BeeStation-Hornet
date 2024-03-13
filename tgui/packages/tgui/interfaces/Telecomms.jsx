@@ -77,7 +77,7 @@ export const Telecomms = (props) => {
                       )}
                     </Table.Cell>
                     <NumberInput
-                      animate
+                      animated
                       unit="GHz"
                       step={0.2}
                       stepPixelSize={10}
@@ -155,7 +155,7 @@ export const Telecomms = (props) => {
                     </Table.Cell>
                     <Table.Cell>
                       <NumberInput
-                        animate
+                        animated
                         unit="GHz"
                         step={0.2}
                         stepPixelSize={10}

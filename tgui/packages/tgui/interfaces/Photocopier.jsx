@@ -78,7 +78,7 @@ const Options = (props) => {
         </Flex.Item>
         <Flex.Item>
           <NumberInput
-            animate
+            animated
             width={2.6}
             height={1.65}
             step={1}

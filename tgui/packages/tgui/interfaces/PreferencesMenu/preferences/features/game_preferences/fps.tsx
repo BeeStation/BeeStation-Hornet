@@ -41,7 +41,7 @@ const FpsInput = (props: FeatureValueProps<number, number, FpsServerData>) => {
             }}
             minValue={1}
             maxValue={serverData.maximum}
-            value={props.value}
+            value={props.value || serverData?.recommended_fps || 40}
           />
         )}
       </Stack.Item>
