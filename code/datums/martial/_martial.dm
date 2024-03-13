@@ -58,7 +58,7 @@
 		playsound(D.loc, A.dna.species.miss_sound, 25, 1, -1)
 		D.visible_message("<span class='warning'>[A]'s [atk_verb] misses [D]!</span>", \
 			"<span class='userdanger'>[A]'s [atk_verb] misses you!</span>", null, COMBAT_MESSAGE_RANGE)
-		log_combat(A, D, "attempted to [atk_verb]")
+		log_combat(A, D, "attempted to [atk_verb]", important = FALSE)
 		return 0
 
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.get_combat_bodyzone(D)))
@@ -70,7 +70,7 @@
 
 	D.apply_damage(damage, A.dna.species.attack_type, affecting, armor_block)
 
-	log_combat(A, D, "punched")
+	log_combat(A, D, "punched", name)
 
 	if(!(D.mobility_flags & MOBILITY_STAND))
 		D.force_say(A)

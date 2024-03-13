@@ -191,6 +191,11 @@
 	desc = "A tile in a pure white color."
 	icon_state = "pure_white"
 
+/turf/open/floor/holofloor/eighties
+	name = "retro floor"
+	desc = "This one takes you back."
+	icon_state = "eighties"
+
 /turf/open/floor/holofloor/monotile/dark
 	name = "dark holotile"
 	desc = "A really big dark steel holotile."

@@ -654,6 +654,21 @@
 			.[i] = key
 			.[key] = value
 
+/// A version of deep_copy_list that actually supports associative list nesting: list(list(list("a" = "b"))) will actually copy correctly.
+/proc/deep_copy_list_alt(list/inserted_list)
+	if(!islist(inserted_list))
+		return inserted_list
+	var/copied_list = inserted_list.Copy()
+	. = copied_list
+	for(var/key_or_value in inserted_list)
+		if(isnum_safe(key_or_value) || !inserted_list[key_or_value])
+			continue
+		var/value = inserted_list[key_or_value]
+		var/new_value = value
+		if(islist(value))
+			new_value = deep_copy_list_alt(value)
+		copied_list[key_or_value] = new_value
+
 /**
  takes an input_key, as text, and the list of keys already used, outputting a replacement key in the format of "[input_key] ([number_of_duplicates])" if it finds a duplicate
 
@@ -747,6 +762,16 @@
 			return FALSE
 
 	return TRUE
+
+#define LAZY_LISTS_OR(left_list, right_list)\
+	( length(left_list)\
+		? length(right_list)\
+			? (left_list | right_list)\
+			: left_list.Copy()\
+		: length(right_list)\
+			? right_list.Copy()\
+			: null\
+	)
 
 ///Returns a list with items filtered from a list that can call callback
 /proc/special_list_filter(list/L, datum/callback/condition)

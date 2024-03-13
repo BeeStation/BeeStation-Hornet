@@ -341,8 +341,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 
 /obj/effect/mapping_helpers/make_non_slip/Initialize(mapload)
 	. = ..()
-	var/turf/T = get_turf(src)
-	T?.make_traction(grip_visual)
+	var/turf/open/T = get_turf(src)
+	if(isopenturf(T))
+		T?.make_traction(grip_visual)
 
 //Change this areas turf texture
 /obj/effect/mapping_helpers/tile_breaker
@@ -354,3 +355,28 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/turf/open/floor/T = get_turf(src)
 	if(istype(T, /turf/open/floor))
 		T.break_tile()
+
+//Virology helper- if virologist is enabled, set airlocks to virology access, set
+/obj/effect/mapping_helpers/virology
+	name = "virology mapping helper"
+	desc = "Place this on each viro airlock to change its access, a smoke machine to turn it to a pet, and a plant to turn it to a virodrobe when virologist is enabled."
+/obj/effect/mapping_helpers/virology/Initialize(mapload)
+	.=..()
+	if(CONFIG_GET(flag/allow_virologist))
+		for(var/obj/A in loc)
+			if(istype(A, /obj/machinery/door/airlock/))
+				var/obj/machinery/door/airlock/airlock = A
+				airlock.req_access_txt = "39"
+				if(airlock.type == /obj/machinery/door/airlock/maintenance || airlock.type == /obj/machinery/door/airlock/maintenance_hatch)
+					airlock.name = "Virology Maintenance"
+				else
+					airlock.name = "Virology Lab"
+			if(istype(A, /obj/machinery/smoke_machine))
+				qdel(A)
+				new /obj/structure/bed/dogbed/vector(src.loc)
+				new /mob/living/simple_animal/pet/hamster/vector(src.loc)
+			if(istype(A, /obj/item/kirbyplants/random))
+				qdel(A)
+				new /obj/machinery/vending/wardrobe/viro_wardrobe(src.loc)
+
+
