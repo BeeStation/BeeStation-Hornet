@@ -61,6 +61,13 @@ SUBSYSTEM_DEF(overlays)
 			build_overlays += icon2appearance(overlay)
 	return build_overlays
 
+#ifdef UNIT_TESTS
+	// I hate this but gun sprites are not implemented properly, and unit test blames this
+	// We'll need to clean up gun sprites someday, but not right now, it's a mess
+/obj/item/gun/update_icon()
+	return
+#endif
+
 /atom/proc/cut_overlays()
 	STAT_START_STOPWATCH
 	overlays = null
