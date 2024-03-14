@@ -288,7 +288,7 @@
 /datum/team/cult/proc/ascend(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
-		if(length(H.overlays_standing[HALO_LAYER])) // It appears you have this already. Applying this again will break the overlay
+		if(H.overlays_standing[HALO_LAYER]) // It appears you have this already. Applying this again will break the overlay
 			return
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		var/istate = pick("halo1","halo2","halo3","halo4","halo5","halo6")
