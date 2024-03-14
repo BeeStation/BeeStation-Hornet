@@ -235,6 +235,7 @@
 	if(istype(H) && iscatperson(H) && (method == TOUCH || method == VAPOR))
 		if(M.fire_stacks < 0) //if we're on fire, don't apply the negative mood
 			M.Immobilize(1) //startles the felinid
+			M.emote("scream")
 			if (method == TOUCH)
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "watersplashed", /datum/mood_event/watersplashed)
 			if (method == VAPOR)
