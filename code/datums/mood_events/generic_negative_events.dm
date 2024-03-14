@@ -223,9 +223,26 @@
 	timeout = 4 MINUTES
 
 /datum/mood_event/tailpull
-	description = "<span class='warning'>OUCH! Stop pulling my tail! It hurts!\n"
+	description = "<span class='warning'>OUCH! Someone pulled my tail!\n"
 	mood_change = -2
 	timeout = 2 MINUTES
+
+/datum/mood_event/watersprayed
+	description = "<span class='warning'>I hate being sprayed with water!</span>\n"
+	mood_change = -1
+	timeout = 30 SECONDS
+
+/datum/mood_event/watersplashed
+	//splash gets a larger debuff
+	description = "<span class='boldwarning'>I hate being splashed with water!</span>\n"
+	mood_change = -2
+	timeout = 30 SECONDS
+
+/datum/mood_event/hate_shower
+	description = "<span class='boldwarning'>I <i>HATE</i> showers!</span>\n"
+	mood_change = -2
+	timeout = 5 MINUTES //End of NSV code
+
 //These are unused so far but I want to remember them to use them later
 /datum/mood_event/cloned_corpse
 	description = "<span class='boldwarning'>I recently saw my own corpse...</span>"
