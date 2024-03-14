@@ -1,0 +1,4 @@
+author: JixS4v
+delete-after: true
+changes:
+  - admin: severity in TGUI ban panel bans forced to "high", fixes severity of "1"
