@@ -19,55 +19,46 @@ export const Uplink = (props, context) => {
       <Window.Content scrollable>
         <Tabs>
           <Tabs.Tab
-              selected={tab === 0}
-              onClick={() => {
-                setTab(0);
-              }}>
+            selected={tab === 0}
+            onClick={() => {
+              setTab(0);
+            }}>
             Agent Marketplace
           </Tabs.Tab>
           <Tabs.Tab
-              selected={tab === 1}
-              onClick={() => {
-                setTab(1);
-              }}>
-              Priority Directives
-              <Tooltip content={'New directives are available.'}>
-                <Icon ml={1} name="bell" color="yellow" className='bell_ring' />
-              </Tooltip>
+            selected={tab === 1}
+            onClick={() => {
+              setTab(1);
+            }}>
+            Priority Directives
+            <Tooltip content={'New directives are available.'}>
+              <Icon ml={1} name="bell" color="yellow" className="bell_ring" />
+            </Tooltip>
           </Tabs.Tab>
         </Tabs>
-        {tab === 0 ? <GenericUplink currencyAmount={telecrystals} currencySymbol="TC" /> : (tab === 1 && <Directives />)}
+        {tab === 0 ? <GenericUplink currencyAmount={telecrystals} currencySymbol="TC" /> : tab === 1 && <Directives />}
       </Window.Content>
     </Window>
   );
 };
 
 const Directives = (props, context) => {
-  const [selected, setSelected] = useLocalState(context, "sel_obj", 0);
+  const [selected, setSelected] = useLocalState(context, 'sel_obj', 0);
   const { act, data } = useBackend(context);
-  const {
-    pos_x = 0,
-    pos_y = 0,
-    pos_z = 0,
-    time,
-    objectives = [],
-  } = data.objectives;
+  const { pos_x = 0, pos_y = 0, pos_z = 0, time, objectives = [] } = data.objectives;
   const selectedObjective = objectives[selected] || objectives[0];
-  const {
-    track_x,
-    track_y,
-    track_z,
-  } = selectedObjective || {};
+  const { track_x, track_y, track_z } = selectedObjective || {};
   const dx = track_x - pos_x;
   const dy = track_y - pos_y;
-  const angle = (360 / (Math.PI * 2)) * (Math.atan2(dx, dy));
+  const angle = (360 / (Math.PI * 2)) * Math.atan2(dx, dy);
   return (
     <Flex direction="column" className="directives">
       <Flex.Item>
         <Section title="Directives Database">
-          <Flex style={{
-            overflowY: "scroll",
-          }}>
+          <Flex
+            style={{
+              overflowY: 'scroll',
+            }}>
             {objectives.map((objective, index) => (
               <ObjectiveCard
                 key={objective}
@@ -79,7 +70,8 @@ const Directives = (props, context) => {
                   name: objective.name,
                   reward: objective.reward || 0,
                   time_left: objective.time ? (objective.time - time) * 0.1 : null,
-                }} />
+                }}
+              />
             ))}
           </Flex>
         </Section>
@@ -88,21 +80,26 @@ const Directives = (props, context) => {
         <div className="directive_container">
           <div className="directive_radar">
             <NtosRadarMap
-            sig_err="The target of this objective cannot be tracked."
-            selected={!track_x}
-            rightAlign
-            target={!track_x ? {} : {
-              dist: Math.abs((pos_x - track_x)) + Math.abs((pos_y - track_y)),
-              gpsx: track_x,
-              gpsy: track_y,
-              locy: (pos_y - track_y) + 24,
-              locx: (track_x - pos_x) + 24,
-              gpsz: track_z,
-              use_rotate: Math.abs((pos_x - track_x)) + Math.abs((pos_y - track_y)) > 26,
-              rotate_angle: angle,
-              arrowstyle: "ntosradarpointer.png",
-              pointer_z: pos_z > track_z ? "caret-up" : pos_z < track_z ? "caret-down" : null,
-            }} />
+              sig_err="The target of this objective cannot be tracked."
+              selected={!track_x}
+              rightAlign
+              target={
+                !track_x
+                  ? {}
+                  : {
+                    dist: Math.abs(pos_x - track_x) + Math.abs(pos_y - track_y),
+                    gpsx: track_x,
+                    gpsy: track_y,
+                    locy: pos_y - track_y + 24,
+                    locx: track_x - pos_x + 24,
+                    gpsz: track_z,
+                    use_rotate: Math.abs(pos_x - track_x) + Math.abs(pos_y - track_y) > 26,
+                    rotate_angle: angle,
+                    arrowstyle: 'ntosradarpointer.png',
+                    pointer_z: pos_z > track_z ? 'caret-up' : pos_z < track_z ? 'caret-down' : null,
+                  }
+              }
+            />
           </div>
           <div className="directive_info">
             <div className="directive_section Section">
@@ -110,44 +107,38 @@ const Directives = (props, context) => {
                 <span className="Section__titleText">Objective Details</span>
               </div>
               <div className="Section__rest">
-              <div className="Section__content">
-                <Box mb={1} underline bold>Tasks</Box>
-                {selectedObjective.tasks.map(task => (
-                  <Box key={task}>
-                    <Icon inline name='square-o' mr={1} className='directive_check' />
-                    {task}
+                <div className="Section__content">
+                  <Box mb={1} underline bold>
+                    Tasks
                   </Box>
-                ))}
-                <Box mt={3} mb={1} underline bold>Additional Details</Box>
-                <Box>
-                  {selectedObjective.details || (
-                    "This mission is part of your assignment and must be\
+                  {selectedObjective.tasks.map((task) => (
+                    <Box key={task}>
+                      <Icon inline name="square-o" mr={1} className="directive_check" />
+                      {task}
+                    </Box>
+                  ))}
+                  <Box mt={3} mb={1} underline bold>
+                    Additional Details
+                  </Box>
+                  <Box>
+                    {selectedObjective.details ||
+                      'This mission is part of your assignment and must be\
                     completed. No additional reward will be provided outside of the\
-                    terms that have been defined within your contract of employment."
-                  )}
-                </Box>
-              </div>
+                    terms that have been defined within your contract of employment.'}
+                  </Box>
+                </div>
               </div>
               <div className="directive_prize">
                 <div className="directive_prize_info">
                   <Flex.Item>
-                    <Icon name='slash' />
+                    <Icon name="slash" />
                   </Flex.Item>
                   <Flex.Item grow>
                     <Box bold>No Reward</Box>
                   </Flex.Item>
                 </div>
-                <Flex.Item
-                  grow
-                  height="100%"
-                  align="flex-end"
-                  textAlign="right">
-                  <Button
-                    height="100%"
-                    fontSize={2}
-                    content="Collect Reward"
-                    disabled
-                    icon="hands-helping" />
+                <Flex.Item grow height="100%" align="flex-end" textAlign="right">
+                  <Button height="100%" fontSize={2} content="Collect Reward" disabled icon="hands-helping" />
                 </Flex.Item>
               </div>
             </div>
@@ -161,31 +152,30 @@ const Directives = (props, context) => {
 const ObjectiveCard = (props, context) => {
   const {
     objective_info = {
-      name: "Assassination",
+      name: 'Assassination',
       reward: 0,
       time_left: null,
     },
     selected = 0,
     onClick,
   } = props;
-  const {
-    name,
-    reward,
-    time_left,
-  } = objective_info;
+  const { name, reward, time_left } = objective_info;
   return (
-    <Flex.Item
-      className={"objective_card " + (selected && "selected")}
-      onClick={onClick}>
+    <Flex.Item className={'objective_card ' + (selected && 'selected')} onClick={onClick}>
       <Stack vertical>
         <Stack.Item bold>{capitalize(name)}</Stack.Item>
         <Stack.Divider />
       </Stack>
-      <Box className="reward_overlay" align="flex-end" color={reward === 0 ? "orange" : "good"}>
-        {reward === 0 ? "Assignment" : (reward + " TC Reward")}
+      <Box className="reward_overlay" align="flex-end" color={reward === 0 ? 'orange' : 'good'}>
+        {reward === 0 ? 'Assignment' : reward + ' TC Reward'}
       </Box>
       <Box className="time_limit">
-        {time_left === null ? "--:--" : ("00:" + String(Math.floor(time_left / 60)).padStart(2, '0') + ":" + String(Math.floor(time_left) % 60).padStart(2, '0'))}
+        {time_left === null
+          ? '--:--'
+          : '00:' +
+          String(Math.floor(time_left / 60)).padStart(2, '0') +
+          ':' +
+          String(Math.floor(time_left) % 60).padStart(2, '0')}
       </Box>
     </Flex.Item>
   );

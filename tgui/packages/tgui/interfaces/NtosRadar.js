@@ -22,10 +22,7 @@ export const NtosRadarContentSmall = (props, context) => {
   const { sig_err } = props;
   return (
     <NtosWindow.Content scrollable>
-      <NtosRadarMap
-        selected={selected}
-        sig_err={sig_err}
-        target={target} />
+      <NtosRadarMap selected={selected} sig_err={sig_err} target={target} />
 
       <Section>
         <Button
@@ -62,11 +59,7 @@ export const NtosRadarContentSmall = (props, context) => {
 };
 
 export const NtosRadarMapSmall = (props, context) => {
-  const {
-    selected = false,
-    sig_err,
-    target = [],
-  } = props;
+  const { selected = false, sig_err, target = [] } = props;
   return (
     <Section>
       {Object.keys(target).length === 0 ? (
@@ -150,10 +143,7 @@ export const NtosRadarContent = (props, context) => {
         style={{
           'top': '20px',
         }}>
-        <NtosRadarMap
-          selected={selected}
-          sig_err={sig_err}
-          target={target} />
+        <NtosRadarMap selected={selected} sig_err={sig_err} target={target} />
       </Flex.Item>
     </Flex>
   );
@@ -186,8 +176,7 @@ export class NtosRadarMap extends Component {
     });
   };
 
-  render()
-  {
+  render() {
     const { sig_err, selected, target, rightAlign } = this.props;
     const { width, height } = this.state;
     const scalingFactor = (width < height ? width : height) / 540;
@@ -204,16 +193,17 @@ export class NtosRadarMap extends Component {
           'overflow': 'hidden',
         }}
         ref={this.containerRef}>
-        <div style={{
-          /* Render at a fixed width and height and then scale it */
-          'width': '540px',
-          'height': '540px',
-          'transform': (rightAlign && ('translate(' + offset + 'px, 0px) ')) + 'scale(' + scalingFactor + ')',
-          'transform-origin': 'top left',
-          'background-image': 'url("' + resolveAsset('ntosradarbackground.png') + '")',
-          'background-position': 'center',
-          'background-repeat': 'no-repeat',
-        }}>
+        <div
+          style={{
+            /* Render at a fixed width and height and then scale it */
+            'width': '540px',
+            'height': '540px',
+            'transform': (rightAlign && 'translate(' + offset + 'px, 0px) ') + 'scale(' + scalingFactor + ')',
+            'transform-origin': 'top left',
+            'background-image': 'url("' + resolveAsset('ntosradarbackground.png') + '")',
+            'background-position': 'center',
+            'background-repeat': 'no-repeat',
+          }}>
           {Object.keys(target).length === 0
             ? !!selected && (
               <NoticeBox position="absolute" top={20.6} left={1.35} width={42} fontSize="30px" textAlign="center">
