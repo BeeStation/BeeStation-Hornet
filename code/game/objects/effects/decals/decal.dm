@@ -47,7 +47,7 @@
 
 /obj/effect/turf_decal/Destroy(force)
 	SHOULD_CALL_PARENT(FALSE)
-#ifdef UNIT_TESTS
+#ifdef REFERENCE_TRACKING_FAST
 // If we don't do this, turf decals will end up stacking up on a tile, and break the overlay limit
 // I hate it too bestie
 	if(GLOB.running_create_and_destroy)
