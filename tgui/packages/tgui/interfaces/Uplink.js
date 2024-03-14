@@ -46,10 +46,21 @@ const Directives = (props, context) => {
   const [selected, setSelected] = useLocalState(context, "sel_obj", 0);
   const { act, data } = useBackend(context);
   const {
+    pos_x = 0,
+    pos_y = 0,
+    pos_z = 0,
     time,
     objectives = [],
   } = data.objectives;
   const selectedObjective = objectives[selected];
+  const {
+    track_x,
+    track_y,
+    track_z,
+  } = selectedObjective || {};
+  const dx = track_x - pos_x;
+  const dy = track_y - pos_y;
+  const angle = (360 / (Math.PI * 2)) * (Math.atan2(dx, dy));
   return (
     <Flex direction="column" className="directives">
       <Flex.Item>
@@ -76,14 +87,21 @@ const Directives = (props, context) => {
       <Flex.Item grow={1}>
         <div className="directive_container">
           <div className="directive_radar">
-            <NtosRadarMap sig_err="Error..." selected={1} rightAlign target={{
-              dist: 53,
-              gpsx: 30,
-              gpsy: 60,
-              gpsz: 6,
+            <NtosRadarMap
+            sig_err="The target of this objective cannot be tracked."
+            selected={!track_x}
+            rightAlign
+            target={!track_x ? {} : {
+              dist: Math.sqrt((pos_x - track_x) ** 2 + (pos_y - track_y) ** 2),
+              gpsx: track_x,
+              gpsy: track_y,
+              locy: (pos_y - track_y) + 24,
+              locx: (track_x - pos_x) + 24,
+              gpsz: track_z,
               use_rotate: true,
-              rotate_angle: 23,
+              rotate_angle: angle,
               arrowstyle: "ntosradarpointer.png",
+              pointer_z: pos_z > track_z ? "caret-up" : poz_z < track_z ? "caret-down" : null,
             }} />
           </div>
           <div className="directive_info">

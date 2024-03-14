@@ -78,6 +78,10 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/gun/energy/e_gun/hos/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/trackable)
+
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"
 	desc = "The \"Dynamic Rapid-Apprehension of the Guilty\" net is a revolution in law enforcement technology."

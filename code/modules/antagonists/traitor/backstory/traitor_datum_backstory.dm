@@ -37,7 +37,7 @@
 /datum/antagonist/traitor/proc/set_faction(datum/traitor_faction/new_faction)
 	if(!istype(new_faction))
 		return
-	var/no_faction = isnull(faction)
+	var/no_faction = isnull(traitor_faction)
 	traitor_faction = new_faction
 	employer = new_faction.employer_name
 	if(no_faction)

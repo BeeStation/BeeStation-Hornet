@@ -302,3 +302,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		for(var/datum/mind/own as() in get_owners())
 			to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 			own.announce_objectives()
+
+/// Get the tracking target for this objective
+/datum/objective/proc/get_tracking_target(atom/source)
+	RETURN_TYPE(/atom)
+	return null

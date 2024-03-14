@@ -45,6 +45,10 @@
 	weapon_weight = WEAPON_LIGHT
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/gun/energy/laser/captain/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/trackable)
+
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
 	icon_state = "lasercannon"

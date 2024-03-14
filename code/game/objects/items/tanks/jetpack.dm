@@ -196,6 +196,10 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
+/obj/item/tank/jetpack/oxygen/captain/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/trackable)
+
 /obj/item/tank/jetpack/oxygen/security
 	name = "security jetpack (oxygen)"
 	desc = "A tank of compressed oxygen for use as propulsion in zero-gravity areas by security forces."

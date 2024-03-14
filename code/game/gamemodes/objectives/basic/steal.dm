@@ -8,6 +8,17 @@ GLOBAL_LIST_EMPTY(possible_items)
 /datum/objective/steal/get_target()
 	return steal_target
 
+/datum/objective/steal/get_tracking_target(atom/source)
+	var/closest = INFINITY
+	var/atom/tracked = null
+	for (var/atom/target in get_trackables_by_type(steal_target, TRUE))
+		var/dist = get_dist(target, source)
+		if (dist > closest)
+			continue
+		closest = dist
+		tracked = target
+	return tracked
+
 /datum/objective/steal/New()
 	..()
 	if(!GLOB.possible_items.len)//Only need to fill the list when it's needed.

@@ -46,6 +46,9 @@
 	var/span = check_completion() ? "grentext" : "redtext"
 	return "[explanation_text] <span class='[span]'>[absorbedcount] lifeform\s absorbed!</span>"
 
+/datum/objective/absorb/get_tracking_target(atom/source)
+	return target?.current
+
 /datum/objective/absorb_most
 	name = "absorb most"
 	explanation_text = "Extract more compatible genomes than any other Changeling."

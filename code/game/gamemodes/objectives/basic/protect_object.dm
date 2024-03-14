@@ -15,3 +15,6 @@
 
 /datum/objective/protect_object/check_completion()
 	return !QDELETED(protect_target) || ..()
+
+/datum/objective/protect_object/get_tracking_target(atom/source)
+	return protect_target
