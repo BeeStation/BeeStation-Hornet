@@ -273,3 +273,8 @@
 
 /datum/mood_event/saw_holopara_death/add_effects(name)
 	description = "<span class='warning'>Oh god, [name] just painfully turned to dust... What an horrifying sight...</span>"
+
+/datum/mood_event/tailpull
+	description = "<span class='warning'>OUCH! Stop pulling my tail! It hurts! </span>"
+	mood_change = -2
+	timeout = 2 MINUTES
