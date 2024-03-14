@@ -28,10 +28,11 @@
 
 /obj/item/gun/ballistic/automatic/update_icon()
 	..()
-	if(!select)
-		add_overlay("[initial(icon_state)]_semi")
-	if(select == 1)
-		add_overlay("[initial(icon_state)]_burst")
+	if(initial(icon_state) != "arg") // I hate this, but "arg_burst" is non-existing sprite
+		if(!select)
+			add_overlay("[initial(icon_state)]_semi")
+		if(select == 1)
+			add_overlay("[initial(icon_state)]_burst")
 
 /obj/item/gun/ballistic/automatic/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, /datum/action/item_action/toggle_firemode))

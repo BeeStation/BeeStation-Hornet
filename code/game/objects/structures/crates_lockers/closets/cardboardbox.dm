@@ -22,6 +22,12 @@
 	var/move_delay = FALSE
 	var/egged = 0
 
+/obj/structure/closet/cardboard/closet_update_overlays(list/new_overlays)
+	return new_overlays
+
+/obj/structure/closet/cardboard/animate_door(closing)
+	return
+
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
 	if(!istype(user) || opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
 		return
@@ -60,7 +66,6 @@
 	flick_overlay_view(I, A, 8)
 	I.alpha = 0
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
-
 
 /obj/structure/closet/cardboard/metal
 	name = "large metal box"

@@ -631,7 +631,8 @@ RLD
 	. = ..()
 	if(has_ammobar)
 		var/ratio = CEILING((matter / max_matter) * ammo_sections, 1)
-		. += "[icon_state]_charge[ratio]"
+		if(ratio > 0)
+			. += "[icon_state]_charge[ratio]"
 
 /obj/item/construction/rcd/Initialize(mapload)
 	. = ..()
