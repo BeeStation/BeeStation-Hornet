@@ -27,24 +27,35 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define DF_ISPROCESSING (1<<2)
 
 //! ## FLAGS BITMASK
-#define CONDUCT_1					(1<<0)		//!  conducts electricity (iron etc.)
-#define NODECONSTRUCT_1				(1<<1)		//!  For machines and structures that should not break into parts, eg, holodeck stuff
-#define ON_BORDER_1					(1<<2)		//!  item has priority to check when entering or leaving
-#define PREVENT_CLICK_UNDER_1		(1<<3)		//! Prevent clicking things below it on the same turf eg. doors/ fulltile windows
+///  conducts electricity (iron etc.)
+#define CONDUCT_1					(1<<0)
+///  For machines and structures that should not break into parts, eg, holodeck stuff
+#define NODECONSTRUCT_1				(1<<1)
+///  item has priority to check when entering or leaving
+#define ON_BORDER_1					(1<<2)
+/// Prevent clicking things below it on the same turf eg. doors/ fulltile windows
+#define PREVENT_CLICK_UNDER_1		(1<<3)
 #define HOLOGRAM_1					(1<<4)
-#define TESLA_IGNORE_1				(1<<5) 	//! TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
-#define INITIALIZED_1				(1<<6)  	//! Whether /atom/Initialize(mapload) has already run for the object
-#define ADMIN_SPAWNED_1				(1<<7) 		//! was this spawned by an admin? used for stat tracking stuff.
+/// TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
+#define TESLA_IGNORE_1				(1<<5)
+/// Whether /atom/Initialize(mapload) has already run for the object
+#define INITIALIZED_1				(1<<6)
+/// was this spawned by an admin? used for stat tracking stuff.
+#define ADMIN_SPAWNED_1				(1<<7)
 #define PREVENT_CONTENTS_EXPLOSION_1 (1<<8)
 #define UNPAINTABLE_1 				(1<<9)
-#define HTML_USE_INITAL_ICON_1		(1<<10) 			//! Should we use the initial icon for display? Mostly used by overlay only objects
+/// Should we use the initial icon for display? Mostly used by overlay only objects
+#define HTML_USE_INITAL_ICON_1		(1<<10)
 
 //turf-only flags
 #define NOJAUNT_1					(1<<11)
 #define UNUSED_RESERVATION_TURF_1	(1<<12)
-#define CAN_BE_DIRTY_1				(1<<13) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
-#define NO_LAVA_GEN_1				(1<<13) 	//! Blocks lava rivers being generated on the turf
-#define NO_RUINS_1					(1<<14) //! Blocks ruins spawning on the turf
+/// If a turf can be made dirty at roundstart. This is also used in areas.
+#define CAN_BE_DIRTY_1				(1<<13)
+/// Blocks lava rivers being generated on the turf
+#define NO_LAVA_GEN_1				(1<<13)
+/// Blocks ruins spawning on the turf
+#define NO_RUINS_1					(1<<14)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
