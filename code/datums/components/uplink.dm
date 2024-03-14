@@ -156,9 +156,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Uplink", name)
-		// This UI is only ever opened by one person,
-		// and never is updated outside of user input.
-		ui.set_autoupdate(FALSE)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /datum/component/uplink/ui_data(mob/user)

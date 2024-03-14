@@ -92,16 +92,16 @@ const Directives = (props, context) => {
             selected={!track_x}
             rightAlign
             target={!track_x ? {} : {
-              dist: Math.sqrt((pos_x - track_x) ** 2 + (pos_y - track_y) ** 2),
+              dist: Math.abs((pos_x - track_x)) + Math.abs((pos_y - track_y)),
               gpsx: track_x,
               gpsy: track_y,
               locy: (pos_y - track_y) + 24,
               locx: (track_x - pos_x) + 24,
               gpsz: track_z,
-              use_rotate: true,
+              use_rotate: Math.abs((pos_x - track_x)) + Math.abs((pos_y - track_y)) > 30,
               rotate_angle: angle,
               arrowstyle: "ntosradarpointer.png",
-              pointer_z: pos_z > track_z ? "caret-up" : poz_z < track_z ? "caret-down" : null,
+              pointer_z: pos_z > track_z ? "caret-up" : pos_z < track_z ? "caret-down" : null,
             }} />
           </div>
           <div className="directive_info">
