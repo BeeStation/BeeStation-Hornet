@@ -10,7 +10,7 @@
 	/// The actual backstory for this traitor. Can be null.
 	var/datum/traitor_backstory/backstory
 	/// The actual faction for this traitor. Can be null.
-	var/datum/traitor_faction/faction
+	var/datum/traitor_faction/traitor_faction
 
 /datum/antagonist/traitor/proc/setup_backstories(murderbone, hijack)
 	if(murderbone || hijack)
@@ -38,7 +38,7 @@
 	if(!istype(new_faction))
 		return
 	var/no_faction = isnull(faction)
-	faction = new_faction
+	traitor_faction = new_faction
 	employer = new_faction.employer_name
 	if(no_faction)
 		if(new_faction.give_codewords)

@@ -1,8 +1,10 @@
 /// This can only be running once at a time, do not run in parallel
 /datum/priority_directive
 	var/name
-	var/desc
+	var/objective_explanation
+	var/details
 	var/end_at
+	var/tc_reward = 0
 	var/rejected = FALSE
 
 /datum/priority_directive/New()
@@ -25,6 +27,7 @@
 /// Activate the directive, requires a list of traitor datums and security minsd
 /datum/priority_directive/proc/activate(list/uplinks, list/player_minds)
 	SHOULD_NOT_OVERRIDE(TRUE)
+	end_at = world.time + 10 MINUTES
 
 /// Advertise this directive to security objectives consoles
 /datum/priority_directive/proc/advertise_security()

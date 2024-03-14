@@ -1,4 +1,4 @@
-import { createSearch, decodeHtmlEntities } from 'common/string';
+import { capitalize, createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import { Stack, Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Grid, Divider, Icon, Tooltip } from '../components';
 import { formatMoney } from '../format';
@@ -44,6 +44,12 @@ export const Uplink = (props, context) => {
 
 const Directives = (props, context) => {
   const [selected, setSelected] = useLocalState(context, "sel_obj", 0);
+  const { act, data } = useBackend(context);
+  const {
+    time,
+    objectives = [],
+  } = data.objectives;
+  const selectedObjective = objectives[selected];
   return (
     <Flex direction="column" className="directives">
       <Flex.Item>
@@ -51,26 +57,19 @@ const Directives = (props, context) => {
           <Flex style={{
             overflowY: "scroll",
           }}>
-            <ObjectiveCard selected={selected === 0}
-              onClick={() => {
-                setSelected(0);
-              }} />
-            <ObjectiveCard selected={selected === 1}
-              onClick={() => {
-                setSelected(1);
-              }} />
-            <ObjectiveCard selected={selected === 2}
-              onClick={() => {
-                setSelected(2);
-              }} />
-            <ObjectiveCard selected={selected === 3} objective_info={{
-              name: "Secure Deposit",
-              reward: 7,
-              time_left: 349,
-            }}
-            onClick={() => {
-              setSelected(3);
-            }} />
+            {objectives.map((objective, index) => (
+              <ObjectiveCard
+                key={objective}
+                selected={selected === index}
+                onClick={() => {
+                  setSelected(index);
+                }}
+                objective_info={{
+                  name: objective.name,
+                  reward: objective.reward || 0,
+                  time_left: objective.time ? objective.time - time : null,
+                }} />
+            ))}
           </Flex>
         </Section>
       </Flex.Item>
@@ -95,13 +94,19 @@ const Directives = (props, context) => {
               <div className="Section__rest">
               <div className="Section__content">
                 <Box mb={1} underline bold>Tasks</Box>
-                <Icon inline name='square-o' mr={1} className='directive_check' />
-                <Box inline>Assassinate Burnard Silkwind, the roboticist.</Box>
+                {selectedObjective.tasks.map(task => (
+                  <Box key={task}>
+                    <Icon inline name='square-o' mr={1} className='directive_check' />
+                    {task}
+                  </Box>
+                ))}
                 <Box mt={3} mb={1} underline bold>Additional Details</Box>
                 <Box>
-                  This mission is part of your assignment and must be
-                  completed. No additional reward will be provided outside of the
-                  terms that have been defined within your contract of employment.
+                  {selectedObjective.details || (
+                    "This mission is part of your assignment and must be\
+                    completed. No additional reward will be provided outside of the\
+                    terms that have been defined within your contract of employment."
+                  )}
                 </Box>
               </div>
               </div>
@@ -155,7 +160,7 @@ const ObjectiveCard = (props, context) => {
       className={"objective_card " + (selected && "selected")}
       onClick={onClick}>
       <Stack vertical>
-        <Stack.Item bold>{name}</Stack.Item>
+        <Stack.Item bold>{capitalize(name)}</Stack.Item>
         <Stack.Divider />
       </Stack>
       <Box className="reward_overlay" align="flex-end" color={reward === 0 ? "orange" : "good"}>

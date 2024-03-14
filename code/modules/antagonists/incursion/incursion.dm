@@ -2,6 +2,7 @@
 	name = "Syndicate Incursion Member"
 	antagpanel_category = "Incursion"
 	banning_key = ROLE_INCURSION
+	faction = FACTION_SYNDICATE
 	required_living_playtime = 4
 	ui_name = "AntagInfoIncursion"
 	var/datum/team/incursion/team

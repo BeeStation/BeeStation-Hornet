@@ -16,7 +16,8 @@
 	var/allow_restricted = TRUE
 	var/telecrystals
 	var/selected_cat
-	var/owner = null
+	// Antag datum of the owner
+	var/datum/mind/owner = null
 	var/uplink_flag
 	var/datum/uplink_purchase_log/purchase_log
 	var/list/uplink_items
@@ -31,7 +32,7 @@
 
 	var/list/previous_attempts
 
-/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
+/datum/component/uplink/Initialize(datum/mind/_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -53,10 +54,10 @@
 	if(_owner)
 		owner = _owner
 		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-		if(GLOB.uplink_purchase_logs_by_key[owner])
-			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
+		if(GLOB.uplink_purchase_logs_by_key[owner.key])
+			purchase_log = GLOB.uplink_purchase_logs_by_key[owner.key]
 		else
-			purchase_log = new(owner, src)
+			purchase_log = new(owner.key, src)
 	lockable = _lockable
 	active = _enabled
 	src.uplink_flag = uplink_flag
@@ -167,6 +168,7 @@
 	data["telecrystals"] = telecrystals
 	data["lockable"] = lockable
 	data["compactMode"] = compact_mode
+	data["objectives"] = SSdirectives.get_uplink_data(src)
 	return data
 
 /datum/component/uplink/ui_static_data(mob/user)
@@ -271,13 +273,13 @@
 	SIGNAL_HANDLER
 
 	var/mob/user = arguments[2]
-	owner = user?.key
+	owner = user?.mind
 	if(owner && !purchase_log)
 		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-		if(GLOB.uplink_purchase_logs_by_key[owner])
-			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
+		if(GLOB.uplink_purchase_logs_by_key[owner.key])
+			purchase_log = GLOB.uplink_purchase_logs_by_key[owner.key]
 		else
-			purchase_log = new(owner, src)
+			purchase_log = new(owner.key, src)
 
 /datum/component/uplink/proc/old_implant(datum/source, list/arguments, obj/item/implant/new_implant)
 	SIGNAL_HANDLER

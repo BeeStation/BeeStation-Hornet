@@ -353,7 +353,7 @@
 
 	if (!implant)
 		. = uplink_loc
-		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
+		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob?.mind, TRUE, FALSE, gamemode, telecrystals)
 		if(src.has_antag_datum(/datum/antagonist/incursion))
 			U.uplink_flag = UPLINK_INCURSION
 		if(src.has_antag_datum(/datum/antagonist/traitor/excommunicate))
@@ -375,7 +375,7 @@
 		else
 			traitor_mob.mind.store_memory(U.unlock_note)
 	else
-		var/obj/item/implant/uplink/starting/I = new(traitor_mob)
+		var/obj/item/implant/uplink/starting/I = new(traitor_mob, traitor_mob)
 		I.implant(traitor_mob, null, silent = TRUE)
 		var/datum/component/uplink/U = I.GetComponent(/datum/component/uplink)
 		if(!silent)

@@ -50,4 +50,27 @@ SUBSYSTEM_DEF(directives)
 
 /datum/controller/subsystem/directives/proc/get_uplink_data(datum/component/uplink/uplink)
 	var/data = list()
+	data["time"] = world.time
+	// The uplink can only detect syndicate assigned objectives of the owner
+	if (uplink.owner)
+		var/list/known_objectives = list()
+		for (var/datum/antagonist/antagonist_type in uplink.owner.antag_datums)
+			// The syndicate uplink is only aware of syndicate-given objectives.
+			if (antagonist_type.faction != FACTION_SYNDICATE)
+				continue
+			for (var/datum/objective/objective in antagonist_type.objectives)
+				known_objectives += list(list(
+					"name" = objective.name,
+					"tasks" = list(objective.explanation_text),
+				))
+		// Add the priority directive
+		if (active_directive)
+			known_objectives += list(list(
+				"name" = active_directive.name,
+				"tasks" = list(active_directive.objective_explanation),
+				"time" = active_directive.end_at,
+				"details" = active_directive.details,
+				"reward" = active_directive.tc_reward
+			))
+		data["objectives"] =  known_objectives
 	return data
