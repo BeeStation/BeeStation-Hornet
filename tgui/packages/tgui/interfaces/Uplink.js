@@ -3,7 +3,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Stack, Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Grid, Divider, Icon, Tooltip } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
-import '../styles/components/Uplink.scss';
+import '../styles/interfaces/Uplink.scss';
 import { NtosRadarMap } from './NtosRadar';
 
 const MAX_SEARCH_RESULTS = 25;
