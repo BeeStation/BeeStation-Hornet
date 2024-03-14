@@ -13,6 +13,9 @@
 	close_sound_volume = 50
 	door_anim_time = 0
 
+	has_opened_overlay = FALSE
+	has_closed_overlay = FALSE
+
 /obj/structure/closet/crate/large/attack_hand(mob/user)
 	add_fingerprint(user)
 	if(manifest)
