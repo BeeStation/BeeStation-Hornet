@@ -35,6 +35,11 @@
 		if(CONFIG_GET(flag/use_exp_tracking))
 			body += " <A href='?_src_=holder;[HrefToken()];getplaytimewindow=[REF(M)]'>" + M.client.get_exp_living() + "</a>"
 
+	if(isnewplayer(M))
+		body += " <B>Hasn't Entered Game</B>"
+	else
+		body += " <A href='?_src_=holder;[HrefToken()];revive=[REF(M)]'>Heal</A>"
+
 	if(M.client)
 		body += "<br><br><b>First Seen:</b> [M.client.player_join_date]<br><b>Byond account registered on:</b> [M.client.account_join_date]"
 
@@ -102,8 +107,6 @@
 	body += "<A href='?_src_=holder;[HrefToken()];showmessageckey=[M.ckey]'>Notes</A>"
 	if(isliving(M))
 		body += " <A href='?_src_=holder;[HrefToken()];force_cryo=[REF(M)]'>Force Cryo</A> "
-	if(ismob(M))
-		body += " <A href='?_src_=holder;[HrefToken()];revive=[REF(M)]'>Heal</A>"
 	if(M.client)
 		body += " <A href='?_src_=holder;[HrefToken()];sendtoprison=[REF(M)]'>Prison</A> "
 		body += " <A href='?_src_=holder;[HrefToken()];sendbacktolobby=[REF(M)]'>Send to Lobby</A>"
