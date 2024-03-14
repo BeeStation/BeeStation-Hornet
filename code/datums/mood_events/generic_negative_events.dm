@@ -241,7 +241,7 @@
 /datum/mood_event/hate_shower
 	description = "<span class='boldwarning'>I <i>HATE</i> showers!</span>\n"
 	mood_change = -2
-	timeout = 5 MINUTES //End of NSV code
+	timeout = 5 MINUTES
 
 //These are unused so far but I want to remember them to use them later
 /datum/mood_event/cloned_corpse

@@ -135,7 +135,10 @@
 /obj/machinery/shower/proc/wash_atom(atom/A)
 	A.wash(CLEAN_RAD | CLEAN_TYPE_WEAK) // Clean radiation non-instantly
 	A.wash(CLEAN_WASH)
-	SEND_SIGNAL(A, COMSIG_ADD_MOOD_EVENT, "shower", /datum/mood_event/nice_shower)
+	if (iscatperson(A)) //NSV felinids hate showers (all this really does is turn the +3 from neat into a +1, and doesn't give the +4 from a nice shower)
+		SEND_SIGNAL(A, COMSIG_ADD_MOOD_EVENT, "shower", /datum/mood_event/hate_shower)
+	else
+		SEND_SIGNAL(A, COMSIG_ADD_MOOD_EVENT, "shower", /datum/mood_event/nice_shower)
 	reagents.reaction(A, TOUCH, reaction_volume)
 
 	if(isliving(A))
