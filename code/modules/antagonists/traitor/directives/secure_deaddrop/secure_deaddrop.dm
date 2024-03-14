@@ -16,21 +16,22 @@
 
 /datum/priority_directive/deaddrop/generate(list/uplinks, list/player_minds)
 	// Spawn the deaddrop package
-	target = new()
-	var/tc_count = tc_curve(get_independent_difficulty())
-	new /obj/item/stack/sheet/telecrystal(target, tc_count)
+	var/tc_count = rand(4, 3 + length(uplinks))
 	// Put the deaddrop somewhere
 	var/turf/selected = get_random_station_turf()
 	while (!istype(selected, /turf/open/floor/plasteel))
 		selected = get_random_station_turf()
-	var/datum/secret_bag = new /obj/item/storage/backpack/satchel/flat(selected)
+	var/atom/secret_bag = new /obj/item/storage/backpack/satchel/flat/empty(selected)
+	target = new(secret_bag)
+	new /obj/item/stack/sheet/telecrystal(target, tc_count)
 	SEND_SIGNAL(secret_bag, COMSIG_OBJ_HIDE, selected.underfloor_accessibility < UNDERFLOOR_VISIBLE)
 	new /obj/item/storage/deaddrop_box(secret_bag)
 	// Return the reward generated
-	return list(
-		/obj/item/stack/sheet/telecrystal = tc_count,
-	)
+	return tc_count
 
 /datum/priority_directive/deaddrop/finish(list/uplinks, list/player_minds)
 	. = ..()
 	target.unlock()
+
+/datum/priority_directive/deaddrop/get_track_atom()
+	return target

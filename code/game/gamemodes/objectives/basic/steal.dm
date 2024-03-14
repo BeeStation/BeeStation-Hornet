@@ -10,9 +10,12 @@ GLOBAL_LIST_EMPTY(possible_items)
 
 /datum/objective/steal/get_tracking_target(atom/source)
 	var/closest = INFINITY
+	var/turf/source_turf = get_turf(source)
 	var/atom/tracked = null
 	for (var/atom/target in get_trackables_by_type(steal_target, TRUE))
-		var/dist = get_dist(target, source)
+		var/turf/target_turf = get_turf(target)
+		// Prioritise things that are on the same z
+		var/dist = get_dist(target, source) + abs(source_turf.z - target_turf.z) * 1000
 		if (dist > closest)
 			continue
 		closest = dist

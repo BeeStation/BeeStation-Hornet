@@ -52,7 +52,7 @@ const Directives = (props, context) => {
     time,
     objectives = [],
   } = data.objectives;
-  const selectedObjective = objectives[selected];
+  const selectedObjective = objectives[selected] || objectives[0];
   const {
     track_x,
     track_y,
@@ -78,7 +78,7 @@ const Directives = (props, context) => {
                 objective_info={{
                   name: objective.name,
                   reward: objective.reward || 0,
-                  time_left: objective.time ? objective.time - time : null,
+                  time_left: objective.time ? (objective.time - time) * 0.1 : null,
                 }} />
             ))}
           </Flex>
@@ -98,7 +98,7 @@ const Directives = (props, context) => {
               locy: (pos_y - track_y) + 24,
               locx: (track_x - pos_x) + 24,
               gpsz: track_z,
-              use_rotate: Math.abs((pos_x - track_x)) + Math.abs((pos_y - track_y)) > 30,
+              use_rotate: Math.abs((pos_x - track_x)) + Math.abs((pos_y - track_y)) > 26,
               rotate_angle: angle,
               arrowstyle: "ntosradarpointer.png",
               pointer_z: pos_z > track_z ? "caret-up" : pos_z < track_z ? "caret-down" : null,
@@ -185,7 +185,7 @@ const ObjectiveCard = (props, context) => {
         {reward === 0 ? "Assignment" : (reward + " TC Reward")}
       </Box>
       <Box className="time_limit">
-        {time_left === null ? "--:--" : ("00:" + String(Math.floor(time_left / 60)).padStart(2, '0') + ":" + String(time_left % 60).padStart(2, '0'))}
+        {time_left === null ? "--:--" : ("00:" + String(Math.floor(time_left / 60)).padStart(2, '0') + ":" + String(Math.floor(time_left) % 60).padStart(2, '0'))}
       </Box>
     </Flex.Item>
   );

@@ -20,13 +20,6 @@ SUBSYSTEM_DEF(directives)
 	// Check if we are ready to spawn our next active_directive
 	if (world.time < next_directive_time)
 		return
-	// Find all the antags
-	var/list/antag_datums = list()
-	for (var/mob/antag in GLOB.alive_mob_list)
-		var/datum/component/uplink/uplink = antag.mind.find_syndicate_uplink()
-		if (!uplink || length(antag.mind.antag_datums) == 0)
-			continue
-		antag_datums += antag.mind.antag_datums[1]
 	// Find all the minds
 	var/list/player_minds = list()
 	for (var/mob/player in GLOB.alive_mob_list)
@@ -36,17 +29,34 @@ SUBSYSTEM_DEF(directives)
 	// Bring on the mission
 	var/list/valid_directives = list()
 	for (var/datum/priority_directive/directive in directives)
-		if (!directive.check(antag_datums, player_minds))
+		if (!directive.check(GLOB.uplinks, player_minds))
 			continue
 		valid_directives += directive
 	if (!length(valid_directives))
 		// Try again in a minute
 		next_directive_time = world.time + 1 MINUTES
 		return
-	var/datum/priority_directive/selected = pick(valid_directives)
-	selected.generate(antag_datums, player_minds)
+	var/datum/priority_directive/selected = pick(active_directive)
+	selected.activate(GLOB.uplinks, player_minds)
 	next_directive_time = INFINITY
 	active_directive = selected
+
+/client/verb/force_directive()
+	set name = "force directive"
+	set category = "powerfulbacon"
+	if (SSdirectives.active_directive)
+		message_admins("not yet")
+		return
+	// Find all the minds
+	var/list/player_minds = list()
+	for (var/mob/player in GLOB.alive_mob_list)
+		if (!ishuman(player) || !is_station_level(player.z) || !player.mind)
+			continue
+		player_minds += player.mind
+	var/datum/priority_directive/selected = pick(SSdirectives.directives)
+	selected.activate(GLOB.uplinks, player_minds)
+	SSdirectives.next_directive_time = INFINITY
+	SSdirectives.active_directive = selected
 
 /datum/controller/subsystem/directives/proc/get_uplink_data(datum/component/uplink/uplink)
 	var/data = list()
@@ -76,12 +86,17 @@ SUBSYSTEM_DEF(directives)
 				))
 		// Add the priority directive
 		if (active_directive)
+			var/atom/track_atom = active_directive.get_track_atom()
+			var/turf/track_turf = get_turf(track_atom)
 			known_objectives += list(list(
 				"name" = active_directive.name,
 				"tasks" = list(active_directive.objective_explanation),
 				"time" = active_directive.end_at,
 				"details" = active_directive.details,
-				"reward" = active_directive.tc_reward
+				"reward" = active_directive.tc_reward,
+				"track_x" = track_turf?.x,
+				"track_y" = track_turf?.y,
+				"track_z" = track_turf?.z,
 			))
 		data["objectives"] =  known_objectives
 	return data

@@ -3,6 +3,7 @@
 	name = "secured box"
 	desc = "A secure box that probably contains a variety of items the \
 		average crewmember probably wouldn't want around the station."
+	icon_state = "safe"
 	w_class = WEIGHT_CLASS_NORMAL
 	// Prevent it from being opened until it is ready to be opened
 	obj_flags = INDESTRUCTIBLE

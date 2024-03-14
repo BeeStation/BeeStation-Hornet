@@ -1,5 +1,7 @@
 #define PEN_ROTATIONS 2
 
+GLOBAL_LIST_EMPTY(uplinks)
+
 /**
  * Uplinks
  *
@@ -71,6 +73,7 @@
 
 	// We need to start running this now
 	SSdirectives.can_fire = TRUE
+	GLOB.uplinks += src
 
 /datum/component/uplink/InheritComponent(datum/component/uplink/U)
 	lockable |= U.lockable
@@ -82,6 +85,7 @@
 
 /datum/component/uplink/Destroy()
 	purchase_log = null
+	GLOB.uplinks -= src
 	return ..()
 
 /datum/component/uplink/proc/update_items()
