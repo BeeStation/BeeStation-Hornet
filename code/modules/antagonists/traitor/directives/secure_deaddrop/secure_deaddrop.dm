@@ -25,7 +25,6 @@
 	target = new(secret_bag)
 	new /obj/item/stack/sheet/telecrystal(target, tc_count)
 	SEND_SIGNAL(secret_bag, COMSIG_OBJ_HIDE, selected.underfloor_accessibility < UNDERFLOOR_VISIBLE)
-	new /obj/item/storage/deaddrop_box(secret_bag)
 	// Return the reward generated
 	return tc_count
 
