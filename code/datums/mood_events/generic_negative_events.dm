@@ -222,6 +222,10 @@
 	mood_change = -25
 	timeout = 4 MINUTES
 
+/datum/mood_event/tailpull
+	description = "<span class='warning'>OUCH! Stop pulling my tail! It hurts!\n"
+	mood_change = -2
+	timeout = 2 MINUTES
 //These are unused so far but I want to remember them to use them later
 /datum/mood_event/cloned_corpse
 	description = "<span class='boldwarning'>I recently saw my own corpse...</span>"
@@ -274,7 +278,3 @@
 /datum/mood_event/saw_holopara_death/add_effects(name)
 	description = "<span class='warning'>Oh god, [name] just painfully turned to dust... What an horrifying sight...</span>"
 
-/datum/mood_event/tailpull
-	description = "<span class='warning'>OUCH! Stop pulling my tail! It hurts! </span>"
-	mood_change = -2
-	timeout = 2 MINUTES

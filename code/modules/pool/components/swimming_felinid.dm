@@ -1,7 +1,17 @@
+/datum/component/swimming/felinid //felinids don't like swimming
+	positive_moodlet = FALSE
+
 /datum/component/swimming/felinid/enter_pool()
 	var/mob/living/L = parent
 	L.emote("scream")
 	to_chat(parent, "<span class='userdanger'>You get covered in water and start panicking!</span>")
+	SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "was_stuck_in_pool")
+	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "stuck_in_pool", /datum/mood_event/stuck_in_pool)
+
+/datum/component/swimming/felinid/exit_pool()
+	var/mob/living/L = parent
+	SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "stuck_in_pool")
+	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "was_stuck_in_pool", /datum/mood_event/was_stuck_in_pool)
 
 /datum/component/swimming/felinid/process()
 	..()
