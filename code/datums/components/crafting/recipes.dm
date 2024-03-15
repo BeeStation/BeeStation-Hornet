@@ -215,7 +215,7 @@
 /datum/crafting_recipe/medbot
 	name = "Medbot"
 	result = /mob/living/simple_animal/bot/medbot
-	reqs = list(/obj/item/healthanalyzer = 1,
+	reqs = list(/obj/item/assembly/health = 1,
 				/obj/item/storage/firstaid = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/bodypart/r_arm/robot = 1)

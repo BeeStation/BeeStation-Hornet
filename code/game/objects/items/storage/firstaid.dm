@@ -131,7 +131,6 @@
 		/obj/item/stack/medical/bruise_pack = 2,
 		/obj/item/stack/medical/ointment = 2,
 		/obj/item/reagent_containers/hypospray/medipen = 1,
-		/obj/item/healthanalyzer = 1,
 		/obj/item/surgical_drapes = 1,
 		/obj/item/scalpel = 1,
 		/obj/item/hemostat = 1,
