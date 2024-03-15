@@ -34,7 +34,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(!(D.mobility_flags & MOBILITY_STAND))
-		log_combat(A, D, "floor stomped (Karate)")
+		log_combat(A, D, "floor stomped (Karate)", name)
 		D.visible_message("<span class='warning'>[A] stomped [D] in the head!</span>", \
 							"<span class='userdanger'>[A] stomped you in the head!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
@@ -50,7 +50,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
-		log_combat(A, D, "calf kicked (Karate)")
+		log_combat(A, D, "calf kicked (Karate)", name)
 		D.visible_message("<span class='warning'>[A] roundhouse kicked [D] in the calf!</span>", \
 							"<span class='userdanger'>[A] roundhouse kicked you in the calf!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
@@ -65,7 +65,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
-		log_combat(A, D, "jumped kneed (Karate)")
+		log_combat(A, D, "jumped kneed (Karate)", name)
 		D.visible_message("<span class='warning'>[A] jumping kneed [D] in the stomach!</span>", \
 							"<span class='userdanger'>[A] jumping kneed you in the stomach!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
@@ -81,7 +81,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
-		log_combat(A, D, "karate chopped (Karate)")
+		log_combat(A, D, "karate chopped (Karate)", name)
 		D.visible_message("<span class='warning'>[A] karate chopped [D] in the neck!</span>", \
 							"<span class='userdanger'>[A] karate chopped you in the neck!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 75, 1, -1)

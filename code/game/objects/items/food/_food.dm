@@ -73,3 +73,15 @@
 	if(trash_type)
 		AddElement(/datum/element/food_trash, trash_type)
 	return
+
+/obj/item/food/burn()
+	if(QDELETED(src))
+		return
+	if(prob(25))
+		microwave_act(src)
+	else
+		var/turf/T = get_turf(src)
+		new /obj/item/food/badrecipe(T)
+		if(resistance_flags & ON_FIRE)
+			SSfire_burning.processing -= src
+		qdel(src)
