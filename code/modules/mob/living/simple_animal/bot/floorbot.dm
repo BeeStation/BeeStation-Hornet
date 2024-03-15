@@ -149,7 +149,7 @@
 		if("autotile")
 			autotile = !autotile
 		if("anchor")
-			anchored = !anchored
+			set_anchored(!anchored)
 		if("eject")
 			if(specialtiles && tiletype != null)
 				empty_tiles()
@@ -236,7 +236,7 @@
 				repair(target)
 			else if(emagged == 2 && isfloorturf(target))
 				var/turf/open/floor/F = target
-				anchored = TRUE
+				set_anchored(TRUE)
 				mode = BOT_REPAIRING
 				F.ReplaceWithLattice()
 				audible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
@@ -282,11 +282,11 @@
 		if(HULL_BREACH) //The most common job, patching breaches in the station's hull.
 			if(is_hull_breach(scan_target)) //Ensure that the targeted space turf is actually part of the station, and not random space.
 				result = scan_target
-				anchored = TRUE //Prevent the floorbot being blown off-course while trying to reach a hull breach.
+				set_anchored(TRUE) //Prevent the floorbot being blown off-course while trying to reach a hull breach.
 		if(LINE_SPACE_MODE) //Space turfs in our chosen direction are considered.
 			if(get_dir(src, scan_target) == targetdirection)
 				result = scan_target
-				anchored = TRUE
+				set_anchored(TRUE)
 		if(PLACE_TILE)
 			F = scan_target
 			if(isplatingturf(F)) //The floor must not already have a tile.
@@ -317,7 +317,7 @@
 	else if(!isfloorturf(target_turf))
 		return
 	if(isspaceturf(target_turf)) //If we are fixing an area not part of pure space, it is
-		anchored = TRUE
+		set_anchored(TRUE)
 		icon_state = "[toolbox_color]floorbot-c"
 		visible_message("<span class='notice'>[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
 		mode = BOT_REPAIRING
@@ -334,7 +334,7 @@
 		switch(process_type) // Other process types have no business here
 			if(REPLACE_TILE)
 				if(!isplatingturf(F) && F.type != initial(tiletype.turf_type))
-					anchored = TRUE
+					set_anchored(TRUE)
 					icon_state = "[toolbox_color]floorbot-c"
 					mode = BOT_REPAIRING
 					visible_message("<span class='notice'>[src] begins replacing the floor tiles.</span>")
@@ -349,7 +349,7 @@
 							speak("Requesting refill of custom floor tiles to continue replacing.")
 			if(PLACE_TILE, FIX_TILE)
 				if(isplatingturf(F) || F.broken || F.burnt)
-					anchored = TRUE
+					set_anchored(TRUE)
 					icon_state = "[toolbox_color]floorbot-c"
 					mode = BOT_REPAIRING
 					visible_message("<span class='notice'>[src] begins repairing the floor.</span>")

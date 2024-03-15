@@ -166,7 +166,7 @@
 			holy_to_unholy += belly.reagents.get_reagent_amount(/datum/reagent/water/holywater)
 			belly.reagents.del_reagent(/datum/reagent/water/holywater)
 	target.reagents.add_reagent(/datum/reagent/fuel/unholywater, holy_to_unholy)
-	log_combat(cultist, target, "smacked", parent, " removing the holy water from them")
+	log_combat(cultist, target, "smacked", parent, " removing the holy water from them", important = FALSE)
 
 /*
  * Destoys the target cult girder [cult_girder], acted upon by [cultist].
@@ -191,7 +191,7 @@
  */
 /datum/component/cult_ritual_item/proc/do_unanchor_structure(obj/structure/cult_structure, mob/living/cultist)
 	playsound(cult_structure, 'sound/items/deconstruct.ogg', 30, TRUE, ignore_walls = FALSE)
-	cult_structure.anchored = !cult_structure.anchored
+	cult_structure.set_anchored(!cult_structure.anchored)
 	to_chat(cultist, "<span class='notice'>You [cult_structure.anchored ? "":"un"]secure \the [cult_structure] [cult_structure.anchored ? "to":"from"] the floor.</span>")
 
 /*
