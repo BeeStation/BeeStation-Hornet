@@ -191,7 +191,7 @@ GENE SCANNER
 	if(isliving(user) && user.incapacitated())
 		return
 
-	if(!advanced)
+	if(!advanced && isliving(user))
 		if(M.radiation >= 100)
 			playsound(user, 'sound/machines/buzz-sigh.ogg', 10)
 			to_chat(user, "<span class='alert'>WARNING: SUBJECT RADIATION ABOVE SAFE LEVELS. SCAN ABORTED.</span>", type = MESSAGE_TYPE_WARNING)
@@ -199,9 +199,9 @@ GENE SCANNER
 
 	if(do_after(user, 20, M))
 
-		M.rad_act(100)
-
-		playsound(user, 'sound/effects/fastbeep.ogg', 10)
+		if(isliving(user))
+			M.rad_act(100)
+			playsound(user, 'sound/effects/fastbeep.ogg', 10)
 
 		// the final list of strings to render
 		var/message = list()
