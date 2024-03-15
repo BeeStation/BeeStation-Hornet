@@ -1964,9 +1964,7 @@
 /area/mine/science)
 "nE" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
+/obj/item/radio/intercom/directional/east,
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "nI" = (
@@ -4110,9 +4108,7 @@
 	dir = 1;
 	network = list("labor")
 	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
+/obj/item/radio/intercom/directional/south,
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "EU" = (
@@ -4996,11 +4992,9 @@
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "KI" = (
-/obj/item/radio/intercom{
-	dir = 8;
+/obj/item/radio/intercom/directional{
 	name = "Station Intercom (General)";
-	pixel_x = -28;
-	pixel_y = -6
+	
 	},
 /obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -6899,9 +6893,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
+/obj/item/radio/intercom/directional/south,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp)
 "YC" = (
