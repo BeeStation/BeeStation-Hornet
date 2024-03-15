@@ -40,6 +40,22 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 	end_at = world.time + 10 MINUTES
 	tc_reward = _generate(uplinks, player_minds)
+	for (var/datum/component/uplink/uplink in GLOB.uplinks)
+		var/syndicate_antag = FALSE
+		var/mob/living/current = uplink.parent
+		while (current && !istype(current))
+			current = current.loc
+		if (istype(current))
+			for (var/datum/antagonist/antag in current.mind?.antag_datums)
+				syndicate_antag ||= antag.faction == FACTION_SYNDICATE
+		else
+			// Nobody to notify
+			continue
+		// If we are not held by a syndicate, and we are locked then do not give a notification
+		if (!syndicate_antag && uplink.locked)
+			continue
+		to_chat(current, "<span class='traitor_objective'>NEW PRIORITY DIRECTIVE RECEIVED. SEE UPLINK FOR DETAILS.</span>")
+		SEND_SOUND(current, sound('sound/machines/twobeep_high.ogg', volume = 50))
 
 /// Advertise this directive to security objectives consoles
 /datum/priority_directive/proc/advertise_security()

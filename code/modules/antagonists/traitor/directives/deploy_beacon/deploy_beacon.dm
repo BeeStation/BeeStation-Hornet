@@ -31,4 +31,4 @@
 	return
 
 /datum/priority_directive/deploy_beacon/get_track_atom()
-	return target
+	return null

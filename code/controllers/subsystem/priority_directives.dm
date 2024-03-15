@@ -53,7 +53,7 @@ SUBSYSTEM_DEF(directives)
 		if (!ishuman(player) || !is_station_level(player.z) || !player.mind)
 			continue
 		player_minds += player.mind
-	var/datum/priority_directive/selected = pick(SSdirectives.directives)
+	var/datum/priority_directive/selected = locate(/datum/priority_directive/deaddrop) in SSdirectives.directives
 	selected.start(GLOB.uplinks, player_minds)
 	SSdirectives.next_directive_time = INFINITY
 	SSdirectives.active_directive = selected
