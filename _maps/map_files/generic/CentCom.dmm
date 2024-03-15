@@ -7437,7 +7437,7 @@
 "Fm" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
-	{desc = "Talk smack through this.";
+	desc = "Talk smack through this.";
 	syndie = 1
 	},
 /obj/machinery/door/window/brigdoor{
@@ -9921,7 +9921,7 @@
 "Pq" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
-	{desc = "Talk smack through this.";
+	desc = "Talk smack through this.";
 	syndie = 1
 	},
 /turf/open/floor/carpet/grimy,
@@ -11478,7 +11478,7 @@
 /obj/structure/table/wood,
 /obj/machinery/door/window,
 /obj/item/radio/intercom{
-	{desc = "Talk smack through this.";
+	desc = "Talk smack through this.";
 	syndie = 1
 	},
 /turf/open/floor/carpet/grimy,
