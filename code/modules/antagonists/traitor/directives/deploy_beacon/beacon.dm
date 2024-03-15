@@ -25,3 +25,16 @@
 	var/list/data = list()
 	data["frequency"] = current_frequency
 	return data
+
+/obj/structure/uplink_beacon/ui_act(action, params)
+	if (..())
+		return FALSE
+	var/new_num = text2num(params["freq"])
+	if (!new_num)
+		return FALSE
+	new_num = round(new_num)
+	if (new_num < 0 || new_num > 8)
+		return FALSE
+	current_frequency = new_num
+	ui_update()
+	return TRUE
