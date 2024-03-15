@@ -5,6 +5,7 @@
 		to deploy a beacon encoded our organisation's encrypion code. Hostile agents may try to swap the code \
 		for their own, which you need to prevent from happening. There are friendly agents supporting you on this mission \
 		but their identities are unknown."
+	var/obj/item/uplink_beacon/deployed_beacon
 	// Don't track this for deletion, since we need to maintain a track on the same position
  	// when a turf is changed.
 	var/turf/center_turf

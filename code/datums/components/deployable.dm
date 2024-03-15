@@ -13,13 +13,15 @@
 	var/empty_icon
 	/// The type that we can use to reload this deployable
 	var/reload_type
+	/// The can deploy check
+	var/datum/callback/can_deploy_check = null
 	///	For when consumed is false, is the carrier object currently loaded and ready to deploy its payload item?
 	/// Private as we don't want external modifications to this
 	VAR_PRIVATE/loaded = FALSE
 	/// The atom parent of this
 	VAR_PRIVATE/obj/item/item_parent
 
-/datum/component/deployable/Initialize(deployed_object, consumed = TRUE, time_to_deploy = 0 SECONDS, ignores_mob_density = TRUE, dense_deployment = FALSE, empty_icon = null, loaded = FALSE, reload_type = null)
+/datum/component/deployable/Initialize(deployed_object, consumed = TRUE, time_to_deploy = 0 SECONDS, ignores_mob_density = TRUE, dense_deployment = FALSE, empty_icon = null, loaded = FALSE, reload_type = null, datum/callback/can_deploy_check)
 	. = ..()
 	if (!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -34,6 +36,7 @@
 	src.empty_icon = empty_icon
 	src.loaded = loaded
 	src.reload_type = reload_type
+	src.can_deploy_check = can_deploy_check
 
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_attack_self))
 	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_afterattack))
@@ -110,6 +113,8 @@
 	if(!consumed && !loaded)
 		if (user)
 			to_chat(user, "<span class='warning'>[item_parent] has nothing to deploy!</span>")
+		return
+	if (can_deploy_check && !can_deploy_check.Invoke(user, location))
 		return
 	if(!location) //if no location was passed we use the current location.
 		location = item_parent.loc

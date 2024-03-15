@@ -6,7 +6,17 @@
 
 /obj/item/uplink_beacon/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/deployable, /obj/structure/uplink_beacon, time_to_deploy = 3 SECONDS)
+	AddComponent(/datum/component/deployable, /obj/structure/uplink_beacon, time_to_deploy = 3 SECONDS, can_deploy_check = PROC_REF(can_deploy))
+
+/obj/item/uplink_beacon/proc/can_deploy(mob/user, atom/location)
+	var/datum/priority_directive/deploy_beacon/beacon = SSdirectives.active_directive
+	if (!istype(beacon))
+		to_chat(user, "<span class='warning'>The beacon doesn't work in this location.</span>")
+		return FALSE
+	if (beacon.deployed_beacon)
+		to_chat(user, "<span class='warning'>A beacon is already active, find and interact with it to modify its tramission frequency.</span>")
+		return FALSE
+	return TRUE
 
 /obj/structure/uplink_beacon
 	name = "uplink beacon"
@@ -30,7 +40,7 @@
 	if (..())
 		return FALSE
 	var/new_num = text2num(params["freq"])
-	if (!new_num)
+	if (isnull(new_num))
 		return FALSE
 	new_num = round(new_num)
 	if (new_num < 0 || new_num > 8)

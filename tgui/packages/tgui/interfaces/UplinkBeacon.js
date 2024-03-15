@@ -1,5 +1,6 @@
 import { Button, NoticeBox, Table } from 'tgui/components';
 import { Window } from '../layouts';
+import { useBackend } from '../backend';
 
 export const UplinkBeacon = (props, context) => {
   const { act, data } = useBackend(context);
@@ -9,6 +10,9 @@ export const UplinkBeacon = (props, context) => {
   let channel = "green";
   switch (frequency)
   {
+    case 0:
+      channel = "green";
+      break;
     case 1:
       channel = "purple";
       break;
@@ -61,7 +65,7 @@ export const UplinkBeacon = (props, context) => {
                 height="100%"
                 color="purple"
                 onClick={() => act('set_freq', {
-                  freq: 2,
+                  freq: 1,
                 })} />
             </Table.Cell>
             <Table.Cell width="33%" height="100%">
