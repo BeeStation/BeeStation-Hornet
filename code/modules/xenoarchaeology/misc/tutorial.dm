@@ -32,3 +32,29 @@
 	research.\n\
 	\n\
 	Good luck, and safe travels."
+
+/*
+	How to use the calibrator
+*/
+//TODO: Consider revising this explanation - Racc
+/obj/item/sticker/sticky_note/calibrator_tutorial
+	custom_text = "Anomalous Material Calibrator Mk.42\n\
+	\n\
+	The AMC has been supplied to the science staff for the express purpose of \
+	calibrating anomalous research materials i.e. artifacts.\n\
+	Successful operation of the AMC will yield beneficial research data, which \
+	the science department will be rewarded for, in the form of discovery \
+	points.\n\
+	\n\
+	Operation of the AMC can be conducted by labelling a research material with \
+	a designated calibration label dispensed from the Anomalous Material Labeler \
+	Mk.15, a.k.a. an 'artifact labeler'.\n\
+	After research materials are labeled, the AMC will be able to calibrate them, \
+	yielding discovery points, and stabilizing the material's structure, \
+	preventing future damage from occurring, such as malfunctions.\n\
+	\n\
+	Howard"
+
+/*
+	Custom artifact hint #1
+*/

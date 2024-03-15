@@ -245,7 +245,7 @@
 	//Clean up the animation later
 	var/cleanup_timer = addtimer(CALLBACK(src, PROC_REF(pry_action_finish), I), 8 SECONDS, TIMER_STOPPABLE)
 	if(do_after(user, 8 SECONDS, A))
-		new /obj/item/trait_pearl(get_turf(A), src)
+		new /obj/item/sticker/trait_pearl(get_turf(A), src)
 		parent.remove_individual_trait(src)
 		remove_parent()
 	else
@@ -293,23 +293,42 @@
 /*
 	Container for traits used in circuits
 */
-/obj/item/trait_pearl
+/obj/item/sticker/trait_pearl
 	name = "xenopearl"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
 	icon_state = "trait_pearl"
 	w_class = WEIGHT_CLASS_TINY
 	desc = "A smooth alien pearl."
+	sticker_icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
+	sticker_icon_state = "trait_pearl_sticker"
+	do_outline = FALSE
 	///What trait do we have stored
 	var/datum/xenoartifact_trait/stored_trait
 
-/obj/item/trait_pearl/Initialize(mapload, trait)
+/obj/item/sticker/trait_pearl/Initialize(mapload, trait)
 	. = ..()
 	stored_trait = trait
 
-/obj/item/trait_pearl/examine(mob/user)
+/obj/item/sticker/trait_pearl/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
+	//TODO: Stop people adding INF traits - Racc
+	//TODO: Stop people adding wrong trait proportions - Racc
+	if(!can_stick(target) || !proximity_flag)
+		return
+	if(isliving(target) || target.GetComponent(/datum/component/xenoartifact))
+		to_chat(user, "<span class='warning'>You are unable to affix [src] to [target].</span>")
+		return
+	to_chat(user, "<span class='notice'>You affix [src] to [target].</span>")
+	return ..()
+
+/obj/item/sticker/trait_pearl/examine(mob/user)
 	. = ..()
 	if(user.can_see_reagents())
 		. += "<span class='notice'>[src] holds '[initial(stored_trait.label_name)]'.</span>"
+
+/obj/item/sticker/trait_pearl/build_stuck_appearance()
+	var/mutable_appearance/MA = setup_appearance(mutable_appearance(sticker_icon || src.icon, sticker_icon_state || src.icon_state))
+	MA.blend_mode = BLEND_INSET_OVERLAY
+	return MA
 
 ///Particle holder for trait appearances - Throw any extras you want in here
 /atom/movable/artifact_particle_holder

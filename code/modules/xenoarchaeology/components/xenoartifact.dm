@@ -51,7 +51,7 @@
 	var/calibrated = FALSE
 	var/atom/movable/artifact_particle_holder/calibrated_holder
 
-/datum/component/xenoartifact/Initialize(type, list/traits, _do_appearance = TRUE, _do_mask = TRUE)
+/datum/component/xenoartifact/Initialize(type, list/traits, _do_appearance = TRUE, _do_mask = TRUE, patch_traits = TRUE)
 	. = ..()
 	generate_xenoa_statics()
 	var/atom/A = parent
@@ -80,24 +80,25 @@
 		for(var/datum/xenoartifact_trait/T as() in traits)
 			add_individual_trait(T)
 
-	//Otherwise, randomly generate our own traits
-	else
+	//Otherwise, randomly generate our own traits - Additional option to patch traits missing from trait list
+	if(!length(traits) || patch_traits)
 		var/list/focus_traits
-		//Generate activators
-		focus_traits = GLOB.xenoa_activators & artifact_type.get_trait_list()
-		build_traits(focus_traits, artifact_type.trait_activators)
-
-		//Generate minors
-		focus_traits = GLOB.xenoa_minors & artifact_type.get_trait_list()
-		build_traits(focus_traits, artifact_type.trait_minors)
-
-		//Generate majors
-		focus_traits = GLOB.xenoa_majors & artifact_type.get_trait_list()
-		build_traits(focus_traits, artifact_type.trait_majors)
-
-		//Generate malfunctions
-		focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
-		build_traits(focus_traits, artifact_type.trait_malfunctions)
+		if(length(artifact_traits[TRAIT_PRIORITY_ACTIVATOR]) < artifact_type.trait_activators)
+			//Generate activators
+			focus_traits = GLOB.xenoa_activators & artifact_type.get_trait_list()
+			build_traits(focus_traits, artifact_type.trait_activators)
+		if(length(artifact_traits[TRAIT_PRIORITY_MINOR]) < artifact_type.trait_minors)
+			//Generate minors
+			focus_traits = GLOB.xenoa_minors & artifact_type.get_trait_list()
+			build_traits(focus_traits, artifact_type.trait_minors)
+		if(length(artifact_traits[TRAIT_PRIORITY_MAJOR]) < artifact_type.trait_majors)
+			//Generate majors
+			focus_traits = GLOB.xenoa_majors & artifact_type.get_trait_list()
+			build_traits(focus_traits, artifact_type.trait_majors)
+		if(length(artifact_traits[TRAIT_PRIORITY_MALFUNCTION]) < artifact_type.trait_malfunctions)
+			//Generate malfunctions
+			focus_traits = GLOB.xenoa_malfunctions & artifact_type.get_trait_list()
+			build_traits(focus_traits, artifact_type.trait_malfunctions)
 	//Cooldown
 	trait_cooldown = get_extra_cooldowns()
 	//Description

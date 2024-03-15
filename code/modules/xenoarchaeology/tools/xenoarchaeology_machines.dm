@@ -52,7 +52,11 @@
 /obj/machinery/xenoarchaeology_machine/proc/get_target()
 	return move_inside ? src : drop_location()
 
-/obj/machinery/xenoarchaeology_machine/proc/empty_contents()
+/obj/machinery/xenoarchaeology_machine/proc/empty_contents(atom/movable/target, force)
+	if(target && (target & held_contents || force))
+		target.forceMove(get_turf(src))
+		unregister_contents(target)
+		return
 	for(var/atom/movable/A in held_contents)
 		A.forceMove(get_turf(src))
 		unregister_contents(A)
@@ -147,6 +151,7 @@
 	. = ..()
 	var/obj/item/sticker/sticky_note/calibrator_tutorial/S = new(loc)
 	S.afterattack(src, src, TRUE)
+	unregister_contents(S)
 	S.pixel_y = rand(-8, 8)
 	S.pixel_x = rand(-8, 8)
 
@@ -197,7 +202,8 @@
 					decision = tgui_alert(user, "Do you want to continue, this will destroy [A]?", "Calcify Artifact", list("Yes", "No"))
 			if(decision == "No")
 				playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
-				empty_contents()
+				//using the specific argument stops us from evacuating the sticker for the tutorial variant, and also our potential components
+				empty_contents(A)
 				continue
 			else
 				solid_as = FALSE
@@ -217,7 +223,7 @@
 		if(!solid_as)
 			X.calcify()
 			playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
-			empty_contents()
+			empty_contents(A)
 			return
 		//handle science rewards
 		if(score)
@@ -237,22 +243,3 @@
 					if(istype(T, /datum/xenoartifact_trait/malfunction))
 						qdel(T)
 		empty_contents()
-
-//TODO: Consider revising this explanation - Racc
-/obj/item/sticker/sticky_note/calibrator_tutorial
-	custom_text = "Anomalous Material Calibrator Mk.42\n\
-	\n\
-	The AMC has been supplied to the science staff for the express purpose of \
-	calibrating anomalous research materials i.e. artifacts.\n\
-	Successful operation of the AMC will yield beneficial research data, which \
-	the science department will be rewarded for, in the form of discovery \
-	points.\n\
-	\n\
-	Operation of the AMC can be conducted by labelling a research material with \
-	a designated calibration label dispensed from the Anomalous Material Labeler \
-	Mk.15, a.k.a. an 'artifact labeler'.\n\
-	After research materials are labeled, the AMC will be able to calibrate them, \
-	yielding discovery points, and stabilizing the material's structure, \
-	preventing future damage from occurring, such as malfunctions.\n\
-	\n\
-	Howard"

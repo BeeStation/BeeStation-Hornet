@@ -61,7 +61,13 @@
 			continue
 		var/datum/component/xenoartifact/X = I.GetComponent(/datum/component/xenoartifact)
 		if(!X)
-			I.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, null, TRUE, FALSE)
+			//Check for any pearls attached to the item first
+			var/trait_list = list()
+			for(var/obj/item/sticker/trait_pearl/P in I.contents)
+				trait_list += P.stored_trait
+				qdel(P)
+			//Make the item an artifact
+			I.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, length(trait_list) ? trait_list : null, TRUE, FALSE)
 			qdel(src)
 			break
 
