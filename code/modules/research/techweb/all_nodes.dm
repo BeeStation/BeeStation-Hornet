@@ -250,6 +250,7 @@
 		"operating",
 		"pandemic",
 		"sleeper",
+		"bioscanner",
 		"soda_dispenser",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
