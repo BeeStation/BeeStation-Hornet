@@ -250,7 +250,7 @@
 /area/centcom/holding)
 "aV" = (
 /obj/structure/table/wood,
-/obj/item/food/syndicake{
+/obj/item/reagent_containers/food/snacks/syndicake{
 	pixel_y = 3
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -7437,7 +7437,7 @@
 "Fm" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
-	desc = "Talk smack through this.";
+	{desc = "Talk smack through this.";
 	syndie = 1
 	},
 /obj/machinery/door/window/brigdoor{
@@ -9921,7 +9921,7 @@
 "Pq" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
-	desc = "Talk smack through this.";
+	{desc = "Talk smack through this.";
 	syndie = 1
 	},
 /turf/open/floor/carpet/grimy,
@@ -11405,9 +11405,8 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/item/radio/intercom{
+/obj/item/radio/intercom/directional/east{
 	desc = "Talk smack through this.";
-	pixel_x = -32;
 	syndie = 1
 	},
 /turf/open/floor/carpet/grimy,
@@ -11479,7 +11478,7 @@
 /obj/structure/table/wood,
 /obj/machinery/door/window,
 /obj/item/radio/intercom{
-	desc = "Talk smack through this.";
+	{desc = "Talk smack through this.";
 	syndie = 1
 	},
 /turf/open/floor/carpet/grimy,
