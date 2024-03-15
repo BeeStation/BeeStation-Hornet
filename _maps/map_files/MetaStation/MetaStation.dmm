@@ -480,7 +480,9 @@
 /area/security/prison)
 "act" = (
 /obj/structure/closet/toolcloset,
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
@@ -755,7 +757,10 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_x = -29;
+	pixel_y = 23
+	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "afj" = (
@@ -1674,7 +1679,9 @@
 /obj/item/extinguisher,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "amY" = (
@@ -2141,6 +2148,10 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
+"aqj" = (
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "aqo" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -2946,12 +2957,12 @@
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/taperecorder,
-/obj/item/radio/intercom/directional/south{
+/obj/item/radio/intercom{
 	broadcasting = 1;
 	frequency = 1423;
 	listening = 0;
 	name = "Interrogation Intercom";
-	
+	pixel_y = -24
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -3212,7 +3223,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 27
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -3323,7 +3337,9 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aAr" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/machinery/camera{
 	c_tag = "Engineering - Fore"
 	},
@@ -3766,7 +3782,9 @@
 /area/crew_quarters/dorms)
 "aCN" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -30
+	},
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -4007,7 +4025,10 @@
 /area/quartermaster/miningoffice)
 "aEy" = (
 /obj/structure/table,
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_y = 29
+	},
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
@@ -4727,7 +4748,11 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "aIh" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = -28;
+	pixel_y = 23
+	},
 /obj/machinery/status_display/supply{
 	pixel_y = 32
 	},
@@ -4825,7 +4850,9 @@
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "aIN" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 20
+	},
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "aIR" = (
@@ -5044,7 +5071,10 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = -28
+	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aKg" = (
@@ -5528,7 +5558,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "aMJ" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -29
+	},
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -6192,7 +6224,9 @@
 /turf/open/floor/grass,
 /area/hydroponics/garden)
 "aPR" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -6385,11 +6419,11 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "aQC" = (
-/obj/item/radio/intercom/directional/south{
+/obj/item/radio/intercom{
 	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
-	
+	pixel_y = -25
 	},
 /obj/machinery/camera/motion{
 	c_tag = "AI Upload Chamber - Starboard";
@@ -6889,7 +6923,9 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "aTm" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -26
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "aTn" = (
@@ -6940,7 +6976,9 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aTw" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -26
+	},
 /obj/machinery/camera{
 	c_tag = "Locker Room Port";
 	dir = 1
@@ -7616,7 +7654,9 @@
 	},
 /obj/item/assembly/flash/handheld,
 /obj/item/assembly/flash/handheld,
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
 "aYn" = (
@@ -7635,7 +7675,9 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aYt" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/firecloset,
 /obj/item/clothing/glasses/meson/engine,
@@ -7910,22 +7952,24 @@
 /area/library)
 "aZQ" = (
 /obj/effect/landmark/start/ai/secondary,
-/obj/item/radio/intercom/directional/north{
+/obj/item/radio/intercom{
 	freerange = 1;
 	listening = 0;
 	name = "Custom Channel";
-	
+	pixel_x = -10;
+	pixel_y = 22
 	},
-/obj/item/radio/intercom/directional/east{
+/obj/item/radio/intercom{
 	freerange = 1;
 	name = "Common Channel";
-	
+	pixel_x = -27
 	},
-/obj/item/radio/intercom/directional/south{
+/obj/item/radio/intercom{
 	freerange = 1;
 	frequency = 1447;
 	name = "Private Channel";
-	
+	pixel_x = -10;
+	pixel_y = -25
 	},
 /obj/machinery/door/window{
 	base_state = "rightsecure";
@@ -7941,22 +7985,24 @@
 /area/ai_monitored/turret_protected/ai)
 "aZY" = (
 /obj/effect/landmark/start/ai/secondary,
-/obj/item/radio/intercom/directional/north{
+/obj/item/radio/intercom{
 	freerange = 1;
 	listening = 0;
 	name = "Custom Channel";
-	
+	pixel_x = 10;
+	pixel_y = 22
 	},
-/obj/item/radio/intercom/directional/west{
+/obj/item/radio/intercom{
 	freerange = 1;
 	name = "Common Channel";
-	
+	pixel_x = 27
 	},
-/obj/item/radio/intercom/directional/south{
+/obj/item/radio/intercom{
 	freerange = 1;
 	frequency = 1447;
 	name = "Private Channel";
-	
+	pixel_x = 10;
+	pixel_y = -25
 	},
 /obj/machinery/door/window{
 	base_state = "leftsecure";
@@ -8205,7 +8251,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "baZ" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_x = -27;
+	pixel_y = -29
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -8373,7 +8422,9 @@
 /obj/machinery/newscaster{
 	pixel_x = 28
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -8497,7 +8548,9 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -27
+	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
@@ -8556,7 +8609,6 @@
 "beb" = (
 /obj/structure/table,
 /obj/item/analyzer,
-/obj/item/healthanalyzer,
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
@@ -8995,12 +9047,12 @@
 	pixel_x = 5;
 	pixel_y = -1
 	},
-/obj/item/radio/intercom/directional/west{
+/obj/item/radio/intercom{
 	broadcasting = 1;
 	frequency = 1447;
 	listening = 0;
 	name = "Station Intercom (AI Private)";
-	
+	pixel_x = 28
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
@@ -9083,7 +9135,9 @@
 /obj/machinery/vending/job_disk{
 	req_access_txt = "57"
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 8
 	},
@@ -9163,10 +9217,11 @@
 /obj/item/camera{
 	pixel_y = 4
 	},
-/obj/item/radio/intercom/directional/east{
+/obj/item/radio/intercom{
+	dir = 8;
 	freerange = 1;
 	name = "Station Intercom (Captain)";
-	
+	pixel_x = -28
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
@@ -9704,7 +9759,9 @@
 /area/quartermaster/sorting)
 "bkk" = (
 /obj/structure/filingcabinet/filingcabinet,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/machinery/camera{
 	c_tag = "Cargo - Mailroom";
 	dir = 1
@@ -10469,7 +10526,10 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "boJ" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = -28
+	},
 /obj/machinery/camera{
 	c_tag = "Central Primary Hallway - Starboard - Art Storage";
 	dir = 4
@@ -10948,7 +11008,9 @@
 /area/ai_monitored/storage/satellite)
 "bsh" = (
 /obj/structure/table,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/machinery/computer/monitor{
 	dir = 1
 	},
@@ -11012,7 +11074,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "bsw" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -11419,22 +11483,24 @@
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "bvf" = (
-/obj/item/radio/intercom/directional{
+/obj/item/radio/intercom{
 	freerange = 1;
 	name = "Common Channel";
-	
+	pixel_x = -27;
+	pixel_y = -7
 	},
-/obj/item/radio/intercom/directional/south{
+/obj/item/radio/intercom{
 	freerange = 1;
 	listening = 0;
 	name = "Custom Channel";
-	
+	pixel_y = -27
 	},
-/obj/item/radio/intercom/directional{
+/obj/item/radio/intercom{
 	freerange = 1;
 	frequency = 1447;
 	name = "Private Channel";
-	
+	pixel_x = 27;
+	pixel_y = -7
 	},
 /obj/effect/landmark/start/ai,
 /obj/machinery/button/door{
@@ -11475,7 +11541,9 @@
 /area/science/nanite)
 "bvk" = (
 /obj/machinery/computer/mech_bay_power_console,
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 20
+	},
 /turf/open/floor/circuit/green,
 /area/science/robotics/mechbay)
 "bvl" = (
@@ -11657,7 +11725,9 @@
 /obj/item/book/manual/wiki/security_space_law{
 	pixel_y = 3
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "bwu" = (
@@ -12165,7 +12235,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
 "bzO" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
@@ -12908,7 +12980,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bDh" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -13163,7 +13237,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "bFk" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /turf/open/floor/engine,
 /area/maintenance/department/science/xenobiology)
 "bFw" = (
@@ -13387,7 +13463,9 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "bGv" = (
-/obj/item/radio/intercom,
+/obj/item/radio/intercom{
+	dir = 4
+	},
 /turf/closed/wall,
 /area/library)
 "bGw" = (
@@ -13955,7 +14033,9 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "bJt" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -29
+	},
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "bJu" = (
@@ -14473,7 +14553,9 @@
 /area/engine/atmos)
 "bMe" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -26
+	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics - Central";
 	dir = 1
@@ -14753,7 +14835,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -16049,7 +16133,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bTM" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -16117,7 +16203,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bTX" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -16282,7 +16370,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -16315,7 +16405,9 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bUC" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
 /obj/machinery/pipedispenser/disposal/transit_tube,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -17033,7 +17125,9 @@
 /turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "bZF" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -30
+	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -17298,7 +17392,9 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "ccu" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -17484,7 +17580,9 @@
 	pixel_x = 4;
 	pixel_y = -2
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
 /turf/open/floor/plasteel,
 /area/janitor)
 "cef" = (
@@ -18119,7 +18217,10 @@
 /obj/effect/turf_decal/bot{
 	pixel_y = -2
 	},
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = -28
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -18315,7 +18416,9 @@
 /area/science/research)
 "ckq" = (
 /obj/machinery/vending/coffee,
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /turf/open/floor/plasteel/white/side{
 	dir = 4
 	},
@@ -18486,7 +18589,10 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_y = -28
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -18585,7 +18691,10 @@
 /turf/closed/wall,
 /area/crew_quarters/heads/cmo)
 "cmF" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = -28
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -19033,7 +19142,9 @@
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "cqS" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
 /obj/machinery/camera{
 	c_tag = "Experimentation Lab";
 	dir = 1;
@@ -19750,7 +19861,9 @@
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
 "cxJ" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light{
 	dir = 4
@@ -19964,7 +20077,9 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -29
+	},
 /obj/machinery/camera{
 	c_tag = "Research Division - Nanite Lab";
 	dir = 4;
@@ -20206,7 +20321,10 @@
 	layer = 1
 	},
 /obj/item/kirbyplants/random,
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = -3
+	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "viroshutters";
 	name = "viro shutters"
@@ -20322,7 +20440,9 @@
 /area/science/robotics/lab)
 "cDd" = (
 /obj/machinery/modular_fabricator/exosuit_fab,
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 20
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -20691,22 +20811,12 @@
 	empty = 1;
 	name = "First-Aid (empty)"
 	},
-/obj/item/healthanalyzer{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/item/healthanalyzer{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/item/healthanalyzer{
-	pixel_x = 4;
-	pixel_y = -4
-	},
 /obj/item/radio/headset/headset_sci{
 	pixel_x = -3
 	},
 /obj/effect/turf_decal/delivery,
+/obj/item/assembly/health,
+/obj/item/assembly/health,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cHb" = (
@@ -22294,9 +22404,6 @@
 "cTU" = (
 /obj/structure/rack,
 /obj/item/storage/firstaid/regular,
-/obj/item/healthanalyzer{
-	pixel_y = -2
-	},
 /obj/machinery/camera{
 	c_tag = "Brig - Infirmary";
 	dir = 1
@@ -22465,7 +22572,9 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/science/xenobiology)
 "cWk" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -26
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -22670,7 +22779,9 @@
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "cZc" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /turf/open/floor/plasteel/chapel,
 /area/chapel/main)
 "cZd" = (
@@ -23678,7 +23789,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/maintenance/solars/port/fore)
@@ -24892,7 +25005,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	pixel_x = -29;
+	pixel_y = -2
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "dvw" = (
@@ -25432,7 +25548,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/maintenance/solars/starboard/fore)
@@ -25460,6 +25578,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "dEO" = (
@@ -25981,7 +26100,9 @@
 "dQM" = (
 /obj/structure/table,
 /obj/item/toner,
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 30
+	},
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
@@ -26032,7 +26153,9 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "dTK" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -30
+	},
 /obj/machinery/light,
 /obj/machinery/vendor/exploration,
 /obj/effect/turf_decal/stripes/line{
@@ -26216,7 +26339,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -26279,7 +26404,9 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "dZc" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
@@ -26744,7 +26871,10 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_x = 1;
+	pixel_y = 30
+	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -27022,7 +27152,9 @@
 /obj/structure/table/wood,
 /obj/item/hand_tele,
 /obj/structure/window/reinforced,
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 27
+	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
@@ -27918,10 +28050,11 @@
 /obj/machinery/computer/communications{
 	dir = 8
 	},
-/obj/item/radio/intercom/directional/west{
+/obj/item/radio/intercom{
+	dir = 8;
 	freerange = 1;
 	name = "Station Intercom (Captain)";
-	
+	pixel_x = 28
 	},
 /obj/machinery/status_display/ai{
 	pixel_y = 32
@@ -27947,7 +28080,9 @@
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "eKo" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -29487,12 +29622,13 @@
 	pixel_x = -26;
 	pixel_y = 1
 	},
-/obj/item/radio/intercom/directional{
+/obj/item/radio/intercom{
 	broadcasting = 1;
 	frequency = 1447;
 	listening = 0;
 	name = "Station Intercom (AI Private)";
-	
+	pixel_x = 28;
+	pixel_y = -2
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/firedoor,
@@ -29926,7 +30062,9 @@
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "fzV" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -30029,7 +30167,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_x = 3;
+	pixel_y = -28
+	},
 /obj/machinery/light_switch{
 	pixel_x = -10;
 	pixel_y = -23
@@ -30424,7 +30565,9 @@
 /area/engine/gravity_generator)
 "fIy" = (
 /obj/structure/table,
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -30435,7 +30578,6 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/healthanalyzer,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
@@ -30852,7 +30994,10 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "fPG" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 27
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -30918,12 +31063,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/bed{
-	dir = 4
-	},
 /obj/machinery/camera/autoname{
 	network = list("ss13","medbay")
 	},
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/patients_rooms)
 "fQV" = (
@@ -31293,7 +31436,10 @@
 	pixel_y = 26
 	},
 /obj/item/stack/sheet/iron/five,
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = 5
+	},
 /obj/item/circuitboard/machine/paystand,
 /obj/item/stack/cable_coil/random/five,
 /obj/effect/turf_decal/tile/brown{
@@ -31350,7 +31496,9 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 23
+	},
 /obj/machinery/button/door{
 	id = "psypriv";
 	name = "Psycology Shutters Control";
@@ -31946,7 +32094,9 @@
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "gme" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -31954,7 +32104,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "gmp" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -29
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
@@ -32025,7 +32177,9 @@
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "gnR" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/structure/sign/warning/electricshock{
 	pixel_y = 32
 	},
@@ -32339,7 +32493,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -32794,7 +32950,9 @@
 /area/medical/surgery)
 "gIE" = (
 /obj/structure/table,
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -29
+	},
 /obj/item/storage/backpack/duffelbag/sec/surgery,
 /turf/open/floor/plasteel/white/corner{
 	dir = 4
@@ -33256,7 +33414,9 @@
 /area/science/shuttledock)
 "gST" = (
 /obj/machinery/vending/coffee,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
@@ -33351,10 +33511,11 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/item/radio/intercom/directional{
+/obj/item/radio/intercom{
 	freerange = 1;
 	name = "Common Channel";
-	
+	pixel_x = -27;
+	pixel_y = -7
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -34277,7 +34438,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -26
+	},
 /obj/machinery/camera{
 	c_tag = "Storage Wing";
 	dir = 1
@@ -35953,7 +36116,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_x = 1;
+	pixel_y = -34
+	},
 /turf/open/floor/plasteel,
 /area/medical/genetics/cloning)
 "hUo" = (
@@ -36128,7 +36294,9 @@
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "hYN" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/item/kirbyplants/random,
 /obj/machinery/camera{
 	c_tag = "Kitchen Hatch";
@@ -36248,7 +36416,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -36302,7 +36472,9 @@
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
 "icg" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -36319,7 +36491,9 @@
 /turf/open/floor/plasteel/checker,
 /area/crew_quarters/kitchen)
 "icl" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -29
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
@@ -36696,10 +36870,10 @@
 	pixel_y = 7
 	},
 /obj/structure/table/wood,
-/obj/item/radio/intercom/directional/south{
+/obj/item/radio/intercom{
 	frequency = 1423;
 	name = "Interrogation Intercom";
-	
+	pixel_y = -31
 	},
 /turf/open/floor/carpet/grimy,
 /area/security/main)
@@ -37143,7 +37317,9 @@
 	c_tag = "Secure Tech Storage";
 	dir = 8
 	},
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -37984,7 +38160,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 27
+	},
 /obj/structure/table,
 /obj/item/folder/yellow,
 /obj/item/folder/yellow,
@@ -38164,7 +38343,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /turf/open/floor/engine,
 /area/science/explab)
 "iNp" = (
@@ -38895,7 +39076,9 @@
 	pixel_y = 12
 	},
 /obj/structure/table/wood,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
@@ -39530,7 +39713,11 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "jsh" = (
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = -32;
+	pixel_y = -3
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/patients_rooms)
 "jsp" = (
@@ -39617,7 +39804,9 @@
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
 "jvm" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/structure/chair/office{
 	dir = 4
 	},
@@ -39794,7 +39983,10 @@
 /turf/open/floor/plasteel,
 /area/medical/patients_rooms)
 "jyc" = (
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	pixel_x = -31;
+	pixel_y = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/neutral{
@@ -39814,7 +40006,9 @@
 	c_tag = "Holodeck";
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -40077,7 +40271,10 @@
 /obj/item/camera_film{
 	pixel_y = 9
 	},
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 27
+	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
@@ -40695,7 +40892,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "jPS" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 8
@@ -41106,7 +41305,9 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "jZO" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -41659,7 +41860,10 @@
 	pixel_y = 37;
 	req_access_txt = "33"
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_x = -32;
+	pixel_y = 23
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -41901,7 +42105,11 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = -32;
+	pixel_y = -3
+	},
 /turf/open/floor/plasteel,
 /area/medical/genetics)
 "kmB" = (
@@ -44068,7 +44276,10 @@
 	color = "#596479";
 	dir = 8
 	},
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = -3
+	},
 /turf/open/floor/carpet/red,
 /area/medical/exam_room)
 "lbR" = (
@@ -44154,7 +44365,9 @@
 /obj/item/taperecorder{
 	pixel_x = 4
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -32
+	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
@@ -44544,7 +44757,9 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 25
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/department/science)
 "loq" = (
@@ -44795,7 +45010,10 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 6
 	},
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	pixel_x = 33;
+	pixel_y = -2
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "ltZ" = (
@@ -45793,6 +46011,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"lOA" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/landmark/prisonspawn,
+/turf/open/floor/prison,
+/area/security/prison)
 "lOG" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/cable{
@@ -46444,7 +46667,10 @@
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/central)
 "mdY" = (
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	pixel_x = 1;
+	pixel_y = 3
+	},
 /turf/closed/wall,
 /area/medical/storage)
 "meu" = (
@@ -47373,7 +47599,10 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "mxW" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_x = -28
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -47415,7 +47644,11 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = -32;
+	pixel_y = -1
+	},
 /obj/machinery/camera/autoname{
 	dir = 4;
 	network = list("ss13","medbay")
@@ -47801,7 +48034,10 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "mEV" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 27
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -48219,7 +48455,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 28
+	},
 /obj/item/clothing/accessory/waistcoat,
 /obj/item/clothing/suit/toggle/lawyer/black,
 /obj/item/stack/cable_coil/cut/red,
@@ -48414,7 +48652,10 @@
 "mRb" = (
 /obj/structure/bed/dogbed/runtime,
 /mob/living/simple_animal/pet/cat/Runtime,
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	pixel_x = 31;
+	pixel_y = -3
+	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
 "mRt" = (
@@ -48922,7 +49163,10 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "mZH" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 27
+	},
 /obj/machinery/computer/security/mining{
 	dir = 8
 	},
@@ -48934,7 +49178,9 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -49361,7 +49607,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "niO" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 6
 	},
@@ -50659,7 +50907,9 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "nIX" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/machinery/camera{
 	c_tag = "Command Hallway - Starboard"
 	},
@@ -50686,7 +50936,10 @@
 /area/storage/tools)
 "nJH" = (
 /obj/machinery/disposal/bin,
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 27
+	},
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -50972,7 +51225,11 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = -29;
+	pixel_y = -6
+	},
 /obj/machinery/button/crematorium{
 	id = "crematoriumChapel";
 	pixel_x = -27;
@@ -51149,7 +51406,9 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "nQq" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 20
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -51708,7 +51967,9 @@
 /turf/open/floor/carpet/grimy,
 /area/security/detectives_office)
 "nZI" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/effect/turf_decal/tile/purple,
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -52904,7 +53165,7 @@
 /area/maintenance/starboard/secondary)
 "ovp" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/port)
 "ovI" = (
@@ -53161,7 +53422,9 @@
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "ozq" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -29
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/yellow{
@@ -54075,7 +54338,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -26
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
@@ -54188,7 +54453,9 @@
 /turf/open/floor/plasteel,
 /area/security/main)
 "oVx" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
@@ -54271,7 +54538,10 @@
 /area/maintenance/department/science/xenobiology)
 "oXI" = (
 /obj/structure/table,
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 27
+	},
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/t_scanner,
 /obj/effect/turf_decal/tile/brown/half/contrasted,
@@ -56556,10 +56826,10 @@
 /turf/open/floor/wood/big,
 /area/crew_quarters/bar)
 "pWm" = (
-/obj/item/radio/intercom/directional/south{
+/obj/item/radio/intercom{
 	frequency = 1485;
 	name = "Station Intercom (Medbay)";
-	
+	pixel_y = -30
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Foyer";
@@ -57588,7 +57858,10 @@
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "qpa" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 27
+	},
 /obj/machinery/camera{
 	c_tag = "Mining Office";
 	dir = 8
@@ -57709,7 +57982,9 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "qrx" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 25
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -58558,6 +58833,7 @@
 /obj/structure/rack,
 /obj/item/storage/box/sec_barricades,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/survivalcapsule/capsule_checkpoint,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "qHC" = (
@@ -59810,7 +60086,9 @@
 /obj/item/clothing/glasses/blindfold,
 /obj/item/clothing/ears/earmuffs,
 /obj/item/clothing/glasses/eyepatch,
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 29
+	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -60688,7 +60966,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -61211,7 +61491,9 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
@@ -61682,7 +61964,10 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 27
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/maintenance/solars/port/aft)
@@ -61742,7 +62027,9 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "rUo" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
 /obj/structure/rack,
 /obj/item/assembly/signaler,
 /obj/item/assembly/signaler,
@@ -61769,7 +62056,9 @@
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
 "rUL" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -62004,7 +62293,9 @@
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
 "rZv" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -30
+	},
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
@@ -62263,7 +62554,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = 29;
+	pixel_y = -28
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "sez" = (
@@ -62299,7 +62594,11 @@
 /area/hallway/primary/central)
 "seX" = (
 /obj/structure/table,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = 1;
+	pixel_y = -35
+	},
 /obj/machinery/reagentgrinder,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
@@ -62516,7 +62815,9 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "skB" = (
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
 	dir = 6
 	},
@@ -62652,7 +62953,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "sos" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
 /obj/structure/table,
 /obj/item/storage/backpack/duffelbag/sec/surgery{
 	pixel_y = 5
@@ -62758,7 +63061,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -30
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -63433,7 +63738,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = -4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "sDz" = (
@@ -64339,7 +64647,10 @@
 	dir = 1;
 	network = list("ss13","medbay")
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_x = -2;
+	pixel_y = -28
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "sVF" = (
@@ -64911,7 +65222,9 @@
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "thW" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 25
+	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
@@ -65982,7 +66295,11 @@
 "tDh" = (
 /obj/machinery/computer/pandemic,
 /obj/effect/turf_decal/bot,
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = -2;
+	pixel_y = 24
+	},
 /obj/machinery/requests_console{
 	department = "Medbay";
 	departmentType = 1;
@@ -66060,7 +66377,9 @@
 "tEy" = (
 /obj/item/instrument/violin,
 /obj/structure/table/wood,
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
@@ -66912,7 +67231,9 @@
 /obj/item/tank/internals/oxygen,
 /obj/item/radio/off,
 /obj/item/radio/off,
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 27
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
@@ -66927,11 +67248,12 @@
 	name = "AI Upload turret control";
 	pixel_y = 28
 	},
-/obj/item/radio/intercom/directional/north{
+/obj/item/radio/intercom{
 	broadcasting = 1;
 	frequency = 1447;
 	name = "Private AI Channel";
-	
+	pixel_x = -24;
+	pixel_y = 24
 	},
 /obj/effect/landmark/start/cyborg,
 /obj/structure/cable/yellow{
@@ -67317,7 +67639,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -67576,7 +67900,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -26
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/blue,
@@ -68983,7 +69309,9 @@
 "uMc" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/bot,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -32
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -69001,7 +69329,9 @@
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "uNf" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
 /turf/closed/wall/r_wall,
 /area/ai_monitored/security/armory)
 "uNj" = (
@@ -69583,7 +69913,9 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "uZB" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -25
+	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
@@ -69718,7 +70050,11 @@
 	dir = 4;
 	network = list("ss13","medbay")
 	},
-/obj/item/radio/intercom/directional,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = -31;
+	pixel_y = -3
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/patients_rooms)
 "vdF" = (
@@ -69892,7 +70228,9 @@
 /obj/item/taperecorder,
 /obj/item/camera,
 /obj/structure/table/wood,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
 /turf/open/floor/engine/cult,
 /area/library)
 "vgl" = (
@@ -70567,7 +70905,9 @@
 /area/crew_quarters/heads/hop)
 "vtf" = (
 /obj/machinery/light/small,
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -26
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -70808,7 +71148,9 @@
 	c_tag = "Hydroponics - Foyer";
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -25
+	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
@@ -70861,7 +71203,9 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "vxy" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -30
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral{
@@ -70901,7 +71245,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "vyv" = (
-/obj/item/radio/intercom/directional/east,
+/obj/item/radio/intercom{
+	pixel_x = -30
+	},
 /obj/item/crowbar/red,
 /obj/item/wrench,
 /obj/item/clothing/mask/gas,
@@ -71044,7 +71390,10 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_x = 1;
+	pixel_y = -34
+	},
 /obj/machinery/light/small,
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
@@ -71490,6 +71839,7 @@
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
 	broadcasting = 1;
+	dir = 8;
 	listening = 0;
 	name = "Station Intercom (Court)"
 	},
@@ -71904,7 +72254,9 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "vSf" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -72044,7 +72396,9 @@
 /turf/open/floor/wood,
 /area/library)
 "vVe" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -72944,7 +73298,9 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "wnK" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -73903,7 +74259,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "wEy" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -26
+	},
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
@@ -74090,7 +74448,9 @@
 /area/quartermaster/storage)
 "wKc" = (
 /obj/structure/disposalpipe/segment,
-/obj/item/radio/intercom/directional/west,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 4
 	},
@@ -74643,7 +75003,9 @@
 /area/crew_quarters/locker)
 "wUd" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -75137,7 +75499,9 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 27
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "xdM" = (
@@ -75296,7 +75660,9 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "xgP" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 20
+	},
 /obj/machinery/computer/security,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
@@ -75489,7 +75855,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "xiW" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -75819,7 +76187,9 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
 /obj/effect/turf_decal/tile/black/opposingcorners{
 	dir = 1
 	},
@@ -76427,7 +76797,9 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "xyr" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
@@ -76851,7 +77223,9 @@
 /turf/open/floor/plasteel,
 /area/maintenance/aft)
 "xGU" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/radio/intercom{
+	pixel_y = 21
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -77375,10 +77749,11 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/radio/intercom/directional/north{
+/obj/item/radio/intercom{
+	dir = 8;
 	freerange = 1;
 	name = "Station Intercom (Telecomms)";
-	
+	pixel_y = 30
 	},
 /obj/structure/table/wood,
 /obj/item/phone{
@@ -77936,7 +78311,9 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "yaO" = (
-/obj/item/radio/intercom/directional/south,
+/obj/item/radio/intercom{
+	pixel_y = -25
+	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -100046,10 +100423,10 @@ abe
 xhg
 kiq
 abe
-srs
+aqj
 vss
 pvZ
-srs
+aqj
 aax
 aaa
 awW
@@ -100553,7 +100930,7 @@ ttO
 ttO
 ttO
 mHg
-dAL
+lOA
 srs
 dAL
 qAn
@@ -101842,7 +102219,7 @@ kZQ
 xgi
 qOU
 tlg
-srs
+aqj
 srs
 uSn
 uSn
@@ -102362,7 +102739,7 @@ pUJ
 ias
 ias
 aNh
-srs
+aqj
 awl
 aax
 aax
