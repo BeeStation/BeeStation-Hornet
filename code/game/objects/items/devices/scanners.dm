@@ -139,7 +139,7 @@ GENE SCANNER
 	item_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
+	desc = "A hand-held body scanner able to provide an instant patient readout at the cost of harsher radiation doses."
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
@@ -188,10 +188,15 @@ GENE SCANNER
 	add_fingerprint(user)
 
 
-// Used by the PDA medical scanner too
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, to_chat = TRUE)
 	if(isliving(user) && user.incapacitated())
 		return
+
+	if(!advanced)
+		if(M.radiation >= 100)
+			to_chat(user, "<span class='alert'>WARNING: SUBJECT RADIATION ABOVE SAFE LEVELS. SCAN ABORTED.</span>", type = MESSAGE_TYPE_WARNING)
+			return
+		M.rad_act(250)
 
 	// the final list of strings to render
 	var/message = list()
@@ -508,9 +513,9 @@ GENE SCANNER
 		return(jointext(message, "\n"))
 
 /obj/item/healthanalyzer/advanced
-	name = "advanced health analyzer"
+	name = "prototype health analyzer"
 	icon_state = "health_adv"
-	desc = "A hand-held body scanner able to distinguish vital signs of the subject with high accuracy."
+	desc = "A tightly kept secret, this advanced portable health-scanner prototype is able to scan a person within moments, without any harmful side-effects at all."
 	advanced = TRUE
 
 /obj/item/analyzer

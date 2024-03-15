@@ -25,9 +25,8 @@ Woods Sheets
 	grind_results = list(/datum/reagent/carbon = 20)
 	walltype = /turf/closed/wall/mineral/wood
 
-/obj/item/stack/sheet/wood/get_main_recipes()
-	. = ..()
-	. += GLOB.wood_recipes
+/obj/item/stack/sheet/wood/get_recipes()
+	return GLOB.wood_recipes
 
 /* Bamboo */
 
@@ -45,14 +44,13 @@ Woods Sheets
 	merge_type = /obj/item/stack/sheet/bamboo
 	grind_results = list("carbon" = 5)
 
-/obj/item/stack/sheet/bamboo/get_main_recipes()
-	. = ..()
-	. += GLOB.bamboo_recipes
+/obj/item/stack/sheet/bamboo/get_recipes()
+	return GLOB.bamboo_recipes
 
 /obj/item/stack/sheet/bamboo/Topic(href, href_list)
 	. = ..()
 	if(href_list["make"])
-		var/list/recipes_list = get_main_recipes()
+		var/list/recipes_list = get_recipes()
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		if(R.result_type == /obj/structure/punji_sticks)
 			var/turf/T = get_turf(src)
@@ -71,6 +69,5 @@ Woods Sheets
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/paperframes
 
-/obj/item/stack/sheet/paperframes/get_main_recipes()
-	. = ..()
-	. += GLOB.paperframe_recipes
+/obj/item/stack/sheet/paperframes/get_recipes()
+	return GLOB.paperframe_recipes

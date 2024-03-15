@@ -236,7 +236,6 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		/obj/item/reagent_containers/pill/patch/styptic,
 		/obj/item/reagent_containers/pill/patch/synthflesh,
 		/obj/item/reagent_containers/pill/patch/silver_sulf,
-		/obj/item/healthanalyzer,
 		/obj/item/surgical_drapes,
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -808,7 +807,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 /area/warped_room
 	name = "warped room"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	has_gravity = TRUE
 	teleport_restriction = TELEPORT_ALLOW_NONE

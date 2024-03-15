@@ -374,8 +374,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/bed/roller,
-/obj/item/bedsheet/medical,
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/sleeper)
 "afv" = (
@@ -22968,7 +22967,7 @@
 	},
 /obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable/yellow,
-/obj/machinery/iv_drip,
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel,
 /area/security/brig/medbay)
 "gYR" = (
@@ -34902,7 +34901,6 @@
 	pixel_x = 4;
 	pixel_y = 10
 	},
-/obj/item/healthanalyzer,
 /obj/item/analyzer,
 /obj/item/clothing/gloves/artifact_pinchers{
 	pixel_y = 3
@@ -69230,6 +69228,7 @@
 	pixel_x = -20;
 	pixel_y = -21
 	},
+/obj/machinery/iv_drip,
 /turf/open/floor/plasteel/white,
 /area/security/brig/medbay)
 "vCB" = (
@@ -75654,17 +75653,6 @@
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/obj/item/healthanalyzer{
-	pixel_y = 10
-	},
-/obj/item/healthanalyzer{
-	pixel_x = 1;
-	pixel_y = 7
-	},
-/obj/item/healthanalyzer{
-	pixel_x = 3;
-	pixel_y = 4
-	},
 /obj/machinery/requests_console{
 	department = "Robotics Lab";
 	name = "Robotics RC";
@@ -75675,6 +75663,8 @@
 	pixel_x = 32;
 	pixel_y = 1
 	},
+/obj/item/assembly/health,
+/obj/item/assembly/health,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics)
 "xCR" = (
