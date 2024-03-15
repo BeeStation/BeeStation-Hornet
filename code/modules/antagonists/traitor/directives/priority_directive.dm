@@ -92,3 +92,6 @@ NAMED_TUPLE_1(directive_special_action,, action_name)
 /datum/priority_directive/proc/get_special_action(datum/component/uplink)
 	RETURN_TYPE(/datum/directive_special_action)
 	return null
+
+/// Perform the special directive action
+/datum/priority_directive/proc/perform_special_action(datum/component/uplink, mob/living/user)

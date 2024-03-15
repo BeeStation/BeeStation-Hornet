@@ -8,8 +8,11 @@
 	// Don't track this for deletion, since we need to maintain a track on the same position
  	// when a turf is changed.
 	var/turf/center_turf
+	// List of the uplinks that already took the beacon
+	var/list/empty_uplinks = list()
 
 /datum/priority_directive/deploy_beacon/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
+	empty_uplinks.Cut()
 	if (length(uplinks) <= 3 && !force)
 		reject()
 		return
@@ -48,3 +51,12 @@
 
 /datum/priority_directive/deploy_beacon/get_special_action(datum/component/uplink)
 	return new /datum/directive_special_action("Get beacon")
+
+/datum/priority_directive/deploy_beacon/perform_special_action(datum/component/uplink, mob/living/user)
+	if (uplink in empty_uplinks)
+		to_chat(user, "<span class='warning'>You have already received your beacon! Pick it up or find someone aligned with your mission.</span>")
+		return
+	empty_uplinks += uplink
+	// Give the requester a beacon
+	var/obj/item/spawned = new /obj/item/uplink_beacon(user.loc)
+	user.put_in_active_hand(spawned)

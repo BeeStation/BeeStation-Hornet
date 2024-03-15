@@ -47,7 +47,7 @@ const Directives = (props, context) => {
   const { act, data } = useBackend(context);
   const { pos_x = 0, pos_y = 0, pos_z = 0, time, objectives = [] } = data.objectives;
   const selectedObjective = objectives[selected] || objectives[0];
-  const { track_x, track_y, track_z } = selectedObjective || {};
+  const { track_x, track_y, track_z, action } = selectedObjective || {};
   const dx = track_x - pos_x;
   const dy = track_y - pos_y;
   const angle = (360 / (Math.PI * 2)) * Math.atan2(dx, dy);
@@ -131,14 +131,20 @@ const Directives = (props, context) => {
               <div className="directive_prize">
                 <div className="directive_prize_info">
                   <Flex.Item>
-                    <Icon name="slash" />
+                    <Icon name={action ? "gem" : "slash"} />
                   </Flex.Item>
-                  <Flex.Item grow>
-                    <Box bold>No Reward</Box>
+                  <Flex.Item grow pl={2}>
+                    <Box bold>{selectedObjective.reward ? selectedObjective.reward + " Telecrystals" : "No reward"}</Box>
                   </Flex.Item>
                 </div>
                 <Flex.Item grow height="100%" align="flex-end" textAlign="right">
-                  <Button height="100%" fontSize={2} content="Collect Reward" disabled icon="hands-helping" />
+                  <Button
+                    height="100%"
+                    fontSize={2}
+                    content={action ? action : "Collect Reward"}
+                    disabled={!action}
+                    icon="hands-helping"
+                    onClick={() => act('directive_action')} />
                 </Flex.Item>
               </div>
             </div>

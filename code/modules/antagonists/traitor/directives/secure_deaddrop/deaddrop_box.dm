@@ -18,7 +18,7 @@
 		var/mob/person = loc
 		to_chat(person, "<span class='notice'>[name] unlocks!</span>")
 		// Sound only plays 3 tile range
-		playsound(src, 'sound/machines/boltsup.ogg', 40, extra_range = -SOUND_RANGE + 3)
+		playsound(src, 'sound/machines/boltsup.ogg', 40, extrarange = -SOUND_RANGE + 3)
 
 /datum/component/storage/concrete/deaddrop
 	locked = TRUE

@@ -238,6 +238,15 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 				break
 		if (!valid)
 			continue
+		// Everyone on the team must own this stash.
+		// Its not good enough for a team item to go into
+		// a stash owned by 1 person.
+		for (var/datum/mind/mind in owners)
+			if (!(mind in stash.stash_minds))
+				valid = FALSE
+				break
+		if (!valid)
+			continue
 		// Must be something that we can store in
 		if (!istype(stash.parent, /obj/item/storage))
 			continue

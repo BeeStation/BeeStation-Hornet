@@ -104,3 +104,8 @@ SUBSYSTEM_DEF(directives)
 			))
 		data["objectives"] =  known_objectives
 	return data
+
+/datum/controller/subsystem/directives/proc/directive_action(datum/component/uplink/uplink, mob/living/user)
+	if (!active_directive)
+		return
+	active_directive.perform_special_action(uplink, user)

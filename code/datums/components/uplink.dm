@@ -237,6 +237,9 @@ GLOBAL_LIST_EMPTY(uplinks)
 		if("compact_toggle")
 			compact_mode = !compact_mode
 			return TRUE
+		if ("directive_action")
+			SSdirectives.directive_action(src, usr)
+			return TRUE
 
 /datum/component/uplink/ui_assets(mob/user)
 	return list(
