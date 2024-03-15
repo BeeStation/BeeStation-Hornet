@@ -14,9 +14,14 @@
 	obj_flags &= ~INDESTRUCTIBLE
 	var/datum/component/storage/storage = GetComponent(/datum/component/storage)
 	storage.locked = FALSE
+	if (ismob(loc))
+		var/mob/person = loc
+		to_chat(person, "<span class='notice'>[name] unlocks!</span>")
+		// Sound only plays 3 tile range
+		playsound(src, 'sound/machines/boltsup.ogg', 40, extra_range = -SOUND_RANGE + 3)
 
 /datum/component/storage/concrete/deaddrop
 	locked = TRUE
 	can_transfer = FALSE
 	emp_shielded = TRUE
-	quickdraw = TRUE
+	quickdraw = FALSE
