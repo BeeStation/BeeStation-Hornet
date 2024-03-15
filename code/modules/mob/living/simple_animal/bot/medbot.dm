@@ -104,6 +104,14 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	else
 		icon_state = "medibot1"
 
+/mob/living/simple_animal/bot/medbot/proc/rename_bot()
+	var/t = sanitize_name(stripped_input(usr, "Enter new robot name", name, name,MAX_NAME_LEN))
+	if(!t)
+		return
+	if(!in_range(src, usr) && loc != usr)
+		return
+	name = t
+
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
 	skin = new_skin
@@ -264,6 +272,14 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		show_controls(user)
 		update_icon()
 
+	if(istype(W, /obj/item/pen)&&!locked)
+		rename_bot()
+		return
+	if(istype(W,/obj/item/storage/firstaid)&&!locked)
+		var/obj/item/storage/firstaid/B = W
+		skin=B.skin_type
+		update_icon()
+
 	else
 		var/current_health = health
 		..()
@@ -366,6 +382,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/examine(mob/user)
 	. = ..()
+	if(in_range(user, src))
+		. += "<span class='notice'>Use a pen to change its name, or a first aid kit to change its colour.</span>"
 	if(tipped_status == MEDBOT_PANIC_NONE)
 		return
 
@@ -672,25 +690,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /obj/machinery/bot_core/medbot
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
-
-/mob/living/simple_animal/bot/medbot/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen)&&!locked)
-		rename_bot()
-		return
-	if(istype(I,/obj/item/storage/firstaid)&&!locked)
-		var/obj/item/storage/firstaid/B = I
-		skin=B.skin_type
-		update_icon()
-	..()
-
-/mob/living/simple_animal/bot/medbot/proc/rename_bot()
-	var/t = sanitize_name(stripped_input(usr, "Enter new robot name", name, name,MAX_NAME_LEN))
-	if(!t)
-		return
-	if(!in_range(src, usr) && loc != usr)
-		return
-	name = t
-
 #undef MEDBOT_PANIC_NONE
 #undef MEDBOT_PANIC_LOW
 #undef MEDBOT_PANIC_MED
