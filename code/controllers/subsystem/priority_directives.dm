@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(directives)
 	// Bring on the mission
 	var/list/valid_directives = list()
 	for (var/datum/priority_directive/directive in directives)
-		if (!directive.check(GLOB.uplinks, player_minds))
+		if (!directive.can_run(GLOB.uplinks, player_minds))
 			continue
 		valid_directives += directive
 	if (!length(valid_directives))
@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(directives)
 		next_directive_time = world.time + 1 MINUTES
 		return
 	var/datum/priority_directive/selected = pick(active_directive)
-	selected.activate(GLOB.uplinks, player_minds)
+	selected.start(GLOB.uplinks, player_minds)
 	next_directive_time = INFINITY
 	active_directive = selected
 
@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(directives)
 			continue
 		player_minds += player.mind
 	var/datum/priority_directive/selected = pick(SSdirectives.directives)
-	selected.activate(GLOB.uplinks, player_minds)
+	selected.start(GLOB.uplinks, player_minds)
 	SSdirectives.next_directive_time = INFINITY
 	SSdirectives.active_directive = selected
 
