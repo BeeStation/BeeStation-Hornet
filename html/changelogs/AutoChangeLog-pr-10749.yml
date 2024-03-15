@@ -1,5 +1,0 @@
-author: TsunamiAnt
-delete-after: true
-changes:
-  - rscadd: Echo now has a bioscanner
-  - rscadd: Bioscanner board printing
