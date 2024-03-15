@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: Deconverted cultist's halo is now properly removed
+  - code_imp: slightly moved cultist code to make it easily readible and quick to
+      find additional refs
