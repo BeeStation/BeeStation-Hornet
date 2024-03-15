@@ -291,10 +291,10 @@
 		result += dmgreport.Join()
 
 	result +="<hr />\
-				<b>Radioactive Tissue Damage: [mob_occupant.radiation]</b><br>\
-				<b>Hypoxemic Damage: [oxy_loss]</b><br>\
-				<b>Blood Toxicity: [tox_loss]</b><br>\
-				<b>Lactic Acid Buildup: [mob_occupant.getStaminaLoss()]</b><br>"
+				<b><font color=["purple"]>Radioactive Tissue Damage: [mob_occupant.radiation]</font></b><br>\
+				<b><font color=["blue"]>Hypoxemic Damage: [oxy_loss]</font></b><br>\
+				<b><font color=["green"]>Blood Toxicity: [tox_loss]</font></b><br>\
+				<b><font color=["orange"]>Lactic Acid Buildup: [mob_occupant.getStaminaLoss()]</font></b><br>"
 
 	result += "<hr />"
 
@@ -409,7 +409,7 @@
 			if(mob_occupant.reagents.reagent_list.len)
 				result += "Subject contains the following reagents:<br>"
 				for(var/datum/reagent/R in mob_occupant.reagents.reagent_list)
-					result += "[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "<b>OVERDOSING</B>" : "."]"
+					result += "[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "<b>OVERDOSING</B>" : "."]<br>"
 			else
 				result += "Subject contains no reagents.<br>"
 			if(mob_occupant.reagents.addiction_list.len)
