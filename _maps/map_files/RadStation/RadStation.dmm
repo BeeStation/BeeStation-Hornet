@@ -75996,9 +75996,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "xIb" = (
-/obj/machinery/plumbing/pill_press{
-	dir = 4
-	},
 /obj/effect/turf_decal/box,
 /obj/machinery/door/window/westleft{
 	dir = 1;

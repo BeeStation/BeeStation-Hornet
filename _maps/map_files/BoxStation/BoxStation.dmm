@@ -7734,9 +7734,6 @@
 "bwL" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/box,
-/obj/machinery/plumbing/pill_press{
-	dir = 4
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "bwU" = (
