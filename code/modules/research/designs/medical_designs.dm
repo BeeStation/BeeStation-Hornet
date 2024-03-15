@@ -30,7 +30,7 @@
 	id = "healthanalyzer"
 	build_path = /obj/item/healthanalyzer
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500, /datum/material/silver = 2000, /datum/material/gold = 1500, /datum/material/bluespace = 1000)
+	materials = list(/datum/material/plastic = 5000, /datum/material/glass = 2500, /datum/material/silver = 2000, /datum/material/gold = 1500, /datum/material/bluespace = 1000)
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 

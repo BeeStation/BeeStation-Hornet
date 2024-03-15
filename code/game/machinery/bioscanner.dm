@@ -170,7 +170,7 @@
 		balloon_alert_to_viewers("Beginning scan cycle.")
 		soundloop.start()
 		playsound(src, 'sound/machines/boop.ogg', 75, FALSE, 0)
-		scan_timer = addtimer(CALLBACK(src, PROC_REF(bioscanComplete), user), 300*speed_coeff, TIMER_STOPPABLE)
+		scan_timer = addtimer(CALLBACK(src, PROC_REF(bioscanComplete), user), 150*speed_coeff, TIMER_STOPPABLE)
 	else
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 15, FALSE, 0)
 		return
