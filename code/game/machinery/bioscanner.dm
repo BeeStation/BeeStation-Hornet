@@ -357,7 +357,7 @@
 		result += "No Cerebral traumas detected.<br>"
 
 	if(length(C.last_mind?.quirks))
-		result += "Subject has the following physiological traits: [C.last_mind.get_quirk_string()]."
+		result += "Subject has the following physiological traits: [C.last_mind.get_quirk_string()].<br>"
 	else
 		result += "Subject has no particular physiological traits.<br>"
 
