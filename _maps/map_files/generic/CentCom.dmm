@@ -250,9 +250,7 @@
 /area/centcom/holding)
 "aV" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/syndicake{
-	pixel_y = 3
-	},
+/obj/item/reagent_containers/food/snacks/syndicake,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)

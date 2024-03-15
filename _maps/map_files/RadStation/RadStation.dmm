@@ -2725,7 +2725,7 @@
 	dir = 6
 	},
 /obj/item/radio/intercom{
-	{broadcasting = 1;
+	broadcasting = 1;
 	canhear_range = 6;
 	listening = 1;
 	name = "Station Intercom (Court)"
@@ -73435,7 +73435,7 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	{broadcasting = 1;
+	broadcasting = 1;
 	canhear_range = 6;
 	listening = 1;
 	name = "Station Intercom (Court)"
@@ -73720,7 +73720,7 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	{broadcasting = 1;
+	broadcasting = 1;
 	canhear_range = 6;
 	listening = 1;
 	name = "Station Intercom (Court)"

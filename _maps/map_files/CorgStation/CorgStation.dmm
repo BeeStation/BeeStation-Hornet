@@ -1191,7 +1191,7 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	{name = "defense intercom"
+	name = "defense intercom"
 	},
 /turf/open/floor/plasteel,
 /area/security/courtroom)
@@ -16198,7 +16198,7 @@
 "fgs" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
-	{name = "prosecution intercom"
+	name = "prosecution intercom"
 	},
 /turf/open/floor/plasteel,
 /area/security/courtroom)
