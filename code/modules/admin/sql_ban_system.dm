@@ -1217,7 +1217,7 @@
 		//there's not always a client to use the bancache of so to avoid many individual queries from using is_banned_form we'll build a cache to use here
 		var/banned_from = list()
 		if(player_key)
-			var/datum/DBQuery/query_get_banned_roles = SSdbcore.NewQuery({"
+			var/datum/db_query/query_get_banned_roles = SSdbcore.NewQuery({"
 				SELECT role
 				FROM [format_table_name("ban")]
 				WHERE
