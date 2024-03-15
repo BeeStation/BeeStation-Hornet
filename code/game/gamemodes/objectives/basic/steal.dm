@@ -14,6 +14,9 @@ GLOBAL_LIST_EMPTY(possible_items)
 	var/atom/tracked = null
 	for (var/atom/target in get_trackables_by_type(steal_target, TRUE))
 		var/turf/target_turf = get_turf(target)
+		// Objectives in incorrect locations are simply not trackable
+		if (!compare_z(source_turf, target_turf))
+			continue
 		// Prioritise things that are on the same z
 		var/dist = get_dist(target, source) + abs(source_turf.z - target_turf.z) * 1000
 		if (dist > closest)
