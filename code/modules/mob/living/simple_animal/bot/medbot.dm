@@ -78,6 +78,12 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	heal_threshold = 0
 	declare_crit = 0
 
+/mob/living/simple_animal/bot/medbot/filled
+	skin = MEDBOT_SKIN_ADVANCED
+	heal_threshold = 30
+	declare_crit = TRUE
+	reagent_glass = new /obj/item/reagent_containers/glass/beaker/large/kelobic
+
 /mob/living/simple_animal/bot/medbot/update_icon()
 	cut_overlays()
 	if(skin)
@@ -668,10 +674,14 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
 
 /mob/living/simple_animal/bot/medbot/attackby(obj/item/I, mob/user, params)
-	..()
 	if(istype(I, /obj/item/pen)&&!locked)
 		rename_bot()
 		return
+	if(istype(I,/obj/item/storage/firstaid)&&!locked)
+		var/obj/item/storage/firstaid/B = I
+		skin=B.skin_type
+		update_icon()
+	..()
 
 /mob/living/simple_animal/bot/medbot/proc/rename_bot()
 	var/t = sanitize_name(stripped_input(usr, "Enter new robot name", name, name,MAX_NAME_LEN))
