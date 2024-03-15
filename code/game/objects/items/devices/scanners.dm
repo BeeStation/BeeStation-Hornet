@@ -197,7 +197,7 @@ GENE SCANNER
 			to_chat(user, "<span class='alert'>WARNING: SUBJECT RADIATION ABOVE SAFE LEVELS. SCAN ABORTED.</span>", type = MESSAGE_TYPE_WARNING)
 			return
 
-	if(do_after(user, 10, M))
+	if(do_after(user, 20, M))
 
 		M.rad_act(100)
 

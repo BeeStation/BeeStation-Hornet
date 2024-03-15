@@ -1305,17 +1305,19 @@
 
 /datum/techweb_node/med_scanning
 	id = "med_scanner"
-	tech_tier = 2
+	tech_tier = 5
 	display_name = "Portable Medical Scanning"
 	description = "By outfitting an analyzer with overclocked scanners and inbuilt diagnostic AI, the zenith of man-portable medical scanning becomes possible."
 	prereq_ids = list(
-		"biotech",
+		"adv_biotech",
+		"posibrain",
+		"practical_bluespace",
 	)
 	design_ids = list(
 		"extrapolator",
 		"healthanalyzer",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
 /datum/techweb_node/cyber_organs_upgraded
