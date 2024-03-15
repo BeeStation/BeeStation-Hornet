@@ -186,6 +186,8 @@
 	playsound(src, 'sound/machines/ping.ogg', 75, FALSE, 0)
 	soundloop.stop()
 
+	var/mob/living/carbon/C = mob_occupant
+
 	//Here we go, the paper, the RESULTS.
 	//starting with the general section
 
@@ -270,7 +272,6 @@
 	result += "<h2>INJURY</h2><br>"
 
 	if(iscarbon(occupant))
-		var/mob/living/carbon/C = occupant
 		var/list/damaged = C.get_damaged_bodyparts(1,1)
 		var/list/dmgreport = list()
 		dmgreport += "<table style='margin-left:3em'><tr><font face='Verdana'>\
@@ -316,10 +317,68 @@
 		for(var/obj/item/embed as anything in limb.embedded_objects)
 			result += "Foreign object detected in subject's:[limb.name]<br>"
 
+	result += "<br><b>Sensory Organs</b><br>"
+
+	if(iscarbon(occupant))
+		var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
+		result += "<b>==EAR STATUS==</b><br>"
+		if(istype(ears))
+			var/healthy = TRUE
+			if(HAS_TRAIT_FROM(C, TRAIT_DEAF, GENETIC_MUTATION))
+				healthy = FALSE
+				result += "Subject is genetically deaf.<br>"
+			else if(HAS_TRAIT(C, TRAIT_DEAF))
+				healthy = FALSE
+				result += "Subject is deaf.<br>"
+			else
+				if(ears.damage)
+					result += "Subject has [ears.damage > ears.maxHealth ? "permanent ": "temporary "]hearing damage.<br>"
+					healthy = FALSE
+				if(ears.deaf)
+					result += "Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.<br>"
+					healthy = FALSE
+			if(healthy)
+				result += "Healthy.<br>"
+		else
+			result += "Subject does not have ears.<br>"
+
+		var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
+		result += "<br><b>==EYE STATUS==</b><br>"
+		if(istype(eyes))
+			var/healthy = TRUE
+			if(C.is_blind())
+				result += "Subject is blind.<br>"
+				healthy = FALSE
+			if(HAS_TRAIT(C, TRAIT_NEARSIGHT))
+				result += "Subject is nearsighted.<br>"
+				healthy = FALSE
+			if(eyes.damage > 30)
+				result += "Subject has severe eye damage.<br>"
+				healthy = FALSE
+			else if(eyes.damage > 20)
+				result += "Subject has significant eye damage.<br>"
+				healthy = FALSE
+			else if(eyes.damage)
+				result += "Subject has minor eye damage.<br>"
+				healthy = FALSE
+			if(healthy)
+				result += "Healthy.<br>"
+		else
+			result += "Subject does not have eyes.<br>"
+
 	result += "<hr />"
 
 	//Genetics
 	result += "<h2>GENETICAL</h2><br>"
+
+	if(C.dna.mutations)
+		result += "<b>Mutations:</b><br>"
+		for(var/mutation in C.dna.mutations)
+			result += "[mutation]<br>"
+	else
+		result += "No mutations.<br>"
+
+	result += "<br>"
 
 	result += "Chromosomal Damage: [mob_occupant.getCloneLoss()]<br>"
 
@@ -338,7 +397,6 @@
 
 	result += "Brain Activity Level: [(200 - mob_occupant.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.<br>"
 
-	var/mob/living/carbon/C = mob_occupant
 	if(LAZYLEN(C.get_traumas()))
 		var/list/trauma_text = list()
 		for(var/datum/brain_trauma/B in C.get_traumas())
