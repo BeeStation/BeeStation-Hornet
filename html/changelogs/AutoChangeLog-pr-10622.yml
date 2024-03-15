@@ -1,7 +1,0 @@
-author: RDS88-beeman
-delete-after: true
-changes:
-  - rscadd: Eldritch kiss reagent that's only given in heretic minigame - it won't
-      kill oozelings by toxin healing. Identical to Atropine.
-  - bugfix: Escaping from a handshake with an elder god no longer causes oozelings
-      toxin damage.
