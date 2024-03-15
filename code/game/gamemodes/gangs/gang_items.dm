@@ -386,7 +386,8 @@
 		/obj/item/reagent_containers/pill/patch/silver_sulf = 2,
 		/obj/item/reagent_containers/pill/patch/styptic = 2,
 		/obj/item/reagent_containers/medspray/synthflesh = 1,
-		/obj/item/reagent_containers/hypospray/medipen = 1)
+		/obj/item/reagent_containers/hypospray/medipen = 1,
+		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/shifty/hangover/PopulateContents()
@@ -394,5 +395,6 @@
 		/obj/item/storage/pill_bottle/charcoal = 1,
 		/obj/item/reagent_containers/syringe/antitoxin = 1,
 		/obj/item/reagent_containers/hypospray/medipen = 2,
-		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2)
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
+		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
