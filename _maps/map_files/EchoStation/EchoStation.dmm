@@ -373,6 +373,7 @@
 	pixel_x = 4;
 	pixel_y = 10
 	},
+/obj/item/healthanalyzer,
 /obj/item/analyzer,
 /obj/item/clothing/gloves/artifact_pinchers{
 	pixel_y = 3
@@ -17297,12 +17298,13 @@
 /obj/machinery/light{
 	light_color = "#7AC3FF"
 	},
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
 /obj/effect/turf_decal/bot,
 /obj/item/radio/intercom{
 	dir = 1;
 	pixel_y = -29
 	},
-/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/patients_rooms)
 "iwI" = (
@@ -19349,15 +19351,23 @@
 	pixel_x = 6;
 	pixel_y = 3
 	},
+/obj/item/healthanalyzer{
+	pixel_y = 10
+	},
+/obj/item/healthanalyzer{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/healthanalyzer{
+	pixel_x = 3;
+	pixel_y = 4
+	},
 /obj/structure/table,
 /obj/structure/railing,
 /obj/machinery/camera/autoname{
 	dir = 4;
 	network = list("ss13","rd")
 	},
-/obj/item/assembly/health,
-/obj/item/assembly/health,
-/obj/item/assembly/health,
 /turf/open/floor/plasteel,
 /area/science/robotics)
 "jGA" = (
