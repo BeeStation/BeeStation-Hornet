@@ -6,17 +6,17 @@
 		box which will automatically unlock after a set period of time."
 	var/obj/item/storage/deaddrop_box/target
 
-/datum/priority_directive/deaddrop/_allocate_teams(list/uplinks, list/player_minds)
-	if (length(uplinks) <= 1)
+/datum/priority_directive/deaddrop/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
+	if (length(uplinks) <= 1 && !force)
 		reject()
 		return
 	for (var/datum/component/uplink/antag in uplinks)
 		// Create individual teams
 		add_antagonist_team(antag)
 
-/datum/priority_directive/deaddrop/_generate(list/uplinks, list/player_minds)
+/datum/priority_directive/deaddrop/_generate(list/teams)
 	// Spawn the deaddrop package
-	var/tc_count = rand(4, 3 + length(uplinks))
+	var/tc_count = rand(4, 3 + length(teams))
 	// Put the deaddrop somewhere
 	var/turf/selected = get_random_station_turf()
 	while (!istype(selected, /turf/open/floor/plasteel))

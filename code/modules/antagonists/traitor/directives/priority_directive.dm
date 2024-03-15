@@ -1,3 +1,6 @@
+NAMED_TUPLE_1(directive_team, /list, uplinks)
+NAMED_TUPLE_1(directive_special_action,, action_name)
+
 /// This can only be running once at a time, do not run in parallel
 /datum/priority_directive
 	var/name
@@ -12,18 +15,18 @@
 	. = ..()
 
 /// Check if we are allowed to run this directive or not
-/datum/priority_directive/proc/can_run(list/uplinks, list/player_minds)
+/datum/priority_directive/proc/can_run(list/uplinks, list/player_minds, force = FALSE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	teams.Cut()
-	_allocate_teams(uplinks, player_minds)
+	_allocate_teams(uplinks, player_minds, force)
 	return !rejected
 
 /// Allocate teams for this directive. Call reject() to reject this directive and
 /// add_antagonist_team to add antagonist teams.
-/datum/priority_directive/proc/_allocate_teams(list/uplinks, list/player_minds)
+/datum/priority_directive/proc/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
 
 /// Return the reward type and amount
-/datum/priority_directive/proc/_generate(list/uplinks, list/player_minds)
+/datum/priority_directive/proc/_generate(list/teams)
 
 /// Get the tracking target of this atom
 /datum/priority_directive/proc/get_track_atom()
@@ -39,7 +42,7 @@
 /datum/priority_directive/proc/start(list/uplinks, list/player_minds)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	end_at = world.time + 10 MINUTES
-	tc_reward = _generate(uplinks, player_minds)
+	tc_reward = _generate(teams)
 	for (var/datum/component/uplink/uplink in GLOB.uplinks)
 		var/syndicate_antag = FALSE
 		var/mob/living/current = uplink.parent
@@ -63,7 +66,7 @@
 
 /datum/priority_directive/proc/add_antagonist_team(list/uplinks)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	teams += list(uplinks)
+	teams += new /datum/directive_team(uplinks)
 
 /// Reject this directive, prevent it from firing
 /datum/priority_directive/proc/reject()
@@ -84,3 +87,8 @@
 			continue
 		targets += mind
 	return pick(targets)
+
+/// Get any special uplink actions
+/datum/priority_directive/proc/get_special_action(datum/component/uplink)
+	RETURN_TYPE(/datum/directive_special_action)
+	return null

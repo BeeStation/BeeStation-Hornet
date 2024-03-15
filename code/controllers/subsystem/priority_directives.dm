@@ -53,7 +53,10 @@ SUBSYSTEM_DEF(directives)
 		if (!ishuman(player) || !is_station_level(player.z) || !player.mind)
 			continue
 		player_minds += player.mind
-	var/datum/priority_directive/selected = locate(/datum/priority_directive/deaddrop) in SSdirectives.directives
+	var/datum/priority_directive/selected = input(src, "What do you want?", "What do you want?") as null|anything in SSdirectives.directives
+	if (!selected)
+		return
+	selected.can_run(GLOB.uplinks, player_minds, TRUE)
 	selected.start(GLOB.uplinks, player_minds)
 	SSdirectives.next_directive_time = INFINITY
 	SSdirectives.active_directive = selected
@@ -97,6 +100,7 @@ SUBSYSTEM_DEF(directives)
 				"track_x" = track_turf?.x,
 				"track_y" = track_turf?.y,
 				"track_z" = track_turf?.z,
+				"action" = active_directive.get_special_action()?.action_name
 			))
 		data["objectives"] =  known_objectives
 	return data

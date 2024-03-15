@@ -1,19 +1,32 @@
 /datum/priority_directive/deploy_beacon
 	name = "Deploy Beacon"
-	objective_explanation = "Secure a trackable lockbox which will unlock after 10 minutes."
-	details = "We have identified a deaddrop that has been placed by a rival spy agency and have maintained an accurate track on the box. \
-		You have the option to track and secure the valuable items before anyone else gets to them. The items are stored in a trackable \
-		box which will automatically unlock after a set period of time."
+	objective_explanation = "Activate a beacon with your team's signal at the specified location."
+	details = "An opportunity has opened up for communication to be established with ground agents, you need \
+		to deploy a beacon encoded our organisation's encrypion code. Hostile agents may try to swap the code \
+		for their own, which you need to prevent from happening. There are friendly agents supporting you on this mission \
+		but their identities are unknown."
 	// Don't track this for deletion, since we need to maintain a track on the same position
-	// when a turf is changed.
+ 	// when a turf is changed.
 	var/turf/center_turf
 
-/datum/priority_directive/deploy_beacon/_allocate_teams(list/uplinks, list/player_minds)
-	if (length(uplinks) <= 3)
+/datum/priority_directive/deploy_beacon/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
+	if (length(uplinks) <= 3 && !force)
 		reject()
 		return
 	// Pick a location that the beacon needs to be deployed at, somewhere out of prying eyes
-
+	var/area_types = list()
+	area_types += typesof(/area/maintenance)
+	center_turf = null
+	while (!isturf(center_turf) && length(area_types))
+		var/target_type = pick(area_types)
+		var/area/area = GLOB.areas_by_type[target_type]
+		if (!area)
+			area_types -= target_type
+			continue
+		center_turf = pick(area.contained_turfs)
+	if (!center_turf)
+		reject()
+		return
 	// Generate the teams
 	var/list/a = list()
 	var/list/b = list()
@@ -27,8 +40,11 @@
 	add_antagonist_team(a)
 	add_antagonist_team(b)
 
-/datum/priority_directive/deploy_beacon/_generate(list/uplinks, list/player_minds)
-	return
+/datum/priority_directive/deploy_beacon/_generate(list/teams)
+	return rand(5, 9)
 
 /datum/priority_directive/deploy_beacon/get_track_atom()
-	return null
+	return center_turf
+
+/datum/priority_directive/deploy_beacon/get_special_action(datum/component/uplink)
+	return new /datum/directive_special_action("Get beacon")
