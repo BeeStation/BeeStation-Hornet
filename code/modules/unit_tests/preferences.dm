@@ -12,7 +12,7 @@
 
 		if (istype(preference, /datum/preference/choiced))
 			var/datum/preference/choiced/choiced_preference = preference
-			choiced_preference.init_possible_values()
+			choiced_preference.init_possible_values(preference)
 
 		// Smoke-test is_valid
 		preference.is_valid(TRUE)
