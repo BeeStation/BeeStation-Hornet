@@ -6,7 +6,7 @@
 
 /obj/machinery/plumbing/bottle_dispenser/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The [name] currently has [stored_bottles.len] stored. There needs to be less than [max_floor_bottles] on the floor to continue dispensing.</span>"
+	. += "<span class='notice'>Use an open container on it to fill it up!</span>"
 
 /obj/machinery/plumbing/bottle_dispenser/Initialize(mapload, bolt)
 	. = ..()
@@ -22,22 +22,3 @@
 		return FALSE
 	reagents.trans_to(container, min(reagents.total_volume, container.maximum_volume - container.total_volume), transfered_by = user)
 	return FALSE
-
-/obj/machinery/plumbing/bottle_dispenser/process()
-	if(machine_stat & NOPOWER)
-		return
-	if((reagents.total_volume >= bottle_size) && (stored_bottles.len < max_stored_bottles))
-		var/obj/item/reagent_containers/glass/bottle/P = new(src)
-		reagents.trans_to(P, bottle_size)
-		P.name = bottle_name
-		stored_bottles += P
-	if(stored_bottles.len)
-		var/bottle_amount = 0
-		for(var/obj/item/reagent_containers/glass/bottle/P in loc)
-			bottle_amount++
-			if(bottle_amount >= max_floor_bottles) //too much so just stop
-				break
-		if(bottle_amount < max_floor_bottles)
-			var/atom/movable/AM = stored_bottles[1] //AM because forceMove is all we need
-			stored_bottles -= AM
-			AM.forceMove(drop_location())
