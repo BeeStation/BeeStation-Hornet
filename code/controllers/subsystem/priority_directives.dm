@@ -22,10 +22,10 @@ SUBSYSTEM_DEF(directives)
 		return
 	// Find all the minds
 	var/list/player_minds = list()
-	for (var/mob/player in GLOB.alive_mob_list)
-		if (!ishuman(player) || !is_station_level(player.z) || !player.mind)
+	for (var/datum/mind/player_mind in SSticker.minds)
+		if (!ishuman(player_mind.current) || !is_station_level(player_mind.current.z))
 			continue
-		player_minds += player.mind
+		player_minds += player_mind
 	// Bring on the mission
 	var/list/valid_directives = list()
 	for (var/datum/priority_directive/directive in directives)
