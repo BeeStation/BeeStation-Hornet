@@ -62,9 +62,6 @@
 		return
 	if(reagents.total_volume >= amount*delta_time*0.5) //otherwise we get leftovers, and we need this to be precise
 		return
-	// Needs power
-	if (!use_power(amount * delta_time))
-		return
 	reagents.add_reagent(reagent_id, amount*delta_time*0.5)
 
 /obj/machinery/plumbing/synthesizer/examine(mob/user)
