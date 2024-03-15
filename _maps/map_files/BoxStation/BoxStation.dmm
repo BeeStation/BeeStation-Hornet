@@ -23807,7 +23807,7 @@
 "fPz" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom{
-	,/obj/effect/turf_decal/tile/neutral/half/contrasted{dir = 4
+	/obj/effect/turf_decal/tile/neutral/half/contrasted{dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/courtroom)
