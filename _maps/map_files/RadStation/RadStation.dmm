@@ -28820,13 +28820,6 @@
 	},
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
-"iYZ" = (
-/obj/machinery/button{
-	id_tag = "atmosshutters";
-	pixel_y = -32
-	},
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "iZa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -38898,7 +38891,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/button{
-	pixel_y = -32;
+	pixel_y = -25;
 	id = "atmosshutters"
 	},
 /turf/open/floor/plasteel/dark,
@@ -58823,17 +58816,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"srP" = (
-/obj/effect/turf_decal/bot{
-	dir = 1
-	},
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/machinery/button{
-	id_tag = "atmosshutters";
-	pixel_y = -32
-	},
-/turf/open/floor/plasteel/dark,
-/area/engine/atmos)
 "srZ" = (
 /obj/machinery/airalarm/directional/north,
 /obj/structure/table/reinforced,
@@ -119265,8 +119247,8 @@ xtQ
 tDc
 mLj
 lBr
-srP
-iYZ
+tfX
+iRY
 nQm
 hlX
 vVO
@@ -119522,7 +119504,7 @@ xtQ
 uPm
 mLj
 lBr
-srP
+tfX
 iRY
 kxQ
 pGp
@@ -119779,7 +119761,7 @@ xtQ
 rIt
 mLj
 lBr
-srP
+tfX
 iRY
 lKh
 lKh
