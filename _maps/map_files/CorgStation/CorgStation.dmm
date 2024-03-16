@@ -13175,18 +13175,9 @@
 	empty = 1;
 	name = "First-Aid (empty)"
 	},
-/obj/item/healthanalyzer{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/item/healthanalyzer{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/item/healthanalyzer{
-	pixel_x = 4;
-	pixel_y = -4
-	},
+/obj/item/assembly/health,
+/obj/item/assembly/health,
+/obj/item/assembly/health,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "edn" = (
@@ -24154,8 +24145,8 @@
 /obj/machinery/light_switch{
 	pixel_x = -25
 	},
-/obj/structure/closet/crate/freezer/blood,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "hNe" = (
@@ -54805,6 +54796,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "rSB" = (
@@ -63255,7 +63247,6 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/item/healthanalyzer,
 /obj/item/storage/firstaid/regular{
 	pixel_x = -3;
 	pixel_y = -3
@@ -71362,6 +71353,7 @@
 	},
 /obj/machinery/iv_drip,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "xsZ" = (
