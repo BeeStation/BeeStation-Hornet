@@ -488,9 +488,6 @@
 	var/bite_timer
 
 /datum/xenoartifact_trait/activator/sturdy/hungry/trigger_artifact(atom/target, type, force)
-	. = ..()
-	if(!.)
-		return
 	//Find a food item
 	var/mob/living/M = target
 	var/datum/component/edible/food_item
@@ -509,7 +506,7 @@
 	if(food_item)
 		playsound(AM.loc, 'sound/items/eatfood.ogg', 60, 1, 1)
 		food_item.feed_to_item(src, parent.parent)
-		return
+		return ..()
 	//Otherwise, nibble the target, and spit them out, they're gross, ew
 	if(isliving(M) && !bite_timer)
 		playsound(AM.loc, 'sound/weapons/bite.ogg', 60, 1, 1)
