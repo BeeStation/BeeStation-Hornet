@@ -186,7 +186,6 @@
 	if(!length(held_contents))
 		playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
 		return
-	//TODO: Revisit this code - Racc
 	for(var/atom/A as() in contents-radio)
 		var/solid_as = TRUE
 		//Once we find an artifact-

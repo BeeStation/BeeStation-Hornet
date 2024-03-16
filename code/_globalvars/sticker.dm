@@ -9,7 +9,7 @@ GLOBAL_LIST(stickers_by_series)
 	var/series = STICKER_SERIES_1 //Make sure you update this if you add more series
 	for(var/obj/item/sticker/S as() in subtypesof(/obj/item/sticker))
 		var/index = series & initial(S.sticker_flags)
-		if(!index)
+		if(!index || ABSTRACT & initial(S.item_flags))
 			continue
 		if(!temp["[index]"])
 			temp["[index]"] = list()

@@ -513,7 +513,7 @@
 		AM.do_attack_animation(M)
 		M.adjustBruteLoss(eat_damage)
 		M.visible_message("<span class='warning'>[AM] bites [M]!</span>", "<span class='warning'>[AM] bites you!\n[AM] doesn't like that taste!</span>")
-		addtimer(CALLBACK(src, PROC_REF(handle_timer)), bite_cooldown, TIMER_STOPPABLE)
+		bite_timer = addtimer(CALLBACK(src, PROC_REF(handle_timer)), bite_cooldown, TIMER_STOPPABLE)
 		return FALSE
 
 	return FALSE

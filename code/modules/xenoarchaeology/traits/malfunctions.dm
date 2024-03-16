@@ -142,7 +142,6 @@
 	. = ..()
 	if(!.)
 		return
-	//TODO: Make sure the clothing is worn? - Racc
 	for(var/mob/living/M in focus)
 		var/list/clothing_list = list()
 		for(var/obj/item/clothing/I in M.contents)

@@ -32,29 +32,28 @@
 	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
 	drop_rate = STICKER_WEIGHT_UNCOMMON
 
-//TODO: Consider tweaking the rarity for these pride ones - Racc
-/obj/item/sticker/series_1/gay
+/obj/item/sticker/series_1/pride
+	item_flags = ABSTRACT
+	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_UNCOMMON
+	drop_rate = STICKER_WEIGHT_UNCOMMON
+
+/obj/item/sticker/series_1/pride/gay
 	icon_state = "gay"
 	sticker_icon_state = "gay_sticker"
-	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_COMMON
 
-/obj/item/sticker/series_1/lesbian
+/obj/item/sticker/series_1/pride/lesbian
 	icon_state = "lesbian"
 	sticker_icon_state = "lesbian_sticker"
-	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_COMMON
 
-/obj/item/sticker/series_1/bi
+/obj/item/sticker/series_1/pride/bi
 	icon_state = "bi"
 	sticker_icon_state = "bi_sticker"
-	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_COMMON
 
-/obj/item/sticker/series_1/trans
+/obj/item/sticker/series_1/pride/trans
 	icon_state = "trans"
 	sticker_icon_state = "trans_sticker"
-	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_COMMON
 
 //Mime pride?
-/obj/item/sticker/series_1/straight
+/obj/item/sticker/series_1/pride/straight
 	icon_state = "straight"
 	sticker_icon_state = "straight_sticker"
-	sticker_flags = STICKER_SERIES_1 | STICKER_RARITY_COMMON

@@ -40,7 +40,7 @@
 		playsound(user, 'sound/effects/cartoon_pop.ogg', 35, TRUE)
 		//Build prize
 		user.dropItemToGround(src)
-		var/obj/item/sticker/S = pick(GLOB.stickers_by_series["[STICKER_SERIES_1]"])
+		var/obj/item/sticker/S = pick(GLOB.stickers_by_series["[series]"])
 		S = new S(get_turf(src))
 		user.put_in_active_hand(S)
 		//Dopamine

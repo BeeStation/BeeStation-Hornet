@@ -297,14 +297,17 @@
 
 //Calcifies, aka breaks, the artifact
 /datum/component/xenoartifact/proc/calcify(override_cooldown = TRUE)
+	var/atom/movable/A = parent
 	//Appearnce
 	artifact_type = new /datum/xenoartifact_material/calcified()
 	var/old_mask = do_mask
 	do_mask = FALSE
-	calcified = TRUE
 	if(do_texture)
 		build_material_appearance()
 	do_mask = old_mask
+	//States
+	calcified = TRUE
+	A.custom_price /= 2
 	//Disable artifact
 	cooldown_override = TRUE
 
@@ -315,6 +318,7 @@
 	var/atom/movable/A = parent
 	//Stats
 	calibrated = TRUE
+	A.custom_price *= 2
 	//Effect
 	calibrated_holder = new(A)
 	var/obj/emitter/spiral/S = calibrated_holder.add_emitter(/obj/emitter/spiral, "calibration", 11)
