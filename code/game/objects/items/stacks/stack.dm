@@ -19,7 +19,6 @@
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
 	material_modifier = 0.05 //5%, so that a 50 sheet stack has the effect of 5k materials instead of 100k.
-	var/list/datum/stack_recipe/recipes
 	///The name of the thing when it's singular
 	var/singular_name
 	///The amount of thing in the stack
@@ -68,15 +67,6 @@
 				merge(S)
 				if(QDELETED(src))
 					return
-	var/list/temp_recipes = get_main_recipes()
-	recipes = temp_recipes.Copy()
-	if(material_type)
-		var/datum/material/M = SSmaterials.GetMaterialRef(material_type) //First/main material
-		for(var/i in M.categories)
-			switch(i)
-				if(MAT_CATEGORY_BASE_RECIPES)
-					var/list/temp = SSmaterials.rigid_stack_recipes.Copy()
-					recipes += temp
 	update_weight()
 	update_icon()
 	var/static/list/loc_connections = list(
@@ -121,9 +111,10 @@
 		ui_update()
 		new type(loc, max_amount, FALSE)
 
-/obj/item/stack/proc/get_main_recipes()
-	SHOULD_CALL_PARENT(TRUE)
-	return list()//empty list
+/// DO NOT CALL PARENT EVER. Each material should call individual material recipe
+/obj/item/stack/proc/get_recipes()
+	SHOULD_CALL_PARENT(FALSE)
+	return
 
 /obj/item/stack/proc/update_weight()
 	if(amount <= (max_amount * (1/3)))
@@ -242,7 +233,7 @@
 
 /obj/item/stack/ui_static_data(mob/user)
 	var/list/data = list()
-	data["recipes"] = recursively_build_recipes(recipes)
+	data["recipes"] = recursively_build_recipes(get_recipes())
 	return data
 
 /obj/item/stack/ui_act(action, params)
@@ -256,7 +247,7 @@
 				qdel(src)
 				return
 			var/datum/stack_recipe/R = locate(params["ref"])
-			if(!is_valid_recipe(R, recipes)) //href exploit protection
+			if(!is_valid_recipe(R, get_recipes())) //href exploit protection
 				return
 			var/multiplier = text2num(params["multiplier"])
 			if(!isnum_safe(multiplier) || (multiplier <= 0)) //href exploit protection

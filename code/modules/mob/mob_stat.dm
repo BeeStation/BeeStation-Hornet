@@ -57,6 +57,10 @@
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
 			requires_holder = TRUE
 			tab_data = GLOB.interviews.stat_entry()
+		if ("Combat")
+			client.stat_update_mode = STAT_SLOW_UPDATE
+			requires_holder = TRUE
+			tab_data = SScombat_logging.generate_stat_tab()
 		// ===== SDQL2 =====
 		if("SDQL2")
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
@@ -313,6 +317,7 @@
 	if(client.holder)
 		tabs |= "MC"
 		tabs |= "Tickets"
+		tabs |= "Combat"
 		if(CONFIG_GET(flag/panic_bunker_interview))
 			tabs |= "Interviews"
 		if(length(GLOB.sdql2_queries))
@@ -366,6 +371,11 @@
 			var/datum/help_ticket/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
 			if(AH && client.holder)
 				AH.Claim()
+		if ("orbit")
+			if (!check_rights(R_ADMIN))
+				return
+			var/mob_ref = params["ref"]
+			usr.client.holder?.admin_follow(locate(mob_ref))
 		if("atomClick")
 			var/atomRef = params["ref"]
 			var/atom/atom_actual = locate(atomRef)

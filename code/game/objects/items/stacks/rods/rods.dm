@@ -33,9 +33,8 @@
 	update_icon()
 	AddElement(/datum/element/openspace_item_click_handler)
 
-/obj/item/stack/rods/get_main_recipes()
-	. = ..()
-	. += GLOB.rod_recipes
+/obj/item/stack/rods/get_recipes()
+	return GLOB.rod_recipes
 
 /obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag)
