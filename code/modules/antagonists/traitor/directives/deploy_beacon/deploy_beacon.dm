@@ -31,6 +31,7 @@
 	if (!center_turf)
 		reject()
 		return
+	var/list/valid_codes = list(0, 1, 2, 3, 4, 5, 6, 7, 8)
 	// Generate the teams
 	var/list/a = list()
 	var/list/b = list()
@@ -41,8 +42,12 @@
 		else
 			b += antag
 	// Create 2 teams
-	add_antagonist_team(a)
-	add_antagonist_team(b)
+	add_antagonist_team(a, list(
+		"code" = pick_n_take(valid_codes)
+	))
+	add_antagonist_team(b, list(
+		"code" = pick_n_take(valid_codes)
+	))
 
 /datum/priority_directive/deploy_beacon/_generate(list/teams)
 	return rand(5, 9)
@@ -61,3 +66,9 @@
 	// Give the requester a beacon
 	var/obj/item/spawned = new /obj/item/uplink_beacon(user.loc)
 	user.put_in_active_hand(spawned)
+
+/datum/priority_directive/deploy_beacon/get_explanation(datum/component/uplink)
+	return "Activate a beacon in the specified location that is broadcasting on the [uplink_beacon_channel_to_color(get_team(uplink).data["code"])] channel."
+
+/datum/priority_directive/deploy_beacon/get_details(datum/component/uplink)
+	return objective_explanation

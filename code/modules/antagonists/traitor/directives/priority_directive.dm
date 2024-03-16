@@ -1,4 +1,4 @@
-NAMED_TUPLE_1(directive_team, /list, uplinks)
+NAMED_TUPLE_2(directive_team, /list, uplinks, /list, data)
 NAMED_TUPLE_1(directive_special_action,, action_name)
 
 /// This can only be running once at a time, do not run in parallel
@@ -64,9 +64,9 @@ NAMED_TUPLE_1(directive_special_action,, action_name)
 /datum/priority_directive/proc/advertise_security()
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-/datum/priority_directive/proc/add_antagonist_team(list/uplinks)
+/datum/priority_directive/proc/add_antagonist_team(list/uplinks, list/data = null)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	teams += new /datum/directive_team(uplinks)
+	teams += new /datum/directive_team(uplinks, islist(data) ? data : list())
 
 /// Reject this directive, prevent it from firing
 /datum/priority_directive/proc/reject()
@@ -93,5 +93,19 @@ NAMED_TUPLE_1(directive_special_action,, action_name)
 	RETURN_TYPE(/datum/directive_special_action)
 	return null
 
+/datum/priority_directive/proc/get_team(datum/component/uplink)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	RETURN_TYPE(/datum/directive_team)
+	for (var/datum/directive_team/team in teams)
+		if (uplink in team.uplinks)
+			return team
+	return null
+
 /// Perform the special directive action
 /datum/priority_directive/proc/perform_special_action(datum/component/uplink, mob/living/user)
+
+/datum/priority_directive/proc/get_explanation(datum/component/uplink)
+	return objective_explanation
+
+/datum/priority_directive/proc/get_details(datum/component/uplink)
+	return details

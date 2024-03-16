@@ -48,3 +48,17 @@
 	current_frequency = new_num
 	ui_update()
 	return TRUE
+
+/proc/uplink_beacon_channel_to_color(channel)
+	var/static/list/colours = list(
+		"green",
+		"purple",
+		"yellow",
+		"orange",
+		"red",
+		"black",
+		"white",
+		"blue",
+		"brown"
+	)
+	return colours[channel + 1]

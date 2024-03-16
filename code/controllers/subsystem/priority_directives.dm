@@ -93,9 +93,9 @@ SUBSYSTEM_DEF(directives)
 			var/turf/track_turf = get_turf(track_atom)
 			known_objectives += list(list(
 				"name" = active_directive.name,
-				"tasks" = list(active_directive.objective_explanation),
+				"tasks" = list(active_directive.get_explanation(uplink)),
 				"time" = active_directive.end_at,
-				"details" = active_directive.details,
+				"details" = active_directive.get_details(uplink),
 				"reward" = active_directive.tc_reward,
 				"track_x" = track_turf?.x,
 				"track_y" = track_turf?.y,
