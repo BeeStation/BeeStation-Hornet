@@ -71425,6 +71425,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/assembly/health,
 /obj/item/assembly/health,
+/obj/item/assembly/health,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "vCX" = (
