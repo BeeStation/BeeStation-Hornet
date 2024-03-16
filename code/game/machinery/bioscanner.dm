@@ -22,7 +22,7 @@
 
 	var/speed_coeff
 	var/scan_level
-	var/radiation_dose
+	//var/radiation_dose
 	var/result
 
 /obj/machinery/bioscanner/Initialize(mapload)
@@ -45,7 +45,7 @@
 	var/E
 	for(var/obj/item/stock_parts/micro_laser/B in component_parts)
 		E += B.rating
-	radiation_dose = 400 / E
+	//radiation_dose = 400 / E
 
 	// I is scanning power, meaning how fast it scans
 	var/I
@@ -146,17 +146,23 @@
 	. = ..()
 	. += "<span class='notice'>Alt-click [src] to [state_open ? "close" : "open"] it.</span>"
 
-/obj/machinery/bioscanner/process()
-	..()
-	if(machine_stat == NOPOWER && !state_open)
+/obj/machinery/bioscanner/container_resist()
+	interrupt()
+
+/obj/machinery/bioscanner/proc/interrupt()
 		use_power = IDLE_POWER_USE
 		scanning = FALSE
 		soundloop.stop()
 		deltimer(scan_timer)
 		update_icon()
 		open_machine()
-		balloon_alert_to_viewers("Powerloss detected, unlatching door.")
 		playsound(src, 'sound/machines/creak.ogg', 100, FALSE, 0)
+
+/obj/machinery/bioscanner/process()
+	..()
+	if(machine_stat == NOPOWER && !state_open)
+		interrupt()
+		balloon_alert_to_viewers("Powerloss detected, unlatching door.")
 	else
 		update_icon()
 
@@ -170,7 +176,7 @@
 		balloon_alert_to_viewers("Beginning scan cycle.")
 		soundloop.start()
 		playsound(src, 'sound/machines/boop.ogg', 75, FALSE, 0)
-		scan_timer = addtimer(CALLBACK(src, PROC_REF(bioscanComplete), user), 300*speed_coeff, TIMER_STOPPABLE)
+		scan_timer = addtimer(CALLBACK(src, PROC_REF(bioscanComplete), user), 100*speed_coeff, TIMER_STOPPABLE)
 	else
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 15, FALSE, 0)
 		return
@@ -180,7 +186,7 @@
 	scanning = FALSE
 	update_icon()
 	var/mob/living/mob_occupant = occupant
-	mob_occupant.rad_act(rand(radiation_dose/2,radiation_dose))
+	//mob_occupant.rad_act(rand(radiation_dose/2,radiation_dose))
 	visible_message("<span class='notice'> The Bio-Scanner shuts down.</span>")
 	balloon_alert_to_viewers("Scan complete.")
 	playsound(src, 'sound/machines/ping.ogg', 75, FALSE, 0)
@@ -371,14 +377,8 @@
 	//Genetics
 	result += "<h2>GENETICAL</h2><br>"
 
-	if(C.dna.mutations)
-		result += "<b>Mutations:</b><br>"
-		for(var/mutation in C.dna.mutations)
-			result += "[mutation]<br>"
-	else
-		result += "No mutations.<br>"
-
-	result += "<br>"
+	for(var/mutation in C.dna.mutations)
+		result += "Subject is mutated! [mutation] detected in genome!<br>"
 
 	result += "Chromosomal Damage: [mob_occupant.getCloneLoss()]<br>"
 
@@ -478,9 +478,10 @@
 				result += "Subject is not addicted to any reagents.<br>"
 
 	result += "<hr />"
+
 	//Then printing it
 	var/obj/item/paper/paperwork = new /obj/item/paper(get_turf(src))
-	paperwork.name = "BIOTIC SCAN RESULT: [mob_occupant]."
+	paperwork.name = "Biotic scanner report - [mob_occupant]"
 	paperwork.add_raw_text(result)
 	paperwork.update_appearance()
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)

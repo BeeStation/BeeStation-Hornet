@@ -139,7 +139,7 @@ GENE SCANNER
 	item_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	desc = "A hand-held body scanner able to provide an instant patient readout at the cost of harsher radiation doses."
+	desc = "A hand-held body scanner able to provide a limited instant patient readout."
 	flags_1 = CONDUCT_1
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
@@ -191,135 +191,126 @@ GENE SCANNER
 	if(isliving(user) && user.incapacitated())
 		return
 
-	if(!advanced && isliving(user))
-		if(M.radiation >= 100)
-			playsound(user, 'sound/machines/buzz-sigh.ogg', 10)
-			to_chat(user, "<span class='alert'>WARNING: SUBJECT RADIATION ABOVE SAFE LEVELS. SCAN ABORTED.</span>", type = MESSAGE_TYPE_WARNING)
-			return
+	if(isliving(user))
+		playsound(user, 'sound/effects/fastbeep.ogg', 10)
 
-	if(do_after(user, 20, M))
+	// the final list of strings to render
+	var/message = list()
 
-		if(isliving(user))
-			M.rad_act(100)
-			playsound(user, 'sound/effects/fastbeep.ogg', 10)
+	//Damage specifics
+	var/oxy_loss = M.getOxyLoss()
+	var/tox_loss = M.getToxLoss()
+	var/fire_loss = M.getFireLoss()
+	var/brute_loss = M.getBruteLoss()
+	var/mob_status = (M.stat == DEAD ? "<span class='alert'><b>Deceased</b></span>" : "<b>[round(M.health/M.maxHealth,0.01)*100] % healthy</b>")
 
-		// the final list of strings to render
-		var/message = list()
+	if(HAS_TRAIT(M, TRAIT_FAKEDEATH) && !advanced)
+		mob_status = "<span class='alert'><b>Deceased</b></span>"
+		oxy_loss = max(rand(1, 40), oxy_loss, (300 - (tox_loss + fire_loss + brute_loss))) // Random oxygen loss
 
-		//Damage specifics
-		var/oxy_loss = M.getOxyLoss()
-		var/tox_loss = M.getToxLoss()
-		var/fire_loss = M.getFireLoss()
-		var/brute_loss = M.getBruteLoss()
-		var/mob_status = (M.stat == DEAD ? "<span class='alert'><b>Deceased</b></span>" : "<b>[round(M.health/M.maxHealth,0.01)*100] % healthy</b>")
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
+			message += "<span class='alert'>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</span>"
 
-		if(HAS_TRAIT(M, TRAIT_FAKEDEATH) && !advanced)
-			mob_status = "<span class='alert'><b>Deceased</b></span>"
-			oxy_loss = max(rand(1, 40), oxy_loss, (300 - (tox_loss + fire_loss + brute_loss))) // Random oxygen loss
+	message += "<span class='info'>Analyzing results for [M]:\n\tOverall status: [mob_status]</span>"
 
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
-				message += "<span class='alert'>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</span>"
+	// Damage descriptions
+	if(brute_loss > 10)
+		message += "\t<span class='alert'>[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.</span>"
+	if(fire_loss > 10)
+		message += "\t<span class='alert'>[fire_loss > 50 ? "Severe" : "Minor"] burn damage detected.</span>"
+	if(oxy_loss > 10)
+		message += "\t<span class='info'><span class='alert'>[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected.</span>"
+	if(tox_loss > 10)
+		message += "\t<span class='alert'>[tox_loss > 50 ? "Severe" : "Minor"] amount of toxin damage detected.</span>"
 
-		message += "<span class='info'>Analyzing results for [M]:\n\tOverall status: [mob_status]</span>"
+	// Body part damage report
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		var/list/damaged = C.get_damaged_bodyparts(1,1)
+		if(length(damaged)>0 || oxy_loss>0 || tox_loss>0 || fire_loss>0)
+			var/list/dmgreport = list()
+			dmgreport += "<table style='margin-left:3em'><tr><font face='Verdana'>\
+							<td style='width:7em;'><font color='#0000CC'>Damage:</font></td>\
+							<td style='width:5em;'><font color='red'><b>Brute</b></font></td>\
+							<td style='width:4em;'><font color='orange'><b>Burn</b></font></td>\
+							<td style='width:4em;'><font color='green'><b>Toxin</b></font></td>\
+							<td style='width:8em;'><font color='purple'><b>Suffocation</b></font></td></tr>\
 
-		// Damage descriptions
-		if(brute_loss > 10)
-			message += "\t<span class='alert'>[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.</span>"
-		if(fire_loss > 10)
-			message += "\t<span class='alert'>[fire_loss > 50 ? "Severe" : "Minor"] burn damage detected.</span>"
-		if(oxy_loss > 10)
-			message += "\t<span class='info'><span class='alert'>[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected.</span>"
-		if(tox_loss > 10)
-			message += "\t<span class='alert'>[tox_loss > 50 ? "Severe" : "Minor"] amount of toxin damage detected.</span>"
+							<tr><td><font color='#0000CC'>Overall:</font></td>\
+							<td><font color='red'>[round(brute_loss,1)]</font></td>\
+							<td><font color='orange'>[round(fire_loss,1)]</font></td>\
+							<td><font color='green'>[round(tox_loss,1)]</font></td>\
+							<td><font color='purple'>[round(oxy_loss,1)]</font></td></tr>"
 
-		// Body part damage report
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			var/list/damaged = C.get_damaged_bodyparts(1,1)
-			if(length(damaged)>0 || oxy_loss>0 || tox_loss>0 || fire_loss>0)
-				var/list/dmgreport = list()
-				dmgreport += "<table style='margin-left:3em'><tr><font face='Verdana'>\
-								<td style='width:7em;'><font color='#0000CC'>Damage:</font></td>\
-								<td style='width:5em;'><font color='red'><b>Brute</b></font></td>\
-								<td style='width:4em;'><font color='orange'><b>Burn</b></font></td>\
-								<td style='width:4em;'><font color='green'><b>Toxin</b></font></td>\
-								<td style='width:8em;'><font color='purple'><b>Suffocation</b></font></td></tr>\
+			for(var/o in damaged)
+				var/obj/item/bodypart/org = o //head, left arm, right arm, etc.
+				dmgreport += "<tr><td><font color='#0000CC'>[capitalize(parse_zone(org.body_zone))]:</font></td>\
+								<td><font color='red'>[(org.brute_dam > 0) ? "[round(org.brute_dam,1)]" : "0"]</font></td>\
+								<td><font color='orange'>[(org.burn_dam > 0) ? "[round(org.burn_dam,1)]" : "0"]</font></td></tr>"
+			dmgreport += "</font></table>"
+			message += dmgreport.Join()
 
-								<tr><td><font color='#0000CC'>Overall:</font></td>\
-								<td><font color='red'>[round(brute_loss,1)]</font></td>\
-								<td><font color='orange'>[round(fire_loss,1)]</font></td>\
-								<td><font color='green'>[round(tox_loss,1)]</font></td>\
-								<td><font color='purple'>[round(oxy_loss,1)]</font></td></tr>"
+	// Species and body temperature
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/datum/species/S = H.dna.species
+		var/mutant = FALSE
+		if(H.dna.check_mutation(HULK))
+			mutant = TRUE
+		else if(S.mutantlungs != initial(S.mutantlungs))
+			mutant = TRUE
+		else if(S.mutant_brain != initial(S.mutant_brain))
+			mutant = TRUE
+		else if(S.mutant_heart != initial(S.mutant_heart))
+			mutant = TRUE
+		else if(S.mutanteyes != initial(S.mutanteyes))
+			mutant = TRUE
+		else if(S.mutantears != initial(S.mutantears))
+			mutant = TRUE
+		else if(S.mutanthands != initial(S.mutanthands))
+			mutant = TRUE
+		else if(S.mutanttongue != initial(S.mutanttongue))
+			mutant = TRUE
+		else if(S.mutanttail != initial(S.mutanttail))
+			mutant = TRUE
+		else if(S.mutantliver != initial(S.mutantliver))
+			mutant = TRUE
+		else if(S.mutantstomach != initial(S.mutantstomach))
+			mutant = TRUE
 
-				for(var/o in damaged)
-					var/obj/item/bodypart/org = o //head, left arm, right arm, etc.
-					dmgreport += "<tr><td><font color='#0000CC'>[capitalize(parse_zone(org.body_zone))]:</font></td>\
-									<td><font color='red'>[(org.brute_dam > 0) ? "[round(org.brute_dam,1)]" : "0"]</font></td>\
-									<td><font color='orange'>[(org.burn_dam > 0) ? "[round(org.burn_dam,1)]" : "0"]</font></td></tr>"
-				dmgreport += "</font></table>"
-				message += dmgreport.Join()
+		message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>"
+	message += "<span class='info'>Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)</span>"
 
-		// Species and body temperature
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			var/datum/species/S = H.dna.species
-			var/mutant = FALSE
-			if(H.dna.check_mutation(HULK))
-				mutant = TRUE
-			else if(S.mutantlungs != initial(S.mutantlungs))
-				mutant = TRUE
-			else if(S.mutant_brain != initial(S.mutant_brain))
-				mutant = TRUE
-			else if(S.mutant_heart != initial(S.mutant_heart))
-				mutant = TRUE
-			else if(S.mutanteyes != initial(S.mutanteyes))
-				mutant = TRUE
-			else if(S.mutantears != initial(S.mutantears))
-				mutant = TRUE
-			else if(S.mutanthands != initial(S.mutanthands))
-				mutant = TRUE
-			else if(S.mutanttongue != initial(S.mutanttongue))
-				mutant = TRUE
-			else if(S.mutanttail != initial(S.mutanttail))
-				mutant = TRUE
-			else if(S.mutantliver != initial(S.mutantliver))
-				mutant = TRUE
-			else if(S.mutantstomach != initial(S.mutantstomach))
-				mutant = TRUE
+	// Time of death
+	if(M.tod && (M.stat == DEAD || ((HAS_TRAIT(M, TRAIT_FAKEDEATH)) && !advanced)))
+		message += "<span class='info'>Time of Death: [M.tod]</span>"
+		var/tdelta = round(world.time - M.timeofdeath)
+		if(tdelta < (DEFIB_TIME_LIMIT * 10))
+			message += "<span class='alert'><b>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</b></span>"
 
-			message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>"
-		message += "<span class='info'>Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)</span>"
+	// Blood Level
+	if(M.has_dna())
+		var/mob/living/carbon/C = M
+		var/blood_id = C.get_blood_id()
+		if(blood_id)
+			if(ishuman(C))
+				var/mob/living/carbon/human/H = C
+				if(H.bleed_rate)
+					message += "<span class='alert'><b>Subject is bleeding!</b></span>"
+			var/blood_percent =  round((C.blood_volume / BLOOD_VOLUME_NORMAL)*100)
+			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
+				message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span>"
+			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
+				message += "<span class='alert'>Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl</span>"
+			else
+				message += "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl</span>"
 
-		// Time of death
-		if(M.tod && (M.stat == DEAD || ((HAS_TRAIT(M, TRAIT_FAKEDEATH)) && !advanced)))
-			message += "<span class='info'>Time of Death: [M.tod]</span>"
-			var/tdelta = round(world.time - M.timeofdeath)
-			if(tdelta < (DEFIB_TIME_LIMIT * 10))
-				message += "<span class='alert'><b>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</b></span>"
-
-		// Blood Level
-		if(M.has_dna())
-			var/mob/living/carbon/C = M
-			var/blood_id = C.get_blood_id()
-			if(blood_id)
-				if(ishuman(C))
-					var/mob/living/carbon/human/H = C
-					if(H.bleed_rate)
-						message += "<span class='alert'><b>Subject is bleeding!</b></span>"
-				var/blood_percent =  round((C.blood_volume / BLOOD_VOLUME_NORMAL)*100)
-				if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
-					message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span>"
-				else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
-					message += "<span class='alert'>Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl</span>"
-				else
-					message += "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl</span>"
-
-		if(to_chat)
-			to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
-		else
-			return(jointext(message, "\n"))
+	if(to_chat)
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+	else
+		return(jointext(message, "\n"))
 
 /proc/chemscan(mob/living/user, mob/living/M, to_chat = TRUE)
 	if(!istype(M))
