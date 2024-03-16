@@ -275,16 +275,35 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(istype(W, /obj/item/pen)&&!locked)
 		rename_bot()
 		return
-	if(istype(W,/obj/item/storage/firstaid)&&!locked)
-		var/obj/item/storage/firstaid/B = W
-		skin=B.skin_type
-		update_icon()
+	if(istype(W,/obj/item/toy/crayon/spraycan))
+		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		reskin(user)
 
 	else
 		var/current_health = health
 		..()
 		if(health < current_health) //if medbot took some damage
 			step_to(src, (get_step_away(src,user)))
+
+/mob/living/simple_animal/bot/medbot/proc/reskin(mob/M)
+	var/skinlist = list(
+		MEDBOT_SKIN_DEFAULT = image(icon = 'icons/mob/aibots.dmi', icon_state = "firstaid_arm"),
+		MEDBOT_SKIN_BRUTE= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_brute"),
+		MEDBOT_SKIN_BURN= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_burn"),
+		MEDBOT_SKIN_TOXIN= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_tox"),
+		MEDBOT_SKIN_OXY= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_oxy"),
+		MEDBOT_SKIN_SURGERY= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_surgery"),
+		MEDBOT_SKIN_ADVANCED= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_advanced"),
+		MEDBOT_SKIN_RADIATION= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_rad")
+	)
+	if(emagged)
+		skinlist +=list(MEDBOT_SKIN_SYNDI= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_syndi"),
+			MEDBOT_SKIN_BEZERK= image(icon = 'icons/mob/aibots.dmi', icon_state = "medskin_bezerk")
+			)
+	var/choice = show_radial_menu(M, src, skinlist, radius = 42, require_near = TRUE)
+	if(choice && !M.incapacitated() && in_range(M,src))
+		skin = choice
+		update_icon()
 
 /mob/living/simple_animal/bot/medbot/on_emag(atom/target, mob/user)
 	..()
@@ -383,7 +402,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>Use a pen to change its name, or a first aid kit to change its colour.</span>"
+		. += "<span class='notice'>Use a spraycan to change its colour, or a pen to change its name if unlocked.</span>"
 	if(tipped_status == MEDBOT_PANIC_NONE)
 		return
 
