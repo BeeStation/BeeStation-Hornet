@@ -37,7 +37,7 @@
 	TornadoAnimate(A)
 	var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new(null)
 	R.cast(RANGE_TURFS(1,A))
-	log_combat(A, D, "tornado sweeped(Plasma Fist)")
+	log_combat(A, D, "tornado sweeped(Plasma Fist)", name)
 	return
 
 /datum/martial_art/plasma_fist/proc/Throwback(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -47,7 +47,7 @@
 	var/atom/throw_target = get_edge_target_turf(D, get_dir(D, get_step_away(D, A)))
 	D.throw_at(throw_target, 200, 4,A)
 	A.say("HYAH!", forced="plasma fist")
-	log_combat(A, D, "threw back (Plasma Fist)")
+	log_combat(A, D, "threw back (Plasma Fist)", name)
 	return
 
 /datum/martial_art/plasma_fist/proc/Plasma(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -57,7 +57,7 @@
 	D.visible_message("<span class='danger'>[A] hits [D] with THE PLASMA FIST TECHNIQUE!</span>", \
 								"<span class='userdanger'>[A] hits you with THE PLASMA FIST TECHNIQUE!</span>")
 	D.gib()
-	log_combat(A, D, "gibbed (Plasma Fist)")
+	log_combat(A, D, "gibbed (Plasma Fist)", name)
 	return
 
 /datum/martial_art/plasma_fist/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)

@@ -1,4 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bv" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
 "ca" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -16,21 +24,6 @@
 "cM" = (
 /turf/template_noop,
 /area/template_noop)
-"dn" = (
-/obj/structure/chair/wood{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/food/egg_smudge,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/sign/poster/contraband/communist_state{
-	pixel_y = 32
-	},
-/turf/open/floor/wood,
-/area/shuttle/hunter)
 "ds" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/light,
@@ -64,6 +57,13 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
+"fZ" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/structure/girder,
+/obj/effect/decal/cleanable/greenglow,
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
 "gc" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -95,6 +95,23 @@
 	},
 /obj/item/healthanalyzer,
 /turf/open/floor/plasteel/dark,
+/area/shuttle/hunter)
+"iN" = (
+/obj/effect/turf_decal/siding/thinplating/dark{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot{
+	name = "emergency rations"
+	},
+/obj/item/food/rationpack,
+/obj/item/food/rationpack,
+/obj/item/food/rationpack,
+/obj/item/food/rationpack,
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/hunter)
 "jP" = (
 /obj/effect/turf_decal/stripes/closeup,
@@ -178,23 +195,6 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
-"nz" = (
-/obj/effect/turf_decal/siding/thinplating/dark{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/loot{
-	name = "emergency rations"
-	},
-/obj/item/reagent_containers/food/snacks/rationpack,
-/obj/item/reagent_containers/food/snacks/rationpack,
-/obj/item/reagent_containers/food/snacks/rationpack,
-/obj/item/reagent_containers/food/snacks/rationpack,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/turf/open/floor/plasteel/techmaint,
 /area/shuttle/hunter)
 "nF" = (
 /obj/structure/noticeboard{
@@ -424,11 +424,16 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/hunter)
-"wQ" = (
-/obj/structure/chair{
-	dir = 4
+"wv" = (
+/obj/structure/cable/yellow{
+	icon_state = "9-10"
 	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/weldingtool{
+	pixel_x = 7;
+	pixel_y = 11
+	},
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
@@ -439,17 +444,6 @@
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/grunge,
 /turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/hunter)
-"xy" = (
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-6"
-	},
-/obj/effect/decal/cleanable/oil,
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "xP" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -559,6 +553,21 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
+"AY" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/food/egg_smudge,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/turf/open/floor/wood,
+/area/shuttle/hunter)
 "Ca" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/railing{
@@ -567,6 +576,12 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"Cg" = (
+/obj/item/chair/wood,
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/wood,
 /area/shuttle/hunter)
 "Ck" = (
 /obj/structure/railing{
@@ -679,19 +694,6 @@
 	dir = 1
 	},
 /area/shuttle/hunter)
-"Jc" = (
-/obj/structure/cable/yellow{
-	icon_state = "9-10"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/weldingtool{
-	pixel_x = 7;
-	pixel_y = 11
-	},
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
 "Jx" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/bottle/vodka{
@@ -715,12 +717,6 @@
 	},
 /turf/open/floor/wood,
 /area/shuttle/hunter)
-"JE" = (
-/obj/item/chair/wood,
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/wood,
-/area/shuttle/hunter)
 "Kh" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible,
 /obj/item/storage/toolbox/electrical,
@@ -734,6 +730,17 @@
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
 	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
+"KA" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-6"
+	},
+/obj/effect/decal/cleanable/oil,
+/obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "KB" = (
@@ -812,6 +819,20 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
+"Nx" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/auto_name/east{
+	cell_type = /obj/item/stock_parts/cell/high/plus;
+	req_access = list(181)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
 "OG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/loading_area{
@@ -859,20 +880,6 @@
 	pixel_x = -9
 	},
 /turf/open/floor/plasteel/dark,
-/area/shuttle/hunter)
-"PK" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/auto_name/east{
-	cell_type = /obj/item/stock_parts/cell/high/plus;
-	req_access = list(181)
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "PO" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -1077,13 +1084,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
-"ZH" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
-/obj/structure/girder,
-/obj/effect/decal/cleanable/greenglow,
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
 
 (1,1,1) = {"
 cM
@@ -1131,8 +1131,8 @@ cM
 cM
 Al
 zA
-xy
-ZH
+KA
+fZ
 nu
 MC
 Pz
@@ -1146,7 +1146,7 @@ cM
 Al
 ly
 AX
-Jc
+wv
 TM
 Hl
 gc
@@ -1161,7 +1161,7 @@ Al
 ET
 XZ
 zj
-PK
+Nx
 vK
 Al
 PE
@@ -1283,15 +1283,15 @@ qp
 "}
 (15,1,1) = {"
 Al
-dn
-JE
+AY
+Cg
 sh
 AQ
 ca
 Ca
 Al
 si
-nz
+iN
 At
 vy
 "}
@@ -1314,7 +1314,7 @@ UO
 Al
 Al
 nF
-wQ
+bv
 Qq
 tk
 Al

@@ -41,7 +41,7 @@
 /obj/item/organ/cyberimp/brain/anti_drop
 	name = "anti-drop implant"
 	desc = "This cybernetic brain implant will allow you to force your hand muscles to contract, preventing item dropping. Twitch ear to toggle."
-	var/active = 0
+	var/active = FALSE
 	var/list/stored_items = list()
 	implant_color = "#DE7E00"
 	slot = ORGAN_SLOT_BRAIN_ANTIDROP
@@ -53,8 +53,8 @@
 		for(var/obj/item/I in owner.held_items)
 			stored_items += I
 
-		var/list/L = owner.get_empty_held_indexes()
-		if(LAZYLEN(L) == owner.held_items.len)
+		var/list/hold_list = owner.get_empty_held_indexes()
+		if(LAZYLEN(hold_list) == owner.held_items.len)
 			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
 			active = 0
 			stored_items = list()
@@ -62,7 +62,6 @@
 			for(var/obj/item/I in stored_items)
 				to_chat(owner, "<span class='notice'>Your [owner.get_held_index_name(owner.get_held_index_of_item(I))]'s grip tightens.</span>")
 				ADD_TRAIT(I, TRAIT_NODROP, ANTI_DROP_IMPLANT_TRAIT)
-
 	else
 		release_items()
 		to_chat(owner, "<span class='notice'>Your hands relax...</span>")
