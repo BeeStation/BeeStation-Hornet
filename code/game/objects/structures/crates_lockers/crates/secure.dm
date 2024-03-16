@@ -138,3 +138,4 @@
 						"<span class='notice'>You unlock [src]'s privacy lock.</span>")
 		privacy_lock = FALSE
 		update_icon()
+
