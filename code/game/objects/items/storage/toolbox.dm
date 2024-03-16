@@ -188,7 +188,6 @@
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
-	new /obj/item/rcd_ammo(src)
 	
 /obj/item/storage/toolbox/rcd
 	name = "RCD toolbox"
@@ -198,8 +197,6 @@
 
 /obj/item/storage/toolbox/rcd/PopulateContents()
 	new /obj/item/construction/rcd(src)
-	new /obj/item/rcd_ammo(src)
-	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
