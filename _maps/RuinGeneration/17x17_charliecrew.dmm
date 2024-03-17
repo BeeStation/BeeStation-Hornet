@@ -559,12 +559,9 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "Wc" = (
-/obj/item/healthanalyzer{
-	desc = "A prototype hand-held body scanner able to distinguish vital signs of the subject.";
-	name = "prototype health analyzer"
-	},
 /obj/structure/rack,
 /obj/structure/window/spawner/north,
+/obj/item/healthanalyzer/advanced,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "Wt" = (
