@@ -209,6 +209,8 @@
 	item_state = "cuff"
 
 /obj/item/restraints/handcuffs/cable/zipties/used/beepsky/attack()
+	return
+
 //Legcuffs
 
 /obj/item/restraints/legcuffs
