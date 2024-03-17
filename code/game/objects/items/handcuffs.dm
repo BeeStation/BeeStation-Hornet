@@ -203,6 +203,8 @@
 	icon_state = "cuff"
 	custom_materials = null
 	breakouttime = 150
+	trashtype = /obj/item/restraints/handcuffs/cable/zipties/beepsky/used
+
 /obj/item/restraints/handcuffs/cable/zipties/beepsky/used
 	desc = "A pair of broken zipties."
 	icon_state = "cuff_used"
