@@ -197,6 +197,18 @@
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return
 
+/obj/item/restraints/handcuffs/cable/zipties/beepsky
+	name = "beepsky zipties"
+	desc = "Cheap plastic disposable zipties that beepsky use to handcuff criminals."
+	icon_state = "cuff"
+	custom_materials = null
+	breakouttime = 100 //Deciseconds = 10
+/obj/item/restraints/handcuffs/cable/zipties/beepsky/used
+	desc = "A pair of broken zipties."
+	icon_state = "cuff_used"
+	item_state = "cuff"
+
+/obj/item/restraints/handcuffs/cable/zipties/used/beepsky/attack()
 //Legcuffs
 
 /obj/item/restraints/legcuffs
