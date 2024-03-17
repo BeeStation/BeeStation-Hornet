@@ -393,6 +393,8 @@
 		roles_to_ban = list("Server")
 	if(duration_type == "Permanent")
 		duration = null
+	if(!cid_check)
+		player_cid = null
 	var/mob/user = usr
 	if(!istype(user) || !user.client || !user.client.holder)
 		return
