@@ -210,7 +210,7 @@
 	icon_state = "cuff_used"
 	item_state = "cuff"
 
-/obj/item/restraints/handcuffs/cable/zipties/used/beepsky/attack()
+/obj/item/restraints/handcuffs/cable/zipties/beepsky/used/attack()
 	return
 
 //Legcuffs
