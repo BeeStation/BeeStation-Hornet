@@ -202,7 +202,7 @@
 	desc = "Cheap plastic disposable zipties that beepsky use to handcuff criminals."
 	icon_state = "cuff"
 	custom_materials = null
-	breakouttime = 100 //Deciseconds = 10
+	breakouttime = 150
 /obj/item/restraints/handcuffs/cable/zipties/beepsky/used
 	desc = "A pair of broken zipties."
 	icon_state = "cuff_used"
