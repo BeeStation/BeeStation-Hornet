@@ -1,5 +1,0 @@
-author: Miliviu
-delete-after: true
-changes:
-  - bugfix: Banning Panel CID check now works as intended (If you don't select the
-      CID, the CID will not be banned)
