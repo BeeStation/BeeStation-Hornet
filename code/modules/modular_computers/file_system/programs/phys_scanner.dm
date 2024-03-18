@@ -22,8 +22,6 @@
 	var/reads = list()
 	if(mode_holder & DISK_CHEM)
 		reads += "Reagent"
-	if(mode_holder & DISK_MED)
-		reads += "Health"
 	if(mode_holder & DISK_POWER)
 		reads += "Radiation"
 	if(mode_holder & DISK_ATMOS)
@@ -58,12 +56,6 @@
 				else
 					last_record = "No significant chemical agents found in [target]."
 				return FALSE
-		if(DISK_MED)
-			var/mob/living/carbon/carbon = target
-			if(istype(carbon))
-				user.visible_message("<span class='notice'>[user] analyzes [carbon]'s vitals.</span>", "<span class='notice'>You analyze [carbon]'s vitals.</span>")
-				last_record = healthscan(user, carbon, 1, to_chat = FALSE)
-				return FALSE
 		if(DISK_POWER)
 			var/mob/living/carbon/carbon = target
 			if(istype(carbon))
@@ -96,8 +88,6 @@
 			switch(params["newMode"])
 				if("Reagent")
 					current_mode = DISK_CHEM
-				if("Health")
-					current_mode = DISK_MED
 				if("Radiation")
 					current_mode = DISK_POWER
 				if("Gas")
