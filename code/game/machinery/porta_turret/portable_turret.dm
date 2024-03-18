@@ -307,7 +307,7 @@
 
 		//This code handles moving the turret around. After all, it's a portable turret!
 		if(!anchored && !isinspace())
-			set_anchored(TRUE)
+			setAnchored(TRUE)
 			invisibility = INVISIBILITY_MAXIMUM
 			update_icon()
 			to_chat(user, "<span class='notice'>You secure the exterior bolts on the turret.</span>")
@@ -315,7 +315,7 @@
 				cover = new /obj/machinery/porta_turret_cover(loc) //create a new turret. While this is handled in process(), this is to workaround a bug where the turret becomes invisible for a split second
 				cover.parent_turret = src //make the cover's parent src
 		else if(anchored)
-			set_anchored(FALSE)
+			setAnchored(FALSE)
 			to_chat(user, "<span class='notice'>You unsecure the exterior bolts on the turret.</span>")
 			power_change()
 			invisibility = 0
@@ -684,7 +684,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	if(!can_interact(caller))
 		remove_control()
 		return FALSE
-	log_combat(caller,A,"fired with manual turret control at", src)
+	log_combat(caller,A,"fired with manual turret control at")
 	target(A)
 	return TRUE
 
@@ -1000,21 +1000,21 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 /obj/machinery/turretid/proc/toggle_lethal(mob/user)
 	lethal = !lethal
 	add_hiddenprint(user)
-	log_combat(user, src, "[lethal ? "enabled" : "disabled"] lethals on", important = FALSE)
+	log_combat(user, src, "[lethal ? "enabled" : "disabled"] lethals on")
 	updateTurrets()
 	ui_update()
 
 /obj/machinery/turretid/proc/toggle_on(mob/user)
 	enabled = !enabled
 	add_hiddenprint(user)
-	log_combat(user, src, "[enabled ? "enabled" : "disabled"]", important = FALSE)
+	log_combat(user, src, "[enabled ? "enabled" : "disabled"]")
 	updateTurrets()
 	ui_update()
 
 /obj/machinery/turretid/proc/shoot_silicons(mob/user)
 	shoot_cyborgs = !shoot_cyborgs
 	add_hiddenprint(user)
-	log_combat(user, src, "[shoot_cyborgs ? "Shooting Borgs" : "Not Shooting Borgs"]", important = FALSE)
+	log_combat(user, src, "[shoot_cyborgs ? "Shooting Borgs" : "Not Shooting Borgs"]")
 	updateTurrets()
 	ui_update()
 

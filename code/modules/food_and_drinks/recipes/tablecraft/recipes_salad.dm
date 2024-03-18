@@ -47,26 +47,13 @@
 	result = /obj/item/food/soup/monkeysdelight
 	subcategory = CAT_SALAD
 
-/datum/crafting_recipe/food/melonfruitbowl
-	name ="Melon fruit bowl"
-	reqs = list(
-		/obj/item/food/grown/watermelon = 1,
-		/obj/item/food/grown/apple = 1,
-		/obj/item/food/grown/citrus/orange = 1,
-		/obj/item/food/grown/citrus/lemon = 1,
-		/obj/item/food/grown/banana = 1,
-		/obj/item/food/grown/ambrosia = 1
-	)
-	result = /obj/item/food/melonfruitbowl
-	subcategory = CAT_SALAD
-
 /datum/crafting_recipe/food/fruitsalad
 	name = "Fruit salad"
 	reqs = list(
 		/obj/item/reagent_containers/glass/bowl = 1,
+		/obj/item/food/grown/citrus/orange = 1,
 		/obj/item/food/grown/apple = 1,
 		/obj/item/food/grown/grapes = 1,
-		/obj/item/food/grown/citrus/orange = 1,
 		/obj/item/food/watermelonslice = 2
 
 	)
@@ -97,5 +84,3 @@
 	)
 	result = /obj/item/food/salad/citrusdelight
 	subcategory = CAT_SALAD
-
-//Peace go here

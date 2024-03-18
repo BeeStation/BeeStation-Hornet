@@ -169,14 +169,14 @@
 				visible_message("<span class='danger'>[M] punches [src]!</span>", \
 						"<span class='userdanger'>[M] punches you!</span>")
 				adjustBruteLoss(damage)
-				log_combat(M, src, "attacked", M)
+				log_combat(M, src, "attacked")
 				updatehealth()
 			if ("disarm")
 				if (!(mobility_flags & MOBILITY_STAND) && !ascended) //No stealing the arch devil's pitchfork.
 					if (prob(5))
 						Unconscious(40)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-						log_combat(M, src, "pushed", M)
+						log_combat(M, src, "pushed")
 						visible_message("<span class='danger'>[M] pushes [src] down!</span>", \
 							"<span class='userdanger'>[M] pushes you down!</span>")
 					else

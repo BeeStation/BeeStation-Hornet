@@ -50,11 +50,10 @@ Bonus
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(2,3)
-			if(prob(base_message_chance) && M.stat != DEAD)
+			if(prob(base_message_chance))
 				to_chat(M, "<span class='warning'>[pick("You feel a sudden pain across your body.", "Drops of blood appear suddenly on your skin.")]</span>")
 		if(4,5)
-			if(M.stat != DEAD)
-				to_chat(M, "<span class='userdanger'>[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]</span>")
+			to_chat(M, "<span class='userdanger'>[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]</span>")
 			Flesheat(M, A)
 
 /datum/symptom/flesh_eating/proc/Flesheat(mob/living/M, datum/disease/advance/A)
@@ -118,15 +117,12 @@ Bonus
 	prefixes = list("Necrotic ", "Necro")
 	suffixes = list(" Rot")
 	var/chems = FALSE
-	var/zombie = FALSE
 	threshold_desc = "<b>Stage Speed 7:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
 					  <b>Stealth 5:</b> The symptom remains hidden until active."
 
 
 /datum/symptom/flesh_death/severityset(datum/disease/advance/A)
 	. = ..()
-	if(((A.stealth >= 2) && (A.stage_rate >= 12) && CONFIG_GET(flag/special_symptom_thresholds)) || A.event)
-		bodies = list("Zombie")
 
 /datum/symptom/flesh_death/Start(datum/disease/advance/A)
 	if(!..())
@@ -135,8 +131,6 @@ Bonus
 		suppress_warning = TRUE
 	if(A.stage_rate >= 7) //bleeding and hunger
 		chems = TRUE
-	if(((A.stealth >= 2) && (A.stage_rate >= 12) && CONFIG_GET(flag/special_symptom_thresholds)) || A.event)
-		zombie = TRUE
 
 /datum/symptom/flesh_death/Activate(datum/disease/advance/A)
 	if(!..())
@@ -146,13 +140,13 @@ Bonus
 		if(2,3)
 			if(MOB_UNDEAD in M.mob_biotypes)//i dont wanna do it like this but i gotta
 				return
-			if(prob(base_message_chance) && !suppress_warning && M.stat != DEAD)
+			if(prob(base_message_chance) && !suppress_warning)
 				to_chat(M, "<span class='warning'>[pick("You feel your body break apart.", "Your skin rubs off like dust.")]</span>")
 		if(4,5)
 			Flesh_death(M, A)
 			if(MOB_UNDEAD in M.mob_biotypes) //ditto
 				return
-			if(prob(base_message_chance / 2) && M.stat != DEAD) //reduce spam
+			if(prob(base_message_chance / 2)) //reduce spam
 				to_chat(M, "<span class='userdanger'>[pick("You feel your muscles weakening.", "Some of your skin detaches itself.", "You feel sandy.")]</span>")
 
 /datum/symptom/flesh_death/proc/Flesh_death(mob/living/M, datum/disease/advance/A)
@@ -162,9 +156,4 @@ Bonus
 	M.take_overall_damage(brute = get_damage, required_status = BODYTYPE_ORGANIC)
 	if(chems)
 		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
-	if(zombie)
-		if(ishuman(A.affected_mob))
-			if(!A.affected_mob.getorganslot(ORGAN_SLOT_ZOMBIE))
-				var/obj/item/organ/zombie_infection/virus/ZI = new()
-				ZI.Insert(M)
 	return 1

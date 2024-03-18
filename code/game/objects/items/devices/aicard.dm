@@ -32,12 +32,12 @@
 	if(!proximity || !target)
 		return
 	if(AI) //AI is on the card, implies user wants to upload it.
-		log_combat(user, AI, "uploaded", src, "to [target].", important = FALSE)
+		log_combat(user, AI, "uploaded", src, "to [target].")
 		target.transfer_ai(AI_TRANS_FROM_CARD, user, AI, src)
 	else //No AI on the card, therefore the user wants to download one.
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 		if(AI)
-			log_combat(user, AI, "carded", src, important = FALSE)
+			log_combat(user, AI, "carded", src)
 	update_icon() //Whatever happened, update the card's state (icon, name) to match.
 
 /obj/item/aicard/update_icon_state()

@@ -70,7 +70,7 @@
 		return
 	recovered = TRUE
 	//Prevent picking up
-	parentobj.set_anchored(TRUE)
+	parentobj.anchored = TRUE
 	//Drop to ground
 	parentobj.forceMove(get_turf(parent))
 	//Complete objective

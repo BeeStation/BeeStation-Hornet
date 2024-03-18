@@ -481,20 +481,20 @@
 		if(O.density)
 			return FALSE
 
-	var/obj/item/food_item
+	var/obj/item/reagent_containers/food/snacks/L
 	switch(mode)
 		if(DISPENSE_LOLLIPOP_MODE)
-			food_item = new /obj/item/food/lollipop(T)
+			L = new /obj/item/food/lollipop(T)
 		if(DISPENSE_ICECREAM_MODE)
-			food_item = new /obj/item/food/icecream(T)
-			var/obj/item/food/icecream/I = food_item
+			L = new /obj/item/food/icecream(T)
+			var/obj/item/food/icecream/I = L
 			I.add_ice_cream("vanilla")
 			I.desc = "Eat the ice cream."
 
 	var/into_hands = FALSE
 	if(ismob(A))
 		var/mob/M = A
-		into_hands = M.put_in_hands(food_item)
+		into_hands = M.put_in_hands(L)
 
 	candy--
 	check_amount()

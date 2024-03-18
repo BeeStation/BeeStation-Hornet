@@ -41,4 +41,4 @@
 			to_chat(user, "<span class='notice'>You unsecure [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>You secure [src].</span>")
-		set_anchored(!anchored)
+		anchored = !anchored

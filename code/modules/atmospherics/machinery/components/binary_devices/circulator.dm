@@ -83,7 +83,7 @@
 /obj/machinery/atmospherics/components/binary/circulator/wrench_act(mob/living/user, obj/item/I)
 	if(!panel_open)
 		return
-	set_anchored(!anchored)
+	anchored = !anchored
 	I.play_tool_sound(src)
 	if(generator)
 		disconnectFromGenerator()

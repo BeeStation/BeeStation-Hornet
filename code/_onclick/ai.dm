@@ -144,7 +144,7 @@
 	toggle_bolt(usr)
 	add_hiddenprint(usr)
 
-/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/ai/user) // Electrifies doors.
+/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/ai/user) // Eletrifies doors.
 	if(obj_flags & EMAGGED)
 		return
 

@@ -211,7 +211,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
 	if(ismopable(A))
-		set_anchored(TRUE)
+		anchored = TRUE
 		icon_state = "cleanbot-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING
@@ -333,7 +333,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
 	if(istype(A, /obj/effect/decal/cleanable))
-		set_anchored(TRUE)
+		anchored = TRUE
 		icon_state = "larry-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING

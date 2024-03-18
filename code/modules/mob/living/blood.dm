@@ -1,5 +1,3 @@
-#define BLOOD_DRIP_RATE_MOD 90 //Greater number means creating blood drips more often while bleeding
-
 /****************************************************
 				BLOOD SYSTEM
 ****************************************************/
@@ -98,12 +96,11 @@
 /mob/living/carbon/proc/bleed(amt)
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
-		if (prob(sqrt(amt)*BLOOD_DRIP_RATE_MOD))
-			if(isturf(src.loc)) //Blood loss still happens in locker, floor stays clean
-				if(amt >= 10)
-					add_splatter_floor(src.loc)
-				else
-					add_splatter_floor(src.loc, 1)
+		if(isturf(src.loc)) //Blood loss still happens in locker, floor stays clean
+			if(amt >= 10)
+				add_splatter_floor(src.loc)
+			else
+				add_splatter_floor(src.loc, 1)
 
 /mob/living/carbon/human/bleed(amt)
 	amt *= physiology.bleed_mod
@@ -148,7 +145,7 @@
 				if(blood_data["viruses"])
 					for(var/thing in blood_data["viruses"])
 						var/datum/disease/D = thing
-						if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+						if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS)|| (D.spread_flags & DISEASE_SPREAD_FALTERED))
 							continue
 						C.ForceContractDisease(D)
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)))
@@ -275,7 +272,8 @@
 		B = new /obj/effect/decal/cleanable/blood/splatter(T, get_static_viruses())
 	if(QDELETED(B)) //Give it up
 		return
-	B.bloodiness = min((B.bloodiness + BLOOD_AMOUNT_PER_DECAL), BLOOD_POOL_MAX)
+	if (B.bloodiness < MAX_SHOE_BLOODINESS) //add more blood, up to a limit
+		B.bloodiness += BLOOD_AMOUNT_PER_DECAL
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	if(temp_blood_DNA)
 		B.add_blood_DNA(temp_blood_DNA)

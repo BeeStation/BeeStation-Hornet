@@ -249,7 +249,7 @@
 					stun_attack(target)
 
 					mode = BOT_PREP_ARREST
-					set_anchored(TRUE)
+					anchored = TRUE
 					target_lastloc = target.loc
 					return
 
@@ -283,7 +283,7 @@
 
 		if(BOT_ARREST)
 			if(!target)
-				set_anchored(FALSE)
+				anchored = FALSE
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
@@ -298,7 +298,7 @@
 				return
 			else
 				mode = BOT_PREP_ARREST
-				set_anchored(FALSE)
+				anchored = FALSE
 
 		if(BOT_START_PATROL)
 			look_for_perp()
@@ -551,7 +551,7 @@
 		var/mob/living/carbon/human/H = C
 		var/judgment_criteria = judgment_criteria()
 		threat = H.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
-	log_combat(src,C,"stunned", src)
+	log_combat(src,C,"stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)

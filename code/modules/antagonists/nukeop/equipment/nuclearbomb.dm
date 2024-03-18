@@ -421,7 +421,7 @@
 	if(isinspace() && !anchored)
 		to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 	else
-		set_anchored(!anchored)
+		anchored = !anchored
 
 /obj/machinery/nuclearbomb/proc/set_safety()
 	safety = !safety

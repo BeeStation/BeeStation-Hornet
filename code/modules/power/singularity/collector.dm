@@ -38,9 +38,8 @@
 	radio.canhear_range = 0
 	radio.recalculateChannels()
 
-/obj/machinery/power/rad_collector/anchored/Initialize()
-	. = ..()
-	set_anchored(TRUE)
+/obj/machinery/power/rad_collector/anchored
+	anchored = TRUE
 
 /obj/machinery/power/rad_collector/Destroy()
 	QDEL_NULL(radio)
@@ -100,14 +99,13 @@
 		return FAILED_UNFASTEN
 	return ..()
 
-/obj/machinery/power/rad_collector/set_anchored(anchorvalue)
+/obj/machinery/power/rad_collector/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
 	. = ..()
-	if(isnull(.))
-		return //no need to process if we didn't change anything.
-	if(anchorvalue)
-		connect_to_network()
-	else
-		disconnect_from_network()
+	if(. == SUCCESSFUL_UNFASTEN)
+		if(anchored)
+			connect_to_network()
+		else
+			disconnect_from_network()
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank/internals/plasma))

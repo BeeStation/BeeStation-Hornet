@@ -23,12 +23,12 @@
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "h" = (
-/obj/item/food/cheese/wheel,
+/obj/item/reagent_containers/food/snacks/store/cheesewheel,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "j" = (
-/obj/item/food/cheesewedge,
+/obj/item/reagent_containers/food/snacks/cheesewedge,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/white,
 /area/template_noop)

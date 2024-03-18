@@ -62,7 +62,7 @@
 			return
 
 		if(anchored)
-			set_anchored(FALSE)
+			setAnchored(FALSE)
 			to_chat(user, "<span class='notice'>You unbolt \the [src] from the floor and detach it from the cable.</span>")
 			disconnect_from_network()
 			return
@@ -70,7 +70,7 @@
 			if(!connect_to_network())
 				to_chat(user, "<span class='warning'>\The [src] must be placed over an exposed, powered cable node!</span>")
 				return
-			set_anchored(TRUE)
+			setAnchored(TRUE)
 			to_chat(user, "<span class='notice'>You bolt \the [src] to the floor and attach it to the cable.</span>")
 			return
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)

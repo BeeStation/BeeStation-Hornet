@@ -39,8 +39,7 @@
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(1-3)
-			if(M.stat != DEAD)
-				to_chat(M, "<span class='notice'>Your skin crawls.</span>")
+			to_chat(M, "<span class='notice'>Your skin crawls.</span>")
 		if(4)
 			M.visible_message("<span class='danger'>Lumps form on [M]'s skin!</span>", \
 								  "<span class='userdanger'>You cringe in pain as lumps form and move around on your skin!</span>")

@@ -155,6 +155,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	custom_price = PAYCHECK_EASY * 0.6
 
+/*
 /obj/item/reagent_containers/glass/bowl/Initialize()
 	. = ..()
 	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/salad/empty, CUSTOM_INGREDIENT_ICON_FILL, max_ingredients = 6)
@@ -166,3 +167,4 @@
 	tastes = list()
 	icon_state = "bowl"
 	desc = "A delicious customized salad."
+*/

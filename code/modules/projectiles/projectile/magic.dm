@@ -432,8 +432,6 @@
 	material_drop_amount = 0
 	var/magic_icon = "cursed"
 	var/weakened_icon = "decursed"
-	icon_door = "cursed"
-	var/weakened_icon_door = "decursed"
 
 /obj/structure/closet/decay/Initialize(mapload)
 	. = ..()
@@ -465,7 +463,6 @@
 
 /obj/structure/closet/decay/proc/unmagify()
 	icon_state = weakened_icon
-	icon_door = weakened_icon_door
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 

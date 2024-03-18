@@ -10,7 +10,6 @@
 	icon_state = "bloodhand_left"
 	var/icon_left = "bloodhand_left"
 	var/icon_right = "bloodhand_right"
-	var/viral = FALSE
 	hitsound = 'sound/hallucinations/growl1.ogg'
 	force = 21 // Just enough to break airlocks with melee attacks
 	/// Base infection chance of 80%, gets lowered with armour
@@ -34,27 +33,16 @@
 	. = ..()
 	if(!proximity_flag)
 		return
-	if(isliving(target))
+	else if(isliving(target))
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			var/flesh_wound = ran_zone(user.get_combat_bodyzone(target))
 			if(H.check_shields(src, 0))
 				return
 			if(prob(base_infection_chance-H.getarmor(flesh_wound, MELEE, armour_penetration)))
-				if(viral && isliving(user))
-					var/mob/living/L = user
-					var/mob/living/T = target
-					for(var/datum/disease/advance/D in L.diseases)
-						if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED) || D.dormant)
-							continue
-						T.ForceContractDisease(D)
-				else
-					try_to_zombie_infect(target)
+				try_to_zombie_infect(target)
 		else
 			check_feast(target, user)
-	if((istype(target, /obj/structure) || istype(target, /obj/machinery)) && viral)
-		var/obj/O = target
-		O.take_damage(21, BRUTE, MELEE, 0)
 
 /proc/try_to_zombie_infect(mob/living/carbon/human/target)
 	CHECK_DNA_AND_SPECIES(target)
@@ -90,18 +78,3 @@
 		user.updatehealth()
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, -hp_gained) // Zom Bee gibbers "BRAAAAISNSs!1!"
 		user.set_nutrition(min(user.nutrition + hp_gained, NUTRITION_LEVEL_FULL))
-
-/obj/item/zombie_hand/proc/try_infect(mob/living/carbon/human/target, mob/living/user)
-	CHECK_DNA_AND_SPECIES(target)
-
-	if(NOZOMBIE in target.dna.species.species_traits)
-		// cannot infect any NOZOMBIE subspecies (such as high functioning
-		// zombies)
-		return
-
-/obj/item/zombie_hand/infectious
-	name = "infected zombie claw"
-	viral = TRUE
-	force = 15
-
-

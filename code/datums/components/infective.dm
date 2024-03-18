@@ -32,7 +32,8 @@
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK_ZONE, PROC_REF(try_infect_attack_zone))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_infect_attack))
 		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(try_infect_equipped))
-		RegisterSignal(parent, COMSIG_FOOD_EATEN, PROC_REF(try_infect_eat))
+		if(istype(parent, /obj/item/reagent_containers/food/snacks))
+			RegisterSignal(parent, COMSIG_FOOD_EATEN, PROC_REF(try_infect_eat))
 	else if(istype(parent, /obj/effect/decal/cleanable/blood/gibs))
 		RegisterSignal(parent, COMSIG_GIBS_STREAK, PROC_REF(try_infect_streak))
 
@@ -106,10 +107,6 @@
 
 /datum/component/infective/proc/try_infect_streak(datum/source, list/directions, list/output_diseases)
 	SIGNAL_HANDLER
-
-	// This blood is not infectable / does not have a diseases list
-	if(!islist(output_diseases))
-		return
 
 	output_diseases |= diseases
 

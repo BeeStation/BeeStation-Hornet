@@ -18,7 +18,7 @@
 	D.throw_at(throwtarget, 4, 2, A)//So stuff gets tossed around at the same time.
 	D.Paralyze(20)
 	if(atk_verb)
-		log_combat(A, D, "[atk_verb] (Mushroom Punch)", name)
+		log_combat(A, D, "[atk_verb] (Mushroom Punch)")
 	return TRUE
 
 /obj/item/mushpunch

@@ -58,9 +58,13 @@
 	var/emag_toggleable = FALSE
 
 /obj/vv_edit_var(vname, vval)
-	if(vname == NAMEOF(src, obj_flags))
-		if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
-			return FALSE
+	switch(vname)
+		if("anchored")
+			setAnchored(vval)
+			return TRUE
+		if(NAMEOF(src, obj_flags))
+			if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
+				return FALSE
 	return ..()
 
 /obj/Initialize(mapload)
@@ -107,6 +111,9 @@
 	SStgui.close_uis(src)
 	. = ..()
 
+/obj/proc/setAnchored(anchorvalue)
+	SEND_SIGNAL(src, COMSIG_OBJ_SETANCHORED, anchorvalue)
+	anchored = anchorvalue
 
 /obj/assume_air(datum/gas_mixture/giver)
 	if(loc)

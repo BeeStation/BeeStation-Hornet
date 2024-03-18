@@ -69,7 +69,7 @@
 	wires = new /datum/wires/emitter(src)
 	if(welded)
 		if(!anchored)
-			set_anchored(TRUE)
+			setAnchored(TRUE)
 		connect_to_network()
 
 	sparks = new
@@ -80,7 +80,7 @@
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
 
-/obj/machinery/power/emitter/set_anchored(anchorvalue)
+/obj/machinery/power/emitter/setAnchored(anchorvalue)
 	. = ..()
 	if(!anchored && welded) //make sure they're keep in sync in case it was forcibly unanchored by badmins or by a megafauna.
 		welded = FALSE
@@ -100,6 +100,8 @@
 	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
 		power_usage -= 50 * manipulator.rating
 	active_power_usage = power_usage
+	//if(anchored && welded)
+	//	state = EMITTER_WRENCHED
 
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()
@@ -175,7 +177,7 @@
 
 /obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/M)
 	if(ismegafauna(M) && anchored)
-		set_anchored(FALSE)
+		setAnchored(FALSE)
 		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
 	else
 		. = ..()

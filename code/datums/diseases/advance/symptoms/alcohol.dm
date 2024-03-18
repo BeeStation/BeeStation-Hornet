@@ -34,8 +34,6 @@
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	var/list/warningstrings = list()
-	if(M.stat == DEAD)
-		return
 	switch(A.stage + severity)
 		if(6 to 7)
 			warningstrings = list("You feel drunk", "You feel a bit woozy")

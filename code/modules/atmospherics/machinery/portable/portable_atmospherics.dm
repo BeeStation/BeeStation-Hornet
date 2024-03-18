@@ -67,7 +67,7 @@
 	connected_port.connected_device = src
 	connected_port.parents[1].update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
-	set_anchored(TRUE) //Prevent movement
+	anchored = TRUE //Prevent movement
 	pixel_x = new_port.pixel_x
 	pixel_y = new_port.pixel_y
 
