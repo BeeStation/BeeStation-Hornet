@@ -68,10 +68,10 @@
 /obj/item/ctf/attack_hand(mob/living/user)
 	//pre normal check item stuff, this is for our special flag checks
 	if(!is_ctf_target(user) && !anyonecanpickup)
-		to_chat(user, "Non players shouldn't be moving the flag!")
+		to_chat(user, "<span class='warning'>Non players shouldn't be moving the flag!</span>")
 		return
 	if(team in user.faction)
-		to_chat(user, "You can't move your own flag!")
+		to_chat(user, "<span class='warning'>You can't move your own flag!</span>")
 		return
 	if(loc == user)
 		if(!user.dropItemToGround(src))
@@ -87,12 +87,12 @@
 		anchored = TRUE
 		return
 	//passing means the user picked up the flag so we can now apply this
-	user.anchored = TRUE
+	user.set_anchored(TRUE)
 	user.status_flags &= ~CANPUSH
 
 /obj/item/ctf/dropped(mob/user)
 	..()
-	user.anchored = FALSE
+	user.set_anchored(FALSE)
 	user.status_flags |= CANPUSH
 	reset_cooldown = world.time + 20 SECONDS
 	START_PROCESSING(SSobj, src)

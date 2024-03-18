@@ -32,7 +32,7 @@
 	if(QDELETED(src) || QDELETED(X) || QDELETED(AM))
 		return
 	var/turf/T = get_turf(X.loc)
-	AM.anchored = FALSE
+	AM.set_anchored(FALSE)
 	AM.forceMove(T)
 	if(spawn_russian)
 		new /mob/living/simple_animal/hostile/russian(T)
@@ -312,7 +312,7 @@
 	healing_type = pick(BRUTE, BURN, TOX)
 
 /datum/xenoartifact_trait/major/heal/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
-	if(istype(item, /obj/item/healthanalyzer))
+	if(istype(item, /obj/item/assembly/health))
 		to_chat(user, "<span class='info'>The [item] recognizes foreign [healing_type] healing proteins.\n</span>")
 		return TRUE
 	..()
