@@ -4172,6 +4172,7 @@
 #include "code\modules\xenoarchaeology\misc\items.dm"
 #include "code\modules\xenoarchaeology\misc\materials.dm"
 #include "code\modules\xenoarchaeology\misc\tutorial.dm"
+#include "code\modules\xenoarchaeology\tools\artifact_wand.dm"
 #include "code\modules\xenoarchaeology\tools\xenoarchaeology_labeler.dm"
 #include "code\modules\xenoarchaeology\tools\xenoarchaeology_machines.dm"
 #include "code\modules\xenoarchaeology\tools\console\xenoarchaeology_console.dm"

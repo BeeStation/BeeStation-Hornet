@@ -113,6 +113,11 @@
 	trait_flags = XENOA_PEARL_TRAIT
 	label_icon = "question"
 
+/datum/xenoartifact_material/pearl/get_texture()
+	var/icon/I = icon(texture_icon, pick(texture_icon_states))
+	I.AddAlphaMask(icon('icons/obj/xenoarchaeology/xenoartifact.dmi', "feather"))
+	return I
+
 //Calcified
 /datum/xenoartifact_material/calcified
 	name = "calcified"

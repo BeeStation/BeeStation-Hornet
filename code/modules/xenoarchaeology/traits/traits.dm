@@ -246,6 +246,7 @@
 	old_transform.Turn(-23)
 	animate(I, transform = new_transform, time = 0.15 SECONDS, loop = -1, easing = JUMP_EASING)
 	animate(transform = old_transform, time = 0.15 SECONDS, easing = JUMP_EASING)
+	//TODO: Add a zooming in animation for this, maybe a sound too - Racc
 	//Clean up the animation later
 	var/cleanup_timer = addtimer(CALLBACK(src, PROC_REF(pry_action_finish), I), 8 SECONDS, TIMER_STOPPABLE)
 	if(do_after(user, 8 SECONDS, A))
