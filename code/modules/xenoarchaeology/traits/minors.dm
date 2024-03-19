@@ -121,6 +121,7 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/ringed, /datum/xenoartifact_trait/minor/shielded, /datum/xenoartifact_trait/minor/aerodynamic, /datum/xenoartifact_trait/minor/slippery)
 	weight = 30
+	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 	///Old value tracker
 	var/old_density
 	var/old_atom_flag

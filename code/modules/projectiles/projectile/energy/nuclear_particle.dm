@@ -68,6 +68,7 @@
 				qdel(P)
 			//Make the item an artifact
 			I.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material/pearl, length(trait_list) ? trait_list : null, TRUE, FALSE)
+			playsound(I, 'sound/magic/staff_change.ogg', 50, TRUE)
 			qdel(src)
 			break
 

@@ -22,6 +22,11 @@ GLOBAL_LIST(xenoa_pearl_traits)
 ///Whitelist of items ofr familiar artifacts
 GLOBAL_LIST_INIT(xenoa_familiar_items, list(/obj/item/kitchen/fork))
 
+///Incompatability lists
+GLOBAL_LIST(xenoa_item_incompatible)
+GLOBAL_LIST(xenoa_mob_incompatible)
+GLOBAL_LIST(xenoa_structure_incompatible)
+
 ///Fill globals
 /proc/generate_xenoa_statics()
 	if(length(GLOB.xenoa_all_traits))
@@ -46,6 +51,11 @@ GLOBAL_LIST_INIT(xenoa_familiar_items, list(/obj/item/kitchen/fork))
 	GLOB.xenoa_uranium_traits = compile_artifact_whitelist(/datum/xenoartifact_material/uranium)
 	GLOB.xenoa_bananium_traits = compile_artifact_whitelist(/datum/xenoartifact_material/bananium)
 	GLOB.xenoa_pearl_traits = compile_artifact_whitelist(/datum/xenoartifact_material/pearl)
+
+	//Compatabilities
+	GLOB.xenoa_item_incompatible = compile_artifact_compatibilties(TRAIT_INCOMPATIBLE_ITEM)
+	GLOB.xenoa_mob_incompatible = compile_artifact_compatibilties(TRAIT_INCOMPATIBLE_MOB)
+	GLOB.xenoa_structure_incompatible = compile_artifact_compatibilties(TRAIT_INCOMPATIBLE_STRUCTURE)
 
 ///Material weights, basically rarity
 GLOBAL_LIST_INIT(xenoartifact_material_weights, list(XENOA_BLUESPACE = 10, XENOA_PLASMA = 8, XENOA_URANIUM = 5, XENOA_BANANIUM = 1))

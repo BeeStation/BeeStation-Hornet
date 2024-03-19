@@ -18,6 +18,11 @@
 #define TRAIT_PRIORITY_MAJOR "major"
 #define TRAIT_PRIORITY_MALFUNCTION "malfunction"
 
+//Trait incompatabilities
+#define TRAIT_INCOMPATIBLE_ITEM (1<<0)
+#define TRAIT_INCOMPATIBLE_MOB (1<<1)
+#define TRAIT_INCOMPATIBLE_STRUCTURE (1<<2)
+
 ///Signal for artifact trigger
 #define XENOA_TRIGGER "xenoa_trigger"
 ///Signal for artifact calcified

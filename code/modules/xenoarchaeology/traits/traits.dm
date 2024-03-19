@@ -54,6 +54,9 @@
 	var/weight = 1 //KG
 	var/conductivity = 1 //microsiemens per centimeter - I had to look this up - Don't worry about making this accurate / reasonable
 
+	///What kind of incompatabilities does this trait have
+	var/incompatabilities
+
 /datum/xenoartifact_trait/New(atom/_parent)
 	. = ..()
 	if(_parent)
@@ -293,6 +296,14 @@
 			var/datum/xenoartifact_material/M = flags
 			if((initial(T.flags) & initial(M.trait_flags)))
 				output += T
+	return output
+
+///Compile a list of traits from a given compatability flag/s
+/proc/compile_artifact_compatibilties(var/flags)
+	var/list/output = list()
+	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
+		if(initial(T.incompatabilities) & flags)
+			output += T
 	return output
 
 /*
