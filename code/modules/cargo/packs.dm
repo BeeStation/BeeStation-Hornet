@@ -786,20 +786,22 @@
 	cost = 4000
 	contraband = TRUE
 	max_supply = 3
-	contains = list(/obj/item/reagent_containers/food/snacks/rationpack,
-					/obj/item/ammo_box/a762,
-					/obj/item/storage/toolbox/ammo,
-					/obj/item/clothing/suit/armor/vest/russian,
-					/obj/item/clothing/head/helmet/rus_helmet,
-					/obj/item/clothing/shoes/russian,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/under/syndicate/rus_army,
-					/obj/item/clothing/under/costume/soviet,
-					/obj/item/clothing/mask/russian_balaclava,
-					/obj/item/clothing/head/helmet/rus_ushanka,
-					/obj/item/clothing/suit/armor/vest/russian_coat,
-					/obj/item/gun/ballistic/rifle/boltaction,
-					/obj/item/gun/ballistic/rifle/boltaction)
+	contains = list(
+		/obj/item/food/rationpack,
+		/obj/item/ammo_box/a762,
+		/obj/item/storage/toolbox/ammo,
+		/obj/item/clothing/suit/armor/vest/russian,
+		/obj/item/clothing/head/helmet/rus_helmet,
+		/obj/item/clothing/shoes/russian,
+		/obj/item/clothing/gloves/combat,
+		/obj/item/clothing/under/syndicate/rus_army,
+		/obj/item/clothing/under/costume/soviet,
+		/obj/item/clothing/mask/russian_balaclava,
+		/obj/item/clothing/head/helmet/rus_ushanka,
+		/obj/item/clothing/suit/armor/vest/russian_coat,
+		/obj/item/gun/ballistic/rifle/boltaction,
+		/obj/item/gun/ballistic/rifle/boltaction
+	)
 	crate_name = "surplus military crate"
 
 /datum/supply_pack/security/armory/russian/fill(obj/structure/closet/crate/C)
@@ -1930,8 +1932,8 @@
 					/obj/item/assembly/prox_sensor,
 					/obj/item/storage/firstaid,
 					/obj/item/storage/firstaid,
-					/obj/item/healthanalyzer,
-					/obj/item/healthanalyzer,
+					/obj/item/assembly/health,
+					/obj/item/assembly/health,
 					/obj/item/clothing/head/hardhat/red,
 					/obj/item/clothing/head/hardhat/red,
 					/obj/item/storage/toolbox/mechanical,

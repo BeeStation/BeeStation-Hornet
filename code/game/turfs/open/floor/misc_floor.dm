@@ -180,6 +180,10 @@
 	desc = "Time seems to flow very slowly around these tiles."
 	floor_tile = /obj/item/stack/tile/sepia
 
+/turf/open/floor/sepia/planetary
+	baseturfs = /turf/open/floor/plating/asteroid
+	planetary_atmos = TRUE
+
 
 /turf/open/floor/bronze
 	name = "bronze floor"
