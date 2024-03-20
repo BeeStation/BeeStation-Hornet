@@ -46255,7 +46255,6 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "oOI" = (
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
