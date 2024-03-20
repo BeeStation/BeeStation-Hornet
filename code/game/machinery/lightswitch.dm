@@ -11,6 +11,18 @@
 	var/area/area = null
 	var/screwdrivered = FALSE
 
+/obj/machinery/light_switch/directional/north
+	pixel_y = 25
+
+/obj/machinery/light_switch/directional/south
+	pixel_y = -25
+
+/obj/machinery/light_switch/directional/east
+	pixel_x = 25
+
+/obj/machinery/light_switch/directional/west
+	pixel_x = -25
+
 /obj/machinery/light_switch/Initialize(mapload)
 	. = ..()
 	if(istext(area))
@@ -118,3 +130,15 @@
 	icon_state = "lightswitch"
 	result_path = /obj/machinery/light_switch
 	pixel_shift = -26
+	
+/obj/item/wallframe/light_switch/north
+	pixel_y = 25
+
+/obj/item/wallframe/light_switch/south
+	pixel_y = -25
+
+/obj/item/wallframe/light_switch/east
+	pixel_x = 25
+
+/obj/item/wallframe/light_switch/west
+	pixel_x = -25

@@ -8,9 +8,42 @@
 	dog_fashion = null
 	unscrewed = FALSE
 	layer = ABOVE_WINDOW_LAYER
+	dir = NORTH
+	
+/obj/item/radio/intercom/directional/north
+	dir = NORTH
+	pixel_y = 25
+	
+/obj/item/radio/intercom/directional/south
+	dir = SOUTH
+	pixel_y = -25
+	
+/obj/item/radio/intercom/directional/east
+	dir = EAST
+	pixel_x = 25
+	
+/obj/item/radio/intercom/directional/west
+	dir = WEST
+	pixel_x = -25
 
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE
+	
+/obj/item/radio/intercom/unscrewed/north
+	dir = NORTH
+	pixel_y = 25
+	
+/obj/item/radio/intercom/unscrewed/south
+	dir = SOUTH
+	pixel_y = -25
+	
+/obj/item/radio/intercom/unscrewed/east
+	dir = EAST
+	pixel_x = 25
+	
+/obj/item/radio/intercom/unscrewed/west
+	dir = WEST
+	pixel_x = -25
 
 /obj/item/radio/intercom/Initialize(mapload, ndir, building)
 	. = ..()
@@ -159,7 +192,7 @@
 	desc = "A ready-to-go intercom. Just slap it on a wall and screw it in!"
 	icon_state = "intercom"
 	result_path = /obj/item/radio/intercom/unscrewed
-	pixel_shift = 29
+	pixel_shift = 25
 	inverse = TRUE
 	custom_materials = list(/datum/material/iron = 75, /datum/material/glass = 25)
 

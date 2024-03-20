@@ -30,6 +30,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp0"
 	layer = ABOVE_WINDOW_LAYER
+	dir = NORTH
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/messages = list() //List of all messages
 	var/departmentType = 0 //bitflag
@@ -73,6 +74,22 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 	light_color = LIGHT_COLOR_GREEN
 	light_power = 1.5
+
+/obj/machinery/requests_console/north
+	dir = NORTH
+	pixel_y = 32
+
+/obj/machinery/requests_console/south
+	dir = SOUTH
+	pixel_y = -32
+
+/obj/machinery/requests_console/east
+	dir = EAST
+	pixel_x = 32
+
+/obj/machinery/requests_console/west
+	dir = WEST
+	pixel_x = -32
 
 /obj/machinery/requests_console/update_icon()
 	if(machine_stat & NOPOWER)

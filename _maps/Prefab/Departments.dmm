@@ -1063,9 +1063,6 @@
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
 "Ec" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
 /obj/machinery/advanced_airlock_controller/directional/west,
 /obj/machinery/vending/wallmed{
 	pixel_y = 32
@@ -1074,6 +1071,7 @@
 /obj/machinery/shower{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/south,
 /turf/open/floor/plasteel/dark,
 /area/space)
 "Eg" = (
