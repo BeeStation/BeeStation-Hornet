@@ -1,0 +1,8 @@
+author: ClownMoff
+delete-after: true
+changes:
+  - tweak: 'CorgStation: Brig is now usable'
+  - tweak: removes the cargo dorms and puts the QM office where they used to be
+  - tweak: changes hallways  and maintenance around brig
+  - tweak: moves the public garden next to the chapel
+  - tweak: puts the gravity generator in engineering below the SM
