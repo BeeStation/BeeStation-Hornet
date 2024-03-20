@@ -739,7 +739,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	log_admin("[src] re-adminned themselves.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Readmin")
 
-/client/proc/populate_world(amount = 50 as num, give_minds as anything in list("Yes", "No"))
+/client/proc/populate_world(amount = 50 as num, give_minds as anything in list("Give minds", "Don't give minds"))
 	set name = "Populate World"
 	set category = "Debug"
 	set desc = "(\"Amount of mobs to create\") Populate the world with test mobs."

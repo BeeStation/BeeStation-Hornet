@@ -41,6 +41,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 /datum/priority_directive/proc/can_run(list/uplinks, list/player_minds, force = FALSE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	teams.Cut()
+	rejected = FALSE
 	_allocate_teams(uplinks, player_minds, force)
 	return !rejected
 

@@ -16,6 +16,7 @@ SUBSYSTEM_DEF(directives)
 		// Are we completed or ended?
 		if (active_directive.is_completed() || world.time > active_directive.end_at)
 			active_directive.finish()
+			next_directive_time = world.time + rand(10 MINUTES, 15 MINUTES)
 		return
 	// Check if we are ready to spawn our next active_directive
 	if (world.time < next_directive_time)
@@ -36,7 +37,7 @@ SUBSYSTEM_DEF(directives)
 		// Try again in a minute
 		next_directive_time = world.time + 1 MINUTES
 		return
-	var/datum/priority_directive/selected = pick(active_directive)
+	var/datum/priority_directive/selected = pick(valid_directives)
 	selected.start(GLOB.uplinks, player_minds)
 	next_directive_time = INFINITY
 	active_directive = selected

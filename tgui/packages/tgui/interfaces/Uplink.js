@@ -51,6 +51,12 @@ const Directives = (props, context) => {
   const dx = track_x - pos_x;
   const dy = track_y - pos_y;
   const angle = (360 / (Math.PI * 2)) * Math.atan2(dx, dy);
+  if (selectedObjective === null)
+  {
+    return (
+      <Box>No associated objectives.</Box>
+    );
+  }
   return (
     <Flex direction="column" className="directives">
       <Flex.Item>
@@ -111,7 +117,7 @@ const Directives = (props, context) => {
                   <Box mb={1} underline bold>
                     Tasks
                   </Box>
-                  {selectedObjective.tasks.map((task) => (
+                  {selectedObjective?.tasks.map((task) => (
                     <Box key={task}>
                       <Icon inline name="square-o" mr={1} className="directive_check" />
                       {task}
@@ -121,7 +127,7 @@ const Directives = (props, context) => {
                     Additional Details
                   </Box>
                   <Box>
-                    {selectedObjective.details ||
+                    {selectedObjective?.details ||
                       'This mission is part of your assignment and must be\
                     completed. No additional reward will be provided outside of the\
                     terms that have been defined within your contract of employment.'}
@@ -134,7 +140,7 @@ const Directives = (props, context) => {
                     <Icon name={action ? 'gem' : 'slash'} />
                   </Flex.Item>
                   <Flex.Item grow pl={2}>
-                    <Box bold>{selectedObjective.reward ? selectedObjective.reward + ' Telecrystals' : 'No reward'}</Box>
+                    <Box bold>{selectedObjective?.reward ? selectedObjective?.reward + ' Telecrystals' : 'No reward'}</Box>
                   </Flex.Item>
                 </div>
                 <Flex.Item grow height="100%" align="flex-end" textAlign="right">
