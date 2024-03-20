@@ -131,20 +131,21 @@ const Directives = (props, context) => {
               <div className="directive_prize">
                 <div className="directive_prize_info">
                   <Flex.Item>
-                    <Icon name={action ? "gem" : "slash"} />
+                    <Icon name={action ? 'gem' : 'slash'} />
                   </Flex.Item>
                   <Flex.Item grow pl={2}>
-                    <Box bold>{selectedObjective.reward ? selectedObjective.reward + " Telecrystals" : "No reward"}</Box>
+                    <Box bold>{selectedObjective.reward ? selectedObjective.reward + ' Telecrystals' : 'No reward'}</Box>
                   </Flex.Item>
                 </div>
                 <Flex.Item grow height="100%" align="flex-end" textAlign="right">
                   <Button
                     height="100%"
                     fontSize={2}
-                    content={action ? action : "Collect Reward"}
+                    content={action ? action : 'Collect Reward'}
                     disabled={!action}
                     icon="hands-helping"
-                    onClick={() => act('directive_action')} />
+                    onClick={() => act('directive_action')}
+                  />
                 </Flex.Item>
               </div>
             </div>
