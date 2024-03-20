@@ -444,6 +444,7 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 	weight = 32
+	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 
 /datum/xenoartifact_trait/activator/weighted/New(atom/_parent)
 	. = ..()
@@ -464,6 +465,7 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 	weight = -8
+	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 
 /datum/xenoartifact_trait/activator/pitched/New(atom/_parent)
 	. = ..()
@@ -536,6 +538,7 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 	weight = 16
+	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 	///What reagents does this artifact provide when eaten?
 	var/food_reagents = list(/datum/reagent/consumable/nutriment = INFINITY)
 	///How long does it take us to bite thise?

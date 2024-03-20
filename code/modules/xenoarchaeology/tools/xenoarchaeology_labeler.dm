@@ -127,13 +127,20 @@
 	desc = "Use to create specific Xenoartifacts"
 	icon_state = "labeler_debug"
 	sticker_cooldown = 0 SECONDS
+	///Flag for enabling or disabling trait patches
+	var/patch_traits = FALSE
 
 //Create an artifact with all the traits we have selected, but from the item we target
 /obj/item/xenoarchaeology_labeler/debug/afterattack(atom/target, mob/user)
 	if(length(label_traits))
-		target.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, label_traits, TRUE, FALSE)
+		target.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, label_traits, TRUE, FALSE, patch_traits)
 	else
-		target.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, null, TRUE, FALSE)
+		target.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, null, TRUE, FALSE, patch_traits)
+
+/obj/item/xenoarchaeology_labeler/debug/AltClick(mob/user)
+	. = ..()
+	patch_traits = !patch_traits
+	to_chat(user, "<span class='notice'>Toggled patch: [patch_traits ? "On" : "Off"].</span>")
 
 //Create an artifact with all the traits we hve selected
 /obj/item/xenoarchaeology_labeler/debug/create_label(new_name)

@@ -150,9 +150,13 @@
 	if(!cooldown_disabled)
 		use_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), max(0, use_cooldown + trait_cooldown), TIMER_STOPPABLE)
 
-/datum/component/xenoartifact/proc/build_traits(list/trait_list, amount)
+/datum/component/xenoartifact/proc/build_traits(list/trait_list, amount, incompatabilities = TRUE)
 	var/list/options = trait_list
+	//Remove any blacklisted traits
 	options -= blacklisted_traits
+	//Remove any incompatible traits
+	if(incompatabilities)
+		options -= get_trait_incompatibilities(parent)
 	for(var/i in 1 to amount)
 		//Pick a random trait
 		var/datum/xenoartifact_trait/T = pick_weight(options)
