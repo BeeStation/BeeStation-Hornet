@@ -249,6 +249,15 @@
 	icon_state = "circle_glasses"
 	item_state = "circle_glasses"
 
+/obj/item/clothing/glasses/sunglasses/circle_sunglasses
+	name = "circle sunglasses"
+	desc = "Shit's pimpin'"
+	icon_state = "circle_sunglasses"
+	item_state = "circle_sunglasses"
+	darkness_view = 1
+	tint = 1
+	glass_colour_type = /datum/client_colour/glass_colour/gray
+
 //Here lies green glasses, so ugly they died. RIP
 
 /obj/item/clothing/glasses/sunglasses
