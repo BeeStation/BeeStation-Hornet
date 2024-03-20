@@ -490,6 +490,8 @@
 	var/bite_timer
 
 /datum/xenoartifact_trait/activator/sturdy/hungry/trigger_artifact(atom/target, type, force)
+	if(parent.anti_check(target, type))
+		return FALSE
 	//Find a food item
 	var/mob/living/M = target
 	var/datum/component/edible/food_item
@@ -502,7 +504,6 @@
 				break
 	if(!food_item)
 		food_item = target?.GetComponent(/datum/component/edible)
-
 	//If food
 	var/atom/movable/AM = parent.parent
 	if(food_item)
@@ -517,7 +518,6 @@
 		M.visible_message("<span class='warning'>[AM] bites [M]!</span>", "<span class='warning'>[AM] bites you!\n[AM] doesn't like that taste!</span>")
 		bite_timer = addtimer(CALLBACK(src, PROC_REF(handle_timer)), bite_cooldown, TIMER_STOPPABLE)
 		return FALSE
-
 	return FALSE
 
 /datum/xenoartifact_trait/activator/sturdy/hungry/get_dictionary_hint()
