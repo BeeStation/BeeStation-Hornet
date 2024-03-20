@@ -51,11 +51,8 @@ const Directives = (props, context) => {
   const dx = track_x - pos_x;
   const dy = track_y - pos_y;
   const angle = (360 / (Math.PI * 2)) * Math.atan2(dx, dy);
-  if (selectedObjective === null)
-  {
-    return (
-      <Box>No associated objectives.</Box>
-    );
+  if (selectedObjective === null) {
+    return <Box>No associated objectives.</Box>;
   }
   return (
     <Flex direction="column" className="directives">
