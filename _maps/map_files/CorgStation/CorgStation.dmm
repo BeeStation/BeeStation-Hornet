@@ -26041,6 +26041,10 @@
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"iqw" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/plating,
+/area/maintenance/fore)
 "iqz" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
@@ -38284,13 +38288,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
-"msT" = (
-/obj/effect/decal/cleanable/cobweb,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating,
-/area/maintenance/fore)
 "msU" = (
 /obj/machinery/disposal/bin,
 /obj/item/radio/intercom{
@@ -106018,8 +106015,8 @@ qeh
 vlr
 ieu
 mma
-mma
 fOZ
+mma
 mma
 fKO
 muh
@@ -106275,7 +106272,7 @@ jxh
 vdJ
 vdJ
 xVs
-msT
+vdJ
 vdJ
 fbo
 dGD
@@ -106532,7 +106529,7 @@ hoR
 vlr
 vlr
 mma
-vlr
+iqw
 scI
 ejN
 jsC
