@@ -486,10 +486,11 @@
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
 
-	if(is_blind(src) && !blind_examine_check(A))
+	var/isblind = is_blind(src)
+	if(isblind && !blind_examine_check(A))
 		return
 
-	if(!isobserver(usr) && !(usr == A) && !is_blind(src))
+	if(!isobserver(usr) && !(usr == A) && !isblind)
 		var/list/can_see_target = viewers(usr)
 		for(var/mob/M as anything in viewers(4, usr))
 			if(!M.client)
