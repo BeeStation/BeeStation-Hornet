@@ -30792,9 +30792,9 @@
 /obj/item/storage/firstaid,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/bot,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
 /obj/item/paicard,
-/obj/item/assembly/health,
-/obj/item/assembly/health,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dEI" = (
@@ -52814,11 +52814,13 @@
 /area/medical/break_room)
 "ksf" = (
 /obj/structure/table/reinforced,
+/obj/item/healthanalyzer,
 /obj/item/stack/cable_coil/white{
 	pixel_x = 3;
 	pixel_y = 3
 	},
 /obj/item/stack/cable_coil/white,
+/obj/item/healthanalyzer,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -69311,6 +69313,7 @@
 	dir = 8
 	},
 /obj/item/clothing/neck/stethoscope,
+/obj/item/healthanalyzer,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -73900,7 +73903,7 @@
 /obj/structure/sign/poster/official/suit_sensors{
 	pixel_x = -32
 	},
-/obj/machinery/computer/crew{
+/obj/structure/bed{
 	dir = 4
 	},
 /turf/open/floor/plasteel/grid/steel,
@@ -86640,6 +86643,9 @@
 /area/hallway/primary/port)
 "vOs" = (
 /obj/effect/turf_decal/bot,
+/obj/machinery/computer/crew{
+	req_one_access = list(5,4)
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
@@ -86649,7 +86655,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/patients_rooms)
 "vOA" = (
@@ -92303,7 +92308,6 @@
 	dir = 8
 	},
 /obj/item/storage/firstaid/regular,
-/obj/item/storage/backpack/duffelbag/sec/surgery,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "xDF" = (

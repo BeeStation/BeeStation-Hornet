@@ -24,16 +24,6 @@
 	category = list("Control Interfaces", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/healthanalyzer
-	name = "Health Analyzer"
-	desc = "A hand-held body scanner, Utilising the latest in Bluespace-AI technology. The zenith of man-portable medical scanning."
-	id = "healthanalyzer"
-	build_path = /obj/item/healthanalyzer
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500, /datum/material/silver = 2000, /datum/material/gold = 1500, /datum/material/bluespace = 1000)
-	category = list("Medical Designs")
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
-
 /datum/design/bluespacebeaker
 	name = "Bluespace Beaker"
 	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete. Can hold up to 300 units."
@@ -169,6 +159,16 @@
 	build_path = /obj/item/sequence_scanner
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 1000, /datum/material/glass = 500)
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/healthanalyzer_advanced
+	name = "Advanced Health Analyzer"
+	desc = "A hand-held body scanner able to distinguish vital signs of the subject with high accuracy."
+	id = "healthanalyzer_advanced"
+	build_path = /obj/item/healthanalyzer/advanced
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 2500, /datum/material/silver = 2000, /datum/material/gold = 1500)
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 

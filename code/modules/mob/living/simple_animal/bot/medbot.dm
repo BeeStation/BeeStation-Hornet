@@ -38,7 +38,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 	path_image_color = "#DDDDFF"
 	var/obj/item/reagent_containers/reagent_glass = null //Can be set to draw from this for reagents.
-	var/healthsensor = /obj/item/assembly/health
+	var/healthanalyzer = /obj/item/healthanalyzer
 	var/firstaid = /obj/item/storage/firstaid
 	var/skin = null //based off medkit_X skins in aibots.dmi for your selection; X goes here IE medskin_tox means skin var should be "tox"
 	var/mob/living/carbon/patient = null
@@ -636,7 +636,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 	drop_part(firstaid, Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
-	drop_part(healthsensor, Tsec)
+	drop_part(healthanalyzer, Tsec)
 
 	if(reagent_glass)
 		drop_part(reagent_glass, Tsec)

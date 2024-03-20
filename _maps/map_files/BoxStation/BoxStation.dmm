@@ -6650,11 +6650,12 @@
 	empty = 1;
 	name = "First-Aid (empty)"
 	},
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
-/obj/item/assembly/health,
-/obj/item/assembly/health,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "blF" = (
@@ -37567,11 +37568,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "lom" = (
 /obj/machinery/door/airlock/command/glass{
@@ -44068,10 +44065,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/noslip/white,
 /area/medical/sleeper)
 "ojc" = (
 /obj/structure/table/reinforced,
@@ -51942,8 +51936,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "rRb" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -55307,9 +55300,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/bioscanner,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "thW" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
@@ -57927,10 +57921,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "unz" = (
 /obj/structure/table,
@@ -59974,13 +59965,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"vod" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/dark,
-/area/medical/sleeper)
 "voe" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/effect/turf_decal/bot,
@@ -101347,7 +101331,7 @@ cZK
 aNl
 blh
 ueA
-vod
+blh
 thV
 oiT
 blh

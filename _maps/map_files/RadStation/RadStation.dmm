@@ -368,15 +368,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
-"afu" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/machinery/bioscanner,
-/turf/open/floor/plasteel/grid/steel,
-/area/medical/sleeper)
 "afv" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -5815,6 +5806,16 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
+"bUn" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/bed/roller,
+/obj/item/bedsheet/medical,
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/sleeper)
 "bUx" = (
 /obj/structure/lattice,
 /obj/item/stack/rods,
@@ -12028,6 +12029,18 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
+"dNb" = (
+/obj/structure/sign/poster/random{
+	pixel_x = -32
+	},
+/obj/structure/bed/roller,
+/obj/item/bedsheet/medical,
+/obj/machinery/light_switch{
+	pixel_x = -20;
+	pixel_y = -21
+	},
+/turf/open/floor/plasteel/white,
+/area/security/brig/medbay)
 "dNn" = (
 /obj/machinery/vending/clothing,
 /obj/effect/turf_decal/bot,
@@ -12039,6 +12052,49 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
+"dNu" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)";
+	pixel_x = 6;
+	pixel_y = 9
+	},
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)";
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)";
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/item/healthanalyzer{
+	pixel_y = 10
+	},
+/obj/item/healthanalyzer{
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/obj/item/healthanalyzer{
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/obj/machinery/requests_console{
+	department = "Robotics Lab";
+	name = "Robotics RC";
+	pixel_y = 32;
+	receive_ore_updates = 1
+	},
+/obj/machinery/newscaster{
+	pixel_x = 32;
+	pixel_y = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/robotics)
 "dND" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -22961,15 +23017,6 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/medical/chemistry)
-"gYO" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/power/apc/auto_name/south,
-/obj/structure/cable/yellow,
-/obj/machinery/bioscanner,
-/turf/open/floor/plasteel,
-/area/security/brig/medbay)
 "gYR" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
@@ -32059,6 +32106,35 @@
 	},
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
+"jYo" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/xenoartifact_labeler{
+	pixel_y = 6
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 4;
+	pixel_y = 10
+	},
+/obj/item/xenoartifact_labeler{
+	pixel_y = 6
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 4;
+	pixel_y = 10
+	},
+/obj/item/healthanalyzer,
+/obj/item/analyzer,
+/obj/item/clothing/gloves/artifact_pinchers{
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel,
+/area/science/explab)
 "jYx" = (
 /obj/machinery/computer/camera_advanced/xenobio,
 /obj/effect/turf_decal/bot,
@@ -34879,34 +34955,6 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/engine_room)
-"kUf" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/xenoartifact_labeler{
-	pixel_y = 6
-	},
-/obj/item/clothing/glasses/science{
-	pixel_x = 4;
-	pixel_y = 10
-	},
-/obj/item/xenoartifact_labeler{
-	pixel_y = 6
-	},
-/obj/item/clothing/glasses/science{
-	pixel_x = 4;
-	pixel_y = 10
-	},
-/obj/item/analyzer,
-/obj/item/clothing/gloves/artifact_pinchers{
-	pixel_y = 3
-	},
-/turf/open/floor/plasteel,
-/area/science/explab)
 "kUl" = (
 /obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -46782,6 +46830,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"oCq" = (
+/obj/machinery/libraryscanner,
+/turf/open/floor/carpet/royalblack,
+/area/library)
 "oCu" = (
 /mob/living/basic/mothroach,
 /obj/structure/sign/poster/official/moth5{
@@ -55588,10 +55640,6 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"ror" = (
-/obj/machinery/libraryscanner,
-/turf/open/floor/carpet/royalblack,
-/area/library)
 "roB" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /obj/machinery/iv_drip,
@@ -69219,19 +69267,6 @@
 /obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped/inverse,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"vCz" = (
-/obj/structure/sign/poster/random{
-	pixel_x = -32
-	},
-/obj/structure/bed/roller,
-/obj/item/bedsheet/medical,
-/obj/machinery/light_switch{
-	pixel_x = -20;
-	pixel_y = -21
-	},
-/obj/machinery/iv_drip,
-/turf/open/floor/plasteel/white,
-/area/security/brig/medbay)
 "vCB" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -75634,40 +75669,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
-"xCF" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)";
-	pixel_x = 6;
-	pixel_y = 9
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)";
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)";
-	pixel_x = 6;
-	pixel_y = 3
-	},
-/obj/machinery/requests_console{
-	department = "Robotics Lab";
-	name = "Robotics RC";
-	pixel_y = 32;
-	receive_ore_updates = 1
-	},
-/obj/machinery/newscaster{
-	pixel_x = 32;
-	pixel_y = 1
-	},
-/obj/item/assembly/health,
-/obj/item/assembly/health,
-/turf/open/floor/plasteel/dark,
-/area/science/robotics)
 "xCR" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -75696,6 +75697,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
+"xDu" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/power/apc/auto_name/south,
+/obj/structure/cable/yellow,
+/obj/machinery/iv_drip,
+/turf/open/floor/plasteel,
+/area/security/brig/medbay)
 "xDV" = (
 /obj/structure/table,
 /obj/item/xenoartifact/maint,
@@ -101118,7 +101128,7 @@ uJB
 aCn
 jAg
 wSw
-vCz
+dNb
 rzL
 bAo
 mLS
@@ -101890,7 +101900,7 @@ bAo
 hbo
 bUQ
 tBN
-gYO
+xDu
 bAo
 oMT
 bsA
@@ -104267,7 +104277,7 @@ jiP
 jRK
 xmC
 lVr
-kUf
+jYo
 gCl
 vRd
 uUA
@@ -105027,7 +105037,7 @@ buy
 sfs
 pYZ
 nnB
-xCF
+dNu
 eiI
 duA
 itL
@@ -115056,7 +115066,7 @@ tFu
 oNF
 gvR
 hpq
-afu
+bUn
 req
 kFj
 xis
@@ -120942,7 +120952,7 @@ dxs
 eqb
 bsF
 bxs
-ror
+oCq
 nXU
 bLe
 rmV
