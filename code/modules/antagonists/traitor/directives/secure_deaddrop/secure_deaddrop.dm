@@ -14,6 +14,9 @@
 		// Create individual teams
 		add_antagonist_team(antag)
 
+/datum/priority_directive/deaddrop/late_allocate(datum/component/uplink/uplink)
+	return add_antagonist_team(uplink)
+
 /datum/priority_directive/deaddrop/_generate(list/teams)
 	// Spawn the deaddrop package
 	var/tc_count = rand(4, 3 + length(teams))

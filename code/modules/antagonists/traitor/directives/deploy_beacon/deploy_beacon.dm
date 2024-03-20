@@ -51,6 +51,17 @@
 	))
 	last_time_update = INFINITY
 
+/datum/priority_directive/deploy_beacon/late_allocate(datum/component/uplink/uplink)
+	var/smallest_team_size = INFINITY
+	var/datum/directive_team/smallest_team
+	for (var/datum/directive_team/team in teams)
+		if (length(team.uplinks) > smallest_team_size)
+			continue
+		smallest_team = team
+		smallest_team_size = length(team.uplinks)
+	smallest_team.uplinks += uplink
+	return smallest_team
+
 /datum/priority_directive/deploy_beacon/_generate(list/teams)
 	return rand(5, 9)
 

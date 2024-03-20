@@ -49,6 +49,10 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 /datum/priority_directive/proc/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
 	PROTECTED_PROC(TRUE)
 
+/// Handle late allocation
+/datum/priority_directive/proc/late_allocate(datum/component/uplink)
+	RETURN_TYPE(/datum/directive_team)
+
 /// Return the reward type and amount
 /datum/priority_directive/proc/_generate(list/teams)
 	PROTECTED_PROC(TRUE)
@@ -93,7 +97,10 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 /datum/priority_directive/proc/add_antagonist_team(list/uplinks, list/data = null)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	PROTECTED_PROC(TRUE)
-	teams += new /datum/directive_team(uplinks, islist(data) ? data : list())
+	RETURN_TYPE(/datum/directive_team)
+	var/created = new /datum/directive_team(uplinks, islist(data) ? data : list())
+	teams += created
+	return created
 
 /// Reject this directive, prevent it from firing
 /datum/priority_directive/proc/reject()
@@ -127,7 +134,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	for (var/datum/directive_team/team in teams)
 		if (uplink in team.uplinks)
 			return team
-	return null
+	return late_allocate(uplink)
 
 /// Perform the special directive action
 /datum/priority_directive/proc/perform_special_action(datum/component/uplink, mob/living/user)
