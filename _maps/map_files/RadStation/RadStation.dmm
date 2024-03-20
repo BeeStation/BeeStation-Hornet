@@ -55589,6 +55589,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "ror" = (
+/obj/machinery/libraryscanner,
 /turf/open/floor/carpet/royalblack,
 /area/library)
 "roB" = (
