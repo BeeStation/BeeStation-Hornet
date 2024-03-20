@@ -70,12 +70,17 @@ h1.alert, h2.alert		{color: #000000;}
 .passive				{color: #660000;}
 
 .traitor_objective {
+  display: block;
+  font-size: large;
   font-family: monospace;
   color: #f08181;
   background-color: #000000;
   border: 1px solid #f08181;
   padding-left: 5px;
   padding-right: 5px;
+  border-radius: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .userdanger				{color: #ff0000;	font-weight: bold; font-size: 3;}

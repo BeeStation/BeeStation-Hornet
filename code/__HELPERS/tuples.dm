@@ -5,15 +5,15 @@
  */
 
 #define NAMED_TUPLE_1(NAME, TYPE_1, NAME_1) /datum/##NAME {\
-	var##TYPE_1/##NAME_1;\
+	##TYPE_1/##NAME_1;\
 }\
 /datum/##NAME/New(...) {\
 	src.##NAME_1 = args[1];\
 }
 
 #define NAMED_TUPLE_2(NAME, TYPE_1, NAME_1, TYPE_2, NAME_2) /datum/##NAME {\
-	var##TYPE_1/##NAME_1;\
-	var##TYPE_2/##NAME_2;\
+	##TYPE_1/##NAME_1;\
+	##TYPE_2/##NAME_2;\
 }\
 /datum/##NAME/New(...) {\
 	src.##NAME_1 = args[1];\

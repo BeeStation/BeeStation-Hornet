@@ -1,5 +1,28 @@
-NAMED_TUPLE_2(directive_team, /list, uplinks, /list, data)
-NAMED_TUPLE_1(directive_special_action,, action_name)
+NAMED_TUPLE_2(directive_team, var/list, uplinks, var/list, data)
+NAMED_TUPLE_1(directive_special_action, var, action_name)
+
+/datum/directive_team/proc/grant_reward(amount)
+	for (var/datum/component/uplink/uplink in uplinks)
+		uplink.telecrystals += amount
+	send_message("[amount] telecrystals have been deposited into your uplink.")
+
+/datum/directive_team/proc/send_message(message)
+	for (var/datum/component/uplink/uplink in uplinks)
+		var/syndicate_antag = FALSE
+		var/mob/living/current = uplink.parent
+		while (current && !istype(current))
+			current = current.loc
+		if (istype(current))
+			for (var/datum/antagonist/antag in current.mind?.antag_datums)
+				syndicate_antag ||= antag.faction == FACTION_SYNDICATE
+		else
+			// Nobody to notify
+			continue
+		// If we are not held by a syndicate, and we are locked then do not give a notification
+		if (!syndicate_antag && uplink.locked)
+			continue
+		to_chat(current, "<span class='traitor_objective'>[uppertext(message)].</span>")
+		SEND_SOUND(current, sound('sound/machines/twobeep_high.ogg', volume = 50))
 
 /// This can only be running once at a time, do not run in parallel
 /datum/priority_directive
@@ -24,9 +47,11 @@ NAMED_TUPLE_1(directive_special_action,, action_name)
 /// Allocate teams for this directive. Call reject() to reject this directive and
 /// add_antagonist_team to add antagonist teams.
 /datum/priority_directive/proc/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
+	PROTECTED_PROC(TRUE)
 
 /// Return the reward type and amount
 /datum/priority_directive/proc/_generate(list/teams)
+	PROTECTED_PROC(TRUE)
 
 /// Get the tracking target of this atom
 /datum/priority_directive/proc/get_track_atom()
@@ -62,14 +87,17 @@ NAMED_TUPLE_1(directive_special_action,, action_name)
 
 /// Advertise this directive to security objectives consoles
 /datum/priority_directive/proc/advertise_security()
+	PROTECTED_PROC(TRUE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 /datum/priority_directive/proc/add_antagonist_team(list/uplinks, list/data = null)
 	SHOULD_NOT_OVERRIDE(TRUE)
+	PROTECTED_PROC(TRUE)
 	teams += new /datum/directive_team(uplinks, islist(data) ? data : list())
 
 /// Reject this directive, prevent it from firing
 /datum/priority_directive/proc/reject()
+	PROTECTED_PROC(TRUE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	rejected = TRUE
 
@@ -109,3 +137,23 @@ NAMED_TUPLE_1(directive_special_action,, action_name)
 
 /datum/priority_directive/proc/get_details(datum/component/uplink)
 	return details
+
+/datum/priority_directive/proc/mission_update(message)
+	PROTECTED_PROC(TRUE)
+	for (var/datum/component/uplink/uplink in GLOB.uplinks)
+		var/syndicate_antag = FALSE
+		var/mob/living/current = uplink.parent
+		while (current && !istype(current))
+			current = current.loc
+		if (istype(current))
+			for (var/datum/antagonist/antag in current.mind?.antag_datums)
+				syndicate_antag ||= antag.faction == FACTION_SYNDICATE
+		else
+			// Nobody to notify
+			continue
+		// If we are not held by a syndicate, and we are locked then do not give a notification
+		if (!syndicate_antag && uplink.locked)
+			continue
+		to_chat(current, "<span class='traitor_objective'>IMPORTANT MISSION CRITICAL NOTIFICATION: [uppertext(message)]</span>")
+		SEND_SOUND(current, sound('sound/machines/twobeep_high.ogg', volume = 50))
+	deadchat_broadcast("<span class='deadsay bold'>Syndicate Mission Update: [message]</span>", follow_target = get_track_atom())

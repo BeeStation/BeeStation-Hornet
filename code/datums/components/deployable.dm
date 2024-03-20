@@ -13,7 +13,7 @@
 	var/empty_icon
 	/// The type that we can use to reload this deployable
 	var/reload_type
-	/// The can deploy check
+	/// The can deploy check. Parameters are user and location, a nullable atom and a turf.
 	var/datum/callback/can_deploy_check = null
 	///	For when consumed is false, is the carrier object currently loaded and ready to deploy its payload item?
 	/// Private as we don't want external modifications to this
@@ -151,6 +151,8 @@
 
 ///Do not call this directly, use try_deploy instead or else deployed items may end up in invalid locations
 /datum/component/deployable/proc/deploy(mob/user, atom/location)
+	if (can_deploy_check && !can_deploy_check.Invoke(user, location))
+		return
 	if (user)
 		item_parent.add_fingerprint(user)
 	if(isnull(deployed_object)) //then this must have saved contents to dump directly instead
@@ -159,7 +161,7 @@
 			if (!QDELETED(item_parent))
 				item_parent.transfer_fingerprints_to(A)
 	else
-		var/atom/R = new deployed_object(location)
+		var/atom/R = new deployed_object(location, user)
 		for(var/atom/movable/A in item_parent.contents)
 			A.forceMove(R)
 			if (!QDELETED(item_parent))
