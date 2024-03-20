@@ -499,12 +499,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
 			return
 
-	. = FALSE
+	move_to_mobhand(user, isturf(user.loc) && get_turf(loc))
+	return
+
+/obj/item/proc/move_to_mobhand(mob/user, turf/animation_turf = null)
 	remove_outline()
 	add_fingerprint(user)
-	if(!user.put_in_active_hand(src, FALSE, isturf(user.loc) && get_turf(loc))) // if you're gonna change this, check '/datum/component/storage/concrete/remove_from_storage'. There is the same code.
+	if(!user.put_in_active_hand(src, FALSE, animation_turf))
 		user.dropItemToGround(src)
-		return TRUE
 
 /obj/item/proc/allow_attack_hand_drop(mob/user)
 	return TRUE

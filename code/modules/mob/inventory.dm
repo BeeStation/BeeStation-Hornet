@@ -170,7 +170,7 @@
 		return FALSE
 	return !held_items[hand_index]
 
-/// * if animation_turf is null or FALSE, it won't do anything.
+/// * if animation_turf is null or FALSE, it won't show anything.
 /// * if animation_turf is given, pickup animation will be made on the turf.
 /// * if animation_turf is TRUE, pickup animation will be made on mob turf. (failsafe)
 /mob/proc/put_in_hand(obj/item/I, hand_index, forced = FALSE, turf/animation_turf = null)
@@ -212,7 +212,7 @@
 	return FALSE
 
 /// Puts the item into our active hand if possible. returns TRUE on success.
-/// * if animation_turf is null or FALSE, it won't do anything.
+/// * if animation_turf is null or FALSE, it won't show anything.
 /// * if animation_turf is given, pickup animation will be made on the turf.
 /// * if animation_turf is TRUE, pickup animation will be made on mob turf. (failsafe)
 /mob/proc/put_in_active_hand(obj/item/I, forced = FALSE, turf/animation_turf = null)
