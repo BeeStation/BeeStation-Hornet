@@ -53,6 +53,7 @@
 			damage = 30
 
 //TODO: Reconsider using this proc - Racc
+//TODO: Consider adding an atmos requirement - Racc
 /obj/projectile/energy/nuclear_particle/scan_moved_turf()
 	. = ..()
 	//TODO: Consider using some fancy math here, or something - Racc
