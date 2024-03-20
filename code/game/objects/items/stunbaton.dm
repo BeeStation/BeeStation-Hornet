@@ -190,7 +190,7 @@
 		target.lastattackerckey = user.ckey
 		target.visible_message("<span class='danger'>[user] has electrocuted [target] with [src]!</span>", \
 								"<span class='userdanger'>[user] has electrocuted you with [src]!</span>")
-		log_combat(user, target, "stunned")
+		log_combat(user, target, "stunned", src)
 
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 

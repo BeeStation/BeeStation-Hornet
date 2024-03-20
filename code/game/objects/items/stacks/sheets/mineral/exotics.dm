@@ -20,9 +20,8 @@ Exotic mineral Sheets
 	merge_type = /obj/item/stack/sheet/mineral/bananium
 	material_type = /datum/material/bananium
 
-/obj/item/stack/sheet/mineral/bananium/get_main_recipes()
-	. = ..()
-	. += GLOB.bananium_recipes
+/obj/item/stack/sheet/mineral/bananium/get_recipes()
+	return GLOB.bananium_recipes
 
 
 /* Adamantine */
@@ -33,12 +32,12 @@ Exotic mineral Sheets
 	item_state = "sheet-adamantine"
 	singular_name = "adamantine sheet"
 	mats_per_unit = list(/datum/material/adamantine=MINERAL_MATERIAL_AMOUNT)
-	merge_type = /obj/item/stack/sheet/mineral/adamantine
 	grind_results = list(/datum/reagent/liquidadamantine = 10)
+	merge_type = /obj/item/stack/sheet/mineral/adamantine
+	material_type = /datum/material/adamantine
 
-/obj/item/stack/sheet/mineral/adamantine/get_main_recipes()
-	. = ..()
-	. += GLOB.adamantine_recipes
+/obj/item/stack/sheet/mineral/adamantine/get_recipes()
+	return GLOB.adamantine_recipes
 
 /* Alien Alloy */
 
@@ -51,6 +50,5 @@ Exotic mineral Sheets
 	sheettype = "abductor"
 	merge_type = /obj/item/stack/sheet/mineral/abductor
 
-/obj/item/stack/sheet/mineral/abductor/get_main_recipes()
-	. = ..()
-	. += GLOB.abductor_recipes
+/obj/item/stack/sheet/mineral/abductor/get_recipes()
+	return GLOB.abductor_recipes
