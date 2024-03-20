@@ -41,6 +41,7 @@ SUBSYSTEM_DEF(directives)
 	next_directive_time = INFINITY
 	active_directive = selected
 
+/*
 /client/verb/force_directive()
 	set name = "force directive"
 	set category = "powerfulbacon"
@@ -60,6 +61,7 @@ SUBSYSTEM_DEF(directives)
 	selected.start(GLOB.uplinks, player_minds)
 	SSdirectives.next_directive_time = INFINITY
 	SSdirectives.active_directive = selected
+*/
 
 /datum/controller/subsystem/directives/proc/get_uplink_data(datum/component/uplink/uplink)
 	var/data = list()
