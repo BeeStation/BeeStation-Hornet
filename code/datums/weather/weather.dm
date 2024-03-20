@@ -155,7 +155,7 @@
 		if(STARTUP_STAGE)
 			if(cached_weather_sprite_start)
 				new_overlay = cached_weather_sprite_start
-				previous_overlay = TRUE
+				previous_overlay = TRUE // temporary value. see below.
 		if(MAIN_STAGE)
 			if(cached_weather_sprite_start)
 				previous_overlay = cached_weather_sprite_start
@@ -169,7 +169,7 @@
 		if(END_STAGE)
 			if(cached_weather_sprite_end)
 				previous_overlay = cached_weather_sprite_end
-				new_overlay = TRUE
+				new_overlay = TRUE // temporary value. see below.
 
 	// we won't iterate all areas unnecesarily
 	if(!previous_overlay && !new_overlay)
