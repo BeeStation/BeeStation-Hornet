@@ -140,7 +140,6 @@
 #define INIT_ORDER_PERSISTENCE		-2 //before assets because some assets take data from SSPersistence
 #define INIT_ORDER_ASSETS			-4
 #define INIT_ORDER_ICON_SMOOTHING	-5
-//#define INIT_ORDER_OVERLAY		-6 // unused but just in case
 #define INIT_ORDER_STAT				-7
 #define INIT_ORDER_XKEYSCORE		-10
 #define INIT_ORDER_STICKY_BAN		-10
@@ -193,7 +192,6 @@
 #define FIRE_PRIORITY_ATMOS_ADJACENCY	300
 #define FIRE_PRIORITY_CHAT			400
 #define FIRE_PRIORITY_RUNECHAT		410
-//#define FIRE_PRIORITY_OVERLAYS	500 // unused but just in case
 #define FIRE_PRIORITY_CALLBACKS		600
 #define FIRE_PRIORITY_EXPLOSIONS	666
 #define FIRE_PRIORITY_PREFERENCES	690
