@@ -6402,8 +6402,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -30254,8 +30253,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -39141,8 +39139,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -40171,7 +40168,6 @@
 	},
 /mob/living/simple_animal/kalo{
 	desc = "The Perma brig's cute grass snake.";
-	icon = 'icons/mob/animal.dmi';
 	icon_dead = "snake_dead";
 	icon_living = "snake";
 	icon_state = "snake";
@@ -44512,14 +44508,7 @@
 	},
 /mob/living/simple_animal/hostile/retaliate/frog{
 	attacked_sound = 'sound/effects/huuu.ogg';
-	density = 0;
 	desc = "How long has it been here? Who knows. What were her crimes? Who knows. But shes tougher than you.";
-	head_icon = 'icons/mob/pets_held.dmi';
-	held_state = "";
-	icon = 'icons/mob/animal.dmi';
-	icon_dead = "frog_dead";
-	icon_living = "frog";
-	icon_state = "frog";
 	name = "Prison Frog";
 	pixel_y = 12;
 	stepped_sound = null
@@ -48462,26 +48451,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
-"pBa" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall/r_wall,
-/area/security/execution/education)
 "pBt" = (
 /obj/structure/transit_tube{
 	dir = 1
@@ -51149,8 +51118,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/command/glass{
 	name = "Command Hall Access";
-	req_one_access_txt = "19;53";
-	security_level = 0
+	req_one_access_txt = "19;53"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -117715,7 +117683,7 @@ anT
 aMT
 anT
 aMT
-pBa
+naL
 xTn
 sSk
 xTn
