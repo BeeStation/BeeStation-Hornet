@@ -48,6 +48,9 @@
 	make_edible()
 	make_processable()
 	make_leave_trash()
+	//make_grillable()
+	//make_decompose(mapload)
+	make_bakeable()
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.
 /obj/item/food/proc/make_edible()
@@ -66,6 +69,12 @@
 
 ///This proc handles processable elements, overwrite this if you want to add behavior such as slicing, forking, spooning, whatever, to turn the item into something else
 /obj/item/food/proc/make_processable()
+	return
+
+///This proc handles bakeable components, overwrite if you want different bake results etc.
+/obj/item/food/proc/make_bakeable()
+	if(burns_in_oven)
+		AddComponent(/datum/component/bakeable, /obj/item/food/badrecipe, rand(25 SECONDS, 40 SECONDS), FALSE)
 	return
 
 ///This proc handles trash components, overwrite this if you want the object to spawn trash
