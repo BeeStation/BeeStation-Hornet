@@ -46254,10 +46254,6 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
-"oOI" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space/nearstation)
 "oOL" = (
 /obj/machinery/vending/clothing{
 	pixel_x = -4
@@ -67675,6 +67671,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/holopad,
+/obj/effect/turf_decal/box,
 /turf/open/floor/plasteel/white,
 /area/security/brig/medbay)
 "vNh" = (
@@ -74519,7 +74516,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
-/obj/effect/turf_decal/box,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -114353,7 +114349,7 @@ aMT
 aMT
 oep
 qBt
-oOI
+qBt
 aMT
 aMT
 aMT
@@ -114610,7 +114606,7 @@ aMT
 aMT
 oep
 aMT
-oOI
+qBt
 aMT
 aMT
 aMT
