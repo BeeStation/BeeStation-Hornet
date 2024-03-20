@@ -1,0 +1,4 @@
+author: XeonMations
+delete-after: true
+changes:
+  - rscadd: Radstation now has a library scanner in its library.
