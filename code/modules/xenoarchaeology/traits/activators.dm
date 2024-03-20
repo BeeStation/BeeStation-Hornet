@@ -199,12 +199,6 @@
 	//Indicator hint
 	indicator_hint()
 
-/datum/xenoartifact_trait/activator/flammable/translation_type_d(datum/source, atom/target)
-	var/atom/A = parent.parent
-	if(A.density)
-		lit = FALSE
-		indicator_hint()
-
 /datum/xenoartifact_trait/activator/flammable/translation_type_b(datum/source, atom/item, atom/target)
 	var/obj/item/I = item
 	if(isitem(I) && I.is_hot() && !check_item_safety(item))
@@ -217,6 +211,12 @@
 		search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 		START_PROCESSING(SSobj, src)
 
+/datum/xenoartifact_trait/activator/flammable/translation_type_d(datum/source, atom/target)
+	var/atom/A = parent?.parent
+	if(A?.density)
+		lit = FALSE
+		indicator_hint()
+
 /datum/xenoartifact_trait/activator/flammable/process(delta_time)
 	if(!lit)
 		return ..()
@@ -227,12 +227,9 @@
 		if(!ismob(target))
 			continue
 		trigger_artifact(target)
+		lit = FALSE
+		indicator_hint()
 		break
-	//We can atleast try triggering with no targets, for traits that don't need 'em
-	if(!length(parent.targets))
-		parent.trigger()
-	lit = FALSE //This is a semi-weird way to do it, but it lets us 'disable' the fuse if we want
-	indicator_hint()
 	search_cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_timer)), search_cooldown, TIMER_STOPPABLE)
 
 /datum/xenoartifact_trait/activator/flammable/get_dictionary_hint()
@@ -246,7 +243,7 @@
 
 /datum/xenoartifact_trait/activator/flammable/proc/indicator_hint(engaging = FALSE)
 	var/atom/A = parent?.parent
-	A?.balloon_alert_to_viewers("[A] [engaging ? "snuffs out." : "flicks on"]!")
+	A?.balloon_alert_to_viewers("[A] [engaging ? "flicks on" : "snuffs out."]!")
 
 /*
 	Signal
@@ -533,6 +530,7 @@
 	This trait activates the artifact when it is eaten
 */
 /datum/xenoartifact_trait/activator/edible
+	material_desc = "edible"
 	label_name = "Edible"
 	label_desc = "Edible: The artifact seems to be made of an edible material. This material seems to be triggered by being consumed."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
