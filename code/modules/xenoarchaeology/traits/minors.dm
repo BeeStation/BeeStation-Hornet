@@ -969,3 +969,49 @@
 		L.dropItemToGround(AM)
 	//Get the fuck outta dodge
 	AM.throw_at(T, max_force*(parent.trait_strength/100), 4)
+
+/*
+	Sticky
+	The artifact briefly becomes sticky when activated
+*/
+/datum/xenoartifact_trait/minor/sticky
+	material_desc = "sticky"
+	label_name = "Sticky"
+	label_desc = "Sticky: The artifact's design seems to incorporate sticky elements. This will cause the artifact to briefly become sticky, when triggered."
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
+	weight = 10
+	conductivity = 15
+	///Max amount of time we can be sticky for
+	var/sticky_time = 25 SECONDS
+	var/sticky_timer
+
+/datum/xenoartifact_trait/minor/sticky/Destroy(force, ...)
+	. = ..()
+	var/atom/movable/AM = parent?.parent
+	if(!AM)
+		return
+	REMOVE_TRAIT(AM, TRAIT_NODROP, src)
+	deltimer(sticky_timer)
+
+/datum/xenoartifact_trait/minor/sticky/trigger(datum/source, _priority, atom/override)
+	. = ..()
+	if(!.)
+		return
+	var/atom/movable/AM = parent.parent
+	AM.visible_message("<span class='warning'>[AM] starts secreting a sticky substance!</span>", TRUE, allow_inside_usr = TRUE)
+	if(HAS_TRAIT_FROM(AM, TRAIT_NODROP, "[REF(src)]"))
+		return
+	ADD_TRAIT(AM, TRAIT_NODROP, "[REF(src)]")
+	sticky_timer = addtimer(CALLBACK(src, PROC_REF(unstick)), sticky_time, TIMER_STOPPABLE)
+
+/datum/xenoartifact_trait/minor/sticky/proc/unstick()
+	var/atom/movable/AM = parent.parent
+	REMOVE_TRAIT(AM, TRAIT_NODROP, "[REF(src)]")
+
+/*
+	TODO: - Racc
+	Stalking
+	make the artifact stalk people and walk over to them constantly
+*/
