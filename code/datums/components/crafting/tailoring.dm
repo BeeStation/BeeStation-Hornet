@@ -351,3 +351,84 @@
 	reqs = list(/obj/item/food/grown/flower/lily = 3,
 				/obj/item/stack/cable_coil = 3)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/prescriptionmonocle
+	name = "prescription monocle"
+	result = /obj/item/clothing/glasses/monocle/prescription
+	time = 20
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/monocle = 1,
+				/obj/item/clothing/glasses/regular/ = 1,
+	category = CAT_EYEWEAR
+
+/datum/crafting_recipe/prescriptionjamjar
+	name = "prescription jamjar glasses"
+	result = /obj/item/clothing/glasses/regular/jamjar/prescription
+	time = 20
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/regular/jamjar = 1,
+				/obj/item/clothing/glasses/regular/ = 1,
+	category = CAT_EYEWEAR
+
+/datum/crafting_recipe/prescriptionhipster
+	name = "prescription hipster glasses"
+	result = /obj/item/clothing/glasses/regular/hipster/prescription
+	time = 20
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/regular/hipster = 1,
+				/obj/item/clothing/glasses/regular/ = 1,
+	category = CAT_EYEWEAR
+
+/datum/crafting_recipe/prescriptioncircle
+	name = "prescription circle glasses"
+	result = /obj/item/clothing/glasses/regular/circle/prescription
+	time = 20
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/regular/circle = 1,
+				/obj/item/clothing/glasses/regular/ = 1,
+	category = CAT_EYEWEAR
+
+/datum/crafting_recipe/prescriptionsun
+	name = "prescription sunglasses"
+	result = /obj/item/clothing/glasses/sunglasses/prescription
+	time = 20
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/clothing/glasses/regular/ = 1,
+	category = CAT_EYEWEAR
+
+/datum/crafting_recipe/prescriptioncold
+	name = "prescription cold goggles"
+	result = /obj/item/clothing/glasses/cold/prescription
+	time = 20
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/cold = 1,
+				/obj/item/clothing/glasses/regular/ = 1,
+	category = CAT_EYEWEAR
+
+/datum/crafting_recipe/prescriptionheat
+	name = "prescription heat goggles"
+	result = /obj/item/clothing/glasses/heat/prescription
+	time = 20
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/heat = 1,
+				/obj/item/clothing/glasses/regular/ = 1,
+	category = CAT_EYEWEAR
+
+/datum/crafting_recipe/prescriptionorange
+	name = "prescription orange glasses"
+	result = /obj/item/clothing/glasses/orange/prescription
+	time = 20
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/orange = 1,
+				/obj/item/clothing/glasses/regular/ = 1,
+	category = CAT_EYEWEAR
+
+/datum/crafting_recipe/prescriptionred
+	name = "prescription red glasses"
+	result = /obj/item/clothing/glasses/red/prescription
+	time = 20
+	tools = list(TOOL_SCREWDRIVER)
+	reqs = list(/obj/item/clothing/glasses/red = 1,
+				/obj/item/clothing/glasses/regular/ = 1,
+	category = CAT_EYEWEAR
