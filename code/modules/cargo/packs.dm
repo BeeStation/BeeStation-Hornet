@@ -717,7 +717,7 @@
 					/obj/item/survivalcapsule/barricade)
 	cost = 2000
 	crate_name = "security barriers crate XL"
-	
+
 /datum/supply_pack/security/armory/capsule_checkpoints
 	name = "Security Checkpoint capsules"
 	desc = "A 3x3 checkpoint designed for allowing safely searching passing personnel. Requires Security access to open."
@@ -1932,8 +1932,8 @@
 					/obj/item/assembly/prox_sensor,
 					/obj/item/storage/firstaid,
 					/obj/item/storage/firstaid,
-					/obj/item/healthanalyzer,
-					/obj/item/healthanalyzer,
+					/obj/item/assembly/health,
+					/obj/item/assembly/health,
 					/obj/item/clothing/head/hardhat/red,
 					/obj/item/clothing/head/hardhat/red,
 					/obj/item/storage/toolbox/mechanical,
