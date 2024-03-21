@@ -53,10 +53,14 @@
 	return I.attack(src, user)
 
 
-/obj/item/proc/attack(mob/living/M, mob/living/user)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user) & COMPONENT_ITEM_NO_ATTACK)
+/obj/item/proc/attack(mob/living/M, mob/living/user, params)
+	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user, params)
+	if(signal_return & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+	if(signal_return & COMPONENT_SKIP_ATTACK)
 		return
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
+
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user, params)
 	SEND_SIGNAL(M, COMSIG_MOB_ITEM_ATTACKBY, user, src)
 
 	var/nonharmfulhit = FALSE
@@ -126,17 +130,17 @@
 
 /mob/living/attacked_by(obj/item/I, mob/living/user)
 	send_item_attack_message(I, user)
-	if(I.force)
-		var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
-		apply_damage(I.force, I.damtype, blocked = armour_block)
-		if(I.damtype == BRUTE)
-			if(prob(33))
-				I.add_mob_blood(src)
-				var/turf/location = get_turf(src)
-				add_splatter_floor(location)
-				if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
-					user.add_mob_blood(src)
-		return TRUE //successful attack
+	if(!I.force)
+		return FALSE
+	var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
+	apply_damage(I.force, I.damtype, blocked = armour_block)
+	if(I.damtype == BRUTE && prob(33))
+		I.add_mob_blood(src)
+		var/turf/location = get_turf(src)
+		add_splatter_floor(location)
+		if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
+			user.add_mob_blood(src)
+	return TRUE //successful attack
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user, nonharmfulhit = FALSE)
 	if(I.force < force_threshold || I.damtype == STAMINA || nonharmfulhit)
