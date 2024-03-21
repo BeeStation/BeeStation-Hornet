@@ -580,6 +580,7 @@
 	desc = "Hey, you're looking good, senpai! These have been fitted with prescription grade lenses."
 	icon_state = "redglasses"
 	item_state = "redglasses"
+	vision_correction = 1
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
 /obj/item/clothing/glasses/godeye
