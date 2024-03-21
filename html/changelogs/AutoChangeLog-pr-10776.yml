@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: plumbing grinder no longer grinds ungrindable pills (i.e. floorpills)
