@@ -537,18 +537,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return TRUE
 	return FALSE
 
-/// returns a turf that isn't holy from the list
-/proc/get_non_holy_tile_from_list(list/turf_list)
-	if(!length(turf_list))
-		CRASH("No turf list has been given")
-	var/list/copied_turf_list = turf_list.Copy()
-	var/turf/found_tile
-	do
-		found_tile = get_turf(pick_n_take(copied_turf_list))
-	while(found_tile.is_holy() && length(copied_turf_list))
-
-	return found_tile
-
 ///Add our relevant floor texture, if we can / need
 /turf/proc/add_turf_texture(list/textures, force)
 	if(!length(textures) || length(contents) && (locate(/obj/effect/decal/cleanable/dirt) in contents || locate(/obj/effect/decal/cleanable/dirt) in vis_contents))
