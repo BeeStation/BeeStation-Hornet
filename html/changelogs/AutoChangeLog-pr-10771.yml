@@ -1,4 +1,0 @@
-author: Miliviu
-delete-after: true
-changes:
-  - bugfix: Explosion Size is now saved in Supply Pods presets
