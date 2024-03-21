@@ -358,7 +358,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/glasses/monocle = 1,
-				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/clothing/glasses/regular/ = 1)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/prescriptionjamjar
@@ -367,7 +367,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/glasses/regular/jamjar = 1,
-				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/clothing/glasses/regular/ = 1)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/prescriptionhipster
@@ -376,7 +376,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/glasses/regular/hipster = 1,
-				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/clothing/glasses/regular/ = 1)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/prescriptioncircle
@@ -385,7 +385,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/glasses/regular/circle = 1,
-				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/clothing/glasses/regular/ = 1)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/prescriptionsun
@@ -394,7 +394,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/glasses/sunglasses = 1,
-				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/clothing/glasses/regular/ = 1)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/prescriptioncold
@@ -403,7 +403,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/glasses/cold = 1,
-				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/clothing/glasses/regular/ = 1)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/prescriptionheat
@@ -412,7 +412,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/glasses/heat = 1,
-				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/clothing/glasses/regular/ = 1)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/prescriptionorange
@@ -421,7 +421,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/glasses/orange = 1,
-				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/clothing/glasses/regular/ = 1)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/prescriptionred
@@ -430,5 +430,5 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/glasses/red = 1,
-				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/clothing/glasses/regular/ = 1)
 	category = CAT_EYEWEAR
