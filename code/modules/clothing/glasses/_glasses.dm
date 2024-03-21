@@ -196,6 +196,13 @@
 	icon_state = "monocle"
 	item_state = "headset" // lol
 
+/obj/item/clothing/glasses/monocle/prescription
+	name = "prescription monocle"
+	desc = "Such a dapper eyepiece! It has been fitted with a prescription grade lens"
+	icon_state = "monocle"
+	item_state = "headset"
+	vision_correction = 1
+
 /obj/item/clothing/glasses/material
 	name = "optical material scanner"
 	desc = "Very confusing glasses."
@@ -237,17 +244,38 @@
 	icon_state = "jamjar_glasses"
 	item_state = "jamjar_glasses"
 
+/obj/item/clothing/glasses/regular/jamjar/prescription
+	name = "prescription jamjar glasses"
+	desc = "Also known as Virginity Protectors. These have been fitted with prescription grade lenses."
+	icon_state = "jamjar_glasses"
+	item_state = "jamjar_glasses"
+	vision_correction = 1
+
 /obj/item/clothing/glasses/regular/hipster
-	name = "prescription glasses"
+	name = "hipster glasses"
 	desc = "Made by Uncool. Co."
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
+
+/obj/item/clothing/glasses/regular/hipster/prescription
+	name = "prescription hipster glasses"
+	desc = "Made by Uncool. Co. These have been fitted with prescription grade lenses."
+	icon_state = "hipster_glasses"
+	item_state = "hipster_glasses"
+	vision_correction = 1
 
 /obj/item/clothing/glasses/regular/circle
 	name = "circle glasses"
 	desc = "Why would you wear something so controversial yet so brave?"
 	icon_state = "circle_glasses"
 	item_state = "circle_glasses"
+
+/obj/item/clothing/glasses/regular/circle/prescription
+	name = "prescription circle glasses"
+	desc = "Why would you wear something so controversial yet so brave? These have been fitted with prescription grade lenses."
+	icon_state = "circle_glasses"
+	item_state = "circle_glasses"
+	vision_correction = 1
 
 //Here lies green glasses, so ugly they died. RIP
 
@@ -258,6 +286,17 @@
 	item_state = "sunglasses"
 	darkness_view = 1
 	tint = 1
+	glass_colour_type = /datum/client_colour/glass_colour/gray
+	dog_fashion = /datum/dog_fashion/head
+
+/obj/item/clothing/glasses/sunglasses/prescription
+	name = "prescription sunglasses"
+	desc = "Strangely ancient technology used to help provide rudimentary eye cover, these have been fitted with prescription grade lenses. They do not provide flash protection."
+	icon_state = "sun"
+	item_state = "sunglasses"
+	darkness_view = 1
+	tint = 1
+	vision_correction = 1
 	glass_colour_type = /datum/client_colour/glass_colour/gray
 	dog_fashion = /datum/dog_fashion/head
 
@@ -494,11 +533,25 @@
 	icon_state = "cold"
 	item_state = "cold"
 
+/obj/item/clothing/glasses/cold/prescription
+	name = "prescription cold goggles"
+	desc = "A pair of goggles meant for low temperatures. These have been fitted with prescription grade lenses."
+	icon_state = "cold"
+	item_state = "cold"
+	vision_correction = 1
+
 /obj/item/clothing/glasses/heat
 	name = "heat goggles"
 	desc = "A pair of goggles meant for high temperatures."
 	icon_state = "heat"
 	item_state = "heat"
+
+/obj/item/clothing/glasses/heat/prescription
+	name = "prescription heat goggles"
+	desc = "A pair of goggles meant for high temperatures. These have been fitted with prescription grade lenses."
+	icon_state = "heat"
+	item_state = "heat"
+	vision_correction = 1
 
 /obj/item/clothing/glasses/orange
 	name = "orange glasses"
@@ -507,11 +560,27 @@
 	item_state = "orangeglasses"
 	glass_colour_type = /datum/client_colour/glass_colour/lightorange
 
+/obj/item/clothing/glasses/orange/prescription
+	name = "prescription orange glasses"
+	desc = "A sweet pair of orange shades. These have been fitted with prescription grade lenses."
+	icon_state = "orangeglasses"
+	item_state = "orangeglasses"
+	vision_correction = 1
+	glass_colour_type = /datum/client_colour/glass_colour/lightorange
+
 /obj/item/clothing/glasses/red
 	name = "red glasses"
 	desc = "Hey, you're looking good, senpai!"
 	icon_state = "redglasses"
 	item_state = "redglasses"
+	glass_colour_type = /datum/client_colour/glass_colour/red
+
+/obj/item/clothing/glasses/red/prescription
+	name = "prescription red glasses"
+	desc = "Hey, you're looking good, senpai! These have been fitted with prescription grade lenses."
+	icon_state = "redglasses"
+	item_state = "redglasses"
+	vision_correction = 1
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
 /obj/item/clothing/glasses/godeye
