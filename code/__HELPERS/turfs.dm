@@ -424,4 +424,6 @@ Turf and target are separate in case you want to teleport some distance from a t
 		found_tile = get_turf(pick_n_take(copied_turf_list))
 	while(found_tile.is_holy() && length(copied_turf_list))
 
+	if(found_tile.is_holy()) // we found no valid tile at all
+		return
 	return found_tile
