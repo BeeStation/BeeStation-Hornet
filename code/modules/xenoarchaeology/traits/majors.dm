@@ -241,7 +241,10 @@
 	//Restore every swap holder
 	for(var/mob/living/target in focus)
 		var/obj/shapeshift_holder/H = (locate(/obj/shapeshift_holder) in target) || istype(target.loc, /obj/shapeshift_holder) ? target.loc : null
+		if(!istype(H))
+			continue
 		H?.restore(FALSE, FALSE)
+		//TODO: Bug with killed animals not knocking down target - Racc
 		target.Knockdown(2 SECONDS)
 		REMOVE_TRAIT(target, TRAIT_NOBREATH, TRAIT_GENERIC)
 	return ..()
@@ -255,7 +258,7 @@
 	if(!istype(target))
 		return
 	//Check for a mob swap holder, and deny the transform if we find one
-	var/obj/shapeshift_holder/H = (locate(/obj/shapeshift_holder) in target) || istype(target.loc, /obj/shapeshift_holder) ? target.loc : null
+	var/obj/shapeshift_holder/no_damage/H = (locate(/obj/shapeshift_holder/no_damage) in target) || istype(target.loc, /obj/shapeshift_holder/no_damage) ? target.loc : null
 	if(H)
 		playsound(get_turf(target), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
@@ -263,7 +266,7 @@
 	//Setup the animal
 	var/mob/new_animal = new choosen_animal(target.loc)
 	//Swap holder
-	H = new(new_animal, src, target)
+	H = new(new_animal, src, target, FALSE)
 	RegisterSignal(new_animal, COMSIG_MOB_DEATH, PROC_REF(un_trigger))
 	return new_animal
 
@@ -443,10 +446,71 @@
 	desc = "An impenetrable artifact wall."
 
 /*
-	Healing
-	TODO: Consider re-designing this - Racc
+	* This is a replacement for healing
+	Exchanging
+	Swaps the damage of the last two targets
 */
-//datum/xenoartifact_trait/major/heal
+/datum/xenoartifact_trait/major/exchange
+	label_name = "Exchanging"
+	label_desc = "Exchanging: The artifact seems to contain exchanging components. Triggering these components will exchange the damage of the last two targets."
+	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	conductivity = 9
+	weight = 12
+	///How long until the window for exchange closes
+	var/exchange_window = 8 SECONDS
+
+/datum/xenoartifact_trait/major/exchange/trigger(datum/source, _priority, atom/override)
+	//Collect some targets
+	. = ..()
+	if(!.)
+		return
+	var/atom/A = parent.parent
+	var/final_time = exchange_window*(parent.trait_strength/100)
+	for(var/mob/living/target in focus)
+		//Build exchange hint
+		if(!A.render_target)
+			A.render_target = "[REF(A)]" //TODO: Make sure this is proper - Racc
+		target.add_filter("exchange_overlay", 100, layering_filter(render_source = A.render_target))
+		//Animate it
+		var/filter = target.get_filter("exchange_overlay")
+		if(filter)
+			animate(filter, color = "#00000000", time = final_time)
+		//Timer to undo
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/xenoartifact_trait, un_trigger), target), final_time)
+	clear_focus()
+	//Run targets
+	var/mob/living/victim_a
+	var/mob/living/victim_b
+	for(var/mob/living/target in targets)
+		if(!victim_a)
+			victim_a = target
+			continue
+		if(!victim_b)
+			victim_b = target
+		//swap damage
+		//TODO: make this work - Racc
+		var/brute_holder = victim_a.getBruteLoss()
+		victim_a.bruteloss = victim_b.getBruteLoss()
+		victim_a.updatehealth()
+		victim_b.bruteloss = brute_holder
+		victim_b.updatehealth()
+		//Remove filters
+		victim_a.remove_filter("exchange_overlay")
+		victim_b.remove_filter("exchange_overlay")
+		//Reset holders
+		unregister_target(victim_a)
+		unregister_target(victim_b)
+		victim_a = null
+		victim_b = null
+
+/datum/xenoartifact_trait/major/exchange/un_trigger(atom/override, handle_parent = FALSE)
+	focus = override ? list(override) : targets
+	if(!length(focus))
+		return ..()
+	for(var/mob/living/target in focus)
+		target.remove_filter("exchange_overlay")
+	return ..()
 
 /*
 	Hypodermic
@@ -466,7 +530,7 @@
 
 /datum/xenoartifact_trait/major/chem/New(atom/_parent)
 	. = ..()
-	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
+	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL) //TODO: Consider making a fun version - Racc
 	formula_amount = (initial(formula.overdose_threshold) || generic_amount) - 1
 
 /datum/xenoartifact_trait/major/chem/trigger(datum/source, _priority, atom/override)

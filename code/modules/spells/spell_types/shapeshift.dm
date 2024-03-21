@@ -173,6 +173,14 @@
 		qdel(shape)
 	qdel(src)
 
+//Fuck off fuck you
+/obj/shapeshift_holder/no_damage
+
+/obj/shapeshift_holder/no_damage/restore(death=FALSE, convert_damage = FALSE)
+	convert_damage = FALSE //Bruh
+	death = FALSE
+	. = ..()
+
 /datum/soullink/shapeshift
 	var/obj/shapeshift_holder/source
 
