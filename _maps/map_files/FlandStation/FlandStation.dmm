@@ -1171,6 +1171,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"aqu" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/surgery)
 "aqA" = (
 /obj/machinery/light/small,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
@@ -12004,6 +12010,9 @@
 "daR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -57334,9 +57343,6 @@
 /obj/structure/sign/warning/nosmoking{
 	pixel_x = -30
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/medical/surgery)
@@ -72516,12 +72522,11 @@
 /turf/open/floor/noslip/standard,
 /area/crew_quarters/fitness/recreation)
 "syg" = (
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+/obj/machinery/bioscanner,
+/obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark/airless,
 /area/medical/surgery)
 "syr" = (
 /obj/effect/decal/cleanable/dirt,
@@ -89167,7 +89172,7 @@
 /area/maintenance/port)
 "wxi" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
+	dir = 6
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -94628,12 +94633,14 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "xEa" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -125125,7 +125132,7 @@ wLJ
 fEu
 xLt
 wxi
-xLt
+aqu
 nKj
 ikF
 hlX

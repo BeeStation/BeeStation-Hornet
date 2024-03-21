@@ -5811,9 +5811,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/structure/bed/roller,
-/obj/item/bedsheet/medical,
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/sleeper)
 "bUx" = (

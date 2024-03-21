@@ -55303,6 +55303,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "thW" = (

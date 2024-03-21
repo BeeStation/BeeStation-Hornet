@@ -29517,6 +29517,7 @@
 	},
 /obj/machinery/iv_drip,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "jtW" = (
@@ -30921,8 +30922,8 @@
 /obj/machinery/light_switch{
 	pixel_x = -25
 	},
-/obj/structure/closet/crate/freezer/blood,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/machinery/bioscanner,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "jSK" = (
