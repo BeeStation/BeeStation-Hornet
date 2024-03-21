@@ -95,6 +95,9 @@
 
 	var/special_process = FALSE
 
+	///set it TRUE if "health" is not relable to this simple mob.
+	var/do_not_show_health_on_stat_panel
+
 	//Discovery
 	var/discovery_points = 200
 
@@ -339,6 +342,9 @@
 	add_movespeed_modifier(MOVESPEED_ID_SIMPLEMOB_VARSPEED, TRUE, 100, multiplicative_slowdown = speed, override = TRUE)
 
 /mob/living/simple_animal/get_stat_tab_status()
+	if(do_not_show_health_on_stat_panel)
+		return ..()
+
 	var/list/tab_data = ..()
 	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
 	return tab_data
