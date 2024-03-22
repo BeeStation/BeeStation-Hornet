@@ -110,13 +110,13 @@
 		else
 			team.send_message("Warning, a beacon has been planted on an opposing team's channel.<br /><font color='red'>You will fail if you don't change the beacon's frequency to [uplink_beacon_channel_to_color(channel)]!</font>")
 
-/datum/priority_directive/deploy_beacon/proc/beacon_colour_update(old_colour, colour, time_left)
-	if (old_colour == colour)
+/datum/priority_directive/deploy_beacon/proc/beacon_colour_update(old_channel, channel, time_left)
+	if (old_channel == channel)
 		return
 	for (var/datum/directive_team/team in teams)
 		if (team.data["code"] == channel)
 			team.send_message("The beacon is now broadcasting on your team's channel. Maintain the beacon for [DisplayTimeText(time_left)] to succeed.")
-		else
+		else if (old_channel == team.data["code"])
 			team.send_message("Warning, the beacon is now broadcasting on another team's channel.<br /><font color='red'>You will fail if you don't change the beacon's frequency to [uplink_beacon_channel_to_color(channel)] in [DisplayTimeText(time_left)]!</font>")
 
 /datum/priority_directive/deploy_beacon/proc/complete(channel)
