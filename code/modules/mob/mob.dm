@@ -495,10 +495,11 @@
 		for(var/mob/M as anything in viewers(4, usr))
 			if(!M.client)
 				continue
+
 			if(M in can_see_target)
-				to_chat(M, "<span class='subtle'>\The [usr] looks at \the [A]</span>")
+				to_chat(M, "<span class='srt_info subtle'>\The [usr] looks at \the [A]</span>")
 			else
-				to_chat(M, "<span class='subtle'>\The [usr] intently looks at something...</span>")
+				to_chat(M, "<span class='srt_info subtle'>\The [usr] intently looks at something...</span>")
 
 	face_atom(A)
 	var/list/result = A.examine(src)

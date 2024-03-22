@@ -66,7 +66,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_INFO,
     name: 'Info',
     description: 'Non-urgent messages from the game and items',
-    selector: '.srt_info, .notice:not(.pm), .adminnotice, .info, .subtle',
+    selector: '.srt_info, .notice:not(.pm), .adminnotice, .info',
   },
   {
     type: MESSAGE_TYPE_WARNING,
