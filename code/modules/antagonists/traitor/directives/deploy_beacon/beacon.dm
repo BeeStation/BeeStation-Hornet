@@ -93,7 +93,7 @@
 
 /obj/structure/uplink_beacon/ui_interact(mob/user, datum/tgui/ui)
 	// You must be something to interact with this
-	if (!user.mind.has_antag_datum(/datum/antagonist))
+	if (!user.mind || !user.mind.has_antag_datum(/datum/antagonist))
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

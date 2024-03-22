@@ -3,7 +3,7 @@
 	objective_explanation = "Secure a trackable lockbox which will unlock after 10 minutes."
 	details = "We have identified a deaddrop that has been placed by a rival spy agency and have maintained an accurate track on the box. \
 		You have the option to track and secure the valuable items before anyone else gets to them. The items are stored in a trackable \
-		box which will automatically unlock after a set period of time."
+		box which will automatically unlock after a set period of time. The items have been hidden in a bag underneath the floor tiles."
 	last_for = 6 MINUTES
 	var/obj/item/storage/deaddrop_box/target
 
