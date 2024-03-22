@@ -74,8 +74,8 @@
 		return PROCESS_KILL
 	if (time_left <= 0)
 		// Complete the mission
-		beacon.complete(current_frequency)
 		establish_connection()
+		beacon.complete(current_frequency)
 		return PROCESS_KILL
 	time_left -= delta_time * 1 SECONDS
 	beacon.update_time(time_left)
