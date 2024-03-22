@@ -1,9 +1,9 @@
 /obj/machinery/vending/sticker
 	name = "\improper Sticker Vendor"
-	desc = "It's not gacha, it's surprise mechanics!"
+	desc = "Surprise mechanics!"
 	product_ads = "Stick with me!;Be sure to stick around.;Stick to it."
-	icon_state = "dinnerware"
-	light_color = LIGHT_COLOR_BLUEGREEN
+	icon_state = "gacha"
+	light_color = LIGHT_COLOR_CYAN
 	products = list(/obj/item/sticker_gacha/series_1 = 15)
 	contraband = list(/obj/item/knife/butcher = 1)
 	refill_canister = /obj/item/vending_refill/sticker
