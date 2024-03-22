@@ -99,17 +99,20 @@
 		return
 	deployed_beacon = null
 	end_at = world.time + 2 MINUTES
+	can_timeout = TRUE
 	mission_update("Beacon destroyed. Two minutes on the mission remain to re-establish connection.")
 
 /datum/priority_directive/deploy_beacon/proc/on_beacon_planted(team_colour)
 	mission_update("A broadcasting signal has been detected on the [team_colour] channel and will establish connection in 180 seconds if uninterupted. The beacon's position and \
 		time left can be tracked via the uplink.")
+	can_timeout = FALSE
 
 /datum/priority_directive/deploy_beacon/proc/beacon_colour_update(colour, time_left)
 	mission_update("Beacon is now broadcasting on the [colour] channel. [DisplayTimeText(time_left)] until connection is established.")
 
 /datum/priority_directive/deploy_beacon/proc/complete(channel)
 	deployed_beacon = null
+	finish()
 	for (var/datum/directive_team/team in teams)
 		if (team.data["code"] == channel)
 			team.send_message("Beacon communication successfully established on the [uplink_beacon_channel_to_color(channel)] channel.")

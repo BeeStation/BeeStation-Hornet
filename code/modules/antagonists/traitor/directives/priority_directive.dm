@@ -33,6 +33,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	var/end_at
 	var/rejected = FALSE
 	var/tc_reward
+	var/can_timeout = TRUE
 	VAR_PRIVATE/list/teams = list()
 
 /datum/priority_directive/New()
@@ -43,6 +44,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	teams.Cut()
 	rejected = FALSE
+	can_timeout = TRUE
 	_allocate_teams(uplinks, player_minds, force)
 	return !rejected
 
@@ -66,8 +68,14 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 /datum/priority_directive/proc/is_completed()
 	return FALSE
 
+/datum/priority_directive/proc/is_timed_out()
+	SHOULD_NOT_OVERRIDE(TRUE)
+	return can_timeout && (world.time > end_at)
+
 /datum/priority_directive/proc/finish()
+	SHOULD_CALL_PARENT(TRUE)
 	SSdirectives.active_directive = null
+	SSdirectives.next_directive_time = world.time + rand(10 MINUTES, 15 MINUTES)
 
 /// Activate the directive, requires a list of traitor datums and security minsd
 /datum/priority_directive/proc/start(list/uplinks, list/player_minds)

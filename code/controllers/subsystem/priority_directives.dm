@@ -14,9 +14,8 @@ SUBSYSTEM_DEF(directives)
 /datum/controller/subsystem/directives/fire(resumed)
 	if (active_directive)
 		// Are we completed or ended?
-		if (active_directive.is_completed() || world.time > active_directive.end_at)
+		if (active_directive.is_completed() || active_directive.is_timed_out())
 			active_directive.finish()
-			next_directive_time = world.time + rand(10 MINUTES, 15 MINUTES)
 		return
 	// Check if we are ready to spawn our next active_directive
 	if (world.time < next_directive_time)
