@@ -115,7 +115,7 @@
 	if (new_num < 0 || new_num > 8)
 		return FALSE
 	if (spam_cooldown > world.time)
-		to_chat(usr, "<span class='warning'>[src] needs another [DisplayTimeText(spam_cooldown)] before it can change frequency!</span>")
+		to_chat(usr, "<span class='warning'>[src] needs another [DisplayTimeText(spam_cooldown - world.time)] before it can change frequency!</span>")
 		return FALSE
 	spam_cooldown = world.time + 10 SECONDS
 	update_frequency(new_num)
