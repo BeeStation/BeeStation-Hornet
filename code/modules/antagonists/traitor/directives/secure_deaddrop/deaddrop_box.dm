@@ -2,9 +2,12 @@
 /obj/item/storage/deaddrop_box
 	name = "secured box"
 	desc = "A secure box that probably contains a variety of items the \
-		average crewmember probably wouldn't want around the station."
+		average crewmember probably wouldn't want around the station. It is \
+		exceptionally heavy and hard to carry around."
 	icon_state = "safe"
-	w_class = WEIGHT_CLASS_NORMAL
+	// This is heavy so that people have to hold it or hide it, making it much easier for other traitors to steal without
+	// requiring them to straight up kill and rob them.
+	w_class = WEIGHT_CLASS_BULKY
 	// Prevent it from being opened until it is ready to be opened
 	obj_flags = INDESTRUCTIBLE
 	component_type = /datum/component/storage/concrete/deaddrop

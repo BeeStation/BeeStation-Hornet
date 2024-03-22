@@ -29,6 +29,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	var/name
 	var/objective_explanation
 	var/details
+	var/last_for = 10 MINUTES
 	var/end_at
 	var/rejected = FALSE
 	var/tc_reward
@@ -71,24 +72,9 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 /// Activate the directive, requires a list of traitor datums and security minsd
 /datum/priority_directive/proc/start(list/uplinks, list/player_minds)
 	SHOULD_NOT_OVERRIDE(TRUE)
-	end_at = world.time + 10 MINUTES
+	end_at = world.time + last_for
 	tc_reward = _generate(teams)
-	for (var/datum/component/uplink/uplink in GLOB.uplinks)
-		var/syndicate_antag = FALSE
-		var/mob/living/current = uplink.parent
-		while (current && !istype(current))
-			current = current.loc
-		if (istype(current))
-			for (var/datum/antagonist/antag in current.mind?.antag_datums)
-				syndicate_antag ||= antag.faction == FACTION_SYNDICATE
-		else
-			// Nobody to notify
-			continue
-		// If we are not held by a syndicate, and we are locked then do not give a notification
-		if (!syndicate_antag && uplink.locked)
-			continue
-		to_chat(current, "<span class='traitor_objective'>NEW PRIORITY DIRECTIVE RECEIVED. SEE UPLINK FOR DETAILS.</span>")
-		SEND_SOUND(current, sound('sound/machines/twobeep_high.ogg', volume = 50))
+	mission_update("NEW PRIORITY DIRECTIVE RECEIVED. SEE UPLINK FOR DETAILS.", prefix = "")
 
 /// Advertise this directive to security objectives consoles
 /datum/priority_directive/proc/advertise_security()
@@ -146,7 +132,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 /datum/priority_directive/proc/get_details(datum/component/uplink)
 	return details
 
-/datum/priority_directive/proc/mission_update(message)
+/datum/priority_directive/proc/mission_update(message, prefix = "IMPORTANT MISSION CRITICAL NOTIFICATION: ")
 	PROTECTED_PROC(TRUE)
 	for (var/datum/component/uplink/uplink in GLOB.uplinks)
 		var/syndicate_antag = FALSE
@@ -162,6 +148,13 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 		// If we are not held by a syndicate, and we are locked then do not give a notification
 		if (!syndicate_antag && uplink.locked)
 			continue
-		to_chat(current, "<span class='traitor_objective'>IMPORTANT MISSION CRITICAL NOTIFICATION: [uppertext(message)]</span>")
+		to_chat(current, "<span class='traitor_objective'>[prefix][uppertext(message)]</span>")
 		SEND_SOUND(current, sound('sound/machines/twobeep_high.ogg', volume = 50))
-	deadchat_broadcast("<span class='deadsay bold'>Syndicate Mission Update: [message]</span>", follow_target = get_track_atom())
+	var/atom/follow_atom = get_track_atom()
+	if (follow_atom)
+		if (ismob(follow_atom.loc))
+			deadchat_broadcast("<span class='deadsay bold'>Syndicate Mission Update: [message]</span>", follow_target = follow_atom)
+		else
+			deadchat_broadcast("<span class='deadsay bold'>Syndicate Mission Update: [message]</span>", turf_target = get_turf(follow_atom))
+	else
+		deadchat_broadcast("<span class='deadsay bold'>Syndicate Mission Update: [message]</span>")
