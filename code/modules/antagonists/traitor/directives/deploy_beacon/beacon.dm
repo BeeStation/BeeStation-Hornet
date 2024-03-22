@@ -56,7 +56,7 @@
 	else
 		current_frequency = rand(0, 8)
 	beacon.deployed_beacon = src
-	beacon.on_beacon_planted(uplink_beacon_channel_to_color(current_frequency))
+	beacon.on_beacon_planted(current_frequency)
 	update_appearance(UPDATE_OVERLAYS)
 	START_PROCESSING(SSprocessing, src)
 
@@ -122,6 +122,7 @@
 	return TRUE
 
 /obj/structure/uplink_beacon/proc/update_frequency(new_frequency)
+	var/old_freq = current_frequency
 	current_frequency = new_frequency
 	update_appearance(UPDATE_OVERLAYS)
 	ui_update()
@@ -131,7 +132,7 @@
 	// If there is less than 30 seconds less on the timer, reset the timer to 30 seconds
 	if (time_left < 30 SECONDS)
 		time_left = 30 SECONDS
-	beacon.beacon_colour_update(uplink_beacon_channel_to_color(current_frequency), time_left)
+	beacon.beacon_colour_update(old_freq, current_frequency, time_left)
 
 /// Establish connection with the syndicate base.
 /// Grants everyone who was on the established frequency with their prize TC
