@@ -498,9 +498,12 @@
 
 			if(isitem(A))
 				var/obj/item/I = A
-				if((I.item_flags & IN_STORAGE) && get(I, /mob/living) == src)
-					to_chat(M, "<span class='srt subtle'>\The [usr] looks inside [usr.p_their()] [I.loc.name]")
-					break
+				if((I.item_flags & IN_STORAGE))
+					if(get(I, /mob/living) == src)
+						to_chat(M, "<span class='srt subtle'>\The [usr] looks inside [usr.p_their()] [I.loc.name]")
+					else
+						to_chat(M, "<span class='srt subtle'>\The [usr] looks inside \the [I.loc.name]")
+					continue
 
 			if(M in can_see_target)
 				to_chat(M, "<span class='srt_info subtle'>\The [usr] looks at \the [A]</span>")
