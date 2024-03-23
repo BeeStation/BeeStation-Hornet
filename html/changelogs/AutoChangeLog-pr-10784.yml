@@ -1,0 +1,4 @@
+author: Aramix
+delete-after: true
+changes:
+  - tweak: shelters cannot be deployed in maze dimension anymore
