@@ -490,31 +490,44 @@
 	if(isblind && !blind_examine_check(A))
 		return
 
-	if(!isobserver(usr) && !(usr == A) && !isblind)
-		var/list/can_see_target = viewers(usr)
-		for(var/mob/M as anything in viewers(4, usr))
-			if(!M.client)
-				continue
 
-			if(isitem(A))
-				var/obj/item/I = A
-				if((I.item_flags & IN_STORAGE))
-					if(get(I, /mob/living) == src)
-						to_chat(M, "<span class='srt subtle'>\The [usr] looks inside [usr.p_their()] [I.loc.name]")
-					else
-						to_chat(M, "<span class='srt subtle'>\The [usr] looks inside \the [I.loc.name]")
-					continue
 
-			if(M in can_see_target)
-				to_chat(M, "<span class='srt_info subtle'>\The [usr] looks at \the [A]</span>")
-			else
-				to_chat(M, "<span class='srt_info subtle'>\The [usr] intently looks at something...</span>")
+	if(!isblind && !A == src)
+		broadcast_examine(A)
 
 	face_atom(A)
 	var/list/result = A.examine(src)
 
 	to_chat(src, EXAMINE_BLOCK(jointext(result, "\n")))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
+
+/mob/proc/broadcast_examine(atom/examined_thing)
+	var/mob/living/carbon/U = usr
+
+	if(U.IsStun() || U.IsParalyzed() || U.is_mouth_covered(mask_only = 1))
+		return
+
+	var/list/can_see_target = viewers(usr)
+	for(var/mob/M as anything in viewers(4, usr))
+		if(!M.client)
+			continue
+
+		if(isitem(examined_thing))
+			var/obj/item/I = examined_thing
+			if((I.item_flags & IN_STORAGE))
+				if(get(I, /mob/living) == src)
+					to_chat(M, "<span class='srt subtle'>\The [usr] looks inside [usr.p_their()] [I.loc.name]")
+				else
+					to_chat(M, "<span class='srt subtle'>\The [usr] looks inside \the [I.loc.name]")
+				continue
+
+		if(M in can_see_target)
+			to_chat(M, "<span class='srt_info subtle'>\The [usr] looks at \the [examined_thing]</span>")
+		else
+			to_chat(M, "<span class='srt_info subtle'>\The [usr] intently looks at something...</span>")
+
+/mob/dead/broadcast_examine(atom/examined_thing)
+	return
 
 /mob/proc/blind_examine_check(atom/examined_thing)
 	return TRUE
