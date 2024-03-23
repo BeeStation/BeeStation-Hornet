@@ -192,14 +192,6 @@ Simple datum which is instanced once per type and is used for every object of sa
 /datum/material/proc/on_accidental_mat_consumption(mob/living/carbon/M, obj/item/S)
 	return FALSE
 
-/datum/material/proc/get_greyscale_config_for(datum/greyscale_config/config_path)
-	if(!config_path)
-		return
-	for(var/datum/greyscale_config/path as anything in subtypesof(config_path))
-		if(type != initial(path.material_skin))
-			continue
-		return path
-
 
 /// Returns GLOB.recipes of a material to modify the recipes.
 /// This will be only called once from SSMaterials.
