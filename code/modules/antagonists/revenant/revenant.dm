@@ -155,7 +155,7 @@
 
 /mob/living/simple_animal/revenant/get_stat_tab_status()
 	var/list/tab_data = ..()
-	tab_data["Current essence (health)"] = GENERATE_STAT_TEXT("[essence]E (Max: [essence_regen_cap]E)")
+	tab_data["Current essence (health)"] = GENERATE_STAT_TEXT("[essence]E (Regeneration Cap: [essence_regen_cap]E)")
 	tab_data["Stolen essence"] = GENERATE_STAT_TEXT("[essence_accumulated]E")
 	tab_data["Unused stolen essence"] = GENERATE_STAT_TEXT("[essence_excess]E")
 	tab_data["Stolen perfect souls"] = GENERATE_STAT_TEXT("[perfectsouls]")
