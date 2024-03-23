@@ -278,7 +278,7 @@
 	name = "Report this to a coder"
 	var/reveal = 80 //How long it reveals the revenant in deciseconds
 	var/stun = 20 //How long it stuns the revenant in deciseconds
-	var/unlocked = FALSE //revenant needs to pay essence to learn their ability
+	var/locked = TRUE //revenant needs to pay essence to learn their ability
 	var/unlock_amount = 100 //How much essence it costs to unlock
 	var/cast_amount = 50 //How much essence it costs to use
 
@@ -287,7 +287,7 @@
 	update_button_info()
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/proc/update_button_info()
-	if(unlocked)
+	if(!locked)
 		action.name = "[initial(name)][cast_amount ? " ([cast_amount]E to cast)" : ""]"
 	else
 		action.name = "[initial(name)][unlock_amount ? " ([unlock_amount]SE to learn)" : ""]"
@@ -300,7 +300,7 @@
 		return TRUE
 	if(user.inhibited)
 		return FALSE
-	if(!unlocked)
+	if(locked)
 		if(user.essence_excess <= unlock_amount)
 			return FALSE
 	if(user.essence <= cast_amount)
@@ -310,21 +310,21 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
 	// If you're not a revenant, it works anyway.
 	if(!isrevenant(user))
-		if(!unlocked)
-			unlocked = TRUE
+		if(locked)
+			locked = FALSE
 			panel = "Revenant Abilities"
 			action.name = "[initial(name)]"
 		action.UpdateButtonIcon()
 		return TRUE
 
 	// actual revenant check
-	if(!unlocked)
+	if(locked)
 		if (!user.unlock(unlock_amount))
 			charge_counter = charge_max
 			return FALSE
 		to_chat(user, "<span class='revennotice'>You have unlocked [initial(name)]!</span>")
 		panel = "Revenant Abilities"
-		unlocked = TRUE
+		locked = FALSE
 		charge_counter = charge_max
 		update_button_info()
 		return FALSE
