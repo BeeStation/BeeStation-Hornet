@@ -1,0 +1,9 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: Stat panel will no longer say Revenant health
+  - bugfix: Revenant spell buttons will now tell you the req to unlock or essence
+      value to cast
+  - bugfix: Revenant will be immediately rejected if their telepathy isn't working
+  - bugfix: Some Revenant spells are now castable by non-revenants, for admeme
+  - bugfix: Revenant won't spawn on a holytile
