@@ -41,6 +41,7 @@
 
 /obj/machinery/xenoarchaeology_machine/proc/register_contents(atom/A)
 	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(unregister_contents))
+	RegisterSignal(A, COMSIG_MOVABLE_MOVED, PROC_REF(unregister_contents))
 	held_contents += A
 
 /obj/machinery/xenoarchaeology_machine/proc/unregister_contents(datum/source)
@@ -48,6 +49,7 @@
 
 	held_contents -= source
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 
 /obj/machinery/xenoarchaeology_machine/proc/get_target()
 	return move_inside ? src : drop_location()

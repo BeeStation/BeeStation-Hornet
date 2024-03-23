@@ -38,13 +38,13 @@
 	. = ..()
 	if(!can_stick(target) || !proximity_flag)
 		return
-	//Update state
-	sticker_state = STICKER_STATE_STUCK
-	update_appearance()
 	//Move to our target
 	forceMove(target)
 	layer = target.layer+0.01
 	target.vis_contents += src
+	//Update state
+	sticker_state = STICKER_STATE_STUCK
+	update_appearance()
 	//Build click offset
 	var/list/modifiers = params2list(click_parameters)
 	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
@@ -53,18 +53,8 @@
 	pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)
 
 /obj/item/sticker/attack_hand(mob/user)
-	//Remove sticker from vis contents
-	if(sticker_state == STICKER_STATE_STUCK)
-		var/atom/movable/AM = loc
-		AM.vis_contents -= src
-		layer = initial(layer)
-		//Set this here so ``update_appearance`` works correctly
-		sticker_state = STICKER_STATE_ITEM
-		update_appearance()
-	. = ..()
-	//Reset click offset
-	pixel_x = 0
-	pixel_y = 0
+	unstick()
+	return ..()
 
 /obj/item/sticker/attackby(obj/item/I, mob/living/user, params)
 	//If we're stuck to something, pass the attack to our loc
@@ -72,6 +62,11 @@
 		var/atom/A = loc
 		A.attackby(I, user, params)
 		return
+	return ..()
+
+/obj/item/sticker/Moved(atom/OldLoc, Dir)
+	if(sticker_state == STICKER_STATE_STUCK)
+		unstick(OldLoc)
 	return ..()
 
 /obj/item/sticker/examine(mob/user)
@@ -92,7 +87,7 @@
 			return
 
 /obj/item/sticker/proc/build_item_appearance()
-	return setup_appearance(mutable_appearance(src.icon, src.icon_state))
+	return setup_appearance(mutable_appearance(src.icon, src.icon_state, plane = src.plane))
 
 /obj/item/sticker/proc/build_stuck_appearance()
 	return setup_appearance(mutable_appearance(sticker_icon || src.icon, sticker_icon_state || src.icon_state))
@@ -107,6 +102,19 @@
 
 /obj/item/sticker/proc/can_stick(atom/target)
 	return ismovable(target) || iswallturf(target) ? TRUE : FALSE
+
+/obj/item/sticker/proc/unstick(atom/override)
+	if(sticker_state != STICKER_STATE_STUCK)
+		return
+	var/atom/movable/AM = override || loc
+	AM.vis_contents -= src
+	layer = initial(layer)
+	//Set this here so ``update_appearance`` works correctly
+	sticker_state = STICKER_STATE_ITEM
+	update_appearance()
+	//Reset click offset
+	pixel_x = 0
+	pixel_y = 0
 
 /obj/item/sticker/proc/generate_unusual()
 	return
