@@ -421,8 +421,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/list/copied_turf_list = turf_list.Copy()
 	var/turf/found_tile
 	do
-		found_tile = get_turf(pick_n_take(copied_turf_list))
-	while(found_tile.is_holy() && length(copied_turf_list))
+		found_tile = get_turf(pick_n_take(copied_turf_list)) // uses 'pick_an_take()' proc, so an item will be drawn from the list for each iteration. also, uses 'get_turf()` just in case.
+	while(found_tile && found_tile.is_holy() && length(copied_turf_list))
 
 	if(found_tile.is_holy()) // we found no valid tile at all
 		return
