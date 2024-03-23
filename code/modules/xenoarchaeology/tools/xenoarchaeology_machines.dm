@@ -53,7 +53,7 @@
 	return move_inside ? src : drop_location()
 
 /obj/machinery/xenoarchaeology_machine/proc/empty_contents(atom/movable/target, force)
-	if(target && (target & held_contents || force))
+	if(target && (list(target) & held_contents || force))
 		target.forceMove(get_turf(src))
 		unregister_contents(target)
 		return
@@ -99,6 +99,7 @@
 		say("Total Mass: [total_weight] KG.")
 	else
 		say("No Mass Detected!")
+	playsound(src, 'sound/machines/uplinkpurchase.ogg', 50, TRUE)
 
 /*
 	Conductor, measures artifact conductivty
@@ -132,7 +133,7 @@
 		say("Total Conductivity: [total_conductivity] MPC.")
 	else
 		say("No Conductivity Detected!")
-
+	playsound(src, 'sound/machines/uplinkpurchase.ogg', 50, TRUE)
 
 /*
 	Calibrator, calibrates artifacts
@@ -146,6 +147,9 @@
 	var/datum/techweb/linked_techweb
 	///radio used by the console to send messages on science channel
 	var/obj/item/radio/headset/radio
+	///Cooking logic
+	var/cooking_time = 4 SECONDS
+	var/cooking_timer
 
 /obj/machinery/xenoarchaeology_machine/calibrator/tutorial/Initialize(mapload, _artifact_type)
 	. = ..()
@@ -165,6 +169,8 @@
 /obj/machinery/xenoarchaeology_machine/calibrator/Destroy()
 	. = ..()
 	QDEL_NULL(radio)
+	if(cooking_timer)
+		deltimer(cooking_timer)
 
 /obj/machinery/xenoarchaeology_machine/calibrator/examine(mob/user)
 	. = ..()
@@ -183,9 +189,10 @@
 
 /obj/machinery/xenoarchaeology_machine/calibrator/AltClick(mob/user)
 	. = ..()
-	if(!length(held_contents))
+	if(!length(held_contents) || cooking_timer)
 		playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
 		return
+	playsound(src, 'sound/machines/uplinkpurchase.ogg', 50, TRUE)
 	for(var/atom/A as() in contents-radio)
 		var/solid_as = TRUE
 		//Once we find an artifact-
@@ -200,7 +207,6 @@
 				if(!X.calcified)
 					decision = tgui_alert(user, "Do you want to continue, this will destroy [A]?", "Calcify Artifact", list("Yes", "No"))
 			if(decision == "No")
-				playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
 				//using the specific argument stops us from evacuating the sticker for the tutorial variant, and also our potential components
 				empty_contents(A)
 				continue
@@ -218,27 +224,40 @@
 					else
 						score += 1
 					max_score = T.contribute_calibration ?  max_score + 1 : max_score
-		//If we're cooked
-		if(!solid_as)
-			X.calcify()
-			playsound(get_turf(src), 'sound/machines/uplinkerror.ogg', 60)
-			empty_contents(A)
-			return
-		//handle science rewards
-		if(score)
-			var/success_rate = score / max_score
-			var/dp_reward = max(0, (A.custom_price*X.artifact_type.dp_rate)*success_rate)
-			linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
-			//Announce this, for honor or shame
-			radio?.talk_into(src, "[A] has been calibrated, and generated [dp_reward] Discovery Points!", RADIO_CHANNEL_SCIENCE)
-		playsound(get_turf(src), 'sound/machines/ding.ogg', 60)
-		//Calibrate the artifact
-		X.calibrate()
-		//Prompt user to delete or keep malfunctions
-		var/decision = tgui_alert(user, "Do you want to calcify [A]'s malfunctions?", "Remove Malfunctions", list("Yes", "No"))
-		if(decision == "Yes")
-			for(var/i in X.artifact_traits)
-				for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
-					if(istype(T, /datum/xenoartifact_trait/malfunction))
-						qdel(T)
-		empty_contents()
+		//FX
+		INVOKE_ASYNC(src, PROC_REF(do_cooking_sounds), solid_as)
+		cooking_timer = addtimer(CALLBACK(src, PROC_REF(finish_cooking), A, X, score, max_score, solid_as), cooking_time, TIMER_STOPPABLE)
+
+/obj/machinery/xenoarchaeology_machine/calibrator/proc/do_cooking_sounds(status)
+	playsound(src, 'sound/machines/capacitor_charge.ogg', 50, TRUE)
+	sleep(2 SECONDS)
+	playsound(src, 'sound/machines/capacitor_discharge.ogg', 50, TRUE)
+	sleep(2 SECONDS)
+	playsound(src, status ? 'sound/machines/microwave/microwave-end.ogg' : 'sound/machines/buzz-two.ogg', 50, TRUE)
+
+/obj/machinery/xenoarchaeology_machine/calibrator/proc/finish_cooking(atom/A, datum/component/xenoartifact/X, score, max_score, solid_as)
+	//Timer
+	if(cooking_timer)
+		deltimer(cooking_timer)
+	cooking_timer = null
+	empty_contents(A)
+	//If we're cooked
+	if(!solid_as)
+		X.calcify()
+		return
+	//Scoring & success
+	if(score)
+		var/success_rate = score / max_score
+		var/dp_reward = max(0, (A.custom_price*X.artifact_type.dp_rate)*success_rate)
+		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
+		//Announce this, for honor or shame
+		radio?.talk_into(src, "[A] has been calibrated, and generated [dp_reward] Discovery Points!", RADIO_CHANNEL_SCIENCE)
+	//Calibrate the artifact
+	X.calibrate()
+	//Prompt user to delete or keep malfunctions
+	var/decision = tgui_alert(usr, "Do you want to calcify [A]'s malfunctions?", "Remove Malfunctions", list("Yes", "No"))
+	if(decision == "Yes")
+		for(var/i in X.artifact_traits)
+			for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
+				if(istype(T, /datum/xenoartifact_trait/malfunction))
+					qdel(T)
