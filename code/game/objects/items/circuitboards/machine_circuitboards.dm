@@ -627,13 +627,6 @@
 
 //Medical
 
-/obj/item/circuitboard/machine/bioscanner
-	name = "Bioscanner (Machine Board)"
-	icon_state = "medical"
-	build_path = /obj/machinery/bioscanner
-	req_components = list(
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/micro_laser = 1)
 
 /obj/item/circuitboard/machine/chem_dispenser
 	name = "chem dispenser (Machine Board)"
