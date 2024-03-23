@@ -1,7 +1,0 @@
-author: ToasterBan
-delete-after: true
-changes:
-  - rscadd: Chembag crate to cargo, it has 1 chembag for each basic healing chemical
-  - rscadd: cargo medbots now spawn with a bicaridine kelotone mix
-  - rscadd: using a spraycan on a medbot will re-colour it
-  - rscadd: examining a medbot now tells you about re-naming and re-colouring
