@@ -209,8 +209,9 @@
 				if(!X.calcified)
 					decision = tgui_alert(user, "Do you want to continue, this will destroy [A]?", "Calcify Artifact", list("Yes", "No"))
 			if(decision == "No")
-				//using the specific argument stops us from evacuating the sticker for the tutorial variant, and also our potential components
-				empty_contents(A)
+				//This stops us from spitting out stuff we shouldn't, mostly
+				if(A in held_contents)
+					empty_contents(A)
 				continue
 			else
 				solid_as = FALSE
