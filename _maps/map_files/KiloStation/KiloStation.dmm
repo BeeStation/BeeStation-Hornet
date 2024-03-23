@@ -7539,7 +7539,7 @@
 /turf/closed/wall,
 /area/maintenance/central)
 "aIO" = (
-/obj/machinery/atmospherics/pipe/simple/yellow/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/closed/wall,
 /area/engine/atmos)
 "aIP" = (
@@ -7706,7 +7706,7 @@
 /turf/open/floor/plating,
 /area/engine/break_room)
 "aKm" = (
-/obj/machinery/atmospherics/pipe/simple/yellow/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/closed/wall/rust,
 /area/engine/atmos)
 "aKw" = (
@@ -15801,10 +15801,10 @@
 /turf/closed/wall/rust,
 /area/maintenance/aft)
 "bGb" = (
-/obj/machinery/atmospherics/pipe/simple/yellow/visible{
-	dir = 4
-	},
 /obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/manifold/yellow/visible{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/space/nearstation)
 "bGd" = (
@@ -26006,11 +26006,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/pump/on{
-	name = "N2 to Airmix"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "cFd" = (
@@ -35320,15 +35318,15 @@
 	})
 "fgj" = (
 /obj/effect/turf_decal/stripes/corner,
-/obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 10
-	},
 /obj/effect/landmark/event_spawn,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -35444,6 +35442,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"fhM" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 5
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "fia" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 5
@@ -37915,9 +37920,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "fXt" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	name = "N2 to Pure"
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -37930,6 +37932,9 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -41768,6 +41773,12 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "hqp" = (
@@ -57942,6 +57953,20 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/server)
+"mIY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/yellow/visible,
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "mJm" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -62716,6 +62741,12 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/security/courtroom)
+"oqE" = (
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+	dir = 4
+	},
+/turf/closed/wall,
+/area/engine/atmos)
 "oqF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -69048,11 +69079,11 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "qvr" = (
-/obj/machinery/atmospherics/pipe/manifold/yellow/visible{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "qvH" = (
@@ -69814,6 +69845,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "N2 to Pure";
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
@@ -75367,11 +75402,15 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "sGS" = (
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 4
+	},
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -23
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "sGT" = (
@@ -78539,13 +78578,6 @@
 /turf/open/floor/plasteel,
 /area/bridge)
 "tIS" = (
-/obj/machinery/atmospherics/pipe/simple/yellow/visible{
-	dir = 5
-	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -23
-	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Port Tanks";
 	dir = 4;
@@ -78556,6 +78588,9 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "tJx" = (
@@ -83539,9 +83574,6 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
 "vwO" = (
-/obj/machinery/atmospherics/pipe/manifold/general/visible{
-	dir = 1
-	},
 /obj/machinery/meter,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -83553,6 +83585,9 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -90573,6 +90608,12 @@
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"xIV" = (
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+	dir = 4
+	},
+/turf/closed/wall/rust,
+/area/engine/atmos)
 "xIW" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/red/half/contrasted,
@@ -119100,11 +119141,11 @@ aJk
 aJT
 aKD
 bGb
-acm
+fhM
 brZ
 acm
 bGb
-acm
+fhM
 bUL
 acm
 bUL
@@ -119357,11 +119398,11 @@ bwv
 bGo
 aCw
 bUM
-aDk
+oqE
 bUX
 aCw
 bUM
-aDl
+xIV
 cxR
 aCw
 cxT
@@ -119614,10 +119655,10 @@ moK
 jrd
 fFZ
 hqk
-sGS
+qvr
 qFE
 fFZ
-qvr
+sGS
 tIS
 jeX
 uCO
@@ -120129,7 +120170,7 @@ pGP
 ogG
 vwO
 fXt
-vbd
+mIY
 vbd
 eNL
 fHc
