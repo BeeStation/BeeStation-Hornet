@@ -218,14 +218,6 @@
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_MEDICAL
 	category = list ("Medical Machinery")
 
-/datum/design/board/bioscanner
-	name = "Machine Design (Bioscanner Board)"
-	desc = "The circuit board for a bioscanner."
-	id = "bioscanner"
-	build_path = /obj/item/circuitboard/machine/bioscanner
-	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_MEDICAL
-	category = list ("Medical Machinery")
-
 /datum/design/board/reagentgrinder
 	name = "Machine Design (All-In-One Grinder)"
 	desc = "The circuit board for an All-In-One Grinder."
