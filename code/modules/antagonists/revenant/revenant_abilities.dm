@@ -171,7 +171,7 @@
 
 /obj/effect/proc_holder/spell/self/rev_teleport/cast(mob/living/simple_animal/revenant/user = usr)
 	if(!isrevenant(user))
-		to_chat(user, "<span class='revenwarning'>You are not revenent.</span>")
+		to_chat(user, "<span class='revenwarning'>You are not revenant.</span>")
 		return
 	if(is_station_level(user.z))
 		to_chat(user, "<span class='revenwarning'>Recalling yourself to the station is only available when you're not in the station.</span>")
