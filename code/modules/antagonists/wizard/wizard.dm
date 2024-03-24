@@ -26,6 +26,7 @@
 	. = ..()
 	if(allow_rename)
 		rename_wizard()
+	GLOB.cimg_controller.validate_mind("holyturf", owner)
 	owner.remove_all_quirks()
 
 /datum/antagonist/wizard/get_antag_name() // wizards are not in the same team
@@ -131,6 +132,7 @@
 
 /datum/antagonist/wizard/on_removal()
 	unregister()
+	GLOB.cimg_controller.disqualify_mind("holyturf", owner)
 	owner.RemoveAllSpells() // TODO keep track which spells are wizard spells which innate stuff
 	return ..()
 

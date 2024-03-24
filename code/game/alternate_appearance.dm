@@ -163,23 +163,6 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		return TRUE
 	return FALSE
 
-/datum/atom_hud/alternate_appearance/basic/blessedAware
-
-/datum/atom_hud/alternate_appearance/basic/blessedAware/New()
-	..()
-	for(var/mob in GLOB.mob_list)
-		if(mobShouldSee(mob))
-			add_hud_to(mob)
-
-/datum/atom_hud/alternate_appearance/basic/blessedAware/mobShouldSee(mob/M)
-	if(M.mind && M.mind?.holy_role)
-		return TRUE
-	if (istype(M, /mob/living/simple_animal/hostile/construct/wraith))
-		return TRUE
-	if(isrevenant(M) || iswizard(M))
-		return TRUE
-	return FALSE
-
 /datum/atom_hud/alternate_appearance/basic/one_person
 	var/mob/seer
 
@@ -192,15 +175,3 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	..(key, I, FALSE)
 	seer = M
 	add_hud_to(seer)
-
-/datum/atom_hud/alternate_appearance/basic/heretics
-	add_ghost_version = FALSE //just in case, to prevent infinite loops
-
-/datum/atom_hud/alternate_appearance/basic/heretics/New()
-	..()
-	for(var/mob in  GLOB.player_list)
-		if(mobShouldSee(mob))
-			add_hud_to(mob)
-
-/datum/atom_hud/alternate_appearance/basic/heretics/mobShouldSee(mob/M)
-	return IS_HERETIC(M) || IS_HERETIC_MONSTER(M)

@@ -81,6 +81,7 @@
 	check_rev_teleport() // they're spawned in non-station for some reason...
 	random_revenant_name()
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
+	GLOB.cimg_controller.validate_mob("holyturf", src) // rev can have no mind possibly (by admeme). This is safe than giving it to mind.
 	grant_all_languages(TRUE, FALSE, FALSE, LANGUAGE_REVENANT) // rev can understand every langauge
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 
@@ -97,7 +98,7 @@
 
 /mob/living/simple_animal/revenant/Destroy()
 	. = ..()
-
+	GLOB.cimg_controller.disqualify_mob("holyturf", src)
 	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 	if(beacon)
 		qdel(beacon)
