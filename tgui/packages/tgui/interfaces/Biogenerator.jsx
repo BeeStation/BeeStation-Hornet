@@ -123,7 +123,8 @@ const ItemList = (props) => {
           width="35px"
           minValue={1}
           maxValue={10}
-          onChange={(e, value) => item.setAmount(value)}
+          step={1}
+          onChange={(value) => item.setAmount(value)}
         />
       </Table.Cell>
       <Table.Cell collapsing>

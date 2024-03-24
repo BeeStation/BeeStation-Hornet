@@ -25,7 +25,8 @@ const ParticleIntegerEntry = (props) => {
         maxValue={Infinity}
         stepPixelSize={5}
         width="39px"
-        onDrag={(e, value) =>
+        step={1}
+        onDrag={(value) =>
           act('modify_particle_value', {
             new_data: {
               name: name,
@@ -54,7 +55,8 @@ const ParticleMatrixEntry = (props) => {
             minValue={-Infinity}
             maxValue={Infinity}
             key={i}
-            onDrag={(e, v) => {
+            step={1}
+            onDrag={(v) => {
               value[i] = v;
               act('modify_particle_value', {
                 new_data: {
@@ -124,7 +126,7 @@ const ParticleFloatNonGenEntry = (props) => {
         step={step}
         format={(value) => toFixed(value, numberOfDecimalDigits(step))}
         width="80px"
-        onDrag={(e, value) =>
+        onDrag={(value) =>
           act('modify_particle_value', {
             new_data: {
               name: name,
@@ -197,7 +199,8 @@ const ParticleVectorNonGenEntryVarLen = (len) => {
               maxValue={Infinity}
               key={i}
               width="40px"
-              onDrag={(e, v) => {
+              step={1}
+              onDrag={(v) => {
                 value[i] = v;
                 act('modify_particle_value', {
                   new_data: {
@@ -672,7 +675,7 @@ export const Particool = (props) => {
             step={0.001}
             format={(value) => toFixed(value, numberOfDecimalDigits(step))}
             width="70px"
-            onChange={(e, value) => setStep(value)}
+            onChange={(value) => setStep(value)}
           />
           {!hasParticles ? <Box>No particle</Box> : <ParticleEntry particle={particles} />}
         </Section>

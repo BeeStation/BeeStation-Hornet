@@ -126,7 +126,7 @@ export const ColorSelector = ({ color, setColor, defaultColor }: { color: HsvaCo
                 <Hue hue={color.h} onChange={handleChange} />
               </Stack.Item>
               <Stack.Item>
-                <TextSetter value={color.h} callback={(_, v) => handleChange({ h: v })} max={360} unit="°" />
+                <TextSetter value={color.h} callback={(v) => handleChange({ h: v })} max={360} unit="°" />
               </Stack.Item>
             </Stack>
           </Stack.Item>
@@ -139,7 +139,7 @@ export const ColorSelector = ({ color, setColor, defaultColor }: { color: HsvaCo
                 <Saturation color={color} onChange={handleChange} />
               </Stack.Item>
               <Stack.Item>
-                <TextSetter value={color.s} callback={(_, v) => handleChange({ s: v })} unit="%" />
+                <TextSetter value={color.s} callback={(v) => handleChange({ s: v })} unit="%" />
               </Stack.Item>
             </Stack>
           </Stack.Item>
@@ -152,7 +152,7 @@ export const ColorSelector = ({ color, setColor, defaultColor }: { color: HsvaCo
                 <Value color={color} onChange={handleChange} />
               </Stack.Item>
               <Stack.Item>
-                <TextSetter value={color.v} callback={(_, v) => handleChange({ v: v })} unit="%" />
+                <TextSetter value={color.v} callback={(v) => handleChange({ v: v })} unit="%" />
               </Stack.Item>
             </Stack>
           </Stack.Item>
@@ -168,7 +168,7 @@ export const ColorSelector = ({ color, setColor, defaultColor }: { color: HsvaCo
               <Stack.Item>
                 <TextSetter
                   value={rgb.r}
-                  callback={(_, v) => {
+                  callback={(v) => {
                     rgb.r = v;
                     handleChange(rgbaToHsva(rgb));
                   }}
@@ -188,7 +188,7 @@ export const ColorSelector = ({ color, setColor, defaultColor }: { color: HsvaCo
               <Stack.Item>
                 <TextSetter
                   value={rgb.g}
-                  callback={(_, v) => {
+                  callback={(v) => {
                     rgb.g = v;
                     handleChange(rgbaToHsva(rgb));
                   }}
@@ -208,7 +208,7 @@ export const ColorSelector = ({ color, setColor, defaultColor }: { color: HsvaCo
               <Stack.Item>
                 <TextSetter
                   value={rgb.b}
-                  callback={(_, v) => {
+                  callback={(v) => {
                     rgb.b = v;
                     handleChange(rgbaToHsva(rgb));
                   }}
@@ -231,7 +231,7 @@ const TextSetter = ({
   unit,
 }: {
   value: number;
-  callback: any;
+  callback: (value: number) => void;
   min?: number;
   max?: number;
   unit?: string;

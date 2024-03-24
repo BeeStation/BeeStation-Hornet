@@ -120,7 +120,8 @@ const NewBountyMenu = (_) => {
             maxValue={1000}
             value={bountyValue}
             width="80px"
-            onChange={(e, value) =>
+            step={1}
+            onChange={(value) =>
               act('bountyVal', {
                 bountyval: value,
               })

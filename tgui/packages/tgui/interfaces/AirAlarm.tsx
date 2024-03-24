@@ -340,7 +340,7 @@ const EditingModal = (props: EditingModalProps) => {
         ) : (
           <>
             <NumberInput
-              onChange={(e, value) =>
+              onChange={(value) =>
                 act('set_threshold', {
                   threshold: id,
                   threshold_type: type,
@@ -528,7 +528,8 @@ const AirAlarmAirConditioningControls = (_props) => {
               value={target}
               minValue={min}
               maxValue={max}
-              onChange={(_e, target: number) => act('set_ac_target', { target })}
+              step={1}
+              onChange={(value: number) => act('set_ac_target', { value })}
               unit="K"
               disabled={!enabled}
             />

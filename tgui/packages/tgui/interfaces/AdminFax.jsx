@@ -126,8 +126,9 @@ export const FaxMainPanel = (props) => {
                   width="45px"
                   minValue={0}
                   maxValue={300}
+                  step={1}
                   value={stampCoordX}
-                  onChange={(_, v) => setStampCoordX(v)}
+                  onChange={(v) => setStampCoordX(v)}
                 />
               </h4>
 
@@ -138,7 +139,8 @@ export const FaxMainPanel = (props) => {
                   minValue={0}
                   maxValue={+Infinity}
                   value={stampCoordY}
-                  onChange={(_, v) => setStampCoordY(v)}
+                  step={1}
+                  onChange={(v) => setStampCoordY(v)}
                 />
               </h4>
 

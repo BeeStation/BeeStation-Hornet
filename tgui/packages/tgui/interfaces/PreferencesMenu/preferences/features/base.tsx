@@ -433,7 +433,7 @@ export const FeatureNumberInput = (props: FeatureValueProps<number, number, Feat
 
   return (
     <NumberInput
-      onChange={(e, value) => {
+      onChange={(value) => {
         props.handleSetValue(value);
       }}
       minValue={props.serverData.minimum}

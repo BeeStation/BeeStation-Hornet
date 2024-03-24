@@ -53,7 +53,8 @@ const EjectMaterial = (props: { material: Material; onEject: (amount: number) =>
         value={removeMaterials}
         minValue={1}
         maxValue={sheets || 1}
-        onDrag={(e, val) => {
+        step={1}
+        onDrag={(val) => {
           if (Number.isInteger(val)) {
             setRemoveMaterials(val);
           }

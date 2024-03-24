@@ -275,7 +275,7 @@ export const ModFabCategoryItems = (props) => {
               />
             </Table.Cell>
             <Table.Cell collapsing verticalAlign="middle" className="item_small_button">
-              <NumberInput value={amount} minValue={0} maxValue={50} onChange={(e, value) => setAmount(value)} />
+              <NumberInput value={amount} minValue={0} maxValue={50} step={1} onChange={(value) => setAmount(value)} />
             </Table.Cell>
             <Table.Cell collapsing verticalAlign="middle" className="item_small_button">
               <Button

@@ -149,9 +149,10 @@ export const PlayerPanel = (_) => {
               unit="s"
               width="50px"
               value={update_interval}
-              onChange={(_, value) => act('set_update_interval', { value: value })}
+              onChange={(value) => act('set_update_interval', { value: value })}
               minValue={0}
               maxValue={120}
+              step={1}
             />
           </Tooltip>
           <Button icon="sync-alt" tooltip="Reload player data" onClick={() => act('update')} />
