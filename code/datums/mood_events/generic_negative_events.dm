@@ -62,11 +62,6 @@
 	mood_change = -10
 	timeout = 8 MINUTES
 
-/datum/mood_event/tased
-	description = "<span class='warning'>There's no \"z\" in \"taser\". It's in the zap.</span>"
-	mood_change = -3
-	timeout = 2 MINUTES
-
 /datum/mood_event/embedded
 	description = "<span class='boldwarning'>Pull it out!</span>"
 	mood_change = -7
