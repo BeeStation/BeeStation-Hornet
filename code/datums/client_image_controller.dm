@@ -71,7 +71,7 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 /// NOTE: calling this again adds up +1 count the validation. call disqualify_mob() proc to handle this correctly.
 /datum/cimg_controller/proc/validate_mob(cimg_key, mob/cimg_mob)
 	var/datum/cimg_holder/cimg_holder = cimg_holders[cimg_key]
-	if(!cimg_holders[cimg_key])
+	if(!cimg_holder)
 		cimg_holder = new
 		cimg_holders[cimg_key] = cimg_holder
 
@@ -98,7 +98,7 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 		CRASH("non-mind has been given")
 
 	var/datum/cimg_holder/cimg_holder = cimg_holders[cimg_key]
-	if(!cimg_holders[cimg_key])
+	if(!cimg_holder)
 		cimg_holder = new
 		cimg_holders[cimg_key] = cimg_holder
 
@@ -120,7 +120,7 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 /// NOTE: if count still exists because validate() proc is called multiple times, they'll still see stuff.
 /datum/cimg_controller/proc/disqualify_mob(cimg_key, mob/cimg_mob)
 	var/datum/cimg_holder/cimg_holder = cimg_holders[cimg_key]
-	if(!cimg_holders[cimg_key])
+	if(!cimg_holder)
 		return
 
 	if(!cimg_holder.valid_mobs[cimg_mob])
@@ -148,7 +148,7 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 		CRASH("non-mind has been given")
 
 	var/datum/cimg_holder/cimg_holder = cimg_holders[cimg_key]
-	if(!cimg_holders[cimg_key])
+	if(!cimg_holder)
 		return
 
 	if(!cimg_holder.valid_minds[cimg_mind])
