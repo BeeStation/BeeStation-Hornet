@@ -100,6 +100,7 @@
 
 	AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
 
+	GLOB.cimg_controller.on_mob_log_on(src)
 
 /**
   * Checks if the attached client is an admin and may deadmin them

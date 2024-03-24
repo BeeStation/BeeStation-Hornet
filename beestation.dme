@@ -507,6 +507,7 @@
 #include "code\datums\chat_payload.dm"
 #include "code\datums\chatmessage.dm"
 #include "code\datums\cinematic.dm"
+#include "code\datums\client_image_controller.dm"
 #include "code\datums\dash_weapon.dm"
 #include "code\datums\datacore.dm"
 #include "code\datums\datum.dm"
