@@ -22,6 +22,7 @@
 	var/drop_rate = STICKER_WEIGHT_COMMON
 	///Do we roll for unusual effects
 	var/roll_unusual = TRUE
+	var/is_unusual = FALSE
 
 /obj/item/sticker/Initialize(mapload)
 	. = ..()
@@ -116,9 +117,33 @@
 	pixel_x = 0
 	pixel_y = 0
 
+///Add an unusual effect to the sticker, potentially
 /obj/item/sticker/proc/generate_unusual()
-	return
+	//You'll want to go through and add a list of particle effects / logic for your series, this is just a generic placeholder
+	if(prob(1))
+		add_emitter(/obj/emitter/electrified, "unusual", 10)
 
 /obj/item/sticker/proc/get_stats()
-	//TODO: Add case for appending rarity - Racc
-	return
+	. = ""
+	//Append rarity
+	var/rarities = STICKER_RARITY_COMMON | STICKER_RARITY_UNCOMMON | STICKER_RARITY_RARE | STICKER_RARITY_EXOTIC | STICKER_RARITY_MYTHIC
+	var/rarity = rarities & sticker_flags
+	if(!rarity)
+		return
+	//use this switch to give the rarity name, color, and any other effects you want to add
+	switch(rarity)
+		if(STICKER_RARITY_COMMON)
+			. += "<span class='notice'>Common</span>\n"
+		if(STICKER_RARITY_UNCOMMON)
+			. += "<span class='green'>Uncommon</span>\n"
+		if(STICKER_RARITY_RARE)
+			. += "<span class='cult'>Rare</span>\n"
+		if(STICKER_RARITY_EXOTIC)
+			. += "<span class='revennotice'>Exotic</span>\n"
+		if(STICKER_RARITY_MYTHIC)
+			. += "<span class='alien'>Mythic</span>\n"
+		else
+			. += "<span class='warning'>GARBAGE</span>\n"
+	//Append unusual status
+	if(is_unusual)
+		. += "<span class='purple'>Unusual</span>\n"

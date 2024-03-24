@@ -6,21 +6,10 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
-
 	///Checked traits
 	var/list/selected_traits = list()
-	///Trait lists
-	var/list/activator_traits = list()
-	var/list/minor_traits = list()
-	var/list/major_traits = list()
-	var/list/malfunction_list = list()
-
-	///List of trait stats for tooltip shit, this is kinda fucked but who gives a shit
-	var/list/tooltip_stats = list()
-
 	///List of selected traits we'll put on the label
 	var/list/label_traits = list()
-
 	///Cooldown for stickers
 	var/sticker_cooldown = 5 SECONDS
 	COOLDOWN_DECLARE(sticker_cooldown_timer)
@@ -28,12 +17,8 @@
 /obj/item/xenoarchaeology_labeler/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_ARTIFACT_IGNORE, GENERIC_ITEM_TRAIT)
+	//bake / used baked stuff so we don't have to waste electricity
 	generate_xenoa_statics()
-	//generate data for trait names
-	activator_traits = get_trait_list_stats(GLOB.xenoa_activators)
-	minor_traits = get_trait_list_stats(GLOB.xenoa_minors)
-	major_traits = get_trait_list_stats(GLOB.xenoa_majors)
-	malfunction_list = get_trait_list_stats(GLOB.xenoa_malfunctions)
 
 /obj/item/xenoarchaeology_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -49,11 +34,11 @@
 
 /obj/item/xenoarchaeology_labeler/ui_static_data(mob/user)
 	var/list/data = list()
-	data["malfunction_list"] = malfunction_list
-	data["major_traits"] = major_traits
-	data["minor_traits"] = minor_traits
-	data["activator_traits"] = activator_traits
-	data["tooltip_stats"] = tooltip_stats
+	data["malfunction_list"] = GLOB.labeler_malfunction_traits
+	data["major_traits"] = GLOB.labeler_major_traits
+	data["minor_traits"] = GLOB.labeler_minor_traits
+	data["activator_traits"] = GLOB.labeler_activator_traits
+	data["tooltip_stats"] = GLOB.labeler_tooltip_stats
 
 	return data
 
@@ -74,7 +59,7 @@
 			return
 		if("toggle_trait")
 			var/trait_key = params["trait_name"]
-			var/list/focus = list(activator_traits, minor_traits, major_traits, malfunction_list)
+			var/list/focus = list(GLOB.labeler_activator_traits, GLOB.labeler_minor_traits, GLOB.labeler_major_traits, GLOB.labeler_malfunction_traits)
 			for(var/list/i as() in focus)
 				if(!(trait_key in i))
 					continue
@@ -85,23 +70,6 @@
 					selected_traits.Insert(1, trait_key)
 					label_traits.Insert(1, GLOB.xenoa_all_traits_keyed[trait_key])
 	return TRUE
-
-//Get a list of all the specified trait types stats
-//TODO: Consider baking this
-/obj/item/xenoarchaeology_labeler/proc/get_trait_list_stats(list/trait_type)
-	var/list/temp = list()
-	for(var/datum/xenoartifact_trait/T as() in trait_type)
-		temp += list(initial(T.label_name))
-		var/datum/xenoartifact_trait/hint_holder = new T()
-		tooltip_stats["[initial(T.label_name)]"] = list("weight" = initial(T.weight), "conductivity" = initial(T.conductivity), "alt_name" = initial(T.alt_label_name), "desc" = initial(T.label_desc), "hints" = hint_holder.get_dictionary_hint())
-		qdel(hint_holder)
-		//Generate material availability
-		var/list/materials = list(XENOA_BLUESPACE, XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM, XENOA_PEARL)
-		tooltip_stats["[initial(T.label_name)]"] += list("availability" = list())
-		for(var/datum/xenoartifact_material/M as() in materials)
-			if(initial(M.trait_flags) & initial(T.flags))
-				tooltip_stats["[initial(T.label_name)]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
-	return temp
 
 /obj/item/xenoarchaeology_labeler/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
@@ -132,10 +100,8 @@
 
 //Create an artifact with all the traits we have selected, but from the item we target
 /obj/item/xenoarchaeology_labeler/debug/afterattack(atom/target, mob/user)
-	if(length(label_traits))
-		target.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, label_traits, TRUE, FALSE, patch_traits)
-	else
-		target.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, null, TRUE, FALSE, patch_traits)
+	target.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, length(label_traits) ? label_traits : null, TRUE, FALSE, patch_traits)
+	return ..()
 
 /obj/item/xenoarchaeology_labeler/debug/AltClick(mob/user)
 	. = ..()
@@ -145,7 +111,7 @@
 //Create an artifact with all the traits we hve selected
 /obj/item/xenoarchaeology_labeler/debug/create_label(new_name)
 	var/obj/item/xenoartifact/no_traits/A = new(get_turf(loc))
-	A.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, label_traits)
+	A.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, length(label_traits) ? label_traits : null, TRUE, TRUE, patch_traits)
 
 /*
 	Sticker for labeler, so we can label artifact's with their traits

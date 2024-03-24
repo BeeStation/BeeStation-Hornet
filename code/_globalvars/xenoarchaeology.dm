@@ -27,7 +27,23 @@ GLOBAL_LIST(xenoa_item_incompatible)
 GLOBAL_LIST(xenoa_mob_incompatible)
 GLOBAL_LIST(xenoa_structure_incompatible)
 
-///Fill globals
+///Labeler trait lists
+GLOBAL_LIST(labeler_activator_traits)
+GLOBAL_LIST(labeler_minor_traits)
+GLOBAL_LIST(labeler_major_traits)
+GLOBAL_LIST(labeler_malfunction_traits)
+GLOBAL_LIST_INIT(labeler_tooltip_stats, list())
+
+///Material weights, basically rarity
+GLOBAL_LIST_INIT(xenoartifact_material_weights, list(XENOA_BLUESPACE = 10, XENOA_PLASMA = 8, XENOA_URANIUM = 5, XENOA_BANANIUM = 1))
+
+///Trait priority list - The order is important and it represents priotity
+GLOBAL_LIST_INIT(xenoartifact_trait_priorities, list(TRAIT_PRIORITY_ACTIVATOR, TRAIT_PRIORITY_MINOR, TRAIT_PRIORITY_MALFUNCTION, TRAIT_PRIORITY_MAJOR))
+
+///List of 'discovered' traits
+GLOBAL_LIST_INIT(discovered_traits, list())
+
+///Fill xenoarchaeology globals
 /proc/generate_xenoa_statics()
 	if(length(GLOB.xenoa_all_traits))
 		return
@@ -57,11 +73,76 @@ GLOBAL_LIST(xenoa_structure_incompatible)
 	GLOB.xenoa_mob_incompatible = compile_artifact_compatibilties(TRAIT_INCOMPATIBLE_MOB)
 	GLOB.xenoa_structure_incompatible = compile_artifact_compatibilties(TRAIT_INCOMPATIBLE_STRUCTURE)
 
-///Material weights, basically rarity
-GLOBAL_LIST_INIT(xenoartifact_material_weights, list(XENOA_BLUESPACE = 10, XENOA_PLASMA = 8, XENOA_URANIUM = 5, XENOA_BANANIUM = 1))
+	//Labeler
+	GLOB.labeler_activator_traits = get_trait_list_stats(GLOB.xenoa_activators)
+	GLOB.labeler_minor_traits = get_trait_list_stats(GLOB.xenoa_minors)
+	GLOB.labeler_major_traits = get_trait_list_stats(GLOB.xenoa_majors)
+	GLOB.labeler_malfunction_traits = get_trait_list_stats(GLOB.xenoa_malfunctions)
 
-///Trait priority list - The order is important and it represents priotity
-GLOBAL_LIST_INIT(xenoartifact_trait_priorities, list(TRAIT_PRIORITY_ACTIVATOR, TRAIT_PRIORITY_MINOR, TRAIT_PRIORITY_MALFUNCTION, TRAIT_PRIORITY_MAJOR))
+///Proc used to compile trait weights into a list
+/proc/compile_artifact_weights(path, keyed = FALSE)
+	if(!ispath(path))
+		return
+	var/list/temp = subtypesof(path)
+	var/list/weighted = list()
+	for(var/datum/xenoartifact_trait/T as() in temp)
+		if(initial(T.flags) & XENOA_HIDE_TRAIT)
+			continue
+		if(keyed)
+			weighted += list(initial(T.label_name) = (T))
+		else
+			weighted += list((T) = initial(T.rarity)) //The (T) will not work if it is T
+	return weighted
 
-///List of 'discovered' traits
-GLOBAL_LIST_INIT(discovered_traits, list())
+///Compile a blacklist of traits from a given flag/s
+/proc/compile_artifact_whitelist(var/flags)
+	var/list/output = list()
+	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
+		if(initial(T.flags) & XENOA_HIDE_TRAIT)
+			continue
+		if(!ispath(flags))
+			if((initial(T.flags) & flags))
+				output += T
+		else
+			var/datum/xenoartifact_material/M = flags
+			if((initial(T.flags) & initial(M.trait_flags)))
+				output += T
+	return output
+
+///Compile a list of traits from a given compatability flag/s
+/proc/compile_artifact_compatibilties(var/flags)
+	var/list/output = list()
+	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
+		if(initial(T.incompatabilities) & flags)
+			output += T
+	return output
+
+///Get a trait incompatability list based on the passed type
+/proc/get_trait_incompatibilities(atom/type)
+	//Items
+	if(istype(type, /obj/item))
+		return GLOB.xenoa_item_incompatible
+	//Mob
+	if(istype(type, /mob))
+		return GLOB.xenoa_mob_incompatible
+	//Structure
+	if(istype(type, /obj/structure))
+		return GLOB.xenoa_structure_incompatible
+
+	return list()
+
+///Proc for labeler baking
+/proc/get_trait_list_stats(list/trait_type)
+	var/list/temp = list()
+	for(var/datum/xenoartifact_trait/T as() in trait_type)
+		temp += list(initial(T.label_name))
+		var/datum/xenoartifact_trait/hint_holder = new T()
+		GLOB.labeler_tooltip_stats["[initial(T.label_name)]"] = list("weight" = initial(T.weight), "conductivity" = initial(T.conductivity), "alt_name" = initial(T.alt_label_name), "desc" = initial(T.label_desc), "hints" = hint_holder.get_dictionary_hint())
+		qdel(hint_holder)
+		//Generate material availability
+		var/list/materials = list(XENOA_BLUESPACE, XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM, XENOA_PEARL)
+		GLOB.labeler_tooltip_stats["[initial(T.label_name)]"] += list("availability" = list())
+		for(var/datum/xenoartifact_material/M as() in materials)
+			if(initial(M.trait_flags) & initial(T.flags))
+				GLOB.labeler_tooltip_stats["[initial(T.label_name)]"]["availability"] += list(list("color" = initial(M.material_color), "icon" = initial(M.label_icon)))
+	return temp

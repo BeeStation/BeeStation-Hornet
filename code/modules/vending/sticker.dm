@@ -45,7 +45,7 @@
 		user.put_in_active_hand(S)
 		//Dopamine
 		playsound(user, 'sound/items/party_horn.ogg', 35, TRUE)
-		user.add_emitter(/obj/emitter/confetti, "confetti", 10, lifespan = 20)
+		user.add_emitter(/obj/emitter/confetti, "confetti", 10, lifespan = 15)
 		//Kill ourselves
 		qdel(src)
 	else

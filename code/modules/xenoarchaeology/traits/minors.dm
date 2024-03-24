@@ -800,7 +800,6 @@
 /datum/xenoartifact_trait/minor/haunted/get_dictionary_hint()
 	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("allow the artifact to be moved, by ghosts, every 8 seconds"))
 
-
 /datum/xenoartifact_trait/minor/haunted/proc/do_wail(repeat = TRUE)
 	if(QDELETED(src))
 		return

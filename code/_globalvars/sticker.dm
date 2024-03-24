@@ -5,6 +5,10 @@ GLOBAL_LIST(stickers_by_series)
 /proc/fill_sticker_globals()
 	if(length(GLOB.stickers_by_series))
 		return
+	/*
+		Build sticker GLOB.stickers_by_series
+		just index each series flag with a list of associated sticker objects
+	*/
 	var/list/temp = list()
 	var/series = STICKER_SERIES_1 //Make sure you update this if you add more series
 	for(var/obj/item/sticker/S as() in subtypesof(/obj/item/sticker))

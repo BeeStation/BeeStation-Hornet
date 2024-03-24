@@ -478,13 +478,15 @@
 	material_desc = null
 	label_name = "Hungry"
 	label_desc = "Hungry: The artifact seems to be made of a semi-living, hungry, material. This material seems to be triggered by feeding interactions."
-	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = 32
 	///How much damage do we deal per bite?
 	var/eat_damage = 15
-	//Timer logic for biting people
+	///Timer logic for biting people
 	var/bite_cooldown = 4 SECONDS
 	var/bite_timer
+	///Will we tollerate the taste of humans? Used for subtypes
+	var/maneater = FALSE
 
 /datum/xenoartifact_trait/activator/sturdy/hungry/trigger_artifact(atom/target, type, force)
 	if(parent.anti_check(target, type))
@@ -512,18 +514,33 @@
 		playsound(AM.loc, 'sound/weapons/bite.ogg', 60, 1, 1)
 		AM.do_attack_animation(M)
 		M.adjustBruteLoss(eat_damage)
-		M.visible_message("<span class='warning'>[AM] bites [M]!</span>", "<span class='warning'>[AM] bites you!\n[AM] doesn't like that taste!</span>")
 		bite_timer = addtimer(CALLBACK(src, PROC_REF(handle_timer)), bite_cooldown, TIMER_STOPPABLE)
-		return FALSE
+		if(!maneater)
+			M.visible_message("<span class='warning'>[AM] bites [M], it didn't quite like the taste!</span>", "<span class='warning'>[AM] bites you!\n[AM] doesn't like that taste!</span>")
+			return FALSE
+		else
+			M.visible_message("<span class='warning'>[AM] bites [M], it loves the taste!</span>", "<span class='warning'>[AM] bites you!\n[AM] loves that taste!</span>")
+			return ..()
 	return FALSE
 
 /datum/xenoartifact_trait/activator/sturdy/hungry/get_dictionary_hint()
-	return list()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("only eat food items"))
 
 /datum/xenoartifact_trait/activator/sturdy/hungry/proc/handle_timer()
 	if(bite_timer)
 		deltimer(bite_timer)
 	bite_timer = null
+
+//maneater variant
+/datum/xenoartifact_trait/activator/sturdy/hungry/maneater
+	material_desc = null
+	label_name = "Hungry Δ"
+	label_desc = "Hungry Δ: The artifact seems to be made of a semi-living, hungry, material. This material seems to be triggered by feeding interactions."
+	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	maneater = TRUE
+
+/datum/xenoartifact_trait/activator/sturdy/hungry/maneater/get_dictionary_hint()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("eat food items, and mobs"))
 
 /*
 	Edible

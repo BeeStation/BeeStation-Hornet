@@ -71,7 +71,7 @@
 	do_mask = _do_mask
 	build_material_appearance()
 
-	//Build priotity list
+	//Populate priotity list
 	for(var/i in GLOB.xenoartifact_trait_priorities)
 		artifact_traits[i] = list()
 
