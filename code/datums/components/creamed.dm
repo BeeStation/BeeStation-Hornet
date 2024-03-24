@@ -26,7 +26,6 @@ GLOBAL_LIST_INIT(creamable, typecacheof(list(
 			creamface.icon_state = "creampie_lizard"
 		else
 			creamface.icon_state = "creampie_human"
-		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "creampie", /datum/mood_event/creampie)
 	else if(ismonkey(parent))
 		creamface.icon_state = "creampie_monkey"
 	else if(iscorgi(parent))
@@ -41,8 +40,6 @@ GLOBAL_LIST_INIT(creamable, typecacheof(list(
 	var/atom/A = parent
 	A.cut_overlay(creamface)
 	qdel(creamface)
-	if(ishuman(A))
-		SEND_SIGNAL(A, COMSIG_CLEAR_MOOD_EVENT, "creampie")
 	return ..()
 
 /datum/component/creamed/RegisterWithParent()
