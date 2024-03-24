@@ -1,5 +1,6 @@
 /obj/item/sticker/sticky_note
 	name = "office note"
+	desc = "An adhesive office note."
 	icon_state = "sticky_note"
 	sticker_icon_state = "sticky_note_sticker"
 	do_outline = FALSE
@@ -45,3 +46,66 @@
 		pixel_x = old_x
 		pixel_y = old_y
 	UnregisterSignal(my_paper, COMSIG_ATOM_UPDATE_OVERLAYS)
+
+/*
+	Dispenser for sticky notes
+*/
+/obj/item/sticky_note_pile
+	name = "office note pad"
+	desc = "A stack of adhesive office notes."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "sticky_note_pile"
+	throwforce = 0
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 3
+	throw_range = 7
+	pressure_resistance = 8
+	resistance_flags = FLAMMABLE
+	///How many sticky notes do we contain
+	var/current_notes = 30
+
+/obj/item/sticky_note_pile/Initialize(mapload)
+	. = ..()
+	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
+
+/obj/item/sticky_note_pile/MouseDrop(atom/over_object)
+	. = ..()
+	var/mob/living/M = usr
+	if(!istype(M) || M.incapacitated() || !Adjacent(M))
+		return
+
+	if(over_object == M)
+		M.put_in_hands(src)
+
+	else if(istype(over_object, /atom/movable/screen/inventory/hand))
+		var/atom/movable/screen/inventory/hand/H = over_object
+		M.putItemFromInventoryInHandIfPossible(src, H.held_index)
+
+	add_fingerprint(M)
+
+/obj/item/sticky_note_pile/attack_hand(mob/user)
+	. = ..()
+	//Prechecks
+	if(isliving(user))
+		var/mob/living/L = user
+		if(!(L.mobility_flags & MOBILITY_PICKUP))
+			return
+	if(current_notes <= 0)
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		return
+	//Give the note
+	user.changeNext_move(CLICK_CD_MELEE)
+	var/obj/item/sticker/sticky_note/N = new()
+	N.add_fingerprint(user)
+	N.forceMove(user.loc)
+	user.put_in_hands(N)
+	to_chat(user, "<span class='notice'>You take [N] out of \the [src].</span>")
+	//Deitterate notes
+	current_notes -= 1
+
+/obj/item/sticky_note_pile/examine(mob/user)
+	. = ..()
+	if(current_notes)
+		. += "It contains [current_notes > 1 ? "[current_notes] notes" : " one note"]."
+	else
+		. += "It doesn't contain anything."

@@ -76897,8 +76897,16 @@
 /obj/structure/sign/poster/official/xenoarchaeology{
 	pixel_y = -32
 	},
-/obj/item/paicard,
-/obj/item/book/manual/wiki/xenoarchaeology,
+/obj/item/paicard{
+	pixel_x = -7
+	},
+/obj/item/book/manual/wiki/xenoarchaeology{
+	pixel_x = -6
+	},
+/obj/item/sticky_note_pile{
+	pixel_y = 3;
+	pixel_x = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "xze" = (

@@ -3309,7 +3309,8 @@
 					/obj/item/clipboard,
 					/obj/item/stamp,
 					/obj/item/stamp/denied,
-					/obj/item/laser_pointer/purple)
+					/obj/item/laser_pointer/purple,
+					/obj/item/sticky_note_pile)
 	crate_name = "bureaucracy crate"
 
 /datum/supply_pack/misc/bulk_paper
