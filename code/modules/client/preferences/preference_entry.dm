@@ -463,7 +463,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 			possible_values[name] = uni_icon(sprite_accessory.icon, sprite_accessory.icon_state)
 		else
 			// This means it didn't have an icon state
-			possible_values[name] = uni_icon('icons/mob/landmarks.dmi', "x")
+			possible_values[name] = uni_icon('icons/effects/landmarks_static.dmi', "x")
 	return possible_values
 
 /// Takes an assoc list of names to /datum/sprite_accessory and returns a value
