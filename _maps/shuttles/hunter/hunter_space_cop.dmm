@@ -1275,7 +1275,7 @@
 	},
 /obj/structure/closet/crate/bin,
 /obj/item/trash/candy,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/item/trash/cheesie{
 	pixel_x = 4;
 	pixel_y = -4

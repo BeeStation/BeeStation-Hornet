@@ -19,7 +19,6 @@
 	desc = "Now if you only had a pepper bar."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "toastedsandwich"
-	trash_type = /obj/item/trash/plate
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
 		/datum/reagent/carbon = 2

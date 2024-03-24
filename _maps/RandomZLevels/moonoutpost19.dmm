@@ -6089,7 +6089,7 @@
 /area/awaymission/moonoutpost19/syndicate)
 "Bn" = (
 /obj/structure/table,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
@@ -6261,7 +6261,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 32
 	},
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/item/cigbutt,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel{
@@ -6355,7 +6355,7 @@
 /area/awaymission/moonoutpost19/research)
 "HV" = (
 /obj/structure/closet/crate/bin,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/item/food/badrecipe,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5

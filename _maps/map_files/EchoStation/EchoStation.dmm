@@ -18775,7 +18775,7 @@
 /turf/open/floor/plasteel/tech,
 /area/science/mixing)
 "jsm" = (
-/obj/item/trash/plate,
+/obj/item/plate,
 /turf/open/floor/plating/beach/sand,
 /area/asteroid/paradise/surface)
 "jsp" = (
@@ -39173,7 +39173,7 @@
 	},
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood,
-/obj/item/trash/plate{
+/obj/item/plate{
 	pixel_y = 3
 	},
 /obj/item/food/donkpocket/pizza{

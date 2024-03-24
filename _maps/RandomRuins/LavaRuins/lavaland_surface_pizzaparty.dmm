@@ -90,7 +90,7 @@
 	},
 /area/ruin/unpowered)
 "o" = (
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
@@ -160,7 +160,7 @@
 /area/ruin/unpowered)
 "y" = (
 /obj/structure/table/wood,
-/obj/item/trash/plate,
+/obj/item/plate,
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -175,7 +175,7 @@
 /area/ruin/unpowered)
 "A" = (
 /obj/structure/table/wood,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/item/kitchen/fork,
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
@@ -193,7 +193,7 @@
 "D" = (
 /obj/structure/table/wood,
 /obj/item/food/pizzaslice/margherita,
-/obj/item/trash/plate,
+/obj/item/plate,
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},

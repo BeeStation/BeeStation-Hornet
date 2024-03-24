@@ -10,7 +10,7 @@
 /area/template_noop)
 "c" = (
 /obj/structure/table/reinforced,
-/obj/item/trash/plate,
+/obj/item/plate,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "d" = (
@@ -66,7 +66,7 @@
 /area/template_noop)
 "k" = (
 /obj/structure/table/wood,
-/obj/item/trash/plate,
+/obj/item/plate,
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"

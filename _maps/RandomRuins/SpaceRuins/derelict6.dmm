@@ -179,7 +179,7 @@
 /area/ruin/unpowered)
 "aV" = (
 /obj/structure/table/wood,
-/obj/item/trash/plate,
+/obj/item/plate,
 /turf/open/floor/plating/airless{
 	broken = 1
 	},
@@ -231,7 +231,7 @@
 	},
 /area/ruin/unpowered)
 "bj" = (
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/effect/decal/remains/human,
 /turf/open/floor/plasteel/airless/cafeteria,
 /area/ruin/unpowered)
@@ -383,7 +383,7 @@
 /turf/template_noop,
 /area/ruin/unpowered)
 "dd" = (
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)

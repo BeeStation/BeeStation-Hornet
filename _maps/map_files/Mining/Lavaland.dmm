@@ -6220,7 +6220,7 @@
 /area/mine/science)
 "Uv" = (
 /obj/structure/table,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/item/kitchen/fork,
 /obj/item/reagent_containers/food/drinks/britcup{
 	pixel_x = -5;

@@ -27,7 +27,7 @@
 	},
 /area/template_noop)
 "j" = (
-/obj/item/trash/plate,
+/obj/item/plate,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "l" = (

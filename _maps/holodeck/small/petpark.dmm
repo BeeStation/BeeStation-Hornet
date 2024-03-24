@@ -37,7 +37,7 @@
 /turf/open/floor/holofloor/grass,
 /area/template_noop)
 "r" = (
-/obj/item/trash/plate,
+/obj/item/plate,
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "v" = (
