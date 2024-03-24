@@ -77,22 +77,6 @@ const BasicLoreSubsection = (_props, _context) => {
     <Section>
       <BlockQuote>
         You have joined a team of Syndicate agents with shared goals and must infiltrate the ranks of the station!
-        <br />
-        You&apos;ve been implanted with an internal syndicate radio implant for communication with your team. This headset can
-        only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!
-        <br />
-        Talk over the{' '}
-        <Box inline textColor="red">
-          Syndicate radio channel
-        </Box>{' '}
-        with{' '}
-        <Box inline textColor="red">
-          :t
-        </Box>{' '}
-        /{' '}
-        <Box inline textColor="red">
-          .t
-        </Box>
       </BlockQuote>
     </Section>
   );
