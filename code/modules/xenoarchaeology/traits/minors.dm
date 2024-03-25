@@ -953,6 +953,7 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = 15
 	conductivity = 10
+	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 	///Max force we can use, aka how far we throw things
 	var/max_force = 7
 

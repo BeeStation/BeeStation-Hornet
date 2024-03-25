@@ -89,7 +89,9 @@
 	var/obj/item/sticker/xenoartifact_label/P = new(get_turf(src), label_traits)
 	if(target && user)
 		P.afterattack(target, user, TRUE)
-
+/*
+	Debug variant, spawns artifacts
+*/
 /obj/item/xenoarchaeology_labeler/debug
 	name = "xenoartifact debug labeler"
 	desc = "Use to create specific Xenoartifacts"
@@ -99,10 +101,13 @@
 	var/patch_traits = FALSE
 	///What type of material we're applying
 	var/datum/xenoartifact_material/material = /datum/xenoartifact_material
+	///Hack fix for double creation, who cares about a debug tool
+	var/skip_label = FALSE
 
 //Create an artifact with all the traits we have selected, but from the item we target
 /obj/item/xenoarchaeology_labeler/debug/afterattack(atom/target, mob/user)
 	target.AddComponent(/datum/component/xenoartifact, material, length(label_traits) ? label_traits : null, TRUE, FALSE, patch_traits)
+	skip_label = TRUE
 	return ..()
 
 /obj/item/xenoarchaeology_labeler/debug/AltClick(mob/user)
@@ -117,8 +122,14 @@
 			possible_materials += /datum/xenoartifact_material
 			material = tgui_input_list(user, "Select artifact material.", "Select Material", possible_materials, /datum/xenoartifact_material)
 
-//Create an artifact with all the traits we hve selected
-/obj/item/xenoarchaeology_labeler/debug/create_label(new_name)
+/obj/item/xenoarchaeology_labeler/debug/examine(mob/user)
+	. = ..()
+	. += "<span>Alt+Click to toggle settings.</span>"
+
+/obj/item/xenoarchaeology_labeler/debug/create_label()
+	if(skip_label)
+		skip_label = FALSE
+		return
 	var/obj/item/xenoartifact/no_traits/A = new(get_turf(loc))
 	A.AddComponent(/datum/component/xenoartifact, material, length(label_traits) ? label_traits : null, TRUE, TRUE, patch_traits)
 
