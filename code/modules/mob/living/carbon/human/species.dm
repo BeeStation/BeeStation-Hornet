@@ -121,6 +121,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// if false, having no tongue makes you unable to speak
 	var/speak_no_tongue = TRUE
 
+	///List of possible heights
+	var/list/species_height = SPECIES_HEIGHTS(BODY_SIZE_SHORT, BODY_SIZE_NORMAL, BODY_SIZE_TALL)
+
 ///////////
 // PROCS //
 ///////////
@@ -2871,3 +2874,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/primary_species_action()
 	return
 
+//Use this to return dynamic heights, such as making felinids shorter on halloween or something
+/datum/species/proc/get_species_height()
+	return species_height

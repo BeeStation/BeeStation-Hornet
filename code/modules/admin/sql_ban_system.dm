@@ -336,7 +336,7 @@
 			else
 				selected_roles += role
 		if ("submit_ban")
-			parse_ban(key, key_enabled, ip_enabled, ip, cid_enabled, cid, use_last_connection, applies_to_admins, duration_type, duration, time_units, 1, reason, 1, ban_type, selected_roles, suppressed, force_cryo_after)
+			parse_ban(key, key_enabled, ip_enabled, ip, cid_enabled, cid, use_last_connection, applies_to_admins, duration_type, duration, time_units, "high", reason, 1, ban_type, selected_roles, suppressed, force_cryo_after)
 		else
 			if (action in group_list)
 				if (action in selected_groups)
@@ -391,7 +391,10 @@
 		return
 	if(ban_type == "Server")
 		roles_to_ban = list("Server")
-
+	if(duration_type == "Permanent")
+		duration = null
+	if(!cid_check)
+		player_cid = null
 	var/mob/user = usr
 	if(!istype(user) || !user.client || !user.client.holder)
 		return

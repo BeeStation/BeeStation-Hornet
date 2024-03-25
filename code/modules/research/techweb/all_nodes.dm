@@ -155,6 +155,7 @@
 		"screwdriver",
 		"shovel",
 		"spade",
+		"stethoscope",
 		"surgical_drapes",
 		"surgicaldrill",
 		"syringe",
