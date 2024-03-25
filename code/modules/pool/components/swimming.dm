@@ -32,6 +32,7 @@
 	lengths ++
 	if(lengths > lengths_for_bonus)
 		var/mob/living/L = parent
+		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "exercise", /datum/mood_event/exercise)
 		L.apply_status_effect(STATUS_EFFECT_EXERCISED) //Swimming is really good excercise!
 		lengths = 0
 
