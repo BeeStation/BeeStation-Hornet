@@ -11,3 +11,7 @@ GLOBAL_DATUM_INIT(is_color_nocrunch, /regex, regex("^\[0-9a-fA-F]{6}$"))
 //All characters forbidden by filenames: ", \, \n, \t, /, ?, %, *, :, |, <, >, ..
 GLOBAL_DATUM_INIT(filename_forbidden_chars, /regex, regex(@{""|[\\\n\t/?%*:|<>]|\.\."}, "g"))
 GLOBAL_PROTECT(filename_forbidden_chars)
+
+//Banning panel inputs
+GLOBAL_DATUM_INIT(is_all_numbers, /regex, regex("^\[0-9]+$"))
+GLOBAL_DATUM_INIT(is_ip_address, /regex, regex("^\[0-9]{1,3}.\[0-9]{1,3}.\[0-9]{1,3}.\[0-9]{1,3}$"))
