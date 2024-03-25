@@ -1,0 +1,4 @@
+author: ToasterBan
+delete-after: true
+changes:
+  - tweak: Hypersensitive and Apathetic quirks now only affect negative moodlets
