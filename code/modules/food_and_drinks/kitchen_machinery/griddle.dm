@@ -25,7 +25,7 @@
 
 /obj/machinery/griddle/Initialize()
 	. = ..()
-	grill_loop = new(list(src), FALSE)
+	grill_loop = new(src, FALSE)
 	if(isnum(variant))
 		variant = rand(1,3)
 	// Add expose_reagent to add pancakes. I tried already.  https://github.com/BeeStation/BeeStation-Hornet/pull/8479
