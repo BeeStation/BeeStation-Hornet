@@ -4474,9 +4474,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/entry)
 "aYi" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/camera{
 	c_tag = "Medbay - Chief Medical Officer's Office";
@@ -6052,9 +6050,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
@@ -10219,9 +10215,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -11779,9 +11773,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -11909,6 +11901,10 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/table,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/item/reagent_containers/food/condiment/sugar,
+/obj/item/reagent_containers/food/condiment/flour{
+	pixel_x = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "dap" = (
@@ -19083,9 +19079,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "eSB" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -19207,9 +19201,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/bridge)
 "eTQ" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
@@ -23231,9 +23223,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "fSI" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -23923,9 +23913,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "gbx" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -26252,9 +26240,7 @@
 	dir = 9;
 	network = list("vault")
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -30277,9 +30263,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "hJw" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -37162,9 +37146,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/chair/foldable{
 	dir = 8
 	},
@@ -39576,9 +39558,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 22
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -42452,14 +42432,9 @@
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "kMK" = (
-/obj/structure/table,
 /obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/condiment/flour{
-	pixel_x = 4
-	},
-/obj/item/food/chocolatebar,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/griddle,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "kMO" = (
@@ -42927,9 +42902,7 @@
 	name = "medbay camera";
 	network = list("ss13","medbay")
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -43945,9 +43918,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -47797,9 +47768,7 @@
 /obj/item/stock_parts/cell/hyper,
 /obj/item/stack/cable_coil,
 /obj/effect/turf_decal/bot,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -48962,9 +48931,7 @@
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
 "muu" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/carpet,
 /area/hallway/primary/starboard)
@@ -50328,6 +50295,7 @@
 /obj/item/storage/box/ingredients/wildcard,
 /obj/item/food/mint,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/item/food/chocolatebar,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "mLS" = (
@@ -59254,9 +59222,7 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "pgZ" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -63026,9 +62992,7 @@
 /area/maintenance/central)
 "qfK" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -65801,9 +65765,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "qPX" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -66709,9 +66671,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/machinery/light_switch{
 	pixel_x = 24;
 	pixel_y = 24
@@ -68748,9 +68708,7 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
 "rCW" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -70043,9 +70001,7 @@
 /area/hydroponics)
 "rQK" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -72781,9 +72737,7 @@
 /turf/open/floor/plasteel/ridged/steel,
 /area/science/xenobiology)
 "sBB" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -73093,9 +73047,7 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -77007,9 +76959,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/storage/tools)
@@ -79723,9 +79673,7 @@
 	dir = 5
 	},
 /obj/item/kirbyplants/random,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -80670,9 +80618,7 @@
 /area/engine/engine_room)
 "uBs" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -81650,9 +81596,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "uOg" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -83800,9 +83744,7 @@
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "vmR" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
@@ -89058,9 +89000,7 @@
 /turf/open/floor/plasteel/dark,
 /area/science/lobby)
 "wvS" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/closet/secure_closet/injection,

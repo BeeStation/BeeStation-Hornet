@@ -55037,14 +55037,12 @@
 /area/medical/medbay/central)
 "lHW" = (
 /obj/structure/table,
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/item/storage/bag/tray,
 /obj/item/book/manual/chef_recipes{
 	pixel_x = -4;
 	pixel_y = 6
 	},
-/obj/item/book/manual/chef_recipes{
-	pixel_y = 2
-	},
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
 "lIC" = (
@@ -61820,9 +61818,11 @@
 /area/maintenance/starboard)
 "ocf" = (
 /obj/structure/table,
-/obj/item/storage/bag/tray,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/reagentgrinder{
+	pixel_y = 5
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
@@ -65570,9 +65570,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "plP" = (
-/obj/effect/turf_decal/tile/dark_green/half/contrasted{
-	color = "#439C1E"
-	},
+/obj/effect/turf_decal/tile/dark_green/half/contrasted,
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -90926,13 +90924,10 @@
 	},
 /area/maintenance/starboard/aft)
 "xQc" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/griddle,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
 "xQl" = (
@@ -92356,9 +92351,7 @@
 /area/crew_quarters/cryopods)
 "ylk" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/turf_decal/tile/dark_green/half/contrasted{
-	color = "#439C1E"
-	},
+/obj/effect/turf_decal/tile/dark_green/half/contrasted,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
