@@ -97,21 +97,30 @@
 	sticker_cooldown = 0 SECONDS
 	///Flag for enabling or disabling trait patches
 	var/patch_traits = FALSE
+	///What type of material we're applying
+	var/datum/xenoartifact_material/material = /datum/xenoartifact_material
 
 //Create an artifact with all the traits we have selected, but from the item we target
 /obj/item/xenoarchaeology_labeler/debug/afterattack(atom/target, mob/user)
-	target.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, length(label_traits) ? label_traits : null, TRUE, FALSE, patch_traits)
+	target.AddComponent(/datum/component/xenoartifact, material, length(label_traits) ? label_traits : null, TRUE, FALSE, patch_traits)
 	return ..()
 
 /obj/item/xenoarchaeology_labeler/debug/AltClick(mob/user)
 	. = ..()
-	patch_traits = !patch_traits
-	to_chat(user, "<span class='notice'>Toggled patch: [patch_traits ? "On" : "Off"].</span>")
+	var/choice = tgui_alert(user, "Select Action", "Select Action", list("Toggle Patch", "Change Material"))
+	switch(choice)
+		if("Toggle Patch")
+			patch_traits = !patch_traits
+			to_chat(user, "<span class='notice'>Toggled patch: [patch_traits ? "On" : "Off"].</span>")
+		if("Change Material")
+			var/list/possible_materials = subtypesof(/datum/xenoartifact_material)
+			possible_materials += /datum/xenoartifact_material
+			material = tgui_input_list(user, "Select artifact material.", "Select Material", possible_materials, /datum/xenoartifact_material)
 
 //Create an artifact with all the traits we hve selected
 /obj/item/xenoarchaeology_labeler/debug/create_label(new_name)
 	var/obj/item/xenoartifact/no_traits/A = new(get_turf(loc))
-	A.AddComponent(/datum/component/xenoartifact, /datum/xenoartifact_material, length(label_traits) ? label_traits : null, TRUE, TRUE, patch_traits)
+	A.AddComponent(/datum/component/xenoartifact, material, length(label_traits) ? label_traits : null, TRUE, TRUE, patch_traits)
 
 /*
 	Sticker for labeler, so we can label artifact's with their traits

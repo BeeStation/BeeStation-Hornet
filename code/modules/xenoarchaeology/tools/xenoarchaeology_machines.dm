@@ -63,6 +63,15 @@
 		A.forceMove(get_turf(src))
 		unregister_contents(A)
 
+//Circuitboard
+/obj/item/circuitboard/machine/xenoarchaeology_machine
+	name = "place holder (Machine Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/xenoarchaeology_machine
+	req_components = list(
+		/obj/item/stack/ore/bluespace_crystal = 5,
+		/obj/item/stock_parts/matter_bin = 1)
+
 /*
 	Scale, measures artifact weight
 */
@@ -70,6 +79,7 @@
 	name = "industrial scale"
 	desc = "A piece of industrial equipment, designed to weigh thousands of kilograms."
 	icon_state = "scale"
+	circuit = /obj/item/circuitboard/machine/xenoarchaeology_machine/scale
 
 /obj/machinery/xenoarchaeology_machine/scale/examine(mob/user)
 	. = ..()
@@ -103,6 +113,12 @@
 		say("No Mass Detected!")
 	playsound(src, 'sound/machines/uplinkpurchase.ogg', 50, TRUE)
 
+//Circuitboard
+/obj/item/circuitboard/machine/xenoarchaeology_machine/scale
+	name = "industrial scale (Machine Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/xenoarchaeology_machine/scale
+
 /*
 	Conductor, measures artifact conductivty
 */
@@ -110,6 +126,7 @@
 	name = "conducting plate"
 	desc = "A piece of industrial equipment for measuring material conductivity."
 	icon_state = "conductor"
+	circuit = /obj/item/circuitboard/machine/xenoarchaeology_machine/conductor
 
 /obj/machinery/xenoarchaeology_machine/conductor/examine(mob/user)
 	. = ..()
@@ -137,6 +154,12 @@
 		say("No Conductivity Detected!")
 	playsound(src, 'sound/machines/uplinkpurchase.ogg', 50, TRUE)
 
+//Circuitboard
+/obj/item/circuitboard/machine/xenoarchaeology_machine/conductor
+	name = "conducting plate (Machine Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/xenoarchaeology_machine/conductor
+
 /*
 	Calibrator, calibrates artifacts
 */
@@ -145,6 +168,7 @@
 	desc = "An experimental piece of scientific equipment, designed to calibrate anomalous materials."
 	icon_state = "calibrator"
 	move_inside = TRUE
+	circuit = /obj/item/circuitboard/machine/xenoarchaeology_machine/calibrator
 	///Which science server receives points
 	var/datum/techweb/linked_techweb
 	///radio used by the console to send messages on science channel
@@ -254,7 +278,9 @@
 		var/dp_reward = max(0, (A.custom_price*X.artifact_type.dp_rate)*success_rate)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
 		//Announce this, for honor or shame
-		radio?.talk_into(src, "[A] has been calibrated, and generated [dp_reward] Discovery Points!", RADIO_CHANNEL_SCIENCE)
+		var/message = "[A] has been calibrated, and generated [dp_reward] Discovery Points!"
+		say(message)
+		radio?.talk_into(src, message, RADIO_CHANNEL_SCIENCE)
 	//Calibrate the artifact
 	X.calibrate()
 	//Prompt user to delete or keep malfunctions
@@ -264,3 +290,9 @@
 			for(var/datum/xenoartifact_trait/T in X.artifact_traits[i])
 				if(istype(T, /datum/xenoartifact_trait/malfunction))
 					qdel(T)
+
+//Circuitboard
+/obj/item/circuitboard/machine/xenoarchaeology_machine/calibrator
+	name = "anomalous material calibrator (Machine Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/xenoarchaeology_machine/calibrator
