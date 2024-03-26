@@ -1,0 +1,5 @@
+author: rkz, Watermelon914
+delete-after: true
+changes:
+  - server: Refactors dbcore.dm and limits the maximum amount of concurrent async
+      queries to 25.
