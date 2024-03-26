@@ -1,1 +1,1 @@
-/obj/item/food/grown : /obj/item/reagent_containers/food/snacks/grown{@OLD}
+/obj/item/reagent_containers/food/snacks/grown/@SUBTYPES : /obj/item/food/grown/@SUBTYPES{@OLD}

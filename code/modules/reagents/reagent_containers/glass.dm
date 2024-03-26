@@ -221,6 +221,10 @@
 	name = "epinephrine reserve tank"
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 50)
 
+/obj/item/reagent_containers/glass/beaker/large/kelobic
+	name = "kelotane-bicaridine reserve tank"
+	list_reagents = list(/datum/reagent/medicine/kelotane = 50, /datum/reagent/medicine/bicaridine = 50)
+
 /obj/item/reagent_containers/glass/beaker/synthflesh
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 50)
 
@@ -407,7 +411,7 @@
 	volume = 100
 	amount_per_transfer_from_this = 20
 	cap_icon_state = "bottle_cap"
-	vendor_icon_preview = "waterbottle_large"
+	icon_state_preview = "waterbottle_large"
 
 /obj/item/reagent_containers/glass/waterbottle/large/empty
 	list_reagents = list()

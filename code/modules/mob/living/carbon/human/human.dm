@@ -28,13 +28,14 @@
 
 	. = ..()
 
-	AddComponent(/datum/component/personal_crafting)
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_FACE_ACT, PROC_REF(clean_face))
+	AddComponent(/datum/component/personal_crafting)
+	AddComponent(/datum/component/bloodysoles/feet)
+	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items, TYPE_PROC_REF(/mob/living/carbon/human, should_strip), GLOB.strippable_human_layout)
 	AddElement(/datum/element/mechanical_repair)
 
 /mob/living/carbon/human/proc/setup_human_dna()
@@ -969,7 +970,7 @@
 
 				T.visible_message("<span class='warning'>[src] curbstomps [T]!</span>", "<span class='warning'>[src] curbstomps you!</span>")
 
-				log_combat(src, T, "curbstomped")
+				log_combat(src, T, "curbstomped", "curbstomp")
 
 			// Will be legs only on simplified mode since groin is legs
 			else if(src.is_zone_selected(BODY_ZONE_PRECISE_GROIN)) //groinkick specific code
@@ -997,7 +998,7 @@
 
 				T.visible_message("<span class='warning'>[src] kicks [T] in the groin!</span>", "<span class='warning'>[src] kicks you in the groin!</span")
 
-				log_combat(src, T, "groinkicked")
+				log_combat(src, T, "groinkicked", "groinkick")
 
 			var/increment = (T.lying_angle/90)-2
 			for(var/i in 1 to 10)

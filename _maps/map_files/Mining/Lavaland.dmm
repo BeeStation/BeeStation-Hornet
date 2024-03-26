@@ -1379,13 +1379,7 @@
 	pixel_x = -8
 	},
 /obj/item/gps/mining{
-	pixel_x = -4
-	},
-/obj/item/gps/mining{
 	pixel_x = 4
-	},
-/obj/item/gps/mining{
-	pixel_x = 8
 	},
 /obj/item/pickaxe,
 /obj/machinery/light{
@@ -1970,6 +1964,9 @@
 /area/mine/science)
 "nE" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "nI" = (
@@ -4112,6 +4109,9 @@
 	c_tag = "Labor Camp Foyer";
 	dir = 1;
 	network = list("labor")
+	},
+/obj/item/radio/intercom{
+	pixel_y = -28
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
@@ -6898,6 +6898,9 @@
 "YB" = (
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_y = -28
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp)
