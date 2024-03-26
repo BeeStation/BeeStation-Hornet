@@ -66,7 +66,7 @@
 			if(item_stack == src)
 				continue
 			if(can_merge(item_stack))
-				INVOKE_ASYNC(src, .proc/merge_without_del, item_stack)
+				INVOKE_ASYNC(src, PROC_REF(merge_without_del), item_stack)
 				if(is_zero_amount(delete_if_zero = FALSE))
 					return INITIALIZE_HINT_QDEL
 	update_weight()
