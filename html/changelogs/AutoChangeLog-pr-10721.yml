@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Rebalances the stun baton, reducing its damage and giving it the secondary
+      effect of triggering the disarm effect against opponents.
