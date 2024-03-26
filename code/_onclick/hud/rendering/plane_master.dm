@@ -330,6 +330,7 @@
 	render_target = OCCLUSION_EFFECT_PLANE_RENDER_TARGET
 	render_source = FLOOR_PLANE_RENDER_TARGET
 	render_relay_plane = RENDER_PLANE_GAME
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	color = "#aaaaaaff"
 
 /atom/movable/screen/plane_master/occlusion_effect/backdrop(mob/mymob)
