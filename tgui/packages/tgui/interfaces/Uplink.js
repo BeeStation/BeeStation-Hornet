@@ -1,5 +1,5 @@
 import { capitalize, createSearch, decodeHtmlEntities } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend, useLocalState, useSharedState } from '../backend';
 import { Stack, Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Grid, Divider, Icon, Tooltip } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
@@ -12,12 +12,19 @@ export const Uplink = (props, context) => {
   const { data } = useBackend(context);
   const { telecrystals } = data;
 
-  const [tab, setTab] = useLocalState(context, 'tab_id', 0);
+  const [tab, setTab] = useSharedState(context, 'tab_id', 2);
 
   return (
     <Window theme="syndicate" width={900} height={600}>
       <Window.Content scrollable>
         <Tabs>
+          <Tabs.Tab
+            selected={tab === 2}
+            onClick={() => {
+              setTab(2);
+            }}>
+            Career Homepage
+          </Tabs.Tab>
           <Tabs.Tab
             selected={tab === 0}
             onClick={() => {
@@ -35,10 +42,29 @@ export const Uplink = (props, context) => {
               <Icon ml={1} name="bell" color="yellow" className="bell_ring" />
             </Tooltip>
           </Tabs.Tab>
+          <Tabs.Tab
+            className="reputation">
+            Neutral Reputation
+          </Tabs.Tab>
         </Tabs>
-        {tab === 0 ? <GenericUplink currencyAmount={telecrystals} currencySymbol="TC" /> : tab === 1 && <Directives />}
+        {tab === 0
+          ? <GenericUplink currencyAmount={telecrystals} currencySymbol="TC" />
+          : tab === 1
+            ? <Directives />
+            : <HomePage />}
       </Window.Content>
     </Window>
+  );
+};
+
+const HomePage = (props, context) => {
+  return (
+    <Flex direction="column" className="uplink_page">
+      <Flex.Item height="100%">
+        <Section width="100%" height="100%">
+        </Section>
+      </Flex.Item>
+    </Flex>
   );
 };
 
@@ -55,7 +81,7 @@ const Directives = (props, context) => {
     return <Box>No associated objectives.</Box>;
   }
   return (
-    <Flex direction="column" className="directives">
+    <Flex direction="column" className="uplink_page">
       <Flex.Item>
         <Section title="Directives Database">
           <Flex

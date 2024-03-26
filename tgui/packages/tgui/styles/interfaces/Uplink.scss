@@ -1,8 +1,10 @@
+@use 'sass:color';
 @use '../base.scss';
 @use '../colors.scss';
+@use '../functions.scss' as *;
 
-.directives {
-  height: calc(100% - 50px);
+.uplink_page {
+  height: calc(100% - 45px);
 }
 
 .objective_card {
@@ -133,4 +135,32 @@
   100% {
     transform: rotate(0deg);
   }
+}
+
+$background-color: #bb9b68 !default;
+
+.reputation {
+  background-color: $background-color !important;
+  $luminance: luminance($background-color);
+  $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+
+  margin-left: auto;
+  margin-right: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: $text-color;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent base.em(10px),
+    rgba(0, 0, 0, 0.1) base.em(10px),
+    rgba(0, 0, 0, 0.1) base.em(20px)
+  );
+}
+
+@mixin box-color($color) {
+  $luminance: luminance($color);
+  $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+  color: $text-color;
+  background-color: color.adjust($color, $saturation: -15%, $lightness: -15%);
 }
