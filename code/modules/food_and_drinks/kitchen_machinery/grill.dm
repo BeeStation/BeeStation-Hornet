@@ -9,10 +9,11 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grill_open"
 	density = TRUE
+	pass_flags_self = PASSMACHINE | LETPASSTHROW // sorta like griddles
 	layer = BELOW_OBJ_LAYER
 	use_power = NO_POWER_USE
 	var/grill_fuel = 0
-	var/obj/item/reagent_containers/food/grilled_item
+	var/obj/item/food/grilled_item
 	var/grill_time = 0
 	var/datum/looping_sound/grill/grill_loop
 
@@ -20,13 +21,20 @@
 	. = ..()
 	grill_loop = new(src, FALSE)
 
-/obj/machinery/grill/update_icon()
+/obj/machinery/grill/Destroy()
+	grilled_item = null
+	QDEL_NULL(grill_loop)
+	return ..()
+
+/obj/machinery/grill/update_icon_state()
 	if(grilled_item)
 		icon_state = "grill"
-	else if(grill_fuel > 0)
+		return ..()
+	if(grill_fuel > 0)
 		icon_state = "grill_on"
-	else
-		icon_state = "grill_open"
+		return ..()
+	icon_state = "grill_open"
+	return ..()
 
 /obj/machinery/grill/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/sheet/mineral/coal) || istype(I, /obj/item/stack/sheet/wood))
@@ -38,37 +46,36 @@
 		else
 			grill_fuel += (50 * stackamount)
 		S.use(stackamount)
-		update_icon()
+		update_appearance()
 		return
 	if(I.resistance_flags & INDESTRUCTIBLE)
 		to_chat(user, "<span class='warning'>You don't feel it would be wise to grill [I]...</span>")
 		return ..()
-	if(istype(I, /obj/item/reagent_containers))
-		if(istype(I, /obj/item/reagent_containers/food) && !istype(I, /obj/item/reagent_containers/food/drinks))
-			if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & (ABSTRACT | DROPDEL)))
-				return ..()
-			else if(!grill_fuel)
-				to_chat(user, "<span class='notice'>There is not enough fuel.</span>")
-				return
-			else if(!grilled_item && user.transferItemToLoc(I, src))
-				grilled_item = I
-				RegisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
-				to_chat(user, "<span class='notice'>You put the [grilled_item] on [src].</span>")
-				update_icon()
-				grill_loop.start()
-				return
-		else
-			if(I.reagents.has_reagent(/datum/reagent/consumable/monkey_energy))
-				grill_fuel += (20 * (I.reagents.get_reagent_amount(/datum/reagent/consumable/monkey_energy)))
-				to_chat(user, "<span class='notice'>You pour the Monkey Energy in [src].</span>")
-				I.reagents.remove_reagent(/datum/reagent/consumable/monkey_energy, I.reagents.get_reagent_amount(/datum/reagent/consumable/monkey_energy))
-				update_icon()
-				return
+	if(istype(I, /obj/item/reagent_containers/glass))
+		if(I.reagents.has_reagent(/datum/reagent/consumable/monkey_energy))
+			grill_fuel += (20 * (I.reagents.get_reagent_amount(/datum/reagent/consumable/monkey_energy)))
+			to_chat(user, "<span class='notice'>You pour the Monkey Energy in [src].</span>")
+			I.reagents.remove_reagent(/datum/reagent/consumable/monkey_energy, I.reagents.get_reagent_amount(/datum/reagent/consumable/monkey_energy))
+			update_appearance()
+			return
+	else if(IS_EDIBLE(I))
+		if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & (ABSTRACT | DROPDEL)))
+			return ..()
+		else if(!grill_fuel)
+			to_chat(user, "<span class='notice'>There is not enough fuel.</span>")
+			return
+		else if(!grilled_item && user.transferItemToLoc(I, src))
+			grilled_item = I
+			RegisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
+			to_chat(user, "<span class='notice'>You put the [grilled_item] on [src].</span>")
+			update_appearance()
+			grill_loop.start()
+			return
 	..()
 
 /obj/machinery/grill/process(delta_time)
 	..()
-	update_icon()
+	update_appearance()
 	if(grill_fuel <= 0)
 		return
 	else
@@ -89,11 +96,6 @@
 		finish_grill()
 		grilled_item = null
 	return ..()
-
-/obj/machinery/grill/Destroy()
-	QDEL_NULL(grill_loop)
-	grilled_item = null
-	. = ..()
 
 /obj/machinery/grill/handle_atom_del(atom/A)
 	if(A == grilled_item)
@@ -119,7 +121,7 @@
 	if(grilled_item)
 		to_chat(user, "<span class='notice'>You take out [grilled_item] from [src].</span>")
 		grilled_item.forceMove(drop_location())
-		update_icon()
+		update_appearance()
 		return
 	return ..()
 
