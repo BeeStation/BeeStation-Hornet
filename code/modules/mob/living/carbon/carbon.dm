@@ -5,6 +5,7 @@
 	. = ..()
 	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
+	build_fov_appearance()
 	GLOB.carbon_list += src
 	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
 	RegisterSignal(src, COMSIG_MOB_LOGIN, PROC_REF(med_hud_set_status))
@@ -12,7 +13,6 @@
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
 	. =  ..()
-
 	QDEL_LIST(hand_bodyparts)
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(bodyparts)
@@ -755,7 +755,7 @@
 			else
 				set_stat(CONSCIOUS)
 			if(!is_blind())
-				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
 				B?.RemoveComponent()
 		update_mobility()
 	update_damage_hud()
@@ -1127,3 +1127,8 @@
 	if(update_icon)
 		update_body()
 		update_body_parts(TRUE)
+
+/mob/living/carbon/build_fov()
+	var/atom/movable/screen/fullscreen/fov_mask/mask_type = dna?.species?.get_fov_path() || /atom/movable/screen/fullscreen/fov_mask
+	var/atom/movable/screen/fullscreen/fov_mask/FM = overlay_fullscreen("fov", mask_type)
+	FM.link_mob(src)

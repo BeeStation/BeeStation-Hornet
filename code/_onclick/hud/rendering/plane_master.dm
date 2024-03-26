@@ -54,6 +54,15 @@
 
 /atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
 	. = ..()
+	//Occlusion stuff
+	remove_filter("occlusion_mask")
+	if(istype(mymob))
+		add_filter("occlusion_mask", 1, alpha_mask_filter(render_source = OCCLUSION_PLANE_RENDER_TARGET, flags = MASK_INVERSE))
+	//Patch occlusion
+	remove_filter("occlusion_patch")
+	if(istype(mymob))
+		add_filter("occlusion_patch", 1, layering_filter(render_source = OCCLUSION_PATCH_PLANE_RENDER_TARGET))
+	//Other lame shit
 	remove_filter("AO")
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
@@ -69,8 +78,9 @@
 
 /atom/movable/screen/plane_master/data_hud/backdrop(mob/mymob)
 	. = ..()
-	//Mask out POV
-	add_filter("pov_mask", 1, alpha_mask_filter(render_source = BLIND_MASK_RENDER_TARGET, flags = MASK_INVERSE))
+	remove_filter("occlusion_mask")
+	if(istype(mymob))
+		add_filter("occlusion_mask", 1, alpha_mask_filter(render_source = OCCLUSION_PLANE_RENDER_TARGET, flags = MASK_INVERSE))
 
 /atom/movable/screen/plane_master/massive_obj
 	name = "massive object plane master"
@@ -241,64 +251,6 @@
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
 
-///Plane for mobs
-/atom/movable/screen/plane_master/mob_plane
-	name = "mob plane master"
-	plane = MOB_PLANE
-	appearance_flags = PLANE_MASTER
-
-/atom/movable/screen/plane_master/mob_plane/backdrop(mob/mymob)
-	. = ..()
-	//Mask out POV
-	add_filter("pov_mask", 1, alpha_mask_filter(render_source = BLIND_MASK_RENDER_TARGET, flags = MASK_INVERSE))
-	//mask out above plane stuff
-	add_filter("pov_mask", 1, alpha_mask_filter(render_source = ABOVE_MOB_PLANE_RENDER_TARGET, flags = MASK_INVERSE))
-	//Generic filters
-	remove_filter("AO")
-	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
-		add_filter("AO", 2, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
-	remove_filter("eye_blur")
-	if(istype(mymob) && mymob.eye_blurry)
-		add_filter("eye_blur", 2, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
-
-///Plane for above mobs - just masks them out
-/atom/movable/screen/plane_master/above_mob_plane
-	name = "above mob plane master"
-	plane = ABOVE_MOB_PLANE
-	appearance_flags = PLANE_MASTER
-	render_target = ABOVE_MOB_PLANE_RENDER_TARGET
-
-//Plane to exclude mobs and render a fancy effect
-/atom/movable/screen/plane_master/occlusion
-	name = "occlusion plane master"
-	plane = OCCLUSION_PLANE
-	appearance_flags = PLANE_MASTER
-	render_source = FLOOR_PLANE_RENDER_TARGET
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	color = "#999"
-
-/atom/movable/screen/plane_master/occlusion/backdrop(mob/mymob)
-	. = ..()
-	//Layering
-	add_filter("gameplane", 1, layering_filter(render_source = DEFILTER_GAME_PLANE_RENDER_TARGET))
-	//Mask out POV
-	add_filter("pov_mask", 2, alpha_mask_filter(render_source = BLIND_MASK_RENDER_TARGET))
-	//color
-	add_filter("color", 3, color_matrix_filter(list(rgb(200,55,55), rgb(55,200,55), rgb(55,55,200), rgb(0,0,0))))
-
-//Used to fix bug with byond, thanks Lummox (JK bby, you know I love you)
-/atom/movable/screen/plane_master/game_world_defilter
-	name = "game world defilter plane master"
-	plane = DEFILTER_GAME_PLANE
-	appearance_flags = PLANE_MASTER
-	render_source = GAME_PLANE_RENDER_TARGET
-	render_target = DEFILTER_GAME_PLANE_RENDER_TARGET
-
-/atom/movable/screen/plane_master/game_world_defilter/backdrop(mob/mymob)
-	. = ..()
-	//Mask out POV
-	add_filter("pov_mask", 1, alpha_mask_filter(render_source = BLIND_MASK_RENDER_TARGET))
-//Psychic & Blind stuff
 /atom/movable/screen/plane_master/psychic
 	name = "psychic plane master"
 	plane = PSYCHIC_PLANE
@@ -338,3 +290,58 @@
 	. = ..()
 	add_filter("glow", 1, list(type = "bloom", threshold = rgb(128, 128, 128), size = 2, offset = 1, alpha = 255))
 	add_filter("mask", 2, alpha_mask_filter(render_source = "blind_fullscreen_overlay"))
+
+//used for FOV
+/atom/movable/screen/plane_master/occlusion
+	name = "occlusion plane master"
+	plane = OCCLUSION_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_target = OCCLUSION_PLANE_RENDER_TARGET
+	render_relay_plane = null
+
+/atom/movable/screen/plane_master/occlusion/backdrop(mob/mymob)
+	. = ..()
+	remove_filter("occlusion_mask_mask") //A mask for our mask!
+	if(istype(mymob))
+		add_filter("occlusion_mask_mask", 1, alpha_mask_filter(render_source = OCCLUSION_MASK_PLANE_RENDER_TARGET))
+
+/atom/movable/screen/plane_master/occlusion_mask
+	name = "occlusion mask plane master"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = OCCLUSION_MASK_PLANE
+	render_target = OCCLUSION_MASK_PLANE_RENDER_TARGET
+	render_relay_plane = null
+
+/atom/movable/screen/plane_master/occlusion_patch
+	name = "occlusion patch plane master"
+	plane = OCCLUSION_PATCH_PLANE
+	render_target = OCCLUSION_PATCH_PLANE_RENDER_TARGET
+	render_relay_plane = null
+
+/atom/movable/screen/plane_master/occlusion_patch/backdrop(mob/mymob)
+	. = ..()
+	remove_filter("occlusion_mask")
+	if(istype(mymob))
+		add_filter("occlusion_mask", 1, alpha_mask_filter(render_source = OCCLUSION_PLANE_RENDER_TARGET))
+
+/atom/movable/screen/plane_master/occlusion_effect
+	name = "occlusion effect plane master"
+	plane = OCCLUSION_EFFECT_PLANE
+	render_target = OCCLUSION_EFFECT_PLANE_RENDER_TARGET
+	render_source = FLOOR_PLANE_RENDER_TARGET
+	render_relay_plane = RENDER_PLANE_GAME
+	color = "#999"
+
+/atom/movable/screen/plane_master/occlusion_effect/backdrop(mob/mymob)
+	. = ..()
+	//Layer the game plane
+	remove_filter("layer_game")
+	if(istype(mymob))
+		add_filter("layer_game", 1, layering_filter(render_source = GAME_PLANE_RENDER_TARGET))
+	//masking
+	remove_filter("occlusion_mask")
+	if(istype(mymob))
+		add_filter("occlusion_mask", 1, alpha_mask_filter(render_source = "fov_mask"))
+	//Color
+	remove_filter("color_shift")
+	add_filter("color_shift", 1, color_matrix_filter(list(rgb(200,55,55), rgb(55,200,55), rgb(55,55,200), rgb(0,0,0))))

@@ -545,3 +545,4 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 
 /// Messages when (something) lays an egg
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
+

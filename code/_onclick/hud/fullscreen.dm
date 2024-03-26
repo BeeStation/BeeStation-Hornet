@@ -201,28 +201,29 @@
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
 
-/atom/movable/screen/fullscreen/pov_mask
-	icon_state = "pov"
-	render_target = BLIND_MASK_RENDER_TARGET
-	plane = -1
-	color = "#000"
+//Fov mask
+/atom/movable/screen/fullscreen/fov_mask
+	icon_state = "fov"
+	plane = OCCLUSION_PLANE
 	show_when_dead = TRUE
+	render_target = "fov_mask"
 	///What mob we belong to - for orientation
 	var/mob/mob_owner
 
-/atom/movable/screen/fullscreen/pov_mask/Destroy()
-	. = ..()
-	mob_owner = null
+/atom/movable/screen/fullscreen/fov_mask/open
+	icon_state = "fov_psyphoza"
 
-/atom/movable/screen/fullscreen/pov_mask/proc/link_mob(mob/new_owner)
+//Use this to properly attach a mob to this screen
+/atom/movable/screen/fullscreen/fov_mask/proc/link_mob(mob/new_owner)
 	mob_owner = new_owner
-
 	RegisterSignal(mob_owner, COMSIG_ATOM_DIR_CHANGE, PROC_REF(update_dir))
 
-/atom/movable/screen/fullscreen/pov_mask/proc/update_dir(datum/source, old_dir, new_dir)
+//Pretty simple shit, just update the icon's direction to match the owner's
+/atom/movable/screen/fullscreen/fov_mask/proc/update_dir(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER
 
-	dir = new_dir
+	dir = new_dir || old_dir
+
 /atom/movable/screen/fullscreen/blind_context_disable
 	name = "???"
 	icon_state = "blackimageoverlay"

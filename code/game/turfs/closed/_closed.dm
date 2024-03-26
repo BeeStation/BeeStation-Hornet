@@ -9,6 +9,7 @@
 
 /turf/closed/Initialize(mapload)
 	. = ..()
+	build_fov_patch()
 
 /turf/closed/AfterChange()
 	. = ..()
@@ -16,6 +17,10 @@
 
 /turf/closed/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
+
+/turf/closed/smooth_icon()
+	. = ..()
+	build_fov_patch()
 
 /turf/closed/indestructible
 	name = "wall"

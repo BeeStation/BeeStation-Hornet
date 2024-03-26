@@ -105,6 +105,8 @@
 		AddComponent(/datum/component/ntnet_interface, network_id, id_tag)
 		/// Needs to run before as ComponentInitialize runs after this statement...why do we have ComponentInitialize again?
 
+	build_fov_patch()
+
 /obj/Destroy(force=FALSE)
 	if(!ismachinery(src) && (datum_flags & DF_ISPROCESSING))
 		STOP_PROCESSING(SSobj, src)

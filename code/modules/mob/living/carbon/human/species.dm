@@ -2850,3 +2850,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //generic action proc for keybind stuff
 /datum/species/proc/primary_species_action()
 	return
+
+//Return what type of FOV this species uses
+/datum/species/proc/get_fov_path()
+	return /atom/movable/screen/fullscreen/fov_mask

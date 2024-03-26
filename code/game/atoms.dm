@@ -150,6 +150,13 @@
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
 	var/_emissive_count = 0
 
+	///Reference to occlusion mask that allows this atom to be occluded
+	var/mutable_appearance/occlusion_mask
+	///Appearance for occlusion patching
+	var/mutable_appearance/occlusion_patch
+	///Flag for occlusion & patch logic
+	var/can_occlude = FALSE
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -245,13 +252,6 @@
 		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
-
-	//Add overlay to above mob plane if we need to
-	if(layer >= ABOVE_MOB_LAYER && plane == GAME_PLANE)
-		var/mutable_appearance/MA = new()
-		MA.appearance = appearance
-		MA.plane = ABOVE_MOB_PLANE
-		add_overlay(MA)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -696,6 +696,9 @@
 
 	if (ismovable(src))
 		UPDATE_OO_IF_PRESENT
+
+	build_fov_appearance()
+	build_fov_patch()
 
 /// Updates the name of the atom
 /atom/proc/update_name(updates=ALL)
@@ -1914,3 +1917,26 @@
 		luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1)
 	else
 		luminosity = max(base_luminosity, affecting_dynamic_lumi)
+
+/atom/proc/build_fov_appearance()
+	if(!can_occlude)
+		return
+	if(occlusion_mask)
+		cut_overlay(occlusion_mask)
+	//Copy the base appearance
+	occlusion_mask = mutable_appearance('icons/mob/blind.dmi', "blind_texture_blank")
+	occlusion_mask.plane = OCCLUSION_MASK_PLANE
+	add_overlay(occlusion_mask)
+
+/atom/proc/build_fov_patch()
+	if(can_occlude)
+		return
+	if(occlusion_patch)
+		cut_overlay(occlusion_patch)
+	//Copy the base appearance
+	occlusion_patch = new()
+	occlusion_patch.appearance = appearance
+	occlusion_patch.pixel_x = 0 //Mapping tools break these
+	occlusion_patch.pixel_y = 0
+	occlusion_patch.plane = OCCLUSION_PATCH_PLANE
+	add_overlay(occlusion_patch)
