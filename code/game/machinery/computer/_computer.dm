@@ -67,7 +67,7 @@
 		SET_BITFLAG_LIST(smoothing_groups)
 		SET_BITFLAG_LIST(canSmoothWith)
 		QUEUE_SMOOTH(src)
-		if(smoothing_flags)
+		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			QUEUE_SMOOTH_NEIGHBORS(src)
 		update_appearance()
 
@@ -147,7 +147,7 @@
 			A.circuit = circuit
 			// Circuit removal code is handled in /obj/machinery/Exited()
 			circuit.forceMove(A)
-			A.setAnchored(TRUE)
+			A.set_anchored(TRUE)
 			if(machine_stat & BROKEN)
 				if(user)
 					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")

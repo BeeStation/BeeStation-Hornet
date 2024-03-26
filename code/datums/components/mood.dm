@@ -43,11 +43,11 @@
 	msg += "<span class='notice'>My mental status: </span>" //Long term
 	switch(sanity)
 		if(SANITY_GREAT to INFINITY)
-			msg += "<span class='nicegreen'>My mind feels like a temple!<span>\n"
+			msg += "<span class='nicegreen'>My mind feels like a temple!</span>\n"
 		if(SANITY_NEUTRAL to SANITY_GREAT)
-			msg += "<span class='nicegreen'>I have been feeling great lately!<span>\n"
+			msg += "<span class='nicegreen'>I have been feeling great lately!</span>\n"
 		if(SANITY_DISTURBED to SANITY_NEUTRAL)
-			msg += "<span class='nicegreen'>I have felt quite decent lately.<span>\n"
+			msg += "<span class='nicegreen'>I have felt quite decent lately.</span>\n"
 		if(SANITY_UNSTABLE to SANITY_DISTURBED)
 			msg += "<span class='warning'>I'm feeling a little bit unhinged...</span>\n"
 		if(SANITY_CRAZY to SANITY_UNSTABLE)
@@ -58,23 +58,23 @@
 	msg += "<span class='notice'>My current mood: </span>" //Short term
 	switch(mood_level)
 		if(1)
-			msg += "<span class='boldwarning'>I wish I was dead!<span>\n"
+			msg += "<span class='boldwarning'>I wish I was dead!</span>\n"
 		if(2)
-			msg += "<span class='boldwarning'>I feel terrible...<span>\n"
+			msg += "<span class='boldwarning'>I feel terrible...</span>\n"
 		if(3)
-			msg += "<span class='boldwarning'>I feel very upset.<span>\n"
+			msg += "<span class='boldwarning'>I feel very upset.</span>\n"
 		if(4)
-			msg += "<span class='boldwarning'>I'm a bit sad.<span>\n"
+			msg += "<span class='boldwarning'>I'm a bit sad.</span>\n"
 		if(5)
-			msg += "<span class='nicegreen'>I'm alright.<span>\n"
+			msg += "<span class='nicegreen'>I'm alright.</span>\n"
 		if(6)
-			msg += "<span class='nicegreen'>I feel pretty okay.<span>\n"
+			msg += "<span class='nicegreen'>I feel pretty okay.</span>\n"
 		if(7)
-			msg += "<span class='nicegreen'>I feel pretty good.<span>\n"
+			msg += "<span class='nicegreen'>I feel pretty good.</span>\n"
 		if(8)
-			msg += "<span class='nicegreen'>I feel amazing!<span>\n"
+			msg += "<span class='nicegreen'>I feel amazing!</span>\n"
 		if(9)
-			msg += "<span class='nicegreen'>I love life!<span>\n"
+			msg += "<span class='nicegreen'>I love life!</span>\n"
 
 	msg += "<span class='notice'>Moodlets:\n</span>"//All moodlets
 	if(mood_events.len)
@@ -90,9 +90,15 @@
 	shown_mood = 0
 	for(var/i in mood_events)
 		var/datum/mood_event/event = mood_events[i]
-		mood += event.mood_change
+		var/mob/living/owner = parent
+		var/mood_change = event.mood_change
+		if(owner.has_quirk(/datum/quirk/hypersensitive) && (mood_change<0))
+			mood_change*=1.5
+		if(owner.has_quirk(/datum/quirk/apathetic) && (mood_change<0))
+			mood_change*=0.5
+		mood += mood_change
 		if(!event.hidden)
-			shown_mood += event.mood_change
+			shown_mood += mood_change
 		mood *= mood_modifier
 		shown_mood *= mood_modifier
 
@@ -188,6 +194,8 @@
 			setSanity(sanity+sanity_modifier*delta_time*mood+0.6)
 		if(SANITY_INSANE-1 to SANITY_CRAZY)
 			setSanity(sanity+sanity_modifier*delta_time*mood+0.9)
+		if (-INFINITY to SANITY_INSANE) //prevents it from going below 0. This caused issues.
+			setSanity(0)
 	HandleNutrition(owner)
 
 /datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)

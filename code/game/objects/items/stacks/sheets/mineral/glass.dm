@@ -25,14 +25,15 @@
 	point_value = 1
 	tableVariant = /obj/structure/table/glass
 	matter_amount = 4
+	cost = 500
+	source = /datum/robot_energy_storage/glass
 
 /obj/item/stack/sheet/glass/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to slice [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/stack/sheet/glass/get_main_recipes()
-	. = ..()
-	. += GLOB.glass_recipes
+/obj/item/stack/sheet/glass/get_recipes()
+	return GLOB.glass_recipes
 
 /obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
@@ -44,7 +45,7 @@
 		CC.use(5)
 		use(1)
 		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
-		new /obj/item/stack/light_w(user.loc, 5, TRUE, user)
+		new /obj/item/stack/light_w(user.loc, 1, TRUE, user)
 	else if(istype(W, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V = W
 		if (V.get_amount() >= 1 && get_amount() >= 1)
@@ -81,25 +82,28 @@
 	..()
 
 /obj/item/stack/sheet/rglass/cyborg
-	custom_materials = null
-	var/datum/robot_energy_storage/glasource
-	var/metcost = 250
+	mats_per_unit = null
+	cost = 250
+	source = /datum/robot_energy_storage/metal
+
+	/// What energy storage this draws glass from as a robot module.
+	var/datum/robot_energy_storage/glasource = /datum/robot_energy_storage/glass
+	/// The amount of energy this draws from the glass source per stack unit.
 	var/glacost = 500
 
 /obj/item/stack/sheet/rglass/cyborg/get_amount()
-	return min(round(source.energy / metcost), round(glasource.energy / glacost))
+	return min(round(source.energy / cost), round(glasource.energy / glacost))
 
 /obj/item/stack/sheet/rglass/cyborg/use(used, transfer = FALSE) // Requires special checks, because it uses two storages
-	source.use_charge(used * metcost)
+	source.use_charge(used * cost)
 	glasource.use_charge(used * glacost)
 
 /obj/item/stack/sheet/rglass/cyborg/add(amount)
-	source.add_charge(amount * metcost)
+	source.add_charge(amount * cost)
 	glasource.add_charge(amount * glacost)
 
-/obj/item/stack/sheet/rglass/get_main_recipes()
-	. = ..()
-	. += GLOB.reinforced_glass_recipes
+/obj/item/stack/sheet/rglass/get_recipes()
+	return GLOB.reinforced_glass_recipes
 
 /* Plasma glass */
 
@@ -117,9 +121,8 @@
 	material_flags = NONE
 	tableVariant = /obj/structure/table/glass/plasma
 
-/obj/item/stack/sheet/plasmaglass/get_main_recipes()
-	. = ..()
-	. += GLOB.pglass_recipes
+/obj/item/stack/sheet/plasmaglass/get_recipes()
+	return GLOB.pglass_recipes
 
 /obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
@@ -156,9 +159,8 @@
 	point_value = 23
 	matter_amount = 8
 
-/obj/item/stack/sheet/plasmarglass/get_main_recipes()
-	. = ..()
-	. += GLOB.prglass_recipes
+/obj/item/stack/sheet/plasmarglass/get_recipes()
+	return GLOB.prglass_recipes
 
 /* Titanium glass */
 
@@ -173,9 +175,8 @@
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/titaniumglass
 
-/obj/item/stack/sheet/titaniumglass/get_main_recipes()
-	. = ..()
-	. += GLOB.titaniumglass_recipes
+/obj/item/stack/sheet/titaniumglass/get_recipes()
+	return GLOB.titaniumglass_recipes
 
 /* Plastitanium glass */
 
@@ -191,9 +192,8 @@
 	material_flags = NONE
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
 
-/obj/item/stack/sheet/plastitaniumglass/get_main_recipes()
-	. = ..()
-	. += GLOB.plastitaniumglass_recipes
+/obj/item/stack/sheet/plastitaniumglass/get_recipes()
+	return GLOB.plastitaniumglass_recipes
 
 /*SHARDS FROM HERE ONWARD, NOT A STACK, MOVE IT AS THE PROPHECY FORETOLD*/
 /obj/item/shard
@@ -287,14 +287,12 @@
 		qdel(src)
 	return TRUE
 
-/obj/item/shard/proc/on_entered(datum/source, mob/living/L)
+/obj/item/shard/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
-
-	if(istype(L) && has_gravity(loc))
-		if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
-			playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
-		else
-			playsound(loc, 'sound/effects/glass_step.ogg', 50, 1)
+	if(isliving(AM))
+		var/mob/living/L = AM
+		if(!(L.movement_type & (FLYING|FLOATING)) || L.buckled)
+			playsound(src, 'sound/effects/glass_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 30 : 50, TRUE)
 
 /obj/item/shard/plasma
 	name = "purple shard"

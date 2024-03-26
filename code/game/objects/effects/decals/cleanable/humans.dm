@@ -6,17 +6,57 @@
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	//beauty = -100
+	clean_type = CLEAN_TYPE_BLOOD
+	var/should_dry = TRUE
+	var/dryname = "dried blood" //when the blood lasts long enough, it becomes dry and gets a new name
+	var/drydesc = "Looks like it's been here a while. Eew." //as above
+	var/drytime = 0
+
+/obj/effect/decal/cleanable/blood/Initialize(mapload)
+	. = ..()
+	if(!should_dry)
+		return
+	if(bloodiness)
+		start_drying()
+	else
+		dry()
+
+/obj/effect/decal/cleanable/blood/process()
+	if(world.time > drytime)
+		dry()
+
+/obj/effect/decal/cleanable/blood/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/effect/decal/cleanable/blood/proc/get_timer()
+	drytime = world.time + 3 MINUTES
+
+/obj/effect/decal/cleanable/blood/proc/start_drying()
+	get_timer()
+	START_PROCESSING(SSobj, src)
+
+/obj/effect/decal/cleanable/blood/proc/dry()
+	if(bloodiness > 20)
+		bloodiness -= BLOOD_AMOUNT_PER_DECAL
+		get_timer()
+		return FALSE
+	else
+		name = dryname
+		desc = drydesc
+		bloodiness = 0
+		color =  COLOR_GRAY //not all blood splatters have their own sprites... It still looks pretty nice
+		STOP_PROCESSING(SSobj, src)
+		return TRUE
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	C.add_blood_DNA(return_blood_DNA())
 	if (bloodiness)
-		if (C.bloodiness < MAX_SHOE_BLOODINESS)
-			C.bloodiness += bloodiness
+		C.bloodiness = min((C.bloodiness + bloodiness), BLOOD_AMOUNT_PER_DECAL)
 	return ..()
 
 /obj/effect/decal/cleanable/blood/old
-	name = "dried blood"
-	desc = "Looks like it's been here a while.  Eew."
 	bloodiness = 0
 	icon_state = "floor1-old"
 	var/list/datum/disease/diseases = list()
@@ -24,7 +64,6 @@
 /obj/effect/decal/cleanable/blood/old/Initialize(mapload, list/datum/disease/diseases)
 	add_blood_DNA(list("Non-human DNA" = random_blood_type())) // Needs to happen before ..()
 	. = ..()
-	icon_state = "[icon_state]-old" //change from the normal blood icon selected from random_icon_states in the parent's Initialize to the old dried up blood.
 	if(length(diseases))
 		src.diseases += diseases
 	if(prob(75))
@@ -44,11 +83,15 @@
 	desc = "They look like tracks left by wheels."
 	icon_state = "tracks"
 	random_icon_states = null
+	//beauty = -50
+	dryname = "dried tracks"
+	drydesc = "Some old bloody tracks left by wheels. Machines are evil, perhaps."
 
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
 	icon = 'icons/effects/blood.dmi'
 	desc = "Your instincts say you shouldn't be following these."
+	//beauty = -50
 	var/list/existing_dirs = list()
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
@@ -64,26 +107,27 @@
 	mergeable_decal = FALSE
 	turf_loc_check = FALSE
 
-	var/already_rotting = FALSE
-		///Information about the diseases our streaking spawns
+	dryname = "rotting gibs"
+	drydesc = "They look bloody and gruesome while some terrible smell fills the air."
+	///Information about the diseases our streaking spawns
 	var/list/streak_diseases
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
-	if(already_rotting)
-		start_rotting(rename=FALSE)
-	else
-		addtimer(CALLBACK(src, PROC_REF(start_rotting)), 2 MINUTES)
 
-/obj/effect/decal/cleanable/blood/gibs/proc/start_rotting(rename=TRUE)
-	if(rename)
-		name = "rotting [initial(name)]"
-		desc += " They smell terrible."
+/obj/effect/decal/cleanable/blood/gibs/Destroy()
+	LAZYNULL(streak_diseases)
+	return ..()
 
 /obj/effect/decal/cleanable/blood/gibs/replace_decal(obj/effect/decal/cleanable/C)
 	return FALSE //Never fail to place us
+
+/obj/effect/decal/cleanable/blood/gibs/dry()
+	. = ..()
+	if(!.)
+		return
 
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
 	return
@@ -105,6 +149,7 @@
 	streak(dirs)
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions, mapload = FALSE)
+	LAZYINITLIST(streak_diseases)
 	SEND_SIGNAL(src, COMSIG_GIBS_STREAK, directions, streak_diseases)
 	var/direction = pick(directions)
 	streak_diseases = list()
@@ -153,20 +198,23 @@
 /obj/effect/decal/cleanable/blood/gibs/old
 	name = "old rotting gibs"
 	desc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
+	icon_state = "gib1-old"
 	bloodiness = 0
-	already_rotting = TRUE
+	should_dry = FALSE
+	dryname = "old rotting gibs"
+	drydesc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
 	var/list/datum/disease/diseases = list()
 
 /obj/effect/decal/cleanable/blood/gibs/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	setDir(pick(1, 2, 4, 8))
-	icon_state += "-old"
 	add_blood_DNA(list("Non-human DNA" = random_blood_type()))
 	if(length(diseases))
 		src.diseases += diseases
 	if(prob(80))
 		var/datum/disease/advance/new_disease = new /datum/disease/advance/random(rand(3, 6), rand(8, 9), 4)
 		src.diseases += new_disease
+	dry()
 
 /obj/effect/decal/cleanable/blood/gibs/old/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
 	. = ..()
@@ -179,6 +227,8 @@
 	random_icon_states = list("drip1","drip2","drip3","drip4","drip5")
 	bloodiness = 0
 	var/drips = 1
+	dryname = "drips of blood"
+	drydesc = "It's red."
 
 /obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
 	return TRUE
@@ -187,39 +237,53 @@
 //BLOODY FOOTPRINTS
 /obj/effect/decal/cleanable/blood/footprints
 	name = "footprints"
-	icon = 'icons/effects/footprints.dmi'
-	icon_state = "nothingwhatsoever"
 	desc = "WHOSE FOOTPRINTS ARE THESE?"
+	icon = 'icons/effects/footprints.dmi'
 	icon_state = "blood1"
 	random_icon_states = null
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
 	var/entered_dirs = 0
 	var/exited_dirs = 0
+
+	/// List of shoe or other clothing that covers feet types that have made footprints here.
 	var/list/shoe_types = list()
 
-/obj/effect/decal/cleanable/blood/footprints/on_entered(datum/source, atom/movable/O)
-	. = ..()
-	if(ishuman(O))
-		var/mob/living/carbon/human/H = O
-		var/obj/item/clothing/shoes/S = H.shoes
-		if(S && S.bloody_shoes[blood_state])
-			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			shoe_types |= S.type
-			if (!(entered_dirs & H.dir))
-				entered_dirs |= H.dir
-				update_icon()
+	/// List of species that have made footprints here.
+	var/list/species_types = list()
 
-/obj/effect/decal/cleanable/blood/footprints/on_uncrossed(datum/source, atom/movable/O)
+	dryname = "dried footprints"
+	drydesc = "HMM... SOMEONE WAS HERE!"
+
+/obj/effect/decal/cleanable/blood/footprints/Initialize(mapload)
 	. = ..()
-	if(ishuman(O))
-		var/mob/living/carbon/human/H = O
-		var/obj/item/clothing/shoes/S = H.shoes
-		if(S && S.bloody_shoes[blood_state])
-			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			shoe_types  |= S.type
-			if (!(exited_dirs & H.dir))
-				exited_dirs |= H.dir
-				update_icon()
+	icon_state = "" //All of the footprint visuals come from overlays
+	if(mapload)
+		entered_dirs |= dir //Keep the same appearance as in the map editor
+		update_appearance()
+
+//Rotate all of the footprint directions too
+/obj/effect/decal/cleanable/blood/footprints/setDir(newdir)
+	if(dir == newdir)
+		return ..()
+
+	var/ang_change = dir2angle(newdir) - dir2angle(dir)
+	var/old_entered_dirs = entered_dirs
+	var/old_exited_dirs = exited_dirs
+	entered_dirs = 0
+	exited_dirs = 0
+
+	for(var/Ddir in GLOB.cardinals)
+		if(old_entered_dirs & Ddir)
+			entered_dirs |= angle2dir_cardinal(dir2angle(Ddir) + ang_change)
+		if(old_exited_dirs & Ddir)
+			exited_dirs |= angle2dir_cardinal(dir2angle(Ddir) + ang_change)
+
+	update_appearance()
+	return ..()
+
+/obj/effect/decal/cleanable/blood/footprints/update_icon()
+	. = ..()
+	alpha = min(BLOODY_FOOTPRINT_BASE_ALPHA + (255 - BLOODY_FOOTPRINT_BASE_ALPHA) * bloodiness / (BLOOD_ITEM_MAX / 2), 255)
 
 //Cache of bloody footprint images
 //Key:
@@ -227,38 +291,47 @@
 //or: "exited-[blood_state]-[dir_of_image]"
 GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 
-/obj/effect/decal/cleanable/blood/footprints/update_icon()
-	cut_overlays()
-
+/obj/effect/decal/cleanable/blood/footprints/update_overlays()
+	. = ..()
 	for(var/Ddir in GLOB.cardinals)
 		if(entered_dirs & Ddir)
 			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["entered-[blood_state]-[Ddir]"]
 			if(!bloodstep_overlay)
 				GLOB.bloody_footprints_cache["entered-[blood_state]-[Ddir]"] = bloodstep_overlay = image(icon, "[blood_state]1", dir = Ddir)
-			add_overlay(bloodstep_overlay)
+			. += bloodstep_overlay
+
 		if(exited_dirs & Ddir)
 			var/image/bloodstep_overlay = GLOB.bloody_footprints_cache["exited-[blood_state]-[Ddir]"]
 			if(!bloodstep_overlay)
 				GLOB.bloody_footprints_cache["exited-[blood_state]-[Ddir]"] = bloodstep_overlay = image(icon, "[blood_state]2", dir = Ddir)
-			add_overlay(bloodstep_overlay)
-
-	alpha = BLOODY_FOOTPRINT_BASE_ALPHA+bloodiness
+			. += bloodstep_overlay
 
 
 /obj/effect/decal/cleanable/blood/footprints/examine(mob/user)
 	. = ..()
-	if(shoe_types.len)
-		. += "You recognise the footprints as belonging to:\n"
-		for(var/shoe in shoe_types)
-			var/obj/item/clothing/shoes/S = shoe
-			. += "[icon2html(initial(S.icon), user)] Some <B>[initial(S.name)]</B>.\n"
+	if((shoe_types.len + species_types.len) > 0)
+		. += "You recognise the footprints as belonging to:"
+		for(var/sole in shoe_types)
+			var/obj/item/clothing/item = sole
+			var/article = initial(item.gender) == PLURAL ? "Some" : "A"
+			. += "[icon2html(initial(item.icon), user, initial(item.icon_state))] [article] <B>[initial(item.name)]</B>."
+		for(var/species in species_types)
+			// god help me
+			if(species == "unknown")
+				. += "Some <B>feet</B>."
+			else if(species == SPECIES_MONKEY)
+				. += "[icon2html('icons/mob/monkey.dmi', user, "monkey1")] Some <B>monkey feet</B>."
+			else if(species == SPECIES_HUMAN)
+				. += "[icon2html('icons/mob/human_parts.dmi', user, "default_human_l_leg")] Some <B>human feet</B>."
+			else
+				. += "[icon2html('icons/mob/human_parts.dmi', user, "[species]_l_leg")] Some <B>[species] feet</B>."
 
 /obj/effect/decal/cleanable/blood/footprints/replace_decal(obj/effect/decal/cleanable/C)
 	if(blood_state != C.blood_state) //We only replace footprints of the same type as us
-		return
-	..()
+		return FALSE
+	return ..()
 
 /obj/effect/decal/cleanable/blood/footprints/can_bloodcrawl_in()
 	if((blood_state != BLOOD_STATE_OIL) && (blood_state != BLOOD_STATE_NOT_BLOODY))
-		return 1
-	return 0
+		return TRUE
+	return FALSE

@@ -138,8 +138,6 @@
 	///Used for changing icon states for different base sprites.
 	var/base_icon_state
 
-	///Used to show a specific icon state in certain situations - i.e.) crafting menu
-	var/icon_state_preview
 	// This veriable exists BECAUSE animating sprite (bola) has an issue to render to TGUI crafting window - it shows wrong icons.
 
 	///LazyList of all balloon alerts currently on this atom
@@ -431,23 +429,25 @@
   * Otherwise it simply forceMoves the atom into this atom
   */
 /atom/proc/CheckParts(list/parts_list, datum/crafting_recipe/R)
-	if(parts_list)
-		for(var/A in parts_list)
-			if(istype(A, /datum/reagent))
-				if(!reagents)
-					reagents = new()
-				reagents.reagent_list.Add(A)
-				reagents.conditional_update()
-			else if(ismovable(A))
-				var/atom/movable/M = A
-				if(isliving(M.loc))
-					var/mob/living/L = M.loc
-					L.transferItemToLoc(M, src)
-				else
-					M.forceMove(src)
-				SEND_SIGNAL(M, COMSIG_ATOM_USED_IN_CRAFT, src)
-		parts_list.Cut()
 	SEND_SIGNAL(src, COMSIG_ATOM_CHECKPARTS, parts_list, R)
+	if(!parts_list)
+		return
+
+	for(var/A in parts_list)
+		if(istype(A, /datum/reagent))
+			if(!reagents)
+				reagents = new()
+			reagents.reagent_list.Add(A)
+			reagents.conditional_update()
+		else if(ismovable(A))
+			var/atom/movable/M = A
+			if(isliving(M.loc))
+				var/mob/living/L = M.loc
+				L.transferItemToLoc(M, src)
+			else
+				M.forceMove(src)
+			SEND_SIGNAL(M, COMSIG_ATOM_USED_IN_CRAFT, src)
+	parts_list.Cut()
 
 ///Take air from the passed in gas mixture datum
 /atom/proc/assume_air(datum/gas_mixture/giver)
@@ -1137,8 +1137,7 @@
 ///Removes an instance of colour_type from the atom's atom_colours list
 /atom/proc/remove_atom_colour(colour_priority, coloration)
 	if(!atom_colours)
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
+		return
 	if(colour_priority > atom_colours.len)
 		return
 	if(coloration && atom_colours[colour_priority] != coloration)
@@ -1149,10 +1148,9 @@
 
 ///Resets the atom's color to null, and then sets it to the highest priority colour available
 /atom/proc/update_atom_colour()
-	if(!atom_colours)
-		atom_colours = list()
-		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
 	color = null
+	if(!atom_colours)
+		return
 	for(var/C in atom_colours)
 		if(islist(C))
 			var/list/L = C
@@ -1162,6 +1160,27 @@
 		else if(C)
 			color = C
 			return
+
+
+/**
+  * Wash this atom
+  *
+  * This will clean it off any temporary stuff like blood. Override this in your item to add custom cleaning behavior.
+  * Returns true if any washing was necessary and thus performed
+  * Arguments:
+  * * clean_types: any of the CLEAN_ constants
+  */
+/atom/proc/wash(clean_types)
+	SHOULD_CALL_PARENT(TRUE)
+
+	. = FALSE
+	if(SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, clean_types))
+		. = TRUE
+
+	// Basically "if has washable coloration"
+	if(length(atom_colours) >= WASHABLE_COLOUR_PRIORITY && atom_colours[WASHABLE_COLOUR_PRIORITY])
+		remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+		return TRUE
 
 /**
   * call back when a var is edited on this atom
@@ -1219,6 +1238,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
+	VV_DROPDOWN_OPTION(VV_HK_RADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	if(greyscale_colors)
@@ -1269,6 +1289,11 @@
 
 	if(href_list[VV_HK_TRIGGER_EMP] && check_rights(R_FUN))
 		usr.client.cmd_admin_emp(src)
+
+	if(href_list[VV_HK_RADIATE] && check_rights(R_FUN))
+		var/strength = input(usr, "Choose the radiation strength.", "Choose the strength.") as num|null
+		if(!isnull(strength))
+			AddComponent(/datum/component/radioactive, strength, src)
 
 	if(href_list[VV_HK_MODIFY_TRANSFORM] && check_rights(R_VAREDIT))
 		var/result = input(usr, "Choose the transformation to apply","Transform Mod") as null|anything in list("Scale","Translate","Rotate")
@@ -1421,7 +1446,7 @@
 	to_chat(user, "<span class='notice'>You start working on [src]</span>")
 	if(process_item.use_tool(src, user, processing_time, volume=50))
 		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
-		//var/list/atom/created_atoms = list() //Customfood
+		var/list/atom/created_atoms = list()
 		var/amount_to_create = chosen_option[TOOL_PROCESSING_AMOUNT]
 		for(var/i = 1 to amount_to_create)
 			var/atom/created_atom = new atom_to_create(drop_location())
@@ -1431,8 +1456,9 @@
 				created_atom.pixel_x += rand(-8,8)
 				created_atom.pixel_y += rand(-8,8)
 			created_atom.OnCreatedFromProcessing(user, process_item, chosen_option, src)
-		to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
-		//SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms) //Custom food
+			to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
+			created_atoms.Add(created_atom)
+		SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms)
 		UsedforProcessing(user, process_item, chosen_option)
 		return
 
@@ -1570,8 +1596,9 @@
   * 3 is a verb describing the action (e.g. punched, throwed, kicked, etc.)
   * 4 is a tool with which the action was made (usually an item)
   * 5 is any additional text, which will be appended to the rest of the log line
+  * 6 if an attack isn't important, then it won't be considered for the blackbox combat log outcomes
   */
-/proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
+/proc/log_combat(atom/user, atom/target, what_done, object=null, addition=null, important = TRUE)
 	if(isweakref(user))
 		var/datum/weakref/A_ref = user
 		user = A_ref.resolve()
@@ -1586,7 +1613,7 @@
 		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
-	if(object)
+	if(object && !isitem(object))
 		sobject = " with [object]"
 	var/saddition = ""
 	if(addition)
@@ -1596,6 +1623,11 @@
 
 	var/message = "has [what_done] [starget][postfix]"
 	user.log_message(message, LOG_ATTACK, color="red")
+
+	if (important && isliving(user) && isliving(target))
+		var/mob/living/living_user = user
+		var/datum/tool_atom = object
+		SScombat_logging.log_combat(living_user, living_target, istype(tool_atom) ? tool_atom.type : object)
 
 	if(user != target)
 		var/reverse_message = "has been [what_done] by [ssource][postfix]"

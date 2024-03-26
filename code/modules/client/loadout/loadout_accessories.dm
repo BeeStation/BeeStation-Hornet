@@ -116,7 +116,7 @@
 
 /datum/gear/accessory/oldnecklace
 	display_name = "necklace, gold"
-	path = /obj/item/clothing/neck/necklace/dope
+	path = /obj/item/clothing/neck/necklace/dope/cross
 	cost = 25000
 
 /datum/gear/accessory/headphones

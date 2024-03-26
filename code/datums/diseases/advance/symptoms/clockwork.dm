@@ -24,21 +24,25 @@
 
 /datum/symptom/robotic_adaptation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= 4) //at base level, robotic organs are purely a liability
+	if(A.stage_rate >= 4 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event)) //at base level, robotic organs are purely a liability
 		severity += 1
-		if(A.stage_rate >= 12)//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
+		if(A.stage_rate >= 12 || ((CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.stage_rate >= 6))//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
 			severity -= 3//net benefits: 2 damage reduction, flight if you have wings, filter out low amounts of gas, durable ears, flash protection, a liver half as good as an upgraded cyberliver, and flight if you are a winged species
 	if(A.resistance >= 4)//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
 		severity += 1 //at this stage, even one EMP will hurt, a lot.
+	if(CONFIG_GET(flag/unconditional_symptom_thresholds))
+		threshold_desc = "<b>Always:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
+                      <b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+                      <b>Stage Speed 6:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 
 
 /datum/symptom/robotic_adaptation/Start(datum/disease/advance/A)
 	. = ..()
-	if(A.stage_rate >= 4)
+	if(A.stage_rate >= 4 ||(CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event))
 		replaceorgans = TRUE
 	if(A.resistance >= 4)
 		replacebody = TRUE
-	if(A.stage_rate >= 12)
+	if(A.stage_rate >= 12 || (CONFIG_GET(flag/unconditional_symptom_thresholds) || A.event) && A.stage_rate >= 6)
 		robustbits = TRUE //note that having this symptom means most healing symptoms won't work on you
 
 
@@ -48,7 +52,7 @@
 	var/mob/living/carbon/human/H = A.affected_mob
 	switch(A.stage)
 		if(3, 4)
-			if(replaceorgans)
+			if(replaceorgans && H.stat <= DEAD)
 				to_chat(H, "<span class='warning'><b>[pick("You feel a grinding pain in your abdomen.", "You exhale a jet of steam.")]</span>")
 		if(5)
 			if(replaceorgans || replacebody)
@@ -78,7 +82,7 @@
 					else
 						var/obj/item/organ/stomach/clockwork/organ = new()
 						organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
+					if(prob(40) && H.stat != DEAD)
 						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
 						H.emote("scream")
 					return TRUE
@@ -87,14 +91,15 @@
 					if(robustbits)
 						organ.damage_multiplier = 0.5
 					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='warning'>Your ears pop.</span>")
+					if(H.stat != DEAD)
+						to_chat(H, "<span class='warning'>Your ears pop.</span>")
 					return TRUE
 				if(ORGAN_SLOT_EYES)
 					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
 					if(robustbits)
 						organ.flash_protect = 1
 					organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
+					if(prob(40) && H.stat != DEAD)
 						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
 						H.emote("scream")
 					return TRUE
@@ -110,22 +115,23 @@
 						organ.BZ_trip_balls_min = 15
 						organ.gas_stimulation_min = 15
 					organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
+					if(prob(40) && H.stat != DEAD)
 						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_HEART)
 					var/obj/item/organ/heart/clockwork/organ = new()
 					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
-					H.emote("scream")
+					if(H.stat != DEAD)
+						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
+						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_LIVER)
 					var/obj/item/organ/liver/clockwork/organ = new()
 					if(robustbits)
 						organ.toxTolerance = 7
 					organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
+					if(prob(40) && H.stat <= DEAD)
 						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
 						H.emote("scream")
 					return TRUE
@@ -147,7 +153,8 @@
 					if(robustbits)
 						organ.flight_level = WINGS_FLYING
 					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='warning'>Your wings feel stiff.</span>")
+					if(H.stat <= DEAD)
+						to_chat(H, "<span class='warning'>Your wings feel stiff.</span>")
 					return TRUE
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
@@ -219,7 +226,8 @@
 	var/mob/living/carbon/human/H = A.affected_mob
 	REMOVE_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	if(A.stage >= 5 && (replaceorgans || replacebody)) //sorry. no disease quartets allowed
-		to_chat(H, "<span class='userdanger'>You feel lighter and springier as your innards lose their clockwork facade.</span>")
+		if(H.stat != DEAD)
+			to_chat(H, "<span class='userdanger'>You feel lighter and springier as your innards lose their clockwork facade.</span>")
 		H.dna.species.regenerate_organs(H, replace_current = TRUE)
 		for(var/obj/item/bodypart/O in H.bodyparts)
 			if(!IS_ORGANIC_LIMB(O))

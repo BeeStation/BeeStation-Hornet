@@ -7,7 +7,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	integrity_failure = 0
-	can_weld_shut = 0
+	can_weld_shut = FALSE
 	cutting_tool = TOOL_WIRECUTTER
 	open_sound = "rustle"
 	material_drop = /obj/item/stack/sheet/cardboard
@@ -56,7 +56,7 @@
 		playsound(loc, 'sound/machines/chime.ogg', 50, FALSE, -5)
 
 /mob/living/proc/do_alert_animation(atom/A)
-	var/image/I = image('icons/obj/closet.dmi', A, "cardboard_special", A.layer+1)
+	var/image/I = image('icons/obj/storage/closet.dmi', A, "cardboard_special", A.layer+1)
 	flick_overlay_view(I, A, 8)
 	I.alpha = 0
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)

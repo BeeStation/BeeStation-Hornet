@@ -209,7 +209,7 @@
 	if(!load || ismob(load)) //mob offsets and such are handled by the riding component / buckling
 		return
 	var/mutable_appearance/load_overlay = new(load) // Our crates use overlays for opening, closing, etc. as opposed to tg
-	load_overlay.pixel_y = initial(load.pixel_y) + 9
+	load_overlay.pixel_y = initial(load.pixel_y) + 12
 	if(load_overlay.layer < layer)
 		load_overlay.layer = layer + 0.01
 	. += load_overlay

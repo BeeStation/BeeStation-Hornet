@@ -293,7 +293,7 @@
 	if(AM.pulledby)
 		if(!supress_message)
 			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
-		log_combat(AM, AM.pulledby, "pulled from", src)
+		log_combat(AM, AM.pulledby, "pulled from", src, important = FALSE)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 
 	pulling = AM
@@ -499,7 +499,7 @@
 	if(!resting)
 		set_resting(TRUE, FALSE)
 	else
-		if(do_after(src, 10, target = src, timed_action_flags = IGNORE_RESTRAINED | IGNORE_HELD_ITEM))
+		if(do_after(src, 10, target = src, timed_action_flags = IGNORE_RESTRAINED | IGNORE_HELD_ITEM | IGNORE_USER_LOC_CHANGE))
 			set_resting(FALSE, FALSE)
 		else
 			to_chat(src, "<span class='notice'>You fail to get up.</span>")
@@ -967,6 +967,26 @@
 		throw_at(S, 14, 3, src, TRUE)
 	else if(!src.mob_negates_gravity())
 		step_towards(src,S)
+
+/mob/living/proc/do_stun_animation()
+	var/matrix/rotation_matrix = matrix()
+	rotation_matrix.Turn(5)
+	var/matrix/reset_matrix = matrix()
+	reset_matrix.Turn(-5)
+	// Offset animation
+	animate(src, time = 1, pixel_x = rand(-2, 2), pixel_y = rand(-1, 1), easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+	for (var/i in 1 to 4)
+		var/dx = rand(-4, 2)
+		var/dy = rand(-4, 2)
+		animate(time = 1, pixel_x = dx, pixel_y = dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+		animate(time = 0, pixel_x = -dx, pixel_y = -dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+	var/final_pixel_x = base_pixel_x + body_position_pixel_x_offset
+	var/final_pixel_y = base_pixel_y + body_position_pixel_y_offset
+	animate(time = 1, pixel_x = final_pixel_x , pixel_y = final_pixel_y)
+	// Rotational Animation
+	animate(src, time = 3, transform = rotation_matrix, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
+	animate(time = 2, flags = ANIMATION_RELATIVE)
+	animate(time = 1, transform = reset_matrix, flags = ANIMATION_RELATIVE)
 
 /mob/living/proc/do_jitter_animation(jitteriness)
 	var/amplitude = min(4, (jitteriness/100) + 1)

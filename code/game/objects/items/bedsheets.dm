@@ -37,6 +37,8 @@
 	if(layer == initial(layer))
 		layer = ABOVE_MOB_LAYER
 		to_chat(user, "<span class='notice'>You cover yourself with [src].</span>")
+		pixel_x = 0
+		pixel_y = 0
 	else
 		layer = initial(layer)
 		to_chat(user, "<span class='notice'>You smooth [src] out beneath you.</span>")
@@ -296,7 +298,7 @@
 	dying_key = DYE_REGISTRY_DOUBLE_BEDSHEET
 
 /obj/item/bedsheet/double/Initialize()
-	..()
+	. = ..()
 	desc += " This one is double."
 
 /obj/item/bedsheet/double/blue

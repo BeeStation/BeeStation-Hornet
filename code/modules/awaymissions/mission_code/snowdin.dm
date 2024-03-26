@@ -96,12 +96,12 @@
 /area/awaymission/snowdin/igloo
 	name = "Snowdin Igloos"
 	icon_state = "awaycontent14"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
 /area/awaymission/snowdin/cave
 	name = "Snowdin Caves"
 	icon_state = "awaycontent15"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 
 /area/awaymission/snowdin/cave/cavern
 	name = "Snowdin Depths"

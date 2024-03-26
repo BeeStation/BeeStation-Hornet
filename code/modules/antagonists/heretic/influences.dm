@@ -277,7 +277,7 @@
 	balloon_alert(user, "Influence drained")
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
-	heretic_datum.knowledge_points += knowledge_to_gain
+	heretic_datum.adjust_knowledge_points(knowledge_to_gain)
 
 	// Aaand now we delete it
 	after_drain(user)

@@ -1,3 +1,11 @@
+#define HULL_BREACH	1
+#define LINE_SPACE_MODE 2
+#define FIX_TILE 3
+#define AUTO_TILE 4
+#define PLACE_TILE 5
+#define REPLACE_TILE 6
+#define TILE_EMAG 7
+
 //Floorbot
 /mob/living/simple_animal/bot/floorbot
 	name = "\improper Floorbot"
@@ -32,21 +40,15 @@
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 	var/toolbox_color = ""
 
-	#define HULL_BREACH	1
-	#define LINE_SPACE_MODE 2
-	#define FIX_TILE 3
-	#define AUTO_TILE 4
-	#define PLACE_TILE 5
-	#define REPLACE_TILE 6
-	#define TILE_EMAG 7
-
 /mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
 	toolbox_color = new_toolbox_color
 	update_appearance()
+
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
+
 	if(toolbox_color == "s")
 		health = 100
 		maxHealth = 100

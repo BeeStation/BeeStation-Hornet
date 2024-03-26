@@ -37,7 +37,7 @@
 /area/template_noop)
 "w" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "x" = (
@@ -61,11 +61,6 @@
 "B" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
-/area/template_noop)
-"C" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
 /area/template_noop)
 "E" = (
 /obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
@@ -121,7 +116,7 @@
 "Q" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "R" = (
@@ -135,7 +130,7 @@
 "W" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "X" = (
@@ -186,7 +181,7 @@ c
 F
 "}
 (6,1,1) = {"
-C
+w
 J
 R
 W

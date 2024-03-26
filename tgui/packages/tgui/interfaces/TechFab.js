@@ -89,14 +89,14 @@ const Material = (props, context) => {
             <Flex.Item>
               <Flex className="TechFab__ButtonsContainer">
                 {material_dispense_amounts.map((amount) => (
-                  <Flex.Item key={material.id + amount}>
+                  <Flex.Item key={material.name + amount}>
                     <Button
                       className="TechFab__NumberButton"
                       content={amount}
                       disabled={material.amount < amount}
                       onClick={() =>
                         act('ejectsheet', {
-                          material_id: material.id,
+                          material_id: material.name,
                           amount: amount,
                         })
                       }

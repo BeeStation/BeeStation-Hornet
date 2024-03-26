@@ -376,7 +376,7 @@
 	pixel_x = -24
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/shuttle/hunter)
 "mM" = (

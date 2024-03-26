@@ -104,8 +104,8 @@
 	max_supply = 1
 	contains = list(/mob/living/simple_animal/bot/floorbot,
 					/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
+					/mob/living/simple_animal/bot/medbot/filled,
+					/mob/living/simple_animal/bot/medbot/filled,
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air,
@@ -124,8 +124,8 @@
 	desc = "For when the shit hits the fan and medical can't keep up. Comes with a 7x5 Medical capsule and 2 Medibots for emergencies."
 	cost = 1100
 	max_supply = 1
-	contains = list(/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
+	contains = list(/mob/living/simple_animal/bot/medbot/filled,
+					/mob/living/simple_animal/bot/medbot/filled,
 					/obj/item/survivalcapsule/medical)
 	crate_name = "emergency medical crate"
 	crate_type = /obj/structure/closet/crate/medical
@@ -717,6 +717,16 @@
 					/obj/item/survivalcapsule/barricade)
 	cost = 2000
 	crate_name = "security barriers crate XL"
+	
+/datum/supply_pack/security/armory/capsule_checkpoints
+	name = "Security Checkpoint capsules"
+	desc = "A 3x3 checkpoint designed for allowing safely searching passing personnel. Requires Security access to open."
+	max_supply = 2
+	access_budget = ACCESS_BRIG
+	contains = list(/obj/item/survivalcapsule/capsule_checkpoint,
+					/obj/item/survivalcapsule/capsule_checkpoint)
+	cost = 1000
+	crate_name = "Security Checkpoint capsule crate"
 
 /datum/supply_pack/security/armory/mindshield
 	name = "Mindshield Implants Crate"
@@ -776,26 +786,87 @@
 	cost = 4000
 	contraband = TRUE
 	max_supply = 3
-	contains = list(/obj/item/reagent_containers/food/snacks/rationpack,
-					/obj/item/ammo_box/a762,
-					/obj/item/storage/toolbox/ammo,
-					/obj/item/clothing/suit/armor/vest/russian,
-					/obj/item/clothing/head/helmet/rus_helmet,
-					/obj/item/clothing/shoes/russian,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/under/syndicate/rus_army,
-					/obj/item/clothing/under/costume/soviet,
-					/obj/item/clothing/mask/russian_balaclava,
-					/obj/item/clothing/head/helmet/rus_ushanka,
-					/obj/item/clothing/suit/armor/vest/russian_coat,
-					/obj/item/gun/ballistic/rifle/boltaction,
-					/obj/item/gun/ballistic/rifle/boltaction)
+	contains = list(
+		/obj/item/food/rationpack,
+		/obj/item/ammo_box/a762,
+		/obj/item/storage/toolbox/ammo,
+		/obj/item/clothing/suit/armor/vest/russian,
+		/obj/item/clothing/head/helmet/rus_helmet,
+		/obj/item/clothing/shoes/russian,
+		/obj/item/clothing/gloves/combat,
+		/obj/item/clothing/under/syndicate/rus_army,
+		/obj/item/clothing/under/costume/soviet,
+		/obj/item/clothing/mask/russian_balaclava,
+		/obj/item/clothing/head/helmet/rus_ushanka,
+		/obj/item/clothing/suit/armor/vest/russian_coat,
+		/obj/item/gun/ballistic/rifle/boltaction,
+		/obj/item/gun/ballistic/rifle/boltaction
+	)
 	crate_name = "surplus military crate"
 
 /datum/supply_pack/security/armory/russian/fill(obj/structure/closet/crate/C)
 	for(var/i in 1 to 10)
 		var/item = pick(contains)
 		new item(C)
+
+/datum/supply_pack/security/armory/western
+	name = "Western Frontier Crate"
+	desc = "Howdy Pardner, this here is the finest collection of frontier gear for the aspiring cowboy, sheriff, or Wild West desperado on this side of the solar system. Unfortunately, we've had to lock this down with Armory access to put the postmaster general at ease."
+	cost = 4000
+	contraband = TRUE
+	max_supply = 3
+	contains = list(/obj/item/ammo_box/c38/box,
+					/obj/item/storage/toolbox/ammo/c38,
+					/obj/item/mob_lasso,
+					/obj/item/clothing/shoes/workboots/mining,
+					/obj/item/clothing/gloves/botanic_leather,
+					/obj/item/clothing/gloves/color/black,
+					/obj/item/clothing/head/cowboy,
+					/obj/item/clothing/head/sombrero,
+					/obj/item/clothing/head/sombrero/green,
+					/obj/item/storage/belt/bandolier/western,
+					/obj/item/gun/ballistic/rifle/leveraction,
+					/obj/item/gun/ballistic/rifle/leveraction)
+	var/wear_outer = list(/obj/item/clothing/suit/apron/overalls,
+					/obj/item/clothing/suit/poncho,
+					/obj/item/clothing/suit/poncho/green,
+					/obj/item/clothing/suit/poncho/red)
+	var/wear_under = list(/obj/item/clothing/under/misc/overalls,
+					/obj/item/clothing/under/misc/overalls,
+					/obj/item/clothing/under/misc/overalls,
+					/obj/item/clothing/under/suit/sl,
+					/obj/item/clothing/under/suit/sl)
+	var/cursed = list(/obj/item/clothing/head/helmet/outlaw,
+					/obj/item/clothing/mask/fakemoustache,
+					/obj/item/clothing/suit/poncho/ponchoshame/outlaw,
+					/obj/item/clothing/under/suit/sl,
+					/obj/item/clothing/shoes/workboots/mining,
+					/obj/item/clothing/gloves/color/black,
+					/obj/item/storage/belt/bandolier/western/filled,
+					/obj/item/gun/ballistic/rifle/leveraction,
+					/obj/item/gun/ballistic/revolver/detective/cowboy,
+					/obj/item/clothing/accessory/holster,
+					/obj/item/paper/crumpled/bloody/cursed_western)
+	crate_name = "western frontier crate"
+
+/datum/supply_pack/security/armory/western/fill(obj/structure/closet/crate/C)
+	if (prob(1) && prob(10)) //0.001% chance of rolling instead of normal contents //Jackpot Babey!!!
+		C.name = "cursed gunslinger crate"
+		C.color = COLOR_GRAY
+		for(var/item in cursed)
+			new item(C)
+	else
+		for(var/i in 1 to 6)
+			var/item = pick(contains)
+			new item(C)
+		for(var/i in 1 to 2)
+			var/item_outer = pick(wear_outer)
+			new item_outer(C)
+		for(var/i in 1 to 3)
+			var/item_under = pick(wear_under)
+			new item_under(C)
+		new /obj/item/clothing/mask/fakemoustache(C)
+		new /obj/item/clothing/mask/fakemoustache(C)
 
 /datum/supply_pack/security/armory/smartmine
 	name = "Smart Mine Crate"
@@ -1741,21 +1812,29 @@
 	access = ACCESS_MEDICAL
 	contains = list(/obj/machinery/iv_drip/saline)
 
-/datum/supply_pack/medical/randomvirus
+/datum/supply_pack/medical/randomvirus //contains 5 utility viro symptoms. If virus customizing is on, contains 5 random cultures instead
 	name = "Virus Sample Crate"
-	desc = "Contains five random experimental disease cultures for epidemiological research"
-	cost = 6000
+	desc = "Contains five experimental disease cultures for epidemiological research"
+	cost = 3000
 	max_supply = 3
 	access = ACCESS_VIROLOGY
 	access_budget = ACCESS_VIROLOGY
-	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus,
-					/obj/item/reagent_containers/glass/bottle/random_virus)
+	contains = list(/obj/item/reagent_containers/glass/bottle/inorganic_virion,
+					/obj/item/reagent_containers/glass/bottle/necrotic_virion,
+					/obj/item/reagent_containers/glass/bottle/evolution_virion,
+					/obj/item/reagent_containers/glass/bottle/adaptation_virion,
+					/obj/item/reagent_containers/glass/bottle/aggression_virion)
 	crate_name = "virus sample crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
+
+/datum/supply_pack/medical/randomvirus/fill(obj/structure/closet/crate/C)
+	for(var/item in contains)
+		if(CONFIG_GET(flag/chemviro_allowed))
+			new /obj/item/reagent_containers/glass/bottle/random_virus(C)
+		else
+			new item(C)
+
 
 /datum/supply_pack/medical/virology
 	name = "Junior Epidemiology Kit"
@@ -1800,17 +1879,6 @@
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
-/datum/supply_pack/medical/extrapolator
-	name = "Virus Extrapolator Supply Crate"
-	desc = "Contains 3 Virus Extrapolators should any existing ones be lost or otherwise destroyed."
-	cost = 4500
-	max_supply = 4
-	access = ACCESS_VIROLOGY
-	contains = list(/obj/item/extrapolator, /obj/item/extrapolator, /obj/item/extrapolator)
-	crate_name = "Extrapolator Crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
-	dangerous = TRUE
-
 /datum/supply_pack/medical/pandemic
 	name = "Pandemic Replacement Crate"
 	desc = "Contains a replacement P.A.N.D.E.M.I.C. in case the ones in virology get destroyed or you want to build a new lab."
@@ -1820,6 +1888,16 @@
 	contains = list(/obj/machinery/computer/pandemic)
 	crate_name = "P.A.N.D.E.M.I.C. Replacement Crate"
 	dangerous = TRUE
+
+/datum/supply_pack/medical/chem_bags
+	name = "Chembag Refill Crate"
+	desc = "Contains 3 bags, containing Bicaridine, Kelotane and Anti-toxin for when the chemist is too busy making methamphetamines."
+	cost = 1000
+	max_supply = 3
+	contains = list(/obj/item/reagent_containers/chem_bag/bicaridine,
+					/obj/item/reagent_containers/chem_bag/kelotane,
+					/obj/item/reagent_containers/chem_bag/antitoxin)
+	crate_name = "Chembag Refill Crate"
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

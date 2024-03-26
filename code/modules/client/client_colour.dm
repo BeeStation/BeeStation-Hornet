@@ -84,7 +84,6 @@
 		var/datum/client_colour/colour = cc
 		if(colour.type == colour_type)
 			qdel(colour)
-			break
 
 /**
   * Gets the resulting colour/tone from client_colours.

@@ -14,7 +14,7 @@
 /area/template_noop)
 "j" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "k" = (
@@ -25,7 +25,7 @@
 /obj/structure/table,
 /obj/item/pen,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "m" = (
@@ -53,7 +53,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "s" = (
@@ -92,7 +92,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "F" = (
@@ -105,7 +105,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "H" = (

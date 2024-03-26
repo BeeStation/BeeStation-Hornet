@@ -224,7 +224,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/canMouseDown = FALSE
 
 	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
-	var/vendor_icon_preview = null
+	var/icon_state_preview = null
 
 
 /obj/item/Initialize(mapload)
@@ -417,7 +417,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	// Extractable materials. Only shows the names, not the amounts.
 	research_msg += ".<br><font color='purple'>Extractable materials:</font> "
-	if (custom_materials.len)
+	if (length(custom_materials))
 		sep = ""
 		for(var/mat in custom_materials)
 			research_msg += sep
@@ -885,6 +885,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (callback) //call the original callback
 		. = callback.Invoke()
 	item_flags &= ~PICKED_UP
+	if(!pixel_y && !pixel_x && !(item_flags & NO_PIXEL_RANDOM_DROP))
+		pixel_x = rand(-8,8)
+		pixel_y = rand(-8,8)
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
@@ -1446,3 +1449,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			return FALSE
 	return TRUE
+
+// Update icons if this is being carried by a mob
+/obj/item/wash(clean_types)
+	. = ..()
+
+	if(ismob(loc))
+		var/mob/mob_loc = loc
+		mob_loc.regenerate_icons()
