@@ -405,7 +405,7 @@
 		amount += _amount
 	if(length(mats_per_unit))
 		update_custom_materials()
-	update_icon()
+	update_appearance()
 	update_weight()
 	ui_update()
 
