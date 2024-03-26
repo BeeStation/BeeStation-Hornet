@@ -13,7 +13,7 @@
 	attack_verb = list("enforced the law upon")
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
 
-	var/stunforce = 75
+	var/stunforce = 40
 	var/turned_on = FALSE
 	var/obj/item/stock_parts/cell/cell
 	var/hitcost = 1000
@@ -184,13 +184,27 @@
 	target.apply_effect(EFFECT_STUTTER, stunforce)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
 	target.stuttering = 20
-	target.do_jitter_animation(20)
+
+	// Shoving
+	var/shove_dir = get_dir(user.loc, target.loc)
+	var/turf/target_shove_turf = get_step(target.loc, shove_dir)
+	var/mob/living/carbon/human/target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
+	if (target_collateral_human && target_shove_turf != get_turf(user))
+		target.Knockdown(0.5 SECONDS)
+		target_collateral_human.Knockdown(0.5 SECONDS)
+	target.Move(target_shove_turf, shove_dir)
+
+	target.do_stun_animation()
+
+	if (target.getStaminaLoss() > target.getMaxHealth() - HEALTH_THRESHOLD_CRIT)
+		target.emote("scream")
+
 	if(user)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
 		target.visible_message("<span class='danger'>[user] has electrocuted [target] with [src]!</span>", \
 								"<span class='userdanger'>[user] has electrocuted you with [src]!</span>")
-		log_combat(user, target, "stunned")
+		log_combat(user, target, "stunned", src)
 
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
@@ -225,7 +239,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 3
 	throwforce = 5
-	stunforce = 70
+	stunforce = 40
 	hitcost = 2000
 	throw_hit_chance = 10
 	slot_flags = ITEM_SLOT_BACK

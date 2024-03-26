@@ -365,8 +365,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		if(do_after(src, 50, target = H) && eating)
 			H.become_blind()
 			H.invisibility = INVISIBILITY_SPIRIT
-			H.density = FALSE
-			H.anchored = TRUE
+			H.set_density(FALSE)
+			H.set_anchored(TRUE)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100, TIMER_OVERRIDE|TIMER_UNIQUE)
 			visible_message("<span class='danger'>[src] pulls [H] under!</span>")
 			to_chat(H, "<span class='userdanger'>[src] drags you underneath the floor!</span>")
@@ -401,7 +401,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			H.cure_blind(null)
 			H.invisibility = initial(H.invisibility)
 			H.density = initial(H.density)
-			H.anchored = initial(H.anchored)
+			H.set_anchored(initial(H.anchored))
 			H.blur_eyes(10)
 			animate(H.client,color = old_color, time = 20)
 
