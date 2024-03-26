@@ -11,10 +11,6 @@
 #define GRAVITY_PULSE_PLANE -89
 #define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
 
-//---------- DEFILTERED PLANES -------------
-#define DEFILTER_GAME_PLANE -85
-#define DEFILTER_GAME_PLANE_RENDER_TARGET "*GAME_DEFILTER_PLANE_RENDER_TARGET"
-
 //#define ZMIMIC_MIN_PLANE -80
 // ZMIMIC: -----------  -80 to -70
 // Highest plane used by zmimic, occupies up to -ZMIMIC_MAX_DEPTH
@@ -22,18 +18,28 @@
 /// The maxiumum number of planes deep we'll go before we just dump everything on the same plane.
 #define ZMIMIC_MAX_DEPTH 10
 
-#define FLOOR_PLANE -10
-#define FLOOR_PLANE_RENDER_TARGET "FLOOR_PLANE_RENDER_TARGET"
+/*
+	Stuff for occlusion
+	This can pretty much live anywhere, so feel free to move it
+*/
+///Plane for patching occlusions
+#define OCCLUSION_PATCH_PLANE -10
+#define OCCLUSION_PATCH_PLANE_RENDER_TARGET "*OCCLUSION_PATCH_PLANE_RENDER_TARGET"
+///Plane for occlusions masks, this is where mob masks live
+#define OCCLUSION_MASK_PLANE -9
+#define OCCLUSION_MASK_PLANE_RENDER_TARGET "*OCCLUSION_MASK_PLANE_RENDER_TARGET"
+///Plane for occlusion, this is where the FOV mask lives
+#define OCCLUSION_PLANE -8
+#define OCCLUSION_PLANE_RENDER_TARGET "*OCCLUSION_PLANE_RENDER_TARGET"
+///Plane for occluded effect
+#define OCCLUSION_EFFECT_PLANE -3 //This has to probably live above the game plane, unless you layer it without breaking shit
+#define OCCLUSION_EFFECT_PLANE_RENDER_TARGET "*OCCLUSION_EFFECT_PLANE_RENDER_TARGET"
 
-#define GAME_PLANE -8
-#define GAME_PLANE_RENDER_TARGET "GAME_PLANE_RENDER_TARGET"
+#define FLOOR_PLANE -7
+#define FLOOR_PLANE_RENDER_TARGET "*FLOOR_PLANE_RENDER_TARGET"
 
-#define MOB_PLANE -7
-#define ABOVE_MOB_PLANE -6
-#define ABOVE_MOB_PLANE_RENDER_TARGET "*ABOVE_MOB_PLANE_RENDER_TARGET"
-
-#define OCCLUSION_PLANE -5
-#define BLIND_MASK_RENDER_TARGET "blind_mask_render_target"
+#define GAME_PLANE -4
+#define GAME_PLANE_RENDER_TARGET "*GAME_PLANE_RENDER_TARGET"
 
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define

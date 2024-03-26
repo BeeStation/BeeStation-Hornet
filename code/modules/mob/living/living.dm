@@ -1,5 +1,4 @@
 /mob/living
-	plane = MOB_PLANE
 	///Used for tracking poking data
 	var/time_of_last_poke = 0
 	///Used for tracking accidental attacks
@@ -26,9 +25,10 @@
 		// it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
 	//color correction
 	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(apply_color_correction))
-
-	var/atom/movable/screen/fullscreen/pov_mask/PM = overlay_fullscreen("pov", /atom/movable/screen/fullscreen/pov_mask)
-	PM.link_mob(src)
+	//FOV
+	build_fov()
+	//Mask ourselves by the FOV render target
+	//add_filter("fov_mask", 1, alpha_mask_filter(render_source = OCCLUSION_PLANE_RENDER_TARGET, flags = MASK_INVERSE))
 
 /mob/living/proc/initialize_footstep()
 	AddComponent(/datum/component/footstep)
@@ -1574,3 +1574,7 @@
 	remove_client_colour(current_correction)
 	add_client_colour(entered.color_correction)
 	current_correction = entered.color_correction
+
+//Used to setup this mob's FOV
+/mob/living/proc/build_fov()
+	return

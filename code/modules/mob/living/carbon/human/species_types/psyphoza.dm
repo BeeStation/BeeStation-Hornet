@@ -123,6 +123,9 @@
 
 	return to_add
 
+/datum/species/psyphoza/get_fov_path()
+	return /atom/movable/screen/fullscreen/fov_mask/open
+
 //This originally held the psychic action until I moved it to the eyes, keep it please.
 /obj/item/organ/brain/psyphoza
 	name = "psyphoza brain"

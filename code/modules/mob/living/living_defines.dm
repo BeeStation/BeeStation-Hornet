@@ -5,7 +5,7 @@
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ANTAG_HUD,NANITE_HUD,DIAG_NANITE_FULL_HUD)
 	pressure_resistance = 10
 	chat_color = "#CCCCCC"	//The say color of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
-
+	can_occlude = TRUE
 
 	var/resize = 1 //Badminnery resize
 	var/lastattacker = null
