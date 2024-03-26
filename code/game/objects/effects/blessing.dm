@@ -13,12 +13,12 @@
 	holy_effect = image(icon = 'icons/effects/effects.dmi', icon_state = "blessed", layer = ABOVE_OPEN_TURF_LAYER, loc = src)
 	holy_effect.alpha = 64
 	holy_effect.appearance_flags = RESET_ALPHA
-	GLOB.cimg_controller.stack_client_images("holyturf", holy_effect)
+	GLOB.cimg_controller.stack_client_images(CIMG_KEY_HOLYTURF, holy_effect)
 	RegisterSignal(loc, COMSIG_ATOM_INTERCEPT_TELEPORT, PROC_REF(block_cult_teleport))
 
 /obj/effect/blessing/Destroy()
 	UnregisterSignal(loc, COMSIG_ATOM_INTERCEPT_TELEPORT)
-	GLOB.cimg_controller.cut_client_images("holyturf", holy_effect)
+	GLOB.cimg_controller.cut_client_images(CIMG_KEY_HOLYTURF, holy_effect)
 	return ..()
 
 /obj/effect/blessing/proc/block_cult_teleport(datum/source, channel, turf/origin, turf/destination)

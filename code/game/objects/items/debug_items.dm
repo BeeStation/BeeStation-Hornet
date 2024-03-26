@@ -91,6 +91,15 @@
 				var/obj/item/I = each
 				I.custom_materials = null // we don't want to feed lathe with these items
 
+
+/obj/item/debug/omnitool/pickup(mob/user)
+	. = ..()
+	GLOB.cimg_controller.validate_mob(ROLE_HERETIC, user)
+
+/obj/item/debug/omnitool/dropped(mob/user, silent)
+	. = ..()
+	GLOB.cimg_controller.disqualify_mob(ROLE_HERETIC, user)
+
 /obj/item/debug/omnitool/examine()
 	. = ..()
 	. += " The mode is: [tool_behaviour]"
