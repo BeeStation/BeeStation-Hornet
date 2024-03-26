@@ -90,9 +90,15 @@
 	shown_mood = 0
 	for(var/i in mood_events)
 		var/datum/mood_event/event = mood_events[i]
-		mood += event.mood_change
+		var/mob/living/owner = parent
+		var/mood_change = event.mood_change
+		if(owner.has_quirk(/datum/quirk/hypersensitive) && (mood_change<0))
+			mood_change*=1.5
+		if(owner.has_quirk(/datum/quirk/apathetic) && (mood_change<0))
+			mood_change*=0.5
+		mood += mood_change
 		if(!event.hidden)
-			shown_mood += event.mood_change
+			shown_mood += mood_change
 		mood *= mood_modifier
 		shown_mood *= mood_modifier
 
