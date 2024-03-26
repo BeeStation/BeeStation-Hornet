@@ -640,6 +640,8 @@
 	if(result && !step_silent)
 		playsound(src,stepsound,40,1)
 	step_silent = FALSE
+	//Update occupant direction
+	occupant?.setDir(dir)
 	return result
 
 /obj/mecha/proc/mechsteprand()
@@ -942,6 +944,10 @@
 		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
 	return
 
+/obj/mecha/setDir(ndir)
+	. = ..()
+	occupant?.setDir(dir)
+
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H)
 	if(H?.client && get_dist(H, src) <= 1)
 		occupant = H
@@ -953,6 +959,7 @@
 		log_message("[H] moved in as pilot.", LOG_MECHA)
 		icon_state = base_icon_state
 		setDir(dir_in)
+		occupant?.setDir(dir)
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		if(!internal_damage)
 			SEND_SOUND(occupant, sound('sound/mecha/nominal.ogg',volume=50))
