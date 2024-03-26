@@ -34,6 +34,7 @@
 	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
+	dying_key = DYE_REGISTRY_CAP
 
 //Captain: This is no longer space-worthy
 /obj/item/clothing/head/caphat/parade
@@ -50,6 +51,7 @@
 	desc = "The symbol of true bureaucratic micromanagement."
 	armor = list(MELEE = 25,  BULLET = 15, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	dog_fashion = /datum/dog_fashion/head/hop
+	dying_key = DYE_REGISTRY_CAP
 
 //Chaplain
 /obj/item/clothing/head/nun_hood
@@ -110,6 +112,26 @@
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
 	w_class = WEIGHT_CLASS_SMALL
+	dying_key = DYE_REGISTRY_BERET
+
+/obj/item/clothing/head/beret/color
+	name = "white beret"
+	icon_state = "beret_white"
+
+/obj/item/clothing/head/beret/rainbow
+	name = "rainbow beret"
+	desc = "The result of a passionate relationship between a mime and a clown."
+	icon_state = "beret_rainbow"
+
+/obj/item/clothing/head/beret/mime
+	name = "invisible beret"
+	desc = "Only a very scholarly mime is able to cram enough mimery into a beret for this to happen."
+	icon_state = "beret_mime"
+
+/obj/item/clothing/head/beret/clown
+	name = "H.O.N.K tactical beret"
+	desc = "A tactical berret to be used during the enacting of the most dangerous of pranks."
+	icon_state = "beret_clown"
 
 /obj/item/clothing/head/beret/vintage
 	name = "vintage beret"
@@ -156,6 +178,7 @@
 	armor = list(MELEE = 40,  BULLET = 30, LASER = 25, ENERGY = 30, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60, STAMINA = 30)
 	strip_delay = 80
 	dynamic_hair_suffix = ""
+	dying_key = DYE_REGISTRY_CAP
 
 /obj/item/clothing/head/HoS/syndicate
 	name = "syndicate cap"
@@ -165,10 +188,12 @@
 	name = "head of security beret"
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "hosberetblack"
+	dying_key = DYE_REGISTRY_CAP
 
 /obj/item/clothing/head/HoS/beret/syndicate
 	name = "syndicate beret"
 	desc = "A black beret with thick armor padding inside. Stylish and robust."
+	dying_key = DYE_REGISTRY_CAP
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"

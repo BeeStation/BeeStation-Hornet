@@ -95,7 +95,7 @@
 		return FALSE //Can only noose someone if they're on the same tile as noose
 
 	add_fingerprint(user)
-	log_combat(user, M, "Attempted to Hang", src)
+	log_combat(user, M, "Attempted to Hang", src, important = FALSE)
 	M.visible_message("<span class='danger'>[user] attempts to tie \the [src] over [M]'s neck!</span>")
 	if(user != M)
 		to_chat(user, "<span class='notice'>It will take 20 seconds and you have to stand still.</span>")
@@ -107,7 +107,7 @@
 			else
 				to_chat(M, "<span class='userdanger'>[user] ties \the [src] over your neck!</span>")
 			playsound(user.loc, 'sound/effects/noosed.ogg', 50, 1, -1)
-			log_combat(user, M, "hanged", src)
+			log_combat(user, M, "hanged", src, important = FALSE)
 			return TRUE
 	user.visible_message("<span class='warning'>[user] fails to tie \the [src] over [M]'s neck!</span>")
 	to_chat(user, "<span class='warning'>You fail to tie \the [src] over [M]'s neck!</span>")

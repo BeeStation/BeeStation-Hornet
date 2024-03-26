@@ -129,32 +129,25 @@
 
 
 /obj/item/mmi/proc/transfer_identity(mob/living/L) //Same deal as the regular brain proc. Used for human-->robot people.
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		var/obj/item/organ/brain/newbrain = H.getorgan(/obj/item/organ/brain)
-		if(newbrain)
-			. = TRUE
-			newbrain.Remove(H, TRUE) //this calls newbrain.transfer_identity()
-			newbrain.forceMove(src)
-			if(brain)
-				qdel(brain)
-			if(brainmob)
-				qdel(brainmob)
-			brain = newbrain
 
-	if(!brain)
+	//both of these need to be created so we can't keep either
+	if(brain)
+		QDEL_NULL(brain)
+	if(brainmob)
+		QDEL_NULL(brainmob)
+
+	var/obj/item/organ/BR = L.getorgan(/obj/item/organ/brain)
+	if(BR)
+		brain = new BR.type (src)
+	else
 		brain = new(src)
-
-	if(!brain.brainmob)
-		if(brainmob)
-			qdel(brainmob) //hopefully this isn't incredibly short sighted and ignorant and breaks everything
-		brain.transfer_identity(L)
-
-	brainmob = brain.brainmob
-	brainmob.container = src
-	brain.name = "[brainmob.real_name]'s brain"
 	brain.organ_flags |= ORGAN_FROZEN
 
+	brain.transfer_identity(L)
+	brainmob = brain.brainmob
+	brainmob.container = src
+
+	brain.name = "[L.real_name]'s brain"
 	name = "[initial(name)]: [brainmob.real_name]"
 	update_icon()
 	return

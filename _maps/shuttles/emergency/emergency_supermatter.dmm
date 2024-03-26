@@ -37,7 +37,7 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/shuttle/escape)
 "am" = (
 /obj/structure/reflector/single/mapping{
@@ -65,7 +65,7 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/turf/open/floor/noslip,
+/turf/open/floor/noslip/standard,
 /area/shuttle/escape)
 "ar" = (
 /obj/structure/chair/fancy/shuttle{

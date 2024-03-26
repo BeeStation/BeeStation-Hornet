@@ -447,7 +447,7 @@
 	name = "Khachapuri"
 	reqs = list(
 		/datum/reagent/consumable/eggyolk = 5,
-		/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
+		/obj/item/food/cheese/wedge = 1,
 		/obj/item/food/bread/plain = 1
 	)
 	result = /obj/item/food/khachapuri
@@ -528,7 +528,7 @@
 /datum/crafting_recipe/food/raisincookie
 	name = "Raisin cookie"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/no_raisin = 1,
+		/obj/item/food/no_raisin = 1,
 		/obj/item/food/pastrybase = 1,
 		/obj/item/food/grown/oat = 1
 	)
