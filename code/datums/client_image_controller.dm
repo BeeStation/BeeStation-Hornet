@@ -12,6 +12,8 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 /datum/cimg_holder
 	/// list of images for a group
 	var/list/bound_images = list()
+	/// identical to 'bound_images' but we do this |= instead of += because it can exist in multiple groups
+	var/list/shared_bound_images = list()
 
 	/// mobs who can see that
 	var/list/valid_mobs = list()
@@ -19,22 +21,30 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 	var/list/valid_minds = list()
 
 /// adds an image to a key group. You must call `cut_client_images()` for qdel.
-/datum/cimg_controller/proc/stack_client_images(cimg_key, client_images)
+/// * [is_shared_image]: Set this TRUE if an image is in multiple holders.
+/datum/cimg_controller/proc/stack_client_images(cimg_key, client_images, is_shared_image = FALSE)
 	var/datum/cimg_holder/cimg_holder = cimg_holders[cimg_key]
 	if(!cimg_holder)
 		cimg_holder = new
 		cimg_holders[cimg_key] = cimg_holder
 
-	cimg_holder.bound_images += client_images // list works
-	cimg_holder.realize_to_validated(client_images)
+	if(is_shared_image)
+		cimg_holder.shared_bound_images += client_images // list works
+	else
+		cimg_holder.bound_images += client_images // list works
+	cimg_holder.realize_to_validated(client_images, is_shared_image = is_shared_image)
 
 /// removes added image from a key group.
-/datum/cimg_controller/proc/cut_client_images(cimg_key, client_images)
+/// * [is_shared_image]: Set this TRUE if an image is in multiple holders.
+/datum/cimg_controller/proc/cut_client_images(cimg_key, client_images, is_shared_image = FALSE)
 	var/datum/cimg_holder/cimg_holder = cimg_holders[cimg_key]
 	if(!cimg_holder)
 		return
 
-	cimg_holder.bound_images -= client_images // list works
+	if(is_shared_image)
+		cimg_holder.shared_bound_images -= client_images // list works
+	else
+		cimg_holder.bound_images -= client_images // list works
 	cimg_holder.disappear_from_validated(client_images)
 
 /// this actually refreshes every client images - aghost or getting a new mob will call this
@@ -43,14 +53,31 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 	for(var/each_cimgkey in cimgkey_by_mob[cimg_mob])
 		var/datum/cimg_holder/cimg_holder = cimg_holders[each_cimgkey]
 		cimg_mob.client.images += cimg_holder.bound_images
-		already_injected[cimg_holder] = TRUE
+		cimg_mob.client.images |= cimg_holder.shared_bound_images
+		already_injected[each_cimgkey] = TRUE
 	if(!cimg_mob.mind)
 		return
 	for(var/each_cimgkey in cimgkey_by_mind[cimg_mob.mind])
-		var/datum/cimg_holder/cimg_holder = cimg_holders[each_cimgkey]
-		if(already_injected[cimg_holder])
+		if(already_injected[each_cimgkey])
 			continue
+		var/datum/cimg_holder/cimg_holder = cimg_holders[each_cimgkey]
 		cimg_mob.client.images += cimg_holder.bound_images
+		cimg_mob.client.images |= cimg_holder.shared_bound_images
+
+/// something was removed, and we check full shared images
+/datum/cimg_controller/proc/refresh_shared_client_images(mob/cimg_mob)
+	var/list/already_injected = list()
+	for(var/each_cimgkey in cimgkey_by_mob[cimg_mob])
+		var/datum/cimg_holder/cimg_holder = cimg_holders[each_cimgkey]
+		cimg_mob.client.images |= cimg_holder.shared_bound_images
+		already_injected[each_cimgkey] = TRUE
+	if(!cimg_mob.mind)
+		return
+	for(var/each_cimgkey in cimgkey_by_mind[cimg_mob.mind])
+		if(already_injected[each_cimgkey])
+			continue
+		var/datum/cimg_holder/cimg_holder = cimg_holders[each_cimgkey]
+		cimg_mob.client.images |= cimg_holder.shared_bound_images
 
 /datum/cimg_controller/proc/on_mob_destroy(mob/cimg_mob)
 	for(var/each_cimgkey in cimgkey_by_mob[cimg_mob])
@@ -58,6 +85,7 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 		cimg_holder.valid_mobs -= cimg_mob
 		if(cimg_mob.client)
 			cimg_mob.client.images -= cimg_holder.bound_images
+			cimg_mob.client.images -= cimg_holder.shared_bound_images
 	cimgkey_by_mob -= cimg_mob
 
 /datum/cimg_controller/proc/on_mind_destroy(datum/mind/cimg_mind)
@@ -88,6 +116,7 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 	if(already_see || (cimg_mob.mind && cimg_holder.valid_minds[cimg_mob.mind]) || !cimg_mob.client)
 		return
 	cimg_mob.client.images += cimg_holder.bound_images
+	cimg_mob.client.images |= cimg_holder.shared_bound_images
 
 /// Makes a mind can see images that are bound to a key group.
 /// NOTE: calling this again adds up +1 count the validation. call disqualify_mind() proc to handle this correctly.
@@ -115,6 +144,7 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 	if(already_see || (cimg_mind.current && cimg_holder.valid_mobs[cimg_mind.current]) || !cimg_mind?.current?.client)
 		return
 	cimg_mind.current.client.images += cimg_holder.bound_images
+	cimg_mind.current.client.images |= cimg_holder.shared_bound_images
 
 /// disqualify a mob against a key group so that they can't see.
 /// NOTE: if count still exists because validate() proc is called multiple times, they'll still see stuff.
@@ -138,6 +168,9 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 	if(!cimg_mob.client)
 		return
 	cimg_mob.client.images -= cimg_holder.bound_images
+	if(length(cimg_holder.shared_bound_images))
+		cimg_mob.client.images -= cimg_holder.shared_bound_images
+		refresh_shared_client_images(cimg_mob)
 
 /// disqualify a mind against a key group so that they can't see.
 /// NOTE: if count still exists because validate() proc is called multiple times, they'll still see stuff.
@@ -166,22 +199,31 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 	if(!cimg_mind.current.client)
 		return
 	cimg_mind.current.client.images -= cimg_holder.bound_images
+	if(length(cimg_holder.shared_bound_images))
+		cimg_mind.current.client.images -= cimg_holder.shared_bound_images
+		refresh_shared_client_images(cimg_mind.current)
 
 /// newly created images should be automatically injected to those one who can see that already.
 /// Typically, you don't call this proc directly. Use `GLOB.cimg_controller.stack_client_images()`
-/datum/cimg_holder/proc/realize_to_validated(client_images)
+/datum/cimg_holder/proc/realize_to_validated(client_images, is_shared_image = FALSE)
 	var/list/applied_clients = list()
 	for(var/mob/each_mob as anything in valid_mobs)
 		if(!each_mob.client)
 			continue
-		each_mob.client.images += client_images
+		if(is_shared_image)
+			each_mob.client.images |= client_images
+		else
+			each_mob.client.images += client_images
 		applied_clients[each_mob.client] = TRUE
 
 	for(var/datum/mind/each_mind as anything in valid_minds)
 		var/client/cli = each_mind.current?.client
 		if(!cli || applied_clients[cli])
 			continue
-		cli.images += client_images
+		if(is_shared_image)
+			cli.images |= client_images
+		else
+			cli.images += client_images
 
 /// a thing is destroyed or no longer has its own special image
 /// Typically, you don't call this proc directly. Use `GLOB.cimg_controller.cut_client_images()`
