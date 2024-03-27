@@ -36,7 +36,7 @@
 /obj/item/clothing/glasses/update_overlays()
 	. = ..()
 	if (emissive_state)
-		. += emissive_appearance(icon, emissive_state, layer, 100, filters = usr?.filters)
+		. += emissive_appearance(icon, emissive_state, layer, 100)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/item/clothing/glasses/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
