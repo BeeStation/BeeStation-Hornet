@@ -67281,9 +67281,7 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/cmo)
 "vXY" = (
-/obj/machinery/computer/arcade{
-	dir = 4
-	},
+/obj/machinery/vending/sticker,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/theatre)
 "vYc" = (

@@ -56074,6 +56074,7 @@
 "lYh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
+/obj/machinery/vending/sticker,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "lYs" = (

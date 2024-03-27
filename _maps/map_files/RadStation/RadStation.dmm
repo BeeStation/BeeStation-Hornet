@@ -6897,10 +6897,10 @@
 /area/maintenance/port/central)
 "cnr" = (
 /obj/machinery/airalarm/directional/west,
-/obj/machinery/computer/slot_machine,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/machinery/vending/sticker,
 /turf/open/floor/carpet,
 /area/crew_quarters/cafeteria)
 "cnt" = (

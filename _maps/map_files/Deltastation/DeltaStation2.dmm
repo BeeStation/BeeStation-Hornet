@@ -73494,6 +73494,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
+"rkz" = (
+/obj/machinery/vending/sticker,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "rkA" = (
 /obj/machinery/vending/tool,
 /obj/effect/turf_decal/bot,
@@ -125024,7 +125028,7 @@ alf
 ary
 euy
 bbQ
-alg
+rkz
 beK
 bgj
 alf

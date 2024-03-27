@@ -10997,6 +10997,14 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
+"cTf" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/vending/sticker,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/bar/atrium)
 "cTl" = (
 /obj/effect/landmark/start/scientist,
 /obj/effect/landmark/event_spawn,
@@ -120583,7 +120591,7 @@ wfj
 vmw
 kwn
 jOJ
-nva
+cTf
 mBZ
 nva
 jOJ
