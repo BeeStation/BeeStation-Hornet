@@ -276,6 +276,8 @@
 		INVOKE_ASYNC(src, PROC_REF(get_canidate))
 	else
 		mob_spawner = new(parent.parent, src)
+	//Register a signal to KILL!
+	RegisterSignal(parent, XENOA_CALCIFIED, PROC_REF(suicide))
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	QDEL_NULL(sentience)
@@ -320,6 +322,12 @@
 	playsound(get_turf(parent?.parent), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 	//Cleanup
 	QDEL_NULL(mob_spawner)
+
+//Throw calcification logic here
+/datum/xenoartifact_trait/minor/sentient/proc/suicide(datum/source)
+	SIGNAL_HANDLER
+
+	qdel(src)
 
 //Spawner for sentience
 /obj/effect/mob_spawn/sentient_artifact
