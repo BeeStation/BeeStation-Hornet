@@ -1,0 +1,5 @@
+author: rkz, AdipemDragon
+delete-after: true
+changes:
+  - rscadd: separates xenobread and spiderbread sprites
+  - rscadd: New bread sprites
