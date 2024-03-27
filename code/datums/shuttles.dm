@@ -312,6 +312,14 @@
 	credit_cost = 10000
 	danger_level = SHUTTLE_DANGER_SUBPAR
 
+/datum/map_template/shuttle/emergency/funnypod
+	suffix = "funnypod"
+	name = "Comically Large Escape Pod"
+	description = "A bunch of scraped escape pods glued together."
+	admin_notes = "This shuttle will 100% cause mayhem, as the space avaiable is 1x23 and anyone can open the door in the end."
+	credit_cost = 2000
+	danger_level = SHUTTLE_DANGER_HIGH
+
 /datum/map_template/shuttle/emergency/discoinferno
 	suffix = "discoinferno"
 	name = "Disco Inferno"
