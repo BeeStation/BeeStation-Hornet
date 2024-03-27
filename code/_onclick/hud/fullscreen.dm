@@ -209,6 +209,8 @@
 	render_target = "fov_mask"
 	///What mob we belong to - for orientation
 	var/mob/mob_owner
+	///Cooldown stuff
+	COOLDOWN_DECLARE(change_cooldown)
 
 /atom/movable/screen/fullscreen/fov_mask/open
 	icon_state = "fov_psyphoza"
@@ -222,7 +224,23 @@
 /atom/movable/screen/fullscreen/fov_mask/proc/update_dir(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER
 
+	//Use async so we can use sleep() without causing too many issues
+	INVOKE_ASYNC(src, PROC_REF(update_dir_async), old_dir, new_dir)
+
+/atom/movable/screen/fullscreen/fov_mask/proc/update_dir_async( old_dir, new_dir)
+	//precheck
+	if(old_dir == new_dir || !new_dir || !COOLDOWN_FINISHED(src, change_cooldown)) //This can happen, somehow?
+		return
+	mob_owner.say("[old_dir] : [new_dir]")
+	//Build a fancy little effect
+	var/fade_out = 0.05 SECONDS
+	var/fade_in = 0.1 SECONDS
+	animate(src, alpha = 0, time = fade_out)
+	animate(alpha = 255, time = fade_in)
+	sleep(fade_out)
+	//Change the actual direction here
 	dir = new_dir || old_dir
+	COOLDOWN_START(src, change_cooldown, fade_in)
 
 /atom/movable/screen/fullscreen/blind_context_disable
 	name = "???"
