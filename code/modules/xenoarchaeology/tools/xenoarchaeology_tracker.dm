@@ -6,6 +6,10 @@
 */
 /obj/item/sticker/artifact_tracker
 	name = "anomalous material tracker"
+	icon = 'icons/obj/xenoarchaeology/xenoartifact_tech.dmi'
+	icon_state = "tracker"
+	sticker_icon_state = "tracker_small"
+	do_outline = FALSE
 	///Reward stuff
 	var/reward_type = TECHWEB_POINT_TYPE_DISCOVERY
 	var/reward_amount = 100

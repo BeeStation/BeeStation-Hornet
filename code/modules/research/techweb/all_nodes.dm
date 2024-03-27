@@ -469,7 +469,8 @@
 		"xenoa_list_console",
 		"xenoa_scale",
 		"xenoa_conductor",
-		"xenoa_calibrator"
+		"xenoa_calibrator",
+		"xenoa_tracker",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
