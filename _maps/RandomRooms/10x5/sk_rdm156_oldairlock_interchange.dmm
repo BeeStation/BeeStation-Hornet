@@ -24,7 +24,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "u" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
@@ -49,7 +49,7 @@
 /area/template_noop)
 "M" = (
 /obj/item/trash/boritos,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "T" = (
 /obj/effect/spawner/lootdrop/maintenance/two,

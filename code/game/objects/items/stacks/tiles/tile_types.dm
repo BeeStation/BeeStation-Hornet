@@ -495,7 +495,7 @@
 	turf_type = /turf/open/floor/pod/dark
 
 //Plasteel (normal)
-/obj/item/stack/tile/plasteel
+/obj/item/stack/tile/iron
 	name = "floor tile"
 	singular_name = "floor tile"
 	desc = "Those could work as a pretty decent throwing weapon."
@@ -505,7 +505,7 @@
 	mats_per_unit = list(/datum/material/iron=500)
 	throwforce = 10
 	flags_1 = CONDUCT_1
-	turf_type = /turf/open/floor/plasteel
+	turf_type = /turf/open/floor/iron
 	mineralType = "iron"
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
@@ -546,7 +546,7 @@
 	desc = "A gridded version of the standard station tiles."
 	icon_state = "tile_grid"
 	custom_materials = list(/datum/material/iron=500)
-	turf_type = /turf/open/floor/plasteel/grid
+	turf_type = /turf/open/floor/iron/grid
 
 /obj/item/stack/tile/ridge
 	name = "grey ridge tile"
@@ -554,7 +554,7 @@
 	desc = "A ridged version of the standard station tiles."
 	icon_state = "tile_ridged"
 	custom_materials = list(/datum/material/iron=500)
-	turf_type = /turf/open/floor/plasteel/ridged
+	turf_type = /turf/open/floor/iron/ridged
 
 //Techtiles
 /obj/item/stack/tile/techgrey
@@ -563,7 +563,7 @@
 	desc = "A fancy tile usually found in secure areas and engineering bays."
 	icon_state = "tile_tech_grey"
 	custom_materials = list(/datum/material/iron=500)
-	turf_type = /turf/open/floor/plasteel/tech
+	turf_type = /turf/open/floor/iron/tech
 
 /obj/item/stack/tile/techgrid
 	name = "grid techfloor tile"
@@ -571,7 +571,7 @@
 	desc = "A fancy tile usually found in secure areas and engineering bays, this one has a grid pattern."
 	icon_state = "tile_tech_grid"
 	custom_materials = list(/datum/material/iron=500)
-	turf_type = /turf/open/floor/plasteel/tech/grid
+	turf_type = /turf/open/floor/iron/tech/grid
 
 /obj/item/stack/tile/techmaint
 	name = "dark techfloor tile"
@@ -579,7 +579,7 @@
 	desc = "A fancy tile usually found in secure areas and engineering bays, this one is dark."
 	icon_state = "tile_tech_maint"
 	custom_materials = list(/datum/material/iron=500)
-	turf_type = /turf/open/floor/plasteel/techmaint
+	turf_type = /turf/open/floor/iron/techmaint
 
 /obj/item/stack/tile/dock
 	name = "dock tile"
