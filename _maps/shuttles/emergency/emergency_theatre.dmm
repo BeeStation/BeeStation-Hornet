@@ -220,10 +220,10 @@
 /turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "yG" = (
-/obj/machinery/light{
+/obj/structure/statue/sandstone/venus{
 	dir = 1
 	},
-/turf/open/floor/wood,
+/turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "AU" = (
 /obj/structure/table/wood/fancy/cyan,
@@ -431,6 +431,17 @@
 	pixel_x = 8
 	},
 /turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"JG" = (
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_emergency_brightness_mul = 0.25;
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/wood,
 /area/shuttle/escape)
 "JO" = (
 /obj/structure/table/wood/fancy/royalblue,
@@ -701,10 +712,10 @@ Rv
 (8,1,1) = {"
 DN
 jl
+JG
 ux
 ux
-ux
-ux
+JG
 Ce
 bP
 ga
@@ -742,7 +753,7 @@ Rv
 "}
 (10,1,1) = {"
 DN
-yG
+ux
 ux
 ux
 ux
@@ -785,10 +796,10 @@ Rv
 (12,1,1) = {"
 DN
 jl
+JG
 ux
 ux
-ux
-ux
+JG
 Ce
 bP
 ga
@@ -832,7 +843,7 @@ xm
 xm
 xm
 DN
-LQ
+yG
 sV
 sV
 sV

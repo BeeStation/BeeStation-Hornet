@@ -282,7 +282,7 @@
 /datum/map_template/shuttle/emergency/theatre
 	suffix = "theatre"
 	name = "The Emergency Fancy Theatre"
-	description = "Put on your best show with the emergency theatre on the couple minutes you take to get to CentCom! Includes a medbay, cockpit and brig and tons of fanciness for the crew"
+	description = "Put on your best show with the emergency theatre on the couple minutes it takes you to get to CentCom! Includes a medbay, cockpit, brig and tons of fancy stuff for the crew"
 	admin_notes = "Theatre with seats, brig, cockpit and medbay included, for shows or improvisation by the crewmembers"
 	credit_cost = 5000
 
@@ -325,7 +325,7 @@
 	description = "A bunch of scraped escape pods glued together."
 	admin_notes = "This shuttle will 100% cause mayhem, as the space avaiable is 1x23 and anyone can open the door in the end."
 	credit_cost = 2000
-	danger_level = SHUTTLE_DANGER_HIGH
+	danger_level = SHUTTLE_DANGER_SUBPAR
 
 /datum/map_template/shuttle/emergency/honkco
 	suffix = "honkco"
@@ -334,6 +334,7 @@
 	admin_notes = "Is what you expect. Bananium shuttle full of clowns, 4 staffs of the honk mother, bananas everywhere and cluwnes."
 	credit_cost = 5000
 	danger_level = SHUTTLE_DANGER_HIGH
+
 /datum/map_template/shuttle/emergency/discoinferno
 	suffix = "discoinferno"
 	name = "Disco Inferno"
