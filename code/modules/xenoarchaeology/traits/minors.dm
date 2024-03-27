@@ -731,6 +731,7 @@
 	//Anchor
 	if(ismovable(AM) && isturf(AM.loc))
 		AM.anchored = !AM.anchored
+		playsound(get_turf(parent?.parent), 'sound/items/handling/wrench_pickup.ogg', 50, TRUE)
 	//Message
 	AM.visible_message("<span class='warning'>[AM] [AM.anchored ? "anchors to" : "unanchors from"] [get_turf(AM)]!</span>", allow_inside_usr = TRUE)
 
@@ -803,9 +804,11 @@
 /datum/xenoartifact_trait/minor/haunted/proc/do_wail(repeat = TRUE)
 	if(QDELETED(src))
 		return
-	playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper.ogg', 30, TRUE)
+	var/atom/A = parent.parent
+	if(isturf(A.loc))
+		playsound(get_turf(parent?.parent), 'sound/spookoween/ghost_whisper.ogg', 30, TRUE)
 	var/rand_time = rand(26, 34) SECONDS
-	addtimer(CALLBACK(src, PROC_REF(do_wail)), rand_time)
+	addtimer(CALLBACK(src, PROC_REF(do_wail)), rand_time / (isturf(A.loc) ? 2 : 1))
 
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(atom/movable/target, dir)

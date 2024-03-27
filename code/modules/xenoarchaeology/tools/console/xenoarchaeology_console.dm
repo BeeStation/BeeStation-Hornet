@@ -143,7 +143,7 @@
 						score -= 1
 				max_score = T.contribute_calibration ?  max_score + 1 : max_score
 		var/success_rate = score / max_score
-		//Rewards //TODO: Check if this style of comments is allowed, I like them - Racc
+		//Rewards
 			//Research Points
 		var/rnd_reward = max(0, (artifact.custom_price*X.artifact_type.rnd_rate)*success_rate)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)

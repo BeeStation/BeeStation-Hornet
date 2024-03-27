@@ -12,16 +12,33 @@
 
 /obj/item/sticker/trait_pearl/Initialize(mapload, trait)
 	. = ..()
-	stored_trait = trait
+	//Debug, mapping, presets, etc.
+	stored_trait = trait || pick(subtypesof(/datum/xenoartifact_trait/activator))
 
 /obj/item/sticker/trait_pearl/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
-	//TODO: Stop people adding INF traits - Racc
-	//TODO: Stop people adding wrong trait proportions - Racc
+	//Prechecks
 	if(!can_stick(target) || !proximity_flag)
 		return
-	if(isliving(target) || target.GetComponent(/datum/component/xenoartifact))
+	if(isliving(target) || isstructure(target) || target.GetComponent(/datum/component/xenoartifact) || target.GetComponent(/datum/component/storage))
 		to_chat(user, "<span class='warning'>You are unable to affix [src] to [target].</span>")
 		return
+	//Stop people adding too many traits, and check the trait limits
+	var/list/pearl_index = list(TRAIT_PRIORITY_ACTIVATOR = 0, TRAIT_PRIORITY_MINOR = 0, TRAIT_PRIORITY_MAJOR = 0, TRAIT_PRIORITY_MALFUNCTION = 0)
+	var/datum/xenoartifact_material/pearl/material = /datum/xenoartifact_material/pearl
+	for(var/obj/item/sticker/trait_pearl/P in target.contents)
+		//Just check against generic pearl limits
+		if(istype(P.stored_trait, /datum/xenoartifact_trait/activator) && pearl_index[TRAIT_PRIORITY_ACTIVATOR] < initial(material.trait_activators))
+			pearl_index[TRAIT_PRIORITY_ACTIVATOR] += 1
+		else if(istype(P.stored_trait, /datum/xenoartifact_trait/minor) && pearl_index[TRAIT_PRIORITY_MINOR] < initial(material.trait_minors))
+			pearl_index[TRAIT_PRIORITY_MINOR] += 1
+		else if(istype(P.stored_trait, /datum/xenoartifact_trait/major) && pearl_index[TRAIT_PRIORITY_MAJOR] < initial(material.trait_majors))
+			pearl_index[TRAIT_PRIORITY_MAJOR] += 1
+		else if(istype(P.stored_trait, /datum/xenoartifact_trait/malfunction) && pearl_index[TRAIT_PRIORITY_MALFUNCTION] < initial(material.trait_malfunctions))
+			pearl_index[TRAIT_PRIORITY_MALFUNCTION] += 1
+		else
+			to_chat(user, "<span class='warning'>You are unable to affix [src] to [target].</span>")
+			return
+	//Affix if we're chilling
 	to_chat(user, "<span class='notice'>You affix [src] to [target].</span>")
 	return ..()
 

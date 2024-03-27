@@ -326,9 +326,11 @@
 /datum/xenoartifact_trait/activator/signal/proc/do_sonar(repeat = TRUE)
 	if(QDELETED(src))
 		return
-	playsound(get_turf(parent?.parent), 'sound/effects/ping.ogg', 60, TRUE)
+	var/atom/A = parent.parent
+	if(isturf(A.loc))
+		playsound(get_turf(parent?.parent), 'sound/effects/ping.ogg', 60, TRUE)
 	var/rand_time = rand(5, 15) SECONDS
-	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time)
+	addtimer(CALLBACK(src, PROC_REF(do_sonar)), rand_time / (isturf(A.loc) ? 2 : 1))
 
 /*
 	ABSTRACT

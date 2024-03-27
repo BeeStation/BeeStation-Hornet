@@ -14,9 +14,8 @@
 	. = ..()
 	if(!.)
 		return
-	for(var/mob/living/M in oview(XENOA_TRAIT_BALLOON_HINT_DIST, get_turf(parent.parent)))
-		if(M.can_see_reagents())
-			do_hint(M)
+	for(var/mob/living/M in view(XENOA_TRAIT_BALLOON_HINT_DIST, get_turf(parent.parent)))
+		do_hint(M)
 
 /*
 	Electrified
@@ -244,7 +243,6 @@
 		if(!istype(H))
 			continue
 		H?.restore(FALSE, FALSE)
-		//TODO: Bug with killed animals not knocking down target - Racc
 		target.Knockdown(2 SECONDS)
 		REMOVE_TRAIT(target, TRAIT_NOBREATH, TRAIT_GENERIC)
 	return ..()
@@ -457,6 +455,8 @@
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	conductivity = 9
 	weight = 12
+	///What damage type do we exchange
+	var/damage_type = BRUTE //TODO: Randomize this, or add variants - Racc
 	///How long until the window for exchange closes
 	var/exchange_window = 8 SECONDS
 
@@ -470,7 +470,7 @@
 	for(var/mob/living/target in focus)
 		//Build exchange hint
 		if(!A.render_target)
-			A.render_target = "[REF(A)]" //TODO: Make sure this is proper - Racc
+			A.render_target = "[REF(A)]"
 		target.add_filter("exchange_overlay", 100, layering_filter(render_source = A.render_target))
 		//Animate it
 		var/filter = target.get_filter("exchange_overlay")
@@ -483,18 +483,28 @@
 	var/mob/living/victim_a
 	var/mob/living/victim_b
 	for(var/mob/living/target in targets)
+		if(target.stat)
+			playsound(get_turf(target), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+			continue
 		if(!victim_a)
 			victim_a = target
 			continue
 		if(!victim_b)
 			victim_b = target
 		//swap damage
-		//TODO: make this work - Racc
-		var/brute_holder = victim_a.getBruteLoss()
-		victim_a.bruteloss = victim_b.getBruteLoss()
+
+		var/a_damage = victim_a.get_damage_amount(damage_type)
+		var/b_damage = victim_b.get_damage_amount(damage_type)
+
+		victim_a.apply_damage_type(a_damage*-1, damage_type) //Heal
+		victim_b.apply_damage_type(b_damage*-1, damage_type)
+
+		victim_a.apply_damage_type(b_damage, damage_type) //Apply
+		victim_b.apply_damage_type(a_damage, damage_type)
+
 		victim_a.updatehealth()
-		victim_b.bruteloss = brute_holder
 		victim_b.updatehealth()
+
 		//Remove filters
 		victim_a.remove_filter("exchange_overlay")
 		victim_b.remove_filter("exchange_overlay")
@@ -522,6 +532,8 @@
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = 30
+	///What category of random chems are we pulling from?
+	var/chem_category = CHEMICAL_RNG_GENERAL
 	///What chemical we're injecting
 	var/datum/reagent/formula
 	///max amount we can inject people with
@@ -530,7 +542,7 @@
 
 /datum/xenoartifact_trait/major/chem/New(atom/_parent)
 	. = ..()
-	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL) //TODO: Consider making a fun version - Racc
+	formula = get_random_reagent_id(chem_category)
 	formula_amount = (initial(formula.overdose_threshold) || generic_amount) - 1
 
 /datum/xenoartifact_trait/major/chem/trigger(datum/source, _priority, atom/override)
@@ -550,7 +562,18 @@
 
 /datum/xenoartifact_trait/major/chem/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_RANDOMISED)
+	return list(XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("inject the target with a random generic chemical"))
+
+/datum/xenoartifact_trait/major/chem/fun
+	label_name = "Hypodermic Δ"
+	label_desc = "Hypodermic Δ: The artifact seems to contain chemical components. Triggering these components will inject the target with a chemical."
+	chem_category = CHEMICAL_RNG_FUN
+	rarity = XENOA_TRAIT_WEIGHT_RARE
+
+/datum/xenoartifact_trait/major/chem/fun/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_RANDOMISED, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("inject the target with a random fun chemical"))
+
 
 /*
 	Forcing

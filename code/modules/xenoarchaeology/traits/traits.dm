@@ -202,12 +202,14 @@
 
 /datum/xenoartifact_trait/proc/do_hint(mob/user, atom/item)
 	//If they have science goggles, or equivilent, they are shown exatcly what trait this is
-	if(user?.can_see_reagents())
-		var/atom/A = parent.parent
-		if(!isturf(A.loc))
-			A = A.loc
-		A.balloon_alert(user, label_name, parent.artifact_type.material_color, TRUE)
-	return
+	if(!user?.can_see_reagents())
+		return
+	var/atom/A = parent.parent
+	if(!isturf(A.loc))
+		A = A.loc
+	A.balloon_alert(user, label_name, parent.artifact_type.material_color, TRUE)
+	//show_in_chat doesn't work
+	to_chat(user, "<span class='notice'>[parent.parent] : [label_name]</span>")
 
 /datum/xenoartifact_trait/proc/get_dictionary_hint()
 	return list()
@@ -241,32 +243,12 @@
 /datum/xenoartifact_trait/proc/pry_action(mob/living/user, obj/item/I)
 	var/atom/movable/A = parent.parent
 	to_chat(user, "<span class='warning'>You begin to pry [A] open with [I].</span>")
-	//Do a fancy little animation
-	A.vis_contents += I
-	var/matrix/old_transform = I.transform
-	var/matrix/new_transform = I.transform
-	new_transform.Turn(23)
-	old_transform.Turn(-23)
-	animate(I, transform = new_transform, time = 0.15 SECONDS, loop = -1, easing = JUMP_EASING)
-	animate(transform = old_transform, time = 0.15 SECONDS, easing = JUMP_EASING)
-	//TODO: Add a zooming in animation for this, maybe a sound too - Racc
-	//Clean up the animation later
-	var/cleanup_timer = addtimer(CALLBACK(src, PROC_REF(pry_action_finish), I), 8 SECONDS, TIMER_STOPPABLE)
 	if(do_after(user, 8 SECONDS, A))
 		new /obj/item/sticker/trait_pearl(get_turf(A), src)
 		parent.remove_individual_trait(src)
 		remove_parent()
 	else
-		A.vis_contents -= I
-		animate(I, transform = null)
-		deltimer(cleanup_timer)
 		to_chat(user, "<span class='warning'>You reconsider...</span>")
-
-//Cleanup animations or whatever else we did for the pry action
-/datum/xenoartifact_trait/proc/pry_action_finish(obj/item/I)
-	var/atom/movable/A = parent.parent
-	A.vis_contents -= I
-	animate(I, transform = null)
 
 ///Particle holder for trait appearances - Throw any extras you want in here
 /atom/movable/artifact_particle_holder
