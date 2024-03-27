@@ -72,6 +72,7 @@
 /area/shuttle/escape)
 "gk" = (
 /obj/structure/closet/crate/internals,
+/obj/structure/window/reinforced,
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "hG" = (
@@ -88,12 +89,17 @@
 /obj/item/clothing/glasses/monocle,
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
+"iA" = (
+/obj/structure/window/reinforced,
+/turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
 "jl" = (
 /obj/machinery/vending/autodrobe/all_access,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "kg" = (
 /obj/machinery/recharge_station,
+/obj/structure/window/reinforced,
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "kz" = (
@@ -137,9 +143,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "oJ" = (
@@ -151,6 +154,7 @@
 "pr" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
+/obj/structure/window/reinforced,
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
 "qn" = (
@@ -184,6 +188,7 @@
 /obj/machinery/computer/operating{
 	dir = 8
 	},
+/obj/structure/window/reinforced,
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
 "wn" = (
@@ -225,6 +230,9 @@
 	},
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
+"zb" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/escape)
 "AU" = (
 /obj/structure/table/wood/fancy/cyan,
 /obj/item/storage/firstaid/toxin,
@@ -232,6 +240,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/structure/window/reinforced,
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
 "Bb" = (
@@ -293,6 +302,7 @@
 /area/shuttle/escape)
 "Hk" = (
 /obj/machinery/shieldgen,
+/obj/structure/window/reinforced,
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "HN" = (
@@ -302,6 +312,7 @@
 	pixel_x = 2;
 	pixel_y = 3
 	},
+/obj/structure/window/reinforced,
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
 "HP" = (
@@ -325,6 +336,12 @@
 /obj/item/cautery,
 /obj/structure/table/wood/fancy/cyan,
 /turf/open/floor/carpet/cyan,
+/area/shuttle/escape)
+"Jn" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "Js" = (
 /obj/structure/table/wood/fancy/black,
@@ -419,8 +436,6 @@
 /obj/item/clothing/mask/cigarette/cigar/cohiba{
 	pixel_x = 1
 	},
-/obj/structure/table/wood/fancy/black,
-/obj/structure/table/wood/fancy/black,
 /obj/item/clothing/mask/cigarette/cigar/cohiba{
 	pixel_x = 8
 	},
@@ -486,6 +501,12 @@
 /obj/item/clothing/glasses/monocle,
 /obj/item/clothing/glasses/monocle,
 /obj/item/clothing/glasses/monocle,
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
+"NH" = (
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "OI" = (
@@ -578,7 +599,7 @@ xm
 xm
 Hb
 DN
-DN
+Hb
 DN
 fI
 fI
@@ -598,7 +619,7 @@ Nn
 mK
 Js
 qn
-qn
+Jn
 qn
 DN
 DN
@@ -682,8 +703,8 @@ RK
 RK
 RK
 DN
-DN
-DN
+xm
+xm
 DN
 lo
 Yv
@@ -769,7 +790,7 @@ xm
 Eq
 PH
 pr
-lo
+zb
 Yv
 "}
 (11,1,1) = {"
@@ -810,7 +831,7 @@ Gh
 xm
 XP
 PH
-PH
+iA
 oH
 Rv
 "}
@@ -850,10 +871,10 @@ sV
 sV
 sV
 DN
+xm
+xm
 DN
-DN
-DN
-lo
+zb
 Yv
 "}
 (15,1,1) = {"
@@ -934,7 +955,7 @@ hG
 mK
 Js
 qn
-qn
+NH
 qn
 DN
 DN

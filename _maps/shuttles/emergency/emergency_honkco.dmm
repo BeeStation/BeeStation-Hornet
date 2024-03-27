@@ -1,43 +1,108 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/item/grown/bananapeel,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"b" = (
-/obj/structure/chair/stool/bar,
-/obj/machinery/light/floor{
-	brightness = 15;
-	bulb_colour = "#FFE4CE";
-	bulb_emergency_brightness_mul = 0.25;
-	bulb_vacuum_brightness = 15;
-	nightshift_brightness = 10;
-	nightshift_light_color = "#E6EBFF"
+"am" = (
+/obj/structure/chair/stool/bar{
+	dir = 1
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"c" = (
-/mob/living/simple_animal/hostile/retaliate/clown/banana,
-/obj/structure/chair/stool/bar,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"d" = (
-/turf/closed/wall/mineral/bananium,
-/area/shuttle/escape)
-"e" = (
-/obj/item/grown/bananapeel,
-/obj/structure/chair/stool/bar,
-/mob/living/simple_animal/hostile/retaliate/clown/mutant/blob,
-/obj/machinery/light/floor{
-	brightness = 15;
-	bulb_colour = "#FFE4CE";
-	bulb_emergency_brightness_mul = 0.25;
-	bulb_vacuum_brightness = 15;
-	nightshift_brightness = 10;
-	nightshift_light_color = "#E6EBFF"
+"aq" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "line";
+	color = "#0d2dff"
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"f" = (
+"aD" = (
+/obj/structure/chair/stool/bar,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"aL" = (
+/obj/item/grown/bananapeel,
+/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/honcmunculus,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"bB" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "line";
+	color = "#ff0000"
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "i";
+	color = "#ff0000";
+	pixel_x = 17;
+	pixel_y = 10
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "t";
+	color = "#ff0000";
+	pixel_x = 17;
+	pixel_y = -8
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"bQ" = (
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/machinery/light/small,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"cH" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"dS" = (
+/obj/item/grown/bananapeel,
+/obj/structure/chair/stool/bar,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"ep" = (
+/obj/machinery/computer/emergency_shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"gF" = (
+/mob/living/simple_animal/hostile/retaliate/clown,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"hz" = (
+/mob/living/simple_animal/hostile/retaliate/clown,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"hZ" = (
+/mob/living/simple_animal/hostile/retaliate/clown/mutant,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"iN" = (
+/obj/structure/chair/stool/bar,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"kc" = (
+/obj/structure/chair/stool/bar,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"me" = (
+/obj/machinery/nuclearbomb/syndicate/bananium,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"nc" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "line";
+	color = "#ff0000"
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"nv" = (
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "line";
 	color = "#ff0000"
@@ -50,101 +115,36 @@
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"g" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
-/obj/item/grown/bananapeel,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"h" = (
-/mob/living/simple_animal/hostile/retaliate/clown,
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "line";
-	color = "#ff0000"
-	},
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "y";
-	color = "#ff0000";
-	pixel_x = 17;
-	pixel_y = 8
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"i" = (
-/mob/living/simple_animal/hostile/retaliate/clown,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"j" = (
-/mob/living/simple_animal/hostile/retaliate/clown,
-/obj/item/grown/bananapeel,
-/obj/structure/chair/stool/bar,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"k" = (
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"l" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/closed/wall/mineral/bananium,
-/area/shuttle/escape)
-"m" = (
-/obj/item/grown/bananapeel,
-/mob/living/simple_animal/hostile/retaliate/clown/mutant/blob,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"n" = (
-/obj/item/grown/bananapeel,
-/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/honcmunculus,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"o" = (
-/obj/structure/chair/stool/bar,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"p" = (
-/mob/living/simple_animal/hostile/retaliate/clown,
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"q" = (
+"pH" = (
 /obj/machinery/door/airlock/bananium/glass,
 /obj/docking_port/mobile/emergency{
 	dir = 2
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"r" = (
-/obj/machinery/door/airlock/bananium/glass,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"s" = (
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
-/obj/machinery/light/floor{
-	brightness = 15;
-	bulb_colour = "#FFE4CE";
-	bulb_emergency_brightness_mul = 0.25;
-	bulb_vacuum_brightness = 15;
-	nightshift_brightness = 10;
-	nightshift_light_color = "#E6EBFF"
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"t" = (
-/obj/item/grown/bananapeel,
+"qt" = (
+/mob/living/simple_animal/hostile/retaliate/clown/banana,
 /obj/structure/chair/stool/bar,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"u" = (
+"sh" = (
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/mob/living/simple_animal/hostile/retaliate/clown/banana,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"sT" = (
+/obj/structure/statue/bananium/clown,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"tN" = (
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"uo" = (
+/obj/item/grown/bananapeel,
 /obj/machinery/light/floor{
 	brightness = 15;
 	bulb_colour = "#FFE4CE";
@@ -155,46 +155,7 @@
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"v" = (
-/obj/item/grown/bananapeel,
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "n";
-	color = "#0d2dff";
-	pixel_x = 17;
-	pixel_y = -4
-	},
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "d";
-	color = "#0d2dff";
-	pixel_x = 17;
-	pixel_y = -17
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"w" = (
-/obj/item/grown/bananapeel,
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "line";
-	color = "#0d2dff"
-	},
-/mob/living/simple_animal/hostile/retaliate/clown/banana,
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "line";
-	color = "#0d2dff"
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"x" = (
-/mob/living/simple_animal/hostile/retaliate/clown/mutant,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"y" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"z" = (
+"uI" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/item/clothing/mask/gas/clown_hat,
 /obj/item/clothing/mask/gas/clown_hat,
@@ -211,93 +172,37 @@
 /obj/item/gun/magic/staff/honk,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"A" = (
+"vY" = (
+/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/destroyer,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"xf" = (
+/obj/item/grown/bananapeel,
+/obj/structure/chair/stool/bar,
+/mob/living/simple_animal/hostile/retaliate/clown/mutant/blob,
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_emergency_brightness_mul = 0.25;
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"ye" = (
+/obj/item/grown/bananapeel,
+/mob/living/simple_animal/hostile/retaliate/clown/mutant/blob,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"yH" = (
+/mob/living/simple_animal/hostile/retaliate/clown,
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"B" = (
-/obj/machinery/nuclearbomb/syndicate/bananium,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"C" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"D" = (
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "line";
-	color = "#ff0000"
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"E" = (
-/mob/living/simple_animal/hostile/retaliate/clown/fleshclown,
-/obj/item/grown/bananapeel,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"F" = (
-/mob/living/simple_animal/hostile/retaliate/clown,
-/obj/item/grown/bananapeel,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"G" = (
-/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/destroyer,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"H" = (
-/obj/machinery/computer/emergency_shuttle{
-	dir = 8
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"I" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8
-	},
-/turf/closed/wall/mineral/bananium,
-/area/shuttle/escape)
-"J" = (
-/mob/living/simple_animal/hostile/retaliate/clown/clownhulk,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"K" = (
-/turf/template_noop,
-/area/space)
-"L" = (
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "line";
-	color = "#ff0000"
-	},
-/mob/living/simple_animal/hostile/retaliate/clown,
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "e";
-	color = "#ff0000";
-	pixel_x = 17;
-	pixel_y = 29
-	},
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "c";
-	color = "#ff0000";
-	pixel_x = 17;
-	pixel_y = 16
-	},
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "u";
-	color = "#ff0000";
-	pixel_x = 17;
-	pixel_y = 4
-	},
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "r";
-	color = "#ff0000";
-	pixel_x = 17;
-	pixel_y = -8
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"M" = (
+"zv" = (
 /obj/item/grown/bananapeel,
 /mob/living/simple_animal/hostile/retaliate/clown,
 /obj/effect/decal/cleanable/crayon{
@@ -332,70 +237,64 @@
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"N" = (
+"Am" = (
+/mob/living/simple_animal/hostile/retaliate/clown/fleshclown,
 /obj/item/grown/bananapeel,
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "line";
-	color = "#ff0000"
-	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"O" = (
+"Ao" = (
 /mob/living/simple_animal/hostile/retaliate/clown,
+/obj/item/grown/bananapeel,
+/obj/structure/chair/stool/bar,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"AH" = (
+/mob/living/simple_animal/hostile/retaliate/clown/clownhulk,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"AP" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"P" = (
-/obj/structure/statue/bananium/clown,
-/turf/open/floor/mineral/bananium,
+"CN" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/turf/closed/wall/mineral/bananium,
 /area/shuttle/escape)
-"Q" = (
+"Fq" = (
 /obj/item/grown/bananapeel,
-/obj/item/grown/bananapeel,
-/mob/living/simple_animal/hostile/retaliate/clown/banana,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"R" = (
 /obj/effect/decal/cleanable/crayon{
-	icon_state = "line";
-	color = "#0d2dff"
+	icon_state = "n";
+	color = "#0d2dff";
+	pixel_x = 17;
+	pixel_y = -4
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "d";
+	color = "#0d2dff";
+	pixel_x = 17;
+	pixel_y = -17
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"S" = (
-/obj/structure/chair/stool/bar,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"T" = (
+"FO" = (
 /mob/living/simple_animal/hostile/retaliate/clown,
-/obj/structure/chair/stool/bar,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"V" = (
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "line";
 	color = "#ff0000"
 	},
 /obj/effect/decal/cleanable/crayon{
-	icon_state = "i";
+	icon_state = "y";
 	color = "#ff0000";
 	pixel_x = 17;
-	pixel_y = 10
-	},
-/obj/effect/decal/cleanable/crayon{
-	icon_state = "t";
-	color = "#ff0000";
-	pixel_x = 17;
-	pixel_y = -8
+	pixel_y = 8
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"W" = (
+"FW" = (
 /obj/item/grown/bananapeel,
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "line";
@@ -403,15 +302,31 @@
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"X" = (
+"Gz" = (
+/obj/item/grown/bananapeel,
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "line";
+	color = "#ff0000"
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"Hj" = (
+/obj/structure/statue/bananium/clown,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"IC" = (
+/mob/living/simple_animal/hostile/retaliate/clown,
+/obj/structure/chair/stool/bar,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"KA" = (
+/obj/machinery/door/airlock/bananium/glass,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"Mk" = (
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/retaliate/clown/longface,
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
-"Y" = (
-/obj/item/grown/bananapeel,
 /obj/machinery/light/floor{
 	brightness = 15;
 	bulb_colour = "#FFE4CE";
@@ -422,232 +337,331 @@
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"Z" = (
+"NJ" = (
+/obj/structure/chair/stool/bar,
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_emergency_brightness_mul = 0.25;
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"OO" = (
+/mob/living/simple_animal/hostile/retaliate/clown,
+/obj/item/grown/bananapeel,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"Pl" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/obj/item/grown/bananapeel,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"PX" = (
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "line";
+	color = "#ff0000"
+	},
+/mob/living/simple_animal/hostile/retaliate/clown,
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "e";
+	color = "#ff0000";
+	pixel_x = 17;
+	pixel_y = 29
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "c";
+	color = "#ff0000";
+	pixel_x = 17;
+	pixel_y = 16
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "u";
+	color = "#ff0000";
+	pixel_x = 17;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "r";
+	color = "#ff0000";
+	pixel_x = 17;
+	pixel_y = -8
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"Qk" = (
+/turf/closed/wall/mineral/bananium,
+/area/shuttle/escape)
+"Ri" = (
+/obj/item/grown/bananapeel,
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "line";
+	color = "#0d2dff"
+	},
+/mob/living/simple_animal/hostile/retaliate/clown/banana,
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "line";
+	color = "#0d2dff"
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"SS" = (
+/turf/template_noop,
+/area/space)
+"To" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/turf/closed/wall/mineral/bananium,
+/area/shuttle/escape)
+"XB" = (
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
-/obj/machinery/light/small,
+/mob/living/simple_animal/hostile/retaliate/clown/longface,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"XS" = (
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_emergency_brightness_mul = 0.25;
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"Yc" = (
+/obj/item/grown/bananapeel,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 
 (1,1,1) = {"
-K
-K
-I
-I
-I
-I
-I
-I
-I
-K
-K
+SS
+SS
+To
+To
+To
+To
+To
+To
+To
+SS
+SS
 "}
 (2,1,1) = {"
-K
-d
-l
-l
-l
-l
-l
-l
-l
-d
-K
+SS
+Qk
+CN
+CN
+CN
+CN
+CN
+CN
+CN
+Qk
+SS
 "}
 (3,1,1) = {"
-d
-d
-P
-g
-g
-g
-g
-g
-P
-d
-d
+Qk
+Qk
+sT
+Pl
+Pl
+Pl
+Pl
+Pl
+sT
+Qk
+Qk
 "}
 (4,1,1) = {"
-d
-P
-z
-k
-k
-J
-k
-k
-z
-P
-d
+Qk
+Hj
+uI
+tN
+tN
+AH
+tN
+tN
+uI
+Hj
+Qk
 "}
 (5,1,1) = {"
-r
-k
-N
-N
-f
-L
-V
-h
-D
-Z
-d
+KA
+tN
+Gz
+Gz
+nv
+PX
+bB
+FO
+nc
+bQ
+Qk
 "}
 (6,1,1) = {"
-d
-S
-k
-e
-a
-t
-E
-s
-k
-Z
-d
+Qk
+aD
+tN
+xf
+Yc
+dS
+Am
+Mk
+tN
+bQ
+Qk
 "}
 (7,1,1) = {"
-r
-k
-x
-j
-a
-t
-a
-A
-k
-Z
-d
+KA
+tN
+hZ
+Ao
+Yc
+dS
+Yc
+am
+tN
+bQ
+Qk
 "}
 (8,1,1) = {"
-d
-S
-k
-t
-F
-t
-Q
-A
-a
-Z
-d
+Qk
+aD
+tN
+dS
+OO
+dS
+sh
+am
+Yc
+bQ
+Qk
 "}
 (9,1,1) = {"
-d
-S
-i
-o
-k
-b
-G
-A
-a
-Z
-d
+Qk
+aD
+gF
+iN
+tN
+NJ
+vY
+am
+Yc
+bQ
+Qk
 "}
 (10,1,1) = {"
-d
-S
-k
-o
-k
-c
-k
-X
-m
-Z
-d
+Qk
+aD
+tN
+kc
+tN
+qt
+tN
+XB
+ye
+bQ
+Qk
 "}
 (11,1,1) = {"
-d
-S
-k
-o
-x
-o
-i
-A
-k
-Z
-d
+Qk
+aD
+tN
+kc
+hZ
+kc
+gF
+am
+tN
+bQ
+Qk
 "}
 (12,1,1) = {"
-d
-S
-k
-T
-a
-t
-a
-p
-k
-Z
-d
+Qk
+aD
+tN
+IC
+Yc
+dS
+Yc
+yH
+tN
+bQ
+Qk
 "}
 (13,1,1) = {"
-q
-k
-k
-Y
-M
-v
-n
-u
-J
-Z
-d
+pH
+tN
+tN
+uo
+zv
+Fq
+aL
+XS
+AH
+bQ
+Qk
 "}
 (14,1,1) = {"
-d
-k
-R
-w
-W
-R
-W
-R
-R
-Z
-d
+Qk
+tN
+aq
+Ri
+FW
+aq
+FW
+aq
+aq
+bQ
+Qk
 "}
 (15,1,1) = {"
-d
-P
-z
-y
-O
-y
-O
-y
-z
-P
-d
+Qk
+Hj
+uI
+AP
+hz
+AP
+hz
+AP
+uI
+Hj
+Qk
 "}
 (16,1,1) = {"
-d
-d
-P
-k
-k
-H
-B
-k
-P
-d
-d
+Qk
+Qk
+Hj
+tN
+tN
+ep
+me
+tN
+Hj
+Qk
+Qk
 "}
 (17,1,1) = {"
-K
-d
-d
-C
-C
-C
-C
-C
-d
-d
-K
+SS
+Qk
+Qk
+cH
+cH
+cH
+cH
+cH
+Qk
+Qk
+SS
 "}
