@@ -385,7 +385,6 @@
 	Greedy
 	This trait activates the artifact when a coin is used
 */
-//TODO: Consider deleting the money input when used - Racc
 /datum/xenoartifact_trait/activator/item_key/greedy
 	label_name = "Greedy"
 	label_desc = "Greedy: The artifact seems to be made of a collective material. This material seems to be triggered by inserting coins."

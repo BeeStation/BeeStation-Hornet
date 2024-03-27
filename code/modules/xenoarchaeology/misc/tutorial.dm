@@ -36,25 +36,18 @@
 /*
 	How to use the calibrator
 */
-//TODO: Consider revising this explanation - Racc
 /obj/item/sticker/sticky_note/calibrator_tutorial
 	custom_text = "Anomalous Material Calibrator Mk.42\n\
 	\n\
-	The AMC has been supplied to the science staff for the express purpose of \
-	calibrating anomalous research materials i.e. artifacts.\n\
-	Successful operation of the AMC will yield beneficial research data, which \
-	the science department will be rewarded for, in the form of discovery \
-	points.\n\
+	The AMC Mk.42 can be used to stabilize anomalous materials \
+	through careful and percise operation. Stabilized materials will \
+	not degrade any further, preventing potentially hazardous \
+	malfunctions.\n\
+	Successfully stabilizing materials will also yield valuable \
+	research data.\n\
 	\n\
-	Operation of the AMC can be conducted by labelling a research material with \
-	a designated calibration label dispensed from the Anomalous Material Labeler \
-	Mk.15, a.k.a. an 'artifact labeler'.\n\
-	After research materials are labeled, the AMC will be able to calibrate them, \
-	yielding discovery points, and stabilizing the material's structure, \
-	preventing future damage from occurring, such as malfunctions.\n\
-	\n\
-	Howard"
-
-/*
-	Custom artifact hint #1
-*/
+	Operation is very simple, compared to the Mk.41. First, a labeled \
+	material must be inserted into the reinforced chasis receptacle. \
+	Then the AMC can be activated, to begin calibration. Properly \
+	labeled samples will be stabilized, improperly labeled samples \
+	will result in-."
