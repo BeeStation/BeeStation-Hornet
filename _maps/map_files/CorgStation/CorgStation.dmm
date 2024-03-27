@@ -41935,7 +41935,7 @@
 /area/security/brig/medbay)
 "nra" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -73208,8 +73208,8 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "xFs" = (
-/obj/machinery/atmospherics/pipe/simple/yellow/visible,
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "xFx" = (

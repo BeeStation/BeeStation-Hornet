@@ -9309,6 +9309,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/sepia,
 /area/science/shuttle)
+"crD" = (
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
+	dir = 4
+	},
+/turf/closed/wall/r_wall,
+/area/engine/atmos)
 "crG" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -55297,8 +55303,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/xenobiology)
 "obK" = (
-/obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/simple/yellow/visible,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "obP" = (
@@ -145766,15 +145771,15 @@ sNW
 sRD
 sNW
 cKm
-tWH
+crD
 qfq
 suJ
 cKm
-tWH
+crD
 qfq
 xxG
 cKm
-tWH
+crD
 qfq
 xxG
 cKm
