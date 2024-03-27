@@ -279,6 +279,13 @@
 	Has medical facilities."
 	credit_cost = 5000
 
+/datum/map_template/shuttle/emergency/theatre
+	suffix = "theatre"
+	name = "The Emergency Fancy Theatre"
+	description = "Put on your best show with the emergency theatre on the couple minutes you take to get to CentCom! Includes a medbay, cockpit and brig and tons of fanciness for the crew"
+	admin_notes = "Theatre with seats, brig, cockpit and medbay included, for shows or improvisation by the crewmembers"
+	credit_cost = 5000
+
 /datum/map_template/shuttle/emergency/pod
 	suffix = "pod"
 	name = "Emergency Pods"

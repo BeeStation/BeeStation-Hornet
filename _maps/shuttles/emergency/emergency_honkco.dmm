@@ -263,7 +263,7 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "K" = (
-/turf/open/space/basic,
+/turf/template_noop,
 /area/space)
 "L" = (
 /obj/effect/decal/cleanable/crayon{
