@@ -328,15 +328,21 @@
 	credit_cost = 10000
 	danger_level = SHUTTLE_DANGER_HIGH
 
-/datum/map_template/shuttle/emergency/arena
-	suffix = "arena"
-	name = "The Arena"
-	description = "The crew must pass through an otherworldy arena to board this shuttle. Expect massive casualties. The source of the Bloody Signal must be tracked down and eliminated to unlock this shuttle."
-	admin_notes = "RIP AND TEAR. Creates an entire internal Z-level where you have to kill each other in a massive battle royale to get to the actual shuttle."
+/datum/map_template/shuttle/emergency/discoinferno
+	suffix = "discoinferno"
+	name = "Disco Inferno"
+	description = "The glorious results of centuries of plasma research done by Nanotrasen employees. This is the reason why you are here. Get on and dance like you're on fire, burn baby burn!"
+	admin_notes = "Flaming hot. The main area has a dance machine as well as plasma floor tiles that will be ignited by players every single time."
 	credit_cost = 10000
 	danger_level = SHUTTLE_DANGER_HIGH
-	/// Whether the arena z-level has been created
-	var/arena_loaded = FALSE
+
+/datum/map_template/shuttle/emergency/honkco
+	suffix = "honkco"
+	name = "Honk.Co shuttle"
+	description = "From the creators of Snappop(tm)!, the signature Honk.Co shuttle is now avaiable to purchase, with no usable chairs and filled with bananas, clown artifacts and all types of clowns."
+	admin_notes = "Is what you expect. Bananium shuttle full of clowns, 4 staffs of the honk mother, bananas everywhere and cluwnes."
+	credit_cost = 5000
+	danger_level = SHUTTLE_DANGER_HIGH
 
 /datum/map_template/shuttle/emergency/arena/prerequisites_met()
 	if(SHUTTLE_UNLOCK_BUBBLEGUM in SSshuttle.shuttle_purchase_requirements_met)
