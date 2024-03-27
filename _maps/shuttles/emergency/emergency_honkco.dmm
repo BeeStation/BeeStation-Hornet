@@ -3,6 +3,18 @@
 /obj/item/grown/bananapeel,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
+"b" = (
+/obj/structure/chair/stool/bar,
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_emergency_brightness_mul = 0.25;
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
 "c" = (
 /mob/living/simple_animal/hostile/retaliate/clown/banana,
 /obj/structure/chair/stool/bar,
@@ -15,6 +27,14 @@
 /obj/item/grown/bananapeel,
 /obj/structure/chair/stool/bar,
 /mob/living/simple_animal/hostile/retaliate/clown/mutant/blob,
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_emergency_brightness_mul = 0.25;
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "f" = (
@@ -105,9 +125,34 @@
 /obj/machinery/door/airlock/bananium/glass,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
+"s" = (
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_emergency_brightness_mul = 0.25;
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
 "t" = (
 /obj/item/grown/bananapeel,
 /obj/structure/chair/stool/bar,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"u" = (
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_emergency_brightness_mul = 0.25;
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "v" = (
@@ -319,6 +364,13 @@
 	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
+"S" = (
+/obj/structure/chair/stool/bar,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
 "T" = (
 /mob/living/simple_animal/hostile/retaliate/clown,
 /obj/structure/chair/stool/bar,
@@ -356,6 +408,25 @@
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/retaliate/clown/longface,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"Y" = (
+/obj/item/grown/bananapeel,
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_emergency_brightness_mul = 0.25;
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"Z" = (
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/machinery/light/small,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 
@@ -421,20 +492,20 @@ L
 V
 h
 D
-A
+Z
 d
 "}
 (6,1,1) = {"
 d
-o
+S
 k
 e
 a
 t
 E
-A
+s
 k
-A
+Z
 d
 "}
 (7,1,1) = {"
@@ -447,12 +518,12 @@ t
 a
 A
 k
-A
+Z
 d
 "}
 (8,1,1) = {"
 d
-o
+S
 k
 t
 F
@@ -460,25 +531,25 @@ t
 Q
 A
 a
-A
+Z
 d
 "}
 (9,1,1) = {"
 d
-o
+S
 i
 o
 k
-o
+b
 G
 A
 a
-A
+Z
 d
 "}
 (10,1,1) = {"
 d
-o
+S
 k
 o
 k
@@ -486,12 +557,12 @@ c
 k
 X
 m
-A
+Z
 d
 "}
 (11,1,1) = {"
 d
-o
+S
 k
 o
 x
@@ -499,12 +570,12 @@ o
 i
 A
 k
-A
+Z
 d
 "}
 (12,1,1) = {"
 d
-o
+S
 k
 T
 a
@@ -512,20 +583,20 @@ t
 a
 p
 k
-A
+Z
 d
 "}
 (13,1,1) = {"
 q
 k
 k
-a
+Y
 M
 v
 n
-k
+u
 J
-A
+Z
 d
 "}
 (14,1,1) = {"
@@ -538,7 +609,7 @@ R
 W
 R
 R
-A
+Z
 d
 "}
 (15,1,1) = {"

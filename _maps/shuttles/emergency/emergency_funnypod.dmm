@@ -42,6 +42,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
+/obj/machinery/light/small,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "T" = (
@@ -55,6 +56,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
+/obj/machinery/light/small,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 
