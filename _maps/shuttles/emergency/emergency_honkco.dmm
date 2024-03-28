@@ -51,7 +51,7 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "cH" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dS" = (
@@ -258,7 +258,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/closed/wall/mineral/bananium,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "Fq" = (
 /obj/item/grown/bananapeel,
@@ -412,7 +412,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
 	},
-/turf/closed/wall/mineral/bananium,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "XB" = (
 /obj/structure/chair/stool/bar{
@@ -648,13 +648,13 @@ Qk
 (17,1,1) = {"
 SS
 Qk
-Qk
 cH
 cH
 cH
 cH
 cH
-Qk
+cH
+cH
 Qk
 SS
 "}

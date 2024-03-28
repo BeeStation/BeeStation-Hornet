@@ -6,13 +6,6 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"m" = (
-/obj/machinery/door/airlock/external,
-/obj/docking_port/mobile/emergency{
-	dir = 2
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 "v" = (
 /obj/machinery/computer/emergency_shuttle{
 	dir = 8
@@ -25,14 +18,11 @@
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"B" = (
-/obj/machinery/door/airlock/external,
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 "L" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Escape Pod Airlock"
 	},
+/obj/docking_port/mobile/emergency,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "R" = (
@@ -43,6 +33,10 @@
 	pixel_y = -32
 	},
 /obj/machinery/light/small,
+/obj/item/storage/pod{
+	pixel_y = 27;
+	pixel_x = 6
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "T" = (
@@ -116,7 +110,7 @@ T
 a
 "}
 (12,1,1) = {"
-B
+a
 R
 a
 "}
@@ -126,7 +120,7 @@ T
 a
 "}
 (14,1,1) = {"
-B
+a
 R
 a
 "}
@@ -156,7 +150,7 @@ T
 a
 "}
 (20,1,1) = {"
-m
+a
 R
 a
 "}
