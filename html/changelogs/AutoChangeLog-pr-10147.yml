@@ -1,0 +1,12 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - tweak: traitor items inside of a box will now get illegal tech bitflag, but there
+      are some items that won't get it. If you want to make it sure, hover your mouse
+      cursor on the item name in uplink. a tooltip will appear if it has illegal tech
+      or not.
+  - tweak: roundend report now tells how effectively a traitor used their TC with
+      sales
+  - refactor: refactored uplink code
+  - balance: some items (i.e. money case) from uplink are no longer illegal tech.
+      basically suspicious boxes.

@@ -37,7 +37,7 @@
 	},
 /obj/item/reagent_containers/glass/bucket,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "n" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -87,7 +87,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "D" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -143,7 +143,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "O" = (
 /obj/machinery/hydroponics/soil,
@@ -163,7 +163,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "R" = (
 /obj/structure/flora/grass/jungle/b,
@@ -195,7 +195,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "Y" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -219,7 +219,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 
 (1,1,1) = {"
