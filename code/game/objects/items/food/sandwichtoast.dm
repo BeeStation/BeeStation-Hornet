@@ -143,6 +143,7 @@
 /obj/item/food/hotdog
 	name = "hotdog"
 	desc = "Hot and steamy hotdog weenie."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "hotdog"
 	bite_consumption = 3
 	food_reagents = list(

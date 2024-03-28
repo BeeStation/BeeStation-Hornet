@@ -82,7 +82,6 @@ Behavior that's still missing from this component that original food items had t
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
-		RegisterSignal(parent, COMSIG_ITEM_FRIED, PROC_REF(on_fried))
 		RegisterSignal(parent, COMSIG_GRILL_FOOD, PROC_REF(GrillFood))
 		RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_ACT, PROC_REF(on_microwaved))
 		RegisterSignal(parent, COMSIG_ITEM_USED_AS_INGREDIENT,  PROC_REF(used_to_customize))
@@ -129,6 +128,7 @@ Behavior that's still missing from this component that original food items had t
 	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 	bite_consumption = 2,
 	microwaved_type,
+	junkiness,
 	datum/callback/pre_eat,
 	datum/callback/on_compost,
 	datum/callback/after_eat,
@@ -173,14 +173,6 @@ Behavior that's still missing from this component that original food items had t
 	SIGNAL_HANDLER
 
 	return TryToEat(M, user)
-
-/datum/component/edible/proc/on_fried(datum/source, atom/fry_object)
-	SIGNAL_HANDLER
-	var/atom/our_atom = parent
-	fry_object.reagents.maximum_volume = our_atom.reagents.maximum_volume
-	our_atom.reagents.trans_to(fry_object, our_atom.reagents.total_volume)
-	qdel(our_atom)
-	return COMSIG_FRYING_HANDLED
 
 /datum/component/edible/proc/GrillFood(datum/source, atom/fry_object, grill_time)
 	SIGNAL_HANDLER

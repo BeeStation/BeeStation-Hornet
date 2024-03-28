@@ -109,14 +109,8 @@
 				for(var/M in O.buckled_mobs)
 					to_chat(user, "<span class='warning'>Someone is buckled to \the [O]! Unbuckle [M] to move \him out of the way.</span>")
 					return
-			var/obj/item/stack/tile/W = C
-			if(!W.use(1))
-				return
-			var/turf/open/floor/T = PlaceOnTop(W.turf_type, flags = CHANGETURF_INHERIT_AIR)
-			if(istype(W, /obj/item/stack/tile/light)) //TODO: get rid of this ugly check somehow
-				var/obj/item/stack/tile/light/L = W
-				var/turf/open/floor/light/F = T
-				F.state = L.state
+			var/obj/item/stack/tile/tile = C
+			tile.place_tile(src)
 			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 		else
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
@@ -151,8 +145,8 @@
 	return //jetfuel can't break steel foam...
 
 /turf/open/floor/plating/foam/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tile/plasteel))
-		var/obj/item/stack/tile/plasteel/P = I
+	if(istype(I, /obj/item/stack/tile/iron))
+		var/obj/item/stack/tile/iron/P = I
 		if(P.use(1))
 			var/obj/L = locate(/obj/structure/lattice) in src
 			if(L)

@@ -72,7 +72,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "E" = (
 /obj/structure/table/wood/fancy/orange,
@@ -130,7 +130,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "P" = (
 /obj/structure/beebox,
@@ -164,7 +164,7 @@
 /obj/structure/mineral_door/wood{
 	name = "Bee Lounge"
 	},
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "X" = (
 /obj/machinery/door/airlock/public,
