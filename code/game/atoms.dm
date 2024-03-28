@@ -1099,10 +1099,6 @@
 	setDir(newdir)
 	return TRUE
 
-///Handle melee attack by a mech
-/atom/proc/mech_melee_attack(obj/mecha/M)
-	return
-
 /**
   * Called when the atom log's in or out
   *
@@ -1764,7 +1760,7 @@
   */
 /atom/proc/setClosed()
 	return
-
+	
 /**
 * Instantiates the AI controller of this atom. Override this if you want to assign variables first.
 *

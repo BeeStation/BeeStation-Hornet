@@ -132,13 +132,13 @@
 
 /obj/item/clockwork/weapon/brass_sword/attack_obj(obj/O, mob/living/user)
 	..()
-	if(!(istype(O, /obj/mecha) && is_reebe(user.z)))
+	if(!(istype(O, /obj/vehicle/sealed/mecha) && is_reebe(user.z)))
 		return
 	if(!COOLDOWN_FINISHED(src, emp_cooldown))
 		return
 	COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
 
-	var/obj/mecha/target = O
+	var/obj/vehicle/sealed/mecha/target = O
 	target.emp_act(EMP_HEAVY)
 	new /obj/effect/temp_visual/emp/pulse(target.loc)
 	addtimer(CALLBACK(src, PROC_REF(send_message), user), 20 SECONDS)

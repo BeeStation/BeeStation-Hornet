@@ -56,10 +56,12 @@
 	mob_exit(M, silent, randomstep)
 
 /obj/vehicle/sealed/proc/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
+	SIGNAL_HANDLER
 	if(!istype(M))
 		return FALSE
 	remove_occupant(M)
-	M.forceMove(exit_location(M))
+	if(!isAI(M))//This is the ONE mob we dont want to be moved to the vehicle that should be handeled when used
+		M.forceMove(exit_location(M))
 	if(randomstep)
 		var/turf/target_turf = get_step(exit_location(M), pick(GLOB.cardinals))
 		M.throw_at(target_turf, 5, 10)
@@ -95,9 +97,13 @@
 	user.put_in_hands(inserted_key)
 	inserted_key = null
 
+/obj/vehicle/sealed/obj_destruction(damage_flag)
+	explosion(loc, 0, 1, 2, 3, 0)
+	log_message("[src] exploded due to destruction", LOG_ATTACK)
+	return ..()
+
 /obj/vehicle/sealed/Destroy()
 	DumpMobs()
-	explosion(loc, 0, 1, 2, 3, 0)
 	return ..()
 
 /obj/vehicle/sealed/proc/DumpMobs(randomstep = TRUE)

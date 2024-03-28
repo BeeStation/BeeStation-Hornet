@@ -37,7 +37,12 @@
 #define COOLDOWN_CIRCUIT_PATHFIND_DIF "circuit_pathfind_different"
 #define COOLDOWN_CIRCUIT_TARGET_INTERCEPT "circuit_target_intercept"
 
-
+//Mecha cooldowns
+#define COOLDOWN_MECHA_MESSAGE "mecha_message"
+#define COOLDOWN_MECHA_EQUIPMENT "mecha_equipment"
+#define COOLDOWN_MECHA_ARMOR "mecha_armor"
+#define COOLDOWN_MECHA_MELEE_ATTACK "mecha_melee"
+#define COOLDOWN_MECHA_SMOKE "mecha_smoke"
 
 //TIMER COOLDOWN MACROS
 
