@@ -331,7 +331,7 @@
 	suffix = "honkco"
 	name = "Honk.Co shuttle"
 	description = "From the creators of Snappop(tm)!, the signature Honk.Co shuttle is now avaiable to purchase, with no usable chairs and filled with bananas, clown artifacts and all types of clowns."
-	admin_notes = "Is what you expect. Bananium shuttle full of clowns, 4 staffs of the honk mother, bananas everywhere and cluwnes."
+	admin_notes = "Bananium shuttle full of clowns and cluwnes that turn hostile if attacked, 4 staffs of the honk mother, bananas everywhere and no usable chairs."
 	credit_cost = 5000
 	danger_level = SHUTTLE_DANGER_HIGH
 
