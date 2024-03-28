@@ -156,6 +156,10 @@
 	display_name = "circular glasses"
 	path = /obj/item/clothing/glasses/regular/circle
 
+/datum/gear/accessory/glasses/circle_sunglasses
+	display_name = "circular sunglasses"
+	path = /obj/item/clothing/glasses/sunglasses/circle_sunglasses
+
 /datum/gear/accessory/glasses/sunglasses
 	display_name = "sunglasses"
 	path = /obj/item/clothing/glasses/sunglasses

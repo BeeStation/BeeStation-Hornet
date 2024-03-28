@@ -101,6 +101,8 @@
 		            /obj/item/clothing/glasses/sunglasses = 2,
 		            /obj/item/clothing/glasses/regular = 2,
 		            /obj/item/clothing/glasses/regular/jamjar = 1,
+					/obj/item/clothing/glasses/regular/circle = 1,
+					/obj/item/clothing/glasses/sunglasses/circle_sunglasses = 1,
 		            /obj/item/clothing/glasses/orange = 1,
 		            /obj/item/clothing/glasses/red = 1,
 		            /obj/item/clothing/under/suit/navy = 1,
