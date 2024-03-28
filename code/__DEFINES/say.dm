@@ -106,5 +106,19 @@
 //Used in visible_message_flags, audible_message_flags and message_mods
 #define CHATMESSAGE_EMOTE "emotemessage"
 
+//Used to tell if an emote is forced or not
+#define CHATMESSAGE_EMOTE_FORCE "emoteforce"
+
+/// If this bitflag exists, Runechat will put a forced message icon. Currently emote only
+#define RUNECHAT_OPTION_FORCED_MESSAGE (1<<0)
+
+/*	NOTE for Force emote
+	This is typically paired in this form:
+		list/message_mods = list(CHATMESSAGE_EMOTE_FORCE = RUNECHAT_OPTION_FORCED_MESSAGE)
+
+	if "message_mods[CHATMESSAGE_EMOTE_FORCE] = null", it means it's not forced message.
+	if "message_mods[CHATMESSAGE_EMOTE_FORCE] = RUNECHAT_OPTION_FORCED_MESSAGE", that means it's a force emote message
+*/
+
 ///How far away blind people can see visible messages from
 #define BLIND_TEXT_DIST 2

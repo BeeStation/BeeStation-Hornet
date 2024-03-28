@@ -583,6 +583,7 @@
 /datum/asset/spritesheet_batched/chat/create_spritesheets()
 	insert_all_icons("emoji", 'icons/emoji.dmi')
 	insert_all_icons("badge", 'icons/badges.dmi')
+	insert_all_icons("chat_icons", 'icons/UI_Icons/chat/chat_icons.dmi')
 	// pre-loading all lanugage icons also helps to avoid meta
 	insert_all_icons("language", 'icons/misc/language.dmi')
 	// catch languages which are pulling icons from another file

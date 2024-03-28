@@ -85,7 +85,11 @@
 	if(!msg)
 		return TRUE
 
-	user.log_message(msg, LOG_EMOTE)
+	var/show_force_icon = user.mind && !intentional // we'll see the forced emote icon from players, not mindless mobs
+	user.log_message(show_force_icon ? "(force) [msg]" : msg, LOG_EMOTE)
+
+	if(show_force_icon)
+		msg = "[get_emote_force_icon()] [msg]"
 
 	var/space = should_have_space_before_emote(html_decode(msg)[1]) ? " " : null
 	var/end = copytext(msg, length(message))
@@ -102,13 +106,20 @@
 			if(user.mind || M.client.prefs?.read_player_preference(/datum/preference/toggle/chat_followghostmindless))
 				M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 			else
-				M.show_message("[dchatmsg]")
+				M.show_message(dchatmsg)
 
 	if(emote_type & EMOTE_AUDIBLE)
-		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
+		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE, CHATMESSAGE_EMOTE_FORCE = show_force_icon ? RUNECHAT_OPTION_FORCED_MESSAGE : null), separation = space)
 	else
-		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE), separation = space)
+		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE, CHATMESSAGE_EMOTE_FORCE = show_force_icon ? RUNECHAT_OPTION_FORCED_MESSAGE : null), separation = space)
 	return TRUE
+
+/datum/emote/proc/get_emote_force_icon()
+	var/static/fast_return
+	if(!fast_return)
+		var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/chat)
+		fast_return = sheet.icon_tag("chat_icons-emote_force")
+	return fast_return
 
 /datum/emote/proc/get_sound(mob/living/user)
 	return sound //by default just return this var.
