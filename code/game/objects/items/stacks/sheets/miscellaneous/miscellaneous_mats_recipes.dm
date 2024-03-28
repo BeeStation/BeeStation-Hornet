@@ -84,3 +84,9 @@ GLOBAL_LIST_INIT(cardboard_recipes, list ( \
 ))
 
 STACKSIZE_MACRO(/obj/item/stack/sheet/cardboard)
+
+//Insulated fibers
+
+GLOBAL_LIST_INIT(insulated_fibers_recipes, list ( \
+	new/datum/stack_recipe("insulated gloves",						/obj/item/clothing/gloves/color/yellow, 5, time = 4 SECONDS), \
+))

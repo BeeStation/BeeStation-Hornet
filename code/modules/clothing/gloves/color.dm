@@ -40,6 +40,19 @@
 	if(user.mind?.assigned_role in GLOB.security_positions)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_insulated_gloves")
 
+/obj/item/clothing/gloves/color/yellow/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_KNIFE || I.is_sharp())
+		var/turf/T = get_turf(src)
+		var/obj/item/stack/sheet/insulated_fibers/F = new (T, 5)
+		if(QDELETED(F))
+			F = locate(/obj/item/stack/sheet/insulated_fibers/) in T
+		if(F)
+			transfer_fingerprints_to(F)
+			F.add_fingerprint(user)
+		qdel(src)
+		to_chat(user, "<span class='notice'>You tear [src] apart.</span>")
+	else
+		return ..()
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap knockoffs of the coveted ones - no way this can end badly."
@@ -63,6 +76,26 @@
 /obj/item/clothing/gloves/color/fyellow/old/Initialize(mapload)
 	. = ..()
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
+
+/obj/item/clothing/gloves/color/fyellow/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_KNIFE || I.is_sharp())
+		var/turf/T = get_turf(src)
+		var/obj/item/stack/sheet/insulated_fibers/F = new (T, 1)
+		var/obj/item/stack/sheet/cotton/cloth/C = new (T, 4)
+		if(QDELETED(F))
+			F = locate(/obj/item/stack/sheet/insulated_fibers/) in T
+		if(F)
+			transfer_fingerprints_to(F)
+			F.add_fingerprint(user)
+		if(QDELETED(C))
+			C = locate(/obj/item/stack/sheet/insulated_fibers/) in T
+		if(C)
+			transfer_fingerprints_to(C)
+			C.add_fingerprint(user)
+		qdel(src)
+		to_chat(user, "<span class='notice'>You tear [src] apart.</span>")
+	else
+		return ..()
 
 /obj/item/clothing/gloves/cut
 	desc = "These gloves would protect the wearer from electric shock... if the fingers were covered."
