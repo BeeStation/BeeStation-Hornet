@@ -197,7 +197,9 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	return ..()
 
 /mob/camera/blob/Login()
-	..()
+	. = ..()
+	if(!. || !client)
+		return FALSE
 	to_chat(src, "<span class='notice'>You are the overmind!</span>")
 	blob_help()
 	update_health_hud()
