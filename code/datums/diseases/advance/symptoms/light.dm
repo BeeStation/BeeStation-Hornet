@@ -45,11 +45,11 @@
 		currenthealthmodifier += healthchange
 		M.maxHealth += healthchange
 		M.health += healthchange
-		M.add_movespeed_modifier(MOVESPEED_ID_LIGHT_VIRUS_SLOWDOWN, override = TRUE, multiplicative_slowdown = (currenthealthmodifier / 25))
+		M.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/virus/light_virus, multiplicative_slowdown = (currenthealthmodifier / 25))
 
 /datum/symptom/light/End(datum/disease/advance/A)
 	. = ..()
 	var/mob/living/M = A.affected_mob
-	M.remove_movespeed_modifier(MOVESPEED_ID_LIGHT_VIRUS_SLOWDOWN, TRUE)
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/virus/light_virus)
 	M.maxHealth -= currenthealthmodifier
 	M.health -= currenthealthmodifier

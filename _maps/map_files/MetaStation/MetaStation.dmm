@@ -11296,8 +11296,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "btP" = (
-/obj/machinery/atmospherics/pipe/manifold/cyan/visible{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -13973,10 +13973,10 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "bJa" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+/obj/machinery/atmospherics/pipe/layer_manifold/visible{
 	dir = 4
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "bJb" = (
@@ -16984,11 +16984,9 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bYy" = (
-/obj/machinery/atmospherics/components/binary/pump/on{
-	dir = 4;
-	name = "N2 to Airmix"
-	},
-/turf/open/floor/plasteel,
+/obj/machinery/atmospherics/pipe/layer_manifold/visible,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/engine/atmos)
 "bYz" = (
 /obj/machinery/atmospherics/components/trinary/mixer/airmix{
@@ -17142,9 +17140,8 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "bZH" = (
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 4;
-	name = "N2 to Pure"
+/obj/machinery/atmospherics/pipe/simple/yellow/visible{
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -17286,6 +17283,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/pump{
+	name = "N2 to Pure";
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
@@ -17656,11 +17657,6 @@
 "cfu" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/green/visible,
-/turf/open/space,
-/area/space/nearstation)
-"cfv" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/yellow/visible,
 /turf/open/space,
 /area/space/nearstation)
 "cfw" = (
@@ -120805,7 +120801,7 @@ btP
 gkS
 ccP
 ceh
-cfv
+cfw
 cgA
 chP
 cje
@@ -121057,12 +121053,12 @@ bxd
 bUA
 bVK
 bXk
-bYy
+bIS
 bZH
 cbg
-ccQ
-bza
-aaf
+ccP
+bYy
+cfx
 bAR
 bAR
 bAR
@@ -122089,7 +122085,7 @@ bIS
 bZK
 cbk
 ccP
-ceh
+bYy
 cfx
 bAR
 bAR

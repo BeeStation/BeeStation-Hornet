@@ -297,21 +297,11 @@
 
 /datum/quirk/hypersensitive
 	name = "Hypersensitive"
-	desc = "For better or worse, everything seems to affect your mood more than it should."
+	desc = "Bad things affect your mood more than they should."
 	icon = "flushed"
 	value = -1
 	gain_text = "<span class='danger'>You seem to make a big deal out of everything.</span>"
 	lose_text = "<span class='notice'>You don't seem to make a big deal out of everything anymore.</span>"
-
-/datum/quirk/hypersensitive/add()
-	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier += 0.5
-
-/datum/quirk/hypersensitive/remove()
-	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier -= 0.5
 
 /datum/quirk/light_drinker
 	name = "Light Drinker"

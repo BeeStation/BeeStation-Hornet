@@ -3,7 +3,7 @@
 /mob/living/carbon/alien/larva/attack_hand(mob/living/carbon/human/M)
 	if(..())
 		playsound(loc, "punch", 25, 1, -1)
-		log_combat(M, src, "attacked")
+		log_combat(M, src, "attacked", M)
 		visible_message("<span class='danger'>[M] kicks [src]!</span>", \
 				"<span class='userdanger'>[M] kicks you!</span>", null, COMBAT_MESSAGE_RANGE)
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.get_combat_bodyzone(src)))
