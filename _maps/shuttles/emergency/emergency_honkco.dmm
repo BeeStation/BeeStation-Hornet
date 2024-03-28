@@ -17,6 +17,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/sign/poster/contraband/clown{
+	pixel_y = 32
+	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "aL" = (
@@ -48,6 +51,9 @@
 	dir = 1
 	},
 /obj/machinery/light/small,
+/obj/structure/sign/poster/contraband/clown{
+	pixel_y = -32
+	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "cH" = (
@@ -80,11 +86,21 @@
 /mob/living/simple_animal/hostile/retaliate/clown/mutant,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
+"ik" = (
+/obj/structure/sign/poster/contraband/clown{
+	pixel_y = 32
+	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
 "iN" = (
 /obj/structure/chair/stool/bar,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/honcmunculus,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"jb" = (
+/obj/item/grown/bananapeel,
+/obj/structure/chair/stool/bar,
+/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/chlown,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "kc" = (
@@ -160,9 +176,31 @@
 /obj/item/clothing/mask/gas/clown_hat,
 /obj/item/clothing/mask/gas/clown_hat,
 /obj/item/clothing/mask/gas/clown_hat,
-/obj/item/clothing/mask/gas/clown_hat,
+/obj/item/food/honkdae{
+	pixel_x = 10
+	},
+/obj/item/food/honkdae{
+	pixel_x = 10
+	},
+/obj/item/food/donkpocket/warm/honk{
+	pixel_x = -5;
+	pixel_y = 13
+	},
+/obj/item/food/donkpocket/warm/honk{
+	pixel_x = -5;
+	pixel_y = 13
+	},
+/obj/item/clothing/suit/space/hardsuit/clown{
+	pixel_x = -12
+	},
 /obj/item/clothing/mask/gas/clown_hat,
 /obj/item/gun/magic/staff/honk,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"vO" = (
+/obj/item/grown/bananapeel,
+/obj/structure/chair/stool/bar,
+/obj/item/grown/bananapeel,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "vY" = (
@@ -193,6 +231,11 @@
 /obj/structure/chair/stool/bar{
 	dir = 1
 	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"zo" = (
+/obj/item/grown/bananapeel,
+/mob/living/simple_animal/hostile/retaliate/clown/clownhulk/chlown,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "zv" = (
@@ -228,6 +271,7 @@
 	pixel_x = 17;
 	pixel_y = -26
 	},
+/obj/item/grown/bananapeel,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "Am" = (
@@ -259,6 +303,14 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"DM" = (
+/obj/machinery/light/small,
+/obj/structure/sign/poster/contraband/clown{
+	pixel_y = -32
+	},
+/obj/structure/mecha_wreckage/honker,
+/turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "Fq" = (
 /obj/item/grown/bananapeel,
@@ -307,12 +359,29 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "Hj" = (
+/obj/structure/sign/poster/contraband/clown{
+	pixel_y = -32
+	},
+/obj/structure/mecha_wreckage/honker,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"HC" = (
 /obj/structure/statue/bananium/clown,
+/obj/structure/sign/poster/contraband/clown{
+	pixel_y = 32
+	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "IC" = (
 /mob/living/simple_animal/hostile/retaliate/clown,
 /obj/structure/chair/stool/bar,
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"Jp" = (
+/obj/structure/statue/bananium/clown,
+/obj/structure/sign/poster/contraband/clown{
+	pixel_y = -32
+	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "KA" = (
@@ -343,6 +412,14 @@
 	nightshift_brightness = 10;
 	nightshift_light_color = "#E6EBFF"
 	},
+/turf/open/floor/mineral/bananium,
+/area/shuttle/escape)
+"Ok" = (
+/obj/structure/statue/bananium/clown,
+/obj/structure/sign/poster/contraband/clown{
+	pixel_y = 32
+	},
+/obj/item/clothing/mask/gas/clown_hat,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "OO" = (
@@ -466,25 +543,25 @@ SS
 (3,1,1) = {"
 Qk
 Qk
-Hj
+HC
 Pl
 Pl
 Pl
 Pl
 Pl
-Hj
+Jp
 Qk
 Qk
 "}
 (4,1,1) = {"
 Qk
-Hj
+Ok
 uI
-tN
+Yc
 tN
 AH
 tN
-tN
+Yc
 uI
 Hj
 Qk
@@ -508,7 +585,7 @@ aD
 tN
 xf
 Yc
-dS
+vO
 Am
 Mk
 tN
@@ -521,17 +598,17 @@ tN
 hZ
 Ao
 Yc
-dS
+jb
 Yc
 am
-tN
+gF
 bQ
 Qk
 "}
 (8,1,1) = {"
 Qk
 aD
-tN
+Yc
 dS
 OO
 dS
@@ -557,9 +634,9 @@ Qk
 (10,1,1) = {"
 Qk
 aD
-tN
+Yc
 kc
-tN
+Yc
 qt
 tN
 XB
@@ -583,7 +660,7 @@ Qk
 (12,1,1) = {"
 Qk
 aD
-tN
+gF
 IC
 Yc
 dS
@@ -596,7 +673,7 @@ Qk
 (13,1,1) = {"
 pH
 tN
-tN
+zo
 uo
 zv
 Fq
@@ -608,7 +685,7 @@ Qk
 "}
 (14,1,1) = {"
 Qk
-tN
+ik
 aq
 Ri
 FW
@@ -616,12 +693,12 @@ aq
 FW
 aq
 aq
-bQ
+DM
 Qk
 "}
 (15,1,1) = {"
 Qk
-Hj
+HC
 uI
 AP
 hz
@@ -629,19 +706,19 @@ AP
 hz
 AP
 uI
-Hj
+Jp
 Qk
 "}
 (16,1,1) = {"
 Qk
 Qk
-Hj
+HC
 tN
 tN
 ep
 me
 tN
-Hj
+Jp
 Qk
 Qk
 "}

@@ -544,6 +544,25 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"VZ" = (
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_emergency_brightness_mul = 0.25;
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_emergency_brightness_mul = 0.25;
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/carpet/black,
+/area/shuttle/escape)
 "Xc" = (
 /obj/machinery/computer/communications{
 	dir = 8
@@ -624,7 +643,7 @@ bP
 bP
 bP
 bP
-bP
+qn
 qn
 qn
 qn
@@ -644,8 +663,8 @@ qn
 RK
 RK
 RK
-RK
-RK
+bP
+qn
 qn
 qn
 qn
@@ -665,8 +684,8 @@ wn
 RK
 RK
 RK
-RK
-RK
+bP
+qn
 ru
 qn
 qn
@@ -686,8 +705,8 @@ LQ
 RK
 RK
 RK
-RK
-RK
+bP
+qn
 DN
 xm
 xm
@@ -729,7 +748,7 @@ ga
 Gh
 Gh
 Gh
-Gh
+qn
 xm
 PH
 PH
@@ -750,7 +769,7 @@ ga
 Gh
 Gh
 Gh
-Gh
+qn
 Pk
 PH
 PH
@@ -771,7 +790,7 @@ ga
 Gh
 Gh
 Gh
-Gh
+qn
 xm
 Eq
 PH
@@ -792,7 +811,7 @@ ga
 Gh
 Gh
 Gh
-Gh
+qn
 Pk
 PH
 PH
@@ -813,7 +832,7 @@ ga
 Gh
 Gh
 Gh
-Gh
+qn
 xm
 XP
 PH
@@ -854,8 +873,8 @@ yG
 sV
 sV
 sV
-sV
-sV
+bP
+qn
 DN
 xm
 xm
@@ -875,8 +894,8 @@ wn
 sV
 sV
 sV
-sV
-sV
+bP
+qn
 ct
 qn
 qn
@@ -896,8 +915,8 @@ qn
 sV
 sV
 sV
-sV
-sV
+bP
+qn
 qn
 qn
 qn
@@ -917,8 +936,8 @@ qn
 bP
 bP
 bP
-bP
-bP
+VZ
+qn
 qn
 qn
 qn
