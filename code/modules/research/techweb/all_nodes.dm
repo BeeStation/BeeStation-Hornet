@@ -251,7 +251,6 @@
 		"operating",
 		"pandemic",
 		"sleeper",
-		"bioscanner",
 		"soda_dispenser",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
@@ -1306,17 +1305,26 @@
 
 /datum/techweb_node/med_scanning
 	id = "med_scanner"
-	tech_tier = 5
-	display_name = "Portable Medical Scanning"
-	description = "By outfitting an analyzer with overclocked scanners and inbuilt diagnostic AI, the zenith of man-portable medical scanning becomes possible."
-	prereq_ids = list(
-		"adv_biotech",
-		"posibrain",
-	)
-	design_ids = list("extrapolator")
+	tech_tier = 3
+	display_name = "Medical Scanning"
+	description = "By taking apart the ones we already had, we figured out how to make them ourselves."
+	prereq_ids = list("adv_biotech")
+	design_ids = list("healthanalyzer")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
-	hidden = TRUE
+
+/datum/techweb_node/adv_med_scanning
+	id = "adv_med_scanner"
+	tech_tier = 4
+	display_name = "Advanced Medical Scanning"
+	description = "By integrating advanced AI into our scanners, we can diagnose even the most minute of abnormalities. Well, the AI is doing it, but we get the credit."
+	prereq_ids = list(
+		"med_scanner",
+		"posibrain",
+	)
+	design_ids = list("healthanalyzer_advanced", "extrapolator")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
 
 /datum/techweb_node/cyber_organs_upgraded
 	id = "cyber_organs_upgraded"
