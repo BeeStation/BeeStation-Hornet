@@ -23,6 +23,9 @@
 	mobchatspan = "fox"
 	can_be_held = TRUE
 	held_state = "fox"
+	pet_bonus = TRUE
+	pet_bonus_emote = "pants and yaps happily!"
+
 	do_footstep = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 

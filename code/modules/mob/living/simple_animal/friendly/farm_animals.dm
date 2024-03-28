@@ -126,6 +126,9 @@
 
 	do_footstep = TRUE
 
+	pet_bonus = TRUE
+	pet_bonus_emote = "moos happily!"
+
 /mob/living/simple_animal/cow/Initialize(mapload)
 	AddComponent(/datum/component/udder)
 	. = ..()
@@ -191,6 +194,8 @@
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = FRIENDLY_SPAWN
+	pet_bonus = TRUE
+	pet_bonus_emote = "chirps!"
 	chat_color = "#FFDC9B"
 
 	do_footstep = TRUE

@@ -24,6 +24,9 @@
 	chat_color = "#728AE6"
 	can_be_held = TRUE
 	held_state = "sloth"
+	pet_bonus = TRUE
+	pet_bonus_emote = "slowly smiles!"
+	
 	do_footstep = TRUE
 
 
