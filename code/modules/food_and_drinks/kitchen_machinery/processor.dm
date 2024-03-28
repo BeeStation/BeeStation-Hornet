@@ -29,8 +29,10 @@
 
 /obj/machinery/processor/proc/process_food(datum/food_processor_process/recipe, atom/movable/what)
 	if (recipe.output && loc && !QDELETED(src))
-		for(var/i = 0, i < rating_amount, i++)
+		var/cached_multiplier = (recipe.food_multiplier * rating_amount)
+		for(var/i in 1 to cached_multiplier)
 			new recipe.output(drop_location())
+
 	if (ismob(what))
 		var/mob/themob = what
 		themob.gib(TRUE,TRUE,TRUE)

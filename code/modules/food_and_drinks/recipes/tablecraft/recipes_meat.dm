@@ -141,7 +141,7 @@
 		/obj/item/food/meatball = 1,
 		/obj/item/food/meat/cutlet = 2
 	)
-	result = /obj/item/food/sausage
+	result = /obj/item/food/raw_sausage
 	subcategory = CAT_MEAT
 
 /datum/crafting_recipe/food/nugget
