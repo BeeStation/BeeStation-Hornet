@@ -8,3 +8,6 @@
 	config_entry_value = "<span class='death_message'><span class='big bold'>You have died!</span><br/>\
 		Barring complete bodyloss, you can in most cases be revived by other players. If you do not wish to be brought back, use the \"Do Not Resuscitate\" verb in the ghost tab.<br/>\
 		<span class = 'bold red'>You do not remember the circumstances leading up to your death!</span></span>"
+
+/datum/config_entry/string/policy_naming_link
+/datum/config_entry/string/policy_naming_tooltip

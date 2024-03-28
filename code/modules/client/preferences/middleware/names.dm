@@ -17,7 +17,10 @@
 
 		types[name_preference.db_key] = list(
 			"can_randomize" = name_preference.is_randomizable(),
-			"explanation" = name_preference.explanation,
+			"name_type" = name_preference.name_type,
+			"tooltip" = name_preference.tooltip,
+			"policy_link" = name_preference.get_policy_link(),
+			"policy_tooltip" = name_preference.get_policy_tooltip(),
 			"group" = name_preference.group,
 		)
 

@@ -109,9 +109,6 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 /// Any preferences that will show to the sides of the character in the setup menu.
 #define PREFERENCE_CATEGORY_CLOTHING "clothing"
 
-/// Preferences that will be put into the 3rd list, and are not contextual.
-#define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
-
 /// Will be put under the game preferences window.
 #define PREFERENCE_CATEGORY_GAME_PREFERENCES "game_preferences"
 
@@ -122,6 +119,23 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 /// such as hair color being affixed to hair.
 #define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
 
+// --- infotab related defines ---
+/// Preferences that will be put into the 3rd list, and are not contextual.
+/// This will be sorted with "INFOTAB_LIST"
+#define PREFERENCE_CATEGORY_NON_CONTEXTUAL "non_contextual"
+
+/// Preferences of names, obviously
+/// This will be sorted with "INFOTAB_LIST"
+#define PREFERENCE_CATEGORY_NAMES "names"
+
+/// It serves to display and sort some special categories. Check "infotab_content" in MainPage.tsx
+/// * order: sorting order
+/// * key: dedicated category
+/// * value: displace name of a category. (because we don't want to show "non_contextual" ugly bar)
+#define INFOTAB_LIST list( \
+	PREFERENCE_CATEGORY_NAMES = "Names", \
+	PREFERENCE_CATEGORY_NON_CONTEXTUAL = "Character Info")
+
 //randomized elements
 #define RANDOM_ANTAG_ONLY 1
 #define RANDOM_DISABLED 2
@@ -130,7 +144,6 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 // randomize_appearance_prefs() and randomize_human_appearance() proc flags
 #define RANDOMIZE_SPECIES (1<<0)
 #define RANDOMIZE_NAME (1<<1)
-
 
 // Undatumized preference tags
 

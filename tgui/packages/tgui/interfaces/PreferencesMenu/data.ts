@@ -28,8 +28,11 @@ export enum JobPriority {
 
 export type Name = {
   can_randomize: BooleanLike;
-  explanation: string;
-  group: string;
+  name_type: string;
+  tooltip?: string;
+  policy_link?: string;
+  policy_tooltip?: string;
+  group: any; // it should take number, but will work as string because of assoc in names.tsx, so it's better to be this.
 };
 
 export type Species = {
@@ -162,10 +165,9 @@ export type PreferencesMenuData = {
       body_is_always_random: RandomSetting;
       [otherKey: string]: unknown;
     };
+    names: Record<string, string>;
     secondary_features: Record<string, unknown>;
     supplemental_features: Record<string, unknown>;
-
-    names: Record<string, string>;
 
     misc: {
       gender: Gender;
@@ -175,6 +177,7 @@ export type PreferencesMenuData = {
 
     randomization: Record<string, RandomSetting>;
   };
+  infotab_menus: any[];
 
   content_unlocked: BooleanLike;
 
@@ -224,7 +227,7 @@ export type ServerData = {
     jobs: Record<string, Job>;
   };
   names: {
-    types: Record<string, Name>;
+    types: Record<number, Name>;
   };
   quirks: QuirkInfo;
   loadout: LoadoutInfo;
