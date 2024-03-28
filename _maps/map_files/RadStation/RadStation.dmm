@@ -3197,6 +3197,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/security/brig/medbay)
 "baU" = (
@@ -9438,12 +9441,12 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/structure/disposalpipe/sorting/mail/flip{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -15716,11 +15719,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/junction/flip{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -27161,9 +27164,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/security/detectives_office)
 "isy" = (
@@ -29423,7 +29423,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "jgN" = (
@@ -46009,16 +46011,6 @@
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"onV" = (
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "oom" = (
 /obj/machinery/conveyor/inverted{
 	dir = 6;
@@ -56326,6 +56318,9 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "rAL" = (
@@ -65566,12 +65561,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
+	},
+/obj/structure/disposalpipe/junction/flip{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -105289,7 +105284,7 @@ cUa
 sjg
 usb
 ijM
-onV
+wdS
 jgM
 frq
 vbe
