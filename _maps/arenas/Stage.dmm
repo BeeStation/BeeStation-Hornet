@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/effect/turf_decal/trimline/neutral/filled/corner,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "b" = (
 /obj/structure/chair/fancy/sofa/old/corner/concave{
@@ -24,7 +24,7 @@
 /area/tdome/arena)
 "e" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "f" = (
 /obj/structure/chair/fancy/sofa/old/right{
@@ -50,13 +50,13 @@
 /obj/effect/turf_decal/trimline/neutral/filled/corner{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "j" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "k" = (
 /obj/structure/chair/fancy/sofa/old/right{
@@ -72,16 +72,16 @@
 /obj/effect/turf_decal/trimline/neutral/filled/corner{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "m" = (
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/tdome/arena)
 "o" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 10
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "p" = (
 /obj/structure/railing{
@@ -92,7 +92,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "q" = (
 /obj/structure/railing{
@@ -103,14 +103,14 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "r" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "s" = (
 /obj/structure/railing{
@@ -120,13 +120,13 @@
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 5
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "t" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "u" = (
 /obj/structure/railing/corner{
@@ -136,7 +136,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "x" = (
 /obj/structure/curtain{
@@ -177,13 +177,13 @@
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "F" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "T" = (
 /obj/structure/table/wood/fancy/red,
@@ -209,11 +209,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "X" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 
 (1,1,1) = {"

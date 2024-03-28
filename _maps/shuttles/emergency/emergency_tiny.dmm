@@ -118,7 +118,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "mi" = (
 /obj/structure/chair/fancy/shuttle,
@@ -308,7 +308,7 @@
 	pixel_y = 1;
 	products = list(/obj/item/stack/medical/gauze = 4, /obj/item/reagent_containers/hypospray/medipen = 6, /obj/item/reagent_containers/hypospray/medipen/dexalin = 3, /obj/item/reagent_containers/glass/bottle/epinephrine = 2, /obj/item/reagent_containers/glass/bottle/charcoal = 2)
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "xQ" = (
 /obj/effect/spawner/structure/window/shuttle,
@@ -337,7 +337,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "zK" = (
 /obj/structure/window/shuttle,
@@ -520,7 +520,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "Mi" = (
 /obj/structure/window/shuttle,
@@ -556,7 +556,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "NC" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -602,7 +602,7 @@
 /obj/machinery/camera/autoname{
 	network = list("evac")
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/shuttle/escape)
 "TN" = (
 /obj/structure/closet/emcloset,
