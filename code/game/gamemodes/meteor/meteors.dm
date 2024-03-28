@@ -491,7 +491,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	var/turf/current = loc
 	if (!istype(current))
 		return FALSE
-	var/turf/below = current.below()
+	var/turf/below = GET_TURF_BELOW(current)
 	//Move down a layer and fall again
 	if (below != null)
 		forceMove(below)

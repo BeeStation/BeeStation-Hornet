@@ -9,6 +9,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	/// How accessible underfloor pieces such as wires, pipes, etc are on this turf. Can be HIDDEN, VISIBLE, or INTERACTABLE.
 	var/underfloor_accessibility = UNDERFLOOR_HIDDEN
 
+	/// The turf that we are linked to below
+	var/tmp/turf/below = null
+	/// The turf that we are linked to above
+	var/tmp/turf/above = null
+
 	// baseturfs can be either a list or a single turf type.
 	// In class definition like here it should always be a single type.
 	// A list will be created in initialization that figures out the baseturf's baseturf etc.
@@ -72,6 +77,13 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
 		return FALSE
+	switch (var_name)
+		if ("above")
+			set_above(new_value, TRUE)
+			return TRUE
+		if ("below")
+			set_below(new_value, TRUE)
+			return TRUE
 	. = ..()
 
 /turf/Initialize(mapload)
