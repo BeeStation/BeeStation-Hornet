@@ -73,7 +73,7 @@
 
 /datum/emote/living/collapse/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user))
+	if(. && isliving(user) && intentional)
 		var/mob/living/L = user
 		L.Unconscious(40)
 
@@ -121,7 +121,7 @@
 
 /datum/emote/living/faint/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user))
+	if(. && isliving(user) && intentional)
 		var/mob/living/L = user
 		L.SetSleeping(200)
 
@@ -243,7 +243,7 @@
 
 /datum/emote/living/point/run_emote(mob/user, params, type_override, intentional)
 	message_param = initial(message_param) // reset
-	if(ishuman(user))
+	if(ishuman(user) && intentional)
 		var/mob/living/carbon/human/H = user
 		if(H.get_num_arms() == 0)
 			if(H.get_num_legs() != 0)
@@ -338,7 +338,7 @@
 
 /datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user))
+	if(. && isliving(user) && intentional)
 		var/mob/living/L = user
 		L.Paralyze(200)
 
@@ -471,12 +471,13 @@
 
 /datum/emote/living/circle/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/obj/item/circlegame/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You make a circle with your hand.</span>")
-	else
-		qdel(N)
-		to_chat(user, "<span class='warning'>You don't have any free hands to make a circle with.</span>")
+	if(intentional)
+		var/obj/item/circlegame/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You make a circle with your hand.</span>")
+		else
+			qdel(N)
+			to_chat(user, "<span class='warning'>You don't have any free hands to make a circle with.</span>")
 
 /datum/emote/living/slap
 	key = "slap"
@@ -487,11 +488,12 @@
 	. = ..()
 	if(!.)
 		return
-	var/obj/item/slapper/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
-	else
-		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
+	if(intentional)
+		var/obj/item/slapper/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
+		else
+			to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
 
 /datum/emote/living/raisehand
 	key = "highfive"
@@ -499,14 +501,15 @@
 	message = "raises their hand"
 	restraint_check = TRUE
 
-/datum/emote/living/raisehand/run_emote(mob/user, params)
+/datum/emote/living/raisehand/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/obj/item/highfive/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You raise your hand for a high-five.</span>")
-	else
-		qdel(N)
-		to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
+	if(intentional)
+		var/obj/item/highfive/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You raise your hand for a high-five.</span>")
+		else
+			qdel(N)
+			to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
 
 /datum/emote/living/fingergun
 	key = "fingergun"
@@ -514,14 +517,15 @@
 	message = "forms their fingers into the shape of a crude gun"
 	restraint_check = TRUE
 
-/datum/emote/living/fingergun/run_emote(mob/user, params)
+/datum/emote/living/fingergun/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/obj/item/gun/ballistic/revolver/mime/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You form your fingers into a gun.</span>")
-	else
-		qdel(N)
-		to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
+	if(intentional)
+		var/obj/item/gun/ballistic/revolver/mime/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You form your fingers into a gun.</span>")
+		else
+			qdel(N)
+			to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
 
 /datum/emote/living/click
 	key = "click"
