@@ -28,7 +28,7 @@
 /area/template_noop)
 "j" = (
 /obj/item/trash/plate,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "l" = (
 /obj/effect/landmark/event_spawn,
@@ -36,7 +36,7 @@
 /area/template_noop)
 "m" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "q" = (
 /obj/structure/chair/office{
@@ -91,7 +91,7 @@
 /area/template_noop)
 "B" = (
 /obj/machinery/modular_computer/console/preset/civilian,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "C" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -109,7 +109,7 @@
 	pixel_x = -9;
 	pixel_y = 6
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "F" = (
 /obj/structure/window/reinforced/spawner,
@@ -168,7 +168,7 @@
 	pixel_x = -10;
 	pixel_y = 2
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "T" = (
 /obj/structure/grille/broken,
@@ -181,7 +181,7 @@
 "W" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/spawner/lootdrop/gambling,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "X" = (
 /obj/structure/toilet{
@@ -190,7 +190,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Z" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"
