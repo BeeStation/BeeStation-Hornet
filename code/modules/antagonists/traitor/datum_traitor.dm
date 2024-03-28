@@ -207,12 +207,14 @@
 	result += printplayer(owner)
 
 	var/TC_uses = 0
+	var/effective_tc = 0
 	var/uplink_true = FALSE
 	var/purchases = ""
 	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
 	var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[owner.key]
 	if(H)
 		TC_uses = H.total_spent
+		effective_tc = H.effective_amount
 		uplink_true = TRUE
 		purchases += H.generate_render(FALSE)
 
@@ -226,7 +228,8 @@
 			count++
 
 	if(uplink_true)
-		var/uplink_text = "(used [TC_uses] TC) [purchases]"
+		var/effective_message = TC_uses < effective_tc ? " / effectively worth [effective_tc] TC" : ""
+		var/uplink_text = "(used [TC_uses] TC[effective_message]) [purchases]"
 		if(TC_uses==0 && traitorwin)
 			var/static/icon/badass = icon('icons/badass.dmi', "badass")
 			uplink_text += "<BIG>[icon2html(badass, world)]</BIG>"

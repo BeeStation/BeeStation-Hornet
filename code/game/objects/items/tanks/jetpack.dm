@@ -87,7 +87,7 @@
 	known_user = null
 
 /obj/item/tank/jetpack/proc/on_user_loss()
-	known_user.remove_movespeed_modifier(MOVESPEED_ID_JETPACK)
+	known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 	UnregisterSignal(known_user, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(known_user, COMSIG_PARENT_QDELETING)
 
@@ -110,7 +110,7 @@
 	if(ion_trail)
 		ion_trail.stop()
 
-	known_user.remove_movespeed_modifier(MOVESPEED_ID_JETPACK)
+	known_user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
 /obj/item/tank/jetpack/proc/move_react(mob/user)
 	SIGNAL_HANDLER
