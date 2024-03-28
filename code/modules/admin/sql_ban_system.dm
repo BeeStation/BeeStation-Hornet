@@ -192,7 +192,6 @@
 	else
 		suppressor = FALSE
 	var/datum/banning_panel/ui = new(usr)
-	ui.key_enabled = !isnull(player_key)
 	ui.key = player_key
 	ui.ip = player_ip
 	ui.cid = player_cid
@@ -207,7 +206,7 @@
 
 
 /datum/banning_panel
-	var/key_enabled
+	var/key_enabled = TRUE
 	var/key
 	var/ip_enabled = FALSE
 	var/ip
@@ -395,6 +394,16 @@
 		duration = null
 	if(!cid_check)
 		player_cid = null
+	if(!ip_check)
+		player_ip = null
+	if(!key_check)
+		player_key = null
+	if(cid_check && !findtext(player_cid, GLOB.is_all_numbers))
+		if(tgui_alert(usr, "CID [player_cid] is not a valid CID, are you sure you want to issue the ban?", "Invalid CID", list("Yes", "No")) != "Yes")
+			return
+	if(ip_check && !findtext(player_ip, GLOB.is_ip_address))
+		if(tgui_alert(usr, "IP [player_ip] is not a valid IP, are you sure you want to issue the ban?", "Invalid IP", list("Yes", "No")) != "Yes")
+			return
 	var/mob/user = usr
 	if(!istype(user) || !user.client || !user.client.holder)
 		return
