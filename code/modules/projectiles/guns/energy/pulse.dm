@@ -37,9 +37,13 @@
 	icon_state = "pulse_carbine"
 	item_state = null
 	cell_type = "/obj/item/stock_parts/cell/pulse/carbine"
-	can_flashlight = TRUE
-	flight_x_offset = 18
-	flight_y_offset = 12
+
+/obj/item/gun/energy/pulse/carbine/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 18, \
+		overlay_y = 12)
 
 /obj/item/gun/energy/pulse/carbine/loyalpin
 	pin = /obj/item/firing_pin/implant/mindshield
@@ -52,9 +56,10 @@
 	icon_state = "pulse_carbine"
 	item_state = null
 	cell_type = "/obj/item/stock_parts/cell/pulse/carbine"
-	can_flashlight = TRUE
-	flight_x_offset = 18
-	flight_y_offset = 12
+
+//Handling seclights would be weird/why would borgs need seclights.
+/obj/item/gun/energy/pulse/carbine/cyborg/add_seclight_point()
+	return
 
 
 /obj/item/gun/energy/pulse/pistol

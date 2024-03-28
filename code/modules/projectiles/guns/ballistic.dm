@@ -515,7 +515,8 @@
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
 		if (bayonet)
 			bayonet.forceMove(drop_location())
-			clear_bayonet()
+			bayonet = null
+			update_appearance()
 		if (suppressed)
 			if (istype(suppressed, /obj/item/suppressor))
 				//weight class is set later, don't need to worry about removing extra weight from the suppressor

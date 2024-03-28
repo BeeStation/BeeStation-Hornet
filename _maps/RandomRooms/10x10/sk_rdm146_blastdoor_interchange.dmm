@@ -201,7 +201,7 @@
 "wg" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/armor/vest/alt,
-/obj/item/clothing/head/helmet/justice/escape,
+/obj/item/clothing/head/helmet/toggleable/justice/escape,
 /turf/open/floor/plating,
 /area/template_noop)
 "wy" = (

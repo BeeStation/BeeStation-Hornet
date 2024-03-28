@@ -44,7 +44,7 @@
 	if(prob(40))
 		head = /obj/item/clothing/head/helmet/alt
 	else if(prob(20))
-		head = /obj/item/clothing/head/helmet/riot
+		head = /obj/item/clothing/head/helmet/toggleable/riot
 	if(prob(50))
 		suit = /obj/item/clothing/suit/armor/bulletproof
 

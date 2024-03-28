@@ -295,7 +295,7 @@
 /area/ruin/space/has_grav/turretedoutpost)
 "NF" = (
 /obj/structure/rack,
-/obj/item/clothing/head/helmet/riot,
+/obj/item/clothing/head/helmet/toggleable/riot,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},

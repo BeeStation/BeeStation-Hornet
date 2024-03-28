@@ -6,12 +6,16 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	modifystate = 1
-	can_flashlight = TRUE
 	ammo_x_offset = 3
-	flight_x_offset = 15
-	flight_y_offset = 10
 	weapon_weight = WEAPON_MEDIUM
 	dual_wield_spread = 60
+
+/obj/item/gun/energy/e_gun/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 15, \
+		overlay_y = 10)
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
@@ -22,8 +26,17 @@
 	gun_charge = 600
 	ammo_x_offset = 2
 	charge_sections = 3
-	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
 	weapon_weight = WEAPON_LIGHT
+
+/obj/item/gun/energy/e_gun/mini/add_seclight_point()
+	// The mini energy gun's light comes attached but is unremovable.
+	AddComponent(/datum/component/seclite_attachable, \
+		starting_light = new /obj/item/flashlight/seclite(src), \
+		is_light_removable = FALSE, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "mini-light", \
+		overlay_x = 19, \
+		overlay_y = 13)
 
 /obj/item/gun/energy/e_gun/mini/heads
 	name = "Personal Tiny Self Defense Gun"
@@ -36,12 +49,6 @@
 	item_state = "gun"
 	ammo_x_offset = 2
 	charge_sections = 2
-	flight_x_offset = 13
-	flight_y_offset = 12
-
-/obj/item/gun/energy/e_gun/mini/Initialize(mapload)
-	set_gun_light(new /obj/item/flashlight/seclite(src))
-	return ..()
 
 /obj/item/gun/energy/e_gun/stun
 	name = "tactical energy gun"
@@ -86,10 +93,12 @@
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/net, /obj/item/ammo_casing/energy/trap)
-	can_flashlight = FALSE
 	ammo_x_offset = 1
 	fire_rate = 1.5
 	w_class = WEIGHT_CLASS_LARGE
+
+/obj/item/gun/energy/e_gun/dragnet/add_seclight_point()
+	return
 
 /obj/item/gun/energy/e_gun/dragnet/snare
 	name = "Energy Snare Launcher"
@@ -106,11 +115,13 @@
 	gun_charge = 10000
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
-	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 	automatic = 1
 	fire_rate = 5
+
+/obj/item/gun/energy/e_gun/turret/add_seclight_point()
+	return
 
 /obj/item/gun/energy/e_gun/nuclear
 	name = "advanced energy gun"

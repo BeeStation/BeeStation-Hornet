@@ -80,7 +80,7 @@
 /obj/effect/loot_jobscale/armoury/riot_helmet
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "riot"
-	loot = list(/obj/item/clothing/head/helmet/riot)
+	loot = list(/obj/item/clothing/head/helmet/toggleable/riot)
 	fan_out_items = TRUE
 	minimum = 1
 	linear_scaling_rate = 0.4

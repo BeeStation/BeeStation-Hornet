@@ -505,7 +505,7 @@
 	cost = 5700 //justice comes at a price. An expensive, noisy price.
 	max_supply = 3
 	contraband = TRUE
-	contains = list(/obj/item/clothing/head/helmet/justice,
+	contains = list(/obj/item/clothing/head/helmet/toggleable/justice,
 					/obj/item/clothing/mask/gas/sechailer)
 	crate_name = "security clothing crate"
 
@@ -717,7 +717,7 @@
 					/obj/item/survivalcapsule/barricade)
 	cost = 2000
 	crate_name = "security barriers crate XL"
-	
+
 /datum/supply_pack/security/armory/capsule_checkpoints
 	name = "Security Checkpoint capsules"
 	desc = "A 3x3 checkpoint designed for allowing safely searching passing personnel. Requires Security access to open."
@@ -765,9 +765,9 @@
 	contains = list(/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/suit/armor/riot,
-					/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/head/helmet/riot)
+					/obj/item/clothing/head/helmet/toggleable/riot,
+					/obj/item/clothing/head/helmet/toggleable/riot,
+					/obj/item/clothing/head/helmet/toggleable/riot)
 	crate_name = "riot armor crate"
 
 /datum/supply_pack/security/armory/riotshields
