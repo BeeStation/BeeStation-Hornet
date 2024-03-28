@@ -497,6 +497,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 	item_flags = ILLEGAL	//Syndicate only and difficult to obtain outside of uplink anyway. Nukie hardsuits on the ship are illegal.
+	slowdown = 0.5
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet,
 		/datum/action/item_action/toggle_beacon,
@@ -527,7 +528,7 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/activate_space_mode()
 	name = initial(name)
 	desc = initial(desc)
-	slowdown = 1
+	slowdown = 0.5
 	clothing_flags |= STOPSPRESSUREDAMAGE
 	cold_protection |= CHEST | GROIN | LEGS | FEET | ARMS | HANDS
 	if(ishuman(loc))
@@ -559,6 +560,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
 /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	name = "elite syndicate hardsuit"
 	desc = "An elite version of the syndicate hardsuit, with improved armour and fireproofing. It is in travel mode."
