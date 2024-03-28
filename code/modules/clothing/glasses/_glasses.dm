@@ -43,7 +43,7 @@
 	. = ..()
 	// If we have an emissive state, add it to the worn icon too
 	if (!isinhands && emissive_state)
-		. += emissive_appearance(icon_file, emissive_state, item_layer, 100)
+		. += emissive_appearance(icon_file, emissive_state, item_layer, 100, filters = origin.filters)
 		ADD_LUM_SOURCE(origin, LUM_SOURCE_GLASSES)
 
 /obj/item/clothing/glasses/visor_toggling()
