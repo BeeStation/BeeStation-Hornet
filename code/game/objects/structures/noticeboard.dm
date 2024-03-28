@@ -5,6 +5,9 @@
 	desc = "A board for pinning important notices upon."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nboard00"
+	custom_materials = list(
+		/datum/material/wood = MINERAL_MATERIAL_AMOUNT,
+	)
 	layer = ABOVE_WINDOW_LAYER
 	density = FALSE
 	anchored = TRUE
