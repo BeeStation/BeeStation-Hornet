@@ -133,13 +133,6 @@
 /mob/living/simple_animal/hostile/retaliate/clown/banana,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
-"sT" = (
-/obj/structure/statue/bananium/clown,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/open/floor/mineral/bananium,
-/area/shuttle/escape)
 "tN" = (
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
@@ -262,6 +255,9 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/closed/wall/mineral/bananium,
 /area/shuttle/escape)
 "Fq" = (
@@ -359,9 +355,6 @@
 	dir = 4
 	},
 /obj/item/grown/bananapeel,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "PX" = (
@@ -473,13 +466,13 @@ SS
 (3,1,1) = {"
 Qk
 Qk
-sT
+Hj
 Pl
 Pl
 Pl
 Pl
 Pl
-sT
+Hj
 Qk
 Qk
 "}

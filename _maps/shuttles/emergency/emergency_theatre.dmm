@@ -72,7 +72,6 @@
 /area/shuttle/escape)
 "gk" = (
 /obj/structure/closet/crate/internals,
-/obj/structure/window/reinforced,
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "hG" = (
@@ -89,28 +88,17 @@
 /obj/item/clothing/glasses/monocle,
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
-"iA" = (
-/obj/structure/window/reinforced,
-/turf/open/floor/carpet/cyan,
-/area/shuttle/escape)
 "jl" = (
 /obj/machinery/vending/autodrobe/all_access,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "kg" = (
 /obj/machinery/recharge_station,
-/obj/structure/window/reinforced,
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "kz" = (
 /obj/machinery/vending/clothing,
 /turf/open/floor/wood,
-/area/shuttle/escape)
-"lo" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "lt" = (
 /obj/machinery/door/airlock/gold,
@@ -143,6 +131,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "oJ" = (
@@ -154,7 +145,6 @@
 "pr" = (
 /obj/structure/bed/roller,
 /obj/machinery/iv_drip,
-/obj/structure/window/reinforced,
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
 "qn" = (
@@ -188,7 +178,6 @@
 /obj/machinery/computer/operating{
 	dir = 8
 	},
-/obj/structure/window/reinforced,
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
 "wn" = (
@@ -240,7 +229,6 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/structure/window/reinforced,
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
 "Bb" = (
@@ -302,7 +290,6 @@
 /area/shuttle/escape)
 "Hk" = (
 /obj/machinery/shieldgen,
-/obj/structure/window/reinforced,
 /turf/open/floor/carpet/black,
 /area/shuttle/escape)
 "HN" = (
@@ -312,7 +299,6 @@
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/structure/window/reinforced,
 /turf/open/floor/carpet/cyan,
 /area/shuttle/escape)
 "HP" = (
@@ -706,7 +692,7 @@ DN
 xm
 xm
 DN
-lo
+zb
 Yv
 "}
 (7,1,1) = {"
@@ -831,7 +817,7 @@ Gh
 xm
 XP
 PH
-iA
+PH
 oH
 Rv
 "}
@@ -975,9 +961,9 @@ xm
 xm
 xm
 xm
+xm
 DN
-DN
-DN
+xm
 DN
 fI
 fI
