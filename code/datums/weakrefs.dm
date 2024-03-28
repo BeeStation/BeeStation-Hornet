@@ -85,19 +85,19 @@
 	var/datum/D = locate(reference)
 	return (!QDELETED(D) && D.weak_reference == src) ? D : null
 
-
-// QoL stuff
 /datum/weakref/vv_get_dropdown()
-	. = list()
-	VV_DROPDOWN_OPTION(VV_HK_TRACK_REF, "View the original reference")
-	. += ..()
+	. = ..()
+	VV_DROPDOWN_OPTION(VV_HK_WEAKREF_RESOLVE, "Go to reference")
 
 /datum/weakref/vv_do_topic(list/href_list)
 	. = ..()
 
-	if(href_list[VV_HK_TRACK_REF])
-		var/datum/original = resolve()
-		if(!original)
-			to_chat(usr, "<span class='warning'>Failed to resolve. It might be qdeleted already.</span>")
+	if(!.)
+		return
+
+	if(href_list[VV_HK_WEAKREF_RESOLVE])
+		if(!check_rights(NONE))
 			return
-		usr.client.debug_variables(original)
+		var/datum/R = resolve()
+		if(R)
+			usr.client.debug_variables(R)

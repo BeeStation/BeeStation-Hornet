@@ -13,6 +13,14 @@
  * Misc
  */
 
+// Generic listoflist safe add and removal macros:
+///If value is a list, wrap it in a list so it can be used with list add/remove operations
+#define LIST_VALUE_WRAP_LISTS(value) (islist(value) ? list(value) : value)
+///Add an untyped item to a list, taking care to handle list items by wrapping them in a list to remove the footgun
+#define UNTYPED_LIST_ADD(list, item) (list += LIST_VALUE_WRAP_LISTS(item))
+///Remove an untyped item to a list, taking care to handle list items by wrapping them in a list to remove the footgun
+#define UNTYPED_LIST_REMOVE(list, item) (list -= LIST_VALUE_WRAP_LISTS(item))
+
 ///Initialize the lazylist
 #define LAZYINITLIST(L) if (!L) { L = list(); }
 ///If the provided list is empty, set it to null
@@ -282,7 +290,7 @@
 	if(skiprep)
 		for(var/e in first)
 			if(!(e in result) && !(e in second))
-				result += e
+				UNTYPED_LIST_ADD(result, e)
 	else
 		result = first - second
 	return result
@@ -360,7 +368,7 @@
 		if(!value)
 			continue
 		for(var/i in 1 to value / gcf)
-			output += item
+			UNTYPED_LIST_ADD(output, item)
 	return output
 
 /// Takes a list of numbers as input, returns the highest value that is cleanly divides them all
@@ -446,7 +454,7 @@
 /proc/unique_list(list/inserted_list)
 	. = list()
 	for(var/i in inserted_list)
-		. |= i
+		. |= LIST_VALUE_WRAP_LISTS(i)
 
 // Return a list with no duplicate entries inplace
 /proc/unique_list_in_place(list/inserted_list)
@@ -628,12 +636,6 @@
 		if(checked_datum.vars[varname] == value)
 			return checked_datum
 
-/// remove all nulls from a list
-/proc/remove_nulls_from_list(list/inserted_list)
-	while(inserted_list.Remove(null))
-		continue
-	return inserted_list
-
 ///Copies a list, and all lists inside it recusively
 ///Does not copy any other reference type
 /proc/deep_copy_list(list/inserted_list)
@@ -690,7 +692,7 @@
 		return null
 	. = list()
 	for(var/key in key_list)
-		. |= key_list[key]
+		. |= LIST_VALUE_WRAP_LISTS(key_list[key])
 
 /proc/make_associative(list/flat_list)
 	. = list()
@@ -733,7 +735,7 @@
 /proc/assoc_to_keys(list/input)
 	var/list/keys = list()
 	for(var/key in input)
-		keys += key
+		UNTYPED_LIST_ADD(keys, key)
 	return keys
 
 /// Checks if a value is contained in an associative list's values
@@ -780,7 +782,7 @@
 	. = list()
 	for(var/i in L)
 		if(condition.Invoke(i))
-			. |= i
+			. |= LIST_VALUE_WRAP_LISTS(i)
 
 /// Runtimes if the passed in list is not sorted
 /proc/assert_sorted(list/list, name, cmp = /proc/cmp_numeric_asc)
