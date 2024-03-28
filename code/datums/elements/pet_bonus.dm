@@ -10,18 +10,15 @@
 
 	///optional cute message to send when you pet your pet!
 	var/emote_message
-	///actual moodlet given, defaults to the pet animal one
-	var/moodlet
 	///optional sound to play when your pet emotes
 	var/emote_sound
 
-/datum/element/pet_bonus/Attach(datum/target, emote_message, moodlet = /datum/mood_event/pet_animal, emote_sound = null)
+/datum/element/pet_bonus/Attach(datum/target, emote_message, emote_sound = null)
 	. = ..()
 	if(!isliving(target))
 		return ELEMENT_INCOMPATIBLE
 
 	src.emote_message = emote_message
-	src.moodlet = moodlet
 	src.emote_sound = emote_sound
 	RegisterSignal(target, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
 
@@ -40,4 +37,4 @@
 		pet.manual_emote(emote_message)
 		if(emote_sound)
 			playsound(get_turf(pet), emote_sound, 50, TRUE)
-	SEND_SIGNAL(petter, COMSIG_ADD_MOOD_EVENT, pet, moodlet, pet)
+	SEND_SIGNAL(petter, COMSIG_ADD_MOOD_EVENT, pet, pet)

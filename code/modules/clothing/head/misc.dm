@@ -430,18 +430,6 @@
 	dynamic_hair_suffix = ""
 	attack_verb = list("crowned")
 
-/obj/item/clothing/head/flowercrown/equipped(mob/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_crown_worn", /datum/mood_event/flower_crown_worn, src)
-
-/obj/item/clothing/head/flowercrown/dropped(mob/living/carbon/user)
-	..()
-	if(user.head != src)
-		return
-	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_crown_worn")
-
 /obj/item/clothing/head/flowercrown/rainbowbunch
 	name = "rainbow flower crown"
 	desc = "A flower crown made out of the flowers of the rainbow bunch plant."

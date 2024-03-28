@@ -17,17 +17,6 @@
 	food_reagents = null //get the unit test off our back
 	foodtypes = VEGETABLES | GROSS
 
-/obj/item/food/grown/flower/equipped(mob/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
-
-/obj/item/food/grown/flower/dropped(mob/living/carbon/user)
-	..()
-	if(user.head != src)
-		return
-	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
 
 // Poppy
 /obj/item/seeds/flower/poppy
@@ -204,18 +193,6 @@
 	throw_speed = 1
 	throw_range = 3
 
-/obj/item/grown/sunflower/equipped(mob/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
-
-/obj/item/grown/sunflower/dropped(mob/living/carbon/user)
-	..()
-	if(user.head != src)
-		return
-	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
-
 
 /obj/item/grown/sunflower/attack(mob/M, mob/user)
 	to_chat(M, "<font color='green'><b> [user] smacks you with a sunflower! </font><font color='yellow'><b>FLOWER POWER<b></font>")
@@ -308,15 +285,3 @@
 	if(!user.gloves)
 		to_chat(user, "<span class='danger'>The [name] burns your bare hand!</span>")
 		user.adjustFireLoss(rand(1, 5))
-
-/obj/item/grown/novaflower/equipped(mob/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
-
-/obj/item/grown/novaflower/dropped(mob/living/carbon/user)
-	..()
-	if(user.head != src)
-		return
-	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
