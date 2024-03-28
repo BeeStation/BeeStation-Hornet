@@ -243,6 +243,7 @@
 
 	var/icon/icon_bundle = GenerateBundle(color_string, last_external_icon=last_external_icon)
 	icon_bundle = fcopy_rsc(icon_bundle)
+
 	icon_cache[key] = icon_bundle
 	var/icon/output = icon(icon_bundle)
 	return output
