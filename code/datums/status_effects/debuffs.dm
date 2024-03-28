@@ -583,10 +583,7 @@
 
 /obj/effect/temp_visual/curse
 	icon_state = "curse"
-
-/obj/effect/temp_visual/curse/Initialize(mapload)
-	. = ..()
-	deltimer(timerid)
+	duration = 0
 
 /datum/status_effect/gonbolaPacify
 	id = "gonbolaPacify"

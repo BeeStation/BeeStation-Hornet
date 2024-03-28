@@ -367,9 +367,9 @@ SUBSYSTEM_DEF(zcopy)
 			var/atom/movable/openspace/mimic/OO = object.bound_overlay
 
 			// If the OO was queued for destruction but was claimed by another OT, stop the destruction timer.
-			if (OO.destruction_timer)
-				deltimer(OO.destruction_timer)
-				OO.destruction_timer = null
+			if (OO.has_qdel_timer)
+				QDEL_TIMER_CANCEL(OO, OO.has_qdel_timer)
+				OO.has_qdel_timer = null
 
 			OO.depth = override_depth || min(zlev_maximums[T.z] - original_z, ZMIMIC_MAX_DEPTH)
 
