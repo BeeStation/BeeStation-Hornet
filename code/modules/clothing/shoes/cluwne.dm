@@ -11,9 +11,12 @@
 
 /obj/item/clothing/shoes/cluwne/Initialize(mapload)
 	.=..()
+	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
-/obj/item/clothing/shoes/cluwne/step_action()
+/obj/item/clothing/shoes/cluwne/proc/on_step()
+	SIGNAL_HANDLER
+
 	if(footstep > 1)
 		playsound(src, "clownstep", 50, 1)
 		footstep = 0
