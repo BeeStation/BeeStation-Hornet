@@ -22,6 +22,7 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CHAPLAIN
+	job_tone = "holy"
 	rpg_title = "Paladin"
 
 	species_outfits = list(
