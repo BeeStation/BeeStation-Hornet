@@ -123,6 +123,8 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		do_sparks(zap, TRUE, user)
 		to_chat(user, "<span class='userdanger'>WARNING: WATER DAMAGE DETECTED!</span>")
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "robotpool", /datum/mood_event/robotpool)
+	if(iscatperson(user)) //felinids should not get positive moodlets for swimming. Negative moodlets are in swimming_felinid.dm
+		return
 	else
 		if(!check_clothes(user))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "pool", /datum/mood_event/poolparty)

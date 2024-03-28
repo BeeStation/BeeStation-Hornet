@@ -314,14 +314,14 @@
 
 	if(ismob(AM))
 		var/mob/M = AM
-
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
 			var/mob/living/L = M
 			if (L.getorgan(/obj/item/organ/tail) && (is_zone_selected(BODY_ZONE_PRECISE_GROIN, precise_only = TRUE) || is_group_selected(BODY_GROUP_LEGS))) //Does the target have a tail?
 				M.visible_message("<span class ='warning'>[src] grabs [L] by [L.p_their()] tail!</span>",\
-								"<span class='warning'> [src] grabs you by the tail!</span>", null, null, src) //Message sent to area, Message sent to grabbee
+					"<span class='warning'> [src] grabs you by the tail! Ow!</span>",null, null, src) //Message sent to area, Message sent to grabee
 				to_chat(src, "<span class='notice'>You grab [L] by [L.p_their()] tail!</span>")  //Message sent to grabber
+				SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "tailpull", /datum/mood_event/tailpull)  //People dont enjoy their tail being pulled
 			else
 				M.visible_message("<span class='warning'>[src] grabs [M] [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by their hands":"passively"]!</span>", \
 								"<span class='warning'>[src] grabs you [(is_zone_selected(BODY_ZONE_L_ARM) || is_zone_selected(BODY_ZONE_R_ARM))? "by your hands":"passively"]!</span>", null, null, src) //Message sent to area, Message sent to grabbee
