@@ -146,8 +146,13 @@
 	if(A == chambered)
 		chambered = null
 		update_appearance(UPDATE_ICON)
-	if(A == bayonet)
-		clear_bayonet()
+	return ..()
+
+/obj/item/gun/Exited(atom/movable/gone, direction)
+	if(gone == bayonet)
+		bayonet = null
+		if(!QDELING(src))
+			update_appearance()
 	return ..()
 
 /obj/item/gun/examine(mob/user)
@@ -514,6 +519,7 @@
 /obj/item/gun/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
 	else if(istype(I, /obj/item/knife))
 		var/obj/item/knife/K = I
 		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
@@ -521,7 +527,8 @@
 		if(!user.transferItemToLoc(I, src))
 			return
 		balloon_alert(user, "You attach [K] to [src].")
-		update_icon()
+		bayonet = K
+		update_appearance()
 	else
 		return ..()
 
@@ -533,7 +540,13 @@
 		return
 
 	if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
-		return remove_bayonet(user, I)
+		I.play_tool_sound(src)
+		balloon_alert(user, "You unfix [bayonet] from [src].")
+		bayonet.forceMove(drop_location())
+
+		if(Adjacent(user) && !issilicon(user))
+			user.put_in_hands(bayonet)
+		return TOOL_ACT_TOOLTYPE_SUCCESS
 
 	else if(pin && user.is_holding(src))
 		user.visible_message("<span class='warning'>[user] attempts to remove [pin] from [src] with [I].</span>",
@@ -544,7 +557,7 @@
 			user.visible_message("<span class='notice'>[pin] was pried out of [src] by [user], destroying the pin in the process.</span>",
 								"<span class='warning'>You pried [pin] out with [I], destroying the pin in the process.</span>", null, 3)
 			QDEL_NULL(pin)
-			return TRUE
+			return TOOL_ACT_TOOLTYPE_SUCCESS
 
 
 /obj/item/gun/welder_act(mob/living/user, obj/item/I)
@@ -580,24 +593,6 @@
 								"<span class='warning'>You ripped [pin] out of [src] with [I], mangling the pin in the process.</span>", null, 3)
 			QDEL_NULL(pin)
 			return TRUE
-
-/obj/item/gun/proc/remove_bayonet(mob/living/user, obj/item/tool_item)
-	tool_item?.play_tool_sound(src)
-	balloon_alert(user, "You unfix [bayonet] from [src].")
-	bayonet.forceMove(drop_location())
-
-
-	if(Adjacent(user) && !issilicon(user))
-		user.put_in_hands(bayonet)
-
-	return clear_bayonet()
-
-/obj/item/gun/proc/clear_bayonet()
-	if(!bayonet)
-		return
-	bayonet = null
-	update_icon()
-	return TRUE
 
 /obj/item/gun/pickup(mob/user)
 	..()
