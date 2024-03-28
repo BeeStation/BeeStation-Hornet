@@ -76,7 +76,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list(/obj/item/food/donut))
+	STR.set_holdable(list(/obj/item/food/donut))
 
 /*
  * Egg Box
@@ -97,7 +97,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 12
-	STR.can_hold = typecacheof(list(/obj/item/food/egg))
+	STR.set_holdable(list(/obj/item/food/egg))
 
 /*
  * Candle Box
@@ -119,7 +119,12 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
-	STR.can_hold = typecacheof(list(/obj/item/candle, /obj/item/lighter, /obj/item/storage/box/matches))
+	STR.set_holdable(list(
+		/obj/item/candle,
+		/obj/item/lighter,
+		/obj/item/storage/box/matches
+		)
+	)
 
 /obj/item/storage/fancy/candle_box/attack_self(mob_user)
 	return
@@ -143,7 +148,11 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list(/obj/item/clothing/mask/cigarette, /obj/item/lighter))
+	STR.set_holdable(list(
+		/obj/item/clothing/mask/cigarette,
+		/obj/item/lighter
+		)
+	)
 
 /obj/item/storage/fancy/cigarettes/examine(mob/user)
 	. = ..()
@@ -297,7 +306,10 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 10
-	STR.can_hold = typecacheof(list(/obj/item/rollingpaper))
+	STR.set_holdable(list(
+		/obj/item/rollingpaper
+		)
+	)
 
 /obj/item/storage/fancy/rollingpapers/update_overlays()
 	. = ..()
@@ -321,7 +333,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
-	STR.can_hold = typecacheof(list(/obj/item/clothing/mask/cigarette/cigar))
+	STR.set_holdable(list(/obj/item/clothing/mask/cigarette/cigar))
 
 /obj/item/storage/fancy/cigarettes/cigars/update_icon()
 	if(fancy_open)
@@ -369,7 +381,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 8
-	STR.can_hold = typecacheof(list(/obj/item/food/bonbon))
+	STR.set_holdable(list(/obj/item/food/bonbon))
 
 
 /obj/item/storage/fancy/nugget_box
@@ -384,4 +396,4 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.can_hold = typecacheof(list(/obj/item/food/nugget))
+	STR.set_holdable(list(/obj/item/food/nugget))
