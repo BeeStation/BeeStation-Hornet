@@ -15,6 +15,7 @@
 /datum/antagonist/heretic_monster/on_gain()
 	. = ..()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', vol = 100, vary = FALSE, channel = CHANNEL_ANTAG_GREETING, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
+	GLOB.cimg_controller.validate_mind(ROLE_HERETIC, owner)
 
 /datum/antagonist/heretic_monster/on_removal()
 	if(!silent)
@@ -24,6 +25,7 @@
 			to_chat(owner.current, "<span class='deconversion_message'>Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!</span>")
 			owner.current.visible_message("[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!", ignored_mobs = owner.current)
 
+	GLOB.cimg_controller.disqualify_mind(ROLE_HERETIC, owner)
 	master = null
 	return ..()
 

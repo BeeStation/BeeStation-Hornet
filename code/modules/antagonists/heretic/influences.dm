@@ -30,36 +30,6 @@
 	return ..()
 
 /**
- * Automatically fixes the target and smash network
- *
- * Fixes any bugs that are caused by late Generate() or exchanging clients
- */
-/datum/reality_smash_tracker/proc/rework_network()
-	SIGNAL_HANDLER
-
-	for(var/mind in tracked_heretics)
-		if(isnull(mind))
-			stack_trace("A null somehow landed in the [type] list of minds. How?")
-			tracked_heretics -= mind
-			continue
-
-		add_to_smashes(mind)
-
-/**
- * Allow [to_add] to see all tracked reality smashes.
- */
-/datum/reality_smash_tracker/proc/add_to_smashes(datum/mind/to_add)
-	for(var/obj/effect/heretic_influence/reality_smash as anything in smashes)
-		reality_smash.add_mind(to_add)
-
-/**
- * Stop [to_remove] from seeing any tracked reality smashes.
- */
-/datum/reality_smash_tracker/proc/remove_from_smashes(datum/mind/to_remove)
-	for(var/obj/effect/heretic_influence/reality_smash as anything in smashes)
-		reality_smash.remove_mind(to_remove)
-
-/**
  * Generates a set amount of reality smashes
  * based on the number of already existing smashes
  * and the number of minds we're tracking.
@@ -87,8 +57,6 @@
 
 		new /obj/effect/heretic_influence(chosen_location)
 
-	rework_network()
-
 /**
  * Adds a mind to the list of people that can see the reality smashes
  *
@@ -101,9 +69,6 @@
 	if(ishuman(heretic.current) && !is_centcom_level(heretic.current.z))
 		generate_new_influences()
 
-	add_to_smashes(heretic)
-
-
 /**
  * Removes a mind from the list of people that can see the reality smashes
  *
@@ -111,8 +76,6 @@
  */
 /datum/reality_smash_tracker/proc/remove_tracked_mind(datum/mind/heretic)
 	tracked_heretics -= heretic
-
-	remove_from_smashes(heretic)
 
 /obj/effect/visible_heretic_influence
 	name = "pierced reality"
@@ -210,23 +173,20 @@
 	var/being_drained = FALSE
 	/// The icon state applied to the image created for this influence.
 	var/real_icon_state = "reality_smash"
-	/// A list of all minds that can see us.
-	var/list/datum/mind/minds = list()
 	/// The image shown to heretics
 	var/image/heretic_image
 
 /obj/effect/heretic_influence/Initialize(mapload)
 	. = ..()
-	GLOB.reality_smash_track.smashes += src
 	heretic_image = image(icon, src, real_icon_state, OBJ_LAYER)
+	GLOB.reality_smash_track.smashes += src
+	GLOB.cimg_controller.stack_client_images(ROLE_HERETIC, heretic_image)
 	generate_name()
 	SSvis_overlays.add_obj_alpha(src, 'icons/effects/heretic.dmi', "pierced_illusion")
 
 /obj/effect/heretic_influence/Destroy()
 	GLOB.reality_smash_track.smashes -= src
-	for(var/datum/mind/heretic in minds)
-		remove_mind(heretic)
-
+	GLOB.cimg_controller.cut_client_images(ROLE_HERETIC, heretic_image)
 	heretic_image = null
 	return ..()
 
@@ -308,25 +268,6 @@
 		return
 
 	examine_list += "<span class='warning'>[source]'s hand seems to be glowing a ["<span class='hypnophrase'>strange purple</span>"]...</span>"
-
-/*
- * Add a mind to the list of tracked minds,
- * making another person able to see us.
- */
-/obj/effect/heretic_influence/proc/add_mind(datum/mind/heretic)
-	minds |= heretic
-	heretic.current?.client?.images |= heretic_image
-
-/*
- * Remove a mind present in our list
- * from being able to see us.
- */
-/obj/effect/heretic_influence/proc/remove_mind(datum/mind/heretic)
-	if(!(heretic in minds))
-		CRASH("[type] - remove_mind called with a mind not present in the minds list!")
-
-	minds -= heretic
-	heretic.current?.client?.images -= heretic_image
 
 /*
  * Generates a random name for the influence.

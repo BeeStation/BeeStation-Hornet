@@ -356,7 +356,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		qdel(L)
 
 /turf/proc/Bless()
-	new /obj/effect/blessing(src)
+	if(!(locate(/obj/effect/blessing) in src))
+		new /obj/effect/blessing(src)
 
 /turf/storage_contents_dump_act(datum/component/storage/src_object, mob/user)
 	. = ..()

@@ -169,6 +169,7 @@
 		gain_knowledge(starting_knowledge)
 
 	GLOB.reality_smash_track.add_tracked_mind(owner)
+	GLOB.cimg_controller.validate_mind(ROLE_HERETIC, owner)
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
 	return ..()
 
@@ -179,6 +180,7 @@
 		knowledge.on_lose(owner.current)
 
 	GLOB.reality_smash_track.remove_tracked_mind(owner)
+	GLOB.cimg_controller.disqualify_mind(ROLE_HERETIC, owner)
 	QDEL_LIST_ASSOC_VAL(researched_knowledge)
 	return ..()
 
@@ -188,7 +190,6 @@
 	our_mob.faction |= FACTION_HERETIC
 	RegisterSignal(our_mob, COMSIG_MOB_PRE_CAST_SPELL, PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_afterattack))
-	RegisterSignal(our_mob, COMSIG_MOB_LOGIN, PROC_REF(fix_influence_network))
 	update_heretic_icons_added()
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
@@ -318,18 +319,6 @@
 /datum/antagonist/heretic/proc/check_mansus_grasp_offhand(mob/living/user)
 	var/obj/item/offhand = user.get_inactive_held_item()
 	return !QDELETED(offhand) && istype(offhand, /obj/item/melee/touch_attack/mansus_fist)
-
-/*
- * Signal proc for [COMSIG_MOB_LOGIN].
- *
- * Calls rework_network() on our reality smash tracker
- * whenever a login / client change happens, to ensure
- * influence client visibility is fixed.
- */
-/datum/antagonist/heretic/proc/fix_influence_network(mob/source)
-	SIGNAL_HANDLER
-
-	GLOB.reality_smash_track.rework_network()
 
 /**
  * Create our objectives for our heretic.

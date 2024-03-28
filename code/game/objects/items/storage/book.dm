@@ -285,6 +285,7 @@
 /obj/item/storage/book/bible/syndicate/attack_self(mob/living/carbon/human/H)
 	if (uses)
 		H.mind.holy_role = HOLY_ROLE_PRIEST
+		GLOB.cimg_controller.validate_mind(CIMG_KEY_HOLYTURF, H.mind)
 		uses -= 1
 		to_chat(H, "<span class='userdanger'>You try to open the book AND IT BITES YOU!</span>")
 		playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
