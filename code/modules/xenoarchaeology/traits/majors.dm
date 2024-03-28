@@ -444,7 +444,6 @@
 	desc = "An impenetrable artifact wall."
 
 /*
-	* This is a replacement for healing
 	Exchanging
 	Swaps the damage of the last two targets
 */
@@ -456,9 +455,9 @@
 	conductivity = 9
 	weight = 12
 	///What damage type do we exchange
-	var/damage_type = BRUTE //TODO: Randomize this, or add variants - Racc
+	var/damage_type = BRUTE
 	///How long until the window for exchange closes
-	var/exchange_window = 8 SECONDS
+	var/exchange_window = 13 SECONDS //5 second window, in theory?
 
 /datum/xenoartifact_trait/major/exchange/trigger(datum/source, _priority, atom/override)
 	//Collect some targets
@@ -483,7 +482,7 @@
 	var/mob/living/victim_a
 	var/mob/living/victim_b
 	for(var/mob/living/target in targets)
-		if(target.stat)
+		if(target.stat > SOFT_CRIT)
 			playsound(get_turf(target), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 			continue
 		if(!victim_a)
@@ -521,6 +520,18 @@
 	for(var/mob/living/target in focus)
 		target.remove_filter("exchange_overlay")
 	return ..()
+
+/datum/xenoartifact_trait/major/exchange/get_dictionary_hint()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("exchange brute damage between two targets"))
+
+//Burn variant
+/datum/xenoartifact_trait/major/exchange/burn
+	label_name = "Exchanging Δ"
+	label_desc = "Exchanging Δ: The artifact seems to contain exchanging components. Triggering these components will exchange the damage of the last two targets."
+	damage_type = BURN
+
+/datum/xenoartifact_trait/major/exchange/burn/get_dictionary_hint()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("exchange burn damage between two targets"))
 
 /*
 	Hypodermic
