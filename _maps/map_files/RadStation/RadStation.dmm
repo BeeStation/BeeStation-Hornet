@@ -5940,7 +5940,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/open/floor/plasteel/dark/side,
+/turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "bTC" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -13877,7 +13877,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/turf/open/floor/plasteel/dark/side,
+/turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "esz" = (
 /obj/effect/turf_decal/stripes/line{
@@ -31210,7 +31210,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/side,
+/turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "jMT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -38885,7 +38885,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
-/turf/open/floor/plasteel/dark/side,
+/turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "mkj" = (
 /obj/structure/lattice/catwalk,
@@ -50756,7 +50756,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wideplating/dark,
-/turf/open/floor/plasteel/dark/side,
+/turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "pPq" = (
 /obj/machinery/shieldwallgen,
@@ -56837,7 +56837,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/dark/side,
+/turf/open/floor/iron/dark/side,
 /area/science/mixing/chamber)
 "rJT" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -60095,7 +60095,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wideplating/dark,
-/turf/open/floor/plasteel/dark/side,
+/turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
 "sMw" = (
 /obj/structure/table/wood,
@@ -73804,15 +73804,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
-"xgv" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark/side,
-/area/hallway/primary/central)
 "xgC" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
@@ -108309,7 +108300,7 @@ seT
 seT
 hdp
 hdp
-xgv
+usD
 kAO
 sXh
 hVF
