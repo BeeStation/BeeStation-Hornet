@@ -173,6 +173,7 @@
 	name = "Capture the Flag"
 	icon_state = "yellow"
 	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	has_gravity = STANDARD_GRAVITY
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
