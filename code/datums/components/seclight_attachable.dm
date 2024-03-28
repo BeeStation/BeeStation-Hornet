@@ -238,7 +238,7 @@
 	if(!light || !is_light_removable)
 		return
 
-	INVOKE_ASYNC(src, PROC_REF(unscrew_light, source, user, tool)
+	INVOKE_ASYNC(src, PROC_REF(unscrew_light), source, user, tool)
 	return COMPONENT_BLOCK_TOOL_ATTACK
 
 /// Invoked asyncronously from [proc/on_screwdriver]. Handles removing the light from our parent.
