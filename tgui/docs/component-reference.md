@@ -659,6 +659,7 @@ to perform some sort of action), there is a way to do that:
   - `bottom`
 - `buttons: any` - Buttons to render aside the content.
 - `children: any` - Content of this labeled item.
+- `tooltip: string` - Hovering this labeled item will show a tooltip.
 
 ### `LabeledList.Divider`
 
