@@ -27,3 +27,4 @@
 
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 50
+	select_name  = "disable"
