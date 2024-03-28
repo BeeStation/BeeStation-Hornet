@@ -48,7 +48,7 @@
 	. = ..()
 
 	sec_radio = new/obj/item/radio(src)
-	sec_radio.listening = FALSE
+	sec_radio.set_listening(FALSE)
 
 /obj/machinery/door_timer/Initialize(mapload)
 	. = ..()

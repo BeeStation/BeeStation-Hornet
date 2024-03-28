@@ -313,6 +313,7 @@
 
 	if(expanded_x || expanded_y || expanded_z)
 		world.refresh_atmos_grid()
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPANDED_WORLD_BOUNDS, expanded_x, expanded_y)
 
 	#ifdef TESTING
 	if(turfsSkipped)

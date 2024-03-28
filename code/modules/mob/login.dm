@@ -48,6 +48,9 @@
 	if(loc)
 		loc.on_log(TRUE)
 
+	clear_important_client_contents(client)
+	enable_client_mobs_in_contents(client)
+
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
 
 	//readd this mob's HUDs (antag, med, etc)

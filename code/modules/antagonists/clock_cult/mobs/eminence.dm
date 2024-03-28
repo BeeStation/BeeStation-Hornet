@@ -330,4 +330,8 @@
 	canhear_range = 0
 	radio_silent = TRUE
 	prison_radio = TRUE
-	broadcasting = TRUE
+
+
+/obj/item/radio/borg/eminence/Initialize(mapload)
+	. = ..()
+	set_broadcasting(TRUE)
