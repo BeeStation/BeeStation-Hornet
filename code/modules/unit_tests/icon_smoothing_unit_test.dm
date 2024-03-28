@@ -60,14 +60,14 @@
 		var/base_state = A.base_icon_state
 
 		if(!the_icon)
-			Fail("Atom subtype [A] has no icon, are you sure we should be testing this?")
+			TEST_FAIL("Atom subtype [A] has no icon, are you sure we should be testing this?")
 
 		else if(smooth_flags & SMOOTH_CORNERS)
 			corner_test(P, the_icon, smooth_flags)
 
 		else if(smooth_flags & SMOOTH_BITMASK)
 			if(!base_state)
-				Fail("Atom subtype [A] has bitmask smoothing set, but has no base_icon_state!")
+				TEST_FAIL("Atom subtype [A] has bitmask smoothing set, but has no base_icon_state!")
 			else
 				bitmask_test(P, the_icon, smooth_flags, base_state)
 
@@ -86,7 +86,7 @@
 		if(!("[base_state]-[suffix]" in states))
 			missing_states = "[missing_states ? "[missing_states], ": "" ][base_state]-[suffix]"
 	if(missing_states)
-		Fail("Did not find the following states in icon_states of [the_icon], during testing of path [atom_path]: [missing_states]")
+		TEST_FAIL("Did not find the following states in icon_states of [the_icon], during testing of path [atom_path]: [missing_states]")
 
 /datum/unit_test/smoothing/proc/corner_test(atom_path, icon/the_icon, smooth_flags)
 	var/list/expected_states = corner_states.Copy()
@@ -99,4 +99,4 @@
 		if(!(state in states))
 			missing_states = "[missing_states ? "[missing_states], ": "" ][state]"
 	if(missing_states)
-		Fail("Did not find the following states in icon_states of [the_icon], during testing of path [atom_path]: [missing_states]")
+		TEST_FAIL("Did not find the following states in icon_states of [the_icon], during testing of path [atom_path]: [missing_states]")

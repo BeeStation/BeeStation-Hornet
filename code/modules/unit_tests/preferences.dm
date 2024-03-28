@@ -29,10 +29,10 @@
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
 		if (!istext(preference.db_key))
-			Fail("[preference_type] has an invalid db_key.")
+			TEST_FAIL("[preference_type] has an invalid db_key.")
 
 		if (preference.db_key in known_db_keys)
-			Fail("[preference_type] has a non-unique db_key `[preference.db_key]`!")
+			TEST_FAIL("[preference_type] has a non-unique db_key `[preference.db_key]`!")
 
 		known_db_keys += preference.db_key
 

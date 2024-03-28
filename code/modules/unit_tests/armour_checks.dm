@@ -11,7 +11,7 @@
 	var/armor200 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = 200))
 	var/armorN50 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = -50))
 	if (armor50.armor.melee != 50)
-		Fail("Armour 50 did not have the correct armour applied to it. This is an error with the unit test.")
+		TEST_FAIL("Armour 50 did not have the correct armour applied to it. This is an error with the unit test.")
 	// Run armour checks again without penetration
 	equip_item(test_dummy, armor50)
 	TEST_ASSERT_EQUAL(STANDARDISE_ARMOUR(50), round(test_dummy.run_armor_check(BODY_ZONE_CHEST, MELEE), 1), "Mob wearing 50 armour vest did not return 50 armour.")
@@ -67,7 +67,7 @@
 	user.equip_to_slot_if_possible(item, ITEM_SLOT_OCLOTHING)
 	// TEST THE TEST
 	if (user.wear_suit != item)
-		Fail("Equipping item failed, expected [item] to be equipped to the suit slot. The test itself has issues.")
+		TEST_FAIL("Equipping item failed, expected [item] to be equipped to the suit slot. The test itself has issues.")
 
 /obj/item/clothing/suit/test_vest
 	name = "Unit test vest"

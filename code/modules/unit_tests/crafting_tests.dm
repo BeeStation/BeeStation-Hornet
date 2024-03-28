@@ -5,4 +5,4 @@
 			failing += "[recipe]"
 	if(!length(failing))
 		return
-	Fail("The following crafting recipes have set a subcategory without setting the category: [failing.Join(" \n")]")
+	TEST_FAIL("The following crafting recipes have set a subcategory without setting the category: [failing.Join(" \n")]")
