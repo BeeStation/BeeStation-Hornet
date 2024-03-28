@@ -214,7 +214,7 @@
 		deltimer(loop_timer_id)
 		loop_timer_id = null
 	to_chat(invoker, "<span class='brass'>You are no longer invoking <b>[name]</b></span>")
-	qdel(progress)
+	progress.end_progress()
 	PH.remove_ranged_ability()
 	invoking_slab.charge_overlay = null
 	invoking_slab.update_icon()
