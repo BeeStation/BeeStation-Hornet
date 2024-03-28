@@ -56,7 +56,7 @@
 		/obj/item/reagent_containers/hypospray/medipen/survival = 5,
 		//The ultimate validhunter tool
 		/obj/item/clothing/glasses/hud/medsec = 2,
-		/obj/item/healthanalyzer/advanced = 2,
+		/obj/item/healthanalyzer = 2,
 	)
 
 //CAPTAIN
@@ -301,7 +301,7 @@
 //MEDICAL DOCTOR
 /datum/job/medical_doctor
 	mail_goodies = list(
-		/obj/item/healthanalyzer/advanced = 10,
+		/obj/item/healthanalyzer = 10,
 		/obj/item/storage/pill_bottle/epinephrine = 8,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 6,
 		/obj/effect/spawner/mail/advmedtool = 4,
