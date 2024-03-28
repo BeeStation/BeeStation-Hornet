@@ -318,6 +318,16 @@
 		C.spin(6,1)
 	..(targets, user, 60)
 
+/obj/effect/proc_holder/spell/aoe_turf/repulse/beer
+	name = "Drunk Repulse"
+	desc = "This spell throws everything around the beer user away. Lesser version of repulse that doesn't need robes"
+	charge_max = 400
+	clothes_req = FALSE
+	invocation = "BEER TTAH WEIGH"
+	range = 4
+	cooldown_min = 20
+	sound = 'sound/magic/repulse.ogg'
+	var/repulse_beer_force = MOVE_FORCE_WEAK
 /obj/effect/proc_holder/spell/targeted/sacred_flame
 	name = "Sacred Flame"
 	desc = "Makes everyone around you more flammable, and lights yourself on fire."
