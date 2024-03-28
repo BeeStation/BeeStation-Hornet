@@ -2067,11 +2067,6 @@
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
-/obj/structure/rack,
-/obj/item/storage/box/beakers,
-/obj/item/storage/box/medsprays,
-/obj/item/reagent_containers/medspray,
-/obj/item/reagent_containers/medspray,
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -7694,8 +7689,6 @@
 	pixel_x = 29;
 	pixel_y = -2
 	},
-/obj/structure/rack,
-/obj/item/construction/plumbing,
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -8426,13 +8419,10 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "cwg" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers,
-/obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/syringe,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/chem_heater,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "cwm" = (
@@ -9937,12 +9927,15 @@
 /turf/open/floor/circuit/telecomms/server,
 /area/tcommsat/relay)
 "cZt" = (
-/obj/machinery/chem_heater,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/syringe,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "cZw" = (
@@ -11723,10 +11716,6 @@
 /turf/open/floor/plating,
 /area/security/warden)
 "dDH" = (
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -24
@@ -17560,13 +17549,13 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "fAr" = (
-/obj/structure/closet/secure_closet/chemical,
 /obj/machinery/light_switch{
 	pixel_x = 26
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/vending/wardrobe/chem_wardrobe,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "fAv" = (
@@ -18728,6 +18717,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
+"fUK" = (
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 3
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "fVh" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
@@ -18969,9 +18966,6 @@
 /turf/open/floor/plasteel,
 /area/science/shuttle)
 "fZa" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -19073,9 +19067,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "gav" = (
-/obj/structure/table/glass,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/machinery/reagentgrinder,
+/obj/structure/closet/secure_closet/chemical/plumbing,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -21329,6 +21321,13 @@
 /obj/structure/table/glass,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/item/storage/box/beakers{
+	pixel_x = -4
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 7;
+	pixel_y = 5
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "gMs" = (
@@ -21611,20 +21610,16 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "gQy" = (
-/obj/structure/rack,
-/obj/item/tank/jetpack/carbondioxide,
-/obj/item/tank/jetpack/carbondioxide{
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical{
 	pixel_x = 2;
 	pixel_y = 4
 	},
-/obj/item/tank/jetpack/carbondioxide{
-	pixel_x = -3;
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 1;
 	pixel_y = 2
 	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
+/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "gQA" = (
@@ -26150,7 +26145,14 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "ioV" = (
-/obj/structure/closet/secure_closet/chemical,
+/obj/structure/table/glass,
+/obj/item/book/manual/wiki/grenades{
+	pixel_y = 3
+	},
+/obj/item/book/manual/wiki/chemistry{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "ioZ" = (
@@ -26994,7 +26996,10 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "iAK" = (
-/obj/machinery/vending/wardrobe/chem_wardrobe,
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "iAP" = (
@@ -27515,7 +27520,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "iJq" = (
-/obj/effect/decal/cleanable/glass,
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_x = 32
 	},
@@ -28239,22 +28243,10 @@
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "iXf" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/bottle/charcoal{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/obj/item/storage/pill_bottle,
-/obj/item/storage/pill_bottle,
-/obj/item/storage/pill_bottle,
-/obj/item/reagent_containers/syringe,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
+/obj/machinery/chem_heater,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "iXj" = (
@@ -29347,14 +29339,10 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder{
-	pixel_x = -1;
-	pixel_y = 7
-	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "jqx" = (
@@ -29400,9 +29388,6 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "jri" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -34775,10 +34760,23 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/obj/machinery/vending/wardrobe/chem_wardrobe,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/syringe{
+	pixel_x = 1;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/syringe,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "lgH" = (
@@ -35481,6 +35479,9 @@
 "lsT" = (
 /obj/effect/landmark/start/chemist,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "ltl" = (
@@ -35802,10 +35803,11 @@
 /area/maintenance/starboard/central)
 "lyt" = (
 /obj/structure/table/glass,
-/obj/item/book/manual/wiki/plumbing,
-/obj/item/construction/plumbing,
 /obj/machinery/light_switch{
 	pixel_x = -25
+	},
+/obj/item/storage/toolbox/medical{
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -39948,6 +39950,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
+"mJg" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "mJo" = (
 /turf/closed/wall,
 /area/maintenance/department/bridge)
@@ -44684,12 +44693,12 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/obj/item/storage/box/beakers,
-/obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/syringe,
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
 	dir = 1
 	},
+/obj/item/storage/box/syringes,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/syringe,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "okR" = (
@@ -44707,10 +44716,19 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal)
 "old" = (
-/obj/machinery/chem_heater,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/bottle/epinephrine{
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/glass/bottle/charcoal{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/syringe,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "olg" = (
@@ -52637,6 +52655,7 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/chemical,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "qUW" = (
@@ -54892,20 +54911,52 @@
 /area/hallway/primary/central)
 "rGa" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/bottle/charcoal{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/glass/bottle/epinephrine{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/item/storage/pill_bottle,
-/obj/item/storage/pill_bottle,
-/obj/item/storage/pill_bottle,
-/obj/item/reagent_containers/syringe,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
+	},
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = 9;
+	pixel_y = 8
+	},
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = 9;
+	pixel_y = 8
+	},
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = 9;
+	pixel_y = 8
+	},
+/obj/item/assembly/timer{
+	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock. But slightly shifted to the left.";
+	pixel_x = 9;
+	pixel_y = 8
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/item/stack/cable_coil/white,
+/obj/item/screwdriver{
+	pixel_y = 5
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -66216,16 +66267,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "vrp" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/storage/toolbox/mechanical,
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
 	},
@@ -66332,12 +66373,18 @@
 /turf/open/floor/plating/asteroid,
 /area/maintenance/starboard/secondary)
 "vtG" = (
-/obj/structure/closet/crate/rcd,
+/obj/structure/table/reinforced,
 /obj/machinery/door/window/northleft{
 	dir = 4;
 	name = "RCD Storage";
 	pixel_x = 1;
 	req_access_txt = "19"
+	},
+/obj/structure/window/reinforced{
+	pixel_y = 1
+	},
+/obj/item/storage/toolbox/rcd{
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -69759,12 +69806,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/book/manual/wiki/grenades{
-	pixel_y = 3
-	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
+/obj/item/storage/box/beakers,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "wxw" = (
@@ -70043,19 +70088,15 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
 "wDn" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/northleft{
-	dir = 8;
-	name = "RCD Storage";
-	pixel_x = 1;
-	req_access_txt = "19"
+/obj/structure/rack,
+/obj/item/tank/jetpack/carbondioxide,
+/obj/item/tank/jetpack/carbondioxide{
+	pixel_x = 2;
+	pixel_y = 4
 	},
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4;
-	pixel_y = 1
+/obj/item/tank/jetpack/carbondioxide{
+	pixel_x = -3;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -70848,21 +70889,12 @@
 	pixel_y = 32
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -3;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = -6;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/syringe{
-	pixel_x = 1;
-	pixel_y = 4
-	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/reagentgrinder{
+	pixel_x = -1;
+	pixel_y = 7
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -100772,7 +100804,7 @@ cYe
 ihY
 vtG
 gQy
-vQm
+oOl
 ihY
 hTf
 vJJ
@@ -101543,7 +101575,7 @@ dhp
 aKT
 iJq
 wDn
-oOl
+vQm
 ihY
 fEM
 lcM
@@ -118268,7 +118300,7 @@ the
 dDH
 iAK
 gav
-ioV
+fUK
 ioV
 gOi
 bXs
@@ -118780,7 +118812,7 @@ wSu
 uky
 xlG
 jri
-gWJ
+mJg
 gWJ
 xRq
 abL

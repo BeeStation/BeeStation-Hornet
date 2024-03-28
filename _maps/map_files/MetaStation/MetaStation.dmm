@@ -17721,7 +17721,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "cfY" = (
-/obj/machinery/smartfridge/chemistry/preloaded,
+/obj/machinery/smartfridge/chemistry,
 /turf/closed/wall,
 /area/medical/chemistry)
 "cga" = (
@@ -37682,30 +37682,22 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hor)
 "iBJ" = (
-/obj/structure/table/glass,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/table/glass,
+/obj/item/hand_labeler{
+	pixel_x = 4;
+	pixel_y = 10
+	},
+/obj/item/stack/package_wrap{
+	pixel_x = -1;
+	pixel_y = 10
+	},
+/obj/item/storage/toolbox/medical{
+	pixel_y = 2
+	},
 /obj/machinery/light,
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_x = 5
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_x = 9
-	},
-/obj/item/reagent_containers/glass/bottle/charcoal{
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/glass/bottle/epinephrine,
-/obj/item/reagent_containers/dropper,
-/obj/item/storage/box/beakers{
-	pixel_x = -6;
-	pixel_y = 9
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "iBL" = (
@@ -40701,12 +40693,10 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "jMa" = (
-/obj/structure/table/glass,
-/obj/item/stack/package_wrap,
-/obj/item/hand_labeler,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/chemical/plumbing,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "jMi" = (
@@ -41885,6 +41875,11 @@
 	},
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/glass/beaker/large,
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_x = 2;
+	pixel_y = 4;
+	amount = 3
+	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
 "kiA" = (
@@ -46435,6 +46430,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/reagent_containers/dropper,
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
 "lXH" = (
@@ -58170,7 +58166,6 @@
 /obj/machinery/computer/secure_data,
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for monitoring medbay to ensure patient safety.";
-	dir = 4;
 	name = "Medbay Monitor";
 	network = list("medbay");
 	pixel_x = 1;
@@ -65292,7 +65287,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "tiS" = (
-/obj/machinery/smartfridge/chemistry,
+/obj/machinery/smartfridge/chemistry/preloaded,
 /turf/closed/wall/r_wall,
 /area/medical/chemistry)
 "tjn" = (

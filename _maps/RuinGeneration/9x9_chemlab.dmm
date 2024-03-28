@@ -206,9 +206,6 @@
 /turf/open/floor/plasteel/white,
 /area/ruin)
 "FI" = (
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
 /obj/structure/rack,
 /obj/item/storage/box/beakers,
 /obj/item/storage/box/medsprays,
@@ -298,6 +295,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin)
+"RV" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/obj/structure/closet/secure_closet/chemical/plumbing,
+/turf/open/floor/plasteel/white,
+/area/ruin)
 
 (1,1,1) = {"
 aO
@@ -334,7 +338,7 @@ an
 "}
 (4,1,1) = {"
 aO
-AP
+RV
 ak
 GR
 aK
