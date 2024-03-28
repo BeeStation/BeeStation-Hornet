@@ -108,8 +108,6 @@
 	var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
 	if(uplink)
 		uplink_ref = WEAKREF(uplink)
-	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
-	syndio.implant(owner.current)
 
 /datum/team/incursion
 	name = "syndicate incursion force"
