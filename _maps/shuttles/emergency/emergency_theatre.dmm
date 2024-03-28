@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "at" = (
 /obj/machinery/door/airlock/gold,
-/turf/open/floor/carpet/red,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bP" = (
 /obj/machinery/light/floor{
@@ -68,7 +68,7 @@
 	name = "Security";
 	req_access_txt = "2"
 	},
-/turf/open/floor/carpet/red,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "gk" = (
 /obj/structure/closet/crate/internals,
@@ -126,7 +126,7 @@
 /obj/item/storage/box/matches{
 	pixel_y = 9
 	},
-/turf/open/floor/carpet/red,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "mK" = (
 /obj/structure/table/wood/fancy/black,
@@ -255,7 +255,7 @@
 "CG" = (
 /obj/structure/table/wood/fancy/red,
 /obj/machinery/recharger,
-/turf/open/floor/carpet/red,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "CZ" = (
 /obj/structure/table/wood/fancy/red,
@@ -267,7 +267,7 @@
 	pixel_x = 14
 	},
 /obj/item/storage/box/zipties,
-/turf/open/floor/carpet/red,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "DN" = (
 /turf/closed/wall/mineral/titanium,
@@ -550,13 +550,13 @@
 /turf/open/floor/carpet/royalblue,
 /area/shuttle/escape)
 "SP" = (
-/turf/open/floor/carpet/red,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Tx" = (
 /obj/structure/chair/fancy/corp{
 	dir = 4
 	},
-/turf/open/floor/carpet/red,
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Xc" = (
 /obj/machinery/computer/communications{
