@@ -208,7 +208,6 @@
 /obj/item/proc/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = list()
 
-
 /mob/living/carbon/update_body()
 	update_body_parts()
 
