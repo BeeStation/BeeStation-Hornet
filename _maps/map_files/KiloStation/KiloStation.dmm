@@ -52567,7 +52567,7 @@
 "kUa" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/black,
-/obj/item/clothing/head/helmet/justice/escape{
+/obj/item/clothing/head/helmet/toggleable/justice/escape{
 	name = "justice helmet"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -76288,7 +76288,7 @@
 /area/security/prison)
 "sVn" = (
 /obj/structure/table,
-/obj/item/clothing/head/helmet/justice/escape{
+/obj/item/clothing/head/helmet/toggleable/justice/escape{
 	name = "justice helmet"
 	},
 /turf/open/floor/plating{
