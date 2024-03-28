@@ -1,6 +1,5 @@
 /datum/job/lawyer
 	title = JOB_NAME_LAWYER
-	flag = LAWYER
 	description = "Ensure Security follows Space Law and Standard Operating Procedure perfectly, represent your clients in trials and other legal troubles, make sure the crew is treated fairly by the men in red."
 	department_for_prefs = DEPT_BITFLAG_CIV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
@@ -16,7 +15,6 @@
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)

@@ -1,6 +1,5 @@
 /datum/job/bartender
 	title = JOB_NAME_BARTENDER
-	flag = BARTENDER
 	description = "Brew a variety of drinks for the crew, cooperate with Botany and Chemistry for more exotic recipes, create a comfy atmosphere in your Bar."
 	department_for_prefs = DEPT_BITFLAG_SRV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
@@ -16,7 +15,6 @@
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_BAR, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE, ACCESS_WEAPONS)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)

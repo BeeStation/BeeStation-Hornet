@@ -1,6 +1,5 @@
 /datum/job/deputy
 	title = JOB_NAME_DEPUTY
-	flag = DEPUTY
 	description = "Follow orders and do your best to maintain order on the station while following Space Law."
 	department_for_prefs = DEPT_BITFLAG_SEC
 	department_head = list(JOB_NAME_HEADOFSECURITY)
@@ -18,7 +17,6 @@
 	access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_EASY)

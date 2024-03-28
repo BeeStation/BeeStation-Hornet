@@ -594,7 +594,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/LoadJobs()
 	var/jobstext = rustg_file_read("[global.config.directory]/jobs.txt")
 	for(var/datum/job/J in occupations)
-		if(J.flag == GIMMICK || J.gimmick) //gimmick job slots are dependant on random maint
+		if(J.gimmick) //gimmick job slots are dependant on random maint
 			continue
 		var/regex/jobs = new("[J.title]=(-1|\\d+),(-1|\\d+)")
 		if(jobs.Find(jobstext))

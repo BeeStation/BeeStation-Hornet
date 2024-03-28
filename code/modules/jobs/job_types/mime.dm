@@ -1,6 +1,5 @@
 /datum/job/mime
 	title = JOB_NAME_MIME
-	flag = MIME
 	description = "Be the Clown's mute counterpart and arch nemesis. Conduct pantomimes and performances, create interesting situations with your mime powers. Remember your job is to keep things funny for others, not just yourself."
 	department_for_prefs = DEPT_BITFLAG_CIV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
@@ -15,7 +14,6 @@
 	access = list(ACCESS_THEATRE)
 	minimal_access = list(ACCESS_THEATRE)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)

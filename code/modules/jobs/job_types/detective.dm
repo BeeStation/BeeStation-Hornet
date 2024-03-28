@@ -1,6 +1,5 @@
 /datum/job/detective
 	title = JOB_NAME_DETECTIVE
-	flag = DETECTIVE
 	description = "Investigate crimes, solve murder mysteries, report your findings to the rest of Security."
 	department_for_prefs = DEPT_BITFLAG_SEC
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
@@ -20,7 +19,6 @@
 	access = list(ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_MEDIUM)

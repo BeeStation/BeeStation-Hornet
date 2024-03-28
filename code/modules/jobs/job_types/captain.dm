@@ -1,6 +1,5 @@
 /datum/job/captain
 	title = JOB_NAME_CAPTAIN
-	flag = CAPTAIN
 	description = "Supreme leader of the station, oversee and appoint missing heads of staff, manage alert levels and contact CentCom if needed. Don't forget to secure the nuclear authentication disk."
 	department_for_prefs = DEPT_BITFLAG_CAPTAIN
 	department_head_for_prefs = JOB_NAME_CAPTAIN
@@ -22,7 +21,6 @@
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(

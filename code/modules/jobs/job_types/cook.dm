@@ -1,6 +1,5 @@
 /datum/job/cook
 	title = JOB_NAME_COOK
-	flag = COOK
 	description = "Whip up meals for the crew, get creative and cook different meals, request ingredients from Botany and Cargo. Make sure everyone stays well fed and happy."
 	department_for_prefs = DEPT_BITFLAG_SRV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
@@ -16,7 +15,6 @@
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
