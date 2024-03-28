@@ -4,13 +4,15 @@
 	weight = 20
 	max_occurrences = 4
 	earliest_start = 10 MINUTES
+	category = EVENT_CATEGORY_ENGINEERING
+	description = "Increases the Supermatter's power for a short duration."
 
 /datum/round_event_control/supermatter_surge/canSpawnEvent()
 	if(GLOB.main_supermatter_engine?.has_been_powered)
 		return ..()
 
 /datum/round_event/supermatter_surge
-	announceWhen = 1
+	announce_when = 1
 	var/power = 2000
 
 /datum/round_event/supermatter_surge/setup()

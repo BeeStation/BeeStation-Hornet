@@ -8,6 +8,8 @@
 	dynamic_should_hijack = TRUE
 	cannot_spawn_after_shuttlecall = TRUE
 	can_malf_fake_alert = TRUE
+	category = EVENT_CATEGORY_ENTITIES
+	description = "A xenomorph larva spawns on a random vent."
 
 /datum/round_event_control/alien_infestation/canSpawnEvent()
 	. = ..()
@@ -19,7 +21,7 @@
 			return FALSE
 
 /datum/round_event/ghost_role/alien_infestation
-	announceWhen	= 400
+	announce_when	= 400
 
 	minimum_required = 1
 	role_name = "alien larva"
@@ -30,7 +32,7 @@
 
 
 /datum/round_event/ghost_role/alien_infestation/setup()
-	announceWhen = rand(announceWhen, announceWhen + 50)
+	announce_when = rand(announce_when, announce_when + 50)
 	if(prob(50))
 		spawncount++
 

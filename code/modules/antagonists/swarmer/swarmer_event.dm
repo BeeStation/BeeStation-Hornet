@@ -6,6 +6,7 @@
 	earliest_start = 30 MINUTES
 	min_players = 15
 	dynamic_should_hijack = TRUE
+	category = EVENT_CATEGORY_ENTITIES
 
 
 /datum/round_event/spawn_swarmer

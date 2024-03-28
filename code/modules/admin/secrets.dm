@@ -840,9 +840,15 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 
 	if(E)
 		E.processing = FALSE
-		if(E.announceWhen>0)
-			if(alert(usr, "Would you like to alert the crew?", "Alert", "Yes", "No") != "Yes")
-				E.announceChance = 0
+		if(E.announce_when>0)
+			switch(tgui_alert(usr, "Would you like to alert the crew?", "Alert", list("Yes", "No", "Cancel")))
+				if("Yes")
+					E.announce_chance = 100
+				if("Cancel")
+					E.kill()
+					return
+				if("No")
+					E.announce_chance = 0
 		E.processing = TRUE
 	if (usr)
 		log_admin("[key_name(usr)] used secret [action]")

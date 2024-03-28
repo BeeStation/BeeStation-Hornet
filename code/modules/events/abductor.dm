@@ -8,6 +8,8 @@
 	dynamic_should_hijack = TRUE
 	gamemode_blacklist = list("nuclear","wizard","revolution")
 	cannot_spawn_after_shuttlecall = TRUE
+	category = EVENT_CATEGORY_ENTITIES
+	description = "Polls ghosts to be spawned as Abductors."
 
 /datum/round_event/ghost_role/abductor
 	minimum_required = 2

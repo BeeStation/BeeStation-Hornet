@@ -5,10 +5,11 @@
 	min_players = 40
 	max_occurrences = 5
 	weight = 5
+	description = "This anomaly shocks and explodes."
 
 /datum/round_event/anomaly/anomaly_flux
-	startWhen = 10
-	announceWhen = 3
+	start_when = 10
+	announce_when = 3
 	anomaly_path = /obj/effect/anomaly/flux
 
 /datum/round_event/anomaly/anomaly_flux/announce(fake)

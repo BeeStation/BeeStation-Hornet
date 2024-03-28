@@ -4,6 +4,7 @@
 	typepath = /datum/round_event/wizard/embedpocalypse
 	max_occurrences = 1
 	earliest_start = 0 MINUTES
+	description = "Everything becomes pointy enough to embed in people when thrown."
 
 /datum/round_event/wizard/embedpocalypse/start()
 	for(var/obj/item/I in world)
@@ -26,6 +27,7 @@
 	typepath = /datum/round_event/wizard/embedpocalypse/sticky
 	max_occurrences = 1
 	earliest_start = 0 MINUTES
+	description = "Everything becomes sticky enough to be glued to people when thrown."
 
 /datum/round_event_control/wizard/embedpocalypse/sticky/canSpawnEvent(players_amt, gamemode)
 	if(GLOB.embedpocalypse)

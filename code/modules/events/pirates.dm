@@ -15,6 +15,8 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	dynamic_should_hijack = TRUE
 	gamemode_blacklist = list("nuclear")
 	cannot_spawn_after_shuttlecall = TRUE
+	category = EVENT_CATEGORY_INVASION
+	description = "The crew will either pay up, or face a pirate assault."
 
 /datum/round_event_control/pirates/preRunEvent()
 	if (!SSmapping.empty_space)

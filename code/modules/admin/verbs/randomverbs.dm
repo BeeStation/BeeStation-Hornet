@@ -529,7 +529,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/announce_ion_laws = (show_log == "Yes" ? 100 : 0)
 
 	var/datum/round_event/ion_storm/add_law_only/ion = new()
-	ion.announceChance = announce_ion_laws
+	ion.announce_chance = announce_ion_laws
 	ion.ionMessage = input
 	ion.lawsource = "Admin fuckery by [key_name(usr)]"
 

@@ -22,6 +22,10 @@
 #define COMSIG_GLOB_PRE_RANDOM_EVENT "!pre_random_event"
 	/// Do not allow this random event to continue.
 	#define CANCEL_PRE_RANDOM_EVENT (1<<0)
+/// Called by (/datum/round_event_control/RunEvent).
+#define COMSIG_GLOB_RANDOM_EVENT "!random_event"
+	/// Do not allow this random event to continue.
+	#define CANCEL_RANDOM_EVENT (1<<0)
 ///global mob logged in signal! (/mob/added_player)
 #define COMSIG_GLOB_MOB_LOGGED_IN "!mob_logged_in"
 /// crewmember joined the game (mob/living, rank)

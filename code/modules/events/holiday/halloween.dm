@@ -2,9 +2,11 @@
 	name = "2 SPOOKY! (Halloween)"
 	holidayID = HALLOWEEN
 	typepath = /datum/round_event/spooky
-	weight = -1							//forces it to be called, regardless of weight
+	weight = -1 //forces it to be called, regardless of weight
 	max_occurrences = 1
 	earliest_start = 0 MINUTES
+	category = EVENT_CATEGORY_HOLIDAY
+	description = "Gives everyone treats, and turns Ian and Poly into their festive versions."
 
 /datum/round_event/spooky/start()
 	..()
