@@ -1,0 +1,5 @@
+author: rkz
+delete-after: true
+changes:
+  - code_imp: repaths `/turf/open/floor/plasteel` tiles to `/turf/open/floor/iron`,
+      given they are made out of, of course, iron.
