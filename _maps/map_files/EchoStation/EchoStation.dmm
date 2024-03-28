@@ -43582,7 +43582,7 @@
 "wmw" = (
 /obj/effect/decal/cleanable/crayon{
 	alpha = 30;
-	icon = 'icons/mob/landmarks.dmi';
+	icon = 'icons/effects/landmarks_static.dmi';
 	icon_state = "x"
 	},
 /obj/item/storage/backpack/satchel/flat/treasure,

@@ -95,7 +95,7 @@
 /area/science/xenobiology)
 "co" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
+	dir = 1;
 	name = "Xenobiology Junction";
 	sortType = 28
 	},
@@ -139,14 +139,14 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "dc" = (
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "dorms";
-	sortType = 26
-	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted{
 	alpha = 200;
 	color = "#267878"
+	},
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 1;
+	name = "Dormitories Junction";
+	sortType = 26
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -169,9 +169,6 @@
 /obj/structure/sign/painting/library,
 /turf/open/floor/plasteel/dark,
 /area/space)
-"dZ" = (
-/turf/open/floor/plasteel/sepia,
-/area/quartermaster/storage)
 "ea" = (
 /obj/structure/closet/secure_closet/captains,
 /turf/open/floor/carpet/blue,
@@ -185,8 +182,8 @@
 /area/science/robotics)
 "et" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Kitchen";
+	dir = 1;
+	name = "Kitchen Junction";
 	sortType = 20
 	},
 /turf/open/floor/plasteel/freezer,
@@ -201,12 +198,12 @@
 /turf/open/floor/plasteel/white,
 /area/science/robotics)
 "eA" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Medbay";
+	dir = 1;
+	name = "Medical Junction";
 	sortType = 9
 	},
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "eB" = (
@@ -257,8 +254,8 @@
 /area/engine/atmos)
 "ga" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Chap";
+	dir = 1;
+	name = "Chapel Junction";
 	sortType = 17
 	},
 /turf/open/floor/carpet/purple,
@@ -277,6 +274,10 @@
 /obj/machinery/button/flasher,
 /turf/open/floor/plasteel,
 /area/space)
+"hk" = (
+/obj/effect/landmark/start/depsec/supply,
+/turf/open/floor/plasteel/sepia,
+/area/quartermaster/storage)
 "hm" = (
 /obj/item/toy/plush/moth/bluespace,
 /turf/open/floor/plasteel,
@@ -373,20 +374,21 @@
 /turf/open/floor/plasteel/dark,
 /area/space)
 "jS" = (
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Medbay";
-	sortType = 10
-	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
+	},
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 1;
+	name = "CMO's Junction";
+	sortType = 10
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "jV" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "HOS"
+	dir = 1;
+	name = "Head of Security's Junction";
+	sortType = 8
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -442,7 +444,6 @@
 	},
 /mob/living/simple_animal/kalo{
 	desc = "The Perma brig's cute grass snake.";
-	icon = 'icons/mob/animal.dmi';
 	icon_dead = "snake_dead";
 	icon_living = "snake";
 	icon_state = "snake";
@@ -472,8 +473,8 @@
 /area/space)
 "mT" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Hydro";
+	dir = 1;
+	name = "Hydroponics Junction";
 	sortType = 21
 	},
 /turf/open/floor/grass/no_border,
@@ -528,12 +529,13 @@
 /area/science/research)
 "nv" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/effect/landmark/start/randommaint/psychiatrist,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "nG" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "HOP";
+	dir = 1;
+	name = "HoP Junction";
 	sortType = 15
 	},
 /turf/open/floor/wood,
@@ -542,6 +544,16 @@
 /obj/structure/closet/crate/wooden/toy,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre/backstage)
+"nN" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/effect/landmark/start/depsec/science,
+/turf/open/floor/plasteel/white,
+/area/science/research)
+"nS" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/effect/landmark/start/depsec/medical,
+/turf/open/floor/plasteel/white,
+/area/medical/apothecary)
 "oa" = (
 /turf/open/floor/carpet/green,
 /area/lawoffice)
@@ -577,8 +589,9 @@
 /area/ai_monitored/turret_protected/ai)
 "oG" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	sortType = 12
+	dir = 1;
+	sortType = 12;
+	name = "R&D Junction"
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
@@ -622,18 +635,17 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics)
 "qf" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Medbay Junction";
+	dir = 1;
+	name = "Chemistry Junction";
 	sortType = 11
 	},
-/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
 "qx" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/machinery/door/airlock/virology/glass{
-	id_tag = null;
 	name = "Virology Ward";
 	req_access_txt = "39"
 	},
@@ -641,8 +653,8 @@
 /area/medical/virology)
 "qy" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "disposals";
+	dir = 1;
+	name = "Disposals/Waste Junction";
 	sortTypes = list(0,1)
 	},
 /turf/open/floor/plating,
@@ -662,7 +674,6 @@
 "qJ" = (
 /obj/effect/landmark/start/shaft_miner,
 /obj/effect/landmark/start/cargo_technician,
-/obj/effect/landmark/start/depsec/supply,
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/storage)
 "qL" = (
@@ -674,13 +685,14 @@
 /turf/open/floor/plasteel/dark,
 /area/space)
 "rc" = (
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Security"
-	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
+	},
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 1;
+	name = "Security Junction";
+	sortType = 7
 	},
 /turf/open/floor/plasteel,
 /area/security/main{
@@ -706,7 +718,6 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
 	alpha = 180
 	},
-/obj/effect/landmark/start/depsec/engineering,
 /obj/effect/landmark/start/station_engineer,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -739,8 +750,9 @@
 /area/quartermaster/exploration_prep)
 "tn" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	sortType = 2
+	name = "Cargo Bay Junction";
+	sortType = 2;
+	dir = 1
 	},
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/storage)
@@ -812,8 +824,8 @@
 /area/crew_quarters/heads/captain)
 "vp" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Atmos";
+	dir = 1;
+	name = "Atmospherics Junction";
 	sortType = 6
 	},
 /turf/open/floor/plasteel/tech,
@@ -879,8 +891,8 @@
 /area/crew_quarters/heads/chief)
 "yb" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "CE";
+	dir = 1;
+	name = "CE's Junction";
 	sortType = 5
 	},
 /turf/open/floor/carpet/royalblue,
@@ -899,7 +911,6 @@
 /area/crew_quarters/heads/hop)
 "yJ" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/effect/landmark/start/depsec/medical,
 /obj/effect/landmark/start/chemist,
 /turf/open/floor/plasteel/white,
 /area/medical/apothecary)
@@ -1085,13 +1096,11 @@
 /area/crew_quarters/theatre/backstage)
 "EF" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/obj/effect/landmark/start/randommaint/psychiatrist,
 /obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "EI" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/effect/landmark/start/depsec/science,
 /obj/effect/landmark/start/scientist,
 /turf/open/floor/plasteel/white,
 /area/science/research)
@@ -1137,9 +1146,9 @@
 /area/janitor)
 "Ft" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Barman";
-	sortType = 19
+	name = "Bar Junction";
+	sortType = 19;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria_red,
 /area/crew_quarters/bar)
@@ -1148,18 +1157,27 @@
 /obj/structure/closet/l3closet/janitor,
 /turf/open/floor/plasteel,
 /area/janitor)
+"Gd" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 1;
+	name = "Testing Range Junction";
+	sortType = 24
+	},
+/turf/open/floor/engine,
+/area/science/mixing)
 "Gs" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	sortType = 25
+	dir = 1;
+	sortType = 25;
+	name = "Toxins Junction"
 	},
 /turf/open/floor/engine,
 /area/science/mixing)
 "Gy" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Curator";
-	sortType = 16
+	name = "Library Junction";
+	sortType = 16;
+	dir = 1
 	},
 /turf/open/floor/carpet/royalblack,
 /area/library)
@@ -1200,8 +1218,9 @@
 	})
 "HZ" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	sortType = 3
+	name = "QM's Junction";
+	sortType = 3;
+	dir = 1
 	},
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
@@ -1270,8 +1289,9 @@
 /area/space)
 "Kh" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	sortType = 13
+	dir = 1;
+	sortType = 13;
+	name = "Research Director's Junction"
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
@@ -1440,12 +1460,12 @@
 /turf/open/floor/plasteel,
 /area/space)
 "OT" = (
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Genie";
-	sortType = 23
-	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/structure/disposalpipe/sorting/mail{
+	name = "Genetics Junction";
+	sortType = 23;
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics)
 "OX" = (
@@ -1482,7 +1502,8 @@
 /area/crew_quarters/heads/hor)
 "PI" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
+	dir = 1;
+	name = "Detective's Junction";
 	sortType = 30
 	},
 /turf/open/floor/wood,
@@ -1493,12 +1514,12 @@
 /turf/open/floor/plasteel,
 /area/janitor)
 "PR" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
+	dir = 1;
 	name = "Virology Junction";
 	sortType = 27
 	},
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "Qb" = (
@@ -1548,6 +1569,13 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics)
+"Rg" = (
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
+	alpha = 180
+	},
+/obj/effect/landmark/start/depsec/engineering,
+/turf/open/floor/plasteel,
+/area/engine/engineering)
 "Rm" = (
 /obj/machinery/vendor/mining,
 /turf/open/floor/plasteel/sepia,
@@ -1601,9 +1629,9 @@
 /area/space)
 "Tj" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Theatre";
-	sortType = 18
+	name = "Theater Junction";
+	sortType = 18;
+	dir = 1
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre/backstage)
@@ -1633,14 +1661,6 @@
 "Tq" = (
 /mob/living/simple_animal/hostile/retaliate/frog{
 	attacked_sound = 'sound/effects/huuu.ogg';
-	density = 0;
-	desc = "It seems a little sad.";
-	head_icon = 'icons/mob/pets_held.dmi';
-	held_state = "";
-	icon = 'icons/mob/animal.dmi';
-	icon_dead = "frog_dead";
-	icon_living = "frog";
-	icon_state = "frog";
 	name = "Larry";
 	pixel_y = 12;
 	stepped_sound = null
@@ -1657,7 +1677,8 @@
 /area/crew_quarters/dorms)
 "TE" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
+	dir = 1;
+	name = "Robotics Junction";
 	sortType = 14
 	},
 /turf/open/floor/plasteel/white,
@@ -1734,7 +1755,8 @@
 /area/engine/engineering)
 "Vm" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
+	dir = 1;
+	name = "Law office Junction";
 	sortType = 29
 	},
 /turf/open/floor/carpet/green,
@@ -1744,8 +1766,8 @@
 /area/crew_quarters/theatre/backstage)
 "VA" = (
 /obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Janie";
+	dir = 1;
+	name = "Janitor Junction";
 	sortType = 22
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -1791,7 +1813,7 @@
 /area/crew_quarters/bar)
 "WU" = (
 /obj/structure/disposalpipe/sorting/wrap{
-	dir = 2
+	dir = 1
 	},
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/sorting)
@@ -1850,13 +1872,13 @@
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
 "YT" = (
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	name = "Engi";
-	sortType = 4
-	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
 	alpha = 180
+	},
+/obj/structure/disposalpipe/sorting/mail{
+	name = "Engineering Junction";
+	sortType = 4;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -1887,13 +1909,6 @@
 /obj/item/book/manual/wiki/cooking_to_serve_man,
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
-"ZB" = (
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 2;
-	sortType = 13
-	},
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/exploration_prep)
 "ZM" = (
 /obj/machinery/rnd/production/techfab/department/security,
 /turf/open/floor/carpet/red,
@@ -1964,19 +1979,19 @@ nG
 yv
 xd
 oG
-aJ
+nN
 aJ
 qf
-Wx
+nS
 ca
 rc
 np
 xI
 YT
-nr
+Rg
 Tn
 tn
-UQ
+hk
 qz
 "}
 (5,1,1) = {"
@@ -1995,7 +2010,7 @@ lE
 Vk
 rW
 nr
-dZ
+UQ
 qJ
 sn
 "}
@@ -2024,7 +2039,7 @@ Gy
 kG
 KM
 Gs
-lt
+Gd
 rN
 eA
 Qe
@@ -2203,8 +2218,8 @@ Qk
 mT
 Oz
 Sa
-ZB
 JV
+ti
 ti
 Qk
 Qk
