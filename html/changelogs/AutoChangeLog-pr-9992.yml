@@ -1,0 +1,8 @@
+author: rkz, silicons, Rohesie
+delete-after: true
+changes:
+  - refactor: movespeed modifiers are now datums and not lists and support global
+      caching.
+  - server: global caching of movespeed modifiers should both save on performance
+      for modifiers that constantly change (sepia stabilized extract)
+  - bugfix: ignore_slowdown works correctly
