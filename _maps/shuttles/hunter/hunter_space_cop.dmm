@@ -761,7 +761,7 @@
 	},
 /obj/machinery/light/small,
 /obj/structure/toilet/secret{
-	contents = /obj/item/clothing/head/helmet/justice
+	contents = /obj/item/clothing/head/helmet/toggleable/justice
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/shuttle/hunter)
