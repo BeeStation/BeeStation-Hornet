@@ -1,5 +1,7 @@
 #define PEN_ROTATIONS 2
 
+GLOBAL_LIST_EMPTY(uplinks)
+
 /**
  * Uplinks
  *
@@ -16,7 +18,8 @@
 	var/allow_restricted = TRUE
 	var/telecrystals
 	var/selected_cat
-	var/owner = null
+	// Antag datum of the owner
+	var/datum/mind/owner = null
 	var/uplink_flag
 	var/datum/uplink_purchase_log/purchase_log
 	var/list/uplink_items
@@ -31,7 +34,7 @@
 
 	var/list/previous_attempts
 
-/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
+/datum/component/uplink/Initialize(datum/mind/_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -53,10 +56,10 @@
 	if(_owner)
 		owner = _owner
 		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-		if(GLOB.uplink_purchase_logs_by_key[owner])
-			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
+		if(GLOB.uplink_purchase_logs_by_key[owner.key])
+			purchase_log = GLOB.uplink_purchase_logs_by_key[owner.key]
 		else
-			purchase_log = new(owner, src)
+			purchase_log = new(owner.key, src)
 	lockable = _lockable
 	active = _enabled
 	src.uplink_flag = uplink_flag
@@ -68,6 +71,10 @@
 
 	previous_attempts = list()
 
+	// We need to start running this now
+	SSdirectives.can_fire = TRUE
+	GLOB.uplinks += src
+
 /datum/component/uplink/InheritComponent(datum/component/uplink/U)
 	lockable |= U.lockable
 	active |= U.active
@@ -78,6 +85,7 @@
 
 /datum/component/uplink/Destroy()
 	purchase_log = null
+	GLOB.uplinks -= src
 	return ..()
 
 /datum/component/uplink/proc/update_items()
@@ -152,9 +160,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Uplink", name)
-		// This UI is only ever opened by one person,
-		// and never is updated outside of user input.
-		ui.set_autoupdate(FALSE)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /datum/component/uplink/ui_data(mob/user)
@@ -164,6 +170,7 @@
 	data["telecrystals"] = telecrystals
 	data["lockable"] = lockable
 	data["compactMode"] = compact_mode
+	data["objectives"] = SSdirectives.get_uplink_data(src)
 	return data
 
 /datum/component/uplink/ui_static_data(mob/user)
@@ -232,6 +239,14 @@
 		if("compact_toggle")
 			compact_mode = !compact_mode
 			return TRUE
+		if ("directive_action")
+			SSdirectives.directive_action(src, usr)
+			return TRUE
+
+/datum/component/uplink/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/radar_assets),
+	)
 
 /datum/component/uplink/proc/MakePurchase(mob/user, datum/uplink_item/U)
 	if(!istype(U))
@@ -265,13 +280,13 @@
 	SIGNAL_HANDLER
 
 	var/mob/user = arguments[2]
-	owner = user?.key
+	owner = user?.mind
 	if(owner && !purchase_log)
 		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
-		if(GLOB.uplink_purchase_logs_by_key[owner])
-			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
+		if(GLOB.uplink_purchase_logs_by_key[owner.key])
+			purchase_log = GLOB.uplink_purchase_logs_by_key[owner.key]
 		else
-			purchase_log = new(owner, src)
+			purchase_log = new(owner.key, src)
 
 /datum/component/uplink/proc/old_implant(datum/source, list/arguments, obj/item/implant/new_implant)
 	SIGNAL_HANDLER

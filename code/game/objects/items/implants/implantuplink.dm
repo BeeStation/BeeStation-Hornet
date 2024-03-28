@@ -9,9 +9,9 @@
 	/// The uplink flags of the implant uplink inside, only checked during initialisation so modifying it after initialisation will do nothing
 	var/uplink_flag = UPLINK_TRAITORS
 
-/obj/item/implant/uplink/Initialize(mapload, owner, uplink_flag)
+/obj/item/implant/uplink/Initialize(mapload, mob/owner, uplink_flag)
 	. = ..()
-	AddComponent(/datum/component/uplink, _owner = owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = uplink_flag, starting_tc = starting_tc)
+	AddComponent(/datum/component/uplink, _owner = owner?.mind, _lockable = TRUE, _enabled = FALSE, uplink_flag = uplink_flag, starting_tc = starting_tc)
 	RegisterSignal(src, COMSIG_COMPONENT_REMOVING, PROC_REF(_component_removal))
 
 /**

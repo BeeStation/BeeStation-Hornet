@@ -79,8 +79,8 @@
 	/// A holder datum used to handle holoparasites and their shared behavior.
 	var/datum/holoparasite_holder/holoparasite_holder
 
-	/// The atom of our antag stash
-	var/atom/antag_stash = null
+	/// A list of all antag stashes that we can see
+	var/list/antag_stashes = null
 
 	/// Boolean value indicating if the mob attached to this mind entered cryosleep.
 	var/cryoed = FALSE
@@ -291,7 +291,7 @@
 	remove_rev()
 	SSticker.mode.update_cult_icons_removed(src)
 
-/datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = 20, datum/game_mode/gamemode)
+/datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = TELECRYSTALS_DEFAULT, datum/game_mode/gamemode)
 	if(!current)
 		return
 	var/mob/living/carbon/human/traitor_mob = current
@@ -353,7 +353,7 @@
 
 	if (!implant)
 		. = uplink_loc
-		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
+		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob?.mind, TRUE, FALSE, gamemode, telecrystals)
 		if(src.has_antag_datum(/datum/antagonist/incursion))
 			U.uplink_flag = UPLINK_INCURSION
 		if(src.has_antag_datum(/datum/antagonist/traitor/excommunicate))
@@ -375,7 +375,7 @@
 		else
 			traitor_mob.mind.store_memory(U.unlock_note)
 	else
-		var/obj/item/implant/uplink/starting/I = new(traitor_mob)
+		var/obj/item/implant/uplink/starting/I = new(traitor_mob, traitor_mob)
 		I.implant(traitor_mob, null, silent = TRUE)
 		var/datum/component/uplink/U = I.GetComponent(/datum/component/uplink)
 		if(!silent)

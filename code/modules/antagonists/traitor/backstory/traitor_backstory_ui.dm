@@ -33,8 +33,8 @@
 	data["recommended_backstories"] = recommended_backstories
 	if(istype(backstory))
 		data["backstory"] = "[backstory.type]"
-	if(istype(faction))
-		data["faction"] = faction.key
+	if(istype(traitor_faction))
+		data["faction"] = traitor_faction.key
 		data["employer"] = employer
 
 	var/datum/component/uplink/uplink = uplink_ref?.resolve()
@@ -90,13 +90,13 @@
 			var/datum/traitor_faction/selected_faction = GLOB.traitor_factions_to_datum[params["faction"]]
 			if(!istype(selected_faction) || !istype(selected_backstory))
 				return TRUE
-			if(istype(faction) && faction.key != selected_faction.key) // bad!
+			if(istype(traitor_faction) && traitor_faction.key != selected_faction.key) // bad!
 				return TRUE
 			if(!(selected_faction.key in selected_backstory.allowed_factions))
 				return TRUE
 			if(!("[selected_backstory.type]" in allowed_backstories))
 				return TRUE
-			if(!istype(faction))
+			if(!istype(traitor_faction))
 				set_faction(selected_faction)
 			set_backstory(selected_backstory)
 			return TRUE
