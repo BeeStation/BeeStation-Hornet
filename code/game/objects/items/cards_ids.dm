@@ -258,6 +258,8 @@
 		return
 
 	registered_account.adjust_money(cash_money)
+	SSblackbox.record_feedback("amount", "credits_inserted", cash_money)
+	log_econ("[cash_money] credits were inserted into [src] owned by [src.registered_name]")
 	if(istype(I, /obj/item/stack/spacecash) || istype(I, /obj/item/coin))
 		to_chat(user, "<span class='notice'>You stuff [I] into [src]. It disappears in a small puff of bluespace smoke, adding [cash_money] credits to the linked account.</span>")
 	else
@@ -282,6 +284,7 @@
 
 	registered_account.adjust_money(total)
 	SSblackbox.record_feedback("amount", "credits_inserted", total)
+	log_econ("[total] credits were inserted into [src] owned by [src.registered_name]")
 	QDEL_LIST(money)
 
 	return total
@@ -348,6 +351,8 @@
 		var/obj/item/holochip/holochip = new (user.drop_location(), amount_to_remove)
 		user.put_in_hands(holochip)
 		to_chat(user, "<span class='notice'>You withdraw [amount_to_remove] credits into a holochip.</span>")
+		SSblackbox.record_feedback("amount", "credits_removed", amount_to_remove)
+		log_econ("[amount_to_remove] credits were removed from [src] owned by [src.registered_name]")
 		return
 	else
 		var/difference = amount_to_remove - registered_account.account_balance
