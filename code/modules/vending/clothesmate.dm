@@ -83,6 +83,9 @@
 					/obj/item/clothing/shoes/sneakers/red = 4,
 					/obj/item/clothing/shoes/sneakers/orange = 4,
 					/obj/item/clothing/shoes/sneakers/white = 4,
+					/obj/item/clothing/shoes/cowboy = 1,
+					/obj/item/clothing/shoes/cowboy/white = 1,
+					/obj/item/clothing/shoes/cowboy/black = 1,
 		            /obj/item/clothing/head/wig/natural  = 4,
 		            /obj/item/clothing/under/dress/skirt/plaid = 2,
 		            /obj/item/clothing/under/dress/skirt/plaid/blue = 2,
@@ -112,6 +115,8 @@
 		            /obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/head/that = 1,
 		            /obj/item/clothing/head/fedora = 1,
+					/obj/item/clothing/head/fedora/white = 1,
+					/obj/item/clothing/head/fedora/beige = 1,
 		            /obj/item/clothing/glasses/monocle = 1,
 		            /obj/item/clothing/head/sombrero = 1,
 		            /obj/item/clothing/suit/poncho = 1,
@@ -131,20 +136,22 @@
 		            /obj/item/clothing/suit/apron/purple_bartender = 2,
 		            /obj/item/clothing/under/rank/civilian/bartender/purple = 2)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
-		              /obj/item/clothing/mask/balaclava = 1,
-		              /obj/item/clothing/head/ushanka = 1,
-		              /obj/item/clothing/under/costume/soviet = 1,
-		              /obj/item/storage/belt/fannypack/black = 2,
-		              /obj/item/clothing/suit/jacket/letterman_syndie = 1,
-		              /obj/item/clothing/under/costume/jabroni = 1,
-		              /obj/item/clothing/suit/vapeshirt = 1,
-		              /obj/item/clothing/under/costume/geisha = 1)
+		            /obj/item/clothing/mask/balaclava = 1,
+		            /obj/item/clothing/head/ushanka = 1,
+		        	/obj/item/clothing/under/costume/soviet = 1,
+		    		/obj/item/storage/belt/fannypack/black = 2,
+		            /obj/item/clothing/suit/jacket/letterman_syndie = 1,
+		            /obj/item/clothing/under/costume/jabroni = 1,
+		        	/obj/item/clothing/suit/vapeshirt = 1,
+					/obj/item/clothing/under/costume/geisha = 1)
 	premium = list(/obj/item/clothing/under/suit/checkered = 1,
-		           /obj/item/clothing/suit/jacket/leather = 1,
-		           /obj/item/clothing/suit/jacket/leather/overcoat = 1,
-		           /obj/item/clothing/under/pants/mustangjeans = 1,
-		           /obj/item/clothing/neck/necklace/dope = 3,
-		           /obj/item/clothing/suit/jacket/letterman_nanotrasen = 1)
+		        	/obj/item/clothing/suit/jacket/leather = 1,
+		        	/obj/item/clothing/suit/jacket/leather/overcoat = 1,
+		      		/obj/item/clothing/under/pants/mustangjeans = 1,
+		        	/obj/item/clothing/neck/necklace/dope = 3,
+					/obj/item/clothing/shoes/cowboy/fancy = 1,
+		        	/obj/item/clothing/suit/jacket/letterman_nanotrasen = 1)
+
 	refill_canister = /obj/item/vending_refill/clothing
 	default_price = 40
 	extra_price = 60

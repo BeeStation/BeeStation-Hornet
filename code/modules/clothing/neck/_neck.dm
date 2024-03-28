@@ -51,6 +51,11 @@
 	desc = "A neckpiece for a maid costume, it smells faintly of disappointment."
 	icon_state = "maid_neck"
 
+/obj/item/clothing/neck/bowtie_rainbow
+	name = "rainbow bow tie"
+	desc = "An extremely large neosilk rainbow-colored bowtie."
+	icon_state = "bowtie_rainbow"
+
 /obj/item/clothing/neck/stethoscope
 	name = "stethoscope"
 	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."

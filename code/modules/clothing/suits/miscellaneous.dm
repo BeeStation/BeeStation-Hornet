@@ -1104,6 +1104,12 @@
 	togglename = "zipper"
 	body_parts_covered = CHEST|GROIN|ARMS
 
+/obj/item/clothing/suit/underground_serpents_jacket // https://www.youtube.com/watch?v=S0ximxe4XtU&ab_channel=ElevatedLevel
+	name = "underground serpents jacket"
+	desc = "Underground Serpents Rule! We are the Undeground Serpents. That's us, and we rule!"
+	icon_state = "underground_serpents_jacket"
+	item_state = "underground_serpents_jacket"
+
 //extra hoodies!
 
 /obj/item/clothing/suit/hooded/hoodie

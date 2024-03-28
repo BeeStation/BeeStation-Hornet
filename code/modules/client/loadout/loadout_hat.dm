@@ -211,6 +211,12 @@
 	path = /obj/item/clothing/head/pirate
 	cost = 5000
 
+/datum/gear/hat/fishing_hat
+	display_name = "fishing hat"
+	description = "Warning: Only usable by fishgma males."
+	path = /obj/item/clothing/head/fishing_hat
+	cost = 10000
+
 //CHAPLAIN HATS
 
 /datum/gear/hat/blackbishop

@@ -377,3 +377,65 @@
 	desc = "They got me for my foams!"
 	icon_state = "SwagShoes"
 	item_state = "SwagShoes"
+
+/obj/item/clothing/shoes/jester_shoes
+	name = "jester shoes"
+	desc = "Shoes that jingle with every step!!"
+	icon_state = "green_jester_shoes"
+	var/footstep = 1
+
+/obj/item/clothing/shoes/jester_shoes/step_action()
+	if(footstep > 1)
+		playsound(src, "sound/effects/jingle.ogg", 50, 1)
+		footstep = 0
+	else
+		footstep++
+
+/obj/item/clothing/shoes/ducky_shoes
+	name = "ducky shoes"
+	desc = "I got boots, that go *quack quack quack quack quack."
+	icon_state = "ducky_shoes"
+	var/footstep = 1
+
+/obj/item/clothing/shoes/ducky_shoes/step_action()
+	if(footstep > 1)
+		playsound(src, "sound/effects/quack.ogg", 50, 1)
+		footstep = 0
+	else
+		footstep++
+
+/obj/item/clothing/shoes/cowboy
+	name = "cowboy boots"
+	desc = "A small sticker lets you know they've been inspected for snakes, It is unclear how long ago the inspection took place..."
+	icon_state = "cowboy_brown"
+	var/footstep = 1
+
+/obj/item/clothing/shoes/cowboy/step_action()
+	if(footstep > 1)
+		playsound (src, "sound/effects/footstep/spurs1.ogg", 50, 1)
+		footstep = 0
+	else
+		footstep++
+/obj/item/clothing/shoes/cowboy/fancy
+	name = "Fancy cowboy boots"
+	desc = "When an irrepressible smile such as yours\n\
+			Warms an old implacable heart such as mine\n\
+			Don't say no because I insist\n\
+S			omewhere, somehow, someone's gonna be kissed.</i>"
+	icon_state = "cowboy_fancy"
+
+/obj/item/clothing/shoes/cowboy/white
+	name = "white cowboy boots"
+	desc = "Stars of the midnight ranges\n\
+	Shining through the night\n\
+	Stars of the midnight ranges\n\
+	Light my way tonight.</i>"
+	icon_state = "cowboy_white"
+
+/obj/item/clothing/shoes/cowboy/black
+	name = "black cowboy boots"
+	desc = "Love me as though there were no tomorrow\n\
+	Take me out of this world tonight\n\
+	Take me; make me forget my sorrow\n\
+	So when I wake tomorrow, I`ll know our love was right.</i>"
+	icon_state = "cowboy_black"

@@ -193,7 +193,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
 
-/obj/item/clothing/head/fedora
+/obj/item/clothing/head/
 	name = "fedora"
 	icon_state = "fedora"
 	item_state = "fedora"
@@ -209,6 +209,16 @@
 	sleep(10)
 	H.facial_hair_style = "Neckbeard"
 	return BRUTELOSS
+
+/obj/item/clothing/head/fedora/white
+	name = "white fedora"
+	icon_state = "fedora_white"
+	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
+
+/obj/item/clothing/head/fedora/beige
+	name = "beige fedora"
+	icon_state = "fedora_beige"
+	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
 
 /obj/item/clothing/head/sombrero
 	name = "sombrero"
@@ -519,3 +529,9 @@
 	name = "maid headband"
 	desc = "Just like from one of those chinese cartoons!"
 	icon_state = "maid_headband"
+
+/obj/item/clothing/head/propeller_hat
+	name = "propeller hat"
+	desc = "A colorful hat with a spinning propeller sat on top."
+	icon_state = "propeller_hat"
+
