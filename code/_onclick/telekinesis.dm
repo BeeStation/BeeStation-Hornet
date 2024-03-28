@@ -113,7 +113,7 @@
 		qdel(src)
 		return
 	focus.attack_self_tk(user)
-	update_icon()
+	update_appearance()
 
 /obj/item/tk_grab/afterattack(atom/target, mob/living/carbon/user, proximity, params)//TODO: go over this
 	. = ..()
