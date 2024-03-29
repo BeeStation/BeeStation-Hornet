@@ -3776,14 +3776,14 @@
 /turf/open/space/basic,
 /area/solar/port/fore)
 "aTC" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/brown/opposingcorners{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/iron,
 /area/quartermaster/storage)
@@ -64395,9 +64395,6 @@
 /turf/open/floor/iron/dark,
 /area/maintenance/department/chapel/monastery)
 "uLB" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Cargo Maintenance";
@@ -65457,6 +65454,9 @@
 	},
 /obj/item/radio/intercom{
 	pixel_y = 22
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
