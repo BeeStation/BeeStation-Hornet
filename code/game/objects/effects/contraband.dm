@@ -160,7 +160,7 @@
 			to_chat(user, "<span class='notice'>You place the poster!</span>")
 			return
 
-	if(!QDELETED(D))
+	if(D.loc != src) //Would do QDELETED, but it's also possible the poster gets taken down by dismantling the wall
 		to_chat(user, "<span class='notice'>The poster falls down!</span>")
 		D.roll_and_drop(temp_loc)
 
@@ -171,6 +171,9 @@
 	icon_state = "poster_ripped"
 	name = "ripped poster"
 	desc = "You can't make out anything from the poster's original print. It's ruined."
+
+/obj/structure/sign/poster/ripped/roll_and_drop()
+	return null //We shouldn't be an item
 
 /obj/structure/sign/poster/random
 	name = "random poster" // could even be ripped
