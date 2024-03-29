@@ -153,15 +153,16 @@
 	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)
 
 	if(do_after(user, PLACE_SPEED, target=src))
-		if(!D || QDELETED(D))
+		if(QDELETED(D))
 			return
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
 			to_chat(user, "<span class='notice'>You place the poster!</span>")
 			return
 
-	to_chat(user, "<span class='notice'>The poster falls down!</span>")
-	D.roll_and_drop(temp_loc)
+	if(!QDELETED(D))
+		to_chat(user, "<span class='notice'>The poster falls down!</span>")
+		D.roll_and_drop(temp_loc)
 
 // Various possible posters follow
 
