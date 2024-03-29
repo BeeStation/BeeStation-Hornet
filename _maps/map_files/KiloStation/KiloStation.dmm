@@ -3207,14 +3207,6 @@
 "atn" = (
 /turf/closed/wall/r_wall/rust,
 /area/security/courtroom)
-"atq" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "Test Chamber Blast Door"
-	},
-/turf/open/floor/plating,
-/area/science/robotics/lab)
 "atz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
@@ -7057,14 +7049,6 @@
 /area/science/server)
 "aWY" = (
 /turf/closed/wall/r_wall,
-/area/science/explab)
-"aXc" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "telelab";
-	name = "Test Chamber Blast Door"
-	},
-/turf/open/floor/plating,
 /area/science/explab)
 "aXj" = (
 /turf/closed/wall/rust,
@@ -31979,12 +31963,10 @@
 /area/science/explab)
 "gbL" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
+/obj/item/radio/intercom{
+	pixel_x = -28
 	},
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
-	dir = 4
-	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/science/explab)
 "gbU" = (
@@ -38432,6 +38414,16 @@
 	},
 /turf/open/floor/iron,
 /area/security/execution/transfer)
+"iat" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/structure/girder,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/maintenance/starboard/fore)
 "iaB" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/landmark/start/depsec/medical,
@@ -41740,12 +41732,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
-"jcD" = (
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/turf/open/floor/plating,
-/area/science/explab)
 "jcF" = (
 /obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,
 /turf/open/floor/plating,
@@ -44452,10 +44438,6 @@
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
-"jUM" = (
-/obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plating,
-/area/science/explab)
 "jUU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
@@ -45480,16 +45462,15 @@
 	},
 /area/maintenance/port/aft)
 "klY" = (
-/obj/structure/sign/warning/fire{
-	pixel_y = 32
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Experimenter Chamber";
-	name = "science camera";
-	network = list("ss13","rd")
+/turf/open/floor/plating{
+	burnt = 1
 	},
-/turf/open/floor/plating,
-/area/science/explab)
+/area/maintenance/starboard/fore)
 "kma" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/bot,
@@ -47177,6 +47158,15 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
+"kMu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating{
+	burnt = 1
+	},
+/area/maintenance/starboard/fore)
 "kMz" = (
 /obj/machinery/biogenerator,
 /turf/open/floor/grass,
@@ -47960,6 +47950,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/security/detectives_office)
+"kZv" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "kZz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/box/corners{
@@ -55442,6 +55436,13 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/storage/primary)
+"njS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/maintenance/starboard/fore)
 "njZ" = (
 /obj/machinery/computer/atmos_alert{
 	dir = 4
@@ -58534,6 +58535,13 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron,
 /area/engine/atmos)
+"oel" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "oeQ" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/corner,
@@ -59597,9 +59605,7 @@
 /area/maintenance/port/aft)
 "ovT" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/turf_decal/tile/dark_green/half/contrasted{
-	color = "#439C1E"
-	},
+/obj/effect/turf_decal/tile/dark_green/half/contrasted,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -66931,9 +66937,7 @@
 /turf/open/floor/iron/dark,
 /area/gateway)
 "qHE" = (
-/obj/effect/turf_decal/tile/dark_green/half/contrasted{
-	color = "#439C1E"
-	},
+/obj/effect/turf_decal/tile/dark_green/half/contrasted,
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -67525,10 +67529,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/virology)
-"qQs" = (
-/obj/machinery/door/firedoor/heavy,
-/turf/open/floor/plating,
-/area/science/explab)
 "qQv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -70906,9 +70906,6 @@
 	},
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
@@ -75196,6 +75193,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
+"tbQ" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/maintenance/starboard/fore)
 "tbV" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/libraryconsole{
@@ -76042,8 +76045,14 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "tlU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/room/threexthree,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/open/floor/plating,
-/area/science/explab)
+/area/maintenance/starboard/fore)
 "tmf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
@@ -76230,6 +76239,7 @@
 /obj/machinery/door/window/southright{
 	name = "Testing Chamber"
 	},
+/obj/item/beacon,
 /turf/open/floor/engine,
 /area/science/explab)
 "tpl" = (
@@ -85777,13 +85787,14 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "wov" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/status_display/ai{
+	pixel_x = -32
+	},
+/obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/showroomfloor,
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "woz" = (
 /obj/effect/turf_decal/stripes/line{
@@ -86384,13 +86395,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/maintenance/port/aft)
-"wyi" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
-/turf/open/floor/plating,
-/area/science/explab)
 "wyx" = (
 /obj/structure/chair{
 	dir = 1
@@ -89943,15 +89947,14 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "xxB" = (
-/obj/machinery/status_display/ai{
-	pixel_x = -32
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12"
 	},
-/obj/machinery/light{
-	dir = 8
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating{
+	broken = 1
 	},
-/obj/item/beacon,
-/turf/open/floor/plating,
-/area/science/explab)
+/area/maintenance/starboard/fore)
 "xxC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -90075,8 +90078,8 @@
 /turf/open/floor/grass,
 /area/chapel/main)
 "xAc" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 1
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/science/explab)
@@ -128003,10 +128006,10 @@ alu
 amE
 oGU
 apB
-aXk
-aXk
-aWY
-aWY
+tbQ
+njS
+kMu
+iat
 aZS
 cMx
 ygo
@@ -128260,11 +128263,11 @@ alB
 alB
 aep
 apC
-aWY
-jUM
+aXW
+baH
 xxB
-jcD
-aXj
+aXW
+bam
 lZX
 kRf
 lDP
@@ -128517,11 +128520,11 @@ bfs
 bwe
 crh
 mtp
-aWY
+baH
 klY
+oel
 tlU
-tlU
-atq
+aZS
 mnN
 dAe
 sMQ
@@ -128774,11 +128777,11 @@ bhu
 alB
 aeN
 apC
-aXk
-tlU
-tlU
-tlU
-atq
+aXW
+cFi
+cFi
+cFi
+aZS
 blt
 vuu
 dji
@@ -129031,11 +129034,11 @@ bft
 alB
 aeT
 apN
-aWY
-tlU
-tlU
-wyi
-bah
+baH
+kZv
+cFi
+cFi
+aZS
 fHs
 hDT
 vFq
@@ -129289,10 +129292,10 @@ alB
 rTX
 apT
 aWY
-aXc
-qQs
-aXc
-bah
+aWY
+aWY
+aXk
+aZS
 bai
 bah
 aXj
