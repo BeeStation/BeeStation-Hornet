@@ -654,7 +654,7 @@
 		for(var/mob/living/L in range(3, src))
 			L.fire_stacks = max(L.fire_stacks, 3)
 			L.IgniteMob()
-			L.electrocute_act(0, "Tesla Light Zap", tesla_shock = TRUE, stun = TRUE)
+			L.electrocute_act(0, "Tesla Light Zap", flags = SHOCK_TESLA)
 		qdel(src)
 	else
 		return ..()

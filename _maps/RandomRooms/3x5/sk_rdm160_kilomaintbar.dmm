@@ -24,7 +24,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "m" = (
 /obj/effect/decal/cleanable/dirt,
@@ -32,14 +32,14 @@
 	dir = 8
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken3"
+	broken = 1
 	},
 /area/template_noop)
 "n" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/wood{
-	icon_state = "wood-broken6"
+	broken = 1
 	},
 /area/template_noop)
 "t" = (
@@ -55,7 +55,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "v" = (
 /obj/structure/chair/stool/bar{
@@ -92,7 +92,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "z" = (
 /obj/structure/table/wood,
@@ -105,7 +105,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "C" = (
 /obj/effect/decal/cleanable/dirt,
@@ -122,7 +122,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "J" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -130,7 +130,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/template_noop)
 "K" = (
@@ -164,7 +164,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/blood/old,

@@ -124,6 +124,9 @@
 /turf/closed/mineral/random
 	var/mineralChance = 13
 
+/turf/closed/mineral/random/air
+	baseturfs = /turf/open/floor/plating/asteroid //the asteroid floor has air
+
 // Returns a list of the chances for minerals to spawn.
 /// Will only run once, and will then be cached.
 /turf/closed/mineral/random/proc/mineral_chances()
@@ -457,7 +460,7 @@
 
 /turf/closed/mineral/ash_rock //wall piece
 	name = "rock"
-	icon = MAP_SWITCH('icons/turf/walls/icerock_wall.dmi', 'icons/turf/mining.dmi')
+	icon = MAP_SWITCH('icons/turf/walls/rock_wall.dmi', 'icons/turf/mining.dmi')
 	icon_state = "rock2"
 	base_icon_state = "rock_wall"
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER

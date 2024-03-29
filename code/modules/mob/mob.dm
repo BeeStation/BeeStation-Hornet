@@ -343,7 +343,7 @@
   *
   * unset redraw_mob to prevent the mob icons from being redrawn at the end.
   */
-/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE)
+/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE, initial = FALSE)
 	if(!istype(W))
 		return FALSE
 	if(!W.mob_can_equip(src, null, slot, disable_warning, bypass_equip_delay_self))
@@ -352,7 +352,7 @@
 		else if(!disable_warning)
 			to_chat(src, "<span class='warning'>You are unable to equip that!</span>")
 		return FALSE
-	equip_to_slot(W, slot, redraw_mob) //This proc should not ever fail.
+	equip_to_slot(W, slot, initial, redraw_mob) //This proc should not ever fail.
 	return TRUE
 
 /**
@@ -374,8 +374,8 @@
   *
   * Also bypasses equip delay checks, since the mob isn't actually putting it on.
   */
-/mob/proc/equip_to_slot_or_del(obj/item/W, slot)
-	return equip_to_slot_if_possible(W, slot, TRUE, TRUE, FALSE, TRUE)
+/mob/proc/equip_to_slot_or_del(obj/item/W, slot, initial = FALSE)
+	return equip_to_slot_if_possible(W, slot, TRUE, TRUE, FALSE, TRUE, initial)
 
 /**
   * Auto equip the passed in item the appropriate slot based on equipment priority
@@ -384,9 +384,9 @@
   *
   * returns 0 if it cannot, 1 if successful
   */
-/mob/proc/equip_to_appropriate_slot(obj/item/W)
+/mob/proc/equip_to_appropriate_slot(obj/item/W, qdel_on_fail = FALSE)
 	if(!istype(W))
-		return 0
+		return FALSE
 	var/slot_priority = W.slot_equipment_priority
 
 	if(!slot_priority)
@@ -402,10 +402,12 @@
 		)
 
 	for(var/slot in slot_priority)
-		if(equip_to_slot_if_possible(W, slot, 0, 1, 1)) //qdel_on_fail = 0; disable_warning = 1; redraw_mob = 1
-			return 1
+		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE, FALSE, FALSE)) //qdel_on_fail = 0; disable_warning = 1; redraw_mob = 1
+			return TRUE
 
-	return 0
+	if(qdel_on_fail)
+		qdel(W)
+	return FALSE
 
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
@@ -1226,17 +1228,22 @@
 /// Updates the grab state of the mob and updates movespeed
 /mob/setGrabState(newstate)
 	. = ..()
-	if(grab_state == GRAB_PASSIVE)
-		remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE, update=TRUE)
-	else
-		add_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=grab_state*3, blacklisted_movetypes=FLOATING)
+	switch(grab_state)
+		if(GRAB_PASSIVE)
+			remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE)
+		if(GRAB_AGGRESSIVE)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/aggressive)
+		if(GRAB_NECK)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/neck)
+		if(GRAB_KILL)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/kill)
 
 /mob/proc/update_equipment_speed_mods()
 	var/speedies = equipped_speed_mods()
 	if(!speedies)
-		remove_movespeed_modifier(MOVESPEED_ID_MOB_EQUIPMENT, update=TRUE)
+		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod)
 	else
-		add_movespeed_modifier(MOVESPEED_ID_MOB_EQUIPMENT, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=speedies, blacklisted_movetypes=FLOATING)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod, multiplicative_slowdown = speedies)
 
 /// Gets the combined speed modification of all worn items
 /// Except base mob type doesnt really wear items

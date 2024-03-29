@@ -166,6 +166,8 @@
 						var/turf/bl = get_turf(M)
 						if(bl)	//if it can't find a turf for the medibot, then it probably shouldn't be showing up
 							bdat += "[M.name] - <b>\[[bl.x],[bl.y]\]</b> - [M.on ? "Online" : "Offline"]<br>"
+							if(!isnull(M.reagent_glass))
+								bdat += "Reservoir: \[[M.reagent_glass.reagents.total_volume]/[M.reagent_glass.reagents.maximum_volume]\]<br>"
 					if(!bdat)
 						dat += "<br><center>None detected</center>"
 					else
@@ -607,7 +609,7 @@
 
 	//these muthafuckas arent supposed to smooth
 	base_icon_state = null
-	smoothing_flags = null
+	smoothing_flags = NONE
 	smoothing_groups = null
 	canSmoothWith = null
 

@@ -34,6 +34,11 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat
 	cost = 2500
 
+/datum/gear/suit/wintercoat/white
+	display_name = "white winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/white
+	cost = 2500
+
 /datum/gear/suit/wintercoat/captain
 	display_name = "captain's winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/captain
@@ -48,6 +53,11 @@
 	display_name = "medical winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
 	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_BRIGPHYSICIAN)
+
+/datum/gear/suit/wintercoat/brig_doc
+	display_name = "brig physician's winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/brigphys
+	allowed_roles = list(JOB_NAME_BRIGPHYSICIAN)
 
 /datum/gear/suit/wintercoat/science
 	display_name = "science winter coat"
@@ -165,6 +175,12 @@
 	path = /obj/item/clothing/suit/jacket/letterman_syndie
 	cost = 8000
 
+/datum/gear/suit/jacket/gothic
+	display_name = "gothic coat"
+	path = /obj/item/clothing/suit/gothcoat
+	description = "Perfect for those who want stalk in a corner of a bar."
+	cost = 8000
+
 /datum/gear/suit/jacket/joker
 	display_name = "comedian's coat"
 	path = /obj/item/clothing/suit/joker
@@ -222,7 +238,7 @@
 
 /datum/gear/suit/hoodie/white
 	display_name = "white hoodie"
-	path = /obj/item/clothing/head/hooded/hoodie
+	path = /obj/item/clothing/suit/hooded/hoodie
 
 /datum/gear/suit/hoodie/blue
 	display_name = "blue hoodie"

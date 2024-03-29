@@ -238,8 +238,14 @@
 	id = "mixvirus"
 	required_reagents = list(/datum/reagent/consumable/virus_food = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
+	required_other = TRUE
 	var/level_min = 1
 	var/level_max = 2
+
+/datum/chemical_reaction/mix_virus/check_other()
+	if(CONFIG_GET(flag/chemviro_allowed))
+		return TRUE
+	return FALSE
 
 /datum/chemical_reaction/mix_virus/can_react(datum/reagents/holder)
 	return ..() && !isnull(find_virus(holder))
@@ -252,6 +258,11 @@
 		if(!virus.mutable)
 			continue
 		return virus
+
+/datum/chemical_reaction/mix_virus/check_other()
+	if(CONFIG_GET(flag/chemviro_allowed))
+		return TRUE
+	return FALSE
 
 /datum/chemical_reaction/mix_virus/on_reaction(datum/reagents/holder, created_volume)
 	var/datum/disease/advance/target = find_virus(holder)
@@ -357,11 +368,17 @@
 	required_reagents = list(/datum/reagent/medicine/synaptizine = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
 
+/datum/chemical_reaction/mix_virus/rem_virus/check_other()
+	return TRUE
+
 /datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, created_volume)
-	var/datum/disease/advance/target = find_virus(holder)
-	if(target)
-		target.Devolve()
-		target.logchanges(holder, "DEVOLVE")
+
+	var/datum/reagent/blood/B = locate(/datum/reagent/blood) in holder.reagent_list
+	if(B && B.data)
+		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
+		if(D && D.symptoms.len > (CONFIG_GET(number/virus_thinning_cap)))
+			D.Devolve()
+			D.logchanges(holder, "DEVOLVE")
 
 //prevents a random symptom from showing while keeping the stats
 /datum/chemical_reaction/mix_virus/neuter_virus
@@ -369,6 +386,11 @@
 	id = "neutervirus"
 	required_reagents = list(/datum/reagent/toxin/formaldehyde = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
+
+/datum/chemical_reaction/mix_virus/neuter_virus/check_other()
+	if(CONFIG_GET(flag/neuter_allowed))
+		return TRUE
+	return FALSE
 
 /datum/chemical_reaction/mix_virus/neuter_virus/on_reaction(datum/reagents/holder, created_volume)
 	var/datum/disease/advance/target = find_virus(holder)
@@ -383,6 +405,11 @@
 	required_reagents = list(/datum/reagent/cryostylane = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
 
+/datum/chemical_reaction/mix_virus/preserve_virus/check_other()
+	if(CONFIG_GET(flag/neuter_allowed))
+		return TRUE
+	return FALSE
+
 /datum/chemical_reaction/mix_virus/preserve_virus/on_reaction(datum/reagents/holder, created_volume)
 	var/datum/disease/advance/target = find_virus(holder)
 	if(target)
@@ -396,6 +423,11 @@
 	required_reagents = list(/datum/reagent/medicine/spaceacillin = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
 
+/datum/chemical_reaction/mix_virus/falter_virus/check_other()
+	if(CONFIG_GET(flag/neuter_allowed))
+		return TRUE
+	return FALSE
+
 /datum/chemical_reaction/mix_virus/falter_virus/on_reaction(datum/reagents/holder, created_volume)
 	var/datum/disease/advance/target = find_virus(holder)
 	if(target)
@@ -404,6 +436,28 @@
 		target.spread_text = "Intentional Injection"
 		target.logchanges(holder, "FALTER")
 
+/datum/chemical_reaction/mix_virus/reset_virus
+	name = "Reset Virus"
+	id = "resetvirus"
+	required_reagents = list(/datum/reagent/medicine/mutadone = 1)
+	required_catalysts = list(/datum/reagent/blood = 1)
+
+/datum/chemical_reaction/mix_virus/reset_virus/check_other()
+	if(CONFIG_GET(flag/neuter_allowed))
+		return TRUE
+	return FALSE
+
+/datum/chemical_reaction/mix_virus/reset_virus/on_reaction(datum/reagents/holder, created_volume)
+	var/datum/disease/advance/target = find_virus(holder)
+	if(target)
+		while(target.symptoms.len > VIRUS_SYMPTOM_LIMIT)
+			target.Devolve()
+		target.carrier = FALSE
+		target.dormant = FALSE
+		target.event = FALSE
+		target.faltered = FALSE
+		target.mutable = TRUE
+		target.Refresh()
 
 ////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
 

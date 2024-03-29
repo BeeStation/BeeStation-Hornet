@@ -5,10 +5,10 @@
 /area/template_noop)
 "b" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "c" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "g" = (
 /obj/effect/landmark/blobstart,
@@ -16,12 +16,12 @@
 /area/template_noop)
 "i" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "l" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "m" = (
 /obj/machinery/light,
@@ -30,12 +30,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"o" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/open/floor/iron,
 /area/template_noop)
 "p" = (
 /turf/closed/wall,
@@ -48,14 +43,14 @@
 /area/template_noop)
 "s" = (
 /obj/effect/landmark/event_spawn,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "u" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "v" = (
 /obj/item/storage/pod{
@@ -67,13 +62,13 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "A" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "D" = (
 /obj/item/kirbyplants/random,
@@ -84,7 +79,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "F" = (
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -92,11 +87,11 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "G" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/template_noop)
 "J" = (
@@ -118,7 +113,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "O" = (
 /obj/machinery/newscaster{
@@ -128,13 +123,13 @@
 /area/template_noop)
 "Q" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "R" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "S" = (
 /turf/open/floor/plating,
@@ -149,7 +144,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "V" = (
 /obj/machinery/light/small{
@@ -167,7 +162,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "X" = (
 /obj/structure/rack,
@@ -185,7 +180,7 @@ a
 (2,1,1) = {"
 T
 S
-o
+G
 c
 F
 "}

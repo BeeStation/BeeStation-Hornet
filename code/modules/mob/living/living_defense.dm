@@ -119,7 +119,7 @@
 
 			var/mob/thrown_by = I.thrownby?.resolve()
 			if(thrown_by)
-				log_combat(thrown_by, src, "threw and hit", I)
+				log_combat(thrown_by, src, "threw and hit", I, important = I.force)
 			if(!incapacitated(FALSE, TRUE)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
 				hitpush = FALSE
 		else
@@ -152,7 +152,7 @@
 		log_combat(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
 	else
 		step_away(src,M)
-		log_combat(M.occupant, src, "pushed", M)
+		log_combat(M.occupant, src, "pushed", M, important = FALSE)
 		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>", \
 						"<span class='warning'>[M] pushes you out of the way.</span>", null, 5)
 
@@ -372,21 +372,26 @@
 	take_bodypart_damage(acidpwr * min(1, acid_volume * 0.1))
 	return 1
 
-/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, safety, tesla_shock, illusion, stun)
-	if(tesla_shock && (flags_1 & TESLA_IGNORE_1))
+///As the name suggests, this should be called to apply electric shocks.
+/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags)
+	shock_damage *= siemens_coeff
+	if((flags & SHOCK_TESLA) && (flags_1 & TESLA_IGNORE_1))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 		return FALSE
-	if(shock_damage > 0)
-		if(!illusion)
-			adjustFireLoss(shock_damage)
-		visible_message(
-			"<span class='danger'>[src] was shocked by \the [source]!</span>", \
-			"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
-			"<span class='italics'>You hear a heavy electrical crack.</span>" \
-		)
-		return shock_damage
+	if(shock_damage < 1)
+		return FALSE
+	if(!(flags & SHOCK_ILLUSION))
+		adjustFireLoss(shock_damage)
+	else
+		adjustStaminaLoss(shock_damage)
+	visible_message(
+		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
+		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
+		"<span class='hear'>You hear a heavy electrical crack.</span>" \
+	)
+	return shock_damage
 
 /mob/living/emp_act(severity)
 	. = ..()
@@ -490,7 +495,7 @@
 		. += weapon.spread_unwielded
 	// Nothing to hold onto, slight penalty for flying around in space
 	var/default_speed = get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
-	var/current_speed = cached_multiplicative_slowdown || total_multiplicative_slowdown()
+	var/current_speed = cached_multiplicative_slowdown
 	var/move_time = last_move_time
 	// Check for being buckled to mobs and vehicles
 	if (buckled)
@@ -533,3 +538,97 @@
 		// This means walking will improve your accuracy by a total of 12.
 		// This is only really useful if you are using a gun with a shield.
 		. = max(0, . + speed_delta * 8)
+
+/mob/living/proc/is_shove_knockdown_blocked()
+	return FALSE
+
+/// Universal disarm effect, can be used by other components that also want a similar effect to pushback
+/// and stun.
+/mob/living/proc/disarm_effect(mob/living/carbon/user, silent = FALSE)
+	var/turf/target_oldturf = loc
+	var/shove_dir = get_dir(user.loc, target_oldturf)
+	var/turf/target_shove_turf = get_step(loc, shove_dir)
+	var/mob/living/carbon/human/target_collateral_human
+	var/obj/structure/table/target_table
+	var/obj/machinery/disposal/bin/target_disposal_bin
+	var/turf/open/indestructible/sound/pool/target_pool	//This list is getting pretty long, but its better than calling shove_act or something on every atom
+	var/shove_blocked = FALSE //Used to check if a shove is blocked so that if it is knockdown logic can be applied
+
+	//Thank you based whoneedsspace
+	target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
+	if(target_collateral_human)
+		shove_blocked = TRUE
+	else
+		Move(target_shove_turf, shove_dir)
+		if(get_turf(src) == target_oldturf)
+			target_table = locate(/obj/structure/table) in target_shove_turf.contents
+			target_disposal_bin = locate(/obj/machinery/disposal/bin) in target_shove_turf.contents
+			target_pool = istype(target_shove_turf, /turf/open/indestructible/sound/pool) ? target_shove_turf : null
+			shove_blocked = TRUE
+
+	if(IsKnockdown())
+		var/target_held_item = get_active_held_item()
+		if(target_held_item)
+			if (!silent)
+				visible_message("<span class='danger'>[user.name] kicks \the [target_held_item] out of [src]'s hand!</span>",
+								"<span class='danger'>[user.name] kicks \the [target_held_item] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "disarms [target_held_item]", "disarm")
+		else
+			if (!silent)
+				visible_message("<span class='danger'>[user.name] kicks [name] onto [p_their()] side!</span>",
+								"<span class='danger'>[user.name] kicks you onto your side!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "kicks", "disarm", "onto their side (paralyzing)")
+		Paralyze(SHOVE_CHAIN_PARALYZE) //duration slightly shorter than disarm cd
+	if(shove_blocked && !is_shove_knockdown_blocked() && !buckled)
+		var/directional_blocked = FALSE
+		if(shove_dir in GLOB.cardinals) //Directional checks to make sure that we're not shoving through a windoor or something like that
+			var/target_turf = get_turf(src)
+			for(var/obj/O in target_turf)
+				if(O.flags_1 & ON_BORDER_1 && O.dir == shove_dir && O.density)
+					directional_blocked = TRUE
+					break
+			if(target_turf != target_shove_turf) //Make sure that we don't run the exact same check twice on the same tile
+				for(var/obj/O in target_shove_turf)
+					if(O.flags_1 & ON_BORDER_1 && O.dir == turn(shove_dir, 180) && O.density)
+						directional_blocked = TRUE
+						break
+		if((!target_table && !target_collateral_human && !target_disposal_bin && !target_pool && !IsKnockdown()) || directional_blocked)
+			Knockdown(SHOVE_KNOCKDOWN_SOLID)
+			Immobilize(SHOVE_IMMOBILIZE_SOLID)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name], knocking [p_them()] down!</span>",
+					"<span class='danger'>You shove [name], knocking [p_them()] down!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "knocking them down")
+		else if(target_table)
+			Paralyze(SHOVE_KNOCKDOWN_TABLE)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] onto \the [target_table]!</span>",
+					"<span class='danger'>You shove [name] onto \the [target_table]!</span>", null, COMBAT_MESSAGE_RANGE)
+			throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
+			log_combat(user, src, "shoved", "disarm", "onto [target_table] (table)")
+		else if(target_collateral_human)
+			Knockdown(SHOVE_KNOCKDOWN_HUMAN)
+			target_collateral_human.Knockdown(SHOVE_KNOCKDOWN_COLLATERAL)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] into [target_collateral_human.name]!</span>",
+					"<span class='danger'>You shove [name] into [target_collateral_human.name]!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "into [target_collateral_human.name]")
+		else if(target_disposal_bin)
+			Knockdown(SHOVE_KNOCKDOWN_SOLID)
+			forceMove(target_disposal_bin)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_disposal_bin]!</span>",
+					"<span class='danger'>You shove [name] into \the [target_disposal_bin]!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "into [target_disposal_bin] (disposal bin)")
+		else if(target_pool)
+			Knockdown(SHOVE_KNOCKDOWN_SOLID)
+			forceMove(target_pool)
+			if (!silent)
+				user.visible_message("<span class='danger'>[user.name] shoves [name] into \the [target_pool]!</span>",
+					"<span class='danger'>You shove [name] into \the [target_pool]!</span>", null, COMBAT_MESSAGE_RANGE)
+			log_combat(user, src, "shoved", "disarm", "into [target_pool] (swimming pool)")
+	else
+		if (!silent)
+			user.visible_message("<span class='danger'>[user.name] shoves [name]!</span>",
+				"<span class='danger'>You shove [name]!</span>", null, COMBAT_MESSAGE_RANGE)
+		log_combat(user, src, "shoved", "disarm")

@@ -33,7 +33,7 @@
 	var/zap = 15 * GET_MUTATION_POWER(parent_mutation)
 	if(iscarbon(target))
 		var/mob/living/carbon/ctarget = target
-		if(ctarget.electrocute_act(zap, user, stun = FALSE)) //doesnt stun. never let this stun
+		if(ctarget.electrocute_act(zap, user, flags = SHOCK_NOSTUN)) //doesnt stun. never let this stun
 			ctarget.drop_all_held_items()
 			ctarget.confused += zap
 			ctarget.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
@@ -41,7 +41,7 @@
 			user.visible_message("<span class='warning'>[user] fails to electrocute [target]!</span>")
 	else if(isliving(target))
 		var/mob/living/ltarget = target
-		ltarget.electrocute_act(zap, user, stun = FALSE)
+		ltarget.electrocute_act(zap, user, flags = SHOCK_NOSTUN)
 		ltarget.visible_message("<span class='danger'>[user] electrocutes [target]!</span>","<span class='userdanger'>[user] electrocutes you!</span>")
 	else
 		to_chat(user,"<span class='warning'>The electricity doesn't seem to affect [target]...</span>")
