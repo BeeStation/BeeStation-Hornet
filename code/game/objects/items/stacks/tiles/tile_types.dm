@@ -46,11 +46,6 @@
 			return
 		. += "<span class='notice'>Those could work as a [verb] throwing weapon.</span>"
 
-/obj/item/stack/tile/proc/place_tile(turf/open/T)
-	if(!turf_type || !use(1))
-		return
-	. = T.PlaceOnTop(turf_type, flags = CHANGETURF_INHERIT_AIR)
-
 /obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_WELDER)
 		if(get_amount() < 4)
