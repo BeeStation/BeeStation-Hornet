@@ -173,7 +173,7 @@
 	desc = "You can't make out anything from the poster's original print. It's ruined."
 
 /obj/structure/sign/poster/ripped/roll_and_drop()
-	return null //We shouldn't be an item
+	qdel(src) //We shouldn't be an item
 
 /obj/structure/sign/poster/random
 	name = "random poster" // could even be ripped
