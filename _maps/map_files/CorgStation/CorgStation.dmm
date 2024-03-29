@@ -698,6 +698,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "agb" = (
@@ -7216,7 +7217,6 @@
 "bZk" = (
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/effect/turf_decal/bot,
-/obj/machinery/airalarm/directional/north,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -25
 	},
@@ -13396,6 +13396,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/iron,
 /area/quartermaster/qm)
 "edi" = (
@@ -31411,12 +31414,11 @@
 	id = "qmoffice";
 	name = "Quartermaster's Office Shutters"
 	},
-/obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "0-8"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
+	icon_state = "4-8"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -37521,9 +37523,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
 "lZv" = (
@@ -43957,9 +43956,6 @@
 	pixel_y = 6
 	},
 /obj/item/gps/mining,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/qm)
 "nXW" = (
@@ -67716,17 +67712,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
-"vMN" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "qmoffice";
-	name = "Quartermaster's Office Shutters"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/quartermaster/qm)
 "vMV" = (
 /obj/structure/chair/fancy/comfy,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
@@ -119777,7 +119762,7 @@ sEx
 kYZ
 mKw
 pZL
-vMN
+kaB
 qZv
 nxL
 nxL
