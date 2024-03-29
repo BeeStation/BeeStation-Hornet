@@ -472,7 +472,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		for(var/i in inherent_factions)
 			C.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
-	C.add_movespeed_modifier(MOVESPEED_ID_SPECIES, TRUE, 100, override=TRUE, multiplicative_slowdown=speedmod, movetypes=(~FLYING))
+	C.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species, multiplicative_slowdown=speedmod)
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
 
@@ -503,7 +503,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			C.faction -= i
-	C.remove_movespeed_modifier(MOVESPEED_ID_SPECIES)
+	C.remove_movespeed_modifier(/datum/movespeed_modifier/species)
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
 
 /datum/species/proc/handle_hair(mob/living/carbon/human/H, forced_colour)
@@ -1353,14 +1353,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(H.overeatduration < 100)
 			to_chat(H, "<span class='notice'>You feel fit again!</span>")
 			REMOVE_TRAIT(H, TRAIT_FAT, OBESITY)
-			H.remove_movespeed_modifier(MOVESPEED_ID_FAT)
+			H.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
 	else
 		if(H.overeatduration >= 100)
 			to_chat(H, "<span class='danger'>You suddenly feel blubbery!</span>")
 			ADD_TRAIT(H, TRAIT_FAT, OBESITY)
-			H.add_movespeed_modifier(MOVESPEED_ID_FAT, multiplicative_slowdown = 1.5)
+			H.add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
 
@@ -1415,9 +1415,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(!HAS_TRAIT(H, TRAIT_NOHUNGER))
 			var/hungry = (500 - H.nutrition) / 5 //So overeat would be 100 and default level would be 80
 			if(hungry >= 70)
-				H.add_movespeed_modifier(MOVESPEED_ID_HUNGRY, override = TRUE, multiplicative_slowdown = (hungry / 50))
+				H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (hungry / 50))
 			else
-				H.remove_movespeed_modifier(MOVESPEED_ID_HUNGRY)
+				H.remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
 	if(HAS_TRAIT(H, TRAIT_POWERHUNGRY))
 		handle_charge(H)
@@ -1871,7 +1871,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "hot", /datum/mood_event/hot)
 
 		// Remove any slow down from the cold
-		H.remove_movespeed_modifier(MOVESPEED_ID_COLD)
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/cold)
 
 		var/burn_damage = 0
 		var/firemodifier = H.fire_stacks / 50
@@ -1906,12 +1906,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		// clear any hot moods and apply cold mood
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "hot")
 		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "cold", /datum/mood_event/cold)
-
 		// Apply cold slow down
-		H.add_movespeed_modifier(MOVESPEED_ID_COLD, override = TRUE, \
-			multiplicative_slowdown = ((bodytemp_cold_damage_limit - H.bodytemperature) / COLD_SLOWDOWN_FACTOR), \
-			blacklisted_movetypes = FLOATING)
-
+		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/cold, multiplicative_slowdown = ((bodytemp_cold_damage_limit - H.bodytemperature) / COLD_SLOWDOWN_FACTOR))
 		// Display alerts based on the amount of cold damage being taken
 		// Apply more damage based on how cold you are
 		if (H.bodytemperature >= 200 && H.bodytemperature <= bodytemp_cold_damage_limit)
@@ -1927,7 +1923,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// We are not to hot or cold, remove status and moods
 	else
 		H.clear_alert("temp")
-		H.remove_movespeed_modifier(MOVESPEED_ID_COLD)
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/cold)
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "cold")
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "hot")
 
