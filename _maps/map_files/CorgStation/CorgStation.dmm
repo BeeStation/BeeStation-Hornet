@@ -70934,10 +70934,6 @@
 /obj/effect/turf_decal/tile/green/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
-"wMD" = (
-/obj/item/xenoartifact,
-/turf/open/space/basic,
-/area/space)
 "wMH" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -81632,7 +81628,7 @@ aMT
 aMT
 aMT
 aMT
-wMD
+aMT
 aMT
 aMT
 aMT
