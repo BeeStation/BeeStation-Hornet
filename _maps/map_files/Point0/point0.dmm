@@ -1,0 +1,4870 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ak" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
+"am" = (
+/obj/structure/dresser,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"bo" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"bC" = (
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "innerbrig";
+	name = "Brig";
+	req_access_txt = "63"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"bN" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"bX" = (
+/obj/machinery/holopad,
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"cc" = (
+/obj/item/radio/intercom{
+	pixel_x = 33
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"cf" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing,
+/obj/structure/cable/yellow{
+	icon_state = "8-16"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"cO" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"df" = (
+/turf/open/openspace,
+/area/security/main)
+"dk" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/vending/security,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"dB" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"dH" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"dS" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/closet/secure_closet/security/sec,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"ev" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"eD" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"fa" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/main)
+"fe" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"fs" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters"
+	},
+/obj/machinery/door/airlock/command,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"fX" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/power/apc/auto_name/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"gl" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"gR" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-16"
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"gV" = (
+/obj/structure/table/reinforced,
+/obj/structure/desk_bell,
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"hX" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"iY" = (
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"js" = (
+/obj/machinery/door/airlock/command,
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"ju" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"jy" = (
+/turf/open/floor/plating/dirt,
+/area/space)
+"jA" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"jG" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"jY" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"kd" = (
+/obj/structure/table/reinforced,
+/obj/effect/landmark/event_spawn,
+/obj/item/book/manual/wiki/sopsecurity,
+/obj/item/storage/secure/briefcase,
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"kk" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"kq" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/table,
+/obj/item/book/manual/wiki/sopsecurity,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"kJ" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/dirt,
+/area/space)
+"kN" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters"
+	},
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
+"kT" = (
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"lA" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"lG" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"me" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/table,
+/obj/item/toy/cards/deck{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"mn" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing,
+/obj/machinery/power/apc/auto_name/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"mA" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"mH" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/turf/open/floor/grass,
+/area/space)
+"mV" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/effect/spawner/randomvend/snack,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"nd" = (
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/plating/dirt,
+/area/space)
+"nT" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/rnd/production/techfab/department/security,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"os" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/auto_name/north,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"oC" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"oF" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "4-16"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"oM" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/office,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"pE" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"pF" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/table,
+/obj/machinery/recharger,
+/obj/item/food/donut/choco{
+	pixel_x = 9;
+	pixel_y = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"qj" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 1
+	},
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"ql" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/holopad,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"rm" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/railing,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"sv" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"sI" = (
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/structure/table/reinforced,
+/obj/item/radio{
+	pixel_x = -3
+	},
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"sP" = (
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"ta" = (
+/obj/structure/chair/office,
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"tZ" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_y = 13;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_y = 13;
+	pixel_x = 11
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_y = 2;
+	pixel_x = 11
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_y = 2;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"uz" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/brig)
+"uD" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"uG" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"uO" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"vc" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"vn" = (
+/obj/structure/bed/double,
+/obj/item/bedsheet/double/hos,
+/obj/machinery/keycard_auth{
+	pixel_x = 32;
+	pixel_y = -4
+	},
+/obj/item/melee/baton/loaded{
+	pixel_x = 7;
+	pixel_y = -1
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"vs" = (
+/turf/open/openspace,
+/area/space)
+"vU" = (
+/obj/structure/closet/secure_closet/hos,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"wl" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -1;
+	pixel_y = 3
+	},
+/obj/item/pen,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"wv" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/main)
+"xj" = (
+/turf/open/space/basic,
+/area/space)
+"xo" = (
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "outerbrign";
+	name = "Brig";
+	req_one_access_txt = null
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"zd" = (
+/turf/open/openspace,
+/area/crew_quarters/heads/hos)
+"zj" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastleft{
+	base_state = "right";
+	dir = 2;
+	icon_state = "right";
+	name = "Aft Brig Desk";
+	req_access_txt = "1"
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"zt" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"zF" = (
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-08"
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"zN" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/machinery/vending/coffee,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"zZ" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Head of Security's Desk";
+	departmentType = 5;
+	name = "Head of Security RC";
+	pixel_x = -30
+	},
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"Ap" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/computer/security{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Ar" = (
+/turf/closed/wall,
+/area/security/main)
+"AC" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"AP" = (
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"Bi" = (
+/obj/machinery/holopad{
+	pixel_y = 16
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"CB" = (
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"CK" = (
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Dd" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/table,
+/obj/machinery/fax/sec,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"DE" = (
+/turf/closed/wall,
+/area/crew_quarters/heads/hos)
+"DV" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"Ec" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/lockbox/loyalty,
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"Ev" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/vending/cigarette,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"EM" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"EN" = (
+/obj/structure/table/reinforced,
+/obj/item/melee/baton/loaded,
+/obj/item/restraints/handcuffs,
+/obj/machinery/recharger{
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"EQ" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"EX" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"FF" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4;
+	layer = 2
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"GN" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
+"GZ" = (
+/obj/structure/table/reinforced,
+/obj/item/book/manual/wiki/sopcommand,
+/obj/item/stamp/hos{
+	pixel_x = 13;
+	pixel_y = 4
+	},
+/obj/machinery/recharger,
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"HR" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"HW" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/vending/coffee,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"HZ" = (
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "innerbrig";
+	name = "Brig";
+	req_access_txt = "63"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"IH" = (
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"II" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"IY" = (
+/obj/machinery/computer/card/minor/hos{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"JF" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"JM" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"My" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/computer/security{
+	dir = 4;
+	pixel_y = -3
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"ME" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Nw" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"NO" = (
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters";
+	pixel_x = -1;
+	pixel_y = 8
+	},
+/turf/closed/wall,
+/area/crew_quarters/heads/hos)
+"Pd" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"Pf" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/vending/wardrobe/sec_wardrobe,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Pm" = (
+/obj/machinery/computer/security/hos{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"Pv" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"PH" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Qi" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
+"Qz" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"QF" = (
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"QH" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Rg" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"RR" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/table,
+/obj/item/restraints/handcuffs{
+	pixel_y = 3
+	},
+/obj/item/restraints/handcuffs,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"RX" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"RY" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6;
+	layer = 2
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"Si" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing/corner,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"SF" = (
+/obj/machinery/suit_storage_unit/hos,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"SK" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"SR" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Head of Security";
+	req_access_txt = "58"
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"Ty" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
+"TT" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Uc" = (
+/turf/open/floor/grass,
+/area/space)
+"Uq" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	pixel_y = 3
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"UF" = (
+/turf/closed/wall,
+/area/security/brig)
+"Vo" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"Vv" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"VK" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"VW" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing/corner,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"WD" = (
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "outerbrign";
+	name = "Brig";
+	req_one_access_txt = null
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"WS" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"WU" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Xe" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Xo" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/table,
+/obj/item/restraints/legcuffs/bola/energy{
+	pixel_x = 5
+	},
+/obj/item/restraints/legcuffs/bola/energy,
+/obj/machinery/recharger,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"XC" = (
+/turf/open/floor/iron/dark,
+/area/space)
+"Yg" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"YL" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/holopad,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"ZJ" = (
+/obj/structure/bed/dogbed/ian,
+/mob/living/simple_animal/hostile/carp/lia,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+
+(1,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(2,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(3,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(4,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(5,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(6,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(7,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(8,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(9,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(10,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(11,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+UF
+UF
+UF
+UF
+uz
+uz
+uz
+UF
+UF
+UF
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(12,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+sv
+sv
+sv
+UF
+uO
+uO
+uO
+uO
+Yg
+UF
+mH
+jy
+jy
+jy
+jy
+Uc
+"}
+(13,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+JM
+gl
+gl
+HZ
+lG
+lG
+lG
+AC
+Yg
+uz
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(14,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+Qz
+sv
+sv
+UF
+uO
+TT
+uO
+hX
+kk
+uz
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(15,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+VW
+jA
+sv
+UF
+zt
+Vv
+uO
+hX
+zN
+UF
+mH
+jy
+jy
+jy
+jy
+Uc
+"}
+(16,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+cf
+CK
+sv
+sv
+sv
+oC
+uO
+HR
+lG
+WD
+kJ
+kJ
+jy
+jy
+jy
+Uc
+"}
+(17,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+mn
+CK
+sv
+YL
+oM
+zj
+uO
+uO
+uO
+uz
+jy
+nd
+jy
+jy
+jy
+Uc
+"}
+(18,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+Nw
+CK
+sv
+sv
+cc
+gV
+uO
+uO
+uO
+xo
+jy
+jy
+jy
+jy
+jy
+Uc
+"}
+(19,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+RX
+Rg
+sv
+UF
+jG
+EM
+uO
+uO
+mV
+UF
+mH
+jy
+jy
+jy
+jy
+Uc
+"}
+(20,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+sv
+sv
+sv
+UF
+uO
+TT
+uO
+uO
+Yg
+uz
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(21,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+sv
+sv
+sv
+bC
+uO
+uO
+uO
+uO
+Yg
+uz
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(22,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+sv
+sv
+sv
+UF
+uO
+uO
+uO
+uO
+Yg
+UF
+mH
+jy
+jy
+jy
+jy
+Uc
+"}
+(23,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+UF
+UF
+UF
+UF
+uz
+uz
+uz
+uz
+UF
+UF
+UF
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(24,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(25,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(26,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(27,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(28,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(29,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+(30,1,1) = {"
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+jy
+Uc
+"}
+
+(1,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(2,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(3,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(4,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(5,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(6,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(7,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(8,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(9,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(10,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(11,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+Ar
+Ar
+Ar
+Ar
+fa
+fa
+Ar
+fa
+Ar
+Ar
+Ar
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(12,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+Ar
+EX
+My
+wl
+dk
+Pf
+dS
+dS
+dS
+dS
+Ar
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(13,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+fa
+VK
+pE
+EQ
+EQ
+EQ
+EQ
+EQ
+EQ
+VK
+Ar
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(14,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+fa
+VK
+EQ
+VK
+VK
+VK
+VK
+VK
+EQ
+Ev
+fa
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(15,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+Ar
+ju
+jY
+Si
+mA
+VK
+VK
+ME
+vc
+VK
+fa
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(16,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+Ar
+oF
+df
+WU
+Xe
+VK
+QH
+Dd
+RR
+PH
+fa
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(17,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+Ar
+fX
+df
+rm
+JF
+ql
+Uq
+kq
+me
+eD
+fa
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(18,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+Ar
+VK
+df
+WU
+Xe
+VK
+QH
+pF
+Xo
+PH
+fa
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(19,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+Ar
+ju
+dB
+SK
+II
+VK
+VK
+uG
+pE
+VK
+fa
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(20,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+wv
+VK
+EQ
+VK
+VK
+VK
+VK
+VK
+EQ
+HW
+fa
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(21,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+fa
+VK
+vc
+EQ
+EQ
+EQ
+EQ
+EQ
+EQ
+VK
+Ar
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(22,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+Ar
+uD
+Ap
+wl
+nT
+Pf
+dS
+dS
+dS
+dS
+Ar
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(23,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+Ar
+Ar
+Ar
+Ar
+fa
+fa
+Ar
+fa
+Ar
+Ar
+Ar
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(24,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(25,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(26,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(27,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(28,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(29,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(30,1,2) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+
+(1,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(2,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(3,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(4,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(5,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(6,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(7,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(8,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(9,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(10,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(11,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+DE
+DE
+DE
+DE
+ak
+ak
+DE
+ak
+DE
+DE
+DE
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(12,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+XC
+vs
+vs
+ak
+CB
+CB
+Ec
+Pm
+IY
+sI
+CB
+zZ
+CB
+DE
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(13,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+ak
+CB
+fe
+dH
+Pd
+Pd
+dH
+dH
+Pv
+CB
+ak
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(14,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+ak
+CB
+Vo
+cO
+cO
+cO
+DV
+QF
+kT
+CB
+ak
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(15,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+DE
+DE
+SR
+DE
+DE
+DE
+ev
+QF
+zF
+CB
+ak
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(16,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+DE
+gR
+bN
+AP
+zd
+Qi
+lA
+ta
+GZ
+CB
+ak
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(17,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+DE
+os
+WS
+AP
+zd
+Ty
+bX
+ta
+kd
+qj
+ak
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(18,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+DE
+AP
+bN
+AP
+zd
+Ty
+QF
+ta
+EN
+CB
+ak
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(19,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+DE
+GN
+fs
+kN
+DE
+DE
+QF
+QF
+zF
+CB
+ak
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(20,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+ak
+ZJ
+iY
+bo
+tZ
+DE
+QF
+QF
+IH
+CB
+ak
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(21,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+ak
+iY
+iY
+Bi
+iY
+js
+FF
+FF
+RY
+CB
+ak
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(22,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+ak
+vn
+vU
+am
+SF
+DE
+CB
+CB
+CB
+sP
+DE
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(23,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+DE
+NO
+ak
+ak
+DE
+DE
+DE
+ak
+DE
+DE
+DE
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(24,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(25,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(26,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(27,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(28,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(29,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+(30,1,3) = {"
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+vs
+"}
+
+(1,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(2,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(3,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(4,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(5,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(6,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(7,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(8,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(9,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(10,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(11,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(12,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(13,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(14,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(15,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(16,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(17,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(18,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(19,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(20,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(21,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(22,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(23,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(24,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(25,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(26,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(27,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(28,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(29,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
+(30,1,4) = {"
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+xj
+"}
