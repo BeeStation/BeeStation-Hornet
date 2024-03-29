@@ -1910,21 +1910,8 @@
 /turf/open/floor/iron/tech,
 /area/ai_monitored/storage/eva)
 "aEr" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/power/apc/auto_name/east,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
-	},
-/obj/structure/closet/secure_closet/warden{
-	anchored = 1
-	},
-/obj/item/restraints/legcuffs/bola/energy,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -2594,31 +2581,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/port)
 "aPT" = (
-/obj/machinery/door/window/brigdoor/northright{
-	name = "Cell 2";
-	req_access_txt = "1"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/window/brigdoor/northright{
-	dir = 2;
-	id = "Cell 2";
-	name = "Cell 2";
-	req_access_txt = "1"
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
 	},
@@ -3234,16 +3196,6 @@
 /obj/effect/turf_decal/tile/dark_red/half/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
@@ -9368,16 +9320,6 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
 /obj/item/toy/plush/carpplushie,
@@ -13575,26 +13517,6 @@
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
-"eks" = (
-/obj/machinery/camera/autoname{
-	dir = 1;
-	network = list("prison")
-	},
-/mob/living/simple_animal/kalo{
-	desc = "The Perma brig's cute grass snake.";
-	icon_dead = "snake_dead";
-	icon_living = "snake";
-	icon_state = "snake";
-	name = "Hugel"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall/r_wall,
-/area/security/brig{
-	name = "Brig Evidence"
-	})
 "ekA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -15605,13 +15527,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "eNT" = (
-/obj/structure/tank_dispenser/oxygen,
-/obj/machinery/power/apc/auto_name/east,
-/obj/structure/cable/yellow,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
@@ -20585,22 +20500,9 @@
 /turf/open/floor/iron/dark,
 /area/engine/engine_room)
 "gpv" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/numbers/two_nine,
-/obj/structure/chair/fancy/bench{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark,
 /area/security/prison{
 	name = "Prison Processing"
@@ -21331,7 +21233,6 @@
 /turf/open/floor/prison,
 /area/security/prison)
 "gBH" = (
-/obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
@@ -22553,36 +22454,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/engine_room)
-"gUm" = (
-/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
-	alpha = 180
-	},
-/obj/effect/turf_decal/guideline/guideline_in/darkblue{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/disposalpipe/junction,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
-	alpha = 180
-	},
-/obj/effect/turf_decal/guideline/guideline_in/darkblue{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/fore)
 "gUq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -23529,16 +23400,6 @@
 /turf/open/floor/iron,
 /area/engine/storage)
 "hiE" = (
-/obj/effect/turf_decal/siding/wideplating/dark,
-/obj/machinery/light,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/obj/machinery/firealarm/directional/south,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/corner,
 /obj/item/storage/box/trackimp{
@@ -27353,21 +27214,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "iAg" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
-	alpha = 180
-	},
-/obj/effect/turf_decal/guideline/guideline_in/darkblue{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted{
@@ -36805,9 +36651,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
 /obj/structure/bed/dogbed/walter,
 /obj/item/stack/sheet/bone{
 	pixel_x = 6;
@@ -36815,6 +36658,9 @@
 	},
 /mob/living/simple_animal/pet/dog/bullterrier/walter{
 	density = 0
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
 	},
 /turf/open/floor/iron/dark,
 /area/security/warden)
@@ -40084,10 +39930,6 @@
 /area/science/explab)
 "myn" = (
 /obj/effect/turf_decal/delivery,
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 25
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
@@ -49169,9 +49011,6 @@
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/button/door{
 	id = "Capoffice";
 	id_tag = "cmoprivacy";
@@ -49180,45 +49019,11 @@
 	pixel_y = -25
 	},
 /obj/structure/rack,
-/obj/item/aicard,
-/obj/item/storage/secure/briefcase,
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/light,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -8;
-	pixel_y = -30
-	},
-/obj/machinery/camera/autoname{
-	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/machinery/button/door{
-	id = "Capoffice";
-	id_tag = "cmoprivacy";
-	name = "Captain blast door";
-	pixel_x = 5;
-	pixel_y = -25;
-	req_access_txt = "20"
-	},
-/obj/structure/rack,
-/obj/item/aicard,
-/obj/item/storage/secure/briefcase,
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /turf/open/floor/iron,
 /area/bridge)
@@ -55965,34 +55770,6 @@
 	name = "Interrogation Intercom";
 	pixel_y = -35
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red,
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 5
-	},
-/obj/effect/turf_decal/guideline/guideline_tri/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/machinery/camera/autoname{
-	dir = 1;
-	network = list("ss13","security")
-	},
-/obj/machinery/light,
-/obj/item/radio/intercom{
-	frequency = 1423;
-	name = "Interrogation Intercom";
-	pixel_y = -35
-	},
 /turf/open/floor/iron,
 /area/security/brig)
 "rwk" = (
@@ -61569,37 +61346,8 @@
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "tiu" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 9
-	},
-/obj/effect/turf_decal/guideline/guideline_edge_alt/red,
-/obj/effect/turf_decal/guideline/guideline_tri/red{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/camera/autoname{
-	network = list("ss13","security")
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /turf/closed/wall/r_wall,
 /area/security/prison/shielded)
@@ -62886,16 +62634,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/guideline/guideline_edge/red,
-/obj/machinery/light,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -62905,6 +62643,10 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
 	},
 /turf/open/floor/iron,
 /area/security/brig)
@@ -65035,9 +64777,6 @@
 	name = "emergency shower";
 	pixel_x = -5;
 	pixel_y = -5
-	},
-/obj/structure/sign/poster/official/no_erp{
-	pixel_y = 32
 	},
 /turf/open/floor/noslip/standard,
 /area/security/prison{
@@ -71721,17 +71460,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "wwB" = (
-/obj/machinery/light,
-/obj/machinery/computer/med_data{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
@@ -72244,35 +71972,14 @@
 /obj/effect/turf_decal/tile/dark_blue/half/contrasted{
 	alpha = 180
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/red{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/tile/dark_blue/half/contrasted{
-	alpha = 180
-	},
-/obj/structure/disposalpipe/segment{
 	dir = 2
 	},
-/obj/effect/turf_decal/guideline/guideline_in/darkblue{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "wEM" = (
@@ -73510,40 +73217,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/iron,
 /area/quartermaster/miningdock)
-"wXW" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_x = 6;
-	pixel_y = 8
-	},
-/obj/item/clothing/suit/armor/bulletproof{
-	pixel_y = 7
-	},
-/obj/item/clothing/head/helmet/alt{
-	layer = 3.00001;
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/obj/item/clothing/head/helmet/alt{
-	layer = 3.00001;
-	pixel_y = 1
-	},
-/obj/machinery/light,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -33
-	},
-/obj/machinery/camera/motion{
-	c_tag = "Armory - Internal";
-	dir = 1;
-	network = list("ss13","security")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall/r_wall,
-/area/ai_monitored/security/armory)
 "wXX" = (
 /obj/machinery/suit_storage_unit/security,
 /turf/open/floor/iron/dark,
@@ -74898,31 +74571,6 @@
 	name = "mainframe floor"
 	},
 /area/tcommsat/server)
-"xtf" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/dark_red/half/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/closed/wall,
-/area/security/prison{
-	name = "Prison Showers"
-	})
 "xtz" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -100042,7 +99690,7 @@ qBN
 qBN
 qBN
 qBN
-eks
+qBN
 qBN
 stS
 kaO
@@ -106204,7 +105852,7 @@ uYx
 uYx
 uYx
 uYx
-wXW
+uYx
 lze
 aEr
 pJl
@@ -109289,7 +108937,7 @@ uOk
 ifC
 cSL
 aZz
-xtf
+xnd
 upl
 lUU
 qsk
@@ -110055,7 +109703,7 @@ uxg
 iAg
 kvw
 pDy
-gUm
+wEC
 djp
 qvx
 qvx
