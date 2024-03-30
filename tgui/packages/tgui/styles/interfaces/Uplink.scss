@@ -18,7 +18,7 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 70%;
+  width: 60%;
   margin: 10px;
 }
 
@@ -27,7 +27,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 30%;
+  width: 40%;
   margin: 10px;
 }
 
@@ -43,17 +43,36 @@
 }
 
 .RankCard {
+  position: relative;
   width: 100%;
   padding-bottom: 20px;
   color: #d4d4d4;
 }
 
+.RankCardHighlight {
+  border: 1px solid rgb(255, 209, 70);
+  box-shadow: black 3px 3px;
+}
+
 .RankCardMain {
-  width: calc(100% - 200px);
+  width: calc(100% - 164px);
   height: 90px;
   background: linear-gradient(0deg, #b457385a, #8D3E3E5a);
   padding: 10px;
   border-radius: 13px;
+}
+
+.RankCardProgression {
+  position: absolute;
+  right: 10px;
+  top: calc(45px - 20px);
+  width: 144px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 13px;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 5px;
 }
 
 .RankCardTitle {
@@ -61,6 +80,7 @@
   width: 100%;
   font-size: 1.3em;
   margin-bottom: 6px;
+  height: 1.3em;
 }
 
 .RankCardName {

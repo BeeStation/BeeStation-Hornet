@@ -5,6 +5,7 @@ import { formatMoney } from '../format';
 import { Window } from '../layouts';
 import '../styles/interfaces/Uplink.scss';
 import { NtosRadarMap } from './NtosRadar';
+import { Color } from 'common/color';
 
 const MAX_SEARCH_RESULTS = 25;
 
@@ -67,40 +68,78 @@ const HomePage = (props, context) => {
               Welcome, Agent.
             </div>
             <div className="HomeRanks">
-              <div className="RankCard">
-                <div className="RankCardMain">
-                  <div className="RankCardTitle">
-                    Previous Rank
-                    <div className="RankCardName">
-                      Ex-Communication
-                    </div>
-                  </div>
-                  A traitor to the cause, betraying their brothers to seek personal gain.
-                </div>
-              </div>
-              <div className="RankCard">
-                <div className="RankCardMain">
-                  sup
-                </div>
-              </div>
-              <div className="RankCard">
-                <div className="RankCardMain">
-                  sup
-                </div>
-              </div>
-              <div className="RankCard">
-                <div className="RankCardMain">
-                  sup
-                </div>
-              </div>
+              <RankCard
+                name="Ex-Communication"
+                relation="Demotion Point"
+                description="A traitor to the cause, betraying their brothers to seek personal gain. Reaching this level will result in halted services and a termination order after 5 minutes."
+                reputation={0}
+                reputation_delta={-200}
+                progression_colour="#6B1313"
+                />
+              <RankCard
+                name="Blood Servant"
+                relation="Previous Rank"
+                description="An operative with a reason to act, but without the will to fufill their greater purpose."
+                reputation={100}
+                reputation_delta={-100}
+                progression_colour="#6B1313"
+                />
+              <RankCard
+                name="Field-Agent"
+                relation="Current Rank"
+                description="An operative acting on the ground, with access to some standard equipment that can be used to complete their mission."
+                reputation={200}
+                reputation_delta={0}
+                current_rank
+                progression_colour="#272727"
+                />
+              <RankCard
+                name="Special Operative"
+                relation="Next Rank"
+                description="An operative who has proven their fealty and worth, granted with additional resources and services."
+                reputation={400}
+                reputation_delta={200}
+                progression_colour="#134F12"
+                />
             </div>
           </div>
           <div className="HomeRight">
-            right
+
           </div>
         </div>
       </Flex.Item>
     </Flex>
+  );
+};
+
+const RankCard = (props, contxt) => {
+  const {
+    relation,
+    name,
+    description,
+    reputation,
+    reputation_delta,
+    current_rank = false,
+    progression_colour = "#6B1313",
+  } = props;
+  return (
+    <div className="RankCard">
+      <div className={current_rank ? "RankCardMain RankCardHighlight" : "RankCardMain"}>
+        <div className="RankCardTitle">
+          {relation}
+          <div className="RankCardName">
+            {name}
+          </div>
+        </div>
+        {description}
+      </div>
+      <div className="RankCardProgression" style={{
+        background: "linear-gradient(0deg, #999 -300%, " + progression_colour + " 100%)",
+      }}>
+        {reputation} Reputation<br />
+        ({reputation_delta})
+      </div>
+    </div>
   );
 };
 
