@@ -147,4 +147,5 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	material_type = /datum/material/meat
 	material_modifier = 1 //None of that wussy stuff
 
-/obj/item/stack/sheet/meat/get_recipes() //empty typepath. Leave it be.
+/obj/item/stack/sheet/meat/get_recipes()
+	return GLOB.meat_recipes
