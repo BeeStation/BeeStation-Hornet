@@ -56,7 +56,7 @@
 /obj/item/gun/ballistic/bow/ashen
 	name = "Bone Bow"
 	desc = "Some sort of primitive projectile weapon made of bone and wrapped sinew."
-	icon_state = "ashenbow"
+	icon_state = "ashenbow_unloaded"
 	item_state = "ashenbow"
 	icon_state_preview = "ashenbow_unloaded"
 	force = 8
@@ -64,7 +64,7 @@
 /obj/item/gun/ballistic/bow/pipe
 	name = "Pipe Bow"
 	desc = "A crude projectile weapon made from silk string, pipe and lots of bending."
-	icon_state = "pipebow"
+	icon_state = "pipebow_unloaded"
 	item_state = "pipebow"
 	icon_state_preview = "pipebow_unloaded"
 	force = 7

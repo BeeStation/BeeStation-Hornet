@@ -395,9 +395,6 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = TRUE
 
-/obj/effect/warp_cube/ex_act(severity, target)
-	return
-
 //Meat Hook
 /obj/item/gun/magic/hook
 	name = "meat hook"
@@ -530,9 +527,6 @@
 	qdel(src)
 
 /obj/effect/immortality_talisman/attackby()
-	return
-
-/obj/effect/immortality_talisman/ex_act()
 	return
 
 /obj/effect/immortality_talisman/singularity_pull()
