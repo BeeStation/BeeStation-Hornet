@@ -4,7 +4,7 @@
 /area/template_noop)
 "b" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "c" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
