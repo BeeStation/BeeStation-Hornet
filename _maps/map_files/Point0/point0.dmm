@@ -1,476 +1,726 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"ak" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/space)
-"am" = (
-/turf/open/floor/holofloor/wood,
-/area/space)
-"bo" = (
-/obj/structure/dresser,
-/turf/open/floor/carpet/red,
-/area/space)
-"bC" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925";
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"bN" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/machinery/vending/wardrobe/sec_wardrobe,
-/turf/open/floor/iron/dark,
-/area/space)
-"bX" = (
-/obj/machinery/holopad,
-/turf/open/floor/carpet/black,
-/area/space)
-"cc" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/space)
-"cf" = (
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "innerbrig";
-	name = "Brig";
-	req_access_txt = "63"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"cO" = (
-/obj/structure/railing/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/railing/corner,
-/turf/open/floor/iron/dark,
-/area/space)
-"df" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"dk" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"dB" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/railing,
-/turf/open/floor/iron/dark,
-/area/space)
-"dH" = (
-/turf/closed/wall,
-/area/space)
-"dS" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"ev" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/table,
-/obj/item/restraints/legcuffs/bola/energy{
-	pixel_x = 5
-	},
-/obj/item/restraints/legcuffs/bola/energy,
-/obj/machinery/recharger,
-/turf/open/floor/iron/dark,
-/area/space)
-"eD" = (
-/obj/effect/spawner/structure/window/reinforced/prison,
-/turf/open/floor/plating,
-/area/space)
-"fa" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"fe" = (
-/obj/effect/turf_decal/tile/red/diagonal_edge,
+"aa" = (
+/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/iron/dark,
-/area/space)
-"fs" = (
-/obj/effect/turf_decal/tile/red/diagonal_edge,
-/obj/machinery/light{
-	dir = 1;
-	light_color = "#7AC3FF"
+/turf/open/floor/plating,
+/area/security/warden)
+"ab" = (
+/obj/item/radio/intercom{
+	name = "Common Channel";
+	pixel_x = 27
 	},
-/turf/open/floor/iron/dark,
-/area/space)
-"fX" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/machinery/power/apc/auto_name/north,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/prison,
+/area/security/prison)
+"ag" = (
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/turf/open/floor/iron/dark,
-/area/space)
-"gl" = (
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"ai" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/punching_bag,
+/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"ak" = (
+/obj/structure/closet/secure_closet/hos,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"am" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"aA" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"aE" = (
+/obj/effect/turf_decal/trimline/white/line{
+	pixel_x = -16
+	},
+/obj/effect/turf_decal/trimline/white/line{
+	pixel_x = 16
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"aQ" = (
 /obj/structure/table/reinforced,
-/obj/structure/window/reinforced,
+/obj/item/toy/cards/deck/unum{
+	pixel_y = 1;
+	pixel_x = 4
+	},
+/obj/item/reagent_containers/food/drinks/beer{
+	pixel_x = -12;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/food/drinks/beer{
+	pixel_x = -7;
+	pixel_y = 14
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"aZ" = (
+/obj/structure/chair/fancy/bench/right{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"bb" = (
+/turf/open/floor/holofloor/plating,
+/area/holodeck/prison)
+"be" = (
+/turf/closed/wall/r_wall,
+/area/security/prison)
+"bj" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/turf_decal/stripes/corner,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"bo" = (
+/obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /turf/open/floor/iron/dark,
-/area/space)
-"gR" = (
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrign";
-	name = "Brig";
-	req_one_access_txt = null
-	},
+/area/security/brig)
+"bt" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
+	icon_state = "1-8"
 	},
 /turf/open/floor/iron/dark,
-/area/space)
-"gV" = (
-/obj/structure/closet/secure_closet/hos,
-/turf/open/floor/carpet/red,
-/area/space)
-"hX" = (
+/area/security/main)
+"bw" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"bB" = (
+/obj/structure/rack,
+/obj/item/storage/box/firingpins,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"bC" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"bN" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"bX" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"cc" = (
 /obj/machinery/computer/card/minor/hos{
 	dir = 4
 	},
 /turf/open/floor/holofloor/wood,
-/area/space)
-"iY" = (
+/area/crew_quarters/heads/hos)
+"cf" = (
 /obj/structure/chair/office,
 /turf/open/floor/carpet/black,
-/area/space)
-"js" = (
+/area/crew_quarters/heads/hos)
+"ci" = (
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 5
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"cN" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"cO" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/item/paper_bin,
+/obj/item/pen/fountain,
+/obj/structure/table/wood,
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
+"cP" = (
+/obj/machinery/holopad,
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"cV" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"dc" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/condiment/flour{
+	pixel_x = -2;
+	pixel_y = 13
+	},
+/obj/item/kitchen/rollingpin,
+/obj/item/clothing/head/chefhat,
+/turf/open/floor/prison,
+/area/security/prison)
+"df" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 4
+	},
+/obj/machinery/genpop_interface{
+	pixel_y = 32
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"dk" = (
+/obj/structure/railing,
+/obj/structure/closet/secure_closet/detective,
+/obj/item/camera/detective,
+/obj/item/taperecorder,
+/obj/item/holosign_creator/security,
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"dq" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"dB" = (
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "innerbrig";
+	name = "Brig";
+	req_access_txt = "63"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"dF" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/effect/spawner/randomvend/snack,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"dH" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"dS" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"ea" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/washing_machine,
+/turf/open/floor/iron/freezer,
+/area/security/prison)
+"eh" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"ev" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/power/apc/auto_name/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"ew" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"eB" = (
+/obj/machinery/requests_console{
+	pixel_x = 32
+	},
+/obj/structure/rack,
+/obj/effect/turf_decal/delivery,
+/obj/effect/loot_jobscale/armoury/riot_suit,
+/obj/effect/loot_jobscale/armoury/riot_shield,
+/obj/effect/loot_jobscale/armoury/riot_helmet,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"eD" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/office,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"eH" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"eP" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"eU" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"eW" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = 24
+	},
+/obj/structure/stairs{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"fa" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /turf/open/floor/carpet/black,
-/area/space)
-"ju" = (
+/area/crew_quarters/heads/hos)
+"fb" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
+"fe" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"fh" = (
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 10;
+	pixel_x = -16
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"fs" = (
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"fF" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/item/pen,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"fM" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 8;
+	pixel_x = -16
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/wood,
+/area/security/prison)
+"fQ" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/prison)
+"fT" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"fV" = (
+/turf/closed/wall,
+/area/crew_quarters/heads/hos)
+"fX" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"fY" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/computer/prisoner/gulag_teleporter_computer{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"gd" = (
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"gg" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"gl" = (
+/turf/closed/wall,
+/area/security/main)
+"gs" = (
+/obj/structure/chair/fancy/plastic,
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"gN" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/mob/living/simple_animal/bot/secbot{
+	arrest_type = 1;
+	health = 45;
+	icon_state = "secbot1";
+	idcheck = 1;
+	name = "Sergeant-at-Armsky";
+	weaponscheck = 1
+	},
+/obj/item/wrench,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"gP" = (
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"gR" = (
+/obj/machinery/holopad{
+	pixel_y = 16
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"gV" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"hc" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"hj" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/vehicle/ridden/secway,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"hH" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/obj/machinery/power/apc/auto_name/east,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
+"hJ" = (
+/obj/machinery/requests_console{
+	department = "Detective's Office";
+	departmentType = 4;
+	pixel_y = -32
+	},
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"hO" = (
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/railing,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"hX" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/genpop,
 /turf/open/floor/iron/dark,
-/area/space)
+/area/security/brig)
+"ig" = (
+/obj/structure/toilet{
+	dir = 4;
+	pixel_y = 2
+	},
+/turf/open/floor/iron/freezer,
+/area/security/prison)
+"ix" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"iG" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"iL" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Head of Security's Desk";
+	departmentType = 5;
+	name = "Head of Security RC";
+	pixel_x = -30
+	},
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"iY" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/auto_name/north,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"jb" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"jl" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"jm" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/structure/chair/office,
+/turf/open/floor/iron,
+/area/security/warden)
+"js" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"ju" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/closet/secure_closet/security/sec,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"jw" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/machinery/vending/coffee,
+/turf/open/floor/iron/dark,
+/area/security/brig)
 "jy" = (
 /turf/open/floor/plating/dirt,
 /area/space)
 "jA" = (
 /obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/machinery/rnd/production/techfab/department/security,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/iron/dark,
-/area/space)
+/area/security/brig)
+"jB" = (
+/obj/item/storage/fancy/cigarettes/cigpack_robustgold{
+	pixel_y = 21;
+	pixel_x = 11
+	},
+/turf/open/floor/iron/freezer,
+/area/security/prison)
+"jC" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/obj/machinery/computer/arcade/orion_trail{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "jG" = (
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "innerbrig";
-	name = "Brig";
-	req_access_txt = "63"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"jY" = (
 /obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/machinery/computer/security{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"kd" = (
-/obj/effect/turf_decal/tile/red/diagonal_edge,
-/turf/open/floor/iron/dark,
-/area/space)
-"kk" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/machinery/light{
-	dir = 1;
-	light_color = "#7AC3FF"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"kq" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
-/obj/machinery/computer/secure_data{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"kJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating/dirt,
-/area/space)
-"kT" = (
-/obj/effect/turf_decal/tile/red/diagonal_edge,
-/obj/effect/spawner/randomvend/snack,
-/turf/open/floor/iron/dark,
-/area/space)
-"lA" = (
-/obj/structure/table/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/book/manual/wiki/security_space_law{
-	pixel_x = 7;
-	pixel_y = 6
-	},
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/space)
-"lG" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/machinery/computer/security{
-	dir = 4;
-	pixel_y = -3
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"me" = (
-/obj/effect/turf_decal/tile/red/diagonal_edge,
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"mn" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -1;
-	pixel_y = 3
-	},
-/obj/item/pen,
-/turf/open/floor/iron/dark,
-/area/space)
-"mA" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "4-16"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"mH" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
-/turf/open/floor/grass,
-/area/space)
-"mV" = (
-/obj/effect/turf_decal/tile/red/diagonal_edge,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"nd" = (
-/obj/effect/landmark/start/assistant,
-/turf/open/floor/plating/dirt,
-/area/space)
-"nT" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/railing,
-/turf/open/floor/iron/dark,
-/area/space)
-"os" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "hosoffice";
-	name = "Head of Security's Office Shutters"
-	},
-/obj/structure/cable/yellow,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
-"oC" = (
-/obj/effect/turf_decal/siding/wood{
-	layer = 1
-	},
-/obj/effect/turf_decal/siding/wood{
-	layer = 1
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-08"
-	},
-/turf/open/floor/carpet/black,
-/area/space)
-"oF" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/closet/secure_closet/security/sec,
-/turf/open/floor/iron/dark,
-/area/space)
-"oM" = (
-/obj/machinery/holopad{
-	pixel_y = 16
-	},
-/turf/open/floor/carpet/red,
-/area/space)
-"pE" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/machinery/holopad,
-/turf/open/floor/iron/dark,
-/area/space)
-"pF" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"qj" = (
-/obj/effect/turf_decal/tile/red/diagonal_edge,
-/obj/machinery/vending/coffee,
-/turf/open/floor/iron/dark,
-/area/space)
-"ql" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/table,
-/obj/item/restraints/handcuffs{
-	pixel_y = 3
-	},
-/obj/item/restraints/handcuffs,
-/turf/open/floor/iron/dark,
-/area/space)
-"rm" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/diagonal_edge,
-/turf/open/floor/iron/dark,
-/area/space)
-"sv" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 9
-	},
-/turf/open/floor/carpet/black,
-/area/space)
-"sI" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/eastleft{
-	base_state = "right";
-	dir = 2;
-	icon_state = "right";
-	name = "Aft Brig Desk";
-	req_access_txt = "1"
-	},
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/space)
-"sP" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"ta" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"tZ" = (
-/obj/structure/bed/double,
-/obj/item/bedsheet/double/hos,
-/obj/machinery/keycard_auth{
-	pixel_x = 32;
-	pixel_y = -4
-	},
-/obj/item/melee/baton/loaded{
-	pixel_x = 7;
-	pixel_y = -1
-	},
-/turf/open/floor/carpet/red,
-/area/space)
-"uz" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/lockbox/loyalty,
-/turf/open/floor/holofloor/wood,
-/area/space)
-"uD" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	layer = 2
-	},
-/turf/open/floor/carpet/black,
-/area/space)
-"uO" = (
-/obj/item/radio/intercom{
-	pixel_x = 33
-	},
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/space)
-"vc" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666"
-	},
-/turf/open/floor/carpet/red,
-/area/space)
-"vn" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	layer = 1
-	},
-/turf/open/floor/carpet/black,
-/area/space)
-"vs" = (
-/turf/open/openspace,
-/area/space)
-"vU" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/auto_name/north,
-/turf/open/floor/iron/dark,
-/area/space)
-"wl" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Head of Security";
-	req_access_txt = "58"
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
 	},
 /turf/open/floor/iron/dark,
-/area/space)
-"wv" = (
+/area/security/brig)
+"jN" = (
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -480,58 +730,33 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/space)
-"xj" = (
-/turf/open/space/basic,
-/area/space)
-"xo" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/holofloor/wood,
-/area/space)
-"zd" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/chair/office,
-/turf/open/floor/iron/dark,
-/area/space)
-"zj" = (
-/obj/machinery/door/airlock/command{
-	name = "Head of Security's Office";
-	req_access_txt = "58"
-	},
-/turf/open/floor/holofloor/wood,
-/area/space)
-"zt" = (
-/obj/machinery/suit_storage_unit/hos,
-/turf/open/floor/carpet/red,
-/area/space)
-"zF" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
-/obj/machinery/light{
-	dir = 1;
-	light_color = "#7AC3FF"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"zN" = (
-/obj/structure/table/reinforced,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/space)
-"zZ" = (
+/area/security/main)
+"jT" = (
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /obj/machinery/vending/cigarette,
 /turf/open/floor/iron/dark,
-/area/space)
-"Ap" = (
+/area/security/main)
+"jX" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/prison,
+/area/security/prison)
+"jY" = (
+/obj/machinery/button/door{
+	id = "detectivewindows";
+	name = "Detective Private Shutters";
+	pixel_y = -26;
+	req_access_txt = "4"
+	},
+/obj/machinery/computer/security/telescreen{
+	dir = 1;
+	name = "Station Monitor";
+	network = list("ss13");
+	pixel_x = 32;
+	pixel_y = -32
+	},
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"kd" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_y = 13;
@@ -557,61 +782,1678 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/red,
-/area/space)
-"Ar" = (
+/area/crew_quarters/heads/hos)
+"ke" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"kf" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"kk" = (
 /obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/table,
+/obj/machinery/fax/sec,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"km" = (
+/obj/structure/bed{
+	dir = 8
+	},
+/obj/item/bedsheet/random,
+/obj/item/toy/plush/moth/monarch{
+	pixel_x = 7;
+	pixel_y = -5
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"kq" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"kz" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/rack,
+/obj/item/storage/box/sec_barricades,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"kA" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/computer/cargo/request{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"kB" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/brig)
+"kE" = (
+/obj/machinery/computer/security{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/button/door{
+	id = "Prisongate";
+	name = "Prison Wing Lockdown";
+	pixel_y = -26;
+	req_access_txt = "2";
+	pixel_x = -3
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"kJ" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/dirt,
+/area/space)
+"kL" = (
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 8;
+	pixel_x = -16
+	},
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"kN" = (
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"kT" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"kW" = (
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 1;
+	pixel_x = -16
+	},
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 1;
+	pixel_x = 16
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"lf" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"li" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /turf/open/floor/iron/dark,
-/area/space)
-"AC" = (
+/area/security/prison)
+"ls" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/carpet/black,
-/area/space)
-"Bi" = (
-/obj/effect/turf_decal/siding/wood{
-	layer = 1
+/turf/open/floor/plating,
+/area/security/warden)
+"lu" = (
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "innerbrig";
+	name = "Brig";
+	req_access_txt = "63"
 	},
-/turf/open/floor/carpet/black,
-/area/space)
-"CB" = (
-/obj/machinery/newscaster{
-	pixel_x = -32
+/turf/open/floor/iron,
+/area/security/main)
+"lA" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "detectivewindows";
+	name = "Detective Privacy Blast door"
 	},
-/obj/structure/table/reinforced,
-/obj/item/radio{
-	pixel_x = -3
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
-/obj/machinery/light{
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/security/detectives_office)
+"lC" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
+"lD" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/holofloor/wood,
-/area/space)
-"CK" = (
+/obj/structure/closet/secure_closet/warden,
+/obj/item/storage/lockbox/loyalty,
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"lG" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"lI" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/prison)
+"lN" = (
 /obj/structure/table/reinforced,
 /obj/structure/desk_bell,
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /turf/open/floor/iron/dark,
-/area/space)
-"Dd" = (
+/area/security/brig)
+"me" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/vending/wardrobe/sec_wardrobe,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"mk" = (
+/obj/machinery/door/airlock/security{
+	name = "Armory";
+	req_access_txt = "3";
+	security_level = 6
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"ml" = (
+/turf/open/floor/iron/dark,
+/area/security/main)
+"mn" = (
 /obj/structure/table/reinforced,
+/obj/effect/landmark/event_spawn,
+/obj/item/book/manual/wiki/sopsecurity,
+/obj/item/storage/secure/briefcase,
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"mA" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/table,
+/obj/item/toy/cards/deck{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"mH" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/turf/open/floor/grass,
+/area/space)
+"mR" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"mT" = (
+/obj/machinery/door/airlock/public/glass,
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"mV" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating/dirt,
+/area/space)
+"nd" = (
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/plating/dirt,
+/area/space)
+"nn" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/turf/open/floor/iron/freezer,
+/area/security/prison)
+"ns" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"nu" = (
+/obj/structure/filingcabinet/chestdrawer{
+	pixel_y = 2
+	},
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"nB" = (
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	pixel_y = 3
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
+"nF" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"nN" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig Control";
+	req_access_txt = "3"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"nS" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/box,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"nT" = (
+/obj/structure/railing,
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"nX" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"oc" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/curtain,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/prison)
+"od" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/prison)
+"oi" = (
+/obj/structure/rack,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"op" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"os" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/vending/coffee,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"oC" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"oF" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"oM" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6;
+	layer = 2
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"oP" = (
+/obj/item/toy/beach_ball/holoball,
+/turf/open/floor/wood,
+/area/security/prison)
+"oQ" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"pd" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"pC" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"pE" = (
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"pF" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/table,
+/obj/item/book/manual/wiki/sopsecurity,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"pP" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron/freezer,
+/area/security/prison)
+"pQ" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/prison)
+"pT" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"qe" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"qj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10;
+	layer = 2
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
+"ql" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastleft{
+	base_state = "right";
+	dir = 2;
+	icon_state = "right";
+	name = "Aft Brig Desk";
+	req_access_txt = "1"
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"qB" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
+"qC" = (
+/obj/machinery/computer/crew{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"qK" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/machinery/shower{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/prison,
+/area/security/prison)
+"qN" = (
+/obj/structure/chair/fancy/plastic,
+/turf/open/floor/iron/dark,
+/area/security/prison)
+"qU" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/computer/prisoner/management{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"qZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"rm" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/genpop,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"rI" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/bedsheetbin,
+/turf/open/floor/iron/freezer,
+/area/security/prison)
+"rQ" = (
+/obj/effect/mapping_helpers/tile_breaker,
+/obj/effect/turf_decal/trimline/dark_red/line,
+/turf/open/floor/wood,
+/area/security/prison)
+"sd" = (
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/storage/toolbox/emergency{
+	pixel_x = 2;
+	pixel_y = -3
+	},
+/obj/item/wirecutters{
+	pixel_y = 2
+	},
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_y = 13;
+	pixel_x = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"sm" = (
+/obj/machinery/newscaster{
+	pixel_y = -30
+	},
+/turf/closed/wall,
+/area/security/prison)
+"sn" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"sq" = (
+/obj/structure/rack,
+/obj/item/storage/lockbox/loyalty,
+/obj/item/implantcase/chem,
+/obj/item/implantcase/tracking,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"sv" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"sD" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	alpha = 180;
+	dir = 4
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"sI" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"sP" = (
+/obj/machinery/suit_storage_unit/hos,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"sS" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"ta" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/closet/secure_closet/security/sec,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"td" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	id_tag = "prisonereducation";
+	name = "Solitary Confinement";
+	req_one_access_txt = "1;4"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"tz" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"tB" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"tW" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"tZ" = (
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"uc" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/wood,
+/area/security/prison)
+"ul" = (
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"uq" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/beer{
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/food/drinks/beer{
+	pixel_x = -3
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"us" = (
+/obj/structure/curtain,
+/obj/item/lighter{
+	pixel_x = -8;
+	pixel_y = -12
+	},
+/turf/open/floor/iron/freezer,
+/area/security/prison)
+"uz" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/table,
+/obj/item/restraints/legcuffs/bola/energy{
+	pixel_x = 5
+	},
+/obj/item/restraints/legcuffs/bola/energy,
+/obj/machinery/recharger,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"uD" = (
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"uG" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing,
+/obj/structure/cable/yellow{
+	icon_state = "8-16"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"uK" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/item/ammo_box/magazine/wt550m9/rubber{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/wt550m9/rubber,
+/obj/item/ammo_box/magazine/wt550m9/rubber{
+	pixel_x = 2;
+	pixel_y = -3
+	},
+/obj/structure/rack,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"uL" = (
+/obj/structure/chair/fancy/plastic{
+	dir = 8
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"uO" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/vending/security,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"uT" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"vc" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 1
+	},
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"vk" = (
+/obj/machinery/requests_console{
+	department = "Warden's Office";
+	departmentType = 5;
+	pixel_y = 32
+	},
+/obj/structure/bed/dogbed/walter,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"vn" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/under/rank/prisoner,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"vp" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/machinery/door/airlock/security{
+	name = "Detective's Office";
+	req_access_txt = "4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"vs" = (
+/turf/open/openspace,
+/area/space)
+"vE" = (
+/obj/structure/chair/fancy/plastic{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"vG" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"vH" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/prison)
+"vL" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"vO" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 4
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"vU" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"wa" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"wi" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating/dirt,
+/area/space)
+"wl" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /turf/open/floor/iron/dark,
+/area/security/brig)
+"wv" = (
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"wL" = (
+/obj/machinery/door/airlock/public/glass,
+/turf/open/floor/prison,
+/area/security/prison)
+"xf" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"xg" = (
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"xj" = (
+/turf/open/space/basic,
 /area/space)
-"DE" = (
+"xk" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
+"xo" = (
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-08"
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"xp" = (
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"xt" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"xv" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"xw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"xO" = (
+/obj/structure/chair/fancy/plastic{
+	dir = 1
+	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"xR" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"xW" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"yd" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/security/prison)
+"yt" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"yH" = (
+/obj/item/food/grown/carrot{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/food/grown/carrot{
+	pixel_x = -1;
+	pixel_y = 6
+	},
+/obj/item/food/grown/carrot{
+	pixel_x = -1;
+	pixel_y = 11
+	},
+/obj/item/food/grown/carrot{
+	pixel_x = -6;
+	pixel_y = 12
+	},
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"yJ" = (
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/easel,
+/obj/item/canvas/twentythree_twentythree,
+/turf/open/floor/prison,
+/area/security/prison)
+"yU" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-16"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"zd" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/closet/secure_closet/security/sec,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"zf" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"zj" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/rnd/production/techfab/department/security,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"zt" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/carpet/black,
-/area/space)
+/area/crew_quarters/heads/hos)
+"zx" = (
+/obj/machinery/airalarm/directional/south,
+/obj/structure/rack,
+/obj/effect/turf_decal/delivery,
+/obj/effect/loot_jobscale/armoury/dragnet,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"zF" = (
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"zN" = (
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "outerbrign";
+	name = "Brig";
+	req_one_access_txt = null
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"zO" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/button/door{
+	id = "armory";
+	name = "Armory Shutters";
+	req_access_txt = "3";
+	pixel_x = 21
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"zZ" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Ae" = (
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"Ao" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Ap" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Ar" = (
+/obj/structure/table/reinforced,
+/obj/item/book/manual/wiki/sopcommand,
+/obj/item/stamp/hos{
+	pixel_x = 13;
+	pixel_y = 4
+	},
+/obj/machinery/recharger,
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"AC" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/binoculars,
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"AD" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"AP" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -1;
+	pixel_y = 3
+	},
+/obj/item/pen,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"AT" = (
+/turf/closed/wall,
+/area/security/brig)
+"Bd" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Bi" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/turnstile{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Bs" = (
+/turf/closed/wall/r_wall,
+/area/ai_monitored/security/armory)
+"Bz" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	id_tag = "prisonereducation";
+	name = "Solitary Confinement";
+	req_one_access_txt = "1;4"
+	},
+/turf/open/floor/iron/dark,
+/area/security/prison)
+"BC" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"BJ" = (
+/obj/effect/turf_decal{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"BQ" = (
+/turf/open/openspace,
+/area/security/prison)
+"BT" = (
+/obj/machinery/cryopod{
+	dir = 8
+	},
+/obj/machinery/computer/cryopod{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/turf/open/floor/prison,
+/area/security/prison)
+"BY" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/iron/dark,
+/area/security/prison)
+"Ca" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#e8eaff"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/door/window/brigdoor,
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"Cs" = (
+/obj/structure/rack,
+/obj/item/storage/fancy/donut_box,
+/obj/effect/turf_decal/delivery,
+/obj/item/key/security,
+/obj/item/key/security,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"Cv" = (
+/turf/closed/wall,
+/area/security/prison)
+"CA" = (
+/turf/open/floor/iron/freezer,
+/area/security/prison)
+"CB" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Head of Security";
+	req_access_txt = "58"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/hos)
+"CK" = (
+/obj/structure/dresser,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"CU" = (
+/turf/closed/wall/r_wall,
+/area/security/warden)
+"CZ" = (
+/obj/structure/chair/office,
+/obj/machinery/button/door{
+	id = "Secure Gate";
+	name = "Brig lockdown";
+	pixel_x = -24;
+	pixel_y = -26;
+	req_access_txt = "2"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"Dd" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/lockbox/loyalty,
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"Dk" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"Dp" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Dq" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/holohoop,
+/turf/open/floor/wood,
+/area/security/prison)
+"Dt" = (
+/obj/structure/bed{
+	dir = 8
+	},
+/obj/item/bedsheet/random,
+/obj/structure/sign/poster/contraband/fun_police{
+	pixel_y = 32
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"Dy" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"DC" = (
+/obj/structure/filingcabinet{
+	pixel_x = -8
+	},
+/obj/structure/filingcabinet/security{
+	pixel_x = 8
+	},
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"DE" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"DF" = (
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 6;
+	pixel_x = 16
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"DR" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "armory";
+	name = "Armory Shutter"
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"DT" = (
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters";
+	pixel_x = -1;
+	pixel_y = 8
+	},
+/turf/closed/wall,
+/area/crew_quarters/heads/hos)
 "DV" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"DW" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/shower{
+	dir = 1
+	},
+/obj/item/bikehorn/rubberducky,
+/turf/open/floor/noslip/white,
+/area/security/prison)
+"Ec" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Ed" = (
+/mob/living/simple_animal/kalo{
+	desc = "The Perma brig's cute grass snake.";
+	icon_dead = "snake_dead";
+	icon_living = "snake";
+	icon_state = "snake";
+	name = "Hugel"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"Eg" = (
+/obj/machinery/turnstile{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Er" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing/corner,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Es" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/closet/secure_closet/genpop,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Ev" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"EF" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"EL" = (
+/obj/structure/table/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"EM" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/table,
+/obj/machinery/recharger,
+/obj/item/food/donut/choco{
+	pixel_x = 9;
+	pixel_y = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"EN" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
+"EQ" = (
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "innerbrig";
+	name = "Brig";
+	req_access_txt = "63"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"EX" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"Ff" = (
+/turf/open/openspace,
+/area/security/main)
+"Fj" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/turf_decal/bot,
+/obj/machinery/flasher/portable,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"Fu" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"FB" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/curtain,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/prison)
+"FF" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "detectivewindows";
+	name = "Detective Privacy Blast door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/security/detectives_office)
+"FK" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/flasher/portable,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"FQ" = (
+/turf/open/floor/wood,
+/area/security/prison)
+"FV" = (
+/obj/item/radio/intercom{
+	pixel_x = 33
+	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Gd" = (
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 9;
+	pixel_x = -16
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"Gh" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"Gv" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"Gz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"GB" = (
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/main)
+"GE" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
@@ -626,139 +2468,23 @@
 	name = "Head of Security's Office";
 	req_access_txt = "58"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
-/area/space)
-"Ec" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "hosoffice";
-	name = "Head of Security's Office Shutters"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
-"Ev" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"EM" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/stairs{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"EN" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/table,
-/obj/machinery/recharger,
-/obj/item/food/donut/choco{
-	pixel_x = 9;
-	pixel_y = 8
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"EQ" = (
+/area/crew_quarters/heads/hos)
+"GN" = (
 /obj/machinery/computer/security/hos{
 	dir = 4
 	},
 /turf/open/floor/holofloor/wood,
-/area/space)
-"EX" = (
-/obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/sopcommand,
-/obj/item/stamp/hos{
-	pixel_x = 13;
-	pixel_y = 4
-	},
-/obj/machinery/recharger,
-/obj/effect/turf_decal/siding/wood{
-	layer = 1
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"FF" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/railing,
-/obj/machinery/power/apc/auto_name/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"GN" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/table,
-/obj/item/book/manual/wiki/sopsecurity,
-/turf/open/floor/iron/dark,
-/area/space)
-"GZ" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"HR" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925";
+/area/crew_quarters/heads/hos)
+"GQ" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
-/area/space)
-"HW" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/machinery/vending/coffee,
-/turf/open/floor/iron/dark,
-/area/space)
-"IH" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"II" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 4;
-	layer = 2
-	},
-/turf/open/floor/carpet/black,
-/area/space)
-"IY" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"JF" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/light{
-	dir = 1;
-	light_color = "#7AC3FF"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"JM" = (
-/obj/effect/turf_decal/tile/red/diagonal_edge,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"My" = (
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/prison,
+/area/security/prison)
+"GZ" = (
 /obj/structure/table/reinforced,
 /obj/item/melee/baton/loaded,
 /obj/item/restraints/handcuffs,
@@ -769,18 +2495,208 @@
 	layer = 1
 	},
 /turf/open/floor/iron/dark,
-/area/space)
-"ME" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
+/area/crew_quarters/heads/hos)
+"Hj" = (
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "innerbrig";
+	name = "Brig";
+	req_access_txt = "63"
 	},
-/obj/machinery/light{
-	dir = 1;
-	light_color = "#7AC3FF"
+/obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/turf/open/floor/grass,
-/area/space)
-"Nw" = (
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Hs" = (
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"Hu" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/holopad{
+	pixel_x = -16
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Hx" = (
+/obj/structure/rack,
+/obj/effect/loot_jobscale/armoury/energy_gun{
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/loot_jobscale/armoury/disabler{
+	pixel_y = -3
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"Hz" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/obj/structure/weightmachine,
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/prison,
+/area/security/prison)
+"HH" = (
+/obj/structure/rack,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/item/prison_scanner,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"HM" = (
+/obj/structure/stairs,
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"HR" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"HW" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"HZ" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing/corner,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Id" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"In" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/chair/fancy/bench{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Ip" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/item/soap,
+/turf/open/floor/iron/freezer,
+/area/security/prison)
+"Iw" = (
+/obj/machinery/door/airlock/security{
+	aiControlDisabled = 1;
+	id_tag = "prisonereducation";
+	name = "Prison access";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"Iz" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"IH" = (
+/obj/machinery/door/airlock/command{
+	name = "Head of Security's Office";
+	req_access_txt = "58"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"II" = (
+/obj/structure/railing{
+	dir = 6;
+	layer = 4
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"IJ" = (
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"IM" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/prison,
+/area/security/prison)
+"IU" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/rack,
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/restraints/handcuffs,
+/obj/item/flashlight/seclite,
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"IY" = (
+/turf/closed/wall/r_wall,
+/area/security/detectives_office)
+"Jo" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 8
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"Ju" = (
+/obj/structure/chair/fancy/plastic{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"Jy" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/table,
+/obj/item/restraints/handcuffs{
+	pixel_y = 3
+	},
+/obj/item/restraints/handcuffs,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"JF" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hosoffice";
 	name = "Head of Security's Office Shutters"
@@ -790,175 +2706,152 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/space)
-"NO" = (
-/turf/open/floor/carpet/red,
-/area/space)
-"Pd" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
+/area/crew_quarters/heads/hos)
+"JJ" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/iron,
+/area/security/warden)
+"JM" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180
 	},
-/turf/open/floor/carpet/black,
-/area/space)
-"Pf" = (
+/obj/structure/chair/fancy/bench{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"JT" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"JU" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/loot_jobscale/armoury/wt550,
+/obj/structure/rack,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"Kc" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"KG" = (
+/obj/structure/curtain,
+/turf/open/floor/iron/freezer,
+/area/security/prison)
+"KY" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/item/pen,
 /turf/open/floor/iron/dark,
-/area/space)
-"Pm" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/closet/secure_closet/security/sec,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"Pv" = (
-/obj/structure/stairs{
+/area/security/prison)
+"KZ" = (
+/obj/structure/chair/office{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
-/area/space)
-"PH" = (
-/obj/structure/bed/dogbed/ian,
-/turf/open/floor/carpet/red,
-/area/space)
-"Qi" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/chair/fancy/comfy{
-	color = "#666666"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"Qz" = (
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "hosoffice";
-	name = "Head of Security's Office Shutters";
-	pixel_x = -1;
-	pixel_y = 8
-	},
-/turf/closed/wall,
-/area/space)
-"QF" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925";
-	pixel_y = 3
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"QH" = (
-/turf/open/floor/carpet/black,
-/area/space)
-"Rg" = (
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "outerbrign";
-	name = "Brig";
-	req_one_access_txt = null
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"RR" = (
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"La" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/armor/laserproof,
+/obj/item/beacon/nettingportal,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"Li" = (
 /obj/effect/turf_decal/siding/wood{
-	layer = 1
+	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood{
-	layer = 1
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 4;
+	pixel_x = 16
 	},
-/turf/open/floor/carpet/black,
-/area/space)
-"RX" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"LT" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/machinery/light/small{
 	dir = 8
 	},
+/turf/open/floor/iron/freezer,
+/area/security/prison)
+"Ml" = (
+/obj/structure/railing{
+	dir = 5
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"Ms" = (
+/obj/effect/turf_decal/tile/red,
+/obj/structure/table,
+/obj/item/melee/baton/loaded,
+/obj/item/restraints/handcuffs,
+/obj/item/binoculars{
+	pixel_y = 5;
+	pixel_x = -8
+	},
+/obj/item/gun/energy/laser{
+	pixel_y = -13
+	},
 /turf/open/floor/iron/dark,
-/area/space)
-"RY" = (
-/obj/effect/turf_decal/tile/red/diagonal_edge,
+/area/security/warden)
+"My" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/iron/dark,
-/area/space)
-"Si" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/chair/fancy/comfy{
-	buildstackamount = 0;
-	color = "#742925";
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"MA" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180
+	},
+/obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/iron/dark,
-/area/space)
-"SF" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"ME" = (
+/obj/structure/railing{
+	dir = 9
 	},
-/turf/open/floor/carpet/black,
-/area/space)
-"SK" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"MH" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/red/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/holofloor/wood,
-/area/space)
-"SR" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/railing,
-/obj/structure/cable/yellow{
-	icon_state = "8-16"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"Ty" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/stairs{
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"ML" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/tile/red/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
-/area/space)
-"TT" = (
-/obj/item/radio/intercom{
-	pixel_x = 29
-	},
-/turf/open/floor/holofloor/wood,
-/area/space)
-"Uc" = (
-/turf/open/floor/grass,
-/area/space)
-"Uq" = (
-/obj/effect/turf_decal/tile/red/diagonal_edge,
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"UF" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/railing/corner,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron/dark,
-/area/space)
-"Vo" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/machinery/vending/security,
-/turf/open/floor/iron/dark,
-/area/space)
-"Vv" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"MP" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hosoffice";
 	name = "Head of Security's Office Shutters"
@@ -971,50 +2864,441 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating,
-/area/space)
-"VK" = (
+/area/crew_quarters/heads/hos)
+"Nn" = (
+/turf/open/openspace,
+/area/security/detectives_office)
+"Np" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"Ns" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"Nw" = (
 /obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/closet/secure_closet/security/sec,
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"NA" = (
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/security/warden)
+"ND" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"NO" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/computer/security{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"NR" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/computer/security{
+	dir = 4;
+	pixel_y = -3
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Oz" = (
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
+/obj/structure/rack,
+/obj/item/storage/box/flashbangs,
+/obj/item/storage/box/teargas{
+	pixel_x = 1;
+	pixel_y = -2
+	},
+/obj/item/gun/grenadelauncher,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"OA" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"OQ" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"OU" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"OY" = (
+/obj/structure/chair/fancy/plastic,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"Pb" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"Pd" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4;
+	layer = 2
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"Pf" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "4-16"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Pm" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Pv" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Pw" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/open/openspace,
+/area/security/main)
+"Py" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/prison)
+"PD" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"PH" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
 /obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"PM" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
+/turf/open/floor/grass,
+/area/space)
+"PR" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/prison)
+"PT" = (
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 5;
+	pixel_x = 16
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"Qb" = (
+/obj/item/gun/energy/temperature/security{
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/delivery,
+/obj/item/gun/energy/ionrifle{
+	pixel_y = -3
+	},
+/obj/structure/rack,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"Qc" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Qi" = (
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"Qz" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"QF" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"QG" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/shower{
+	dir = 1
+	},
+/turf/open/floor/noslip/white,
+/area/security/prison)
+"QH" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/chair/fancy/plastic{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"QQ" = (
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/structure/table/reinforced,
+/obj/item/radio{
+	pixel_x = -3
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/holofloor/wood,
+/area/crew_quarters/heads/hos)
+"Rg" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/machinery/holopad,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Rh" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"Rm" = (
+/obj/structure/chair/fancy/bench/right{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"Rn" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"Ro" = (
+/obj/structure/rack,
+/obj/effect/loot_jobscale/armoury/bulletproof_helmet,
+/obj/effect/loot_jobscale/armoury/bulletproof_vest,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"Rt" = (
+/obj/structure/bed{
 	dir = 4
 	},
 /turf/open/floor/iron/dark,
-/area/space)
-"VW" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/structure/table,
-/obj/item/toy/cards/deck{
-	pixel_x = 1;
-	pixel_y = 5
+/area/security/prison)
+"Rw" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
 	},
+/obj/machinery/light_switch{
+	pixel_x = 23
+	},
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	pixel_y = 3
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
+"Rx" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"RA" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/obj/item/storage/crayons,
+/turf/open/floor/prison,
+/area/security/prison)
+"RK" = (
+/obj/effect/turf_decal/bot,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/structure/closet/secure_closet{
+	name = "Lethal WT ammunition locker"
+	},
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"RO" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/curtain,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/main)
+"RR" = (
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "outerbrign";
+	name = "Brig";
+	req_one_access_txt = null
+	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
-/area/space)
-"WD" = (
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Head of Security's Desk";
-	departmentType = 5;
-	name = "Head of Security RC";
-	pixel_x = -30
+/area/security/brig)
+"RX" = (
+/obj/item/radio/intercom{
+	pixel_x = 29
 	},
 /turf/open/floor/holofloor/wood,
-/area/space)
-"WS" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/holopad,
-/turf/open/floor/iron/dark,
-/area/space)
-"WU" = (
-/obj/structure/table/reinforced,
-/obj/effect/landmark/event_spawn,
-/obj/item/book/manual/wiki/sopsecurity,
-/obj/item/storage/secure/briefcase,
-/obj/effect/turf_decal/siding/wood{
-	layer = 1
+/area/crew_quarters/heads/hos)
+"RY" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
 	},
 /turf/open/floor/iron/dark,
-/area/space)
-"Xe" = (
+/area/security/brig)
+"Si" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6;
+	layer = 2
+	},
+/obj/structure/table/wood,
+/obj/item/clothing/glasses/hud/security/sunglasses,
+/obj/item/book/manual/wiki/detective{
+	pixel_x = 5
+	},
+/obj/item/book/manual/wiki/security_space_law{
+	pixel_x = 9;
+	pixel_y = 4
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
+"Sk" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/camera/motion{
+	c_tag = "Armory Motion Sensor"
+	},
+/obj/structure/rack,
+/obj/effect/loot_jobscale/armoury/laser_gun,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"Sr" = (
+/obj/structure/holohoop{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
+/area/security/prison)
+"Su" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"SF" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
@@ -1023,28 +3307,508 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/black,
-/area/space)
-"XC" = (
-/turf/open/floor/iron/dark,
-/area/space)
-"Yg" = (
+/area/crew_quarters/heads/hos)
+"SK" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/box,
 /obj/structure/cable/yellow{
-	icon_state = "4-16"
+	icon_state = "1-2"
+	},
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"SM" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
 	},
 /turf/open/floor/iron/dark,
-/area/space)
-"YL" = (
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/structure/table,
-/obj/machinery/fax/sec,
+/area/security/brig)
+"SN" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/obj/machinery/computer/arcade/battle{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
+"SR" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/table/wood,
+/obj/item/storage/box/evidence,
+/obj/item/poster/random_official,
+/obj/item/poster/random_official,
+/obj/item/poster/random_official,
+/obj/item/melee/classic_baton/police,
+/obj/item/reagent_containers/food/drinks/flask/det{
+	pixel_x = 7;
+	pixel_y = 12
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
+"SU" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/delivery,
+/obj/structure/closet/secure_closet/brig,
 /turf/open/floor/iron/dark,
-/area/space)
-"ZJ" = (
+/area/security/main)
+"Tc" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"Te" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "Prisongate";
+	name = "Prison blast door"
+	},
+/obj/structure/curtain,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/structure/window/reinforced/prison,
+/turf/open/floor/plating,
+/area/security/main)
+"Tl" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = -25
+	},
+/obj/machinery/computer/security/labor{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"To" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"Ts" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/vehicle/ridden/secway,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"Ty" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	alpha = 180;
+	dir = 4
+	},
+/obj/structure/chair/fancy/bench{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"TC" = (
+/obj/effect/turf_decal/tile/black/opposingcorners,
+/obj/structure/railing,
+/obj/machinery/power/apc/auto_name/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"TH" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/weightmachine/weightlifter,
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/prison,
+/area/security/prison)
+"TT" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 10
+	layer = 1
 	},
 /turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"TV" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/security/warden)
+"Ua" = (
+/obj/machinery/airalarm/directional/north,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/photocopier{
+	pixel_x = -2;
+	pixel_y = -3
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"Uc" = (
+/turf/open/floor/grass,
 /area/space)
+"Up" = (
+/turf/closed/wall/r_wall,
+/area/security/brig)
+"Uq" = (
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	layer = 1
+	},
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"UE" = (
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 9
+	},
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 8;
+	pixel_x = -16
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"UF" = (
+/obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"UL" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/railing,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"UR" = (
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 4;
+	pixel_x = 16
+	},
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 6
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"UT" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor{
+	dir = 1;
+	name = "Brig Control Desk";
+	req_access_txt = "3"
+	},
+/obj/machinery/door/window/westleft{
+	base_state = "right";
+	dir = 2;
+	icon_state = "right";
+	name = "Outer Window"
+	},
+/obj/item/storage/fancy/donut_box,
+/turf/open/floor/iron,
+/area/security/warden)
+"Vj" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/security/prison)
+"Vo" = (
+/obj/machinery/vending/wardrobe/det_wardrobe,
+/turf/open/floor/holofloor/wood,
+/area/security/detectives_office)
+"Vv" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"Vw" = (
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"VE" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -1;
+	pixel_y = 3
+	},
+/obj/item/pen,
+/turf/open/floor/wood,
+/area/security/detectives_office)
+"VK" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"VW" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters"
+	},
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
+"VY" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/computer/security{
+	network = list("security");
+	name = "brig cameras console";
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
+/turf/open/floor/iron/dark,
+/area/security/warden)
+"Wp" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	alpha = 180
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"WB" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/structure/table/reinforced,
+/obj/item/restraints/handcuffs/cable/zipties,
+/obj/item/restraints/handcuffs/cable/zipties,
+/obj/item/storage/box/prisoner,
+/obj/item/restraints/handcuffs/cable/zipties,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"WD" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
+"WF" = (
+/obj/structure/chair/fancy/bench/right{
+	dir = 8
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"WH" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	pixel_y = 3
+	},
+/turf/open/floor/iron/dark,
+/area/security/main)
+"WR" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/effect/turf_decal/bot,
+/obj/machinery/flasher/portable,
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
+"WS" = (
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/genpop,
+/turf/open/floor/iron/dark,
+/area/security/brig)
+"WU" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1;
+	layer = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
+"WV" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/security/warden)
+"Xe" = (
+/obj/structure/bed/dogbed/ian,
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"Xj" = (
+/obj/structure/reagent_dispensers/water_cooler{
+	pixel_x = 3
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"Xo" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#666666"
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"XC" = (
+/turf/open/floor/iron/dark,
+/area/security/prison)
+"XP" = (
+/obj/structure/closet/secure_closet{
+	name = "contraband locker";
+	req_access_txt = "3"
+	},
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/lootdrop/armory_contraband,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
+/area/ai_monitored/security/armory)
+"XQ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 8;
+	pixel_x = -16
+	},
+/obj/effect/turf_decal/trimline/dark_red/line{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood,
+/area/security/prison)
+"Ya" = (
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/gulag_teleporter,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"Yf" = (
+/obj/structure/chair/fancy/bench/right{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"Yg" = (
+/obj/structure/bed/double,
+/obj/item/bedsheet/double/hos,
+/obj/machinery/keycard_auth{
+	pixel_x = 32;
+	pixel_y = -4
+	},
+/obj/item/melee/baton/loaded{
+	pixel_x = 7;
+	pixel_y = -1
+	},
+/turf/open/floor/carpet/red,
+/area/crew_quarters/heads/hos)
+"YL" = (
+/turf/open/floor/carpet/black,
+/area/crew_quarters/heads/hos)
+"YP" = (
+/obj/structure/bed{
+	dir = 8
+	},
+/obj/item/bedsheet/random,
+/turf/open/floor/prison/dark,
+/area/security/prison)
+"Zc" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1;
+	layer = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
+"Zf" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/prison,
+/area/security/prison)
+"Zl" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/holopad,
+/turf/open/floor/iron/dark,
+/area/security/main)
+"ZJ" = (
+/obj/machinery/vending/boozeomat/all_access,
+/turf/open/floor/grass,
+/area/security/detectives_office)
+"ZO" = (
+/obj/machinery/airalarm/directional/north,
+/turf/open/floor/holofloor/plating,
+/area/holodeck/prison)
+"ZV" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/security/prison)
 
 (1,1,1) = {"
 xj
@@ -26385,64 +29149,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -26587,64 +29351,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -26789,64 +29553,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -26991,64 +29755,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -27193,64 +29957,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -27395,64 +30159,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -27597,64 +30361,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -27799,64 +30563,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -28001,64 +30765,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -28203,64 +30967,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -28405,64 +31169,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -28607,64 +31371,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -28809,64 +31573,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -29011,64 +31775,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+jy
+jy
+jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -29213,17 +31977,9 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
 Uc
 Uc
 Uc
@@ -29253,24 +32009,32 @@ jy
 jy
 jy
 jy
+jy
+jy
+jy
+jy
+jy
+jy
+jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -29415,17 +32179,9 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
 Uc
 Uc
 Uc
@@ -29452,27 +32208,35 @@ Uc
 Uc
 Uc
 jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 jy
 jy
 jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -29617,17 +32381,9 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
 Uc
 Uc
 Uc
@@ -29654,27 +32410,35 @@ Uc
 Uc
 Uc
 jy
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 jy
 jy
 jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -29819,17 +32583,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -29852,31 +32605,42 @@ Uc
 Uc
 Uc
 Uc
+Uc
+Uc
+Up
+Up
+Up
+Up
+Bi
+Up
+Up
+Up
+Up
 Uc
 Uc
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -30021,17 +32785,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -30040,45 +32793,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+be
+be
+be
+be
+be
+be
+be
+be
+be
+be
+pQ
+yd
+Py
+PR
+be
+Up
+hX
+rm
+rm
+rm
+tB
+rm
+rm
+Up
 Uc
 Uc
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -30223,17 +32987,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -30242,45 +32995,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+bb
+bb
+bb
+bb
+bb
+hO
+yH
+oi
+HH
+ix
+Rx
+Rx
+GQ
+SN
+jC
+Up
+df
+fs
+fs
+fs
+fs
+fs
+fs
+Up
 Uc
 Uc
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -30425,17 +33189,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -30444,45 +33197,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+bb
+bb
+bb
+bb
+bb
+dc
+xg
+xg
+xg
+gP
+xg
+xg
+xg
+wa
+zf
+Up
+vU
+fs
+fs
+fs
+fs
+fs
+WS
+Up
 jy
 jy
 jy
 jy
+jy
+jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -30627,17 +33391,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -30646,45 +33399,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+bb
+bb
+bb
+bb
+bb
+BJ
+xg
+Pb
+Zf
+OY
+To
+EL
+xO
+cN
+Np
+Eg
+Iz
+ND
+xR
+Hu
+xR
+xR
+Es
+Up
 Uc
 Uc
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -30829,17 +33593,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -30848,45 +33601,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+ZO
+bb
+bb
+bb
+bb
+BJ
+xg
+ai
+ML
+gs
+RA
+MH
+Ju
+xg
+zf
+Up
+SM
+Dy
+xR
+xR
+xR
+xR
+Es
+Up
 Uc
 Uc
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -31031,17 +33795,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -31050,45 +33803,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+bb
+bb
+bb
+bb
+bb
+BJ
+xg
+wa
+xg
+gs
+yJ
+MH
+Ju
+xg
+zf
+Up
+Ty
+Bd
+JM
+JM
+JM
+JM
+vn
+Up
 Uc
 Uc
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -31233,17 +33997,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -31252,45 +34005,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-dH
-dH
-dH
-dH
-dH
-eD
-eD
-eD
-dH
-dH
-dH
+be
+bb
+bb
+bb
+bb
+bb
+TH
+xg
+wa
+xg
+xg
+xg
+xg
+xg
+xg
+zf
+Up
+Up
+Hj
+Up
+Up
+kB
+kB
+kB
+AT
+AT
+AT
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -31435,17 +34199,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -31454,45 +34207,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+bb
+bb
+bb
+bb
+bb
+Hz
+jX
+IM
+jX
+jX
+jX
+aA
+jX
+ab
+BT
+Up
+bN
+Rn
+bN
+Up
+Pv
+Pv
+Pv
+Pv
 dH
-cc
-cc
-cc
-dH
-kd
-kd
-kd
-kd
-rm
-dH
+AT
 mH
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -31637,17 +34401,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -31656,45 +34409,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+hc
+Yf
+Yf
+Yf
+Xj
+WF
+aZ
+Rm
+OQ
+WV
+NA
+CU
+Iw
+CU
+CU
+CU
+fe
+eU
+jA
+EQ
+sv
+sv
+sv
+QF
 dH
-df
-Ar
-Ar
-jG
-RY
-RY
-RY
-mV
-rm
-eD
+kB
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -31839,17 +34603,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -31858,45 +34611,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-dH
-JF
-cc
-cc
-dH
-fs
-Uq
-kd
-JM
-me
-eD
+od
+qe
+xp
+xp
+xp
+xp
+xp
+xp
+Ed
+AD
+ls
+Ms
+sd
+eh
+Vw
+kE
+CU
+jG
+bN
+bN
+Up
+RY
+Ec
+Pv
+Ev
+gg
+kB
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+IY
+IY
+IY
+IY
+IY
+IY
+IY
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -32041,17 +34805,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -32060,45 +34813,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-dH
-UF
-IH
-cc
-dH
-lA
-zN
-kd
-JM
-qj
-dH
-ME
+fQ
+qe
+yt
+ZV
+ZV
+ZV
+ZV
+ZV
+Rh
+AD
+ls
+lD
+uT
+fT
+Tc
+CZ
+UT
+HZ
+nX
+bN
+Up
+Ap
+dS
+Pv
+Ev
+jw
+AT
+PM
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+IY
+Vo
+dk
+uD
+zF
+ZJ
+IY
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -32243,17 +35007,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -32262,45 +35015,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-dH
-SR
+vH
+jb
+XQ
+kL
+fh
+sn
+Gd
+UE
+fM
+AD
+aa
+IU
+xf
+IJ
+kA
+qC
+CU
+uG
+pE
+bN
+bN
+bN
+fF
 Pv
-cc
-cc
-cc
-Pf
-kd
-fe
-RY
-gR
+UF
+sv
+zN
 kJ
 kJ
+wi
 jy
 jy
-jy
+FF
+gd
+qB
+WD
+qj
+hJ
+IY
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -32445,17 +35209,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -32464,45 +35217,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-dH
-FF
-Pv
-cc
+fb
+cV
+Dq
+rQ
+aE
+oP
+kW
+Hs
+Sr
+ke
+CU
+Ua
+Gh
+nS
+eP
+pT
+nN
+Dp
 pE
-zd
-sI
-kd
-kd
-kd
+bN
+Rg
 eD
+ql
+Pv
+Pv
+Pv
+kB
 jy
 nd
-jy
-jy
-jy
+mV
+kJ
+kJ
+vp
+SK
+WU
+nB
+cO
+jY
+IY
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -32647,17 +35411,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -32666,45 +35419,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-dH
-dB
+lC
+vO
+Li
+UR
+DF
+FQ
+PT
+ci
+lf
+Jo
+CU
+nu
+Gv
+IJ
+tz
+qU
+CU
+TC
+pE
+bN
+bN
+FV
+lN
 Pv
-cc
-cc
-uO
-CK
-kd
-kd
-kd
-Rg
+Pv
+Pv
+RR
 jy
 jy
 jy
 jy
 jy
+lA
+gd
+Zc
+nB
+SR
+KZ
+IY
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -32849,17 +35613,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -32868,45 +35621,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-dH
-sP
-dS
-cc
-dH
-Dd
-gl
-kd
-kd
-kT
-dH
-ME
+lC
+vO
+iG
+eH
+eH
+eH
+uc
+ns
+kf
+Jo
+CU
+vk
+TV
+JJ
+jm
+VY
+CU
+Nw
+EF
+bN
+Up
+bo
+wl
+Pv
+Pv
+dF
+AT
+PM
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+IY
+DC
+hH
+Rw
+Si
+kN
+IY
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -33051,17 +35815,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -33070,45 +35823,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+lC
+vO
+xp
+xp
+xp
+xp
+xp
+xp
+xp
+Jo
+CU
+eW
+Ca
+xv
+zO
+Tl
+CU
+gV
+bN
+bN
+Up
+RY
+Ec
+Pv
+Pv
 dH
-kk
-cc
-cc
-dH
-fs
-Uq
-kd
-kd
-rm
-eD
+kB
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+IY
+IY
+IY
+IY
+IY
+IY
+IY
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -33253,17 +36017,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -33272,45 +36025,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+sD
+op
+MA
+op
+op
+op
+op
+MA
+Wp
+CU
+CU
+CU
+mk
+CU
+CU
+CU
+Rn
+bN
+bN
+dB
+Pv
+Pv
+Pv
+Pv
 dH
-cc
-cc
-cc
-cf
-kd
-kd
-kd
-kd
-rm
-eD
+kB
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -33455,17 +36219,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -33474,45 +36227,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+Cv
+qK
+Cv
+sm
+Cv
+Cv
+Cv
+Cv
+Cv
+Bs
+kz
+JT
+Ae
+La
+dq
+DR
+Su
+bN
+bN
+Up
+Pv
+Pv
+Pv
+Pv
 dH
-cc
-cc
-cc
-dH
-kd
-kd
-kd
-kd
-rm
-dH
+AT
 mH
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -33657,17 +36421,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -33676,45 +36429,56 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-dH
-dH
-dH
-dH
-eD
-eD
-eD
-eD
-dH
-dH
-dH
+be
+km
+xp
+Dk
+HM
+Cv
+rI
+nn
+us
+ig
+Bs
+Cs
+bj
+Gz
+Gz
+nF
+Bs
+Bs
+Up
+Up
+Up
+kB
+kB
+kB
+AT
+AT
+AT
 Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -33859,17 +36623,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -33878,13 +36631,24 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+Dt
+xp
+xp
+vE
+Cv
+CA
+CA
+KG
+jB
+Bs
+sq
+xw
+WR
+hj
+qZ
+zx
+Bs
 Uc
 Uc
 Uc
@@ -33898,25 +36662,25 @@ Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -34061,17 +36825,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -34080,13 +36833,24 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+YP
+xp
+xp
+aQ
+Cv
+Cv
+mT
+Cv
+Cv
+Bs
+Sk
+xw
+FK
+gN
+qZ
+Oz
+Bs
 Uc
 Uc
 Uc
@@ -34100,25 +36864,25 @@ Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -34263,17 +37027,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -34282,13 +37035,24 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+Dt
+xp
+xp
+uL
+Cv
+LT
+pP
+Ip
+QG
+Bs
+RK
+xw
+Fj
+Ts
+qZ
+bB
+Bs
 Uc
 Uc
 Uc
@@ -34302,25 +37066,25 @@ Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -34465,17 +37229,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -34484,13 +37237,24 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+YP
+xp
+ul
+xp
+wL
+pP
+pP
+pP
+DW
+Bs
+Qb
+xt
+ew
+ew
+Kc
+Hx
+Bs
 Uc
 Uc
 Uc
@@ -34504,25 +37268,25 @@ Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -34667,17 +37431,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -34686,13 +37439,24 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
-Uc
+be
+be
+be
+be
+be
+be
+ea
+Ip
+pP
+QG
+Bs
+XP
+JU
+uK
+Ro
+ag
+eB
+Bs
 Uc
 Uc
 Uc
@@ -34706,25 +37470,25 @@ Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -34869,17 +37633,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -34893,8 +37646,19 @@ Uc
 Uc
 Uc
 Uc
-Uc
-Uc
+be
+be
+be
+be
+be
+Bs
+Bs
+Bs
+Bs
+Bs
+Bs
+Bs
+Bs
 Uc
 Uc
 Uc
@@ -34908,25 +37672,25 @@ Uc
 jy
 jy
 jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -35071,17 +37835,6 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
 Uc
 Uc
 Uc
@@ -35107,28 +37860,39 @@ Uc
 Uc
 Uc
 Uc
-jy
-jy
-jy
-jy
 Uc
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -35273,64 +38037,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -35475,64 +38239,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -35677,64 +38441,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -35879,64 +38643,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -36081,64 +38845,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -36283,64 +39047,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -36485,64 +39249,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -36687,64 +39451,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -36889,64 +39653,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -37091,64 +39855,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -37293,64 +40057,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -37495,64 +40259,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -37697,64 +40461,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -37899,64 +40663,64 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -38101,11 +40865,11 @@ xj
 xj
 xj
 xj
-xj
-xj
-xj
-xj
-xj
+Uc
+Uc
+Uc
+Uc
+Uc
 xj
 xj
 xj
@@ -71658,17 +74422,17 @@ vs
 vs
 vs
 vs
-dH
-dH
-dH
-dH
-eD
-eD
-dH
-eD
-dH
-dH
-dH
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
 vs
 vs
 vs
@@ -71860,17 +74624,17 @@ vs
 vs
 vs
 vs
-dH
-kq
-lG
-mn
-Vo
-bN
-Pm
-oF
-oF
-oF
-dH
+gl
+sS
+NR
+AP
+uO
+me
+zd
+ta
+ta
+ta
+gl
 vs
 vs
 vs
@@ -72062,17 +74826,17 @@ vs
 vs
 vs
 vs
-eD
-cc
-RX
-ak
-ak
-ak
-ak
-ak
-ak
-cc
-dH
+gl
+OA
+Fu
+lG
+lG
+lG
+lG
+lG
+lG
+OA
+gl
 vs
 vs
 vs
@@ -72264,29 +75028,29 @@ vs
 vs
 vs
 vs
-eD
-cc
-ak
-cc
-cc
-cc
-cc
-cc
-ak
-zZ
-eD
+gl
+OA
+lG
+OA
+OA
+OA
+OA
+OA
+lG
+jT
+GB
 vs
 vs
 vs
 vs
 vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
+ME
+bC
+bC
+am
+Vv
+bC
+vG
 vs
 vs
 vs
@@ -72466,29 +75230,29 @@ vs
 vs
 vs
 vs
-dH
-zF
-ta
-cO
-IH
-cc
-cc
-Si
-dk
-cc
-eD
+gl
+PH
+fX
+Er
+tW
+OA
+OA
+BC
+pC
+OA
+GB
 vs
 vs
 vs
 vs
 vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
+bX
+Qi
+Qi
+Nn
+bX
+Qi
+nT
 vs
 vs
 vs
@@ -72668,29 +75432,29 @@ vs
 vs
 vs
 vs
-dH
-mA
+gl
+Pf
+Ff
+kq
+DV
+OA
+Qz
+kk
+Jy
+oF
+GB
 vs
-ju
-Ty
-cc
+vs
+vs
+vs
+vs
+QH
 Qi
-YL
-ql
-HR
-eD
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
+Qi
+bC
+jl
+Qi
+nT
 vs
 vs
 vs
@@ -72863,36 +75627,36 @@ vs
 vs
 vs
 vs
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+ev
+Ff
+UL
+HR
+Zl
+WH
+pF
+mA
+js
+GB
 vs
 vs
 vs
 vs
 vs
-vs
-vs
-dH
-fX
-vs
+QH
+Qi
+Qi
+Qi
+Qi
+Qi
 nT
-EM
-WS
-QF
-GN
-VW
-fa
-eD
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
 vs
 vs
 vs
@@ -73059,42 +75823,42 @@ vs
 vs
 vs
 vs
+be
+be
+be
+be
+be
+be
+gl
+Pm
+In
+In
+In
+In
+Pm
+gl
+oQ
+Ff
+kq
+DV
+OA
+Qz
+EM
+uz
+oF
+GB
 vs
 vs
 vs
 vs
 vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-dH
-cc
-vs
-ju
-Ty
-cc
+bX
 Qi
-EN
-ev
-HR
-eD
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
+Qi
+Qi
+Qi
+Qi
+nT
 vs
 vs
 vs
@@ -73261,42 +76025,42 @@ vs
 vs
 vs
 vs
+be
+BY
+KY
+qN
+FB
+Rt
+Te
+OU
+mR
+mR
+mR
+mR
+PD
+gl
+bw
+VK
+pd
+Qc
+OA
+OA
+zZ
+Fu
+OA
+GB
 vs
 vs
 vs
 vs
 vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-dH
-zF
-IY
-pF
-dS
-cc
-cc
-bC
-RX
-cc
-eD
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
+AC
+uq
+VE
+Qi
+Qi
+Qi
+nT
 vs
 vs
 vs
@@ -73463,42 +76227,42 @@ vs
 vs
 vs
 vs
+be
+XC
+XC
+XC
+Bz
+li
+td
+Ao
+Pw
+OA
+OA
+OA
+xW
+lu
+bt
+lG
+OA
+OA
+OA
+OA
+OA
+lG
+os
+GB
 vs
 vs
 vs
 vs
 vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-eD
-cc
-ak
-cc
-cc
-cc
-cc
-cc
-ak
-HW
-eD
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
+Ml
+oC
+oC
+oC
+oC
+oC
+II
 vs
 vs
 vs
@@ -73665,30 +76429,30 @@ vs
 vs
 vs
 vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-eD
-cc
-dk
-ak
-ak
-ak
-ak
-ak
-ak
-cc
-dH
+be
+XC
+XC
+qN
+oc
+lI
+RO
+Pm
+OA
+OA
+OA
+OA
+Pm
+gl
+OA
+pC
+lG
+lG
+lG
+lG
+lG
+lG
+OA
+gl
 vs
 vs
 vs
@@ -73867,30 +76631,30 @@ vs
 vs
 vs
 vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-dH
-wv
-jY
-mn
-jA
-bN
-VK
-oF
-oF
-oF
-dH
+be
+Vj
+XC
+be
+be
+be
+gl
+Pm
+SU
+Ya
+fY
+WB
+SU
+gl
+jN
+NO
+AP
+zj
+me
+ju
+ta
+ta
+ta
+gl
 vs
 vs
 vs
@@ -74069,30 +76833,30 @@ vs
 vs
 vs
 vs
+be
+BQ
+XC
+be
 vs
 vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-vs
-dH
-dH
-dH
-dH
-eD
-eD
-dH
-eD
-dH
-dH
-dH
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
+gl
 vs
 vs
 vs
@@ -74271,10 +77035,10 @@ vs
 vs
 vs
 vs
-vs
-vs
-vs
-vs
+be
+be
+be
+be
 vs
 vs
 vs
@@ -112059,17 +114823,17 @@ vs
 vs
 vs
 vs
-dH
-dH
-dH
-dH
-eD
-eD
-dH
-eD
-dH
-dH
-dH
+fV
+fV
+fV
+fV
+fV
+fV
+fV
+EN
+fV
+fV
+fV
 vs
 vs
 vs
@@ -112261,17 +115025,17 @@ vs
 vs
 vs
 vs
-eD
-am
-am
-uz
-EQ
-hX
-CB
-am
-WD
-am
-dH
+fV
+tZ
+tZ
+Dd
+GN
+cc
+QQ
+tZ
+iL
+tZ
+fV
 vs
 vs
 vs
@@ -112463,17 +115227,17 @@ vs
 vs
 vs
 vs
-eD
-am
-sv
-js
-Xe
-Xe
-js
-js
-ZJ
-am
-eD
+fV
+tZ
+EX
+fa
+SF
+SF
+fa
+fa
+sI
+tZ
+EN
 vs
 vs
 vs
@@ -112665,17 +115429,17 @@ vs
 vs
 vs
 vs
-eD
-am
-vn
-DE
-DE
-DE
-Pd
-QH
-Bi
-am
-eD
+fV
+tZ
+kT
+My
+My
+My
+Ns
+YL
+TT
+tZ
+EN
 vs
 vs
 vs
@@ -112867,17 +115631,17 @@ vs
 vs
 vs
 vs
-dH
-dH
-wl
-dH
-dH
-dH
-AC
-QH
-oC
-am
-eD
+fV
+fV
+CB
+fV
+fV
+fV
+Id
+YL
+xo
+tZ
+EN
 vs
 vs
 vs
@@ -113069,17 +115833,17 @@ vs
 vs
 vs
 vs
-dH
-Yg
-GZ
-XC
-vs
-Vv
-SF
-iY
-EX
-am
-eD
+gl
+yU
+vL
+ml
+Ff
+MP
+zt
+cf
+Ar
+tZ
+EN
 vs
 vs
 vs
@@ -113271,17 +116035,17 @@ vs
 vs
 vs
 vs
-dH
-vU
-Ev
-XC
-vs
-Nw
-bX
+gl
 iY
-WU
-SK
-eD
+HW
+ml
+Ff
+JF
+cP
+cf
+mn
+vc
+EN
 vs
 vs
 vs
@@ -113473,17 +116237,17 @@ vs
 vs
 vs
 vs
-dH
-XC
+gl
+ml
+vL
+ml
+Ff
+JF
+YL
+cf
 GZ
-XC
-vs
-Nw
-QH
-iY
-My
-am
-eD
+tZ
+EN
 vs
 vs
 vs
@@ -113675,17 +116439,17 @@ vs
 vs
 vs
 vs
-dH
-Ec
-DV
-os
-dH
-dH
-QH
-QH
-oC
-am
-eD
+fV
+xk
+GE
+VW
+fV
+fV
+YL
+YL
+xo
+tZ
+EN
 vs
 vs
 vs
@@ -113877,17 +116641,17 @@ vs
 vs
 vs
 vs
-eD
-PH
-NO
-vc
-Ap
-dH
-QH
-QH
-RR
-am
-eD
+fV
+Xe
+wv
+Xo
+kd
+fV
+YL
+YL
+Uq
+tZ
+EN
 vs
 vs
 vs
@@ -114079,17 +116843,17 @@ vs
 vs
 vs
 vs
-eD
-NO
-NO
+fV
+wv
+wv
+gR
+wv
+IH
+Pd
+Pd
 oM
-NO
-zj
-II
-II
-uD
-am
-eD
+tZ
+EN
 vs
 vs
 vs
@@ -114281,17 +117045,17 @@ vs
 vs
 vs
 vs
-eD
+fV
+Yg
+ak
+CK
+sP
+fV
+DE
 tZ
-gV
-bo
-zt
-dH
-xo
-am
-am
-TT
-dH
+tZ
+RX
+fV
 vs
 vs
 vs
@@ -114483,17 +117247,17 @@ vs
 vs
 vs
 vs
-dH
-Qz
-eD
-eD
-dH
-dH
-dH
-eD
-dH
-dH
-dH
+fV
+DT
+EN
+fV
+fV
+fV
+fV
+EN
+EN
+fV
+fV
 vs
 vs
 vs
