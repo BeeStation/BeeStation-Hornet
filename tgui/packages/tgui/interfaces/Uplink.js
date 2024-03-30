@@ -61,8 +61,44 @@ const HomePage = (props, context) => {
   return (
     <Flex direction="column" className="uplink_page">
       <Flex.Item height="100%">
-        <Section width="100%" height="100%">
-        </Section>
+        <div className="Home Section">
+          <div className="HomeLeft">
+            <div className="HomeTitle">
+              Welcome, Agent.
+            </div>
+            <div className="HomeRanks">
+              <div className="RankCard">
+                <div className="RankCardMain">
+                  <div className="RankCardTitle">
+                    Previous Rank
+                    <div className="RankCardName">
+                      Ex-Communication
+                    </div>
+                  </div>
+                  A traitor to the cause, betraying their brothers to seek personal gain.
+                </div>
+              </div>
+              <div className="RankCard">
+                <div className="RankCardMain">
+                  sup
+                </div>
+              </div>
+              <div className="RankCard">
+                <div className="RankCardMain">
+                  sup
+                </div>
+              </div>
+              <div className="RankCard">
+                <div className="RankCardMain">
+                  sup
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="HomeRight">
+            right
+          </div>
+        </div>
       </Flex.Item>
     </Flex>
   );

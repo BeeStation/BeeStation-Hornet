@@ -7,6 +7,71 @@
   height: calc(100% - 45px);
 }
 
+.Home {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.HomeLeft {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 70%;
+  margin: 10px;
+}
+
+.HomeRight {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 30%;
+  margin: 10px;
+}
+
+.HomeTitle {
+  width: 100%;
+  font-size: x-large;
+}
+
+.HomeRanks {
+  overflow-y: hidden;
+  margin-top: 30px;
+  height: calc(100% - 50px);
+}
+
+.RankCard {
+  width: 100%;
+  padding-bottom: 20px;
+  color: #d4d4d4;
+}
+
+.RankCardMain {
+  width: calc(100% - 200px);
+  height: 90px;
+  background: linear-gradient(0deg, #b457385a, #8D3E3E5a);
+  padding: 10px;
+  border-radius: 13px;
+}
+
+.RankCardTitle {
+  position: relative;
+  width: 100%;
+  font-size: 1.3em;
+  margin-bottom: 6px;
+}
+
+.RankCardName {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  text-align: right;
+  font-weight: bold;
+}
+
 .objective_card {
   position: relative;
   width: 180px;
