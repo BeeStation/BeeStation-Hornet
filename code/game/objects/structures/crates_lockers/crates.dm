@@ -21,7 +21,7 @@
 	close_sound = 'sound/machines/crate_close.ogg'
 	open_sound_volume = 35
 	close_sound_volume = 50
-	drag_slowdown = 1.5
+	drag_slowdown = 0
 	imacrate = TRUE
 	var/crate_climb_time = 20
 	var/azimuth_angle_2 = 180 //in this context the azimuth angle for over 90 degree
@@ -189,10 +189,8 @@
 	return ..()
 
 /obj/structure/closet/crate/freezer/Initialize(mapload)
-	..()
+	. = ..()
 	recursive_organ_check(src)
-
-
 
 /obj/structure/closet/crate/freezer/blood
 	name = "blood freezer"
