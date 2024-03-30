@@ -368,7 +368,7 @@
 
 /obj/item/food/meat/slab/penguin
 	name = "penguin meat"
-	//icon_state = "birdmeat"
+	icon_state = "birdmeat"
 	microwaved_type = /obj/item/food/meat/steak/penguin
 	desc = "A slab of penguin meat."
 	food_reagents = list(
@@ -418,7 +418,7 @@
 
 /obj/item/food/meat/slab/chicken
 	name = "chicken meat"
-	//icon_state = "birdmeat"
+	icon_state = "birdmeat"
 	microwaved_type = /obj/item/food/meat/steak/chicken
 	desc = "A slab of raw chicken. Remember to wash your hands!"
 	food_reagents = list(
@@ -529,17 +529,17 @@
 
 /obj/item/food/meat/steak/penguin
 	name = "penguin steak"
-	//icon_state = "birdsteak"
+	icon_state = "birdsteak"
 	tastes = list("beef" = 1, "cod fish" = 1)
 
 /obj/item/food/meat/steak/chicken
 	name = "chicken steak" //Can you have chicken steaks? Maybe this should be renamed once it gets new sprites. //I concur
-	//icon_state = "birdsteak"
+	icon_state = "birdsteak"
 	tastes = list("chicken" = 1)
 
 /obj/item/food/meat/steak/plain/human/lizard
 	name = "lizard steak"
-	//icon_state = "birdsteak"
+	icon_state = "birdsteak" //cause they're birds. Get it?
 	tastes = list("juicy chicken" = 3, "scales" = 1)
 	foodtypes = MEAT
 
