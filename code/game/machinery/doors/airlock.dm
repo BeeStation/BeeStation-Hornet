@@ -1123,7 +1123,7 @@
 				welded = !welded
 				user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
 									"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
-				log_combat(user, src, welded? "welded shut":"unwelded")
+				log_combat(user, src, welded? "welded shut":"unwelded", important = FALSE)
 				update_icon()
 		else
 			if(obj_integrity < max_integrity)
@@ -1423,7 +1423,7 @@
 			else
 				message = "temp shocked for [secondsElectrified] seconds"
 		LAZYADD(shockedby, "\[[time_stamp()]\] [key_name(user)] - ([uppertext(message)])")
-		log_combat(user, src, message)
+		log_combat(user, src, message, important = FALSE)
 		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -1637,10 +1637,10 @@
 			to_chat(user, "<span class='warning'>The door has no power - you can't raise the door bolts.</span>")
 		else
 			unbolt()
-			log_combat(user, src, "unbolted")
+			log_combat(user, src, "unbolted", important = FALSE)
 	else
 		bolt()
-		log_combat(user, src, "bolted")
+		log_combat(user, src, "bolted", important = FALSE)
 /obj/machinery/door/airlock/proc/toggle_emergency(mob/user)
 	if(!user_allowed(user))
 		return

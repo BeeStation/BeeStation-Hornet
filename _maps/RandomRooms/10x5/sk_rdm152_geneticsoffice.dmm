@@ -14,14 +14,14 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "f" = (
 /obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "g" = (
 /obj/machinery/light/small{
@@ -33,7 +33,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "j" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
@@ -52,7 +52,7 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "r" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -66,7 +66,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "w" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "x" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
@@ -81,7 +81,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "B" = (
 /obj/structure/rack,
@@ -98,7 +98,7 @@
 /area/template_noop)
 "I" = (
 /obj/structure/chair/office/light,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "L" = (
 /obj/machinery/door/airlock/maintenance/external/glass,
@@ -112,7 +112,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "P" = (
 /obj/item/radio/intercom{
@@ -135,7 +135,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "T" = (
 /turf/open/floor/plating{
@@ -160,7 +160,7 @@
 "Z" = (
 /obj/effect/landmark/blobstart,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"
