@@ -105,9 +105,9 @@
 	log_admin("[key_name(admin)] has head-rev'ed [O].")
 
 /datum/antagonist/rev/head/admin_add(datum/mind/new_owner,mob/admin)
-	give_flash = TRUE
 	give_hud = TRUE
 	remove_clumsy = TRUE
+	give_computer = TRUE
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has head-rev'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has head-rev'ed [key_name(new_owner)].")
@@ -116,45 +116,23 @@
 /datum/antagonist/rev/head/get_admin_commands()
 	. = ..()
 	. -= "Promote"
-	.["Take flash"] = CALLBACK(src,PROC_REF(admin_take_flash))
-	.["Give flash"] = CALLBACK(src,PROC_REF(admin_give_flash))
-	.["Repair flash"] = CALLBACK(src,PROC_REF(admin_repair_flash))
 	.["Demote"] = CALLBACK(src,PROC_REF(admin_demote))
-
-/datum/antagonist/rev/head/proc/admin_take_flash(mob/admin)
-	var/list/L = owner.current.get_contents()
-	var/obj/item/assembly/flash/flash = locate() in L
-	if (!flash)
-		to_chat(admin, "<span class='danger'>Deleting flash failed!</span>")
-		return
-	qdel(flash)
-
-/datum/antagonist/rev/head/proc/admin_give_flash(mob/admin)
-	//This is probably overkill but making these impact state annoys me
-	var/old_give_flash = give_flash
-	var/old_give_hud = give_hud
-	var/old_remove_clumsy = remove_clumsy
-	give_flash = TRUE
-	give_hud = FALSE
-	remove_clumsy = FALSE
-	equip_rev()
-	give_flash = old_give_flash
-	give_hud = old_give_hud
-	remove_clumsy = old_remove_clumsy
-
-/datum/antagonist/rev/head/proc/admin_repair_flash(mob/admin)
-	var/list/L = owner.current.get_contents()
-	var/obj/item/assembly/flash/flash = locate() in L
-	if (!flash)
-		to_chat(admin, "<span class='danger'>Repairing flash failed!</span>")
-	else
-		flash.burnt_out = FALSE
-		flash.update_icon()
 
 /datum/antagonist/rev/head/proc/admin_demote(datum/mind/target,mob/user)
 	message_admins("[key_name_admin(user)] has demoted [key_name_admin(owner)] from head revolutionary.")
 	log_admin("[key_name(user)] has demoted [key_name(owner)] from head revolutionary.")
 	demote()
+
+/obj/effect/proc_holder/spell/targeted/revolution_convert
+	name = "Revolutionary Conversion"
+	desc = "Converts a target into a revolutionary."
+	charge_max = 0
+	action_icon = 'icons/mob/actions/actions_spells.dmi'
+	action_icon_state = "mindread"
+	action_background_icon_state = "bg_demon"
+	range = 3
+	clothes_req = FALSE
+
 
 /datum/antagonist/rev/head
 	name = "Head Revolutionary"
@@ -162,8 +140,29 @@
 	banning_key = ROLE_REV_HEAD
 	required_living_playtime = 4
 	var/remove_clumsy = FALSE
-	var/give_flash = FALSE
 	var/give_hud = TRUE
+	var/give_computer = TRUE
+
+
+/obj/effect/proc_holder/spell/targeted/revolution_convert/cast(list/targets, mob/user)
+	var/datum/antagonist/rev/rev_datum = user.mind.has_antag_datum(/datum/antagonist/rev)
+	if(targets.len > 1)
+		to_chat(user, "<span class='warning'>You can only convert one person at a time!</span>")
+		return
+	if(!rev_datum.can_be_converted(targets[1]))
+		to_chat(user, "<span class='warning'>You can't convert that person!</span>")
+		return
+	for(var/mob/living/carbon/target in targets)
+		for(var/i = 1 to 3)
+			user.say("I hereby convert you to the revolution!", forced = "revolution convertion")
+			target.Stun(30)
+			var/beam = target.Beam(user, "sendbeam", time = 30)
+			if(!do_after(user, 30, target))
+				qdel(beam)
+				to_chat(user, "<span class='warning'>You stopped explaining Space-Communism. Conversion failed!</span>")
+				return
+		rev_datum.add_revolutionary(target.mind)
+
 
 /datum/antagonist/rev/head/antag_listing_name()
 	return ..() + "(Leader)"
@@ -188,15 +187,9 @@
 		return FALSE
 	return TRUE
 
-/datum/antagonist/rev/proc/add_revolutionary(datum/mind/rev_mind,stun = TRUE)
+/datum/antagonist/rev/proc/add_revolutionary(datum/mind/rev_mind)
 	if(!can_be_converted(rev_mind.current))
 		return FALSE
-	if(stun)
-		if(iscarbon(rev_mind.current))
-			var/mob/living/carbon/carbon_mob = rev_mind.current
-			carbon_mob.silent = max(carbon_mob.silent, 5)
-			carbon_mob.flash_act(1, 1)
-		rev_mind.current.Stun(100)
 	rev_mind.add_antag_datum(/datum/antagonist/rev,rev_team)
 	rev_mind.special_role = ROLE_REV
 	return TRUE
@@ -266,11 +259,13 @@
 	if(!ishuman(H) && !ismonkey(H))
 		return
 
+	H.AddSpell(new /obj/effect/proc_holder/spell/targeted/revolution_convert(null))
+
 	if(remove_clumsy)
 		handle_clown_mutation(H, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 
-	if(give_flash)
-		var/obj/item/assembly/flash/handheld/T = new(H)
+	if(give_computer)
+		var/obj/item/modular_computer/tablet/revolutionary/T = new(H)
 		var/list/slots = list (
 			"backpack" = ITEM_SLOT_BACKPACK,
 			"left pocket" = ITEM_SLOT_LPOCKET,
@@ -278,9 +273,9 @@
 		)
 		var/where = H.equip_in_one_of_slots(T, slots)
 		if (!where)
-			to_chat(H, "The Syndicate were unfortunately unable to get you a flash.")
+			to_chat(H, "The Syndicate were unfortunately unable to get you a locator computer.")
 		else
-			to_chat(H, "The flash in your [where] will help you to persuade the crew to join your cause.")
+			to_chat(H, "Use the tablet computer in your [where] to track your enemies.")
 
 	if(give_hud)
 		var/obj/item/organ/cyberimp/eyes/hud/security/syndicate/S = new(H)
@@ -446,6 +441,8 @@
 		priority_announce("A recent assessment of your station has marked your station as a severe risk area for high ranking Nanotrasen officials. \
 		For the safety of our staff, we have blacklisted your station for new employment of security and command. \
 		[pick(world.file2list("strings/anti_union_propaganda.txt"))]", null, SSstation.announcer.get_rand_report_sound(), null, "Central Command Loyalty Monitoring Division")
+		if(get_security_level != SEC_LEVEL_RED)
+			set_security_level(SEC_LEVEL_RED)
 		addtimer(CALLBACK(SSshuttle.emergency, TYPE_PROC_REF(/obj/docking_port/mobile/emergency, request), null, 1), 50)
 
 /// Mutates the ticker to report that the revs have won

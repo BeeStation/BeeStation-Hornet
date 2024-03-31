@@ -368,3 +368,43 @@
 		name = "Nuke Auth. Disk",
 		)
 	objects += list(nukeinfo)
+
+
+////////////////////////////
+//Head of Staff finder app//
+////////////////////////////
+
+///A program that tracks Heads of Staff
+
+/datum/computer_file/program/radar/headlocator360
+	filename = "headlocator360"
+	filedesc = "headlocator360"
+	category = PROGRAM_CATEGORY_MISC
+	program_icon_state = "radarsyndicate"
+	extended_desc = "This program allows for tracking of Heads of Staff."
+	requires_ntnet = FALSE
+	available_on_ntnet = FALSE
+	tgui_id = "NtosRadarSyndicate"
+	program_icon = "bomb"
+	arrowstyle = "ntosradarpointerS.png"
+	pointercolor = "red"
+	tracks_grand_z = TRUE
+
+/datum/computer_file/program/radar/headlocator360/find_atom()
+	return locate(selected) in GLOB.player_list
+
+/datum/computer_file/program/radar/headlocator360/scan()
+	var/count = 0
+	if(!COOLDOWN_FINISHED(src, last_scan))
+		return
+	COOLDOWN_START(src, last_scan, SCAN_COOLDOWN)
+	objects = list()
+	for(var/datum/mind/M in SSjob.get_all_heads())
+		var/mob/living/head = M.current
+		if(!trackable(head))
+			continue
+		var/list/crewinfo = list(
+			ref = REF(head),
+			name = "[++count]. [M.assigned_role]",
+			)
+		objects += list(crewinfo)

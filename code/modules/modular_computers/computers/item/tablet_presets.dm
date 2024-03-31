@@ -85,6 +85,14 @@
 	install_component(new /obj/item/computer_hardware/hard_drive/small/nukeops)
 	install_component(new /obj/item/computer_hardware/network_card)
 
+/// Given to Head Revolutionaries.a
+/obj/item/modular_computer/tablet/revolutionary/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/hard_drive/small/revolutionary)
+	install_component(new /obj/item/computer_hardware/network_card)
+
 //Borg Built-in tablet
 /obj/item/modular_computer/tablet/integrated/Initialize()
 	. = ..()

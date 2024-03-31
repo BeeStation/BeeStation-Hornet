@@ -200,6 +200,15 @@
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 
+/obj/item/modular_computer/revolutionary
+	icon_state = "tablet-syndicate"
+	icon_state_powered = "tablet-syndicate"
+	icon_state_unpowered = "tablet-syndicate"
+	comp_light_luminosity = 6.3
+	device_theme = THEME_SYNDICATE
+	theme_locked = TRUE
+	light_color = COLOR_RED
+
 /// Given to Nuke Ops members.
 /obj/item/modular_computer/tablet/nukeops
 	icon_state = "tablet-syndicate"

@@ -235,3 +235,12 @@
 	max_capacity = 32
 	icon_state = "ssd_micro"
 	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/computer_hardware/hard_drive/small/revolutionary
+	power_usage = 8
+	max_capacity = 70
+
+/obj/item/computer_hardware/hard_drive/small/revolutionary/install_default_programs()
+	store_file(new /datum/computer_file/program/computerconfig(src))
+	store_file(new /datum/computer_file/program/filemanager(src))
+	store_file(new /datum/computer_file/program/radar/headlocator360(src)) //I am legitimately afraid if I don't do this, Ops players will think they just don't get a pinpointer anymore.
