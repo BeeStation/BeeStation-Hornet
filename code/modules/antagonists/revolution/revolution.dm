@@ -155,6 +155,8 @@
 	for(var/mob/living/carbon/target in targets)
 		for(var/i = 1 to 3)
 			user.say(pick(GLOB.revolution_convertion_text), forced = "revolution convertion")
+		for(var/i in 1 to 3)
+			user.say("I hereby convert you to the revolution!", forced = "revolution convertion")
 			target.Stun(30)
 			var/beam = target.Beam(user, "sendbeam", time = 30)
 			if(!do_after(user, 30, target))
