@@ -30,6 +30,9 @@
 	/// The md5 file hash for the json configuration. Used to check if the file has changed
 	var/json_config_hash
 
+	/// The raw string contnts of the JSON config file.
+	var/raw_json_string
+
 	/// String path to the icon file, used for reloading
 	var/string_icon_file
 
@@ -103,7 +106,7 @@
 		var/changed = FALSE
 
 		json_config = file(string_json_config)
-		var/json_hash = md5asfile(json_config)
+		var/json_hash = rustg_hash_file("md5", json_config)
 		if(json_config_hash != json_hash)
 			json_config_hash = json_hash
 			changed = TRUE
@@ -121,7 +124,8 @@
 		if(!changed)
 			return FALSE
 
-	var/list/raw = json_decode(file2text(json_config))
+	raw_json_string = rustg_file_read(json_config)
+	var/list/raw = json_decode(raw_json_string)
 	ReadIconStateConfiguration(raw)
 
 	if(!length(icon_states))

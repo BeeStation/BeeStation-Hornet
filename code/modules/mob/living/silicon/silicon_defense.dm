@@ -9,13 +9,13 @@
 	if(..()) //if harm or disarm intent
 		var/damage = 20
 		if (prob(90))
-			log_combat(M, src, "attacked")
+			log_combat(M, src, "attacked", M)
 			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 			visible_message("<span class='danger'>[M] slashes at [src]!</span>", \
 							"<span class='userdanger'>[M] slashes at you!</span>")
 			if(prob(8))
 				flash_act(affect_silicon = 1)
-			log_combat(M, src, "attacked")
+			log_combat(M, src, "attacked", M)
 			adjustBruteLoss(damage)
 			updatehealth()
 		else
@@ -84,13 +84,13 @@
 				playsound(loc, "punch", 25, 1, -1)
 				visible_message("<span class='danger'>[M] punches [src]!</span>", \
 					"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
-				log_combat(M, src, "attacked")
+				log_combat(M, src, "attacked", M)
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			playsound(src.loc, 'sound/effects/bang.ogg', 10, 1)
 			visible_message("<span class='danger'>[M] punches [src], but doesn't leave a dent!</span>", \
 				"<span class='warning'>[M] punches you, but doesn't leave a dent!</span>", null, COMBAT_MESSAGE_RANGE)
-			log_combat(M, src, "tried to punch")
+			log_combat(M, src, "tried to punch", important = FALSE)
 
 /mob/living/silicon/attack_drone(mob/living/simple_animal/drone/M)
 	if(M.a_intent == INTENT_HARM)

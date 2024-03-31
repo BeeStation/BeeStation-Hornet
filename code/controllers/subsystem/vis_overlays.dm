@@ -38,7 +38,7 @@ SUBSYSTEM_DEF(vis_overlays)
 /datum/controller/subsystem/vis_overlays/proc/add_vis_overlay(atom/movable/thing, icon, iconstate, layer, plane, dir, alpha = 255, add_appearance_flags = NONE, unique = FALSE, invisibility = -1)
 	var/obj/effect/overlay/vis/overlay
 	if(!unique)
-		. = "[icon]|[iconstate]|[layer]|[plane]|[dir]|[alpha]|[add_appearance_flags][invisibility]"
+		. = "[icon]|[iconstate]|[layer]|[plane]|[dir]|[alpha]|[add_appearance_flags]|[invisibility]"
 		overlay = vis_overlay_cache[.]
 		if(!overlay)
 			overlay = _create_new_vis_overlay(icon, iconstate, layer, plane, dir, alpha, add_appearance_flags, invisibility)
@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(vis_overlays)
 		if(istype(i, /obj/effect/overlay/vis/mob_alpha))
 			continue
 		var/obj/effect/overlay/vis/overlay = i
-		add_vis_overlay(thing, overlay.icon, overlay.icon_state, overlay.layer, overlay.plane, turn(overlay.dir, rotation), overlay.alpha, overlay.appearance_flags)
+		add_vis_overlay(thing, overlay.icon, overlay.icon_state, overlay.layer, overlay.plane, turn(overlay.dir, rotation), overlay.alpha, overlay.appearance_flags, invisibility=overlay.invisibility)
 		overlays_to_remove += overlay
 	for(var/i in thing.managed_vis_overlays & unique_vis_overlays)
 		if(istype(i, /obj/effect/overlay/vis/mob_alpha))
@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(vis_overlays)
 /// identical to procs above, but mob alpha version
 /datum/controller/subsystem/vis_overlays/proc/add_mob_alpha(atom/movable/thing, mob/target_mob, alpha=150, invisibility=INVISIBILITY_OBSERVER)
 	var/obj/effect/overlay/vis/mob_alpha/overlay
-	var/mob_alpha_id = "[REF(target_mob)][alpha][invisibility]"
+	var/mob_alpha_id = "[REF(target_mob)]|[alpha]|[invisibility]"
 	overlay = mob_alpha_vis_overlays[mob_alpha_id]
 	if(!overlay)
 		overlay = _create_mob_alpha(FLY_LAYER, target_mob.plane, target_mob.dir, alpha, add_appearance_flags=RESET_ALPHA, invisibility=invisibility)
