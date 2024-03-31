@@ -594,10 +594,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	for(var/obj/machinery/field/generator/F in GLOB.machines)
 		if(F.active == 0)
+			F.set_anchored(TRUE)
 			F.active = 1
 			F.state = 2
 			F.power = 250
-			F.anchored = TRUE
 			F.warming_up = 3
 			F.start_fields()
 			F.update_icon()
@@ -789,6 +789,24 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(src, "<span class='italics'>[template.description]</span>")
 	else
 		to_chat(src, "<span class='warning'>Failed to place [template.name].</span>")
+
+/client/proc/run_empty_query(val as num)
+	set category = "Debug"
+	set name = "Run empty query"
+	set desc = "Amount of queries to run"
+
+	var/list/queries = list()
+	for(var/i in 1 to val)
+		var/datum/db_query/query = SSdbcore.NewQuery("NULL")
+		INVOKE_ASYNC(query, TYPE_PROC_REF(/datum/db_query, Execute))
+		queries += query
+
+	for(var/datum/db_query/query as anything in queries)
+		query.sync()
+		qdel(query)
+	queries.Cut()
+
+	message_admins("[key_name_admin(src)] ran [val] empty queries.")
 
 /client/proc/generate_ruin()
 	set category = "Debug"

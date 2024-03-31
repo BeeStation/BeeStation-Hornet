@@ -17,7 +17,7 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 	baseturfs = /turf/open/floor/plating
-	var/plates_type = /obj/item/stack/tile/plasteel
+	var/plates_type = /obj/item/stack/tile/iron
 	var/plates = MAX_PRISON_PLATES
 	var/wrenching = FALSE
 
