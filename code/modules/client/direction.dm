@@ -3,7 +3,7 @@
 	dir = NORTH
 
 /client/verb/spinleft()
-	set name = "Spin View CCW"
+	set name = "Spin View Counter-CW"
 	set category = "OOC"
 	dir = turn(dir, 90)
 
