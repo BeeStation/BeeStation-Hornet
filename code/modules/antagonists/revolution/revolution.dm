@@ -441,7 +441,7 @@
 		priority_announce("A recent assessment of your station has marked your station as a severe risk area for high ranking Nanotrasen officials. \
 		For the safety of our staff, we have blacklisted your station for new employment of security and command. \
 		[pick(world.file2list("strings/anti_union_propaganda.txt"))]", null, SSstation.announcer.get_rand_report_sound(), null, "Central Command Loyalty Monitoring Division")
-		if(get_security_level != SEC_LEVEL_RED)
+		if(get_security_level() != SEC_LEVEL_RED)
 			set_security_level(SEC_LEVEL_RED)
 		addtimer(CALLBACK(SSshuttle.emergency, TYPE_PROC_REF(/obj/docking_port/mobile/emergency, request), null, 1), 50)
 
