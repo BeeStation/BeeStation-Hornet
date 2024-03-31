@@ -153,7 +153,7 @@
 		to_chat(user, "<span class='warning'>You can't convert that person!</span>")
 		return
 	for(var/mob/living/carbon/target in targets)
-		for(var/i = 1 to 3)
+		for(var/i in 1 to 3)
 			user.say("I hereby convert you to the revolution!", forced = "revolution convertion")
 			target.Stun(30)
 			var/beam = target.Beam(user, "sendbeam", time = 30)
