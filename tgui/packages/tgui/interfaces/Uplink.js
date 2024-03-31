@@ -6,14 +6,37 @@ import { Window } from '../layouts';
 import '../styles/interfaces/Uplink.scss';
 import { NtosRadarMap } from './NtosRadar';
 import { Color } from 'common/color';
+import { classes } from 'common/react';
 
 const MAX_SEARCH_RESULTS = 25;
 
+const reputationLevels = {
+  0: { name: "Ex-Communicate", description: "A traitor to the cause, betraying their brothers to seek personal gain. Reaching this level will result in halted services and a termination order after 5 minutes." },
+  100: { name: "Blood Servant", description: "An operative with a reason to act, but without the will to fulfill their greater purpose." },
+  200: { name: "Field Agent", description: "An operative acting on the ground, with access to some standard equipment that can be used to complete their mission." },
+  400: { name: "Specialist", description: "An operative with specialized skills and knowledge, granted with additional resources and services for completing critical missions." },
+  600: { name: "Operative", description: "An experienced operative who has demonstrated competence and effectiveness in completing various missions for the Syndicate." },
+  800: { name: "Director", description: "A high-ranking official responsible for overseeing and coordinating operations with their team, ensuring the success of its objectives." },
+  1000: { name: "Archon", description: "A high ranking and secretive authority, possessing unparalleled knowledge, influence, and control over operations and resources." },
+};
+
+
 export const Uplink = (props, context) => {
   const { data } = useBackend(context);
-  const { telecrystals } = data;
+  const { telecrystals, reputation } = data;
 
   const [tab, setTab] = useSharedState(context, 'tab_id', 2);
+
+  let currentLevel = null;
+
+  // Find the highest reputation level that is less than the current reputation
+  for (const level in reputationLevels) {
+    if (level <= reputation) {
+      currentLevel = reputationLevels[level].name;
+    } else {
+      break;
+    }
+  }
 
   return (
     <Window theme="syndicate" width={900} height={600}>
@@ -43,9 +66,8 @@ export const Uplink = (props, context) => {
               <Icon ml={1} name="bell" color="yellow" className="bell_ring" />
             </Tooltip>
           </Tabs.Tab>
-          <Tabs.Tab
-            className="reputation">
-            Neutral Reputation
+          <Tabs.Tab className={`reputation ${currentLevel?.toLowerCase().replace('-', '').replace(/\s+/g, '-')}`}>
+            {currentLevel ? currentLevel : "Neutral Reputation"} ({reputation})
           </Tabs.Tab>
         </Tabs>
         {tab === 0
@@ -306,7 +328,7 @@ const ObjectiveCard = (props, context) => {
 export const GenericUplink = (props, context) => {
   const { currencyAmount = 0, currencySymbol = 'cr' } = props;
   const { act, data } = useBackend(context);
-  const { compactMode, lockable, categories = [] } = data;
+  const { compactMode, lockable, categories = [], reputation } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const [selectedCategory, setSelectedCategory] = useLocalState(context, 'category', categories[0]?.name);
   const testSearch = createSearch(searchText, (item) => {
@@ -362,6 +384,7 @@ export const GenericUplink = (props, context) => {
             <NoticeBox>{searchText.length === 0 ? 'No items in this category.' : 'No results found.'}</NoticeBox>
           )}
           <ItemList
+            reputation={reputation}
             compactMode={searchText.length > 0 || compactMode}
             currencyAmount={currencyAmount}
             currencySymbol={currencySymbol}
@@ -374,16 +397,16 @@ export const GenericUplink = (props, context) => {
 };
 
 const ItemList = (props, context) => {
-  const { compactMode, currencyAmount, currencySymbol } = props;
+  const { reputation, compactMode, currencyAmount, currencySymbol } = props;
   const { act } = useBackend(context);
   const [hoveredItem, setHoveredItem] = useLocalState(context, 'hoveredItem', {});
-  const hoveredCost = (hoveredItem && hoveredItem.cost) || 0;
+  const hoveredCost = (hoveredItem && hoveredItem.cost && reputation >= hoveredItem.reputation) || 0;
   // Append extra hover data to items
   const items = props.items.map((item) => {
     const notSameItem = hoveredItem && hoveredItem.name !== item.name;
     const notEnoughHovered = currencyAmount - hoveredCost < item.cost;
     const disabledDueToHovered = notSameItem && notEnoughHovered;
-    const disabled = currencyAmount < item.cost || disabledDueToHovered;
+    const disabled = reputation < item.reputation || currencyAmount < item.cost || disabledDueToHovered;
     return {
       ...item,
       disabled,
@@ -422,6 +445,20 @@ const ItemList = (props, context) => {
         {items.map((item) => (
           <Table.Row key={item.name} className="candystripe">
             <Table.Cell bold>{decodeHtmlEntities(item.name)}</Table.Cell>
+            {item.reputation ? (
+              <Table.Cell collapsing textAlign="right">
+                <Box color={reputation >= item.reputation ? "green" : "red"}>
+                  {item.reputation} reputation
+                </Box>
+              </Table.Cell>
+            ) : <Table.Cell />}
+            {currencyAmount < item.cost ? (
+              <Table.Cell collapsing textAlign="right">
+                <Box color="red">
+                  Insufficient Funds
+                </Box>
+              </Table.Cell>
+            ) : <Table.Cell />}
             <Table.Cell collapsing textAlign="right">
               <Button
                 fluid
@@ -449,17 +486,35 @@ const ItemList = (props, context) => {
       title={GetTooltipMessage(item.name, item.is_illegal, item.are_contents_illegal)}
       level={2}
       buttons={
-        <Button
-          content={item.cost + ' ' + currencySymbol}
-          disabled={item.disabled}
-          onmouseover={() => setHoveredItem(item)}
-          onmouseout={() => setHoveredItem({})}
-          onClick={() =>
-            act('buy', {
-              name: item.name,
-            })
-          }
-        />
+        <Table>
+        {item.reputation ? (
+          <Table.Cell textAlign="right">
+            <Box color={reputation >= item.reputation ? "green" : "red"}>
+              {item.reputation} reputation
+            </Box>
+          </Table.Cell>
+        ) : ""}
+          {item.cost > currencyAmount ? (
+            <Table.Cell collapsing={!!item.reputation} textAlign="right">
+              <Box color="red">
+                Insufficient Funds
+              </Box>
+            </Table.Cell>
+          ) : ""}
+          <Table.Cell collapsing textAlign="right">
+            <Button
+              content={item.cost + ' ' + currencySymbol}
+              disabled={item.disabled}
+              onmouseover={() => setHoveredItem(item)}
+              onmouseout={() => setHoveredItem({})}
+              onClick={() =>
+                act('buy', {
+                  name: item.name,
+                })
+              }
+            />
+          </Table.Cell>
+        </Table>
       }>
       {decodeHtmlEntities(item.desc)}
     </Section>

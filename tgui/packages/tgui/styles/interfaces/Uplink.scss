@@ -243,13 +243,12 @@
   }
 }
 
-$background-color: #bb9b68 !default;
-
 .reputation {
-  background-color: $background-color !important;
-  $luminance: luminance($background-color);
+  $luminance: luminance(#bb9b68);
   $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
 
+  width: 160px;
+  text-align: center;
   margin-left: auto;
   margin-right: 5px;
   border-radius: 5px;
@@ -262,11 +261,57 @@ $background-color: #bb9b68 !default;
     rgba(0, 0, 0, 0.1) base.em(10px),
     rgba(0, 0, 0, 0.1) base.em(20px)
   );
+
+  &.excommunicate {
+    background-color: #B92F27; // Dark red for Ex-Communication rank
+    $luminance: luminance(#B92F27);
+    $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+    color: $text-color;
+  }
+
+  &.blood-servant {
+    background-color: #543219; // Saddle brown for Blood Servant rank
+    $luminance: luminance(#543219);
+    $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+    color: $text-color;
+  }
+
+  &.field-agent {
+    background-color: #3960aa; // Cornflower blue for Field Agent rank
+    $luminance: luminance(#3960aa);
+    $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+    color: $text-color;
+  }
+
+  &.specialist {
+    background-color: #6724a6; // Hot pink for Specialist rank
+    $luminance: luminance(#6724a6);
+    $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+    color: $text-color;
+  }
+
+  &.operative {
+    background-color: #cb2e7d; // Blue violet for Operative rank
+    $luminance: luminance(#cb2e7d);
+    $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+    color: $text-color;
+  }
+
+  &.director {
+    background-color: #821111; // Firebrick for Director rank
+    $luminance: luminance(#821111);
+    $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+    color: $text-color;
+  }
+
+  &.archon {
+    background-color: #ffd059; // Gold for Archon rank
+    $luminance: luminance(#ffd059);
+    $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+    color: $text-color;
+  }
+
+
 }
 
-@mixin box-color($color) {
-  $luminance: luminance($color);
-  $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
-  color: $text-color;
-  background-color: color.adjust($color, $saturation: -15%, $lightness: -15%);
-}
+

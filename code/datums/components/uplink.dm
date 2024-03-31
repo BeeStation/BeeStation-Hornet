@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 	var/list/previous_attempts
 
 /datum/component/uplink/Initialize(datum/mind/_owner,
-		_lockable = TRUE
+		_lockable = TRUE,
 		_enabled = FALSE,
 		uplink_flag = UPLINK_TRAITORS,
 		starting_tc = TELECRYSTALS_DEFAULT,
@@ -181,6 +181,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 	data["lockable"] = lockable
 	data["compactMode"] = compact_mode
 	data["objectives"] = SSdirectives.get_uplink_data(src)
+	data["reputation"] = reputation
 	return data
 
 /datum/component/uplink/ui_static_data(mob/user)
@@ -219,7 +220,8 @@ GLOBAL_LIST_EMPTY(uplinks)
 				"cost" = I.cost,
 				"desc" = I.desc,
 				"is_illegal" = I.illegal_tech,
-				"are_contents_illegal" = I.contents_are_illegal_tech
+				"are_contents_illegal" = I.contents_are_illegal_tech,
+				"reputation" = I.reputation_required
 			))
 		data["categories"] += list(cat)
 	return data
@@ -265,6 +267,8 @@ GLOBAL_LIST_EMPTY(uplinks)
 		return
 
 	if(telecrystals < U.cost || U.limited_stock == 0)
+		return
+	if (reputation < U.reputation_required)
 		return
 	telecrystals -= U.cost
 
