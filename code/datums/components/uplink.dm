@@ -5,9 +5,9 @@ GLOBAL_LIST_EMPTY(uplinks)
 /**
  * Uplinks
  *
- * All /obj/item(s) have a hidden_uplink var. By default it's null. Give the item one with 'new(src') (it must be in it's contents). Then add 'uses.'
- * Use whatever conditionals you want to check that the user has an uplink, and then call interact() on their uplink.
- * You might also want the uplink menu to open if active. Check if the uplink is 'active' and then interact() with it.
+ * All /obj/item(s) can be given an uplink. Give the item one with AddComponent(/datum/component/uplink, mind)
+ * Use whatever conditionals you want to check that the user has an uplink
+ * This component will handle UI interactions.
 **/
 /datum/component/uplink
 	dupe_mode = COMPONENT_DUPE_UNIQUE
@@ -31,10 +31,19 @@ GLOBAL_LIST_EMPTY(uplinks)
 	var/compact_mode = FALSE
 	var/debug = FALSE
 	var/non_traitor_allowed = TRUE
+	// Tied to uplink rather than mind since generally traitors only have 1 uplink
+	// and tying it to anything else is difficult due to how much uses an uplink
+	var/reputation = 200
 
 	var/list/previous_attempts
 
-/datum/component/uplink/Initialize(datum/mind/_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
+/datum/component/uplink/Initialize(datum/mind/_owner,
+		_lockable = TRUE
+		_enabled = FALSE,
+		uplink_flag = UPLINK_TRAITORS,
+		starting_tc = TELECRYSTALS_DEFAULT,
+		_reputation = 200,
+		)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -62,6 +71,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 			purchase_log = new(owner.key, src)
 	lockable = _lockable
 	active = _enabled
+	reputation = _reputation
 	src.uplink_flag = uplink_flag
 	update_items()
 	telecrystals = starting_tc

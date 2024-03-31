@@ -22,15 +22,6 @@
   margin: 10px;
 }
 
-.HomeRight {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 40%;
-  margin: 10px;
-}
-
 .HomeTitle {
   width: 100%;
   font-size: x-large;
@@ -90,6 +81,36 @@
   right: 0;
   text-align: right;
   font-weight: bold;
+}
+
+.HomeRight {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  margin: 10px;
+}
+
+.HomeButton {
+  width: 176px;
+  height: 40px;
+  padding: 10px;
+  margin-left: calc(100% - 176px);
+  border-radius: 13px;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 12px;
+  background-color: red;
+  margin-bottom: 40px;
+  box-shadow: black 3px 3px;
+  margin-top: 2px;
+
+  &:hover {
+    margin-left: calc(100% - 174px);
+    margin-bottom: 40px;
+    box-shadow: black 1px 1px;
+  }
 }
 
 .objective_card {

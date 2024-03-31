@@ -104,7 +104,18 @@ const HomePage = (props, context) => {
             </div>
           </div>
           <div className="HomeRight">
-
+            Current Reputation
+            <div className="HomeButton">
+              200 Reputation
+            </div>
+            Uplink Services
+            <div className="HomeButton">
+              Shop Now
+            </div>
+            Special Directives
+            <div className="HomeButton">
+              None Available
+            </div>
           </div>
         </div>
       </Flex.Item>

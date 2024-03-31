@@ -138,6 +138,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	var/spawn_amount = 1	//How many times we should run the spawn
 	var/additional_uplink_entry	= null	//Bonus items you gain if you purchase it
 	var/is_bonus = FALSE // entry in 'additional_uplink_entry' will have this as TRUE. Used for logging detail
+	/// How much reputation is required to purchase this item.
+	/// Things that can be used for indiscriminant murder should require more work to get.
+	var/reputation_required = REPUTATION_EXCOMMUNICATED
 
 /datum/uplink_item/New()
 	. = ..()
@@ -269,7 +272,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			standard contractor gear to help with your mission - comes supplied with the tablet, specialised space suit, chameleon jumpsuit and mask, \
 			agent card, specialised contractor baton, and three randomly selected low cost items. Can include otherwise unobtainable items."
 	item = /obj/item/storage/box/syndie_kit/contract_kit
-	cost = 20
+	cost = 15
+	reputation_required = REPUTATION_GOOD
 	player_minimum = 15
 	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
@@ -279,7 +283,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			These items are collectively worth more than 20 telecrystals, but you do not know which specialization \
 			you will receive. May contain discontinued and/or exotic items."
 	item = /obj/item/storage/box/syndie_kit/bundle_A
-	cost = 20
+	cost = 15
+	reputation_required = REPUTATION_STANDARD
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/bundles_TC/bundle_B
@@ -287,7 +292,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "Syndicate Bundles, also known as Syndi-Kits, are specialized groups of items that arrive in a plain box. \
 			In Syndi-kit Special, you will receive items used by famous syndicate agents of the past. Collectively worth more than 20 telecrystals, the syndicate loves a good throwback."
 	item = /obj/item/storage/box/syndie_kit/bundle_B
-	cost = 20
+	cost = 15
+	reputation_required = REPUTATION_STANDARD
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/bundles_TC/surplus
@@ -295,7 +301,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A dusty crate from the back of the Syndicate warehouse. Rumored to contain a valuable assortment of items, \
 			but you never know. Contents are sorted to always be worth 50 TC."
 	item = /obj/structure/closet/crate
-	cost = 20
+	cost = 18
+	reputation_required = REPUTATION_GOOD
 	player_minimum = 20
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	var/starting_crate_value = 50
@@ -305,7 +312,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Super Surplus Crate"
 	desc = "A dusty SUPER-SIZED from the back of the Syndicate warehouse. Rumored to contain a valuable assortment of items, \
 			but you never know. Contents are sorted to always be worth 125 TC."
-	cost = 40
+	cost = 25
+	reputation_required = REPUTATION_EXCELLENT
 	player_minimum = 30
 	starting_crate_value = 125
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
@@ -343,6 +351,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	uplink_contents = (UPLINK_TRAITORS | UPLINK_NUKE_OPS)
 	player_minimum = 30
+	cost = 15
+	reputation_required = REPUTATION_EXCELLENT
 
 /datum/uplink_item/bundles_TC/surplus/random/purchase(mob/user, datum/component/uplink/U)
 	var/index = rand(1, 20)
@@ -414,7 +424,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 /datum/uplink_item/bundles_TC/crate
 	name = "Bulk Hardsuit Bundle"
 	desc = "A crate containing 4 valueable syndicate hardsuits."
-	cost = 18
+	cost = 8
 	purchasable_from = UPLINK_INCURSION
 	item = /obj/effect/gibspawner/generic
 	var/list/contents = list(
@@ -437,7 +447,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Syndicate Medical Bundle"
 	desc = "Contains an assortment of syndicate medical equipment for you and your team.\
 			Comes with a variety of first-aid kits, pill bottles, a compact defibrillator and 4 stimpacks."
-	cost = 12
+	cost = 8
 	contents = list(
 		/obj/item/storage/firstaid/tactical = 2,	//8 TC
 		/obj/item/storage/firstaid/brute = 2,
@@ -454,7 +464,10 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "Every syndicate team needs their own shuttle. It's a shame you weren't supplied with one, but thats not a problem\
 			if you can spare some TC! The all new shuttle creation kit (produced by the syndicate) contains everything you need\
 			to get flying! All syndicate agents are advised to ignore the Nanotrasen labels on products. Space proof suits not included."
-	cost = 15	//There are multiple uses for the RCD and plasma canister, but both are easilly accessible for items that cost less than all of their TC.
+	reputation_required = REPUTATION_STANDARD
+	// There are multiple uses for the RCD and plasma canister, but both are easilly accessible for items that cost less than all of their TC.
+	// Should be cheaper than the shuttle capsule
+	cost = 5
 	contents = list(
 		/obj/machinery/portable_atmospherics/canister/plasma = 1,
 		/obj/item/construction/rcd/combat = 1,
@@ -612,13 +625,15 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed or the meaty fists of a hulk."
 	item = /obj/item/clothing/gloves/rapid
 	cost = 8
+	reputation_required = REPUTATION_STANDARD
 
 /datum/uplink_item/dangerous/holoparasite
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an \
 			organic host as a home base and source of fuel. Holoparasites come in various types and share damage with their host."
 	item = /obj/item/holoparasite_creator/tech
-	cost = 18
+	cost = 15
+	reputation_required = REPUTATION_EXCELLENT
 	surplus = 10
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	player_minimum = 25
@@ -700,6 +715,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/gun/ballistic/revolver
 	player_minimum = 25
 	cost = 12
+	reputation_required = REPUTATION_GOOD
 	surplus = 50
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
@@ -802,7 +818,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
 			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry."
 	item = /obj/item/book/granter/martial/carp
-	cost = 16
+	cost = 15
+	reputation_required = REPUTATION_EXCELLENT
 	player_minimum = 20
 	surplus = 10
 	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
@@ -817,6 +834,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow/radbow
 	cost = 8
 	surplus = 50
+	reputation_required = REPUTATION_GOOD
 
 /datum/uplink_item/stealthy_weapons/crossbow
 	name = "Miniature Energy Crossbow"
@@ -827,7 +845,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	slur as if inebriated. It can produce an infinite number \
 	of bolts, but takes a small amount of time to automatically recharge after each shot."
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
-	cost = 12
+	cost = 10
+	reputation_required = REPUTATION_GOOD
 	surplus = 50
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
@@ -845,7 +864,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Poison Kit"
 	desc = "An assortment of deadly chemicals packed into a compact box. Comes with a syringe for more precise application."
 	item = /obj/item/storage/box/syndie_kit/chemical
-	cost = 7
+	cost = 6
 	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/romerol_kit
@@ -854,7 +873,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			On death, these nodules take control of the dead body, causing limited revivification, \
 			along with slurred speech, aggression, and the ability to infect others with this agent."
 	item = /obj/item/storage/box/syndie_kit/romerol
-	cost = 20
+	cost = 15
+	reputation_required = REPUTATION_ELITE
 	cant_discount = TRUE
 	murderbone_type = TRUE
 	surplus = 0
@@ -1253,7 +1273,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Bag of C-4 explosives"
 	desc = "Because sometimes quantity is quality. Contains 10 C-4 plastic explosives."
 	item = /obj/item/storage/backpack/duffelbag/syndie/c4
-	cost = 8 //20% discount!
+	cost = 6 //40 % discount
+	reputation_required = REPUTATION_GOOD
 	cant_discount = TRUE
 
 /datum/uplink_item/explosives/x4bag
@@ -1262,7 +1283,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			X-4 can be placed on a solid surface, such as a wall or window, and it will blast through the wall, injuring anything on the opposite side, while being safer to the user. \
 			For when you want a controlled explosion that leaves a wider, deeper, hole."
 	item = /obj/item/storage/backpack/duffelbag/syndie/x4
-	cost = 4 //
+	cost = 4
+	reputation_required = REPUTATION_GOOD
 	cant_discount = TRUE
 
 /datum/uplink_item/explosives/clown_bomb_clownops
@@ -1284,6 +1306,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer."
 	item = /obj/item/computer_hardware/hard_drive/role/virus/syndicate
 	cost = 6
+	reputation_required = REPUTATION_GOOD
 	restricted = TRUE
 
 /datum/uplink_item/explosives/emp
@@ -1331,6 +1354,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			This variant has been fitted with high yield X4 charges for a larger explosion."
 	item = /obj/item/deployablemine/traitor/bigboom
 	cost = 10
+	reputation_required = REPUTATION_GOOD
 
 /datum/uplink_item/explosives/pizza_bomb
 	name = "Pizza Bomb"
@@ -1356,6 +1380,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			The bomb core can be pried out and manually detonated with other explosives."
 	item = /obj/item/sbeacondrop/bomb
 	cost = 12
+	reputation_required = REPUTATION_GOOD
 
 /datum/uplink_item/explosives/syndicate_detonator
 	name = "Syndicate Detonator"
@@ -1374,6 +1399,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/grenade/syndieminibomb
 	cost = 4
 	purchasable_from = ~UPLINK_CLOWN_OPS
+	reputation_required = REPUTATION_STANDARD
 
 /datum/uplink_item/explosives/tearstache
 	name = "Teachstache Grenade"
@@ -1623,6 +1649,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/clothing/suit/space/hardsuit/syndi
 	cost = 7
 	purchasable_from = ~UPLINK_NUKE_OPS //you can't buy it in nuke, because the elite hardsuit costs the same while being better
+	reputation_required = REPUTATION_STANDARD
 
 /datum/uplink_item/suits/hardsuit/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
 	var/obj/item/clothing/suit/space/hardsuit/suit = ..()
@@ -1701,7 +1728,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			an in-built shuttle interdictor and a single canister of plasma to fuel your adventures! \
 			This innovative shuttle can seat up to 4 passengers, willing or not! Shuttle must be deployed in space or on lavaland, space suits not included."
 	item = /obj/item/survivalcapsule/shuttle/traitor
-	cost = 8
+	cost = 7
+	reputation_required = REPUTATION_GOOD
 	purchasable_from = (UPLINK_INCURSION | UPLINK_TRAITORS)
 
 /datum/uplink_item/device_tools/magboots
@@ -1748,6 +1776,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			in electronic devices, subverts intended functions, and easily breaks security mechanisms."
 	item = /obj/item/card/emag
 	cost = 6
+	// I don't want people using this to break into captain's office at roundstart, at least
+	// wait until 1 directive appears
+	reputation_required = REPUTATION_GOOD
 
 /datum/uplink_item/device_tools/fakenucleardisk
 	name = "Decoy Nuclear Authentication Disk"
@@ -1774,7 +1805,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			You will receive the unlock code upon activating the virus, and the new uplink may be charged with \
 			telecrystals normally."
 	item = /obj/item/computer_hardware/hard_drive/role/virus/frame
-	cost = 4
+	cost = 3
 	restricted = TRUE
 
 /datum/uplink_item/device_tools/failsafe
@@ -1826,6 +1857,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A modified flash able to hypnotize targets. If the target is not in a mentally vulnerable state, it will only confuse and pacify them temporarily."
 	item = /obj/item/assembly/flash/hypnotic
 	cost = 7
+	reputation_required = REPUTATION_GOOD
 
 /datum/uplink_item/device_tools/medgun
 	name = "Medbeam Gun"
@@ -1843,6 +1875,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	item = /obj/item/sbeacondrop
 	cost = 10
+	reputation_required = REPUTATION_ELITE
 
 /datum/uplink_item/device_tools/powersink
 	name = "Power Sink"
@@ -2207,14 +2240,16 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			are very sensitive. Now with our included lube defense mechanism which will protect you against any angry shitcurity! \
 			Premium features can be unlocked with a cryptographic sequencer!"
 	item = /obj/vehicle/sealed/car/clowncar
-	cost = 20
+	cost = 14
+	reputation_required = REPUTATION_EXCELLENT
 	restricted_roles = list(JOB_NAME_CLOWN)
 	purchasable_from = ~UPLINK_INCURSION
 
 /datum/uplink_item/role_restricted/taeclowndo_shoes
 	name = "Tae-clown-do Shoes"
 	desc = "A pair of shoes for the most elite agents of the honkmotherland. They grant the mastery of taeclowndo with some honk-fu moves as long as they're worn."
-	cost = 12
+	cost = 10
+	reputation_required = REPUTATION_GOOD
 	item = /obj/item/clothing/shoes/clown_shoes/taeclowndo
 	restricted_roles = list(JOB_NAME_CLOWN)
 
@@ -2249,7 +2284,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "Most magic eightballs are toys with dice inside. Although identical in appearance to the harmless toys, this occult device reaches into the spirit world to find its answers. \
 			Be warned, that spirits are often capricious or just little assholes. To use, simply speak your question aloud, then begin shaking."
 	item = /obj/item/toy/eightball/haunted
-	cost = 2
+	cost = 1
 	restricted_roles = list(JOB_NAME_CURATOR)
 	limited_stock = 1 //please don't spam deadchat
 
@@ -2264,7 +2299,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Prison Cube"
 	desc = "A very strange artifact recovered from a volcanic planet that is useful for keeping people locked away, but not very useful for keeping their disappearance unknown"
 	item = /obj/item/prisoncube
-	cost = 6
+	cost = 5
 	restricted_roles = list(JOB_NAME_CURATOR)
 
 /datum/uplink_item/role_restricted/his_grace
@@ -2274,7 +2309,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	However, if left alone for long enough, He will fall back to slumber. \
 	To activate His Grace, simply unlatch Him."
 	item = /obj/item/his_grace
-	cost = 20
+	cost = 14
+	reputation_required = REPUTATION_ELITE
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
 	murderbone_type = TRUE
 	surplus = 0
@@ -2283,7 +2319,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Cult Construct Kit"
 	desc = "Recovered from an abandoned Nar'sie cult lair two construct shells and a stash of empty soulstones was found. These were purified to prevent occult contamination and have been put in a belt so they may be used as an accessible source of disposable minions. The construct shells have been packaged into two beacons for rapid and portable deployment."
 	item = /obj/item/storage/box/syndie_kit/cultconstructkit
-	cost = 20
+	cost = 14
+	reputation_required = REPUTATION_ELITE
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
 
 /datum/uplink_item/role_restricted/shadowmutationtoxin
@@ -2298,7 +2335,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell. \
 			At least, that's what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
-	cost = 12
+	cost = 10
+	reputation_required = REPUTATION_EXCELLENT
 	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
 
 /datum/uplink_item/role_restricted/retrovirus
@@ -2306,7 +2344,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A bottle of contagious DNA bugs, which will manually rearrange the DNA of hosts. \
 			At least, that's what the label says."
 	item = /obj/item/reagent_containers/glass/bottle/retrovirus
-	cost = 12
+	cost = 10
+	reputation_required = REPUTATION_EXCELLENT
 	restricted_roles = list(JOB_NAME_VIROLOGIST, JOB_NAME_GENETICIST)
 
 /datum/uplink_item/role_restricted/anxiety
@@ -2339,12 +2378,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "Fishsticks prepared through ritualistic means in honor of the god Carp-sie, capable of binding a holocarp \
 			to act as a servant and guardian to their host."
 	item = /obj/item/holoparasite_creator/carp
-	cost = 18
+	cost = 16
 	surplus = 5
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	player_minimum = 25
 	restricted = TRUE
 	restricted_roles = list(JOB_NAME_COOK, JOB_NAME_CHAPLAIN)
+	reputation_required = REPUTATION_EXCELLENT
 
 /datum/uplink_item/role_restricted/ez_clean_bundle
 	name = "EZ Clean Grenade Bundle"
@@ -2430,7 +2470,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Reverse Revolver"
 	desc = "A revolver that always fires at its user. \"Accidentally\" drop your weapon, then watch as the greedy corporate pigs blow their own brains all over the wall. \
 	The revolver itself is actually real. Only clumsy people, and clowns, can fire it normally. Comes in a box of hugs. Honk."
-	cost = 13
+	cost = 8
 	item = /obj/item/storage/box/hug/reverse_revolver
 	restricted_roles = list(JOB_NAME_CLOWN)
 
@@ -2485,7 +2525,9 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "For showing that you are THE BOSS: A useless red balloon with the Syndicate logo on it. \
 			Can blow the deepest of covers."
 	item = /obj/item/toy/syndicateballoon
-	cost = 20
+	cost = 8
+	// Only for the best
+	reputation_required = REPUTATION_ELITE
 	cant_discount = TRUE
 	illegal_tech = FALSE
 	surplus = 0
