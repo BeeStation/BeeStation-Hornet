@@ -3,7 +3,7 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/space)
 "x" = (
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/space)
 
 (1,1,1) = {"

@@ -115,6 +115,7 @@
 		            /obj/item/clothing/glasses/monocle = 1,
 		            /obj/item/clothing/head/sombrero = 1,
 		            /obj/item/clothing/suit/poncho = 1,
+		            /obj/item/clothing/head/cowboy = 1,
 		            /obj/item/clothing/under/costume/kilt = 1,
 		            /obj/item/clothing/under/dress/sundress = 1,
 		            /obj/item/clothing/under/dress/striped = 1,

@@ -22,6 +22,16 @@
 	key_third_person = "vibrates"
 	message = "vibrates!"
 
+/datum/emote/slime/squish
+	key = "squish"
+	key_third_person = "squishes"
+	message = "squishes"
+	emote_type = EMOTE_AUDIBLE
+	sound_volume = 25
+
+/datum/emote/slime/squish/get_sound(mob/living/user)
+	return 'sound/effects/blobattack.ogg'
+
 /datum/emote/slime/mood
 	key = "moodnone"
 	var/mood = null
