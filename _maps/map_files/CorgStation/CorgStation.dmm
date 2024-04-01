@@ -7066,12 +7066,6 @@
 	color = "#666666";
 	dir = 4
 	},
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "hosoffice";
-	name = "Head of Security's Office Shutters";
-	pixel_x = -26
-	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "bWZ" = (
@@ -46515,12 +46509,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "hosoffice";
-	name = "Head of Security's Office Shutters";
-	pixel_x = -26
-	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "oQO" = (
@@ -61573,12 +61561,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "hosoffice";
-	name = "Head of Security's Office Shutters";
-	pixel_x = -26
-	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "tSm" = (
@@ -71029,12 +71011,6 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
 "wSK" = (
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "hosoffice";
-	name = "Head of Security's Office Shutters";
-	pixel_x = -26
-	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "wSU" = (
