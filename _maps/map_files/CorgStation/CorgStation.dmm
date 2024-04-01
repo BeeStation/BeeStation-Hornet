@@ -7066,6 +7066,12 @@
 	color = "#666666";
 	dir = 4
 	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters";
+	pixel_x = -26
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "bWZ" = (
@@ -26901,10 +26907,6 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/security_officer,
-/obj/machinery/door/airlock/security/glass{
-	name = "Gear Room";
-	req_one_access_txt = "1;4"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -34010,14 +34012,14 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
 "kUb" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "hosoffice";
-	name = "Head of Security's Office Shutters"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "hosoffice";
+	name = "Head Of Security Blast door"
+	},
 /turf/open/floor/plating,
 /area/security/brig)
 "kUj" = (
@@ -46513,6 +46515,12 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters";
+	pixel_x = -26
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "oQO" = (
@@ -49016,13 +49024,14 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "pLo" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/camera/autoname{
-	dir = 1;
-	network = list("ss13","security")
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "hosoffice";
+	name = "Head Of Security Blast door"
 	},
-/turf/open/space/basic,
-/area/space/nearstation)
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
 "pLz" = (
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
@@ -49487,6 +49496,17 @@
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
+"pSX" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "hosoffice";
+	name = "Head Of Security Blast door"
+	},
+/turf/open/floor/plating,
+/area/crew_quarters/heads/hos)
 "pTe" = (
 /turf/open/floor/plating,
 /area/crew_quarters/fitness/recreation)
@@ -53438,6 +53458,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/machinery/door/poddoor/preopen{
+	id = "hosoffice";
+	name = "Head Of Security Blast door"
+	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "rjb" = (
@@ -53722,6 +53746,10 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "hosoffice";
+	name = "Head Of Security Blast door"
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "rnn" = (
@@ -61544,6 +61572,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters";
+	pixel_x = -26
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
@@ -70995,6 +71029,12 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
 "wSK" = (
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "hosoffice";
+	name = "Head of Security's Office Shutters";
+	pixel_x = -26
+	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "wSU" = (
@@ -74263,11 +74303,11 @@
 /turf/open/floor/iron/dark,
 /area/bridge)
 "xUc" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "hosoffice";
-	name = "Head of Security's Office Shutters"
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id = "hosoffice";
+	name = "Head Of Security Blast door"
+	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/brig)
@@ -112020,7 +112060,7 @@ aMT
 aMT
 aMT
 aMT
-pLo
+qBt
 aMT
 aMT
 aMT
@@ -118201,9 +118241,9 @@ fpM
 ajU
 naL
 iRh
-fwi
+pSX
 rnk
-voO
+pLo
 iRh
 iRh
 anT
