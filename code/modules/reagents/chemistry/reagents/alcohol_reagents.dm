@@ -2541,13 +2541,12 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/beer/clown/overdose_start(mob/living/carbon/L)
 	. = ..()
-	if(L.mind.assigned_role != JOB_NAME_SECURITYOFFICER && L.mind.assigned_role != JOB_NAME_WARDEN && L.mind.assigned_role != JOB_NAME_HEADOFSECURITY && L.mind.assigned_role != JOB_NAME_DETECTIVE && L.mind.assigned_role != JOB_NAME_DEPUTY)
+	if(L.mind.assigned_role = JOB_NAME_SECURITYOFFICER && L.mind.assigned_role = JOB_NAME_WARDEN && L.mind.assigned_role = JOB_NAME_HEADOFSECURITY && L.mind.assigned_role = JOB_NAME_DETECTIVE && L.mind.assigned_role = JOB_NAME_DEPUTY)
 		L.dna.remove_mutation(CLOWNMUT)
 		to_chat(L, "<span class='warning'>Your drunkness somehow removed your clumnsiness</span>")
 	else
 
 /datum/reagent/consumable/ethanol/beer/clown/on_mob_end_metabolize(mob/living/carbon/L)
 	. = ..()
-	if(L.mind.assigned_role == JOB_NAME_CLOWN)
-		L.dna.add_mutation(CLOWNMUT)
+	if(L.mind.assigned_role != JOB_NAME_SECURITYOFFICER && L.mind.assigned_role != JOB_NAME_WARDEN && L.mind.assigned_role != JOB_NAME_HEADOFSECURITY && L.mind.assigned_role != JOB_NAME_DETECTIVE && L.mind.assigned_role != JOB_NAME_DEPUTY)		L.dna.add_mutation(CLOWNMUT)
 		to_chat(L, "<span class='warning'>Your clumnsiness is back and your clown powers dissapear</span>")
