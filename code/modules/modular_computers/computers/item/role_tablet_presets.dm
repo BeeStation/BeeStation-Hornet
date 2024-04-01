@@ -266,8 +266,8 @@
 
 /obj/item/modular_computer/tablet/pda/vip
 	name = "fancy PDA"
-	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a gold-plated 5230-NTOS LRP Series, and probably quite expensive."
-	note = "Congratulations, you have chosen the Thinktronic 5230-NTOS LRP Series Personal Data Assistant Golden Edition!"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a gold-plated 5230-NTOS HRP Series, and probably quite expensive."
+	note = "Congratulations, you have chosen the Thinktronic 5230-NTOS HRP Series Personal Data Assistant Golden Edition!"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/vip
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-gold"
