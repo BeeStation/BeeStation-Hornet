@@ -2531,7 +2531,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	. = ..()
 
 /datum/reagent/consumable/ethanol/beer/clown
-	description = "Clumsy beer made out of the most refined ingredients gathered by the clown agents."
+	description = "Clumsy beer made out of the most refined ingredients gathered by the clown agents. So powerfull it will remove the clumsiness from anyone"
 	color = "#ffbaef"
 	taste_description = "clumsy foamy beard"
 	glass_desc = "A freezing pint of HONKBEER."
@@ -2539,12 +2539,23 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	quality = DRINK_FANTASTIC
 	overdose_threshold = 25
 
+/datum/reagent/consumable/ethanol/beer/clown/on_mob_life(var/mob/living/carbon/M)
+	var/repair_strength = 1
+	var/obj/item/organ/liver/L = M.getorganslot(ORGAN_SLOT_LIVER)
+	if(L.damage > 0)
+		L.damage = max(L.damage - 4 * repair_strength, 0)
+		M.confused = (2)
+	M.adjustToxLoss(-6)
+	..()
+	. = 1
+
 /datum/reagent/consumable/ethanol/beer/clown/overdose_start(mob/living/carbon/L)
 	. = ..()
-	if(L.mind.assigned_role == JOB_NAME_SECURITYOFFICER || L.mind.assigned_role == JOB_NAME_WARDEN || L.mind.assigned_role == JOB_NAME_HEADOFSECURITY || L.mind.assigned_role == JOB_NAME_DETECTIVE || L.mind.assigned_role == JOB_NAME_DEPUTY)
+	if(L.mind.assigned_role == JOB_NAME_SECURITYOFFICER || L.mind.assigned_role == JOB_NAME_WARDEN || L.mind.assigned_role == JOB_NAME_HEADOFSECURITY || L.mind.assigned_role == JOB_NAME_DETECTIVE || L.mind.assigned_role == JOB_NAME_DEPUTY || L.mind.assigned_role == JOB_NAME_CLOWN)
 		L.dna.remove_mutation(CLOWNMUT)
 		to_chat(L, "<span class='warning'>Your drunkness somehow removed your clumnsiness</span>")
 
 /datum/reagent/consumable/ethanol/beer/clown/on_mob_end_metabolize(mob/living/carbon/L)
 	. = ..()
-	if(L.mind.assigned_role == JOB_NAME_SECURITYOFFICER || L.mind.assigned_role == JOB_NAME_WARDEN || L.mind.assigned_role == JOB_NAME_HEADOFSECURITY || L.mind.assigned_role == JOB_NAME_DETECTIVE || L.mind.assigned_role == JOB_NAME_DEPUTY)		to_chat(L, "<span class='warning'>Your clumnsiness is back and your clown powers dissapear</span>")
+	if(L.mind.assigned_role == JOB_NAME_SECURITYOFFICER || L.mind.assigned_role == JOB_NAME_WARDEN || L.mind.assigned_role == JOB_NAME_HEADOFSECURITY || L.mind.assigned_role == JOB_NAME_DETECTIVE || L.mind.assigned_role == JOB_NAME_DEPUTY || L.mind.assigned_role == JOB_NAME_CLOWN)		to_chat(L, "<span class='warning'>Your clumnsiness is back and your clown powers dissapear</span>")
+
