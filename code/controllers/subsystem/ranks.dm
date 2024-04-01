@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(ranks)
 		update_rank(ckey(joiner_ckey), new_elo)
 	// Save to file
 	fdel("data/ranks.json")
-	WRITE_FILE("data/ranks.json", json_encode(assoc_ranks))
+	WRITE_FILE(file("data/ranks.json"), json_encode(assoc_ranks))
 
 /datum/controller/subsystem/ranks/proc/get_ranks(ckey)
 	RETURN_TYPE(/datum/player_rank)
