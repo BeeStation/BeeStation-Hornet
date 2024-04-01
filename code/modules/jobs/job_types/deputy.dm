@@ -50,3 +50,11 @@
 	desc = "A small card, that when used on an ID, will grant basic security access, and the job title of 'Deputy.'"
 	assignment = JOB_NAME_DEPUTY
 	access = list(ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS)
+
+/datum/outfit/job/deputy/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	H.dna.add_mutation(CLOWNMUT)
+	ADD_TRAIT(H, TRAIT_NAIVE, JOB_TRAIT)

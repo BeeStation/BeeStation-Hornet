@@ -67,6 +67,9 @@
 	if(visualsOnly)
 		return
 
+	H.dna.add_mutation(CLOWNMUT)
+	ADD_TRAIT(H, TRAIT_NAIVE, JOB_TRAIT)
+
 /obj/item/storage/belt/fannypack/detective/PopulateContents()
 	new /obj/item/storage/box/evidence(src)
 	new /obj/item/detective_scanner(src)

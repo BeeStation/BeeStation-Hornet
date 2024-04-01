@@ -66,3 +66,10 @@
 
 	chameleon_extras = /obj/item/gun/ballistic/shotgun/automatic/combat/compact
 
+/datum/outfit/job/warden/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	H.dna.add_mutation(CLOWNMUT)
+	ADD_TRAIT(H, TRAIT_NAIVE, JOB_TRAIT)
