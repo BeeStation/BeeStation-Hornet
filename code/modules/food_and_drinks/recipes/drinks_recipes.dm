@@ -878,3 +878,9 @@
 	id = /datum/reagent/consumable/ethanol/beeffizz
 	results = list(/datum/reagent/consumable/ethanol/beeffizz = 10)
 	required_reagents = list(/datum/reagent/consumable/beefbroth = 7, /datum/reagent/consumable/ice = 2, /datum/reagent/consumable/lemonjuice = 1 )
+
+/datum/chemical_reaction/beer_clown
+	name = "HONKBEER"
+	id = /datum/reagent/consumable/ethanol/beer/clown
+	results = list(/datum/reagent/consumable/ethanol/beer/clown = 10)
+	required_reagents = list(/datum/reagent/consumable/laughter = 10, /datum/reagent/consumable/ethanol/beer = 10)

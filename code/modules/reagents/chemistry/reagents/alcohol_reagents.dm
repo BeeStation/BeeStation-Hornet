@@ -2529,3 +2529,34 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.adjust_disgust(30)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
+
+/datum/reagent/consumable/ethanol/beer/clown
+	description = "Clumsy beer made out of the most refined ingredients gathered by the clown agents."
+	color = "#ffbaef"
+	taste_description = "clumsy foamy beard"
+	glass_desc = "A freezing pint of HONKBEER."
+	boozepwr = 69
+	quality = DRINK_FANTASTIC
+	var/power = /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pie
+	overdose_threshold = 25
+
+/datum/reagent/consumable/ethanol/beer/clown/overdose_start(mob/living/carbon/L)
+	. = ..()
+	power = new power()
+	L.AddSpell(power)
+	if(L.mind.assigned_role == JOB_NAME_CLOWN)
+		L.dna.remove_mutation(CLOWNMUT)
+		to_chat(L, "<span class='warning'>Your drunkness somehow removed your clumnsiness and you unlock the secret pie technique</span>")
+	else
+		ADD_TRAIT(L, TRAIT_CLUMSY, type)
+		to_chat(L, "<span class='warning'>You become clumsy, but unlock the secret pie technique</span>")
+
+/datum/reagent/consumable/ethanol/beer/clown/on_mob_end_metabolize(mob/living/carbon/L)
+	. = ..()
+	L.RemoveSpell(power)
+	if(L.mind.assigned_role == JOB_NAME_CLOWN)
+		L.dna.add_mutation(CLOWNMUT)
+		to_chat(L, "<span class='warning'>Your clumnsiness is back and your clown powers dissapear</span>")
+	else
+		REMOVE_TRAIT(L, TRAIT_CLUMSY, type)
+		to_chat(L, "<span class='notice'>Your clumsiness and clown powers dissapear.</span>")

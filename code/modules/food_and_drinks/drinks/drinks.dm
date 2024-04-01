@@ -627,3 +627,10 @@
 	desc = "There is no air shortage. Do not drink."
 	icon_state = "air"
 	list_reagents = list(/datum/reagent/nitrogen = 24, /datum/reagent/oxygen = 6)
+
+/obj/item/reagent_containers/food/drinks/beer/clown
+	name = "HONKBEER"
+	desc = "Clumsy beer made out of the most refined ingredients gathered by the Honk Agents."
+	icon_state = "beer_clown"
+	list_reagents = list(/datum/reagent/consumable/ethanol/beer/clown = 30)
+	foodtype = GRAIN | ALCOHOL
