@@ -12,39 +12,28 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
 	thermal_conductivity = 0.04
 	heat_capacity = 10000
 	tiled_dirt = TRUE
-	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
-	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
 	overfloor_placed = TRUE
 
 	var/icon_plating = "plating"
-	var/broken = 0
-	var/burnt = 0
 	var/floor_tile = null //tile that this floor drops
-	var/list/broken_states
-	var/list/burnt_states
-
 
 /turf/open/floor/Initialize(mapload)
-
-	if (!broken_states)
-		broken_states = typelist("broken_states", list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5"))
-	else
-		broken_states = typelist("broken_states", broken_states)
-	burnt_states = typelist("burnt_states", burnt_states)
-	if(!broken && broken_states && (icon_state in broken_states))
-		broken = TRUE
-	if(!burnt && burnt_states && (icon_state in burnt_states))
-		burnt = TRUE
 	. = ..()
 	if(mapload && prob(33))
 		MakeDirty()
 	if(is_station_level(z))
 		GLOB.station_turfs += src
+
+	//Choose a variant
+	if(variants)
+		icon_state = pick_weight(variants)
 
 /turf/open/floor/Destroy()
 	if(is_station_level(z))
@@ -78,22 +67,11 @@
 		return
 	T.break_tile()
 
-/turf/open/floor/proc/break_tile()
-	if(broken)
-		return
-	icon_state = pick(broken_states)
-	broken = 1
-
-/turf/open/floor/burn_tile()
-	if(broken || burnt)
-		return
-	if(burnt_states.len)
-		icon_state = pick(burnt_states)
-	else
-		icon_state = pick(broken_states)
-	burnt = 1
-
 /turf/open/floor/proc/make_plating()
+	//Remove previous damage overlays
+	for(var/i in damage_overlays)
+		remove_filter(i)
+		damage_overlays -= i
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/open/floor/ChangeTurf(path, new_baseturf, flags)
@@ -219,11 +197,11 @@
 			return TRUE
 		if(RCD_LADDER)
 			to_chat(user, "<span class='notice'>You build a ladder.</span>")
-			var/obj/structure/ladder/Ladder = new(src)
-			Ladder.anchored = TRUE
+			var/obj/structure/ladder/L = new(src)
+			L.set_anchored(TRUE)
 			return TRUE
 		if(RCD_AIRLOCK)
-			if(locate(/obj/machinery/door) in src)
+			if(locate(/obj/machinery/door/airlock) in src || locate(/obj/machinery/door/window) in src)
 				return FALSE
 			if(ispath(the_rcd.airlock_type, /obj/machinery/door/window))
 				to_chat(user, "<span class='notice'>You build a windoor.</span>")
@@ -259,7 +237,7 @@
 				new_airlock.closeOtherId = new_airlock.electronics.passed_cycle_id
 				new_airlock.update_other_id()
 			new_airlock.autoclose = TRUE
-			new_airlock.update_icon()
+			new_airlock.update_appearance()
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			var/previous_turf = initial(name)
@@ -274,7 +252,7 @@
 			to_chat(user, "<span class='notice'>You construct the grille.</span>")
 			log_attack("[key_name(user)] has constructed a grille at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/obj/structure/grille/new_grille = new(src)
-			new_grille.anchored = TRUE
+			new_grille.set_anchored(TRUE)
 			return TRUE
 		if(RCD_MACHINE)
 			if(locate(/obj/structure/frame/machine) in src)
@@ -282,13 +260,13 @@
 			var/obj/structure/frame/machine/new_machine = new(src)
 			new_machine.state = 2
 			new_machine.icon_state = "box_1"
-			new_machine.anchored = TRUE
+			new_machine.set_anchored(TRUE)
 			return TRUE
 		if(RCD_COMPUTER)
 			if(locate(/obj/structure/frame/computer) in src)
 				return FALSE
 			var/obj/structure/frame/computer/new_computer = new(src)
-			new_computer.anchored = TRUE
+			new_computer.set_anchored(TRUE)
 			new_computer.state = 1
 			new_computer.setDir(the_rcd.computer_dir)
 			return TRUE
@@ -300,3 +278,12 @@
 			return TRUE
 
 	return FALSE
+
+///Autogenerates the variant list from 1 > max (name, name1, name2, name3)
+/turf/open/floor/proc/auto_gen_variants(max)
+	if(!max)
+		return
+	if(icon_state && icon_state != "")
+		variants += list("[icon_state]" = 1)
+	for(var/i in 1 to max)
+		variants += list("[icon_state][i]" = 1)

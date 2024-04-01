@@ -148,6 +148,26 @@
 #define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
 
+GLOBAL_LIST_INIT(available_random_trauma_list, list(
+	"spiders" = 5,
+	"space" = 2,
+	"security" = 5,
+	"clowns" = 5,
+	"greytide" = 5,
+	"lizards" = 5,
+	"skeletons" = 5,
+	"snakes" = 5,
+	"robots" = 4,
+	"doctors" = 4,
+	"authority" = 5,
+	"the supernatural" = 5,
+	"aliens" = 5,
+	"strangers" = 5,
+	"birds" = 5,
+	"falling" = 5,
+	"anime" = 5
+))
+
 /// This trauma cannot be cured through "special" means, such as nanites or viruses.
 #define TRAUMA_SPECIAL_CURE_PROOF	(1<<0)
 /// This trauma transfers on cloning.
@@ -410,10 +430,10 @@
 ///Whether or not to gib when the squashed mob is moved over
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
 
-//Body sizes
-#define BODY_SIZE_NORMAL 1
-#define BODY_SIZE_SHORT 0.93
-#define BODY_SIZE_TALL 1.03
+//Generic body sizes
+#define BODY_SIZE_NORMAL 0
+#define BODY_SIZE_SHORT 1
+#define BODY_SIZE_TALL -1
 
 /// Throw modes, defines whether or not to turn off throw mode after
 #define THROW_MODE_DISABLED 0

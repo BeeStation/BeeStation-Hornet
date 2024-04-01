@@ -96,7 +96,7 @@
 		user.time_of_last_attack_dealt = time
 		user.check_for_accidental_attack()
 
-	log_combat(user, M, "[nonharmfulhit ? "poked" : "attacked"]", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
+	log_combat(user, M, "[nonharmfulhit ? "poked" : "attacked"]", src, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", important = !nonharmfulhit)
 	add_fingerprint(user)
 
 

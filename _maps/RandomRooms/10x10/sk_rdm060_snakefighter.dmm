@@ -33,25 +33,12 @@
 "f" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"g" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/wood{
-	icon_state = "wood-broken4"
-	},
-/area/template_noop)
 "h" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
 /obj/structure/sign/departments/science{
 	pixel_y = 32
 	},
 /obj/item/knife/kitchen,
-/turf/open/floor/plating,
-/area/template_noop)
-"i" = (
-/obj/structure/closet,
-/obj/item/food/meat/slab/monkey,
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -234,15 +221,6 @@
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
 /turf/open/floor/plating,
 /area/template_noop)
-"L" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/food/meat/slab/monkey,
-/turf/open/floor/plating,
-/area/template_noop)
-"M" = (
-/obj/item/food/meat/slab/monkey,
-/turf/open/floor/plating,
-/area/template_noop)
 "N" = (
 /obj/effect/decal/remains/xeno,
 /turf/open/floor/plating,
@@ -261,6 +239,20 @@
 /obj/machinery/shieldwallgen/xenobiologyaccess,
 /turf/open/floor/plating,
 /area/template_noop)
+"R" = (
+/obj/item/food/meat/slab/monkey,
+/turf/open/floor/plating,
+/area/template_noop)
+"T" = (
+/obj/structure/closet,
+/obj/item/food/meat/slab/monkey,
+/turf/open/floor/plating,
+/area/template_noop)
+"U" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/food/meat/slab/monkey,
+/turf/open/floor/plating,
+/area/template_noop)
 "W" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
@@ -276,6 +268,14 @@
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plating,
 /area/template_noop)
+"Z" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/wood{
+	broken = 1
+	},
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -287,7 +287,7 @@ f
 H
 H
 H
-i
+T
 "}
 (2,1,1) = {"
 b
@@ -321,7 +321,7 @@ w
 C
 I
 f
-M
+R
 H
 P
 "}
@@ -356,13 +356,13 @@ r
 x
 C
 J
-L
+U
 f
 H
 P
 "}
 (8,1,1) = {"
-g
+Z
 p
 f
 y
@@ -386,7 +386,7 @@ H
 f
 "}
 (10,1,1) = {"
-i
+T
 f
 s
 z

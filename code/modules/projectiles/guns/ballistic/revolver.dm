@@ -107,6 +107,13 @@
 		"Black Panther" = "detective_panther"
 	)
 
+/obj/item/gun/ballistic/revolver/detective/cowboy
+	name = "sheriff's revolver"
+	desc = "Reach for the skies."
+	icon_state = "detective_peacemaker"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
+	unique_reskin_icon = null
+
 /obj/item/gun/ballistic/revolver/detective/reskin_obj(mob/M)
 	if(isnull(unique_reskin))
 		unique_reskin = list(
@@ -121,7 +128,6 @@
 			"Black Panther" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "detective_panther")
 		)
 	. = ..()
-
 
 /obj/item/gun/ballistic/revolver/detective/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(magazine.caliber != initial(magazine.caliber))

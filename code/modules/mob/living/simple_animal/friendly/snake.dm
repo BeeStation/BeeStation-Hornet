@@ -41,6 +41,11 @@
 	held_state = "snake"
 
 
+/mob/living/simple_animal/hostile/retaliate/poison/snake/Initialize(mapload)
+	AddComponent(/datum/component/udder, /obj/item/udder/venom, reagent_produced_typepath = /datum/reagent/toxin/venom)
+	. = ..()
+
+
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)
 	var/atom/target_from = GET_TARGETS_FROM(src)
 	var/list/living_mobs = list()

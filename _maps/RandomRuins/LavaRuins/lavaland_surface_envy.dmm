@@ -30,7 +30,7 @@
 	broken = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/ruin/unpowered)
 "g" = (
@@ -84,7 +84,7 @@
 /area/ruin/unpowered)
 "n" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg2"
+	broken = 1
 	},
 /area/ruin/unpowered)
 "o" = (
@@ -95,7 +95,7 @@
 	broken = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/ruin/unpowered)
 "p" = (

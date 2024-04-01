@@ -268,7 +268,7 @@
 		loc.balloon_alert(user, "Ritual failed, invalid choice")
 		return FALSE
 
-	log_combat(user, to_curse, "cursed via heretic ritual", addition = "([name])")
+	log_combat(user, to_curse, "cursed via heretic ritual", src, addition = "([name])")
 	curse(to_curse)
 	addtimer(CALLBACK(src, PROC_REF(uncurse), to_curse), duration)
 	return TRUE

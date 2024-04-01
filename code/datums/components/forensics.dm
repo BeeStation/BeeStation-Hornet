@@ -8,11 +8,11 @@
 	var/list/souls
 
 /datum/component/forensics/InheritComponent(datum/component/forensics/F, original)		//Use of | and |= being different here is INTENTIONAL.
-	fingerprints = fingerprints | F.fingerprints
-	hiddenprints = hiddenprints | F.hiddenprints
-	blood_DNA = blood_DNA | F.blood_DNA
-	fibers = fibers | F.fibers
-	souls = souls | F.souls
+	fingerprints = LAZY_LISTS_OR(fingerprints, F.fingerprints)
+	hiddenprints = LAZY_LISTS_OR(hiddenprints, F.hiddenprints)
+	blood_DNA = LAZY_LISTS_OR(blood_DNA, F.blood_DNA)
+	fibers = LAZY_LISTS_OR(fibers, F.fibers)
+	souls = LAZY_LISTS_OR(souls, F.souls)
 	add_blood_decal()
 	return ..()
 
@@ -57,15 +57,16 @@
 		souls = null
 		return TRUE
 
-/datum/component/forensics/proc/clean_act(datum/source, strength)
-	SIGNAL_HANDLER
-
-	if(strength >= CLEAN_STRENGTH_FINGERPRINTS)
+/datum/component/forensics/proc/clean_act(datum/source, clean_types)
+	if(clean_types & CLEAN_TYPE_FINGERPRINTS)
 		wipe_fingerprints()
-	if(strength >= CLEAN_STRENGTH_BLOOD)
+		. = TRUE
+	if(clean_types & CLEAN_TYPE_BLOOD)
 		wipe_blood_DNA()
-	if(strength >= CLEAN_STRENGTH_FIBERS)
+		. = TRUE
+	if(clean_types & CLEAN_TYPE_FIBERS)
 		wipe_fibers()
+		. = TRUE
 
 /datum/component/forensics/proc/add_fingerprint_list(list/_fingerprints)	//list(text)
 	if(!length(_fingerprints))

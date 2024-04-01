@@ -413,3 +413,12 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	armor = list(MELEE = 25,  BULLET = 20, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 50, RAD = 20, FIRE = -10, ACID = 50, STAMINA = 20)
+
+/obj/item/clothing/head/helmet/outlaw
+	name = "outlaw's hat"
+	desc = "Keeps the sun out of your eyes while on the run from Johnny Law."
+	icon_state = "cowboy"
+	item_state = "cowboy"
+	worn_icon_state = "cowboy_outlaw"
+	body_parts_covered = HEAD
+	armor = list(MELEE = 25,  BULLET = 25, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 30, RAD = 20, FIRE = 0, ACID = 40, STAMINA = 25)

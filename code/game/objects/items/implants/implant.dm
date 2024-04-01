@@ -86,7 +86,7 @@
 	on_implanted(target)
 
 	if(user)
-		log_combat(user, target, "implanted", "\a [name]")
+		log_combat(user, target, "implanted", "\a [name]", important = FALSE)
 
 	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, target, user, silent, force)
 	return TRUE

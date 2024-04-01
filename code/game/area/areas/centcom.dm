@@ -8,7 +8,7 @@
 /area/centcom
 	name = "CentCom"
 	icon_state = "centcom"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
@@ -84,7 +84,7 @@
 /area/tdome
 	name = "Thunderdome"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
@@ -122,7 +122,7 @@
 /area/wizard_station
 	name = "Wizard's Den"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
@@ -159,7 +159,7 @@
 /area/syndicate_mothership/control
 	name = "Syndicate Control Room"
 	icon_state = "syndie-control"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	network_root_id = SYNDICATE_NETWORK_ROOT
 
 /area/syndicate_mothership/elite_squad
@@ -209,6 +209,7 @@
 	name = "Reebe"
 	icon_state = "yellow"
 	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	has_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_CLOCKWORK
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA

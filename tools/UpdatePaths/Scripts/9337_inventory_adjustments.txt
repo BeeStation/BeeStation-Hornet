@@ -1,0 +1,1 @@
+/obj/item/storage/firstaid/medical/doctorbag : /obj/item/storage/firstaid/medical{@OLD}

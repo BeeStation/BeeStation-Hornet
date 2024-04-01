@@ -464,8 +464,8 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	holotile.name = "[holo_host.name] (Hologram)"
 	holotile.add_atom_colour("#77abff", FIXED_COLOUR_PRIORITY)
 	holotile.copy_overlays(holo_host, TRUE)
-	holotile.anchored = TRUE
-	holotile.density = FALSE
+	holotile.set_anchored(TRUE)
+	holotile.set_density(FALSE)
 
 	//the code that follows is basically the code that changeling use to get people's last spoken sentences with a few tweaks.
 	recent_speech = list() //resets the list from its previous sentences
@@ -808,7 +808,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 /area/warped_room
 	name = "warped room"
 	icon_state = "yellow"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	has_gravity = TRUE
 	teleport_restriction = TELEPORT_ALLOW_NONE

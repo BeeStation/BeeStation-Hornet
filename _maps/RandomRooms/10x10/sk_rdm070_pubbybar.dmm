@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/musician/piano,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "b" = (
 /obj/machinery/light/small{
@@ -10,7 +10,7 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "c" = (
 /turf/closed/wall,
@@ -19,10 +19,10 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/turf/open/floor/plasteel/stairs/left,
+/turf/open/floor/iron/stairs/left,
 /area/template_noop)
 "f" = (
-/turf/open/floor/plasteel/stairs/right,
+/turf/open/floor/iron/stairs/right,
 /area/template_noop)
 "g" = (
 /obj/effect/spawner/lootdrop/three_course_meal,
@@ -30,7 +30,7 @@
 /obj/structure/closet/crate,
 /obj/item/paper/crumpled/beernuke,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "h" = (
@@ -42,7 +42,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "j" = (
@@ -92,7 +92,7 @@
 /area/template_noop)
 "r" = (
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "s" = (
@@ -104,7 +104,7 @@
 "t" = (
 /obj/item/cigbutt/cigarbutt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "u" = (
@@ -178,12 +178,12 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "F" = (
 /turf/open/floor/wood{
-	icon_state = "wood-broken7"
+	broken = 1
 	},
 /area/template_noop)
 "G" = (
@@ -191,13 +191,13 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "H" = (
-/turf/open/floor/plasteel/stairs/medium,
+/turf/open/floor/iron/stairs/medium,
 /area/template_noop)
 "I" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/open/floor/plasteel/stairs/right,
+/turf/open/floor/iron/stairs/right,
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
@@ -213,20 +213,20 @@
 /obj/structure/light_construct/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "M" = (
 /obj/item/clothing/under/rank/civilian/clown/sexy,
 /obj/effect/spawner/lootdrop/clowntrap,
 /obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "N" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/item/stack/spacecash/c10,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "O" = (
 /obj/structure/closet/firecloset,
@@ -236,7 +236,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "P" = (
@@ -252,10 +252,10 @@
 	anchored = 1;
 	name = "pole"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "R" = (
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "S" = (
 /obj/structure/chair{
@@ -267,7 +267,7 @@
 /obj/effect/decal/cleanable/oil{
 	icon_state = "floor6"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "T" = (
 /obj/structure/chair{

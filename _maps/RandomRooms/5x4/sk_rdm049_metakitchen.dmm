@@ -35,12 +35,12 @@
 /obj/item/kitchen/rollingpin,
 /obj/item/reagent_containers/glass/beaker,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "g" = (
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "h" = (
@@ -79,7 +79,7 @@
 	amount = 4
 	},
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "p" = (

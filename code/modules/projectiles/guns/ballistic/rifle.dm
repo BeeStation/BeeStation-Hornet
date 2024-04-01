@@ -63,6 +63,8 @@
 	name = "enchanted bolt action rifle"
 	desc = "Careful not to lose your head."
 	can_sawoff = FALSE
+	equip_time = 0 SECONDS
+	recoil = 0
 	var/guns_left = 30
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 

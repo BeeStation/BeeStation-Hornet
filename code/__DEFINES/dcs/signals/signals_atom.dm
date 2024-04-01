@@ -123,6 +123,8 @@
 	#define COMPONENT_BLOCK_REACH 1
 ///for when an atom has been created through processing (atom/original_atom, list/chosen_processing_option)
 #define COMSIG_ATOM_CREATEDBY_PROCESSING "atom_createdby_processing"
+///when an atom is processed (mob/living/user, obj/item/I, list/atom/results)
+#define COMSIG_ATOM_PROCESSED "atom_processed"
 ///! called when teleporting into a protected turf: (channel, turf/origin)
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"
 	#define COMPONENT_BLOCK_TELEPORT 1
