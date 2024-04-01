@@ -2048,6 +2048,7 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
 /obj/effect/loot_jobscale/armoury/dragnet,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "ayn" = (
@@ -5947,6 +5948,7 @@
 /obj/effect/loot_jobscale/armoury/riot_suit,
 /obj/effect/loot_jobscale/armoury/riot_shield,
 /obj/effect/loot_jobscale/armoury/riot_helmet,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "bGh" = (
@@ -6602,6 +6604,7 @@
 	pixel_y = -3
 	},
 /obj/structure/rack,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "bOE" = (
@@ -8814,6 +8817,7 @@
 	},
 /obj/item/pen,
 /obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "cCU" = (
@@ -10091,6 +10095,7 @@
 	},
 /obj/structure/rack,
 /obj/effect/loot_jobscale/armoury/laser_gun,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "dcu" = (
@@ -12955,6 +12960,7 @@
 "dWS" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "dWW" = (
@@ -15150,6 +15156,7 @@
 /obj/structure/table,
 /obj/machinery/fax/sec,
 /obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "eLd" = (
@@ -17024,6 +17031,7 @@
 	dir = 8
 	},
 /obj/item/radio,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "fqH" = (
@@ -17546,6 +17554,7 @@
 	name = "Outer Window"
 	},
 /obj/item/storage/fancy/donut_box,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/warden)
 "fAh" = (
@@ -18625,6 +18634,7 @@
 /obj/machinery/recharger{
 	pixel_y = 3
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "fSe" = (
@@ -19496,6 +19506,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "ghR" = (
@@ -19891,6 +19902,7 @@
 /obj/structure/rack,
 /obj/item/storage/box/firingpins,
 /obj/effect/turf_decal/delivery,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "goj" = (
@@ -21892,6 +21904,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "gVC" = (
@@ -24206,6 +24219,7 @@
 	pixel_y = 4
 	},
 /obj/machinery/recharger,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "hJx" = (
@@ -25228,6 +25242,7 @@
 /obj/effect/landmark/event_spawn,
 /obj/item/book/manual/wiki/sopsecurity,
 /obj/item/storage/secure/briefcase,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "hZJ" = (
@@ -25283,6 +25298,7 @@
 	},
 /obj/structure/table,
 /obj/item/radio,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "iaD" = (
@@ -26388,6 +26404,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/rack,
 /obj/item/storage/box/sec_barricades,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "irq" = (
@@ -30205,6 +30222,7 @@
 /obj/effect/loot_jobscale/armoury/disabler{
 	pixel_y = -3
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "jGm" = (
@@ -33806,6 +33824,7 @@
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "kRc" = (
@@ -33978,6 +33997,7 @@
 	pixel_x = -3
 	},
 /obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "kTz" = (
@@ -35154,6 +35174,7 @@
 	},
 /obj/item/gun/grenadelauncher,
 /obj/effect/turf_decal/delivery,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "lnJ" = (
@@ -36207,6 +36228,7 @@
 "lEW" = (
 /obj/structure/closet/secure_closet/genpop,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/prison)
 "lFm" = (
@@ -37963,6 +37985,7 @@
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /obj/structure/table,
 /obj/machinery/recharger,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "mfD" = (
@@ -39217,6 +39240,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/prison)
 "mxF" = (
@@ -39349,6 +39373,7 @@
 /obj/machinery/recharger{
 	pixel_y = 6
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "mAf" = (
@@ -40473,6 +40498,7 @@
 /obj/effect/loot_jobscale/armoury/bulletproof_vest,
 /obj/effect/loot_jobscale/armoury/bulletproof_helmet,
 /obj/effect/turf_decal/delivery,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "mQA" = (
@@ -41178,6 +41204,7 @@
 	pixel_y = 5;
 	pixel_x = 2
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/warden)
 "ndt" = (
@@ -49135,6 +49162,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "pNe" = (
@@ -53526,6 +53554,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/lockbox/loyalty,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "rki" = (
@@ -55607,6 +55636,7 @@
 /obj/structure/table,
 /obj/item/storage/secure/briefcase,
 /obj/effect/turf_decal/tile/red/diagonal_edge,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "rSB" = (
@@ -56839,6 +56869,7 @@
 /obj/item/implantcase/chem,
 /obj/item/implantcase/tracking,
 /obj/effect/turf_decal/delivery,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "sod" = (
@@ -56997,6 +57028,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "spm" = (
@@ -59770,6 +59802,7 @@
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /obj/structure/table,
 /obj/item/book/manual/wiki/sopsecurity,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "tmY" = (
@@ -61730,6 +61763,7 @@
 /obj/item/folder/red{
 	pixel_y = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "tVy" = (
@@ -62599,6 +62633,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/effect/loot_jobscale/armoury/wt550,
 /obj/structure/rack,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "ujs" = (
@@ -62882,6 +62917,7 @@
 	},
 /obj/item/pen,
 /obj/structure/table,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "unw" = (
@@ -66318,6 +66354,7 @@
 "vtA" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/structure/closet/secure_closet/security/sec,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "vtD" = (
@@ -69002,6 +69039,7 @@
 	pixel_x = 9;
 	pixel_y = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "wkq" = (
@@ -69555,6 +69593,7 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/prison)
 "wtH" = (
@@ -73331,6 +73370,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/key/security,
 /obj/item/key/security,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "xHw" = (
@@ -73684,6 +73724,7 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "xMf" = (

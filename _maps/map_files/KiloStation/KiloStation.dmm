@@ -2392,6 +2392,8 @@
 	},
 /obj/item/clothing/mask/russian_balaclava,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "ajr" = (
@@ -11653,6 +11655,7 @@
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hos)
 "bkW" = (
@@ -21790,6 +21793,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "clV" = (
@@ -27368,6 +27373,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "cLe" = (
@@ -30201,6 +30207,7 @@
 	},
 /obj/item/lighter,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/main)
 "dta" = (
@@ -30245,6 +30252,7 @@
 /obj/item/screwdriver,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/item/crowbar/red,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/main)
 "dtF" = (
@@ -34747,6 +34755,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/fax/sec,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/main)
 "eVs" = (
@@ -35901,6 +35910,7 @@
 	dir = 4
 	},
 /obj/item/survivalcapsule/capsule_checkpoint,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "fqe" = (
@@ -35930,6 +35940,7 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/main)
 "fqQ" = (
@@ -38969,6 +38980,7 @@
 	dir = 8;
 	network = list("ss13", "security")
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "gre" = (
@@ -39109,6 +39121,7 @@
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/taperecorder,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/main)
 "gtK" = (
@@ -40915,6 +40928,8 @@
 	pixel_x = 7;
 	pixel_y = -5
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
 "hdf" = (
@@ -41278,6 +41293,8 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "hip" = (
@@ -43195,6 +43212,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "hLB" = (
@@ -44899,6 +44917,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/item/storage/fancy/donut_box,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/main)
 "iro" = (
@@ -45778,6 +45797,8 @@
 /obj/item/food/donut,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/item/radio/headset/headset_sec,
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/main)
 "iHt" = (
@@ -47224,6 +47245,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "jeX" = (
@@ -47289,6 +47311,7 @@
 /obj/item/storage/box/firingpins,
 /obj/item/key/security,
 /obj/item/key/security,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "jfK" = (
@@ -48501,6 +48524,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 25
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "jvI" = (
@@ -48574,6 +48598,7 @@
 /obj/item/clipboard,
 /obj/item/flashlight/seclite,
 /obj/item/toy/figure/secofficer,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "jxC" = (
@@ -52571,6 +52596,7 @@
 	name = "justice helmet"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/main)
 "kUv" = (
@@ -52583,6 +52609,8 @@
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 32
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "kUH" = (
@@ -54503,6 +54531,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "lyR" = (
@@ -57451,6 +57480,7 @@
 	pixel_x = 25;
 	pixel_y = -5
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "myO" = (
@@ -57747,6 +57777,7 @@
 /obj/effect/loot_jobscale/armoury/bulletproof_vest,
 /obj/effect/loot_jobscale/armoury/bulletproof_helmet,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "mFw" = (
@@ -59828,6 +59859,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/showroomfloor,
 /area/ai_monitored/security/armory)
 "nun" = (
@@ -61346,6 +61378,7 @@
 	pixel_y = 11
 	},
 /obj/machinery/recharger,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "nUI" = (
@@ -61631,6 +61664,8 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/showroomfloor,
 /area/security/main)
 "nZh" = (
@@ -62273,6 +62308,7 @@
 	},
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "oik" = (
@@ -63174,6 +63210,7 @@
 	pixel_x = 4;
 	pixel_y = 2
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "oxq" = (
@@ -64210,6 +64247,7 @@
 /obj/structure/table/wood,
 /obj/machinery/computer/med_data/laptop,
 /obj/item/book/manual/wiki/sopsecurity,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "oSt" = (
@@ -64288,6 +64326,8 @@
 /obj/item/hand_labeler,
 /obj/item/taperecorder,
 /obj/item/camera/detective,
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
 "oTh" = (
@@ -65016,6 +65056,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "pfp" = (
@@ -65697,6 +65739,7 @@
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/main)
 "pnt" = (
@@ -67905,6 +67948,8 @@
 /obj/item/clipboard,
 /obj/item/folder/red,
 /obj/item/clothing/glasses/hud/security/sunglasses,
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/green,
 /area/security/detectives_office)
 "pYn" = (
@@ -71829,6 +71874,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "rqC" = (
@@ -73813,6 +73859,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "sdt" = (
@@ -74719,6 +74766,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "stp" = (
@@ -74958,6 +75006,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/showroomfloor,
 /area/ai_monitored/security/armory)
 "sxh" = (
@@ -75254,6 +75303,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/showroomfloor,
 /area/ai_monitored/security/armory)
 "sCu" = (
@@ -84077,6 +84127,7 @@
 	},
 /obj/item/toy/figure/hos,
 /obj/item/book/manual/wiki/sopcommand,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "vEO" = (
@@ -88224,6 +88275,7 @@
 	},
 /obj/effect/loot_jobscale/armoury/disabler,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/showroomfloor,
 /area/ai_monitored/security/armory)
 "wSl" = (
@@ -88638,6 +88690,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "wYp" = (
@@ -92037,6 +92090,8 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "ygm" = (

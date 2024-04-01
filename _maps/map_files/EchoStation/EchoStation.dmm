@@ -676,6 +676,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/brig)
 "ame" = (
@@ -2382,6 +2383,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/brig)
 "aOO" = (
@@ -3468,6 +3470,7 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "bnY" = (
@@ -7453,6 +7456,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/prison)
 "dta" = (
@@ -8171,6 +8175,7 @@
 	pixel_x = 5;
 	pixel_y = -2
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "dNK" = (
@@ -8461,6 +8466,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/brig)
 "dUG" = (
@@ -9829,6 +9835,7 @@
 	pixel_x = 3;
 	pixel_y = -34
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/brig)
 "eHY" = (
@@ -10153,6 +10160,7 @@
 	dir = 1
 	},
 /obj/item/clothing/glasses/hud/security/sunglasses,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "eQF" = (
@@ -13570,6 +13578,11 @@
 	req_one_access_txt = "1;4"
 	},
 /obj/structure/table,
+/obj/item/reagent_containers/food/drinks/beer/clown{
+	pixel_x = -9
+	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/brig)
 "gwg" = (
@@ -15251,6 +15264,11 @@
 	pixel_x = -2;
 	pixel_y = -2
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown{
+	pixel_x = -9
+	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/brig)
 "hoN" = (
@@ -16083,6 +16101,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/detectives_office)
 "hLr" = (
@@ -19269,6 +19288,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "jFB" = (
@@ -23005,6 +23025,7 @@
 	dir = 4;
 	network = list("ss13","security")
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "lCF" = (
@@ -23412,6 +23433,7 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "lOG" = (
@@ -26321,6 +26343,7 @@
 	req_one_access = null;
 	req_one_access_txt = "3"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "nrQ" = (
@@ -26798,6 +26821,7 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "nId" = (
@@ -28328,6 +28352,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/brig)
 "oBS" = (
@@ -28952,6 +28977,7 @@
 	pixel_x = 7;
 	pixel_y = 6
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/brig)
 "oOr" = (
@@ -29208,6 +29234,7 @@
 	dir = 1;
 	network = list("ss13","security")
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/detectives_office)
 "oUT" = (
@@ -29776,6 +29803,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown{
+	pixel_x = -9
 	},
 /turf/open/floor/iron,
 /area/security/brig)
@@ -31153,6 +31184,7 @@
 	pixel_y = 26;
 	req_access_txt = "4"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "pXn" = (
@@ -32241,6 +32273,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/prison)
 "qBi" = (
@@ -35475,6 +35508,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/south,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "sfC" = (
@@ -39230,6 +39264,7 @@
 	pixel_x = 5;
 	pixel_y = 3
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/detectives_office)
 "tTE" = (
@@ -40166,6 +40201,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/prison)
 "usH" = (
@@ -43109,6 +43145,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "wcC" = (
@@ -45576,6 +45613,7 @@
 /obj/machinery/airalarm/directional/west,
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/brig)
 "xpS" = (
@@ -46417,6 +46455,7 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "xNy" = (

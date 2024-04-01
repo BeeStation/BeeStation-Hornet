@@ -1102,6 +1102,7 @@
 	dir = 8
 	},
 /obj/item/key/security,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -2389,6 +2390,7 @@
 /obj/item/candle/infinite{
 	pixel_x = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "aOs" = (
@@ -8335,6 +8337,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "cIg" = (
@@ -11332,6 +11335,7 @@
 	pixel_x = 5;
 	pixel_y = 6
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -12049,6 +12053,7 @@
 	pixel_x = -20;
 	pixel_y = -21
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "dNn" = (
@@ -16670,6 +16675,7 @@
 /obj/item/book/manual/wiki/sopsecurity{
 	pixel_x = 6
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -16919,6 +16925,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "fkr" = (
@@ -18704,6 +18711,7 @@
 	dir = 8
 	},
 /obj/item/gun/grenadelauncher/security,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "fMW" = (
@@ -19604,6 +19612,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "gaY" = (
@@ -20484,6 +20493,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/item/survivalcapsule/capsule_checkpoint,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "glU" = (
@@ -24158,6 +24168,7 @@
 	bulb_colour = "#DE3A3A";
 	nightshift_light_color = "#DE3A3A"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "hsB" = (
@@ -24653,6 +24664,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -25925,6 +25938,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/closet/bombcloset/security,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "hVY" = (
@@ -26608,6 +26622,7 @@
 	pixel_y = 2
 	},
 /obj/machinery/firealarm/directional/east,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "ijU" = (
@@ -28036,6 +28051,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/brig)
 "iJI" = (
@@ -30394,6 +30410,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/brig/dock)
 "jwj" = (
@@ -31504,6 +31521,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "jMT" = (
@@ -34458,6 +34476,8 @@
 	anchored = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -35379,6 +35399,7 @@
 /obj/structure/table,
 /obj/item/electropack,
 /obj/item/clothing/mask/balaclava,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "kZz" = (
@@ -38095,6 +38116,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -41478,6 +41500,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "mVo" = (
@@ -47455,6 +47478,7 @@
 	pixel_x = 5;
 	pixel_y = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "oMR" = (
@@ -47609,6 +47633,7 @@
 	dir = 8
 	},
 /obj/item/clothing/suit/armor/laserproof,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "oOn" = (
@@ -48055,6 +48080,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/brig/dock)
 "oUC" = (
@@ -48761,6 +48787,7 @@
 	pixel_x = -15;
 	pixel_y = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/brig{
 	name = "Brig Interrogation"
@@ -48806,6 +48833,7 @@
 /obj/item/clothing/glasses/hud/security/sunglasses{
 	pixel_y = 6
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "pgU" = (
@@ -49211,6 +49239,7 @@
 	},
 /obj/item/storage/toolbox/mechanical,
 /obj/machinery/light/very_dim/directional/west,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "pnj" = (
@@ -50462,6 +50491,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "pHy" = (
@@ -51411,6 +51441,7 @@
 /obj/item/firing_pin/off_station{
 	pixel_y = 11
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "pVF" = (
@@ -54350,6 +54381,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/brig/dock)
 "qTo" = (
@@ -54884,6 +54916,8 @@
 	anchored = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/reagent_containers/food/drinks/beer/clown,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/main{
 	name = "Security Locker Room"
@@ -55621,6 +55655,7 @@
 /obj/item/pen/fountain{
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "rnz" = (
@@ -56273,6 +56308,7 @@
 	pixel_x = -5;
 	pixel_y = 4
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/security/brig/medbay)
 "rzO" = (
@@ -56393,6 +56429,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "rBm" = (
@@ -62114,6 +62151,7 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "tqM" = (
@@ -65477,6 +65515,7 @@
 	pixel_x = 6;
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "usf" = (
@@ -69685,6 +69724,7 @@
 	pixel_y = -3
 	},
 /obj/item/flashlight/lamp,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/brig{
 	name = "Brig Interrogation"
@@ -70162,6 +70202,7 @@
 	bulb_colour = "#DE3A3A";
 	nightshift_light_color = "#DE3A3A"
 	},
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "vPi" = (
@@ -72348,6 +72389,7 @@
 	dir = 4
 	},
 /obj/structure/table,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/prison{
 	name = "Prison Processing"
@@ -75088,6 +75130,7 @@
 	pixel_y = 3
 	},
 /obj/machinery/airalarm/directional/west,
+/obj/item/reagent_containers/food/drinks/beer/clown,
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "xvs" = (
