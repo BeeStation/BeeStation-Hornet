@@ -49,7 +49,7 @@ SUBSYSTEM_DEF(ranks)
 	var/total_players = GLOB.joined_player_list.len
 	if (total_players == 0)
 		return
-	var/expected_survival = popcount[POPCOUNT_SURVIVORS] + popcount[POPCOUNT_ESCAPEES] / (total_players * 2)
+	var/expected_survival = (popcount[POPCOUNT_SURVIVORS] + popcount[POPCOUNT_ESCAPEES]) / (total_players * 2)
 	// Ckey to mind
 	var/list/ckey_to_mind = list()
 	for (var/datum/mind/mind in SSticker.minds)
