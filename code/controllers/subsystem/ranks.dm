@@ -1,7 +1,7 @@
 /// What rank do you start at?
 #define INITIAL_RANK 1000
 /// How many rounds you need to play before you can see your rank
-#define GAMES_REQUIRED 3
+#define GAMES_REQUIRED 2
 /// Max rank change
 #define MAX_RANK_CHANGE 400
 
@@ -69,6 +69,7 @@ SUBSYSTEM_DEF(ranks)
 		var/new_elo = elo_adjust(rank.crew_rank, MAX_RANK_CHANGE, outcome, expected_survival)
 		update_rank(ckey(joiner_ckey), new_elo)
 	// Save to file
+	fdel("data/ranks.json")
 	text2file(json_encode(assoc_ranks), "data/ranks.json")
 
 /datum/controller/subsystem/ranks/proc/get_ranks(ckey)
