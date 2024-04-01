@@ -401,8 +401,6 @@
 	objects = list()
 	for(var/datum/mind/M in SSjob.get_all_heads())
 		var/mob/living/head = M.current
-		if(!trackable(head))
-			continue
 		var/list/crewinfo = list(
 			ref = REF(head),
 			name = "[++count]. [M.assigned_role]",
