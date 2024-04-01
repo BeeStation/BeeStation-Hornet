@@ -16,6 +16,8 @@ SUBSYSTEM_DEF(ranks)
 	name = "Ranks"
 	wait = 1 SECONDS
 	flags = SS_NO_FIRE
+	init_order = INIT_ORDER_RANKS
+	var/list/needs_rank = list()
 	var/list/assoc_ranks
 
 /datum/controller/subsystem/ranks/vv_edit_var(var_name, var_value)
@@ -29,6 +31,14 @@ SUBSYSTEM_DEF(ranks)
 	assoc_ranks = json_decode(file2text("data/ranks.json") || "{}")
 	if (!islist(assoc_ranks))
 		assoc_ranks = list()
+	for (var/client/desperate in needs_rank)
+		var/image/rank_image = SSranks.get_rank_icon(desperate.ckey)
+		rank_image.loc = SStitle.splash_turf
+		rank_image.transform = matrix(
+			5, 0, (((16 / 2) * 32)),
+			0, 5, (((14 / 2) * 32))
+		)
+		desperate.images += rank_image
 	return ..()
 
 /datum/controller/subsystem/ranks/proc/update_ranks(popcount)
@@ -86,7 +96,19 @@ SUBSYSTEM_DEF(ranks)
 
 /datum/controller/subsystem/ranks/proc/get_rank_icon(ckey)
 	RETURN_TYPE(/image)
-	var/datum/rank/rank = elo_to_rank(get_ranks(ckey(ckey)).crew_rank)
+	var/datum/player_rank/prank = get_ranks(ckey(ckey))
+	var/datum/rank/rank = elo_to_rank(prank.crew_rank)
+	if (prank.crew_count < GAMES_REQUIRED)
+		rank = new /datum/rank("Unranked", "#666666", 0, "")
+	var/image/image = get_rank_icon_from_rank(rank)
+	image.maptext = MAPTEXT(rank.name)
+	image.maptext_width = 96
+	image.maptext_height = 32
+	image.maptext_y = -16
+	return image
+
+/datum/controller/subsystem/ranks/proc/get_rank_icon_from_rank(datum/rank/rank)
+	RETURN_TYPE(/image)
 	var/image/image = image('icons/effects/ranks.dmi', null, "base", 999999)
 	image.plane = SPLASHSCREEN_PLANE
 	var/mutable_appearance/colour = mutable_appearance('icons/effects/ranks.dmi', "colour")
@@ -94,6 +116,7 @@ SUBSYSTEM_DEF(ranks)
 	image.overlays += colour
 	image.overlays += icon('icons/effects/ranks.dmi', "highlight")
 	image.overlays += icon('icons/effects/ranks.dmi', "[rank.number]")
+	image.appearance_flags |= PIXEL_SCALE
 	return image
 
 /proc/elo_expected(your_rank, enemy_rank, sensitivity = 400)
@@ -102,66 +125,72 @@ SUBSYSTEM_DEF(ranks)
 /proc/elo_adjust(current_elo, max_change, outcome, expected)
 	return current_elo + max_change * (outcome - expected)
 
+/proc/elo_to_badge(elo)
+	var/datum/rank/rank = elo_to_rank(elo)
+	return rank.badge
+
 /proc/elo_to_rank(elo)
 	switch (elo)
 		if (-INFINITY to 100)
-			return new /datum/rank("Glass IV","#7d9493", 4)
+			return new /datum/rank("Glass IV","#7d9493", 4, "glass4")
 		if (100 to 200)
-			return new /datum/rank("Glass III", "#7d9493", 3)
+			return new /datum/rank("Glass III", "#7d9493", 3, "glass3")
 		if (200 to 300)
-			return new /datum/rank("Glass II", "#7d9493", 2)
+			return new /datum/rank("Glass II", "#7d9493", 2, "glass2")
 		if (300 to 400)
-			return new /datum/rank("Glass I", "#7d9493", 1)
+			return new /datum/rank("Glass I", "#7d9493", 1, "glass1")
 		if (400 to 500)
-			return new /datum/rank("Iron IV", "#bb987c", 4)
+			return new /datum/rank("Iron IV", "#bb987c", 4, "iron4")
 		if (500 to 600)
-			return new /datum/rank("Iron III", "#bb987c", 3)
+			return new /datum/rank("Iron III", "#bb987c", 3, "iron3")
 		if (600 to 700)
-			return new /datum/rank("Iron II", "#bb987c", 2)
+			return new /datum/rank("Iron II", "#bb987c", 2, "iron2")
 		if (700 to 800)
-			return new /datum/rank("Iron I", "#bb987c", 1)
+			return new /datum/rank("Iron I", "#bb987c", 1, "iron1")
 		if (900 to 1000)
-			return new /datum/rank("Silver IV", "#d0c7b9", 4)
+			return new /datum/rank("Silver IV", "#d0c7b9", 4, "silver4")
 		if (1000 to 1100)
-			return new /datum/rank("Silver III", "#d0c7b9", 3)
+			return new /datum/rank("Silver III", "#d0c7b9", 3, "silver3")
 		if (1100 to 1200)
-			return new /datum/rank("Silver II", "#d0c7b9", 2)
+			return new /datum/rank("Silver II", "#d0c7b9", 2, "silver2")
 		if (1200 to 1300)
-			return new /datum/rank("Silver I", "#d0c7b9", 1)
+			return new /datum/rank("Silver I", "#d0c7b9", 1, "silver1")
 		if (1300 to 1400)
-			return new /datum/rank("Gold IV", "#ffcd6f", 4)
+			return new /datum/rank("Gold IV", "#ffcd6f", 4, "gold4")
 		if (1400 to 1500)
-			return new /datum/rank("Gold III", "#ffcd6f", 3)
+			return new /datum/rank("Gold III", "#ffcd6f", 3, "gold3")
 		if (1500 to 1600)
-			return new /datum/rank("Gold II", "#ffcd6f", 2)
+			return new /datum/rank("Gold II", "#ffcd6f", 2, "gold2")
 		if (1600 to 1700)
-			return new /datum/rank("Gold I", "#ffcd6f", 1)
+			return new /datum/rank("Gold I", "#ffcd6f", 1, "gold1")
 		if (1700 to 1800)
-			return new /datum/rank("Uranium IV", "#55f15c", 4)
+			return new /datum/rank("Uranium IV", "#55f15c", 4, "uranium4")
 		if (1800 to 1900)
-			return new /datum/rank("Uranium III", "#55f15c", 3)
+			return new /datum/rank("Uranium III", "#55f15c", 3, "uranium3")
 		if (1900 to 2000)
-			return new /datum/rank("Uranium II", "#55f15c", 2)
+			return new /datum/rank("Uranium II", "#55f15c", 2, "uranium2")
 		if (2000 to 2100)
-			return new /datum/rank("Uranium I", "#55f15c", 1)
+			return new /datum/rank("Uranium I", "#55f15c", 1, "uranium1")
 		if (2100 to 2200)
-			return new /datum/rank("Diamond III", "#89ffe5", 3)
+			return new /datum/rank("Diamond III", "#89ffe5", 3, "diamond3")
 		if (2200 to 2300)
-			return new /datum/rank("Diamond II", "#89ffe5", 2)
+			return new /datum/rank("Diamond II", "#89ffe5", 2, "diamond2")
 		if (2300 to 2400)
-			return new /datum/rank("Diamond I", "#89ffe5", 1)
+			return new /datum/rank("Diamond I", "#89ffe5", 1, "diamond1")
 		if (2400 to INFINITY)
-			return new /datum/rank("Bluespace", "#2127bc", 1)
+			return new /datum/rank("Bluespace", "#2127bc", 1, "bluespace")
 
 /datum/rank
 	var/name
 	var/colour
 	var/number
+	var/badge
 
-/datum/rank/New(a, b, c)
+/datum/rank/New(a, b, c, d)
 	name = a
 	colour = b
 	number = c
+	badge = d
 
 /datum/player_rank
 	// Rank delta depends on survival

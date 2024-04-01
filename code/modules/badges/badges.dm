@@ -42,7 +42,13 @@ GLOBAL_LIST_EMPTY(badge_data)
 		return
 	//Send cached badges
 	if(islist(cached_badges))
-		return cached_badges
+		var/list/output = list()
+		output += cached_badges
+		if (SSranks.initialized)
+			var/datum/player_rank/rank = SSranks.get_ranks(ckey(ckey))
+			if (rank.crew_count >= GAMES_REQUIRED)
+				output += elo_to_badge(rank.crew_rank)
+		return output
 	var/list/badges = list()
 	//Add the holder rank
 	if(holder)
@@ -60,6 +66,10 @@ GLOBAL_LIST_EMPTY(badge_data)
 	//Add the donator rank
 	if(IS_PATRON(ckey) && GLOB.badge_data["Donator"])
 		badges += GLOB.badge_data["Donator"]
+	if (SSranks.initialized)
+		var/datum/player_rank/rank = SSranks.get_ranks(ckey(ckey))
+		if (rank.crew_count >= GAMES_REQUIRED)
+			badges += elo_to_badge(rank.crew_rank)
 	cached_badges = badges
 	return badges
 

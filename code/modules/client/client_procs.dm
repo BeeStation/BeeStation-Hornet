@@ -495,13 +495,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	mob.UpdateMobStat(TRUE)
 
 	// RANKS
-	var/image/rank_image = SSranks.get_rank_icon(ckey)
-	rank_image.loc = SStitle.splash_turf
-	rank_image.transform = matrix(
-		3, 0, (((16 / 2) * 32) / 3),
-		0, 3, (((14 / 2) * 32) / 3)
-	)
-	images += rank_image
+	if (SSranks.initialized)
+		var/image/rank_image = SSranks.get_rank_icon(ckey)
+		rank_image.loc = SStitle.splash_turf
+		rank_image.transform = matrix(
+			5, 0, (((16 / 2) * 32)),
+			0, 5, (((14 / 2) * 32))
+		)
+		images += rank_image
+	else
+		SSranks.needs_rank += src
 
 /client/proc/time_to_redirect()
 	var/redirect_address = CONFIG_GET(string/redirect_address)
