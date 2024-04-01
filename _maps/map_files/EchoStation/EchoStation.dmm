@@ -10889,10 +10889,6 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
-"fgZ" = (
-/obj/structure/flora/rock,
-/turf/open/floor/plating/asteroid/planetary,
-/area/asteroid/paradise)
 "fhb" = (
 /turf/open/floor/iron/dark/side{
 	dir = 10
@@ -13934,6 +13930,14 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/rust,
 /area/science/test_area)
+"gBK" = (
+/obj/effect/dummy/lighting_obj{
+	light_range = 9;
+	light_color = "#e6762c";
+	light_power = 2
+	},
+/turf/open/lava/smooth,
+/area/asteroid/paradise)
 "gBO" = (
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/lootdrop/maintenance/four,
@@ -45222,6 +45226,11 @@
 /area/engineering/hallway{
 	name = "Engineering Viewing Platform"
 	})
+"wTS" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/flora/rock,
+/turf/open/floor/plating/asteroid/basalt/planetary,
+/area/asteroid/paradise)
 "wUl" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/box,
@@ -58145,7 +58154,7 @@ blO
 cFP
 jiG
 oqZ
-bXA
+gBK
 bXA
 vqI
 vqI
@@ -67678,7 +67687,7 @@ vqI
 ifa
 vqI
 mVg
-cEk
+wTS
 kvn
 qnY
 ycy
@@ -67935,7 +67944,7 @@ vqI
 xSk
 blO
 mVg
-fgZ
+blO
 ycy
 sLz
 rNv
@@ -68966,7 +68975,7 @@ sLz
 ycy
 sLz
 bXA
-bXA
+gBK
 vqI
 vqI
 cEk

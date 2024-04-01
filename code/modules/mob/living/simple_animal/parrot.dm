@@ -891,6 +891,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	var/longest_survival = 0
 	var/longest_deathstreak = 0
 
+
+
 /mob/living/simple_animal/parrot/Poly/Initialize(mapload)
 	ears = new /obj/item/radio/headset/headset_eng(src)
 	available_channels = list(":e")
