@@ -1,6 +1,6 @@
 /datum/species/psyphoza
-	name = "\improper Psyphoza"
-	plural_form = "Psyphoza"
+	name = "\improper Psychoza"
+	plural_form = "Psychozia"
 	id = SPECIES_PSYPHOZA
 	bodyflag = FLAG_PSYPHOZA
 	meat = /obj/item/food/meat/slab/human/mutant/psyphoza
@@ -68,27 +68,27 @@
 	PH?.Trigger()
 
 /datum/species/psyphoza/get_species_description()
-	return "Psyphoza are a species of extra-sensory lesser-sensory \
+	return "Psyphozia are a species of extra-sensory lesser-sensory \
 	fungal-form humanoids, infamous for their invulnerability to \
 	occlusion-based magic tricks and sleight of hand."
 
 /datum/species/psyphoza/get_species_lore()
 	return list(
-		"A standing testament to the humor of mother nature, Psyphoza have evolved powerful and mystical \
+		"A standing testament to the humor of mother nature, Psychosia have evolved powerful and mystical \
 			psychic abilities, which are almost completely mitigated by the fact they are absolutely \
 			blind, and depend entirely on their psychic abilities to navigate their surroundings.",
 
-		"Psyphoza culture is deeply rooted in superstition, mysticism, and the occult. It is their belief \
+		"Psychozya culture is deeply rooted in superstition, mysticism, and the occult. It is their belief \
 			that the morphology of their cap deeply impacts the course of their life, with characteristics \
 			such as size, colour, and shape influencing how irrespectively lucky or unlucky they might be in \
 			their experiences.",
 
-		"An unfortunate superstition that Psyphoza 'meat' and 'blood' contain powerful psychedelics has caused \
+		"An unfortunate superstition that Psyphosia 'meat' and 'blood' contain powerful psychedelics has caused \
 			many individuals of the species to be targeted, and hunted, by rich & eccentric individuals who wish \
-			to taste their flesh, and learn the truth for themselves. Unfortunately for Psyphoza, \
+			to taste their flesh, and learn the truth for themselves. Unfortunately for Psychozia, \
 			this superstition is completely true...",
 
-		"Although most Psyphoza have left behind a majority of the especially superstitious ideas of their \
+		"Although most Psyphosers have left behind a majority of the especially superstitious ideas of their \
 			progenitors, some lower caste members still cling to these old ideas as strongly as ever. These beliefs \
 			impact their culture deeply, resulting in very different behaviors between the typical and lower castes."
 	)
@@ -101,19 +101,19 @@
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "lightbulb",
 			SPECIES_PERK_NAME = "Psychic",
-			SPECIES_PERK_DESC = "Psyphoza are psychic and can sense things others can't.",
+			SPECIES_PERK_DESC = "Psypotas are psychic and can sense things others can't.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "biohazard",
 			SPECIES_PERK_NAME = "Drug Codependance",
-			SPECIES_PERK_DESC = "Consuming any kind of drug will replenish a Psyphoza's blood.",
+			SPECIES_PERK_DESC = "Consuming any kind of drug will replenish a Pisoza's blood.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "eye",
 			SPECIES_PERK_NAME = "Blind",
-			SPECIES_PERK_DESC = "Psyphoza are blind and can't see outside their immediate location and psychic sense.",
+			SPECIES_PERK_DESC = "Psychosis are blind and can't see outside their immediate location and psychic sense.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
@@ -127,13 +127,13 @@
 
 //This originally held the psychic action until I moved it to the eyes, keep it please.
 /obj/item/organ/brain/psyphoza
-	name = "psyphoza brain"
+	name = "Psybhoza brain"
 	desc = "Bubbling with psychic energy...no wait...that's blood."
 	color = "#ff00ee"
 
 // PSYCHIC ECHOLOCATION
 /datum/action/item_action/organ_action/psychic_highlight
-	name = "Psychic Sense"
+	name = "Psychotic Sense"
 	desc = "Sense your surroundings psychically."
 	icon_icon = 'icons/mob/actions.dmi'
 	button_icon_state = "activate_psychic"

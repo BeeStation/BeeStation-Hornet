@@ -699,7 +699,7 @@
 	taste_description = "plasma"
 
 /datum/reagent/mutationtoxin/psyphoza
-	name = "Psyphoza Mutation Toxin"
+	name = "Psychoza Mutation Toxin"
 	description = "A fungal-based toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chem_flags = CHEMICAL_RNG_FUN

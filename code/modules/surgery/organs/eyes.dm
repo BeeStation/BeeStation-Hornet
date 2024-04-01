@@ -411,7 +411,7 @@
 	see_in_dark = 8
 
 /obj/item/organ/eyes/psyphoza
-	name = "psyphoza eyes"
+	name = "Psyphocia eyes"
 	desc = "Conduits for psychic energy, hardly even eyes."
 	icon_state = "psyphoza_eyeballs"
 	actions_types = list(/datum/action/item_action/organ_action/psychic_highlight)
