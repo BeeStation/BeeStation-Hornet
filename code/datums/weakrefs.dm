@@ -12,6 +12,15 @@
 /datum/proc/create_weakref()		//Forced creation for admin proccalls
 	return WEAKREF(src)
 
+/proc/FAST_WEAKREF(datum/input)
+	if(istype(input) && !QDELETED(input))
+		if(istype(input, /datum/weakref))
+			return FAST_REF(input)
+
+		if(!input.weak_reference)
+			input.weak_reference = new /datum/weakref(input)
+		return FAST_REF(input.weak_reference)
+
 /**
  * A weakref holds a non-owning reference to a datum.
  * The datum can be referenced again using `resolve()`.

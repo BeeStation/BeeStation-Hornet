@@ -24,12 +24,12 @@
 /obj/projectile/hallucination/fire()
 	..()
 	fake_icon = image('icons/obj/projectiles.dmi', src, hal_icon_state, ABOVE_MOB_LAYER)
-	if(hal_target.client)
-		hal_target.client.images += fake_icon
+	GLOB.cimg_controller.stack_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, hal_target), fake_icon)
+	GLOB.cimg_controller.validate_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, hal_target), hal_target)
 
 /obj/projectile/hallucination/Destroy()
-	if(hal_target?.client)
-		hal_target.client.images -= fake_icon
+	GLOB.cimg_controller.cut_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, hal_target), fake_icon)
+	GLOB.cimg_controller.disqualify_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, hal_target), hal_target)
 	QDEL_NULL(fake_icon)
 	return ..()
 
@@ -62,8 +62,6 @@
 
 /obj/projectile/hallucination/proc/spawn_blood(mob/M, set_dir)
 	set waitfor = 0
-	if(!hal_target.client)
-		return
 
 	var/splatter_icon_state
 	if(set_dir in GLOB.diagonals)
@@ -98,25 +96,23 @@
 			target_pixel_x = -16
 			target_pixel_y = -16
 			layer = ABOVE_MOB_LAYER
-	hal_target.client.images += blood
+	GLOB.cimg_controller.stack_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, hal_target), blood)
 	animate(blood, pixel_x = target_pixel_x, pixel_y = target_pixel_y, alpha = 0, time = 5)
 	addtimer(CALLBACK(src, PROC_REF(cleanup_blood)), 5)
 
 /obj/projectile/hallucination/proc/cleanup_blood(image/blood)
-	hal_target.client.images -= blood
+	GLOB.cimg_controller.cut_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, hal_target), blood)
 	qdel(blood)
 
 /obj/projectile/hallucination/proc/spawn_hit(atom/A, is_wall)
 	set waitfor = 0
-	if(!hal_target.client)
-		return
 
 	var/image/hit_effect = image('icons/effects/blood.dmi', A, is_wall ? hal_impact_effect_wall : hal_impact_effect, ABOVE_MOB_LAYER)
 	hit_effect.pixel_x = A.pixel_x + rand(-4,4)
 	hit_effect.pixel_y = A.pixel_y + rand(-4,4)
-	hal_target.client.images += hit_effect
+	GLOB.cimg_controller.stack_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, hal_target), hit_effect)
 	sleep(is_wall ? hit_duration_wall : hit_duration)
-	hal_target.client.images -= hit_effect
+	GLOB.cimg_controller.cut_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, hal_target), hit_effect)
 	qdel(hit_effect)
 
 

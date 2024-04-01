@@ -96,7 +96,6 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/col_mod = null
 	var/image/current_image = null
 	var/image_layer = MOB_LAYER
-	var/active = TRUE //qdelery
 
 /obj/effect/hallucination/singularity_pull()
 	return
@@ -108,8 +107,13 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	. = ..()
 	target = T
 	current_image = GetImage()
-	if(target.client)
-		target.client.images |= current_image
+	GLOB.cimg_controller.stack_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), current_image)
+	GLOB.cimg_controller.validate_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
+
+/obj/effect/hallucination/simple/Destroy()
+	GLOB.cimg_controller.cut_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), current_image)
+	GLOB.cimg_controller.disqualify_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
+	return ..()
 
 /obj/effect/hallucination/simple/proc/GetImage()
 	var/image/I = image(image_icon,src,image_state,image_layer,dir=src.dir)
@@ -119,36 +123,16 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		I.color = col_mod
 	return I
 
-/obj/effect/hallucination/simple/proc/Show(update=1)
-	if(active)
-		if(target.client)
-			target.client.images.Remove(current_image)
-		if(update)
-			current_image = GetImage()
-		if(target.client)
-			target.client.images |= current_image
-
 /obj/effect/hallucination/simple/update_icon(new_state,new_icon,new_px=0,new_py=0)
-	image_state = new_state
-	if(new_icon)
-		image_icon = new_icon
-	else
-		image_icon = initial(image_icon)
-	px = new_px
-	py = new_py
-	Show()
-
-/obj/effect/hallucination/simple/Moved(atom/OldLoc, Dir)
-	. = ..()
-	if(!loc)
-		return
-	Show()
-
-/obj/effect/hallucination/simple/Destroy()
-	if(target?.client)
-		target.client.images.Remove(current_image)
-	active = FALSE
-	return ..()
+	if(current_image)
+		if(new_icon)
+			current_image.icon = new_icon
+		else
+			current_image.icon = initial(image_icon)
+		if(new_state)
+			current_image.icon_state = new_state
+		current_image.pixel_x = new_px
+		current_image.pixel_y = new_py
 
 #define FAKE_FLOOD_EXPAND_TIME 20
 #define FAKE_FLOOD_MAX_RADIUS 10
@@ -179,8 +163,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	plasma_image.plane = GAME_PLANE
 	flood_images += plasma_image
 	flood_turfs += center
-	if(target.client)
-		target.client.images |= flood_images
+	GLOB.cimg_controller.stack_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), flood_images)
+	GLOB.cimg_controller.validate_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
 	next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
 	START_PROCESSING(SSobj, src)
 
@@ -198,6 +182,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /datum/hallucination/fake_flood/proc/Expand()
 	for(var/image/I in flood_images)
 		I.alpha = min(I.alpha + 50, 255)
+	var/list/new_flood_images = list()
 	for(var/turf/FT in flood_turfs)
 		for(var/dir in GLOB.cardinals)
 			var/turf/T = get_step(FT, dir)
@@ -206,17 +191,17 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			var/image/new_plasma = image(image_icon,T,image_state,FLY_LAYER)
 			new_plasma.alpha = 50
 			new_plasma.plane = GAME_PLANE
-			flood_images += new_plasma
+			new_flood_images += new_plasma
 			flood_turfs += T
-	if(target.client)
-		target.client.images |= flood_images
+	flood_images += new_flood_images
+	GLOB.cimg_controller.stack_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), new_flood_images)
 
 /datum/hallucination/fake_flood/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	GLOB.cimg_controller.cut_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), flood_images)
+	GLOB.cimg_controller.disqualify_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
 	qdel(flood_turfs)
 	flood_turfs = list()
-	if(target?.client)
-		target.client.images.Remove(flood_images)
 	qdel(flood_images)
 	flood_images = list()
 	return ..()
@@ -300,9 +285,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/turf/landing_image_turf = get_step(landing, SOUTHWEST) //the icon is 3x3
 	fakerune = image('icons/effects/96x96.dmi', landing_image_turf, "landing", layer = ABOVE_OPEN_TURF_LAYER)
 	fakebroken.override = TRUE
-	if(target.client)
-		target.client.images |= fakebroken
-		target.client.images |= fakerune
+	GLOB.cimg_controller.stack_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), list(fakebroken, fakerune))
+	GLOB.cimg_controller.validate_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
 	target.playsound_local(wall,'sound/effects/meteorimpact.ogg', 150, 1)
 	bubblegum = new(wall, target)
 	addtimer(CALLBACK(src, PROC_REF(bubble_attack), landing), 10)
@@ -326,9 +310,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	qdel(src)
 
 /datum/hallucination/oh_yeah/Destroy()
-	if(target?.client)
-		target.client.images.Remove(fakebroken)
-		target.client.images.Remove(fakerune)
+	GLOB.cimg_controller.cut_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), list(fakebroken, fakerune))
+	GLOB.cimg_controller.disqualify_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
+
 	QDEL_NULL(fakebroken)
 	QDEL_NULL(fakerune)
 	QDEL_NULL(bubblegum)
@@ -501,14 +485,15 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 					image_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 				target.playsound_local(H, 'sound/effects/blobattack.ogg',30,1)
 				A = image(image_file,H,"arm_blade", layer=ABOVE_MOB_LAYER)
-		if(target.client)
-			target.client.images |= A
-			sleep(rand(150,250))
-			if(item == "esword" || item == "dual_esword")
-				target.playsound_local(H, 'sound/weapons/saberoff.ogg',35,1)
-			if(item == "armblade")
-				target.playsound_local(H, 'sound/effects/blobattack.ogg',30,1)
-			target.client.images.Remove(A)
+		GLOB.cimg_controller.stack_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), A)
+		GLOB.cimg_controller.validate_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
+		sleep(rand(150,250))
+		if(item == "esword" || item == "dual_esword")
+			target.playsound_local(H, 'sound/weapons/saberoff.ogg',35,1)
+		if(item == "armblade")
+			target.playsound_local(H, 'sound/effects/blobattack.ogg',30,1)
+		GLOB.cimg_controller.cut_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), A)
+		GLOB.cimg_controller.disqualify_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
 	qdel(src)
 
 /datum/hallucination/delusion
@@ -554,16 +539,15 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 				A = image(custom_icon_file, H, custom_icon)
 				A.name = custom_name
 		A.override = 1
-		if(target.client)
-			delusions |= A
-			target.client.images |= A
+		delusions |= A
+		GLOB.cimg_controller.stack_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), A)
+		GLOB.cimg_controller.validate_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
 	if(duration)
 		QDEL_IN(src, duration)
 
 /datum/hallucination/delusion/Destroy()
-	for(var/image/I in delusions)
-		if(target?.client)
-			target.client.images.Remove(I)
+	GLOB.cimg_controller.cut_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), delusions)
+	GLOB.cimg_controller.disqualify_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
 	return ..()
 
 /datum/hallucination/self_delusion
@@ -594,17 +578,17 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		if("custom")
 			A = image(custom_icon_file, target, custom_icon)
 	A.override = 1
-	if(target.client)
-		if(wabbajack)
-			to_chat(target, "<span class='italics'>...wabbajack...wabbajack...</span>")
-			target.playsound_local(target,'sound/magic/staff_change.ogg', 50, 1)
-		delusion = A
-		target.client.images |= A
+	if(wabbajack)
+		to_chat(target, "<span class='italics'>...wabbajack...wabbajack...</span>")
+		target.playsound_local(target,'sound/magic/staff_change.ogg', 50, 1)
+	delusion = A
+	GLOB.cimg_controller.stack_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), delusion)
+	GLOB.cimg_controller.validate_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
 	QDEL_IN(src, duration)
 
 /datum/hallucination/self_delusion/Destroy()
-	if(target?.client)
-		target.client.images.Remove(delusion)
+	GLOB.cimg_controller.cut_client_images(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), delusion)
+	GLOB.cimg_controller.disqualify_mob(CIMG_KEY_PAIRING(CIMG_KEY_HALLUCINATATION, target), target)
 	return ..()
 
 /datum/hallucination/bolts

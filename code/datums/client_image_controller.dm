@@ -89,6 +89,8 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 	cimgkey_by_mob -= cimg_mob
 
 /datum/cimg_controller/proc/on_mind_destroy(datum/mind/cimg_mind)
+	if(istype(cimg_mind, /datum/mind))
+		CRASH("proc 'on_mind_destroy' has taken non-mind")
 	for(var/each_cimgkey in cimgkey_by_mind[cimg_mind])
 		var/datum/cimg_holder/cimg_holder = cimg_holders[each_cimgkey]
 		cimg_holder.valid_minds -= cimg_mind
@@ -98,6 +100,10 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 /// Makes a mob can see images that are bound to a key group.
 /// NOTE: calling this again adds up +1 count the validation. call disqualify_mob() proc to handle this correctly.
 /datum/cimg_controller/proc/validate_mob(cimg_key, mob/cimg_mob)
+	if(!cimg_mob)
+		return
+	if(!ismob(cimg_mob))
+		CRASH("non-mob has been given")
 	var/datum/cimg_holder/cimg_holder = cimg_holders[cimg_key]
 	if(!cimg_holder)
 		cimg_holder = new
@@ -149,6 +155,10 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 /// disqualify a mob against a key group so that they can't see.
 /// NOTE: if count still exists because validate() proc is called multiple times, they'll still see stuff.
 /datum/cimg_controller/proc/disqualify_mob(cimg_key, mob/cimg_mob)
+	if(!cimg_mob)
+		return
+	if(!ismob(cimg_mob))
+		CRASH("non-mob has been given")
 	var/datum/cimg_holder/cimg_holder = cimg_holders[cimg_key]
 	if(!cimg_holder)
 		return
