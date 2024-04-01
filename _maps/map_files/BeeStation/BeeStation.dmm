@@ -1,0 +1,55 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/holofloor/monotile,
+/area/space)
+"p" = (
+/obj/effect/landmark/start/clown,
+/turf/open/floor/holofloor/monotile,
+/area/space)
+"q" = (
+/obj/item/melee/baton,
+/turf/open/floor/holofloor/monotile,
+/area/space)
+"C" = (
+/turf/closed/wall,
+/area/space)
+"J" = (
+/obj/effect/landmark/start/security_officer,
+/turf/open/floor/holofloor/monotile,
+/area/space)
+
+(1,1,1) = {"
+C
+C
+C
+C
+C
+"}
+(2,1,1) = {"
+C
+J
+a
+a
+C
+"}
+(3,1,1) = {"
+C
+a
+q
+a
+C
+"}
+(4,1,1) = {"
+C
+a
+a
+p
+C
+"}
+(5,1,1) = {"
+C
+C
+C
+C
+C
+"}
