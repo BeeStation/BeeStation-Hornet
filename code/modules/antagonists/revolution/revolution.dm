@@ -55,6 +55,7 @@
 		"Eliminate the heads of staff. Viva la revolution!")
 
 /datum/antagonist/rev/create_team(datum/team/revolution/new_team)
+	SSshuttle.registerRevolutionEnvironment(src)
 	if(!new_team)
 		//For now only one revolution at a time
 		for(var/datum/antagonist/rev/head/H in GLOB.antagonists)
@@ -153,6 +154,9 @@
 		to_chat(user, "<span class='warning'>You can't convert that person!</span>")
 		return
 	for(var/mob/living/carbon/target in targets)
+		if(target.time_of_last_attack_recieved + 30 > world.time)
+			to_chat(user, "<span class='warning'>You will not convice someone who was attacked so recently!</span>")
+			return
 		for(var/i in 1 to 3)
 			user.say(pick(GLOB.revolution_convertion_text), forced = "revolution convertion")
 			target.Stun(30)

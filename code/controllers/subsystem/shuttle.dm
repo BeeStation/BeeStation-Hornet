@@ -30,7 +30,9 @@ SUBSYSTEM_DEF(shuttle)
 	var/adminEmergencyNoRecall = FALSE
 	var/list/hostileEnvironments = list() //Things blocking escape shuttle from leaving
 	var/list/infestedEnvironments = list() //Things that can trigger a delay on escape shuttle arrival
+	var/list/revolutionEnvironments = list()
 	var/infestationActive = FALSE //So unusual circumstances can't trigger a second infestation warning and delay
+	var/revolutionDelayActive = FALSE //So unusual circumstances can't trigger a second revolution warning and delay
 	var/hostileEnvTrackPlayed = FALSE
 	var/list/tradeBlockade = list() //Things blocking cargo from leaving.
 	var/supplyBlocked = FALSE
@@ -325,6 +327,12 @@ SUBSYSTEM_DEF(shuttle)
 	hostileEnvironments -= bad
 	checkHostileEnvironment()
 
+/datum/controller/subsystem/shuttle/proc/registerRevolutionEnvironment(datum/bad)
+	revolutionEnvironments[bad] = TRUE
+
+/datum/controller/subsystem/shuttle/proc/clearRevolutionEnvironment(datum/bad)
+	revolutionEnvironments -= bad
+
 /datum/controller/subsystem/shuttle/proc/registerInfestation(datum/bad)
 	infestedEnvironments[bad] = TRUE //This only matters when shuttle is at a specific stage in evacuation, there is no need to update or check the validity of the list every time it is updated
 
@@ -381,6 +389,20 @@ SUBSYSTEM_DEF(shuttle)
 			infestedEnvironments -= d
 	emergencyDelayArrival = length(infestedEnvironments)
 	return emergencyDelayArrival
+
+/datum/controller/subsystem/shuttle/proc/checkRevolutionEnvironment()
+	for(var/datum/team/revolution/rev_team in GLOB.antagonist_teams)
+		return TRUE
+	return FALSE
+
+/datum/controller/subsystem/shuttle/proc/delayForRevolutionaryStation()
+	if(revolutionDelayActive)
+		return
+	revolutionDelayActive = TRUE
+	emergencyNoRecall = TRUE
+	priority_announce("Revolutionary activity detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.")
+	if(emergency.mode == SHUTTLE_CALL)
+		emergency.setTimer(10 MINUTES)
 
 /datum/controller/subsystem/shuttle/proc/delayForInfestedStation()
 	if(infestationActive)

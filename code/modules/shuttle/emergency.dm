@@ -350,10 +350,15 @@
 
 	if(SSshuttle.checkInfestedEnvironment()) //If an Alien Queen exists, set a delayed alert
 		infestation_alert_timer = addtimer(CALLBACK(src, PROC_REF(infested_shuttle)), rand(150 SECONDS, call_time), TIMER_STOPPABLE) //Delay timer is random from 2:30 to the full duration of the shuttle call
+	if(SSshuttle.checkRevolutionEnvironment()) //If a revolution is happening, set a delayed alert
+		infestation_alert_timer = addtimer(CALLBACK(src, PROC_REF(revolution_shuttle)), rand(150 SECONDS, call_time), TIMER_STOPPABLE) //Delay timer is random from 2:30 to the full duration of the shuttle call
 
 /obj/docking_port/mobile/emergency/proc/infested_shuttle()
 	if(SSshuttle.checkInfestedEnvironment()) //Check again to ensure the queen is still present
 		SSshuttle.delayForInfestedStation() //And delay the shuttle if they are
+
+/obj/docking_port/mobile/emergency/proc/revolution_shuttle()
+	SSshuttle.delayForRevolutionaryStation() // If we have Revolution delay the Shuttle Call
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
 	if(mode != SHUTTLE_CALL)
