@@ -494,6 +494,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
 	mob.UpdateMobStat(TRUE)
 
+	// RANKS
+	var/image/rank_image = SSranks.get_rank_icon(ckey)
+	rank_image.loc = SStitle.splash_turf
+	rank_image.transform = matrix(
+		3, 0, (((16 / 2) * 32) / 3),
+		0, 3, (((14 / 2) * 32) / 3)
+	)
+	images += rank_image
+
 /client/proc/time_to_redirect()
 	var/redirect_address = CONFIG_GET(string/redirect_address)
 	GLOB.ckey_redirects -= ckey

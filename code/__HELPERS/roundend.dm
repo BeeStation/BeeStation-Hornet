@@ -235,6 +235,7 @@
 
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
+	SSranks.update_ranks(popcount)
 
 	CHECK_TICK
 
