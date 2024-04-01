@@ -1,8 +1,8 @@
 {
-	"map_name": "MetaStation",
-	"map_link": "MetaStation",
-	"map_path": "map_files/MetaStation",
-	"map_file": "MetaStation.dmm",
+	"map_name": "BeeStation",
+	"map_link": "BeeStation",
+	"map_path": "map_files/BeeStation",
+	"map_file": "BeeStation.dmm",
 	"shuttles": {
 		"cargo": "cargo_box",
 		"ferry": "ferry_fancy",
