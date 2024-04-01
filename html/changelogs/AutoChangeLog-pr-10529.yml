@@ -1,5 +1,0 @@
-author: rkz, Rohesie
-delete-after: true
-changes:
-  - refactor: progressbar handling, especially deletion
-  - code_imp: adds stack traces & code docs to progressbars
