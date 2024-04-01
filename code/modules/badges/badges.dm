@@ -66,11 +66,11 @@ GLOBAL_LIST_EMPTY(badge_data)
 	//Add the donator rank
 	if(IS_PATRON(ckey) && GLOB.badge_data["Donator"])
 		badges += GLOB.badge_data["Donator"]
+	cached_badges = badges
 	if (SSranks.initialized)
 		var/datum/player_rank/rank = SSranks.get_ranks(ckey(ckey))
 		if (rank.crew_count >= GAMES_REQUIRED)
 			badges += elo_to_badge(rank.crew_rank)
-	cached_badges = badges
 	return badges
 
 /client/proc/reset_badges()
