@@ -21,7 +21,7 @@
 		var/list/gang_data = list(
 			name = gangs.name,
 			size = gangs.members.len,
-			territories = LAZYLEN(gang.territories),
+			territories = LAZYLEN(gangs.territories),
 			influence = gangs.influence,
 			reputation = gangs.reputation,
 			credits = gangs.credits,
@@ -34,8 +34,8 @@
 
 /datum/action/innate/gang_tracker
 	name = "Gang Tracker"
-	icon_icon = 'icons/mob/actions/actions_hive.dmi'
-	button_icon_state = "scan"
+	icon_icon = 'icons/mob/actions/actions_gang.dmi'
+	button_icon_state = "gang_scan"
 	background_icon_state = "bg_gang"
 	var/datum/gang_tracker/gang_tracker
 

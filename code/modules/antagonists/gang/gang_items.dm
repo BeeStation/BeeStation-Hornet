@@ -32,18 +32,18 @@
 //Essential Gang Tools
 ///////////////////
 
-/datum/gang_item/essentials
+/datum/gang_item/essentials //Without using these you'll have a bad time
 	category = "Essential Items"
 
 
-/datum/gang_item/essentials/gangtool
+/datum/gang_item/essentials/gangtool //For buying items, main Gang Boss tool.
 	name = "Gangtool"
 	cost = 50
 	item_path = /obj/item/device/gangtool
 	desc = "Spare gangtool to keep stashed in case of arrest."
 
 
-/datum/gang_item/essentials/uniform
+/datum/gang_item/essentials/uniform //Being uniformed means more influence.
 	name = "Gang Uniform"
 	cost = 5
 	desc = "Full outfit of your gangs uniform, increases your influence and reputation if worn by members, reduces it if not worn at all."
@@ -64,13 +64,9 @@
 //WEAPONS
 ///////////////////
 
-/datum/gang_item/weapon
+/datum/gang_item/weapon //Used to kill people.
 	category = "Weapons"
 
-/datum/gang_item/weapon/emp
-	name = "EMP Grenade"
-	cost = 50
-	item_path = /obj/item/grenade/empgrenade
 
 /datum/gang_item/weapon/switchblade
 	name = "Switchblade"
@@ -93,7 +89,7 @@
 /datum/gang_item/weapon/pistol
 	name = "10mm Pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
-	cost = 500
+	cost = 600
 	item_path = /obj/item/gun/ballistic/automatic/pistol
 
 /datum/gang_item/weapon/pistol_ammo
@@ -105,7 +101,7 @@
 /datum/gang_item/weapon/uzi
 	name = "Uzi SMG"
 	desc = "A lightweight submachine gun, for when you really want someone dead. Uses 9mm rounds."
-	cost = 700
+	cost = 850
 	item_path = /obj/item/gun/ballistic/automatic/mini_uzi
 
 /datum/gang_item/weapon/uzi_ammo
@@ -124,7 +120,7 @@
 //EQUIPMENT
 ///////////////////
 
-/datum/gang_item/support
+/datum/gang_item/support //Anything that doesn't fit in the other categories.
 	category = "Support Equipment"
 
 /datum/gang_item/support/healcigs
@@ -151,7 +147,7 @@
 	cost = 50
 	item_path = /obj/item/storage/backpack/satchel/flat
 
-/datum/gang_item/infrep
+/datum/gang_item/infrep //You use these to win
 	category = "Influence & Reputation"
 
 /datum/gang_item/infrep/drugs
@@ -168,8 +164,8 @@
 
 /datum/gang_item/infrep/spraycan
 	name = "Territory Spraycan"
-	desc = "Modified spraycan used to claiming specific territories for your gang, increasing your influence. Also serves to increase your Reputation, but losing territory will decrease it instead."
-	cost = 20
+	desc = "Modified spraycan used to claiming specific territories for your gang, increasing your influence. Also serves to increase your Reputation, but losing territory will decrease it substantially instead."
+	cost = 25
 	item_path = /obj/item/toy/crayon/spraycan/gang
 
 /datum/gang_item/infrep/spraycan/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
@@ -178,3 +174,15 @@
 	O.gang = gang
 	O.paint_color = gang.color
 	O.update_icon()
+
+
+/datum/gang_item/infrep/safe
+	name = "Credit Vault"
+	desc = "Gang-locked strongbox for secure storage of funds, owing to their safety credits stored in vaults count as double."
+	cost = 100
+	item_path = /obj/item/sbeacondrop/gang_safe
+
+/datum/gang_item/infrep/safe/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/obj/item/sbeacondrop/gang_safe/O = new item_path(user.loc)
+	user.put_in_hands(O)
+	O.g = gang

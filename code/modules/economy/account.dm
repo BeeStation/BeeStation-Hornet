@@ -251,3 +251,8 @@
 	department_id = ACCOUNT_GOLEM_ID
 	department_bitflag = NONE
 	exclusive_budget_pool = 13 // oh no, someone used it! damn communism
+
+//for gangster safes
+/datum/bank_account/gang
+	account_holder = "Guild Credit Agency"
+	add_to_accounts = FALSE

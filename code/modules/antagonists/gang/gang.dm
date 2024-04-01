@@ -144,10 +144,14 @@
 
 /datum/antagonist/gang/proc/add_to_gang()
 	gang.add_member(owner)
+	var/mob/living/carbon/human/H = owner.current
+	gang.bank_accounts += H.get_bank_account()
 	owner.current.log_message("<font color='red'>Has been converted to the [gang.name] gang!</font>", INDIVIDUAL_ATTACK_LOG)
 
 /datum/antagonist/gang/proc/remove_from_gang()
 	gang.remove_member(owner)
+	var/mob/living/carbon/human/H = owner.current
+	gang.bank_accounts -= H.get_bank_account()
 	owner.current.log_message("<font color='red'>Has been deconverted from the [gang.name] gang!</font>", INDIVIDUAL_ATTACK_LOG)
 
 // Boss type. Those can use gang tools to buy items for their gang, in particular the Dominator, used to win the gamemode, along with more gang tools to promote fellow gangsters to boss status.
@@ -295,6 +299,7 @@
 	var/reputation = 0 // earned by various means throught the round, decides the winner.
 	var/queued_reputation = 0 // reputation waiting to be added to the gang.
 	var/credits = 0 //ammount of money the gang has.
+	var/richest = FALSE //Are we the gang with the most money?
 	var/list/datum/bank_account/bank_accounts = list() //bank accounts owned by gang members and bank "accounts" stored in safes
 	var/next_point_time
 	var/obj/item/clothing/head/hat
@@ -348,8 +353,33 @@
 	to_chat(gangster, "<font color='red'>You can identify your mates by their <b>large, bright \[G\] <font color='[color]'>icon</font></b>.</font>")
 	gangster.store_memory("You are a member of the [name] Gang!")
 
-/datum/team/gang/proc/handle_resources()	//influence and reputation is counted here
+/datum/team/gang/proc/handle_resources()	//influence reputation and credits are counted here
 	next_point_time = world.time + INFLUENCE_INTERVAL
+
+	// counting our credits
+	credits = 0
+	for(var/datum/bank_account/account as() in bank_accounts)
+		if(istype(account,/datum/bank_account/gang)) //Money kept in safes counts double, lucky you!
+			credits += account.account_balance * 2
+			continue
+		credits += account.account_balance
+
+	//are we richer than the richest guy? handles influence and reputation accordingly.
+	if(!richest)
+		for(var/datum/team/gang/opponent as() in GLOB.gangs)
+			if(opponent.richest)
+				if(opponent.credits < credits)
+					richest = TRUE
+					opponent.richest = FALSE
+					queued_influence += 50
+					queued_reputation += 15
+				else
+					queued_influence += 50 * (opponent.credits / credits) //we get a portion of the bounty depending on how close we are to their wealth
+	else
+		queued_influence += 50
+		queued_reputation += 15
+
+
 
 	influence =	update_influence() + queued_influence
 	message_admins("Queued Influence:[queued_influence]")
@@ -393,7 +423,7 @@
 		swag *= INFLUENCE_SWAG
 		wearing = TRUE
 	if(!wearing)
-		return -1
+		return -3 //your punishment for being swagless
 	return swag
 
 /datum/team/gang/proc/adjust_influence(value)
