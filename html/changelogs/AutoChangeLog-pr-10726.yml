@@ -1,0 +1,16 @@
+author: pigeonverde, rkz, qustinnus(deleted account, credit him anyway), tralezab,
+  Sylphet, JohnFulpWillard, FernandoJ8
+delete-after: true
+changes:
+  - rscadd: A new kitchen machine, the griddle, for cooking your meats on!
+  - rscadd: remapped kitchens to support new machine
+  - tweak: Most meats are cooked through the griddle, rather than microwaving. Not
+      following this will lead to your meat just producing a burnt mess when you microwave
+      it.
+  - tweak: burgers are now made with meat patties. These patties can be made by rolling
+      a meatball.
+  - rscadd: patty sprites, new meatballs sprites, new sausage sprites, griddle sprites,
+      steam animation
+  - balance: Upgrading the food processor actually works.
+  - code_imp: Added check to prevent mindless runtime when cluwning mob
+  - bugfix: Grills now grill food, not reagent containers
