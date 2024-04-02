@@ -293,7 +293,7 @@
 	var/list/territories = list() // owned territories.
 	var/list/gangtools = list()
 	var/color
-	var/winner = FALSE //winner winner chicken dinner
+	var/winner = TRUE //if we are currently winning, starts set to TRUE but will get changed pretty quickly
 	var/influence = 0 // influence of the gang, based on how many territories they own. Can be used to buy weapons and tools from a gang uplink.
 	var/queued_influence = 0 // influence waiting to be added to the gang.
 	var/reputation = 0 // earned by various means throught the round, decides the winner.
@@ -353,6 +353,7 @@
 	to_chat(gangster, "<font color='red'>You can identify your mates by their <b>large, bright \[G\] <font color='[color]'>icon</font></b>.</font>")
 	gangster.store_memory("You are a member of the [name] Gang!")
 
+//this proc could be problematic if scores are really close and it triggers on one gang before another.
 /datum/team/gang/proc/handle_resources()	//influence reputation and credits are counted here
 	next_point_time = world.time + INFLUENCE_INTERVAL
 
@@ -390,6 +391,14 @@
 	message_admins("Queued Reputation:[queued_reputation]")
 	queued_reputation = 0
 	message_admins("New Reputation:[reputation]")
+
+	//Are we winning?
+	if(!winner)
+		for(var/datum/team/gang/opponent as() in GLOB.gangs)
+			if(opponent.winner)
+				if(opponent.reputation < reputation)
+					opponent.winner = FALSE
+					winner = TRUE
 
 	addtimer(CALLBACK(src, PROC_REF(handle_resources)), INFLUENCE_INTERVAL)
 
