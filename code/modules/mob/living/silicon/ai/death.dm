@@ -4,7 +4,7 @@
 
 	if(!gibbed)
 		// Will update all AI status displays with a blue screen of death
-		INVOKE_ASYNC(src, .proc/emote, "bsod")
+		INVOKE_ASYNC(src, PROC_REF(emote), "bsod")
 
 	. = ..()
 
