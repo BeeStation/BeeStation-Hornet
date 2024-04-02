@@ -1048,6 +1048,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if (prefs?.read_player_preference(/datum/preference/toggle/auto_fit_viewport))
 		addtimer(CALLBACK(src,.verb/fit_viewport,10)) //Delayed to avoid wingets from Login calls.
 
+/// a random code can let have multi-dir, but it's BAD. this filters to get a corrected dir.
+/client/proc/sanitize_client_direction()
+	return (dir & NORTH) || (dir & SOUTH) || (dir & WEST) || (dir & EAST)
+
 /client/proc/generate_clickcatcher()
 	if(!void)
 		void = new()

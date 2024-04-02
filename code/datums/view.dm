@@ -93,9 +93,15 @@
 
 /datum/viewData/proc/getView()
 	var/list/temp = getviewsize(default)
-	if(is_suppressed)
-		return "[temp[1]]x[temp[2]]"
-	return "[width + temp[1]]x[height + temp[2]]"
+	var/width_to_return
+	var/height_to_return
+	if(chief.sanitize_client_direction() & (NORTH + SOUTH))
+		width_to_return = is_suppressed ? temp[1] : width + temp[1]
+		height_to_return = is_suppressed ? temp[2] : height + temp[2]
+	else // WARNING: these are reversed.
+		width_to_return = is_suppressed ? temp[2] : height + temp[2]
+		height_to_return = is_suppressed ? temp[1] : width + temp[1]
+	return "[width_to_return]x[height_to_return]"
 
 /datum/viewData/proc/zoomIn()
 	resetToDefault()

@@ -217,7 +217,7 @@
 		for(var/datum/chatmessage/m as() in message_loc.chat_messages)
 			if(!m?.message)
 				continue
-			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
+			animate(m.message, pixel_z = m.message.pixel_z + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
 			combined_height += m.approx_lines
 
 			// When choosing to update the remaining time we have to be careful not to update the
@@ -246,10 +246,12 @@
 	message.plane = RUNECHAT_PLANE
 	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.alpha = 0
-	message.pixel_y = bound_height - MESSAGE_FADE_PIXEL_Y
+	//CLIENT SPIN START
+	message.pixel_z = bound_height - MESSAGE_FADE_PIXEL_Y // previously, it used "pixel_y", but it can't support client dir rotation
+	message.pixel_w = (CHAT_MESSAGE_WIDTH - bound_width) * -0.5 // previously, it used "maptext_x", but it can't support client dir rotation
 	message.maptext_width = CHAT_MESSAGE_WIDTH
 	message.maptext_height = mheight
-	message.maptext_x = (CHAT_MESSAGE_WIDTH - bound_width) * -0.5
+	//CLIENT SPIN END
 	if(extra_classes.Find("italics"))
 		message.color = "#CCCCCC"
 	message.maptext = MAPTEXT(complete_text)
@@ -257,7 +259,7 @@
 	// Show the message to clients
 	for(var/client/C as() in hearers)
 		C?.images |= message
-	animate(message, alpha = 255, pixel_y = bound_height, time = CHAT_MESSAGE_SPAWN_TIME)
+	animate(message, alpha = 255, pixel_z = bound_height, time = CHAT_MESSAGE_SPAWN_TIME)
 
 	LAZYADD(message_loc.chat_messages, src)
 
@@ -278,7 +280,7 @@
   */
 /datum/chatmessage/proc/end_of_life(fadetime = CHAT_MESSAGE_EOL_FADE)
 	isFading = TRUE
-	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
+	animate(message, alpha = 0, pixel_z = message.pixel_z + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), fadetime, TIMER_DELETE_ME, SSrunechat)
 
 /mob/proc/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote = FALSE, is_heard = FALSE)
@@ -501,7 +503,7 @@
 
 /datum/chatmessage/balloon_alert/end_of_life(fadetime = BALLOON_TEXT_FADE_TIME)
 	isFading = TRUE
-	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
+	animate(message, alpha = 0, pixel_z = message.pixel_z + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), fadetime, TIMER_DELETE_ME, SSrunechat)
 
 /datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner)
@@ -534,7 +536,7 @@
 	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.maptext_width = BALLOON_TEXT_WIDTH
 	message.maptext_height = WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
-	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
+	message.pixel_w = (BALLOON_TEXT_WIDTH - bound_width) * -0.5 // previously, it used "maptext_x", but it can't support client dir rotation
 	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
 
 	// View the message
@@ -547,7 +549,7 @@
 		duration_mult += duration_length * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 
 	// Animate the message
-	animate(message, alpha = 255, pixel_y = world.icon_size * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
+	animate(message, alpha = 255, pixel_z = world.icon_size * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
 
 	LAZYADD(message_loc.balloon_alerts, src)
 
