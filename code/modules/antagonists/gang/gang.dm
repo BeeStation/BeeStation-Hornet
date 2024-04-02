@@ -392,13 +392,6 @@
 	queued_reputation = 0
 	message_admins("New Reputation:[reputation]")
 
-	//Are we winning?
-	if(!winner)
-		for(var/datum/team/gang/opponent as() in GLOB.gangs)
-			if(opponent.winner)
-				if(opponent.reputation < reputation)
-					opponent.winner = FALSE
-					winner = TRUE
 
 	addtimer(CALLBACK(src, PROC_REF(handle_resources)), INFLUENCE_INTERVAL)
 
