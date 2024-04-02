@@ -148,7 +148,7 @@
 				if(prob(effectchance))
 					H.visible_message("<span class='warning'>[H] makes a grab for the light!</span>","<span class='userdanger'>LIGHT!</span>")
 					H.Move(targloc)
-					log_combat(user, H, "moved with a laser pointer",src)
+					log_combat(user, H, "moved with a laser pointer",src, important = FALSE)
 				else
 					H.visible_message("<span class='notice'>[H] looks briefly distracted by the light.</span>","<span class = 'warning'> You're briefly tempted by the shiny light... </span>")
 			else
