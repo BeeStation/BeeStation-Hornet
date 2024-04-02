@@ -1618,6 +1618,10 @@
 	broken = 1
 	},
 /area/maintenance/aft)
+"avf" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/kitchen)
 "avq" = (
 /obj/structure/chair/fancy/sofa/old,
 /turf/open/floor/carpet/grimy,
@@ -11684,6 +11688,10 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/crew_quarters/cryopods)
+"deA" = (
+/mob/living/simple_animal/chicken,
+/turf/open/floor/grass,
+/area/hydroponics/garden)
 "deE" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -21742,13 +21750,13 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/genetics)
 "fKY" = (
-/obj/machinery/deepfryer,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/tile/bar/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/griddle,
 /turf/open/floor/iron/cafeteria,
 /area/vacant_room/commissary/commissaryFood)
 "fLe" = (
@@ -24982,10 +24990,6 @@
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/bot,
 /obj/structure/table,
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
-	},
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
 "gBn" = (
@@ -25111,6 +25115,9 @@
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/plant_analyzer,
 /obj/item/reagent_containers/glass/bucket,
+/obj/item/seeds/wheat,
+/obj/item/seeds/wheat,
+/obj/item/seeds/wheat,
 /turf/open/floor/grass,
 /area/hydroponics/garden)
 "gCA" = (
@@ -30622,6 +30629,11 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron/dark/side,
 /area/hallway/primary/central)
+"hQT" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/table,
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "hRd" = (
 /obj/effect/turf_decal/guideline/guideline_in_arrow_con/red{
 	dir = 8
@@ -39220,10 +39232,6 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "jXG" = (
-/obj/structure/noticeboard{
-	dir = 8;
-	pixel_x = 32
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -39664,6 +39672,10 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -22
 	},
 /turf/open/floor/iron/dark,
 /area/hydroponics)
@@ -43974,6 +43986,14 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/techmaint,
 /area/security/main)
+"lht" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/structure/table,
+/obj/item/food/dough,
+/obj/item/reagent_containers/glass/bowl,
+/obj/item/food/grown/tomato,
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "lhz" = (
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
@@ -45989,6 +46009,10 @@
 /obj/item/book/manual/wiki/barman_recipes{
 	pixel_x = 4;
 	pixel_y = -4
+	},
+/obj/structure/noticeboard{
+	dir = 4;
+	pixel_x = -27
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
@@ -81835,6 +81859,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"usp" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/hydroponics)
 "usr" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -84571,15 +84599,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/disposal)
-"vaT" = (
-/obj/structure/table,
-/obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/glass/bowl,
-/obj/item/food/grown/tomato,
-/obj/item/food/dough,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "vaX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -116598,7 +116617,7 @@ tqu
 fUf
 fUf
 fUf
-fUf
+deA
 fUf
 veT
 gVE
@@ -119182,7 +119201,7 @@ ajI
 vqH
 vqH
 oGW
-vqH
+avf
 lHN
 sxF
 mRd
@@ -120458,7 +120477,7 @@ arZ
 fvy
 rcl
 gBe
-arZ
+usp
 tGm
 pYj
 xNi
@@ -120472,7 +120491,7 @@ cly
 oVn
 grC
 ixl
-vaT
+pZl
 grC
 xFV
 wRF
@@ -120728,8 +120747,8 @@ cgr
 grC
 grC
 bbg
-grC
-grC
+hQT
+lht
 grC
 hCE
 jOJ

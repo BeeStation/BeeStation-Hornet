@@ -48028,6 +48028,14 @@
 	},
 /turf/open/floor/wood,
 /area/medical/exam_room)
+"nVD" = (
+/obj/machinery/door/poddoor/preopen{
+	id = "kitchenwindow";
+	name = "kitchen shutters"
+	},
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/crew_quarters/kitchen)
 "nVE" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -49506,10 +49514,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
-"oub" = (
-/obj/structure/sign/poster/official/random,
-/turf/closed/wall,
-/area/hydroponics)
 "oue" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -111788,7 +111792,7 @@ dik
 bKe
 bOP
 bOP
-bOP
+nVD
 bKe
 bSS
 paA
@@ -113075,7 +113079,7 @@ cxn
 iat
 fhI
 oUF
-oub
+bUe
 jNa
 qVA
 rbw
@@ -114103,7 +114107,7 @@ nOh
 ixG
 sqe
 czW
-bST
+bUe
 hdn
 qVA
 rbw

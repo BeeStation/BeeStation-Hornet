@@ -26675,7 +26675,6 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "ecR" = (
-/obj/machinery/deepfryer,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/line{
@@ -26684,6 +26683,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
+/obj/machinery/food_cart,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)
 "ecU" = (
@@ -68129,12 +68129,12 @@
 	},
 /area/maintenance/disposal)
 "qII" = (
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 8
+	},
 /obj/structure/table,
 /obj/machinery/microwave{
 	pixel_y = 5
-	},
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
-	dir = 8
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/kitchen)

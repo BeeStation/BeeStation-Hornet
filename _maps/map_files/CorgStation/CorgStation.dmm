@@ -5626,6 +5626,9 @@
 /obj/effect/landmark/start/librarian,
 /turf/open/floor/carpet/green,
 /area/library)
+"bAy" = (
+/turf/closed/wall,
+/area/space)
 "bAG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -10981,6 +10984,12 @@
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
+"doI" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/grass,
+/area/hydroponics/garden)
 "doY" = (
 /obj/machinery/door/window/southleft{
 	name = "Cloning Shower"
@@ -12721,6 +12730,10 @@
 	},
 /turf/open/floor/iron,
 /area/medical/chemistry)
+"dSD" = (
+/mob/living/simple_animal/chicken,
+/turf/open/floor/grass,
+/area/hydroponics/garden)
 "dSG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -13225,6 +13238,9 @@
 	pixel_y = 7
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/newscaster{
+	pixel_x = 30
+	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "eay" = (
@@ -18180,6 +18196,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
 /area/chapel/main/monastery)
+"fKJ" = (
+/mob/living/simple_animal/cow,
+/turf/open/floor/grass,
+/area/hydroponics/garden)
 "fKO" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -20887,15 +20907,14 @@
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "gFp" = (
-/obj/machinery/door/airlock{
-	name = "Hydroponics Kitchen Entrance";
-	req_access_txt = "28"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/glass{
+	req_access_txt = "28"
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "gFt" = (
@@ -23879,13 +23898,14 @@
 /turf/open/floor/iron/dark,
 /area/science/nanite)
 "hEQ" = (
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
 "hEW" = (
@@ -26959,10 +26979,6 @@
 	},
 /area/medical/surgery)
 "iAG" = (
-/obj/machinery/light_switch{
-	pixel_x = 1;
-	pixel_y = -25
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
@@ -26971,6 +26987,9 @@
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_y = -28
 	},
 /turf/open/floor/iron,
 /area/hydroponics)
@@ -35976,13 +35995,13 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "lAK" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -14;
 	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen)
@@ -51631,6 +51650,10 @@
 	},
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
+"qDi" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/space/nearstation)
 "qDx" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -66685,6 +66708,9 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/medical/medbay/central)
+"vxF" = (
+/turf/closed/wall,
+/area/space/nearstation)
 "vxL" = (
 /obj/structure/table/wood,
 /obj/item/book/random,
@@ -71253,6 +71279,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/green/half/contrasted,
+/obj/machinery/light_switch{
+	pixel_x = -25
+	},
 /turf/open/floor/iron,
 /area/hydroponics)
 "wWS" = (
@@ -74030,9 +74059,6 @@
 "xQG" = (
 /obj/machinery/camera/autoname{
 	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_y = -28
 	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 4
@@ -97755,13 +97781,13 @@ anT
 anT
 anT
 anT
-anT
-anT
-anT
-anT
-anT
-aMT
-erm
+vxF
+vxF
+qDi
+vxF
+qDi
+bAy
+rdA
 qtN
 sbZ
 nzi
@@ -98013,11 +98039,11 @@ aMT
 aMT
 aMT
 rPk
-rPk
-feF
-rPk
-feF
-rPk
+ihZ
+rGg
+vJr
+iHr
+dUK
 rPk
 iiO
 tfx
@@ -98270,11 +98296,11 @@ vhc
 aMT
 aMT
 rPk
-ihZ
-rGg
-vJr
-iHr
-dUK
+dSD
+cxY
+cxY
+cxY
+cxY
 rPk
 dMv
 rRd
@@ -99041,11 +99067,11 @@ vhc
 aMT
 aMT
 rPk
-fuK
-dJm
-nYn
-iHr
-mdL
+fKJ
+cxY
+cxY
+cxY
+doI
 rPk
 vFP
 rRd
@@ -99298,11 +99324,11 @@ vhc
 vhc
 aMT
 rPk
-rPk
-feF
-rPk
-feF
-rPk
+fuK
+dJm
+nYn
+iHr
+mdL
 rPk
 vFP
 rRd
@@ -99554,12 +99580,12 @@ ilw
 iOB
 iER
 aMT
-aMT
-aMT
-aMT
-aMT
-anT
-aMT
+bAy
+bAy
+bAy
+bAy
+vxF
+bAy
 rdA
 vFP
 rRd
@@ -99811,8 +99837,8 @@ vhc
 vhc
 vhc
 vhc
-iER
-iER
+vhc
+vhc
 vhc
 aMT
 anT
@@ -111091,7 +111117,7 @@ sLr
 ntO
 qyp
 xQG
-aYT
+gWp
 nQJ
 uYN
 kuf
