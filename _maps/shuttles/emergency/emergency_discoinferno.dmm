@@ -8,7 +8,7 @@
 "c" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/door/firedoor/window,
-/turf/open/floor/plasteel/elevatorshaft,
+/turf/open/floor/iron/elevatorshaft,
 /area/shuttle/escape)
 "d" = (
 /obj/structure/table/wood,
