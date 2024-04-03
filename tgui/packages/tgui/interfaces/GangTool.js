@@ -17,9 +17,6 @@ export const GangTool = (props, context) => {
           <Tabs.Tab icon="list" lineHeight="23px" selected={tab === 1} onClick={() => setTab(1)}>
             Market
           </Tabs.Tab>
-          <Tabs.Tab icon="list" lineHeight="23px" selected={tab === 2} onClick={() => setTab(2)}>
-            Tracker
-          </Tabs.Tab>
         </Tabs>
         {tab === 1 && <GenericUplink currencyAmount={influence} currencySymbol="Influence" />}
       </Window.Content>

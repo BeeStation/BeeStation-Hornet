@@ -715,3 +715,32 @@
 		M.mind.special_role = ROLE_HIVE
 		GLOB.pre_setup_antags += M.mind
 	return TRUE
+
+//////////////////////////////////////////////
+//                                          //
+//                 GANGS                    //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/gang
+	name = "Gang War"
+	role_preference = /datum/role_preference/antagonist/gangster
+	antag_datum = /datum/antagonist/gang/boss
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	required_candidates = 2
+	weight = 4
+	cost = 25
+	requirements = list(100,100,80,60,40,30,10,10,10,10)
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
+
+/datum/dynamic_ruleset/roundstart/gang/pre_execute(population)
+	. = ..()
+	var/num_gangs = max(2,min(8,round(population/9)))
+	for (var/i = 1 to num_gangs)
+		var/mob/M = antag_pick_n_take(candidates)
+		assigned += M.mind
+		M.mind.restricted_roles = restricted_roles
+		M.mind.special_role = ROLE_GANG
+		GLOB.pre_setup_antags += M.mind
+	return TRUE

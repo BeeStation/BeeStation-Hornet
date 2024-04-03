@@ -46,9 +46,16 @@
 /datum/antagonist/gang/on_gain()
 	if(!gang)
 		create_team()
+	add_to_gang()
+	add_objectives()
 	..()
 	handle_clown_mutation(owner.current, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-	add_to_gang()
+
+
+/datum/antagonist/gang/proc/add_objectives()
+	for(var/datum/objective/objective in (gang.objectives-objectives))
+		log_objective(owner, objective.explanation_text)
+	objectives |= gang.objectives
 
 /datum/antagonist/gang/on_removal()
 	handle_clown_mutation(owner.current, removing=FALSE)
@@ -62,7 +69,19 @@
 			return
 		var/datum/team/gang/gangteam = pick_n_take(GLOB.possible_gangs)
 		if(gangteam)
-			gang = new gangteam
+			var/datum/team/gang/gang_setup = new gangteam
+
+			var/datum/objective/gang/gang_objective = new
+			gang_objective.team = gang_setup
+			gang_setup.objectives += gang_objective
+
+			var/datum/objective/protect/protect_boss = new
+			protect_boss.set_target(owner) //Protect the gang boss
+			protect_boss.explanation_text = "Protect [protect_boss.target.name], your Gang Boss."
+			protect_boss.team = gang_setup
+			gang_setup.objectives += protect_boss
+
+			gang = gang_setup
 
 /datum/antagonist/gang/proc/equip_gang() // Bosses get equipped with their tools
 	return
@@ -145,13 +164,15 @@
 /datum/antagonist/gang/proc/add_to_gang()
 	gang.add_member(owner)
 	var/mob/living/carbon/human/H = owner.current
-	gang.bank_accounts += H.get_bank_account()
+	if(H.get_bank_account())
+		gang.bank_accounts += H.get_bank_account()
 	owner.current.log_message("<font color='red'>Has been converted to the [gang.name] gang!</font>", INDIVIDUAL_ATTACK_LOG)
 
 /datum/antagonist/gang/proc/remove_from_gang()
 	gang.remove_member(owner)
 	var/mob/living/carbon/human/H = owner.current
-	gang.bank_accounts -= H.get_bank_account()
+	if(H.get_bank_account())
+		gang.bank_accounts -= H.get_bank_account()
 	owner.current.log_message("<font color='red'>Has been deconverted from the [gang.name] gang!</font>", INDIVIDUAL_ATTACK_LOG)
 
 // Boss type. Those can use gang tools to buy items for their gang, in particular the Dominator, used to win the gamemode, along with more gang tools to promote fellow gangsters to boss status.
@@ -281,7 +302,7 @@
 #define INFLUENCE_BASE 20
 
 #define MAXIMUM_RECALLS 1
-#define INFLUENCE_INTERVAL 90
+#define INFLUENCE_INTERVAL 1200
 // Gang team datum. This handles the gang itself.
 /datum/team/gang
 	name = "Gang"
@@ -305,6 +326,7 @@
 	var/obj/item/clothing/head/hat
 	var/obj/item/clothing/under/outfit
 	var/obj/item/clothing/suit/suit
+	var/counting_credits = FALSE
 
 /datum/team/gang/New(starting_members)
 	. = ..()
@@ -365,32 +387,33 @@
 			continue
 		credits += account.account_balance
 
-	//are we richer than the richest guy? handles influence and reputation accordingly.
-	if(!richest)
+	if(!counting_credits)
+		if((world.time - SSticker.round_start_time) > 10 MINUTES) //We start taking reputation from credits into account at this point, before 10 mins it's a grace period
+			counting_credits = TRUE
+	//are we the richest gang on the station?
+	if(counting_credits)
+		richest = TRUE
+		var/datum/team/gang/richest_gang = src
+		var/richest_credits = credits
 		for(var/datum/team/gang/opponent as() in GLOB.gangs)
-			if(opponent.richest)
-				if(opponent.credits < credits)
-					richest = TRUE
-					opponent.richest = FALSE
-					queued_influence += 50
-					queued_reputation += 15
-				else
-					queued_influence += 50 * (opponent.credits / credits) //we get a portion of the bounty depending on how close we are to their wealth
-	else
-		queued_influence += 50
-		queued_reputation += 15
+			if(opponent.credits > richest_credits)
+				richest_gang.richest = FALSE
+				richest_gang = opponent
+				richest_credits = opponent.credits
+				opponent.richest = TRUE
 
-
+		if(richest)
+			queued_influence += 50
+			queued_reputation += 15
+		else
+			queued_influence += 50 * (richest_gang.credits / credits) //we get a share of the profits but none of the glory
 
 	influence =	update_influence() + queued_influence
-	message_admins("Queued Influence:[queued_influence]")
 	queued_influence = 0
-	message_admins("New Influence:[influence]")
 
 	reputation = update_reputation() + queued_reputation
-	message_admins("Queued Reputation:[queued_reputation]")
 	queued_reputation = 0
-	message_admins("New Reputation:[reputation]")
+
 
 
 	addtimer(CALLBACK(src, PROC_REF(handle_resources)), INFLUENCE_INTERVAL)

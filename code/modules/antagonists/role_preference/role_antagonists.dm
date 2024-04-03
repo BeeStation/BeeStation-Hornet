@@ -331,11 +331,10 @@
 	mask = null
 
 /datum/role_preference/antagonist/gangster
-	name = "Gangster"
+	name = "Gang Boss"
 	description = "Convince people to join your gang, wear your uniform, tag turf for the gang, and accomplish your gang's goals."
-	antag_datum = /datum/antagonist/gang
+	antag_datum = /datum/antagonist/gang/boss
 	preview_outfit = /datum/outfit/gangster_preview
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
 
 /datum/outfit/gangster_preview
 	name = "Gangster (Preview only)"

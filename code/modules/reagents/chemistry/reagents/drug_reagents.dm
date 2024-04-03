@@ -594,7 +594,7 @@
 
 /datum/reagent/drug/formaltenamine/on_mob_metabolize(mob/living/L)
 	..()
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.3, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/formaltenamine)
 	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug)
 
 /datum/reagent/drug/formaltenamine/on_mob_end_metabolize(mob/living/L)

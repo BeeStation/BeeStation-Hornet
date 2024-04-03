@@ -21,7 +21,7 @@
 
 	var/mob/living/carbon/targets = list()
 	for(var/mob/living/carbon/M in get_hearers_in_view(6, owner))
-		if(!M.mind || M.stat == DEAD || M == owner) //Needs to have a mind, a client, be not dead and isn't us. Client not included for testing purposes
+		if(!M.mind || !M.client || M.stat == DEAD || M == owner || (M.mind in gang.members)) //Needs to have a mind, a client, be not dead and isn't us. Client not included for testing purposes
 			continue
 		targets += M
 	if(!length(targets))
@@ -49,7 +49,10 @@
 
 	owner.say(html_decode(offer))
 
-	if(alert(owner, "[owner] is inviting you to join the [gang.name] gang. Do you accept?", "Gang Invitation", "Yes", "No") == "Yes")
+	if(selection.mind.has_antag_datum(/datum/antagonist/gang)) //enemy gangsters will just refuse
+		to_chat(owner, "<span class='warning'>[selection] seems uninterested.</span>")
+
+	if(alert(selection, "[owner] is inviting you to join the [gang.name] gang. Do you accept?", "Gang Invitation", "Yes", "No") == "Yes")
 		to_chat(owner, "<span class='warning'>[selection] takes you up on the invitation!</span>")
 		selection.mind.add_antag_datum(/datum/antagonist/gang, gang)
 	else

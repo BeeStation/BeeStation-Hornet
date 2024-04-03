@@ -26,6 +26,9 @@
 /datum/movespeed_modifier/reagent/methamphetamine
 	multiplicative_slowdown = -0.5
 
+/datum/movespeed_modifier/reagent/formaltenamine
+	multiplicative_slowdown = -0.3
+
 /datum/movespeed_modifier/reagent/nitryl
 	multiplicative_slowdown = -1
 	blacklisted_movetypes=(FLYING|FLOATING)
