@@ -56,6 +56,39 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">02 April 2024</h2>
+			<h3 class="author">pigeonverde, rkz, qustinnus(deleted account, credit him anyway), tralezab, Sylphet, JohnFulpWillard, FernandoJ8 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">A new kitchen machine, the griddle, for cooking your meats on!</li>
+				<li class="rscadd">remapped kitchens to support new machine</li>
+				<li class="tweak">Most meats are cooked through the griddle, rather than microwaving. Not following this will lead to your meat just producing a burnt mess when you microwave it.</li>
+				<li class="tweak">burgers are now made with meat patties. These patties can be made by rolling a meatball.</li>
+				<li class="rscadd">patty sprites, new meatballs sprites, new sausage sprites, griddle sprites, steam animation</li>
+				<li class="balance">Upgrading the food processor actually works.</li>
+				<li class="code_imp">Added check to prevent mindless runtime when cluwning mob</li>
+				<li class="bugfix">Grills now grill food, not reagent containers</li>
+			</ul>
+
+			<h2 class="date">01 April 2024</h2>
+			<h3 class="author">ClownMoff updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added missing blast doors in HoS room</li>
+				<li class="tweak">CorgStation: fixed the cargo APC not being wired, rewired some of the QM room, changed HoS shutters for blast doors.</li>
+				<li class="tweak">replaced a floating air alarm for a proper one in the wall facing the correct direction</li>
+				<li class="rscdel">CorgStation: removed a floating camera in space and the wild airlock in sec gear room.</li>
+			</ul>
+			<h3 class="author">rkz, Rohesie updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">progressbar handling, especially deletion</li>
+				<li class="code_imp">adds stack traces & code docs to progressbars</li>
+			</ul>
+
+			<h2 class="date">31 March 2024</h2>
+			<h3 class="author">ClownMoff updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds 4 more cool lobby screens</li>
+			</ul>
+
 			<h2 class="date">28 March 2024</h2>
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
@@ -665,58 +698,6 @@
 			<h3 class="author">Varo updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">Kilo Mebay: removed random decals, added a fire extinguisher, fixed map errors.</li>
-			</ul>
-
-			<h2 class="date">31 January 2024</h2>
-			<h3 class="author">@BriggsIDP @MarkusLarsson421  updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">new Prefab map folder for any .DME files not used in game, but for mappers to store prefabs permanently</li>
-				<li class="rscadd">RandomMapHelper.dmm</li>
-			</ul>
-			<h3 class="author">BriggsIDP updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a Prefab folder and Departments.dmm file for mappers</li>
-			</ul>
-			<h3 class="author">Hardly updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Re-added voltaic to the list of languages multilingual quirk users can choose.</li>
-			</ul>
-			<h3 class="author">Markus Larsson, XeonMations updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Remapped kilostation's security department to look nicer and function better.</li>
-			</ul>
-			<h3 class="author">Varo, MarkusLarsson421 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Reworks the lobby, changes the front desk position to where cloning was, moves genetics to the big monkey room, moves cloning where genetic was, adds a surgery room, reworks the CMO office, storage and chemistry room, removes a big part of virology and places it all below chemistry, tweaks some maintenance areas</li>
-			</ul>
-
-			<h2 class="date">29 January 2024</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">improved ISEVEN() and ISODD() macro</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Left clicking an equipped trash bag now unequips it instead of displaying a cheeky message.</li>
-			</ul>
-
-			<h2 class="date">28 January 2024</h2>
-			<h3 class="author">MarkusLarsson421 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Detectives office is no longer a vacuum on round start.</li>
-				<li class="bugfix">Reconnects AI upload.</li>
-				<li class="bugfix">Detective Booze-O-Mat is no longer maintenance accessible.</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">Optimized asset generation greatly using rustg IconForge (also by itsmeow), greatly reducing post-initialization lag as well as reducing init times and saving server computation.</li>
-				<li class="config">Added 'smart' asset caching, for batched rustg IconForge spritesheets. It is persistent and suitable for use on local, with automatic invalidation.</li>
-				<li class="config">Enabled legacy asset caching for the two remaining spritesheets during local development.</li>
-				<li class="rscadd">Added Debug -> Regenerate Asset Cache verb for legacy spritesheets.</li>
-				<li class="tweak">Replaced many uses of the slow md5asfile() function with rust-g based MD5.</li>
-				<li class="code_imp">Cleaned up the duplicate function vars vendor_icon_preview and icon_state_preview, removing vendor_icon_preview and moving icon_state_preview to /obj/item.</li>
-				<li class="bugfix">Fixed some preferences icons cropping to incorrect scales.</li>
-				<li class="server">The legacy spritesheet cache will no longer be cleared by TGS redeployments, instead the regenerate verb should be used, or delete the files from data/spritesheets/legacy_cache.</li>
 			</ul>
 		</div>
 
