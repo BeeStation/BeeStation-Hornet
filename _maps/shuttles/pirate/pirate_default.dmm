@@ -1220,13 +1220,17 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/trash/cheesie{
-	pixel_x = -2;
-	pixel_y = 5
-	},
 /obj/machinery/light,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/item/storage/box/drinkingglasses{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/trash/cheesie{
+	pixel_x = 6;
+	pixel_y = 5
 	},
 /turf/open/floor/wood/big,
 /area/shuttle/pirate)
@@ -1535,7 +1539,6 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/restraints/legcuffs/bola/tactical,
 /obj/item/restraints/legcuffs/bola/tactical,
 /obj/item/restraints/legcuffs/bola{
 	pixel_x = 3;
