@@ -7443,6 +7443,15 @@
 /obj/structure/ladder,
 /turf/open/floor/pod/dark,
 /area/maintenance/department/bridge)
+"dod" = (
+/obj/structure/railing/corner,
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/camera/autoname,
+/obj/machinery/vending/games{
+	pixel_y = -1
+	},
+/turf/open/floor/carpet/green,
+/area/crew_quarters/cafeteria)
 "doY" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -9313,13 +9322,6 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/kitchen/coldroom)
-"eqJ" = (
-/obj/structure/railing/corner,
-/obj/effect/spawner/randomvend/cola,
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/camera/autoname,
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "eqK" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -27061,18 +27063,6 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/iron,
 /area/maintenance/department/science/xenobiology)
-"nDo" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/effect/spawner/randomvend/snack,
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "nDA" = (
 /obj/structure/table,
 /obj/machinery/fax/service,
@@ -31877,6 +31867,18 @@
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating,
 /area/maintenance/department/science/xenobiology)
+"qei" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/north,
+/obj/machinery/vending/donksofttoyvendor,
+/turf/open/floor/carpet/green,
+/area/crew_quarters/cafeteria)
 "qfj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -62420,7 +62422,7 @@ rWp
 eXB
 kef
 hhu
-nDo
+qei
 dGA
 djy
 kNX
@@ -62934,7 +62936,7 @@ rPT
 tqL
 sUW
 hhu
-eqJ
+dod
 qti
 qti
 wLS
