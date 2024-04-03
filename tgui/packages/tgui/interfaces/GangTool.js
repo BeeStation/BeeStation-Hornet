@@ -4,8 +4,6 @@ import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox } from '../co
 import { Window } from '../layouts';
 import { GenericUplink } from './Uplink';
 
-
-
 export const GangTool = (props, context) => {
   const { data } = useBackend(context);
   const { influence } = data;

@@ -9,9 +9,7 @@ export const GangTracker = (props, context) => {
     <Window theme="neutral" width={500} height={460}>
       <Window.Content scrollable>
         {gangs.map((gang) => (
-          <Section
-            key={gang.name}
-            title={gang.name}>
+          <Section key={gang.name} title={gang.name}>
             <LabeledList key={gang.gang}>
               <LabeledList.Item>Members: {gang.size}</LabeledList.Item>
               <LabeledList.Item>Territories: {gang.territories}</LabeledList.Item>
