@@ -359,7 +359,7 @@
 	antag_cap = 3
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/latejoin/provocateur)
-	// I give up, just there should be enough heads with 35 players...
+
 	minimum_players = 35
 	/// How much threat should be injected when the revolution wins?
 	var/revs_win_threat_injection = 20
@@ -380,6 +380,13 @@
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/revs/execute(forced = FALSE)
+	var/list/all_heads = SSjob.get_all_heads()
+	var/list/all_security = SSjob.get_all_sec()
+
+	if (all_heads.len < 4  || all_security.len < 3)
+		log_game("DYNAMIC: [ruletype] [name] failed to get enough heads or security. Refunding [cost] threat.")
+		return DYNAMIC_EXECUTE_FAILURE
+
 	revolution = new()
 	for(var/datum/mind/M in assigned)
 		if(check_eligible(M))

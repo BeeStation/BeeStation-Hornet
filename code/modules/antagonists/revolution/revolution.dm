@@ -154,12 +154,16 @@
 		to_chat(user, "<span class='warning'>You can't convert that person!</span>")
 		return
 	for(var/mob/living/carbon/target in targets)
+		if(!(target in oview(range)))
+			to_chat(user, "<span class='warning'>Your target is too far away!</span>")
+			return
 		if(target.time_of_last_attack_recieved + 30 > world.time)
 			to_chat(user, "<span class='warning'>You will not convice someone who was attacked so recently!</span>")
 			return
 		for(var/i in 1 to 3)
 			user.say(pick(GLOB.revolution_convertion_text), forced = "revolution convertion")
 			target.Stun(30)
+			target.silent = 4
 			var/beam = target.Beam(user, "sendbeam", time = 30)
 			if(!do_after(user, 30, target))
 				qdel(beam)
