@@ -746,3 +746,14 @@
 		R.add_fingerprint(user)
 		qdel(src)
 	building = FALSE
+
+	//New light bar table
+/obj/structure/table/light
+	name = "Light table"
+	desc = "Disco table for your drinks."
+	icon = 'icons/obj/smooth_structures/tables/light_table.dmi'
+	icon_state = "light_table-0"
+	base_icon_state = "light_table"
+	buildstack = /obj/item/stack/tile/light
+
+
