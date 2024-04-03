@@ -52,7 +52,7 @@
 	if(selection.mind.has_antag_datum(/datum/antagonist/gang)) //enemy gangsters will just refuse
 		to_chat(owner, "<span class='warning'>[selection] seems uninterested.</span>")
 
-	if(alert(selection, "[owner] is inviting you to join the [gang.name] gang. Do you accept?", "Gang Invitation", "Yes", "No") == "Yes")
+	if(tgui_alert(selection, "[owner] is inviting you to join the [gang.name] gang. Do you accept?", "Gang Invitation", buttons = list("Yes", "No")) == "Yes")
 		to_chat(owner, "<span class='warning'>[selection] takes you up on the invitation!</span>")
 		selection.mind.add_antag_datum(/datum/antagonist/gang, gang)
 	else
