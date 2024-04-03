@@ -1,63 +1,5 @@
 // RBMK Monitoring was moved here for QoL
 
-/obj/machinery/computer/reactor
-	name = "reactor control console"
-	desc = "Scream"
-	light_color = "#55BA55"
-	light_power = 1
-	light_range = 3
-	icon_state = "oldcomp"
-	icon_screen = "stock_computer"
-	icon_keyboard = null
-	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor
-
-/obj/machinery/computer/reactor/Initialize()
-	. = ..()
-
-/obj/machinery/computer/reactor/control_rods
-	name = "control rod management computer"
-	desc = "A computer which can remotely raise / lower the control rods of a reactor."
-
-/obj/machinery/computer/reactor/control_rods/attack_hand(mob/living/user)
-	. = ..()
-	ui_interact(user)
-
-/obj/machinery/computer/reactor/control_rods/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "RbmkControlRods")
-		ui.open()
-		ui.set_autoupdate(TRUE)
-
-/obj/machinery/computer/reactor/control_rods/ui_act(action, params)
-	if(..())
-		return
-	if(!reactor)
-		return
-	if(action == "input")
-		var/input = text2num(params["target"])
-		reactor.desired_k = clamp(input, 0, 3)
-
-/obj/machinery/computer/reactor/control_rods/ui_data(mob/user)
-	var/list/data = list()
-	data["control_rods"] = 0
-	data["k"] = 0
-	data["desiredK"] = 0
-	if(reactor)
-		data["k"] = reactor.K
-		data["desiredK"] = reactor.desired_k
-		data["control_rods"] = 100 - (reactor.desired_k / 3 * 100) //Rod insertion is extrapolated as a function of the percentage of K
-	return data
-
-/obj/machinery/computer/reactor/attack_robot(mob/user)
-	. = ..()
-	attack_hand(user)
-
-/obj/machinery/computer/reactor/attack_ai(mob/user)
-	. = ..()
-	attack_hand(user)
-
-
 //Monitoring program.
 /datum/computer_file/program/nuclear_monitor
 	filename = "rbmkmonitor"
@@ -81,7 +23,7 @@
 	var/list/tempInputData = list()
 	var/list/tempOutputdata = list()
 	var/list/reactors
-	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor // Currently selected RBMK Reactor.
+	var/obj/machinery/atmospherics/components/unary/rbmk/core/reactor // Currently selected RBMK Reactor.
 
 /datum/computer_file/program/nuclear_monitor/Destroy()
 	clear_signals()
@@ -118,7 +60,7 @@
 	. = ..(user)
 	//No reactor? Go find one then.
 	if(!reactor)
-		for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/R in GLOB.machines)
+		for(var/obj/machinery/atmospherics/components/unary/rbmk/core/R in GLOB.machines)
 			if(user.get_virtual_z_level() == R.get_virtual_z_level())
 				reactor = R
 				break
@@ -147,7 +89,7 @@
 	switch(action)
 		if("swap_reactor")
 			var/list/choices = list()
-			for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/R in GLOB.machines)
+			for(var/obj/machinery/atmospherics/components/unary/rbmk/core/R in GLOB.machines)
 				if(usr.get_virtual_z_level() != R.get_virtual_z_level())
 					continue
 				choices += R
@@ -170,7 +112,7 @@
 
 /datum/computer_file/program/nuclear_monitor/proc/get_status()
 	. = NUCLEAR_REACTOR_INACTIVE
-	for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/S in reactors)
+	for(var/obj/machinery/atmospherics/components/unary/rbmk/core/S in reactors)
 		. = max(., S.get_status())
 
 /datum/computer_file/program/nuclear_monitor/proc/send_alert()

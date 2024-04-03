@@ -13,6 +13,7 @@
 #define INVESTIGATE_PORTAL "portals"
 #define INVESTIGATE_PRESENTS "presents"
 #define INVESTIGATE_RADIATION "radiation"
+#define INVESTIGATE_REACTOR "reactor"
 #define INVESTIGATE_RECORDS "records"
 #define INVESTIGATE_RESEARCH "research"
 #define INVESTIGATE_TELESCI "telesci"

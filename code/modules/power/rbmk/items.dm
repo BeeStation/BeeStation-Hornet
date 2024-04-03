@@ -31,7 +31,7 @@
 /obj/item/fuel_rod/Destroy()
 	if(process)
 		STOP_PROCESSING(SSobj, src)
-	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/N = loc
+	var/obj/machinery/atmospherics/components/unary/rbmk/core/N = loc
 	if(istype(N))
 		N.fuel_rods -= src
 	return ..()
@@ -41,7 +41,7 @@
 /obj/item/fuel_rod/proc/depletion_final(result_rod)
 	if(!result_rod)
 		return
-	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/N = loc
+	var/obj/machinery/atmospherics/components/unary/rbmk/core/N = loc
 	// Rod conversion is moot when you can't find the reactor
 	if(istype(N))
 		var/obj/item/fuel_rod/R
@@ -243,3 +243,10 @@
 	desc = "A hilarious heavy-duty fuel rod which fissiles a bit slower than it cowardly counterparts. Its greatly grimacing grwoth stage is now over, and bananium outgrowth hums as if it's blatantly honking bike horns."
 	icon_state = "bananium_used"
 	AddComponent(/datum/component/radioactive, 1250, src)
+
+/obj/item/sealant
+	name = "Flexi-seal"
+	desc = "A neat spray can that can repair torn reactor segments!"
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "sealant"
+	w_class = 1
