@@ -1,0 +1,10 @@
+author: EveLed
+delete-after: true
+changes:
+  - rscadd: added circular sunglasses
+  - rscadd: added relaxed slacks
+  - rscadd: added circular sunglasses to the clothing vendor
+  - rscadd: added circular glasses to the clothes vendor
+  - rscadd: added relaxed slacks to the autodrobe
+  - imageadd: sprites for circular sunglasses
+  - imageadd: sprites for relaxed slacks
