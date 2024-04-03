@@ -12,6 +12,7 @@
 	throw_range = 7
 	max_amount = 60
 	novariants = TRUE
+	material_flags = MATERIAL_EFFECTS
 	/// What type of turf does this tile produce.
 	var/turf_type = null
 	/// Determines certain welder interactions.
@@ -26,6 +27,24 @@
 	if(tile_reskin_types)
 		tile_reskin_types = tile_reskin_list(tile_reskin_types)
 
+/obj/item/stack/tile/examine(mob/user)
+	. = ..()
+	if(throwforce && !is_cyborg) //do not want to divide by zero or show the message to borgs who can't throw
+		var/verb
+		switch(CEILING(MAX_LIVING_HEALTH / throwforce, 1)) //throws to crit a human
+			if(1 to 3)
+				verb = "superb"
+			if(4 to 6)
+				verb = "great"
+			if(7 to 9)
+				verb = "good"
+			if(10 to 12)
+				verb = "fairly decent"
+			if(13 to 15)
+				verb = "mediocre"
+		if(!verb)
+			return
+		. += "<span class='notice'>Those could work as a [verb] throwing weapon.</span>"
 
 /obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_WELDER)
@@ -498,7 +517,7 @@
 /obj/item/stack/tile/iron
 	name = "floor tile"
 	singular_name = "floor tile"
-	desc = "Those could work as a pretty decent throwing weapon."
+	desc = "The ground you walk on."
 	icon_state = "tile"
 	item_state = "tile"
 	force = 6
@@ -596,3 +615,18 @@
 	icon_state = "tile_drydock"
 	custom_materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
 	turf_type = /turf/open/floor/dock/drydock
+
+/obj/item/stack/tile/material
+	name = "floor tile"
+	singular_name = "floor tile"
+	desc = "The ground you walk on."
+	throwforce = 10
+	icon_state = "material_tile"
+	turf_type = /turf/open/floor/material
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	merge_type = /obj/item/stack/tile/material
+
+/obj/item/stack/tile/material/place_tile(turf/open/target_plating, mob/user)
+	. = ..()
+	var/turf/open/floor/material/floor = .
+	floor?.set_custom_materials(mats_per_unit)
