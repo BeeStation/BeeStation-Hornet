@@ -1,0 +1,7 @@
+author: rkz, ArcaneMusic, qustinnus, 4Dplanner, cacogen, AnturK
+delete-after: true
+changes:
+  - rscadd: Adds meat & wood material datums
+  - rscadd: Sheetifier machine, for making raw meat into a building material!
+  - rscadd: tile & walls support for the basemat system
+  - tweak: more wooden items are now flammable
