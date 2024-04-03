@@ -14,7 +14,8 @@
 	for(var/i in custom_materials)
 		var/datum/material/M = i
 		new M.sheet_type(src, FLOOR(custom_materials[M] / MINERAL_MATERIAL_AMOUNT, 1))
-	return new girder_type(src)
+	if(girder_type)
+		return new girder_type(src)
 
 /turf/closed/wall/material/devastate_wall()
 	for(var/i in custom_materials)
