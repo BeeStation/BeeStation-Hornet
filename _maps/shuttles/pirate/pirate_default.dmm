@@ -4,7 +4,7 @@
 	dir = 9
 	},
 /obj/structure/frame/machine,
-/turf/open/floor/plasteel/ridged/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/pirate)
 "an" = (
 /obj/effect/decal/cleanable/ash{
@@ -16,13 +16,13 @@
 	pixel_x = -3;
 	pixel_y = 8
 	},
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "bq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/piratepad,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "bx" = (
 /obj/effect/decal/cleanable/dirt,
@@ -75,7 +75,7 @@
 	req_access_txt = "180";
 	dir = 8
 	},
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "dP" = (
 /obj/effect/turf_decal/stripes/line,
@@ -154,7 +154,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "fD" = (
 /obj/structure/sign/warning/vacuum/external{
@@ -231,7 +231,7 @@
 	pixel_y = -3
 	},
 /obj/machinery/firealarm/directional/south,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "iK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -280,7 +280,7 @@
 	specialfunctions = 4;
 	pixel_x = -21
 	},
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/shuttle/pirate)
 "le" = (
 /obj/effect/turf_decal/stripes/line,
@@ -292,13 +292,13 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "lm" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "lA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -422,7 +422,7 @@
 	pixel_y = -5
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "ok" = (
 /obj/effect/turf_decal/siding/wood{
@@ -446,7 +446,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "oQ" = (
 /obj/structure/grille,
@@ -609,7 +609,7 @@
 	name = "Engineering";
 	req_access_txt = "180"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "sj" = (
 /obj/structure/chair{
@@ -631,7 +631,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "sR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -688,7 +688,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/belt/bandolier,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "to" = (
 /obj/machinery/porta_turret/syndicate/pod{
@@ -712,7 +712,7 @@
 /area/shuttle/pirate)
 "tL" = (
 /obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "uc" = (
 /obj/item/trash/semki{
@@ -778,7 +778,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/pirate)
 "uG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -819,7 +819,7 @@
 	pixel_y = 2;
 	pixel_x = -7
 	},
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "xr" = (
 /obj/structure/table/wood,
@@ -856,7 +856,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "zL" = (
 /obj/structure/railing{
@@ -883,7 +883,7 @@
 /area/shuttle/pirate)
 "Ab" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Am" = (
 /obj/structure/fluff/hedge,
@@ -967,7 +967,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/turf/open/floor/plasteel/ridged/steel,
+/turf/open/floor/iron/grid/steel,
 /area/shuttle/pirate)
 "Cp" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1021,7 +1021,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "Du" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
@@ -1037,7 +1037,7 @@
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Ep" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -1049,7 +1049,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Ew" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1083,7 +1083,7 @@
 /obj/machinery/recharger{
 	pixel_x = -5
 	},
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "EU" = (
 /obj/machinery/computer/monitor/secret{
@@ -1093,7 +1093,7 @@
 	dir = 4
 	},
 /obj/machinery/light,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Fq" = (
 /obj/item/storage/pill_bottle/happiness{
@@ -1161,7 +1161,7 @@
 	},
 /obj/effect/decal/cleanable/robot_debris,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "FY" = (
 /obj/structure/girder/reinforced,
@@ -1286,7 +1286,7 @@
 /obj/structure/sign/poster/contraband/c20r{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "Jc" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -1309,7 +1309,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Jy" = (
 /obj/machinery/computer/camera_advanced/syndie{
@@ -1324,7 +1324,7 @@
 	req_access = null;
 	req_access_txt = "180"
 	},
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "JR" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -1344,7 +1344,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "KR" = (
 /obj/structure/shuttle/engine/heater{
@@ -1390,7 +1390,7 @@
 	pixel_x = 5;
 	pixel_y = -9
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "LZ" = (
 /obj/machinery/door/airlock/external/glass{
@@ -1432,7 +1432,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "NI" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -1442,14 +1442,14 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Od" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Og" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1500,7 +1500,7 @@
 /obj/structure/girder/reinforced,
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /obj/structure/railing,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Pn" = (
 /obj/effect/turf_decal/siding/dark{
@@ -1559,7 +1559,7 @@
 /obj/item/clothing/mask/muzzle,
 /obj/item/clothing/mask/muzzle,
 /obj/item/clothing/mask/muzzle,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "QG" = (
 /obj/structure/bed/maint{
@@ -1614,10 +1614,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "QU" = (
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/shuttle/pirate)
 "QY" = (
 /obj/structure/chair/office{
@@ -1654,7 +1654,7 @@
 	},
 /obj/effect/mapping_helpers/tile_breaker,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "RZ" = (
 /obj/item/storage/backpack/duffelbag/syndie/x4{
@@ -1666,7 +1666,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "Ss" = (
 /obj/effect/turf_decal/weather/dirt{
@@ -1722,7 +1722,7 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "SS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1813,7 +1813,7 @@
 	name = "Bridge";
 	req_access_txt = "180"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "UD" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -1821,7 +1821,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/arrows,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "UF" = (
 /obj/effect/turf_decal/numbers/two_nine{
@@ -1834,7 +1834,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "UQ" = (
 /obj/structure/table/wood,
@@ -1881,7 +1881,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 "Vw" = (
 /obj/structure/closet/body_bag,
@@ -1899,7 +1899,7 @@
 	pixel_x = 4;
 	pixel_y = -8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "VL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1913,7 +1913,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/turf/open/floor/plasteel/tech,
+/turf/open/floor/iron/tech,
 /area/shuttle/pirate)
 "VV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -1922,7 +1922,7 @@
 	name = "Cargo";
 	req_access_txt = "180"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron/techmaint,
 /area/shuttle/pirate)
 "VZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2148,7 +2148,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/pirate)
 
 (1,1,1) = {"
