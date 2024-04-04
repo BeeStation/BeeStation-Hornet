@@ -32,3 +32,20 @@
 	var/datum/sprite_accessory/ears/cat/ears = /datum/sprite_accessory/ears/cat
 	return initial(ears.name)
 
+/datum/preference/choiced/xenotype
+	db_key = "feature_human_xenotype"
+	preference_type = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	can_randomize = FALSE
+	relevant_mutant_bodypart = "xenotype"
+
+/datum/preference/choiced/xenotype/init_possible_values()
+	return assoc_to_keys(GLOB.xenotype_list)
+
+/datum/preference/choiced/xenotype/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["xenotype"] = value
+
+/datum/preference/choiced/xenotype/create_default_value()
+	var/datum/sprite_accessory/xenotype/homo/xenotype = /datum/sprite_accessory/xenotype/homo
+	return initial(xenotype.name)
+

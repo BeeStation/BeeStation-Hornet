@@ -214,3 +214,8 @@ export const feature_insect_type: FeatureChoiced = {
   name: 'Insect Type',
   component: FeatureButtonedDropdownInput,
 };
+
+export const feature_human_xenotype: FeatureChoiced = {
+  name: 'Xenotype',
+  component: FeatureButtonedDropdownInput,
+};

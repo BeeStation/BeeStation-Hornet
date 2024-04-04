@@ -3,7 +3,8 @@
 	id = SPECIES_HUMAN
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
-	default_features = list("mcolor" = "FFF", "wings" = "None", "body_size" = "Normal")
+	mutant_bodyparts = list("xenotype")
+	default_features = list("mcolor" = "FFF", "wings" = "None", "body_size" = "Normal", "xenotype" = "Homo")
 	use_skintones = 1
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
@@ -42,6 +43,20 @@
 
 /datum/species/human/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
+
+/datum/species/human/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		switch(H.dna.features["xenotype"])
+			if("Felis")
+				mutantears = /obj/item/organ/ears/cat
+				mutanttail = /obj/item/organ/tail/cat
+				mutanttongue = /obj/item/organ/tongue/cat
+			if("Homo")
+				mutantears = /obj/item/organ/ears
+				mutanttail = null
+				mutanttongue = /obj/item/organ/tongue
+	return ..()
 
 /datum/species/human/prepare_human_for_preview(mob/living/carbon/human/human)
 	human.hair_style = "Business Hair"

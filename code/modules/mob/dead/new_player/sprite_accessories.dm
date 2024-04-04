@@ -2788,3 +2788,12 @@
 /datum/sprite_accessory/apid_headstripes/arachnid
 	name = "Arachnid Headstripes"
 	icon_state = "arachnid"
+
+/datum/sprite_accessory/xenotype
+	icon = null					//These datums exist for selecting xenotypes on preference, and little else
+
+/datum/sprite_accessory/xenotype/homo
+	name = "Homo"
+
+/datum/sprite_accessory/xenotype/felis
+	name = "Felis"
