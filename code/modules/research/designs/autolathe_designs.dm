@@ -370,11 +370,19 @@
 	category = list("initial","Dinnerware")
 
 /datum/design/tray
-	name = "Tray"
+	name = "Serving Tray"
 	id = "tray"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 3000)
 	build_path = /obj/item/storage/bag/tray
+	category = list("initial","Dinnerware")
+
+/datum/design/plate
+	name = "Plate"
+	id = "plate"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 3500)
+	build_path = /obj/item/plate
 	category = list("initial","Dinnerware")
 
 /datum/design/bowl

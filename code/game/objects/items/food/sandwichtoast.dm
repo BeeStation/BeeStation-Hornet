@@ -34,10 +34,14 @@
 	desc = "A light snack for a warm day. ...but what if you grilled it?"
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "sandwich"
-	trash_type = /obj/item/trash/plate
-	food_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/consumable/nutriment/vitamin = 1)
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 7,
+		/datum/reagent/consumable/nutriment/protein = 3,
+		/datum/reagent/consumable/nutriment/vitamin = 1
+	)
 	tastes = list("bread" = 1, "cheese" = 1)
 	foodtypes = GRAIN | DAIRY
+	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/food/cheese_sandwich/make_grillable()
