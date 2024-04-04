@@ -802,8 +802,8 @@
 		return FALSE
 
 	// We don't want walking husks god no
-	if(HAS_TRAIT(TRAIT_HUSK))
-		cure_husk()
+	if(HAS_TRAIT(src, TRAIT_HUSK))
+		src.cure_husk()
 	return ..()
 
 /mob/living/carbon/fully_heal(admin_revive = FALSE)
