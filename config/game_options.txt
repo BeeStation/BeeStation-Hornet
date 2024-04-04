@@ -487,7 +487,6 @@ FALLBACK_DEFAULT_SPECIES human
 ROUNDSTART_RACES human
 
 ## Races that are strictly worse than humans that could probably be turned on without balance concerns
-ROUNDSTART_RACES felinid
 ROUNDSTART_RACES lizard
 ROUNDSTART_RACES moth
 #ROUNDSTART_RACES fly
