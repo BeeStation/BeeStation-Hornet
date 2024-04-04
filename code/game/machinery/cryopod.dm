@@ -354,6 +354,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	if(!istype(target) || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 
+	if(!target.key)
+		to_chat(user, "<span class='notice'>[target] is not a player controled mob.</span>")
+		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
 		return
