@@ -10,7 +10,7 @@
 	var/delete_after
 	/// For items, lets us determine where things should be hit.
 	var/equipped_slot
-	/// it won't explode again because explosion() proc through SSexplosion doesn't tell if it's exploded
+	/// it won't explode again if cooldown is on. This is necessary because explosion() proc through SSexplosion doesn't tell if it's exploded
 	COOLDOWN_DECLARE(explosion_cooling)
 
 /datum/component/explodable/Initialize(devastation_range, heavy_impact_range, light_impact_range, flash_range, uncapped = FALSE, delete_after = EXPLODABLE_DELETE_PARENT)
