@@ -261,7 +261,7 @@
 				to_chat(user, "<span class='warning'>[salt] blocks your way to spirit realm!</span>")
 				// the purpose is just letting not them hide onto salt tiles incorporeally. no need to stun.
 				return
-			if(stepTurf.flags_1 & NOJAUNT_1)
+			if(stepTurf.flags_1 & NOJAUNT)
 				to_chat(user, "<span class='warning'>Some strange aura blocks your way to spirit realm.</span>")
 				return
 			if(stepTurf.is_holy())

@@ -14,6 +14,8 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	turf_flags = CAN_BE_DIRTY_1
+
 
 	thermal_conductivity = 0.04
 	heat_capacity = 10000

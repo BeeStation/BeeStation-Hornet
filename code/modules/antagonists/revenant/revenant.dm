@@ -425,7 +425,7 @@
 			reveal(20)
 			stun(20)
 			return
-		if(stepTurf.flags_1 & NOJAUNT_1)
+		if(stepTurf.flags_1 & NOJAUNT)
 			to_chat(src, "<span class='warning'>Some strange aura is blocking the way.</span>")
 			return
 		if(stepTurf.is_holy())

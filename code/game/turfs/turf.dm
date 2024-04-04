@@ -3,6 +3,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf
 	icon = 'icons/turf/floors.dmi'
 	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
+	/// Turf bitflags, see code/__DEFINES/flags.dm
+	var/turf_flags = NONE
 
 	/// If there's a tile over a basic floor that can be ripped out
 	var/overfloor_placed = FALSE
@@ -32,8 +34,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
-
-	flags_1 = CAN_BE_DIRTY_1
 
 	/// For the station blueprints, images of objects eg: pipes
 	var/list/image/blueprint_data

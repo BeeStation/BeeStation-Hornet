@@ -47,7 +47,7 @@
 	max_integrity = 1000
 	damage_deflection = 0
 	var/d_state = INTACT
-	flags_1 = NOJAUNT_1
+	flags_1 = NOJAUNT
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"

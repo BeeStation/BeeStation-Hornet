@@ -189,6 +189,8 @@
 /area/shuttle/escape
 	name = "Emergency Shuttle"
 
+	flags_1 = CAN_BE_DIRTY_1
+
 /area/shuttle/escape/backup
 	name = "Backup Emergency Shuttle"
 

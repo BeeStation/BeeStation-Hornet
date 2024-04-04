@@ -17,7 +17,7 @@
 	change_the_track()
 
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(react_to_move))
-	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(react_to_z_move))
+	RegisterSignals(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(react_to_z_move))
 	RegisterSignal(parent, change_on, PROC_REF(handle_change))
 	RegisterSignal(parent, remove_on, PROC_REF(handle_removal))
 

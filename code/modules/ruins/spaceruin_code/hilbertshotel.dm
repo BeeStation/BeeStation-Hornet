@@ -220,7 +220,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "\proper bluespace hyperzone"
 	icon_state = "bluespace"
 	baseturfs = /turf/open/space/bluespace
-	flags_1 = NOJAUNT_1
+	flags_1 = NOJAUNT
 	explosion_block = INFINITY
 	var/obj/item/hilbertshotel/parentSphere
 

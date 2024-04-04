@@ -52,8 +52,10 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define UNPAINTABLE_1 (1<<11)
 /// Is this atom on top of another atom, and as such has click priority?
 #define IS_ONTOP_1 (1<<12)
+/// If a turf can be made dirty at roundstart. This is also used in areas.
+#define CAN_BE_DIRTY_1 (1<<13)
 /// Should we use the initial icon for display? Mostly used by overlay only objects
-#define HTML_USE_INITAL_ICON_1 (1<<13)
+#define HTML_USE_INITAL_ICON_1 (1<<14)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -76,12 +78,11 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// If the thing can reflect matter (bullets/bomb shrapnel)
 #define RICOCHET_HARD			(1<<1)
 
-//turf-only flags
-#define NOJAUNT_1					(1<<0)
-#define UNUSED_RESERVATION_TURF_1	(1<<1)
-#define CAN_BE_DIRTY_1				(1<<2) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
-#define NO_LAVA_GEN_1				(1<<6) 	//! Blocks lava rivers being generated on the turf
-#define NO_RUINS_1					(1<<10) //! Blocks ruins spawning on the turf
+//TURF FLAGS
+#define NOJAUNT (1<<0)
+#define UNUSED_RESERVATION_TURF (1<<1)
+#define NO_LAVA_GEN (1<<3) //! Blocks lava rivers being generated on the turf
+#define NO_RUINS (1<<4) //! Blocks ruins spawning on the turf
 
 ////////////////Area flags\\\\\\\\\\\\\\
 /// If it's a valid territory for cult summoning or the CRAB-17 phone to spawn
