@@ -90,6 +90,9 @@
 #define DIGITIGRADE_OPTIONAL 1
 #define DIGITIGRADE_FORCED 2
 
+// Health/damage defines
+#define MAX_LIVING_HEALTH 100
+
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
 #define PROCESS_SYNTHETIC 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
@@ -430,10 +433,10 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 ///Whether or not to gib when the squashed mob is moved over
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
 
-//Body sizes
-#define BODY_SIZE_NORMAL 1
-#define BODY_SIZE_SHORT 0.93
-#define BODY_SIZE_TALL 1.03
+//Generic body sizes
+#define BODY_SIZE_NORMAL 0
+#define BODY_SIZE_SHORT 1
+#define BODY_SIZE_TALL -1
 
 /// Throw modes, defines whether or not to turn off throw mode after
 #define THROW_MODE_DISABLED 0

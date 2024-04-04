@@ -43,20 +43,20 @@
 	if(I.tool_behaviour == TOOL_WRENCH && !parent_turret.on)
 		if(parent_turret.raised)
 			return
-
 		if(!parent_turret.anchored)
-			parent_turret.setAnchored(TRUE)
+			parent_turret.set_anchored(TRUE)
 			to_chat(user, "<span class='notice'>You secure the exterior bolts on the turret.</span>")
 			parent_turret.invisibility = 0
-			parent_turret.update_icon()
+			parent_turret.update_appearance()
 		else
-			parent_turret.setAnchored(FALSE)
+			parent_turret.set_anchored(FALSE)
 			to_chat(user, "<span class='notice'>You unsecure the exterior bolts on the turret.</span>")
 			parent_turret.invisibility = INVISIBILITY_MAXIMUM
-			parent_turret.update_icon()
+			parent_turret.update_appearance()
 			qdel(src)
+		return
 
-	else if(I.GetID())
+	if(I.GetID())
 		if(parent_turret.allowed(user))
 			parent_turret.locked = !parent_turret.locked
 			to_chat(user, "<span class='notice'>Controls are now [parent_turret.locked ? "locked" : "unlocked"].</span>")

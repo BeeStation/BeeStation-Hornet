@@ -26,59 +26,50 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define DF_VAR_EDITED (1<<1)
 #define DF_ISPROCESSING (1<<2)
 
-//! ## FLAGS BITMASK
+//FLAGS BITMASK
 
 /// conducts electricity (iron etc.)
 #define CONDUCT_1 (1<<1)
 /// For machines and structures that should not break into parts, eg, holodeck stuff
 #define NODECONSTRUCT_1 (1<<2)
-#define OVERLAY_QUEUED_1 (1<<3) //!  atom queued to SSoverlay (Remove this eventually)
+/// atom queued to SSoverlay
+#define OVERLAY_QUEUED_1 (1<<3)
 /// item has priority to check when entering or leaving
 #define ON_BORDER_1 (1<<4)
-/*
-///Whether or not this atom shows screentips when hovered over
-#define NO_SCREENTIPS_1 (1<<5)
-*/
 /// Prevent clicking things below it on the same turf eg. doors/ fulltile windows
-#define PREVENT_CLICK_UNDER_1 (1<<6)
+#define PREVENT_CLICK_UNDER_1 (1<<5)
 ///specifies that this atom is a hologram that isnt real
-#define HOLOGRAM_1 (1<<7)
-#define TESLA_IGNORE_1 (1<<8) 	//! TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
+#define HOLOGRAM_1 (1<<6)
+/// grants immunity from being targeted by tesla-style electricity
+#define TESLA_IGNORE_1 (1<<7)
 ///Whether /atom/Initialize() has already run for the object
-#define INITIALIZED_1 (1<<9)
+#define INITIALIZED_1 (1<<8)
 /// was this spawned by an admin? used for stat tracking stuff.
-#define ADMIN_SPAWNED_1 (1<<10)
+#define ADMIN_SPAWNED_1 (1<<9)
 /// should not get harmed if this gets caught by an explosion?
-#define PREVENT_CONTENTS_EXPLOSION_1 (1<<11)
-/*
-/// Should this object be paintable with very dark colors?
-#define ALLOW_DARK_PAINTS_1 (1<<12)
-*/
+#define PREVENT_CONTENTS_EXPLOSION_1 (1<<10)
 /// Should this object be unpaintable?
-#define UNPAINTABLE_1 (1<<13)
-/*
-/// Is the thing currently spinning?
-#define IS_SPINNING_1 (1<<14)
+#define UNPAINTABLE_1 (1<<11)
 /// Is this atom on top of another atom, and as such has click priority?
-#define IS_ONTOP_1 (1<<15)
-/// If a turf can be made dirty at roundstart. This is also used in areas.
-#define CAN_BE_DIRTY_1 (1<<16)
-*/
+#define IS_ONTOP_1 (1<<12)
 /// Should we use the initial icon for display? Mostly used by overlay only objects
-#define HTML_USE_INITAL_ICON_1 (1<<17)
-/// Can players recolor this in-game via vendors (and maybe more if support is added)?
-//#define IS_PLAYER_COLORABLE_1 (1<<18)
-/*
-/// Whether or not this atom has contextual screentips when hovered OVER
-#define HAS_CONTEXTUAL_SCREENTIPS_1 (1<<19)
-/// Whether or not this atom is storing contents for a disassociated storage object
-#define HAS_DISASSOCIATED_STORAGE_1 (1<<20)
-/// If this atom has experienced a decal element "init finished" sourced appearance update
-/// We use this to ensure stacked decals don't double up appearance updates for no rasin
-/// Flag as an optimization, don't make this a trait without profiling
-/// Yes I know this is a stupid flag, no you can't take him from me
-#define DECAL_INIT_UPDATE_EXPERIENCED_1 (1<<21)
-*/
+#define HTML_USE_INITAL_ICON_1 (1<<13)
+
+// Update flags for [/atom/proc/update_appearance]
+/// Update the atom's name
+#define UPDATE_NAME (1<<0)
+/// Update the atom's desc
+#define UPDATE_DESC (1<<1)
+/// Update the atom's icon state
+#define UPDATE_ICON_STATE (1<<2)
+/// Update the atom's overlays
+#define UPDATE_OVERLAYS (1<<3)
+/// Update the atom's greyscaling
+#define UPDATE_GREYSCALE (1<<4)
+/// Update the atom's smoothing. (More accurately, queue it for an update)
+#define UPDATE_SMOOTHING (1<<5)
+/// Update the atom's icon
+#define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /// If the thing can reflect light (lasers/energy)
 #define RICOCHET_SHINY (1<<0)
@@ -192,6 +183,21 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 //alternate appearance flags
 #define AA_TARGET_SEE_APPEARANCE (1<<0)
 #define AA_MATCH_TARGET_OVERLAYS (1<<1)
+
+#define KEEP_TOGETHER_ORIGINAL "keep_together_original"
+
+//setter for KEEP_TOGETHER to allow for multiple sources to set and unset it
+#define ADD_KEEP_TOGETHER(x, source)\
+	if ((x.appearance_flags & KEEP_TOGETHER) && !HAS_TRAIT(x, TRAIT_KEEP_TOGETHER)) ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL); \
+	ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, source);\
+	x.appearance_flags |= KEEP_TOGETHER
+
+#define REMOVE_KEEP_TOGETHER(x, source)\
+	REMOVE_TRAIT(x, TRAIT_KEEP_TOGETHER, source);\
+	if(HAS_TRAIT_FROM_ONLY(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL))\
+		REMOVE_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL);\
+	else if(!HAS_TRAIT(x, TRAIT_KEEP_TOGETHER))\
+	 	x.appearance_flags &= ~KEEP_TOGETHER
 
 //dir macros
 ///Returns true if the dir is diagonal, false otherwise

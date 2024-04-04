@@ -8,11 +8,11 @@
 	var/list/souls
 
 /datum/component/forensics/InheritComponent(datum/component/forensics/F, original)		//Use of | and |= being different here is INTENTIONAL.
-	fingerprints = fingerprints | F.fingerprints
-	hiddenprints = hiddenprints | F.hiddenprints
-	blood_DNA = blood_DNA | F.blood_DNA
-	fibers = fibers | F.fibers
-	souls = souls | F.souls
+	fingerprints = LAZY_LISTS_OR(fingerprints, F.fingerprints)
+	hiddenprints = LAZY_LISTS_OR(hiddenprints, F.hiddenprints)
+	blood_DNA = LAZY_LISTS_OR(blood_DNA, F.blood_DNA)
+	fibers = LAZY_LISTS_OR(fibers, F.fibers)
+	souls = LAZY_LISTS_OR(souls, F.souls)
 	add_blood_decal()
 	return ..()
 

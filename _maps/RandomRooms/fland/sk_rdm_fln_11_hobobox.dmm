@@ -82,7 +82,7 @@
 	pixel_y = 2
 	},
 /obj/effect/spawner/lootdrop/grille_or_trash,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "v" = (
 /obj/structure/chair/office{
@@ -114,7 +114,7 @@
 /area/template_noop)
 "C" = (
 /obj/item/trash/plate,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "D" = (
 /obj/machinery/shower{
@@ -190,7 +190,7 @@
 /area/template_noop)
 "U" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "V" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -204,7 +204,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/barricade/wooden,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/template_noop)
 
 (1,1,1) = {"

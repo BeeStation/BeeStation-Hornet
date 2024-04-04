@@ -59,7 +59,7 @@
 		target.forceMove(src)
 		occupant = target
 		if(target != user)
-			log_combat(user, occupant, "stuffed ", null, "into [src]")
+			log_combat(user, occupant, "stuffed ", null, "into [src]", important = FALSE)
 		string.Grant(occupant)
 		to_chat(occupant, "<span class='notice'>You are now inside the cake! When you're ready to emerge from the cake in a blaze of confetti and party horns, \
 		pull on the string(<b>It will have to be wound back up with a screwdriver if you want to do it again</b>). If you wish to leave without setting off the confetti, just attempt to move out of the cake!</span>")
@@ -88,10 +88,6 @@
 		user.visible_message("<span class= notice'>[user] begins cutting into [src] with [W]!</span>", "<span class='notice>You starts cutting [src] with [W]!</span>")
 		if(do_after(user, 60, src, timed_action_flags = IGNORE_HELD_ITEM))
 			do_popout()
-			if(!strong_surprise)
-				for(var/i=1 to (amount_of_slices))
-					var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
-					slice.initialize_slice(slice, 0)
 			qdel(src)
 			return FALSE
 	if(istype(W, /obj/item/grenade/flashbang))
@@ -124,8 +120,7 @@
 				continue //So that the guy hiding inside doesn't get flashed
 			flash_and_bang(get_turf(M), M)
 			for(var/i=1 to (amount_of_slices))
-				var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
-				slice.initialize_slice(slice, 0)
+				var/obj/item/food/slice = new slice_path (loc)
 				slice.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
 	string.Remove(occupant)
 	occupant.forceMove(get_turf(src))
