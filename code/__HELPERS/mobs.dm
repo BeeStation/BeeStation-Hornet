@@ -330,8 +330,8 @@ GLOBAL_LIST_EMPTY(species_list)
 		if(!.)
 			break
 
-	if(progress)
-		qdel(progbar)
+	if(!QDELETED(progbar))
+		progbar.end_progress()
 
 	if(!QDELETED(target))
 		LAZYREMOVE(user.do_afters, target)
