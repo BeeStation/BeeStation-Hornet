@@ -518,12 +518,11 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 
 /// Sleeps until execution of the query has finished.
 /datum/db_query/proc/sync()
-	while(status < DB_QUERY_FINISHED)
-		stoplag()
+	UNTIL(process())
 
 /datum/db_query/process(delta_time)
 	if(status >= DB_QUERY_FINISHED)
-		return
+		return TRUE
 
 	status = DB_QUERY_STARTED
 	var/job_result = rustg_sql_check_query(job_id)
