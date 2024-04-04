@@ -46,8 +46,10 @@
 /obj/item/plate/proc/AddToPlate(obj/item/item_to_plate, mob/user)
 	vis_contents += item_to_plate
 	item_to_plate.flags_1 |= IS_ONTOP_1
-	RegisterSignal(item_to_plate, COMSIG_MOVABLE_MOVED, .proc/ItemMoved)
-	RegisterSignal(item_to_plate, COMSIG_PARENT_QDELETING, .proc/ItemMoved)
+	RegisterSignal(item_to_plate, COMSIG_MOVABLE_MOVED, PROC_REF(ItemMoved))
+	RegisterSignal(item_to_plate, COMSIG_PARENT_QDELETING, PROC_REF(ItemMoved))
+	///ovens update
+	//update_appearance()
 
 ///This proc cleans up any signals on the item when it is removed from a plate, and ensures it has the correct state again.
 /obj/item/plate/proc/ItemRemovedFromPlate(obj/item/removed_item)
@@ -107,3 +109,8 @@
 	force = 5
 	throwforce = 5
 	sharpness = IS_SHARP
+
+/obj/item/plate_shard/Initialize(mapload)
+	. = ..()
+	// Its fucking glass(mostly), idiot.
+	AddComponent(/datum/component/caltrop, min_damage = force)

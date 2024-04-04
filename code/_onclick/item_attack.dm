@@ -20,12 +20,13 @@
 		return
 	interact(user)
 
+//Called when attacking, but before we actually hit/interact with that item
 /obj/item/proc/pre_attack(atom/A, mob/living/user, params) //do stuff before attackby!
 	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_NO_ATTACK)
 		return FALSE
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
-// No comment
+//Called on the object being attacked by an item
 /atom/proc/attackby(obj/item/W, mob/user, params)
 	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
