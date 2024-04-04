@@ -172,6 +172,7 @@
 				/obj/item/clothing/glasses/monocle = 1,
 				/obj/item/clothing/suit/apron/purple_bartender = 2,
 				/obj/item/clothing/under/rank/civilian/bartender/purple = 2
+			),
 		),
 	)
 
