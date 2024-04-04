@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: explodable component no longer executes loop to explode again
