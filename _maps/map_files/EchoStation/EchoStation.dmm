@@ -5972,7 +5972,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
-/obj/machinery/computer/arcade{
+/obj/effect/spawner/randomarcade{
 	dir = 1
 	},
 /obj/structure/railing,
