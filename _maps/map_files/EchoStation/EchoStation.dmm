@@ -39777,24 +39777,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/chapel)
-"tTG" = (
-/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
-	dir = 8;
-	node1_concentration = 0.21;
-	node2_concentration = 0.79;
-	piping_layer = 2
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/structure/window/plasma/reinforced{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/engine/atmos)
 "tUh" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -44620,6 +44602,24 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/lab)
+"wza" = (
+/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
+	dir = 8;
+	node1_concentration = 0.79;
+	node2_concentration = 0.21;
+	piping_layer = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/structure/window/plasma/reinforced{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/engine/atmos)
 "wzb" = (
 /turf/closed/wall/rust,
 /area/maintenance/department/cargo)
@@ -57100,7 +57100,7 @@ hbl
 uli
 mgL
 bKc
-tTG
+wza
 cnW
 qdc
 tIa
