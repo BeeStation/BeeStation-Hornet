@@ -447,7 +447,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 			to_chat(user, "<span class='notice'>You force an emergency ejection. </span>")
 			go_out()
 			log_cloning("[key_name(user)] manually ejected [key_name(mob_occupant)] from [src] at [AREACOORD(src)].")
-			log_combat(user, mob_occupant, "ejected", W, "from [src]")
+			log_combat(user, mob_occupant, "ejected", W, "from [src]", important = FALSE)
 	else
 		return ..()
 
@@ -460,7 +460,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/clonepod)
 	malfunction()
 	add_fingerprint(user)
 	log_cloning("[key_name(user)] emagged [src] at [AREACOORD(src)], causing it to malfunction.")
-	log_combat(user, src, "emagged", null, occupant ? "[occupant] inside, killing them via malfunction." : null)
+	log_combat(user, src, "emagged", null, occupant ? "[occupant] inside, killing them via malfunction." : null, important = FALSE)
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)

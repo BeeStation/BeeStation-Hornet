@@ -57,7 +57,8 @@
 
 	if(href_list[VV_HK_MARK] && check_rights(R_VAREDIT))
 		usr.client.mark_datum(target)
-
+	if(href_list[VV_HK_TAG])
+		usr.client.tag_datum(target)
 	if(href_list[VV_HK_ADDCOMPONENT])
 		if(!check_rights(R_VAREDIT))
 			return
@@ -86,10 +87,10 @@
 		lst.Insert(1, result)
 		if(result in componentsubtypes)
 			datumname = "component"
-			target._AddComponent(arglist(lst))
+			target._AddComponent(lst)
 		else
 			datumname = "element"
-			target._AddElement(arglist(lst))
+			target._AddElement(lst)
 		log_admin("[key_name(usr)] has added [result] [datumname] to [target].")
 		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [target].</span>")
 

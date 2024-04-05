@@ -144,17 +144,17 @@
 	//BORK BORK BORK
 	var/turf/T = get_turf(holder.my_atom)
 
-	playsound(T, 'sound/effects/phasein.ogg', 100, 1)
+	playsound(T, 'sound/effects/phasein.ogg', 100, TRUE)
 
 	for(var/mob/living/carbon/C in viewers(T))
 		C.flash_act()
+
 	var/chosen = getbork()
-	var/obj/B = new chosen(T)
+	var/obj/item/food_item = new chosen(T)
 	if(prob(5))//Fry it!
-		var/obj/item/food/deepfryholder/fried
-		fried = new(T, B)
-		fried.fry() // actually set the name and colour it
-		B = fried
+		food_item.AddElement(/datum/element/fried_item, rand(15, 60))
+	//if(prob(5))//Grill it!
+		//food_item.AddElement(/datum/element/grilled_item, rand(30, 100))
 	..()
 
 /datum/chemical_reaction/slime/slimebork/proc/getbork()
