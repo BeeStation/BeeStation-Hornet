@@ -41,7 +41,6 @@
 	H.dna.features["apid_headstripes"] = pick(GLOB.apid_headstripes_list)
 	H.dna.features["body_model"] = H.gender
 	H.dna.features["psyphoza_cap"] = pick(GLOB.psyphoza_cap_list)
-	H.dna.features["xenotype"] = "Homo"
 
 	H.update_body()
 	H.update_hair()
