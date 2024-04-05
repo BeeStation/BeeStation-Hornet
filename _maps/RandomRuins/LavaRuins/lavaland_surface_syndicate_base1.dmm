@@ -268,7 +268,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/carbon/monkey{
-	faction = list("neutral","Syndicate")
+	preload_datum = /datum/preload_injection/faction/add_syndicate
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
@@ -1606,7 +1606,7 @@
 "hp" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/carbon/monkey{
-	faction = list("neutral","Syndicate")
+	preload_datum = /datum/preload_injection/faction/add_syndicate
 	},
 /turf/open/floor/iron/white/side{
 	dir = 9
@@ -1623,7 +1623,7 @@
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "hr" = (
 /mob/living/carbon/monkey{
-	faction = list("neutral","Syndicate")
+	preload_datum = /datum/preload_injection/faction/add_syndicate
 	},
 /turf/open/floor/iron/white/side{
 	dir = 5
@@ -1712,7 +1712,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "hE" = (
 /mob/living/carbon/monkey{
-	faction = list("neutral","Syndicate")
+	preload_datum = /datum/preload_injection/faction/add_syndicate
 	},
 /turf/open/floor/iron/white/side{
 	dir = 10
@@ -1729,7 +1729,7 @@
 "hG" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/carbon/monkey{
-	faction = list("neutral","Syndicate")
+	preload_datum = /datum/preload_injection/faction/add_syndicate
 	},
 /turf/open/floor/iron/white/side{
 	dir = 6
@@ -5221,7 +5221,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/carbon/monkey{
-	faction = list("neutral","Syndicate")
+	preload_datum = /datum/preload_injection/faction/add_syndicate
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,

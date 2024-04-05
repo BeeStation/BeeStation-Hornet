@@ -148,6 +148,10 @@
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
 	var/_emissive_count = 0
 
+	/// preload definitions{} in dmm dislikes define macros. preload_injection tricks it.
+	/// any object with preload values will follow macro defines through this preload_injection
+	var/datum/preload_injection/preload_datum
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -162,6 +166,12 @@
 	//atom creation method that preloads variables at creation
 	if(GLOB.use_preloader && src.type == GLOB._preloader_path)//in case the instanciated atom is creating other atoms in New()
 		world.preloader_load(src)
+
+	if(preload_datum)
+		if(GLOB.preload_handler)
+			GLOB.preload_handler.apply(src)
+		else
+			stack_trace("GLOB.preload_handler doesn't exist, but we need it. Is that deleted somehow?")
 
 	if(datum_flags & DF_USE_TAG)
 		GenerateTag()
