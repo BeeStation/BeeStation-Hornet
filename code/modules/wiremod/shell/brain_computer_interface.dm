@@ -326,7 +326,7 @@
 	var/busy_icon_state
 	var/locked = FALSE
 
-	var/obj/item/organ/internal/cyberimp/bci/bci_to_implant
+	var/obj/item/organ/cyberimp/bci/bci_to_implant
 
 	COOLDOWN_DECLARE(message_cooldown)
 
@@ -419,7 +419,7 @@
 			balloon_alert(user, "bci has no circuit!")
 			return
 
-		var/obj/item/organ/internal/cyberimp/bci/previous_bci_to_implant = bci_to_implant
+		var/obj/item/organ/cyberimp/bci/previous_bci_to_implant = bci_to_implant
 
 		user.transferItemToLoc(weapon, src)
 		bci_to_implant = weapon
@@ -492,7 +492,7 @@
 
 	var/mob/living/carbon/carbon_occupant = occupant
 	if (istype(occupant))
-		var/obj/item/organ/internal/cyberimp/bci/bci_organ = carbon_occupant.getorgan(/obj/item/organ/internal/cyberimp/bci)
+		var/obj/item/organ/cyberimp/bci/bci_organ = carbon_occupant.getorgan(/obj/item/organ/cyberimp/bci)
 		if (isnull(bci_organ) && isnull(bci_to_implant))
 			say("No brain-computer interface inserted, and occupant does not have one. Insert a BCI to implant one.")
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
