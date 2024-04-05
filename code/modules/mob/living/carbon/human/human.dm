@@ -592,6 +592,9 @@
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
 		if(..(I, cuff_break = FAST_CUFFBREAK))
 			dropItemToGround(I)
+	else if(dna.species.id == "memezombies")
+		if(..(I, cuff_break = FAST_CUFFBREAK))
+			dropItemToGround(I)
 	else
 		if(..())
 			dropItemToGround(I)
