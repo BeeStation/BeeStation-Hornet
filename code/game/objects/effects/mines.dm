@@ -150,7 +150,7 @@
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	visible_message("<span class='danger'>[victim] sets off [icon2html(src, viewers(src))] [src]!</span>")
-	log_combat(victim, src, "triggered a", important = TRUE)
+	log_combat(victim, src, "triggered a", important = FALSE)
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
