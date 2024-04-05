@@ -1,5 +1,0 @@
-author: rkz, Krysonism
-delete-after: true
-changes:
-  - rscadd: Chicken, Lizardmeat, synthmeat now have their own meat sprites
-  - rscadd: replaces sprites for meat
