@@ -1,0 +1,4 @@
+author: Ratón
+delete-after: true
+changes:
+  - bugfix: lockers now glow in the dark
