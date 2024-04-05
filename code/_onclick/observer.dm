@@ -9,11 +9,11 @@
 
 	// Things you might plausibly want to follow
 	if(ismovable(A))
-+       // It's a mimic! Fetch associated (real) atom
-+       if(istype(A, /atom/movable/openspace/mimic))
-+               var/atom/movable/openspace/mimic/M = A
-+               check_orbitable(M.associated_atom)
-+               return
+		// It's a mimic! Fetch associated (real) atom
+		if(istype(A, /atom/movable/openspace/mimic))
+			var/atom/movable/openspace/mimic/M = A
+			check_orbitable(M.associated_atom)
+			return
 		check_orbitable(A)
 
 	// Otherwise jump
