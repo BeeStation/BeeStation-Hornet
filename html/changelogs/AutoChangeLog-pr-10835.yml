@@ -1,4 +1,0 @@
-author: Miliviu
-delete-after: true
-changes:
-  - bugfix: Multiple Random Arcades now work and spawn a random arcade
