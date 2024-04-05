@@ -9,7 +9,7 @@
 		////////////////
 
 	/// a datum to hold client data that we want to keep even if client is gone
-	var/datum/client_persistent_data/cpdata
+	var/datum/client_data/data
 
 	/// The admin state of the client. If this is null, the client is not an admin.
 	var/datum/admins/holder = null

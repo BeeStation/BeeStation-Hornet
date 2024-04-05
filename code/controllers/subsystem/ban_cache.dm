@@ -27,11 +27,11 @@ SUBSYSTEM_DEF(ban_cache)
 	for(var/ckey in GLOB.directory)
 		var/client/lad = GLOB.directory[ckey]
 		// If they've already got a ban cached, or a request goin, don't do it
-		if(lad.cpdata.ban_cache || lad.cpdata.ban_cache_start)
+		if(lad.data.ban_cache || lad.data.ban_cache_start)
 			continue
 
 		look_for += ckey
-		lad.cpdata.ban_cache_start = current_time
+		lad.data.ban_cache_start = current_time
 
 		query_args += list("key[num_keys]" = ckey)
 		query_arg_keys += ":key[num_keys]"
@@ -46,9 +46,9 @@ SUBSYSTEM_DEF(ban_cache)
 	var/succeeded = query_batch_ban_cache.Execute()
 	for(var/ckey in look_for)
 		var/client/lad = GLOB.directory[ckey]
-		if(!lad || lad.cpdata.ban_cache_start != current_time)
+		if(!lad || lad.data.ban_cache_start != current_time)
 			continue
-		lad.cpdata.ban_cache_start = 0
+		lad.data.ban_cache_start = 0
 
 	if(!succeeded)
 		qdel(query_batch_ban_cache)
@@ -79,6 +79,6 @@ SUBSYSTEM_DEF(ban_cache)
 		var/client/lad = GLOB.directory[ckey]
 		if(!lad)
 			continue
-		lad.cpdata.ban_cache = ckey_to_bans[ckey]
+		lad.data.ban_cache = ckey_to_bans[ckey]
 
 	qdel(query_batch_ban_cache)

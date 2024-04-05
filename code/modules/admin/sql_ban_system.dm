@@ -121,19 +121,19 @@
 	if(QDELETED(player_client))
 		return
 
-	if(player_client.cpdata.ban_cache)
-		return player_client.cpdata.ban_cache
+	if(player_client.data.ban_cache)
+		return player_client.data.ban_cache
 
 	var/config_delay = CONFIG_GET(number/blocking_query_timeout) SECONDS
 	// If we haven't got a query going right now, or we've timed out on the old query
-	if(player_client.cpdata.ban_cache_start + config_delay < REALTIMEOFDAY)
+	if(player_client.data.ban_cache_start + config_delay < REALTIMEOFDAY)
 		return build_ban_cache(player_client)
 
 	// Ok so we've got a request going, lets start a wait cycle
 	// If we wait longer then config/db_ban_timeout we'll send another request
 	// We use timeofday here because we're talking human time
 	// We do NOT cache the start time because it can update, and we want it to be able to
-	while(player_client && player_client?.cpdata.ban_cache_start + config_delay >= REALTIMEOFDAY && !player_client?.cpdata.ban_cache)
+	while(player_client && player_client?.data.ban_cache_start + config_delay >= REALTIMEOFDAY && !player_client?.data.ban_cache)
 		// Wait a decisecond or two would ya?
 		// If this causes lag on client join, increase this delay. it doesn't need to be too fast since this should
 		// Realllly only happen near Login, and we're unlikely to make any new requests in that time
@@ -141,7 +141,7 @@
 
 	// If we have a ban cache, use it. if we've timed out, go ahead and start another query would you?
 	// This will update any other sleep loops, so we should only run one at a time
-	return player_client?.cpdata.ban_cache || build_ban_cache(player_client)
+	return player_client?.data.ban_cache || build_ban_cache(player_client)
 
 /proc/build_ban_cache(client/player_client)
 	if(!SSdbcore.Connect())
@@ -149,7 +149,7 @@
 	if(QDELETED(player_client))
 		return
 	var/current_time = REALTIMEOFDAY
-	player_client.cpdata.ban_cache_start = current_time
+	player_client.data.ban_cache_start = current_time
 
 	var/ckey = player_client.ckey
 	var/list/ban_cache = list()
@@ -169,8 +169,8 @@
 		list("ckey" = ckey))
 	var/query_successful = query_build_ban_cache.warn_execute()
 	// After we sleep, we check if this was the most recent cache build, and if so we clear our start time
-	if(player_client?.cpdata.ban_cache_start == current_time)
-		player_client.cpdata.ban_cache_start = 0
+	if(player_client?.data.ban_cache_start == current_time)
+		player_client.data.ban_cache_start = 0
 	if(!query_successful)
 		qdel(query_build_ban_cache)
 		return
@@ -182,7 +182,7 @@
 	qdel(query_build_ban_cache)
 	if(QDELETED(player_client)) // Disconnected while working with the DB.
 		return
-	player_client.cpdata.ban_cache = ban_cache
+	player_client.data.ban_cache = ban_cache
 	return ban_cache
 
 /datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins = FALSE, reason = "", edit_id, page, admin_key, global_ban = TRUE, force_cryo_after = FALSE)

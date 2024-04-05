@@ -200,10 +200,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(CONFIG_GET(flag/respect_upstream_bans) || CONFIG_GET(flag/respect_upstream_permabans))
 		check_upstream_bans()
 
-	cpdata = GLOB.client_data[ckey]
-	if(!cpdata)
-		cpdata = new(ckey, src)
-		GLOB.client_data[ckey] = cpdata
+	data = GLOB.client_data[ckey]
+	if(!data)
+		data = new(ckey, src)
+		GLOB.client_data[ckey] = data
 
 	GLOB.clients += src
 	GLOB.directory[ckey] = src
@@ -365,7 +365,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			alert(mob, dupe_login_message) //players get banned if they don't see this message, do not convert to tgui_alert (or even tg_alert) please.
 			to_chat_immediate(mob, "<span class='danger'>[dupe_login_message]</span>")
 
-	cpdata.on_login()
+	data.on_login()
 	winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	var/breaking_version = CONFIG_GET(number/client_error_version)
@@ -424,7 +424,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return null
 
 	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
-		cpdata.player_age = 0
+		data.player_age = 0
 	var/nnpa = CONFIG_GET(number/notify_new_player_age)
 	if (isnum_safe(cached_player_age) && cached_player_age == -1) //first connection
 		if (nnpa >= 0)
@@ -432,19 +432,19 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			if (CONFIG_GET(flag/irc_first_connection_alert))
 				send2tgs_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
 	else if (isnum_safe(cached_player_age) && cached_player_age < nnpa)
-		message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(cpdata.player_age==1?"":"s")]")
-	if(CONFIG_GET(flag/use_account_age_for_jobs) && cpdata.account_age >= 0)
-		cpdata.player_age = cpdata.account_age
-	if(cpdata.account_age >= 0 && cpdata.account_age < nnpa)
-		message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [cpdata.account_age] day[(cpdata.account_age==1?"":"s")] old, created on [cpdata.account_join_date].")
+		message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(data.player_age==1?"":"s")]")
+	if(CONFIG_GET(flag/use_account_age_for_jobs) && data.account_age >= 0)
+		data.player_age = data.account_age
+	if(data.account_age >= 0 && data.account_age < nnpa)
+		message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [data.account_age] day[(data.account_age==1?"":"s")] old, created on [data.account_join_date].")
 		if (CONFIG_GET(flag/irc_first_connection_alert))
-			send2tgs_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [cpdata.account_age] day[(cpdata.account_age==1?"":"s")] old, created on [cpdata.account_join_date].")
+			send2tgs_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [data.account_age] day[(data.account_age==1?"":"s")] old, created on [data.account_join_date].")
 	get_message_output("watchlist entry", ckey)
 	check_ip_intel()
 	validate_key_in_db()
 	// If we aren't already generating a ban cache, fire off a build request
 	// This way hopefully any users of request_ban_cache will never need to yield
-	if(!cpdata.ban_cache_start && SSban_cache?.query_started)
+	if(!data.ban_cache_start && SSban_cache?.query_started)
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(build_ban_cache), src)
 
 	fetch_uuid()
@@ -583,7 +583,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 			send2tgs("Server", "[cheesy_message] (No admins online)")
 
-	cpdata.on_logout()
+	data.on_logout()
 	GLOB.requests.client_logout(src)
 	GLOB.directory -= ckey
 	GLOB.clients -= src
@@ -608,9 +608,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!query_get_related_ip.Execute())
 		qdel(query_get_related_ip)
 		return
-	cpdata.related_accounts_ip = ""
+	data.related_accounts_ip = ""
 	while(query_get_related_ip.NextRow())
-		cpdata.related_accounts_ip += "[query_get_related_ip.item[1]], "
+		data.related_accounts_ip += "[query_get_related_ip.item[1]], "
 	qdel(query_get_related_ip)
 	var/datum/db_query/query_get_related_cid = SSdbcore.NewQuery(
 		"SELECT ckey FROM [format_table_name("player")] WHERE computerid = :computerid AND ckey != :ckey",
@@ -619,9 +619,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!query_get_related_cid.Execute())
 		qdel(query_get_related_cid)
 		return
-	cpdata.related_accounts_cid = ""
+	data.related_accounts_cid = ""
 	while(query_get_related_cid.NextRow())
-		cpdata.related_accounts_cid += "[query_get_related_cid.item[1]], "
+		data.related_accounts_cid += "[query_get_related_cid.item[1]], "
 	qdel(query_get_related_cid)
 	var/admin_rank = "Player"
 	if(holder?.rank)
@@ -671,19 +671,19 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	if(!client_is_in_db)
 		new_player = 1
-		cpdata.account_join_date = findJoinDate()
+		data.account_join_date = findJoinDate()
 		var/datum/db_query/query_add_player = SSdbcore.NewQuery({"
 			INSERT INTO [format_table_name("player")] (`ckey`, `byond_key`, `firstseen`, `firstseen_round_id`, `lastseen`, `lastseen_round_id`, `ip`, `computerid`, `lastadminrank`, `accountjoindate`)
 			VALUES (:ckey, :key, Now(), :round_id, Now(), :round_id, INET_ATON(:ip), :computerid, :adminrank, :account_join_date)
-		"}, list("ckey" = ckey, "key" = key, "round_id" = GLOB.round_id, "ip" = address, "computerid" = computer_id, "adminrank" = admin_rank, "account_join_date" = cpdata.account_join_date || null))
+		"}, list("ckey" = ckey, "key" = key, "round_id" = GLOB.round_id, "ip" = address, "computerid" = computer_id, "adminrank" = admin_rank, "account_join_date" = data.account_join_date || null))
 		if(!query_add_player.Execute())
 			qdel(query_client_in_db)
 			qdel(query_add_player)
 			return
 		qdel(query_add_player)
-		if(!cpdata.account_join_date)
-			cpdata.account_join_date = "Error"
-			cpdata.account_age = -1
+		if(!data.account_join_date)
+			data.account_join_date = "Error"
+			data.account_age = -1
 	qdel(query_client_in_db)
 	var/datum/db_query/query_get_client_age = SSdbcore.NewQuery(
 		"SELECT firstseen, DATEDIFF(Now(),firstseen), accountjoindate, DATEDIFF(Now(),accountjoindate) FROM [format_table_name("player")] WHERE ckey = :ckey",
@@ -693,38 +693,38 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		qdel(query_get_client_age)
 		return
 	if(query_get_client_age.NextRow())
-		cpdata.player_join_date = query_get_client_age.item[1]
-		cpdata.player_age = text2num(query_get_client_age.item[2])
-		if(!cpdata.account_join_date)
-			cpdata.account_join_date = query_get_client_age.item[3]
-			cpdata.account_age = text2num(query_get_client_age.item[4])
-			if(!cpdata.account_age)
-				cpdata.account_join_date = findJoinDate()
-				if(!cpdata.account_join_date)
-					cpdata.account_age = -1
+		data.player_join_date = query_get_client_age.item[1]
+		data.player_age = text2num(query_get_client_age.item[2])
+		if(!data.account_join_date)
+			data.account_join_date = query_get_client_age.item[3]
+			data.account_age = text2num(query_get_client_age.item[4])
+			if(!data.account_age)
+				data.account_join_date = findJoinDate()
+				if(!data.account_join_date)
+					data.account_age = -1
 				else
 					var/datum/db_query/query_datediff = SSdbcore.NewQuery(
 						"SELECT DATEDIFF(Now(), :account_join_date)",
-						list("account_join_date" = cpdata.account_join_date)
+						list("account_join_date" = data.account_join_date)
 					)
 					if(!query_datediff.Execute())
 						qdel(query_datediff)
 						return
 					if(query_datediff.NextRow())
-						cpdata.account_age = text2num(query_datediff.item[1])
+						data.account_age = text2num(query_datediff.item[1])
 					qdel(query_datediff)
 	qdel(query_get_client_age)
 	if(!new_player)
 		var/datum/db_query/query_log_player = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("player")] SET lastseen = Now(), lastseen_round_id = :round_id, ip = INET_ATON(:ip), computerid = :computerid, lastadminrank = :admin_rank, accountjoindate = :account_join_date WHERE ckey = :ckey",
-			list("round_id" = GLOB.round_id, "ip" = address, "computerid" = computer_id, "admin_rank" = admin_rank, "account_join_date" = cpdata.account_join_date || null, "ckey" = ckey)
+			list("round_id" = GLOB.round_id, "ip" = address, "computerid" = computer_id, "admin_rank" = admin_rank, "account_join_date" = data.account_join_date || null, "ckey" = ckey)
 		)
 		if(!query_log_player.Execute())
 			qdel(query_log_player)
 			return
 		qdel(query_log_player)
-	if(!cpdata.account_join_date)
-		cpdata.account_join_date = "Error"
+	if(!data.account_join_date)
+		data.account_join_date = "Error"
 
 	var/ssqlname = CONFIG_GET(string/serversqlname)
 
@@ -735,8 +735,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	query_log_connection.Execute()
 	qdel(query_log_connection)
 	if(new_player)
-		cpdata.player_age = -1
-	. = cpdata.player_age
+		data.player_age = -1
+	. = data.player_age
 
 /client/proc/findJoinDate()
 	var/datum/http_request/http = new()

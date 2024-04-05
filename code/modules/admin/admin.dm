@@ -41,7 +41,7 @@
 		body += " <A href='?_src_=holder;[HrefToken()];revive=[REF(M)]'>Heal</A>"
 
 	if(M.client)
-		body += "<br><br><b>First Seen:</b> [M.client.cpdata.player_join_date]<br><b>Byond account registered on:</b> [M.client.cpdata.account_join_date]"
+		body += "<br><br><b>First Seen:</b> [M.client.data.player_join_date]<br><b>Byond account registered on:</b> [M.client.data.account_join_date]"
 
 		if(M.client?.tgui_panel)
 			body += M.client.tgui_panel.show_notices() //The datum holds a reference to the client already, no need to pass it.

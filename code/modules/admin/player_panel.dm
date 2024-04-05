@@ -116,12 +116,12 @@
 					data_entry["log_client"][log_type] = log_type_data
 				data_entry["metacurrency_balance"] = player.client.get_metabalance_unreliable()
 				data_entry["antag_tokens"] = player.client.get_antag_token_count_unreliable()
-				data_entry["register_date"] = player.client.cpdata.account_join_date
-				data_entry["first_seen"] = player.client.cpdata.player_join_date
+				data_entry["register_date"] = player.client.data.account_join_date
+				data_entry["first_seen"] = player.client.data.player_join_date
 				data_entry["ip"] = player.client.address
 				data_entry["cid"] = player.client.computer_id
-				data_entry["related_accounts_ip"] = player.client.cpdata.related_accounts_ip
-				data_entry["related_accounts_cid"] = player.client.cpdata.related_accounts_cid
+				data_entry["related_accounts_ip"] = player.client.data.related_accounts_ip
+				data_entry["related_accounts_cid"] = player.client.data.related_accounts_cid
 				if(player.client.byond_version)
 					data_entry["byond_version"] = "[player.client.byond_version].[player.client.byond_build ? player.client.byond_build : "xxx"]"
 		if(player.mind)

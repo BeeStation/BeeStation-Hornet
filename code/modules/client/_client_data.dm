@@ -1,5 +1,5 @@
 // client is deleted upon logout, but we want to keep some data
-/datum/client_persistent_data
+/datum/client_data
 
 	// just a placeholder variable for vv editor because we want to read ckey name first
 	var/aa0_hint_ckey
@@ -43,16 +43,16 @@
 	//Tick when ghost roles are useable again
 	var/next_ghost_role_tick = 0
 
-/datum/client_persistent_data/New(ckey, client/cli)
+/datum/client_data/New(ckey, client/cli)
 	aa0_hint_ckey = ckey
 	src.ckey = ckey
 
-/datum/client_persistent_data/proc/on_login()
+/datum/client_data/proc/on_login()
 	connection_time = world.time
 	connection_realtime = world.realtime
 	connection_timeofday = world.timeofday
 
-/datum/client_persistent_data/proc/on_logout()
+/datum/client_data/proc/on_logout()
 	disconnection_time = world.time
 	disconnection_realtime = world.realtime
 	disconnection_timeofday = world.timeofday
