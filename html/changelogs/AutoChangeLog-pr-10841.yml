@@ -1,4 +1,0 @@
-author: Ratón
-delete-after: true
-changes:
-  - bugfix: Vendors will no longer try to put mobs in your hands
