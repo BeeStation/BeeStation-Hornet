@@ -269,7 +269,7 @@
 		return JOB_UNAVAILABLE_GENERIC
 	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
 		if(job.title == JOB_NAME_ASSISTANT)
-			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
+			if(isnum_safe(client.cpdata.player_age) && client.cpdata.player_age <= 14) //Newbies can always be assistants
 				return JOB_AVAILABLE
 			for(var/datum/job/J in SSjob.occupations)
 				if(J && J.current_positions < J.total_positions && J.title != job.title)

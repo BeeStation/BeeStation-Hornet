@@ -228,8 +228,8 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 		feedback = TRUE
 	))
 		return FALSE
-	if(use_cooldown && src.next_ghost_role_tick > world.time)
-		to_chat(src, "<span class='warning'>You have died recently, you must wait [(src.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
+	if(use_cooldown && src.cpdata.next_ghost_role_tick > world.time)
+		to_chat(src, "<span class='warning'>You have died recently, you must wait [(src.cpdata.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
 		return FALSE
 	return TRUE
 

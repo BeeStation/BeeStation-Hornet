@@ -34,21 +34,21 @@
 					if(is_special_character(C.mob))
 						entry += " - <b><font color='red'>Antagonist</font></b>"
 				entry += " [ADMIN_QUE(C.mob)]"
-				entry += " ([round(C.avgping, 1)]ms)"
+				entry += " ([round(C.cpdata.avgping, 1)]ms)"
 				Lines += entry
 		else//If they don't have +ADMIN, only show hidden admins
 			for(var/client/C in GLOB.clients)
 				var/entry = "\t[C.key]"
 				if(C.holder && C.holder.fakekey)
 					entry += " <i>(as [C.holder.fakekey])</i>"
-				entry += " ([round(C.avgping, 1)]ms)"
+				entry += " ([round(C.cpdata.avgping, 1)]ms)"
 				Lines += entry
 	else
 		for(var/client/C in GLOB.clients)
 			if(C.holder && C.holder.fakekey)
-				Lines += "[C.holder.fakekey] ([round(C.avgping, 1)]ms)"
+				Lines += "[C.holder.fakekey] ([round(C.cpdata.avgping, 1)]ms)"
 			else
-				Lines += "[C.key] ([round(C.avgping, 1)]ms)"
+				Lines += "[C.key] ([round(C.cpdata.avgping, 1)]ms)"
 
 	for(var/line in sort_list(Lines))
 		msg += "[line]\n"

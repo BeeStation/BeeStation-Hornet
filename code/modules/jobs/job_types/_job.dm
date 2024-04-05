@@ -323,7 +323,7 @@
 	if(!isnum_safe(minimal_player_age))
 		return 0
 
-	return max(0, minimal_player_age - C.player_age)
+	return max(0, minimal_player_age - C.cpdata.player_age)
 
 /datum/job/proc/config_check()
 	return TRUE

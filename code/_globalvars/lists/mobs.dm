@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(clients)							//all clients
+GLOBAL_LIST_EMPTY(client_data)						// not client. It's a list for client data holder datum
 GLOBAL_LIST_EMPTY(admins)							//all clients whom are admins
 GLOBAL_PROTECT(admins)
 GLOBAL_LIST_EMPTY(deadmins)							//all ckeys who have used the de-admin verb.

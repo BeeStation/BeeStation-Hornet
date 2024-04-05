@@ -1607,9 +1607,9 @@
 		var/client/C = locate(href_list["client"]) in GLOB.clients
 		var/thing_to_check
 		if(href_list["showrelatedacc"] == "cid")
-			thing_to_check = C.related_accounts_cid
+			thing_to_check = C.cpdata.related_accounts_cid
 		else
-			thing_to_check = C.related_accounts_ip
+			thing_to_check = C.cpdata.related_accounts_ip
 		thing_to_check = splittext(thing_to_check, ", ")
 
 
