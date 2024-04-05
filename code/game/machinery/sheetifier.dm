@@ -16,7 +16,7 @@
 	var/list/allowed_materials = list(
 		/datum/material/meat,
 	)
-	AddComponent(/datum/component/material_container, allowed_materials, MINERAL_MATERIAL_AMOUNT * MAX_STACK_SIZE * 2, TRUE, /obj/item/food/meat/slab, CALLBACK(src, PROC_REF(CanInsertMaterials)), CALLBACK(src, PROC_REF(AfterInsertMaterials)), _breakdown_flags=BREAKDOWN_FLAGS_SHEETIFIER)
+	AddComponent(/datum/component/material_container, allowed_materials, MINERAL_MATERIAL_AMOUNT * MAX_STACK_SIZE * 2, MATCONTAINER_EXAMINE|BREAKDOWN_FLAGS_SHEETIFIER, /obj/item/food/meat/slab, CALLBACK(src, .proc/CanInsertMaterials), CALLBACK(src, .proc/AfterInsertMaterials))
 
 /obj/machinery/sheetifier/update_overlays()
 	. = ..()
