@@ -193,9 +193,9 @@
 	return 0
 
 /obj/item/IntegrateAmount() //returns the amount of resources gained when eating this item
-	if(custom_materials)
-		if(custom_materials[SSmaterials.GetMaterialRef(/datum/material/iron)] || custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)])
-			return 1
+	var/list/mats = get_material_composition(ALL) // Ensures that items made from plasteel, and plas/titanium/plastitaniumglass get integrated correctly.
+	if(length(mats) && (mats[SSmaterials.GetMaterialRef(/datum/material/iron)] || mats[SSmaterials.GetMaterialRef(/datum/material/glass)]))
+		return 1
 	return ..()
 
 /obj/item/gun/swarmer_act()//Stops you from eating the entire armory

@@ -71,7 +71,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	. = ..()
 	source.AddComponent(/datum/component/radioactive, amount / 50, source, 0) //half-life of 0 because we keep on going. amount / 50 means 40 radiation per sheet.
 
-/datum/material/uranium/on_removed(atom/source, material_flags)
+/datum/material/uranium/on_removed(atom/source, amount, material_flags)
 	. = ..()
 	qdel(source.GetComponent(/datum/component/radioactive))
 
@@ -91,7 +91,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 		source.AddElement(/datum/element/firestacker, amount=1)
 		source.AddComponent(/datum/component/explodable, 0, 0, amount / 1000, amount / 500, delete_after = EXPLODABLE_NO_DELETE)
 
-/datum/material/plasma/on_removed(atom/source, material_flags)
+/datum/material/plasma/on_removed(atom/source, amount, material_flags)
 	. = ..()
 	source.RemoveElement(/datum/element/firestacker, amount=1)
 	qdel(source.GetComponent(/datum/component/explodable))
