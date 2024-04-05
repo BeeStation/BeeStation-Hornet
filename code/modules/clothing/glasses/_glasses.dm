@@ -249,6 +249,12 @@
 	icon_state = "circle_glasses"
 	item_state = "circle_glasses"
 
+/obj/item/clothing/glasses/sunglasses/circle_sunglasses
+	name = "circle sunglasses"
+	desc = "Shit's pimpin'"
+	icon_state = "circle_sunglasses"
+	item_state = "circle_sunglasses"
+
 //Here lies green glasses, so ugly they died. RIP
 
 /obj/item/clothing/glasses/sunglasses

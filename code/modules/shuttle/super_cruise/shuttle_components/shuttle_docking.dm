@@ -19,6 +19,10 @@
 		/turf/open/floor/dock,
 		/turf/open/floor/plating/snowed,
 		/turf/open/floor/plating/ice,
+		/turf/open/floor/plating/grass,
+		/turf/open/floor/plating/dirt/planetary,
+		/turf/open/floor/plating/beach,
+
 	)
 	var/designate_time = 50
 	var/turf/designating_target_loc

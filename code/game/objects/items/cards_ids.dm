@@ -90,7 +90,7 @@
 	var/atom/A = target
 	if(!proximity && prox_check)
 		return
-	log_combat(user, A, "attempted to emag with [charges] charges")
+	log_combat(user, A, "attempted to emag with [charges] charges", important = FALSE)
 	A.use_emag(user, src)
 
 /obj/item/card/emag/proc/use_charge()

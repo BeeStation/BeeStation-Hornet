@@ -32,7 +32,7 @@
 	if(QDELETED(src) || QDELETED(X) || QDELETED(AM))
 		return
 	var/turf/T = get_turf(X.loc)
-	AM.anchored = FALSE
+	AM.set_anchored(FALSE)
 	AM.forceMove(T)
 	if(spawn_russian)
 		new /mob/living/simple_animal/hostile/russian(T)

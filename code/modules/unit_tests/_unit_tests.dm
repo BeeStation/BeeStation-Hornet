@@ -52,6 +52,7 @@
 #include "armour_checks.dm"
 #include "asset_smart_cache.dm"
 #include "async.dm"
+#include "bloody_footprints.dm"
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
 #include "component_tests.dm"

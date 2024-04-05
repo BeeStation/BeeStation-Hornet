@@ -49,7 +49,7 @@
 		var/type = pick(/obj/item/food/cookie/sugar/spookyskull,
 		/obj/item/food/cookie/sugar/spookycoffin,
 		/obj/item/food/candy_corn,
-		/obj/item/reagent_containers/food/snacks/candy,
+		/obj/item/food/candy,
 		/obj/item/food/candiedapple,
 		/obj/item/food/chocolatebar,
 		/obj/item/organ/brain ) // OH GOD THIS ISN'T CANDY!
