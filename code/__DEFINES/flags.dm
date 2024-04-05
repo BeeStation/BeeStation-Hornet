@@ -72,9 +72,9 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /// If the thing can reflect light (lasers/energy)
-#define RICOCHET_SHINY			(1<<0)
+#define RICOCHET_SHINY (1<<0)
 /// If the thing can reflect matter (bullets/bomb shrapnel)
-#define RICOCHET_HARD			(1<<1)
+#define RICOCHET_HARD (1<<1)
 
 //turf-only flags
 #define NOJAUNT_1					(1<<0)
