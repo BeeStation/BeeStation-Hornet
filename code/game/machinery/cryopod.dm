@@ -355,8 +355,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		return
 
 	if(!target.mind)
-			to_chat(user, "<span class='notice'>[target] is not a player controlled mob.</span>")
-			return
+		to_chat(user, "<span class='notice'>[target] is not a player controlled mob.</span>")
+		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
 		return
