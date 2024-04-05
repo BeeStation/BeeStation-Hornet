@@ -347,7 +347,7 @@
 	if (isnull(bci_to_implant))
 		. += "<span class='notice'>There is no BCI inserted.</span>"
 	else
-		. += "<span class='notice'>Alt-click to remove [bci_to_implant_resolved].</span>"
+		. += "<span class='notice'>Alt-click to remove [bci_to_implant].</span>"
 
 /obj/machinery/bci_implanter/proc/set_busy(status, working_icon)
 	busy = status
