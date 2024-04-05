@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: view tags verb is now in Admin category instead of Admin.Game
