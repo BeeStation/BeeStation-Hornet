@@ -355,12 +355,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		return
 
 	if(!target.mind)
-		if(iscarbon(target))
-			var/mob/living/carbon/targetCarbon = target
-			if(!targetCarbon.last_mind)
-				to_chat(user, "<span class='notice'>[target] is not a player controlled mob.</span>")
-				return
-		else
 			to_chat(user, "<span class='notice'>[target] is not a player controlled mob.</span>")
 			return
 	if(occupant)
