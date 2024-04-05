@@ -10,7 +10,7 @@ GLOBAL_DATUM_INIT(preload_handler, /datum/preload_injection/master, new)
 	var/static/list/cached_injectors = list()
 
 /datum/preload_injection/master/apply(atom/target, actual_injector = null)
-	var/datum/preload_injection/real_injector = actual_injector || target.preload_data
+	var/datum/preload_injection/real_injector = actual_injector || target.preload_datum
 	if(cached_injectors[real_injector])
 		real_injector = cached_injectors[real_injector]
 	else
