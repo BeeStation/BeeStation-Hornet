@@ -1,5 +1,5 @@
 
-/obj/effect/decal/gang
+/obj/effect/decal/cleanable/gang
 	icon = 'icons/effects/crayondecal.dmi'
 	icon_state = "rune1"
 	layer = ABOVE_NORMAL_TURF_LAYER //Harder to hide
@@ -7,7 +7,7 @@
 	gender = NEUTER
 	var/datum/team/gang/gang
 
-/obj/effect/decal/gang/Initialize(mapload, datum/team/gang/G, e_name = "gang tag", rotation = 0,  mob/user)
+/obj/effect/decal/cleanable/gang/Initialize(mapload, datum/team/gang/G, e_name = "gang tag", rotation = 0,  mob/user)
 	if(!G)
 		qdel(src)
 		return
@@ -19,7 +19,7 @@
 	var/area/territory = get_area(src)
 	G.territories |= list(territory.type = territory.name)
 
-/obj/effect/decal/gang/Destroy()
+/obj/effect/decal/cleanable/gang/Destroy()
 	if(gang)
 		var/area/territory = get_area(src)
 		gang.territories -= territory.type

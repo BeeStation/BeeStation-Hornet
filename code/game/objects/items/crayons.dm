@@ -846,8 +846,20 @@
 		to_chat(user, "<span class='warning'>[A] is unsuitable for tagging.</span>")
 		return FALSE
 
+	var/turf/turf_claimed = get_turf(target)
+	for(var/atom/thing in turf_claimed.contents)
+		if(istype(thing,/obj/structure/table))
+			to_chat(user, "<span class='warning'>Under a table? What are we scared of?</span>")
+			return FALSE
+		if(istype(thing,/obj/machinery/vending))
+			to_chat(user, "<span class='warning'>Under a vending machine? What are we scared of?</span>")
+			return FALSE
+		if(istype(thing,/obj/machinery/power/apc))
+			to_chat(user, "<span class='warning'>You can't tag an APC.</span>")
+			return FALSE
+
 	var/spraying_over = FALSE
-	for(var/obj/effect/decal/gang/gangtag in target)
+	for(var/obj/effect/decal/cleanable/gang/gangtag in target)
 		if(istype(gangtag))
 			var/datum/antagonist/gang/GA = user.mind.has_antag_datum(/datum/antagonist/gang)
 			if(gangtag.gang != GA.gang)
@@ -856,10 +868,6 @@
 					gangtag.gang.message_gangtools("[get_area(target)] is under attack by an enemy gang!")
 				spraying_over = TRUE
 				break
-
-	for(var/obj/machinery/power/apc in target)
-		to_chat(user, "<span class='warning'>You can't tag an APC.</span>")
-		return FALSE
 
 	var/occupying_gang = territory_claimed(A, user)
 	if(occupying_gang && !spraying_over)
@@ -879,12 +887,12 @@
 	//Delete any old markings on this tile, including other gang tags
 	for(var/obj/effect/decal/cleanable/crayon/old_marking in target)
 		qdel(old_marking)
-	for(var/obj/effect/decal/gang/old_gang in target)
+	for(var/obj/effect/decal/cleanable/gang/old_gang in target)
 		qdel(old_gang)
 
 	var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
 	var/area/territory = get_area(target)
-	new /obj/effect/decal/gang(target,G.gang,"graffiti",0,user)
+	new /obj/effect/decal/cleanable/gang(target,G.gang,"graffiti",0,user)
 	to_chat(user, "<span class='notice'>You tagged [territory] for your gang!</span>")
 
 /obj/item/toy/crayon/spraycan/gang
