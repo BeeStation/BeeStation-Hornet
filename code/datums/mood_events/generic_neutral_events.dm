@@ -35,30 +35,32 @@
 
 /datum/mood_event/hug
 	description = "<span class='alloy'>Hugs are nice.</span>"
+	timeout = 1 MINUTES
 
 /datum/mood_event/warmhug
 	description = "<span class='alloy'>Warm cozy hugs are the best!</span>\n"
-
+	timeout = 1 MINUTES
 /datum/mood_event/book_nerd
 	description = "<span class='alloy'>I have recently read a book.</span>"
-
+	timeout = 1 MINUTES
 /datum/mood_event/exercise
 	description = "<span class='alloy'>Working out releases those endorphins!</span>"
-
+	timeout = 1 MINUTES
 /datum/mood_event/pet_animal
 	description = "<span class='alloy'>Animals are adorable! I can't stop petting them!</span>"
-
+	timeout = 1 MINUTES
 /datum/mood_event/animal_play
 	description = "<span class='alloy'>Aww, it's having fun!</span>"
-
+	timeout = 1 MINUTES
 /datum/mood_event/honk
 	description = "<span class='alloy'>Maybe clowns aren't so bad after all. Honk!</span>"
-
+	timeout = 1 MINUTES
 /datum/mood_event/artok
 	description = "<span class='alloy'>It's nice to see people are making art around here.</span>\n"
-
+	timeout = 1 MINUTES
 /datum/mood_event/artbad
 	description = "<span class='alloy'>I've produced better art than that from my ass.</span>\n"
-
+	timeout = 1 MINUTES
 /datum/mood_event/aquarium_positive
 	description = "<span class='alloy'>Watching fish in aquarium is calming.</span>"
+	timeout = 1 MINUTES
