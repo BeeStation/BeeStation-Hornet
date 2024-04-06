@@ -43,7 +43,7 @@ type UserData = {
   name: string;
   cash: number;
   job: string;
-  department_flag: string;
+  department_bitflag: string;
 };
 
 type StockItem = {
@@ -130,9 +130,7 @@ export const UserDetails = (props, context) => {
   const { user } = data;
 
   if (!user) {
-    return (
-      <NoticeBox>No ID detected! Contact the Head of Personnel.</NoticeBox>
-    );
+    return <NoticeBox>No ID detected! Contact the Head of Personnel.</NoticeBox>;
   } else {
     return (
       <Section>
@@ -243,8 +241,8 @@ const ProductImage = (props) => {
       src={`data:image/jpeg;base64,${product.img}`}
       style={{
         'vertical-align': 'middle',
-      /** Horizontal align on typescript doesnt work on our codebase. Great. */
-      /**   'horizontal-align': 'middle', **/
+        /** Horizontal align on typescript doesnt work on our codebase. Great. */
+        /**   'horizontal-align': 'middle', **/
       }}
     />
   ) : (
@@ -252,8 +250,8 @@ const ProductImage = (props) => {
       className={classes(['vending32x32', product.path])}
       style={{
         'vertical-align': 'middle',
-      /** Horizontal align on typescript doesnt work on our codebase. Great. */
-      /**   'horizontal-align': 'middle', **/
+        /** Horizontal align on typescript doesnt work on our codebase. Great. */
+        /**   'horizontal-align': 'middle', **/
       }}
     />
   );
@@ -281,12 +279,7 @@ const ProductStock = (props) => {
   const { custom, product, remaining } = props;
 
   return (
-    <Box
-      color={
-        (remaining <= 0 && 'bad') ||
-        (!custom && remaining <= product.max_amount / 2 && 'average') ||
-        'good'
-      }>
+    <Box color={(remaining <= 0 && 'bad') || (!custom && remaining <= product.max_amount / 2 && 'average') || 'good'}>
       {remaining} left
     </Box>
   );
