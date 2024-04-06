@@ -1143,7 +1143,7 @@
 /obj/machinery/vending/proc/canLoadItem(obj/item/I, mob/user)
 	if((I.type in products) || (I.type in premium) || (I.type in contraband))
 		return TRUE
-	balloon_alert("[src] does not accept [I]!")
+	balloon_alert(user, "[src] does not accept [I]!")
 	return FALSE
 
 /obj/machinery/vending/onTransitZ()
