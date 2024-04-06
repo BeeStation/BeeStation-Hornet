@@ -66,16 +66,17 @@
 /datum/antagonist/gang/create_team(team)
 	if(!gang) // add_antag_datum calls create_team, so we need to avoid generating two gangs in that case
 		if(team)
-			var/datum/team/gang/gang_setup = team
-			var/datum/objective/gang/gang_objective = new
-			gang_objective.team = gang_setup
-			gang_setup.objectives += gang_objective
+			if(owner.has_antag_datum(/datum/antagonist/gang/boss))
+				var/datum/team/gang/gang_setup = team
+				var/datum/objective/gang/gang_objective = new
+				gang_objective.team = gang_setup
+				gang_setup.objectives += gang_objective
 
-			var/datum/objective/protect/protect_boss = new
-			protect_boss.set_target(owner) //Protect the gang boss
-			protect_boss.explanation_text = "Protect [protect_boss.target.name], your Gang Boss."
-			protect_boss.team = gang_setup
-			gang_setup.objectives += protect_boss
+				var/datum/objective/protect/protect_boss = new
+				protect_boss.set_target(owner) //Protect the gang boss
+				protect_boss.explanation_text = "Protect [protect_boss.target.name], your Gang Boss."
+				protect_boss.team = gang_setup
+				gang_setup.objectives += protect_boss
 
 			gang = team
 			return
