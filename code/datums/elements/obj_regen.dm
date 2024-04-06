@@ -21,7 +21,7 @@
 		return ELEMENT_INCOMPATIBLE
 
 	rate = _rate
-	RegisterSignal(target, COMSIG_OBJ_TAKE_DAMAGE, .proc/on_take_damage)
+	RegisterSignal(target, COMSIG_OBJ_TAKE_DAMAGE, PROC_REF(on_take_damage))
 	if(target.obj_integrity < target.max_integrity)
 		if(!length(processing))
 			START_PROCESSING(SSobj, src)
