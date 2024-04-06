@@ -383,7 +383,7 @@
 	var/list/all_heads = SSjob.get_all_heads()
 	var/list/all_security = SSjob.get_all_sec()
 
-	if (all_heads.len < 4  || all_security.len < 3)
+	if (all_heads.len < 2  || all_security.len < 2 || all_heads.len + all_security.len < 5)
 		log_game("DYNAMIC: [ruletype] [name] failed to get enough heads or security. Refunding [cost] threat.")
 		return DYNAMIC_EXECUTE_FAILURE
 
