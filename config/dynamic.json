@@ -18,15 +18,8 @@
 				"Captain"
 			],
 			"restricted_roles": ["Cyborg"]
-		},
-		"Revolution": {
-			"cost": 110
 		}
 	},
 	"Midround": {},
-	"Latejoin": {
-		"Provocateur": {
-			"cost": 110
-		}
-	}
+	"Latejoin": {}
 }
