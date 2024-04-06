@@ -796,7 +796,7 @@
 	var/list/data = list()
 	data["onstation"] = onstation
 	data["department_bitflag"] = dept_req_for_free
-	data["jobDiscount"] = DEPARTMENT_DISCOUNT
+	//data["jobDiscount"] = 0.2
 	data["product_records"] = list()
 
 	var/list/categories = list()
@@ -983,7 +983,7 @@
 			return
 		var/datum/bank_account/account = C.registered_account
 		if(account.account_job && (account.active_departments & dept_req_for_free))
-			price_to_use = max(round(price_to_use * DEPARTMENT_DISCOUNT), 1) //No longer free, but signifigantly cheaper.
+			price_to_use = 0
 		if(coin_records.Find(R) || hidden_records.Find(R))
 			price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
 		if(LAZYLEN(R.returned_products))
