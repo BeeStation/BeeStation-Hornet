@@ -1,4 +1,0 @@
-author: Ratón
-delete-after: true
-changes:
-  - bugfix: Heretics can no longer create walking husks by sacrificing a husked target.
