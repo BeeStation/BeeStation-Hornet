@@ -9,7 +9,6 @@
 	var/datum/team/gang/gang
 	var/datum/gang_tracker/gang_tracker = new
 	var/datum/action/innate/gang_tracker/tracker_action
-	ui_name = "AntagInfoGangBoss"
 
 /datum/antagonist/gang/Destroy()
 	QDEL_NULL(gang_tracker)
@@ -196,6 +195,7 @@
 	message_name = "Leader"
 	var/datum/action/innate/gang/invitation/invite = new
 	var/datum/action/innate/gang/promote/promote = new
+	ui_name = "AntagInfoGangBoss"
 
 /datum/antagonist/gang/boss/Destroy()
 	QDEL_NULL(invite)

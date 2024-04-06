@@ -47,6 +47,10 @@
 		to_chat(owner, "<span class='warning'>[selection] is unlikely to take you up on the offer, coercion and bribery may still work.</span>")
 		return
 
+	if(selection.mind.assigned_role in GLOB.command_positions)
+		to_chat(owner, "<span class='warning'>[selection] is unlikely to take you up on the offer, coercion and bribery may still work.</span>")
+		return
+
 	owner.say(html_decode(offer))
 
 	if(selection.mind.has_antag_datum(/datum/antagonist/gang)) //enemy gangsters will just refuse
