@@ -1,0 +1,4 @@
+author: Ratón
+delete-after: true
+changes:
+  - bugfix: No more floating things spat out of fabricators!
