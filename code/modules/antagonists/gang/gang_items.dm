@@ -89,7 +89,7 @@
 /datum/gang_item/weapon/pistol
 	name = "10mm Pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
-	cost = 600
+	cost = 750
 	item_path = /obj/item/gun/ballistic/automatic/pistol
 
 /datum/gang_item/weapon/pistol_ammo
@@ -101,7 +101,7 @@
 /datum/gang_item/weapon/uzi
 	name = "Uzi SMG"
 	desc = "A lightweight submachine gun, for when you really want someone dead. Uses 9mm rounds."
-	cost = 850
+	cost = 1000
 	item_path = /obj/item/gun/ballistic/automatic/mini_uzi
 
 /datum/gang_item/weapon/uzi_ammo
@@ -113,7 +113,7 @@
 /datum/gang_item/weapon/laser
 	name = "Laser Gun"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
-	cost = 500
+	cost = 600
 	item_path = /obj/item/gun/energy/laser/retro
 
 ///////////////////

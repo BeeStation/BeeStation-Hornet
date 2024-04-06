@@ -131,10 +131,10 @@
 			return
 		else if(newgang == "Random")
 			var/datum/team/gang/G = pick_n_take(GLOB.possible_gangs)
-			gang = new G
+			create_team(G)
 		else
 			GLOB.possible_gangs -= newgang
-			gang = new newgang
+			create_team(newgang)
 	else
 		if(!GLOB.gangs.len) // no gangs exist
 			to_chat(admin, "<span class='danger'>No gangs exist, please create a new one instead.</span>")
