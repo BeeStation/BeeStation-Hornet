@@ -65,6 +65,17 @@
 /datum/antagonist/gang/create_team(team)
 	if(!gang) // add_antag_datum calls create_team, so we need to avoid generating two gangs in that case
 		if(team)
+			var/datum/team/gang/gang_setup = team
+			var/datum/objective/gang/gang_objective = new
+			gang_objective.team = gang_setup
+			gang_setup.objectives += gang_objective
+
+			var/datum/objective/protect/protect_boss = new
+			protect_boss.set_target(owner) //Protect the gang boss
+			protect_boss.explanation_text = "Protect [protect_boss.target.name], your Gang Boss."
+			protect_boss.team = gang_setup
+			gang_setup.objectives += protect_boss
+
 			gang = team
 			return
 		var/datum/team/gang/gangteam = pick_n_take(GLOB.possible_gangs)
@@ -134,7 +145,8 @@
 			create_team(G)
 		else
 			GLOB.possible_gangs -= newgang
-			create_team(newgang)
+			var/datum/team/gang/G = new newgang
+			create_team(G)
 	else
 		if(!GLOB.gangs.len) // no gangs exist
 			to_chat(admin, "<span class='danger'>No gangs exist, please create a new one instead.</span>")
@@ -314,7 +326,7 @@
 	var/list/territories = list() // owned territories.
 	var/list/gangtools = list()
 	var/color
-	var/winner = TRUE //if we are currently winning, starts set to TRUE but will get changed pretty quickly
+	var/winner = FALSE
 	var/influence = 0 // influence of the gang, based on how many territories they own. Can be used to buy weapons and tools from a gang uplink.
 	var/queued_influence = 0 // influence waiting to be added to the gang.
 	var/reputation = 0 // earned by various means throught the round, decides the winner.
