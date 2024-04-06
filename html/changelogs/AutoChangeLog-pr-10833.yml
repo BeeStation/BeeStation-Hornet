@@ -1,5 +1,0 @@
-author: Miliviu
-delete-after: true
-changes:
-  - tweak: cryogenic freezer no longer accepts mobs that were never controlled by
-      a player
