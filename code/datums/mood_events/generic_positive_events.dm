@@ -25,6 +25,11 @@
 	mood_change = 3
 	timeout = 8 MINUTES
 
+/datum/mood_event/perform_cpr
+	description = "<span class='nicegreen'>It feels good to save a life.</span>"
+	mood_change = 6
+	timeout = 8 MINUTES
+
 /datum/mood_event/oblivious
 	description = "<span class='nicegreen'>What a lovely day.</span>"
 	mood_change = 3
@@ -143,6 +148,11 @@
 	mood_change = 6
 	timeout = 5 MINUTES
 
+/datum/mood_event/bottle_flip
+	description = "<span class='nicegreen'>The bottle landing like that was satisfying.</span>"
+	mood_change = 2
+	timeout = 3 MINUTES
+
 /datum/mood_event/hope_lavaland
 	description = "<span class='nicegreen'>What a peculiar emblem. It makes me feel hopeful for my future.</span>"
 	mood_change = 5
@@ -158,6 +168,18 @@
 
 /datum/mood_event/nanite_happiness/add_effects(message)
 	description = "<span class='nicegreen robot'>+++++++[message]+++++++</span>"
+
+/datum/mood_event/poppy_pin
+	description = "<span class='nicegreen'>I feel proud to show my remembrance of the many who have died to ensure that I have freedom.</span>"
+	mood_change = 1
+
+/datum/mood_event/sec_black_gloves
+	description = "<span class='nicegreen'>Black gloves look good on me.</span>"
+	mood_change = 1
+
+/datum/mood_event/assistant_insulated_gloves
+	description = "<span class='nicegreen'>Finally got my hands on a good pair of gloves!</span>"
+	mood_change = 1
 
 /datum/mood_event/funny_prank
 	description = "<span class='nicegreen'>That was a funny prank, clown!</span>"
@@ -189,6 +211,20 @@
 /datum/mood_event/brain_tumor_mannitol/New(mob/M, param)
 	timeout = rand(30,60) SECONDS // makes the timing unreliable on your mood
 	..()
+
+/datum/mood_event/flower_worn
+	description = "<span class='nicegreen'>The flower I'm wearing is pretty.</span>"
+	mood_change = 1
+
+/datum/mood_event/flower_worn/add_effects(obj/item/I)
+	description = "<span class='nicegreen'>The [I.name] I'm wearing is pretty.</span>"
+
+/datum/mood_event/flower_crown_worn
+	description = "<span class='nicegreen'>The flower crown on my head is beautiful.</span>"
+	mood_change = 3
+
+/datum/mood_event/flower_crown_worn/add_effects(obj/item/I)
+	description = "<span class='nicegreen'>The [I.name] on my head is beautiful.</span>"
 
 /datum/mood_event/witnessed_starlight
 	description = "<span class='nicegreen'>The starlight emanating from space is so mesmerizing.</span>"

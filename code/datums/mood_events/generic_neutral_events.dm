@@ -1,34 +1,64 @@
 /datum/mood_event/burnt_thumb
-	description = "<span class='warning'>I shouldn't play with lighters...</span>"
+	description = "<span class='alloy'>I shouldn't play with lighters...</span>"
 	timeout = 1 MINUTES
 
 /datum/mood_event/creampie
-	description = "<span class='warning'>I've been creamed. Tastes like pie flavor.</span>"
+	description = "<span class='alloy'>I've been creamed. Tastes like pie flavor.</span>"
 	timeout = 1 MINUTES
 
 /datum/mood_event/slipped
-	description = "<span class='warning'>I slipped. I should be more careful next time...</span>"
+	description = "<span class='alloy'>I slipped. I should be more careful next time...</span>"
 	timeout = 1 MINUTES
 
 /datum/mood_event/table
-	description = "<span class='warning'>Someone threw me on a table!</span>"
+	description = "<span class='alloy'>Someone threw me on a table!</span>"
 	timeout = 1 MINUTES
 
 /datum/mood_event/table_headsmash
-	description = "<span class='warning'>My fucking head, that hurt...</span>"
+	description = "<span class='alloy'>My fucking head, that hurt...</span>"
 	timeout = 1 MINUTES
 
 /datum/mood_event/jittery
-	description = "<span class='warning'>I'm nervous and on edge and I can't stand still!!!</span>"
+	description = "<span class='alloy'>I'm nervous and on edge and I can't stand still!!!</span>"
 
 /datum/mood_event/vomit
-	description = "<span class='warning'>I just threw up. Gross.</span>"
+	description = "<span class='alloy'>I just threw up. Gross.</span>"
 	timeout = 1 MINUTES
 
 /datum/mood_event/vomitself
-	description = "<span class='warning'>I just threw up all over myself. This is disgusting.</span>"
+	description = "<span class='alloy'>I just threw up all over myself. This is disgusting.</span>"
 	timeout = 1 MINUTES
 
 /datum/mood_event/aquarium_negative
-	description = "<span class='warning'>All the fish are dead...</span>"
+	description = "<span class='alloy'>All the fish are dead...</span>"
 	timeout = 1 MINUTES
+
+/datum/mood_event/hug
+	description = "<span class='alloy'>Hugs are nice.</span>"
+
+/datum/mood_event/warmhug
+	description = "<span class='alloy'>Warm cozy hugs are the best!</span>\n"
+
+/datum/mood_event/book_nerd
+	description = "<span class='alloy'>I have recently read a book.</span>"
+
+/datum/mood_event/exercise
+	description = "<span class='alloy'>Working out releases those endorphins!</span>"
+
+/datum/mood_event/pet_animal
+	description = "<span class='alloy'>Animals are adorable! I can't stop petting them!</span>"
+
+/datum/mood_event/animal_play
+	description = "<span class='alloy'>Aww, it's having fun!</span>"
+
+/datum/mood_event/honk
+	description = "<span class='alloy'>Maybe clowns aren't so bad after all. Honk!</span>"
+
+/datum/mood_event/artok
+	description = "<span class='alloy'>It's nice to see people are making art around here.</span>\n"
+
+/datum/mood_event/artbad
+	description = "<span class='alloy'>I've produced better art than that from my ass.</span>\n"
+
+/datum/mood_event/aquarium_positive
+	description = "<span class='alloy'>Watching fish in aquarium is calming.</span>"

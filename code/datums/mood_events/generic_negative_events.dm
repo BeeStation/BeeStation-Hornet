@@ -162,6 +162,9 @@
 /datum/mood_event/nanite_sadness/add_effects(message)
 	description = "<span class='warning robot'>+++++++[message]+++++++</span>"
 
+/datum/mood_event/sec_insulated_gloves
+	description = "<span class='warning'>I look like an Assistant...</span>"
+	mood_change = -1
 /datum/mood_event/burnt_wings
 	description = "<span class='boldwarning'>MY PRECIOUS WINGS!!!</span>"
 	mood_change = -10
@@ -188,3 +191,8 @@
 
 /datum/mood_event/saw_holopara_death/add_effects(name)
 	description = "<span class='warning'>Oh god, [name] just painfully turned to dust... What an horrifying sight...</span>"
+
+/datum/mood_event/loud_gong
+	description = "<span class='warning'>That loud gong noise really hurt my ears!</span>"
+	mood_change = -3
+	timeout = 2 MINUTES
