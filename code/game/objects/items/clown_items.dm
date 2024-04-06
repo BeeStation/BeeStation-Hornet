@@ -162,6 +162,10 @@
 	//LoadComponent so child types dont stack squeak components
 	LoadComponent(/datum/component/squeak, sound_list, 50, falloff_exponent = 20)
 
+/obj/item/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "honk", /datum/mood_event/honk)
+	return ..()
+
 /obj/item/bikehorn/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] solemnly points [src] at [user.p_their()] temple! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
