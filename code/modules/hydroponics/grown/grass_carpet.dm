@@ -132,18 +132,6 @@
 	bite_consumption_mod = 3
 	can_distill = FALSE
 
-/obj/item/food/grown/grass/shamrock/equipped(mob/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_worn", /datum/mood_event/flower_worn, src)
-
-/obj/item/food/grown/grass/shamrock/dropped(mob/living/carbon/user)
-	..()
-	if(user.head != src)
-		return
-	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_worn")
-
 //clover
 /obj/item/food/grown/grass/shamrock/Initialize(mapload, /obj/item/seeds/new_seed)
 	. = ..()
