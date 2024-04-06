@@ -202,7 +202,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	data = GLOB.client_data[ckey]
 	if(!data)
-		data = new(ckey, src)
+		data = new(ckey)
 		GLOB.client_data[ckey] = data
 
 	GLOB.clients += src
@@ -264,6 +264,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	else
 		prefs = new /datum/preferences(src)
 		GLOB.preferences_datums[ckey] = prefs
+		data.prefs = prefs
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 
@@ -321,6 +322,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		player_details = new(ckey)
 		player_details.byond_version = full_version
 		GLOB.player_details[ckey] = player_details
+		data.player_details = player_details
 
 
 	. = ..()	//calls mob.Login()
@@ -365,7 +367,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			alert(mob, dupe_login_message) //players get banned if they don't see this message, do not convert to tgui_alert (or even tg_alert) please.
 			to_chat_immediate(mob, "<span class='danger'>[dupe_login_message]</span>")
 
-	data.on_login()
+	data.on_login(src)
 	winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	var/breaking_version = CONFIG_GET(number/client_error_version)

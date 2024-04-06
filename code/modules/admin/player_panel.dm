@@ -75,6 +75,7 @@
 		var/ckey = ckey(player.ckey)
 		data_entry["ckey"] = ckey
 		var/search_data = "[player.name] [player.real_name] [ckey] [data_entry["job"]] "
+		var/datum/client_data/cdata = player.client?.data || GLOB.client_data[ckey]
 		var/datum/player_details/P = GLOB.player_details[ckey]
 		// no using ?. or it breaks shit, it should be undefined, NOT NULL
 		if(P)
@@ -103,27 +104,31 @@
 		data_entry["log_client"] = list()
 		// do not convert to ?., since that makes null while TGUI expects undefined
 		if(player.client)
-			if(CONFIG_GET(flag/use_exp_tracking) && player.client.prefs)
-				data_entry["living_playtime"] = FLOOR(player.client.prefs.exp[EXP_TYPE_LIVING] / 60, 1)
 			data_entry["telemetry"] = player.client.tgui_panel?.get_alert_level()
 			data_entry["connected"] = TRUE
 			if(ckey == selected_ckey)
-				for(var/log_type in player.client.player_details.logging)
+				data_entry["metacurrency_balance"] = player.client.get_metabalance_unreliable()
+				data_entry["antag_tokens"] = player.client.get_antag_token_count_unreliable()
+				if(player.client.byond_version)
+					data_entry["byond_version"] = "[player.client.byond_version].[player.client.byond_build ? player.client.byond_build : "xxx"]"
+
+		if(cdata)
+			if(CONFIG_GET(flag/use_exp_tracking) && cdata.prefs)
+				data_entry["living_playtime"] = FLOOR(cdata.prefs.exp[EXP_TYPE_LIVING] / 60, 1)
+			if(ckey == selected_ckey)
+				for(var/log_type in cdata.player_details.logging)
 					var/list/log_type_data = list()
-					var/list/log = player.client.player_details.logging[log_type]
+					var/list/log = cdata.player_details.logging[log_type]
 					for(var/entry in log)
 						log_type_data[entry] += html_decode(log[entry])
 					data_entry["log_client"][log_type] = log_type_data
-				data_entry["metacurrency_balance"] = player.client.get_metabalance_unreliable()
-				data_entry["antag_tokens"] = player.client.get_antag_token_count_unreliable()
-				data_entry["register_date"] = player.client.data.account_join_date
-				data_entry["first_seen"] = player.client.data.player_join_date
-				data_entry["ip"] = player.client.address
-				data_entry["cid"] = player.client.computer_id
-				data_entry["related_accounts_ip"] = player.client.data.related_accounts_ip
-				data_entry["related_accounts_cid"] = player.client.data.related_accounts_cid
-				if(player.client.byond_version)
-					data_entry["byond_version"] = "[player.client.byond_version].[player.client.byond_build ? player.client.byond_build : "xxx"]"
+				data_entry["register_date"] = cdata.account_join_date
+				data_entry["first_seen"] = cdata.player_join_date
+				data_entry["ip"] = cdata.c_address
+				data_entry["cid"] = cdata.c_computer_id
+				data_entry["related_accounts_ip"] = cdata.related_accounts_ip
+				data_entry["related_accounts_cid"] = cdata.related_accounts_cid
+
 		if(player.mind)
 			data_entry["antag_hud"] = player.mind.antag_hud_icon_state
 		if(ckey == selected_ckey)
