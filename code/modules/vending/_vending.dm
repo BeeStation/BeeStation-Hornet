@@ -12,8 +12,6 @@
 	products = list()
 	contraband = list()
 	premium = list()
-
-IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY CANISTER CHARGES in vending_items.dm
 */
 
 #define MAX_VENDING_INPUT_AMOUNT 30
@@ -26,19 +24,18 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	name = "generic"
 	///Typepath of the product that is created when this record "sells"
 	var/product_path = null
-
 	///How many of this product we currently have
 	var/amount = 0
-
 	///How many we can store at maximum
 	var/max_amount = 0
-
 	///Does the item have a custom price override
 	var/custom_price
-
 	///Does the item have a custom premium price override
 	var/custom_premium_price
-
+	/**  GAGs recolorability
+	///Whether the product can be recolored by the GAGS system
+	var/colorable
+	**/
 	/// The category the product was in, if any.
 	/// Sourced directly from product_categories.
 	var/category
@@ -163,8 +160,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	  * if it doesn't originate from off-station during mapload, everything is free
 	  */
 	var/onstation = TRUE //if it doesn't originate from off-station during mapload, everything is free
-
-	var/dish_quants = list()  //used by the snack machine's custom compartment to count dishes.
 
   ///A variable to change on a per instance basis on the map that allows the instance to force cost and ID requirements
 	var/onstation_override = FALSE //change this on the object on the map to override the onstation check. DO NOT APPLY THIS GLOBALLY.
@@ -667,11 +662,12 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	. = TRUE
 	if(!user.transferItemToLoc(I, src))
 		return FALSE
+	to_chat(user, "<span class='notice'>You insert [I] into [src]'s input compartment.</span>")
+
 	if(vending_machine_input[format_text(I.name)])
 		vending_machine_input[format_text(I.name)]++
 	else
 		vending_machine_input[format_text(I.name)] = 1
-	to_chat(user, "<span class='notice'>You insert [I] into [src]'s input compartment.</span>")
 	loaded_items++
 
 /obj/machinery/vending/unbuckle_mob(mob/living/buckled_mob, force=FALSE)
