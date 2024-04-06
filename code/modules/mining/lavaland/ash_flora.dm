@@ -55,7 +55,7 @@
 	return 1
 
 /obj/structure/flora/ash/proc/regrow()
-	icon_state = base_icon
+	icon_state = base_icon_state
 	name = initial(name)
 	desc = initial(desc)
 	harvested = FALSE
