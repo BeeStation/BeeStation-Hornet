@@ -27,6 +27,7 @@
 // AnturK says there are issues with savefiles that would make it dangerous to test merge,
 // and so this check is in place to stop serious damage.
 // That being said, if you really are ready, you can give YES_I_WANT_515 to TGS.
+//SHUT THE FUCK UP
 #if !defined(YES_I_WANT_515) && DM_VERSION >= 515
 #warn We do not yet completely support BYOND 515.
 #endif

@@ -185,12 +185,7 @@ const ProductDisplay = (
             }
           })
           .map((product) => (
-            <VendingRow
-              key={product.name}
-              custom={custom}
-              product={product}
-              productStock={stock[product.name]}
-            />
+            <VendingRow key={product.name} custom={custom} product={product} productStock={stock[product.name]} />
           ))}
       </Table>
     </Section>
@@ -210,25 +205,15 @@ const VendingRow = (props, context) => {
   const remaining = custom ? product.amount : productStock.amount;
   const redPrice = Math.round(product.price * jobDiscount);
   const disabled =
-    remaining === 0 ||
-    (onstation && !user) ||
-    (onstation &&
-      !access &&
-      (discount ? redPrice : product.price) > user?.cash);
+    remaining === 0 || (onstation && !user) || (onstation && !access && (discount ? redPrice : product.price) > user?.cash);
 
   return (
     <Table.Row>
       <Table.Cell collapsing>
         <ProductImage product={product} />
       </Table.Cell>
-      <Table.Cell bold>
-        {product.name.replace(/^\w/, (c) => c.toUpperCase())}
-      </Table.Cell>
-      <Table.Cell>
-        {!!productStock?.colorable && (
-          <ProductColorSelect disabled={disabled} product={product} />
-        )}
-      </Table.Cell>
+      <Table.Cell bold>{product.name.replace(/^\w/, (c) => c.toUpperCase())}</Table.Cell>
+      <Table.Cell>{!!productStock?.colorable && <ProductColorSelect disabled={disabled} product={product} />}</Table.Cell>
       <Table.Cell collapsing textAlign="right">
         <ProductStock custom={custom} product={product} remaining={remaining} />
       </Table.Cell>
@@ -291,12 +276,7 @@ const ProductStock = (props) => {
   const { custom, product, remaining } = props;
 
   return (
-    <Box
-      color={
-        (remaining <= 0 && 'bad') ||
-        (!custom && remaining <= product.max_amount / 2 && 'average') ||
-        'good'
-      }>
+    <Box color={(remaining <= 0 && 'bad') || (!custom && remaining <= product.max_amount / 2 && 'average') || 'good'}>
       {remaining} left
     </Box>
   );
