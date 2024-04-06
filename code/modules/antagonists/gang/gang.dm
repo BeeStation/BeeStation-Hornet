@@ -9,6 +9,7 @@
 	var/datum/team/gang/gang
 	var/datum/gang_tracker/gang_tracker = new
 	var/datum/action/innate/gang_tracker/tracker_action
+	ui_name = "AntagInfoGangBoss"
 
 /datum/antagonist/gang/Destroy()
 	QDEL_NULL(gang_tracker)
@@ -221,6 +222,12 @@
 	invite.Remove(owner.current)
 	if(promote)
 		promote.Remove(owner.current)
+
+/datum/antagonist/gang/boss/ui_static_data(mob/user)
+	var/list/data = list()
+	data["antag_name"] = name
+	data["gang"] = gang
+	return data
 
 /datum/antagonist/gang/boss/antag_listing_name()
 	return ..() + "(Boss)"
