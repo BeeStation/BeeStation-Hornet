@@ -1,7 +1,7 @@
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from 'tgui/backend';
-import { Box, Button, Icon, LabeledList, NoticeBox, Section, Stack, Table } from '../components';
-import { Window } from '../layouts';
+import { Box, Button, Icon, LabeledList, NoticeBox, Section, Stack, Table } from 'tgui/components';
+import { Window } from 'tgui/layouts';
 
 type VendingData = {
   onstation: boolean;
@@ -95,6 +95,7 @@ export const Vending = (props, context) => {
       });
     })
   );
+
   return (
     <Window width={450} height={600}>
       <Window.Content>
@@ -124,12 +125,14 @@ export const Vending = (props, context) => {
 };
 
 /** Displays user details if an ID is present and the user is on the station */
-const UserDetails = (props, context) => {
+export const UserDetails = (props, context) => {
   const { data } = useBackend<VendingData>(context);
   const { user } = data;
 
   if (!user) {
-    return <NoticeBox>No ID detected! Contact the Head of Personnel.</NoticeBox>;
+    return (
+      <NoticeBox>No ID detected! Contact the Head of Personnel.</NoticeBox>
+    );
   } else {
     return (
       <Section>
@@ -193,7 +196,7 @@ const ProductDisplay = (
 };
 
 /** An individual listing for an item.
- * Uses a table layout - Labeledlist might be better,
+ * Uses a table layout. Labeledlist might be better,
  * but you cannot use item icons as labels currently.
  */
 const VendingRow = (props, context) => {
@@ -240,6 +243,8 @@ const ProductImage = (props) => {
       src={`data:image/jpeg;base64,${product.img}`}
       style={{
         'vertical-align': 'middle',
+      /** Horizontal align on typescript doesnt work on our codebase. Great. */
+      /**   'horizontal-align': 'middle', **/
       }}
     />
   ) : (
@@ -247,6 +252,8 @@ const ProductImage = (props) => {
       className={classes(['vending32x32', product.path])}
       style={{
         'vertical-align': 'middle',
+      /** Horizontal align on typescript doesnt work on our codebase. Great. */
+      /**   'horizontal-align': 'middle', **/
       }}
     />
   );
@@ -256,16 +263,14 @@ const ProductImage = (props) => {
  * this displays a color wheel button that opens another window.
  */
 const ProductColorSelect = (props, context) => {
-  const { act, data } = useBackend<VendingData>(context);
-  const { user, onstation, department } = data;
-  const { product, productStock } = props;
-  const free = !onstation || product.price === 0 || (!product.premium && department && user);
+  const { act } = useBackend<VendingData>(context);
+  const { disabled, product } = props;
 
   return (
     <Button
       icon="palette"
       tooltip="Change color"
-      disabled={productStock?.amount === 0 || !user || (product.price > user.cash && !free)}
+      disabled={disabled}
       onClick={() => act('select_colors', { ref: product.ref })}
     />
   );
@@ -276,7 +281,12 @@ const ProductStock = (props) => {
   const { custom, product, remaining } = props;
 
   return (
-    <Box color={(remaining <= 0 && 'bad') || (!custom && remaining <= product.max_amount / 2 && 'average') || 'good'}>
+    <Box
+      color={
+        (remaining <= 0 && 'bad') ||
+        (!custom && remaining <= product.max_amount / 2 && 'average') ||
+        'good'
+      }>
       {remaining} left
     </Box>
   );
