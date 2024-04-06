@@ -5,7 +5,7 @@ import { Window } from 'tgui/layouts';
 
 type VendingData = {
   onstation: boolean;
-  department: string;
+  department_bitflag: string;
   jobDiscount: number;
   product_records: ProductRecord[];
   coin_records: CoinRecord[];
@@ -43,7 +43,7 @@ type UserData = {
   name: string;
   cash: number;
   job: string;
-  department: string;
+  department_flag: string;
 };
 
 type StockItem = {
@@ -202,9 +202,9 @@ const ProductDisplay = (
 const VendingRow = (props, context) => {
   const { data } = useBackend<VendingData>(context);
   const { custom, product, productStock } = props;
-  const { access, department, jobDiscount, onstation, user } = data;
+  const { access, department_bitflag, jobDiscount, onstation, user } = data;
   const free = !onstation || product.price === 0;
-  const discount = !product.premium && department === user?.department;
+  const discount = !product.premium && department_bitflag === user?.department_bitflag;
   const remaining = custom ? product.amount : productStock.amount;
   const redPrice = Math.round(product.price * jobDiscount);
   const disabled =
