@@ -15628,8 +15628,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Head of Security Dorm";
+/obj/machinery/door/airlock/command{
+	name = "Head of Security's Dorm";
 	req_access_txt = "58"
 	},
 /turf/open/floor/iron/dark,
@@ -32497,8 +32497,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Head of Security";
+/obj/machinery/door/airlock/command{
+	name = "Head of Security's Office";
 	req_access_txt = "58"
 	},
 /turf/open/floor/iron/dark,
