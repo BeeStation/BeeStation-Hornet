@@ -230,12 +230,14 @@
 		sheet_amt = round(materials[M] / MINERAL_MATERIAL_AMOUNT)
 	var/count = 0
 	while(sheet_amt > MAX_STACK_SIZE)
-		new M.sheet_type(target, MAX_STACK_SIZE)
+		var/obj/item/stack/sheets = new M.sheet_type(null, MAX_STACK_SIZE)
+		sheets.forceMove(target)
 		count += MAX_STACK_SIZE
 		use_amount_mat(sheet_amt * MINERAL_MATERIAL_AMOUNT, M)
 		sheet_amt -= MAX_STACK_SIZE
 	if(sheet_amt >= 1)
-		new M.sheet_type(target, sheet_amt)
+		var/obj/item/stack/sheets = new M.sheet_type(null, sheet_amt)
+		sheets.forceMove(target)
 		count += sheet_amt
 		use_amount_mat(sheet_amt * MINERAL_MATERIAL_AMOUNT, M)
 	return count

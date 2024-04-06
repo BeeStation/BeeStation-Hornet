@@ -171,6 +171,31 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	strength_modifier = 0.8
 	value_per_unit = 0.025
 
+/datum/material/wood
+	name = "wood"
+	desc = "Flexible, durable, but flamable. Hard to come across in space."
+	color = "#bb8e53"
+	greyscale_colors = "#bb8e53"
+	strength_modifier = 0.5
+	sheet_type = /obj/item/stack/sheet/wood
+	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
+	value_per_unit = 0.01
+	//beauty_modifier = 0.1
+	//armor_modifiers = list(MELEE = 1.1, BULLET = 1.1, LASER = 0.4, ENERGY = 0.4, BOMB = 1, BIO = 0.2, ACID = 0.3)
+	texture_layer_icon_state = "woodgrain"
+
+/datum/material/wood/on_applied_obj(obj/source, amount, material_flags)
+	. = ..()
+	if(material_flags & MATERIAL_AFFECT_STATISTICS)
+		var/obj/wooden = source
+		wooden.resistance_flags |= FLAMMABLE
+
+/datum/material/wood/on_removed_obj(obj/source, amount, material_flags)
+	. = ..()
+	if(material_flags & MATERIAL_AFFECT_STATISTICS)
+		var/obj/wooden = source
+		wooden.resistance_flags &= ~FLAMMABLE
+
 ///Stronk force increase
 /datum/material/adamantine
 	name = "adamantine"

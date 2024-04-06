@@ -30,6 +30,13 @@
 	item_state = "blackslacks"
 	can_adjust = TRUE
 
+/obj/item/clothing/under/suit/relaxed
+	name = "relaxed slacks"
+	desc = "A somewhat less professional set of black slacks and a white dress shirt."
+	icon_state = "relaxed"
+	item_state = "relaxed"
+	can_adjust = TRUE
+
 /obj/item/clothing/under/suit/black/skirt
 	name = "black suitskirt"
 	desc = "A professional black suit. Nanotrasen Investigation Bureau approved!"
