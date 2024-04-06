@@ -29,6 +29,11 @@
 	desc = "A 10mm incendiary bullet casing."
 	projectile_type = /obj/projectile/bullet/incendiary/c10mm
 
+/obj/item/ammo_casing/c10mm/lv
+	name = "10mm low velocity bullet casing"
+	desc = "A 10mm low velocity bullet casing."
+	projectile_type = /obj/projectile/bullet/c10mm_lv
+
 // 9mm (Stechkin APS)
 
 /obj/item/ammo_casing/c9mm

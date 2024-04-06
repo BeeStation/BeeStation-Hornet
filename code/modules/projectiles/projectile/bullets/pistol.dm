@@ -38,3 +38,8 @@
 	name = "10mm incendiary bullet"
 	damage = 15
 	fire_stacks = 2
+
+/obj/projectile/bullet/c10mm_lv
+	name = "10mm low velocity bullet"
+	damage = 30
+	armour_penetration = -20

@@ -94,9 +94,9 @@
 
 /datum/gang_item/weapon/pistol_ammo
 	name = "10mm Ammo"
-	desc = "A magazine for 10mm pistols."
+	desc = "A low velocity magazine for 10mm pistols, ineffective against armour."
 	cost = 50
-	item_path = /obj/item/ammo_box/magazine/m10mm
+	item_path = /obj/item/ammo_box/magazine/m10mm/lv
 
 /datum/gang_item/weapon/uzi
 	name = "Uzi SMG"
