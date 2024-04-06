@@ -34,3 +34,5 @@
 #define DYE_DENIED "denied"
 #define DYE_CLOWN "clown"
 #define DYE_SECURITY "security"
+#define DYE_CENTCOM "centcom"
+#define DYE_SYNDICATE "syndicate"
