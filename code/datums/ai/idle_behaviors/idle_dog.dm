@@ -20,4 +20,7 @@
 	else if(DT_PROB(10, delta_time))
 		living_pawn.manual_emote(pick("dances around.", "chases [living_pawn.p_their()] tail!</span>"))
 		living_pawn.AddComponent(/datum/component/spinny)
+		for(var/mob/living/carbon/human/H in oviewers(living_pawn))
+			if(H.mind)
+				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "animal_play", /datum/mood_event/animal_play, living_pawn)
 
