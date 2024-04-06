@@ -6,6 +6,7 @@ import { Window } from '../layouts';
 type VendingData = {
   onstation: boolean;
   department: string;
+  jobDiscount: number;
   product_records: ProductRecord[];
   coin_records: CoinRecord[];
   hidden_records: HiddenRecord[];
@@ -160,6 +161,7 @@ const ProductDisplay = (
   const { data } = useBackend<VendingData>(context);
   const { custom, inventory, selectedCategory } = props;
   const { stock, onstation, user } = data;
+
   return (
     <Section
       fill
@@ -183,7 +185,12 @@ const ProductDisplay = (
             }
           })
           .map((product) => (
-            <VendingRow key={product.name} custom={custom} product={product} productStock={stock[product.name]} />
+            <VendingRow
+              key={product.name}
+              custom={custom}
+              product={product}
+              productStock={stock[product.name]}
+            />
           ))}
       </Table>
     </Section>
@@ -197,21 +204,43 @@ const ProductDisplay = (
 const VendingRow = (props, context) => {
   const { data } = useBackend<VendingData>(context);
   const { custom, product, productStock } = props;
-  const { department, onstation, user } = data;
-  const free = !onstation || product.price === 0 || (!product.premium && department && user);
+  const { access, department, jobDiscount, onstation, user } = data;
+  const free = !onstation || product.price === 0;
+  const discount = !product.premium && department === user?.department;
+  const remaining = custom ? product.amount : productStock.amount;
+  const redPrice = Math.round(product.price * jobDiscount);
+  const disabled =
+    remaining === 0 ||
+    (onstation && !user) ||
+    (onstation &&
+      !access &&
+      (discount ? redPrice : product.price) > user?.cash);
 
   return (
     <Table.Row>
       <Table.Cell collapsing>
         <ProductImage product={product} />
       </Table.Cell>
-      <Table.Cell bold>{product.name.replace(/^\w/, (c) => c.toUpperCase())}</Table.Cell>
-      <Table.Cell>{!!productStock?.colorable && <ProductColorSelect free={free} product={product} />}</Table.Cell>
+      <Table.Cell bold>
+        {product.name.replace(/^\w/, (c) => c.toUpperCase())}
+      </Table.Cell>
+      <Table.Cell>
+        {!!productStock?.colorable && (
+          <ProductColorSelect disabled={disabled} product={product} />
+        )}
+      </Table.Cell>
       <Table.Cell collapsing textAlign="right">
-        <ProductStock custom={custom} product={product} productStock={productStock} />
+        <ProductStock custom={custom} product={product} remaining={remaining} />
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
-        <ProductButton free={free} product={product} productStock={productStock} />
+        <ProductButton
+          custom={custom}
+          disabled={disabled}
+          discount={discount}
+          free={free}
+          product={product}
+          redPrice={redPrice}
+        />
       </Table.Cell>
     </Table.Row>
   );
@@ -238,23 +267,6 @@ const ProductImage = (props) => {
   );
 };
 
-/** Displays a colored indicator for remaining stock */
-const ProductStock = (props) => {
-  const { custom, product, productStock } = props;
-
-  return (
-    <Box
-      color={
-        (custom && 'good') ||
-        (productStock.amount <= 0 && 'bad') ||
-        (productStock.amount <= product.max_amount / 2 && 'average') ||
-        'good'
-      }>
-      {custom ? product.amount : productStock.amount} left
-    </Box>
-  );
-};
-
 /** In the case of customizable items, ie: shoes,
  * this displays a color wheel button that opens another window.
  */
@@ -274,36 +286,56 @@ const ProductColorSelect = (props, context) => {
   );
 };
 
+/** Displays a colored indicator for remaining stock */
+const ProductStock = (props) => {
+  const { custom, product, remaining } = props;
+
+  return (
+    <Box
+      color={
+        (remaining <= 0 && 'bad') ||
+        (!custom && remaining <= product.max_amount / 2 && 'average') ||
+        'good'
+      }>
+      {remaining} left
+    </Box>
+  );
+};
+
 /** The main button to purchase an item. */
 const ProductButton = (props, context) => {
   const { act, data } = useBackend<VendingData>(context);
-  const { access, department, user, onstation } = data;
-  const { custom, free, product, productStock } = props;
-  const discount = (department === user?.department && !product.premium) || !data.onstation;
-  const redPrice = Math.round(product.price * 0);
-
+  const { access } = data;
+  const { custom, discount, disabled, free, product, redPrice } = props;
+  const customPrice = access ? 'FREE' : product.price + ' cr';
+  let standardPrice = product.price + ' cr';
+  if (free) {
+    standardPrice = 'FREE';
+  } else if (discount) {
+    standardPrice = redPrice + ' cr';
+  }
   return custom ? (
     <Button
       fluid
-      disabled={productStock.amount === 0 || ((!user || (product.price > user.cash && !free)) && onstation)}
-      content={access ? 'FREE' : product.price + ' cr'}
+      disabled={disabled}
       onClick={() =>
         act('dispense', {
           'item': product.name,
         })
-      }
-    />
+      }>
+      {customPrice}
+    </Button>
   ) : (
     <Button
       fluid
-      disabled={productStock.amount === 0 || ((!user || (product.price > user.cash && !free)) && onstation)}
-      content={discount ? 'FREE' : product.price + ' cr'}
+      disabled={disabled}
       onClick={() =>
         act('vend', {
           'ref': product.ref,
         })
-      }
-    />
+      }>
+      {standardPrice}
+    </Button>
   );
 };
 

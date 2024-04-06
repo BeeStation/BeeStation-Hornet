@@ -198,6 +198,7 @@
 		build_inv = TRUE
 	. = ..()
 	wires = new /datum/wires/vending(src)
+
 	if(build_inv) //non-constructable vending machine
 		build_inventories()
 
@@ -228,7 +229,8 @@
 /obj/machinery/vending/can_speak()
 	return !shut_up
 
-/obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
+//Better would be to make constructable child
+/obj/machinery/vending/RefreshParts()
 	if(!component_parts)
 		return
 
@@ -255,12 +257,14 @@
 	. = ..()
 	if(!.)
 		return
+
 	var/dump_amount = 0
 	var/found_anything = TRUE
 	while (found_anything)
 		found_anything = FALSE
 		for(var/record in shuffle(product_records))
 			var/datum/data/vending_product/R = record
+
 			if(R.amount <= 0) //Try to use a record that actually has something to dump.
 				continue
 			var/dump_path = R.product_path
@@ -270,6 +274,7 @@
 			// busting open a vendor will destroy some of the contents
 			if(found_anything && prob(80))
 				continue
+
 			var/obj/O = new dump_path(loc)
 			step(O, pick(GLOB.alldirs))
 			found_anything = TRUE
@@ -308,6 +313,9 @@
 		R.max_amount = amount
 		R.custom_price = initial(temp.custom_price)
 		R.custom_premium_price = initial(temp.custom_premium_price)
+		/* GAGS recolorability
+		//R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
+		*/
 		R.category = product_to_category[typepath]
 		recordlist += R
 
@@ -349,7 +357,9 @@
 		canister.contraband = contraband.Copy()
 	if (!canister.premium)
 		canister.premium = premium.Copy()
+
 	. = 0
+
 	if (isnull(canister.product_categories) && !isnull(product_categories))
 		canister.product_categories = product_categories.Copy()
 
@@ -399,6 +409,7 @@
 		CRASH("Constructible vending machine did not have a refill canister")
 
 	unbuild_inventory_into(product_records, R.products, R.product_categories)
+
 	R.contraband = unbuild_inventory(hidden_records)
 	R.premium = unbuild_inventory(coin_records)
 
@@ -463,10 +474,12 @@
 
 /obj/machinery/vending/wrench_act(mob/living/user, obj/item/I)
 	..()
-	if(panel_open)
-		default_unfasten_wrench(user, I, time = 6 SECONDS)
+	if(!panel_open)
+		return FALSE
+	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
 		unbuckle_all_mobs(TRUE)
-	return TRUE
+		return TOOL_ACT_TOOLTYPE_SUCCESS
+	return FALSE
 
 /obj/machinery/vending/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
@@ -476,7 +489,6 @@
 		cut_overlays()
 		if(panel_open)
 			add_overlay("[initial(icon_state)]-panel")
-		updateUsrDialog()
 	else
 		to_chat(user, "<span class='warning'>You must first secure [src].</span>")
 	return TRUE
@@ -485,6 +497,7 @@
 	if(panel_open && is_wire_tool(I))
 		wires.interact(user)
 		return
+
 	if(refill_canister && istype(I, refill_canister))
 		if (!panel_open)
 			to_chat(user, "<span class='notice'>You should probably unscrew the service panel first.</span>")
@@ -506,7 +519,7 @@
 	if(compartmentLoadAccessCheck(user) && user.a_intent != INTENT_HARM)
 		if(canLoadItem(I))
 			loadingAttempt(I,user)
-			updateUsrDialog() //can't put this on the proc above because we spam it below
+			ui_update()
 
 		if(istype(I, /obj/item/storage/bag)) //trays USUALLY
 			var/obj/item/storage/T = I
@@ -525,7 +538,7 @@
 				to_chat(user, "<span class='warning'>[src] refuses some items!</span>")
 			if(loaded)
 				to_chat(user, "<span class='notice'>You insert [loaded] dishes into [src]'s compartment.</span>")
-				updateUsrDialog()
+				ui_update()
 	else
 		. = ..()
 		if(tiltable && !tilted && I.force)
@@ -561,6 +574,8 @@
 			break
 
 /obj/machinery/vending/proc/tilt(mob/fatty, crit=FALSE)
+	if(QDELETED(src))
+		return
 	visible_message("<span class='danger'>[src] tips over!</span>")
 	tilted = TRUE
 	layer = ABOVE_MOB_LAYER
@@ -749,8 +764,8 @@
 		get_asset_datum(/datum/asset/spritesheet_batched/vending),
 	)
 
-/obj/machinery/vending/ui_state(mob/user)
-	return GLOB.default_state
+//obj/machinery/vending/ui_state(mob/user)
+//	return GLOB.default_state
 
 /obj/machinery/vending/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -831,13 +846,16 @@
 		if(R)
 			.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()
+
 	for (var/datum/data/vending_product/product_record in product_records + coin_records + hidden_records)
 		var/list/product_data = list(
 			name = product_record.name,
 			amount = product_record.amount,
+			//colorable = product_record.colorable,
 		)
 
 		.["stock"][product_record.name] = product_data
+
 	.["extended_inventory"] = extended_inventory
 
 /obj/machinery/vending/ui_act(action, params)
@@ -847,8 +865,8 @@
 	switch(action)
 		if("vend")
 			. = vend(params)
-		if("select_colors")
-			. = select_colors(params)
+		//if("select_colors")
+		//	. = select_colors(params)
 
 /obj/machinery/vending/proc/can_vend(user, silent=FALSE)
 	. = FALSE
@@ -943,7 +961,6 @@
 			flick(icon_deny, src)
 			vend_ready = TRUE
 			return
-
 		var/datum/bank_account/account = C.registered_account
 		if(account.account_job && (account.active_departments & dept_req_for_free))
 			price_to_use = 0
@@ -954,7 +971,6 @@
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return
-
 		if(price_to_use && seller_department)
 			var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
 			if(length(dept_list))
@@ -963,10 +979,10 @@
 					if(D)
 						D.adjust_money(price_to_use)
 
-	if(last_shopper != usr || purchase_message_cooldown < world.time)
+	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
 		say("Thank you for shopping with [src]!")
 		purchase_message_cooldown = world.time + 5 SECONDS
-		last_shopper = usr
+		last_shopper = REF(usr)
 	use_power(5)
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend,src)
@@ -1033,7 +1049,7 @@
 	var/obj/throw_item = null
 	var/mob/living/target = locate() in view(7,src)
 	if(!target || target.incorporeal_move >= INCORPOREAL_MOVE_BASIC)
-		return 0
+		return FALSE
 
 	for(var/datum/data/vending_product/R in shuffle(product_records))
 		if(R.amount <= 0) //Try to use a record that actually has something to dump.
@@ -1046,14 +1062,14 @@
 		throw_item = new dump_path(loc)
 		break
 	if(!throw_item)
-		return 0
+		return FALSE
 
 	pre_throw(throw_item)
 
 	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item] at [target]!</span>")
 	ui_update()
-	return 1
+	return TRUE
 /**
   * A callback called before an item is tossed out
   *
@@ -1140,7 +1156,7 @@
 	if(loaded_items >= max_loaded_items)
 		say("There are too many items in stock.")
 		return
-	if(istype(I, /obj/item/stack))
+	if(isstack(I))
 		say("Loose items may cause problems, try to use it inside wrapping paper.")
 		return
 	if(I.custom_price)
@@ -1157,20 +1173,22 @@
 			var/item_price = 0
 			var/item_path
 			for(var/obj/T in contents)
-				if(T.name == O)
+				if(format_text(T.name) == O)
 					item_price = T.custom_price
 					item_path = T.type
 					if(!base64)
 						if(base64_cache["[T.icon]_[T.icon_state]"])
 							base64 = base64_cache["[T.icon]_[T.icon_state]"]
 						else
-							base64 = icon2base64(icon(T.icon, T.icon_state, frame=1))
+							base64 = icon2base64(getFlatIcon(T, no_anim=TRUE))
 							base64_cache["[T.icon]_[T.icon_state]"] = base64
 					break
 			var/list/data = list(
 				name = O,
 				price = item_price,
 				img = base64,
+				amount = vending_machine_input[O],
+				//colorable = FALSE,
 				path = "[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"
 			)
 			.["stock"]["[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"] = vending_machine_input[O]
@@ -1192,7 +1210,7 @@
 				var/obj/item/card/id/C = H.get_idcard(TRUE)
 
 				for(var/obj/O in contents)
-					if(O.name == N)
+					if(format_text(O.name) == N)
 						S = O
 						break
 				if(S)
