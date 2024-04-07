@@ -3006,7 +3006,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.2.17":
+"@types/react-dom@npm:^18.2.17, @types/react-dom@npm:^18.2.24":
   version: 18.3.5
   resolution: "@types/react-dom@npm:18.3.5"
   peerDependencies:
@@ -11850,9 +11850,11 @@ __metadata:
   resolution: "tgui-say@workspace:packages/tgui-say"
   dependencies:
     "@types/react": ^18.2.39
+    "@types/react-dom": ^18.2.24
     common: "workspace:*"
     dompurify: ^2.5.7
     react: ^18.2.0
+    react-dom: ^18.2.0
     tgui: "workspace:*"
     tgui-dev-server: "workspace:*"
     tgui-polyfill: "workspace:*"

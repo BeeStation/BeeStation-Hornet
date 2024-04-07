@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'tgui/backend';
-import { Button, Flex, Tabs, Section, Input, Box, ScrollableBox, Divider } from 'tgui/components';
+import { Button, Flex, Tabs, Section, Input, ScrollableBox, Divider } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
-import { StatStatus, HoboStatStatus } from './StatStatus';
-import { StatText, HoboStatText } from './StatText';
+import { StatStatus } from './StatStatus';
+import { StatText } from './StatText';
 import { StatTicket } from './StatTicket';
 
 // =======================
@@ -107,45 +107,5 @@ export const StatTabWrap = (props) => {
         </Button>
       ))}
     </Section>
-  );
-};
-
-// =======================
-// Non-Flex Support
-// =======================
-
-export const HoboStatTabs = (props) => {
-  const stat = useSelector(selectStatPanel);
-  let statSection = <HoboStatText />;
-  switch (stat.selectedTab) {
-    case 'Status':
-      statSection = <HoboStatStatus />;
-      break;
-    case '(!) Admin PM':
-      statSection = <StatTicket />;
-      break;
-  }
-  return (
-    <Box>
-      <StatTabWrap />
-      <Box grow={1}>{statSection}</Box>
-      {stat.selectedTab === '(!) Admin PM' && (
-        <>
-          <Divider />
-          <Input
-            fluid
-            selfClear
-            onEnter={(e, value) =>
-              Byond.sendMessage('stat/pressed', {
-                action_id: 'ticket_message',
-                params: {
-                  msg: value,
-                },
-              })
-            }
-          />
-        </>
-      )}
-    </Box>
   );
 };
