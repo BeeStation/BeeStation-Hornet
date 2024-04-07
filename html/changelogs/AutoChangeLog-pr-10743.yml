@@ -1,5 +1,0 @@
-author: LemonInTheDark (port by EvilDragonfiend)
-delete-after: true
-changes:
-  - code_imp: dev protection to master is added to prevent a dev to try merging master
-      instead of a branch
