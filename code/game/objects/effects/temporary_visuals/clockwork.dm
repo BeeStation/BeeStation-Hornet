@@ -3,7 +3,7 @@
 	name = "ratvar's light"
 	icon = 'icons/effects/clockwork_effects.dmi'
 	duration = 8
-	randomdir = 0
+	randomdir = FALSE
 	layer = ABOVE_NORMAL_TURF_LAYER
 
 /obj/effect/temp_visual/ratvar/door

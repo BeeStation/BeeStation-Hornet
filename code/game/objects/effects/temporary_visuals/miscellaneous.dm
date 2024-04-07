@@ -48,7 +48,7 @@
 	icon_state = "ion_fade"
 	layer = BELOW_MOB_LAYER
 	duration = 10
-	randomdir = 0
+	randomdir = FALSE
 
 /obj/effect/temp_visual/dir_setting/firing_effect
 	icon = 'icons/effects/effects.dmi'
@@ -198,7 +198,7 @@
 	duration = 5
 
 /obj/effect/temp_visual/holoparasite
-	randomdir = 0
+	randomdir = FALSE
 
 /obj/effect/temp_visual/holoparasite/phase
 	duration = 5
@@ -286,7 +286,7 @@
 	name = "emp pulse"
 	icon_state = "emppulse"
 	duration = 8
-	randomdir = 0
+	randomdir = FALSE
 
 /obj/effect/temp_visual/bluespace_fissure
 	name = "bluespace fissure"
@@ -355,7 +355,7 @@
 	name = "blob"
 	icon_state = "blob_attack"
 	alpha = 140
-	randomdir = 0
+	randomdir = FALSE
 	duration = 6
 
 /obj/effect/temp_visual/desynchronizer
