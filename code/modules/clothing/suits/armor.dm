@@ -1,6 +1,6 @@
 /obj/item/clothing/suit/armor
 	name = "armor"
-	icon = 'icons/obj/clothing/suits/armor.dmi'
+	//icon = 'icons/obj/clothing/suits/armor.dmi'
 	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	allowed = null
 	body_parts_covered = CHEST

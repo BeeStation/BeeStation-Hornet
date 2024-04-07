@@ -1,4 +1,11 @@
 //Contains: Engineering department jumpsuits
+
+/obj/item/clothing/under/rank/engineering
+	//icon = 'icons/obj/clothing/under/engineering.dmi'
+	worn_icon = 'icons/mob/clothing/under/engineering.dmi'
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 60, ACID = 20, STAMINA = 0)
+	resistance_flags = NONE
+
 /obj/item/clothing/under/rank/engineering/chief_engineer
 	desc = "It's a high visibility jumpsuit given to those engineers insane enough to achieve the rank of \"Chief Engineer\". It has minor radiation shielding."
 	name = "chief engineer's jumpsuit"

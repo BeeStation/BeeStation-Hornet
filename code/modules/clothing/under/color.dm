@@ -8,7 +8,7 @@
 	icon_state = "jumpsuit"
 	item_state = "jumpsuit"
 	worn_icon_state = "jumpsuit"
-	worn_icon = 'icons/mob/clothing/uniform.dmi'
+	worn_icon = 'icons/mob/clothing/under/color.dmi'
 	supports_variations = DIGITIGRADE_VARIATION
 
 /obj/item/clothing/under/color/jumpskirt

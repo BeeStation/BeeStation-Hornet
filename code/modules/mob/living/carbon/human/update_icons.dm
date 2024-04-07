@@ -157,10 +157,10 @@ There are several things that need to be remembered:
 
 		if(dna?.species.sexes)
 			if(dna.features["body_model"] == FEMALE && U.fitted != NO_FEMALE_UNIFORM)
-				uniform_overlay = U.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/clothing/uniform.dmi', isinhands = FALSE, femaleuniform = U.fitted, override_state = target_overlay)
+				uniform_overlay = U.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/clothing/under/uniform.dmi', isinhands = FALSE, femaleuniform = U.fitted, override_state = target_overlay)
 
 		//Change check_adjustable_clothing.dm if you change this
-		var/icon_file = 'icons/mob/clothing/uniform.dmi'
+		var/icon_file = 'icons/mob/clothing/under/uniform.dmi'
 		if(!uniform_overlay)
 			if(U.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("uniform")
@@ -464,7 +464,7 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(istype(wear_suit, /obj/item/clothing/suit))
-		var/icon_file = 'icons/mob/clothing/suit.dmi'
+		var/icon_file = 'icons/mob/clothing/suits/suits.dmi'
 		var/obj/item/clothing/suit/S = wear_suit
 		if(S.sprite_sheets & (dna?.species.bodyflag))
 			icon_file = dna.species.get_custom_icons("suit")
@@ -553,6 +553,7 @@ There are several things that need to be remembered:
 	if(back)
 		update_hud_back(back)
 		var/icon_file = 'icons/mob/clothing/back.dmi'
+		
 		if(istype(back, /obj/item))
 			var/obj/item/I = back
 			if(I.sprite_sheets & dna?.species.bodyflag)
