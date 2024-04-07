@@ -258,7 +258,6 @@
 	desc = "A tentacle."
 	projectile_type = /obj/projectile/tentacle
 	caliber = "tentacle"
-	icon_state = "tentacle_end"
 	firing_effect_type = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
 
@@ -452,6 +451,7 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin."
 	icon_state = "lingarmor"
+	item_state = null
 	item_flags = DROPDEL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 25, ACID = 25, STAMINA = 30)
