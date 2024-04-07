@@ -204,6 +204,8 @@
 
 /datum/antagonist/gang/boss/on_gain()
 	..()
+	if(!owner.has_antag_datum(/datum/antagonist/gang/boss/lieutenant))
+		equip_gang(TRUE,FALSE)
 	if(gang)
 		gang.leaders += owner
 
@@ -246,7 +248,7 @@
 	)
 
 	if(gangtool)
-		var/obj/item/device/gangtool/G = new()
+		var/obj/item/device/gangtool/G = new(owner.current.loc)
 		var/where = H.equip_in_one_of_slots(G, slots)
 		if (!where)
 			to_chat(H, "Your Syndicate benefactors were unfortunately unable to get you a Gangtool.")
