@@ -1369,10 +1369,10 @@
 
 /datum/reagent/nitryl/on_mob_metabolize(mob/living/L)
 	..()
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nitryl)
 
 /datum/reagent/nitryl/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(type)
+	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nitryl)
 	..()
 
 /////////////////////////Colorful Powder////////////////////////////
@@ -1583,7 +1583,7 @@
 	var/carpet_type = /turf/open/floor/carpet
 
 /datum/reagent/carpet/reaction_turf(turf/T, reac_volume)
-	if(isplatingturf(T) || istype(T, /turf/open/floor/plasteel))
+	if(isplatingturf(T) || istype(T, /turf/open/floor/iron))
 		var/turf/open/floor/F = T
 		F.PlaceOnTop(carpet_type, flags = CHANGETURF_INHERIT_AIR)
 	..()
