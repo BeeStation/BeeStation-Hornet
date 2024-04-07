@@ -18,6 +18,8 @@
 /// Applies the material greyscale color to the atom's greyscale color.
 #define MATERIAL_GREYSCALE (1<<4)
 
+#define MATERIAL_SOURCE(mat) "[mat.name]_material"
+
 /// Create standardized stack sizes.
 
 #define STACKSIZE_MACRO(Path)\
