@@ -1,2 +1,2 @@
 //ids
-#define ACTIONSPEED_ID_SATIETY "nutrition_component"
+#define ACTIONSPEED_ID_SATIETY "nutrition"
