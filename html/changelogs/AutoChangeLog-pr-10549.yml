@@ -1,0 +1,4 @@
+author: rkz. Tastyfish, Mothblocks
+delete-after: true
+changes:
+  - server: added annotations and colorized pass/fail to integration tests
