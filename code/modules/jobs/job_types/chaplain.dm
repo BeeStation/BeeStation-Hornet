@@ -126,7 +126,8 @@
 	backpack_contents = list(
 		/obj/item/nullrod = 1,
 		/obj/item/choice_beacon/radial/holy = 1,
-		/obj/item/camera/spooky = 1
+		/obj/item/camera/spooky = 1,
+		/obj/item/stamp/chap=1
 	)
 	backpack = /obj/item/storage/backpack/cultpack
 	satchel = /obj/item/storage/backpack/cultpack
