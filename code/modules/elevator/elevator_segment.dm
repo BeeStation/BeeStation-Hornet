@@ -14,12 +14,12 @@
 //Mapping preset - Primary Elevator
 /obj/structure/elevator_segment/primary
 	id = "primary"
-	base_turf = /turf/open/floor/plasteel/elevatorshaft
+	base_turf = /turf/open/floor/iron/elevatorshaft
 
 // Glowstation
 /obj/structure/elevator_segment/secure
 	id = "secure"
-	base_turf = /turf/open/floor/plasteel/elevatorshaft
+	base_turf = /turf/open/floor/iron/elevatorshaft
 
 /obj/structure/elevator_segment/Initialize(mapload)
 	music_files = list('sound/effects/turbolift/elevatormusic.ogg' = 45, 'sound/effects/turbolift/elevator_loop.ogg' = 25)

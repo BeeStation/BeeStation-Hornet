@@ -12,20 +12,10 @@
 
 /datum/quirk/apathetic
 	name = "Apathetic"
-	desc = "You just don't care as much as other people. That's nice to have in a place like this, I guess."
+	desc = "You are used to the awful things that happen here, bad events affect your mood less."
 	icon = "meh"
 	value = 1
 	mood_quirk = TRUE
-
-/datum/quirk/apathetic/add()
-	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier -= 0.2
-
-/datum/quirk/apathetic/remove()
-	var/datum/component/mood/mood = quirk_target.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier += 0.2
 
 /datum/quirk/drunkhealing
 	name = "Drunken Resilience"
