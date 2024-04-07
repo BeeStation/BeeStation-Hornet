@@ -45722,6 +45722,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
+/obj/effect/turf_decal/tile/black/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/security/main)
 "oCS" = (
@@ -52098,12 +52099,6 @@
 /obj/structure/closet/crate,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"qLG" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/security/main)
 "qLZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -112593,7 +112588,7 @@ hHj
 ntR
 fwX
 vLT
-qLG
+vLT
 vLT
 vwV
 fUg
