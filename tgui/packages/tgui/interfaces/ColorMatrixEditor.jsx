@@ -35,7 +35,7 @@ export const ColorMatrixEditor = (props) => {
                                 format={(value) => toFixed(value, 2)}
                                 onDrag={(value) => {
                                   let retColor = currentColor;
-                                  retColor[row * 4 + col] = `${value}`;
+                                  retColor[row * 4 + col] = value;
                                   act('transition_color', {
                                     color: retColor,
                                   });
