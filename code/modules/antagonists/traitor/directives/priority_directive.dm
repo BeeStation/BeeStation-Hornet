@@ -9,7 +9,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 
 /datum/directive_team/proc/grant_punishment(loss_amount)
 	for (var/datum/component/uplink/uplink in uplinks)
-		uplink.reputation -= reputation_amount
+		uplink.reputation -= loss_amount
 	send_message("You have failed to complete a direct order from Syndicate command. You have lost [loss_amount] reputation points as a result of administrative punishment.")
 
 /datum/directive_team/proc/send_message(message)
