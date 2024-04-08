@@ -16,6 +16,7 @@ on:
 jobs:
   run_linters:
     runs-on: ubuntu-20.04
+    name: Run Linters
     steps:
       - uses: actions/checkout@v3
       - name: Python setup
@@ -51,8 +52,15 @@ jobs:
           tools/build/build --ci lint tgui-test
           tools/bootstrap/python -m dmi.test
           tools/bootstrap/python -m mapmerge2.dmm_test
-          ~/dreamchecker
+          ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
+      - name: Annotate Lints
+        uses: yogstation13/DreamAnnotate@v1
+        if: success() || failure()
+        with:
+          outputFile: output-annotations.txt
+
   compile_all_maps:
+    name: Compile Maps
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -71,6 +79,7 @@ jobs:
           python3 tools/ci/template_dm_generator.py
           tools/build/build --ci dm -DCIBUILDING -DCITESTING -DALL_MAPS
   run_all_tests:
+    name: Integration Tests
     runs-on: ubuntu-20.04
     services:
       mariadb:
@@ -118,7 +127,9 @@ jobs:
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
           bash tools/ci/run_server.sh
+
   test_windows:
+    name: Windows Build
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
