@@ -136,13 +136,11 @@
 
 /obj/effect/ctf/flag_reset/red
 	name = "red flag landmark"
-	icon_state = "banner-red"
 	desc = "This is where a red banner used to play capture the flag \
 		would go."
 
 /obj/effect/ctf/flag_reset/blue
 	name = "blue flag landmark"
-	icon_state = "banner-blue"
 	desc = "This is where a blue banner used to play capture the flag \
 		would go."
 

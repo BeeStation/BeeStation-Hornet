@@ -545,8 +545,9 @@
 /obj/item/shared_storage
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
-	icon = 'icons/obj/storage/crates.dmi'
-	icon_state = "cultpack"
+	icon_icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "paradox_bag"
+	worn_icon_state = "paradoxbag"
 	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
 
