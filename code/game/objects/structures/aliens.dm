@@ -133,14 +133,17 @@
 /obj/structure/alien/weeds/unit_test
 	icon = 'icons/obj/smooth_structures/alien/weeds1.dmi'
 	base_icon_state = "weeds1"
+	icon_state = "weeds1-0"
 
 /obj/structure/alien/weeds/unit_test_two
 	icon = 'icons/obj/smooth_structures/alien/weeds2.dmi'
 	base_icon_state = "weeds2"
+	icon_state = "weeds2-0"
 
 /obj/structure/alien/weeds/unit_test_three
 	icon = 'icons/obj/smooth_structures/alien/weeds3.dmi'
 	base_icon_state = "weeds3"
+	icon_state = "weeds3-0"
 
 #endif //UNIT_TESTS
 
