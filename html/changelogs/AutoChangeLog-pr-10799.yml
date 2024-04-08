@@ -1,6 +1,0 @@
-author: rkz, Timberpoes
-delete-after: true
-changes:
-  - refactor: refactors stack merge and deletion handling. Should reduce weird material
-      cases where you can end up with a stack of 0 stacks
-  - admin: adds some rad protections to debug gear so its less noisy
