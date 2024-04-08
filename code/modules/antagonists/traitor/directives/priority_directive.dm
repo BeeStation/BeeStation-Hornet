@@ -1,10 +1,16 @@
 NAMED_TUPLE_2(directive_team, var/list, uplinks, var/list, data)
 NAMED_TUPLE_1(directive_special_action, var, action_name)
 
-/datum/directive_team/proc/grant_reward(amount)
+/datum/directive_team/proc/grant_reward(tc_amount, reputation_amount)
 	for (var/datum/component/uplink/uplink in uplinks)
-		uplink.telecrystals += amount
-	send_message("[amount] telecrystals have been deposited into your uplink.")
+		uplink.telecrystals += tc_amount
+		uplink.reputation += reputation_amount
+	send_message("[tc_amount] telecrystals and [reputation_amount] reputation points have been authorised for your use.")
+
+/datum/directive_team/proc/grant_punishment(loss_amount)
+	for (var/datum/component/uplink/uplink in uplinks)
+		uplink.reputation -= reputation_amount
+	send_message("You have failed to complete a direct order from Syndicate command. You have lost [loss_amount] reputation points as a result of administrative punishment.")
 
 /datum/directive_team/proc/send_message(message)
 	for (var/datum/component/uplink/uplink in uplinks)
@@ -33,6 +39,8 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	var/end_at
 	var/rejected = FALSE
 	var/tc_reward
+	var/reputation_reward = REPUTATION_GAIN_PER_DIRECTIVE
+	var/reputation_loss = REPUTATION_LOSS_SOLO_DIRECTIVE
 	var/can_timeout = TRUE
 	VAR_PRIVATE/list/teams = list()
 
@@ -166,3 +174,10 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 			deadchat_broadcast("<span class='deadsay bold'>Syndicate Mission Update: [message]</span>", turf_target = get_turf(follow_atom))
 	else
 		deadchat_broadcast("<span class='deadsay bold'>Syndicate Mission Update: [message]</span>")
+
+/datum/priority_directive/proc/grant_victory(datum/directive_team/victor_team)
+	victor_team?.grant_reward(tc_reward, reputation_reward)
+	for (var/datum/directive_team/team in teams)
+		if (team == victor_team)
+			continue
+		team.grant_punishment(reputation_loss)

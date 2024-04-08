@@ -11,15 +11,88 @@ import { classes } from 'common/react';
 const MAX_SEARCH_RESULTS = 25;
 
 const reputationLevels = {
-  0: { name: "Ex-Communicate", description: "A traitor to the cause, betraying their brothers to seek personal gain. Reaching this level will result in halted services and a termination order after 5 minutes." },
-  100: { name: "Blood Servant", description: "An operative with a reason to act, but without the will to fulfill their greater purpose." },
-  200: { name: "Field Agent", description: "An operative acting on the ground, with access to some standard equipment that can be used to complete their mission." },
-  400: { name: "Specialist", description: "An operative with specialized skills and knowledge, granted with additional resources and services for completing critical missions." },
-  600: { name: "Operative", description: "An experienced operative who has demonstrated competence and effectiveness in completing various missions for the Syndicate." },
-  800: { name: "Director", description: "A high-ranking official responsible for overseeing and coordinating operations with their team, ensuring the success of its objectives." },
-  1000: { name: "Archon", description: "A high ranking and secretive authority, possessing unparalleled knowledge, influence, and control over operations and resources." },
+  0: {
+    name: "Ex-Communicate",
+    description: "A traitor to the cause, betraying their brothers to seek personal gain. Reaching this level will result in halted services and a termination order after 5 minutes.",
+    min_reputation: null,
+    max_reputation: 99,
+  },
+  100: {
+    name: "Blood Servant",
+    description: "An operative with a reason to act, but without the will to fulfill their greater purpose.",
+    min_reputation: 100,
+    max_reputation: 199,
+  },
+  200: {
+    name: "Field Agent",
+    description: "An operative acting on the ground, with access to some standard equipment that can be used to complete their mission.",
+    min_reputation: 200,
+    max_reputation: 399,
+  },
+  400: {
+    name: "Specialist",
+    description: "An operative with specialized skills and knowledge, granted with additional resources and services for completing critical missions.",
+    min_reputation: 400,
+    max_reputation: 599,
+  },
+  600: {
+    name: "Operative",
+    description: "An experienced operative who has demonstrated competence and effectiveness in completing various missions for the Syndicate.",
+    min_reputation: 600,
+    max_reputation: 799,
+  },
+  800: {
+    name: "Director",
+    description: "A high-ranking official responsible for overseeing and coordinating operations with their team, ensuring the success of its objectives.",
+    min_reputation: 800,
+    max_reputation: 999,
+  },
+  1000: {
+    name: "Archon",
+    description: "A high ranking and secretive authority, possessing unparalleled knowledge, influence, and control over operations and resources.",
+    min_reputation: 1000,
+    max_reputation: null,
+  },
 };
 
+const GetLevel = (reputation, index_change = 0) => {
+  let currentLevel = null;
+  let index = -1;
+
+  // Find the highest reputation level that is less than the current reputation
+  for (const level in reputationLevels) {
+    if (level <= reputation || currentLevel === null) {
+      currentLevel = reputationLevels[level];
+      index ++;
+    } else {
+      break;
+    }
+  }
+  // Adjust the index based on the change provided
+  index += index_change;
+
+  if (index < 0)
+  {
+    return {
+      name: "",
+      description: "There are no lower levels within the Syndicate database.",
+    };
+  }
+  else if (index >= Object.keys(reputationLevels).length)
+  {
+    return {
+      name: "",
+      description: "You are at the highest rank an agent can reach within the Syndicate.",
+    };
+  }
+
+  // Get the reputation level at the adjusted index
+  const levels = Object.keys(reputationLevels);
+  const levelKey = levels[index];
+  currentLevel = reputationLevels[levelKey];
+
+  return currentLevel;
+};
 
 export const Uplink = (props, context) => {
   const { data } = useBackend(context);
@@ -27,16 +100,7 @@ export const Uplink = (props, context) => {
 
   const [tab, setTab] = useSharedState(context, 'tab_id', 2);
 
-  let currentLevel = null;
-
-  // Find the highest reputation level that is less than the current reputation
-  for (const level in reputationLevels) {
-    if (level <= reputation) {
-      currentLevel = reputationLevels[level].name;
-    } else {
-      break;
-    }
-  }
+  let currentLevel = GetLevel(reputation).name;
 
   return (
     <Window theme="syndicate" width={900} height={600}>
@@ -81,6 +145,11 @@ export const Uplink = (props, context) => {
 };
 
 const HomePage = (props, context) => {
+  const { data } = useBackend(context);
+  const { reputation } = data;
+  let previousLevel = GetLevel(reputation, -1);
+  let currentLevel = GetLevel(reputation);
+  let nextLevel = GetLevel(reputation, 1);
   return (
     <Flex direction="column" className="uplink_page">
       <Flex.Item height="100%">
@@ -91,36 +160,28 @@ const HomePage = (props, context) => {
             </div>
             <div className="HomeRanks">
               <RankCard
-                name="Ex-Communication"
-                relation="Demotion Point"
-                description="A traitor to the cause, betraying their brothers to seek personal gain. Reaching this level will result in halted services and a termination order after 5 minutes."
-                reputation={0}
-                reputation_delta={-200}
-                progression_colour="#6B1313"
-                />
-              <RankCard
-                name="Blood Servant"
+                name={previousLevel.name}
                 relation="Previous Rank"
-                description="An operative with a reason to act, but without the will to fufill their greater purpose."
-                reputation={100}
-                reputation_delta={-100}
+                description={previousLevel.description}
+                reputation={previousLevel.min_reputation}
+                reputation_delta={previousLevel.max_reputation - reputation}
                 progression_colour="#6B1313"
                 />
               <RankCard
-                name="Field-Agent"
+                name={currentLevel.name}
                 relation="Current Rank"
-                description="An operative acting on the ground, with access to some standard equipment that can be used to complete their mission."
+                description={currentLevel.description}
                 reputation={200}
                 reputation_delta={0}
                 current_rank
                 progression_colour="#272727"
                 />
               <RankCard
-                name="Special Operative"
+                name={nextLevel.name}
                 relation="Next Rank"
-                description="An operative who has proven their fealty and worth, granted with additional resources and services."
-                reputation={400}
-                reputation_delta={200}
+                description={nextLevel.description}
+                reputation={nextLevel.min_reputation}
+                reputation_delta={nextLevel.min_reputation - reputation}
                 progression_colour="#134F12"
                 />
             </div>
@@ -166,12 +227,14 @@ const RankCard = (props, contxt) => {
         </div>
         {description}
       </div>
-      <div className="RankCardProgression" style={{
-        background: "linear-gradient(0deg, #999 -300%, " + progression_colour + " 100%)",
-      }}>
-        {reputation} Reputation<br />
-        ({reputation_delta})
-      </div>
+      {!current_rank && !!reputation_delta && (
+        <div className="RankCardProgression" style={{
+          background: "linear-gradient(0deg, #999 -300%, " + progression_colour + " 100%)",
+        }}>
+          {reputation_delta > 0 ? ("Gain " + reputation_delta + " reputation to reach promotion") : ("Demotion if " + -reputation_delta + " reputation is lost")}
+        </div>
+      )}
+
     </div>
   );
 };
@@ -400,7 +463,7 @@ const ItemList = (props, context) => {
   const { reputation, compactMode, currencyAmount, currencySymbol } = props;
   const { act } = useBackend(context);
   const [hoveredItem, setHoveredItem] = useLocalState(context, 'hoveredItem', {});
-  const hoveredCost = (hoveredItem && hoveredItem.cost && reputation >= hoveredItem.reputation) || 0;
+  const hoveredCost = (hoveredItem && hoveredItem.cost) || 0;
   // Append extra hover data to items
   const items = props.items.map((item) => {
     const notSameItem = hoveredItem && hoveredItem.name !== item.name;

@@ -8,7 +8,7 @@
 	var/obj/item/storage/deaddrop_box/target
 
 /datum/priority_directive/deaddrop/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
-	if (length(uplinks) <= 1 && !force)
+	if (length(uplinks) < 1 && !force)
 		reject()
 		return
 	for (var/datum/component/uplink/antag in uplinks)
@@ -32,9 +32,18 @@
 	// Return the reward generated
 	return tc_count
 
-/datum/priority_directive/deaddrop/finish(list/uplinks, list/player_minds)
+/datum/priority_directive/deaddrop/finish()
 	. = ..()
 	target.unlock()
+	var/atom/current = target
+	while (!ismob(current) && !isturf(current) && current)
+		current = current.loc
+	if (ismob(current))
+		var/mob/living/living_holder = current
+		var/datum/component/uplink/uplink = living_holder.mind.find_syndicate_uplink()
+		grant_victory(uplink != null ? get_team(uplink) : null)
+	else
+		grant_victory(null)
 
 /datum/priority_directive/deaddrop/get_track_atom()
 	return target

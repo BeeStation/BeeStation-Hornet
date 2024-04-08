@@ -5,6 +5,7 @@
 		to deploy a beacon encoded our organisation's encrypion code. Hostile agents may try to swap the code \
 		for their own, which you need to prevent from happening. There are friendly agents supporting you on this mission \
 		but their identities are unknown."
+	reputation_loss = REPUTATION_LOSS_TEAM_DIRECTIVE
 	var/obj/structure/uplink_beacon/deployed_beacon
 	// Don't track this for deletion, since we need to maintain a track on the same position
  	// when a turf is changed.
@@ -122,9 +123,11 @@
 /datum/priority_directive/deploy_beacon/proc/complete(channel)
 	deployed_beacon = null
 	finish()
+	var/datum/directive_team/winner = null
 	for (var/datum/directive_team/team in teams)
 		if (team.data["code"] == channel)
+			winner = team
 			team.send_message("Beacon communication successfully established on the [uplink_beacon_channel_to_color(channel)] channel.")
-			team.grant_reward(tc_reward)
 		else
 			team.send_message("You have failed to deploy the beacon on your allocated channel. Mission failed.")
+	grant_victory(winner)

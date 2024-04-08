@@ -1748,6 +1748,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/disk/surgery/brainwashing
 	player_minimum = 25
 	cost = 5
+	reputation_required = REPUTATION_EXCELLENT
 
 /datum/uplink_item/device_tools/briefcase_launchpad
 	name = "Briefcase Launchpad"
@@ -1756,6 +1757,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 30
 	item = /obj/item/storage/briefcase/launchpad
 	cost = 5
+	reputation_required = REPUTATION_GOOD
 
 /datum/uplink_item/device_tools/camera_bug
 	name = "Camera Bug"
@@ -1885,6 +1887,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/powersink
 	cost = 10
 	player_minimum = 35
+	reputation_required = REPUTATION_GOOD
 
 /datum/uplink_item/device_tools/stimpack
 	name = "Stimpack"
