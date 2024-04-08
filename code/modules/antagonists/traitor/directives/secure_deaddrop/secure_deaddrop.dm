@@ -23,7 +23,7 @@
 	var/tc_count = rand(4, 3 + length(teams))
 	// Put the deaddrop somewhere
 	var/turf/selected = get_random_station_turf()
-	while (!istype(selected, /turf/open/floor/iron))
+	while (!istype(selected, /turf/open/floor/iron) || selected.is_blocked_turf(TRUE))
 		selected = get_random_station_turf()
 	var/atom/secret_bag = new /obj/item/storage/backpack/satchel/flat/empty(selected)
 	target = new(secret_bag)
