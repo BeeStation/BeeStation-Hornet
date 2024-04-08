@@ -210,6 +210,7 @@
 	var/is_hallucinating = FALSE
 	if(user.hallucinating())
 		is_hallucinating = TRUE
+
 	for(var/re in dispensable_reagents)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
@@ -258,6 +259,7 @@
 			if(!recording_recipe)
 				var/reagent = GLOB.name2reagent[reagent_name]
 				if(beaker && dispensable_reagents.Find(reagent))
+
 					var/datum/reagents/R = beaker.reagents
 					var/free = R.maximum_volume - R.total_volume
 					var/actual = min(amount, (cell.charge * powerefficiency)*10, free)
@@ -281,6 +283,7 @@
 		if("dispense_recipe")
 			if(QDELETED(cell))
 				return
+
 			var/list/chemicals_to_dispense = saved_recipes[params["recipe"]]
 			if(!LAZYLEN(chemicals_to_dispense))
 				return
@@ -292,6 +295,7 @@
 				if(!recording_recipe)
 					if(!beaker)
 						return
+
 					var/datum/reagents/R = beaker.reagents
 					var/free = R.maximum_volume - R.total_volume
 					var/actual = min(dispense_amount, (cell.charge * powerefficiency)*10, free)
@@ -333,12 +337,16 @@
 				saved_recipes[name] = recording_recipe
 				recording_recipe = null
 				. = TRUE
-		if("reaction_lookup")
-			if(beaker)
-				beaker.reagents.ui_interact(usr)
 		if("cancel_recording")
 			recording_recipe = null
 			. = TRUE
+
+		if("reaction_lookup")
+			//drink dispensers shouldnt be able to look up reagents
+			if(istype(src, /obj/machinery/chem_dispenser/drinks))
+				to_chat(usr, "<span class ='danger'>This dispenser does not support reagent lookup!</span>")
+			else if(beaker)
+				beaker.reagents.ui_interact(usr)
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
