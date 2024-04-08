@@ -83140,8 +83140,8 @@
 /area/space/nearstation)
 "vfP" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/suit/radiation,
-/obj/item/clothing/head/radiation,
+/obj/item/clothing/suit/utility/radiation,
+/obj/item/clothing/head/utility/radiation,
 /obj/effect/turf_decal/bot,
 /obj/item/pipe_dispenser,
 /obj/machinery/light{

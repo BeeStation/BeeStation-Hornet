@@ -1,7 +1,7 @@
 /obj/item/gun/ballistic/bow
 	name = "wooden bow"
 	desc = "some sort of primitive projectile weapon. used to fire arrows."
-	icon_state = "bow"
+	icon_state = "bow_unloaded"
 	icon_state_preview = "bow_unloaded"
 	item_state = "bow"
 	w_class = WEIGHT_CLASS_BULKY
