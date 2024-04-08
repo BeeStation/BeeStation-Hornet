@@ -15,8 +15,9 @@
 	can_unwrench = TRUE
 	welded = FALSE
 	layer = GAS_SCRUBBER_LAYER
-	shift_underlay_only = FALSE
 	hide = TRUE
+	shift_underlay_only = FALSE
+	pipe_state = "uvent"
 
 	interacts_with_air = TRUE
 
@@ -35,8 +36,6 @@
 	var/radio_filter_in
 
 	var/obj/machinery/advanced_airlock_controller/aac = null
-
-	pipe_state = "uvent"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/New()
 	if(!id_tag)
