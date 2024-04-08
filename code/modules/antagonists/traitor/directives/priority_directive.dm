@@ -101,7 +101,7 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	PROTECTED_PROC(TRUE)
 	RETURN_TYPE(/datum/directive_team)
-	var/created = new /datum/directive_team(uplinks, islist(data) ? data : list())
+	var/created = new /datum/directive_team(islist(uplinks) ? uplinks : list(uplinks), islist(data) ? data : list())
 	teams += created
 	return created
 
