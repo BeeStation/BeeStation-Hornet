@@ -56,10 +56,10 @@
 
 /datum/brain_trauma/special/ghost_control/on_gain()
 	owner._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
-			 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, owner, NORTH),
-			 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, owner, SOUTH),
-			 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, owner, WEST),
-			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, owner, EAST)), 120))
+			 "up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, NORTH),
+			 "down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, SOUTH),
+			 "left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, WEST),
+			 "right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), owner, EAST)), 120))
 	..()
 
 /datum/brain_trauma/special/ghost_control/on_lose()
@@ -180,7 +180,7 @@
 /datum/brain_trauma/special/death_whispers/proc/whispering()
 	ADD_TRAIT(owner, TRAIT_SIXTHSENSE, TRAUMA_TRAIT)
 	active = TRUE
-	addtimer(CALLBACK(src, .proc/cease_whispering), rand(50, 300))
+	addtimer(CALLBACK(src, PROC_REF(cease_whispering)), rand(50, 300))
 
 /datum/brain_trauma/special/death_whispers/proc/cease_whispering()
 	REMOVE_TRAIT(owner, TRAIT_SIXTHSENSE, TRAUMA_TRAIT)
@@ -192,8 +192,7 @@
 	scan_desc = "criminal mind"
 	gain_text = "<span class='warning'>Justice is coming for you.</span>"
 	lose_text = "<span class='notice'>You were absolved for your crimes.</span>"
-	clonable = FALSE
-	random_gain = FALSE
+	trauma_flags = TRAUMA_NOT_RANDOM
 	var/obj/effect/hallucination/simple/securitron/beepsky
 
 /datum/brain_trauma/special/beepsky/on_gain()

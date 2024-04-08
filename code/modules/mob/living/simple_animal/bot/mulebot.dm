@@ -30,6 +30,7 @@
 	bot_type = MULE_BOT
 	model = "MULE"
 	bot_core_type = /obj/machinery/bot_core/mulebot
+	carryable = FALSE
 
 
 
@@ -41,29 +42,40 @@
 	var/base_icon = "mulebot" /// icon_state to use in update_icon_state
 	var/atom/movable/load = null /// what we're transporting
 	var/mob/living/passenger = null /// who's riding us
-	var/turf/target				/// this is turf to navigate to (location of beacon)
-	var/loaddir = 0				/// this the direction to unload onto/load from
-	var/home_destination = "" 	/// tag of home delivery beacon
+	var/turf/target /// this is turf to navigate to (location of beacon)
+	var/loaddir = 0 /// this the direction to unload onto/load from
+	var/home_destination = ""  /// tag of home delivery beacon
 
-	var/reached_target = TRUE 	///true if already reached the target
+	var/reached_target = TRUE  ///true if already reached the target
 
-	var/auto_return = TRUE		/// true if auto return to home beacon after unload
-	var/auto_pickup = TRUE 	/// true if auto-pickup at beacon
+	var/auto_return = TRUE /// true if auto return to home beacon after unload
+	var/auto_pickup = TRUE  /// true if auto-pickup at beacon
 	var/report_delivery = TRUE /// true if bot will announce an arrival to a location.
 	var/turf/last_target
 	var/mulebot_z_mode
 
 	var/obj/item/stock_parts/cell/cell /// Internal Powercell
+	var/cell_move_power_usage = 1 ///How much power we use when we move.
 	var/bloodiness = 0 ///If we've run over a mob, how many tiles will we leave tracks on while moving
 	var/num_steps = 0 ///The amount of steps we should take until we rest for a time.
 	var/network_id = NETWORK_BOTS_CARGO
 
 /mob/living/simple_animal/bot/mulebot/Initialize(mapload)
 	. = ..()
+
+	RegisterSignal(src, COMSIG_MOB_BOT_PRE_STEP, PROC_REF(check_pre_step))
+	RegisterSignal(src, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(check_pre_step))
+	RegisterSignal(src, COMSIG_MOB_BOT_STEP, PROC_REF(on_bot_step))
+	RegisterSignal(src, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_bot_step))
+
+	ADD_TRAIT(src, TRAIT_NOMOBSWAP, INNATE_TRAIT)
+
 	wires = new /datum/wires/mulebot(src)
-	var/datum/job/cargo_technician/J = new/datum/job/cargo_technician
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_CARGOTECHNICIAN)
 	access_card.access = J.get_access()
-	prev_access = access_card.access
+	prev_access = access_card.access.Copy()
+
 	cell = new /obj/item/stock_parts/cell/upgraded(src, 2000)
 
 	var/static/mulebot_count = 0
@@ -101,6 +113,7 @@
 
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
+	UnregisterSignal(src, list(COMSIG_MOB_BOT_PRE_STEP, COMSIG_MOB_CLIENT_PRE_MOVE, COMSIG_MOB_BOT_STEP, COMSIG_MOB_CLIENT_MOVED))
 	unload(0)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
@@ -196,7 +209,7 @@
 	if(!load || ismob(load)) //mob offsets and such are handled by the riding component / buckling
 		return
 	var/mutable_appearance/load_overlay = new(load) // Our crates use overlays for opening, closing, etc. as opposed to tg
-	load_overlay.pixel_y = initial(load.pixel_y) + 9
+	load_overlay.pixel_y = initial(load.pixel_y) + 12
 	if(load_overlay.layer < layer)
 		load_overlay.layer = layer + 0.01
 	. += load_overlay
@@ -213,7 +226,7 @@
 			wires.cut_random()
 
 
-/mob/living/simple_animal/bot/mulebot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/mulebot/bullet_act(obj/projectile/Proj)
 	. = ..()
 	if(. && !QDELETED(src)) //Got hit and not blown up yet.
 		if(prob(50) && !isnull(load))
@@ -532,6 +545,14 @@
 	B.setDir(direct)
 	bloodiness--
 
+/mob/living/simple_animal/bot/mulebot/Moved()
+	. = ..()
+	if(has_gravity())
+		for(var/mob/living/carbon/human/future_pancake in loc)
+			run_over(future_pancake)
+
+	diag_hud_set_mulebotcell()
+
 /mob/living/simple_animal/bot/mulebot/handle_automated_action()
 	if(!on)
 		return
@@ -572,19 +593,20 @@
 					path -= next
 					return
 				if(isturf(next))
+					if(SEND_SIGNAL(src, COMSIG_MOB_BOT_PRE_STEP) & COMPONENT_MOB_BOT_BLOCK_PRE_STEP)
+						return
 					var/oldloc = loc
 					var/moved = step_towards(src, next)	// attempt to move
-					cell.use(1)
 					if(moved && oldloc!=loc)	// successful move
+						SEND_SIGNAL(src, COMSIG_MOB_BOT_STEP)
 						blockcount = 0
 						path -= loc
-
 						if(destination == home_destination)
 							mode = BOT_GO_HOME
 						else
 							mode = BOT_DELIVER
 
-					else		// failed to move
+					else // failed to move
 
 						blockcount++
 						mode = BOT_BLOCKED
@@ -596,7 +618,7 @@
 							buzz(SIGH)
 							mode = BOT_WAIT_FOR_NAV
 							blockcount = 0
-							addtimer(CALLBACK(src, .proc/process_blocked, next), 2 SECONDS)
+							addtimer(CALLBACK(src, PROC_REF(process_blocked), next), 2 SECONDS)
 							return
 						return
 				else
@@ -609,18 +631,18 @@
 
 		if(BOT_NAV)	// calculate new path
 			mode = BOT_WAIT_FOR_NAV
-			INVOKE_ASYNC(src, .proc/process_nav)
+			INVOKE_ASYNC(src, PROC_REF(process_nav))
 
 /mob/living/simple_animal/bot/mulebot/proc/process_blocked(turf/next)
 	calc_path(avoid=next)
-	if(path.len > 0)
+	if(length(path))
 		buzz(DELIGHT)
 	mode = BOT_BLOCKED
 
 /mob/living/simple_animal/bot/mulebot/proc/process_nav()
 	calc_path()
 
-	if(path.len > 0)
+	if(length(path))
 		blockcount = 0
 		mode = BOT_BLOCKED
 		buzz(DELIGHT)
@@ -691,7 +713,7 @@
 /mob/living/simple_animal/bot/mulebot/proc/start_home()
 	if(!on)
 		return
-	INVOKE_ASYNC(src, .proc/do_start_home)
+	INVOKE_ASYNC(src, PROC_REF(do_start_home))
 
 /mob/living/simple_animal/bot/mulebot/proc/do_start_home()
 	set_destination(home_destination)
@@ -712,7 +734,7 @@
 				calling_ai = null
 				radio_channel = RADIO_CHANNEL_AI_PRIVATE //Report on AI Private instead if the AI is controlling us.
 
-		if(load)		// if loaded, unload at target
+		if(load) // if loaded, unload at target
 			if(report_delivery)
 				speak("Destination <b>[destination]</b> reached. Unloading [load].",radio_channel)
 			unload(loaddir)
@@ -755,19 +777,19 @@
 
 // called from mob/living/carbon/human/Crossed()
 // when mulebot is in the same loc
-/mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
+/mob/living/simple_animal/bot/mulebot/proc/run_over(mob/living/carbon/human/H)
 	log_combat(src, H, "run over", null, "(DAMTYPE: [uppertext(BRUTE)])")
 	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
 					"<span class='userdanger'>[src] drives over you!</span>")
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/damage = rand(5,15)
-	H.apply_damage(2*damage, BRUTE, BODY_ZONE_HEAD, run_armor_check(BODY_ZONE_HEAD, "melee"))
-	H.apply_damage(2*damage, BRUTE, BODY_ZONE_CHEST, run_armor_check(BODY_ZONE_CHEST, "melee"))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_LEG, run_armor_check(BODY_ZONE_L_LEG, "melee"))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_LEG, run_armor_check(BODY_ZONE_R_LEG, "melee"))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_ARM, run_armor_check(BODY_ZONE_L_ARM, "melee"))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_ARM, run_armor_check(BODY_ZONE_R_ARM, "melee"))
+	H.apply_damage(2*damage, BRUTE, BODY_ZONE_HEAD, run_armor_check(BODY_ZONE_HEAD, MELEE))
+	H.apply_damage(2*damage, BRUTE, BODY_ZONE_CHEST, run_armor_check(BODY_ZONE_CHEST, MELEE))
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_LEG, run_armor_check(BODY_ZONE_L_LEG, MELEE))
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_LEG, run_armor_check(BODY_ZONE_R_LEG, MELEE))
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_ARM, run_armor_check(BODY_ZONE_L_ARM, MELEE))
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_ARM, run_armor_check(BODY_ZONE_R_ARM, MELEE))
 
 	var/turf/T = get_turf(src)
 	T.add_mob_blood(H)
@@ -852,6 +874,23 @@
 	. = ..()
 	if(.)
 		visible_message("[src]'s safeties are locked on.")
+
+/// Checks whether the bot can complete a step_towards, checking whether the bot is on and has the charge to do the move. Returns COMPONENT_MOB_BOT_CANCELSTEP if the bot should not step.
+/mob/living/simple_animal/bot/mulebot/proc/check_pre_step(datum/source)
+	SIGNAL_HANDLER
+
+	if(!on)
+		return COMPONENT_MOB_BOT_BLOCK_PRE_STEP
+
+	if((cell && (cell.charge < cell_move_power_usage)) || !has_power((client || paicard)))
+		turn_off()
+		return COMPONENT_MOB_BOT_BLOCK_PRE_STEP
+
+/// Uses power from the cell when the bot steps.
+/mob/living/simple_animal/bot/mulebot/proc/on_bot_step(datum/source)
+	SIGNAL_HANDLER
+
+	cell?.use(cell_move_power_usage)
 
 #undef SIGH
 #undef ANNOYED

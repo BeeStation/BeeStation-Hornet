@@ -1,4 +1,3 @@
-
 import { clamp } from 'common/math';
 import { pureComponentHooks } from 'common/react';
 import { Component } from 'inferno';
@@ -37,19 +36,18 @@ export class OrbitalMapComponent extends Component {
           suppressingFlicker: true,
         });
         clearTimeout(this.flickerTimer);
-        this.flickerTimer = setTimeout(() => this.setState({
-          suppressingFlicker: false,
-        }), suppressFlicker);
+        this.flickerTimer = setTimeout(
+          () =>
+            this.setState({
+              suppressingFlicker: false,
+            }),
+          suppressFlicker
+        );
       }
     };
 
-    this.handleDragStart = e => {
-      const {
-        valueX,
-        valueY,
-        dragMatrixX,
-        dragMatrixY,
-      } = this.props;
+    this.handleDragStart = (e) => {
+      const { valueX, valueY, dragMatrixX, dragMatrixY } = this.props;
       document.body.style['pointer-events'] = 'none';
       this.ref = e.target;
       this.setState({
@@ -69,87 +67,56 @@ export class OrbitalMapComponent extends Component {
       this.dragInterval = setInterval(() => {
         const { dragging, valueX, valueY } = this.state;
         const { onDrag } = this.props;
-        if (dragging && onDrag)
-        {
+        if (dragging && onDrag) {
           onDrag(e, valueX, valueY);
         }
-      }, (1000 / FPS));
+      }, 1000 / FPS);
       document.addEventListener('mousemove', this.handleDragMove);
       document.addEventListener('mouseup', this.handleDragEnd);
     };
 
-    this.handleDragMove = e => {
-      const {
-        minValue,
-        maxValue,
-        step,
-        stepPixelSize,
-        dragMatrixX,
-        dragMatrixY,
-      } = this.props;
+    this.handleDragMove = (e) => {
+      const { minValue, maxValue, step, stepPixelSize, dragMatrixX, dragMatrixY } = this.props;
       const scalarScreenOffsetX = getScalarScreenOffset(e, dragMatrixX);
       const scalarScreenOffsetY = getScalarScreenOffset(e, dragMatrixY);
-      this.setState(prevState => {
+      this.setState((prevState) => {
         const state = { ...prevState };
         const offsetX = scalarScreenOffsetX - state.originX;
         const offsetY = scalarScreenOffsetY - state.originY;
         if (prevState.dragging) {
-          const stepOffset = Number.isFinite(minValue)
-            ? minValue % step
-            : 0;
+          const stepOffset = Number.isFinite(minValue) ? minValue % step : 0;
           // Translate mouse movement to value
           // Give it some headroom (by increasing clamp range by 1 step)
           // X TRANSLATION
           state.internalValueX = clamp(
-            state.internalValueX
-              + offsetX * step / stepPixelSize,
+            state.internalValueX + (offsetX * step) / stepPixelSize,
             minValue - step,
-            maxValue + step);
+            maxValue + step
+          );
           // Clamp the final value
-          state.valueX = clamp(
-            state.internalValueX
-              - state.internalValueX % step
-              + stepOffset,
-            minValue,
-            maxValue);
+          state.valueX = clamp(state.internalValueX - (state.internalValueX % step) + stepOffset, minValue, maxValue);
           // Y TRANSLATION
           state.internalValueY = clamp(
-            state.internalValueY
-              + offsetY * step / stepPixelSize,
+            state.internalValueY + (offsetY * step) / stepPixelSize,
             minValue - step,
-            maxValue + step);
+            maxValue + step
+          );
           // Clamp the final value
-          state.valueY = clamp(
-            state.internalValueY
-              - state.internalValueY % step
-              + stepOffset,
-            minValue,
-            maxValue);
+          state.valueY = clamp(state.internalValueY - (state.internalValueY % step) + stepOffset, minValue, maxValue);
           state.xOffset = state.valueX;
           state.yOffset = state.valueY;
           state.originX = scalarScreenOffsetX;
           state.originY = scalarScreenOffsetY;
-        }
-        else if (Math.abs(offsetX) > 4 || Math.abs(offsetY) > 4) {
+        } else if (Math.abs(offsetX) > 4 || Math.abs(offsetY) > 4) {
           state.dragging = true;
         }
         return state;
       });
     };
 
-    this.handleDragEnd = e => {
-      const {
-        onChange,
-        onDrag,
-        onClick,
-      } = this.props;
-      const {
-        dragging,
-        valueX,
-        valueY,
-        xOffset,
-        yOffset,
-      } = this.state;
+    this.handleDragEnd = (e) => {
+      const { onChange, onDrag, onClick } = this.props;
+      const { dragging, valueX, valueY, xOffset, yOffset } = this.state;
       document.body.style['pointer-events'] = 'auto';
       clearTimeout(this.timer);
       clearInterval(this.dragInterval);
@@ -172,34 +139,23 @@ export class OrbitalMapComponent extends Component {
         if (onDrag) {
           onDrag(e, valueX, valueY);
         }
-      }
-      else {
+      } else {
         onClick(e, xOffset, yOffset);
       }
     };
   }
 
   render() {
-    const {
-      dragging,
-      xOffset,
-      yOffset,
-    } = this.state;
-    const {
-      children,
-      isTracking,
-      dynamicXOffset,
-      dynamicYOffset,
-    } = this.props;
+    const { dragging, xOffset, yOffset } = this.state;
+    const { children, isTracking, dynamicXOffset, dynamicYOffset } = this.props;
 
     // Return a part of the state for higher-level components to use.
     return children({
       dragging: dragging,
-      xOffset: (isTracking ? dynamicXOffset : xOffset),
-      yOffset: (isTracking ? dynamicYOffset : yOffset),
+      xOffset: isTracking ? dynamicXOffset : xOffset,
+      yOffset: isTracking ? dynamicYOffset : yOffset,
       handleDragStart: this.handleDragStart,
     });
-
   }
 }
 

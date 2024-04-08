@@ -7,8 +7,8 @@
 	var/connection_points = list()
 	//Positions of floors.
 	var/floor_locations = list()
-	//Max occurances of this room.
-	var/max_occurances = INFINITY
+	//Max occurrences of this room.
+	var/max_occurrences = INFINITY
 	//Is this a loot room (Only 1 loot room spawns per station)
 	var/loot_room = FALSE
 

@@ -49,7 +49,7 @@
 	var/area/A = get_area(computer) //if the computer isn't directly connected to a wire, attempt to find the APC powering it to pull it's powernet instead
 	if(!A)
 		return
-	local_apc = A.get_apc()
+	local_apc = A.apc
 	if(!local_apc)
 		return
 	if(!local_apc.terminal) //this really shouldn't happen without badminnery.
@@ -80,7 +80,7 @@
 
 /datum/computer_file/program/power_monitor/ui_data()
 	var/datum/powernet/connected_powernet = get_powernet()
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["stored"] = record_size
 	data["interval"] = record_interval / 10
 	data["attached"] = connected_powernet ? TRUE : FALSE

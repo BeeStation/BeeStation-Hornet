@@ -33,7 +33,7 @@
 	if (zone_override)
 		BB.def_zone = zone_override
 	else
-		BB.def_zone = user.zone_selected
+		BB.def_zone = user.get_combat_bodyzone(target)
 	BB.suppressed = quiet
 
 	if(reagents && BB.reagents)

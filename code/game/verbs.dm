@@ -40,7 +40,7 @@
 				//Add category with verb
 				stat_tabs += V.category
 				sorted_verbs["[V.category]"] = list(V)
-				sortList(sorted_verbs)
+				sort_list(sorted_verbs)
 
 /datum/proc/remove_verb(old_verbs)
 	if(IsAdminAdvancedProcCall())

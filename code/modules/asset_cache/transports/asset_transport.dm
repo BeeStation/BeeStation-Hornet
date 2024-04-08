@@ -1,5 +1,4 @@
-/// When sending mutiple assets, how many before we give the client a quaint little sending resources message
-#define ASSET_CACHE_TELL_CLIENT_AMOUNT 8
+
 
 /// Base browse_rsc asset transport
 /datum/asset_transport
@@ -14,7 +13,7 @@
 /datum/asset_transport/proc/Load()
 	if (CONFIG_GET(flag/asset_simple_preload))
 		for(var/client/C in GLOB.clients)
-			addtimer(CALLBACK(src, .proc/send_assets_slow, C, preload), 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(send_assets_slow), C, preload), 1 SECONDS)
 
 /// Initialize - Called when SSassets initializes.
 /datum/asset_transport/proc/Initialize(list/assets)
@@ -22,7 +21,7 @@
 	if (!CONFIG_GET(flag/asset_simple_preload))
 		return
 	for(var/client/C in GLOB.clients)
-		addtimer(CALLBACK(src, .proc/send_assets_slow, C, preload), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(send_assets_slow), C, preload), 1 SECONDS)
 
 
 /**
@@ -59,6 +58,10 @@
 	SSassets.cache[asset_name] = ACI
 	return ACI
 
+/// Immediately removes an asset from the asset cache.
+/datum/asset_transport/proc/unregister_asset(asset_name)
+	SSassets.cache[asset_name] = null
+	SSassets.cache.Remove(null)
 
 /// Returns a url for a given asset.
 /// asset_name - Name of the asset.
@@ -72,6 +75,7 @@
 		|| asset_cache_item.legacy \
 		|| asset_cache_item.keep_local_name \
 		|| (asset_cache_item.namespace && !asset_cache_item.namespace_parent)
+	// Runtime note: "null.legacy" happens, but that's because a client requested it while the server is still setting up. not that an issue. if it happens, check the comment at "Chat" sprite asset.
 	if (keep_local_name)
 		return url_encode(asset_cache_item.name)
 	return url_encode("asset.[asset_cache_item.hash][asset_cache_item.ext]")
@@ -90,7 +94,7 @@
 			else //no stacktrace because this will mainly happen because the client went away
 				return
 		else
-			CRASH("Invalid argument: client: `[client]`")
+			CRASH("Invalid client passed to send_assets: [client] ([REF(client)])")
 	if (!islist(asset_list))
 		asset_list = list(asset_list)
 	var/list/unreceived = list()
@@ -137,13 +141,13 @@
 
 			client.sent_assets[new_asset_name] = ACI.hash
 
-		addtimer(CALLBACK(client, /client/proc/asset_cache_update_json), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, asset_cache_update_json)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 		return TRUE
 	return FALSE
 
 
 /// Precache files without clogging up the browse() queue, used for passively sending files on connection start.
-/datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = 3)
+/datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = SLOW_ASSET_SEND_RATE)
 	var/startingfilerate = filerate
 	for (var/file in files)
 		if (!client)

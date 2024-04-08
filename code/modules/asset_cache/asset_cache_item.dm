@@ -12,7 +12,7 @@
 	var/resource
 	/// our file extension e.g. .png, .gif, etc
 	var/ext = ""
-	/// Should this file alsobut  be sent via the legacy browse_rsc system
+	/// Should this file also be sent via the legacy browse_rsc system
 	/// when cdn transports are enabled?
 	var/legacy = FALSE
 	/// Used by the cdn system to keep legacy css assets with their parent

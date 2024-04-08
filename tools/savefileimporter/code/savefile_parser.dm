@@ -27,7 +27,7 @@
 #define PREFERENCE_TAG_PURCHASED_GEAR	"25"
 #define PREFERENCE_TAG_BE_SPECIAL		"26"
 
-#define NEW_QUERY(thepkey, theckey, thevalue) queries += NewDBQuery("INSERT INTO SS13_preferences (ckey, preference_tag, preference_value) VALUES (:ckey, :pkey, :pval)", list("ckey" = theckey, "pkey" = thepkey, "pval" = thevalue))
+#define NEW_QUERY(thepkey, theckey, thevalue) queries += new_db_query("INSERT INTO SS13_preferences (ckey, preference_tag, preference_value) VALUES (:ckey, :pkey, :pval)", list("ckey" = theckey, "pkey" = thepkey, "pval" = thevalue))
 
 /proc/parse_savefile(owning_ckey, savefile/S)
 	var/list/character_dirs = list()
@@ -128,7 +128,7 @@
 
 	// And save these to the DB
 
-	var/list/datum/DBQuery/queries = list()
+	var/list/datum/db_query/queries = list()
 	NEW_QUERY(PREFERENCE_TAG_TOGGLES, owning_ckey, toggles_out)
 	NEW_QUERY(PREFERENCE_TAG_TOGGLES2, owning_ckey, toggles2_out)
 
@@ -212,7 +212,7 @@
 	var/special_json = json_encode(be_special)
 	NEW_QUERY(PREFERENCE_TAG_BE_SPECIAL, owning_ckey, special_json)
 
-	for(var/datum/DBQuery/query in queries)
+	for(var/datum/db_query/query in queries)
 		query.Execute()
 		var/em = query.ErrorMsg()
 		if(em)

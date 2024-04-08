@@ -36,9 +36,9 @@
 		flick(pulseicon, src)
 		radiation_pulse(src, 400, 2)
 
-/obj/item/nuke_core/suicide_act(mob/user)
+/obj/item/nuke_core/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (TOXLOSS)
+	return TOXLOSS
 
 //nuke core box, for carrying the core
 /obj/item/nuke_core_container
@@ -62,7 +62,7 @@
 	core = ncore
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, .proc/seal), 50)
+	addtimer(CALLBACK(src, PROC_REF(seal)), 50)
 	return TRUE
 
 /obj/item/nuke_core_container/proc/seal()
@@ -96,7 +96,7 @@
 	greyscale_config_inhand_right = null
 
 /obj/item/paper/guides/antag/nuke_instructions
-	info = "How to break into a Nanotrasen self-destruct terminal and remove its plutonium core:<br>\
+	default_raw_text = "How to break into a Nanotrasen self-destruct terminal and remove its plutonium core:<br>\
 	<ul>\
 	<li>Use a screwdriver with a very thin tip (provided) to unscrew the terminal's front panel</li>\
 	<li>Dislodge and remove the front panel with a crowbar</li>\
@@ -109,7 +109,7 @@
 // STEALING SUPERMATTER
 
 /obj/item/paper/guides/antag/supermatter_sliver
-	info = "How to safely extract a supermatter sliver:<br>\
+	default_raw_text = "How to safely extract a supermatter sliver:<br>\
 	<ul>\
 	<li>Approach an active supermatter crystal with radiation shielded personal protective equipment. DO NOT MAKE PHYSICAL CONTACT.</li>\
 	<li>Use a supermatter scalpel (provided) to slice off a sliver of the crystal.</li>\
@@ -156,13 +156,14 @@
 	..()
 	if(!iscarbon(user))
 		return FALSE
-	var/mob/ded = user
-	user.visible_message("<span class='danger'>[ded] reaches out and tries to pick up [src]. [ded.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",\
+	var/mob/victim = user
+	user.visible_message("<span class='danger'>[victim] reaches out and tries to pick up [src]. [victim.p_their()] body starts to glow and bursts into flames before flashing into dust!</span>",\
 			"<span class='userdanger'>You reach for [src] with your hands. That was dumb.</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
 	radiation_pulse(user, 500, 2)
 	playsound(get_turf(user), 'sound/effects/supermatter.ogg', 50, 1)
-	ded.dust()
+	victim.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
+	victim.dust()
 
 /obj/item/nuke_core_container/supermatter
 	name = "supermatter bin"
@@ -182,7 +183,7 @@
 	T.icon_state = "supermatter_tongs"
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, .proc/seal), 50)
+	addtimer(CALLBACK(src, PROC_REF(seal)), 50)
 	return TRUE
 
 /obj/item/nuke_core_container/supermatter/seal()
@@ -206,7 +207,7 @@
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_scalpel"
 	toolspeed = 0.5
-	damtype = "fire"
+	damtype = BURN
 	usesound = 'sound/weapons/bladeslice.ogg'
 	var/usesLeft
 
@@ -220,18 +221,17 @@
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_tongs"
 	toolspeed = 0.75
-	damtype = "fire"
+	damtype = BURN
 	var/obj/item/nuke_core/supermatter_sliver/sliver
 
 /obj/item/hemostat/supermatter/Destroy()
 	QDEL_NULL(sliver)
 	return ..()
 
-/obj/item/hemostat/supermatter/update_icon()
-	if(sliver)
-		icon_state = "supermatter_tongs_loaded"
-	else
-		icon_state = "supermatter_tongs"
+/obj/item/hemostat/supermatter/update_icon_state()
+	icon_state = "supermatter_tongs[sliver ? "_loaded" : null]"
+	//item_state = "supermatter_tongs[sliver ? "_loaded" : null]"
+	return ..()
 
 /obj/item/hemostat/supermatter/afterattack(atom/O, mob/user, proximity)
 	. = ..()
@@ -251,6 +251,7 @@
 /obj/item/hemostat/supermatter/proc/Consume(atom/movable/AM, mob/user)
 	if(ismob(AM))
 		var/mob/victim = AM
+		victim.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
 		victim.dust()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(victim)].", "supermatter")
@@ -261,6 +262,7 @@
 		user.visible_message("<span class='danger'>As [user] touches [AM] with \the [src], both flash into dust and silence fills the room...</span>",\
 			"<span class='userdanger'>You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well.</span>",\
 			"<span class='italics'>Everything suddenly goes silent.</span>")
+		user.investigate_log("has been dusted by [src].", INVESTIGATE_DEATHS)
 		user.dust()
 	radiation_pulse(src, 500, 2)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, 1)

@@ -12,9 +12,9 @@
 	reagent = /datum/reagent/blob/explosive_lattice
 
 /datum/blobstrain/reagent/explosive_lattice/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
-	if(damage_flag == "bomb")
+	if(damage_flag == BOMB)
 		return 0
-	else if(damage_flag != "melee" && damage_flag != "bullet" && damage_flag != "laser")
+	else if(damage_flag != MELEE && damage_flag != BULLET && damage_flag != LASER)
 		return damage * 1.5
 	return ..()
 
@@ -31,7 +31,7 @@
 		var/obj/effect/temp_visual/explosion/fast/E = new /obj/effect/temp_visual/explosion/fast(get_turf(M))
 		E.alpha = 150
 		for(var/mob/living/L in ohearers(1, get_turf(M)))
-			if(ROLE_BLOB in L.faction) //no friendly fire
+			if(FACTION_BLOB in L.faction) //no friendly fire
 				continue
 			var/aoe_volume = ..(L, TOUCH, initial_volume, 0, L.get_permeability_protection(), O)
 			L.apply_damage(0.4*aoe_volume, BRUTE)

@@ -9,8 +9,8 @@
 	pass_flags = PASSTABLE
 	ventcrawler = VENTCRAWLER_NUDE
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
-	type_of_meat = /obj/item/reagent_containers/food/snacks/meat/slab/monkey
+	butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
+	type_of_meat = /obj/item/food/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
@@ -20,6 +20,8 @@
 	mobchatspan = "monkeyhive"
 	ai_controller = /datum/ai_controller/monkey
 	faction = list("neutral", "monkey")
+	/// Whether it can be made into a human with mutadone
+	var/natural = TRUE
 	///Item reference for jumpsuit
 	var/obj/item/clothing/w_uniform = null
 
@@ -38,6 +40,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/lay_down)
+
+	icon_state = null
 
 	if(unique_name) //used to exclude pun pun
 		gender = pick(MALE, FEMALE)
@@ -59,9 +63,22 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 
 	create_dna()
 	dna.initialize_dna(random_blood_type())
+	AddComponent(/datum/component/bloodysoles/feet)
 	//Set offsets here, DONT mess with monkey species, we use human anyway.
 	dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-4), OFFSET_HEAD = list(0,-4), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
+	check_if_natural()
 	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
+
+	// Give random dormant diseases to roundstart monkeys.
+	if(mapload)
+		give_random_dormant_disease(30, min_symptoms = 1, max_symptoms = 3)
+
+/mob/living/carbon/monkey/proc/check_if_natural()
+	for(var/datum/mutation/race/monke in dna.mutations)
+		if(natural)
+			monke.mutadone_proof = TRUE
+		else
+			monke.mutadone_proof = FALSE
 
 /mob/living/carbon/monkey/Destroy()
 	SSmobs.cubemonkeys -= src
@@ -81,14 +98,13 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 
 /mob/living/carbon/monkey/on_reagent_change()
 	. = ..()
-	remove_movespeed_modifier(MOVESPEED_ID_MONKEY_REAGENT_SPEEDMOD, TRUE)
 	var/amount
 	if(reagents.has_reagent(/datum/reagent/medicine/morphine))
 		amount = -1
 	if(reagents.has_reagent(/datum/reagent/consumable/nuka_cola))
 		amount = -1
 	if(amount)
-		add_movespeed_modifier(MOVESPEED_ID_MONKEY_REAGENT_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = amount)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_reagent_speedmod, TRUE, amount)
 
 /mob/living/carbon/monkey/updatehealth()
 	. = ..()
@@ -97,7 +113,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 		var/health_deficiency = (maxHealth - health)
 		if(health_deficiency >= 45)
 			slow += (health_deficiency / 25)
-	add_movespeed_modifier(MOVESPEED_ID_MONKEY_HEALTH_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = slow)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/monkey_health_speedmod, TRUE, slow)
 
 /mob/living/carbon/monkey/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -157,15 +173,6 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 
 	return threatcount
 
-/mob/living/carbon/monkey/get_permeability_protection()
-	var/protection = 0
-	if(head)
-		protection = 1 - head.permeability_coefficient
-	if(wear_mask)
-		protection = max(1 - wear_mask.permeability_coefficient, protection)
-	protection = protection/7 //the rest of the body isn't covered.
-	return protection
-
 /mob/living/carbon/monkey/IsVocal()
 	if(!getorganslot(ORGAN_SLOT_LUNGS))
 		return 0
@@ -173,6 +180,11 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 
 /mob/living/carbon/monkey/can_use_guns(obj/item/G)
 	return TRUE
+
+/mob/living/carbon/monkey/IsAdvancedToolUser()
+	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED)) //Obtainable with Brain trauma
+		return FALSE
+	return TRUE //Something about an infinite amount of monkeys on typewriters writing Shakespeare...
 
 /mob/living/carbon/monkey/angry
 	ai_controller = /datum/ai_controller/monkey/angry
@@ -237,7 +249,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /obj/item/organ/brain/tumor
 	name = "teratoma brain"
 
-/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer)
+/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load = FALSE)
 	. = ..()
 	//Removing it deletes it
 	if(!QDELETED(src))

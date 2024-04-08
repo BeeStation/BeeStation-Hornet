@@ -10,7 +10,7 @@
 	force = 5
 	var/list/grenades = new/list()
 	var/max_grenades = 3
-	materials = list(/datum/material/iron=2000)
+	custom_materials = list(/datum/material/iron=2000)
 	fire_rate = 1.5
 	weapon_weight = WEAPON_MEDIUM
 
@@ -45,7 +45,7 @@
 	F.active = 1
 	F.icon_state = initial(F.icon_state) + "_active"
 	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-	addtimer(CALLBACK(F, /obj/item/grenade.proc/prime), 15)
+	addtimer(CALLBACK(F, TYPE_PROC_REF(/obj/item/grenade, prime)), 15)
 
 /obj/item/gun/grenadelauncher/security
 	desc = "A terrible, terrible thing. It's really awful! It's been crudely painted blue."

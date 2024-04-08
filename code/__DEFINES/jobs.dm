@@ -60,6 +60,7 @@
 
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"
+#define DEFAULT_BIBLE "The Bible"
 
 #define JOB_DISPLAY_ORDER_DEFAULT 0
 
@@ -95,9 +96,8 @@
 #define JOB_DISPLAY_ORDER_DETECTIVE 30
 #define JOB_DISPLAY_ORDER_SECURITY_OFFICER 31
 #define JOB_DISPLAY_ORDER_BRIG_PHYS 32
-#define JOB_DISPLAY_ORDER_DEPUTY 33
-#define JOB_DISPLAY_ORDER_AI 34
-#define JOB_DISPLAY_ORDER_CYBORG 35
+#define JOB_DISPLAY_ORDER_AI 33
+#define JOB_DISPLAY_ORDER_CYBORG 34
 
 
 #define DEPT_BITFLAG_COM (1<<0)
@@ -110,6 +110,9 @@
 #define DEPT_BITFLAG_SEC (1<<7)
 #define DEPT_BITFLAG_VIP (1<<8)
 #define DEPT_BITFLAG_SILICON  (1<<9)
+#define DEPT_BITFLAG_CAPTAIN (1<<10)
+#define DEPT_BITFLAG_ASSISTANT (1<<11)
+
 // should check the ones in `\_DEFINES\economy.dm`
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
 

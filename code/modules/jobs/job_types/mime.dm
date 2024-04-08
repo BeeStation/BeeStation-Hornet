@@ -1,6 +1,8 @@
 /datum/job/mime
 	title = JOB_NAME_MIME
 	flag = MIME
+	description = "Be the Clown's mute counterpart and arch nemesis. Conduct pantomimes and performances, create interesting situations with your mime powers. Remember your job is to keep things funny for others, not just yourself."
+	department_for_prefs = DEPT_BITFLAG_CIV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -25,9 +27,16 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/mime
 	)
 
-/datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M)
+	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+
+/datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
-	H.apply_pref_name("mime", M.client)
+	if(!ishuman(H))
+		return
+	if(!M.client || on_dummy)
+		return
+	H.apply_pref_name(/datum/preference/name/mime, preference_source)
+
 
 /datum/outfit/job/mime
 	name = JOB_NAME_MIME
@@ -41,7 +50,11 @@
 	gloves = /obj/item/clothing/gloves/color/white
 	head = /obj/item/clothing/head/frenchberet
 	suit = /obj/item/clothing/suit/suspenders
-	backpack_contents = list(/obj/item/book/mimery=1, /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing=1)
+	backpack_contents = list(
+		/obj/item/book/mimery=1,
+		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing=1,
+		/obj/item/stamp/mime=1
+	)
 
 	backpack = /obj/item/storage/backpack/mime
 	satchel = /obj/item/storage/backpack/mime

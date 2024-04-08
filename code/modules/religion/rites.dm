@@ -35,6 +35,13 @@
 /datum/religion_rites/proc/perform_rite(mob/living/user, atom/religious_tool)
 	if(!can_afford(user))
 		return FALSE
+	var/turf/T = get_turf(religious_tool)
+	if(!T.is_holy())
+		to_chat(user, "<span class='warning'>The altar can only function in a holy area!</span>")
+		return FALSE
+	if(!GLOB.religious_sect.altar_anchored)
+		to_chat(user, "<span class='warning'>The altar must be secured to the floor if you wish to perform the rite!</span>")
+		return FALSE
 	to_chat(user, "<span class='notice'>You begin to perform the rite of [name]...</span>")
 	if(!ritual_invocations)
 		if(do_after(user, target = user, delay = ritual_length))
@@ -42,6 +49,9 @@
 		return FALSE
 	var/first_invoke = TRUE
 	for(var/i in ritual_invocations)
+		if(!GLOB.religious_sect.altar_anchored)
+			to_chat(user, "<span class='warning'>The altar must be secured to the floor if you wish to perform the rite!</span>")
+			return FALSE
 		if(first_invoke) //instant invoke
 			user.say(i)
 			first_invoke = FALSE
@@ -52,6 +62,9 @@
 			return FALSE
 		user.say(i)
 	if(!do_after(user, target = user, delay = ritual_length/length(ritual_invocations))) //because we start at 0 and not the first fraction in invocations, we still have another fraction of ritual_length to complete
+		return FALSE
+	if(!GLOB.religious_sect.altar_anchored)
+		to_chat(user, "<span class='warning'>The altar must be secured to the floor if you wish to perform the rite!</span>")
 		return FALSE
 	if(invoke_msg)
 		user.say(invoke_msg)
@@ -70,7 +83,7 @@
 /datum/religion_rites/synthconversion
 	name = "Synthetic Conversion"
 	desc = "Convert a human-esque individual into a (superior) Android. Buckle a human to convert them, otherwise it will convert you."
-	ritual_length = 30 SECONDS
+	ritual_length = 25 SECONDS
 	ritual_invocations = list("By the inner workings of our god ...",
 						"... We call upon you, in the face of adversity ...",
 						"... to complete us, removing that which is undesirable ...")
@@ -145,7 +158,7 @@
 /datum/religion_rites/machine_implantation
 	name = "Machine Implantation"
 	desc = "Apply a provided upgrade to your body. Place a cybernetic item on the altar, then buckle someone to implant them, otherwise it will implant you."
-	ritual_length = 30 SECONDS
+	ritual_length = 20 SECONDS
 	ritual_invocations = list("Lend us your power ...",
 						"... We call upon you, grant us this upgrade ...",
 						"... Complete us, joining man and machine ...")
@@ -225,8 +238,13 @@
 	..()
 	if(!QDELETED(chosen_clothing) && get_turf(religious_tool) == chosen_clothing.loc) //check if the same clothing is still there
 		if(istype(chosen_clothing,/obj/item/clothing/suit/hooded))
-			for(var/obj/item/clothing/head/integrated_helmet in chosen_clothing.contents) //check if the clothing has a hood/helmet integrated and fireproof it if there is one.
-				apply_fireproof(integrated_helmet)
+			var/obj/item/clothing/suit/hooded/as_hooded = chosen_clothing
+			if(as_hooded.hood)
+				apply_fireproof(as_hooded.hood)
+		else if(istype(chosen_clothing,/obj/item/clothing/suit/space/hardsuit))
+			var/obj/item/clothing/suit/space/hardsuit/suit = chosen_clothing
+			if(suit.helmet)
+				apply_fireproof(suit.helmet)
 		apply_fireproof(chosen_clothing)
 		playsound(get_turf(religious_tool), 'sound/magic/fireball.ogg', 50, TRUE)
 		chosen_clothing = null //our lord and savior no longer cares about this apparel
@@ -238,7 +256,7 @@
 /datum/religion_rites/burning_sacrifice
 	name = "Burning Offering"
 	desc = "Sacrifice a buckled burning corpse for favor, the more burn damage the corpse has the more favor you will receive."
-	ritual_length = 20 SECONDS
+	ritual_length = 15 SECONDS
 	ritual_invocations = list("Burning body ...",
 	"... cleansed by the flame ...",
 	"... we were all created from fire ...",
@@ -312,7 +330,7 @@
 /datum/religion_rites/create_lesser_lich
 	name = "Create Lesser Lich"
 	desc = "Gives the bound creature a spell granting them the ability to create a lesser phylactery, causing them to become a skeleton and revive on death twice if the phylactery still exists on-station. Be warned, becoming a lesser lich will prevent revivial by any other means."
-	ritual_length = 70 SECONDS
+	ritual_length = 60 SECONDS //This one's pretty powerful so it'll still be long
 	ritual_invocations = list("From the depths of the soul pool ...",
 	"... come forth into this being ...",
 	"... grant this servant power ...",
@@ -395,8 +413,7 @@
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/cult/blood/long(altar_turf)
 	new /obj/effect/temp_visual/dir_setting/curse/long(altar_turf)
-	var/list/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
-	var/list/candidates = pollGhostCandidates("Do you wish to be resurrected as a Holy Summoned Undead?", jobbans, null, FALSE,)
+	var/list/candidates = poll_ghost_candidates("Do you wish to be resurrected as a Holy Summoned Undead?", ROLE_HOLY_SUMMONED, null, 10 SECONDS, POLL_IGNORE_HOLYUNDEAD)
 	if(!length(candidates))
 		to_chat(user, "<span class='warning'>The soul pool is empty...")
 		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
@@ -427,13 +444,15 @@
 		GLOB.religious_sect?.on_conversion(undead)
 	if(is_special_character(user))
 		to_chat(undead, "<span class='userdanger'>You are grateful to have been summoned into this word by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+	else
+		to_chat(undead, "<span class='big notice'>You are grateful to have been summoned into this world. You are now a member of this station's crew, Try not to cause any trouble.</span>")
 	playsound(altar_turf, pick('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg',), 50, TRUE)
 	return ..()
 
 /datum/religion_rites/raise_dead
 	name = "Raise Dead"
 	desc = "Revives a buckled dead creature or person."
-	ritual_length = 70 SECONDS
+	ritual_length = 40 SECONDS
 	ritual_invocations = list("Rejoin our world ...",
 	"... come forth from the beyond ...",
 	"... fresh life awaits you ...",
@@ -491,7 +510,7 @@
 /datum/religion_rites/living_sacrifice
 	name = "Living Sacrifice"
 	desc = "Sacrifice a non-sentient living buckled creature for favor."
-	ritual_length = 40 SECONDS
+	ritual_length = 25 SECONDS
 	ritual_invocations = list("To offer this being unto the gods ...",
 	"... to feed them with its soul ...",
 	"... so that they may consume all within their path ...",
@@ -519,6 +538,9 @@
 			to_chat(user, "<span class='warning'>This sacrifice is sentient! [GLOB.deity] will not accept this offering.</span>")
 			chosen_sacrifice = null
 			return FALSE
+		var/mob/living/carbon/C = creature
+		if(!isnull(C))
+			cuff(C)
 		return ..()
 
 /datum/religion_rites/living_sacrifice/invoke_effect(mob/living/user, atom/movable/religious_tool)
@@ -540,12 +562,20 @@
 	chosen_sacrifice = null
 	return ..()
 
+/datum/religion_rites/living_sacrifice/proc/cuff(var/mob/living/carbon/C)
+	if(C.handcuffed)
+		return
+	C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult(C)
+	C.update_handcuffed()
+	playsound(C, 'sound/magic/smoke.ogg', 50, 1)
+	C.visible_message("<span class='warning'>Darkness forms around [C]'s wrists as shadowy bindings appear on them!</span>")
+
 /**** Carp rites ****/
 
 /datum/religion_rites/summon_carp
 	name = "Summon Carp"
 	desc = "Creates a Sentient Space Carp, if a soul is willing to take it. If not, the favor is refunded."
-	ritual_length = 90 SECONDS
+	ritual_length = 50 SECONDS
 	ritual_invocations = list("Grant us a new follower ...",
 	"... let them enter our realm ...",
 	"... become one with our world ...",
@@ -558,8 +588,7 @@
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
 	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
-	var/list/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
-	var/list/candidates = pollGhostCandidates("Do you wish to be summoned as a Holy Carp?", jobbans, null, FALSE)
+	var/list/candidates = poll_ghost_candidates("Do you wish to be summoned as a Holy Carp?", ROLE_HOLY_SUMMONED, null, 10 SECONDS, POLL_IGNORE_HOLYCARP)
 	if(!length(candidates))
 		new /obj/effect/gibspawner/generic(altar_turf)
 		user.visible_message("<span class='warning'>The carp pool was not strong enough to bring forth a space carp.")
@@ -579,13 +608,17 @@
 		carp.mind?.holy_role = HOLY_ROLE_PRIEST
 		to_chat(carp, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
 		GLOB.religious_sect?.on_conversion(carp)
+	if(is_special_character(user))
+		to_chat(carp, "<span class='userdanger'>You are grateful to have been summoned into this word by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+	else
+		to_chat(carp, "<span class='big notice'>You are grateful to have been summoned into this world. You are now a member of this station's crew, Try not to cause any trouble.</span>")
 	playsound(altar_turf, 'sound/effects/slosh.ogg', 50, TRUE)
 	return ..()
 
 /datum/religion_rites/summon_carpsuit
 	name = "Summon Carp-Suit"
 	desc = "Summons a Space-Carp Suit"
-	ritual_length = 60 SECONDS
+	ritual_length = 30 SECONDS
 	ritual_invocations = list("We shall become one ...",
 	"... we shall blend in ...",
 	"... we shall join in the ways of the carp ...",
@@ -620,7 +653,7 @@
 /datum/religion_rites/flood_area
 	name = "Flood Area"
 	desc = "Flood the area with water vapor, great for learning to swim!"
-	ritual_length = 40 SECONDS
+	ritual_length = 25 SECONDS
 	ritual_invocations = list("We must swim ...",
 	"... but to do so, we need water ...",
 	"... grant us a great flood ...",
@@ -634,3 +667,309 @@
 	if(istype(T))
 		T.atmos_spawn_air("water_vapor=5000;TEMP=255")
 	return ..()
+
+/**** Plant rites ****/
+
+/datum/religion_rites/summon_animals
+	name = "Create Life"
+	desc = "Creates a few animals, this can range from butterflys to giant frogs! Please be careful."
+	ritual_length = 30 SECONDS
+	ritual_invocations = list("Great Mother ...",
+	"... bring us new life ...",
+	"... to join with our nature ...",
+	"... and live amongst us ...")
+	invoke_msg = "... We summon thee, Animals from the Byond!" //might adjust to beyond due to ooc/ic/meta
+	favor_cost = 500
+
+/datum/religion_rites/summon_animals/perform_rite(mob/living/user, atom/religious_tool)
+	var/turf/altar_turf = get_turf(religious_tool)
+	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
+	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
+	return ..()
+
+/datum/religion_rites/summon_animals/invoke_effect(mob/living/user, atom/religious_tool)
+	..()
+	var/turf/altar_turf = get_turf(religious_tool)
+	for(var/i in 1 to 8)
+		var/mob/living/spawned_mob = create_random_mob(altar_turf, FRIENDLY_SPAWN)
+		spawned_mob.faction |= "neutral"
+	playsound(altar_turf, 'sound/ambience/servicebell.ogg', 25, TRUE)
+	if(prob(0.1))
+		playsound(altar_turf, 'sound/effects/bamf.ogg', 100, TRUE)
+		altar_turf.visible_message("<span class='boldwarning'>A large form seems to be forcing its way into your reality via the portal [user] opened! RUN!!!</span>")
+		new /mob/living/simple_animal/hostile/jungle/leaper(altar_turf)
+	return ..()
+
+/datum/religion_rites/create_sandstone
+	name = "Create Sandstone"
+	desc = "Create Sandstone for soil production to help create a plant garden."
+	ritual_length = 35 SECONDS
+	ritual_invocations = list("Bring to us ...",
+	"... the stone we need ...",
+	"... so we can toil away ...")
+	invoke_msg = "and spread many seeds."
+	favor_cost = 800
+
+/datum/religion_rites/create_sandstone/invoke_effect(mob/living/user, atom/religious_tool)
+	new /obj/item/stack/sheet/mineral/sandstone/fifty(get_turf(religious_tool))
+	playsound(get_turf(religious_tool), 'sound/effects/pop_expl.ogg', 50, TRUE)
+	return ..()
+
+/datum/religion_rites/grass_generator
+	name = "Blessing of Nature"
+	desc = "Summon a moveable object that slowly generates grass and fairy-grass around itself while healing any Pod-People or Holy people nearby."
+	ritual_length = 60 SECONDS
+	ritual_invocations = list("Let the plantlife grow ...",
+	"... let it grow across the land ...",
+	"... far and wide it shall spread ...",
+	"... show us true nature ...",
+	"... and we shall worship it all ...")
+	invoke_msg = "... in our own personal haven."
+	favor_cost = 1000
+
+/datum/religion_rites/grass_generator/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	var/turf/open/T = get_turf(religious_tool)
+	if(istype(T))
+		new /obj/structure/destructible/religion/nature_pylon(T)
+	return ..()
+
+/datum/religion_rites/create_podperson
+	name = "Nature Conversion"
+	desc = "Convert a human-esque individual into a being of nature. Buckle a human to convert them, otherwise it will convert you."
+	ritual_length = 30 SECONDS
+	ritual_invocations = list("By the power of nature ...",
+						"... We call upon you, in this time of need ...",
+						"... to merge us with all that is natural ...")
+	invoke_msg = "... May the grass be greener on the other side, show us what it means to be one with nature!!"
+	favor_cost = 300
+
+/datum/religion_rites/create_podperson/perform_rite(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	var/atom/movable/movable_reltool = religious_tool
+	if(!movable_reltool)
+		return FALSE
+	if(LAZYLEN(movable_reltool.buckled_mobs))
+		to_chat(user,"<span class='warning'>You're going to convert the one buckled on [movable_reltool].</span>")
+	else
+		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
+			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+			return FALSE
+		if(ispodperson(user))
+			to_chat(user,"<span class='warning'>You've already converted yourself. To convert others, they must be buckled to [movable_reltool].</span>")
+			return FALSE
+		to_chat(user,"<span class='warning'>You're going to convert yourself with this ritual.</span>")
+	return ..()
+
+/datum/religion_rites/create_podperson/invoke_effect(mob/living/user, atom/religious_tool)
+	..()
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	var/mob/living/carbon/human/rite_target
+	if(!movable_reltool?.buckled_mobs?.len)
+		rite_target = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				rite_target = buckled
+				break
+	if(!rite_target)
+		return FALSE
+	rite_target.set_species(/datum/species/pod)
+	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
+	return TRUE
+
+/**** Shadow rites ****/ //Original code by DingoDongler
+
+#define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
+
+/datum/religion_rites/shadow_conversion
+	name = "Shadowperson Conversion"
+	desc = "Converts a humanoid into a shadowperson, a race blessed by darkness."
+	ritual_length = 30 SECONDS
+	ritual_invocations = list("Let the darkness seep into you...",
+						"... And cover you, envelope you ...",
+						"... And make you one with it ...")
+	invoke_msg = "... And let you be born again!"
+	favor_cost = 1200
+
+/datum/religion_rites/shadow_conversion/perform_rite(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	var/atom/movable/movable_reltool = religious_tool
+	if(LAZYLEN(movable_reltool.buckled_mobs))
+		to_chat(user,"<span class='warning'>You're going to convert the one buckled on [movable_reltool].</span>")
+	else
+		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
+			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+			return FALSE
+		if(isshadow(user))
+			to_chat(user,"<span class='warning'>You've already converted yourself. To convert others, they must be buckled to [movable_reltool].</span>")
+			return FALSE
+		to_chat(user,"<span class='warning'>You're going to convert yourself with this ritual.</span>")
+	return ..()
+
+/datum/religion_rites/shadow_conversion/invoke_effect(mob/living/user, atom/religious_tool)
+	..()
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	var/mob/living/carbon/human/rite_target
+	if(!movable_reltool?.buckled_mobs?.len)
+		rite_target = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				rite_target = buckled
+				break
+	if(!rite_target)
+		return FALSE
+	rite_target.set_species(/datum/species/shadow)
+	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
+	return TRUE
+
+/datum/religion_rites/shadow_obelisk
+	name = "Obelisk Manifestation"
+	desc = "Creates an obelisk that generates favor when in a dark area."
+	ritual_length = 45 SECONDS
+	ritual_invocations = list("Let the shadows combine...",
+						"... Solidify and grow ...",
+						"... Make an idol to eminate shadows ...")
+	invoke_msg = "I summon forth an obelisk, to appease the darkness."
+	favor_cost = 100 //Sect starts with 100 favor to begin
+
+/datum/religion_rites/shadow_obelisk/invoke_effect(mob/living/user, atom/religious_tool)
+	var/altar_turf = get_turf(religious_tool)
+	var/obj/structure/destructible/religion/shadow_obelisk/obelisk = new(altar_turf)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	sect.obelisks += obelisk
+	obelisk.AddComponent(/datum/component/dark_favor, user)
+	obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
+	return ..()
+
+/datum/religion_rites/expand_shadows
+	name = "Shadow Expansion"
+	desc = "Grow the reach of shadows extending from the altar, and any obelisks."
+	ritual_length = 40 SECONDS
+	ritual_invocations = list("Spread out...",
+						"... Kill the light ...",
+						"... Encompass it all in darkness ...")
+	invoke_msg = "Shadows, reach your tendrils from my altar, and extend thy domain."
+	favor_cost = 175
+
+/datum/religion_rites/expand_shadows/perform_rite(mob/living/user, atom/religious_tool)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if((sect.light_power <= -5) || (sect.light_reach >= 10))
+		to_chat(user, "<span class='warning'>The shadows emanating from your idols is as strong as it could be.</span>")
+		return FALSE
+	return ..()
+
+/datum/religion_rites/expand_shadows/invoke_effect(mob/living/user, atom/religious_tool)
+	. = ..()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(!sect)
+		return
+	sect.light_reach += 2
+	sect.light_power -= 1
+	religious_tool.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+	for(var/obj/structure/destructible/religion/shadow_obelisk/D in sect.obelisks)
+		D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+
+/datum/religion_rites/shadow_blessing
+	name = "Shadow Blessing"
+	desc = "Bless someone with the power of shadows, and make them immune to all magic."
+	ritual_length = 60 SECONDS
+	ritual_invocations = list("Let the darkness reside within us...",
+						"... Let the power flow ...",
+						"... Encompass our souls in shade ...",
+						"... And let the demons know ...",
+						"... That their powers will not work apon us any more...",)
+	invoke_msg = "Bless thy brethen, and grant them immunity!"
+	favor_cost = 8000
+
+/datum/religion_rites/shadow_blessing/perform_rite(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	var/atom/movable/movable_reltool = religious_tool
+	if(LAZYLEN(movable_reltool.buckled_mobs))
+		to_chat(user,"<span class='warning'>You're going to bless the one buckled on [movable_reltool].</span>")
+	else
+		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
+			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+			return FALSE
+		if(isshadow(user))
+			to_chat(user,"<span class='warning'>You've already blessed yourself. To convert others, they must be buckled to [movable_reltool].</span>")
+			return FALSE
+		to_chat(user,"<span class='warning'>You're going to bless yourself with this ritual.</span>")
+	return ..()
+
+/datum/religion_rites/shadow_blessing/invoke_effect(mob/living/user, atom/religious_tool)
+	..()
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	var/mob/living/carbon/human/rite_target
+	if(!movable_reltool?.buckled_mobs?.len)
+		rite_target = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				rite_target = buckled
+				break
+	if(!rite_target)
+		return FALSE
+	ADD_TRAIT(rite_target, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
+	//glowing wings overlay
+	playsound(rite_target, 'sound/weapons/fwoosh.ogg', 75, 0)
+	rite_target.visible_message("<span class='notice'>[rite_target] has been blessed by the rite of [name]!</span>")
+	return TRUE
+
+
+/datum/religion_rites/shadow_eyes
+	name = "Grant Shadow Eyes"
+	desc = "Grants either the caster, or the buckled person, shadow eyes that give night vision."
+	ritual_length = 30 SECONDS
+	ritual_invocations = list("Grant us the sight ...",
+						"... We call upon the shadows ...",
+						"... Show us the way ...")
+	invoke_msg = "... Let the darkness be our guide!!"
+	favor_cost = 1000
+
+/datum/religion_rites/shadow_eyes/perform_rite(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	var/atom/movable/movable_reltool = religious_tool
+	if(length(movable_reltool.buckled_mobs))
+		to_chat(user,"<span class='warning'>You're going to grant the eyes to the one buckled on [movable_reltool].</span>")
+	else if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
+		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	else
+		to_chat(user,"<span class='warning'>You're going to grant the eyes to yourself with this ritual.</span>")
+	return ..()
+
+/datum/religion_rites/shadow_eyes/invoke_effect(mob/living/user, atom/religious_tool)
+	..()
+	var/obj/item/organ/eyes/night_vision/organ = new()
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	var/mob/living/carbon/human/rite_target
+	if(!length(movable_reltool.buckled_mobs))
+		rite_target = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				rite_target = buckled
+				break
+	if(!rite_target)
+		return FALSE
+	organ.Insert(rite_target)
+	rite_target.visible_message("<span class='notice'>[organ] have been merged into [rite_target] by the rite of [name]!</span>")
+	return TRUE

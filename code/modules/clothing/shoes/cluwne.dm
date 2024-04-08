@@ -21,6 +21,7 @@
 		footstep++
 
 /obj/item/clothing/shoes/cluwne/equipped(mob/user, slot)
+	. = ..()
 	if(!user.has_dna())
 		return
 	if(slot == ITEM_SLOT_FEET)

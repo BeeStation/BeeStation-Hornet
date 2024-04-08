@@ -112,26 +112,24 @@
  * Example
  * * "mutters| hello" will be marked as a custom say emote of "mutters" and the message will be "hello"
  * * and it will appear as Joe Average mutters, "hello"
- * * "screams|" will be marked as a custom say emote of "screams" and it will appear as Joe Average screams
+ * * "screams|" will be marked as a custom say emote of "screams" and it will appear as Joe Average screams.
  */
 /mob/proc/check_for_custom_say_emote(message, list/mods)
 	var/customsaypos = findtext(message, "|")
-	var/messagetextpos = 1
 	if(!customsaypos)
 		return message
-	if(findtext(message, " ", customsaypos + 1, customsaypos + 2))
-		messagetextpos = 2
 	if(is_banned_from(ckey, "Emote"))
-		return copytext(message, customsaypos + messagetextpos)
-	mods[MODE_CUSTOM_SAY_EMOTE] = lowertext(copytext_char(message, 1, customsaypos))
-	message = copytext(message, customsaypos + messagetextpos)
+		return copytext(message, customsaypos + 1)
+	mods[MODE_CUSTOM_SAY_EMOTE] = trim_right(lowertext(copytext_char(message, 1, customsaypos)))
+	message = trim_left(copytext(message, customsaypos + 1))
 	if(!message)
 		mods[MODE_CUSTOM_SAY_ERASE_INPUT] = TRUE
+		mods[MODE_CUSTOM_SAY_EMOTE] = punctuate(mods[MODE_CUSTOM_SAY_EMOTE])
 		message = ""
 	return message
 
 /**
-  * Extracts and cleans message of any extenstions at the begining of the message
+  * Extracts and cleans message of any extenstions at the beginning of the message
   * Inserts the info into the passed list, returns the cleaned message
   *
   * Result can be
@@ -154,15 +152,24 @@
 		else if(key == ";" && !mods[MODE_HEADSET] && stat == CONSCIOUS)
 			mods[MODE_HEADSET] = TRUE
 		else if((key in GLOB.department_radio_prefixes) && length(message) > length(key) + 1 && !mods[RADIO_EXTENSION])
-			mods[RADIO_KEY] = lowertext(message[1 + length(key)])
-			mods[RADIO_EXTENSION] = GLOB.department_radio_keys[mods[RADIO_KEY]]
-			chop_to = length(key) + 2
-		else if(key == "," && !mods[LANGUAGE_EXTENSION])
+			key = lowertext(message[1 + length(key)])
+			var/valid_extension = GLOB.department_radio_keys[key]
+			var/valid_say_mode = SSradio.saymodes[key]
+			if(valid_extension || valid_say_mode)
+				mods[RADIO_KEY] = key
+				mods[RADIO_EXTENSION] = GLOB.department_radio_keys[key]
+				chop_to = length(key) + 2
+			else
+				return message
+		else if(key == "," && !mods[LANGUAGE_EXTENSION]) // living/say() proc can set LANGUAGE_EXTENSION before this proc.
 			for(var/ld in GLOB.all_languages)
 				var/datum/language/LD = ld
 				if(initial(LD.key) == message[1 + length(message[1])])
 					// No, you cannot speak in xenocommon just because you know the key
 					if(!can_speak_language(LD))
+						return message
+					// you are not allowed to use metalanguage key
+					if(LD == /datum/language/metalanguage && !HAS_TRAIT(src, TRAIT_METALANGUAGE_KEY_ALLOWED))
 						return message
 					mods[LANGUAGE_EXTENSION] = LD
 					chop_to = length(key) + length(initial(LD.key)) + 1

@@ -63,6 +63,15 @@
 	mission = "Clean up EVERYTHING."
 	polldesc = "a Nanotrasen Janitorial Response Team"
 
+/datum/ert/engineer
+	roles = list(/datum/antagonist/ert/engineer)
+	leader_role = /datum/antagonist/ert/engineer
+	teamsize = 3
+	opendoors = FALSE
+	rename_team = "Nanotrasen Repair Crew"
+	mission = "Restore the station to working order."
+	polldesc = "a Nanotrasen Engineering Response Team"
+
 /datum/ert/intern
 	roles = list(/datum/antagonist/ert/intern)
 	leader_role = /datum/antagonist/ert/intern/leader

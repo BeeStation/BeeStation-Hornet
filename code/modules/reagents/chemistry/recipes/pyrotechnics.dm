@@ -11,19 +11,8 @@
 /datum/chemical_reaction/reagent_explosion/proc/explode(datum/reagents/holder, created_volume)
 	var/power = modifier + round(created_volume/strengthdiv, 1)
 	if(power > 0)
+		reaction_alert_admins(holder)
 		var/turf/T = get_turf(holder.my_atom)
-		var/inside_msg
-		if(ismob(holder.my_atom))
-			var/mob/M = holder.my_atom
-			inside_msg = " inside [ADMIN_LOOKUPFLW(M)]"
-		var/lastkey = holder.my_atom?.fingerprintslast
-		var/touch_msg = "N/A"
-		if(lastkey)
-			var/mob/toucher = get_mob_by_ckey(lastkey)
-			touch_msg = "[ADMIN_LOOKUPFLW(toucher)]"
-		if(!istype(holder.my_atom, /obj/machinery/plumbing)) //excludes standard plumbing equipment from spamming admins with this shit
-			message_admins("Reagent explosion reaction occurred at [ADMIN_VERBOSEJMP(T)][inside_msg]. Last Fingerprint: [touch_msg].")
-		log_game("Reagent explosion reaction occurred at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"]." )
 		var/datum/effect_system/reagents_explosion/e = new()
 		if(istype(holder.my_atom, /obj/item/grenade/chem_grenade))
 			e.explosion_sizes = list(0, 1, 1, 1)
@@ -31,6 +20,20 @@
 		e.start()
 		holder.clear_reagents()
 
+/datum/chemical_reaction/proc/reaction_alert_admins(datum/reagents/holder)
+	var/turf/T = get_turf(holder.my_atom)
+	var/inside_msg
+	if(ismob(holder.my_atom))
+		var/mob/M = holder.my_atom
+		inside_msg = " inside [ADMIN_LOOKUPFLW(M)]"
+	var/lastkey = holder.my_atom?.fingerprintslast
+	var/touch_msg = "N/A"
+	if(lastkey)
+		var/mob/toucher = get_mob_by_ckey(lastkey)
+		touch_msg = "[ADMIN_LOOKUPFLW(toucher)]"
+	if(!istype(holder.my_atom, /obj/machinery/plumbing)) //excludes standard plumbing equipment from spamming admins with this shit
+		message_admins("[src] created at [ADMIN_VERBOSEJMP(T)][inside_msg]. Last Fingerprint: [touch_msg].")
+	log_game("[src] created at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"]." )
 
 /datum/chemical_reaction/reagent_explosion/nitroglycerin
 	name = "Nitroglycerin"
@@ -54,7 +57,7 @@
 
 
 /datum/chemical_reaction/reagent_explosion/potassium_explosion
-	name = "Explosion"
+	name = "Potassium Water explosion"
 	id = "potassium_explosion"
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/potassium = 1)
 	strengthdiv = 10
@@ -74,7 +77,7 @@
 			R.stun(20)
 			R.reveal(100)
 			R.adjustHealth(50)
-		addtimer(CALLBACK(src, .proc/divine_explosion, round(created_volume/48,1),get_turf(holder.my_atom)), 2 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(divine_explosion), round(created_volume/48,1),get_turf(holder.my_atom)), 2 SECONDS)
 	..()
 
 /datum/chemical_reaction/reagent_explosion/potassium_explosion/holyboom/proc/divine_explosion(size, turf/T)
@@ -85,6 +88,16 @@
 			C.adjust_fire_stacks(5)
 			C.IgniteMob()
 
+/datum/chemical_reaction/plasma
+	name = "Plasma Flash"
+	id = /datum/reagent/toxin/plasma
+	required_reagents = list(/datum/reagent/toxin/plasma = 1)
+	required_temp = 320 //extremely volatile
+
+/datum/chemical_reaction/plasma/on_reaction(datum/reagents/holder, created_volume)
+	holder.my_atom.plasma_ignition(created_volume/30, reagent_reaction = TRUE)
+	holder.clear_reagents()
+
 /datum/chemical_reaction/blackpowder
 	name = "Black Powder"
 	id = /datum/reagent/blackpowder
@@ -92,17 +105,20 @@
 	required_reagents = list(/datum/reagent/saltpetre = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/sulfur = 1)
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE
 
+/datum/chemical_reaction/blackpowder/on_reaction(datum/reagents/holder, created_volume)
+	reaction_alert_admins(holder)
+
 /datum/chemical_reaction/reagent_explosion/blackpowder_explosion
-	name = "Black Powder Kaboom"
+	name = "Black Powder explosion"
 	id = "blackpowder_explosion"
 	required_reagents = list(/datum/reagent/blackpowder = 1)
 	required_temp = 474
 	strengthdiv = 6
 	modifier = 1
-	mix_message = "<span class='boldannounce'>Sparks start flying around the black powder!</span>"
+	mix_message = "<span class='boldnotice'>Sparks start flying around the black powder!</span>"
 
 /datum/chemical_reaction/reagent_explosion/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
-	addtimer(CALLBACK(src, .proc/explode, holder, created_volume), rand(50,100))
+	addtimer(CALLBACK(src, PROC_REF(explode), holder, created_volume, modifier, strengthdiv), rand(5,10) SECONDS)
 
 /datum/chemical_reaction/thermite
 	name = "Thermite"
@@ -172,7 +188,7 @@
 	holder.chem_temp = 1000 // hot as shit
 
 /datum/chemical_reaction/reagent_explosion/methsplosion
-	name = "Meth explosion"
+	name = "Strong meth explosion"
 	id = "methboom1"
 	required_temp = 380 //slightly above the meth mix time.
 	required_reagents = list(/datum/reagent/drug/methamphetamine = 1)
@@ -189,6 +205,7 @@
 	..()
 
 /datum/chemical_reaction/reagent_explosion/methsplosion/methboom2
+	name = "Weak meth explosion"
 	id = "methboom2"
 	required_reagents = list(/datum/reagent/diethylamine = 1, /datum/reagent/iodine = 1, /datum/reagent/phosphorus = 1, /datum/reagent/hydrogen = 1) //diethylamine is often left over from mixing the ephedrine.
 	required_temp = 300 //room temperature, chilling it even a little will prevent the explosion
@@ -205,11 +222,11 @@
 		return
 	holder.remove_reagent(/datum/reagent/sorium, created_volume*4)
 	var/turf/T = get_turf(holder.my_atom)
-	var/range = CLAMP(sqrt(created_volume*4), 1, 6)
+	var/range = clamp(sqrt(created_volume*4), 1, 6)
 	goonchem_vortex(T, 1, range)
 
 /datum/chemical_reaction/sorium_vortex
-	name = "sorium_vortex"
+	name = "Sorium vortex"
 	id = "sorium_vortex"
 	required_reagents = list(/datum/reagent/sorium = 1)
 	required_temp = 474
@@ -217,7 +234,7 @@
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	var/range = CLAMP(sqrt(created_volume), 1, 6)
+	var/range = clamp(sqrt(created_volume), 1, 6)
 	goonchem_vortex(T, 1, range)
 
 /datum/chemical_reaction/liquid_dark_matter
@@ -232,7 +249,7 @@
 		return
 	holder.remove_reagent(/datum/reagent/liquid_dark_matter, created_volume*3)
 	var/turf/T = get_turf(holder.my_atom)
-	var/range = CLAMP(sqrt(created_volume*3), 1, 6)
+	var/range = clamp(sqrt(created_volume*3), 1, 6)
 	goonchem_vortex(T, 0, range)
 
 /datum/chemical_reaction/ldm_vortex
@@ -244,7 +261,7 @@
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	var/range = CLAMP(sqrt(created_volume/2), 1, 6)
+	var/range = clamp(sqrt(created_volume/2), 1, 6)
 	goonchem_vortex(T, 0, range)
 
 /datum/chemical_reaction/flash_powder
@@ -315,7 +332,7 @@
 		holder.clear_reagents()
 
 /datum/chemical_reaction/smoke_powder_smoke
-	name = "smoke_powder_smoke"
+	name = "Smoke powder smoke"
 	id = "smoke_powder_smoke"
 	required_reagents = list(/datum/reagent/smoke_powder = 1)
 	required_temp = 374
@@ -350,7 +367,7 @@
 		C.soundbang_act(1, 100, rand(0, 5))
 
 /datum/chemical_reaction/sonic_powder_deafen
-	name = "sonic_powder_deafen"
+	name = "Sonic powder deafen"
 	id = "sonic_powder_deafen"
 	required_reagents = list(/datum/reagent/sonic_powder = 1)
 	required_temp = 374
@@ -362,12 +379,13 @@
 		C.soundbang_act(1, 100, rand(0, 5))
 
 /datum/chemical_reaction/phlogiston
-	name = /datum/reagent/phlogiston
+	name = "Phlogiston"
 	id = /datum/reagent/phlogiston
 	results = list(/datum/reagent/phlogiston = 3)
 	required_reagents = list(/datum/reagent/phosphorus = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/stable_plasma = 1)
 
 /datum/chemical_reaction/phlogiston/on_reaction(datum/reagents/holder, created_volume)
+	reaction_alert_admins(holder)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
 		return
 	var/turf/open/T = get_turf(holder.my_atom)
@@ -444,14 +462,6 @@
 	mix_message = "<span class='danger'>The slime jelly starts glowing intermittently.</span>"
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DANGEROUS | REACTION_TAG_HEALING | REACTION_TAG_OTHER
 
-/datum/chemical_reaction/energized_jelly/energized_ooze
-	name = "Energized Ooze"
-	id = /datum/reagent/teslium/energized_jelly/energized_ooze
-	results = list(/datum/reagent/teslium/energized_jelly/energized_ooze = 2)
-	required_reagents = list(/datum/reagent/toxin/slimeooze = 1, /datum/reagent/teslium = 1)
-	mix_message = "<span class='danger'>The slime ooze starts glowing intermittently.</span>"
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DANGEROUS | REACTION_TAG_HEALING | REACTION_TAG_OTHER
-
 /datum/chemical_reaction/reagent_explosion/teslium_lightning
 	name = "Teslium Destabilization"
 	id = "teslium_lightning"
@@ -463,19 +473,19 @@
 	var/tesla_flags = TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning/on_reaction(datum/reagents/holder, created_volume)
-	var/T1 = created_volume * 20		//100 units : Zap 3 times, with powers 2000/5000/12000. Tesla revolvers have a power of 10000 for comparison.
+	var/T1 = created_volume * 20 //100 units : Zap 3 times, with powers 2000/5000/12000. Tesla revolvers have a power of 10000 for comparison.
 	var/T2 = created_volume * 50
 	var/T3 = created_volume * 120
 	var/added_delay = 0.5 SECONDS
 	if(created_volume >= 75)
-		addtimer(CALLBACK(src, .proc/zappy_zappy, holder, T1), added_delay)
+		addtimer(CALLBACK(src, PROC_REF(zappy_zappy), holder, T1), added_delay)
 		added_delay += 1.5 SECONDS
 	if(created_volume >= 40)
-		addtimer(CALLBACK(src, .proc/zappy_zappy, holder, T2), added_delay)
+		addtimer(CALLBACK(src, PROC_REF(zappy_zappy), holder, T2), added_delay)
 		added_delay += 1.5 SECONDS
-	if(created_volume >= 10)			//10 units minimum for lightning, 40 units for secondary blast, 75 units for tertiary blast.
-		addtimer(CALLBACK(src, .proc/zappy_zappy, holder, T3), added_delay)
-	addtimer(CALLBACK(src, .proc/explode, holder, created_volume), added_delay)
+	if(created_volume >= 10) //10 units minimum for lightning, 40 units for secondary blast, 75 units for tertiary blast.
+		addtimer(CALLBACK(src, PROC_REF(zappy_zappy), holder, T3), added_delay)
+	addtimer(CALLBACK(src, PROC_REF(explode), holder, created_volume, modifier, strengthdiv), added_delay)
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning/proc/zappy_zappy(datum/reagents/holder, power)
 	if(QDELETED(holder.my_atom))

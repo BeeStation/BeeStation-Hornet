@@ -126,7 +126,6 @@
 
 	if (hard_drive && hard_drive.traitor_data != null)
 		var/datum/antagonist/traitor/traitor_data = hard_drive.traitor_data
-		data += get_header_data()
 
 		if (traitor_data.contractor_hub.current_contract)
 			data["ongoing_contract"] = TRUE

@@ -2,4 +2,8 @@
 # Each line is pure html that gets sent to the user under certain conditions
 
 # When a mob is polymorphed
-POLYMORPH <span class='danger'>Note that you are allowed to act as an antagonist while transformed into a hostile mob, unless you volunteered for or sought out transformation.</span>
+POLICY_POLYMORPH <span class='boldannounce'>Even if you take the form of an antagonistic being, you have the same mind as before your transformation. Your loyalties and interests remain the same. Unless you were turned into a shade, or were previously an antagonist, this is not a pass to go antagonize the station.</span>
+POLICY_POSTCLONETEXT <span class='boldannounce'>You have forgotten all the knowledge you gained while being a ghost aswell as the five minutes leading up to your death!</span>
+
+# Message displayd on death
+DEATH_MESSAGE <span class='death_message'><span class='big bold'>You have died!</span><br/>Barring complete bodyloss, you can in most cases be revived by other players. If you do not wish to be brought back, use the "Do Not Resuscitate" verb in the ghost tab.<br/><span class = 'bold purple'>You do not remember the circumstances leading up to your death!</span></span>

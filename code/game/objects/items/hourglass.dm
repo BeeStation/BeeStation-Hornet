@@ -29,15 +29,13 @@
 		to_chat(user,"<span class='notice'>You stop the [src].</span>") //Sand magically flows back because that's more convinient to use.
 		stop()
 
-/obj/item/hourglass/update_icon()
-	if(timing_id)
-		icon_state = "hourglass_active"
-	else
-		icon_state = "hourglass_idle"
+/obj/item/hourglass/update_icon_state()
+	icon_state = "hourglass_[timing_id ? "active" : "idle"]"
+	return ..()
 
 /obj/item/hourglass/proc/start()
 	finish_time = world.time + time
-	timing_id = addtimer(CALLBACK(src, .proc/finish), time, TIMER_STOPPABLE)
+	timing_id = addtimer(CALLBACK(src, PROC_REF(finish)), time, TIMER_STOPPABLE)
 	countdown.start()
 	timing_animation()
 

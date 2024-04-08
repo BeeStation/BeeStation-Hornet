@@ -28,7 +28,7 @@
 				affected_mob.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ) , forced = "pierrot's throat")
 
 /datum/disease/pierrot_throat/after_add()
-	RegisterSignal(affected_mob, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(affected_mob, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 
 /datum/disease/pierrot_throat/proc/handle_speech(datum/source, list/speech_args)

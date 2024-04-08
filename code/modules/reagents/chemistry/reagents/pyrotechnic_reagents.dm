@@ -53,7 +53,7 @@
 	if(isplatingturf(T))
 		var/turf/open/floor/plating/F = T
 		if(prob(10 + F.burnt + 5*F.broken)) //broken or burnt plating is more susceptible to being destroyed
-			F.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(F, EXPLODE_DEVASTATE)
 	if(isfloorturf(T))
 		var/turf/open/floor/F = T
 		if(prob(reac_volume))
@@ -67,7 +67,7 @@
 	if(iswallturf(T))
 		var/turf/closed/wall/W = T
 		if(prob(reac_volume))
-			W.ex_act(EXPLODE_DEVASTATE)
+			EX_ACT(W, EXPLODE_DEVASTATE)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(istype(M))
@@ -102,12 +102,25 @@
 	metabolization_rate = 0.05
 	taste_description = "salt"
 
+/datum/reagent/blackpowder/on_new(data)
+	. = ..()
+	if(holder?.my_atom)
+		RegisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT, PROC_REF(on_ex_act))
+
+/datum/reagent/blackpowder/Destroy()
+	if(holder?.my_atom)
+		UnregisterSignal(holder.my_atom, COMSIG_ATOM_EX_ACT)
+	return ..()
+
 /datum/reagent/blackpowder/on_mob_life(mob/living/carbon/M)
 	..()
 	if(isplasmaman(M))
 		M.hallucination += 5
 
-/datum/reagent/blackpowder/on_ex_act()
+/datum/reagent/blackpowder/proc/on_ex_act(atom/source, severity, target)
+	SIGNAL_HANDLER
+	if(source.flags_1 & PREVENT_CONTENTS_EXPLOSION_1)
+		return
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(1 + round(volume/6, 1), location, 0, 0, message = 0)
@@ -236,47 +249,44 @@
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
-		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
+		M.electrocute_act(rand(5,20), "Teslium in their body", 1, SHOCK_NOGLOVES) //SHOCK_NOGLOVES because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
 	..()
 
+/datum/reagent/teslium/on_mob_metabolize(mob/living/carbon/human/L)
+	. = ..()
+	if(!istype(L))
+		return
+	L.physiology.siemens_coeff *= 2
+
+/datum/reagent/teslium/on_mob_end_metabolize(mob/living/carbon/human/L)
+	. = ..()
+	if(!istype(L))
+		return
+	L.physiology.siemens_coeff *= 0.5
+
 /datum/reagent/teslium/energized_jelly
 	name = "Energized Jelly"
-	description = "Electrically-charged jelly. Boosts jellypeople's nervous system, but only shocks other lifeforms."
+	description = "Electrically-charged jelly. Boosts Oozeling's nervous system, but only shocks other lifeforms."
 	reagent_state = LIQUID
 	color = "#CAFF43"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "jelly"
+	overdose_threshold = 30
 
 /datum/reagent/teslium/energized_jelly/on_mob_life(mob/living/carbon/M)
-	if(isjellyperson(M))
+	if(isoozeling(M))
 		shock_timer = 0 //immune to shocks
 		M.AdjustAllImmobility(-40, FALSE)
 		M.adjustStaminaLoss(-2, 0)
 		if(isluminescent(M))
 			var/mob/living/carbon/human/H = M
-			var/datum/species/jelly/luminescent/L = H.dna.species
+			var/datum/species/oozeling/luminescent/L = H.dna.species
 			L.extract_cooldown = max(0, L.extract_cooldown - 20)
 	..()
 
-/datum/reagent/teslium/energized_jelly/energized_ooze
-	name = "Energized Ooze"
-	description = "Electrically-charged Ooze. Boosts Oozeling's nervous system, but only shocks other lifeforms."
-	reagent_state = LIQUID
-	color = "#CAFF43"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "slime"
-	overdose_threshold = 30
-
-/datum/reagent/teslium/energized_jelly/energized_ooze/on_mob_life(mob/living/carbon/M)
+/datum/reagent/teslium/energized_jelly/overdose_process(mob/living/carbon/M)
 	if(isoozeling(M))
-		shock_timer = 0 //immune to shocks
-		M.AdjustAllImmobility(-40, FALSE)
-		M.adjustStaminaLoss(-2, 0)
-	..()
-
-/datum/reagent/teslium/energized_jelly/energized_ooze/overdose_process(mob/living/carbon/M)
-	if(isoozeling(M) || isjellyperson(M))
 		if(prob(25))
 			M.electrocute_act(rand(5,20), "Energized Jelly overdose in their body", 1, 1) //Override because it's caused from INSIDE of you
 			playsound(M, "sparks", 50, 1)

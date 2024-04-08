@@ -88,13 +88,11 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 /atom/movable/plane_master_controller/game
 	name = PLANE_MASTERS_GAME
 	controlled_planes = list(
-		OPENSPACE_PLANE,
 		FLOOR_PLANE,
 		GAME_PLANE,
 		MASSIVE_OBJ_PLANE,
 		GHOST_PLANE,
 		POINT_PLANE,
 		LIGHTING_PLANE,
+		LIGHTING_PLANE_ADDITIVE,
 	)
-
-/datum/unit_test

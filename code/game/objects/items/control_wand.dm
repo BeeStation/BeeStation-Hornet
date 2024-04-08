@@ -19,8 +19,8 @@
 /obj/item/door_remote/Initialize(mapload)
 	. = ..()
 	access_list = get_region_accesses(region_access)
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_NAK, .proc/bad_signal)
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_ACK, .proc/good_signal)
+	RegisterSignal(src, COMSIG_COMPONENT_NTNET_NAK, PROC_REF(bad_signal))
+	RegisterSignal(src, COMSIG_COMPONENT_NTNET_ACK, PROC_REF(good_signal))
 
 /obj/item/door_remote/proc/bad_signal(datum/source, datum/netdata/data, error_code)
 	if(QDELETED(data.user))

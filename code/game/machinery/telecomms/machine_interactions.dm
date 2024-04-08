@@ -44,11 +44,11 @@
 	data["maxfreq"] = MAX_FREE_FREQ
 	data["frequency"] = tempfreq
 
-	var/obj/item/multitool/heldmultitool = get_multitool(user)
-	data["multitool"] = heldmultitool
+	var/datum/component/buffer/heldmultitool = get_held_buffer_item(user)
+	data["multitool"] = heldmultitool?.parent
 
-	if(heldmultitool)
-		data["multibuff"] = heldmultitool.buffer
+	if(heldmultitool?.parent)
+		data["multibuff"] = heldmultitool.target
 
 	data["toggled"] = toggled
 	data["id"] = id
@@ -84,7 +84,7 @@
 	if(!issilicon(usr) && !istype(usr.get_active_held_item(), /obj/item/multitool))
 		return
 
-	var/obj/item/multitool/heldmultitool = get_multitool(usr)
+	var/datum/component/buffer/heldmultitool = get_held_buffer_item(usr)
 
 	switch(action)
 		if("toggle")
@@ -147,7 +147,7 @@
 				. = TRUE
 		if("link")
 			if(heldmultitool)
-				var/obj/machinery/telecomms/T = heldmultitool.buffer
+				var/obj/machinery/telecomms/T = heldmultitool.target
 				if(istype(T) && T != src)
 					if(!(src in T.links))
 						T.links += src
@@ -157,10 +157,10 @@
 						log_game("[key_name(usr)] linked [src] for [T] at [AREACOORD(src)].")
 						. = TRUE
 		if("buffer")
-			heldmultitool.buffer = src
+			STORE_IN_BUFFER(heldmultitool.parent, src)
 			. = TRUE
 		if("flush")
-			heldmultitool.buffer = null
+			FLUSH_BUFFER(heldmultitool.parent)
 			. = TRUE
 
 	if(add_act(action, params))
@@ -207,18 +207,18 @@
 
 // Returns a multitool from a user depending on their mobtype.
 
-/obj/machinery/telecomms/proc/get_multitool(mob/user)
-	var/obj/item/multitool/P = null
+/obj/machinery/telecomms/proc/get_held_buffer_item(mob/user)
 	// Let's double check
-	if(!issilicon(user) && istype(user.get_active_held_item(), /obj/item/multitool))
-		P = user.get_active_held_item()
+	var/obj/item/held_item = user.get_active_held_item()
+	if(!issilicon(user) && held_item?.GetComponent(/datum/component/buffer))
+		return held_item?.GetComponent(/datum/component/buffer)
 	else if(isAI(user))
 		var/mob/living/silicon/ai/U = user
-		P = U.aiMulti
+		return U.aiMulti.GetComponent(/datum/component/buffer)
 	else if(iscyborg(user) && in_range(user, src))
-		if(istype(user.get_active_held_item(), /obj/item/multitool))
-			P = user.get_active_held_item()
-	return P
+		if(held_item?.GetComponent(/datum/component/buffer))
+			return held_item?.GetComponent(/datum/component/buffer)
+	return null
 
 /obj/machinery/telecomms/proc/canAccess(mob/user)
 	if(issilicon(user) || in_range(user, src))

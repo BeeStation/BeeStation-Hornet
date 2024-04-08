@@ -41,7 +41,7 @@
 /obj/item/organ/cyberimp/brain/anti_drop
 	name = "anti-drop implant"
 	desc = "This cybernetic brain implant will allow you to force your hand muscles to contract, preventing item dropping. Twitch ear to toggle."
-	var/active = 0
+	var/active = FALSE
 	var/list/stored_items = list()
 	implant_color = "#DE7E00"
 	slot = ORGAN_SLOT_BRAIN_ANTIDROP
@@ -53,8 +53,8 @@
 		for(var/obj/item/I in owner.held_items)
 			stored_items += I
 
-		var/list/L = owner.get_empty_held_indexes()
-		if(LAZYLEN(L) == owner.held_items.len)
+		var/list/hold_list = owner.get_empty_held_indexes()
+		if(LAZYLEN(hold_list) == owner.held_items.len)
 			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
 			active = 0
 			stored_items = list()
@@ -62,7 +62,6 @@
 			for(var/obj/item/I in stored_items)
 				to_chat(owner, "<span class='notice'>Your [owner.get_held_index_name(owner.get_held_index_of_item(I))]'s grip tightens.</span>")
 				ADD_TRAIT(I, TRAIT_NODROP, ANTI_DROP_IMPLANT_TRAIT)
-
 	else
 		release_items()
 		to_chat(owner, "<span class='notice'>Your hands relax...</span>")
@@ -89,7 +88,7 @@
 	stored_items = list()
 
 
-/obj/item/organ/cyberimp/brain/anti_drop/Remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/cyberimp/brain/anti_drop/Remove(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(active)
 		ui_action_click()
 	..()
@@ -109,19 +108,19 @@
 
 	var/stun_cap_amount = 40
 
-/obj/item/organ/cyberimp/brain/anti_stun/Remove(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/cyberimp/brain/anti_stun/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
 	. = ..()
 	UnregisterSignal(M, signalCache)
 
 /obj/item/organ/cyberimp/brain/anti_stun/Insert()
 	. = ..()
-	RegisterSignal(owner, signalCache, .proc/on_signal)
+	RegisterSignal(owner, signalCache, PROC_REF(on_signal))
 
 /obj/item/organ/cyberimp/brain/anti_stun/proc/on_signal(datum/source, amount)
 	SIGNAL_HANDLER
 
 	if(!(organ_flags & ORGAN_FAILING) && amount > 0)
-		addtimer(CALLBACK(src, .proc/clear_stuns), stun_cap_amount, TIMER_UNIQUE|TIMER_OVERRIDE)
+		addtimer(CALLBACK(src, PROC_REF(clear_stuns)), stun_cap_amount, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /obj/item/organ/cyberimp/brain/anti_stun/proc/clear_stuns()
 	if(owner || !(organ_flags & ORGAN_FAILING))
@@ -135,7 +134,7 @@
 	if((organ_flags & ORGAN_FAILING) || . & EMP_PROTECT_SELF)
 		return
 	organ_flags |= ORGAN_FAILING
-	addtimer(CALLBACK(src, .proc/reboot), 90 / severity)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
 
 /obj/item/organ/cyberimp/brain/anti_stun/proc/reboot()
 	organ_flags &= ~ORGAN_FAILING
@@ -151,28 +150,54 @@
 	actions_types = list(/datum/action/item_action/update_linkedsurgery)
 	var/list/advanced_surgeries = list()
 	var/static/datum/techweb/linked_techweb
-	var/number_of_surgeries
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/Initialize()
 	. = ..()
 	if(isnull(linked_techweb))
 		linked_techweb = SSresearch.science_tech
-	number_of_surgeries = 0
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
-	advanced_surgeries.Cut()
 	for(var/i in linked_techweb.researched_designs)
 		var/datum/design/surgery/D = SSresearch.techweb_design_by_id(i)
 		if(!istype(D))
 			continue
-		advanced_surgeries += D.surgery
-
-/obj/item/organ/cyberimp/brain/linkedsurgery/proc/check_surgery_update()
-	if(number_of_surgeries<length(advanced_surgeries))
-		to_chat(usr, "<span class='notice'>Surgical Implant updated.</span>")
-		number_of_surgeries = length(advanced_surgeries)
-	else
-		to_chat(usr, "<span class='notice'>None of new surgical programs detected.</span>")
+		advanced_surgeries |= D.surgery
+	for(var/held_item in owner.held_items)
+		if(!held_item)
+			continue
+		var/list/surgeries_to_add = list()
+		var/new_surgeries = 0
+		if(istype(held_item, /obj/item/disk/surgery))
+			var/obj/item/disk/surgery/surgery_disk = held_item
+			for(var/surgery in surgery_disk.surgeries)
+				if(!(surgery in advanced_surgeries))
+					surgeries_to_add += surgery
+					new_surgeries++
+		else if(istype(held_item, /obj/item/disk/tech_disk))
+			var/obj/item/disk/tech_disk/tech_disk = held_item
+			for(var/D in tech_disk.stored_research.researched_designs)
+				var/datum/design/surgery/surgery_design = SSresearch.techweb_design_by_id(D)
+				if(!istype(surgery_design))
+					continue
+				if(!(surgery_design.surgery in advanced_surgeries))
+					surgeries_to_add += surgery_design.surgery
+					new_surgeries++
+		else if(istype(held_item, /obj/item/disk/nuclear))
+			// funny joke message
+			to_chat(owner, "<span class='warning'>Do you <i>want</i> to explode? You can't get surgery data from \the [held_item]!</span>")
+			continue
+		else
+			continue
+		var/hand_name = owner.get_held_index_name(owner.get_held_index_of_item(held_item))
+		if(!new_surgeries)
+			to_chat(owner, "<span class='notice'>No new surgical programs detected on \the [held_item] in your [hand_name].</span>")
+			continue
+		to_chat(owner, "<span class='notice'><b>[new_surgeries]</b> new surgical program\s detected on \the [held_item] in your [hand_name]! Please hold still while the surgical program is being downloaded...</span>")
+		if(!do_after(owner, 5 SECONDS, held_item))
+			to_chat(owner, "<span class='warning'>Surgical program transfer interrupted!</span>")
+			return
+		to_chat(owner, "<span class='notice'><b>[new_surgeries]</b> new surgical program\s were transferred from \the [held_item] in your [hand_name] to \the [src]!</span>")
+		advanced_surgeries |= surgeries_to_add
 
 /datum/action/item_action/update_linkedsurgery
 	name = "Update Surgical Implant"
@@ -180,8 +205,12 @@
 /datum/action/item_action/update_linkedsurgery/Trigger()
 	if(istype(target, /obj/item/organ/cyberimp/brain/linkedsurgery))
 		var/obj/item/organ/cyberimp/brain/linkedsurgery/I = target
+		var/old_surgeries_amount = length(I.advanced_surgeries)
 		I.update_surgery()
-		I.check_surgery_update()
+		if(length(I.advanced_surgeries) > old_surgeries_amount)
+			to_chat(usr, "<span class='notice'>Surgical Implant updated.</span>")
+		else
+			to_chat(usr, "<span class='notice'>None of new surgical programs detected.</span>")
 	return ..()
 
 //[[[[MOUTH]]]]

@@ -2,8 +2,9 @@
 	name = "Nightmare"
 	show_in_antagpanel = TRUE
 	show_to_ghosts = TRUE
-	job_rank = ROLE_NIGHTMARE
+	banning_key = ROLE_NIGHTMARE
 	antagpanel_category = "Nightmare"
+	ui_name = "AntagInfoNightmare"
 	show_name_in_check_antagonists = TRUE
 
 /datum/antagonist/nightmare/on_gain()
@@ -17,7 +18,7 @@
 
 /datum/antagonist/nightmare/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give nightmare appearence on hud (If they are not an antag already)
+	//Give nightmare appearance on hud (If they are not an antag already)
 	var/datum/atom_hud/antag/nightmarehud = GLOB.huds[ANTAG_HUD_NIGHTMARE]
 	nightmarehud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)

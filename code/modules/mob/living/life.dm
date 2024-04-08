@@ -1,8 +1,11 @@
-/mob/living/proc/Life(seconds, times_fired)
+/// This divisor controls how fast body temperature changes to match the environment
+#define BODYTEMP_DIVISOR 8
+
+/mob/living/proc/Life(delta_time, times_fired)
 	set waitfor = FALSE
 	set invisibility = 0
 
-	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, seconds, times_fired)
+	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, delta_time, times_fired)
 
 	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
 		float(on = TRUE)
@@ -46,8 +49,8 @@
 			handle_high_gravity(gravity)
 
 		if(stat != DEAD)
-			handle_traits() // eye, ear, brain damages
-			handle_status_effects() //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
+			handle_traits(delta_time) // eye, ear, brain damages
+			handle_status_effects(delta_time) //all special effects, stun, knockdown, jitteryness, hallucination, sleeping, etc
 
 	handle_fire()
 
@@ -58,6 +61,8 @@
 		return 1
 
 /mob/living/proc/handle_breathing(times_fired)
+	// SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, delta_time, times_fired)
+	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, SSMOBS_DT, times_fired) //Bee edit: Holy shit I do not want to port delta time Life() refactor just for my mothroach behavior to be better
 	return
 
 /mob/living/proc/handle_mutations_and_radiation()
@@ -70,8 +75,15 @@
 /mob/living/proc/handle_random_events()
 	return
 
+// Base mob environment handler for body temperature
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
-	return
+	var/loc_temp = get_temperature(environment)
+
+	if(loc_temp < bodytemperature) // it is cold here
+		if(!on_fire) // do not reduce body temp when on fire
+			adjust_bodytemperature(max((loc_temp - bodytemperature) / BODYTEMP_DIVISOR, BODYTEMP_COOLING_MAX))
+	else // this is a hot place
+		adjust_bodytemperature(min((loc_temp - bodytemperature) / BODYTEMP_DIVISOR, BODYTEMP_HEATING_MAX))
 
 /mob/living/proc/handle_fire()
 	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
@@ -91,26 +103,19 @@
 	location.hotspot_expose(700, 50, 1)
 
 //this updates all special effects: knockdown, druggy, stuttering, etc..
-/mob/living/proc/handle_status_effects()
+/mob/living/proc/handle_status_effects(delta_time)
 	if(confused)
-		confused = max(0, confused - 1)
+		confused = max(0, confused - (1 * delta_time))
 
-/mob/living/proc/handle_traits()
+/mob/living/proc/handle_traits(delta_time)
 	//Eyes
-	if(eye_blind)			//blindness, heals slowly over time
-		if(!stat && !(HAS_TRAIT(src, TRAIT_BLIND)))
-			eye_blind = max(eye_blind-1,0)
-			if(client && !eye_blind)
-				clear_alert("blind")
-				clear_fullscreen("blind")
-			//Prevents healing blurryness while blind from normal means
-			return
-		else
-			eye_blind = max(eye_blind-1,1)
-	if(eye_blurry)			//blurry eyes heal slowly
-		eye_blurry = max(eye_blurry-1, 0)
-		if(client)
-			update_eye_blur()
+	if(eye_blind) //blindness, heals slowly over time
+		if(HAS_TRAIT_FROM(src, TRAIT_BLIND, EYES_COVERED)) //covering your eyes heals blurry eyes faster
+			adjust_blindness(-1.5 * delta_time)
+		else if(!stat && !(HAS_TRAIT(src, TRAIT_BLIND)))
+			adjust_blindness(-0.5 * delta_time)
+	else if(eye_blurry) //blurry eyes heal slowly
+		adjust_blurriness(-0.5 * delta_time)
 
 /mob/living/proc/update_damage_hud()
 	return
@@ -119,3 +124,5 @@
 	if(gravity >= GRAVITY_DAMAGE_TRESHOLD) //Aka gravity values of 3 or more
 		var/grav_stregth = gravity - GRAVITY_DAMAGE_TRESHOLD
 		adjustBruteLoss(min(grav_stregth,3))
+
+#undef BODYTEMP_DIVISOR

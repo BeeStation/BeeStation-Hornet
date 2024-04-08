@@ -22,95 +22,132 @@
 	var/choice = input("Select a species", "Human Spawner", null) in GLOB.species_list
 	selected_species = GLOB.species_list[choice]
 
-
 /obj/item/debug/omnitool
 	name = "omnitool"
 	desc = "The original hypertool, born before them all. Use it in hand to unleash its true power."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hypertool"
+	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.1
-	tool_behaviour = null
+	tool_behaviour = TOOL_SCREWDRIVER
+	var/static/obj/item/stack/cable_coil/cable_coil
+	var/static/obj/item/cultivator/cultivator
+	var/static/obj/item/shovel/spade/spade
+	var/static/list/abstract_tools
+
+	var/list/available_selections = list(
+		"Engineering tools" = list(
+			TOOL_SCREWDRIVER,
+			TOOL_WRENCH,
+			TOOL_CROWBAR,
+			TOOL_WIRECUTTER,
+			TOOL_MULTITOOL,
+			TOOL_WELDER,
+			TOOL_ANALYZER,
+			"wires"
+		),
+		"Medical tools" = list(
+			"drapes",
+			TOOL_SCALPEL,
+			TOOL_HEMOSTAT,
+			TOOL_RETRACTOR,
+			TOOL_SAW,
+			TOOL_CAUTERY,
+			TOOL_DRILL,
+			TOOL_BLOODFILTER
+		),
+		"Miscellaneous tools" = list(
+			TOOL_MINING,
+			TOOL_SHOVEL,
+			"spade",
+			"cultivator",
+			TOOL_RUSTSCRAPER,
+			TOOL_ROLLINGPIN,
+			TOOL_BIKEHORN,
+			"debug_placeholder"
+		)
+	)
+
+/obj/item/debug/omnitool/Initialize(mapload)
+	. = ..()
+
+	if(!abstract_tools)
+		abstract_tools = list()
+
+		cable_coil = new
+		abstract_tools += cable_coil
+		cable_coil.max_amount = INFINITY
+		cable_coil.amount = INFINITY
+
+		cultivator = new
+		abstract_tools += cultivator
+
+		spade = new
+		abstract_tools += spade
+
+		for(var/obj/each in src.abstract_tools)
+			each.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+			if(isitem(each))
+				var/obj/item/I = each
+				I.custom_materials = null // we don't want to feed lathe with these items
 
 /obj/item/debug/omnitool/examine()
 	. = ..()
 	. += " The mode is: [tool_behaviour]"
 
-/obj/item/debug/omnitool/proc/check_menu(mob/user)
-	if(!istype(user))
-		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
-		return FALSE
-	return TRUE
+/obj/item/debug/omnitool/pre_attack(atom/A, mob/living/user, params)
+	switch(tool_behaviour)
+		if("wires")
+			cable_coil.melee_attack_chain(user, A, params)
+			return
+		if("cultivator")
+			cultivator.melee_attack_chain(user, A, params)
+			return
+		if("spade")
+			spade.melee_attack_chain(user, A, params)
+			return
+		if("debug_placeholder") // QoL. put anything you need.
+			return
+	. = ..()
 
 /obj/item/debug/omnitool/attack(mob/living/M, mob/living/user)
-	if(tool_behaviour == "drapes")
-		attempt_initiate_surgery(src, M, user)
-	..()
+	switch(tool_behaviour)
+		if("drapes")
+			attempt_initiate_surgery(src, M, user)
+		if("debug_placeholder") // QoL. put anything you need. - pre_attack() is preffered.
+			pass()
+	. = ..()
 
-/obj/item/debug/omnitool/attack_self(mob/user)
-	if(!user)
-		return
-	var/list/tool_list = list(
-		"Crowbar" = image(icon = 'icons/obj/tools.dmi', icon_state = "crowbar"),
-		"Multitool" = image(icon = 'icons/obj/device.dmi', icon_state = "multitool"),
-		"Screwdriver" = image(icon = 'icons/obj/tools.dmi', icon_state = "screwdriver_map"),
-		"Wirecutters" = image(icon = 'icons/obj/tools.dmi', icon_state = "cutters_map"),
-		"Wrench" = image(icon = 'icons/obj/tools.dmi', icon_state = "wrench"),
-		"Welding Tool" = image(icon = 'icons/obj/tools.dmi', icon_state = "welder"),
-		"Analyzer" = image(icon = 'icons/obj/device.dmi', icon_state = "analyzer"),
-		"Retractor" = image(icon = 'icons/obj/surgery.dmi', icon_state = "retractor"),
-		"Hemostat" = image(icon = 'icons/obj/surgery.dmi', icon_state = "hemostat"),
-		"Cautery" = image(icon = 'icons/obj/surgery.dmi', icon_state = "cautery"),
-		"Drill" = image(icon = 'icons/obj/surgery.dmi', icon_state = "drill"),
-		"Scalpel" = image(icon = 'icons/obj/surgery.dmi', icon_state = "scalpel"),
-		"Surgical drapes" = image(icon = 'icons/obj/surgery.dmi', icon_state = "surgical_drapes"),
-		"Saw" = image(icon = 'icons/obj/surgery.dmi', icon_state = "saw"),
-		"Pickaxe" = image(icon = 'icons/obj/mining.dmi', icon_state = "minipick"),
-		"Shovel" = image(icon = 'icons/obj/mining.dmi', icon_state = "spade"),
-		"Blood Filter" = image(icon = 'icons/obj/surgery.dmi', icon_state = "bloodfilter"),
-		"Wire Brush" = image(icon = 'icons/obj/tools.dmi', icon_state = "wirebrush")
+/obj/item/debug/omnitool/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "ToolSelection")
+		ui.open()
+
+/obj/item/debug/omnitool/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet_batched/tools)
 	)
 
-	var/tool_result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
-	if(!check_menu(user))
+/obj/item/debug/omnitool/ui_data(mob/user)
+	var/list/data = list()
+	. = data
+
+	data["selections"] = available_selections
+
+/obj/item/debug/omnitool/ui_act(action, params)
+	. = ..()
+	if(.)
 		return
-	switch(tool_result)
-		if("Crowbar")
-			tool_behaviour = TOOL_CROWBAR
-		if("Multitool")
-			tool_behaviour = TOOL_MULTITOOL
-		if("Screwdriver")
-			tool_behaviour = TOOL_SCREWDRIVER
-		if("Wirecutters")
-			tool_behaviour = TOOL_WIRECUTTER
-		if("Wrench")
-			tool_behaviour = TOOL_WRENCH
-		if("Welding Tool")
-			tool_behaviour = TOOL_WELDER
-		if("Analyzer")
-			tool_behaviour = TOOL_ANALYZER
-		if("Surgical drapes")
-			tool_behaviour = "drapes"
-		if("Retractor")
-			tool_behaviour = TOOL_RETRACTOR
-		if("Hemostat")
-			tool_behaviour = TOOL_HEMOSTAT
-		if("Cautery")
-			tool_behaviour = TOOL_CAUTERY
-		if("Blood Filter")
-			tool_behaviour = TOOL_BLOODFILTER
-		if("Drill")
-			tool_behaviour = TOOL_DRILL
-		if("Scalpel")
-			tool_behaviour = TOOL_SCALPEL
-		if("Saw")
-			tool_behaviour = TOOL_SAW
-		if("Pickaxe")
-			tool_behaviour = TOOL_MINING
-		if("Shovel")
-			tool_behaviour = TOOL_SHOVEL
-		if("Wire Brush")
-			tool_behaviour = TOOL_RUSTSCRAPER
+
+	switch(action)
+		if("change_selection")
+			var/tool = params["chosen_selection"]
+			if(!(tool in available_selections[params["chosen_category"]]))
+				return
+			tool_behaviour = tool
+			to_chat(usr, "<span class='notice'>Tool behaviour of [src] is now [tool_behaviour]</span>")
+			return
 
 /obj/item/construction/rcd/arcd/debug
 	name = "\improper CentCom Admin RCD"
@@ -121,7 +158,7 @@
 	matter = INFINITY
 	delay_mod = 0.1
 	ranged = TRUE
-	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS | RCD_UPGRADE_FURNISHING
 	canRturf = TRUE
 
 /obj/item/construction/rld/debug
@@ -149,11 +186,13 @@
 	destroy_speed = 0.1
 	paint_speed = 0.1
 	ranged = TRUE
+	upgrade_flags = RPD_UPGRADE_UNWRENCH
 
 /obj/item/spellbook/debug
 	name = "\improper Robehator's spell book"
 	uses = 200
-	debug = TRUE
+	everything_robeless = TRUE
+	bypass_lock = TRUE
 
 //Debug suit
 /obj/item/clothing/head/helmet/space/hardsuit/debug
@@ -161,7 +200,7 @@
 	desc = "very powerful."
 	icon_state = "hardsuit0-syndielite"
 	hardsuit_type = "syndielite"
-	armor = list("melee" = 300, "bullet" = 300, "laser" = 300, "energy" = 300, "bomb" = 300, "bio" = 300, "rad" = 300, "fire" = 300, "acid" = 300, "stamina" = 300) // prevent armor penetration
+	armor = list(MELEE = 300,  BULLET = 300, LASER = 300, ENERGY = 300, BOMB = 300, BIO = 300, RAD = 300, FIRE = 300, ACID = 300, STAMINA = 300) // prevent armor penetration
 	strip_delay = 6000
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -174,7 +213,7 @@
 	hardsuit_type = "syndielite"
 	w_class = WEIGHT_CLASS_TINY
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/debug
-	armor = list("melee" = 300, "bullet" = 300, "laser" = 300, "energy" = 300, "bomb" = 300, "bio" = 300, "rad" = 300, "fire" = 300, "acid" = 300, "stamina" = 300) // prevent armor penetration
+	armor = list(MELEE = 300,  BULLET = 300, LASER = 300, ENERGY = 300, BOMB = 300, BIO = 300, RAD = 300, FIRE = 300, ACID = 300, STAMINA = 300) // prevent armor penetration
 	gas_transfer_coefficient = 0
 	permeability_coefficient = 0
 	siemens_coefficient = 0
@@ -196,10 +235,11 @@
 	item_state = "holdingpack"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
 
 /obj/item/storage/backpack/debug/ComponentInitialize()
 	. = ..()
+	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.allow_big_nesting = TRUE
 	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
@@ -263,7 +303,6 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_PIERCEIMMUNE,
-		TRAIT_IGNORESLOWDOWN,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOLIMBDISABLE,
@@ -280,13 +319,14 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOBREATH,
-		TRAIT_MINDSHIELD,
 		TRAIT_SELF_AWARE,
 		TRAIT_SIXTHSENSE,
 		TRAIT_XRAY_VISION,
 		TRAIT_MEDICAL_HUD,
 		TRAIT_SECURITY_HUD,
-		TRAIT_BARMASTER
+		TRAIT_BARMASTER,
+		TRAIT_SURGEON,
+		TRAIT_METALANGUAGE_KEY_ALLOWED
 	)
 
 /obj/item/debug/orb_of_power/pickup(mob/user)
@@ -294,13 +334,21 @@
 	for(var/each in traits_to_give)
 		ADD_TRAIT(user, each, "debug")
 	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
-	user.update_sight()
+	user.grant_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
+
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	hud.add_hud_to(user)
 	hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	hud.add_hud_to(user)
 	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
 	hud.add_hud_to(user)
+
+	if(!isliving(user))
+		user.update_sight()
+		return
+	var/mob/living/picker = user
+	picker.see_override = SEE_INVISIBLE_OBSERVER
+	picker.update_sight()
 
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
@@ -311,6 +359,8 @@
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")
 	user.remove_all_languages("debug")
+	user.remove_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
+	user.see_override = initial(user.see_override)
 	user.update_sight()
 
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]

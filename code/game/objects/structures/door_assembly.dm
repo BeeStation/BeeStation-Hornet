@@ -5,6 +5,7 @@
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	anchored = FALSE
 	density = TRUE
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	max_integrity = 200
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/base_name = "airlock"
@@ -106,7 +107,7 @@
 						return
 					to_chat(user, "<span class='notice'>You secure the airlock assembly.</span>")
 					name = "secured airlock assembly"
-					setAnchored(TRUE)
+					set_anchored(TRUE)
 			else
 				to_chat(user, "There is another door here!")
 
@@ -119,7 +120,7 @@
 					return
 				to_chat(user, "<span class='notice'>You unsecure the airlock assembly.</span>")
 				name = "airlock assembly"
-				setAnchored(FALSE)
+				set_anchored(FALSE)
 
 	else if(istype(W, /obj/item/stack/cable_coil) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored )
 		if(!W.tool_start_check(user, amount=1))
@@ -273,8 +274,13 @@
 					door.req_access = electronics.accesses
 				if(created_name)
 					door.name = created_name
+				else if(electronics.passed_name)
+					door.name = sanitize(electronics.passed_name)
 				else
 					door.name = base_name
+				if(electronics.passed_cycle_id)
+					door.closeOtherId = electronics.passed_cycle_id
+					door.update_other_id()
 				door.previous_airlock = previous_assembly
 				electronics.forceMove(door)
 				door.update_icon()
@@ -310,7 +316,7 @@
 	target.heat_proof_finished = source.heat_proof_finished
 	target.created_name = source.created_name
 	target.state = source.state
-	target.setAnchored(source.anchored)
+	target.set_anchored(source.anchored)
 	if(previous)
 		target.previous_assembly = source.type
 	if(electronics)
@@ -349,6 +355,7 @@
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
+			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			qdel(src)
 			return TRUE
 	return FALSE

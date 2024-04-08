@@ -94,7 +94,7 @@
 		visible_message("<span class='warning'>[src] easily breaks out of [p_their()] handcuffs!</span>", \
 					"<span class='notice'>With just a thought your handcuffs fall off.</span>")
 
-/mob/living/carbon/true_devil/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/carbon/true_devil/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(incapacitated())
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
@@ -169,14 +169,14 @@
 				visible_message("<span class='danger'>[M] punches [src]!</span>", \
 						"<span class='userdanger'>[M] punches you!</span>")
 				adjustBruteLoss(damage)
-				log_combat(M, src, "attacked")
+				log_combat(M, src, "attacked", M)
 				updatehealth()
 			if ("disarm")
 				if (!(mobility_flags & MOBILITY_STAND) && !ascended) //No stealing the arch devil's pitchfork.
 					if (prob(5))
 						Unconscious(40)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-						log_combat(M, src, "pushed")
+						log_combat(M, src, "pushed", M)
 						visible_message("<span class='danger'>[M] pushes [src] down!</span>", \
 							"<span class='userdanger'>[M] pushes you down!</span>")
 					else

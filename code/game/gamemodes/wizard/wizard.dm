@@ -6,12 +6,12 @@
 	name = "wizard"
 	config_tag = "wizard"
 	report_type = "wizard"
-	antag_flag = ROLE_WIZARD
+	role_preference = /datum/role_preference/antagonist/wizard
+	antag_datum = /datum/antagonist/wizard
 	false_report_weight = 10
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
-	enemy_minimum_age = 14
 	round_ends_with_antag_death = 1
 	announce_span = "danger"
 	announce_text = "There is a space wizard attacking the station!\n\
@@ -22,7 +22,7 @@
 	title_icon = "wizard"
 
 /datum/game_mode/wizard/pre_setup()
-	var/datum/mind/wizard = antag_pick(antag_candidates, ROLE_WIZARD)
+	var/datum/mind/wizard = antag_pick(antag_candidates, /datum/role_preference/antagonist/wizard)
 	wizards += wizard
 	wizard.assigned_role = ROLE_WIZARD
 	wizard.special_role = ROLE_WIZARD
@@ -85,7 +85,7 @@
 	for(var/datum/mind/apprentice in apprentices)
 		round_credits += "<center><h2>[apprentice.name] as an eager apprentice</h2>"
 	if(len_before_addition == round_credits.len)
-		round_credits += list("<center><h2>The wizards have removed themselves from this realm of existance!</h2>", "<center><h2>We couldn't locate them!</h2>")
+		round_credits += list("<center><h2>The wizards have removed themselves from this realm of existence!</h2>", "<center><h2>We couldn't locate them!</h2>")
 	round_credits += "<br>"
 
 	round_credits += ..()

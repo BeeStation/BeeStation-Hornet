@@ -9,7 +9,7 @@
 /datum/component/honkspam/Initialize()
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, .proc/interact)
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(interact))
 
 /datum/component/honkspam/proc/reset_spamflag()
 	spam_flag = FALSE
@@ -21,4 +21,4 @@
 		spam_flag = TRUE
 		var/obj/item/parent_item = parent
 		playsound(parent_item.loc, 'sound/items/bikehorn.ogg', 50, TRUE)
-		addtimer(CALLBACK(src, .proc/reset_spamflag), 2 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(reset_spamflag)), 2 SECONDS)

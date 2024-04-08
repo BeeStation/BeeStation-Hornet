@@ -8,7 +8,7 @@
 	item_flags = NOBLUDGEON
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	materials = list(/datum/material/iron=250, /datum/material/glass=500)
+	custom_materials = list(/datum/material/iron=250, /datum/material/glass=500)
 	var/max_duration = 3000
 	var/duration = 300
 	var/last_use = 0
@@ -37,7 +37,7 @@
 	var/new_duration = input(user, "Set the duration (5-300):", "Desynchronizer", duration / 10) as null|num
 	if(new_duration)
 		new_duration = new_duration SECONDS
-		new_duration = CLAMP(new_duration, 50, max_duration)
+		new_duration = clamp(new_duration, 50, max_duration)
 		duration = new_duration
 		to_chat(user, "<span class='notice'>You set the duration to [DisplayTimeText(duration)].</span>")
 
@@ -54,7 +54,7 @@
 		SEND_SIGNAL(AM, COMSIG_MOVABLE_SECLUDED_LOCATION)
 	last_use = world.time
 	icon_state = "desynchronizer-on"
-	addtimer(CALLBACK(src, .proc/resync), duration)
+	addtimer(CALLBACK(src, PROC_REF(resync)), duration)
 
 /obj/item/desynchronizer/proc/resync()
 	if(sync_holder)

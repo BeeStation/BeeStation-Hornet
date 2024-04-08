@@ -195,7 +195,7 @@
 	. = other_airs + air
 	if(null in .)
 		stack_trace("[src]([REF(src)]) has one or more null gas mixtures, which may cause bugs. Null mixtures will not be considered in reconcile_air().")
-		listclearnulls(.)
+		list_clear_nulls(.)
 
 /datum/pipeline/proc/empty()
 	for(var/datum/gas_mixture/GM in get_all_connected_airs())

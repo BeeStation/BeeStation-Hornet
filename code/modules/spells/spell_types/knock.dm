@@ -6,7 +6,7 @@
 	charge_max = 100
 	clothes_req = FALSE
 	invocation = "AULIE OXIN FIERA"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	range = 3
 	cooldown_min = 20 //20 deciseconds reduction per rank
 
@@ -16,9 +16,9 @@
 	SEND_SOUND(user, sound('sound/magic/knock.ogg'))
 	for(var/turf/T in targets)
 		for(var/obj/machinery/door/door in T.contents)
-			INVOKE_ASYNC(src, .proc/open_door, door)
+			INVOKE_ASYNC(src, PROC_REF(open_door), door)
 		for(var/obj/structure/closet/C in T.contents)
-			INVOKE_ASYNC(src, .proc/open_closet, C)
+			INVOKE_ASYNC(src, PROC_REF(open_closet), C)
 
 /obj/effect/proc_holder/spell/aoe_turf/knock/proc/open_door(var/obj/machinery/door/door)
 	if(istype(door, /obj/machinery/door/airlock))

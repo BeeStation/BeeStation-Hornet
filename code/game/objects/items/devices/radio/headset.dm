@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "An updated, modular intercom that fits over the head. Takes encryption keys."
 	icon_state = "headset"
 	item_state = "headset"
-	materials = list(/datum/material/iron=75)
+	custom_materials = list(/datum/material/iron=75)
 	subspace_transmission = TRUE
 	headset = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
@@ -111,6 +111,11 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "This is used by your elite security force."
 	icon_state = "sec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sec
+
+/obj/item/radio/headset/headset_spacepol
+	name = "spacepol radio headset"
+	desc = "This is used by the intergalatic organization SpacePol."
+	icon_state = "sec_headset"
 
 /obj/item/radio/headset/headset_medsec
 	name = "medical-security radio headset"

@@ -9,7 +9,7 @@
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "syndballoon"
 	item_state = null
-	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL
+	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0
 	throwforce = 0
@@ -17,9 +17,11 @@
 	throw_speed = 0
 	var/charges = 1
 
-/obj/item/melee/touch_attack/Initialize(mapload)
+/obj/item/melee/touch_attack/Initialize(mapload, obj/effect/proc_holder/spell/targeted/touch/_spell)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	if(istype(_spell))
+		attached_spell = _spell
 
 /obj/item/melee/touch_attack/attack(mob/target, mob/living/carbon/user)
 	if(!iscarbon(user)) //Look ma, no hands
@@ -31,14 +33,25 @@
 
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	//Use the spell
-	attached_spell.spell_used = TRUE
-	//Do effects
-	user.say(catchphrase, forced = "spell")
-	playsound(get_turf(user), on_use_sound,50,1)
-	charges--
-	if(charges <= 0)
-		attached_spell.use_charge(user)
+	if(!proximity)
+		return
+	if(charges > 0)
+		use_charge(user)
+
+
+/obj/item/melee/touch_attack/proc/use_charge(mob/living/user, whisper = FALSE)
+	if(QDELETED(src))
+		return
+
+	if(catchphrase)
+		if(whisper)
+			user.say("#[catchphrase]", forced = "spell")
+		else
+			user.say(catchphrase, forced = "spell")
+	if(!isnull(on_use_sound))
+		playsound(get_turf(user), on_use_sound, 50, TRUE)
+	if(--charges <= 0)
+		attached_spell.use_charge()
 		qdel(src)
 
 /obj/item/melee/touch_attack/Destroy()
@@ -171,11 +184,21 @@
 	var/mob/living/carbon/M = target
 
 	user.visible_message("<span class='warning'>[user] is trying to stuff [M]\s body into \the [src]!</span>")
-	if(do_mob(user, M, 250))
+	if(do_after(user, 25 SECONDS, M))
 		var/name = M.real_name
-		var/obj/item/reagent_containers/food/snacks/pie/cream/body/pie = new(get_turf(M))
+		var/obj/item/food/pie/cream/body/pie = new(get_turf(M))
 		pie.name = "\improper [name] [pie.name]"
 
 		. = ..()
 
 		M.forceMove(pie)
+
+/obj/item/melee/touch_attack/mutation
+	catchphrase = null
+	var/datum/mutation/parent_mutation
+
+/obj/item/melee/touch_attack/mutation/Initialize(_mapload, obj/effect/proc_holder/spell/targeted/touch/_spell, datum/mutation/_parent)
+	. = ..()
+	if(!istype(_parent))
+		return INITIALIZE_HINT_QDEL
+	parent_mutation = _parent

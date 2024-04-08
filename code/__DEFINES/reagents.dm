@@ -1,18 +1,19 @@
-#define SOLID 			1
-#define LIQUID			2
-#define GAS				3
+#define SOLID 1
+#define LIQUID 2
+#define GAS 3
 
-#define INJECTABLE		(1<<0)	//! Makes it possible to add reagents through droppers and syringes.
-#define DRAWABLE		(1<<1)	//! Makes it possible to remove reagents through syringes.
+#define INJECTABLE (1<<0) // Makes it possible to add reagents through droppers and syringes.
+#define DRAWABLE (1<<1) // Makes it possible to remove reagents through syringes.
 
-#define REFILLABLE		(1<<2)	//! Makes it possible to add reagents through any reagent container.
-#define DRAINABLE		(1<<3)	//! Makes it possible to remove reagents through any reagent container.
+#define REFILLABLE (1<<2) // Makes it possible to add reagents through any reagent container.
+#define DRAINABLE (1<<3) // Makes it possible to remove reagents through any reagent container.
+#define DUNKABLE (1<<4) // Allows items to be dunked into this container for transfering reagents. Used in conjunction with the dunkable component.
 
-#define TRANSPARENT		(1<<4)	//! Used on containers which you want to be able to see the reagents off.
-#define AMOUNT_VISIBLE	(1<<5)	//! For non-transparent containers that still have the general amount of reagents in them visible.
-#define NO_REACT        (1<<6)  //! Applied to a reagent holder, the contents will not react with each other.
+#define TRANSPARENT (1<<5) // Used on containers which you want to be able to see the reagents off.
+#define AMOUNT_VISIBLE (1<<6) // For non-transparent containers that still have the general amount of reagents in them visible.
+#define NO_REACT (1<<7) // Applied to a reagent holder, the contents will not react with each other.
 
-#define ABSOLUTELY_GRINDABLE   (1<<7)  //! used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
+#define ABSOLUTELY_GRINDABLE   (1<<8)  //! used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
 
 /// Is an open container for all intents and purposes.
 #define OPENCONTAINER 	(REFILLABLE | DRAINABLE | TRANSPARENT)
@@ -54,7 +55,51 @@
 #define CHEMICAL_GOAL_BOTANIST_HARVEST     (1<<22)  // botanist objective - i.e.) make 12 crops of 10u omnizine
 #define CHEMICAL_GOAL_BARTENDER_SERVING    (1<<21) // !NOTE: not implemented, but refactored for preparation - i.e.) serve Bacchus' blessing to 10 crews
 
-
+///reagent tags - used to look up reagents for specific effects. Feel free to add to but comment it
+/// This reagent does brute effects (BOTH damaging and healing)
+#define REACTION_TAG_BRUTE (1<<0)
+/// This reagent does burn effects (BOTH damaging and healing)
+#define REACTION_TAG_BURN (1<<1)
+/// This reagent does toxin effects (BOTH damaging and healing)
+#define REACTION_TAG_TOXIN (1<<2)
+/// This reagent does oxy effects (BOTH damaging and healing)
+#define REACTION_TAG_OXY (1<<3)
+/// This reagent does clone effects (BOTH damaging and healing)
+#define REACTION_TAG_CLONE (1<<4)
+/// This reagent primarily heals, or it's supposed to be used for healing (in the case of c2 - they are healing)
+#define REACTION_TAG_HEALING (1<<5)
+/// This reagent primarily damages
+#define REACTION_TAG_DAMAGING (1<<6)
+/// This reagent explodes as a part of it's intended effect (i.e. not overheated/impure)
+#define REACTION_TAG_EXPLOSIVE (1<<7)
+/// This reagent does things that are unique and special
+#define REACTION_TAG_OTHER (1<<8)
+/// This reagent's reaction is dangerous to create (i.e. explodes if you fail it)
+#define REACTION_TAG_DANGEROUS (1<<9)
+/// This reagent's reaction is easy
+#define REACTION_TAG_EASY (1<<10)
+/// This reagent's reaction is difficult/involved
+#define REACTION_TAG_MODERATE (1<<11)
+/// This reagent's reaction is hard
+#define REACTION_TAG_HARD (1<<12)
+/// This reagent affects organs
+#define REACTION_TAG_ORGAN (1<<13)
+/// This reaction creates a drink reagent
+#define REACTION_TAG_DRINK (1<<14)
+/// This reaction has something to do with food
+#define REACTION_TAG_FOOD (1<<15)
+/// This reaction is a slime reaction
+#define REACTION_TAG_SLIME (1<<16)
+/// This reaction is a drug reaction
+#define REACTION_TAG_DRUG (1<<17)
+/// This reaction is a unique reaction
+#define REACTION_TAG_UNIQUE (1<<18)
+/// This reaction is produces a product that affects reactions
+#define REACTION_TAG_CHEMICAL (1<<19)
+/// This reaction is produces a product that affects plants
+#define REACTION_TAG_PLANT (1<<20)
+/// This reaction is produces a product that affects plants
+#define REACTION_TAG_COMPETITIVE (1<<21)
 
 /*	<pill sprite size standard>
 		Since sprite asset code crops the pill image, you are required to make a pill image within [11,10,21,20] squared area.
@@ -69,7 +114,7 @@
 GLOBAL_LIST_INIT(pill_shape_list, list(
 		"pill_shape_capsule_purple_pink",
 		"pill_shape_capsule_bloodred",
-		"pill_shape_capsule_red_whiteline",
+		"pill_shape_capsule_red_whitelined",
 		"pill_shape_capsule_orange",
 		"pill_shape_capsule_yellow",
 		"pill_shape_capsule_green",

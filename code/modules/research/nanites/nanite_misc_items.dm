@@ -6,4 +6,5 @@
 	icon_state = "nanite_remote"
 
 /obj/item/nanite_injector/attack_self(mob/user)
-	user.AddComponent(/datum/component/nanites, 150)
+	var/cloud_id = tgui_input_number(user, "Input Cloud ID", "Nanite Injector", 1, 99, 1)
+	user.AddComponent(/datum/component/nanites, 150, cloud_id)

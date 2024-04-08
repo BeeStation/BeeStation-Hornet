@@ -50,8 +50,8 @@ Everything else should be handled for you. Good luck soldier.
 	. = ..()
 	if(!istype(parent, /obj/item/gun)) //Needs at least this base prototype.
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, COMSIG_AUTOFIRE_END, .proc/unset_target) //Called when they mouse up on their gun.
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/unset_target) //If you unequip your weapon
+	RegisterSignal(parent, COMSIG_AUTOFIRE_END, PROC_REF(unset_target)) //Called when they mouse up on their gun.
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(unset_target)) //If you unequip your weapon
 
 /datum/component/full_auto/proc/set_target(atom/target)
 	//Preconditions: Parent has prototype "gun", the gun stand user is a living mob.
@@ -115,7 +115,7 @@ Everything else should be handled for you. Good luck soldier.
 /obj/item/gun/onMouseDown(object, location, params)
 	. = ..()
 	var/modifiers = params2list(params)
-	if(modifiers["middle"] || modifiers["shift"] || modifiers["ctrl"] || modifiers["alt"]) // Only shoot if we're not trying to do something else
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK) || LAZYACCESS(modifiers, SHIFT_CLICK) || LAZYACCESS(modifiers, CTRL_CLICK) || LAZYACCESS(modifiers, ALT_CLICK)) // Only shoot if we're not trying to do something else
 		return FALSE
 	if(burst_size <= 1) //Don't let them autofire with bursts. That would just be awful.
 		autofire_component?.set_target(object)

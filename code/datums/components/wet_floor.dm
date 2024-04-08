@@ -29,12 +29,12 @@
 	permanent = _permanent
 	if(!permanent)
 		START_PROCESSING(SSwet_floors, src)
-	addtimer(CALLBACK(src, .proc/gc, TRUE), 1)		//GC after initialization.
+	addtimer(CALLBACK(src, PROC_REF(gc), TRUE), 1)		//GC after initialization.
 	last_process = world.time
 
 /datum/component/wet_floor/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_TURF_IS_WET, .proc/is_wet)
-	RegisterSignal(parent, COMSIG_TURF_MAKE_DRY, .proc/dry)
+	RegisterSignal(parent, COMSIG_TURF_IS_WET, PROC_REF(is_wet))
+	RegisterSignal(parent, COMSIG_TURF_MAKE_DRY, PROC_REF(dry))
 
 /datum/component/wet_floor/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_TURF_IS_WET, COMSIG_TURF_MAKE_DRY))
@@ -66,6 +66,7 @@
 		T.cut_overlay(current_overlay)
 		T.add_overlay(intended)
 		current_overlay = intended
+		T.clean_turf_texture()
 
 /datum/component/wet_floor/proc/AfterSlip(mob/living/L)
 	if(highest_strength == TURF_WET_LUBE)
@@ -94,7 +95,7 @@
 			qdel(parent.GetComponent(/datum/component/slippery))
 			return
 
-	parent.LoadComponent(/datum/component/slippery, intensity, lube_flags, CALLBACK(src, .proc/AfterSlip))
+	parent.LoadComponent(/datum/component/slippery, intensity, lube_flags, CALLBACK(src, PROC_REF(AfterSlip)))
 
 /datum/component/wet_floor/proc/dry(datum/source, strength = TURF_WET_WATER, immediate = FALSE, duration_decrease = INFINITY)
 	SIGNAL_HANDLER
@@ -125,8 +126,7 @@
 	decrease = max(0, decrease)
 	if((is_wet() & TURF_WET_ICE) && t > T0C)		//Ice melts into water!
 		for(var/obj/O in T.contents)
-			if(O.obj_flags & FROZEN)
-				O.make_unfrozen()
+			O.unfreeze()
 		add_wet(TURF_WET_WATER, max_time_left())
 		dry(null, TURF_WET_ICE)
 	dry(null, ALL, FALSE, decrease)
@@ -181,7 +181,7 @@
 /datum/component/wet_floor/proc/_do_add_wet(type, duration_minimum, duration_add, duration_maximum)
 	var/time = 0
 	if(LAZYACCESS(time_left_list, "[type]"))
-		time = CLAMP(LAZYACCESS(time_left_list, "[type]") + duration_add, duration_minimum, duration_maximum)
+		time = clamp(LAZYACCESS(time_left_list, "[type]") + duration_add, duration_minimum, duration_maximum)
 	else
 		time = min(duration_minimum, duration_maximum)
 	LAZYSET(time_left_list, "[type]", time)

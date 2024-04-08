@@ -25,8 +25,8 @@
 	icon_aggro = "broodmother"
 	icon_dead = "egg_sac"
 	icon_gib = "syndicate_gib"
-	maxHealth = 800
-	health = 800
+	maxHealth = 400
+	health = 400
 	melee_damage = 30
 	armour_penetration = 30
 	attacktext = "beats down on"
@@ -136,7 +136,7 @@
 	color = "#FF0000"
 	set_varspeed(0)
 	move_to_delay = 3
-	addtimer(CALLBACK(src, .proc/reset_rage), 65)
+	addtimer(CALLBACK(src, PROC_REF(reset_rage)), 65)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/reset_rage()
 	color = "#FFFFFF"
@@ -164,8 +164,8 @@
 	icon_aggro = "goliath_baby"
 	icon_dead = "goliath_baby_dead"
 	icon_gib = "syndicate_gib"
-	maxHealth = 30
-	health = 30
+	maxHealth = 15
+	health = 15
 	melee_damage = 5
 	attacktext = "bashes against"
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -207,7 +207,7 @@
 		retract()
 	else
 		deltimer(timerid)
-		timerid = addtimer(CALLBACK(src, .proc/retract), 10, TIMER_STOPPABLE)
+		timerid = addtimer(CALLBACK(src, PROC_REF(retract)), 10, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/goliath_tentacle/broodmother/patch/Initialize(mapload, new_spawner)
 	. = ..()

@@ -65,8 +65,13 @@
 	else
 		return ..()
 
+/obj/item/stack/tile/light/place_tile(turf/open/T)
+	. = ..()
+	var/turf/open/floor/light/F = .
+	F?.state = state
+
 /obj/item/stack/tile/light/cyborg
-	materials = list()
+	custom_materials = null
 	is_cyborg = 1
 	cost = 125
 

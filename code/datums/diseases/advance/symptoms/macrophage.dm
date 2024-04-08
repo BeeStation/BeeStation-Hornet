@@ -39,7 +39,8 @@
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(1-3)
-			to_chat(M, "<span class='notice'>Your skin crawls.</span>")
+			if(M.stat != DEAD)
+				to_chat(M, "<span class='notice'>Your skin crawls.</span>")
 		if(4)
 			M.visible_message("<span class='danger'>Lumps form on [M]'s skin!</span>", \
 								  "<span class='userdanger'>You cringe in pain as lumps form and move around on your skin!</span>")
@@ -66,7 +67,7 @@
 	phage.health += A.resistance
 	phage.maxHealth += A.resistance
 	phage.infections += A
-	phage.basedisease = A
+	phage.base_disease = A
 	if(A.transmission >= 12)
 		for(var/datum/disease/D in M.diseases)
 			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
@@ -76,4 +77,4 @@
 			phage.infections += D
 	M.visible_message("<span class='danger'>A strange creature bursts out of [M]!</span>", \
 	  "<span class='userdanger'>A slimy creature bursts forth from your flesh!</span>")
-	addtimer(CALLBACK(phage, /mob/living/simple_animal/hostile/macrophage.proc/shrivel), 3000)
+	addtimer(CALLBACK(phage, TYPE_PROC_REF(/mob/living/simple_animal/hostile/macrophage, shrivel)), 3000)

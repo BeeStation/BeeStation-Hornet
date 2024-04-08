@@ -25,7 +25,7 @@
 
 /datum/admin_player_panel/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/antag_hud)
+		get_asset_datum(/datum/asset/spritesheet_batched/antag_hud)
 	)
 
 /datum/admin_player_panel/ui_static_data(mob/user)
@@ -114,8 +114,8 @@
 					for(var/entry in log)
 						log_type_data[entry] += html_decode(log[entry])
 					data_entry["log_client"][log_type] = log_type_data
-				data_entry["metacurrency_balance"] = player.client.get_metabalance()
-				data_entry["antag_tokens"] = player.client.get_antag_token_count()
+				data_entry["metacurrency_balance"] = player.client.get_metabalance_unreliable()
+				data_entry["antag_tokens"] = player.client.get_antag_token_count_unreliable()
 				data_entry["register_date"] = player.client.account_join_date
 				data_entry["first_seen"] = player.client.player_join_date
 				data_entry["ip"] = player.client.address
@@ -296,6 +296,10 @@
 			if(!check_rights(R_ADMIN))
 				return
 			holder.Topic(null, list("sendbacktolobby" = REF(target_mob), "admin_token" = holder.href_token))
+		if("force_cryo")
+			if(!check_rights(R_ADMIN))
+				return
+			holder.Topic(null, list("force_cryo" = isliving(target_mob) ? REF(target_mob) : target_ckey, "admin_token" = holder.href_token))
 
 
 /datum/admins/proc/open_player_panel()
@@ -305,14 +309,15 @@
 		player_panel = new(usr)
 	player_panel.ui_interact(usr)
 
-/datum/asset/spritesheet/antag_hud
+/datum/asset/spritesheet_batched/antag_hud
 	name = "antag-hud"
 
-/datum/asset/spritesheet/antag_hud/register()
-	var/icon/I = icon('icons/mob/hud.dmi')
+/datum/asset/spritesheet_batched/antag_hud/create_spritesheets()
+	var/datum/icon_transformer/transform = new()
 	// Get the antag hud part
-	I.Crop(24, 24, 32, 32)
+	transform.crop(24, 24, 32, 32)
 	// Scale it up
-	I.Scale(16, 16)
-	InsertAll("antag-hud", I)
-	..()
+	transform.scale(16, 16)
+
+	for (var/icon_state_name in icon_states('icons/mob/hud.dmi'))
+		insert_icon("antag-hud-[icon_state_name]", uni_icon('icons/mob/hud.dmi', icon_state_name, transform=transform))

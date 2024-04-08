@@ -4,4 +4,6 @@
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
-	#define COMPONENT_HOSTILE_NO_ATTACK 1
+	#define COMPONENT_HOSTILE_NO_ATTACK (1 << 0)
+
+#define COMSIG_HOSTILE_POST_ATTACKINGTARGET "hostile_post_attackingtarget"

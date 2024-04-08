@@ -77,3 +77,5 @@
 	)
 
 #define TECHWEB_BOMB_POINTCAP		50000 //! Adjust as needed; Stops toxins from nullifying RND progression mechanics. Current Value Cap Radius: 100
+
+#define EXPLORATION_TRACKING "exploration_tracking"

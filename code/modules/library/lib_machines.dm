@@ -19,15 +19,22 @@
 	icon_state = "oldcomp"
 	icon_screen = "library"
 	icon_keyboard = null
+
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	circuit = /obj/item/circuitboard/computer/libraryconsole
 	desc = "Checked out books MUST be returned on time."
+	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 	var/screenstate = 0
 	var/title
 	var/category = "Any"
 	var/author
 	var/search_page = 0
-	clockwork = TRUE //it'd look weird
-	broken_overlay_emissive = TRUE
 
 /obj/machinery/computer/libraryconsole/ui_interact(mob/user)
 	. = ..()
@@ -54,7 +61,7 @@
 					SQLsearch += "author LIKE '%[author]%' AND title LIKE '%[title]%' AND category='[category]'"
 				var/bookcount = 0
 				var/booksperpage = 20
-				var/datum/DBQuery/query_library_count_books = SSdbcore.NewQuery({"
+				var/datum/db_query/query_library_count_books = SSdbcore.NewQuery({"
 					SELECT COUNT(id) FROM [format_table_name("library")]
 					WHERE isnull(deleted)
 						AND author LIKE '%' + :author + '%'
@@ -77,7 +84,7 @@
 						pagecount++
 					dat += pagelist.Join(" | ")
 				search_page = text2num(search_page)
-				var/datum/DBQuery/query_library_list_books = SSdbcore.NewQuery({"
+				var/datum/db_query/query_library_list_books = SSdbcore.NewQuery({"
 					SELECT author, title, category, id
 					FROM [format_table_name("library")]
 					WHERE isnull(deleted)
@@ -169,7 +176,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	if(!SSdbcore.Connect())
 		return
 	GLOB.cachedbooks = list()
-	var/datum/DBQuery/query_library_cache = SSdbcore.NewQuery("SELECT id, author, title, category FROM [format_table_name("library")] WHERE isnull(deleted)")
+	var/datum/db_query/query_library_cache = SSdbcore.NewQuery("SELECT id, author, title, category FROM [format_table_name("library")] WHERE isnull(deleted)")
 	if(!query_library_cache.Execute())
 		qdel(query_library_cache)
 		return
@@ -297,7 +304,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 				dat += "<A href='?src=[REF(src)];orderbyid=1'>(Order book by SS<sup>13</sup>BN)</A><BR><BR>"
 				dat += "<table>"
 				dat += "<tr><td>AUTHOR</td><td>TITLE</td><td>CATEGORY</td><td></td></tr>"
-				dat += libcomp_menu[CLAMP(page,1,libcomp_menu.len)]
+				dat += libcomp_menu[clamp(page,1,libcomp_menu.len)]
 				dat += "<tr><td><A href='?src=[REF(src)];page=[(max(1,page-1))]'>&lt;&lt;&lt;&lt;</A></td> <td></td> <td></td> <td><span style='text-align:right'><A href='?src=[REF(src)];page=[(min(libcomp_menu.len,page+1))]'>&gt;&gt;&gt;&gt;</A></span></td></tr>"
 				dat += "</table>"
 			dat += "<BR><A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
@@ -336,6 +343,13 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			dat += "<A href='?src=[REF(src)];printbible=1'>\[Bible\]</A><BR>"
 			dat += "<A href='?src=[REF(src)];printspacelaw=1'>\[Space Law\]</A><BR>"
 			dat += "<A href='?src=[REF(src)];printposter=1'>\[Poster\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopcmd=1'>\[Command SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopsec=1'>\[Security SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopeng=1'>\[Engineering SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopsup=1'>\[Supply SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopsci=1'>\[Science SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopmed=1'>\[Medical SOP\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printsopsvc=1'>\[Service SOP\]</A><BR>"
 			dat += "<A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(8)
 			dat += "<h3>Accessing Forbidden Lore Vault v 1.3</h3>"
@@ -359,7 +373,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			new /obj/item/clockwork/clockwork_slab(get_turf(src))
 			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange metal tablet sitting on the desk. You don't even remember where it came from...</span>")
 		if(3)
-			new /obj/item/forbidden_book(get_turf(src))
+			new /obj/item/codex_cicatrix(get_turf(src))
 			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is an ominous book, bound by a chain, sitting on the desk. You don't even remember where it came from...</span>")
 	user.visible_message("[user] stares at the blank screen for a few moments, [user.p_their()] expression frozen in fear. When [user.p_they()] finally awaken[user.p_s()] from it, [user.p_they()] look[user.p_s()] a lot older.", 2)
 
@@ -454,7 +468,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 						return
 					else
 						var/msg = "[key_name(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs"
-						var/datum/DBQuery/query_library_upload = SSdbcore.NewQuery({"
+						var/datum/db_query/query_library_upload = SSdbcore.NewQuery({"
 							INSERT INTO [format_table_name("library")] (author, title, content, category, ckey, datetime, round_id_created)
 							VALUES (:author, :title, :content, :category, :ckey, Now(), :round_id)
 						"}, list("title" = scanner.cache.name, "author" = scanner.cache.author, "content" = scanner.cache.dat, "category" = upload_category, "ckey" = usr.ckey, "round_id" = GLOB.round_id))
@@ -495,7 +509,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			say("Printer unavailable. Please allow a short time before attempting to print.")
 		else
 			cooldown = world.time + PRINTER_COOLDOWN
-			var/datum/DBQuery/query_library_print = SSdbcore.NewQuery(
+			var/datum/db_query/query_library_print = SSdbcore.NewQuery(
 				"SELECT * FROM [format_table_name("library")] WHERE id=:id AND isnull(deleted)",
 				list("id" = id)
 			)
@@ -540,6 +554,55 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
+	if(href_list["printsopcmd"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopcommand(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopsec"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopsecurity(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopeng"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopengineering(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopsup"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopsupply(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopsci"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopscience(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopmed"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopmedical(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
+	if(href_list["printsopsvc"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/sopservice(src.loc)
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+
 	add_fingerprint(usr)
 	updateUsrDialog()
 
@@ -636,7 +699,11 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		if(!machine_stat)
 			visible_message("[src] whirs as it prints and binds a new book.")
 			var/obj/item/book/B = new(src.loc)
-			B.dat = P.info
+			var/raw_content = ""
+			for(var/datum/paper_input/text_input as anything in P.raw_text_inputs)
+				raw_content += text_input.raw_text
+
+			B.dat = trim(raw_content, MAX_PAPER_LENGTH)
 			B.name = "Print Job #" + "[rand(100, 999)]"
 			B.icon_state = "book[rand(1,7)]"
 			qdel(P)

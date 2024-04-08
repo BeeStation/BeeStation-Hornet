@@ -200,6 +200,14 @@ do
         fi
     fi
 done
+
+# Check for non-515 compatable .proc/ syntax
+if grep -P --exclude='__byond_version_compat.dm' '\.proc/' code/**/*.dm; then
+    echo
+    echo -e "${RED}ERROR: Outdated proc reference use detected in code, please use proc reference helpers.${NC}"
+    st=1
+fi;
+
 echo -e "${BLUE}Checking for missing newlines...${NC}"
 nl='
 '
@@ -210,7 +218,7 @@ while read f; do
         echo -e "${RED}ERROR: file $f is missing a trailing newline${NC}"
         st=1
     fi;
-done < <(find . -type f -not \( -path "./.git/*" -prune \) -exec grep -Iq . {} \; -print)
+done < <(find . -type f -not \( -path "./.git/*" -prune \) -not \( -path "./tgui/.yarn/*" -prune \) -exec grep -Iq . {} \; -print)
 
 if [ $st = 0 ]; then
     echo

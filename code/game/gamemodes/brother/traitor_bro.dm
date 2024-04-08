@@ -27,7 +27,7 @@
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
-	var/list/datum/mind/possible_brothers = get_players_for_role(ROLE_BROTHER)
+	var/list/datum/mind/possible_brothers = get_players_for_role(/datum/antagonist/brother, /datum/role_preference/antagonist/blood_brother)
 
 	var/num_teams = team_amount
 	var/bsc = CONFIG_GET(number/brother_scaling_coeff)
@@ -40,7 +40,7 @@
 		var/datum/team/brother_team/team = new
 		var/team_size = prob(10) ? min(3, possible_brothers.len) : 2
 		for(var/k = 1 to team_size)
-			var/datum/mind/bro = antag_pick(possible_brothers, ROLE_BROTHER)
+			var/datum/mind/bro = antag_pick(possible_brothers, /datum/role_preference/antagonist/blood_brother)
 			possible_brothers -= bro
 			antag_candidates -= bro
 			team.add_member(bro)
@@ -48,7 +48,12 @@
 			bro.restricted_roles = restricted_jobs
 			log_game("[key_name(bro)] has been selected as a Brother")
 		pre_brother_teams += team
-	return ..()
+	. = ..()
+	if(.)	//To ensure the game mode is going ahead
+		for(var/teams in pre_brother_teams)
+			for(var/antag in teams)
+				GLOB.pre_setup_antags += antag
+	return
 
 /datum/game_mode/traitor/bros/post_setup()
 	for(var/datum/team/brother_team/team in pre_brother_teams)
@@ -56,6 +61,7 @@
 		team.forge_brother_objectives()
 		for(var/datum/mind/M in team.members)
 			M.add_antag_datum(/datum/antagonist/brother, team)
+			GLOB.pre_setup_antags -= M
 		team.update_name()
 	brother_teams += pre_brother_teams
 	return ..()

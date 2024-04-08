@@ -1,11 +1,9 @@
-
 import { StatPanel } from './statPanel';
 
-export const statMiddleware = store => {
+export const statMiddleware = (store) => {
   const stat = new StatPanel();
 
-  return next => action => {
-
+  return (next) => (action) => {
     const { type, payload } = action;
 
     if (type === 'stat/setTab') {

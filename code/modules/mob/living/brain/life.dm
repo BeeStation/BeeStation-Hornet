@@ -29,10 +29,10 @@
 		else
 			emp_damage = max(emp_damage-1, 0)
 
-/mob/living/brain/handle_status_effects()
+/mob/living/brain/handle_status_effects(delta_time)
 	return
 
-/mob/living/brain/handle_traits()
+/mob/living/brain/handle_traits(delta_time)
 	return
 
 

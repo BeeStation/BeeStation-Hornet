@@ -3,6 +3,7 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	can_elimination_hijack = ELIMINATION_ENABLED
+	banning_key = BAN_ROLE_ALL_ANTAGONISTS
 
 /datum/antagonist/wishgranter/proc/forge_objectives()
 	var/datum/objective/elimination/highlander/elimination_objective = new

@@ -46,7 +46,7 @@
 	for(var/mob/M in GLOB.player_list)
 		if(!isnewplayer(M) && M.can_hear())
 			to_chat(M, announcement)
-			if(M.client.prefs.toggles & PREFTOGGLE_SOUND_ANNOUNCEMENTS)
+			if(M.client.prefs.read_player_preference(/datum/preference/toggle/sound_announcements))
 				SEND_SOUND(M, s)
 
 /proc/exploration_announce(text, z_value)
@@ -89,7 +89,7 @@
 			if(from)
 				complete_msg += "<span class='alert'>-[from]</span>"
 			to_chat(M, complete_msg)
-			if(M.client.prefs.toggles & PREFTOGGLE_SOUND_ANNOUNCEMENTS)
+			if(M.client.prefs.read_player_preference(/datum/preference/toggle/sound_announcements))
 				if(alert)
 					SEND_SOUND(M, sound('sound/misc/notice1.ogg'))
 				else

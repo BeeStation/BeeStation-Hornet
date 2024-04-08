@@ -9,15 +9,12 @@ import { globalEvents } from '../events';
 import { acquireHotKey } from '../hotkeys';
 import { openExternalBrowser, toggleDebugLayout, toggleKitchenSink } from './actions';
 
-const relayedTypes = [
-  'backend/update',
-  'chat/message',
-];
+const relayedTypes = ['backend/update', 'chat/message'];
 
-export const debugMiddleware = store => {
+export const debugMiddleware = (store) => {
   acquireHotKey(KEY_F11);
   acquireHotKey(KEY_F12);
-  globalEvents.on('keydown', key => {
+  globalEvents.on('keydown', (key) => {
     if (key.code === KEY_F11) {
       store.dispatch(toggleDebugLayout());
     }
@@ -29,20 +26,21 @@ export const debugMiddleware = store => {
       // stack in order for this to be a fatal error.
       setTimeout(() => {
         throw new Error(
-          'OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle'
-          + ' fucko boingo! The code monkeys at our headquarters are'
-          + ' working VEWY HAWD to fix this!');
+          'OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle' +
+            ' fucko boingo! The code monkeys at our headquarters are' +
+            ' working VEWY HAWD to fix this!'
+        );
       });
     }
   });
-  return next => action => next(action);
+  return (next) => (action) => next(action);
 };
 
-export const relayMiddleware = store => {
+export const relayMiddleware = (store) => {
   const devServer = require('tgui-dev-server/link/client.cjs');
   const externalBrowser = location.search === '?external';
   if (externalBrowser) {
-    devServer.subscribe(msg => {
+    devServer.subscribe((msg) => {
       const { type, payload } = msg;
       if (type === 'relay' && payload.windowId === Byond.windowId) {
         store.dispatch({
@@ -51,16 +49,15 @@ export const relayMiddleware = store => {
         });
       }
     });
-  }
-  else {
+  } else {
     acquireHotKey(KEY_F10);
-    globalEvents.on('keydown', key => {
+    globalEvents.on('keydown', (key) => {
       if (key === KEY_F10) {
         store.dispatch(openExternalBrowser());
       }
     });
   }
-  return next => action => {
+  return (next) => (action) => {
     const { type, payload, relayed } = action;
     if (type === openExternalBrowser.type) {
       window.open(location.href + '?external', '_blank');

@@ -24,7 +24,7 @@
 /obj/effect/trap/trigger/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -374,7 +374,7 @@
 	for(var/mob/living/carbon/human/H in invokers)
 		if(H.stat == DEAD)
 			continue
-		H.blind_eyes(10)
+		H.adjust_blindness(10)
 		if(prob(10))
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)

@@ -7,26 +7,26 @@
 // asoundout: soundfile to play after teleportation
 // no_effects: disable the default effectin/effectout of sparks
 // forced: whether or not to ignore no_teleport
-/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT)
+/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT, commit = TRUE, no_wake = FALSE)
 	// teleporting most effects just deletes them
 	var/static/list/delete_atoms = typecacheof(list(
 		/obj/effect,
-		)) - typecacheof(list(
+	)) - typecacheof(list(
 		/obj/effect/dummy/chameleon,
 		/obj/effect/wisp,
 		/obj/effect/mob_spawn,
 		/obj/effect/warp_cube,
 		/obj/effect/extraction_holder,
-		))
+	))
 	if(delete_atoms[teleatom.type])
 		qdel(teleatom)
 		return FALSE
 
 	//Check bluespace anchors
-	if(channel != TELEPORT_CHANNEL_FREE && channel != TELEPORT_CHANNEL_WORMHOLE)
+	if(channel != TELEPORT_CHANNEL_WORMHOLE && channel != TELEPORT_CHANNEL_FREE)
 		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
 			//Not nearby
-			if (anchor.get_virtual_z_level() != teleatom.get_virtual_z_level() || get_dist(teleatom, anchor) > anchor.range)
+			if (anchor.get_virtual_z_level() != teleatom.get_virtual_z_level() || (get_dist(teleatom, anchor) > anchor.range && get_dist(destination, anchor) > anchor.range))
 				continue
 			//Check it
 			if(!anchor.try_activate())
@@ -87,6 +87,14 @@
 		teleatom.abstract_move(destturf)
 		return TRUE
 
+	if (!commit)
+		return TRUE
+
+	// If we leave behind a wake, then create that here.
+	// Only leave a wake if we are going to a location that we can actually teleport to.
+	if (!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC) && A.teleport_restriction == TELEPORT_MODE_DEFAULT && B.teleport_restriction == TELEPORT_MODE_DEFAULT && teleport_mode == TELEPORT_MODE_DEFAULT)
+		new /obj/effect/temp_visual/teleportation_wake(get_turf(teleatom), destturf)
+
 	tele_play_specials(teleatom, curturf, effectin, asoundin)
 	var/success = teleatom.forceMove(destturf)
 	if (success)
@@ -129,40 +137,13 @@
 		if(!isfloorturf(random_location))
 			continue
 		var/turf/open/floor/F = random_location
-		if(!F.air)
+		if(!is_turf_safe(F))
 			continue
-
-		var/datum/gas_mixture/A = F.air
-		var/trace_gases
-		for(var/id in A.get_gases())
-			if(id in GLOB.hardcoded_gases)
-				continue
-			trace_gases = TRUE
-			break
-
-		// Can most things breathe?
-		if(trace_gases)
-			continue
-		if(A.get_moles(GAS_O2) < 16)
-			continue
-		if(A.get_moles(GAS_PLASMA))
-			continue
-		if(A.get_moles(GAS_CO2) >= 10)
-			continue
-
-		// Aim for goldilocks temperatures and pressure
-		if((A.return_temperature() <= 270) || (A.return_temperature() >= 360))
-			continue
-		var/pressure = A.return_pressure()
-		if((pressure <= 20) || (pressure >= 550))
-			continue
-
 		if(extended_safety_checks)
 			if(islava(F)) //chasms aren't /floor, and so are pre-filtered
 				var/turf/open/lava/L = F
 				if(!L.is_safe())
 					continue
-
 		// Check that we're not warping onto a table or window
 		if(!dense_atoms)
 			var/density_found = FALSE
@@ -172,7 +153,6 @@
 					break
 			if(density_found)
 				continue
-
 		// DING! You have passed the gauntlet, and are "probably" safe.
 		return F
 
@@ -229,3 +209,54 @@
 
 	if(do_teleport(affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE))
 		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
+
+/obj/effect/temp_visual/teleportation_wake
+	name = "slipspace wake"
+	duration = 30 SECONDS
+	randomdir = FALSE
+	icon = 'icons/effects/effects.dmi'
+	icon_state = null
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	hud_possible = list(DIAG_WAKE_HUD)
+	var/turf/destination
+	var/has_hud_icon = FALSE
+
+/obj/effect/temp_visual/teleportation_wake/Initialize(mapload, turf/destination)
+	// Replace any portals on the current turf
+	for (var/obj/effect/temp_visual/teleportation_wake/conflicting_portal in loc)
+		if (conflicting_portal == src)
+			continue
+		conflicting_portal.destination = destination
+		return INITIALIZE_HINT_QDEL
+	. = ..()
+	src.destination = destination
+	prepare_huds()
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.add_to_hud(src)
+	var/image/holder = hud_list[DIAG_WAKE_HUD]
+	var/mutable_appearance/MA = new /mutable_appearance()
+	MA.icon = 'icons/effects/effects.dmi'
+	MA.icon_state = "bluestream"
+	MA.layer = ABOVE_OPEN_TURF_LAYER
+	MA.plane = GAME_PLANE
+	holder.appearance = MA
+	has_hud_icon = TRUE
+
+/obj/effect/temp_visual/teleportation_wake/Destroy()
+	if (has_hud_icon)
+		for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+			diag_hud.remove_from_hud(src)
+	return ..()
+
+/obj/effect/temp_visual/portal_opening
+	name = "Portal Opening"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "portal"
+	alpha = 0
+	duration = 11 SECONDS
+
+/obj/effect/temp_visual/portal_opening/Initialize(mapload)
+	. = ..()
+	transform = matrix() * 0
+	animate(src, time = 10 SECONDS, transform = matrix(), alpha = 255)
+	animate(time = 0.5 SECONDS, transform = matrix() * 0, alpha = 0)

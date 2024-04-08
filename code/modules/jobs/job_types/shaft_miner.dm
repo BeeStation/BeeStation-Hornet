@@ -1,6 +1,9 @@
 /datum/job/shaft_miner
 	title = JOB_NAME_SHAFTMINER
 	flag = MINER
+	description = "Collect resources for the station, redeem them for points, and purchase gear to collect even more ores."
+	department_for_prefs = DEPT_BITFLAG_CAR
+	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
 	faction = "Station"
@@ -27,6 +30,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/shaft_miner
 	)
 
+	minimal_lightup_areas = list(/area/construction/mining/aux_base)
+
 /datum/outfit/job/miner
 	name = JOB_NAME_SHAFTMINER
 	jobtype = /datum/job/shaft_miner
@@ -41,7 +46,7 @@
 	r_pocket = /obj/item/storage/bag/ore	//causes issues if spawned in backpack
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\
-		/obj/item/kitchen/knife/combat/survival=1,\
+		/obj/item/knife/combat/survival=1,\
 		/obj/item/mining_voucher=1,\
 		/obj/item/stack/marker_beacon/ten=1,\
 		/obj/item/discovery_scanner=1)
@@ -49,7 +54,7 @@
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	duffelbag = /obj/item/storage/backpack/duffelbag
-	box = /obj/item/storage/box/survival_mining
+	box = /obj/item/storage/box/survival/mining
 
 	chameleon_extras = /obj/item/gun/energy/kinetic_accelerator
 
@@ -62,7 +67,7 @@
 	internals_slot = ITEM_SLOT_SUITSTORE
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\
-		/obj/item/kitchen/knife/combat/survival=1,
+		/obj/item/knife/combat/survival=1,
 		/obj/item/mining_voucher=1,
 		/obj/item/t_scanner/adv_mining_scanner/lesser=1,
 		/obj/item/gun/energy/kinetic_accelerator=1,\

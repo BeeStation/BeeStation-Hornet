@@ -7,31 +7,20 @@
 	name = "terminal"
 	icon_state = "term"
 	desc = "It's an underfloor wiring terminal for power equipment."
-	level = 1
 	layer = WIRE_TERMINAL_LAYER //a bit above wires
 	var/obj/machinery/power/master = null
 
 
 /obj/machinery/power/terminal/Initialize(mapload)
 	. = ..()
-	var/turf/T = get_turf(src)
-	if(level == 1)
-		hide(T.intact)
+
+	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE, use_alpha = TRUE)
 
 /obj/machinery/power/terminal/Destroy()
 	if(master)
 		master.disconnect_terminal()
 		master = null
 	return ..()
-
-/obj/machinery/power/terminal/hide(i)
-	if(i)
-		invisibility = INVISIBILITY_MAXIMUM
-		icon_state = "term-f"
-	else
-		invisibility = 0
-		icon_state = "term"
-
 
 /obj/machinery/power/proc/can_terminal_dismantle()
 	. = FALSE
@@ -50,7 +39,7 @@
 /obj/machinery/power/terminal/proc/dismantle(mob/living/user, obj/item/I)
 	if(isturf(loc))
 		var/turf/T = loc
-		if(T.intact)
+		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 			to_chat(user, "<span class='warning'>You must first expose the power terminal!</span>")
 			return
 

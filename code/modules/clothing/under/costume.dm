@@ -40,6 +40,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/costume/schoolgirl/red
 	name = "red schoolgirl uniform"
@@ -70,13 +71,6 @@
 	item_state = "soviet"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/costume/redcoat
-	name = "redcoat uniform"
-	desc = "Looks old."
-	icon_state = "redcoat"
-	item_state = "redcoat"
-	can_adjust = FALSE
-
 /obj/item/clothing/under/costume/kilt
 	name = "kilt"
 	desc = "Includes shoes and plaid."
@@ -85,6 +79,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
+	dying_key = DYE_REGISTRY_JUMPSKIRT
 
 /obj/item/clothing/under/costume/kilt/highlander
 	desc = "You're the only one worthy of this kilt."
@@ -102,6 +97,7 @@
 	fitted = NO_FEMALE_UNIFORM
 	can_adjust = FALSE
 	resistance_flags = NONE
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/costume/gladiator/ash_walker
 	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
@@ -256,7 +252,7 @@
 	icon_state = "hostanclothes"
 	item_state = "hostanclothes"
 	alt_covers_chest = TRUE
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30, "stamina" = 10)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 10)
 	strip_delay = 50
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS

@@ -43,6 +43,9 @@
 
 #define THEME_SYNDICATE "syndicate"
 
+#define THEME_NEUTRAL "neutral"
+
+/// Map of theme name -> theme ID
 GLOBAL_LIST_INIT(ntos_device_themes_default, list(
 	"NtOS Default" = THEME_NTOS,
 	"Thinktronic Classic" = THEME_THINKTRONIC,
@@ -68,5 +71,21 @@ GLOBAL_LIST_INIT(ntos_device_themes_default, list(
 ))
 
 GLOBAL_LIST_INIT(ntos_device_themes_emagged, list(
-	"Syndix" = THEME_SYNDICATE
+	"Syndix" = THEME_SYNDICATE,
+	"Neutral" = THEME_NEUTRAL,
 ) + GLOB.ntos_device_themes_default)
+
+/// Reverse map of GLOB.ntos_device_themes_emagged
+/proc/theme_name_for_id(id)
+	for(var/key in GLOB.ntos_device_themes_emagged)
+		if(GLOB.ntos_device_themes_emagged[key] == id)
+			return key
+	return null
+
+//chem grenades defines
+/// Grenade is empty
+#define GRENADE_EMPTY 1
+/// Grenade has wires
+#define GRENADE_WIRED 2
+/// Grenade is ready to be activated
+#define GRENADE_READY 3

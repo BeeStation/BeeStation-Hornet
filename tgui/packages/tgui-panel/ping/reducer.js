@@ -14,8 +14,7 @@ export const pingReducer = (state = {}, action) => {
     const { roundtrip } = payload;
     const prevRoundtrip = state.roundtripAvg || roundtrip;
     const roundtripAvg = Math.round(prevRoundtrip * 0.4 + roundtrip * 0.6);
-    const networkQuality = 1 - scale(roundtripAvg,
-      PING_ROUNDTRIP_BEST, PING_ROUNDTRIP_WORST);
+    const networkQuality = 1 - scale(roundtripAvg, PING_ROUNDTRIP_BEST, PING_ROUNDTRIP_WORST);
     return {
       roundtrip,
       roundtripAvg,
@@ -25,8 +24,7 @@ export const pingReducer = (state = {}, action) => {
   }
   if (type === pingFail.type) {
     const { failCount = 0 } = state;
-    const networkQuality = clamp01(state.networkQuality
-      - failCount / PING_MAX_FAILS);
+    const networkQuality = clamp01(state.networkQuality - failCount / PING_MAX_FAILS);
     const nextState = {
       ...state,
       failCount: failCount + 1,

@@ -1,12 +1,15 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/closed/wall,
+/obj/structure/chair/office{
+	dir = 4
+	},
+/turf/open/floor/wood,
 /area/template_noop)
 "e" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
@@ -16,13 +19,20 @@
 /area/template_noop)
 "j" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "k" = (
-/obj/structure/chair/office{
-	dir = 4
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/item/toy/cards/deck/cas/black{
+	pixel_x = 5;
+	pixel_y = 5
 	},
-/turf/open/floor/plasteel/grimy,
+/obj/item/toy/cards/deck/cas{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/turf/open/floor/wood,
 /area/template_noop)
 "l" = (
 /obj/item/kirbyplants/random,
@@ -48,8 +58,12 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "w" = (
-/obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/structure/mineral_door/wood{
+	name = "Bee Lounge"
+	},
+/turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "y" = (
 /obj/structure/table/wood,
@@ -61,18 +75,14 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/grimy,
-/area/template_noop)
-"B" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "C" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/folder/red,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "D" = (
 /obj/effect/decal/cleanable/dirt,
@@ -83,7 +93,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "F" = (
 /obj/effect/decal/cleanable/dirt,
@@ -94,7 +104,7 @@
 /area/template_noop)
 "G" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance,
@@ -103,11 +113,7 @@
 /turf/template_noop,
 /area/template_noop)
 "K" = (
-/turf/closed/wall/r_wall,
-/area/template_noop)
-"L" = (
-/obj/structure/table/wood,
-/turf/open/floor/wood,
+/turf/template_noop/closed,
 /area/template_noop)
 "O" = (
 /obj/effect/decal/cleanable/dirt,
@@ -116,7 +122,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood{
-	icon_state = "wood-broken"
+	broken = 1
 	},
 /area/template_noop)
 "P" = (
@@ -131,7 +137,7 @@
 "S" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "T" = (
 /obj/structure/chair/office,
@@ -142,29 +148,12 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
-/turf/open/floor/plasteel/grimy,
-/area/template_noop)
-"W" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "X" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/grimy,
-/area/template_noop)
-"Y" = (
-/obj/structure/table/wood,
-/obj/item/toy/cards/deck/cas{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/toy/cards/deck/cas/black{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/turf/open/floor/wood,
+/turf/open/floor/carpet/grimy,
 /area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/dirt,
@@ -175,20 +164,18 @@
 (1,1,1) = {"
 U
 O
-P
 Q
-Z
-P
 t
-L
+P
+P
+Z
 D
 y
-a
+K
 "}
 (2,1,1) = {"
-W
+w
 E
-j
 X
 X
 j
@@ -199,41 +186,38 @@ z
 J
 "}
 (3,1,1) = {"
-W
+w
+G
 G
 V
-w
-k
 C
 G
 S
 V
 e
-a
+K
 "}
 (4,1,1) = {"
 U
 p
 o
-Y
-B
-g
 T
-D
+g
+a
+k
 F
 l
 K
 "}
 (5,1,1) = {"
-a
-a
-a
+K
+K
 U
 U
 U
 U
 U
-a
-a
+K
+K
 K
 "}

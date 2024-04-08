@@ -67,7 +67,7 @@
 	var/icon/bluespace
 
 /datum/status_effect/slimerecall/on_apply()
-	RegisterSignal(owner, COMSIG_LIVING_RESIST, .proc/resistField)
+	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(resistField))
 	to_chat(owner, "<span class='danger'>You feel a sudden tug from an unknown force, and feel a pull to bluespace!</span>")
 	to_chat(owner, "<span class='notice'>Resist if you wish avoid the force!</span>")
 	bluespace = icon('icons/effects/effects.dmi',"chronofield")
@@ -89,6 +89,7 @@
 		"<span class='warning'>The unknown force snatches briefly you from reality, and deposits you next to [target]!</span>")
 	do_sparks(3, TRUE, owner)
 	owner.forceMove(target.loc)
+	log_game("[key_name(owner)] was forcefully teleported to [AREACOORD(target)] with a chilling bluespace target, used by [key_name(target)]")
 
 /atom/movable/screen/alert/status_effect/freon/stasis
 	desc = "You're frozen inside of a protective ice cube! While inside, you can't do anything, but are immune to harm! Resist to get out."
@@ -101,7 +102,7 @@
 	var/obj/structure/ice_stasis/cube
 
 /datum/status_effect/frozenstasis/on_apply()
-	RegisterSignal(owner, COMSIG_LIVING_RESIST, .proc/breakCube)
+	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(breakCube))
 	cube = new /obj/structure/ice_stasis(get_turf(owner))
 	owner.forceMove(cube)
 	owner.status_flags |= GODMODE
@@ -190,7 +191,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/bloodchill
 
 /datum/status_effect/bloodchill/on_apply()
-	owner.add_movespeed_modifier("bloodchilled", TRUE, 100, NONE, override = TRUE, multiplicative_slowdown = 3)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/bloodchill)
 	return ..()
 
 /datum/status_effect/bloodchill/tick()
@@ -198,7 +199,7 @@
 		owner.adjustFireLoss(2)
 
 /datum/status_effect/bloodchill/on_remove()
-	owner.remove_movespeed_modifier("bloodchilled")
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/bloodchill)
 
 /atom/movable/screen/alert/status_effect/bloodchill
 	name = "Bloodchilled"
@@ -211,7 +212,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/bonechill
 
 /datum/status_effect/bonechill/on_apply()
-	owner.add_movespeed_modifier("bonechilled", TRUE, 100, NONE, override = TRUE, multiplicative_slowdown = 3)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/bonechill)
 	return ..()
 
 /datum/status_effect/bonechill/tick()
@@ -221,7 +222,7 @@
 		owner.adjust_bodytemperature(-10)
 
 /datum/status_effect/bonechill/on_remove()
-	owner.remove_movespeed_modifier("bonechilled")
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/bonechill)
 
 /atom/movable/screen/alert/status_effect/bonechill
 	name = "Bonechilled"
@@ -371,11 +372,11 @@
 	duration = 30
 
 /datum/status_effect/tarfoot/on_apply()
-	owner.add_movespeed_modifier(MOVESPEED_ID_TARFOOT, update=TRUE, priority=100, multiplicative_slowdown=0.5, blacklisted_movetypes=(FLYING|FLOATING))
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/tarfoot)
 	return ..()
 
 /datum/status_effect/tarfoot/on_remove()
-	owner.remove_movespeed_modifier(MOVESPEED_ID_TARFOOT)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/tarfoot)
 
 /datum/status_effect/spookcookie
 	id = "spookcookie"
@@ -476,7 +477,7 @@
 	colour = "orange"
 
 /datum/status_effect/stabilized/orange/tick()
-	var/body_temperature_difference = BODYTEMP_NORMAL - owner.bodytemperature
+	var/body_temperature_difference = owner.get_body_temp_normal(apply_change=FALSE) - owner.bodytemperature
 	owner.adjust_bodytemperature(min(5,body_temperature_difference))
 	return ..()
 
@@ -526,7 +527,7 @@
 		cooldown = max_cooldown
 		var/list/sheets = list()
 		for(var/obj/item/stack/sheet/S in owner.GetAllContents())
-			if(S.amount < S.max_amount)
+			if(S.amount < S.max_amount && !istype(S, /obj/item/stack/sheet/telecrystal))
 				sheets += S
 
 		if(sheets.len > 0)
@@ -577,18 +578,12 @@
 	return ..()
 
 /datum/status_effect/stabilized/darkpurple/tick()
-	var/obj/item/I = owner.get_active_held_item()
-	if(!I)
-		return
-	if(istype(I, /obj/item/reagent_containers/food/snacks))
-		var/obj/item/reagent_containers/food/snacks/F = I
-		if(F.cooked_type)
-			to_chat(owner, "<span class='warning'>[linked_extract] flares up brightly, and your hands alone are enough cook [F]!</span>")
-			var/obj/item/result = F.microwave_act()
-			if(istype(result))
-				owner.put_in_hands(result)
+	var/obj/item/item = owner.get_active_held_item()
+	if(IS_EDIBLE(item))
+		if(item.microwave_act())
+			to_chat(owner, "<span class='warning'>[linked_extract] flares up brightly, and your hands alone are enough cook [item]!</span>")
 	else
-		I.attackby(fire, owner)
+		item.attackby(fire, owner)
 	return ..()
 
 /datum/status_effect/stabilized/darkpurple/on_remove()
@@ -609,9 +604,9 @@
 		O.extinguish() //All shamelessly copied from water's reaction_obj, since I didn't seem to be able to get it here for some reason.
 		O.acid_level = 0
 	// Monkey cube
-	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
+	if(istype(O, /obj/item/food/monkeycube))
 		to_chat(owner, "<span class='warning'>[linked_extract] kept your hands wet! It makes [O] expand!</span>")
-		var/obj/item/reagent_containers/food/snacks/monkeycube/cube = O
+		var/obj/item/food/monkeycube/cube = O
 		cube.Expand()
 
 	// Dehydrated carp
@@ -691,15 +686,15 @@
 /datum/status_effect/stabilized/sepia/tick()
 	if(prob(50) && mod > -1)
 		mod--
-		owner.add_movespeed_modifier(MOVESPEED_ID_SEPIA, override = TRUE, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/sepia, multiplicative_slowdown = -1)
 	else if(mod < 1)
 		mod++
 		// yeah a value of 0 does nothing but replacing the trait in place is cheaper than removing and adding repeatedly
-		owner.add_movespeed_modifier(MOVESPEED_ID_SEPIA, override = TRUE, update=TRUE, priority=100, multiplicative_slowdown=0, blacklisted_movetypes=(FLYING|FLOATING))
+		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/sepia, multiplicative_slowdown = 0)
 	return ..()
 
 /datum/status_effect/stabilized/sepia/on_remove()
-	owner.remove_movespeed_modifier(MOVESPEED_ID_SEPIA)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/sepia)
 
 /datum/status_effect/stabilized/cerulean
 	id = "stabilizedcerulean"
@@ -758,11 +753,12 @@
 	colour = "red"
 
 /datum/status_effect/stabilized/red/on_apply()
-	owner.ignore_slowdown("slimestatus")
-	return ..()
+	. = ..()
+	owner.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/equipment_speedmod)
 
 /datum/status_effect/stabilized/red/on_remove()
-	owner.unignore_slowdown("slimestatus")
+	owner.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/equipment_speedmod)
+	return ..()
 
 /datum/status_effect/stabilized/green
 	id = "stabilizedgreen"
@@ -907,7 +903,7 @@
 	colour = "light pink"
 
 /datum/status_effect/stabilized/lightpink/on_apply()
-	owner.add_movespeed_modifier(MOVESPEED_ID_SLIME_STATUS, update=TRUE, priority=100, multiplicative_slowdown=-0.5, blacklisted_movetypes=(FLYING|FLOATING))
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/lightpink)
 	ADD_TRAIT(owner, TRAIT_PACIFISM, LIGHTPINK_TRAIT)
 	return ..()
 
@@ -919,7 +915,7 @@
 	return ..()
 
 /datum/status_effect/stabilized/lightpink/on_remove()
-	owner.remove_movespeed_modifier(MOVESPEED_ID_SLIME_STATUS)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/lightpink)
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, LIGHTPINK_TRAIT)
 
 /datum/status_effect/stabilized/adamantine
@@ -969,11 +965,11 @@
 /datum/status_effect/stabilized/rainbow/tick()
 	if(owner.health <= 0)
 		var/obj/item/slimecross/stabilized/rainbow/X = linked_extract
-		if(istype(X))
-			if(X.regencore)
-				X.regencore.afterattack(owner,owner,TRUE)
-				X.regencore = null
-				owner.visible_message("<span class='warning'>[owner] flashes a rainbow of colors, and [owner.p_their()] skin is coated in a milky regenerative goo!</span>")
-				qdel(src)
-				qdel(linked_extract)
+		if(istype(X) && X.regencore)
+			owner.visible_message("<span class='warning'>[owner] flashes a rainbow of colors, and [owner.p_their()] skin is coated in a milky regenerative goo!</span>")
+			X.regencore.core_effect_before(owner, owner)
+			X.regencore.core_effect(owner, owner)
+			X.regencore = null
+			qdel(src)
+			qdel(linked_extract)
 	return ..()

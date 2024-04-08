@@ -27,7 +27,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 
 /obj/machinery/keycard_auth/Initialize(mapload)
 	. = ..()
-	ev = GLOB.keycard_events.addEvent("triggerEvent", CALLBACK(src, .proc/triggerEvent))
+	ev = GLOB.keycard_events.addEvent("triggerEvent", CALLBACK(src, PROC_REF(triggerEvent)))
 
 /obj/machinery/keycard_auth/Destroy()
 	GLOB.keycard_events.clearEvent("triggerEvent", ev)
@@ -89,7 +89,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	event = event_type
 	waiting = 1
 	GLOB.keycard_events.fireEvent("triggerEvent", src)
-	addtimer(CALLBACK(src, .proc/eventSent), 20)
+	addtimer(CALLBACK(src, PROC_REF(eventSent)), 20)
 
 /obj/machinery/keycard_auth/proc/eventSent()
 	triggerer = null
@@ -99,7 +99,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 /obj/machinery/keycard_auth/proc/triggerEvent(source)
 	icon_state = "auth_on"
 	event_source = source
-	addtimer(CALLBACK(src, .proc/eventTriggered), 20)
+	addtimer(CALLBACK(src, PROC_REF(eventTriggered)), 20)
 
 /obj/machinery/keycard_auth/proc/eventTriggered()
 	icon_state = "auth_off"
@@ -124,21 +124,23 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 
 GLOBAL_VAR_INIT(emergency_access, FALSE)
 /proc/make_maint_all_access()
-	for(var/area/maintenance/M as() in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
-		for(var/obj/machinery/door/airlock/A in M)
-			A.emergency = TRUE
-			A.update_icon()
-			A.wires.ui_update()
+	for(var/area/maintenance/M as anything in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
+		for(var/turf/in_area as anything in M.get_contained_turfs())
+			for(var/obj/machinery/door/airlock/A in in_area)
+				A.emergency = TRUE
+				A.update_icon()
+				A.wires.ui_update()
 	minor_announce("Access restrictions on maintenance and external airlocks have been lifted.", "Attention! Station-wide emergency declared!",1)
 	GLOB.emergency_access = TRUE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
-	for(var/area/maintenance/M as() in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
-		for(var/obj/machinery/door/airlock/A in M)
-			A.emergency = FALSE
-			A.update_icon()
-			A.wires.ui_update()
+	for(var/area/maintenance/M as anything in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
+		for(var/turf/in_area as anything in M.get_contained_turfs())
+			for(var/obj/machinery/door/airlock/A in in_area)
+				A.emergency = FALSE
+				A.update_icon()
+				A.wires.ui_update()
 	minor_announce("Access restrictions in maintenance areas have been restored.", "Attention! Station-wide emergency rescinded:")
 	GLOB.emergency_access = FALSE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))

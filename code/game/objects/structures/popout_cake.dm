@@ -20,7 +20,7 @@
 	///How many cake slices will appear once it's cut up
 	var/amount_of_slices = 16
 	///What kind of cake slice will appear
-	var/slice_path  = /obj/item/reagent_containers/food/snacks/cakeslice/plain/full
+	var/slice_path  = /obj/item/food/cakeslice/plain
 	///If the surprise reveal has an extra oomph to it, used for the nukeop exclusive cake
 	var/strong_surprise = FALSE
 
@@ -50,7 +50,7 @@
 	else
 		user.visible_message("<span class='warning'>[user] starts stuffing [target] into [src]!</span>", "<span class= warning'>You start stuffing [target] into [src]!</span>")
 
-	if(do_after(user, 60, TRUE, src))
+	if(do_after(user, 60, src))
 		if(occupant)
 			to_chat(user, "<span class='warning'>There's already someone inside!</span>")
 			return
@@ -59,7 +59,7 @@
 		target.forceMove(src)
 		occupant = target
 		if(target != user)
-			log_combat(user, occupant, "stuffed ", null, "into [src]")
+			log_combat(user, occupant, "stuffed ", null, "into [src]", important = FALSE)
 		string.Grant(occupant)
 		to_chat(occupant, "<span class='notice'>You are now inside the cake! When you're ready to emerge from the cake in a blaze of confetti and party horns, \
 		pull on the string(<b>It will have to be wound back up with a screwdriver if you want to do it again</b>). If you wish to leave without setting off the confetti, just attempt to move out of the cake!</span>")
@@ -79,19 +79,15 @@
 		user.visible_message("<span class='notice'>[user] sticks the [W] inside [src] and stars fiddling around!</span>", \
 		"<span class='notice>You start to rewind the hidden mechanism inside [src] with [W].</span>")
 		W.play_tool_sound(src, 50)
-		if(do_after(user, 20, FALSE, target=src))
+		if(do_after(user, 20, target=src, timed_action_flags = IGNORE_HELD_ITEM))
 			used_string = FALSE
 			user.visible_message("<span class='notice'>After hearing a click from [src], [user] pulls the [W] outside.</span>", \
 		"<span class='notice>You successfully rewind the string inside [src]!</span>")
 			return FALSE
 	if(W.is_sharp())
 		user.visible_message("<span class= notice'>[user] begins cutting into [src] with [W]!</span>", "<span class='notice>You starts cutting [src] with [W]!</span>")
-		if(do_after(user, 60, FALSE, src))
+		if(do_after(user, 60, src, timed_action_flags = IGNORE_HELD_ITEM))
 			do_popout()
-			if(!strong_surprise)
-				for(var/i=1 to (amount_of_slices))
-					var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
-					slice.initialize_slice(slice, 0)
 			qdel(src)
 			return FALSE
 	if(istype(W, /obj/item/grenade/flashbang))
@@ -99,7 +95,7 @@
 			to_chat(user, "<span class='notice'>There's no space for [src] inside!</span>")
 		else
 			user.visible_message("<span class='notice'>[user] begins inserting [W] into [src]!</span>", "<span class='notice'>You begin inserting [W] into [src]!</span>")
-			if(do_after(user, 30, FALSE, src))
+			if(do_after(user, 30, src, timed_action_flags = IGNORE_HELD_ITEM))
 				strong_surprise = TRUE
 				user.visible_message("<span class='notice'>After some fiddling, [user] inserts [W] into [src]!</span>", "<span class='notice'>You attach [W] to the hidden mechanism inside!</span>")
 				qdel(W)
@@ -124,8 +120,7 @@
 				continue //So that the guy hiding inside doesn't get flashed
 			flash_and_bang(get_turf(M), M)
 			for(var/i=1 to (amount_of_slices))
-				var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
-				slice.initialize_slice(slice, 0)
+				var/obj/item/food/slice = new slice_path (loc)
 				slice.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
 	string.Remove(occupant)
 	occupant.forceMove(get_turf(src))

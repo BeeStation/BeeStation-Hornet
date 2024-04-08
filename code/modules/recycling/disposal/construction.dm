@@ -9,18 +9,22 @@
 	anchored = FALSE
 	density = FALSE
 	pressure_resistance = 5*ONE_ATMOSPHERE
-	level = 2
 	max_integrity = 200
 	var/obj/pipe_type = /obj/structure/disposalpipe/segment
 	var/pipename
 
+/obj/structure/disposalconstruct/set_anchored(anchorvalue)
+	. = ..()
+	if(isnull(.))
+		return
+	density = anchorvalue ? initial(pipe_type.density) : FALSE
+
 /obj/structure/disposalconstruct/Initialize(mapload, _pipe_type, _dir = SOUTH, flip = FALSE, obj/make_from)
 	. = ..()
-
 	if(make_from)
 		pipe_type = make_from.type
 		setDir(make_from.dir)
-		anchored = TRUE
+		set_anchored(TRUE)
 		density = initial(pipe_type.density)
 		make_from.transfer_fingerprints_to(src)
 
@@ -31,11 +35,16 @@
 
 	pipename = initial(pipe_type.name)
 
+	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+
 	if(flip)
 		var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
 		rotcomp.BaseRot(null,ROTATION_FLIP)
 
-	update_icon()
+	update_appearance(UPDATE_ICON)
+
+	if(!initial(pipe_type.density)) //This prevents dense disposals machinery from being hidable under floor tiles
+		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 /obj/structure/disposalconstruct/Move()
 	var/old_dir = dir
@@ -43,30 +52,22 @@
 	setDir(old_dir) //pipes changing direction when moved is just annoying and buggy
 
 // update iconstate and dpdir due to dir and type
-/obj/structure/disposalconstruct/update_icon()
-	icon_state = initial(pipe_type.icon_state)
-	if(is_pipe())
-		icon_state = "con[icon_state]"
-		if(anchored)
-			level = initial(pipe_type.level)
-			layer = initial(pipe_type.layer)
-		else
-			level = initial(level)
-			layer = initial(layer)
-
-	else if(ispath(pipe_type, /obj/machinery/disposal/bin))
+/obj/structure/disposalconstruct/update_icon_state()
+	if(ispath(pipe_type, /obj/machinery/disposal/bin))
 		// Disposal bins receive special icon treating
-		if(anchored)
-			icon_state = "disposal"
-		else
-			icon_state = "condisposal"
+		icon_state = "[anchored ? "con" : null]disposal"
+		return ..()
 
+	icon_state = "[is_pipe() ? "con" : null][initial(pipe_type.icon_state)]"
+	return ..()
 
-// hide called by levelupdate if turf intact status changes
-// change visibility status and force update of icon
-/obj/structure/disposalconstruct/hide(var/intact)
-	invisibility = (intact && level==1) ? INVISIBILITY_MAXIMUM: 0	// hide if floor is intact
-	update_icon()
+// Extra layer handling
+/obj/structure/disposalconstruct/update_icon()
+	. = ..()
+	if(!is_pipe())
+		return
+
+	layer = anchored ? initial(pipe_type.layer) : initial(layer)
 
 /obj/structure/disposalconstruct/proc/get_disposal_dir()
 	if(!is_pipe())
@@ -92,7 +93,7 @@
 
 /obj/structure/disposalconstruct/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS ,null,CALLBACK(src, .proc/can_be_rotated), CALLBACK(src, .proc/after_rot))
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)), CALLBACK(src, PROC_REF(after_rot)))
 
 /obj/structure/disposalconstruct/proc/after_rot(mob/user,rotation_type)
 	if(rotation_type == ROTATION_FLIP)
@@ -114,14 +115,13 @@
 // weldingtool: convert to real pipe
 /obj/structure/disposalconstruct/wrench_act(mob/living/user, obj/item/I)
 	if(anchored)
-		anchored = FALSE
-		density = FALSE
+		set_anchored(FALSE)
 		to_chat(user, "<span class='notice'>You detach the [pipename] from the underfloor.</span>")
 	else
 		var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
 
 		var/turf/T = get_turf(src)
-		if(T.intact && isfloorturf(T))
+		if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE && isfloorturf(T))
 			var/obj/item/crowbar/held_crowbar = user.is_holding_item_of_type(/obj/item/crowbar)
 			if(!held_crowbar || !T.crowbar_act(user, held_crowbar))
 				to_chat(user, "<span class='warning'>You can only attach the [pipename] if the floor plating is removed!</span>")
@@ -155,14 +155,14 @@
 				to_chat(user, "<span class='warning'>The [pipename] requires a trunk underneath it in order to work!</span>")
 				return TRUE
 
-		anchored = TRUE
-		density = initial(pipe_type.density)
+		set_anchored(TRUE)
 		to_chat(user, "<span class='notice'>You attach the [pipename] to the underfloor.</span>")
 	I.play_tool_sound(src, 100)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/structure/disposalconstruct/welder_act(mob/living/user, obj/item/I)
+	..()
 	if(anchored)
 		if(!I.tool_start_check(user, amount=0))
 			return TRUE

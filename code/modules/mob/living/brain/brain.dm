@@ -21,13 +21,13 @@
 /mob/living/brain/proc/create_dna()
 	stored_dna = new /datum/dna/stored(src)
 	if(!stored_dna.species)
-		var/rando_race = pick(GLOB.roundstart_races)
+		var/rando_race = pick(get_selectable_species())
 		stored_dna.species = new rando_race()
 
 /mob/living/brain/Destroy()
 	if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
-		if(stat!=DEAD)	//If not dead.
-			death(1)	//Brains can die again. AND THEY SHOULD AHA HA HA HA HA HA
+		if(stat != DEAD)
+			death(TRUE)
 		if(mind)	//You aren't allowed to return to brains that don't exist
 			mind.set_current(null)
 		ghostize()		//Ghostize checks for key so nothing else is necessary.

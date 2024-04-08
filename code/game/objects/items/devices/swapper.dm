@@ -16,16 +16,13 @@
 /obj/item/swapper/Destroy()
 	if(linked_swapper)
 		linked_swapper.linked_swapper = null //*inception music*
-		linked_swapper.update_icon()
+		linked_swapper.update_appearance()
 		linked_swapper = null
 	return ..()
 
-/obj/item/swapper/update_icon()
-	if(linked_swapper)
-		icon_state = "swapper-linked"
-	else
-		icon_state = "swapper"
-	..()
+/obj/item/swapper/update_icon_state()
+	icon_state = "swapper[linked_swapper ? "-linked" : null]"
+	return ..()
 
 /obj/item/swapper/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/swapper))
@@ -39,8 +36,8 @@
 		to_chat(user, "<span class='notice'>You establish a quantum link between the two devices.</span>")
 		linked_swapper = other_swapper
 		other_swapper.linked_swapper = src
-		update_icon()
-		linked_swapper.update_icon()
+		update_appearance()
+		linked_swapper.update_appearance()
 	else
 		return ..()
 
@@ -58,7 +55,7 @@
 		var/mob/holder = linked_swapper.loc
 		to_chat(holder, "<span class='notice'>[linked_swapper] starts buzzing.</span>")
 	next_use = world.time + cooldown //only the one used goes on cooldown
-	addtimer(CALLBACK(src, .proc/swap, user), 25)
+	addtimer(CALLBACK(src, PROC_REF(swap), user), 25)
 
 /obj/item/swapper/examine(mob/user)
 	. = ..()
@@ -75,9 +72,9 @@
 	to_chat(user, "<span class='notice'>You break the current quantum link.</span>")
 	if(!QDELETED(linked_swapper))
 		linked_swapper.linked_swapper = null
-		linked_swapper.update_icon()
+		linked_swapper.update_appearance()
 		linked_swapper = null
-	update_icon()
+	update_appearance()
 
 //Gets the topmost teleportable container
 /obj/item/swapper/proc/get_teleportable_container()

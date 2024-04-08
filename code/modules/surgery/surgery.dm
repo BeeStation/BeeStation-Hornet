@@ -19,6 +19,11 @@
 	var/self_operable = FALSE										//Can the surgery be performed on yourself.
 	var/requires_tech = FALSE										//handles techweb-oriented surgeries, previously restricted to the /advanced subtype (You still need to add designs)
 	var/replaced_by													//type; doesn't show up if this type exists. Set to /datum/surgery if you want to hide a "base" surgery (useful for typing parents IE healing.dm just make sure to null it out again)
+	var/failed_step = FALSE											//used for bypassing the 'poke on help intent' on failing a surgery step and forcing the doctor to damage the patient
+	var/abductor_surgery_blacklist = FALSE
+	//Blacklisted surgeries aren't innately known by Abductor Scientists
+	//However, they can still be used by them if they meet the normal requirements to access the surgery
+
 
 /datum/surgery/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -38,7 +43,7 @@
 	return ..()
 
 
-/datum/surgery/proc/can_start(mob/user, mob/living/carbon/target) //FALSE to not show in list
+/datum/surgery/proc/can_start(mob/user, mob/living/carbon/target, target_zone) //FALSE to not show in list
 	. = TRUE
 	if(replaced_by == /datum/surgery)
 		return FALSE
@@ -48,10 +53,17 @@
 			return FALSE
 		else
 			return TRUE
+	//Grants the user innate access to all surgeries
+
+	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON)))
+		if(replaced_by)
+			return FALSE
+		else if(!abductor_surgery_blacklist)
+			return TRUE
+	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
 
 	if(!requires_tech && !replaced_by)
 		return TRUE
-	// True surgeons (like abductor scientists) need no instructions
 
 	if(requires_tech)
 		. = FALSE
@@ -97,6 +109,7 @@
 
 
 /datum/surgery/proc/next_step(mob/user, intent)
+	failed_step = FALSE
 	if(step_in_progress)
 		return TRUE
 
@@ -106,10 +119,11 @@
 
 	var/datum/surgery_step/S = get_surgery_step()
 	if(S)
-		if(S.try_op(user, target, user.zone_selected, user.get_active_held_item(), src, try_to_fail))
+		if(S.try_op(user, target, user.get_active_held_item(), src, try_to_fail))
 			return TRUE
 		if(iscyborg(user) && user.a_intent != INTENT_HARM) //to save asimov borgs a LOT of heartache
 			return TRUE
+	failed_step = TRUE
 	return FALSE
 
 /datum/surgery/proc/get_surgery_step()
@@ -131,12 +145,17 @@
 	name = "advanced surgery"
 	requires_tech = TRUE
 
-/datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery/advanced/can_start(mob/user, mob/living/carbon/target, target_zone)
 	if(!..())
 		return FALSE
 	// True surgeons (like abductor scientists) need no instructions
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || HAS_TRAIT(user.mind, TRAIT_SURGEON))
+	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
 		return TRUE
+
+	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON)))
+		if(!abductor_surgery_blacklist)
+			return TRUE
+	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
 
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user
@@ -165,14 +184,14 @@
 	name = "Surgery Procedure Disk"
 	desc = "A disk that contains advanced surgery procedures, must be loaded into an Operating Console."
 	icon_state = "datadisk1"
-	materials = list(/datum/material/iron=300, /datum/material/glass=100)
+	custom_materials = list(/datum/material/iron=300, /datum/material/glass=100)
 	var/list/surgeries
 
 /obj/item/disk/surgery/debug
 	name = "Debug Surgery Disk"
 	desc = "A disk that contains all existing surgery procedures."
 	icon_state = "datadisk1"
-	materials = list(/datum/material/iron=300, /datum/material/glass=100)
+	custom_materials = list(/datum/material/iron=300, /datum/material/glass=100)
 
 /obj/item/disk/surgery/debug/Initialize(mapload)
 	. = ..()

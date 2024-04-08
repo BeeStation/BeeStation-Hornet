@@ -52,9 +52,12 @@ global procs
 	verb_say/verb_ask/verb_exclaim/verb_yell
 		These determine what the verb is for their respective action. Used in say_quote().
 
-	say(message, bubble_type, var/list/spans, sanitize, datum/language/language, ignore_spam, forced)
+	say(message, bubble_type, var/list/spans, sanitize, datum/language/language, ignore_spam, forced, atom/source)
 		Say() is the "mother-proc". It calls all the other procs required for speaking, but does little itself.
 		At the atom/movable level, say() just calls send_speech.
+		source is used in case what you say can possibly not go to where you're at.
+			i.e. AI using holopad means their voice is from holopad, but we want to display runechat from its hologram
+			if source is given, runechat will be displayed on a hologram, but hearers will be detected around the source(holopad)
 
 	Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans)
 		This proc handles hearing. What it does varies. For mobs, it treats the message with hearer-specific things
@@ -79,6 +82,10 @@ global procs
 	get_spans(input, spans)
 		Returns the list of spans that are always applied to messages of this atom.
 		Always return ..() | + youroutput when overriding this proc!
+
+	create_private_chat_message(message, message_language, list/hearers)
+		Makes a runechat to hearers. src is not included to hearers, so that you need to give it to the param if you want.
+		This is used for specific methods like telepathy when you want to display a runechat from it.
 
 /mob
 	say_dead(message)
@@ -177,7 +184,7 @@ If radio_freq is not null, the code will rely on the fact that the speaker is vi
 	GetJob()
 		Returns the job string variable of the virtual speaker.
 	GetTrack()
-		Returns wether the tracking href should be fake or not.
+		Returns whether the tracking href should be fake or not.
 	GetSource()
 		Returns the source of the virtual speaker.
 	GetRadio()
@@ -186,3 +193,22 @@ If radio_freq is not null, the code will rely on the fact that the speaker is vi
 This is fairly hacky, but it means that I can advoid using istypes. It's mainly relevant for AI tracking and AI job display.
 
 That's all, folks!
+
+# Chat sorting class:
+(This should be in another readme file, but there's no good place to document this...)
+A chat class is stated in 'chat-dark.scss' or 'chat-light.scss'
+This is only for chat color, shouldn't be used for sorting chat categories generally.
+Only use those classes when you need to give a color, not for sorting. (there are a lot of cases it still uses that in this manner, but all of them should be deprecated.)
+
+For example, if you have a radio conversation that you want to sort it in "Radio" chat group
+	<span class='radio'>  is the standard thing in most codebases, but don't do this way.
+	<span class='srt_radio radio'> is the correct way.
+
+srt_radio: This sorts a chat into the radio category.
+radio: This colorize a chat with radio type chat color format.
+
+sort classes are all empty, so that you don't have to declare how these are.
+check "tgui\packages\tgui-panel\chat\constants.js" for which sort classes exist.
+
+
+(this line is to help people to get into this readme by searching: .srt_system .srt_local .srt_radio .srt_info .srt_warning .srt_deadchat .srt_ooc .srt_combat)

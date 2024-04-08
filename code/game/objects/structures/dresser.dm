@@ -11,7 +11,7 @@
 		to_chat(user, "<span class='notice'>You begin to [anchored ? "unwrench" : "wrench"] [src].</span>")
 		if(I.use_tool(src, user, 20, volume=50))
 			to_chat(user, "<span class='notice'>You successfully [anchored ? "unwrench" : "wrench"] [src].</span>")
-			setAnchored(!anchored)
+			set_anchored(!anchored)
 	else
 		return ..()
 
@@ -42,7 +42,7 @@
 				if(new_undies)
 					H.underwear = new_undies
 			if("Underwear Color")
-				var/new_underwear_color = input(H, "Choose your underwear color", "Underwear Color","#"+H.underwear_color) as color|null
+				var/new_underwear_color = tgui_color_picker(H, "Choose your underwear color", "Underwear Color","#"+H.underwear_color)
 				if(new_underwear_color)
 					H.underwear_color = sanitize_hexcolor(new_underwear_color)
 			if("Undershirt")

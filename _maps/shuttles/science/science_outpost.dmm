@@ -34,24 +34,23 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
-"i" = (
+"n" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/toy/plush/moth/random,
+/turf/open/floor/mineral/titanium/purple,
+/area/shuttle/science)
+"o" = (
 /obj/structure/closet/crate/science,
 /obj/item/circuitboard/computer/shuttle/science_shuttle,
 /obj/item/stack/sheet/glass,
 /obj/item/stack/sheet/glass,
 /obj/item/stack/cable_coil/orange,
 /obj/item/storage/toolbox/electrical,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/science)
-"n" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/purple,
-/area/shuttle/science)
-"o" = (
 /obj/effect/turf_decal/box,
+/obj/item/pickaxe/emergency,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "r" = (
@@ -74,12 +73,15 @@
 "s" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/east,
-/obj/structure/janitorialcart,
-/obj/item/mop,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "t" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/science)
+"u" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "x" = (
 /obj/structure/cable/yellow{
@@ -89,10 +91,6 @@
 /area/shuttle/science)
 "y" = (
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/science)
-"z" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "A" = (
 /obj/machinery/modular_computer/console/preset/research,
@@ -117,7 +115,7 @@
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "N" = (
-/obj/structure/tank_dispenser,
+/obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "Q" = (
@@ -129,8 +127,8 @@
 "S" = (
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
-"U" = (
-/obj/machinery/portable_atmospherics/canister/air,
+"T" = (
+/obj/machinery/door/airlock/titanium/glass,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 
@@ -148,10 +146,10 @@ a
 (2,1,1) = {"
 d
 c
-i
-N
-y
+S
 K
+t
+N
 h
 o
 y
@@ -160,8 +158,8 @@ y
 d
 g
 Q
-U
-z
+S
+T
 S
 J
 J
@@ -172,7 +170,7 @@ d
 A
 Q
 S
-z
+T
 S
 J
 J
@@ -183,10 +181,10 @@ d
 n
 x
 s
-y
+t
 K
 J
-o
+u
 y
 "}
 (6,1,1) = {"

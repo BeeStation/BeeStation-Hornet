@@ -5,16 +5,17 @@
 	ventcrawler = VENTCRAWLER_NONE //pull over that ass too fat
 	unique_name = 0
 	pixel_x = -16
+	base_pixel_x = -16
 	bubble_icon = "alienroyal"
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER //above most mobs, but below speechbubbles
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno = 20, /obj/item/stack/sheet/animalhide/xeno = 3)
+	butcher_results = list(/obj/item/food/meat/slab/xeno = 20, /obj/item/stack/sheet/animalhide/xeno = 3)
 
 	var/alt_inhands_file = 'icons/mob/alienqueen.dmi'
 	var/game_end_timer
 
-/mob/living/carbon/alien/humanoid/royal/can_inject()
+/mob/living/carbon/alien/humanoid/royal/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
 	return FALSE
 
 /mob/living/carbon/alien/humanoid/royal/queen/proc/maidify()
@@ -42,7 +43,7 @@
 	var/datum/action/small_sprite/smallsprite = new/datum/action/small_sprite/queen()
 
 /mob/living/carbon/alien/humanoid/royal/queen/Initialize(mapload)
-	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/set_countdown)
+	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(set_countdown))
 	set_countdown() //still need to call this
 	SSshuttle.registerInfestation(src)
 	//there should only be one queen
@@ -74,7 +75,7 @@
 	SIGNAL_HANDLER
 	if(game_end_timer)	//clear the timer if it exists, only one queen can normally exist at a time so resetting this means the old queen has died or an admin is involved
 		deltimer(game_end_timer)
-	game_end_timer = addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES, TIMER_STOPPABLE) //If Queen isn't killed within 30 minutes, shuttle is force-called
+	game_end_timer = addtimer(CALLBACK(src, PROC_REF(game_end)), 30 MINUTES, TIMER_STOPPABLE) //If Queen isn't killed within 30 minutes, shuttle is force-called
 
 /mob/living/carbon/alien/humanoid/royal/queen/proc/game_end()
 	var/turf/T = get_turf(src)
@@ -89,7 +90,7 @@
 
 /mob/living/carbon/alien/humanoid/royal/queen/revive(full_heal = 0, admin_revive = 0)
 	if(..())
-		RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/set_countdown)
+		RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(set_countdown))
 		set_countdown()
 		SSshuttle.registerInfestation(src)
 

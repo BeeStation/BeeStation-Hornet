@@ -4,17 +4,18 @@
 	bodyflag = FLAG_OOZELING
 	default_color = "00FF90"
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR)
-	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN,TRAIT_EASYDISMEMBER)
+	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOHAIRLOSS,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN,TRAIT_EASYDISMEMBER)
 	hair_color = "mutcolor"
 	hair_alpha = 150
-	mutantlungs = /obj/item/organ/lungs/oozeling
+	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
-	exotic_blood = /datum/reagent/toxin/slimeooze
+	meat = /obj/item/food/meat/slab/human/mutant/slime
+	exotic_blood = /datum/reagent/toxin/slimejelly
 	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
+	inherent_factions = list("slime")
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/oozeling
 	swimming_component = /datum/component/swimming/dissolve
@@ -103,11 +104,14 @@
 /datum/species/oozeling/proc/Cannibalize_Body(mob/living/carbon/human/H)
 	var/list/limbs_to_consume = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) - H.get_missing_limbs()
 	var/obj/item/bodypart/consumed_limb
+	for(var/L in limbs_to_consume) //Check every bodypart the oozeling has, see if they're organic or not
+		if(!IS_ORGANIC_LIMB(H.get_bodypart(L))) //Get actual limb, list only has body zone
+			limbs_to_consume -= L //If it's inorganic, remove it from the consumption list
 	if(!limbs_to_consume.len)
 		H.losebreath++
 		return
-	if(H.get_num_legs(FALSE)) //Legs go before arms
-		limbs_to_consume -= list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM)
+	if((BODY_ZONE_L_LEG in limbs_to_consume) || (BODY_ZONE_R_LEG in limbs_to_consume)) //Check if there are any organic legs left
+		limbs_to_consume -= list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM) //If there are, autocannibalize those first
 	consumed_limb = H.get_bodypart(pick(limbs_to_consume))
 	consumed_limb.drop_limb()
 	to_chat(H, "<span class='userdanger'>Your [consumed_limb] is drawn back into your body, unable to maintain its shape!</span>")
@@ -182,6 +186,18 @@
 		H.gib()
 		return
 
+/datum/species/oozeling/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	. = ..()
+	if(. && target != user && target.on_fire)
+		target.visible_message("<span class='notice'>[user] begins to closely hug [target]...</span>", "<span class='boldnotice'>[user] holds you closely in a tight hug!</span>")
+		if(do_after(user, 1 SECONDS, target, IGNORE_HELD_ITEM))
+			target.visible_message("<span class='notice'>[user] extingushes [target] with a hug!</span>", "<span class='boldnotice'>[user] extingushes you with a hug!</span>", "<span class='italics'>You hear a fire sizzle out.</span>")
+			target.fire_stacks = max(target.fire_stacks - 5, 0)
+			if(target.fire_stacks <= 0)
+				target.ExtinguishMob()
+		else
+			target.visible_message("<span class='notice'>[target] wriggles out of [user]'s close hug!</span>", "<span class='notice'>You wriggle out of [user]'s close hug.</span>")
+
 /datum/species/oozeling/get_cough_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_COUGH_SOUND(user)
 
@@ -196,3 +212,50 @@
 
 /datum/species/oozeling/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
+
+/datum/species/oozeling/get_species_description()
+	return "Literally made of jelly, Oozelings are squishy friends aboard Space Station 13."
+
+/datum/species/oozeling/get_species_lore()
+	return null
+
+/datum/species/oozeling/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "angle-double-down",
+			SPECIES_PERK_NAME = "Splat!",
+			SPECIES_PERK_DESC = "[plural_form] have special resistance to falling, because their body and organs can flatten on impact. \
+			It might hurt a bit, but generally [plural_form] can fall a lot further before their vitals organs start being pulverized.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "street-view",
+			SPECIES_PERK_NAME = "Regenerative Limbs",
+			SPECIES_PERK_DESC = "[plural_form] can regrow their limbs at will, provided they have enough Jelly.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "tint-slash",
+			SPECIES_PERK_NAME = "Hydrophobic",
+			SPECIES_PERK_DESC = "[plural_form] are decomposed by water - contact with water, water vapor, or ingesting water can lead to rapid loss of body mass.",
+		)
+	)
+
+	return to_add
+
+/datum/species/oozeling/create_pref_blood_perks()
+	var/list/to_add = list()
+
+	to_add += list(list(
+		SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+		SPECIES_PERK_ICON = "tint",
+		SPECIES_PERK_NAME = "Jelly Blood",
+		SPECIES_PERK_DESC = "[plural_form] don't have blood, but instead have toxic [initial(exotic_blood.name)]! \
+			Jelly is extremely important, as losing it will cause you to cannibalize your limbs. Having low jelly will make medical treatment very difficult. \
+			Jelly is also extremely sensitive to cold, and you may rapidy solidify. [plural_form] regain jelly passively by eating, but supplemental injections are possible.",
+	))
+
+	return to_add

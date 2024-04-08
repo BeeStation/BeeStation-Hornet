@@ -13,7 +13,7 @@
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(/datum/material/iron=75, /datum/material/glass=25)
+	custom_materials = list(/datum/material/iron=75, /datum/material/glass=25)
 	obj_flags = USES_TGUI
 
 	var/on = TRUE
@@ -110,7 +110,7 @@
 
 /obj/item/radio/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_WIRES)
 
 /obj/item/radio/AltClick(mob/user)
 	if(headset)
@@ -220,23 +220,23 @@
 					recalculateChannels()
 				. = TRUE
 
-/obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
+/obj/item/radio/talk_into(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(!spans)
-		spans = list(M.speech_span)
+		spans = list(talking_movable.speech_span)
 	if(!language)
-		language = M.get_selected_language()
-	SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, M, message, channel)
-	INVOKE_ASYNC(src, .proc/talk_into_impl, M, message, channel, spans.Copy(), language, message_mods)
+		language = talking_movable.get_selected_language()
+	SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, talking_movable, message, channel, message_mods)
+	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), talking_movable, message, channel, spans.Copy(), language, message_mods)
 	return ITALICS | REDUCE_RANGE
 
-/obj/item/radio/proc/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
+/obj/item/radio/proc/talk_into_impl(atom/movable/talking_movable, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(!on)
 		return // the device has to be on
-	if(!M || !message)
+	if(!talking_movable || !message)
 		return
 	if(wires.is_cut(WIRE_TX))  // Permacell and otherwise tampered-with radios
 		return
-	if(!M.IsVocal())
+	if(!talking_movable.IsVocal())
 		return
 
 	if(!radio_silent)//Radios make small static noises now
@@ -265,6 +265,8 @@
 		if(channel == MODE_DEPARTMENT)
 			channel = channels[1]
 		freq = secure_radio_connections[channel]
+		if(istype(talking_movable, /mob) && !freq && channel != RADIO_CHANNEL_UPLINK)
+			to_chat(talking_movable, "<span class='warning'>You can't access this channel without an encryption key!</span>")
 		if (!channels[channel]) // if the channel is turned off, don't broadcast
 			return
 	else
@@ -276,7 +278,7 @@
 		return
 
 	// Determine the identity information which will be attached to the signal.
-	var/atom/movable/virtualspeaker/speaker = new(null, M, src)
+	var/atom/movable/virtualspeaker/speaker = new(null, talking_movable, src)
 
 	// Construct the signal
 	var/datum/signal/subspace/vocal/signal = new(src, freq, speaker, language, message, spans, message_mods)
@@ -298,7 +300,7 @@
 
 	// Non-subspace radios will check in a couple of seconds, and if the signal
 	// was never received, send a mundane broadcast (no headsets).
-	addtimer(CALLBACK(src, .proc/backup_transmission, signal), 20)
+	addtimer(CALLBACK(src, PROC_REF(backup_transmission), signal), 20)
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
@@ -324,8 +326,8 @@
 	if(message_mods[RADIO_EXTENSION] == MODE_L_HAND || message_mods[RADIO_EXTENSION] == MODE_R_HAND)
 		// try to avoid being heard double
 		if (loc == speaker && ismob(speaker))
-			var/mob/M = speaker
-			var/idx = M.get_held_index_of_item(src)
+			var/mob/talking_movable = speaker
+			var/idx = talking_movable.get_held_index_of_item(src)
 			// left hands are odd slots
 			if (idx && (idx % 2) == (message_mods[RADIO_EXTENSION] == MODE_L_HAND))
 				return
@@ -392,7 +394,7 @@
 	for (var/ch_name in channels)
 		channels[ch_name] = 0
 	on = FALSE
-	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 200)
+	addtimer(CALLBACK(src, PROC_REF(end_emp_effect), curremp), 200)
 
 /obj/item/radio/proc/end_emp_effect(curremp)
 	if(emped != curremp) //Don't fix it if it's been EMP'd again
@@ -400,6 +402,11 @@
 	emped = FALSE
 	on = TRUE
 	return TRUE
+
+/obj/item/radio/proc/get_specific_hearers()
+	if(istype(loc, /obj/item/implant))
+		var/obj/item/implant/radio_implant = loc
+		return radio_implant.imp_in
 
 ///////////////////////////////
 //////////Borg Radios//////////

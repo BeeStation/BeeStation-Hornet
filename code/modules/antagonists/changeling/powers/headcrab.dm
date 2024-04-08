@@ -56,5 +56,6 @@
 	if(crab.origin)
 		crab.origin.active = 1
 		crab.origin.transfer_to(crab)
+		user.investigate_log("has been gibbed by using their Last Resort headcrab ability.", INVESTIGATE_DEATHS)
 		user.gib()
 		to_chat(crab, "<span class='warning'>You burst out of the remains of your former body in a shower of gore!</span>")

@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(supply)
 	while (refill_amount > 0 && length(restock_list))
 		//Reduce the refill amount
 		refill_amount --
-		var/datum/supply_pack/selected = pickweight(restock_list)
+		var/datum/supply_pack/selected = pick_weight(restock_list)
 		selected.current_supply = min(selected.current_supply + 1, selected.max_supply)
 		restock_list -= selected
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)

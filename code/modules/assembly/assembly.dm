@@ -12,7 +12,7 @@
 	icon_state = ""
 	flags_1 = CONDUCT_1
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(/datum/material/iron=100)
+	custom_materials = list(/datum/material/iron=100)
 	throwforce = 2
 	throw_speed = 3
 	throw_range = 7
@@ -70,9 +70,9 @@
 //Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
 /obj/item/assembly/proc/pulsed(radio = FALSE)
 	if(wire_type & WIRE_RECEIVE)
-		INVOKE_ASYNC(src, .proc/activate)
+		INVOKE_ASYNC(src, PROC_REF(activate))
 	if(radio && (wire_type & WIRE_RADIO_RECEIVE))
-		INVOKE_ASYNC(src, .proc/activate)
+		INVOKE_ASYNC(src, PROC_REF(activate))
 	return TRUE
 
 

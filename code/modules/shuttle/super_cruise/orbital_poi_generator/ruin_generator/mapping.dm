@@ -1,7 +1,7 @@
 /obj/effect/abstract/open_area_marker
 	name = "open area marker"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "pinonfar"
+	icon_state = "pincomp_arrow_far"
 
 /obj/effect/abstract/open_area_marker/Initialize(mapload)
 	return INITIALIZE_HINT_QDEL
@@ -9,7 +9,7 @@
 /obj/effect/abstract/doorway_marker
 	name = "doorway marker"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "pinonmedium"
+	icon_state = "pincomp_arrow_medium"
 
 /obj/effect/abstract/doorway_marker/Initialize(mapload)
 	return INITIALIZE_HINT_QDEL
@@ -143,7 +143,7 @@
 		/obj/item/reagent_containers/glass/bottle/chloralhydrate = 1,
 		/obj/item/grenade/flashbang = 2,
 		/obj/item/grenade/chem_grenade/teargas = 1,
-		/obj/item/reagent_containers/spray/pepper = 1,
+		/obj/item/reagent_containers/peppercloud_deployer = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
 		/obj/item/grenade/exploration = 1,
 	)

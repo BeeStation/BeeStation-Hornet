@@ -27,7 +27,10 @@
 	return
 
 
-/obj/item/reagent_containers/pill/attack(mob/M, mob/user, obj/item/bodypart/affecting)
+/obj/item/reagent_containers/pill/attack(mob/M, mob/user, def_zone)
+	perform_application(M, user, null)
+
+/obj/item/reagent_containers/pill/proc/perform_application(mob/M, mob/user, obj/item/bodypart/affecting)
 	if(!canconsume(M, user))
 		return FALSE
 	if(iscarbon(M))
@@ -37,28 +40,27 @@
 	if(M == user)
 		M.visible_message("<span class='notice'>[user] attempts to [apply_method] [src].</span>")
 		if(self_delay)
-			if(!do_mob(user, M, self_delay))
+			if(!do_after(user, self_delay, M))
 				return FALSE
 		to_chat(M, "<span class='notice'>You [apply_method] [src].</span>")
 
 	else
 		M.visible_message("<span class='danger'>[user] attempts to force [M] to [apply_method] [src].</span>", \
 							"<span class='userdanger'>[user] attempts to force you to [apply_method] [src].</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, target = M))
 			return FALSE
 		M.visible_message("<span class='danger'>[user] forces [M] to [apply_method] [src].</span>", \
 							"<span class='userdanger'>[user] forces you to [apply_method] [src].</span>")
 
-	var/makes_me_think = pick(strings(REDPILL_FILE, "redpill_questions"))
 	if(icon_state == "pill_shape_capsule_bloodred" && prob(5)) //you take the red pill - you stay in Wonderland, and I show you how deep the rabbit hole goes
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, M, "<span class='notice'>[makes_me_think]</span>"), 5 SECONDS)
+		var/makes_me_think = pick(strings(REDPILL_FILE, "redpill_questions"))
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), M, "<span class='notice'>[makes_me_think]</span>"), 5 SECONDS)
 
 	if(reagents.total_volume)
 		reagents.reaction(M, apply_type, affecting = affecting)
 		reagents.trans_to(M, reagents.total_volume, transfered_by = user)
 	qdel(src)
 	return TRUE
-
 
 /obj/item/reagent_containers/pill/afterattack(obj/target, mob/user , proximity)
 	. = ..()

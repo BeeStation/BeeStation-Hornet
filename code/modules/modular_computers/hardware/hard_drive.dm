@@ -181,6 +181,7 @@
 /obj/item/computer_hardware/hard_drive/small/pda/install_default_programs()
 	store_file(new /datum/computer_file/program/messenger(src))
 	store_file(new /datum/computer_file/program/notepad(src))
+	store_file(new/datum/computer_file/program/crew_manifest(src))
 	store_file(new/datum/computer_file/program/databank_uplink(src))	// Wiki Uplink, allows the user to access the Wiki from in-game!
 	..()
 

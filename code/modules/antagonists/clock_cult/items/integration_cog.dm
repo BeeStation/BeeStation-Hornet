@@ -3,6 +3,7 @@
 	desc = "A small cog that seems to spin by its own acord when left alone."
 	icon_state = "integration_cog"
 	clockwork_desc = "A sharp cog that can cut through and be inserted into APCs to extract power for the gateway."
+	item_flags = ISWEAPON
 
 /obj/item/clockwork/integration_cog/attack_obj(obj/O, mob/living/user)
 	if(!is_servant_of_ratvar(user))

@@ -68,7 +68,7 @@
 				. = pod
 
 /proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/data/record/R, experimental)
-	return pod.growclone(R.fields["name"], R.fields["UI"], R.fields["SE"], R.fields["mindref"], R.fields["last_death"], R.fields["mrace"], R.fields["features"], R.fields["factions"], R.fields["quirks"], R.fields["bank_account"], R.fields["traumas"], R.fields["body_only"], experimental)
+	return pod.growclone(R.fields["name"], R.fields["UI"], R.fields["SE"], R.fields["mindref"], R.fields["last_death"], R.fields["mrace"], R.fields["features"], R.fields["factions"], R.fields["bank_account"], R.fields["traumas"], R.fields["body_only"], experimental)
 
 /obj/machinery/computer/cloning/process()
 	if(!(scanner && LAZYLEN(pods) && autoprocess))
@@ -103,8 +103,8 @@
 		UnregisterSignal(scanner, COMSIG_MACHINE_CLOSE)
 
 	if(new_scanner)
-		RegisterSignal(new_scanner, COMSIG_MACHINE_OPEN, .proc/scanner_ui_update)
-		RegisterSignal(new_scanner, COMSIG_MACHINE_CLOSE, .proc/scanner_ui_update)
+		RegisterSignal(new_scanner, COMSIG_MACHINE_OPEN, PROC_REF(scanner_ui_update))
+		RegisterSignal(new_scanner, COMSIG_MACHINE_CLOSE, PROC_REF(scanner_ui_update))
 
 	scanner = new_scanner
 
@@ -164,27 +164,26 @@
 			diskette = W
 			to_chat(user, "<span class='notice'>You insert [W].</span>")
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-	else if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(!multitool_check_buffer(user, W))
-			return
-		var/obj/item/multitool/P = W
-
-		if(istype(P.buffer, /obj/machinery/clonepod))
-			if(get_area(P.buffer) != get_area(src))
-				to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. Buffer cleared %-</font color>")
-				P.buffer = null
-				return
-			to_chat(user, "<font color = #666633>-% Successfully linked [P.buffer] with [src] %-</font color>")
-			var/obj/machinery/clonepod/pod = P.buffer
-			if(pod.connected)
-				pod.connected.DetachCloner(pod)
-			AttachCloner(pod)
-		else
-			P.buffer = src
-			to_chat(user, "<font color = #666633>-% Successfully stored [REF(P.buffer)] [P.buffer.name] in buffer %-</font color>")
-		return
 	else
 		return ..()
+
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/cloning)
+
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
+	if(istype(buffer, /obj/machinery/clonepod))
+		if(get_area(buffer) != get_area(src))
+			to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. Buffer cleared %-</font color>")
+			FLUSH_BUFFER(buffer_parent)
+			return NONE
+		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
+		var/obj/machinery/clonepod/pod = buffer
+		if(pod.connected)
+			pod.connected.DetachCloner(pod)
+		AttachCloner(pod)
+	else
+		if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+			to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
+	return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/computer/cloning/AltClick(mob/user)
 	. = ..()
@@ -286,7 +285,7 @@
 			temp = "Warning: Cloning cycle already in progress."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
-			switch(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mindref"], C.fields["last_death"], C.fields["mrace"], C.fields["features"], C.fields["factions"], C.fields["quirks"], C.fields["bank_account"], C.fields["traumas"], C.fields["body_only"], experimental))
+			switch(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mindref"], C.fields["last_death"], C.fields["mrace"], C.fields["features"], C.fields["factions"], C.fields["bank_account"], C.fields["traumas"], C.fields["body_only"], experimental))
 				if(CLONING_SUCCESS)
 					temp = "Notice: [C.fields["name"]] => Cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
@@ -361,7 +360,7 @@
 	say("Initiating scan...")
 	var/prev_locked = scanner.locked
 	scanner.locked = TRUE
-	addtimer(CALLBACK(src, .proc/finish_scan, scanner.occupant, user, prev_locked, body_only), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(finish_scan), scanner.occupant, user, prev_locked, body_only), 2 SECONDS)
 	. = TRUE
 
 /obj/machinery/computer/cloning/proc/Toggle_autoprocess(mob/user)
@@ -607,17 +606,7 @@
 	R.fields["blood_type"] = dna.blood_type
 	R.fields["features"] = dna.features
 	R.fields["factions"] = mob_occupant.faction
-	R.fields["quirks"] = list()
 	R.fields["traumas"] = list()
-	if(!body_only || experimental) //Body only will not copy quirks.
-		for(var/V in mob_occupant.roundstart_quirks)
-			var/datum/quirk/T = V
-			R.fields["quirks"][T.type] = T.clone_data()
-			/*
-			Quirks 'should be' personal features from a brain, not a body. but quirks actually come from a body.
-			This will not transfer your quirks if your brain is transfered to the body_only cloned body, because someone's brain in your clone is not a musician/smoker/brain-tumored or something else.
-			This is likely a bug from the structure of quirks. We need to fix the quirk code.
-			*/
 
 	if(isbrain(mob_occupant)) //We'll detect the brain first because trauma is from the brain, not from the body.
 		R.fields["traumas"] = B.get_traumas()

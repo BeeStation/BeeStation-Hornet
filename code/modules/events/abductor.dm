@@ -15,7 +15,7 @@
 	fakeable = FALSE //Nothing to fake here
 
 /datum/round_event/ghost_role/abductor/spawn_role()
-	var/list/mob/dead/observer/candidates = get_candidates(ROLE_ABDUCTOR, null, ROLE_ABDUCTOR)
+	var/list/mob/dead/observer/candidates = get_candidates(ROLE_ABDUCTOR, /datum/role_preference/midround_ghost/abductor)
 
 	if(candidates.len < 2)
 		return NOT_ENOUGH_PLAYERS

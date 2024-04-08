@@ -6,7 +6,7 @@
 	icon_state = "telecrystal"
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 50
-	item_flags = NOBLUDGEON
+	item_flags = NOBLUDGEON | ISWEAPON
 	merge_type = /obj/item/stack/sheet/telecrystal
 
 /obj/item/stack/sheet/telecrystal/attack(mob/target, mob/user)

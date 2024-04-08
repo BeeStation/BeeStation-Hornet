@@ -62,7 +62,7 @@
 	var/atom/pawn = controller.pawn
 	pawn.visible_message("<span class='notice'>[pawn] drops [carried_item].</span>")
 	carried_item.forceMove(get_turf(pawn))
-	controller.blackboard[BB_SIMPLE_CARRY_ITEM] = null
+	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
 	return TRUE
 
 

@@ -68,7 +68,7 @@
 		to_chat(user, "<span class='warning'>You can't seem to find the [pick(faux_gadgets)]! Without it, [src] [pick(faux_problems)].</span>")
 		return
 	user.visible_message("<span class='notice'>[user] begins to reactivate [src].</span>", "<span class='notice'>You begin to reactivate [src]...</span>")
-	if(do_after(user, 30, 1, target = src))
+	if(do_after(user, 30, target = src))
 		revive(full_heal = 1)
 		user.visible_message("<span class='notice'>[user] reactivates [src]!</span>", "<span class='notice'>You reactivate [src].</span>")
 		alert_drones(DRONE_NET_CONNECT)
@@ -101,11 +101,11 @@
 	else
 		..()
 
-/mob/living/simple_animal/drone/getarmor(def_zone, type)
+/mob/living/simple_animal/drone/getarmor(def_zone, type, penetration)
 	var/armorval = 0
 
 	if(head)
-		armorval = head.get_armor_rating(type, src)
+		armorval = ((head.get_armor_rating(type, src) / 100) * (1 - penetration / 100)) * 100
 	return (armorval * get_armor_effectiveness()) //armor is reduced for tiny fragile drones
 
 /mob/living/simple_animal/drone/proc/get_armor_effectiveness()
@@ -162,22 +162,22 @@
 /mob/living/simple_animal/drone/proc/update_drone_icon()
 	//Different icons for different hack states
 	if(!hacked)
-		if(visualAppearence == SCOUTDRONE_HACKED)
-			visualAppearence = SCOUTDRONE
-		else if(visualAppearence == REPAIRDRONE_HACKED)
-			visualAppearence = REPAIRDRONE
-		else if(visualAppearence == MAINTDRONE_HACKED)
-			visualAppearence = MAINTDRONE + "_[colour]"
+		if(visualAppearance == SCOUTDRONE_HACKED)
+			visualAppearance = SCOUTDRONE
+		else if(visualAppearance == REPAIRDRONE_HACKED)
+			visualAppearance = REPAIRDRONE
+		else if(visualAppearance == MAINTDRONE_HACKED)
+			visualAppearance = MAINTDRONE + "_[colour]"
 	else if(hacked)
-		if(visualAppearence == SCOUTDRONE)
-			visualAppearence = SCOUTDRONE_HACKED
-		else if(visualAppearence == REPAIRDRONE)
-			visualAppearence = REPAIRDRONE_HACKED
-		else if(visualAppearence == MAINTDRONE)
-			visualAppearence = MAINTDRONE_HACKED
+		if(visualAppearance == SCOUTDRONE)
+			visualAppearance = SCOUTDRONE_HACKED
+		else if(visualAppearance == REPAIRDRONE)
+			visualAppearance = REPAIRDRONE_HACKED
+		else if(visualAppearance == MAINTDRONE)
+			visualAppearance = MAINTDRONE_HACKED
 
-	icon_living = "[visualAppearence]"
-	icon_dead = "[visualAppearence]_dead"
+	icon_living = "[visualAppearance]"
+	icon_dead = "[visualAppearance]_dead"
 	if(stat == DEAD)
 		icon_state = icon_dead
 	else

@@ -16,7 +16,7 @@
 	var/mob/living/simple_animal/hostile/bear/malnourished/new_bear = new(T)
 	new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
 	bears += new_bear
-	RegisterSignal(new_bear, COMSIG_MOB_DEATH, .proc/handle_death)
+	RegisterSignal(new_bear, COMSIG_MOB_DEATH, PROC_REF(handle_death))
 	log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear/malnourished) at [world.time]. [X] located at [AREACOORD(X)]")
 	X.cooldown += 20 SECONDS
 
@@ -122,7 +122,7 @@
 	for(var/atom/AT in loc)
 		if(!QDELETED(AT) && AT != src) // It's possible that the item is deleted in temperature_expose
 			AT.fire_act(400, 50) //should be average enough to not do too much damage
-	addtimer(CALLBACK(src, .proc/after_burn), 0.3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(after_burn)), 0.3 SECONDS)
 
 /obj/effect/safe_fire/proc/after_burn()
 	qdel(src)
@@ -166,7 +166,7 @@
 		return
 	//Twin setup
 	var/mob/living/simple_animal/hostile/twin/T = new(get_turf(X))
-	//Setup appearence for evil twin
+	//Setup appearance for evil twin
 	T.name = target.name
 	T.appearance = target.appearance
 	if(istype(target) && length(target.vis_contents))
@@ -177,7 +177,7 @@
 	T.color = COLOR_BLUE
 	//Handle limit and hardel
 	clones += T
-	RegisterSignal(T, COMSIG_PARENT_QDELETING, .proc/handle_death)
+	RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(handle_death))
 
 /datum/xenoartifact_trait/malfunction/twin/proc/handle_death(datum/source)
 	clones -= source
@@ -219,7 +219,7 @@
 	. = ..()
 	X.visible_message("<span class='warning'>The [X] begins to heat up, it's delaminating!</span>")
 	apply_wibbly_filters(X, 3)
-	addtimer(CALLBACK(src, .proc/explode, X), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(explode), X), 10 SECONDS)
 
 /datum/xenoartifact_trait/malfunction/explode/proc/explode(obj/item/xenoartifact/X)
 	SSexplosions.explode(X, 0, 1, 2, 1)

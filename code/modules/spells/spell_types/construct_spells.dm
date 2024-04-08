@@ -1,25 +1,24 @@
 //////////////////////////////Construct Spells/////////////////////////
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser
-	charge_max = 1800
+	charge_max = 3 MINUTES
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "artificer"
 	action_background_icon_state = "bg_demon"
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser/cult
 	clothes_req = TRUE
-	charge_max = 2500
-
+	charge_max = 250 SECONDS
 
 /obj/effect/proc_holder/spell/aoe_turf/area_conversion
 	name = "Area Conversion"
 	desc = "This spell instantly converts a small area around you."
 
 	school = "transmutation"
-	charge_max = 50
+	charge_max = 5 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	range = 2
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "areaconvert"
@@ -36,10 +35,10 @@
 	desc = "This spell constructs a cult floor."
 
 	school = "conjuration"
-	charge_max = 20
+	charge_max = 2 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	range = 0
 	summon_type = list(/turf/open/floor/engine/cult)
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
@@ -52,10 +51,10 @@
 	desc = "This spell constructs a cult wall."
 
 	school = "conjuration"
-	charge_max = 100
+	charge_max = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	range = 0
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "lesserconstruct"
@@ -68,10 +67,10 @@
 	desc = "This spell constructs a cult Airlock."
 
 	school = "conjuration"
-	charge_max = 300
+	charge_max = 30 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	invocation_time = 50
 	range = 0
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
@@ -85,10 +84,10 @@
 	desc = "This spell constructs a reinforced metal wall."
 
 	school = "conjuration"
-	charge_max = 300
+	charge_max = 30 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	range = 0
 
 	summon_type = list(/turf/closed/wall/r_wall)
@@ -98,10 +97,10 @@
 	desc = "This spell reaches into Nar'Sie's realm, summoning one of the legendary fragments across time and space."
 
 	school = "conjuration"
-	charge_max = 2400
+	charge_max = 4 MINUTES
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	range = 0
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "summonsoulstone"
@@ -111,70 +110,78 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/cult
 	clothes_req = TRUE
-	charge_max = 3600
+	charge_max = 6 MINUTES
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/noncult
 	summon_type = list(/obj/item/soulstone/anybody)
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/noncult/purified
+/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/purified
 	summon_type = list(/obj/item/soulstone/anybody/purified)
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/mystic
+	summon_type = list(/obj/item/soulstone/mystic)
 
 /obj/effect/proc_holder/spell/targeted/forcewall/cult
 	name = "Shield"
 	desc = "This spell creates a temporary forcefield to shield yourself and allies from incoming fire."
 	school = "transmutation"
-	charge_max = 400
+	charge_max = 40 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	wall_type = /obj/effect/forcefield/cult
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_demon"
-
-
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift
 	name = "Phase Shift"
 	desc = "This spell allows you to pass through walls."
 
 	school = "transmutation"
-	charge_max = 250
+	charge_max = 25 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
-	range = -1
-	include_user = TRUE
-	jaunt_duration = 50 //in deciseconds
+	invocation_type = INVOCATION_NONE
+	jaunt_duration = 5 SECONDS
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "phaseshift"
 	action_background_icon_state = "bg_demon"
-	jaunt_in_time = 12
+	jaunt_in_time = 0.6 SECONDS
+	jaunt_out_time = 0.6 SECONDS
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/jaunt_steam(mobloc)
 	return
 
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/angelic
+	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith/angelic
+	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out/angelic
+
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/mystic
+	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith/mystic
+	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out/mystic
+
 /obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 
 	school = "evocation"
-	charge_max = 400
+	charge_max = 40 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	max_targets = 6
 	action_icon_state = "magicm"
 	action_background_icon_state = "bg_demon"
-	proj_type = /obj/item/projectile/magic/spell/magic_missile/lesser
+	proj_type = /obj/projectile/magic/spell/magic_missile/lesser
 
-/obj/item/projectile/magic/spell/magic_missile/lesser
+/obj/projectile/magic/spell/magic_missile/lesser
 	color = "red" //Looks more culty this way
 	range = 10
 
-/obj/item/projectile/magic/spell/magic_missile/lesser/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
+/obj/projectile/magic/spell/magic_missile/lesser/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
 	if(ismob(target) && iscultist(target))
 		return FALSE
 	return ..()
@@ -184,10 +191,10 @@
 	desc = "This spell spawns a cloud of paralysing smoke."
 
 	school = "conjuration"
-	charge_max = 200
+	charge_max = 20 SECONDS
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	range = -1
 	include_user = TRUE
 	cooldown_min = 20 //25 deciseconds reduction per rank
@@ -202,7 +209,7 @@
 	name = "Abyssal Gaze"
 	desc = "This spell instills a deep terror in your target, temporarily chilling and blinding it."
 
-	charge_max = 750
+	charge_max = 75 SECONDS
 	range = 5
 	include_user = FALSE
 	selection_type = "range"
@@ -211,7 +218,7 @@
 	school = "evocation"
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_background_icon_state = "bg_demon"
 	action_icon_state = "abyssal_gaze"
@@ -237,7 +244,7 @@
 	target.playsound_local(get_turf(target), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	user.playsound_local(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
 	target.become_blind(MAGIC_BLIND)
-	addtimer(CALLBACK(src, .proc/cure_blindness, target), 40)
+	addtimer(CALLBACK(src, PROC_REF(cure_blindness), target), 40)
 	target.adjust_bodytemperature(-200)
 
 /obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/living/L)
@@ -247,7 +254,7 @@
 	name = "Dominate"
 	desc = "This spell dominates the mind of a lesser creature to the will of Nar'Sie, allying it only to her direct followers."
 
-	charge_max = 600
+	charge_max = 1 MINUTES
 	range = 7
 	include_user = FALSE
 	selection_type = "range"
@@ -256,7 +263,7 @@
 	school = "evocation"
 	clothes_req = FALSE
 	invocation = "none"
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_background_icon_state = "bg_demon"
 	action_icon_state = "dominate"
@@ -302,7 +309,7 @@
 	return TRUE
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/golem
-	charge_max = 800
+	charge_max = 80 SECONDS
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/cult/phase
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/cult/phase/out
 
@@ -310,15 +317,15 @@
 /obj/effect/proc_holder/spell/targeted/projectile/dumbfire/juggernaut
 	name = "Gauntlet Echo"
 	desc = "Channels energy into your gauntlet - firing its essence forward in a slow moving, yet devastating, attack."
-	proj_type = /obj/item/projectile/magic/spell/juggernaut
-	charge_max = 350
+	proj_type = /obj/projectile/magic/spell/juggernaut
+	charge_max = 35 SECONDS
 	clothes_req = FALSE
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "cultfist"
 	action_background_icon_state = "bg_demon"
 	sound = 'sound/weapons/resonator_blast.ogg'
 
-/obj/item/projectile/magic/spell/juggernaut
+/obj/projectile/magic/spell/juggernaut
 	name = "Gauntlet Echo"
 	icon_state = "cultfist"
 	alpha = 180
@@ -332,12 +339,12 @@
 	range = 15
 	speed = 7
 
-/obj/item/projectile/magic/spell/juggernaut/on_hit(atom/target, blocked)
+/obj/projectile/magic/spell/juggernaut/on_hit(atom/target, blocked)
 	. = ..()
 	var/turf/T = get_turf(src)
 	playsound(T, 'sound/weapons/resonator_blast.ogg', 100, FALSE)
 	new /obj/effect/temp_visual/cult/sac(T)
 	for(var/obj/O in range(1, src))
 		if(O.density && !istype(O, /obj/structure/destructible/cult))
-			O.take_damage(90, BRUTE, "melee", 0)
+			O.take_damage(90, BRUTE, MELEE, 0)
 			new /obj/effect/temp_visual/cult/turf/floor(get_turf(O))

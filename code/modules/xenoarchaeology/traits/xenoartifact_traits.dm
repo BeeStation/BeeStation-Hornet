@@ -42,12 +42,12 @@
 ///Compile a blacklist of traits from a given flag/s
 /proc/compile_artifact_blacklist(var/flags)
 	var/list/output = list()
-	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)	
+	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
 		if(!(initial(T.flags) & flags))
 			output += T
 	return output
 
-//Activator signal shenanignas 
+//Activator signal shenanignas
 ///Passes information into the activator datum to decide if, and how, the artifact activates
 /datum/xenoartifact_trait/activator/proc/pass_input(obj/item/xenoartifact/X)
 	return
@@ -60,20 +60,20 @@
 	for(var/s in signals)
 		switch(s) //Translating signal params to vaugely resemble (/obj/item, /mob/living, params)
 			if(COMSIG_PARENT_ATTACKBY)
-				RegisterSignal(xenoa, COMSIG_PARENT_ATTACKBY, .proc/translate_attackby)
+				RegisterSignal(xenoa, COMSIG_PARENT_ATTACKBY, PROC_REF(translate_attackby))
 			if(COMSIG_ITEM_ATTACK)
-				RegisterSignal(xenoa, COMSIG_ITEM_ATTACK, .proc/translate_attack)
+				RegisterSignal(xenoa, COMSIG_ITEM_ATTACK, PROC_REF(translate_attack))
 			if(COMSIG_MOVABLE_IMPACT)
-				RegisterSignal(xenoa, COMSIG_MOVABLE_IMPACT, .proc/translate_impact)
+				RegisterSignal(xenoa, COMSIG_MOVABLE_IMPACT, PROC_REF(translate_impact))
 			if(COMSIG_ITEM_AFTERATTACK)
-				RegisterSignal(xenoa, COMSIG_ITEM_AFTERATTACK, .proc/translate_afterattack)
+				RegisterSignal(xenoa, COMSIG_ITEM_AFTERATTACK, PROC_REF(translate_afterattack))
 			if(COMSIG_ITEM_PICKUP)
-				RegisterSignal(xenoa, COMSIG_ITEM_PICKUP, .proc/translate_pickup)
+				RegisterSignal(xenoa, COMSIG_ITEM_PICKUP, PROC_REF(translate_pickup))
 			if(COMSIG_ITEM_ATTACK_SELF)
-				RegisterSignal(xenoa, COMSIG_ITEM_ATTACK_SELF, .proc/translate_attack_self)
+				RegisterSignal(xenoa, COMSIG_ITEM_ATTACK_SELF, PROC_REF(translate_attack_self))
 			if(XENOA_SIGNAL)
-				RegisterSignal(xenoa, XENOA_SIGNAL, .proc/translate_attackby)
-	RegisterSignal(xenoa, XENOA_DEFAULT_SIGNAL, .proc/pass_input) //Signal sent by handles
+				RegisterSignal(xenoa, XENOA_SIGNAL, PROC_REF(translate_attackby))
+	RegisterSignal(xenoa, XENOA_DEFAULT_SIGNAL, PROC_REF(pass_input)) //Signal sent by handles
 
 /datum/xenoartifact_trait/activator/Destroy(force, ...)
 	. = ..()

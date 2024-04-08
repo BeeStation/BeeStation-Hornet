@@ -1,6 +1,6 @@
 /datum/antagonist/pirate
 	name = "Space Pirate"
-	job_rank = ROLE_TRAITOR
+	banning_key = ROLE_SPACE_PIRATE
 	roundend_category = "space pirates"
 	antagpanel_category = "Pirate"
 	show_to_ghosts = TRUE
@@ -23,7 +23,7 @@
 
 /datum/antagonist/pirate/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give pirate appearence on hud (If they are not an antag already)
+	//Give pirate appearance on hud (If they are not an antag already)
 	var/datum/atom_hud/antag/piratehud = GLOB.huds[ANTAG_HUD_PIRATE]
 	piratehud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)
@@ -74,7 +74,7 @@
 	return ..()
 
 /datum/team/pirate
-	name = "Pirate crew"
+	name = "Space Pirates"
 
 /datum/team/pirate/proc/forge_objectives()
 	var/datum/objective/loot/getbooty = new()
@@ -107,7 +107,7 @@
 	//Lists notable loot.
 	if(!cargo_hold || !cargo_hold.total_report)
 		return "Nothing"
-	cargo_hold.total_report.total_value = sortTim(cargo_hold.total_report.total_value, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
+	cargo_hold.total_report.total_value = sortTim(cargo_hold.total_report.total_value, cmp = GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
 	var/count = 0
 	var/list/loot_texts = list()
 	for(var/datum/export/E in cargo_hold.total_report.total_value)

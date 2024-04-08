@@ -50,7 +50,7 @@
 		if(A.idSelf == idSelf)
 			controller = A
 			break
-	for(var/obj/machinery/door/airlock/I in GLOB.machines)
+	for(var/obj/machinery/door/I as anything in GLOB.airlocks)
 		if(I.id_tag == idDoor)
 			door = I
 			break
@@ -88,10 +88,6 @@
 			icon_state = "access_button_cycle"
 		else
 			icon_state = "access_button_standby"
-
-/obj/machinery/doorButtons/access_button/power_change()
-	..()
-	update_icon()
 
 /obj/machinery/doorButtons/access_button/removeMe(obj/O)
 	if(O == door)
@@ -229,20 +225,19 @@
 		cycleOpen(interiorAirlock)
 
 /obj/machinery/doorButtons/airlock_controller/power_change()
-	..()
+	. = ..()
 	if(machine_stat & NOPOWER)
 		lostPower = TRUE
 	else
 		if(!busy)
 			lostPower = FALSE
-	update_icon()
 
 /obj/machinery/doorButtons/airlock_controller/findObjsByTag()
-	for(var/obj/machinery/door/airlock/A in GLOB.machines)
-		if(A.id_tag == idInterior)
-			interiorAirlock = A
-		else if(A.id_tag == idExterior)
-			exteriorAirlock = A
+	for(var/obj/machinery/door/door as anything in GLOB.airlocks)
+		if(door.id_tag == idInterior)
+			interiorAirlock = door
+		else if(door.id_tag == idExterior)
+			exteriorAirlock = door
 
 /obj/machinery/doorButtons/airlock_controller/update_icon()
 	if(machine_stat & NOPOWER)

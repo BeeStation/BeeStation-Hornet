@@ -95,7 +95,7 @@
 		var/new_volume = input(user, "Choose a volume.", "Sound Emitter", sound_volume) as null|num
 		if(isnull(new_volume))
 			return
-		new_volume = CLAMP(new_volume, 0, 100)
+		new_volume = clamp(new_volume, 0, 100)
 		sound_volume = new_volume
 		to_chat(user, "<span class='notice'>Volume set to [sound_volume]%.</span>")
 	if(href_list["edit_mode"])
@@ -118,7 +118,7 @@
 		var/new_radius = input(user, "Choose a radius.", "Sound Emitter", sound_volume) as null|num
 		if(isnull(new_radius))
 			return
-		new_radius = CLAMP(new_radius, 0, 127)
+		new_radius = clamp(new_radius, 0, 127)
 		play_radius = new_radius
 		to_chat(user, "<span class='notice'>Audible radius set to [play_radius].</span>")
 	if(href_list["play"])
@@ -142,7 +142,7 @@
 		if(SOUND_EMITTER_GLOBAL)
 			hearing_mobs = GLOB.player_list.Copy()
 	for(var/mob/M in hearing_mobs)
-		if(M.client.prefs.toggles & PREFTOGGLE_SOUND_MIDI)
+		if(M.client.prefs.read_player_preference(/datum/preference/toggle/sound_midi))
 			M.playsound_local(M, sound_file, sound_volume, FALSE, channel = CHANNEL_ADMIN, pressure_affected = FALSE)
 	if(user)
 		log_admin("[ADMIN_LOOKUPFLW(user)] activated a sound emitter with file \"[sound_file]\" at [AREACOORD(src)]")

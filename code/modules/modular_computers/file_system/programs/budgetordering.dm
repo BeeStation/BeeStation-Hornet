@@ -48,13 +48,12 @@
 	return TRUE
 
 /datum/computer_file/program/budgetorders/ui_data(mob/user)
-	. = ..()
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["location"] = SSshuttle.supply.getStatusText()
 	var/datum/bank_account/buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	var/obj/item/card/id/id_card = get_buyer_id(user)
 	if(get_buyer_id(user))
-		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access))
+		if((ACCESS_QM in id_card.access) || (ACCESS_HEADS in id_card.access))
 			requestonly = FALSE
 			buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			can_approve_requests = TRUE
@@ -148,9 +147,9 @@
 				SSshuttle.supply.export_categories = get_export_categories()
 				SSshuttle.moveShuttle("supply", "supply_away", TRUE)
 				computer.say("The supply shuttle is departing.")
-				computer.investigate_log("[key_name(usr)] sent the supply shuttle away.", INVESTIGATE_CARGO)
+				usr.investigate_log("sent the supply shuttle away.", INVESTIGATE_CARGO)
 			else
-				computer.investigate_log("[key_name(usr)] called the supply shuttle.", INVESTIGATE_CARGO)
+				usr.investigate_log("called the supply shuttle.", INVESTIGATE_CARGO)
 				computer.say("The supply shuttle has been called and will arrive in [SSshuttle.supply.timeLeft(600)] minutes.")
 				SSshuttle.moveShuttle("supply", "supply_home", TRUE)
 			. = TRUE
@@ -167,7 +166,7 @@
 			else
 				SSshuttle.shuttle_loan.loan_shuttle()
 				computer.say("The supply shuttle has been loaned to CentCom.")
-				computer.investigate_log("[key_name(usr)] accepted a shuttle loan event.", INVESTIGATE_CARGO)
+				usr.investigate_log("accepted a shuttle loan event.", INVESTIGATE_CARGO)
 				log_game("[key_name(usr)] accepted a shuttle loan event.")
 				. = TRUE
 		if("add")

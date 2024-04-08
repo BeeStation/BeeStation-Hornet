@@ -19,7 +19,7 @@
 	. = ..()
 	. += "<span class='notice'>It is currently [open?"open, letting you pour liquids in.":"closed, letting you draw liquids from the tap."]</span>"
 
-/obj/structure/fermenting_barrel/proc/makeWine(obj/item/reagent_containers/food/snacks/grown/fruit)
+/obj/structure/fermenting_barrel/proc/makeWine(obj/item/food/grown/fruit)
 	if(fruit.reagents)
 		fruit.reagents.trans_to(src, fruit.reagents.total_volume)
 	var/amount = fruit.seed.potency / 4
@@ -39,7 +39,7 @@
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
 
 /obj/structure/fermenting_barrel/attackby(obj/item/I, mob/user, params)
-	var/obj/item/reagent_containers/food/snacks/grown/fruit = I
+	var/obj/item/food/grown/fruit = I
 	if(istype(fruit))
 		if(!fruit.can_distill)
 			to_chat(user, "<span class='warning'>You can't distill this into anything...</span>")
@@ -48,7 +48,7 @@
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return TRUE
 		to_chat(user, "<span class='notice'>You place [I] into [src] to start the fermentation process.</span>")
-		addtimer(CALLBACK(src, .proc/makeWine, fruit), rand(80, 120) * speed_multiplier)
+		addtimer(CALLBACK(src, PROC_REF(makeWine), fruit), rand(80, 120) * speed_multiplier)
 		return TRUE
 	else
 		return ..()

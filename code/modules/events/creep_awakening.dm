@@ -10,7 +10,7 @@
 
 /datum/round_event/obsessed/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
-		if(!H.client || !(ROLE_OBSESSED in H.client.prefs.be_special))
+		if(!H.client?.should_include_for_role(ROLE_OBSESSED, /datum/role_preference/midround_living/obsessed))
 			continue
 		if(H.stat == DEAD)
 			continue

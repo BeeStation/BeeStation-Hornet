@@ -38,12 +38,9 @@
 
 	for(var/i in 1 to stored_ammo.len)
 		var/obj/item/ammo_casing/bullet = stored_ammo[i]
-		if(!bullet || !bullet.BB) // found a spent ammo
+		if(!bullet) //Found an empty chamber in the cylinder
 			stored_ammo[i] = R
 			R.forceMove(src)
-
-			if(bullet)
-				bullet.forceMove(drop_location())
 			return TRUE
 
 	return FALSE

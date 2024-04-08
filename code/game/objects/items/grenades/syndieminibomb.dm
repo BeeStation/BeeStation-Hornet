@@ -28,7 +28,7 @@
 	name = "frag grenade"
 	desc = "An anti-personnel fragmentation grenade, this weapon excels at killing soft targets by shredding them with metal shrapnel."
 	icon_state = "frag"
-	shrapnel_type = /obj/item/projectile/bullet/shrapnel
+	shrapnel_type = /obj/projectile/bullet/shrapnel
 	shrapnel_radius = 4
 	ex_heavy = 1
 	ex_light = 3
@@ -37,7 +37,7 @@
 /obj/item/grenade/frag/mega
 	name = "\improper FRAG grenade"
 	desc = "An anti-everything fragmentation grenade, this weapon excels at killing anything any everything by shredding them with metal shrapnel."
-	shrapnel_type = /obj/item/projectile/bullet/shrapnel/mega
+	shrapnel_type = /obj/projectile/bullet/shrapnel/mega
 	shrapnel_radius = 12
 
 /obj/item/grenade/frag/prime(mob/living/lanced_by)

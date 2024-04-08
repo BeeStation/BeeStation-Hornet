@@ -5,7 +5,11 @@
 	icon_state = "nanite_cloud_controller"
 	circuit = /obj/item/circuitboard/computer/nanite_cloud_controller
 
-
+	//these muthafuckas arent supposed to smooth
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 
 	var/obj/item/disk/nanite_program/disk
 	var/list/datum/nanite_cloud_backup/cloud_backups = list()
@@ -57,9 +61,10 @@
 
 	var/datum/nanite_cloud_backup/backup = new(src)
 	var/datum/component/nanites/cloud_copy = backup.AddComponent(/datum/component/nanites)
+	cloud_copy.cloud_id = cloud_id
 	backup.cloud_id = cloud_id
 	backup.nanites = cloud_copy
-	investigate_log("[key_name(user)] created a new nanite cloud backup with id #[cloud_id]", INVESTIGATE_NANITES)
+	user.investigate_log("created a new nanite cloud backup with id #[cloud_id]", INVESTIGATE_NANITES)
 	ui_update()
 
 /obj/machinery/computer/nanite_cloud_controller/ui_state(mob/user)
@@ -190,13 +195,15 @@
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
 				cloud_id = clamp(round(cloud_id, 1),1,100)
 				generate_backup(cloud_id, usr)
+				balloon_alert(usr, "created backup")
 				. = TRUE
 		if("delete_backup")
 			var/datum/nanite_cloud_backup/backup = get_backup(current_view)
 			if(backup)
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
 				qdel(backup)
-				investigate_log("[key_name(usr)] deleted the nanite cloud backup #[current_view]", INVESTIGATE_NANITES)
+				usr.investigate_log(" deleted the nanite cloud backup #[current_view]", INVESTIGATE_NANITES)
+				balloon_alert(usr, "deleted backup")
 				. = TRUE
 		if("upload_program")
 			if(disk && disk.program)
@@ -205,7 +212,8 @@
 					playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
 					var/datum/component/nanites/nanites = backup.nanites
 					nanites.add_program(null, disk.program.copy())
-					investigate_log("[key_name(usr)] uploaded program [disk.program.name] to cloud #[current_view]", INVESTIGATE_NANITES)
+					usr.investigate_log(" uploaded program [disk.program.name] to cloud #[current_view]", INVESTIGATE_NANITES)
+					balloon_alert(usr, "uploaded program")
 					. = TRUE
 		if("remove_program")
 			var/datum/nanite_cloud_backup/backup = get_backup(current_view)
@@ -213,7 +221,8 @@
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
 				var/datum/component/nanites/nanites = backup.nanites
 				var/datum/nanite_program/P = nanites.programs[text2num(params["program_id"])]
-				investigate_log("[key_name(usr)] deleted program [P.name] from cloud #[current_view]", INVESTIGATE_NANITES)
+				usr.investigate_log(" deleted program [P.name] from cloud #[current_view]", INVESTIGATE_NANITES)
+				balloon_alert(usr, "removed program")
 				qdel(P)
 				. = TRUE
 		if("add_rule")
@@ -227,8 +236,9 @@
 					var/datum/component/nanites/nanites = backup.nanites
 					var/datum/nanite_program/P = nanites.programs[text2num(params["program_id"])]
 					var/datum/nanite_rule/rule = rule_template.make_rule(P)
+					balloon_alert(usr, "added rule")
 
-					investigate_log("[key_name(usr)] added rule [rule.display()] to program [P.name] in cloud #[current_view]", INVESTIGATE_NANITES)
+					usr.investigate_log(" added rule [rule.display()] to program [P.name] in cloud #[current_view]", INVESTIGATE_NANITES)
 					. = TRUE
 		if("remove_rule")
 			var/datum/nanite_cloud_backup/backup = get_backup(current_view)
@@ -238,8 +248,50 @@
 				var/datum/nanite_program/P = nanites.programs[text2num(params["program_id"])]
 				var/datum/nanite_rule/rule = P.rules[text2num(params["rule_id"])]
 				rule.remove()
+				balloon_alert(usr, "removed rule")
 
-				investigate_log("[key_name(usr)] removed rule [rule.display()] from program [P.name] in cloud #[current_view]", INVESTIGATE_NANITES)
+				usr.investigate_log(" removed rule [rule.display()] from program [P.name] in cloud #[current_view]", INVESTIGATE_NANITES)
+				. = TRUE
+		if("combine_rules")
+			var/datum/nanite_cloud_backup/backup = get_backup(current_view)
+			if(backup)
+				playsound(src, 'sound/machines/terminal_prompt.ogg', 50, 0)
+				var/datum/component/nanites/nanites = backup.nanites
+				var/datum/nanite_program/program = nanites.programs[text2num(params["program_id"])]
+				if(!islist(params["rule_ids"]))
+					return
+				if(length(params["rule_ids"]) <= 1)
+					to_chat(usr, "<span class='warning'>Warning: you need to combine at least 2 rules.</span>")
+					balloon_alert(usr, "not enough rules to combine")
+					return
+				if(length(params["rule_ids"]) > 5)
+					to_chat(usr, "<span class='warning'>Warning: cannot combine more than 5 rules.</span>")
+					balloon_alert(usr, "too many rules to combine")
+					return
+				var/list/datum/nanite_rule/rules_to_copy = list()
+				var/list/rule_displays = list()
+				for(var/rule_id in params["rule_ids"])
+					var/datum/nanite_rule/rule = program.rules[text2num(rule_id)]
+					if(!rule)
+						continue
+					if(!rule.combinable)
+						balloon_alert(usr, "rules cannot be combined")
+						to_chat(usr, "<span class='warning'>Warning: rule '[rule.display()]' cannot be combined.</span>")
+						return
+					rule_displays += rule.display()
+					rules_to_copy += rule
+				if(!length(rules_to_copy))
+					balloon_alert(usr, "no rules to combine")
+					to_chat(usr, "<span class='warning'>Warning: no rules to combine!</span>")
+					return
+				var/list/datum/nanite_rule/copied_rules = list()
+				for(var/R in rules_to_copy)
+					var/datum/nanite_rule/rule = R
+					copied_rules += rule.copy_to(program, FALSE)
+					rule.remove()
+				new /datum/nanite_rule/combined(program, TRUE, copied_rules, params["op"])
+				balloon_alert(usr, "rules combined")
+				investigate_log("[key_name(usr)] combined rules [english_list(rule_displays)] from program [program.name] in cloud #[current_view]", INVESTIGATE_NANITES)
 				. = TRUE
 
 /datum/nanite_cloud_backup

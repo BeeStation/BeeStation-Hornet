@@ -1,18 +1,23 @@
 /// Helper define that can only be used in /obj/item/circuit_component/input_received()
-#define COMPONENT_TRIGGERED_BY(trigger, port) (trigger.input_value && trigger == port)
+#define COMPONENT_TRIGGERED_BY(trigger, port) (trigger.value && trigger == port)
 
-/// Define to automatically handle calling the output port. Will not call the output port if the input_received proc returns TRUE.
-#define TRIGGER_CIRCUIT_COMPONENT(component, port) if(!component.input_received(port) && (component.circuit_flags & CIRCUIT_FLAG_OUTPUT_SIGNAL)) component.trigger_output.set_output(COMPONENT_SIGNAL)
+/// Define to be placed at any proc that is triggered by a port.
+#define CIRCUIT_TRIGGER SHOULD_NOT_SLEEP(TRUE)
+
+// Port defines
+
+#define PORT_MAX_NAME_LENGTH 50
 
 // Port types. Determines what the port can connect to
 
 /// Can accept any datatype. Only works for inputs, output types will runtime.
-#define PORT_TYPE_ANY null
+#define PORT_TYPE_ANY "any"
 
 // Fundamental datatypes
 /// String datatype
 #define PORT_TYPE_STRING "string"
-#define PORT_MAX_STRING_LENGTH 500
+#define PORT_MAX_STRING_LENGTH 5000
+#define PORT_MAX_STRING_DISPLAY 100
 /// Number datatype
 #define PORT_TYPE_NUMBER "number"
 /// Signal datatype
@@ -21,12 +26,12 @@
 #define PORT_TYPE_LIST "list"
 /// Table datatype. Derivative of list, contains other lists with matching columns.
 #define PORT_TYPE_TABLE "table"
+/// Options datatype. Derivative of string.
+#define PORT_TYPE_OPTION "option"
 
 // Other datatypes
 /// Atom datatype
 #define PORT_TYPE_ATOM "entity"
-/// Any datatype (USED ONLY FOR DISPLAY, DO NOT USE)
-#define COMP_TYPE_ANY "any"
 
 
 /// The maximum range between a port and an atom
@@ -45,8 +50,8 @@
 
 // Components
 
-/// The value that is sent whenever a component is simply sending a signal. This can be anything.
-#define COMPONENT_SIGNAL 1
+/// The value that is sent whenever a component is simply sending a signal. This can be anything, and is currently the seconds since roundstart.
+#define COMPONENT_SIGNAL (world.time / (1 SECONDS))
 
 /// The largest sized list a component can make
 #define COMPONENT_MAXIMUM_LIST_SIZE 256
@@ -58,6 +63,53 @@
 #define COMP_COMPARISON_LESS_THAN "<"
 #define COMP_COMPARISON_GREATER_THAN_OR_EQUAL ">="
 #define COMP_COMPARISON_LESS_THAN_OR_EQUAL "<="
+
+// Clock component
+#define COMP_CLOCK_DELAY 0.9 SECONDS
+
+// Shells
+
+/// Whether a circuit is stuck on a shell and cannot be removed (by a user)
+#define SHELL_FLAG_CIRCUIT_FIXED (1<<0)
+
+/// Whether the shell needs to be anchored for the circuit to be on.
+#define SHELL_FLAG_REQUIRE_ANCHOR (1<<1)
+
+/// Whether or not the shell has a USB port.
+#define SHELL_FLAG_USB_PORT (1<<2)
+
+/// Whether the shell allows actions to be peformed on a shell if the action fails. This will additionally block the messages from being displayed.
+#define SHELL_FLAG_ALLOW_FAILURE_ACTION (1<<3)
+
+// Shell capacities. These can be converted to configs very easily later
+#define SHELL_CAPACITY_SMALL 25
+#define SHELL_CAPACITY_MEDIUM 50
+#define SHELL_CAPACITY_LARGE 100
+#define SHELL_CAPACITY_VERY_LARGE 500
+
+/// The maximum range a USB cable can be apart from a source
+#define USB_CABLE_MAX_RANGE 2
+/// The maximum range a wireless USB transceiver can be apart from a source
+#define USB_WIRELESS_MAX_RANGE 20
+
+// Circuit flags
+/// Creates an input trigger that means the component won't be triggered unless the trigger is pulsed.
+#define CIRCUIT_FLAG_INPUT_SIGNAL (1<<0)
+/// Creates an output trigger that sends a pulse whenever the component is successfully triggered
+#define CIRCUIT_FLAG_OUTPUT_SIGNAL (1<<1)
+/// This circuit component does not show in the menu.
+#define CIRCUIT_FLAG_HIDDEN (1<<2)
+/// This circuit component has been marked as a component that has instant execution and will show up in the UI as so. This will only cause a visual change.
+#define CIRCUIT_FLAG_INSTANT (1<<3)
+
+// Datatype flags
+/// The datatype supports manual inputs
+#define DATATYPE_FLAG_ALLOW_MANUAL_INPUT (1<<0)
+/// The datatype won't update the value when it is connected to the port
+#define DATATYPE_FLAG_AVOID_VALUE_UPDATE (1<<1)
+
+/// Any datatype (USED ONLY FOR DISPLAY, DO NOT USE)
+#define COMP_TYPE_ANY "any"
 
 // Delay defines
 /// The minimum delay value that the delay component can have.
@@ -129,9 +181,6 @@
 #define COMP_TYPECAST_MOB "organism"
 #define COMP_TYPECAST_HUMAN "humanoid"
 
-// Clock component
-#define COMP_CLOCK_DELAY 0.9 SECONDS
-
 // Radio component
 #define COMP_RADIO_PUBLIC "public"
 #define COMP_RADIO_PRIVATE "private"
@@ -155,35 +204,6 @@
 
 #define COMP_SECURITY_ARREST_AMOUNT_TO_FLAG 10
 
-// Shells
-
-/// Whether a circuit is stuck on a shell and cannot be removed (by a user)
-#define SHELL_FLAG_CIRCUIT_FIXED (1<<0)
-
-/// Whether the shell needs to be anchored for the circuit to be on.
-#define SHELL_FLAG_REQUIRE_ANCHOR (1<<1)
-
-/// Whether or not the shell has a USB port.
-#define SHELL_FLAG_USB_PORT (1<<2)
-
-/// Whether the shell allows actions to be peformed on a shell if the action fails. This will additionally block the messages from being displayed.
-#define SHELL_FLAG_ALLOW_FAILURE_ACTION (1<<3)
-
-// Shell capacities. These can be converted to configs very easily later
-#define SHELL_CAPACITY_SMALL 10
-#define SHELL_CAPACITY_MEDIUM 25
-#define SHELL_CAPACITY_LARGE 50
-#define SHELL_CAPACITY_VERY_LARGE 500
-
-/// The maximum range a USB cable can be apart from a source
-#define USB_CABLE_MAX_RANGE 2
-
-// Circuit flags
-/// Creates an input trigger that means the component won't be triggered unless the trigger is pulsed.
-#define CIRCUIT_FLAG_INPUT_SIGNAL (1<<0)
-/// Creates an output trigger that sends a pulse whenever the component is successfully triggered
-#define CIRCUIT_FLAG_OUTPUT_SIGNAL (1<<1)
-
 #define WIREMOD_CIRCUITRY "Circuitry"
 #define WIREMOD_CORE "Core"
 #define WIREMOD_SHELLS "Shells"
@@ -197,6 +217,7 @@
 #define WIREMOD_CONVERSION_COMPONENTS "Conversion Components"
 #define WIREMOD_STRING_COMPONENTS "String Components"
 #define WIREMOD_REFERENCE_COMPONENTS "Reference Components"
+#define WIREMOD_BCI_COMPONENTS "BCI Components"
 
 #define WIREMODE_CATEGORIES list(\
 	WIREMOD_CIRCUITRY,\
@@ -207,5 +228,5 @@
 	WIREMOD_MATH_COMPONENTS,\
 	WIREMOD_TIME_COMPONENTS,\
 	WIREMOD_LOGIC_COMPONENTS,\
-	WIREMOD_LIST_COMPONENTS\
+	WIREMOD_BCI_COMPONENTS\
 	)

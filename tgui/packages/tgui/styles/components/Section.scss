@@ -127,3 +127,13 @@ $separator-color: colors.$primary !default;
   color: white;
   white-space: pre-wrap;
 }
+
+.section-background {
+  background-color: functions.fake-alpha($background-color, base.$color-bg);
+  background-color: $background-color;
+}
+
+.section-background-dark {
+  background-color: functions.fake-alpha(rgba(0, 0, 0, 0.2), base.$color-bg) !important;
+  background-color: $background-color !important;
+}

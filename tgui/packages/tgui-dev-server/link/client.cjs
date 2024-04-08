@@ -23,7 +23,7 @@ const ensureConnection = () => {
           socket.send(msg);
         }
       };
-      socket.onmessage = event => {
+      socket.onmessage = (event) => {
         const msg = JSON.parse(event.data);
         for (let subscriber of subscribers) {
           subscriber(msg);
@@ -37,14 +37,14 @@ if (process.env.NODE_ENV !== 'production') {
   window.onunload = () => socket && socket.close();
 }
 
-const subscribe = fn => subscribers.push(fn);
+const subscribe = (fn) => subscribers.push(fn);
 
 /**
  * A json serializer which handles circular references and other junk.
  */
-const serializeObject = obj => {
+const serializeObject = (obj) => {
   let refs = [];
-  const primitiveReviver = value => {
+  const primitiveReviver = (value) => {
     if (typeof value === 'number' && !Number.isFinite(value)) {
       return {
         __number__: String(value),
@@ -68,9 +68,7 @@ const serializeObject = obj => {
       }
       refs.push(value);
       // Error object
-      const isError = value instanceof Error || (
-        value.code && value.message && value.message.includes('Error')
-      );
+      const isError = value instanceof Error || (value.code && value.message && value.message.includes('Error'));
       if (isError) {
         return {
           __error__: true,
@@ -91,7 +89,7 @@ const serializeObject = obj => {
   return json;
 };
 
-const sendMessage = msg => {
+const sendMessage = (msg) => {
   if (process.env.NODE_ENV !== 'production') {
     const json = serializeObject(msg);
     // Send message using WebSocket
@@ -99,8 +97,7 @@ const sendMessage = msg => {
       ensureConnection();
       if (socket.readyState === WebSocket.OPEN) {
         socket.send(json);
-      }
-      else {
+      } else {
         // Keep only 100 latest messages in the queue
         if (queue.length > 100) {
           queue.shift();
@@ -130,19 +127,16 @@ const sendLogEntry = (level, ns, ...args) => {
           args,
         },
       });
-    }
-    catch (err) {}
+    } catch (err) {}
   }
 };
 
 const setupHotReloading = () => {
-  if (process.env.NODE_ENV !== 'production'
-      && process.env.WEBPACK_HMR_ENABLED
-      && window.WebSocket) {
+  if (process.env.NODE_ENV !== 'production' && process.env.WEBPACK_HMR_ENABLED && window.WebSocket) {
     if (module.hot) {
       ensureConnection();
       sendLogEntry(0, null, 'setting up hot reloading');
-      subscribe(msg => {
+      subscribe((msg) => {
         const { type } = msg;
         sendLogEntry(0, null, 'received', type);
         if (type === 'hotUpdate') {
@@ -157,10 +151,10 @@ const setupHotReloading = () => {
               ignoreDeclined: true,
               ignoreErrored: true,
             })
-            .then(modules => {
+            .then((modules) => {
               sendLogEntry(0, null, 'outdated modules', modules);
             })
-            .catch(err => {
+            .catch((err) => {
               sendLogEntry(0, null, 'reload error', err);
             });
         }

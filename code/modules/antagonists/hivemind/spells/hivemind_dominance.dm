@@ -4,7 +4,7 @@
 	panel = "Hivemind Abilities"
 	charge_type = "charges"
 	charge_max = 1
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = 0
 	human_req = 1
 	action_icon = 'icons/mob/actions/actions_hive.dmi'
@@ -23,11 +23,14 @@
 		C.Jitter(15)
 		C.Unconscious(150)
 		to_chat(C, "<span class='boldwarning'>Something's wrong...</span>")
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>...your memories are becoming fuzzy.</span>"), 45)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>You try to remember who you are...</span>"), 90)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='assimilator'>There is no you...</span>"), 110)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='bigassimilator'>...there is only us.</span>"), 130)
-		addtimer(CALLBACK(C, /atom/proc/add_overlay, hive.glow), 150)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, "<span class='boldwarning'>...your memories are becoming fuzzy.</span>"), 45)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, "<span class='boldwarning'>You try to remember who you are...</span>"), 90)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, "<span class='assimilator'>There is no you...</span>"), 110)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, "<span class='bigassimilator'>...there is only us.</span>"), 130)
+		var/datum/antagonist/hivevessel/woke_vessel = IS_WOKEVESSEL(C)
+		if (woke_vessel)
+			woke_vessel.glow = hive.glow
+		addtimer(CALLBACK(C, TYPE_PROC_REF(/atom, add_overlay), hive.glow), 150)
 
 	for(var/datum/antagonist/hivemind/enemy in GLOB.hivehosts)
 		if(enemy.owner)
@@ -35,12 +38,12 @@
 			var/mob/living/carbon/C = enemy.owner?.current
 			if(!(enemy.hiveID == hive.hiveID))
 				to_chat(C, "<span class='boldwarning'>Something's wrong...</span>")
-				addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>...a new presence.</span>"), 45)
-				addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>It feels overwhelming...</span>"), 90)
-				addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='assimilator'>It can't be!</span>"), 110)
-				addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='bigassimilator'>Get away, run!</span>"), 130)
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, "<span class='boldwarning'>...a new presence.</span>"), 45)
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, "<span class='boldwarning'>It feels overwhelming...</span>"), 90)
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, "<span class='assimilator'>It can't be!</span>"), 110)
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), C, "<span class='bigassimilator'>Get away, run!</span>"), 130)
 	sound_to_playing_players('sound/effects/one_mind.ogg')
-	addtimer(CALLBACK(user, /atom/proc/add_overlay, hive.glow), 150)
-	addtimer(CALLBACK(hive, /datum/antagonist/hivemind/proc/dominance), 150)
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/send_to_playing_players, "<span class='bigassimilator'>THE ONE MIND RISES</span>"), 150)
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/sound_to_playing_players, 'sound/effects/magic.ogg'), 150)
+	addtimer(CALLBACK(user, TYPE_PROC_REF(/atom, add_overlay), hive.glow), 150)
+	addtimer(CALLBACK(hive, TYPE_PROC_REF(/datum/antagonist/hivemind, dominance)), 150)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(send_to_playing_players), "<span class='bigassimilator'>THE ONE MIND RISES</span>"), 150)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(sound_to_playing_players), 'sound/effects/magic.ogg'), 150)

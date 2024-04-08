@@ -1,0 +1,216 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop/closed,
+/area/template_noop)
+"b" = (
+/obj/item/food/butterdog,
+/obj/effect/decal/cleanable/crayon,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/iron/vaporwave,
+/area/template_noop)
+"e" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/open/floor/iron/vaporwave,
+/area/template_noop)
+"g" = (
+/obj/item/food/butter/on_a_stick,
+/obj/effect/decal/cleanable/crayon,
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/item/food/butteredtoast,
+/obj/effect/decal/cleanable/crayon,
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/template_noop)
+"m" = (
+/obj/structure/table,
+/obj/item/food/spaghetti/kasespatzle,
+/obj/effect/decal/cleanable/crayon,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/techmaint,
+/area/template_noop)
+"o" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/turf/open/floor/iron/vaporwave,
+/area/template_noop)
+"q" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/turf/open/floor/iron/vaporwave,
+/area/template_noop)
+"r" = (
+/turf/closed/wall,
+/area/template_noop)
+"w" = (
+/obj/item/food/spaghetti/butternoodles,
+/obj/effect/decal/cleanable/crayon,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/template_noop)
+"x" = (
+/obj/structure/table,
+/obj/item/food/butter,
+/obj/effect/decal/cleanable/crayon,
+/turf/open/floor/iron/techmaint,
+/area/template_noop)
+"z" = (
+/obj/structure/table,
+/obj/item/food/store/cake/cheese,
+/obj/effect/decal/cleanable/crayon,
+/turf/open/floor/iron/techmaint,
+/area/template_noop)
+"A" = (
+/obj/structure/table,
+/obj/item/food/butterbiscuit,
+/obj/effect/decal/cleanable/crayon,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/techmaint,
+/area/template_noop)
+"B" = (
+/obj/structure/table,
+/obj/item/food/store/bread/creamcheese,
+/obj/effect/decal/cleanable/crayon,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/techmaint,
+/area/template_noop)
+"E" = (
+/obj/machinery/light_switch{
+	pixel_x = -4;
+	pixel_y = -32
+	},
+/turf/open/floor/iron/vaporwave,
+/area/template_noop)
+"F" = (
+/turf/open/floor/iron/vaporwave,
+/area/template_noop)
+"H" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/template_noop,
+/area/template_noop)
+"J" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/iron/vaporwave,
+/area/template_noop)
+"L" = (
+/obj/structure/table,
+/obj/item/food/cheesyburrito,
+/obj/effect/decal/cleanable/crayon,
+/turf/open/floor/iron/techmaint,
+/area/template_noop)
+"S" = (
+/obj/structure/table,
+/obj/item/food/cheesynachos,
+/obj/effect/decal/cleanable/crayon,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/techmaint,
+/area/template_noop)
+"X" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/turf/open/floor/iron/vaporwave,
+/area/template_noop)
+"Y" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance,
+/turf/open/floor/iron/grid/steel,
+/area/template_noop)
+"Z" = (
+/obj/structure/table,
+/obj/item/food/cheese/wheel,
+/obj/effect/decal/cleanable/crayon,
+/turf/open/floor/iron/techmaint,
+/area/template_noop)
+
+(1,1,1) = {"
+r
+x
+S
+F
+F
+F
+F
+m
+Z
+a
+"}
+(2,1,1) = {"
+Y
+F
+o
+d
+b
+w
+d
+q
+e
+H
+"}
+(3,1,1) = {"
+Y
+F
+X
+F
+g
+i
+F
+J
+E
+a
+"}
+(4,1,1) = {"
+r
+L
+A
+F
+F
+F
+F
+B
+z
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

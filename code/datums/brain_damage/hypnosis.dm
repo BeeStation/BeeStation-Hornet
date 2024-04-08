@@ -5,7 +5,7 @@
 	gain_text = ""
 	lose_text = ""
 	resilience = TRAUMA_RESILIENCE_SURGERY
-
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 	var/hypnotic_phrase = ""
 	var/regex/target_phrase
 
@@ -50,3 +50,7 @@
 
 /datum/brain_trauma/hypnosis/handle_hearing(datum/source, list/hearing_args)
 	hearing_args[HEARING_RAW_MESSAGE] = target_phrase.Replace(hearing_args[HEARING_RAW_MESSAGE], "<span class='hypnophrase'>$1</span>")
+
+/// A "hardened" variant of the hypnosis trauma, used by hypnoflashes so that nanites can't cure it.
+/datum/brain_trauma/hypnosis/hardened
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM | TRAUMA_SPECIAL_CURE_PROOF

@@ -27,11 +27,6 @@
 		return ..()
 	attack_tk_grab(user)
 
-/obj/item/attack_tk(mob/user)
-	if(user.stat)
-		return
-	attack_tk_grab(user)
-
 /obj/proc/attack_tk_grab(mob/user)
 	var/obj/item/tk_grab/O = new(src)
 	O.tk_user = user
@@ -70,7 +65,7 @@
 	desc = "Magic"
 	icon = 'icons/obj/magic.dmi'//Needs sprites
 	icon_state = "2"
-	item_flags = NOBLUDGEON | ABSTRACT | DROPDEL
+	item_flags = NOBLUDGEON | ABSTRACT | DROPDEL | ISWEAPON
 	//item_state = null
 	w_class = WEIGHT_CLASS_GIGANTIC
 
@@ -90,7 +85,7 @@
 
 /obj/item/tk_grab/process()
 	if(check_if_focusable(focus)) //if somebody grabs your thing, no waiting for them to put it down and hitting them again.
-		update_icon()
+		update_appearance()
 
 /obj/item/tk_grab/dropped(mob/user)
 	..()
@@ -103,7 +98,7 @@
 	if(slot == ITEM_SLOT_HANDS)
 		return
 	qdel(src)
-	return
+	return ..()
 
 /obj/item/tk_grab/examine(user)
 	if (focus)
@@ -200,9 +195,8 @@
 		focus.layer = old_layer
 		focus.plane = old_plane
 
-/obj/item/tk_grab/suicide_act(mob/user)
+/obj/item/tk_grab/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is using [user.p_their()] telekinesis to choke [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (OXYLOSS)
-
+	return OXYLOSS
 
 #undef TK_MAXRANGE

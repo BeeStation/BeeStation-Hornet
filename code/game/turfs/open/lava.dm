@@ -6,6 +6,7 @@
 	gender = PLURAL //"That's some lava."
 	baseturfs = /turf/open/lava //lava all the way down
 	slowdown = 2
+	resistance_flags = INDESTRUCTIBLE
 
 	light_range = 2
 	light_power = 0.75
@@ -17,18 +18,12 @@
 	clawfootstep = FOOTSTEP_LAVA
 	heavyfootstep = FOOTSTEP_LAVA
 
-/turf/open/lava/ex_act(severity, target)
-	contents_explosion(severity, target)
-
 /turf/open/lava/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
 
 /turf/open/lava/Melt()
 	to_be_destroyed = FALSE
 	return src
-
-/turf/open/lava/acid_act(acidpwr, acid_volume)
-	return
 
 /turf/open/lava/MakeDry(wet_setting = TURF_WET_WATER)
 	return
@@ -57,24 +52,20 @@
 		STOP_PROCESSING(SSobj, src)
 
 /turf/open/lava/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	switch(the_rcd.mode)
-		if(RCD_FLOORWALL)
-			return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
+	if(the_rcd.mode == RCD_FLOORWALL)
+		return list("mode" = RCD_FLOORWALL, "delay" = 0, "cost" = 3)
 	return FALSE
 
 /turf/open/lava/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_FLOORWALL)
-			to_chat(user, "<span class='notice'>You build a floor.</span>")
-			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
-			return TRUE
+	if(passed_mode == RCD_FLOORWALL)
+		to_chat(user, "<span class='notice'>You build a floor.</span>")
+		log_attack("[key_name(user)] has constructed a floor over lava at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
+		PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+		return TRUE
 	return FALSE
 
 /turf/open/lava/rust_heretic_act()
 	return FALSE
-
-/turf/open/lava/singularity_act()
-	return
 
 /turf/open/lava/singularity_pull(S, current_size)
 	return

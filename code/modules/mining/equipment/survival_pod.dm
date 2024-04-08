@@ -2,7 +2,7 @@
 /area/survivalpod
 	name = "\improper Emergency Shelter"
 	icon_state = "away"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
@@ -107,6 +107,13 @@
 	icon = 'icons/obj/mining.dmi'
 	template_id = "capsule_barricade"
 
+/obj/item/survivalcapsule/capsule_checkpoint
+	name = "checkpoint capsule"
+	desc = "A 3x3 glass checkpoint designed for allowing safely searching passing personnel."
+	icon_state = "capsulesec"
+	icon = 'icons/obj/mining.dmi'
+	template_id = "capsule_checkpoint"
+
 /obj/item/survivalcapsule/party
 	name = "party capsule"
 	desc = "A 7x7 party area, fit with tables and a dancefloor. Groovy."
@@ -123,7 +130,7 @@
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
+	smoothing_groups = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD, SMOOTH_GROUP_SHUTTLE_PARTS)
 	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
 /obj/structure/window/shuttle/survival_pod/spawner/north
@@ -176,6 +183,7 @@
 /obj/machinery/sleeper/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "sleeper"
+	roundstart_vials = list()
 
 /obj/machinery/sleeper/survival_pod/update_icon()
 	if(state_open)
@@ -260,7 +268,7 @@
 	if(empty)
 		return
 	for(var/i in 1 to 5)
-		var/obj/item/reagent_containers/food/snacks/donkpocket/warm/W = new(src)
+		var/obj/item/food/donkpocket/warm/W = new(src)
 		load(W)
 	if(prob(50))
 		var/obj/item/storage/pill_bottle/dice/D = new(src)

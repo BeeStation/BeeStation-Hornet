@@ -53,6 +53,14 @@
 	duration = 5
 	plane = FLOOR_PLANE
 
+/obj/effect/temp_visual/religion/turf/floor
+	icon = 'icons/effects/religion_effects.dmi'
+	randomdir = 0
+	duration = 10
+	icon_state = "grass_convert"
+	duration = 5
+	plane = FLOOR_PLANE
+
 /obj/effect/temp_visual/cult/portal
 	icon_state = "space"
 	duration = 600

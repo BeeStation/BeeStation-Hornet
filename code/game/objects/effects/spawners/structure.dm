@@ -11,11 +11,8 @@ again.
 
 /obj/effect/spawner/structure/Initialize(mapload)
 	. = ..()
-	if(spawn_list?.len)
-		for(var/I in spawn_list)
-			new I(get_turf(src))
-	return INITIALIZE_HINT_QDEL
-
+	for(var/spawn_type in spawn_list)
+		new spawn_type(loc)
 
 //normal windows
 
@@ -91,13 +88,18 @@ again.
 
 //reinforced
 
-/obj/effect/spawner/structure/window/reinforced
+/obj/effect/spawner/structure/window/reinforced //brig windows here
 	name = "reinforced window spawner"
 	icon_state = "rwindow_spawner"
 	spawn_list = list(/obj/structure/grille, /obj/structure/window/reinforced/fulltile)
 	FASTDMM_PROP(\
 		pipe_astar_cost = 2\
 	)
+
+//Alarm grilles for prison wing
+/obj/effect/spawner/structure/window/reinforced/prison
+	name = "prison window spawner"
+	spawn_list = list(/obj/structure/grille/prison, /obj/structure/window/reinforced/fulltile)
 
 //reinforced shutter
 /obj/effect/spawner/structure/window/reinforced/shutter

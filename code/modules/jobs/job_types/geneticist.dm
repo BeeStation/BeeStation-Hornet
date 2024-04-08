@@ -1,6 +1,8 @@
 /datum/job/geneticist
 	title = JOB_NAME_GENETICIST
 	flag = GENETICIST
+	description = "Discover useful mutations and give them out to the crew at CMO's approval, oversee Cloning, create humanized monkeys for replacement organs and bodyparts if needed."
+	department_for_prefs = DEPT_BITFLAG_MED
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"
@@ -29,6 +31,14 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/genetics
 	)
 	biohazard = 25
+
+	lightup_areas = list(
+		/area/medical/surgery,
+		/area/medical/virology,
+		/area/medical/chemistry,
+		/area/medical/apothecary
+	)
+	minimal_lightup_areas = list(/area/medical/morgue, /area/medical/genetics)
 
 /datum/outfit/job/geneticist
 	name = JOB_NAME_GENETICIST

@@ -28,7 +28,7 @@
 	if(!computer)
 		return FALSE
 
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["disk_size"] = hard_drive.max_capacity
 	data["disk_used"] = hard_drive.used_capacity
 	data["power_usage"] = computer.last_power_usage
@@ -65,14 +65,14 @@
 				H.enabled = !H.enabled
 			. = TRUE
 		if("PC_select_theme")
-			if(computer.theme_locked || !(params["theme"] in computer.allowed_themes))
+			if(computer.theme_locked || !(params["theme"] in computer.allowed_themes)) // filtering based on theme name here
 				return
-			computer.device_theme = computer.allowed_themes[params["theme"]]
+			computer.device_theme = computer.allowed_themes[params["theme"]] // converting theme name to ID
 			. = TRUE
 		if("PC_set_classic_color")
 			if(computer.device_theme != THEME_THINKTRONIC)
 				return
-			var/new_color = input(usr, "Choose a new color for the device's system theme.", "System Color",computer.classic_color) as color|null
+			var/new_color = tgui_color_picker(usr, "Choose a new color for the device's system theme.", "System Color",computer.classic_color)
 			if(!new_color)
 				return
 			computer.classic_color = new_color

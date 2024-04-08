@@ -10,10 +10,12 @@
 	blood_state = BLOOD_STATE_OIL
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	mergeable_decal = FALSE
+	//beauty = -50
+	clean_type = CLEAN_TYPE_BLOOD
 
 /obj/effect/decal/cleanable/robot_debris/Initialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, .proc/on_pipe_eject)
+	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
 
 /obj/effect/decal/cleanable/robot_debris/proc/streak(list/directions, mapload = FALSE)
 	var/direction = pick(directions)
@@ -30,7 +32,7 @@
 		return
 
 	var/datum/move_loop/loop = SSmove_manager.move_to_dir(src, get_step(src, direction), delay = delay, timeout = range * delay, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/spread_movement_effects)
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(spread_movement_effects))
 
 /obj/effect/decal/cleanable/robot_debris/proc/spread_movement_effects(datum/move_loop/has_target/source)
 	SIGNAL_HANDLER
@@ -75,6 +77,7 @@
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_OIL
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	clean_type = CLEAN_TYPE_BLOOD
 
 /obj/effect/decal/cleanable/oil/Initialize(mapload)
 	. = ..()
@@ -84,7 +87,7 @@
 	var/attacked_by_hot_thing = I.is_hot()
 	if(attacked_by_hot_thing)
 		visible_message("<span class='warning'>[user] tries to ignite [src] with [I]!</span>", "<span class='warning'>You try to ignite [src] with [I].</span>")
-		log_combat(user, src, (attacked_by_hot_thing < 480) ? "tried to ignite" : "ignited", I)
+		log_combat(user, src, (attacked_by_hot_thing < 480) ? "tried to ignite" : "ignited", I, important = FALSE)
 		fire_act(attacked_by_hot_thing)
 		return
 	return ..()

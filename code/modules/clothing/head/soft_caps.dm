@@ -2,9 +2,12 @@
 	name = "white cap"
 	desc = "It's a baseball hat in a tasteless white colour."
 	icon_state = "mimesoft"
+	dying_key = DYE_REGISTRY_CAP
 
 	///Is the hat flipped?
 	var/flipped = FALSE
+	///Is the hat flippable?
+	var/flippable = TRUE
 	///The color of the hat. Another knockoff item_color. Nice. Make this into GAGS sprites at some point, please.
 	var/soft_color = "mime"
 
@@ -15,7 +18,7 @@
 		flip(user)
 
 /obj/item/clothing/head/soft/proc/flip(mob/user)
-	if(!user.incapacitated())
+	if(!user.incapacitated() && flippable == TRUE)
 		flipped = !flipped
 		if(flipped)
 			icon_state = "[soft_color]soft_flipped"
@@ -24,6 +27,13 @@
 			icon_state = "[soft_color]soft"
 			to_chat(user, "<span class='notice'>You flip the hat back in normal position.</span>")
 		user.update_inv_head()	//so our mob-overlays update
+
+/obj/item/clothing/head/soft/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HEAD)
+		if(HAS_TRAIT(user, TRAIT_PROSKATER))
+			if(!flipped)
+				flip(user)
 
 /obj/item/clothing/head/soft/examine(mob/user)
 	. = ..()
@@ -88,7 +98,7 @@
 	desc = "It's a robust baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	soft_color = "sec"
-	armor = list("melee" = 30, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50, "stamina" = 30)
+	armor = list(MELEE = 30,  BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, STAMINA = 30)
 	strip_delay = 60
 
 /obj/item/clothing/head/soft/sec/brig_physician
@@ -109,3 +119,8 @@
 	soft_color = "cargo"
 
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
+
+/obj/item/clothing/head/soft/denied
+	name = "ERROR cap"
+	desc = "It's a baseball hat in a tasteless ERROR ERROR ERROR ERROR ERROR ERROR!!!!"
+	icon_state = "deniedsoft"

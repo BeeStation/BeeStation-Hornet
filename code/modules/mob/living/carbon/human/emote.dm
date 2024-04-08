@@ -1,11 +1,34 @@
 /datum/emote/living/carbon/human
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 
+/// The time it takes for the crying visual to be removed
+#define CRY_DURATION 12.8 SECONDS
+
 /datum/emote/living/carbon/human/cry
 	key = "cry"
 	key_third_person = "cries"
 	message = "cries"
 	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/human/cry/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(. && ishuman(user)) // Give them a visual crying effect if they're human
+		var/mob/living/carbon/human/human_user = user
+		ADD_TRAIT(human_user, TRAIT_CRYING, "[type]")
+		human_user.update_body()
+
+		// Use a timer to remove the effect after the defined duration has passed
+		var/list/key_emotes = GLOB.emote_list["cry"]
+		for(var/datum/emote/living/carbon/human/cry/human_emote in key_emotes)
+			// The existing timer restarts if it is already running
+			addtimer(CALLBACK(human_emote, PROC_REF(end_visual), human_user), CRY_DURATION, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/datum/emote/living/carbon/human/cry/proc/end_visual(mob/living/carbon/human/human_user)
+	if(!QDELETED(human_user))
+		REMOVE_TRAIT(human_user, TRAIT_CRYING, "[type]")
+		human_user.update_body()
+
+#undef CRY_DURATION
 
 /datum/emote/living/carbon/human/dap
 	key = "dap"
@@ -63,14 +86,14 @@
 
 /datum/emote/living/carbon/human/moth
 	// allow mothroach as well as human base mob - species check is done in can_run_emote
-	mob_type_allowed_typecache = list(/mob/living/carbon/human,/mob/living/simple_animal/mothroach)
+	mob_type_allowed_typecache = list(/mob/living/carbon/human,/mob/living/basic/mothroach)
 
 /datum/emote/living/carbon/human/moth/can_run_emote(mob/user, status_check = TRUE, intentional)
 	if(!..())
 		return FALSE
 	if(ishuman(user))
 		return ismoth(user)
-	return istype(user, /mob/living/simple_animal/mothroach)
+	return istype(user, /mob/living/basic/mothroach)
 
 /datum/emote/living/carbon/human/moth/squeak
 	key = "msqueak"
@@ -133,25 +156,22 @@
 	if(!.)
 		return
 	var/mob/living/carbon/human/H = user
-	if(!istype(H) || !H.dna || !H.dna.species || !H.dna.species.can_wag_tail(H))
+	var/obj/item/organ/tail/tail = H?.getorganslot(ORGAN_SLOT_TAIL)
+	if(!tail)
 		return
-	if(!H.dna.species.is_wagging_tail())
-		H.dna.species.start_wagging_tail(H)
-	else
-		H.dna.species.stop_wagging_tail(H)
+	tail.toggle_wag(H)
 
 /datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	return H.dna?.species?.can_wag_tail(user)
+	return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
 
 /datum/emote/living/carbon/human/wag/select_message_type(mob/user, intentional)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	if(!H.dna || !H.dna.species)
-		return
-	if(H.dna.species.is_wagging_tail())
+	var/obj/item/organ/tail/tail = H.getorganslot(ORGAN_SLOT_TAIL)
+	if(tail?.is_wagging(H))
 		. = null
 
 /datum/emote/living/carbon/human/wing

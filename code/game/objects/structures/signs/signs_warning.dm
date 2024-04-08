@@ -67,6 +67,11 @@
 	desc = "A warning sign alerting the user of potential radiation hazards."
 	icon_state = "radiation"
 
+/obj/structure/sign/warning/radiation_shelter
+	name = "\improper RADIATION SHELTER ZONE"
+	desc = "A sign alerting the user that this area is sheltered from radiation."
+	icon_state = "radiation_shelter"
+
 /obj/structure/sign/warning/radiation/rad_area
 	name = "\improper RADIOACTIVE AREA"
 	desc = "A warning sign which reads 'RADIOACTIVE AREA'."

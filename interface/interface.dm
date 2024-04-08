@@ -106,7 +106,7 @@ Admin:
 	src << browse(changelog.get_htmlloader("changelog.html"), "window=changes;size=675x650")
 	if(prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
-		prefs.save_preferences()
+		prefs.mark_undatumized_dirty_player()
 		winset(src, "infowindow.changelog", "font-style=;")
 
 
@@ -264,6 +264,6 @@ Any-Mode: (hotkey doesn't need to be on)
 	else if(SSmapping.config.map_link)
 		if(alert("This will open the current map in your browser. Are you sure?",,"Yes","No")!="Yes")
 			return
-		src << link("https://affectedarc07.github.io/SS13WebMap/BeeStation/[SSmapping.config.map_link]")
+		src << link("https://webmap.affectedarc07.co.uk/maps/bee/[SSmapping.config.map_link]")
 	else
 		to_chat(src, "<span class='danger'>The current map is either invalid or unavailable. Open an issue on the github. </span>")

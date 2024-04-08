@@ -61,7 +61,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	if(!amount)
 		return
 	for(var/iterator in 1 to amount)
-		var/datum/station_trait/picked_trait = pickweight(selectable_traits_by_types[trait_type]) //Rolls from the table for the specific trait type
+		var/datum/station_trait/picked_trait = pick_weight(selectable_traits_by_types[trait_type]) //Rolls from the table for the specific trait type
 		if(!picked_trait)
 			return
 		picked_trait = new picked_trait()
@@ -99,7 +99,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 			continue
 		report += "[trait.get_report()]<BR><hr>"
 
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/print_command_report, report, "Central Command Divergency Report", FALSE), rand(REPORT_WAIT_TIME_MINIMUM, REPORT_WAIT_TIME_MAXIMUM))
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(print_command_report), report, "Central Command Divergency Report", FALSE), rand(REPORT_WAIT_TIME_MINIMUM, REPORT_WAIT_TIME_MAXIMUM))
 
 #undef REPORT_WAIT_TIME_MINIMUM
 #undef REPORT_WAIT_TIME_MAXIMUM

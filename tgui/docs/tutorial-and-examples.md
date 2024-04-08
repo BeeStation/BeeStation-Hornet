@@ -310,7 +310,7 @@ upon code review):
     if("copypasta")
       var/newvar = params["var"]
       // A demo of proper input sanitation.
-      var = CLAMP(newvar, min_val, max_val)
+      var = clamp(newvar, min_val, max_val)
       . = TRUE
   update_icon() // Not applicable to all objects.
 ```

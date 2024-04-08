@@ -118,7 +118,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "qa" = (
@@ -177,7 +177,7 @@
 	pixel_y = 11
 	},
 /obj/item/paper/crumpled{
-	info = "<p>I bought you some food, but I ate it all before you came, sorry.</p><p>- RTH</p>";
+	default_raw_text = "<p>I bought you some food, but I ate it all before you came, sorry.</p><p>- RTH</p>";
 	name = "scribbled note"
 	},
 /turf/open/floor/mineral/titanium,

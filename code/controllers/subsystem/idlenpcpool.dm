@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 
 		if(!SA)
 			stack_trace("Null entry found at GLOB.simple_animals\[AI_IDLE\]. Null entries will be purged. Yell at coderbus. Subsystem will try to continue.")
-			removeNullsFromList(GLOB.simple_animals[AI_IDLE])
+			list_clear_nulls(GLOB.simple_animals[AI_IDLE])
 			continue
 
 		if(!SA.ckey)

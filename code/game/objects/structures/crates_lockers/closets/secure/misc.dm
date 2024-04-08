@@ -4,11 +4,14 @@
 	req_access = list(ACCESS_CENT_CAPTAIN)
 	icon_state = "cap"
 
+/obj/structure/closet/secure_closet/ertCom/populate_contents_immediate()
+	..()
+	new /obj/item/aicard(src)
+
 /obj/structure/closet/secure_closet/ertCom/PopulateContents()
 	..()
 	new /obj/item/storage/firstaid/regular(src)
 	new /obj/item/storage/box/handcuffs(src)
-	new /obj/item/aicard(src)
 	new /obj/item/assembly/flash/handheld(src)
 	if(prob(50))
 		new /obj/item/ammo_box/magazine/m50(src)

@@ -6,6 +6,7 @@
 	icon_dead = "frog_dead"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak = list("ribbit","croak")
+	speak_language = /datum/language/metalanguage
 	emote_see = list("hops in a circle.", "shakes.")
 	speak_chance = 1
 	turns_per_move = 5
@@ -20,8 +21,8 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	faction = list("hostile")
 	attack_sound = 'sound/effects/reee.ogg'
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/nugget = 1)
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	butcher_results = list(/obj/item/food/nugget = 1)
+	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = HOSTILE_SPAWN
 	var/stepped_sound = 'sound/effects/huuu.ogg'
@@ -34,10 +35,10 @@
 		icon_state = "rare_frog"
 		icon_living = "rare_frog"
 		icon_dead = "rare_frog_dead"
-		butcher_results = list(/obj/item/reagent_containers/food/snacks/nugget = 5)
+		butcher_results = list(/obj/item/food/nugget = 5)
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 

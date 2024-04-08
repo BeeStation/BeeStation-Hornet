@@ -45,7 +45,7 @@
 				target.take_overall_damage(40)
 
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[i]"))
-		if(!do_mob(user, target, 150))
+		if(!do_after(user, 15 SECONDS, target))
 			to_chat(user, "<span class='warning'>Our absorption of [target] has been interrupted!</span>")
 			changeling.isabsorbing = 0
 			return
@@ -99,7 +99,7 @@
 			if(nlog_type & LOG_SAY)
 				var/list/reversed = log_source[log_type]
 				if(islist(reversed))
-					say_log = reverseRange(reversed.Copy())
+					say_log = reverse_range(reversed.Copy())
 					break
 
 		if(LAZYLEN(say_log) > LING_ABSORB_RECENT_SPEECH)
@@ -142,6 +142,8 @@
 	changeling.isabsorbing = 0
 	changeling.canrespec = 1
 
-	target.death(0)
+	if(target.stat != DEAD)
+		target.investigate_log("has died from being changeling absorbed.", INVESTIGATE_DEATHS)
+	target.death(FALSE)
 	target.Drain()
 	return TRUE

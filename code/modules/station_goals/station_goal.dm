@@ -12,7 +12,7 @@
 	var/report_message = "Complete this goal."
 
 /datum/station_goal/proc/prepare_report()
-	addtimer(CALLBACK(src, .proc/send_report), 1200) // 2 min, less than avg 4 for intercept report
+	addtimer(CALLBACK(src, PROC_REF(send_report)), 1200) // 2 min, less than avg 4 for intercept report
 
 /datum/station_goal/proc/send_report()
 	priority_announce("Priority Nanotrasen directive received. Project \"[name]\" details inbound.", "Incoming Priority Message", SSstation.announcer.get_rand_report_sound())

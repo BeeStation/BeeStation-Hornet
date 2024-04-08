@@ -11,7 +11,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "aY" = (
 /obj/machinery/door/airlock/external/glass,
@@ -42,7 +42,7 @@
 /obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "es" = (
 /turf/template_noop/open,
@@ -61,7 +61,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "ib" = (
 /obj/machinery/shuttle/engine/plasma{
@@ -100,7 +100,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "rJ" = (
@@ -121,7 +121,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/lootdrop/ruinloot/basic,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "tP" = (
 /obj/effect/turf_decal/stripes/line{
@@ -166,7 +166,7 @@
 /area/ruin/unpowered)
 "BT" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Cc" = (
 /obj/effect/turf_decal/stripes/line{
@@ -221,7 +221,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "GG" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
@@ -237,7 +237,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "HL" = (
 /obj/structure/frame/computer,
@@ -251,7 +251,7 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Ky" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle,
@@ -268,7 +268,7 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "MD" = (
 /obj/structure/girder,
@@ -279,7 +279,7 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "OB" = (
 /obj/effect/turf_decal/stripes/line{
@@ -292,7 +292,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "PH" = (
 /obj/effect/spawner/structure/window/shuttle,
@@ -332,7 +332,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Tj" = (
 /turf/open/floor/plating/airless,
@@ -350,14 +350,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "Wh" = (
 /turf/closed/wall/mineral/titanium,
 /area/template_noop)
 "WJ" = (
 /obj/effect/abstract/open_area_marker,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "WT" = (
 /obj/machinery/door/airlock/external/glass,
@@ -373,7 +373,7 @@
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "Zp" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
