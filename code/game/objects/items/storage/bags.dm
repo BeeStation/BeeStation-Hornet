@@ -99,6 +99,7 @@
 	desc = "A belt that opens into a near infinite pocket of bluespace."
 	icon_state = "hammerspace"
 	w_class = WEIGHT_CLASS_GIGANTIC
+	icon = 'icons/obj/storage/backpack.dmi'
 
 /obj/item/storage/bag/trash/bluespace/hammerspace/ComponentInitialize()
 	. = ..()
