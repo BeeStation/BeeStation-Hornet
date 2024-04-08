@@ -36,7 +36,7 @@
 	light_range = 1.4
 	anchored = TRUE
 	var/current_frequency = 0
-	var/time_left = 180 SECONDS
+	var/time_left = 4 MINUTES
 	var/spam_cooldown = 0
 
 /obj/structure/uplink_beacon/Initialize(mapload, mob/living/user)
