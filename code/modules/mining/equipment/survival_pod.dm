@@ -335,7 +335,7 @@
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"
 	desc = "A sign of relief for weary miners, and a warning for would-be competitors to Nanotrasen's mining claims."
-	icon_state = "minskyminer"
+	icon_state = "minskymine"
 
 /obj/structure/sign/mining/survival
 	name = "shelter sign"

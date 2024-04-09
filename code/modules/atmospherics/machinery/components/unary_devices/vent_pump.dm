@@ -391,7 +391,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/layer4
 	piping_layer = 4
-	icon_state = "map_vent-4"
+	icon_state = "vent_map-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/on
 	on = TRUE
@@ -403,7 +403,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/on/layer4
 	piping_layer = 4
-	icon_state = "map_vent_on-4"
+	icon_state = "vent_map_on-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon
 	pump_direction = SIPHONING
@@ -417,7 +417,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/layer4
 	piping_layer = 4
-	icon_state = "map_vent-4"
+	icon_state = "vent_map-4"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/high_volume/siphon/on
 	on = TRUE

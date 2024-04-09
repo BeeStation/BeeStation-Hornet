@@ -29,7 +29,6 @@
 /obj/item/clothing/under/costume/cloud
 	name = "cloud costume"
 	desc = "A costume made to resemble a fluffy cloud."
-	icon_state = "cloud"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/costume/schoolgirl
