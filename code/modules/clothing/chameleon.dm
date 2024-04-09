@@ -630,8 +630,8 @@
 /obj/item/clothing/head/chameleon/envirohelm
 	name = "plasma envirosuit helmet"
 	desc = "A special containment helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."
-	icon_state = "plasmaman-helm"
-	item_state = "plasmaman-helm"
+	icon_state = "mime_envirohelm"
+	item_state = "mime_envirohelm"
 	resistance_flags = FIRE_PROOF
 	strip_delay = 80
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
@@ -646,7 +646,7 @@
 /obj/item/clothing/head/chameleon/envirohelm/ratvar
 	name = "ratvarian engineer's envirosuit helmet"
 	desc = "A tough envirohelm woven from alloy threads. It can take on the appearance of other headgear."
-	icon_state = "engineer_envirohelm"
+	//icon_state = "engineer_envirohelm"
 	item_state = "engineer_envirohelm"
 	flash_protect = 1
 

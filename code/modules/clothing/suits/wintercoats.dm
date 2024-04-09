@@ -398,7 +398,7 @@
 /obj/item/clothing/head/hooded/winterhood/old
 	name = "winter hood"
 	desc = "An old hood attached to a well-worn heavy winter jacket."
-	icon_state = "old_winterhood"
+	icon_state = "old_winterhood_cargo"
 
 /obj/item/clothing/suit/hooded/wintercoat/security/old
 	name = "nostalgic security winter coat"
@@ -410,7 +410,7 @@
 	allowed = GLOB.security_wintercoat_allowed
 
 /obj/item/clothing/head/hooded/winterhood/security/old
-	icon_state = "old_winterhood_security"
+	icon_state = "old_winterhood_cargo"
 
 /obj/item/clothing/suit/hooded/wintercoat/medical/old
 	name = "nostalgic medical winter coat"
@@ -426,7 +426,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/old
 
 /obj/item/clothing/head/hooded/winterhood/science/old
-	icon_state = "old_winterhood_science"
+	icon_state = "old_winterhood_miner"
 
 /obj/item/clothing/suit/hooded/wintercoat/engineering/old
 	name = "nostalgic engineering winter coat"
@@ -434,7 +434,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/old
 
 /obj/item/clothing/head/hooded/winterhood/engineering/old
-	icon_state = "old_winterhood_engineer"
+	icon_state = "old_winterhood_cargo"
 
 /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old
 	name = "nostalgic atmospherics winter coat"
@@ -442,7 +442,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
 
 /obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
-	icon_state = "old_winterhood_atmos"
+	icon_state = "old_winterhood_cargo"
 
 /obj/item/clothing/suit/hooded/wintercoat/hydro/old
 	name = "nostalgic hydroponics winter coat"
@@ -450,7 +450,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/hydro/old
 
 /obj/item/clothing/head/hooded/winterhood/hydro/old
-	icon_state = "old_winterhood_hydro"
+	icon_state = "old_winterhood_cargo"
 
 /obj/item/clothing/suit/hooded/wintercoat/cargo/old
 	name = "cargo winter coat"

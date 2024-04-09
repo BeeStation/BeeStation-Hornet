@@ -182,6 +182,6 @@
 	name = "techpriest's hood"
 	desc = "A hood for those who REALLY love their toasters."
 	icon_state = "techpriesthood"
-	item_state = "techpriesthood"
+	item_state = null
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEEARS
