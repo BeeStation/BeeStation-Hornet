@@ -1,5 +1,93 @@
 //This section contain all procs that helps building, destroy and control the RBMK
 
+/obj/machinery/atmospherics/components/unary/rbmk/core/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/fuel_rod))
+		if(power >= 20)
+			to_chat(user, "<span class='notice'>You cannot insert fuel into [src] when it has been raised above 20% power.</span>")
+			return FALSE
+		if(fuel_rods.len >= 5)
+			to_chat(user, "<span class='warning'>[src] is already at maximum fuel load.</span>")
+			return FALSE
+		to_chat(user, "<span class='notice'>You start to insert [W] into [src]...</span>")
+		radiation_pulse(src, temperature)
+		if(do_after(user, 5 SECONDS, target=src))
+			if(!length(fuel_rods))
+				activate(user) //That was the first fuel rod. Let's heat it up.
+			fuel_rods += W
+			W.forceMove(src)
+			radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
+		return TRUE
+	if(istype(W, /obj/item/sealant))
+		if(power >= 20)
+			to_chat(user, "<span class='notice'>You cannot repair [src] while it is running at above 20% power.</span>")
+			return FALSE
+		if(critical_threshold_proximity <= 0.875*critical_threshold_proximity_archived)
+			to_chat(user, "<span class='notice'>[src]'s seals are already in-tact, repairing them further would require a new set of seals.</span>")
+			return FALSE
+		if(critical_threshold_proximity >= 0.5 * critical_threshold_proximity_archived) //Heavily damaged.
+			to_chat(user, "<span class='notice'>[src]'s reactor vessel is cracked and worn, you need to repair the cracks with a welder before you can repair the seals.</span>")
+			return FALSE
+		if(do_after(user, 5 SECONDS, target=src))
+			if(critical_threshold_proximity <= 0.875*critical_threshold_proximity_archived)	//They might've stacked doafters
+				to_chat(user, "<span class='notice'>[src]'s seals are already in-tact, repairing them further would require a new set of seals.</span>")
+				return FALSE
+			playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
+			user.visible_message("<span class='warning'>[user] applies sealant to some of [src]'s worn out seals.</span>", "<span class='notice'>You apply sealant to some of [src]'s worn out seals.</span>")
+			critical_threshold_proximity -= 10
+			critical_threshold_proximity = clamp(critical_threshold_proximity, 0, initial(critical_threshold_proximity))
+		return TRUE
+	if(W.tool_behaviour == TOOL_WELDER)
+		if(power >= 20)
+			to_chat(user, "<span class='notice'>You can't repair [src] while it is running at above 20% power.</span>")
+			return FALSE
+		if(critical_threshold_proximity < 0.5 * critical_threshold_proximity_archived)
+			to_chat(user, "<span class='notice'>[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant.</span>")
+			return FALSE
+		if(W.use_tool(src, user, 0, volume=40))
+			if(critical_threshold_proximity < 0.5 * critical_threshold_proximity_archived)
+				to_chat(user, "<span class='notice'>[src] is free from cracks. Further repairs must be carried out with flexi-seal sealant.</span>")
+				return FALSE
+			critical_threshold_proximity -= 20
+			to_chat(user, "<span class='notice'>You weld together some of [src]'s cracks. This'll do for now.</span>")
+			return TRUE
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
+		if(power >= 20)
+			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it's still above 20% power!")
+			return FALSE
+		if (length(fuel_rods) > 0)
+			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it still has fuel rods inside!</span>")
+			return FALSE
+		default_deconstruction_screwdriver(user, "reactor_closed", "reactor_open", W)
+		return TRUE
+	if(W.tool_behaviour == TOOL_CROWBAR)
+		if(panel_open)
+			if(power >= 20)
+				to_chat(user, "<span class='notice'>You can't deconstruct the [src] while it's still above 20% power!")
+				return FALSE
+			if (length(fuel_rods) > 0)
+				to_chat(user, "<span class='notice'>You can't deconstruct [src] while it still has fuel rods inside!</span>")
+				return FALSE
+			default_deconstruction_crowbar(W)
+			return TRUE
+		else
+			if(power >= 20)
+				to_chat(user, "<span class='notice'>You can't remove any fuel rods while the [src] is above 20% power!")
+				return FALSE
+			if (length(fuel_rods) == 0)
+				to_chat(user, "<span class='notice'>The [src] is empty of fuel rods!</span>")
+				return FALSE
+			removeFuelRod(user, src)
+			return TRUE
+	if(W.tool_behaviour == TOOL_MULTITOOL)
+		var/datum/component/buffer/heldmultitool = get_held_buffer_item(usr)
+		STORE_IN_BUFFER(heldmultitool.parent, src)
+		. = TRUE
+		to_chat(user, "<span class='notice'>You download the link from the nuclear reactor.</span>")
+	return ..()
+
+
+
+
 /*
 Called by multitool_act() in rbmk_parts.dm, by atmos_process() in rbmk_main_processes.dm and by atmos_process() in the same file
 This proc checks the surrounding of the core to ensure that the machine has been build correctly, returns false if there is a missing piece/wrong placed one
@@ -15,26 +103,6 @@ This proc checks the surrounding of the core to ensure that the machine has been
 
 		if(object.panel_open)
 			. = FALSE
-
-		if(istype(object,/obj/machinery/rbmk/corner))
-			var/dir = get_dir(src,object)
-			if(dir in GLOB.cardinals)
-				. = FALSE
-			switch(dir)
-				if(SOUTHEAST)
-					if(object.dir != SOUTH)
-						. = FALSE
-				if(SOUTHWEST)
-					if(object.dir != WEST)
-						. = FALSE
-				if(NORTHEAST)
-					if(object.dir != EAST)
-						. = FALSE
-				if(NORTHWEST)
-					if(object.dir != NORTH)
-						. = FALSE
-			corners |= object
-			continue
 
 		if(get_step(object,REVERSE_DIR(object.dir)) != loc)
 			. = FALSE
@@ -67,7 +135,7 @@ This proc checks the surrounding of the core to ensure that the machine has been
 			linked_moderator = object
 			machine_parts |= object
 
-	if(!linked_interface || !linked_input || !linked_moderator || !linked_output || corners.len != 4)
+	if(!linked_input || !linked_moderator || !linked_output)
 		. = FALSE
 
 /*
@@ -81,12 +149,14 @@ Arguments:
 	if(active)
 		to_chat(user, ("<span class='notice'>You already activated the machine."))
 		return
-	to_chat(user, ("<span class='notice'>You link all parts together."))
+	to_chat(user, ("<span class='notice'>You activate the machine."))
 	active = TRUE
+	start_power = TRUE
 	update_appearance()
-	linked_interface.active = TRUE
-	linked_interface.update_appearance()
-	RegisterSignal(linked_interface, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
+	if (linked_interface)
+		linked_interface.active = TRUE
+		linked_interface.update_appearance()
+		RegisterSignal(linked_interface, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
 	linked_input.active = TRUE
 	linked_input.update_appearance()
 	RegisterSignal(linked_input, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
@@ -96,13 +166,29 @@ Arguments:
 	linked_moderator.active = TRUE
 	linked_moderator.update_appearance()
 	RegisterSignal(linked_moderator, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
-	for(var/obj/machinery/rbmk/corner/corner in corners)
-		corner.active = TRUE
-		corner.update_appearance()
-		RegisterSignal(corner, COMSIG_PARENT_QDELETING, PROC_REF(unregister_signals))
+	START_PROCESSING(SSmachines, src)
+	desired_k = 1
+	can_unwrench = 0
+	var/startup_sound = pick('sound/effects/rbmk/startup.ogg', 'sound/effects/rbmk/startup2.ogg')
+	playsound(loc, startup_sound, 50)
+	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
+	SSblackbox.record_feedback("tally", "engine_stats", 1, "started")
+
+/obj/machinery/atmospherics/components/unary/rbmk/proc/get_held_buffer_item(mob/user)
+	// Let's double check
+	var/obj/item/held_item = user.get_active_held_item()
+	if(!issilicon(user) && held_item?.GetComponent(/datum/component/buffer))
+		return held_item?.GetComponent(/datum/component/buffer)
+	else if(isAI(user))
+		var/mob/living/silicon/ai/U = user
+		return U.aiMulti.GetComponent(/datum/component/buffer)
+	else if(iscyborg(user) && in_range(user, src))
+		if(held_item?.GetComponent(/datum/component/buffer))
+			return held_item?.GetComponent(/datum/component/buffer)
+	return null
 
 /*
- Called when a part gets deleted around the hfr, called on Destroy() of the hfr core in hfr_core.dm
+ Called when a part gets deleted around the rbmk, called on Destroy() of the rbmk core in rbmk_core.dm
 Unregister the signals attached to the core from the various machines, if only_signals is false it will also call deactivate()
 Arguments:
  * only_signals: default FALSE, if true the proc will not call the deactivate() proc
@@ -118,8 +204,6 @@ Arguments:
 		UnregisterSignal(linked_output, COMSIG_PARENT_QDELETING)
 	if(linked_moderator)
 		UnregisterSignal(linked_moderator, COMSIG_PARENT_QDELETING)
-	for(var/obj/machinery/rbmk/corner/corner in corners)
-		UnregisterSignal(corner, COMSIG_PARENT_QDELETING)
 	if(!only_signals)
 		deactivate()
 
@@ -131,6 +215,7 @@ Arguments:
 	if(!active)
 		return
 	active = FALSE
+	start_power = FALSE
 	update_appearance()
 	if(linked_interface)
 		linked_interface.active = FALSE
@@ -148,13 +233,14 @@ Arguments:
 		linked_moderator.active = FALSE
 		linked_moderator.update_appearance()
 		linked_moderator = null
-	if(corners.len)
-		for(var/obj/machinery/rbmk/corner/corner in corners)
-			corner.active = FALSE
-			corner.update_appearance()
-		corners = list()
 	if(soundloop)
 		QDEL_NULL(soundloop)
+	STOP_PROCESSING(SSmachines, src)
+	K = 0
+	can_unwrench = 1
+	desired_k = 0
+	temperature = 0
+	update_icon()
 
 /**
  * Updates all related pipenets from all connected components
@@ -178,6 +264,21 @@ Arguments:
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/has_fuel()
 	return length(fuel_rods)
+
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/removeFuelRod(mob/user, /obj/machinery/atmospherics/components/unary/rbmk/core/reactor)
+	if(src.power > 20)
+		to_chat(user, "<span class='warning'>You cannot remove fuel from [src] when it is above 20% power.</span>")
+		return FALSE
+	if(!length(fuel_rods))
+		to_chat(user, "<span class='warning'>[src] does not have any fuel rods loaded.</span>")
+		return FALSE
+	var/atom/movable/fuel_rod = input(usr, "Select a fuel rod to remove", "Fuel Rods List", null) as null|anything in src.fuel_rods
+	if(!fuel_rod)
+		return
+	playsound(src, pick('sound/effects/rbmk/switch.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
+	fuel_rod.forceMove(get_turf(src))
+	src.fuel_rods -= fuel_rod
 
 /**
  * Called by alarm() in this file
@@ -229,36 +330,54 @@ Arguments:
 		var/mob/living/L = AM
 		L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/damage_handler()
+	critical_threshold_proximity_archived = critical_threshold_proximity
+	if(K <= 0 && temperature <= 0 && !has_fuel())
+		deactivate()
+	//First alert condition: Overheat
+	var/turf/T = get_turf(src)
+	if(temperature >= RBMK_TEMPERATURE_CRITICAL)
+		var/temp_damage = (temperature/100 * critical_threshold_proximity_archived/40) //40 seconds to meltdown from full integrity, worst-case. Bit less than blowout since it's harder to spike heat that much.
+		critical_threshold_proximity += temp_damage
+		if(critical_threshold_proximity >= melting_point)
+			countdown() //Oops! All meltdown
+			return
+	if(temperature < -200) //That's as cold as I'm letting you get it, engineering.
+		temperature = -200
+	if (pressure >= RBMK_PRESSURE_CRITICAL)
+		playsound(src, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
+		T.atmos_spawn_air("water_vapor=[pressure/100];TEMP=[temperature+273.15]")
+		// Warning: Pressure reaching critical thresholds!
+		var/pressure_damage = (pressure/100 * critical_threshold_proximity_archived/45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
+		critical_threshold_proximity += pressure_damage
+		if(critical_threshold_proximity >= melting_point)
+			countdown()
+			return
 /**
  * Called by process_atmos() in hfr_main_processes.dm
  * Called after checking the damage of the machine, calls alarm() and countdown()
  * Broadcast messages into engi and common radio
  */
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/check_alert()
-	if(critical_threshold_proximity < warning_point)
+	if(critical_threshold_proximity > warning_point)
 		return
 	if((REALTIMEOFDAY - lastwarning) / 10 >= WARNING_TIME_DELAY)
 		alarm()
-
 		if(critical_threshold_proximity > emergency_point)
 			radio.talk_into(src, "[emergency_alert] Integrity: [get_integrity_percent()]%", common_channel)
 			lastwarning = REALTIMEOFDAY
 			if(!has_reached_emergency)
-				investigate_log("has reached the emergency point for the first time.", INVESTIGATE_REACTOR)
+				investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINES)
 				message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
 				has_reached_emergency = TRUE
 			send_radio_explanation()
-		else if(critical_threshold_proximity >= critical_threshold_proximity_archived) // The damage is still going up
+		else if(critical_threshold_proximity > critical_threshold_proximity_archived) // The damage is still going up
 			radio.talk_into(src, "[warning_alert] Integrity: [get_integrity_percent()]%", engineering_channel)
 			lastwarning = REALTIMEOFDAY - (WARNING_TIME_DELAY * 5)
 			send_radio_explanation()
-		else // Phew, we're safe
+		else if (critical_threshold_proximity < critical_threshold_proximity_archived)// Phew, we're safe, damage going down
 			radio.talk_into(src, "[safe_alert] Integrity: [get_integrity_percent()]%", engineering_channel)
 			lastwarning = REALTIMEOFDAY
-
-	//Melt
-	if(critical_threshold_proximity > melting_point)
-		countdown()
 
 /**
  * Called by check_alert() in this file

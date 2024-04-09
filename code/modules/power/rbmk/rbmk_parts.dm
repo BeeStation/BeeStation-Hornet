@@ -1,5 +1,5 @@
 /**
- * This file contain the eight parts surrounding the main core, those are: fuel input, moderator input, waste output, control rod computer and the corners
+ * This file contain the five main parts of the RBMK, those are the: fuel input, moderator input, waste output, control rod computer and rbmk core
  */
 
 /obj/machinery/computer/reactor
@@ -19,7 +19,7 @@
 
 /obj/machinery/computer/reactor/control_rods
 	name = "control rod management computer"
-	desc = "A computer which can remotely raise / lower the control rods of a reactor."
+	desc = "A computer which can remotely raise / lower the control rods of an RBMK class nuclear reactor."
 
 /obj/machinery/computer/reactor/control_rods/attack_hand(mob/living/user)
 	. = ..()
@@ -60,14 +60,40 @@
 	. = ..()
 	attack_hand(user)
 
+/obj/machinery/computer/reactor/attackby(obj/item/W, mob/user, params)
+	if(W.tool_behaviour == TOOL_MULTITOOL)
+		var/datum/component/buffer/heldmultitool = get_held_buffer_item(usr)
+		if(heldmultitool)
+			var/obj/machinery/atmospherics/components/unary/rbmk/core/T = heldmultitool.target
+			if(istype(T) && T != src)
+				if(!(src in T.linked_interface))
+					T.linked_interface += src
+					T.ui_update()
+					reactor = T
+					to_chat(user, "<span class='notice'>You upload the link to the [src].</span>")
+
+
+/obj/machinery/computer/reactor/proc/get_held_buffer_item(mob/user)
+	// Let's double check
+	var/obj/item/held_item = user.get_active_held_item()
+	if(!issilicon(user) && held_item?.GetComponent(/datum/component/buffer))
+		return held_item?.GetComponent(/datum/component/buffer)
+	else if(isAI(user))
+		var/mob/living/silicon/ai/U = user
+		return U.aiMulti.GetComponent(/datum/component/buffer)
+	else if(iscyborg(user) && in_range(user, src))
+		if(held_item?.GetComponent(/datum/component/buffer))
+			return held_item?.GetComponent(/datum/component/buffer)
+	return null
+
 /obj/machinery/atmospherics/components/unary/rbmk
 	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "reactor_off"
+	icon_state = "reactor_closed"
 
 	name = "thermomachine"
 	desc = "Heats or cools gas in connected pipes."
 	anchored = TRUE
-	density = TRUE
+	density = FALSE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	layer = OBJ_LAYER
@@ -76,7 +102,6 @@
 	///Vars for the state of the icon of the object (open, off, active)
 	var/icon_state_open
 	var/icon_state_off
-	var/icon_state_active
 	///Check if the machine has been activated
 	var/active = FALSE
 
@@ -90,9 +115,6 @@
 	if(panel_open)
 		icon_state = icon_state_open
 		return ..()
-	if(active)
-		icon_state = icon_state_active
-		return ..()
 	icon_state = icon_state_off
 	return ..()
 
@@ -105,29 +127,20 @@
 /obj/machinery/atmospherics/components/unary/rbmk/coolant_input
 	name = "RBMK coolant input port"
 	desc = "Input port for the RBMK Fusion Reactor, designed to take in coolant."
-	icon_state = "coolant_input_off"
-	icon_state_open = "coolant_input_open"
-	icon_state_off = "coolant_input_off"
-	icon_state_active = "coolant_input_active"
-	circuit = /obj/item/circuitboard/machine/rbmk/RBMK_coolant_input
+	icon = 'icons/obj/machines/rbmk.dmi'
+	icon_state = "coolant_input"
 
 /obj/machinery/atmospherics/components/unary/rbmk/waste_output
 	name = "RBMK waste output port"
 	desc = "Waste port for the RBMK Fusion Reactor, designed to output the hot waste gases coming from the core of the machine."
-	icon_state = "waste_output_off"
-	icon_state_open = "waste_output_open"
-	icon_state_off = "waste_output_off"
-	icon_state_active = "waste_output_active"
-	circuit = /obj/item/circuitboard/machine/rbmk/RBMK_waste_output
+	icon = 'icons/obj/machines/rbmk.dmi'
+	icon_state = "waste_output"
 
 /obj/machinery/atmospherics/components/unary/rbmk/moderator_input
 	name = "RBMK moderator input port"
 	desc = "Moderator port for the RBMK Fusion Reactor, designed to move gases inside the machine to cool and control the flow of the reaction."
-	icon_state = "moderator_input_off"
-	icon_state_open = "moderator_input_open"
-	icon_state_off = "moderator_input_off"
-	icon_state_active = "moderator_input_active"
-	circuit = /obj/item/circuitboard/machine/rbmk/RBMK_moderator_input
+	icon = 'icons/obj/machines/rbmk.dmi'
+	icon_state = "moderator_input"
 
 /*
 * Interface and corners
@@ -139,7 +152,7 @@
 	icon_state = "reactor_off"
 	move_resist = INFINITY
 	anchored = TRUE
-	density = FALSE //burns you if you're dumb enough to walk over it
+	density = FALSE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	power_channel = AREA_USAGE_ENVIRON
@@ -147,8 +160,7 @@
 	var/icon_state_open
 	var/icon_state_off
 	var/icon_state_active
-	///Check if reaction has started
-	var/reaction_started = FALSE
+	var/reaction_started = FALSE //Check if reaction has started
 
 /obj/machinery/rbmk/attackby(obj/item/I, mob/user, params)
 	if(!reaction_started)
@@ -170,15 +182,6 @@
 	icon_state = icon_state_off
 	return ..()
 
-/obj/machinery/rbmk/corner
-	name = "RBMK corner"
-	desc = "Structural piece of the machine."
-	icon_state = "corner_off"
-	circuit = /obj/item/circuitboard/machine/rbmk/RBMK_corner
-	icon_state_off = "corner_off"
-	icon_state_open = "corner_open"
-	icon_state_active = "corner_active"
-
 /obj/item/book/manual/wiki/rbmk
 	name = "\improper Haynes nuclear reactor owner's manual"
 	icon_state ="bookEngineering2"
@@ -189,86 +192,80 @@
 /obj/item/RBMK_box
 	name = "RBMK box"
 	desc = "If you see this, call the police."
-	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "error"
-	///What kind of box are we handling?
-	var/box_type = "impossible"
-	///What's the path of the machine we making
-	var/part_path
-
-/obj/item/RBMK_box/corner
-	name = "RBMK box corner"
-	desc = "Place this as the corner of your 3x3 multiblock fusion reactor"
-	icon_state = "box_corner"
-	box_type = "corner"
-	part_path = /obj/machinery/rbmk/corner
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "box"
+	var/box_type = "impossible" //	///What kind of box are we handling?
+	var/part_path //What's the path of the machine we making?
 
 /obj/item/RBMK_box/body
 	name = "RBMK box body"
-	desc = "Place this on the sides of the core box of your 3x3 multiblock fusion reactor"
-	box_type = "body"
-	icon_state = "box_body"
+	desc = "A main storage body housing for your RBMK nuclear reactor."
+	icon_state = "box" //Change later to actual sprite
+	box_type = "normal"
 
 /obj/item/RBMK_box/body/coolant_input
 	name = "RBMK box coolant input"
-	icon_state = "box_coolant"
+	icon_state = "box"  //Change later to actual sprite
 	part_path = /obj/machinery/atmospherics/components/unary/rbmk/coolant_input
+	box_type = "coolant_input"
 
 /obj/item/RBMK_box/body/moderator_input
 	name = "RBMK box moderator input"
-	icon_state = "box_moderator"
+	icon_state = "box"  //Change later to actual sprite
 	part_path = /obj/machinery/atmospherics/components/unary/rbmk/moderator_input
+	box_type = "moderator_input"
 
 /obj/item/RBMK_box/body/waste_output
 	name = "RBMK box waste output"
-	icon_state = "box_waste"
+	icon_state = "box"  //Change later to actual sprite
 	part_path = /obj/machinery/atmospherics/components/unary/rbmk/waste_output
+	box_type = "waste_output"
 
 /obj/item/RBMK_box/core
 	name = "RBMK box core"
-	desc = "Activate this with a multitool to deploy the full machine after setting up the other boxes"
-	icon_state = "box_core"
-	box_type = "core"
+	desc = "A box for the center piece core of the RBMK nuclear reactor."
 	part_path = /obj/machinery/atmospherics/components/unary/rbmk/core
+	box_type = "center"
 
 /obj/item/RBMK_box/core/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
 	var/list/parts = list()
+	var/types_seen = list()
 	for(var/obj/item/RBMK_box/box in orange(1,src))
+
 		var/direction = get_dir(src, box)
-		if(box.box_type == "corner")
-			if(ISDIAGONALDIR(direction))
-				switch(direction)
-					if(NORTHEAST)
-						direction = EAST
-					if(SOUTHEAST)
-						direction = SOUTH
-					if(SOUTHWEST)
-						direction = WEST
-					if(NORTHWEST)
-						direction = NORTH
-				box.dir = direction
-				parts |= box
-			continue
-		if(box.box_type == "body")
-			if(direction in GLOB.cardinals)
-				box.dir = direction
-				parts |= box
-			continue
+		box.dir = direction
+		if(box.box_type in list("coolant_input", "waste_output", "moderator_input"))
+			if(box.Adjacent(box, src))
+				if(box.box_type in types_seen)
+					return
+				else
+					parts |= box
+					types_seen += box.box_type
+		else
+			parts |= box
 	if(parts.len == 8)
 		build_reactor(parts)
 	return
 
 /obj/item/RBMK_box/core/proc/build_reactor(list/parts)
-	for(var/obj/item/RBMK_box/box in parts)
-		if(box.box_type == "corner")
-			var/obj/machinery/rbmk/corner/corner = new box.part_path(box.loc)
-			corner.dir = box.dir
-			qdel(box)
-			continue
-		if(box.box_type == "body")
-			qdel(box)
-			continue
-
+	for(var/obj/item/RBMK_box/box in orange(1,src))
+		if(box.box_type == "coolant_input")
+			var/obj/machinery/atmospherics/components/unary/rbmk/coolant_input/coolant_input_machine = new/obj/machinery/atmospherics/components/unary/rbmk/coolant_input(box.loc, TRUE)
+			coolant_input_machine.dir = box.dir
+			coolant_input_machine.SetInitDirections()
+			coolant_input_machine.build_network()
+		else if(box.box_type == "moderator_input")
+			var/obj/machinery/atmospherics/components/unary/rbmk/moderator_input/moderator_input_machine = new/obj/machinery/atmospherics/components/unary/rbmk/moderator_input(box.loc, TRUE)
+			moderator_input_machine.dir = box.dir
+			moderator_input_machine.SetInitDirections()
+			moderator_input_machine.build_network()
+		else if(box.box_type == "waste_output")
+			var/obj/machinery/atmospherics/components/unary/rbmk/waste_output/waste_output_machine = new/obj/machinery/atmospherics/components/unary/rbmk/waste_output(box.loc, TRUE)
+			waste_output_machine.dir = box.dir
+			waste_output_machine.SetInitDirections()
+			waste_output_machine.build_network()
 	new/obj/machinery/atmospherics/components/unary/rbmk/core(loc, TRUE)
+	for(var/obj/item/RBMK_box/box in parts)
+		qdel(box)
 	qdel(src)

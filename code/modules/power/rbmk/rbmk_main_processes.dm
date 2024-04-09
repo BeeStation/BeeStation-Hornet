@@ -17,6 +17,7 @@
 	// Run the reaction if it is either live or being started
 	if (start_power || power)
 		atmos_process(seconds_per_tick)
+		damage_handler()
 		check_alert()
 	update_pipenets()
 
@@ -127,7 +128,8 @@
 			var/mob/living/L = I
 			if(temperature > 0)
 				L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
-		if(istype(I, /obj/item/reagent_containers/food) && !istype(I, /obj/item/reagent_containers/food/drinks))
+		/* FIX THIS LATER AFTER LOOKING HOW TO GRILL
+		if(istype(I, /obj/item/food))
 			playsound(src, pick('sound/machines/fryer/deep_fryer_1.ogg', 'sound/machines/fryer/deep_fryer_2.ogg'), 100, TRUE)
 			var/obj/item/reagent_containers/food/grilled_item = I
 			if(prob(80))
@@ -153,4 +155,4 @@
 					grilled_item.desc = "A [initial(grilled_item.name)]. A grill this perfect is a rare technique only known by a few engineers who know how to perform a 'controlled' meltdown whilst also having the time to throw food on a reactor. I'll bet it tastes amazing."
 					if(!(grilled_item.foodtype & FRIED))
 						grilled_item.foodtype |= FRIED
-
+		*/

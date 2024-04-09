@@ -1,12 +1,53 @@
-/**
- * This section contains the RBMK's core with all the variables and the Initialize() and Destroy() procs
- */
-
 /*
+	This section contains the RBMK's core with all the variables and the Initialize() and Destroy() procs
+
+//Reference: Heaters go up to 500K.
+//Hot plasmaburn: 14164.95 C.
+
+Moderators list (Not gonna keep this accurate forever):
+Fuel Type:
+Oxygen: Power production multiplier. Allows you to run a low plasma, high oxy mix, and still get a lot of power.
+Plasma: Power production gas. More plasma -> more power, but it enriches your fuel and makes the reactor much, much harder to control.
+Tritium: Extremely efficient power production gas. Will cause chernobyl if used improperly.
+
+Moderation Type:
+N2: Helps you regain control of the reaction by increasing control rod effectiveness, will massively boost the rad production of the reactor.
+CO2: Super effective shutdown gas for runaway reactions. MASSIVE RADIATION PENALTY!
+Pluoxium: Same as N2, but no cancer-rads!
+
+Permeability Type:
+BZ: Increases your reactor's ability to transfer its heat to the coolant, thus letting you cool it down faster (but your output will get hotter)
+Water Vapour: More efficient permeability modifier
+Hyper Noblium: Extremely efficient permeability increase. (10x as efficient as bz)
+
+Depletion type:
+Nitryl: When you need weapons grade plutonium yesterday. Causes your fuel to deplete much, much faster. Not a huge amount of use outside of sabotage.
+
+Sabotage:
+
+Meltdown:
+Flood reactor moderator with plasma, they won't be able to mitigate the reaction with control rods.
+Shut off coolant entirely. Raise control rods.
+Swap all fuel out with spent fuel, as it's way stronger.
+
+Blowout:
+Shut off exit valve for quick overpressure.
+Cause a pipefire in the coolant line (LETHAL).
+Tack heater onto coolant line (can also cause straight meltdown)
+
+Tips:
+Be careful to not exhaust your plasma supply. I recommend you DON'T max out the moderator input when youre running plasma + o2, or you're at a tangible risk of running out of those gasses from atmos.
+The reactor CHEWS through moderator. It does not do this slowly. Be very careful with that!
+
+Remember kids. If the reactor itself is not physically powered by an APC, it cannot shove coolant in!
+
 TO DO:
 
-Make the boxes actually link together
 sprites
+make it orderable
+replace PSI with kpa on status monitor
+check if it can explode
+fix grilling
 test things with aramix
 
 */
@@ -16,7 +57,6 @@ test things with aramix
 	desc = "A tried and tested design which can output stable power at an acceptably low risk. The moderator can be changed to provide different effects."
 	icon = 'icons/obj/machines/rbmk.dmi'
 	icon_state = "reactor_closed"
-	circuit = /obj/item/circuitboard/machine/rbmk/core
 	use_power = IDLE_POWER_USE
 	idle_power_usage = IDLE_POWER_USE
 
@@ -128,12 +168,13 @@ test things with aramix
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/point_of_interest)
-	investigate_log("has been created.", INVESTIGATE_REACTOR)
+	investigate_log("has been created.", INVESTIGATE_ENGINES)
 
 	reactorcount++
 	src.name = name + " ([reactorcount])"
 	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
 	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
+	check_part_connectivity()
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/Destroy()
 	unregister_signals(TRUE)
@@ -145,8 +186,6 @@ test things with aramix
 		QDEL_NULL(linked_moderator)
 	if(linked_interface)
 		QDEL_NULL(linked_interface)
-	for(var/obj/machinery/rbmk/corner/corner in corners)
-		QDEL_NULL(corner)
 	QDEL_NULL(radio)
 	QDEL_NULL(soundloop)
 	machine_parts = null

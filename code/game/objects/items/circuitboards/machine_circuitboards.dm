@@ -214,37 +214,6 @@
 	build_path = /obj/machinery/power/generator
 	req_components = list()
 
-/obj/item/circuitboard/machine/rbmk/core
-	name = "Advanced Gas-Cooled Nuclear Reactor Core (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/components/unary/rbmk/core
-	req_components = list()
-
-/obj/item/circuitboard/machine/rbmk/RBMK_coolant_input
-	name = "Advanced Gas-Cooled Nuclear Reactor Core (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/components/unary/rbmk/coolant_input
-	req_components = list()
-
-/obj/item/circuitboard/machine/rbmk/RBMK_waste_output
-	name = "Advanced Gas-Cooled Nuclear Reactor Core (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/components/unary/rbmk/waste_output
-	req_components = list()
-
-/obj/item/circuitboard/machine/rbmk/RBMK_moderator_input
-	name = "Advanced Gas-Cooled Nuclear Reactor Core (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/atmospherics/components/unary/rbmk/moderator_input
-	req_components = list()
-
-/obj/item/circuitboard/machine/rbmk/RBMK_corner
-	name = "Advanced Gas-Cooled Nuclear Reactor Core (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/rbmk/corner
-	req_components = list()
-
-
 /obj/item/circuitboard/machine/ntnet_relay
 	name = "NTNet relay (Machine Board)"
 	icon_state = "engineering"
