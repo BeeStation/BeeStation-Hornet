@@ -4,7 +4,7 @@
 
 /obj/effect/turf_decal/weather/snow
 	name = "snowy floor"
-	icon_state = "snowyfloor"
+	icon_state = "snowfloor"
 
 /obj/effect/turf_decal/weather/snow/corner
 	name = "snow corner piece"

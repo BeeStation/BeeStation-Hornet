@@ -122,7 +122,7 @@
 
 /obj/effect/ctf/flag_reset
 	name = "banner landmark"
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/banner.dmi'
 	icon_state = "banner"
 	desc = "This is where a banner with Nanotrasen's logo on it would go."
 	layer = LOW_ITEM_LAYER
@@ -136,11 +136,13 @@
 
 /obj/effect/ctf/flag_reset/red
 	name = "red flag landmark"
+	icon_state = "banner-red"
 	desc = "This is where a red banner used to play capture the flag \
 		would go."
 
 /obj/effect/ctf/flag_reset/blue
 	name = "blue flag landmark"
+	icon_state = "banner-blue"
 	desc = "This is where a blue banner used to play capture the flag \
 		would go."
 
