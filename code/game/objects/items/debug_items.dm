@@ -371,3 +371,25 @@
 	if(!HAS_TRAIT(user, TRAIT_SECURITY_HUD))
 		hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 		hud.remove_hud_from(user)
+
+// TM ONLY - REMOVE LATER
+// TM ONLY - REMOVE LATER
+// helpful for tedious in tm...
+/obj/item/extinguisher/holy
+	name = "holy fire extinguisher"
+	desc = "Developer testmerge only item. This allows you to see holy tiles when you hold this on your hand."
+	max_water = 500
+	chem = /datum/reagent/water/holywater
+	w_class = WEIGHT_CLASS_BULKY // don't store it into inventory for now. dropped() is broken
+
+/obj/item/extinguisher/holy/pickup(mob/user)
+	. = ..()
+	GLOB.cimg_controller.validate_mob(ROLE_HERETIC, user)
+	GLOB.cimg_controller.validate_mob(CIMG_KEY_HOLYTURF, user)
+
+/obj/item/extinguisher/holy/dropped(mob/user, silent)
+	. = ..()
+	GLOB.cimg_controller.disqualify_mob(CIMG_KEY_HOLYTURF, user)
+	GLOB.cimg_controller.disqualify_mob(ROLE_HERETIC, user)
+
+/datum/outfit/debug/r_hand = /obj/item/extinguisher/holy // TMONLY
