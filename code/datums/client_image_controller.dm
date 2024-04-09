@@ -115,14 +115,25 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 	var/datum/cimg_holder/cimg_holder = cimg_holders[cimg_key]
 	if(!cimg_holder)
 		return
+
+	var/need_refresh = length(cimg_holder.shared_bound_images) // shared images should be given to them again even if it's removed once.
 	if(length(cimg_holder.bound_images))
 		cimg_holder._disappear_from_validated(cimg_holder.bound_images)
 	if(length(cimg_holder.shared_bound_images))
 		cimg_holder._disappear_from_validated(cimg_holder.shared_bound_images)
-	for(var/each in cimg_holder.valid_mobs)
-		cimgkey_by_mob[each] -= cimg_key
-	for(var/each in cimg_holder.valid_minds)
+
+	var/list/already_refreshed = list()
+	for(var/datum/mind/each_mind as anything in cimg_holder.valid_minds)
 		cimgkey_by_mind[each] -= cimg_key
+		// TO-DO: need to track a mind's actual client instead of using current
+		if(need_refresh && each_mind.current?.client)
+			_refresh_shared_client_images(each_mind.current) // recovering shared images from other image groups
+			already_refreshed[each_mind.current] = TRUE
+	for(var/mob/each_mob as anything in cimg_holder.valid_mobs)
+		cimgkey_by_mob[each_mob] -= cimg_key
+		if(need_refresh && each_mob.client && !already_refreshed[each_mob])
+			_refresh_shared_client_images(each_mob) // recovering shared images from other image groups
+	already_refreshed.Cut()
 
 	// NOTE: please make sure if images are not referenced
 	cimg_holder.bound_images.Cut()
@@ -333,7 +344,7 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 
 /// a thing is destroyed or no longer has its own special image
 /// Typically, you don't call this proc directly. Use `GLOB.cimg_controller.cut_client_images()`
-/datum/cimg_holder/proc/_disappear_from_validated(client_images)
+/datum/cimg_holder/proc/_disappear_from_validated(client_images, need_refresh = FALSE)
 	var/list/applied_clients = list()
 	for(var/mob/each_mob as anything in valid_mobs)
 		if(!each_mob.client)
