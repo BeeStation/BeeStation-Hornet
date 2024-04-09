@@ -202,6 +202,8 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/test_dview_to_lum_changes,
 	/client/proc/cmd_regenerate_asset_cache,
 	/client/proc/cmd_clear_smart_asset_cache,
+	/client/proc/cimg_validate,
+	/client/proc/cimg_disqualify,
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))

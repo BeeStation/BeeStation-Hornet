@@ -1111,3 +1111,35 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(A.name)].json")
 		cleared++
 	to_chat(usr, "<span class='notice'>Cleared [cleared] asset\s.</span>")
+
+/client/proc/cimg_validate()
+	set category = "Debug"
+	set name = "Client Image Validate"
+	set desc = "Give client image visibility validation to your current mob."
+	if(!holder)
+		return
+
+	if(!isobserver(src.mob))
+		alert(src, "Note that you are not using this as non-ghost. This may change your game.", "Warning Reminder")
+	var/target_key = input(usr, "Choose an image group key to see","Client Image Holders (Add)") as null|anything in GLOB.cimg_controller.cimg_holders
+	if(!target_key)
+		return
+
+	GLOB.cimg_controller.validate_mob(target_key, src.mob)
+	message_admins("<span class='adminnotice'>[key_name_admin(src)] validated cimg key [target_key] to themselves.</span>")
+
+/client/proc/cimg_disqualify()
+	set category = "Debug"
+	set name = "Client Image Disqualify"
+	set desc = "Disqualify your client image visibility from your current mob."
+	if(!holder)
+		return
+
+	if(!isobserver(src.mob))
+		alert(src, "Note that you are not using this as non-ghost. This may change your game.", "Warning Reminder")
+	var/target_key = input(usr, "Choose an image group key to remove","Client Image Holders (Removal)") as null|anything in GLOB.cimg_controller.cimgkey_by_mob[src.mob]
+	if(!target_key)
+		return
+
+	GLOB.cimg_controller.disqualify_mob(target_key, src.mob)
+	message_admins("<span class='adminnotice'>[key_name_admin(src)] disqualified cimg key [target_key] from themselves.</span>")
