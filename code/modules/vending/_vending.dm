@@ -783,9 +783,6 @@
 		get_asset_datum(/datum/asset/spritesheet_batched/vending),
 	)
 
-//obj/machinery/vending/ui_state(mob/user)
-//	return GLOB.default_state
-
 /obj/machinery/vending/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -796,7 +793,6 @@
 	var/list/data = list()
 	data["onstation"] = onstation
 	data["department_bitflag"] = dept_req_for_free
-	//data["jobDiscount"] = 0.2
 	data["product_records"] = list()
 
 	var/list/categories = list()
