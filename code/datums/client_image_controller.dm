@@ -124,7 +124,7 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 
 	var/list/already_refreshed = list()
 	for(var/datum/mind/each_mind as anything in cimg_holder.valid_minds)
-		cimgkey_by_mind[each] -= cimg_key
+		cimgkey_by_mind[each_mind] -= cimg_key
 		// TO-DO: need to track a mind's actual client instead of using current
 		if(need_refresh && each_mind.current?.client)
 			_refresh_shared_client_images(each_mind.current) // recovering shared images from other image groups
