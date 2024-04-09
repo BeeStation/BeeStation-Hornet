@@ -13,7 +13,7 @@
 	///Standardized of operation.
 	var/cost = 10
 	///Flavor style for handling cash (Friendly? Hostile? etc.)
-	var/transaction_style = "Clinical"
+	var/transaction_style = PAYMENT_CLINICAL
 	///Who's getting paid?
 	var/datum/bank_account/target_acc
 	///A static typecache of all the money-based items that can be actively used as currency.
@@ -24,9 +24,13 @@
 		)
 	)
 
-/datum/component/payment/Initialize(_cost, _target, _style)
-	target_acc = _target
+/datum/component/payment/Initialize(_cost, _target, _style = PAYMENT_CLINICAL)
+	if(istext(_target))
+		target_acc = SSeconomy.get_budget_account(ACCOUNT_CIV_ID)
+	else
+		target_acc = _target
 	if(!target_acc)
+		stack_trace("Failed to attach a bank account for a payment component. ACCOUNT_CIV_ID is default for now. (var/_target: [_target])")
 		target_acc = SSeconomy.get_budget_account(ACCOUNT_CIV_ID)
 	cost = _cost
 	transaction_style = _style
