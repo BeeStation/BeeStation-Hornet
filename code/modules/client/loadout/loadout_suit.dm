@@ -177,7 +177,7 @@
 
 /datum/gear/suit/jacket/gothic
 	display_name = "gothic coat"
-	path = /obj/item/clothing/suit/gothcoat
+	path = /obj/item/clothing/suit/costume/gothcoat
 	description = "Perfect for those who want stalk in a corner of a bar."
 	cost = 8000
 

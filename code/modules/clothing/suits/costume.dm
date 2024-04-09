@@ -12,18 +12,11 @@
 	body_parts_covered = CHEST|GROIN
 	hoodtype = /obj/item/clothing/head/hooded/flashsuit
 
-/obj/item/clothing/suit/hooded/hastur
-	name = "\improper Hastur's robe"
-	desc = "Robes not meant to be worn by man."
-	icon_state = "hastur"
-	item_state = "hastur"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	hoodtype = /obj/item/clothing/head/hooded/hasturhood
-
 /obj/item/clothing/head/hooded/flashsuit
 	name = "flash button"
 	desc = "You will learn to fear the flash."
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "flashsuit"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACIALHAIR|HIDEFACE|HIDEMASK|HIDESNOUT
@@ -32,7 +25,7 @@
 	name = "pirate coat"
 	desc = "Yarr."
 	icon_state = "pirate"
-	item_state = "pirate"
+	item_state = null
 	body_parts_covered = CHEST|GROIN|ARMS
 	allowed = list(/obj/item/melee/transforming/energy/sword/pirate, /obj/item/clothing/glasses/eyepatch, /obj/item/reagent_containers/food/drinks/bottle/rum)
 
@@ -40,14 +33,14 @@
 	name = "pirate captain coat"
 	desc = "Yarr."
 	icon_state = "hgpirate"
-	item_state = "hgpirate"
-
+	item_state = null
 
 /obj/item/clothing/suit/costume/cyborg_suit
 	name = "cyborg suit"
 	desc = "Suit for a cyborg costume."
 	icon_state = "death"
-	item_state = "death"
+	item_state = null
+	body_parts_covered = CHEST|GROIN|ARMS|LEGS|FEET
 	flags_1 = CONDUCT_1
 	fire_resist = T0C+5200
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
@@ -89,7 +82,10 @@
 /obj/item/clothing/suit/syndicatefake
 	name = "black and red space suit replica"
 	icon_state = "syndicate-black-red"
+	icon = 'icons/obj/clothing/suits/spacesuit.dmi'
+	worn_icon = 'icons/mob/clothing/suits/spacesuit.dmi'
 	item_state = "syndicate-black-red"
+	body_parts_covered = CHEST|GROIN|ARMS|LEGS|FEET
 	desc = "A plastic replica of the Syndicate space suit. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy)
@@ -100,10 +96,18 @@
 	name = "\improper Hastur's robe"
 	desc = "Robes not meant to be worn by man."
 	icon_state = "hastur"
-	item_state = "hastur"
+	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
+/obj/item/clothing/suit/hooded/hastur
+	name = "\improper Hastur's robe"
+	desc = "Robes not meant to be worn by man."
+	icon_state = "hastur"
+	item_state = null
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	hoodtype = /obj/item/clothing/head/hooded/hasturhood
 
 /obj/item/clothing/suit/imperium_monk
 	name = "\improper Imperium monk suit"
@@ -114,8 +118,7 @@
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
-
-/obj/item/clothing/suit/chickensuit
+/obj/item/clothing/suit/costume/chickensuit
 	name = "chicken suit"
 	desc = "A suit made long ago by the ancient empire KFC."
 	icon_state = "chickensuit"
@@ -136,7 +139,9 @@
 	name = "owl cloak"
 	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."
 	icon_state = "owl_wings"
-	item_state = "owl_wings"
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
+	item_state = null
 	togglename = "wings"
 	body_parts_covered = ARMS|CHEST
 	actions_types = list(/datum/action/item_action/toggle_wings)
@@ -236,6 +241,8 @@
 	name = "carp costume"
 	desc = "A costume made from 'synthetic' carp scales, it smells."
 	icon_state = "carp_casual"
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 	item_state = "labcoat"
 	body_parts_covered = CHEST|GROIN|ARMS
 	cold_protection = CHEST|GROIN|ARMS
@@ -246,6 +253,8 @@
 /obj/item/clothing/head/hooded/carp_hood
 	name = "carp hood"
 	desc = "A hood attached to a carp costume."
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "carp_casual"
 	body_parts_covered = HEAD
 	cold_protection = HEAD
@@ -255,6 +264,8 @@
 /obj/item/clothing/head/hooded/hasturhood
 	name = "hastur's hood"
 	desc = "It's <i>unspeakably</i> stylish."
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "hasturhood"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR
@@ -274,6 +285,8 @@
 	name = "corgi costume"
 	desc = "A costume that looks like someone made a human-like corgi, it won't guarantee belly rubs."
 	icon_state = "ian"
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 	item_state = "labcoat"
 	body_parts_covered = CHEST|GROIN|ARMS
 	//cold_protection = CHEST|GROIN|ARMS
@@ -285,6 +298,8 @@
 /obj/item/clothing/head/hooded/ian_hood
 	name = "corgi hood"
 	desc = "A hood that looks just like a corgi's head, it won't guarantee dog biscuits."
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 	icon_state = "ian"
 	body_parts_covered = HEAD
 	//cold_protection = HEAD
@@ -295,6 +310,8 @@
 	name = "bee costume"
 	desc = "Bee the true Queen!"
 	icon_state = "bee"
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 	item_state = "labcoat"
 	body_parts_covered = CHEST|GROIN|ARMS
 	clothing_flags = THICKMATERIAL
@@ -303,6 +320,8 @@
 /obj/item/clothing/head/hooded/bee_hood
 	name = "bee hood"
 	desc = "A hood attached to a bee costume."
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 	icon_state = "bee"
 	body_parts_covered = HEAD
 	clothing_flags = THICKMATERIAL | SNUG_FIT
@@ -321,6 +340,8 @@
 	name = "bloated human suit"
 	desc = "A horribly bloated suit made from human skins."
 	icon_state = "lingspacesuit"
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 	item_state = "labcoat"
 	body_parts_covered = CHEST|GROIN|ARMS
 	allowed = list()
@@ -331,6 +352,8 @@
 /obj/item/clothing/head/hooded/human_head
 	name = "bloated human head"
 	desc = "A horribly bloated and mismatched human head."
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 	icon_state = "lingspacehelmet"
 	body_parts_covered = HEAD
 	flags_cover = HEADCOVERSEYES
@@ -342,3 +365,55 @@
 	icon_state = "officertanjacket"
 	item_state = "officertanjacket"
 	body_parts_covered = CHEST|ARMS
+
+/obj/item/clothing/suit/costume/striped_sweater
+	name = "striped sweater"
+	desc = "Reminds you of someone, but you just can't put your finger on it..."
+	icon_state = "waldo_shirt"
+	item_state = "waldo_shirt"
+
+/obj/item/clothing/suit/costume/dracula
+	name = "dracula coat"
+	desc = "Looks like this belongs in a very old movie set."
+	icon_state = "draculacoat"
+	item_state = "draculacoat"
+
+/obj/item/clothing/suit/costume/drfreeze_coat
+	name = "doctor freeze's labcoat"
+	desc = "A labcoat imbued with the power of features and freezes."
+	icon_state = "drfreeze_coat"
+	item_state = null
+
+/obj/item/clothing/suit/costume/gothcoat
+	name = "gothic coat"
+	desc = "Perfect for those who want stalk in a corner of a bar."
+	icon_state = "gothcoat"
+	item_state = null
+
+/obj/item/clothing/suit/costume/xenos
+	name = "xenos suit"
+	desc = "A suit made out of chitinous alien hide."
+	icon_state = "xenos"
+	item_state = "xenos_helm"
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	allowed = list(/obj/item/clothing/mask/facehugger/toy)
+
+/obj/item/clothing/suit/costume/nemes
+	name = "pharoah tunic"
+	desc = "Lavish space tomb not included."
+	icon_state = "pharoah"
+	icon_state = null
+	body_parts_covered = CHEST|GROIN
+
+/obj/item/clothing/suit/costume/bronze
+	name = "bronze suit"
+	desc = "A big and clanky suit made of bronze that offers no protection and looks very unfashionable. Nice."
+	icon = 'icons/obj/clothing/clockwork_garb.dmi'
+	icon_state = "clockwork_cuirass_old"
+	armor = list(MELEE = 5,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 30)
+
+/obj/item/clothing/suit/costume/joker
+	name = "comedian coat"
+	desc = "I mean, don't you have to be funny to be a comedian?"
+	icon_state = "joker_coat"

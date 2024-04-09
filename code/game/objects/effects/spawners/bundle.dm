@@ -16,7 +16,7 @@
 /obj/effect/spawner/bundle/costume/chicken
 	name = "chicken costume spawner"
 	items = list(
-		/obj/item/clothing/suit/chickensuit,
+		/obj/item/clothing/suit/costume/chickensuit,
 		/obj/item/clothing/head/chicken,
 		/obj/item/food/egg)
 

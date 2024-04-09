@@ -186,7 +186,7 @@ SUBSYSTEM_DEF(traumas)
 		"birds" = typecacheof(list(
 			/obj/item/clothing/mask/gas/plaguedoctor,
 			/obj/item/food/cracker,
-			/obj/item/clothing/suit/chickensuit,
+			/obj/item/clothing/suit/costume/chickensuit,
 			/obj/item/clothing/head/chicken,
 			/obj/item/clothing/suit/toggle/owlwings,
 			/obj/item/clothing/under/costume/owl,

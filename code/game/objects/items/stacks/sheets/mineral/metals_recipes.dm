@@ -181,7 +181,7 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	new/datum/stack_recipe("bronze floor tile",						/obj/item/stack/tile/mineral/bronze, 1, 4, 20), \
 	null, \
 	new/datum/stack_recipe("bronze hat",							/obj/item/clothing/head/bronze), \
-	new/datum/stack_recipe("bronze suit",							/obj/item/clothing/suit/bronze), \
+	new/datum/stack_recipe("bronze suit",							/obj/item/clothing/suit/costume/bronze), \
 	new/datum/stack_recipe("bronze boots",							/obj/item/clothing/shoes/bronze), \
 	null, \
 	new/datum/stack_recipe("bronze chair",							/obj/structure/chair/fancy/brass/bronze, 1, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS), \

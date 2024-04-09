@@ -7,10 +7,22 @@
 	name = "apron"
 	desc = "A basic blue apron."
 	icon_state = "apron"
-	item_state = "apron"
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	worn_icon = 'icons/mob/clothing/suits/utility.dmi'
+	item_state = null
 	blood_overlay_type = "armor"
 	body_parts_covered = CHEST|GROIN
-	allowed = list(/obj/item/reagent_containers/spray/plantbgone, /obj/item/plant_analyzer, /obj/item/seeds, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/cultivator, /obj/item/reagent_containers/spray/pestspray, /obj/item/hatchet, /obj/item/storage/bag/plants)
+	allowed = list(
+		/obj/item/reagent_containers/spray/plantbgone,
+		/obj/item/plant_analyzer,
+		/obj/item/seeds,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/cultivator,
+		/obj/item/reagent_containers/spray/pestspray,
+		/obj/item/hatchet,
+		/obj/item/storage/bag/plants
+	)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/large
 
 //Captain

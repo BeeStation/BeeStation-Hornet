@@ -119,46 +119,6 @@
 	icon_state = "vapeshirt"
 	item_state = "vapeshirt"
 
-/obj/item/clothing/suit/striped_sweater
-	name = "striped sweater"
-	desc = "Reminds you of someone, but you just can't put your finger on it..."
-	icon_state = "waldo_shirt"
-	item_state = "waldo_shirt"
-
-/obj/item/clothing/suit/dracula
-	name = "dracula coat"
-	desc = "Looks like this belongs in a very old movie set."
-	icon_state = "draculacoat"
-	item_state = "draculacoat"
-
-/obj/item/clothing/suit/drfreeze_coat
-	name = "doctor freeze's labcoat"
-	desc = "A labcoat imbued with the power of features and freezes."
-	icon_state = "drfreeze_coat"
-	item_state = "drfreeze_coat"
-
-/obj/item/clothing/suit/gothcoat
-	name = "gothic coat"
-	desc = "Perfect for those who want stalk in a corner of a bar."
-	icon_state = "gothcoat"
-	item_state = "gothcoat"
-
-/obj/item/clothing/suit/xenos
-	name = "xenos suit"
-	desc = "A suit made out of chitinous alien hide."
-	icon_state = "xenos"
-	item_state = "xenos_helm"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	allowed = list(/obj/item/clothing/mask/facehugger/toy)
-
-/obj/item/clothing/suit/nemes
-	name = "pharoah tunic"
-	desc = "Lavish space tomb not included."
-	icon_state = "pharoah"
-	icon_state = "pharoah"
-	body_parts_covered = CHEST|GROIN
-
 /obj/item/clothing/suit/caution
 	name = "wet floor sign"
 	desc = "Caution! Wet Floor!"
@@ -183,13 +143,6 @@
 	user_vars_to_edit = list("name" = "Spooky Ghost", "real_name" = "Spooky Ghost" , "incorporeal_move" = INCORPOREAL_MOVE_BASIC, "appearance_flags" = KEEP_TOGETHER|TILE_BOUND, "alpha" = 150)
 	alternate_worn_layer = ABOVE_BODY_FRONT_LAYER //so the bedsheet goes over everything but fire
 
-/obj/item/clothing/suit/bronze
-	name = "bronze suit"
-	desc = "A big and clanky suit made of bronze that offers no protection and looks very unfashionable. Nice."
-	icon = 'icons/obj/clothing/clockwork_garb.dmi'
-	icon_state = "clockwork_cuirass_old"
-	armor = list(MELEE = 5,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 30)
-
 /obj/item/clothing/suit/ghost_sheet
 	name = "ghost sheet"
 	desc = "The hands float by themselves, so it's extra spooky."
@@ -208,12 +161,6 @@
 	icon_state = "joker"
 	item_state = "joker"
 	can_adjust = FALSE
-
-/obj/item/clothing/suit/joker
-	name = "comedian coat"
-	desc = "I mean, don't you have to be funny to be a comedian?"
-	icon_state = "joker_coat"
-	item_state = "joker_coat"
 
 /obj/item/clothing/suit/toggle/softshell
 	name = "softshell jacket"

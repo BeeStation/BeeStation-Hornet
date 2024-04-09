@@ -17,7 +17,7 @@
 	color = "#FFFF00"	//cluck cluck clan
 	hat = /obj/item/clothing/head/chicken
 	outfit = /obj/item/clothing/under/color/yellow
-	suit = /obj/item/clothing/suit/chickensuit
+	suit = /obj/item/clothing/suit/costume/chickensuit
 
 /datum/team/gang/zerog
 	name = "Zero-G"

@@ -28,5 +28,5 @@ GLOBAL_LIST_INIT(monkey_recipes, list ( \
 
 GLOBAL_LIST_INIT(xeno_recipes, list ( \
 	new/datum/stack_recipe("alien helmet", /obj/item/clothing/head/xenos, 1), \
-	new/datum/stack_recipe("alien suit", /obj/item/clothing/suit/xenos, 2), \
+	new/datum/stack_recipe("alien suit", /obj/item/clothing/suit/costume/xenos, 2), \
 	))
