@@ -1,16 +1,17 @@
 GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 
 /* < Quick documentation about how to use GLOB.cimg_controller >
-		You only care 6 procs.
+		You only care 7 procs.
 			* GLOB.cimg_controller.stack_client_images(cimg_key, client_images, is_unique_image = FALSE)
 			* GLOB.cimg_controller.cut_client_images(cimg_key, client_images, is_shared_image = FALSE)
+			* GLOB.cimg_controller.nuke_client_image_holder(cimg_key)
 			* GLOB.cimg_controller.validate_mob(cimg_key, mob/cimg_mob)
 			* GLOB.cimg_controller.validate_mind(cimg_key, datum/mind/cimg_mind)
 			* GLOB.cimg_controller.disqualify_mob(cimg_key, mob/cimg_mob)
 			* GLOB.cimg_controller.disqualify_mind(cimg_key, datum/mind/cimg_mind)
 		You don't have to care other procs.
 
-
+	------------------------
 	[To stuff that will hold client images]
 	* GLOB.cimg_controller.stack_client_images(cimg_key, client_images, is_unique_image = FALSE)
 		Adds a client image to the system
@@ -29,7 +30,12 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 		! Do not forget "var/image/image = null"
 		! Do not forget to set "is_shared_image = TRUE" if the image was given with "is_shared_image = TRUE"
 
+	* GLOB.cimg_controller.nuke_client_image_holder(cimg_key)
+		Removes a cimg holder entirely from the system.
+		If things are common (like holy tiles), this should be avoided
+		If things are only dedicated to a single person, you may use this
 
+	------------------------
 	[To mobs/mind that need to see client images]
 	* GLOB.cimg_controller.validate_mob(cimg_key, mob/cimg_mob)
 	* GLOB.cimg_controller.validate_mind(cimg_key, datum/mind/cimg_mind)
@@ -102,6 +108,31 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 		cimg_holder.bound_images -= client_images // list works
 	cimg_holder._disappear_from_validated(client_images)
 
+/// radical version of cut_client_images() - delete a group
+/// usually done when an image group is dedicated for a short duration or personal.
+/// Avoid using this unless a client image group is NOT common
+/datum/cimg_controller/proc/nuke_client_image_holder(cimg_key)
+	var/datum/cimg_holder/cimg_holder = cimg_holders[cimg_key]
+	if(!cimg_holder)
+		return
+	if(length(cimg_holder.bound_images))
+		cimg_holder._disappear_from_validated(cimg_holder.bound_images)
+	if(length(cimg_holder.shared_bound_images))
+		cimg_holder._disappear_from_validated(cimg_holder.shared_bound_images)
+	for(var/each in cimg_holder.valid_mobs)
+		cimgkey_by_mob[each] -= cimg_key
+	for(var/each in cimg_holder.valid_minds)
+		cimgkey_by_mind[each] -= cimg_key
+
+	// NOTE: please make sure if images are not referenced
+	cimg_holder.bound_images.Cut()
+	cimg_holder.shared_bound_images.Cut()
+
+	cimg_holder.valid_mobs.Cut()
+	cimg_holder.valid_minds.Cut()
+	cimg_holders -= cimg_key
+	qdel(cimg_holder)
+
 /// this actually refreshes every client images - aghost or getting a new mob will call this
 /datum/cimg_controller/proc/on_mob_log_on(mob/cimg_mob)
 	var/list/already_injected = list()
@@ -138,9 +169,6 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 	for(var/each_cimgkey in cimgkey_by_mob[cimg_mob])
 		var/datum/cimg_holder/cimg_holder = cimg_holders[each_cimgkey]
 		cimg_holder.valid_mobs -= cimg_mob
-		if(cimg_mob.client)
-			cimg_mob.client.images -= cimg_holder.bound_images
-			cimg_mob.client.images -= cimg_holder.shared_bound_images
 	cimgkey_by_mob -= cimg_mob
 
 /datum/cimg_controller/proc/on_mind_destroy(datum/mind/cimg_mind)
