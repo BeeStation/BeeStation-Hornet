@@ -328,7 +328,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/prisonspawn
 	name = "prisonspawn"
+	icon_state = "error"
+	/* Milviu's sin
 	icon_state = "prison_spawn"
+	*/
 
 /obj/effect/landmark/prisonspawn/Initialize(mapload)
 	..()

@@ -820,9 +820,11 @@
 	name = "dark corner"
 	color = "#0e0f0f"
 
+/* BriggIDP's sin
 /obj/effect/turf_decal/tile/dark/corner_ramp
 	icon_state = "dark_corner_ramp"
 	name = "dark corner ramp"
+*/
 
 /obj/effect/turf_decal/tile/dark/opposingcorners
 	icon_state = "tile_opposing_corners"
