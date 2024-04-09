@@ -418,7 +418,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical/old
 
 /obj/item/clothing/head/hooded/winterhood/medical/old
-	icon_state = "old_winterhood_medical"
+	icon_state = "old_winterhood_cargo"
 
 /obj/item/clothing/suit/hooded/wintercoat/science/old
 	name = "nostalgic science winter coat"
