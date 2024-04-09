@@ -7,7 +7,6 @@
 	icon_state = ""
 	slot_flags = NONE
 	clothing_flags = NOTCONSUMABLE
-	flags_inv = HIDEHAIR
 	var/mob/living/held_mob
 	var/can_head = TRUE
 	///We are currently releasing the mob held in holder
