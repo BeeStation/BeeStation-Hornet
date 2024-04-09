@@ -34180,7 +34180,7 @@
 	pixel_y = 8
 	},
 /obj/item/clothing/mask/muzzle,
-/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/jacket/straight_jacket,
 /turf/open/floor/iron/white,
 /area/security/brig/medbay)
 "kWb" = (
@@ -35104,7 +35104,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/clothing/mask/muzzle,
-/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/jacket/straight_jacket,
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
@@ -39902,7 +39902,7 @@
 /area/hallway/secondary/service)
 "mIy" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/jacket/straight_jacket,
 /obj/item/clothing/mask/muzzle,
 /obj/item/clothing/glasses/blindfold,
 /obj/item/storage/belt/medical{

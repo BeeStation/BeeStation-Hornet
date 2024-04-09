@@ -211,15 +211,15 @@
 
 /datum/gear/suit/poncho/classic
 	display_name = "poncho, classic"
-	path = /obj/item/clothing/suit/poncho
+	path = /obj/item/clothing/suit/costume/poncho
 
 /datum/gear/suit/poncho/green
 	display_name = "poncho, green"
-	path = /obj/item/clothing/suit/poncho/green
+	path = /obj/item/clothing/suit/costume/poncho/green
 
 /datum/gear/suit/poncho/red
 	display_name = "poncho, red"
-	path = /obj/item/clothing/suit/poncho/red
+	path = /obj/item/clothing/suit/costume/poncho/red
 
 //ROBES
 /datum/gear/suit/robe

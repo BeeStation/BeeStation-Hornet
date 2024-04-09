@@ -143,7 +143,7 @@
 /datum/outfit/russiancorpse/officer
 	name = "Russian Officer Corpse"
 	uniform = /obj/item/clothing/under/costume/russian_officer
-	suit = /obj/item/clothing/suit/security/officer/russian
+	suit = /obj/item/clothing/suit/jacket/officer/tan
 	shoes = /obj/item/clothing/shoes/combat
 	ears = /obj/item/radio/headset
 	head = /obj/item/clothing/head/ushanka
@@ -252,7 +252,7 @@
 
 /datum/outfit/straightjacket
 	name = "Straight jacket"
-	suit = /obj/item/clothing/suit/straight_jacket
+	suit = /obj/item/clothing/suit/jacket/straight_jacket
 
 /obj/effect/mob_spawn/human/corpse/psychost/muzzle
 	name = "Muzzled psycho"
@@ -260,7 +260,7 @@
 
 /datum/outfit/straightmuz
 	name = "Straight jacket and a muzzle"
-	suit = /obj/item/clothing/suit/straight_jacket
+	suit = /obj/item/clothing/suit/jacket/straight_jacket
 	mask = /obj/item/clothing/mask/muzzle
 
 /obj/effect/mob_spawn/human/corpse/psychost/trap
@@ -269,7 +269,7 @@
 
 /datum/outfit/straighttrap
 	name = "Straight jacket and a reverse bear trap"
-	suit = /obj/item/clothing/suit/straight_jacket
+	suit = /obj/item/clothing/suit/jacket/straight_jacket
 	head = /obj/item/reverse_bear_trap
 
 /obj/effect/mob_spawn/human/corpse/heavy

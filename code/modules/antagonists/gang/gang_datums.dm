@@ -45,14 +45,14 @@
 	color = "#808000"
 	hat = /obj/item/clothing/head/sombrero/green
 	outfit = /obj/item/clothing/under/suit/green
-	suit = /obj/item/clothing/suit/poncho/green
+	suit = /obj/item/clothing/suit/costume/poncho/green
 
 /datum/team/gang/north
 	name = "North"
 	color = "#C0C0C0"
 	hat = /obj/item/clothing/head/snowman
 	outfit = /obj/item/clothing/under/suit/white
-	suit = /obj/item/clothing/suit/snowman
+	suit = /obj/item/clothing/suit/costume/snowman
 
 /datum/team/gang/omni
 	name = "Omni"
@@ -73,7 +73,7 @@
 	color = "#0000FF"
 	hat = /obj/item/clothing/head/helmet/rus_ushanka
 	outfit = /obj/item/clothing/under/color/darkblue
-	suit = /obj/item/clothing/suit/security/officer/russian
+	suit = /obj/item/clothing/suit/jacket/officer/tan
 
 /datum/team/gang/donk
 	name = "Donk"
@@ -107,7 +107,7 @@
 	name = "Psyke"
 	color = "#808080"
 	hat = /obj/item/clothing/head/soft/rainbow
-	suit = /obj/item/clothing/suit/poncho/ponchoshame
+	suit = /obj/item/clothing/suit/costume/poncho/ponchoshame
 	outfit = /obj/item/clothing/under/color/rainbow
 
 /datum/team/gang/osiron

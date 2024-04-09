@@ -112,7 +112,9 @@
 	name = "blue suit jacket"
 	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_blue"
-	item_state = "suitjacket_blue"
+	icon = 'icons/obj/clothing/suits/jacket.dmi'
+	worn_icon = 'icons/mob/clothing/suits/jacket.dmi'
+	item_state = null
 	blood_overlay_type = "coat"
 	body_parts_covered = CHEST|ARMS
 	togglename = "buttons"
@@ -121,7 +123,7 @@
 	name = "purple suit jacket"
 	desc = "A foppish dress jacket."
 	icon_state = "suitjacket_purp"
-	item_state = "suitjacket_purp"
+	item_state = null
 
 /obj/item/clothing/suit/toggle/lawyer/black
 	name = "black suit jacket"
@@ -129,35 +131,50 @@
 	icon_state = "suitjacket_black"
 	item_state = "ro_suit"
 
-
 //Mime
 /obj/item/clothing/suit/suspenders
 	name = "suspenders"
 	desc = "They suspend the illusion of the mime's play."
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "suspenders"
+	worn_icon = 'icons/mob/clothing/suits/utility.dmi'
+	worn_icon_state = "suspenders"
 	blood_overlay_type = "armor" //it's the less thing that I can put here
 
 //Security
-/obj/item/clothing/suit/security/officer
+/obj/item/clothing/suit/jacket/officer/blue
 	name = "security officer's jacket"
 	desc = "This jacket is for those special occasions when a security officer isn't required to wear their armor."
 	icon_state = "officerbluejacket"
-	item_state = "officerbluejacket"
+	item_state = null
 	body_parts_covered = CHEST|ARMS
 
-/obj/item/clothing/suit/security/warden
+/obj/item/clothing/suit/jacket/officer/tan
+	name = "security officer's jacket"
+	desc = "This jacket is for those special occasions when a security officer isn't required to wear their armor."
+	icon_state = "officertanjacket"
+	item_state = null
+	body_parts_covered = CHEST|ARMS
+
+/obj/item/clothing/suit/jacket/warden/tan
 	name = "warden's jacket"
 	desc = "Perfectly suited for the warden that wants to leave an impression of style on those who visit the brig."
 	icon_state = "wardenbluejacket"
-	item_state = "wardenbluejacket"
+	item_state = null
 	body_parts_covered = CHEST|ARMS
 
-/obj/item/clothing/suit/security/hos
+/obj/item/clothing/suit/jacket/hos/blue
 	name = "head of security's jacket"
 	desc = "This piece of clothing was specifically designed for asserting superior authority."
 	icon_state = "hosbluejacket"
-	item_state = "hosbluejacket"
+	item_state = null
+	body_parts_covered = CHEST|ARMS
+
+/obj/item/clothing/suit/jacket/hos/tan
+	name = "head of security's jacket"
+	desc = "This piece of clothing was specifically designed for asserting superior authority."
+	icon_state = "hostanjacket"
+	item_state = null
 	body_parts_covered = CHEST|ARMS
 
 //Surgeon
@@ -165,17 +182,26 @@
 	name = "surgical apron"
 	desc = "A sterile blue surgical apron."
 	icon_state = "surgical"
-	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)
+	allowed = list(
+		/obj/item/scalpel,
+		/obj/item/surgical_drapes,
+		/obj/item/cautery,
+		/obj/item/hemostat,
+		/obj/item/retractor
+	)
 
 //Curator
 /obj/item/clothing/suit/curator
 	name = "treasure hunter's coat"
 	desc = "Both fashionable and lightly armoured, this jacket is favoured by treasure hunters the galaxy over."
 	icon_state = "curator"
-	item_state = "curator"
+	item_state = null
 	blood_overlay_type = "coat"
 	body_parts_covered = CHEST|ARMS
-	allowed = list(/obj/item/tank/internals, /obj/item/melee/curator_whip)
+	allowed = list(
+		/obj/item/tank/internals,
+		/obj/item/melee/curator_whip
+	)
 	armor = list(MELEE = 25,  BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 30)
 	cold_protection = CHEST|ARMS
 	heat_protection = CHEST|ARMS
@@ -186,13 +212,17 @@
 	name = "techpriest robes"
 	desc = "For those who REALLY love their toasters."
 	icon_state = "techpriest"
-	item_state = "techpriest"
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
+	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/techpriest
 
 /obj/item/clothing/head/hooded/techpriest
 	name = "techpriest's hood"
 	desc = "A hood for those who REALLY love their toasters."
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "techpriesthood"
 	item_state = null
 	body_parts_covered = HEAD

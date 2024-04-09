@@ -234,9 +234,9 @@
 	cut_overlays()
 
 	if(!up)
-		add_overlay(mutable_appearance('icons/obj/clothing/head/hats.dmi', visor_state + "_weld"))
+		add_overlay(mutable_appearance('icons/obj/clothing/head/plasmaman_hats.dmi', visor_state + "_weld"))
 	else if(helmet_on)
-		add_overlay(mutable_appearance('icons/obj/clothing/head/hats.dmi', visor_state + "_light"))
+		add_overlay(mutable_appearance('icons/obj/clothing/head/plasmaman_hats.dmi', visor_state + "_light"))
 
 	return ..()
 

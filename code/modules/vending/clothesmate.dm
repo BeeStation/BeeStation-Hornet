@@ -128,7 +128,7 @@
 				/obj/item/clothing/suit/toggle/softshell = 2,
 				/obj/item/clothing/suit/jacket/letterman = 2,
 				/obj/item/clothing/suit/jacket/letterman_red = 2,
-				/obj/item/clothing/suit/poncho = 1,
+				/obj/item/clothing/suit/costume/poncho = 1,
 				/obj/item/clothing/suit/jacket/miljacket = 1,
 				/obj/item/clothing/suit/hooded/hoodie = 3,
 				/obj/item/clothing/suit/hooded/hoodie/blue = 3,

@@ -429,15 +429,15 @@
 	max_supply = 3
 	contains = list(/obj/item/clothing/under/rank/security/officer/formal,
 					/obj/item/clothing/under/rank/security/officer/formal,
-					/obj/item/clothing/suit/security/officer,
-					/obj/item/clothing/suit/security/officer,
+					/obj/item/clothing/suit/jacket/officer/blue,
+					/obj/item/clothing/suit/jacket/officer/blue,
 					/obj/item/clothing/head/beret/sec/navyofficer,
 					/obj/item/clothing/head/beret/sec/navyofficer,
 					/obj/item/clothing/under/rank/security/warden/formal,
-					/obj/item/clothing/suit/security/warden,
+					/obj/item/clothing/suit/jacket/warden/tan,
 					/obj/item/clothing/head/beret/sec/navywarden,
 					/obj/item/clothing/under/rank/security/head_of_security/formal,
-					/obj/item/clothing/suit/security/hos,
+					/obj/item/clothing/suit/jacket/hos/blue,
 					/obj/item/clothing/head/beret/sec/navyhos)
 	crate_name = "security clothing crate"
 
@@ -828,9 +828,9 @@
 					/obj/item/gun/ballistic/rifle/leveraction,
 					/obj/item/gun/ballistic/rifle/leveraction)
 	var/wear_outer = list(/obj/item/clothing/suit/apron/overalls,
-					/obj/item/clothing/suit/poncho,
-					/obj/item/clothing/suit/poncho/green,
-					/obj/item/clothing/suit/poncho/red)
+					/obj/item/clothing/suit/costume/poncho,
+					/obj/item/clothing/suit/costume/poncho/green,
+					/obj/item/clothing/suit/costume/poncho/red)
 	var/wear_under = list(/obj/item/clothing/under/misc/overalls,
 					/obj/item/clothing/under/misc/overalls,
 					/obj/item/clothing/under/misc/overalls,
@@ -838,7 +838,7 @@
 					/obj/item/clothing/under/suit/sl)
 	var/cursed = list(/obj/item/clothing/head/helmet/outlaw,
 					/obj/item/clothing/mask/fakemoustache,
-					/obj/item/clothing/suit/poncho/ponchoshame/outlaw,
+					/obj/item/clothing/suit/costume/poncho/ponchoshame/outlaw,
 					/obj/item/clothing/under/suit/sl,
 					/obj/item/clothing/shoes/workboots/mining,
 					/obj/item/clothing/gloves/color/black,
@@ -2970,7 +2970,7 @@
 	cost = 1000
 	max_supply = 3
 	contains = list(/obj/item/clothing/head/snowman,
-					/obj/item/clothing/suit/snowman,
+					/obj/item/clothing/suit/costume/snowman,
 					/obj/item/clothing/head/chicken,
 					/obj/item/clothing/suit/costume/chickensuit,
 					/obj/item/clothing/mask/gas/monkeymask,

@@ -185,43 +185,43 @@
 			add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "standard_borg_disguise", I) //you look like a robot to robots! (including yourself because you're totally a robot)
 
 
-/obj/item/clothing/suit/snowman
+/obj/item/clothing/suit/costume/snowman
 	name = "snowman outfit"
 	desc = "Two white spheres covered in white glitter. 'Tis the season."
 	icon_state = "snowman"
-	item_state = "snowman"
+	item_state = null
 	body_parts_covered = CHEST|GROIN
 	flags_inv = HIDEJUMPSUIT
 
-/obj/item/clothing/suit/poncho
+/obj/item/clothing/suit/costume/poncho
 	name = "poncho"
 	desc = "Your classic, non-racist poncho."
 	icon_state = "classicponcho"
-	item_state = "classicponcho"
+	item_state = null
 
-/obj/item/clothing/suit/poncho/green
+/obj/item/clothing/suit/costume/poncho/green
 	name = "green poncho"
 	desc = "Your classic, non-racist poncho. This one is green."
 	icon_state = "greenponcho"
-	item_state = "greenponcho"
+	item_state = null
 
-/obj/item/clothing/suit/poncho/red
+/obj/item/clothing/suit/costume/poncho/red
 	name = "red poncho"
 	desc = "Your classic, non-racist poncho. This one is red."
 	icon_state = "redponcho"
-	item_state = "redponcho"
+	item_state = null
 
-/obj/item/clothing/suit/poncho/ponchoshame
+/obj/item/clothing/suit/costume/poncho/ponchoshame
 	name = "poncho of shame"
 	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseparable. Literally."
 	icon_state = "ponchoshame"
-	item_state = "ponchoshame"
+	item_state = null
 
-/obj/item/clothing/suit/poncho/ponchoshame/Initialize(mapload)
+/obj/item/clothing/suit/costume/poncho/ponchoshame/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, SHAMEBRERO_TRAIT)
 
-/obj/item/clothing/suit/poncho/ponchoshame/outlaw
+/obj/item/clothing/suit/costume/poncho/ponchoshame/outlaw
 	desc = "You broke the rules of the duel, and drew your gun before High Noon. This poncho will rest on your shoulders eternally, just like your shame."
 	icon_state = "ponchoshame_alt"
 	item_state = "ponchoshame_alt"
@@ -229,7 +229,7 @@
 	body_parts_covered = CHEST|GROIN
 	allowed = list(/obj/item/gun/ballistic/shotgun/lever_action, /obj/item/gun/ballistic/rifle/leveraction, /obj/item/gun/ballistic/revolver)
 
-/obj/item/clothing/suit/whitedress
+/obj/item/clothing/suit/costume/whitedress
 	name = "white dress"
 	desc = "A fancy white dress."
 	icon_state = "white_dress"
@@ -358,13 +358,6 @@
 	body_parts_covered = HEAD
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-
-/obj/item/clothing/suit/security/officer/russian
-	name = "\improper Russian officer's jacket"
-	desc = "This jacket is for those special occasions when a russian officer isn't required to wear their armor."
-	icon_state = "officertanjacket"
-	item_state = "officertanjacket"
-	body_parts_covered = CHEST|ARMS
 
 /obj/item/clothing/suit/costume/striped_sweater
 	name = "striped sweater"

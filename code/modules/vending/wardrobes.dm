@@ -37,7 +37,7 @@
 					/obj/item/clothing/neck/tie/black = 6,)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/security/old = 3)
 	premium = list(/obj/item/clothing/under/rank/security/officer/formal = 3,
-					/obj/item/clothing/suit/security/officer = 3,
+					/obj/item/clothing/suit/jacket/officer/blue = 3,
 					/obj/item/clothing/head/beret/sec/navyofficer = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/sec_wardrobe
 	dept_req_for_free = ACCOUNT_SEC_BITFLAG
