@@ -10,7 +10,7 @@
 	max_amount = 25
 	resistance_flags = FLAMMABLE
 
-/obj/item/stack/wrapping_paper/use(used, transfer)
+/obj/item/stack/wrapping_paper/use(used, transfer, check = TRUE)
 	var/turf/T = get_turf(src)
 	. = ..()
 	if(QDELETED(src) && !transfer)
@@ -111,7 +111,7 @@
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
 	user.log_message("has used [name] on [key_name(target)]", LOG_ATTACK, color="blue")
 
-/obj/item/stack/package_wrap/use(used, transfer = FALSE)
+/obj/item/stack/package_wrap/use(used, transfer = FALSE, check = TRUE)
 	var/turf/T = get_turf(src)
 	. = ..()
 	if(QDELETED(src) && !transfer)
