@@ -113,7 +113,7 @@
 	name = "pirate costume spawner"
 	items = list(
 		/obj/item/clothing/under/costume/pirate,
-		/obj/item/clothing/suit/pirate,
+		/obj/item/clothing/suit/costume/pirate,
 		/obj/effect/spawner/lootdrop/minor/pirate_or_bandana,
 		/obj/item/clothing/glasses/eyepatch)
 

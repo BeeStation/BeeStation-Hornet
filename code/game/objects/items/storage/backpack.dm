@@ -383,7 +383,7 @@
 
 /obj/item/storage/backpack/satchel/flat/treasure/PopulateContents()
 	new /obj/item/dualsaber/toy(src)
-	new /obj/item/clothing/suit/pirate(src)
+	new /obj/item/clothing/suit/costume/pirate(src)
 	new /obj/item/clothing/head/pirate(src)
 	for(var/i in 1 to 3)
 		new /obj/item/coin/gold(src)
@@ -524,7 +524,7 @@
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
-	
+
 /obj/item/storage/backpack/duffelbag/science
 	name = "science duffel bag"
 	desc = "A large duffel bag for holding extra tools and artifacts."

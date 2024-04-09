@@ -94,7 +94,7 @@
 
 /datum/outfit/piratecorpse/ranged
 	name = "Pirate Gunner Corpse"
-	suit = /obj/item/clothing/suit/pirate
+	suit = /obj/item/clothing/suit/costume/pirate
 	head = /obj/item/clothing/head/pirate
 
 
