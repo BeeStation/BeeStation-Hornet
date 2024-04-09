@@ -201,7 +201,7 @@ const VendingRow = (props, context) => {
   const { data } = useBackend<VendingData>(context);
   const { custom, product, productStock } = props;
   const { access, department_bitflag, jobDiscount, onstation, user } = data;
-  const free = !onstation || product.price === 0;
+  const free = !onstation || product.price === 0 || !product.premium && department_bitflag === user?.department_bitflag;
   const discount = !product.premium && department_bitflag === user?.department_bitflag;
   const remaining = custom ? product.amount : productStock.amount;
   const redPrice = Math.round(product.price * jobDiscount);
@@ -315,7 +315,7 @@ const ProductButton = (props, context) => {
           'ref': product.ref,
         })
       }>
-      {standardPrice}
+      {standardPrice === 'FREE' ? 'FREE' : standardPrice}
     </Button>
   );
 };
