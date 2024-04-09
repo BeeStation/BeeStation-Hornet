@@ -3,9 +3,6 @@
 	var/atom/movable/stash_item
 	var/datum/mind/stash_owner
 
-	var/image/overlay
-	var/cimg_key
-
 /datum/component/stash/Initialize(datum/mind/stash_owner, atom/movable/stash_item)
 	src.stash_item = stash_item
 	src.stash_owner = stash_owner
@@ -18,6 +15,7 @@
 
 	RegisterSignal(stash_item, COMSIG_PARENT_QDELETING, PROC_REF(stash_destroyed))
 	RegisterSignal(stash_owner, COMSIG_PARENT_QDELETING, PROC_REF(owner_deleted))
+	RegisterSignal(stash_owner, COMSIG_MIND_TRANSFER_TO, PROC_REF(transfer_mind))
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(access_stash))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
@@ -30,21 +28,26 @@
 		UnregisterSignal(stash_item, COMSIG_PARENT_QDELETING)
 	if(stash_owner)
 		UnregisterSignal(stash_owner, COMSIG_PARENT_QDELETING)
-		GLOB.cimg_controller.disqualify_mind(cimg_key, stash_owner)
 	UnregisterSignal(parent, COMSIG_CLICK_ALT)
-	// Clear the stash client image
-	GLOB.cimg_controller.cut_client_images(cimg_key, overlay)
+	// Clear the alt appearance
+	var/atom/owner = parent
+	owner.remove_alt_appearance("stash_overlay")
 	. = ..()
 
 /datum/component/stash/proc/create_owner_icon(atom/owner)
-	cimg_key = "stash_[FAST_REF(src)]"
-	overlay = image(icon = 'icons/obj/storage/backpack.dmi', icon_state = "satchel-flat", loc = owner)
+	if (!stash_owner.current)
+		return
+	var/image/overlay = image(icon = 'icons/obj/storage/backpack.dmi', icon_state = "satchel-flat", loc = owner)
 	overlay.appearance_flags = RESET_ALPHA
 	overlay.alpha = 160
 	overlay.plane = HUD_PLANE
-	GLOB.cimg_controller.stack_client_images(cimg_key, overlay)
-	if(stash_owner)
-		GLOB.cimg_controller.validate_mind(cimg_key, stash_owner)
+	owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "stash_overlay", overlay, stash_owner.current)
+
+/datum/component/stash/proc/transfer_mind(datum/source, mob/old_mob, mob/new_mob)
+	SIGNAL_HANDLER
+	var/atom/owner = parent
+	owner.remove_alt_appearance("stash_overlay")
+	create_owner_icon(owner)
 
 /datum/component/stash/proc/on_examine(datum/source, mob/viewer, list/examine_text)
 	SIGNAL_HANDLER
