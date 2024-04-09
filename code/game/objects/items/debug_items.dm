@@ -67,7 +67,6 @@
 			"debug_placeholder"
 		)
 	)
-	var/hal_path = /datum/hallucination/oh_yeah
 
 /obj/item/debug/omnitool/Initialize(mapload)
 	. = ..()
@@ -108,7 +107,6 @@
 			spade.melee_attack_chain(user, A, params)
 			return
 		if("debug_placeholder") // QoL. put anything you need.
-			new hal_path(user)
 			return
 	. = ..()
 
