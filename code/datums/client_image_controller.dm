@@ -226,8 +226,9 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 		return
 
 	if(!cimg_holder.valid_mobs[cimg_mob])
-		CRASH("Called disqualify_mob([cimg_key], [cimg_mob]), but they don't have it already.")
+		// CRASH("Called disqualify_mob([cimg_key], [cimg_mob]), but they don't have it already.")
 		// do not call this proc multiple times. If you should, you're doing something wrong.
+		return // currently CRASH() disabled because dropped() is broken
 	cimg_holder.valid_mobs[cimg_mob] -= 1
 	if(cimg_holder.valid_mobs[cimg_mob])
 		return
@@ -260,8 +261,9 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 		return
 
 	if(!cimg_holder.valid_minds[cimg_mind])
-		CRASH("Called disqualify_mind([cimg_key], [cimg_mind.name]), but they don't have it already.")
+		// CRASH("Called disqualify_mind([cimg_key], [cimg_mind.name]), but they don't have it already.")
 		// do not call this proc multiple times. If you should, you're doing something wrong.
+		return // currently CRASH() disabled because dropped() is broken
 	cimg_holder.valid_minds[cimg_mind] -= 1
 	if(cimg_holder.valid_minds[cimg_mind])
 		return
