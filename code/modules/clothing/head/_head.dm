@@ -34,7 +34,7 @@
 /obj/item/clothing/head/attackby(obj/item/W, mob/user, params)
 	. = ..()
 	if(istype(W, /obj/item/clothing/head/wig))
-		if(flags_inv && HIDEHAIR)
+		if(flags_inv & HIDEHAIR)
 			to_chat(user, "<span class='notice'>You can't attach a wig to [src]!</span>")
 			return
 		if(attached_wig)
