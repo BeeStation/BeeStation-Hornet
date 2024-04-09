@@ -50,7 +50,7 @@
 
 /datum/greyscale_config/jumpsuit
 	name = "Jumpsuit"
-	icon_file = 'icons/obj/clothing/uniforms.dmi'
+	icon_file = 'icons/obj/clothing/under/color.dmi'
 	json_config = 'code/datums/greyscale/json_configs/jumpsuit.json'
 
 /datum/greyscale_config/jumpsuit_worn
@@ -70,7 +70,7 @@
 
 /datum/greyscale_config/jumpsuit_prison
 	name = "Prison Jumpsuit"
-	icon_file = 'icons/obj/clothing/uniforms.dmi'
+	icon_file = 'icons/obj/clothing/under/color.dmi'
 	json_config = 'code/datums/greyscale/json_configs/jumpsuit_prison.json'
 
 /datum/greyscale_config/jumpsuit_prison_worn
@@ -120,32 +120,32 @@
 
 /datum/greyscale_config/plasmaman_helmet_default
 	name = "Default plasmaman helmet"
-	icon_file = 'icons/obj/clothing/hats.dmi'
+	icon_file = 'icons/obj/clothing/head/hats.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_default.json'
 
 /datum/greyscale_config/plasmaman_helmet_default_worn
 	name = "Default plasmaman helmet"
-	icon_file = 'icons/mob/clothing/head.dmi'
+	icon_file = 'icons/mob/clothing/head/head.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_default_worn.json'
 
 /datum/greyscale_config/plasmaman_helmet_mark2
 	name = "Mark II plasmaman helmet"
-	icon_file = 'icons/obj/clothing/hats.dmi'
+	icon_file = 'icons/obj/clothing/head/hats.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_mk2.json'
 
 /datum/greyscale_config/plasmaman_helmet_mark2_worn
 	name = "Mark II plasmaman helmet"
-	icon_file = 'icons/mob/clothing/head.dmi'
+	icon_file = 'icons/mob/clothing/head/head.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_mk2_worn.json'
 
 /datum/greyscale_config/plasmaman_helmet_protective
 	name = "Protective plasmaman helmet"
-	icon_file = 'icons/obj/clothing/hats.dmi'
+	icon_file = 'icons/obj/clothing/head/hats.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_protective.json'
 
 /datum/greyscale_config/plasmaman_helmet_protective_worn
 	name = "Protective plasmaman helmet"
-	icon_file = 'icons/mob/clothing/head.dmi'
+	icon_file = 'icons/mob/clothing/head/head.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_protective_worn.json'
 
 /datum/greyscale_config/plasmaman_helmet_default_inhand_left

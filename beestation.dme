@@ -2464,6 +2464,7 @@
 #include "code\modules\clothing\suits\armor.dm"
 #include "code\modules\clothing\suits\bio.dm"
 #include "code\modules\clothing\suits\chaplainsuits.dm"
+#include "code\modules\clothing\suits\costume.dm"
 #include "code\modules\clothing\suits\cloaks.dm"
 #include "code\modules\clothing\suits\jacket.dm"
 #include "code\modules\clothing\suits\jobs.dm"

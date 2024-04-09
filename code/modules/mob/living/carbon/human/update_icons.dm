@@ -412,7 +412,7 @@ There are several things that need to be remembered:
 	update_mutant_bodyparts()
 	if(head)
 		update_hud_head(head)
-		var/icon_file = 'icons/mob/clothing/head.dmi'
+		var/icon_file = 'icons/mob/clothing/head/head.dmi'
 		if(istype(head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/HE = head
 			if(HE.sprite_sheets & (dna?.species.bodyflag))
@@ -553,7 +553,7 @@ There are several things that need to be remembered:
 	if(back)
 		update_hud_back(back)
 		var/icon_file = 'icons/mob/clothing/back.dmi'
-		
+
 		if(istype(back, /obj/item))
 			var/obj/item/I = back
 			if(I.sprite_sheets & dna?.species.bodyflag)

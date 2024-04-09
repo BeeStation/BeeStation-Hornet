@@ -265,7 +265,7 @@
 
 /obj/item/storage/box/magic/hat
 	name = "Bottomless Top Hat"
-	item_icon_file = 'icons/obj/clothing/hats.dmi'
+	item_icon_file = 'icons/obj/clothing/head/hats.dmi'
 	item_icon_state = "tophat"
 	info_text = "Bottomless Top Hat. \n<span class='notice'>Allows for storage of items and living beings inside.</span>"
 

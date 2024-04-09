@@ -150,9 +150,9 @@
 /obj/item/clothing/head/hardhat/weldhat/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
 	if(!isinhands)
-		. += mutable_appearance('icons/mob/clothing/head.dmi', "weldhelmet", item_layer)
+		. += mutable_appearance('icons/mob/clothing/head/head.dmi', "weldhelmet", item_layer)
 		if(!up)
-			. += mutable_appearance('icons/mob/clothing/head.dmi', "weldvisor", item_layer)
+			. += mutable_appearance('icons/mob/clothing/head/head.dmi', "weldvisor", item_layer)
 
 /obj/item/clothing/head/hardhat/weldhat/update_icon()
 	cut_overlays()

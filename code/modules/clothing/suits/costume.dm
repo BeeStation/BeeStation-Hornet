@@ -1,12 +1,12 @@
 /obj/item/clothing/suit/costume
-	icon = 'icons/obj/clothing/suits/costume.dmi'
+	//icon = 'icons/obj/clothing/suits/costume.dmi'
 	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 
 /obj/item/clothing/suit/hooded/flashsuit
 	name = "flashy costume"
 	desc = "What did you expect?"
 	icon_state = "flashsuit"
-	icon = 'icons/obj/clothing/suits/costume.dmi'
+	//icon = 'icons/obj/clothing/suits/costume.dmi'
 	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 	item_state = "armor"
 	body_parts_covered = CHEST|GROIN
