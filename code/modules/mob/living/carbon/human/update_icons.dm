@@ -412,7 +412,7 @@ There are several things that need to be remembered:
 	update_mutant_bodyparts()
 	if(head)
 		update_hud_head(head)
-		
+
 		var/icon_file = 'icons/mob/clothing/head/default.dmi'
 
 		if(istype(head, /obj/item/clothing/head))
@@ -466,7 +466,7 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(istype(wear_suit, /obj/item/clothing/suit))
-		var/icon_file = 'icons/mob/clothing/suits/suits.dmi'
+		var/icon_file = 'icons/mob/clothing/suits/default.dmi'
 		var/obj/item/clothing/suit/S = wear_suit
 		if(S.sprite_sheets & (dna?.species.bodyflag))
 			icon_file = dna.species.get_custom_icons("suit")

@@ -524,7 +524,7 @@ Contains:
 	name = "skinsuit"
 	desc = "A slim, compression-based spacesuit meant to protect the user during emergency situations. It's only a little warmer than your uniform."
 	icon = 'icons/obj/clothing/suits/spacesuit.dmi'
-	worn_icon = 'icons/mob/clothing/suits/suits.dmi'
+	worn_icon = 'icons/mob/clothing/suits/spacesuit.dmi'
 	icon_state = "skinsuit"
 	item_state = "s_suit"
 	max_integrity = 200

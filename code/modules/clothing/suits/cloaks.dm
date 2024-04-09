@@ -50,6 +50,10 @@
 	desc = "Worn by the Head of Personnel. It smells faintly of bureaucracy."
 	icon_state = "hopcloak"
 
+/obj/item/clothing/suit/hooded/cloak
+	icon = 'icons/obj/clothing/suits/armor.dmi'
+	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
+
 /obj/item/clothing/suit/hooded/cloak/goliath
 	name = "goliath cloak"
 	icon_state = "goliath_cloak"

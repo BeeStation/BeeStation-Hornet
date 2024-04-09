@@ -419,6 +419,8 @@
 /obj/item/clothing/head/helmet/outlaw
 	name = "outlaw's hat"
 	desc = "Keeps the sun out of your eyes while on the run from Johnny Law."
+	icon = 'icons/obj/clothing/head/cowboy.dmi'
+	worn_icon = 'icons/mob/clothing/head/cowboy.dmi'
 	icon_state = "cowboy"
 	item_state = "cowboy"
 	worn_icon_state = "cowboy_outlaw"

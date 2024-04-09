@@ -272,15 +272,19 @@
 
 /obj/item/clothing/head/helmet/plate/crusader/blue
 	icon_state = "crusader-blue"
+	item_state = null
 
 /obj/item/clothing/head/helmet/plate/crusader/red
 	icon_state = "crusader-red"
+	item_state = null
 
 //Prophet helmet
 /obj/item/clothing/head/helmet/plate/crusader/prophet
 	name = "Prophet's Hat"
 	desc = "A religious-looking hat."
+	icon_state = null
 	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	item_state = null
 	flags_1 = 0
 	armor = list(MELEE = 60,  BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 70, BIO = 50, RAD = 50, FIRE = 60, ACID = 60, STAMINA = 60) //religion protects you from disease and radiation, honk.
 	worn_x_dimension = 64
@@ -288,9 +292,11 @@
 
 /obj/item/clothing/head/helmet/plate/crusader/prophet/red
 	icon_state = "prophet-red"
+	item_state = null
 
 /obj/item/clothing/head/helmet/plate/crusader/prophet/blue
 	icon_state = "prophet-blue"
+	item_state = null
 
 //Structure conversion staff
 /obj/item/godstaff

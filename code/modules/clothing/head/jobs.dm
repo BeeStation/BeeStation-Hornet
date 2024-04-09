@@ -107,6 +107,8 @@
 /obj/item/clothing/head/beret
 	name = "beret"
 	desc = "A beret, a mime's favorite headwear."
+	icon = 'icons/obj/clothing/head/beret.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	icon_state = "beret"
 	dog_fashion = /datum/dog_fashion/head/beret
 	dynamic_hair_suffix = "+generic"

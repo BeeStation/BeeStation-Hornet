@@ -38,6 +38,8 @@
 /obj/item/clothing/head/helmet/space/plasmaman
 	name = "plasma envirosuit helmet"
 	desc = "A special containment helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."
+	icon = 'icons/obj/clothing/head/plasmaman_hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/plasmaman_head.dmi'
 	icon_state = "helmet"
 	item_state = "helmet"
 	greyscale_colors = "#DF5900#A349A4#DF5900"
@@ -45,6 +47,7 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_default_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_default_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_default_worn
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	strip_delay = 80
 	flash_protect = 2
 	tint = 2
