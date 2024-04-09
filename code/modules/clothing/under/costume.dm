@@ -1,3 +1,7 @@
+/obj/item/clothing/under/costume
+	icon = 'icons/obj/clothing/under/costume.dmi'
+	worn_icon = 'icons/mob/clothing/under/costume.dmi'
+
 /obj/item/clothing/under/costume/roman
 	name = "\improper Roman armor"
 	desc = "Ancient Roman armor. Made of metallic and leather straps."
@@ -11,7 +15,7 @@
 	name = "jabroni outfit"
 	desc = "The leather club is two sectors down."
 	icon_state = "darkholme"
-	item_state = "darkholme"
+	item_state = null
 	can_adjust = FALSE
 
 /obj/item/clothing/under/costume/owl
@@ -185,7 +189,7 @@
 	name = "draculass coat"
 	desc = "A dress inspired by the ancient \"Victorian\" era."
 	icon_state = "draculass"
-	item_state = "draculass"
+	item_state = null
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
@@ -262,4 +266,10 @@
 	desc = "Why don't you go secure some bitches?"
 	icon_state = "SwagOutfit"
 	item_state = "SwagOutfit"
+	can_adjust = FALSE
+
+/obj/item/clothing/under/costume/joker
+	name = "comedian suit"
+	desc = "The worst part of having a mental illness is people expect you to behave as if you don't."
+	icon_state = "joker"
 	can_adjust = FALSE

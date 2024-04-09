@@ -120,7 +120,7 @@
 
 /datum/greyscale_config/plasmaman_helmet_default
 	name = "Default plasmaman helmet"
-	icon_file = 'icons/obj/clothing/head/hats.dmi'
+	icon_file = 'icons/obj/clothing/head/plasmaman_hats.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_default.json'
 
 /datum/greyscale_config/plasmaman_helmet_default_worn
@@ -130,7 +130,7 @@
 
 /datum/greyscale_config/plasmaman_helmet_mark2
 	name = "Mark II plasmaman helmet"
-	icon_file = 'icons/obj/clothing/head/hats.dmi'
+	icon_file = 'icons/obj/clothing/head/plasmaman_hats.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_mk2.json'
 
 /datum/greyscale_config/plasmaman_helmet_mark2_worn
@@ -140,7 +140,7 @@
 
 /datum/greyscale_config/plasmaman_helmet_protective
 	name = "Protective plasmaman helmet"
-	icon_file = 'icons/obj/clothing/head/hats.dmi'
+	icon_file = 'icons/obj/clothing/head/plasmaman_hats.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_protective.json'
 
 /datum/greyscale_config/plasmaman_helmet_protective_worn

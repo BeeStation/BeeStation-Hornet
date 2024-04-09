@@ -143,13 +143,6 @@
 	flags_inv = HIDEGLOVES|HIDEEARS|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	alternate_worn_layer = UNDER_HEAD_LAYER
 
-/obj/item/clothing/under/costume/joker
-	name = "comedian suit"
-	desc = "The worst part of having a mental illness is people expect you to behave as if you don't."
-	icon_state = "joker"
-	item_state = "joker"
-	can_adjust = FALSE
-
 /obj/item/clothing/suit/toggle/softshell
 	name = "softshell jacket"
 	desc = "A Nanotrasen-branded softshell jacket."
