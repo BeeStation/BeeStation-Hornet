@@ -602,7 +602,11 @@
 	return TRUE
 
 /datum/dynamic_ruleset/midround/from_ghosts/revenant/generate_ruleset_body(mob/applicant)
-	var/mob/living/simple_animal/revenant/revenant = new(pick(spawn_locs))
+	var/turf/spawnable_turf = get_non_holy_tile_from_list(spawn_locs)
+	if(!spawnable_turf)
+		message_admins("Failed to find a proper spawn location because there are a lot of blessed tiles. We'll spawn it anyway.")
+		spawnable_turf = pick(spawn_locs)
+	var/mob/living/simple_animal/revenant/revenant = new(spawnable_turf)
 	revenant.key = applicant.key
 	message_admins("[ADMIN_LOOKUPFLW(revenant)] has been made into a revenant by the midround ruleset.")
 	log_game("[key_name(revenant)] was spawned as a revenant by the midround ruleset.")

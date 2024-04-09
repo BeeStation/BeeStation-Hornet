@@ -376,7 +376,7 @@
 	qdel(C)
 
 /obj/item/storage/backpack/satchel/flat/with_tools/PopulateContents()
-	new /obj/item/stack/tile/plasteel(src)
+	new /obj/item/stack/tile/iron(src)
 	new /obj/item/crowbar(src)
 
 	..()
