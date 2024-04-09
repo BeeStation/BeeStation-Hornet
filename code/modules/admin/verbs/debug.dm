@@ -1127,9 +1127,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/target_key = input(usr, "Choose an image group key to see","Client Image Holders (Add)") as null|anything in GLOB.cimg_controller.cimg_holders
 	if(!target_key)
 		return
+	if(target_key in GLOB.cimg_controller.cimgkey_by_mob[src.mob]) // you already have this
+		return
 
 	GLOB.cimg_controller.validate_mob(target_key, src.mob)
-	message_admins("<span class='adminnotice'>[key_name_admin(src)] validated cimg key [target_key] to themselves.</span>")
+	message_admins("<span class='adminnotice'>[key_name_admin(src)] validated cimg key \"[target_key]\" to themselves.</span>")
 
 /client/proc/cimg_disqualify()
 	set category = "Debug"
@@ -1148,4 +1150,4 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		return
 
 	GLOB.cimg_controller.disqualify_mob(target_key, src.mob)
-	message_admins("<span class='adminnotice'>[key_name_admin(src)] disqualified cimg key [target_key] from themselves.</span>")
+	message_admins("<span class='adminnotice'>[key_name_admin(src)] disqualified cimg key \"[target_key]\" from themselves.</span>")
