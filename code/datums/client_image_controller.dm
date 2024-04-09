@@ -344,7 +344,7 @@ GLOBAL_DATUM_INIT(cimg_controller, /datum/cimg_controller, new)
 
 /// a thing is destroyed or no longer has its own special image
 /// Typically, you don't call this proc directly. Use `GLOB.cimg_controller.cut_client_images()`
-/datum/cimg_holder/proc/_disappear_from_validated(client_images, need_refresh = FALSE)
+/datum/cimg_holder/proc/_disappear_from_validated(client_images)
 	var/list/applied_clients = list()
 	for(var/mob/each_mob as anything in valid_mobs)
 		if(!each_mob.client)

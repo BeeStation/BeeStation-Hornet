@@ -1118,6 +1118,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set desc = "Give client image visibility validation to your current mob."
 	if(!holder)
 		return
+	if(!length(GLOB.cimg_controller.cimg_holders))
+		client_alert(src, "There's no active client image key in the game", "Client Image Holders")
+		return
 
 	if(!isobserver(src.mob))
 		alert(src, "Note that you are not using this as non-ghost. This may change your game.", "Warning Reminder")
@@ -1133,6 +1136,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set name = "Client Image Disqualify"
 	set desc = "Disqualify your client image visibility from your current mob."
 	if(!holder)
+		return
+	if(!length(GLOB.cimg_controller.cimgkey_by_mob[src.mob]))
+		client_alert(src, "There's no client image key to you", "Client Image Holders")
 		return
 
 	if(!isobserver(src.mob))
