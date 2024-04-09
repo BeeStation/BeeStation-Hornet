@@ -388,7 +388,9 @@ Striking a noncultist, however, will tear their flesh."}
 	name = "empowered cultist armor"
 	desc = "Empowered armor which creates a powerful shield around the user."
 	icon_state = "cult_armor"
-	item_state = "cult_armor"
+	icon = 'icons/obj/clothing/suits/armor.dmi'
+	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
+	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 40,  BULLET = 30, LASER = 40, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60, STAMINA = 40)
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS

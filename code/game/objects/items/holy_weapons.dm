@@ -245,7 +245,9 @@
 	name = "follower hoodie"
 	desc = "Hoodie made for acolytes of the chaplain."
 	icon_state = "chaplain_hoodie"
-	item_state = "chaplain_hoodie"
+	icon = 'icons/obj/clothing/suits/chaplain.dmi'
+	worn_icon = 'icons/mob/clothing/suits/chaplain.dmi'
+	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood
@@ -253,6 +255,8 @@
 /obj/item/clothing/head/hooded/chaplain_hood
 	name = "follower hood"
 	desc = "Hood made for acolytes of the chaplain."
+	icon = 'icons/obj/clothing/head/chaplain.dmi'
+	worn_icon = 'icons/mob/clothing/head/chaplain.dmi'
 	icon_state = "chaplain_hood"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS

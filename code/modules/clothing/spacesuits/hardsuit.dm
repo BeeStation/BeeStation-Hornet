@@ -126,6 +126,8 @@
 /obj/item/clothing/suit/space/hardsuit
 	name = "hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
+	icon = 'icons/obj/clothing/suits/hardsuit.dmi'
+	worn_icon = 'icons/mob/clothing/suits/hardsuit.dmi'
 	icon_state = "hardsuit-engineering"
 	item_state = "eng_hardsuit"
 	max_integrity = 300
