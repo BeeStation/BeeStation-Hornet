@@ -425,7 +425,7 @@
 /datum/outfit/joker
 	name = "Joker"
 	uniform = /obj/item/clothing/under/costume/joker
-	suit = /obj/item/clothing/suit/joker
+	suit = /obj/item/clothing/suit/costume/joker
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/white
 	id = /obj/item/card/id/job/clown

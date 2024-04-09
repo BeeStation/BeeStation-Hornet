@@ -183,7 +183,7 @@
 
 /datum/gear/suit/jacket/joker
 	display_name = "comedian's coat"
-	path = /obj/item/clothing/suit/joker
+	path = /obj/item/clothing/suit/costume/joker
 	description = "You get what you deserve."
 	allowed_roles = list(JOB_NAME_CLOWN)
 	cost = 8000
