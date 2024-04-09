@@ -194,7 +194,7 @@
 		/obj/item/clothing/under/rank/engineering/engineer/skirt,
 		/obj/item/clothing/suit/hazardvest,
 		/obj/item/clothing/shoes/workboots,
-		/obj/item/clothing/head/hardhat,
+		/obj/item/clothing/head/utility/hardhat,
 		/obj/item/clothing/head/beret/eng
 	)
 

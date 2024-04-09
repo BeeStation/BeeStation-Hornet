@@ -163,9 +163,9 @@
 					/obj/item/extinguisher/advanced,
 					/obj/item/extinguisher/advanced,
 					/obj/item/extinguisher/advanced,
-					/obj/item/clothing/head/hardhat/red,
-					/obj/item/clothing/head/hardhat/red,
-					/obj/item/clothing/head/hardhat/red)
+					/obj/item/clothing/head/utility/hardhat/red,
+					/obj/item/clothing/head/utility/hardhat/red,
+					/obj/item/clothing/head/utility/hardhat/red)
 	crate_name = "firefighting crate"
 
 /datum/supply_pack/emergency/atmostank
@@ -1005,9 +1005,9 @@
 					/obj/item/clothing/head/welding,
 					/obj/item/clothing/head/welding,
 					/obj/item/clothing/head/welding,
-					/obj/item/clothing/head/hardhat,
-					/obj/item/clothing/head/hardhat,
-					/obj/item/clothing/head/hardhat,
+					/obj/item/clothing/head/utility/hardhat,
+					/obj/item/clothing/head/utility/hardhat,
+					/obj/item/clothing/head/utility/hardhat,
 					/obj/item/clothing/glasses/meson/engine,
 					/obj/item/clothing/glasses/meson/engine)
 	crate_name = "engineering gear crate"
@@ -1944,8 +1944,8 @@
 					/obj/item/storage/firstaid,
 					/obj/item/healthanalyzer,
 					/obj/item/healthanalyzer,
-					/obj/item/clothing/head/hardhat/red,
-					/obj/item/clothing/head/hardhat/red,
+					/obj/item/clothing/head/utility/hardhat/red,
+					/obj/item/clothing/head/utility/hardhat/red,
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/bot_assembly/cleanbot,

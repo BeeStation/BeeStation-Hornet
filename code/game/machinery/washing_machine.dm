@@ -119,7 +119,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_CAPTAIN = /obj/item/clothing/head/caphat,
 		DYE_HOP = /obj/item/clothing/head/hopcap,
 		DYE_HOS = /obj/item/clothing/head/HoS,
-		DYE_CE = /obj/item/clothing/head/hardhat/white,
+		DYE_CE = /obj/item/clothing/head/utility/hardhat/white,
 		DYE_RD = /obj/item/clothing/head/soft/purple,
 		DYE_CMO = /obj/item/clothing/head/soft,
 		DYE_DENIED = /obj/item/clothing/head/soft/denied,

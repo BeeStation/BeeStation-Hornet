@@ -61,8 +61,8 @@
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer/skirt(src)
 	new /obj/item/clothing/head/beret/ce(src)
-	new /obj/item/clothing/head/hardhat/white(src)
-	new /obj/item/clothing/head/hardhat/weldhat/white(src)
+	new /obj/item/clothing/head/utility/hardhat/white(src)
+	new /obj/item/clothing/head/utility/hardhat/welding/white(src)
 	new /obj/item/clothing/head/welding(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 
@@ -126,6 +126,6 @@
 	new /obj/item/holosign_creator/atmos(src)
 	new /obj/item/watertank/atmos(src)
 	new /obj/item/clothing/suit/utility/fire/atmos(src)
-	new /obj/item/clothing/head/hardhat/atmos(src)
+	new /obj/item/clothing/head/utility/hardhat/atmos(src)
 	new /obj/item/clothing/glasses/meson/engine/tray(src)
 	new /obj/item/extinguisher/advanced(src)

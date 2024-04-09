@@ -15397,10 +15397,10 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/hazardvest,
 /obj/item/clothing/suit/hazardvest,
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat"
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat"
 	},
 /obj/item/clothing/mask/breath,
@@ -39454,7 +39454,7 @@
 /area/bridge)
 "jku" = (
 /obj/structure/table,
-/obj/item/clothing/head/hardhat/cakehat,
+/obj/item/clothing/head/utility/hardhat/cakehat,
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},

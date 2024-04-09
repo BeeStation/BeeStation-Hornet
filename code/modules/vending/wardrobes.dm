@@ -100,8 +100,8 @@
 					/obj/item/clothing/under/rank/engineering/engineer/skirt = 3,
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/shoes/workboots = 3,
-					/obj/item/clothing/head/hardhat = 3,
-					/obj/item/clothing/head/hardhat/weldhat = 3,
+					/obj/item/clothing/head/utility/hardhat = 3,
+					/obj/item/clothing/head/utility/hardhat/welding = 3,
 					/obj/item/clothing/head/beret/eng = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/engi_wardrobe

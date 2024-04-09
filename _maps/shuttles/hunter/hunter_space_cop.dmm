@@ -1023,7 +1023,7 @@
 	pixel_x = 7;
 	pixel_y = 10
 	},
-/obj/item/clothing/head/hardhat/weldhat/orange{
+/obj/item/clothing/head/utility/hardhat/welding/orange{
 	pixel_x = -7;
 	pixel_y = -7
 	},

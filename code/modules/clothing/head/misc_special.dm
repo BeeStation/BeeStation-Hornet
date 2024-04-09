@@ -31,82 +31,6 @@
 	weldingvisortoggle(user)
 
 /*
- * Cakehat
- */
-/obj/item/clothing/head/hardhat/cakehat
-	name = "cakehat"
-	desc = "You put the cake on your head. Brilliant."
-	icon_state = "hardhat0_cakehat"
-	item_state = "hardhat0_cakehat"
-	hat_type = "cakehat"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	hitsound = 'sound/weapons/tap.ogg'
-	flags_inv = HIDEEARS|HIDEHAIR
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
-	light_range = 2 //luminosity when on
-	flags_cover = HEADCOVERSEYES
-	heat = 1000 //use round numbers, guh
-
-	dog_fashion = /datum/dog_fashion/head
-
-	var/force_on = 12
-	var/throwforce_on = 12
-	var/damtype_on = BURN
-	var/hitsound_on = 'sound/weapons/sear.ogg' //so we can differentiate between cakehat and energyhat
-
-/obj/item/clothing/head/hardhat/cakehat/process()
-	var/turf/location = loc
-	if(ishuman(location))
-		var/mob/living/carbon/human/M = location
-		if(M.is_holding(src) || M.head == src)
-			location = M.loc
-
-	if(isturf(location))
-		location.hotspot_expose(700, 1)
-
-/obj/item/clothing/head/hardhat/cakehat/turn_on(mob/living/user)
-	force = force_on
-	throwforce = throwforce_on
-	damtype = damtype_on
-	hitsound = hitsound_on
-	START_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/clothing/head/hardhat/cakehat/turn_off(mob/living/user)
-	force = initial(force)
-	throwforce = initial(throwforce)
-	damtype = initial(damtype)
-	hitsound = initial(hitsound)
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/clothing/head/hardhat/cakehat/is_hot()
-	return on * heat
-
-/obj/item/clothing/head/hardhat/cakehat/energycake
-	name = "energy cake"
-	desc = "You put the energy sword on your cake. Brilliant."
-	icon_state = "hardhat0_energycake"
-	item_state = "hardhat0_energycake"
-	hat_type = "energycake"
-	hitsound = 'sound/weapons/tap.ogg'
-	hitsound_on = 'sound/weapons/blade1.ogg'
-	damtype_on = BRUTE
-	force_on = 18 //same as epen (but much more obvious)
-	light_range = 3 //ditto
-	heat = 0
-
-/obj/item/clothing/head/hardhat/cakehat/energycake/turn_on(mob/living/user)
-	playsound(user, 'sound/weapons/saberon.ogg', 5, TRUE)
-	to_chat(user, "<span class='warning'>You turn on \the [src].</span>")
-	return ..()
-
-/obj/item/clothing/head/hardhat/cakehat/energycake/turn_off(mob/living/user)
-	playsound(user, 'sound/weapons/saberoff.ogg', 5, TRUE)
-	to_chat(user, "<span class='warning'>You turn off \the [src].</span>")
-	return ..()
-/*
  * Ushanka
  */
 /obj/item/clothing/head/ushanka
@@ -134,21 +58,6 @@
 		to_chat(user, "<span class='notice'>You lower the ear flaps on the ushanka.</span>")
 
 /*
- * Pumpkin head
- */
-/obj/item/clothing/head/hardhat/pumpkinhead
-	name = "carved pumpkin"
-	desc = "A jack o' lantern! Believed to ward off evil spirits."
-	icon_state = "hardhat0_pumpkin"
-	item_state = "hardhat0_pumpkin"
-	hat_type = "pumpkin"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	clothing_flags = SNUG_FIT
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 10)
-	light_range = 2 //luminosity when on
-	flags_cover = HEADCOVERSEYES
-
-/*
  * Kitty ears
  */
 /obj/item/clothing/head/kitty
@@ -167,20 +76,6 @@
 
 /obj/item/clothing/head/kitty/genuine
 	desc = "A pair of kitty ears. A tag on the inside says \"Hand made from real cats.\""
-
-/obj/item/clothing/head/hardhat/reindeer
-	name = "novelty reindeer hat"
-	desc = "Some fake antlers and a very fake red nose."
-	clothing_flags = SNUG_FIT
-	icon_state = "hardhat0_reindeer"
-	item_state = "hardhat0_reindeer"
-	hat_type = "reindeer"
-	flags_inv = 0
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
-	light_range = 1 //luminosity when on
-	dynamic_hair_suffix = ""
-
-	dog_fashion = /datum/dog_fashion/head/reindeer
 
 /*
 	Rabbit ears

@@ -238,7 +238,7 @@
 	reqs = list(/obj/item/extinguisher = 1,
 				/obj/item/bodypart/r_arm/robot = 1,
 				/obj/item/assembly/prox_sensor = 1,
-				/obj/item/clothing/head/hardhat/red = 1)
+				/obj/item/clothing/head/utility/hardhat/red = 1)
 	time = 40
 	category = CAT_ROBOT
 

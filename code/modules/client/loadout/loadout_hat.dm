@@ -8,19 +8,19 @@
 
 /datum/gear/hat/hhat_yellow
 	display_name = "hardhat, yellow"
-	path = /obj/item/clothing/head/hardhat
+	path = /obj/item/clothing/head/utility/hardhat
 	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	cost = 2500
 
 /datum/gear/hat/hhat_orange
 	display_name = "hardhat, orange"
-	path = /obj/item/clothing/head/hardhat/orange
+	path = /obj/item/clothing/head/utility/hardhat/orange
 	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	cost = 2500
 
 /datum/gear/hat/hhat_blue
 	display_name = "hardhat, blue"
-	path = /obj/item/clothing/head/hardhat/dblue
+	path = /obj/item/clothing/head/utility/hardhat/dblue
 	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	cost = 2500
 

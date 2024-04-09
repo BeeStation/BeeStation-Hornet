@@ -316,7 +316,7 @@
 				/obj/item/stack/cable_coil = 15,
 				/obj/item/clothing/glasses/meson = 1,
 				/obj/item/flashlight = 1,
-				/obj/item/clothing/head/hardhat = 1,
+				/obj/item/clothing/head/utility/hardhat = 1,
 				/obj/item/stack/sheet/glass = 1)
 	category = CAT_CLOTHING
 

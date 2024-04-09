@@ -2138,7 +2138,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/suit/hooded/wintercoat/hydro,
 /obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/head/hardhat,
+/obj/item/clothing/head/utility/hardhat,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "gZ" = (

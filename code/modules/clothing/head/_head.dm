@@ -157,8 +157,8 @@
 		return
 
 	//Start with two sides for the front
-	var/icon/main = icon('icons/mob/clothing/head/head.dmi', icon_state) //This takes the icon and uses the worn version of the icon
-	var/icon/sub = icon('icons/mob/clothing/head/head.dmi', icon_state)
+	var/icon/main = icon('icons/mob/clothing/head/default.dmi', icon_state) //This takes the icon and uses the worn version of the icon
+	var/icon/sub = icon('icons/mob/clothing/head/default.dmi', icon_state)
 
 	//merge the sub side with the main, after masking off the middle pixel line
 	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_right") //masking

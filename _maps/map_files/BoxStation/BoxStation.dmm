@@ -52730,7 +52730,7 @@
 /obj/item/extinguisher,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/glasses/meson,
-/obj/item/clothing/head/hardhat/red,
+/obj/item/clothing/head/utility/hardhat/red,
 /obj/item/clothing/suit/utility/fire/firefighter,
 /obj/item/tank/internals/oxygen,
 /obj/effect/turf_decal/stripes/line{
@@ -62621,7 +62621,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -31
 	},
-/obj/item/clothing/head/hardhat/cakehat,
+/obj/item/clothing/head/utility/hardhat/cakehat,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -31
 	},
@@ -64909,13 +64909,13 @@
 /area/security/prison)
 "xEn" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat"
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat"
 	},
-/obj/item/clothing/head/hardhat/orange{
+/obj/item/clothing/head/utility/hardhat/orange{
 	name = "protective hat"
 	},
 /obj/item/clothing/suit/hazardvest,
