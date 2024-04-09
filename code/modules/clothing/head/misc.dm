@@ -1,4 +1,6 @@
-
+/obj/item/clothing/head/hats
+	icon = 'icons/obj/clothing/head/hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 
 /obj/item/clothing/head/centhat
 	name = "\improper CentCom hat"
@@ -28,7 +30,7 @@
 	name = "striped red tophat"
 	desc = "It smells like fresh donut holes. / <i>Il sent comme des trous de beignets frais.</i>"
 	icon_state = "canada"
-	item_state = "canada"
+	item_state = null
 
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
@@ -313,7 +315,7 @@
 	desc = "A crown worn by only the highest emperors of the <s>land</s> space."
 	icon_state = "fancycrown"
 
-/obj/item/clothing/head/scarecrow_hat
+/obj/item/clothing/head/costume/scarecrow_hat
 	name = "scarecrow hat"
 	desc = "A simple straw hat."
 	icon_state = "scarecrow_hat"
@@ -331,19 +333,19 @@
 	icon_state = "drfreeze_hat"
 	flags_inv = HIDEHAIR
 
-/obj/item/clothing/head/pharaoh
+/obj/item/clothing/head/costume/pharaoh
 	name = "pharaoh hat"
 	desc = "Walk like an Egyptian."
 	icon_state = "pharoah_hat"
 	icon_state = "pharoah_hat"
 
-/obj/item/clothing/head/nemes
+/obj/item/clothing/head/costume/nemes
 	name = "headdress of Nemes"
 	desc = "Lavish space tomb not included."
 	icon_state = "nemes_headdress"
 	icon_state = "nemes_headdress"
 
-/obj/item/clothing/head/delinquent
+/obj/item/clothing/head/costume/delinquent
 	name = "delinquent hat"
 	desc = "Good grief."
 	icon_state = "delinquent"

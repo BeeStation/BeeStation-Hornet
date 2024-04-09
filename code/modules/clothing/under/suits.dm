@@ -1,4 +1,6 @@
 /obj/item/clothing/under/suit
+	icon = 'icons/obj/clothing/under/suits.dmi'
+	worn_icon = 'icons/mob/clothing/under/suits.dmi'
 	name = "white suit"
 	desc = "A white suit."
 	icon_state = "scratch"
@@ -96,7 +98,7 @@
 	name = "navy suit"
 	desc = "A navy suit and red tie, intended for the station's finest."
 	icon_state = "navy_suit"
-	item_state = "navy_suit"
+	item_state = null
 
 /obj/item/clothing/under/suit/burgundy
 	name = "burgundy suit"

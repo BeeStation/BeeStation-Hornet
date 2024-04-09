@@ -27,7 +27,7 @@
 					/obj/item/clothing/head/chicken = 1,
 					/obj/item/clothing/under/costume/gladiator = 1,
 					/obj/item/clothing/head/helmet/gladiator = 1,
-					/obj/item/clothing/head/pharaoh = 1,
+					/obj/item/clothing/head/costume/pharaoh = 1,
 					/obj/item/clothing/under/rank/captain/suit = 1,
 					/obj/item/clothing/head/flatcap = 1,
 					/obj/item/clothing/suit/toggle/labcoat/mad = 1,
@@ -128,7 +128,7 @@
 					/obj/item/clothing/suit/costume/joker = 2,
 					/obj/item/clothing/under/dress/sailor = 1,
         			/obj/item/clothing/head/wig/random = 3,
-					/obj/item/clothing/head/delinquent = 1,
+					/obj/item/clothing/head/costume/delinquent = 1,
 					/obj/item/clothing/ears/headphones = 2)
 
 	contraband = list(/obj/item/clothing/suit/costume/judgerobe = 1,

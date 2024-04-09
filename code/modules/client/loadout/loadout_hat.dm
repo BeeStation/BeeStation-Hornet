@@ -197,7 +197,7 @@
 
 /datum/gear/hat/delinquent
 	display_name = "delinquent hat"
-	path = /obj/item/clothing/head/delinquent
+	path = /obj/item/clothing/head/costume/delinquent
 	cost = 5000
 
 /datum/gear/hat/cueball
