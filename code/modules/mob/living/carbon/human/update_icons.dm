@@ -157,10 +157,10 @@ There are several things that need to be remembered:
 
 		if(dna?.species.sexes)
 			if(dna.features["body_model"] == FEMALE && U.fitted != NO_FEMALE_UNIFORM)
-				uniform_overlay = U.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/clothing/under/uniform.dmi', isinhands = FALSE, femaleuniform = U.fitted, override_state = target_overlay)
+				uniform_overlay = U.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/clothing/under/default.dmi', isinhands = FALSE, femaleuniform = U.fitted, override_state = target_overlay)
 
 		//Change check_adjustable_clothing.dm if you change this
-		var/icon_file = 'icons/mob/clothing/under/uniform.dmi'
+		var/icon_file = 'icons/mob/clothing/under/default.dmi'
 		if(!uniform_overlay)
 			if(U.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("uniform")

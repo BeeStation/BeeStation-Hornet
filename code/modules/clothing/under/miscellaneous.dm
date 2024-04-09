@@ -1,3 +1,7 @@
+/obj/item/clothing/under/misc
+	icon = 'icons/obj/clothing/under/misc.dmi'
+	worn_icon = 'icons/mob/clothing/under/misc.dmi'
+
 /obj/item/clothing/under/misc/pj
 	name = "\improper PJs"
 	desc = "A comfy set of sleepwear, for taking naps or being lazy instead of working."
