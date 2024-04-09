@@ -1908,4 +1908,4 @@
 		luminosity = max(base_luminosity, affecting_dynamic_lumi)
 
 /atom/movable/proc/get_orbitable()
-	. = src
+	return src
