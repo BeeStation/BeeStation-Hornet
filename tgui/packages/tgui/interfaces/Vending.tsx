@@ -201,8 +201,7 @@ const VendingRow = (props, context) => {
   const { data } = useBackend<VendingData>(context);
   const { custom, product, productStock } = props;
   const { access, department_bitflag, jobDiscount, onstation, user } = data;
-  const free = !onstation || product.price === 0;
-  const discount = !product.premium && department_bitflag === user?.department_bitflag;
+  const free = !onstation || product.price === 0 || !product.premium && department_bitflag === user?.department_bitflag;
   const remaining = custom ? product.amount : productStock.amount;
   const redPrice = Math.round(product.price * jobDiscount);
   const disabled =
@@ -222,7 +221,6 @@ const VendingRow = (props, context) => {
         <ProductButton
           custom={custom}
           disabled={disabled}
-          discount={discount}
           free={free}
           product={product}
           redPrice={redPrice}
@@ -287,7 +285,7 @@ const ProductStock = (props) => {
 const ProductButton = (props, context) => {
   const { act, data } = useBackend<VendingData>(context);
   const { access } = data;
-  const { custom, discount, disabled, free, product, redPrice } = props;
+  const { custom, disabled, free, product, redPrice } = props;
   const customPrice = access ? 'FREE' : product.price + ' cr';
   let standardPrice = product.price + ' cr';
   if (free) {
