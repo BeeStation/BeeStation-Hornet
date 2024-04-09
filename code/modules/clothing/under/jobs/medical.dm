@@ -1,3 +1,8 @@
+/obj/item/clothing/under/rank/medical
+	icon = 'icons/obj/clothing/under/medical.dmi'
+	worn_icon = 'icons/mob/clothing/under/medical.dmi'
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+
 /obj/item/clothing/under/rank/medical/chief_medical_officer
 	desc = "It's a jumpsuit worn by those with the experience to be \"Chief Medical Officer\". It provides minor biological protection."
 	name = "chief medical officer's jumpsuit"

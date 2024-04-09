@@ -1,6 +1,8 @@
 // Eldritch armor. Looks cool, hood lets you cast heretic spells.
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "ominous hood"
+	icon = 'icons/obj/clothing/head/helmet.dmi'
+	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	icon_state = "eldritch"
 	desc = "A torn, dust-caked hood. Strange eyes line the inside."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
@@ -42,6 +44,8 @@
 // Void cloak. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
 	name = "void hood"
+	icon = 'icons/obj/clothing/head/helmet.dmi'
+	worn_icon = 'icons/mob/clothing/head/helmet.dmi'
 	icon_state = "void_cloak"
 	flags_inv = NONE
 	flags_cover = NONE

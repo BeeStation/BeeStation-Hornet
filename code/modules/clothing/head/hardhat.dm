@@ -166,8 +166,10 @@
 /obj/item/clothing/head/utility/hardhat/pumpkinhead
 	name = "carved pumpkin"
 	desc = "A jack o' lantern! Believed to ward off evil spirits."
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "hardhat0_pumpkin"
-	item_state = "hardhat0_pumpkin"
+	item_state = null
 	hat_type = "pumpkin"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	clothing_flags = SNUG_FIT
@@ -178,9 +180,11 @@
 /obj/item/clothing/head/utility/hardhat/reindeer
 	name = "novelty reindeer hat"
 	desc = "Some fake antlers and a very fake red nose."
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	clothing_flags = SNUG_FIT
 	icon_state = "hardhat0_reindeer"
-	item_state = "hardhat0_reindeer"
+	item_state = null
 	hat_type = "reindeer"
 	flags_inv = 0
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)

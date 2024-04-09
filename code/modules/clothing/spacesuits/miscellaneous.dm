@@ -116,7 +116,10 @@ Contains:
 /obj/item/clothing/head/helmet/space/santahat
 	name = "Santa's hat"
 	desc = "Ho ho ho. Merrry X-mas!"
+	icon = 'icons/obj/clothing/head/wizard.dmi'
+	worn_icon = 'icons/mob/clothing/head/wizard.dmi'
 	icon_state = "santahat"
+	item_state = "santahat"
 	flags_cover = HEADCOVERSEYES
 
 	dog_fashion = /datum/dog_fashion/head/santa
@@ -313,8 +316,10 @@ Contains:
 /obj/item/clothing/head/helmet/space/freedom
 	name = "eagle helmet"
 	desc = "An advanced, space-proof helmet. It appears to be modeled after an old-world eagle."
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "griffinhat"
-	item_state = "griffinhat"
+	item_state = null
 	armor = list(MELEE = 20,  BULLET = 40, LASER = 30, ENERGY = 25, BOMB = 100, BIO = 100, RAD = 100, FIRE = 80, ACID = 80, STAMINA = 10)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
