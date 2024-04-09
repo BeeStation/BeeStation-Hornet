@@ -55672,7 +55672,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/computer/arcade{
+/obj/effect/spawner/randomarcade{
 	dir = 4
 	},
 /turf/open/floor/iron,
@@ -66549,7 +66549,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/turf_decal{
 	dir = 1
 	},
@@ -72211,7 +72211,7 @@
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/cmo)
 "suV" = (
-/obj/machinery/computer/arcade{
+/obj/effect/spawner/randomarcade{
 	dir = 4
 	},
 /obj/machinery/status_display/ai{
@@ -75171,7 +75171,7 @@
 /turf/open/floor/iron/sepia,
 /area/engine/engineering)
 "thX" = (
-/obj/machinery/computer/arcade{
+/obj/effect/spawner/randomarcade{
 	dir = 4
 	},
 /obj/machinery/light/small{
@@ -77646,7 +77646,7 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "tPH" = (
-/obj/machinery/computer/arcade{
+/obj/effect/spawner/randomarcade{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
