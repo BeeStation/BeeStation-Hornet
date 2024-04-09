@@ -204,7 +204,7 @@
 
 // Get actual source atom when orbiting
 /atom/movable/openspace/mimic/get_orbitable()
-	. = associated_atom
+	return associated_atom
 
 // -- TURF PROXY --
 // This thing holds the mimic appearance for non-OVERWRITE turfs.
