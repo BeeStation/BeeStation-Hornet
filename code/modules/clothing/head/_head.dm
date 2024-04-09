@@ -169,7 +169,7 @@
 	main.Blend(sub, ICON_OVERLAY)
 
 	//handle side icons
-	sub = icon('icons/mob/clothing/head/head.dmi', icon_state, dir = EAST)
+	sub = icon('icons/mob/clothing/head/default.dmi', icon_state, dir = EAST)
 	main.Insert(sub, dir = EAST)
 	sub.Flip(WEST)
 	main.Insert(sub, dir = WEST)
