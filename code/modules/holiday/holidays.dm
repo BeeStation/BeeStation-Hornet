@@ -250,7 +250,7 @@
 	name = "Doctor's Day"
 	begin_day = 1
 	begin_month = JULY
-	drone_hat = /obj/item/clothing/head/nursehat
+	drone_hat = /obj/item/clothing/head/costume/nursehat
 
 /datum/holiday/UFO
 	name = "UFO Day"
@@ -317,7 +317,7 @@
 	name = "Talk-Like-a-Pirate Day"
 	begin_day = 19
 	begin_month = SEPTEMBER
-	drone_hat = /obj/item/clothing/head/pirate
+	drone_hat = /obj/item/clothing/head/costume/pirate
 
 /datum/holiday/pirate/greet()
 	return "Ye be talkin' like a pirate today or else ye'r walkin' tha plank, matey!"
@@ -522,7 +522,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	begin_day = 24
 	begin_month = DECEMBER
 	end_day = 26
-	drone_hat = /obj/item/clothing/head/santa
+	drone_hat = /obj/item/clothing/head/costume/santa
 
 /datum/holiday/xmas/greet()
 	return "Have a merry Christmas!"
@@ -531,7 +531,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(roundstart_celebrate)))
 	GLOB.maintenance_loot += list(
 		/obj/item/toy/xmas_cracker = 3,
-		/obj/item/clothing/head/santa = 1,
+		/obj/item/clothing/head/costume/santa = 1,
 		/obj/item/a_gift/anything = 1
 	)
 
@@ -548,7 +548,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 	begin_day = 1
 	begin_month = DECEMBER
 	end_day = 31
-	drone_hat = /obj/item/clothing/head/santa
+	drone_hat = /obj/item/clothing/head/costume/santa
 
 /datum/holiday/festive_season/greet()
 	return "Have a nice festive season!"

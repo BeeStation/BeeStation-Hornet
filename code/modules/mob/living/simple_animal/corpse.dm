@@ -85,7 +85,7 @@
 	uniform = /obj/item/clothing/under/costume/pirate
 	shoes = /obj/item/clothing/shoes/jackboots
 	glasses = /obj/item/clothing/glasses/eyepatch
-	head = /obj/item/clothing/head/bandana
+	head = /obj/item/clothing/head/costume/pirate/bandana
 
 
 /obj/effect/mob_spawn/human/corpse/pirate/ranged
@@ -95,7 +95,7 @@
 /datum/outfit/piratecorpse/ranged
 	name = "Pirate Gunner Corpse"
 	suit = /obj/item/clothing/suit/costume/pirate
-	head = /obj/item/clothing/head/pirate
+	head = /obj/item/clothing/head/costume/pirate
 
 
 /obj/effect/mob_spawn/human/corpse/russian
@@ -108,7 +108,7 @@
 	name = "Russian Corpse"
 	uniform = /obj/item/clothing/under/costume/soviet
 	shoes = /obj/item/clothing/shoes/jackboots
-	head = /obj/item/clothing/head/bearpelt
+	head = /obj/item/clothing/head/costume/bearpelt
 	gloves = /obj/item/clothing/gloves/color/black
 	mask = /obj/item/clothing/mask/gas/old
 

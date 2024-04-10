@@ -15,7 +15,7 @@
 /datum/team/gang/prima
 	name = "Prima"
 	color = "#FFFF00"	//cluck cluck clan
-	hat = /obj/item/clothing/head/chicken
+	hat = /obj/item/clothing/head/costume/chicken
 	outfit = /obj/item/clothing/under/color/yellow
 	suit = /obj/item/clothing/suit/costume/chickensuit
 
@@ -50,7 +50,7 @@
 /datum/team/gang/north
 	name = "North"
 	color = "#C0C0C0"
-	hat = /obj/item/clothing/head/snowman
+	hat = /obj/item/clothing/head/costume/snowman
 	outfit = /obj/item/clothing/under/suit/white
 	suit = /obj/item/clothing/suit/costume/snowman
 
@@ -64,7 +64,7 @@
 /datum/team/gang/newton
 	name = "Newton"
 	color = "#A52A2A"
-	hat = /obj/item/clothing/head/griffin
+	hat = /obj/item/clothing/head/costume/griffin
 	outfit = /obj/item/clothing/under/color/brown
 	suit = /obj/item/clothing/suit/toggle/owlwings/griffinwings
 
@@ -94,7 +94,7 @@
 	color = "#000000"
 	outfit = /obj/item/clothing/under/color/black
 	suit = /obj/item/clothing/suit/toggle/lawyer/black
-	hat = /obj/item/clothing/head/bowler
+	hat = /obj/item/clothing/head/hats/bowler
 
 /datum/team/gang/diablo
 	name = "Diablo"

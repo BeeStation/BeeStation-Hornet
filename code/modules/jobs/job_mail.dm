@@ -295,7 +295,7 @@
 		/obj/item/clothing/head/mob_holder/rabbit = 40,
 		/obj/item/gun/magic/wand = 10,
 		/obj/item/clothing/head/collectable/tophat = 10,
-		/obj/item/clothing/head/bowler = 5,
+		/obj/item/clothing/head/hats/bowler = 5,
 	)
 
 //MEDICAL DOCTOR

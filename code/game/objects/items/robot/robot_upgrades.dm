@@ -835,7 +835,7 @@
 /obj/item/borg/upgrade/speciality/botany
 	name = "Botany Speciality"
 	desc = "A service cyborg upgrade allowing for plant tending and manipulation."
-	hat = /obj/item/clothing/head/rice_hat
+	hat = /obj/item/clothing/head/costume/rice_hat
 	addmodules = list (
 		/obj/item/storage/bag/plants/portaseeder,
 		/obj/item/cultivator,

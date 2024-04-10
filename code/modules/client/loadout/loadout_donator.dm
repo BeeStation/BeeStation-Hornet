@@ -96,7 +96,7 @@
 
 /datum/gear/donator/suit/retro_chicken_head
 	display_name = "retro chicken head"
-	path = /obj/item/clothing/head/chicken_head_retro
+	path = /obj/item/clothing/head/costume/chicken_head_retro
 
 //NECK
 /datum/gear/donator/neck

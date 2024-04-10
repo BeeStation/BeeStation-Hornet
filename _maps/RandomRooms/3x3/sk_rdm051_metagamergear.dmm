@@ -44,7 +44,7 @@
 /obj/structure/closet/crate,
 /obj/item/clothing/suit/costume/xenos,
 /obj/item/clothing/suit/monkeysuit,
-/obj/item/clothing/head/xenos,
+/obj/item/clothing/head/costume/xenos,
 /obj/item/clothing/mask/gas/monkeymask,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,

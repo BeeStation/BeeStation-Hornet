@@ -148,7 +148,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/structure/sign/departments/medbay, /obj/machinery/door/airlock/medical, /obj/machinery/sleeper, /obj/machinery/stasis,
 			/obj/machinery/dna_scannernew, /obj/machinery/atmospherics/components/unary/cryo_cell, /obj/item/surgical_drapes,
 			/obj/item/retractor, /obj/item/hemostat, /obj/item/cautery, /obj/item/surgicaldrill, /obj/item/scalpel, /obj/item/circular_saw,
-			/obj/item/clothing/suit/bio_suit/plaguedoctorsuit, /obj/item/clothing/head/plaguedoctorhat, /obj/item/clothing/mask/gas/plaguedoctor)),
+			/obj/item/clothing/suit/bio_suit/plaguedoctorsuit, /obj/item/clothing/head/bio_hood/plague, /obj/item/clothing/mask/gas/plaguedoctor)),
 
 		"authority"   = typecacheof(list(
 			/obj/item/clothing/under/rank/captain,  /obj/item/clothing/under/rank/civilian/head_of_personnel,
@@ -187,13 +187,13 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/clothing/mask/gas/plaguedoctor,
 			/obj/item/food/cracker,
 			/obj/item/clothing/suit/costume/chickensuit,
-			/obj/item/clothing/head/chicken,
+			/obj/item/clothing/head/costume/chicken,
 			/obj/item/clothing/suit/toggle/owlwings,
 			/obj/item/clothing/under/costume/owl,
 			/obj/item/clothing/mask/gas/owl_mask,
 			/obj/item/clothing/under/costume/griffin,
 			/obj/item/clothing/shoes/griffin,
-			/obj/item/clothing/head/griffin,
+			/obj/item/clothing/head/costume/griffin,
 			/obj/item/clothing/head/helmet/space/freedom,
 			/obj/item/clothing/suit/space/freedom
 			)),

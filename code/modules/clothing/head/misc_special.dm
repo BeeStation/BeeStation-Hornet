@@ -31,33 +31,6 @@
 	weldingvisortoggle(user)
 
 /*
- * Ushanka
- */
-/obj/item/clothing/head/ushanka
-	name = "ushanka"
-	desc = "Perfect for winter in Siberia, da?"
-	icon_state = "ushankadown"
-	item_state = "ushankadown"
-	flags_inv = HIDEEARS|HIDEHAIR
-	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	dog_fashion = /datum/dog_fashion/head/ushanka
-	//Are the flaps down?
-	var/earflaps_down = TRUE
-
-/obj/item/clothing/head/ushanka/attack_self(mob/user)
-	if(earflaps_down)
-		icon_state = "ushankaup"
-		item_state = "ushankaup"
-		earflaps_down = FALSE
-		to_chat(user, "<span class='notice'>You raise the ear flaps on the ushanka.</span>")
-	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
-		earflaps_down = TRUE
-		to_chat(user, "<span class='notice'>You lower the ear flaps on the ushanka.</span>")
-
-/*
  * Kitty ears
  */
 /obj/item/clothing/head/kitty
@@ -93,29 +66,6 @@
 /obj/item/clothing/head/rabbitears/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/haircolor_clothing)
-
-/obj/item/clothing/head/cardborg
-	name = "cardborg helmet"
-	desc = "A helmet made out of a box."
-	icon_state = "cardborg_h"
-	item_state = "cardborg_h"
-	clothing_flags = SNUG_FIT
-	flags_cover = HEADCOVERSEYES
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
-
-	dog_fashion = /datum/dog_fashion/head/cardborg
-
-/obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
-	..()
-	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
-		var/mob/living/carbon/human/H = user
-		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))
-			var/obj/item/clothing/suit/cardborg/CB = H.wear_suit
-			CB.disguise(user, src)
-
-/obj/item/clothing/head/cardborg/dropped(mob/living/user)
-	..()
-	user.remove_alt_appearance("standard_borg_disguise")
 
 /obj/item/clothing/head/wig
 	name = "wig"
@@ -213,14 +163,6 @@
 		gradient_style = user.gradient_style
 		gradient_color = "#[user.gradient_color]"
 		update_icon()
-
-/obj/item/clothing/head/bronze
-	name = "bronze hat"
-	desc = "A crude helmet made out of bronze plates. It offers very little in the way of protection."
-	icon = 'icons/obj/clothing/clockwork_garb.dmi'
-	icon_state = "clockwork_helmet_old"
-	flags_inv = HIDEEARS|HIDEHAIR
-	armor = list(MELEE = 5,  BULLET = 0, LASER = -5, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 30)
 
 /obj/item/clothing/head/foilhat
 	name = "tinfoil hat"

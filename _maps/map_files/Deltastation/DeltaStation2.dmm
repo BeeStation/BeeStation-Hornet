@@ -54032,7 +54032,7 @@
 	desc = "A replica of a jumpsuit worn by the highest ranking commanders under Nanotrasen's central command.";
 	name = "Replica CentCom officer's jumpsuit"
 	},
-/obj/item/clothing/head/centhat{
+/obj/item/clothing/head/hats/centhat{
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "stamina" = 0);
 	desc = "A replica hat of a Central Commander's attire. It has a small tag on it saying, 'It's good to be emperor.'";
 	name = "Replica CentCom hat"
@@ -65743,7 +65743,7 @@
 "oIu" = (
 /obj/structure/closet/secure_closet/CMO,
 /obj/item/clothing/under/rank/medical/doctor/nurse,
-/obj/item/clothing/head/nursehat,
+/obj/item/clothing/head/costume/nursehat,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
@@ -70209,7 +70209,7 @@
 	pixel_y = -32
 	},
 /obj/item/staff/broom,
-/obj/item/clothing/head/witchwig,
+/obj/item/clothing/head/costume/witchwig,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar/atrium)
@@ -85922,7 +85922,7 @@
 /obj/structure/table,
 /obj/item/clothing/under/suit/black_really,
 /obj/item/cane,
-/obj/item/clothing/head/bowler{
+/obj/item/clothing/head/hats/bowler{
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,

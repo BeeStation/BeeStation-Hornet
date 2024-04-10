@@ -1477,7 +1477,7 @@
 /area/ruin/space/has_grav/hotel/workroom)
 "eD" = (
 /obj/structure/closet/crate,
-/obj/item/clothing/head/rice_hat,
+/obj/item/clothing/head/costume/rice_hat,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/hotel/workroom)

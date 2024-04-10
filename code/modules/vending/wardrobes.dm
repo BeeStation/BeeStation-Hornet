@@ -60,7 +60,7 @@
 					/obj/item/clothing/under/rank/medical/paramedic = 4,
 					/obj/item/clothing/under/rank/medical/paramedic/skirt = 4,
 					/obj/item/clothing/under/rank/medical/doctor/nurse = 4,
-					/obj/item/clothing/head/nursehat = 4,
+					/obj/item/clothing/head/costume/nursehat = 4,
 					/obj/item/clothing/head/beret/med = 4,
 					/obj/item/clothing/under/rank/medical/doctor/blue = 4,
 					/obj/item/clothing/under/rank/medical/doctor/green = 4,
@@ -152,7 +152,7 @@
 					/obj/item/clothing/head/beret/supply = 3,
 					/obj/item/radio/headset/headset_cargo = 3)
 	premium = list(	/obj/item/clothing/under/rank/cargo/miner = 3,
-					/obj/item/clothing/head/mailman = 2,
+					/obj/item/clothing/head/costume/mailman = 2,
 					/obj/item/clothing/under/misc/mailman/skirt = 2,
 					/obj/item/clothing/under/misc/mailman = 2,
 					/obj/item/storage/backpack/satchel/mail = 2,
@@ -506,7 +506,7 @@
 					/obj/item/storage/backpack/virology = 2,
 					/obj/item/storage/backpack/satchel/vir = 2)
 	contraband = list(/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,
-					/obj/item/clothing/head/plaguedoctorhat = 1,
+					/obj/item/clothing/head/bio_hood/plague = 1,
 					/obj/item/clothing/mask/gas/plaguedoctor = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/viro_wardrobe
 	dept_req_for_free = ACCOUNT_MED_BITFLAG

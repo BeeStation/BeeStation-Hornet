@@ -209,7 +209,7 @@
 		/obj/item/storage/backpack/satchel/med = 1,
 		/obj/item/clothing/suit/hooded/wintercoat/medical = 1,
 		/obj/item/clothing/under/rank/medical/doctor/nurse = 1,
-		/obj/item/clothing/head/nursehat = 1,
+		/obj/item/clothing/head/costume/nursehat = 1,
 		/obj/item/clothing/under/rank/medical/doctor/blue = 1,
 		/obj/item/clothing/under/rank/medical/doctor/green = 1,
 		/obj/item/clothing/under/rank/medical/doctor/purple = 1,

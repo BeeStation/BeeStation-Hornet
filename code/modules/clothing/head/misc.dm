@@ -1,22 +1,4 @@
-/obj/item/clothing/head/hats
-	icon = 'icons/obj/clothing/head/hats.dmi'
-	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 
-/obj/item/clothing/head/centhat
-	name = "\improper CentCom hat"
-	icon_state = "centcom"
-	desc = "It's good to be emperor."
-	item_state = "that"
-	flags_inv = NONE
-	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
-	strip_delay = 80
-	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
-
-/obj/item/clothing/head/powdered_wig
-	name = "powdered wig"
-	desc = "A powdered wig."
-	icon_state = "pwig"
-	item_state = "pwig"
 
 /obj/item/clothing/head/that
 	name = "top-hat"
@@ -25,175 +7,6 @@
 	item_state = "that"
 	dog_fashion = /datum/dog_fashion/head
 	throwforce = 1
-
-/obj/item/clothing/head/canada
-	name = "striped red tophat"
-	desc = "It smells like fresh donut holes. / <i>Il sent comme des trous de beignets frais.</i>"
-	icon_state = "canada"
-	item_state = null
-
-/obj/item/clothing/head/redcoat
-	name = "redcoat's hat"
-	icon_state = "redcoat"
-	desc = "<i>'I guess it's a redhead.'</i>"
-
-/obj/item/clothing/head/mailman
-	name = "mailman's hat"
-	icon_state = "mailman"
-	desc = "<i>'Right-on-time'</i> mail service head wear."
-
-/obj/item/clothing/head/plaguedoctorhat
-	name = "plague doctor's hat"
-	desc = "These were once used by plague doctors. They're pretty much useless."
-	icon_state = "plaguedoctor"
-	permeability_coefficient = 0.01
-
-/obj/item/clothing/head/nursehat
-	name = "nurse's hat"
-	desc = "It allows quick identification of trained medical personnel."
-	icon_state = "nursehat"
-	dynamic_hair_suffix = ""
-
-	dog_fashion = /datum/dog_fashion/head/nurse
-
-/obj/item/clothing/head/syndicatefake
-	name = "black space-helmet replica"
-	icon_state = "syndicate-helm-black-red"
-	item_state = "syndicate-helm-black-red"
-	desc = "A plastic replica of a Syndicate agent's space helmet. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	clothing_flags = SNUG_FIT
-
-/obj/item/clothing/head/cueball
-	name = "cueball helmet"
-	desc = "A large, featureless white orb meant to be worn on your head. How do you even see out of this thing?"
-	icon_state = "cueball"
-	item_state="cueball"
-	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	clothing_flags = SNUG_FIT
-
-/obj/item/clothing/head/snowman
-	name = "Snowman Head"
-	desc = "A ball of white styrofoam. So festive."
-	icon_state = "snowman_h"
-	item_state = "snowman_h"
-	flags_cover = HEADCOVERSEYES
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	clothing_flags = SNUG_FIT
-
-/obj/item/clothing/head/justice
-	name = "justice hat"
-	desc = "Fight for what's righteous!"
-	icon_state = "justicered"
-	item_state = "justicered"
-	flags_inv = HIDEHAIR|HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
-	flags_cover = HEADCOVERSEYES
-	clothing_flags = SNUG_FIT
-
-/obj/item/clothing/head/justice/blue
-	icon_state = "justiceblue"
-	item_state = "justiceblue"
-
-/obj/item/clothing/head/justice/yellow
-	icon_state = "justiceyellow"
-	item_state = "justiceyellow"
-
-/obj/item/clothing/head/justice/green
-	icon_state = "justicegreen"
-	item_state = "justicegreen"
-
-/obj/item/clothing/head/justice/pink
-	icon_state = "justicepink"
-	item_state = "justicepink"
-
-/obj/item/clothing/head/flatcap
-	name = "flat cap"
-	desc = "A working man's cap."
-	icon_state = "flat_cap"
-	item_state = "detective"
-
-/obj/item/clothing/head/pirate
-	name = "pirate hat"
-	desc = "Yarr."
-	icon_state = "pirate"
-	item_state = "pirate"
-	dog_fashion = /datum/dog_fashion/head/pirate
-
-/obj/item/clothing/head/pirate
-	var/datum/language/piratespeak/L = new
-
-/obj/item/clothing/head/pirate/equipped(mob/user, slot)
-	. = ..()
-	if(!ishuman(user))
-		return
-	if(slot == ITEM_SLOT_HEAD)
-		user.grant_language(/datum/language/piratespeak/, TRUE, TRUE, LANGUAGE_HAT)
-		to_chat(user, "You suddenly know how to speak like a pirate!")
-
-/obj/item/clothing/head/pirate/dropped(mob/user)
-	. = ..()
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(ITEM_SLOT_HEAD) == src && !QDELETED(src)) //This can be called as a part of destroy
-		user.remove_language(/datum/language/piratespeak/, TRUE, TRUE, LANGUAGE_HAT)
-		to_chat(user, "You can no longer speak like a pirate.")
-
-/obj/item/clothing/head/pirate/captain
-	icon_state = "hgpiratecap"
-	item_state = "hgpiratecap"
-
-/obj/item/clothing/head/bandana
-	name = "pirate bandana"
-	desc = "Yarr."
-	icon_state = "bandana"
-	item_state = "bandana"
-	dynamic_hair_suffix = ""
-
-/obj/item/clothing/head/bowler
-	name = "bowler-hat"
-	desc = "Gentleman, elite aboard!"
-	icon_state = "bowler"
-	item_state = "bowler"
-	dynamic_hair_suffix = ""
-
-/obj/item/clothing/head/witchwig
-	name = "witch costume wig"
-	desc = "Eeeee~heheheheheheh!"
-	icon_state = "witch"
-	item_state = "witch"
-	flags_inv = HIDEHAIR
-
-/obj/item/clothing/head/chicken
-	name = "chicken suit head"
-	desc = "Bkaw!"
-	icon_state = "chickenhead"
-	item_state = "chickensuit"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	clothing_flags = SNUG_FIT
-
-/obj/item/clothing/head/griffin
-	name = "griffon head"
-	desc = "Why not 'eagle head'? Who knows."
-	icon_state = "griffinhat"
-	item_state = "griffinhat"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	clothing_flags = SNUG_FIT
-
-/obj/item/clothing/head/bearpelt
-	name = "bear pelt hat"
-	desc = "Fuzzy."
-	icon_state = "bearpelt"
-	item_state = "bearpelt"
-
-/obj/item/clothing/head/xenos
-	name = "xenos helmet"
-	icon_state = "xenos"
-	item_state = "xenos_helm"
-	desc = "A helmet made out of chitinous alien hide."
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
@@ -240,12 +53,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, SHAMEBRERO_TRAIT)
 
-/obj/item/clothing/head/flatcap
-	name = "flat cap"
-	desc = "A working man's cap."
-	icon_state = "flat_cap"
-	item_state = "detective"
-
 /obj/item/clothing/head/cone
 	desc = "This cone is trying to warn you of something!"
 	name = "warning cone"
@@ -260,34 +67,6 @@
 	attack_verb = list("warned", "cautioned", "smashed")
 	resistance_flags = NONE
 	dynamic_hair_suffix = ""
-
-/obj/item/clothing/head/santa
-	name = "santa hat"
-	desc = "On the first day of christmas my employer gave to me!"
-	icon_state = "santahatnorm"
-	item_state = "that"
-	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	dog_fashion = /datum/dog_fashion/head/santa
-
-/obj/item/clothing/head/jester
-	name = "jester hat"
-	desc = "A hat with bells, to add some merriness to the suit."
-	icon_state = "jester_hat"
-	dynamic_hair_suffix = ""
-
-/obj/item/clothing/head/jester/alt
-	icon_state = "jester2"
-
-/obj/item/clothing/head/rice_hat
-	name = "rice hat"
-	desc = "Welcome to the rice fields, motherfucker."
-	icon_state = "rice_hat"
-
-/obj/item/clothing/head/lizard
-	name = "lizardskin cloche hat"
-	desc = "How many lizards died to make this hat? Not enough."
-	icon_state = "lizard"
 
 /obj/item/clothing/head/papersack
 	name = "paper sack hat"
@@ -314,41 +93,6 @@
 	name = "magnificent crown"
 	desc = "A crown worn by only the highest emperors of the <s>land</s> space."
 	icon_state = "fancycrown"
-
-/obj/item/clothing/head/costume/scarecrow_hat
-	name = "scarecrow hat"
-	desc = "A simple straw hat."
-	icon_state = "scarecrow_hat"
-
-/obj/item/clothing/head/lobsterhat
-	name = "foam lobster head"
-	desc = "When everything's going to crab, protecting your head is the best choice."
-	icon_state = "lobster_hat"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
-	clothing_flags = SNUG_FIT
-
-/obj/item/clothing/head/drfreezehat
-	name = "doctor freeze's wig"
-	desc = "A cool wig for cool people."
-	icon_state = "drfreeze_hat"
-	flags_inv = HIDEHAIR
-
-/obj/item/clothing/head/costume/pharaoh
-	name = "pharaoh hat"
-	desc = "Walk like an Egyptian."
-	icon_state = "pharoah_hat"
-	icon_state = "pharoah_hat"
-
-/obj/item/clothing/head/costume/nemes
-	name = "headdress of Nemes"
-	desc = "Lavish space tomb not included."
-	icon_state = "nemes_headdress"
-	icon_state = "nemes_headdress"
-
-/obj/item/clothing/head/costume/delinquent
-	name = "delinquent hat"
-	desc = "Good grief."
-	icon_state = "delinquent"
 
 /obj/item/clothing/head/frenchberet
 	name = "french beret"
@@ -415,12 +159,6 @@
 	desc = "An extra-mustahabb way of showing your devotion to Allah."
 	icon_state = "taqiyahred"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
-
-/obj/item/clothing/head/intern
-	name = "\improper CentCom Head Intern beancap"
-	desc = "A horrifying mix of beanie and softcap in CentCom green. You'd have to be pretty desperate for power over your peers to agree to wear this."
-	icon_state = "intern_hat"
-	item_state = "intern_hat"
 
 /obj/item/clothing/head/flowercrown
 	name = "generic flower crown"
@@ -508,13 +246,8 @@
 	desc = "There's nothing quite like the ocean breeze in the morning."
 	icon_state = "marine"
 
-/obj/item/clothing/head/chicken_head_retro
+/obj/item/clothing/head/costume/chicken_head_retro
 	name = "chicken head"
 	desc = "Looks just like a real one."
 	icon_state = "chicken"
 	flags_inv = HIDEHAIR
-
-/obj/item/clothing/head/maidheadband
-	name = "maid headband"
-	desc = "Just like from one of those chinese cartoons!"
-	icon_state = "maid_headband"

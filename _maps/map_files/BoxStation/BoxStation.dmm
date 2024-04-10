@@ -1940,7 +1940,7 @@
 /area/security/prison)
 "aBE" = (
 /obj/item/clothing/under/misc/mailman,
-/obj/item/clothing/head/mailman,
+/obj/item/clothing/head/costume/mailman,
 /obj/structure/closet,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
@@ -36810,7 +36810,7 @@
 /area/maintenance/solars/port/aft)
 "lbG" = (
 /obj/structure/safe,
-/obj/item/clothing/head/bearpelt,
+/obj/item/clothing/head/costume/bearpelt,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/item/gun/ballistic/revolver/russian,
@@ -38803,8 +38803,8 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/clothing/suit/cardborg,
-/obj/item/clothing/head/cardborg,
+/obj/item/clothing/suit/costume/cardborg,
+/obj/item/clothing/head/costume/cardborg,
 /turf/open/floor/iron/techmaint,
 /area/crew_quarters/fitness)
 "lTp" = (

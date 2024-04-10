@@ -248,7 +248,7 @@
 			new /obj/item/storage/belt/champion(src)
 			new /obj/item/clothing/mask/luchador(src)
 		if(100)
-			new /obj/item/clothing/head/bearpelt(src)
+			new /obj/item/clothing/head/costume/bearpelt(src)
 	spawned_loot = TRUE
 
 /obj/structure/closet/crate/secure/loot/emp_act(severity)

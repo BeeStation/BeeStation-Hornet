@@ -103,7 +103,7 @@
 		/obj/machinery/smoke_machine = 10,
 		/obj/item/clothing/head/kitty = 5,
 		/obj/item/coin/antagtoken = 5,
-		/obj/item/clothing/suit/cardborg = 10,
+		/obj/item/clothing/suit/costume/cardborg = 10,
 		/obj/item/toy/prize/honk = 10,
 		/obj/item/bedsheet/patriot = 2,
 		/obj/item/bedsheet/rainbow = 2,

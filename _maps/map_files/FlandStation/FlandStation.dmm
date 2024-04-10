@@ -24537,7 +24537,7 @@
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "giB" = (
 /obj/structure/closet/secure_closet/CMO,
-/obj/item/clothing/head/nursehat,
+/obj/item/clothing/head/costume/nursehat,
 /obj/item/clothing/under/rank/medical/doctor/nurse,
 /obj/item/screwdriver{
 	pixel_y = 6
@@ -33818,7 +33818,7 @@
 "iBn" = (
 /obj/item/clothing/under/suit/black_really,
 /obj/item/cane,
-/obj/item/clothing/head/bowler{
+/obj/item/clothing/head/hats/bowler{
 	pixel_y = 5
 	},
 /obj/item/toy/katana,
@@ -62707,7 +62707,7 @@
 "qcG" = (
 /obj/structure/table/wood,
 /obj/item/food/pie/cream,
-/obj/item/clothing/head/lobsterhat,
+/obj/item/clothing/head/costume/lobsterhat,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
@@ -91949,7 +91949,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/clothing/head/witchwig,
+/obj/item/clothing/head/costume/witchwig,
 /obj/item/staff/broom,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)

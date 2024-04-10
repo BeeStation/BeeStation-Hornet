@@ -41,7 +41,7 @@
 
 /datum/gear/hat/bowler
 	display_name = "bowler hat"
-	path = /obj/item/clothing/head/bowler
+	path = /obj/item/clothing/head/hats/bowler
 
 /datum/gear/hat/ushanka
 	display_name = "space ushanka"
@@ -202,13 +202,13 @@
 
 /datum/gear/hat/cueball
 	display_name = "cubeball helmet"
-	path = /obj/item/clothing/head/cueball
+	path = /obj/item/clothing/head/costume/cueball
 	cost = 5000
 
 /datum/gear/hat/piratehat
 	display_name = "pirate hat"
 	description = "Yarr. Comes with one free pirate speak manual."
-	path = /obj/item/clothing/head/pirate
+	path = /obj/item/clothing/head/costume/pirate
 	cost = 5000
 
 //CHAPLAIN HATS

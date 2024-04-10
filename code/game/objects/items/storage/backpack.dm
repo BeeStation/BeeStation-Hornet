@@ -384,7 +384,7 @@
 /obj/item/storage/backpack/satchel/flat/treasure/PopulateContents()
 	new /obj/item/dualsaber/toy(src)
 	new /obj/item/clothing/suit/costume/pirate(src)
-	new /obj/item/clothing/head/pirate(src)
+	new /obj/item/clothing/head/costume/pirate(src)
 	for(var/i in 1 to 3)
 		new /obj/item/coin/gold(src)
 
