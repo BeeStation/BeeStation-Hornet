@@ -39,11 +39,10 @@
 
 //Standard biosuit, orange stripe
 /obj/item/clothing/head/bio_hood/general
-	icon_state = "bio_general"
+	icon_state = "bio"
 
 /obj/item/clothing/suit/bio_suit/general
-	icon_state = "bio_general"
-
+	icon_state = "bio"
 
 //Virology biosuit, green stripe
 /obj/item/clothing/head/bio_hood/virology
@@ -51,7 +50,6 @@
 
 /obj/item/clothing/suit/bio_suit/virology
 	icon_state = "bio_virology"
-
 
 //Security biosuit, grey with red stripe across the chest
 /obj/item/clothing/head/bio_hood/security

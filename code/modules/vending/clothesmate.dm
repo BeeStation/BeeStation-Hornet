@@ -50,7 +50,7 @@
 				/obj/item/clothing/neck/tie/horrible = 3,
 				/obj/item/clothing/head/chaplain/kippah = 3,
 				/obj/item/clothing/head/chaplain/taqiyah/red = 3,
-				/obj/item/clothing/head/that = 1,
+				/obj/item/clothing/head/hats/tophat = 1,
 				/obj/item/clothing/head/fedora = 1,
 				/obj/item/clothing/head/cowboy = 1,
 				/obj/item/clothing/head/sombrero = 1,

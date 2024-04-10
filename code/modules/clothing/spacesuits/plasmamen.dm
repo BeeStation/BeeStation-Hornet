@@ -335,7 +335,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/bartender/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()
@@ -642,7 +642,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()
@@ -818,7 +818,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/protective/bartender/Initialize(mapload)
 	. = ..()
-	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/hats/tophat
 	attached_hat = hat
 	hat.forceMove(src)
 	update_icon()

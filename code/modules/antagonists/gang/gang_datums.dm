@@ -29,7 +29,7 @@
 /datum/team/gang/max
 	name = "Max"
 	color = "#800000"
-	hat = /obj/item/clothing/head/that
+	hat = /obj/item/clothing/head/hats/tophat
 	outfit = /obj/item/clothing/under/costume/joker
 	suit = /obj/item/clothing/suit/costume/joker
 

@@ -157,7 +157,7 @@
 			if(JOB_NAME_BOTANIST)
 				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/glass/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
 			if(JOB_NAME_BARTENDER)
-				heirloom_type = pick(/obj/item/reagent_containers/glass/rag, /obj/item/clothing/head/that, /obj/item/reagent_containers/food/drinks/shaker)
+				heirloom_type = pick(/obj/item/reagent_containers/glass/rag, /obj/item/clothing/head/hats/tophat, /obj/item/reagent_containers/food/drinks/shaker)
 			if(JOB_NAME_CURATOR)
 				heirloom_type = pick(/obj/item/pen/fountain, /obj/item/storage/pill_bottle/dice)
 			if(JOB_NAME_CHAPLAIN)

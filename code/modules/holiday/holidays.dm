@@ -70,7 +70,7 @@
 	begin_month = DECEMBER
 	end_day = 2
 	end_month = JANUARY
-	drone_hat = /obj/item/clothing/head/festive
+	drone_hat = /obj/item/clothing/head/costume/festive
 
 /datum/holiday/new_year/getStationPrefix()
 	return pick("Party","New","Hangover","Resolution", "Auld")
@@ -110,7 +110,7 @@
 	name = "Birthday of Space Station 13"
 	begin_day = 16
 	begin_month = FEBRUARY
-	drone_hat = /obj/item/clothing/head/festive
+	drone_hat = /obj/item/clothing/head/costume/festive
 
 /datum/holiday/birthday/greet()
 	var/game_age = text2num(time2text(world.timeofday, "YY")) - 3
@@ -367,7 +367,7 @@
 	name = "Boss' Day"
 	begin_day = 16
 	begin_month = OCTOBER
-	drone_hat = /obj/item/clothing/head/that
+	drone_hat = /obj/item/clothing/head/hats/tophat
 
 /datum/holiday/halloween
 	name = HALLOWEEN
@@ -434,7 +434,7 @@
 	begin_week = 4
 	begin_month = NOVEMBER
 	begin_weekday = THURSDAY
-	drone_hat = /obj/item/clothing/head/that //This is the closest we can get to a pilgrim's hat
+	drone_hat = /obj/item/clothing/head/hats/tophat //This is the closest we can get to a pilgrim's hat
 
 /datum/holiday/thanksgiving/canada
 	name = "Thanksgiving in Canada"

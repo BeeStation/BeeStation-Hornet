@@ -284,7 +284,7 @@
 	product_ads = "Guaranteed to prevent stains from spilled drinks!"
 	vend_reply = "Thank you for using the BarDrobe!"
 	light_color = LIGHT_COLOR_WHITE
-	products = list(/obj/item/clothing/head/that = 2,
+	products = list(/obj/item/clothing/head/hats/tophat = 2,
 					/obj/item/radio/headset/headset_srv = 2,
 					/obj/item/clothing/under/suit/sl = 2,
 					/obj/item/clothing/under/rank/civilian/bartender = 2,

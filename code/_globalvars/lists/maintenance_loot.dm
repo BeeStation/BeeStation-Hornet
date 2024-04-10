@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/clothing/head/cone = 2,
 	/obj/item/clothing/head/utility/hardhat = 1,
 	/obj/item/clothing/head/utility/hardhat/red = 1,
-	/obj/item/clothing/head/that = 1,
+	/obj/item/clothing/head/hats/tophat = 1,
 	/obj/item/clothing/head/costume/ushanka = 1,
 	/obj/item/clothing/head/welding = 1,
 	/obj/item/clothing/mask/gas/old = 15,		//greytide

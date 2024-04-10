@@ -273,6 +273,59 @@
 	if (user.head == src)
 		user.faction -= "carp"
 
+//Carpsuit, bestsuit, lovesuit
+
+/obj/item/clothing/suit/hooded/carp_costume/spaceproof
+	name = "carp space suit"
+	desc = "A slimming piece of dubious space carp technology."
+	icon_state = "carp_suit"
+	item_state = "space_suit_syndicate"
+	slowdown = 0	//Space carp magic, never stop believing
+	armor = list(MELEE = 20,  BULLET = 10, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 75, FIRE = 60, ACID = 75, STAMINA = 40)
+	allowed = list(
+		/obj/item/tank/internals,
+		/obj/item/pneumatic_cannon/speargun,
+		/obj/item/toy/plush/carpplushie/dehy_carp,
+		/obj/item/toy/plush/carpplushie,
+		/obj/item/food/fishmeat/carp
+	)//I'm giving you a hint here
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	hoodtype = /obj/item/clothing/head/hooded/carp_hood/spaceproof
+	resistance_flags = NONE
+
+/obj/item/clothing/head/hooded/carp_hood/spaceproof
+	name = "carp helmet"
+	desc = "Spaceworthy and it looks like a space carp's head, smells like one too."
+	icon_state = "carp_helm"
+	item_state = "syndicate"
+	armor = list(MELEE = 20,  BULLET = 10, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 75, FIRE = 60, ACID = 75, STAMINA = 40)
+	light_system = NO_LIGHT_SUPPORT
+	light_range = 0 //luminosity when on
+	actions_types = list()
+
+/obj/item/clothing/head/hooded/carp_hood/spaceproof/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, LOCKED_HELMET_TRAIT)
+
+/obj/item/clothing/head/hooded/carp_hood/spaceproof/old
+	name = "battered carp helmet"
+	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10)
+
+/obj/item/clothing/suit/hooded/carp_costume/spaceproof/old
+	name = "battered carp space suit"
+	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
+	slowdown = 1
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
+	helmettype = /obj/item/clothing/head/hooded/carp_hood/spaceproof/old
+
 /obj/item/clothing/suit/hooded/ian_costume	//It's Ian, rub his bell- oh god what happened to his inside parts?
 	name = "corgi costume"
 	desc = "A costume that looks like someone made a human-like corgi, it won't guarantee belly rubs."

@@ -175,7 +175,7 @@
 
 //Security
 
-/obj/item/clothing/head/HoS
+/obj/item/clothing/head/hats/hos
 	name = "head of security cap"
 	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
 	icon_state = "hoscap"
@@ -184,22 +184,24 @@
 	dynamic_hair_suffix = ""
 	dying_key = DYE_REGISTRY_CAP
 
-/obj/item/clothing/head/HoS/syndicate
+/obj/item/clothing/head/hats/hos/syndicate
 	name = "syndicate cap"
 	desc = "A black cap fit for a high ranking syndicate officer."
 
-/obj/item/clothing/head/HoS/beret
+/obj/item/clothing/head/hats/hos/beret
 	name = "head of security beret"
+	icon = 'icons/obj/clothing/head/beret.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
 	icon_state = "hosberetblack"
 	dying_key = DYE_REGISTRY_CAP
 
-/obj/item/clothing/head/HoS/beret/syndicate
+/obj/item/clothing/head/hats/hos/beret/syndicate
 	name = "syndicate beret"
 	desc = "A black beret with thick armor padding inside. Stylish and robust."
 	dying_key = DYE_REGISTRY_CAP
 
-/obj/item/clothing/head/warden
+/obj/item/clothing/head/hats/warden
 	name = "warden's police hat"
 	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
 	icon_state = "policehelm"
@@ -207,15 +209,15 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
 
-/obj/item/clothing/head/warden/drill
+/obj/item/clothing/head/hats/warden/drill
 	name = "warden's campaign hat"
 	desc = "A special armored campaign hat with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
 	icon_state = "wardendrill"
-	item_state = "wardendrill"
+	item_state = null
 	dog_fashion = null
 	var/mode = DRILL_DEFAULT
 
-/obj/item/clothing/head/warden/drill/screwdriver_act(mob/living/carbon/human/user, obj/item/I)
+/obj/item/clothing/head/hats/warden/drill/screwdriver_act(mob/living/carbon/human/user, obj/item/I)
 	if(..())
 		return TRUE
 	switch(mode)
@@ -232,24 +234,24 @@
 			to_chat(user, "<span class='danger'>You adjust voice circuit but nothing happens, probably because it's broken.</span>")
 	return TRUE
 
-/obj/item/clothing/head/warden/drill/wirecutter_act(mob/living/user, obj/item/I)
+/obj/item/clothing/head/hats/warden/drill/wirecutter_act(mob/living/user, obj/item/I)
 	if(mode != DRILL_CANADIAN)
 		to_chat(user, "<span class='danger'>You broke the voice circuit!</span>")
 		mode = DRILL_CANADIAN
 	return TRUE
 
-/obj/item/clothing/head/warden/drill/equipped(mob/M, slot)
+/obj/item/clothing/head/hats/warden/drill/equipped(mob/M, slot)
 	. = ..()
 	if (slot == ITEM_SLOT_HEAD)
 		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
 
-/obj/item/clothing/head/warden/drill/dropped(mob/M)
+/obj/item/clothing/head/hats/warden/drill/dropped(mob/M)
 	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
-/obj/item/clothing/head/warden/drill/proc/handle_speech(datum/source, mob/speech_args)
+/obj/item/clothing/head/hats/warden/drill/proc/handle_speech(datum/source, mob/speech_args)
 	SIGNAL_HANDLER
 
 	var/message = speech_args[SPEECH_MESSAGE]

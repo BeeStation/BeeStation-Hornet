@@ -181,7 +181,7 @@
 	new /obj/item/clothing/under/rank/security/head_of_security/white(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade/female(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade(src)
-	new /obj/item/clothing/head/HoS(src)
+	new /obj/item/clothing/head/hats/hos(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "\proper warden's locker"
@@ -192,8 +192,8 @@
 	..()
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/clothing/suit/armor/vest/warden(src)
-	new /obj/item/clothing/head/warden(src)
-	new /obj/item/clothing/head/warden/drill(src)
+	new /obj/item/clothing/head/hats/warden(src)
+	new /obj/item/clothing/head/hats/warden/drill(src)
 	new /obj/item/clothing/head/beret/sec/navywarden(src)
 	new /obj/item/clothing/head/beret/corpwarden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)

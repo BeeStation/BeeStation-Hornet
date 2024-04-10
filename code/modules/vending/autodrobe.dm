@@ -42,7 +42,7 @@
 					/obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/under/suit/black = 1,
 					/obj/item/clothing/under/suit/relaxed = 1,
-					/obj/item/clothing/head/that = 1,
+					/obj/item/clothing/head/hats/tophat = 1,
 					/obj/item/clothing/under/costume/kilt = 1,
 					/obj/item/clothing/head/beret/vintage = 1,
 					/obj/item/clothing/head/beret/archaic = 1,

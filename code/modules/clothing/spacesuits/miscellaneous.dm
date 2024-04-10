@@ -316,54 +316,6 @@ Contains:
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	slowdown = 0
 
-//Carpsuit, bestsuit, lovesuit
-/obj/item/clothing/head/helmet/space/hardsuit/carp
-	name = "carp helmet"
-	desc = "Spaceworthy and it looks like a space carp's head, smells like one too."
-	icon_state = "carp_helm"
-	item_state = "syndicate"
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 75, FIRE = 60, ACID = 75, STAMINA = 40)
-	light_system = NO_LIGHT_SUPPORT
-	light_range = 0 //luminosity when on
-	actions_types = list()
-
-/obj/item/clothing/head/helmet/space/hardsuit/carp/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, LOCKED_HELMET_TRAIT)
-
-/obj/item/clothing/suit/space/hardsuit/carp
-	name = "carp space suit"
-	desc = "A slimming piece of dubious space carp technology."
-	icon_state = "carp_suit"
-	item_state = "space_suit_syndicate"
-	slowdown = 0	//Space carp magic, never stop believing
-	armor = list(MELEE = 20,  BULLET = 10, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 75, FIRE = 60, ACID = 75, STAMINA = 40)
-	allowed = list(/obj/item/tank/internals, /obj/item/pneumatic_cannon/speargun, /obj/item/toy/plush/carpplushie/dehy_carp, /obj/item/toy/plush/carpplushie, /obj/item/food/fishmeat/carp)	//I'm giving you a hint here
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/carp
-
-/obj/item/clothing/head/helmet/space/hardsuit/carp/equipped(mob/living/carbon/human/user, slot)
-	..()
-	if (slot == ITEM_SLOT_HEAD)
-		user.faction |= "carp"
-
-/obj/item/clothing/head/helmet/space/hardsuit/carp/dropped(mob/living/carbon/human/user)
-	..()
-	if (user.head == src)
-		user.faction -= "carp"
-
-/obj/item/clothing/head/helmet/space/hardsuit/carp/old
-	name = "battered carp helmet"
-	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10)
-
-/obj/item/clothing/suit/space/hardsuit/carp/old
-	name = "battered carp space suit"
-	desc = "It's covered in bite marks and scratches, yet seems to be still perfectly functional."
-	slowdown = 1
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/carp/old
-
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
 	name = "paranormal response team helmet"
 	desc = "A helmet worn by those who deal with paranormal threats for a living."

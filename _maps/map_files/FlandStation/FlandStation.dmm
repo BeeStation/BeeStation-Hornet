@@ -56545,7 +56545,7 @@
 /area/science/misc_lab/range)
 "otw" = (
 /obj/structure/closet/secure_closet/hos,
-/obj/item/clothing/head/HoS/beret,
+/obj/item/clothing/head/hats/hos/beret,
 /obj/item/clothing/suit/armor/hos/trenchcoat,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9

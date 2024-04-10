@@ -61,7 +61,7 @@
 	items = list(
 		/obj/item/clothing/accessory/waistcoat,
 		/obj/item/clothing/under/suit/black,
-		/obj/item/clothing/head/that)
+		/obj/item/clothing/head/hats/tophat)
 
 /obj/effect/spawner/bundle/costume/highlander
 	name = "highlander costume spawner"

@@ -53606,7 +53606,7 @@
 /area/maintenance/disposal/incinerator)
 "sAL" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/that,
+/obj/item/clothing/head/hats/tophat,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "sBr" = (
@@ -59014,7 +59014,7 @@
 /area/maintenance/solars/port/aft)
 "uRS" = (
 /obj/structure/closet/secure_closet/hos,
-/obj/item/clothing/head/HoS/beret,
+/obj/item/clothing/head/hats/hos/beret,
 /obj/item/clothing/suit/armor/hos/trenchcoat,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9

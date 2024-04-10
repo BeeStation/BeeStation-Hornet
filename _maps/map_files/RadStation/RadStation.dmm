@@ -41405,7 +41405,7 @@
 	pixel_y = 5
 	},
 /obj/item/clothing/suit/armor/hos/trenchcoat,
-/obj/item/clothing/head/HoS/beret,
+/obj/item/clothing/head/hats/hos/beret,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "mWi" = (
