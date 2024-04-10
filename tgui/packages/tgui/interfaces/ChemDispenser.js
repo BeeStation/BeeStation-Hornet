@@ -130,7 +130,7 @@ export const ChemDispenser = (_props, context) => {
       <Window.Content scrollable>
         <Section
           title="Status"
-          buttons={(
+          buttons={
             <>
               {recording && (
                 <Box inline mx={1} color="red">
@@ -141,10 +141,11 @@ export const ChemDispenser = (_props, context) => {
               <Button
                 icon="book"
                 disabled={!data.isBeakerLoaded}
-                content={"Reaction search"}
-                onClick={() => act('reaction_lookup')} />
+                content={'Reaction search'}
+                onClick={() => act('reaction_lookup')}
+              />
             </>
-          )}>
+          }>
           <LabeledList>
             <LabeledList.Item label="Energy">
               <ProgressBar value={data.energy / data.maxEnergy}>{toFixed(data.energy) + ' units'}</ProgressBar>
