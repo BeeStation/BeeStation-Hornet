@@ -5867,12 +5867,6 @@
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/iron/techmaint/planetary,
 /area/asteroid/paradise/surface)
-"csc" = (
-/obj/machinery/power/turbine{
-	luminosity = 2
-	},
-/turf/open/floor/engine/vacuum,
-/area/maintenance/disposal/incinerator)
 "csB" = (
 /obj/effect/turf_decal/tile/dark_red{
 	alpha = 180;
@@ -22231,14 +22225,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
-"kOE" = (
-/obj/machinery/power/compressor{
-	comp_id = "incineratorturbineRight";
-	dir = 1;
-	luminosity = 2
-	},
-/turf/open/floor/engine/vacuum,
-/area/maintenance/disposal/incinerator)
 "kPr" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -28927,6 +28913,18 @@
 "ozT" = (
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
+"ozY" = (
+/obj/machinery/power/compressor{
+	comp_id = "incineratorturbineRight";
+	dir = 1;
+	luminosity = 2
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/cable,
+/turf/open/floor/engine/vacuum,
+/area/maintenance/disposal/incinerator)
 "oAv" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -60065,8 +60063,8 @@ ufL
 eZf
 lmF
 tUh
-kOE
-csc
+ozY
+ibg
 tRR
 mFt
 cEu
