@@ -3356,7 +3356,7 @@
 	anchored = 1;
 	name = "I Don't Know"
 	},
-/obj/item/clothing/head/bishopmitre{
+/obj/item/clothing/head/chaplain/bishopmitre{
 	pixel_x = -1;
 	pixel_y = 16
 	},

@@ -3,7 +3,9 @@
 	name = "explorer suit"
 	desc = "An armoured suit for exploring harsh environments."
 	icon_state = "explorer"
-	item_state = "explorer"
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	worn_icon = 'icons/mob/clothing/suits/utility.dmi'
+	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	cold_protection = CHEST|GROIN|LEGS|ARMS
@@ -11,7 +13,15 @@
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/explorer
 	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50, STAMINA = 20)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
+	allowed = list(
+		/obj/item/flashlight,
+		/obj/item/tank/internals,
+		/obj/item/resonator,
+		/obj/item/mining_scanner,
+		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/gun/energy/kinetic_accelerator,
+		/obj/item/pickaxe
+	)
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
 	flags_inv = HIDEJUMPSUIT
@@ -19,6 +29,8 @@
 /obj/item/clothing/head/hooded/explorer
 	name = "explorer hood"
 	desc = "An armoured hood for exploring harsh environments."
+	icon = 'icons/obj/clothing/head/utility.dmi'
+	worn_icon = 'icons/mob/clothing/head/utility.dmi'
 	icon_state = "explorer"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
@@ -40,6 +52,7 @@
 	name = "explorer gas mask"
 	desc = "A military-grade gas mask that can be connected to an air supply."
 	icon_state = "gas_mining"
+	item_state = "explorer_gasmask"
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	visor_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	visor_flags_inv = HIDEFACIALHAIR

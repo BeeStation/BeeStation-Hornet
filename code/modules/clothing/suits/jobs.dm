@@ -41,10 +41,15 @@
 	desc = "An apron-jacket used by a high class chef."
 	icon_state = "chef"
 	item_state = "chef"
+	icon = 'icons/obj/clothing/suits/jacket.dmi'
+	worn_icon = 'icons/mob/clothing/suits/jacket.dmi'
 	gas_transfer_coefficient = 0.9
 	permeability_coefficient = 0.5
 	body_parts_covered = CHEST|GROIN|ARMS
-	allowed = list(/obj/item/kitchen)
+	allowed = list(
+		/obj/item/kitchen,
+		/obj/item/knife/kitchen,
+	)
 	togglename = "sleeves"
 
 //Cook
@@ -52,40 +57,43 @@
 	name = "cook's apron"
 	desc = "A basic, dull, white chef's apron."
 	icon_state = "apronchef"
-	item_state = "apronchef"
+	item_state = null
 	blood_overlay_type = "armor"
 	body_parts_covered = CHEST|GROIN
-	allowed = list(/obj/item/kitchen)
+	allowed = list(
+		/obj/item/kitchen,
+		/obj/item/knife/kitchen,
+	)
 
 //Detective
-/obj/item/clothing/suit/det_suit
+/obj/item/clothing/suit/jacket/det_suit
 	name = "trenchcoat"
 	desc = "An 18th-century multi-purpose trenchcoat. Someone who wears this means serious business."
 	icon_state = "detective"
 	item_state = "det_suit"
 	blood_overlay_type = "coat"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	body_parts_covered = CHEST|GROIN|ARMS
 	armor = list(MELEE = 25,  BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 40)
-	cold_protection = CHEST|GROIN|LEGS|ARMS
-	heat_protection = CHEST|GROIN|LEGS|ARMS
+	cold_protection = CHEST|GROIN|ARMS
+	heat_protection = CHEST|GROIN|ARMS
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	allowed = list(/obj/item/tank/internals, /obj/item/melee/classic_baton) //Trench coats are a little more apt at carrying larger objects.
 
-/obj/item/clothing/suit/det_suit/Initialize(mapload)
+/obj/item/clothing/suit/jacket/det_suit/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.detective_vest_allowed
 
-/obj/item/clothing/suit/det_suit/grey
+/obj/item/clothing/suit/jacket/det_suit/dark
 	name = "noir trenchcoat"
 	desc = "A hard-boiled private investigator's grey trenchcoat."
 	icon_state = "greydet"
-	item_state = "greydet"
+	item_state = null
 
-/obj/item/clothing/suit/det_suit/noir
+/obj/item/clothing/suit/jacket/det_suit/noir
 	name = "noir suit coat"
 	desc = "A dapper private investigator's grey suit coat."
 	icon_state = "detsuit"
-	item_state = "detsuit"
+	item_state = null
 
 //Brig Phys
 /obj/item/clothing/suit/hazardvest/brig_physician
@@ -101,9 +109,17 @@
 	name = "hazard vest"
 	desc = "A high-visibility vest used in work zones."
 	icon_state = "hazard"
-	item_state = "hazard"
+	icon = 'icons/obj/clothing/suits/utility.dmi'
+	worn_icon = 'icons/mob/clothing/suits/utility.dmi'
+	item_state = null
 	blood_overlay_type = "armor"
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/radio)
+	allowed = list(
+		/obj/item/flashlight,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman,
+		/obj/item/t_scanner,
+		/obj/item/radio
+	)
 	resistance_flags = NONE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/large
 

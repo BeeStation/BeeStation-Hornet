@@ -74,7 +74,7 @@
 	melee_damage = 30
 	deathmessage = "collapses into a pile of bones, its gear clanging as it hits the ground!"
 	loot = list(/obj/effect/decal/remains/human,
-				/obj/item/clothing/suit/armor/riot/chaplain,
+				/obj/item/clothing/suit/chaplainsuit/armor/templar,
 				/obj/item/clothing/head/helmet/chaplain,
 				/obj/item/claymore/weak{name = "holy sword"})
 

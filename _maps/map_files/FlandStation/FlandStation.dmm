@@ -6019,7 +6019,7 @@
 "btv" = (
 /obj/structure/closet,
 /obj/item/storage/backpack/cultpack,
-/obj/item/clothing/head/nun_hood,
+/obj/item/clothing/head/chaplain/nun_hood,
 /obj/item/clothing/suit/chaplainsuit/nun,
 /obj/item/clothing/suit/chaplainsuit/holidaypriest,
 /obj/item/flashlight/lantern/heirloom_moth,
@@ -17373,7 +17373,7 @@
 /obj/item/clothing/under/rank/security/detective{
 	icon_state = "curator"
 	},
-/obj/item/clothing/suit/det_suit{
+/obj/item/clothing/suit/jacket/det_suit{
 	icon_state = "curator"
 	},
 /obj/item/clothing/head/fedora/det_hat{

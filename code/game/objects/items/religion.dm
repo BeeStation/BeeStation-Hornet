@@ -247,20 +247,7 @@
 	icon_state = "bannerpack-blue"
 
 //this is all part of one item set
-/obj/item/clothing/suit/armor/plate/crusader
-	name = "Crusader's Armour"
-	desc = "Armour that's comprised of metal and cloth."
-	icon_state = "crusader"
-	w_class = WEIGHT_CLASS_BULKY
-	slowdown = 2.0 //gotta pretend we're balanced.
-	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 50)
 
-/obj/item/clothing/suit/armor/plate/crusader/red
-	icon_state = "crusader-red"
-
-/obj/item/clothing/suit/armor/plate/crusader/blue
-	icon_state = "crusader-blue"
 
 /obj/item/clothing/head/helmet/plate/crusader
 	name = "Crusader's Hood"
@@ -370,14 +357,14 @@
 
 
 /obj/item/storage/box/itemset/crusader/blue/PopulateContents()
-	new /obj/item/clothing/suit/armor/plate/crusader/blue(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/crusader/blue(src)
 	new /obj/item/clothing/head/helmet/plate/crusader/blue(src)
 	new /obj/item/clothing/gloves/plate/blue(src)
 	new /obj/item/clothing/shoes/plate/blue(src)
 
 
 /obj/item/storage/box/itemset/crusader/red/PopulateContents()
-	new /obj/item/clothing/suit/armor/plate/crusader/red(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/crusader/red(src)
 	new /obj/item/clothing/head/helmet/plate/crusader/red(src)
 	new /obj/item/clothing/gloves/plate/red(src)
 	new /obj/item/clothing/shoes/plate/red(src)

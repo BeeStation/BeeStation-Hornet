@@ -54,19 +54,19 @@
 	dying_key = DYE_REGISTRY_CAP
 
 //Chaplain
-/obj/item/clothing/head/nun_hood
+/obj/item/clothing/head/chaplain/nun_hood
 	name = "nun hood"
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
-/obj/item/clothing/head/bishopmitre
+/obj/item/clothing/head/chaplain/bishopmitre
 	name = "bishop mitre"
 	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
 	icon_state = "bishopmitre"
 
-/obj/item/clothing/head/bishopmitre/black
+/obj/item/clothing/head/chaplain/bishopmitre/black
 	icon_state = "blackbishopmitre"
 
 //Detective
@@ -75,6 +75,7 @@
 	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this hat."
 	armor = list(MELEE = 25,  BULLET = 5, LASER = 25, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 50, STAMINA = 25)
 	icon_state = "detective"
+	item_state = "det_hat"
 	var/candy_cooldown = 0
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
 	dog_fashion = /datum/dog_fashion/head/detective

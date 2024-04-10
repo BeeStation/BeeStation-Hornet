@@ -215,6 +215,6 @@
 
 /datum/gear/hat/blackbishop
 	display_name = "black bishop mitre"
-	path = /obj/item/clothing/head/bishopmitre/black
+	path = /obj/item/clothing/head/chaplain/bishopmitre/black
 	cost = 5000
 	allowed_roles = list(JOB_NAME_CHAPLAIN)

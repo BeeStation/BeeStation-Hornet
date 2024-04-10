@@ -1,33 +1,12 @@
 // CHAPLAIN CUSTOM ARMORS //
 
-/obj/item/clothing/suit/armor/riot/chaplain/Initialize(mapload)
+/obj/item/clothing/suit/chaplainsuit/armor/templar/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
-
-/obj/item/clothing/head/helmet/chaplain
-	name = "crusader helmet"
-	desc = "Deus Vult."
-	icon_state = "knight_templar"
-	item_state = "knight_templar"
-	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 40)
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	strip_delay = 80
-	dog_fashion = null
-
-/obj/item/clothing/suit/armor/riot/chaplain
-	name = "crusader armour"
-	desc = "God wills it!"
-	icon_state = "knight_templar"
-	item_state = "knight_templar"
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	slowdown = 0
-	blocks_shove_knockdown = FALSE
-	move_sound = null
 
 /obj/item/choice_beacon/radial/holy
 	name = "armaments beacon"
@@ -88,7 +67,7 @@
 
 /obj/item/storage/box/holy/PopulateContents()
 	new /obj/item/clothing/head/helmet/chaplain(src)
-	new /obj/item/clothing/suit/armor/riot/chaplain(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/templar(src)
 
 /obj/item/storage/box/holy/student
 	name = "Profane Scholar Kit"
@@ -96,10 +75,10 @@
 	info_text = "Profane Scholar Kit, for granting the common masses the sight to the beyond. \n<span class='notice'>The robe can hold a variety of religious items.</span>"
 
 /obj/item/storage/box/holy/student/PopulateContents()
-	new /obj/item/clothing/suit/armor/riot/chaplain/studentuni(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/templar/studentuni(src)
 	new /obj/item/clothing/head/helmet/chaplain/cage(src)
 
-/obj/item/clothing/suit/armor/riot/chaplain/studentuni
+/obj/item/clothing/suit/chaplainsuit/armor/templar/studentuni
 	name = "student robe"
 	desc = "The uniform of a bygone institute of learning."
 	icon_state = "studentuni"
@@ -107,36 +86,14 @@
 	body_parts_covered = ARMS|CHEST
 	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 
-/obj/item/clothing/head/helmet/chaplain/cage
-	name = "cage"
-	desc = "A cage that restrains the will of the self, allowing one to see the profane world for what it is."
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
-	icon_state = "cage"
-	item_state = "cage"
-	worn_x_dimension = 64
-	worn_y_dimension = 64
-	dynamic_hair_suffix = ""
-
 /obj/item/storage/box/holy/sentinel
 	name = "Stone Sentinel Kit"
 	item_icon_state = "giantdad"
 	info_text = "Stone Sentinel Kit, for making a stalwart stance against herecy. \n<span class='notice'>The armor can hold a variety of religious items.</span>"
 
 /obj/item/storage/box/holy/sentinel/PopulateContents()
-	new /obj/item/clothing/suit/armor/riot/chaplain/ancient(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/ancient(src)
 	new /obj/item/clothing/head/helmet/chaplain/ancient(src)
-
-/obj/item/clothing/head/helmet/chaplain/ancient
-	name = "ancient helmet"
-	desc = "None may pass!"
-	icon_state = "knight_ancient"
-	item_state = "knight_ancient"
-
-/obj/item/clothing/suit/armor/riot/chaplain/ancient
-	name = "ancient armour"
-	desc = "Defend the treasure..."
-	icon_state = "knight_ancient"
-	item_state = "knight_ancient"
 
 /obj/item/storage/box/holy/witchhunter
 	name = "Witchhunter Kit"
@@ -144,23 +101,11 @@
 	info_text = "Witchhunter Kit, for burning the wicked at the stake. \n<span class='notice'>The garb can hold a variety of religious items. \nComes with a crucifix that wards against hexes.</span>"
 
 /obj/item/storage/box/holy/witchhunter/PopulateContents()
-	new /obj/item/clothing/suit/armor/riot/chaplain/witchhunter(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/witchhunter(src)
 	new /obj/item/clothing/head/helmet/chaplain/witchunter_hat(src)
 	new /obj/item/clothing/neck/crucifix(src)
 
-/obj/item/clothing/suit/armor/riot/chaplain/witchhunter
-	name = "witchunter garb"
-	desc = "This worn outfit saw much use back in the day."
-	icon_state = "witchhunter"
-	item_state = "witchhunter"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 
-/obj/item/clothing/head/helmet/chaplain/witchunter_hat
-	name = "witchunter hat"
-	desc = "This hat saw much use back in the day."
-	icon_state = "witchhunterhat"
-	item_state = "witchhunterhat"
-	flags_cover = HEADCOVERSEYES
 
 /obj/item/storage/box/holy/graverobber
 	name = "Grave Robber Kit"
@@ -168,44 +113,10 @@
 	info_text = "Grave Robber Kit, for finding the treasures of those who parted this world. \n<span class='notice'>The coat can hold a variety of religious items. \nPickaxe not included.</span>"
 
 /obj/item/storage/box/holy/graverobber/PopulateContents()
-	new /obj/item/clothing/suit/armor/riot/chaplain/graverobber_coat(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/templar/graverobber_coat(src)
 	new /obj/item/clothing/under/rank/civilian/graverobber_under(src)
 	new /obj/item/clothing/head/chaplain/graverobber_hat(src)
 	new /obj/item/clothing/gloves/graverobber_gloves(src)
-
-/obj/item/clothing/suit/armor/riot/chaplain/graverobber_coat
-	name = "grave robber coat"
-	desc = "To those with a keen eye, gold gleams like a dagger's point."
-	icon_state = "graverobber_coat"
-	item_state = "graverobber_coat"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-
-/obj/item/clothing/head/chaplain/graverobber_hat
-	name = "grave robber hat"
-	desc = "A tattered leather hat. It reeks of death."
-	icon_state = "graverobber_hat"
-	item_state = "graverobber_hat"
-	flags_cover = HEADCOVERSEYES
-
-/obj/item/clothing/gloves/graverobber_gloves
-	name = "grave robber gloves"
-	desc = "A pair of leather gloves in poor condition."
-	icon_state = "graverobber-gloves"
-	item_state = "graverobber-gloves"
-	permeability_coefficient = 0.9
-	cold_protection = HANDS
-	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	heat_protection = HANDS
-	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	resistance_flags = NONE
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 20, STAMINA = 0)
-
-/obj/item/clothing/under/rank/civilian/graverobber_under
-	name = "grave robber uniform"
-	desc = "A shirt and some leather pants in poor condition."
-	icon_state = "graverobber_under"
-	item_state = "graverobber_under"
-	can_adjust = FALSE
 
 /obj/item/storage/box/holy/adept
 	name = "Divine Adept Kit"
@@ -213,21 +124,8 @@
 	info_text = "Divine Adept Kit, for standing stalward with unvavering faith. \n<span class='notice'>The robes can hold a variety of religious items.</span>"
 
 /obj/item/storage/box/holy/adept/PopulateContents()
-	new /obj/item/clothing/suit/armor/riot/chaplain/adept(src)
+	new /obj/item/clothing/suit/chaplainsuit/armor/templar/adept(src)
 	new /obj/item/clothing/head/helmet/chaplain/adept(src)
-
-/obj/item/clothing/head/helmet/chaplain/adept
-	name = "adept hood"
-	desc = "Its only heretical when others do it."
-	icon_state = "crusader"
-	item_state = "crusader"
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
-
-/obj/item/clothing/suit/armor/riot/chaplain/adept
-	name = "adept robes"
-	desc = "The ideal outfit for burning the unfaithful."
-	icon_state = "crusader"
-	item_state = "crusader"
 
 /obj/item/storage/box/holy/follower
 	name = "Followers of the Chaplain Kit"
@@ -240,38 +138,6 @@
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
-
-/obj/item/clothing/suit/hooded/chaplain_hoodie
-	name = "follower hoodie"
-	desc = "Hoodie made for acolytes of the chaplain."
-	icon_state = "chaplain_hoodie"
-	icon = 'icons/obj/clothing/suits/chaplain.dmi'
-	worn_icon = 'icons/mob/clothing/suits/chaplain.dmi'
-	item_state = null
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood
-
-/obj/item/clothing/head/hooded/chaplain_hood
-	name = "follower hood"
-	desc = "Hood made for acolytes of the chaplain."
-	icon = 'icons/obj/clothing/head/chaplain.dmi'
-	worn_icon = 'icons/mob/clothing/head/chaplain.dmi'
-	icon_state = "chaplain_hood"
-	body_parts_covered = HEAD
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
-
-/obj/item/clothing/suit/hooded/chaplain_hoodie/leader
-	name = "leader hoodie"
-	desc = "Now you're ready for some 50 dollar bling water."
-	icon_state = "chaplain_hoodie_leader"
-	item_state = "chaplain_hoodie_leader"
-	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/leader
-
-/obj/item/clothing/head/hooded/chaplain_hood/leader
-	name = "leader hood"
-	desc = "I mean, you don't /have/ to seek bling water. I just think you should."
-	icon_state = "chaplain_hood_leader"
 
 
 // CHAPLAIN NULLROD AND CUSTOM WEAPONS //

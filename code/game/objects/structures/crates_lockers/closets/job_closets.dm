@@ -102,7 +102,7 @@
 	new /obj/item/clothing/under/rank/civilian/chaplain(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/suit/chaplainsuit/nun(src)
-	new /obj/item/clothing/head/nun_hood(src)
+	new /obj/item/clothing/head/chaplain/nun_hood(src)
 	new /obj/item/clothing/suit/hooded/chaplainsuit/monkfrock(src)
 	new /obj/item/clothing/suit/chaplainsuit/holidaypriest(src)
 	new /obj/item/storage/backpack/cultpack(src)

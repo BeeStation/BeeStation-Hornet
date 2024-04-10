@@ -216,7 +216,7 @@
 "JQ" = (
 /obj/structure/table/wood/fancy,
 /obj/item/clothing/suit/chaplainsuit/nun,
-/obj/item/clothing/head/nun_hood,
+/obj/item/clothing/head/chaplain/nun_hood,
 /obj/item/clothing/suit/chaplainsuit/holidaypriest,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/holofloor/dark,

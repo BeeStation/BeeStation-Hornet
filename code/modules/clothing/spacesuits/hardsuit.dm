@@ -2,8 +2,8 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
-	icon = 'icons/obj/clothing/head/utility.dmi'
-	worn_icon = 'icons/mob/clothing/head/utility.dmi'
+	icon = 'icons/obj/clothing/head/hardsuit.dmi'
+	worn_icon = 'icons/mob/clothing/head/hardsuit.dmi'
 	icon_state = "hardsuit0-engineering"
 	item_state = "eng_helm"
 	max_integrity = 300

@@ -26045,7 +26045,7 @@
 /obj/item/storage/backpack/cultpack,
 /obj/item/clothing/suit/chaplainsuit/holidaypriest,
 /obj/item/clothing/suit/chaplainsuit/nun,
-/obj/item/clothing/head/nun_hood,
+/obj/item/clothing/head/chaplain/nun_hood,
 /turf/open/floor/carpet/green,
 /area/chapel/main)
 "njB" = (

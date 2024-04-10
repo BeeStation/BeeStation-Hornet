@@ -62285,7 +62285,7 @@
 	dir = 1
 	},
 /obj/structure/closet,
-/obj/item/clothing/head/nun_hood,
+/obj/item/clothing/head/chaplain/nun_hood,
 /obj/item/clothing/suit/chaplainsuit/nun,
 /obj/item/clothing/suit/chaplainsuit/holidaypriest,
 /obj/item/storage/backpack/cultpack,
@@ -63735,7 +63735,7 @@
 /obj/item/clothing/head/fedora/det_hat{
 	icon_state = "curator"
 	},
-/obj/item/clothing/suit/det_suit{
+/obj/item/clothing/suit/jacket/det_suit{
 	icon_state = "curator"
 	},
 /obj/item/reagent_containers/food/drinks/flask/det,
