@@ -38911,7 +38911,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/office)
 "mjq" = (
-/obj/item/clothing/suit/cultrobes/alt,
+/obj/item/clothing/suit/hooded/cultrobes/alt,
 /obj/item/toy/toy_dagger,
 /turf/open/floor/iron/cult,
 /area/chapel/office)
