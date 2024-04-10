@@ -2489,6 +2489,7 @@
 #include "code\modules\clothing\suits\lasertag.dm"
 #include "code\modules\clothing\suits\miscellaneous.dm"
 #include "code\modules\clothing\suits\reactive_armour.dm"
+#include "code\modules\clothing\suits\shirt.dm"
 #include "code\modules\clothing\suits\straightjacket.dm"
 #include "code\modules\clothing\suits\toggles.dm"
 #include "code\modules\clothing\suits\utility.dm"

@@ -42110,7 +42110,7 @@
 /area/quartermaster/miningoffice)
 "gId" = (
 /obj/structure/closet/secure_closet/hop,
-/obj/item/clothing/suit/ianshirt,
+/obj/item/clothing/suit/costume/ianshirt,
 /obj/item/bedsheet/ian,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1

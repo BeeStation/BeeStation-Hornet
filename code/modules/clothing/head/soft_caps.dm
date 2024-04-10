@@ -112,7 +112,7 @@
 	name = "paramedic cap"
 	desc = "It's a baseball hat with a dark turquoise color and a reflective cross on the top."
 	icon_state = "paramedicsoft"
-	soft_type = "paramedic"
+	soft_color = "paramedic"
 	dog_fashion = null
 
 /obj/item/clothing/head/soft/cargo

@@ -29835,7 +29835,7 @@
 /area/security/checkpoint/escape)
 "hDD" = (
 /obj/structure/closet/secure_closet/hop,
-/obj/item/clothing/suit/ianshirt,
+/obj/item/clothing/suit/costume/ianshirt,
 /obj/item/bedsheet/ian,
 /obj/item/radio/intercom{
 	pixel_x = -28

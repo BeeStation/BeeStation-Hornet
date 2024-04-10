@@ -122,7 +122,7 @@
 	color = "#FFC0CB"
 	hat = /obj/item/clothing/head/fedora
 	outfit = /obj/item/clothing/under/color/white
-	suit = /obj/item/clothing/suit/nerdshirt
+	suit = /obj/item/clothing/suit/costume/nerdshirt
 
 /datum/team/gang/sleepingcarp
 	name = "Sleeping Carp"
@@ -143,4 +143,4 @@
 	color = "#66ff33"
 	hat = /obj/item/clothing/head/beanie/rasta
 	outfit = /obj/item/clothing/under/color/green
-	suit = /obj/item/clothing/suit/vapeshirt
+	suit = /obj/item/clothing/suit/costume/vapeshirt

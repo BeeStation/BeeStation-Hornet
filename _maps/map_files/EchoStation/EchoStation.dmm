@@ -47067,7 +47067,7 @@
 	name = "-2 Primary Hallway"
 	})
 "ygZ" = (
-/obj/item/clothing/suit/ianshirt,
+/obj/item/clothing/suit/costume/ianshirt,
 /obj/item/bedsheet/ian,
 /obj/structure/closet/secure_closet{
 	req_access_txt = "57"
