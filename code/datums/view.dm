@@ -1,6 +1,6 @@
 //This is intended to be a full wrapper. DO NOT directly modify its values
 ///Container for client viewsize
-/datum/viewData
+/datum/view_data
 	/// Width offset to apply to the default view string if we're not supressed for some reason
 	var/width = 0
 	/// Height offset to apply to the default view string, see above
@@ -20,108 +20,108 @@
 	/// The client that owns this view packet
 	var/client/chief = null
 
-/datum/viewData/New(client/owner, view_string)
+/datum/view_data/New(client/owner, view_string)
 	default = view_string
 	chief = owner
 	apply()
 
-/datum/viewData/Destroy()
+/datum/view_data/Destroy()
 	chief = null
 	return ..()
 
-/datum/viewData/proc/setDefault(string)
+/datum/view_data/proc/setDefault(string)
 	default = string
 	apply()
 
-/datum/viewData/proc/safeApplyFormat()
+/datum/view_data/proc/safeApplyFormat()
 	if(isZooming())
 		assertFormat()
 		return
 	resetFormat()
 
-/datum/viewData/proc/assertFormat()//T-Pose
+/datum/view_data/proc/assertFormat()//T-Pose
 	winset(chief, "mapwindow.map", "zoom=0")
 	zoom = 0
 
-/datum/viewData/proc/resetFormat()
+/datum/view_data/proc/resetFormat()
 	zoom = chief?.prefs.read_preference(/datum/preference/numeric/pixel_size)
 	winset(chief, "mapwindow.map", "zoom=[zoom]")
 	chief?.attempt_auto_fit_viewport() // If you change zoom mode, fit the viewport
 
-/datum/viewData/proc/setZoomMode()
+/datum/view_data/proc/setZoomMode()
 	winset(chief, "mapwindow.map", "zoom-mode=[chief?.prefs.read_preference(/datum/preference/choiced/scaling_method)]")
 
-/datum/viewData/proc/isZooming()
+/datum/view_data/proc/isZooming()
 	return (width || height)
 
-/datum/viewData/proc/resetToDefault(var/new_default)
+/datum/view_data/proc/resetToDefault(var/new_default)
 	width = 0
 	height = 0
 	if(new_default != null)
 		default = new_default
 	apply()
 
-/datum/viewData/proc/add(toAdd)
+/datum/view_data/proc/add(toAdd)
 	width += toAdd
 	height += toAdd
 	apply()
 
-/datum/viewData/proc/addTo(toAdd)
+/datum/view_data/proc/addTo(toAdd)
 	var/list/shitcode = getviewsize(toAdd)
 	width += shitcode[1]
 	height += shitcode[2]
 	apply()
 
-/datum/viewData/proc/setTo(toAdd)
+/datum/view_data/proc/setTo(toAdd)
 	var/list/shitcode = getviewsize(toAdd)  //Backward compatability to account
 	width = shitcode[1]						//for a change in how sizes get calculated. we used to include world.view in
 	height = shitcode[2]					//this, but it was jank, so I had to move it
 	apply()
 
-/datum/viewData/proc/setBoth(wid, hei)
+/datum/view_data/proc/setBoth(wid, hei)
 	width = wid
 	height = hei
 	apply()
 
-/datum/viewData/proc/setWidth(wid)
+/datum/view_data/proc/setWidth(wid)
 	width = wid
 	apply()
 
-/datum/viewData/proc/setHeight(hei)
+/datum/view_data/proc/setHeight(hei)
 	width = hei
 	apply()
 
-/datum/viewData/proc/addToWidth(toAdd)
+/datum/view_data/proc/addToWidth(toAdd)
 	width += toAdd
 	apply()
 
-/datum/viewData/proc/addToHeight(screen, toAdd)
+/datum/view_data/proc/addToHeight(screen, toAdd)
 	height += toAdd
 	apply()
 
-/datum/viewData/proc/apply()
+/datum/view_data/proc/apply()
 	chief?.change_view(getView())
 	safeApplyFormat()
 
-/datum/viewData/proc/supress()
+/datum/view_data/proc/supress()
 	is_suppressed = TRUE
 	apply()
 
-/datum/viewData/proc/unsupress()
+/datum/view_data/proc/unsupress()
 	is_suppressed = FALSE
 	apply()
 
-/datum/viewData/proc/getView()
+/datum/view_data/proc/getView()
 	var/list/temp = getviewsize(default)
 	if(is_suppressed)
 		return "[temp[1]]x[temp[2]]"
 	return "[width + temp[1]]x[height + temp[2]]"
 
-/datum/viewData/proc/zoomIn()
+/datum/view_data/proc/zoomIn()
 	resetToDefault()
 	animate(chief, pixel_x = 0, pixel_y = 0, 0, FALSE, LINEAR_EASING, ANIMATION_END_NOW)
 
-/datum/viewData/proc/zoomOut(radius = 0, offset = 0, direction = FALSE)
+/datum/view_data/proc/zoomOut(radius = 0, offset = 0, direction = FALSE)
 	if(direction)
 		var/_x = 0
 		var/_y = 0
