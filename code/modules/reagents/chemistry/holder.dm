@@ -17,6 +17,14 @@
 		var/datum/reagent/D = new path()
 		GLOB.chemical_reagents_list[path] = D
 
+/// Creates an list which is indexed by reagent name
+/proc/init_chemical_name_list()
+	var/list/name_list = list()
+	for(var/X in GLOB.chemical_reagents_list)
+		var/datum/reagent/Reagent = GLOB.chemical_reagents_list[X]
+		name_list += Reagent.name
+	return sort_list(name_list)
+
 /proc/build_chemical_reactions_lists()
 	//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 	// It is filtered into multiple lists within a list.
@@ -214,6 +222,7 @@
 	data["currentReagents"] = previous_reagent_list //This keeps the string of reagents that's updated when handle_reactions() is called
 	data["beakerSync"] = ui_beaker_sync
 	data["linkedBeaker"] = my_atom.name //To solidify the fact that the UI is linked to a beaker - not a machine.
+
 	//reagent lookup data
 	if(ui_reagent_id)
 		var/datum/reagent/reagent = find_reagent_object_from_type(ui_reagent_id)
@@ -386,7 +395,7 @@
 			ui_reaction_id = text2path(params["id"])
 			return TRUE
 		if("search_reagents")
-			var/input_reagent = (input("Enter the name of any reagent", "Input") as text|null)
+			var/input_reagent = tgui_input_list(usr, "Select reagent", "Reagent", GLOB.chemical_name_list)
 			input_reagent = get_reagent_type_from_product_string(input_reagent) //from string to type
 			var/datum/reagent/reagent = find_reagent_object_from_type(input_reagent)
 			if(!reagent)
@@ -1416,3 +1425,8 @@
 				possible -= random_reagent[j]
 
 	return (return_as_list ? possible : pick(possible))
+
+
+#undef REAGENTS_UI_MODE_LOOKUP
+#undef REAGENTS_UI_MODE_REAGENT
+#undef REAGENTS_UI_MODE_RECIPE
