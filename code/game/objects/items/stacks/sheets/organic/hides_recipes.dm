@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(gondola_recipes, list ( \
 
 GLOBAL_LIST_INIT(monkey_recipes, list ( \
 	new/datum/stack_recipe("monkey mask", /obj/item/clothing/mask/gas/monkeymask, 1), \
-	new/datum/stack_recipe("monkey suit", /obj/item/clothing/suit/monkeysuit, 2), \
+	new/datum/stack_recipe("monkey suit", /obj/item/clothing/suit/costume/monkeysuit, 2), \
 	))
 
 /* Xeno hide */

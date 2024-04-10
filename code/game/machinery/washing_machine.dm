@@ -113,7 +113,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_WHITE = /obj/item/clothing/head/soft,
 		DYE_RAINBOW = /obj/item/clothing/head/soft/rainbow,
 		DYE_MIME = /obj/item/clothing/head/beret,
-		DYE_CLOWN = /obj/item/clothing/head/kitty,
+		DYE_CLOWN = /obj/item/clothing/head/costume/kitty,
 		DYE_QM = /obj/item/clothing/head/soft/cargo,
 		DYE_LAW = /obj/item/clothing/head/hats/bowler,
 		DYE_CAPTAIN = /obj/item/clothing/head/hats/caphat,

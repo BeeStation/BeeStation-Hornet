@@ -129,11 +129,11 @@
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 
 
-/obj/item/clothing/suit/monkeysuit
+/obj/item/clothing/suit/costume/monkeysuit
 	name = "monkey suit"
 	desc = "A suit that looks like a primate."
 	icon_state = "monkeysuit"
-	item_state = "monkeysuit"
+	item_state = null
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 

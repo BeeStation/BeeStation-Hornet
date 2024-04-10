@@ -84,15 +84,15 @@
 
 /datum/gear/donator/head/gangster_wig
 	display_name = "gangster wig"
-	path = /obj/item/clothing/head/gangsterwig
+	path = /obj/item/clothing/head/costume/gangsterwig
 
 /datum/gear/donator/head/oldhat
 	display_name = "old man hat"
-	path = /obj/item/clothing/head/oldhat
+	path = /obj/item/clothing/head/costume/oldhat
 
 /datum/gear/donator/head/marine
 	display_name = "mariner hat"
-	path = /obj/item/clothing/head/marine
+	path = /obj/item/clothing/head/costume/marine
 
 /datum/gear/donator/suit/retro_chicken_head
 	display_name = "retro chicken head"

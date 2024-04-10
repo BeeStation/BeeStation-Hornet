@@ -20058,7 +20058,7 @@
 	},
 /obj/item/clothing/head/fedora,
 /obj/item/clothing/under/dress/redeveninggown,
-/obj/item/clothing/head/rabbitears,
+/obj/item/clothing/head/costume/rabbitears,
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/dorms)
 "cpS" = (
@@ -26145,7 +26145,7 @@
 /obj/item/clothing/suit/jacket/letterman_nanotrasen,
 /obj/item/clothing/suit/toggle/lawyer,
 /obj/item/clothing/under/costume/maid,
-/obj/item/clothing/head/kitty,
+/obj/item/clothing/head/costume/kitty,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22

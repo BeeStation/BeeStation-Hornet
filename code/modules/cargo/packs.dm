@@ -2012,8 +2012,8 @@
 	desc = "Some research is best done with monkeys, yet sometimes they're just too dumb to complete more complicated tasks. These helmets should help."
 	cost = 1500
 	max_supply = 1
-	contains = list(/obj/item/clothing/head/monkey_sentience_helmet,
-					/obj/item/clothing/head/monkey_sentience_helmet)
+	contains = list(/obj/item/clothing/head/helmet/monkey_sentience_helmet,
+					/obj/item/clothing/head/helmet/monkey_sentience_helmet)
 	crate_name = "monkey mind magnification crate"
 
 /datum/supply_pack/science/transfer_valves
@@ -2974,7 +2974,7 @@
 					/obj/item/clothing/head/costume/chicken,
 					/obj/item/clothing/suit/costume/chickensuit,
 					/obj/item/clothing/mask/gas/monkeymask,
-					/obj/item/clothing/suit/monkeysuit,
+					/obj/item/clothing/suit/costume/monkeysuit,
 					/obj/item/clothing/head/costume/cardborg,
 					/obj/item/clothing/suit/costume/cardborg,
 					/obj/item/clothing/head/costume/xenos,

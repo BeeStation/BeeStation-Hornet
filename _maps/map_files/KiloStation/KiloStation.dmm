@@ -9310,7 +9310,7 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/structure/closet/secure_closet/personal,
 /obj/item/clothing/under/costume/maid,
-/obj/item/clothing/head/kitty,
+/obj/item/clothing/head/costume/kitty,
 /obj/item/clothing/neck/maid,
 /obj/item/clothing/neck/petcollar,
 /obj/item/clothing/gloves/maid,

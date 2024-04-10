@@ -658,7 +658,7 @@
 
 /datum/crafting_recipe/kittyears
 	name = "Kitty Ears"
-	result = /obj/item/clothing/head/kitty/genuine
+	result = /obj/item/clothing/head/costume/kitty/genuine
 	time = 10
 	reqs = list(/obj/item/organ/tail/cat = 1,
 				/obj/item/organ/ears/cat = 1)

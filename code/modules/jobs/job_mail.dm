@@ -255,7 +255,7 @@
 		/obj/item/firing_pin = 10,
 		/obj/item/implantcase/mindshield = 7,
 		//Vile, vile person...
-		/obj/item/clothing/head/kitty = 5,
+		/obj/item/clothing/head/costume/kitty = 5,
 		//hey, always come in handy!
 		/obj/item/storage/lockbox/loyalty = 2,
 	)

@@ -335,7 +335,7 @@
 	name = "beret or rabbit ears spawner"
 	loot = list(
 		/obj/item/clothing/head/beret = 1,
-		/obj/item/clothing/head/rabbitears = 1)
+		/obj/item/clothing/head/costume/rabbitears = 1)
 
 /obj/effect/spawner/lootdrop/minor/bowler_or_that
 	name = "bowler or top hat spawner"
@@ -346,8 +346,8 @@
 /obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears
 	name = "kitty ears or rabbit ears spawner"
 	loot = list(
-		/obj/item/clothing/head/kitty = 1,
-		/obj/item/clothing/head/rabbitears = 1)
+		/obj/item/clothing/head/costume/kitty = 1,
+		/obj/item/clothing/head/costume/rabbitears = 1)
 
 /obj/effect/spawner/lootdrop/minor/pirate_or_bandana
 	name = "pirate hat or bandana spawner"

@@ -53,7 +53,7 @@
 	item_state = null
 	flags_inv = HIDEHAIR
 
-/obj/item/clothing/head/maidheadband
+/obj/item/clothing/head/costume/maidheadband
 	name = "maid headband"
 	desc = "Just like from one of those chinese cartoons!"
 	icon_state = "maid_headband"

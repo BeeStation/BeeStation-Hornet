@@ -101,7 +101,7 @@
 		/obj/item/gun/ballistic/shotgun/toy/crossbow = 1,
 		/obj/item/dualsaber/toy = 5,
 		/obj/machinery/smoke_machine = 10,
-		/obj/item/clothing/head/kitty = 5,
+		/obj/item/clothing/head/costume/kitty = 5,
 		/obj/item/coin/antagtoken = 5,
 		/obj/item/clothing/suit/costume/cardborg = 10,
 		/obj/item/toy/prize/honk = 10,

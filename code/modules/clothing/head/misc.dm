@@ -16,9 +16,11 @@
 /obj/item/clothing/head/cowboy
 	name = "ranching hat"
 	desc = "King of the plains, the half cow half man mutant, the cowboy."
+	icon = 'icons/obj/clothing/head/cowboy.dmi'
+	worn_icon = 'icons/mob/clothing/head/cowboy.dmi'
 	icon_state = "cowboy_alt"
 
-/obj/item/clothing/head/cowboy_science
+/obj/item/clothing/head/cowboy/science
 	name = "slime ranching hat"
 	desc = "King of the labs, the half slime half man mutant, the slimeboy."
 	icon_state = "cowboy_alt_science"
@@ -27,18 +29,18 @@
 //DONATOR ITEMS//
 /////////////////
 
-/obj/item/clothing/head/gangsterwig
+/obj/item/clothing/head/costume/gangsterwig
 	name = "gangstar wig"
 	desc = "Like father like son."
 	icon_state = "gangster_wig"
 	flags_inv = HIDEHAIR
 
-/obj/item/clothing/head/oldhat
+/obj/item/clothing/head/costume/oldhat
 	name = "old man hat"
 	desc = "OH MY GOD."
 	icon_state = "oldmanhat"
 
-/obj/item/clothing/head/marine
+/obj/item/clothing/head/costume/marine
 	name = "mariner hat"
 	desc = "There's nothing quite like the ocean breeze in the morning."
 	icon_state = "marine"

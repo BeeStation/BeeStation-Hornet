@@ -109,10 +109,11 @@
 	soft_color = "secmed"
 
 /obj/item/clothing/head/soft/paramedic
-	name = "EMT cap"
+	name = "paramedic cap"
 	desc = "It's a baseball hat with a dark turquoise color and a reflective cross on the top."
-	icon_state = "emtsoft"
-	soft_color = "emt"
+	icon_state = "paramedicsoft"
+	soft_type = "paramedic"
+	dog_fashion = null
 
 /obj/item/clothing/head/soft/cargo
 	name = "cargo cap"

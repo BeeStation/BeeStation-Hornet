@@ -4995,7 +4995,7 @@
 	name = "recreation camera"
 	},
 /obj/structure/table,
-/obj/item/clothing/head/kitty,
+/obj/item/clothing/head/costume/kitty,
 /obj/item/clothing/head/soft/grey{
 	pixel_x = -2;
 	pixel_y = 3
@@ -17099,7 +17099,7 @@
 /obj/item/clothing/neck/maid,
 /obj/item/clothing/neck/petcollar,
 /obj/item/clothing/under/costume/maid,
-/obj/item/clothing/head/kitty,
+/obj/item/clothing/head/costume/kitty,
 /obj/machinery/status_display/ai{
 	pixel_x = -32
 	},
@@ -50539,14 +50539,14 @@
 /obj/item/clothing/suit/jacket/letterman_nanotrasen,
 /obj/item/clothing/suit/toggle/lawyer,
 /obj/item/clothing/under/costume/maid,
-/obj/item/clothing/head/kitty,
+/obj/item/clothing/head/costume/kitty,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
 /obj/item/clothing/gloves/maid,
 /obj/item/clothing/accessory/maidapron,
 /obj/item/clothing/neck/maid,
-/obj/item/clothing/head/maidheadband,
+/obj/item/clothing/head/costume/maidheadband,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
 "mOg" = (
@@ -64349,7 +64349,7 @@
 /area/quartermaster/exploration_prep)
 "qwy" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/head/kitty/genuine,
+/obj/item/clothing/head/costume/kitty/genuine,
 /obj/item/clothing/suit/hooded/renault_costume,
 /obj/item/clothing/suit/hooded/ian_costume,
 /obj/item/clothing/suit/hooded/carp_costume,
@@ -78088,7 +78088,7 @@
 "tUV" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/dress/redeveninggown,
-/obj/item/clothing/head/rabbitears,
+/obj/item/clothing/head/costume/rabbitears,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},

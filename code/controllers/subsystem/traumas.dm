@@ -205,7 +205,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/food/chawanmushi,
 			/obj/item/reagent_containers/food/drinks/bottle/sake,
 			/obj/item/throwing_star,
-			/obj/item/clothing/head/kitty/genuine,
+			/obj/item/clothing/head/costume/kitty/genuine,
 			/obj/item/clothing/suit/space/space_ninja,
 			/obj/item/clothing/mask/gas/space_ninja,
 			/obj/item/clothing/shoes/space_ninja,
