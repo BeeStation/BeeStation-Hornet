@@ -1,0 +1,6 @@
+author: XeonMations
+delete-after: true
+changes:
+  - bugfix: Fixed wigs attached to animals being sent to the shadow realm after a
+      pet is released from a person's grasp
+  - bugfix: Fixed wigs bitflag checking uses && instead of single &
