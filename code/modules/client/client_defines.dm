@@ -8,6 +8,9 @@
 		//ADMIN THINGS//
 		////////////////
 
+	/// If this client has been fully initialized or not
+	var/fully_created = FALSE
+
 	/// The admin state of the client. If this is null, the client is not an admin.
 	var/datum/admins/holder = null
 	var/datum/click_intercept = null // Needs to implement InterceptClickOn(user,params,atom) proc
