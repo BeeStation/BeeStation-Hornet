@@ -324,7 +324,7 @@
 	slowdown = 1
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
-	helmettype = /obj/item/clothing/head/hooded/carp_hood/spaceproof/old
+	hoodtype = /obj/item/clothing/head/hooded/carp_hood/spaceproof/old
 
 /obj/item/clothing/suit/hooded/ian_costume	//It's Ian, rub his bell- oh god what happened to his inside parts?
 	name = "corgi costume"
