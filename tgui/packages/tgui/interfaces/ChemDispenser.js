@@ -143,11 +143,7 @@ export const ChemDispenser = (_props, context) => {
                 icon="book"
                 disabled={!data.isBeakerLoaded}
                 content={'Reaction search'}
-                tooltip={
-                  data.isBeakerLoaded
-                    ? 'Look up recipes and reagents!'
-                    : 'Please insert a beaker!'
-                }
+                tooltip={data.isBeakerLoaded ? 'Look up recipes and reagents!' : 'Please insert a beaker!'}
                 tooltipPosition="bottom-start"
                 onClick={() => act('reaction_lookup')}
               />
@@ -159,9 +155,7 @@ export const ChemDispenser = (_props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section
-          title="Recipes"
-          buttons={<RecipeOptions />}>
+        <Section title="Recipes" buttons={<RecipeOptions />}>
           <Box mr={-1}>
             {recipes.map((recipe) => (
               <RecipeButton recipe={recipe} key={recipe.name} />
