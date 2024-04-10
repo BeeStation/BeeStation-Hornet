@@ -136,7 +136,7 @@
 	color = "#cc9900" // p a s t a colored
 	outfit = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/apron/chef
-	hat = /obj/item/clothing/head/chefhat
+	hat = /obj/item/clothing/head/utility/chefhat
 
 /datum/team/gang/weed
 	name = "Weed"

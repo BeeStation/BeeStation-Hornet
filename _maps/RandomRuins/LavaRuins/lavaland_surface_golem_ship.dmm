@@ -300,7 +300,7 @@
 /obj/item/clothing/head/costume/pirate/bandana,
 /obj/item/clothing/head/costume/pirate/bandana,
 /obj/item/clothing/head/costume/pirate/bandana,
-/obj/item/clothing/head/crown,
+/obj/item/clothing/head/costume/crown,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
 "aX" = (

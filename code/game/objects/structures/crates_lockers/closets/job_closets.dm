@@ -41,7 +41,7 @@
 		/obj/item/circuitboard/machine/dish_drive = 1,
 		/obj/item/clothing/suit/toggle/chef = 1,
 		/obj/item/clothing/under/rank/civilian/chef = 1,
-		/obj/item/clothing/head/chefhat = 1,
+		/obj/item/clothing/head/utility/chefhat = 1,
 		/obj/item/reagent_containers/glass/rag = 1)
 	generate_items_inside(items_inside,src)
 
@@ -330,7 +330,7 @@
 
 /obj/structure/closet/wardrobe/curator/PopulateContents()
 	new /obj/item/clothing/head/fedora/curator(src)
-	new /obj/item/clothing/suit/curator(src)
+	new /obj/item/clothing/suit/jacket/curator(src)
 	new /obj/item/clothing/under/rank/civilian/curator/treasure_hunter(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/storage/backpack/satchel/explorer(src)

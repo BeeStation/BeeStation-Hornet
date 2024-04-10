@@ -65636,7 +65636,7 @@
 "xVt" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/rollingpin,
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /turf/open/floor/prison,
 /area/security/prison)
 "xVw" = (

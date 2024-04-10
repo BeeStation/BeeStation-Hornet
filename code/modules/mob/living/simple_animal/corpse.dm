@@ -119,7 +119,7 @@
 
 /datum/outfit/russiancorpse/ranged
 	name = "Ranged Russian Corpse"
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/costume/ushanka
 
 
 /obj/effect/mob_spawn/human/corpse/russian/ranged/trooper
@@ -146,7 +146,7 @@
 	suit = /obj/item/clothing/suit/jacket/officer/tan
 	shoes = /obj/item/clothing/shoes/combat
 	ears = /obj/item/radio/headset
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/costume/ushanka
 
 
 /obj/effect/mob_spawn/human/corpse/wizard

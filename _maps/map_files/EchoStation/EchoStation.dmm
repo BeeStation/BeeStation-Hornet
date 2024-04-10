@@ -23237,7 +23237,7 @@
 	pixel_x = 5;
 	pixel_y = -4
 	},
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)
 "lGq" = (
@@ -31378,7 +31378,7 @@
 	pixel_y = 13
 	},
 /obj/item/reagent_containers/glass/bowl,
-/obj/item/clothing/head/chefhat{
+/obj/item/clothing/head/utility/chefhat{
 	pixel_x = 5;
 	pixel_y = 4
 	},
@@ -32716,8 +32716,8 @@
 /obj/structure/closet/crate/hydroponics{
 	req_access_txt = "35;28"
 	},
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/utility/beekeeper_head,
+/obj/item/clothing/suit/utility/beekeeper_suit,
 /obj/item/clothing/mask/vape,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)

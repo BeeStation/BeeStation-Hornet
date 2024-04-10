@@ -207,7 +207,7 @@
 	)
 
 //Curator
-/obj/item/clothing/suit/curator
+/obj/item/clothing/suit/jacket/curator
 	name = "treasure hunter's coat"
 	desc = "Both fashionable and lightly armoured, this jacket is favoured by treasure hunters the galaxy over."
 	icon_state = "curator"

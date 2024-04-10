@@ -45,7 +45,7 @@
 
 /datum/gear/hat/ushanka
 	display_name = "space ushanka"
-	path = /obj/item/clothing/head/ushanka
+	path = /obj/item/clothing/head/costume/ushanka
 
 /datum/gear/hat/flatcap
 	display_name = "flatcap"

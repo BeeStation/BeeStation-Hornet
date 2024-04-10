@@ -10246,7 +10246,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/item/clothing/head/chefhat{
+/obj/item/clothing/head/utility/chefhat{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -48111,7 +48111,7 @@
 	pixel_y = 6
 	},
 /obj/item/kitchen/rollingpin,
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "jrs" = (
@@ -84755,12 +84755,12 @@
 /obj/structure/closet{
 	name = "beekeeping wardrobe"
 	},
-/obj/item/clothing/suit/beekeeper_suit,
-/obj/item/clothing/suit/beekeeper_suit,
-/obj/item/clothing/suit/beekeeper_suit,
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/suit/utility/beekeeper_suit,
+/obj/item/clothing/suit/utility/beekeeper_suit,
+/obj/item/clothing/suit/utility/beekeeper_suit,
+/obj/item/clothing/head/utility/beekeeper_head,
+/obj/item/clothing/head/utility/beekeeper_head,
+/obj/item/clothing/head/utility/beekeeper_head,
 /obj/item/melee/flyswatter,
 /obj/item/melee/flyswatter,
 /obj/item/melee/flyswatter,

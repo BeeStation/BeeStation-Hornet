@@ -268,7 +268,7 @@
 /area/ruin/space/has_grav/turretedoutpost)
 "IX" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/costume/ushanka,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/turretedoutpost)

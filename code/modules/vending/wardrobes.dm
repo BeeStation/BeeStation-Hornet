@@ -330,7 +330,7 @@
 					/obj/item/clothing/under/rank/civilian/chef = 1,
 					/obj/item/clothing/under/rank/civilian/chef/skirt = 2,
 					/obj/item/clothing/under/rank/civilian/altchef = 1,
-					/obj/item/clothing/head/chefhat = 3,
+					/obj/item/clothing/head/utility/chefhat = 3,
 					/obj/item/reagent_containers/glass/rag = 1,
 					/obj/item/clothing/suit/hooded/wintercoat = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe

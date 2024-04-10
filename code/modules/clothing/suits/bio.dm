@@ -5,7 +5,7 @@
 	icon = 'icons/obj/clothing/head/bio.dmi'
 	worn_icon = 'icons/mob/clothing/head/bio.dmi'
 	icon_state = "bio"
-	item_state = "bio"
+	item_state = "bio_hood"
 	permeability_coefficient = 0.01
 	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT | SNUG_FIT
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 80, FIRE = 30, ACID = 100, STAMINA = 0)

@@ -361,7 +361,7 @@
 	name = "Smiling Day"
 	begin_day = 7
 	begin_month = OCTOBER
-	drone_hat = /obj/item/clothing/head/papersack/smiley
+	drone_hat = /obj/item/clothing/head/costume/papersack/smiley
 
 /datum/holiday/boss
 	name = "Boss' Day"

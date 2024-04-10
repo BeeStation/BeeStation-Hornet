@@ -68,32 +68,6 @@
 	resistance_flags = NONE
 	dynamic_hair_suffix = ""
 
-/obj/item/clothing/head/papersack
-	name = "paper sack hat"
-	desc = "A paper sack with crude holes cut out for eyes. Useful for hiding one's identity or ugliness."
-	icon_state = "papersack"
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS|HIDESNOUT
-	clothing_flags = SNUG_FIT
-
-/obj/item/clothing/head/papersack/smiley
-	name = "paper sack hat"
-	desc = "A paper sack with crude holes cut out for eyes and a sketchy smile drawn on the front. Not creepy at all."
-	icon_state = "papersack_smile"
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS|HIDESNOUT
-
-/obj/item/clothing/head/crown
-	name = "crown"
-	desc = "A crown fit for a king, a petty king maybe."
-	icon_state = "crown"
-	armor = list(MELEE = 15,  BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 40)
-	resistance_flags = FIRE_PROOF
-	dynamic_hair_suffix = ""
-
-/obj/item/clothing/head/crown/fancy
-	name = "magnificent crown"
-	desc = "A crown worn by only the highest emperors of the <s>land</s> space."
-	icon_state = "fancycrown"
-
 /obj/item/clothing/head/frenchberet
 	name = "french beret"
 	desc = "A quality beret, infused with the aroma of chain-smoking, wine-swilling Parisians. You feel less inclined to engage military conflict, for some reason."
@@ -132,62 +106,6 @@
 		if(prob(3))
 			message += pick(" Honh honh honh!"," Honh!"," Zut Alors!")
 	speech_args[SPEECH_MESSAGE] = trim(message)
-
-/obj/item/clothing/head/flowercrown
-	name = "generic flower crown"
-	desc = "You should not be seeing this"
-	icon_state = "lily_crown"
-	dynamic_hair_suffix = ""
-	attack_verb = list("crowned")
-
-/obj/item/clothing/head/flowercrown/equipped(mob/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "flower_crown_worn", /datum/mood_event/flower_crown_worn, src)
-
-/obj/item/clothing/head/flowercrown/dropped(mob/living/carbon/user)
-	..()
-	if(user.head != src)
-		return
-	else
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "flower_crown_worn")
-
-/obj/item/clothing/head/flowercrown/rainbowbunch
-	name = "rainbow flower crown"
-	desc = "A flower crown made out of the flowers of the rainbow bunch plant."
-	icon_state_preview = "rainbow_bunch_crown_1"
-
-/obj/item/clothing/head/flowercrown/rainbowbunch/Initialize(mapload)
-	. = ..()
-	var/crown_type = rand(1,4)
-	switch(crown_type)
-		if(1)
-			desc += " This one has red, yellow and white flowers."
-			icon_state = "rainbow_bunch_crown_1"
-		if(2)
-			desc += " This one has blue, yellow, green and white flowers."
-			icon_state = "rainbow_bunch_crown_2"
-		if(3)
-			desc += " This one has red, blue, purple and pink flowers."
-			icon_state = "rainbow_bunch_crown_3"
-		if(4)
-			desc += " This one has yellow, green and white flowers."
-			icon_state = "rainbow_bunch_crown_4"
-
-/obj/item/clothing/head/flowercrown/sunflower
-	name = "sunflower crown"
-	desc = "A bright flower crown made out sunflowers that is sure to brighten up anyone's day!"
-	icon_state = "sunflower_crown"
-
-/obj/item/clothing/head/flowercrown/poppy
-	name = "poppy crown"
-	desc = "A flower crown made out of a string of bright red poppies."
-	icon_state = "poppy_crown"
-
-/obj/item/clothing/head/flowercrown/lily
-	name = "lily crown"
-	desc = "A leafy flower crown with a cluster of large white lilies at at the front."
-	icon_state = "lily_crown"
 
 /obj/item/clothing/head/cowboy
 	name = "ranching hat"

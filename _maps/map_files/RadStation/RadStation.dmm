@@ -39080,7 +39080,7 @@
 	pixel_y = 5
 	},
 /obj/item/kitchen/rollingpin,
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "mmy" = (
@@ -69347,8 +69347,8 @@
 	dir = 10
 	},
 /obj/structure/closet/crate/hydroponics,
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/utility/beekeeper_head,
+/obj/item/clothing/suit/utility/beekeeper_suit,
 /obj/item/clothing/mask/vape,
 /turf/open/floor/iron/grid/steel,
 /area/hydroponics)

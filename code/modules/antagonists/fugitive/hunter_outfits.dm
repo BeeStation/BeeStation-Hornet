@@ -113,7 +113,7 @@
 	if(visualsOnly)
 		return
 	if(prob(50))
-		head = /obj/item/clothing/head/ushanka
+		head = /obj/item/clothing/head/costume/ushanka
 	else if(prob(20))
 		head = /obj/item/clothing/head/helmet/rus_ushanka
 	else if(prob(10))

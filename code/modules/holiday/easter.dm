@@ -86,10 +86,10 @@
 	countEggs()
 
 //Bunny Suit
-/obj/item/clothing/head/bunnyhead
+/obj/item/clothing/head/costume/bunnyhead
 	name = "Easter Bunny Head"
 	icon_state = "bunnyhead"
-	item_state = "bunnyhead"
+	item_state = null
 	desc = "Considerably more cute than 'Frank'."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 
@@ -97,7 +97,9 @@
 	name = "Easter Bunny Suit"
 	desc = "Hop Hop Hop!"
 	icon_state = "bunnysuit"
-	item_state = "bunnysuit"
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
+	item_state = null
 	slowdown = -0.2
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
@@ -120,7 +122,7 @@
 	icon_state = "egg-[eggcolor]"
 
 /obj/item/suprise_egg/proc/dispensePrize(turf/where)
-	var/static/list/prize_list = list(/obj/item/clothing/head/bunnyhead,
+	var/static/list/prize_list = list(/obj/item/clothing/head/costume/bunnyhead,
 	/obj/item/clothing/suit/bunnysuit,
 	/obj/item/food/grown/carrot,
 	/obj/item/food/chocolateegg,

@@ -2328,10 +2328,10 @@
 	desc = "Bee business booming? Better be benevolent and boost botany by bestowing bi-Beekeeper-suits! Contains two beekeeper suits and matching headwear."
 	cost = 800
 	max_supply = 4
-	contains = list(/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit,
-					/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit)
+	contains = list(/obj/item/clothing/head/utility/beekeeper_head,
+					/obj/item/clothing/suit/utility/beekeeper_suit,
+					/obj/item/clothing/head/utility/beekeeper_head,
+					/obj/item/clothing/suit/utility/beekeeper_suit)
 	crate_name = "beekeeper suits"
 	crate_type = /obj/structure/closet/crate/hydroponics
 
@@ -2345,8 +2345,8 @@
 					/obj/item/honey_frame,
 					/obj/item/honey_frame,
 					/obj/item/queen_bee/bought,
-					/obj/item/clothing/head/beekeeper_head,
-					/obj/item/clothing/suit/beekeeper_suit,
+					/obj/item/clothing/head/utility/beekeeper_head,
+					/obj/item/clothing/suit/utility/beekeeper_suit,
 					/obj/item/melee/flyswatter)
 	crate_name = "beekeeping starter crate"
 	crate_type = /obj/structure/closet/crate/hydroponics

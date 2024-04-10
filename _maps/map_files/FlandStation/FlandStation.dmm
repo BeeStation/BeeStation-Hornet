@@ -51532,7 +51532,7 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/item/clothing/head/chefhat{
+/obj/item/clothing/head/utility/chefhat{
 	pixel_x = 8;
 	pixel_y = -1
 	},
@@ -90486,7 +90486,7 @@
 /obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /obj/item/book/manual/wiki/cooking_to_serve_man,
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24

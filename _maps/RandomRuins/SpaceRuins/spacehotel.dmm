@@ -1643,7 +1643,7 @@
 /area/ruin/space/has_grav/hotel)
 "ff" = (
 /obj/structure/closet/crate,
-/obj/item/clothing/head/papersack/smiley,
+/obj/item/clothing/head/costume/papersack/smiley,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
 "fg" = (

@@ -78709,7 +78709,7 @@
 	pixel_x = -2;
 	pixel_y = 13
 	},
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /obj/effect/turf_decal{
 	dir = 1
 	},
@@ -92384,7 +92384,7 @@
 	pixel_y = -26;
 	req_access_txt = "28"
 	},
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /obj/effect/turf_decal/bot,
 /obj/item/reagent_containers/glass/bowl,
 /turf/open/floor/iron,

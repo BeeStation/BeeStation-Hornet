@@ -64144,7 +64144,7 @@
 	pixel_x = -2;
 	pixel_y = 13
 	},
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /obj/item/kitchen/rollingpin,
 /turf/open/floor/prison/dark,
 /area/security/prison)

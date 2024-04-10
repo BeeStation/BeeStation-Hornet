@@ -49,10 +49,10 @@
 	new /obj/item/clothing/under/rank/captain(src)
 	new /obj/item/clothing/under/rank/captain/skirt(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
-	new /obj/item/clothing/head/caphat(src)
+	new /obj/item/clothing/head/hats/caphat(src)
 	new /obj/item/clothing/head/beret/captain(src)
-	new /obj/item/clothing/head/caphat/parade(src)
-	new /obj/item/clothing/head/crown/fancy(src)
+	new /obj/item/clothing/head/hats/caphat/parade(src)
+	new /obj/item/clothing/head/costume/crown/fancy(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 
 /obj/structure/closet/secure_closet/hop
@@ -101,7 +101,7 @@
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel/skirt(src)
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel/alt(src)
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel/alt/skirt(src)
-	new /obj/item/clothing/head/hopcap(src)
+	new /obj/item/clothing/head/hats/hopcap(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 
 /obj/structure/closet/secure_closet/brig_physician

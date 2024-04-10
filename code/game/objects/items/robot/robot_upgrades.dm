@@ -820,7 +820,7 @@
 /obj/item/borg/upgrade/speciality/kitchen
 	name = "Cook Speciality"
 	desc = "A service cyborg upgrade allowing for basic food handling."
-	hat = /obj/item/clothing/head/chefhat
+	hat = /obj/item/clothing/head/utility/chefhat
 	addmodules = list (
 		/obj/item/knife/kitchen,
 		/obj/item/kitchen/rollingpin,

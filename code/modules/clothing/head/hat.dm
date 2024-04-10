@@ -120,7 +120,7 @@
 	icon_state = "intern_hat"
 	item_state = null
 
-/obj/item/clothing/head/ushanka
+/obj/item/clothing/head/costume/ushanka
 	name = "ushanka"
 	desc = "Perfect for winter in Siberia, da?"
 	icon_state = "ushankadown"
@@ -132,7 +132,7 @@
 	//Are the flaps down?
 	var/earflaps_down = TRUE
 
-/obj/item/clothing/head/ushanka/attack_self(mob/user)
+/obj/item/clothing/head/costume/ushanka/attack_self(mob/user)
 	if(earflaps_down)
 		icon_state = "ushankaup"
 		item_state = "ushankaup"

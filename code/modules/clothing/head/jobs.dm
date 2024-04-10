@@ -5,17 +5,18 @@
 #define DRILL_CANADIAN	"canadian"
 
 //Chef
-/obj/item/clothing/head/chefhat
+/obj/item/clothing/head/utility/chefhat
 	name = "chef's hat"
-	item_state = "chef"
+	item_state = "chefhat"
 	icon_state = "chef"
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	equip_delay_other = 10
 	dynamic_hair_suffix = ""
+
 	dog_fashion = /datum/dog_fashion/head/chef
 
-/obj/item/clothing/head/chefhat/suicide_act(mob/living/user)
+/obj/item/clothing/head/utility/chefhat/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to become a chef.</span>")
 	user.say("Bork Bork Bork!", forced = "chef hat suicide")
 	sleep(20)
@@ -25,7 +26,7 @@
 	return(FIRELOSS)
 
 //Captain
-/obj/item/clothing/head/caphat
+/obj/item/clothing/head/hats/caphat
 	name = "captain's hat"
 	desc = "It's good being the king."
 	icon_state = "captain"
@@ -37,7 +38,7 @@
 	dying_key = DYE_REGISTRY_CAP
 
 //Captain: This is no longer space-worthy
-/obj/item/clothing/head/caphat/parade
+/obj/item/clothing/head/hats/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
@@ -45,7 +46,7 @@
 	dog_fashion = null
 
 //Head of Personnel
-/obj/item/clothing/head/hopcap
+/obj/item/clothing/head/hats/hopcap
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
