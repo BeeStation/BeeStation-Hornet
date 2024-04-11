@@ -60,8 +60,8 @@ Contains:
 /obj/item/clothing/head/helmet/space/beret
 	name = "officer's beret"
 	desc = "An armored beret commonly used by special operations officers. Uses advanced force field technology to protect the head from space."
-	icon = 'icons/obj/clothing/suits/beret.dmi'
-	worn_icon = 'icons/mob/clothing/suits/beret.dmi'
+	icon = 'icons/obj/clothing/head/beret.dmi'
+	worn_icon = 'icons/mob/clothing/head/beret.dmi'
 	icon_state = "dsberet"
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
