@@ -630,7 +630,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	)
 
 	var/static/list/uncommon_items = list(
-		/obj/item/clothing/head/speedwagon/cursed,
+		/obj/item/clothing/head/costume/speedwagon/cursed,
 		/obj/item/clothing/suit/space/hardsuit/ancient,
 		/obj/item/gun/energy/laser/retro/old,
 		/obj/item/storage/toolbox/mechanical/old,

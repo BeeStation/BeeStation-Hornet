@@ -63,7 +63,7 @@
 /obj/item/clothing/under/rank/engineering/engineer/skirt
 	desc = "It's an orange high visibility jumpskirt worn by engineers. It has minor radiation shielding."
 	name = "engineer's jumpskirt"
-	icon_state = "engie_skirt"
+	icon_state = "engine_skirt"
 	item_state = "engi_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE

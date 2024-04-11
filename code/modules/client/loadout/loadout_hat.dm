@@ -187,12 +187,12 @@
 
 /datum/gear/hat/speedwagon
 	display_name = "extremely masculine hat"
-	path = /obj/item/clothing/head/speedwagon
+	path = /obj/item/clothing/head/costume/speedwagon
 	cost = 25000
 
 /datum/gear/hat/speedwagon_xl
 	display_name = "extremely elongated masculine hat"
-	path = /obj/item/clothing/head/speedwagon/cursed
+	path = /obj/item/clothing/head/costume/speedwagon/cursed
 	cost = 100000
 
 /datum/gear/hat/delinquent

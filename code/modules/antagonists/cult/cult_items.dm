@@ -332,7 +332,7 @@ Striking a noncultist, however, will tear their flesh."}
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CULT_TRAIT)
 
-/obj/item/clothing/head/magus
+/obj/item/clothing/head/wizard/magus
 	name = "magus helm"
 	icon_state = "magus"
 	item_state = null

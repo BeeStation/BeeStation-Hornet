@@ -127,7 +127,7 @@
 		gradient_color = "#[user.gradient_color]"
 		update_icon()
 
-/obj/item/clothing/head/speedwagon
+/obj/item/clothing/head/costume/speedwagon
 	name = "hat of ultimate masculinity"
 	desc = "Even the mere act of wearing this makes you want to pose menacingly."
 	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
@@ -136,7 +136,7 @@
 	worn_x_dimension = 64
 	worn_y_dimension = 64
 
-/obj/item/clothing/head/speedwagon/cursed
+/obj/item/clothing/head/costume/speedwagon/cursed
 	name = "ULTIMATE HAT"
 	desc = "You feel weak and pathetic in comparison to this exceptionally beautiful hat."
 	icon_state = "speedwagon_cursed"
