@@ -49,7 +49,7 @@
 		source.balloon_alert(user, "you're incapacitated!")
 		return
 
-	if(living_user.usable_hands <= 0)
+	if(living_user.get_num_arms() <= 0)
 		source.balloon_alert(user, "you don't have hands!")
 		return
 
@@ -66,7 +66,7 @@
 /datum/component/toggle_icon/proc/on_examine(atom/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	examine_list += span_notice("Alt-click on [source] to toggle the [toggle_noun].")
+	examine_list += "<span class='notice'>Alt-click on [source] to toggle the [toggle_noun].</span>"
 
 /*
  * Actually do the toggle of the icon.

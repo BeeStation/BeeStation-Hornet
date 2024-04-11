@@ -37,11 +37,11 @@
 
 /datum/gear/donator/suit/delinquent
 	display_name = "deliquent jacket"
-	path = /obj/item/clothing/suit/delinquent
+	path = /obj/item/clothing/suit/costume/delinquent
 
 /datum/gear/donator/suit/madsci
 	display_name = "mad scientist labcoat"
-	path = /obj/item/clothing/suit/madsci
+	path = /obj/item/clothing/suit/costume/madsci
 
 /datum/gear/donator/suit/renault_costume
 	display_name = "renault costume"
@@ -49,7 +49,7 @@
 
 /datum/gear/donator/suit/retro_jacket
 	display_name = "retro jacket"
-	path = /obj/item/clothing/suit/retro_jacket
+	path = /obj/item/clothing/suit/jacket/retro_jacket
 
 //UNIFORM/UNDER
 /datum/gear/donator/uniform
@@ -70,11 +70,11 @@
 
 /datum/gear/donator/uniform/gangster
 	display_name = "gangster suit"
-	path = /obj/item/clothing/under/gangster
+	path = /obj/item/clothing/under/costume/gangster
 
 /datum/gear/donator/uniform/gangster_purple
 	display_name = "purple gangster suit"
-	path = /obj/item/clothing/under/gangster/purple
+	path = /obj/item/clothing/under/costume/gangster/purple
 
 //HEAD
 

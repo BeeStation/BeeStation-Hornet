@@ -2482,6 +2482,7 @@
 #include "code\modules\clothing\suits\chaplainsuits.dm"
 #include "code\modules\clothing\suits\costume.dm"
 #include "code\modules\clothing\suits\cloaks.dm"
+#include "code\modules\clothing\suits\donator.dm"
 #include "code\modules\clothing\suits\ghostsheet.dm"
 #include "code\modules\clothing\suits\hoodies.dm"
 #include "code\modules\clothing\suits\jacket.dm"

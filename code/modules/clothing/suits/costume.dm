@@ -92,7 +92,7 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	resistance_flags = NONE
 
-/obj/item/clothing/suit/hastur
+/obj/item/clothing/suit/costume/hastur
 	name = "\improper Hastur's robe"
 	desc = "Robes not meant to be worn by man."
 	icon_state = "hastur"

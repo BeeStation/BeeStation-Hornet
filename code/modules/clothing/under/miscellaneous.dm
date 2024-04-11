@@ -75,17 +75,3 @@
 	desc = "A cartridge loaded with a compressed extinguisher mix, used to refill the automatic extinguisher on plasma envirosuits."
 	icon_state = "plasmarefill"
 	icon = 'icons/obj/device.dmi'
-
-/////////////////
-//DONATOR ITEMS//
-/////////////////
-
-/obj/item/clothing/under/gangster
-	name = "gangstar suit"
-	desc = "Those who carry on the will of those who passed must keep moving forward."
-	icon_state = "gangster"
-	can_adjust = FALSE
-
-/obj/item/clothing/under/gangster/purple
-	desc = "I have a dream."
-	icon_state = "gangster_p"

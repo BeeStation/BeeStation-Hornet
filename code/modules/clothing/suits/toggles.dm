@@ -40,7 +40,8 @@
 
 /obj/item/clothing/suit/hooded/proc/RemoveHood()
 	src.icon_state = "[initial(icon_state)]"
-	suittoggled = FALSE
+	hood_up = FALSE
+	
 	if(hood)
 		if(ishuman(hood.loc))
 			var/mob/living/carbon/human/H = hood.loc

@@ -49,7 +49,7 @@
 /obj/item/clothing/under/plasmaman/paramedic
 	name = "paramedic plasma envirosuit"
 	desc = "A plasmaman envirosuit designed for emergency medical technicians."
-	icon_state = "emt_envirosuit"
+	icon_state = "paramedic_envirosuit"
 	item_state = null
 
 /obj/item/clothing/under/plasmaman/exploration
