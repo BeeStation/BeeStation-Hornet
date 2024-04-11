@@ -262,7 +262,7 @@ There are several things that need to be remembered:
 		glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
 	if(istype(glasses, /obj/item/clothing/glasses))
 		var/obj/item/clothing/glasses/G = glasses
-		var/icon_file = 'icons/mob/eyes.dmi'
+		var/icon_file = 'icons/mob/clothing/eyes.dmi'
 		if(G.sprite_sheets & (dna?.species.bodyflag))
 			icon_file = dna.species.get_custom_icons("glasses")
 		if(client && hud_used && hud_used.hud_shown)
@@ -293,7 +293,7 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(ears)
-		var/icon_file = 'icons/mob/ears.dmi'
+		var/icon_file = 'icons/mob/clothing/ears.dmi'
 		if(istype(ears, /obj/item))
 			var/obj/item/E = ears
 			if(E.sprite_sheets & (dna?.species.bodyflag))
@@ -326,7 +326,7 @@ There are several things that need to be remembered:
 				client.screen += wear_neck					//add it to the client's screen
 		update_observer_view(wear_neck,1)
 		if(!(check_obscured_slots() & ITEM_SLOT_NECK))
-			var/icon_file = 'icons/mob/neck.dmi'
+			var/icon_file = 'icons/mob/clothing/neck.dmi'
 			if(istype(wear_neck, /obj/item))
 				var/obj/item/N = wear_neck
 				if(N.sprite_sheets & dna?.species.bodyflag)
@@ -528,7 +528,7 @@ There are several things that need to be remembered:
 
 	if(wear_mask)
 		update_hud_wear_mask(wear_mask)
-		var/icon_file = 'icons/mob/mask.dmi'
+		var/icon_file = 'icons/mob/clothing/mask.dmi'
 		if(istype(wear_mask, /obj/item/clothing/mask))
 			var/obj/item/clothing/mask/M = wear_mask
 			if(M.sprite_sheets & dna?.species.bodyflag)

@@ -83,7 +83,7 @@
 			client.screen += head
 		var/used_head_icon = 'icons/mob/clothing/head/utility.dmi'
 		if(istype(head, /obj/item/clothing/mask))
-			used_head_icon = 'icons/mob/mask.dmi'
+			used_head_icon = 'icons/mob/clothing/mask.dmi'
 		var/mutable_appearance/head_overlay = head.build_worn_icon(src, default_layer = DRONE_HEAD_LAYER, default_icon_file = used_head_icon)
 		head_overlay.pixel_y -= 15
 
