@@ -381,7 +381,7 @@
 	icon_state = "multiverse"
 	item_state = "multiverse"
 	worn_icon_state = "multiverse"
-	slot_flags = ITEM_SLOT_BELT
+	slot_flags = ITEM_SLOT_BACK
 
 /obj/item/nullrod/claymore/multiverse/attack(mob/living/carbon/M, mob/living/carbon/user)
 	force = rand(1, 30)

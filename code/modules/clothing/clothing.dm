@@ -66,6 +66,9 @@
 	if(can_be_bloody && ((body_parts_covered & FEET) || (flags_inv & HIDESHOES)))
 		LoadComponent(/datum/component/bloodysoles)
 
+	if(!icon_state)
+		item_flags |= ABSTRACT
+
 /obj/item/clothing/MouseDrop(atom/over_object)
 	. = ..()
 	var/mob/M = usr
