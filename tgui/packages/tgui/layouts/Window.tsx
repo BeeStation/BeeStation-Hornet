@@ -9,6 +9,7 @@ import { decodeHtmlEntities, toTitleCase } from 'common/string';
 import { backendSuspendStart, useBackend } from '../backend';
 import { Icon } from '../components';
 import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from '../constants';
+import { useDebug } from '../debug';
 import { toggleKitchenSink } from '../debug/actions';
 import { dragStartHandler, recallWindowGeometry, resizeStartHandler, setWindowKey } from '../drag';
 import { createLogger } from '../logging';
@@ -35,10 +36,8 @@ type Props = Partial<{
 export const Window = (props: Props) => {
   const { canClose = true, theme, title, children, buttons, width, height, override_bg } = props;
 
-  const { config, suspended, debug } = useBackend();
-  if (suspended) {
-    return null;
-  }
+  const { config, suspended } = useBackend();
+  const { debugLayout = false } = useDebug();
 
   useEffect(() => {
     const updateGeometry = () => {
@@ -67,22 +66,17 @@ export const Window = (props: Props) => {
     };
   }, [width, height]);
 
-  let debugLayout = false;
-  if (debug) {
-    debugLayout = debug.debugLayout;
-  }
-
   const dispatch = globalStore.dispatch;
   const fancy = config.window?.fancy;
 
   // Determine when to show dimmer
   const showDimmer = config.user && (config.user.observer ? config.status < UI_DISABLED : config.status < UI_INTERACTIVE);
 
-  return (
+  return suspended ? null : (
     <Layout className="Window" theme={theme} style={override_bg ? { backgroundColor: `${override_bg} !important` } : null}>
       <TitleBar
         className="Window__titleBar"
-        title={!suspended && (title || decodeHtmlEntities(config.title))}
+        title={title || decodeHtmlEntities(config.title)}
         status={config.status}
         fancy={fancy}
         onDragStart={dragStartHandler}
