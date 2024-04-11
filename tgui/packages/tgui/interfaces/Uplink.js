@@ -12,44 +12,50 @@ const MAX_SEARCH_RESULTS = 25;
 
 const reputationLevels = {
   0: {
-    name: "Ex-Communicate",
-    description: "A traitor to the cause, betraying their brothers to seek personal gain. Reaching this level will result in halted services and a termination order after 5 minutes.",
+    name: 'Ex-Communicate',
+    description:
+      'A traitor to the cause, betraying their brothers to seek personal gain. Reaching this level will result in halted services and a termination order after 5 minutes.',
     min_reputation: null,
     max_reputation: 99,
   },
   100: {
-    name: "Blood Servant",
-    description: "An operative with a reason to act, but without the will to fulfill their greater purpose.",
+    name: 'Blood Servant',
+    description: 'An operative with a reason to act, but without the will to fulfill their greater purpose.',
     min_reputation: 100,
     max_reputation: 199,
   },
   200: {
-    name: "Field Agent",
-    description: "An operative acting on the ground, with access to some standard equipment that can be used to complete their mission.",
+    name: 'Field Agent',
+    description:
+      'An operative acting on the ground, with access to some standard equipment that can be used to complete their mission.',
     min_reputation: 200,
     max_reputation: 399,
   },
   400: {
-    name: "Specialist",
-    description: "An operative with specialized skills and knowledge, granted with additional resources and services for completing critical missions.",
+    name: 'Specialist',
+    description:
+      'An operative with specialized skills and knowledge, granted with additional resources and services for completing critical missions.',
     min_reputation: 400,
     max_reputation: 599,
   },
   600: {
-    name: "Operative",
-    description: "An experienced operative who has demonstrated competence and effectiveness in completing various missions for the Syndicate.",
+    name: 'Operative',
+    description:
+      'An experienced operative who has demonstrated competence and effectiveness in completing various missions for the Syndicate.',
     min_reputation: 600,
     max_reputation: 799,
   },
   800: {
-    name: "Director",
-    description: "A high-ranking official responsible for overseeing and coordinating operations with their team, ensuring the success of its objectives.",
+    name: 'Director',
+    description:
+      'A high-ranking official responsible for overseeing and coordinating operations with their team, ensuring the success of its objectives.',
     min_reputation: 800,
     max_reputation: 999,
   },
   1000: {
-    name: "Archon",
-    description: "A high ranking and secretive authority, possessing unparalleled knowledge, influence, and control over operations and resources.",
+    name: 'Archon',
+    description:
+      'A high ranking and secretive authority, possessing unparalleled knowledge, influence, and control over operations and resources.',
     min_reputation: 1000,
     max_reputation: null,
   },
@@ -63,7 +69,7 @@ const GetLevel = (reputation, index_change = 0) => {
   for (const level in reputationLevels) {
     if (level <= reputation || currentLevel === null) {
       currentLevel = reputationLevels[level];
-      index ++;
+      index++;
     } else {
       break;
     }
@@ -71,18 +77,15 @@ const GetLevel = (reputation, index_change = 0) => {
   // Adjust the index based on the change provided
   index += index_change;
 
-  if (index < 0)
-  {
+  if (index < 0) {
     return {
-      name: "",
-      description: "There are no lower levels within the Syndicate database.",
+      name: '',
+      description: 'There are no lower levels within the Syndicate database.',
     };
-  }
-  else if (index >= Object.keys(reputationLevels).length)
-  {
+  } else if (index >= Object.keys(reputationLevels).length) {
     return {
-      name: "",
-      description: "You are at the highest rank an agent can reach within the Syndicate.",
+      name: '',
+      description: 'You are at the highest rank an agent can reach within the Syndicate.',
     };
   }
 
@@ -130,15 +133,21 @@ export const Uplink = (props, context) => {
               <Icon ml={1} name="bell" color="yellow" className="bell_ring" />
             </Tooltip>
           </Tabs.Tab>
-          <Tabs.Tab className={`reputation ${currentLevel?.toLowerCase().replace('-', '').replace(/\s+/g, '-')}`}>
-            {currentLevel ? currentLevel : "Neutral Reputation"} ({reputation})
+          <Tabs.Tab
+            className={`reputation ${currentLevel
+              ?.toLowerCase()
+              .replace('-', '')
+              .replace(/\s+/g, '-')}`}>
+            {currentLevel ? currentLevel : 'Neutral Reputation'} ({reputation})
           </Tabs.Tab>
         </Tabs>
-        {tab === 0
-          ? <GenericUplink currencyAmount={telecrystals} currencySymbol="TC" />
-          : tab === 1
-            ? <Directives />
-            : <HomePage />}
+        {tab === 0 ? (
+          <GenericUplink currencyAmount={telecrystals} currencySymbol="TC" />
+        ) : tab === 1 ? (
+          <Directives />
+        ) : (
+          <HomePage />
+        )}
       </Window.Content>
     </Window>
   );
@@ -155,9 +164,7 @@ const HomePage = (props, context) => {
       <Flex.Item height="100%">
         <div className="Home Section">
           <div className="HomeLeft">
-            <div className="HomeTitle">
-              Welcome, Agent.
-            </div>
+            <div className="HomeTitle">Welcome, Agent.</div>
             <div className="HomeRanks">
               <RankCard
                 name={previousLevel.name}
@@ -166,7 +173,7 @@ const HomePage = (props, context) => {
                 reputation={previousLevel.min_reputation}
                 reputation_delta={previousLevel.max_reputation - reputation}
                 progression_colour="#6B1313"
-                />
+              />
               <RankCard
                 name={currentLevel.name}
                 relation="Current Rank"
@@ -175,7 +182,7 @@ const HomePage = (props, context) => {
                 reputation_delta={0}
                 current_rank
                 progression_colour="#272727"
-                />
+              />
               <RankCard
                 name={nextLevel.name}
                 relation="Next Rank"
@@ -183,22 +190,16 @@ const HomePage = (props, context) => {
                 reputation={nextLevel.min_reputation}
                 reputation_delta={nextLevel.min_reputation - reputation}
                 progression_colour="#134F12"
-                />
+              />
             </div>
           </div>
           <div className="HomeRight">
             Current Reputation
-            <div className="HomeButton">
-              200 Reputation
-            </div>
+            <div className="HomeButton">200 Reputation</div>
             Uplink Services
-            <div className="HomeButton">
-              Shop Now
-            </div>
+            <div className="HomeButton">Shop Now</div>
             Special Directives
-            <div className="HomeButton">
-              None Available
-            </div>
+            <div className="HomeButton">None Available</div>
           </div>
         </div>
       </Flex.Item>
@@ -214,27 +215,28 @@ const RankCard = (props, contxt) => {
     reputation,
     reputation_delta,
     current_rank = false,
-    progression_colour = "#6B1313",
+    progression_colour = '#6B1313',
   } = props;
   return (
     <div className="RankCard">
-      <div className={current_rank ? "RankCardMain RankCardHighlight" : "RankCardMain"}>
+      <div className={current_rank ? 'RankCardMain RankCardHighlight' : 'RankCardMain'}>
         <div className="RankCardTitle">
           {relation}
-          <div className="RankCardName">
-            {name}
-          </div>
+          <div className="RankCardName">{name}</div>
         </div>
         {description}
       </div>
       {!current_rank && !!reputation_delta && (
-        <div className="RankCardProgression" style={{
-          background: "linear-gradient(0deg, #999 -300%, " + progression_colour + " 100%)",
-        }}>
-          {reputation_delta > 0 ? ("Gain " + reputation_delta + " reputation to reach promotion") : ("Demotion if " + -reputation_delta + " reputation is lost")}
+        <div
+          className="RankCardProgression"
+          style={{
+            background: 'linear-gradient(0deg, #999 -300%, ' + progression_colour + ' 100%)',
+          }}>
+          {reputation_delta > 0
+            ? 'Gain ' + reputation_delta + ' reputation to reach promotion'
+            : 'Demotion if ' + -reputation_delta + ' reputation is lost'}
         </div>
       )}
-
     </div>
   );
 };
@@ -321,16 +323,17 @@ const Directives = (props, context) => {
                   ))}
                   {(selectedObjective?.rep_gain || selectedObjective?.rep_loss) && (
                     <>
-                    <Box mt={3} mb={1} underline bold>
-                      Reputation Details
-                    </Box>
-                    <Box>
-                      This mission will affect your reputation level.<br />
-                      <ul>
-                        <li>Success will result in gaining {selectedObjective?.rep_gain} reputation.</li>
-                        <li>Failure will result in losing {selectedObjective?.rep_loss} reputation.</li>
-                      </ul>
-                    </Box>
+                      <Box mt={3} mb={1} underline bold>
+                        Reputation Details
+                      </Box>
+                      <Box>
+                        This mission will affect your reputation level.
+                        <br />
+                        <ul>
+                          <li>Success will result in gaining {selectedObjective?.rep_gain} reputation.</li>
+                          <li>Failure will result in losing {selectedObjective?.rep_loss} reputation.</li>
+                        </ul>
+                      </Box>
                     </>
                   )}
                   <Box mt={3} mb={1} underline bold>
@@ -351,9 +354,7 @@ const Directives = (props, context) => {
                   </Flex.Item>
                   <Flex.Item grow pl={2}>
                     <Box bold>{selectedObjective?.reward ? selectedObjective?.reward + ' Telecrystals' : 'No reward'}</Box>
-                    {(selectedObjective?.rep_gain) && (
-                      <Box bold>{selectedObjective?.rep_gain} Reputation</Box>
-                    )}
+                    {selectedObjective?.rep_gain && <Box bold>{selectedObjective?.rep_gain} Reputation</Box>}
                   </Flex.Item>
                 </div>
                 <Flex.Item grow height="100%" align="flex-end" textAlign="right">
@@ -389,18 +390,23 @@ const ObjectiveCard = (props, context) => {
   } = props;
   const { name, reward, time_left, rep_gain, rep_loss } = objective_info;
   return (
-    <Flex.Item
-      className={'objective_card ' + (selected && 'selected')}
-      onClick={onClick}>
+    <Flex.Item className={'objective_card ' + (selected && 'selected')} onClick={onClick}>
       <Stack vertical>
         <Stack.Item bold>{capitalize(name)}</Stack.Item>
         <Stack.Divider />
       </Stack>
       <Box className="reward_overlay" align="flex-end" color={reward === 0 ? 'orange' : 'good'}>
-        <Tooltip content={(rep_gain || rep_loss) && "Failure to complete this directive will result in a loss of reputation."}>
+        <Tooltip content={(rep_gain || rep_loss) && 'Failure to complete this directive will result in a loss of reputation.'}>
           {(rep_gain || rep_loss) && (
             <Box>
-              <Box color="bad" inline>-{rep_loss}</Box>/<Box color="good" inline>+{rep_gain}</Box> Reputation
+              <Box color="bad" inline>
+                -{rep_loss}
+              </Box>
+              /
+              <Box color="good" inline>
+                +{rep_gain}
+              </Box>{' '}
+              Reputation
             </Box>
           )}
           {reward === 0 ? 'Assignment' : reward + ' TC Reward'}
@@ -540,18 +546,18 @@ const ItemList = (props, context) => {
             <Table.Cell bold>{decodeHtmlEntities(item.name)}</Table.Cell>
             {item.reputation ? (
               <Table.Cell collapsing textAlign="right">
-                <Box color={reputation >= item.reputation ? "green" : "red"}>
-                  {item.reputation} reputation
-                </Box>
+                <Box color={reputation >= item.reputation ? 'green' : 'red'}>{item.reputation} reputation</Box>
               </Table.Cell>
-            ) : <Table.Cell />}
+            ) : (
+              <Table.Cell />
+            )}
             {currencyAmount < item.cost ? (
               <Table.Cell collapsing textAlign="right">
-                <Box color="red">
-                  Insufficient Funds
-                </Box>
+                <Box color="red">Insufficient Funds</Box>
               </Table.Cell>
-            ) : <Table.Cell />}
+            ) : (
+              <Table.Cell />
+            )}
             <Table.Cell collapsing textAlign="right">
               <Button
                 fluid
@@ -580,20 +586,20 @@ const ItemList = (props, context) => {
       level={2}
       buttons={
         <Table>
-        {item.reputation ? (
-          <Table.Cell textAlign="right">
-            <Box color={reputation >= item.reputation ? "green" : "red"}>
-              {item.reputation} reputation
-            </Box>
-          </Table.Cell>
-        ) : ""}
+          {item.reputation ? (
+            <Table.Cell textAlign="right">
+              <Box color={reputation >= item.reputation ? 'green' : 'red'}>{item.reputation} reputation</Box>
+            </Table.Cell>
+          ) : (
+            ''
+          )}
           {item.cost > currencyAmount ? (
             <Table.Cell collapsing={!!item.reputation} textAlign="right">
-              <Box color="red">
-                Insufficient Funds
-              </Box>
+              <Box color="red">Insufficient Funds</Box>
             </Table.Cell>
-          ) : ""}
+          ) : (
+            ''
+          )}
           <Table.Cell collapsing textAlign="right">
             <Button
               content={item.cost + ' ' + currencySymbol}

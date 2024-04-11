@@ -49,7 +49,7 @@
 .RankCardMain {
   width: calc(100% - 164px);
   height: 90px;
-  background: linear-gradient(0deg, #b457385a, #8D3E3E5a);
+  background: linear-gradient(0deg, #b457385a, #8d3e3e5a);
   padding: 10px;
   border-radius: 13px;
 }
@@ -265,8 +265,8 @@
   );
 
   &.excommunicate {
-    background-color: #B92F27; // Dark red for Ex-Communication rank
-    $luminance: luminance(#B92F27);
+    background-color: #b92f27; // Dark red for Ex-Communication rank
+    $luminance: luminance(#b92f27);
     $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
     color: $text-color;
   }
@@ -312,8 +312,4 @@
     $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
     color: $text-color;
   }
-
-
 }
-
-
