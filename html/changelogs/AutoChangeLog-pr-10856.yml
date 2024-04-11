@@ -1,0 +1,4 @@
+author: JixS4v
+delete-after: true
+changes:
+  - bugfix: orbiting a zmimic as a ghost will make you orbit the original atom.
