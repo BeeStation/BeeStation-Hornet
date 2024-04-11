@@ -15,6 +15,8 @@
 /obj/item/clothing/head/hooded/hoodie
 	name = "white hoodie hood"
 	desc = "A hood attached to your hoodie, simple as."
+	icon = 'icons/obj/clothing/head/hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	icon_state = "hoodie"
 	body_parts_covered = HEAD
 	cold_protection = HEAD

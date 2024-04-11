@@ -629,7 +629,6 @@
 /obj/item/clothing/head/chameleon/envirohelm
 	name = "plasma envirosuit helmet"
 	desc = "A special containment helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."
-	icon_state = "mime_envirohelm"
 	item_state = "mime_envirohelm"
 	resistance_flags = FIRE_PROOF
 	strip_delay = 80
