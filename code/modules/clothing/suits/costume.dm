@@ -144,9 +144,8 @@
 	icon = 'icons/obj/clothing/suits/costume.dmi'
 	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 	item_state = null
-	togglename = "wings"
+	toggle_noun = "wings"
 	body_parts_covered = ARMS|CHEST
-	actions_types = list(/datum/action/item_action/toggle_wings)
 
 /obj/item/clothing/suit/toggle/owlwings/Initialize(mapload)
 	. = ..()

@@ -142,6 +142,8 @@
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	pocket_storage_component_path = null
 	var/hardsuit_type
+	/// Whether the helmet is on.
+	var/helmet_on = FALSE
 
 /obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
 	if(jetpack && ispath(jetpack))

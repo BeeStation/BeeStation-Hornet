@@ -50,7 +50,7 @@
 		/obj/item/kitchen,
 		/obj/item/knife/kitchen,
 	)
-	togglename = "sleeves"
+	toggle_noun = "sleeves"
 
 //Cook
 /obj/item/clothing/suit/apron/chef
@@ -133,7 +133,6 @@
 	item_state = null
 	blood_overlay_type = "coat"
 	body_parts_covered = CHEST|ARMS
-	togglename = "buttons"
 
 /obj/item/clothing/suit/toggle/lawyer/purple
 	name = "purple suit jacket"
