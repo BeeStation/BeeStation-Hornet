@@ -4,6 +4,7 @@
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
 	worn_icon_state = null
+	item_state = null
 
 
 	///What type of power cell this uses

@@ -3,6 +3,7 @@
 	desc = "A stun baton which uses localised electrical shocks to cause muscular fatigue."
 	icon_state = "stunbaton"
 	item_state = "baton"
+	worn_icon_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT

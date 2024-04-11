@@ -2,6 +2,7 @@
 /obj/item/seeds/flower
 	name = "pack of generic flower seeds"
 	desc = "You should not be seeing this."
+	icon_state = null
 	endurance = 10
 	maturation = 8
 	yield = 6
