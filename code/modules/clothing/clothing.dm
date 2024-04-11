@@ -8,8 +8,6 @@
 
 /obj/item/clothing
 	name = "clothing"
-	icon = 'icons/obj/clothing/default.dmi'
-	worn_icon = 'icons/mob/clothing/default.dmi'
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	integrity_failure = 0.4
