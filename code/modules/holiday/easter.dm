@@ -61,27 +61,38 @@
 	maxbodytemp = 1500
 	unsuitable_atmos_damage = 0
 
-//Easter Baskets
-/obj/item/storage/bag/easterbasket
-	name = "Easter Basket"
-	icon = 'icons/obj/storage/basket.dmi'
+/obj/item/storage/basket
+	name = "basket"
+	desc = "Handwoven basket."
 	icon_state = "basket"
+	w_class = WEIGHT_CLASS_BULKY
+	resistance_flags = FLAMMABLE
 
-/obj/item/storage/bag/easterbasket/Initialize(mapload)
+/obj/item/storage/basket/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 21
+
+//Easter Baskets
+/obj/item/storage/basket/easter
+	name = "Easter Basket"
+
+/obj/item/storage/basket/easter/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.can_hold = typecacheof(list(/obj/item/food/egg, /obj/item/food/chocolateegg, /obj/item/food/boiledegg))
 
-/obj/item/storage/bag/easterbasket/proc/countEggs()
+/obj/item/storage/basket/easter/proc/countEggs()
 	cut_overlays()
 	add_overlay("basket-grass")
 	add_overlay("basket-egg[min(contents.len, 5)]")
 
-/obj/item/storage/bag/easterbasket/Exited(atom/movable/gone, direction)
+/obj/item/storage/basket/easter/Exited(atom/movable/gone, direction)
 	. = ..()
 	countEggs()
 
-/obj/item/storage/bag/easterbasket/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/obj/item/storage/basket/easter/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	countEggs()
 

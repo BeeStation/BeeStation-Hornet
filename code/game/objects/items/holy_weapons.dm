@@ -316,12 +316,13 @@
 	shield_icon = "shield-old"
 
 /obj/item/nullrod/claymore
-	icon_state = "claymore"
-	item_state = "claymore"
-	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	name = "holy claymore"
 	desc = "A weapon fit for a crusade!"
+	icon_state = "claymore"
+	item_state = "claymore"
+	worn_icon_state = "claymore"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
@@ -332,22 +333,24 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 
 /obj/item/nullrod/claymore/darkblade
+	name = "dark blade"
+	desc = "Spread the glory of the dark gods!"
 	icon_state = "cultblade"
 	item_state = "cultblade"
+	worn_icon_state = "cultblade"
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	name = "dark blade"
-	desc = "Spread the glory of the dark gods!"
 	slot_flags = ITEM_SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
 
 /obj/item/nullrod/claymore/chainsaw_sword
-	icon_state = "chainswordon"
-	item_state = "chainswordon"
 	name = "sacred chainsaw sword"
 	desc = "Suffer not a heretic to live."
+	icon_state = "chainswordon"
+	item_state = "chainswordon"
+	worn_icon_state = "chainswordon"
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
@@ -355,10 +358,11 @@
 	toolspeed = 1.5 //slower than a real saw
 
 /obj/item/nullrod/claymore/glowing
-	icon_state = "swordon"
-	item_state = "swordon"
 	name = "force weapon"
 	desc = "The blade glows with the power of faith. Or possibly a battery."
+	icon_state = "swordon"
+	item_state = "swordon"
+	worn_icon_state = "swordon"
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/nullrod/claymore/katana
@@ -376,6 +380,7 @@
 	desc = "Once the harbinger of an interdimensional war, its sharpness fluctuates wildly."
 	icon_state = "multiverse"
 	item_state = "multiverse"
+	worn_icon_state = "multiverse"
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/nullrod/claymore/multiverse/attack(mob/living/carbon/M, mob/living/carbon/user)
@@ -384,23 +389,26 @@
 
 /obj/item/nullrod/claymore/saber
 	name = "light energy sword"
-	hitsound = 'sound/weapons/blade1.ogg'
+	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
 	icon = 'icons/obj/transforming_energy.dmi'
 	icon_state = "swordblue"
 	item_state = "swordblue"
-	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
+	worn_icon_state = "swordblue"
 	slot_flags = ITEM_SLOT_BELT
+	hitsound = 'sound/weapons/blade1.ogg'
 
 /obj/item/nullrod/claymore/saber/red
 	name = "dark energy sword"
+	desc = "Woefully ineffective when used on steep terrain." //Anakin used his BLUE lightsaber in episode IV, FOOL
 	icon_state = "swordred"
 	item_state = "swordred"
-	desc = "Woefully ineffective when used on steep terrain."
+	worn_icon_state = "swordred"
 
 /obj/item/nullrod/claymore/saber/pirate
 	name = "nautical energy sword"
 	icon_state = "cutlass1"
 	item_state = "cutlass1"
+	worn_icon_state = "swordred"
 	desc = "Convincing HR that your religion involved piracy was no mean feat."
 
 /obj/item/nullrod/sord
@@ -408,6 +416,7 @@
 	desc = "This thing is so unspeakably HOLY you are having a hard time even holding it."
 	icon_state = "sord"
 	item_state = "sord"
+	worn_icon_state = "sord"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
@@ -426,12 +435,12 @@
 	return ..()
 
 /obj/item/nullrod/scythe
+	name = "reaper scythe"
+	desc = "Ask not for whom the bell tolls..."
 	icon_state = "scythe1"
 	item_state = "scythe1"
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
-	name = "reaper scythe"
-	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
 	block_level = 1
@@ -446,32 +455,35 @@
 	AddComponent(/datum/component/butchering, 70, 110) //the harvest gives a high bonus chance
 
 /obj/item/nullrod/scythe/vibro
-	icon_state = "hfrequency0"
-	item_state = "hfrequency1"
-	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	name = "high frequency blade"
 	desc = "Bad references are the DNA of the soul."
+	icon_state = "hfrequency0"
+	item_state = "hfrequency1"
+	worn_icon_state = "hfrequency0"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/nullrod/scythe/spellblade
+	name = "dormant spellblade"
+	desc = "The blade grants the wielder nearly limitless power...if they can figure out how to turn it on, that is."
 	icon_state = "spellblade"
 	item_state = "spellblade"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	worn_icon_state = "spellblade"
 	icon = 'icons/obj/guns/magic.dmi'
-	name = "dormant spellblade"
-	desc = "The blade grants the wielder nearly limitless power...if they can figure out how to turn it on, that is."
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/nullrod/scythe/talking
+	name = "possessed blade"
+	desc = "When the station falls into chaos, it's nice to have a friend by your side."
 	icon_state = "talking_sword"
 	item_state = "talking_sword"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	name = "possessed blade"
-	desc = "When the station falls into chaos, it's nice to have a friend by your side."
+	worn_icon_state = "talking_sword"
 	attack_verb = list("chopped", "sliced", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	var/possessed = FALSE
@@ -517,10 +529,11 @@
 	return ..()
 
 /obj/item/nullrod/scythe/talking/chainsword
-	icon_state = "chainswordon"
-	item_state = "chainswordon"
 	name = "possessed chainsaw sword"
 	desc = "Suffer not a heretic to live."
+	icon_state = "chainswordon"
+	item_state = "chainswordon"
+	worn_icon_state = "chainswordon"
 	chaplain_spawnable = FALSE
 	force = 30
 	slot_flags = ITEM_SLOT_BELT
@@ -530,12 +543,13 @@
 	toolspeed = 0.5 //faster than normal saw
 
 /obj/item/nullrod/hammmer
-	icon_state = "hammeron"
-	item_state = "hammeron"
-	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
 	name = "relic war hammer"
 	desc = "This war hammer cost the chaplain forty thousand space dollars."
+	icon_state = "hammeron"
+	item_state = "hammeron"
+	worn_icon_state = "hammeron"
+	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("smashed", "bashed", "hammered", "crunched")
@@ -565,19 +579,23 @@
 	AddComponent(/datum/component/butchering, 30, 100, 0, hitsound)
 
 /obj/item/nullrod/clown
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "clownrender"
-	item_state = "render"
 	name = "clown dagger"
 	desc = "Used for absolutely hilarious sacrifices."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "clownrender"
+	item_state = "cultdagger"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	worn_icon_state = "render"
 	hitsound = 'sound/items/bikehorn.ogg'
 	sharpness = IS_SHARP
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 
 /obj/item/nullrod/pride_hammer
-	icon_state = "pride"
 	name = "Pride-struck Hammer"
 	desc = "It resonates an aura of Pride."
+	icon_state = "pride"
+	worn_icon_state = "pride"
 	force = 16
 	throwforce = 15
 	w_class = 4
@@ -601,6 +619,7 @@
 	desc = "What a terrible night to be on Space Station 13."
 	icon_state = "chain"
 	item_state = "chain"
+	worn_icon_state = "whip"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
@@ -615,6 +634,8 @@
 	slot_flags = ITEM_SLOT_HEAD
 	icon = 'icons/obj/clothing/head/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/hats.dmi'
+	lefthand_file = 'icons/mob/inhands/clothing/hats_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing/hats_righthand.dmi'
 	force = 0
 	throw_speed = 4
 	throw_range = 7
@@ -630,6 +651,7 @@
 	item_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
+	slot_flags = null
 	item_flags = ABSTRACT | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
@@ -651,6 +673,7 @@
 	icon = 'icons/obj/plushes.dmi'
 	icon_state = "carpplush"
 	item_state = "carp_plushie"
+	worn_icon_state = "nullrod"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 15
@@ -678,17 +701,18 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
+	worn_icon_state = "bostaff0"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 
 /obj/item/nullrod/tribal_knife
+	name = "arrhythmic knife"
+	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
 	icon_state = "crysknife"
 	item_state = "crysknife"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	name = "arrhythmic knife"
 	w_class = WEIGHT_CLASS_HUGE
-	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
 	sharpness = IS_SHARP
 	slot_flags = null
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -712,12 +736,14 @@
 			wielder.update_equipment_speed_mods()
 
 /obj/item/nullrod/pitchfork
+	name = "unholy pitchfork"
+	desc = "Holding this makes you look absolutely devilish."
 	icon_state = "pitchfork0"
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
-	name = "unholy pitchfork"
+	worn_icon_state = "pitchfork0"
 	w_class = WEIGHT_CLASS_LARGE
-	desc = "Holding this makes you look absolutely devilish."
+	slot_flags = ITEM_SLOT_BACK
 	attack_verb = list("poked", "impaled", "pierced", "jabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
@@ -730,18 +756,21 @@
 	item_state = "pharoah_sceptre"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
+	worn_icon_state = "pharoah_sceptre"
 	w_class = WEIGHT_CLASS_LARGE
+	slot_flags = ITEM_SLOT_BACK
 	attack_verb = list("bashes", "smacks", "whacks")
 
 /obj/item/nullrod/hypertool
+	name = "hypertool"
+	desc = "A tool so powerful even you cannot perfectly use it."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hypertool"
 	item_state = "hypertool"
+	worn_icon_state = "hypertool"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	name = "hypertool"
-	desc = "A tool so powerful even you cannot perfectly use it."
 	armour_penetration = 35
 	damtype = BRAIN
 	attack_verb = list("pulsed", "mended", "cut")

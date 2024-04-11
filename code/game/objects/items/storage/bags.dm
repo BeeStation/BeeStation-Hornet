@@ -218,6 +218,7 @@
 	name = "plant bag"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
+	worn_icon_state = "plantbag"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 
@@ -267,6 +268,7 @@
 	desc = "A patented Nanotrasen storage system designed for any kind of mineral sheet."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
+	worn_icon_state = "satchel"
 
 	var/capacity = 150 //the number of sheets it can carry.
 	w_class = WEIGHT_CLASS_NORMAL
@@ -303,6 +305,7 @@
 	desc = "A bag for books."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bookbag"
+	worn_icon_state = "bookbag"
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
 	resistance_flags = FLAMMABLE
 
@@ -322,6 +325,7 @@
 	name = "tray"
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
+	worn_icon_state = "tray"
 	desc = "A metal tray to lay food on."
 	force = 5
 	throwforce = 10
@@ -411,6 +415,7 @@
 	name = "bio bag"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "biobag"
+	worn_icon_state = "biobag"
 	desc = "A bag for the safe transportation and disposal of biowaste and other biological materials."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
@@ -432,6 +437,7 @@
 	name = "construction bag"
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "construction_bag"
+	worn_icon_state = "construction_bag"
 	desc = "A bag for storing small construction components."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
