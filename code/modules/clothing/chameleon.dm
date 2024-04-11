@@ -360,7 +360,6 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-
 /obj/item/clothing/under/chameleon/envirosuit
 	name = "plasma envirosuit"
 	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy. It has a small dial on the wrist."

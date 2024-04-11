@@ -63,7 +63,7 @@
 	new /obj/item/clothing/head/beret/ce(src)
 	new /obj/item/clothing/head/utility/hardhat/white(src)
 	new /obj/item/clothing/head/utility/hardhat/welding/white(src)
-	new /obj/item/clothing/head/welding(src)
+	new /obj/item/clothing/head/utility/welding(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
@@ -91,7 +91,7 @@
 /obj/structure/closet/secure_closet/engineering_welding/PopulateContents()
 	..()
 	for(var/i in 1 to 3)
-		new /obj/item/clothing/head/welding(src)
+		new /obj/item/clothing/head/utility/welding(src)
 	for(var/i in 1 to 3)
 		new /obj/item/weldingtool(src)
 

@@ -428,8 +428,8 @@ Contains:
 
 /obj/item/clothing/head/helmet/space/hardsuit/skinsuit
 	name = "skinsuit helmet"
-	icon = 'icons/obj/clothing/head/hats.dmi'
-	worn_icon = 'icons/mob/clothing/head/hats.dmi'
+	icon = 'icons/obj/clothing/head/spacehelm.dmi'
+	worn_icon = 'icons/mob/clothing/head/spacehelm.dmi'
 	icon_state = "skinsuit_helmet"
 	item_state = "skinsuit_helmet"
 	max_integrity = 200

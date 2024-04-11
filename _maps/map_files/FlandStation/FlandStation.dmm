@@ -19249,11 +19249,11 @@
 /area/science/misc_lab/range)
 "eUs" = (
 /obj/item/book/manual/wiki/atmospherics,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -5;
 	pixel_y = 3
 	},
@@ -23692,7 +23692,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/item/weldingtool,
 /obj/machinery/light/small{
 	dir = 1
@@ -24756,7 +24756,7 @@
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
 /obj/item/weldingtool,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/effect/turf_decal/bot,
 /obj/machinery/newscaster{
 	pixel_y = 31
@@ -37542,7 +37542,7 @@
 "jzD" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/item/weldingtool,
 /obj/item/weldingtool,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
@@ -40995,7 +40995,7 @@
 	pixel_x = 2;
 	pixel_y = -1
 	},
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -3;
 	pixel_y = 5
 	},
@@ -41827,11 +41827,11 @@
 "kDP" = (
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/dark,
@@ -44391,7 +44391,7 @@
 	desc = "A standard edition welder provided by Nanotrasen. However this has been renamed to 'wedding tool' for some reason...";
 	name = "wedding tool"
 	},
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -5;
 	pixel_y = 3
 	},
@@ -70583,7 +70583,7 @@
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
 /obj/item/weldingtool/largetank,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},

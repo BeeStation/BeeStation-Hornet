@@ -51230,7 +51230,7 @@
 /area/maintenance/department/crew_quarters/dorms)
 "qwc" = (
 /obj/structure/table,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -3;
 	pixel_y = 5
 	},

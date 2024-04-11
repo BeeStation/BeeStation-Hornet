@@ -215,12 +215,16 @@
 /obj/item/clothing/under/rank/brig_physician
 	name = "brig physician's jumpsuit"
 	desc = "A lightly armored jumpsuit worn by Nanotrasen's Asset Protection Medical Corps."
+	icon = 'icons/obj/clothing/under/security.dmi'
+	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	icon_state = "brig_phys"
 	item_state = "labcoat_sec"
 
 /obj/item/clothing/under/rank/brig_physician/skirt
 	name = "brig physician's jumpskirt"
 	desc = "A lightly armored jumpskirt worn by Nanotrasen's Asset Protection Medical Corps."
+	icon = 'icons/obj/clothing/under/security.dmi'
+	worn_icon = 'icons/mob/clothing/under/security.dmi'
 	icon_state = "brig_phys_skirt"
 	item_state = "labcoat_sec"
 	body_parts_covered = CHEST|GROIN|ARMS

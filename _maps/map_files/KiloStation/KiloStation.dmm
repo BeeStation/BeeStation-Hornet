@@ -31631,7 +31631,7 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/storage/belt/utility,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/item/clothing/glasses/welding,
 /obj/structure/noticeboard{
 	pixel_y = 28
@@ -45917,7 +45917,7 @@
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
 /obj/item/weldingtool/largetank,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 26
@@ -52745,11 +52745,11 @@
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -56490,7 +56490,7 @@
 "mim" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_y = 4
 	},
 /obj/machinery/power/apc{
@@ -65736,7 +65736,7 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/storage/belt/utility,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/item/clothing/glasses/welding,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm{
@@ -67189,7 +67189,7 @@
 	pixel_x = -2;
 	pixel_y = 6
 	},
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_y = 5
 	},
 /obj/item/crowbar/red,
@@ -91703,8 +91703,8 @@
 	pixel_y = 5
 	},
 /obj/item/storage/belt/utility,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},

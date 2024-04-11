@@ -5551,7 +5551,7 @@
 /area/awaymission/snowdin/post/engineering)
 "qd" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/item/weldingtool/largetank,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
@@ -10359,7 +10359,7 @@
 /area/awaymission/snowdin/post/mining_main/robotics)
 "Gy" = (
 /obj/structure/table,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -3;
 	pixel_y = 5
 	},

@@ -101,7 +101,7 @@
 	var/hat_offset = -3
 	var/list/blacklisted_hats = list( //Hats that don't really work on borgos
 	/obj/item/clothing/head/helmet/space/santahat,
-	/obj/item/clothing/head/welding,
+	/obj/item/clothing/head/utility/welding,
 	/obj/item/clothing/head/helmet/space/eva,
 	)
 

@@ -147,7 +147,7 @@
 	id = "welding_helmet"
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 1750, /datum/material/glass = 400)
-	build_path = /obj/item/clothing/head/welding
+	build_path = /obj/item/clothing/head/utility/welding
 	category = list("initial","Tools","Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 

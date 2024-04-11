@@ -10,7 +10,7 @@
  *		Bronze hat
  */
 
-/obj/item/clothing/head/welding
+/obj/item/clothing/head/utility/welding
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
@@ -27,7 +27,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/head/welding/attack_self(mob/user)
+/obj/item/clothing/head/utility/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/head/wig

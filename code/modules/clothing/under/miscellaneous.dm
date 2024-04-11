@@ -32,8 +32,10 @@
 
 /obj/item/clothing/under/misc/adminsuit
 	name = "administrative cybernetic jumpsuit"
+	icon = 'icons/obj/clothing/under/syndicate.dmi'
 	icon_state = "syndicate"
 	item_state = "bl_suit"
+	worn_icon = 'icons/mob/clothing/under/syndicate.dmi'
 	desc = "A cybernetically enhanced jumpsuit used for administrative duties."
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01

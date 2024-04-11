@@ -3479,7 +3479,7 @@
 "nT" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},

@@ -179,7 +179,7 @@
 	pixel_x = -26
 	},
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "aaH" = (
@@ -2748,7 +2748,7 @@
 /obj/structure/rack,
 /obj/item/weldingtool,
 /obj/item/assembly/voice,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron,
 /area/maintenance/starboard/fore)
@@ -3021,7 +3021,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/weldingtool,
 /obj/item/assembly/voice,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -11427,7 +11427,7 @@
 /area/engine/atmos)
 "bqb" = (
 /obj/item/weldingtool,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
@@ -13820,7 +13820,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/belt/utility,
 /obj/item/weldingtool,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
@@ -21639,7 +21639,7 @@
 	},
 /obj/item/storage/belt/utility,
 /obj/item/weldingtool,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/engine/engineering)
@@ -23675,7 +23675,7 @@
 /obj/structure/rack,
 /obj/item/storage/belt/utility,
 /obj/item/weldingtool,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 4;
@@ -31349,7 +31349,7 @@
 	pixel_y = 5
 	},
 /obj/item/multitool,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/machinery/light{
 	dir = 8
 	},

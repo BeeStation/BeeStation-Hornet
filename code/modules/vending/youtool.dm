@@ -20,7 +20,7 @@
 	contraband = list(/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/storage/belt/utility = 2,
 		           /obj/item/weldingtool/hugetank = 2,
-		           /obj/item/clothing/head/welding = 2,
+		           /obj/item/clothing/head/utility/welding = 2,
 		           /obj/item/clothing/gloves/color/yellow = 1)
 	refill_canister = /obj/item/vending_refill/tool
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)

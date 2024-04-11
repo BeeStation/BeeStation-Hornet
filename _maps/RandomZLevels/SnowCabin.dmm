@@ -2284,7 +2284,7 @@
 /area/awaymission/cabin)
 "hv" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt,

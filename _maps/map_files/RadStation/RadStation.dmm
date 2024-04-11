@@ -19226,7 +19226,7 @@
 	},
 /obj/machinery/airalarm/directional/south,
 /obj/item/storage/belt/utility,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -20797,7 +20797,7 @@
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 35
 	},
@@ -30177,7 +30177,7 @@
 /area/maintenance/department/medical/morgue)
 "jvg" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_y = 5
 	},
 /obj/machinery/turretid{
@@ -56385,11 +56385,11 @@
 	alpha = 230;
 	color = "#edaa0c"
 	},
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -3;
 	pixel_y = 7
 	},
@@ -65509,7 +65509,7 @@
 /obj/item/wrench,
 /obj/item/clothing/gloves/color/black,
 /obj/item/weldingtool,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /turf/open/floor/iron/tech,
 /area/engine/engine_room)
 "uwK" = (
