@@ -21,7 +21,7 @@
 
 	var/uplink_flag = UPLINK_TRAITORS
 
-/obj/item/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = TRAITOR_REPUTATION_START)
+/obj/item/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = REPUTATION_TRAITOR_START)
 	. = ..()
 	AddComponent(/datum/component/uplink, owner?.mind, FALSE, TRUE, uplink_flag, tc_amount)
 
@@ -68,11 +68,11 @@
 	hidden_uplink.name = "dusty radio"
 
 // Multitool uplink
-/obj/item/multitool/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = TRAITOR_REPUTATION_START)
+/obj/item/multitool/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = REPUTATION_TRAITOR_START)
 	. = ..()
 	AddComponent(/datum/component/uplink, owner?.mind, FALSE, TRUE, UPLINK_TRAITORS, tc_amount)
 
 // Pen uplink
-/obj/item/pen/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = TRAITOR_REPUTATION_START)
+/obj/item/pen/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = REPUTATION_TRAITOR_START)
 	. = ..()
 	AddComponent(/datum/component/uplink, owner?.mind, TRUE, FALSE, UPLINK_TRAITORS, tc_amount)
