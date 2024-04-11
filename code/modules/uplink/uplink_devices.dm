@@ -21,14 +21,14 @@
 
 	var/uplink_flag = UPLINK_TRAITORS
 
-/obj/item/uplink/Initialize(mapload, mob/owner, tc_amount = 20)
+/obj/item/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = TRAITOR_REPUTATION_START)
 	. = ..()
 	AddComponent(/datum/component/uplink, owner?.mind, FALSE, TRUE, uplink_flag, tc_amount)
 
 /obj/item/uplink/debug
 	name = "debug uplink"
 
-/obj/item/uplink/debug/Initialize(mapload, mob/owner, tc_amount = 9000)
+/obj/item/uplink/debug/Initialize(mapload, mob/owner, tc_amount = 9000, rep_amount = REPUTATION_MAX)
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
 	hidden_uplink.name = "debug uplink"
@@ -41,7 +41,7 @@
 	name = "debug nuclear uplink"
 	uplink_flag = UPLINK_NUKE_OPS
 
-/obj/item/uplink/nuclear/debug/Initialize(mapload, mob/owner, tc_amount = 9000)
+/obj/item/uplink/nuclear/debug/Initialize(mapload, mob/owner, tc_amount = 9000, rep_amount = REPUTATION_MAX)
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
 	hidden_uplink.name = "debug nuclear uplink"
@@ -62,17 +62,17 @@
 	name = "dusty radio"
 	desc = "A dusty looking radio."
 
-/obj/item/uplink/old/Initialize(mapload, mob/owner, tc_amount = 10)
+/obj/item/uplink/old/Initialize(mapload, mob/owner, tc_amount = 10, rep_amount = REPUTATION_LOW)
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink, owner?.mind)
 	hidden_uplink.name = "dusty radio"
 
 // Multitool uplink
-/obj/item/multitool/uplink/Initialize(mapload, mob/owner, tc_amount = 20)
+/obj/item/multitool/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = TRAITOR_REPUTATION_START)
 	. = ..()
 	AddComponent(/datum/component/uplink, owner?.mind, FALSE, TRUE, UPLINK_TRAITORS, tc_amount)
 
 // Pen uplink
-/obj/item/pen/uplink/Initialize(mapload, mob/owner, tc_amount = 20)
+/obj/item/pen/uplink/Initialize(mapload, mob/owner, tc_amount = 20, rep_amount = TRAITOR_REPUTATION_START)
 	. = ..()
 	AddComponent(/datum/component/uplink, owner?.mind, TRUE, FALSE, UPLINK_TRAITORS, tc_amount)

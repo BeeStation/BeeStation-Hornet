@@ -33,7 +33,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 	var/non_traitor_allowed = TRUE
 	// Tied to uplink rather than mind since generally traitors only have 1 uplink
 	// and tying it to anything else is difficult due to how much uses an uplink
-	var/reputation = 200
+	var/reputation = REPUTATION_TRAITOR_START
 
 	var/list/previous_attempts
 
@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 		_enabled = FALSE,
 		uplink_flag = UPLINK_TRAITORS,
 		starting_tc = TELECRYSTALS_DEFAULT,
-		_reputation = 200,
+		_reputation = REPUTATION_TRAITOR_START,
 		)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE

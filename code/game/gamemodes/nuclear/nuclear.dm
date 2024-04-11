@@ -129,6 +129,7 @@
 		/obj/item/knife/combat/survival)
 
 	var/tc = 25
+	var/reputation = REPUTATION_EXCELLENT
 	var/command_radio = FALSE
 	var/uplink_type = /obj/item/uplink/nuclear
 
@@ -139,6 +140,7 @@
 	gloves = /obj/item/clothing/gloves/krav_maga/combatglovesplus
 	r_hand = /obj/item/nuclear_challenge
 	command_radio = TRUE
+	reputation = REPUTATION_ELITE
 
 /datum/outfit/syndicate/no_crystals
 	name = "Syndicate Operative - Reinforcement"
@@ -153,7 +155,7 @@
 		R.use_command = TRUE
 
 	if(ispath(uplink_type, /obj/item/uplink/nuclear) || tc) // /obj/item/uplink/nuclear understands 0 tc
-		var/obj/item/U = new uplink_type(H, H, tc)
+		var/obj/item/U = new uplink_type(H, H, tc, reputation)
 		H.equip_to_slot_or_del(U, ITEM_SLOT_BACKPACK)
 
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(H)
@@ -177,6 +179,7 @@
 		/obj/item/tank/jetpack/oxygen/harness=1,\
 		/obj/item/gun/ballistic/automatic/pistol=1,\
 		/obj/item/knife/combat/survival)
+	reputation = REPUTATION_ELITE
 
 
 /datum/game_mode/nuclear/generate_credit_text()

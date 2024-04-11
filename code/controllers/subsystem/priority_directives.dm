@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(directives)
 
 /datum/controller/subsystem/directives/Initialize(start_timeofday)
 	. = ..()
-	next_directive_time = world.time + rand(10 MINUTES, 15 MINUTES)
+	next_directive_time = world.time + 10 MINUTES
 	for (var/directive_type in subtypesof(/datum/priority_directive))
 		directives += new directive_type()
 
@@ -102,7 +102,9 @@ SUBSYSTEM_DEF(directives)
 				"track_x" = track_turf?.x,
 				"track_y" = track_turf?.y,
 				"track_z" = track_turf?.z,
-				"action" = active_directive.get_special_action()?.action_name
+				"action" = active_directive.get_special_action()?.action_name,
+				"rep_loss" = active_directive.reputation_loss,
+				"rep_gain" = active_directive.reputation_reward,
 			))
 		data["objectives"] =  known_objectives
 	return data

@@ -270,6 +270,8 @@ const Directives = (props, context) => {
                   name: objective.name,
                   reward: objective.reward || 0,
                   time_left: objective.time ? (objective.time - time) * 0.1 : null,
+                  rep_gain: objective.rep_gain || null,
+                  rep_loss: objective.rep_loss || null,
                 }}
               />
             ))}
@@ -317,6 +319,20 @@ const Directives = (props, context) => {
                       {task}
                     </Box>
                   ))}
+                  {(selectedObjective?.rep_gain || selectedObjective?.rep_loss) && (
+                    <>
+                    <Box mt={3} mb={1} underline bold>
+                      Reputation Details
+                    </Box>
+                    <Box>
+                      This mission will affect your reputation level.<br />
+                      <ul>
+                        <li>Success will result in gaining {selectedObjective?.rep_gain} reputation.</li>
+                        <li>Failure will result in losing {selectedObjective?.rep_loss} reputation.</li>
+                      </ul>
+                    </Box>
+                    </>
+                  )}
                   <Box mt={3} mb={1} underline bold>
                     Additional Details
                   </Box>
@@ -331,10 +347,13 @@ const Directives = (props, context) => {
               <div className="directive_prize">
                 <div className="directive_prize_info">
                   <Flex.Item>
-                    <Icon name={action ? 'gem' : 'slash'} />
+                    <Icon name={selectedObjective?.reward ? 'gem' : 'slash'} />
                   </Flex.Item>
                   <Flex.Item grow pl={2}>
                     <Box bold>{selectedObjective?.reward ? selectedObjective?.reward + ' Telecrystals' : 'No reward'}</Box>
+                    {(selectedObjective?.rep_gain) && (
+                      <Box bold>{selectedObjective?.rep_gain} Reputation</Box>
+                    )}
                   </Flex.Item>
                 </div>
                 <Flex.Item grow height="100%" align="flex-end" textAlign="right">
@@ -362,19 +381,30 @@ const ObjectiveCard = (props, context) => {
       name: 'Assassination',
       reward: 0,
       time_left: null,
+      rep_gain: null,
+      rep_loss: null,
     },
     selected = 0,
     onClick,
   } = props;
-  const { name, reward, time_left } = objective_info;
+  const { name, reward, time_left, rep_gain, rep_loss } = objective_info;
   return (
-    <Flex.Item className={'objective_card ' + (selected && 'selected')} onClick={onClick}>
+    <Flex.Item
+      className={'objective_card ' + (selected && 'selected')}
+      onClick={onClick}>
       <Stack vertical>
         <Stack.Item bold>{capitalize(name)}</Stack.Item>
         <Stack.Divider />
       </Stack>
       <Box className="reward_overlay" align="flex-end" color={reward === 0 ? 'orange' : 'good'}>
-        {reward === 0 ? 'Assignment' : reward + ' TC Reward'}
+        <Tooltip content={(rep_gain || rep_loss) && "Failure to complete this directive will result in a loss of reputation."}>
+          {(rep_gain || rep_loss) && (
+            <Box>
+              <Box color="bad" inline>-{rep_loss}</Box>/<Box color="good" inline>+{rep_gain}</Box> Reputation
+            </Box>
+          )}
+          {reward === 0 ? 'Assignment' : reward + ' TC Reward'}
+        </Tooltip>
       </Box>
       <Box className="time_limit">
         {time_left === null
