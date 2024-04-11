@@ -19,8 +19,8 @@
 /obj/item/clothing/head/hooded/renault_hood
 	name = "renault hoodie"
 	desc = "An adorable hoodie vaguely resembling renault."
-	icon = 'icons/obj/clothing/suits/costume.dmi'
-	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "renault_hoodie"
 	flags_inv = HIDEEARS
 

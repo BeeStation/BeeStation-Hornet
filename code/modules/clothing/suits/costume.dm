@@ -111,7 +111,7 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/hasturhood
 
-/obj/item/clothing/suit/imperium_monk
+/obj/item/clothing/suit/costume/imperium_monk
 	name = "\improper Imperium monk suit"
 	desc = "Have YOU killed a xeno today?"
 	icon_state = "imperium_monk"

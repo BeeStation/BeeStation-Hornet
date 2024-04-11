@@ -60,6 +60,8 @@ Contains:
 /obj/item/clothing/head/helmet/space/beret
 	name = "officer's beret"
 	desc = "An armored beret commonly used by special operations officers. Uses advanced force field technology to protect the head from space."
+	icon = 'icons/obj/clothing/suits/beret.dmi'
+	worn_icon = 'icons/mob/clothing/suits/beret.dmi'
 	icon_state = "dsberet"
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
@@ -70,9 +72,11 @@ Contains:
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/suit/space/officer
-	name = "officer's jacket"
-	desc = "An armored, space-proof jacket used in special operations."
+	name = "officer's coat"
+	desc = "An armored, space-proof coat used in special operations."
 	icon_state = "specops"
+	icon = 'icons/obj/clothing/suits/jacket.dmi'
+	worn_icon = 'icons/mob/clothing/suits/jacket.dmi'
 	item_state = "specops"
 	blood_overlay_type = "coat"
 	slowdown = 0
@@ -116,6 +120,8 @@ Contains:
 /obj/item/clothing/head/helmet/space/pirate
 	name = "pirate hat"
 	desc = "Yarr."
+	icon = 'icons/obj/clothing/head/costume.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "pirate"
 	item_state = "pirate"
 	armor = list(MELEE = 30,  BULLET = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75, STAMINA = 20)
@@ -132,6 +138,8 @@ Contains:
 /obj/item/clothing/suit/space/pirate
 	name = "pirate coat"
 	desc = "Yarr."
+	icon = 'icons/obj/clothing/suits/costume.dmi'
+	worn_icon = 'icons/mob/clothing/suits/costume.dmi'
 	icon_state = "pirate"
 	item_state = "pirate"
 	w_class = WEIGHT_CLASS_NORMAL

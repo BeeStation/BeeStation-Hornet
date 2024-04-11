@@ -72,7 +72,7 @@
 					/obj/item/clothing/head/costume/pirate/bandana = 1,
 					/obj/item/clothing/under/costume/soviet = 1,
 					/obj/item/clothing/head/costume/ushanka = 1,
-					/obj/item/clothing/suit/imperium_monk = 1,
+					/obj/item/clothing/suit/costume/imperium_monk = 1,
 					/obj/item/clothing/mask/gas/cyborg = 1,
 					/obj/item/clothing/suit/chaplainsuit/holidaypriest = 1,
 					/obj/item/clothing/suit/chaplainsuit/whiterobe = 1,

@@ -145,5 +145,7 @@
 /obj/item/clothing/head/franks_hat
 	name = "Frank's Hat"
 	desc = "You feel ashamed about what you had to do to get this hat"
+	icon = 'icons/obj/clothing/head/cowboy.dmi'
+	worn_icon = 'icons/mob/clothing/head/cowboy.dmi'
 	icon_state = "cowboy"
 	item_state = "cowboy"
