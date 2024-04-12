@@ -3,6 +3,7 @@
 	desc = "A heavy-duty, multifaceted energy rifle with three modes. Preferred by front-line combat personnel."
 	icon_state = "pulse"
 	item_state = null
+	worn_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	modifystate = TRUE
@@ -35,6 +36,7 @@
 	w_class = WEIGHT_CLASS_LARGE
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
+	worn_icon_state = "gun"
 	item_state = null
 	cell_type = "/obj/item/stock_parts/cell/pulse/carbine"
 	can_flashlight = TRUE
@@ -63,6 +65,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_pistol"
+	worn_icon_state = "gun"
 	item_state = "gun"
 	cell_type = "/obj/item/stock_parts/cell/pulse/pistol"
 	automatic = 0
@@ -75,6 +78,7 @@
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"
 	desc = "A heavy-duty energy rifle built for pure destruction."
+	worn_icon_state = "gun"
 	cell_type = "/obj/item/stock_parts/cell/infinite"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
 

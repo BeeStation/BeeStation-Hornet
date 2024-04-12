@@ -24,7 +24,7 @@
 	name = "armor vest"
 	desc = "A slim Type I-A armored vest that provides decent protection against most types of damage."
 	icon_state = "armoralt"
-	item_state = "armoralt"
+	item_state = "armor"
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
 
@@ -132,7 +132,7 @@
 	name = "captain's jacket"
 	desc = "An armored Jacket in the Captains colors"
 	icon_state = "capjacket"
-	item_state = "capspacesuit"
+	item_state = null
 	body_parts_covered = CHEST|ARMS
 	armor = list(MELEE = 40,  BULLET = 30, LASER = 40, ENERGY = 50, BOMB = 55, BIO = 0, RAD = 0, FIRE = 90, ACID = 80, STAMINA = 40)
 
