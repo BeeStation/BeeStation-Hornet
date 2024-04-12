@@ -44,7 +44,7 @@
 	name = "large armor vest"
 	desc = "A large, yet comfortable piece of armor, protecting you from some threats. Type H-L"
 	icon_state = "blueshift"
-	item_state = "blueshift"
+	item_state = null
 	custom_premium_price = 600
 
 /obj/item/clothing/suit/armor/vest/corporate

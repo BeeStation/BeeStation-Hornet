@@ -176,6 +176,7 @@
 	name = "air horn"
 	desc = "Damn son, where'd you find this?"
 	icon_state = "air_horn"
+	worn_icon_state = "horn_air"
 	sound_file = 'sound/items/airhorn2.ogg'
 
 //golden bikehorn
@@ -184,6 +185,7 @@
 	desc = "Golden? Clearly, it's made with bananium! Honk!"
 	icon_state = "gold_horn"
 	item_state = "gold_horn"
+	worn_icon_state = "horn_gold"
 	var/flip_cooldown = 0
 
 /obj/item/bikehorn/golden/attack()
