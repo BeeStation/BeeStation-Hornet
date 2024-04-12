@@ -284,27 +284,29 @@
 	product_ads = "Guaranteed to prevent stains from spilled drinks!"
 	vend_reply = "Thank you for using the BarDrobe!"
 	light_color = LIGHT_COLOR_WHITE
-	products = list(/obj/item/clothing/head/hats/tophat = 2,
-					/obj/item/radio/headset/headset_srv = 2,
-					/obj/item/clothing/under/suit/sl = 2,
-					/obj/item/clothing/under/rank/civilian/bartender = 2,
-					/obj/item/clothing/under/rank/civilian/bartender/purple = 2,
-					/obj/item/clothing/under/rank/civilian/bartender/skirt = 2,
-					/obj/item/clothing/under/plasmaman/enviroslacks = 2,
-					/obj/item/clothing/head/helmet/space/plasmaman/white = 2,
-					/obj/item/clothing/accessory/waistcoat = 2,
-					/obj/item/clothing/suit/apron/purple_bartender = 2,
-					/obj/item/clothing/head/soft/black = 2,
-					/obj/item/clothing/shoes/sneakers/black = 2,
-					/obj/item/reagent_containers/glass/rag = 2,
-					/obj/item/storage/box/beanbag = 1,
-					/obj/item/clothing/suit/armor/vest/alt = 1,
-					/obj/item/circuitboard/machine/dish_drive = 1,
-					/obj/item/clothing/glasses/sunglasses/advanced/reagent = 1,
-					/obj/item/clothing/neck/petcollar = 1,
-					/obj/item/storage/belt/bandolier = 1,
-					/obj/item/clothing/neck/tie/black = 2,
-					/obj/item/clothing/neck/tie/blue = 2)
+	products = list(
+		/obj/item/clothing/head/hats/tophat = 2,
+		/obj/item/radio/headset/headset_srv = 2,
+		/obj/item/clothing/under/suit/sl = 2,
+		/obj/item/clothing/under/rank/civilian/bartender = 2,
+		/obj/item/clothing/under/rank/civilian/bartender/purple = 2,
+		/obj/item/clothing/under/rank/civilian/bartender/skirt = 2,
+		/obj/item/clothing/under/plasmaman/enviroslacks = 2,
+		/obj/item/clothing/head/helmet/space/plasmaman/white = 2,
+		/obj/item/clothing/accessory/waistcoat = 2,
+		/obj/item/clothing/suit/apron/purple_bartender = 2,
+		/obj/item/clothing/head/soft/black = 2,
+		/obj/item/clothing/shoes/sneakers/black = 2,
+		/obj/item/reagent_containers/glass/rag = 2,
+		/obj/item/storage/box/beanbag = 1,
+		/obj/item/clothing/suit/armor/vest/alt = 1,
+		/obj/item/circuitboard/machine/dish_drive = 1,
+		/obj/item/clothing/glasses/sunglasses/advanced/reagent = 1,
+		/obj/item/clothing/neck/petcollar = 1,
+		/obj/item/storage/belt/bandolier = 1,
+		/obj/item/clothing/neck/tie/black = 2,
+		/obj/item/clothing/neck/tie/blue = 2
+	)
 	premium = list(/obj/item/storage/box/dishdrive = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/bar_wardrobe
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
@@ -368,7 +370,7 @@
 	)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
-	
+
 /obj/item/vending_refill/wardrobe/jani_wardrobe
 	machine_name = "JaniDrobe"
 

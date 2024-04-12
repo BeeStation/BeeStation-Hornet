@@ -2447,6 +2447,7 @@
 #include "code\modules\clothing\head\soft_caps.dm"
 #include "code\modules\clothing\head\sombrero.dm"
 #include "code\modules\clothing\head\tinfoilhat.dm"
+#include "code\modules\clothing\head\tophat.dm"
 #include "code\modules\clothing\masks\_masks.dm"
 #include "code\modules\clothing\masks\boxing.dm"
 #include "code\modules\clothing\masks\breath.dm"
