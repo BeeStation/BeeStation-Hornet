@@ -816,7 +816,7 @@
 	name = "exterminator's belt"
 	desc = " "
 	icon_state = "bustinbelt"
-	worn_icon_state = "bustinbelt"
+	worn_icon_state = "fannypack_white"
 
 /obj/item/storage/belt/sabre
 	name = "sabre sheath"

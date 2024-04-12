@@ -411,6 +411,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	var/mode = BATON_STUN
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
+	worn_icon_state = "classic_baton"
 	slot_flags = ITEM_SLOT_BELT
 	force = 7
 	w_class = WEIGHT_CLASS_LARGE
