@@ -95,6 +95,7 @@
 	name = "tactical breaching shotgun"
 	desc = "A compact semi-auto shotgun designed to fire breaching slugs and create rapid entry points."
 	icon_state = "breachingshotgun"
+	worn_icon_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/breaching
 	w_class = WEIGHT_CLASS_LARGE
 
@@ -104,6 +105,7 @@
 	name = "cycler shotgun"
 	desc = "An advanced shotgun with two separate magazine tubes, allowing you to quickly toggle between ammo types."
 	icon_state = "cycler"
+	worn_icon_state = "cshotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube
 	w_class = WEIGHT_CLASS_HUGE
 	var/toggled = FALSE
@@ -325,6 +327,7 @@
 	desc = "A single-shot shotgun. Better not miss."
 	icon_state = "ishotgun"
 	item_state = "shotgun_improv_shorty"
+	worn_icon_state = "shotgun"
 	w_class = WEIGHT_CLASS_LARGE
 	sawn_off = TRUE
 	slot_flags = ITEM_SLOT_BELT
@@ -335,6 +338,7 @@
 	desc = "Range isn't an issue when you can bring your victim to you."
 	icon_state = "hookshotgun"
 	item_state = "shotgun"
+	worn_icon_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bounty
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
