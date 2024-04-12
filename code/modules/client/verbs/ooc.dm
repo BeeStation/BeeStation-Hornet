@@ -239,7 +239,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	SSticker.show_roundend_report(src, TRUE)
 
 /client/verb/fit_viewport()
-	set name = "Fit Viewport asdfasdf"
+	set name = "Fit Viewport"
 	set category = "OOC"
 	set desc = "Fit the width of the map window to match the viewport"
 
