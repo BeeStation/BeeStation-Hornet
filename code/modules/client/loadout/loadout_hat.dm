@@ -62,11 +62,11 @@
 
 /datum/gear/hat/sombrero
 	display_name = "sombrero"
-	path = /obj/item/clothing/head/sombrero
+	path = /obj/item/clothing/head/costume/sombrero
 
 /datum/gear/hat/sombrero/green
 	display_name = "green sombrero"
-	path = /obj/item/clothing/head/sombrero/green
+	path = /obj/item/clothing/head/costume/sombrero/green
 
 /datum/gear/hat/wig
 	display_name = "wig"

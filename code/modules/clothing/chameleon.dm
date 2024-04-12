@@ -363,6 +363,7 @@
 /obj/item/clothing/under/chameleon/envirosuit
 	name = "plasma envirosuit"
 	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy. It has a small dial on the wrist."
+	icon = 'icons/obj/clothing/under/color.dmi'
 	item_state = "plasmaman"
 	resistance_flags = FIRE_PROOF
 	envirosealed = TRUE

@@ -548,7 +548,8 @@
 	desc = "Somehow, it's in two places at once."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "paradox_bag"
-	worn_icon_state = "paradoxbag"
+	worn_icon_state = null
+	//worn_icon_state = "paradoxbag"
 	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
 
@@ -711,6 +712,7 @@
 	inhand_y_dimension = 64
 	icon_state = "cleaving_saw"
 	icon_state_on = "cleaving_saw_open"
+	worn_icon_state = "cleaving_saw"
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb_off = list("attacked", "sawed", "sliced", "tore", "ripped", "diced", "cut")
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")

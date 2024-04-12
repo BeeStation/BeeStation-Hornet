@@ -822,8 +822,8 @@
 					/obj/item/clothing/gloves/botanic_leather,
 					/obj/item/clothing/gloves/color/black,
 					/obj/item/clothing/head/cowboy,
-					/obj/item/clothing/head/sombrero,
-					/obj/item/clothing/head/sombrero/green,
+					/obj/item/clothing/head/costume/sombrero,
+					/obj/item/clothing/head/costume/sombrero/green,
 					/obj/item/storage/belt/bandolier/western,
 					/obj/item/gun/ballistic/rifle/leveraction,
 					/obj/item/gun/ballistic/rifle/leveraction)

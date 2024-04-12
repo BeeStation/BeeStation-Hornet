@@ -136,6 +136,7 @@
 	icon_state = "plasmaman_tank_belt"
 	item_state = "plasmaman_tank_belt"
 	worn_icon_state = "plasmaman_tank_belt"
+	worn_icon = null
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	volume = 6
@@ -159,6 +160,7 @@
 	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it."
 	icon_state = "emergency"
 	worn_icon_state = "emergency"
+	worn_icon = null
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL

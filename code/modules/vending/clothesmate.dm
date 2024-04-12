@@ -53,7 +53,7 @@
 				/obj/item/clothing/head/hats/tophat = 1,
 				/obj/item/clothing/head/fedora = 1,
 				/obj/item/clothing/head/cowboy = 1,
-				/obj/item/clothing/head/sombrero = 1,
+				/obj/item/clothing/head/costume/sombrero = 1,
 
 			),
 		),

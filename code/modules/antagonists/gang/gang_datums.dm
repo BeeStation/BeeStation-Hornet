@@ -43,7 +43,7 @@
 /datum/team/gang/waffle
 	name = "Waffle"
 	color = "#808000"
-	hat = /obj/item/clothing/head/sombrero/green
+	hat = /obj/item/clothing/head/costume/sombrero/green
 	outfit = /obj/item/clothing/under/suit/green
 	suit = /obj/item/clothing/suit/costume/poncho/green
 
