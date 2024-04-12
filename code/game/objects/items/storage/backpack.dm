@@ -78,6 +78,7 @@
 	name = "hammerspace backpack"
 	desc = "A backpack that opens into a near infinite pocket of bluespace."
 	icon_state = "hammerspace"
+	worn_icon = null
 	worn_icon_state = null
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION

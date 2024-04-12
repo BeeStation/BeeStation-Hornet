@@ -328,7 +328,7 @@
 	desc = "A single-shot shotgun. Better not miss."
 	icon_state = "ishotgun"
 	item_state = "shotgun_improv_shorty"
-	worn_icon_state = "shotgun"
+	worn_icon_state = "gun"
 	w_class = WEIGHT_CLASS_LARGE
 	sawn_off = TRUE
 	slot_flags = ITEM_SLOT_BELT

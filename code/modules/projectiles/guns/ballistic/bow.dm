@@ -4,6 +4,7 @@
 	icon_state = "bow_unloaded"
 	icon_state_preview = "bow_unloaded"
 	item_state = "bow"
+	worn_icon_state = "baguette"
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY //need both hands to fire
 	force = 5

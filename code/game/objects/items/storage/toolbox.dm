@@ -218,6 +218,8 @@
 	new /obj/item/weldingtool/experimental/brass(src)
 
 /obj/item/storage/toolbox/brass/prefilled/servant
+	worn_icon = null
+	worn_icon_state = null
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/storage/toolbox/artistic
