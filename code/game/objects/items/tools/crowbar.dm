@@ -54,7 +54,7 @@
 	throw_range = 3
 	custom_materials = list(/datum/material/iron=70)
 	icon_state = "crowbar_large"
-	item_state = "crowbar"
+	worn_icon_state = "crowbar"
 	toolspeed = 0.7
 
 /obj/item/crowbar/cyborg

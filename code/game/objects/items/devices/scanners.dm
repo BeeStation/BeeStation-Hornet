@@ -137,6 +137,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
+	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
@@ -730,9 +731,10 @@ GENE SCANNER
 
 /obj/item/analyzer/ranged
 	desc = "A hand-held scanner which uses advanced spectroscopy and infrared readings to analyze gases as a distance. Alt-Click to use the built in barometer function."
-	name = "long-range analyzer"
+	name = "long-range gas analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ranged_analyzer"
+	worn_icon_state = "analyzer"
 
 /obj/item/analyzer/ranged/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -857,6 +859,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "nanite_scanner"
 	item_state = "nanite_remote"
+	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held body scanner able to detect nanites and their programming."
@@ -884,6 +887,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gene"
 	item_state = "healthanalyzer"
+	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held scanner for analyzing someones gene sequence on the fly. Hold near a DNA console to update the internal database."
@@ -999,6 +1003,7 @@ GENE SCANNER
 	name = "virus extrapolator"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "extrapolator_scan"
+	worn_icon_state = "healthanalyzer"
 	desc = "A bulky scanning device, used to extract genetic material of potential pathogens."
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
