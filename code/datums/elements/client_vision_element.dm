@@ -38,8 +38,6 @@
 	else if(CHECK_BITFIELD(cve_flags, CVE_FLAGS_NULLIFY_VISION_KEY_ON_QDEL))
 		SSclient_vision.nullify_client_vision_holder(vision_key)
 
-	if(islist(vision_key))
-		vision_key.Cut()
 	vision_key = null
 	if(islist(vision_image))
 		vision_image.Cut()
