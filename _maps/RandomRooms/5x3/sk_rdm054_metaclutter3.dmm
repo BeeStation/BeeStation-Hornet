@@ -59,7 +59,7 @@
 "g" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/costume/poncho,
-/obj/item/clothing/head/sombrero,
+/obj/item/clothing/head/costume/sombrero,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)

@@ -548,9 +548,8 @@
 	desc = "Somehow, it's in two places at once."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "paradox_bag"
-	worn_icon_state = null
-	//worn_icon_state = "paradoxbag"
-	slot_flags = ITEM_SLOT_BACK
+	worn_icon_state = "paradoxbag"
+	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/item/shared_storage/red

@@ -41774,7 +41774,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/clothing/head/sombrero,
+/obj/item/clothing/head/costume/sombrero,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},

@@ -513,7 +513,7 @@
 /area/ruin/space/has_grav/hotel/guestroom/room_3)
 "bR" = (
 /obj/structure/table/wood,
-/obj/item/clothing/head/sombrero,
+/obj/item/clothing/head/costume/sombrero,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_3)
 "bS" = (

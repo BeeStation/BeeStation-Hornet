@@ -119,7 +119,7 @@
 	..()
 	user.remove_alt_appearance("standard_borg_disguise")
 
-/obj/item/clothing/head/bronze
+/obj/item/clothing/head/costume/bronze
 	name = "bronze hat"
 	desc = "A crude helmet made out of bronze plates. It offers very little in the way of protection."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'

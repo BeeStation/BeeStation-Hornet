@@ -364,7 +364,7 @@
 	name = "plasma envirosuit"
 	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy. It has a small dial on the wrist."
 	icon = 'icons/obj/clothing/under/color.dmi'
-	item_state = "plasmaman"
+	worn_icon = 'icons/mob/clothing/under/color.dmi'
 	resistance_flags = FIRE_PROOF
 	envirosealed = TRUE
 	greyscale_colors = null
@@ -376,6 +376,8 @@
 /obj/item/clothing/under/chameleon/ratvar
 	name = "ratvarian engineer's jumpsuit"
 	desc = "A tough jumpsuit woven from alloy threads. It can take on the appearance of other jumpsuits."
+	icon = 'icons/obj/clothing/under/engineering.dmi'
+	worn_icon = 'icons/mob/clothing/under/engineering.dmi'
 	item_state = "engi_suit"
 	greyscale_colors = null
 	greyscale_config = null
