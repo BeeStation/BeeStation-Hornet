@@ -16,10 +16,10 @@
 	desc = "You should not be seeing this"
 	slot_flags = ITEM_SLOT_HEAD
 	bite_consumption_mod = 2
-	icon_state = "seed-poppy"
 	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	food_reagents = null //get the unit test off our back
 	foodtypes = VEGETABLES | GROSS
+	item_flags = ABSTRACT
 
 /obj/item/food/grown/flower/equipped(mob/user, slot)
 	. = ..()

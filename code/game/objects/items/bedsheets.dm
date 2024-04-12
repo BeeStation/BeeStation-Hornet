@@ -508,6 +508,7 @@
 	name = "random double dorms bedsheet"
 	icon_state = "random_doublesheet"
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
+	item_flags = ABSTRACT
 
 /obj/item/bedsheet/double/dorms/Initialize()
 	..()

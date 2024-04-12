@@ -4,8 +4,7 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
-	worn_icon = null
-	worn_icon_state = null
+	item_flags = ABSTRACT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
 	block_upgrade_walk = 1
