@@ -18,7 +18,7 @@
 	var/active = TRUE //Easy process throttle
 	var/last_status
 	var/next_stat_interval = 0
-	var/list/psiData = list()
+	var/list/kpaData = list()
 	var/list/powerData = list()
 	var/list/tempInputData = list()
 	var/list/tempOutputdata = list()
@@ -43,9 +43,9 @@
 			computer.update_icon()
 	if(world.time >= next_stat_interval)
 		next_stat_interval = world.time + 1 SECONDS //You only get a slow tick.
-		psiData += (reactor) ? reactor.pressure : 0
-		if(psiData.len > 100) //Only lets you track over a certain timeframe.
-			psiData.Cut(1, 2)
+		kpaData += (reactor) ? reactor.pressure : 0
+		if(kpaData.len > 100) //Only lets you track over a certain timeframe.
+			kpaData.Cut(1, 2)
 		powerData += (reactor) ? reactor.power*10 : 0 //We scale up the figure for a consistent:tm: scale
 		if(powerData.len > 100) //Only lets you track over a certain timeframe.
 			powerData.Cut(1, 2)
@@ -73,13 +73,13 @@
 /datum/computer_file/program/nuclear_monitor/ui_data()
 	var/list/data = list()
 	data["powerData"] = powerData
-	data["psiData"] = psiData
+	data["kpaData"] = kpaData
 	data["tempInputData"] = tempInputData
 	data["tempOutputdata"] = tempOutputdata
 	data["coolantInput"] = reactor ? reactor.last_coolant_temperature : 0
 	data["coolantOutput"] = reactor ? reactor.last_output_temperature : 0
 	data["power"] = reactor ? reactor.power : 0
-	data ["psi"] = reactor ? reactor.pressure : 0
+	data ["kpa"] = reactor ? reactor.pressure : 0
 	return data
 
 /datum/computer_file/program/nuclear_monitor/ui_act(action, params)
@@ -95,7 +95,7 @@
 				choices += R
 			reactor = input(usr, "What reactor do you wish to monitor?", "Nuclear Monitoring Selector", null) as null|anything in choices
 			powerData = list()
-			psiData = list()
+			kpaData = list()
 			tempInputData = list()
 			tempOutputdata = list()
 			return TRUE

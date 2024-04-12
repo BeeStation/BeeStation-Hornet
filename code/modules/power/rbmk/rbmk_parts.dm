@@ -20,6 +20,7 @@
 /obj/machinery/computer/reactor/control_rods
 	name = "control rod management computer"
 	desc = "A computer which can remotely raise / lower the control rods of an RBMK class nuclear reactor."
+	circuit = /obj/item/circuitboard/computer/control_rods
 
 /obj/machinery/computer/reactor/control_rods/attack_hand(mob/living/user)
 	. = ..()

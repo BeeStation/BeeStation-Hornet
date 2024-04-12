@@ -220,19 +220,15 @@ Arguments:
 	if(linked_interface)
 		linked_interface.active = FALSE
 		linked_interface.update_appearance()
-		linked_interface = null
 	if(linked_input)
 		linked_input.active = FALSE
 		linked_input.update_appearance()
-		linked_input = null
 	if(linked_output)
 		linked_output.active = FALSE
 		linked_output.update_appearance()
-		linked_output = null
 	if(linked_moderator)
 		linked_moderator.active = FALSE
 		linked_moderator.update_appearance()
-		linked_moderator = null
 	if(soundloop)
 		QDEL_NULL(soundloop)
 	STOP_PROCESSING(SSmachines, src)
@@ -419,7 +415,7 @@ Arguments:
 			sleep(1 SECONDS)
 			continue
 		else if(i > 50)
-			if(i == 10 SECONDS)
+			if(i == 5 SECONDS)
 				sound_to_playing_players('sound/effects/rbmk/explode.ogg')
 			speaking = "[DisplayTimeText(i, TRUE)] remain before total integrity failure."
 		else

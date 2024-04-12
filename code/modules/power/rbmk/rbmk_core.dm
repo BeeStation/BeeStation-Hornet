@@ -44,10 +44,6 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 TO DO:
 
 sprites
-make it orderable
-replace PSI with kpa on status monitor
-check if it can explode
-fix grilling
 test things with aramix
 
 */

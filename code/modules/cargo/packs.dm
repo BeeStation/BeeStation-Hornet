@@ -1290,17 +1290,26 @@
 					/obj/machinery/power/rad_collector)
 	crate_name = "collector crate"
 
-// /datum/supply_pack/engine/nuclearengine
-//	name = "RBMK Nuclear Reactor Engine Crate"
-//	desc = "Contains the board for an NT certified nuclear power engine! Don't forget to wear a radiation suit!"
-//	cost = 7000
-//	max_supply = 1
-//	access = ACCESS_CE
-//	access_budget = ACCESS_CE
-//	contains = list(/obj/item/circuitboard/machine/rbmk)
-//	crate_name = "nuclear engine crate"
-//	crate_type = /obj/structure/closet/crate/secure/engineering
-//	dangerous = TRUE
+/datum/supply_pack/engine/nuclear_reactor
+	name = "RBMK Nuclear Reactor Engine Crate"
+	desc = "Contains the boards for an NT certified nuclear power engine! Don't forget to wear a radiation suit!"
+	cost = 7000
+	max_supply = 1
+	access = ACCESS_CE
+	access_budget = ACCESS_CE
+	contains = list(/obj/item/RBMK_box/core,
+					/obj/item/RBMK_box/body/coolant_input,
+					/obj/item/RBMK_box/body/moderator_input,
+					/obj/item/RBMK_box/body/waste_output,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/circuitboard/computer/control_rods)
+	crate_name = "nuclear engine crate"
+	crate_type = /obj/structure/closet/crate/secure/engineering
+	dangerous = TRUE
 
 /datum/supply_pack/engine/sing_gen
 	name = "Singularity Generator Crate"
