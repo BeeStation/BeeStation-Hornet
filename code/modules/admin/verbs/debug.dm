@@ -1118,19 +1118,19 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set desc = "Give client image visibility validation to your current mob."
 	if(!holder)
 		return
-	if(!length(GLOB.cimg_controller.cimg_holders))
+	if(!length(SSclient_vision.client_vision_holders))
 		client_alert(src, "There's no active client image key in the game", "Client Image Holders")
 		return
 
 	if(!isobserver(src.mob))
 		alert(src, "Note that you are not using this as non-ghost. This may change your game.", "Warning Reminder")
-	var/target_key = input(usr, "Choose an image group key to see","Client Image Holders (Add)") as null|anything in GLOB.cimg_controller.cimg_holders
+	var/target_key = input(usr, "Choose an image group key to see","Client Image Holders (Add)") as null|anything in SSclient_vision.client_vision_holders
 	if(!target_key)
 		return
-	if(target_key in GLOB.cimg_controller.cimgkey_by_mob[src.mob]) // you already have this
+	if(target_key in SSclient_vision.vision_keys_by_mob[src.mob]) // you already have this
 		return
 
-	GLOB.cimg_controller.validate_mob(target_key, src.mob)
+	SSclient_vision.grant_vision_key_to_mob(target_key, src.mob)
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] validated cimg key \"[target_key]\" to themselves.</span>")
 
 /client/proc/cimg_disqualify()
@@ -1139,15 +1139,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	set desc = "Disqualify your client image visibility from your current mob."
 	if(!holder)
 		return
-	if(!length(GLOB.cimg_controller.cimgkey_by_mob[src.mob]))
+	if(!length(SSclient_vision.vision_keys_by_mob[src.mob]))
 		client_alert(src, "There's no client image key to you", "Client Image Holders")
 		return
 
 	if(!isobserver(src.mob))
 		alert(src, "Note that you are not using this as non-ghost. This may change your game.", "Warning Reminder")
-	var/target_key = input(usr, "Choose an image group key to remove","Client Image Holders (Removal)") as null|anything in GLOB.cimg_controller.cimgkey_by_mob[src.mob]
+	var/target_key = input(usr, "Choose an image group key to remove","Client Image Holders (Removal)") as null|anything in SSclient_vision.vision_keys_by_mob[src.mob]
 	if(!target_key)
 		return
 
-	GLOB.cimg_controller.disqualify_mob(target_key, src.mob)
+	SSclient_vision.revoke_vision_key_from_mob(target_key, src.mob)
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] disqualified cimg key \"[target_key]\" from themselves.</span>")

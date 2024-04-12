@@ -96,7 +96,7 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
-	GLOB.cimg_controller.on_mind_destroy(src)
+	SSclient_vision.on_mind_destroy(src)
 	QDEL_LIST(antag_datums)
 	QDEL_NULL(language_holder)
 	soulOwner = null

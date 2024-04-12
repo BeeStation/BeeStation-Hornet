@@ -169,7 +169,7 @@
 		gain_knowledge(starting_knowledge)
 
 	GLOB.reality_smash_track.add_tracked_mind(owner)
-	GLOB.cimg_controller.validate_mind(ROLE_HERETIC, owner)
+	SSclient_vision.grant_vision_key_to_mind(ROLE_HERETIC, owner)
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
 	return ..()
 
@@ -180,7 +180,7 @@
 		knowledge.on_lose(owner.current)
 
 	GLOB.reality_smash_track.remove_tracked_mind(owner)
-	GLOB.cimg_controller.disqualify_mind(ROLE_HERETIC, owner)
+	SSclient_vision.revoke_vision_key_from_mind(ROLE_HERETIC, owner)
 	QDEL_LIST_ASSOC_VAL(researched_knowledge)
 	return ..()
 

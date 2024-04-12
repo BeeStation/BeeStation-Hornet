@@ -227,11 +227,11 @@
 
 /mob/living/simple_animal/hostile/construct/wraith/Initialize(mapload)
 	. = ..()
-	GLOB.cimg_controller.validate_mob(CIMG_KEY_HOLYTURF, src) // not every cultist sees that. Only visible by wraith construct
+	SSclient_vision.grant_vision_key_to_mob(CLIVIS_KEY_HOLYTURF, src) // not every cultist sees that. Only visible by wraith construct
 
 /mob/living/simple_animal/hostile/construct/wraith/Destroy()
 	. = ..()
-	GLOB.cimg_controller.disqualify_mob(CIMG_KEY_HOLYTURF, src)
+	SSclient_vision.revoke_vision_key_from_mob(CLIVIS_KEY_HOLYTURF, src)
 
 /mob/living/simple_animal/hostile/construct/wraith/AttackingTarget() //refund jaunt cooldown when attacking living targets
 	var/prev_stat

@@ -52,7 +52,7 @@
 
 	//readd this mob's HUDs (antag, med, etc)
 	reload_huds()
-	GLOB.cimg_controller.on_mob_log_on(src)
+	SSclient_vision.on_mob_log_on(src)
 
 	reload_fullscreen() // Reload any fullscreen overlays this mob has.
 

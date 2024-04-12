@@ -174,20 +174,17 @@
 	/// The icon state applied to the image created for this influence.
 	var/real_icon_state = "reality_smash"
 	/// The image shown to heretics
-	var/image/heretic_image
 
 /obj/effect/heretic_influence/Initialize(mapload)
 	. = ..()
-	heretic_image = image(icon, src, real_icon_state, OBJ_LAYER)
+	var/image/heretic_image = image(icon, src, real_icon_state, OBJ_LAYER)
 	GLOB.reality_smash_track.smashes += src
-	GLOB.cimg_controller.stack_client_images(ROLE_HERETIC, heretic_image)
+	SSclient_vision.safe_stack_client_images(src, ROLE_HERETIC, heretic_image, cve_flags = CVE_FLAGS_CUT_IMAGE_ON_QDEL)
 	generate_name()
 	SSvis_overlays.add_obj_alpha(src, 'icons/effects/heretic.dmi', "pierced_illusion")
 
 /obj/effect/heretic_influence/Destroy()
 	GLOB.reality_smash_track.smashes -= src
-	GLOB.cimg_controller.cut_client_images(ROLE_HERETIC, heretic_image)
-	heretic_image = null
 	return ..()
 
 /obj/effect/heretic_influence/attack_hand(mob/user, list/modifiers)

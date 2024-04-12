@@ -93,7 +93,7 @@
 /datum/antagonist/ert/medic/inquisitor/on_gain()
 	. = ..()
 	owner.holy_role = HOLY_ROLE_PRIEST
-	GLOB.cimg_controller.validate_mind(CIMG_KEY_HOLYTURF, owner)
+	SSclient_vision.grant_vision_key_to_mind(CLIVIS_KEY_HOLYTURF, owner)
 
 /datum/antagonist/ert/security/inquisitor
 	outfit = /datum/outfit/ert/security/inquisitor
@@ -101,7 +101,7 @@
 /datum/antagonist/ert/security/inquisitor/on_gain()
 	. = ..()
 	owner.holy_role = HOLY_ROLE_PRIEST
-	GLOB.cimg_controller.validate_mind(CIMG_KEY_HOLYTURF, owner)
+	SSclient_vision.grant_vision_key_to_mind(CLIVIS_KEY_HOLYTURF, owner)
 
 /datum/antagonist/ert/chaplain
 	role = JOB_NAME_CHAPLAIN
@@ -113,7 +113,7 @@
 /datum/antagonist/ert/chaplain/on_gain()
 	. = ..()
 	owner.holy_role = HOLY_ROLE_PRIEST
-	GLOB.cimg_controller.validate_mind(CIMG_KEY_HOLYTURF, owner)
+	SSclient_vision.grant_vision_key_to_mind(CLIVIS_KEY_HOLYTURF, owner)
 
 /datum/antagonist/ert/commander/inquisitor
 	outfit = /datum/outfit/ert/commander/inquisitor
@@ -121,7 +121,7 @@
 /datum/antagonist/ert/commander/inquisitor/on_gain()
 	. = ..()
 	owner.holy_role = HOLY_ROLE_PRIEST
-	GLOB.cimg_controller.validate_mind(CIMG_KEY_HOLYTURF, owner)
+	SSclient_vision.grant_vision_key_to_mind(CLIVIS_KEY_HOLYTURF, owner)
 
 /datum/antagonist/ert/janitor
 	role = JOB_NAME_JANITOR

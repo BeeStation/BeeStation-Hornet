@@ -384,12 +384,12 @@
 
 /obj/item/extinguisher/holy/pickup(mob/user)
 	. = ..()
-	GLOB.cimg_controller.validate_mob(ROLE_HERETIC, user)
-	GLOB.cimg_controller.validate_mob(CIMG_KEY_HOLYTURF, user)
+	SSclient_vision.grant_vision_key_to_mob(ROLE_HERETIC, user)
+	SSclient_vision.grant_vision_key_to_mob(CLIVIS_KEY_HOLYTURF, user)
 
 /obj/item/extinguisher/holy/dropped(mob/user, silent)
 	. = ..()
-	GLOB.cimg_controller.disqualify_mob(CIMG_KEY_HOLYTURF, user)
-	GLOB.cimg_controller.disqualify_mob(ROLE_HERETIC, user)
+	SSclient_vision.revoke_vision_key_from_mob(CLIVIS_KEY_HOLYTURF, user)
+	SSclient_vision.revoke_vision_key_from_mob(ROLE_HERETIC, user)
 
 /datum/outfit/debug/r_hand = /obj/item/extinguisher/holy // TMONLY

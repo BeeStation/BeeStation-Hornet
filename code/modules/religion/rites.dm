@@ -435,7 +435,7 @@
 	if(GLOB.religion)
 		var/obj/item/storage/book/bible/booze/B = new
 		undead.mind?.holy_role = HOLY_ROLE_PRIEST
-		GLOB.cimg_controller.validate_mind(CIMG_KEY_HOLYTURF, undead.mind)
+		SSclient_vision.grant_vision_key_to_mind(CLIVIS_KEY_HOLYTURF, undead.mind)
 		B.deity_name = GLOB.deity
 		B.name = GLOB.bible_name
 		B.icon_state = GLOB.bible_icon_state
@@ -607,7 +607,7 @@
 	M.transfer_to(carp)
 	if(GLOB.religion)
 		carp.mind?.holy_role = HOLY_ROLE_PRIEST
-		GLOB.cimg_controller.validate_mind(CIMG_KEY_HOLYTURF, carp.mind)
+		SSclient_vision.grant_vision_key_to_mind(CLIVIS_KEY_HOLYTURF, carp.mind)
 		to_chat(carp, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
 		GLOB.religious_sect?.on_conversion(carp)
 	if(is_special_character(user))

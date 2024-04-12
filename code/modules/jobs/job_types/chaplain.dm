@@ -52,7 +52,7 @@
 		GLOB.religious_sect?.on_conversion(H)
 		return
 	H.mind?.holy_role = HOLY_ROLE_HIGHPRIEST
-	GLOB.cimg_controller.validate_mind(CIMG_KEY_HOLYTURF, H.mind)
+	SSclient_vision.grant_vision_key_to_mind(CLIVIS_KEY_HOLYTURF, H.mind)
 
 	var/new_religion = preference_source?.prefs?.read_character_preference(/datum/preference/name/religion) || DEFAULT_RELIGION
 	var/new_deity = preference_source?.prefs?.read_character_preference(/datum/preference/name/deity) || DEFAULT_DEITY
