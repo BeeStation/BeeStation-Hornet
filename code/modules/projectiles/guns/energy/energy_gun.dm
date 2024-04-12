@@ -24,6 +24,7 @@
 	charge_sections = 3
 	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
 	weapon_weight = WEAPON_LIGHT
+	single_shot_type_overlay = FALSE
 
 /obj/item/gun/energy/e_gun/mini/heads
 	name = "Personal Tiny Self Defense Gun"

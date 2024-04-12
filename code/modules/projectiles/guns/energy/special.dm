@@ -2,7 +2,9 @@
 	name = "ion rifle"
 	desc = "A man-portable anti-armor weapon designed to disable mechanical threats at range."
 	icon_state = "ionrifle"
-	item_state = null	//so the human update icon uses the icon_state instead.
+	item_state = null //so the human update icon uses the icon_state instead.
+	worn_icon_state = null
+	shaded_charge = TRUE
 	can_flashlight = TRUE
 	w_class = WEIGHT_CLASS_HUGE
 	flags_1 =  CONDUCT_1
@@ -68,6 +70,7 @@
 	cell_type = "/obj/item/stock_parts/cell/potato"
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
 	selfcharge = 1
+	automatic_charge_overlays = FALSE
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -78,6 +81,7 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	automatic_charge_overlays = FALSE
 
 /obj/item/gun/energy/mindflayer
 	name = "\improper Mind Flayer"
@@ -253,6 +257,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
 	item_state = null
 	icon_state = "wormhole_projector"
+	automatic_charge_overlays = FALSE
 	var/obj/effect/portal/p_blue
 	var/obj/effect/portal/p_orange
 	var/atmos_link = FALSE
@@ -361,6 +366,9 @@
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit."
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
+	charge_sections = 5
+	ammo_x_offset = 2
+	shaded_charge = FALSE
 
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."
@@ -383,4 +391,5 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/gravity/repulse, /obj/item/ammo_casing/energy/gravity/attract, /obj/item/ammo_casing/energy/gravity/chaos)
 	item_state = "gravity_gun"
 	icon_state = "gravity_gun"
+	automatic_charge_overlays = FALSE
 	var/power = 4

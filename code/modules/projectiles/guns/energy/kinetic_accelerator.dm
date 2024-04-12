@@ -1,6 +1,7 @@
 /obj/item/gun/energy/kinetic_accelerator
 	name = "proto-kinetic accelerator"
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure."
+	automatic_charge_overlays = FALSE
 	icon_state = "kineticgun"
 	item_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)

@@ -10,7 +10,7 @@
 	var/cell_type = /obj/item/stock_parts/cell
 	/// how much charge the cell will have, if we want the gun to have some abnormal charge level without making a new battery.
 	var/gun_charge
-	var/modifystate = 0
+	var/modifystate = FALSE
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	///The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
 	var/select = 1
@@ -22,6 +22,10 @@
 	ammo_x_offset = 2
 	///if this gun uses a stateful charge bar for more detail
 	var/shaded_charge = FALSE
+	///If this gun has a "this is loaded with X" overlay alongside chargebars and such
+	var/single_shot_type_overlay = TRUE
+	///Should we give an overlay to empty guns?
+	var/display_empty = TRUE
 	var/selfcharge = 0
 	var/charge_timer = 0
 	var/charge_delay = 8
@@ -219,27 +223,31 @@
 	. = ..()
 	if(!automatic_charge_overlays)
 		return
+
+	var/overlay_icon_state = "[icon_state]_charge"
+	if(modifystate)
+		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+		if(single_shot_type_overlay)
+			. += "[icon_state]_[shot.select_name]"
+		overlay_icon_state += "_[shot.select_name]"
+
 	var/ratio = get_charge_ratio()
 	//Display no power if EMPed
 	if(obj_flags & OBJ_EMPED)
 		ratio = 0
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/iconState = "[icon_state]_charge"
-	if (modifystate)
-		. += "[icon_state]_[shot.select_name]"
-		iconState += "_[shot.select_name]"
-	if(cell.charge < shot.e_cost)
+	if(ratio == 0 && display_empty)
 		. += "[icon_state]_empty"
+		return
 	else
 		if(!shaded_charge)
 			for(var/i = ratio, i >= 1, i--)
-				var/mutable_appearance/charge_overlay = mutable_appearance(icon, iconState)
+				var/mutable_appearance/charge_overlay = mutable_appearance(icon, overlay_icon_state)
 				charge_overlay.pixel_x = ammo_x_offset * (i - 1)
 				charge_overlay.pixel_y = ammo_y_offset * (i - 1)
 				. += charge_overlay
 				if (!emissive_charge)
 					continue
-				var/mutable_appearance/charge_overlay_emissive = emissive_appearance(icon, iconState, layer = src.layer, alpha = 80)
+				var/mutable_appearance/charge_overlay_emissive = emissive_appearance(icon, overlay_icon_state, layer = src.layer, alpha = 80)
 				ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 				charge_overlay_emissive.pixel_x = ammo_x_offset * (i - 1)
 				charge_overlay_emissive.pixel_y = ammo_y_offset * (i - 1)
