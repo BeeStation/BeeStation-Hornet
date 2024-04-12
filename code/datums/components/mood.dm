@@ -77,20 +77,20 @@
 			msg += "<span class='nicegreen'>I love life!</span>\n"
 
 	msg += "<span class='notice'>Moodlets:\n</span>"//All moodlets
-	var/mood_msg = null
-	var/tought_msg = null
+	var/mood_msg = ""
+	var/thought_msg = ""
 	for(var/i in mood_events)
 		var/datum/mood_event/event = mood_events[i]
 		if(event.mood_change)
 			mood_msg += "[event.description]\n"
 		else
-			tought_msg += "[event.description]\n"
+			thought_msg += "[event.description]\n"
 	if(!mood_msg)
 		msg += "<span class='mood_neutral'>I don't have much of a reaction to anything right now.<span>\n"
 	msg += mood_msg
-	if(tought_msg)
-		msg += "<span class='notice'>Toughts:\n</span>"
-		msg += tought_msg
+	if(thought_msg)
+		msg += "<span class='notice'>Thoughts:</span>\n"
+		msg += thought_msg
 	to_chat(user || parent, EXAMINE_BLOCK(msg))
 
 /datum/component/mood/proc/update_mood() //Called whenever a mood event is added or removed
@@ -225,7 +225,6 @@
 	else
 		sanity = amount
 
-	var/mob/living/master = parent
 	switch(sanity)
 		if(SANITY_INSANE to SANITY_CRAZY)
 			setInsanityEffect(MAJOR_INSANITY_PEN)

@@ -1410,21 +1410,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			to_chat(H, "<span class='notice'>You no longer feel vigorous.</span>")
 		H.metabolism_efficiency = 1
 
-	//Hunger slowdown for if mood isn't enabled
-	if(CONFIG_GET(flag/disable_human_mood))
-		if(!HAS_TRAIT(H, TRAIT_NOHUNGER))
-			var/hungry = (500 - H.nutrition) / 5 //So overeat would be 100 and default level would be 80
-			if(hungry >= 70)
-				H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (hungry / 50))
-			else
-				H.remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
-
 	if(HAS_TRAIT(H, TRAIT_POWERHUNGRY))
 		handle_charge(H)
 	else
 		switch(H.nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)
 				H.throw_alert("nutrition", /atom/movable/screen/alert/fat)
+				H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
+				H.remove_actionspeed_modifier(ACTIONSPEED_ID_SATIETY)
 			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_FULL)
 				H.clear_alert("nutrition")
 				H.remove_movespeed_modifier(MOVESPEED_ID_VISIBLE_HUNGER)
