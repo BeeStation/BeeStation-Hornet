@@ -20,7 +20,7 @@
 
 /datum/priority_directive/deaddrop/_generate(list/teams)
 	// Spawn the deaddrop package
-	var/tc_count = rand(4, 3 + length(teams))
+	var/tc_count = rand(3, 3 + length(teams))
 	// Put the deaddrop somewhere
 	var/turf/selected = get_random_station_turf()
 	while (!istype(selected, /turf/open/floor/iron) || selected.is_blocked_turf(TRUE))
@@ -38,6 +38,8 @@
 	var/atom/current = target
 	while (!ismob(current) && !isturf(current) && current)
 		current = current.loc
+	// Hack so you don't get extra TC
+	tc_reward = 0
 	if (ismob(current))
 		var/mob/living/living_holder = current
 		var/datum/component/uplink/uplink = living_holder.mind.find_syndicate_uplink()

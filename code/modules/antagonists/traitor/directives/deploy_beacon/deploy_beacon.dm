@@ -16,7 +16,7 @@
 
 /datum/priority_directive/deploy_beacon/_allocate_teams(list/uplinks, list/player_minds, force = FALSE)
 	empty_uplinks.Cut()
-	if (length(uplinks) <= 3 && !force)
+	if (length(uplinks) <= 2 && !force)
 		reject()
 		return
 	// Pick a location that the beacon needs to be deployed at, somewhere out of prying eyes
@@ -64,7 +64,7 @@
 	return smallest_team
 
 /datum/priority_directive/deploy_beacon/_generate(list/teams)
-	return rand(5, 9)
+	return rand(3, 6)
 
 /datum/priority_directive/deploy_beacon/get_track_atom()
 	return center_turf
