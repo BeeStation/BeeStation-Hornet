@@ -10012,9 +10012,7 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bhR" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/bot,
-/obj/item/book/manual/wiki/cooking_to_serve_man,
+/obj/machinery/griddle,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bhS" = (
@@ -10563,6 +10561,7 @@
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/book/manual/wiki/cooking_to_serve_man,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "blw" = (
@@ -36560,7 +36559,7 @@
 /turf/open/floor/iron,
 /area/engine/storage_shared)
 "eNB" = (
-/obj/machinery/computer/arcade{
+/obj/effect/spawner/randomarcade{
 	dir = 4
 	},
 /turf/open/floor/prison,

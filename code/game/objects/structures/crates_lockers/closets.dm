@@ -121,6 +121,7 @@
 
 	//Overlay is similar enough for both that we can use the same mask for both
 	. += emissive_appearance(icon, icon_locked, src.layer)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	. += locked ? icon_locked : icon_unlocked
 
 /obj/structure/closet/update_appearance(updates=ALL)
