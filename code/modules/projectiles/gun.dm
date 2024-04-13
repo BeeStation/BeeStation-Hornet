@@ -283,7 +283,10 @@
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params, aimed)
 	. = ..()
-	if(!target)
+	return fire_gun(target, user, flag, params, aimed)
+
+/obj/item/gun/proc/fire_gun(atom/target, mob/living/user, flag, params, aimed)
+	if(QDELETED(target))
 		return
 	if(firing_burst)
 		return

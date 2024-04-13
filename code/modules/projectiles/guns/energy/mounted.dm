@@ -4,6 +4,7 @@
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "taser"
 	item_state = "armcannonstun4"
+	display_empty = FALSE
 	force = 5
 	selfcharge = 1
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses neural signals instead

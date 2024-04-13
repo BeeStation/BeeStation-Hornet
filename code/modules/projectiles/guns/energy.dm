@@ -3,15 +3,19 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
+
 	///What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell
 	var/cell_type = /obj/item/stock_parts/cell
 	/// how much charge the cell will have, if we want the gun to have some abnormal charge level without making a new battery.
 	var/gun_charge
-	var/modifystate = 0
+	///if the weapon has custom icons for individual ammo types it can switch between. ie disabler beams, taser, laser/lethals, ect.
+	var/modifystate = FALSE
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	///The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
 	var/select = 1
+	///If the user can select the firemode through attack_self.
+	var/can_select = TRUE
 	///Can it be charged in a recharger?
 	var/can_charge = TRUE
 	///Do we handle overlays with base update_overlays()?
@@ -67,7 +71,10 @@
 	recharge_newshot(TRUE)
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
-	update_appearance()
+	update_appearance(UPDATE_ICON)
+
+/obj/item/gun/energy/ComponentInitialize()
+	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/gun/energy/fire_sounds()
@@ -130,9 +137,8 @@
 		update_appearance(UPDATE_ICON)
 
 /obj/item/gun/energy/attack_self(mob/living/user as mob)
-	if(ammo_type.len > 1)
+	if(ammo_type.len > 1 && can_select)
 		select_fire(user)
-		update_appearance(UPDATE_ICON)
 
 /obj/item/gun/energy/can_shoot()
 	//Cannot shoot while EMPed
@@ -193,12 +199,18 @@
 	var/skip_worn_icon = initial(worn_icon_state) //only build if we aren't using a preset worn icon
 
 	if(skip_inhand && skip_worn_icon) //if we don't have either, don't do the math.
+		return
+
+	if(QDELETED(src))
+		return
+	if(!automatic_charge_overlays)
 		return ..()
 
+
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/ratio = get_charge_ratio()
 	var/temp_icon_to_use = initial(icon_state)
-	if (modifystate)
-		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(modifystate)
 		temp_icon_to_use += "[shot.select_name]"
 
 	temp_icon_to_use += "[ratio]"
@@ -206,7 +218,6 @@
 		item_state = temp_icon_to_use
 	if(!skip_worn_icon)
 		worn_icon_state = temp_icon_to_use
-	return ..()
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()
@@ -217,16 +228,16 @@
 	if(modifystate)
 		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 		if(single_shot_type_overlay)
-			. += "[icon_state]_[initial(shot.select_name)]"
-		overlay_icon_state += "_[initial(shot.select_name)]"
+			. += "[icon_state]_[shot.select_name]"
+		overlay_icon_state += "_[shot.select_name]"
 
 	var/ratio = get_charge_ratio()
 	//Display no power if EMPed
 	if(obj_flags & OBJ_EMPED)
 		ratio = 0
-
 	if(ratio == 0 && display_empty)
 		. += "[icon_state]_empty"
+		return
 	else
 		if(!shaded_charge)
 			for(var/i = ratio, i >= 1, i--)
