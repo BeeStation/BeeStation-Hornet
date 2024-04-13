@@ -213,11 +213,6 @@
 /atom/movable/openspace/mimic/get_orbitable()
 	return associated_atom
 
-/atom/movable/openspace/mimic/projectil
-
-/// copies the behaviour of /obj/projectile/forceMove(atom/target)
-///atom/movable/openspace/mimic/projectil/forceMove(atom/target)
-
 // -- TURF PROXY --
 // This thing holds the mimic appearance for non-OVERWRITE turfs.
 /atom/movable/openspace/turf_proxy
