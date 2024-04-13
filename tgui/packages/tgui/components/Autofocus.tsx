@@ -1,17 +1,23 @@
-import { createRef, PropsWithChildren, useEffect } from 'react';
+import { PropsWithChildren, useEffect, useRef } from 'react';
 
+/** Used to force the window to steal focus on load. Children optional */
 export const Autofocus = (props: PropsWithChildren) => {
-  const ref = createRef<HTMLDivElement>();
+  const { children } = props;
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       ref.current?.focus();
     }, 1);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
     <div ref={ref} tabIndex={-1}>
-      {props.children}
+      {children}
     </div>
   );
 };
