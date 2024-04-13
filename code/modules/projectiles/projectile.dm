@@ -643,6 +643,7 @@
 	LAZYINITLIST(impacted)
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)
+	var/list/mimics = get_associated_mimics(TRUE) // MARKING: z-mimic handle
 	//If no angle needs to resolve it from xo/yo!
 	if(!log_override && firer && original)
 		log_combat(firer, original, "fired at", src, "from [get_area_name(src, TRUE)]")
@@ -651,9 +652,9 @@
 		if(QDELETED(src))
 			return
 	if(isnum_safe(angle))
-		setAngle(angle)
+		setAngle(angle, /*MARKING: z-mimic*/ predefined_zmimics = mimics)
 	if(spread)
-		setAngle(Angle + ((rand() - 0.5) * spread))
+		setAngle(Angle + ((rand() - 0.5) * spread), /*MARKING: z-mimic*/ predefined_zmimics = mimics)
 	var/turf/starting = get_turf(src)
 	if(isnull(Angle))	//Try to resolve through offsets if there's no angle set.
 		if(isnull(xo) || isnull(yo))
@@ -661,15 +662,22 @@
 			qdel(src)
 			return
 		var/turf/target = locate(clamp(starting + xo, 1, world.maxx), clamp(starting + yo, 1, world.maxy), starting.z)
-		setAngle(get_angle(src, target))
+		setAngle(get_angle(src, target), /*MARKING: z-mimic*/ predefined_zmimics = mimics)
 	original_angle = Angle
 	if(!nondirectional_sprite)
-		var/matrix/M = new
-		M.Turn(Angle)
-		transform = M
+		var/matrix/matrix_to_apply = new
+		matrix_to_apply.Turn(Angle)
+		// MARKING: z-mimic handle (Matrix)
+		FOR_LISTED_ZMIMIC(var/atom/movable/each_mimic, mimics)
+			each_mimic.transform = matrix_to_apply
+		// MARKING: z-mimic done
+	// MARKING: z-mimic handle (forceMove)
 	trajectory_ignore_forcemove = TRUE
-	forceMove(starting)
+	FOR_LISTED_ZMIMIC(var/atom/movable/each_mimic, mimics)
+		var/turf/mimic_turf = locate(starting.x, starting.y, each_mimic.z)
+		each_mimic.forceMove(mimic_turf)
 	trajectory_ignore_forcemove = FALSE
+	// MARKING: z-mimic done
 	trajectory = new(starting.x, starting.y, starting.z, pixel_x, pixel_y, Angle, SSprojectiles.global_pixel_speed)
 	last_projectile_move = world.time
 	fired = TRUE
@@ -679,12 +687,15 @@
 		START_PROCESSING(SSprojectiles, src)
 	pixel_move(1, FALSE)	//move it now!
 
-/obj/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
+/obj/projectile/proc/setAngle(new_angle, list/predefined_zmimics = null)	//wrapper for overrides.
 	Angle = new_angle
 	if(!nondirectional_sprite)
-		var/matrix/M = new
-		M.Turn(Angle)
-		transform = M
+		var/matrix/matrix_to_apply = new
+		matrix_to_apply.Turn(Angle)
+		// MARKING: z-mimic handled animate
+		FOR_LISTED_ZMIMIC(var/atom/movable/each_mimic, predefined_zmimics ? predefined_zmimics : get_associated_mimics(TRUE))
+			each_mimic.transform = matrix_to_apply
+		// MARKING: z-mimic done
 	if(trajectory)
 		trajectory.set_angle(new_angle)
 	return TRUE
@@ -750,11 +761,15 @@
 /obj/projectile/proc/pixel_move(trajectory_multiplier, hitscanning = FALSE)
 	if(!loc || !trajectory)
 		return
+	var/list/zmimics = get_associated_mimics(TRUE)
+
 	last_projectile_move = world.time
 	if(!nondirectional_sprite && !hitscanning)
-		var/matrix/M = new
-		M.Turn(Angle)
-		transform = M
+		var/matrix/matrix_to_apply = new
+		matrix_to_apply.Turn(Angle)
+		// MARKING: z-mimic handle
+		FOR_LISTED_ZMIMIC(var/atom/movable/each_mimic, zmimics)
+			each_mimic.transform = matrix_to_apply
 	if(homing)
 		process_homing()
 	var/forcemoved = FALSE
@@ -769,13 +784,22 @@
 		if(T.z != loc.z)
 			var/old = loc
 			before_z_change(loc, T)
+			// MARKING: z-mimic handle
 			trajectory_ignore_forcemove = TRUE
-			forceMove(T)
+			FOR_LISTED_ZMIMIC(var/atom/movable/each_mimic, zmimics)
+				var/turf/mimic_turf = locate(T.x, T.y, each_mimic.z)
+				each_mimic.forceMove(mimic_turf)
 			trajectory_ignore_forcemove = FALSE
+			// MARKING: z-mimic done
 			after_z_change(old, loc)
 			if(!hitscanning)
-				pixel_x = trajectory.return_px()
-				pixel_y = trajectory.return_py()
+				// MARKING: z-mimic handle
+				var/new_pixel_x = trajectory.return_px()
+				var/new_pixel_y = trajectory.return_py()
+				FOR_LISTED_ZMIMIC(var/atom/movable/each_mimic, zmimics)
+					each_mimic.pixel_x = new_pixel_x
+					each_mimic.pixel_y = new_pixel_y
+				// MARKING: z-mimic done
 			forcemoved = TRUE
 			hitscan_last = loc
 		else if(T != loc)
@@ -784,9 +808,16 @@
 	if(QDELETED(src))
 		return
 	if(!hitscanning && !forcemoved)
-		pixel_x = trajectory.return_px() - trajectory.mpx * trajectory_multiplier * SSprojectiles.global_iterations_per_move
-		pixel_y = trajectory.return_py() - trajectory.mpy * trajectory_multiplier * SSprojectiles.global_iterations_per_move
-		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
+		// MARKING: z-mimic handle
+		var/traj_px = trajectory.return_px()
+		var/traj_py = trajectory.return_py()
+		var/new_pixel_x = traj_px - trajectory.mpx * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+		var/new_pixel_y = traj_py - trajectory.mpy * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+		FOR_LISTED_ZMIMIC(var/atom/movable/each_mimic, zmimics)
+			each_mimic.pixel_x = new_pixel_x
+			each_mimic.pixel_y = new_pixel_y
+			animate(each_mimic, pixel_x = traj_px, pixel_y = traj_py, time = 1, flags = ANIMATION_END_NOW)
+		// MARKING: z-mimic done
 	Range()
 
 /obj/projectile/proc/process_homing()			//may need speeding up in the future performance wise.
@@ -814,26 +845,31 @@
 /obj/projectile/proc/preparePixelProjectile(atom/target, atom/source, params, spread = 0)
 	var/turf/curloc = get_turf(source)
 	var/turf/targloc = get_turf(target)
+	// MARKING: z-mimic handle
+	var/list/mimics = get_associated_mimics(TRUE)
 	trajectory_ignore_forcemove = TRUE
-	forceMove(get_turf(source))
+	FOR_LISTED_ZMIMIC(var/atom/movable/each_mimic, mimics)
+		var/turf/mimic_turf = locate(source.x, source.y, each_mimic.z)
+		each_mimic.forceMove(mimic_turf)
 	trajectory_ignore_forcemove = FALSE
+	// MARKING: z-mimic done
 	starting = get_turf(source)
 	original = target
 	if(targloc || !params)
 		yo = targloc.y - curloc.y
 		xo = targloc.x - curloc.x
-		setAngle(get_angle(src, targloc) + spread)
+		setAngle(get_angle(src, targloc) + spread, /*MARKING: z-mimic*/ predefined_zmimics = mimics)
 
 	if(isliving(source) && params)
 		var/list/calculated = calculate_projectile_angle_and_pixel_offsets(source, params)
 		p_x = calculated[2]
 		p_y = calculated[3]
 
-		setAngle(calculated[1] + spread)
+		setAngle(calculated[1] + spread, /*MARKING: z-mimic*/ predefined_zmimics = mimics)
 	else if(targloc)
 		yo = targloc.y - curloc.y
 		xo = targloc.x - curloc.x
-		setAngle(get_angle(src, targloc) + spread)
+		setAngle(get_angle(src, targloc) + spread, /*MARKING: z-mimic*/ predefined_zmimics = mimics)
 	else
 		stack_trace("WARNING: Projectile [type] fired without either mouse parameters, or a target atom to aim at!")
 		qdel(src)

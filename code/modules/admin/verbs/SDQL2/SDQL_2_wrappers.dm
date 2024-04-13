@@ -7,7 +7,11 @@
 	var/mutable_appearance/MA = new()
 	for(var/v in set_vars)
 		MA.vars[v] = set_vars[v]
-	animate(A, appearance = MA, time, loop, easing, flags)
+	if(ismovable(A))
+		WHILE_varZMIMIC(A)
+			animate(ZMIMIC, appearance = MA, time, loop, easing, flags)
+	else
+		animate(A, appearance = MA, time, loop, easing, flags)
 
 /proc/_acrccos(A)
 	return arccos(A)

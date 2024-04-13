@@ -174,13 +174,15 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		qdel(src)
 		return
 	feedback_details += "Vent Coords: [center.x],[center.y],[center.z]"
-	var/image/plasma_image = image(image_icon,center,image_state,FLY_LAYER)
-	plasma_image.alpha = 50
-	plasma_image.plane = GAME_PLANE
-	flood_images += plasma_image
-	flood_turfs += center
-	if(target.client)
-		target.client.images |= flood_images
+	var/image/plasma_image
+	WHILE_varZMIMIC(center)
+		plasma_image = image(image_icon, ZMIMIC, image_state, FLY_LAYER)
+		plasma_image.alpha = 50
+		plasma_image.plane = GAME_PLANE
+		flood_images += plasma_image
+		if(target.client)
+			target.client.images |= flood_images
+	flood_turfs += center // do not put turfs from zmimics
 	next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
 	START_PROCESSING(SSobj, src)
 
@@ -203,11 +205,12 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			var/turf/T = get_step(FT, dir)
 			if((T in flood_turfs) || !FT.CanAtmosPass(T))
 				continue
-			var/image/new_plasma = image(image_icon,T,image_state,FLY_LAYER)
-			new_plasma.alpha = 50
-			new_plasma.plane = GAME_PLANE
-			flood_images += new_plasma
-			flood_turfs += T
+			WHILE_varZMIMIC(T)
+				var/image/new_plasma = image(image_icon, ZMIMIC, image_state, FLY_LAYER)
+				new_plasma.alpha = 50
+				new_plasma.plane = GAME_PLANE
+				flood_images += new_plasma
+			flood_turfs += T // do not put turfs from zmimics
 	if(target.client)
 		target.client.images |= flood_images
 

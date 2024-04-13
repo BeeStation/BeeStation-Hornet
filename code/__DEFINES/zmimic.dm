@@ -60,3 +60,14 @@ GLOBAL_LIST_INIT(z_defines, list(
 On ZMM_AUTOMANGLE:
 	It's separate from ZMM_MANGLE_PLANES so SSoverlays doesn't disable mangling on a manually flagged atom.
 */
+
+/// quick while loop thing when you don't have to access things a lot
+/// Use FOR_LISTED_ZMIMIC if you need to access a type
+#define WHILE_varZMIMIC(this_atom) \
+	var/atom/ZMIMIC = this_atom; \
+	var/list/associated_mimics = ZMIMIC.get_associated_mimics(TRUE); \
+	var/curr = length(associated_mimics); \
+	while(curr && (ZMIMIC = associated_mimics[curr--]))
+
+#define FOR_LISTED_ZMIMIC(Typepath, zmimic_list) \
+	for(##Typepath as anything in zmimic_list)

@@ -20,6 +20,16 @@
 	if (TURF_IS_MIMICKING(above))
 		above.update_mimic()
 
+/turf/get_associated_mimics(including_self = FALSE)
+	if(including_self)
+		. = list(src)
+	else
+		. = list()
+	var/turf/curr = src
+	while (istransparentturf(curr.above))
+		curr = curr.above
+		. += curr
+
 /turf/proc/update_mimic()
 	if(!(z_flags & Z_MIMIC_BELOW))
 		return

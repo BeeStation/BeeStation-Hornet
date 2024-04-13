@@ -80,10 +80,16 @@
 	if(can_shoot())
 		user.notransform = TRUE
 		playsound(src, 'sound/vehicles/rocketlaunch.ogg', 80, 1, 5)
-		animate(user, pixel_z = 300, time = 30, easing = LINEAR_EASING)
-		sleep(70)
-		animate(user, pixel_z = 0, time = 5, easing = LINEAR_EASING)
-		sleep(5)
+
+		// God, I want to use a macro, but these are syncronised.
+		var/list/associated_mimics_mob = user.get_associated_mimics(including_self = FALSE) // do not get original atom. We should animate it as its own because of sleep() proc
+		var/list/associated_mimics_obj = get_associated_mimics(including_self = FALSE) // same reason
+		var/curr = length(associated_mimics_mob)
+		while(curr)
+			animate_suicide_no_wait(associated_mimics_mob[curr], associated_mimics_obj[curr])
+			curr--
+		animate_suicide(user, src) // the true animation. Once we get out from sleep() of this proc, we'll do the later part
+
 		user.notransform = FALSE
 		process_fire(user, user, TRUE)
 		if(!QDELETED(user)) //if they weren't gibbed by the explosion, take care of them for good.
@@ -98,7 +104,13 @@
 		sleep(20)
 		return OXYLOSS
 
+/obj/item/gun/ballistic/rocketlauncher/proc/animate_suicide_no_wait(user, mimic_this)
+	set waitfor = FALSE
+	animate_suicide(user, mimic_this)
 
-
-
-
+/obj/item/gun/ballistic/rocketlauncher/proc/animate_suicide(user, mimic_this)
+	// MARKING: z-mimic handled animate
+	animate(user, pixel_z = 300, time = 30, easing = LINEAR_EASING)
+	sleep(70)
+	animate(user, pixel_z = 0, time = 5, easing = LINEAR_EASING)
+	sleep(5)

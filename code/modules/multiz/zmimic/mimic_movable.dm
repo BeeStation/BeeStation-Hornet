@@ -21,9 +21,16 @@
 	else if (bound_overlay && !bound_overlay.destruction_timer)
 		bound_overlay.destruction_timer = QDEL_IN(bound_overlay, 10 SECONDS)
 
+// needed for turfs too
+/atom/proc/get_associated_mimics(including_self = FALSE)
+	return
+
 // Grabs a list of every openspace mimic that's directly or indirectly copying this object. Returns an empty list if none found.
-/atom/movable/proc/get_associated_mimics()
-	. = list()
+/atom/movable/get_associated_mimics(including_self = FALSE)
+	if(including_self)
+		. = list(src)
+	else
+		. = list()
 	var/atom/movable/curr = src
 	while (curr.bound_overlay)
 		. += curr.bound_overlay
@@ -205,6 +212,11 @@
 // Get actual source atom when orbiting
 /atom/movable/openspace/mimic/get_orbitable()
 	return associated_atom
+
+/atom/movable/openspace/mimic/projectil
+
+/// copies the behaviour of /obj/projectile/forceMove(atom/target)
+///atom/movable/openspace/mimic/projectil/forceMove(atom/target)
 
 // -- TURF PROXY --
 // This thing holds the mimic appearance for non-OVERWRITE turfs.
