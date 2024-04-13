@@ -1,9 +1,0 @@
-author: rkz, coiax, zxaber
-delete-after: true
-changes:
-  - rscadd: AI's can now set their emote displays across the station through a radial
-      by clicking on them, or by using *emotes in chatbar.
-  - refactor: Refactored the AI Emote system to not be a 17 line if statement column.
-  - bugfix: Fix issue where AI couldnt change statusdisplay emote after it was set
-  - bugfix: Added extra checks to ensure a power disabled AI could eventually return
-      itself to power (reinforcing intended behavior)
