@@ -138,7 +138,7 @@
 
 /datum/gear/suit/jacket/bomber
 	display_name = "bomber jacket"
-	path = /obj/item/clothing/suit/jacket
+	path = /obj/item/clothing/suit/jacket/bomber
 
 /datum/gear/suit/jacket/softshell
 	display_name = "softshell jacket"

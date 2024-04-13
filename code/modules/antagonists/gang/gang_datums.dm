@@ -10,7 +10,7 @@
 	color = "#FF0000"
 	hat = /obj/item/clothing/head/beanie/black
 	outfit = /obj/item/clothing/under/syndicate/combat
-	suit = /obj/item/clothing/suit/jacket
+	suit = /obj/item/clothing/suit/jacket/bomber
 
 /datum/team/gang/prima
 	name = "Prima"

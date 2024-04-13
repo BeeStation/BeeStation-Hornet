@@ -164,9 +164,9 @@
 
 /obj/structure/closet/wardrobe/mixed/PopulateContents()
 	if(prob(40))
-		new /obj/item/clothing/suit/jacket(src)
+		new /obj/item/clothing/suit/jacket/bomber(src)
 	if(prob(40))
-		new /obj/item/clothing/suit/jacket(src)
+		new /obj/item/clothing/suit/jacket/bomber(src)
 	new /obj/item/storage/box/suitbox/wardrobe/mixed(src)
 	new /obj/item/storage/box/suitbox/wardrobe/mixed/jumpskirt(src)
 	new /obj/item/clothing/mask/bandana/red(src)

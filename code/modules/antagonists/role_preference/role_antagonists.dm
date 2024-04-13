@@ -341,7 +341,7 @@
 	name = "Gangster (Preview only)"
 	head = /obj/item/clothing/head/beanie/black
 	uniform = /obj/item/clothing/under/syndicate/combat
-	suit = /obj/item/clothing/suit/jacket
+	suit = /obj/item/clothing/suit/jacket/bomber
 
 /datum/role_preference/antagonist/nuclear_operative
 	name = "Nuclear Operative"
