@@ -29,7 +29,7 @@
 	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "headphones"
 	item_state = "headphones"
-	slot_flags = ITEM_SLOT_EARS | ITEM_SLOT_HEAD | ITEM_SLOT_NECK		//Fluff item, put it wherever you want!
+	slot_flags = ITEM_SLOT_EARS | ITEM_SLOT_HEAD | ITEM_SLOT_NECK //Fluff item, put it wherever you want!
 	actions_types = list(/datum/action/item_action/toggle_headphones)
 	var/headphones_on = FALSE
 	var/datum/song/headphones/song
@@ -39,11 +39,12 @@
 /obj/item/clothing/ears/headphones/Initialize(mapload)
 	. = ..()
 	song = new(src, SSinstruments.synthesizer_instrument_ids, 2)
-	update_icon()
+	update_appearance()
 
-/obj/item/clothing/ears/headphones/update_icon()
+/obj/item/clothing/ears/headphones/update_icon_state()
 	icon_state = "[initial(icon_state)]_[headphones_on? "on" : "off"]"
 	item_state = "[initial(item_state)]_[headphones_on? "on" : "off"]"
+	. = ..()
 
 /obj/item/clothing/ears/headphones/proc/toggle(owner, force_state)
 	if(!force_state)
@@ -52,7 +53,7 @@
 		headphones_on = TRUE
 	if(force_state == "OFF")
 		headphones_on = FALSE
-	update_icon()
+	update_appearance()
 	var/mob/living/carbon/human/H = owner
 	if(istype(H))
 		H.update_inv_ears()
