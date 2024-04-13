@@ -42,14 +42,14 @@
 	. = ..()
 	if(!(. & EMP_PROTECT_CONTENTS))
 		obj_flags |= OBJ_EMPED
-		update_appearance(UPDATE_ICON)
+		update_appearance()
 		addtimer(CALLBACK(src, PROC_REF(emp_reset)), rand(1, 200 / severity))
 		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
 
 /obj/item/gun/energy/proc/emp_reset()
 	obj_flags &= ~OBJ_EMPED
 	//Update the icon
-	update_appearance(UPDATE_ICON)
+	update_appearance()
 	//Play a sound to indicate re-activation
 	playsound(src, 'sound/machines/capacitor_charge.ogg', 90, TRUE)
 
@@ -71,7 +71,7 @@
 	recharge_newshot(TRUE)
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
-	update_appearance(UPDATE_ICON)
+	update_appearance()
 	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/gun/energy/fire_sounds()
@@ -119,7 +119,7 @@
 /obj/item/gun/energy/handle_atom_del(atom/A)
 	if(A == cell)
 		cell = null
-		update_appearance(UPDATE_ICON)
+		update_appearance()
 	return ..()
 
 /obj/item/gun/energy/process(delta_time)
@@ -131,7 +131,7 @@
 		cell.give(100)
 		if(!chambered) //if empty chamber we try to charge a new shot
 			recharge_newshot(TRUE)
-		update_appearance(UPDATE_ICON)
+		update_appearance()
 
 /obj/item/gun/energy/attack_self(mob/living/user as mob)
 	if(ammo_type.len > 1 && can_select)
@@ -269,7 +269,7 @@
 			playsound(loc, fire_sound, 50, 1, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			cell.use(shot.e_cost)
-			update_appearance(UPDATE_ICON)
+			update_appearance()
 			return(FIRELOSS)
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
