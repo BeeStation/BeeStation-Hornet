@@ -16,7 +16,8 @@
 		TRAIT_CONFUSEIMMUNE,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 		TRAIT_NOSTAMCRIT,
-		TRAIT_NOLIMBDISABLE
+		TRAIT_NOLIMBDISABLE,
+		TRAIT_FAST_CUFF_REMOVAL
 	)
 
 /datum/mutation/hulk/on_acquiring(mob/living/carbon/human/owner)

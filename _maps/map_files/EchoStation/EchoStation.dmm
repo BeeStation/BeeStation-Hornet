@@ -5968,18 +5968,6 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/tcommsat/server)
-"cyw" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 5
-	},
-/obj/machinery/computer/arcade{
-	dir = 1
-	},
-/obj/structure/railing,
-/obj/effect/turf_decal/siding/white,
-/obj/machinery/firealarm/directional/west,
-/turf/open/floor/carpet/green,
-/area/crew_quarters/cafeteria)
 "cyy" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -7328,6 +7316,18 @@
 /obj/structure/ladder,
 /turf/open/floor/pod/dark,
 /area/maintenance/department/bridge)
+"doX" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/obj/effect/spawner/randomarcade{
+	dir = 1
+	},
+/obj/structure/railing,
+/obj/effect/turf_decal/siding/white,
+/obj/machinery/firealarm/directional/west,
+/turf/open/floor/carpet/green,
+/area/crew_quarters/cafeteria)
 "doY" = (
 /obj/machinery/door/poddoor/shutters/radiation/preopen{
 	id = "engsm";
@@ -9017,14 +9017,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
-"eop" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/secure_closet/freezer/kitchen{
-	req_access = null;
-	req_one_access_txt = "28;25;35"
-	},
-/turf/open/floor/iron/freezer,
-/area/crew_quarters/kitchen/coldroom)
 "eoQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -25567,6 +25559,26 @@
 	},
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
+"mXd" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/secure_closet/freezer/kitchen{
+	req_access = null;
+	req_one_access_txt = "28;25;35"
+	},
+/obj/item/storage/box/ingredients/fruity{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/storage/box/ingredients/vegetarian{
+	pixel_x = -1;
+	pixel_y = 4
+	},
+/obj/item/storage/box/ingredients/wildcard{
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/turf/open/floor/iron/freezer,
+/area/crew_quarters/kitchen/coldroom)
 "mXm" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -25586,6 +25598,12 @@
 /obj/machinery/processor/slime,
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
+"mYa" = (
+/obj/machinery/airalarm{
+	pixel_y = 28
+	},
+/turf/open/openspace,
+/area/crew_quarters/kitchen)
 "mYb" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
@@ -28958,28 +28976,6 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/crew_quarters/dorms)
-"oOA" = (
-/obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
-/mob/living/simple_animal/hostile/retaliate/frog{
-	attacked_sound = 'sound/effects/huuu.ogg';
-	density = 0;
-	desc = "It seems a little sad.";
-	dir = 8;
-	head_icon = 'icons/mob/pets_held.dmi';
-	held_state = "";
-	icon = 'icons/mob/animal.dmi';
-	icon_dead = "frog_dead";
-	icon_living = "frog";
-	icon_state = "frog";
-	name = "Larry";
-	pixel_y = 12;
-	stepped_sound = null
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
-	},
-/turf/open/floor/iron,
-/area/hydroponics)
 "oOM" = (
 /obj/structure/cable,
 /obj/machinery/blackbox_recorder,
@@ -29291,6 +29287,43 @@
 "oXe" = (
 /turf/closed/wall,
 /area/maintenance/department/medical/central)
+"oXF" = (
+/obj/effect/turf_decal/bot,
+/obj/item/clothing/suit/armor/riot{
+	pixel_y = 4
+	},
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/head/helmet/toggleable/riot{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/clothing/head/helmet/toggleable/riot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/shield/riot{
+	pixel_x = -3;
+	pixel_y = 1
+	},
+/obj/item/shield/riot{
+	pixel_x = 1;
+	pixel_y = -3
+	},
+/obj/structure/rack,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
+	alpha = 180;
+	color = "#DE3A3A"
+	},
+/obj/item/storage/secure/safe{
+	name = "armory safe A";
+	pixel_x = 5;
+	pixel_y = 32
+	},
+/turf/open/floor/iron/dark,
+/area/ai_monitored/security/armory)
 "oXZ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -35129,22 +35162,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron,
 /area/engine/engineering)
-"rZh" = (
-/obj/structure/table,
-/obj/item/storage/box/ingredients/wildcard{
-	pixel_x = -5;
-	pixel_y = 8
-	},
-/obj/item/storage/box/ingredients/fruity{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/storage/box/ingredients/vegetarian{
-	pixel_x = -1;
-	pixel_y = 4
-	},
-/turf/open/floor/iron/cafeteria,
-/area/crew_quarters/kitchen)
 "rZv" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -35877,6 +35894,20 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
+"sqC" = (
+/obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
+/mob/living/simple_animal/hostile/retaliate/frog{
+	attacked_sound = 'sound/effects/huuu.ogg';
+	dir = 8;
+	name = "Larry";
+	pixel_y = 12;
+	stepped_sound = null
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
+/turf/open/floor/iron,
+/area/hydroponics)
 "sru" = (
 /obj/structure/chair/wood/normal{
 	dir = 8
@@ -36443,6 +36474,10 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
+"sJK" = (
+/obj/machinery/griddle,
+/turf/open/floor/iron/cafeteria,
+/area/crew_quarters/kitchen)
 "sKk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -36557,13 +36592,6 @@
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
-"sMM" = (
-/obj/machinery/airalarm{
-	dir = 2;
-	pixel_y = 28
-	},
-/turf/open/openspace,
-/area/crew_quarters/kitchen)
 "sMV" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -36683,43 +36711,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/storage/tech)
-"sPl" = (
-/obj/effect/turf_decal/bot,
-/obj/item/clothing/suit/armor/riot{
-	pixel_y = 4
-	},
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/head/helmet/toggleable/riot{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/clothing/head/helmet/toggleable/riot{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/shield/riot{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/shield/riot{
-	pixel_x = 1;
-	pixel_y = -3
-	},
-/obj/structure/rack,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/item/storage/secure/safe{
-	name = "armory safe A";
-	pixel_x = 5;
-	pixel_y = 32
-	},
-/turf/open/floor/iron/dark,
-/area/ai_monitored/security/armory)
 "sPu" = (
 /obj/structure/railing{
 	dir = 8
@@ -58368,7 +58359,7 @@ wys
 mOA
 bWw
 eHY
-eop
+mXd
 weD
 pkH
 wys
@@ -124672,7 +124663,7 @@ dGh
 liG
 vym
 afw
-sMM
+mYa
 edF
 pXZ
 oEM
@@ -125188,7 +125179,7 @@ afw
 fUl
 umL
 uKn
-rZh
+sJK
 wbY
 btq
 bDD
@@ -125708,7 +125699,7 @@ cEM
 bDD
 tks
 nye
-oOA
+sqC
 gcP
 bDD
 vVE
@@ -128276,7 +128267,7 @@ bkx
 pKl
 xIO
 tov
-cyw
+doX
 gyy
 gyy
 pqE
@@ -188701,7 +188692,7 @@ rSc
 rSc
 rSc
 fLS
-sPl
+oXF
 eBB
 ouA
 pio
