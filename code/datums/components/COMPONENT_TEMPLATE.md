@@ -22,8 +22,6 @@ See _component.dm for detailed explanations
 		// or a list of them to assign to the same proc
 		//! if signals are a list, use 'RegisterSignals' with extra s.
 		//! if it's a single signal, use 'RegisterSignal' without s
-	RegisterSignalsDynamic(parent, a_variable_list_or_not, PROC_REF(otherproc))
-		// If your signals can be single or list, use this RegisterSignalsDynamic
 
 /datum/component/mycomponent/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_NOT_REAL)          // UnregisterSignal has similar behavior
