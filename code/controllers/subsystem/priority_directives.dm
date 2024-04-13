@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(directives)
 
 /datum/controller/subsystem/directives/Initialize(start_timeofday)
 	. = ..()
-	next_directive_time = world.time + 10 MINUTES
+	next_directive_time = world.time + 15 MINUTES
 	for (var/directive_type in subtypesof(/datum/priority_directive))
 		directives += new directive_type()
 
