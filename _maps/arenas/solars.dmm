@@ -11,7 +11,7 @@
 "c" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable,
-/turf/open/floor/plasteel/airless/solarpanel,
+/turf/open/floor/iron/airless/solarpanel,
 /area/tdome/arena)
 "d" = (
 /obj/item/stack/rods,
@@ -23,7 +23,7 @@
 	name = "Port Solar Array"
 	},
 /obj/structure/cable,
-/turf/open/floor/plasteel/airless/solarpanel,
+/turf/open/floor/iron/airless/solarpanel,
 /area/tdome/arena)
 "f" = (
 /obj/structure/lattice/catwalk{

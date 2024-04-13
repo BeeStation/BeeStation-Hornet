@@ -7,10 +7,11 @@
 @use 'sass:meta';
 
 $neutral: #2c3141;
+$neutral-accent: #aa2a2a;
 $accent: #4b00c4;
 
 @use '../colors.scss' with (
-  $primary: $neutral,
+  $primary: $neutral-accent,
   $fg-map-keys: (),
   $bg-map-keys: ()
 );

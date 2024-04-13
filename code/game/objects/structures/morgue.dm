@@ -270,7 +270,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 			if (M.stat != DEAD)
 				M.emote("scream")
 			if(user)
-				log_combat(user, M, "cremated")
+				log_combat(user, M, "cremated", important = FALSE)
 			else
 				M.log_message("was cremated", LOG_ATTACK)
 			if(user.stat != DEAD)

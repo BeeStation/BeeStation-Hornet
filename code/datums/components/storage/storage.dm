@@ -214,7 +214,7 @@
 	var/list/rejections = list()
 	while(do_after(pre_attack_mob, 1 SECONDS, parent, NONE, FALSE, CALLBACK(src, PROC_REF(handle_mass_pickup), things, attack_item.loc, rejections, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 	to_chat(pre_attack_mob, "<span class='notice'>You put everything you could [insert_preposition] [parent].</span>")
 	animate_parent()
 
@@ -275,7 +275,7 @@
 	var/datum/progressbar/progress = new(M, length(things), T)
 	while (do_after(M, 1 SECONDS, T, NONE, FALSE, CALLBACK(src, PROC_REF(mass_remove_from_storage), T, things, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 
 /datum/component/storage/proc/mass_remove_from_storage(atom/target, list/things, datum/progressbar/progress, trigger_on_found = TRUE)
 	var/atom/real_location = real_location()
@@ -284,6 +284,8 @@
 		if(I.loc != real_location)
 			continue
 		remove_from_storage(I, target)
+		I.pixel_x = rand(-10,10)
+		I.pixel_y = rand(-10,10)
 		if(trigger_on_found && I.on_found())
 			return FALSE
 		if(TICK_CHECK)
@@ -801,6 +803,9 @@
 		if(locked)
 			var/atom/host = parent
 			host.balloon_alert(user, "[host] is locked.")
+		else if(!can_be_opened)
+			user.doUnEquip(parent, FALSE, null, TRUE, silent = TRUE)
+			user.put_in_active_hand(parent)
 		else
 			show_to(user)
 

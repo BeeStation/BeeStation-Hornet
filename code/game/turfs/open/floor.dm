@@ -12,12 +12,12 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
 	thermal_conductivity = 0.04
 	heat_capacity = 10000
 	tiled_dirt = TRUE
-	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
-	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
 	overfloor_placed = TRUE
 
@@ -126,8 +126,16 @@
 		if(user && !silent)
 			to_chat(user, "<span class='notice'>You remove the floor tile.</span>")
 		if(floor_tile && make_tile)
-			new floor_tile(src)
+			spawn_tile()
 	return make_plating()
+
+/turf/open/floor/proc/has_tile()
+	return floor_tile
+
+/turf/open/floor/proc/spawn_tile()
+	if(!has_tile())
+		return null
+	return new floor_tile(src)
 
 /turf/open/floor/singularity_pull(S, current_size)
 	..()
@@ -197,11 +205,11 @@
 			return TRUE
 		if(RCD_LADDER)
 			to_chat(user, "<span class='notice'>You build a ladder.</span>")
-			var/obj/structure/ladder/Ladder = new(src)
-			Ladder.anchored = TRUE
+			var/obj/structure/ladder/L = new(src)
+			L.set_anchored(TRUE)
 			return TRUE
 		if(RCD_AIRLOCK)
-			if(locate(/obj/machinery/door) in src)
+			if(locate(/obj/machinery/door/airlock) in src || locate(/obj/machinery/door/window) in src)
 				return FALSE
 			if(ispath(the_rcd.airlock_type, /obj/machinery/door/window))
 				to_chat(user, "<span class='notice'>You build a windoor.</span>")
@@ -237,7 +245,7 @@
 				new_airlock.closeOtherId = new_airlock.electronics.passed_cycle_id
 				new_airlock.update_other_id()
 			new_airlock.autoclose = TRUE
-			new_airlock.update_icon()
+			new_airlock.update_appearance()
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			var/previous_turf = initial(name)
@@ -252,7 +260,7 @@
 			to_chat(user, "<span class='notice'>You construct the grille.</span>")
 			log_attack("[key_name(user)] has constructed a grille at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/obj/structure/grille/new_grille = new(src)
-			new_grille.anchored = TRUE
+			new_grille.set_anchored(TRUE)
 			return TRUE
 		if(RCD_MACHINE)
 			if(locate(/obj/structure/frame/machine) in src)
@@ -260,13 +268,13 @@
 			var/obj/structure/frame/machine/new_machine = new(src)
 			new_machine.state = 2
 			new_machine.icon_state = "box_1"
-			new_machine.anchored = TRUE
+			new_machine.set_anchored(TRUE)
 			return TRUE
 		if(RCD_COMPUTER)
 			if(locate(/obj/structure/frame/computer) in src)
 				return FALSE
 			var/obj/structure/frame/computer/new_computer = new(src)
-			new_computer.anchored = TRUE
+			new_computer.set_anchored(TRUE)
 			new_computer.state = 1
 			new_computer.setDir(the_rcd.computer_dir)
 			return TRUE
@@ -287,3 +295,18 @@
 		variants += list("[icon_state]" = 1)
 	for(var/i in 1 to max)
 		variants += list("[icon_state][i]" = 1)
+
+/turf/open/floor/material
+	name = "floor"
+	icon_state = "materialfloor"
+	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	floor_tile = /obj/item/stack/tile/material
+
+/turf/open/floor/material/has_tile()
+	return LAZYLEN(custom_materials)
+
+/turf/open/floor/material/spawn_tile()
+	. = ..()
+	if(.)
+		var/obj/item/stack/tile = .
+		tile.set_mats_per_unit(custom_materials, 1)

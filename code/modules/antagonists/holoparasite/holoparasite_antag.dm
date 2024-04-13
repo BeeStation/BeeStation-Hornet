@@ -100,7 +100,7 @@
 	for(var/datum/antagonist/summoner_antag in holder.owner.antag_datums)
 		if(istype(summoner_antag, /datum/antagonist/traitor))
 			var/datum/antagonist/traitor/summoner_traitor = summoner_antag
-			if(summoner_traitor.should_give_codewords)
+			if(summoner_traitor.has_codewords)
 				LAZYSET(extra_info, "Code Phrases", jointext(GLOB.syndicate_code_phrase, ", "))
 				extra_info["Code Responses"] = jointext(GLOB.syndicate_code_response, ", ")
 		var/datum/team/summoner_team = summoner_antag.get_team()

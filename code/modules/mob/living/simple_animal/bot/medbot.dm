@@ -10,6 +10,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 #define MEDBOT_PANIC_AAAA	70
 #define MEDBOT_PANIC_ENDING	90
 #define MEDBOT_PANIC_END	100
+#define MEDIBOT_TREAT_INJECT "inject"
+#define MEDIBOT_TREAT_SUCK "suck"
 
 
 /mob/living/simple_animal/bot/medbot
@@ -35,6 +37,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	window_name = "Automatic Medical Unit v1.1"
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 	path_image_color = "#DDDDFF"
+	var/obj/item/reagent_containers/reagent_glass = null //Can be set to draw from this for reagents.
 	var/healthanalyzer = /obj/item/healthanalyzer
 	var/firstaid = /obj/item/storage/firstaid
 	var/skin = null //based off medkit_X skins in aibots.dmi for your selection; X goes here IE medskin_tox means skin var should be "tox"
@@ -43,10 +46,10 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/oldloc = null
 	var/last_found = 0
 	var/last_newpatient_speak = 0 //Don't spam the "HEY I'M COMING" messages
-	var/heal_amount = 2.5 //How much healing do we do at a time?
-	var/heal_threshold = 10 //Start healing when they have this much damage in a category
+	var/injection_amount = 15 //How much reagent do we inject at a time?
+	var/heal_threshold = 95 //Start healing when they have this much damage
+	var/efficiency = 1.1 //how much of the internal beaker gets used
 	var/declare_crit = 1 //If active, the bot will transmit a critical patient alert to MedHUD users.
-	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
 	//Are we tipped over? Used to stop the mode from being conflicted.
 	var/tipped = FALSE
@@ -56,27 +59,17 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/tipper_name
 	///The last time we were tipped/righted and said a voice line, to avoid spam
 	var/last_tipping_action_voice = 0
-	//Setting which reagents to use to treat what by default. By id.
-	var/treatment_brute_avoid = /datum/reagent/medicine/tricordrazine
-	var/treatment_brute = /datum/reagent/medicine/bicaridine
-	var/treatment_oxy_avoid = null
-	var/treatment_oxy = /datum/reagent/medicine/dexalin
-	var/treatment_fire_avoid = /datum/reagent/medicine/tricordrazine
-	var/treatment_fire = /datum/reagent/medicine/kelotane
-	var/treatment_tox_avoid = /datum/reagent/medicine/tricordrazine
-	var/treatment_tox = /datum/reagent/medicine/charcoal
-	var/treatment_virus_avoid = null
-	var/treatment_virus = /datum/reagent/medicine/spaceacillin
-	var/treat_virus = 1 //If on, the bot will attempt to treat viral infections, curing them if possible.
 	var/shut_up = 0 //self explanatory :)
 	var/datum/techweb/linked_techweb
 	var/medibot_counter = 0 //we use this to stop multibotting
+	var/synth_epi = TRUE
+	COOLDOWN_DECLARE(synth_cooldown) //prevents spam of "I need a refill!"
+	COOLDOWN_DECLARE(declare_cooldown) //Prevents spam of critical patient alerts.
 
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
 	skin = MEDBOT_SKIN_BEZERK
-	heal_amount = 10
 
 /mob/living/simple_animal/bot/medbot/derelict
 	name = "\improper Old Medibot"
@@ -84,7 +77,12 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	skin = MEDBOT_SKIN_BEZERK
 	heal_threshold = 0
 	declare_crit = 0
-	heal_amount = 5
+
+/mob/living/simple_animal/bot/medbot/filled
+	skin = MEDBOT_SKIN_ADVANCED
+	heal_threshold = 30
+	declare_crit = TRUE
+	reagent_glass = new /obj/item/reagent_containers/glass/beaker/large/kelobic
 
 /mob/living/simple_animal/bot/medbot/update_icon()
 	cut_overlays()
@@ -99,10 +97,20 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(mode == BOT_HEALING)
 		icon_state = "medibots[stationary_mode]"
 		return
+	else if(mode== BOT_EMPTY) //Bot has grey light if empty
+		icon_state = "medibot_empty"
 	else if(stationary_mode) //Bot has yellow light to indicate stationary mode.
 		icon_state = "medibot2"
 	else
 		icon_state = "medibot1"
+
+/mob/living/simple_animal/bot/medbot/proc/rename_bot()
+	var/t = sanitize_name(stripped_input(usr, "Enter new robot name", name, name,MAX_NAME_LEN))
+	if(!t)
+		return
+	if(!in_range(src, usr) && loc != usr)
+		return
+	name = t
 
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
@@ -112,8 +120,10 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_MEDICALDOCTOR)
 	access_card.access = J.get_access()
 	prev_access = access_card.access.Copy()
-
 	linked_techweb = SSresearch.science_tech
+
+	if(mapload)
+		reagent_glass = new /obj/item/reagent_containers/chem_bag/epi
 	if(!GLOB.medibot_unique_id_gen)
 		GLOB.medibot_unique_id_gen = 0
 	medibot_counter = GLOB.medibot_unique_id_gen
@@ -129,7 +139,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	oldpatient = null
 	oldloc = null
 	last_found = world.time
-	declare_cooldown = 0
+	COOLDOWN_RESET(src, declare_cooldown)
 	update_icon()
 
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
@@ -142,8 +152,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/set_custom_texts()
 
-	text_hack = "You corrupt [name]'s healing processor circuits."
-	text_dehack = "You reset [name]'s healing processor circuits."
+	text_hack = "You corrupt [name]'s reagent processor circuits."
+	text_dehack = "You reset [name]'s reagent processor circuits."
 	text_dehack_fail = "[name] seems damaged and does not respond to reprogramming!"
 
 /mob/living/simple_animal/bot/medbot/attack_paw(mob/user)
@@ -158,6 +168,11 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
 	dat += "<br>Behaviour controls are [locked ? "locked" : "unlocked"]<hr>"
 	if(!locked || issilicon(user) || IsAdminGhost(user))
+		dat += "Beaker: "
+		if(reagent_glass)
+			dat += "<A href='?src=[REF(src)];eject=1'>Loaded \[[reagent_glass.name]: [reagent_glass.reagents.total_volume]/[reagent_glass.reagents.maximum_volume]\]</a><br>"
+		else
+			dat += "None Loaded<br>"
 		dat += "<TT>Healing Threshold: "
 		dat += "<a href='?src=[REF(src)];adj_threshold=-10'>--</a> "
 		dat += "<a href='?src=[REF(src)];adj_threshold=-5'>-</a> "
@@ -165,10 +180,16 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		dat += "<a href='?src=[REF(src)];adj_threshold=5'>+</a> "
 		dat += "<a href='?src=[REF(src)];adj_threshold=10'>++</a>"
 		dat += "</TT><br>"
+		dat += "<TT>Injection Level: "
+		dat += "<a href='?src=[REF(src)];adj_inject=-5'>-</a> "
+		dat += "[injection_amount] "
+		dat += "<a href='?src=[REF(src)];adj_inject=5'>+</a> "
+		dat += "</TT><br>"
 		dat += "The speaker switch is [shut_up ? "off" : "on"]. <a href='?src=[REF(src)];togglevoice=[1]'>Toggle</a><br>"
 		dat += "Critical Patient Alerts: <a href='?src=[REF(src)];critalerts=1'>[declare_crit ? "Yes" : "No"]</a><br>"
 		dat += "Patrol Station: <a href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</a><br>"
 		dat += "Stationary Mode: <a href='?src=[REF(src)];stationary=1'>[stationary_mode ? "Yes" : "No"]</a><br>"
+		dat += "Synthesise Epinephrine: <a href='?src=[REF(src)];synth_epi=1'>[synth_epi ? "Yes" : "No"]</a><br>"
 		dat += "<a href='?src=[REF(src)];hptech=1'>Search for Technological Advancements</a><br>"
 
 	return dat
@@ -182,8 +203,22 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		heal_threshold += adjust_num
 		if(heal_threshold < 5)
 			heal_threshold = 5
-		if(heal_threshold > 75)
-			heal_threshold = 75
+		if(heal_threshold > 120)
+			heal_threshold = 120
+
+	else if(href_list["adj_inject"])
+		var/adjust_num = text2num(href_list["adj_inject"])
+		injection_amount += adjust_num
+		if(injection_amount < 5)
+			injection_amount = 5
+		if(injection_amount > 30)
+			injection_amount = 30
+
+
+	else if(href_list["eject"] && (!isnull(reagent_glass)))
+		reagent_glass.forceMove(drop_location())
+		reagent_glass = null
+		update_icon()
 
 	else if(href_list["togglevoice"])
 		shut_up = !shut_up
@@ -196,8 +231,11 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		path = list()
 		update_icon()
 
+	else if(href_list["synth_epi"])
+		synth_epi = !synth_epi
+
 	else if(href_list["hptech"])
-		var/oldheal_amount = heal_amount
+		var/old_eff = efficiency
 		var/tech_boosters
 		for(var/i in linked_techweb.researched_designs)
 			var/datum/design/surgery/healing/D = SSresearch.techweb_design_by_id(i)
@@ -205,17 +243,67 @@ GLOBAL_VAR(medibot_unique_id_gen)
 				continue
 			tech_boosters++
 		if(tech_boosters)
-			heal_amount = (round(tech_boosters/2,0.1)*initial(heal_amount))+initial(heal_amount) //every 2 tend wounds tech gives you an extra 100% healing, adjusting for unique branches (combo is bonus)
-			if(oldheal_amount < heal_amount)
-				speak("Surgical research data found! Efficiency increased by [round(heal_amount/oldheal_amount*100)]%!")
+			efficiency = 1+(0.075*tech_boosters) //increase efficiency by 7.5% for every surgery researched
+			if(old_eff < efficiency)
+				speak("Surgical research data found! Efficiency increased by [round(efficiency/old_eff*100)]%!")
+				window_name = "Automatic Medical Unit v[efficiency]"
 	update_controls()
 	return
 
+
 /mob/living/simple_animal/bot/medbot/attackby(obj/item/W as obj, mob/user as mob, params)
-	var/current_health = health
-	..()
-	if(health < current_health) //if medbot took some damage
-		step_to(src, (get_step_away(src,user)))
+	if(istype(W, /obj/item/reagent_containers))
+		. = 1 //no afterattack
+		if(locked)
+			to_chat(user, "<span class='warning'>You cannot insert a beaker because the panel is locked!</span>")
+			return
+		if(!isnull(reagent_glass))
+			to_chat(user, "<span class='warning'>There is already a beaker loaded!</span>")
+			return
+		if(!user.transferItemToLoc(W, src))
+			return
+
+		reagent_glass = W
+		mode = BOT_IDLE
+		to_chat(user, "<span class='notice'>You insert [W].</span>")
+		var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
+		log_combat(user, src, "inserted a [W] with [reagentlist]" )
+		add_fingerprint(user)
+		show_controls(user)
+		update_icon()
+
+	if(istype(W, /obj/item/pen)&&!locked)
+		rename_bot()
+		return
+	if(istype(W,/obj/item/toy/crayon/spraycan))
+		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		reskin(user)
+
+	else
+		var/current_health = health
+		..()
+		if(health < current_health) //if medbot took some damage
+			step_to(src, (get_step_away(src,user)))
+
+/mob/living/simple_animal/bot/medbot/proc/reskin(mob/M)
+	var/skinlist = list(
+		MEDBOT_SKIN_DEFAULT = image(icon = 'icons/mob/aibots.dmi', icon_state = "firstaid_arm"),
+		MEDBOT_SKIN_BRUTE= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_brute"),
+		MEDBOT_SKIN_BURN= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_burn"),
+		MEDBOT_SKIN_TOXIN= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_tox"),
+		MEDBOT_SKIN_OXY= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_oxy"),
+		MEDBOT_SKIN_SURGERY= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_surgery"),
+		MEDBOT_SKIN_ADVANCED= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_advanced"),
+		MEDBOT_SKIN_RADIATION= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_rad")
+	)
+	if(emagged)
+		skinlist +=list(MEDBOT_SKIN_SYNDI= image(icon = 'icons/mob/aibots.dmi', icon_state = "kit_skin_syndi"),
+			MEDBOT_SKIN_BEZERK= image(icon = 'icons/mob/aibots.dmi', icon_state = "medskin_bezerk")
+			)
+	var/choice = show_radial_menu(M, src, skinlist, radius = 42, require_near = TRUE)
+	if(choice && !M.incapacitated() && in_range(M,src))
+		skin = choice
+		update_icon()
 
 /mob/living/simple_animal/bot/medbot/on_emag(atom/target, mob/user)
 	..()
@@ -313,6 +401,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/examine(mob/user)
 	. = ..()
+	if(in_range(user, src))
+		. += "<span class='notice'>Use a spraycan to change its colour, or a pen to change its name if unlocked.</span>"
 	if(tipped_status == MEDBOT_PANIC_NONE)
 		return
 
@@ -333,6 +423,14 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(!..())
 		return
 
+	if(!reagent_glass?.reagents.total_volume)
+		mode = BOT_EMPTY
+		update_icon()
+		if(COOLDOWN_FINISHED(src, synth_cooldown) && synth_epi && reagent_glass)
+			reagent_glass.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
+			playsound(src, "sound/effects/bubbles.ogg", 40)
+			COOLDOWN_START(src, synth_cooldown, 5 MINUTES)
+		return
 	if(tipped)
 		handle_panic()
 		return
@@ -405,7 +503,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	return
 
 /mob/living/simple_animal/bot/medbot/proc/assess_patient(mob/living/carbon/C)
-	. = FALSE
 	//Time to see if they need medical help!
 	if(C.stat == DEAD || (HAS_TRAIT(C, TRAIT_FAKEDEATH)))
 		return FALSE	//welp too late for them!
@@ -424,14 +521,11 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(C.suiciding)
 		return FALSE //Kevorkian school of robotic medical assistants.
 
-	if(istype(C.dna.species, /datum/species/ipc))
+	if(C.dna.species.reagent_tag==PROCESS_SYNTHETIC) //robots don't need our medicine
 		return FALSE
 
-	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
+	if(emagged == 2) //Everyone needs our medicine. (Our medicine is bloodloss)
 		return TRUE
-
-	if(HAS_TRAIT(C,TRAIT_MEDIBOTCOMINGTHROUGH) && !HAS_TRAIT_FROM(C,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)) //someone is healing them already sweetie
-		return FALSE
 
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
@@ -444,18 +538,17 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
 		declare(C)
 
-	//They're injured enough for it!
-	if(C.getBruteLoss() >= heal_threshold)
-		return TRUE //If they're already medicated don't bother!
+	if(!reagent_glass?.reagents.total_volume) // no beaker, we can't do that
+		return FALSE
 
-	if(C.getOxyLoss() >= (5 + heal_threshold))
+	for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
+		if(C.reagents.has_reagent(R.type))
+			return FALSE
+
+	if(C.maxHealth - C.health >= heal_threshold) // a true patient
 		return TRUE
 
-	if(C.getFireLoss() >= heal_threshold)
-		return TRUE
-
-	if(C.getToxLoss() >= heal_threshold)
-		return TRUE
+	return FALSE // we shouldn't get random TRUE cases
 
 /mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_DISARM && !tipped)
@@ -516,61 +609,68 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			soft_reset()
 			break
 
-		var/treatment_method = null
 
-		if(C.getBruteLoss() >= heal_threshold)
-			treatment_method = BRUTE
+		var/treat_behaviour // what this medibot will do?
 
-		else if(C.getFireLoss() >= heal_threshold)
-			treatment_method = BURN
+		if(emagged)
+			treat_behaviour = MEDIBOT_TREAT_SUCK // Emagged! Time to drain everybody.
 
-		else if(C.getOxyLoss() >= (5 + heal_threshold))
-			treatment_method = OXY
+		if(!treat_behaviour && reagent_glass?.reagents.total_volume) //have a beaker with something?
+			treat_behaviour = MEDIBOT_TREAT_INJECT
 
-		else if(C.getToxLoss() >= heal_threshold)
-			treatment_method = TOX
+			for(var/datum/reagent/each_beaker_reagent in reagent_glass.reagents.reagent_list)
+				if(C.reagents.has_reagent(each_beaker_reagent.type)) // they have the chems inside them already
+					treat_behaviour = null
+					break
 
-		if(!treatment_method && emagged != 2) //If they don't need any of that they're probably cured!
+		if(!treat_behaviour) //If they don't need any of that they're probably cured!
 			if(C.maxHealth - C.health < heal_threshold)
-				to_chat(src, "<span class='notice'>[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 5] for oxygen damage.)</span>")
+				to_chat(src, "<span class='notice'>[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 15] for oxygen damage.)</span>")
 			var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot/patchedup.ogg',"An apple a day keeps me away." = 'sound/voice/medbot/apple.ogg',"Feel better soon!" = 'sound/voice/medbot/feelbetter.ogg')
 			var/message = pick(messagevoice)
-			speak(message)
+			speak(message, radio_channel)
 			playsound(src, messagevoice[message], 50)
 			bot_reset()
-			tending = FALSE
-		else if(patient)
-			C.visible_message("<span class='danger'>[src] is trying to tend the wounds of [patient]!</span>", \
-				"<span class='userdanger'>[src] is trying to tend your wounds!</span>")
+			return
 
-			if(do_after(src, 2 SECONDS, patient)) //Slightly faster than default tend wounds, but does less HPS
-				if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
-					var/healies = heal_amount
-					var/obj/item/storage/firstaid/FA = firstaid
-					if(treatment_method == initial(FA.damagetype_healed)) //using the damage specific medkits give bonuses when healing this type of damage.
-						healies *= 1.5
-					if(treatment_method == TOX && HAS_TRAIT(patient, TRAIT_TOXINLOVER))
-						healies *= -1.5
-					if(emagged == 2)
-						patient.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)
-						patient.apply_damage_type((healies*1),treatment_method)
-						log_combat(src, patient, "pretended to tend wounds on", "internal tools", "([uppertext(treatment_method)]) (EMAGGED)")
-					else
-						patient.apply_damage_type((healies*-1),treatment_method) //don't need to check treatment_method since we know by this point that they were actually damaged.
-						log_combat(src, patient, "tended the wounds of", "internal tools", "([uppertext(treatment_method)])")
-					C.visible_message("<span class='danger'>[src] tends the wounds of [patient]!</span>", \
-						"<span class='userdanger'>[src] tends your wounds!</span>")
-				else
-					tending = FALSE
-			else
-				tending = FALSE
 
+		C.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", "<span class='userdanger'>[src] is trying to inject you!</span>")
+		if( get_dist(src, patient) > 1 || \
+				!do_after(src, 2 SECONDS, patient) ||\
+				!assess_patient(patient) || \
+				!on) //are they near us? did they move away? are they still hurt? are we stil on?
+			visible_message("[src] retracts its syringe.")
 			update_icon()
-			if(!tending)
-				visible_message("[src] places its tools back into itself.")
-				soft_reset()
-		else
-			tending = FALSE
+			soft_reset()
+			return
+
+		switch(treat_behaviour)
+			if(MEDIBOT_TREAT_INJECT)
+				if(reagent_glass?.reagents.total_volume)
+					var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
+					var/reagentlist = pretty_string_from_reagent_list(reagent_glass.reagents.reagent_list)
+					log_combat(src, patient, "injected", "beaker source", "[reagentlist]:[injection_amount]")
+					reagent_glass.reagents.reaction(patient, INJECT, fraction)
+					reagent_glass.reagents.trans_to(patient,injection_amount/efficiency, efficiency) //Inject from beaker.
+					if(!reagent_glass.reagents.total_volume && !synth_epi) //when empty, alert medbay unless we're on synth mode
+						var/list/messagevoice = list("Can someone fill me back up?" = 'sound/voice/medbot/fillmebackup.ogg',"I need new medicine." = 'sound/voice/medbot/needmedicine.ogg',"I need to restock." = 'sound/voice/medbot/needtorestock.ogg')
+						var/message = pick(messagevoice)
+						speak(message,radio_channel)
+						playsound(src, messagevoice[message], 50)
+						COOLDOWN_START(src, declare_cooldown, 10 SECONDS)
+			if(MEDIBOT_TREAT_SUCK)
+				if(patient.transfer_blood_to(reagent_glass, injection_amount))
+					patient.visible_message("<span class='danger'>[src] is trying to inject [patient]!</span>", \
+						"<span class='userdanger'>[src] is trying to inject you!</span>")
+					log_combat(src, patient, "drained of blood")
+				else
+					to_chat(src, "<span class='warning'>You are unable to draw any blood from [patient]!</span>")
+		C.visible_message("<span class='danger'>[src] injects [patient] with its syringe!</span>", \
+			"<span class='userdanger'>[src] injects you with its syringe!</span>")
+		update_icon()
+		soft_reset()
+		return
+
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
@@ -581,6 +681,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	new /obj/item/assembly/prox_sensor(Tsec)
 	drop_part(healthanalyzer, Tsec)
 
+	if(reagent_glass)
+		drop_part(reagent_glass, Tsec)
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
 
@@ -599,15 +701,14 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		ADD_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)
-	if(declare_cooldown > world.time)
+	if(!COOLDOWN_FINISHED(src, declare_cooldown))
 		return
 	var/area/location = get_area(src)
 	speak("Medical emergency! [crit_patient || "A patient"] is in critical condition at [location]!",radio_channel)
-	declare_cooldown = world.time + 200
+	COOLDOWN_START(src, declare_cooldown, 20 SECONDS)
 
 /obj/machinery/bot_core/medbot
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
-
 #undef MEDBOT_PANIC_NONE
 #undef MEDBOT_PANIC_LOW
 #undef MEDBOT_PANIC_MED

@@ -72,7 +72,7 @@
 		return
 	// Bit of a nasty hardcoded hack, but eh, it works!
 	var/datum/antagonist/traitor/summoner_traitor = owner.summoner.has_antag_datum(/datum/antagonist/traitor)
-	if(summoner_traitor?.should_give_codewords)
+	if(summoner_traitor?.has_codewords)
 		message = GLOB.syndicate_code_phrase_regex.Replace(message, "<span class='blue'>$1</span>")
 		message = GLOB.syndicate_code_response_regex.Replace(message, "<span class='red'>$1</span>")
 	// Assemble the message prefix
@@ -205,7 +205,7 @@
 	desc = "Arm a surveillance snare below you, which will alert you whenever someone walks over it."
 	icon_state = "snare:arm"
 
-/atom/movable/screen/holoparasite/snare/arm/Click(location, control, params)
+/atom/movable/screen/holoparasite/snare/arm/use()
 	if(ability.arming)
 		return
 	ability.try_arm_snare()
@@ -236,7 +236,7 @@
 /atom/movable/screen/holoparasite/snare/disarm/should_be_transparent()
 	return !length(ability.snares)
 
-/atom/movable/screen/holoparasite/snare/disarm/Click(location, control, params)
+/atom/movable/screen/holoparasite/snare/disarm/use()
 	ability.disarm_snare()
 
 /obj/effect/snare

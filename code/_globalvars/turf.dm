@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(turf_textures, list())
 
 /proc/load_turf_texture(datum/turf_texture/texture)
 	if(!GLOB.turf_textures[texture])
-		var/obj/effect/turf_texture/TF = new(null, texture)
+		var/atom/movable/turf_texture/TF = new(null, texture)
 		GLOB.turf_textures[texture] = TF
 	return GLOB.turf_textures[texture]
 
