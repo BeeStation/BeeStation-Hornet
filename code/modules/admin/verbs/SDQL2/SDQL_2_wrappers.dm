@@ -8,8 +8,9 @@
 	for(var/v in set_vars)
 		MA.vars[v] = set_vars[v]
 	if(ismovable(A))
-		WHILE_varZMIMIC(A)
-			animate(ZMIMIC, appearance = MA, time, loop, easing, flags)
+		var/atom/movable/each_mimic
+		WHILE_ZMIMIC_MOVABLE(each_mimic, A)
+			animate(each_mimic, appearance = MA, time, loop, easing, flags)
 	else
 		animate(A, appearance = MA, time, loop, easing, flags)
 

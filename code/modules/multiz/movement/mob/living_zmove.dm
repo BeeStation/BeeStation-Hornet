@@ -140,8 +140,9 @@
 /// Offsets the mob up and then quickly has them fall back down, like a jump.
 /mob/proc/do_jump_animation()
 	set waitfor = FALSE
-	WHILE_varZMIMIC(src) // Z-Mimic: copy jump animation
-		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_jump_animation_on), ZMIMIC)
+	var/atom/movable/each_mimic
+	WHILE_ZMIMIC_MOVABLE(each_mimic, src) // Z-Mimic: copy jump animation
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(do_jump_animation_on), each_mimic)
 	addtimer(CALLBACK(src, PROC_REF(after_jump_animation)), 0.4 SECONDS)
 
 /mob/proc/after_jump_animation()

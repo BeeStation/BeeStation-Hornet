@@ -976,9 +976,10 @@
 
 	var/final_pixel_x = base_pixel_x + body_position_pixel_x_offset
 	var/final_pixel_y = base_pixel_y + body_position_pixel_y_offset
-	WHILE_varZMIMIC(src)
+	var/atom/movable/each_mimic
+	WHILE_ZMIMIC_MOVABLE(each_mimic, src)
 		// Offset animation
-		animate(ZMIMIC, time = 1, pixel_x = rand(-2, 2), pixel_y = rand(-1, 1), easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+		animate(each_mimic, time = 1, pixel_x = rand(-2, 2), pixel_y = rand(-1, 1), easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
 		for (var/i in 1 to 4)
 			var/dx = rand(-4, 2)
 			var/dy = rand(-4, 2)
@@ -987,7 +988,7 @@
 		animate(time = 1, pixel_x = final_pixel_x , pixel_y = final_pixel_y)
 
 		// Rotational Animation
-		animate(ZMIMIC, time = 3, transform = rotation_matrix, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
+		animate(each_mimic, time = 3, transform = rotation_matrix, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
 		animate(time = 2, flags = ANIMATION_RELATIVE)
 		animate(time = 1, transform = reset_matrix, flags = ANIMATION_RELATIVE)
 
@@ -997,8 +998,9 @@
 	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
 	var/final_pixel_x = base_pixel_x + body_position_pixel_x_offset
 	var/final_pixel_y = base_pixel_y + body_position_pixel_y_offset
-	WHILE_varZMIMIC(src)
-		animate(ZMIMIC, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
+	var/atom/movable/each_mimic
+	WHILE_ZMIMIC_MOVABLE(each_mimic, src)
+		animate(each_mimic, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
 		animate(pixel_x = final_pixel_x , pixel_y = final_pixel_y , time = 2)
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure to restart it in next life().
 

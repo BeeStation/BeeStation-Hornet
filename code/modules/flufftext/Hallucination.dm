@@ -175,8 +175,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		return
 	feedback_details += "Vent Coords: [center.x],[center.y],[center.z]"
 	var/image/plasma_image
-	WHILE_varZMIMIC(center)
-		plasma_image = image(image_icon, ZMIMIC, image_state, FLY_LAYER)
+	var/turf/each_mimic
+	WHILE_ZMIMIC_TURF(each_mimic, center)
+		plasma_image = image(image_icon, each_mimic, image_state, FLY_LAYER)
 		plasma_image.alpha = 50
 		plasma_image.plane = GAME_PLANE
 		flood_images += plasma_image
@@ -205,8 +206,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			var/turf/T = get_step(FT, dir)
 			if((T in flood_turfs) || !FT.CanAtmosPass(T))
 				continue
-			WHILE_varZMIMIC(T)
-				var/image/new_plasma = image(image_icon, ZMIMIC, image_state, FLY_LAYER)
+			var/turf/each_mimic
+			WHILE_ZMIMIC_TURF(each_mimic, T)
+				var/image/new_plasma = image(image_icon, each_mimic, image_state, FLY_LAYER)
 				new_plasma.alpha = 50
 				new_plasma.plane = GAME_PLANE
 				flood_images += new_plasma
