@@ -206,11 +206,10 @@
 	if(!automatic_charge_overlays)
 		return ..()
 
-
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/ratio = get_charge_ratio()
 	var/temp_icon_to_use = initial(icon_state)
 	if(modifystate)
+		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 		temp_icon_to_use += "[shot.select_name]"
 
 	temp_icon_to_use += "[ratio]"
