@@ -664,21 +664,12 @@
 		setAngle(get_angle(src, target))
 	original_angle = Angle
 	if(!nondirectional_sprite)
-		var/matrix/matrix_to_apply = new
-		matrix_to_apply.Turn(Angle)
-		// MARKING: z-mimic handle (Matrix)
-		var/atom/movable/each_mimic
-		WHILE_ZMIMIC_MOVABLE(each_mimic, src) // Z-Mimic: copy jump animation
-			each_mimic.transform = matrix_to_apply
-		// MARKING: z-mimic done
-	// MARKING: z-mimic handle (forceMove)
+		var/matrix/M = new
+		M.Turn(Angle)
+		transform = M // MARKING: this part doesn't need z-mimic support
 	trajectory_ignore_forcemove = TRUE
-	var/atom/movable/each_mimic
-	WHILE_ZMIMIC_MOVABLE(each_mimic, src)
-		var/turf/mimic_turf = locate(starting.x, starting.y, each_mimic.z)
-		each_mimic.forceMove(mimic_turf)
+	forceMove(starting) // MARKING: this part doesn't need z-mimic support
 	trajectory_ignore_forcemove = FALSE
-	// MARKING: z-mimic done
 	trajectory = new(starting.x, starting.y, starting.z, pixel_x, pixel_y, Angle, SSprojectiles.global_pixel_speed)
 	last_projectile_move = world.time
 	fired = TRUE
@@ -848,14 +839,9 @@
 /obj/projectile/proc/preparePixelProjectile(atom/target, atom/source, params, spread = 0)
 	var/turf/curloc = get_turf(source)
 	var/turf/targloc = get_turf(target)
-	// MARKING: z-mimic handle
 	trajectory_ignore_forcemove = TRUE
-	var/atom/movable/each_mimic
-	WHILE_ZMIMIC_MOVABLE(each_mimic, src)
-		var/turf/mimic_turf = locate(source.x, source.y, each_mimic.z)
-		each_mimic.forceMove(mimic_turf)
+	forceMove(get_turf(source)) // MARKING: this part doesn't need z-mimic support. Let it be.
 	trajectory_ignore_forcemove = FALSE
-	// MARKING: z-mimic done
 	starting = get_turf(source)
 	original = target
 	if(targloc || !params)
