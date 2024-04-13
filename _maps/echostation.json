@@ -1,6 +1,6 @@
 {
 	"map_name": "Echo Station",
-	"map_link": "EchoStation",
+	"map_link": "echostation",
 	"map_path": "map_files/EchoStation",
 	"map_file": "EchoStation.dmm",
 	"shuttles": {
