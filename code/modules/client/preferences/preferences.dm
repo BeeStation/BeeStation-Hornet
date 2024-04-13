@@ -448,4 +448,4 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.update_body()
 		character.update_hair()
 		character.update_body_parts(TRUE) // Must pass true here or limbs won't catch changes like body_model
-		character.dna.update_body_size()
+		character.dna.update_body_size(TRUE)

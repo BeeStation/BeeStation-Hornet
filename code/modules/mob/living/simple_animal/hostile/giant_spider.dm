@@ -110,13 +110,13 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/updatehealth()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
-		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		return
 	var/health_percentage = round((health / maxHealth) * 100)
 	if(health_percentage <= 75)
-		add_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN, override = TRUE, multiplicative_slowdown = ((100 - health_percentage) / 50), blacklisted_movetypes = FLOATING|FLYING)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown, multiplicative_slowdown = ((100 - health_percentage) / 50))
 	else
-		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
+		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 
 // Handles faster movement on webs
 // This is triggered after the first time a spider steps on/off a web, making web-peeking using this harder
@@ -332,7 +332,7 @@
 	butcher_results = list(
 		/obj/item/food/meat/slab/spider = 2,
 		/obj/item/food/spiderleg = 8,
-		/obj/item/reagent_containers/food/snacks/spidereggs = 4
+		/obj/item/food/spidereggs = 4
 	)
 	var/obj/effect/proc_holder/spider/wrap/wrap
 	var/datum/action/innate/spider/set_directive/set_directive

@@ -12,7 +12,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/curtain/bounty,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "f" = (
 /obj/structure/closet,
@@ -24,10 +24,10 @@
 "i" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "m" = (
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "o" = (
 /obj/machinery/vending/autodrobe,
@@ -37,7 +37,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "s" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -72,7 +72,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "A" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -115,7 +115,7 @@
 /area/template_noop)
 "S" = (
 /obj/structure/curtain/bounty,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "T" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -139,7 +139,7 @@
 "W" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/template_noop)
 "Z" = (
 /obj/effect/landmark/start/randommaint/magician,

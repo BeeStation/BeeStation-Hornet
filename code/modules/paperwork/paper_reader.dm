@@ -1,5 +1,5 @@
 /obj/item/paper_reader
-	name = "eletronic paper reader"
+	name = "electronic paper reader"
 	gender = NEUTER
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_reader"

@@ -429,23 +429,25 @@
   * Otherwise it simply forceMoves the atom into this atom
   */
 /atom/proc/CheckParts(list/parts_list, datum/crafting_recipe/R)
-	if(parts_list)
-		for(var/A in parts_list)
-			if(istype(A, /datum/reagent))
-				if(!reagents)
-					reagents = new()
-				reagents.reagent_list.Add(A)
-				reagents.conditional_update()
-			else if(ismovable(A))
-				var/atom/movable/M = A
-				if(isliving(M.loc))
-					var/mob/living/L = M.loc
-					L.transferItemToLoc(M, src)
-				else
-					M.forceMove(src)
-				SEND_SIGNAL(M, COMSIG_ATOM_USED_IN_CRAFT, src)
-		parts_list.Cut()
 	SEND_SIGNAL(src, COMSIG_ATOM_CHECKPARTS, parts_list, R)
+	if(!parts_list)
+		return
+
+	for(var/A in parts_list)
+		if(istype(A, /datum/reagent))
+			if(!reagents)
+				reagents = new()
+			reagents.reagent_list.Add(A)
+			reagents.conditional_update()
+		else if(ismovable(A))
+			var/atom/movable/M = A
+			if(isliving(M.loc))
+				var/mob/living/L = M.loc
+				L.transferItemToLoc(M, src)
+			else
+				M.forceMove(src)
+			SEND_SIGNAL(M, COMSIG_ATOM_USED_IN_CRAFT, src)
+	parts_list.Cut()
 
 ///Take air from the passed in gas mixture datum
 /atom/proc/assume_air(datum/gas_mixture/giver)
@@ -1033,7 +1035,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	while (do_after(user, 1 SECONDS, src, NONE, FALSE, CALLBACK(STR, TYPE_PROC_REF(/datum/component/storage, handle_mass_item_insertion), things, src_object, user, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 	to_chat(user, "<span class='notice'>You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can.</span>")
 	STR.orient2hud(user)
 	src_object.orient2hud(user)
@@ -1238,6 +1240,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
 	VV_DROPDOWN_OPTION(VV_HK_RADIATE, "Radiate")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
+	VV_DROPDOWN_OPTION(VV_HK_EDIT_COLOR_MATRIX, "Edit Color as Matrix")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
 	if(greyscale_colors)
 		VV_DROPDOWN_OPTION(VV_HK_MODIFY_GREYSCALE, "Modify greyscale colors")
@@ -1329,6 +1332,10 @@
 	if(href_list[VV_HK_EDIT_FILTERS] && check_rights(R_VAREDIT))
 		var/client/C = usr.client
 		C?.open_filter_editor(src)
+
+	if(href_list[VV_HK_EDIT_COLOR_MATRIX] && check_rights(R_VAREDIT))
+		var/client/C = usr.client
+		C?.open_color_matrix_editor(src)
 
 /atom/vv_get_header()
 	. = ..()
@@ -1444,7 +1451,7 @@
 	to_chat(user, "<span class='notice'>You start working on [src]</span>")
 	if(process_item.use_tool(src, user, processing_time, volume=50))
 		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
-		//var/list/atom/created_atoms = list() //Customfood
+		var/list/atom/created_atoms = list()
 		var/amount_to_create = chosen_option[TOOL_PROCESSING_AMOUNT]
 		for(var/i = 1 to amount_to_create)
 			var/atom/created_atom = new atom_to_create(drop_location())
@@ -1454,8 +1461,9 @@
 				created_atom.pixel_x += rand(-8,8)
 				created_atom.pixel_y += rand(-8,8)
 			created_atom.OnCreatedFromProcessing(user, process_item, chosen_option, src)
-		to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
-		//SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms) //Custom food
+			to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.gender) == PLURAL ? "[initial(atom_to_create.name)]" : "[initial(atom_to_create.name)][plural_s(initial(atom_to_create.name))]"] from [src].</span>")
+			created_atoms.Add(created_atom)
+		SEND_SIGNAL(src, COMSIG_ATOM_PROCESSED, user, process_item, created_atoms)
 		UsedforProcessing(user, process_item, chosen_option)
 		return
 
@@ -1593,8 +1601,9 @@
   * 3 is a verb describing the action (e.g. punched, throwed, kicked, etc.)
   * 4 is a tool with which the action was made (usually an item)
   * 5 is any additional text, which will be appended to the rest of the log line
+  * 6 if an attack isn't important, then it won't be considered for the blackbox combat log outcomes
   */
-/proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
+/proc/log_combat(atom/user, atom/target, what_done, object=null, addition=null, important = TRUE)
 	if(isweakref(user))
 		var/datum/weakref/A_ref = user
 		user = A_ref.resolve()
@@ -1609,7 +1618,7 @@
 		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
-	if(object)
+	if(object && !isitem(object))
 		sobject = " with [object]"
 	var/saddition = ""
 	if(addition)
@@ -1620,6 +1629,11 @@
 	var/message = "has [what_done] [starget][postfix]"
 	user.log_message(message, LOG_ATTACK, color="red")
 
+	if (important && isliving(user) && isliving(target))
+		var/mob/living/living_user = user
+		var/datum/tool_atom = object
+		SScombat_logging.log_combat(living_user, living_target, istype(tool_atom) ? tool_atom.type : object)
+
 	if(user != target)
 		var/reverse_message = "has been [what_done] by [ssource][postfix]"
 		target.log_message(reverse_message, LOG_ATTACK, color="orange", log_globally=FALSE)
@@ -1627,15 +1641,16 @@
 /**
   * Log for buying items from the uplink
   *
-  * 1 argument is for the user that bought the item
-  * 2 argument is for the item that was purchased
-  * 3 argument is for the uplink type (traitor/contractor)
+  * [buyer]: is for the user that bought the item
+  * [object]: is for the item that was purchased
+  * [type]: is for the uplink type (traitor/contractor)
+  * [is_bonus]: is given TRUE when an item is given for free
  */
-/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink")
-	var/message = "has bought [object] from \a [type]"
+/proc/log_uplink_purchase(mob/buyer, atom/object, type = "\improper uplink", is_bonus = FALSE)
+	var/message = "has [!is_bonus ? "bought" : "received a bonus item"] [object] from \a [type]"
 	buyer.log_message(message, LOG_GAME)
 	if(isnull(locate(/datum/antagonist) in buyer.mind?.antag_datums))
-		message_admins("[ADMIN_LOOKUPFLW(buyer)] has bought [object] from \a [type] as a non-antagonist.")
+		message_admins("[ADMIN_LOOKUPFLW(buyer)] has [!is_bonus ? "bought" : "received a bonus item"] [object] from \a [type] as a non-antagonist.")
 
 /atom/proc/add_filter(name,priority,list/params)
 	LAZYINITLIST(filter_data)
@@ -1891,3 +1906,6 @@
 		luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1)
 	else
 		luminosity = max(base_luminosity, affecting_dynamic_lumi)
+
+/atom/movable/proc/get_orbitable()
+	return src
