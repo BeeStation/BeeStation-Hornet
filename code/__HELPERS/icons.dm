@@ -1456,6 +1456,8 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	var/initialpixely = pixel_y
 	var/shiftx = rand(-pixelshiftx,pixelshiftx)
 	var/shifty = rand(-pixelshifty,pixelshifty)
-	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
+	var/each_mimic
+	WHILE_ZMIMIC_ATOM(each_mimic, src)
+		animate(each_mimic, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
 	pixel_x = initialpixelx
 	pixel_y = initialpixely

@@ -61,14 +61,13 @@
 
 	speed /= segments
 
-	if(parallel)
-		animate(src, transform = matrices[1], time = speed, loops , flags = ANIMATION_PARALLEL)
-	else
-		animate(src, transform = matrices[1], time = speed, loops)
-	for(var/i in 2 to segments) //2 because 1 is covered above
-		animate(transform = matrices[i], time = speed)
-		//doesn't have an object argument because this is "Stacking" with the animate call above
-		//3 billion% intentional
+	var/each_mimic
+	WHILE_ZMIMIC_ATOM(each_mimic, src)
+		animate(each_mimic, transform = matrices[1], time = speed, loops, flags = parallel ? ANIMATION_PARALLEL : NONE)
+		for(var/i in 2 to segments) //2 because 1 is covered above
+			animate(transform = matrices[i], time = speed) // MARKING: z-mimic reminder, animate() proc should be chained when it takes no Object
+			//doesn't have an object argument because this is "Stacking" with the animate call above
+			//3 billion% intentional
 
 //Dumps the matrix data in format a-f
 /matrix/proc/tolist()

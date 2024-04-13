@@ -881,8 +881,10 @@
 
 	var/matrix/initial_transform = matrix(transform)
 	var/matrix/rotated_transform = transform.Turn(rand(13,17) * turn_dir)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN)
-	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform=initial_transform, time = 2, easing=SINE_EASING)
+	var/atom/movable/each_mimic
+	WHILE_ZMIMIC_MOVABLE(each_mimic, src)
+		animate(each_mimic, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform=rotated_transform, time = 1, easing=BACK_EASING|EASE_IN)
+		animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform=initial_transform, time = 2, easing=SINE_EASING)
 
 /atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
 	var/image/I
@@ -918,9 +920,11 @@
 		return
 
 	// And animate the attack!
-	animate(attack_animation_object, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
-	animate(time = 1)
-	animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
+	var/atom/movable/each_mimic
+	WHILE_ZMIMIC_MOVABLE(each_mimic, attack_animation_object)
+		animate(each_mimic, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+		animate(time = 1)
+		animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
 
 /atom/movable/vv_get_dropdown()
 	. = ..()
@@ -985,12 +989,15 @@
 /atom/movable/proc/float(on)
 	if(throwing)
 		return
+	var/atom/movable/each_mimic
 	if(on && !(movement_type & FLOATING))
-		animate(src, pixel_y = 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
-		animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
+		WHILE_ZMIMIC_MOVABLE(each_mimic, src)
+			animate(each_mimic, pixel_y = 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
+			animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
 		setMovetype(movement_type | FLOATING)
 	else if (!on && (movement_type & FLOATING))
-		animate(src, pixel_y = base_pixel_y, time = 10)
+		WHILE_ZMIMIC_MOVABLE(each_mimic, src)
+			animate(each_mimic, pixel_y = base_pixel_y, time = 10)
 		setMovetype(movement_type & ~FLOATING)
 /* 	Language procs
 *	Unless you are doing something very specific, these are the ones you want to use.
@@ -1141,8 +1148,10 @@
 	animation_matrix.Turn(pick(-30, 30))
 	animation_matrix.Scale(0.65)
 
-	animate(pickup_animation_object, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
-	animate(alpha = 0, transform = matrix().Scale(0.7), time = 1)
+	var/atom/movable/each_mimic
+	WHILE_ZMIMIC_MOVABLE(each_mimic, pickup_animation_object)
+		animate(each_mimic, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
+		animate(alpha = 0, transform = matrix().Scale(0.7), time = 1)
 
 /obj/item/proc/do_drop_animation(atom/moving_from)
 	set waitfor = FALSE
@@ -1185,7 +1194,9 @@
 	transform = animation_matrix
 
 	// This is instant on byond's end, but to our clients this looks like a quick drop
-	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
+	var/atom/movable/each_mimic
+	WHILE_ZMIMIC_MOVABLE(each_mimic, src)
+		animate(each_mimic, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
 
 /atom/movable/proc/get_spawner_desc()
 	return name

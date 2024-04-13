@@ -201,11 +201,13 @@
 
 /datum/martial_art/wrestling/proc/FlipAnimation(mob/living/carbon/human/D)
 	set waitfor = FALSE
-	if (D)
-		animate(D, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
+	var/matrix_calculation = matrix(180, MATRIX_ROTATE)
+	var/atom/movable/each_mimic
+	WHILE_ZMIMIC_MOVABLE(each_mimic, D)
+		animate(each_mimic, transform = matrix_calculation, time = 1, loop = 0)
 	sleep(15)
-	if (D)
-		animate(D, transform = null, time = 1, loop = 0)
+	WHILE_ZMIMIC_MOVABLE(each_mimic, D)
+		animate(each_mimic, transform = null, time = 1, loop = 0)
 
 /datum/martial_art/wrestling/proc/slam(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D)

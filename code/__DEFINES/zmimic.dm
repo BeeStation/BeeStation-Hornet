@@ -66,8 +66,13 @@ On ZMM_AUTOMANGLE:
 /// Pass "atom.bound_overlay" to this param if you want to skip original atom
 #define WHILE_ZMIMIC_MOVABLE(Current, Starting) \
 	##Current = null; \
-	while(##Starting && (##Current = ##Current ? ##Current.bound_overlay : ##Starting) && ##Current)
+	while(##Starting && (##Current = ##Current ? (##Current?:bound_overlay) : ##Starting) && ##Current)
 
 #define WHILE_ZMIMIC_TURF(Current, Starting) \
 	##Current = null; \
-	while(##Starting && (##Current = ##Current ? ##Current.above : ##Starting) && (istransparentturf(##Current) || isopenturf(##Starting) || istransparentturf(##Starting)))
+	while(##Starting && (##Current = ##Current ? (##Current?:above) : ##Starting) && (##Current == ##Starting ? (isopenturf(##Starting) || istransparentturf(##Starting)) : istransparentturf(##Current)))
+
+/// a sinful macro, hybrid of the two macro above. This can be used when a thing can be atom/movable/turf dynamically.
+#define WHILE_ZMIMIC_ATOM(Current, Starting) \
+	##Current = null; \
+	while(##Starting && (##Current = ismovable(##Current) ? (##Current?:bound_overlay) : isturf(##Current) ? (##Current?:above) : ##Starting) && (ismovable(##Current) || (isturf(##Current) && (##Current == ##Starting ? (isopenturf(##Starting) || istransparentturf(##Starting)) : istransparentturf(##Current)))))
