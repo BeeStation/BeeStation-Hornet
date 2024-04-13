@@ -6,14 +6,6 @@
 
 #define SEND_GLOBAL_SIGNAL(sigtype, arguments...) ( SEND_SIGNAL(SSdcs, sigtype, ##arguments) )
 
-/// Use when 2nd parameter dynamically can be null, non-list or listed signals
-/// It won't RegisterSignal if signal is null
-#define RegisterSignalsDynamic(parent, signals, args...) \
-	if(!isnull(signals)) {\
-		islist(signals) \
-		? RegisterSignals(parent, signals, ##args) \
-		: RegisterSignal(parent, signals, ##args) }
-
 /// A wrapper for _AddElement that allows us to pretend we're using normal named arguments
 #define AddElement(arguments...) _AddElement(list(##arguments))
 /// A wrapper for _RemoveElement that allows us to pretend we're using normal named arguments
