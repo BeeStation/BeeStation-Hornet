@@ -65,9 +65,9 @@ On ZMM_AUTOMANGLE:
 /// Use FOR_LISTED_ZMIMIC if you need to access a type
 /// Pass "atom.bound_overlay" to this param if you want to skip original atom
 #define WHILE_ZMIMIC_MOVABLE(Current, Starting) \
-	Current = null; \
+	##Current = null; \
 	while(##Starting && (##Current = ##Current ? ##Current.bound_overlay : ##Starting) && ##Current)
 
 #define WHILE_ZMIMIC_TURF(Current, Starting) \
-	Current = null; \
-	while(##Starting && (##Current = ##Current ? ##Current.above : ##Starting) && (istransparentturf(##Current) || isopenturf(##Current)))
+	##Current = null; \
+	while(##Starting && (##Current = ##Current ? ##Current.above : ##Starting) && (istransparentturf(##Current) || isopenturf(##Starting) || istransparentturf(##Starting)))

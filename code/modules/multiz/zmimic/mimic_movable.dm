@@ -21,12 +21,8 @@
 	else if (bound_overlay && !bound_overlay.destruction_timer)
 		bound_overlay.destruction_timer = QDEL_IN(bound_overlay, 10 SECONDS)
 
-// needed for turfs too
-/atom/proc/get_associated_mimics(including_self = FALSE)
-	return
-
 // Grabs a list of every openspace mimic that's directly or indirectly copying this object. Returns an empty list if none found.
-/atom/movable/get_associated_mimics(including_self = FALSE)
+/atom/movable/proc/get_associated_mimics(including_self = FALSE)
 	if(including_self)
 		. = list(src)
 	else
