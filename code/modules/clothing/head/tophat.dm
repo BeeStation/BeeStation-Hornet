@@ -1,4 +1,4 @@
-
+/obj/item/clothing/head/hats/tophat
 	name = "top-hat"
 	desc = "It's an amish looking hat."
 	icon_state = "tophat"

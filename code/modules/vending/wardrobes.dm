@@ -13,32 +13,38 @@
 	product_ads = "Beat perps in style!;It's red so you can't see the blood!;You have the right to be fashionable!;Now you can be the fashion police you always wanted to be!"
 	vend_reply = "Thank you for using the SecDrobe!"
 	light_color = LIGHT_COLOR_RED
-	products = list(/obj/item/clothing/suit/hooded/wintercoat/security = 3,
-					/obj/item/storage/backpack/security = 3,
-					/obj/item/storage/backpack/satchel/sec = 3,
-					/obj/item/storage/backpack/duffelbag/sec = 3,
-					/obj/item/clothing/under/rank/security/officer = 3,
-					/obj/item/clothing/under/plasmaman/security = 3,
-					/obj/item/clothing/suit/armor/vest/corporate = 3,
-					/obj/item/clothing/under/rank/security/officer/corporate = 3,
-					/obj/item/clothing/head/helmet/space/plasmaman/security = 3,
-					/obj/item/clothing/head/beret/corpsec = 3,
-					/obj/item/clothing/shoes/jackboots = 3,
-					/obj/item/clothing/head/beret/sec = 3,
-					/obj/item/clothing/head/soft/sec = 3,
-					/obj/item/clothing/mask/bandana/red = 3,
-					/obj/item/clothing/mask/gas/sechailer = 6,
-					/obj/item/clothing/under/rank/security/officer/skirt = 3,
-					/obj/item/clothing/under/rank/security/officer/white = 3,
-					/obj/item/clothing/under/pants/khaki = 3,
-					/obj/item/clothing/under/rank/security/officer/blueshirt = 3,
-					/obj/item/clothing/under/rank/security/officer/mallcop = 3,
-					/obj/item/clothing/neck/tie/red = 6,
-					/obj/item/clothing/neck/tie/black = 6,)
-	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/security/old = 3)
-	premium = list(/obj/item/clothing/under/rank/security/officer/formal = 3,
-					/obj/item/clothing/suit/jacket/officer/blue = 3,
-					/obj/item/clothing/head/beret/sec/navyofficer = 3)
+	products = list(
+		/obj/item/clothing/suit/hooded/wintercoat/security = 3,
+		/obj/item/storage/backpack/security = 3,
+		/obj/item/storage/backpack/satchel/sec = 3,
+		/obj/item/storage/backpack/duffelbag/sec = 3,
+		/obj/item/clothing/under/rank/security/officer = 3,
+		/obj/item/clothing/under/plasmaman/security = 3,
+		/obj/item/clothing/suit/armor/vest/corporate = 3,
+		/obj/item/clothing/under/rank/security/officer/corporate = 3,
+		/obj/item/clothing/head/helmet/space/plasmaman/security = 3,
+		/obj/item/clothing/head/beret/corpsec = 3,
+		/obj/item/clothing/shoes/jackboots = 3,
+		/obj/item/clothing/head/beret/sec = 3,
+		/obj/item/clothing/head/soft/sec = 3,
+		/obj/item/clothing/mask/bandana/red = 3,
+		/obj/item/clothing/mask/gas/sechailer = 6,
+		/obj/item/clothing/under/rank/security/officer/skirt = 3,
+		/obj/item/clothing/under/rank/security/officer/white = 3,
+		/obj/item/clothing/under/pants/khaki = 3,
+		/obj/item/clothing/under/rank/security/officer/blueshirt = 3,
+		/obj/item/clothing/under/rank/security/officer/mallcop = 3,
+		/obj/item/clothing/neck/tie/red = 6,
+		/obj/item/clothing/neck/tie/black = 6,
+		)
+	contraband = list(
+		/obj/item/clothing/suit/hooded/wintercoat/security/old = 3,
+		)
+	premium = list(
+		/obj/item/clothing/under/rank/security/officer/formal = 3,
+		/obj/item/clothing/suit/jacket/officer/blue = 3,
+		/obj/item/clothing/head/beret/sec/navyofficer = 3,
+		)
 	refill_canister = /obj/item/vending_refill/wardrobe/sec_wardrobe
 	dept_req_for_free = ACCOUNT_SEC_BITFLAG
 
