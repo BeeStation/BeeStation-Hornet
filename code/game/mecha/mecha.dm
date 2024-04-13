@@ -657,7 +657,7 @@
 				if(phase_state)
 					flick(phase_state, src)
 				var/turf/target = get_step(src, dir)
-				if(target.flags_1 & NOJAUNT)
+				if(target.turf_flags & NOJAUNT)
 					occupant_message("Phasing anomaly detected, emergency deactivation initiated.")
 					sleep(step_in*3*step_multiplier)
 					can_move = 1
