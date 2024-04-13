@@ -64,7 +64,7 @@
 	return smallest_team
 
 /datum/priority_directive/deploy_beacon/_generate(list/teams)
-	return rand(3, 6)
+	return rand(2, 4)
 
 /datum/priority_directive/deploy_beacon/get_track_atom()
 	return center_turf

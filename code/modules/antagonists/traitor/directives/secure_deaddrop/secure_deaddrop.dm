@@ -20,7 +20,7 @@
 
 /datum/priority_directive/deaddrop/_generate(list/teams)
 	// Spawn the deaddrop package
-	var/tc_count = rand(3, 3 + length(teams))
+	var/tc_count = rand(2, 4)
 	// Put the deaddrop somewhere
 	var/turf/selected = get_random_station_turf()
 	while (!istype(selected, /turf/open/floor/iron) || selected.is_blocked_turf(TRUE))
