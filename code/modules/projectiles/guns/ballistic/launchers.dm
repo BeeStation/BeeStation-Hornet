@@ -83,8 +83,8 @@
 
 		var/atom/movable/each_mimic
 		WHILE_ZMIMIC_MOVABLE(each_mimic, user.bound_overlay)
-			animate_suicide_no_wait(each_mimic)
-		animate_suicide(user) // the true animation. Once we get out from sleep() of this proc, we'll do the later part
+			animate_suicide(each_mimic)
+		sleep(75) // 70 + 5. We do the thing after animations are done. Check animate_suicide() proc
 
 		user.notransform = FALSE
 		process_fire(user, user, TRUE)
@@ -100,13 +100,9 @@
 		sleep(20)
 		return OXYLOSS
 
-/obj/item/gun/ballistic/rocketlauncher/proc/animate_suicide_no_wait(user)
-	set waitfor = FALSE
-	animate_suicide(user)
-
 /obj/item/gun/ballistic/rocketlauncher/proc/animate_suicide(user)
-	// MARKING: z-mimic handled animate
+	set waitfor = FALSE
 	animate(user, pixel_z = 300, time = 30, easing = LINEAR_EASING)
 	sleep(70)
 	animate(user, pixel_z = 0, time = 5, easing = LINEAR_EASING)
-	sleep(5)
+	// sleep(5) // not necessary, but remained here to tell the full timer time
