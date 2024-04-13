@@ -20,11 +20,14 @@
 
 /obj/item/ammo_casing/energy/disabler
 	projectile_type = /obj/projectile/beam/disabler
-	select_name  = "disable"
+	select_name = "disable"
 	e_cost = 40
 	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/disabler/hos
+	projectile_type = /obj/projectile/beam/disabler
+	select_name = "disable"
 	e_cost = 50
-	select_name  = "disable"
+	fire_sound = 'sound/weapons/taser2.ogg'
+	harmful = FALSE

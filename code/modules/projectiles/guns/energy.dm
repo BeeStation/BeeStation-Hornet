@@ -72,9 +72,6 @@
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
 	update_appearance(UPDATE_ICON)
-
-/obj/item/gun/energy/ComponentInitialize()
-	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/gun/energy/fire_sounds()
@@ -199,7 +196,7 @@
 	var/skip_worn_icon = initial(worn_icon_state) //only build if we aren't using a preset worn icon
 
 	if(skip_inhand && skip_worn_icon) //if we don't have either, don't do the math.
-		return
+		return ..()
 
 	if(QDELETED(src))
 		return
@@ -217,6 +214,7 @@
 		item_state = temp_icon_to_use
 	if(!skip_worn_icon)
 		worn_icon_state = temp_icon_to_use
+	return ..()
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()
@@ -227,8 +225,8 @@
 	if(modifystate)
 		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 		if(single_shot_type_overlay)
-			. += "[icon_state]_[shot.select_name]"
-		overlay_icon_state += "_[shot.select_name]"
+			. += "[icon_state]_[initial(shot.select_name)]"
+		overlay_icon_state += "_[initial(shot.select_name)]"
 
 	var/ratio = get_charge_ratio()
 	//Display no power if EMPed

@@ -95,7 +95,9 @@
 			pin = null
 		else
 			pin = new pin(src)
+
 	add_seclight_point()
+	
 	if(!canMouseDown) //Some things like beam rifles override this.
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
