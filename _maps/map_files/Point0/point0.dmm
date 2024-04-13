@@ -589,6 +589,18 @@
 /obj/machinery/vending/wardrobe/det_wardrobe,
 /turf/open/floor/holofloor/wood,
 /area/space)
+"eS" = (
+/obj/structure/table/wood/fancy/black,
+/obj/structure/desk_bell/speed_demon{
+	pixel_x = 8;
+	pixel_y = 1
+	},
+/obj/item/stamp/clown{
+	pixel_x = -9;
+	pixel_y = 8
+	},
+/turf/open/floor/carpet/purple,
+/area/space)
 "eU" = (
 /obj/structure/dresser,
 /turf/open/floor/carpet/red,
@@ -1905,6 +1917,12 @@
 	},
 /turf/open/floor/wood,
 /area/space)
+"qE" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/carpet/purple,
+/area/space)
 "qK" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -1916,6 +1934,17 @@
 	alpha = 180
 	},
 /turf/open/floor/prison/dark,
+/area/space)
+"qP" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/storage/crayons{
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/obj/item/storage/crayons{
+	pixel_x = -7
+	},
+/turf/open/floor/carpet/purple,
 /area/space)
 "qT" = (
 /obj/structure/table/glass,
@@ -2899,6 +2928,12 @@
 	},
 /turf/open/floor/wood,
 /area/space)
+"zo" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet/purple,
+/area/space)
 "zt" = (
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /obj/structure/chair/fancy/comfy{
@@ -3001,6 +3036,12 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron/dark,
+/area/space)
+"Af" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet/purple,
 /area/space)
 "Ao" = (
 /obj/machinery/computer/secure_data{
@@ -3191,6 +3232,16 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria_red,
+/area/space)
+"BH" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#ff14f3"
+	},
+/turf/open/floor/carpet/purple,
 /area/space)
 "BJ" = (
 /obj/effect/turf_decal/siding/wood{
@@ -3651,6 +3702,12 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/space)
+"Fl" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/carpet/purple,
+/area/space)
 "Fn" = (
 /obj/structure/railing{
 	dir = 8
@@ -3928,6 +3985,16 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/space)
+"HP" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925"
+	},
+/turf/open/floor/carpet/purple,
+/area/space)
 "HR" = (
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /obj/machinery/holopad,
@@ -4101,6 +4168,13 @@
 	icon_state = "2-8"
 	},
 /turf/open/floor/iron/dark,
+/area/space)
+"JE" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10;
+	layer = 2
+	},
+/turf/open/floor/carpet/purple,
 /area/space)
 "JF" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -4974,6 +5048,13 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/space)
+"Rz" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/structure/chair/fancy/plastic{
+	dir = 1
+	},
+/turf/open/floor/carpet/purple,
+/area/space)
 "RA" = (
 /obj/structure/railing{
 	dir = 1
@@ -5050,6 +5131,26 @@
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
+/area/space)
+"Sh" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/paper_bin{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/toy/crayon/mime{
+	pixel_x = 1;
+	pixel_y = 13
+	},
+/obj/item/toy/crayon/rainbow{
+	pixel_x = -5;
+	pixel_y = 12
+	},
+/turf/open/floor/carpet/purple,
 /area/space)
 "Si" = (
 /obj/structure/sink{
@@ -5360,6 +5461,13 @@
 /obj/structure/chair/fancy/corp,
 /turf/open/floor/wood/big,
 /area/space)
+"Uz" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6;
+	layer = 2
+	},
+/turf/open/floor/carpet/purple,
+/area/space)
 "UE" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 10;
@@ -5541,6 +5649,12 @@
 	},
 /obj/structure/rack,
 /turf/open/floor/iron,
+/area/space)
+"Wu" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/carpet/purple,
 /area/space)
 "WB" = (
 /obj/structure/rack,
@@ -66979,9 +67093,9 @@ Uc
 Uc
 XC
 wl
-wl
-wl
-wl
+qE
+zo
+JE
 wl
 XC
 wl
@@ -67181,9 +67295,9 @@ Uc
 Uc
 XC
 wl
-wl
-wl
-Dd
+BH
+qP
+Rz
 wl
 XC
 wl
@@ -67383,13 +67497,13 @@ Uc
 Uc
 XC
 wl
+Fl
+eS
+Rz
 wl
 wl
 wl
 wl
-wl
-wl
-XC
 wl
 wl
 wl
@@ -67585,9 +67699,9 @@ Uc
 Uc
 XC
 wl
-wl
-wl
-nn
+HP
+Sh
+Rz
 wl
 XC
 wl
@@ -67787,9 +67901,9 @@ Uc
 Uc
 XC
 wl
-wl
-wl
-wl
+Wu
+Af
+Uz
 wl
 XC
 wl
@@ -67995,9 +68109,9 @@ wl
 wl
 XC
 wl
+Dd
 wl
-wl
-wl
+nn
 wl
 wl
 XC
@@ -68397,12 +68511,12 @@ wl
 wl
 wl
 wl
+TT
+TT
+TT
+TT
 wl
-TT
-TT
-TT
-TT
-TT
+wl
 wl
 XC
 Uc
@@ -68599,12 +68713,12 @@ wl
 wl
 wl
 wl
+Su
+Su
+Su
+Su
 wl
-Su
-Su
-Su
-Su
-Su
+wl
 wl
 XC
 Uc
@@ -68801,12 +68915,12 @@ wl
 wl
 wl
 wl
+Su
+Su
+Su
+Su
 wl
-QG
-QG
-QG
-QG
-QG
+wl
 wl
 XC
 Uc
@@ -69003,10 +69117,10 @@ wl
 wl
 wl
 wl
-wl
-wl
-wl
-wl
+QG
+QG
+QG
+QG
 wl
 wl
 wl
@@ -69407,10 +69521,10 @@ wl
 wl
 wl
 wl
-wl
-wl
-wl
-wl
+TT
+TT
+TT
+TT
 wl
 wl
 wl
@@ -69609,12 +69723,12 @@ wl
 wl
 wl
 wl
+Su
+Su
+Su
+Su
 wl
-TT
-TT
-TT
-TT
-TT
+wl
 wl
 XC
 Uc
@@ -69811,12 +69925,12 @@ wl
 wl
 wl
 wl
+Su
+Su
+Su
+Su
 wl
-Su
-Su
-Su
-Su
-Su
+wl
 wl
 XC
 Uc
@@ -70013,12 +70127,12 @@ wl
 wl
 wl
 wl
+QG
+QG
+QG
+QG
 wl
-QG
-QG
-QG
-QG
-QG
+wl
 wl
 XC
 Uc
