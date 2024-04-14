@@ -34,11 +34,6 @@
 /// appearance type needs a manual var referencing because it doesn't have "vars" variable internally.
 /// There's no way doing this in a fancier way.
 /proc/debug_variable_appearance(var_name, image/appearance)
-	try // somehow /appearance has "vars" variable.
-		return debug_variable(var_name, appearance.vars[var_name], 0, appearance, sanitize = TRUE, display_flags = NONE)
-	catch
-		pass()
-
 	var/atom/movable/atom_appearance = appearance
 	var/value
 	try
