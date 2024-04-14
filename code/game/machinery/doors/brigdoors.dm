@@ -49,7 +49,6 @@
 	if(!length(doors) && !length(flashers) && length(closets))
 		obj_break()
 
-
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer
 // update the door_timer window and the icon
@@ -64,7 +63,7 @@
 
 	if(REALTIMEOFDAY - activation_time >= timer_duration)
 		timer_end() // open doors, reset timer, clear status screen
-	update_icon()
+	update_content()
 
 /**
  * Update the display content.
@@ -111,9 +110,8 @@
 		if(closet.opened && !closet.close())
 			continue
 		closet.locked = TRUE
-		closet.update_icon()
+		closet.update_appearance()
 	return 1
-
 
 /**
  * Stops the timer and resets the timer to 0, and opens the linked door.
@@ -137,7 +135,7 @@
 	for(var/datum/weakref/door_ref as anything in doors)
 		var/obj/machinery/door/window/brigdoor/door = door_ref.resolve()
 		if(!door)
-			doors -=  door_ref
+			doors -= door_ref
 			continue
 		if(!door.density)
 			continue
@@ -153,7 +151,7 @@
 		if(closet.opened)
 			continue
 		closet.locked = FALSE
-		closet.update_icon()
+		closet.update_appearance()
 
 	return 1
 
@@ -189,7 +187,7 @@
 /obj/machinery/status_display/door_timer/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BrigTimer")
+		ui = new(user, src, "BrigTimer", name)
 		ui.open()
 
 /obj/machinery/status_display/door_timer/ui_data()
@@ -210,7 +208,8 @@
 	return data
 
 /obj/machinery/status_display/door_timer/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	. = TRUE
 
