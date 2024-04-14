@@ -85,15 +85,14 @@
 		dropdownoptions = thing.vv_get_dropdown()
 
 	var/list/names = list()
-	if(!islist)
-		if(isappearance)
-			var/static/list/appearnace_vars
-			if(!appearnace_vars)
-				appearnace_vars = build_appearance_var_list()
-			names = appearnace_vars.Copy()
-		else
-			for(var/varname in thing.vars)
-				names += varname
+	if(isappearance)
+		var/static/list/appearnace_vars
+		if(!appearnace_vars)
+			appearnace_vars = build_appearance_var_list()
+		names = appearnace_vars.Copy()
+	else if(!islist)
+		for(var/varname in thing.vars)
+			names += varname
 
 	sleep(1 TICKS)
 

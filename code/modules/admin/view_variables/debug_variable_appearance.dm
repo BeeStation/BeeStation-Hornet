@@ -32,7 +32,7 @@
 	del(dummy_image)
 	dummy_image = null
 
-/// appearance type needs a manual change because it doesn't have "vars" variable internally.
+/// appearance type needs a manual var referencing because it doesn't have "vars" variable internally.
 /// There's no way doing this in a fancier way.
 /proc/debug_variable_appearance(var_name, image/appearance)
 	try // somehow /appearance has "vars" variable.
@@ -130,7 +130,7 @@
 			if("type")
 				value = appearance.type
 
-			// These are not undocumented ones but maybe it's trackable values
+			// These are not documented ones but trackable values. Maybe we'd want these.
 			if("animate_movement")
 				value = atom_appearance.animate_movement
 			if("dir")
@@ -159,7 +159,7 @@
 			if("z")
 				value = atom_appearance.z
 
-			// we wouldn't need these, but let's trackable anyway...
+			// we wouldn't need these, but let's these trackable anyway...
 			if("cooldowns")
 				value = atom_appearance.cooldowns
 			if("gc_destroyed")
