@@ -193,7 +193,7 @@
 /// Shows a header name on top when you investigate an appearance
 /proc/vv_get_header_appearance(image/thing)
 	. = list()
-	var/icon_name = "<b>[length(thing.icon) ? thing.icon || "null" : "(icon exists, but name is null)"]</b><br/>"
+	var/icon_name = "<b>[thing.icon || "null"]</b><br/>"
 	. += replacetext(icon_name, "icons/obj", "") // shortens the name. We know the path already.
 	if(thing.icon)
 		. += thing.icon_state ? "\"[thing.icon_state]\"" : "(icon_state = null)"
@@ -205,7 +205,7 @@
 /proc/get_appearance_vv_summary_name(image/thing)
 	var/icon_file_name = thing.icon ? splittext("[thing.icon]", "/") : "null"
 	if(islist(icon_file_name))
-		icon_file_name = length(icon_file_name) ? icon_file_name[length(icon_file_name)] : "(null??)" // thing.icon exists but it's null????
+		icon_file_name = length(icon_file_name) ? icon_file_name[length(icon_file_name)] : "null"
 	if(thing.icon_state)
 		return "[icon_file_name]:[thing.icon_state]"
 	else
