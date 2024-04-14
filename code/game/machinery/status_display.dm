@@ -292,7 +292,7 @@
 			set_messages("", "")
 		if("message")
 			current_mode = SD_MESSAGE
-			set_messages(signal.data["msg1"] || "", signal.data["msg2"] || "")
+			set_messages(signal.data["top_text"] || "", signal.data["bottom_text"] || "")
 		if("alert")
 			current_mode = SD_PICTURE
 			last_picture = signal.data["picture_state"]
@@ -511,8 +511,8 @@
 	var/datum/signal/status_signal = new(list("command" = command_value))
 	switch(command_value)
 		if("message")
-			status_signal.data["msg1"] = message1.value
-			status_signal.data["msg2"] = message2.value
+			status_signal.data["top_text"] = message1.value
+			status_signal.data["bottom_text"] = message2.value
 		if("alert")
 			status_signal.data["picture_state"] = picture_map[picture.value]
 
