@@ -1,5 +1,5 @@
 /proc/build_appearance_var_list()
-	. = list()
+	. = list("vis_flags") // manual listing
 	var/list/unused_var_names = list(
 		"vars", // /appearnace doesn't have internal "vars" variable. Even if it has, we have no reason to see it
 		"appearance", // it only does self-reference
@@ -13,7 +13,6 @@
 		"stat_tabs",
 		"cooldowns",
 		"datum_flags",
-		"gender",
 		"visibility",
 		"verbs",
 		)
@@ -37,12 +36,6 @@
 	var/value
 	try
 		switch(var_name) // Welcome to this curse
-			// real vars that appearance uses
-			if("parent_type")
-				value = appearance.parent_type
-			if("type")
-				value = appearance.type
-
 			// appearance vars in DM document
 			if("alpha")
 				value = appearance.alpha
@@ -121,32 +114,51 @@
 			if("underlays")
 				value = appearance.underlays
 
+			if("parent_type")
+				value = appearance.parent_type
+			if("type")
+				value = appearance.type
 
 			// These are not undocumented ones but maybe it's trackable values
 			if("animate_movement")
 				value = atom_appearance.animate_movement
+			if("dir")
+				value = atom_appearance.dir
+			if("glide_size")
+				value = atom_appearance.glide_size
+			if("pixel_step_size")
+				value = "" //atom_appearance.pixel_step_size
+				// DM compiler complains this
+
+			// These variables are only available in some conditions.
+			if("contents")
+				value = atom_appearance.contents
+			if("vis_contents")
+				value = atom_appearance.vis_contents
+			if("vis_flags")
+				value = atom_appearance.vis_flags
+			if("loc")
+				value = atom_appearance.loc
+			if("locs")
+				value = atom_appearance.locs
+			if("x")
+				value = atom_appearance.x
+			if("y")
+				value = atom_appearance.y
+			if("z")
+				value = atom_appearance.z
+
+			// we wouldn't need these, but let's trackable anyway...
 			if("cooldowns")
 				value = atom_appearance.cooldowns
+			if("gc_destroyed")
+				value = atom_appearance.gc_destroyed
 			if("datum_components")
 				value = atom_appearance.datum_components
 			if("datum_flags")
 				value = atom_appearance.datum_flags
 			if("density")
 				value = atom_appearance.density
-
-			if("dir")
-				value = atom_appearance.dir
-
-			if("gc_destroyed")
-				value = atom_appearance.gc_destroyed
-			if("glide_size")
-				value = atom_appearance.glide_size
-
-			if("pixel_step_size")
-				value = "" //atom_appearance.pixel_step_size
-				// DM compiler complains this
-
-			// we wouldn't need these, but let's trackable anyway...
 			if("screen_loc")
 				value = atom_appearance.screen_loc
 			if("sorted_verbs")
@@ -162,22 +174,6 @@
 			if("cached_ref")
 				value = appearance.cached_ref
 
-			/// These variables are only available in some conditions.
-			if("contents")
-				value = atom_appearance.contents
-			if("vis_contents")
-				value = atom_appearance.vis_contents
-			if("loc")
-				value = atom_appearance.loc
-			if("locs")
-				value = atom_appearance.locs
-			if("x")
-				value = atom_appearance.x
-			if("y")
-				value = atom_appearance.y
-			if("z")
-				value = atom_appearance.z
-
 			else
 				return "<li style='backgroundColor:white'>(STATIC) [var_name] <font color='blue'>(Undefined var name in switch)</font></li>"
 	catch
@@ -186,7 +182,8 @@
 
 /proc/vv_get_header_appearance(image/thing)
 	. = list()
-	. += "<b>[length(thing.icon) ? thing.icon || "null" : "(icon exists, but name is null)"]</b><br/>"
+	var/icon_name = "<b>[length(thing.icon) ? thing.icon || "null" : "(icon exists, but name is null)"]</b><br/>"
+	. += replacetext(icon_name, "icons/obj", "") // shortens the name. We know the path already.
 	if(thing.icon)
 		. += thing.icon_state ? "\"[thing.icon_state]\"" : "(icon_state = null)"
 
