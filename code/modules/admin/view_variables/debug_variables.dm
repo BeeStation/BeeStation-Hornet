@@ -52,6 +52,10 @@
 	if(isappearance(value)) // Reminder: Do not replace this into /image/debug_variable_value() proc. /appearance can't do that.
 		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>/appearance (<span class='value'>[get_appearance_vv_summary_name(value)]</span>) [REF(value)]</a>"
 
+	if(isimage(value))
+		var/image/image = value
+		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)]'>[image.type] (<span class='value'>[get_appearance_vv_summary_name(image)]</span>) [REF(value)]</a>"
+
 	if(isfilter(value))
 		var/datum/filter_value = value
 		return "/filter (<span class='value'>[filter_value.type] [REF(filter_value)]</span>)"

@@ -9,7 +9,6 @@
 /proc/build_appearance_var_list()
 	. = list("vis_flags") // manual listing
 	var/list/unused_var_names = list(
-		"vars", // /appearnace doesn't have internal "vars" variable. Even if it has, we have no reason to see it
 		"appearance", // it only does self-reference
 		"x","y","z", // these are always 0
 
@@ -199,6 +198,13 @@
 	if(thing.icon)
 		. += thing.icon_state ? "\"[thing.icon_state]\"" : "(icon_state = null)"
 
+/image/vv_get_header()
+	. = list()
+	var/icon_name = "<b>[length(icon) ? icon || "null" : "(icon exists, but name is null)"]</b><br/>"
+	. += replacetext(icon_name, "icons/obj", "") // shortens the name. We know the path already.
+	if(icon)
+		. += icon_state ? "\"[icon_state]\"" : "(icon_state = null)"
+
 /// Makes a format name for shortened vv name.
 /proc/get_appearance_vv_summary_name(image/thing)
 	var/icon_file_name = thing.icon ? splittext("[thing.icon]", "/") : "null"
@@ -209,15 +215,16 @@
 	else
 		return "[icon_file_name]"
 
+/image/proc/get_image_vv_summary_name()
+	var/icon_file_name = icon ? splittext("[icon]", "/") : "null"
+	if(islist(icon_file_name))
+		icon_file_name = length(icon_file_name) ? icon_file_name[length(icon_file_name)] : "(null??)"
+	if(icon_state)
+		return "[icon_file_name]:[icon_state]"
+	else
+		return "[icon_file_name]"
+
 /proc/vv_get_dropdown_appearance(image/thing)
 	. = list()
-	try
-		if(thing.vars)
-			VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "---")
-			VV_DROPDOWN_OPTION_APPEARANCE(thing, VV_HK_MARK, "Mark Object")
-			VV_DROPDOWN_OPTION_APPEARANCE(thing, VV_HK_TAG, "Tag Datum")
-			VV_DROPDOWN_OPTION_APPEARANCE(thing, VV_HK_DELETE, "Delete")
-			VV_DROPDOWN_OPTION_APPEARANCE(thing, VV_HK_EXPOSE, "Show VV To Player")
-	catch
-		VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "---")
-		VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "VV option not allowed")
+	VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "---")
+	VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "VV option not allowed")
