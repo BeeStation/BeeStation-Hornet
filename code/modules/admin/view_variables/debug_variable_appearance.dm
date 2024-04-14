@@ -199,11 +199,7 @@
 		. += thing.icon_state ? "\"[thing.icon_state]\"" : "(icon_state = null)"
 
 /image/vv_get_header()
-	. = list()
-	var/icon_name = "<b>[length(icon) ? icon || "null" : "(icon exists, but name is null)"]</b><br/>"
-	. += replacetext(icon_name, "icons/obj", "") // shortens the name. We know the path already.
-	if(icon)
-		. += icon_state ? "\"[icon_state]\"" : "(icon_state = null)"
+	return vv_get_header_appearance(src)
 
 /// Makes a format name for shortened vv name.
 /proc/get_appearance_vv_summary_name(image/thing)
@@ -212,15 +208,6 @@
 		icon_file_name = length(icon_file_name) ? icon_file_name[length(icon_file_name)] : "(null??)" // thing.icon exists but it's null????
 	if(thing.icon_state)
 		return "[icon_file_name]:[thing.icon_state]"
-	else
-		return "[icon_file_name]"
-
-/image/proc/get_image_vv_summary_name()
-	var/icon_file_name = icon ? splittext("[icon]", "/") : "null"
-	if(islist(icon_file_name))
-		icon_file_name = length(icon_file_name) ? icon_file_name[length(icon_file_name)] : "(null??)"
-	if(icon_state)
-		return "[icon_file_name]:[icon_state]"
 	else
 		return "[icon_file_name]"
 
