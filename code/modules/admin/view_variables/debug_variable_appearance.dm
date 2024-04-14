@@ -186,10 +186,10 @@
 				value = appearance.cached_ref
 
 			else
-				return "<li style='backgroundColor:white'>(STATIC) [var_name] <font color='blue'>(Undefined var name in switch)</font></li>"
+				return "<li style='backgroundColor:white'>(READ ONLY) [var_name] <font color='blue'>(Undefined var name in switch)</font></li>"
 	catch
-		return "<li style='backgroundColor:white'>(STATIC) <font color='blue'>[var_name] = (untrackable)</font></li>"
-	return "<li style='backgroundColor:white'>(STATIC) [var_name] = [_debug_variable_value(var_name, value, 0, appearance, sanitize = TRUE, display_flags = NONE)]</li>"
+		return "<li style='backgroundColor:white'>(READ ONLY) <font color='blue'>[var_name] = (untrackable)</font></li>"
+	return "<li style='backgroundColor:white'>(READ ONLY) [var_name] = [_debug_variable_value(var_name, value, 0, appearance, sanitize = TRUE, display_flags = NONE)]</li>"
 
 /// Shows a header name on top when you investigate an appearance
 /proc/vv_get_header_appearance(image/thing)
