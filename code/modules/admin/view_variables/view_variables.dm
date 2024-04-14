@@ -87,10 +87,10 @@
 
 	var/list/names = list()
 	if(isappearance)
-		var/static/list/appearnace_vars
-		if(!appearnace_vars)
-			appearnace_vars = build_appearance_var_list()
-		names = appearnace_vars.Copy()
+		var/static/list/appearance_vars
+		if(!appearance_vars)
+			appearance_vars = build_appearance_var_list()
+		names = appearance_vars.Copy()
 	else if(!islist)
 		for(var/varname in thing.vars)
 			names += varname
