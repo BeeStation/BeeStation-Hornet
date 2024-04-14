@@ -29,6 +29,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	desc = "A console intended to send requests to different departments on the station."
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp_off"
+	base_icon_state = "req_comp"
 	layer = ABOVE_WINDOW_LAYER
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/messages = list() //List of all messages
@@ -71,8 +72,12 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	max_integrity = 300
 	armor = list(MELEE = 70,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
 
-	light_color = LIGHT_COLOR_GREEN
-	light_power = 1.5
+/obj/machinery/requests_console/update_appearance(updates=ALL)
+	. = ..()
+	if(machine_stat & NOPOWER)
+		set_light(0)
+		return
+	set_light(1.4,0.7,"#34D352")//green light
 
 /obj/machinery/requests_console/update_icon_state()
 	if(open)
