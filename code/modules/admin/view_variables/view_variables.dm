@@ -34,7 +34,8 @@
 
 	else if(isimage(thing) || isappearance(thing))
 		var/image/image_object = thing
-		sprite = icon(image_object.icon, image_object.icon_state)
+		if(image_object.icon_state) // icon_state=null shows first image. Let's skip null name for general cases, because it's confusing.
+			sprite = icon(image_object.icon, image_object.icon_state)
 
 	var/sprite_text
 	if(sprite)
@@ -80,7 +81,7 @@
 			var/link = dropdownoptions[name]
 			dropdownoptions[i] = "<option value[link? "='[link]'":""]>[name]</option>"
 	else if(isappearance)
-		dropdownoptions = list("VV unavailable")
+		dropdownoptions = vv_get_dropdown_appearance(thing)
 	else
 		dropdownoptions = thing.vv_get_dropdown()
 

@@ -36,7 +36,7 @@
 /// There's no way doing this in a fancier way.
 /proc/debug_variable_appearance(var_name, image/appearance)
 	try // somehow /appearance has "vars" variable.
-		return "<li style='backgroundColor:white'>(STATIC) [var_name] = [_debug_variable_value(var_name, appearance.vars[var_name], 0, appearance)]</li>"
+		return debug_variable(var_name, appearance.vars[var_name], 0, appearance, sanitize = TRUE, display_flags = NONE)
 	catch
 		pass()
 
@@ -208,3 +208,16 @@
 		return "[icon_file_name]:[thing.icon_state]"
 	else
 		return "[icon_file_name]"
+
+/proc/vv_get_dropdown_appearance(image/thing)
+	. = list()
+	try
+		if(thing.vars)
+			VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "---")
+			VV_DROPDOWN_OPTION_APPEARANCE(thing, VV_HK_MARK, "Mark Object")
+			VV_DROPDOWN_OPTION_APPEARANCE(thing, VV_HK_TAG, "Tag Datum")
+			VV_DROPDOWN_OPTION_APPEARANCE(thing, VV_HK_DELETE, "Delete")
+			VV_DROPDOWN_OPTION_APPEARANCE(thing, VV_HK_EXPOSE, "Show VV To Player")
+	catch
+		VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "---")
+		VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "VV option not allowed")
