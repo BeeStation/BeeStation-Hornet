@@ -3,8 +3,8 @@
 	id = SPECIES_HUMAN
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
-	mutant_bodyparts = list("xenotype")
-	default_features = list("mcolor" = "FFF", "wings" = "None", "body_size" = "Normal", "xenotype" = "Homo")
+	mutant_bodyparts = list("xenotypes_human")
+	default_features = list("mcolor" = "FFF", "wings" = "None", "body_size" = "Normal", "xenotype" = "Baseline")
 	use_skintones = 1
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
@@ -48,14 +48,15 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		switch(H.dna.features["xenotype"])
-			if("Felis")
+			if("Felinid")
 				mutantears = /obj/item/organ/ears/cat
 				mutanttail = /obj/item/organ/tail/cat
 				mutanttongue = /obj/item/organ/tongue/cat
-			if("Homo")
+			if("Baseline")
 				mutantears = /obj/item/organ/ears
 				mutanttail = null
 				mutanttongue = /obj/item/organ/tongue
+				mutant_bodyparts = list("xenotypes_human")
 	return ..()
 
 /datum/species/human/prepare_human_for_preview(mob/living/carbon/human/human)

@@ -100,8 +100,8 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
 	if(!GLOB.psyphoza_cap_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_cap, GLOB.psyphoza_cap_list)
-	if(!GLOB.xenotype_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/xenotype, GLOB.xenotype_list)
+	if(!GLOB.human_xenotype_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/xenotype, GLOB.human_xenotype_list)
 	//For now we will always return none for tail_human and ears.
 	return(
 		list(
@@ -131,7 +131,7 @@
 		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
 		"body_model" = gender == MALE ? MALE : gender == FEMALE ? FEMALE : pick(MALE, FEMALE),
 		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list),
-		"xenotype" = pick(GLOB.xenotype_list)
+		"xenotypes_human" = pick(GLOB.human_xenotype_list)
 		)
 	)
 

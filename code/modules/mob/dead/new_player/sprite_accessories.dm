@@ -2792,8 +2792,8 @@
 /datum/sprite_accessory/xenotype
 	icon = null					//These datums exist for selecting xenotypes on preference, and little else
 
-/datum/sprite_accessory/xenotype/homo
-	name = "Homo"
+/datum/sprite_accessory/xenotype/human/baseline
+	name = "Baseline"
+/datum/sprite_accessory/xenotype/human/felinid
+	name = "Felinid"
 
-/datum/sprite_accessory/xenotype/felis
-	name = "Felis"
