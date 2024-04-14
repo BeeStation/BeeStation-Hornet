@@ -76,6 +76,7 @@
 
 /obj/machinery/computer/communications/ui_act(action, list/params)
 	var/static/list/approved_states = list(STATE_BUYING_SHUTTLE, STATE_CHANGING_STATUS, STATE_MESSAGES)
+	var/static/list/state_status_pictures = list("blank", "shuttle")
 
 	. = ..()
 	if (.)
@@ -286,7 +287,10 @@
 			var/picture = params["picture"]
 			if (!(picture in GLOB.approved_status_pictures))
 				return
-			post_status("alert", picture)
+			if(picture in state_status_pictures)
+				post_status(picture)
+			else
+				post_status("alert", picture)
 			playsound(src, "terminal_type", 50, FALSE)
 			. = TRUE
 		if ("toggleAuthentication")
