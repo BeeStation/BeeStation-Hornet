@@ -144,7 +144,7 @@
 /mob/living/carbon/proc/give_random_dormant_disease(biohazard = 20, min_symptoms = 2, max_symptoms = 4, min_level = 4, max_level = 9, list/guaranteed_symptoms = list())
 	. = FALSE
 	var/sickrisk = 1
-	if(islizard(src) || iscatperson(src))
+	if(islizard(src))
 		sickrisk += 0.5 //these races like eating diseased mice, ew
 	if(MOB_INORGANIC in mob_biotypes)
 		sickrisk -= 0.5

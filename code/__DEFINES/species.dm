@@ -5,7 +5,6 @@
 #define SPECIES_DEBUG "debug"
 #define SPECIES_DULLAHAN "dullahan"
 #define SPECIES_ETHEREAL "ethereal"
-#define SPECIES_FELINID "felinid"
 #define SPECIES_FLY "fly"
 #define SPECIES_HUMAN "human"
 #define SPECIES_IPC "ipc"
@@ -67,12 +66,11 @@
 #define	FLAG_APID			(1<<4)
 #define FLAG_MOTH			(1<<5)
 #define FLAG_LIZARD			(1<<6)
-#define FLAG_FELINID		(1<<7)
-#define FLAG_OOZELING		(1<<8)
-#define FLAG_FLY			(1<<9)
-#define FLAG_DEBUG_SPECIES	(1<<10)
-#define FLAG_MONKEY			(1<<11)
-#define FLAG_PSYPHOZA		(1<<12)
+#define FLAG_OOZELING		(1<<7)
+#define FLAG_FLY			(1<<8)
+#define FLAG_DEBUG_SPECIES	(1<<9)
+#define FLAG_MONKEY			(1<<10)
+#define FLAG_PSYPHOZA		(1<<11)
 
 // Defines for used in creating "perks" for the species preference pages.
 /// A key that designates UI icon displayed on the perk.

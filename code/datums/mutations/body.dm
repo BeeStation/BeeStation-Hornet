@@ -387,39 +387,3 @@
 	var/obj/item/organ/wings/bee/bee_wings = owner.getorganslot(ORGAN_SLOT_WINGS)
 	if(istype(bee_wings))
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
-/datum/mutation/catclaws
-	name = "Cat Claws"
-	desc = "Subject's hands grow sharpened claws."
-	quality = POSITIVE
-	locked = TRUE
-	difficulty = 12
-	instability = 25
-	power_coeff = 1
-	species_allowed = list(SPECIES_FELINID)
-	var/added_damage = 6
-
-/datum/mutation/catclaws/on_acquiring()
-	if(..())
-		return
-	added_damage = min(17, initial(added_damage) * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) - owner.dna.species.punchdamage
-	owner.dna.species.punchdamage += added_damage
-	owner.dna.species.attack_verb = "slash"
-	owner.dna.species.attack_sound = 'sound/weapons/slash.ogg'
-	owner.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
-	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.</span>")
-
-/datum/mutation/catclaws/on_losing()
-	if(..())
-		return
-	to_chat(owner, "<span class='warning'> Your claws retract into your hand.</span>")
-	owner.dna.species.punchdamage -= added_damage
-	owner.dna.species.attack_verb = initial(owner.dna.species.attack_verb)
-	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
-	owner.dna.species.miss_sound = initial(owner.dna.species.miss_sound)
-
-/datum/mutation/catclaws/modify()
-	..()
-	if(added_damage)
-		owner.dna.species.punchdamage -= added_damage
-	added_damage = min(17, initial(added_damage) * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) - owner.dna.species.punchdamage
-	owner.dna.species.punchdamage += added_damage

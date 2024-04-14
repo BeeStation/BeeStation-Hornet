@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/max_bodypart_count = 6 //The maximum number of bodyparts this species can have.
 	var/hair_color	// this allows races to have specific hair colors... if null, it uses the H's hair/facial hair colors. if "mutcolor", it uses the H's mutant_color
 	var/hair_alpha = 255	// the alpha used by the hair. 255 is completely solid, 0 is transparent.
-	var/examine_limb_id //This is used for children, felinids and ashwalkers namely
+	var/examine_limb_id //This is used for children, ashwalkers namely
 
 	var/digitigrade_customization = DIGITIGRADE_NEVER //Never, Optional, or Forced digi legs?
 	var/use_skintones = FALSE	// does it use skintones or not? (spoiler alert this is only used by humans)
@@ -2775,3 +2775,52 @@ GLOBAL_LIST_EMPTY(features_by_species)
 //Use this to return dynamic heights, such as making felinids shorter on halloween or something
 /datum/species/proc/get_species_height()
 	return species_height
+
+/proc/mass_purrbation()
+	for(var/M in GLOB.mob_list)
+		if(ishuman(M))
+			purrbation_apply(M)
+		CHECK_TICK
+
+/proc/mass_remove_purrbation()
+	for(var/M in GLOB.mob_list)
+		if(ishuman(M))
+			purrbation_remove(M)
+		CHECK_TICK
+
+/proc/purrbation_toggle(mob/living/carbon/human/H, silent = FALSE)
+	if(!ishuman(H))
+		return
+	if(istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail/cat) \
+	|| istype(H?.getorganslot(ORGAN_SLOT_TONGUE), /obj/item/organ/tongue/cat))
+		purrbation_apply(H, silent)
+		. = TRUE
+	else
+		purrbation_remove(H, silent)
+		. = FALSE
+
+/proc/purrbation_apply(mob/living/carbon/human/H, silent = FALSE)
+	if(!ishuman(H))
+		return
+	var/obj/item/organ/ears/cat/ears = new()
+	ears.Insert(H, TRUE, FALSE)
+	var/obj/item/organ/tail/cat/tail = new()
+	tail.Insert(H, TRUE, FALSE)
+
+	if(!silent)
+		to_chat(H, "Something is nya~t right.")
+		playsound(get_turf(H), 'sound/effects/meow1.ogg', 50, 1, -1)
+
+/proc/purrbation_remove(mob/living/carbon/human/H, silent = FALSE)
+	if(!ishuman(H))
+		return
+
+	var/obj/item/organ/ears/ears =  H.dna?.species.mutantears
+	ears = new()
+	ears.Insert(H, TRUE, FALSE)
+	var/obj/item/organ/tail/tail = H.dna?.species.mutanttail
+	tail = new()
+	tail.Insert(H, TRUE, FALSE)
+
+	if(!silent)
+		to_chat(H, "You are no longer a cat.")

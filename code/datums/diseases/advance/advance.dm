@@ -667,7 +667,7 @@
 			var/mob/living/carbon/human/H = diseasesource
 			prefixes += pick("[H.first_name()]'s", "[H.name]'s", "[H.job]'s", "[H.dna.species]'s")
 			bodies += pick("[H.first_name()]", "[H.job]", "[H.dna.species]")
-			if(islizard(H) || iscatperson(H))//add rat-origin prefixes to races that eat rats
+			if(islizard(H))//add rat-origin prefixes to races that eat rats
 				prefixes += list("Vermin ", "Zoo", "Maintenance ")
 				bodies += list("Rat", "Maint")
 		else switch(diseasesource.type)

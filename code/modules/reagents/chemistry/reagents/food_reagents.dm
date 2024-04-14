@@ -371,13 +371,19 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "bitterness"
 
-/datum/reagent/consumable/cocoa/on_mob_add(mob/living/carbon/M)
-	.=..()
-	if(iscatperson(M))
-		to_chat(M, "<span class='warning'>Your insides revolt at the presence of lethal chocolate!</span>")
-		M.vomit(20)
-
-
+/datum/reagent/consumable/cocoa/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	if(istype(M?.getorganslot(ORGAN_SLOT_TONGUE), /obj/item/organ/tongue/cat))
+		if(prob(40))
+			M.adjust_disgust(20)
+		if(prob(5))
+			M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+		if(prob(10))
+			var/sick_message = pick("You feel nauseous.", "You're nya't feeling so good.","You feel like your insides are melting.","You feel illsies.")
+			to_chat(M, "<span class='notice'>[sick_message]</span>")
+		if(prob(15))
+			var/obj/item/organ/guts = pick(M.internal_organs)
+			guts.applyOrganDamage(15)
 
 /datum/reagent/consumable/cocoa/hot_cocoa
 	name = "Hot Chocolate"

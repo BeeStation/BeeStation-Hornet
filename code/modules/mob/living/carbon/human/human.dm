@@ -1188,9 +1188,6 @@
 /mob/living/carbon/human/species/ethereal
 	race = /datum/species/ethereal
 
-/mob/living/carbon/human/species/felinid
-	race = /datum/species/human/felinid
-
 /mob/living/carbon/human/species/fly
 	race = /datum/species/fly
 

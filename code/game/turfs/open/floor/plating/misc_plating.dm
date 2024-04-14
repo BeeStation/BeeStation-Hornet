@@ -279,7 +279,7 @@
 
 //Largely a copypaste from shower.dm. Checks if the mob was stupid enough to enter a pool fully clothed. We allow masks as to not discriminate against clown and mime players.
 /turf/open/floor/plating/beach/water/proc/check_clothes(mob/living/carbon/human/H)
-	if(!istype(H) || iscatperson(H)) //Don't care about non humans.
+	if(!istype(H)) //Don't care about non humans.
 		return FALSE
 	if(H.wear_suit && (H.wear_suit.clothing_flags))
 		// Do not check underclothing if the over-suit is suitable.

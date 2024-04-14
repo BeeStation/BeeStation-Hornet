@@ -59,6 +59,16 @@
 				mutant_bodyparts = list("xenotypes_human")
 	return ..()
 
+/datum/species/human/spec_death(gibbed, mob/living/carbon/human/H)
+	if(H)
+		stop_wagging_tail(H)
+
+/datum/species/human/spec_stun(mob/living/carbon/human/H,amount)
+	if(H)
+		stop_wagging_tail(H)
+	. = ..()
+
+
 /datum/species/human/prepare_human_for_preview(mob/living/carbon/human/human)
 	human.hair_style = "Business Hair"
 	human.hair_color = "b96" // brown

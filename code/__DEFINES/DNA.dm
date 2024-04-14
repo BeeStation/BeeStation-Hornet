@@ -52,7 +52,6 @@
 #define CLUWNEMUT   /datum/mutation/cluwne
 #define WAXSALIVA   /datum/mutation/wax_saliva
 #define STRONGWINGS /datum/mutation/strongwings
-#define CATCLAWS    /datum/mutation/catclaws
 #define OVERLOAD    /datum/mutation/overload
 #define ACIDOOZE    /datum/mutation/acidooze
 #define MEDIEVAL    /datum/mutation/medieval

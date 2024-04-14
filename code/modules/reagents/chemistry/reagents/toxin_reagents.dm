@@ -141,7 +141,7 @@
 	taste_description = "fish"
 
 /datum/reagent/toxin/carpotoxin/on_mob_metabolize(mob/living/carbon/L)
-	if(iscatperson(L))
+	if(istype(L.getorganslot(ORGAN_SLOT_TONGUE), /obj/item/organ/tongue/cat))
 		toxpwr = 0
 	..()
 
