@@ -1,3 +1,11 @@
+/* 	< OH MY GOD. Can't you just make "/image/proc/foo()" instead of making these? >
+ * 		/appearance is a hardcoded byond type, and it is very internal type.
+ *		Its type is actually /image, but it isn't truly /image. We defined it as "/appearance"
+ * 		new procs to /image will only work to actual /image references, but...
+ * 		/appearance references are not capable of executing procs, because these are not real /image
+ * 		This is why these global procs exist. Welcome to the curse.
+ */
+/// Makes a var list of /appearance type actually uses. This will be only called once.
 /proc/build_appearance_var_list()
 	. = list("vis_flags") // manual listing
 	var/list/unused_var_names = list(
@@ -27,7 +35,7 @@
 /// appearance type needs a manual change because it doesn't have "vars" variable internally.
 /// There's no way doing this in a fancier way.
 /proc/debug_variable_appearance(var_name, image/appearance)
-	try // somehow /appearance has vars variable.
+	try // somehow /appearance has "vars" variable.
 		return "<li style='backgroundColor:white'>(STATIC) [var_name] = [_debug_variable_value(var_name, appearance.vars[var_name], 0, appearance)]</li>"
 	catch
 		pass()
@@ -36,6 +44,9 @@
 	var/value
 	try
 		switch(var_name) // Welcome to this curse
+			// appearance doesn't have "vars" variable.
+			// This means you need to target a variable manually through this way.
+
 			// appearance vars in DM document
 			if("alpha")
 				value = appearance.alpha
@@ -180,6 +191,7 @@
 		return "<li style='backgroundColor:white'>(STATIC) <font color='blue'>[var_name] = (untrackable)</font></li>"
 	return "<li style='backgroundColor:white'>(STATIC) [var_name] = [_debug_variable_value(var_name, value, 0, appearance, sanitize = TRUE, display_flags = NONE)]</li>"
 
+/// Shows a header name on top when you investigate an appearance
 /proc/vv_get_header_appearance(image/thing)
 	. = list()
 	var/icon_name = "<b>[length(thing.icon) ? thing.icon || "null" : "(icon exists, but name is null)"]</b><br/>"
@@ -187,6 +199,7 @@
 	if(thing.icon)
 		. += thing.icon_state ? "\"[thing.icon_state]\"" : "(icon_state = null)"
 
+/// Makes a format name for shortened vv name.
 /proc/get_appearance_vv_summary_name(image/thing)
 	var/icon_file_name = thing.icon ? splittext("[thing.icon]", "/") : "null"
 	if(islist(icon_file_name))
