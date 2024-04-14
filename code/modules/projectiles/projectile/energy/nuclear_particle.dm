@@ -52,19 +52,19 @@
 			name = "impossibly strong nuclear particle"
 			damage = 30
 
-//TODO: Reconsider using this proc - Racc
-//TODO: Consider adding an atmos requirement - Racc
+//TODO: Reconsider using this proc - Racc : CONSULT
+//TODO: Consider adding an atmos requirement - Racc : CONSULT, PLAYTEST
 /obj/projectile/energy/nuclear_particle/scan_moved_turf()
 	. = ..()
 	//Do a gas check first
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/air = T.return_air()
-	var/moles = (air.get_moles(GAS_TRITIUM) > MOLES_GAS_VISIBLE) //TODO: Take suggestions for what gas should do this - Racc
-	//TODO: Make a rarer gas make regular artifacts for whatever reason, or different gasses make differant artifacts? - Racc
+	var/moles = (air.get_moles(GAS_TRITIUM) > MOLES_GAS_VISIBLE) //TODO: Take suggestions for what gas should do this - Racc : CONSULT, PLAYTEST
+	//TODO: Make a rarer gas make regular artifacts for whatever reason, or different gasses make differant artifacts? - Racc : CONSULT, PLAYTEST
 	if(!moles)
 		return
 	for(var/obj/item/I in loc)
-		//TODO: Consider using some fancy math here, or something - Racc
+		//TODO: Consider using some fancy math here, or something - Racc : CONSULT, PLAYTEST
 		if(!prob(33))
 			continue
 		//Proceed with artifact logic

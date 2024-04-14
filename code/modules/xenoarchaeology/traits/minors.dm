@@ -847,7 +847,7 @@
 	var/seek_distance = 9
 
 /datum/xenoartifact_trait/minor/haunted/instant/haunted_step(atom/movable/target, dir)
-	//TODO: Check if this is an expensive no no - Racc
+	//TODO: Check if this is an expensive no no - Racc : CONSULT
 	var/list/mobs = oview(seek_distance, parent.parent)
 	if(!(locate(/mob/living) in mobs))
 		return ..()
@@ -1020,9 +1020,3 @@
 /datum/xenoartifact_trait/minor/sticky/proc/unstick()
 	var/atom/movable/AM = parent.parent
 	REMOVE_TRAIT(AM, TRAIT_NODROP, "[REF(src)]")
-
-/*
-	TODO: - Racc
-	Stalking
-	make the artifact stalk people and walk over to them constantly
-*/

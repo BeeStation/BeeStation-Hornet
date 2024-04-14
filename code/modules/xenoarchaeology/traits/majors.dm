@@ -23,7 +23,7 @@
 */
 /datum/xenoartifact_trait/major/shock
 	label_name = "Electrified"
-	label_desc = "The artifact seems to contain electrifying components. Triggering these components will shock the target."
+	label_desc = "Electrified: The artifact seems to contain electrifying components. Triggering these components will shock the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	flags = XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	conductivity = 27
@@ -64,7 +64,7 @@
 /datum/xenoartifact_trait/major/hollow
 	material_desc = "hollow"
 	label_name = "Hollow"
-	label_desc = "The artifact seems to contain hollow components. Triggering these components will capture the target."
+	label_desc = "Hollow: The artifact seems to contain hollow components. Triggering these components will capture the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_DANGEROUS
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = -10
@@ -319,7 +319,7 @@
 */
 /datum/xenoartifact_trait/major/displaced
 	label_name = "Displaced"
-	label_desc = "The artifact seems to contain displacing components. Triggering these components will displace the target."
+	label_desc = "Displaced: The artifact seems to contain displacing components. Triggering these components will displace the target."
 	cooldown = XENOA_TRAIT_COOLDOWN_SAFE
 	flags =  XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	weight = 15

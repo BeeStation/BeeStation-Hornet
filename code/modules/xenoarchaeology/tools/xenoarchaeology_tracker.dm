@@ -2,7 +2,7 @@
 	'Tracker' for artifacts, can be attached to generate points
 	from successful artifact activations.
 	Currently just a prototype
-	//TODO: Consider setting up certain trait incompatabilities - Racc
+	//TODO: Consider setting up certain trait incompatabilities - Racc : PLAYTEST
 */
 /obj/item/sticker/artifact_tracker
 	name = "anomalous material tracker"

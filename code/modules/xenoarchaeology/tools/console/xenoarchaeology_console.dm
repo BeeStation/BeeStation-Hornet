@@ -72,6 +72,9 @@
 	//Cash available
 	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	data["money"] = D.account_balance
+	//Audio
+	data["purchase_radio"] = radio_purchase_notice
+	data["solved_radio"] = radio_solved_notice
 
 	return data
 
@@ -119,6 +122,10 @@
 			console_order = new(console_pack, name, rank, ckey, "Research Material Requisition", D)
 			console_order.generateRequisition(get_turf(src))
 			SSsupply.shoppinglist |= console_order
+		if("toggle_purchase_audio")
+			radio_purchase_notice = !radio_purchase_notice
+		if("toggle_solved_audio")
+			radio_solved_notice = !radio_solved_notice
 
 	ui_update()
 
@@ -147,24 +154,25 @@
 			//Research Points
 		var/rnd_reward = max(0, (artifact.custom_price*X.artifact_type.rnd_rate)*success_rate)
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
-			//Money //TODO: Check if this is sufficient - Racc
+			//Money //TODO: Check if this is sufficient - Racc : PLAYTEST
 		var/monetary_reward = ((artifact.custom_price * success_rate * 2)^1.5) * (success_rate >= 0.5 ? 1 : 0)
 		budget.adjust_money(monetary_reward)
 		//Announce victory or fuck up
-		if(radio_solved_notice)
-			var/success_type
-			switch(success_rate)
-				if(0.9 to INFINITY)
-					success_type = "incredible discovery"
-				if(0.89 to 0.7)
-					success_type = "admirable research"
-				if(0.69 to 0.3)
-					success_type = "sufficient research"
-				else
-					success_type = prob(50) ? "scientific failure." : "who let the clown in?"
-			radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
-			at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, and a monetary commision of $[monetary_reward].",\
-			RADIO_CHANNEL_SCIENCE)
+		if(!radio_solved_notice)
+			return
+		var/success_type
+		switch(success_rate)
+			if(0.9 to INFINITY)
+				success_type = "incredible discovery"
+			if(0.89 to 0.7)
+				success_type = "admirable research"
+			if(0.69 to 0.3)
+				success_type = "sufficient research"
+			else
+				success_type = prob(50) ? "scientific failure." : "who let the clown in?"
+		radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
+		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, and a monetary commision of $[monetary_reward].",\
+		RADIO_CHANNEL_SCIENCE)
 
 //Circuitboard for this console
 /obj/item/circuitboard/computer/xenoarchaeology_console

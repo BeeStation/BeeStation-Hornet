@@ -102,7 +102,7 @@
 	/*
 		If we ever need trait pearls to keep the initialized trait, remove this.
 		You might have to implement a reverse state for some traits though, like dense.
-		- Racc
+		- Racc : PLAYTEST
 	*/
 	qdel(src)
 	parent = null

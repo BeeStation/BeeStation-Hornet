@@ -416,7 +416,6 @@
 	label_desc = "Greedy Δ: The artifact seems to be made of a collective material. This material seems to be triggered by inserting credit holochips."
 	key_item = /obj/item/holochip
 	///How many credits we need to activate
-	//TODO: Consider giving this an actual use - Racc
 	var/credit_requirement = 1
 
 /datum/xenoartifact_trait/activator/item_key/greedy/credit/get_dictionary_hint()
@@ -426,11 +425,13 @@
 /datum/xenoartifact_trait/activator/item_key/greedy/credit/handle_input(atom/item, atom/target)
 	var/obj/item/holochip/C = item
 	if(C.credits < credit_requirement)
+		to_chat(target, "<span class='warning'>[parent.parent] demands more than your meager offering!</span>")
 		playsound(parent.parent, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 	C.forceMove(parent.parent)
 	playsound(parent.parent, 'sound/machines/terminal_insert_disc.ogg', 50, TRUE)
 	trigger_artifact(target, XENOA_ACTIVATION_TOUCH)
+	credit_requirement += 1
 
 /*
 	Weighted
@@ -621,3 +622,27 @@
 
 /datum/xenoartifact_trait/activator/edible/random/get_dictionary_hint()
 	return list(XENOA_TRAIT_HINT_MATERIAL, XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_DETECT("health analyzer"), XENOA_TRAIT_HINT_TWIN_VARIANT("start with 1-3 random chemicals"))
+
+/*
+	Observational
+	This trait activates the artifact when it's examined
+*/
+/datum/xenoartifact_trait/activator/examine
+	label_name = "Observational"
+	label_desc = "Observational: The artifact seems to be made of a light-sensitive material. This material seems to be triggered by observational interaction."
+	flags = XENOA_BLUESPACE_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
+	weight = 16
+
+/datum/xenoartifact_trait/activator/examine/New(atom/_parent)
+	. = ..()
+	if(!parent?.parent)
+		return
+	//Register all the relevant signals we trigger from
+	RegisterSignal(parent?.parent, COMSIG_PARENT_EXAMINE, TYPE_PROC_REF(/datum/xenoartifact_trait/activator, translation_type_a))
+
+/datum/xenoartifact_trait/activator/examine/translation_type_a(datum/source, atom/target)
+	var/atom/A = parent?.parent
+	if(isliving(A.loc))
+		trigger_artifact(target, XENOA_ACTIVATION_SPECIAL)
+		return
+	trigger_artifact(target)
