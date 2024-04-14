@@ -50,8 +50,8 @@
 		#endif
 
 	if(isappearance(value))
-		var/image/actually_an_appearance = value
-		return "/appearance (<span class='value'>[actually_an_appearance.icon]</span>)"
+		var/icon_name = get_appearance_vv_summary_name(value)
+		return "<a href='?_src_=vars;[HrefToken()];Vars=[REF(value)];use_locate=1'>/appearance (<span class='value'>[icon_name]</span>) [REF(value)]</a>"
 
 	if(isfilter(value))
 		var/datum/filter_value = value
