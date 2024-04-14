@@ -181,7 +181,7 @@
 	timer_duration = new_time
 	update_content()
 
-/obj/machinery/door_timer/ui_requires_update(mob/user, datum/tgui/ui)
+/obj/machinery/status_display/door_timer/ui_requires_update(mob/user, datum/tgui/ui)
 	. = ..()
 	if(timing)
 		. = TRUE // Autoupdate while timer is counting down

@@ -340,7 +340,7 @@
 /turf/open/floor/plating,
 /area/space)
 "iP" = (
-/obj/machinery/door_timer,
+/obj/machinery/status_display/door_timer,
 /turf/open/floor/iron,
 /area/space)
 "jm" = (

@@ -1626,7 +1626,7 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 10
 	},
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "arrdoor";
 	name = "Arrival Cell";
 	pixel_y = -32
@@ -12873,7 +12873,7 @@
 /obj/machinery/recharger{
 	pixel_x = -4
 	},
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "medcell";
 	name = "Medical Cell";
 	pixel_y = 32
@@ -87147,7 +87147,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Medical Cell";
 	pixel_x = 32;
