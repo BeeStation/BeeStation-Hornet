@@ -14,7 +14,14 @@
 #define isimage(thing) (istype(thing, /image))
 
 GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are awful to detect safely, but this seems to be the best way ~ninjanomnom
-#define isappearance(thing) (!ispath(thing) && istype(GLOB.magic_appearance_detecting_image, thing))
+/proc/isappearance(image/thing)
+	if(!ispath(thing) && istype(GLOB.magic_appearance_detecting_image, thing))
+		try
+			if(thing.vars) // if you can not access "vars", this means /appearance.
+				return FALSE
+		catch
+			return TRUE
+	return FALSE
 
 // The filters list has the same ref type id as a filter, but isnt one and also isnt a list, so we have to check if the thing has Cut() instead
 GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
