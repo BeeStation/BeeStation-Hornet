@@ -20,7 +20,6 @@
 
 	///radio used by the console to send messages on science channel
 	var/obj/item/radio/headset/radio
-	//TODO: Add a toggle for these - Racc
 	///Do we do purchase notices on the radio?
 	var/radio_purchase_notice = TRUE
 	///Do we do solved notices on the radio?
@@ -30,6 +29,9 @@
 	var/datum/supply_pack/console_pack
 	///Our current, if available, order
 	var/datum/supply_order/console_order
+
+	///History
+	var/list/history = list()
 
 /obj/machinery/computer/xenoarchaeology_console/Initialize()
 	. = ..()
@@ -75,6 +77,19 @@
 	//Audio
 	data["purchase_radio"] = radio_purchase_notice
 	data["solved_radio"] = radio_solved_notice
+	//History
+	data["history"] = history
+	//Current requests
+	data["active_request"] = list()
+	if(console_order?.pack)
+		data["active_request"] = list(list(
+			"object" = console_order.pack.name,
+			"cost" = console_order.pack.get_cost(),
+			"supply" = console_order.pack.current_supply,
+			"orderer" = console_order.orderer,
+			"reason" = console_order.reason,
+			"id" = console_order.id
+			))
 
 	return data
 
@@ -92,9 +107,10 @@
 			if(seller.get_price(locate(params["item_id"])) > D.account_balance)
 				say("Insufficient funds!")
 				return
-			//Annouce it - TODO: Adjust this / flesh it out - Racc
+			//Annouce it
 			if(radio_purchase_notice)
 				radio?.talk_into(src, "[locate(params["item_id"])] was requested for purchase, for [seller.get_price(locate(params["item_id"]))] credits, at [station_time_timestamp()].", RADIO_CHANNEL_SCIENCE)
+			history += list("[locate(params["item_id"])] was requested for purchase, for [seller.get_price(locate(params["item_id"]))] credits, at [station_time_timestamp()].")
 			//handle ID and such
 			var/name = "*None Provided*"
 			var/rank = "*None Provided*"
@@ -158,8 +174,6 @@
 		var/monetary_reward = ((artifact.custom_price * success_rate * 2)^1.5) * (success_rate >= 0.5 ? 1 : 0)
 		budget.adjust_money(monetary_reward)
 		//Announce victory or fuck up
-		if(!radio_solved_notice)
-			return
 		var/success_type
 		switch(success_rate)
 			if(0.9 to INFINITY)
@@ -170,9 +184,12 @@
 				success_type = "sufficient research"
 			else
 				success_type = prob(50) ? "scientific failure." : "who let the clown in?"
-		radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
-		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, and a monetary commision of $[monetary_reward].",\
+		if(!radio_solved_notice)
+			radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
+			at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, and a monetary commision of $[monetary_reward].",\
 		RADIO_CHANNEL_SCIENCE)
+		history += list("[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
+		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, and a monetary commision of $[monetary_reward].")
 
 //Circuitboard for this console
 /obj/item/circuitboard/computer/xenoarchaeology_console
