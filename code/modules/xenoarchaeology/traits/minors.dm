@@ -879,7 +879,7 @@
 	var/seek_distance = 9
 
 /datum/xenoartifact_trait/minor/haunted/instant/haunted_step(atom/movable/target, dir)
-	//TODO: Check if this is an expensive no no - Racc : CONSULT
+	//This may seem scary, and expensive, but it's only called WHEN ghosts try to move the artifact
 	var/list/mobs = oview(seek_distance, parent.parent)
 	if(!(locate(/mob/living) in mobs))
 		return ..()

@@ -52,7 +52,6 @@
 			name = "impossibly strong nuclear particle"
 			damage = 30
 
-//TODO: Reconsider using this proc - Racc : CONSULT
 //TODO: Consider adding an atmos requirement - Racc : CONSULT, PLAYTEST
 /obj/projectile/energy/nuclear_particle/scan_moved_turf()
 	. = ..()
