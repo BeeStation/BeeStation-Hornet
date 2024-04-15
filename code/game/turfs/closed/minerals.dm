@@ -308,10 +308,6 @@
 		/turf/closed/mineral/gibtonite/volcanic = 2,
 		/obj/item/stack/ore/iron = 95,
 	)
-
-
-/turf/closed/mineral/random/air
-
 /turf/closed/mineral/random/air
 	turf_type = /turf/open/floor/plating/asteroid
 	baseturfs = /turf/open/floor/plating/asteroid //the asteroid floor has air
