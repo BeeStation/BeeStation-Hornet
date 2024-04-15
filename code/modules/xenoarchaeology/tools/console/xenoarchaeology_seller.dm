@@ -54,14 +54,6 @@
 	//Remove stock and prepare to replace it
 	current_stock -= A
 	addtimer(CALLBACK(src, PROC_REF(replenish_stock)), restock_time)
-	/*
-	//Return a supplypack
-	//TODO: Make this just return an item, and have the console reuse the same pack over and over
-	var/datum/supply_pack/science_listing/SL = new()
-	SL.contains = list(A)
-	SL.cost = A.custom_price
-	SL.current_supply = max(1, SL.current_supply) //Bruh
-	*/
 	return A
 
 /datum/rnd_lister/proc/replenish_stock(amount = 1)
