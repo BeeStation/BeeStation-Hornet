@@ -19,6 +19,8 @@
 	var/allow_ai_retrieve = FALSE
 	var/list/initial_contents
 	var/visible_contents = TRUE
+	/// Is this smartfridge going to have a glowing screen? (Drying Racks are not)
+	var/has_emissive = TRUE
 
 /obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
@@ -63,7 +65,7 @@
 
 /obj/machinery/smartfridge/update_overlays()
 	. = ..()
-	if(!machine_stat)
+	if(!machine_stat && has_emissive)
 		. += emissive_appearance(icon, "[initial(icon_state)]-light-mask", alpha = src.alpha)
 
 /*******************
@@ -284,6 +286,7 @@
 	icon_state = "drying_rack"
 	use_power = NO_POWER_USE
 	visible_contents = FALSE
+	has_emissive = FALSE
 	var/drying = FALSE
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)

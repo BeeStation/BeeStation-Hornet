@@ -200,7 +200,7 @@
 	extra_price = PAYCHECK_HARD
 	dept_req_for_free = NO_FREEBIES
 	light_mask = "wardrobe-light-mask"
-	light_color = "#00FF00"
+	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 
 /obj/item/vending_refill/clothing
 	machine_name = "ClothesMate"
