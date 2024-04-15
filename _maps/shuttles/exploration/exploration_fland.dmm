@@ -276,7 +276,7 @@
 /area/shuttle/exploration)
 "pl" = (
 /obj/machinery/camera{
-	dir = 5
+	dir = 10
 	},
 /turf/template_noop,
 /area/template_noop)

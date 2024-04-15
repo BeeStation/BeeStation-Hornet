@@ -12305,7 +12305,7 @@
 	},
 /obj/machinery/camera/autoname{
 	c_tag = "Head of Personnel's Office";
-	dir = 6
+	dir = 9
 	},
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/iron/grid/steel,
@@ -15038,7 +15038,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -18098,7 +18098,7 @@
 	id = "MailConv"
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","cargo")
 	},
 /obj/structure/extinguisher_cabinet{
@@ -18230,7 +18230,7 @@
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/turf_decal/box,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /obj/structure/cable/yellow{
@@ -21134,7 +21134,7 @@
 "gAy" = (
 /obj/machinery/camera/autoname{
 	c_tag = "Head of Personnel's Office";
-	dir = 6;
+	dir = 9;
 	pixel_y = 12
 	},
 /obj/machinery/newscaster{
@@ -22588,7 +22588,7 @@
 /obj/machinery/light,
 /obj/machinery/camera/motion{
 	c_tag = "MiniSat Upload Chamber";
-	dir = 5;
+	dir = 10;
 	network = list("aiupload")
 	},
 /obj/structure/cable,
@@ -23025,7 +23025,7 @@
 	},
 /obj/machinery/camera/motion{
 	c_tag = "MiniSat Core Hallway 1";
-	dir = 6;
+	dir = 9;
 	network = list("minisat")
 	},
 /obj/structure/cable/yellow,
@@ -23078,7 +23078,7 @@
 "hcp" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13","prison")
 	},
 /obj/machinery/door_timer{
@@ -25412,7 +25412,7 @@
 "hRc" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13","prison")
 	},
 /obj/item/radio/intercom{
@@ -27141,7 +27141,7 @@
 	nightshift_light_color = "#FFB16E"
 	},
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	pixel_y = 8
 	},
 /obj/machinery/airalarm/directional/east,
@@ -29833,7 +29833,7 @@
 "jsn" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","security")
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -30400,7 +30400,7 @@
 	},
 /obj/machinery/camera/autoname{
 	network = list("ss13","security");
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/defibrillator_mount{
 	pixel_x = -32
@@ -32060,7 +32060,7 @@
 	dir = 10
 	},
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13","security")
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -37969,7 +37969,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("aiupload")
 	},
 /turf/open/floor/circuit,
@@ -42969,7 +42969,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","rd")
 	},
 /turf/open/floor/iron/white,
@@ -44971,7 +44971,7 @@
 	},
 /obj/item/instrument/piano_synth,
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/light_switch{
 	pixel_x = -23;
@@ -46134,7 +46134,7 @@
 	},
 /obj/machinery/camera/autoname{
 	network = list("ss13","security","court");
-	dir = 6
+	dir = 9
 	},
 /turf/open/floor/wood,
 /area/security/courtroom)
@@ -67091,7 +67091,7 @@
 	pixel_y = 10
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron/grid/steel,
@@ -69546,7 +69546,7 @@
 	},
 /obj/machinery/camera/motion{
 	c_tag = "vault";
-	dir = 5;
+	dir = 10;
 	network = list("ss13","security","cargo");
 	pixel_y = 8
 	},
@@ -70396,7 +70396,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","prison")
 	},
 /obj/structure/rack,
@@ -72996,7 +72996,7 @@
 	pixel_y = 29
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -74165,7 +74165,7 @@
 /area/hydroponics)
 "xtF" = (
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13","prison")
 	},
 /obj/item/radio/intercom{
@@ -74221,7 +74221,7 @@
 /area/science/storage)
 "xuj" = (
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","prison")
 	},
 /obj/structure/railing{

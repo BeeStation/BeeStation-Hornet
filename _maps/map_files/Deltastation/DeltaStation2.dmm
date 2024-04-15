@@ -17858,7 +17858,8 @@
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "cfB" = (
-/obj/machinery/camera/directional/emp_proof/east{
+/obj/machinery/camera/emp_proof{
+	dir = 8;
 	c_tag = "Containment - Fore Starboard";
 	network = list("singularity")
 	},
@@ -18577,7 +18578,8 @@
 /area/maintenance/aft)
 "ciY" = (
 /obj/structure/lattice,
-/obj/machinery/camera/directional/emp_proof/west{
+/obj/machinery/camera/emp_proof{
+	dir = 4;
 	c_tag = "Containment - Fore Port";
 	network = list("singularity")
 	},
@@ -22205,7 +22207,8 @@
 /area/maintenance/aft)
 "cAG" = (
 /obj/structure/lattice,
-/obj/machinery/camera/directional/emp_proof/west{
+/obj/machinery/camera/emp_proof{
+	dir = 4;
 	c_tag = "Containment - Aft Port";
 	network = list("singularity")
 	},
@@ -22978,7 +22981,8 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "cDV" = (
-/obj/machinery/camera/directional/emp_proof/east{
+/obj/machinery/camera/emp_proof{
+	dir = 8;
 	c_tag = "Containment - Aft Starboard";
 	network = list("singularity")
 	},
@@ -27910,7 +27914,7 @@
 	pixel_x = -27
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -35065,7 +35069,7 @@
 /obj/structure/table/glass,
 /obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -43348,7 +43352,7 @@
 	pixel_x = 5
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron,
@@ -47462,7 +47466,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron/dark,
@@ -52959,7 +52963,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron/white,
@@ -54330,7 +54334,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/prison,
@@ -60032,7 +60036,7 @@
 	},
 /obj/structure/cable/yellow,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron/dark,
@@ -61570,7 +61574,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/lightreplacer,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/plating,
@@ -64658,7 +64662,7 @@
 "ote" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron,
@@ -64895,7 +64899,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -66000,7 +66004,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -68536,7 +68540,7 @@
 "pNj" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -71939,7 +71943,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron/white,
@@ -83369,7 +83373,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron,
@@ -84553,7 +84557,7 @@
 	icon_state = "plant-21"
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /obj/machinery/power/apc/auto_name/directional/south,

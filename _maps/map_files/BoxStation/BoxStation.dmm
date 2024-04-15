@@ -3981,6 +3981,7 @@
 /obj/item/stack/cable_coil,
 /obj/item/paper_bin/construction,
 /obj/item/stack/cable_coil,
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
 /area/storage/art)
 "aSl" = (
@@ -4151,7 +4152,6 @@
 "aTE" = (
 /obj/structure/table,
 /obj/item/hand_labeler,
-/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron,
 /area/storage/art)
 "aTF" = (
@@ -6478,7 +6478,7 @@
 /area/maintenance/central)
 "bla" = (
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -8044,7 +8044,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /turf/open/floor/iron/dark,
 /area/science/server)
@@ -9732,7 +9732,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /turf/open/floor/iron,
 /area/science/mixing)
@@ -15427,7 +15427,7 @@
 /obj/item/storage/box/bodybags,
 /obj/item/pen,
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
@@ -15484,7 +15484,7 @@
 "cvv" = (
 /obj/structure/lattice,
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("minisat")
 	},
 /turf/open/space,
@@ -16788,7 +16788,7 @@
 /obj/machinery/firealarm/directional/east,
 /obj/structure/closet/bombcloset/security,
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13, security")
 	},
 /turf/open/floor/iron/dark,
@@ -18146,7 +18146,7 @@
 	},
 /obj/machinery/camera/motion{
 	c_tag = "AI Upload Foyer";
-	dir = 6;
+	dir = 9;
 	network = list("aiupload")
 	},
 /obj/item/kirbyplants/photosynthetic{
@@ -20163,7 +20163,7 @@
 /obj/machinery/iv_drip,
 /obj/structure/bed/roller,
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -21350,7 +21350,7 @@
 	},
 /obj/machinery/telecomms/server/presets/exploration,
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden{
 	dir = 5
@@ -23167,7 +23167,7 @@
 	pixel_x = -24
 	},
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
@@ -25055,7 +25055,7 @@
 /obj/structure/table/wood,
 /obj/machinery/camera/autoname{
 	c_tag = "Captain's Office";
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -25813,7 +25813,7 @@
 /area/hallway/secondary/entry)
 "gox" = (
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/light_switch{
 	pixel_x = -28
@@ -29682,7 +29682,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/engine,
@@ -32501,7 +32501,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/iron/dark,
@@ -38353,7 +38353,7 @@
 	pixel_x = 25
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -38408,7 +38408,7 @@
 /obj/item/storage/box/deputy,
 /obj/item/toy/figure/hos,
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13","security")
 	},
 /turf/open/floor/carpet/red,
@@ -38535,7 +38535,7 @@
 	dir = 10
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
@@ -40311,7 +40311,7 @@
 	pixel_y = -22
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/iron,
@@ -40954,7 +40954,7 @@
 /obj/structure/bed/roller,
 /obj/machinery/camera{
 	c_tag = "Security - Medbay";
-	dir = 5
+	dir = 10
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -41357,7 +41357,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/engine,
@@ -44255,7 +44255,7 @@
 	},
 /obj/machinery/camera/motion{
 	c_tag = "AI Upload Chamber - Port";
-	dir = 5;
+	dir = 10;
 	network = list("aiupload")
 	},
 /obj/structure/cable/yellow{
@@ -46043,7 +46043,7 @@
 /obj/structure/table/glass,
 /obj/item/storage/box/bodybags,
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -46289,7 +46289,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13, prison")
 	},
 /obj/structure/sign/warning/radiation_shelter{
@@ -47420,7 +47420,7 @@
 "pZC" = (
 /obj/structure/lattice,
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("minisat")
 	},
 /turf/open/space,
@@ -48101,7 +48101,7 @@
 /area/quartermaster/exploration_prep)
 "qud" = (
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/effect/turf_decal/tile/dark_red/anticorner/contrasted{
 	dir = 8
@@ -48605,7 +48605,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13, prison")
 	},
 /turf/open/floor/prison,
@@ -49228,7 +49228,7 @@
 	pixel_y = 24
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
@@ -49995,7 +49995,7 @@
 	},
 /obj/machinery/camera/autoname{
 	c_tag = "Command Hallway #1";
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/status_display/evac{
 	pixel_x = -32
@@ -51464,7 +51464,7 @@
 	req_access_txt = "47"
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -53963,7 +53963,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/effect/spawner/randomvend/cola,
 /turf/open/floor/iron,
@@ -54418,7 +54418,7 @@
 /obj/structure/bed/dogbed/ian,
 /obj/machinery/camera/autoname{
 	c_tag = "Head of Personnel's Office";
-	dir = 6
+	dir = 9
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -55577,7 +55577,7 @@
 /obj/structure/table/glass,
 /obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -61046,7 +61046,7 @@
 /area/maintenance/solars/starboard/aft)
 "wfo" = (
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -62197,7 +62197,7 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/turf_decal/tile/black/fourcorners,
 /obj/machinery/camera/motion{
-	dir = 5
+	dir = 10
 	},
 /turf/open/floor/iron/grid/steel,
 /area/ai_monitored/storage/eva)
@@ -63063,7 +63063,7 @@
 /area/hallway/primary/central)
 "xao" = (
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13, prison")
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -63455,7 +63455,7 @@
 /area/security/main)
 "xkE" = (
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
@@ -64737,7 +64737,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -65440,7 +65440,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/structure/sign/warning/deathsposal{
 	pixel_x = -32

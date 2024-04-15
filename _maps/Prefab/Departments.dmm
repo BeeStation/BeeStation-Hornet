@@ -909,7 +909,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","rd")
 	},
 /turf/open/floor/iron,

@@ -303,7 +303,7 @@
 /area/shuttle/exploration)
 "K" = (
 /obj/machinery/camera/preset{
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/vendor/exploration,
 /obj/machinery/button/door{

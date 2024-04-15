@@ -4177,7 +4177,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera/autoname{
-	dir = 6;
+	dir = 9;
 	network = list("ss13","security")
 	},
 /turf/open/floor/iron/dark,
@@ -5985,7 +5985,7 @@
 /area/medical/storage)
 "bGC" = (
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/light_switch{
 	pixel_x = -25
@@ -7577,7 +7577,7 @@
 /area/maintenance/starboard/fore)
 "cfY" = (
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
@@ -8176,7 +8176,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","security")
 	},
 /turf/open/floor/wood,
@@ -10807,7 +10807,7 @@
 /area/hallway/primary/starboard)
 "dmN" = (
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
@@ -12354,7 +12354,7 @@
 "dNN" = (
 /obj/machinery/camera/motion{
 	c_tag = "E.V.A. Storage";
-	dir = 6;
+	dir = 9;
 	network = list("ss13","security")
 	},
 /obj/item/storage/secure/safe{
@@ -16808,7 +16808,7 @@
 /area/maintenance/starboard/aft)
 "fpv" = (
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/structure/sign/poster/random{
 	pixel_x = 32
@@ -19001,7 +19001,7 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/camera/motion{
 	c_tag = "E.V.A. Storage";
-	dir = 6
+	dir = 9
 	},
 /obj/machinery/light_switch{
 	pixel_x = 26
@@ -21643,7 +21643,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Break Room";
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron/freezer,
@@ -23881,7 +23881,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
@@ -31508,7 +31508,7 @@
 "kgN" = (
 /obj/effect/landmark/start/exploration,
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /turf/open/floor/iron/white,
 /area/quartermaster/exploration_prep)
@@ -32754,7 +32754,7 @@
 /area/hallway/primary/aft)
 "kyP" = (
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -35244,7 +35244,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/effect/landmark/start/captain,
 /turf/open/floor/carpet/royalblue,
@@ -38857,7 +38857,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
@@ -39547,7 +39547,7 @@
 /area/quartermaster/miningdock)
 "mFx" = (
 /obj/machinery/camera/autoname{
-	dir = 5;
+	dir = 10;
 	network = list("ss13","security")
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -40063,7 +40063,7 @@
 "mOr" = (
 /obj/structure/dresser,
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/machinery/light_switch{
 	pixel_x = 26
@@ -40462,7 +40462,7 @@
 /obj/structure/chair/fancy/sofa/old/right,
 /obj/effect/landmark/start/assistant,
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/item/radio/intercom{
 	pixel_x = -28;
@@ -44659,7 +44659,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /turf/open/floor/iron,
 /area/maintenance/starboard/central)
@@ -45717,7 +45717,7 @@
 /area/hallway/secondary/command)
 "oGN" = (
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/structure/closet/radiation,
 /turf/open/floor/noslip/dark,
@@ -45921,7 +45921,7 @@
 /area/hallway/primary/central)
 "oKU" = (
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -46576,7 +46576,7 @@
 "oYM" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/neutral{
@@ -51101,7 +51101,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Break Room";
-	dir = 6;
+	dir = 9;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron/white,
@@ -59925,7 +59925,7 @@
 	dir = 5
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/structure/sign/departments/minsky/research/robotics{
 	pixel_x = 32
@@ -62681,7 +62681,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Break Room";
-	dir = 5;
+	dir = 10;
 	network = list("ss13","medbay")
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -63935,7 +63935,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/effect/turf_decal/tile/brown/half/contrasted,
 /turf/open/floor/iron/dark,
@@ -64486,7 +64486,7 @@
 	pressure_checks = 0
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /turf/open/floor/circuit,
 /area/science/server)
@@ -66638,7 +66638,7 @@
 /area/science/shuttle)
 "vCv" = (
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -69051,7 +69051,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
@@ -73156,7 +73156,7 @@
 	dir = 5
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 9
 	},
 /obj/machinery/requests_console{
 	department = "Morgue";
@@ -73646,7 +73646,7 @@
 /area/medical/chemistry)
 "xRL" = (
 /obj/machinery/camera/autoname{
-	dir = 5
+	dir = 10
 	},
 /obj/structure/table,
 /obj/item/dest_tagger,
