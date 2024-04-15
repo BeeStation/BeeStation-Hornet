@@ -957,7 +957,7 @@
 /turf/open/floor/iron,
 /area/janitor)
 "Ax" = (
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/directional/east,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/space)

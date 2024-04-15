@@ -22,6 +22,8 @@
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	tiltable = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/vending/wallmed, 32)
+
 /obj/item/vending_refill/wallmed
 	machine_name = "NanoMed"
 	icon_state = "refill_medical"

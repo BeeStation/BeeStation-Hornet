@@ -175,6 +175,8 @@
 	anchored = TRUE
 	density = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe, 32)
+
 /obj/item/storage/secure/safe/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
@@ -213,6 +215,8 @@ It remains quite flush against the wall, and there only seems to be enough room 
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 70, BIO = 100, RAD = 100, FIRE = 80, ACID = 70);
 	max_integrity = 300
 	color = "#ffdd33"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/storage/secure/safe/caps_spare, 32)
 
 /obj/item/storage/secure/safe/caps_spare/Initialize(mapload)
 	. = ..()

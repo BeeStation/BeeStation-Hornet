@@ -74,6 +74,8 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	light_color = LIGHT_COLOR_GREEN
 	light_power = 1.5
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/requests_console, 30)
+
 /obj/machinery/requests_console/update_icon()
 	if(machine_stat & NOPOWER)
 		set_light(0)
