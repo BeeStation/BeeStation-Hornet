@@ -119,7 +119,7 @@
 	label_name = "Dense"
 	label_desc = "Dense: The artifact's design seems to incorporate dense elements. This will cause the artifact to be much heavier than usual."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
-	blacklist_traits = list(/datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/ringed, /datum/xenoartifact_trait/minor/shielded, /datum/xenoartifact_trait/minor/aerodynamic, /datum/xenoartifact_trait/minor/slippery)
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/ringed, /datum/xenoartifact_trait/minor/shielded, /datum/xenoartifact_trait/minor/aerodynamic, /datum/xenoartifact_trait/minor/slippery, /datum/xenoartifact_trait/minor/ringed/attack)
 	weight = 30
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 	///Old value tracker
@@ -327,7 +327,8 @@
 /datum/xenoartifact_trait/minor/sentient/proc/suicide(datum/source)
 	SIGNAL_HANDLER
 
-	qdel(src)
+	QDEL_NULL(sentience)
+	QDEL_NULL(mob_spawner)
 
 //Spawner for sentience
 /obj/effect/mob_spawn/sentient_artifact
@@ -473,25 +474,20 @@
 	Ringed
 	Allows the artifact to be worn in the glove slot
 */
-//TODO: Rework this - Racc
 /datum/xenoartifact_trait/minor/ringed
 	material_desc = "ringed"
 	label_name = "Ringed"
-	label_desc = "Ringed: The artifact's design seems to incorporate ringed elements. This will allow the artifact to be worn."
+	label_desc = "Ringed: The artifact's design seems to incorporate ringed elements. This will allow the artifact to be worn, and catch information from the wearer."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_PLASMA_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 	incompatabilities = TRAIT_INCOMPATIBLE_MOB | TRAIT_INCOMPATIBLE_STRUCTURE
 	///Old wearable state
 	var/old_wearable
-	///Ref to action
-	var/obj/effect/proc_holder/spell/targeted/artifact_senitent_action/artifact_action
 
 /datum/xenoartifact_trait/minor/ringed/New(atom/_parent)
 	. = ..()
 	if(!parent?.parent)
 		return
-	//Artifact action
-	artifact_action = new /obj/effect/proc_holder/spell/targeted/artifact_senitent_action(parent.parent, parent)
 	//Item equipping
 	var/obj/item/A = parent.parent
 	if(isitem(A))
@@ -502,7 +498,6 @@
 		RegisterSignal(A, COMSIG_ITEM_DROPPED, PROC_REF(drop_action))
 
 /datum/xenoartifact_trait/minor/ringed/Destroy(force, ...)
-	QDEL_NULL(artifact_action)
 	if(!parent?.parent)
 		return ..()
 	var/obj/item/A = parent.parent
@@ -510,21 +505,58 @@
 		A.slot_flags = old_wearable
 	return ..()
 
+/datum/xenoartifact_trait/minor/ringed/get_dictionary_hint()
+	. = ..()
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("pass attacks on the user to the artifact, when worn. This only applies to attacks involving items"))
+
 /datum/xenoartifact_trait/minor/ringed/proc/equip_action(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 
-	var/obj/item/A = parent?.parent
-	if(isitem(A) && A.slot_flags & slot)
-		equipper.AddSpell(artifact_action)
+	if(slot == ITEM_SLOT_GLOVES)
+		RegisterSignal(equipper, COMSIG_PARENT_ATTACKBY, PROC_REF(catch_attack))
 
 /datum/xenoartifact_trait/minor/ringed/proc/drop_action(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	user.RemoveSpell(artifact_action, FALSE)
+	UnregisterSignal(user, COMSIG_PARENT_ATTACKBY)
 
-/datum/xenoartifact_trait/minor/delicate/get_dictionary_hint()
+//Foward the attack to our artifact
+/datum/xenoartifact_trait/minor/ringed/proc/catch_attack(datum/source, obj/item, mob/living, params)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(cool_async_action), item, living, params)
+
+/datum/xenoartifact_trait/minor/ringed/proc/cool_async_action(obj/item, mob/living, params)
+	var/atom/A = parent?.parent
+	A?.attackby(item, living, params)
+
+//Variant for when the user attacks
+/datum/xenoartifact_trait/minor/ringed/attack
+	material_desc = "ringed"
+	label_name = "Ringed Δ"
+	label_desc = "Ringed Δ: The artifact's design seems to incorporate ringed elements. This will allow the artifact to be worn, and catch information from the wearer."
+
+/datum/xenoartifact_trait/minor/ringed/attack/equip_action(datum/source, mob/equipper, slot)
+	if(slot == ITEM_SLOT_GLOVES)
+		RegisterSignal(equipper, COMSIG_MOB_ATTACK_HAND, PROC_REF(catch_user_attack))
+
+/datum/xenoartifact_trait/minor/ringed/attack/drop_action(datum/source, mob/user)
+	UnregisterSignal(user, COMSIG_MOB_ATTACK_HAND)
+
+/datum/xenoartifact_trait/minor/ringed/attack/get_dictionary_hint()
 	. = ..()
-	return list(XENOA_TRAIT_HINT_MATERIAL)
+	return list(XENOA_TRAIT_HINT_TWIN, XENOA_TRAIT_HINT_TWIN_VARIANT("pass attacks from the user to the artifact, when worn"))
+
+/datum/xenoartifact_trait/minor/ringed/attack/proc/catch_user_attack(datum/source, mob/user, mob/target, params)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(other_cool_async_action), user, target, params)
+
+/datum/xenoartifact_trait/minor/ringed/attack/proc/other_cool_async_action(mob/user, mob/target, params)
+	if(user == target)
+		return
+	var/obj/item/A = parent?.parent
+	A?.afterattack(target, user, TRUE)
 
 /*
 	Shielded

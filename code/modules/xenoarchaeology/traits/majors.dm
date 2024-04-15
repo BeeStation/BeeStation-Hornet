@@ -51,7 +51,7 @@
 	//If there's an exposed cable below us, charge it
 	var/obj/structure/cable/C = locate(/obj/structure/cable) in get_turf(parent.parent)
 	//TODO: Make sure it's actually exposed
-	C.powernet?.newavail += max_cable_charge*(parent.trait_strength/100)
+	C?.powernet?.newavail += max_cable_charge*(parent.trait_strength/100)
 	//Get rid of anything else, since we can't interact with it
 	dump_targets()
 	//Tidy up focus too

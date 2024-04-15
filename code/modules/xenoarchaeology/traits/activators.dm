@@ -388,6 +388,7 @@
 	This trait activates the artifact when a coin is used
 */
 /datum/xenoartifact_trait/activator/item_key/greedy
+	material_desc = "slotted"
 	label_name = "Greedy"
 	label_desc = "Greedy: The artifact seems to be made of a collective material. This material seems to be triggered by inserting coins."
 	flags = XENOA_BLUESPACE_TRAIT | XENOA_URANIUM_TRAIT | XENOA_BANANIUM_TRAIT | XENOA_PEARL_TRAIT
