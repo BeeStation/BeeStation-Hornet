@@ -309,8 +309,8 @@
 		/obj/item/stack/ore/iron = 95,
 	)
 
-/turf/closed/mineral/random/air
 
+/turf/closed/mineral/random/air
 
 /turf/closed/mineral/random/air
 	turf_type = /turf/open/floor/plating/asteroid
