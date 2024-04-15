@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: slightly improved weather datum. This may fix a bug that weathers (radiation
-      storm*) are rendered incorrectly.

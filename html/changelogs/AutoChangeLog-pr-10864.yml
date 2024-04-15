@@ -1,6 +1,0 @@
-author: Mothblocks, Rkz, miliviu
-delete-after: true
-changes:
-  - bugfix: Fixes cigarette boxes not rendering properly when closed
-  - rscadd: donuts in boxes now reflect their contents
-  - bugfix: Putting a Santa Hat on Ian now shows the hat
