@@ -278,7 +278,8 @@
 /obj/machinery/vending/update_overlays()
 	. = ..()
 	if(light_mask && !(machine_stat & BROKEN) && powered())
-		. += emissive_appearance(icon, light_mask)
+		. += emissive_appearance(icon, light_mask, layer)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/vending/obj_break(damage_flag)
 	. = ..()

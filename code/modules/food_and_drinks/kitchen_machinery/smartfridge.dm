@@ -66,7 +66,8 @@
 /obj/machinery/smartfridge/update_overlays()
 	. = ..()
 	if(!machine_stat && has_emissive)
-		. += emissive_appearance(icon, "[initial(icon_state)]-light-mask", alpha = src.alpha)
+		. += emissive_appearance(icon, "[initial(icon_state)]-light-mask", layer, alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /*******************
 *   Item Adding

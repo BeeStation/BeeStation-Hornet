@@ -330,13 +330,6 @@
 	pressure_charging = TRUE
 	update_appearance()
 
-/obj/machinery/disposal/bin/update_appearance(updates)
-	. = ..()
-	if((machine_stat & (BROKEN|NOPOWER)) || panel_open)
-		luminosity = 0
-		return
-	luminosity = 1
-
 /obj/machinery/disposal/bin/update_overlays()
 	. = ..()
 	if(machine_stat & BROKEN)
@@ -353,15 +346,18 @@
 	//check for items in disposal - occupied light
 	if(contents.len > 0)
 		. += "dispover-full"
-		. += emissive_appearance(icon, "dispover-full", alpha = src.alpha)
+		. += emissive_appearance(icon, "dispover-full", layer, alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 	//charging and ready light
 	if(pressure_charging)
 		. += "dispover-charge"
-		. += emissive_appearance(icon, "dispover-charge-glow", alpha = src.alpha)
+		. += emissive_appearance(icon, layer, "dispover-charge-glow", alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else if(full_pressure)
 		. += "dispover-ready"
-		. += emissive_appearance(icon, "dispover-ready-glow", alpha = src.alpha)
+		. += emissive_appearance(icon, "dispover-ready-glow", layer, alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/disposal/bin/proc/do_flush()
 	set waitfor = FALSE
