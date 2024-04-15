@@ -10946,7 +10946,18 @@
 	dir = 1;
 	pixel_y = -23
 	},
-/turf/open/floor/iron/sepia,
+/mob/living/simple_animal/bot/mulebot{
+	home_destination = "QM #3";
+	suffix = "#3"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=8";
+	dir = 8;
+	freq = 1400;
+	location = "QM #3"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
 /area/quartermaster/warehouse)
 "fbS" = (
 /obj/effect/turf_decal/siding/wood{
@@ -28797,7 +28808,19 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -31
 	},
-/turf/open/floor/plating,
+/mob/living/simple_animal/bot/mulebot{
+	beacon_freq = 1400;
+	home_destination = "QM #1";
+	suffix = "#1"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=8";
+	dir = 8;
+	freq = 1400;
+	location = "QM #1"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/iron,
 /area/quartermaster/warehouse)
 "oxj" = (
 /obj/effect/turf_decal/bot{
@@ -46541,6 +46564,13 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/iron/techmaint/planetary,
 /area/asteroid/paradise/surface)
+"xqF" = (
+/obj/item/paicard{
+	pixel_x = 5;
+	pixel_y = 1
+	},
+/turf/open/floor/plating,
+/area/quartermaster/warehouse)
 "xqU" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/asteroid/basalt/planetary,
@@ -55934,7 +55964,7 @@ uwS
 iGq
 wCc
 kYy
-kCM
+xqF
 rXp
 faZ
 uli
