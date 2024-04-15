@@ -352,7 +352,7 @@
 	//charging and ready light
 	if(pressure_charging)
 		. += "dispover-charge"
-		. += emissive_appearance(icon, layer, "dispover-charge-glow", alpha = src.alpha)
+		. += emissive_appearance(icon, "dispover-charge-glow", layer, alpha = src.alpha)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else if(full_pressure)
 		. += "dispover-ready"
