@@ -74,10 +74,11 @@
 #define COLOR_STRONG_VIOLET    "#6927C5"
 #define COLOR_DARK_PURPLE 	   "#551A8B"
 
-#define COLOR_ORANGE           "#FF9900"
-#define COLOR_LIGHT_ORANGE 	   "#ffc44d"
-#define COLOR_DARK_ORANGE      "#C3630C"
-#define COLOR_BEIGE            "#CEB689"
+#define COLOR_ORANGE "#FF9900"
+#define COLOR_LIGHT_ORANGE "#ffc44d"
+#define COLOR_DARK_ORANGE "#C3630C"
+#define COLOR_BEIGE "#CEB689"
+#define COLOR_DARK_MODERATE_ORANGE "#8B633B"
 
 #define COLOR_BROWN "#BA9F6D"
 #define COLOR_DARK_BROWN "#997C4F"
