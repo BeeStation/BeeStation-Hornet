@@ -39,7 +39,6 @@
 			stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
 		if (isturf(myturf))
 			myturf.lighting_object = null
-			set_base_luminosity(myturf, initial(myturf.luminosity))
 			myturf.underlays -= additive_underlay
 		myturf = null
 
@@ -147,7 +146,9 @@
 	else
 		myturf.underlays -= additive_underlay
 
-	set_base_luminosity(src, set_luminosity)
+	// Use luminosity directly because we are the lighting object
+	// and not the turf
+	luminosity = set_luminosity
 
 	if (myturf.above)
 		if(myturf.above.shadower)
