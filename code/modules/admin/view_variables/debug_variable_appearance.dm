@@ -6,25 +6,30 @@
  * 		This is why these global procs exist. Welcome to the curse.
  */
 /// Makes a var list of /appearance type actually uses. This will be only called once.
-/proc/build_appearance_var_list()
+/proc/build_virtual_appearance_vars()
 	. = list("vis_flags") // manual listing
 	var/list/unused_var_names = list(
 		"appearance", // it only does self-reference
 		"x","y","z", // these are always 0
+        "weak_reference", // it's not a good idea to make a weak_ref on this, and this won't have it
+        "vars", // inherited from /image, but /appearance hasn't this
 
 		// we have no reason to show those, right?
 		"active_timers",
 		"comp_lookup",
+		"datum_components",
 		"signal_procs",
 		"status_traits",
+		"gc_destroyed",
 		"stat_tabs",
 		"cooldowns",
 		"datum_flags",
 		"visibility",
 		"verbs",
+		"tgui_shared_states"
 		)
 	var/image/dummy_image = image(null, null)
-	for(var/each in dummy_image.vars)
+	for(var/each in dummy_image.vars) // try to inherit var list from /image
 		if(each in unused_var_names)
 			continue
 		. += each
@@ -122,7 +127,7 @@
 			if("parent_type")
 				value = appearance.parent_type
 			if("type")
-				value = appearance.type
+				value = "/appearance (as [appearance.type])" // don't fool people
 
 			// These are not documented ones but trackable values. Maybe we'd want these.
 			if("animate_movement")
@@ -135,33 +140,17 @@
 				value = "" //atom_appearance.pixel_step_size
 				// DM compiler complains this
 
-			// These variables are only available in some conditions.
+			// I am not sure if these will be ever detected, but I made a connection just in case.
 			if("contents")
 				value = atom_appearance.contents
 			if("vis_contents")
 				value = atom_appearance.vis_contents
-			if("vis_flags")
+			if("vis_flags") // DM document says /appearance has this, but it throws error
 				value = atom_appearance.vis_flags
 			if("loc")
 				value = atom_appearance.loc
-			if("locs")
-				value = atom_appearance.locs
-			if("x")
-				value = atom_appearance.x
-			if("y")
-				value = atom_appearance.y
-			if("z")
-				value = atom_appearance.z
 
 			// we wouldn't need these, but let's these trackable anyway...
-			if("cooldowns")
-				value = atom_appearance.cooldowns
-			if("gc_destroyed")
-				value = atom_appearance.gc_destroyed
-			if("datum_components")
-				value = atom_appearance.datum_components
-			if("datum_flags")
-				value = atom_appearance.datum_flags
 			if("density")
 				value = atom_appearance.density
 			if("screen_loc")
@@ -170,12 +159,6 @@
 				value = atom_appearance.sorted_verbs
 			if("tag")
 				value = atom_appearance.tag
-			if("tgui_shared_states")
-				value = atom_appearance.tgui_shared_states
-			if("verbs")
-				value = atom_appearance.verbs
-			if("weak_reference")
-				value = atom_appearance.weak_reference
 			if("cached_ref")
 				value = appearance.cached_ref
 
@@ -193,7 +176,7 @@
 	if(thing.icon)
 		. += thing.icon_state ? "\"[thing.icon_state]\"" : "(icon_state = null)"
 
-/image/vv_get_header()
+/image/vv_get_header() // it should redirect to global proc version because /appearance can't call a proc, unless we want dupe code here
 	return vv_get_header_appearance(src)
 
 /// Makes a format name for shortened vv name.
@@ -208,5 +191,7 @@
 
 /proc/vv_get_dropdown_appearance(image/thing)
 	. = list()
+    // unless you have a good reason to add a vv option for /appearance,
+    // /appearance type shouldn't alloow any vv option. Even "Mark Datum" is a questionable behaviour here.
 	VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "---")
 	VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "VV option not allowed")

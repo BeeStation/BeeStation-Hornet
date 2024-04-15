@@ -34,7 +34,9 @@
 
 	else if(isimage(thing) || isappearance(thing))
 		var/image/image_object = thing
-		if(image_object.icon_state) // icon_state=null shows first image. Let's skip null name for general cases, because it's confusing.
+		// icon_state=null shows first image even if dmi has no icon_state for null name.
+		// Unless dmi has a single icon_state as null name, let's skip null-name because it's confusing
+		if(image_object.icon_state || length(icon_states(image_object.icon)) == 1)
 			sprite = icon(image_object.icon, image_object.icon_state)
 
 	var/sprite_text
@@ -87,10 +89,10 @@
 
 	var/list/names = list()
 	if(isappearance)
-		var/static/list/appearance_vars
-		if(!appearance_vars)
-			appearance_vars = build_appearance_var_list()
-		names = appearance_vars.Copy()
+		var/static/list/virtual_appearance_vars
+		if(!virtual_appearance_vars)
+			virtual_appearance_vars = build_virtual_appearance_vars()
+		names = virtual_appearance_vars.Copy()
 	else if(!islist)
 		for(var/varname in thing.vars)
 			names += varname
