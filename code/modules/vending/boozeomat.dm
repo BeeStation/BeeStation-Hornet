@@ -49,6 +49,7 @@
 	default_price = 20
 	extra_price = 50
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	light_mask = "boozeomat-light-mask"
 
 /obj/machinery/vending/boozeomat/all_access
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one. This model appears to have no access restrictions."

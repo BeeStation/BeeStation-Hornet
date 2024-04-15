@@ -23,6 +23,7 @@
 	default_price = 5
 	extra_price = 40
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	light_mask = "cigs-light-mask"
 
 /obj/machinery/vending/cigarette/syndicate
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 7,
