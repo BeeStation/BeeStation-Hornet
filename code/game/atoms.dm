@@ -1909,8 +1909,11 @@
 	else
 		UNLINT(luminosity = max(base_luminosity, affecting_dynamic_lumi))
 
-#define set_base_luminosity(target, new_value) UNLINT(target.base_luminosity = new_value);\
-	target.update_luminosity();
+#define set_base_luminosity(target, new_value)\
+if (UNLINT(target.base_luminosity != new_value)) {\
+	UNLINT(target.base_luminosity = new_value);\
+	target.update_luminosity();\
+}
 
 /atom/movable/proc/get_orbitable()
 	return src
