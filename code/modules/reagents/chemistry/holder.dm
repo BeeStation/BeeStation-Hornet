@@ -160,9 +160,6 @@
 	if(!ui)
 		ui = new(user, src, "Reagents", "Reaction search")
 		ui.status = UI_INTERACTIVE //How do I prevent a UI from autoclosing if not in LoS
-		ui_tags_selected = NONE //Resync with gui on open (gui expects no flags)
-		ui_reagent_id = null
-		ui_reaction_id = null
 		ui.open()
 
 
