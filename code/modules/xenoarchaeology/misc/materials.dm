@@ -68,7 +68,7 @@
 	material_color = "#88ff00"
 	instability_step = 25
 	texture_icon_states = list("texture-uranium1", "texture-uranium2", "texture-uranium3")
-	mask_icon_states = list("mask-uranium1")
+	mask_icon_states = list("mask-uranium1", "mask-uranium2", "mask-uranium2")
 	custom_price = 450
 	trait_malfunctions = 1
 	max_trait_malfunctions = 2
@@ -96,7 +96,7 @@
 	material_color = "#006aff"
 	instability_step = 1
 	texture_icon_states = list("texture-bluespace1", "texture-bluespace2", "texture-bluespace3")
-	mask_icon_states = list("mask-bluespace1")
+	mask_icon_states = list("mask-bluespace1", "mask-bluespace2", "mask-bluespace3")
 	trait_flags = XENOA_BLUESPACE_TRAIT
 	label_icon = "star"
 
