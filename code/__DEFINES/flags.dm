@@ -26,36 +26,42 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define DF_VAR_EDITED (1<<1)
 #define DF_ISPROCESSING (1<<2)
 
-//! ## FLAGS BITMASK
-///  conducts electricity (iron etc.)
-#define CONDUCT_1					(1<<0)
-///  For machines and structures that should not break into parts, eg, holodeck stuff
-#define NODECONSTRUCT_1				(1<<1)
-///  item has priority to check when entering or leaving
-#define ON_BORDER_1					(1<<2)
-/// Prevent clicking things below it on the same turf eg. doors/ fulltile windows
-#define PREVENT_CLICK_UNDER_1		(1<<3)
-#define HOLOGRAM_1					(1<<4)
-/// TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
-#define TESLA_IGNORE_1				(1<<5)
-/// Whether /atom/Initialize(mapload) has already run for the object
-#define INITIALIZED_1				(1<<6)
-/// was this spawned by an admin? used for stat tracking stuff.
-#define ADMIN_SPAWNED_1				(1<<7)
-#define PREVENT_CONTENTS_EXPLOSION_1 (1<<8)
-#define UNPAINTABLE_1 				(1<<9)
-/// Should we use the initial icon for display? Mostly used by overlay only objects
-#define HTML_USE_INITAL_ICON_1		(1<<10)
+//FLAGS BITMASK
 
-//turf-only flags
-#define NOJAUNT_1					(1<<11)
-#define UNUSED_RESERVATION_TURF_1	(1<<12)
-/// If a turf can be made dirty at roundstart. This is also used in areas.
-#define CAN_BE_DIRTY_1				(1<<13)
-/// Blocks lava rivers being generated on the turf
-#define NO_LAVA_GEN_1				(1<<13)
-/// Blocks ruins spawning on the turf
-#define NO_RUINS_1					(1<<14)
+/// conducts electricity (iron etc.)
+#define CONDUCT_1 (1<<1)
+/// For machines and structures that should not break into parts, eg, holodeck stuff
+#define NODECONSTRUCT_1 (1<<2)
+/// atom queued to SSoverlay
+#define OVERLAY_QUEUED_1 (1<<3)
+/// item has priority to check when entering or leaving
+#define ON_BORDER_1 (1<<4)
+/// Prevent clicking things below it on the same turf eg. doors/ fulltile windows
+#define PREVENT_CLICK_UNDER_1 (1<<5)
+///specifies that this atom is a hologram that isnt real
+#define HOLOGRAM_1 (1<<6)
+/// grants immunity from being targeted by tesla-style electricity
+#define TESLA_IGNORE_1 (1<<7)
+///Whether /atom/Initialize() has already run for the object
+#define INITIALIZED_1 (1<<8)
+/// was this spawned by an admin? used for stat tracking stuff.
+#define ADMIN_SPAWNED_1 (1<<9)
+/// should not get harmed if this gets caught by an explosion?
+#define PREVENT_CONTENTS_EXPLOSION_1 (1<<10)
+/// Should this object be unpaintable?
+#define UNPAINTABLE_1 (1<<11)
+/// Is this atom on top of another atom, and as such has click priority?
+#define IS_ONTOP_1 (1<<12)
+/// Should we use the initial icon for display? Mostly used by overlay only objects
+#define HTML_USE_INITAL_ICON_1 (1<<13)
+
+//turf-only flags. These use flags_1 too.
+// These exist to cover /turf and /area at the same time
+#define NOJAUNT_1					(1<<14)
+#define UNUSED_RESERVATION_TURF_1	(1<<15)
+#define CAN_BE_DIRTY_1				(1<<16) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
+#define NO_LAVA_GEN_1				(1<<17) 	//! Blocks lava rivers being generated on the turf
+#define NO_RUINS_1					(1<<18) //! Blocks ruins spawning on the turf
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -74,9 +80,9 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /// If the thing can reflect light (lasers/energy)
-#define RICOCHET_SHINY			(1<<0)
+#define RICOCHET_SHINY (1<<0)
 /// If the thing can reflect matter (bullets/bomb shrapnel)
-#define RICOCHET_HARD			(1<<1)
+#define RICOCHET_HARD (1<<1)
 
 ////////////////Area flags\\\\\\\\\\\\\\
 /// If it's a valid territory for cult summoning or the CRAB-17 phone to spawn
@@ -178,6 +184,21 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 //alternate appearance flags
 #define AA_TARGET_SEE_APPEARANCE (1<<0)
 #define AA_MATCH_TARGET_OVERLAYS (1<<1)
+
+#define KEEP_TOGETHER_ORIGINAL "keep_together_original"
+
+//setter for KEEP_TOGETHER to allow for multiple sources to set and unset it
+#define ADD_KEEP_TOGETHER(x, source)\
+	if ((x.appearance_flags & KEEP_TOGETHER) && !HAS_TRAIT(x, TRAIT_KEEP_TOGETHER)) ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL); \
+	ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, source);\
+	x.appearance_flags |= KEEP_TOGETHER
+
+#define REMOVE_KEEP_TOGETHER(x, source)\
+	REMOVE_TRAIT(x, TRAIT_KEEP_TOGETHER, source);\
+	if(HAS_TRAIT_FROM_ONLY(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL))\
+		REMOVE_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL);\
+	else if(!HAS_TRAIT(x, TRAIT_KEEP_TOGETHER))\
+	 	x.appearance_flags &= ~KEEP_TOGETHER
 
 //dir macros
 ///Returns true if the dir is diagonal, false otherwise

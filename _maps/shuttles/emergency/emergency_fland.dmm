@@ -1066,7 +1066,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/escape)
 "Mk" = (
 /obj/effect/turf_decal/stripes/line,

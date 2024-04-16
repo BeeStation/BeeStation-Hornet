@@ -393,7 +393,7 @@
 /area/ruin/powered/seedvault)
 "qR" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/stairs/left{
+/turf/open/floor/iron/stairs/left{
 	dir = 8
 	},
 /area/lavaland/surface/outdoors)
@@ -768,7 +768,7 @@
 /area/ruin/powered/seedvault)
 "Gt" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel/stairs/right{
+/turf/open/floor/iron/stairs/right{
 	dir = 8
 	},
 /area/lavaland/surface/outdoors)
