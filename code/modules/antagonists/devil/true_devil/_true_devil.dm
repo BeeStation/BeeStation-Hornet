@@ -78,7 +78,7 @@
 
 	//Damaged
 	if(stat == DEAD)
-		. += "<span class='deadsay'>The hellfire seems to have been extinguished, for now at least.</span>"
+		. += "<span class='srt_deadchat deadsay'>The hellfire seems to have been extinguished, for now at least.</span>"
 	else if(health < (maxHealth/10))
 		. += "<span class='warning'>You can see hellfire inside its gaping wounds.</span>"
 	else if(health < (maxHealth/2))

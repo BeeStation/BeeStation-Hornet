@@ -349,7 +349,7 @@
 		for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
 			var/sender = FOLLOW_LINK(ghost, user)
 			var/receiver = FOLLOW_LINK(ghost, L)
-			to_chat(ghost, "<span class='deadsay'>[sender] <span class='name'>[user]</span> <span class='abductor'>Abductor Mental Telepathy</span> -> [receiver] <span class='name'>[L]</span>: <span class='bold message'>[message]</span></span>")
+			to_chat(ghost, "<span class='srt_deadchat deadsay'>[sender] <span class='name'>[user]</span> <span class='abductor'>Abductor Mental Telepathy</span> -> [receiver] <span class='name'>[L]</span>: <span class='bold message'>[message]</span></span>")
 		log_directed_talk(user, L, message, LOG_SAY, "abductor whisper")
 
 

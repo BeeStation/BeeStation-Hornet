@@ -78,7 +78,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_DEADCHAT,
     name: 'Deadchat',
     description: 'All of deadchat',
-    selector: '.srt_deadchat, .deadsay',
+    selector: '.srt_deadchat', // DO NOT USE '.deadsay'. It's deprecated
   },
   {
     type: MESSAGE_TYPE_OOC,

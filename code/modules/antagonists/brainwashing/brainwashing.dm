@@ -28,7 +28,7 @@
 		victim_mind.add_antag_datum(brainwash)
 
 	var/source_message = source ? " by [source]" : ""
-	var/begin_message = "<span class='deadsay'><b>[victim]</b> has been brainwashed with the following objective[length(directives) > 1 ? "s" : ""][source_message]: "
+	var/begin_message = "<span class='srt_deadchat deadsay'><b>[victim]</b> has been brainwashed with the following objective[length(directives) > 1 ? "s" : ""][source_message]: "
 	var/obj_message = english_list(directives)
 	var/end_message = "</b>.</span>"
 	var/rendered = begin_message + obj_message + end_message

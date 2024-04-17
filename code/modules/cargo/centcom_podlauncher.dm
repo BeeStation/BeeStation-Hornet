@@ -590,7 +590,7 @@
 			else
 				return //if target is null and we don't have a specific target, cancel
 			if (effectAnnounce)
-				deadchat_broadcast("<span class='deadsay'>A special package is being launched at the station!</span>", turf_target = target_turf)
+				deadchat_broadcast("<span class='srt_deadchat deadsay'>A special package is being launched at the station!</span>", turf_target = target_turf)
 
 			if (!effectBurst) //If we're not using burst mode, just launch normally.
 				launch(target_turf)
