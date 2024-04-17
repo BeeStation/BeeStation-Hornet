@@ -6,6 +6,10 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"bm" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "bV" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
@@ -31,22 +35,22 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"dA" = (
+"cB" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/window/reinforced,
+/obj/structure/table/reinforced,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"dl" = (
 /obj/structure/sign/departments/security{
 	pixel_y = 32
 	},
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/bot,
+/obj/structure/table/reinforced,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "dM" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
-/area/shuttle/escape)
-"eA" = (
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "gg" = (
 /obj/effect/turf_decal/trimline/dark/warning,
@@ -108,6 +112,17 @@
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/window/shuttle,
 /turf/open/floor/grass/no_border,
+/area/shuttle/escape)
+"lm" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/window/reinforced,
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "mb" = (
 /obj/effect/turf_decal/delivery,
@@ -197,13 +212,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"rZ" = (
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "se" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/zipties{
@@ -241,29 +249,19 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
-"vN" = (
-/obj/structure/sign/poster/official/state_laws{
-	pixel_y = -32
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"vU" = (
+"vx" = (
 /obj/machinery/door/airlock/security{
 	req_access_txt = "2"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"wf" = (
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/bot,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+"vN" = (
+/obj/structure/sign/poster/official/state_laws{
+	pixel_y = -32
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -456,15 +454,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"GW" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/structure/window/reinforced,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "HD" = (
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -558,6 +547,19 @@
 	},
 /turf/open/floor/iron/white,
 /area/shuttle/escape)
+"Ns" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "NC" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -639,20 +641,22 @@
 "Vn" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
-"Xr" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/chair/fancy/shuttle,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
 "Ys" = (
 /obj/structure/shuttle/engine/large,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/open/floor/plating/airless,
+/area/shuttle/escape)
+"Yt" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "ZY" = (
 /obj/machinery/shower{
@@ -669,7 +673,7 @@
 (1,1,1) = {"
 xX
 wR
-vU
+vx
 Kb
 nL
 zK
@@ -690,9 +694,9 @@ wR
 UW
 ac
 nL
-dA
-eA
-rZ
+dl
+bm
+cB
 jK
 jK
 Ae
@@ -708,9 +712,9 @@ bV
 UW
 wh
 Kb
-wf
-Xr
-GW
+Ns
+Yt
+lm
 Ow
 gg
 Ae
