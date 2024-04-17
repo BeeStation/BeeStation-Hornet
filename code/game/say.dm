@@ -162,27 +162,17 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	else
 		return "makes a strange sound."
 
-/proc/get_radio_span(freq)
-	var/returntext = GLOB.freqtospan["[freq]"]
-	if(returntext)
-		return returntext
-	return "radio"
-
-/proc/get_radio_name(freq)
-	var/returntext = GLOB.reverseradiochannels["[freq]"]
-	if(returntext)
-		return returntext
-	return "[copytext_char("[freq]", 1, 4)].[copytext_char("[freq]", 4, 5)]"
-
-/proc/attach_spans(input, list/spans)
-	return "[message_spans_start(spans)][input]</span>"
-
 /proc/message_spans_start(list/spans)
-	var/output = "<span class='"
-	for(var/S in spans)
-		output = "[output][S] "
-	output = "[output]'>"
-	return output
+	var/built_spans
+	if(islist(spans))
+		built_spans = ""
+		for(var/each_span in spans)
+			built_spans += "[each_span] " // just in case it's not a string
+	else if(istext(spans))
+		built_spans = "[spans]"
+	else
+		stack_trace("message_spans_start() has received no list?")
+	return "<span class='[built_spans]'>"
 
 /proc/say_test(text)
 	var/ending = copytext_char(text, -1)

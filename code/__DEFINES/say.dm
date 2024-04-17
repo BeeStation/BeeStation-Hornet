@@ -108,3 +108,18 @@
 
 ///How far away blind people can see visible messages from
 #define BLIND_TEXT_DIST 2
+
+
+// these are remained as lowercases because not a few codebases use the old way(proc) than macro defines
+/// get radio channel span.
+/// * i.e.) FREQ_MEDICAL 1335 is RADIO_CHANNEL_MEDICAL in GLOB.freqtospan.
+/// * Returns "radio" if nothing has been found.
+#define get_radio_span(freq) (GLOB.freqtospan["[##freq]"] || "radio")
+
+/// get radio channel span.
+/// * i.e.) FREQ_MEDICAL 1335 is "medradio" in GLOB.reverseradiochannels.
+/// * Returns 1441 => `[144.1] John Syndis says, "Nice Secret Channel"` if no channel name has been found.
+#define get_radio_name(freq) (GLOB.reverseradiochannels["[##freq]"] || "[copytext_char("[##freq]", 1, 4)].[copytext_char("[##freq]", 4, 5)]")
+
+/// Makes "<span class='##spans'>Hello world!</span>"
+#define attach_spans(input, spans) "[message_spans_start(##spans)][##input]</span>"
