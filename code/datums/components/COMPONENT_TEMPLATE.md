@@ -19,7 +19,7 @@ See _component.dm for detailed explanations
 	// RegisterSignal can take a signal name by itself.
 	RegisterSignal(parent, COMSIG_NOT_REAL, PROC_REF(signalproc))
 
-	// or a list of them to assign to the same proc
+	// or a list of them to assign to another proc 'RegisterSignals()'
 	//! if signals are a list, use 'RegisterSignals' with extra s.
 	//! if it's a single signal, use 'RegisterSignal' without s
 	RegisterSignals(parent, list(COMSIG_NOT_REAL_EITHER, COMSIG_ALMOST_REAL), PROC_REF(otherproc))
