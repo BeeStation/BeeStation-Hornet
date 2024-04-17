@@ -33,7 +33,7 @@ $include policies.txt
 #@SERVERNAME beestation
 
 ## Server Tagline: The tag that will appear on the HUB
-#@SERVERTAG A new-player friendly, classic space station 13 roleplaying experience!
+#@SERVERTAG Join us for a new-player friendly, classic space station 13 roleplaying experience!
 
 ## Server SQL name: This is the name used to identify the server to the SQL DB, distinct from SERVERNAME as it must be at most 32 characters.
 #@SERVERSQLNAME ss13newbs
