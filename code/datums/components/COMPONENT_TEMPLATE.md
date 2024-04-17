@@ -16,17 +16,20 @@ See _component.dm for detailed explanations
 		send_to_playing_players(myargtwo)
 
 /datum/component/mycomponent/RegisterWithParent()
+	// RegisterSignal can take a signal name by itself,
 	RegisterSignal(parent, COMSIG_NOT_REAL, PROC_REF(signalproc))
-		// RegisterSignal can take a signal name by itself,
+
+	// or a list of them to assign to the same proc
+	//! if signals are a list, use 'RegisterSignals' with extra s.
+	//! if it's a single signal, use 'RegisterSignal' without s
 	RegisterSignals(parent, list(COMSIG_NOT_REAL_EITHER, COMSIG_ALMOST_REAL), PROC_REF(otherproc))
-		// or a list of them to assign to the same proc
-		//! if signals are a list, use 'RegisterSignals' with extra s.
-		//! if it's a single signal, use 'RegisterSignal' without s
 
 /datum/component/mycomponent/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_NOT_REAL)          // UnregisterSignal has similar behavior
+	// UnregisterSignal has similar behavior
+	UnregisterSignal(parent, COMSIG_NOT_REAL)
+
+	// But you can just include all registered signals in one call
 	UnregisterSignal(parent, list(
-			/* But you can just include all registered signals in one call */
 		COMSIG_NOT_REAL,
 		COMSIG_NOT_REAL_EITHER,
 		COMSIG_ALMOST_REAL,
