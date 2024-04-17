@@ -429,11 +429,12 @@
 	var/image/I = image(icon = 'icons/effects/effects.dmi', icon_state = "heart", layer = ABOVE_MOB_LAYER, loc = src)
 	var/datum/atom_hud/alternate_appearance/basic/one_person/alt_appearance = add_alt_appearance(
 		/datum/atom_hud/alternate_appearance/basic/one_person,
-		"heart",
+		"heart_[REF(src)]",
 		I,
 		NONE,
 		seer
 	)
+	alt_appearance_weakref = WEAKREF(alt_appearance)
 	I.alpha = 255
 	I.appearance_flags = RESET_ALPHA
 	animate(I, alpha = 0, time = duration)

@@ -133,9 +133,9 @@
 		to_chat(user, "<span class='warning'>Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>")
 
 /obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
-	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
-	C.prefs.apply_prefs_to(M)
-	M.key = C.key
+	var/mob/living/carbon/human/nukie = new/mob/living/carbon/human(T)
+	C.prefs.apply_prefs_to(nukie)
+	nukie.key = C.key
 	if(length(GLOB.newplayer_start)) // needed as hud code doesn't render huds if the atom (in this case the nukie) is in nullspace, so just move the nukie somewhere safe
 		nukie.forceMove(pick(GLOB.newplayer_start))
 	else
@@ -147,8 +147,8 @@
 
 	var/datum/antagonist/nukeop/creator_op = user.has_antag_datum(/datum/antagonist/nukeop,TRUE)
 	if(creator_op)
-		M.mind.add_antag_datum(new_op,creator_op.nuke_team)
-		M.mind.special_role = "Nuclear Operative"
+		nukie.mind.add_antag_datum(new_op,creator_op.nuke_team)
+		nukie.mind.special_role = "Nuclear Operative"
 
 //////CLOWN OP
 /obj/item/antag_spawner/nuke_ops/clown
