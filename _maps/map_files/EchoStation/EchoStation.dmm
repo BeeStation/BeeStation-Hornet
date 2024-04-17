@@ -3059,17 +3059,6 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai)
-"aZW" = (
-/obj/machinery/telecomms/relay/preset/auto,
-/obj/machinery/door/window/northleft{
-	name = "Engi Desk";
-	req_one_access_txt = "32;19"
-	},
-/obj/structure/window/reinforced/survival_pod,
-/turf/open/floor/plating,
-/area/hallway/primary/fore{
-	name = "-1 Primary Hallway"
-	})
 "baa" = (
 /turf/closed/wall/r_wall,
 /area/medical/morgue)
@@ -3157,6 +3146,11 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"bcj" = (
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/box,
+/turf/open/floor/plating,
+/area/asteroid/paradise/surface)
 "bcS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -3489,12 +3483,6 @@
 "blO" = (
 /turf/open/floor/plating/asteroid/planetary,
 /area/asteroid/paradise)
-"blV" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/sand/plating,
-/turf/open/floor/iron/techmaint/planetary,
-/area/asteroid/paradise/surface)
 "bmC" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -4397,6 +4385,15 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron,
 /area/crew_quarters/dorms)
+"bGF" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/turf_decal/trimline/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "2-32"
+	},
+/turf/open/floor/iron,
+/area/maintenance/department/eva)
 "bGO" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line,
@@ -9553,6 +9550,15 @@
 /obj/effect/spawner/lootdrop/costume,
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
+"evE" = (
+/obj/structure/reagent_dispensers/beerkeg{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/turf/open/floor/plating/beach/coastline_t{
+	dir = 9
+	},
+/area/asteroid/paradise/surface)
 "evM" = (
 /obj/structure/flora/rock/pile,
 /turf/open/floor/plating/grass,
@@ -10507,20 +10513,6 @@
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
 /area/maintenance/department/eva)
-"eSN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/power/rad_collector/anchored{
-	anchored = 0
-	},
-/turf/open/floor/iron/dark,
-/area/engine/engineering)
 "eST" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -12339,6 +12331,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/teleporter)
+"fMN" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/numbers,
+/turf/open/floor/iron,
+/area/hallway/primary/fore{
+	name = "-1 Primary Hallway"
+	})
 "fMR" = (
 /obj/machinery/light_switch{
 	pixel_x = -24;
@@ -16100,6 +16099,16 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
+/area/hallway/primary/fore{
+	name = "-1 Primary Hallway"
+	})
+"hAn" = (
+/obj/effect/landmark/start/assistant,
+/obj/structure/cable/yellow{
+	icon_state = "2-32"
+	},
+/obj/effect/turf_decal/trimline/yellow,
+/turf/open/floor/iron,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
@@ -21370,6 +21379,15 @@
 	},
 /turf/open/floor/iron,
 /area/security/prison)
+"kqT" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/eva)
 "kqX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -24999,19 +25017,6 @@
 	},
 /turf/open/floor/iron/white/side,
 /area/science/research)
-"moV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/engine/engineering)
 "mpj" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -25279,6 +25284,23 @@
 /obj/structure/barricade/wooden,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"mxN" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 9;
+	height = 14;
+	id = "emergency_home";
+	name = "EchoStation emergency evac bay";
+	width = 21
+	},
+/turf/open/floor/sepia/planetary{
+	slowdown = 0
+	},
+/area/asteroid/paradise/surface)
 "mxW" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -27333,6 +27355,20 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
+"nEK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/power/rad_collector,
+/turf/open/floor/iron/dark,
+/area/engine/engineering)
 "nEX" = (
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
@@ -28774,10 +28810,6 @@
 /area/hallway/primary/aft{
 	name = "-3 Primary Hallway"
 	})
-"owf" = (
-/obj/structure/reagent_dispensers/beerkeg,
-/turf/open/floor/plating/beach/sand,
-/area/asteroid/paradise/surface)
 "owJ" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/reagent_dispensers/water_cooler,
@@ -35105,13 +35137,6 @@
 	},
 /turf/open/floor/prison/dark,
 /area/security/prison)
-"rHs" = (
-/obj/effect/turf_decal/sand/plating,
-/obj/effect/landmark/start/assistant,
-/turf/open/floor/iron,
-/area/hallway/primary/fore{
-	name = "-1 Primary Hallway"
-	})
 "rHO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -37266,6 +37291,17 @@
 	},
 /turf/open/floor/pod/dark,
 /area/maintenance/department/engine/atmos)
+"sOJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/iron/dark,
+/area/engine/engineering)
 "sPk" = (
 /obj/structure/rack,
 /obj/item/electronics/firelock{
@@ -38751,6 +38787,15 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/department/eva)
+"tut" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/iron/techmaint/planetary,
+/area/asteroid/paradise/surface)
 "tuw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/chair/fancy/sofa/old/left{
@@ -41425,11 +41470,6 @@
 /obj/effect/spawner/lootdrop/costume,
 /turf/open/floor/iron,
 /area/maintenance/department/engine)
-"uFR" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/glowstick/lit,
-/turf/open/floor/iron,
-/area/maintenance/department/eva)
 "uFS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -42086,22 +42126,6 @@
 /obj/machinery/rnd/production/protolathe/department/science,
 /turf/open/floor/iron,
 /area/science/lab)
-"uVI" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 9;
-	height = 14;
-	id = "emergency_home";
-	name = "EchoStation emergency evac bay";
-	width = 21
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/sepia/planetary{
-	slowdown = 0
-	},
-/area/asteroid/paradise/surface)
 "uVJ" = (
 /obj/structure/table/wood,
 /obj/machinery/door/poddoor/shutters{
@@ -45200,6 +45224,21 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/storage/tech)
+"wIE" = (
+/obj/machinery/telecomms/relay/preset/auto,
+/obj/machinery/door/window/northleft{
+	name = "Engi Desk";
+	req_one_access_txt = "32;19"
+	},
+/obj/structure/window/reinforced/survival_pod,
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/hallway/primary/fore{
+	name = "-1 Primary Hallway"
+	})
 "wIV" = (
 /obj/structure/chair{
 	dir = 1
@@ -65222,8 +65261,8 @@ nKW
 sXB
 hqu
 ihA
-eSN
-moV
+sOJ
+nEK
 dHS
 vpm
 sXB
@@ -193986,8 +194025,8 @@ jJJ
 dIr
 xUk
 nbj
-uFR
-eWC
+bGF
+kqT
 qgY
 qgY
 qgY
@@ -259521,11 +259560,11 @@ frz
 frz
 frz
 esO
-pbk
-rHs
-aZW
-blV
-uXr
+fMN
+hAn
+wIE
+tut
+bcj
 lDZ
 kqB
 lea
@@ -266456,7 +266495,7 @@ sNi
 sNi
 yet
 kiZ
-qbN
+evE
 lyK
 tzT
 apP
@@ -266973,7 +267012,7 @@ lyK
 yli
 yli
 yli
-owf
+apP
 bIK
 kUn
 bIK
@@ -267486,13 +267525,13 @@ yli
 yli
 kyv
 loj
-sUf
+mxN
 xVE
 ojC
 lFC
 yeE
 rbW
-uVI
+tHx
 yeE
 yeE
 vMq

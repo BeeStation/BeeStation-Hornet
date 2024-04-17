@@ -249,16 +249,6 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
-"vx" = (
-/obj/machinery/door/airlock/security{
-	req_access_txt = "2"
-	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/structure/fans/tiny,
-/turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
 "vN" = (
 /obj/structure/sign/poster/official/state_laws{
 	pixel_y = -32
@@ -274,6 +264,20 @@
 /area/shuttle/escape)
 "wR" = (
 /turf/closed/wall/mineral/titanium,
+/area/shuttle/escape)
+"xg" = (
+/obj/machinery/door/airlock/security{
+	req_access_txt = "2"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile/emergency{
+	name = "Echo emergency shuttle";
+	width = 16
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "xB" = (
 /obj/structure/table,
@@ -455,23 +459,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "HD" = (
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/escape)
-"Jt" = (
-/obj/machinery/door/airlock/shuttle{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/fans/tiny,
-/obj/docking_port/mobile/emergency{
-	name = "Echo emergency shuttle";
-	width = 16
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Ju" = (
@@ -673,13 +660,13 @@
 (1,1,1) = {"
 xX
 wR
-vx
+xg
 Kb
 nL
 zK
 Mi
 mC
-Jt
+Aq
 Aq
 mC
 zK
