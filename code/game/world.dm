@@ -360,13 +360,13 @@ GLOBAL_VAR(restart_counter)
 
 	var/server_name = CONFIG_GET(string/servername)
 	if (server_name)
-		s += "<a href='[world.url]'><b>[server_name] - [station_name]</b></a><br>"
+		s += "<a href='[world.url]'><b>[server_name] - [station_name()]</b></a><br>"
 	else
 		s += "<a href='[world.url]'><b>[station_name()]</b></a><br>";
 
 	var/server_tag = CONFIG_GET(string/servertag)
-	if (servertag)
-		s += "[servertag]<br>"
+	if (server_tag)
+		s += "[server_tag]<br><br>"
 
 	var/players = GLOB.clients.len
 
