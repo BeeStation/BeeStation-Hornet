@@ -1034,13 +1034,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 	empulse(T, 0.42*(intensity), 1, holy=TRUE)
 	var/list/images = list()
 	var/zmatch = T.get_virtual_z_level()
-	var/datum/atom_hud/AH = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+	var/datum/atom_hud/sec_hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		if(M.get_virtual_z_level() != zmatch)
 			continue
 		if(ishuman(M))
 			if(!iscultist(M))
-				AH.remove_hud_from(M)
+				sec_hud.hide_from(M)
 				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(hudFix), M), duration)
 			var/image/A = image('icons/mob/cult.dmi', M,"cultist", ABOVE_MOB_LAYER)
 			A.override = 1
@@ -1132,5 +1132,5 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 	var/obj/O = target.get_item_by_slot(ITEM_SLOT_EYES)
 	if(istype(O, /obj/item/clothing/glasses/hud/security))
-		var/datum/atom_hud/AH = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-		AH.add_hud_to(target)
+		var/datum/atom_hud/sec_hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+		sec_hud.show_to(target)

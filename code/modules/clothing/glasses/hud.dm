@@ -14,16 +14,16 @@
 		start_glitch()
 	if(hud_type)
 		if(islist(hud_type))
-			for(var/T in hud_type)
-				var/datum/atom_hud/H = GLOB.huds[T]
-				H.add_hud_to(user)
+			for(var/each_hud_type in hud_type)
+				var/datum/atom_hud/hud = GLOB.huds[each_hud_type]
+				hud.show_to(user)
 		else
-			var/datum/atom_hud/H = GLOB.huds[hud_type]
-			H.add_hud_to(user)
+			var/datum/atom_hud/hud = GLOB.huds[hud_type]
+			hud.show_to(user)
 	if(hud_trait)
 		if(islist(hud_trait))
-			for(var/H in hud_trait)
-				ADD_TRAIT(user, H, GLASSES_TRAIT)
+			for(var/each_hud_trait in hud_trait)
+				ADD_TRAIT(user, each_hud_trait, GLASSES_TRAIT)
 		else
 			ADD_TRAIT(user, hud_trait, GLASSES_TRAIT)
 
@@ -34,16 +34,16 @@
 	stop_glitch()
 	if(hud_type)
 		if(islist(hud_type))
-			for(var/T in hud_type)
-				var/datum/atom_hud/H = GLOB.huds[T]
-				H.remove_hud_from(user)
+			for(var/each_hud_type in hud_type)
+				var/datum/atom_hud/hud = GLOB.huds[each_hud_type]
+				hud.hide_from(user)
 		else
-			var/datum/atom_hud/H = GLOB.huds[hud_type]
-			H.remove_hud_from(user)
+			var/datum/atom_hud/hud = GLOB.huds[hud_type]
+			hud.hide_from(user)
 	if(hud_trait)
 		if(islist(hud_trait))
-			for(var/H in hud_trait)
-				REMOVE_TRAIT(user, H, GLASSES_TRAIT)
+			for(var/each_hud_trait in hud_trait)
+				REMOVE_TRAIT(user, each_hud_trait, GLASSES_TRAIT)
 		else
 			REMOVE_TRAIT(user, hud_trait, GLASSES_TRAIT)
 
@@ -323,8 +323,8 @@
 		return
 
 	if (hud_type)
-		var/datum/atom_hud/H = GLOB.huds[hud_type]
-		H.remove_hud_from(user)
+		var/datum/atom_hud/hud = GLOB.huds[hud_type]
+		hud.hide_from(user)
 
 	if (hud_type == DATA_HUD_MEDICAL_ADVANCED)
 		hud_type = null
@@ -334,8 +334,8 @@
 		hud_type = DATA_HUD_SECURITY_ADVANCED
 
 	if (hud_type)
-		var/datum/atom_hud/H = GLOB.huds[hud_type]
-		H.add_hud_to(user)
+		var/datum/atom_hud/hud = GLOB.huds[hud_type]
+		hud.show_to(user)
 
 /obj/item/clothing/glasses/hud/toggle/thermal
 	name = "thermal HUD scanner"

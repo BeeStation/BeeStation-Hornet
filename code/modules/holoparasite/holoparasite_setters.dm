@@ -77,7 +77,7 @@
 	chat_color = new_color
 	if(tracking_beacon)
 		tracking_beacon.colour = new_color
-		tracking_beacon.remove_from_huds()
+		tracking_beacon.remove_atom_from_huds()
 		if(is_manifested() && range != 1)
 			tracking_beacon.add_to_huds()
 	for(var/mutable_appearance/overlay as() in accent_overlays)

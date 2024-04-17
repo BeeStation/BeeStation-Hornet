@@ -677,14 +677,14 @@
 /obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if (slot == ITEM_SLOT_HEAD)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.add_hud_to(user)
+		var/datum/atom_hud/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
+		diag_hud.show_to(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/dropped(mob/living/carbon/human/user)
 	..()
 	if (user.head == src)
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
-		DHUD.remove_hud_from(user)
+		var/datum/atom_hud/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
+		diag_hud.hide_from(user)
 
 /obj/item/clothing/suit/space/hardsuit/research_director
 	icon_state = "hardsuit-rd"

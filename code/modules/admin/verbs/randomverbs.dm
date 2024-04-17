@@ -875,10 +875,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/adding_hud = !has_antag_hud()
 
 	for(var/hudtype in list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED)) // add data huds
-		var/datum/atom_hud/H = GLOB.huds[hudtype]
-		(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
-	for(var/datum/atom_hud/antag/H in GLOB.huds) // add antag huds
-		(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
+		var/datum/atom_hud/hud = GLOB.huds[hudtype]
+		(adding_hud) ? hud.show_to(usr) : hud.hide_from(usr)
+	for(var/datum/atom_hud/antag/hud in GLOB.huds) // add antag huds
+		(adding_hud) ? hud.show_to(usr) : hud.hide_from(usr)
 
 	if(prefs?.read_player_preference(/datum/preference/toggle/combohud_lighting))
 		if(adding_hud)
@@ -895,8 +895,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 
 /client/proc/has_antag_hud()
-	var/datum/atom_hud/A = GLOB.huds[ANTAG_HUD_TRAITOR]
-	return A.hudusers[mob]
+	var/datum/atom_hud/traitor_hud = GLOB.huds[ANTAG_HUD_TRAITOR]
+	return traitor_hud.hud_users[mob]
 
 /client/proc/open_shuttle_manipulator()
 	set category = "Round"

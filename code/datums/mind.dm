@@ -51,8 +51,10 @@
 	var/miming = 0 // Mime's vow of silence
 	var/hellbound = FALSE
 	var/list/antag_datums
-	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
-	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
+	///this mind's ANTAG_HUD should have this icon_state
+	var/antag_hud_icon_state = null
+	///this mind's antag HUD
+	var/datum/atom_hud/antag/antag_hud = null
 	var/damnation_type = 0
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE // If false, renders the character unable to sell their soul.
@@ -60,7 +62,8 @@
 	var/isAntagTarget = FALSE
 	var/no_cloning_at_all = FALSE
 
-	var/datum/mind/enslaved_to //If this mind's master is another mob (i.e. adamantine golems)
+	///If this mind's master is another mob's mind (i.e. adamantine golems)
+	var/datum/mind/enslaved_to
 	var/datum/language_holder/language_holder
 	var/unconvertable = FALSE
 	var/late_joiner = FALSE

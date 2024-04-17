@@ -41,7 +41,7 @@
 /datum/holoparasite_ability/major/healing/apply()
 	..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(owner)
+	medsensor.show_to(owner)
 	heal_clone = (master_stats.potential >= 5)
 	heal_debuffs = (master_stats.potential >= 3)
 	purge_toxins = (master_stats.defense >= 3)
@@ -53,7 +53,7 @@
 /datum/holoparasite_ability/major/healing/remove()
 	..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.remove_hud_from(owner)
+	medsensor.hide_from(owner)
 	owner.possible_a_intents = null
 
 /datum/holoparasite_ability/major/healing/register_signals()

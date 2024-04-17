@@ -4,7 +4,7 @@
 /mob/living/simple_animal/hostile/holoparasite/death(gibbed)
 	. = ..()
 	tracking_beacon.toggle_visibility(FALSE)
-	tracking_beacon.remove_from_huds()
+	tracking_beacon.remove_atom_from_huds()
 	SSblackbox.record_feedback("amount", "holoparasites_killed", 1)
 	nullspace_if_dead(forced = TRUE)
 

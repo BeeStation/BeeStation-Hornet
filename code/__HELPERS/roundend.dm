@@ -242,7 +242,7 @@
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
 		for(var/m in GLOB.player_list)
 			var/mob/M = m
-			H.add_hud_to(M)
+			H.show_to(M)
 
 	CHECK_TICK
 

@@ -270,7 +270,7 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
 	. = ..()
 	var/datum/atom_hud/datahud = GLOB.huds[health_hud]
-	datahud.add_hud_to(src)
+	datahud.show_to(src)
 
 // Allows nurses to heal other spiders if they're adjacent
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/AttackingTarget()

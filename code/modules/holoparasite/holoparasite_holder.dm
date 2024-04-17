@@ -295,7 +295,7 @@
 /datum/holoparasite_holder/proc/remove_all_tracking_huds()
 	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites)
 		holopara.tracking_beacon.toggle_visibility(FALSE)
-		holopara.tracking_beacon.remove_from_huds()
+		holopara.tracking_beacon.remove_atom_from_huds()
 	toggle_monitor_hud(FALSE)
 
 /datum/holoparasite_holder/proc/toggle_monitor_hud(new_status, mob/living/body)

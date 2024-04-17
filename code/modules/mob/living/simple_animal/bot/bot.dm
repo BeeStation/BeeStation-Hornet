@@ -179,7 +179,7 @@
 	//Adds bot to the diagnostic HUD system
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+		diag_hud.add_atom_to_hud(src)
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
@@ -187,10 +187,10 @@
 	//If a bot has its own HUD (for player bots), provide it.
 	if(data_hud_type)
 		var/datum/atom_hud/datahud = GLOB.huds[data_hud_type]
-		datahud.add_hud_to(src)
+		datahud.show_to(src)
 	if(path_hud)
-		path_hud.add_to_hud(src)
-		path_hud.add_hud_to(src)
+		path_hud.add_atom_to_hud(src)
+		path_hud.show_to(src)
 	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 
@@ -1125,9 +1125,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/list/path_huds_watching_me = list(GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED])
 	if(path_hud)
 		path_huds_watching_me += path_hud
-	for(var/V in path_huds_watching_me)
-		var/datum/atom_hud/H = V
-		H.remove_from_hud(src)
+	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
+		hud.remove_atom_from_hud(src)
 
 	var/list/path_images = hud_list[DIAG_PATH_HUD]
 	QDEL_LIST(path_images)
@@ -1168,9 +1167,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 			path[T] = I
 			path_images += I
 
-	for(var/V in path_huds_watching_me)
-		var/datum/atom_hud/H = V
-		H.add_to_hud(src)
+	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
+		hud.show_to(src)
 
 
 /mob/living/simple_animal/bot/proc/increment_path()
