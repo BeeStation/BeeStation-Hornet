@@ -380,7 +380,7 @@ GLOBAL_VAR(restart_counter)
 	s += "Time: <b>[gameTimestamp("hh:mm")]</b><br>"
 	s += "Alert: <b>[capitalize(get_security_level())]</b><br>"
 	s += "Players: <b>[players][popcaptext]</b><br>"
-	s += "Map: <b>[SSmapping.config?.map_name ?? "Loading..."]</b><br>"
+	s += "Map: <b>[SSmapping.config?.map_name || "Loading..."]</b><br>"
 
 	var/list/urls = list()
 	var/discordurl = CONFIG_GET(string/discordurl)
