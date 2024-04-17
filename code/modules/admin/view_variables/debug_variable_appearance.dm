@@ -5,30 +5,37 @@
  * 		/appearance references are not capable of executing procs, because these are not real /image
  * 		This is why these global procs exist. Welcome to the curse.
  */
+#define ADD_UNUSED_VAR(varlist, thing, varname) if(NAMEOF(##thing, ##varname)) ##varlist += #varname
+#define RESULT_VARIABLE_NOT_FOUND "_switch_result_variable_not_found"
+
 /// Makes a var list of /appearance type actually uses. This will be only called once.
 /proc/build_virtual_appearance_vars()
-	. = list("vis_flags") // manual listing
-	var/list/unused_var_names = list(
-		"appearance", // it only does self-reference
-		"x","y","z", // these are always 0
-        "weak_reference", // it's not a good idea to make a weak_ref on this, and this won't have it
-        "vars", // inherited from /image, but /appearance hasn't this
+	var/list/used_variables = list("vis_flags") // manual listing.
+	. = used_variables
+	var/list/unused_var_names = list()
 
-		// we have no reason to show those, right?
-		"active_timers",
-		"comp_lookup",
-		"datum_components",
-		"signal_procs",
-		"status_traits",
-		"gc_destroyed",
-		"stat_tabs",
-		"cooldowns",
-		"datum_flags",
-		"visibility",
-		"verbs",
-		"tgui_shared_states"
-		)
 	var/image/dummy_image = image(null, null)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, appearance) // it only does self-reference
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, x) // xyz are always 0
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, y)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, z)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, weak_reference) // it's not a good idea to make a weak_ref on this, and this won't have it
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, vars) // inherited from /image, but /appearance hasn't this
+
+	// we have no reason to show these, right?
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, active_timers)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, comp_lookup)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, datum_components)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, signal_procs)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, status_traits)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, gc_destroyed)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, stat_tabs)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, cooldowns)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, datum_flags)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, visibility)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, tgui_shared_states)
+	ADD_UNUSED_VAR(unused_var_names, dummy_image, tgui_shared_states)
+
 	for(var/each in dummy_image.vars) // try to inherit var list from /image
 		if(each in unused_var_names)
 			continue
@@ -36,136 +43,142 @@
 	del(dummy_image)
 	dummy_image = null
 
-/// appearance type needs a manual var referencing because it doesn't have "vars" variable internally.
-/// There's no way doing this in a fancier way.
+/// debug_variable() proc but made for /appearance type specifically
 /proc/debug_variable_appearance(var_name, appearance)
 	var/value
 	try
-		switch(var_name) // Welcome to this curse
-			// appearance doesn't have "vars" variable.
-			// This means you need to target a variable manually through this way.
-
-			// appearance vars in DM document
-			if("alpha")
-				value = appearance:alpha
-			if("appearance_flags")
-				value = appearance:appearance_flags
-			if("blend_mode")
-				value = appearance:blend_mode
-			if("color")
-				value = appearance:color
-			if("desc")
-				value = appearance:desc
-			if("gender")
-				value = appearance:gender
-			if("icon")
-				value = appearance:icon
-			if("icon_state")
-				value = appearance:icon_state
-			if("invisibility")
-				value = appearance:invisibility
-			if("infra_luminosity")
-				value = appearance:infra_luminosity
-			if("filters")
-				value = appearance:filters
-			if("layer")
-				value = appearance:layer
-			if("luminosity")
-				value = appearance:luminosity
-			if("maptext")
-				value = appearance:maptext
-			if("maptext_width")
-				value = appearance:maptext_width
-			if("maptext_height")
-				value = appearance:maptext_height
-			if("maptext_x")
-				value = appearance:maptext_x
-			if("maptext_y")
-				value = appearance:maptext_y
-			if("mouse_over_pointer")
-				value = appearance:mouse_over_pointer
-			if("mouse_drag_pointer")
-				value = appearance:mouse_drag_pointer
-			if("mouse_drop_pointer")
-				value = appearance:mouse_drop_pointer
-			if("mouse_drop_zone")
-				value = appearance:mouse_drop_zone
-			if("mouse_opacity")
-				value = appearance:mouse_opacity
-			if("name")
-				value = appearance:name
-			if("opacity")
-				value = appearance:opacity
-			if("overlays")
-				value = appearance:overlays
-			if("override")
-				value = appearance:override
-			if("pixel_x")
-				value = appearance:pixel_x
-			if("pixel_y")
-				value = appearance:pixel_y
-			if("pixel_w")
-				value = appearance:pixel_w
-			if("pixel_z")
-				value = appearance:pixel_z
-			if("plane")
-				value = appearance:plane
-			if("render_source")
-				value = appearance:render_source
-			if("render_target")
-				value = appearance:render_target
-			if("suffix")
-				value = appearance:suffix
-			if("text")
-				value = appearance:text
-			if("transform")
-				value = appearance:transform
-			if("underlays")
-				value = appearance:underlays
-
-			if("parent_type")
-				value = appearance:parent_type
-			if("type")
-				value = "/appearance (as [appearance:type])" // don't fool people
-
-			// These are not documented ones but trackable values. Maybe we'd want these.
-			if("animate_movement")
-				value = appearance:animate_movement
-			if("dir")
-				value = appearance:dir
-			if("glide_size")
-				value = appearance:glide_size
-			if("pixel_step_size")
-				value = "" //appearance:pixel_step_size
-				// DM compiler complains this
-
-			// I am not sure if these will be ever detected, but I made a connection just in case.
-			if("contents")
-				value = appearance:contents
-			if("vis_contents")
-				value = appearance:vis_contents
-			if("vis_flags") // DM document says /appearance has this, but it throws error
-				value = appearance:vis_flags
-			if("loc")
-				value = appearance:loc
-
-			// we wouldn't need these, but let's these trackable anyway...
-			if("density")
-				value = appearance:density
-			if("screen_loc")
-				value = appearance:screen_loc
-			if("sorted_verbs")
-				value = appearance:sorted_verbs
-			if("tag")
-				value = appearance:tag
-			if("cached_ref")
-				value = appearance:cached_ref
-
-			else
-				return "<li style='backgroundColor:white'>(READ ONLY) [var_name] <font color='blue'>(Undefined var name in switch)</font></li>"
+		value = locate_appearance_variable(var_name, appearance)
 	catch
 		return "<li style='backgroundColor:white'>(READ ONLY) <font color='blue'>[var_name] = (untrackable)</font></li>"
+	if(value == RESULT_VARIABLE_NOT_FOUND)
+		return "<li style='backgroundColor:white'>(READ ONLY) [var_name] <font color='blue'>(Undefined var name in switch)</font></li>"
 	return "<li style='backgroundColor:white'>(READ ONLY) [var_name] = [_debug_variable_value(var_name, value, 0, appearance, sanitize = TRUE, display_flags = NONE)]</li>"
+
+/// manually locate a variable through string value.
+/// appearance type needs a manual var referencing because it doesn't have "vars" variable internally.
+/// There's no way doing this in a fancier way.
+/proc/locate_appearance_variable(var_name, atom/movable/appearance) // it isn't /movable. It had to be at it to use NAMEOF macro
+	switch(var_name) // Welcome to this curse
+		// appearance doesn't have "vars" variable.
+		// This means you need to target a variable manually through this way.
+
+		// appearance vars in DM document
+		if(NAMEOF(appearance, alpha))
+			return rappearance.alpha
+		if(NAMEOF(appearance, appearance_flags))
+			return rappearance.appearance_flags
+		if(NAMEOF(appearance, blend_mode))
+			return rappearance.blend_mode
+		if(NAMEOF(appearance, color))
+			return rappearance.color
+		if(NAMEOF(appearance, desc))
+			return rappearance.desc
+		if(NAMEOF(appearance, gender))
+			return rappearance.gender
+		if(NAMEOF(appearance, icon))
+			return rappearance.icon
+		if(NAMEOF(appearance, icon_state))
+			return rappearance.icon_state
+		if(NAMEOF(appearance, invisibility))
+			return rappearance.invisibility
+		if(NAMEOF(appearance, infra_luminosity))
+			return rappearance.infra_luminosity
+		if(NAMEOF(appearance, filters))
+			return rappearance.filters
+		if(NAMEOF(appearance, layer))
+			return rappearance.layer
+		if(NAMEOF(appearance, luminosity))
+			return rappearance.luminosity
+		if(NAMEOF(appearance, maptext))
+			return rappearance.maptext
+		if(NAMEOF(appearance, maptext_width))
+			return rappearance.maptext_width
+		if(NAMEOF(appearance, maptext_height))
+			return rappearance.maptext_height
+		if(NAMEOF(appearance, maptext_x))
+			return rappearance.maptext_x
+		if(NAMEOF(appearance, maptext_y))
+			return rappearance.maptext_y
+		if(NAMEOF(appearance, mouse_over_pointer))
+			return rappearance.mouse_over_pointer
+		if(NAMEOF(appearance, mouse_drag_pointer))
+			return rappearance.mouse_drag_pointer
+		if(NAMEOF(appearance, mouse_drop_pointer))
+			return rappearance.mouse_drop_pointer
+		if("mouse_drop_zone") // OpenDream didn't implement this yet.
+			return appearance:mouse_drop_zone
+		if(NAMEOF(appearance, mouse_opacity))
+			return rappearance.mouse_opacity
+		if(NAMEOF(appearance, name))
+			return rappearance.name
+		if(NAMEOF(appearance, opacity))
+			return rappearance.opacity
+		if(NAMEOF(appearance, overlays))
+			return rappearance.overlays
+		if("override") // only /image has this
+			var/image/image_appearance = appearance
+			return image_appearance.override
+		if(NAMEOF(appearance, pixel_x))
+			return rappearance.pixel_x
+		if(NAMEOF(appearance, pixel_y))
+			return rappearance.pixel_y
+		if(NAMEOF(appearance, pixel_w))
+			return rappearance.pixel_w
+		if(NAMEOF(appearance, pixel_z))
+			return rappearance.pixel_z
+		if(NAMEOF(appearance, plane))
+			return rappearance.plane
+		if(NAMEOF(appearance, render_source))
+			return rappearance.render_source
+		if(NAMEOF(appearance, render_target))
+			return rappearance.render_target
+		if(NAMEOF(appearance, suffix))
+			return rappearance.suffix
+		if(NAMEOF(appearance, text))
+			return rappearance.text
+		if(NAMEOF(appearance, transform))
+			return rappearance.transform
+		if(NAMEOF(appearance, underlays))
+			return rappearance.underlays
+
+		if(NAMEOF(appearance, parent_type))
+			return rappearance.parent_type
+		if(NAMEOF(appearance, type))
+			return "/appearance (as [rappearance.type])" // don't fool people
+
+		// These are not documented ones but trackable values. Maybe we'd want these.
+		if(NAMEOF(appearance, animate_movement))
+			return appearance.animate_movement
+		if(NAMEOF(appearance, dir))
+			return appearance.dir
+		if(NAMEOF(appearance, glide_size))
+			return appearance.glide_size
+		if("pixel_step_size")
+			return "" //atom_appearance.pixel_step_size
+			// DM compiler complains this
+
+		// I am not sure if these will be ever detected, but I made a connection just in case.
+		if(NAMEOF(appearance, contents)) // It's not a thing, but I don't believe how DM will change /appearance in future.
+			return appearance.contents
+		if(NAMEOF(appearance, loc)) // same reason above
+			return appearance.loc
+		if(NAMEOF(appearance, vis_contents)) // same reason above
+			return appearance.vis_contents
+		if(NAMEOF(appearance, vis_flags)) // DM document says /appearance has this, but it throws error
+			return appearance.vis_flags
+
+		// we wouldn't need these, but let's these trackable anyway...
+		if(NAMEOF(appearance, density))
+			return rappearance.density
+		if(NAMEOF(appearance, screen_loc))
+			return rappearance.screen_loc
+		if(NAMEOF(appearance, sorted_verbs))
+			return rappearance.sorted_verbs
+		if(NAMEOF(appearance, tag))
+			return rappearance.tag
+		if(NAMEOF(appearance, cached_ref))
+			return rappearance.cached_ref
+	return RESULT_VARIABLE_NOT_FOUND
 
 /// Shows a header name on top when you investigate an appearance
 /proc/vv_get_header_appearance(image/thing)
@@ -190,7 +203,11 @@
 
 /proc/vv_get_dropdown_appearance(image/thing)
 	. = list()
-    // unless you have a good reason to add a vv option for /appearance,
-    // /appearance type shouldn't alloow any vv option. Even "Mark Datum" is a questionable behaviour here.
+	// unless you have a good reason to add a vv option for /appearance,
+	// /appearance type shouldn't allow any vv option. Even "Mark Datum" is a questionable behaviour here.
 	VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "---")
 	VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "VV option not allowed")
+	return .
+
+#undef ADD_UNUSED_VAR
+#undef RESULT_VARIABLE_NOT_FOUND
