@@ -6270,9 +6270,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
 	},
-/obj/effect/turf_decal/siding/wood/end{
-	dir = 4
-	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/cmo)
 "Az" = (
@@ -6834,9 +6831,6 @@
 "CV" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular,
-/obj/structure/railing{
-	dir = 4
-	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "CX" = (
@@ -9342,9 +9336,6 @@
 	pixel_x = 2;
 	pixel_y = -1
 	},
-/obj/structure/railing{
-	dir = 8
-	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "MZ" = (
@@ -10462,6 +10453,16 @@
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/iron,
 /area/security/warden)
+"Ry" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/structure/table/glass,
+/obj/item/book/manual/wiki/sopmedical,
+/obj/item/glove_box{
+	pixel_x = 8;
+	pixel_y = 13
+	},
+/turf/open/floor/iron/showroomfloor,
+/area/medical/medbay/central)
 "Rz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -11442,10 +11443,6 @@
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
 /obj/item/storage/firstaid/advanced,
-/obj/item/glove_box{
-	pixel_x = 8;
-	pixel_y = 13
-	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "UR" = (
@@ -12264,8 +12261,13 @@
 /area/crew_quarters/kitchen/coldroom)
 "Yt" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
+/obj/structure/table/glass,
+/obj/item/storage/firstaid/regular{
+	pixel_x = -5;
+	pixel_y = 4
+	},
 /turf/open/floor/iron/showroomfloor,
-/area/medical/genetics/cloning)
+/area/medical/medbay/central)
 "Yu" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -123846,8 +123848,8 @@ Qf
 dP
 dR
 bG
-gD
 eJ
+Yt
 EH
 gD
 bo
@@ -124048,8 +124050,8 @@ Ky
 Ky
 YT
 bG
-gD
 bf
+SI
 OI
 gD
 Gc
@@ -124250,8 +124252,8 @@ MG
 dP
 dR
 bG
-gD
 Ux
+Ry
 UP
 gD
 bo
@@ -165050,7 +165052,7 @@ vs
 vs
 bF
 Mq
-Yt
+Ad
 kv
 Ps
 sX
@@ -166059,10 +166061,10 @@ vs
 vs
 vs
 JH
-JH
-JH
-JH
-JH
+Fi
+Fi
+Fi
+Fi
 JH
 JH
 IE
