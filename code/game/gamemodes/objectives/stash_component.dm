@@ -3,6 +3,8 @@
 	var/atom/movable/stash_item
 	var/datum/mind/stash_owner
 
+	var/datum/weakref/weakref_alt_hud
+
 /datum/component/stash/Initialize(datum/mind/stash_owner, atom/movable/stash_item)
 	src.stash_item = stash_item
 	src.stash_owner = stash_owner
@@ -29,9 +31,11 @@
 	if(stash_owner)
 		UnregisterSignal(stash_owner, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(parent, COMSIG_CLICK_ALT)
-	// Clear the alt appearance
-	var/atom/owner = parent
-	owner.remove_alt_appearance("stash_overlay")
+	// Clear the alt appearance. qdeling the target hud does its job
+	var/datum/atom_hud/alt_appearance = weakref_alt_hud?.resolve()
+	if(alt_appearance)
+		QDEL_NULL(alt_appearance)
+	weakref_alt_hud = null
 	. = ..()
 
 /datum/component/stash/proc/create_owner_icon(atom/owner)
@@ -41,13 +45,22 @@
 	overlay.appearance_flags = RESET_ALPHA
 	overlay.alpha = 160
 	overlay.plane = HUD_PLANE
-	owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "stash_overlay", overlay, stash_owner.current)
+
+	var/datum/atom_hud/alternate_appearance/basic/one_person/alt_appearance = owner.add_alt_appearance(
+		/datum/atom_hud/alternate_appearance/basic/one_person,
+		"stash_[REF(src)]",
+		overlay,
+		NONE,
+		owner
+	)
+	alt_appearance.show_to(owner)
+	weakref_alt_hud = WEAKREF(alt_appearance)
 
 /datum/component/stash/proc/transfer_mind(datum/source, mob/old_mob, mob/new_mob)
 	SIGNAL_HANDLER
-	var/atom/owner = parent
-	owner.remove_alt_appearance("stash_overlay")
-	create_owner_icon(owner)
+	var/datum/atom_hud/alt_appearance = weakref_alt_hud.resolve()
+	alt_appearance.hide_from(old_mob)
+	alt_appearance.show_to(new_mob)
 
 /datum/component/stash/proc/on_examine(datum/source, mob/viewer, list/examine_text)
 	SIGNAL_HANDLER

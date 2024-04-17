@@ -422,14 +422,28 @@
 
 /obj/effect/temp_visual/love_heart/invisible
 	icon_state = null
+	var/datum/weakref/alt_appearance_weakref
 
 /obj/effect/temp_visual/love_heart/invisible/Initialize(mapload, mob/seer)
 	. = ..()
 	var/image/I = image(icon = 'icons/effects/effects.dmi', icon_state = "heart", layer = ABOVE_MOB_LAYER, loc = src)
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "heart", I, seer)
+	var/datum/atom_hud/alternate_appearance/basic/one_person/alt_appearance = add_alt_appearance(
+		/datum/atom_hud/alternate_appearance/basic/one_person,
+		"heart",
+		I,
+		NONE,
+		seer
+	)
 	I.alpha = 255
 	I.appearance_flags = RESET_ALPHA
 	animate(I, alpha = 0, time = duration)
+
+/obj/effect/temp_visual/love_heart/invisible/Destroy()
+	. = ..()
+	var/datum/atom_hud/alt_appearance = alt_appearance_weakref?.resolve()
+	if(alt_appearance)
+		QDEL_NULL(alt_appearance)
+	alt_appearance_weakref = null
 
 /obj/effect/temp_visual/bleed
 	name = "bleed"
