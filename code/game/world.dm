@@ -356,24 +356,17 @@ GLOBAL_VAR(restart_counter)
 	..()
 
 /world/proc/update_status()
-
-	var/list/features = list()
-
-	if (!GLOB.enter_allowed)
-		features += "closed"
-
 	var/s = ""
-	var/hostedby
-	if(config)
-		var/server_name = CONFIG_GET(string/servername)
-		if (server_name)
-			s += "<b>[server_name]</b> &#8212; "
 
-		hostedby = CONFIG_GET(string/hostedby)
+	var/server_name = CONFIG_GET(string/servername)
+	if (server_name)
+		s += "<a href='[world.url]'><b>[server_name] - [station_name]</b></a><br>"
+	else
+		s += "<a href='[world.url]'><b>[station_name()]</b></a><br>";
 
-	s += "<b>[station_name()]</b>";
-	var/discordurl = CONFIG_GET(string/discordurl)
-	s += " (<a href='[discordurl]'>Discord</a>|<a href='http://beestation13.com'>Website</a>)"
+	var/server_tag = CONFIG_GET(string/servertag)
+	if (servertag)
+		s += "[servertag]<br>"
 
 	var/players = GLOB.clients.len
 
@@ -384,15 +377,23 @@ GLOBAL_VAR(restart_counter)
 
 	game_state = (CONFIG_GET(number/extreme_popcap) && players >= CONFIG_GET(number/extreme_popcap)) //tells the hub if we are full
 
-	if (!host && hostedby)
-		features += "hosted by <b>[hostedby]</b>"
+	s += "Time: <b>[gameTimestamp("hh:mm")]</b><br>"
+	s += "Alert: <b>[capitalize(get_security_level())]</b><br>"
+	s += "Players: <b>[players][popcaptext]</b><br>"
+	s += "Map: <b>[SSmapping.config.map_name]</b><br>"
 
-	if(length(features))
-		s += ": [jointext(features, ", ")]"
-
-	s += "<br>Time: <b>[gameTimestamp("hh:mm")]</b>"
-	s += "<br>Alert: <b>[capitalize(get_security_level())]</b>"
-	s += "<br>Players: <b>[players][popcaptext]</b>"
+	var/list/urls = list()
+	var/discordurl = CONFIG_GET(string/discordurl)
+	if (discordurl)
+		urls += "<a href='[discordurl]'>Discord</a>"
+	var/wikiurl = CONFIG_GET(string/wikiurl)
+	if (wikiurl)
+		urls += "<a href='[wikiurl]'>Wiki</A>"
+	var/websiteurl = CONFIG_GET(string/websiteurl)
+	if (websiteurl)
+		urls += "<a href='[websiteurl]'>Website</A>"
+	if (length(urls))
+		s += jointext(urls, " | ")
 
 	status = s
 
