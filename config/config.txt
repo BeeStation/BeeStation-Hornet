@@ -288,7 +288,7 @@ GITHUBURL https://www.github.com/beestation/beestation-hornet
 DONATEURL https://www.patreon.com/user?u=10639001
 
 ## Discord Invite
-DISCORDURL https://discord.gg/zUe34rs
+DISCORDURL https://discord.gg/ss13
 
 ## Website URL
 WEBSITEURL http://beestation13.com
