@@ -244,12 +244,15 @@
 /turf/open/floor/plating/asteroid,
 /area/space)
 "bp" = (
-/obj/effect/spawner/structure/window,
-/obj/structure/railing{
-	dir = 4
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
 	},
-/turf/open/floor/plating,
-/area/crew_quarters/kitchen)
+/turf/open/floor/plating/dirt,
+/area/space)
 "br" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/holopad,
@@ -915,7 +918,7 @@
 	req_access_txt = "9";
 	dir = 2
 	},
-/obj/item/grown/bananapeel/bombanana,
+/obj/item/grown/bananapeel,
 /turf/open/floor/grass,
 /area/medical/genetics)
 "dW" = (
@@ -1182,10 +1185,10 @@
 /turf/closed/wall,
 /area/security/brig/medbay)
 "eZ" = (
-/obj/structure/stairs,
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
+/obj/structure/railing{
+	dir = 1
 	},
+/turf/open/floor/plating/dirt,
 /area/security/prison)
 "fa" = (
 /turf/open/floor/iron/checker,
@@ -1580,6 +1583,13 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/genetics/cloning)
+"gB" = (
+/obj/structure/flora/grass/jungle,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plating/dirt/planetary,
+/area/medical/genetics)
 "gD" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/iron/showroomfloor,
@@ -3579,6 +3589,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/wood/big,
 /area/vacant_room/commissary/commissary1)
+"oW" = (
+/obj/structure/stairs,
+/turf/open/floor/plating/dirt,
+/area/security/prison)
 "oX" = (
 /obj/machinery/chem_master/condimaster{
 	desc = "Used to separate out liquids - useful for purifying botanical extracts. Also dispenses condiments.";
@@ -4292,10 +4306,11 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "sB" = (
-/mob/living/carbon/monkey,
-/obj/structure/flora/junglebush/c,
-/turf/open/floor/grass,
-/area/medical/genetics)
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plating/dirt,
+/area/security/prison)
 "sD" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -4900,10 +4915,6 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/lobby)
-"vr" = (
-/mob/living/carbon/monkey,
-/turf/open/floor/plating/dirt/planetary,
-/area/medical/genetics)
 "vs" = (
 /turf/open/openspace,
 /area/space)
@@ -4922,9 +4933,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
+/turf/open/floor/plating/dirt,
 /area/security/prison)
 "vz" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -4934,18 +4943,13 @@
 /turf/open/floor/grass,
 /area/hydroponics)
 "vB" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_y = 32
-	},
-/obj/machinery/light/floor{
-	brightness = 15;
-	bulb_colour = "#FFE4CE";
-	bulb_vacuum_brightness = 15;
-	nightshift_brightness = 10;
-	nightshift_light_color = "#E6EBFF"
+/obj/structure/flora/grass/jungle/b,
+/obj/item/food/grown/banana,
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/grass,
-/area/space)
+/area/medical/genetics)
 "vE" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1;
@@ -5202,7 +5206,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/iron/showroomfloor,
+/turf/open/floor/iron/dark,
 /area/medical/genetics)
 "wP" = (
 /obj/structure/curtain/bounty,
@@ -5267,6 +5271,9 @@
 	pixel_y = 2
 	},
 /obj/structure/table/glass,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
 "xe" = (
@@ -5430,9 +5437,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "8-16"
 	},
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
+/turf/open/floor/plating/dirt,
 /area/security/prison)
 "xE" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -6117,9 +6122,7 @@
 	name = "Security Locker Room"
 	})
 "Av" = (
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
+/turf/open/floor/plating/dirt,
 /area/security/prison)
 "Aw" = (
 /obj/structure/table/reinforced,
@@ -6800,9 +6803,6 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "Dz" = (
-/obj/machinery/vending/wallmed{
-	pixel_y = -32
-	},
 /obj/machinery/light/floor{
 	brightness = 15;
 	bulb_colour = "#FFE4CE";
@@ -6810,8 +6810,8 @@
 	nightshift_brightness = 10;
 	nightshift_light_color = "#E6EBFF"
 	},
-/turf/open/floor/grass,
-/area/space)
+/turf/open/floor/iron/dark,
+/area/medical/medbay/central)
 "DA" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
@@ -6919,12 +6919,10 @@
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "DU" = (
-/obj/structure/railing{
+/obj/structure/railing/corner{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
+/turf/open/floor/plating/dirt,
 /area/security/prison)
 "DV" = (
 /obj/effect/turf_decal/siding/wood{
@@ -8031,9 +8029,7 @@
 /turf/closed/wall,
 /area/security/checkpoint/medical)
 "Il" = (
-/mob/living/carbon/monkey,
 /obj/structure/flora/grass/jungle/b,
-/obj/machinery/airalarm/directional/north,
 /turf/open/floor/plating/dirt/planetary,
 /area/medical/genetics)
 "Im" = (
@@ -8068,6 +8064,12 @@
 	dir = 1
 	},
 /turf/open/floor/prison/dark,
+/area/security/prison)
+"Is" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/plating/dirt,
 /area/security/prison)
 "It" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
@@ -8605,7 +8607,6 @@
 "KO" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes,
-/mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/medical/genetics)
 "KQ" = (
@@ -9002,7 +9003,7 @@
 /area/security/prison)
 "MC" = (
 /obj/structure/flora/grass/jungle,
-/obj/item/grown/bananapeel/bombanana,
+/obj/item/grown/bananapeel,
 /turf/open/floor/grass,
 /area/medical/genetics)
 "ME" = (
@@ -9094,7 +9095,6 @@
 /turf/open/floor/grass,
 /area/space)
 "MV" = (
-/obj/structure/flora/tree/jungle,
 /turf/open/floor/plating/dirt/planetary,
 /area/medical/genetics)
 "MY" = (
@@ -10000,6 +10000,9 @@
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/medical/break_room)
@@ -10946,6 +10949,12 @@
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
+"Uf" = (
+/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/ausbushes,
+/obj/machinery/airalarm/directional/north,
+/turf/open/floor/plating/dirt/planetary,
+/area/medical/genetics)
 "Uh" = (
 /obj/effect/turf_decal/siding/wood{
 	layer = 1
@@ -11262,6 +11271,11 @@
 "VD" = (
 /mob/living/carbon/monkey,
 /obj/structure/flora/grass/jungle/b,
+/mob/living/carbon/monkey,
+/mob/living/carbon/monkey,
+/mob/living/carbon/monkey,
+/mob/living/carbon/monkey,
+/mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/medical/genetics)
 "VE" = (
@@ -11656,6 +11670,10 @@
 /obj/structure/mecha_wreckage/honker,
 /turf/open/floor/wood/big,
 /area/crew_quarters/theatre/backstage)
+"Xa" = (
+/obj/structure/flora/tree/jungle,
+/turf/open/floor/plating/dirt/planetary,
+/area/medical/genetics)
 "Xb" = (
 /obj/structure/railing,
 /obj/effect/turf_decal/tile/black/opposingcorners,
@@ -12096,6 +12114,9 @@
 	pixel_x = -7;
 	pixel_y = 24
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/medical/genetics/cloning)
 "Zn" = (
@@ -12233,9 +12254,7 @@
 /area/crew_quarters/bar)
 "ZX" = (
 /obj/item/pickaxe,
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
+/turf/open/floor/plating/dirt,
 /area/security/prison)
 "ZY" = (
 /obj/structure/closet/secure_closet/medical2,
@@ -42245,7 +42264,7 @@ Iz
 Iz
 Iz
 Av
-Av
+ZX
 Av
 Av
 Ke
@@ -42447,8 +42466,8 @@ Iz
 Iz
 Iz
 Av
-ZX
-DU
+sB
+sB
 DU
 Ke
 jy
@@ -42649,8 +42668,8 @@ Iz
 Iz
 Iz
 Av
-Av
-eZ
+oW
+oW
 eZ
 Ke
 jy
@@ -42851,9 +42870,9 @@ Iz
 Iz
 Iz
 Av
-Av
 vy
 vy
+Is
 Ke
 jy
 jy
@@ -78220,7 +78239,7 @@ qy
 EA
 GO
 rv
-bp
+rv
 fa
 fa
 fa
@@ -80645,10 +80664,10 @@ Uc
 Uc
 Uc
 DG
-jy
+bp
 bo
-jy
-fY
+bp
+Uc
 Uc
 Uc
 Uc
@@ -81250,11 +81269,11 @@ Uc
 Uc
 Uc
 Uc
-fY
-jy
+Uc
+bp
 bo
-jy
-fY
+bp
+Uc
 pJ
 pJ
 pJ
@@ -81856,11 +81875,11 @@ qj
 Al
 Uc
 Uc
-fY
-jy
+Uc
+bp
 bo
-jy
-fY
+bp
+Uc
 pJ
 im
 na
@@ -82462,11 +82481,11 @@ xw
 Al
 Uc
 Uc
-fY
-jy
+Uc
+bp
 bo
-jy
-fY
+bp
+Uc
 pJ
 jp
 Ma
@@ -83068,11 +83087,11 @@ pC
 js
 os
 zR
-vB
-jy
+mH
+bp
 bo
-jy
-Dz
+bp
+Uc
 aL
 sW
 OP
@@ -83675,9 +83694,9 @@ pC
 WV
 zR
 PM
-jy
+bp
 bo
-jy
+bp
 VT
 aL
 Oh
@@ -84483,9 +84502,9 @@ js
 Ev
 zR
 PM
-jy
+bp
 bo
-jy
+bp
 VT
 aL
 KU
@@ -85089,9 +85108,9 @@ js
 os
 zR
 mH
-jy
+bp
 bo
-jy
+bp
 jx
 aL
 XI
@@ -85695,9 +85714,9 @@ Uc
 Uc
 Uc
 Uc
-jy
+bp
 bo
-jy
+bp
 Uc
 EH
 nD
@@ -86301,9 +86320,9 @@ Uc
 Uc
 Uc
 Uc
+bp
 jy
-jy
-jy
+bp
 jy
 eX
 ck
@@ -163880,11 +163899,11 @@ Om
 Vd
 zr
 bF
-sX
+Dz
 bj
 sX
 sX
-sX
+Dz
 bh
 vs
 vs
@@ -165698,11 +165717,11 @@ JX
 NF
 NF
 Lp
-sX
+Dz
 MR
 sX
 bj
-sX
+Dz
 bh
 vs
 vs
@@ -166098,7 +166117,7 @@ vs
 vs
 vs
 JH
-Ld
+vB
 Kl
 KO
 MC
@@ -166301,8 +166320,8 @@ vs
 vs
 JH
 Il
-VD
 Kl
+Ld
 rL
 JH
 ei
@@ -166502,7 +166521,7 @@ vs
 vs
 vs
 JH
-Ew
+Uf
 Ew
 VD
 rL
@@ -166705,7 +166724,7 @@ vs
 vs
 JH
 wV
-tO
+Il
 tO
 Ol
 TD
@@ -166907,9 +166926,9 @@ vs
 vs
 JH
 zU
-MV
+Xa
 pH
-sB
+af
 JH
 LD
 du
@@ -167108,8 +167127,8 @@ vs
 vs
 vs
 JH
-zU
-vr
+gB
+MV
 dc
 af
 JH
