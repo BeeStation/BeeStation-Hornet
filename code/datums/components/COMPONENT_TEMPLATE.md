@@ -16,7 +16,7 @@ See _component.dm for detailed explanations
 		send_to_playing_players(myargtwo)
 
 /datum/component/mycomponent/RegisterWithParent()
-	// RegisterSignal can take a signal name by itself,
+	// RegisterSignal can take a signal name by itself.
 	RegisterSignal(parent, COMSIG_NOT_REAL, PROC_REF(signalproc))
 
 	// or a list of them to assign to the same proc
