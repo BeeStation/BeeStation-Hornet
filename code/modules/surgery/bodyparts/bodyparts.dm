@@ -489,7 +489,7 @@
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
-	if(owner.stat <= HARD_CRIT)
+	if(owner.stat < HARD_CRIT)
 		return FALSE
 	return ..()
 
