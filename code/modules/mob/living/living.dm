@@ -420,7 +420,7 @@
 
 /mob/living/verb/succumb(whispered as null)
 	set hidden = TRUE
-	if (!HAS_TRAIT(src, TRAIT_CRITICAL_CONDITION) || HAS_TRAIT(src, TRAIT_NODEATH))
+	if (!CAN_SUCCUMB(src))
 		return
 
 	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", LOG_ATTACK)
