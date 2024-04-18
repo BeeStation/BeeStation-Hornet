@@ -18,8 +18,18 @@
 	if(!.)
 		return
 	for(var/mob/living/M in oview(XENOA_TRAIT_BALLOON_HINT_DIST, get_turf(parent.parent)))
-		if(M.can_see_reagents())
-			do_hint(M)
+		do_hint(M)
+
+/datum/xenoartifact_trait/malfunction/do_hint(mob/user, atom/item)
+	//If they have science goggles, or equivilent, they are shown exatcly what trait this is
+	if(!user?.can_see_reagents())
+		return
+	var/atom/A = parent.parent
+	if(!isturf(A.loc))
+		A = A.loc
+	A.balloon_alert(user, label_name, parent.artifact_type.material_color, offset_y = 8)
+	//show_in_chat doesn't work
+	to_chat(user, "<span class='notice'>[parent.parent] : [label_name]</span>")
 
 /*
 	Parallel Entity Retrieval

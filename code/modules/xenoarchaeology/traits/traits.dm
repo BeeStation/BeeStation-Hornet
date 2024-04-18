@@ -207,7 +207,7 @@
 	var/atom/A = parent.parent
 	if(!isturf(A.loc))
 		A = A.loc
-	A.balloon_alert(user, label_name, parent.artifact_type.material_color, TRUE)
+	A.balloon_alert(user, label_name, parent.artifact_type.material_color)
 	//show_in_chat doesn't work
 	to_chat(user, "<span class='notice'>[parent.parent] : [label_name]</span>")
 
@@ -226,9 +226,7 @@
 		var/atom/target_loc = A.loc
 		target_loc.visible_message("<span class='warning'>[A] develops a slight opening!</span>\n<span class='notice'>You could probably use a screwdriver on [A]!</span>", allow_inside_usr = TRUE)
 		//Do effects
-	else
-		//Undo effects
-		return
+		playsound(A, 'sound/machines/clockcult/ark_damage.ogg', 50, TRUE)
 
 /datum/xenoartifact_trait/proc/catch_pearl_tool(datum/source, mob/living/user, obj/item/I, list/recipes)
 	SIGNAL_HANDLER

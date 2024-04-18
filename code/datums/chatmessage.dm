@@ -455,14 +455,14 @@
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
-/atom/proc/balloon_alert(mob/viewer, text, color = null, show_in_chat = TRUE)
+/atom/proc/balloon_alert(mob/viewer, text, color = null, show_in_chat = TRUE, offset_x, offset_y)
 	if(!viewer?.client)
 		return
 	switch(viewer.client.prefs.read_player_preference(/datum/preference/choiced/show_balloon_alerts))
 		if(BALLOON_ALERT_ALWAYS)
-			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
+			new /datum/chatmessage/balloon_alert(text, src, viewer, color, offset_x, offset_y)
 		if(BALLOON_ALERT_WITH_CHAT)
-			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
+			new /datum/chatmessage/balloon_alert(text, src, viewer, color, offset_x, offset_y)
 			if(show_in_chat)
 				to_chat(viewer, "<span class='notice'>[text].</span>")
 		if(BALLOON_ALERT_NEVER)
@@ -482,7 +482,7 @@
 /datum/chatmessage/balloon_alert
 	tgt_color = "#ffffff" //default color
 
-/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner, color)
+/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner, color, offset_x, offset_y)
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
@@ -492,7 +492,7 @@
 	//handle color
 	if(color)
 		tgt_color = color
-	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner)
+	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner, offset_x, offset_y)
 
 /datum/chatmessage/balloon_alert/Destroy()
 	if(!QDELETED(message_loc))
@@ -504,7 +504,7 @@
 	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), fadetime, TIMER_DELETE_ME, SSrunechat)
 
-/datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner)
+/datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner, offset_x, offset_y)
 	// Register client who owns this message
 	var/client/owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_qdel))
@@ -536,6 +536,8 @@
 	message.maptext_height = WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
 	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
 	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
+	message.pixel_x = offset_x
+	message.pixel_y = offset_y
 
 	// View the message
 	owned_by.images += message
@@ -547,7 +549,7 @@
 		duration_mult += duration_length * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 
 	// Animate the message
-	animate(message, alpha = 255, pixel_y = world.icon_size * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
+	animate(message, alpha = 255, pixel_y = (message.pixel_y + world.icon_size) * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
 
 	LAZYADD(message_loc.balloon_alerts, src)
 
