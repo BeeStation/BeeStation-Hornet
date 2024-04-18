@@ -1,11 +1,12 @@
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from 'tgui/backend';
-import { Box, Button, Icon, LabeledList, NoticeBox, Section, Stack, Table } from '../components';
-import { Window } from '../layouts';
+import { Box, Button, Icon, LabeledList, NoticeBox, Section, Stack, Table } from 'tgui/components';
+import { Window } from 'tgui/layouts';
 
 type VendingData = {
   onstation: boolean;
-  department: string;
+  department_bitflag: string;
+  jobDiscount: number;
   product_records: ProductRecord[];
   coin_records: CoinRecord[];
   hidden_records: HiddenRecord[];
@@ -42,7 +43,7 @@ type UserData = {
   name: string;
   cash: number;
   job: string;
-  department: string;
+  department_bitflag: string;
 };
 
 type StockItem = {
@@ -94,6 +95,7 @@ export const Vending = (props, context) => {
       });
     })
   );
+
   return (
     <Window width={450} height={600}>
       <Window.Content>
@@ -123,7 +125,7 @@ export const Vending = (props, context) => {
 };
 
 /** Displays user details if an ID is present and the user is on the station */
-const UserDetails = (props, context) => {
+export const UserDetails = (props, context) => {
   const { data } = useBackend<VendingData>(context);
   const { user } = data;
 
@@ -160,6 +162,7 @@ const ProductDisplay = (
   const { data } = useBackend<VendingData>(context);
   const { custom, inventory, selectedCategory } = props;
   const { stock, onstation, user } = data;
+
   return (
     <Section
       fill
@@ -191,14 +194,19 @@ const ProductDisplay = (
 };
 
 /** An individual listing for an item.
- * Uses a table layout - Labeledlist might be better,
+ * Uses a table layout. Labeledlist might be better,
  * but you cannot use item icons as labels currently.
  */
 const VendingRow = (props, context) => {
   const { data } = useBackend<VendingData>(context);
   const { custom, product, productStock } = props;
-  const { department, onstation, user } = data;
-  const free = !onstation || product.price === 0 || (!product.premium && department && user);
+  const { access, department_bitflag, jobDiscount, onstation, user } = data;
+  const free = !onstation || product.price === 0 || (!product.premium && department_bitflag === user?.department_bitflag);
+  const discount = !product.premium && department_bitflag === user?.department_bitflag;
+  const remaining = custom ? product.amount : productStock.amount;
+  const redPrice = Math.round(product.price * jobDiscount);
+  const disabled =
+    remaining === 0 || (onstation && !user) || (onstation && !access && (discount ? redPrice : product.price) > user?.cash);
 
   return (
     <Table.Row>
@@ -206,12 +214,19 @@ const VendingRow = (props, context) => {
         <ProductImage product={product} />
       </Table.Cell>
       <Table.Cell bold>{product.name.replace(/^\w/, (c) => c.toUpperCase())}</Table.Cell>
-      <Table.Cell>{!!productStock?.colorable && <ProductColorSelect free={free} product={product} />}</Table.Cell>
+      <Table.Cell>{!!productStock?.colorable && <ProductColorSelect disabled={disabled} product={product} />}</Table.Cell>
       <Table.Cell collapsing textAlign="right">
-        <ProductStock custom={custom} product={product} productStock={productStock} />
+        <ProductStock custom={custom} product={product} remaining={remaining} />
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
-        <ProductButton free={free} product={product} productStock={productStock} />
+        <ProductButton
+          custom={custom}
+          disabled={disabled}
+          discount={discount}
+          free={free}
+          product={product}
+          redPrice={redPrice}
+        />
       </Table.Cell>
     </Table.Row>
   );
@@ -226,6 +241,7 @@ const ProductImage = (props) => {
       src={`data:image/jpeg;base64,${product.img}`}
       style={{
         'vertical-align': 'middle',
+        'text-align': 'center',
       }}
     />
   ) : (
@@ -233,25 +249,9 @@ const ProductImage = (props) => {
       className={classes(['vending32x32', product.path])}
       style={{
         'vertical-align': 'middle',
+        'text-align': 'center',
       }}
     />
-  );
-};
-
-/** Displays a colored indicator for remaining stock */
-const ProductStock = (props) => {
-  const { custom, product, productStock } = props;
-
-  return (
-    <Box
-      color={
-        (custom && 'good') ||
-        (productStock.amount <= 0 && 'bad') ||
-        (productStock.amount <= product.max_amount / 2 && 'average') ||
-        'good'
-      }>
-      {custom ? product.amount : productStock.amount} left
-    </Box>
   );
 };
 
@@ -259,51 +259,64 @@ const ProductStock = (props) => {
  * this displays a color wheel button that opens another window.
  */
 const ProductColorSelect = (props, context) => {
-  const { act, data } = useBackend<VendingData>(context);
-  const { user, onstation, department } = data;
-  const { product, productStock } = props;
-  const free = !onstation || product.price === 0 || (!product.premium && department && user);
+  const { act } = useBackend<VendingData>(context);
+  const { disabled, product } = props;
 
   return (
     <Button
       icon="palette"
       tooltip="Change color"
-      disabled={productStock?.amount === 0 || !user || (product.price > user.cash && !free)}
+      disabled={disabled}
       onClick={() => act('select_colors', { ref: product.ref })}
     />
+  );
+};
+
+/** Displays a colored indicator for remaining stock */
+const ProductStock = (props) => {
+  const { custom, product, remaining } = props;
+
+  return (
+    <Box color={(remaining <= 0 && 'bad') || (!custom && remaining <= product.max_amount / 2 && 'average') || 'good'}>
+      {remaining} left
+    </Box>
   );
 };
 
 /** The main button to purchase an item. */
 const ProductButton = (props, context) => {
   const { act, data } = useBackend<VendingData>(context);
-  const { access, department, user, onstation } = data;
-  const { custom, free, product, productStock } = props;
-  const discount = (department === user?.department && !product.premium) || !data.onstation;
-  const redPrice = Math.round(product.price * 0);
-
+  const { access } = data;
+  const { custom, discount, disabled, free, product, redPrice } = props;
+  const customPrice = access ? 'FREE' : product.price + ' cr';
+  let standardPrice = product.price + ' cr';
+  if (free) {
+    standardPrice = 'FREE';
+  } else if (discount) {
+    standardPrice = redPrice + ' cr';
+  }
   return custom ? (
     <Button
       fluid
-      disabled={productStock.amount === 0 || ((!user || (product.price > user.cash && !free)) && onstation)}
-      content={access ? 'FREE' : product.price + ' cr'}
+      disabled={disabled}
       onClick={() =>
         act('dispense', {
           'item': product.name,
         })
-      }
-    />
+      }>
+      {customPrice}
+    </Button>
   ) : (
     <Button
       fluid
-      disabled={productStock.amount === 0 || ((!user || (product.price > user.cash && !free)) && onstation)}
-      content={discount ? 'FREE' : product.price + ' cr'}
+      disabled={disabled}
       onClick={() =>
         act('vend', {
           'ref': product.ref,
         })
-      }
-    />
+      }>
+      {standardPrice === 'FREE' ? 'FREE' : standardPrice}
+    </Button>
   );
 };
 

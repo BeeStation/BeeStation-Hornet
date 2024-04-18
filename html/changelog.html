@@ -56,6 +56,56 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">16 April 2024</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes flags_1 define macros</li>
+			</ul>
+
+			<h2 class="date">15 April 2024</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">slightly improved weather datum. This may fix a bug that weathers (radiation storm*) are rendered incorrectly.</li>
+			</ul>
+			<h3 class="author">Mothblocks, Rkz, miliviu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes cigarette boxes not rendering properly when closed</li>
+				<li class="rscadd">donuts in boxes now reflect their contents</li>
+				<li class="bugfix">Putting a Santa Hat on Ian now shows the hat</li>
+			</ul>
+
+			<h2 class="date">13 April 2024</h2>
+			<h3 class="author">rkz, coiax, zxaber updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">AI's can now set their emote displays across the station through a radial by clicking on them, or by using *emotes in chatbar.</li>
+				<li class="refactor">Refactored the AI Emote system to not be a 17 line if statement column.</li>
+				<li class="bugfix">Fix issue where AI couldnt change statusdisplay emote after it was set</li>
+				<li class="bugfix">Added extra checks to ensure a power disabled AI could eventually return itself to power (reinforcing intended behavior)</li>
+			</ul>
+
+			<h2 class="date">11 April 2024</h2>
+			<h3 class="author">JixS4v updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">orbiting a zmimic as a ghost will make you orbit the original atom.</li>
+			</ul>
+
+			<h2 class="date">10 April 2024</h2>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed wigs attached to animals being sent to the shadow realm after a pet is released from a person's grasp</li>
+				<li class="bugfix">Fixed wigs bitflag checking uses && instead of single &</li>
+			</ul>
+			<h3 class="author">rkz, jlsnow301, Tlaltecuhtli, ExcessiveUseOfCobblestone, antropod, cacogen updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Vendors actually consider item prices. You cannot buy all products(minus premiums which still had price) for free.</li>
+				<li class="bugfix">You can now return items that were vended from vendors. It will replenish stock appropriately, but you wont get a refund.</li>
+				<li class="bugfix">You cannot use vendor returns as a method to move vendors off the z-level.</li>
+				<li class="bugfix">No more BSOD on adding items to custom vendor</li>
+				<li class="code_imp">removed 5 year old deprecated references on cooking vendors</li>
+				<li class="code_imp">The vending machine, on item insertion, no longer tries to update html menus that havent existed for 3+ years</li>
+				<li class="code_imp">adds framework for job discounts at vendors if within the same department. Not currently enabled.</li>
+			</ul>
+
 			<h2 class="date">08 April 2024</h2>
 			<h3 class="author">rkz, Timberpoes updated:</h3>
 			<ul class="changes bgimages16">
@@ -688,88 +738,6 @@
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="code_imp">Optimized GAGS via Rust-g. It is now 250x faster.</li>
-			</ul>
-
-			<h2 class="date">15 February 2024</h2>
-			<h3 class="author">Aramix updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">IV drip sprite now properly updates again</li>
-			</ul>
-			<h3 class="author">DrDuckedGoose updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fix high-traction mapping helper</li>
-			</ul>
-			<h3 class="author">Impish_Delights updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Due to numerous complaints from Syndicate Agents and NT Sec alike, all ballistic firearms are now pre-chambered right off the shelf. Happy hunting!</li>
-			</ul>
-			<h3 class="author">MarkusLarsson421 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="imageadd">New decals of three different sizes to say where Departures is</li>
-			</ul>
-			<h3 class="author">Programs-The-Station updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed Corg's Bot Pathfinding Trap</li>
-				<li class="rscadd">Adds a "Remove All Overlays" input to the BCI Object Overlay. This does what it says on the box.</li>
-			</ul>
-			<h3 class="author">XeonMations updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added six more maintenance rooms!</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Mentors are no longer reloaded when admin datums are created.</li>
-				<li class="tweak">Admins can no longer see mentor-only verbs when deadminned.</li>
-			</ul>
-			<h3 class="author">itsmeow, LemonInTheDark, Timberpoes, Rohesie updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Improved ban cache loading, reducing post-roundstart lag.</li>
-			</ul>
-
-			<h2 class="date">14 February 2024</h2>
-			<h3 class="author">spockye updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed meta Brig and the area around it</li>
-			</ul>
-
-			<h2 class="date">13 February 2024</h2>
-			<h3 class="author">Hardly updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Replica Jackboots are now available in the loadout shop.</li>
-				<li class="rscadd">White winter coats, replica jackboots and winter shoes can now be obtained through the clothesmate.</li>
-			</ul>
-
-			<h2 class="date">12 February 2024</h2>
-			<h3 class="author">MarkusLarsson421 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes power hungry trait description.</li>
-			</ul>
-
-			<h2 class="date">10 February 2024</h2>
-			<h3 class="author">Dakae Reds88 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes an exploit related to imperfect mutation toxin</li>
-				<li class="tweak">Imperfect Mutation Toxin no longer instantly transforms the user upon processing</li>
-			</ul>
-			<h3 class="author">Haliris updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Venus human trap cannot pull anything anymore.</li>
-				<li class="balance">Venus human trap will now lose HP for every second they spend off vines, while healing slowly within them.</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a backstory selection system for Traitors, allowing easier determination of the roleplay motivations behind a traitor.</li>
-				<li class="code_imp">Cleaned up traitor objective generation and split AI vs human traitors into their own files.</li>
-				<li class="tweak">Changed how murderbone is determined for traitors. It no longer depends directly on your objectives, but instead informs your objectives. As a consequence, lowered the 'base' probability to match the previous overall probability.</li>
-				<li class="bugfix">Fixes a bug from when soft-tracked objectives were added, it accidentally lowered the rate of murderbone traitors. This has been corrected.</li>
-				<li class="rscadd">Enabled the 'neutral' theme for emagged ModPCs, for use by non-syndicate traitors.</li>
-				<li class="admin">Added traitor faction and backstory display to Traitor Panel. Added logging for faction/backstory selection.</li>
-			</ul>
-
-			<h2 class="date">09 February 2024</h2>
-			<h3 class="author">XeonMations, Dakae updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">AIs now talk in loud mode over the binary channel for themselves, their linked borgs and any humans/observers!</li>
 			</ul>
 		</div>
 
