@@ -231,7 +231,7 @@
 	speed = 5
 	melee_damage = 30
 	armour_penetration = 30
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	attacktext = "acts out divine vengeance on"
 	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
