@@ -335,17 +335,15 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "succumb"
 
 /atom/movable/screen/alert/succumb/Click()
-	if (isobserver(usr))
+	. = ..()
+	if(!.)
 		return
-
 	var/mob/living/living_owner = owner
-	var/last_whisper = input("Do you have any last words?", "Final Words") as null | text
+	var/last_whisper = tgui_input_text(usr, "Do you have any last words?", "Goodnight, Sweet Prince")
 	if (isnull(last_whisper) || !CAN_SUCCUMB(living_owner))
 		return
-
 	if (length(last_whisper))
 		living_owner.say("#[last_whisper]")
-
 	living_owner.succumb(whispered = length(last_whisper) > 0)
 
 //ALIENS
