@@ -506,8 +506,7 @@
 	if(ranged && ranged_cooldown <= world.time)
 		GiveTarget(A)
 		OpenFire(A)
-	..()
-
+	return ..()
 
 
 ////// AI Status ///////

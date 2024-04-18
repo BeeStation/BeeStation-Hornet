@@ -123,6 +123,7 @@
 	charging.update_icon()
 	charging.forceMove(drop_location())
 	setCharging(null)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/recharger/process(delta_time)
 	if(machine_stat & (NOPOWER|BROKEN) || !anchored)
