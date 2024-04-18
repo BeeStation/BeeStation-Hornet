@@ -19,9 +19,6 @@ GLOBAL_LIST(xenoa_uranium_traits)
 GLOBAL_LIST(xenoa_bananium_traits)
 GLOBAL_LIST(xenoa_pearl_traits)
 
-///Whitelist of items ofr familiar artifacts
-GLOBAL_LIST_INIT(xenoa_familiar_items, list(/obj/item/kitchen/fork))
-
 ///Incompatability lists
 GLOBAL_LIST(xenoa_item_incompatible)
 GLOBAL_LIST(xenoa_mob_incompatible)

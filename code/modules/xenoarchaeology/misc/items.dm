@@ -83,26 +83,3 @@
 			trait_list += T.type
 	var/obj/item/sticker/xenoartifact_label/old/P = new(get_turf(src), trait_list)
 	P.afterattack(src, src, TRUE)
-
-/*
-	Familiar variant
-	This is technically a helper.
-	Spawns a random item, from a list, and gives it an artifact component
-	Used for archaeology, loot, and joke stuff
-*/
-/obj/effect/mapping_helpers/familiar_artifact
-	name = "familiar artifact"
-	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
-	icon_state = "map_editor"
-
-/obj/effect/mapping_helpers/familiar_artifact/Initialize(mapload)
-	. = ..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/effect/mapping_helpers/familiar_artifact/LateInitialize()
-	. = ..()
-	var/atom/A = pick(GLOB.xenoa_familiar_items)
-	A = new A(loc)
-	A.name = "artifact"
-	A.AddComponent(/datum/component/xenoartifact)
-	A.name = "familiar [A.name]"

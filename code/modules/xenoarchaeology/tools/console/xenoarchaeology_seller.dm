@@ -5,7 +5,6 @@
 #define SELLER_PERSONALITY_GENEROUS "SELLER_PERSONALITY_GENEROUS"
 #define SELLER_PERSONALITY_NORMAL "SELLER_PERSONALITY_NORMAL"
 #define SELLER_PERSONALITY_STINGY "SELLER_PERSONALITY_STINGY"
-#define SELLER_PERSONALITY_SCARED "SELLER_PERSONALITY_SCARED"
 
 //Move this to its own datum file if you implement it for other sub departments of science
 /datum/rnd_lister
@@ -78,11 +77,35 @@
 	Actual types of artifact sellers
 */
 
-//Will sell random artifacts equally, but at a stingy price
+//Will sell random artifacts equally
 /datum/rnd_lister/artifact_seller/bastard
 	name = "Sidorovich"
 	dialogue = "What are you standing there for? come closer."
+	personality = SELLER_PERSONALITY_NORMAL
+	max_stock = 2
+
+//Sells uranium, and rarely, banaium artifacts
+/datum/rnd_lister/artifact_seller/uranium_bananium
+	name = "Deepthroat"
+	dialogue = "..."
 	personality = SELLER_PERSONALITY_STINGY
+	artifact_types = list(XENOA_URANIUM = 3, XENOA_BANANIUM = 1)
+
+//Sells bluespace
+/datum/rnd_lister/artifact_seller/bluespace
+	name = "Raichovich"
+	dialogue = "These things make my head hurt, take the from me!"
+	personality = SELLER_PERSONALITY_NORMAL
+	artifact_types = list(XENOA_BLUESPACE = 1)
+	max_stock = 3
+
+//Sells plasma & bluespace
+/datum/rnd_lister/artifact_seller/plasma_bluespace
+	name = "Shalashaska"
+	dialogue = "Maybe I'm colorblind, but some of these don't look blue..."
+	personality = SELLER_PERSONALITY_STINGY
+	artifact_types = list(XENOA_BLUESPACE = 1, XENOA_PLASMA = 1)
+	max_stock = 2
 
 /*
 	Supply pack for this system
@@ -102,4 +125,3 @@
 #undef SELLER_PERSONALITY_GENEROUS
 #undef SELLER_PERSONALITY_NORMAL
 #undef SELLER_PERSONALITY_STINGY
-#undef SELLER_PERSONALITY_SCARED

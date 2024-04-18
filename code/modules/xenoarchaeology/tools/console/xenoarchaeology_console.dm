@@ -16,7 +16,8 @@
 	var/datum/bank_account/budget
 
 	///List of current listing sellers
-	var/list/sellers = list(/datum/rnd_lister/artifact_seller/bastard, /datum/rnd_lister/artifact_seller/bastard, /datum/rnd_lister/artifact_seller/bastard)
+	var/list/sellers = list(/datum/rnd_lister/artifact_seller/bastard, /datum/rnd_lister/artifact_seller/uranium_bananium,
+	/datum/rnd_lister/artifact_seller/bluespace, /datum/rnd_lister/artifact_seller/plasma_bluespace)
 
 	///radio used by the console to send messages on science channel
 	var/obj/item/radio/headset/radio
