@@ -1,0 +1,5 @@
+author: rkz, actioninja
+delete-after: true
+changes:
+  - rscadd: makes vending machines, wep rechargers, disposal units, and smartfridges
+      emissive. (Glow-in-the-dark, for the layman)
