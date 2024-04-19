@@ -12,10 +12,10 @@
 		var/turf/open/OT = get_turf(snail)
 		if(isopenturf(OT))
 			OT.MakeSlippery(TURF_WET_LUBE, 20)
-		snail.add_movespeed_modifier(MOVESPEED_ID_SNAIL_CRAWL, update=TRUE, priority=100, multiplicative_slowdown=-7, movetypes=GROUND)
+		snail.add_movespeed_modifier(/datum/movespeed_modifier/snail_crawl)
 	else
-		snail.remove_movespeed_modifier(MOVESPEED_ID_SNAIL_CRAWL)
+		snail.remove_movespeed_modifier(/datum/movespeed_modifier/snail_crawl)
 
 /datum/component/snailcrawl/_RemoveFromParent()
-	snail.remove_movespeed_modifier(MOVESPEED_ID_SNAIL_CRAWL)
+	snail.remove_movespeed_modifier(/datum/movespeed_modifier/snail_crawl)
 	return ..()

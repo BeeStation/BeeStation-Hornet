@@ -82,7 +82,7 @@ Behavior that's still missing from this component that original food items had t
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
-		RegisterSignal(parent, COMSIG_ITEM_FRIED, PROC_REF(on_fried))
+		RegisterSignal(parent, COMSIG_GRILL_FOOD, PROC_REF(GrillFood))
 		RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_ACT, PROC_REF(on_microwaved))
 		RegisterSignal(parent, COMSIG_ITEM_USED_AS_INGREDIENT,  PROC_REF(used_to_customize))
 
@@ -128,6 +128,7 @@ Behavior that's still missing from this component that original food items had t
 	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 	bite_consumption = 2,
 	microwaved_type,
+	junkiness,
 	datum/callback/pre_eat,
 	datum/callback/on_compost,
 	datum/callback/after_eat,
@@ -173,13 +174,27 @@ Behavior that's still missing from this component that original food items had t
 
 	return TryToEat(M, user)
 
-/datum/component/edible/proc/on_fried(datum/source, atom/fry_object)
+/datum/component/edible/proc/GrillFood(datum/source, atom/fry_object, grill_time)
 	SIGNAL_HANDLER
-	var/atom/our_atom = parent
-	fry_object.reagents.maximum_volume = our_atom.reagents.maximum_volume
-	our_atom.reagents.trans_to(fry_object, our_atom.reagents.total_volume)
-	qdel(our_atom)
-	return COMSIG_FRYING_HANDLED
+
+	var/atom/this_food = parent
+
+	switch(grill_time) //no 0-20 to prevent spam
+		if(20 to 30)
+			this_food.name = "lightly-grilled [this_food.name]"
+			this_food.desc = "[this_food.desc] It's been lightly grilled."
+		if(30 to 80)
+			this_food.name = "grilled [this_food.name]"
+			this_food.desc = "[this_food.desc] It's been grilled."
+			foodtypes |= FRIED
+		if(80 to 100)
+			this_food.name = "heavily grilled [this_food.name]"
+			this_food.desc = "[this_food.desc] It's been heavily grilled."
+			foodtypes |= FRIED
+		if(100 to INFINITY) //grill marks reach max alpha
+			this_food.name = "Powerfully Grilled [this_food.name]"
+			this_food.desc = "A [this_food.name]. Reminds you of your wife, wait, no, it's prettier!"
+			foodtypes |= FRIED
 
 ///Called when food is created through processing (Usually this means it was sliced). We use this to pass the OG items reagents.
 /datum/component/edible/proc/on_processed(datum/source, atom/original_atom, list/chosen_processing_option)
@@ -268,9 +283,6 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/proc/TryToEat(mob/living/eater, mob/living/feeder)
 
 	set waitfor = FALSE // We might end up sleeping here, so we don't want to hold up anything
-
-	if(QDELETED(parent))
-		return
 
 	var/atom/owner = parent
 
@@ -454,6 +466,7 @@ Behavior that's still missing from this component that original food items had t
 
 	on_consume?.Invoke(eater, feeder)
 
+	to_chat(feeder, "<span class='warning'>There is nothing left of [parent], oh no!</span>")
 	if(isturf(parent))
 		var/turf/T = parent
 		T.ScrapeAway(1, CHANGETURF_INHERIT_AIR)
