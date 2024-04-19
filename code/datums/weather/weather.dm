@@ -34,6 +34,7 @@
 	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
 
 	var/stage = END_STAGE //The stage of the weather, from 1-4
+	var/overlay_stage // takes the same value as stage. Used to prevent overlay error
 
 	// These are read by the weather subsystem and used to determine when and where to run the weather.
 	var/probability = 0 // Weight amongst other eligible weather. If zero, will never happen randomly.
@@ -48,6 +49,7 @@
 	var/mutable_appearance/cached_weather_sprite_start
 	var/mutable_appearance/cached_weather_sprite_process
 	var/mutable_appearance/cached_weather_sprite_end
+	var/mutable_appearance/cached_current_overlay // a quick access variable
 
 /datum/weather/New(z_levels)
 	..()
@@ -148,41 +150,88 @@
 /datum/weather/proc/weather_act(mob/living/L) //What effect does this weather have on the hapless mob?
 	return
 
-/datum/weather/proc/update_areas()
-	var/previous_overlay
-	var/new_overlay
+
+/// list/new_areas_to_impact exists because of void heretic's weather
+/datum/weather/proc/update_areas(list/new_areas_to_impact = null)
+	if(overlay_stage == stage && isnull(new_areas_to_impact))
+		CRASH("update_areas() is called again while weather overlay is already set (and list/new_areas_to_impact doesn't exist). stage:[stage] / overlay_stage:[overlay_stage]")
+	overlay_stage = stage
+
+	var/new_overlay = null
 	switch(stage)
 		if(STARTUP_STAGE)
 			if(cached_weather_sprite_start)
 				new_overlay = cached_weather_sprite_start
-				previous_overlay = TRUE // temporary value. see below.
 		if(MAIN_STAGE)
-			if(cached_weather_sprite_start)
-				previous_overlay = cached_weather_sprite_start
 			if(cached_weather_sprite_process)
 				new_overlay = cached_weather_sprite_process
 		if(WIND_DOWN_STAGE)
-			if(cached_weather_sprite_process)
-				previous_overlay = cached_weather_sprite_process
 			if(cached_weather_sprite_end)
 				new_overlay = cached_weather_sprite_end
-		if(END_STAGE)
-			if(cached_weather_sprite_end)
-				previous_overlay = cached_weather_sprite_end
-				new_overlay = TRUE // temporary value. see below.
-
-	// we won't iterate all areas unnecesarily
-	if(!previous_overlay && !new_overlay)
+	var/is_overlay_same = (cached_current_overlay == new_overlay)
+	if(is_overlay_same && isnull(cached_current_overlay) && isnull(new_overlay)) // changing null? meaningless
+		if(new_areas_to_impact)
+			CRASH("Are you sure updating overlays through null_overlay? list/new_areas_to_impact exists, but there's nothing to update overlay. this seems to be wrong.")
+			// NOTE: if you think this is right...
+			// remove this `CRASH`, and put `impacted_areas = new_areas_to_impact.Copy()`
 		return
 
-	// removing TRUE value because we don't want typecheck every iteration from for loop
-	if(previous_overlay == TRUE)
-		previous_overlay = null
-	if(new_overlay == TRUE)
-		new_overlay = null
+	// Standard update_areas
+	if(isnull(new_areas_to_impact))
+		if(is_overlay_same) // we don't have to iterate
+			return
 
-	for(var/area/each_area as anything in impacted_areas)
-		if(previous_overlay)
-			each_area.cut_overlay(previous_overlay)
-		if(new_overlay)
-			each_area.add_overlay(new_overlay)
+		for(var/area/each_area as anything in impacted_areas)
+			if(cached_current_overlay)
+				each_area.cut_overlay(cached_current_overlay)
+			if(new_overlay)
+				each_area.add_overlay(new_overlay)
+		cached_current_overlay = new_overlay // remembers previous one
+		return
+
+	if(!islist(new_areas_to_impact))
+		CRASH("lsit/new_areas_to_impact has been given, but it's not a list()")
+
+	///// I hate this, but something dynamic is changing weather overlays
+	if(is_overlay_same)
+	// overlays are the same, and then we'll only check impacted areas are changed
+	// * Calculate list
+	// * Early return if there's no list to iterate
+	// * If old_areas_to_remove exists, cut_overlay() for those
+	// * If new_areas_to_add exists, add_overlay() for those
+		var/list/old_areas_to_remove
+		var/list/new_areas_to_add
+		if(length(new_areas_to_impact))
+			old_areas_to_remove = impacted_areas - new_areas_to_impact
+			new_areas_to_add = new_areas_to_impact - impacted_areas
+			/*
+				impacted_areas = list(A, B, C, D)
+				new_areas_to_impact =  list(C, D, E, F)
+
+				old_areas_to_remove = list(A, B) // we want to remove already existing overlay from this
+				new_areas_to_add = list(E, F)    // and add the existing overlay to this
+			*/
+
+		if(!length(new_areas_to_add) && !length(old_areas_to_remove)) // nope
+			return
+
+		for(var/area/each_old_area as anything in old_areas_to_remove)
+			each_old_area.cut_overlay(cached_current_overlay)
+		for(var/area/each_new_area as anything in new_areas_to_add)
+			each_new_area.add_overlay(cached_current_overlay)
+		impacted_areas = new_areas_to_impact.Copy() // this is now our new team
+		return
+
+	else
+	// overlays should be changed extremely dynamically
+	// * Removing old overlays from current areas and old areas
+	// * Adding new overlays to current areas and new areas
+		for(var/area/each_old_area as anything in impacted_areas)
+			if(cached_current_overlay)
+				each_old_area.cut_overlay(cached_current_overlay)
+		for(var/area/each_new_area as anything in new_areas_to_impact)
+			if(new_overlay)
+				each_new_area.add_overlay(new_overlay)
+		cached_current_overlay = new_overlay
+		impacted_areas = new_areas_to_impact.Copy() // this is now our new team
+		return
