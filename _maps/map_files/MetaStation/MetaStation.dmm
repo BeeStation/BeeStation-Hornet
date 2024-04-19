@@ -4208,7 +4208,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
 /area/science/explab)
 "aRd" = (
 /obj/structure/table,
@@ -4773,7 +4772,7 @@
 "aXv" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/xenoarchaeology_machine/calibrator/tutorial,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "aXG" = (
 /obj/machinery/dna_scannernew,
@@ -16910,7 +16909,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "dPw" = (
 /obj/structure/cable/yellow{
@@ -24103,7 +24102,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "gqi" = (
 /obj/item/radio/intercom{
@@ -27409,7 +27408,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 5
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "hpz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -28772,7 +28771,7 @@
 "hIS" = (
 /obj/machinery/xenoarchaeology_machine/scale,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "hIY" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
@@ -31687,7 +31686,7 @@
 /obj/item/xenoartifact,
 /obj/item/xenoartifact,
 /obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "iFX" = (
 /turf/open/floor/plating,
@@ -36251,7 +36250,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 21
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "khR" = (
 /obj/item/storage/secure/safe{
@@ -40046,7 +40045,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "lvV" = (
 /obj/machinery/door/window/westleft{
@@ -43096,7 +43095,7 @@
 	pixel_x = 5
 	},
 /obj/structure/table,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "msY" = (
 /obj/structure/cable/yellow{
@@ -48084,7 +48083,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "obO" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -50555,7 +50554,7 @@
 /obj/item/clothing/glasses/science{
 	pixel_y = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "oUb" = (
 /obj/effect/turf_decal/stripes/line{
@@ -52857,7 +52856,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "pIB" = (
 /obj/structure/cable/yellow{
@@ -56695,7 +56694,7 @@
 /obj/structure/sign/poster/official/xenoarchaeology{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "qTB" = (
 /obj/structure/cable/yellow{
@@ -61654,7 +61653,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "sAw" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -66299,10 +66298,6 @@
 /obj/machinery/holopad,
 /turf/open/floor/iron/dark,
 /area/aisat)
-"tZG" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/dark,
-/area/science/explab)
 "tZQ" = (
 /obj/structure/table,
 /obj/item/nanite_remote,
@@ -71934,9 +71929,6 @@
 	},
 /turf/open/floor/wood,
 /area/bridge/showroom/corporate)
-"vXJ" = (
-/turf/open/floor/plasteel/dark,
-/area/science/explab)
 "vXK" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/light/small{
@@ -73710,19 +73702,6 @@
 	},
 /turf/open/floor/iron,
 /area/storage/primary)
-"wDf" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/railing{
-	dir = 4;
-	layer = 3.2
-	},
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/science/explab)
 "wDj" = (
 /obj/machinery/holopad{
 	pixel_x = 9;
@@ -73875,7 +73854,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "wGk" = (
 /obj/structure/closet/crate,
@@ -78616,7 +78595,7 @@
 /turf/closed/wall,
 /area/medical/patients_rooms)
 "ycI" = (
-/turf/open/floor/plasteel/stairs{
+/turf/open/floor/iron/stairs{
 	dir = 1
 	},
 /area/science/explab)
@@ -113446,9 +113425,9 @@ bST
 fug
 cgq
 qTl
-wDf
-wDf
-wDf
+dap
+dap
+dap
 dap
 iyf
 aYW
@@ -113703,8 +113682,8 @@ bST
 dvu
 cgq
 khQ
-vXJ
-vXJ
+tWh
+tWh
 tWh
 tiD
 hpy
@@ -114477,7 +114456,7 @@ liD
 pCt
 pvg
 bYD
-tZG
+cIC
 ycI
 eqQ
 kJa

@@ -50633,14 +50633,6 @@
 /area/crew_quarters/toilet)
 "qnT" = (
 /obj/machinery/vending/sticker,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/spawner/randomarcade{
-	dir = 4
-	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/theatre)
 "qoj" = (
@@ -52453,7 +52445,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "qUE" = (
 /obj/structure/chair/office/light{
@@ -63562,7 +63554,6 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/landmark/blobstart,
 /obj/effect/mapping_helpers/make_non_slip,
-/turf/open/floor/plasteel/white,
 /area/science/explab)
 "uyB" = (
 /obj/structure/cable/yellow{

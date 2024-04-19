@@ -2172,7 +2172,7 @@
 /obj/item/healthanalyzer{
 	pixel_y = 7
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "aFJ" = (
 /obj/effect/landmark/event_spawn,
@@ -2253,7 +2253,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "aGL" = (
 /obj/structure/cable/yellow{
@@ -7484,7 +7484,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "cdh" = (
 /obj/structure/disposalpipe/sorting/mail/flip{
@@ -15512,7 +15512,7 @@
 	pixel_y = 3
 	},
 /obj/structure/table,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "ewo" = (
 /obj/effect/turf_decal/stripes/line{
@@ -17336,7 +17336,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "fha" = (
 /obj/structure/table,
@@ -19603,7 +19603,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "gbd" = (
 /obj/machinery/atmospherics/pipe/manifold4w/general/visible,
@@ -21802,7 +21802,7 @@
 	},
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "gVc" = (
 /obj/structure/disposalpipe/segment{
@@ -25634,7 +25634,7 @@
 /obj/machinery/recharger,
 /obj/item/gun/energy/laser/practice,
 /obj/item/gun/energy/laser/practice,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "iwy" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -27453,9 +27453,7 @@
 /obj/structure/disposalpipe/junction{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark/side{
-	dir = 1
-	},
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "jcc" = (
 /obj/machinery/door/poddoor/preopen{
@@ -27974,7 +27972,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/science/misc_lab)
 "joi" = (
 /obj/machinery/computer/secure_data{
@@ -30450,7 +30448,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "koq" = (
 /obj/structure/disposalpipe/segment{
@@ -31985,7 +31983,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "kVy" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
@@ -33185,7 +33183,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "lpZ" = (
 /obj/structure/chair/stool{
@@ -34571,7 +34569,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "lXk" = (
 /obj/structure/closet/emcloset,
@@ -35862,7 +35860,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "mxL" = (
 /obj/machinery/light/small{
@@ -37815,7 +37813,7 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "nkW" = (
 /obj/machinery/porta_turret/ai{
@@ -39093,7 +39091,7 @@
 /obj/item/folder/white,
 /obj/item/folder/white,
 /obj/item/pen,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "nNW" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -46265,20 +46263,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/auto_name/east,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/xenoartifact_console{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/science/misc_lab)
@@ -50386,7 +50370,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron,
 /area/science/misc_lab)
 "rZR" = (
 /obj/structure/table,
@@ -50656,7 +50640,7 @@
 /obj/item/wrench,
 /obj/item/crowbar,
 /obj/item/hand_labeler,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "seG" = (
 /obj/machinery/computer/operating{
@@ -52823,7 +52807,7 @@
 	dir = 4;
 	layer = 3.2
 	},
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/science/misc_lab)
 "sVb" = (
 /obj/structure/chair{
@@ -56839,7 +56823,7 @@
 	layer = 3.2
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "uBB" = (
 /obj/effect/landmark/event_spawn,
@@ -57192,7 +57176,7 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "uJD" = (
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/science/misc_lab)
 "uJV" = (
 /obj/structure/cable{
@@ -57538,7 +57522,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "uQB" = (
 /obj/structure/cable/yellow{
@@ -59656,7 +59640,7 @@
 /obj/item/target/syndicate,
 /obj/machinery/light,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "vIy" = (
 /obj/structure/table,
@@ -59706,7 +59690,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "vJw" = (
 /obj/structure/cable/yellow{
@@ -59789,7 +59773,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "vKs" = (
 /obj/structure/window/reinforced,
@@ -65251,7 +65235,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "xNY" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -65327,7 +65311,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/misc_lab)
 "xPr" = (
 /obj/effect/spawner/xmastree,

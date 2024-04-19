@@ -17374,7 +17374,7 @@
 	id = "telelab";
 	name = "test chamber blast door"
 	},
-/turf/open/floor/engine,
+/turf/open/floor/plating,
 /area/science/explab)
 "fpm" = (
 /obj/structure/closet/bombcloset,
@@ -18376,21 +18376,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 2
-	},
 /obj/machinery/power/floodlight,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/bot,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/light,
 /turf/open/floor/engine,
 /area/science/explab)
 "fGl" = (
@@ -22169,6 +22157,9 @@
 	pixel_y = -35
 	},
 /obj/item/beacon,
+/obj/machinery/light{
+	dir = 2
+	},
 /turf/open/floor/engine,
 /area/science/explab)
 "gKK" = (
@@ -26328,7 +26319,7 @@
 /obj/structure/closet/bombcloset/white,
 /obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "idd" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -41552,7 +41543,7 @@
 /obj/effect/loot_jobscale/medical/first_aid_kit,
 /obj/item/clothing/neck/stethoscope,
 /obj/item/healthanalyzer,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "mJl" = (
 /obj/machinery/door/firedoor,
@@ -42825,7 +42816,7 @@
 /obj/machinery/computer/xenoarchaeology_console{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "nge" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -57568,7 +57559,7 @@
 	},
 /obj/item/paicard,
 /obj/item/book/manual/wiki/xenoarchaeology,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "rRY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -67052,7 +67043,7 @@
 	pixel_y = -34
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "uUA" = (
 /turf/closed/wall/r_wall,
@@ -72110,7 +72101,7 @@
 /obj/item/clothing/glasses/science{
 	pixel_y = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "wBp" = (
 /obj/machinery/door/poddoor/preopen{
@@ -72133,7 +72124,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "wBx" = (
 /obj/effect/turf_decal/bot,
