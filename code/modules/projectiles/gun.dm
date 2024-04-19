@@ -320,7 +320,7 @@
 				return
 		// On simplified mode, contextually determine if we want to suicide them
 		// If the target is ourselves, they are buckled, restrained or lying down then suicide them
-		else if(user.is_zone_selected(BODY_ZONE_HEAD) && istype(living_target) && (user == target || living_target.restrained() || living_target.buckled || living_target.IsUnconscious()))
+		else if(user.is_zone_selected(BODY_ZONE_HEAD) && istype(living_target) && (user == target || HAS_TRAIT(living_target, TRAIT_HANDS_BLOCKED) || living_target.buckled || living_target.IsUnconscious()))
 			handle_suicide(user, target, params)
 			return
 
@@ -778,7 +778,7 @@
 
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_LYING
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null

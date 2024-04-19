@@ -88,7 +88,7 @@
 
 /obj/item/book/mimery/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained() || src.loc != usr)
+	if (usr.stat != CONSCIOUS || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.loc != usr)
 		return
 	if (!ishuman(usr))
 		return
