@@ -94,7 +94,7 @@
 	if(Adjacent(target) && usr.Adjacent(target))
 		if(beaker)
 			usr.visible_message("<span class='warning'>[usr] attaches [src] to [target].</span>", "<span class='notice'>You attach [src] to [target].</span>")
-			log_combat(usr, target, "attached", src, "containing: [beaker.name] - ([beaker.reagents.log_list()])")
+			log_combat(usr, target, "attached", src, "containing: [beaker.name] - ([beaker.reagents.log_list()])", important = FALSE)
 			add_fingerprint(usr)
 			attached = target
 			START_PROCESSING(SSmachines, src)
@@ -266,7 +266,7 @@
 	. = ..()
 	AddElement(/datum/element/update_icon_blocker)
 
-/obj/machinery/iv_drip/update_icon()
+/obj/machinery/iv_drip/saline/update_icon()
 	return
 
 /obj/machinery/iv_drip/saline/eject_beaker()

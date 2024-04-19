@@ -132,9 +132,6 @@
 	. = ..()
 	make_traction()
 
-/turf/open/floor/noslip/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
-	return
-
 /turf/open/floor/noslip/standard
 	name = "high-traction floor"
 	icon_state = "floor"
@@ -182,6 +179,10 @@
 	icon_state = "sepia"
 	desc = "Time seems to flow very slowly around these tiles."
 	floor_tile = /obj/item/stack/tile/sepia
+
+/turf/open/floor/sepia/planetary
+	baseturfs = /turf/open/floor/plating/asteroid
+	planetary_atmos = TRUE
 
 
 /turf/open/floor/bronze

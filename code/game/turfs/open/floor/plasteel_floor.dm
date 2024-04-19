@@ -221,6 +221,10 @@
 	base_icon_state = "techmaint"
 	floor_tile = /obj/item/stack/tile/
 
+/turf/open/floor/plasteel/techmaint/planetary
+	baseturfs = /turf/open/floor/plating/asteroid
+	planetary_atmos = TRUE
+
 /turf/open/floor/plasteel/ridged
 	icon_state = "ridged"
 	base_icon_state = "ridged"
