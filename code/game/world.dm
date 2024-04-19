@@ -363,6 +363,11 @@ GLOBAL_VAR(restart_counter)
 	var/server_name = CONFIG_GET(string/servername)
 	var/server_tag = CONFIG_GET(string/servertag)
 	var/station_name = station_name()
+	var/players = GLOB.clients.len
+	var/popcaptext = ""
+	var/popcap = max(CONFIG_GET(number/extreme_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/soft_popcap))
+	if (popcap)
+		popcaptext = "/[popcap]"
 
 	// Determine our character usage
 	var/character_usage = 85	// Base character usage
@@ -415,13 +420,6 @@ GLOBAL_VAR(restart_counter)
 
 	if (server_tag)
 		s += "[server_tag]<p>"
-
-	var/players = GLOB.clients.len
-
-	var/popcaptext = ""
-	var/popcap = max(CONFIG_GET(number/extreme_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/soft_popcap))
-	if (popcap)
-		popcaptext = "/[popcap]"
 
 	s += "Time: <b>[gameTimestamp("hh:mm:ss")]</b><br>"
 	s += "Players: <b>[players][popcaptext]</b><br>"
