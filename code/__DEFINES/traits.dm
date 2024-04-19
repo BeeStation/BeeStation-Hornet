@@ -453,6 +453,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define LOCKED_BORG_TRAIT "locked-borg"
 #define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades" //trait associated to not having fine manipulation appendages such as hands
 #define HANDCUFFED_TRAIT "handcuffed"
+/// Trait granted by [/obj/item/warpwhistle]
+#define WARPWHISTLE_TRAIT "warpwhistle"
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"
