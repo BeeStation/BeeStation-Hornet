@@ -24,7 +24,8 @@
 
 	var/area_type = /area/space //Types of area to affect
 	var/protect_indoors = FALSE // set to TRUE to protect indoor areas
-	var/list/impacted_areas = list() //Areas to be affected by the weather, calculated when the weather begins
+	///Areas to be affected by the weather, calculated when the weather begins
+	VAR_PRIVATE/list/impacted_areas = list() // If you need to update this list outside of this datum, you might be doing wrong. use update_areas()
 	var/list/protected_areas = list()//Areas that are protected and excluded from the affected areas.
 	var/impacted_z_levels // The list of z-levels that this weather is actively affecting
 
