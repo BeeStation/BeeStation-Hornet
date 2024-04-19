@@ -23,12 +23,7 @@ export const XenoartifactLabeler = (props, context) => {
 
 const XenoartifactlabelerTraits = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    activator_traits,
-    minor_traits,
-    major_traits,
-    malfunction_list,
-  } = data;
+  const { activator_traits, minor_traits, major_traits, malfunction_list } = data;
 
   let alphasort = function (a, b) {
     return a.localeCompare(b, 'en');
@@ -44,11 +39,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Section title="Activator Traits">
         <Box>
           {sorted_activators.map((trait) => (
-            <XenoartifactlabelerGenerateEntry
-              specific_trait={trait}
-              key={trait}
-              trait_type="activator"
-            />
+            <XenoartifactlabelerGenerateEntry specific_trait={trait} key={trait} trait_type="activator" />
           ))}
         </Box>
       </Section>
@@ -56,11 +47,7 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Section title="Minor Traits">
         <Box>
           {sorted_minors.map((trait) => (
-            <XenoartifactlabelerGenerateEntry
-              specific_trait={trait}
-              key={trait}
-              trait_type="minor"
-            />
+            <XenoartifactlabelerGenerateEntry specific_trait={trait} key={trait} trait_type="minor" />
           ))}
         </Box>
       </Section>
@@ -68,23 +55,15 @@ const XenoartifactlabelerTraits = (props, context) => {
       <Section title="Major Traits">
         <Box>
           {sorted_majors.map((trait) => (
-            <XenoartifactlabelerGenerateEntry
-              specific_trait={trait}
-              key={trait}
-              trait_type="major"
-            />
+            <XenoartifactlabelerGenerateEntry specific_trait={trait} key={trait} trait_type="major" />
           ))}
         </Box>
       </Section>
-       <Divider />
+      <Divider />
       <Section title="Malfunction Traits">
         <Box>
           {sorted_malfs.map((trait) => (
-            <XenoartifactlabelerGenerateEntry
-              key={trait}
-              specific_trait={trait}
-              trait_type="malfunction"
-            />
+            <XenoartifactlabelerGenerateEntry key={trait} specific_trait={trait} trait_type="malfunction" />
           ))}
         </Box>
       </Section>
@@ -114,9 +93,9 @@ const XenoartifactlabelerGenerateEntry = (props, context) => {
         content={specific_trait}
         checked={selected_traits.includes(specific_trait)}
         onClick={() => act(`toggle_trait`, { trait_name: specific_trait })}
-        tooltip={`${tooltip_stats[specific_trait]["alt_name"] ? `${tooltip_stats[specific_trait]["alt_name"]},` : ``}
-          Weight: ${tooltip_stats[specific_trait]["weight"]},
-          Conductivity: ${tooltip_stats[specific_trait]["conductivity"]}`}
+        tooltip={`${tooltip_stats[specific_trait]['alt_name'] ? `${tooltip_stats[specific_trait]['alt_name']},` : ``}
+          Weight: ${tooltip_stats[specific_trait]['weight']},
+          Conductivity: ${tooltip_stats[specific_trait]['conductivity']}`}
       />
     </Box>
   );
@@ -129,12 +108,12 @@ const XenoartifactlabelerGenerateInfo = (props, context) => {
   return (
     <Section title={info}>
       <Box italic>
-        <BlockQuote>{`${tooltip_stats[info]["desc"]}`}</BlockQuote>
-        {tooltip_stats[info]["hints"].map((hint) => (
-          <Button icon={hint["icon"]} tooltip={hint["desc"]} key={info} />
+        <BlockQuote>{`${tooltip_stats[info]['desc']}`}</BlockQuote>
+        {tooltip_stats[info]['hints'].map((hint) => (
+          <Button icon={hint['icon']} tooltip={hint['desc']} key={info} />
         ))}
-        {tooltip_stats[info]["availability"].map((trait) => (
-          <Icon name={trait["icon"]} color={trait["color"]} key={trait} />
+        {tooltip_stats[info]['availability'].map((trait) => (
+          <Icon name={trait['icon']} color={trait['color']} key={trait} />
         ))}
       </Box>
     </Section>
