@@ -25,7 +25,7 @@
 	var/area_type = /area/space //Types of area to affect
 	var/protect_indoors = FALSE // set to TRUE to protect indoor areas
 	///Areas to be affected by the weather, calculated when the weather begins
-	VAR_PRIVATE/list/impacted_areas = list() // If you need to update this list outside of this datum, you might be doing wrong. use update_areas()
+	VAR_PRIVATE/list/impacted_areas = list() // If you need to update this list outside of this datum, you might be doing wrong. use update_areas(new_list)
 	var/list/protected_areas = list()//Areas that are protected and excluded from the affected areas.
 	var/impacted_z_levels // The list of z-levels that this weather is actively affecting
 
@@ -152,10 +152,10 @@
 	return
 
 
-/// list/new_areas_to_impact exists because of void heretic's weather
-/datum/weather/proc/update_areas(list/new_areas_to_impact = null)
-	if(overlay_stage == stage && isnull(new_areas_to_impact))
-		CRASH("update_areas() is called again while weather overlay is already set (and list/new_areas_to_impact doesn't exist). stage:[stage] / overlay_stage:[overlay_stage]")
+/// list/newly_given_areas exists because of void heretic's weather
+/datum/weather/proc/update_areas(list/newly_given_areas = null)
+	if(overlay_stage == stage && isnull(newly_given_areas))
+		CRASH("update_areas() is called again while weather overlay is already set (and list/newly_given_areas doesn't exist). stage:[stage] / overlay_stage:[overlay_stage]")
 	overlay_stage = stage
 
 	var/new_overlay = null
@@ -170,15 +170,11 @@
 			if(cached_weather_sprite_end)
 				new_overlay = cached_weather_sprite_end
 	var/is_overlay_same = (cached_current_overlay == new_overlay)
-	if(is_overlay_same && isnull(cached_current_overlay) && isnull(new_overlay)) // changing null? meaningless
-		if(new_areas_to_impact)
-			CRASH("Are you sure updating overlays through null_overlay? list/new_areas_to_impact exists, but there's nothing to update overlay. this seems to be wrong.")
-			// NOTE: if you think this is right...
-			// remove this `CRASH`, and put `impacted_areas = new_areas_to_impact.Copy()`
+	if(is_overlay_same && isnull(newly_given_areas) && isnull(cached_current_overlay) && isnull(new_overlay)) // changing null? meaningless
 		return
 
 	// Standard update_areas
-	if(isnull(new_areas_to_impact))
+	if(isnull(newly_given_areas))
 		if(is_overlay_same) // we don't have to iterate
 			return
 
@@ -190,10 +186,15 @@
 		cached_current_overlay = new_overlay // remembers previous one
 		return
 
-	if(!islist(new_areas_to_impact))
-		CRASH("lsit/new_areas_to_impact has been given, but it's not a list()")
+	if(!islist(newly_given_areas))
+		CRASH("lsit/newly_given_areas has been given, but it's not a list()")
 
-	///// I hate this, but something dynamic is changing weather overlays
+
+	// From after this line, It means list/newly_given_areas has a list to update
+	// This will remove old areas, and overlay from list/impacted_areas
+	// and add a new overlay to new areas
+	// And list/impacted_areas will be updated with the new list
+
 	if(is_overlay_same)
 	// overlays are the same, and then we'll only check impacted areas are changed
 	// * Calculate list
@@ -202,12 +203,12 @@
 	// * If new_areas_to_add exists, add_overlay() for those
 		var/list/old_areas_to_remove
 		var/list/new_areas_to_add
-		if(length(new_areas_to_impact))
-			old_areas_to_remove = impacted_areas - new_areas_to_impact
-			new_areas_to_add = new_areas_to_impact - impacted_areas
+		if(length(newly_given_areas))
+			old_areas_to_remove = impacted_areas - newly_given_areas
+			new_areas_to_add = newly_given_areas - impacted_areas
 			/*
 				impacted_areas = list(A, B, C, D)
-				new_areas_to_impact =  list(C, D, E, F)
+				newly_given_areas =  list(C, D, E, F)
 
 				old_areas_to_remove = list(A, B) // we want to remove already existing overlay from this
 				new_areas_to_add = list(E, F)    // and add the existing overlay to this
@@ -216,23 +217,25 @@
 		if(!length(new_areas_to_add) && !length(old_areas_to_remove)) // nope
 			return
 
-		for(var/area/each_old_area as anything in old_areas_to_remove)
-			each_old_area.cut_overlay(cached_current_overlay)
-		for(var/area/each_new_area as anything in new_areas_to_add)
-			each_new_area.add_overlay(cached_current_overlay)
-		impacted_areas = new_areas_to_impact.Copy() // this is now our new team
+		if(cached_current_overlay) // do the change only overlay exists. If there's no overlay, we'll just save list/newly_given_areas
+			for(var/area/each_old_area as anything in old_areas_to_remove)
+				each_old_area.cut_overlay(cached_current_overlay)
+			for(var/area/each_new_area as anything in new_areas_to_add)
+				each_new_area.add_overlay(cached_current_overlay)
+		impacted_areas = newly_given_areas.Copy() // this is now our new team
+		// Note: "new_areas_to_add" is not correct to copy. We just needed to apply cached overlay to new areas.
 		return
 
 	else
 	// overlays should be changed extremely dynamically
-	// * Removing old overlays from current areas and old areas
-	// * Adding new overlays to current areas and new areas
+	// * Removing old overlays from impacted_areas
+	// * Adding new overlays to new areas
 		for(var/area/each_old_area as anything in impacted_areas)
 			if(cached_current_overlay)
 				each_old_area.cut_overlay(cached_current_overlay)
-		for(var/area/each_new_area as anything in new_areas_to_impact)
+		for(var/area/each_new_area as anything in newly_given_areas)
 			if(new_overlay)
 				each_new_area.add_overlay(new_overlay)
 		cached_current_overlay = new_overlay
-		impacted_areas = new_areas_to_impact.Copy() // this is now our new team
+		impacted_areas = newly_given_areas.Copy() // this is now our new team
 		return
