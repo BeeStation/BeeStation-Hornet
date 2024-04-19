@@ -5084,7 +5084,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron/techmaint,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "bng" = (
 /obj/structure/closet/emcloset,
@@ -11697,7 +11697,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "ddJ" = (
 /obj/structure/cable/yellow{
@@ -30262,7 +30262,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/purple/filled/corner,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "hJy" = (
 /obj/effect/turf_decal/bot,
@@ -32571,7 +32571,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 6
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "ilX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -42414,7 +42414,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/end{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "kDV" = (
 /obj/effect/turf_decal/bot,
@@ -56605,7 +56605,7 @@
 /obj/effect/turf_decal/trimline/purple/filled/end{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "odw" = (
 /obj/structure/bodycontainer/morgue{
@@ -58983,7 +58983,7 @@
 	pixel_y = -28
 	},
 /obj/effect/mapping_helpers/make_non_slip,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "oGO" = (
 /obj/structure/lattice/catwalk/over,
@@ -62987,7 +62987,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "pBz" = (
 /obj/structure/lattice/catwalk/over,
@@ -67396,7 +67396,7 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/noslip/dark,
 /area/science/explab)
 "qFB" = (
 /obj/effect/turf_decal/bot,
@@ -76766,7 +76766,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/explab)
 "sTj" = (
 /obj/structure/cable/yellow{

@@ -7941,8 +7941,6 @@
 	dir = 8
 	},
 /obj/structure/closet/crate,
-/obj/item/relic,
-/obj/item/relic,
 /turf/open/floor/plating{
 	broken = 1
 	},
@@ -8012,9 +8010,6 @@
 /area/awaymission/snowdin/outside)
 "yx" = (
 /obj/structure/closet/crate,
-/obj/item/relic,
-/obj/item/relic,
-/obj/item/relic,
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/mining_dock)
 "yy" = (
@@ -11876,12 +11871,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/mining_main)
-"Ng" = (
-/obj/structure/closet/crate,
-/obj/item/relic,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/snowdin/post/mining_dock)
 "Nj" = (
 /obj/structure/door_assembly/door_assembly_min{
 	anchored = 1;
@@ -12328,14 +12317,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/snowdin/post)
-"PK" = (
-/obj/structure/closet/crate,
-/obj/item/relic,
-/obj/item/relic,
-/obj/item/relic,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/snowdin/post/mining_dock)
 "PO" = (
 /obj/effect/spawner/randomvend/snack,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -64286,7 +64267,7 @@ wL
 wL
 Nk
 yj
-PK
+UT
 xW
 eJ
 eJ
@@ -64542,7 +64523,7 @@ xy
 XD
 xy
 Nk
-Ng
+UT
 yx
 wD
 eJ

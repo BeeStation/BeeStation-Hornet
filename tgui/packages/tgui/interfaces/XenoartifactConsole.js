@@ -85,7 +85,8 @@ const XenoartifactConsoleSellerEntry = (props, context) => {
                 icon={'shopping-cart'}
                 onClick={() =>
                   act(`stock_purchase`, { item_id: stock_list['id'], seller_id: value['id'] })
-                }>{`$${stock_list['cost']}`}</Button>
+                }>{`$${stock_list['cost']}`}
+              </Button>
             }
             key={stock_list}>
             <BlockQuote>{`${stock_list['description']}`}</BlockQuote>
