@@ -245,9 +245,6 @@
 /datum/config_entry/string/discordurl
 	config_entry_value = "https://discord.gg/zUe34rs"
 
-/datum/config_entry/string/websiteurl
-	config_entry_value = "http://beestation13.com"
-
 /datum/config_entry/string/roundstatsurl
 
 /datum/config_entry/string/gamelogurl

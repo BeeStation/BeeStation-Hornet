@@ -290,9 +290,6 @@ DONATEURL https://www.patreon.com/user?u=10639001
 ## Discord Invite
 DISCORDURL https://discord.gg/ss13
 
-## Website URL
-WEBSITEURL http://beestation13.com
-
 ## Round specific stats address
 ## Link to round specific parsed logs; IE statbus. It is appended with the RoundID automatically by ticker/Reboot()
 ## This will take priority over the game logs address during reboot.
