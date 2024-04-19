@@ -84,7 +84,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/glass)
 	icon_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
 
-STACKSIZE_MACRO(/obj/item/stack/ore/basalt)
+STACKSIZE_MACRO(/obj/item/stack/ore/glass/basalt)
 
 /* Plasma ore */
 

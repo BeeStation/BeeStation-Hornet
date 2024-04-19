@@ -2,7 +2,7 @@
 "a" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "b" = (
 /obj/effect/turf_decal/stripes/line{
@@ -21,7 +21,7 @@
 	icon_state = "bulb-broken";
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "e" = (
 /obj/structure/closet/firecloset,
@@ -55,7 +55,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "j" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -65,7 +65,7 @@
 /area/template_noop)
 "k" = (
 /obj/structure/closet/emcloset,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "l" = (
 /obj/machinery/portable_atmospherics/canister/air,

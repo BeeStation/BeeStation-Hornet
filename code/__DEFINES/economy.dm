@@ -22,7 +22,6 @@
 #define BUDGET_RATIO_TYPE_SINGLE 1 // For Service & Civilian budget
 #define BUDGET_RATIO_TYPE_DOUBLE 2 // and for the rest
 
-
 #define ACCOUNT_CIV_ID "Civilian"
 #define ACCOUNT_CIV_NAME "Civil Budget"
 #define ACCOUNT_SRV_ID "Service"
