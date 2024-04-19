@@ -154,8 +154,9 @@
 /datum/weather/proc/weather_act(mob/living/L) //What effect does this weather have on the hapless mob?
 	return
 
-
-/// list/newly_given_areas exists because of void heretic's weather
+/// * [Func A] If list/newly_given_areas = null, It will update area overlays to new weather stage overlay. Typically called by this datum itself.
+/// * [Func B] If list/newly_given_areas is given + overlay is not changed, it will apply overlays to new areas, and remove old areas.
+/// * [Func C] If list/newly_given_areas is given + overlay stage is changed, it will remove old overlay from old areas, and apply new overlay to new areas.
 /datum/weather/proc/update_areas(list/newly_given_areas = null)
 	if(overlay_stage == stage && isnull(newly_given_areas))
 		CRASH("update_areas() is called again while weather overlay is already set (and list/newly_given_areas doesn't exist). stage:[stage] / overlay_stage:[overlay_stage]")
@@ -176,7 +177,7 @@
 	if(is_overlay_same && isnull(newly_given_areas) && isnull(cached_current_overlay) && isnull(new_overlay)) // changing null? meaningless
 		return
 
-	// Standard update_areas
+	//! [Func A] Standard update_areas. This will typically do the weather overlay change.
 	if(isnull(newly_given_areas))
 		if(is_overlay_same) // we don't have to iterate
 			return
@@ -206,7 +207,7 @@
 	// And list/impacted_areas will be updated with the new list
 
 	if(is_overlay_same)
-	// overlays are the same, and then we'll only check impacted areas are changed
+	//! [Func B] overlays are the same, but we have new areas.
 	// * Calculate list
 	// * Early return if there's no list to iterate
 	// * If old_areas_to_remove exists, cut_overlay() for those
@@ -237,7 +238,7 @@
 		return
 
 	else
-	// overlays should be changed extremely dynamically
+	//! [Func C] different overlays, but also we have new areas
 	// * Removing old overlays from impacted_areas
 	// * Adding new overlays to new areas
 		if(cached_current_overlay)
