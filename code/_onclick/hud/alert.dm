@@ -335,8 +335,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "succumb"
 
 /atom/movable/screen/alert/succumb/Click()
-	. = ..()
-	if(!.)
+	if (isobserver(usr))
 		return
 	var/mob/living/living_owner = owner
 	var/last_whisper = tgui_input_text(usr, "Do you have any last words?", "Goodnight, Sweet Prince")
