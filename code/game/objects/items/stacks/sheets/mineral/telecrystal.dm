@@ -6,7 +6,7 @@
 	icon_state = "telecrystal"
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 50
-	item_flags = NOBLUDGEON | ISWEAPON
+	item_flags = NOBLUDGEON | ISWEAPON | ILLEGAL // Directly giving ILLEGAL flag to items should be avoided, but because of how /item/stack works, this is given manually.
 	merge_type = /obj/item/stack/sheet/telecrystal
 
 /obj/item/stack/sheet/telecrystal/attack(mob/target, mob/user)
