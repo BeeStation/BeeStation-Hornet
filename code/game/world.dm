@@ -358,15 +358,63 @@ GLOBAL_VAR(restart_counter)
 /world/proc/update_status()
 	var/s = ""
 
+	// Remove the https: since // is good enough
+	var/discordurl = replacetext(CONFIG_GET(string/discordurl), "https:", "")
 	var/server_name = CONFIG_GET(string/servername)
-	if (server_name)
-		s += "<a href='[world.url]'><b>[server_name] - [station_name()]</b></a><br>"
-	else
-		s += "<a href='[world.url]'><b>[station_name()]</b></a><br>";
-
 	var/server_tag = CONFIG_GET(string/servertag)
+	var/station_name = station_name()
+
+	// Determine our character usage
+	var/character_usage = 85	// Base character usage
+	// Discord URL is needed
+	if (discordurl)
+		character_usage += length(discordurl)
+	// Server name is needed
+	if (server_name)
+		character_usage += length(server_name)
+	// We also need this stuff
+	character_usage += length("[players][popcaptext][SSmapping.config?.map_name || "Loading..."][server_tag]")
+	var/station_name_limit = 255 - character_usage
+
+	if (station_name_limit <= 10)
+		// Too few characters to display the station name
+		if (discordurl)
+			if (server_name)
+				s += "<a href='[discordurl]'><b>[server_name]</b></a><br>"
+			else
+				s += "<a href='[discordurl]'><b></b></a><br>"
+		else
+			if (server_name)
+				s += "<b>[server_name]</b><br>"
+			else
+				s += "<b>Space Station 13</b><br>"
+	if (station_name_limit < length(station_name))
+		// Station name is going to be truncated with ...
+		if (discordurl)
+			if (server_name)
+				s += "<a href='[discordurl]'><b>[server_name] - [copytext(station_name, 1, station_name_limit - 3)]...</b></a><br>"
+			else
+				s += "<a href='[discordurl]'><b>[copytext(station_name, 1, station_name_limit - 3)]...</b></a><br>"
+		else
+			if (server_name)
+				s += "<b>[server_name] - [copytext(station_name, 1, station_name_limit - 3)]...</b><br>"
+			else
+				s += "<b>[copytext(station_name, 1, station_name_limit - 3)]...</b><br>"
+	else
+		// Station name can be displayed in full
+		if (discordurl)
+			if (server_name)
+				s += "<a href='[discordurl]'><b>[server_name] - [station_name]</b></a><br>"
+			else
+				s += "<a href='[discordurl]'><b>[station_name]</b></a><br>"
+		else
+			if (server_name)
+				s += "<b>[server_name] - [station_name]</b><br>"
+			else
+				s += "<b>[station_name]</b><br>"
+
 	if (server_tag)
-		s += "[server_tag]<br><br>"
+		s += "[server_tag]<p>"
 
 	var/players = GLOB.clients.len
 
@@ -375,25 +423,9 @@ GLOBAL_VAR(restart_counter)
 	if (popcap)
 		popcaptext = "/[popcap]"
 
-	game_state = (CONFIG_GET(number/extreme_popcap) && players >= CONFIG_GET(number/extreme_popcap)) //tells the hub if we are full
-
-	s += "Time: <b>[gameTimestamp("hh:mm")]</b><br>"
-	s += "Alert: <b>[capitalize(get_security_level())]</b><br>"
+	s += "Time: <b>[gameTimestamp("hh:mm:ss")]</b><br>"
 	s += "Players: <b>[players][popcaptext]</b><br>"
-	s += "Map: <b>[SSmapping.config?.map_name || "Loading..."]</b><br>"
-
-	var/list/urls = list()
-	var/discordurl = CONFIG_GET(string/discordurl)
-	if (discordurl)
-		urls += "<a href='[discordurl]'>Discord</a>"
-	var/wikiurl = CONFIG_GET(string/wikiurl)
-	if (wikiurl)
-		urls += "<a href='[wikiurl]'>Wiki</A>"
-	var/websiteurl = CONFIG_GET(string/websiteurl)
-	if (websiteurl)
-		urls += "<a href='[websiteurl]'>Website</A>"
-	if (length(urls))
-		s += jointext(urls, " | ")
+	s += "Map: <b>[SSmapping.config?.map_name || "Loading..."]"
 
 	status = s
 
