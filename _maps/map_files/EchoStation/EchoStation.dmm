@@ -113,10 +113,8 @@
 	dir = 8;
 	network = list("ss13","rd")
 	},
-/mob/living/simple_animal/pet/dog/pug{
-	density = 0;
-	dir = 8
-	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/xenoarchaeology_machine/scale,
 /turf/open/floor/engine,
 /area/science/explab)
 "acU" = (
@@ -358,37 +356,19 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "aiv" = (
-/obj/structure/table/reinforced,
-/obj/item/xenoartifact_labeler{
-	pixel_y = 6
-	},
-/obj/item/clothing/glasses/science{
-	pixel_x = 4;
-	pixel_y = 10
-	},
-/obj/item/xenoartifact_labeler{
-	pixel_y = 6
-	},
-/obj/item/clothing/glasses/science{
-	pixel_x = 4;
-	pixel_y = 10
-	},
-/obj/item/healthanalyzer,
-/obj/item/analyzer,
-/obj/item/clothing/gloves/artifact_pinchers{
-	pixel_y = 3
-	},
-/obj/item/multitool,
-/obj/item/clothing/mask/gas,
-/obj/item/book/manual/wiki/xenoarchaeology,
-/obj/item/clothing/neck/stethoscope,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/iron,
+/obj/structure/closet/bombcloset/white,
+/obj/item/storage/firstaid/radbgone,
+/obj/item/clothing/head/radiation,
+/obj/item/clothing/suit/radiation,
+/obj/item/geiger_counter,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "aiA" = (
 /obj/effect/turf_decal/stripes/line,
@@ -505,9 +485,6 @@
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "ake" = (
-/obj/item/xenoartifact,
-/obj/machinery/xenoartifact_inbox,
-/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
 /area/science/explab)
@@ -1340,11 +1317,6 @@
 	name = "Engineering Viewing Platform"
 	})
 "awc" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/rnd/experimentor,
-/obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -1733,6 +1705,11 @@
 "aCm" = (
 /turf/closed/wall,
 /area/maintenance/department/bridge)
+"aCv" = (
+/obj/effect/turf_decal/delivery,
+/obj/item/xenoartifact,
+/turf/open/floor/engine,
+/area/science/explab)
 "aCA" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/pump,
@@ -2182,6 +2159,7 @@
 /area/bridge)
 "aKy" = (
 /obj/effect/turf_decal/delivery,
+/obj/machinery/xenoarchaeology_machine/calibrator/tutorial,
 /turf/open/floor/engine,
 /area/science/explab)
 "aKC" = (
@@ -2760,15 +2738,24 @@
 /turf/closed/indestructible/rock/bedrock,
 /area/quartermaster/storage)
 "aUG" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
+/obj/structure/table,
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/clothing/gloves/artifact_pinchers{
+	pixel_y = 5
 	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/computer/rdconsole/experiment,
+/obj/item/xenoarchaeology_labeler,
+/obj/item/xenoarchaeology_labeler{
+	pixel_y = 6
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science{
+	pixel_y = 8
+	},
+/obj/effect/turf_decal/stripes/line,
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
-/turf/open/floor/iron,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "aUN" = (
 /obj/structure/table/reinforced,
@@ -4596,14 +4583,11 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "bMy" = (
-/obj/structure/chair/office/light{
-	dir = 1
-	},
-/obj/effect/landmark/start/scientist,
 /obj/machinery/light_switch{
 	pixel_x = -25;
 	pixel_y = -25
 	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/iron/white,
 /area/science/explab)
 "bMB" = (
@@ -22263,14 +22247,17 @@
 /area/engine/atmos)
 "lhu" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
+	},
+/obj/machinery/computer/xenoarchaeology_console{
+	dir = 8
+	},
+/obj/item/book/manual/wiki/xenoarchaeology{
+	pixel_x = -6
 	},
 /turf/open/floor/iron/white,
 /area/science/explab)
@@ -22399,11 +22386,12 @@
 /area/crew_quarters/cafeteria)
 "llo" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/effect/landmark/start/scientist,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/science/explab)
@@ -38215,6 +38203,8 @@
 /turf/open/floor/iron/dark,
 /area/quartermaster/storage)
 "tyz" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/xenoarchaeology_machine/conductor,
 /turf/open/floor/engine,
 /area/science/explab)
 "tyI" = (
@@ -38874,6 +38864,18 @@
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/wood,
 /area/vacant_room/office)
+"tOK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/mob/living/simple_animal/pet/dog/pug{
+	desc = "It's Pugley IV, the research department's lovable pug clone. Hopefully nothing happens to this one - fourth time lucky!";
+	name = "Pugley IV";
+	real_name = "Pugley IV"
+	},
+/obj/structure/bed/dogbed,
+/turf/open/floor/engine,
+/area/science/explab)
 "tOO" = (
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
@@ -40840,11 +40842,6 @@
 /turf/open/floor/iron,
 /area/maintenance/department/cargo)
 "uMJ" = (
-/obj/machinery/computer/xenoartifact_console,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
 /obj/machinery/camera/autoname{
 	dir = 6;
 	network = list("ss13","rd")
@@ -40852,7 +40849,14 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/iron,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/science,
+/obj/item/xenoartifact,
+/obj/item/xenoartifact,
+/obj/item/xenoartifact,
+/obj/item/xenoartifact,
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "uNe" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -42607,17 +42611,27 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "vOC" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/closet/bombcloset/white,
-/obj/item/geiger_counter,
-/obj/item/clothing/suit/radiation,
-/obj/item/clothing/head/radiation,
-/obj/item/storage/firstaid/radbgone,
 /obj/machinery/airalarm/directional/north,
-/turf/open/floor/iron,
+/obj/effect/turf_decal/stripes/corner,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/analyzer{
+	pixel_x = -9
+	},
+/obj/item/multitool{
+	pixel_x = -1
+	},
+/obj/item/geiger_counter{
+	pixel_x = 5
+	},
+/obj/item/sticky_note_pile{
+	pixel_y = 3;
+	pixel_x = 8
+	},
+/turf/open/floor/iron/dark,
 /area/science/explab)
 "vPx" = (
 /obj/structure/railing,
@@ -132394,7 +132408,7 @@ wZl
 hYK
 aYd
 aqy
-aYd
+tOK
 aAV
 aJn
 scy
@@ -132650,7 +132664,7 @@ olN
 pyQ
 nFR
 awc
-tyz
+aCv
 ake
 aAV
 aBR
