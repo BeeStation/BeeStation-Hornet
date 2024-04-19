@@ -11,7 +11,7 @@
 	var/trait_activators = 1
 	var/trait_minors = 3
 	var/trait_majors = 1
-	var/trait_malfunctions = 0
+	var/trait_malfunctions = 0 //How many malfunctions we start with
 
 	///How many malfunctions can we gain, maximum
 	var/max_trait_malfunctions = 1

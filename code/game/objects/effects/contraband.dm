@@ -679,4 +679,13 @@
 	Poorly labeled artifacts will yield fewer rewards than accurately labeled ones."
 	icon_state = "poster51"
 
+/obj/structure/sign/poster/official/xenoarchaeology_pearl
+	name = "???"
+	desc = "A poster featuring an artifact you don't recognize.\
+	\n\
+	Legends say, artifacts can be made by striking objects with nuclear particles. They also \
+	say once stabilized, artifacts behave strangely when aligned to certain grids, related to \
+	the characteristics of their traits."
+	icon_state = "poster52"
+
 #undef PLACE_SPEED
