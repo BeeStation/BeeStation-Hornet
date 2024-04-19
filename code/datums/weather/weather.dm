@@ -24,8 +24,9 @@
 
 	var/area_type = /area/space //Types of area to affect
 	var/protect_indoors = FALSE // set to TRUE to protect indoor areas
-	///Areas to be affected by the weather, calculated when the weather begins
-	VAR_PRIVATE/list/impacted_areas = list() // If you need to update this list outside of this datum, you might be doing wrong. use update_areas(new_list)
+	/// Areas to be affected by the weather, calculated when the weather begins.
+	/// * If you need to update this list outside of this datum, you might be doing wrong. use update_areas(new_list)
+	VAR_PRIVATE/list/impacted_areas = list()
 	var/list/protected_areas = list()//Areas that are protected and excluded from the affected areas.
 	var/impacted_z_levels // The list of z-levels that this weather is actively affecting
 
@@ -34,8 +35,10 @@
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
 
-	var/stage = END_STAGE //The stage of the weather, from 1-4
-	var/overlay_stage // takes the same value as stage. Used to prevent overlay error
+	/// The stage of the weather, from 1-4
+	var/stage = END_STAGE
+	/// takes the same value as stage by update_areas(). Used to prevent overlay error.
+	VAR_PRIVATE/overlay_stage
 
 	// These are read by the weather subsystem and used to determine when and where to run the weather.
 	var/probability = 0 // Weight amongst other eligible weather. If zero, will never happen randomly.
