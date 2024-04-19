@@ -370,7 +370,7 @@ GLOBAL_VAR(restart_counter)
 		popcaptext = "/[popcap]"
 
 	// Determine our character usage
-	var/character_usage = 85	// Base character usage
+	var/character_usage = 86	// Base character usage
 	// Discord URL is needed
 	if (discordurl)
 		character_usage += length(discordurl)
