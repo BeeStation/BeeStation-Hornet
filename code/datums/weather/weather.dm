@@ -181,11 +181,18 @@
 		if(is_overlay_same) // we don't have to iterate
 			return
 
-		for(var/area/each_area as anything in impacted_areas)
-			if(cached_current_overlay)
+		// ugly if conditions, but optimisation. We don't want to do if() checks in for loop
+		if(cached_current_overlay && new_overlay)
+			for(var/area/each_area as anything in impacted_areas)
 				each_area.cut_overlay(cached_current_overlay)
-			if(new_overlay)
 				each_area.add_overlay(new_overlay)
+		else if(cached_current_overlay)
+			for(var/area/each_area as anything in impacted_areas)
+				each_area.cut_overlay(cached_current_overlay)
+		else if(new_overlay)
+			for(var/area/each_area as anything in impacted_areas)
+				each_area.add_overlay(new_overlay)
+
 		cached_current_overlay = new_overlay // remembers previous one
 		return
 
@@ -233,11 +240,11 @@
 	// overlays should be changed extremely dynamically
 	// * Removing old overlays from impacted_areas
 	// * Adding new overlays to new areas
-		for(var/area/each_old_area as anything in impacted_areas)
-			if(cached_current_overlay)
+		if(cached_current_overlay)
+			for(var/area/each_old_area as anything in impacted_areas)
 				each_old_area.cut_overlay(cached_current_overlay)
-		for(var/area/each_new_area as anything in newly_given_areas)
-			if(new_overlay)
+		if(new_overlay)
+			for(var/area/each_new_area as anything in newly_given_areas)
 				each_new_area.add_overlay(new_overlay)
 		cached_current_overlay = new_overlay
 		impacted_areas = newly_given_areas.Copy() // this is now our new team
