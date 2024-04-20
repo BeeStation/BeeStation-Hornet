@@ -5533,7 +5533,7 @@
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /obj/effect/turf_decal/trimline/yellow,
 /obj/structure/cable/yellow{
-	icon_state = "2-32"
+	icon_state = "2-16"
 	},
 /turf/open/floor/pod/dark,
 /area/maintenance/department/eva)

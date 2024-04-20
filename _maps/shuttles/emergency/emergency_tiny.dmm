@@ -8,11 +8,19 @@
 /area/shuttle/escape)
 "bm" = (
 /obj/structure/table/reinforced,
+/obj/item/clothing/head/chefhat{
+	pixel_y = 5;
+	pixel_x = -3
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "bV" = (
 /obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -31;
+	pixel_y = -1
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "cc" = (
@@ -39,6 +47,14 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
+/obj/item/bikehorn/rubberducky{
+	pixel_y = 10;
+	pixel_x = -5
+	},
+/obj/item/toy/eightball{
+	pixel_y = -2;
+	pixel_x = 2
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "dl" = (
@@ -46,6 +62,19 @@
 	pixel_y = 32
 	},
 /obj/structure/table/reinforced,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -32;
+	pixel_y = 31
+	},
+/obj/item/flashlight/lamp/green{
+	pixel_x = -4;
+	pixel_y = 11;
+	layer = 4
+	},
+/obj/item/toy/crayon/red,
+/obj/item/toy/crayon/blue{
+	pixel_x = 3
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "dM" = (
