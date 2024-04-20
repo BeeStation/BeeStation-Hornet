@@ -32,8 +32,6 @@
 	ADD_UNUSED_VAR(unused_var_names, dummy_image, stat_tabs)
 	ADD_UNUSED_VAR(unused_var_names, dummy_image, cooldowns)
 	ADD_UNUSED_VAR(unused_var_names, dummy_image, datum_flags)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, visibility)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, tgui_shared_states)
 	ADD_UNUSED_VAR(unused_var_names, dummy_image, tgui_shared_states)
 
 	for(var/each in dummy_image.vars) // try to inherit var list from /image
@@ -64,87 +62,87 @@
 
 		// appearance vars in DM document
 		if(NAMEOF(appearance, alpha))
-			return rappearance.alpha
+			return appearance.alpha
 		if(NAMEOF(appearance, appearance_flags))
-			return rappearance.appearance_flags
+			return appearance.appearance_flags
 		if(NAMEOF(appearance, blend_mode))
-			return rappearance.blend_mode
+			return appearance.blend_mode
 		if(NAMEOF(appearance, color))
-			return rappearance.color
+			return appearance.color
 		if(NAMEOF(appearance, desc))
-			return rappearance.desc
+			return appearance.desc
 		if(NAMEOF(appearance, gender))
-			return rappearance.gender
+			return appearance.gender
 		if(NAMEOF(appearance, icon))
-			return rappearance.icon
+			return appearance.icon
 		if(NAMEOF(appearance, icon_state))
-			return rappearance.icon_state
+			return appearance.icon_state
 		if(NAMEOF(appearance, invisibility))
-			return rappearance.invisibility
+			return appearance.invisibility
 		if(NAMEOF(appearance, infra_luminosity))
-			return rappearance.infra_luminosity
+			return appearance.infra_luminosity
 		if(NAMEOF(appearance, filters))
-			return rappearance.filters
+			return appearance.filters
 		if(NAMEOF(appearance, layer))
-			return rappearance.layer
+			return appearance.layer
 		if(NAMEOF(appearance, luminosity))
-			return rappearance.luminosity
+			return appearance.luminosity
 		if(NAMEOF(appearance, maptext))
-			return rappearance.maptext
+			return appearance.maptext
 		if(NAMEOF(appearance, maptext_width))
-			return rappearance.maptext_width
+			return appearance.maptext_width
 		if(NAMEOF(appearance, maptext_height))
-			return rappearance.maptext_height
+			return appearance.maptext_height
 		if(NAMEOF(appearance, maptext_x))
-			return rappearance.maptext_x
+			return appearance.maptext_x
 		if(NAMEOF(appearance, maptext_y))
-			return rappearance.maptext_y
+			return appearance.maptext_y
 		if(NAMEOF(appearance, mouse_over_pointer))
-			return rappearance.mouse_over_pointer
+			return appearance.mouse_over_pointer
 		if(NAMEOF(appearance, mouse_drag_pointer))
-			return rappearance.mouse_drag_pointer
+			return appearance.mouse_drag_pointer
 		if(NAMEOF(appearance, mouse_drop_pointer))
-			return rappearance.mouse_drop_pointer
+			return appearance.mouse_drop_pointer
 		if("mouse_drop_zone") // OpenDream didn't implement this yet.
 			return appearance:mouse_drop_zone
 		if(NAMEOF(appearance, mouse_opacity))
-			return rappearance.mouse_opacity
+			return appearance.mouse_opacity
 		if(NAMEOF(appearance, name))
-			return rappearance.name
+			return appearance.name
 		if(NAMEOF(appearance, opacity))
-			return rappearance.opacity
+			return appearance.opacity
 		if(NAMEOF(appearance, overlays))
-			return rappearance.overlays
+			return appearance.overlays
 		if("override") // only /image has this
 			var/image/image_appearance = appearance
 			return image_appearance.override
 		if(NAMEOF(appearance, pixel_x))
-			return rappearance.pixel_x
+			return appearance.pixel_x
 		if(NAMEOF(appearance, pixel_y))
-			return rappearance.pixel_y
+			return appearance.pixel_y
 		if(NAMEOF(appearance, pixel_w))
-			return rappearance.pixel_w
+			return appearance.pixel_w
 		if(NAMEOF(appearance, pixel_z))
-			return rappearance.pixel_z
+			return appearance.pixel_z
 		if(NAMEOF(appearance, plane))
-			return rappearance.plane
+			return appearance.plane
 		if(NAMEOF(appearance, render_source))
-			return rappearance.render_source
+			return appearance.render_source
 		if(NAMEOF(appearance, render_target))
-			return rappearance.render_target
+			return appearance.render_target
 		if(NAMEOF(appearance, suffix))
-			return rappearance.suffix
+			return appearance.suffix
 		if(NAMEOF(appearance, text))
-			return rappearance.text
+			return appearance.text
 		if(NAMEOF(appearance, transform))
-			return rappearance.transform
+			return appearance.transform
 		if(NAMEOF(appearance, underlays))
-			return rappearance.underlays
+			return appearance.underlays
 
 		if(NAMEOF(appearance, parent_type))
-			return rappearance.parent_type
+			return appearance.parent_type
 		if(NAMEOF(appearance, type))
-			return "/appearance (as [rappearance.type])" // don't fool people
+			return "/appearance (as [appearance.type])" // don't fool people
 
 		// These are not documented ones but trackable values. Maybe we'd want these.
 		if(NAMEOF(appearance, animate_movement))
@@ -169,15 +167,15 @@
 
 		// we wouldn't need these, but let's these trackable anyway...
 		if(NAMEOF(appearance, density))
-			return rappearance.density
+			return appearance.density
 		if(NAMEOF(appearance, screen_loc))
-			return rappearance.screen_loc
+			return appearance.screen_loc
 		if(NAMEOF(appearance, sorted_verbs))
-			return rappearance.sorted_verbs
+			return appearance.sorted_verbs
 		if(NAMEOF(appearance, tag))
-			return rappearance.tag
+			return appearance.tag
 		if(NAMEOF(appearance, cached_ref))
-			return rappearance.cached_ref
+			return appearance.cached_ref
 	return RESULT_VARIABLE_NOT_FOUND
 
 /// Shows a header name on top when you investigate an appearance
