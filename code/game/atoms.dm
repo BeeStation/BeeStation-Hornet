@@ -148,6 +148,9 @@
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
 	var/_emissive_count = 0
 
+	/// list of clients that using this atom as their eye. SHOULD BE USED CAREFULLY
+	var/list/eye_users
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -269,6 +272,7 @@
   * Top level of the destroy chain for most atoms
   *
   * Cleans up the following:
+  * * Removes clients who use this, and resets their eye
   * * Removes alternate apperances from huds that see them
   * * qdels the reagent holder from atoms if it exists
   * * clears the orbiters list
@@ -276,6 +280,14 @@
   * * clears the light object
   */
 /atom/Destroy()
+	for(var/client/each_client as anything in eye_users)
+		eye_users -= each_client
+		if(isnull(each_client.mob))
+			stack_trace("CRITICAL: Failed to recover a client's eye as their mob.")
+			continue
+		each_client.mob.reset_perspective()
+	eye_users = null
+
 	if(alternate_appearances)
 		for(var/current_alternate_appearance in alternate_appearances)
 			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
@@ -1082,7 +1094,6 @@
   */
 /atom/proc/update_remote_sight(mob/living/user)
 	return
-
 
 /**
   * Hook for running code when a dir change occurs
