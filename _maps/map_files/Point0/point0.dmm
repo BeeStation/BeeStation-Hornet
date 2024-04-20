@@ -208,6 +208,7 @@
 /obj/structure/railing{
 	dir = 6
 	},
+/obj/machinery/light/floor,
 /turf/open/floor/iron/dark,
 /area/asteroid/nearstation)
 "aJ" = (
@@ -339,15 +340,8 @@
 /turf/open/floor/iron/dark,
 /area/medical/medbay/central)
 "bp" = (
-/obj/machinery/light/floor{
-	brightness = 15;
-	bulb_colour = "#FFE4CE";
-	bulb_vacuum_brightness = 15;
-	nightshift_brightness = 10;
-	nightshift_light_color = "#E6EBFF"
-	},
-/turf/open/floor/plating/dirt,
-/area/asteroid)
+/turf/open/floor/engine/light,
+/area/science/research)
 "bq" = (
 /obj/effect/decal/cleanable/robot_debris,
 /obj/effect/decal/cleanable/dirt,
@@ -808,6 +802,12 @@
 /area/security/main{
 	name = "Security Locker Room"
 	})
+"cQ" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/iron/dark,
+/area/science/research)
 "cR" = (
 /obj/item/soap/nanotrasen,
 /obj/item/hand_labeler,
@@ -2246,11 +2246,9 @@
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
 "hl" = (
-/obj/machinery/power/apc/auto_name/west{
-	pixel_x = -24
-	},
-/turf/open/floor/grass,
-/area/asteroid)
+/obj/structure/railing,
+/turf/open/floor/iron/dark,
+/area/science/research)
 "hm" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/machinery/atmospherics/pipe/simple/general/visible,
@@ -2684,9 +2682,11 @@
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "iP" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/space)
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/grass,
+/area/asteroid)
 "iS" = (
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/light,
@@ -3003,6 +3003,10 @@
 /obj/structure/displaycase/captain{
 	pixel_y = 5
 	},
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "jT" = (
@@ -3120,6 +3124,7 @@
 /obj/structure/railing{
 	dir = 9
 	},
+/obj/machinery/light/floor,
 /turf/open/floor/iron/dark,
 /area/asteroid/nearstation)
 "ko" = (
@@ -3408,6 +3413,7 @@
 /obj/structure/railing{
 	dir = 5
 	},
+/obj/machinery/light/floor,
 /turf/open/floor/iron/dark,
 /area/asteroid/nearstation)
 "lg" = (
@@ -3830,6 +3836,7 @@
 /obj/structure/railing{
 	dir = 10
 	},
+/obj/machinery/light/floor,
 /turf/open/floor/iron/dark,
 /area/asteroid/nearstation)
 "mG" = (
@@ -4467,6 +4474,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
+"oK" = (
+/obj/structure/railing{
+	dir = 5
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/iron/dark,
+/area/space)
 "oL" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
@@ -7876,6 +7890,12 @@
 /obj/structure/desk_bell,
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"AI" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/science/research)
 "AJ" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -8034,6 +8054,11 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
+"Bj" = (
+/obj/structure/railing,
+/obj/machinery/light/floor,
+/turf/open/floor/iron/dark,
+/area/space)
 "Bk" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/curtain/directional,
@@ -8846,7 +8871,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/space)
+/area/science/research)
 "Eb" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -9614,6 +9639,7 @@
 /obj/structure/railing{
 	dir = 10
 	},
+/obj/machinery/light/floor,
 /turf/open/floor/iron/dark,
 /area/space)
 "Gh" = (
@@ -9856,8 +9882,19 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
 /turf/open/floor/carpet/black,
 /area/crew_quarters/heads/captain/private)
+"He" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/iron/dark,
+/area/space)
 "Hf" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/brflowers,
@@ -9918,7 +9955,7 @@
 	dir = 1
 	},
 /turf/open/floor/iron/dark,
-/area/space)
+/area/science/research)
 "Ho" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/plating,
@@ -10696,6 +10733,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
+"Ku" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/open/floor/iron/dark,
+/area/science/research)
 "Kv" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -12546,6 +12589,12 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/openspace,
 /area/space)
+"QB" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plating/dirt,
+/area/asteroid)
 "QD" = (
 /turf/open/floor/iron/dark,
 /area/space)
@@ -13585,6 +13634,13 @@
 	},
 /turf/open/floor/grass,
 /area/medical/genetics)
+"TF" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/iron/dark,
+/area/space)
 "TH" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced,
@@ -13618,6 +13674,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/storage)
+"TK" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/iron/dark,
+/area/asteroid/nearstation)
 "TL" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -14327,6 +14390,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/storage)
+"Wj" = (
+/obj/machinery/light{
+	bulb_colour = "#22bfa2";
+	bulb_vacuum_colour = "#22bfa2";
+	dir = 8;
+	nightshift_light_color = "#22bfa2"
+	},
+/turf/open/floor/grass,
+/area/asteroid)
 "Wk" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -15222,6 +15294,12 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
+"Zo" = (
+/obj/structure/railing{
+	dir = 5
+	},
+/turf/open/floor/iron/dark,
+/area/science/research)
 "Zq" = (
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/iron/dark,
@@ -83785,15 +83863,15 @@ sd
 sd
 sd
 DG
-bp
 NJ
-bp
+NJ
+NJ
 sd
 sd
 sd
 sd
 sd
-hl
+sd
 sd
 sd
 sd
@@ -84198,7 +84276,7 @@ sd
 sd
 sd
 sd
-sd
+Ow
 sd
 sd
 sd
@@ -84391,10 +84469,10 @@ Ow
 sd
 sd
 sd
-bp
 NJ
-bp
-sd
+NJ
+NJ
+ue
 pJ
 pJ
 pJ
@@ -84406,7 +84484,7 @@ wh
 wh
 wh
 wh
-sd
+iP
 sd
 sd
 sd
@@ -84613,7 +84691,7 @@ sd
 sd
 sd
 sd
-sd
+Ow
 sd
 sd
 sd
@@ -84825,7 +84903,7 @@ gO
 gO
 gO
 gO
-sd
+DI
 NJ
 NJ
 NJ
@@ -84997,9 +85075,9 @@ Al
 sd
 sd
 sd
-bp
 NJ
-bp
+NJ
+NJ
 sd
 pJ
 im
@@ -85603,9 +85681,9 @@ Al
 sd
 sd
 sd
-bp
 NJ
-bp
+NJ
+NJ
 sd
 pJ
 jp
@@ -86022,7 +86100,7 @@ uh
 Kt
 Sf
 wh
-NJ
+QB
 NJ
 sd
 em
@@ -86037,7 +86115,7 @@ tX
 Ub
 ec
 em
-sd
+DI
 NJ
 NJ
 NJ
@@ -86209,9 +86287,9 @@ js
 os
 zR
 mH
-bp
 NJ
-bp
+NJ
+NJ
 sd
 aL
 sW
@@ -86815,9 +86893,9 @@ pC
 WV
 zR
 PM
-bp
 NJ
-bp
+NJ
+NJ
 VT
 aL
 Oh
@@ -87249,7 +87327,7 @@ qQ
 Rp
 xi
 em
-sd
+DI
 NJ
 NJ
 NJ
@@ -87623,9 +87701,9 @@ js
 Ev
 zR
 PM
-bp
 NJ
-bp
+NJ
+NJ
 VT
 aL
 KU
@@ -87640,7 +87718,7 @@ gD
 bf
 KN
 bh
-sd
+iP
 wg
 GW
 Zy
@@ -88229,9 +88307,9 @@ js
 os
 zR
 mH
-bp
 NJ
-bp
+NJ
+NJ
 jx
 aL
 XI
@@ -88259,7 +88337,7 @@ Yq
 wr
 Oq
 GW
-sd
+DI
 NJ
 NJ
 NJ
@@ -88649,7 +88727,7 @@ gm
 zV
 FE
 Ik
-sd
+iP
 sd
 wg
 GW
@@ -88835,9 +88913,9 @@ sd
 sd
 sd
 sd
-bp
 NJ
-bp
+NJ
+NJ
 NJ
 eX
 nD
@@ -89255,7 +89333,7 @@ Jk
 Tw
 jJ
 Ik
-sd
+iP
 sd
 sd
 sd
@@ -89268,7 +89346,7 @@ sK
 cM
 fA
 qz
-sd
+DI
 sd
 NJ
 NJ
@@ -89848,7 +89926,7 @@ sd
 sd
 sd
 sd
-sd
+ue
 eX
 eX
 eX
@@ -90054,7 +90132,7 @@ sd
 sd
 sd
 sd
-sd
+Wj
 sd
 sd
 Ik
@@ -90063,12 +90141,12 @@ Ik
 Ik
 Ik
 Ik
+iP
 sd
 sd
 sd
 sd
-sd
-sd
+ue
 qz
 Tm
 Tm
@@ -90076,7 +90154,7 @@ Tm
 qz
 qz
 qz
-sd
+DI
 sd
 NJ
 NJ
@@ -118499,7 +118577,7 @@ vs
 vs
 vs
 vs
-Vw
+TF
 vM
 vM
 vM
@@ -119307,7 +119385,7 @@ vs
 vs
 vs
 vs
-od
+He
 ME
 ME
 ME
@@ -119520,7 +119598,7 @@ Za
 FG
 ME
 ME
-Nu
+Bj
 vs
 vs
 vs
@@ -123549,7 +123627,7 @@ vs
 vs
 vs
 vs
-kh
+oK
 li
 aK
 QD
@@ -125167,7 +125245,7 @@ vs
 vs
 vs
 vs
-kb
+TK
 fP
 wJ
 tE
@@ -125214,18 +125292,18 @@ De
 vs
 vs
 vs
-pM
-pM
-pM
-pM
-pM
-pM
-pM
-pM
-pM
-pM
-pM
-pM
+em
+em
+em
+em
+em
+em
+em
+em
+em
+em
+em
+em
 vs
 vs
 vs
@@ -125416,18 +125494,18 @@ De
 vs
 vs
 vs
-pM
-QD
-QD
-QD
-QD
-pM
-QD
-QD
-QD
-QD
-QD
-pM
+em
+rc
+rc
+rc
+rc
+em
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -125618,18 +125696,18 @@ De
 vs
 vs
 vs
-pM
-QD
-QD
-QD
-QD
-pM
-QD
-QD
-QD
-QD
-QD
-pM
+em
+rc
+rc
+rc
+rc
+em
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -125820,18 +125898,18 @@ De
 vs
 vs
 vs
-pM
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+em
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -126022,18 +126100,18 @@ De
 bh
 pM
 vs
-pM
+em
 Hn
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -126224,18 +126302,18 @@ sX
 RE
 pM
 vs
-pM
-QD
-QD
-QD
-QD
-pM
+em
+rc
+rc
+rc
+rc
+em
 Hn
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -126426,18 +126504,18 @@ gD
 sX
 pM
 vs
-pM
-vs
-vs
-od
-QD
-pM
-QD
-QD
-QD
-QD
-QD
-pM
+em
+KR
+KR
+cQ
+rc
+em
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -126628,18 +126706,18 @@ gD
 bo
 pM
 vs
-pM
-iP
-iP
+em
+AK
+AK
 DZ
-QD
-pM
-pM
-pM
-pM
-pM
-pM
-pM
+rc
+em
+em
+em
+em
+em
+em
+em
 vs
 vs
 vs
@@ -126830,18 +126908,18 @@ gD
 Gc
 pM
 vs
-pM
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+em
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -127032,18 +127110,18 @@ gD
 bo
 pM
 vs
-pM
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+em
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -127234,18 +127312,18 @@ gD
 Kq
 pM
 vs
-pM
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+em
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -127441,13 +127519,13 @@ Wo
 en
 en
 en
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -127643,13 +127721,13 @@ uJ
 lm
 NC
 en
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -127845,13 +127923,13 @@ yA
 lF
 ru
 fi
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -128047,13 +128125,13 @@ YZ
 vt
 qu
 en
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -128249,13 +128327,13 @@ yz
 yz
 Yk
 en
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -128452,12 +128530,12 @@ ZD
 ZD
 en
 Hn
-QD
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -128653,13 +128731,13 @@ lJ
 El
 NX
 bl
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -128855,13 +128933,13 @@ EU
 Vp
 Ag
 en
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -129057,13 +129135,13 @@ lJ
 DS
 lJ
 en
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -129259,13 +129337,13 @@ lJ
 Hp
 lJ
 en
-QD
-QD
-QD
-QD
-QD
-QD
-pM
+rc
+rc
+rc
+rc
+rc
+rc
+em
 vs
 vs
 vs
@@ -129461,13 +129539,13 @@ en
 en
 en
 en
-pM
-pM
-QD
-pM
-pM
-pM
-pM
+em
+em
+rc
+em
+em
+em
+em
 vs
 vs
 vs
@@ -129662,13 +129740,13 @@ vs
 vs
 vs
 vs
-od
-ME
-ME
-ME
-ME
-ME
-Nu
+cQ
+bp
+bp
+bp
+bp
+bp
+hl
 vs
 vs
 vs
@@ -129864,13 +129942,13 @@ vs
 vs
 vs
 vs
-od
-ME
-ME
-ME
-ME
-ME
-Nu
+cQ
+bp
+bp
+bp
+bp
+bp
+hl
 vs
 vs
 vs
@@ -130066,13 +130144,13 @@ vs
 vs
 vs
 vs
-od
-ME
-ME
-ME
-ME
-ME
-Nu
+cQ
+bp
+bp
+bp
+bp
+bp
+hl
 vs
 vs
 vs
@@ -130268,13 +130346,13 @@ vs
 vs
 vs
 vs
-od
-ME
-ME
-ME
-ME
-ME
-Nu
+cQ
+bp
+bp
+bp
+bp
+bp
+hl
 vs
 vs
 vs
@@ -130470,13 +130548,13 @@ vs
 vs
 vs
 vs
-kh
-li
-li
-li
-li
-li
-UD
+Zo
+AI
+AI
+AI
+AI
+AI
+Ku
 vs
 vs
 vs
