@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 
 /mob/living/carbon/alien/humanoid/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 
 /mob/living/carbon/alien/humanoid/restrained(ignore_grab)
@@ -41,7 +42,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	pulledby.stop_pulling()
 	. = 0
 
-/mob/living/carbon/alien/humanoid/get_permeability_protection()
+/mob/living/carbon/alien/humanoid/get_permeability_protection(list/target_zones)
 	return 0.8
 
 /mob/living/carbon/alien/humanoid/alien_evolve(mob/living/carbon/alien/humanoid/new_xeno)

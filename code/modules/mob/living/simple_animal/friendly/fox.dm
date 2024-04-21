@@ -26,7 +26,7 @@
 	pet_bonus = TRUE
 	pet_bonus_emote = "pants and yaps happily!"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	worn_slot_flags = ITEM_SLOT_HEAD
 
 //Captain fox

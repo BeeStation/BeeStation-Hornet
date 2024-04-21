@@ -31,7 +31,7 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	chat_color = "#B2CEB3"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
 	AddComponent(/datum/component/udder)
@@ -124,7 +124,7 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	chat_color = "#FFFFFF"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 	pet_bonus = TRUE
 	pet_bonus_emote = "moos happily!"
@@ -198,7 +198,7 @@
 	pet_bonus_emote = "chirps!"
 	chat_color = "#FFDC9B"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chick/Initialize(mapload)
 	. = ..()
@@ -271,7 +271,7 @@
 	chat_color = "#FFDC9B"
 	mobchatspan = "stationengineer"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chicken/Initialize(mapload)
 	. = ..()

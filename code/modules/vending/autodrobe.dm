@@ -6,7 +6,6 @@
 	req_access = list(ACCESS_THEATRE)
 	product_slogans = "Dress for success!;Suited and booted!;It's show time!;Why leave style up to fate? Use AutoDrobe!"
 	vend_reply = "Thank you for using AutoDrobe!"
-	light_color = LIGHT_COLOR_RED
 	products = list(/obj/item/clothing/mask/gas/clown_hat = 1,
 					/obj/item/clothing/mask/gas/sexyclown = 1,
 					/obj/item/clothing/under/rank/civilian/clown = 1,
@@ -41,6 +40,7 @@
 					/obj/item/clothing/under/dress/skirt = 1,
 					/obj/item/clothing/accessory/waistcoat = 1,
 					/obj/item/clothing/under/suit/black = 1,
+					/obj/item/clothing/under/suit/relaxed = 1,
 					/obj/item/clothing/head/that = 1,
 					/obj/item/clothing/under/costume/kilt = 1,
 					/obj/item/clothing/head/beret/vintage = 1,
@@ -151,6 +151,8 @@
 	default_price = 50
 	extra_price = 75
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	light_mask="theater-light-mask"
+
 /obj/machinery/vending/autodrobe/all_access
 	desc = "A vending machine for costumes. This model appears to have no access restrictions."
 	req_access = null

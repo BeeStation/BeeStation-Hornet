@@ -19,7 +19,7 @@
 	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	pet_bonus = TRUE
 	pet_bonus_emote = "woofs happily!"
 	var/turns_since_scan = 0

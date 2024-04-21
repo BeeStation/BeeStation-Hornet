@@ -27,7 +27,7 @@
 	pet_bonus = TRUE
 	pet_bonus_emote = "slowly smiles!"
 	
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 
 //Cargo Sloth
