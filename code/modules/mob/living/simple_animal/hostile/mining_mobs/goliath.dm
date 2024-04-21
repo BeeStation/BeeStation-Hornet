@@ -33,7 +33,7 @@
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_HEAVY
 	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()

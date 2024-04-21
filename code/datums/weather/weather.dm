@@ -44,9 +44,23 @@
 	/// This causes the weather to only end if forced to
 	var/perpetual = FALSE
 
+	// cached sprites to go on area overlays.
+	var/mutable_appearance/cached_weather_sprite_start
+	var/mutable_appearance/cached_weather_sprite_process
+	var/mutable_appearance/cached_weather_sprite_end
+
 /datum/weather/New(z_levels)
 	..()
 	impacted_z_levels = z_levels
+	generate_cached_weather_sprites()
+
+/datum/weather/proc/generate_cached_weather_sprites()
+	if(telegraph_overlay)
+		cached_weather_sprite_start = mutable_appearance('icons/effects/weather_effects.dmi', telegraph_overlay, overlay_layer, overlay_plane, color = weather_color)
+	if(weather_overlay)
+		cached_weather_sprite_process = mutable_appearance('icons/effects/weather_effects.dmi', weather_overlay, overlay_layer, overlay_plane, color = weather_color)
+	if(end_overlay)
+		cached_weather_sprite_end = mutable_appearance('icons/effects/weather_effects.dmi', end_overlay, overlay_layer, overlay_plane, color = weather_color)
 
 /datum/weather/proc/telegraph()
 	if(stage == STARTUP_STAGE)
@@ -135,23 +149,40 @@
 	return
 
 /datum/weather/proc/update_areas()
-	for(var/V in impacted_areas)
-		var/area/N = V
-		N.layer = overlay_layer
-		N.plane = overlay_plane
-		N.icon = 'icons/effects/weather_effects.dmi'
-		N.color = weather_color
-		switch(stage)
-			if(STARTUP_STAGE)
-				N.icon_state = telegraph_overlay
-			if(MAIN_STAGE)
-				N.icon_state = weather_overlay
-			if(WIND_DOWN_STAGE)
-				N.icon_state = end_overlay
-			if(END_STAGE)
-				N.color = null
-				N.icon_state = ""
-				N.icon = 'icons/turf/areas.dmi'
-				N.layer = initial(N.layer)
-				N.plane = initial(N.plane)
-				N.set_opacity(FALSE)
+	var/previous_overlay
+	var/new_overlay
+	switch(stage)
+		if(STARTUP_STAGE)
+			if(cached_weather_sprite_start)
+				new_overlay = cached_weather_sprite_start
+				previous_overlay = TRUE // temporary value. see below.
+		if(MAIN_STAGE)
+			if(cached_weather_sprite_start)
+				previous_overlay = cached_weather_sprite_start
+			if(cached_weather_sprite_process)
+				new_overlay = cached_weather_sprite_process
+		if(WIND_DOWN_STAGE)
+			if(cached_weather_sprite_process)
+				previous_overlay = cached_weather_sprite_process
+			if(cached_weather_sprite_end)
+				new_overlay = cached_weather_sprite_end
+		if(END_STAGE)
+			if(cached_weather_sprite_end)
+				previous_overlay = cached_weather_sprite_end
+				new_overlay = TRUE // temporary value. see below.
+
+	// we won't iterate all areas unnecesarily
+	if(!previous_overlay && !new_overlay)
+		return
+
+	// removing TRUE value because we don't want typecheck every iteration from for loop
+	if(previous_overlay == TRUE)
+		previous_overlay = null
+	if(new_overlay == TRUE)
+		new_overlay = null
+
+	for(var/area/each_area as anything in impacted_areas)
+		if(previous_overlay)
+			each_area.cut_overlay(previous_overlay)
+		if(new_overlay)
+			each_area.add_overlay(new_overlay)

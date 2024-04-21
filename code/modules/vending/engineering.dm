@@ -4,7 +4,6 @@
 	desc = "Everything you need for do-it-yourself station repair."
 	icon_state = "engi"
 	icon_deny = "engi-deny"
-	light_color = LIGHT_COLOR_SLIME_LAMP
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	products = list(/obj/item/clothing/under/rank/engineering/chief_engineer = 4,
 					/obj/item/clothing/under/rank/engineering/chief_engineer/skirt = 4,
@@ -34,6 +33,7 @@
 	default_price = 50
 	extra_price = 60
 	dept_req_for_free = ACCOUNT_ENG_BITFLAG
+	light_mask = "engi-light-mask"
 
 /obj/item/vending_refill/engineering
 	machine_name = "Robco Tool Maker"
