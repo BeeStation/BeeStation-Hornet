@@ -58,6 +58,9 @@
 
 /mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
 	. = ..()
+
+	AddElement(/datum/element/footstep, FOOTSTEP_OBJ_ROBOT, 1, -6, vary = TRUE)
+
 	// Setup equipment
 	stored_pka = new(src)
 	stored_drill = new(src)

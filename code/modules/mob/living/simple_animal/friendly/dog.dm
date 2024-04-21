@@ -19,7 +19,7 @@
 	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 //Corgis and pugs are now under one dog subtype
 
