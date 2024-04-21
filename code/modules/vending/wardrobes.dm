@@ -13,7 +13,6 @@
 	icon_state = "secdrobe"
 	product_ads = "Beat perps in style!;It's red so you can't see the blood!;You have the right to be fashionable!;Now you can be the fashion police you always wanted to be!"
 	vend_reply = "Thank you for using the SecDrobe!"
-	light_color = LIGHT_COLOR_RED
 	products = list(
 		/obj/item/clothing/suit/hooded/wintercoat/security = 3,
 		/obj/item/storage/backpack/security = 3,
@@ -298,7 +297,6 @@
 	icon_state = "bardrobe"
 	product_ads = "Guaranteed to prevent stains from spilled drinks!"
 	vend_reply = "Thank you for using the BarDrobe!"
-	light_color = LIGHT_COLOR_WHITE
 	products = list(
 		/obj/item/clothing/head/hats/tophat = 2,
 		/obj/item/radio/headset/headset_srv = 2,
@@ -473,7 +471,7 @@
 	refill_canister = /obj/item/vending_refill/wardrobe/chap_wardrobe
 	dept_req_for_free = ACCOUNT_CIV_BITFLAG
 
-	
+
 /obj/item/vending_refill/wardrobe/chap_wardrobe
 	machine_name = "ChapDrobe"
 
