@@ -69,6 +69,10 @@
 	dir = 1
 	},
 /obj/structure/closet/secure_closet/genpop,
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
 /turf/open/floor/iron/dark,
 /area/security/prison{
 	name = "Prison Processing"
@@ -4749,6 +4753,9 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/prison,
 /area/security/prison)
 "oj" = (
@@ -5250,8 +5257,17 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "pM" = (
-/turf/closed/wall,
-/area/space)
+/obj/structure/table/glass,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 2
+	},
+/obj/item/clothing/glasses/hud/health,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 9
+	},
+/obj/item/healthanalyzer,
+/turf/open/floor/wood/big,
+/area/crew_quarters/heads/cmo)
 "pN" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 4
@@ -5394,19 +5410,8 @@
 /turf/open/floor/iron/showroomfloor,
 /area/security/brig/medbay)
 "qg" = (
-/obj/structure/table/glass,
-/obj/item/storage/firstaid/regular{
-	pixel_x = 2
-	},
-/obj/item/clothing/glasses/hud/health,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 9
-	},
-/obj/item/healthanalyzer,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
-/turf/open/floor/wood/big,
+/obj/structure/railing,
+/turf/open/floor/iron/dark,
 /area/crew_quarters/heads/cmo)
 "qh" = (
 /obj/effect/turf_decal/stripes/line{
@@ -5716,8 +5721,9 @@
 /turf/open/floor/iron/dark,
 /area/science/research)
 "rd" = (
-/turf/closed/wall/r_wall,
-/area/medical/medbay/central)
+/obj/structure/railing/corner,
+/turf/open/floor/iron/dark,
+/area/crew_quarters/heads/cmo)
 "re" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -6434,6 +6440,10 @@
 /obj/structure/chair/fancy/bench{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
 /turf/open/floor/iron/dark,
 /area/security/prison{
 	name = "Prison Processing"
@@ -7056,8 +7066,8 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "vB" = (
-/turf/closed/wall/r_wall,
-/area/space)
+/turf/open/floor/engine/light,
+/area/crew_quarters/heads/cmo)
 "vC" = (
 /obj/structure/chair/fancy/comfy{
 	color = "#354562";
@@ -9687,6 +9697,17 @@
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"Dx" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	alpha = 180;
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/genpop,
+/obj/machinery/light,
+/turf/open/floor/iron/dark,
+/area/security/prison{
+	name = "Prison Processing"
+	})
 "Dy" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "hosoffice";
@@ -9824,6 +9845,9 @@
 	},
 /obj/machinery/computer/arcade/orion_trail{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/prison,
 /area/security/prison)
@@ -11466,6 +11490,7 @@
 /obj/item/clothing/shoes/sneakers/orange,
 /obj/item/clothing/shoes/sneakers/orange,
 /obj/item/clothing/under/rank/prisoner,
+/obj/machinery/light,
 /turf/open/floor/iron/dark,
 /area/security/prison{
 	name = "Prison Processing"
@@ -13961,8 +13986,10 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "Qr" = (
-/obj/machinery/photocopier,
-/turf/open/floor/wood/big,
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/open/floor/iron/dark,
 /area/crew_quarters/heads/cmo)
 "Qt" = (
 /obj/effect/turf_decal/tile/red/opposingcorners,
@@ -16470,6 +16497,13 @@
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
+"Xy" = (
+/obj/machinery/photocopier,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -33
+	},
+/turf/open/floor/wood/big,
+/area/crew_quarters/heads/cmo)
 "XA" = (
 /obj/effect/turf_decal/stripes/box,
 /obj/effect/landmark/start/cyborg,
@@ -80597,7 +80631,7 @@ OY
 JM
 OY
 OY
-OY
+Dx
 Al
 sd
 sd
@@ -83431,7 +83465,7 @@ Ev
 zR
 PM
 NJ
-fY
+jy
 NJ
 VT
 aL
@@ -83835,7 +83869,7 @@ os
 yP
 sd
 NJ
-jy
+fY
 NJ
 sd
 in
@@ -84643,7 +84677,7 @@ sd
 sd
 sd
 NJ
-fY
+jy
 NJ
 NJ
 eX
@@ -84845,7 +84879,7 @@ sd
 sd
 sd
 NJ
-jy
+fY
 jy
 jy
 If
@@ -121827,7 +121861,7 @@ nq
 Lr
 De
 bh
-pM
+bh
 vs
 em
 Hn
@@ -122029,7 +122063,7 @@ cn
 sX
 sX
 RE
-pM
+bh
 vs
 em
 rc
@@ -122231,7 +122265,7 @@ gD
 gD
 gD
 sX
-pM
+bh
 vs
 em
 KR
@@ -122433,7 +122467,7 @@ Yt
 EH
 gD
 bo
-pM
+bh
 vs
 em
 AK
@@ -122635,7 +122669,7 @@ SI
 OI
 gD
 Gc
-pM
+bh
 vs
 em
 rc
@@ -122837,7 +122871,7 @@ Ry
 UP
 gD
 bo
-pM
+bh
 vs
 em
 rc
@@ -123039,7 +123073,7 @@ Bh
 gD
 gD
 Kq
-pM
+bh
 vs
 em
 rc
@@ -123241,7 +123275,7 @@ xb
 il
 il
 sX
-pM
+bh
 vs
 en
 en
@@ -123443,7 +123477,7 @@ gD
 ZL
 ZL
 Zq
-pM
+bh
 vs
 en
 vQ
@@ -123645,7 +123679,7 @@ gD
 cB
 QV
 ub
-pM
+bh
 vs
 en
 Hi
@@ -123847,7 +123881,7 @@ tN
 tN
 tN
 eT
-pM
+bh
 vs
 en
 YZ
@@ -124049,7 +124083,7 @@ sX
 sX
 lQ
 GE
-pM
+bh
 vs
 en
 yz
@@ -124250,8 +124284,8 @@ WQ
 IN
 mS
 mS
-rd
-vB
+mS
+mS
 vs
 en
 MB
@@ -124450,10 +124484,10 @@ rr
 Bx
 WJ
 Bx
-Bx
-Bx
+ki
+mS
 vB
-vB
+qg
 vs
 en
 lJ
@@ -124652,10 +124686,10 @@ wD
 Cb
 Nq
 JG
-Bx
-ki
-vB
-vB
+xg
+mS
+rd
+Qr
 vs
 en
 EU
@@ -124854,9 +124888,9 @@ XD
 bs
 LO
 sU
-Bx
-xg
-vB
+Xy
+mS
+Nu
 vs
 vs
 en
@@ -125056,9 +125090,9 @@ Bx
 vW
 pZ
 En
-Bx
-Qr
-vB
+pM
+mS
+Nu
 vs
 vs
 en
@@ -125259,8 +125293,8 @@ Ex
 Ax
 Bx
 Bg
-qg
-vB
+mS
+Nu
 vs
 vs
 en
@@ -125462,7 +125496,7 @@ WQ
 IN
 mS
 mS
-vB
+Nu
 vs
 vs
 vs
