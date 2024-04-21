@@ -2164,7 +2164,7 @@
 	nightshift_brightness = 10;
 	nightshift_light_color = "#E6EBFF"
 	},
-/turf/open/floor/grass,
+/turf/open/floor/sepia,
 /area/asteroid)
 "gb" = (
 /obj/structure/cable/yellow{
@@ -4110,6 +4110,10 @@
 	},
 /turf/open/floor/holofloor/carpet,
 /area/crew_quarters/theatre)
+"ms" = (
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/wood/big,
+/area/crew_quarters/cafeteria)
 "mu" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1;
@@ -4358,8 +4362,21 @@
 /turf/open/floor/plating/dirt/planetary,
 /area/asteroid)
 "nd" = (
-/obj/effect/landmark/start/assistant,
-/turf/open/floor/stone,
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/sepia,
 /area/asteroid)
 "nf" = (
 /obj/structure/aquarium,
@@ -5274,6 +5291,12 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
+"qa" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/science/research)
 "qc" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
@@ -8404,6 +8427,10 @@
 /obj/structure/chair/office,
 /turf/open/floor/wood/big,
 /area/crew_quarters/heads/hop)
+"zK" = (
+/obj/machinery/light,
+/turf/open/floor/iron/dark,
+/area/science/research)
 "zL" = (
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
@@ -12459,6 +12486,13 @@
 /obj/structure/fence/door{
 	dir = 8
 	},
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
 /turf/open/floor/sepia,
 /area/asteroid)
 "Mf" = (
@@ -13906,10 +13940,14 @@
 /turf/open/openspace,
 /area/space)
 "QB" = (
-/obj/machinery/light{
-	dir = 1
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
 	},
-/turf/open/floor/plating/dirt/planetary,
+/turf/open/floor/stone,
 /area/asteroid)
 "QC" = (
 /obj/effect/turf_decal/stripes/line{
@@ -15827,7 +15865,6 @@
 /obj/structure/sign/departments/medbay/alt2{
 	pixel_y = -32
 	},
-/obj/machinery/light,
 /turf/open/floor/stone,
 /area/asteroid)
 "VV" = (
@@ -17086,6 +17123,19 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/cryo)
+"ZS" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/floor{
+	brightness = 15;
+	bulb_colour = "#FFE4CE";
+	bulb_vacuum_brightness = 15;
+	nightshift_brightness = 10;
+	nightshift_light_color = "#E6EBFF"
+	},
+/turf/open/floor/sepia,
+/area/hydroponics)
 "ZU" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -42501,7 +42551,7 @@ np
 rc
 gb
 rc
-rc
+qa
 rc
 rc
 gb
@@ -42708,7 +42758,7 @@ fS
 fS
 vo
 MQ
-rc
+zK
 lm
 VP
 yA
@@ -42902,7 +42952,7 @@ uK
 em
 rc
 rc
-rc
+vZ
 rc
 rc
 rc
@@ -70578,7 +70628,7 @@ NJ
 NJ
 NJ
 NJ
-NJ
+jy
 NJ
 NJ
 NJ
@@ -70771,23 +70821,23 @@ jy
 jy
 jy
 jy
+fY
+jy
+jy
+jy
+jy
+fY
 jy
 jy
 jy
 jy
 jy
+fY
 jy
 jy
 jy
 jy
-jy
-jy
-jy
-jy
-jy
-jy
-jy
-jy
+fY
 jy
 jy
 jy
@@ -71163,7 +71213,7 @@ sd
 sd
 sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -71379,7 +71429,7 @@ sd
 sd
 sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -71396,7 +71446,7 @@ sd
 sd
 sd
 NJ
-jy
+nd
 NJ
 sd
 sd
@@ -72375,7 +72425,7 @@ RI
 qE
 sd
 NJ
-jy
+fY
 NJ
 NJ
 Wu
@@ -72591,7 +72641,7 @@ Oc
 gu
 jy
 jy
-jy
+fY
 jy
 jy
 Fl
@@ -72608,7 +72658,7 @@ PE
 Dd
 sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -73582,12 +73632,12 @@ zB
 JK
 Fc
 ZC
-IF
+ZS
 IF
 IF
 kJ
 jy
-jy
+fY
 NJ
 sd
 Uc
@@ -73601,7 +73651,7 @@ Uc
 Uc
 sd
 NJ
-jy
+fY
 NJ
 sd
 QG
@@ -73820,7 +73870,7 @@ zo
 QG
 sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -74611,7 +74661,7 @@ ZE
 ht
 jy
 jy
-jy
+fY
 NJ
 sd
 QG
@@ -75001,7 +75051,7 @@ RI
 qE
 sd
 NJ
-jy
+fY
 NJ
 sd
 oV
@@ -75032,7 +75082,7 @@ Hm
 QG
 sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -76025,7 +76075,7 @@ sd
 sd
 sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -76244,7 +76294,7 @@ nc
 nc
 nc
 nc
-jy
+fY
 nc
 nc
 nc
@@ -76413,11 +76463,11 @@ sd
 sd
 RZ
 RZ
-GO
 EA
 EA
 EA
-GO
+EA
+EA
 RZ
 RZ
 sd
@@ -77005,11 +77055,11 @@ sd
 sd
 sd
 sd
-fY
+sd
 Ds
 lY
 eb
-fY
+sd
 sd
 sd
 sd
@@ -77052,7 +77102,7 @@ Vm
 Vm
 JZ
 JZ
-jy
+fY
 Pk
 Pk
 Vm
@@ -77217,7 +77267,7 @@ NJ
 NJ
 NJ
 RZ
-GO
+EA
 EA
 Ww
 rv
@@ -77229,7 +77279,7 @@ fa
 rv
 Ww
 EA
-GO
+EA
 RZ
 sd
 sd
@@ -77237,7 +77287,7 @@ sd
 sd
 sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -77608,13 +77658,13 @@ IG
 IG
 nF
 NJ
+QB
 NJ
 NJ
 NJ
 NJ
 NJ
-NJ
-NJ
+QB
 NJ
 NJ
 NJ
@@ -77637,6 +77687,7 @@ hy
 ZQ
 jy
 jy
+fY
 jy
 jy
 jy
@@ -77644,28 +77695,27 @@ jy
 jy
 jy
 jy
+fY
 jy
 jy
 jy
 jy
 jy
+fY
 jy
 jy
 jy
-jy
-jy
-jy
-jy
+fY
 nc
 oG
 ch
 IQ
 nc
+fY
 jy
 jy
 jy
-jy
-jy
+fY
 sd
 sd
 sd
@@ -78025,7 +78075,7 @@ NJ
 NJ
 NJ
 PU
-GO
+EA
 EA
 nv
 kj
@@ -78037,7 +78087,7 @@ DT
 kj
 nv
 EA
-GO
+EA
 PU
 sd
 sd
@@ -78217,11 +78267,11 @@ sd
 sd
 sd
 sd
-fY
+sd
 aQ
 TT
 YS
-fY
+sd
 sd
 sd
 sd
@@ -78264,7 +78314,7 @@ Gh
 Vm
 vk
 Gh
-jy
+fY
 Vm
 Vm
 MU
@@ -78837,11 +78887,11 @@ sd
 sd
 PU
 PU
-GO
 EA
 EA
+ms
 EA
-GO
+EA
 PU
 PU
 sd
@@ -79072,7 +79122,7 @@ nc
 nc
 nc
 nc
-jy
+fY
 nc
 nc
 nc
@@ -79647,7 +79697,7 @@ sd
 sd
 sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -80228,17 +80278,17 @@ nc
 sd
 sd
 sd
-Ow
 sd
-sd
-sd
-sd
-Ow
 sd
 sd
 sd
 sd
 Ow
+sd
+sd
+sd
+sd
+sd
 Al
 Al
 Al
@@ -80284,7 +80334,7 @@ sd
 sd
 sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -80859,7 +80909,7 @@ sd
 sd
 sd
 NJ
-jy
+fY
 NJ
 sd
 pJ
@@ -81462,7 +81512,7 @@ vO
 IH
 Al
 sd
-Ow
+sd
 sd
 NJ
 jy
@@ -81496,7 +81546,7 @@ LG
 gO
 sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -81681,7 +81731,7 @@ uh
 Kt
 Sf
 wh
-QB
+nc
 nc
 sd
 em
@@ -81696,7 +81746,7 @@ tX
 Ee
 rc
 em
-DI
+sd
 NJ
 jy
 NJ
@@ -82040,7 +82090,7 @@ sd
 sd
 sd
 sd
-ue
+sd
 Ke
 ta
 ML
@@ -82071,7 +82121,7 @@ os
 yP
 sd
 NJ
-jy
+fY
 NJ
 sd
 in
@@ -82708,7 +82758,7 @@ jd
 AK
 sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -82878,7 +82928,7 @@ js
 js
 yP
 NJ
-nd
+NJ
 jy
 NJ
 NJ
@@ -82908,7 +82958,7 @@ qQ
 wo
 eF
 em
-DI
+sd
 NJ
 jy
 NJ
@@ -83283,7 +83333,7 @@ Ev
 zR
 PM
 NJ
-jy
+fY
 NJ
 VT
 aL
@@ -83918,9 +83968,9 @@ Yq
 wr
 Oq
 GW
-DI
+sd
 NJ
-jy
+fY
 NJ
 sd
 sd
@@ -84290,7 +84340,7 @@ Ju
 GY
 sd
 sd
-RW
+sd
 sd
 NJ
 jy
@@ -84308,7 +84358,7 @@ gm
 zV
 FE
 Ik
-iP
+sd
 sd
 wg
 GW
@@ -84495,7 +84545,7 @@ sd
 sd
 sd
 NJ
-jy
+fY
 NJ
 NJ
 eX
@@ -84914,7 +84964,7 @@ Jk
 Tw
 jJ
 Ik
-iP
+sd
 sd
 sd
 sd
@@ -84927,7 +84977,7 @@ sK
 cM
 fA
 qz
-DI
+sd
 sd
 NJ
 jy
@@ -85273,8 +85323,8 @@ sd
 sd
 sd
 sd
-RW
 sd
+RW
 sd
 sd
 sd
@@ -85334,7 +85384,7 @@ oA
 jy
 jy
 jy
-jy
+fY
 NJ
 sd
 sd
@@ -85480,7 +85530,6 @@ sd
 sd
 sd
 sd
-RW
 sd
 sd
 sd
@@ -85493,7 +85542,8 @@ sd
 sd
 sd
 sd
-RW
+sd
+sd
 sd
 sd
 sd
@@ -85735,7 +85785,7 @@ Tm
 qz
 qz
 qz
-DI
+sd
 sd
 NJ
 NJ
