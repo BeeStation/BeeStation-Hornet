@@ -1441,11 +1441,11 @@
 /area/security/detectives_office)
 "eE" = (
 /obj/effect/landmark/xeno_spawn,
-/obj/machinery/button/door/incinerator_vent_toxmix{
-	id = "tox_ESD";
-	name = "Emergency space door";
+/obj/machinery/button/door{
+	id = "RDToxStore";
+	name = "Toxins Storage";
 	pixel_x = -32;
-	req_one_access_txt = "8;63"
+	req_access_txt = "49"
 	},
 /turf/open/floor/iron/dark,
 /area/science/storage)
@@ -6995,7 +6995,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/iron/white,
+/turf/open/floor/iron/dark,
 /area/science/research)
 "xZ" = (
 /obj/structure/cable/yellow{
@@ -8172,6 +8172,12 @@
 /obj/effect/spawner/structure/window/reinforced/prison,
 /turf/open/floor/plating,
 /area/security/prison)
+"BD" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/turf/open/floor/wood/big,
+/area/crew_quarters/cafeteria)
 "BF" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -12698,6 +12704,12 @@
 /obj/structure/railing,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
+"QX" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/turf/open/floor/wood/big,
+/area/crew_quarters/cafeteria)
 "Ra" = (
 /obj/machinery/button/door{
 	id = "kitchen";
@@ -81850,7 +81862,7 @@ fa
 fa
 ty
 uY
-EA
+QX
 qy
 NJ
 NJ
@@ -82254,7 +82266,7 @@ DT
 DT
 cE
 SD
-EA
+BD
 qy
 NJ
 NJ
