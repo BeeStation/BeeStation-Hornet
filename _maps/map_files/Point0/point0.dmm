@@ -7312,7 +7312,7 @@
 /area/medical/medbay/central)
 "wD" = (
 /obj/machinery/button/door{
-	id = s;
+	id = "cmoprivacy";
 	name = "Privacy Shutters Toggle";
 	pixel_y = 24
 	},
