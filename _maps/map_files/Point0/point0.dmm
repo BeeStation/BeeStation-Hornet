@@ -1078,12 +1078,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig/medbay)
-"da" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/closed/wall,
-/area/security/brig)
 "db" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
@@ -6104,9 +6098,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/asteroid/nearstation)
-"sD" = (
-/turf/open/floor/engine/light,
-/area/crew_quarters/heads/hos)
 "sF" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "council blast";
@@ -10729,12 +10720,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/lab)
-"Gy" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/heads/hos)
 "Gz" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -10790,7 +10775,7 @@
 	dir = 8
 	},
 /turf/open/floor/iron/dark,
-/area/crew_quarters/heads/hos)
+/area/space)
 "GI" = (
 /obj/machinery/requests_console{
 	department = "Security";
@@ -13176,12 +13161,6 @@
 	},
 /turf/open/floor/grass,
 /area/asteroid)
-"Oy" = (
-/obj/structure/railing{
-	dir = 9
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/heads/hos)
 "Oz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -13451,10 +13430,6 @@
 /area/security/main{
 	name = "Security Locker Room"
 	})
-"Pc" = (
-/obj/machinery/light,
-/turf/open/floor/engine/light,
-/area/space)
 "Pd" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "council blast";
@@ -13927,7 +13902,9 @@
 	req_access_txt = "63"
 	},
 /turf/open/floor/engine/light,
-/area/crew_quarters/heads/hos)
+/area/security/main{
+	name = "Security Locker Room"
+	})
 "Qz" = (
 /obj/structure/table/reinforced,
 /obj/structure/desk_bell,
@@ -14423,12 +14400,6 @@
 /obj/effect/turf_decal/tile/purple/diagonal_edge,
 /turf/open/floor/iron/dark,
 /area/science/research)
-"RN" = (
-/obj/structure/railing/corner{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/heads/hos)
 "RO" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	alpha = 180
@@ -15129,7 +15100,7 @@
 	layer = 3.1
 	},
 /turf/open/floor/iron/dark,
-/area/crew_quarters/heads/hos)
+/area/space)
 "TO" = (
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /obj/item/storage/fancy/cigarettes/cigars/havana,
@@ -16423,12 +16394,6 @@
 /obj/machinery/meter,
 /turf/open/floor/iron/showroomfloor,
 /area/medical/cryo)
-"XH" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/turf/open/floor/iron/dark,
-/area/crew_quarters/heads/hos)
 "XI" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
@@ -16800,10 +16765,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/science/test_area)
-"YN" = (
-/obj/structure/railing,
-/turf/open/floor/iron/dark,
-/area/crew_quarters/heads/hos)
 "YO" = (
 /obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/delivery,
@@ -76263,7 +76224,7 @@ sd
 sd
 RZ
 RZ
-ZQ
+RZ
 RZ
 RZ
 sd
@@ -79091,7 +79052,7 @@ sd
 sd
 PU
 PU
-ZQ
+PU
 PU
 PU
 sd
@@ -123113,8 +123074,8 @@ ze
 ze
 ze
 ze
-aX
 hx
+aX
 VQ
 kU
 kU
@@ -123315,8 +123276,8 @@ YL
 zR
 zR
 zR
-zR
 YL
+zR
 VQ
 iY
 iY
@@ -123517,8 +123478,8 @@ vv
 Kh
 Kh
 Kh
-Kh
 vv
+Kh
 VQ
 FH
 zC
@@ -124727,7 +124688,7 @@ ze
 ze
 ze
 ze
-da
+zR
 wX
 vv
 aP
@@ -162108,7 +162069,7 @@ vs
 vs
 od
 ME
-ME
+yy
 ME
 Nu
 vs
@@ -162506,16 +162467,16 @@ vs
 vs
 vs
 vs
-Oy
-Gy
-Gy
-Gy
-RN
-sD
-sD
-sD
+Vw
+vM
+vM
+vM
+hr
+ME
+ME
+ME
 GH
-Gy
+vM
 TN
 vs
 vs
@@ -162708,17 +162669,17 @@ vs
 vs
 vs
 vs
-XH
-sD
-sD
-sD
-sD
-sD
-sD
-sD
-sD
-sD
-YN
+od
+ME
+ME
+ME
+ME
+ME
+ME
+ME
+ME
+ME
+Nu
 vs
 vs
 vs
@@ -162910,17 +162871,17 @@ vs
 vs
 vs
 vs
-XH
-sD
-sD
-sD
-sD
-sD
-sD
-sD
-sD
-sD
-YN
+od
+ME
+ME
+ME
+ME
+ME
+ME
+ME
+ME
+ME
+Nu
 vs
 vs
 vs
@@ -163112,17 +163073,17 @@ vs
 vs
 vs
 vs
-XH
-sD
-sD
-sD
-sD
-sD
-sD
-sD
-sD
-sD
-YN
+od
+yy
+ME
+ME
+ME
+ME
+ME
+ME
+ME
+yy
+Nu
 vs
 vs
 vs
@@ -163314,11 +163275,11 @@ vs
 vs
 vs
 vs
-rb
-rb
+RP
+RP
 Qy
-rb
-rb
+RP
+RP
 rb
 rb
 rb
@@ -163919,7 +163880,7 @@ ME
 ME
 ME
 ME
-Pc
+yy
 RP
 kU
 kU
@@ -164727,7 +164688,7 @@ ME
 ME
 ME
 ME
-Pc
+yy
 rb
 rN
 ed
