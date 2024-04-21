@@ -15405,7 +15405,6 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen/fountain,
-/obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10;
 	layer = 2
