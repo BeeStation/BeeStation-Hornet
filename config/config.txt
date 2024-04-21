@@ -32,6 +32,9 @@ $include policies.txt
 ## Server name: This appears at the top of the screen in-game and in the BYOND hub. Uncomment and replace 'beestation' with the name of your choice.
 #@SERVERNAME beestation
 
+## Server Tagline: The tag that will appear on the HUB
+@SERVERTAG Join us for a new-player friendly, classic space station 13 roleplaying experience!
+
 ## Server SQL name: This is the name used to identify the server to the SQL DB, distinct from SERVERNAME as it must be at most 32 characters.
 #@SERVERSQLNAME ss13newbs
 
@@ -285,7 +288,7 @@ GITHUBURL https://www.github.com/beestation/beestation-hornet
 DONATEURL https://www.patreon.com/user?u=10639001
 
 ## Discord Invite
-DISCORDURL https://discord.gg/zUe34rs
+DISCORDURL https://discord.gg/ss13
 
 ## Round specific stats address
 ## Link to round specific parsed logs; IE statbus. It is appended with the RoundID automatically by ticker/Reboot()
