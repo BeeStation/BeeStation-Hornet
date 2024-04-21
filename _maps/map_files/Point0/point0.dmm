@@ -9907,7 +9907,6 @@
 	nightshift_light_color = "#E6EBFF"
 	},
 /obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
 /obj/item/paper_bin{
 	pixel_x = 4;
 	pixel_y = 3
