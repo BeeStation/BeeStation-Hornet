@@ -206,7 +206,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/yellow
 	colour = "yellow"
-	light_color = LIGHT_COLOR_YELLOW //a good, sickly atmosphere
+	light_color = LIGHT_COLOR_DIM_YELLOW //a good, sickly atmosphere
 	light_power = 0.75
 	uses_process = FALSE
 
