@@ -1411,7 +1411,7 @@
 	dir = 1
 	},
 /obj/machinery/door/window/westleft{
-	name = s;
+	name = "Monkey Pen";
 	pixel_y = 1;
 	req_access_txt = "9";
 	dir = 2
@@ -2744,6 +2744,14 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plating/rust,
 /area/science/test_area)
+/obj/effect/turf_decal/delivery,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/science/storage)
 "ig" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -6727,7 +6735,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/closed/wall,
+/turf/open/floor/iron/dark,
 /area/science/storage)
 "uJ" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
@@ -7099,6 +7107,16 @@
 /area/security/main{
 	name = "Security Locker Room"
 	})
+"vS" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/portable_atmospherics/pump{
+	name = "Lil Pump"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/science/storage)
 "vU" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -9290,6 +9308,17 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/storage)
+"Co" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/science/storage)
 "Cs" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -10661,6 +10690,9 @@
 /obj/machinery/light{
 	dir = 1;
 	light_color = "#7AC3FF"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/open/floor/iron/white,
 /area/science/storage)
@@ -14324,11 +14356,10 @@
 /area/medical/medbay/central)
 "RG" = (
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	pixel_y = -3
-	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/science/storage)
 "RH" = (
@@ -15923,6 +15954,9 @@
 	},
 /turf/open/floor/wood/big,
 /area/crew_quarters/theatre/backstage)
+"Wl" = (
+/turf/open/space/basic,
+/area/medical/genetics)
 "Wm" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/light{
@@ -42110,10 +42144,10 @@ Fr
 uV
 Uw
 Gq
-HN
+if
 uv
-RG
-wf
+Co
+vS
 Ny
 Cg
 US
@@ -42314,7 +42348,7 @@ Uw
 tn
 tn
 uI
-tn
+WC
 WC
 Ny
 aW
@@ -165924,7 +165958,7 @@ vs
 vs
 JH
 SE
-SE
+Wl
 SE
 SE
 SE
