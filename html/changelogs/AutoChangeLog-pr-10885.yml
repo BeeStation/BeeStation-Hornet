@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: Fixed /image ref was identified as /appearance in vv editor
