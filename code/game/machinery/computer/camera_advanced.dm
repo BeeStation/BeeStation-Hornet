@@ -222,19 +222,24 @@
 		return
 
 	camera_observers += user
-	if(eyeobj.visible_icon && user.client)
-		user.client.images += camera_sprite_for_observers
+	if(user.client)
+		if(eyeobj.visible_icon)
+			user.client.images += camera_sprite_for_observers
+		user.reset_perspective(eyeobj)
+		if(should_supress_view_changes)
+			user.client.view_size.supress()
 	RegisterSignals(user, list(COMSIG_MOB_LOGOUT, COMSIG_MOVABLE_MOVED), PROC_REF(stop_observe))
-	user.reset_perspective(eyeobj)
 
 /obj/machinery/computer/camera_advanced/proc/stop_observe(mob/user)
 	SIGNAL_HANDLER
 
 	camera_observers -= user
-	if(user.client && camera_sprite_for_observers)
-		user.client.images -= camera_sprite_for_observers
+	if(user.client)
+		if(camera_sprite_for_observers)
+			user.client.images -= camera_sprite_for_observers
+		user.reset_perspective()
+		user.client.view_size.unsupress()
 	UnregisterSignal(user, list(COMSIG_MOB_LOGOUT, COMSIG_MOVABLE_MOVED))
-	user.reset_perspective()
 
 /obj/machinery/computer/camera_advanced/proc/shoo_all_observers()
 	for(var/each_mob in camera_observers)
