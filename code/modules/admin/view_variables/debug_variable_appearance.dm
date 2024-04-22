@@ -8,32 +8,45 @@
 #define ADD_UNUSED_VAR(varlist, thing, varname) if(NAMEOF(##thing, ##varname)) ##varlist += #varname
 #define RESULT_VARIABLE_NOT_FOUND "_switch_result_variable_not_found"
 
+/// An alias datum that allows us to access and view the variables of an appearance by keeping certain known, yet undocumented, variables that we can access and read in a datum for debugging purposes.
+/// Kindly do not use this outside of a debugging context.
+/image/appearance
+	parent_type = /atom/movable // This is necessary to access the variables on compile-time.
+
+	// var/override // Sad point. We can't steal byond internal variable name
+#ifdef OPENDREAM
+	// opendream doens't support mouse_drop_zone yet. Remove this once OD supports it.
+	var/mouse_drop_zone
+#endif
+
 /// Makes a var list of /appearance type actually uses. This will be only called once.
 /proc/build_virtual_appearance_vars()
 	var/list/used_variables = list("vis_flags") // manual listing.
 	. = used_variables
 	var/list/unused_var_names = list()
 
-	var/image/dummy_image = image(null, null)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, appearance) // it only does self-reference
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, x) // xyz are always 0
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, y)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, z)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, weak_reference) // it's not a good idea to make a weak_ref on this, and this won't have it
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, vars) // inherited from /image, but /appearance hasn't this
+	var/image/appearance/nameof_reference // We don't copy vars from this.
+	pass(nameof_reference) // compiler complains unused variable
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, appearance) // it only does self-reference
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, x) // xyz are always 0
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, y)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, z)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, weak_reference) // it's not a good idea to make a weak_ref on this, and this won't have it
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, vars) // inherited from /image, but /appearance hasn't this
 
 	// we have no reason to show these, right?
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, active_timers)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, comp_lookup)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, datum_components)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, signal_procs)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, status_traits)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, gc_destroyed)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, stat_tabs)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, cooldowns)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, datum_flags)
-	ADD_UNUSED_VAR(unused_var_names, dummy_image, tgui_shared_states)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, active_timers)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, comp_lookup)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, datum_components)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, signal_procs)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, status_traits)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, gc_destroyed)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, stat_tabs)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, cooldowns)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, datum_flags)
+	ADD_UNUSED_VAR(unused_var_names, nameof_reference, tgui_shared_states)
 
+	var/image/dummy_image = image(null, null)
 	for(var/each in dummy_image.vars) // try to inherit var list from /image
 		if(each in unused_var_names)
 			continue
@@ -55,7 +68,7 @@
 /// manually locate a variable through string value.
 /// appearance type needs a manual var referencing because it doesn't have "vars" variable internally.
 /// There's no way doing this in a fancier way.
-/proc/locate_appearance_variable(var_name, atom/movable/appearance) // it isn't /movable. It had to be at it to use NAMEOF macro
+/proc/locate_appearance_variable(var_name, image/appearance/appearance) // it isn't /movable. It had to be at it to use NAMEOF macro
 	switch(var_name) // Welcome to this curse
 		// appearance doesn't have "vars" variable.
 		// This means you need to target a variable manually through this way.
@@ -103,8 +116,8 @@
 			return appearance.mouse_drag_pointer
 		if(NAMEOF(appearance, mouse_drop_pointer))
 			return appearance.mouse_drop_pointer
-		if("mouse_drop_zone") // OpenDream didn't implement this yet.
-			return appearance:mouse_drop_zone
+		if(NAMEOF(appearance, mouse_drop_zone))
+			return appearance.mouse_drop_zone
 		if(NAMEOF(appearance, mouse_opacity))
 			return appearance.mouse_opacity
 		if(NAMEOF(appearance, name))
@@ -142,7 +155,7 @@
 		if(NAMEOF(appearance, parent_type))
 			return appearance.parent_type
 		if(NAMEOF(appearance, type))
-			return "/appearance (as [appearance.type])" // don't fool people
+			return /image/appearance // don't fool people
 
 		// These are not documented ones but trackable values. Maybe we'd want these.
 		if(NAMEOF(appearance, animate_movement))
@@ -201,10 +214,10 @@
 
 /proc/vv_get_dropdown_appearance(image/thing)
 	. = list()
-	// unless you have a good reason to add a vv option for /appearance,
-	// /appearance type shouldn't allow any vv option. Even "Mark Datum" is a questionable behaviour here.
+	// Don't add any vv option carelessly unless you have a good reason to add one for /appearance.
+	// /appearance type shouldn't allow general options. Even "Mark Datum" is a questionable behaviour here.
 	VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "---")
-	VV_DROPDOWN_OPTION_APPEARANCE(thing, "", "VV option not allowed")
+	VV_DROPDOWN_OPTION_APPEARANCE(thing, VV_HK_EXPOSE, "Show VV To Player") // only legit option
 	return .
 
 #undef ADD_UNUSED_VAR
