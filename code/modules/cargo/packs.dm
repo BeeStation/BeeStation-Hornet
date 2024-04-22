@@ -1306,7 +1306,8 @@
 					/obj/item/RBMK_box/body,
 					/obj/item/RBMK_box/body,
 					/obj/item/RBMK_box/body,
-					/obj/item/circuitboard/computer/control_rods)
+					/obj/item/circuitboard/computer/control_rods,
+					/obj/item/book/manual/wiki/rbmk)
 	crate_name = "nuclear engine crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
 	dangerous = TRUE

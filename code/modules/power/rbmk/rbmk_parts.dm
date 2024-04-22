@@ -68,7 +68,7 @@
 			var/obj/machinery/atmospherics/components/unary/rbmk/core/T = heldmultitool.target
 			if(istype(T) && T != src)
 				if(!(src in T.linked_interface))
-					T.linked_interface += src
+					T.linked_interface = src
 					T.ui_update()
 					reactor = T
 					to_chat(user, "<span class='notice'>You upload the link to the [src].</span>")
