@@ -19,6 +19,10 @@
 	var/mouse_drop_zone
 #endif
 
+/image/appearance/New(loc, ...)
+	. = ..()
+	CRASH("something tried to use '/image/appearance', but this isn't actual type we use. Do not fucking do this.")
+
 /// Makes a var list of /appearance type actually uses. This will be only called once.
 /proc/build_virtual_appearance_vars()
 	var/list/used_variables = list("vis_flags") // manual listing.
@@ -46,13 +50,15 @@
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, datum_flags)
 	ADD_UNUSED_VAR(unused_var_names, nameof_reference, tgui_shared_states)
 
-	var/image/dummy_image = image(null, null)
+	var/image/dummy_image = image(null, null) // actual type we'll copy variable names
 	for(var/each in dummy_image.vars) // try to inherit var list from /image
 		if(each in unused_var_names)
 			continue
-		. += each
+		used_variables += each
 	del(dummy_image)
 	dummy_image = null
+
+	return used_variables
 
 /// debug_variable() proc but made for /appearance type specifically
 /proc/debug_variable_appearance(var_name, appearance)
@@ -126,7 +132,7 @@
 			return appearance.opacity
 		if(NAMEOF(appearance, overlays))
 			return appearance.overlays
-		if("override") // only /image has this
+		if("override") // only /image has this. mocking type can't steal byond internal var name
 			var/image/image_appearance = appearance
 			return image_appearance.override
 		if(NAMEOF(appearance, pixel_x))
