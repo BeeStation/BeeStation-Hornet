@@ -74,7 +74,7 @@
 /// manually locate a variable through string value.
 /// appearance type needs a manual var referencing because it doesn't have "vars" variable internally.
 /// There's no way doing this in a fancier way.
-/proc/locate_appearance_variable(var_name, image/appearance/appearance) // it isn't /movable. It had to be at it to use NAMEOF macro
+/proc/locate_appearance_variable(var_name, image/appearance/appearance) // WARN: /image/appearance is a mocking type, not real one
 	switch(var_name) // Welcome to this curse
 		// appearance doesn't have "vars" variable.
 		// This means you need to target a variable manually through this way.
