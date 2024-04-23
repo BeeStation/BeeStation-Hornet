@@ -73,7 +73,7 @@
 	M.title = title
 	M.content =  text
 
-	SScommunications.send_message(M)
+	DScommunications.send_message(M)
 
 /proc/minor_announce(message, title = "Attention:", alert, from, html_encode = TRUE)
 	if(!message)

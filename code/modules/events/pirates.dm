@@ -46,7 +46,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	)
 	threat.answer_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(pirates_answered), threat, payoff, ship_name, initial_send_time, response_max_time)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_pirates), threat, FALSE), response_max_time)
-	SScommunications.send_message(threat,unique = TRUE)
+	DScommunications.send_message(threat,unique = TRUE)
 
 /proc/pirates_answered(datum/comm_message/threat, payoff, ship_name, initial_send_time, response_max_time)
 	if(world.time > initial_send_time + response_max_time)

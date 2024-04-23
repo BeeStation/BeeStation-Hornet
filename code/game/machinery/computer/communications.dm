@@ -489,7 +489,7 @@
 
 /obj/machinery/computer/communications/proc/make_announcement(mob/living/user)
 	var/is_ai = issilicon(user)
-	if(!SScommunications.can_announce(user, is_ai))
+	if(!DScommunications.can_announce(user, is_ai))
 		to_chat(user, "<span class='alert'>Intercomms recharging. Please stand by.</span>")
 		return
 	var/input = stripped_input(user, "Please choose a message to announce to the station crew.", "What?")
@@ -498,7 +498,7 @@
 	if(CHAT_FILTER_CHECK(input))
 		to_chat(user, "<span class='warning'>You cannot send an announcement that contains prohibited words.</span>")
 		return
-	SScommunications.make_announcement(user, is_ai, input)
+	DScommunications.make_announcement(user, is_ai, input)
 	deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> made a priority announcement from <span class='name'>[get_area_name(usr, TRUE)]</span>.</span>", user)
 
 /obj/machinery/computer/communications/proc/post_status(command, data1, data2)
