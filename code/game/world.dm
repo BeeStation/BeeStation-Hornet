@@ -40,6 +40,14 @@ GLOBAL_VAR(restart_counter)
 	// Anything else that needs to happen before /world/New() goes here.
 	// On TG this includes debugger init and intializing Master, but for now we'll leave that as a BYOND global.
 
+		// 		< a note from Y2024.M04.D23. >
+		// https://github.com/tgstation/tgstation/pull/74808
+		// This PR moved almost everything from New() to Genesis()
+		// Just be aware of that things being here isn't anything wrong, but this should be TO-DO
+
+	// SysMgr = new // Before uncommenting this, check the macro if it does "GLOBAL_REAL() = new"
+
+
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()

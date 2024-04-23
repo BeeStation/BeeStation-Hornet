@@ -257,6 +257,7 @@
 	tab_data["World Time"] = GENERATE_STAT_TEXT("[world.time]")
 	tab_data += GLOB.stat_entry()
 	tab_data += config.stat_entry()
+	tab_data += SysMgr.stat_entry() // not real controller, but we want to access it easily
 	tab_data["divider_1"] = GENERATE_STAT_DIVIDER
 	if(Master)
 		tab_data += Master.stat_entry()
