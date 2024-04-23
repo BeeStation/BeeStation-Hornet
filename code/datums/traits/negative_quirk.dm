@@ -185,9 +185,9 @@
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/book/manual/wiki/security_space_law)
 			//RnD
 			if(JOB_NAME_RESEARCHDIRECTOR)
-				heirloom_type = /obj/item/toy/plush/slimeplushie/random
+				heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
 			if(JOB_NAME_SCIENTIST)
-				heirloom_type = /obj/item/toy/plush/slimeplushie/random
+				heirloom_type = pick(typesof(/obj/item/toy/plush/slimeplushie) - /obj/item/toy/plush/slimeplushie/random)
 			if(JOB_NAME_ROBOTICIST)
 				heirloom_type = pick(subtypesof(/obj/item/toy/prize)) //look at this nerd
 			//Medical

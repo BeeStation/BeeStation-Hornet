@@ -522,9 +522,25 @@
 	squeak_override = list('sound/effects/blobattack.ogg' = 1)
 	gender = FEMALE	//given all the jokes and drawings, I'm not sure the xenobiologists would make a slimeboy
 	squeak_override = list('sound/effects/blobattack.ogg' = 1)
+/// Most of the following is just stolen from the moth plush code for the slimes
+	var/suicide_count = 0
 
-/// Most of the following is just stolen from the moth plush code
-// Placeholder for suicide code
+/obj/item/toy/plush/slimeplushie/suicide_act(mob/living/user)
+	user.visible_message("<span class='suicide'>[user] puts [src] on top of their head. The plush begins to consume [user.p_their()] very essence!  It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	suicide_count++
+	if(suicide_count < 3)
+		desc = "An unsettling slime plushie. After killing [suicide_count] [suicide_count == 1 ? "person" : "people"] it ressembles a level 5 biohazard..."
+	else
+		desc = "A creepy slime plushie. It has killed [suicide_count] people! I don't think I want to hug it any more!"
+		divine = TRUE
+		resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | LAVA_PROOF
+	playsound(src, 'sound/effects/blobattack.ogg', 100, TRUE, -1)
+	var/list/available_spots = get_adjacent_open_turfs(loc)
+	if(available_spots.len) //If the user is in a confined space the plushie will drop normally as the user dies, but in the open the plush is placed one tile away from the user to prevent squeak spam
+		var/turf/open/random_open_spot = pick(available_spots)
+		forceMove(random_open_spot)
+	user.dust(just_ash = FALSE, drop_items = TRUE)
+	return MANUAL_SUICIDE
 
 /obj/item/toy/plush/slimeplushie/random
 	name = "\improper Random Slimeplush"
