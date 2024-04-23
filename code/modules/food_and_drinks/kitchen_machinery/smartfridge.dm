@@ -19,6 +19,8 @@
 	var/allow_ai_retrieve = FALSE
 	var/list/initial_contents
 	var/visible_contents = TRUE
+	/// Is this smartfridge going to have a glowing screen? (Drying Racks are not)
+	var/has_emissive = TRUE
 
 /obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
@@ -41,24 +43,31 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.</span>"
 
-/obj/machinery/smartfridge/update_icon()
-	if(!machine_stat)
-		if (visible_contents)
-			switch(contents.len)
-				if(0)
-					icon_state = "[initial(icon_state)]"
-				if(1 to 25)
-					icon_state = "[initial(icon_state)]1"
-				if(26 to 75)
-					icon_state = "[initial(icon_state)]2"
-				if(76 to INFINITY)
-					icon_state = "[initial(icon_state)]3"
-		else
-			icon_state = "[initial(icon_state)]"
-	else
+/obj/machinery/smartfridge/update_icon_state()
+	if(machine_stat)
 		icon_state = "[initial(icon_state)]-off"
+		return ..()
 
+	if(!visible_contents)
+		icon_state = "[initial(icon_state)]"
+		return ..()
 
+	switch(contents.len)
+		if(0)
+			icon_state = "[initial(icon_state)]"
+		if(1 to 25)
+			icon_state = "[initial(icon_state)]1"
+		if(26 to 75)
+			icon_state = "[initial(icon_state)]2"
+		if(76 to INFINITY)
+			icon_state = "[initial(icon_state)]3"
+	return ..()
+
+/obj/machinery/smartfridge/update_overlays()
+	. = ..()
+	if(!machine_stat && has_emissive)
+		. += emissive_appearance(icon, "[initial(icon_state)]-light-mask", layer, alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /*******************
 *   Item Adding
@@ -92,7 +101,7 @@
 			load(O)
 			user.visible_message("[user] has added \the [O] to \the [src].", "<span class='notice'>You add \the [O] to \the [src].</span>")
 			if (visible_contents)
-				update_icon()
+				update_appearance()
 			return TRUE
 
 		if(istype(O, /obj/item/storage/bag))
@@ -115,7 +124,7 @@
 				if(O.contents.len > 0)
 					to_chat(user, "<span class='warning'>Some items are refused.</span>")
 				if (visible_contents)
-					update_icon()
+					update_appearance()
 				return TRUE
 			else
 				to_chat(user, "<span class='warning'>There is nothing in [O] to put in [src]!</span>")
@@ -133,7 +142,7 @@
 					O.icon_state = "evidenceobj"
 					O.desc = "A container for holding body parts."
 					if(visible_contents)
-						update_icon()
+						update_appearance()
 					return TRUE
 				else
 					to_chat(user, "<span class='warning'>[src] does not accept [I]!</span>")
@@ -156,7 +165,7 @@
 			if(contents.len < max_n_of_items && accept_check(O))
 				load(O)
 				if (visible_contents)
-					update_icon()
+					update_appearance()
 				return TRUE
 	return ..()
 
@@ -278,6 +287,7 @@
 	icon_state = "drying_rack"
 	use_power = NO_POWER_USE
 	visible_contents = FALSE
+	has_emissive = FALSE
 	var/drying = FALSE
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
@@ -315,7 +325,7 @@
 /obj/machinery/smartfridge/drying_rack/ui_act(action, params)
 	. = ..()
 	if(.)
-		update_icon() // This is to handle a case where the last item is taken out manually instead of through drying pop-out
+		update_appearance() // This is to handle a case where the last item is taken out manually instead of through drying pop-out
 		return
 	switch(action)
 		if("Dry")
@@ -335,7 +345,7 @@
 
 /obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
 	..()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/smartfridge/drying_rack/update_icon()
 	..()
@@ -354,7 +364,7 @@
 			rack_dry(item_iterator)
 
 		SStgui.update_uis(src)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
 	if(HAS_TRAIT(O, TRAIT_DRYABLE)) //set on dryable element
@@ -366,7 +376,7 @@
 		drying = FALSE
 	else
 		drying = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry(obj/item/target)
 	SEND_SIGNAL(target, COMSIG_ITEM_DRIED)
