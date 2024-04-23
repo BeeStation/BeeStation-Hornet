@@ -717,7 +717,7 @@
 					/obj/item/survivalcapsule/barricade)
 	cost = 2000
 	crate_name = "security barriers crate XL"
-	
+
 /datum/supply_pack/security/armory/capsule_checkpoints
 	name = "Security Checkpoint capsules"
 	desc = "A 3x3 checkpoint designed for allowing safely searching passing personnel. Requires Security access to open."
@@ -3108,8 +3108,25 @@
 /datum/supply_pack/costumes_toys/randomised/plush/fill(obj/structure/closet/crate/C)
 	var/plush
 	for(var/i in 1 to num_contained)
-		plush = pick(subtypesof(/obj/item/toy/plush))
+		plush = pick(subtypesof(/obj/item/toy/plush) - /obj/item/toy/plush/carpplushie/dehy_carp)
 		new plush(C)
+
+/datum/supply_pack/costumes_toys/randomised/plush_no_moths
+	name = "Plushie Crate Without Moth Plushies"
+	desc = "A crate filled with 5 plushies without all those pesky moth plushies! Might contain dangerous plushies."
+	contraband = TRUE
+	cost = 1500
+	max_supply = 5
+	num_contained = 5
+	contains = list()
+	crate_type = /obj/structure/closet/crate/wooden
+	crate_name = "plushie crate"
+
+/datum/supply_pack/costumes_toys/randomised/plush_no_moths/fill(obj/structure/closet/crate/C)
+	var/plush_nomoth
+	for(var/i in 1 to num_contained)
+		plush_nomoth = pick(subtypesof(/obj/item/toy/plush) - typesof(/obj/item/toy/plush/moth))
+		new plush_nomoth(C)
 
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Wardrobe Resupplies ////////////////////////////////
