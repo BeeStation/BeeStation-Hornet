@@ -3107,8 +3107,9 @@
 
 /datum/supply_pack/costumes_toys/randomised/plush/fill(obj/structure/closet/crate/C)
 	var/plush
+	var/_temporary_list_plush = subtypesof(/obj/item/toy/plush) - /obj/item/toy/plush/carpplushie/dehy_carp
 	for(var/i in 1 to num_contained)
-		plush = pick(subtypesof(/obj/item/toy/plush) - /obj/item/toy/plush/carpplushie/dehy_carp)
+		plush = pick(_temporary_list_plush)
 		new plush(C)
 
 /datum/supply_pack/costumes_toys/randomised/plush_no_moths
@@ -3124,8 +3125,9 @@
 
 /datum/supply_pack/costumes_toys/randomised/plush_no_moths/fill(obj/structure/closet/crate/C)
 	var/plush_nomoth
+	var/_temporary_list_plush_nomoth = subtypesof(/obj/item/toy/plush) - typesof(/obj/item/toy/plush/moth)
 	for(var/i in 1 to num_contained)
-		plush_nomoth = pick(subtypesof(/obj/item/toy/plush) - typesof(/obj/item/toy/plush/moth))
+		plush_nomoth = pick(_temporary_list_plush_nomoth)
 		new plush_nomoth(C)
 
 //////////////////////////////////////////////////////////////////////////////
