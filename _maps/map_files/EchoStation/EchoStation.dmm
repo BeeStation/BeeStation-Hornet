@@ -18855,6 +18855,27 @@
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
 	})
+"jay" = (
+/obj/machinery/power/smes{
+	charge = 5e+006;
+	name = "ai power storage unit"
+	},
+/obj/machinery/flasher{
+	id = "AI";
+	name = "Meatbag Pacifier";
+	pixel_x = 23;
+	pixel_y = 22
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/item/toy/plush/lizardplushie{
+	layer = 5;
+	pixel_x = 1;
+	pixel_y = 14
+	},
+/turf/open/floor/circuit/red,
+/area/ai_monitored/turret_protected/ai)
 "jaK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -29036,22 +29057,6 @@
 "oxK" = (
 /turf/open/floor/iron/dark,
 /area/maintenance/department/crew_quarters/dorms)
-"oxZ" = (
-/obj/machinery/power/smes{
-	charge = 5e+006;
-	name = "ai power storage unit"
-	},
-/obj/machinery/flasher{
-	id = "AI";
-	name = "Meatbag Pacifier";
-	pixel_x = 23;
-	pixel_y = 22
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/circuit/red,
-/area/ai_monitored/turret_protected/ai)
 "oyg" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -194154,7 +194159,7 @@ dpV
 aqH
 hpO
 aXM
-oxZ
+jay
 lYF
 nhs
 sfC
