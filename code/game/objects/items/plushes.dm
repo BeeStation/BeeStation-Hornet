@@ -526,7 +526,7 @@
 	var/suicide_count = 0
 
 /obj/item/toy/plush/slimeplushie/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] puts [src] on top of their head. The plush begins to consume [user.p_their()] very essence!  It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] puts [src] on top of their head. The plush begins to consume [user.p_their()] very essence! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	suicide_count++
 	if(suicide_count < 3)
 		desc = "An unsettling slime plushie. After killing [suicide_count] [suicide_count == 1 ? "person" : "people"] it ressembles a level 5 biohazard..."
@@ -544,7 +544,7 @@
 
 /obj/item/toy/plush/slimeplushie/random
 	name = "\improper Random Slimeplush"
-	icon_state = "sslimeplush"
+	icon_state = "slimeplush"
 	desc = "An undefined slime plushie. It looks like but isn't a normal slime plushie! (if you see this, contact an upper being as soon as possible)."
 	item_flags = ABSTRACT
 
