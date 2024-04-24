@@ -6671,6 +6671,9 @@
 	req_access_txt = "109"
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/toy/plush/lizard_plushie/space/green{
+	name = "Escapee"
+	},
 /turf/open/floor/iron,
 /area/centcom/evac)
 "BQ" = (
@@ -11147,6 +11150,13 @@
 /obj/structure/table/wood,
 /turf/open/floor/carpet/grimy,
 /area/centcom/control)
+"UB" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/plush/lizard_plushie/green{
+	name = "Escapes-On-Pods"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
 "UC" = (
 /obj/machinery/computer/security{
 	dir = 8
@@ -41609,7 +41619,7 @@ aa
 LC
 LD
 KV
-Tk
+UB
 Ua
 bG
 du
