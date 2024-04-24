@@ -1116,11 +1116,11 @@
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, reac_volume)
 	if(reac_volume < 1)
-		continue
+		return
 
 	T.wash(clean_types)
 	for(var/am in T)
-		var/atom/movable/movable_content
+		var/atom/movable/movable_content = am
 		if(ismopable(movable_content)) // Mopables will be cleaned anyways by the turf wash
 			continue
 		movable_content.wash(clean_types)
