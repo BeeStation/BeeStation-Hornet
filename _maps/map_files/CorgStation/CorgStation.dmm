@@ -7344,6 +7344,11 @@
 /obj/effect/loot_jobscale/armoury/energy_gun{
 	pixel_y = 5
 	},
+/obj/machinery/camera/motion{
+	c_tag = "E.V.A. Storage";
+	dir = 6;
+	network = list("ss13","security")
+	},
 /turf/open/floor/plating,
 /area/ai_monitored/security/armory)
 "cbG" = (
@@ -11749,7 +11754,7 @@
 	id = "armoury_belt"
 	},
 /obj/item/storage/box/firingpins,
-/obj/structure/plasticflaps/opaque,
+/obj/structure/plasticflaps,
 /turf/open/floor/plating,
 /area/ai_monitored/security/armory)
 "dEC" = (
@@ -23560,6 +23565,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/item/storage/secure/safe{
+	pixel_x = 6;
+	pixel_y = 25
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "hzq" = (
@@ -26315,7 +26324,7 @@
 	},
 /obj/effect/loot_jobscale/armoury/dragnet,
 /obj/item/beacon/nettingportal,
-/obj/structure/plasticflaps/opaque,
+/obj/structure/plasticflaps,
 /turf/open/floor/plating,
 /area/ai_monitored/security/armory)
 "iqa" = (
@@ -29332,6 +29341,12 @@
 	},
 /turf/open/floor/plating,
 /area/security/detectives_office)
+"jpD" = (
+/obj/structure/sign/warning/securearea{
+	pixel_y = -32
+	},
+/turf/open/space/basic,
+/area/space)
 "jpE" = (
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/holofloor/plating,
@@ -30211,6 +30226,11 @@
 /obj/machinery/conveyor{
 	id = "armoury_belt";
 	dir = 4
+	},
+/obj/machinery/camera/motion{
+	c_tag = "E.V.A. Storage";
+	dir = 1;
+	network = list("ss13","security")
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/security/armory)
@@ -38466,11 +38486,6 @@
 /turf/open/floor/iron,
 /area/maintenance/starboard/central)
 "mmh" = (
-/obj/machinery/camera/motion{
-	c_tag = "E.V.A. Storage";
-	dir = 5;
-	network = list("ss13","security")
-	},
 /obj/structure/sign/warning/securearea{
 	pixel_x = -32
 	},
@@ -40014,11 +40029,12 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "mJP" = (
-/obj/item/storage/secure/safe{
-	pixel_x = 37
-	},
 /obj/machinery/conveyor_switch/oneway{
 	id = "armoury_belt"
+	},
+/obj/machinery/light_switch{
+	pixel_x = 25;
+	pixel_y = -6
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
@@ -47740,6 +47756,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/item/storage/secure/safe{
+	pixel_y = -25;
+	pixel_x = 6
+	},
 /turf/open/floor/iron,
 /area/ai_monitored/security/armory)
 "pql" = (
@@ -50284,6 +50304,12 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"qht" = (
+/obj/structure/sign/warning/securearea{
+	pixel_x = -32
+	},
+/turf/open/space/basic,
+/area/space)
 "qhx" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -57317,9 +57343,6 @@
 "suN" = (
 /obj/machinery/flasher/portable,
 /obj/effect/turf_decal/bot,
-/obj/item/storage/secure/safe{
-	pixel_x = 37
-	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "suQ" = (
@@ -117198,7 +117221,7 @@ aMT
 aMT
 aMT
 aMT
-aMT
+jpD
 oXI
 cby
 lSx
@@ -117972,7 +117995,7 @@ aMT
 aMT
 vQI
 aMT
-aMT
+qht
 aMT
 aMT
 aMT
