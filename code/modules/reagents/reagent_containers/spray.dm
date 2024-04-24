@@ -79,8 +79,8 @@
 	D.sprayer = src
 	D.lifetime = puff_reagent_left
 	D.stream = stream_mode
-	D.RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, /obj/effect/decal/chempuff/proc/loop_ended)
-	D.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, /obj/effect/decal/chempuff/proc/check_move)
+	D.RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/obj/effect/decal/chempuff, loop_ended))
+	D.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, TYPE_PROC_REF(/obj/effect/decal/chempuff, check_move))
 
 /obj/item/reagent_containers/spray/attack_self(mob/user)
 	stream_mode = !stream_mode
