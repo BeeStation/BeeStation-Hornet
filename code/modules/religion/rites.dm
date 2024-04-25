@@ -777,7 +777,7 @@
 				break
 	if(!rite_target)
 		return FALSE
-	rite_target.set_species(/datum/species/pod)
+	rite_target.set_species(/datum/species/diona)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
 	return TRUE
 

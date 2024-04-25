@@ -146,7 +146,7 @@
 					if(SCANGATE_OOZE)
 						scan_species = /datum/species/oozeling
 					if(SCANGATE_POD)
-						scan_species = /datum/species/pod
+						scan_species = /datum/species/diona
 					if(SCANGATE_GOLEM)
 						scan_species = /datum/species/golem
 					if(SCANGATE_ZOMBIE)

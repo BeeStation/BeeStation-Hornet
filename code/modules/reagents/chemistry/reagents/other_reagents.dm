@@ -552,7 +552,7 @@
 						/datum/species/fly,
 						/datum/species/moth,
 						/datum/species/apid,
-						/datum/species/pod,
+						/datum/species/diona, //Maybe should remove this...
 						/datum/species/oozeling,
 						/datum/species/abductor,
 						/datum/species/skeleton)
