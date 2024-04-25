@@ -295,7 +295,7 @@
 	alignment = ALIGNMENT_GOOD
 	max_favor = 10000
 	desired_items = list(/obj/item/seeds)
-	rites_list = list(/datum/religion_rites/create_podperson, /datum/religion_rites/create_sandstone, /datum/religion_rites/grass_generator, /datum/religion_rites/summon_animals)
+	rites_list = list(/datum/religion_rites/create_diona, /datum/religion_rites/create_sandstone, /datum/religion_rites/grass_generator, /datum/religion_rites/summon_animals)
 	altar_icon_state = "convertaltar-green"
 
 //plant bibles don't heal or do anything special apart from the standard holy water blessings

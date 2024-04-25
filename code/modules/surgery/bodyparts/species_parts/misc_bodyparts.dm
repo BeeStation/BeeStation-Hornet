@@ -116,26 +116,26 @@
 	limb_id = "zombie"
 	should_draw_greyscale = FALSE
 
-///PODPEOPLE
-/obj/item/bodypart/head/pod
-	limb_id = "pod"
+///PODPEOPLE, NOW REPLACED WITH DIONAE
+/obj/item/bodypart/head/diona
+	limb_id = SPECIES_DIONAE
 	is_dimorphic = TRUE
 
-/obj/item/bodypart/chest/pod
-	limb_id = "pod"
+/obj/item/bodypart/chest/diona
+	limb_id = SPECIES_DIONAE
 	is_dimorphic = TRUE
 
-/obj/item/bodypart/l_arm/pod
-	limb_id = "pod"
+/obj/item/bodypart/l_arm/diona
+	limb_id = SPECIES_DIONAE
 
-/obj/item/bodypart/r_arm/pod
-	limb_id = "pod"
+/obj/item/bodypart/r_arm/diona
+	limb_id = SPECIES_DIONAE
 
-/obj/item/bodypart/l_leg/pod
-	limb_id = "pod"
+/obj/item/bodypart/l_leg/diona
+	limb_id = SPECIES_DIONAE
 
-/obj/item/bodypart/r_leg/pod
-	limb_id = "pod"
+/obj/item/bodypart/r_leg/diona
+	limb_id = SPECIES_DIONAE
 
 ///FLY
 /obj/item/bodypart/head/fly

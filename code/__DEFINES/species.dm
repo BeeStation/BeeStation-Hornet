@@ -18,7 +18,7 @@
  #define SPECIES_SLIMEPERSON "slime"
  #define SPECIES_STARGAZER "stargazer"
 #define SPECIES_PLASMAMAN "plasmaman"
-#define SPECIES_PODPERSON "pod"
+#define SPECIES_DIONAE "dionae"
 #define SPECIES_PUMPKINPERSON "pumpkin_man"
 #define SPECIES_SHADOWPERSON "shadow"
 #define SPECIES_SKELETON "skeleton"

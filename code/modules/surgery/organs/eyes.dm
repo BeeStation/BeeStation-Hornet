@@ -436,3 +436,9 @@
 	var/datum/action/item_action/organ_action/psychic_highlight/P = locate(/datum/action/item_action/organ_action/psychic_highlight) in M.actions
 	P?.remove()
 	return ..()
+
+/obj/item/organ/eyes/diona
+	name = "receptor node"
+	desc = "A combination of plant matter and neurons used to produce visual feedback."
+	icon_state = ""
+	flash_protect = -1

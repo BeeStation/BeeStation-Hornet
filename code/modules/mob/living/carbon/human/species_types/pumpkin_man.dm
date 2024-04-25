@@ -11,7 +11,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 
 	mutant_brain = /obj/item/organ/brain/pumpkin_brain
-	mutanttongue = /obj/item/organ/tongue/podperson/pumpkin
+	mutanttongue = /obj/item/organ/tongue/diona/pumpkin
 
 	species_chest = /obj/item/bodypart/chest/pumpkin_man
 	species_head = /obj/item/bodypart/head/pumpkin_man
@@ -76,7 +76,7 @@
 			M.update_body_parts_head_only()
 			to_chat(_user, "<span class='notice'>You carve a face into [_source].</span>")
 			//Adjust the tongue
-			var/obj/item/organ/tongue/podperson/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]
+			var/obj/item/organ/tongue/diona/pumpkin/P = M.internal_organs_slot[ORGAN_SLOT_TONGUE]
 			if(istype(P))
 				P?.carved = TRUE
 		else

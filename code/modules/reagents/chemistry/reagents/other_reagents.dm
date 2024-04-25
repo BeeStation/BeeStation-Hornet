@@ -596,12 +596,12 @@
 	race = /datum/species/apid
 	taste_description = "honey"
 
-/datum/reagent/mutationtoxin/pod
-	name = "Podperson Mutation Toxin"
+/datum/reagent/mutationtoxin/diona //Probably should remove this, since diona cant be cloned or revived naturally
+	name = "Dionae Mutation Toxin"
 	description = "A vegetalizing toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = /datum/species/pod
+	race = /datum/species/diona
 	taste_description = "flowers"
 
 /datum/reagent/mutationtoxin/jelly
