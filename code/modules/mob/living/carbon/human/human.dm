@@ -1341,7 +1341,7 @@
 	race = /datum/species/human/krokodil_addict
 
 /mob/living/carbon/human/species/pumpkin_man
-	race = /datum/species/pod/pumpkin_man
+	race = /datum/species/diona/pumpkin_man
 
 /mob/living/carbon/human/species/psyphoza
 	race = /datum/species/psyphoza
