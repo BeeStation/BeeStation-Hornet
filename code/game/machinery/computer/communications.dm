@@ -127,7 +127,7 @@
 			var/new_sec_level = seclevel2num(params["newSecurityLevel"])
 			if (new_sec_level != SEC_LEVEL_GREEN && new_sec_level != SEC_LEVEL_BLUE)
 				return
-			if (GLOB.security_level == new_sec_level)
+			if (SSsecurity_level.current_level == new_sec_level)
 				return
 
 			set_security_level(new_sec_level)
@@ -156,7 +156,7 @@
 			make_announcement(usr)
 			. = TRUE
 		if ("messageAssociates")
-			if (!authenticated(usr) || issilicon(usr) || (GLOB.security_level < SEC_LEVEL_RED && !authenticated_as_non_silicon_captain(usr)))
+			if (!authenticated(usr) || issilicon(usr) || (SSsecurity_level.current_level < SEC_LEVEL_RED && !authenticated_as_non_silicon_captain(usr)))
 				return
 			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
@@ -349,7 +349,7 @@
 		//Main section is always visible when authenticated
 		data["canBuyShuttles"] = can_buy_shuttles(user)
 		data["canMakeAnnouncement"] = FALSE
-		data["canMessageAssociates"] = !issilicon(user) && GLOB.security_level >= SEC_LEVEL_RED
+		data["canMessageAssociates"] = !issilicon(user) && SSsecurity_level.current_level >= SEC_LEVEL_RED
 		data["canRecallShuttles"] = !issilicon(user)
 		data["canRequestNuke"] = FALSE
 		data["canSendToSectors"] = FALSE
