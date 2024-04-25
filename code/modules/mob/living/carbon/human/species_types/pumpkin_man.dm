@@ -1,4 +1,4 @@
-/datum/species/pod/pumpkin_man
+/datum/species/diona/pumpkin_man
 	name = "\improper Pumpkinperson"
 	plural_form = "Pumpkinpeople"
 	id = SPECIES_PUMPKINPERSON
@@ -21,28 +21,28 @@
 	species_r_leg = /obj/item/bodypart/r_leg/pumpkin_man
 
 //Only allow race roundstart on Halloween
-/datum/species/pod/pumpkin_man/check_roundstart_eligible()
+/datum/species/diona/pumpkin_man/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
 	return ..()
 
-/datum/species/pod/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+/datum/species/diona/pumpkin_man/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
 	//They can't speak!
 	//Register signal for carving
 	RegisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY, PROC_REF(handle_carving))
 
-/datum/species/pod/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/diona/pumpkin_man/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
 	UnregisterSignal(C, COMSIG_MOB_ITEM_ATTACKBY)
 
-/datum/species/pod/pumpkin_man/get_species_description()
+/datum/species/diona/pumpkin_man/get_species_description()
 	return "A rare subspecies of the Podpeople, Pumpkinpeople are gourdy and orange, appearing every halloween."
 
-/datum/species/pod/pumpkin_man/get_species_lore()
+/datum/species/diona/pumpkin_man/get_species_lore()
 	return null
 
-/datum/species/pod/pumpkin_man/create_pref_unique_perks()
+/datum/species/diona/pumpkin_man/create_pref_unique_perks()
 	var/list/to_add = list()
 
 	to_add += list(
@@ -57,7 +57,7 @@
 	return to_add
 
 //Handler for face carving!
-/datum/species/pod/pumpkin_man/proc/handle_carving(datum/_source, mob/living/_user, obj/item/_item)
+/datum/species/diona/pumpkin_man/proc/handle_carving(datum/_source, mob/living/_user, obj/item/_item)
 	//Check if the item is sharp - give owner a random face if applicable
 	var/mob/living/carbon/human/M = _source
 	var/obj/item/bodypart/head/pumpkin_man/head = M.get_bodypart(BODY_ZONE_HEAD)
