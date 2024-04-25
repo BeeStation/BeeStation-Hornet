@@ -224,7 +224,7 @@
 				priority_announce("All hostile activity within station systems has ceased.","Network Alert", SSstation.announcer.get_rand_alert_sound())
 
 			if(get_security_level() == "delta")
-				set_security_level("red")
+				SSsecurity_level.set_level(SEC_LEVEL_RED)
 
 		SSshuttle.clearHostileEnvironment(src)
 		gang.message_gangtools("Hostile takeover cancelled: Dominator is no longer operational.[gang.dom_attempts ? " You have [gang.dom_attempts] attempt remaining." : " The station network will have likely blocked any more attempts by us."]",1,1)

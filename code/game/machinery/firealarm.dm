@@ -81,9 +81,9 @@
 
 	. += "fire_overlay"
 	if(is_station_level(z))
-		. += "fire_[SSsecurity_level.current_level]"
-		. += mutable_appearance(icon, "fire_[SSsecurity_level.current_level]")
-		. += emissive_appearance(icon, "fire_[SSsecurity_level.current_level]", layer, alpha = 255)
+		. += "fire_[SSsecurity_level.get_current_level_as_number()]"
+		. += mutable_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]")
+		. += emissive_appearance(icon, "fire_[SSsecurity_level.get_current_level_as_number()]", layer, alpha = 255)
 		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	else
 		. += "fire_[SEC_LEVEL_GREEN]"
