@@ -15,13 +15,9 @@ interface BufferedTextAreaPropsUnique {
 }
 
 // If anyone ever refactors TextArea to use TypeScript, remove the & Record<string, unknown> part
-type BufferedTextAreaProps = BufferedTextAreaPropsUnique &
-  Record<string, unknown>;
+type BufferedTextAreaProps = BufferedTextAreaPropsUnique & Record<string, unknown>;
 
-export class BufferedTextArea extends Component<
-  BufferedTextAreaProps,
-  BufferedTextAreaState
-> {
+export class BufferedTextArea extends Component<BufferedTextAreaProps, BufferedTextAreaState> {
   bufferTimer: NodeJS.Timer;
   state = {
     bufferedText: this.props.value || '',
@@ -29,10 +25,7 @@ export class BufferedTextArea extends Component<
   };
 
   componentDidMount() {
-    this.bufferTimer = setInterval(
-      this.pushBuffer.bind(this),
-      this.props.updateInterval || DEFAULT_UPDATE_INTERVAL,
-    );
+    this.bufferTimer = setInterval(this.pushBuffer.bind(this), this.props.updateInterval || DEFAULT_UPDATE_INTERVAL);
   }
 
   componentWillUnmount() {
@@ -51,9 +44,7 @@ export class BufferedTextArea extends Component<
     const { updateValue, value, updateInterval, ...rest } = this.props;
     return (
       <TextArea
-        onInput={(_, value) =>
-          this.setState({ bufferedText: value, textChanged: true })
-        }
+        onInput={(_, value) => this.setState({ bufferedText: value, textChanged: true })}
         onChange={this.pushBuffer.bind(this)}
         value={this.state.bufferedText}
         {...rest}

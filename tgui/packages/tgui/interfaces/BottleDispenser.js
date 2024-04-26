@@ -27,11 +27,7 @@ export const BottleDispenser = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Bottle Name">
-              <Button
-                icon="pencil-alt"
-                content={bottle_name}
-                onClick={() => act('change_bottle_name')}
-              />
+              <Button icon="pencil-alt" content={bottle_name} onClick={() => act('change_bottle_name')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>

@@ -1,42 +1,19 @@
 import { toFixed } from 'common/math';
 import { toTitleCase } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  AnimatedNumber,
-  Box,
-  Button,
-  Dimmer,
-  Flex,
-  Icon,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Stack,
-} from '../components';
+import { AnimatedNumber, Box, Button, Dimmer, Flex, Icon, LabeledList, ProgressBar, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 const RecipeOptions = (_props, context) => {
   const { act, data } = useBackend(context);
-  const [deletingRecipes, setDeletingRecipes] = useLocalState(
-    context,
-    'deletingRecipes',
-    false,
-  );
-  const [_clearingRecipes, setClearingRecipes] = useLocalState(
-    context,
-    'clearingRecipes',
-    false,
-  );
+  const [deletingRecipes, setDeletingRecipes] = useLocalState(context, 'deletingRecipes', false);
+  const [_clearingRecipes, setClearingRecipes] = useLocalState(context, 'clearingRecipes', false);
   const recording = !!data.recordingRecipe;
   return (
     <>
       {!recording && (
         <Box inline mx={1}>
-          <Button
-            color="transparent"
-            content="Clear recipes"
-            onClick={() => setClearingRecipes(true)}
-          />
+          <Button color="transparent" content="Clear recipes" onClick={() => setClearingRecipes(true)} />
         </Box>
       )}
       {!recording && (
@@ -48,40 +25,17 @@ const RecipeOptions = (_props, context) => {
         />
       )}
       {!recording && (
-        <Button
-          icon="circle"
-          disabled={!data.isBeakerLoaded}
-          content="Record"
-          onClick={() => act('record_recipe')}
-        />
+        <Button icon="circle" disabled={!data.isBeakerLoaded} content="Record" onClick={() => act('record_recipe')} />
       )}
-      {recording && (
-        <Button
-          icon="ban"
-          color="transparent"
-          content="Discard"
-          onClick={() => act('cancel_recording')}
-        />
-      )}
-      {recording && (
-        <Button
-          icon="save"
-          color="green"
-          content="Save"
-          onClick={() => act('save_recording')}
-        />
-      )}
+      {recording && <Button icon="ban" color="transparent" content="Discard" onClick={() => act('cancel_recording')} />}
+      {recording && <Button icon="save" color="green" content="Save" onClick={() => act('save_recording')} />}
     </>
   );
 };
 
 const RecipeClearAllDimmer = (_props, context) => {
   const { act } = useBackend(context);
-  const [_clearingRecipes, setClearingRecipes] = useLocalState(
-    context,
-    'clearingRecipes',
-    false,
-  );
+  const [_clearingRecipes, setClearingRecipes] = useLocalState(context, 'clearingRecipes', false);
   return (
     <Dimmer>
       <Stack align="baseline" vertical>
@@ -183,13 +137,10 @@ export const ChemDispenser = (_props, context) => {
                 Recording
               </Box>
             )
-          }
-        >
+          }>
           <LabeledList>
             <LabeledList.Item label="Energy">
-              <ProgressBar value={data.energy / data.maxEnergy}>
-                {toFixed(data.energy) + ' units'}
-              </ProgressBar>
+              <ProgressBar value={data.energy / data.maxEnergy}>{toFixed(data.energy) + ' units'}</ProgressBar>
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -215,8 +166,7 @@ export const ChemDispenser = (_props, context) => {
                 })
               }
             />
-          ))}
-        >
+          ))}>
           <Box mr={-1}>
             {data.chemicals.map((chemical) => (
               <Button
@@ -237,50 +187,31 @@ export const ChemDispenser = (_props, context) => {
         <Section
           title="Beaker"
           buttons={beakerTransferAmounts.map((amount) => (
-            <Button
-              key={amount}
-              icon="minus"
-              disabled={recording}
-              content={amount}
-              onClick={() => act('remove', { amount })}
-            />
-          ))}
-        >
+            <Button key={amount} icon="minus" disabled={recording} content={amount} onClick={() => act('remove', { amount })} />
+          ))}>
           <LabeledList>
             <LabeledList.Item
               label="Beaker"
               buttons={
                 !!data.isBeakerLoaded && (
-                  <Button
-                    icon="eject"
-                    content="Eject"
-                    disabled={!data.isBeakerLoaded}
-                    onClick={() => act('eject')}
-                  />
+                  <Button icon="eject" content="Eject" disabled={!data.isBeakerLoaded} onClick={() => act('eject')} />
                 )
-              }
-            >
+              }>
               {(recording && 'Virtual beaker') ||
                 (data.isBeakerLoaded && (
                   <>
-                    <AnimatedNumber
-                      initial={0}
-                      value={data.beakerCurrentVolume}
-                    />
-                    /{data.beakerMaxVolume} units
+                    <AnimatedNumber initial={0} value={data.beakerCurrentVolume} />/{data.beakerMaxVolume} units
                   </>
                 )) ||
                 'No beaker'}
             </LabeledList.Item>
             <LabeledList.Item label="Contents">
               <Box color="label">
-                {(!data.isBeakerLoaded && !recording && 'N/A') ||
-                  (beakerContents.length === 0 && 'Nothing')}
+                {(!data.isBeakerLoaded && !recording && 'N/A') || (beakerContents.length === 0 && 'Nothing')}
               </Box>
               {beakerContents.map((chemical) => (
                 <Box key={chemical.name} color="label">
-                  <AnimatedNumber initial={0} value={chemical.volume} /> units
-                  of {chemical.name}
+                  <AnimatedNumber initial={0} value={chemical.volume} /> units of {chemical.name}
                 </Box>
               ))}
             </LabeledList.Item>

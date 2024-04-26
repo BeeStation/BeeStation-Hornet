@@ -1,18 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Stack,
-  Collapsible,
-  Tooltip,
-  Icon,
-  Box,
-  Button,
-  LabeledList,
-  Input,
-  Section,
-  Flex,
-  Table,
-  NoticeBox,
-} from '../components';
+import { Stack, Collapsible, Tooltip, Icon, Box, Button, LabeledList, Input, Section, Flex, Table, NoticeBox } from '../components';
 import { Window } from '../layouts';
 import { Fragment } from 'inferno';
 import { capitalize, createSearch } from 'common/string';
@@ -52,14 +39,11 @@ const TechFabTopBar = (props, context) => {
               // onInput={(e, value) => {
               //   value.trim().length>2 && act("search", { "value": value });
               // }}
-              onChange={(e, value) => act('search', { value: value })}
+              onChange={(e, value) => act('search', { 'value': value })}
             />
           </Flex.Item>
           <Flex.Item mx={0.5}>
-            <Button
-              content="Synchronize research"
-              onClick={() => act('sync_research')}
-            />
+            <Button content="Synchronize research" onClick={() => act('sync_research')} />
           </Flex.Item>
           <Flex.Item mx={0.5} grow>
             Efficiency: {Math.floor(efficiency * 100)}%
@@ -77,10 +61,7 @@ const TechFabTopBar = (props, context) => {
 const formatBigNumber = (number, digits) => {
   const unsafeDigitCount = Math.floor(Math.log10(number));
   const digitCount = isFinite(unsafeDigitCount) ? unsafeDigitCount : 0;
-  const exponent =
-    digitCount > digits
-      ? Math.pow(10, digitCount - digits)
-      : Math.pow(10, Math.max(0, digits - digitCount));
+  const exponent = digitCount > digits ? Math.pow(10, digitCount - digits) : Math.pow(10, Math.max(0, digits - digitCount));
 
   if (digitCount > digits) {
     number = Math.floor(number / exponent);
@@ -171,10 +152,7 @@ const TechFabHeader = (props, context) => {
   return (
     <Stack.Item>
       <Section>
-        <Collapsible
-          title={'Materials (' + materials_label + ')'}
-          disabled={materials === null}
-        >
+        <Collapsible title={'Materials (' + materials_label + ')'} disabled={materials === null}>
           <Flex wrap="wrap" align="baseline">
             {materials &&
               Object.keys(materials).map((id) => {
@@ -187,10 +165,7 @@ const TechFabHeader = (props, context) => {
         <Collapsible
           title={'Reagents (' + reagents_label + ')'}
           disabled={materials === null}
-          buttons={
-            <Button content="Purge all" onClick={() => act('disposeall')} />
-          }
-        >
+          buttons={<Button content="Purge all" onClick={() => act('disposeall')} />}>
           <Flex wrap="wrap" align="baseline">
             {reagents && Object.keys(reagents).length > 0 ? (
               Object.keys(reagents).map((id) => {
@@ -233,10 +208,7 @@ const Recipe = (props, context) => {
   const material_objects = Object.keys(recipe.materials).map((id) => {
     const material = materials[id] || materials[substitutions[id]];
     const total = material.amount;
-    const amountNeeded =
-      Math.floor(
-        recipe.materials[id] / (recipe.efficiency_affects ? efficiency : 1),
-      ) / stack_to_mineral;
+    const amountNeeded = Math.floor(recipe.materials[id] / (recipe.efficiency_affects ? efficiency : 1)) / stack_to_mineral;
 
     const mat_max = Math.floor(total / amountNeeded);
     max = Math.min(max, mat_max);
@@ -273,14 +245,11 @@ const Recipe = (props, context) => {
         <ConditionalTooltip
           condition={recipe.description && recipe.description !== 'Desc'}
           content={recipe.description}
-          position="bottom-end"
-        >
+          position="bottom-end">
           <Flex.Item position="relative" width="100%">
             <Box className="TechFab__RecipeName">{recipe.name}</Box>
             <Box color="lightgray" pl={1}>
-              {reagent_objects
-                .reduce(reducefn, material_objects.reduce(reducefn, []))
-                .slice(1)}
+              {reagent_objects.reduce(reducefn, material_objects.reduce(reducefn, [])).slice(1)}
             </Box>
           </Flex.Item>
         </ConditionalTooltip>
@@ -293,9 +262,7 @@ const Recipe = (props, context) => {
                     className="TechFab__NumberButton"
                     content={'x' + amount}
                     disabled={amount > max}
-                    onClick={() =>
-                      act('build', { design_id: recipe.id, amount: amount })
-                    }
+                    onClick={() => act('build', { 'design_id': recipe.id, 'amount': amount })}
                   />
                 </Flex.Item>
               );
@@ -330,14 +297,7 @@ const TechFabContent = (props, context) => {
           fill
           scrollable
           title={search !== null ? 'Search' : category}
-          buttons={
-            <Button
-              icon="backspace"
-              content="Back"
-              onClick={() => act('mainmenu')}
-            />
-          }
-        >
+          buttons={<Button icon="backspace" content="Back" onClick={() => act('mainmenu')} />}>
           <Flex direction="column">
             {recipesDisplayed.map((recipe) => {
               return <Recipe key={recipe.id} recipe={recipe} />;
@@ -354,11 +314,7 @@ const TechFabContent = (props, context) => {
             {categories.map((category) => {
               return (
                 <Flex.Item key={category} minWidth="50%" p={0.2}>
-                  <Button
-                    content={category}
-                    fluid
-                    onClick={() => act('category', { category: category })}
-                  />
+                  <Button content={category} fluid onClick={() => act('category', { 'category': category })} />
                 </Flex.Item>
               );
             })}

@@ -23,15 +23,8 @@ export const TransferValve = (props, context) => {
         <Section
           title="Valve Attachment"
           buttons={
-            <Button
-              textAlign="center"
-              width="30px"
-              icon={'cog'}
-              disabled={!attached_device}
-              onClick={() => act('device')}
-            />
-          }
-        >
+            <Button textAlign="center" width="30px" icon={'cog'} disabled={!attached_device} onClick={() => act('device')} />
+          }>
           <LabeledList>
             {attached_device ? (
               <LabeledList.Item label="Attachment">
@@ -51,12 +44,7 @@ export const TransferValve = (props, context) => {
           <LabeledList>
             {tank_one ? (
               <LabeledList.Item label="Attachment">
-                <Button
-                  icon={'wrench'}
-                  content={tank_one}
-                  disabled={!tank_one}
-                  onClick={() => act('tankone')}
-                />
+                <Button icon={'wrench'} content={tank_one} disabled={!tank_one} onClick={() => act('tankone')} />
               </LabeledList.Item>
             ) : (
               <NoticeBox textAlign="center">Insert Tank</NoticeBox>
@@ -67,12 +55,7 @@ export const TransferValve = (props, context) => {
           <LabeledList>
             {tank_two ? (
               <LabeledList.Item label="Attachment">
-                <Button
-                  icon={'wrench'}
-                  content={tank_two}
-                  disabled={!tank_two}
-                  onClick={() => act('tanktwo')}
-                />
+                <Button icon={'wrench'} content={tank_two} disabled={!tank_two} onClick={() => act('tanktwo')} />
               </LabeledList.Item>
             ) : (
               <NoticeBox textAlign="center">Insert Tank</NoticeBox>

@@ -1,16 +1,6 @@
 import { useBackend } from '../backend';
 import { UserDetails } from './Newscaster';
-import {
-  Icon,
-  Box,
-  Button,
-  Collapsible,
-  Flex,
-  NumberInput,
-  Section,
-  TextArea,
-  BlockQuote,
-} from '../components';
+import { Icon, Box, Button, Collapsible, Flex, NumberInput, Section, TextArea, BlockQuote } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -36,10 +26,7 @@ export const BountyBoardContent = (_, context) => {
       </Section>
       {user.silicon ? null : <NewBountyMenu />}
       {requests?.map((request) => (
-        <Collapsible
-          key={request.name}
-          title={`${request.owner}: ${formatMoney(request.value)}cr Bounty`}
-        >
+        <Collapsible key={request.name} title={`${request.owner}: ${formatMoney(request.value)}cr Bounty`}>
           <Section
             title={`${request.owner}`}
             key={request.name}
@@ -52,11 +39,7 @@ export const BountyBoardContent = (_, context) => {
                 <Button
                   icon="pen-fancy"
                   content="Apply"
-                  disabled={
-                    user.silicon ||
-                    !user.authenticated ||
-                    request.owner === user.name
-                  }
+                  disabled={user.silicon || !user.authenticated || request.owner === user.name}
                   onClick={() =>
                     act('apply', {
                       request: request.acc_number,
@@ -74,8 +57,7 @@ export const BountyBoardContent = (_, context) => {
                   }
                 />
               </>
-            }
-          >
+            }>
             <BlockQuote style={{ 'white-space': 'pre-wrap', overflow: 'auto' }}>
               <i>{request.description}</i>
             </BlockQuote>
@@ -95,8 +77,7 @@ export const BountyBoardContent = (_, context) => {
                           style={{
                             border: `1px solid ${color}`,
                             borderRadius: '5px',
-                          }}
-                        >
+                          }}>
                           {applicant.name}
                         </Flex.Item>
                         <Flex.Item mt={1} align="end">
@@ -113,7 +94,7 @@ export const BountyBoardContent = (_, context) => {
                           />
                         </Flex.Item>
                       </Flex>
-                    ),
+                    )
                 )}
               </Section>
             )}
@@ -145,15 +126,9 @@ const NewBountyMenu = (_, context) => {
               })
             }
           />
-          <Button
-            icon="print"
-            content="Submit Bounty"
-            disabled={!user.authenticated}
-            onClick={() => act('createBounty')}
-          />
+          <Button icon="print" content="Submit Bounty" disabled={!user.authenticated} onClick={() => act('createBounty')} />
         </>
-      }
-    >
+      }>
       <TextArea
         height="60px"
         backgroundColor="black"

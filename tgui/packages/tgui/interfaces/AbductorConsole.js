@@ -9,20 +9,10 @@ export const AbductorConsole = (props, context) => {
     <Window theme="abductor" width={600} height={532}>
       <Window.Content scrollable>
         <Tabs>
-          <Tabs.Tab
-            icon="list"
-            lineHeight="23px"
-            selected={tab === 1}
-            onClick={() => setTab(1)}
-          >
+          <Tabs.Tab icon="list" lineHeight="23px" selected={tab === 1} onClick={() => setTab(1)}>
             Abductsoft 3000
           </Tabs.Tab>
-          <Tabs.Tab
-            icon="list"
-            lineHeight="23px"
-            selected={tab === 2}
-            onClick={() => setTab(2)}
-          >
+          <Tabs.Tab icon="list" lineHeight="23px" selected={tab === 2} onClick={() => setTab(2)}>
             Mission Settings
           </Tabs.Tab>
         </Tabs>
@@ -50,9 +40,7 @@ const Abductsoft = (props, context) => {
     <>
       <Section>
         <LabeledList>
-          <LabeledList.Item label="Collected Samples">
-            {points}
-          </LabeledList.Item>
+          <LabeledList.Item label="Collected Samples">{points}</LabeledList.Item>
         </LabeledList>
       </Section>
       <GenericUplink currencyAmount={credits} currencySymbol="Credits" />
@@ -71,15 +59,7 @@ const EmergencyTeleporter = (props, context) => {
   return (
     <Section
       title="Emergency Teleport"
-      buttons={
-        <Button
-          icon="exclamation-circle"
-          content="Activate"
-          color="bad"
-          onClick={() => act('teleporter_send')}
-        />
-      }
-    >
+      buttons={<Button icon="exclamation-circle" content="Activate" color="bad" onClick={() => act('teleporter_send')} />}>
       <LabeledList>
         <LabeledList.Item label="Mark Retrieval">
           <Button
@@ -111,8 +91,7 @@ const VestSettings = (props, context) => {
           content={vest_lock ? 'Locked' : 'Unlocked'}
           onClick={() => act('toggle_vest')}
         />
-      }
-    >
+      }>
       <LabeledList>
         <LabeledList.Item label="Mode">
           <Button
@@ -122,11 +101,7 @@ const VestSettings = (props, context) => {
           />
         </LabeledList.Item>
         <LabeledList.Item label="Disguise">
-          <Button
-            icon="user-secret"
-            content="Select"
-            onClick={() => act('select_disguise')}
-          />
+          <Button icon="user-secret" content="Select" onClick={() => act('select_disguise')} />
         </LabeledList.Item>
       </LabeledList>
     </Section>

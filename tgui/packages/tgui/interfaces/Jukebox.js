@@ -1,15 +1,7 @@
 import { sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Dropdown,
-  Section,
-  Knob,
-  LabeledControls,
-  LabeledList,
-} from '../components';
+import { Box, Button, Dropdown, Section, Knob, LabeledControls, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 export const Jukebox = (props, context) => {
@@ -28,8 +20,7 @@ export const Jukebox = (props, context) => {
               selected={active}
               onClick={() => act('toggle')}
             />
-          }
-        >
+          }>
           <LabeledList>
             <LabeledList.Item label="Track Selected">
               <Dropdown
@@ -45,9 +36,7 @@ export const Jukebox = (props, context) => {
                 }
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Track Length">
-              {track_selected ? track_length : 'No Track Selected'}
-            </LabeledList.Item>
+            <LabeledList.Item label="Track Length">{track_selected ? track_length : 'No Track Selected'}</LabeledList.Item>
             <LabeledList.Item label="Track Beat">
               {track_selected ? track_beat : 'No Track Selected'}
               {track_beat === 1 ? ' beat' : ' beats'}

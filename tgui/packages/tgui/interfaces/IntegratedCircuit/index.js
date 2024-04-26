@@ -1,12 +1,5 @@
 import { useBackend } from '../../backend';
-import {
-  Input,
-  InfinitePlane,
-  Stack,
-  Box,
-  Button,
-  Section,
-} from '../../components';
+import { Input, InfinitePlane, Stack, Box, Button, Section } from '../../components';
 import { Component } from 'inferno';
 import { Layout, Window } from '../../layouts';
 import { resolveAsset } from '../../assets';
@@ -72,9 +65,7 @@ export class IntegratedCircuit extends Component {
     if (
       isNaN(position.x) ||
       isNaN(position.y) ||
-      (lastPosition &&
-        lastPosition.x === position.x &&
-        lastPosition.y === position.y)
+      (lastPosition && lastPosition.x === position.x && lastPosition.y === position.y)
     ) {
       return;
     }
@@ -272,9 +263,7 @@ export class IntegratedCircuit extends Component {
                   fluid
                   placeholder="Circuit Name"
                   value={display_name}
-                  onChange={(e, value) =>
-                    act('set_display_name', { display_name: value })
-                  }
+                  onChange={(e, value) => act('set_display_name', { display_name: value })}
                 />
               </Stack.Item>
               <Stack.Item basis="24px">
@@ -293,24 +282,16 @@ export class IntegratedCircuit extends Component {
               </Stack.Item>
               {!!is_admin && (
                 <Stack.Item>
-                  <Button
-                    position="absolute"
-                    top={0}
-                    color="transparent"
-                    onClick={() => act('save_circuit')}
-                    icon="save"
-                  />
+                  <Button position="absolute" top={0} color="transparent" onClick={() => act('save_circuit')} icon="save" />
                 </Stack.Item>
               )}
             </Stack>
           </Box>
-        }
-      >
+        }>
         <Window.Content
           style={{
             'background-image': 'none',
-          }}
-        >
+          }}>
           <InfinitePlane
             width="100%"
             height="100%"
@@ -319,8 +300,7 @@ export class IntegratedCircuit extends Component {
             onZoomChange={this.handleZoomChange}
             onBackgroundMoved={this.handleBackgroundMoved}
             initialLeft={screen_x}
-            initialTop={screen_y}
-          >
+            initialTop={screen_y}>
             {components.map(
               (comp, index) =>
                 comp && (
@@ -334,7 +314,7 @@ export class IntegratedCircuit extends Component {
                     onPortRightClick={this.handlePortRightClick}
                     onPortMouseUp={this.handlePortUp}
                   />
-                ),
+                )
             )}
             <Connections connections={connections} />
           </InfinitePlane>
@@ -350,15 +330,7 @@ export class IntegratedCircuit extends Component {
             />
           )}
           {!!menuOpen && (
-            <Box
-              position="absolute"
-              bottom={0}
-              left={0}
-              height="50%"
-              minHeight="300px"
-              width="100%"
-              backgroundColor="#202020"
-            >
+            <Box position="absolute" bottom={0} left={0} height="50%" minHeight="300px" width="100%" backgroundColor="#202020">
               <VariableMenu
                 variables={variables}
                 types={global_basic_types}

@@ -10,7 +10,7 @@
 @use '~tgui/styles/base.scss' with (
   $color-bg: #202020,
   $color-bg-section: color.adjust(#202020, $lightness: -5%),
-  $color-bg-grad-spread: 0%
+  $color-bg-grad-spread: 0%,
 );
 
 // Core styles
@@ -25,10 +25,7 @@
 
 // Components
 @include meta.load-css('~tgui/styles/components/BlockQuote.scss');
-@include meta.load-css(
-  '~tgui/styles/components/Button.scss',
-  $with: ('color-transparent-text': rgba(255, 255, 255, 0.6))
-);
+@include meta.load-css('~tgui/styles/components/Button.scss', $with: ('color-transparent-text': rgba(255, 255, 255, 0.6)));
 @include meta.load-css('~tgui/styles/components/ColorBox.scss');
 @include meta.load-css('~tgui/styles/components/Dimmer.scss');
 @include meta.load-css('~tgui/styles/components/Divider.scss');

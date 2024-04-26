@@ -42,12 +42,7 @@ export const computeFlexProps = (props: FlexProps) => {
 
 export const Flex = (props) => {
   const { className, ...rest } = props;
-  return (
-    <div
-      className={classes([className, computeFlexClassName(rest)])}
-      {...computeFlexProps(rest)}
-    />
-  );
+  return <div className={classes([className, computeFlexClassName(rest)])} {...computeFlexProps(rest)} />;
 };
 
 Flex.defaultHooks = pureComponentHooks;
@@ -62,16 +57,11 @@ export type FlexItemProps = BoxProps & {
 };
 
 export const computeFlexItemClassName = (props: FlexItemProps) => {
-  return classes([
-    'Flex__item',
-    Byond.IS_LTE_IE10 && 'Flex__item--iefix',
-    computeBoxClassName(props),
-  ]);
+  return classes(['Flex__item', Byond.IS_LTE_IE10 && 'Flex__item--iefix', computeBoxClassName(props)]);
 };
 
 export const computeFlexItemProps = (props: FlexItemProps) => {
-  const { className, style, grow, order, shrink, basis, align, ...rest } =
-    props;
+  const { className, style, grow, order, shrink, basis, align, ...rest } = props;
   const computedBasis =
     basis ??
     // IE11: Set basis to specified width if it's known, which fixes certain
@@ -86,7 +76,7 @@ export const computeFlexItemProps = (props: FlexItemProps) => {
       'flex-grow': grow !== undefined && Number(grow),
       'flex-shrink': shrink !== undefined && Number(shrink),
       'flex-basis': unit(computedBasis),
-      order: order,
+      'order': order,
       'align-self': align,
     },
     ...rest,

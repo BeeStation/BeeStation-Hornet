@@ -1,14 +1,5 @@
 import { useBackend, useSharedState } from '../backend';
-import {
-  AnimatedNumber,
-  Box,
-  Button,
-  Flex,
-  LabeledList,
-  Section,
-  Table,
-  Tabs,
-} from '../components';
+import { AnimatedNumber, Box, Button, Flex, LabeledList, Section, Table, Tabs } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -33,19 +24,14 @@ export const CargoContent = (props, context) => {
       <CargoStatus />
       <Section fitted>
         <Tabs>
-          <Tabs.Tab
-            icon="list"
-            selected={tab === 'catalog'}
-            onClick={() => setTab('catalog')}
-          >
+          <Tabs.Tab icon="list" selected={tab === 'catalog'} onClick={() => setTab('catalog')}>
             Catalog
           </Tabs.Tab>
           <Tabs.Tab
             icon="envelope"
             textColor={tab !== 'requests' && requests.length > 0 && 'yellow'}
             selected={tab === 'requests'}
-            onClick={() => setTab('requests')}
-          >
+            onClick={() => setTab('requests')}>
             Requests ({requests.length})
           </Tabs.Tab>
           {!requestonly && (
@@ -53,8 +39,7 @@ export const CargoContent = (props, context) => {
               icon="shopping-cart"
               textColor={tab !== 'cart' && cart.length > 0 && 'yellow'}
               selected={tab === 'cart'}
-              onClick={() => setTab('cart')}
-            >
+              onClick={() => setTab('cart')}>
               Checkout ({cart.length})
             </Tabs.Tab>
           )}
@@ -69,46 +54,25 @@ export const CargoContent = (props, context) => {
 
 const CargoStatus = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    away,
-    docked,
-    loan,
-    loan_dispatched,
-    location,
-    message,
-    points,
-    requestonly,
-    can_send,
-  } = data;
+  const { away, docked, loan, loan_dispatched, location, message, points, requestonly, can_send } = data;
   return (
     <Section
       title="Cargo"
       buttons={
         <Box fontFamily="verdana" inline bold>
-          <AnimatedNumber
-            value={points}
-            format={(value) => formatMoney(value)}
-          />
+          <AnimatedNumber value={points} format={(value) => formatMoney(value)} />
           {' credits'}
         </Box>
-      }
-    >
+      }>
       <LabeledList>
         <LabeledList.Item label="Shuttle">
-          {(docked && !requestonly && can_send && (
-            <Button content={location} onClick={() => act('send')} />
-          )) ||
-            location}
+          {(docked && !requestonly && can_send && <Button content={location} onClick={() => act('send')} />) || location}
         </LabeledList.Item>
         <LabeledList.Item label="CentCom Message">{message}</LabeledList.Item>
         {!!loan && !requestonly && (
           <LabeledList.Item label="Loan">
             {(!loan_dispatched && (
-              <Button
-                content="Loan Shuttle"
-                disabled={!(away && docked)}
-                onClick={() => act('loan')}
-              />
+              <Button content="Loan Shuttle" disabled={!(away && docked)} onClick={() => act('loan')} />
             )) || <Box color="bad">Loaned to Centcom</Box>}
           </LabeledList.Item>
         )}
@@ -122,11 +86,7 @@ export const CargoCatalog = (props, context) => {
   const { act, data } = useBackend(context);
   const { self_paid, app_cost, points } = data;
   const supplies = Object.values(data.supplies);
-  const [activeSupplyName, setActiveSupplyName] = useSharedState(
-    context,
-    'supply',
-    supplies[0]?.name,
-  );
+  const [activeSupplyName, setActiveSupplyName] = useSharedState(context, 'supply', supplies[0]?.name);
   const activeSupply = supplies.find((supply) => {
     return supply.name === activeSupplyName;
   });
@@ -137,16 +97,10 @@ export const CargoCatalog = (props, context) => {
         !express && (
           <>
             <CargoCartButtons />
-            <Button.Checkbox
-              ml={2}
-              content="Buy Privately"
-              checked={self_paid}
-              onClick={() => act('toggleprivate')}
-            />
+            <Button.Checkbox ml={2} content="Buy Privately" checked={self_paid} onClick={() => act('toggleprivate')} />
           </>
         )
-      }
-    >
+      }>
       <Flex>
         <Flex.Item ml={-1} mr={1}>
           <Tabs vertical>
@@ -154,8 +108,7 @@ export const CargoCatalog = (props, context) => {
               <Tabs.Tab
                 key={supply.name}
                 selected={supply.name === activeSupplyName}
-                onClick={() => setActiveSupplyName(supply.name)}
-              >
+                onClick={() => setActiveSupplyName(supply.name)}>
                 {supply.name} ({supply.packs.length})
               </Tabs.Tab>
             ))}
@@ -186,24 +139,13 @@ export const CargoCatalog = (props, context) => {
                       fluid
                       tooltip={pack.desc}
                       tooltipPosition="left"
-                      disabled={
-                        !canOrder ||
-                        (express &&
-                          points &&
-                          points < pack.cost &&
-                          pack.supply > 0)
-                      }
+                      disabled={!canOrder || (express && points && points < pack.cost && pack.supply > 0)}
                       onClick={() =>
                         act('add', {
                           id: pack.id,
                         })
-                      }
-                    >
-                      {formatMoney(
-                        self_paid || app_cost
-                          ? Math.round(pack.cost * 1.1)
-                          : pack.cost,
-                      )}
+                      }>
+                      {formatMoney(self_paid || app_cost ? Math.round(pack.cost * 1.1) : pack.cost)}
                       {' cr'}
                     </Button>
                   </Table.Cell>
@@ -225,17 +167,7 @@ const CargoRequests = (props, context) => {
   return (
     <Section
       title="Active Requests"
-      buttons={
-        !requestonly && (
-          <Button
-            icon="times"
-            content="Clear"
-            color="transparent"
-            onClick={() => act('denyall')}
-          />
-        )
-      }
-    >
+      buttons={!requestonly && <Button icon="times" content="Clear" color="transparent" onClick={() => act('denyall')} />}>
       {requests.length === 0 && <Box color="good">No Requests</Box>}
       {requests.length > 0 && (
         <Table>
@@ -300,15 +232,9 @@ const CargoCartButtons = (props, context) => {
       <Box inline mx={1}>
         {cart.length === 0 && 'Cart is empty'}
         {cart.length === 1 && '1 item'}
-        {cart.length >= 2 && cart.length + ' items'}{' '}
-        {total > 0 && `(${formatMoney(total)} cr)`}
+        {cart.length >= 2 && cart.length + ' items'} {total > 0 && `(${formatMoney(total)} cr)`}
       </Box>
-      <Button
-        icon="times"
-        color="transparent"
-        content="Clear"
-        onClick={() => act('clear')}
-      />
+      <Button icon="times" color="transparent" content="Clear" onClick={() => act('clear')} />
     </>
   );
 };
@@ -328,9 +254,7 @@ const CargoCart = (props, context) => {
                 #{entry.id}
               </Table.Cell>
               <Table.Cell>{entry.object}</Table.Cell>
-              <Table.Cell collapsing>
-                {!!entry.paid && <b>[Paid Privately]</b>}
-              </Table.Cell>
+              <Table.Cell collapsing>{!!entry.paid && <b>[Paid Privately]</b>}</Table.Cell>
               <Table.Cell fontFamily="verdana" collapsing textAlign="right">
                 {formatMoney(entry.cost)} cr
               </Table.Cell>
@@ -360,7 +284,7 @@ const CargoCart = (props, context) => {
               color="green"
               style={{
                 'line-height': '28px',
-                padding: '0 12px',
+                'padding': '0 12px',
               }}
               content="Confirm the order"
               onClick={() => act('send')}

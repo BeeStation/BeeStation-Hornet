@@ -123,10 +123,7 @@ export class EmagConsoleText extends Component {
 
   render() {
     const { state } = this;
-    const toShow = this.text.substring(
-      0,
-      Math.min(state.index, this.text.length),
-    );
+    const toShow = this.text.substring(0, Math.min(state.index, this.text.length));
     return (
       <Section fill scrollable backgroundColor="black">
         {(logTextAlways + toShow).split('\n').map((log) =>
@@ -134,7 +131,7 @@ export class EmagConsoleText extends Component {
             <Box mb={1} key={log}>
               <font color="white">{log}</font>
             </Box>
-          ) : null,
+          ) : null
         )}
       </Section>
     );

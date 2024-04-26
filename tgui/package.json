@@ -13,7 +13,7 @@
     "tgui:dev": "node --experimental-modules packages/tgui-dev-server/index.js",
     "tgui:lint": "eslint packages --ext .js,.cjs,.ts,.tsx",
     "tgui:prettier": "prettier --check .",
-    "tgui:prettier-format": "prettier --write packages",
+    "tgui:prettier-format": "prettierx --write packages",
     "tgui:sonar": "eslint packages --ext .js,.cjs,.ts,.tsx -c .eslintrc-sonar.yml",
     "tgui:test": "jest --watch",
     "tgui:test-simple": "CI=true jest --color",

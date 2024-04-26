@@ -10,18 +10,9 @@ export const NtosNotepad = (props, context) => {
       <NtosWindow.Content>
         <Section
           title={'Notes'}
-          buttons={
-            !!has_paper && (
-              <Button
-                icon="file-alt"
-                content="Show Scanned Paper"
-                onClick={() => act('ShowPaper')}
-              />
-            )
-          }
+          buttons={!!has_paper && <Button icon="file-alt" content="Show Scanned Paper" onClick={() => act('ShowPaper')} />}
           fill
-          fitted
-        >
+          fitted>
           <BufferedTextArea
             fluid
             style={{ height: '100%' }}

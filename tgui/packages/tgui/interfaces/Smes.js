@@ -1,13 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Flex,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Slider,
-} from '../components';
+import { Box, Button, Flex, LabeledList, ProgressBar, Section, Slider } from '../components';
 import { formatPower } from '../format';
 import { Window } from '../layouts';
 
@@ -31,10 +23,8 @@ export const Smes = (props, context) => {
     outputLevelMax,
     outputUsed,
   } = data;
-  const inputState =
-    (capacityPercent >= 100 && 'good') || (inputting && 'average') || 'bad';
-  const outputState =
-    (outputting && 'good') || (charge > 0 && 'average') || 'bad';
+  const inputState = (capacityPercent >= 100 && 'good') || (inputting && 'average') || 'bad';
+  const outputState = (outputting && 'good') || (charge > 0 && 'average') || 'bad';
   return (
     <Window width={340} height={350}>
       <Window.Content>
@@ -53,19 +43,12 @@ export const Smes = (props, context) => {
             <LabeledList.Item
               label="Charge Mode"
               buttons={
-                <Button
-                  icon={inputAttempt ? 'sync-alt' : 'times'}
-                  selected={inputAttempt}
-                  onClick={() => act('tryinput')}
-                >
+                <Button icon={inputAttempt ? 'sync-alt' : 'times'} selected={inputAttempt} onClick={() => act('tryinput')}>
                   {inputAttempt ? 'Auto' : 'Off'}
                 </Button>
-              }
-            >
+              }>
               <Box color={inputState}>
-                {(capacityPercent >= 100 && 'Fully Charged') ||
-                  (inputting && 'Charging') ||
-                  'Not Charging'}
+                {(capacityPercent >= 100 && 'Fully Charged') || (inputting && 'Charging') || 'Not Charging'}
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Target Input">
@@ -128,9 +111,7 @@ export const Smes = (props, context) => {
                 </Flex.Item>
               </Flex>
             </LabeledList.Item>
-            <LabeledList.Item label="Available">
-              {formatPower(inputAvailable)}
-            </LabeledList.Item>
+            <LabeledList.Item label="Available">{formatPower(inputAvailable)}</LabeledList.Item>
           </LabeledList>
         </Section>
         <Section title="Output">
@@ -138,22 +119,11 @@ export const Smes = (props, context) => {
             <LabeledList.Item
               label="Output Mode"
               buttons={
-                <Button
-                  icon={outputAttempt ? 'power-off' : 'times'}
-                  selected={outputAttempt}
-                  onClick={() => act('tryoutput')}
-                >
+                <Button icon={outputAttempt ? 'power-off' : 'times'} selected={outputAttempt} onClick={() => act('tryoutput')}>
                   {outputAttempt ? 'On' : 'Off'}
                 </Button>
-              }
-            >
-              <Box color={outputState}>
-                {outputting
-                  ? 'Sending'
-                  : charge > 0
-                    ? 'Not Sending'
-                    : 'No Charge'}
-              </Box>
+              }>
+              <Box color={outputState}>{outputting ? 'Sending' : charge > 0 ? 'Not Sending' : 'No Charge'}</Box>
             </LabeledList.Item>
             <LabeledList.Item label="Target Output">
               <Flex inline width="100%">
@@ -214,9 +184,7 @@ export const Smes = (props, context) => {
                 </Flex.Item>
               </Flex>
             </LabeledList.Item>
-            <LabeledList.Item label="Outputting">
-              {formatPower(outputUsed)}
-            </LabeledList.Item>
+            <LabeledList.Item label="Outputting">{formatPower(outputUsed)}</LabeledList.Item>
           </LabeledList>
         </Section>
       </Window.Content>

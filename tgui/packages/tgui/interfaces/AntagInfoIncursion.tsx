@@ -33,23 +33,18 @@ const UplinkSubsection = (_props, context) => {
       <Stack vertical>
         <Stack.Item>
           <BlockQuote>
-            Keep this uplink safe, and don&apos;t feel like you need to buy
-            everything immediately — you can save your telecrystals to use
-            whenever you&apos;re in a tough situation and need help.
+            Keep this uplink safe, and don&apos;t feel like you need to buy everything immediately — you can save your
+            telecrystals to use whenever you&apos;re in a tough situation and need help.
           </BlockQuote>
         </Stack.Item>
         <Stack.Divider />
         <Stack.Item>
           <Stack fill>
-            <Stack.Item bold>
-              {code && <span style={goalstyle}>Code: {code}</span>}
-            </Stack.Item>
+            <Stack.Item bold>{code && <span style={goalstyle}>Code: {code}</span>}</Stack.Item>
             <Stack.Divider />
             {failsafe_code && (
               <>
-                <Stack.Item bold>
-                  {code && <span style={goalstyle}>Code: {code}</span>}
-                </Stack.Item>
+                <Stack.Item bold>{code && <span style={goalstyle}>Code: {code}</span>}</Stack.Item>
                 <Stack.Divider />
               </>
             )}
@@ -81,13 +76,10 @@ const BasicLoreSubsection = (_props, _context) => {
   return (
     <Section>
       <BlockQuote>
-        You have joined a team of Syndicate agents with shared goals and must
-        infiltrate the ranks of the station!
+        You have joined a team of Syndicate agents with shared goals and must infiltrate the ranks of the station!
         <br />
-        You&apos;ve been implanted with an internal syndicate radio implant for
-        communication with your team. This headset can only be heard by you
-        directly and if those pigs at Nanotrasen try to steal it they will
-        violently explode!
+        You&apos;ve been implanted with an internal syndicate radio implant for communication with your team. This headset can
+        only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!
         <br />
         Talk over the{' '}
         <Box inline textColor="red">
@@ -138,10 +130,7 @@ export const AntagInfoIncursion = (_props, context) => {
       <Window.Content scrollable>
         <Stack vertical fill>
           <Stack.Item>
-            <AntagInfoHeader
-              name={antag_name || 'Syndicate Incursion Member'}
-              asset="traitor.png"
-            />
+            <AntagInfoHeader name={antag_name || 'Syndicate Incursion Member'} asset="traitor.png" />
           </Stack.Item>
           <Stack.Item>
             <InfoSection />

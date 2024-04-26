@@ -1,10 +1,4 @@
-import {
-  Button,
-  Section,
-  Dropdown,
-  NoticeBox,
-  ProgressBar,
-} from '../components';
+import { Button, Section, Dropdown, NoticeBox, ProgressBar } from '../components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -43,31 +37,20 @@ export const ShuttleDesignator = (props, context) => {
       )}
       <Section title="Shuttle Designation">
         {inFlight ? (
-          <NoticeBox color="Red">
-            Shuttle in flight, designation unavailable.
-          </NoticeBox>
+          <NoticeBox color="Red">Shuttle in flight, designation unavailable.</NoticeBox>
         ) : (
           <>
-            {!!shuttleId || (
-              <NoticeBox color="yellow">No linked shuttle.</NoticeBox>
-            )}
+            {!!shuttleId || <NoticeBox color="yellow">No linked shuttle.</NoticeBox>}
             Buffer capacity:
             <ProgressBar
               value={buffered_mass / max_size}
               ranges={{
                 good: [-Infinity, current_capacity / max_size],
-                average: [
-                  current_capacity / max_size,
-                  ideal_capacity / max_size,
-                ],
+                average: [current_capacity / max_size, ideal_capacity / max_size],
                 bad: [ideal_capacity / max_size, Infinity],
               }}
             />
-            <Button
-              content="Designate Area"
-              textAlign="center"
-              onClick={() => act('designate')}
-            />
+            <Button content="Designate Area" textAlign="center" onClick={() => act('designate')} />
           </>
         )}
       </Section>

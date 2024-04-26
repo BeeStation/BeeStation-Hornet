@@ -71,8 +71,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
   static singletonPopper: ReturnType<typeof createPopper> | undefined;
   static currentOpenMenu: Element | undefined;
   static virtualElement: VirtualElement = {
-    getBoundingClientRect: () =>
-      Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
+    getBoundingClientRect: () => Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
   };
   menuContents: any;
   handleClick: any;
@@ -183,8 +182,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
           className="Dropdown__menuentry"
           onClick={() => {
             this.setSelected(value);
-          }}
-        >
+          }}>
           {displayText}
         </div>
       );
@@ -198,14 +196,10 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       () => {
         let singletonPopper = Dropdown.singletonPopper;
         if (singletonPopper === undefined) {
-          singletonPopper = createPopper(
-            Dropdown.virtualElement,
-            renderedMenu!,
-            {
-              ...DEFAULT_OPTIONS,
-              placement: 'bottom-start',
-            },
-          );
+          singletonPopper = createPopper(Dropdown.virtualElement, renderedMenu!, {
+            ...DEFAULT_OPTIONS,
+            placement: 'bottom-start',
+          });
 
           Dropdown.singletonPopper = singletonPopper;
         } else {
@@ -217,7 +211,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
           singletonPopper.update();
         }
       },
-      this.context,
+      this.context
     );
   }
 
@@ -333,29 +327,17 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
                 onClick(event);
               }
             }}
-            {...rest}
-          >
-            {icon && (
-              <Icon
-                name={icon}
-                rotation={iconRotation}
-                spin={iconSpin}
-                mr={1}
-              />
-            )}
+            {...rest}>
+            {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} mr={1} />}
             <span
               className="Dropdown__selected-text"
               style={{
                 overflow: clipSelectedText ? 'hidden' : 'visible',
-              }}
-            >
+              }}>
               {displayText || this.state.selected}
             </span>
             {nochevron || (
-              <span
-                className="Dropdown__arrow-button"
-                style={{ 'line-height': displayHeight }}
-              >
+              <span className="Dropdown__arrow-button" style={{ 'line-height': displayHeight }}>
                 <Icon name={adjustedOpen ? 'chevron-up' : 'chevron-down'} />
               </span>
             )}
@@ -369,10 +351,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
                 content={
                   <Icon
                     ml="0.25em"
-                    style={{
-                      display: 'inline-block',
-                      'line-height': displayHeight || 'unset',
-                    }}
+                    style={{ 'display': 'inline-block', 'line-height': displayHeight || 'unset' }}
                     name="chevron-left"
                   />
                 }
@@ -393,10 +372,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
                 content={
                   <Icon
                     ml="0.25em"
-                    style={{
-                      display: 'inline-block',
-                      'line-height': displayHeight || 'unset',
-                    }}
+                    style={{ 'display': 'inline-block', 'line-height': displayHeight || 'unset' }}
                     name="chevron-right"
                   />
                 }

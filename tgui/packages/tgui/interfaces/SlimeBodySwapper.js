@@ -32,8 +32,7 @@ export const BodyEntry = (props, context) => {
           color={body.occupied === 'stranger' && 'bad'}
           onClick={() => swapFunc()}
         />
-      }
-    >
+      }>
       <LabeledList>
         <LabeledList.Item label="Status" bold color={statusMap[body.status]}>
           {body.status}
@@ -55,11 +54,7 @@ export const SlimeBodySwapper = (props, context) => {
       <Window.Content scrollable>
         <Section>
           {bodies.map((body) => (
-            <BodyEntry
-              key={body.name}
-              body={body}
-              swapFunc={() => act('swap', { ref: body.ref })}
-            />
+            <BodyEntry key={body.name} body={body} swapFunc={() => act('swap', { ref: body.ref })} />
           ))}
         </Section>
       </Window.Content>

@@ -24,8 +24,7 @@ const Story = (props, context) => {
         }}
         minValue={-1}
         maxValue={1}
-        value={progress}
-      >
+        value={progress}>
         Value: {Number(progress).toFixed(1)}
       </ProgressBar>
       <Box mt={1}>

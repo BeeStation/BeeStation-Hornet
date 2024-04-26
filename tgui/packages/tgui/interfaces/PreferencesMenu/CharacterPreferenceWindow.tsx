@@ -41,13 +41,8 @@ const CharacterProfiles = (props: {
             onClick={() => {
               props.onClick(slot);
             }}
-            tooltip={
-              !props.content_unlocked && slot >= props.maxSlot
-                ? 'Buy a BYOND Membership to unlock more slots!'
-                : null
-            }
-            fluid
-          >
+            tooltip={!props.content_unlocked && slot >= props.maxSlot ? 'Buy a BYOND Membership to unlock more slots!' : null}
+            fluid>
             {profile ?? 'New Character'}
           </Button>
         </Flex.Item>
@@ -58,11 +53,7 @@ const CharacterProfiles = (props: {
 
 export const CharacterPreferenceWindow = (props, context) => {
   const { act, data } = useBackend<PreferencesMenuData>(context);
-  const [currentPage, setCurrentPage] = useLocalState(
-    context,
-    'currentPage_character',
-    Page.Main,
-  );
+  const [currentPage, setCurrentPage] = useLocalState(context, 'currentPage_character', Page.Main);
 
   let pageContents;
 
@@ -74,15 +65,11 @@ export const CharacterPreferenceWindow = (props, context) => {
       pageContents = <JobsPage />;
       break;
     case Page.Main:
-      pageContents = (
-        <MainPage openSpecies={() => setCurrentPage(Page.Species)} />
-      );
+      pageContents = <MainPage openSpecies={() => setCurrentPage(Page.Species)} />;
 
       break;
     case Page.Species:
-      pageContents = (
-        <SpeciesPage closeSpecies={() => setCurrentPage(Page.Main)} />
-      );
+      pageContents = <SpeciesPage closeSpecies={() => setCurrentPage(Page.Main)} />;
 
       break;
     case Page.Quirks:
@@ -112,8 +99,7 @@ export const CharacterPreferenceWindow = (props, context) => {
           />
           <SaveStatus />
         </>
-      }
-    >
+      }>
       <Window.Content scrollable>
         <Flex direction="column" width="100%">
           <Flex.Item mt={-1}>
@@ -141,18 +127,13 @@ export const CharacterPreferenceWindow = (props, context) => {
                   currentPage={currentPage}
                   page={Page.Main}
                   setPage={setCurrentPage}
-                  otherActivePages={[Page.Species]}
-                >
+                  otherActivePages={[Page.Species]}>
                   Character
                 </PageButton>
               </Stack.Item>
 
               <Stack.Item grow>
-                <PageButton
-                  currentPage={currentPage}
-                  page={Page.Jobs}
-                  setPage={setCurrentPage}
-                >
+                <PageButton currentPage={currentPage} page={Page.Jobs} setPage={setCurrentPage}>
                   {/*
                     Fun fact: This isn't "Jobs" so that it intentionally
                     catches your eyes, because it's really important!
@@ -162,31 +143,19 @@ export const CharacterPreferenceWindow = (props, context) => {
               </Stack.Item>
 
               <Stack.Item grow>
-                <PageButton
-                  currentPage={currentPage}
-                  page={Page.Loadout}
-                  setPage={setCurrentPage}
-                >
+                <PageButton currentPage={currentPage} page={Page.Loadout} setPage={setCurrentPage}>
                   Loadout
                 </PageButton>
               </Stack.Item>
 
               <Stack.Item grow>
-                <PageButton
-                  currentPage={currentPage}
-                  page={Page.Antags}
-                  setPage={setCurrentPage}
-                >
+                <PageButton currentPage={currentPage} page={Page.Antags} setPage={setCurrentPage}>
                   Antagonists
                 </PageButton>
               </Stack.Item>
 
               <Stack.Item grow>
-                <PageButton
-                  currentPage={currentPage}
-                  page={Page.Quirks}
-                  setPage={setCurrentPage}
-                >
+                <PageButton currentPage={currentPage} page={Page.Quirks} setPage={setCurrentPage}>
                   Quirks
                 </PageButton>
               </Stack.Item>

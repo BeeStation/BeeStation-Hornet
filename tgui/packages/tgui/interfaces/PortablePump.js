@@ -6,14 +6,7 @@ import { PortableBasicInfo } from './common/PortableAtmos';
 export const PortablePump = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    direction,
-    holding,
-    target_pressure,
-    default_pressure,
-    min_pressure,
-    max_pressure,
-  } = data;
+  const { direction, holding, target_pressure, default_pressure, min_pressure, max_pressure } = data;
 
   return (
     <Window width={300} height={315}>
@@ -28,8 +21,7 @@ export const PortablePump = (props, context) => {
               selected={direction}
               onClick={() => act('direction')}
             />
-          }
-        >
+          }>
           <LabeledList>
             <LabeledList.Item label="Output">
               <NumberInput

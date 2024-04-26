@@ -11,8 +11,7 @@ export const sound_ambience: FeatureToggle = {
   name: 'Enable ambience',
   category: 'SOUND',
   subcategory: 'Ambience',
-  description:
-    'When enabled, plays various sounds depending on the area of the station you are in.',
+  description: 'When enabled, plays various sounds depending on the area of the station you are in.',
   component: CheckboxInput,
 };
 
@@ -58,8 +57,7 @@ export const sound_adminalert: FeatureToggle = {
   name: 'Enable admin alert sounds',
   category: 'ADMIN',
   subcategory: 'Sound',
-  description:
-    'Enables sound on various admin notifications such as midround and event triggers.',
+  description: 'Enables sound on various admin notifications such as midround and event triggers.',
   component: CheckboxInput,
 };
 

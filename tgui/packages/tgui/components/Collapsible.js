@@ -30,14 +30,11 @@ export class Collapsible extends Component {
               color={color}
               icon={open ? 'chevron-down' : 'chevron-right'}
               onClick={() => this.setState({ open: !open })}
-              {...rest}
-            >
+              {...rest}>
               {title}
             </Button>
           </div>
-          {buttons && (
-            <div className="Table__cell Table__cell--collapsing">{buttons}</div>
-          )}
+          {buttons && <div className="Table__cell Table__cell--collapsing">{buttons}</div>}
         </div>
         {open && <Box mt={1}>{children}</Box>}
       </Box>

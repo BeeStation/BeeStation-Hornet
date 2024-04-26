@@ -1,13 +1,6 @@
 import { useBackend } from '../backend';
 import { Fragment } from 'inferno';
-import {
-  Box,
-  Section,
-  LabeledList,
-  Button,
-  AnimatedNumber,
-  NumberInput,
-} from '../components';
+import { Box, Section, LabeledList, Button, AnimatedNumber, NumberInput } from '../components';
 import { getGasLabel } from '../constants';
 import { Window } from '../layouts';
 import { PortableBasicInfo } from './common/PortableAtmos';

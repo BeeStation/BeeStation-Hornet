@@ -25,12 +25,7 @@ export const configureStore = (options = {}) => {
   ]);
   const middleware = !sideEffects
     ? []
-    : [
-        ...(options.middleware?.pre || []),
-        assetMiddleware,
-        backendMiddleware,
-        ...(options.middleware?.post || []),
-      ];
+    : [...(options.middleware?.pre || []), assetMiddleware, backendMiddleware, ...(options.middleware?.post || [])];
   if (process.env.NODE_ENV !== 'production') {
     // We are using two if statements because Webpack is capable of
     // removing this specific block as dead code.

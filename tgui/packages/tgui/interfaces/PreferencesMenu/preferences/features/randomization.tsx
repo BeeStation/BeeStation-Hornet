@@ -13,10 +13,7 @@ export const body_is_always_random: Feature<RandomSetting> = {
     return (
       <Stack>
         <Stack.Item>
-          <RandomizationButton
-            setValue={(newValue) => props.handleSetValue(newValue)}
-            value={props.value}
-          />
+          <RandomizationButton setValue={(newValue) => props.handleSetValue(newValue)} value={props.value} />
         </Stack.Item>
 
         {randomToggle ? (
@@ -27,8 +24,7 @@ export const body_is_always_random: Feature<RandomSetting> = {
                 onClick={() => {
                   props.act('randomize_character');
                   setRandomToggle(false);
-                }}
-              >
+                }}>
                 Randomize
               </Button>
             </Stack.Item>
@@ -52,12 +48,7 @@ export const body_is_always_random: Feature<RandomSetting> = {
 export const name_is_always_random: Feature<RandomSetting> = {
   name: 'Random Name',
   component: (props, context) => {
-    return (
-      <RandomizationButton
-        setValue={(value) => props.handleSetValue(value)}
-        value={props.value}
-      />
-    );
+    return <RandomizationButton setValue={(value) => props.handleSetValue(value)} value={props.value} />;
   },
 };
 

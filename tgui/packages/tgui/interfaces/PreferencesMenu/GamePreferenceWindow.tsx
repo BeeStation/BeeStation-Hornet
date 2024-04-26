@@ -12,14 +12,14 @@ export const GamePreferenceWindow = (
   props: {
     startingPage?: GamePreferencesSelectedPage;
   },
-  context,
+  context
 ) => {
   const { act, data } = useBackend<PreferencesMenuData>(context);
 
   const [currentPage, setCurrentPage] = useLocalState(
     context,
     'currentPage_game',
-    props.startingPage ?? GamePreferencesSelectedPage.Settings,
+    props.startingPage ?? GamePreferencesSelectedPage.Settings
   );
 
   let pageContents;
@@ -52,28 +52,19 @@ export const GamePreferenceWindow = (
           />
           <SaveStatus />
         </>
-      }
-    >
+      }>
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
             <Stack fill>
               <Stack.Item grow>
-                <PageButton
-                  currentPage={currentPage}
-                  page={GamePreferencesSelectedPage.Settings}
-                  setPage={setCurrentPage}
-                >
+                <PageButton currentPage={currentPage} page={GamePreferencesSelectedPage.Settings} setPage={setCurrentPage}>
                   Settings
                 </PageButton>
               </Stack.Item>
 
               <Stack.Item grow>
-                <PageButton
-                  currentPage={currentPage}
-                  page={GamePreferencesSelectedPage.Keybindings}
-                  setPage={setCurrentPage}
-                >
+                <PageButton currentPage={currentPage} page={GamePreferencesSelectedPage.Keybindings} setPage={setCurrentPage}>
                   Keybindings
                 </PageButton>
               </Stack.Item>

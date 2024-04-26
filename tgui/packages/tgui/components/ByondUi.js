@@ -51,7 +51,7 @@ export const cleanupByondUIs = () => {
       logger.log(`unmounting '${id}' (suspend/close/beforeunload)`);
       byondUiStack[index] = null;
       Byond.winset(id, {
-        parent: '',
+        'parent': '',
       });
       Byond.sendMessage('byondui_update', { mounting: false, id: id });
     }
@@ -69,10 +69,7 @@ const getBoundingBox = (element) => {
   const rect = element.getBoundingClientRect();
   return {
     pos: [rect.left * pixelRatio, rect.top * pixelRatio],
-    size: [
-      (rect.right - rect.left) * pixelRatio,
-      (rect.bottom - rect.top) * pixelRatio,
-    ],
+    size: [(rect.right - rect.left) * pixelRatio, (rect.bottom - rect.top) * pixelRatio],
   };
 };
 
@@ -89,10 +86,7 @@ export class ByondUi extends Component {
   shouldComponentUpdate(nextProps) {
     const { params: prevParams = {}, ...prevRest } = this.props;
     const { params: nextParams = {}, ...nextRest } = nextProps;
-    return (
-      shallowDiffers(prevParams, nextParams) ||
-      shallowDiffers(prevRest, nextRest)
-    );
+    return shallowDiffers(prevParams, nextParams) || shallowDiffers(prevRest, nextRest);
   }
 
   componentDidMount() {

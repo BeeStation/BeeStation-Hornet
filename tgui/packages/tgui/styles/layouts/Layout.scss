@@ -9,34 +9,13 @@
 $scrollbar-color-multiplier: 1 !default;
 
 @mixin fancy-scrollbar($base-color, $color-multiplier) {
-  scrollbar-base-color: color.scale(
-    $base-color,
-    $lightness: -25% * $color-multiplier
-  );
-  scrollbar-face-color: color.scale(
-    $base-color,
-    $lightness: 10% * $color-multiplier
-  );
-  scrollbar-3dlight-color: color.scale(
-    $base-color,
-    $lightness: 0% * $color-multiplier
-  );
-  scrollbar-highlight-color: color.scale(
-    $base-color,
-    $lightness: 0% * $color-multiplier
-  );
-  scrollbar-track-color: color.scale(
-    $base-color,
-    $lightness: -25% * $color-multiplier
-  );
-  scrollbar-arrow-color: color.scale(
-    $base-color,
-    $lightness: 50% * $color-multiplier
-  );
-  scrollbar-shadow-color: color.scale(
-    $base-color,
-    $lightness: 10% * $color-multiplier
-  );
+  scrollbar-base-color: color.scale($base-color, $lightness: -25% * $color-multiplier);
+  scrollbar-face-color: color.scale($base-color, $lightness: 10% * $color-multiplier);
+  scrollbar-3dlight-color: color.scale($base-color, $lightness: 0% * $color-multiplier);
+  scrollbar-highlight-color: color.scale($base-color, $lightness: 0% * $color-multiplier);
+  scrollbar-track-color: color.scale($base-color, $lightness: -25% * $color-multiplier);
+  scrollbar-arrow-color: color.scale($base-color, $lightness: 50% * $color-multiplier);
+  scrollbar-shadow-color: color.scale($base-color, $lightness: 10% * $color-multiplier);
 }
 
 .Layout,

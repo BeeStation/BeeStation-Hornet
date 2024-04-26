@@ -1,14 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
 import { createSearch } from 'common/string';
-import {
-  Box,
-  Button,
-  Dimmer,
-  Icon,
-  Section,
-  Stack,
-  Input,
-} from '../components';
+import { Box, Button, Dimmer, Icon, Section, Stack, Input } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosMessenger = (_, context) => {
@@ -16,9 +8,7 @@ export const NtosMessenger = (_, context) => {
   const { viewing_messages } = data;
   return (
     <NtosWindow width={400} height={600}>
-      <NtosWindow.Content scrollable>
-        {viewing_messages ? <MessageListScreen /> : <ContactsScreen />}
-      </NtosWindow.Content>
+      <NtosWindow.Content scrollable>{viewing_messages ? <MessageListScreen /> : <ContactsScreen />}</NtosWindow.Content>
     </NtosWindow>
   );
 };
@@ -37,9 +27,7 @@ const NoIDDimmer = (_, context) => {
                 </Stack.Item>
               </Stack>
             </Stack.Item>
-            <Stack.Item fontSize="18px">
-              Please imprint an ID to continue.
-            </Stack.Item>
+            <Stack.Item fontSize="18px">Please imprint an ID to continue.</Stack.Item>
           </Stack>
         </Dimmer>
       </Stack.Item>
@@ -53,16 +41,8 @@ const MessageListScreen = (props, context) => {
   return (
     <Stack vertical>
       <Section fill>
-        <Button
-          icon="arrow-left"
-          content="Back"
-          onClick={() => act('PDA_viewMessages')}
-        />
-        <Button
-          icon="trash"
-          content="Clear Messages"
-          onClick={() => act('PDA_clearMessages')}
-        />
+        <Button icon="arrow-left" content="Back" onClick={() => act('PDA_viewMessages')} />
+        <Button icon="trash" content="Clear Messages" onClick={() => act('PDA_clearMessages')} />
       </Section>
       {messages.map((message) => (
         <>
@@ -117,12 +97,8 @@ const ContactsScreen = (props, context) => {
     sending_virus,
   } = data;
   const [searchUser, setSearchUser] = useLocalState(context, 'searchUser', '');
-  const search = createSearch(
-    searchUser,
-    (messengers) => messengers.name + messengers.job,
-  );
-  let users =
-    searchUser.length > 0 ? data.messengers.filter(search) : messengers;
+  const search = createSearch(searchUser, (messengers) => messengers.name + messengers.job);
+  let users = searchUser.length > 0 ? data.messengers.filter(search) : messengers;
   return (
     <>
       <Stack vertical>
@@ -146,35 +122,13 @@ const ContactsScreen = (props, context) => {
             />
             <Button
               icon="address-card"
-              content={
-                sending_and_receiving
-                  ? 'Send / Receive: On'
-                  : 'Send / Receive: Off'
-              }
+              content={sending_and_receiving ? 'Send / Receive: On' : 'Send / Receive: Off'}
               onClick={() => act('PDA_sAndR')}
             />
-            <Button
-              icon="bell"
-              content="Set Ringtone"
-              onClick={() => act('PDA_ringSet')}
-            />
-            <Button
-              icon="comment"
-              content="View Messages"
-              onClick={() => act('PDA_viewMessages')}
-            />
-            <Button
-              icon="sort"
-              content={`Sort by: ${sortByJob ? 'Job' : 'Name'}`}
-              onClick={() => act('PDA_changeSortStyle')}
-            />
-            {!!isSilicon && (
-              <Button
-                icon="camera"
-                content="Attach Photo"
-                onClick={() => act('PDA_selectPhoto')}
-              />
-            )}
+            <Button icon="bell" content="Set Ringtone" onClick={() => act('PDA_ringSet')} />
+            <Button icon="comment" content="View Messages" onClick={() => act('PDA_viewMessages')} />
+            <Button icon="sort" content={`Sort by: ${sortByJob ? 'Job' : 'Name'}`} onClick={() => act('PDA_changeSortStyle')} />
+            {!!isSilicon && <Button icon="camera" content="Attach Photo" onClick={() => act('PDA_selectPhoto')} />}
             {!!virus_attach && (
               <Button
                 icon="bug"
@@ -226,20 +180,12 @@ const ContactsScreen = (props, context) => {
                     job: messenger.job,
                     ref: messenger.ref,
                   })
-                }
-              >
+                }>
                 {messenger.name} ({messenger.job})
               </Button>
             ))}
           </Stack>
-          {!!canSpam && (
-            <Button
-              fluid
-              mt={1}
-              content="Send to all..."
-              onClick={() => act('PDA_sendEveryone')}
-            />
-          )}
+          {!!canSpam && <Button fluid mt={1} content="Send to all..." onClick={() => act('PDA_sendEveryone')} />}
         </Section>
       </Stack>
       {!owner && !isSilicon && <NoIDDimmer />}
@@ -248,8 +194,7 @@ const ContactsScreen = (props, context) => {
 };
 
 export const MessageContent = (props) => {
-  const { contents, photo, photo_width, photo_height, emojis, emoji_names } =
-    props;
+  const { contents, photo, photo_width, photo_height, emojis, emoji_names } = props;
   return (
     <>
       {contents.split(':').map((part, index, arr) => {
@@ -262,9 +207,7 @@ export const MessageContent = (props) => {
             <span key={part}>
               {part}
               {arr.length - 1 !== index &&
-              (index + 1 >= arr.length ||
-                !emojis ||
-                !Object.keys(emoji_names).includes(arr[index + 1]))
+              (index + 1 >= arr.length || !emojis || !Object.keys(emoji_names).includes(arr[index + 1]))
                 ? ':'
                 : ''}
             </span>
@@ -274,13 +217,7 @@ export const MessageContent = (props) => {
       {!!photo && (
         <>
           <br />
-          <Box
-            mt={1}
-            width={`${photo_width}px`}
-            height={`${photo_height}px`}
-            as="img"
-            src={photo}
-          />
+          <Box mt={1} width={`${photo_width}px`} height={`${photo_height}px`} as="img" src={photo} />
         </>
       )}
     </>

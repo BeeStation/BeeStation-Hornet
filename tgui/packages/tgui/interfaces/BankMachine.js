@@ -19,8 +19,7 @@ export const BankMachine = (props, context) => {
                   selected={siphoning}
                   onClick={() => act(siphoning ? 'halt' : 'siphon')}
                 />
-              }
-            >
+              }>
               {current_balance + ' cr'}
             </LabeledList.Item>
           </LabeledList>

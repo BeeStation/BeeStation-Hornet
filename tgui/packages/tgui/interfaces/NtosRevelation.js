@@ -27,14 +27,7 @@ export const NtosRevelation = (props, context) => {
               }
             />
           </LabeledList>
-          <Button
-            fluid
-            bold
-            content="ACTIVATE"
-            textAlign="center"
-            color="bad"
-            disabled={!data.armed}
-          />
+          <Button fluid bold content="ACTIVATE" textAlign="center" color="bad" disabled={!data.armed} />
         </Section>
       </NtosWindow.Content>
     </NtosWindow>

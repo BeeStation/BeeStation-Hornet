@@ -1,16 +1,6 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Flex,
-  Input,
-  Section,
-  Table,
-  Tabs,
-  NoticeBox,
-  Tooltip,
-} from '../components';
+import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Tooltip } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -33,11 +23,7 @@ export const GenericUplink = (props, context) => {
   const { act, data } = useBackend(context);
   const { compactMode, lockable, categories = [] } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [selectedCategory, setSelectedCategory] = useLocalState(
-    context,
-    'category',
-    categories[0]?.name,
-  );
+  const [selectedCategory, setSelectedCategory] = useLocalState(context, 'category', categories[0]?.name);
   const testSearch = createSearch(searchText, (item) => {
     return item.name + item.desc;
   });
@@ -62,23 +48,15 @@ export const GenericUplink = (props, context) => {
       buttons={
         <>
           Search
-          <Input
-            value={searchText}
-            autoFocus
-            onInput={(e, value) => setSearchText(value)}
-            mx={1}
-          />
+          <Input value={searchText} autoFocus onInput={(e, value) => setSearchText(value)} mx={1} />
           <Button
             icon={compactMode ? 'list' : 'info'}
             content={compactMode ? 'Compact' : 'Detailed'}
             onClick={() => act('compact_toggle')}
           />
-          {!!lockable && (
-            <Button icon="lock" content="Lock" onClick={() => act('lock')} />
-          )}
+          {!!lockable && <Button icon="lock" content="Lock" onClick={() => act('lock')} />}
         </>
-      }
-    >
+      }>
       <Flex>
         {searchText.length === 0 && (
           <Flex.Item>
@@ -87,8 +65,7 @@ export const GenericUplink = (props, context) => {
                 <Tabs.Tab
                   key={category.name}
                   selected={category.name === selectedCategory}
-                  onClick={() => setSelectedCategory(category.name)}
-                >
+                  onClick={() => setSelectedCategory(category.name)}>
                   {category.name} ({category.items?.length || 0})
                 </Tabs.Tab>
               ))}
@@ -97,11 +74,7 @@ export const GenericUplink = (props, context) => {
         )}
         <Flex.Item grow mx={2.5} basis={0}>
           {items.length === 0 && (
-            <NoticeBox>
-              {searchText.length === 0
-                ? 'No items in this category.'
-                : 'No results found.'}
-            </NoticeBox>
+            <NoticeBox>{searchText.length === 0 ? 'No items in this category.' : 'No results found.'}</NoticeBox>
           )}
           <ItemList
             compactMode={searchText.length > 0 || compactMode}
@@ -118,11 +91,7 @@ export const GenericUplink = (props, context) => {
 const ItemList = (props, context) => {
   const { compactMode, currencyAmount, currencySymbol } = props;
   const { act } = useBackend(context);
-  const [hoveredItem, setHoveredItem] = useLocalState(
-    context,
-    'hoveredItem',
-    {},
-  );
+  const [hoveredItem, setHoveredItem] = useLocalState(context, 'hoveredItem', {});
   const hoveredCost = (hoveredItem && hoveredItem.cost) || 0;
   // Append extra hover data to items
   const items = props.items.map((item) => {
@@ -192,11 +161,7 @@ const ItemList = (props, context) => {
   return items.map((item) => (
     <Section
       key={item.name}
-      title={GetTooltipMessage(
-        item.name,
-        item.is_illegal,
-        item.are_contents_illegal,
-      )}
+      title={GetTooltipMessage(item.name, item.is_illegal, item.are_contents_illegal)}
       level={2}
       buttons={
         <Button
@@ -210,8 +175,7 @@ const ItemList = (props, context) => {
             })
           }
         />
-      }
-    >
+      }>
       {decodeHtmlEntities(item.desc)}
     </Section>
   ));

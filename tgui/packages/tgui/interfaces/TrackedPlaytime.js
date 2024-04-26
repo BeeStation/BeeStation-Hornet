@@ -23,11 +23,8 @@ const PlaytimeSection = (props) => {
               p={0.5}
               style={{
                 'vertical-align': 'middle',
-              }}
-            >
-              <Box align="right">
-                {jobName + (removedJobs?.includes(jobName) ? ' (Removed)' : '')}
-              </Box>
+              }}>
+              <Box align="right">{jobName + (removedJobs?.includes(jobName) ? ' (Removed)' : '')}</Box>
             </Table.Cell>
             <Table.Cell>
               <ProgressBar maxValue={mostPlayed} value={playtime}>
@@ -35,8 +32,8 @@ const PlaytimeSection = (props) => {
                   <Flex.Item width={`${ratio * 100}%`} />
                   <Flex.Item>
                     {(playtime / 60).toLocaleString(undefined, {
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 1,
+                      'minimumFractionDigits': 1,
+                      'maximumFractionDigits': 1,
                     })}
                     h
                   </Flex.Item>
@@ -52,30 +49,19 @@ const PlaytimeSection = (props) => {
 
 export const TrackedPlaytime = (props, context) => {
   const { data } = useBackend(context);
-  const {
-    failReason,
-    jobPlaytimes = {},
-    jobRemovedPlaytimes = {},
-    specialPlaytimes,
-    livingTime,
-    ghostTime,
-  } = data;
+  const { failReason, jobPlaytimes = {}, jobRemovedPlaytimes = {}, specialPlaytimes, livingTime, ghostTime } = data;
   return (
     <Window title="Tracked Playtime" width={550} height={650}>
       <Window.Content scrollable>
         {(failReason &&
-          ((failReason === JOB_REPORT_MENU_FAIL_REASON_TRACKING_DISABLED && (
-            <Box>This server has disabled tracking.</Box>
-          )) ||
-            (failReason === JOB_REPORT_MENU_FAIL_REASON_NO_RECORDS && (
-              <Box>You have no records.</Box>
-            )))) || (
+          ((failReason === JOB_REPORT_MENU_FAIL_REASON_TRACKING_DISABLED && <Box>This server has disabled tracking.</Box>) ||
+            (failReason === JOB_REPORT_MENU_FAIL_REASON_NO_RECORDS && <Box>You have no records.</Box>))) || (
           <Box>
             <Section title="Total">
               <PlaytimeSection
                 playtimes={{
-                  Ghost: ghostTime,
-                  Living: livingTime,
+                  'Ghost': ghostTime,
+                  'Living': livingTime,
                 }}
               />
             </Section>

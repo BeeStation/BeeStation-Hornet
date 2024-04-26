@@ -1,13 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Flex,
-  Input,
-  NoticeBox,
-  Section,
-  Tabs,
-} from '../components';
+import { Box, Button, Flex, Input, NoticeBox, Section, Tabs } from '../components';
 import { NtosWindow } from '../layouts';
 import { AccessList } from './common/AccessList';
 
@@ -36,17 +28,9 @@ export const NtosCardContent = (props, context) => {
     have_id_slot,
     id_name,
   } = data;
-  const [selectedDepartment, setSelectedDepartment] = useLocalState(
-    context,
-    'department',
-    Object.keys(jobs)[0],
-  );
+  const [selectedDepartment, setSelectedDepartment] = useLocalState(context, 'department', Object.keys(jobs)[0]);
   if (!have_id_slot) {
-    return (
-      <NoticeBox>
-        This program requires an ID slot in order to function
-      </NoticeBox>
-    );
+    return <NoticeBox>This program requires an ID slot in order to function</NoticeBox>;
   }
   const departmentJobs = jobs[selectedDepartment] || [];
   return (
@@ -69,12 +53,7 @@ export const NtosCardContent = (props, context) => {
         }
         buttons={
           <>
-            <Button
-              icon="print"
-              content="Print"
-              disabled={!have_printer || !has_id}
-              onClick={() => act('PRG_print')}
-            />
+            <Button icon="print" content="Print" disabled={!have_printer || !has_id} onClick={() => act('PRG_print')} />
             <Button
               icon={authenticated ? 'sign-out-alt' : 'sign-in-alt'}
               content={authenticated ? 'Log Out' : 'Log In'}
@@ -84,14 +63,8 @@ export const NtosCardContent = (props, context) => {
               }}
             />
           </>
-        }
-      >
-        <Button
-          fluid
-          icon="eject"
-          content={id_name}
-          onClick={() => act('PRG_eject')}
-        />
+        }>
+        <Button fluid icon="eject" content={id_name} onClick={() => act('PRG_eject')} />
       </Section>
       {!!has_id && !!authenticated && (
         <Box>
@@ -136,8 +109,7 @@ export const NtosCardContent = (props, context) => {
                   color="bad"
                   onClick={() => act('PRG_terminate')}
                 />
-              }
-            >
+              }>
               <Button.Input
                 fluid
                 content="Custom..."
@@ -155,8 +127,7 @@ export const NtosCardContent = (props, context) => {
                       <Tabs.Tab
                         key={department}
                         selected={department === selectedDepartment}
-                        onClick={() => setSelectedDepartment(department)}
-                      >
+                        onClick={() => setSelectedDepartment(department)}>
                         {department}
                       </Tabs.Tab>
                     ))}

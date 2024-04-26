@@ -1,11 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  NumberInput,
-  ProgressBar,
-  Section,
-} from '../components';
+import { Button, LabeledList, NumberInput, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const Tank = (props, context) => {
@@ -22,8 +16,7 @@ export const Tank = (props, context) => {
                   good: [0.35, Infinity],
                   average: [0.15, 0.35],
                   bad: [-Infinity, 0.15],
-                }}
-              >
+                }}>
                 {data.tankPressure + ' kPa'}
               </ProgressBar>
             </LabeledList.Item>

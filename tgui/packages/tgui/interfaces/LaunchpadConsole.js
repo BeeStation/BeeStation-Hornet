@@ -1,15 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Grid,
-  Input,
-  NoticeBox,
-  NumberInput,
-  Section,
-} from '../components';
+import { Box, Button, Divider, Flex, Grid, Input, NoticeBox, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
 const LaunchpadButtonPad = (props, context) => {
@@ -128,14 +118,7 @@ const LaunchpadButtonPad = (props, context) => {
 export const LaunchpadControl = (props, context) => {
   const { topLevel } = props;
   const { act, data } = useBackend(context);
-  const {
-    x,
-    y,
-    pad_name,
-    range,
-    can_adjust_recall_time = false,
-    recall_time = 0,
-  } = data;
+  const { x, y, pad_name, range, can_adjust_recall_time = false, recall_time = 0 } = data;
   return (
     <Section
       title={
@@ -150,15 +133,7 @@ export const LaunchpadControl = (props, context) => {
         />
       }
       level={topLevel ? 1 : 2}
-      buttons={
-        <Button
-          icon="times"
-          content="Remove"
-          color="bad"
-          onClick={() => act('remove')}
-        />
-      }
-    >
+      buttons={<Button icon="times" content="Remove" color="bad" onClick={() => act('remove')} />}>
       <Grid>
         <Grid.Column>
           <Section title="Controls" level={2}>
@@ -224,22 +199,10 @@ export const LaunchpadControl = (props, context) => {
       )}
       <Grid>
         <Grid.Column>
-          <Button
-            fluid
-            icon="upload"
-            content="Launch"
-            textAlign="center"
-            onClick={() => act('launch')}
-          />
+          <Button fluid icon="upload" content="Launch" textAlign="center" onClick={() => act('launch')} />
         </Grid.Column>
         <Grid.Column>
-          <Button
-            fluid
-            icon="download"
-            content="Pull"
-            textAlign="center"
-            onClick={() => act('pull')}
-          />
+          <Button fluid icon="download" content="Pull" textAlign="center" onClick={() => act('pull')} />
         </Grid.Column>
       </Grid>
     </Section>
@@ -252,9 +215,7 @@ export const LaunchpadConsole = (props, context) => {
   return (
     <Window width={475} height={260}>
       <Window.Content scrollable>
-        {(launchpads.length === 0 && (
-          <NoticeBox>No Pads Connected</NoticeBox>
-        )) || (
+        {(launchpads.length === 0 && <NoticeBox>No Pads Connected</NoticeBox>) || (
           <Section>
             <Flex minHeight="190px">
               <Flex.Item width="140px" minHeight="190px">
@@ -278,9 +239,7 @@ export const LaunchpadConsole = (props, context) => {
                 <Divider vertical />
               </Flex.Item>
               <Flex.Item grow={1} basis={0} minHeight="100%">
-                {(selected_id && <LaunchpadControl />) || (
-                  <Box>Please select a pad</Box>
-                )}
+                {(selected_id && <LaunchpadControl />) || <Box>Please select a pad</Box>}
               </Flex.Item>
             </Flex>
           </Section>

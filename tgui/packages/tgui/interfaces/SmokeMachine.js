@@ -1,25 +1,10 @@
 import { useBackend } from '../backend';
-import {
-  AnimatedNumber,
-  Box,
-  Button,
-  LabeledList,
-  ProgressBar,
-  Section,
-} from '../components';
+import { AnimatedNumber, Box, Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const SmokeMachine = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    TankContents,
-    isTankLoaded,
-    TankCurrentVolume,
-    TankMaxVolume,
-    active,
-    setting,
-    maxSetting = [],
-  } = data;
+  const { TankContents, isTankLoaded, TankCurrentVolume, TankMaxVolume, active, setting, maxSetting = [] } = data;
   return (
     <Window width={350} height={350}>
       <Window.Content>
@@ -32,14 +17,12 @@ export const SmokeMachine = (props, context) => {
               content={active ? 'On' : 'Off'}
               onClick={() => act('power')}
             />
-          }
-        >
+          }>
           <ProgressBar
             value={TankCurrentVolume / TankMaxVolume}
             ranges={{
               bad: [-Infinity, 0.3],
-            }}
-          >
+            }}>
             <AnimatedNumber initial={0} value={TankCurrentVolume || 0} />
             {' / ' + TankMaxVolume}
           </ProgressBar>
@@ -60,16 +43,10 @@ export const SmokeMachine = (props, context) => {
             </LabeledList>
           </Box>
         </Section>
-        <Section
-          title="Contents"
-          buttons={
-            <Button icon="trash" content="Purge" onClick={() => act('purge')} />
-          }
-        >
+        <Section title="Contents" buttons={<Button icon="trash" content="Purge" onClick={() => act('purge')} />}>
           {TankContents.map((chemical) => (
             <Box key={chemical.name} color="label">
-              <AnimatedNumber initial={0} value={chemical.volume} /> units of{' '}
-              {chemical.name}
+              <AnimatedNumber initial={0} value={chemical.volume} /> units of {chemical.name}
             </Box>
           ))}
         </Section>

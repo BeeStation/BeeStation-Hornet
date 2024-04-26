@@ -1,12 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  LabeledList,
-  NumberInput,
-  ProgressBar,
-  Section,
-} from '../components';
+import { Box, Button, LabeledList, NumberInput, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const SpaceHeater = (props, context) => {
@@ -19,12 +12,7 @@ export const SpaceHeater = (props, context) => {
           buttons={
             <>
               {!!data.chemHacked && (
-                <Button
-                  icon="eject"
-                  content="Eject beaker"
-                  disabled={!data.beaker}
-                  onClick={() => act('ejectBeaker')}
-                />
+                <Button icon="eject" content="Eject beaker" disabled={!data.beaker} onClick={() => act('ejectBeaker')} />
               )}
               <Button
                 icon="eject"
@@ -40,8 +28,7 @@ export const SpaceHeater = (props, context) => {
                 onClick={() => act('power')}
               />
             </>
-          }
-        >
+          }>
           <LabeledList>
             <LabeledList.Item label="Cell" color={!data.hasPowercell && 'bad'}>
               {(data.hasPowercell && (
@@ -51,8 +38,7 @@ export const SpaceHeater = (props, context) => {
                     good: [0.6, Infinity],
                     average: [0.3, 0.6],
                     bad: [-Infinity, 0.3],
-                  }}
-                >
+                  }}>
                   {data.powerLevel + '%'}
                 </ProgressBar>
               )) ||
@@ -71,8 +57,7 @@ export const SpaceHeater = (props, context) => {
                     : Math.abs(data.targetTemp - data.currentTemp) > 20
                       ? 'average'
                       : 'good'
-                }
-              >
+                }>
                 {data.currentTemp}°C
               </Box>
             </LabeledList.Item>

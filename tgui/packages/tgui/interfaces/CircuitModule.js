@@ -10,12 +10,7 @@ export const CircuitModule = (props, context) => {
       <Window.Content scrollable>
         <Stack vertical>
           <Stack.Item>
-            <Button
-              content="View Internal Circuit"
-              textAlign="center"
-              fluid
-              onClick={() => act('open_internal_circuit')}
-            />
+            <Button content="View Internal Circuit" textAlign="center" fluid onClick={() => act('open_internal_circuit')} />
           </Stack.Item>
           <Stack.Item>
             <Stack width="100%">
@@ -50,13 +45,7 @@ export const CircuitModule = (props, context) => {
                       />
                     ))}
                     <Stack.Item>
-                      <Button
-                        fluid
-                        content="Add Input Port"
-                        color="good"
-                        icon="plus"
-                        onClick={() => act('add_input_port')}
-                      />
+                      <Button fluid content="Add Input Port" color="good" icon="plus" onClick={() => act('add_input_port')} />
                     </Stack.Item>
                   </Stack>
                 </Section>
@@ -92,13 +81,7 @@ export const CircuitModule = (props, context) => {
                       />
                     ))}
                     <Stack.Item>
-                      <Button
-                        fluid
-                        content="Add Output Port"
-                        color="good"
-                        icon="plus"
-                        onClick={() => act('add_output_port')}
-                      />
+                      <Button fluid content="Add Output Port" color="good" icon="plus" onClick={() => act('add_output_port')} />
                     </Stack.Item>
                   </Stack>
                 </Section>
@@ -112,15 +95,7 @@ export const CircuitModule = (props, context) => {
 };
 
 const PortEntry = (props, context) => {
-  const {
-    onRemove,
-    onEnter,
-    onSetType,
-    name,
-    datatype,
-    datatypeOptions = [],
-    ...rest
-  } = props;
+  const { onRemove, onEnter, onSetType, name, datatype, datatypeOptions = [], ...rest } = props;
 
   return (
     <Stack.Item {...rest}>
@@ -129,11 +104,7 @@ const PortEntry = (props, context) => {
           <Input placeholder="Name" value={name} onChange={onEnter} fluid />
         </Stack.Item>
         <Stack.Item>
-          <Dropdown
-            displayText={datatype}
-            options={datatypeOptions}
-            onSelected={onSetType}
-          />
+          <Dropdown displayText={datatype} options={datatypeOptions} onSelected={onSetType} />
         </Stack.Item>
         <Stack.Item>
           <Button icon="times" color="red" onClick={onRemove} />

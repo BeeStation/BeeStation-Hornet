@@ -21,10 +21,7 @@ export const Crayon = (props, context) => {
                 />
               </LabeledList.Item>
             </LabeledList>
-            <Button
-              content="Select New Color"
-              onClick={() => act('select_colour')}
-            />
+            <Button content="Select New Color" onClick={() => act('select_colour')} />
           </Section>
         )}
         <Section title="Stencil">
@@ -52,9 +49,7 @@ export const Crayon = (props, context) => {
         </Section>
         <Section title="Text">
           <LabeledList>
-            <LabeledList.Item label="Current Buffer">
-              {data.text_buffer}
-            </LabeledList.Item>
+            <LabeledList.Item label="Current Buffer">{data.text_buffer}</LabeledList.Item>
           </LabeledList>
           <Button content="New Text" onClick={() => act('enter_text')} />
         </Section>

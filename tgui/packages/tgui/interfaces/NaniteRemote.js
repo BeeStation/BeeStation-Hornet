@@ -1,13 +1,5 @@
 import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  NumberInput,
-  Section,
-  NoticeBox,
-  Input,
-  Table,
-} from '../components';
+import { Button, LabeledList, NumberInput, Section, NoticeBox, Input, Table } from '../components';
 import { Window } from '../layouts';
 
 export const NaniteRemote = (props, context) => {
@@ -22,16 +14,7 @@ export const NaniteRemote = (props, context) => {
 
 export const NaniteRemoteContent = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    code,
-    locked,
-    mode,
-    program_name,
-    relay_code,
-    comms,
-    message,
-    saved_settings = [],
-  } = data;
+  const { code, locked, mode, program_name, relay_code, comms, message, saved_settings = [] } = data;
 
   const modes = ['Off', 'Local', 'Targeted', 'Area', 'Relay'];
 
@@ -41,16 +24,7 @@ export const NaniteRemoteContent = (props, context) => {
 
   return (
     <>
-      <Section
-        title="Nanite Control"
-        buttons={
-          <Button
-            icon="lock"
-            content="Lock Interface"
-            onClick={() => act('lock')}
-          />
-        }
-      >
+      <Section title="Nanite Control" buttons={<Button icon="lock" content="Lock Interface" onClick={() => act('lock')} />}>
         <LabeledList>
           <LabeledList.Item label="Name">
             <Input
@@ -142,9 +116,7 @@ export const NaniteRemoteContent = (props, context) => {
                 </Table.Cell>
                 <Table.Cell>{setting.mode}</Table.Cell>
                 <Table.Cell>{setting.code}</Table.Cell>
-                <Table.Cell>
-                  {setting.mode === 'Relay' && setting.relay_code}
-                </Table.Cell>
+                <Table.Cell>{setting.mode === 'Relay' && setting.relay_code}</Table.Cell>
                 <Table.Cell textAlign="right">
                   <Button
                     icon="upload"

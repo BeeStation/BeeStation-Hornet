@@ -15,8 +15,8 @@ module.exports = function () {
 
   /** Used to determine if values are of the language type Object. */
   var objectTypes = {
-    function: true,
-    object: true,
+    'function': true,
+    'object': true,
   };
 
   /** Used as a reference to the global object. */
@@ -58,11 +58,11 @@ module.exports = function () {
 
   /** Used to avoid hz of Infinity. */
   var divisors = {
-    1: 4096,
-    2: 512,
-    3: 64,
-    4: 8,
-    5: 0,
+    '1': 4096,
+    '2': 512,
+    '3': 64,
+    '4': 8,
+    '5': 0,
   };
 
   /**
@@ -70,37 +70,37 @@ module.exports = function () {
    * For more info see http://www.itl.nist.gov/div898/handbook/eda/section3/eda3672.htm.
    */
   var tTable = {
-    1: 12.706,
-    2: 4.303,
-    3: 3.182,
-    4: 2.776,
-    5: 2.571,
-    6: 2.447,
-    7: 2.365,
-    8: 2.306,
-    9: 2.262,
-    10: 2.228,
-    11: 2.201,
-    12: 2.179,
-    13: 2.16,
-    14: 2.145,
-    15: 2.131,
-    16: 2.12,
-    17: 2.11,
-    18: 2.101,
-    19: 2.093,
-    20: 2.086,
-    21: 2.08,
-    22: 2.074,
-    23: 2.069,
-    24: 2.064,
-    25: 2.06,
-    26: 2.056,
-    27: 2.052,
-    28: 2.048,
-    29: 2.045,
-    30: 2.042,
-    infinity: 1.96,
+    '1': 12.706,
+    '2': 4.303,
+    '3': 3.182,
+    '4': 2.776,
+    '5': 2.571,
+    '6': 2.447,
+    '7': 2.365,
+    '8': 2.306,
+    '9': 2.262,
+    '10': 2.228,
+    '11': 2.201,
+    '12': 2.179,
+    '13': 2.16,
+    '14': 2.145,
+    '15': 2.131,
+    '16': 2.12,
+    '17': 2.11,
+    '18': 2.101,
+    '19': 2.093,
+    '20': 2.086,
+    '21': 2.08,
+    '22': 2.074,
+    '23': 2.069,
+    '24': 2.064,
+    '25': 2.06,
+    '26': 2.056,
+    '27': 2.052,
+    '28': 2.048,
+    '29': 2.045,
+    '30': 2.042,
+    'infinity': 1.96,
   };
 
   /**
@@ -108,63 +108,39 @@ module.exports = function () {
    * For more info see http://www.saburchill.com/IBbiology/stats/003.html.
    */
   var uTable = {
-    5: [0, 1, 2],
-    6: [1, 2, 3, 5],
-    7: [1, 3, 5, 6, 8],
-    8: [2, 4, 6, 8, 10, 13],
-    9: [2, 4, 7, 10, 12, 15, 17],
-    10: [3, 5, 8, 11, 14, 17, 20, 23],
-    11: [3, 6, 9, 13, 16, 19, 23, 26, 30],
-    12: [4, 7, 11, 14, 18, 22, 26, 29, 33, 37],
-    13: [4, 8, 12, 16, 20, 24, 28, 33, 37, 41, 45],
-    14: [5, 9, 13, 17, 22, 26, 31, 36, 40, 45, 50, 55],
-    15: [5, 10, 14, 19, 24, 29, 34, 39, 44, 49, 54, 59, 64],
-    16: [6, 11, 15, 21, 26, 31, 37, 42, 47, 53, 59, 64, 70, 75],
-    17: [6, 11, 17, 22, 28, 34, 39, 45, 51, 57, 63, 67, 75, 81, 87],
-    18: [7, 12, 18, 24, 30, 36, 42, 48, 55, 61, 67, 74, 80, 86, 93, 99],
-    19: [7, 13, 19, 25, 32, 38, 45, 52, 58, 65, 72, 78, 85, 92, 99, 106, 113],
-    20: [
-      8, 14, 20, 27, 34, 41, 48, 55, 62, 69, 76, 83, 90, 98, 105, 112, 119, 127,
+    '5': [0, 1, 2],
+    '6': [1, 2, 3, 5],
+    '7': [1, 3, 5, 6, 8],
+    '8': [2, 4, 6, 8, 10, 13],
+    '9': [2, 4, 7, 10, 12, 15, 17],
+    '10': [3, 5, 8, 11, 14, 17, 20, 23],
+    '11': [3, 6, 9, 13, 16, 19, 23, 26, 30],
+    '12': [4, 7, 11, 14, 18, 22, 26, 29, 33, 37],
+    '13': [4, 8, 12, 16, 20, 24, 28, 33, 37, 41, 45],
+    '14': [5, 9, 13, 17, 22, 26, 31, 36, 40, 45, 50, 55],
+    '15': [5, 10, 14, 19, 24, 29, 34, 39, 44, 49, 54, 59, 64],
+    '16': [6, 11, 15, 21, 26, 31, 37, 42, 47, 53, 59, 64, 70, 75],
+    '17': [6, 11, 17, 22, 28, 34, 39, 45, 51, 57, 63, 67, 75, 81, 87],
+    '18': [7, 12, 18, 24, 30, 36, 42, 48, 55, 61, 67, 74, 80, 86, 93, 99],
+    '19': [7, 13, 19, 25, 32, 38, 45, 52, 58, 65, 72, 78, 85, 92, 99, 106, 113],
+    '20': [8, 14, 20, 27, 34, 41, 48, 55, 62, 69, 76, 83, 90, 98, 105, 112, 119, 127],
+    '21': [8, 15, 22, 29, 36, 43, 50, 58, 65, 73, 80, 88, 96, 103, 111, 119, 126, 134, 142],
+    '22': [9, 16, 23, 30, 38, 45, 53, 61, 69, 77, 85, 93, 101, 109, 117, 125, 133, 141, 150, 158],
+    '23': [9, 17, 24, 32, 40, 48, 56, 64, 73, 81, 89, 98, 106, 115, 123, 132, 140, 149, 157, 166, 175],
+    '24': [10, 17, 25, 33, 42, 50, 59, 67, 76, 85, 94, 102, 111, 120, 129, 138, 147, 156, 165, 174, 183, 192],
+    '25': [10, 18, 27, 35, 44, 53, 62, 71, 80, 89, 98, 107, 117, 126, 135, 145, 154, 163, 173, 182, 192, 201, 211],
+    '26': [11, 19, 28, 37, 46, 55, 64, 74, 83, 93, 102, 112, 122, 132, 141, 151, 161, 171, 181, 191, 200, 210, 220, 230],
+    '27': [11, 20, 29, 38, 48, 57, 67, 77, 87, 97, 107, 118, 125, 138, 147, 158, 168, 178, 188, 199, 209, 219, 230, 240, 250],
+    '28': [
+      12, 21, 30, 40, 50, 60, 70, 80, 90, 101, 111, 122, 132, 143, 154, 164, 175, 186, 196, 207, 218, 228, 239, 250, 261, 272,
     ],
-    21: [
-      8, 15, 22, 29, 36, 43, 50, 58, 65, 73, 80, 88, 96, 103, 111, 119, 126,
-      134, 142,
+    '29': [
+      13, 22, 32, 42, 52, 62, 73, 83, 94, 105, 116, 127, 138, 149, 160, 171, 182, 193, 204, 215, 226, 238, 249, 260, 271, 282,
+      294,
     ],
-    22: [
-      9, 16, 23, 30, 38, 45, 53, 61, 69, 77, 85, 93, 101, 109, 117, 125, 133,
-      141, 150, 158,
-    ],
-    23: [
-      9, 17, 24, 32, 40, 48, 56, 64, 73, 81, 89, 98, 106, 115, 123, 132, 140,
-      149, 157, 166, 175,
-    ],
-    24: [
-      10, 17, 25, 33, 42, 50, 59, 67, 76, 85, 94, 102, 111, 120, 129, 138, 147,
-      156, 165, 174, 183, 192,
-    ],
-    25: [
-      10, 18, 27, 35, 44, 53, 62, 71, 80, 89, 98, 107, 117, 126, 135, 145, 154,
-      163, 173, 182, 192, 201, 211,
-    ],
-    26: [
-      11, 19, 28, 37, 46, 55, 64, 74, 83, 93, 102, 112, 122, 132, 141, 151, 161,
-      171, 181, 191, 200, 210, 220, 230,
-    ],
-    27: [
-      11, 20, 29, 38, 48, 57, 67, 77, 87, 97, 107, 118, 125, 138, 147, 158, 168,
-      178, 188, 199, 209, 219, 230, 240, 250,
-    ],
-    28: [
-      12, 21, 30, 40, 50, 60, 70, 80, 90, 101, 111, 122, 132, 143, 154, 164,
-      175, 186, 196, 207, 218, 228, 239, 250, 261, 272,
-    ],
-    29: [
-      13, 22, 32, 42, 52, 62, 73, 83, 94, 105, 116, 127, 138, 149, 160, 171,
-      182, 193, 204, 215, 226, 238, 249, 260, 271, 282, 294,
-    ],
-    30: [
-      13, 23, 33, 43, 54, 65, 76, 87, 98, 109, 120, 131, 143, 154, 166, 177,
-      189, 200, 212, 223, 235, 247, 258, 270, 282, 293, 305, 317,
+    '30': [
+      13, 23, 33, 43, 54, 65, 76, 87, 98, 109, 120, 131, 143, 154, 166, 177, 189, 200, 212, 223, 235, 247, 258, 270, 282, 293,
+      305, 317,
     ],
   };
 
@@ -189,9 +165,7 @@ module.exports = function () {
     // after built-in constructors like `Object`, for the creation of literals.
     // ES5 clears this up by stating that literals must use built-in constructors.
     // See http://es5.github.io/#x11.1.5.
-    context = context
-      ? _.defaults(root.Object(), context, _.pick(root, contextProps))
-      : root;
+    context = context ? _.defaults(root.Object(), context, _.pick(root, contextProps)) : root;
 
     /** Native constructor references. */
     var Array = context.Array,
@@ -253,10 +227,7 @@ module.exports = function () {
        * @memberOf Benchmark.support
        * @type boolean
        */
-      support.browser =
-        doc &&
-        isHostType(context, 'navigator') &&
-        !isHostType(context, 'phantom');
+      support.browser = doc && isHostType(context, 'navigator') && !isHostType(context, 'phantom');
 
       /**
        * Detect if the Timers API exists.
@@ -264,9 +235,7 @@ module.exports = function () {
        * @memberOf Benchmark.support
        * @type boolean
        */
-      support.timeout =
-        isHostType(context, 'setTimeout') &&
-        isHostType(context, 'clearTimeout');
+      support.timeout = isHostType(context, 'setTimeout') && isHostType(context, 'clearTimeout');
 
       /**
        * Detect if function decompilation is support.
@@ -285,12 +254,12 @@ module.exports = function () {
             (
               'return (' +
               function (x) {
-                return { x: '' + (1 + x) + '', y: 0 };
+                return { 'x': '' + (1 + x) + '', 'y': 0 };
               } +
               ')'
             )
               // Avoid issues with code added by Istanbul.
-              .replace(/__cov__[^;]+;/g, ''),
+              .replace(/__cov__[^;]+;/g, '')
           )()(0).x === '1';
       } catch (e) {
         support.decompilation = false;
@@ -311,7 +280,7 @@ module.exports = function () {
        * @memberOf timer
        * @type {Function|Object}
        */
-      ns: Date,
+      'ns': Date,
 
       /**
        * Starts the deferred timer.
@@ -320,7 +289,7 @@ module.exports = function () {
        * @memberOf timer
        * @param {Object} deferred The deferred instance.
        */
-      start: null, // Lazy defined in `clock()`.
+      'start': null, // Lazy defined in `clock()`.
 
       /**
        * Stops the deferred timer.
@@ -329,7 +298,7 @@ module.exports = function () {
        * @memberOf timer
        * @param {Object} deferred The deferred instance.
        */
-      stop: null, // Lazy defined in `clock()`.
+      'stop': null, // Lazy defined in `clock()`.
     };
 
     /*------------------------------------------------------------------------*/
@@ -477,11 +446,7 @@ module.exports = function () {
         return type;
       }
       return event instanceof Event
-        ? _.assign(
-            event,
-            { timeStamp: _.now() },
-            typeof type == 'string' ? { type: type } : type,
-          )
+        ? _.assign(event, { 'timeStamp': _.now() }, typeof type == 'string' ? { 'type': type } : type)
         : new Event(type);
     }
 
@@ -557,9 +522,7 @@ module.exports = function () {
      */
     var cloneDeep = _.partial(_.cloneDeepWith, _, function (value) {
       // Only clone primitives, arrays, and plain objects.
-      return _.isObject(value) && !_.isArray(value) && !_.isPlainObject(value)
-        ? value
-        : undefined;
+      return _.isObject(value) && !_.isArray(value) && !_.isPlainObject(value) ? value : undefined;
     });
 
     /**
@@ -577,15 +540,7 @@ module.exports = function () {
           anchor = freeDefine ? freeDefine.amd : Benchmark,
           prop = uid + 'createFunction';
 
-        runScript(
-          (freeDefine ? 'define.amd.' : 'Benchmark.') +
-            prop +
-            '=function(' +
-            args +
-            '){' +
-            body +
-            '}',
-        );
+        runScript((freeDefine ? 'define.amd.' : 'Benchmark.') + prop + '=function(' + args + '){' + body + '}');
         result = anchor[prop];
         delete anchor[prop];
         return result;
@@ -593,10 +548,7 @@ module.exports = function () {
       // Fix JaegerMonkey bug.
       // For more information see http://bugzil.la/639720.
       createFunction =
-        support.browser &&
-        (createFunction('', 'return"' + uid + '"') || _.noop)() == uid
-          ? createFunction
-          : Function;
+        support.browser && (createFunction('', 'return"' + uid + '"') || _.noop)() == uid ? createFunction : Function;
       return createFunction.apply(null, arguments);
     }
 
@@ -630,11 +582,7 @@ module.exports = function () {
      * @returns {string} The argument name.
      */
     function getFirstArgument(fn) {
-      return (
-        (!_.has(fn, 'toString') &&
-          (/^[\s(]*function[^(]*\(([^\s,)]+)/.exec(fn) || 0)[1]) ||
-        ''
-      );
+      return (!_.has(fn, 'toString') && (/^[\s(]*function[^(]*\(([^\s,)]+)/.exec(fn) || 0)[1]) || '';
     }
 
     /**
@@ -671,11 +619,7 @@ module.exports = function () {
       result = (result || '').replace(/^\s+|\s+$/g, '');
 
       // Detect strings containing only the "use strict" directive.
-      return /^(?:\/\*+[\w\W]*?\*\/|\/\/.*?[\n\r\u2028\u2029]|\s)*(["'])use strict\1;?$/.test(
-        result,
-      )
-        ? ''
-        : result;
+      return /^(?:\/\*+[\w\W]*?\*\/|\/\/.*?[\n\r\u2028\u2029]|\s)*(["'])use strict\1;?$/.test(result) ? '' : result;
     }
 
     /**
@@ -705,9 +649,7 @@ module.exports = function () {
         return false;
       }
       var type = typeof object[property];
-      return (
-        !rePrimitive.test(type) && (type != 'object' || !!object[property])
-      );
+      return !rePrimitive.test(type) && (type != 'object' || !!object[property]);
     }
 
     /**
@@ -718,10 +660,7 @@ module.exports = function () {
      * @returns {boolean} Returns `true` if the value can be coerced, else `false`.
      */
     function isStringable(value) {
-      return (
-        _.isString(value) ||
-        (_.has(value, 'toString') && _.isFunction(value.toString))
-      );
+      return _.isString(value) || (_.has(value, 'toString') && _.isFunction(value.toString));
     }
 
     /**
@@ -736,11 +675,7 @@ module.exports = function () {
         sibling = doc.getElementsByTagName('script')[0],
         parent = sibling.parentNode,
         prop = uid + 'runScript',
-        prefix =
-          '(' +
-          (freeDefine ? 'define.amd.' : 'Benchmark.') +
-          prop +
-          '||function(){})();';
+        prefix = '(' + (freeDefine ? 'define.amd.' : 'Benchmark.') + prop + '||function(){})();';
 
       // Firefox 2.0.0.2 cannot use script injection as intended because it executes
       // asynchronously, but that's OK because script injection is only used to avoid
@@ -769,11 +704,7 @@ module.exports = function () {
      * @param {Object} [options={}] Options object.
      */
     function setOptions(object, options) {
-      options = object.options = _.assign(
-        {},
-        cloneDeep(object.constructor.options),
-        cloneDeep(options),
-      );
+      options = object.options = _.assign({}, cloneDeep(object.constructor.options), cloneDeep(options));
 
       _.forOwn(options, function (value, key) {
         if (value != null) {
@@ -854,10 +785,7 @@ module.exports = function () {
         var result = filter(array, 'successful').sort(function (a, b) {
           a = a.stats;
           b = b.stats;
-          return (
-            (a.mean + a.moe > b.mean + b.moe ? 1 : -1) *
-            (callback === 'fastest' ? 1 : -1)
-          );
+          return (a.mean + a.moe > b.mean + b.moe ? 1 : -1) * (callback === 'fastest' ? 1 : -1);
         });
 
         return _.filter(result, function (bench) {
@@ -877,10 +805,7 @@ module.exports = function () {
      */
     function formatNumber(number) {
       number = String(number).split('.');
-      return (
-        number[0].replace(/(?=(?:\d{3})+$)(?!\b)/g, ',') +
-        (number[1] ? '.' + number[1] : '')
-      );
+      return number[0].replace(/(?=(?:\d{3})+$)(?!\b)/g, ',') + (number[1] ? '.' + number[1] : '');
     }
 
     /**
@@ -927,8 +852,8 @@ module.exports = function () {
         bench,
         queued,
         index = -1,
-        eventProps = { currentTarget: benches },
-        options = { onStart: _.noop, onCycle: _.noop, onComplete: _.noop },
+        eventProps = { 'currentTarget': benches },
+        options = { 'onStart': _.noop, 'onCycle': _.noop, 'onComplete': _.noop },
         result = _.toArray(benches);
 
       /**
@@ -945,9 +870,7 @@ module.exports = function () {
           listeners.splice(0, 0, listeners.pop());
         }
         // Execute method.
-        result[index] = _.isFunction(bench && bench[name])
-          ? bench[name].apply(bench, args)
-          : undefined;
+        result[index] = _.isFunction(bench && bench[name]) ? bench[name].apply(bench, args) : undefined;
         // If synchronous return `true` until finished.
         return !async && getNext();
       }
@@ -1006,9 +929,7 @@ module.exports = function () {
         return (
           name == 'run' &&
           object instanceof Benchmark &&
-          (((async == null ? object.options.async : async) &&
-            support.timeout) ||
-            object.defer)
+          (((async == null ? object.options.async : async) && support.timeout) || object.defer)
         );
       }
 
@@ -1023,9 +944,7 @@ module.exports = function () {
           shift.call(benches);
         }
         // If we reached the last index then return `false`.
-        return (queued ? benches.length : index < result.length)
-          ? index
-          : (index = false);
+        return (queued ? benches.length : index < result.length) ? index : (index = false);
       }
       // Juggle arguments.
       if (_.isString(name)) {
@@ -1035,9 +954,7 @@ module.exports = function () {
         // 2 arguments (array, options).
         options = _.assign(options, name);
         name = options.name;
-        args = _.isArray((args = 'args' in options ? options.args : []))
-          ? args
-          : [args];
+        args = _.isArray((args = 'args' in options ? options.args : [])) ? args : [args];
         queued = options.queued;
       }
       // Start iterating over the array.
@@ -1163,7 +1080,7 @@ module.exports = function () {
     function add(name, fn, options) {
       var suite = this,
         bench = new Benchmark(name, fn, options),
-        event = Event({ type: 'add', target: bench });
+        event = Event({ 'type': 'add', 'target': bench });
 
       if ((suite.emit(event), !event.cancelled)) {
         suite.push(bench);
@@ -1186,10 +1103,7 @@ module.exports = function () {
       // Copy own properties.
       _.forOwn(suite, function (value, key) {
         if (!_.has(result, key)) {
-          result[key] =
-            value && _.isFunction(value.clone)
-              ? value.clone()
-              : cloneDeep(value);
+          result[key] = value && _.isFunction(value.clone) ? value.clone() : cloneDeep(value);
         }
       });
       return result;
@@ -1230,10 +1144,7 @@ module.exports = function () {
         delete calledBy.resetSuite;
       }
       // Reset if the state has changed.
-      else if (
-        (suite.aborted || suite.running) &&
-        (suite.emit((event = Event('reset'))), !event.cancelled)
-      ) {
+      else if ((suite.aborted || suite.running) && (suite.emit((event = Event('reset'))), !event.cancelled)) {
         suite.aborted = suite.running = false;
         if (!aborting) {
           invoke(suite, 'reset');
@@ -1265,21 +1176,21 @@ module.exports = function () {
       options || (options = {});
 
       invoke(suite, {
-        name: 'run',
-        args: options,
-        queued: options.queued,
-        onStart: function (event) {
+        'name': 'run',
+        'args': options,
+        'queued': options.queued,
+        'onStart': function (event) {
           suite.emit(event);
         },
-        onCycle: function (event) {
+        'onCycle': function (event) {
           var bench = event.target;
           if (bench.error) {
-            suite.emit({ type: 'error', target: bench });
+            suite.emit({ 'type': 'error', 'target': bench });
           }
           suite.emit(event);
           event.aborted = suite.aborted;
         },
-        onComplete: function (event) {
+        'onComplete': function (event) {
           suite.running = false;
           suite.emit(event);
         },
@@ -1308,10 +1219,7 @@ module.exports = function () {
       event.target || (event.target = object);
       delete event.result;
 
-      if (
-        events &&
-        (listeners = _.has(events, event.type) && events[event.type])
-      ) {
+      if (events && (listeners = _.has(events, event.type) && events[event.type])) {
         _.each(listeners.slice(), function (listener) {
           if ((event.result = listener.apply(object, args)) === false) {
             event.cancelled = true;
@@ -1410,9 +1318,7 @@ module.exports = function () {
         events = object.events || (object.events = {});
 
       _.each(type.split(' '), function (type) {
-        (_.has(events, type) ? events[type] : (events[type] = [])).push(
-          listener,
-        );
+        (_.has(events, type) ? events[type] : (events[type] = [])).push(listener);
       });
       return object;
     }
@@ -1469,11 +1375,7 @@ module.exports = function () {
         result = new bench.constructor(_.assign({}, bench, options));
 
       // Correct the `options` object.
-      result.options = _.assign(
-        {},
-        cloneDeep(bench.options),
-        cloneDeep(options),
-      );
+      result.options = _.assign({}, cloneDeep(bench.options), cloneDeep(options));
 
       // Copy own custom properties.
       _.forOwn(bench, function (value, key) {
@@ -1517,7 +1419,7 @@ module.exports = function () {
           function (total, xB) {
             return total + (xB > xA ? 0 : xB < xA ? 1 : 0.5);
           },
-          0,
+          0
         );
       }
 
@@ -1527,15 +1429,12 @@ module.exports = function () {
           function (total, xA) {
             return total + getScore(xA, sampleB);
           },
-          0,
+          0
         );
       }
 
       function getZ(u) {
-        return (
-          (u - (size1 * size2) / 2) /
-          sqrt((size1 * size2 * (size1 + size2 + 1)) / 12)
-        );
+        return (u - (size1 * size2) / 2) / sqrt((size1 * size2 * (size1 + size2 + 1)) / 12);
       }
       // Reject the null hypothesis the two samples come from the
       // same population (i.e. have the same median) if...
@@ -1573,12 +1472,8 @@ module.exports = function () {
       // A non-recursive solution to check if properties have changed.
       // For more information see http://www.jslab.dk/articles/non.recursive.preorder.traversal.part4.
       var data = {
-        destination: bench,
-        source: _.assign(
-          {},
-          cloneDeep(bench.constructor.prototype),
-          cloneDeep(bench.options),
-        ),
+        'destination': bench,
+        'source': _.assign({}, cloneDeep(bench.constructor.prototype), cloneDeep(bench.options)),
       };
 
       do {
@@ -1610,29 +1505,19 @@ module.exports = function () {
             }
             // Register a changed object.
             if (changed) {
-              changes.push({
-                destination: destination,
-                key: key,
-                value: currValue,
-              });
+              changes.push({ 'destination': destination, 'key': key, 'value': currValue });
             }
-            queue.push({ destination: currValue, source: value });
+            queue.push({ 'destination': currValue, 'source': value });
           }
           // Register a changed primitive.
-          else if (
-            value !== currValue &&
-            !(value == null || _.isFunction(value))
-          ) {
-            changes.push({ destination: destination, key: key, value: value });
+          else if (value !== currValue && !(value == null || _.isFunction(value))) {
+            changes.push({ 'destination': destination, 'key': key, 'value': value });
           }
         });
       } while ((data = queue[index++]));
 
       // If changed emit the `reset` event and if it isn't cancelled reset the benchmark.
-      if (
-        changes.length &&
-        (bench.emit((event = Event('reset'))), !event.cancelled)
-      ) {
+      if (changes.length && (bench.emit((event = Event('reset'))), !event.cancelled)) {
         _.each(changes, function (data) {
           data.destination[data.key] = data.value;
         });
@@ -1665,9 +1550,7 @@ module.exports = function () {
           errorStr = join(error);
         } else {
           // Error#name and Error#message properties are non-enumerable.
-          errorStr = join(
-            _.assign({ name: error.name, message: error.message }, error),
-          );
+          errorStr = join(_.assign({ 'name': error.name, 'message': error.message }, error));
         }
         result += ': ' + errorStr;
       } else {
@@ -1698,7 +1581,7 @@ module.exports = function () {
     function clock() {
       var options = Benchmark.options,
         templateData = {},
-        timers = [{ ns: timer.ns, res: max(0.0015, getRes('ms')), unit: 'ms' }];
+        timers = [{ 'ns': timer.ns, 'res': max(0.0015, getRes('ms')), 'unit': 'ms' }];
 
       // Lazy define for hi-res timers.
       clock = function (clone) {
@@ -1711,64 +1594,47 @@ module.exports = function () {
         var bench = clone._original,
           stringable = isStringable(bench.fn),
           count = (bench.count = clone.count),
-          decompilable =
-            stringable ||
-            (support.decompilation &&
-              (clone.setup !== _.noop || clone.teardown !== _.noop)),
+          decompilable = stringable || (support.decompilation && (clone.setup !== _.noop || clone.teardown !== _.noop)),
           id = bench.id,
-          name =
-            bench.name || (typeof id == 'number' ? '<Test #' + id + '>' : id),
+          name = bench.name || (typeof id == 'number' ? '<Test #' + id + '>' : id),
           result = 0;
 
         // Init `minTime` if needed.
-        clone.minTime =
-          bench.minTime ||
-          (bench.minTime = bench.options.minTime = options.minTime);
+        clone.minTime = bench.minTime || (bench.minTime = bench.options.minTime = options.minTime);
 
         // Compile in setup/teardown functions and the test loop.
         // Create a new compiled test, instead of using the cached `bench.compiled`,
         // to avoid potential engine optimizations enabled over the life of the test.
         var funcBody = deferred
           ? 'var d#=this,${fnArg}=d#,m#=d#.benchmark._original,f#=m#.fn,su#=m#.setup,td#=m#.teardown;' +
-            // When `deferred.cycles` is `0` then...
-            'if(!d#.cycles){' +
-            // set `deferred.fn`,
-            'd#.fn=function(){var ${fnArg}=d#;if(typeof f#=="function"){try{${fn}\n}catch(e#){f#(d#)}}else{${fn}\n}};' +
-            // set `deferred.teardown`,
-            'd#.teardown=function(){d#.cycles=0;if(typeof td#=="function"){try{${teardown}\n}catch(e#){td#()}}else{${teardown}\n}};' +
-            // execute the benchmark's `setup`,
-            'if(typeof su#=="function"){try{${setup}\n}catch(e#){su#()}}else{${setup}\n};' +
-            // start timer,
-            't#.start(d#);' +
-            // and then execute `deferred.fn` and return a dummy object.
-            '}d#.fn();return{uid:"${uid}"}'
+          // When `deferred.cycles` is `0` then...
+          'if(!d#.cycles){' +
+          // set `deferred.fn`,
+          'd#.fn=function(){var ${fnArg}=d#;if(typeof f#=="function"){try{${fn}\n}catch(e#){f#(d#)}}else{${fn}\n}};' +
+          // set `deferred.teardown`,
+          'd#.teardown=function(){d#.cycles=0;if(typeof td#=="function"){try{${teardown}\n}catch(e#){td#()}}else{${teardown}\n}};' +
+          // execute the benchmark's `setup`,
+          'if(typeof su#=="function"){try{${setup}\n}catch(e#){su#()}}else{${setup}\n};' +
+          // start timer,
+          't#.start(d#);' +
+          // and then execute `deferred.fn` and return a dummy object.
+          '}d#.fn();return{uid:"${uid}"}'
           : 'var r#,s#,m#=this,f#=m#.fn,i#=m#.count,n#=t#.ns;${setup}\n${begin};' +
-            'while(i#--){${fn}\n}${end};${teardown}\nreturn{elapsed:r#,uid:"${uid}"}';
+          'while(i#--){${fn}\n}${end};${teardown}\nreturn{elapsed:r#,uid:"${uid}"}';
 
-        var compiled =
-            (bench.compiled =
-            clone.compiled =
-              createCompiled(bench, decompilable, deferred, funcBody)),
+        var compiled = (bench.compiled = clone.compiled = createCompiled(bench, decompilable, deferred, funcBody)),
           isEmpty = !(templateData.fn || stringable);
 
         try {
           if (isEmpty) {
             // Firefox may remove dead code from `Function#toString` results.
             // For more information see http://bugzil.la/536085.
-            throw new Error(
-              'The test "' +
-                name +
-                '" is empty. This may be the result of dead code removal.',
-            );
+            throw new Error('The test "' + name + '" is empty. This may be the result of dead code removal.');
           } else if (!deferred) {
             // Pretest to determine if compiled code exits early, usually by a
             // rogue `return` statement, by checking for a return object with the uid.
             bench.count = 1;
-            compiled =
-              decompilable &&
-              (compiled.call(bench, context, timer) || {}).uid ==
-                templateData.uid &&
-              compiled;
+            compiled = decompilable && (compiled.call(bench, context, timer) || {}).uid == templateData.uid && compiled;
             bench.count = count;
           }
         } catch (e) {
@@ -1802,10 +1668,7 @@ module.exports = function () {
         }
         // If no errors run the full test loop.
         if (!clone.error) {
-          compiled =
-            bench.compiled =
-            clone.compiled =
-              createCompiled(bench, decompilable, deferred, funcBody);
+          compiled = bench.compiled = clone.compiled = createCompiled(bench, decompilable, deferred, funcBody);
           result = compiled.call(deferred || bench, context, timer).elapsed;
         }
         return result;
@@ -1823,63 +1686,50 @@ module.exports = function () {
         templateData.uid = uid + uidCounter++;
 
         _.assign(templateData, {
-          setup: decompilable
-            ? getSource(bench.setup)
-            : interpolate('m#.setup()'),
-          fn: decompilable
-            ? getSource(fn)
-            : interpolate('m#.fn(' + fnArg + ')'),
-          fnArg: fnArg,
-          teardown: decompilable
-            ? getSource(bench.teardown)
-            : interpolate('m#.teardown()'),
+          'setup': decompilable ? getSource(bench.setup) : interpolate('m#.setup()'),
+          'fn': decompilable ? getSource(fn) : interpolate('m#.fn(' + fnArg + ')'),
+          'fnArg': fnArg,
+          'teardown': decompilable ? getSource(bench.teardown) : interpolate('m#.teardown()'),
         });
 
         // Use API of chosen timer.
         if (timer.unit == 'ns') {
           _.assign(templateData, {
-            begin: interpolate('s#=n#()'),
-            end: interpolate('r#=n#(s#);r#=r#[0]+(r#[1]/1e9)'),
+            'begin': interpolate('s#=n#()'),
+            'end': interpolate('r#=n#(s#);r#=r#[0]+(r#[1]/1e9)'),
           });
         } else if (timer.unit == 'us') {
           if (timer.ns.stop) {
             _.assign(templateData, {
-              begin: interpolate('s#=n#.start()'),
-              end: interpolate('r#=n#.microseconds()/1e6'),
+              'begin': interpolate('s#=n#.start()'),
+              'end': interpolate('r#=n#.microseconds()/1e6'),
             });
           } else {
             _.assign(templateData, {
-              begin: interpolate('s#=n#()'),
-              end: interpolate('r#=(n#()-s#)/1e6'),
+              'begin': interpolate('s#=n#()'),
+              'end': interpolate('r#=(n#()-s#)/1e6'),
             });
           }
         } else if (timer.ns.now) {
           _.assign(templateData, {
-            begin: interpolate('s#=n#.now()'),
-            end: interpolate('r#=(n#.now()-s#)/1e3'),
+            'begin': interpolate('s#=n#.now()'),
+            'end': interpolate('r#=(n#.now()-s#)/1e3'),
           });
         } else {
           _.assign(templateData, {
-            begin: interpolate('s#=new n#().getTime()'),
-            end: interpolate('r#=(new n#().getTime()-s#)/1e3'),
+            'begin': interpolate('s#=new n#().getTime()'),
+            'end': interpolate('r#=(new n#().getTime()-s#)/1e3'),
           });
         }
         // Define `timer` methods.
-        timer.start = createFunction(
-          interpolate('o#'),
-          interpolate('var n#=this.ns,${begin};o#.elapsed=0;o#.timeStamp=s#'),
-        );
+        timer.start = createFunction(interpolate('o#'), interpolate('var n#=this.ns,${begin};o#.elapsed=0;o#.timeStamp=s#'));
 
-        timer.stop = createFunction(
-          interpolate('o#'),
-          interpolate('var n#=this.ns,s#=o#.timeStamp,${end};o#.elapsed=r#'),
-        );
+        timer.stop = createFunction(interpolate('o#'), interpolate('var n#=this.ns,s#=o#.timeStamp,${end};o#.elapsed=r#'));
 
         // Create compiled test.
         return createFunction(
           interpolate('window,t#'),
-          'var global = window, clearTimeout = global.clearTimeout, setTimeout = global.setTimeout;\n' +
-            interpolate(body),
+          'var global = window, clearTimeout = global.clearTimeout, setTimeout = global.setTimeout;\n' + interpolate(body)
         );
       }
 
@@ -1908,9 +1758,7 @@ module.exports = function () {
           } else if (unit == 'ns') {
             divisor = 1e9;
             begin = (begin = ns())[0] + begin[1] / divisor;
-            while (
-              !(measured = (measured = ns())[0] + measured[1] / divisor - begin)
-            ) {}
+            while (!(measured = (measured = ns())[0] + measured[1] / divisor - begin)) {}
             divisor = 1;
           } else if (ns.now) {
             begin = ns.now();
@@ -1936,9 +1784,7 @@ module.exports = function () {
        */
       function interpolate(string) {
         // Replaces all occurrences of `#` with a unique number and template tokens with content.
-        return _.template(string.replace(/\#/g, /\d+/.exec(templateData.uid)))(
-          templateData,
-        );
+        return _.template(string.replace(/\#/g, /\d+/.exec(templateData.uid)))(templateData);
       }
 
       /*----------------------------------------------------------------------*/
@@ -1948,16 +1794,13 @@ module.exports = function () {
       // line switch in at least Chrome 7 to use chrome.Interval
       try {
         if ((timer.ns = new (context.chrome || context.chromium).Interval())) {
-          timers.push({ ns: timer.ns, res: getRes('us'), unit: 'us' });
+          timers.push({ 'ns': timer.ns, 'res': getRes('us'), 'unit': 'us' });
         }
       } catch (e) {}
 
       // Detect Node.js's nanosecond resolution timer available in Node.js >= 0.8.
-      if (
-        processObject &&
-        typeof (timer.ns = processObject.hrtime) == 'function'
-      ) {
-        timers.push({ ns: timer.ns, res: getRes('ns'), unit: 'ns' });
+      if (processObject && typeof (timer.ns = processObject.hrtime) == 'function') {
+        timers.push({ 'ns': timer.ns, 'res': getRes('ns'), 'unit': 'ns' });
       }
       // Pick timer with highest resolution.
       timer = _.minBy(timers, 'res');
@@ -1997,14 +1840,14 @@ module.exports = function () {
       function enqueue() {
         queue.push(
           bench.clone({
-            _original: bench,
-            events: {
-              abort: [update],
-              cycle: [update],
-              error: [update],
-              start: [update],
+            '_original': bench,
+            'events': {
+              'abort': [update],
+              'cycle': [update],
+              'error': [update],
+              'start': [update],
             },
-          }),
+          })
         );
       }
 
@@ -2054,9 +1897,7 @@ module.exports = function () {
           done = bench.aborted,
           now = _.now(),
           size = sample.push(clone.times.period),
-          maxedOut =
-            size >= minSamples &&
-            (elapsed += now - clone.times.timeStamp) / 1e3 > bench.maxTime,
+          maxedOut = size >= minSamples && (elapsed += now - clone.times.timeStamp) / 1e3 > bench.maxTime,
           times = bench.times,
           varOf = function (sum, x) {
             return sum + pow(x - mean, 2);
@@ -2086,12 +1927,12 @@ module.exports = function () {
           rme = (moe / mean) * 100 || 0;
 
           _.assign(bench.stats, {
-            deviation: sd,
-            mean: mean,
-            moe: moe,
-            rme: rme,
-            sem: sem,
-            variance: variance,
+            'deviation': sd,
+            'mean': mean,
+            'moe': moe,
+            'rme': rme,
+            'sem': sem,
+            'variance': variance,
           });
 
           // Abort the cycle loop when the minimum sample size has been collected
@@ -2123,11 +1964,11 @@ module.exports = function () {
       // Init queue and begin.
       enqueue();
       invoke(queue, {
-        name: 'run',
-        args: { async: async },
-        queued: true,
-        onCycle: evaluate,
-        onComplete: function () {
+        'name': 'run',
+        'args': { 'async': async },
+        'queued': true,
+        'onCycle': evaluate,
+        'onComplete': function () {
           bench.emit('complete');
         },
       });
@@ -2266,12 +2107,7 @@ module.exports = function () {
       bench.emit(event);
 
       if (!event.cancelled) {
-        options = {
-          async:
-            ((options = options && options.async) == null
-              ? bench.async
-              : options) && support.timeout,
-        };
+        options = { 'async': ((options = options && options.async) == null ? bench.async : options) && support.timeout };
 
         // For clones created within `compute()`.
         if (bench._original) {
@@ -2305,7 +2141,7 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type Object
        */
-      options: {
+      'options': {
         /**
          * A flag to indicate that benchmark cycles will execute asynchronously
          * by default.
@@ -2313,7 +2149,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type boolean
          */
-        async: false,
+        'async': false,
 
         /**
          * A flag to indicate that the benchmark clock is deferred.
@@ -2321,14 +2157,14 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type boolean
          */
-        defer: false,
+        'defer': false,
 
         /**
          * The delay between test cycles (secs).
          * @memberOf Benchmark.options
          * @type number
          */
-        delay: 0.005,
+        'delay': 0.005,
 
         /**
          * Displayed by `Benchmark#toString` when a `name` is not available
@@ -2337,7 +2173,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type string
          */
-        id: undefined,
+        'id': undefined,
 
         /**
          * The default number of times to execute a test on a benchmark's first cycle.
@@ -2345,7 +2181,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type number
          */
-        initCount: 1,
+        'initCount': 1,
 
         /**
          * The maximum time a benchmark is allowed to run before finishing (secs).
@@ -2355,7 +2191,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type number
          */
-        maxTime: 5,
+        'maxTime': 5,
 
         /**
          * The minimum sample size required to perform statistical analysis.
@@ -2363,7 +2199,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type number
          */
-        minSamples: 5,
+        'minSamples': 5,
 
         /**
          * The time needed to reduce the percent uncertainty of measurement to 1% (secs).
@@ -2371,7 +2207,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type number
          */
-        minTime: 0,
+        'minTime': 0,
 
         /**
          * The name of the benchmark.
@@ -2379,7 +2215,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type string
          */
-        name: undefined,
+        'name': undefined,
 
         /**
          * An event listener called when the benchmark is aborted.
@@ -2387,7 +2223,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type Function
          */
-        onAbort: undefined,
+        'onAbort': undefined,
 
         /**
          * An event listener called when the benchmark completes running.
@@ -2395,7 +2231,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type Function
          */
-        onComplete: undefined,
+        'onComplete': undefined,
 
         /**
          * An event listener called after each run cycle.
@@ -2403,7 +2239,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type Function
          */
-        onCycle: undefined,
+        'onCycle': undefined,
 
         /**
          * An event listener called when a test errors.
@@ -2411,7 +2247,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type Function
          */
-        onError: undefined,
+        'onError': undefined,
 
         /**
          * An event listener called when the benchmark is reset.
@@ -2419,7 +2255,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type Function
          */
-        onReset: undefined,
+        'onReset': undefined,
 
         /**
          * An event listener called when the benchmark starts running.
@@ -2427,7 +2263,7 @@ module.exports = function () {
          * @memberOf Benchmark.options
          * @type Function
          */
-        onStart: undefined,
+        'onStart': undefined,
       },
 
       /**
@@ -2438,18 +2274,17 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type Object
        */
-      platform: context.platform ||
+      'platform': context.platform ||
         require('platform') || {
-          description:
-            (context.navigator && context.navigator.userAgent) || null,
-          layout: null,
-          product: null,
-          name: null,
-          manufacturer: null,
-          os: null,
-          prerelease: null,
-          version: null,
-          toString: function () {
+          'description': (context.navigator && context.navigator.userAgent) || null,
+          'layout': null,
+          'product': null,
+          'name': null,
+          'manufacturer': null,
+          'os': null,
+          'prerelease': null,
+          'version': null,
+          'toString': function () {
             return this.description || '';
           },
         },
@@ -2461,25 +2296,22 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type string
        */
-      version: '2.1.2',
+      'version': '2.1.2',
     });
 
     _.assign(Benchmark, {
-      filter: filter,
-      formatNumber: formatNumber,
-      invoke: invoke,
-      join: join,
-      runInContext: runInContext,
-      support: support,
+      'filter': filter,
+      'formatNumber': formatNumber,
+      'invoke': invoke,
+      'join': join,
+      'runInContext': runInContext,
+      'support': support,
     });
 
     // Add lodash methods to Benchmark.
-    _.each(
-      ['each', 'forEach', 'forOwn', 'has', 'indexOf', 'map', 'reduce'],
-      function (methodName) {
-        Benchmark[methodName] = _[methodName];
-      },
-    );
+    _.each(['each', 'forEach', 'forOwn', 'has', 'indexOf', 'map', 'reduce'], function (methodName) {
+      Benchmark[methodName] = _[methodName];
+    });
 
     /*------------------------------------------------------------------------*/
 
@@ -2490,7 +2322,7 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type number
        */
-      count: 0,
+      'count': 0,
 
       /**
        * The number of cycles performed while benchmarking.
@@ -2498,7 +2330,7 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type number
        */
-      cycles: 0,
+      'cycles': 0,
 
       /**
        * The number of executions per second.
@@ -2506,7 +2338,7 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type number
        */
-      hz: 0,
+      'hz': 0,
 
       /**
        * The compiled test function.
@@ -2514,7 +2346,7 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type {Function|string}
        */
-      compiled: undefined,
+      'compiled': undefined,
 
       /**
        * The error object if the test failed.
@@ -2522,7 +2354,7 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type Object
        */
-      error: undefined,
+      'error': undefined,
 
       /**
        * The test to benchmark.
@@ -2530,7 +2362,7 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type {Function|string}
        */
-      fn: undefined,
+      'fn': undefined,
 
       /**
        * A flag to indicate if the benchmark is aborted.
@@ -2538,7 +2370,7 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type boolean
        */
-      aborted: false,
+      'aborted': false,
 
       /**
        * A flag to indicate if the benchmark is running.
@@ -2546,7 +2378,7 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type boolean
        */
-      running: false,
+      'running': false,
 
       /**
        * Compiled into the test and executed immediately **before** the test loop.
@@ -2609,7 +2441,7 @@ module.exports = function () {
        *   }())
        * }())
        */
-      setup: _.noop,
+      'setup': _.noop,
 
       /**
        * Compiled into the test and executed immediately **after** the test loop.
@@ -2617,7 +2449,7 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type {Function|string}
        */
-      teardown: _.noop,
+      'teardown': _.noop,
 
       /**
        * An object of stats including mean, margin or error, and standard deviation.
@@ -2625,14 +2457,14 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type Object
        */
-      stats: {
+      'stats': {
         /**
          * The margin of error.
          *
          * @memberOf Benchmark#stats
          * @type number
          */
-        moe: 0,
+        'moe': 0,
 
         /**
          * The relative margin of error (expressed as a percentage of the mean).
@@ -2640,7 +2472,7 @@ module.exports = function () {
          * @memberOf Benchmark#stats
          * @type number
          */
-        rme: 0,
+        'rme': 0,
 
         /**
          * The standard error of the mean.
@@ -2648,7 +2480,7 @@ module.exports = function () {
          * @memberOf Benchmark#stats
          * @type number
          */
-        sem: 0,
+        'sem': 0,
 
         /**
          * The sample standard deviation.
@@ -2656,7 +2488,7 @@ module.exports = function () {
          * @memberOf Benchmark#stats
          * @type number
          */
-        deviation: 0,
+        'deviation': 0,
 
         /**
          * The sample arithmetic mean (secs).
@@ -2664,7 +2496,7 @@ module.exports = function () {
          * @memberOf Benchmark#stats
          * @type number
          */
-        mean: 0,
+        'mean': 0,
 
         /**
          * The array of sampled periods.
@@ -2672,7 +2504,7 @@ module.exports = function () {
          * @memberOf Benchmark#stats
          * @type Array
          */
-        sample: [],
+        'sample': [],
 
         /**
          * The sample variance.
@@ -2680,7 +2512,7 @@ module.exports = function () {
          * @memberOf Benchmark#stats
          * @type number
          */
-        variance: 0,
+        'variance': 0,
       },
 
       /**
@@ -2689,14 +2521,14 @@ module.exports = function () {
        * @memberOf Benchmark
        * @type Object
        */
-      times: {
+      'times': {
         /**
          * The time taken to complete the last cycle (secs).
          *
          * @memberOf Benchmark#times
          * @type number
          */
-        cycle: 0,
+        'cycle': 0,
 
         /**
          * The time taken to complete the benchmark (secs).
@@ -2704,7 +2536,7 @@ module.exports = function () {
          * @memberOf Benchmark#times
          * @type number
          */
-        elapsed: 0,
+        'elapsed': 0,
 
         /**
          * The time taken to execute the test once (secs).
@@ -2712,7 +2544,7 @@ module.exports = function () {
          * @memberOf Benchmark#times
          * @type number
          */
-        period: 0,
+        'period': 0,
 
         /**
          * A timestamp of when the benchmark started (ms).
@@ -2720,21 +2552,21 @@ module.exports = function () {
          * @memberOf Benchmark#times
          * @type number
          */
-        timeStamp: 0,
+        'timeStamp': 0,
       },
     });
 
     _.assign(Benchmark.prototype, {
-      abort: abort,
-      clone: clone,
-      compare: compare,
-      emit: emit,
-      listeners: listeners,
-      off: off,
-      on: on,
-      reset: reset,
-      run: run,
-      toString: toStringBench,
+      'abort': abort,
+      'clone': clone,
+      'compare': compare,
+      'emit': emit,
+      'listeners': listeners,
+      'off': off,
+      'on': on,
+      'reset': reset,
+      'run': run,
+      'toString': toStringBench,
     });
 
     /*------------------------------------------------------------------------*/
@@ -2746,7 +2578,7 @@ module.exports = function () {
        * @memberOf Benchmark.Deferred
        * @type Object
        */
-      benchmark: null,
+      'benchmark': null,
 
       /**
        * The number of deferred cycles performed while benchmarking.
@@ -2754,7 +2586,7 @@ module.exports = function () {
        * @memberOf Benchmark.Deferred
        * @type number
        */
-      cycles: 0,
+      'cycles': 0,
 
       /**
        * The time taken to complete the deferred benchmark (secs).
@@ -2762,7 +2594,7 @@ module.exports = function () {
        * @memberOf Benchmark.Deferred
        * @type number
        */
-      elapsed: 0,
+      'elapsed': 0,
 
       /**
        * A timestamp of when the deferred benchmark started (ms).
@@ -2770,11 +2602,11 @@ module.exports = function () {
        * @memberOf Benchmark.Deferred
        * @type number
        */
-      timeStamp: 0,
+      'timeStamp': 0,
     });
 
     _.assign(Deferred.prototype, {
-      resolve: resolve,
+      'resolve': resolve,
     });
 
     /*------------------------------------------------------------------------*/
@@ -2786,7 +2618,7 @@ module.exports = function () {
        * @memberOf Benchmark.Event
        * @type boolean
        */
-      aborted: false,
+      'aborted': false,
 
       /**
        * A flag to indicate if the default action is cancelled.
@@ -2794,7 +2626,7 @@ module.exports = function () {
        * @memberOf Benchmark.Event
        * @type boolean
        */
-      cancelled: false,
+      'cancelled': false,
 
       /**
        * The object whose listeners are currently being processed.
@@ -2802,7 +2634,7 @@ module.exports = function () {
        * @memberOf Benchmark.Event
        * @type Object
        */
-      currentTarget: undefined,
+      'currentTarget': undefined,
 
       /**
        * The return value of the last executed listener.
@@ -2810,7 +2642,7 @@ module.exports = function () {
        * @memberOf Benchmark.Event
        * @type Mixed
        */
-      result: undefined,
+      'result': undefined,
 
       /**
        * The object to which the event was originally emitted.
@@ -2818,7 +2650,7 @@ module.exports = function () {
        * @memberOf Benchmark.Event
        * @type Object
        */
-      target: undefined,
+      'target': undefined,
 
       /**
        * A timestamp of when the event was created (ms).
@@ -2826,7 +2658,7 @@ module.exports = function () {
        * @memberOf Benchmark.Event
        * @type number
        */
-      timeStamp: 0,
+      'timeStamp': 0,
 
       /**
        * The event type.
@@ -2834,7 +2666,7 @@ module.exports = function () {
        * @memberOf Benchmark.Event
        * @type string
        */
-      type: '',
+      'type': '',
     });
 
     /*------------------------------------------------------------------------*/
@@ -2853,7 +2685,7 @@ module.exports = function () {
        * @memberOf Benchmark.Suite.options
        * @type string
        */
-      name: undefined,
+      'name': undefined,
     };
 
     /*------------------------------------------------------------------------*/
@@ -2865,7 +2697,7 @@ module.exports = function () {
        * @memberOf Benchmark.Suite
        * @type number
        */
-      length: 0,
+      'length': 0,
 
       /**
        * A flag to indicate if the suite is aborted.
@@ -2873,7 +2705,7 @@ module.exports = function () {
        * @memberOf Benchmark.Suite
        * @type boolean
        */
-      aborted: false,
+      'aborted': false,
 
       /**
        * A flag to indicate if the suite is running.
@@ -2881,54 +2713,51 @@ module.exports = function () {
        * @memberOf Benchmark.Suite
        * @type boolean
        */
-      running: false,
+      'running': false,
     });
 
     _.assign(Suite.prototype, {
-      abort: abortSuite,
-      add: add,
-      clone: cloneSuite,
-      emit: emit,
-      filter: filterSuite,
-      join: arrayRef.join,
-      listeners: listeners,
-      off: off,
-      on: on,
-      pop: arrayRef.pop,
-      push: push,
-      reset: resetSuite,
-      run: runSuite,
-      reverse: arrayRef.reverse,
-      shift: shift,
-      slice: slice,
-      sort: arrayRef.sort,
-      splice: arrayRef.splice,
-      unshift: unshift,
+      'abort': abortSuite,
+      'add': add,
+      'clone': cloneSuite,
+      'emit': emit,
+      'filter': filterSuite,
+      'join': arrayRef.join,
+      'listeners': listeners,
+      'off': off,
+      'on': on,
+      'pop': arrayRef.pop,
+      'push': push,
+      'reset': resetSuite,
+      'run': runSuite,
+      'reverse': arrayRef.reverse,
+      'shift': shift,
+      'slice': slice,
+      'sort': arrayRef.sort,
+      'splice': arrayRef.splice,
+      'unshift': unshift,
     });
 
     /*------------------------------------------------------------------------*/
 
     // Expose Deferred, Event, and Suite.
     _.assign(Benchmark, {
-      Deferred: Deferred,
-      Event: Event,
-      Suite: Suite,
+      'Deferred': Deferred,
+      'Event': Event,
+      'Suite': Suite,
     });
 
     /*------------------------------------------------------------------------*/
 
     // Add lodash methods as Suite methods.
-    _.each(
-      ['each', 'forEach', 'indexOf', 'map', 'reduce'],
-      function (methodName) {
-        var func = _[methodName];
-        Suite.prototype[methodName] = function () {
-          var args = [this];
-          push.apply(args, arguments);
-          return func.apply(_, args);
-        };
-      },
-    );
+    _.each(['each', 'forEach', 'indexOf', 'map', 'reduce'], function (methodName) {
+      var func = _[methodName];
+      Suite.prototype[methodName] = function () {
+        var args = [this];
+        push.apply(args, arguments);
+        return func.apply(_, args);
+      };
+    });
 
     // Avoid array-like object bugs with `Array#shift` and `Array#splice`
     // in Firefox < 10 and IE < 9.

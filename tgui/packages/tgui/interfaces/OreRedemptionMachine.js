@@ -1,13 +1,6 @@
 import { toTitleCase } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import {
-  BlockQuote,
-  Box,
-  Button,
-  NumberInput,
-  Section,
-  Table,
-} from '../components';
+import { BlockQuote, Box, Button, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 export const OreRedemptionMachine = (props, context) => {
@@ -27,23 +20,14 @@ export const OreRedemptionMachine = (props, context) => {
               Unclaimed points:
             </Box>
             {unclaimedPoints}
-            <Button
-              ml={2}
-              content="Claim"
-              disabled={unclaimedPoints === 0}
-              onClick={() => act('Claim')}
-            />
+            <Button ml={2} content="Claim" disabled={unclaimedPoints === 0} onClick={() => act('Claim')} />
           </Box>
         </Section>
         <Section>
           {(hasDisk && (
             <>
               <Box mb={1}>
-                <Button
-                  icon="eject"
-                  content="Eject design disk"
-                  onClick={() => act('diskEject')}
-                />
+                <Button icon="eject" content="Eject design disk" onClick={() => act('diskEject')} />
               </Box>
               <Table>
                 {diskDesigns.map((design) => (
@@ -66,13 +50,7 @@ export const OreRedemptionMachine = (props, context) => {
                 ))}
               </Table>
             </>
-          )) || (
-            <Button
-              icon="save"
-              content="Insert design disk"
-              onClick={() => act('diskInsert')}
-            />
-          )}
+          )) || <Button icon="save" content="Insert design disk" onClick={() => act('diskInsert')} />}
         </Section>
         <Section title="Materials">
           <Table>
@@ -114,11 +92,7 @@ export const OreRedemptionMachine = (props, context) => {
 const MaterialRow = (props, context) => {
   const { material, onRelease } = props;
 
-  const [amount, setAmount] = useLocalState(
-    context,
-    'amount' + material.name,
-    1,
-  );
+  const [amount, setAmount] = useLocalState(context, 'amount' + material.name, 1);
 
   const amountAvailable = Math.floor(material.amount);
   return (
@@ -144,11 +118,7 @@ const MaterialRow = (props, context) => {
           value={amount}
           onChange={(e, value) => setAmount(value)}
         />
-        <Button
-          disabled={amountAvailable < 1}
-          content="Release"
-          onClick={() => onRelease(amount)}
-        />
+        <Button disabled={amountAvailable < 1} content="Release" onClick={() => onRelease(amount)} />
       </Table.Cell>
     </Table.Row>
   );

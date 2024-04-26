@@ -1,22 +1,12 @@
 import { map } from 'common/collections';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  Flex,
-  LabeledList,
-  NoticeBox,
-  Section,
-  Tabs,
-} from '../components';
+import { Button, Flex, LabeledList, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const NaniteProgramHub = (props, context) => {
   const { act, data } = useBackend(context);
   const { detail_view, disk, has_disk, has_program, programs = {} } = data;
-  const [selectedCategory, setSelectedCategory] = useLocalState(
-    context,
-    'category',
-  );
+  const [selectedCategory, setSelectedCategory] = useLocalState(context, 'category');
   const programsInCategory = (programs && programs[selectedCategory]) || [];
   return (
     <Window width={500} height={700}>
@@ -25,28 +15,15 @@ export const NaniteProgramHub = (props, context) => {
           title="Program Disk"
           buttons={
             <>
-              <Button
-                icon="eject"
-                content="Eject"
-                onClick={() => act('eject')}
-              />
-              <Button
-                icon="minus-circle"
-                content="Delete Program"
-                onClick={() => act('clear')}
-              />
+              <Button icon="eject" content="Eject" onClick={() => act('eject')} />
+              <Button icon="minus-circle" content="Delete Program" onClick={() => act('clear')} />
             </>
-          }
-        >
+          }>
           {has_disk ? (
             has_program ? (
               <LabeledList>
-                <LabeledList.Item label="Program Name">
-                  {disk.name}
-                </LabeledList.Item>
-                <LabeledList.Item label="Description">
-                  {disk.desc}
-                </LabeledList.Item>
+                <LabeledList.Item label="Program Name">{disk.name}</LabeledList.Item>
+                <LabeledList.Item label="Description">{disk.desc}</LabeledList.Item>
               </LabeledList>
             ) : (
               <NoticeBox>No Program Installed</NoticeBox>
@@ -64,14 +41,9 @@ export const NaniteProgramHub = (props, context) => {
                 content={detail_view ? 'Detailed' : 'Compact'}
                 onClick={() => act('toggle_details')}
               />
-              <Button
-                icon="sync"
-                content="Sync Research"
-                onClick={() => act('refresh')}
-              />
+              <Button icon="sync" content="Sync Research" onClick={() => act('refresh')} />
             </>
-          }
-        >
+          }>
           {programs !== null ? (
             <Flex>
               <Flex.Item minWidth="110px" mr={1}>
@@ -85,8 +57,7 @@ export const NaniteProgramHub = (props, context) => {
                       <Tabs.Tab
                         key={category}
                         selected={category === selectedCategory}
-                        onClick={() => setSelectedCategory(category)}
-                      >
+                        onClick={() => setSelectedCategory(category)}>
                         {tabLabel}
                       </Tabs.Tab>
                     );
@@ -111,8 +82,7 @@ export const NaniteProgramHub = (props, context) => {
                             })
                           }
                         />
-                      }
-                    >
+                      }>
                       {program.desc}
                     </Section>
                   ))

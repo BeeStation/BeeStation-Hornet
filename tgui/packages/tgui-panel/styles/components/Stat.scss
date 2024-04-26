@@ -5,10 +5,7 @@
 @use '~tgui/styles/functions.scss';
 
 $background-color: base.$color-bg-section !default;
-$border-color: color.scale(
-  colors.fg(colors.$primary),
-  $lightness: 75%
-) !default;
+$border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default;
 
 .StatBorder {
   border-left: math.div(1em, 6) solid $border-color;
@@ -21,11 +18,7 @@ $border-color: color.scale(
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(
-    to right,
-    rgba(#b866ff, 0.08) 0%,
-    rgba(#b866ff, 0) 40%
-  );
+  background-image: linear-gradient(to right, rgba(#b866ff, 0.08) 0%, rgba(#b866ff, 0) 40%);
 }
 
 .StatBorder_antagonist {
@@ -33,11 +26,7 @@ $border-color: color.scale(
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(
-    to right,
-    rgba(#dd3535, 0.08) 0%,
-    rgba(#dd3535, 0) 40%
-  );
+  background-image: linear-gradient(to right, rgba(#dd3535, 0.08) 0%, rgba(#dd3535, 0) 40%);
 }
 
 .StatBorder_infomation {
@@ -45,11 +34,7 @@ $border-color: color.scale(
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(
-    to right,
-    rgba(#e6a648, 0.08) 0%,
-    rgba(#e6a648, 0) 40%
-  );
+  background-image: linear-gradient(to right, rgba(#e6a648, 0.08) 0%, rgba(#e6a648, 0) 40%);
 }
 
 .StatBorder_br {
@@ -57,11 +42,7 @@ $border-color: color.scale(
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
-  background-image: linear-gradient(
-    to right,
-    rgba(#2ace53, 0.08) 0%,
-    rgba(#2ace53, 0) 40%
-  );
+  background-image: linear-gradient(to right, rgba(#2ace53, 0.08) 0%, rgba(#2ace53, 0) 40%);
 }
 
 .StatBackground {

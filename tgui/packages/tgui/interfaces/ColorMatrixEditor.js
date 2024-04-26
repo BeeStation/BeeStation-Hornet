@@ -1,25 +1,12 @@
 import { useBackend } from '../backend';
 import { toFixed } from 'common/math';
-import {
-  Box,
-  Stack,
-  Section,
-  ByondUi,
-  NumberInput,
-  Button,
-} from '../components';
+import { Box, Stack, Section, ByondUi, NumberInput, Button } from '../components';
 import { Window } from '../layouts';
 
 export const ColorMatrixEditor = (props, context) => {
   const { act, data } = useBackend(context);
   const { mapRef, currentColor } = data;
-  const [
-    [rr, rg, rb, ra],
-    [gr, gg, gb, ga],
-    [br, bg, bb, ba],
-    [ar, ag, ab, aa],
-    [cr, cg, cb, ca],
-  ] = currentColor;
+  const [[rr, rg, rb, ra], [gr, gg, gb, ga], [br, bg, bb, ba], [ar, ag, ab, aa], [cr, cg, cb, ca]] = currentColor;
   const prefixes = ['r', 'g', 'b', 'a', 'c'];
   return (
     <Window title="Color Matrix Editor" width={600} height={220}>
@@ -61,11 +48,7 @@ export const ColorMatrixEditor = (props, context) => {
               </Stack.Item>
               <Stack.Item grow />
               <Stack.Item align="left">
-                <Button.Confirm
-                  content="Confirm"
-                  confirmContent="Confirm?"
-                  onClick={() => act('confirm')}
-                />
+                <Button.Confirm content="Confirm" confirmContent="Confirm?" onClick={() => act('confirm')} />
               </Stack.Item>
             </Stack>
           </Stack.Item>

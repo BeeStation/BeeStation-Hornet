@@ -45,8 +45,7 @@ export const Wires = (props, context) => {
                       }
                     />
                   </>
-                }
-              >
+                }>
                 {!!wire.wire && <i>({wire.wire})</i>}
               </LabeledList.Item>
             ))}

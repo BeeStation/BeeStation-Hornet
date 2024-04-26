@@ -1,13 +1,5 @@
 import { multiline } from 'common/string';
-import {
-  CheckboxInput,
-  FeatureChoiced,
-  FeatureChoicedServerData,
-  FeatureDropdownInput,
-  FeatureButtonedDropdownInput,
-  FeatureToggle,
-  FeatureValueProps,
-} from '../base';
+import { CheckboxInput, FeatureChoiced, FeatureChoicedServerData, FeatureDropdownInput, FeatureButtonedDropdownInput, FeatureToggle, FeatureValueProps } from '../base';
 import { Box, Dropdown, Stack } from '../../../../../components';
 import { classes } from 'common/react';
 import type { InfernoNode } from 'inferno';
@@ -28,10 +20,7 @@ const insertGhostForm = binaryInsertWith<{
   value: string;
 }>(({ value }) => value);
 
-const GhostFormInput = (
-  props: FeatureValueProps<string, string, FeatureChoicedServerData>,
-  context,
-) => {
+const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedServerData>, context) => {
   const { data } = useBackend<PreferencesMenuData>(context);
 
   const serverData = props.serverData;
@@ -54,12 +43,7 @@ const GhostFormInput = (
     const displayText = (
       <Stack>
         <Stack.Item>
-          <Box
-            className={classes([
-              `${serverData.icon_sheet}32x32`,
-              serverData.icons![name],
-            ])}
-          />
+          <Box className={classes([`${serverData.icon_sheet}32x32`, serverData.icons![name]])} />
         </Stack.Item>
 
         <Stack.Item grow style={{ 'line-height': '32px' }}>
@@ -120,19 +104,10 @@ export const ghost_orbit: FeatureChoiced = {
     The shape in which your ghost will orbit.
     Requires BYOND membership.
   `,
-  component: (
-    props: FeatureValueProps<string, string, FeatureChoicedServerData>,
-    context,
-  ) => {
+  component: (props: FeatureValueProps<string, string, FeatureChoicedServerData>, context) => {
     const { data } = useBackend<PreferencesMenuData>(context);
 
-    return (
-      <FeatureDropdownInput
-        buttons
-        {...props}
-        disabled={!data.content_unlocked}
-      />
-    );
+    return <FeatureDropdownInput buttons {...props} disabled={!data.content_unlocked} />;
   },
 };
 

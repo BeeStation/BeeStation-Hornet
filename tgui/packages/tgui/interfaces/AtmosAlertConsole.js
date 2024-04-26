@@ -11,30 +11,16 @@ export const AtmosAlertConsole = (props, context) => {
       <Window.Content scrollable>
         <Section title="Alarms">
           <ul>
-            {priorityAlerts.length === 0 && (
-              <li className="color-good">No Priority Alerts</li>
-            )}
+            {priorityAlerts.length === 0 && <li className="color-good">No Priority Alerts</li>}
             {priorityAlerts.map((alert) => (
               <li key={alert}>
-                <Button
-                  icon="times"
-                  content={alert}
-                  color="bad"
-                  onClick={() => act('clear', { zone: alert })}
-                />
+                <Button icon="times" content={alert} color="bad" onClick={() => act('clear', { zone: alert })} />
               </li>
             ))}
-            {minorAlerts.length === 0 && (
-              <li className="color-good">No Minor Alerts</li>
-            )}
+            {minorAlerts.length === 0 && <li className="color-good">No Minor Alerts</li>}
             {minorAlerts.map((alert) => (
               <li key={alert}>
-                <Button
-                  icon="times"
-                  content={alert}
-                  color="average"
-                  onClick={() => act('clear', { zone: alert })}
-                />
+                <Button icon="times" content={alert} color="average" onClick={() => act('clear', { zone: alert })} />
               </li>
             ))}
           </ul>

@@ -14,24 +14,14 @@ export const AtmosControlConsole = (props, context) => {
           {sensors.map((sensor) => {
             const gases = sensor.gases || {};
             return (
-              <Section
-                key={sensor.id_tag}
-                title={!data.tank && sensor.long_name}
-                level={2}
-              >
+              <Section key={sensor.id_tag} title={!data.tank && sensor.long_name} level={2}>
                 <LabeledList>
-                  <LabeledList.Item label="Pressure">
-                    {toFixed(sensor.pressure, 2) + ' kPa'}
-                  </LabeledList.Item>
+                  <LabeledList.Item label="Pressure">{toFixed(sensor.pressure, 2) + ' kPa'}</LabeledList.Item>
                   {!!sensor.temperature && (
-                    <LabeledList.Item label="Temperature">
-                      {toFixed(sensor.temperature, 2) + ' K'}
-                    </LabeledList.Item>
+                    <LabeledList.Item label="Temperature">{toFixed(sensor.temperature, 2) + ' K'}</LabeledList.Item>
                   )}
                   {map((gasPercent, gasId) => (
-                    <LabeledList.Item label={gasId}>
-                      {toFixed(gasPercent, 2) + '%'}
-                    </LabeledList.Item>
+                    <LabeledList.Item label={gasId}>{toFixed(gasPercent, 2) + '%'}</LabeledList.Item>
                   ))(gases)}
                 </LabeledList>
               </Section>
@@ -39,16 +29,7 @@ export const AtmosControlConsole = (props, context) => {
           })}
         </Section>
         {data.tank && (
-          <Section
-            title="Controls"
-            buttons={
-              <Button
-                icon="undo"
-                content="Reconnect"
-                onClick={() => act('reconnect')}
-              />
-            }
-          >
+          <Section title="Controls" buttons={<Button icon="undo" content="Reconnect" onClick={() => act('reconnect')} />}>
             <LabeledList>
               <LabeledList.Item label="Input Injector">
                 <Button

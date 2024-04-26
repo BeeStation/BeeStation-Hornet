@@ -48,15 +48,7 @@ export const NtosFileManager = (props, context) => {
 };
 
 const FileTable = (props) => {
-  const {
-    files = [],
-    usbconnected,
-    usbmode,
-    onUpload,
-    onDelete,
-    onRename,
-    onToggleSilence,
-  } = props;
+  const { files = [], usbconnected, usbmode, onUpload, onDelete, onRename, onToggleSilence } = props;
   return (
     <Table>
       <Table.Row header>
@@ -101,17 +93,9 @@ const FileTable = (props) => {
                 />
                 {!!usbconnected &&
                   (usbmode ? (
-                    <Button
-                      icon="download"
-                      tooltip="Download"
-                      onClick={() => onUpload(file.name)}
-                    />
+                    <Button icon="download" tooltip="Download" onClick={() => onUpload(file.name)} />
                   ) : (
-                    <Button
-                      icon="upload"
-                      tooltip="Upload"
-                      onClick={() => onUpload(file.name)}
-                    />
+                    <Button icon="upload" tooltip="Upload" onClick={() => onUpload(file.name)} />
                   ))}
               </>
             )}

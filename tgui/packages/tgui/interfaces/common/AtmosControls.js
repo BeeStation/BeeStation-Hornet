@@ -1,30 +1,12 @@
 import { decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../../backend';
-import {
-  Box,
-  Button,
-  LabeledList,
-  NumberInput,
-  Section,
-} from '../../components';
+import { Box, Button, LabeledList, NumberInput, Section } from '../../components';
 import { getGasLabel } from '../../constants';
 
 export const Vent = (props, context) => {
   const { vent } = props;
   const { act } = useBackend(context);
-  const {
-    id_tag,
-    long_name,
-    power,
-    checks,
-    excheck,
-    incheck,
-    direction,
-    external,
-    internal,
-    extdefault,
-    intdefault,
-  } = vent;
+  const { id_tag, long_name, power, checks, excheck, incheck, direction, external, internal, extdefault, intdefault } = vent;
   return (
     <Section
       level={2}
@@ -41,8 +23,7 @@ export const Vent = (props, context) => {
             })
           }
         />
-      }
-    >
+      }>
       <LabeledList>
         <LabeledList.Item label="Mode">
           <Button
@@ -145,8 +126,7 @@ export const Vent = (props, context) => {
 export const Scrubber = (props, context) => {
   const { scrubber } = props;
   const { act } = useBackend(context);
-  const { long_name, power, scrubbing, id_tag, widenet, filter_types } =
-    scrubber;
+  const { long_name, power, scrubbing, id_tag, widenet, filter_types } = scrubber;
   return (
     <Section
       level={2}
@@ -163,8 +143,7 @@ export const Scrubber = (props, context) => {
             })
           }
         />
-      }
-    >
+      }>
       <LabeledList>
         <LabeledList.Item label="Mode">
           <Button

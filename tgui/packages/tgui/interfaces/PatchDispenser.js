@@ -27,11 +27,7 @@ export const PatchDispenser = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Patch Name">
-              <Button
-                icon="pencil-alt"
-                content={patch_name}
-                onClick={() => act('change_patch_name')}
-              />
+              <Button icon="pencil-alt" content={patch_name} onClick={() => act('change_patch_name')} />
             </LabeledList.Item>
           </LabeledList>
         </Section>

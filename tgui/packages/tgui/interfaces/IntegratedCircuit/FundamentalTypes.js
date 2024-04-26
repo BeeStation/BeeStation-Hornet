@@ -1,69 +1,34 @@
 import { BasicInput } from './BasicInput';
-import {
-  NumberInput,
-  Button,
-  Stack,
-  Input,
-  Dropdown,
-  Box,
-} from '../../components';
+import { NumberInput, Button, Stack, Input, Dropdown, Box } from '../../components';
 
 export const FUNDAMENTAL_DATA_TYPES = {
-  string: (props, context) => {
+  'string': (props, context) => {
     const { name, value, setValue, color } = props;
     return (
       <BasicInput name={name} setValue={setValue} value={value} defaultValue="">
-        <Input
-          placeholder={name}
-          value={value}
-          onChange={(e, val) => setValue(val)}
-          width="96px"
-        />
+        <Input placeholder={name} value={value} onChange={(e, val) => setValue(val)} width="96px" />
       </BasicInput>
     );
   },
-  number: (props, context) => {
+  'number': (props, context) => {
     const { name, value, setValue, color } = props;
     return (
-      <BasicInput
-        name={name}
-        setValue={setValue}
-        value={value}
-        defaultValue={0}
-      >
-        <NumberInput
-          value={value}
-          color={color}
-          onChange={(e, val) => setValue(val)}
-          unit={name}
-        />
+      <BasicInput name={name} setValue={setValue} value={value} defaultValue={0}>
+        <NumberInput value={value} color={color} onChange={(e, val) => setValue(val)} unit={name} />
       </BasicInput>
     );
   },
-  entity: (props, context) => {
+  'entity': (props, context) => {
     const { name, setValue } = props;
     return (
-      <Button
-        content={name}
-        color="transparent"
-        icon="upload"
-        compact
-        onClick={() => setValue(null, { marked_atom: true })}
-      />
+      <Button content={name} color="transparent" icon="upload" compact onClick={() => setValue(null, { marked_atom: true })} />
     );
   },
-  signal: (props, context) => {
+  'signal': (props, context) => {
     const { name, setValue } = props;
-    return (
-      <Button
-        content={name}
-        color="transparent"
-        compact
-        onClick={() => setValue()}
-      />
-    );
+    return <Button content={name} color="transparent" compact onClick={() => setValue()} />;
   },
-  option: (props, context) => {
+  'option': (props, context) => {
     const { value, setValue, extraData } = props;
     return (
       <Dropdown
@@ -76,30 +41,16 @@ export const FUNDAMENTAL_DATA_TYPES = {
       />
     );
   },
-  any: (props, context) => {
+  'any': (props, context) => {
     const { name, value, setValue, color } = props;
     return (
-      <BasicInput
-        name={name}
-        setValue={setValue}
-        value={value}
-        defaultValue={''}
-      >
+      <BasicInput name={name} setValue={setValue} value={value} defaultValue={''}>
         <Stack>
           <Stack.Item>
-            <Button
-              color={color}
-              icon="upload"
-              onClick={() => setValue(null, { marked_atom: true })}
-            />
+            <Button color={color} icon="upload" onClick={() => setValue(null, { marked_atom: true })} />
           </Stack.Item>
           <Stack.Item>
-            <Input
-              placeholder={name}
-              value={value}
-              onChange={(e, val) => setValue(val)}
-              width="64px"
-            />
+            <Input placeholder={name} value={value} onChange={(e, val) => setValue(val)} width="64px" />
           </Stack.Item>
         </Stack>
       </BasicInput>
@@ -108,7 +59,7 @@ export const FUNDAMENTAL_DATA_TYPES = {
 };
 
 export const DATATYPE_DISPLAY_HANDLERS = {
-  option: (port) => {
+  'option': (port) => {
     return port.name.toLowerCase();
   },
 };
