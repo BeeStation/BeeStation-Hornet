@@ -126,7 +126,7 @@
 
 /obj/item/debug/omnitool/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/tools)
+		get_asset_datum(/datum/asset/spritesheet_batched/tools)
 	)
 
 /obj/item/debug/omnitool/ui_data(mob/user)
@@ -239,6 +239,7 @@
 
 /obj/item/storage/backpack/debug/ComponentInitialize()
 	. = ..()
+	AddComponent(/datum/component/rad_insulation, _amount = RAD_FULL_INSULATION, contamination_proof = TRUE) //please datum mats no more cancer
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.allow_big_nesting = TRUE
 	STR.max_w_class = WEIGHT_CLASS_GIGANTIC

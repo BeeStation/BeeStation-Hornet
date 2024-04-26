@@ -77,7 +77,7 @@
 	var/heavy_burn_msg = "peeling away"
 
 /obj/item/bodypart/Initialize(mapload)
-	..()
+	. = ..()
 	name = "[limb_id] [parse_zone(body_zone)]"
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
@@ -248,6 +248,10 @@
 	if(include_stamina)
 		total = max(total, stamina_dam)
 	return total
+
+//Returns only stamina damage.
+/obj/item/bodypart/proc/get_staminaloss()
+	return stamina_dam
 
 //Checks disabled status thresholds
 /obj/item/bodypart/proc/update_disabled()

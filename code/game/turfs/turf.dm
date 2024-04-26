@@ -62,6 +62,12 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
+	///Ref to texture mask overlay
+	var/texture_mask_overlay
+
+	///Can this floor be an underlay, for turf damage
+	var/can_underlay = TRUE
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -124,6 +130,15 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if (opacity)
 		directional_opacity = ALL_CARDINALS
 
+	if(custom_materials)
+
+		var/temp_list = list()
+		for(var/i in custom_materials)
+			temp_list[SSmaterials.GetMaterialRef(i)] = custom_materials[i] //Get the proper instanced version
+
+		custom_materials = null //Null the list to prepare for applying the materials properly
+		set_custom_materials(temp_list)
+
 	ComponentInitialize()
 	if(isopenturf(src))
 		var/turf/open/O = src
@@ -131,6 +146,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	else
 		update_air_ref(-1)
 		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()))
+
+	//Handle turf texture
+	var/datum/turf_texture/TT = get_turf_texture()
+	if(TT)
+		add_turf_texture(TT)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -360,7 +380,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/datum/progressbar/progress = new(user, things.len, src)
 	while (do_after(usr, 10, src, progress = FALSE, extra_checks = CALLBACK(src_object, TYPE_PROC_REF(/datum/component/storage, mass_remove_from_storage), src, things, progress)))
 		stoplag(1)
-	qdel(progress)
+	progress.end_progress()
 
 	return TRUE
 
@@ -526,6 +546,24 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return TRUE
 	return FALSE
 
+///Add our relevant floor texture, if we can / need
+/turf/proc/add_turf_texture(list/textures, force)
+	if(!length(textures) || length(contents) && (locate(/obj/effect/decal/cleanable/dirt) in contents || locate(/obj/effect/decal/cleanable/dirt) in vis_contents))
+		if(!force) //readability
+			return
+	var/datum/turf_texture/turf_texture
+	for(var/datum/turf_texture/TF as() in textures)
+		var/area/A = loc
+		if(TF in A?.get_turf_textures())
+			turf_texture = turf_texture ? initial(TF.priority) > initial(turf_texture.priority) ? TF : turf_texture : TF
+	if(turf_texture)
+		vis_contents += load_turf_texture(turf_texture)
+
+/turf/proc/clean_turf_texture()
+	for(var/atom/movable/turf_texture/TF in vis_contents)
+		if(initial(TF.parent_texture?.cleanable))
+			vis_contents -= TF
+
 /// returns a list of all mobs inside of a turf.
 /// likely detects mobs hiding in a closet.
 /turf/proc/get_all_mobs()
@@ -537,3 +575,21 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			var/obj/O = each
 			for(var/mob/M in O.contents)
 				. += M
+
+
+/turf/proc/get_turf_texture()
+	return
+
+/**
+  * Called when this turf is being washed. Washing a turf will also wash any mopable floor decals
+  */
+/turf/wash(clean_types)
+	. = ..()
+
+	for(var/am in src)
+		if(am == src)
+			continue
+		var/atom/movable/movable_content = am
+		if(!ismopable(movable_content))
+			continue
+		movable_content.wash(clean_types)

@@ -36,8 +36,8 @@
 	chat_color = "#9EE08F"
 	mobchatspan = "alienmobsay"
 
-	do_footstep = TRUE
 	discovery_points = 2000
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"
@@ -180,11 +180,9 @@
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
 	if(ismovable(target))
+		target.wash(CLEAN_WASH)
 		if(istype(target, /obj/effect/decal/cleanable))
-			visible_message("[src] cleans up \the [target].")
-			qdel(target)
-			return TRUE
-		var/atom/movable/M = target
-		SEND_SIGNAL(M, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
-		visible_message("[src] polishes \the [target].")
+			visible_message("<span class='notice'>[src] cleans up \the [target].</span>")
+		else
+			visible_message("<span class='notice'>[src] polishes \the [target].</span>")
 		return TRUE

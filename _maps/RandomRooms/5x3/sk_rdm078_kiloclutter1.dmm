@@ -10,7 +10,7 @@
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "b" = (
 /obj/effect/turf_decal/bot,
@@ -25,12 +25,12 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
 /area/template_noop)
 "d" = (
@@ -44,7 +44,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 22
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "e" = (
 /obj/structure/table,
@@ -54,13 +54,7 @@
 /obj/structure/sign/poster/contraband/the_griffin{
 	pixel_x = 32
 	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"f" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -71,7 +65,7 @@
 /obj/effect/spawner/lootdrop/trap,
 /obj/effect/trap/nexus/trickyspawner/shitsec,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "h" = (
@@ -80,13 +74,13 @@
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/neck/stethoscope,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "i" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "j" = (
@@ -103,7 +97,7 @@
 
 (1,1,1) = {"
 a
-f
+c
 h
 "}
 (2,1,1) = {"

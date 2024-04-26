@@ -3,7 +3,7 @@
 /obj/item/evidencebag
 	name = "evidence bag"
 	desc = "An empty evidence bag."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "evidenceobj"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
@@ -25,7 +25,7 @@
 	desc = initial(desc)
 
 /obj/item/evidencebag/proc/evidencebagEquip(obj/item/I, mob/user)
-	if(!istype(I) || I.anchored == 1)
+	if(!istype(I) || I.anchored)
 		return
 
 	if(istype(I, /obj/item/evidencebag))

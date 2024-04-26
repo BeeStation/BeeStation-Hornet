@@ -14,6 +14,12 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	desc = "An interface between crew and the cryogenic storage oversight systems."
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "cellconsole_1"
+
+	base_icon_state = null
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
+
 	// circuit = /obj/item/circuitboard/cryopodcontrol
 	density = FALSE
 	layer = ABOVE_WINDOW_LAYER
@@ -348,6 +354,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	if(!istype(target) || user.incapacitated() || !target.Adjacent(user) || !Adjacent(user) || !ismob(target) || (!ishuman(user) && !iscyborg(user)) || !istype(user.loc, /turf) || target.buckled)
 		return
 
+	if(!target.mind)
+		to_chat(user, "<span class='notice'>[target] is not a player controlled mob.</span>")
+		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>The cryo pod is already occupied!</span>")
 		return

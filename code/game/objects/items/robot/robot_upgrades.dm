@@ -582,7 +582,7 @@
 		R.notransform = TRUE
 		var/prev_lockcharge = R.lockcharge
 		R.SetLockdown(TRUE)
-		R.anchored = TRUE
+		R.set_anchored(TRUE)
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(TRUE, R.loc)
 		smoke.start()
@@ -592,7 +592,7 @@
 			sleep(12)
 		if(!prev_lockcharge)
 			R.SetLockdown(FALSE)
-		R.anchored = FALSE
+		R.set_anchored(FALSE)
 		R.notransform = FALSE
 		R.resize = 2
 		R.hasExpanded = TRUE
@@ -609,7 +609,7 @@
 /obj/item/borg/upgrade/rped
 	name = "engineering cyborg RPED"
 	desc = "A rapid part exchange device for the engineering cyborg."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/storage.dmi'
 	icon_state = "borgrped"
 	require_module = TRUE
 	module_type = list(/obj/item/robot_module/engineering, /obj/item/robot_module/saboteur)

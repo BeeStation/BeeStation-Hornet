@@ -10,10 +10,9 @@ SUBSYSTEM_DEF(traumas)
 
 /datum/controller/subsystem/traumas/Initialize()
 	//phobia types is to pull from randomly for brain traumas, e.g. conspiracies is for special assignment only
+	//defined in __DEFINES/mobs.dm
 	//5 is the default weight, lower it for more punishing phobias
-	phobia_types = sort_list(list("spiders" = 5, "space" = 2, "security" = 5, "clowns" = 5, "greytide" = 5, "lizards" = 5,
-						"skeletons" = 5, "snakes" = 5, "robots" = 4, "doctors" = 4, "authority" = 5, "the supernatural" = 5,
-						"aliens" = 5, "strangers" = 5, "birds" = 5, "falling" = 5, "anime" = 5))
+	phobia_types = sort_list(GLOB.available_random_trauma_list)
 
 	phobia_words = list(
 		"spiders"   = strings(PHOBIA_FILE, "spiders"),
@@ -224,7 +223,7 @@ SUBSYSTEM_DEF(traumas)
 
 	phobia_turfs = list("space" = typecacheof(list(/turf/open/space, /turf/open/floor/holofloor/space, /turf/open/floor/fakespace)),
 						"the supernatural" = typecacheof(list(/turf/open/floor/clockwork, /turf/closed/wall/clockwork,
-						/turf/open/floor/plasteel/cult, /turf/closed/wall/mineral/cult)),
+						/turf/open/floor/iron/cult, /turf/closed/wall/mineral/cult)),
 						"aliens" = typecacheof(list(/turf/open/floor/plating/abductor, /turf/open/floor/plating/abductor2,
 						/turf/open/floor/mineral/abductor, /turf/closed/wall/mineral/abductor)),
 						"falling" = typecacheof(list(/turf/open/chasm, /turf/open/floor/fakepit))

@@ -34,7 +34,6 @@
 #define ROLE_REVENANT			"Revenant"
 #define ROLE_DEVIL				"Devil"
 #define ROLE_BROTHER			"Blood Brother"
-#define ROLE_OVERTHROW			"Syndicate Mutineer"
 #define ROLE_HIVE				"Hivemind Host"
 #define ROLE_OBSESSED			"Obsessed"
 #define ROLE_SPACE_DRAGON		"Space Dragon"
@@ -53,6 +52,7 @@
 #define ROLE_CONTRACTOR_SUPPORT_UNIT "Contractor Support Unit"
 #define ROLE_PYRO_SLIME			"Pyroclastic Anomaly Slime"
 #define ROLE_MONKEY_HELMET		"Sentient Monkey"
+#define ROLE_PRISONER			"Prisoner"
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
@@ -75,7 +75,6 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_REVENANT,
 	ROLE_DEVIL,
 	ROLE_BROTHER,
-	ROLE_OVERTHROW,
 	ROLE_HIVE,
 	ROLE_OBSESSED,
 	ROLE_SPACE_DRAGON,

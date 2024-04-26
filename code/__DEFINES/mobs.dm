@@ -90,6 +90,9 @@
 #define DIGITIGRADE_OPTIONAL 1
 #define DIGITIGRADE_FORCED 2
 
+// Health/damage defines
+#define MAX_LIVING_HEALTH 100
+
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
 #define PROCESS_SYNTHETIC 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
@@ -147,6 +150,26 @@
 #define TRAUMA_RESILIENCE_LOBOTOMY 3   //! Curable with lobotomy
 #define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
+
+GLOBAL_LIST_INIT(available_random_trauma_list, list(
+	"spiders" = 5,
+	"space" = 2,
+	"security" = 5,
+	"clowns" = 5,
+	"greytide" = 5,
+	"lizards" = 5,
+	"skeletons" = 5,
+	"snakes" = 5,
+	"robots" = 4,
+	"doctors" = 4,
+	"authority" = 5,
+	"the supernatural" = 5,
+	"aliens" = 5,
+	"strangers" = 5,
+	"birds" = 5,
+	"falling" = 5,
+	"anime" = 5
+))
 
 /// This trauma cannot be cured through "special" means, such as nanites or viruses.
 #define TRAUMA_SPECIAL_CURE_PROOF	(1<<0)
@@ -410,10 +433,32 @@
 ///Whether or not to gib when the squashed mob is moved over
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
 
-//Body sizes
-#define BODY_SIZE_NORMAL 1
-#define BODY_SIZE_SHORT 0.93
-#define BODY_SIZE_TALL 1.03
+/*
+ * Defines for "AI emotions", allowing the AI to expression emotions
+ * with status displays via emotes.
+ */
+
+#define AI_EMOTION_VERY_HAPPY "Very Happy"
+#define AI_EMOTION_HAPPY "Happy"
+#define AI_EMOTION_NEUTRAL "Neutral"
+#define AI_EMOTION_UNSURE "Unsure"
+#define AI_EMOTION_CONFUSED "Confused"
+#define AI_EMOTION_SAD "Sad"
+#define AI_EMOTION_BSOD "BSOD"
+#define AI_EMOTION_BLANK "Blank"
+#define AI_EMOTION_PROBLEMS "Problems?"
+#define AI_EMOTION_AWESOME "Awesome"
+#define AI_EMOTION_FACEPALM "Facepalm"
+#define AI_EMOTION_THINKING "Thinking"
+#define AI_EMOTION_FRIEND_COMPUTER "Friend Computer"
+#define AI_EMOTION_DORFY "Dorfy"
+#define AI_EMOTION_BLUE_GLOW "Blue Glow"
+#define AI_EMOTION_RED_GLOW "Red Glow"
+
+//Generic body sizes
+#define BODY_SIZE_NORMAL 0
+#define BODY_SIZE_SHORT 1
+#define BODY_SIZE_TALL -1
 
 /// Throw modes, defines whether or not to turn off throw mode after
 #define THROW_MODE_DISABLED 0

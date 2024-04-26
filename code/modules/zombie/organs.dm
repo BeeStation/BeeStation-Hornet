@@ -12,6 +12,7 @@
 	var/revive_time_min = 60 SECONDS
 	var/revive_time_max = 100 SECONDS
 	var/timer_id
+	var/zombietype = /datum/species/zombie/infectious
 
 /obj/item/organ/zombie_infection/Initialize(mapload)
 	. = ..()
@@ -71,7 +72,7 @@
 
 	if(!iszombie(owner))
 		old_species = owner.dna.species.type
-		C.set_species(/datum/species/zombie/infectious)
+		C.set_species(zombietype)
 
 	var/stand_up = (C.stat == DEAD) || (C.stat == UNCONSCIOUS)
 
@@ -86,9 +87,15 @@
 
 	C.visible_message("<span class='danger'>[owner] suddenly convulses, as [owner.p_they()][stand_up ? " stagger to [owner.p_their()] feet and" : ""] gain a ravenous hunger in [owner.p_their()] eyes!</span>", "<span class='alien'>You HUNGER!</span>")
 	playsound(C.loc, 'sound/hallucinations/far_noise.ogg', 50, 1)
+	if(C.handcuffed)
+		C.visible_message("<span class='danger'>[owner] continues convulsing breaking free of [owner.p_their()] restraints!</span>")
+		C.uncuff()
 	C.do_jitter_animation(living_transformation_time)
 	C.Stun(living_transformation_time)
 	to_chat(C, "<span class='alertalien'>You are now a zombie! Do not seek to be cured, do not help any non-zombies in any way, do not harm your zombie brethren and spread the disease by killing others. You are a creature of hunger and violence.</span>")
 
 /obj/item/organ/zombie_infection/nodamage
 	causes_damage = FALSE
+
+/obj/item/organ/zombie_infection/virus
+	zombietype = /datum/species/zombie/infectious/viral

@@ -6,7 +6,7 @@
   * Until the rework, blood decal visuals might not work on some items... (but the name change will work, though)
   */
 
-/datum/element/decal/blood/Attach(datum/target, _icon, _icon_state, _dir, _cleanable=CLEAN_STRENGTH_BLOOD, _color, _layer=ABOVE_OBJ_LAYER)
+/datum/element/decal/blood/Attach(datum/target, _icon, _icon_state, _dir, _cleanable=CLEAN_TYPE_BLOOD, _color, _layer=ABOVE_OBJ_LAYER)
 	if(!isitem(target))
 		return ELEMENT_INCOMPATIBLE
 
