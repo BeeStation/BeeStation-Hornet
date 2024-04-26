@@ -1643,7 +1643,6 @@
 "dZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/janitorialcart,
-/obj/machinery/light/small,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -3339,6 +3338,13 @@
 /obj/effect/turf_decal/tile/purple/diagonal_centre,
 /turf/open/floor/iron/dark,
 /area/science/lobby)
+"iy" = (
+/obj/structure/railing,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/miningoffice)
 "iz" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -4338,6 +4344,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/storage)
+"kS" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "kT" = (
 /obj/structure/cable/yellow,
 /obj/effect/spawner/structure/window/reinforced,
@@ -5167,17 +5182,12 @@
 	name = "Prison Dorms"
 	})
 "mQ" = (
-/obj/docking_port/stationary{
-	dwidth = 1;
-	height = 4;
-	name = "escape pod loader";
-	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
-	width = 3;
-	dir = 8
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
 	},
-/obj/effect/turf_decal/caution/stand_clear,
-/turf/open/floor/dock/drydock,
-/area/space)
+/turf/open/floor/iron/dark,
+/area/quartermaster/miningoffice)
 "mR" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prisongate";
@@ -5228,9 +5238,6 @@
 "mW" = (
 /obj/structure/sign/poster/random{
 	pixel_x = 32
-	},
-/obj/machinery/light/small{
-	dir = 4
 	},
 /obj/item/restraints/legcuffs/beartrap,
 /turf/open/floor/iron/vaporwave,
@@ -7146,6 +7153,10 @@
 "rS" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/machinery/computer/cargo,
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
 /turf/open/floor/iron/yellowsiding{
 	dir = 9
 	},
@@ -7788,6 +7799,17 @@
 /obj/effect/turf_decal/tile/black/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"tH" = (
+/obj/docking_port/stationary{
+	dwidth = 1;
+	height = 4;
+	name = "escape pod loader";
+	roundstart_template = /datum/map_template/shuttle/escape_pod/default;
+	width = 3;
+	dir = 8
+	},
+/turf/open/floor/dock/drydock,
+/area/space)
 "tI" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/westleft{
@@ -8291,6 +8313,13 @@
 "uV" = (
 /turf/open/floor/iron/white,
 /area/science/nanite)
+"uX" = (
+/obj/machinery/light{
+	bulb_colour = "#FFCEA6";
+	nightshift_light_color = "#FFB16E"
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "uY" = (
 /obj/structure/railing{
 	dir = 4
@@ -9968,6 +9997,10 @@
 /obj/structure/closet/crate/freezer,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
 /turf/open/floor/iron,
 /area/quartermaster/warehouse)
 "zd" = (
@@ -10472,6 +10505,14 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
+"Ak" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light_switch{
+	pixel_x = -11;
+	pixel_y = 22
+	},
+/turf/open/floor/wood/big,
+/area/hydroponics)
 "Al" = (
 /obj/machinery/door/window/eastright{
 	icon_state = "left";
@@ -10548,6 +10589,10 @@
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/machinery/computer/cargo,
 /obj/machinery/airalarm/directional/north,
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#7AC3FF"
+	},
 /turf/open/floor/iron,
 /area/security/checkpoint/supply)
 "Av" = (
@@ -14776,6 +14821,12 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/stone,
 /area/asteroid)
+"Lf" = (
+/obj/machinery/light_switch{
+	pixel_x = -23
+	},
+/turf/open/floor/wood/big,
+/area/crew_quarters/theatre/backstage)
 "Lg" = (
 /obj/item/radio/intercom{
 	dir = 1;
@@ -14985,6 +15036,12 @@
 /obj/item/pen/fountain/captain,
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
+"LG" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/quartermaster/storage)
 "LH" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/machinery/door/airlock/mining/glass{
@@ -19431,6 +19488,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/light/small,
 /turf/open/floor/iron/white,
 /area/janitor)
 "Wi" = (
@@ -20382,6 +20440,7 @@
 "YA" = (
 /obj/effect/turf_decal/tile/brown/opposingcorners,
 /obj/structure/closet/secure_closet/quartermaster,
+/obj/machinery/light,
 /turf/open/floor/iron/yellowsiding{
 	dir = 6
 	},
@@ -20502,6 +20561,9 @@
 "YR" = (
 /obj/structure/railing,
 /obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/miningoffice)
 "YS" = (
@@ -20568,6 +20630,9 @@
 	pixel_y = 29
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
 /area/janitor)
 "YY" = (
@@ -70578,11 +70643,11 @@ nY
 SY
 YJ
 dX
-YJ
+Lf
 YJ
 nY
 IV
-YJ
+Lf
 LZ
 nQ
 nY
@@ -73233,13 +73298,13 @@ OR
 Pm
 Ds
 iD
-xt
+mQ
 xt
 SL
 Cq
 HJ
 xt
-sl
+iy
 KJ
 KJ
 KJ
@@ -74849,7 +74914,7 @@ Dd
 tS
 tS
 Xu
-xt
+mQ
 xt
 xt
 MF
@@ -77645,7 +77710,7 @@ vz
 tS
 jX
 io
-ra
+Ak
 ky
 ky
 ra
@@ -77681,7 +77746,7 @@ Bx
 Rj
 iQ
 Rj
-Rj
+LG
 tC
 sf
 DR
@@ -77890,7 +77955,7 @@ ST
 ST
 ST
 ts
-Rj
+uX
 Ox
 Ds
 Ds
@@ -79304,7 +79369,7 @@ MX
 MX
 MX
 th
-Rj
+uX
 Ox
 Ds
 Ds
@@ -79499,7 +79564,7 @@ nU
 CW
 dL
 hg
-ar
+kS
 Pc
 ar
 ar
@@ -156001,7 +156066,7 @@ ME
 ME
 ME
 yD
-mQ
+MR
 yD
 ME
 ME
@@ -156203,7 +156268,7 @@ ME
 ME
 ME
 zB
-yD
+tH
 CD
 ME
 ME
