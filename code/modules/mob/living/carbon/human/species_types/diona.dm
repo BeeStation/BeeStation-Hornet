@@ -19,13 +19,13 @@
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionaea is much lower then humans as they are plants, supposed to be 15 celsius
 	speedmod = 2 // Dionaea are slow.
 
-	mutanteyes = /obj/item/organ/eyes/diona
-	mutanttongue = /obj/item/organ/tongue/diona
-	mutant_brain = /obj/item/organ/brain
-	mutantliver = /obj/item/organ/liver
-	mutantstomach = /obj/item/organ/stomach
-	mutantears = /obj/item/organ/ears
-	mutant_heart = /obj/item/organ/heart
+	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
+	mutanttongue = /obj/item/organ/tongue/diona //placeholder sprite
+	mutant_brain = /obj/item/organ/brain/diona //SS14 sprite
+	mutantliver = /obj/item/organ/liver/diona //placeholder sprite
+	mutantstomach = /obj/item/organ/stomach/diona //SS14 sprite
+	mutantears = /obj/item/organ/ears/diona //SS14 sprite
+	mutant_heart = /obj/item/organ/heart/diona //placeholder sprite
 	mutant_organs = list()
 
 	species_chest = /obj/item/bodypart/chest/diona

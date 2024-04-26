@@ -219,6 +219,16 @@
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
 	icon_state = "brain-x"
 
+/obj/item/organ/brain/diona
+	name = "diona nymph"
+	desc = "A small mass of roots and plant matter, it looks to be moving."
+	icon_state = "diona_brain"
+
+/obj/item/organ/brain/diona/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load)
+	. = ..()
+	QDEL_NULL(src)
+	C.gib(TRUE, TRUE, TRUE)
+
 /obj/item/organ/brain/positron
 	name = "positronic brain"
 	slot = ORGAN_SLOT_BRAIN

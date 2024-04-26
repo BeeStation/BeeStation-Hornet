@@ -166,3 +166,8 @@
 			owner.Knockdown(100)
 			to_chat(owner, "<span class='warning'>Alert: Audio sensors malfunctioning</span>")
 			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
+
+/obj/item/organ/ears/diona
+	name = "trichomes"
+	icon_state = "diona_ears"
+	desc = "A pair of plant matter based ears."

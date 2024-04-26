@@ -440,5 +440,6 @@
 /obj/item/organ/eyes/diona
 	name = "receptor node"
 	desc = "A combination of plant matter and neurons used to produce visual feedback."
-	icon_state = ""
+	icon_state = "diona_eyeballs"
+	organ_flags = ORGAN_UNREMOVABLE
 	flash_protect = -1

@@ -65,6 +65,9 @@
 	var/text = ..()
 	if(contains_sample)
 		text += "\n It contains a blood sample with blood DNA ([sampleDNA])." //blood DNA (UE) shows in medical records and is readable by forensics scanners
+	/*else
+		text += "\n It does not contain any blood samples, and will instead create a living diona nymph." //For ghost roles!
+	*/
 	return text
 
 
@@ -139,7 +142,7 @@
 	if(realName)
 		podman.real_name = realName
 	else
-		podman.real_name = "Pod Person ([rand(1,999)])"
+		podman.real_name = "Pod Person ([rand(1,999)])" //Should change this to auto generated dionae naming guidelines
 	mind.transfer_to(podman)
 	if(ckey)
 		podman.ckey = ckey

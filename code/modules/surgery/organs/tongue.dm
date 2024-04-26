@@ -363,8 +363,9 @@
 /obj/item/organ/tongue/diona
 	name = "diona tongue"
 	desc = "It's an odd tongue, seemingly made of plant matter."
-	disliked_food = MEAT | DAIRY
-	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
+	icon_state = "diona_tongue"
+	disliked_food = MEAT | DAIRY | FRUIT | GRAIN | CLOTH
+	liked_food = VEGETABLES
 
 /obj/item/organ/tongue/diona/pumpkin
 	modifies_speech = TRUE
