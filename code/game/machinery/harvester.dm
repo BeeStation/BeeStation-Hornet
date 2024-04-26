@@ -27,7 +27,9 @@
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		max_time -= L.rating
 	interval = max(max_time,1)
-
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		if(M.rating >= 2)
+			allow_clothing = TRUE
 /obj/machinery/harvester/update_icon(warming_up)
 	if(warming_up)
 		icon_state = initial(icon_state)+"-charging"
@@ -61,16 +63,15 @@
 	if(!powered() || state_open || !occupant || !iscarbon(occupant))
 		return
 	var/mob/living/carbon/C = occupant
-	if(!is_emagged)
-		if(!allow_clothing)
-			for(var/A in C.held_items + C.get_equipped_items())
-				if(!isitem(A))
-					continue
-				var/obj/item/I = A
-				if(!(HAS_TRAIT(I, TRAIT_NODROP)))
-					say("Subject may not have abiotic items on.")
-					playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
-					return
+	if(!allow_clothing)
+		for(var/A in C.held_items + C.get_equipped_items())
+			if(!isitem(A))
+				continue
+			var/obj/item/I = A
+			if(!(HAS_TRAIT(I, TRAIT_NODROP)))
+				say("Subject may not have abiotic items on.")
+				playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
+				return
 	if(!(MOB_ORGANIC in C.mob_biotypes))
 		say("Subject is not organic.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
@@ -196,3 +197,5 @@
 		. += "<span class='notice'>Alt-click [src] to start harvesting.</span>"
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Harvest speed at <b>[interval*0.1]</b> seconds per organ.</span>"
+	if(allow_clothing)
+		. += "<span class='notice'>harvester has been upgraded to process inorganic materials.</span>"
