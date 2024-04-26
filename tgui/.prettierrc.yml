@@ -2,7 +2,7 @@ arrowParens: always
 #breakLongMethodChains: true
 endOfLine: lf
 #importFormatting: oneline
-jsxBracketSameLine: true
+#jsxBracketSameLine: true
 jsxSingleQuote: false
 #offsetTernaryExpressions: true
 printWidth: 80
