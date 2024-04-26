@@ -34,11 +34,13 @@ export const filter =
   };
 
 type MapFunction = {
-  <T, U>(iterateeFn: (value: T, index: number, collection: T[]) => U): (collection: T[]) => U[];
+  <T, U>(
+    iterateeFn: (value: T, index: number, collection: T[]) => U,
+  ): (collection: T[]) => U[];
 
-  <T, U, K extends string | number>(iterateeFn: (value: T, index: K, collection: Record<K, T>) => U): (
-    collection: Record<K, T>
-  ) => U[];
+  <T, U, K extends string | number>(
+    iterateeFn: (value: T, index: K, collection: Record<K, T>) => U,
+  ): (collection: Record<K, T>) => U[];
 };
 
 /**
