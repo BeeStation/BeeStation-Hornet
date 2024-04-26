@@ -102,9 +102,12 @@ export const threshold_title = (thresholds: StatThreshold[]): string => {
 };
 
 export const sort_thresholds = sortBy(
-  (threshold: AbilityThreshold) => threshold.stats.map((stat: StatThreshold) => stat.name).join(', '),
   (threshold: AbilityThreshold) =>
-    threshold.stats.map((stat: StatThreshold) => stat.minimum).reduce((sum: number, min: number) => (sum || 0) + min) || 0
+    threshold.stats.map((stat: StatThreshold) => stat.name).join(', '),
+  (threshold: AbilityThreshold) =>
+    threshold.stats
+      .map((stat: StatThreshold) => stat.minimum)
+      .reduce((sum: number, min: number) => (sum || 0) + min) || 0
 );
 
 export const sort_abilities = sortBy((ability: Ability) => ability.name);

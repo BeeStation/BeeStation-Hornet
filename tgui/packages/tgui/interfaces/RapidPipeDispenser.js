@@ -1,6 +1,14 @@
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, ColorBox, Flex, LabeledList, Section, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  ColorBox,
+  Flex,
+  LabeledList,
+  Section,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 
 const ROOT_CATEGORIES = ['Atmospherics', 'Disposals', 'Transit Tubes'];
@@ -52,10 +60,21 @@ const TOOLS = [
 
 export const RapidPipeDispenser = (props, context) => {
   const { act, data } = useBackend(context);
-  const { category: rootCategoryIndex, categories = [], selected_color, piping_layer, mode } = data;
+  const {
+    category: rootCategoryIndex,
+    categories = [],
+    selected_color,
+    piping_layer,
+    mode,
+  } = data;
   const previews = data.preview_rows.flatMap((row) => row.previews);
-  const [categoryName, setCategoryName] = useLocalState(context, 'categoryName');
-  const shownCategory = categories.find((category) => category.cat_name === categoryName) || categories[0];
+  const [categoryName, setCategoryName] = useLocalState(
+    context,
+    'categoryName'
+  );
+  const shownCategory =
+    categories.find((category) => category.cat_name === categoryName) ||
+    categories[0];
   return (
     <Window width={425} height={515}>
       <Window.Content scrollable>
@@ -142,9 +161,13 @@ export const RapidPipeDispenser = (props, context) => {
                         dir: preview.dir,
                         flipped: preview.flipped,
                       })
-                    }>
+                    }
+                  >
                     <Box
-                      className={classes(['pipes32x32', preview.dir + '-' + preview.icon_state])}
+                      className={classes([
+                        'pipes32x32',
+                        preview.dir + '-' + preview.icon_state,
+                      ])}
                       style={{
                         transform: 'scale(1.5) translate(17%, 17%)',
                       }}
@@ -163,7 +186,8 @@ export const RapidPipeDispenser = (props, context) => {
                     key={category.cat_name}
                     icon={ICON_BY_CATEGORY_NAME[category.cat_name]}
                     selected={category.cat_name === shownCategory.cat_name}
-                    onClick={() => setCategoryName(category.cat_name)}>
+                    onClick={() => setCategoryName(category.cat_name)}
+                  >
                     {category.cat_name}
                   </Tabs.Tab>
                 ))}

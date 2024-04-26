@@ -1,6 +1,13 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Flex, Input, Section, Table, Collapsible } from '../components';
+import {
+  Button,
+  Flex,
+  Input,
+  Section,
+  Table,
+  Collapsible,
+} from '../components';
 import { Window } from '../layouts';
 import { isFalsy } from 'common/react';
 
@@ -40,7 +47,12 @@ export const AdminSecretsPanel = (props, context) => {
           <Table.Row>
             <Table.Cell>{Title}</Table.Cell>
             <Table.Cell textAlign="right">
-              <Input placeholder="Search" value={searchText} onInput={(e, value) => setSearchText(value)} mx={1} />
+              <Input
+                placeholder="Search"
+                value={searchText}
+                onInput={(e, value) => setSearchText(value)}
+                mx={1}
+              />
             </Table.Cell>
           </Table.Row>
         </Table>
@@ -51,7 +63,13 @@ export const AdminSecretsPanel = (props, context) => {
   const makeButton = (command) => {
     return (
       <Flex.Item grow={1} basis="49%">
-        <Button fluid ellipsis my={0.5} onClick={() => act(command[1])} content={command[0]} />
+        <Button
+          fluid
+          ellipsis
+          my={0.5}
+          onClick={() => act(command[1])}
+          content={command[0]}
+        />
       </Flex.Item>
     );
   };

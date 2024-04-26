@@ -54,13 +54,16 @@ const BasicLoreSection = (_props, _context) => {
         </Box>{' '}
         of this abductor team!
         <br />
-        You&apos;re the <b>brains</b> of the abductors, it is your job to work with your{' '}
+        You&apos;re the <b>brains</b> of the abductors, it is your job to work
+        with your{' '}
         <Box inline textColor="red">
           agent
         </Box>{' '}
-        to capture test subjects and bring them back to your ship for experimentation!
+        to capture test subjects and bring them back to your ship for
+        experimentation!
         <br />
-        As an abductor, you have a telepathic link with your partner, and have no method of verbal communication.
+        As an abductor, you have a telepathic link with your partner, and have
+        no method of verbal communication.
       </BlockQuote>
     </Section>
   );
@@ -69,11 +72,13 @@ const BasicLoreSection = (_props, _context) => {
 const SurgerySubsection = (_props, _context) => {
   return (
     <Section name="Experimentation">
-      Whenever you have successfully abducted a target to your mothership, you experiment on them with an{' '}
+      Whenever you have successfully abducted a target to your mothership, you
+      experiment on them with an{' '}
       <Box inline textColor="purple">
         experimental organ replacement
       </Box>{' '}
-      surgery. This surgery does not require you to strip the target, and consists of the following steps:
+      surgery. This surgery does not require you to strip the target, and
+      consists of the following steps:
       <br />
       <b>1.</b>: Targeting their chest, click on the subject with{' '}
       <Box inline textColor="blue">
@@ -125,8 +130,8 @@ const SurgerySubsection = (_props, _context) => {
       <Box inline textColor="purple">
         experimentation machine
       </Box>{' '}
-      via drag-clicking, ensuring they are unbuckled from your operating table. Select either Probe, Analyze, or Dissect once
-      they are in there.
+      via drag-clicking, ensuring they are unbuckled from your operating table.
+      Select either Probe, Analyze, or Dissect once they are in there.
     </Section>
   );
 };
@@ -149,18 +154,22 @@ const EquipmentSection = (_props, _context) => {
               <Box inline textColor="purple">
                 science tool
               </Box>{' '}
-              is essential for abducting test subjects for experimentation! It has two modes:
+              is essential for abducting test subjects for experimentation! It
+              has two modes:
               <br />
               <Box inline textColor="blue">
                 Mark
               </Box>
-              : Marks a subject, allowing them to be beamed up by your camera console. You can mark your agent instantly from
-              any range (even from the cameras), however test subjects require you to beam down to them and mark them yourself!
+              : Marks a subject, allowing them to be beamed up by your camera
+              console. You can mark your agent instantly from any range (even
+              from the cameras), however test subjects require you to beam down
+              to them and mark them yourself!
               <br />
               <Box inline textColor="red">
                 Scan
               </Box>
-              : Scans someone, adding their appearance to the potential disguises for your agent. This works from the cameras.
+              : Scans someone, adding their appearance to the potential
+              disguises for your agent. This works from the cameras.
             </Stack.Item>
             <Stack.Divider />
             <Stack.Item>
@@ -175,11 +184,14 @@ const EquipmentSection = (_props, _context) => {
               <Box inline textColor="purple">
                 alien surgical tools
               </Box>{' '}
-              , which are capable of working extremely fast, faster than any tool available to lesser lifeforms.
+              , which are capable of working extremely fast, faster than any
+              tool available to lesser lifeforms.
               <br />
-              These are essential to performing experimental surgeries on abducted test subjects!
+              These are essential to performing experimental surgeries on
+              abducted test subjects!
               <br />
-              In addition, you are capable of doing other high-tech surgeries, such as{' '}
+              In addition, you are capable of doing other high-tech surgeries,
+              such as{' '}
               <Box inline textColor="purple">
                 brainwashing
               </Box>{' '}

@@ -1,12 +1,19 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Material, MaterialAmount, MaterialFormatting, Materials, MATERIAL_KEYS } from './common/Materials';
+import {
+  Material,
+  MaterialAmount,
+  MaterialFormatting,
+  Materials,
+  MATERIAL_KEYS,
+} from './common/Materials';
 import { Window } from '../layouts';
 import { Box, Button, Input, Section, Stack, Tabs } from '../components';
 
 const CATEGORY_ALL = 'All';
 
-const searchFor = (searchText) => createSearch(searchText, ([_, thing]) => thing.name + thing.description);
+const searchFor = (searchText) =>
+  createSearch(searchText, ([_, thing]) => thing.name + thing.description);
 
 const getCategory = (category: string[]) => {
   return category[0] === 'Circuitry' ? category[1] : category[0];
@@ -24,7 +31,10 @@ type ComponentPrinterData = {
   materials: Material[];
 };
 
-const canProduce = (designMaterials: Design['materials'], storedMaterials: Material[]) => {
+const canProduce = (
+  designMaterials: Design['materials'],
+  storedMaterials: Material[]
+) => {
   for (const material of storedMaterials) {
     const amountNeeded = designMaterials[material.name];
 
@@ -60,7 +70,11 @@ const MaterialCost = (props: { materials: Design['materials'] }) => {
 export const ComponentPrinter = (props, context) => {
   const { act, data } = useBackend<ComponentPrinterData>(context);
 
-  const [currentCategory, setCurrentCategory] = useLocalState(context, 'category', CATEGORY_ALL);
+  const [currentCategory, setCurrentCategory] = useLocalState(
+    context,
+    'category',
+    CATEGORY_ALL
+  );
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   return (
@@ -104,7 +118,8 @@ export const ComponentPrinter = (props, context) => {
                             key={category}
                             onClick={() => setCurrentCategory(category)}
                             selected={category === currentCategory}
-                            fluid>
+                            fluid
+                          >
                             {category}
                           </Tabs.Tab>
                         );
@@ -128,7 +143,9 @@ export const ComponentPrinter = (props, context) => {
 
                     {Object.entries(data.designs)
                       .filter(
-                        ([_, design]) => currentCategory === CATEGORY_ALL || design.categories.indexOf(currentCategory) !== -1
+                        ([_, design]) =>
+                          currentCategory === CATEGORY_ALL ||
+                          design.categories.indexOf(currentCategory) !== -1
                       )
                       .filter(searchFor(searchText))
                       .map(([designId, design]) => {
@@ -143,11 +160,18 @@ export const ComponentPrinter = (props, context) => {
                                       designId,
                                     });
                                   }}
-                                  disabled={!canProduce(design.materials, data.materials)}
-                                  px={1.5}>
+                                  disabled={
+                                    !canProduce(
+                                      design.materials,
+                                      data.materials
+                                    )
+                                  }
+                                  px={1.5}
+                                >
                                   Print
                                 </Button>
-                              }>
+                              }
+                            >
                               <Box inline width="100%">
                                 {design.description}
                               </Box>

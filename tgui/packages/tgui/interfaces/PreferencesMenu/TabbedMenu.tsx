@@ -25,7 +25,9 @@ export class TabbedMenu extends Component<TabbedMenuProps> {
   render() {
     return (
       <Stack vertical fill>
-        {this.props.children && <Stack.Item position="relative">{this.props.children}</Stack.Item>}
+        {this.props.children && (
+          <Stack.Item position="relative">{this.props.children}</Stack.Item>
+        )}
         {this.props.categoryEntries?.length > 1 && (
           <Stack.Item>
             <Stack fill px={5}>
@@ -37,7 +39,8 @@ export class TabbedMenu extends Component<TabbedMenuProps> {
                       fontSize="1.2em"
                       fluid
                       onClick={() => {
-                        const offsetTop = this.categoryRefs[category].current?.offsetTop;
+                        const offsetTop =
+                          this.categoryRefs[category].current?.offsetTop;
 
                         if (offsetTop === undefined) {
                           return;
@@ -50,7 +53,8 @@ export class TabbedMenu extends Component<TabbedMenuProps> {
                         }
 
                         currentSection.scrollTop = offsetTop;
-                      }}>
+                      }}
+                    >
                       {category}
                     </Button>
                   </Stack.Item>
@@ -70,7 +74,8 @@ export class TabbedMenu extends Component<TabbedMenuProps> {
 
             // Otherwise, TypeScript complains about invalid prop
             className: undefined,
-          }}>
+          }}
+        >
           <Flex direction="row" px={2} wrap="wrap">
             {this.props.categoryEntries.map(([category, children]) => {
               return (
@@ -81,7 +86,8 @@ export class TabbedMenu extends Component<TabbedMenuProps> {
                   px={1}
                   py={2}
                   key={category}
-                  innerRef={this.getCategoryRef(category)}>
+                  innerRef={this.getCategoryRef(category)}
+                >
                   <CollapsibleSection
                     minWidth="200px"
                     fill
@@ -90,7 +96,8 @@ export class TabbedMenu extends Component<TabbedMenuProps> {
                         {category}
                       </Box>
                     }
-                    sectionKey={category}>
+                    sectionKey={category}
+                  >
                     {children}
                   </CollapsibleSection>
                 </Flex.Item>

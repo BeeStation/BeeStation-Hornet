@@ -8,7 +8,11 @@ export const KeycardAuth = (props, context) => {
     <Window width={375} height={125}>
       <Window.Content>
         <Section>
-          <Box>{data.waiting === 1 && <span>Waiting for another device to confirm your request...</span>}</Box>
+          <Box>
+            {data.waiting === 1 && (
+              <span>Waiting for another device to confirm your request...</span>
+            )}
+          </Box>
           <Box>
             {data.waiting === 0 && (
               <>
@@ -33,8 +37,18 @@ export const KeycardAuth = (props, context) => {
                       }}
                       content="Red Alert"
                     />
-                    <Button icon="wrench" fluid onClick={() => act('emergency_maint')} content="Emergency Maintenance Access" />
-                    <Button icon="meteor" fluid onClick={() => act('bsa_unlock')} content="Bluespace Artillery Unlock" />
+                    <Button
+                      icon="wrench"
+                      fluid
+                      onClick={() => act('emergency_maint')}
+                      content="Emergency Maintenance Access"
+                    />
+                    <Button
+                      icon="meteor"
+                      fluid
+                      onClick={() => act('bsa_unlock')}
+                      content="Bluespace Artillery Unlock"
+                    />
                   </>
                 )}
               </>

@@ -162,7 +162,12 @@ const styleMapperByPropName = {
   italic: mapBooleanPropTo('font-style', 'italic'),
   nowrap: mapBooleanPropTo('white-space', 'nowrap'),
   // Margins
-  m: mapDirectionalUnitPropTo('margin', halfUnit, ['top', 'bottom', 'left', 'right']),
+  m: mapDirectionalUnitPropTo('margin', halfUnit, [
+    'top',
+    'bottom',
+    'left',
+    'right',
+  ]),
   mx: mapDirectionalUnitPropTo('margin', halfUnit, ['left', 'right']),
   my: mapDirectionalUnitPropTo('margin', halfUnit, ['top', 'bottom']),
   mt: mapUnitPropTo('margin-top', halfUnit),
@@ -170,7 +175,12 @@ const styleMapperByPropName = {
   ml: mapUnitPropTo('margin-left', halfUnit),
   mr: mapUnitPropTo('margin-right', halfUnit),
   // Margins
-  p: mapDirectionalUnitPropTo('padding', halfUnit, ['top', 'bottom', 'left', 'right']),
+  p: mapDirectionalUnitPropTo('padding', halfUnit, [
+    'top',
+    'bottom',
+    'left',
+    'right',
+  ]),
   px: mapDirectionalUnitPropTo('padding', halfUnit, ['left', 'right']),
   py: mapDirectionalUnitPropTo('padding', halfUnit, ['top', 'bottom']),
   pt: mapUnitPropTo('padding-top', halfUnit),
@@ -235,7 +245,10 @@ export const computeBoxProps = (props: BoxProps) => {
 export const computeBoxClassName = (props: BoxProps) => {
   const color = props.textColor || props.color;
   const backgroundColor = props.backgroundColor;
-  return classes([isColorClass(color) && 'color-' + color, isColorClass(backgroundColor) && 'color-bg-' + backgroundColor]);
+  return classes([
+    isColorClass(color) && 'color-' + color,
+    isColorClass(backgroundColor) && 'color-bg-' + backgroundColor,
+  ]);
 };
 
 export const Box: Inferno.SFC<BoxProps> = (props: BoxProps) => {
@@ -245,10 +258,19 @@ export const Box: Inferno.SFC<BoxProps> = (props: BoxProps) => {
     return children(computeBoxProps(props));
   }
   const computedClassName =
-    typeof className === 'string' ? className + ' ' + computeBoxClassName(rest) : computeBoxClassName(rest);
+    typeof className === 'string'
+      ? className + ' ' + computeBoxClassName(rest)
+      : computeBoxClassName(rest);
   const computedProps = computeBoxProps(rest);
   // Render a wrapper element
-  return createVNode(VNodeFlags.HtmlElement, as, computedClassName, children, ChildFlags.UnknownChildren, computedProps);
+  return createVNode(
+    VNodeFlags.HtmlElement,
+    as,
+    computedClassName,
+    children,
+    ChildFlags.UnknownChildren,
+    computedProps
+  );
 };
 
 Box.defaultHooks = pureComponentHooks;

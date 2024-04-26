@@ -1,5 +1,16 @@
 import { useBackend, useLocalState } from '../backend';
-import { Section, Box, Dropdown, Button, Input, TextArea, Divider, NumberInput, Tooltip, Knob } from '../components';
+import {
+  Section,
+  Box,
+  Dropdown,
+  Button,
+  Input,
+  TextArea,
+  Divider,
+  NumberInput,
+  Tooltip,
+  Knob,
+} from '../components';
 import { Window } from '../layouts';
 
 export const AdminFax = (props, context) => {
@@ -21,8 +32,16 @@ export const FaxMainPanel = (props, context) => {
   const [fromWho, setFromWho] = useLocalState(context, 'fromWho', '');
   const [rawText, setRawText] = useLocalState(context, 'rawText', '');
   const [stamp, setStamp] = useLocalState(context, 'stampType', '');
-  const [stampCoordX, setStampCoordX] = useLocalState(context, 'stampCoordX', 0);
-  const [stampCoordY, setStampCoordY] = useLocalState(context, 'stampCoordY', 0);
+  const [stampCoordX, setStampCoordX] = useLocalState(
+    context,
+    'stampCoordX',
+    0
+  );
+  const [stampCoordY, setStampCoordY] = useLocalState(
+    context,
+    'stampCoordY',
+    0
+  );
   const [stampAngle, setStampAngle] = useLocalState(context, 'stampAngle', 0);
   if (stamp && data.stamps[0] !== 'None') {
     data.stamps.unshift('None');
@@ -40,11 +59,13 @@ export const FaxMainPanel = (props, context) => {
                 act('follow', {
                   faxName: fax,
                 })
-              }>
+              }
+            >
               Follow
             </Button>
           </Box>
-        }>
+        }
+      >
         <Box fontSize="13px">
           <Dropdown
             textAlign="center"
@@ -67,28 +88,62 @@ export const FaxMainPanel = (props, context) => {
               act('preview', {
                 faxName: fax,
               })
-            }>
+            }
+          >
             Preview
           </Button>
-        }>
+        }
+      >
         <Box fontSize="14px">
-          <Input mb="5px" placeholder="Paper name..." value={paperName} width="100%" onChange={(_, v) => setPaperName(v)} />
-          <Button color="blue" fluid textAlign="center" onClick={() => setPaperName('Central Command Report')}>
+          <Input
+            mb="5px"
+            placeholder="Paper name..."
+            value={paperName}
+            width="100%"
+            onChange={(_, v) => setPaperName(v)}
+          />
+          <Button
+            color="blue"
+            fluid
+            textAlign="center"
+            onClick={() => setPaperName('Central Command Report')}
+          >
             Central Command Report
           </Button>
-          <Button color="red" fluid textAlign="center" onClick={() => setPaperName('Syndicate Report')}>
+          <Button
+            color="red"
+            fluid
+            textAlign="center"
+            onClick={() => setPaperName('Syndicate Report')}
+          >
             Syndicate Report
           </Button>
         </Box>
         <Divider />
         <Box fontSize="14px" mt="5px">
           <Tooltip content="This is shown in the fax log.">
-            <Input mb="5px" placeholder="From who..." value={fromWho} width="100%" onChange={(_, v) => setFromWho(v)} />
+            <Input
+              mb="5px"
+              placeholder="From who..."
+              value={fromWho}
+              width="100%"
+              onChange={(_, v) => setFromWho(v)}
+            />
           </Tooltip>
-          <Button color="blue" fluid textAlign="center" onClick={() => setFromWho('Central Command')}>
+          <Button
+            color="blue"
+            fluid
+            textAlign="center"
+            onClick={() => setFromWho('Central Command')}
+          >
             Central Command
           </Button>
-          <Button color="red" fluid textAlign="center" onClick={() => setFromWho('Syndicate')}>
+          <Button
+            color="red"
+            fluid
+            textAlign="center"
+            onClick={() => setFromWho('Syndicate')}
+          >
             Syndicate
           </Button>
         </Box>
@@ -133,7 +188,12 @@ export const FaxMainPanel = (props, context) => {
 
               <h4>
                 Y Coordinate:{' '}
-                <NumberInput width="45px" minValue={0} value={stampCoordY} onChange={(_, v) => setStampCoordY(v)} />
+                <NumberInput
+                  width="45px"
+                  minValue={0}
+                  value={stampCoordY}
+                  onChange={(_, v) => setStampCoordY(v)}
+                />
               </h4>
 
               <Box textAlign="center">
@@ -161,7 +221,8 @@ export const FaxMainPanel = (props, context) => {
               act('send', {
                 faxName: fax,
               })
-            }>
+            }
+          >
             Send Fax
           </Button>
           <Button
@@ -180,7 +241,8 @@ export const FaxMainPanel = (props, context) => {
                 stampAngle: stampAngle,
                 fromWho: fromWho,
               });
-            }}>
+            }}
+          >
             Save Changes
           </Button>
           <Button
@@ -190,7 +252,8 @@ export const FaxMainPanel = (props, context) => {
               act('createPaper', {
                 faxName: fax,
               })
-            }>
+            }
+          >
             Create Paper
           </Button>
         </Box>

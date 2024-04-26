@@ -52,19 +52,28 @@ export const GamePreferenceWindow = (
           />
           <SaveStatus />
         </>
-      }>
+      }
+    >
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
             <Stack fill>
               <Stack.Item grow>
-                <PageButton currentPage={currentPage} page={GamePreferencesSelectedPage.Settings} setPage={setCurrentPage}>
+                <PageButton
+                  currentPage={currentPage}
+                  page={GamePreferencesSelectedPage.Settings}
+                  setPage={setCurrentPage}
+                >
                   Settings
                 </PageButton>
               </Stack.Item>
 
               <Stack.Item grow>
-                <PageButton currentPage={currentPage} page={GamePreferencesSelectedPage.Keybindings} setPage={setCurrentPage}>
+                <PageButton
+                  currentPage={currentPage}
+                  page={GamePreferencesSelectedPage.Keybindings}
+                  setPage={setCurrentPage}
+                >
                   Keybindings
                 </PageButton>
               </Stack.Item>

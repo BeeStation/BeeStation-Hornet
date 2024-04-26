@@ -1,13 +1,20 @@
 import { useBackend } from '../backend';
 import { Button, ByondUi } from '../components';
 import { NtosWindow } from '../layouts';
-import { prevNextCamera, selectCameras, CameraConsoleContent } from './CameraConsole';
+import {
+  prevNextCamera,
+  selectCameras,
+  CameraConsoleContent,
+} from './CameraConsole';
 
 export const NtosSecurEye = (props, context) => {
   const { act, data, config } = useBackend(context);
   const { PC_device_theme, mapRef, activeCamera } = data;
   const cameras = selectCameras(data.cameras);
-  const [prevCameraName, nextCameraName] = prevNextCamera(cameras, activeCamera);
+  const [prevCameraName, nextCameraName] = prevNextCamera(
+    cameras,
+    activeCamera
+  );
   return (
     <NtosWindow width={800} height={600} theme={PC_device_theme}>
       <NtosWindow.Content>

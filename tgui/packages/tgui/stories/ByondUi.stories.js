@@ -48,11 +48,18 @@ const Story = (props, context) => {
                   logger.log(err);
                 }
               })
-            }>
+            }
+          >
             Evaluate
           </Button>
-        }>
-        <Box as="textarea" width="100%" height="10em" onChange={(e) => setCode(e.target.value)}>
+        }
+      >
+        <Box
+          as="textarea"
+          width="100%"
+          height="10em"
+          onChange={(e) => setCode(e.target.value)}
+        >
           {code}
         </Box>
       </Section>

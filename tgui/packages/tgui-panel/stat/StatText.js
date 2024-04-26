@@ -3,14 +3,24 @@ import { Button, Flex, Box, Section } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { Divider, Table } from '../../tgui/components';
-import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_BLANK } from './constants';
+import {
+  STAT_TEXT,
+  STAT_BUTTON,
+  STAT_ATOM,
+  STAT_DIVIDER,
+  STAT_BLANK,
+} from './constants';
 import { capitalize } from 'common/string';
 
 export const StatText = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
   let statPanelData = stat.statInfomation;
   if (!statPanelData) {
-    return <Box color="red">Passed stat panel data was null contant coderman (or coderwoman).</Box>;
+    return (
+      <Box color="red">
+        Passed stat panel data was null contant coderman (or coderwoman).
+      </Box>
+    );
   }
   let verbs = {};
   if (stat.verbData !== null) {
@@ -21,33 +31,49 @@ export const StatText = (props, context) => {
       <Box>
         {statPanelData
           ? Object.keys(statPanelData)
-            .filter((x) => x !== null)
-            .sort((a, b) => {
-              return StatTagToPriority(statPanelData[b].tag) - StatTagToPriority(statPanelData[a].tag);
-            })
-            .map(
-              (key) =>
-                !!statPanelData[key] &&
-                ((statPanelData[key].type === STAT_TEXT && <StatTextText title={key} text={statPanelData[key].text} />) ||
-                  (statPanelData[key].type === STAT_BUTTON && (
-                    <StatTextButton
-                      title={key}
-                      text={statPanelData[key].text}
-                      action_id={statPanelData[key].action}
-                      params={statPanelData[key].params}
-                      multirow={statPanelData[key].multirow}
-                      buttons={statPanelData[key].buttons}
-                    />
+              .filter((x) => x !== null)
+              .sort((a, b) => {
+                return (
+                  StatTagToPriority(statPanelData[b].tag) -
+                  StatTagToPriority(statPanelData[a].tag)
+                );
+              })
+              .map(
+                (key) =>
+                  !!statPanelData[key] &&
+                  ((statPanelData[key].type === STAT_TEXT && (
+                    <StatTextText title={key} text={statPanelData[key].text} />
                   )) ||
-                  (statPanelData[key].type === STAT_ATOM && (
-                    <StatTextAtom atom_ref={key} atom_name={statPanelData[key].text} atom_tag={statPanelData[key].tag} />
-                  )) ||
-                  (statPanelData[key].type === STAT_DIVIDER && <StatTextDivider />) ||
-                  (statPanelData[key].type === STAT_BLANK && <br />))
-            )
+                    (statPanelData[key].type === STAT_BUTTON && (
+                      <StatTextButton
+                        title={key}
+                        text={statPanelData[key].text}
+                        action_id={statPanelData[key].action}
+                        params={statPanelData[key].params}
+                        multirow={statPanelData[key].multirow}
+                        buttons={statPanelData[key].buttons}
+                      />
+                    )) ||
+                    (statPanelData[key].type === STAT_ATOM && (
+                      <StatTextAtom
+                        atom_ref={key}
+                        atom_name={statPanelData[key].text}
+                        atom_tag={statPanelData[key].tag}
+                      />
+                    )) ||
+                    (statPanelData[key].type === STAT_DIVIDER && (
+                      <StatTextDivider />
+                    )) ||
+                    (statPanelData[key].type === STAT_BLANK && <br />))
+              )
           : 'No data'}
         {Object.keys(verbs).map((verb) => (
-          <StatTextVerb key={verb} title={verb} action_id={verbs[verb].action} params={verbs[verb].params} />
+          <StatTextVerb
+            key={verb}
+            title={verb}
+            action_id={verbs[verb].action}
+            params={verbs[verb].params}
+          />
         ))}
       </Box>
     </div>
@@ -109,7 +135,14 @@ export const StatTextText = (props, context) => {
 };
 
 export const StatTextButton = (props, context) => {
-  const { title, text, action_id, params = [], multirow = false, buttons = [] } = props;
+  const {
+    title,
+    text,
+    action_id,
+    params = [],
+    multirow = false,
+    buttons = [],
+  } = props;
   return (
     <Flex.Item mt={1}>
       <Button
@@ -121,7 +154,8 @@ export const StatTextButton = (props, context) => {
             params: params,
           })
         }
-        color="transparent">
+        color="transparent"
+      >
         {!multirow ? (
           <Flex direction="row">
             <Flex.Item bold>{title}</Flex.Item>
@@ -135,7 +169,8 @@ export const StatTextButton = (props, context) => {
                       action_id: buttonInfo['action_id'],
                       params: buttonInfo['params'],
                     });
-                  }}>
+                  }}
+                >
                   {buttonInfo['title']}
                 </Button>
               </Flex.Item>
@@ -145,7 +180,8 @@ export const StatTextButton = (props, context) => {
               ml={1.5}
               style={{
                 'white-space': 'normal',
-              }}>
+              }}
+            >
               {text}
             </Flex.Item>
           </Flex>
@@ -163,7 +199,8 @@ export const StatTextButton = (props, context) => {
                         action_id: buttonInfo['action_id'],
                         params: buttonInfo['params'],
                       });
-                    }}>
+                    }}
+                  >
                     {buttonInfo['title']}
                   </Button>
                 </Flex.Item>
@@ -172,7 +209,8 @@ export const StatTextButton = (props, context) => {
             <Box
               style={{
                 'white-space': 'normal',
-              }}>
+              }}
+            >
               {text}
             </Box>
           </>
@@ -242,7 +280,8 @@ export const StatTextAtom = (props, context) => {
             },
           })
         }
-        color="transparent">
+        color="transparent"
+      >
         <div className="StatAtomElement">
           <Flex direction="row" wrap="wrap">
             <Flex.Item basis={6} mr={2}>
@@ -287,7 +326,11 @@ export const HoboStatText = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
   let statPanelData = stat.statInfomation;
   if (!statPanelData) {
-    return <Box color="red">Passed stat panel data was null contant coderman (or coderwoman).</Box>;
+    return (
+      <Box color="red">
+        Passed stat panel data was null contant coderman (or coderwoman).
+      </Box>
+    );
   }
   let verbs = {};
   if (stat.verbData !== null) {
@@ -298,28 +341,42 @@ export const HoboStatText = (props, context) => {
       <Section>
         {statPanelData
           ? Object.keys(statPanelData).map(
-            (key) =>
-              !!statPanelData[key] &&
-              ((statPanelData[key].type === STAT_TEXT && <HoboStatTextText title={key} text={statPanelData[key].text} />) ||
-                (statPanelData[key].type === STAT_BUTTON && (
-                  <HoboStatTextButton
+              (key) =>
+                !!statPanelData[key] &&
+                ((statPanelData[key].type === STAT_TEXT && (
+                  <HoboStatTextText
                     title={key}
                     text={statPanelData[key].text}
-                    action_id={statPanelData[key].action}
-                    params={statPanelData[key].params}
                   />
                 )) ||
-                (statPanelData[key].type === STAT_ATOM && (
-                  <HoboStatTextAtom atom_ref={key} atom_name={statPanelData[key].text} />
-                )) ||
-                (statPanelData[key].type === STAT_DIVIDER && <StatTextDivider />) ||
-                (statPanelData[key].type === STAT_BLANK && <br />) ||
-                null)
-          )
+                  (statPanelData[key].type === STAT_BUTTON && (
+                    <HoboStatTextButton
+                      title={key}
+                      text={statPanelData[key].text}
+                      action_id={statPanelData[key].action}
+                      params={statPanelData[key].params}
+                    />
+                  )) ||
+                  (statPanelData[key].type === STAT_ATOM && (
+                    <HoboStatTextAtom
+                      atom_ref={key}
+                      atom_name={statPanelData[key].text}
+                    />
+                  )) ||
+                  (statPanelData[key].type === STAT_DIVIDER && (
+                    <StatTextDivider />
+                  )) ||
+                  (statPanelData[key].type === STAT_BLANK && <br />) ||
+                  null)
+            )
           : 'No data'}
         {Object.keys(verbs).map((verb) => (
           <Box wrap="wrap" key={verb} align="left">
-            <StatTextVerb title={verb} action_id={verbs[verb].action} params={verbs[verb].params} />
+            <StatTextVerb
+              title={verb}
+              action_id={verbs[verb].action}
+              params={verbs[verb].params}
+            />
           </Box>
         ))}
       </Section>
@@ -348,7 +405,8 @@ export const HoboStatTextButton = (props, context) => {
             params: params,
           })
         }
-        color="transparent">
+        color="transparent"
+      >
         <b>{title}: </b>
         {text}
       </Button>
@@ -369,7 +427,8 @@ export const HoboStatTextAtom = (props, context) => {
             },
           })
         }
-        color="transparent">
+        color="transparent"
+      >
         <Table>
           <Table.Row>
             <Table.Cell>

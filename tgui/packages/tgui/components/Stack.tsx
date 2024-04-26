@@ -7,7 +7,14 @@
 import { classes } from 'common/react';
 import { RefObject } from 'inferno';
 import { computeBoxProps } from './Box';
-import { computeFlexClassName, computeFlexItemClassName, computeFlexItemProps, computeFlexProps, FlexItemProps, FlexProps } from './Flex';
+import {
+  computeFlexClassName,
+  computeFlexItemClassName,
+  computeFlexItemProps,
+  computeFlexProps,
+  FlexItemProps,
+  FlexProps,
+} from './Flex';
 
 type StackProps = FlexProps & {
   vertical?: boolean;
@@ -39,7 +46,11 @@ const StackItem = (props: StackItemProps) => {
   const { className, innerRef, ...rest } = props;
   return (
     <div
-      className={classes(['Stack__item', className, computeFlexItemClassName(rest)])}
+      className={classes([
+        'Stack__item',
+        className,
+        computeFlexItemClassName(rest),
+      ])}
       ref={innerRef}
       {...computeFlexItemProps(rest)}
     />

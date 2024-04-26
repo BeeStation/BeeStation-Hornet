@@ -7,13 +7,38 @@
 import { toFixed } from 'common/math';
 import { useLocalState } from 'tgui/backend';
 import { useDispatch, useSelector } from 'common/redux';
-import { Box, Button, ColorBox, Divider, Dropdown, Flex, Input, LabeledList, NumberInput, Section, Stack, Tabs, TextArea } from 'tgui/components';
+import {
+  Box,
+  Button,
+  ColorBox,
+  Divider,
+  Dropdown,
+  Flex,
+  Input,
+  LabeledList,
+  NumberInput,
+  Section,
+  Stack,
+  Tabs,
+  TextArea,
+} from 'tgui/components';
 import { ChatPageSettings } from '../chat';
 import { rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
-import { changeSettingsTab, updateSettings, addHighlightSetting, removeHighlightSetting, updateHighlightSetting } from './actions';
+import {
+  changeSettingsTab,
+  updateSettings,
+  addHighlightSetting,
+  removeHighlightSetting,
+  updateHighlightSetting,
+} from './actions';
 import { SETTINGS_TABS, FONTS, MAX_HIGHLIGHT_SETTINGS } from './constants';
-import { selectActiveTab, selectSettings, selectHighlightSettings, selectHighlightSettingById } from './selectors';
+import {
+  selectActiveTab,
+  selectSettings,
+  selectHighlightSettings,
+  selectHighlightSettingById,
+} from './selectors';
 import { useSettings } from '../settings';
 
 export const SettingsPanel = (props, context) => {
@@ -34,7 +59,8 @@ export const SettingsPanel = (props, context) => {
                       tabId: tab.id,
                     })
                   )
-                }>
+                }
+              >
                 {tab.name}
               </Tabs.Tab>
             ))}
@@ -52,7 +78,10 @@ export const SettingsPanel = (props, context) => {
 };
 
 export const SettingsGeneral = (props, context) => {
-  const { theme, fontFamily, highContrast, fontSize, lineHeight } = useSelector(context, selectSettings);
+  const { theme, fontFamily, highContrast, fontSize, lineHeight } = useSelector(
+    context,
+    selectSettings
+  );
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
   return (
@@ -121,7 +150,8 @@ export const SettingsGeneral = (props, context) => {
                   highContrast: !highContrast,
                 })
               )
-            }>
+            }
+          >
             Colored names
           </Button.Checkbox>
         </LabeledList.Item>
@@ -205,7 +235,11 @@ const TextHighlightSettings = (props, context) => {
       <Section p={0}>
         <Flex direction="column">
           {highlightSettings.map((id, i) => (
-            <TextHighlightSetting key={i} id={id} mb={i + 1 === highlightSettings.length ? 0 : '10px'} />
+            <TextHighlightSetting
+              key={i}
+              id={id}
+              mb={i + 1 === highlightSettings.length ? 0 : '10px'}
+            />
           ))}
           {highlightSettings.length < MAX_HIGHLIGHT_SETTINGS && (
             <Flex.Item>
@@ -238,8 +272,14 @@ const TextHighlightSetting = (props, context) => {
   const { id, ...rest } = props;
   const highlightSettingById = useSelector(context, selectHighlightSettingById);
   const dispatch = useDispatch(context);
-  const { highlightColor, highlightText, highlightSelf, highlightWholeMessage, matchWord, matchCase } =
-    highlightSettingById[id];
+  const {
+    highlightColor,
+    highlightText,
+    highlightSelf,
+    highlightWholeMessage,
+    matchWord,
+    matchCase,
+  } = highlightSettingById[id];
   return (
     <Flex.Item {...rest}>
       <Flex mb={1} color="label" align="baseline">

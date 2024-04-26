@@ -13,9 +13,18 @@ export const ParticleAccelerator = (props, context) => {
           <LabeledList>
             <LabeledList.Item
               label="Status"
-              buttons={<Button icon={'sync'} content={'Run Scan'} onClick={() => act('scan')} />}>
+              buttons={
+                <Button
+                  icon={'sync'}
+                  content={'Run Scan'}
+                  onClick={() => act('scan')}
+                />
+              }
+            >
               <Box color={assembled ? 'good' : 'bad'}>
-                {assembled ? 'Ready - All parts in place' : 'Unable to detect all parts'}
+                {assembled
+                  ? 'Ready - All parts in place'
+                  : 'Unable to detect all parts'}
               </Box>
             </LabeledList.Item>
           </LabeledList>
@@ -32,9 +41,17 @@ export const ParticleAccelerator = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Item label="Particle Strength">
-              <Button icon="backward" disabled={!assembled} onClick={() => act('remove_strength')} />{' '}
+              <Button
+                icon="backward"
+                disabled={!assembled}
+                onClick={() => act('remove_strength')}
+              />{' '}
               {String(strength).padStart(1, '0')}{' '}
-              <Button icon="forward" disabled={!assembled} onClick={() => act('add_strength')} />
+              <Button
+                icon="forward"
+                disabled={!assembled}
+                onClick={() => act('add_strength')}
+              />
             </LabeledList.Item>
           </LabeledList>
         </Section>

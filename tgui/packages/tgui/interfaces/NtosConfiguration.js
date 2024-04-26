@@ -1,5 +1,13 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, Section, ColorBox, Dropdown } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  ProgressBar,
+  Section,
+  ColorBox,
+  Dropdown,
+} from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosConfiguration = (props, context) => {
@@ -25,7 +33,11 @@ export const NtosConfiguration = (props, context) => {
               overflow-y="scroll"
               width="240px"
               options={Object.keys(themes)}
-              selected={Object.keys(themes).find((key) => themes[key] === PC_device_theme) || 'NtOS Default'}
+              selected={
+                Object.keys(themes).find(
+                  (key) => themes[key] === PC_device_theme
+                ) || 'NtOS Default'
+              }
               onSelected={(value) =>
                 act('PC_select_theme', {
                   theme: value,
@@ -33,7 +45,11 @@ export const NtosConfiguration = (props, context) => {
               }
             />
             {PC_device_theme === 'thinktronic-classic' ? (
-              <Button icon="palette" content="Set Color" onClick={() => act('PC_set_classic_color')} />
+              <Button
+                icon="palette"
+                content="Set Color"
+                onClick={() => act('PC_set_classic_color')}
+              />
             ) : null}
           </Section>
         ) : null}
@@ -43,9 +59,13 @@ export const NtosConfiguration = (props, context) => {
             <Box inline bold mr={1}>
               Power Draw: {power_usage}W
             </Box>
-          }>
+          }
+        >
           <LabeledList>
-            <LabeledList.Item label="Battery Status" color={!battery_exists && 'average'}>
+            <LabeledList.Item
+              label="Battery Status"
+              color={!battery_exists && 'average'}
+            >
               {battery_exists ? (
                 <ProgressBar
                   value={battery.charge}
@@ -55,7 +75,8 @@ export const NtosConfiguration = (props, context) => {
                     good: [battery.max / 2, Infinity],
                     average: [battery.max / 4, battery.max / 2],
                     bad: [-Infinity, battery.max / 4],
-                  }}>
+                  }}
+                >
                   {battery.charge} / {battery.max}
                 </ProgressBar>
               ) : (
@@ -65,7 +86,12 @@ export const NtosConfiguration = (props, context) => {
           </LabeledList>
         </Section>
         <Section title="File System">
-          <ProgressBar value={disk_used} minValue={0} maxValue={disk_size} color="good">
+          <ProgressBar
+            value={disk_used}
+            minValue={0}
+            maxValue={disk_size}
+            color="good"
+          >
             {disk_used} GQ / {disk_size} GQ
           </ProgressBar>
         </Section>
@@ -93,7 +119,8 @@ export const NtosConfiguration = (props, context) => {
                     Power Usage: {component.powerusage}W
                   </Box>
                 </>
-              }>
+              }
+            >
               {component.desc}
             </Section>
           ))}

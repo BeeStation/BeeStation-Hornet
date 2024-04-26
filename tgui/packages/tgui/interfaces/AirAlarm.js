@@ -24,7 +24,9 @@ export const AirAlarm = (props, context) => {
 
 const AirAlarmStatus = (props, context) => {
   const { data } = useBackend(context);
-  const entries = (data.environment_data || []).filter((entry) => entry.value >= 0.01);
+  const entries = (data.environment_data || []).filter(
+    (entry) => entry.value >= 0.01
+  );
   const dangerMap = {
     0: {
       color: 'good',
@@ -48,7 +50,11 @@ const AirAlarmStatus = (props, context) => {
             {entries.map((entry) => {
               const status = dangerMap[entry.danger_level] || dangerMap[0];
               return (
-                <LabeledList.Item key={entry.name} label={entry.name} color={status.color}>
+                <LabeledList.Item
+                  key={entry.name}
+                  label={entry.name}
+                  color={status.color}
+                >
                   {toFixed(entry.value, 2)}
                   {entry.unit}
                 </LabeledList.Item>
@@ -57,8 +63,13 @@ const AirAlarmStatus = (props, context) => {
             <LabeledList.Item label="Local status" color={localStatus.color}>
               {localStatus.localStatusText}
             </LabeledList.Item>
-            <LabeledList.Item label="Area status" color={data.atmos_alarm || data.fire_alarm ? 'bad' : 'good'}>
-              {(data.atmos_alarm && 'Atmosphere Alarm') || (data.fire_alarm && 'Fire Alarm') || 'Nominal'}
+            <LabeledList.Item
+              label="Area status"
+              color={data.atmos_alarm || data.fire_alarm ? 'bad' : 'good'}
+            >
+              {(data.atmos_alarm && 'Atmosphere Alarm') ||
+                (data.fire_alarm && 'Fire Alarm') ||
+                'Nominal'}
             </LabeledList.Item>
           </>
         )) || (
@@ -104,7 +115,18 @@ const AirAlarmControl = (props, context) => {
   const route = AIR_ALARM_ROUTES[screen] || AIR_ALARM_ROUTES.home;
   const Component = route.component();
   return (
-    <Section title={route.title} buttons={screen && <Button icon="arrow-left" content="Back" onClick={() => setScreen()} />}>
+    <Section
+      title={route.title}
+      buttons={
+        screen && (
+          <Button
+            icon="arrow-left"
+            content="Back"
+            onClick={() => setScreen()}
+          />
+        )
+      }
+    >
       <Component />
     </Section>
   );
@@ -137,13 +159,29 @@ const AirAlarmControlHome = (props, context) => {
         }
       />
       <Box mt={2} />
-      <Button icon="sign-out-alt" content="Vent Controls" onClick={() => setScreen('vents')} />
+      <Button
+        icon="sign-out-alt"
+        content="Vent Controls"
+        onClick={() => setScreen('vents')}
+      />
       <Box mt={1} />
-      <Button icon="filter" content="Scrubber Controls" onClick={() => setScreen('scrubbers')} />
+      <Button
+        icon="filter"
+        content="Scrubber Controls"
+        onClick={() => setScreen('scrubbers')}
+      />
       <Box mt={1} />
-      <Button icon="cog" content="Operating Mode" onClick={() => setScreen('modes')} />
+      <Button
+        icon="cog"
+        content="Operating Mode"
+        onClick={() => setScreen('modes')}
+      />
       <Box mt={1} />
-      <Button icon="chart-bar" content="Alarm Thresholds" onClick={() => setScreen('thresholds')} />
+      <Button
+        icon="chart-bar"
+        content="Alarm Thresholds"
+        onClick={() => setScreen('thresholds')}
+      />
     </>
   );
 };
@@ -169,7 +207,9 @@ const AirAlarmControlScrubbers = (props, context) => {
   if (!scrubbers || scrubbers.length === 0) {
     return 'Nothing to show';
   }
-  return scrubbers.map((scrubber) => <Scrubber key={scrubber.id_tag} scrubber={scrubber} />);
+  return scrubbers.map((scrubber) => (
+    <Scrubber key={scrubber.id_tag} scrubber={scrubber} />
+  ));
 };
 
 //  Modes

@@ -2,15 +2,31 @@ import { classes } from 'common/react';
 import { Fragment } from 'inferno';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, NoticeBox, Section, Tooltip } from '../components';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  NoticeBox,
+  Section,
+  Tooltip,
+} from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosRadar = (props, context) => {
   const { act, data } = useBackend(context);
   const { full_capability } = data;
   return (
-    <NtosWindow width={full_capability ? 800 : 400} height={full_capability ? 600 : 500} theme="ntos">
-      {full_capability ? <NtosRadarContent sig_err={'Signal Lost'} /> : <NtosRadarContentSmall sig_err={'Signal Lost'} />}
+    <NtosWindow
+      width={full_capability ? 800 : 400}
+      height={full_capability ? 600 : 500}
+      theme="ntos"
+    >
+      {full_capability ? (
+        <NtosRadarContent sig_err={'Signal Lost'} />
+      ) : (
+        <NtosRadarContentSmall sig_err={'Signal Lost'} />
+      )}
     </NtosWindow>
   );
 };
@@ -18,7 +34,13 @@ const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 export const NtosRadarContentSmall = (props, context) => {
   const { act, data } = useBackend(context);
-  const { selected, object = [], target = [], scanning, full_capability } = data;
+  const {
+    selected,
+    object = [],
+    target = [],
+    scanning,
+    full_capability,
+  } = data;
   const { sig_err } = props;
   return (
     <NtosWindow.Content scrollable>
@@ -34,7 +56,9 @@ export const NtosRadarContentSmall = (props, context) => {
         ) : (
           <Box>
             Distance: {target.dist} {target.locz_string}{' '}
-            {target.use_rotate && target.pointer_z && target.pin_grand_z_result ? (
+            {target.use_rotate &&
+            target.pointer_z &&
+            target.pin_grand_z_result ? (
               <Tooltip content={'WARNING: Target is too far away.'}>
                 <Icon name="exclamation-triangle" color="yellow" />
               </Tooltip>
@@ -49,7 +73,9 @@ export const NtosRadarContentSmall = (props, context) => {
                 }}
               />
             ) : null}{' '}
-            {target.use_rotate && target.pointer_z ? <Icon size={1.5} name={target.pointer_z} /> : null}
+            {target.use_rotate && target.pointer_z ? (
+              <Icon size={1.5} name={target.pointer_z} />
+            ) : null}
           </Box>
         )}
       </Section>
@@ -79,7 +105,8 @@ export const NtosRadarContentSmall = (props, context) => {
                 act('selecttarget', {
                   ref: object.ref,
                 });
-              }}>
+              }}
+            >
               {object.name}
             </div>
           ))}
@@ -90,7 +117,13 @@ export const NtosRadarContentSmall = (props, context) => {
 
 export const NtosRadarContent = (props, context) => {
   const { act, data } = useBackend(context);
-  const { selected, object = [], target = [], scanning, full_capability } = data;
+  const {
+    selected,
+    object = [],
+    target = [],
+    scanning,
+    full_capability,
+  } = data;
   const { sig_err } = props;
   return (
     <Flex direction={'row'} hight="100%">
@@ -104,7 +137,9 @@ export const NtosRadarContent = (props, context) => {
               disabled={scanning}
               onClick={() => act('scan')}
             />
-            {!object.length && !scanning && <div>No trackable signals found</div>}
+            {!object.length && !scanning && (
+              <div>No trackable signals found</div>
+            )}
             {!scanning &&
               object.map((object) => (
                 <div
@@ -121,7 +156,8 @@ export const NtosRadarContent = (props, context) => {
                     act('selecttarget', {
                       ref: object.ref,
                     });
-                  }}>
+                  }}
+                >
                   {object.name}
                 </div>
               ))}
@@ -130,7 +166,8 @@ export const NtosRadarContent = (props, context) => {
       </Flex.Item>
       <Flex.Item
         style={{
-          'background-image': 'url("' + resolveAsset('ntosradarbackground.png') + '")',
+          'background-image':
+            'url("' + resolveAsset('ntosradarbackground.png') + '")',
           'background-position': 'center',
           'background-repeat': 'no-repeat',
           'top': '20px',
@@ -138,46 +175,60 @@ export const NtosRadarContent = (props, context) => {
         position="relative"
         m={1.5}
         width={45}
-        height={45}>
+        height={45}
+      >
         {Object.keys(target).length === 0
           ? !!selected && (
-            <NoticeBox position="absolute" top={20.6} left={1.35} width={42} fontSize="30px" textAlign="center">
-              {sig_err}
-            </NoticeBox>
-          )
-          : (!!target.use_rotate && (
-            <Fragment>
-              <Box
-                as="img"
-                src={resolveAsset(target.arrowstyle)}
+              <NoticeBox
                 position="absolute"
-                top="20px"
-                left="243px"
-                style={{
-                  'transform': `rotate(${target.rotate_angle}deg)`,
-                }}
-              />
-              {target.pointer_z ? (
-                <Icon
-                  name={target.pointer_z}
+                top={20.6}
+                left={1.35}
+                width={42}
+                fontSize="30px"
+                textAlign="center"
+              >
+                {sig_err}
+              </NoticeBox>
+            )
+          : (!!target.use_rotate && (
+              <Fragment>
+                <Box
+                  as="img"
+                  src={resolveAsset(target.arrowstyle)}
                   position="absolute"
-                  size={12}
-                  color={target.pin_grand_z_result ? 'purple' : 'orange'}
-                  top={200 + 'px'}
-                  left={224 + 'px'}
+                  top="20px"
+                  left="243px"
+                  style={{
+                    'transform': `rotate(${target.rotate_angle}deg)`,
+                  }}
                 />
-              ) : null}
-            </Fragment>
-          )) || (
-            <Icon
-              name={target.pointer_z ? target.pointer_z : 'crosshairs'}
-              position="absolute"
-              size={target.pointer_z ? 4 : 2}
-              color={target.pin_grand_z_result ? 'purple' : target.pointer_z ? 'orange' : target.color}
-              top={target.locy * 10 + 19 + 'px'}
-              left={target.locx * 10 + 16 + 'px'}
-            />
-          )}
+                {target.pointer_z ? (
+                  <Icon
+                    name={target.pointer_z}
+                    position="absolute"
+                    size={12}
+                    color={target.pin_grand_z_result ? 'purple' : 'orange'}
+                    top={200 + 'px'}
+                    left={224 + 'px'}
+                  />
+                ) : null}
+              </Fragment>
+            )) || (
+              <Icon
+                name={target.pointer_z ? target.pointer_z : 'crosshairs'}
+                position="absolute"
+                size={target.pointer_z ? 4 : 2}
+                color={
+                  target.pin_grand_z_result
+                    ? 'purple'
+                    : target.pointer_z
+                      ? 'orange'
+                      : target.color
+                }
+                top={target.locy * 10 + 19 + 'px'}
+                left={target.locx * 10 + 16 + 'px'}
+              />
+            )}
         <Box>
           Distance: {target.dist} {target.locz_string}
           {target.pointer_z && target.pin_grand_z_result ? (

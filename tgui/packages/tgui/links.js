@@ -17,7 +17,10 @@ export const captureExternalLinks = () => {
       return;
     }
     // Leave BYOND links alone
-    const isByondLink = href.charAt(0) === '?' || href.startsWith(location.origin) || href.startsWith('byond://');
+    const isByondLink =
+      href.charAt(0) === '?' ||
+      href.startsWith(location.origin) ||
+      href.startsWith('byond://');
     if (isByondLink) {
       return;
     }

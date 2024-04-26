@@ -8,7 +8,9 @@ export const Objective = (props, context) => {
   return (
     <Window width={400} height={500} resizable>
       <Window.Content scrollable>
-        {!selected_objective || <SelectedObjective objective={selected_objective} />}
+        {!selected_objective || (
+          <SelectedObjective objective={selected_objective} />
+        )}
         {possible_objectives.map((objective) => (
           <Section title={objective.name} key={objective.id}>
             <Box mb={1}>Payout: {objective.payout}</Box>

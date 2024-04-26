@@ -20,14 +20,24 @@ export const Tabs = (props) => {
         className,
         computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(rest)}>
+      {...computeBoxProps(rest)}
+    >
       {children}
     </div>
   );
 };
 
 const Tab = (props) => {
-  const { className, selected, color, icon, leftSlot, rightSlot, children, ...rest } = props;
+  const {
+    className,
+    selected,
+    color,
+    icon,
+    leftSlot,
+    rightSlot,
+    children,
+    ...rest
+  } = props;
   return (
     <div
       className={classes([
@@ -38,7 +48,8 @@ const Tab = (props) => {
         className,
         ...computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(rest)}>
+      {...computeBoxProps(rest)}
+    >
       {(canRender(leftSlot) && <div className="Tab__left">{leftSlot}</div>) ||
         (!!icon && (
           <div className="Tab__left">

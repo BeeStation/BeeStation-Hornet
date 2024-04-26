@@ -7,15 +7,15 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-    $primary: #1596b6,
-    $fg-map-keys: (),
-    $bg-map-keys: (),
-  );
+  $primary: #1596b6,
+  $fg-map-keys: (),
+  $bg-map-keys: ()
+);
 @use '../base.scss' with (
-    $color-bg: #213e4e,
-    $color-bg-grad-spread: 6%,
-    $border-radius: 2px,
-  );
+  $color-bg: #213e4e,
+  $color-bg-grad-spread: 6%,
+  $border-radius: 2px
+);
 
 .theme-wizard {
   // Atomic classes
@@ -32,17 +32,35 @@
       'color-danger': #b30707
     )
   );
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': #404b6e));
-  @include meta.load-css('../components/NoticeBox.scss', $with: ('background-color': #a82d55));
-  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #404b6e));
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': #404b6e)
+  );
+  @include meta.load-css(
+    '../components/NoticeBox.scss',
+    $with: ('background-color': #a82d55)
+  );
+  @include meta.load-css(
+    '../components/NumberInput.scss',
+    $with: ('border-color': #404b6e)
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
   @include meta.load-css('../components/Section.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #2da848));
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': #2da848)
+  );
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': #1b9e26));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': #1b9e26)
+  );
 
   .Layout__content {
     background-image: url('../../assets/bg-wizard.svg');

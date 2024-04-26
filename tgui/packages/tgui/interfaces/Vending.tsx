@@ -1,6 +1,15 @@
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from 'tgui/backend';
-import { Box, Button, Icon, LabeledList, NoticeBox, Section, Stack, Table } from 'tgui/components';
+import {
+  Box,
+  Button,
+  Icon,
+  LabeledList,
+  NoticeBox,
+  Section,
+  Stack,
+  Table,
+} from 'tgui/components';
 import { Window } from 'tgui/layouts';
 
 type VendingData = {
@@ -60,7 +69,13 @@ type CustomInput = {
 
 export const Vending = (props, context) => {
   const { data } = useBackend<VendingData>(context);
-  const { onstation, product_records = [], coin_records = [], hidden_records = [], stock } = data;
+  const {
+    onstation,
+    product_records = [],
+    coin_records = [],
+    hidden_records = [],
+    stock,
+  } = data;
 
   const [selectedCategory, setSelectedCategory] = useLocalState<string>(
     context,
@@ -106,7 +121,11 @@ export const Vending = (props, context) => {
             </Stack.Item>
           )}
           <Stack.Item grow>
-            <ProductDisplay custom={custom} inventory={inventory} selectedCategory={selectedCategory} />
+            <ProductDisplay
+              custom={custom}
+              inventory={inventory}
+              selectedCategory={selectedCategory}
+            />
           </Stack.Item>
 
           {Object.keys(filteredCategories).length > 1 && (
@@ -130,7 +149,9 @@ export const UserDetails = (props, context) => {
   const { user } = data;
 
   if (!user) {
-    return <NoticeBox>No ID detected! Contact the Head of Personnel.</NoticeBox>;
+    return (
+      <NoticeBox>No ID detected! Contact the Head of Personnel.</NoticeBox>
+    );
   } else {
     return (
       <Section>
@@ -141,7 +162,9 @@ export const UserDetails = (props, context) => {
           <Stack.Item>
             <LabeledList>
               <LabeledList.Item label="User">{user.name}</LabeledList.Item>
-              <LabeledList.Item label="Occupation">{user.job || 'Unemployed'}</LabeledList.Item>
+              <LabeledList.Item label="Occupation">
+                {user.job || 'Unemployed'}
+              </LabeledList.Item>
             </LabeledList>
           </Stack.Item>
         </Stack>
@@ -175,7 +198,8 @@ const ProductDisplay = (
             {(user && user.cash) || 0} cr <Icon name="coins" color="gold" />
           </Box>
         )
-      }>
+      }
+    >
       <Table>
         {inventory
           .filter((product) => {
@@ -186,7 +210,12 @@ const ProductDisplay = (
             }
           })
           .map((product) => (
-            <VendingRow key={product.name} custom={custom} product={product} productStock={stock[product.name]} />
+            <VendingRow
+              key={product.name}
+              custom={custom}
+              product={product}
+              productStock={stock[product.name]}
+            />
           ))}
       </Table>
     </Section>
@@ -201,20 +230,34 @@ const VendingRow = (props, context) => {
   const { data } = useBackend<VendingData>(context);
   const { custom, product, productStock } = props;
   const { access, department_bitflag, jobDiscount, onstation, user } = data;
-  const free = !onstation || product.price === 0 || (!product.premium && department_bitflag === user?.department_bitflag);
-  const discount = !product.premium && department_bitflag === user?.department_bitflag;
+  const free =
+    !onstation ||
+    product.price === 0 ||
+    (!product.premium && department_bitflag === user?.department_bitflag);
+  const discount =
+    !product.premium && department_bitflag === user?.department_bitflag;
   const remaining = custom ? product.amount : productStock.amount;
   const redPrice = Math.round(product.price * jobDiscount);
   const disabled =
-    remaining === 0 || (onstation && !user) || (onstation && !access && (discount ? redPrice : product.price) > user?.cash);
+    remaining === 0 ||
+    (onstation && !user) ||
+    (onstation &&
+      !access &&
+      (discount ? redPrice : product.price) > user?.cash);
 
   return (
     <Table.Row>
       <Table.Cell collapsing>
         <ProductImage product={product} />
       </Table.Cell>
-      <Table.Cell bold>{product.name.replace(/^\w/, (c) => c.toUpperCase())}</Table.Cell>
-      <Table.Cell>{!!productStock?.colorable && <ProductColorSelect disabled={disabled} product={product} />}</Table.Cell>
+      <Table.Cell bold>
+        {product.name.replace(/^\w/, (c) => c.toUpperCase())}
+      </Table.Cell>
+      <Table.Cell>
+        {!!productStock?.colorable && (
+          <ProductColorSelect disabled={disabled} product={product} />
+        )}
+      </Table.Cell>
       <Table.Cell collapsing textAlign="right">
         <ProductStock custom={custom} product={product} remaining={remaining} />
       </Table.Cell>
@@ -277,7 +320,13 @@ const ProductStock = (props) => {
   const { custom, product, remaining } = props;
 
   return (
-    <Box color={(remaining <= 0 && 'bad') || (!custom && remaining <= product.max_amount / 2 && 'average') || 'good'}>
+    <Box
+      color={
+        (remaining <= 0 && 'bad') ||
+        (!custom && remaining <= product.max_amount / 2 && 'average') ||
+        'good'
+      }
+    >
       {remaining} left
     </Box>
   );
@@ -303,7 +352,8 @@ const ProductButton = (props, context) => {
         act('dispense', {
           'item': product.name,
         })
-      }>
+      }
+    >
       {customPrice}
     </Button>
   ) : (
@@ -314,7 +364,8 @@ const ProductButton = (props, context) => {
         act('vend', {
           'ref': product.ref,
         })
-      }>
+      }
+    >
       {standardPrice === 'FREE' ? 'FREE' : standardPrice}
     </Button>
   );
@@ -342,7 +393,8 @@ const CategorySelector = (props: {
               selected={name === selectedCategory}
               color={CATEGORY_COLORS[name]}
               icon={category.icon}
-              onClick={() => onSelect(name)}>
+              onClick={() => onSelect(name)}
+            >
               {name}
             </Button>
           ))}

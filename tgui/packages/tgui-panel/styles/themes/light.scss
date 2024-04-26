@@ -22,7 +22,7 @@
   $color-fg: #000000,
   $color-bg: #eeeeee,
   $color-bg-section: #ffffff,
-  $color-bg-grad-spread: 0%,
+  $color-bg-grad-spread: 0%
 );
 
 // A fat warning to anyone who wants to use this: this only half works.
@@ -34,7 +34,11 @@
   // Components
   @include meta.load-css(
     '~tgui/styles/components/Tabs.scss',
-    $with: ('text-color': rgba(0, 0, 0, 0.7), 'text-color-selected': rgb(0, 0, 0), 'color-default': rgb(0, 0, 0))
+    $with: (
+      'text-color': rgba(0, 0, 0, 0.7),
+      'text-color-selected': rgb(0, 0, 0),
+      'color-default': rgb(0, 0, 0)
+    )
   );
   @include meta.load-css('~tgui/styles/components/Section.scss');
   @include meta.load-css(
@@ -50,7 +54,10 @@
   );
   @include meta.load-css(
     '~tgui/styles/components/Input.scss',
-    $with: ('border-color': colors.fg(colors.$label), 'background-color': #ffffff)
+    $with: (
+      'border-color': colors.fg(colors.$label),
+      'background-color': #ffffff
+    )
   );
   @include meta.load-css('~tgui/styles/components/NumberInput.scss');
   @include meta.load-css('~tgui/styles/components/TextArea.scss');
@@ -59,14 +66,24 @@
   @include meta.load-css('~tgui/styles/components/ProgressBar.scss');
 
   // Components specific to tgui-panel
-  @include meta.load-css('../components/Chat.scss', $with: ('text-color': #000000));
+  @include meta.load-css(
+    '../components/Chat.scss',
+    $with: ('text-color': #000000)
+  );
 
   // Layouts
-  @include meta.load-css('~tgui/styles/layouts/Layout.scss', $with: ('scrollbar-color-multiplier': -1));
+  @include meta.load-css(
+    '~tgui/styles/layouts/Layout.scss',
+    $with: ('scrollbar-color-multiplier': -1)
+  );
   @include meta.load-css('~tgui/styles/layouts/Window.scss');
   @include meta.load-css(
     '~tgui/styles/layouts/TitleBar.scss',
-    $with: ('text-color': rgba(0, 0, 0, 0.75), 'background-color': base.$color-bg, 'shadow-color-core': rgba(0, 0, 0, 0.25))
+    $with: (
+      'text-color': rgba(0, 0, 0, 0.75),
+      'background-color': base.$color-bg,
+      'shadow-color-core': rgba(0, 0, 0, 0.25)
+    )
   );
 
   // Goonchat styles
@@ -76,5 +93,8 @@
   @include meta.load-css('../chat-format/chat-light-theme.scss');
 
   //Stat styles
-  @include meta.load-css('../components/Stat.scss', $with: ('border-color': #000000));
+  @include meta.load-css(
+    '../components/Stat.scss',
+    $with: ('border-color': #000000)
+  );
 }

@@ -35,7 +35,11 @@ export const Panel = (props, context) => {
     }
   }
 
-  const [number, setNumber] = useLocalState(context, 'number', settings.statSize);
+  const [number, setNumber] = useLocalState(
+    context,
+    'number',
+    settings.statSize
+  );
   const dispatch = useDispatch(context);
   const resizeFunction = (value) => {
     dispatch(
@@ -58,10 +62,16 @@ export const Panel = (props, context) => {
         step={1}
         stepPixelSize={9}
         onDrag={(e, value) => resizeFunction(value)}
-        updateRate={5}>
+        updateRate={5}
+      >
         {(control) => (
           <Box onMouseDown={control.handleDragStart} height="10px">
-            <Box position="relative" height="4px" backgroundColor="grey" top="3px">
+            <Box
+              position="relative"
+              height="4px"
+              backgroundColor="grey"
+              top="3px"
+            >
               <Divider />
               {control.inputElement}
             </Box>
@@ -92,7 +102,9 @@ export const Panel = (props, context) => {
                 <Button
                   icon={settings.visible ? 'times' : 'cog'}
                   selected={settings.visible}
-                  tooltip={settings.visible ? 'Close settings' : 'Open settings'}
+                  tooltip={
+                    settings.visible ? 'Close settings' : 'Open settings'
+                  }
                   tooltipPosition="bottom-start"
                   onClick={() => settings.toggle()}
                 />
@@ -120,13 +132,14 @@ export const Panel = (props, context) => {
             <Notifications>
               {game.connectionLostAt && (
                 <Notifications.Item rightSlot={<ReconnectButtons />}>
-                  You are either AFK, experiencing lag or the connection has closed.
+                  You are either AFK, experiencing lag or the connection has
+                  closed.
                 </Notifications.Item>
               )}
               {game.roundRestartedAt && (
                 <Notifications.Item>
-                  The connection has been closed because the server is restarting. Please wait while you automatically
-                  reconnect.
+                  The connection has been closed because the server is
+                  restarting. Please wait while you automatically reconnect.
                 </Notifications.Item>
               )}
             </Notifications>
@@ -149,7 +162,11 @@ const HoboPanel = (props, context) => {
     }
   }
 
-  const [number, setNumber] = useLocalState(context, 'number', settings.statSize);
+  const [number, setNumber] = useLocalState(
+    context,
+    'number',
+    settings.statSize
+  );
   const dispatch = useDispatch(context);
   const resizeFunction = (value) => {
     dispatch(
@@ -173,10 +190,16 @@ const HoboPanel = (props, context) => {
         step={1}
         stepPixelSize={9}
         onDrag={(e, value) => resizeFunction(value)}
-        updateRate={5}>
+        updateRate={5}
+      >
         {(control) => (
           <Box onMouseDown={control.handleDragStart} height="10px">
-            <Box position="relative" height="4px" backgroundColor="grey" top="3px">
+            <Box
+              position="relative"
+              height="4px"
+              backgroundColor="grey"
+              top="3px"
+            >
               <Divider />
               {control.inputElement}
             </Box>
@@ -193,7 +216,8 @@ const HoboPanel = (props, context) => {
               'z-index': 1000,
             }}
             selected={settings.visible}
-            onClick={() => settings.toggle()}>
+            onClick={() => settings.toggle()}
+          >
             Settings
           </Button>
           {(settings.visible && (

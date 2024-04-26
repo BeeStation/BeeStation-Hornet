@@ -2,7 +2,21 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, ScrollableBox, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
+import {
+  Box,
+  Button,
+  Section,
+  Table,
+  DraggableClickableControl,
+  Dropdown,
+  Divider,
+  NoticeBox,
+  ProgressBar,
+  ScrollableBox,
+  Flex,
+  OrbitalMapComponent,
+  OrbitalMapSvg,
+} from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -24,7 +38,11 @@ export const OrbitalMap = (props, context) => {
   const [zoomScale, setZoomScale] = useLocalState(context, 'zoomScale', 1);
   const [xOffset, setXOffset] = useLocalState(context, 'xOffset', 0);
   const [yOffset, setYOffset] = useLocalState(context, 'yOffset', 0);
-  const [trackedBody, setTrackedBody] = useLocalState(context, 'trackedBody', shuttleName);
+  const [trackedBody, setTrackedBody] = useLocalState(
+    context,
+    'trackedBody',
+    shuttleName
+  );
 
   let dynamicXOffset = xOffset;
   let dynamicYOffset = yOffset;
@@ -89,7 +107,8 @@ export const OrbitalMap = (props, context) => {
                   {trackedObject && trackedObject.position_y}
                 </Box>
                 <Box>
-                  <b>Velocity:&nbsp;</b>({trackedObject && trackedObject.velocity_x},{' '}
+                  <b>Velocity:&nbsp;</b>(
+                  {trackedObject && trackedObject.velocity_x},{' '}
                   {trackedObject && trackedObject.velocity_y})
                 </Box>
                 <Box>
@@ -111,15 +130,21 @@ export const OrbitalMap = (props, context) => {
               </Section>
               <Divider />
               <Section title="Flight Controls">
-                {!thrust_alert || <NoticeBox color="red">{thrust_alert}</NoticeBox>}
-                {!damage_alert || <NoticeBox color="red">{damage_alert}</NoticeBox>}
+                {!thrust_alert || (
+                  <NoticeBox color="red">{thrust_alert}</NoticeBox>
+                )}
+                {!damage_alert || (
+                  <NoticeBox color="red">{damage_alert}</NoticeBox>
+                )}
                 {recall_docking_port_id !== '' ? (
                   <RecallControl />
                 ) : linkedToShuttle ? (
                   <ShuttleControls />
                 ) : canLaunch ? (
                   <>
-                    <NoticeBox>Currently docked, awaiting launch order.</NoticeBox>
+                    <NoticeBox>
+                      Currently docked, awaiting launch order.
+                    </NoticeBox>
                     <Button
                       content="INITIATE LAUNCH"
                       textAlign="center"
@@ -134,18 +159,25 @@ export const OrbitalMap = (props, context) => {
                   <NoticeBox color="red">Not linked to a shuttle.</NoticeBox>
                 )}
               </Section>
-              {!!designatorInserted && (designatorId ? !shuttleId : shuttleId) && (
-                <>
-                  <Divider />
-                  <Section title="Designator Linking">
-                    {designatorId ? (
-                      <Button content="Download shuttle link from designator" onClick={() => act('updateLinkedId')} />
-                    ) : (
-                      <Button content="Upload shuttle link to designator" onClick={() => act('updateDesignatorId')} />
-                    )}
-                  </Section>
-                </>
-              )}
+              {!!designatorInserted &&
+                (designatorId ? !shuttleId : shuttleId) && (
+                  <>
+                    <Divider />
+                    <Section title="Designator Linking">
+                      {designatorId ? (
+                        <Button
+                          content="Download shuttle link from designator"
+                          onClick={() => act('updateLinkedId')}
+                        />
+                      ) : (
+                        <Button
+                          content="Upload shuttle link to designator"
+                          onClick={() => act('updateDesignatorId')}
+                        />
+                      )}
+                    </Section>
+                  </>
+                )}
             </Section>
           </Flex.Item>
         </Flex>
@@ -161,7 +193,8 @@ export const InterdictionDisplay = (props, context) => {
     strokeWidth: '1',
   };
 
-  const { xOffset, yOffset, zoomScale, setZoomScale, setXOffset, setYOffset } = props;
+  const { xOffset, yOffset, zoomScale, setZoomScale, setXOffset, setYOffset } =
+    props;
 
   let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
 
@@ -175,7 +208,10 @@ export const InterdictionDisplay = (props, context) => {
         <Box bold mt={1} ml={1}>
           ENGINES INTERDICTED
         </Box>
-        <Box ml={1}>Flight controls disabled. Engine reboot in {interdictionTime / 10} seconds.</Box>
+        <Box ml={1}>
+          Flight controls disabled. Engine reboot in {interdictionTime / 10}{' '}
+          seconds.
+        </Box>
         <Box ml={1}>Local shuttles have been marked on the map.</Box>
       </NoticeBox>
       <Button
@@ -206,7 +242,8 @@ export const InterdictionDisplay = (props, context) => {
           setXOffset(value);
         }}
         onClick={(e, value) => {}}
-        updateRate={5}>
+        updateRate={5}
+      >
         {(control) => (
           <DraggableClickableControl
             position="absolute"
@@ -218,7 +255,8 @@ export const InterdictionDisplay = (props, context) => {
               setYOffset(value);
             }}
             onClick={(e, value) => {}}
-            updateRate={5}>
+            updateRate={5}
+          >
             {(control1) => (
               <>
                 {control.inputElement}
@@ -230,7 +268,8 @@ export const InterdictionDisplay = (props, context) => {
                   }}
                   viewBox="-250 -250 500 500"
                   position="absolute"
-                  overflowY="hidden">
+                  overflowY="hidden"
+                >
                   <defs>
                     <pattern
                       id="grid"
@@ -238,30 +277,56 @@ export const InterdictionDisplay = (props, context) => {
                       height={100 * lockedZoomScale}
                       patternUnits="userSpaceOnUse"
                       x={-xOffset * zoomScale}
-                      y={-yOffset * zoomScale}>
-                      <rect width={100 * lockedZoomScale} height={100 * lockedZoomScale} fill="url(#smallgrid)" />
+                      y={-yOffset * zoomScale}
+                    >
+                      <rect
+                        width={100 * lockedZoomScale}
+                        height={100 * lockedZoomScale}
+                        fill="url(#smallgrid)"
+                      />
                       <path
                         fill="none"
                         stroke="#CE1935"
                         stroke-width="1"
-                        d={'M ' + 100 * lockedZoomScale + ' 0 L 0 0 0 ' + 100 * lockedZoomScale}
+                        d={
+                          'M ' +
+                          100 * lockedZoomScale +
+                          ' 0 L 0 0 0 ' +
+                          100 * lockedZoomScale
+                        }
                       />
                     </pattern>
                     <pattern
                       id="smallgrid"
                       width={50 * lockedZoomScale}
                       height={50 * lockedZoomScale}
-                      patternUnits="userSpaceOnUse">
-                      <rect width={50 * lockedZoomScale} height={50 * lockedZoomScale} fill="#382424" />
+                      patternUnits="userSpaceOnUse"
+                    >
+                      <rect
+                        width={50 * lockedZoomScale}
+                        height={50 * lockedZoomScale}
+                        fill="#382424"
+                      />
                       <path
                         fill="none"
                         stroke="#CE1935"
                         stroke-width="0.5"
-                        d={'M ' + 50 * lockedZoomScale + ' 0 L 0 0 0 ' + 50 * lockedZoomScale}
+                        d={
+                          'M ' +
+                          50 * lockedZoomScale +
+                          ' 0 L 0 0 0 ' +
+                          50 * lockedZoomScale
+                        }
                       />
                     </pattern>
                   </defs>
-                  <rect x="-50%" y="-50%" width="100%" height="100%" fill="url(#grid)" />
+                  <rect
+                    x="-50%"
+                    y="-50%"
+                    width="100%"
+                    height="100%"
+                    fill="url(#grid)"
+                  />
                   {interdictedShuttles.map((map_object) => (
                     <>
                       <rect
@@ -272,10 +337,23 @@ export const InterdictionDisplay = (props, context) => {
                         style={boxTargetStyle}
                       />
                       <text
-                        x={Math.max(Math.min((map_object.x * 10 - xOffset + 30) * zoomScale, 200), -250)}
-                        y={Math.max(Math.min((-map_object.y * 10 - yOffset - 30) * zoomScale, 250), -240)}
+                        x={Math.max(
+                          Math.min(
+                            (map_object.x * 10 - xOffset + 30) * zoomScale,
+                            200
+                          ),
+                          -250
+                        )}
+                        y={Math.max(
+                          Math.min(
+                            (-map_object.y * 10 - yOffset - 30) * zoomScale,
+                            250
+                          ),
+                          -240
+                        )}
                         fill="white"
-                        fontSize={Math.min(40 * lockedZoomScale, 14)}>
+                        fontSize={Math.min(40 * lockedZoomScale, 14)}
+                      >
                         {map_object.shuttleName} ({map_object.x},{map_object.y})
                       </text>
                     </>
@@ -291,7 +369,15 @@ export const InterdictionDisplay = (props, context) => {
 };
 
 export const OrbitalMapDisplay = (props, context) => {
-  const { zoomScale, setZoomScale, setTrackedBody, ourObject, isTracking = false, dynamicXOffset, dynamicYOffset } = props;
+  const {
+    zoomScale,
+    setZoomScale,
+    setTrackedBody,
+    ourObject,
+    isTracking = false,
+    dynamicXOffset,
+    dynamicYOffset,
+  } = props;
 
   const [offset, setOffset] = useLocalState(context, 'offset', [0, 0]);
 
@@ -338,9 +424,12 @@ export const OrbitalMapDisplay = (props, context) => {
           left="calc(50% - 150px)"
           width="300px"
           textAlign="center"
-          fontSize="14px">
+          fontSize="14px"
+        >
           <>
-            <NoticeBox mt={1}>DOCKING PROTOCOL ONLINE, FLIGHT DISABLED - SELECT DESTINATION.</NoticeBox>
+            <NoticeBox mt={1}>
+              DOCKING PROTOCOL ONLINE, FLIGHT DISABLED - SELECT DESTINATION.
+            </NoticeBox>
             <Dropdown
               mt={1}
               selected="Select Docking Location"
@@ -381,12 +470,18 @@ export const OrbitalMapDisplay = (props, context) => {
           // the history of the universe knows react / javascript so nobody
           // will probably ever read this so I'm good.
           let proportionalX = (e.offsetX / clickedOnDiv.offsetWidth) * 500;
-          let proportionalY = ((e.offsetY - 30) / clickedOnDiv.offsetHeight) * 500;
+          let proportionalY =
+            ((e.offsetY - 30) / clickedOnDiv.offsetHeight) * 500;
           act('setTargetCoords', {
-            x: (proportionalX - 250) / zoomScale + (isTracking ? dynamicXOffset : xOffset),
-            y: (proportionalY - 250) / zoomScale + (isTracking ? dynamicYOffset : yOffset),
+            x:
+              (proportionalX - 250) / zoomScale +
+              (isTracking ? dynamicXOffset : xOffset),
+            y:
+              (proportionalY - 250) / zoomScale +
+              (isTracking ? dynamicYOffset : yOffset),
           });
-        }}>
+        }}
+      >
         {(control) => (
           <OrbitalMapSvg
             scaledXOffset={-control.xOffset * zoomScale}
@@ -402,7 +497,8 @@ export const OrbitalMapDisplay = (props, context) => {
             dragStartEvent={(e) => control.handleDragStart(e)}
             zoomScale={zoomScale}
             shuttleName={shuttleName}
-            currentUpdateIndex={update_index}>
+            currentUpdateIndex={update_index}
+          >
             {(control) => control.svgComponent}
           </OrbitalMapSvg>
         )}
@@ -416,7 +512,9 @@ export const RecallControl = (props, context) => {
   const { request_shuttle_message } = data;
   return (
     <>
-      <NoticeBox>Manual control disabled, this location can only recall the shuttle.</NoticeBox>
+      <NoticeBox>
+        Manual control disabled, this location can only recall the shuttle.
+      </NoticeBox>
       <Button
         content={request_shuttle_message}
         textAlign="center"
@@ -462,7 +560,9 @@ export const ShuttleControls = (props, context) => {
           })
         }
       />
-      <Box mt={1}>Velocity line will be adjusted to relative speed of this orbital body.</Box>
+      <Box mt={1}>
+        Velocity line will be adjusted to relative speed of this orbital body.
+      </Box>
       <ShuttleMap />
       <NoticeBox color="purple" mt={2}>
         Click on the primary display to fly.
@@ -489,9 +589,21 @@ export const ShuttleControls = (props, context) => {
           </Table.Row>
         ))}
       </Table>
-      <Button mt={2} content="Toggle Autopilot" onClick={() => act('nautopilot')} color={autopilot_enabled ? 'green' : 'red'} />
-      {!(canDock && !isDocking) || <Button mt={2} content="Initiate Docking" onClick={() => act('dock')} />}
-      <Button mt={2} content="ENGAGE INTERDICTOR" onClick={() => act('interdict')} color="purple" />
+      <Button
+        mt={2}
+        content="Toggle Autopilot"
+        onClick={() => act('nautopilot')}
+        color={autopilot_enabled ? 'green' : 'red'}
+      />
+      {!(canDock && !isDocking) || (
+        <Button mt={2} content="Initiate Docking" onClick={() => act('dock')} />
+      )}
+      <Button
+        mt={2}
+        content="ENGAGE INTERDICTOR"
+        onClick={() => act('interdict')}
+        color="purple"
+      />
     </>
   );
 };
@@ -506,26 +618,62 @@ export const ShuttleMap = (props, context) => {
     strokeWidth: '2',
   };
   const { act, data } = useBackend(context);
-  const { shuttleAngle = 0, shuttleThrust = 0, shuttleVelX = 0, shuttleVelY = 0 } = data;
+  const {
+    shuttleAngle = 0,
+    shuttleThrust = 0,
+    shuttleVelX = 0,
+    shuttleVelY = 0,
+  } = data;
   let x = (shuttleThrust + 30) * Math.cos(shuttleAngle * ((2 * Math.PI) / 360));
   let y = (shuttleThrust + 30) * Math.sin(shuttleAngle * ((2 * Math.PI) / 360));
   return (
     <Box width="370px" height="160px">
       <svg position="absolute" height="100%" viewBox="-100 -100 200 200">
         <defs>
-          <pattern id="grid" width={200} height={200} patternUnits="userSpaceOnUse">
+          <pattern
+            id="grid"
+            width={200}
+            height={200}
+            patternUnits="userSpaceOnUse"
+          >
             <rect width={200} height={200} fill="url(#smallgrid)" />
-            <path d={'M 200 0 L 0 0 0 200'} fill="none" stroke="#4665DE" stroke-width="1" />
+            <path
+              d={'M 200 0 L 0 0 0 200'}
+              fill="none"
+              stroke="#4665DE"
+              stroke-width="1"
+            />
           </pattern>
-          <pattern id="smallgrid" width={100} height={100} patternUnits="userSpaceOnUse">
+          <pattern
+            id="smallgrid"
+            width={100}
+            height={100}
+            patternUnits="userSpaceOnUse"
+          >
             <rect width={100} height={100} fill="#2B2E3B" />
-            <path d={'M 100 0 L 0 0 0 100'} fill="none" stroke="#4665DE" stroke-width="0.5" />
+            <path
+              d={'M 100 0 L 0 0 0 100'}
+              fill="none"
+              stroke="#4665DE"
+              stroke-width="0.5"
+            />
           </pattern>
         </defs>
         <rect x="-50%" y="-50%" width="100%" height="100%" fill="url(#grid)" />
-        <circle r="30px" stroke="#BBBBBB" stroke-width="1" fill="rgba(0,0,0,0)" />
+        <circle
+          r="30px"
+          stroke="#BBBBBB"
+          stroke-width="1"
+          fill="rgba(0,0,0,0)"
+        />
         <line x1={0} y1={0} x2={x} y2={y} style={lineStyle} />
-        <line x1={0} y1={0} x2={shuttleVelX} y2={shuttleVelY} style={velLineStyle} />
+        <line
+          x1={0}
+          y1={0}
+          x2={shuttleVelX}
+          y2={shuttleVelY}
+          style={velLineStyle}
+        />
       </svg>
     </Box>
   );

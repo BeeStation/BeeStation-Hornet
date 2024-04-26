@@ -1,8 +1,28 @@
 import { useBackend, useLocalState } from '../backend';
-import { Tabs, LabeledList, Section, Stack, ColorBox, Box, BlockQuote, Flex, Icon, Collapsible, RadarChart } from '../components';
+import {
+  Tabs,
+  LabeledList,
+  Section,
+  Stack,
+  ColorBox,
+  Box,
+  BlockQuote,
+  Flex,
+  Icon,
+  Collapsible,
+  RadarChart,
+} from '../components';
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
-import { Ability, AbilityThreshold, GivenAbilities, is_actually_a_threshold, threshold_title, sort_thresholds, sort_abilities } from './common/Holoparasite';
+import {
+  Ability,
+  AbilityThreshold,
+  GivenAbilities,
+  is_actually_a_threshold,
+  threshold_title,
+  sort_thresholds,
+  sort_abilities,
+} from './common/Holoparasite';
 import { sanitizeText } from 'tgui/sanitize';
 
 /**
@@ -150,13 +170,19 @@ const BasicInfo = (_props, context) => {
       <LabeledList>
         <LabeledList.Item label="Theme">{data.themed_name}</LabeledList.Item>
         <LabeledList.Item label="Name">{data.name}</LabeledList.Item>
-        <LabeledList.Item label="Battlecry">{data.battlecry || '(none)'}</LabeledList.Item>
+        <LabeledList.Item label="Battlecry">
+          {data.battlecry || '(none)'}
+        </LabeledList.Item>
         <LabeledList.Item label="Accent Color">
           <ColorBox color={data.accent_color} />
         </LabeledList.Item>
-        <LabeledList.Item label="Summoner">{data.summoner.name}</LabeledList.Item>
+        <LabeledList.Item label="Summoner">
+          {data.summoner.name}
+        </LabeledList.Item>
         {!!data.summoner.special_role && (
-          <LabeledList.Item label="Summoner Role">{data.summoner.special_role}</LabeledList.Item>
+          <LabeledList.Item label="Summoner Role">
+            {data.summoner.special_role}
+          </LabeledList.Item>
         )}
       </LabeledList>
     </Section>
@@ -251,24 +277,37 @@ const AntagInfo = (props: { antag_info: SummonerAntag }, context) => {
   const {
     antag_info: { objectives, allies, extra_info },
   } = props;
-  const [tab, set_tab] = useLocalState<SummonerTab>(context, 'summoner_tab', SummonerTab.Notes);
+  const [tab, set_tab] = useLocalState<SummonerTab>(
+    context,
+    'summoner_tab',
+    SummonerTab.Notes
+  );
   return (
     <>
       {!!objectives && (
         <Tabs.Tab
           icon="clipboard-list"
           selected={tab === SummonerTab.Objectives}
-          onClick={() => set_tab(SummonerTab.Objectives)}>
+          onClick={() => set_tab(SummonerTab.Objectives)}
+        >
           Objectives
         </Tabs.Tab>
       )}
       {!!allies && (
-        <Tabs.Tab icon="users" selected={tab === SummonerTab.Allies} onClick={() => set_tab(SummonerTab.Allies)}>
+        <Tabs.Tab
+          icon="users"
+          selected={tab === SummonerTab.Allies}
+          onClick={() => set_tab(SummonerTab.Allies)}
+        >
           Allies
         </Tabs.Tab>
       )}
       {!!extra_info && (
-        <Tabs.Tab icon="mask" selected={tab === SummonerTab.ExtraInfo} onClick={() => set_tab(SummonerTab.ExtraInfo)}>
+        <Tabs.Tab
+          icon="mask"
+          selected={tab === SummonerTab.ExtraInfo}
+          onClick={() => set_tab(SummonerTab.ExtraInfo)}
+        >
           Extra Info
         </Tabs.Tab>
       )}
@@ -280,23 +319,40 @@ const SummonerInfo = (_props, context) => {
   const {
     data: { summoner },
   } = useBackend<Info>(context);
-  const [tab, set_tab] = useLocalState<SummonerTab>(context, 'summoner_tab', SummonerTab.Notes);
+  const [tab, set_tab] = useLocalState<SummonerTab>(
+    context,
+    'summoner_tab',
+    SummonerTab.Notes
+  );
   return (
     <Section fill title="Summoner Info">
       <Tabs m={-1}>
-        <Tabs.Tab icon="sticky-note" selected={tab === SummonerTab.Notes} onClick={() => set_tab(SummonerTab.Notes)}>
+        <Tabs.Tab
+          icon="sticky-note"
+          selected={tab === SummonerTab.Notes}
+          onClick={() => set_tab(SummonerTab.Notes)}
+        >
           Notes
         </Tabs.Tab>
-        {!!summoner.antag_info && <AntagInfo antag_info={summoner.antag_info} />}
+        {!!summoner.antag_info && (
+          <AntagInfo antag_info={summoner.antag_info} />
+        )}
       </Tabs>
       {tab === SummonerTab.Notes && <Notes />}
-      {!!summoner.antag_info?.objectives && tab === SummonerTab.Objectives && <ObjectiveInfo />}
-      {!!summoner.antag_info?.extra_info && tab === SummonerTab.ExtraInfo && <ExtraInfo />}
+      {!!summoner.antag_info?.objectives && tab === SummonerTab.Objectives && (
+        <ObjectiveInfo />
+      )}
+      {!!summoner.antag_info?.extra_info && tab === SummonerTab.ExtraInfo && (
+        <ExtraInfo />
+      )}
     </Section>
   );
 };
 
-const StatBox = (props: { name: string; description: string; value: number }, context) => {
+const StatBox = (
+  props: { name: string; description: string; value: number },
+  context
+) => {
   const { data } = useBackend<Info>(context);
   const { name, description, value } = props;
   return (
@@ -307,11 +363,17 @@ const StatBox = (props: { name: string; description: string; value: number }, co
             <Stack fill vertical>
               <Stack.Item>
                 <Box textAlign="justify" textColor="label">
-                  {description.replace('$theme', data.themed_name.toLocaleLowerCase())}
+                  {description.replace(
+                    '$theme',
+                    data.themed_name.toLocaleLowerCase()
+                  )}
                 </Box>
               </Stack.Item>
               <Stack.Item textAlign="center">
-                <Box inline color={value >= 4 ? 'green' : value >= 2 ? 'yellow' : 'red'}>
+                <Box
+                  inline
+                  color={value >= 4 ? 'green' : value >= 2 ? 'yellow' : 'red'}
+                >
                   {value}
                 </Box>{' '}
                 / 5
@@ -331,13 +393,21 @@ const StatsSection = (_props, context) => {
     <Section>
       <Stack vertical>
         <Stack.Item>
-          <StatBox name="Damage" description="Amount of damage you can deal per hit." value={stats.damage} />
+          <StatBox
+            name="Damage"
+            description="Amount of damage you can deal per hit."
+            value={stats.damage}
+          />
           <StatBox
             name="Defense"
             description="Amount of damage you can negate, rather than transferring the entirety of it to the summoner."
             value={stats.defense}
           />
-          <StatBox name="Speed" description="How fast you can move and attack targets" value={stats.speed} />
+          <StatBox
+            name="Speed"
+            description="How fast you can move and attack targets"
+            value={stats.speed}
+          />
           <StatBox
             name="Potential"
             description="Does nothing on its own, but it boosts the power of your abilities in various ways, although other stats can do so as well."
@@ -361,7 +431,13 @@ const StatsChartSection = (_props, context) => {
     <RadarChart
       axes={['Damage', 'Defense', 'Speed', 'Potential', 'Range']}
       stages={['1', '2', '3', '4', '5']}
-      values={[stats.damage, stats.defense, stats.speed, stats.potential, stats.range]}
+      values={[
+        stats.damage,
+        stats.defense,
+        stats.speed,
+        stats.potential,
+        stats.range,
+      ]}
       areaColor={accent_color}
       width={300}
       height={300}
@@ -369,32 +445,44 @@ const StatsChartSection = (_props, context) => {
   );
 };
 
-const AbilityThresholds = (props: { title: string; thresholds: AbilityThreshold[] }, context) => {
+const AbilityThresholds = (
+  props: { title: string; thresholds: AbilityThreshold[] },
+  context
+) => {
   const { data } = useBackend<Info>(context);
   return (
     <Collapsible title={props.title}>
       <Stack vertical>
-        {sort_thresholds(props.thresholds || []).map((threshold: AbilityThreshold, index: number) => {
-          return (
-            <Stack.Item key={index}>
-              <Section title={threshold_title(threshold.stats)}>
-                <Box textAlign="justify" textColor="label">
-                  {threshold.desc.replace('$theme', data.themed_name.toLocaleLowerCase())}
-                </Box>
-              </Section>
-            </Stack.Item>
-          );
-        })}
+        {sort_thresholds(props.thresholds || []).map(
+          (threshold: AbilityThreshold, index: number) => {
+            return (
+              <Stack.Item key={index}>
+                <Section title={threshold_title(threshold.stats)}>
+                  <Box textAlign="justify" textColor="label">
+                    {threshold.desc.replace(
+                      '$theme',
+                      data.themed_name.toLocaleLowerCase()
+                    )}
+                  </Box>
+                </Section>
+              </Stack.Item>
+            );
+          }
+        )}
       </Stack>
     </Collapsible>
   );
 };
 
-const AbilityDisplay = (props: { ability: Ability; title?: string }, context) => {
+const AbilityDisplay = (
+  props: { ability: Ability; title?: string },
+  context
+) => {
   const { data } = useBackend<Info>(context);
   const { ability, title } = props;
   const [stat_thresholds, stat_info] = ability.thresholds.reduce(
-    ([p, f], e) => (is_actually_a_threshold(e) ? [[...p, e], f] : [p, [...f, e]]),
+    ([p, f], e) =>
+      is_actually_a_threshold(e) ? [[...p, e], f] : [p, [...f, e]],
     [[], []]
   ); // from https://stackoverflow.com/a/47225591
   return (
@@ -407,21 +495,31 @@ const AbilityDisplay = (props: { ability: Ability; title?: string }, context) =>
             {title || ability.name}
           </Box>
         </>
-      }>
+      }
+    >
       <Stack vertical>
         <Stack.Item>
           <Box textAlign="justify" textColor="label">
-            {ability.desc.replace('$theme', data.themed_name.toLocaleLowerCase())}
+            {ability.desc.replace(
+              '$theme',
+              data.themed_name.toLocaleLowerCase()
+            )}
           </Box>
         </Stack.Item>
         {stat_info.length > 0 && (
           <Stack.Item>
-            <AbilityThresholds title="Stat Interactions" thresholds={stat_info} />
+            <AbilityThresholds
+              title="Stat Interactions"
+              thresholds={stat_info}
+            />
           </Stack.Item>
         )}
         {stat_thresholds.length > 0 && (
           <Stack.Item>
-            <AbilityThresholds title="Stat Thresholds" thresholds={stat_thresholds} />
+            <AbilityThresholds
+              title="Stat Thresholds"
+              thresholds={stat_thresholds}
+            />
           </Stack.Item>
         )}
       </Stack>
@@ -442,7 +540,9 @@ const MajorAbilitySection = (_props, context) => {
     );
   }
   const ability = abilities.major!;
-  return <AbilityDisplay title={`Ability: ${ability.name}`} ability={ability} />;
+  return (
+    <AbilityDisplay title={`Ability: ${ability.name}`} ability={ability} />
+  );
 };
 
 const WeaponSection = (_props, context) => {
@@ -458,7 +558,9 @@ const LesserAbilitiesSection = (_props, context) => {
     return (
       <Section fill title="Lesser Abilities">
         <Box>
-          <span class="label italics">You do not have any lesser abilities!</span>
+          <span class="label italics">
+            You do not have any lesser abilities!
+          </span>
         </Box>
       </Section>
     );
@@ -469,15 +571,18 @@ const LesserAbilitiesSection = (_props, context) => {
       <Stack vertical>
         <Stack.Item>
           <Box textColor="label">
-            Lesser abilities are abilities that, while less powerful than major abilities, are typically cheaper. You can have
-            multiple lesser abilities, in addition to being able to use them alongside a full ability.
+            Lesser abilities are abilities that, while less powerful than major
+            abilities, are typically cheaper. You can have multiple lesser
+            abilities, in addition to being able to use them alongside a full
+            ability.
           </Box>
         </Stack.Item>
         <Stack.Item>
           <Stack vertical>
             {abilities.map((ability: Ability, _index: number) => {
               const [stat_thresholds, stat_info] = ability.thresholds.reduce(
-                ([p, f], e) => (is_actually_a_threshold(e) ? [[...p, e], f] : [p, [...f, e]]),
+                ([p, f], e) =>
+                  is_actually_a_threshold(e) ? [[...p, e], f] : [p, [...f, e]],
                 [[], []]
               ); // from https://stackoverflow.com/a/47225591
               return (
@@ -490,21 +595,31 @@ const LesserAbilitiesSection = (_props, context) => {
                           {ability.name}
                         </Box>
                       </>
-                    }>
+                    }
+                  >
                     <Stack vertical>
                       <Stack.Item>
                         <Box textAlign="justify" textColor="label">
-                          {ability.desc.replace('$theme', data.themed_name.toLocaleLowerCase())}
+                          {ability.desc.replace(
+                            '$theme',
+                            data.themed_name.toLocaleLowerCase()
+                          )}
                         </Box>
                       </Stack.Item>
                       {stat_info.length > 0 && (
                         <Stack.Item>
-                          <AbilityThresholds title="Stat Interactions" thresholds={stat_info} />
+                          <AbilityThresholds
+                            title="Stat Interactions"
+                            thresholds={stat_info}
+                          />
                         </Stack.Item>
                       )}
                       {stat_thresholds.length > 0 && (
                         <Stack.Item>
-                          <AbilityThresholds title="Stat Thresholds" thresholds={stat_thresholds} />
+                          <AbilityThresholds
+                            title="Stat Thresholds"
+                            thresholds={stat_thresholds}
+                          />
                         </Stack.Item>
                       )}
                     </Stack>

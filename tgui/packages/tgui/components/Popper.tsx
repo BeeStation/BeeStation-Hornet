@@ -50,7 +50,11 @@ export class Popper extends Component<PopperProps> {
         return;
       }
 
-      this.popperInstance = createPopper(domNode, this.renderedContent, options);
+      this.popperInstance = createPopper(
+        domNode,
+        this.renderedContent,
+        options
+      );
     });
   }
 
@@ -66,7 +70,12 @@ export class Popper extends Component<PopperProps> {
   renderPopperContent(callback: () => void) {
     // `render` errors when given false, so we convert it to `null`,
     // which is supported.
-    render(this.props.popperContent || null, this.renderedContent, callback, this.context);
+    render(
+      this.props.popperContent || null,
+      this.renderedContent,
+      callback,
+      this.context
+    );
   }
 
   render() {

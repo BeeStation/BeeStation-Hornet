@@ -26,13 +26,19 @@ const Story = (props, context) => {
           onClick={() => {
             localStorage.clear();
             storage.clear();
-          }}>
+          }}
+        >
           Clear
         </Button>
-      }>
+      }
+    >
       <LabeledList>
-        <LabeledList.Item label="Keys in use">{localStorage.length}</LabeledList.Item>
-        <LabeledList.Item label="Remaining space">{formatSiUnit(localStorage.remainingSpace, 0, 'B')}</LabeledList.Item>
+        <LabeledList.Item label="Keys in use">
+          {localStorage.length}
+        </LabeledList.Item>
+        <LabeledList.Item label="Remaining space">
+          {formatSiUnit(localStorage.remainingSpace, 0, 'B')}
+        </LabeledList.Item>
       </LabeledList>
     </Section>
   );
