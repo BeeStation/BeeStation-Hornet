@@ -26,10 +26,10 @@
 	var/max_time = 40
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		max_time -= L.rating
-	interval = max(max_time,1)
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if(M.rating >= 2)
+		if(L.rating >= 2)
 			allow_clothing = TRUE
+	interval = max(max_time,1)
+
 /obj/machinery/harvester/update_icon(warming_up)
 	if(warming_up)
 		icon_state = initial(icon_state)+"-charging"
