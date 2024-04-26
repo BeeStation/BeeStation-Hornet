@@ -1,5 +1,19 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, LabeledList, Input, NoticeBox, ProgressBar, Section, Divider, Flex, Table, Grid, NumberInput, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  Input,
+  NoticeBox,
+  ProgressBar,
+  Section,
+  Divider,
+  Flex,
+  Table,
+  Grid,
+  NumberInput,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 import { Fragment } from 'inferno';
 import { capitalize, createSearch } from 'common/string';
@@ -154,7 +168,9 @@ export const ModFabMain = (props, context) => {
       .filter((item, i) => i < MAX_SEARCH_RESULTS)
       .filter((item) => {
         // check whether we have design_id repeats in our search
-        return repeats.has(item.design_id) ? false : repeats.add(item.design_id);
+        return repeats.has(item.design_id)
+          ? false
+          : repeats.add(item.design_id);
       });
   } else {
     for (let i = 0; i < items.length; i++) {
@@ -168,7 +184,11 @@ export const ModFabMain = (props, context) => {
     <Section overflowY="scroll" height="100%" width="100%">
       <ModFabCategoryList categories={items} />
       <Divider />
-      {selected_category_items ? <ModFabCategoryItems items={selected_category_items} /> : ''}
+      {selected_category_items ? (
+        <ModFabCategoryItems items={selected_category_items} />
+      ) : (
+        ''
+      )}
     </Section>
   );
 };
@@ -260,7 +280,12 @@ export const ModFabCategoryItems = (props, context) => {
               />
             </Table.Cell>
             <Table.Cell collapsing verticalAlign="middle">
-              <NumberInput value={amount} minValue={0} maxValue={50} onChange={(e, value) => setAmount(value)} />
+              <NumberInput
+                value={amount}
+                minValue={0}
+                maxValue={50}
+                onChange={(e, value) => setAmount(value)}
+              />
             </Table.Cell>
             <Table.Cell collapsing verticalAlign="middle">
               <Button
@@ -292,14 +317,20 @@ export const ModFabCategoryItems = (props, context) => {
 
 export const ModFabData = (props, context) => {
   const { act, data } = useBackend(context);
-  const { hacked, sec_interface_unlock, show_unlock_bar, can_sync = true } = data;
+  const {
+    hacked,
+    sec_interface_unlock,
+    show_unlock_bar,
+    can_sync = true,
+  } = data;
   return (
     <Fragment>
       {show_unlock_bar ? (
         <NoticeBox color={sec_interface_unlock ? 'green' : 'red'}>
           <Flex align="center">
             <Flex.Item grow={1}>
-              Security protocol {hacked ? 'disengaged' : 'engaged'}. Swipe a valid ID to unlock safety controls.
+              Security protocol {hacked ? 'disengaged' : 'engaged'}. Swipe a
+              valid ID to unlock safety controls.
             </Flex.Item>
             <Flex.Item>
               <Button
@@ -355,7 +386,12 @@ export const SyncWithServers = (props, context) => {
         </Table.Row>
         <Table.Row>
           <Table.Cell colspan={2} textAlign="center" bold>
-            <Button color={'green'} content="Resync" icon="upload" onClick={() => act('resync_rd')} />
+            <Button
+              color={'green'}
+              content="Resync"
+              icon="upload"
+              onClick={() => act('resync_rd')}
+            />
           </Table.Cell>
         </Table.Row>
       </Table>
@@ -495,7 +531,11 @@ export const MaterialData = (props, context) => {
 
 export const SidePanel = (props, context) => {
   const { act } = useBackend(context);
-  const [queueRepeat, setQueueRepeat] = useLocalState(context, 'queueRepeat', 0);
+  const [queueRepeat, setQueueRepeat] = useLocalState(
+    context,
+    'queueRepeat',
+    0,
+  );
   return (
     <Section width="100%" height="100%">
       <MaterialData />
@@ -519,7 +559,13 @@ export const SidePanel = (props, context) => {
           />
         </Flex.Item>
         <Flex.Item mx={1}>
-          <Button m={0} color="red" icon="times" content="Clear" onClick={() => act('clear_queue')} />
+          <Button
+            m={0}
+            color="red"
+            icon="times"
+            content="Clear"
+            onClick={() => act('clear_queue')}
+          />
         </Flex.Item>
       </Flex>
       <Divider />
@@ -534,9 +580,20 @@ export const ProcessingBar = (props, context) => {
   const { being_build } = data;
   return (
     <div className="ModularFabricator__sidebar_bottom">
-      <Button content="Process" color="green" icon="caret-right" onClick={() => act('begin_process')} />
+      <Button
+        content="Process"
+        color="green"
+        icon="caret-right"
+        onClick={() => act('begin_process')}
+      />
       {being_build ? (
-        <ProgressBar value={being_build.progress} minValue={0} maxValue={100} color="green" width="75%">
+        <ProgressBar
+          value={being_build.progress}
+          minValue={0}
+          maxValue={100}
+          color="green"
+          width="75%"
+        >
           {being_build.name} - {Math.min(round(being_build.progress), 100)}%
         </ProgressBar>
       ) : (
@@ -597,7 +654,10 @@ export const ModFabDataDisk = (props, context) => {
       <Table>
         <Table.Row>
           <Table.Cell>Status:</Table.Cell>
-          <Table.Cell bold color={acceptsDisk ? (diskInserted ? 'green' : 'yellow') : 'red'}>
+          <Table.Cell
+            bold
+            color={acceptsDisk ? (diskInserted ? 'green' : 'yellow') : 'red'}
+          >
             {acceptsDisk ? (diskInserted ? 'Ready' : 'Empty') : 'Inactive'}
           </Table.Cell>
         </Table.Row>

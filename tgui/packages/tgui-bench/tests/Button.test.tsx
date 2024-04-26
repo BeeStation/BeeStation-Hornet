@@ -18,7 +18,9 @@ export const SingleButtonWithCallback = () => {
 };
 
 export const SingleButtonWithLinkEvent = () => {
-  const node = <Button onClick={linkEvent(null, handleClick)}>Hello world!</Button>;
+  const node = (
+    <Button onClick={linkEvent(null, handleClick)}>Hello world!</Button>
+  );
   render(node);
 };
 

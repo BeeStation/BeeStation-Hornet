@@ -16,6 +16,6 @@ export const pixel_size: Feature<number> = {
     },
     {
       buttons: true,
-    }
+    },
   ),
 };

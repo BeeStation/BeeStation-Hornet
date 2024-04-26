@@ -13,7 +13,14 @@ export const BluespaceArtillery = (props, context) => {
           <>
             <Section
               title="Target"
-              buttons={<Button icon="crosshairs" disabled={!unlocked} onClick={() => act('recalibrate')} />}>
+              buttons={
+                <Button
+                  icon="crosshairs"
+                  disabled={!unlocked}
+                  onClick={() => act('recalibrate')}
+                />
+              }
+            >
               <Box color={target ? 'average' : 'bad'} fontSize="25px">
                 {target || 'No Target Set'}
               </Box>
@@ -37,7 +44,10 @@ export const BluespaceArtillery = (props, context) => {
                   <Box color="bad" fontSize="18px">
                     Bluespace artillery is currently locked.
                   </Box>
-                  <Box mt={1}>Awaiting authorization via keycard reader from at minimum two station heads.</Box>
+                  <Box mt={1}>
+                    Awaiting authorization via keycard reader from at minimum
+                    two station heads.
+                  </Box>
                 </>
               )}
             </Section>
@@ -46,7 +56,11 @@ export const BluespaceArtillery = (props, context) => {
           <Section>
             <LabeledList>
               <LabeledList.Item label="Maintenance">
-                <Button icon="wrench" content="Complete Deployment" onClick={() => act('build')} />
+                <Button
+                  icon="wrench"
+                  content="Complete Deployment"
+                  onClick={() => act('build')}
+                />
               </LabeledList.Item>
             </LabeledList>
           </Section>

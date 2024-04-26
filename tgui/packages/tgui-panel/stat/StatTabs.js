@@ -26,7 +26,13 @@ export const StatTabs = (props, context) => {
   return (
     <Fragment>
       <Flex.Item shrink={0}>
-        <div className="StatTabBackground">{settings.statTabMode === 'Scroll' ? <StatTabScroll /> : <StatTabWrap />}</div>
+        <div className="StatTabBackground">
+          {settings.statTabMode === 'Scroll' ? (
+            <StatTabScroll />
+          ) : (
+            <StatTabWrap />
+          )}
+        </div>
       </Flex.Item>
       <ScrollableBox overflowY="scroll" height="100%">
         <div className="StatBackground">
@@ -73,7 +79,8 @@ export const StatTabScroll = (props, context) => {
                     type: 'stat/setTab',
                     payload: tab,
                   })
-                }>
+                }
+              >
                 {tab}
               </Tabs.Tab>
             ))}
@@ -103,7 +110,8 @@ export const StatTabWrap = (props, context) => {
               type: 'stat/setTab',
               payload: tab,
             })
-          }>
+          }
+        >
           {tab}
         </Button>
       ))}

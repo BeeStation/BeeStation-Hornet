@@ -4,7 +4,13 @@ import { Window } from '../layouts';
 
 export const LanguageMenu = (props, context) => {
   const { act, data } = useBackend(context);
-  const { admin_mode, is_living, omnitongue, languages = [], unknown_languages = [] } = data;
+  const {
+    admin_mode,
+    is_living,
+    omnitongue,
+    languages = [],
+    unknown_languages = [],
+  } = data;
   return (
     <Window theme="generic" width={700} height={600}>
       <Window.Content scrollable>
@@ -18,7 +24,11 @@ export const LanguageMenu = (props, context) => {
                   <>
                     {!!is_living && (
                       <Button
-                        content={language.is_default ? 'Default Language' : 'Select as Default'}
+                        content={
+                          language.is_default
+                            ? 'Default Language'
+                            : 'Select as Default'
+                        }
                         disabled={!language.can_speak}
                         selected={language.is_default}
                         onClick={() =>
@@ -49,8 +59,12 @@ export const LanguageMenu = (props, context) => {
                       </>
                     )}
                   </>
-                }>
-                {language.desc} Key: ,{language.key} {language.can_understand ? 'Can understand.' : 'Cannot understand.'}{' '}
+                }
+              >
+                {language.desc} Key: ,{language.key}{' '}
+                {language.can_understand
+                  ? 'Can understand.'
+                  : 'Cannot understand.'}{' '}
                 {language.can_speak ? 'Can speak.' : 'Cannot speak.'}
               </LabeledList.Item>
             ))}
@@ -65,7 +79,8 @@ export const LanguageMenu = (props, context) => {
                 selected={omnitongue}
                 onClick={() => act('toggle_omnitongue')}
               />
-            }>
+            }
+          >
             <LabeledList>
               {unknown_languages.map((language) => (
                 <LabeledList.Item
@@ -80,9 +95,13 @@ export const LanguageMenu = (props, context) => {
                         })
                       }
                     />
-                  }>
-                  {language.desc} Key: ,{language.key} {!!language.shadow && '(gained from mob)'}{' '}
-                  {language.can_understand ? 'Can understand.' : 'Cannot understand.'}{' '}
+                  }
+                >
+                  {language.desc} Key: ,{language.key}{' '}
+                  {!!language.shadow && '(gained from mob)'}{' '}
+                  {language.can_understand
+                    ? 'Can understand.'
+                    : 'Cannot understand.'}{' '}
                   {language.can_speak ? 'Can speak.' : 'Cannot speak.'}
                 </LabeledList.Item>
               ))}

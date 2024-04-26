@@ -1,4 +1,9 @@
-import { FeatureColorInput, Feature, FeatureToggle, CheckboxInput } from '../base';
+import {
+  FeatureColorInput,
+  Feature,
+  FeatureToggle,
+  CheckboxInput,
+} from '../base';
 
 export const asaycolor: Feature<string> = {
   name: 'Admin chat color',
@@ -12,7 +17,8 @@ export const announce_login: FeatureToggle = {
   name: 'Announce Login',
   category: 'ADMIN',
   subcategory: 'Misc',
-  description: 'Whether you will announce whenever you login to fellow admins or not.',
+  description:
+    'Whether you will announce whenever you login to fellow admins or not.',
   component: CheckboxInput,
 };
 

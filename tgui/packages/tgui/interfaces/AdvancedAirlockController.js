@@ -2,7 +2,14 @@ import { toFixed } from 'common/math';
 import { decodeHtmlEntities } from 'common/string';
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, NumberInput, Section, ProgressBar } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+  ProgressBar,
+} from '../components';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 import { classes } from 'common/react';
 import { Window } from '../layouts';
@@ -30,7 +37,11 @@ export const AdvancedAirlockController = (props, context) => {
     <Window width={440} height={650}>
       <Window.Content>
         <Fragment>
-          <InterfaceLockNoticeBox siliconUser={data.siliconUser} locked={data.locked} onLockStatusChange={() => act('lock')} />
+          <InterfaceLockNoticeBox
+            siliconUser={data.siliconUser}
+            locked={data.locked}
+            onLockStatusChange={() => act('lock')}
+          />
           <AACStatus state={state} />
           {!locked && <AACControl state={state} />}
         </Fragment>
@@ -78,7 +89,8 @@ export const AACStatus = (props, context) => {
     },
     [STATE_ERROR]: {
       color: 'bad',
-      localStatusText: 'Error. Contact an atmospheric\
+      localStatusText:
+        'Error. Contact an atmospheric\
       technician for assistance.',
     },
   };
@@ -95,7 +107,8 @@ export const AACStatus = (props, context) => {
                 average: [0.25, 0.75],
                 bad: [-Infinity, 0.25],
               }}
-              value={pressure / maxpressure}>
+              value={pressure / maxpressure}
+            >
               {toFixed(pressure, 2)} kPa
             </ProgressBar>
           </LabeledList.Item>
@@ -146,11 +159,14 @@ export const AACStatus = (props, context) => {
           icon="forward"
           content={
             'Skip ' +
-            (data.cyclestate === STATE_OUTOPENING || data.cyclestate === STATE_INOPENING
+            (data.cyclestate === STATE_OUTOPENING ||
+            data.cyclestate === STATE_INOPENING
               ? 'pressurization'
               : 'depressurization') +
             (data.skip_timer < data.skip_delay
-              ? ' (in ' + Math.round((data.skip_delay - data.skip_timer) / 10) + ' seconds)'
+              ? ' (in ' +
+                Math.round((data.skip_delay - data.skip_timer) / 10) +
+                ' seconds)'
               : '')
           }
           color="danger"
@@ -177,10 +193,16 @@ export const AACControl = (props, context) => {
   } = data;
   return (
     <Section title="Configuration">
-      {cyclestate === STATE_ERROR && !!config_error_str && <Box className={classes(['NoticeBox'])}>{config_error_str}</Box>}
+      {cyclestate === STATE_ERROR && !!config_error_str && (
+        <Box className={classes(['NoticeBox'])}>{config_error_str}</Box>
+      )}
       <LabeledList>
         <LabeledList.Item label="Actions">
-          <Button icon="search" content="Scan for Devices" onClick={() => act('scan')} />
+          <Button
+            icon="search"
+            content="Scan for Devices"
+            onClick={() => act('scan')}
+          />
         </LabeledList.Item>
         <LabeledList.Item label="Interior Pressure">
           <NumberInput
@@ -256,7 +278,9 @@ export const AACControl = (props, context) => {
       {!airlocks || airlocks.length === 0 ? (
         <Box className={classes(['NoticeBox'])}>No Airlocks</Box>
       ) : (
-        airlocks.map((airlock) => <Airlock key={airlock.airlock_id} state={state} {...airlock} />)
+        airlocks.map((airlock) => (
+          <Airlock key={airlock.airlock_id} state={state} {...airlock} />
+        ))
       )}
     </Section>
   );
@@ -279,7 +303,8 @@ export const Vent = (props, context) => {
             })
           }
         />
-      }>
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="Roles">
           <Button
@@ -344,12 +369,16 @@ export const Airlock = (props, context) => {
           content="Show Hologram"
           selected={data.vis_target === airlock_id}
           onClick={() =>
-            act(data.vis_target === airlock_id ? 'clear_vis' : 'set_vis_airlock', {
-              airlock_id,
-            })
+            act(
+              data.vis_target === airlock_id ? 'clear_vis' : 'set_vis_airlock',
+              {
+                airlock_id,
+              },
+            )
           }
         />
-      }>
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="Roles">
           <Button

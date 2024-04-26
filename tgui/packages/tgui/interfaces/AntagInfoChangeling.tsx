@@ -39,8 +39,9 @@ export const AntagInfoChangeling = (_props, context) => {
     <Window width={720} height={500} theme="neutral">
       <Window.Content
         style={{
-          'backgroundImage': 'none',
-        }}>
+          backgroundImage: 'none',
+        }}
+      >
         <Stack vertical fill>
           <Stack.Item>
             <IntroductionSection />
@@ -87,7 +88,7 @@ const IntroductionSection = (_props, context) => {
           />
         </Stack.Item>
         <Stack.Item grow>
-          <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
+          <h1 style={{ position: 'relative', top: '25%', left: '25%' }}>
             You are{' '}
             <Box inline textColor="bad">
               {true_name}
@@ -108,17 +109,19 @@ const AbilitiesSection = (_props, _context) => {
           <Stack vertical>
             <Stack.Item textColor="label">
               Your
-              <span style={absorbstyle}>&ensp;Absorb DNA</span> ability allows you to steal the DNA and memories of a victim.
-              Your
-              <span style={absorbstyle}>&ensp;Extract DNA Sting</span> ability also steals the DNA of a victim, and is
-              undetectable, but does not grant you their memories or speech patterns.
+              <span style={absorbstyle}>&ensp;Absorb DNA</span> ability allows
+              you to steal the DNA and memories of a victim. Your
+              <span style={absorbstyle}>&ensp;Extract DNA Sting</span> ability
+              also steals the DNA of a victim, and is undetectable, but does not
+              grant you their memories or speech patterns.
             </Stack.Item>
             <Stack.Divider />
             <Stack.Item textColor="label">
               Your
-              <span style={revivestyle}>&ensp;Reviving Stasis</span> ability allows you to revive. It means nothing short of a
-              complete body destruction can stop you! Obviously, this is loud and so should not be done in front of people you
-              are not planning on silencing.
+              <span style={revivestyle}>&ensp;Reviving Stasis</span> ability
+              allows you to revive. It means nothing short of a complete body
+              destruction can stop you! Obviously, this is loud and so should
+              not be done in front of people you are not planning on silencing.
             </Stack.Item>
           </Stack>
         </Stack.Item>
@@ -127,16 +130,18 @@ const AbilitiesSection = (_props, _context) => {
           <Stack vertical>
             <Stack.Item textColor="label">
               Your
-              <span style={transformstyle}>&ensp;Transform</span> ability allows you to change into the form of those you have
-              collected DNA from, lethally and nonlethally. It will also mimic (NOT REAL CLOTHING) the clothing they were
-              wearing for every slot you have open.
+              <span style={transformstyle}>&ensp;Transform</span> ability allows
+              you to change into the form of those you have collected DNA from,
+              lethally and nonlethally. It will also mimic (NOT REAL CLOTHING)
+              the clothing they were wearing for every slot you have open.
             </Stack.Item>
             <Stack.Divider />
             <Stack.Item textColor="label">
               The
-              <span style={storestyle}>&ensp;Cellular Emporium</span> is where you purchase more abilities beyond your starting
-              kit. You have 10 genetic points to spend on abilities and you are able to readapt after absorbing a body,
-              refunding your points for different kits.
+              <span style={storestyle}>&ensp;Cellular Emporium</span> is where
+              you purchase more abilities beyond your starting kit. You have 10
+              genetic points to spend on abilities and you are able to readapt
+              after absorbing a body, refunding your points for different kits.
             </Stack.Item>
           </Stack>
         </Stack.Item>

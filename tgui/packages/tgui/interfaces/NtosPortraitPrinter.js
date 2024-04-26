@@ -43,10 +43,11 @@ export const NtosPortraitPrinter = (props, context) => {
                         onClick={() => {
                           setListIndex(0);
                           setTabIndex(i);
-                        }}>
+                        }}
+                      >
                         {tabObj.name}
                       </Tabs.Tab>
-                    )
+                    ),
                 )}
               </Tabs>
             </Section>
@@ -54,10 +55,19 @@ export const NtosPortraitPrinter = (props, context) => {
           {!!is_category_empty && (
             <Stack.Item grow={2}>
               <Section fill>
-                <Stack height="100%" align="center" justify="center" direction="column">
+                <Stack
+                  height="100%"
+                  align="center"
+                  justify="center"
+                  direction="column"
+                >
                   <Stack.Item>
                     <img
-                      src={resolveAsset(TABS[tabIndex].asset_prefix + '_' + tab2list[listIndex]['md5'])}
+                      src={resolveAsset(
+                        TABS[tabIndex].asset_prefix +
+                          '_' +
+                          tab2list[listIndex]['md5'],
+                      )}
                       height="128px"
                       width="128px"
                       style={{
@@ -66,7 +76,9 @@ export const NtosPortraitPrinter = (props, context) => {
                       }}
                     />
                   </Stack.Item>
-                  <Stack.Item className="Section__titleText">{tab2list[listIndex]['title']}</Stack.Item>
+                  <Stack.Item className="Section__titleText">
+                    {tab2list[listIndex]['title']}
+                  </Stack.Item>
                 </Stack>
               </Section>
             </Stack.Item>
@@ -84,10 +96,18 @@ export const NtosPortraitPrinter = (props, context) => {
                 <Section height="100%">
                   <Stack justify="space-between">
                     <Stack.Item grow={1}>
-                      <Button icon="angle-double-left" disabled={listIndex === 0} onClick={() => setListIndex(0)} />
+                      <Button
+                        icon="angle-double-left"
+                        disabled={listIndex === 0}
+                        onClick={() => setListIndex(0)}
+                      />
                     </Stack.Item>
                     <Stack.Item grow={3}>
-                      <Button disabled={listIndex === 0} icon="chevron-left" onClick={() => setListIndex(listIndex - 1)} />
+                      <Button
+                        disabled={listIndex === 0}
+                        icon="chevron-left"
+                        onClick={() => setListIndex(listIndex - 1)}
+                      />
                     </Stack.Item>
                     <Stack.Item grow={3}>
                       <Button
@@ -121,7 +141,10 @@ export const NtosPortraitPrinter = (props, context) => {
               </Stack.Item>
             </Stack>
             <Stack.Item mt={1} mb={-1}>
-              <NoticeBox info>Printing a canvas costs 10 paper from the printer installed in your machine.</NoticeBox>
+              <NoticeBox info>
+                Printing a canvas costs 10 paper from the printer installed in
+                your machine.
+              </NoticeBox>
             </Stack.Item>
           </Stack.Item>
         </Stack>

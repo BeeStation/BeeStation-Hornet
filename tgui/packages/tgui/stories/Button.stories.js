@@ -40,7 +40,13 @@ const Story = (props, context) => {
         <Button icon="cog" content="Icon" />
         <Button icon="power-off" />
         <Button fluid content="Fluid" />
-        <Button my={1} lineHeight={2} minWidth={15} textAlign="center" content="With Box props" />
+        <Button
+          my={1}
+          lineHeight={2}
+          minWidth={15}
+          textAlign="center"
+          content="With Box props"
+        />
       </Box>
       <Box mb={1}>
         {COLORS_STATES.map((color) => (

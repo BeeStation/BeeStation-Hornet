@@ -72,7 +72,12 @@
 
 @each $channel, $color in colors.$channel-map {
   .modal-#{$channel} {
-    border-image: linear-gradient(30deg, adjust-hue($color, 15deg), darken($color, 20%), darken(adjust-hue($color, 15deg), 10%))
+    border-image: linear-gradient(
+        30deg,
+        adjust-hue($color, 15deg),
+        darken($color, 20%),
+        darken(adjust-hue($color, 15deg), 10%)
+      )
       1;
     border-width: 1px;
     border-image-width: 1px;

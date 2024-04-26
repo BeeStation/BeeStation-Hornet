@@ -33,7 +33,8 @@ export const SpawnersMenu = (props, context) => {
                     }
                   />
                 </>
-              }>
+              }
+            >
               <Box bold mb={1} fontSize="20px">
                 {spawner.short_desc}
               </Box>

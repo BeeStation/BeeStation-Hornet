@@ -12,7 +12,15 @@ export const CellularEmporium = (props, context) => {
           <LabeledList>
             <LabeledList.Item
               label="Genetic Points"
-              buttons={<Button icon="undo" content="Readapt" disabled={!data.can_readapt} onClick={() => act('readapt')} />}>
+              buttons={
+                <Button
+                  icon="undo"
+                  content="Readapt"
+                  disabled={!data.can_readapt}
+                  onClick={() => act('readapt')}
+                />
+              }
+            >
               {data.genetic_points_remaining}
             </LabeledList.Item>
           </LabeledList>
@@ -37,7 +45,8 @@ export const CellularEmporium = (props, context) => {
                       }
                     />
                   </>
-                }>
+                }
+              >
                 {ability.desc}
                 <Box color="good">{ability.helptext}</Box>
               </LabeledList.Item>

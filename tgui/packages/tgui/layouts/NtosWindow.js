@@ -31,7 +31,12 @@ export const NtosWindow = (props, context) => {
       width={width}
       height={height}
       theme={PC_device_theme || theme}
-      override_bg={PC_classic_color && PC_device_theme === 'thinktronic-classic' ? PC_classic_color : null}>
+      override_bg={
+        PC_classic_color && PC_device_theme === 'thinktronic-classic'
+          ? PC_classic_color
+          : null
+      }
+    >
       <div className="NtosWindow">
         <div className="NtosWindow__header NtosHeader">
           <div className="NtosHeader__left">
@@ -55,19 +60,37 @@ export const NtosWindow = (props, context) => {
           <div className="NtosHeader__right">
             {PC_programheaders.map((header) => (
               <Box key={header.icon} inline mr={1}>
-                <img className="NtosHeader__icon" src={resolveAsset(header.icon)} />
+                <img
+                  className="NtosHeader__icon"
+                  src={resolveAsset(header.icon)}
+                />
               </Box>
             ))}
-            <Box inline>{PC_ntneticon && <img className="NtosHeader__icon" src={resolveAsset(PC_ntneticon)} />}</Box>
+            <Box inline>
+              {PC_ntneticon && (
+                <img
+                  className="NtosHeader__icon"
+                  src={resolveAsset(PC_ntneticon)}
+                />
+              )}
+            </Box>
             {!!PC_showbatteryicon && PC_batteryicon && (
               <Box inline mr={1}>
-                {PC_batteryicon && <img className="NtosHeader__icon" src={resolveAsset(PC_batteryicon)} />}
+                {PC_batteryicon && (
+                  <img
+                    className="NtosHeader__icon"
+                    src={resolveAsset(PC_batteryicon)}
+                  />
+                )}
                 {PC_batterypercent && PC_batterypercent}
               </Box>
             )}
             {PC_apclinkicon && (
               <Box inline mr={1}>
-                <img className="NtosHeader__icon" src={resolveAsset(PC_apclinkicon)} />
+                <img
+                  className="NtosHeader__icon"
+                  src={resolveAsset(PC_apclinkicon)}
+                />
               </Box>
             )}
             {!!PC_showexitprogram && (

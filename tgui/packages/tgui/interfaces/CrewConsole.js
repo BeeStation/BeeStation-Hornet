@@ -4,7 +4,14 @@ import { COLORS } from '../constants';
 import { Window } from '../layouts';
 import { sortBy } from 'common/collections';
 
-export const HEALTH_COLOR_BY_LEVEL = ['#17d568', '#2ecc71', '#e67e22', '#ed5100', '#e74c3c', '#ed2814'];
+export const HEALTH_COLOR_BY_LEVEL = [
+  '#17d568',
+  '#2ecc71',
+  '#e67e22',
+  '#ed5100',
+  '#e74c3c',
+  '#ed2814',
+];
 
 export const jobIsHead = (jobId) => jobId % 10 === 0;
 
@@ -92,7 +99,18 @@ const CrewTableEntry = (props, context) => {
   const { act, data } = useBackend(context);
   const { link_allowed } = data;
   const { sensor_data } = props;
-  const { name, assignment, ijob, life_status, oxydam, toxdam, burndam, brutedam, area, can_track } = sensor_data;
+  const {
+    name,
+    assignment,
+    ijob,
+    life_status,
+    oxydam,
+    toxdam,
+    burndam,
+    brutedam,
+    area,
+    can_track,
+  } = sensor_data;
 
   return (
     <Table.Row>
@@ -101,7 +119,11 @@ const CrewTableEntry = (props, context) => {
         {assignment !== undefined ? ` (${assignment})` : ''}
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
-        {life_status ? <ColorBox color={healthToColor(oxydam, toxdam, burndam, brutedam)} /> : <ColorBox color={'#ed2814'} />}
+        {life_status ? (
+          <ColorBox color={healthToColor(oxydam, toxdam, burndam, brutedam)} />
+        ) : (
+          <ColorBox color={'#ed2814'} />
+        )}
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
         {oxydam !== undefined ? (

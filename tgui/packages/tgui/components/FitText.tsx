@@ -56,7 +56,10 @@ export class FitText extends Component<
 
       if (difference > 0) {
         end = middle;
-      } else if (difference < (this.props.acceptableDifference ?? DEFAULT_ACCEPTABLE_DIFFERENCE)) {
+      } else if (
+        difference <
+        (this.props.acceptableDifference ?? DEFAULT_ACCEPTABLE_DIFFERENCE)
+      ) {
         start = middle;
       } else {
         break;
@@ -78,8 +81,10 @@ export class FitText extends Component<
         ref={this.ref}
         style={{
           'font-size': `${this.state.fontSize}px`,
-          ...(typeof this.props.native?.style === 'object' && this.props.native.style),
-        }}>
+          ...(typeof this.props.native?.style === 'object' &&
+            this.props.native.style),
+        }}
+      >
         {this.props.children}
       </span>
     );

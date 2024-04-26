@@ -36,27 +36,27 @@ type Unavailable = {
 };
 
 const SLOTS: Record<string, string> = {
-  'left_hand': 'Left hand',
-  'right_hand': 'Right hand',
-  'back': 'Backpack',
-  'head': 'Headwear',
-  'mask': 'Mask',
-  'neck': 'Neckwear',
-  'corgi_collar': 'Collar',
-  'parrot_headset': 'Headset',
-  'eyes': 'Eyewear',
-  'ears': 'Earwear',
-  'suit': 'Suit',
-  'suit_storage': 'Suit storage',
-  'shoes': 'Shoes',
-  'gloves': 'Gloves',
-  'jumpsuit': 'Uniform',
-  'belt': 'Belt',
-  'left_pocket': 'Left pocket',
-  'right_pocket': 'Right pocket',
-  'id': 'ID',
-  'handcuffs': 'Handcuffs',
-  'legcuffs': 'Legcuffs',
+  left_hand: 'Left hand',
+  right_hand: 'Right hand',
+  back: 'Backpack',
+  head: 'Headwear',
+  mask: 'Mask',
+  neck: 'Neckwear',
+  corgi_collar: 'Collar',
+  parrot_headset: 'Headset',
+  eyes: 'Eyewear',
+  ears: 'Earwear',
+  suit: 'Suit',
+  suit_storage: 'Suit storage',
+  shoes: 'Shoes',
+  gloves: 'Gloves',
+  jumpsuit: 'Uniform',
+  belt: 'Belt',
+  left_pocket: 'Left pocket',
+  right_pocket: 'Right pocket',
+  id: 'ID',
+  handcuffs: 'Handcuffs',
+  legcuffs: 'Legcuffs',
 };
 
 type Layout = Array<
@@ -191,7 +191,11 @@ interface StripMenuRowProps {
 const StripMenuRow = (props: StripMenuRowProps, context) => {
   const { act, data } = useBackend<StripMenuData>(context);
 
-  const name = props.obscured ? 'Obscured' : props.empty ? 'Empty' : props.itemName;
+  const name = props.obscured
+    ? 'Obscured'
+    : props.empty
+      ? 'Empty'
+      : props.itemName;
 
   return (
     <Table.Row
@@ -201,7 +205,8 @@ const StripMenuRow = (props: StripMenuRowProps, context) => {
         props.obscured === ObscuringLevel.Hidden && 'obscured-hidden',
         props.unavailable && 'unavailable',
         props.empty && 'empty',
-      ])}>
+      ])}
+    >
       <Table.Cell pl={1.5}>{props.slotName}:</Table.Cell>
       <Table.Cell pr={1.5} position="relative">
         <Flex direction="column">
@@ -222,7 +227,11 @@ const StripMenuRow = (props: StripMenuRowProps, context) => {
           )}
           {props.alternates?.map((alternate) => (
             <Flex.Item key={alternate.text}>
-              <Button compact content={alternate.text} onClick={() => act('alt', { key: props.slotID })} />
+              <Button
+                compact
+                content={alternate.text}
+                onClick={() => act('alt', { key: props.slotID })}
+              />
             </Flex.Item>
           ))}
         </Flex>
@@ -275,7 +284,7 @@ export const StripMenu = (props, context) => {
         <Table.Row className="spacer">
           <Table.Cell />
           <Table.Cell />
-        </Table.Row>
+        </Table.Row>,
       );
     }
 
@@ -289,12 +298,14 @@ export const StripMenu = (props, context) => {
       width={400}
       // Enough height to fit human with internals,
       // jumpsuit, handcuffs and legcuffs
-      height={580}>
+      height={580}
+    >
       <Window.Content
         scrollable
         fitted
         // Remove the nanotrasen logo from the window
-        style={{ 'background-image': 'none' }}>
+        style={{ 'background-image': 'none' }}
+      >
         <Table mt={1} className="strip-menu-table" fontSize="1.1em">
           {contents}
         </Table>

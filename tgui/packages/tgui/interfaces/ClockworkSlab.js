@@ -1,7 +1,21 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Icon, Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Divider, Grid, ProgressBar, Collapsible } from '../components';
+import {
+  Icon,
+  Box,
+  Button,
+  Flex,
+  Input,
+  Section,
+  Table,
+  Tabs,
+  NoticeBox,
+  Divider,
+  Grid,
+  ProgressBar,
+  Collapsible,
+} from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 import { TableRow } from '../components/Table';
@@ -22,7 +36,11 @@ export const ClockworkSlab = (props, context) => {
   const { data } = useBackend(context);
   const { power } = data;
   const { recollection } = data;
-  const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', 'Servitude');
+  const [selectedTab, setSelectedTab] = useLocalState(
+    context,
+    'selectedTab',
+    'Servitude',
+  );
   return (
     <Window theme="clockwork" width={860} height={700}>
       <Window.Content>
@@ -33,7 +51,8 @@ export const ClockworkSlab = (props, context) => {
               {' Clockwork Slab '}
               <Icon name={'cog'} rotation={35} spin={1} />
             </Box>
-          }>
+          }
+        >
           <ClockworkButtonSelection />
         </Section>
         <div className="ClockSlab__left">
@@ -48,7 +67,12 @@ export const ClockworkSlab = (props, context) => {
             </Section>
           </div>
           <div className="ClockSlab__current">
-            <Section height="100%" scrollable overflowY="scroll" title="Servants of the Cog vol.1">
+            <Section
+              height="100%"
+              scrollable
+              overflowY="scroll"
+              title="Servants of the Cog vol.1"
+            >
               <ClockworkHelp />
             </Section>
           </div>
@@ -63,10 +87,12 @@ export const ClockworkHelp = (props, context) => {
     <Fragment>
       <Collapsible title="Where To Start" color="average" open={1}>
         <Section>
-          After a long and destructive war, Rat&#39;Var has been imprisoned inside a dimension of suffering.
+          After a long and destructive war, Rat&#39;Var has been imprisoned
+          inside a dimension of suffering.
           <br />
           You are a group of his last remaining, most loyal servants. <br />
-          You are very weak and have little power, with most of your scriptures unable to function.
+          You are very weak and have little power, with most of your scriptures
+          unable to function.
           <br />
           <b>
             Use the&nbsp;
@@ -135,7 +161,8 @@ export const ClockworkHelp = (props, context) => {
           <b>
             <font color="#D5B8DC">Abscond&nbsp;</font>
           </b>
-          to warp back to Reebe, where the being you are dragging will be pulled with you.
+          to warp back to Reebe, where the being you are dragging will be pulled
+          with you.
           <br />
           From there, summon a&nbsp;
           <b>
@@ -153,23 +180,28 @@ export const ClockworkHelp = (props, context) => {
       </Collapsible>
       <Collapsible title="Defending Reebe" color="average">
         <Section>
-          <b>You have a wide range of structures and powers that will be vital in defending the Celestial Gateway.</b>
+          <b>
+            You have a wide range of structures and powers that will be vital in
+            defending the Celestial Gateway.
+          </b>
           <br />
           <b>
             <font color="#B5FD9D">Replicant Fabricator:&nbsp;</font>
           </b>
-          A powerful tool that can rapidly construct Brass structures, or convert most materials to Brass.
+          A powerful tool that can rapidly construct Brass structures, or
+          convert most materials to Brass.
           <br />
           <b>
             <font color="#DED09F">Cogscarab:&nbsp;</font>
           </b>
-          A small drone possessed by the spirits of the fallen soldiers which will protect Reebe while you go out and spread the
-          truth!
+          A small drone possessed by the spirits of the fallen soldiers which
+          will protect Reebe while you go out and spread the truth!
           <br />
           <b>
             <font color="#FF9D9D">Clockwork Marauder:&nbsp;</font>
           </b>
-          A powerful shell that can deflect ranged attacks and delivers a strong blow in close quarter combat.
+          A powerful shell that can deflect ranged attacks and delivers a strong
+          blow in close quarter combat.
           <br />
           <br />
         </Section>
@@ -193,7 +225,10 @@ export const ClockworkHelp = (props, context) => {
           </b>
           will be forced open.
           <br />
-          <b>Make sure you are prepared for when the Gateway opens, since the entire crew will swarm to destroy it!</b>
+          <b>
+            Make sure you are prepared for when the Gateway opens, since the
+            entire crew will swarm to destroy it!
+          </b>
           <br />
         </Section>
       </Collapsible>
@@ -216,7 +251,11 @@ export const ClockworkSpellList = (props, context) => {
                 <Button
                   fluid
                   color={script.purchased ? 'default' : 'average'}
-                  content={script.purchased ? 'Invoke ' + convertPower(script.cost) : script.cog_cost + ' Cogs'}
+                  content={
+                    script.purchased
+                      ? 'Invoke ' + convertPower(script.cost)
+                      : script.cog_cost + ' Cogs'
+                  }
                   disabled={false}
                   onClick={() =>
                     act('invoke', {
@@ -247,7 +286,7 @@ export const ClockworkSpellList = (props, context) => {
           </Fragment>
         ) : (
           <Box key={script} />
-        )
+        ),
       )}
     </Table>
   );
@@ -262,7 +301,13 @@ export const ClockworkOverview = (props, context) => {
         {'Celestial Gateway Report'}
       </Box>
       <Divider />
-      <ClockworkOverviewStat title="Cogs" amount={cogs} maxAmount={cogs + 50 / cogs} iconName="cog" unit="" />
+      <ClockworkOverviewStat
+        title="Cogs"
+        amount={cogs}
+        maxAmount={cogs + 50 / cogs}
+        iconName="cog"
+        unit=""
+      />
       <ClockworkOverviewStat
         title="Power"
         amount={power}
@@ -270,7 +315,13 @@ export const ClockworkOverview = (props, context) => {
         iconName="battery-half "
         overrideText={convertPower(power)}
       />
-      <ClockworkOverviewStat title="Vitality" amount={vitality} maxAmount={vitality + 50 / vitality} iconName="tint" unit="u" />
+      <ClockworkOverviewStat
+        title="Vitality"
+        amount={vitality}
+        maxAmount={vitality + 50 / vitality}
+        iconName="tint"
+        unit="u"
+      />
     </Box>
   );
 };
@@ -293,7 +344,8 @@ export const ClockworkOverviewStat = (props, context) => {
               good: [maxAmount / 2, Infinity],
               average: [maxAmount / 4, maxAmount / 2],
               bad: [-Infinity, maxAmount / 4],
-            }}>
+            }}
+          >
             {overrideText ? overrideText : amount + ' ' + unit}
           </ProgressBar>
         </Grid.Column>
@@ -303,14 +355,23 @@ export const ClockworkOverviewStat = (props, context) => {
 };
 
 export const ClockworkButtonSelection = (props, context) => {
-  const [selectedTab, setSelectedTab] = useLocalState(context, 'selectedTab', {});
+  const [selectedTab, setSelectedTab] = useLocalState(
+    context,
+    'selectedTab',
+    {},
+  );
   const tabs = ['Servitude', 'Preservation', 'Structures'];
   return (
     <Table>
       <Table.Row>
         {tabs.map((tab) => (
           <Table.Cell key={tab} collapsing>
-            <Button key={tab} fluid content={tab} onClick={() => setSelectedTab(tab)} />
+            <Button
+              key={tab}
+              fluid
+              content={tab}
+              onClick={() => setSelectedTab(tab)}
+            />
           </Table.Cell>
         ))}
       </Table.Row>
