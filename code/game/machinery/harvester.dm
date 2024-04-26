@@ -97,22 +97,15 @@
 	update_icon()
 	if(!harvesting || state_open || !powered() || !occupant || !iscarbon(occupant))
 		return
-	playsound(src, 'sound/machines/juicer.ogg', 20, 1)
+	playsound(src, 'sound/machines/beeplaser.ogg', 20, 1)
 	var/mob/living/carbon/C = occupant
 	if(!LAZYLEN(operation_order)) //The list is empty, so we're done here
 		end_harvesting()
 		return
 	var/turf/target
-	for(var/adir in list(EAST,NORTH,SOUTH,WEST))
-		var/turf/T = get_step(src,adir)
-		if(!T)
-			continue
-		if(istype(T, /turf/closed))
-			continue
-		target = T
-		break
-	if(!target)
-		target = get_turf(src)
+
+	target = get_step(src,0) //set yeet organs target on top of harvester
+
 	for(var/obj/item/bodypart/BP in operation_order) //first we do non-essential limbs
 		BP.drop_limb()
 		C.emote("scream")
