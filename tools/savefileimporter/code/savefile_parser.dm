@@ -132,7 +132,7 @@
 	NEW_QUERY(PREFERENCE_TAG_TOGGLES, owning_ckey, toggles_out)
 	NEW_QUERY(PREFERENCE_TAG_TOGGLES2, owning_ckey, toggles2_out)
 
-	READ_FILE(S["asaycolor"], asaycolor, "#ff4500")
+	READ_FILE(S["asaycolor"], asaycolor, COLOR_MOSTLY_PURE_RED)
 	NEW_QUERY(PREFERENCE_TAG_ASAY_COLOUR, owning_ckey, asaycolor)
 
 	READ_FILE(S["ooccolor"], ooccolor, "#c43b23")
