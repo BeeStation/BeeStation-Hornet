@@ -14,7 +14,6 @@
 	var/list/operation_order = list() //Order of wich we harvest limbs.
 	var/allow_clothing = FALSE
 	var/allow_living = FALSE
-	var/is_emagged = FALSE
 
 /obj/machinery/harvester/Initialize(mapload)
 	. = ..()
@@ -158,7 +157,6 @@
 
 /obj/machinery/harvester/on_emag(mob/user)
 	..()
-	is_emagged = TRUE
 	allow_living = TRUE
 	to_chat(user, "<span class='warning'>You overload [src]'s lifesign scanners.</span>")
 
