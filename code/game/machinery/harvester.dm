@@ -102,7 +102,7 @@
 	if(!LAZYLEN(operation_order)) //The list is empty, so we're done here
 		end_harvesting()
 		return
-	var/turf/target
+	var/turf/target = get_turf(src)
 
 	target = get_step(src,0) //set yeet organs target on top of harvester
 
