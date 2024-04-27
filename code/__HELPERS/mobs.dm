@@ -100,6 +100,19 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
 	if(!GLOB.psyphoza_cap_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_cap, GLOB.psyphoza_cap_list)
+	if(!GLOB.diona_leaves_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_leaves_list)
+	if(!GLOB.diona_thorns_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_thorns_list)
+	if(!GLOB.diona_flowers_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_flowers_list)
+	if(!GLOB.diona_moss_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_moss_list)
+	if(!GLOB.diona_mushroom_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_mushroom_list)
+	if(!GLOB.diona_antennae_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_antennae_list)
+
 	//For now we will always return none for tail_human and ears.
 	return(
 		list(
@@ -128,7 +141,13 @@
 		"apid_stripes" = pick(GLOB.apid_stripes_list),
 		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
 		"body_model" = gender == MALE ? MALE : gender == FEMALE ? FEMALE : pick(MALE, FEMALE),
-		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list)
+		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list),
+		"diona_leaves" == pick(GLOB.diona_leaves_list),
+		"diona_thorns" == pick(GLOB.diona_thorns_list),
+		"diona_flowers" == pick(GLOB.diona_flowers_list),
+		"diona_moss" == pick(GLOB.diona_moss_list),
+		"diona_mushroom" == pick(GLOB.diona_mushroom_list),
+		"diona_antennae" == pick(GLOB.diona_antennae_list)
 		)
 	)
 

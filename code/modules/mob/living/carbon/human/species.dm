@@ -909,6 +909,24 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if("psyphoza_cap" in mutant_bodyparts)
 		if(!H.dna.features["psyphoza_cap"] || H.dna.features["psyphoza_cap"] == "None" || !HD)
 			bodyparts_to_add -= "psyphoza_cap"
+	if("diona_leaves" in mutant_bodyparts)
+		if(!H.dna.features["diona_leaves"] || H.dna.features["diona_leaves"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_leaves"
+	if("diona_thorns" in mutant_bodyparts)
+		if(!H.dna.features["diona_thorns"] || H.dna.features["diona_thorns"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_thorns"
+	if("diona_flowers" in mutant_bodyparts)
+		if(!H.dna.features["diona_flowers"] || H.dna.features["diona_flowers"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_flowers"
+	if("diona_moss" in mutant_bodyparts)
+		if(!H.dna.features["diona_moss"] || H.dna.features["diona_moss"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_moss"
+	if("diona_mushroom" in mutant_bodyparts)
+		if(!H.dna.features["diona_mushroom"] || H.dna.features["diona_mushroom"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_mushroom"
+	if("diona_antennae" in mutant_bodyparts)
+		if(!H.dna.features["diona_antennae"] || H.dna.features["diona_antennae"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_antennae"
 
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
@@ -1008,6 +1026,19 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.apid_headstripes_list[H.dna.features["apid_headstripes"]]
 				if("psyphoza_cap")
 					S = GLOB.psyphoza_cap_list[H.dna.features["psyphoza_cap"]]
+				if("diona_leaves")
+					S = GLOB.diona_leaves_list[H.dna.features["diona_leaves"]]
+				if("diona_thorns")
+					S = GLOB.diona_thorns_list[H.dna.features["diona_thorns"]]
+				if("diona_flowers")
+					S = GLOB.diona_flowers_list[H.dna.features["diona_flowers"]]
+				if("diona_moss")
+					S = GLOB.diona_moss_list[H.dna.features["diona_moss"]]
+				if("diona_mushroom")
+					S = GLOB.diona_mushroom_list[H.dna.features["diona_mushroom"]]
+				if("diona_antennae")
+					S = GLOB.diona_antennae_list[H.dna.features["diona_antennae"]]
+
 			if(!S || S.icon_state == "none")
 				continue
 

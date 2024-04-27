@@ -73,6 +73,7 @@
 #define FLAG_DEBUG_SPECIES	(1<<10)
 #define FLAG_MONKEY			(1<<11)
 #define FLAG_PSYPHOZA		(1<<12)
+#define FLAG_DIONA			(1<<13)
 
 // Defines for used in creating "perks" for the species preference pages.
 /// A key that designates UI icon displayed on the perk.

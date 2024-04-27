@@ -3,9 +3,12 @@
 	name = "\improper Diona"
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
+	bodyflag = FLAG_DIONA
 	default_color = "59CE00"
 	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NOMOUTH)
 	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE)
+	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae")
+	default_features = list("diona_leaves" = "None", "diona_thorns" = "None", "diona_flowers" = "None", "diona_moss" = "None", "diona_mushroom" = "None", "diona_antennae" = "None", "body_size" = "Normal")
 	inherent_factions = list("plants", "vines")
 	fixed_mut_color = "59CE00"
 	attack_verb = "slash"
@@ -76,3 +79,61 @@
 /datum/species/diona/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	if(P.type == (/obj/projectile/energy/floramut || /obj/projectile/energy/florayield))
 		H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
+
+/datum/species/diona/get_species_description()
+	return "Psyphoza are a species of extra-sensory lesser-sensory \
+	fungal-form humanoids, infamous for their invulnerability to \
+	occlusion-based magic tricks and sleight of hand."
+
+/datum/species/diona/get_species_lore()
+	return list(
+		"A standing testament to the humor of mother nature, Psyphoza have evolved powerful and mystical \
+			psychic abilities, which are almost completely mitigated by the fact they are absolutely \
+			blind, and depend entirely on their psychic abilities to navigate their surroundings.",
+
+		"Psyphoza culture is deeply rooted in superstition, mysticism, and the occult. It is their belief \
+			that the morphology of their cap deeply impacts the course of their life, with characteristics \
+			such as size, colour, and shape influencing how irrespectively lucky or unlucky they might be in \
+			their experiences.",
+
+		"An unfortunate superstition that Psyphoza 'meat' and 'blood' contain powerful psychedelics has caused \
+			many individuals of the species to be targeted, and hunted, by rich & eccentric individuals who wish \
+			to taste their flesh, and learn the truth for themselves. Unfortunately for Psyphoza, \
+			this superstition is completely true...",
+
+		"Although most Psyphoza have left behind a majority of the especially superstitious ideas of their \
+			progenitors, some lower caste members still cling to these old ideas as strongly as ever. These beliefs \
+			impact their culture deeply, resulting in very different behaviors between the typical and lower castes."
+	)
+
+/datum/species/diona/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "lightbulb",
+			SPECIES_PERK_NAME = "Psychic",
+			SPECIES_PERK_DESC = "Psyphoza are psychic and can sense things others can't.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "biohazard",
+			SPECIES_PERK_NAME = "Drug Codependance",
+			SPECIES_PERK_DESC = "Consuming any kind of drug will replenish a Psyphoza's blood.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "eye",
+			SPECIES_PERK_NAME = "Blind",
+			SPECIES_PERK_DESC = "Psyphoza are blind and can't see outside their immediate location and psychic sense.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "eye",
+			SPECIES_PERK_NAME = "Epilepsy Warning",
+			SPECIES_PERK_DESC = "This species features effects that individuals with epilepsy may experience negatively!",
+		),
+	)
+
+	return to_add

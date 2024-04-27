@@ -226,6 +226,8 @@
 
 /obj/item/organ/brain/diona/Remove(mob/living/carbon/C, special, no_id_transfer, pref_load)
 	. = ..()
+	if(special)
+		return
 	QDEL_NULL(src)
 	C.gib(TRUE, TRUE, TRUE)
 
