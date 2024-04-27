@@ -25,7 +25,9 @@
 	max_integrity = 300
 	armor = list(MELEE = 20, BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	movedelay = 1 SECONDS
-	anchored = TRUE
+	force = 5
+	move_force = MOVE_FORCE_VERY_STRONG
+	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	emulate_door_bumps = TRUE
 	COOLDOWN_DECLARE(mecha_bump_smash)
 	light_system = MOVABLE_LIGHT
@@ -60,6 +62,7 @@
 	var/construction_state = MECHA_LOCKED
 	///Contains flags for the mecha
 	var/mecha_flags = ADDING_ACCESS_POSSIBLE | CANSTRAFE | IS_ENCLOSED | HAS_LIGHTS
+
 	///Spark effects are handled by this datum
 	var/datum/effect_system/spark_spread/spark_system = new
 	///How powerful our lights are
@@ -67,7 +70,9 @@
 	///Just stop the mech from doing anything
 	var/completely_disabled = FALSE
 	///Whether this mech is allowed to move diagonally
-	var/allow_diagonal_movement = FALSE
+	var/allow_diagonal_movement = TRUE
+	///Whether this mech moves into a direct as soon as it goes to move. Basically, turn and step in the same key press.
+	var/pivot_step = FALSE
 	///Whether or not the mech destroys walls by running into it.
 	var/bumpsmash = FALSE
 
@@ -88,10 +93,11 @@
 	var/list/trackers = list()
 
 	var/max_temperature = 25000
-	///health percentage below which internal damage is possible
-	var/internal_damage_threshold = 50
+
 	///Bitflags for internal damage
 	var/internal_damage = NONE
+	///health percentage below which internal damage is possible
+	var/internal_damage_threshold = 50
 
 	///required access level for mecha operation
 	var/list/operation_req_access = list()
@@ -132,7 +138,6 @@
 
 	////Action vars
 	///Ref to any active thrusters we might have
-
 	var/obj/item/mecha_parts/mecha_equipment/thrusters/active_thrusters
 
 	///Bool for energy shield on/off
@@ -199,9 +204,10 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
+	update_appearance()
+
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 	update_step_speed()
-	update_appearance()
 
 /obj/vehicle/sealed/mecha/Destroy()
 	for(var/M in occupants)
@@ -691,7 +697,8 @@
 		if(dir != direction && !(mecha_flags & QUIET_TURNS) && !step_silent)
 			playsound(src,turnsound,40,TRUE)
 		setDir(direction)
-		return TRUE
+		if(!pivot_step) //If we pivot step, we don't return here so we don't just come to a stop
+			return TRUE
 
 
 	//set_glide_size(DELAY_TO_GLIDE_SIZE(movedelay))

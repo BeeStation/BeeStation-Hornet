@@ -3,7 +3,6 @@
 	name = "\improper Odysseus"
 	icon_state = "odysseus"
 	base_icon_state = "odysseus"
-	allow_diagonal_movement = TRUE
 	movedelay = 2
 	max_temperature = 15000
 	max_integrity = 120
@@ -12,6 +11,7 @@
 	deflect_chance = 15
 	step_energy_drain = 6
 	internals_req_access = list(ACCESS_MECH_SCIENCE, ACCESS_MECH_MEDICAL)
+	pivot_step = TRUE
 
 /obj/vehicle/sealed/mecha/medical/odysseus/moved_inside(mob/living/carbon/human/H)
 	. = ..()
