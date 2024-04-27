@@ -149,6 +149,7 @@
 /obj/machinery/harvester/wrench_act(mob/living/user, obj/item/I)
 	if(default_change_direction_wrench(user, I))
 		return TRUE
+	return ..()
 
 /obj/machinery/harvester/default_pry_open(obj/item/I) //wew
 	. = !(state_open || panel_open || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR //We removed is_operational here
