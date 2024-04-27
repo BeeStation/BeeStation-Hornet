@@ -49558,7 +49558,8 @@
 	pixel_y = 2
 	},
 /obj/item/razor{
-	pixel_y = 5
+	pixel_y = 5;
+	pixel_x = -6
 	},
 /turf/open/floor/iron/white/side{
 	dir = 8
@@ -85702,13 +85703,10 @@
 /area/hallway/secondary/exit/departure_lounge)
 "vor" = (
 /obj/structure/table,
-/obj/item/retractor,
-/obj/item/hemostat,
-/obj/item/cautery,
-/obj/item/circular_saw,
-/obj/item/scalpel{
-	pixel_y = 12
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 4
 	},
+/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/iron/white/side{
 	dir = 1
 	},
@@ -90738,7 +90736,6 @@
 /obj/item/storage/box/pillbottles,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -97419,8 +97416,6 @@
 /obj/structure/table/optable{
 	name = "Robotics Operating Table"
 	},
-/obj/item/surgical_drapes,
-/obj/item/clothing/gloves/color/latex,
 /turf/open/floor/iron/white/side{
 	dir = 1
 	},
