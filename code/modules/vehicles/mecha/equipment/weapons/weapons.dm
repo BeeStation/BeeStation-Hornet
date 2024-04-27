@@ -37,6 +37,7 @@
 				spread = round((i / projectiles_per_shot - 0.5) * variance)
 
 		var/obj/projectile/A = new projectile(get_turf(src))
+		A.firer = chassis
 		A.preparePixelProjectile(target, source, params, spread)
 
 		A.fire()
