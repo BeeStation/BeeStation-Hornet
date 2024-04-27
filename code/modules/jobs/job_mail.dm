@@ -313,7 +313,7 @@
 /datum/job/mime
 	mail_goodies = list(
 		/obj/item/food/baguette/mime = 15,
-		/obj/item/reagent_containers/food/snacks/store/cheesewheel = 10,
+		/obj/item/food/cheese/wheel = 10,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 2,
 		//when you thought it could get worse...

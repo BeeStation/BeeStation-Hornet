@@ -45,7 +45,7 @@ Bonus
 	if(!..())
 		return
 	var/mob/living/carbon/C = A.affected_mob
-	if(!C.has_dna())
+	if(!C.has_dna() || C.stat == DEAD)
 		return
 	switch(A.stage)
 		if(4, 5)

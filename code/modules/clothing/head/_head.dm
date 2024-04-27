@@ -34,7 +34,7 @@
 /obj/item/clothing/head/attackby(obj/item/W, mob/user, params)
 	. = ..()
 	if(istype(W, /obj/item/clothing/head/wig))
-		if(flags_inv && HIDEHAIR)
+		if(flags_inv & HIDEHAIR)
 			to_chat(user, "<span class='notice'>You can't attach a wig to [src]!</span>")
 			return
 		if(attached_wig)
@@ -88,7 +88,7 @@
 	. = ..()
 	if(attached_wig)
 		. += "<span class='notice'>There's \a [attached_wig.name] attached, which can be removed through the context menu.</span>"
-	else if(!(flags_inv && HIDEHAIR))
+	else if(!(flags_inv & HIDEHAIR))
 		. += "<span class='notice'>A wig can be attached to the [src].</span>"
 
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.

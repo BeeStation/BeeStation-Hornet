@@ -148,6 +148,7 @@
 				sleep(50)
 				to_chat(src, "Receiving control information from APC.")
 				sleep(2)
+				to_chat(src, "<A HREF=?src=[REF(src)];emergencyAPC=[TRUE]>APC ready for connection.</A>")
 				apc_override = theAPC
 				theAPC.ui_interact(src)
 				aiRestorePowerRoutine = POWER_RESTORATION_APC_FOUND
@@ -164,6 +165,7 @@
 			to_chat(src, "<span class='notice'>Alert cancelled. Power has been restored without our assistance.</span>")
 		aiRestorePowerRoutine = POWER_RESTORATION_OFF
 		set_blindness(0)
+		apc_override = null
 		update_sight()
 
 /mob/living/silicon/ai/proc/ai_lose_power()

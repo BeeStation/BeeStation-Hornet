@@ -104,7 +104,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/labor)
 "p" = (
 /obj/machinery/mineral/labor_claim_console{
@@ -112,7 +112,7 @@
 	pixel_x = 30
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/labor)
 "q" = (
 /obj/structure/chair/fancy/shuttle{
@@ -124,10 +124,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/labor)
 "r" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/labor)
 "s" = (
 /obj/item/clothing/suit/hazardvest{
@@ -212,22 +212,22 @@
 	id = "gulagshuttleflasher";
 	pixel_x = 25
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/labor)
 "t" = (
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/end,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/labor)
 "u" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/labor)
 "v" = (
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/labor)
 "w" = (
 /obj/machinery/door/airlock/shuttle{

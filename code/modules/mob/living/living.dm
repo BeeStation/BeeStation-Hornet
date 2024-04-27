@@ -18,16 +18,12 @@
 		diag_hud.add_to_hud(src)
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
-	initialize_footstep()
 	if (playable)
 		addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS) //announce playable mobs to ghosts
 		// this should be delayed because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
 		// it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
 	//color correction
 	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(apply_color_correction))
-
-/mob/living/proc/initialize_footstep()
-	AddComponent(/datum/component/footstep)
 
 /mob/living/prepare_huds()
 	..()
@@ -293,7 +289,7 @@
 	if(AM.pulledby)
 		if(!supress_message)
 			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
-		log_combat(AM, AM.pulledby, "pulled from", src)
+		log_combat(AM, AM.pulledby, "pulled from", src, important = FALSE)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 
 	pulling = AM
@@ -499,7 +495,7 @@
 	if(!resting)
 		set_resting(TRUE, FALSE)
 	else
-		if(do_after(src, 10, target = src, timed_action_flags = IGNORE_RESTRAINED | IGNORE_HELD_ITEM))
+		if(do_after(src, 10, target = src, timed_action_flags = IGNORE_RESTRAINED | IGNORE_HELD_ITEM | IGNORE_USER_LOC_CHANGE))
 			set_resting(FALSE, FALSE)
 		else
 			to_chat(src, "<span class='notice'>You fail to get up.</span>")
@@ -968,6 +964,26 @@
 	else if(!src.mob_negates_gravity())
 		step_towards(src,S)
 
+/mob/living/proc/do_stun_animation()
+	var/matrix/rotation_matrix = matrix()
+	rotation_matrix.Turn(5)
+	var/matrix/reset_matrix = matrix()
+	reset_matrix.Turn(-5)
+	// Offset animation
+	animate(src, time = 1, pixel_x = rand(-2, 2), pixel_y = rand(-1, 1), easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+	for (var/i in 1 to 4)
+		var/dx = rand(-4, 2)
+		var/dy = rand(-4, 2)
+		animate(time = 1, pixel_x = dx, pixel_y = dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+		animate(time = 0, pixel_x = -dx, pixel_y = -dy, easing = ELASTIC_EASING, flags = ANIMATION_RELATIVE)
+	var/final_pixel_x = base_pixel_x + body_position_pixel_x_offset
+	var/final_pixel_y = base_pixel_y + body_position_pixel_y_offset
+	animate(time = 1, pixel_x = final_pixel_x , pixel_y = final_pixel_y)
+	// Rotational Animation
+	animate(src, time = 3, transform = rotation_matrix, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
+	animate(time = 2, flags = ANIMATION_RELATIVE)
+	animate(time = 1, transform = reset_matrix, flags = ANIMATION_RELATIVE)
+
 /mob/living/proc/do_jitter_animation(jitteriness)
 	var/amplitude = min(4, (jitteriness/100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
@@ -1013,7 +1029,7 @@
 	return TRUE
 
 //used in datum/reagents/reaction() proc
-/mob/living/proc/get_permeability_protection()
+/mob/living/proc/get_permeability_protection(list/target_zones)
 	return 0
 
 /mob/living/proc/harvest(mob/living/user) //used for extra objects etc. in butchering
@@ -1116,7 +1132,8 @@
 /mob/living/proc/fakefire()
 	return
 
-
+/mob/living/proc/unfry_mob() //Callback proc to tone down spam from multiple sizzling frying oil dipping.
+	REMOVE_TRAIT(src, TRAIT_OIL_FRIED, "cooking_oil_react")
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
@@ -1251,9 +1268,9 @@
 			if(!has_legs && has_arms < 2)
 				limbless_slowdown += 6 - (has_arms * 3)
 		if(limbless_slowdown)
-			add_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=limbless_slowdown, movetypes=GROUND)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
 		else
-			remove_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS, update=TRUE)
+			remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 
 ///Called when mob changes from a standing position into a prone while lacking the ability to stand up at the moment, through update_mobility()
 /mob/living/proc/on_fall()

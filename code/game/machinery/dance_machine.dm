@@ -72,10 +72,10 @@
 		if(O.tool_behaviour == TOOL_WRENCH)
 			if(!anchored && !isinspace())
 				to_chat(user,"<span class='notice'>You secure [src] to the floor.</span>")
-				setAnchored(TRUE)
+				set_anchored(TRUE)
 			else if(anchored)
 				to_chat(user,"<span class='notice'>You unsecure and disconnect [src].</span>")
-				setAnchored(FALSE)
+				set_anchored(FALSE)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			return
 	return ..()
@@ -203,7 +203,7 @@
 			continue
 		if(t.x > cen.x && t.y == cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
-			L.light_color = LIGHT_COLOR_YELLOW
+			L.light_color = LIGHT_COLOR_DIM_YELLOW
 			L.light_power = 30-(get_dist(src,L)*8)
 			L.light_range = 1+get_dist(src, L)
 			spotlights+=L
@@ -310,11 +310,11 @@
 				glow.update_light()
 				continue
 			if(glow.light_color == LIGHT_COLOR_BLUEGREEN)
-				glow.light_color = LIGHT_COLOR_YELLOW
+				glow.light_color = LIGHT_COLOR_DIM_YELLOW
 				glow.light_range = glow.light_range * DISCO_INFENO_RANGE
 				glow.update_light()
 				continue
-			if(glow.light_color == LIGHT_COLOR_YELLOW)
+			if(glow.light_color == LIGHT_COLOR_DIM_YELLOW)
 				glow.light_color = LIGHT_COLOR_CYAN
 				glow.light_range = 0
 				glow.update_light()

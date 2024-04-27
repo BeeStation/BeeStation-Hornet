@@ -61,7 +61,7 @@
 					SQLsearch += "author LIKE '%[author]%' AND title LIKE '%[title]%' AND category='[category]'"
 				var/bookcount = 0
 				var/booksperpage = 20
-				var/datum/DBQuery/query_library_count_books = SSdbcore.NewQuery({"
+				var/datum/db_query/query_library_count_books = SSdbcore.NewQuery({"
 					SELECT COUNT(id) FROM [format_table_name("library")]
 					WHERE isnull(deleted)
 						AND author LIKE '%' + :author + '%'
@@ -84,7 +84,7 @@
 						pagecount++
 					dat += pagelist.Join(" | ")
 				search_page = text2num(search_page)
-				var/datum/DBQuery/query_library_list_books = SSdbcore.NewQuery({"
+				var/datum/db_query/query_library_list_books = SSdbcore.NewQuery({"
 					SELECT author, title, category, id
 					FROM [format_table_name("library")]
 					WHERE isnull(deleted)
@@ -176,7 +176,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	if(!SSdbcore.Connect())
 		return
 	GLOB.cachedbooks = list()
-	var/datum/DBQuery/query_library_cache = SSdbcore.NewQuery("SELECT id, author, title, category FROM [format_table_name("library")] WHERE isnull(deleted)")
+	var/datum/db_query/query_library_cache = SSdbcore.NewQuery("SELECT id, author, title, category FROM [format_table_name("library")] WHERE isnull(deleted)")
 	if(!query_library_cache.Execute())
 		qdel(query_library_cache)
 		return
@@ -468,7 +468,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 						return
 					else
 						var/msg = "[key_name(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs"
-						var/datum/DBQuery/query_library_upload = SSdbcore.NewQuery({"
+						var/datum/db_query/query_library_upload = SSdbcore.NewQuery({"
 							INSERT INTO [format_table_name("library")] (author, title, content, category, ckey, datetime, round_id_created)
 							VALUES (:author, :title, :content, :category, :ckey, Now(), :round_id)
 						"}, list("title" = scanner.cache.name, "author" = scanner.cache.author, "content" = scanner.cache.dat, "category" = upload_category, "ckey" = usr.ckey, "round_id" = GLOB.round_id))
@@ -509,7 +509,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			say("Printer unavailable. Please allow a short time before attempting to print.")
 		else
 			cooldown = world.time + PRINTER_COOLDOWN
-			var/datum/DBQuery/query_library_print = SSdbcore.NewQuery(
+			var/datum/db_query/query_library_print = SSdbcore.NewQuery(
 				"SELECT * FROM [format_table_name("library")] WHERE id=:id AND isnull(deleted)",
 				list("id" = id)
 			)
