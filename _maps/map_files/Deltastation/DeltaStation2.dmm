@@ -3019,7 +3019,9 @@
 /area/quartermaster/storage)
 "aCi" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/aug_manipulator,
+/obj/machinery/computer/rdconsole/robotics{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "aCl" = (
@@ -21847,10 +21849,14 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/clothing/gloves/color/latex,
-/obj/item/surgical_drapes,
-/obj/item/cautery,
 /obj/effect/turf_decal/bot,
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 6
+	},
+/obj/item/clothing/gloves/color/latex,
+/obj/item/razor{
+	pixel_y = 5
+	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "esj" = (
@@ -22485,9 +22491,7 @@
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/bot,
-/obj/structure/bodycontainer/morgue{
-	dir = 8
-	},
+/obj/machinery/rnd/production/circuit_imprinter/department/science,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "eAP" = (
@@ -30801,13 +30805,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/courtroom)
-"gNA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
-/turf/open/floor/iron,
-/area/science/robotics/lab)
 "gNH" = (
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/suit/apron/surgical,
@@ -35428,8 +35425,7 @@
 /turf/open/floor/iron,
 /area/engine/atmos)
 "idn" = (
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/structure/rack,
+/obj/structure/closet/secure_closet/chemical/plumbing,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "idC" = (
@@ -36642,9 +36638,13 @@
 	dir = 8
 	},
 /obj/item/mmi,
-/obj/item/mmi,
-/obj/item/mmi,
+/obj/item/mmi{
+	pixel_y = 4
+	},
 /obj/effect/turf_decal/bot,
+/obj/item/mmi{
+	pixel_y = 8
+	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "ivT" = (
@@ -42383,6 +42383,12 @@
 /obj/machinery/reagentgrinder,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
+"kdQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plating,
+/area/maintenance/department/medical/central)
 "kea" = (
 /mob/living/basic/cockroach,
 /turf/open/floor/wood,
@@ -42778,9 +42784,6 @@
 /turf/open/floor/iron,
 /area/crew_quarters/locker)
 "kjV" = (
-/obj/structure/table/reinforced,
-/obj/item/retractor,
-/obj/item/hemostat,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -42788,6 +42791,9 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/bot,
+/obj/structure/bodycontainer/morgue{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "kka" = (
@@ -50041,7 +50047,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "mjj" = (
@@ -53954,12 +53959,12 @@
 /area/engine/break_room)
 "noa" = (
 /obj/structure/rack,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/bot,
 /obj/item/healthanalyzer,
 /obj/item/healthanalyzer,
+/obj/item/storage/firstaid/advanced/empty,
+/obj/item/storage/firstaid/advanced/empty,
 /obj/item/paicard,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
@@ -67034,11 +67039,6 @@
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "qQn" = (
-/obj/structure/table/reinforced,
-/obj/item/scalpel{
-	pixel_y = 16
-	},
-/obj/item/circular_saw,
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = -32
 	},
@@ -67046,6 +67046,7 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/aug_manipulator,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "qQw" = (
@@ -72087,9 +72088,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/computer/rdconsole/robotics{
-	dir = 8
-	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "sgk" = (
@@ -88970,6 +88969,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/chemical/plumbing,
 /turf/open/floor/iron,
 /area/maintenance/department/medical/central)
 "wLc" = (
@@ -132440,7 +132440,7 @@ lLV
 dyd
 uqi
 fiF
-gNA
+miV
 sgh
 miV
 vAZ
@@ -140125,7 +140125,7 @@ vXP
 kDq
 qBw
 wBD
-dsp
+kdQ
 inw
 inw
 gEX

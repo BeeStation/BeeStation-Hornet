@@ -20251,11 +20251,6 @@
 /area/hallway/primary/central)
 "eKI" = (
 /obj/effect/landmark/start/roboticist,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "eKQ" = (
@@ -29210,14 +29205,11 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "hBG" = (
-/obj/structure/table,
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 1
 	},
-/obj/item/razor{
-	pixel_y = 5
-	},
+/obj/machinery/aug_manipulator,
 /turf/open/floor/iron/white/side{
 	dir = 4
 	},
@@ -42399,6 +42391,11 @@
 /area/maintenance/starboard/fore)
 "lXV" = (
 /obj/machinery/holopad,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12;
+	pixel_y = 2
+	},
 /turf/open/floor/iron/white,
 /area/science/robotics/lab)
 "lYi" = (
@@ -47906,7 +47903,12 @@
 /obj/item/radio/intercom{
 	pixel_x = -29
 	},
-/obj/item/storage/backpack/duffelbag/sec/surgery,
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 6
+	},
+/obj/item/razor{
+	pixel_y = 5
+	},
 /turf/open/floor/iron/white/corner{
 	dir = 4
 	},
@@ -67504,18 +67506,10 @@
 /area/hydroponics)
 "uiU" = (
 /obj/structure/rack,
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
+/obj/effect/turf_decal/delivery,
+/obj/item/storage/firstaid/advanced/empty,
+/obj/item/storage/firstaid/advanced/empty,
+/obj/item/storage/firstaid/advanced/empty,
 /obj/item/healthanalyzer{
 	pixel_x = 4;
 	pixel_y = -4
@@ -67531,7 +67525,6 @@
 /obj/item/radio/headset/headset_sci{
 	pixel_x = -3
 	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "uja" = (

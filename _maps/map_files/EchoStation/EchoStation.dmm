@@ -19345,21 +19345,21 @@
 /turf/open/floor/iron,
 /area/maintenance/department/bridge)
 "jGu" = (
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)";
+/obj/structure/table,
+/obj/structure/railing,
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("ss13","rd")
+	},
+/obj/item/storage/firstaid/advanced/empty{
 	pixel_x = 6;
 	pixel_y = 9
 	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)";
+/obj/item/storage/firstaid/advanced/empty{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)";
+/obj/item/storage/firstaid/advanced/empty{
 	pixel_x = 6;
 	pixel_y = 3
 	},
@@ -19373,12 +19373,6 @@
 /obj/item/healthanalyzer{
 	pixel_x = 3;
 	pixel_y = 4
-	},
-/obj/structure/table,
-/obj/structure/railing,
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("ss13","rd")
 	},
 /turf/open/floor/iron,
 /area/science/robotics)
@@ -36899,6 +36893,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
+"sVc" = (
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 6
+	},
+/turf/closed/indestructible/rock/bedrock,
+/area/space)
 "sVn" = (
 /obj/effect/turf_decal/trimline/yellow,
 /obj/structure/cable/yellow{
@@ -134764,8 +134764,8 @@ rGh
 rGh
 rGh
 rGh
-rGh
-rGh
+sVc
+sVc
 rGh
 rGh
 rGh

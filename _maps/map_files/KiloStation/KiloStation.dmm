@@ -62062,6 +62062,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/item/storage/box/bodybags{
+	pixel_y = 16
+	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "oWq" = (
@@ -63338,25 +63341,7 @@
 "pqm" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/item/storage/box/bodybags{
-	pixel_y = 5
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
 /obj/item/stack/package_wrap,
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
-/obj/item/healthanalyzer,
 /obj/machinery/camera{
 	c_tag = "Robotics Lab";
 	name = "science camera";
@@ -63368,6 +63353,12 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/item/storage/firstaid/advanced/empty,
+/obj/item/storage/firstaid/advanced/empty,
+/obj/item/storage/firstaid/advanced/empty,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
+/obj/item/healthanalyzer,
 /turf/open/floor/iron/dark,
 /area/science/robotics/lab)
 "pqq" = (

@@ -1916,21 +1916,25 @@
 /area/maintenance/department/bridge)
 "aIl" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)";
+/obj/machinery/requests_console{
+	department = "Robotics Lab";
+	name = "Robotics RC";
+	pixel_y = 32;
+	receive_ore_updates = 1
+	},
+/obj/machinery/newscaster{
+	pixel_x = 32;
+	pixel_y = 1
+	},
+/obj/item/storage/firstaid/advanced/empty{
 	pixel_x = 6;
 	pixel_y = 9
 	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)";
+/obj/item/storage/firstaid/advanced/empty{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)";
+/obj/item/storage/firstaid/advanced/empty{
 	pixel_x = 6;
 	pixel_y = 3
 	},
@@ -1944,16 +1948,6 @@
 /obj/item/healthanalyzer{
 	pixel_x = 3;
 	pixel_y = 4
-	},
-/obj/machinery/requests_console{
-	department = "Robotics Lab";
-	name = "Robotics RC";
-	pixel_y = 32;
-	receive_ore_updates = 1
-	},
-/obj/machinery/newscaster{
-	pixel_x = 32;
-	pixel_y = 1
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics)

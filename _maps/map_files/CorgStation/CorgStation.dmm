@@ -12937,6 +12937,7 @@
 	dir = 4;
 	pixel_x = -24
 	},
+/obj/structure/closet/secure_closet/chemical/plumbing,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "dVh" = (
@@ -20509,11 +20510,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
-"gzJ" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/turf/open/floor/iron/white,
-/area/medical/chemistry)
 "gzK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -38644,10 +38640,13 @@
 /turf/closed/wall,
 /area/security/checkpoint/science)
 "mra" = (
-/obj/structure/closet/secure_closet/chemical/plumbing,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal/bin,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "mrb" = (
@@ -47885,10 +47884,7 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/fitness/recreation)
 "prb" = (
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
+/obj/structure/closet/secure_closet/chemical/plumbing,
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "prC" = (
@@ -51919,18 +51915,9 @@
 	dir = 10
 	},
 /obj/structure/rack,
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
+/obj/item/storage/firstaid/advanced/empty,
+/obj/item/storage/firstaid/advanced/empty,
+/obj/item/storage/firstaid/advanced/empty,
 /obj/item/healthanalyzer{
 	pixel_x = 4;
 	pixel_y = -4
@@ -60045,9 +60032,6 @@
 "tlL" = (
 /obj/effect/landmark/start/chemist,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
 "tlO" = (
@@ -70970,6 +70954,9 @@
 /area/engine/atmos)
 "wSP" = (
 /obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/open/floor/iron/white,
@@ -118812,8 +118799,8 @@ wSu
 rnO
 ktF
 bWn
+bWn
 nob
-gzJ
 mJn
 ghV
 gOi
