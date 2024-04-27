@@ -104,8 +104,6 @@
 		return
 	var/turf/target = get_turf(src)
 
-	target = get_step(src,0) //set yeet organs target on top of harvester
-
 	for(var/obj/item/bodypart/BP in operation_order) //first we do non-essential limbs
 		BP.drop_limb()
 		C.emote("scream")
