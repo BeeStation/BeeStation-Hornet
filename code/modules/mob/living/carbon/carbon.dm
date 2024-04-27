@@ -21,9 +21,6 @@
 	QDEL_NULL(dna)
 	GLOB.carbon_list -= src
 
-/mob/living/carbon/initialize_footstep()
-	AddComponent(/datum/component/footstep, 1, 2)
-
 /mob/living/carbon/swap_hand(held_index)
 	. = ..()
 	if(!.)
@@ -766,7 +763,7 @@
 			else
 				set_stat(CONSCIOUS)
 			if(!is_blind())
-				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+				var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
 				B?.RemoveComponent()
 		update_mobility()
 	update_damage_hud()
@@ -801,6 +798,9 @@
 	if(!getorganslot(ORGAN_SLOT_LIVER))
 		return FALSE
 
+	// We don't want walking husks god no
+	if(HAS_TRAIT(src, TRAIT_HUSK))
+		src.cure_husk()
 	return ..()
 
 /mob/living/carbon/fully_heal(admin_revive = FALSE)

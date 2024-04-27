@@ -29469,8 +29469,6 @@
 /turf/open/floor/iron/dark,
 /area/aisat)
 "fpB" = (
-/obj/structure/table,
-/obj/item/food/mint,
 /obj/machinery/airalarm{
 	dir = 4;
 	pixel_x = -23
@@ -29481,6 +29479,13 @@
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow,
+/obj/structure/rack,
+/obj/item/storage/box/donkpockets,
+/obj/item/stack/package_wrap,
+/obj/item/book/manual/chef_recipes{
+	pixel_x = 2;
+	pixel_y = 6
+	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "fpC" = (
@@ -35284,10 +35289,12 @@
 /turf/open/floor/plating,
 /area/maintenance/aft/secondary)
 "hEt" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/machinery/door/poddoor/preopen{
+	id = "kitchenwindow";
+	name = "kitchen shutters"
 	},
-/turf/open/floor/iron/checker,
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
 /area/crew_quarters/kitchen)
 "hEL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -43273,6 +43280,7 @@
 "kId" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/cooking_to_serve_man,
+/obj/item/storage/box/donkpockets,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "kIn" = (
@@ -43473,6 +43481,7 @@
 /obj/item/reagent_containers/food/condiment/enzyme{
 	layer = 5
 	},
+/obj/item/food/mint,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "kKl" = (
@@ -44187,7 +44196,7 @@
 /turf/open/floor/iron/white,
 /area/science/research)
 "kZa" = (
-/obj/machinery/computer/arcade{
+/obj/effect/spawner/randomarcade{
 	dir = 4
 	},
 /turf/open/floor/prison,
@@ -44469,7 +44478,7 @@
 /turf/open/floor/iron,
 /area/storage/tools)
 "lge" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/machinery/airalarm{
 	dir = 8;
 	pixel_x = 24
@@ -45875,9 +45884,6 @@
 "lMj" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
@@ -53120,10 +53126,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
-"oub" = (
-/obj/structure/sign/poster/official/random,
-/turf/closed/wall,
-/area/hydroponics)
 "oue" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -59033,9 +59035,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -60310,9 +60310,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -62521,13 +62519,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/machinery/disposal/bin,
-/obj/effect/turf_decal/bot{
-	dir = 1
-	},
+/obj/machinery/processor,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "sdw" = (
@@ -64629,11 +64621,6 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "sVr" = (
-/obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 4
-	},
 /obj/machinery/button/door{
 	id = "kitchen";
 	name = "Kitchen Shutters Control";
@@ -64647,6 +64634,10 @@
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/table,
+/obj/machinery/dish_drive{
+	pixel_y = 5
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -66326,13 +66317,11 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "tDj" = (
-/obj/structure/rack,
-/obj/item/book/manual/chef_recipes{
-	pixel_x = 2;
-	pixel_y = 6
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 4
 	},
-/obj/item/stack/package_wrap,
-/obj/item/storage/box/donkpockets,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "tDC" = (
@@ -66353,8 +66342,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/aft)
 "tDH" = (
-/obj/structure/table,
-/obj/item/storage/box/donkpockets,
+/obj/machinery/griddle,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "tDM" = (
@@ -66627,9 +66615,6 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "tIN" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -66638,6 +66623,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/structure/disposalpipe/trunk/multiz/down{
+	dir = 1
 	},
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
@@ -68041,7 +68029,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/deepfryer,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "ukx" = (
@@ -71280,9 +71267,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -75165,7 +75150,11 @@
 	departmentType = 2;
 	pixel_x = 30
 	},
-/obj/machinery/processor,
+/obj/machinery/disposal/bin,
+/obj/effect/turf_decal/bot{
+	dir = 1
+	},
+/obj/structure/disposalpipe/trunk,
 /turf/open/floor/iron/checker,
 /area/crew_quarters/kitchen)
 "wVV" = (
@@ -75924,9 +75913,7 @@
 	name = "medbay camera";
 	network = list("ss13","medbay")
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/medical/surgery)
@@ -77493,7 +77480,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /mob/living/simple_animal/kalo{
 	desc = "The Perma brig's cute grass snake.";
-	icon = 'icons/mob/animal.dmi';
 	icon_dead = "snake_dead";
 	icon_living = "snake";
 	icon_state = "snake";
@@ -111795,7 +111781,7 @@ dik
 bKe
 bOP
 bOP
-bOP
+hEt
 bKe
 bSS
 soe
@@ -113082,7 +113068,7 @@ leM
 kId
 qqj
 djR
-oub
+bUe
 bUi
 hzl
 bWT
@@ -113595,7 +113581,7 @@ ujJ
 duS
 owC
 qqj
-hEt
+ujJ
 bSV
 bUh
 mPh
@@ -114110,7 +114096,7 @@ dLU
 agH
 wVR
 tIN
-bST
+bUe
 kwI
 hzl
 bWT

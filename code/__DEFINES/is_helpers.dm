@@ -11,6 +11,15 @@
 
 #define isweakref(D) (istype(D, /datum/weakref))
 
+#define isimage(thing) (istype(thing, /image))
+
+GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are awful to detect safely, but this seems to be the best way ~ninjanomnom
+#define isappearance(thing) (!isimage(thing) && !ispath(thing) && istype(GLOB.magic_appearance_detecting_image, thing))
+
+// The filters list has the same ref type id as a filter, but isnt one and also isnt a list, so we have to check if the thing has Cut() instead
+GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
+#define isfilter(thing) (!hascall(thing, "Cut") && TYPEID(thing) == GLOB.refid_filter)
+
 // simple check whether or not a player is a guest using their key
 #define IS_GUEST_KEY(key)	(findtextEx(key, "Guest-", 1, 7))
 
@@ -164,47 +173,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define iscogscarab(A) (istype(A, /mob/living/simple_animal/drone/cogscarab))
 
-GLOBAL_LIST_INIT(shoefootmob, typecacheof(list(
-	/mob/living/carbon/human/,
-	/mob/living/simple_animal/cow,
-	/mob/living/simple_animal/hostile/cat_butcherer,
-	/mob/living/simple_animal/hostile/faithless,
-	/mob/living/simple_animal/hostile/nanotrasen,
-	/mob/living/simple_animal/hostile/pirate,
-	/mob/living/simple_animal/hostile/russian,
-	/mob/living/simple_animal/hostile/syndicate,
-	/mob/living/simple_animal/hostile/wizard,
-	/mob/living/simple_animal/hostile/zombie,
-	/mob/living/simple_animal/hostile/retaliate/clown,
-	/mob/living/simple_animal/hostile/retaliate/spaceman,
-	/mob/living/simple_animal/hostile/retaliate/nanotrasenpeace,
-	/mob/living/simple_animal/hostile/retaliate/goat,
-	/mob/living/carbon/true_devil,
-	)))
-
-GLOBAL_LIST_INIT(clawfootmob, typecacheof(list(
-	/mob/living/carbon/alien/humanoid,
-	/mob/living/simple_animal/hostile/alien,
-	/mob/living/simple_animal/pet/cat,
-	/mob/living/simple_animal/pet/dog,
-	/mob/living/simple_animal/pet/fox,
-	/mob/living/simple_animal/chicken,
-	/mob/living/simple_animal/hostile/bear,
-	/mob/living/simple_animal/hostile/jungle/mega_arachnid
-	)))
-
-GLOBAL_LIST_INIT(barefootmob, typecacheof(list(
-	/mob/living/carbon/monkey,
-	/mob/living/simple_animal/pet/penguin,
-	/mob/living/simple_animal/hostile/gorilla,
-	/mob/living/simple_animal/hostile/jungle/mook
-	)))
-
-GLOBAL_LIST_INIT(heavyfootmob, typecacheof(list(
-	/mob/living/simple_animal/hostile/megafauna,
-	/mob/living/simple_animal/hostile/jungle/leaper
-	)))
-
 //Misc mobs
 #define isobserver(A) (istype(A, /mob/dead/observer))
 
@@ -217,15 +185,6 @@ GLOBAL_LIST_INIT(heavyfootmob, typecacheof(list(
 #define iscameramob(A) (istype(A, /mob/camera))
 
 #define isaicamera(A) (istype(A, /mob/camera/ai_eye))
-
-//Footstep helpers
-#define isshoefoot(A) (is_type_in_typecache(A, GLOB.shoefootmob))
-
-#define isclawfoot(A) (is_type_in_typecache(A, GLOB.clawfootmob))
-
-#define isbarefoot(A) (is_type_in_typecache(A, GLOB.barefootmob))
-
-#define isheavyfoot(A) (is_type_in_typecache(A, GLOB.heavyfootmob))
 
 //Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs

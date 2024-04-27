@@ -1,6 +1,6 @@
 {
 	"map_name": "Box Station",
-	"map_link": "BoxStation",
+	"map_link": "boxstation",
 	"map_path": "map_files/BoxStation",
 	"map_file": "BoxStation.dmm",
 	"shuttles": {

@@ -28,7 +28,7 @@
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	hardattacks = TRUE
 
 /mob/living/simple_animal/hostile/hivebot/Initialize(mapload)
