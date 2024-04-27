@@ -2,9 +2,9 @@
 	// A mutation caused by a human being ressurected in a revival pod. These regain health in light, and begin to wither in darkness.
 	name = "\improper Diona"
 	plural_form = "Dionae"
-	id = SPECIES_DIONAE
+	id = SPECIES_DIONA
 	default_color = "59CE00"
-	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY)
+	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NOMOUTH)
 	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE)
 	inherent_factions = list("plants", "vines")
 	fixed_mut_color = "59CE00"
@@ -16,8 +16,8 @@
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/diona
-	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionaea is much lower then humans as they are plants, supposed to be 15 celsius
-	speedmod = 2 // Dionaea are slow.
+	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
+	speedmod = 2 // Dionae are slow.
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //placeholder sprite
@@ -53,6 +53,18 @@
 
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.take_overall_damage(2,0)
+
+/datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
+	. = FALSE
+	var/radiation = H.radiation
+	//Dionae heal and eat radiation for a living.
+	H.adjust_nutrition(radiation * 10)
+	if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
+		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
+	if(radiation > 50)
+		H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
+		H.adjustToxLoss(-1)
+		H.adjustOxyLoss(-1)
 
 /datum/species/diona/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
