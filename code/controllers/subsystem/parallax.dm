@@ -1,14 +1,20 @@
 SUBSYSTEM_DEF(parallax)
 	name = "Parallax"
-	wait = 2
+	wait = 1
 	flags = SS_POST_FIRE_TIMING | SS_BACKGROUND
 	priority = FIRE_PRIORITY_PARALLAX
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/current_run_pointer = 1
 	var/list/currentrun = list()
 	var/list/queued = list()
-	var/planet_x_offset = 128
-	var/planet_y_offset = 128
+
+	// checks if the system is too overloaded
+	var/throttle_ghosts = FALSE
+	var/throttle_all = FALSE
+	var/throttle_ghost_pop = 0
+	var/throttle_all_pop = 0
+
+	// caches random parallax values
 	var/random_layer
 	var/random_colour_assigned = FALSE
 	/// The random colour of the parallax, a nice blue that works for all space by default
@@ -16,19 +22,26 @@ SUBSYSTEM_DEF(parallax)
 	//Amount of ticks between the parallax being allowed to freely fire without going into the queue
 	var/parallax_free_fire_delay_ticks = 10
 
-	//Check pop limits
-	var/throttle_ghosts = FALSE
-	var/throttle_all = FALSE
-	var/throttle_ghost_pop = 0
-	var/throttle_all_pop = 0
+	// planet's random appearance on screen. this should be stored here if we want to show it consistently
+	var/planet_x_offset
+	var/planet_y_offset
+	var/planet_incline_offset = 0
+
+	// determined appearances of multigrid parallax. this should be stored here if we want to show it consistently
+	var/static/list/multigrid_appearance_cache = list()
+	var/static/list/multigrid_incline_cache = list()
 
 //These are cached per client so needs to be done asap so people joining at roundstart do not miss these.
 /datum/controller/subsystem/parallax/PreInit()
 	. = ..()
 	if(prob(70))	//70% chance to pick a special extra layer
-		random_layer = pick(/atom/movable/screen/parallax_layer/random/space_gas, /atom/movable/screen/parallax_layer/random/asteroids)
-	planet_y_offset = rand(100, 160)
-	planet_x_offset = rand(100, 160)
+		random_layer = pick(/atom/movable/screen/parallax_layer/multigrid/random/space_gas, /atom/movable/screen/parallax_layer/multigrid/random/asteroids)
+
+	// determines the random appearance of planet parallax
+	planet_x_offset = rand(-180, 180) + world.maxx * 3 // these values are for putting the planet on the middle of the station
+	planet_y_offset = rand(-180, 180) + world.maxy * 3
+	if(prob(100))
+		planet_incline_offset = rand(5, 30) * pick(1, -1)
 
 /datum/controller/subsystem/parallax/Initialize(start_timeofday)
 	. = ..()
@@ -46,9 +59,16 @@ SUBSYSTEM_DEF(parallax)
 		currentrun = queued
 		queued = temp
 		current_run_pointer = 1
+
 		//Check client count
-		throttle_ghosts = throttle_ghost_pop && length(GLOB.clients) >= throttle_ghost_pop
-		throttle_all = throttle_all_pop && length(GLOB.clients) >= throttle_all_pop
+		// TODO: should be changed based on how expensive the new parallax rendering is
+		// I just can't think a detailed way to reduce parallax lag when the new system has no data for how it is effective than before
+		wait = initial(wait)
+		if(throttle_ghost_pop && length(GLOB.clients) >= throttle_ghost_pop)
+			wait++
+		if(throttle_all_pop && length(GLOB.clients) >= throttle_all_pop)
+			wait *= 2
+
 	//Begin processing the processing queue
 	while(current_run_pointer <= length(currentrun))
 		//Use a pointer, less wasted processing than removing from the list
@@ -60,10 +80,7 @@ SUBSYSTEM_DEF(parallax)
 			continue
 		C?.parallax_update_queued = FALSE
 		//Do the parallax update (Move it to the correct location)
-		if ((throttle_ghosts && isobserver(C?.mob)) || (throttle_all))
-			C?.mob.hud_used?.freeze_parallax()
-		else
-			C?.mob.hud_used?.update_parallax()
+		C?.mob.hud_used?.update_parallax()
 		//Tick check to prevent overrunning
 		if(MC_TICK_CHECK)
 			return
@@ -96,10 +113,7 @@ SUBSYSTEM_DEF(parallax)
 		return
 	//If we haven't updated yet, instantly update
 	if (updater?.last_parallax_update_tick < times_fired || force)
-		if ((throttle_ghosts && isobserver(updater.mob)) || (throttle_all))
-			updater?.mob?.hud_used?.freeze_parallax()
-		else
-			updater?.mob?.hud_used?.update_parallax()
+		updater?.mob?.hud_used?.update_parallax()
 		//Don't allow an instant update on the next fire, to maintain parallax_free_fire_delay_ticks fire per tick max
 		updater?.last_parallax_update_tick = times_fired + parallax_free_fire_delay_ticks
 		return

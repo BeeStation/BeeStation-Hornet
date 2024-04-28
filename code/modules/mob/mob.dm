@@ -1276,3 +1276,7 @@
 /mob/proc/active_storage_deleted(datum/source)
 	SIGNAL_HANDLER
 	set_active_storage(null)
+
+/mob/onTransitZ(old_z,new_z)
+	..()
+	hud_used?.update_parallax_hyperspace(client) // necessary for smooth looking parallax

@@ -317,6 +317,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		player_details.byond_version = full_version
 		GLOB.player_details[ckey] = player_details
 
+	previous_turf = locate(1, 1, 1) // necessary for parallax
 
 	. = ..()	//calls mob.Login()
 
@@ -587,6 +588,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.mentors -= src
 	SSambience.remove_ambience_client(src)
 	Master.UpdateTickRate()
+
+	if(parallax_hyperspace_animation_info)
+		parallax_hyperspace_animation_info.Cut()
+		parallax_hyperspace_animation_info = null
+
 	return ..()
 
 /client/Destroy()

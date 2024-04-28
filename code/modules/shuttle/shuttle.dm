@@ -919,7 +919,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		if(!A)
 			continue
 		if(shuttle_areas[A])
-			SSparallax.update_client_parallax(M.client, TRUE)
+			M.hud_used.update_parallax_hyperspace_exiting(M.client)
 
 /obj/docking_port/mobile/proc/check_transit_zone()
 	if(assigned_transit)
