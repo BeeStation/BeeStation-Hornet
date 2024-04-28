@@ -1,0 +1,8 @@
+author: rkz, Mothblocks, Ryll/Shaps
+delete-after: true
+changes:
+  - rscadd: Adds new succumb HUD alert upon crit status. Replaces the old "Whisper
+      to die" system.
+  - refactor: Refactored stat system to check hardcrit directly
+  - bugfix: fixed stat handling to utilize new hardcrit check, reducing duplicate
+      code
