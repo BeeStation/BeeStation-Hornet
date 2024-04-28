@@ -104,7 +104,8 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		screen_state = "[base_icon_state]0"
 
 	. += mutable_appearance(icon, screen_state)
-	. += emissive_appearance(icon, screen_state, alpha = src.alpha)
+	. += emissive_appearance(icon, screen_state, layer, alpha = src.alpha)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/requests_console/Initialize(mapload)
 	. = ..()
