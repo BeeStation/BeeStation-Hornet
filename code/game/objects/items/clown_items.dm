@@ -126,6 +126,7 @@
 				REMOVE_TRAIT(target, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
 			target.wash(CLEAN_SCRUB)
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+			addfingerprint("Traces of Soap") // Yay my first PR ! This makes it so soap leaves a trace
 			decreaseUses(user)
 	return
 
