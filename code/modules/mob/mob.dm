@@ -490,10 +490,8 @@
 	if(isblind && !blind_examine_check(A))
 		return
 
-
-
-	if(!isblind && !A == src)
-		broadcast_examine(A)
+	if(!isblind)
+		broadcast_examinate(A)
 
 	face_atom(A)
 	var/list/result = A.examine(src)
@@ -501,32 +499,46 @@
 	to_chat(src, EXAMINE_BLOCK(jointext(result, "\n")))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
 
-/mob/proc/broadcast_examine(atom/examined_thing)
+/mob/proc/broadcast_examinate(atom/examined_thing)
 	var/mob/living/carbon/U = usr
-
-	if(U.IsStun() || U.IsParalyzed() || U.is_mouth_covered(mask_only = 1))
+	if(U.IsStun() || U.IsParalyzed() || U.is_mouth_covered(mask_only = 1) || examined_thing == src)
 		return
 
-	var/list/can_see_target = viewers(usr)
-	for(var/mob/M as anything in viewers(4, usr))
+	// If TRUE, the usr's view() for the examined object too
+	var/examining_worn_item = FALSE
+	var/loc_str = "at something off in the distance."
+
+
+	if(isitem(examined_thing))
+		var/obj/item/I = examined_thing
+		if((I.item_flags & IN_STORAGE))
+			if(get(I, /mob/living) == src)
+				loc_str = "inside [usr.p_their()] [I.loc.name]"
+			else
+				loc_str = "inside \the [I.loc.name]"
+
+			else if(I.loc == src)
+				loc_str = "at [p_their()] [I.name]."
+				examining_worn_item = TRUE
+
+	var/can_see_str = "(<span class='srt_info subtle'>\The [src] looks at [examined].")
+	if(examining_worn_item)
+		can_see_str = span_subtle("\The [src] looks [loc_str]")
+
+	var/cannot_see_str = ("<span class='srt_info subtle'>\The [src] looks [loc_str]")
+
+	var/list/can_see_target = viewers(examined_thing)
+	for(var/mob/M as anything in viewers(4, src))
 		if(!M.client)
 			continue
 
-		if(isitem(examined_thing))
-			var/obj/item/I = examined_thing
-			if((I.item_flags & IN_STORAGE))
-				if(get(I, /mob/living) == src)
-					to_chat(M, "<span class='srt subtle'>\The [usr] looks inside [usr.p_their()] [I.loc.name]")
-				else
-					to_chat(M, "<span class='srt subtle'>\The [usr] looks inside \the [I.loc.name]")
-				continue
-
-		if(M in can_see_target)
-			to_chat(M, "<span class='srt_info subtle'>\The [usr] looks at \the [examined_thing]</span>")
+		if(examining_worn_item || (M == src) || (M in can_see_target))
+			to_chat(M, can_see_str)
 		else
-			to_chat(M, "<span class='srt_info subtle'>\The [usr] intently looks at something...</span>")
+			to_chat(M, cannot_see_str)
 
-/mob/dead/broadcast_examine(atom/examined_thing)
+
+/mob/dead/broadcast_examinate(atom/examined_thing)
 	return
 
 /mob/proc/blind_examine_check(atom/examined_thing)
