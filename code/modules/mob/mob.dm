@@ -521,7 +521,7 @@
 				loc_str = "at [p_their()] [I.name]."
 				examining_worn_item = TRUE
 
-	var/can_see_str = "(<span class='srt_info subtle'>\The [src] looks at [examined_thing].")
+	var/can_see_str = ("(<span class='srt_info subtle'>\The [src] looks at [examined_thing].")
 	if(examining_worn_item)
 		can_see_str = span_subtle("\The [src] looks [loc_str]")
 
