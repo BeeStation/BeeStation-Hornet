@@ -142,6 +142,7 @@
 		return TRUE
 	if(default_deconstruction_crowbar(I))
 		return TRUE
+	return ..()
 
 /obj/machinery/harvester/wrench_act(mob/living/user, obj/item/I)
 	if(default_change_direction_wrench(user, I))
