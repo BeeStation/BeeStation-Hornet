@@ -58439,7 +58439,7 @@
 /turf/open/floor/iron,
 /area/security/checkpoint/supply)
 "uBy" = (
-/obj/machinery/computer/arcade{
+/obj/effect/spawner/randomarcade{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
