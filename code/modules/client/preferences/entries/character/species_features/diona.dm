@@ -33,7 +33,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_leaves-[body_part]"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_leaves"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
@@ -79,7 +79,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_thorns-[body_part]"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_thorns"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
@@ -125,7 +125,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_flowers-[body_part]"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_flowers"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
@@ -170,7 +170,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_moss-[body_part]"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_moss"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
@@ -215,7 +215,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_mushroom-[body_part]"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_mushroom"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
@@ -260,7 +260,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_antennae-[body_part]"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_antennae"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
