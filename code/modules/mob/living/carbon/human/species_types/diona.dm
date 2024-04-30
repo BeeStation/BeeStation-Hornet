@@ -1,3 +1,13 @@
+/* TO DO:
+
+Diona pbody and tail
+MAKE IT WORK
+
+testmerge
+win and get those 85 bucks
+
+*/
+
 /datum/species/diona
 	// A mutation caused by a human being ressurected in a revival pod. These regain health in light, and begin to wither in darkness.
 	name = "\improper Diona"

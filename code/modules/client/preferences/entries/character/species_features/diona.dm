@@ -16,6 +16,8 @@
 		BODY_ZONE_CHEST,
 		BODY_ZONE_L_ARM,
 		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG
 	)
 
 	for (var/body_part in body_parts)
@@ -31,7 +33,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_leaves"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_leaves-[body_part]"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
@@ -61,9 +63,7 @@
 
 	var/list/body_parts = list(
 		BODY_ZONE_HEAD,
-		BODY_ZONE_CHEST,
-		BODY_ZONE_L_ARM,
-		BODY_ZONE_R_ARM,
+		BODY_ZONE_CHEST
 	)
 
 	for (var/body_part in body_parts)
@@ -79,7 +79,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_thorns"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_thorns-[body_part]"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
@@ -109,9 +109,7 @@
 
 	var/list/body_parts = list(
 		BODY_ZONE_HEAD,
-		BODY_ZONE_CHEST,
-		BODY_ZONE_L_ARM,
-		BODY_ZONE_R_ARM,
+		BODY_ZONE_CHEST
 	)
 
 	for (var/body_part in body_parts)
@@ -127,7 +125,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_flowers"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_flowers-[body_part]"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
@@ -156,10 +154,7 @@
 	var/datum/universal_icon/diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
 
 	var/list/body_parts = list(
-		BODY_ZONE_HEAD,
-		BODY_ZONE_CHEST,
-		BODY_ZONE_L_ARM,
-		BODY_ZONE_R_ARM,
+		BODY_ZONE_CHEST
 	)
 
 	for (var/body_part in body_parts)
@@ -175,7 +170,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_moss"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_moss-[body_part]"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
@@ -204,10 +199,7 @@
 	var/datum/universal_icon/diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
 
 	var/list/body_parts = list(
-		BODY_ZONE_HEAD,
-		BODY_ZONE_CHEST,
-		BODY_ZONE_L_ARM,
-		BODY_ZONE_R_ARM,
+		BODY_ZONE_HEAD
 	)
 
 	for (var/body_part in body_parts)
@@ -223,7 +215,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_mushroom"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_mushroom-[body_part]"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)
@@ -252,10 +244,7 @@
 	var/datum/universal_icon/diona_body = uni_icon('icons/effects/effects.dmi', "nothing")
 
 	var/list/body_parts = list(
-		BODY_ZONE_HEAD,
-		BODY_ZONE_CHEST,
-		BODY_ZONE_L_ARM,
-		BODY_ZONE_R_ARM,
+		BODY_ZONE_HEAD
 	)
 
 	for (var/body_part in body_parts)
@@ -271,7 +260,7 @@
 				body_part_icon.crop(1, 1, 32, 32)
 				icon_with_markings.blend_icon(body_part_icon, ICON_OVERLAY)
 
-		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_antennae"), ICON_OVERLAY)
+		icon_with_markings.blend_icon(uni_icon('icons/mob/diona_markings.dmi', "diona_antennae-[body_part]"), ICON_OVERLAY)
 
 		// Zoom in on the top of the head and the chest
 		icon_with_markings.scale(64, 64)

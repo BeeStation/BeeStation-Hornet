@@ -45,12 +45,12 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_stripes, GLOB.apid_stripes_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/psyphoza_cap, GLOB.psyphoza_cap_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_leaves_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_thorns_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_flowers_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_moss_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_mushroom_list)
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_markings, GLOB.diona_antennae_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_leaves, GLOB.diona_leaves_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_thorns, GLOB.diona_thorns_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_flowers, GLOB.diona_flowers_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_moss, GLOB.diona_moss_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_mushroom, GLOB.diona_mushroom_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_antennae, GLOB.diona_antennae_list)
 
 
 	//Species

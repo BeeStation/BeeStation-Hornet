@@ -2629,135 +2629,164 @@
 
 //dionae
 
-/datum/sprite_accessory/diona_markings
+/datum/sprite_accessory/diona_leaves
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
 
-/datum/sprite_accessory/diona_markings/leaves
+/datum/sprite_accessory/diona_leaves/leaves
 	name = "Diona Leaves"
 	icon_state = "diona_leaves"
 
-/datum/sprite_accessory/diona_markings/thorns_head
+/datum/sprite_accessory/diona_thorns
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_thorns/head
 	name = "Diona Thorns (Head)"
 	icon_state = "diona_thorns"
 
-/datum/sprite_accessory/diona_markings/thorns_torso
+/datum/sprite_accessory/diona_thorns/torso
 	name = "Diona Thorns (Torso)"
 	icon_state = "diona_thorns"
 
-/datum/sprite_accessory/diona_markings/flowers_head
+/datum/sprite_accessory/diona_flowers
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_flowers/head
 	name = "Diona Flowers (Head)"
 	icon_state = "diona_flowers"
 
-/datum/sprite_accessory/diona_markings/flowers_torso
+/datum/sprite_accessory/diona_flowers/torso
 	name = "Diona Flowers (Torso)"
 	icon_state = "diona_flowers"
 
-/datum/sprite_accessory/diona_markings/moss
+/datum/sprite_accessory/diona_moss
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_moss/moss
 	name = "Diona Moss"
 	icon_state = "diona_moss"
 
-/datum/sprite_accessory/diona_markings/mushroom
+/datum/sprite_accessory/diona_mushroom
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_mushroom/mushroom
 	name = "Diona Mushroom"
 	icon_state = "diona_mushroom"
 
-/datum/sprite_accessory/diona_markings/mushroom/antennae
+/datum/sprite_accessory/diona_antennae
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_antennae/antennae
 	name = "Diona Antennae"
 	icon_state = "diona_antennae"
 
-/datum/sprite_accessory/diona_markings/bug_eyes
+/datum/sprite_accessory/diona_eyes
 	name = "Bug Eyes"
 	icon_state = "bugeyes"
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
 
-/datum/sprite_accessory/diona_markings/bug_eyes/human_eyes
+/datum/sprite_accessory/diona_eyes/human_eyes
 	name = "Human Eyes"
 	icon_state = "humaneyes"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/small_horns
+/datum/sprite_accessory/diona_eyes/small_horns
 	name = "Small Horns"
 	icon_state = "smallhorns"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/horny
+/datum/sprite_accessory/diona_eyes/horny
 	name = "Horny"
 	icon_state = "horny"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/treebeard
+/datum/sprite_accessory/diona_eyes/treebeard
 	name = "Treebeard"
 	icon_state = "treebeard"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/tinyeye
+/datum/sprite_accessory/diona_eyes/tinyeye
 	name = "Tiny Eye"
 	icon_state = "tinyeye"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/eyebrow
+/datum/sprite_accessory/diona_eyes/eyebrow
 	name = "Eyebrow"
 	icon_state = "eyebrow"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/bullhorn
+/datum/sprite_accessory/diona_eyes/bullhorn
 	name = "Bullhorn"
 	icon_state = "bullhorn"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/mono_eye
+/datum/sprite_accessory/diona_eyes/mono_eye
 	name = "Mono Eye"
 	icon_state = "monoeye"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/trioptics
+/datum/sprite_accessory/diona_eyes/trioptics
 	name = "Trioptics"
 	icon_state = "trioptics"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/lopsided
+/datum/sprite_accessory/diona_eyes/lopsided
 	name = "Lopsided"
 	icon_state = "lopsided"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/helmethead
+/datum/sprite_accessory/diona_eyes/helmethead
 	name = "Helmethead"
 	icon_state = "helmethead"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/eyestalk
+/datum/sprite_accessory/diona_eyes/eyestalk
 	name = "Eyestalk"
 	icon_state = "eyestalk"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/periscope
+/datum/sprite_accessory/diona_eyes/periscope
 	name = "Periscope"
 	icon_state = "periscope"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/glorp
+/datum/sprite_accessory/diona_eyes/glorp
 	name = "Glorp"
 	icon_state = "glorp"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/oak
+/datum/sprite_accessory/diona_eyes/oak
 	name = "Oak"
 	icon_state = "oak"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/thorns
+/datum/sprite_accessory/diona_eyes/thorns
 	name = "Thorns"
 	icon_state = "thorns"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/stump
+/datum/sprite_accessory/diona_eyes/stump
 	name = "Stump"
 	icon_state = "stump"
 
-/datum/sprite_accessory/diona_markings/bug_eyes/snout
+/datum/sprite_accessory/diona_eyes/snout
 	name = "Snout"
 	icon_state = "snout"
 
-/datum/sprite_accessory/diona_markings/pbody
-	name = "P-Body"
-	icon_state = "pbody"
-
-/datum/sprite_accessory/diona_markings/pbody/blinking
-	name = "Blinking P-Body"
-	icon_state = "blinkingpbody"
-
-/datum/sprite_accessory/diona_markings/foot_eye
+/datum/sprite_accessory/diona_eyes/foot
 	name = "Foot Eye"
 	icon_state = "footeye"
 
-/datum/sprite_accessory/diona_markings/hand_eyes
+/datum/sprite_accessory/diona_eyes/hand
 	name = "Hand Eyes"
 	icon_state = "handeye"
 
-/datum/sprite_accessory/diona_markings/tail
+/datum/sprite_accessory/diona_pbody
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_pbody/pbody
+	name = "P-Body"
+	icon_state = "pbody"
+/datum/sprite_accessory/diona_pbody/blinking
+	name = "Blinking P-Body"
+	icon_state = "blinkingpbody"
+
+/datum/sprite_accessory/diona_tail
+	icon = 'icons/mob/diona_markings.dmi'
+	color_src = null
+
+/datum/sprite_accessory/diona_tail/tail
 	name = "Tail"
 	icon_state = "dionatail"
 
