@@ -1857,14 +1857,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/security/checkpoint/customs)
-"ams" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/digital_clock/directional/south,
-/turf/open/floor/iron,
-/area/hallway/secondary/exit/departure_lounge)
 "amu" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Checkpoint";
@@ -6486,17 +6478,6 @@
 /obj/structure/closet,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
-"aKw" = (
-/obj/structure/chair/stool/bar{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/obj/machinery/digital_clock/directional/east,
-/turf/open/floor/iron,
-/area/crew_quarters/bar/atrium)
 "aKx" = (
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder{
@@ -6570,6 +6551,13 @@
 "aKV" = (
 /turf/closed/wall,
 /area/security/prison)
+"aLa" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/fax/bridge,
+/obj/machinery/digital_clock/directional/south,
+/turf/open/floor/iron/dark,
+/area/bridge)
 "aLb" = (
 /obj/item/wrench,
 /obj/effect/turf_decal/stripes/line{
@@ -10024,6 +10012,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
+"bhR" = (
+/obj/machinery/griddle,
+/turf/open/floor/iron,
+/area/crew_quarters/kitchen)
 "bhS" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/papersack{
@@ -10563,6 +10555,16 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"blv" = (
+/obj/structure/table/reinforced,
+/obj/item/food/mint,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/bot,
+/obj/item/book/manual/wiki/cooking_to_serve_man,
+/turf/open/floor/iron,
+/area/crew_quarters/kitchen)
 "blw" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder{
@@ -31678,6 +31680,13 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
+"dJC" = (
+/obj/machinery/vending/clothing,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/machinery/digital_clock/directional/south,
+/turf/open/floor/iron,
+/area/hallway/secondary/entry)
 "dJG" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
@@ -32167,6 +32176,16 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/science/storage)
+"dMg" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/obj/machinery/digital_clock/directional/south,
+/obj/structure/chair/fancy/bench/right{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/security/prison)
 "dMr" = (
 /obj/structure/chair/stool,
 /turf/open/floor/prison,
@@ -33031,16 +33050,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/exit/departure_lounge)
-"dTO" = (
-/obj/structure/table/reinforced,
-/obj/item/food/mint,
-/obj/item/reagent_containers/food/condiment/enzyme{
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/bot,
-/obj/item/book/manual/wiki/cooking_to_serve_man,
-/turf/open/floor/iron,
-/area/crew_quarters/kitchen)
 "dTT" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/door/airlock/maintenance{
@@ -35009,6 +35018,17 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port/fore)
+"epc" = (
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/obj/machinery/digital_clock/directional/east,
+/turf/open/floor/iron,
+/area/crew_quarters/bar/atrium)
 "epk" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -35602,6 +35622,17 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
+"ewS" = (
+/obj/machinery/holopad,
+/obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Chapel - Aft";
+	dir = 1;
+	name = "chapel camera"
+	},
+/obj/machinery/digital_clock/directional/south,
+/turf/open/floor/carpet/grimy,
+/area/chapel/main)
 "exc" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -36557,12 +36588,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/storage_shared)
-"eNB" = (
-/obj/machinery/computer/arcade{
-	dir = 4
-	},
-/turf/open/floor/prison,
-/area/security/prison)
 "eNJ" = (
 /obj/item/radio/intercom{
 	pixel_x = -28;
@@ -36743,6 +36768,14 @@
 	},
 /turf/open/floor/iron,
 /area/medical/patients_rooms)
+"eQl" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/digital_clock/directional/south,
+/turf/open/floor/iron,
+/area/hallway/secondary/exit/departure_lounge)
 "eQt" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -36954,6 +36987,19 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"eUE" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/iron/white,
+/area/science/research)
 "eUM" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -40504,16 +40550,6 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/port)
-"gcO" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/digital_clock/directional/north,
-/turf/open/floor/iron,
-/area/engine/break_room)
 "gdd" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -40700,13 +40736,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/genetics/cloning)
-"ggV" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/machinery/fax/bridge,
-/obj/machinery/digital_clock/directional/south,
-/turf/open/floor/iron/dark,
-/area/bridge)
 "ggZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -45218,21 +45247,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/security/brig)
-"hNr" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/newscaster{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
-	dir = 1
-	},
-/obj/machinery/fax/cargo,
-/obj/machinery/digital_clock/directional/north,
-/turf/open/floor/iron,
-/area/quartermaster/office)
 "hNx" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -49142,19 +49156,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron,
 /area/hallway/secondary/command)
-"jgo" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/machinery/digital_clock/directional/north,
-/turf/open/floor/iron/white,
-/area/science/research)
 "jgs" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
@@ -50642,6 +50643,13 @@
 /obj/structure/girder,
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"jId" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/machinery/digital_clock/directional/south,
+/turf/open/floor/iron,
+/area/medical/medbay/lobby)
 "jIo" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -58609,13 +58617,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/security/main)
-"moK" = (
-/obj/machinery/vending/clothing,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/machinery/digital_clock/directional/south,
-/turf/open/floor/iron,
-/area/hallway/secondary/entry)
 "mpc" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -59226,17 +59227,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/science/shuttledock)
-"mBU" = (
-/obj/machinery/holopad,
-/obj/machinery/light,
-/obj/machinery/camera{
-	c_tag = "Chapel - Aft";
-	dir = 1;
-	name = "chapel camera"
-	},
-/obj/machinery/digital_clock/directional/south,
-/turf/open/floor/carpet/grimy,
-/area/chapel/main)
 "mBV" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
@@ -61069,13 +61059,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
-"nec" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/machinery/digital_clock/directional/south,
-/turf/open/floor/iron,
-/area/medical/medbay/lobby)
 "neo" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -61208,6 +61191,16 @@
 	},
 /turf/open/floor/iron,
 /area/construction/mining/aux_base)
+"nfA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/iron,
+/area/engine/break_room)
 "nfZ" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
@@ -67528,10 +67521,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/science/mixing)
-"poT" = (
-/obj/machinery/griddle,
-/turf/open/floor/iron,
-/area/crew_quarters/kitchen)
 "poY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -68550,6 +68539,21 @@
 /obj/machinery/light/small,
 /turf/open/floor/iron/freezer,
 /area/security/prison)
+"pHp" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/newscaster{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
+	dir = 1
+	},
+/obj/machinery/fax/cargo,
+/obj/machinery/digital_clock/directional/north,
+/turf/open/floor/iron,
+/area/quartermaster/office)
 "pHy" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -72383,15 +72387,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/aisat)
-"qUK" = (
-/obj/structure/noticeboard{
-	desc = "A board for remembering the fallen of the station.";
-	dir = 1;
-	name = "memorial board";
-	pixel_y = -32
-	},
-/turf/open/floor/iron/dark,
-/area/chapel/main)
 "qUM" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -75953,15 +75948,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/engine/gravity_generator)
-"saY" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/obj/structure/chair/fancy/bench/left{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/security/prison)
 "sbe" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -75994,16 +75980,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
-"sbY" = (
-/obj/effect/turf_decal/tile/red/anticorner/contrasted{
-	dir = 8
-	},
-/obj/machinery/digital_clock/directional/south,
-/obj/structure/chair/fancy/bench/right{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/security/prison)
 "scl" = (
 /obj/machinery/light,
 /obj/machinery/newscaster{
@@ -77054,6 +77030,12 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/storage/tech)
+"swg" = (
+/obj/effect/spawner/randomarcade{
+	dir = 4
+	},
+/turf/open/floor/prison,
+/area/security/prison)
 "swh" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -88980,6 +88962,15 @@
 	},
 /turf/open/floor/iron,
 /area/maintenance/aft)
+"wCn" = (
+/obj/structure/noticeboard{
+	desc = "A board for remembering the fallen of the station.";
+	dir = 1;
+	name = "memorial board";
+	pixel_y = -32
+	},
+/turf/open/floor/iron/dark,
+/area/chapel/main)
 "wCo" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
@@ -94206,6 +94197,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/science/xenobiology)
+"ygO" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/obj/structure/chair/fancy/bench/left{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/security/prison)
 "ygX" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -118552,7 +118552,7 @@ pvf
 bxE
 iBx
 bzg
-gcO
+nfA
 mTm
 bGl
 bHW
@@ -127339,7 +127339,7 @@ cMY
 cMY
 cMY
 cMY
-jgo
+eUE
 fjQ
 gPv
 cOR
@@ -128666,7 +128666,7 @@ dZR
 dZk
 dWN
 dZk
-qUK
+wCn
 dTA
 dUu
 dTw
@@ -129437,7 +129437,7 @@ vFF
 lBG
 xfp
 hNX
-mBU
+ewS
 dTA
 oes
 edS
@@ -130877,7 +130877,7 @@ aYC
 aYC
 bhO
 rbH
-dTO
+blv
 bnq
 hcP
 tmB
@@ -131903,7 +131903,7 @@ vIE
 iDY
 bff
 qer
-poT
+bhR
 idA
 blz
 bnq
@@ -132659,7 +132659,7 @@ lrd
 erE
 aHE
 fag
-aKw
+epc
 wmE
 rOT
 rOT
@@ -132771,7 +132771,7 @@ gEI
 mIR
 xUd
 vpZ
-ams
+eQl
 dST
 dZp
 vpZ
@@ -133407,7 +133407,7 @@ aaa
 aaO
 pjz
 hPl
-moK
+dJC
 abf
 bPv
 ano
@@ -134207,7 +134207,7 @@ rkO
 hqP
 rwP
 aFe
-hNr
+pHp
 mNG
 aXg
 poY
@@ -134489,7 +134489,7 @@ bYc
 esA
 rMZ
 yaH
-ggV
+aLa
 bKH
 rdd
 mUt
@@ -137356,7 +137356,7 @@ jlI
 tUL
 ffv
 vlB
-nec
+jId
 ats
 cjk
 pFX
@@ -144779,10 +144779,10 @@ amO
 oMz
 kMh
 vjt
-sbY
+dMg
 aFm
 hll
-eNB
+swg
 mkq
 fab
 aFm
@@ -145036,7 +145036,7 @@ kkr
 uCU
 ofj
 dLy
-saY
+ygO
 hwA
 nZc
 ueX

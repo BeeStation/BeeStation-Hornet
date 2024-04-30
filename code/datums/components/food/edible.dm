@@ -284,9 +284,6 @@ Behavior that's still missing from this component that original food items had t
 
 	set waitfor = FALSE // We might end up sleeping here, so we don't want to hold up anything
 
-	if(QDELETED(parent))
-		return
-
 	var/atom/owner = parent
 
 	if(feeder.a_intent == INTENT_HARM)
@@ -469,6 +466,7 @@ Behavior that's still missing from this component that original food items had t
 
 	on_consume?.Invoke(eater, feeder)
 
+	to_chat(feeder, "<span class='warning'>There is nothing left of [parent], oh no!</span>")
 	if(isturf(parent))
 		var/turf/T = parent
 		T.ScrapeAway(1, CHANGETURF_INHERIT_AIR)

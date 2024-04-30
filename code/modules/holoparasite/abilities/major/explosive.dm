@@ -176,7 +176,7 @@
 	arm_hud.begin_timer(arming_cooldown_length)
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(display_examine))
 	RegisterSignal(target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_bomb_destroyed))
-	RegisterSignal(target, boom_signals, PROC_REF(kaboom))
+	RegisterSignals(target, boom_signals, PROC_REF(kaboom))
 	bomb_disarm_timers[target] = addtimer(CALLBACK(src, PROC_REF(disable), target), master_stats.potential * 18 * 10, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_STOPPABLE)
 	bombs += target
 
