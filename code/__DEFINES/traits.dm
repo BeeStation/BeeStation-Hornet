@@ -143,6 +143,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESTRAINED "restrained"
 */
 #define TRAIT_INCAPACITATED "incapacitated"
+//In some kind of critical condition. Is able to succumb.
+#define TRAIT_CRITICAL_CONDITION "critical-condition"
 
 //mob traits
 #define TRAIT_BLIND "blind"
@@ -270,6 +272,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_METALANGUAGE_KEY_ALLOWED "metalanguage_key_allowed" // you can use language key for metalanguage (,`) and but also you see lang icon
 #define TRAIT_HYPERSPACED "hyperspaced" // Sanity trait to keep track of when we're in hyperspace and add the appropriate element if we werent
 #define TRAIT_FREE_HYPERSPACE_MOVEMENT "free_hyperspace_movement" // Gives the movable free hyperspace movement without being pulled during shuttle transit
+#define TRAIT_FAST_CUFF_REMOVAL "fast_cuff_removal" // Faster cuff removal
 
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either
@@ -277,7 +280,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MADNESS_IMMUNE "supermatter_madness_immune"
 
 //non-mob traits
-#define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
+//Used for limb-based paralysis, where replacing the limb will fix it
+#define TRAIT_PARALYSIS "paralysis"
+
+///Used for managing KEEP_TOGETHER in [appearance_flags]
+#define TRAIT_KEEP_TOGETHER 	"keep-together"
 
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
 
@@ -380,6 +387,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CHOKEHOLD_TRAIT "chokehold"
 //trait associated to resting
 #define RESTING_TRAIT "resting"
+//trait associated to a stat value or range of
+#define STAT_TRAIT "stat"
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"

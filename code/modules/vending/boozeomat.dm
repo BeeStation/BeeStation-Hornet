@@ -3,7 +3,6 @@
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
 	icon_state = "boozeomat"
 	icon_deny = "boozeomat-deny"
-	light_color = LIGHT_COLOR_BLUEGREEN
 	products = list(/obj/item/reagent_containers/food/drinks/drinkingglass = 30,
 					/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass = 12,
 					/obj/item/reagent_containers/food/drinks/flask = 3,
@@ -49,6 +48,7 @@
 	default_price = 20
 	extra_price = 50
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	light_mask = "boozeomat-light-mask"
 
 /obj/machinery/vending/boozeomat/all_access
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one. This model appears to have no access restrictions."
