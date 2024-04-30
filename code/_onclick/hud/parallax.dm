@@ -8,6 +8,7 @@
 	var/parallax_layers_max
 	/// previous turf that your eye was at
 	var/turf/previous_turf
+	var/turf/previous_parallax_turf
 	/// previous area where your previous turf was
 	var/area/previous_area
 
@@ -17,8 +18,9 @@
 	var/parallax_is_shuttle_docking
 	/// prevents running parallax animate() when shuttle is going to hyperspace Becomes FALSE after entering hyperspace (likely a few seconds)
 	var/parallax_is_hyperspace
-	/// caches values to keep the consistency between parallax animation procs, for what it should show to you.
-	var/list/parallax_hyperspace_animation_info
+	var/parallax_current_movedir = 0
+	/// used for smooth animation
+	var/parallax_old_movedir = 0
 
 /datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
@@ -30,11 +32,11 @@
 	if(!length(C.parallax_layers_cached))
 		C.parallax_layers_cached = list()
 		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/multigrid/layer_1(null)
-		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/multigrid/layer_2(null)
+		//C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/multigrid/layer_2(null)
 		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/planet(null)
 		if(SSparallax.random_layer)
 			C.parallax_layers_cached += new SSparallax.random_layer
-		C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/multigrid/layer_3(null)
+		//C.parallax_layers_cached += new /atom/movable/screen/parallax_layer/multigrid/layer_3(null)
 
 	C.parallax_layers = C.parallax_layers_cached.Copy()
 
@@ -94,58 +96,49 @@
 	update_parallax()
 
 /// Called when a mob enters hyperspace, or they moves z level. This will show a smooth starting animation first, then calls update_parallax_hyperspace_consistent()
-/datum/hud/proc/update_parallax_hyperspace(client/C, area/my_area, list/animation_info = null, force = FALSE)
+/datum/hud/proc/_update_parallax_hyperspace(client/C, area/my_area)
+	PRIVATE_PROC(TRUE) // if you need to use this, just call update_parallax() manually
 	if(!C)
 		return
-	if(C.parallax_is_hyperspace && !force) // force is necessary when you move between shuttles
-		return
+	COOLDOWN_RESET(C, parallax_animate_cooldown)
 	if(!my_area)
 		my_area = get_area(C.eye)
 	if(!my_area.parallax_movedir)
-		C.parallax_is_hyperspace = FALSE
+		C.parallax_current_movedir = FALSE
 		return
+	if(my_area.parallax_movedir == C.parallax_current_movedir) // same one?
+		return
+	C.parallax_current_movedir = my_area.parallax_movedir
+	C.parallax_old_movedir = my_area.parallax_movedir
 	C.parallax_is_shuttle_docking = FALSE
-	C.parallax_is_hyperspace = TRUE
-	if(isnull(animation_info))
-		if(C.parallax_hyperspace_animation_info)
-			C.parallax_hyperspace_animation_info.Cut()
-			C.parallax_hyperspace_animation_info = null
-		animation_info = build_parallax_hyperspace_consistent_data(C, my_area.parallax_movedir)
+	var/list/animation_info = build_parallax_hyperspace_consistent_data(C, my_area.parallax_movedir)
 	var/real_anim_time = PARALLAX_LOOP_TIME * 1.5 // this looks smooth based on 'easing = SINE_EASING | EASE_IN'
 	for(var/atom/movable/screen/parallax_layer/para_layer as anything in animation_info)
-		para_layer.transform = para_layer.flight_anim_preserve
 		animate(para_layer, transform = animation_info[para_layer], time = real_anim_time, easing = SINE_EASING | EASE_IN, flags = ANIMATION_END_NOW)
 		animate(transform = para_layer.flight_anim_preserve, time = 0)
-	addtimer(CALLBACK(src, PROC_REF(update_parallax_hyperspace_consistent), C, my_area, animation_info), real_anim_time)
-	C.parallax_hyperspace_animation_info = animation_info
+	addtimer(CALLBACK(src, PROC_REF(update_parallax_hyperspace_consistent), C, my_area), real_anim_time)
 	COOLDOWN_START(C, parallax_animate_cooldown, real_anim_time)
 
 /// Followed by 'update_parallax_hyperspace()' proc, showing consistent animation as if your shuttle is forwarding
-/datum/hud/proc/update_parallax_hyperspace_consistent(client/C, area/my_area, list/animation_info = null)
+/datum/hud/proc/update_parallax_hyperspace_consistent(client/C, area/my_area)
 	if(!C)
 		return
 	if(C.parallax_is_shuttle_docking)
 		return
 	if(!my_area)
 		my_area = get_area(C.eye)
-	else
-		var/area/current_area = get_area(C.eye)
-		if(my_area != current_area && my_area.parallax_movedir != current_area.parallax_movedir) // this one is late to show
-			return
 	if(!my_area.parallax_movedir)
 		update_parallax_hyperspace_exiting(C)
-		C.parallax_is_hyperspace = FALSE
+		C.parallax_current_movedir = FALSE
 		return
-	if(isnull(animation_info))
-		if(C.parallax_hyperspace_animation_info)
-			C.parallax_hyperspace_animation_info.Cut()
-			C.parallax_hyperspace_animation_info = null
-		animation_info = build_parallax_hyperspace_consistent_data(C, my_area.parallax_movedir)
+	if(my_area.parallax_movedir != C.parallax_current_movedir) // something is changed after timer
+		return
+	C.parallax_current_movedir = my_area.parallax_movedir
+	C.parallax_old_movedir = my_area.parallax_movedir
+	var/list/animation_info = build_parallax_hyperspace_consistent_data(C, my_area.parallax_movedir)
 	for(var/atom/movable/screen/parallax_layer/para_layer as anything in animation_info)
-		para_layer.transform = para_layer.flight_anim_preserve
-		animate(para_layer, transform = animation_info[para_layer], time = PARALLAX_LOOP_TIME, loop = -1, flags = ANIMATION_END_NOW)
-		animate(transform = para_layer.flight_anim_preserve, time = 0)
-	C.parallax_hyperspace_animation_info = animation_info
+		animate(para_layer, transform = animation_info[para_layer], time = PARALLAX_LOOP_TIME, loop = -1)
+		animate(transform = para_layer.flight_anim_preserve, time = 0, loop = -1)
 
 /// Called by shuttle docking code (find it yourself. it's somewhere). Used to show a smooth ending animation of parallaxes
 /datum/hud/proc/update_parallax_hyperspace_exiting(client/C)
@@ -154,13 +147,12 @@
 	if(C.parallax_is_shuttle_docking)
 		return
 	C.parallax_is_shuttle_docking = TRUE
-	C.parallax_is_hyperspace = FALSE
+	C.parallax_current_movedir = FALSE
 	var/real_anim_time = PARALLAX_LOOP_TIME * 1.5 // this looks smooth based on 'easing = SINE_EASING | EASE_OUT'
-	for(var/atom/movable/screen/parallax_layer/para_layer as anything in C.parallax_hyperspace_animation_info)
-		para_layer.transform = para_layer.flight_anim_preserve
-		animate(para_layer, transform = C.parallax_hyperspace_animation_info[para_layer], time = real_anim_time, easing = SINE_EASING | EASE_OUT, flags = ANIMATION_END_NOW)
-	C.parallax_hyperspace_animation_info.Cut()
-	C.parallax_hyperspace_animation_info = null
+	var/list/anim_data = build_parallax_hyperspace_consistent_data(C, C.parallax_old_movedir)
+	C.parallax_old_movedir = FALSE
+	for(var/atom/movable/screen/parallax_layer/para_layer as anything in anim_data)
+		animate(para_layer, transform = anim_data[para_layer], time = real_anim_time, easing = SINE_EASING | EASE_OUT, flags = ANIMATION_END_NOW)
 	COOLDOWN_START(C, parallax_animate_cooldown, real_anim_time)
 
 /// Builds a list for each parallax on how it should animate parallaxes.
@@ -170,26 +162,28 @@
 		if(para_layer.invisibility || !para_layer.use_hyperspace_animation)
 			continue
 
+		var/matrix/anim_matrix
+		var/turf/new_turf = get_turf(C.eye)
+		para_layer.recalculate_transform(new_turf)
+		para_layer.need_to_reset = TRUE
+		anim_matrix = matrix(para_layer.transform)
+
 		var/anim_x_offset = 0
 		var/anim_y_offset = 0
 		switch(direction)
 			if(NORTH)
-				anim_y_offset = -PARALLAX_IMAGE_SIZE * para_layer.layer_scale * PARALLAX_SPEED_MOD
-			if(SOUTH)
 				anim_y_offset = PARALLAX_IMAGE_SIZE * para_layer.layer_scale * PARALLAX_SPEED_MOD
-			if(EAST)
-				anim_x_offset = -PARALLAX_IMAGE_SIZE * para_layer.layer_scale * PARALLAX_SPEED_MOD
-			if(WEST)
-				anim_x_offset = PARALLAX_IMAGE_SIZE * para_layer.layer_scale * PARALLAX_SPEED_MOD
-			else
+			if(SOUTH)
 				anim_y_offset = -PARALLAX_IMAGE_SIZE * para_layer.layer_scale * PARALLAX_SPEED_MOD
+			if(EAST)
+				anim_x_offset = PARALLAX_IMAGE_SIZE * para_layer.layer_scale * PARALLAX_SPEED_MOD
+			if(WEST)
+				anim_x_offset = -PARALLAX_IMAGE_SIZE * para_layer.layer_scale * PARALLAX_SPEED_MOD
+			else
+				anim_y_offset = PARALLAX_IMAGE_SIZE * para_layer.layer_scale * PARALLAX_SPEED_MOD
 				stack_trace("direction value is wrong: [direction]")
-
-		if(para_layer.animation_result)
-			para_layer.transform = para_layer.animation_result
-		para_layer.flight_anim_preserve = para_layer.transform
-
-		var/matrix/anim_matrix = para_layer.transform.Translate(anim_x_offset, anim_y_offset)
+		para_layer.transform = para_layer.transform.Translate(anim_x_offset, anim_y_offset)
+		para_layer.flight_anim_preserve = matrix(para_layer.transform)
 		animation_info[para_layer] = anim_matrix
 
 	return animation_info
@@ -199,78 +193,58 @@
 	var/client/C = mymob.client
 	if(!C)
 		return
-	// parallax animation is doing something. Skips.
-	if(COOLDOWN_TIMELEFT(C, parallax_animate_cooldown))
-		return
 	var/turf/current_turf = get_turf(C.eye)
 	if(!current_turf)
 		return
+	var/turf/temp_previous_turf = C.previous_turf
+	C.previous_turf = current_turf
 
-/* ------------------------------------------------------------------------------- */
-	// From this line, this proc mainly checks your z level to know if it should run a smooth moving parallax animation on hyperspace
-
-	// check_z() proc will return TRUE if a parallax layer is added or gone
-	// i.e.) planet parallax is only available on station level
-	var/z_is_different
-	if(C.previous_turf && (current_turf.z != C.previous_turf.z))
+	if(current_turf.z != temp_previous_turf.z)
 		for(var/atom/movable/screen/parallax_layer/para_layer as anything in C.parallax_layers)
-			z_is_different += para_layer.check_z(current_turf, C.previous_turf)
+			para_layer.check_z(current_turf)
 
 	var/area/current_area = current_turf.loc
-	// checks if movedir from two areas are different, and then shows moving parallax
-	if(current_area.parallax_movedir)
-		if(current_area != C.previous_area && C.previous_area.parallax_movedir != current_area.parallax_movedir)
-			update_parallax_hyperspace(C, current_area, force = TRUE)
+	if(C.parallax_current_movedir != (current_area.parallax_movedir || 0))
+		_update_parallax_hyperspace(C, current_area)
+		if(C.parallax_current_movedir == 0)
+			update_parallax_hyperspace_exiting(C)
 
-		C.previous_area = current_area
-		return // as long as 'current_area.parallax_movedir' exists, don't update
+	if(C.parallax_current_movedir)
+		return
 
-	else
-		C.parallax_is_hyperspace = FALSE
-
-	if(C.previous_area && C.previous_area.parallax_movedir)
-		do_animate = FALSE
-	C.previous_area = current_area
-
-/* ------------------------------------------------------------------------------- */
-	// From this line, now this proc updates your parallax based on your movement
+	// parallax animation is doing something. Skips.
+	if(COOLDOWN_TIMELEFT(C, parallax_animate_cooldown))
+		return
 
 	// calculate diff value
 	var/x_diff = 0
 	var/y_diff = 0
-	if(C.previous_turf)
-		x_diff = (C.previous_turf.x - current_turf.x) * PARALLAX_SPEED_MOD
-		y_diff = (C.previous_turf.y - current_turf.y) * PARALLAX_SPEED_MOD
+	if(temp_previous_turf)
+		x_diff = (temp_previous_turf.x - current_turf.x) * PARALLAX_SPEED_MOD
+		y_diff = (temp_previous_turf.y - current_turf.y) * PARALLAX_SPEED_MOD
 		if(abs(x_diff) + abs(y_diff) > 100) // too fast
 			do_animate = FALSE
 
-	C.previous_turf = current_turf
-
 	for(var/atom/movable/screen/parallax_layer/para_layer as anything in C.parallax_layers)
 		if(para_layer.invisibility) // skip rendering
+			continue
+		if(para_layer.need_to_reset)
+			para_layer.recalculate_transform(current_turf)
 			continue
 
 		if(para_layer.animation_result)
 			para_layer.transform = para_layer.animation_result
 			para_layer.animation_result = null
 
-		if(z_is_different)
-			if(para_layer.use_old_xy)
-				var/old_x_diff = (para_layer.old_x - current_turf.x) * para_layer.layer_scale * PARALLAX_SPEED_MOD
-				var/old_y_diff = (para_layer.old_y - current_turf.y) * para_layer.layer_scale * PARALLAX_SPEED_MOD
-				para_layer.transform = para_layer.transform.Translate(old_x_diff, old_y_diff)
-				para_layer.use_old_xy = FALSE
-				animate(para_layer)
-			else
-				para_layer.transform = para_layer.transform.Translate(para_layer.layer_scale*x_diff, para_layer.layer_scale*y_diff)
-				animate(para_layer)
+		if(do_animate)
+			para_layer.animation_result = para_layer.transform.Translate(para_layer.layer_scale*x_diff, para_layer.layer_scale*y_diff)
+			animate(para_layer, time = SSparallax.wait, transform = para_layer.animation_result)
 		else
-			if(do_animate)
-				para_layer.animation_result = para_layer.transform.Translate(para_layer.layer_scale*x_diff, para_layer.layer_scale*y_diff)
-				animate(para_layer, time = SSparallax.wait, transform = para_layer.animation_result)
-			else
-				para_layer.transform = para_layer.transform.Translate(para_layer.layer_scale*x_diff, para_layer.layer_scale*y_diff)
-				animate(para_layer)
+			para_layer.transform = para_layer.transform.Translate(para_layer.layer_scale*x_diff, para_layer.layer_scale*y_diff)
+			animate(para_layer)
+
+
+		C.parallax_is_shuttle_docking = FALSE
 
 /*  < VERY IMPORTANT NOTE FOR PARALLAXE >
  *		Parallax is highly dependent on using 'transform'
@@ -289,40 +263,45 @@
 	/// size and speed of the parallax. 0.5 means 50%. 480x480 will become 240x240, and matrix.Translate() will take 50% value of your movement distance.
 	var/layer_scale = 1
 	/// If TRUE, this parallax will do animate() to the direction of area/var/parallax_movedir
-	var/use_hyperspace_animation = FALSE
+	var/use_hyperspace_animation = TRUE
+	var/matrix/default_transform
+	var/matrix/new_transform
+	var/need_to_reset
 	/// a holder value that is a result of animate() in update_parallax() proc
 	var/matrix/animation_result
-	/// same, but when you're at a shuttle
 	var/matrix/flight_anim_preserve
-	/// a flag variable which x,y values a parallax should use on update
-	var/use_old_xy = TRUE // TRUE is necessary for client init
-	var/old_x = 1 // necessary for client init
-	var/old_y = 1 // necessary for client init
-	// because a new client doesn't remember their old parallax...
 
 /atom/movable/screen/parallax_layer/Initialize(mapload)
 	. = ..()
+	animation_result = null // somehow it is too early injected
+	transform = matrix() // it's annoying that update_parallax() is called too earlier before it's initialized
 	init_parallax()
+	default_transform = transform
 
 /atom/movable/screen/parallax_layer/proc/init_parallax()
-	animation_result = null // somehow it is too early injected
 	transform = transform.Translate(PARALLAX_IMAGE_SIZE * layer_scale, 0)
 	transform = transform.Scale(layer_scale)
 
 /// checks if your new z level should be visible to your parallax image
-/atom/movable/screen/parallax_layer/proc/check_z(turf/my_turf, turf/old_turf)
-	if(invisibility) // do not merge the if condition
-		if(is_allowed_z(my_turf.z))
-			use_old_xy = TRUE
-			invisibility = 0
-			return TRUE
+/atom/movable/screen/parallax_layer/proc/check_z(turf/my_turf)
+	if(is_allowed_z(my_turf.z))  // do not merge the if condition
+		need_to_reset = TRUE
+		invisibility = 0
 	else
-		if(!is_allowed_z(my_turf.z))
-			invisibility = INVISIBILITY_ABSTRACT
-			old_x = old_turf.x
-			old_y = old_turf.y
-			return TRUE
+		invisibility = INVISIBILITY_ABSTRACT
 	return FALSE
+
+/// accurately calculating everything on z transit is tiring. just reset then recalculation is easy
+/atom/movable/screen/parallax_layer/proc/recalculate_transform(turf/new_turf)
+	transform = matrix(default_transform)
+	transform = transform.Translate((1 - (new_turf ? new_turf.x : 0)) * layer_scale * PARALLAX_SPEED_MOD, (1 - (new_turf ? new_turf.y : 0)) * layer_scale * PARALLAX_SPEED_MOD)
+	animation_result = null
+	need_to_reset = FALSE
+
+/atom/movable/screen/parallax_layer/proc/centeralise_transform()
+	transform = matrix(default_transform)
+	animation_result = null
+	need_to_reset = FALSE
 
 /// typically all parallaxes are allowed. this is specifically made for planet parallax
 /atom/movable/screen/parallax_layer/proc/is_allowed_z(z)
@@ -400,15 +379,12 @@
 		SSparallax.multigrid_appearance_cache[type] = new_overlays
 		add_overlay(new_overlays)
 
-		// and we rotate ourselves randomly!
-		//SSparallax.multigrid_incline_cache[type] = rand(1,359)
-
 	transform = transform.Turn(SSparallax.multigrid_incline_cache[type])
 	..()
 
 /atom/movable/screen/parallax_layer/multigrid/layer_1
 	grid_icon_state = "layer1"
-	layer_scale = 0.8
+	layer_scale = 0.4
 	layer = 1
 	randomise_grid = TRUE
 
@@ -451,9 +427,8 @@
 
 // same as parent, but don't use layer_scale to recalculate its location
 /atom/movable/screen/parallax_layer/planet/init_parallax()
-	animation_result = null // somehow it is too early injected
 	transform = transform.Turn(SSparallax.planet_incline_offset)
-	transform = transform.Translate(SSparallax.planet_x_offset,SSparallax.planet_y_offset)
+	transform = transform.Translate(SSparallax.planet_x_offset, SSparallax.planet_y_offset)
 
 #undef PARALLAX_SPEED_MOD
 #undef PARALLAX_IMAGE_SIZE

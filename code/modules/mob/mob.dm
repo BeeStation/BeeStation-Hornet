@@ -1279,4 +1279,4 @@
 
 /mob/onTransitZ(old_z,new_z)
 	..()
-	hud_used?.update_parallax_hyperspace(client) // necessary for smooth looking parallax
+	hud_used?.update_parallax(FALSE)

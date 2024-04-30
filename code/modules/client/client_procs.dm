@@ -589,10 +589,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	SSambience.remove_ambience_client(src)
 	Master.UpdateTickRate()
 
-	if(parallax_hyperspace_animation_info)
-		parallax_hyperspace_animation_info.Cut()
-		parallax_hyperspace_animation_info = null
-
 	return ..()
 
 /client/Destroy()

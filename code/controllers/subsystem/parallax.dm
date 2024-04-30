@@ -38,8 +38,8 @@ SUBSYSTEM_DEF(parallax)
 		random_layer = pick(/atom/movable/screen/parallax_layer/multigrid/random/space_gas, /atom/movable/screen/parallax_layer/multigrid/random/asteroids)
 
 	// determines the random appearance of planet parallax
-	planet_x_offset = rand(-180, 180) + world.maxx * 3 // these values are for putting the planet on the middle of the station
-	planet_y_offset = rand(-180, 180) + world.maxy * 3
+	planet_x_offset = rand(-180, 180)  // these values are for putting the planet on the middle of the station
+	planet_y_offset = rand(-180, 180)
 	if(prob(30)) // Oh, it looks inclined than usual...
 		planet_incline_offset = rand(5, 30) * pick(1, -1)
 
