@@ -1,0 +1,4 @@
+author: anturk
+delete-after: true
+changes:
+  - server: fixed font awesome issue causing off-centered icons in TGUI
