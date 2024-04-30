@@ -27,7 +27,7 @@ win and get those 85 bucks
 	burnmod = 1.25
 	heatmod = 1.5
 	meat = /obj/item/food/meat/slab/human/mutant/diona
-	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/diona
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
 	speedmod = 2 // Dionae are slow.

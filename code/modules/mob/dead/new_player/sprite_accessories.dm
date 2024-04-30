@@ -2633,17 +2633,21 @@
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
 
-/datum/sprite_accessory/diona_leaves/leaves
-	name = "Diona Leaves"
-	icon_state = "diona_leaves"
-
 /datum/sprite_accessory/diona_leaves/none
 	name = "None"
 	icon_state = "none"
 
+/datum/sprite_accessory/diona_leaves/leaves
+	name = "Diona Leaves"
+	icon_state = "diona_leaves"
+
 /datum/sprite_accessory/diona_thorns
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
+
+/datum/sprite_accessory/diona_thorns/none
+	name = "None"
+	icon_state = "none"
 
 /datum/sprite_accessory/diona_thorns/head
 	name = "Diona Thorns (Head)"
@@ -2653,13 +2657,13 @@
 	name = "Diona Thorns (Torso)"
 	icon_state = "diona_thorns"
 
-/datum/sprite_accessory/diona_thorns/none
-	name = "None"
-	icon_state = "none"
-
 /datum/sprite_accessory/diona_flowers
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
+
+/datum/sprite_accessory/diona_flowers/none
+	name = "None"
+	icon_state = "none"
 
 /datum/sprite_accessory/diona_flowers/head
 	name = "Diona Flowers (Head)"
@@ -2669,55 +2673,53 @@
 	name = "Diona Flowers (Torso)"
 	icon_state = "diona_flowers"
 
-/datum/sprite_accessory/diona_flowers/none
-	name = "None"
-	icon_state = "none"
-
 /datum/sprite_accessory/diona_moss
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
-
-/datum/sprite_accessory/diona_moss/moss
-	name = "Diona Moss"
-	icon_state = "diona_moss"
 
 /datum/sprite_accessory/diona_moss/none
 	name = "None"
 	icon_state = "none"
 
+/datum/sprite_accessory/diona_moss/moss
+	name = "Diona Moss"
+	icon_state = "diona_moss"
+
 /datum/sprite_accessory/diona_mushroom
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
-
-/datum/sprite_accessory/diona_mushroom/mushroom
-	name = "Diona Mushroom"
-	icon_state = "diona_mushroom"
 
 /datum/sprite_accessory/diona_mushroom/none
 	name = "None"
 	icon_state = "none"
 
+/datum/sprite_accessory/diona_mushroom/mushroom
+	name = "Diona Mushroom"
+	icon_state = "diona_mushroom"
+
 /datum/sprite_accessory/diona_antennae
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
-
-/datum/sprite_accessory/diona_antennae/antennae
-	name = "Diona Antennae"
-	icon_state = "diona_antennae"
 
 /datum/sprite_accessory/diona_antennae/none
 	name = "None"
 	icon_state = "none"
 
+/datum/sprite_accessory/diona_antennae/antennae
+	name = "Diona Antennae"
+	icon_state = "diona_antennae"
+
 /datum/sprite_accessory/diona_eyes
-	name = "Bug Eyes"
-	icon_state = "bugeyes"
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
 
 /datum/sprite_accessory/diona_eyes/none
 	name = "None"
 	icon_state = "none"
+
+/datum/sprite_accessory/diona_eyes/bug_eyes
+	name = "Bug Eyes"
+	icon_state = "bugeyes"
 
 /datum/sprite_accessory/diona_eyes/human_eyes
 	name = "Human Eyes"
@@ -2803,6 +2805,10 @@
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
 
+/datum/sprite_accessory/diona_pbody/none
+	name = "None"
+	icon_state = "none"
+
 /datum/sprite_accessory/diona_pbody/pbody
 	name = "P-Body"
 	icon_state = "pbody"
@@ -2810,22 +2816,17 @@
 	name = "Blinking P-Body"
 	icon_state = "blinkingpbody"
 
-/datum/sprite_accessory/diona_pbody/none
-	name = "None"
-	icon_state = "none"
-
 /datum/sprite_accessory/diona_tail
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
 
-/datum/sprite_accessory/diona_tail/tail
-	name = "Tail"
-	icon_state = "dionatail"
-
-
 /datum/sprite_accessory/diona_tail/none
 	name = "None"
 	icon_state = "none"
+
+/datum/sprite_accessory/diona_tail/tail
+	name = "Tail"
+	icon_state = "dionatail"
 
 //apids
 
