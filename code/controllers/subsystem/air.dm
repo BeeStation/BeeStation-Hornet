@@ -32,6 +32,7 @@ SUBSYSTEM_DEF(air)
 	var/list/networks = list()
 	var/list/pipenets_needing_rebuilt = list()
 	var/list/deferred_airs = list()
+	var/cur_deferred_airs = 0 //NSV13 - ported fastmos from Citadel
 	var/max_deferred_airs = 0
 	var/list/obj/machinery/atmos_machinery = list()
 	var/list/obj/machinery/atmos_air_machinery = list()
@@ -70,6 +71,16 @@ SUBSYSTEM_DEF(air)
 
 	var/list/pausing_z_levels = list()
 	var/list/pause_processing = list()
+	// Whether equalization should be enabled.
+	var/should_do_equalization = TRUE //NSV13 - set to true
+	// When above 0, won't equalize; performance handling
+	var/eq_cooldown = 0 //NSV13 - ported fastmos from citadel
+	// Target for share_max_steps; can go below this, if it determines the thread is taking too long.
+	var/share_max_steps_target = 3 //NSV13 - ported fastmos from citadel
+	// Target for excited_group_pressure_goal; can go below this, if it determines the thread is taking too long.
+	var/excited_group_pressure_goal_target = 1 //NSV13 - ported fastmos from citadel
+	// If this is set to 0, monstermos won't process planet atmos
+	var/planet_equalize_enabled = 0 //NSV13 - ported fastmos from citadel
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
@@ -105,6 +116,7 @@ SUBSYSTEM_DEF(air)
 	setup_atmos_machinery()
 	setup_pipenets()
 	gas_reactions = init_gas_reactions()
+	should_do_equalization = TRUE //NSV13 - config for fastmos
 	auxtools_update_reactions()
 	return ..()
 
@@ -263,6 +275,7 @@ SUBSYSTEM_DEF(air)
 	// This also happens to do all the commented out stuff below, all in a single separate thread. This is mostly so that the
 	// waiting is consistent.
 	if(currentpart == SSAIR_ACTIVETURFS)
+		run_delay_heuristics() //NSV13 - ported fastmos from citadel
 		timer = TICK_USAGE_REAL
 		process_turfs(resumed)
 		cost_turfs = MC_AVERAGE(cost_turfs, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
@@ -325,9 +338,13 @@ SUBSYSTEM_DEF(air)
 	equalize_turf_limit = SSair.equalize_turf_limit
 	equalize_hard_turf_limit = SSair.equalize_hard_turf_limit
 	equalize_enabled = SSair.equalize_enabled
+	should_do_equalization = SSair.should_do_equalization //NSV13 - ported fastmos from citadel
 	heat_enabled = SSair.heat_enabled
 	share_max_steps = SSair.share_max_steps
+	share_max_steps_target = SSair.share_max_steps_target //NSV13 - ported fastmos from citadel
 	excited_group_pressure_goal = SSair.excited_group_pressure_goal
+	excited_group_pressure_goal_target = SSair.excited_group_pressure_goal_target //NSV13 - ported fastmos from citadel
+	planet_equalize_enabled = SSair.planet_equalize_enabled //NSV13 - ported fastmos from citadel
 	paused_z_levels = SSair.paused_z_levels
 
 /datum/controller/subsystem/air/proc/process_pipenets(resumed = FALSE)
@@ -350,6 +367,7 @@ SUBSYSTEM_DEF(air)
 		pipenets_needing_rebuilt += atmos_machine
 
 /datum/controller/subsystem/air/proc/process_deferred_airs(resumed = 0)
+	cur_deferred_airs = deferred_airs.len //NSV13 - ported fastmos from citadel
 	max_deferred_airs = max(deferred_airs.len,max_deferred_airs)
 	while(deferred_airs.len)
 		var/list/cur_op = deferred_airs[deferred_airs.len]
@@ -376,6 +394,24 @@ SUBSYSTEM_DEF(air)
 				air1.transfer_ratio_to(air2, cur_op[3])
 		if(MC_TICK_CHECK)
 			return
+
+//NSV13 - ported fastmos from citadel
+/datum/controller/subsystem/air/proc/run_delay_heuristics()
+	if(!equalize_enabled)
+		cost_equalize = 0
+		if(should_do_equalization)
+			eq_cooldown--
+			if(eq_cooldown <= 0)
+				equalize_enabled = TRUE
+	var/total_thread_time = cost_turfs + cost_equalize + cost_groups + cost_post_process
+	if(total_thread_time)
+		var/wait_ms = wait * 100
+		var/delay_threshold = 1-(total_thread_time/wait_ms + cur_deferred_airs / 50)
+		share_max_steps = max(1,round(share_max_steps_target * delay_threshold, 1))
+		eq_cooldown += (1-delay_threshold) * (cost_equalize / total_thread_time) * 2
+		if(eq_cooldown > 0.5)
+			equalize_enabled = FALSE
+		excited_group_pressure_goal = max(0,excited_group_pressure_goal_target * delay_threshold)	//NSV13 - fix applied by Putnam somewhere else that previously slowed auxmos.
 
 /datum/controller/subsystem/air/proc/process_atmos_machinery(resumed = 0)
 	if (!resumed)
@@ -524,7 +560,8 @@ SUBSYSTEM_DEF(air)
 		pause()
 
 /datum/controller/subsystem/air/proc/finish_turf_processing(resumed = 0)
-	if(finish_turf_processing_auxtools(MC_TICK_REMAINING_MS))
+	//NSV13 - added || thread_running()
+	if(finish_turf_processing_auxtools(MC_TICK_REMAINING_MS) || thread_running())
 		pause()
 
 /datum/controller/subsystem/air/proc/post_process_turfs(resumed = 0)

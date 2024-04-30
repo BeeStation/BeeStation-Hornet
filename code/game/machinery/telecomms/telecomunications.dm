@@ -39,11 +39,15 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	if(!on)
 		return
 	var/send_count = 0
-
 	// Apply some lag based on traffic rates
 	var/netlag = round(traffic / 50)
 	if(netlag > signal.data["slow"])
 		signal.data["slow"] = netlag
+
+	// Aply some lag from throttling
+	var/efficiency = GetComponent(/datum/component/server).efficiency
+	var/throttling = (10 - 10 * efficiency)
+	signal.data["slow"] += throttling
 
 	// Loop through all linked machines and send the signal or copy.
 	for(var/obj/machinery/telecomms/machine in links)
@@ -83,6 +87,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 /obj/machinery/telecomms/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/server) // they generate heat
 	GLOB.telecomms_list += src
 	if(mapload && autolinkers.len)
 		return INITIALIZE_HINT_LATELOAD
@@ -132,7 +137,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	var/newState = on
 
 	if(toggled)
-		if(machine_stat & (BROKEN|NOPOWER|EMPED)) // if powered, on. if not powered, off. if too damaged, off
+		if(machine_stat & (BROKEN|NOPOWER|EMPED|OVERHEATED)) // if powered, on. if not powered, off. if too damaged, off
 			newState = FALSE
 		else
 			newState = TRUE

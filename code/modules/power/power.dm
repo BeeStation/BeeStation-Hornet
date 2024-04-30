@@ -94,6 +94,7 @@
 		return
 	if(chan == -1)
 		chan = power_channel
+	SEND_SIGNAL(src, COMSIG_MACHINERY_POWER_USED, amount, chan)
 	A.use_power(amount, chan)
 
 /obj/machinery/proc/addStaticPower(value, powerchannel)
