@@ -10,8 +10,8 @@
 	var/delete_after
 	/// For items, lets us determine where things should be hit.
 	var/equipped_slot
-	/// Whether this component is currently in the process of exploding.
-	var/tmp/exploding = FALSE
+	/// it won't explode again if cooldown is on. This is necessary because explosion() proc through SSexplosion doesn't tell if it's exploded
+	COOLDOWN_DECLARE(explosion_cooling)
 
 /datum/component/explodable/Initialize(devastation_range, heavy_impact_range, light_impact_range, flash_range, uncapped = FALSE, delete_after = EXPLODABLE_DELETE_PARENT)
 	if(!isatom(parent))
@@ -125,12 +125,11 @@
 /// Expldoe and remove the object
 /datum/component/explodable/proc/detonate()
 	SIGNAL_HANDLER
-	if (exploding)
+	if(!COOLDOWN_FINISHED(src, explosion_cooling))
 		return // If we don't do this and this doesn't delete it can lock the MC into only processing Input, Timers, and Explosions.
+	COOLDOWN_START(src, explosion_cooling, 1)
 
 	var/atom/bomb = parent
-
-	exploding = TRUE
 	explosion(bomb, devastation_range, heavy_impact_range, light_impact_range, flash_range, uncapped) //epic explosion time
 
 	switch(delete_after)
@@ -138,14 +137,3 @@
 			qdel(src)
 		if(EXPLODABLE_DELETE_PARENT)
 			qdel(bomb)
-		else
-			addtimer(CALLBACK(src, PROC_REF(reset_exploding), 0.1 SECONDS))
-
-/**
- * Resets the expoding flag
- */
-/datum/component/explodable/proc/reset_exploding()
-	SIGNAL_HANDLER
-	src.exploding = FALSE
-
-

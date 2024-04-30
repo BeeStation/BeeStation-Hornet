@@ -40,6 +40,8 @@
 	// for the sake of cleanliness, though, here they are.
 	status_flags = CANUNCONSCIOUS|CANPUSH
 
+	footstep_type = FOOTSTEP_MOB_SLIME
+
 	hud_type = /datum/hud/slime
 	hardattacks = TRUE //A sharp blade wont cut a slime from a mere parry
 
@@ -69,8 +71,6 @@
 	var/mood = "" // To show its face
 	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
 	var/force_stasis = FALSE
-
-	do_footstep = TRUE
 
 	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
 	///////////TIME FOR SUBSPECIES
@@ -250,10 +250,11 @@
 		else
 			tab_data["Slime Status"] = GENERATE_STAT_TEXT("You can evolve!")
 
-	if(stat == UNCONSCIOUS)
-		tab_data["Unconscious"] = GENERATE_STAT_TEXT("You are knocked out by high levels of BZ!")
-	else
-		tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]")
+	switch(stat)
+		if(HARD_CRIT, UNCONSCIOUS)
+			tab_data["Unconscious"] = GENERATE_STAT_TEXT("You are knocked out by high levels of BZ!")
+		else
+			tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]")
 	return tab_data
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
@@ -453,7 +454,7 @@
 	if (stat == DEAD)
 		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
 	else
-		if (stat == UNCONSCIOUS) // Slime stasis
+		if (stat == UNCONSCIOUS || stat == HARD_CRIT) // Slime stasis
 			. += "<span class='deadsay'>It appears to be alive but unresponsive.</span>"
 		if (getBruteLoss())
 			. += "<span class='warning'>"

@@ -161,7 +161,7 @@
 			switch(user.stat)
 				if(SOFT_CRIT)
 					to_chat(user, "<span class='notice'>You cannot [key] while in a critical condition.</span>")
-				if(UNCONSCIOUS)
+				if(UNCONSCIOUS, HARD_CRIT)
 					to_chat(user, "<span class='notice'>You cannot [key] while unconscious.</span>")
 				if(DEAD)
 					to_chat(user, "<span class='notice'>You cannot [key] while dead.</span>")
