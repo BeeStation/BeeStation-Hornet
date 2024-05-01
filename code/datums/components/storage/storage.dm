@@ -1,7 +1,3 @@
-#define COLLECT_ONE 0
-#define COLLECT_EVERYTHING 1
-#define COLLECT_SAME 2
-
 // External storage-related logic:
 // /mob/proc/ClickOn() in /_onclick/click.dm - clicking items in storages
 // /mob/living/Move() in /modules/mob/living/living.dm - hiding storage boxes on mob movement
