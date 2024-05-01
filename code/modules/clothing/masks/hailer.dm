@@ -1,10 +1,56 @@
+// **** Dispatch ****
+
+GLOBAL_LIST_EMPTY(sechailers)
+
+/datum/action/item_action/dispatch
+	name = "Signal dispatch"
+	desc = "Opens up a quick select wheel for reporting crimes, including your current location, to your fellow security officers."
+	button_icon_state = "dispatch"
+	icon_icon = 'icons/mob/actions/hailer_actions.dmi'
+
+/obj/item/clothing/mask/gas/sechailer
+	var/obj/item/radio/radio
+	var/radio_key = /obj/item/encryptionkey/headset_sec
+	var/radio_channel = "Security"
+	var/dispatch_cooldown = 20 SECONDS
+	var/last_dispatch = 0
+
+/obj/item/clothing/mask/gas/sechailer/Destroy()
+	QDEL_NULL(radio)
+	QDEL_NULL(radio_key)
+	GLOB.sechailers -= src
+	. = ..()
+
+/obj/item/clothing/mask/gas/sechailer/Initialize(mapload)
+	. = ..()
+	GLOB.sechailers += src
+	radio = new(src)
+	radio.keyslot = new radio_key
+	radio.listening = FALSE
+	radio.recalculateChannels()
+
+/obj/item/clothing/mask/gas/sechailer/proc/dispatch(mob/user)
+	if(world.time < last_dispatch + dispatch_cooldown)
+		to_chat(user, "<span class='notice'>Dispatch radio broadcasting systems are recharging.</span>")
+		return FALSE
+	var/list/options = list()
+	for(var/option in list("401 (murder)", "101 (resisting arrest)", "210 (breaking and entering)", "206 (riot)", "302 (assault on an officer)")) //Hardcoded for each icon, not all crimes need emergency callout for more officers
+		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
+	var/message = show_radial_menu(user, user, options)
+	if(!message)
+		return FALSE
+	radio.talk_into(src, "Dispatch, code [message] in progress in [get_area(user)], requesting assistance.", radio_channel)
+	last_dispatch = world.time
+	for(var/atom/movable/hailer in GLOB.sechailers)
+		if(hailer.loc &&ismob(hailer.loc))
+			playsound(hailer.loc, "sound/voice/sechailer/dispatch_please_respond.ogg", 100, FALSE)
 
 // **** Security gas mask ****
 
 /obj/item/clothing/mask/gas/sechailer
 	name = "security gas mask"
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device. Plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you tase them. Do not tamper with the device."
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/dispatch)
 	icon_state = "sechailer"
 	item_state = "sechailer"
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
@@ -27,7 +73,7 @@
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
-	actions_types = list(/datum/action/item_action/halt)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/dispatch)
 	icon_state = "swat"
 	item_state = "swat"
 	aggressiveness = 3
@@ -47,7 +93,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
 	aggressiveness = 1 //Borgs are nicecurity!
-	actions_types = list(/datum/action/item_action/halt)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/dispatch)
 
 /obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
@@ -75,6 +121,8 @@
 /obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/halt))
 		halt()
+	else if(istype(action, /datum/action/item_action/dispatch))
+		dispatch(user)
 	else
 		adjustmask(user)
 
