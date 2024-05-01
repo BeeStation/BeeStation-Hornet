@@ -1,0 +1,4 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - rscadd: Added ability to unmark yourself as ready for pAIs
