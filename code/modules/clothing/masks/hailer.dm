@@ -11,9 +11,9 @@ GLOBAL_LIST_EMPTY(sechailers)
 /obj/item/clothing/mask/gas/sechailer
 	var/obj/item/radio/radio
 	var/radio_key = /obj/item/encryptionkey/headset_sec
-	var/radio_channel = "Security"
+	var/radio_channel = RADIO_CHANNEL_SECURITY
+	COOLDOWN_DECLARE(dispatch_cooldown_timer)
 	var/dispatch_cooldown = 20 SECONDS
-	var/last_dispatch = 0
 
 /obj/item/clothing/mask/gas/sechailer/Destroy()
 	QDEL_NULL(radio)
@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(sechailers)
 	radio.recalculateChannels()
 
 /obj/item/clothing/mask/gas/sechailer/proc/dispatch(mob/user)
-	if(world.time < last_dispatch + dispatch_cooldown)
+	if(COOLDOWN_TIMELEFT(src, dispatch_cooldown_timer))
 		to_chat(user, "<span class='notice'>Dispatch radio broadcasting systems are recharging.</span>")
 		return FALSE
 	var/list/options = list()
@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(sechailers)
 	if(!message)
 		return FALSE
 	radio.talk_into(src, "Dispatch, code [message] in progress in [get_area(user)], requesting assistance.", radio_channel)
-	last_dispatch = world.time
+	COOLDOWN_START(src, dispatch_cooldown_timer, dispatch_cooldown)
 	for(var/atom/movable/hailer in GLOB.sechailers)
 		if(ismob(hailer.loc))
 			playsound(hailer.loc, "sound/voice/sechailer/dispatch_please_respond.ogg", 100, FALSE)
