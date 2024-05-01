@@ -2625,7 +2625,6 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "aFR" = (
-/obj/machinery/camera/autoname,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -9657,7 +9656,9 @@
 	},
 /area/holodeck/rec_center)
 "cUu" = (
-/obj/machinery/door/window/eastleft,
+/obj/machinery/door/window/eastleft{
+	req_one_access_txt = "31;48"
+	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/plasticflaps/opaque,
 /obj/structure/cable/yellow{
@@ -25666,6 +25667,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/iron,
 /area/security/brig)
 "igS" = (
@@ -59120,6 +59122,7 @@
 	dir = 1;
 	pixel_y = 24
 	},
+/obj/machinery/camera/autoname,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "taC" = (
@@ -74373,10 +74376,6 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "xUE" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
