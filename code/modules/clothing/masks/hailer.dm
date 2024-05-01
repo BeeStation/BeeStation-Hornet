@@ -17,7 +17,6 @@ GLOBAL_LIST_EMPTY(sechailers)
 
 /obj/item/clothing/mask/gas/sechailer/Destroy()
 	QDEL_NULL(radio)
-	QDEL_NULL(radio_key)
 	GLOB.sechailers -= src
 	. = ..()
 
