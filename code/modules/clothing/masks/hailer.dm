@@ -33,7 +33,7 @@ GLOBAL_LIST_EMPTY(sechailers)
 		to_chat(user, "<span class='notice'>Dispatch radio broadcasting systems are recharging.</span>")
 		return FALSE
 	var/list/options = list()
-	for(var/option in list("401 (murder)", "101 (resisting arrest)", "210 (breaking and entering)", "206 (riot)", "302 (assault on an officer)")) //Hardcoded for each icon, not all crimes need emergency callout for more officers
+	for(var/option in list("4 (capital crime)", "0 (infraction)", "1 (misdemeanor)", "2 (offense)", "3 (felony)")) //Hardcoded for each icon, not all crimes need emergency callout for more officers
 		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
 	var/message = show_radial_menu(user, user, options)
 	if(!message)
