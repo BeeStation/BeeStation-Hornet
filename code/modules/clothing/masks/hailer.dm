@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(sechailers)
 	radio.talk_into(src, "Dispatch, code [message] in progress in [get_area(user)], requesting assistance.", radio_channel)
 	last_dispatch = world.time
 	for(var/atom/movable/hailer in GLOB.sechailers)
-		if(hailer.loc &&ismob(hailer.loc))
+		if(ismob(hailer.loc))
 			playsound(hailer.loc, "sound/voice/sechailer/dispatch_please_respond.ogg", 100, FALSE)
 
 // **** Security gas mask ****
