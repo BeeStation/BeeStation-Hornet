@@ -1,0 +1,5 @@
+author: Gilgaxx
+delete-after: true
+changes:
+  - bugfix: fixed the AI malfunction "Upgrade Camera Network" power looking horrible
+      for the AI
