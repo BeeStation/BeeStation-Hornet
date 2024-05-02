@@ -192,6 +192,10 @@ SUBSYSTEM_DEF(vote)
 	return vote
 
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, forced=FALSE, popup=FALSE)
+	//Server is still intializing.
+	if(!MC_RUNNING(init_stage))
+		to_chat(usr, "<span class='warning>Cannot start vote, server is not done initializing.</span>")
+		return FALSE
 	if(!mode)
 		if(started_time)
 			var/next_allowed_time = (started_time + CONFIG_GET(number/vote_delay))
