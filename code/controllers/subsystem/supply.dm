@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(supply)
 	var/list/orderhistory = list()
 	var/ordernum = 1					//order number given to next order
 
-/datum/controller/subsystem/supply/Initialize(timeofday)
+/datum/controller/subsystem/supply/Initialize()
 	ordernum = rand(1, 9000)
 
 	for(var/pack in subtypesof(/datum/supply_pack))
@@ -18,7 +18,7 @@ SUBSYSTEM_DEF(supply)
 		if(!P.contains)
 			continue
 		supply_packs[P.type] = P
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/supply/fire()
 	var/total_restock_required = 0
