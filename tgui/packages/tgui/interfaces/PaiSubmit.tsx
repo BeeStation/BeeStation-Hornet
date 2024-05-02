@@ -147,7 +147,7 @@ const ButtonsDisplay = (props, context) => {
             color="bad"
             onClick={() => act('delete')}
             tooltip="Removes you from the candidate pool">
-            Delete
+            DELETE
           </Button>
         </Stack.Item>
       </Stack>
