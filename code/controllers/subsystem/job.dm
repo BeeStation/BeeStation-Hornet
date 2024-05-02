@@ -30,8 +30,7 @@ SUBSYSTEM_DEF(job)
 	var/list/crew_obj_list = list()
 	var/list/crew_obj_jobs = list()
 
-/datum/controller/subsystem/job/Initialize(timeofday)
-	SSmapping.HACK_LoadMapConfig()
+/datum/controller/subsystem/job/Initialize()
 	if(!occupations.len)
 		SetupOccupations()
 	if(CONFIG_GET(flag/load_jobs_from_txt))
@@ -51,7 +50,7 @@ SUBSYSTEM_DEF(job)
 			crew_obj_jobs["[job]"] += list(type)
 		qdel(obj)
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/job/proc/set_overflow_role(new_overflow_role)
 	var/datum/job/new_overflow = GetJob(new_overflow_role)

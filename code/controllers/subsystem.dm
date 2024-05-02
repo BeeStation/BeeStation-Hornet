@@ -204,19 +204,11 @@
 /// Called after the config has been loaded or reloaded.
 /datum/controller/subsystem/proc/OnConfigLoad()
 
-//used to initialize the subsystem AFTER the map has loaded
+/**
+ * Used to initialize the subsystem. This is expected to be overriden by subtypes.
+ */
 /datum/controller/subsystem/Initialize()
-	initialized = TRUE
-	SEND_SIGNAL(src, COMSIG_SUBSYSTEM_POST_INITIALIZE)
-
-	var/time = rustg_time_milliseconds(SS_INIT_TIMER_KEY)
-	var/seconds = round(time / 1000, 0.01)
-
-	var/msg = "Initialized [name] subsystem within [seconds] second[seconds == 1 ? "" : "s"]!"
-	to_chat("<span class='boldannounce'>[msg]</span>")
-	log_world(msg)
-	SSblackbox.record_feedback("tally", "subsystem_initialize", time, name)
-	return seconds
+	return SS_INIT_NONE
 
 //hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
 /datum/controller/subsystem/stat_entry(msg)

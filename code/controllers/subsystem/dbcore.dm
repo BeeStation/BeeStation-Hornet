@@ -47,7 +47,7 @@ SUBSYSTEM_DEF(dbcore)
 		if(2)
 			message_admins("Could not get schema version from database")
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/dbcore/stat_entry(msg)
 	msg = "P:[length(all_queries)]|Active:[length(queries_active)]|Standby:[length(queries_standby)]"

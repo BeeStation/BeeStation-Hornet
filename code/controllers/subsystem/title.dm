@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(title)
 
 /datum/controller/subsystem/title/Initialize()
 	if(file_path && icon)
-		return
+		return SS_INIT_SUCCESS
 
 	if(fexists("data/previous_title.dat"))
 		var/previous_path = rustg_file_read("data/previous_title.dat")
@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(title)
 	if(splash_turf)
 		splash_turf.icon = icon
 
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/title/vv_edit_var(var_name, var_value)
 	. = ..()

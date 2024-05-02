@@ -18,7 +18,7 @@ SUBSYSTEM_DEF(server_maint)
 /datum/controller/subsystem/server_maint/PreInit()
 	world.hub_password = "" //quickly! before the hubbies see us.
 
-/datum/controller/subsystem/server_maint/Initialize(timeofday)
+/datum/controller/subsystem/server_maint/Initialize()
 	if (CONFIG_GET(flag/hub))
 		world.update_hub_visibility(TRUE)
 	//Keep in mind, because of how delay works adding a list here makes each list take wait * delay more time to clear
@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(server_maint)
 		"suicided_mob_list" = GLOB.suicided_mob_list,
 		"dead_mob_list" = GLOB.dead_mob_list,
 	)
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/server_maint/fire(resumed = FALSE)
 	if(!resumed)
