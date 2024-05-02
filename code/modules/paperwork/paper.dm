@@ -408,7 +408,7 @@
 			playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 			update_appearance()//THIS MIGHT BE USELESS
 			update_static_data_for_all_viewers()
-		else // CHECK THE WINDOW AREA!!!!!
+		else
 			to_chat(user, span_notice("You ready your stamp over the paper! "))
 			ui_interact(user)
 
@@ -420,6 +420,25 @@
 	ui_interact(user)
 	return ..()
 
+/// Secondary right click interaction to quickly stamp things
+/obj/item/paper/attackby_secondary(obj/item/tool, mob/living/user, list/modifiers)
+	var/list/writing_stats = tool.get_writing_implement_details()
+
+	if(!length(writing_stats))
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(writing_stats["interaction_mode"] != MODE_STAMPING)
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	if(!user.can_read(src)) // Just leftclick instead
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	add_stamp(writing_stats["stamp_class"], rand(0, 300), rand(0, 400), stamp_icon_state = writing_stats["stamp_icon_state"])
+	user.visible_message(
+		span_notice("[user] quickly stamps [src] with [tool] without looking."),
+		span_notice("You quickly stamp [src] with [tool] without looking."),
+	)
+	playsound(src, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
+
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN // Stop the UI from opening.
 /**
  * Attempts to ui_interact the paper to the given user, with some sanity checking
  * to make sure the camera still exists via the weakref and that this paper is still
