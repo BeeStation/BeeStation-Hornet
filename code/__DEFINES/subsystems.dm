@@ -152,6 +152,8 @@
 #define INIT_ORDER_EXPLOSIONS		-69
 #define INIT_ORDER_ELEVATOR			-70
 #define INIT_ORDER_BAN_CACHE		-98
+//Near the end, logs the costs of initialize
+#define INIT_ORDER_INIT_PROFILER -99
 #define INIT_ORDER_NATURAL_LIGHT	-120
 #define INIT_ORDER_CHAT				-150 //Should be last to ensure chat remains smooth during init.
 
