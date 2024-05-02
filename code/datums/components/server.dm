@@ -18,7 +18,7 @@
 	if(!ismachinery(parent)) // currently only compatible with machinery
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_MACHINERY_POWER_USED, PROC_REF(ParentPowerUsed))
-	START_PROCESSING(SSobj, src)
+	START_PROCESSING(SSfastprocess, src)
 
 /datum/component/server/proc/ParentPowerUsed(source, amount, chan)
 	heat_generation += amount * 1000
@@ -44,4 +44,5 @@
 	temperature = environment.temperature_share(null, OPEN_HEAT_TRANSFER_COEFFICIENT, temperature, heat_capacity)
 	// Debug output
 	var/efficiency_status = efficiency ? "Efficiency: [efficiency]" : "OVERHEATED"
-	debug_world("[parent] temperature: [temperature]K, [efficiency_status]")
+	var/obj/par = parent
+	to_chat(world, "[src] ([ADMIN_JMP(par)]) temperature: [temperature]K, [efficiency_status]")
