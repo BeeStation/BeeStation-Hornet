@@ -252,7 +252,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				continue
 			current_initializing_subsystem = subsystem
 			log_world("Initializing [subsystem.name] subsystem.")
-			subsystem.Initialize(REALTIMEOFDAY)
+			rustg_time_reset(SS_INIT_TIMER_KEY)
+			subsystem.Initialize()
+
 			CHECK_TICK
 		current_initializing_subsystem = null
 		init_stage_completed = current_init_stage
