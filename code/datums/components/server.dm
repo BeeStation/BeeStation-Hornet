@@ -45,4 +45,4 @@
 	// Debug output
 	var/efficiency_status = efficiency ? "Efficiency: [efficiency]" : "OVERHEATED"
 	var/obj/par = parent
-	to_chat(world, "[src] ([ADMIN_JMP(par)]) temperature: [temperature]K, [efficiency_status]")
+	to_chat(world, "[src] ([ADMIN_VERBOSEJMP(par)]) temperature: [temperature]K, [efficiency_status]")
