@@ -1,7 +1,0 @@
-author: rkz, ArcaneMusic
-delete-after: true
-changes:
-  - code_imp: Adds payment component, a simple & uniform way to charge for the use
-      of something
-  - admin: Logs economy actions. Much much easy to see if people are abusing exploits
-      or the like.
