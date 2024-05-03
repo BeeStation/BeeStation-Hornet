@@ -1,0 +1,4 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - tweak: makes delete button in pAI submit interface uppercase like the rest
