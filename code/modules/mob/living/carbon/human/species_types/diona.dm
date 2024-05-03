@@ -2,9 +2,12 @@
 
 Diona pbody and tail
 MAKE IT WORK
+make dionae be able to be planted via replica pods
+
 
 testmerge
 win and get those 85 bucks
+flowers work but the rest dont
 
 */
 
