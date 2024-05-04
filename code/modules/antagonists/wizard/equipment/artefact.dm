@@ -360,7 +360,7 @@
 		return
 
 	var/datum/task/select_zone_task = user.select_bodyzone(user, TRUE, BODYZONE_STYLE_DEFAULT)
-	select_zone_task.continue_with(CALLBACK(PROC_REF(perform_voodoo), user))
+	select_zone_task.continue_with(CALLBACK(src,PROC_REF(perform_voodoo), user))
 
 /obj/item/voodoo/proc/perform_voodoo(mob/user, zone_selected)
 	if (!can_interact(user))
