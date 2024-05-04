@@ -70,7 +70,7 @@
 
 /obj/item/debug/omnitool/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/surgery_initiator, null)
+	AddComponent(/datum/component/surgery_initiator)
 
 	if(!abstract_tools)
 		abstract_tools = list()

@@ -211,6 +211,7 @@
 #include "code\__DEFINES\dcs\signals\signals_mob\signals_holoparasite.dm"
 #include "code\__DEFINES\dcs\signals\signals_mob\signals_human.dm"
 #include "code\__DEFINES\dcs\signals\signals_mob\signals_living.dm"
+#include "code\__DEFINES\dcs\signals\signals_mob\signals_medical.dm"
 #include "code\__DEFINES\dcs\signals\signals_mob\signals_mob.dm"
 #include "code\__DEFINES\dcs\signals\signals_mob\signals_silicon.dm"
 #include "code\__DEFINES\dcs\signals\signals_mob\signals_simplemob.dm"

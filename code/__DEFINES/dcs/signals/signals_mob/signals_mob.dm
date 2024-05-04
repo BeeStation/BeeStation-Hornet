@@ -50,7 +50,12 @@
 #define COMSIG_MOB_EXAMINATE "mob_examinate"					//from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_SAY "mob_say" // from /mob/living/say(): ()
 #define COMSIG_MOB_ATTACK_ALIEN "mob_attack_alien"				//! from base of /mob/living/attack_alien(): (user)
-#define COMSIG_MOB_MOVESPEED_UPDATED "mob_update_movespeed"		//! From base of mob/update_movespeed():area
+///From base of mob/update_movespeed():area
+#define COMSIG_MOB_MOVESPEED_UPDATED "mob_update_movespeed"
+/// From /atom/movable/screen/zone_sel/proc/set_selected_zone.
+/// Fires when the user has changed their selected body target.
+#define COMSIG_MOB_SELECTED_ZONE_SET "mob_set_selected_zone"
+
 	#define COMPONENT_UPPERCASE_SPEECH 1
 	// used to access COMSIG_MOB_SAY argslist
 	#define SPEECH_MESSAGE 1

@@ -257,7 +257,7 @@
 
 /obj/item/surgical_drapes/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/surgery_initiator, null)
+	AddComponent(/datum/component/surgery_initiator)
 
 /obj/item/organ_storage //allows medical cyborgs to manipulate organs without hands
 	name = "organ storage bag"
