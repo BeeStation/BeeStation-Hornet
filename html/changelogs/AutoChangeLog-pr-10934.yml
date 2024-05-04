@@ -1,0 +1,6 @@
+author: rkz
+delete-after: true
+changes:
+  - bugfix: bad food references
+  - bugfix: deathgasping should work more consistently
+  - bugfix: wiki manuals for chef and bartender should function now
