@@ -44,10 +44,10 @@
 
 	if(!current_surgery)
 		var/datum/task/zone_selector = user.select_bodyzone(livingtarget, TRUE)
-		zone_selector.continue_with(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(initiate_surgery_at_zone), I, livingtarget, user))
+		zone_selector.continue_with(CALLBACK(src, PROC_REF(initiate_surgery_at_zone), src, livingtarget, user))
 
 	else if(!current_surgery.step_in_progress)
-		attempt_cancel_surgery(current_surgery, I, livingtarget, user)
+		attempt_cancel_surgery(current_surgery, src, livingtarget, user)
 
 	return 1
 
@@ -87,7 +87,7 @@
 		return
 
 	var/pick_your_surgery = input("Begin which procedure?", "Surgery", null, null) as null|anything in sort_list(available_surgeries)
-	if(pick_your_surgery && user?.Adjacent(livingtarget) && (I in user))
+	if(pick_your_surgery && user?.Adjacent(livingtarget) && (parent in user))
 		var/datum/surgery/surgeryinstance_notonmob = available_surgeries[pick_your_surgery]
 
 		for(var/i_three in livingtarget.surgeries)
@@ -118,11 +118,15 @@
 		else
 			I.balloon_alert(user, "[parse_zone(target_zone)] is covered up!")
 
-		/**
-		  *
-		  * Does the surgery de-initiation.
-		  *
-		  */
+	else
+		user.visible_message("Surgery wasnt actually selected, wtf!!")
+
+
+/**
+  *
+  * Does the surgery de-initiation.
+  *
+  */
 /datum/component/surgery_initiator/proc/attempt_cancel_surgery(datum/surgery/the_surgery, obj/item/the_item, mob/living/the_patient, mob/user)
 	if(the_surgery.status == 1)
 		the_patient.surgeries -= the_surgery
