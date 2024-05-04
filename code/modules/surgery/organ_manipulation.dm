@@ -120,7 +120,7 @@
 	else if(implement_type in implements_extract)
 		current_type = "extract"
 		var/list/organs = target.getorganszone(surgery.location)
-		if(!organs.len)
+		if(!length(organs))
 			to_chat(user, "<span class='notice'>There are no removable organs in [target]'s [parse_zone(surgery.location)]!</span>")
 			return -1
 		else

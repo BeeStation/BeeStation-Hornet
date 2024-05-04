@@ -38,7 +38,7 @@
 	SIGNAL_HANDLER
 	if(!isliving(target))
 		return
-	INVOKE_ASYNC(src, PROC_REF(do_initiate_surgery_moment, target, user))
+	INVOKE_ASYNC(src, PROC_REF(do_initiate_surgery_moment), target, user)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/surgery_initiator/proc/do_initiate_surgery_moment(mob/living/target, mob/user)
