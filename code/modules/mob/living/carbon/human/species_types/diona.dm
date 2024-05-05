@@ -34,6 +34,7 @@ flowers work but the rest dont
 	species_language_holder = /datum/language_holder/diona
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
 	speedmod = 2 // Dionae are slow.
+	species_height = SPECIES_HEIGHTS(2, 1, 0)
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //placeholder sprite
