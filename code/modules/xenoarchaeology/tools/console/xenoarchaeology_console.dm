@@ -170,7 +170,11 @@
 		//Rewards
 			//Research Points
 		var/rnd_reward = max(0, (artifact.custom_price*X.artifact_type.rnd_rate)*success_rate)
+			//Discovery Points
+		var/dp_reward = max(0, (artifact.custom_price*X.artifact_type.dp_rate)*success_rate)
+			//Alloctae
 		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_GENERIC, rnd_reward)
+		linked_techweb?.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, dp_reward)
 			//Money //TODO: Check if this is sufficient - Racc : PLAYTEST
 		var/monetary_reward = ((artifact.custom_price * success_rate * 2)^1.5) * (success_rate >= 0.5 ? 1 : 0)
 		budget.adjust_money(monetary_reward)
@@ -187,10 +191,10 @@
 				success_type = prob(50) ? "scientific failure." : "who let the clown in?"
 		if(!radio_solved_notice)
 			radio?.talk_into(src, "[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
-			at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, and a monetary commision of $[monetary_reward].",\
+			at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of $[monetary_reward].",\
 		RADIO_CHANNEL_SCIENCE)
 		history += list("[artifact] has been submitted with a success rate of [100*success_rate]% '[success_type]', \
-		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, and a monetary commision of $[monetary_reward].")
+		at [station_time_timestamp()]. The Research Department has been awarded [rnd_reward] Research Points, [dp_reward] Discovery Points, and a monetary commision of $[monetary_reward].")
 
 //Circuitboard for this console
 /obj/item/circuitboard/computer/xenoarchaeology_console

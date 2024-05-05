@@ -11,8 +11,7 @@
 	sticker_icon_state = "tracker_small"
 	do_outline = FALSE
 	///Reward stuff
-	var/reward_type = TECHWEB_POINT_TYPE_DISCOVERY
-	var/reward_amount = 100
+	var/list/rewards = list(TECHWEB_POINT_TYPE_DISCOVERY = 100, TECHWEB_POINT_TYPE_GENERIC = 300)
 	///radio used to send messages on science channel
 	var/obj/item/radio/headset/radio
 	var/use_radio = TRUE
@@ -30,6 +29,10 @@
 /obj/item/sticker/artifact_tracker/Destroy()
 	. = ..()
 	QDEL_NULL(radio)
+
+/obj/item/sticker/artifact_tracker/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Alt-Click to disable the radio & reward notice.</span>"
 
 /obj/item/sticker/artifact_tracker/afterattack(atom/movable/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -55,9 +58,16 @@
 /obj/item/sticker/artifact_tracker/proc/catch_activation(datum/source, priority)
 	SIGNAL_HANDLER
 
-	if(priority == TRAIT_PRIORITY_ACTIVATOR)
+	if(priority != TRAIT_PRIORITY_ACTIVATOR)
+		return
+	for(var/reward in rewards)
+		//Reward
+		var/reward_amount = rewards[reward]
+		linked_techweb?.add_point_type(reward, reward_amount)
+		//Message
+		if(!use_radio)
+			return
 		var/datum/component/xenoartifact/X = source
-		var/message = "[X.parent] has generated [reward_amount] points of [reward_type] at [get_area(get_turf(src))]."
+		var/message = "[X.parent] has generated [reward_amount] points of [reward] at [get_area(get_turf(src))]."
 		say(message)
 		radio?.talk_into(src, message, RADIO_CHANNEL_SCIENCE)
-		linked_techweb?.add_point_type(reward_type, reward_amount)
