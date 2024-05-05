@@ -43,6 +43,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	//The shuttle docked here/dock we're parked at.
 	var/obj/docking_port/docked
 
+	/// used to record parallax data for players visual supprt. It's given on shuttle transit.
+	var/datum/hyper_parallax_data/hyper_parallax_data
+
 /obj/docking_port/get_save_vars()
 	return list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount", "width", "height", "dwidth", "dheight")
 
@@ -901,24 +904,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			if(tl <= SHUTTLE_RIPPLE_TIME)
 				create_ripples(destination, tl)
 
-	var/obj/docking_port/stationary/S0 = docked
-	if(istype(S0, /obj/docking_port/stationary/transit) && timeLeft(1) <= PARALLAX_LOOP_TIME)
-		for(var/place in shuttle_areas)
-			var/area/shuttle/shuttle_area = place
-			if(shuttle_area.parallax_movedir)
-				parallax_slowdown()
-
-/obj/docking_port/mobile/proc/parallax_slowdown()
-	for(var/place in shuttle_areas)
-		var/area/shuttle/shuttle_area = place
-		shuttle_area.parallax_movedir = FALSE
-	if(assigned_transit && assigned_transit.assigned_area)
-		assigned_transit.assigned_area.parallax_movedir = FALSE
-	for (var/mob/M as() in SSmobs.clients_by_zlevel[z])
-		var/area/A = get_area(M)
-		if(!A)
-			continue
-
 /obj/docking_port/mobile/proc/check_transit_zone()
 	if(assigned_transit)
 		return TRANSIT_READY
@@ -1183,3 +1168,24 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 /obj/docking_port/mobile/emergency/on_emergency_dock()
 	return
+
+/obj/docking_port/mobile/proc/on_docking_success(obj/docking_port/target_dock)
+	if(istype(target_dock, /obj/docking_port/stationary/transit)) // going to hyperspace
+		hyper_parallax_data = target_dock.hyper_parallax_data
+		hyper_parallax_data.hyperspace_z = target_dock.z
+		hyper_parallax_data.is_now_landing = FALSE
+		COOLDOWN_START(hyper_parallax_data, parallax_hyperspace_transit_time, PARALLAX_LOOP_TIME * 1.5)
+		for(var/area/each_area as anything in shuttle_areas)
+			each_area.hyper_parallax_data = target_dock.hyper_parallax_data
+		return
+
+	// reminder:
+	// if "target_dock == /obj/docking_port/stationary (not /transit)", this means we're docking to a bay or somewhere
+	// If you need something to do at docking at a station bay, use that typecheck
+	if(hyper_parallax_data)
+		hyper_parallax_data.parallax_direction = FALSE // so, it means we're landing.
+		hyper_parallax_data.is_now_landing = TRUE
+
+	// HOW??
+	if(!istype(target_dock, /obj/docking_port/stationary))
+		CRASH("Where the fuck did you port in? [target_dock]([target_dock?.type])")
