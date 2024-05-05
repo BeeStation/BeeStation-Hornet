@@ -683,7 +683,7 @@
 	name = "???"
 	desc = "A poster featuring an artifact you don't recognize.\
 	\n\
-	Legends say, artifacts can be made by striking objects with nuclear particles. They also \
+	Legends say, artifacts can be made by striking objects with nuclear particles while submerged in tritium. They also \
 	say once stabilized, artifacts behave strangely when aligned to certain grids, related to \
 	the characteristics of their traits."
 	icon_state = "poster52"

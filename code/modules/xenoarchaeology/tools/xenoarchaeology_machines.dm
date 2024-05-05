@@ -141,13 +141,19 @@
 		var/datum/component/xenoartifact/X = A.GetComponent(/datum/component/xenoartifact)
 		if(X)
 			total_conductivity += X.get_material_conductivity()
+		//If there's a label and we're obliged to 'help' the player
 		var/obj/item/sticker/xenoartifact_label/L = locate(/obj/item/sticker/xenoartifact_label) in A.contents
 		if(L)
 			for(var/datum/xenoartifact_trait/T as() in L.traits)
-				say("[initial(T.label_name)] - Conductivity: [initial(T.conductivity)]")
+				say("[initial(T.label_name)] - conductivity: [initial(T.conductivity)]")
 		else if(isitem(A) || isliving(A))
-			say("Unexpected Item Detected!")
-			return
+			if(isliving(A))
+				if(prob(1))
+					say("Unexpected Fatass Detected!")
+					say("Get the fuck off me, lardass!")
+				else
+					say("Unexpected Item Detected!")
+				return
 	if(total_conductivity)
 		say("Total Conductivity: [total_conductivity] MPC.")
 	else
