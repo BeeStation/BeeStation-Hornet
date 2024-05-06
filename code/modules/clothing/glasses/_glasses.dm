@@ -534,6 +534,7 @@
 	clothing_flags = SCAN_REAGENTS | SCAN_BOOZEPOWER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	vision_correction = 1  // why should the eye of a god have bad vision? 
 
 /obj/item/clothing/glasses/godeye/Initialize(mapload)
 	. = ..()
