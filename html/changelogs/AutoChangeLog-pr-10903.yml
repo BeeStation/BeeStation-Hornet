@@ -1,0 +1,8 @@
+author: rkz, haukeschuemann, Rohesie, Timberpoes, zxaber
+delete-after: true
+changes:
+  - refactor: Standardized the entire attack_chain and added stack_traces to detect
+      when & where it fails.
+  - balance: minor buff to telekinesis to use most interact() code. Unlikely to cause
+      major change, just reducing duplicate code where TK would have its own proc
+      for essentially doing the exact same thing
