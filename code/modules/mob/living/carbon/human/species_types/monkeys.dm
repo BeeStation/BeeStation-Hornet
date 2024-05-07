@@ -1,5 +1,3 @@
-///DO NOT USE set_species(/datum/species/monkey)
-///USE monkeyize() INSTEAD
 /datum/species/monkey
 	name = "Monkey"
 	id = SPECIES_MONKEY
@@ -13,9 +11,18 @@
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	meat = /obj/item/food/meat/slab/monkey
 	knife_butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
-	no_equip = list(ITEM_SLOT_EARS, ITEM_SLOT_EYES, ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
+	species_traits = list(
+		NO_UNDERWEAR,
+		NOBLOODOVERLAY,
+		NOTRANSSTING,
+		NOAUGMENTS,
+	)
+	inherent_traits = list(
+		TRAIT_VENTCRAWLER_NUDE,
+	)
+	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN | SLIME_EXTRACT
-	//inherent_factions = list("monkey")
+	inherent_factions = list("monkey")
 	sexes = FALSE
 	species_language_holder = /datum/language_holder/monkey
 
@@ -30,62 +37,6 @@
 	gib_anim = "gibbed-m"
 
 	//payday_modifier = 1.5
-
-/datum/species/monkey/get_species_description()
-	return "Monkeys are a type of primate that exist between humans and animals on the evolutionary chain. \
-		Every year, on Monkey Day, Nanotrasen shows their respect for the little guys by allowing them to roam the station freely."
-
-/datum/species/monkey/get_species_lore()
-	return list(
-		"Monkeys are commonly used as test subjects on board Space Station 13. \
-		But what if... for one day... the Monkeys were allowed to be the scientists? \
-		What experiments would they come up with? Would they (stereotypically) be related to bananas somehow? \
-		There's only one way to find out.",
-	)
-
-/datum/species/monkey/create_pref_unique_perks()
-	var/list/to_add = list()
-
-	to_add += list(
-		list(
-			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "spider",
-			SPECIES_PERK_NAME = "Vent Crawling",
-			SPECIES_PERK_DESC = "Monkeys can crawl through the vent and scrubber networks while wearing no clothing. \
-				Stay out of the kitchen!",
-		),
-		list(
-			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-			SPECIES_PERK_ICON = "paw",
-			SPECIES_PERK_NAME = "Primal Primate",
-			SPECIES_PERK_DESC = "Monkeys are primitive humans, and can't do most things a human can do. Computers are impossible, \
-				complex machines are right out, and most clothes don't fit your smaller form.",
-		),
-		list(
-			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-			SPECIES_PERK_ICON = "capsules",
-			SPECIES_PERK_NAME = "Mutadone Averse",
-			SPECIES_PERK_DESC = "Monkeys are reverted into normal humans upon being exposed to Mutadone.",
-		),
-	)
-
-	return to_add
-
-/datum/species/monkey/create_pref_language_perk()
-	var/list/to_add = list()
-	// Holding these variables so we can grab the exact names for our perk.
-	var/datum/language/common_language = /datum/language/common
-	var/datum/language/monkey_language = /datum/language/monkey
-
-	to_add += list(list(
-		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-		SPECIES_PERK_ICON = "comment",
-		SPECIES_PERK_NAME = "Primitive Tongue",
-		SPECIES_PERK_DESC = "You may be able to understand [initial(common_language.name)], but you can't speak it. \
-			You can only speak [initial(monkey_language.name)].",
-	))
-
-	return to_add
 
 /datum/species/monkey/random_name(gender,unique,lastname)
 	var/randname = "monkey ([rand(1,999)])"
@@ -143,6 +94,73 @@
 		return TRUE
 	target.attack_paw(user)
 	return TRUE
+
+/datum/species/monkey/get_scream_sound(mob/living/carbon/human/monkey)
+	return pick(
+		'sound/creatures/monkey/monkey_screech_1.ogg',
+		'sound/creatures/monkey/monkey_screech_2.ogg',
+		'sound/creatures/monkey/monkey_screech_3.ogg',
+		'sound/creatures/monkey/monkey_screech_4.ogg',
+		'sound/creatures/monkey/monkey_screech_5.ogg',
+		'sound/creatures/monkey/monkey_screech_6.ogg',
+		'sound/creatures/monkey/monkey_screech_7.ogg',
+	)
+
+/datum/species/monkey/get_species_description()
+	return "Monkeys are a type of primate that exist between humans and animals on the evolutionary chain. \
+		Every year, on Monkey Day, Nanotrasen shows their respect for the little guys by allowing them to roam the station freely."
+
+/datum/species/monkey/get_species_lore()
+	return list(
+		"Monkeys are commonly used as test subjects on board Space Station 13. \
+		But what if... for one day... the Monkeys were allowed to be the scientists? \
+		What experiments would they come up with? Would they (stereotypically) be related to bananas somehow? \
+		There's only one way to find out.",
+	)
+
+/datum/species/monkey/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "spider",
+			SPECIES_PERK_NAME = "Vent Crawling",
+			SPECIES_PERK_DESC = "Monkeys can crawl through the vent and scrubber networks while wearing no clothing. \
+				Stay out of the kitchen!",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "paw",
+			SPECIES_PERK_NAME = "Primal Primate",
+			SPECIES_PERK_DESC = "Monkeys are primitive humans, and can't do most things a human can do. Computers are impossible, \
+				complex machines are right out, and most clothes don't fit your smaller form.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "capsules",
+			SPECIES_PERK_NAME = "Mutadone Averse",
+			SPECIES_PERK_DESC = "Monkeys are reverted into normal humans upon being exposed to Mutadone.",
+		),
+	)
+
+	return to_add
+
+/datum/species/monkey/create_pref_language_perk()
+	var/list/to_add = list()
+	// Holding these variables so we can grab the exact names for our perk.
+	var/datum/language/common_language = /datum/language/common
+	var/datum/language/monkey_language = /datum/language/monkey
+
+	to_add += list(list(
+		SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+		SPECIES_PERK_ICON = "comment",
+		SPECIES_PERK_NAME = "Primitive Tongue",
+		SPECIES_PERK_DESC = "You may be able to understand [initial(common_language.name)], but you can't speak it. \
+			You can only speak [initial(monkey_language.name)].",
+	))
+
+	return to_add
 
 /datum/dna/tumor
 	species = new /datum/species/teratoma
