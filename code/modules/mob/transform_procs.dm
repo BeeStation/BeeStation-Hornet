@@ -26,6 +26,7 @@
 	invisibility = 0
 	set_species(/datum/species/monkey)
 	uncuff()
+	regenerate_icons()
 	return src
 
 //////////////////////////           Humanize               //////////////////////////////
@@ -55,6 +56,7 @@
 	icon = initial(icon)
 	invisibility = 0
 	set_species(species)
+	regenerate_icons()
 	return src
 
 //A common proc to start an -ize transformation
