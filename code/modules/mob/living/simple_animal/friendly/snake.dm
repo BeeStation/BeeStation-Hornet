@@ -24,7 +24,6 @@
 	response_disarm = "shoos"
 	response_harm   = "steps on"
 	faction = list("hostile")
-	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
@@ -43,6 +42,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/Initialize(mapload)
 	AddComponent(/datum/component/udder, /obj/item/udder/venom, reagent_produced_typepath = /datum/reagent/toxin/venom)
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	. = ..()
 
 

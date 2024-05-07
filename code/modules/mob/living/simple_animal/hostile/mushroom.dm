@@ -22,7 +22,6 @@
 	stat_attack = DEAD
 	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
-	ventcrawler = VENTCRAWLER_ALWAYS
 	robust_searching = 1
 	unique_name = 1
 	speak_emote = list("squeaks")
@@ -48,6 +47,7 @@
 		adjustBruteLoss(-2)
 
 /mob/living/simple_animal/hostile/mushroom/Initialize(mapload)//Makes every shroom a little unique
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	melee_damage += rand(1,15)
 	maxHealth += rand(40,60)
 	move_to_delay = rand(3,11)

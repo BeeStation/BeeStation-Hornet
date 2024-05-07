@@ -18,6 +18,7 @@
 		NOAUGMENTS,
 	)
 	inherent_traits = list(
+		TRAIT_DISCOORDINATED,
 		TRAIT_VENTCRAWLER_NUDE,
 	)
 	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
@@ -45,7 +46,6 @@
 
 /datum/species/monkey/on_species_gain(mob/living/carbon/human/H, datum/species/old_species)
 	. = ..()
-	H.ventcrawler = VENTCRAWLER_NUDE
 	H.pass_flags |= PASSTABLE
 	H.butcher_results = knife_butcher_results
 	if(!H.dna.features["tail_monkey"] || H.dna.features["tail_monkey"] == "None")
@@ -58,7 +58,6 @@
 
 /datum/species/monkey/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	C.ventcrawler = initial(C.ventcrawler)
 	C.pass_flags = initial(C.pass_flags)
 	C.butcher_results = null
 	C.dna.remove_mutation(RACEMUT)

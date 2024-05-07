@@ -11,7 +11,6 @@
 	speed = 1.25
 	gold_core_spawnable = FRIENDLY_SPAWN
 	pass_flags = PASSTABLE | PASSMOB
-	ventcrawler = VENTCRAWLER_ALWAYS
 
 	verb_say = "chitters"
 	verb_ask = "chitters inquisitively"
@@ -30,6 +29,7 @@
 
 /mob/living/basic/cockroach/Initialize()
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	AddElement(/datum/element/death_drops, list(/obj/effect/decal/cleanable/insectguts))
 	// AddElement(/datum/element/swabable, CELL_LINE_TABLE_COCKROACH, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 7) //Bee edit: No swabable elements
 	AddElement(/datum/element/basic_body_temp_sensetive, 270, INFINITY)

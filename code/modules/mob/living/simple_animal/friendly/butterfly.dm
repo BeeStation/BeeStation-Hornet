@@ -15,7 +15,6 @@
 	density = FALSE
 	movement_type = FLYING
 	pass_flags = PASSTABLE | PASSMOB
-	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -26,6 +25,7 @@
 
 /mob/living/simple_animal/butterfly/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	var/newcolor = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
 	chat_color = newcolor
 	add_atom_colour(newcolor, FIXED_COLOUR_PRIORITY)

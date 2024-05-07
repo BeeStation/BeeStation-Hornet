@@ -33,7 +33,6 @@
 	faction = list("hostile")
 	move_to_delay = 0
 	obj_damage = 0
-	ventcrawler = VENTCRAWLER_ALWAYS
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	pass_flags = PASSTABLE | PASSMOB
@@ -43,7 +42,6 @@
 	movement_type = FLYING
 	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = 1 //have to find those plant trays!
-	ventcrawler = VENTCRAWLER_ALWAYS
 
 	//Spaceborn beings don't get hurt by space
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -60,6 +58,7 @@
 
 /mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	generate_bee_visuals()
 	AddComponent(/datum/component/swarming)
 

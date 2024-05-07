@@ -12,7 +12,6 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST, MOB_REPTILE)
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE | PASSMOB
-	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	see_in_dark     = 5
 	speak_chance    = 1
@@ -34,11 +33,15 @@
 	var/obj/item/food/movement_target
 	mobchatspan = "centcom"
 
+/mob/living/simple_animal/kalo/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+
 /mob/living/simple_animal/kalo/Destroy()
 	movement_target = null
 	return ..()
 
-/mob/living/simple_animal/kalo/Life() //This code is absolute trash but I'm too sleepy to rewrite it.
+/mob/living/simple_animal/kalo/Life() //This code is absolute trash but I'm too sleepy to rewrite it. ///Uhhh its literally a copy of ian. Why didnt you just make him a corgi subtype at this point lmfao
 	..()
 
 	if(!stat && !resting && !buckled)

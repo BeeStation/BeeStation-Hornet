@@ -18,7 +18,6 @@
 	response_disarm = "pokes"
 	response_harm   = "splats"
 	density = FALSE
-	ventcrawler = VENTCRAWLER_ALWAYS
 	faction = list("hostile")
 	attack_sound = 'sound/effects/reee.ogg'
 	butcher_results = list(/obj/item/food/nugget = 1)
@@ -29,6 +28,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/frog/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	if(prob(1))
 		name = "rare frog"
 		desc = "It seems a little smug."
