@@ -778,7 +778,7 @@
   * as the buckle_message_cooldown has expired (50 ticks)
   */
 /atom/proc/relaymove(mob/user)
-	if(buckle_message_cooldown <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(buckle_message_cooldown))
 		buckle_message_cooldown = world.time + 50
 		to_chat(user, "<span class='warning'>You can't move while buckled to [src]!</span>")
 	return

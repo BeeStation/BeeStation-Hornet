@@ -79,14 +79,14 @@
 	var/mob/living/carbon/C = parent
 
 	var/next_text = initial(next_breath_type.key)
-	if(world.time > (last_breath + check_every + grace_period))
+	if(IS_TIME_PASSED(last_breath + check_every + grace_period))
 		if(!warn_dying)
 			to_chat(C, "<span class='userdanger'>You begin to suffocate, you need to [next_text]!</span>")
 			warn_dying = TRUE
 
 		L.applyOrganDamage(damage_rate * delta_time)
 		C.losebreath += 0.8
-	else if(world.time > (last_breath + check_every))
+	else if(IS_TIME_PASSED(last_breath + check_every))
 		if(!warn_grace)
 			to_chat(C, "<span class='danger'>You feel a need to [next_text]!</span>")
 			warn_grace = TRUE

@@ -267,7 +267,7 @@ GLOBAL_VAR(cult_ratvar)
 	if(ratvar_target)
 		singularity_component?.target = ratvar_target
 		if(get_dist(src, ratvar_target) < 5)
-			if(next_attack_tick < world.time)
+			if(IS_TIME_PASSED(next_attack_tick))
 				next_attack_tick = world.time + rand(50, 100)
 				to_chat(world, "<span class='danger'>[pick("Reality shudders around you.","You hear the tearing of flesh.","The sound of bones cracking fills the air.")]</span>")
 				SEND_SOUND(world, 'sound/magic/clockwork/ratvar_attack.ogg')

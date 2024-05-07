@@ -58,7 +58,7 @@
 	// it will slowly stack until we can lose a tick, where the ticks we lose are proportional
 	// to the slowdowns difference to the next tick step.
 	var/floored_move_delay = FLOOR(move_delay, 1 / world.fps)
-	if(world.time < floored_move_delay) //do not move anything ahead of this check please
+	if(IS_TIME_FUTURE(floored_move_delay)) //do not move anything ahead of this check please
 		return FALSE
 	next_move_dir_add = 0
 	next_move_dir_sub = 0
@@ -118,7 +118,7 @@
 	*/
 	//If the move was recent, count using old_move_delay
 	//We want fractional behavior and all
-	if(old_move_delay + world.tick_lag > world.time)
+	if(IS_TIME_FUTURE(old_move_delay + world.tick_lag))
 		//Yes this makes smooth movement stutter if add_delay is too fractional
 		//Yes this is better then the alternative
 		move_delay = old_move_delay

@@ -21,7 +21,7 @@
 	. = ..()
 
 /obj/structure/chair/e_chair/proc/shock()
-	if(last_time + 50 > world.time)
+	if(IS_TIME_FUTURE(last_time + 50))
 		return
 	last_time = world.time
 

@@ -8,7 +8,7 @@
 	debris = list(/obj/item/stack/sheet/runed_metal = 1)
 
 /obj/structure/destructible/cult/Initialize(mapload)
-	. = ..()	
+	. = ..()
 	generate_psychic_mask()
 
 /obj/structure/destructible/cult/proc/conceal() //for spells that hide cult presence
@@ -35,7 +35,7 @@
 /obj/structure/destructible/cult/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>\The [src] is [anchored ? "":"not "]secured to the floor.</span>"
-	if((iscultist(user) || isobserver(user)) && cooldowntime > world.time)
+	if((iscultist(user) || isobserver(user)) && IS_TIME_FUTURE( cooldowntime))
 		. += "<span class='cult italic'>The magic in [src] is too weak, [p_they()] will be ready to use again in [DisplayTimeText(cooldowntime - world.time)].</span>"
 
 /obj/structure/destructible/cult/examine_status(mob/user)
@@ -81,7 +81,7 @@
 	if(!anchored)
 		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with your dagger first.</span>")
 		return
-	if(cooldowntime > world.time)
+	if( IS_TIME_FUTURE(cooldowntime))
 		to_chat(user, "<span class='cult italic'>The magic in [src] is weak, it will be ready to use again in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
 	var/list/items = list(
@@ -124,7 +124,7 @@
 	if(!anchored)
 		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with your dagger first.</span>")
 		return
-	if(cooldowntime > world.time)
+	if( IS_TIME_FUTURE(cooldowntime))
 		to_chat(user, "<span class='cult italic'>The magic in [src] is weak, it will be ready to use again in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
 	var/list/items = list(
@@ -179,7 +179,7 @@
 /obj/structure/destructible/cult/pylon/process(delta_time)
 	if(!anchored)
 		return
-	if(last_heal <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(last_heal))
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
 			if(L.health == L.maxHealth)
@@ -197,7 +197,7 @@
 				var/mob/living/simple_animal/M = L
 				M.adjustHealth(-15*delta_time)
 			CHECK_TICK
-	if(last_corrupt <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(last_corrupt))
 		var/list/validturfs = list()
 		var/list/cultturfs = list()
 		for(var/T in circleviewturfs(src, 5))
@@ -250,7 +250,7 @@
 	if(!anchored)
 		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with your dagger first.</span>")
 		return
-	if(cooldowntime > world.time)
+	if( IS_TIME_FUTURE(cooldowntime))
 		to_chat(user, "<span class='cult italic'>The magic in [src] is weak, it will be ready to use again in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
 	var/list/items = list(

@@ -31,7 +31,7 @@
 		return ..()
 
 /obj/item/nuke_core/process()
-	if(cooldown < world.time - 60)
+	if(IS_TIME_PASSED(cooldown + 60))
 		cooldown = world.time
 		flick(pulseicon, src)
 		radiation_pulse(src, 400, 2)

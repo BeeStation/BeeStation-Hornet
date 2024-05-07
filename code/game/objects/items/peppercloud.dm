@@ -76,7 +76,7 @@
 
 /obj/item/reagent_containers/peppercloud_deployer/proc/deploy(turf/center, mob/user, force = FALSE)
 	// Check if we are currently on cooldown
-	if (world.time < cooldown_time && !force)
+	if (IS_TIME_FUTURE(cooldown_time && !force))
 		to_chat(user, "<span class='warning'>[src] isn't ready to be activated yet.<span>")
 		return
 	// Clear any reagents that are not pepperspray

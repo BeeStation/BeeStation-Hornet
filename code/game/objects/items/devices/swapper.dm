@@ -42,7 +42,7 @@
 		return ..()
 
 /obj/item/swapper/attack_self(mob/living/user)
-	if(world.time < next_use)
+	if(IS_TIME_FUTURE(next_use))
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
 	if(QDELETED(linked_swapper))
@@ -59,7 +59,7 @@
 
 /obj/item/swapper/examine(mob/user)
 	. = ..()
-	if(world.time < next_use)
+	if(IS_TIME_FUTURE(next_use))
 		. += "<span class='warning'>Time left to recharge: [DisplayTimeText(next_use - world.time)].</span>"
 	if(linked_swapper)
 		. += "<span class='notice'><b>Linked.</b> Alt-Click to break the quantum link.</span>"
@@ -95,7 +95,7 @@
 	return teleportable
 
 /obj/item/swapper/proc/swap(mob/user)
-	if(QDELETED(linked_swapper) || world.time < linked_swapper.cooldown)
+	if(QDELETED(linked_swapper) || IS_TIME_FUTURE(linked_swapper.cooldown))
 		return
 
 	var/atom/movable/A = get_teleportable_container()

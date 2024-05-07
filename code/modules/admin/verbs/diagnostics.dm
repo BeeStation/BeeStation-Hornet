@@ -17,13 +17,13 @@
 	for(var/mob/M in GLOB.player_list)
 		if(M.next_move >= largest_move_time)
 			largest_move_mob = M
-			if(M.next_move > world.time)
+			if(IS_TIME_FUTURE(M.next_move))
 				largest_move_time = M.next_move - world.time
 			else
 				largest_move_time = 1
 		if(M.next_click >= largest_click_time)
 			largest_click_mob = M
-			if(M.next_click > world.time)
+			if(IS_TIME_FUTURE(M.next_click))
 				largest_click_time = M.next_click - world.time
 			else
 				largest_click_time = 0

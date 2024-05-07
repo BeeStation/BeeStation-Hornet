@@ -504,7 +504,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	ActivationReaction(P.firer, P.armor_flag, P.damage_type)
 
 /obj/machinery/anomalous_crystal/proc/ActivationReaction(mob/user, method, damtype)
-	if(world.time < last_use_timer)
+	if(IS_TIME_FUTURE(last_use_timer))
 		return FALSE
 	if(activation_damage_type && activation_damage_type != damtype)
 		return FALSE

@@ -164,7 +164,7 @@
 	if(isspaceturf(loc) || !direction)
 		return //No magical space movement!
 
-	if(can_move < world.time)
+	if(IS_TIME_PASSED(can_move))
 		var/amount
 		switch(user.bodytemperature)
 			if(300 to INFINITY)

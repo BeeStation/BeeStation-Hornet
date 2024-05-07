@@ -400,7 +400,7 @@
 	update_appearance()
 
 /obj/item/borg/upgrade/selfrepair/process()
-	if(world.time < next_repair)
+	if(IS_TIME_FUTURE(next_repair))
 		return
 
 	if(cyborg && (cyborg.stat != DEAD) && on)

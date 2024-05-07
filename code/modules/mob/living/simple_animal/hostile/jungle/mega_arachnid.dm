@@ -29,7 +29,7 @@
 
 /mob/living/simple_animal/hostile/jungle/mega_arachnid/Life()
 	..()
-	if(target && ranged_cooldown > world.time && iscarbon(target))
+	if(target && IS_TIME_FUTURE(ranged_cooldown) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		if(!C.legcuffed && C.health < 50)
 			retreat_distance = 9

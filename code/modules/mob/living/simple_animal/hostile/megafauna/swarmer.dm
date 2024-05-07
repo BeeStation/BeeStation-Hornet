@@ -79,14 +79,14 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	. = ..()
 	if(.)
 		var/createtype = GetUncappedAISwarmerType()
-		if(createtype && world.time > swarmer_spawn_cooldown && GLOB.AISwarmers.len < (GetTotalAISwarmerCap()*0.5))
+		if(createtype && IS_TIME_PASSED(swarmer_spawn_cooldown) && GLOB.AISwarmers.len < (GetTotalAISwarmerCap()*0.5))
 			swarmer_spawn_cooldown = world.time + swarmer_spawn_cooldown_amt
 			new createtype(loc)
 
 
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
-	if(. > 0 && world.time > call_help_cooldown)
+	if(. > 0 && IS_TIME_PASSED(call_help_cooldown))
 		call_help_cooldown = world.time + call_help_cooldown_amt
 		summon_backup(25) //long range, only called max once per 15 seconds, so it's not deathlag
 

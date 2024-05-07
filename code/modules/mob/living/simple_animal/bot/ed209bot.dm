@@ -335,7 +335,7 @@
 		if((C.stat) || (C.handcuffed))
 			continue
 
-		if((C.name == oldtarget_name) && (world.time < last_found + 100))
+		if((C.name == oldtarget_name) && (IS_TIME_FUTURE(last_found + 100)))
 			continue
 
 		threatlevel = C.assess_threat(judgment_criteria, lasercolor, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
@@ -423,7 +423,7 @@
 			projectile = /obj/projectile/beam/lasertag/redtag
 
 /mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
-	if(world.time <= lastfired + shot_delay)
+	if(IS_TIME_FUTURE_OR_NOW(lastfired + shot_delay))
 		return
 	lastfired = world.time
 	var/turf/T = loc

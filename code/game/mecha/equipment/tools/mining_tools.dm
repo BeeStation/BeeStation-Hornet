@@ -175,7 +175,7 @@
 	if(!loc)
 		STOP_PROCESSING(SSfastprocess, src)
 		qdel(src)
-	if(istype(loc, /obj/mecha/working) && scanning_time <= world.time)
+	if(istype(loc, /obj/mecha/working) && IS_TIME_PASSED_OR_NOW(scanning_time))
 		var/obj/mecha/working/mecha = loc
 		if(!mecha.occupant)
 			return

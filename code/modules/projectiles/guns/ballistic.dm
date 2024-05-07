@@ -432,7 +432,7 @@
 	if(bolt_type == BOLT_TYPE_LOCKING && bolt_locked)
 		drop_bolt(user)
 		return
-	if (recent_rack > world.time)
+	if (IS_TIME_FUTURE(recent_rack))
 		return
 	recent_rack = world.time + rack_delay
 	rack(user)

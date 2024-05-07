@@ -78,7 +78,7 @@
 	. = ..()
 
 /obj/vehicle/ridden/scooter/skateboard/relaymove()
-	if (grinding || world.time < next_crash)
+	if (grinding || IS_TIME_FUTURE(next_crash))
 		return FALSE
 	return ..()
 
@@ -105,7 +105,7 @@
 			multiplier = 0.3 //70% reduction
 		H.adjustStaminaLoss(multiplier * instability * 6)
 		playsound(src, 'sound/effects/bang.ogg', 40, TRUE)
-		if(!iscarbon(H) || H.getStaminaLoss() >= 100 || grinding || world.time < next_crash)
+		if(!iscarbon(H) || H.getStaminaLoss() >= 100 || grinding || IS_TIME_FUTURE(next_crash))
 			var/atom/throw_target = get_edge_target_turf(H, pick(GLOB.cardinals))
 			unbuckle_mob(H)
 			H.throw_at(throw_target, 3, 2)

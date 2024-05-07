@@ -65,7 +65,7 @@
 		return FALSE //prevents a niche runtime where a disease procs on the same tick it is cured
 	if(neutered || stopped)
 		return FALSE
-	if(world.time < next_activation)
+	if(IS_TIME_FUTURE(next_activation))
 		return FALSE
 	else
 		next_activation = world.time + rand(symptom_delay_min * 10, symptom_delay_max * 10)

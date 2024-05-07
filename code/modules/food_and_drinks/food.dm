@@ -22,7 +22,7 @@
 		pixel_y = rand(-5, 5)
 
 /obj/item/reagent_containers/food/proc/checkLiked(var/fraction, mob/M)
-	if(last_check_time + 50 < world.time)
+	if(IS_TIME_PASSED(last_check_time + 50))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)

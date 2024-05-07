@@ -25,7 +25,7 @@
 
 	if(H.fire_stacks)
 		if(extinguishes_left)
-			if(next_extinguish > world.time)
+			if(IS_TIME_FUTURE(next_extinguish))
 				return
 			next_extinguish = world.time + extinguish_cooldown
 			extinguishes_left--

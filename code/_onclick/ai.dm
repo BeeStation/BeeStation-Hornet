@@ -19,7 +19,7 @@
 		eyeobj.move_camera_by_click(A)
 
 /mob/living/silicon/ai/ClickOn(var/atom/A, params)
-	if(world.time <= next_click)
+	if(IS_TIME_FUTURE_OR_NOW(next_click))
 		return
 	next_click = world.time + 1
 
@@ -73,7 +73,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(world.time <= next_move)
+	if(IS_TIME_FUTURE_OR_NOW(next_move))
 		return
 
 	if(aicamera.in_camera_mode)

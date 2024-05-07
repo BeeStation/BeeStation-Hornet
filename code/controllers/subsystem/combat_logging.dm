@@ -17,7 +17,7 @@ SUBSYSTEM_DEF(combat_logging)
 		var/datum/combat_log/current = current_run[length(current_run)]
 		current_run.len --
 		// Check for timeout, if world.time surpasses the timeout
-		if (current.most_recent_entry + COMBAT_TIMEOUT < world.time)
+		if (IS_TIME_PASSED(current.most_recent_entry + COMBAT_TIMEOUT))
 			current.expire()
 
 /datum/controller/subsystem/combat_logging/proc/log_combat(mob/living/attacker, mob/living/defender, tool_name)

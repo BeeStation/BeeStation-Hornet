@@ -11,7 +11,7 @@
 	extra_settings[NES_CLOUD_OVERWRITE] = new /datum/nanite_extra_setting/number(0, 0, 100)
 
 /datum/nanite_program/viral/active_effect()
-	if(world.time < pulse_cooldown)
+	if(IS_TIME_FUTURE(pulse_cooldown))
 		return
 	var/datum/nanite_extra_setting/program = extra_settings[NES_PROGRAM_OVERWRITE]
 	var/datum/nanite_extra_setting/cloud = extra_settings[NES_CLOUD_OVERWRITE]

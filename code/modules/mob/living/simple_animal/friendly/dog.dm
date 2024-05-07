@@ -678,7 +678,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Life()
 	..()
 
-	if(next_scan_time <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(next_scan_time))
 		make_babies()
 
 	if(!stat && !resting && !buckled)

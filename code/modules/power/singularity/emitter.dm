@@ -524,7 +524,7 @@
 
 	emitter.last_projectile_params = calculate_projectile_angle_and_pixel_offsets(user, clickparams)
 
-	if(emitter.charge >= 10 && world.time > delay)
+	if(emitter.charge >= 10 && IS_TIME_PASSED(delay))
 		emitter.charge -= 10
 		emitter.fire_beam(user)
 		delay = world.time + 10

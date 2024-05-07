@@ -103,7 +103,7 @@
 /datum/component/squeak/proc/use_squeak()
 	SIGNAL_HANDLER
 
-	if(last_use + use_delay < world.time)
+	if(IS_TIME_PASSED(last_use + use_delay))
 		last_use = world.time
 		play_squeak()
 

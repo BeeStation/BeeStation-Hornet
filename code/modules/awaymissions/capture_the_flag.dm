@@ -49,7 +49,7 @@
 /obj/item/ctf/process()
 	if(is_ctf_target(loc)) //pickup code calls temporary drops to test things out, we need to make sure the flag doesn't reset from
 		return PROCESS_KILL
-	if(world.time > reset_cooldown)
+	if(IS_TIME_PASSED(reset_cooldown))
 		reset_flag()
 
 /obj/item/ctf/proc/reset_flag(capture = FALSE)

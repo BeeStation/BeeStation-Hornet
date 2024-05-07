@@ -62,7 +62,7 @@
 
 /mob/living/simple_animal/hostile/wizard/handle_automated_action()
 	. = ..()
-	if(target && next_cast < world.time)
+	if(target && IS_TIME_PASSED(next_cast))
 		if((get_dir(src,target) in list(SOUTH,EAST,WEST,NORTH)) && fireball.cast_check(0,src)) //Lined up for fireball
 			src.setDir(get_dir(src,target))
 			fireball.perform(list(target), user = src)

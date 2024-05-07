@@ -251,7 +251,7 @@
 				return 1
 
 	var/matc = CONFIG_GET(number/midround_antag_time_check)
-	if(world.time >= (matc * 600))
+	if(IS_TIME_PASSED_OR_NOW(matc * 600))
 		message_admins("Convert_roundtype failed due to round length. Limit is [matc] minutes.")
 		return null
 

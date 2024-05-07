@@ -114,7 +114,7 @@
 		adjustPests(-1 * delta_time)
 		adjustToxic(-1 * delta_time)
 
-	if(world.time > (lastcycle + cycledelay))
+	if(IS_TIME_PASSED(lastcycle + cycledelay))
 		lastcycle = world.time
 		if(myseed && !dead)
 			// Advance age

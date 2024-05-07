@@ -104,7 +104,7 @@
 
 	if (localMotionTargets.len)
 		detectTime = world.time + 30 SECONDS
-	else if (world.time > detectTime)
+	else if (IS_TIME_PASSED(detectTime))
 		detectTime = 0
 		for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
 			TV.notify(FALSE)

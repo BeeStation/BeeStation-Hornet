@@ -241,7 +241,7 @@ Possible to do for anyone motivated enough:
 	if(!is_operational)
 		return
 	if (href_list["AIrequest"])
-		if(last_request + 200 < world.time)
+		if(IS_TIME_PASSED(last_request + 200))
 			last_request = world.time
 			temp = "You requested an AI's presence.<BR>"
 			temp += "<A href='?src=[REF(src)];mainmenu=1'>Main Menu</A>"
@@ -359,7 +359,7 @@ Possible to do for anyone motivated enough:
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		if(HC.connected_holopad != src)
-			if(force_answer_call && world.time > (HC.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2)))
+			if(force_answer_call && IS_TIME_PASSED(HC.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2)))
 				HC.Answer(src)
 				break
 			if(outgoing_call)

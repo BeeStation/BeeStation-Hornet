@@ -98,7 +98,7 @@
 	if(!ownerCheck())
 		active = 0
 		return
-	if(next_activation <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(next_activation))
 		activate()
 		uses--
 		next_activation  = world.time + rand(cooldown_low,cooldown_high)

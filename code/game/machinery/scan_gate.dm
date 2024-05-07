@@ -177,7 +177,7 @@
 		set_scanline("scanning", 10)
 
 /obj/machinery/scanner_gate/proc/alarm_beep()
-	if(next_beep <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(next_beep))
 		next_beep = world.time + 20
 		playsound(src, 'sound/machines/scanbuzz.ogg', 100, FALSE)
 	var/image/I = image(icon, src, "alarm_light", layer+1)

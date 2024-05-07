@@ -187,12 +187,12 @@
 	var/flip_cooldown = 0
 
 /obj/item/bikehorn/golden/attack()
-	if(flip_cooldown < world.time)
+	if(IS_TIME_PASSED(flip_cooldown))
 		flip_mobs()
 	return ..()
 
 /obj/item/bikehorn/golden/attack_self(mob/user)
-	if(flip_cooldown < world.time)
+	if(IS_TIME_PASSED(flip_cooldown))
 		flip_mobs()
 	..()
 

@@ -205,7 +205,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			break
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
-	if(!control_computer_weakref && urgent && last_no_computer_message + 5*60*10 < world.time)
+	if(!control_computer_weakref && urgent && IS_TIME_PASSED(last_no_computer_message + 5*60*10))
 		log_admin("Cryopod in [get_area(src)] could not find control computer!")
 		message_admins("Cryopod in [get_area(src)] could not find control computer!")
 		last_no_computer_message = world.time
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(mob_occupant.stat == DEAD)
 			open_machine()
 
-		if(!(world.time > despawn_world_time))
+		if(IS_TIME_FUTURE_OR_NOW(despawn_world_time))
 			return
 
 		if(!mob_occupant.client && mob_occupant.stat < 2) //Occupant is living and has no client.
@@ -339,7 +339,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	// Ghost and delete the mob.
 	if(!mob_occupant.get_ghost(TRUE))
-		if(world.time < 15 * 600)//before the 15 minute mark
+		if(IS_TIME_FUTURE(15 MINUTES))//before the 15 minute mark
 			mob_occupant.ghostize(FALSE,SENTIENCE_ERASE) // Players despawned too early may not re-enter the game
 		else
 			mob_occupant.ghostize(TRUE,SENTIENCE_ERASE)

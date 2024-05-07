@@ -237,7 +237,7 @@
 	if(!isliving(user))
 		return
 
-	if(recharging_time > world.time)
+	if(IS_TIME_FUTURE(recharging_time))
 		to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
 		return
 

@@ -105,10 +105,9 @@
 	var/phrase_text = null
 	var/phrase_sound = null
 
-
-	if(cooldown < world.time - 30) // A cooldown, to stop people being jerks
+	if(IS_TIME_PASSED(cooldown + 30)) // A cooldown, to stop people being jerks
 		recent_uses++
-		if(cooldown_special < world.time - 180) //A better cooldown that burns jerks
+		if(IS_TIME_PASSED(cooldown_special + 180)) //A better cooldown that burns jerks
 			recent_uses = initial(recent_uses)
 
 		switch(recent_uses)

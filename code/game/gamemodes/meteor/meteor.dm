@@ -14,7 +14,7 @@
 	title_icon = "meteor"
 
 /datum/game_mode/meteor/process()
-	if(nometeors || meteordelay > world.time - SSticker.round_start_time)
+	if(nometeors || IS_TIME_FUTURE(meteordelay + SSticker.round_start_time))
 		return
 
 	var/list/wavetype = GLOB.meteors_normal

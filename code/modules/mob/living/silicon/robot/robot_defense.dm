@@ -94,7 +94,7 @@
 		return TRUE // signal is inverted
 	if(!opened)//Cover is closed
 		return !locked
-	if(world.time < emag_cooldown)
+	if(IS_TIME_FUTURE(emag_cooldown))
 		return TRUE
 	if(wiresexposed)
 		to_chat(user, "<span class='warning'>You must unexpose the wires first!</span>")

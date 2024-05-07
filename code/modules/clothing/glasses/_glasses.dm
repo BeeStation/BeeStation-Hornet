@@ -367,7 +367,7 @@
 	ghost_vision.toggle_hud(TRUE, null)
 
 /obj/item/clothing/glasses/welding/ghostbuster/weldingvisortoggle()
-	if(next_use_time > world.time)
+	if(IS_TIME_FUTURE(next_use_time))
 		return
 	. = ..()
 

@@ -104,7 +104,7 @@
 		potential_targets[potential_target] = next_removal_time
 		updated += potential_target
 	for(var/mob/living/potential_target as() in potential_targets - updated)
-		if(world.time >= potential_targets[potential_target] || istype(potential_target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(IS_TIME_PASSED_OR_NOW(potential_targets[potential_target]) || istype(potential_target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			potential_targets -= potential_target
 	if(length(potential_targets) != original_length)
 		telepathy_hud.update_icon() // update maptext
@@ -126,7 +126,7 @@
 	message = trim(message, max_length = MAX_MESSAGE_LEN)
 	if(!length(message))
 		return
-	if(!potential_targets[target] || world.time >= potential_targets[target])
+	if(!potential_targets[target] || IS_TIME_PASSED_OR_NOW(potential_targets[target]))
 		to_chat(owner, "<span class='warning'>You cannot communicate with [target], you have not been near [target.p_them()] recently enough!</span>")
 		return
 	if(istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
@@ -187,7 +187,7 @@
 	if(check_time)
 		if(!can_respond_until[responder])
 			return FALSE
-		if(world.time > can_respond_until[responder])
+		if(IS_TIME_PASSED(can_respond_until[responder]) )
 			if(!silent)
 				to_chat(responder, "<span class='warning'>It's too late to respond now!</span>")
 			return FALSE

@@ -123,7 +123,7 @@ multiple modular subtrees with behaviors
 
 ///Returns TRUE if the ai controller can actually run at the moment.
 /datum/ai_controller/proc/able_to_run()
-	if(world.time < paused_until)
+	if(IS_TIME_FUTURE(paused_until))
 		return FALSE
 	return TRUE
 
@@ -159,7 +159,7 @@ multiple modular subtrees with behaviors
 				if(ai_movement.moving_controllers[src] == current_movement_target) //We are close enough, if we're moving stop.
 					ai_movement.stop_moving_towards(src)
 
-				if(behavior_cooldowns[current_behavior] > world.time) //Still on cooldown
+				if(IS_TIME_FUTURE(behavior_cooldowns[current_behavior])) //Still on cooldown
 					continue
 				ProcessBehavior(action_delta_time, current_behavior)
 				return
@@ -168,12 +168,12 @@ multiple modular subtrees with behaviors
 				ai_movement.start_moving_towards(src, current_movement_target, current_behavior.required_distance) //Then start moving
 
 			if(current_behavior.behavior_flags & AI_BEHAVIOR_MOVE_AND_PERFORM) //If we can move and perform then do so.
-				if(behavior_cooldowns[current_behavior] > world.time) //Still on cooldown
+				if(IS_TIME_FUTURE(behavior_cooldowns[current_behavior])) //Still on cooldown
 					continue
 				ProcessBehavior(action_delta_time, current_behavior)
 				return
 		else //No movement required
-			if(behavior_cooldowns[current_behavior] > world.time) //Still on cooldown
+			if(IS_TIME_FUTURE(behavior_cooldowns[current_behavior])) //Still on cooldown
 				continue
 			ProcessBehavior(action_delta_time, current_behavior)
 			return

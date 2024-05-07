@@ -362,7 +362,7 @@
 	SSjob.FreeRole(mind.assigned_role)
 
 	if(!get_ghost(1))
-		if(world.time < 30 * 600)//before the 30 minute mark
+		if(IS_TIME_FUTURE(30 MINUTES))//before the 30 minute mark
 			ghostize(FALSE,SENTIENCE_ERASE) // Players despawned too early may not re-enter the game
 	else
 		ghostize(TRUE,SENTIENCE_ERASE)

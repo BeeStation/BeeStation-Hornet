@@ -570,7 +570,7 @@
 
 /datum/quirk/junkie/on_process()
 	var/mob/living/carbon/human/H = quirk_target
-	if(world.time > next_process)
+	if(IS_TIME_PASSED(next_process))
 		next_process = world.time + process_interval
 		if(!H.reagents.addiction_list.Find(reagent_instance))
 			if(QDELETED(reagent_instance))

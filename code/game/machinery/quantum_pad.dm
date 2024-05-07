@@ -108,7 +108,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/quantumpad)
 			to_chat(user, "<span class='warning'>Target pad not found!</span>")
 			return
 
-	if(world.time < last_teleport + teleport_cooldown)
+	if(IS_TIME_FUTURE(last_teleport + teleport_cooldown))
 		to_chat(user, "<span class='warning'>[src] is recharging power. Please wait [DisplayTimeText(last_teleport + teleport_cooldown - world.time)].</span>")
 		return
 
@@ -232,7 +232,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/quantumpad)
 		failed.set_output(COMPONENT_SIGNAL)
 		return
 
-	if(world.time < attached_pad.last_teleport + attached_pad.teleport_cooldown)
+	if(IS_TIME_FUTURE(attached_pad.last_teleport + attached_pad.teleport_cooldown))
 		failed.set_output(COMPONENT_SIGNAL)
 		return
 

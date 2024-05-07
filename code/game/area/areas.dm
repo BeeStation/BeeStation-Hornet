@@ -406,7 +406,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   * If 100 ticks has elapsed, toggle all the firedoors closed again
   */
 /area/process()
-	if(firedoors_last_closed_on + 100 < world.time)	//every 10 seconds
+	if(IS_TIME_PASSED(firedoors_last_closed_on + 100))	//every 10 seconds
 		ModifyFiredoors(FALSE)
 
 /**

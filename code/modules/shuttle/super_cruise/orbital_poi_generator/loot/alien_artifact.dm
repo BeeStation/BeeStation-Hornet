@@ -237,7 +237,7 @@
 	RegisterSignal(source, COMSIG_ITEM_ATTACK_SELF, PROC_REF(suck))
 
 /datum/artifact_effect/gravity_well/proc/suck(datum/source, mob/warper)
-	if(world.time < next_use_world_time)
+	if(IS_TIME_FUTURE(next_use_world_time))
 		return
 	var/turf/T = get_turf(warper)
 	if(T)
@@ -256,7 +256,7 @@
 	var/next_use_time = 0
 
 /datum/artifact_effect/access/process(delta_time)
-	if(world.time < next_use_time)
+	if(IS_TIME_FUTURE(next_use_time))
 		return
 	next_use_time = world.time + rand(30 SECONDS, 5 MINUTES)
 	var/list/idcards = list()
@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	. = ..()
 
 /datum/artifact_effect/reality_destabilizer/process(delta_time)
-	if(world.time < cooldown)
+	if(IS_TIME_FUTURE(cooldown))
 		return
 	cooldown = world.time + rand(0, 30 SECONDS)
 	var/turf/T = get_turf(source_object)
@@ -356,7 +356,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	RegisterSignal(source, COMSIG_ITEM_ATTACK_SELF, PROC_REF(teleport))
 
 /datum/artifact_effect/warp/proc/teleport(datum/source, mob/warper)
-	if(world.time < next_use_world_time)
+	if(IS_TIME_FUTURE(next_use_world_time))
 		return
 	var/turf/T = get_turf(warper)
 	if(T)
@@ -449,7 +449,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/next_world_time
 
 /datum/artifact_effect/light_breaker/process(delta_time)
-	if(world.time < next_world_time)
+	if(IS_TIME_FUTURE(next_world_time))
 		return
 	var/turf/T = get_turf(source_object)
 	for(var/datum/light_source/light_source in T.light_sources)
@@ -480,7 +480,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 /datum/artifact_effect/insanity_pulse/proc/pulse(datum/source, mob/living/pulser)
 	if(!istype(pulser))
 		return
-	if(world.time < next_use_time)
+	if(IS_TIME_FUTURE(next_use_time))
 		return
 	SEND_SOUND(world, 'sound/magic/repulse.ogg')
 	next_use_time = world.time + cooldown

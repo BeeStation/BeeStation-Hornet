@@ -35,7 +35,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 			activate(ghost)
 
 /obj/item/mmi/posibrain/proc/ping_ghosts(msg, newlymade)
-	if(newlymade || GLOB.posibrain_notify_cooldown <= world.time)
+	if(newlymade || IS_TIME_PASSED_OR_NOW(GLOB.posibrain_notify_cooldown))
 		notify_ghosts("[name] [msg] in [get_area(src)]!", ghost_sound = !newlymade ? 'sound/effects/ghost2.ogg':null, notify_volume = 75, enter_link = "<a href=?src=[REF(src)];activate=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_POSIBRAIN, notify_suiciders = FALSE)
 		if(!newlymade)
 			GLOB.posibrain_notify_cooldown = world.time + askDelay
@@ -49,7 +49,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	if(is_occupied())
 		to_chat(user, "<span class='warning'>This [name] is already active!</span>")
 		return
-	if(next_ask > world.time)
+	if(IS_TIME_FUTURE(next_ask))
 		to_chat(user, recharge_message)
 		return
 	//Start the process of requesting a new ghost.

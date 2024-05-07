@@ -321,12 +321,12 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(H.stat == DEAD)
 		return
 
-	if((H == oldpatient) && (world.time < last_found + 200))
+	if((H == oldpatient) && (IS_TIME_FUTURE(last_found + 200)))
 		return
 
 	if(assess_patient(H))
 		last_found = world.time
-		if((last_newpatient_speak + 300) < world.time) //Don't spam these messages!
+		if(IS_TIME_PASSED(last_newpatient_speak + 300)) //Don't spam these messages!
 			var/list/messagevoice = list("Hey, [H.name]! Hold on, I'm coming." = 'sound/voice/medbot/coming.ogg',"Wait [H.name]! I want to help!" = 'sound/voice/medbot/help.ogg',"[H.name], you appear to be injured!" = 'sound/voice/medbot/injured.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
@@ -360,7 +360,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		messagevoice = list("Fuck you." = 'sound/voice/medbot/fuck_you.ogg', "Your behavior has been reported, have a nice day." = 'sound/voice/medbot/reported.ogg')
 
 	tipper_name = null
-	if(world.time > last_tipping_action_voice + 15 SECONDS)
+	if(IS_TIME_PASSED(last_tipping_action_voice + 15 SECONDS))
 		last_tipping_action_voice = world.time
 		var/message = pick(messagevoice)
 		speak(message)
@@ -554,7 +554,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(H.a_intent == INTENT_DISARM && !tipped)
 		H.visible_message("<span class='danger'>[H] begins tipping over [src].</span>", "<span class='warning'>You begin tipping over [src]...</span>")
 
-		if(world.time > last_tipping_action_voice + 15 SECONDS)
+		if(IS_TIME_PASSED(last_tipping_action_voice + 15 SECONDS))
 			last_tipping_action_voice = world.time // message for tipping happens when we start interacting, message for righting comes after finishing
 			var/list/messagevoice = list("Hey, wait..." = 'sound/voice/medbot/hey_wait.ogg',"Please don't..." = 'sound/voice/medbot/please_dont.ogg',"I trusted you..." = 'sound/voice/medbot/i_trusted_you.ogg', "Nooo..." = 'sound/voice/medbot/nooo.ogg', "Oh fuck-" = 'sound/voice/medbot/oh_fuck.ogg')
 			var/message = pick(messagevoice)

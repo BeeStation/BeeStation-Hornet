@@ -22,7 +22,7 @@
 /// Returns true if the task was completed
 /datum/task/proc/await(timeout = 30 SECONDS)
 	var/start_time = world.time
-	UNTIL (world.time >= start_time + timeout || is_completed())
+	UNTIL ((start_time + timeout) || is_completed())
 	// Check for success
 	var/success = length(subtasks) ? TRUE : completed
 	if (length(subtasks) && !result)

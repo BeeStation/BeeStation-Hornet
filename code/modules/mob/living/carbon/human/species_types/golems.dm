@@ -367,7 +367,7 @@
 
 /datum/species/golem/uranium/spec_life(mob/living/carbon/human/H)
 	if(!active)
-		if(world.time > last_event+30)
+		if(IS_TIME_PASSED(last_event+30))
 			active = 1
 			radiation_pulse(H, 50)
 			last_event = world.time
@@ -477,17 +477,17 @@
 
 /datum/species/golem/bluespace/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
-	if(world.time > last_teleport + teleport_cooldown && M != H &&  M.a_intent != INTENT_HELP)
+	if(IS_TIME_PASSED(last_teleport + teleport_cooldown) && M != H &&  M.a_intent != INTENT_HELP)
 		reactive_teleport(H)
 
 /datum/species/golem/bluespace/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_teleport + teleport_cooldown && user != H)
+	if(IS_TIME_PASSED(last_teleport + teleport_cooldown) && user != H)
 		reactive_teleport(H)
 
 /datum/species/golem/bluespace/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_teleport + teleport_cooldown)
+	if(IS_TIME_PASSED(last_teleport + teleport_cooldown))
 		reactive_teleport(H)
 
 /datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -512,7 +512,7 @@
 
 /datum/action/innate/unstable_teleport/IsAvailable()
 	if(..())
-		if(world.time > last_teleport + cooldown)
+		if(IS_TIME_PASSED(last_teleport + cooldown))
 			return 1
 		return 0
 
@@ -579,19 +579,19 @@
 
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
-	if(world.time > last_banana + banana_cooldown && M != H &&  M.a_intent != INTENT_HELP)
+	if(IS_TIME_PASSED(last_banana + banana_cooldown ) && M != H &&  M.a_intent != INTENT_HELP)
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
 /datum/species/golem/bananium/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_banana + banana_cooldown && user != H)
+	if(IS_TIME_PASSED(last_banana + banana_cooldown ) && user != H)
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
 /datum/species/golem/bananium/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_banana + banana_cooldown)
+	if(IS_TIME_PASSED(last_banana + banana_cooldown) )
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
@@ -608,7 +608,7 @@
 
 /datum/species/golem/bananium/spec_life(mob/living/carbon/human/H)
 	if(!active)
-		if(world.time > last_honk + honkooldown)
+		if(IS_TIME_PASSED(last_honk + honkooldown) )
 			active = 1
 			playsound(get_turf(H), 'sound/items/bikehorn.ogg', 50, 1)
 			last_honk = world.time
@@ -937,7 +937,7 @@
 	var/gong_cooldown = 150
 
 /datum/species/golem/bronze/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
-	if(!(world.time > last_gong_time + gong_cooldown))
+	if(IS_TIME_FUTURE_OR_NOW(last_gong_time + gong_cooldown))
 		return ..()
 	if(P.armor_flag == BULLET || P.armor_flag == BOMB)
 		gong(H)
@@ -945,22 +945,22 @@
 
 /datum/species/golem/bronze/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_gong_time + gong_cooldown)
+	if(IS_TIME_PASSED(last_gong_time + gong_cooldown) )
 		gong(H)
 
 /datum/species/golem/bronze/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	..()
-	if(world.time > last_gong_time + gong_cooldown &&  M.a_intent != INTENT_HELP)
+	if(IS_TIME_PASSED(last_gong_time + gong_cooldown ) &&  M.a_intent != INTENT_HELP)
 		gong(H)
 
 /datum/species/golem/bronze/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_gong_time + gong_cooldown)
+	if(IS_TIME_PASSED(last_gong_time + gong_cooldown) )
 		gong(H)
 
 /datum/species/golem/bronze/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	..()
-	if(world.time > last_gong_time + gong_cooldown)
+	if(IS_TIME_PASSED(last_gong_time + gong_cooldown) )
 		gong(H)
 
 /datum/species/golem/bronze/proc/gong(mob/living/carbon/human/H)
@@ -1026,14 +1026,14 @@
 		return FALSE //forced reproduction is rape.
 	if(istype(I, /obj/item/stack/sheet/cardboard))
 		var/obj/item/stack/sheet/cardboard/C = I
-		if(last_creation + brother_creation_cooldown > world.time) //no cheesing dork
+		if(IS_TIME_FUTURE(last_creation + brother_creation_cooldown)) //no cheesing dork
 			return
 		if(C.amount < 10)
 			to_chat(H, "<span class='warning'>You do not have enough cardboard!</span>")
 			return FALSE
 		to_chat(H, "<span class='notice'>You attempt to create a new cardboard brother.</span>")
 		if(do_after(user, 30, target = user))
-			if(last_creation + brother_creation_cooldown > world.time) //no cheesing dork
+			if(IS_TIME_FUTURE(last_creation + brother_creation_cooldown)) //no cheesing dork
 				return
 			if(!C.use(10))
 				to_chat(H, "<span class='warning'>You do not have enough cardboard!</span>")
@@ -1136,7 +1136,7 @@
 	var/snas_chance = 3
 
 /datum/action/innate/bonechill/Activate()
-	if(world.time < last_use + cooldown)
+	if(IS_TIME_FUTURE(last_use + cooldown))
 		to_chat("<span class='notice'>You aren't ready yet to rattle your bones again.</span>")
 		return
 	owner.visible_message("<span class='warning'>[owner] rattles [owner.p_their()] bones harrowingly.</span>", "<span class='notice'>You rattle your bones.</span>")

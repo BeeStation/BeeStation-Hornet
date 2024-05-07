@@ -207,7 +207,7 @@
 	return ..()
 
 /obj/item/reagent_containers/spray/waterflower/cyborg/process()
-	if(world.time < last_generate + generate_delay)
+	if(IS_TIME_FUTURE(last_generate + generate_delay))
 		return
 	last_generate = world.time
 	generate_reagents()
@@ -284,7 +284,7 @@
 	return ..()
 
 /obj/item/reagent_containers/spray/chemsprayer/janitor/process()
-	if(world.time < last_generate + generate_delay)
+	if(IS_TIME_FUTURE(last_generate + generate_delay))
 		return
 	last_generate = world.time
 	reagents.add_reagent(generate_type, generate_amount)

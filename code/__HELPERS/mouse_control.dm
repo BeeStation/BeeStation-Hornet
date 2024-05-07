@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(mouse_cooldowns, list(
 			return
 		current_cursor ++
 	// Somehow we finished a bit early
-	if (world.time < end_time)
+	if (IS_TIME_FUTURE(end_time))
 		sleep(end_time - world.time)
 		if (mouse_pointer_icon != GLOB.mouse_cooldowns[length(GLOB.mouse_cooldowns)] || cooldown_cursor_time != end_time)
 			return

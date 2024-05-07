@@ -85,7 +85,7 @@ new /datum/disease_ability/symptom/powerful/youth
 					long_desc = initial(S.desc)
 
 /datum/disease_ability/proc/CanBuy(mob/camera/disease/D)
-	if(world.time < D.next_adaptation_time)
+	if(IS_TIME_FUTURE(D.next_adaptation_time))
 		return FALSE
 	if(!D.unpurchased_abilities[src])
 		return FALSE
@@ -114,7 +114,7 @@ new /datum/disease_ability/symptom/powerful/youth
 
 
 /datum/disease_ability/proc/CanRefund(mob/camera/disease/D)
-	if(world.time < D.next_adaptation_time)
+	if(IS_TIME_FUTURE(D.next_adaptation_time))
 		return FALSE
 	return D.purchased_abilities[src]
 

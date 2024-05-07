@@ -9,9 +9,9 @@ SUBSYSTEM_DEF(communications)
 	var/nonsilicon_message_cooldown
 
 /datum/controller/subsystem/communications/proc/can_announce(mob/living/user, is_silicon)
-	if(is_silicon && silicon_message_cooldown > world.time)
+	if(is_silicon && IS_TIME_FUTURE( silicon_message_cooldown))
 		. = FALSE
-	else if(!is_silicon && nonsilicon_message_cooldown > world.time)
+	else if(!is_silicon && IS_TIME_FUTURE( nonsilicon_message_cooldown))
 		. = FALSE
 	else
 		. = TRUE

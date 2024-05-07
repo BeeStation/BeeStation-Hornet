@@ -530,7 +530,7 @@
 	// However, if you aren't moving, this will be 0
 	if (speed_delta > 0)
 		// We haven't moved in 1 second, give us no penalty to aiming
-		if (move_time + 1 SECONDS < world.time)
+		if (IS_TIME_PASSED(move_time + 1 SECONDS))
 			return
 		. += (speed_delta * 10) * (is_holding ? 1 : 2)
 	else

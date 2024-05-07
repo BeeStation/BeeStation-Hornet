@@ -78,7 +78,7 @@
 	var/next_portal = 0
 
 /datum/brain_trauma/special/bluespace_prophet/on_life()
-	if(world.time > next_portal)
+	if(IS_TIME_PASSED(next_portal))
 		next_portal = world.time + 100
 		var/list/turf/possible_turfs = list()
 		for(var/turf/T as() in RANGE_TURFS(8, owner))

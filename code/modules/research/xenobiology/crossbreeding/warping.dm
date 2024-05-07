@@ -130,7 +130,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	warp_charge++
 
 /obj/item/slimecross/warping/proc/check_cd(user)
-	if(world.time < cooldown)
+	if(IS_TIME_FUTURE(cooldown))
 		if(user)
 			to_chat(user, "<span class='warning'>[src] is recharging energy.</span>")
 		return FALSE

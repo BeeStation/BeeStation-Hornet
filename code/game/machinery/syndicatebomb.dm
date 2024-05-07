@@ -81,7 +81,7 @@
 			payload_core.defuse()
 		return
 
-	if(!isnull(next_beep) && (next_beep <= world.time))
+	if(!isnull(next_beep) && IS_TIME_PASSED_OR_NOW(next_beep))
 		var/volume
 		switch(seconds_remaining())
 			if(0 to 5)
@@ -99,7 +99,7 @@
 		playsound(loc, beepsound, volume, 0)
 		next_beep = world.time + 10
 
-	if(active && ((detonation_timer <= world.time) || explode_now))
+	if(active && (IS_TIME_PASSED_OR_NOW(detonation_timer) || explode_now))
 		var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 		if(beacon)
 			qdel(beacon)
@@ -533,7 +533,7 @@
 	var/existent =	0
 
 /obj/item/syndicatedetonator/attack_self(mob/user)
-	if(timer < world.time)
+	if(IS_TIME_PASSED(timer))
 		for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
 			if(B.active)
 				B.detonation_timer = world.time + BUTTON_DELAY

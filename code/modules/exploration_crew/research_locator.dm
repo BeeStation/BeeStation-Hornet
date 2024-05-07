@@ -8,7 +8,7 @@
 	var/range = 30
 
 /obj/item/research_disk_pinpointer/attack_self(mob/user)
-	if(world.time < next_use_time)
+	if(IS_TIME_FUTURE(next_use_time))
 		to_chat(user, "<span class='notice'>Internal capacitors recharging...</span>")
 		return
 	to_chat(user, "<span class='notice'>You pulse for nearby research disks.</span>")

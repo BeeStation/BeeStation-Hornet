@@ -379,7 +379,7 @@
 	..()
 	if(machine_stat & BROKEN)
 		return PROCESS_KILL
-	if(timing && valve_timer < world.time)
+	if(timing && IS_TIME_PASSED(valve_timer))
 		valve_open = !valve_open
 		timing = FALSE
 

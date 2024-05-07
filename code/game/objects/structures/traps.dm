@@ -68,7 +68,7 @@
 /obj/structure/trap/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
-	if(last_trigger + time_between_triggers > world.time)
+	if( IS_TIME_FUTURE(last_trigger + time_between_triggers))
 		return
 	// Don't want the traps triggered by sparks, ghosts or projectiles.
 	if(is_type_in_typecache(AM, ignore_typecache))

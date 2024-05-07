@@ -188,7 +188,7 @@
 
 	if(L.stat != CONSCIOUS || L.buckling || L.restrained()) // Has to be conscious and unbuckled
 		return
-	if(recharging_time > world.time)
+	if(IS_TIME_FUTURE(recharging_time))
 		to_chat(L, "<span class='warning'>The wings aren't ready to dash yet!</span>")
 		return
 	var/datum/gas_mixture/environment = L.loc.return_air()

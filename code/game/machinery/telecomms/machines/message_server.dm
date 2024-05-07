@@ -110,7 +110,7 @@
 
 /obj/machinery/telecomms/message_server/process()
 	. = ..()
-	if(calibrating && calibrating <= world.time)
+	if(calibrating && IS_TIME_PASSED_OR_NOW(calibrating))
 		calibrating = 0
 		modular_msgs += new /datum/data_tablet_msg("System Administrator", "system", MESSAGE_SERVER_FUNCTIONING_MESSAGE)
 

@@ -37,7 +37,7 @@
 
 /obj/structure/destructible/clockwork/ocular_warden/process(delta_time)
 	//Can we fire?
-	if(world.time < cooldown)
+	if(IS_TIME_FUTURE(cooldown))
 		return
 	//Check hostiles in range
 	var/list/valid_targets = list()

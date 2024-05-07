@@ -74,7 +74,7 @@ SUBSYSTEM_DEF(dbcore)
 
 	for(var/I in processing_queries)
 		var/datum/db_query/Q = I
-		if(world.time - Q.last_activity_time > (5 MINUTES))
+		if(IS_TIME_PASSED(Q.last_activity_time + 5 MINUTES))
 			log_sql("Undeleted query: \"[Q.sql]\" ARGS: \"[list2params(Q.arguments)]\" LA: [Q.last_activity] LAT: [Q.last_activity_time]")
 			qdel(Q)
 		if(MC_TICK_CHECK)

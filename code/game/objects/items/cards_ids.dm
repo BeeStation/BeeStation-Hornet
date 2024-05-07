@@ -336,7 +336,7 @@
 		set_new_account(user)
 		return
 
-	if (world.time < registered_account.withdrawDelay)
+	if (IS_TIME_FUTURE(registered_account.withdrawDelay))
 		registered_account.bank_card_talk("<span class='warning'>ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS.</span>", TRUE)
 		return
 

@@ -104,11 +104,11 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 /mob/camera/blob/process()
 	if(!blob_core)
 		if(!placed)
-			if(manualplace_min_time && world.time >= manualplace_min_time)
+			if(manualplace_min_time && IS_TIME_PASSED_OR_NOW(manualplace_min_time))
 				to_chat(src, "<b><span class='big'><font color=\"#EE4000\">You may now place your blob core.</font></span></b>")
 				to_chat(src, "<span class='big'><font color=\"#EE4000\">You will automatically place your blob core in [DisplayTimeText(autoplace_max_time - world.time)].</font></span>")
 				manualplace_min_time = 0
-			if(autoplace_max_time && world.time >= autoplace_max_time)
+			if(autoplace_max_time && IS_TIME_PASSED_OR_NOW(autoplace_max_time))
 				place_blob_core(1)
 		else
 			qdel(src)
@@ -126,7 +126,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	if(!victory_in_progress && max_count < blobs_legit.len)
 		max_count = blobs_legit.len
 
-	if(!has_announced && (world.time >= announcement_time || blobs_legit.len >= announcement_size))
+	if(!has_announced && IS_TIME_PASSED_OR_NOW(announcement_time) || blobs_legit.len >= announcement_size)
 		priority_announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", ANNOUNCER_OUTBREAK5)
 		has_announced = TRUE
 /mob/camera/blob/proc/victory()

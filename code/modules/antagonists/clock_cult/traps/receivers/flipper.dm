@@ -13,7 +13,7 @@
 	var/cooldown = 0
 
 /obj/structure/destructible/clockwork/trap/flipper/proc/flip()
-	if(cooldown > world.time)
+	if( IS_TIME_FUTURE(cooldown))
 		return
 	cooldown = world.time + 200
 	flick("flipper", src)

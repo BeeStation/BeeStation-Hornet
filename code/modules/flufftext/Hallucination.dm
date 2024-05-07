@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		hallucination = 0
 		return
 
-	if(world.time < next_hallucination)
+	if(IS_TIME_FUTURE(next_hallucination))
 		return
 
 	var/halpick = pick_weight(GLOB.hallucination_list)
@@ -185,7 +185,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	START_PROCESSING(SSobj, src)
 
 /datum/hallucination/fake_flood/process()
-	if(next_expand <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(next_expand))
 		radius++
 		if(radius > FAKE_FLOOD_MAX_RADIUS)
 			qdel(src)

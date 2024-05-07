@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(ambience)
 	if(current_area.ambient_buzz)
 		play_buzz(current_mob, current_area)
 
-	if(ambience_listening_clients[to_process] > world.time)
+	if(IS_TIME_FUTURE(ambience_listening_clients[to_process]))
 		return //Not ready for the next sound
 
 	if(current_area.ambientsounds && length(current_area.ambientsounds))
@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(ambience)
 	ambience_listening_clients[to_process] = world.time + rand(current_area.min_ambience_cooldown, current_area.max_ambience_cooldown)
 
 /datum/controller/subsystem/ambience/proc/add_ambience_client(client/to_add)
-	if(SSambience.ambience_listening_clients[to_add] > world.time)
+	if(IS_TIME_FUTURE(SSambience.ambience_listening_clients[to_add]))
 		return // If already properly set we don't want to reset the timer.
 	SSambience.ambience_listening_clients[to_add] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
 

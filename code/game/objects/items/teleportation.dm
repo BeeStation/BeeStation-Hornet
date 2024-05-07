@@ -80,7 +80,7 @@
 			else
 				var/mob/living/M = W.loc
 				if (M.stat == DEAD)
-					if (M.timeofdeath + W.lifespan_postmortem < world.time)
+					if (IS_TIME_PASSED(M.timeofdeath + W.lifespan_postmortem))
 						continue
 			var/turf/tr = get_turf(W)
 			var/distance = max(abs(tr.x - sr.x), abs(tr.y - sr.y))

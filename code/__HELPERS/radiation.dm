@@ -42,7 +42,7 @@
 		new /datum/radiation_wave(source, intensity, range_modifier, can_contaminate)
 
 		var/static/last_huge_pulse = 0
-		if(intensity > 3000 && world.time > last_huge_pulse + 200)
+		if(intensity > 3000 && IS_TIME_PASSED(last_huge_pulse + 200))
 			last_huge_pulse = world.time
 			log = TRUE
 		if(log)

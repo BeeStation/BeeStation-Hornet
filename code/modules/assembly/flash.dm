@@ -209,7 +209,7 @@
 		return typecache_filter_list(target_loc.GetAllContents(), GLOB.typecache_living)
 
 /obj/item/assembly/flash/proc/try_use_flash(mob/user = null)
-	if(!bulb || (world.time < last_trigger + cooldown))
+	if(!bulb || (IS_TIME_FUTURE(last_trigger + cooldown)))
 		return FALSE
 	switch(bulb.use_flashbulb())
 		if(FLASH_FAIL)
@@ -295,7 +295,7 @@
 		log_combat(user, R, "flashed", src)
 		update_icon(1)
 		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
-		if(R.last_flashed + 30 SECONDS < world.time)
+		if(IS_TIME_PASSED(R.last_flashed + 30 SECONDS))
 			R.last_flashed = world.time
 			R.Paralyze(5 SECONDS)
 			user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")

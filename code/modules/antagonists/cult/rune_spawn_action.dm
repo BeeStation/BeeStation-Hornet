@@ -15,7 +15,7 @@
 	var/rune_color
 
 /datum/action/innate/cult/create_rune/IsAvailable()
-	if(!rune_type || cooldown > world.time)
+	if(!rune_type || IS_TIME_FUTURE(cooldown))
 		return FALSE
 	return ..()
 

@@ -317,7 +317,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	while (current_user && !finished && !selected_choice)
 		if(require_near && !in_range(anchor, user))
 			return
-		if(custom_check_callback && next_check < world.time)
+		if(custom_check_callback && IS_TIME_PASSED(next_check))
 			if(!custom_check_callback.Invoke())
 				return
 			else

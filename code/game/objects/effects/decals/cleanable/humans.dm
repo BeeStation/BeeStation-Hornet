@@ -23,7 +23,7 @@
 		dry()
 
 /obj/effect/decal/cleanable/blood/process()
-	if(world.time > drytime)
+	if(IS_TIME_PASSED(drytime))
 		dry()
 
 /obj/effect/decal/cleanable/blood/Destroy()

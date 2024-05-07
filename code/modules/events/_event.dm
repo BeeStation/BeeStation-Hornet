@@ -54,7 +54,7 @@
 /datum/round_event_control/proc/canSpawnEvent(var/players_amt, var/gamemode)
 	if(occurrences >= max_occurrences)
 		return FALSE
-	if(earliest_start >= world.time-SSticker.round_start_time)
+	if(IS_TIME_FUTURE_OR_NOW(earliest_start + SSticker.round_start_time))
 		return FALSE
 	if(wizardevent != SSevents.wizardmode)
 		return FALSE

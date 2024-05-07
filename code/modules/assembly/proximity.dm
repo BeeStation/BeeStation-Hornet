@@ -62,7 +62,7 @@
 	sense()
 
 /obj/item/assembly/prox_sensor/proc/sense()
-	if(!scanning || !secured || next_activate > world.time)
+	if(!scanning || !secured || IS_TIME_FUTURE(next_activate))
 		return FALSE
 	pulse(FALSE)
 	audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*", null, hearing_range)

@@ -35,7 +35,7 @@
 	. = ..()
 	if(.)
 		return
-	if(last_process + time_between_uses > world.time)
+	if( IS_TIME_FUTURE(last_process + time_between_uses))
 		to_chat(user, "<span class='notice'>The fountain appears to be empty.</span>")
 		return
 	last_process = world.time
@@ -46,7 +46,7 @@
 
 
 /obj/structure/healingfountain/update_icon()
-	if(last_process + time_between_uses > world.time)
+	if( IS_TIME_FUTURE(last_process + time_between_uses))
 		icon_state = "fountain"
 	else
 		icon_state = "fountain-red"

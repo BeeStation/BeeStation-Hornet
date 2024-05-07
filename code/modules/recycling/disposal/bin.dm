@@ -177,7 +177,7 @@
 	flushing = TRUE
 	flushAnimation()
 	sleep(10)
-	if(last_sound < world.time + 1)
+	if(IS_TIME_PASSED(last_sound - 1))
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, FALSE, FALSE)
 		last_sound = world.time
 	sleep(5)

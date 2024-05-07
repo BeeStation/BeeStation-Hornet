@@ -27,7 +27,7 @@
 	radio_connection = SSradio.return_frequency(frequency)
 
 /obj/item/integrated_signaler/proc/send_activation()
-	if(last_transmission && world.time < (last_transmission + 5))
+	if(last_transmission && IS_TIME_FUTURE(last_transmission + 5))
 		return
 	last_transmission = world.time
 

@@ -554,7 +554,7 @@
 		animate(wasting_effect, alpha = 0, time = 32)
 		playsound(owner, 'sound/effects/curse5.ogg', 20, 1, -1)
 		owner.adjustFireLoss(0.75)
-	if(effect_last_activation <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(effect_last_activation))
 		effect_last_activation = world.time + effect_cooldown
 		if(curse_flags & CURSE_SPAWNING)
 			var/turf/spawn_turf

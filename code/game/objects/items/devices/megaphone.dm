@@ -33,7 +33,7 @@
 	SIGNAL_HANDLER
 
 	if (user.get_active_held_item() == src)
-		if(spamcheck > world.time)
+		if( IS_TIME_FUTURE(spamcheck))
 			to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
 		else
 			playsound(loc, 'sound/items/megaphone.ogg', 100, 0, 1)
@@ -79,7 +79,7 @@
 /obj/item/megaphone/nospam/process(delta_time)
 	var/current_index = length(charges_list)
 	while(current_index > 0)
-		if(charges_list[current_index] < world.time)
+		if(IS_TIME_PASSED(charges_list[current_index]))
 			charges_list.Cut(current_index, current_index+1)
 		current_index--
 	return

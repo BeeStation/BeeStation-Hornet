@@ -45,7 +45,7 @@
 			occurrences++
 		R.next = 1
 
-		if(!first_heard[speaker] || (first_heard[speaker] + max_delay < world.time))
+		if(!first_heard[speaker] || IS_TIME_PASSED(first_heard[speaker] + max_delay))
 			first_heard[speaker] = world.time
 			count[speaker] = 0
 		count[speaker] += occurrences

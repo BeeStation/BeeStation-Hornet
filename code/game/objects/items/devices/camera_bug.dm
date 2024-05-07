@@ -76,7 +76,7 @@
 	user.reset_perspective(null)
 
 /obj/item/camera_bug/proc/get_cameras()
-	if( world.time > (last_net_update + 100))
+	if(IS_TIME_PASSED(last_net_update + 100))
 		bugged_cameras = list()
 		for(var/obj/machinery/camera/camera in GLOB.cameranet.cameras)
 			if(camera.machine_stat || !camera.can_use())
@@ -272,7 +272,7 @@
 	interact()
 
 /obj/item/camera_bug/process()
-	if(track_mode == BUGMODE_LIST || (world.time < (last_tracked + refresh_interval)))
+	if(track_mode == BUGMODE_LIST || (IS_TIME_FUTURE(last_tracked + refresh_interval)))
 		return
 	last_tracked = world.time
 	if(track_mode == BUGMODE_TRACK ) // search for user

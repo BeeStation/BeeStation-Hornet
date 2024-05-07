@@ -52,7 +52,7 @@
 	var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
 	if(!HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) && (H.shoes || feetCover || !(H.mobility_flags & MOBILITY_STAND) || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || H.m_intent == MOVE_INTENT_WALK))
 		return
-	if(HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) || ((world.time >= last_bump + 100) && prob(5)))
+	if(HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) || (IS_TIME_PASSED_OR_NOW(last_bump + 100) && prob(5)))
 		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
 		H.stub_toe(2)
 	last_bump = world.time //do the cooldown here so walking into a table only checks toestubs once

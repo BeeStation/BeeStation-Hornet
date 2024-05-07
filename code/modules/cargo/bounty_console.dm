@@ -63,7 +63,7 @@
 				cashmoney.claim()
 			return TRUE
 		if("Print")
-			if(printer_ready < world.time)
+			if(IS_TIME_PASSED(printer_ready))
 				printer_ready = world.time + PRINTER_TIMEOUT
 				print_paper()
 				return

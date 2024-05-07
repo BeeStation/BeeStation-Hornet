@@ -33,7 +33,7 @@
 	new /obj/structure/alien_artifact/protector(valid_turfs[1])
 
 /obj/structure/alien_artifact/watcher/HasProximity(atom/movable/AM)
-	if(cooldown > world.time || iseffect(AM) || isprojectile(AM) || !(locate(AM) in view(range ,src)))
+	if(IS_TIME_FUTURE(cooldown) || iseffect(AM) || isprojectile(AM) || !(locate(AM) in view(range ,src)))
 		return
 	cooldown = world.time + 50
 	//Trigger nearby protectors

@@ -55,7 +55,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/clown/Life()
 	. = ..()
-	if(banana_time && banana_time < world.time)
+	if(banana_time && IS_TIME_PASSED(banana_time))
 		var/turf/T = get_turf(src)
 		var/list/adjacent =  T.GetAtmosAdjacentTurfs(1)
 		new banana_type(pick(adjacent))

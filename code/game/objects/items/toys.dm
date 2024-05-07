@@ -520,7 +520,7 @@
 
 //all credit to skasi for toy mech fun ideas
 /obj/item/toy/prize/attack_self(mob/user)
-	if(timer < world.time)
+	if(IS_TIME_PASSED(timer))
 		to_chat(user, "<span class='notice'>You play with [src].</span>")
 		timer = world.time + cooldown
 		if(!quiet)
@@ -794,7 +794,7 @@
 	return ..()
 
 /obj/item/toy/cards/deck/attack_self(mob/user)
-	if(cooldown < world.time - 50)
+	if(IS_TIME_PASSED(cooldown + 50))
 		cards = shuffle(cards)
 		playsound(src, 'sound/items/cardshuffle.ogg', 50, TRUE)
 		user.visible_message("<span class='notice'>[user] shuffles the deck.</span>", "<span class='notice'>You shuffle the deck.</span>")
@@ -1076,7 +1076,7 @@
 	var/cooldown = 0
 
 /obj/item/toy/nuke/attack_self(mob/user)
-	if (cooldown < world.time)
+	if (IS_TIME_PASSED(cooldown))
 		cooldown = world.time + 1800 //3 minutes
 		user.visible_message("<span class='warning'>[user] presses a button on [src].</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='italics'>You hear the click of a button.</span>")
 		sleep(5)
@@ -1121,7 +1121,7 @@
 	var/cooldown = 0
 
 /obj/item/toy/redbutton/attack_self(mob/user)
-	if (cooldown < world.time)
+	if (IS_TIME_PASSED(cooldown))
 		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
 		user.visible_message("<span class='warning'>[user] presses the big red button.</span>", "<span class='notice'>You press the button, it plays a loud noise!</span>", "<span class='italics'>The button clicks loudly.</span>")
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0)
@@ -1180,7 +1180,7 @@
 	var/cooldown = 0
 
 /obj/item/toy/clockwork_watch/attack_self(mob/user)
-	if (cooldown < world.time)
+	if (IS_TIME_PASSED(cooldown))
 		cooldown = world.time + 1800 //3 minutes
 		user.visible_message("<span class='warning'>[user] rotates a cogwheel on [src].</span>", "<span class='notice'>You rotate a cogwheel on [src], it plays a loud noise!</span>", "<span class='italics'>You hear cogwheels turning.</span>")
 		playsound(src, 'sound/magic/clockwork/ark_activation.ogg', 50, 0)
@@ -1253,7 +1253,7 @@
 	var/cooldown = 0
 
 /obj/item/toy/toy_xeno/attack_self(mob/user)
-	if(cooldown <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(cooldown))
 		cooldown = (world.time + 50) //5 second cooldown
 		user.visible_message("<span class='notice'>[user] pulls back the string on [src].</span>")
 		icon_state = "[initial(icon_state)]_used"
@@ -1298,7 +1298,7 @@
 	desc = "A \"Space Life\" brand [src]."
 
 /obj/item/toy/figure/attack_self(mob/user as mob)
-	if(cooldown <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(cooldown))
 		cooldown = world.time + 50
 		to_chat(user, "<span class='notice'>[src] says \"[toysay]\"</span>")
 		playsound(user, toysound, 20, 1)
@@ -1645,7 +1645,7 @@
 	return
 
 /obj/item/gobbler/attack_self(mob/user)
-	if(cooldown > world.time)
+	if(IS_TIME_FUTURE(cooldown))
 		return
 	cooldown = world.time + cooldowndelay
 	if (money<=0)
@@ -1703,12 +1703,12 @@
 	var/flip_cooldown = 0
 
 /obj/item/dance_trance/attack()
-	if(flip_cooldown < world.time)
+	if(IS_TIME_PASSED(flip_cooldown))
 		flip_mobs()
 	return ..()
 
 /obj/item/dance_trance/attack_self(mob/user)
-	if(flip_cooldown < world.time)
+	if(IS_TIME_PASSED(flip_cooldown))
 		flip_mobs()
 	..()
 

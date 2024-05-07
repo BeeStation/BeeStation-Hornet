@@ -36,7 +36,7 @@
 		return
 	if(spores.len >= max_spores)
 		return
-	if(spore_delay > world.time)
+	if(IS_TIME_FUTURE(spore_delay))
 		return
 	flick("blob_factory_glow", src)
 	spore_delay = world.time + spore_cooldown

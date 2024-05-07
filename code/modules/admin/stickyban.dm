@@ -399,7 +399,7 @@
 
 /proc/sticky_banned_ckeys()
 	if (SSdbcore.Connect() || length(SSstickyban.dbcache))
-		if (SSstickyban.dbcacheexpire < world.time)
+		if (IS_TIME_PASSED(SSstickyban.dbcacheexpire))
 			SSstickyban.Populatedbcache()
 		if (SSstickyban.dbcacheexpire)
 			return SSstickyban.dbcache.Copy()
@@ -412,7 +412,7 @@
 	if (!ckey)
 		return null
 	if (SSdbcore.Connect() || length(SSstickyban.dbcache))
-		if (SSstickyban.dbcacheexpire < world.time)
+		if (IS_TIME_PASSED(SSstickyban.dbcacheexpire))
 			SSstickyban.Populatedbcache()
 		if (SSstickyban.dbcacheexpire)
 			. = SSstickyban.dbcache[ckey]

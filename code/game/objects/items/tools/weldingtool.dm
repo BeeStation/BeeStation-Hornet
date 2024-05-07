@@ -193,7 +193,7 @@
 	if(!status)
 		balloon_alert(user, "You try to turn [src] on, but it's unsecured!")
 		return
-	if(world.time < disabled_time)
+	if(IS_TIME_FUTURE(disabled_time))
 		balloon_alert(user, "You try to turn [src] on, but nothing happens!")
 		return
 	set_welding(!welding)
@@ -402,7 +402,7 @@
 
 /obj/item/weldingtool/experimental/process(delta_time)
 	..()
-	if(get_fuel() < max_fuel && nextrefueltick < world.time)
+	if(get_fuel() < max_fuel && IS_TIME_PASSED(nextrefueltick))
 		nextrefueltick = world.time + 10
 		reagents.add_reagent(/datum/reagent/fuel, 0.5*delta_time)
 

@@ -575,7 +575,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/AltClickOn(atom/movable/A)
 	if(!istype(A))
 		return
-	if(player_cooldown >= world.time)
+	if(IS_TIME_FUTURE_OR_NOW(player_cooldown))
 		to_chat(src, "<span class='warning'>You need to wait [(player_cooldown - world.time) / 10] seconds before swooping again!</span>")
 		return
 	swoop_attack(FALSE, A)

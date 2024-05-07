@@ -683,7 +683,7 @@
 	..()
 	if(owner)
 		UpdateButtonIcon()
-		if(next_use_time > world.time)
+		if( IS_TIME_FUTURE(next_use_time))
 			START_PROCESSING(SSfastprocess, src)
 
 

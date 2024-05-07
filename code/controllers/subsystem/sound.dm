@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(sound_effects)
 
 		sound_effect.update_effect()
 
-		if(world.time > sound_effect.end_tick)
+		if(IS_TIME_PASSED(sound_effect.end_tick))
 			sound_effect.end_effect()
 			acting_effects -= sound_effect.effect_id
 

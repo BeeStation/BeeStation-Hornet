@@ -276,7 +276,7 @@
 	if(CONFIG_GET(flag/restricted_suicide))
 		if(alert("Commiting suicide is strongly discouraged, and in some cases may be against the rules. Consider entering the cryopods or contacting admins. Are you sure you want to continue?",,"Confirm","Cancel") != "Confirm")
 			return
-		if(world.time < (SSticker.round_start_time + (15 MINUTES)))
+		if(IS_TIME_FUTURE(SSticker.round_start_time + (15 MINUTES)))
 			var/timeleft = ((SSticker.round_start_time + (15 MINUTES)) - world.time)
 			to_chat(src, "<span class='boldannounce'>Committing suicide at the start of the round is not allowed. Time until suicide is possible: [DisplayTimeText(timeleft)].</span>")
 			if(src.job)

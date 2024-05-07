@@ -99,7 +99,7 @@
 			expand_probablity = 20
 		if(distance <= expand_range)
 			var/can_expand = TRUE
-			if(blobs_to_affect.len >= 120 && B.heal_timestamp > world.time)
+			if(blobs_to_affect.len >= 120 && IS_TIME_FUTURE( B.heal_timestamp))
 				can_expand = FALSE
 			if(can_expand && B.pulse_timestamp <= world.time && prob(expand_probablity))
 				var/obj/structure/blob/newB = B.expand(null, null, !expanded) //expansion falls off with range but is faster near the blob causing the expansion
@@ -111,9 +111,9 @@
 			B.Be_Pulsed()
 
 /obj/structure/blob/proc/Be_Pulsed()
-	if(pulse_timestamp <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(pulse_timestamp))
 		ConsumeTile()
-		if(heal_timestamp <= world.time)
+		if(IS_TIME_PASSED_OR_NOW(heal_timestamp))
 			obj_integrity = min(max_integrity, obj_integrity+health_regen)
 			heal_timestamp = world.time + 20
 		update_icon()

@@ -114,5 +114,5 @@
 	RegisterSignal(parent, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(allow_final_movement))
 
 /datum/component/drift/proc/allow_final_movement(datum/source)
-	if(world.time < block_inputs_until)
+	if(IS_TIME_FUTURE(block_inputs_until))
 		return COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE

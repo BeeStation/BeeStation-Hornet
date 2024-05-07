@@ -181,7 +181,7 @@ Difficulty: Medium
 	var/static/list/allowed_areas = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/outdoors/explored)
 
 /obj/item/staff/storm/attack_self(mob/user)
-	if(storm_cooldown > world.time)
+	if(IS_TIME_FUTURE(storm_cooldown))
 		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
 		return
 	if(!is_mining_level(user.z))

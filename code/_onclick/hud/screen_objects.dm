@@ -50,7 +50,7 @@
 /atom/movable/screen/swap_hand/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
-	if(world.time <= usr.next_move)
+	if(IS_TIME_FUTURE_OR_NOW(usr.next_move))
 		return 1
 
 	if(usr.incapacitated())
@@ -103,7 +103,7 @@
 /atom/movable/screen/inventory/Click(location, control, params)
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
-	if(world.time <= usr.next_move)
+	if(IS_TIME_FUTURE_OR_NOW(usr.next_move))
 		return TRUE
 
 	if(usr.incapacitated())
@@ -212,7 +212,7 @@
 	var/mob/user = hud?.mymob
 	if(usr != user)
 		return TRUE
-	if(world.time <= user.next_move)
+	if(IS_TIME_FUTURE_OR_NOW(user.next_move))
 		return TRUE
 	if(user.incapacitated())
 		return TRUE
@@ -436,7 +436,7 @@
 	master = new_master
 
 /atom/movable/screen/storage/Click(location, control, params)
-	if(world.time <= usr.next_move)
+	if(IS_TIME_FUTURE_OR_NOW(usr.next_move))
 		return TRUE
 	if(usr.incapacitated())
 		return TRUE

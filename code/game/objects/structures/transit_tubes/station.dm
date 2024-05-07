@@ -125,7 +125,7 @@
 
 
 /obj/structure/transit_tube/station/proc/launch_pod()
-	if(launch_cooldown >= world.time)
+	if(IS_TIME_FUTURE_OR_NOW(launch_cooldown))
 		return
 	for(var/obj/structure/transit_tube_pod/pod in loc)
 		if(!pod.moving)

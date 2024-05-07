@@ -79,7 +79,7 @@
 	. = -1 //default
 	if (!ip)
 		return
-	if (SSipintel.throttle > world.timeofday)
+	if (IS_TIME_FUTURE(SSipintel.throttle))
 		return
 	if (!SSipintel.enabled)
 		return

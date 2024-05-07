@@ -286,7 +286,7 @@
 		if(!iscyborg(target))
 			return
 	else
-		if(cooldown_check <= world.time)
+		if(IS_TIME_PASSED_OR_NOW(cooldown_check))
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
@@ -384,7 +384,7 @@
 		if(!..())
 			target.apply_damage(force, STAMINA, blocked = def_check)
 			return
-	else if(cooldown_check > world.time)
+	else if( IS_TIME_FUTURE(cooldown_check))
 		var/wait_desc = get_wait_description()
 		if (wait_desc)
 			to_chat(user, wait_desc)
@@ -702,7 +702,7 @@
 		if(!iscyborg(target))
 			return
 	else
-		if(cooldown_check <= world.time)
+		if(IS_TIME_PASSED_OR_NOW(cooldown_check))
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
@@ -1058,7 +1058,7 @@
 /obj/item/melee/knockback_stick/attack(mob/living/target, mob/living/user)
 	add_fingerprint(user)
 
-	if(cooldown <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(cooldown))
 		playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
 		log_combat(user, target, "knockedbacked", src)
 		target.visible_message("<span class ='danger'>[user] has knocked back [target] with [src]!</span>", \

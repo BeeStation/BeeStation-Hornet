@@ -117,7 +117,7 @@
 		return ..()
 
 /obj/item/organ/heart/cursed/on_life()
-	if(world.time > (last_pump + pump_delay))
+	if(IS_TIME_PASSED(last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
 			if(H.dna && !(NOBLOOD in H.dna.species.species_traits))
@@ -147,7 +147,7 @@
 	if(. && istype(target, /obj/item/organ/heart/cursed))
 		var/obj/item/organ/heart/cursed/cursed_heart = target
 
-		if(world.time < (cursed_heart.last_pump + (cursed_heart.pump_delay-10))) //no spam
+		if(IS_TIME_FUTURE(cursed_heart.last_pump + (cursed_heart.pump_delay-10))) //no spam
 			to_chat(owner, "<span class='userdanger'>Too soon!</span>")
 			return
 
@@ -221,7 +221,7 @@
 
 /obj/item/organ/heart/freedom/on_life()
 	. = ..()
-	if(owner.health < 5 && world.time > min_next_adrenaline)
+	if(owner.health < 5 && IS_TIME_PASSED(min_next_adrenaline))
 		min_next_adrenaline = world.time + rand(250, 600) //anywhere from 4.5 to 10 minutes
 		to_chat(owner, "<span class='userdanger'>You feel yourself dying, but you refuse to give up!</span>")
 		owner.heal_overall_damage(15, 15, 0, BODYTYPE_ORGANIC)

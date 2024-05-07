@@ -306,7 +306,7 @@
 			return
 	if(!passthrough && (aiming_time > aiming_time_fire_threshold))
 		return
-	if(lastfire > world.time + delay)
+	if(IS_TIME_FUTURE(lastfire - delay))
 		return
 	lastfire = world.time
 	. = ..()

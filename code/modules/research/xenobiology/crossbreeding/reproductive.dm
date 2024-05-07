@@ -28,7 +28,7 @@ Reproductive extracts:
 	. += "<span class='danger'>It appears to have eaten [length(contents)] Monkey Cube[p_s()]</span>"
 
 /obj/item/slimecross/reproductive/attackby(obj/item/O, mob/user)
-	if((last_produce + cooldown) > world.time)
+	if(IS_TIME_FUTURE(last_produce + cooldown))
 		to_chat(user, "<span class='warning'>[src] is still digesting!</span>")
 		return
 

@@ -75,7 +75,7 @@
 	cords = target
 
 /datum/action/item_action/organ_action/colossus/IsAvailable()
-	if(world.time < cords.next_command)
+	if(IS_TIME_FUTURE(cords.next_command))
 		return FALSE
 	if(!owner)
 		return FALSE
@@ -91,7 +91,7 @@
 /datum/action/item_action/organ_action/colossus/Trigger()
 	. = ..()
 	if(!IsAvailable())
-		if(world.time < cords.next_command)
+		if(IS_TIME_FUTURE(cords.next_command))
 			to_chat(owner, "<span class='notice'>You must wait [DisplayTimeText(cords.next_command - world.time)] before Speaking again.</span>")
 		return
 	var/command = input(owner, "Speak with the Voice of God", "Command")
@@ -102,7 +102,7 @@
 	owner.say(".x[command]")
 
 /obj/item/organ/vocal_cords/colossus/can_speak_with()
-	if(world.time < next_command)
+	if(IS_TIME_FUTURE(next_command))
 		to_chat(owner, "<span class='notice'>You must wait [DisplayTimeText(next_command - world.time)] before Speaking again.</span>")
 		return FALSE
 	if(!owner)

@@ -70,7 +70,7 @@
 	return thealert
 
 /mob/proc/alert_timeout(atom/movable/screen/alert/alert, category)
-	if(alert.timeout && alerts[category] == alert && world.time >= alert.timeout)
+	if(alert.timeout && alerts[category] == alert && IS_TIME_PASSED_OR_NOW(alert.timeout))
 		clear_alert(category)
 
 // Proc to clear an existing alert.
@@ -662,7 +662,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
-	if((L.mobility_flags & MOBILITY_MOVE) && (L.last_special <= world.time))
+	if((L.mobility_flags & MOBILITY_MOVE) && (IS_TIME_PASSED_OR_NOW(L.last_special)))
 		return L.resist_restraints()
 
 /atom/movable/screen/alert/restrained/buckled/Click()
@@ -670,7 +670,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
-	if(L.last_special <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(L.last_special))
 		return L.resist_buckle()
 
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole

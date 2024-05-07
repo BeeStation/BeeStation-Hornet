@@ -183,7 +183,7 @@
 /obj/item/flashlight/pen/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
 	if(!proximity_flag)
-		if(holo_cooldown > world.time)
+		if( IS_TIME_FUTURE(holo_cooldown))
 			to_chat(user, "<span class='warning'>[src] is not ready yet!</span>")
 			return
 		var/T = get_turf(target)

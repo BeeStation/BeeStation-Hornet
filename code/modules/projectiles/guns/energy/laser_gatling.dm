@@ -145,7 +145,7 @@
 
 /obj/item/gun/energy/minigun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(ammo_pack)
-		if(cooldown < world.time)
+		if(IS_TIME_PASSED(cooldown))
 			if(current_heat >= overheat) //We've been firing too long, shut it down
 				to_chat(user, "<span class='warning'>[src]'s heat sensor locked the trigger to prevent lens damage.</span>")
 				shoot_with_empty_chamber(user)

@@ -137,7 +137,7 @@
 			to_chat(usr, "<span class='warning'>\The [src] is empty!</span>")
 			return
 
-		if (world.time < src.last_use + 12)
+		if (IS_TIME_FUTURE(src.last_use + 12))
 			return
 
 		src.last_use = world.time

@@ -204,7 +204,7 @@ SUBSYSTEM_DEF(vote)
 			if(GLOB.admin_datums[ckey] || forced)
 				lower_admin = TRUE
 
-			if(next_allowed_time > world.time && !lower_admin)
+			if(IS_TIME_FUTURE(next_allowed_time) && !lower_admin)
 				to_chat(usr, "<span class='warning'>A vote was initiated recently, you must wait [DisplayTimeText(next_allowed_time-world.time)] before a new vote can be started!</span>")
 				return 0
 

@@ -141,7 +141,7 @@
 	GiveTarget(A)
 	if(!isturf(loc))
 		return
-	if(next_move > world.time)
+	if(IS_TIME_FUTURE(next_move))
 		return
 	if(hopping)
 		return
@@ -150,7 +150,7 @@
 		if(L.incapacitated())
 			BellyFlop()
 			return
-	if(hop_cooldown <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(hop_cooldown))
 		Hop(player_hop = TRUE)
 
 /mob/living/simple_animal/hostile/jungle/leaper/AttackingTarget()
@@ -182,7 +182,7 @@
 
 /mob/living/simple_animal/hostile/jungle/leaper/OpenFire()
 	face_atom(target)
-	if(ranged_cooldown <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(ranged_cooldown))
 		if(ckey)
 			if(hopping)
 				return
@@ -207,7 +207,7 @@
 	if(player_hop)
 		new_turf = get_turf(target)
 		hop_cooldown = world.time + PLAYER_HOP_DELAY
-	if(AIStatus == AI_ON && ranged_cooldown <= world.time)
+	if(AIStatus == AI_ON && IS_TIME_PASSED_OR_NOW(ranged_cooldown))
 		projectile_ready = TRUE
 		update_icons()
 	throw_at(new_turf, max(3,get_dist(src,new_turf)), 1, src, FALSE, callback = CALLBACK(src, PROC_REF(FinishHop)))
@@ -262,7 +262,7 @@
 	if(stat)
 		icon_state = "leaper_dead"
 		return
-	if(ranged_cooldown <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(ranged_cooldown))
 		if(AIStatus == AI_ON && projectile_ready || ckey)
 			icon_state = "leaper_alert"
 			return

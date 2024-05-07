@@ -64,7 +64,7 @@
 	return FALSE
 
 /obj/machinery/transformer/process()
-	if(cooldown && (cooldown_timer <= world.time))
+	if(cooldown && IS_TIME_PASSED_OR_NOW(cooldown_timer))
 		cooldown = FALSE
 		update_icon()
 

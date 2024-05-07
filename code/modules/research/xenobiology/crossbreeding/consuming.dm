@@ -17,7 +17,7 @@ Consuming extracts:
 
 /obj/item/slimecross/consuming/attackby(obj/item/O, mob/user)
 	if(IS_EDIBLE(O))
-		if(last_produced + cooldown > world.time)
+		if(IS_TIME_FUTURE(last_produced + cooldown))
 			to_chat(user, "<span class='warning'>[src] is still digesting after its last meal!</span>")
 			return
 		var/datum/reagent/N = O.reagents.has_reagent(/datum/reagent/consumable/nutriment)

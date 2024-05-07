@@ -542,7 +542,7 @@
 		if(istype(user))
 			if(isethereal(user))
 				var/datum/species/ethereal/E = user.dna.species
-				if(E.drain_time > world.time)
+				if(IS_TIME_FUTURE(E.drain_time))
 					return
 				var/obj/item/organ/stomach/battery/stomach = user.getorganslot(ORGAN_SLOT_STOMACH)
 				if(!istype(stomach))

@@ -775,7 +775,7 @@
 /mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
 	if(buckled)
 		return
-	if(client && client.move_delay >= world.time + world.tick_lag*2)
+	if(client && IS_TIME_FUTURE_OR_NOW(client.move_delay - world.tick_lag*2))
 		pressure_resistance_prob_delta -= 30
 
 	var/list/turfs_to_check = list()
@@ -801,7 +801,7 @@
 	. = ..(pressure_difference, direction, pressure_resistance_prob_delta)
 
 /mob/living/can_resist()
-	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_stasis = TRUE))
+	return !(IS_TIME_FUTURE(next_move) || incapacitated(ignore_restraints = TRUE, ignore_stasis = TRUE))
 
 /mob/living/verb/resist()
 	set name = "Resist"
@@ -819,7 +819,7 @@
 		return
 
 	//unbuckling yourself
-	if(buckled && last_special <= world.time)
+	if(buckled && IS_TIME_PASSED_OR_NOW(last_special))
 		resist_buckle()
 
 	//Breaking out of a container (Locker, sleeper, cryo...)
@@ -830,7 +830,7 @@
 	else if(mobility_flags & MOBILITY_MOVE)
 		if(on_fire)
 			resist_fire() //stop, drop, and roll
-		else if(last_special <= world.time)
+		else if( IS_TIME_PASSED_OR_NOW(last_special))
 			resist_restraints() //trying to remove cuffs.
 
 

@@ -364,7 +364,7 @@
 	var/priority_absorb_key
 	var/highest_priority
 	for(var/i in stun_absorption)
-		if(stun_absorption[i]["end_time"] > world.time && (!priority_absorb_key || stun_absorption[i]["priority"] > highest_priority))
+		if(IS_TIME_FUTURE(stun_absorption[i]["end_time"]) && (!priority_absorb_key || stun_absorption[i]["priority"] > highest_priority))
 			priority_absorb_key = stun_absorption[i]
 			highest_priority = priority_absorb_key["priority"]
 	if(priority_absorb_key)

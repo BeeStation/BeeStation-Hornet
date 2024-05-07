@@ -101,7 +101,7 @@
 		..()
 
 /mob/living/simple_animal/hostile/megafauna/AttackingTarget()
-	if(recovery_time >= world.time)
+	if(IS_TIME_FUTURE_OR_NOW(recovery_time))
 		return
 	. = ..()
 	if(!. || !isliving(target))
@@ -111,7 +111,7 @@
 	if(L.stat == DEAD)
 		return
 
-	if(!client && ranged && ranged_cooldown <= world.time)
+	if(!client && ranged &&IS_TIME_PASSED_OR_NOW( ranged_cooldown))
 		OpenFire()
 
 /mob/living/simple_animal/hostile/megafauna/ex_act(severity, target)

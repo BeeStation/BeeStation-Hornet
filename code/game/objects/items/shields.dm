@@ -104,7 +104,7 @@
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/melee/baton))
-		if(cooldown < world.time - 25)
+		if(IS_TIME_PASSED(cooldown + 25))
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
@@ -300,7 +300,7 @@
 	return 0
 
 /obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
-	if(cooldown_timer >= world.time)
+	if(IS_TIME_FUTURE_OR_NOW(cooldown_timer))
 		return
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")

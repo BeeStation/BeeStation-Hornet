@@ -105,7 +105,7 @@
  * * start_time - The time at which the `mid_sounds` started being played (so we know when to stop looping).
  */
 /datum/looping_sound/proc/sound_loop(start_time)
-	if(max_loops && world.time >= start_time + mid_length * max_loops)
+	if(max_loops && IS_TIME_PASSED_OR_NOW(start_time + mid_length * max_loops))
 		stop()
 		return
 	if(!chance || prob(chance))

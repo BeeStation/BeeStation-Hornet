@@ -1025,7 +1025,7 @@
 						SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
 						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
-	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
+	if(last_shopper != REF(usr) || IS_TIME_PASSED(purchase_message_cooldown))
 		say("Thank you for shopping with [src]!")
 		purchase_message_cooldown = world.time + 5 SECONDS
 		last_shopper = REF(usr)
@@ -1062,7 +1062,7 @@
 			wires.ui_update()
 
 	//Pitch to the people!  Really sell it!
-	if(last_slogan + slogan_delay <= world.time && slogan_list.len > 0 && !shut_up && DT_PROB(2.5, delta_time))
+	if(IS_TIME_PASSED_OR_NOW(last_slogan + slogan_delay) && slogan_list.len > 0 && !shut_up && DT_PROB(2.5, delta_time))
 		var/slogan = pick(slogan_list)
 		speak(slogan)
 		last_slogan = world.time

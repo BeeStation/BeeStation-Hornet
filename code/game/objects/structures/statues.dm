@@ -89,7 +89,7 @@
 
 /obj/structure/statue/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event+15)
+		if(IS_TIME_PASSED(last_event+15))
 			active = 1
 			radiation_pulse(src, 30)
 			last_event = world.time

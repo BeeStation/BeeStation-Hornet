@@ -138,7 +138,7 @@
 
 /mob/living/simple_animal/hostile/carp/megacarp/Life()
 	. = ..()
-	if(regen_cooldown < world.time)
+	if(IS_TIME_PASSED(regen_cooldown))
 		heal_overall_damage(4)
 
 /mob/living/simple_animal/hostile/carp/cayenne

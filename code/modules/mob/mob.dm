@@ -634,7 +634,7 @@
 	set name = "Add Note"
 	set category = "IC"
 	if(mind)
-		if (world.time < memory_throttle_time)
+		if (IS_TIME_FUTURE(memory_throttle_time))
 			return
 		memory_throttle_time = world.time + 5 SECONDS
 		msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
@@ -798,14 +798,14 @@
   * Returns true if a mob can turn to face things
   *
   * Conditions:
-  * * client.last_turn > world.time
+  * * client.last_turn > world.time (with time macro IS_TIME_FUTURE)
   * * not dead or unconscious
   * * not anchored
   * * no transform not set
   * * we are not restrained
   */
 /mob/proc/canface()
-	if(world.time < client.last_turn)
+	if(IS_TIME_FUTURE(client.last_turn))
 		return FALSE
 	if(stat >= UNCONSCIOUS)
 		return FALSE

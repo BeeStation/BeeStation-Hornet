@@ -147,9 +147,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 //	-1 if we encountered a runtime trying to recreate it
 /proc/Recreate_MC()
 	. = -1 //so if we runtime, things know we failed
-	if (world.time < Master.restart_timeout)
+	if (IS_TIME_FUTURE(Master.restart_timeout))
 		return 0
-	if (world.time < Master.restart_clear)
+	if (IS_TIME_FUTURE(Master.restart_clear))
 		Master.restart_count *= 0.5
 
 	var/delay = 50 * ++Master.restart_count
@@ -376,7 +376,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		anti_tick_contention_sleep_time = 0
 
 		//Byond resumed us late. assume it might have to do the same next tick
-		if (last_run + CEILING(world.tick_lag * (processing * sleep_delta), world.tick_lag) < world.time)
+		if (IS_TIME_PASSED(last_run + CEILING(world.tick_lag * (processing * sleep_delta), world.tick_lag)))
 			sleep_delta += 1
 
 		sleep_delta = MC_AVERAGE_FAST(sleep_delta, 1) //decay sleep_delta
@@ -389,7 +389,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			var/datum/controller/subsystem/SS
 			SS.can_fire = 0
 
-		if (!Failsafe || (Failsafe.processing_interval > 0 && (Failsafe.lasttick+(Failsafe.processing_interval*5)) < world.time))
+		if (!Failsafe || (Failsafe.processing_interval > 0 && IS_TIME_PASSED(Failsafe.lasttick+(Failsafe.processing_interval*5))))
 			new/datum/controller/failsafe() // (re)Start the failsafe.
 
 		//now do the actual stuff
@@ -404,7 +404,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				//now we'll go through all the subsystems we want to offset and give them a next_fire
 				for(var/datum/controller/subsystem/SS as anything in current_runlevel_subsystems)
 					//we only want to offset it if it's new and also behind
-					if(SS.next_fire > world.time || (SS in old_subsystems))
+					if(IS_TIME_FUTURE(SS.next_fire) || (SS in old_subsystems))
 						continue
 					SS.next_fire = world.time + world.tick_lag * rand(0, DS2TICKS(min(SS.wait, 2 SECONDS)))
 
@@ -483,13 +483,13 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			continue
 		if (SS.can_fire <= 0)
 			continue
-		if (SS.next_fire > world.time)
+		if (IS_TIME_FUTURE(SS.next_fire))
 			continue
 		SS_flags = SS.flags
 		if (SS_flags & SS_NO_FIRE)
 			subsystemstocheck -= SS
 			continue
-		if ((SS_flags & (SS_TICKER|SS_KEEP_TIMING)) == SS_KEEP_TIMING && SS.last_fire + (SS.wait * 0.75) > world.time)
+		if ((SS_flags & (SS_TICKER|SS_KEEP_TIMING)) == SS_KEEP_TIMING && IS_TIME_FUTURE(SS.last_fire + (SS.wait * 0.75)))
 			continue
 		if (SS.postponed_fires >= 1)
 			SS.postponed_fires--

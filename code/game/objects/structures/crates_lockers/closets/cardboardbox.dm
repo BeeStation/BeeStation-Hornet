@@ -38,7 +38,7 @@
 	if(opened || !can_open())
 		return 0
 	var/list/alerted = null
-	if(egged < world.time)
+	if(IS_TIME_PASSED(egged))
 		var/mob/living/Snake = null
 		for(var/mob/living/L in src.contents)
 			Snake = L

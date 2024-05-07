@@ -376,7 +376,7 @@
 		if((C.stat) || (C.handcuffed))
 			continue
 
-		if((C.name == oldtarget_name) && (world.time < last_found + 100))
+		if((C.name == oldtarget_name) && (IS_TIME_FUTURE(last_found + 100)))
 			continue
 
 		threatlevel = C.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))

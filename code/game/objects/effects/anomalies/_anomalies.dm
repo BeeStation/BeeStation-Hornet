@@ -59,7 +59,7 @@
 
 /obj/effect/anomaly/process(delta_time)
 	anomalyEffect(delta_time)
-	if(death_time < world.time && !immortal)
+	if(IS_TIME_PASSED(death_time) && !immortal)
 		if(loc)
 			detonate()
 		qdel(src)

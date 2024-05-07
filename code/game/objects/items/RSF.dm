@@ -170,7 +170,7 @@ RSF
 
 /obj/item/cookiesynth/afterattack(atom/A, mob/user, proximity)
 	. = ..()
-	if(cooldown > world.time)
+	if( IS_TIME_FUTURE(cooldown))
 		return
 	if(!proximity)
 		return

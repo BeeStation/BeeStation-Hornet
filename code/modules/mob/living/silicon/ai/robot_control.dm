@@ -61,7 +61,7 @@
 	var/mob/living/simple_animal/bot/bot
 	switch(action)
 		if("callbot") //Command a bot to move to a selected location.
-			if(owner.call_bot_cooldown > world.time)
+			if(IS_TIME_FUTURE(owner.call_bot_cooldown))
 				to_chat(usr, "<span class='danger'>Error: Your last call bot command is still processing, please wait for the bot to finish calculating a route.</span>")
 				return
 			bot = locate(params["ref"]) in GLOB.bots_list

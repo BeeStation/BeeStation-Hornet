@@ -338,7 +338,7 @@
 		emp_timer = new_value
 
 /datum/action/item_action/chameleon/change/process()
-	if(world.time > emp_timer)
+	if(IS_TIME_PASSED(emp_timer))
 		return PROCESS_KILL
 	random_look(owner)
 

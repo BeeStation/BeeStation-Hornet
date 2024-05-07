@@ -236,7 +236,7 @@ Striking a noncultist, however, will tear their flesh."}
 	holder = user
 
 /datum/action/innate/cult/spin2win/IsAvailable()
-	if(iscultist(holder) && cooldown <= world.time)
+	if(iscultist(holder) && IS_TIME_PASSED_OR_NOW(cooldown))
 		return TRUE
 	else
 		return FALSE
@@ -734,7 +734,7 @@ Striking a noncultist, however, will tear their flesh."}
 	button.moved = "6:157,4:-2"
 
 /datum/action/innate/cult/spear/Activate()
-	if(owner == spear.loc || cooldown > world.time)
+	if(owner == spear.loc || IS_TIME_FUTURE( cooldown))
 		return
 	var/ST = get_turf(spear)
 	var/OT = get_turf(owner)

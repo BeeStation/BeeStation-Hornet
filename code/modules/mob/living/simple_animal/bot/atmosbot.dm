@@ -114,7 +114,7 @@
 	if(!isspaceturf(get_turf(src)))
 		switch(check_area_atmos())
 			if(ATMOSBOT_CHECK_BREACH)
-				if(last_barrier_tick + ATMOSBOT_HOLOBARRIER_COOLDOWN < world.time)
+				if(IS_TIME_PASSED(last_barrier_tick + ATMOSBOT_HOLOBARRIER_COOLDOWN))
 					target = return_nearest_breach()
 					action = ATMOSBOT_DEPLOY_BARRIER
 					if(!target)
@@ -189,7 +189,7 @@
 			return
 
 /mob/living/simple_animal/bot/atmosbot/proc/try_speak(message)
-	if (has_spoken || last_speech > world.time + 3 MINUTES)
+	if (has_spoken || IS_TIME_FUTURE(last_speech + 3 MINUTES))
 		return
 	has_spoken = TRUE
 	last_speech = world.time

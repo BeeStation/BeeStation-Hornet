@@ -58,7 +58,7 @@
 	. = ..()
 
 /obj/item/stock_parts/cell/process(delta_time)
-	if(emp_timer > world.time)
+	if(IS_TIME_FUTURE(emp_timer))
 		return
 	if(self_recharge)
 		give(chargerate * 0.125 * delta_time)
@@ -171,7 +171,7 @@
 	if(isethereal(user))
 		var/mob/living/carbon/human/H = user
 		var/datum/species/ethereal/E = H.dna.species
-		if(E.drain_time > world.time)
+		if(IS_TIME_FUTURE(E.drain_time))
 			return
 		var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
 		if(!istype(stomach))

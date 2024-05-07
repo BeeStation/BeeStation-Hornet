@@ -33,7 +33,7 @@
 	discovery_points = 3000
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
-	if(world.time >= ranged_cooldown)
+	if(IS_TIME_PASSED_OR_NOW(ranged_cooldown))
 		var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A = new brood_type(src.loc)
 
 		A.flags_1 |= (flags_1 & ADMIN_SPAWNED_1)

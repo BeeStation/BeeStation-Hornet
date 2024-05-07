@@ -29,7 +29,7 @@
 	var/boost_duration = 2 MINUTES
 
 /datum/nanite_program/protocol/kickstart/check_conditions()
-	if(!(world.time < nanites.start_time + boost_duration))
+	if(IS_TIME_PASSED_OR_NOW(nanites.start_time + boost_duration))
 		return FALSE
 	return ..()
 
@@ -268,7 +268,7 @@
 	volume_warning(current_stage)
 
 /datum/nanite_program/protocol/unsafe_storage/proc/volume_warning(tier)
-	if(world.time < next_warning)
+	if(IS_TIME_FUTURE(next_warning))
 		return
 
 	var/list/main_warnings

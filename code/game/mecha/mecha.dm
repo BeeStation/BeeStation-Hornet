@@ -557,7 +557,7 @@
 					to_chat(occupant, "<span class='info'>You push off of [movable_backup] to propel yourself.</span>")
 			return TRUE
 
-	if(can_move <= world.time && active_thrusters && movement_dir && active_thrusters.thrust(movement_dir))
+	if(IS_TIME_PASSED_OR_NOW(can_move) && active_thrusters && movement_dir && active_thrusters.thrust(movement_dir))
 		step_silent = TRUE
 		return TRUE
 
@@ -585,7 +585,7 @@
 	return domove(direction)
 
 /obj/mecha/proc/domove(direction)
-	if(can_move >= world.time)
+	if(IS_TIME_FUTURE_OR_NOW(can_move))
 		return FALSE
 	if(direction == UP || direction == DOWN)
 		return FALSE
@@ -671,7 +671,7 @@
 		if(..()) //mech was thrown
 			return
 		if(bumpsmash && occupant) //Need a pilot to push the PUNCH button.
-			if(nextsmash < world.time)
+			if(IS_TIME_PASSED(nextsmash))
 				obstacle.mech_melee_attack(src)
 				nextsmash = world.time + smashcooldown
 				if(!obstacle || obstacle.CanPass(src, get_dir(obstacle, src) || dir)) // The else is in case the obstacle is in the same turf.

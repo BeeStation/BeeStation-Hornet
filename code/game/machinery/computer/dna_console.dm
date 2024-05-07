@@ -38,7 +38,7 @@
 		} \
 		src.to_index##_timeout = _L; \
 		var/_CD = src.cd_index##_cooldown; \
-		if(!isnum_safe(_CD) || world.time >= _CD) { \
+		if(!isnum_safe(_CD) || IS_TIME_PASSED_OR_NOW(_CD)) { \
 			break; \
 		} \
 		src.cd_index##_cooldown = FLOOR(_L * FLOOR((_CD - world.time) / _CT, 0.05), 1 SECONDS); \

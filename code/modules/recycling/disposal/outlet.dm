@@ -36,7 +36,7 @@
 /obj/structure/disposaloutlet/proc/expel(obj/structure/disposalholder/H)
 	H.active = FALSE
 	flick("outlet-open", src)
-	if((start_eject + 30) < world.time)
+	if(IS_TIME_PASSED(start_eject + 30))
 		start_eject = world.time
 		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
 		addtimer(CALLBACK(src, PROC_REF(expel_holder), H, TRUE), 20)

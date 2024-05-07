@@ -131,8 +131,8 @@
 	target = targeted_atom
 	if(target == user || user.incapacitated() || target == get_turf(src))
 		return
-	if(world.time < cooldown)
-		if(!warned && world.time > (cooldown - cooldown_duration + rate_of_fire*number_of_shots)) // To capture the window where one is done firing
+	if(IS_TIME_FUTURE(cooldown))
+		if(!warned && IS_TIME_PASSED(cooldown - cooldown_duration + rate_of_fire*number_of_shots)) // To capture the window where one is done firing
 			warned = TRUE
 			playsound(src, 'sound/weapons/sear.ogg', 100, 1)
 		return

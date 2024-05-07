@@ -38,7 +38,7 @@
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
-	if(L.last_special <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(L.last_special))
 		return L.resist()
 
 

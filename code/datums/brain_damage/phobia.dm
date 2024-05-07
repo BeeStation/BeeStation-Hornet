@@ -66,7 +66,7 @@
 		return
 	if(owner.stat >= UNCONSCIOUS)
 		return
-	if(world.time > next_check) //Even though it's clunky to only check every five seconds, it's far easier on the server than doing all this shit during every single proc of on_life()
+	if(IS_TIME_PASSED(next_check)) //Even though it's clunky to only check every five seconds, it's far easier on the server than doing all this shit during every single proc of on_life()
 		next_check = world.time + 50
 		var/list/seen_atoms = view(7, owner)
 		seen_atoms -= owner //make sure they aren't afraid of themselves.
@@ -100,9 +100,9 @@
 					if(LAZYLEN(trigger_species) && H.dna && H.dna.species && is_type_in_typecache(H.dna.species, trigger_species))
 						freak_out(H)
 
-	if(fearscore && world.time > last_scare)//when we aren't being actively terrified, calm down
+	if(fearscore && IS_TIME_PASSED(last_scare))//when we aren't being actively terrified, calm down
 		fearscore --
-	else if(stress && world.time > stress_check) //if we go long enough without fearing something, we begin to lose stress.
+	else if(stress && IS_TIME_PASSED(stress_check)) //if we go long enough without fearing something, we begin to lose stress.
 		stress --
 		stress_check = world.time + min(3000, (600 * stress))
 	switch(fearscore) //updating the fear state is handled in mob_life, as well as effects like adrenaline rush, handled when the state changes. other things are handled lower

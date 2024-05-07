@@ -152,7 +152,7 @@
 				targets += mc
 
 			if(targets.len > 0)
-				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay))
+				if(last_text_everyone && IS_TIME_FUTURE(last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay))
 					to_chat(usr, "<span class='warning'>Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay - world.time)/10] seconds.")
 					return
 				send_message(usr, targets, TRUE, multi_delay = disk.spam_delay)
@@ -273,7 +273,7 @@
 	if(!message)
 		return FALSE
 	// notifying is done somewhere else, this is just a sanity check
-	if((last_text && world.time < last_text + 10) || (everyone && last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * multi_delay)))
+	if((last_text && IS_TIME_FUTURE(last_text + 10)) || (everyone && last_text_everyone && IS_TIME_FUTURE(last_text_everyone + PDA_SPAM_DELAY * multi_delay)))
 		return FALSE
 	if(prob(1))
 		message += "\nSent from my PDA"

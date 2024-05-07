@@ -148,7 +148,7 @@
 	if(isethereal(user))
 		var/mob/living/carbon/human/H = user
 		var/datum/species/ethereal/E = H.dna.species
-		if(E.drain_time > world.time)
+		if(IS_TIME_FUTURE(E.drain_time))
 			return
 		var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
 		if(H.a_intent == INTENT_HARM)

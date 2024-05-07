@@ -110,7 +110,7 @@
 	if (!powered() || !bulb)
 		return
 
-	if (bulb.burnt_out || (last_flash && world.time < src.last_flash + 150))
+	if (bulb.burnt_out || (last_flash && IS_TIME_FUTURE(last_flash + 150)))
 		return
 
 	if(!bulb.bulb.use_flashbulb()) //Bulb can burn out if it's used too often too fast
@@ -169,7 +169,7 @@
 	proximity_monitor = new(src, 0)
 
 /obj/machinery/flasher/portable/HasProximity(atom/movable/AM)
-	if (last_flash && world.time < last_flash + 150)
+	if (last_flash && IS_TIME_FUTURE(last_flash + 150))
 		return
 
 	if(istype(AM, /mob/living/carbon))

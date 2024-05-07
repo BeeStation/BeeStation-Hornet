@@ -90,7 +90,7 @@
 
 // What the device does when turned on
 /obj/item/assembly/proc/activate()
-	if(QDELETED(src) || (securable && !secured) || (next_activate > world.time))
+	if(QDELETED(src) || (securable && !secured) || IS_TIME_FUTURE(next_activate))
 		return FALSE
 	next_activate = world.time + activate_delay
 	return TRUE

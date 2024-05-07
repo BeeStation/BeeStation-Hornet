@@ -739,7 +739,7 @@
 	var/timer
 
 /obj/item/slimepotion/slime/sentience/mining/attack(mob/living/M, mob/user)
-	if(timer > world.time)
+	if(IS_TIME_FUTURE(timer))
 		to_chat(user, "<span class='warning'>Please wait [(timer - world.time)/10] seconds before trying again.</span>")
 		return
 	timer = world.time + cooldown_time

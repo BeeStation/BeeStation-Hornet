@@ -325,7 +325,7 @@
 	item_flags = ISWEAPON
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
-	if(target && cooldown < world.time)
+	if(target && IS_TIME_PASSED(cooldown))
 		if(I.is_hot())
 			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
 			target.adjust_bodytemperature(50)
@@ -376,7 +376,7 @@
 			update_targets()
 			return
 
-	if(target && cooldown < world.time)
+	if(target && IS_TIME_PASSED(cooldown))
 		switch(zone_selected)
 			if(BODY_ZONE_PRECISE_MOUTH)
 				var/wgw =  stripped_input(user, "What would you like the victim to say", "Voodoo")

@@ -24,7 +24,7 @@
 
 /datum/component/spikes/proc/prick(mob/living/carbon/C, damage_mod = 1)
 	var/netdamage = spikedamage * damage_mod
-	if(istype(C) && cooldown <= world.time)
+	if(istype(C) && IS_TIME_PASSED_OR_NOW(cooldown))
 		var/atom/movable/P = parent
 		var/def_check = C.getarmor(type = MELEE)
 		C.apply_damage(netdamage, BRUTE, blocked = def_check)

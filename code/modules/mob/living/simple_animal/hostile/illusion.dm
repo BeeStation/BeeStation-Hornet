@@ -23,7 +23,7 @@
 
 /mob/living/simple_animal/hostile/illusion/Life()
 	..()
-	if(world.time > life_span)
+	if(IS_TIME_PASSED(life_span))
 		death()
 
 

@@ -92,7 +92,7 @@
 		pollCultists(owner,C.cult_team)
 
 /proc/pollCultists(var/mob/living/Nominee,datum/team/cult/team) //Cult Master Poll
-	if(world.time < CULT_POLL_WAIT)
+	if(IS_TIME_FUTURE(CULT_POLL_WAIT))
 		to_chat(Nominee, "It would be premature to select a leader while everyone is still settling in, try again in [DisplayTimeText(CULT_POLL_WAIT-world.time)].")
 		return
 	team.cult_vote_called = TRUE //somebody's trying to be a master, make sure we don't let anyone else try
@@ -229,7 +229,7 @@
 	..()
 
 /datum/action/innate/cult/master/cultmark/IsAvailable()
-	if(cooldown > world.time)
+	if( IS_TIME_FUTURE(cooldown))
 		if(!CM.active)
 			to_chat(owner, "<span class='cultlarge'><b>You need to wait [DisplayTimeText(cooldown - world.time)] before you can mark another target!</b></span>")
 		return FALSE
@@ -400,7 +400,7 @@
 /datum/action/innate/cult/master/pulse/IsAvailable()
 	if(!owner.mind || !owner.mind.has_antag_datum(/datum/antagonist/cult/master))
 		return FALSE
-	if(cooldown > world.time)
+	if( IS_TIME_FUTURE(cooldown))
 		if(!PM.active)
 			to_chat(owner, "<span class='cultlarge'><b>You need to wait [DisplayTimeText(cooldown - world.time)] before you can pulse again!</b></span>")
 		return FALSE

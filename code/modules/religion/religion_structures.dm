@@ -97,7 +97,7 @@
 
 
 /obj/structure/destructible/religion/nature_pylon/process(delta_time)
-	if(last_heal <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(last_heal))
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
 			if(L.health == L.maxHealth)
@@ -115,7 +115,7 @@
 				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1.0
 			CHECK_TICK
-	if(last_spread <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(last_spread))
 		var/list/validturfs = list()
 		var/list/natureturfs = list()
 		for(var/T in circleviewturfs(src, 5))

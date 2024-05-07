@@ -36,7 +36,7 @@
 	if(!anchored)
 		to_chat(user, "<span class='brass'>You need to anchor [src] to the floor first.</span>")
 		return
-	if(cooldowntime > world.time)
+	if( IS_TIME_FUTURE(cooldowntime))
 		to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
 	var/choice = alert(user,"You begin putting components together in the forge.",,"Robes of Divinity","Shrouding Cloak","Wraith Spectacles")

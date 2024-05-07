@@ -16,7 +16,7 @@
 	var/obj/effect/abstract/sync_holder/sync_holder
 
 /obj/item/desynchronizer/attack_self(mob/living/user)
-	if(world.time < next_use)
+	if(IS_TIME_FUTURE(next_use))
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
 	if(!sync_holder)
@@ -26,7 +26,7 @@
 
 /obj/item/desynchronizer/examine(mob/user)
 	. = ..()
-	if(world.time < next_use)
+	if(IS_TIME_FUTURE(next_use))
 		. += "<span class='warning'>Time left to recharge: [DisplayTimeText(next_use - world.time)]</span>"
 	. += "<span class='notice'>Alt-click to customize the duration. Current duration: [DisplayTimeText(duration)].</span>"
 	. += "<span class='notice'>Can be used again to interrupt the effect early. The recharge time is the same as the time spent in desync.</span>"

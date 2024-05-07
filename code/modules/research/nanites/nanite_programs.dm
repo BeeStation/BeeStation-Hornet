@@ -193,22 +193,22 @@
 
 /datum/nanite_program/proc/on_process()
 	if(!activated)
-		if(timer_restart_next && world.time > timer_restart_next)
+		if(timer_restart_next && IS_TIME_PASSED(timer_restart_next))
 			activate()
 			timer_restart_next = 0
 		return
 
-	if(timer_shutdown_next && world.time > timer_shutdown_next)
+	if(timer_shutdown_next && IS_TIME_PASSED(timer_shutdown_next))
 		deactivate()
 		timer_shutdown_next = 0
 		return
 
-	if(timer_trigger && world.time > timer_trigger_next)
+	if(timer_trigger && IS_TIME_PASSED(timer_trigger_next))
 		trigger()
 		timer_trigger_next = world.time + timer_trigger
 		return
 
-	if(timer_trigger_delay_next && world.time > timer_trigger_delay_next)
+	if(timer_trigger_delay_next && IS_TIME_PASSED(timer_trigger_delay_next))
 		trigger(delayed = TRUE)
 		timer_trigger_delay_next = 0
 		return
@@ -272,7 +272,7 @@
 
 //Checks conditions then fires the nanite trigger effect
 /datum/nanite_program/proc/trigger(delayed = FALSE, comm_message)
-	if(!can_trigger || !activated || world.time < next_trigger)
+	if(!can_trigger || !activated || IS_TIME_FUTURE(next_trigger))
 		return
 	if(timer_trigger_delay && !delayed)
 		timer_trigger_delay_next = world.time + timer_trigger_delay

@@ -157,7 +157,7 @@
 	face_atom(A)
 	if(!isturf(loc))
 		return
-	if(next_move > world.time)
+	if(IS_TIME_FUTURE(next_move))
 		return
 	if(!A.Adjacent(src))
 		return

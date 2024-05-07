@@ -142,7 +142,7 @@
 		return // We require more minerals
 
 	// We are currently in the middle of something
-	if(timer > world.time)
+	if( IS_TIME_FUTURE(timer))
 		return
 
 	switch(mode)

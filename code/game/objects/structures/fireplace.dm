@@ -105,7 +105,7 @@
 /obj/structure/fireplace/process(delta_time)
 	if(!lit)
 		return
-	if(world.time > flame_expiry_timer)
+	if(IS_TIME_PASSED(flame_expiry_timer) )
 		put_out()
 		return
 

@@ -117,7 +117,7 @@
 		return FALSE	//PLEASE no.
 	if((var_name in careful_edits) && (var_value % world.icon_size) != 0)
 		return FALSE
-		
+
 	switch(var_name)
 		if(NAMEOF(src, anchored))
 			set_anchored(var_value)
@@ -714,7 +714,7 @@
 
 
 	//They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
-	if (thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag*2)
+	if (thrower && thrower.last_move && thrower.client && IS_TIME_FUTURE_OR_NOW(thrower.client.move_delay - world.tick_lag*2))
 		var/user_momentum = thrower.cached_multiplicative_slowdown
 		if (!user_momentum) //no movement_delay, this means they move once per byond tick, lets calculate from that instead.
 			user_momentum = world.tick_lag

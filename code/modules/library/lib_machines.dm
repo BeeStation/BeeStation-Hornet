@@ -493,7 +493,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		GLOB.news_network.submit_article(scanner.cache.dat, "[scanner.cache.name]", "Nanotrasen Book Club", null)
 		alert("Upload complete. Your uploaded title is now available on station newscasters.")
 	if(href_list["orderbyid"])
-		if(cooldown > world.time)
+		if(IS_TIME_FUTURE(cooldown))
 			say("Printer unavailable. Please allow a short time before attempting to print.")
 		else
 			var/orderid = input("Enter your order:") as num|null
@@ -505,7 +505,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		var/id = href_list["targetid"]
 		if (!SSdbcore.Connect())
 			alert("Connection to Archive has been severed. Aborting.")
-		if(cooldown > world.time)
+		if(IS_TIME_FUTURE(cooldown))
 			say("Printer unavailable. Please allow a short time before attempting to print.")
 		else
 			cooldown = world.time + PRINTER_COOLDOWN
@@ -532,7 +532,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 				break
 			qdel(query_library_print)
 	if(href_list["printbible"])
-		if(cooldown < world.time)
+		if(IS_TIME_PASSED(cooldown))
 			var/obj/item/storage/book/bible/B = new /obj/item/storage/book/bible(src.loc)
 			if(GLOB.bible_icon_state && GLOB.bible_item_state)
 				B.icon_state = GLOB.bible_icon_state
@@ -543,61 +543,61 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		else
 			say("Printer currently unavailable, please wait a moment.")
 	if(href_list["printspacelaw"])
-		if(cooldown < world.time)
+		if(IS_TIME_PASSED(cooldown))
 			new /obj/item/book/manual/wiki/security_space_law(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
 	if(href_list["printposter"])
-		if(cooldown < world.time)
+		if(IS_TIME_PASSED(cooldown))
 			new /obj/item/poster/random_official(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
 	if(href_list["printsopcmd"])
-		if(cooldown < world.time)
+		if(IS_TIME_PASSED(cooldown))
 			new /obj/item/book/manual/wiki/sopcommand(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
 
 	if(href_list["printsopsec"])
-		if(cooldown < world.time)
+		if(IS_TIME_PASSED(cooldown))
 			new /obj/item/book/manual/wiki/sopsecurity(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
 
 	if(href_list["printsopeng"])
-		if(cooldown < world.time)
+		if(IS_TIME_PASSED(cooldown))
 			new /obj/item/book/manual/wiki/sopengineering(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
 
 	if(href_list["printsopsup"])
-		if(cooldown < world.time)
+		if(IS_TIME_PASSED(cooldown))
 			new /obj/item/book/manual/wiki/sopsupply(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
 
 	if(href_list["printsopsci"])
-		if(cooldown < world.time)
+		if(IS_TIME_PASSED(cooldown))
 			new /obj/item/book/manual/wiki/sopscience(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
 
 	if(href_list["printsopmed"])
-		if(cooldown < world.time)
+		if(IS_TIME_PASSED(cooldown))
 			new /obj/item/book/manual/wiki/sopmedical(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
 
 	if(href_list["printsopsvc"])
-		if(cooldown < world.time)
+		if(IS_TIME_PASSED(cooldown))
 			new /obj/item/book/manual/wiki/sopservice(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else

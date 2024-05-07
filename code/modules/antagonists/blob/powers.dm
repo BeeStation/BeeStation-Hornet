@@ -44,7 +44,7 @@
 			else if(O.density)
 				to_chat(src, "<span class='warning'>This spot is too dense to place a blob core on!</span>")
 				return FALSE
-		if(!pop_override && world.time <= manualplace_min_time && world.time <= autoplace_max_time)
+		if(!pop_override && IS_TIME_FUTURE_OR_NOW(manualplace_min_time) && IS_TIME_FUTURE_OR_NOW(autoplace_max_time))
 			to_chat(src, "<span class='warning'>It is too early to place your blob core!</span>")
 			return FALSE
 	else if(placement_override == 1)
@@ -259,7 +259,7 @@
 	expand_blob(T)
 
 /mob/camera/blob/proc/expand_blob(turf/T)
-	if(world.time < last_attack)
+	if(IS_TIME_FUTURE(last_attack))
 		return
 	var/list/possibleblobs = list()
 	for(var/obj/structure/blob/AB in range(1, T))
@@ -416,7 +416,7 @@
 	to_chat(src, "<b>In addition to the buttons on your HUD, there are a few click shortcuts to speed up expansion and defense.</b>")
 	to_chat(src, "<b>Shortcuts:</b> Click = Expand Blob <b>|</b> Middle Mouse Click = Rally Spores <b>|</b> Ctrl Click = Create Shield Blob <b>|</b> Alt Click = Remove Blob")
 	to_chat(src, "Attempting to talk will send a message to all other overminds, allowing you to coordinate with them.")
-	if(!placed && autoplace_max_time <= world.time)
+	if(!placed && IS_TIME_PASSED_OR_NOW(autoplace_max_time))
 		to_chat(src, "<span class='big'><font color=\"#EE4000\">You will automatically place your blob core in [DisplayTimeText(autoplace_max_time - world.time)].</font></span>")
 		to_chat(src, "<span class='big'><font color=\"#EE4000\">You [manualplace_min_time ? "will be able to":"can"] manually place your blob core by pressing the Place Blob Core button in the bottom right corner of the screen.</font></span>")
 

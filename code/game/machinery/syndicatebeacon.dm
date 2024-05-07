@@ -92,7 +92,7 @@
 
 	if(surplus() >= 1500)
 		add_load(1500)
-		if(cooldown <= world.time)
+		if(IS_TIME_PASSED_OR_NOW(cooldown))
 			cooldown = world.time + 80
 			for(var/datum/component/singularity/singulo_component as() in GLOB.singularities)
 				var/atom/singulo = singulo_component.parent

@@ -45,7 +45,7 @@ SUBSYSTEM_DEF(events)
 
 //checks if we should select a random event yet, and reschedules if necessary
 /datum/controller/subsystem/events/proc/checkEvent()
-	if(scheduled <= world.time)
+	if((scheduled))
 		spawnEvent()
 		reschedule()
 

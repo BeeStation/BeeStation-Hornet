@@ -246,7 +246,7 @@
 
 /obj/machinery/nuclearbomb/process()
 	if(timing && !exploding)
-		if(detonation_timer < world.time)
+		if(IS_TIME_PASSED(detonation_timer))
 			explode()
 		else
 			var/volume = (get_time_left() <= 20 ? 30 : 5)
@@ -693,7 +693,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 			if(istype(comfort_item, /obj/item/bedsheet) || istype(comfort_item, /obj/structure/bed))
 				disk_comfort_level++
 
-		if(COOLDOWN_FINISHED(src, weight_increase_cooldown) && last_disk_move < world.time - (5 MINUTES) && world.time > (30 MINUTES))
+		if(COOLDOWN_FINISHED(src, weight_increase_cooldown) && IS_TIME_PASSED(last_disk_move + 5 MINUTES) && IS_TIME_PASSED(30 MINUTES))
 			var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
 			if(istype(loneop) && loneop.occurrences < loneop.max_occurrences)
 				loneop.weight += 5

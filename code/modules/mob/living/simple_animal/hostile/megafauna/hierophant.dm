@@ -162,7 +162,7 @@ Difficulty: Hard
 			possibilities += "cross_blast_spam"
 		if(get_dist(src, target) > 2)
 			possibilities += "blink_spam"
-		if(chaser_cooldown < world.time)
+		if(IS_TIME_PASSED(chaser_cooldown))
 			if(prob(anger_modifier * 2))
 				possibilities = list("chaser_swarm")
 			else
@@ -177,7 +177,7 @@ Difficulty: Hard
 					chaser_swarm(blink_counter, target_slowness, cross_counter)
 			return
 
-	if(chaser_cooldown < world.time) //if chasers are off cooldown, fire some!
+	if(IS_TIME_PASSED(chaser_cooldown)) //if chasers are off cooldown, fire some!
 		var/obj/effect/temp_visual/hierophant/chaser/C = new /obj/effect/temp_visual/hierophant/chaser(loc, src, target, chaser_speed, FALSE)
 		chaser_cooldown = world.time + initial(chaser_cooldown)
 		if((prob(anger_modifier) || target.Adjacent(src)) && target != src)
@@ -294,7 +294,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/arena_trap(mob/victim) //trap a target in an arena
 	var/turf/T = get_turf(victim)
-	if(!istype(victim) || victim.stat == DEAD || !T || arena_cooldown > world.time)
+	if(!istype(victim) || victim.stat == DEAD || !T || IS_TIME_FUTURE(arena_cooldown))
 		return
 	if((istype(get_area(T), /area/ruin/unpowered/hierophant) || istype(get_area(src), /area/ruin/unpowered/hierophant)) && victim != src)
 		return
@@ -439,7 +439,7 @@ Difficulty: Hard
 	var/mob/living/L = target
 	if(L.stat == DEAD)
 		return
-	if(ranged_cooldown <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(ranged_cooldown))
 		calculate_rage()
 		ranged_cooldown = world.time + max(5, ranged_cooldown_time - anger_modifier * 0.75)
 		INVOKE_ASYNC(src, PROC_REF(burst), get_turf(src))
@@ -703,7 +703,7 @@ Difficulty: Hard
 /obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hierophant_club))
 		var/obj/item/hierophant_club/H = I
-		if(H.timer > world.time)
+		if(IS_TIME_FUTURE(H.timer))
 			return
 		if(H.beacon == src)
 			to_chat(user, "<span class='notice'>You start removing your hierophant beacon...</span>")

@@ -186,7 +186,7 @@
 /datum/action/vehicle/sealed/Thank/Trigger()
 	if(istype(vehicle_entered_target, /obj/vehicle/sealed/car/clowncar))
 		var/obj/vehicle/sealed/car/clowncar/C = vehicle_entered_target
-		if(world.time >= last_thank_time + 60)
+		if(IS_TIME_PASSED_OR_NOW(last_thank_time + 60))
 			var/mob/living/carbon/human/clown = pick(C.return_drivers())
 			owner.say("Thank you for the fun ride, [clown.name]!")
 			last_thank_time = world.time
@@ -200,7 +200,7 @@
 	var/next_ollie
 
 /datum/action/vehicle/ridden/scooter/skateboard/ollie/Trigger()
-	if(world.time > next_ollie)
+	if(IS_TIME_PASSED(next_ollie))
 		var/obj/vehicle/ridden/scooter/skateboard/V = vehicle_target
 		if (V.grinding)
 			return

@@ -212,7 +212,7 @@
 		to_chat(M, "[link] [dead_rendered]")
 
 /mob/camera/imaginary_friend/Move(NewLoc, Dir = 0)
-	if(world.time < move_delay)
+	if(IS_TIME_FUTURE(move_delay))
 		return FALSE
 	if(get_dist(src, owner) > 9)
 		recall()

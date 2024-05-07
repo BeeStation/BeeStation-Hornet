@@ -148,7 +148,7 @@
 /obj/item/assembly/infra/proc/trigger_beam(atom/movable/AM, turf/location)
 	refreshBeam()
 	switchListener(location)
-	if(!secured || !on || next_activate > world.time)
+	if(!secured || !on || IS_TIME_FUTURE(next_activate))
 		return FALSE
 	pulse(FALSE)
 	audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*", null, hearing_range)

@@ -335,7 +335,7 @@
 /mob/living/carbon/handle_mutations_and_radiation()
 	if(dna && dna.temporary_mutations.len)
 		for(var/mut in dna.temporary_mutations)
-			if(dna.temporary_mutations[mut] < world.time)
+			if(IS_TIME_FUTURE(dna.temporary_mutations[mut]))
 				if(mut == UI_CHANGED)
 					if(dna.previous["UI"])
 						dna.uni_identity = merge_text(dna.uni_identity,dna.previous["UI"])

@@ -161,7 +161,7 @@
 	if((machine_stat & (NOPOWER|BROKEN)))
 		return
 
-	if(device && device.next_activate > world.time)
+	if(device && IS_TIME_FUTURE( device.next_activate))
 		return
 
 	if(!allowed(user) && !istype(user, /mob/living/simple_animal/eminence))

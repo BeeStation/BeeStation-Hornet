@@ -69,7 +69,7 @@
 
 	//Zombies never actually die, they just fall down until they regenerate enough to rise back up.
 	//They must be restrained, beheaded or gibbed to stop being a threat.
-	if(regen_cooldown < world.time)
+	if(IS_TIME_PASSED(regen_cooldown))
 		var/heal_amt = heal_rate
 		if(HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION))
 			heal_amt *= 2

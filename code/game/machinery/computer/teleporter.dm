@@ -176,7 +176,7 @@
 				continue
 
 			var/mob/living/implanted = tracking_implant.loc
-			if (implanted.stat == DEAD && implanted.timeofdeath + tracking_implant.lifespan_postmortem < world.time)
+			if (implanted.stat == DEAD && IS_TIME_PASSED(implanted.timeofdeath + tracking_implant.lifespan_postmortem))
 				continue
 
 			if (is_eligible(tracking_implant))
@@ -220,7 +220,7 @@
 			else
 				var/mob/living/M = I.loc
 				if(M.stat == DEAD)
-					if(M.timeofdeath + I.lifespan_postmortem < world.time)
+					if(IS_TIME_PASSED(M.timeofdeath + I.lifespan_postmortem))
 						continue
 				if(is_eligible(I))
 					L[avoid_assoc_duplicate_keys("[M.real_name] ([get_area(M)])", areaindex)] = I

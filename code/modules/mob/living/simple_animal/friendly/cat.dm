@@ -210,7 +210,7 @@
 						INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
 	..()
-	if(next_scan_time <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(next_scan_time))
 		make_babies()
 
 	if(!stat && !resting && !buckled)

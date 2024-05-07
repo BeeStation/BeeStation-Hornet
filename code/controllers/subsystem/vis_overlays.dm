@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(vis_overlays)
 		current_run.len--
 		if(!overlay.unused && !length(overlay.vis_locs))
 			overlay.unused = world.time
-		else if(overlay.unused && overlay.unused + overlay.cache_expiration < world.time)
+		else if(overlay.unused && IS_TIME_PASSED(overlay.unused + overlay.cache_expiration))
 			vis_overlay_cache -= key
 			unique_vis_overlays -= overlay
 			qdel(overlay)

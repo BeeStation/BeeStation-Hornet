@@ -199,7 +199,7 @@
 	var/last_event = 0
 
 /obj/machinery/door/airlock/uranium/process(delta_time)
-	if(world.time > last_event+20)
+	if(IS_TIME_PASSED(last_event+20))
 		if(DT_PROB(50, delta_time))
 			radiate()
 		last_event = world.time

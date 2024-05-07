@@ -80,7 +80,7 @@ Everything else should be handled for you. Good luck soldier.
 /datum/component/full_auto/process()
 	if(!autofire_target)
 		return PROCESS_KILL //They've stopped firing. Don't hog my resources, K?
-	if(world.time < next_process)
+	if(IS_TIME_FUTURE(next_process))
 		return FALSE //Cooldown. Prevents the infinite SLAP mechanic.
 	//Preconditions: Parent has prototype "gun", the gun stand user is a living mob.
 	var/obj/item/gun/G = parent

@@ -56,7 +56,7 @@
 	data["full_capability"] = !istype(computer, /obj/item/modular_computer/tablet/pda)
 	data["selected"] = selected
 	data["objects"] = list()
-	data["scanning"] = (world.time < next_scan)
+	data["scanning"] = (IS_TIME_FUTURE(next_scan))
 	for(var/list/i in objects)
 		var/list/objectdata = list(
 			ref = i["ref"],
@@ -298,7 +298,7 @@
 	return locate(selected) in GLOB.janitor_devices
 
 /datum/computer_file/program/radar/custodial_locator/scan()
-	if(world.time < next_scan)
+	if(IS_TIME_FUTURE(next_scan))
 		return
 	next_scan = world.time + (2 SECONDS)
 	objects = list()

@@ -49,10 +49,10 @@
 	if(!owner)
 		qdel(src)
 		return
-	if(tick_interval < world.time)
+	if(IS_TIME_PASSED(tick_interval))
 		tick()
 		tick_interval = world.time + initial(tick_interval)
-	if(duration != -1 && duration < world.time)
+	if(duration != -1 && IS_TIME_PASSED(duration))
 		qdel(src)
 
 /datum/status_effect/proc/on_apply() //Called whenever the buff is applied; returning FALSE will cause it to autoremove itself.

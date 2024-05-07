@@ -41,7 +41,7 @@
 	var/atom/P = parent
 	if(spawned_mobs.len >= max_mobs)
 		return 0
-	if(spawn_delay > world.time)
+	if( IS_TIME_FUTURE(spawn_delay))
 		return 0
 	spawn_delay = world.time + spawn_time
 	var/chosen_mob_type = pick(mob_types)

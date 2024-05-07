@@ -100,7 +100,7 @@
 	return ..()
 
 /obj/effect/dummy/phased_mob/spell_jaunt/relaymove(var/mob/user, direction)
-	if ((movedelay > world.time) || reappearing || !direction)
+	if (IS_TIME_FUTURE(movedelay) || reappearing || !direction)
 		return
 	var/turf/newLoc = get_step(src,direction)
 	setDir(direction)

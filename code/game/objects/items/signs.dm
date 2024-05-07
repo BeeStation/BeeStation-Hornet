@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed","smacked")
 	resistance_flags = FLAMMABLE
-	
+
 
 	var/label = ""
 	var/last_wave = 0
@@ -35,7 +35,7 @@
 		return ..()
 
 /obj/item/picket_sign/attack_self(mob/living/carbon/human/user)
-	if( last_wave + 20 < world.time )
+	if(IS_TIME_PASSED(last_wave + 20))
 		last_wave = world.time
 		if(label)
 			user.visible_message("<span class='warning'>[user] waves around \the \"[label]\" sign.</span>")

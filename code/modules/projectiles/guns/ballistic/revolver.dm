@@ -55,7 +55,7 @@
 	if(M.stat || !in_range(M,src))
 		return
 
-	if (recent_spin > world.time)
+	if (IS_TIME_FUTURE(recent_spin))
 		return
 	recent_spin = world.time + spin_delay
 

@@ -353,7 +353,7 @@
 	set waitfor = 0
 	if(density || operating || welded)
 		return
-	if(world.time >= emergency_close_timer || !consider_timer)
+	if(IS_TIME_PASSED_OR_NOW(emergency_close_timer) || !consider_timer)
 		close()
 
 /obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)

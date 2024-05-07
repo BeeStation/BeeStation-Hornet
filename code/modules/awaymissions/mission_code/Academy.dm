@@ -102,7 +102,7 @@
 	return ..()
 
 /obj/structure/academy_wizard_spawner/process()
-	if(next_check < world.time)
+	if(IS_TIME_PASSED(next_check))
 		if(!current_wizard)
 			for(var/mob/living/L in GLOB.player_list)
 				if(L.get_virtual_z_level() == src.get_virtual_z_level() && L.stat != DEAD && !(faction in L.faction))

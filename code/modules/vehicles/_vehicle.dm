@@ -131,7 +131,7 @@
 	return TRUE
 
 /obj/vehicle/proc/vehicle_move(direction)
-	if(lastmove + movedelay > world.time)
+	if(IS_TIME_FUTURE(lastmove + movedelay))
 		return FALSE
 	lastmove = world.time
 	if(trailer)

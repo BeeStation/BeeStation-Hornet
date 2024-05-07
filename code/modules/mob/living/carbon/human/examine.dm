@@ -257,7 +257,7 @@
 
 	if(islist(stun_absorption))
 		for(var/i in stun_absorption)
-			if(stun_absorption[i]["end_time"] > world.time && stun_absorption[i]["examine_message"])
+			if(IS_TIME_FUTURE(stun_absorption[i]["end_time"]) && stun_absorption[i]["examine_message"])
 				msg += "[t_He] [t_is][stun_absorption[i]["examine_message"]]\n"
 
 	if(just_sleeping)

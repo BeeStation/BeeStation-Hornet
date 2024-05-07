@@ -98,7 +98,7 @@
 	. = ..()
 	if(!.) //Checks if they are dead as a rock.
 		return
-	if(health < maxHealth * 0.5 && rand_tent < world.time)
+	if(health < maxHealth * 0.5 && IS_TIME_PASSED(rand_tent))
 		rand_tent = world.time + 30
 		var/tentacle_amount = 5
 		if(health < maxHealth * 0.25)

@@ -118,7 +118,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		for(var/datum/tgui/tgui as() in open_orbital_maps)
 			tgui.send_update()
 	//Check creating objectives / missions.
-	if(next_objective_time < world.time && length(possible_objectives) < 6)
+	if(IS_TIME_PASSED(next_objective_time) && length(possible_objectives) < 6)
 		create_objective()
 		next_objective_time = world.time + rand(30 SECONDS, 5 MINUTES)
 	//Check space ruin count

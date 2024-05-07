@@ -229,7 +229,7 @@
 				SSsupply.shoppinglist += SO
 				if(self_paid)
 					say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
-			if(requestonly && message_cooldown < world.time)
+			if(requestonly && IS_TIME_PASSED(message_cooldown))
 				radio.talk_into(src, "A new order has been requested.", RADIO_CHANNEL_SUPPLY)
 				message_cooldown = world.time + 30 SECONDS
 			. = TRUE

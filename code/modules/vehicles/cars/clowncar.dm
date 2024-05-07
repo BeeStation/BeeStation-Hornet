@@ -123,7 +123,7 @@
 		new /obj/effect/decal/cleanable/oil/slippery(loc)
 
 /obj/vehicle/sealed/car/clowncar/proc/RollTheDice(mob/user)
-	if(world.time - lastRTDtime < RTDcooldown)
+	if(IS_TIME_FUTURE(RTDcooldown + lastRTDtime))
 		to_chat(user, "<span class='notice'>The button panel is currently recharging.</span>")
 		return
 	lastRTDtime = world.time

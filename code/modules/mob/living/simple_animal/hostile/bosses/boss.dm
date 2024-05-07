@@ -117,7 +117,7 @@
 
 
 /datum/boss_active_timed_battle/process()
-	if(world.time >= next_point_time)
+	if(IS_TIME_PASSED_OR_NOW(next_point_time))
 		next_point_time = world.time + point_regen_delay
 		points = min(100, ++points) //has to be out of 100
 

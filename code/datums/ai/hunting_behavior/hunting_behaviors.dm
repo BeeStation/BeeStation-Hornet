@@ -25,7 +25,7 @@
 /datum/ai_planning_subtree/find_and_hunt_target/SelectBehaviors(datum/ai_controller/controller, delta_time)
 	if(!DT_PROB(hunt_chance, delta_time))
 		return
-	if(controller.blackboard[BB_HUNTING_COOLDOWN] >= world.time)
+	if(IS_TIME_FUTURE_OR_NOW(controller.blackboard[BB_HUNTING_COOLDOWN]))
 		return
 
 	var/mob/living/living_pawn = controller.pawn

@@ -136,13 +136,13 @@
 		return
 	if(revealed && essence <= 0)
 		death()
-	if(unreveal_time && world.time >= unreveal_time)
+	if(unreveal_time && IS_TIME_PASSED_OR_NOW(unreveal_time))
 		unreveal_time = 0
 		revealed = FALSE
 		incorporeal_move = INCORPOREAL_MOVE_JAUNT
 		invisibility = INVISIBILITY_SPIRIT
 		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
-	if(unstun_time && world.time >= unstun_time)
+	if(unstun_time && IS_TIME_PASSED_OR_NOW(unstun_time))
 		unstun_time = 0
 		notransform = FALSE
 		to_chat(src, "<span class='revenboldnotice'>You can move again!</span>")

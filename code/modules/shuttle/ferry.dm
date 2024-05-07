@@ -35,7 +35,7 @@
 /obj/machinery/computer/shuttle_flight/ferry/request/Topic(href, href_list)
 	..()
 	if(href_list["request"])
-		if(last_request && (last_request + cooldown > world.time))
+		if(last_request && IS_TIME_FUTURE(last_request + cooldown))
 			return
 		last_request = world.time
 		to_chat(usr, "<span class='notice'>Your request has been received by CentCom.</span>")

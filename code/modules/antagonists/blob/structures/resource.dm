@@ -22,7 +22,7 @@
 
 /obj/structure/blob/resource/Be_Pulsed()
 	. = ..()
-	if(resource_delay > world.time)
+	if( IS_TIME_FUTURE(resource_delay))
 		return
 	flick("blob_resource_glow", src)
 	if(overmind)

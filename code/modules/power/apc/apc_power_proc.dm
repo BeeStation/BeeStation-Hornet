@@ -158,7 +158,7 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
 /obj/machinery/power/apc/proc/toggle_nightshift_lights(mob/living/user)
-	if(last_nightshift_switch > world.time - 100) //~10 seconds between each toggle to prevent spamming
+	if(IS_TIME_FUTURE(last_nightshift_switch + 100)) //~10 seconds between each toggle to prevent spamming
 		to_chat(usr, "<span class='warning'>[src]'s night lighting circuit breaker is still cycling!</span>")
 		return
 	last_nightshift_switch = world.time

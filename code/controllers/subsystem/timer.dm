@@ -412,7 +412,7 @@ SUBSYSTEM_DEF(timer)
 			nextid++
 		timer_subsystem.timer_id_dict[id] = src
 
-	if ((timeToRun < world.time || timeToRun < timer_subsystem.head_offset) && !(flags & TIMER_CLIENT_TIME))
+	if ((IS_TIME_PASSED(timeToRun) || timeToRun < timer_subsystem.head_offset) && !(flags & TIMER_CLIENT_TIME))
 		CRASH("Invalid timer state: Timer created that would require a backtrack to run (addtimer would never let this happen): [SStimer.get_timer_debug_string(src)]")
 
 	if (callBack.object != GLOBAL_PROC && !QDESTROYING(callBack.object))

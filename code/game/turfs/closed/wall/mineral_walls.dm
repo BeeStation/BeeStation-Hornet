@@ -108,7 +108,7 @@
 
 /turf/closed/wall/mineral/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event+15)
+		if(IS_TIME_PASSED(last_event+15))
 			active = 1
 			radiation_pulse(src, 40)
 			for(var/turf/closed/wall/mineral/uranium/T in (RANGE_TURFS(1,src)-src))

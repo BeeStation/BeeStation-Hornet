@@ -108,7 +108,7 @@
 							"<span class='warning'>You bop [M] on the head!</span>")
 				playsound(loc, 'sound/weapons/tap.ogg', 50, 1, -1)
 		if(2)
-			if(scooldown < world.time)
+			if(IS_TIME_PASSED(scooldown))
 				if(M.health >= 0)
 					if(ishuman(M)||ismonkey(M))
 						M.electrocute_act(5, "[user]", flags = SHOCK_NOGLOVES)
@@ -127,7 +127,7 @@
 					user.cell.charge -= 500
 					scooldown = world.time + 20
 		if(3)
-			if(ccooldown < world.time)
+			if(IS_TIME_PASSED(ccooldown))
 				if(M.health >= 0)
 					if(ishuman(M))
 						user.visible_message("<span class='userdanger'>[user] crushes [M] in [user.p_their()] grip!</span>", \
@@ -378,7 +378,7 @@
 
 /obj/item/harmalarm/attack_self(mob/user)
 	var/safety = !(obj_flags & EMAGGED)
-	if(cooldown > world.time)
+	if(IS_TIME_FUTURE(cooldown))
 		to_chat(user, "<font color='red'>The device is still recharging!</font>")
 		return
 
@@ -673,7 +673,7 @@
 	return ..()
 
 /obj/item/borg/projectile_dampen/attack_self(mob/user)
-	if(cycle_delay > world.time)
+	if(IS_TIME_FUTURE(cycle_delay))
 		to_chat(user, "<span class='boldwarning'>[src] is still recycling its projectors!</span>")
 		return
 	cycle_delay = world.time + PKBORG_DAMPEN_CYCLE_DELAY

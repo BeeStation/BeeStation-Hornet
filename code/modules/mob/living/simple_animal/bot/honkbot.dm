@@ -296,7 +296,7 @@
 		if((C.stat) || (C.handcuffed))
 			continue
 
-		if((C.name == oldtarget_name) && (world.time < last_found + 100))
+		if((C.name == oldtarget_name) && (IS_TIME_FUTURE(last_found + 100)))
 			continue
 
 		var/judgment_criteria = judgment_criteria()

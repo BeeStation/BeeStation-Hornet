@@ -33,7 +33,7 @@
 
 				controller.blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] = selected_enemy
 				controller.current_movement_target = selected_enemy
-				if(controller.blackboard[BB_MONKEY_RECRUIT_COOLDOWN] < world.time)
+				if(IS_TIME_PASSED(controller.blackboard[BB_MONKEY_RECRUIT_COOLDOWN]))
 					controller.queue_behavior(/datum/ai_behavior/recruit_monkeys)
 				controller.queue_behavior(/datum/ai_behavior/battle_screech/monkey)
 				controller.queue_behavior(/datum/ai_behavior/monkey_attack_mob)
@@ -54,7 +54,7 @@
 	if(selected_enemy || !DT_PROB(MONKEY_SHENANIGAN_PROB, delta_time))
 		return
 
-	if(world.time >= controller.blackboard[BB_MONKEY_NEXT_HUNGRY])
+	if(IS_TIME_PASSED_OR_NOW(controller.blackboard[BB_MONKEY_NEXT_HUNGRY]))
 		var/list/food_candidates = list()
 		for(var/obj/item as anything in living_pawn.held_items)
 			if(!item || !controller.IsEdible(item))

@@ -67,7 +67,7 @@
 	if(user.stat != CONSCIOUS)
 		return
 	if(locked)
-		if(message_cooldown <= world.time)
+		if(IS_TIME_PASSED_OR_NOW(message_cooldown))
 			message_cooldown = world.time + 50
 			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
 		return

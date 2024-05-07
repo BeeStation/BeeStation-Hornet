@@ -101,7 +101,7 @@
 	if(!anchored)
 		to_chat(user, "<span class='brass'>You need to anchor [src] to the floor first.</span>")
 		return
-	if(cooldowntime > world.time)
+	if( IS_TIME_FUTURE(cooldowntime))
 		to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
 		return
 	if(HAS_TRAIT(I, TRAIT_STARGAZED))
@@ -109,7 +109,7 @@
 		return
 	to_chat(user, "<span class='brass'>You begin placing [I] onto [src].</span>")
 	if(do_after(user, 60, target=I))
-		if(cooldowntime > world.time)
+		if( IS_TIME_FUTURE(cooldowntime))
 			to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
 			return
 		if(HAS_TRAIT(I, TRAIT_STARGAZED))

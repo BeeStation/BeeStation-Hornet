@@ -278,7 +278,7 @@
 			return 0
 		var/target_distance = get_dist(target_from,target)
 		if(ranged) //We ranged? Shoot at em
-			if(!target.Adjacent(target_from) && ranged_cooldown <= world.time) //But make sure they're not in range for a melee attack and our range attack is off cooldown
+			if(!target.Adjacent(target_from) && IS_TIME_PASSED_OR_NOW(ranged_cooldown)) //But make sure they're not in range for a melee attack and our range attack is off cooldown
 				OpenFire(target)
 		if(!Process_Spacemove()) //Drifting
 			SSmove_manager.stop_looping(src)
@@ -301,7 +301,7 @@
 		return 0
 	if(environment_smash)
 		if(target.loc != null && get_dist(target_from, target.loc) <= vision_range) //We can't see our target, but he's in our vision range still
-			if(ranged_ignores_vision && ranged_cooldown <= world.time) //we can't see our target... but we can fire at them!
+			if(ranged_ignores_vision && IS_TIME_PASSED_OR_NOW(ranged_cooldown)) //we can't see our target... but we can fire at them!
 				OpenFire(target)
 			if((environment_smash & ENVIRONMENT_SMASH_WALLS) || (environment_smash & ENVIRONMENT_SMASH_RWALLS)) //If we're capable of smashing through walls, forget about vision completely after finding our target
 				Goto(target,move_to_delay,minimum_distance)
@@ -504,7 +504,7 @@
 		return 1
 
 /mob/living/simple_animal/hostile/RangedAttack(atom/A, params) //Player firing
-	if(ranged && ranged_cooldown <= world.time)
+	if(ranged && IS_TIME_PASSED_OR_NOW(ranged_cooldown))
 		GiveTarget(A)
 		OpenFire(A)
 	..()

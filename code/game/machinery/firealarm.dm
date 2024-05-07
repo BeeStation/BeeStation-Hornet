@@ -135,12 +135,12 @@
 		attack_hand(eminence)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
-	if((temperature > T0C + 200 || temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && (last_alarm+FIREALARM_COOLDOWN < world.time) && !(obj_flags & EMAGGED) && detecting && !machine_stat)
+	if((temperature > T0C + 200 || temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && (IS_TIME_PASSED(last_alarm+FIREALARM_COOLDOWN)) && !(obj_flags & EMAGGED) && detecting && !machine_stat)
 		alarm()
 	..()
 
 /obj/machinery/firealarm/proc/alarm(mob/user)
-	if(!is_operational || (last_alarm+FIREALARM_COOLDOWN > world.time))
+	if(!is_operational || IS_TIME_FUTURE(last_alarm + FIREALARM_COOLDOWN))
 		return
 	last_alarm = world.time
 	var/area/A = get_area(src)

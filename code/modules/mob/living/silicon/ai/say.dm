@@ -100,7 +100,7 @@
 
 /mob/living/silicon/ai/proc/announcement()
 	var/static/announcing_vox = 0 // Stores the time of the last announcement
-	if(announcing_vox > world.time)
+	if(IS_TIME_FUTURE(announcing_vox))
 		to_chat(src, "<span class='notice'>Please wait [DisplayTimeText(announcing_vox - world.time)].</span>")
 		return
 
@@ -108,7 +108,7 @@
 
 	last_announcement = message
 
-	if(!message || announcing_vox > world.time)
+	if(!message || IS_TIME_FUTURE(announcing_vox))
 		return
 
 	if(incapacitated())

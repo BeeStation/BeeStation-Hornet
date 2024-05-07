@@ -43,7 +43,7 @@
 	if(Target.buckled_mobs?.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
 		slime_on_target = 1
 
-	if(Target.get_virtual_z_level() == src.get_virtual_z_level() && attack_cooldown < world.time && get_dist(Target, src) <= 1)
+	if(Target.get_virtual_z_level() == src.get_virtual_z_level() && IS_TIME_PASSED(attack_cooldown) && get_dist(Target, src) <= 1)
 		if(!slime_on_target && CanFeedon(Target))
 			if(!Target.client || prob(20))
 				Feedon(Target)
@@ -239,7 +239,7 @@
 
 	if(Target)
 		--target_patience
-		if (target_patience <= 0 || SStun > world.time || Discipline || attacked || docile)
+		if (target_patience <= 0 || IS_TIME_FUTURE(SStun) || Discipline || attacked || docile)
 			target_patience = 0
 			set_target(null)
 			special_process = FALSE

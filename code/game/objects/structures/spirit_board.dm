@@ -35,7 +35,7 @@
 		notify_ghosts("Someone has begun playing with a [src.name] in [get_area(src)]!", source = src, header = "Spirit board")
 
 	planchette = input("Choose the letter.", "Seance!") as null|anything in list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
-	if(!planchette || !Adjacent(M) || next_use > world.time)
+	if(!planchette || !Adjacent(M) || IS_TIME_FUTURE( next_use))
 		return
 	M.log_message("picked a letter on [src], which was \"[planchette]\".", LOG_GAME)
 	next_use = world.time + rand(30,50)
@@ -50,7 +50,7 @@
 	if(M.ckey == lastuser)
 		bonus = 10 //Give some other people a chance, hog.
 
-	if(next_use - bonus > world.time )
+	if(IS_TIME_FUTURE(next_use - bonus))
 		return FALSE //No feedback here, hiding the cooldown a little makes it harder to tell who's really picking letters.
 
 	//lighting check

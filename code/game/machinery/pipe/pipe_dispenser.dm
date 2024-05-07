@@ -41,7 +41,7 @@
 	usr.set_machine(src)
 	add_fingerprint(usr)
 	if(href_list["makepipe"])
-		if(wait < world.time)
+		if(IS_TIME_PASSED(wait))
 			var/p_type = text2path(href_list["makepipe"])
 			if (!verify_recipe(GLOB.atmos_pipe_recipes, p_type))
 				return
@@ -51,7 +51,7 @@
 			P.add_fingerprint(usr)
 			wait = world.time + 10
 	if(href_list["makemeter"])
-		if(wait < world.time )
+		if(IS_TIME_PASSED(wait))
 			new /obj/item/pipe_meter(loc)
 			wait = world.time + 15
 	if(href_list["layer_up"])
@@ -134,7 +134,7 @@
 	usr.set_machine(src)
 	add_fingerprint(usr)
 	if(href_list["dmake"])
-		if(wait < world.time)
+		if(IS_TIME_PASSED(wait))
 			var/p_type = text2path(href_list["dmake"])
 			if (!verify_recipe(GLOB.disposal_pipe_recipes, p_type))
 				return
@@ -184,7 +184,7 @@
 		return 1
 	usr.set_machine(src)
 	add_fingerprint(usr)
-	if(wait < world.time)
+	if(IS_TIME_PASSED(wait))
 		if(href_list["tube"])
 			var/tube_type = text2num(href_list["tube"])
 			var/obj/structure/C

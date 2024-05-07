@@ -215,12 +215,12 @@
 		honk()
 
 /turf/open/floor/mineral/bananium/proc/honk()
-	if(spam_flag < world.time)
+	if(IS_TIME_PASSED(spam_flag))
 		playsound(src, 'sound/items/bikehorn.ogg', 50, 1)
 		spam_flag = world.time + 20
 
 /turf/open/floor/mineral/bananium/proc/squeak()
-	if(spam_flag < world.time)
+	if(IS_TIME_PASSED(spam_flag))
 		playsound(src, "clownstep", 50, 1)
 		spam_flag = world.time + 10
 
@@ -274,7 +274,7 @@
 
 /turf/open/floor/mineral/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event+15)
+		if(IS_TIME_PASSED(last_event+15))
 			active = 1
 			radiation_pulse(src, 10)
 			for(var/turf/open/floor/mineral/uranium/T in (RANGE_TURFS(1,src)-src))

@@ -571,7 +571,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 		return
 
 	if(!(obj_flags & EMAGGED))	//if it hasn't been emagged, cooldown before shooting again
-		if(last_fired + shot_delay > world.time)
+		if( IS_TIME_FUTURE(last_fired + shot_delay))
 			return
 		last_fired = world.time
 

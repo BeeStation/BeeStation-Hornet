@@ -65,7 +65,7 @@
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
 /mob/proc/ClickOn( atom/A, params )
-	if(world.time <= next_click)
+	if(IS_TIME_FUTURE_OR_NOW(next_click))
 		return
 	next_click = world.time + 1
 
@@ -106,7 +106,7 @@
 
 	face_atom(A)
 
-	if(next_move > world.time) // in the year 2000...
+	if(IS_TIME_FUTURE(next_move)) // in the year 2000...
 		return
 
 	if(!LAZYACCESS(modifiers, "catcher") && A.IsObscured())
@@ -327,7 +327,7 @@
 
 /mob/living/carbon/human/CtrlClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
-		if(world.time < user.next_move)
+		if(IS_TIME_FUTURE(user.next_move))
 			return FALSE
 		var/mob/living/carbon/human/H = user
 		H.dna.species.grab(H, src, H.mind.martial_art)

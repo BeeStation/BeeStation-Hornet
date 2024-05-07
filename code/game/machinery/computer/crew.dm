@@ -205,7 +205,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 /// z represents the virtual z-level the user is on
 /// zlevel represents the physical z-level the mob is at.
 /datum/crewmonitor/proc/update_data(z, zlevel)
-	if(data_by_z["[z]"] && last_update["[z]"] && world.time <= last_update["[z]"] + SENSORS_UPDATE_PERIOD)
+	if(data_by_z["[z]"] && last_update["[z]"] && IS_TIME_FUTURE_OR_NOW(last_update["[z]"] + SENSORS_UPDATE_PERIOD))
 		return data_by_z["[z]"]
 
 	var/list/results = list()

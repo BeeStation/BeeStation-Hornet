@@ -486,7 +486,7 @@
 	name = "Immortality"
 
 /obj/item/immortality_talisman/attack_self(mob/user)
-	if(cooldown < world.time)
+	if(IS_TIME_PASSED(cooldown))
 		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1)
 		cooldown = world.time + 600
 		new /obj/effect/immortality_talisman(get_turf(user), user)
@@ -741,7 +741,7 @@
 	return BRUTELOSS
 
 /obj/item/melee/transforming/cleaving_saw/transform_weapon(mob/living/user, supress_message_text)
-	if(transform_cooldown > world.time)
+	if(IS_TIME_FUTURE(transform_cooldown))
 		return FALSE
 	. = ..()
 	if(.)
@@ -843,7 +843,7 @@
 	. = ..()
 
 /obj/item/melee/ghost_sword/attack_self(mob/user)
-	if(summon_cooldown > world.time)
+	if(IS_TIME_FUTURE(summon_cooldown))
 		to_chat(user, "You just recently called out for aid. You don't want to annoy the spirits.")
 		return
 	to_chat(user, "You call out for aid, attempting to summon spirits to your side.")
@@ -982,7 +982,7 @@
 	if(!is_mining_level(user.z))
 		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
 		return
-	if(timer > world.time)
+	if(IS_TIME_FUTURE(timer))
 		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
 		return
 	var/area/target_area = get_area(target)
@@ -1167,7 +1167,7 @@
 		to_chat(user, "<span class='warning'>To use this weapon would bring dishonor to the clan.</span>")
 		return
 	var/turf/T = get_turf(target)
-	if(!T || timer > world.time)
+	if(!T || IS_TIME_FUTURE(timer))
 		return
 	calculate_anger_mod(user)
 	timer = world.time + CLICK_CD_MELEE //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown
@@ -1180,7 +1180,7 @@
 			timer = world.time + cooldown_time
 		else if(user in viewers(5, get_turf(target))) //if the target is in view, hit it
 			timer = world.time + cooldown_time
-			if(isliving(target) && chaser_timer <= world.time) //living and chasers off cooldown? fire one!
+			if(isliving(target) &&IS_TIME_PASSED_OR_NOW( chaser_timer)) //living and chasers off cooldown? fire one!
 				chaser_timer = world.time + chaser_cooldown
 				var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(target), user, target, chaser_speed, friendly_fire_check)
 				C.damage = power
@@ -1224,7 +1224,7 @@
 		friendly_fire_check = !friendly_fire_check
 		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
 		return
-	if(timer > world.time)
+	if(IS_TIME_FUTURE(timer))
 		return
 	if(!user.is_holding(src)) //you need to hold the staff to teleport
 		to_chat(user, "<span class='warning'>You need to hold the club in your hands to [beacon ? "teleport with it":"detach the beacon"]!</span>")

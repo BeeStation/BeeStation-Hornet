@@ -49,7 +49,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	SScommunications.send_message(threat,unique = TRUE)
 
 /proc/pirates_answered(datum/comm_message/threat, payoff, ship_name, initial_send_time, response_max_time)
-	if(world.time > initial_send_time + response_max_time)
+	if(IS_TIME_PASSED(initial_send_time + response_max_time))
 		priority_announce("Too late to beg for mercy!",sender_override = ship_name)
 		return
 	// Attempted to pay off
@@ -211,7 +211,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	var/next_use = 0
 
 /obj/machinery/loot_locator/interact(mob/user)
-	if(world.time <= next_use)
+	if(IS_TIME_FUTURE_OR_NOW(next_use))
 		to_chat(user,"<span class='warning'>[src] is recharging.</span>")
 		return
 	next_use = world.time + cooldown

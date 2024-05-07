@@ -556,7 +556,7 @@
 	data["allPrisoners"] = list()
 	data["desired_name"] = desired_name
 	data["desired_details"] = desired_details
-	data["canPrint"] = world.time >= next_print
+	data["canPrint"] = IS_TIME_PASSED_OR_NOW(next_print)
 	var/list/L = data["allPrisoners"]
 	for(var/obj/item/card/id/prisoner/ID in GLOB.prisoner_ids)
 		var/list/id_info = list()
@@ -577,7 +577,7 @@
 
 /obj/machinery/genpop_interface/proc/print_id(mob/user, desired_crime, desired_sentence)
 
-	if(world.time < next_print)
+	if(IS_TIME_FUTURE(next_print))
 		to_chat(user, "<span class='warning'>[src]'s ID printer is on cooldown.</span>")
 		return FALSE
 	investigate_log("[key_name(user)] created a prisoner ID with sentence: [desired_sentence / 600] for [desired_sentence / 600] min", INVESTIGATE_RECORDS)

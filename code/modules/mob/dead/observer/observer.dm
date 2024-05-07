@@ -547,7 +547,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 	set desc= "Scare your crew members because of boredom!"
 
-	if(bootime > world.time)
+	if(IS_TIME_FUTURE(bootime))
 		return
 	var/obj/machinery/light/L = locate() in view(1, src)
 	if(L)

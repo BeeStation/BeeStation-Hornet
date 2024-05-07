@@ -87,7 +87,7 @@
 /obj/machinery/doppler_array/proc/print(mob/user, datum/data/tachyon_record/record)
 	if(!record)
 		return
-	if(printer_ready < world.time)
+	if(IS_TIME_PASSED(printer_ready))
 		printer_ready = world.time + PRINTER_TIMEOUT
 		new /obj/item/paper/record_printout(loc, record)
 	else if(user)
@@ -143,7 +143,7 @@
 	if(zone.get_virtual_z_level() != epicenter.get_virtual_z_level())
 		return FALSE
 
-	if(next_announce > world.time)
+	if(IS_TIME_FUTURE(next_announce))
 		return FALSE
 	next_announce = world.time + cooldown
 

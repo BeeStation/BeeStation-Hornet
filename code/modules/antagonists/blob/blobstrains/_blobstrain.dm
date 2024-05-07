@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 	to_chat(M, "<span class='userdanger'>[totalmessage]</span>")
 
 /datum/blobstrain/proc/core_process()
-	if(resource_delay <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(resource_delay))
 		resource_delay = world.time + 10 // 1 second
 		overmind.add_points(point_rate)
 	overmind.blob_core.obj_integrity = min(overmind.blob_core.max_integrity, overmind.blob_core.obj_integrity+core_regen)

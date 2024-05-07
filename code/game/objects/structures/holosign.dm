@@ -157,7 +157,7 @@
 	. = ..()
 	icon_state = "holo_medical"
 	if(ishuman(AM) && !CheckHuman(AM))
-		if(buzzcd < world.time)
+		if(IS_TIME_PASSED(buzzcd))
 			playsound(get_turf(src),'sound/machines/buzz-sigh.ogg',65,TRUE,4)
 			buzzcd = (world.time + 60)
 		icon_state = "holo_medical-deny"
@@ -165,7 +165,7 @@
 /obj/structure/holosign/barrier/medical/proc/CheckHuman(mob/living/carbon/human/sickboi)
 	var/threat = sickboi.check_virus()
 	if(get_disease_danger_value(threat) > get_disease_danger_value(DISEASE_MINOR))
-		if(buzzcd < world.time)
+		if(IS_TIME_PASSED(buzzcd))
 			playsound(get_turf(src),'sound/machines/buzz-sigh.ogg',65,1,4)
 			buzzcd = (world.time + 60)
 		icon_state = "holo_medical-deny"

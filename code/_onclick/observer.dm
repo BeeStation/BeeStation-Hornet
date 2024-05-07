@@ -39,7 +39,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(world.time <= next_move)
+	if(IS_TIME_FUTURE_OR_NOW(next_move))
 		return
 	// You are responsible for checking config.ghost_interaction when you override this function
 	// Not all of them require checking, see below

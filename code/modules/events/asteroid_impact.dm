@@ -18,7 +18,8 @@
 		if(EMERGENCY_IDLE_OR_RECALLED)
 			SSshuttle.emergency.request(null, A, "Automatic Shuttle Call: Station destruction imminent.", TRUE)
 		else
-			if(SSshuttle.emergency.timer > world.time + 5 MINUTES)
+			// If shuttle doesn't come within 5 minutes, we cut it down to 5 minutes.
+			if(IS_TIME_FUTURE(SSshuttle.emergency.timer - 5 MINUTES))
 				SSshuttle.emergency.setTimer(5 MINUTES)
 
 /datum/round_event/asteroid_impact/start()

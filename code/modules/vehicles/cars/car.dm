@@ -26,7 +26,7 @@
 		return FALSE
 	var/datum/component/riding/R = GetComponent(/datum/component/riding)
 	R.handle_ride(user, direction)
-	if(world.time < last_enginesound_time + engine_sound_length)
+	if(IS_TIME_FUTURE(last_enginesound_time + engine_sound_length))
 		return
 	last_enginesound_time = world.time
 	playsound(src, engine_sound, 100, TRUE)

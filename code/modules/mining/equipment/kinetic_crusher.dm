@@ -264,7 +264,7 @@
 	if(ishostile(target))
 		var/mob/living/simple_animal/hostile/H = target
 		if(H.ranged) //briefly delay ranged attacks
-			if(H.ranged_cooldown >= world.time)
+			if(IS_TIME_FUTURE_OR_NOW(H.ranged_cooldown))
 				H.ranged_cooldown += bonus_value
 			else
 				H.ranged_cooldown = bonus_value + world.time

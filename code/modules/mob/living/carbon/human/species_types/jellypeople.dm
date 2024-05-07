@@ -448,7 +448,7 @@
 /datum/action/innate/use_extract/IsAvailable()
 	if(..())
 		var/datum/species/oozeling/luminescent/species = target
-		if(species && species.current_extract && (world.time > species.extract_cooldown))
+		if(species && species.current_extract && (IS_TIME_PASSED(species.extract_cooldown)))
 			return TRUE
 		return FALSE
 

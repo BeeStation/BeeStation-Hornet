@@ -23,7 +23,7 @@
 /obj/item/mining_scanner/attack_self(mob/user)
 	if(!user.client)
 		return
-	if(current_cooldown <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(current_cooldown))
 		current_cooldown = world.time + cooldown
 		mineral_scan_pulse(get_turf(user))
 		if(speaker)
@@ -73,7 +73,7 @@
 	cooldown = 50
 
 /obj/item/t_scanner/adv_mining_scanner/scan()
-	if(current_cooldown <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(current_cooldown))
 		current_cooldown = world.time + cooldown
 		var/turf/t = get_turf(src)
 		mineral_scan_pulse(t, range)

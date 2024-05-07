@@ -136,12 +136,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		return data
 	//Interdicted shuttles
 	data["interdictedShuttles"] = list()
-	if(SSorbits.interdicted_shuttles[shuttleId] > world.time)
+	if(IS_TIME_FUTURE(SSorbits.interdicted_shuttles[shuttleId]))
 		var/obj/docking_port/our_port = SSshuttle.getShuttle(shuttleId)
 		data["interdictionTime"] = SSorbits.interdicted_shuttles[shuttleId] - world.time
 		for(var/interdicted_id in SSorbits.interdicted_shuttles)
 			var/timer = SSorbits.interdicted_shuttles[interdicted_id]
-			if(timer < world.time)
+			if(IS_TIME_PASSED(timer))
 				continue
 			var/obj/docking_port/port = SSshuttle.getShuttle(interdicted_id)
 			if(port && port.get_virtual_z_level() == our_port.get_virtual_z_level())
@@ -423,7 +423,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 /obj/machinery/computer/shuttle_flight/proc/launch_shuttle()
 	if(SSorbits.interdicted_shuttles.Find(shuttleId))
-		if(world.time < SSorbits.interdicted_shuttles[shuttleId])
+		if(IS_TIME_FUTURE(SSorbits.interdicted_shuttles[shuttleId]))
 			var/time_left = (SSorbits.interdicted_shuttles[shuttleId] - world.time) * 0.1
 			say("Supercruise Warning: Engines have been interdicted and will be recharged in [time_left] seconds.")
 			return
@@ -519,7 +519,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 /obj/machinery/computer/shuttle_flight/proc/unfreeze_shuttle(obj/docking_port/mobile/shuttle_dock, datum/space_level/target_spacelevel)
 	var/start_time = world.time
-	UNTIL((!target_spacelevel.generating) || world.time > start_time + 3 MINUTES)
+	UNTIL((!target_spacelevel.generating) || IS_TIME_PASSED(start_time + 3 MINUTES))
 	if(target_spacelevel.generating)
 		target_spacelevel.generating = FALSE
 		message_admins("CAUTION: SHUTTLE [shuttleId] REACHED THE GENERATION TIMEOUT OF 3 MINUTES. THE ASSIGNED Z-LEVEL IS STILL MARKED AS GENERATING, BUT WE ARE DOCKING ANYWAY.")

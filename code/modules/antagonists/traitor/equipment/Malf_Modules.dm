@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 
 /datum/action/innate/ai/IsAvailable()
 	. = ..()
-	if(owner_AI && owner_AI.malf_cooldown > world.time)
+	if(owner_AI && IS_TIME_FUTURE(owner_AI.malf_cooldown))
 		return
 
 /datum/action/innate/ai/Trigger()
@@ -376,7 +376,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	if(!sec_left)
 		timing = FALSE
 		detonate()
-	else if(world.time >= next_announce)
+	else if(IS_TIME_PASSED_OR_NOW(next_announce))
 		minor_announce("[sec_left] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", TRUE)
 		next_announce += DOOMSDAY_ANNOUNCE_INTERVAL
 

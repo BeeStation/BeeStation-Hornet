@@ -97,7 +97,7 @@ Difficulty: Medium
 		return
 
 	Goto(target, move_to_delay, minimum_distance)
-	if(get_dist(src, target) > MINER_DASH_RANGE && dash_cooldown <= world.time)
+	if(get_dist(src, target) > MINER_DASH_RANGE &&IS_TIME_PASSED_OR_NOW( dash_cooldown))
 		dash_attack()
 	else
 		shoot_ka()
@@ -184,7 +184,7 @@ Difficulty: Medium
 		changeNext_move(CLICK_CD_RANGE)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/dash(atom/dash_target)
-	if(world.time < dash_cooldown)
+	if(IS_TIME_FUTURE(dash_cooldown))
 		return
 	var/list/accessable_turfs = list()
 	var/self_dist_to_target = 0
@@ -235,7 +235,7 @@ Difficulty: Medium
 	return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/transform_weapon()
-	if(time_until_next_transform <= world.time)
+	if(IS_TIME_PASSED_OR_NOW(time_until_next_transform))
 		miner_saw.transform_cooldown = 0
 		miner_saw.transform_weapon(src, TRUE)
 		if(!miner_saw.active)

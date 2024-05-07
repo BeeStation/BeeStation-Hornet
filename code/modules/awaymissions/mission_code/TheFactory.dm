@@ -191,7 +191,7 @@
 	var/cooldown = 0
 
 /obj/item/statuebust/toy/attack_self(mob/user)
-	if (cooldown < world.time)
+	if (IS_TIME_PASSED(cooldown))
 		cooldown = world.time + 450
 		user.visible_message("<span class='warning'>[user] activates \the [src].</span>", "<span class='notice'>You activate \the [src]!</span>", "<span class='italics'>You hear a music playing.</span>")
 		playsound(src, 'sound/ambience/ambivapor1.ogg', 50, 0)
@@ -267,7 +267,7 @@
 	..()
 	var/list/possible_sounds = list('sound/effects/radio1.ogg','sound/effects/radio2.ogg','sound/effects/radio3.ogg')
 	var/chosen_sound = pick(possible_sounds)
-	if (cooldown < world.time) // So we don't repeat the sound and the phrase every time we get hit and do it at least each 30 seconds
+	if (IS_TIME_PASSED(cooldown)) // So we don't repeat the sound and the phrase every time we get hit and do it at least each 30 seconds
 		cooldown = world.time + 300
 		summon_backup_nosound(10)
 		playsound(get_turf(src), chosen_sound, 100, 0, 0)
@@ -371,7 +371,7 @@
 /mob/living/simple_animal/hostile/syndicate/factory/sniper/Aggro()
 	..()
 	ranged_cooldown = 30
-	if (cooldown < world.time)
+	if (IS_TIME_PASSED(cooldown))
 		cooldown = world.time + 150
 		summon_backup_nosound(10)
 		playsound(get_turf(src), 'sound/weapons/sniper_rack.ogg', 80, TRUE)
@@ -440,7 +440,7 @@
 	..()
 	var/list/possible_sounds = list('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg')
 	var/chosen_sound = pick(possible_sounds)
-	if (cooldown < world.time)
+	if (IS_TIME_PASSED(cooldown))
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
 
@@ -482,7 +482,7 @@
 	..()
 	var/list/possible_sounds = list('sound/creatures/psychsight.ogg','sound/creatures/psychsight2.ogg')
 	var/chosen_sound = pick(possible_sounds)
-	if (cooldown < world.time)
+	if (IS_TIME_PASSED(cooldown))
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
 
@@ -516,7 +516,7 @@
 	..()
 	var/list/possible_sounds = list('sound/creatures/psychsight.ogg','sound/creatures/psychsight2.ogg')
 	var/chosen_sound = pick(possible_sounds)
-	if (cooldown < world.time)
+	if (IS_TIME_PASSED(cooldown))
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 70, TRUE, 0)
 
@@ -585,7 +585,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/factory/heavy/Aggro()
 	..()
-	if (cooldown < world.time)
+	if (IS_TIME_PASSED(cooldown))
 		cooldown = world.time + 300
 		playsound(get_turf(src), 'sound/creatures/heavysight1.ogg', 80, 0, 0)
 
@@ -647,7 +647,7 @@
 	..()
 	var/list/possible_sounds = list('sound/creatures/szombiesight.ogg','sound/creatures/szombiesight2.ogg')
 	var/chosen_sound = pick(possible_sounds)
-	if (cooldown < world.time)
+	if (IS_TIME_PASSED(cooldown))
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 50, TRUE, 0)
 
@@ -742,7 +742,7 @@
 	..()
 	var/list/possible_sounds = list('sound/voice/ed209_20sec.ogg','sound/creatures/bosssight.ogg','sound/creatures/bosssight2.ogg','sound/voice/complionator/harry.ogg','sound/weapons/leveractionrack.ogg')
 	var/chosen_sound = pick(possible_sounds)
-	if (cooldown < world.time)
+	if (IS_TIME_PASSED(cooldown))
 		cooldown = world.time + 300
 		playsound(get_turf(src), chosen_sound, 80, TRUE, 0)
 		say("Target!")

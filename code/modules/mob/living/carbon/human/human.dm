@@ -158,7 +158,7 @@
 		var/perpname = get_face_name(get_id_name(""))
 		if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD) && !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
 			return
-		if((text2num(href_list["examine_time"]) + 1 MINUTES) < world.time)
+		if(IS_TIME_PASSED(text2num(href_list["examine_time"]) + 1 MINUTES))
 			to_chat(human_user, "<span class='notice'>It's too late to use this now!</span>")
 			return
 		var/datum/data/record/target_record = find_record("name", perpname, GLOB.data_core.general)
@@ -560,7 +560,7 @@
 		to_chat(src, "<span class='warning'>Remove [p_their()] mask first!</span>")
 		return 0
 
-	if(C.cpr_time < world.time + 30)
+	if(IS_TIME_PASSED(C.cpr_time - 30))
 		visible_message("<span class='notice'>[src] is trying to perform CPR on [C.name]!</span>", \
 						"<span class='notice'>You try to perform CPR on [C.name]... Hold still!</span>")
 		if(!do_after(src, target = C))

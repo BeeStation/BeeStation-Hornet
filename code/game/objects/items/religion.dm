@@ -23,7 +23,7 @@
 /obj/item/banner/attack_self(mob/living/carbon/human/user)
 	if(!inspiration_available)
 		return
-	if(morale_time > world.time)
+	if( IS_TIME_FUTURE(morale_time))
 		to_chat(user, "<span class='warning'>You aren't feeling inspired enough to flourish [src] again yet.</span>")
 		return
 	user.visible_message("<span class='big notice'>[user] flourishes [src]!</span>", \
@@ -307,7 +307,7 @@
 
 /obj/item/godstaff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(staffcooldown + staffwait > world.time)
+	if( IS_TIME_FUTURE(staffcooldown + staffwait))
 		return
 	user.visible_message("[user] chants deeply and waves [user.p_their()] staff!")
 	if(do_after(user, 20,src))

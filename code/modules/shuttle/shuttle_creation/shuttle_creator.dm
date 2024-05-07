@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)
 	//Check to see if the user can make a new area to prevent spamming
 	if(user)
-		if(user.create_area_cooldown >= world.time)
+		if(IS_TIME_FUTURE_OR_NOW(user.create_area_cooldown))
 			to_chat(user, "<span class='warning'>Smoke vents from the [src], maybe you should let it cooldown before using it again.</span>")
 			return FALSE
 		user.create_area_cooldown = world.time + 10
@@ -340,7 +340,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/proc/modify_shuttle_area(mob/user)
 	//Check to see if we waited long enough between edits to prevent spamming
 	if(user)
-		if(user.create_area_cooldown >= world.time)
+		if(IS_TIME_FUTURE_OR_NOW(user.create_area_cooldown))
 			to_chat(user, "<span class='warning'>Smoke vents from the [src], maybe you should let it cooldown before using it again.</span>")
 			return FALSE
 		user.create_area_cooldown = world.time + 10

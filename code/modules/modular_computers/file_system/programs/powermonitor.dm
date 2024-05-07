@@ -61,7 +61,7 @@
 	return FALSE
 
 /datum/computer_file/program/power_monitor/proc/record() //keep in sync with /obj/machinery/computer/monitor's version
-	if(world.time >= next_record)
+	if(IS_TIME_PASSED_OR_NOW(next_record))
 		next_record = world.time + record_interval
 
 		var/datum/powernet/connected_powernet = get_powernet()

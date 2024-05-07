@@ -8,7 +8,7 @@
 	req_access = list(ACCESS_BAR)
 	var/active = FALSE
 	var/list/rangers = list()
-	var/stop = 0
+	var/stop_when = 0
 	var/list/songs = list()
 	var/datum/track/selection = null
 	/// Volume of the songs played
@@ -135,15 +135,15 @@
 			if(QDELETED(src))
 				return
 			if(!active)
-				if(stop > world.time)
-					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)].</span>")
+				if(IS_TIME_FUTURE(stop_when))
+					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop_when-world.time)].</span>")
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
 				activate_music()
 				START_PROCESSING(SSobj, src)
 				return TRUE
 			else
-				stop = 0
+				stop_when = 0
 				return TRUE
 		if("select_track")
 			if(active)
@@ -176,7 +176,7 @@
 	active = TRUE
 	update_icon()
 	START_PROCESSING(SSmachines, src)
-	stop = world.time + selection.song_length
+	stop_when = world.time + selection.song_length
 	ui_update()
 
 /obj/machinery/jukebox/disco/activate_music()
@@ -427,7 +427,7 @@
 	QDEL_LIST(sparkles)
 
 /obj/machinery/jukebox/process()
-	if(world.time < stop && active)
+	if(IS_TIME_FUTURE(stop_when) && active)
 		var/sound/song_played = sound(selection.song_path)
 
 		for(var/mob/L as() in rangers)
@@ -447,7 +447,7 @@
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		update_icon()
-		stop = world.time + 100
+		stop_when = world.time + 100
 		ui_update()
 		return PROCESS_KILL
 

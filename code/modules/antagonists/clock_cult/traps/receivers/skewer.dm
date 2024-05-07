@@ -20,7 +20,7 @@
 /obj/structure/destructible/clockwork/trap/skewer/proc/stab()
 	if(extended)
 		retract()
-	if(cooldown > world.time)
+	if( IS_TIME_FUTURE(cooldown))
 		return
 	cooldown = world.time + 100
 	extended = TRUE

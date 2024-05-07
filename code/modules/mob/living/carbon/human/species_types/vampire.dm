@@ -144,7 +144,7 @@
 	if(iscarbon(owner))
 		var/mob/living/carbon/H = owner
 		var/obj/item/organ/tongue/vampire/V = target
-		if(V.drain_cooldown >= world.time)
+		if(IS_TIME_FUTURE_OR_NOW(V.drain_cooldown))
 			to_chat(H, "<span class='notice'>You just drained blood, wait a few seconds.</span>")
 			return
 		if(H.pulling && iscarbon(H.pulling))

@@ -44,7 +44,7 @@
 
 /mob/living/simple_animal/hostile/jungle/mook/AttackingTarget()
 	if(isliving(target))
-		if(ranged_cooldown <= world.time && attack_state == MOOK_ATTACK_NEUTRAL)
+		if(IS_TIME_PASSED_OR_NOW(ranged_cooldown) && attack_state == MOOK_ATTACK_NEUTRAL)
 			var/mob/living/L = target
 			if(L.incapacitated())
 				WarmupAttack(forced_slash_combo = TRUE)

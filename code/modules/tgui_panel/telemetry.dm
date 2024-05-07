@@ -60,7 +60,7 @@
 /datum/tgui_panel/proc/analyze_telemetry(payload)
 	if(telemetry_status == TGUI_TELEMETRY_STAT_OVERSEND)
 		return //Already noted for oversend, just fuck off.
-	if(world.time > telemetry_requested_at + TGUI_TELEMETRY_RESPONSE_WINDOW)
+	if(IS_TIME_PASSED(telemetry_requested_at + TGUI_TELEMETRY_RESPONSE_WINDOW))
 		message_admins("[key_name(client)] sent telemetry outside of the allocated time window.")
 		if(telemetry_status == TGUI_TELEMETRY_STAT_ANALYZED) //Hey we already have a packet from you!
 			LAZYSET(telemetry_notices, "TELEM_OVERSEND", "<span class='highlight'>OVER_SEND|Telemetry was sent multiple times.</span>")

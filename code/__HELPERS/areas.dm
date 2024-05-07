@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		))
 
 	if(creator)
-		if(creator.create_area_cooldown >= world.time)
+		if(IS_TIME_FUTURE_OR_NOW(creator.create_area_cooldown))
 			to_chat(creator, "<span class='warning'>You're trying to create a new area a little too fast.</span>")
 			return
 		creator.create_area_cooldown = world.time + 10

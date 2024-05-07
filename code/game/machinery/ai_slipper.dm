@@ -20,7 +20,7 @@
 /obj/machinery/ai_slipper/update_icon()
 	if(machine_stat & BROKEN)
 		return
-	if((machine_stat & NOPOWER) || cooldown_time > world.time || !uses)
+	if((machine_stat & NOPOWER) || IS_TIME_FUTURE( cooldown_time)|| !uses)
 		icon_state = "ai-slipper0"
 	else
 		icon_state = "ai-slipper1"
@@ -32,7 +32,7 @@
 	if(!uses)
 		to_chat(user, "<span class='danger'>[src] is out of foam and cannot be activated.</span>")
 		return
-	if(cooldown_time > world.time)
+	if( IS_TIME_FUTURE(cooldown_time))
 		to_chat(user, "<span class='danger'>[src] cannot be activated for <b>[DisplayTimeText(world.time - cooldown_time)]</b>.</span>")
 		return
 	new /obj/effect/particle_effect/foam(loc)

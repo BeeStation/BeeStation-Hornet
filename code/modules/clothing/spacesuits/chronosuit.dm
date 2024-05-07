@@ -52,7 +52,7 @@
 	user.remote_control = camera
 
 /obj/item/clothing/suit/space/chronos/ui_action_click()
-	if((cooldown <= world.time) && !teleporting && !activating)
+	if(IS_TIME_PASSED_OR_NOW(cooldown) && !teleporting && !activating)
 		if(!activated)
 			activate()
 		else
@@ -172,7 +172,7 @@
 			if(camera && (user.remote_control == camera))
 				if(!teleporting)
 					if(camera.loc != user && ((camera.x != user.x) || (camera.y != user.y) || (camera.get_virtual_z_level() != user.get_virtual_z_level())))
-						if(camera.phase_time <= world.time)
+						if(IS_TIME_PASSED_OR_NOW(camera.phase_time))
 							chronowalk(camera)
 					else
 						camera.remove_target_ui()

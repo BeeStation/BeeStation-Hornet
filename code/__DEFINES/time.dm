@@ -62,3 +62,14 @@ When using time2text(), please use "DDD" to find the weekday. Refrain from using
 /// Amount of years from the current year to offset in-universe
 #define YEAR_OFFSET 540
 
+
+
+/// Given time is after than "world.time" (which means it is over)
+#define IS_TIME_PASSED(timestamp_var) ((timestamp_var) < world.time)
+/// Given time is present, or after than current "world.time" (which means it is over)
+#define IS_TIME_PASSED_OR_NOW(timestamp_var) ((timestamp_var) <= world.time)
+
+/// Given time is before than current "world.time" (which means we're waiting)
+#define IS_TIME_FUTURE(timestamp_var) ((timestamp_var) > world.time)
+/// Given time is present, or before than current "world.time" (which means we're waiting)
+#define IS_TIME_FUTURE_OR_NOW(timestamp_var) ((timestamp_var) >= world.time)

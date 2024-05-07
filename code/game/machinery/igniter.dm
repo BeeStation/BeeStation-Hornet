@@ -124,7 +124,7 @@
 	if (!(powered()))
 		return
 
-	if ((disable) || (last_spark && world.time < last_spark + 50))
+	if ((disable) || (last_spark && IS_TIME_FUTURE(last_spark + 50)))
 		return
 
 
