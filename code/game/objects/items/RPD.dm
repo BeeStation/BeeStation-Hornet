@@ -469,7 +469,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		attack_target = get_turf(attack_target)
 	var/can_make_pipe = (isturf(attack_target) || is_type_in_typecache(attack_target, rpd_whitelist))
 
-	. = FALSE
+	. = TRUE
 
 	if((mode & DESTROY_MODE) && is_type_in_typecache(A, rpd_targets))
 		to_chat(user, "<span class='notice'>You start destroying a pipe...</span>")
