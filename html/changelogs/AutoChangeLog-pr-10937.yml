@@ -1,7 +1,0 @@
-author: Hardly
-delete-after: true
-changes:
-  - rscadd: Adds an universal enzyme to the lavaland beach biodome, allowing beach
-      bums to make stuff like bread and tofu
-  - bugfix: Adds a griddle to the lavaland beach biodome, allowing beach bums to cook
-      again
