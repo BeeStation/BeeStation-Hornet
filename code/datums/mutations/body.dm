@@ -1,14 +1,14 @@
 //These mutations change your overall "form" somehow, like size
 
 //Epilepsy gives a very small chance to have a seizure every life tick, knocking you unconscious.
-/datum/mutation/epilepsy
+/datum/mutation/human/epilepsy
 	name = "Epilepsy"
 	desc = "A genetic defect that sporadically causes seizures."
 	quality = NEGATIVE
 	synchronizer_coeff = 1
 	power_coeff = 1
 
-/datum/mutation/epilepsy/on_life()
+/datum/mutation/human/epilepsy/on_life()
 	if(prob(1 * GET_MUTATION_SYNCHRONIZER(src)) && owner.stat == CONSCIOUS)
 		owner.visible_message("<span class='danger'>[owner] starts having a seizure!</span>", "<span class='userdanger'>You have a seizure!</span>")
 		owner.Unconscious(200 * GET_MUTATION_POWER(src))
@@ -16,19 +16,19 @@
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "epilepsy", /datum/mood_event/epilepsy)
 		addtimer(CALLBACK(src, PROC_REF(jitter_less)), 9 SECONDS)
 
-/datum/mutation/epilepsy/proc/jitter_less()
+/datum/mutation/human/epilepsy/proc/jitter_less()
 	if(owner)
 		owner.jitteriness = 10
 
 
 //Unstable DNA induces random mutations!
-/datum/mutation/bad_dna
+/datum/mutation/human/bad_dna
 	name = "Unstable DNA"
 	desc = "Strange mutation that causes the holder to randomly mutate."
 	quality = NEGATIVE
 	locked = TRUE
 
-/datum/mutation/bad_dna/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/bad_dna/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	var/mob/new_mob
@@ -46,14 +46,14 @@
 
 
 //Cough gives you a chronic cough that causes you to drop items.
-/datum/mutation/cough
+/datum/mutation/human/cough
 	name = "Cough"
 	desc = "A chronic cough."
 	quality = MINOR_NEGATIVE
 	synchronizer_coeff = 1
 	power_coeff = 1
 
-/datum/mutation/cough/on_life()
+/datum/mutation/human/cough/on_life()
 	if(prob(5 * GET_MUTATION_SYNCHRONIZER(src)) && owner.stat == CONSCIOUS)
 		owner.drop_all_held_items()
 		owner.emote("cough")
@@ -62,19 +62,19 @@
 			var/turf/target = get_ranged_target_turf(owner, turn(owner.dir, 180), cough_range)
 			owner.throw_at(target, cough_range, GET_MUTATION_POWER(src))
 
-/datum/mutation/paranoia
+/datum/mutation/human/paranoia
 	name = "Paranoia"
 	desc = "Subject is easily terrified, and may suffer from hallucinations."
 	quality = NEGATIVE
 
-/datum/mutation/paranoia/on_life()
+/datum/mutation/human/paranoia/on_life()
 	if(prob(5) && owner.stat == CONSCIOUS)
 		owner.emote("scream")
 		if(prob(25))
 			owner.hallucination += 20
 
 //Dwarfism shrinks your body and lets you pass tables.
-/datum/mutation/dwarfism
+/datum/mutation/human/dwarfism
 	name = "Dwarfism"
 	desc = "A mutation believed to be the cause of dwarfism."
 	quality = POSITIVE
@@ -83,7 +83,7 @@
 	conflicts = list(GIGANTISM)
 	locked = TRUE    // Default intert species for now, so locked from regular pool.
 
-/datum/mutation/dwarfism/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/dwarfism/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.resize = 0.8
@@ -91,7 +91,7 @@
 	passtable_on(owner, GENETIC_MUTATION)
 	owner.visible_message("<span class='danger'>[owner] suddenly shrinks!</span>", "<span class='notice'>Everything around you seems to grow..</span>")
 
-/datum/mutation/dwarfism/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/dwarfism/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.resize = 1.25
@@ -101,20 +101,20 @@
 
 
 //Clumsiness has a very large amount of small drawbacks depending on item.
-/datum/mutation/clumsy
+/datum/mutation/human/clumsy
 	name = "Clumsiness"
 	desc = "A genome that inhibits certain brain functions, causing the holder to appear clumsy. Honk"
 	quality = MINOR_NEGATIVE
 	traits = TRAIT_CLUMSY
 
 //Tourettes causes you to randomly stand in place and shout.
-/datum/mutation/tourettes
+/datum/mutation/human/tourettes
 	name = "Tourette's Syndrome"
 	desc = "A chronic twitch that forces the user to scream bad words." //definitely needs rewriting
 	quality = NEGATIVE
 	synchronizer_coeff = 1
 
-/datum/mutation/tourettes/on_life()
+/datum/mutation/human/tourettes/on_life()
 	if(prob(10 * GET_MUTATION_SYNCHRONIZER(src)) && owner.stat == CONSCIOUS && !owner.IsStun())
 		owner.Stun(20)
 		switch(rand(1, 3))
@@ -131,19 +131,19 @@
 
 
 //Deafness makes you deaf.
-/datum/mutation/deaf
+/datum/mutation/human/deaf
 	name = "Deafness"
 	desc = "The holder of this genome is completely deaf."
 	quality = NEGATIVE
 	traits = TRAIT_DEAF
 
-/datum/mutation/deaf/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/deaf/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	SEND_SOUND(owner, sound(null))
 
 //Monified turns you into a monkey.
-/datum/mutation/race
+/datum/mutation/human/race
 	name = "Monkified"
 	desc = "A strange genome, believed to be what differentiates monkeys from humans."
 	quality = NEGATIVE
@@ -151,17 +151,17 @@
 	locked = TRUE //Species specific, keep out of actual gene pool
 	var/datum/species/original_species = /datum/species/human
 
-/datum/mutation/race/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/race/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
 	original_species = owner.dna.species.type
 	. = owner.monkeyize()
 
-/datum/mutation/race/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/race/on_losing(mob/living/carbon/human/owner)
 	if(owner && owner.stat != DEAD && (owner.dna.mutations.Remove(src)) && ismonkey(owner))
 		. = owner.humanize()
 
-/datum/mutation/glow
+/datum/mutation/human/glow
 	name = "Glowy"
 	desc = "You permanently emit a light with a random color and intensity."
 	quality = POSITIVE
@@ -172,37 +172,37 @@
 	var/glow = 2.5
 	var/range = 2.5
 
-/datum/mutation/glow/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/glow/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	glowth = new(owner)
 	modify()
 
-/datum/mutation/glow/modify()
+/datum/mutation/human/glow/modify()
 	if(QDELETED(glowth))
 		return
 	var/power = GET_MUTATION_POWER(src)
 	glowth.set_light_range_power_color(range * power, glow * power, "#[dna.features["mcolor"]]")
 
-/datum/mutation/glow/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/glow/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	QDEL_NULL(glowth)
 
-/datum/mutation/glow/anti
+/datum/mutation/human/glow/anti
 	name = "Anti-Glow"
 	desc = "Your skin seems to attract and absorb nearby light creating 'darkness' around you."
 	glow = -3.5 //Slightly stronger, since negating light tends to be harder than making it.
 	conflicts = list(GLOWY)
 	locked = TRUE
 
-/datum/mutation/strong
+/datum/mutation/human/strong
 	name = "Strength"
 	desc = "The user's muscles slightly expand."
 	quality = POSITIVE
 	difficulty = 16
 
-/datum/mutation/insulated
+/datum/mutation/human/insulated
 	name = "Insulated"
 	desc = "The affected person does not conduct electricity."
 	quality = POSITIVE
@@ -210,7 +210,7 @@
 	instability = 25
 	traits = TRAIT_SHOCKIMMUNE
 
-/datum/mutation/fire
+/datum/mutation/human/fire
 	name = "Fiery Sweat"
 	desc = "The user's skin will randomly combust, but is generally alot more resilient to burning."
 	quality = NEGATIVE
@@ -218,26 +218,26 @@
 	synchronizer_coeff = 1
 	power_coeff = 1
 
-/datum/mutation/fire/on_life()
+/datum/mutation/human/fire/on_life()
 	if(prob((1+(100-dna.stability)/10)) * GET_MUTATION_SYNCHRONIZER(src))
 		owner.adjust_fire_stacks(2 * GET_MUTATION_POWER(src))
 		owner.IgniteMob()
 
-/datum/mutation/fire/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/fire/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.burn_mod *= 0.5
 
-/datum/mutation/fire/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/fire/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.burn_mod *= 2
 
-/datum/mutation/badblink
+/datum/mutation/human/badblink
 	name = "Spatial Instability"
 	desc = "The victim of the mutation has a very weak link to spatial reality, and may be displaced. Often causes extreme nausea."
 	quality = NEGATIVE
@@ -248,7 +248,7 @@
 	power_coeff = 1
 	var/warpchance = 0
 
-/datum/mutation/badblink/on_life()
+/datum/mutation/human/badblink/on_life()
 	if(prob(warpchance))
 		var/warpmessage = pick(
 			"<span class='warning'>With a sickening 720 degree twist of their back, [owner] vanishes into thin air.</span>",
@@ -265,14 +265,14 @@
 	else
 		warpchance += 0.25 * GET_MUTATION_ENERGY(src)
 
-/datum/mutation/acidflesh
+/datum/mutation/human/acidflesh
 	name = "Acidic Flesh"
 	desc = "Subject has acidic chemicals building up underneath their skin. This is often lethal."
 	quality = NEGATIVE
 	difficulty = 18//high so it's hard to unlock and use on others
 	COOLDOWN_DECLARE(message_cooldown)
 
-/datum/mutation/acidflesh/on_life()
+/datum/mutation/human/acidflesh/on_life()
 	if(prob(25))
 		if(COOLDOWN_FINISHED(src, message_cooldown))
 			to_chat(owner, "<span class='danger'>Your acid flesh bubbles...</span>")
@@ -282,51 +282,51 @@
 			owner.visible_message("<span class='warning'>[owner]'s skin bubbles and pops.</span>", "<span class='userdanger'>Your bubbling flesh pops! It burns!</span>")
 			playsound(owner, 'sound/weapons/sear.ogg', vol = 50, vary = TRUE)
 
-/datum/mutation/gigantism
+/datum/mutation/human/gigantism
 	name = "Gigantism"//negative version of dwarfism
 	desc = "The cells within the subject spread out to cover more area, making them appear larger."
 	quality = MINOR_NEGATIVE
 	difficulty = 12
 	conflicts = list(DWARFISM)
 
-/datum/mutation/gigantism/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/human/gigantism/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.resize = 1.25
 	owner.update_transform()
 	owner.visible_message("<span class='danger'>[owner] suddenly grows!</span>", "<span class='notice'>Everything around you seems to shrink..</span>")
 
-/datum/mutation/gigantism/on_losing(mob/living/carbon/owner)
+/datum/mutation/human/gigantism/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.resize = 0.8
 	owner.update_transform()
 	owner.visible_message("<span class='danger'>[owner] suddenly shrinks!</span>", "<span class='notice'>Everything around you seems to grow..</span>")
 
-/datum/mutation/spastic
+/datum/mutation/human/spastic
 	name = "Spastic"
 	desc = "Subject suffers from muscle spasms."
 	quality = NEGATIVE
 	difficulty = 16
 
-/datum/mutation/spastic/on_acquiring()
+/datum/mutation/human/spastic/on_acquiring()
 	if(..())
 		return
 	owner.apply_status_effect(STATUS_EFFECT_SPASMS)
 
-/datum/mutation/spastic/on_losing()
+/datum/mutation/human/spastic/on_losing()
 	if(..())
 		return
 	owner.remove_status_effect(STATUS_EFFECT_SPASMS)
 
-/datum/mutation/extrastun
+/datum/mutation/human/extrastun
 	name = "Two Left Feet"
 	desc = "A mutation that disrupts coordination in the legs. It makes standing up after getting knocked down very difficult."
 	quality = NEGATIVE
 	difficulty = 16
 	COOLDOWN_DECLARE(stun_cooldown)
 
-/datum/mutation/extrastun/on_life()
+/datum/mutation/human/extrastun/on_life()
 	if(!COOLDOWN_FINISHED(src, stun_cooldown))
 		return
 	var/knockdown = owner.AmountKnockdown()
@@ -337,7 +337,7 @@
 		owner.visible_message("<span class='danger'>[owner] tries to stand up, but trips!</span>", "<span class='userdanger'>You trip over your own feet!</span>")
 		COOLDOWN_START(src, stun_cooldown, 30 SECONDS)
 
-/datum/mutation/strongwings
+/datum/mutation/human/strongwings
 	name = "Strengthened Wings"
 	desc = "Subject's wing muscle volume rapidly increases."
 	quality = POSITIVE
@@ -347,7 +347,7 @@
 	power_coeff = 1
 	species_allowed = list(SPECIES_APID, SPECIES_MOTH)
 
-/datum/mutation/strongwings/on_acquiring()
+/datum/mutation/human/strongwings/on_acquiring()
 	if(..())
 		return
 	var/obj/item/organ/wings/wings = owner.getorganslot(ORGAN_SLOT_WINGS)
@@ -366,7 +366,7 @@
 		return
 	to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
 
-/datum/mutation/strongwings/on_losing()
+/datum/mutation/human/strongwings/on_losing()
 	if(..())
 		return
 	var/obj/item/organ/wings/wings = owner.getorganslot(ORGAN_SLOT_WINGS)
@@ -382,12 +382,12 @@
 		bee_wings.jumpdist = initial(bee_wings.jumpdist)
 		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
 
-/datum/mutation/strongwings/modify()
+/datum/mutation/human/strongwings/modify()
 	..()
 	var/obj/item/organ/wings/bee/bee_wings = owner.getorganslot(ORGAN_SLOT_WINGS)
 	if(istype(bee_wings))
 		bee_wings.jumpdist = initial(bee_wings.jumpdist) + (6 * GET_MUTATION_POWER(src)) - 3
-/datum/mutation/catclaws
+/datum/mutation/human/catclaws
 	name = "Cat Claws"
 	desc = "Subject's hands grow sharpened claws."
 	quality = POSITIVE
@@ -398,7 +398,7 @@
 	species_allowed = list(SPECIES_FELINID)
 	var/added_damage = 6
 
-/datum/mutation/catclaws/on_acquiring()
+/datum/mutation/human/catclaws/on_acquiring()
 	if(..())
 		return
 	added_damage = min(17, initial(added_damage) * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) - owner.dna.species.punchdamage
@@ -408,7 +408,7 @@
 	owner.dna.species.miss_sound = 'sound/weapons/slashmiss.ogg'
 	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.</span>")
 
-/datum/mutation/catclaws/on_losing()
+/datum/mutation/human/catclaws/on_losing()
 	if(..())
 		return
 	to_chat(owner, "<span class='warning'> Your claws retract into your hand.</span>")
@@ -417,7 +417,7 @@
 	owner.dna.species.attack_sound = initial(owner.dna.species.attack_sound)
 	owner.dna.species.miss_sound = initial(owner.dna.species.miss_sound)
 
-/datum/mutation/catclaws/modify()
+/datum/mutation/human/catclaws/modify()
 	..()
 	if(added_damage)
 		owner.dna.species.punchdamage -= added_damage

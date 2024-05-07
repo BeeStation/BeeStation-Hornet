@@ -1017,7 +1017,7 @@
 		if(HAS_TRAIT(src, TRAIT_RADIMMUNE) || HAS_TRAIT(src, TRAIT_BADDNA))
 			to_chat(usr, "Mob cannot mutate")
 			return
-		var/list/mutations = subtypesof(/datum/mutation)
+		var/list/mutations = subtypesof(/datum/mutation/human)
 		var/result = input(usr, "Choose the mutation to give", "Mutate") as null|anything in mutations
 		if(!usr)
 			return
@@ -1026,7 +1026,7 @@
 		if(QDELETED(src))
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
-		var/datum/mutation/MT = result
+		var/datum/mutation/human/MT = result
 		if(dna.mutation_in_sequence(MT))
 			dna.activate_mutation(MT)
 			log_admin("[key_name(usr)] has activated the mutation [initial(MT.name)] in [key_name(src)]")
@@ -1051,7 +1051,7 @@
 			return
 		if(!result)
 			return
-		var/datum/mutation/MT = result
+		var/datum/mutation/human/MT = result
 		dna.remove_mutation(MT.type)
 		log_admin("[key_name(usr)] has removed [MT.name] from [key_name(src)]")
 		message_admins("<span class='notice'>[key_name_admin(usr)] has removed [MT.name] from [key_name_admin(src)].</span>")

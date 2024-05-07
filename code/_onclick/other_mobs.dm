@@ -19,7 +19,7 @@
 
 	var/override = 0
 
-	for(var/datum/mutation/HM as() in dna.mutations)
+	for(var/datum/mutation/human/HM as() in dna.mutations)
 		override += HM.on_attack_hand(A, proximity)
 
 	if(override)
@@ -93,7 +93,7 @@
 	. = ..()
 	if(!dna)
 		return
-	for(var/datum/mutation/HM as() in dna.mutations)
+	for(var/datum/mutation/human/HM as() in dna.mutations)
 		HM.on_ranged_attack(A, mouseparams)
 
 /mob/living/carbon/human/RangedAttack(atom/A, mouseparams)

@@ -1,4 +1,4 @@
-/datum/mutation/radioactive
+/datum/mutation/human/radioactive
 	name = "Radioactivity"
 	desc = "A volatile mutation that causes the host to sent out deadly beta radiation. This affects both the hosts and their surroundings."
 	quality = NEGATIVE
@@ -6,13 +6,13 @@
 	difficulty = 8
 	power_coeff = 1
 
-/datum/mutation/radioactive/New(class_ = MUT_OTHER, timer, datum/mutation/copymut)
+/datum/mutation/human/radioactive/New(class_ = MUT_OTHER, timer, datum/mutation/copymut)
 	..()
 	if(!(type in visual_indicators))
 		visual_indicators[type] = list(mutable_appearance('icons/effects/genetics.dmi', "radiation"))
 
-/datum/mutation/radioactive/on_life()
+/datum/mutation/human/radioactive/on_life()
 	radiation_pulse(owner, 20 * GET_MUTATION_POWER(src))
 
-/datum/mutation/radioactive/get_visual_indicator()
+/datum/mutation/human/radioactive/get_visual_indicator()
 	return visual_indicators[type][1]

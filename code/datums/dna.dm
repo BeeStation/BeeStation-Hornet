@@ -56,7 +56,7 @@
 	if(transfer_SE)
 		destination.dna.mutation_index = mutation_index
 		destination.dna.default_mutation_genes = default_mutation_genes
-		for(var/datum/mutation/M as() in mutations)
+		for(var/datum/mutation/human/M as() in mutations)
 			if(!istype(M, RACEMUT))
 				destination.dna.add_mutation(M, M.class)
 
@@ -84,8 +84,8 @@
 //See mutation.dm for what 'class' does. 'time' is time till it removes itself in decimals. 0 for no timer
 /datum/dna/proc/add_mutation(mutation, class = MUT_OTHER, time)
 	var/mutation_type = mutation
-	if(istype(mutation, /datum/mutation))
-		var/datum/mutation/HM = mutation
+	if(istype(mutation, /datum/mutation/human))
+		var/datum/mutation/human/HM = mutation
 		mutation_type = HM.type
 	if(get_mutation(mutation_type))
 		return
@@ -104,7 +104,7 @@
 /datum/dna/proc/remove_mutation_group(list/group, list/classes = list(MUT_NORMAL, MUT_EXTRA, MUT_OTHER), mutadone = FALSE)
 	if(!group)
 		return
-	for(var/datum/mutation/HM as() in group)
+	for(var/datum/mutation/human/HM as() in group)
 		if((HM.class in classes) && !(HM.mutadone_proof && mutadone))
 			force_lose(HM)
 
@@ -153,7 +153,7 @@
 	mutation_index[RACEMUT] = create_sequence(RACEMUT, FALSE)
 	default_mutation_genes[RACEMUT] = mutation_index[RACEMUT]
 	for(var/i in 2 to DNA_MUTATION_BLOCKS)
-		var/datum/mutation/M = mutations_temp[i]
+		var/datum/mutation/human/M = mutations_temp[i]
 		mutation_index[M.type] = create_sequence(M.type, FALSE, M.difficulty)
 		default_mutation_genes[M.type] = mutation_index[M.type]
 	shuffle_inplace(mutation_index)
@@ -169,7 +169,7 @@
 //Used to create a chipped gene sequence
 /proc/create_sequence(mutation, active, difficulty)
 	if(!difficulty)
-		var/datum/mutation/A = GET_INITIALIZED_MUTATION(mutation) //leaves the possibility to change difficulty mid-round
+		var/datum/mutation/human/A = GET_INITIALIZED_MUTATION(mutation) //leaves the possibility to change difficulty mid-round
 		if(!A)
 			return
 		difficulty = A.difficulty
@@ -223,7 +223,7 @@
 			setblock(uni_identity, blocknumber, construct_block(GLOB.hair_gradients_list.Find(H.gradient_style), GLOB.hair_gradients_list.len))
 
 //Please use add_mutation or activate_mutation instead
-/datum/dna/proc/force_give(datum/mutation/HM)
+/datum/dna/proc/force_give(datum/mutation/human/HM)
 	if(holder && HM)
 		if(HM.class == MUT_NORMAL)
 			set_se(TRUE, HM)
@@ -233,10 +233,11 @@
 		update_instability()
 
 //Use remove_mutation instead
-/datum/dna/proc/force_lose(datum/mutation/HM)
+/datum/dna/proc/force_lose(datum/mutation/human/HM)
 	if(holder && (HM in mutations))
 		set_se(FALSE, HM)
 		. = HM.on_losing(holder)
+		qdel()
 		update_instability(FALSE)
 		return
 
@@ -248,7 +249,7 @@
 
 /datum/dna/proc/update_instability(alert=TRUE)
 	stability = 100
-	for(var/datum/mutation/M as() in mutations)
+	for(var/datum/mutation/human/M as() in mutations)
 		if(M.class == MUT_EXTRA)
 			stability -= M.instability * GET_MUTATION_STABILIZER(M)
 	if(holder)
@@ -397,7 +398,7 @@
 		update_mutations_overlay()
 
 	if(LAZYLEN(mutations))
-		for(var/datum/mutation/HM as() in mutations)
+		for(var/datum/mutation/human/HM as() in mutations)
 			if(HM.allow_transfer || force_transfer_mutations)
 				dna.force_give(new HM.type(HM.class, copymut=HM)) //using force_give since it may include exotic mutations that otherwise wont be handled properly
 
@@ -461,7 +462,7 @@
 	update_mutations_overlay()
 
 /datum/dna/proc/check_block(mutation)
-	var/datum/mutation/HM = get_mutation(mutation)
+	var/datum/mutation/human/HM = get_mutation(mutation)
 	if(check_block_string(mutation))
 		if(!HM)
 			. = add_mutation(mutation, MUT_NORMAL)
@@ -470,7 +471,7 @@
 
 //Return the active mutation of a type if there is one
 /datum/dna/proc/get_mutation(A)
-	for(var/datum/mutation/HM in mutations)
+	for(var/datum/mutation/human/HM in mutations)
 		if(HM.type == A)
 			return HM
 
@@ -482,7 +483,7 @@
 /datum/dna/proc/is_gene_active(mutation)
 	return (mutation_index[mutation] == GET_SEQUENCE(mutation))
 
-/datum/dna/proc/set_se(on=TRUE, datum/mutation/HM)
+/datum/dna/proc/set_se(on=TRUE, datum/mutation/human/HM)
 	if(!HM || !(HM.type in mutation_index) || (LAZYLEN(mutation_index) < DNA_MUTATION_BLOCKS))
 		return
 	. = TRUE
@@ -497,8 +498,8 @@
 	if(!mutation)
 		return FALSE
 	var/mutation_type = mutation
-	if(istype(mutation, /datum/mutation))
-		var/datum/mutation/M = mutation
+	if(istype(mutation, /datum/mutation/human))
+		var/datum/mutation/human/M = mutation
 		mutation_type = M.type
 	if(!mutation_in_sequence(mutation_type)) //cant activate what we dont have, use add_mutation
 		return FALSE
@@ -526,8 +527,8 @@
 /datum/dna/proc/mutation_in_sequence(mutation)
 	if(!mutation)
 		return
-	if(istype(mutation, /datum/mutation))
-		var/datum/mutation/HM = mutation
+	if(istype(mutation, /datum/mutation/human))
+		var/datum/mutation/human/HM = mutation
 		if(HM.type in mutation_index)
 			return TRUE
 	else if(mutation in mutation_index)
@@ -551,7 +552,7 @@
 	if(quality & MINOR_NEGATIVE)
 		mutations += GLOB.not_good_mutations
 	var/list/possible = list()
-	for(var/datum/mutation/A as() in mutations)
+	for(var/datum/mutation/human/A as() in mutations)
 		if((!sequence || dna.mutation_in_sequence(A.type)) && !dna.get_mutation(A.type))
 			possible += A.type
 	if(exclude_monkey)
@@ -560,7 +561,7 @@
 		var/mutation = pick(possible)
 		. = dna.activate_mutation(mutation)
 		if(scrambled)
-			var/datum/mutation/HM = dna.get_mutation(mutation)
+			var/datum/mutation/human/HM = dna.get_mutation(mutation)
 			if(HM)
 				HM.scrambled = TRUE
 		return TRUE

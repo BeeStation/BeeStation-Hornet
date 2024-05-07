@@ -195,7 +195,7 @@
 
 /obj/item/melee/touch_attack/mutation
 	catchphrase = null
-	var/datum/mutation/parent_mutation
+	var/datum/mutation/human/parent_mutation
 
 /obj/item/melee/touch_attack/mutation/Initialize(_mapload, obj/effect/proc_holder/spell/targeted/touch/_spell, datum/mutation/_parent)
 	. = ..()

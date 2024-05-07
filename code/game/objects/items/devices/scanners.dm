@@ -939,12 +939,12 @@ GENE SCANNER
 	var/list/full_list_mutations = list()
 	for(var/each in buffer) // get inherent mutations first
 		full_list_mutations[each] = FALSE
-	for(var/datum/mutation/each_mutation in C.dna.mutations)
+	for(var/datum/mutation/human/each_mutation in C.dna.mutations)
 		if(each_mutation.type in buffer) // active inherent mutation
 			full_list_mutations[each_mutation.type] = "Activated"
 		else // active artificial mutation
 			full_list_mutations[each_mutation.type] = "Injected"
-	for(var/datum/mutation/each_mutation in C.dna.temporary_mutations)
+	for(var/datum/mutation/human/each_mutation in C.dna.temporary_mutations)
 		full_list_mutations[each_mutation.type] = "Temporary"
 
 	for(var/A in full_list_mutations)
@@ -987,7 +987,7 @@ GENE SCANNER
 	ready = TRUE
 
 /obj/item/sequence_scanner/proc/get_display_name(mutation, active_detail=FALSE)
-	var/datum/mutation/HM = GET_INITIALIZED_MUTATION(mutation)
+	var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(mutation)
 	if(!HM)
 		return "ERROR"
 	if(discovered[mutation])

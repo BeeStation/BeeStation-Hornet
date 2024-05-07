@@ -1,4 +1,4 @@
-/datum/mutation/telepathy
+/datum/mutation/human/telepathy
 	name = "Telepathy"
 	desc = "A rare mutation that allows the user to telepathically communicate to others."
 	quality = POSITIVE
@@ -6,7 +6,7 @@
 	power = /obj/effect/proc_holder/spell/targeted/telepathy
 	instability = 10
 
-/datum/mutation/olfaction
+/datum/mutation/human/olfaction
 	name = "Transcendent Olfaction"
 	desc = "Your sense of smell is comparable to that of a canine."
 	quality = POSITIVE
@@ -73,7 +73,7 @@
 	if(direction_text)
 		to_chat(user,"<span class='notice'>You consider <span class='name'>[tracking_target]</span>'s scent. The trail leads <b>[direction_text].</b></span>")
 
-/datum/mutation/firebreath
+/datum/mutation/human/firebreath
 	name = "Fire Breath"
 	desc = "An ancient mutation that gives lizards breath of fire."
 	quality = POSITIVE
@@ -85,7 +85,7 @@
 	power_coeff = 1
 	species_allowed = list(SPECIES_LIZARD)
 
-/datum/mutation/firebreath/modify()
+/datum/mutation/human/firebreath/modify()
 	..()
 	if(power)
 		var/obj/effect/proc_holder/spell/aimed/firebreath/firebreath = power
@@ -133,7 +133,7 @@
 	exp_fire = 4
 	magic = FALSE
 
-/datum/mutation/void
+/datum/mutation/human/void
 	name = "Void Magnet"
 	desc = "A rare genome that attracts odd forces not usually observed."
 	quality = MINOR_NEGATIVE //upsides and downsides
@@ -142,7 +142,7 @@
 	energy_coeff = 1
 	synchronizer_coeff = 1
 
-/datum/mutation/void/on_life()
+/datum/mutation/human/void/on_life()
 	if(!isturf(owner.loc))
 		return
 	if(prob((0.5 + ((100 - dna.stability) / 20))) * GET_MUTATION_SYNCHRONIZER(src)) //very rare, but enough to annoy you hopefully. +0.5 probability for every 10 points lost in stability
@@ -167,7 +167,7 @@
 	. = ..()
 	new /obj/effect/immortality_talisman/void(get_turf(user), user)
 
-/datum/mutation/self_amputation
+/datum/mutation/human/self_amputation
 	name = "Autotomy"
 	desc = "Allows a creature to voluntary discard a random appendage."
 	quality = POSITIVE
@@ -196,7 +196,7 @@
 	var/obj/item/bodypart/yeeted_limb = pick(parts)
 	yeeted_limb.dismember()
 
-/datum/mutation/overload
+/datum/mutation/human/overload
 	name = "Overload"
 	desc = "Allows an Ethereal to overload their skin to cause a bright flash."
 	quality = POSITIVE
@@ -207,7 +207,7 @@
 	energy_coeff = 1
 	power_coeff = 1
 
-/datum/mutation/overload/modify()
+/datum/mutation/human/overload/modify()
 	..()
 	if(power)
 		var/static/max_range = min(getviewsize(world.view)[1], getviewsize(world.view)[2]) - 2
@@ -236,13 +236,13 @@
 		if(C.flash_act(1))
 			C.Paralyze(10 + (5*max_distance))
 
-/datum/mutation/overload/modify()
+/datum/mutation/human/overload/modify()
 	if(power)
 		var/obj/effect/proc_holder/spell/self/overload/S = power
 		S.max_distance = 4 * GET_MUTATION_POWER(src)
 
 //Psyphoza species mutation
-/datum/mutation/spores
+/datum/mutation/human/spores
 	name = "Agaricale Pores" //Pores, not spores
 	desc = "An ancient mutation that gives psyphoza the ability to produce spores."
 	quality = POSITIVE

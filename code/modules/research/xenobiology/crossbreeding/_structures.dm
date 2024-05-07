@@ -486,7 +486,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/green
 	colour = "green"
-	var/datum/mutation/stored_mutation
+	var/datum/mutation/human/stored_mutation
 
 /obj/structure/slime_crystal/green/examine(mob/user)
 	. = ..()
@@ -519,10 +519,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	for(var/X in mut_list)
 		if(istype(X,stored_mutation))
 			continue
-		var/datum/mutation/t_mutation = X
+		var/datum/mutation/human/t_mutation = X
 		secondary_list += t_mutation.type
 
-	var/datum/mutation/mutation = pick(secondary_list)
+	var/datum/mutation/human/mutation = pick(secondary_list)
 	carbon_mob.dna.remove_mutation(mutation)
 
 /obj/structure/slime_crystal/green/on_mob_leave(mob/living/affected_mob)

@@ -141,7 +141,7 @@
 			var/obj/item/organ/wings/moth/W = H.getorgan(/obj/item/organ/wings/moth)
 			if(W)
 				W.flight_level = WINGS_FLIGHTLESS//The check for wings getting burned makes them cosmetic, so this allows the burned off effect to be applied again
-				if(locate(/datum/mutation/strongwings) in H.dna.mutations)
+				if(locate(/datum/mutation/human/strongwings) in H.dna.mutations)
 					W.flight_level = WINGS_FLYING
 		H.dna.species.handle_mutant_bodyparts(H)
 		H.dna.species.handle_body(H)

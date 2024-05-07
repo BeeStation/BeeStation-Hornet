@@ -565,8 +565,8 @@
 		M.radiation += rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2))
 		var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
 		for(var/mutation in add_mutations)
-			var/datum/mutation/HM = mutation
-			if(istype(HM, /datum/mutation))
+			var/datum/mutation/human/HM = mutation
+			if(istype(HM, /datum/mutation/human))
 				mutation = HM.type
 			if(!M.dna.activate_mutation(HM))
 				if(!doitanyway)
