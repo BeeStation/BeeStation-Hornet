@@ -56,7 +56,7 @@
 	pixel_y = 1
 	},
 /obj/structure/bed/roller,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/medical/genetics)
 "aal" = (
@@ -77,12 +77,12 @@
 /area/maintenance/starboard/aft)
 "aan" = (
 /obj/structure/bed/roller,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/medical/genetics)
 "aao" = (
 /obj/machinery/light/small,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/medical/genetics)
 "aap" = (
@@ -7888,7 +7888,7 @@
 	pixel_x = -25;
 	pixel_y = 28
 	},
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
@@ -14959,7 +14959,7 @@
 	dir = 1;
 	pixel_y = 1
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/medical/genetics)
 "eGC" = (
@@ -30500,7 +30500,7 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "jLw" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "jLA" = (

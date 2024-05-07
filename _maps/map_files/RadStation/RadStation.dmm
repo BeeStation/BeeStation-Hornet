@@ -8570,7 +8570,7 @@
 	name = "Monkey Pen";
 	req_access_txt = "9"
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/vault,
 /area/medical/genetics)
 "cLT" = (
@@ -33330,7 +33330,7 @@
 /turf/open/floor/engine,
 /area/engine/engine_room)
 "ktc" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "ktu" = (
@@ -45086,7 +45086,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/vault,
 /area/medical/genetics)
 "nZk" = (
@@ -50162,7 +50162,7 @@
 /area/crew_quarters/kitchen)
 "pFF" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "pGd" = (
@@ -67227,7 +67227,7 @@
 	dir = 4;
 	layer = 3
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/vault,
 /area/medical/genetics)
 "uXN" = (
@@ -67814,7 +67814,7 @@
 /area/science/robotics)
 "vhE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "vhM" = (

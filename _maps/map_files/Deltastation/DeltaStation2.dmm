@@ -47897,7 +47897,7 @@
 /turf/closed/wall,
 /area/janitor/custodian)
 "iGk" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "iGD" = (
@@ -63640,7 +63640,7 @@
 /area/crew_quarters/locker)
 "nUK" = (
 /obj/machinery/deepfryer,
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
@@ -84656,7 +84656,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/end,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/medical/genetics)
 "vgQ" = (
@@ -88325,7 +88325,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/medical/genetics)
 "wqz" = (
@@ -90549,7 +90549,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/medical/genetics)
 "xbJ" = (

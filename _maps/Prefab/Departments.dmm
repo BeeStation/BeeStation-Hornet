@@ -357,7 +357,7 @@
 /area/maintenance/disposal)
 "jF" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /mob/living/simple_animal/pet/hamster/vector{
 	pixel_x = 1;
 	pixel_y = 10
@@ -1117,7 +1117,7 @@
 /area/space)
 "Fa" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
 "Fh" = (

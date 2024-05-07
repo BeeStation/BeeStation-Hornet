@@ -147,7 +147,7 @@
 	name = "Monkified"
 	desc = "A strange genome, believed to be what differentiates monkeys from humans."
 	quality = NEGATIVE
-	mobtypes_allowed = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
+	mobtypes_allowed = list(/mob/living/carbon/human, /mob/living/carbon/human/species/monkey)
 	locked = TRUE //Species specific, keep out of actual gene pool
 	var/datum/species/original_species = /datum/species/human
 
@@ -155,11 +155,11 @@
 	if(..())
 		return
 	original_species = owner.dna.species.type
-	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, FALSE, TRUE)
+	. = owner.monkeyize()
 
-/datum/mutation/race/on_losing(mob/living/carbon/monkey/owner)
-	if(istype(owner) && owner.stat != DEAD && !..())
-		. = owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, TRUE, original_species)
+/datum/mutation/race/on_losing(mob/living/carbon/human/owner)
+	if(owner && owner.stat != DEAD && (owner.dna.mutations.Remove(src)) && ismonkey(owner))
+		. = owner.humanize()
 
 /datum/mutation/glow
 	name = "Glowy"

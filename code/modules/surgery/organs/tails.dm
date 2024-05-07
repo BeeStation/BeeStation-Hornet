@@ -112,3 +112,24 @@
 		species.mutant_bodyparts -= list("waggingtail_lizard", "waggingspines")
 		species.mutant_bodyparts |= list("tail_lizard", "spines")
 	H.update_body()
+
+/obj/item/organ/tail/monkey
+	name = "monkey tail"
+	desc = "A severed monkey tail. Does not look like a banana."
+	tail_type = "Monkey"
+	icon_state = "severedmonkeytail"
+
+/obj/item/organ/tail/lizard/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE, pref_load = FALSE)
+	..()
+	if(istype(H))
+		if(!("tail_monkey" in H.dna.species.mutant_bodyparts))
+			H.dna.species.mutant_bodyparts |= "tail_monkey"
+			H.dna.features["tail_monkey"] = tail_type
+			H.update_body()
+
+/obj/item/organ/tail/lizard/Remove(mob/living/carbon/human/H, special = 0, pref_load = FALSE)
+	..()
+	if(istype(H))
+		H.dna.features["tail_monkey"] = "None"
+		H.dna.species.mutant_bodyparts -= "tail_monkey"
+		H.update_body()

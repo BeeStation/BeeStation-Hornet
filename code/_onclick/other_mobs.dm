@@ -25,7 +25,10 @@
 	if(override)
 		return
 
-	SEND_SIGNAL(src, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, A)
+	SEND_SIGNAL(src, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, A, proximity)
+
+	if(dna?.species?.spec_unarmedattack(src, A)) //Because species like monkeys dont use attack hand
+		return
 	A.attack_hand(src)
 
 /// Return TRUE to cancel other attack hand effects that respect it.
@@ -123,18 +126,6 @@
 /mob/living/RestrainedClickOn(atom/A)
 	return
 
-/*
-	Monkeys
-*/
-/mob/living/carbon/monkey/UnarmedAttack(atom/A, proximity)
-	var/override = 0
-	for(var/datum/mutation/HM as() in dna.mutations)
-		override += HM.on_attack_hand(A, proximity)
-	if(override)
-		return
-
-	A.attack_paw(src)
-
 /atom/proc/attack_paw(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_PAW, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
@@ -147,7 +138,7 @@
 	moving it here instead of various hand_p's has simplified
 	things considerably
 */
-/mob/living/carbon/monkey/RestrainedClickOn(atom/A)
+/mob/living/carbon/human/species/monkey/RestrainedClickOn(atom/A)
 	if(..())
 		return
 	if(a_intent != INTENT_HARM || !ismob(A))

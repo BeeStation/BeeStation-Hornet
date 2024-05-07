@@ -18,7 +18,7 @@
 	var/worth = 0
 	if (istype(L, /mob/living/carbon/human))
 		worth = 1
-	else if (istype(L, /mob/living/carbon/monkey))
+	else if (istype(L, /mob/living/carbon/human/species/monkey))
 		worth = 0.1
 	else if (istype(L, /mob/living/carbon/alien/larva))
 		worth = 1

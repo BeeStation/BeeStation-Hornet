@@ -76,7 +76,7 @@
 
 /mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
 	var/list/parts = target_bodyparts(target)
-	return ..() && !istype(the_target, /mob/living/carbon/monkey) && (!parts  || parts.len > 3)
+	return ..() && !ismonkey(the_target) && (!parts || parts.len > 3)
 
 
 /mob/living/simple_animal/hostile/gorilla/CanSmashTurfs(turf/T)

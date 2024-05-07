@@ -2466,7 +2466,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "aGg" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -12749,7 +12749,7 @@
 /turf/open/floor/iron/grid/steel,
 /area/science/xenobiology)
 "dlL" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green{
 	dir = 8
 	},
@@ -16445,7 +16445,7 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "elN" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green{
 	dir = 4
 	},
@@ -16811,7 +16811,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/vault,
 /area/medical/genetics)
 "erC" = (
@@ -32145,7 +32145,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/vault,
 /area/medical/genetics)
 "igc" = (
@@ -51366,7 +51366,7 @@
 /area/maintenance/port/central)
 "mZO" = (
 /obj/item/toy/beach_ball,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green,
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
@@ -72999,7 +72999,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green/corner{
 	dir = 1
 	},
@@ -75672,7 +75672,7 @@
 /area/crew_quarters/locker)
 "toR" = (
 /obj/structure/chair/stool,
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "toW" = (
@@ -80148,7 +80148,7 @@
 /turf/open/floor/grass,
 /area/science/research)
 "uvS" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/siding/dark_green{
 	dir = 1
 	},

@@ -8773,7 +8773,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron,
 /area/medical/genetics)
 "bFI" = (
@@ -10868,7 +10868,7 @@
 /turf/open/floor/iron/white,
 /area/medical/virology)
 "bSU" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/flasher{
 	id = "monkeypen";
 	pixel_y = 23
@@ -12344,7 +12344,7 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "bZT" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/iron/freezer,
 /area/medical/virology)
 "bZU" = (
@@ -15411,7 +15411,7 @@
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "ctA" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -15472,7 +15472,7 @@
 /turf/closed/wall,
 /area/engine/engineering)
 "ctV" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
@@ -15508,7 +15508,7 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/service)
 "cum" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -37571,7 +37571,7 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "lqk" = (
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
@@ -40877,7 +40877,7 @@
 /area/science/mixing)
 "mUm" = (
 /obj/structure/window/reinforced,
-/mob/living/carbon/monkey,
+/mob/living/carbon/human/species/monkey,
 /obj/effect/spawner/structure/window/reinforced,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
@@ -63163,7 +63163,7 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "wRy" = (
-/mob/living/carbon/monkey/punpun,
+/mob/living/carbon/human/species/monkey/punpun,
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
 "wRS" = (

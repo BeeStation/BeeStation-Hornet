@@ -11,7 +11,7 @@
 	range = 7
 	cooldown_min = 30
 	selection_type = "range"
-	var/static/list/compatible_mobs_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/carbon/monkey))
+	var/static/list/compatible_mobs_typecache = typecacheof(list(/mob/living/carbon/human))
 
 	action_icon_state = "barn"
 
