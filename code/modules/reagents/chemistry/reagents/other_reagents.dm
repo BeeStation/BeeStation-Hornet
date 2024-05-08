@@ -1115,16 +1115,18 @@
 	O?.wash(clean_types)
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, reac_volume)
-	if(reac_volume >= 1)
-		T.wash(clean_types)
-		for(var/am in T)
-			var/atom/movable/movable_content
-			if(ismopable(movable_content)) // Mopables will be cleaned anyways by the turf wash
-				continue
-			movable_content.wash(clean_types)
+	if(reac_volume < 1)
+		return
 
-		for(var/mob/living/simple_animal/slime/M in T)
-			M.adjustToxLoss(rand(5,10))
+	T.wash(clean_types)
+	for(var/am in T)
+		var/atom/movable/movable_content = am
+		if(ismopable(movable_content)) // Mopables will be cleaned anyways by the turf wash
+			continue
+		movable_content.wash(clean_types)
+
+	for(var/mob/living/simple_animal/slime/M in T)
+		M.adjustToxLoss(rand(5,10))
 
 /datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)

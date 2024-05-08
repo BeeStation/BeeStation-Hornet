@@ -35,7 +35,7 @@
 /datum/reagent/blob/zombifying_pods/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	reac_volume = ..()
 	M.apply_damage(0.6*reac_volume, TOX)
-	if(O && ishuman(M) && M.stat == UNCONSCIOUS)
+	if(O && ishuman(M) && (M.stat == UNCONSCIOUS || M.stat == HARD_CRIT))
 		M.investigate_log("has been killed by distributed neurons (blob).", INVESTIGATE_DEATHS)
 		M.death() //sleeping in a fight? bad plan.
 		var/points = rand(5, 10)

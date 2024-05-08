@@ -1003,7 +1003,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	target_paycheck = ACCOUNT_ENG_ID
 	icon_screen = "idce"
 
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 
 #undef DEPT_ALL
 #undef DEPT_GEN

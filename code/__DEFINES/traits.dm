@@ -143,6 +143,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESTRAINED "restrained"
 */
 #define TRAIT_INCAPACITATED "incapacitated"
+//In some kind of critical condition. Is able to succumb.
+#define TRAIT_CRITICAL_CONDITION "critical-condition"
 
 //mob traits
 #define TRAIT_BLIND "blind"
@@ -385,6 +387,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CHOKEHOLD_TRAIT "chokehold"
 //trait associated to resting
 #define RESTING_TRAIT "resting"
+//trait associated to a stat value or range of
+#define STAT_TRAIT "stat"
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"

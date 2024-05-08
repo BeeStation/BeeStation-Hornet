@@ -1,6 +1,5 @@
 /datum/job/head_of_personnel
 	title = JOB_NAME_HEADOFPERSONNEL
-	flag = HOP
 	description = "Second in command on the station, oversee the crew assigned to service and cargo positions, handle department transfer requests by consulting relevant heads. Protect Ian at all costs."
 	department_for_prefs = DEPT_BITFLAG_CAPTAIN
 	department_head_for_prefs = JOB_NAME_CAPTAIN
@@ -35,7 +34,6 @@
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_COM | DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(

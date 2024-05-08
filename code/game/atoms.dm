@@ -1538,6 +1538,8 @@
 			log_comment(log_text)
 		if(LOG_TELECOMMS)
 			log_telecomms(log_text)
+		if(LOG_ECON)
+			log_econ(log_text)
 		if(LOG_OOC)
 			log_ooc(log_text)
 		if(LOG_ADMIN)
@@ -1769,6 +1771,14 @@
   */
 /atom/proc/setClosed()
 	return
+
+/**
+  * Used to attempt to charge an object with a payment component.
+  *
+  * Use this if an atom needs to attempt to charge another atom.
+  */
+/atom/proc/attempt_charge(var/atom/sender, var/atom/target, var/extra_fees = 0)
+	return SEND_SIGNAL(sender, COMSIG_OBJ_ATTEMPT_CHARGE, target, extra_fees)
 
 /**
 * Instantiates the AI controller of this atom. Override this if you want to assign variables first.
