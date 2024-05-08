@@ -99,12 +99,12 @@
 	name = "\improper Power-ON disk"
 	desc = "Engineers ignoring station power-draw since 2400."
 	icon_state = "cart-engie"
-	disk_flags = DISK_POWER
+	disk_flags = DISK_POWER | DISK_STATUS
 
 /obj/item/computer_hardware/hard_drive/role/atmos
 	name = "\improper BreatheDeep disk"
 	icon_state = "cart-atmos"
-	disk_flags = DISK_ATMOS | DISK_ROBOS
+	disk_flags = DISK_ATMOS | DISK_ROBOS | DISK_STATUS
 
 /obj/item/computer_hardware/hard_drive/role/medical
 	name = "\improper Med-U disk"
