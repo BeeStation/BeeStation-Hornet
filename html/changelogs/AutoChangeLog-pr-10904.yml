@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: Refactored weather code and fixed weather bad rendering issue.
+  - bugfix: Void Heretic no longer shows void weather where they don't stand on.
