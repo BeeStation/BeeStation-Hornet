@@ -87,6 +87,9 @@
 		progs_to_store += new /datum/computer_file/program/card_mod(src)
 		progs_to_store += new /datum/computer_file/program/job_management(src)
 
+	if(disk_flags & DISK_ALARM)
+		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
+
 	for (var/datum/computer_file/program/prog in progs_to_store)
 		prog.usage_flags = PROGRAM_ALL
 		prog.required_access = list()
@@ -99,12 +102,12 @@
 	name = "\improper Power-ON disk"
 	desc = "Engineers ignoring station power-draw since 2400."
 	icon_state = "cart-engie"
-	disk_flags = DISK_POWER | DISK_STATUS
+	disk_flags = DISK_POWER | DISK_ALARM
 
 /obj/item/computer_hardware/hard_drive/role/atmos
 	name = "\improper BreatheDeep disk"
 	icon_state = "cart-atmos"
-	disk_flags = DISK_ATMOS | DISK_ROBOS | DISK_STATUS
+	disk_flags = DISK_ATMOS | DISK_ROBOS | DISK_ALARM
 
 /obj/item/computer_hardware/hard_drive/role/medical
 	name = "\improper Med-U disk"
@@ -171,7 +174,7 @@
 	name = "space parts DELUXE disk"
 	icon_state = "cart-qm"
 	desc = "Perfect for the Quartermaster on the go!"
-	disk_flags = DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET
+	disk_flags = DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET 
 
 /obj/item/computer_hardware/hard_drive/role/cargo_technician
 	name = "space parts disk"
@@ -197,7 +200,7 @@
 /obj/item/computer_hardware/hard_drive/role/ce
 	name = "\improper Power-On DELUXE disk"
 	icon_state = "cart-ce"
-	disk_flags = DISK_POWER | DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_ROBOS | DISK_BUDGET
+	disk_flags = DISK_POWER | DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_ROBOS | DISK_BUDGET | DISK_ALARM
 
 /obj/item/computer_hardware/hard_drive/role/cmo
 	name = "\improper Med-U DELUXE disk"
