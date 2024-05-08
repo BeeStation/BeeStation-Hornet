@@ -1,4 +1,3 @@
-/*
 /datum/action/changeling/teratoma
 	name = "Birth Teratoma"
 	desc = "Our form divides, creating an egg that will soon hatch into a living tumor, fixated on causing mayhem"
@@ -37,4 +36,3 @@
 	to_chat(T, "<span='notice'>You burst out from [user]'s chest!</span>")
 	SEND_SOUND(T, sound('sound/effects/blobattack.ogg'))
 	return TRUE
-*/
