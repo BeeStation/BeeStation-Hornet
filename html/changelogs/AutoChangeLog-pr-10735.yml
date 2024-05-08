@@ -1,5 +1,0 @@
-author: DrDuckedGoose
-delete-after: true
-changes:
-  - bugfix: Fix emissives on players
-  - tweak: Add filter compatibility to emissives

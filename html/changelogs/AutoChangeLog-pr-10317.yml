@@ -1,9 +1,0 @@
-author: rkz, nightred, lemoninthedark
-delete-after: true
-changes:
-  - refactor: refactored temperature stabilization in humans. Split human temperature
-      into core temperature, which is affected by fevers & shivering symptoms and
-      represents the overall temperature range, and Body Temperature which is what
-      is directly affected by environmental factors and projectiles.
-  - rscadd: All species will now receive temperature HUD alerts before receiving damage.
-  - balance: recalculates burn damage based on overall temperature

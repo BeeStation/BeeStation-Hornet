@@ -1,5 +1,0 @@
-author: rkz, coiax
-delete-after: true
-changes:
-  - refactor: Refactors step_action to save us from a few thousand useless proccalls
-      per shift

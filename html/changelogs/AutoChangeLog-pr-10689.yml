@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: cleaned up religion code into multiple dm files
