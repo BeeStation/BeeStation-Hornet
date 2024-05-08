@@ -2057,7 +2057,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	// Apply some burn damage to the body
 	if(humi.coretemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(humi, TRAIT_RESISTCOLD))
 		switch(humi.coretemperature)
-			if(201 to bodytemp_cold_damage_limit)
+			if(201 to INFINITY)
 				humi.apply_damage(COLD_DAMAGE_LEVEL_1 * coldmod * humi.physiology.cold_mod, BURN)
 			if(120 to 200)
 				humi.apply_damage(COLD_DAMAGE_LEVEL_2 * coldmod * humi.physiology.cold_mod, BURN)
