@@ -10,6 +10,7 @@
 	item_state = "gun"
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
+	item_flags = SLOWS_WHILE_IN_HAND
 	custom_materials = list(/datum/material/iron=2000)
 	w_class = WEIGHT_CLASS_LARGE
 	throwforce = 5
@@ -91,12 +92,13 @@
 	var/ranged_cooldown = 0
 
 	// Equipping
-	/// The slowdown applied to mobs upon a gun being equipped
-	var/equip_slowdown = 0.5
 	/// The time it takes for a gun to count as equipped, null to get a precalculated value
 	var/equip_time = null
 	/// The timer ID of our equipping action
 	VAR_PRIVATE/equip_timer_id
+
+	// Weapon slowdown
+	var/has_weapon_slowdown = TRUE
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
@@ -111,12 +113,16 @@
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
 	if (isnull(equip_time))
-		// Light guns: 1.5 second equip time
-		// Medium guns: 2 second equip time
-		// Heavy guns: 2.5 second equip time
-		equip_time = weapon_weight * 5 + 10
-	if(isnull(spread_unwielded))
+		// Light guns: 0.5 second equip time
+		// Medium guns: 0.8 second equip time
+		// Heavy guns: 1.1 second equip time
+		equip_time = weapon_weight * 3 + 2
+	if (isnull(spread_unwielded))
 		spread_unwielded = weapon_weight * 10 + 10
+	if (has_weapon_slowdown)
+		if (!slowdown)
+			slowdown = 0.3 + weapon_weight * 0.1
+		item_flags |= SLOWS_WHILE_IN_HAND
 	if(requires_wielding)
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
 		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(unwield))
@@ -194,10 +200,7 @@
 	if (slot == ITEM_SLOT_HANDS)
 		ranged_cooldown = max(world.time + equip_time, ranged_cooldown)
 		user.client?.give_cooldown_cursor(ranged_cooldown - world.time)
-		equip_timer_id = addtimer(CALLBACK(src, PROC_REF(clear_gun_equip_slowdown), user), equip_time, TIMER_STOPPABLE)
-		user.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/drawing_firearm, multiplicative_slowdown = equip_slowdown)
 	else
-		clear_gun_equip_slowdown(user)
 		if (equip_timer_id)
 			deltimer(equip_timer_id)
 			equip_timer_id = null
@@ -215,15 +218,9 @@
 		zoom(user, user.dir)
 	update_icon()
 	user.client?.clear_cooldown_cursor()
-	clear_gun_equip_slowdown(user)
 	if (equip_timer_id)
 		deltimer(equip_timer_id)
 		equip_timer_id = null
-
-/obj/item/gun/proc/clear_gun_equip_slowdown(mob/living/user)
-	slowdown = initial(slowdown)
-	user.remove_movespeed_modifier(/datum/movespeed_modifier/drawing_firearm)
-	equip_timer_id = null
 
 //called after the gun has successfully fired its chambered ammo.
 /obj/item/gun/proc/process_chamber()

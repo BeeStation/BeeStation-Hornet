@@ -355,7 +355,7 @@
 	switch(stat)
 		if(CONSCIOUS)
 			holder.icon_state = "hudstat"
-		if(UNCONSCIOUS)
+		if(UNCONSCIOUS, HARD_CRIT)
 			holder.icon_state = "hudoffline"
 		else
 			holder.icon_state = "huddead2"

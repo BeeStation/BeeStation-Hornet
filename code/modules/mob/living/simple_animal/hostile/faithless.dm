@@ -17,7 +17,7 @@
 	maxHealth = 80
 	health = 80
 	spacewalk = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 
 	obj_damage = 50
@@ -32,5 +32,5 @@
 	faction = list("faithless")
 	gold_core_spawnable = HOSTILE_SPAWN
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE

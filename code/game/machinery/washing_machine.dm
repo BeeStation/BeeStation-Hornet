@@ -21,7 +21,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director,
 		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer,
 		DYE_DENIED = /obj/item/clothing/under/color/rainbow/denied,
-		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer
+		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer,
+		DYE_SYNDICATE = /obj/item/clothing/under/syndicate,
+		DYE_CENTCOM = /obj/item/clothing/under/rank/centcom/commander
 	),
 	DYE_REGISTRY_JUMPSKIRT = list(
 		DYE_RED = /obj/item/clothing/under/color/jumpskirt/red,
@@ -44,7 +46,10 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RD = /obj/item/clothing/under/rank/rnd/research_director/skirt,
 		DYE_CMO = /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt,
 		DYE_DENIED = /obj/item/clothing/under/color/rainbow/denied/skirt,
-		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer/skirt
+		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer/skirt,
+		DYE_SECURITY = /obj/item/clothing/under/rank/security/officer,
+		DYE_SYNDICATE = /obj/item/clothing/under/syndicate,
+		DYE_CENTCOM = /obj/item/clothing/under/rank/centcom/commander
 	),
 	DYE_REGISTRY_SUITS = list(
 		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster/turtleneck,
@@ -72,7 +77,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RD = /obj/item/clothing/gloves/color/grey,
 		DYE_CMO = /obj/item/clothing/gloves/color/latex/nitrile,
 		DYE_DENIED = /obj/item/clothing/gloves/color/denied,
-		DYE_SECURITY = /obj/item/clothing/gloves/color/black
+		DYE_SECURITY = /obj/item/clothing/gloves/color/black,
+		DYE_SYNDICATE = /obj/item/clothing/under/syndicate,
+		DYE_CENTCOM = /obj/item/clothing/under/rank/centcom/commander
 	),
 	DYE_REGISTRY_SNEAKERS = list(
 		DYE_RED = /obj/item/clothing/shoes/sneakers/red,
