@@ -30,9 +30,11 @@
 	if(disk_flags & DISK_POWER)
 		progs_to_store += new /datum/computer_file/program/power_monitor(src)
 		progs_to_store += new /datum/computer_file/program/supermatter_monitor(src)
+		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
 
 	if(disk_flags & DISK_ATMOS)
 		progs_to_store += new /datum/computer_file/program/atmosscan(src)
+		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
 
 	if(disk_flags & DISK_SEC)
 		progs_to_store += new /datum/computer_file/program/records/security(src)
@@ -61,9 +63,6 @@
 	if(disk_flags & DISK_ROBOS)
 		var/datum/computer_file/program/robocontrol/robo = new(src)
 		progs_to_store += robo
-
-	if(disk_flags & DISK_ALARM)
-		progs_to_store += new var/datum/computer_file/program/alarm_monitor(src)
 
 	if(disk_flags & DISK_CARGO)
 		progs_to_store += new /datum/computer_file/program/bounty(src)
@@ -102,12 +101,12 @@
 	name = "\improper Power-ON disk"
 	desc = "Engineers ignoring station power-draw since 2400."
 	icon_state = "cart-engie"
-	disk_flags = DISK_POWER | DISK_ALARM
+	disk_flags = DISK_POWER
 
 /obj/item/computer_hardware/hard_drive/role/atmos
 	name = "\improper BreatheDeep disk"
 	icon_state = "cart-atmos"
-	disk_flags = DISK_ATMOS | DISK_ROBOS | DISK_ALARM
+	disk_flags = DISK_ATMOS | DISK_ROBOS
 
 /obj/item/computer_hardware/hard_drive/role/medical
 	name = "\improper Med-U disk"
@@ -174,7 +173,7 @@
 	name = "space parts DELUXE disk"
 	icon_state = "cart-qm"
 	desc = "Perfect for the Quartermaster on the go!"
-	disk_flags = DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET 
+	disk_flags = DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET
 
 /obj/item/computer_hardware/hard_drive/role/cargo_technician
 	name = "space parts disk"
@@ -200,7 +199,7 @@
 /obj/item/computer_hardware/hard_drive/role/ce
 	name = "\improper Power-On DELUXE disk"
 	icon_state = "cart-ce"
-	disk_flags = DISK_POWER | DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_ROBOS | DISK_BUDGET | DISK_ALARM
+	disk_flags = DISK_POWER | DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_ROBOS | DISK_BUDGET
 
 /obj/item/computer_hardware/hard_drive/role/cmo
 	name = "\improper Med-U DELUXE disk"
