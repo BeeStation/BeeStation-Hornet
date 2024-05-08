@@ -12,7 +12,6 @@
 
 /obj/item/clothing/head/monkey_sentience_helmet/update_icon()
 	. = ..()
-	compile_monkey_icon()
 	if(ismob(loc))
 		var/mob/mob = loc
 		mob.update_inv_head()

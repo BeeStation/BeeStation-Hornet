@@ -18,12 +18,13 @@
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
 	var/current_body_size = BODY_SIZE_NORMAL
 	//Holder for the displacement appearance, related to species height
-	var/icon/height_displacement
+	var/atom/movable/height_displacement_holder
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
 		holder = new_holder
-	height_displacement = icon('icons/effects/64x64.dmi', "height_displacement")
+	update_height_holder()
+	new_holder?.vis_contents += height_displacement_holder
 
 /datum/dna/Destroy()
 	if(iscarbon(holder))
@@ -31,8 +32,9 @@
 		if(cholder?.dna == src)
 			cholder.dna = null
 	holder?.remove_filter("species_height_displacement")
+	holder?.vis_contents -= height_displacement_holder
 	holder = null
-	QDEL_NULL(height_displacement)
+	QDEL_NULL(height_displacement_holder)
 
 	if(delete_species)
 		QDEL_NULL(species)
@@ -69,7 +71,7 @@
 	new_dna.features = features.Copy()
 	new_dna.species = new species.type
 	new_dna.real_name = real_name
-	new_dna.update_body_size() //Must come after features.Copy()
+	new_dna.update_body_size(TRUE) //Must come after features.Copy()
 	new_dna.mutations = mutations.Copy()
 
 /datum/dna/proc/compare_dna(datum/dna/other)
@@ -298,22 +300,20 @@
 	return
 
 /////////////////////////// DNA MOB-PROCS //////////////////////
-/datum/dna/proc/update_body_size(force)
+/datum/dna/proc/update_body_size(force, height)
+	update_height_holder()
 	var/list/heights = species?.get_species_height()
 	if((!holder || !features["body_size"] || !length(heights)) && !force)
 		return
-
-	var/desired_size = heights[features["body_size"]]
-
+	var/desired_size = height || heights[features["body_size"]]
 	if(desired_size == current_body_size && !force)
 		return
-
 	//Weird little fix - if height < 0, our guy gets cut off!! We can fix this by layering an invisible 64x64 icon, aka the displacement
 	holder.remove_filter("height_cutoff_fix")
-	holder.add_filter("height_cutoff_fix", 1, layering_filter(icon = height_displacement, color = "#ffffff00"))
+	holder.add_filter("height_cutoff_fix", 1, layering_filter(render_source = height_displacement_holder.render_target, color = "#ffffff00"))
 	//Build / setup displacement filter
 	holder.remove_filter("species_height_displacement")
-	holder.add_filter("species_height_displacement", 1.1, displacement_map_filter(icon = height_displacement, y = 8, size = desired_size))
+	holder.add_filter("species_height_displacement", 1.1, displacement_map_filter(render_source = height_displacement_holder.render_target, y = 8, size = desired_size))
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return
@@ -324,7 +324,6 @@
 			stored_dna.species = new mrace()
 		else
 			stored_dna.species = mrace //not calling any species update procs since we're a brain, not a monkey/human
-
 
 /mob/living/carbon/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	if(mrace && has_dna())
@@ -710,3 +709,13 @@
 		qdel(eyes)
 		visible_message("<span class='notice'>[src] looks up and their eyes melt away!</span>", "<span class='userdanger'>I understand now.</span>")
 		addtimer(CALLBACK(src, PROC_REF(adjustOrganLoss), ORGAN_SLOT_BRAIN, 200), 20)
+
+/datum/dna/proc/update_height_holder()
+	if(!height_displacement_holder)
+		height_displacement_holder = new()
+	//Update the icon, just in-case we changed species or whatever, also becuase of species delay in general //TODO: make sure this isn't expensive with changing clothes - Racc
+	height_displacement_holder.appearance = species?.get_species_height_map() || icon('icons/effects/64x64.dmi', "height_displacement")
+	//ALL our important visual stuff gets reset when we update appearance, so we have to set it back
+	height_displacement_holder.vis_flags = VIS_UNDERLAY | VIS_INHERIT_DIR
+	height_displacement_holder.plane = LOWEST_EVER_PLANE //Hide our sins
+	height_displacement_holder.render_target = "[ref(height_displacement_holder)]"

@@ -218,9 +218,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// A reagent list containing the reagents this item produces when JUICED in a grinder!
 	var/list/juice_results
 
-	///Icon for monkey
-	var/icon/monkey_icon
-
 	var/canMouseDown = FALSE
 
 	///Icons used to show the item in vendors instead of the item's actual icon, drawn from the item's icon file (just chemical.dm for now)
@@ -721,8 +718,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			A.Grant(user)
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
-	if(ismonkey(user)) //Only generate icons if we have to
-		compile_monkey_icon()
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 	if(!initial)
 		if(equip_sound && slot_flags)
@@ -1394,12 +1389,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_offer_taken(mob/living/carbon/offerer, mob/living/carbon/taker)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_OFFER_TAKEN, offerer, taker) & COMPONENT_OFFER_INTERRUPT)
 		return TRUE
-
-/**
- * * Overridden to generate icons for monkey clothing
- */
-/obj/item/proc/compile_monkey_icon()
-	return
 
 /// Called on [/datum/element/openspace_item_click_handler/proc/on_afterattack]. Check the relative file for information.
 /obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
