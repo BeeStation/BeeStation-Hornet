@@ -14,6 +14,7 @@
 	species_traits = list(
 		NO_UNDERWEAR,
 		NOBLOODOVERLAY,
+		NOEYESPRITES, //monkeys already have eyes baked-in
 		NOTRANSSTING,
 		NOAUGMENTS,
 	)
