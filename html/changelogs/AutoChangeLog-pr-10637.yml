@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: Improved textification of the language icon rendering in TGUI.
