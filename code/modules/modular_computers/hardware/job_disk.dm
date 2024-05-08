@@ -62,6 +62,9 @@
 		var/datum/computer_file/program/robocontrol/robo = new(src)
 		progs_to_store += robo
 
+	if(disk_flags & DISK_ALARM)
+		progs_to_store += new var/datum/computer_file/program/alarm_monitor(src)
+
 	if(disk_flags & DISK_CARGO)
 		progs_to_store += new /datum/computer_file/program/bounty(src)
 
@@ -86,9 +89,6 @@
 	if(disk_flags & DISK_HOP)
 		progs_to_store += new /datum/computer_file/program/card_mod(src)
 		progs_to_store += new /datum/computer_file/program/job_management(src)
-
-	if(disk_flags & DISK_ALARM)
-		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
 
 	for (var/datum/computer_file/program/prog in progs_to_store)
 		prog.usage_flags = PROGRAM_ALL
