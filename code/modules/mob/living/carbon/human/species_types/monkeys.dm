@@ -163,12 +163,18 @@
 	return to_add
 
 /datum/dna/tumor
-	species = new /datum/species/teratoma
+	species = new /datum/species/monkey/teratoma
 
-/datum/species/teratoma
+/datum/species/monkey/teratoma
 	name = "Teratoma"
 	id = "teratoma"
-	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
+	species_traits = list(
+		NOTRANSSTING,
+		NO_DNA_COPY,
+		NOEYESPRITES, //teratomas already have eyes baked-in
+		HAIR,
+		FACEHAIR,
+		LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
 	default_features = list("mcolor" = "FFF", "wings" = "None")
 	use_skintones = FALSE
@@ -193,13 +199,13 @@
 	if(!QDELETED(src))
 		qdel(src)
 
-/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
+/mob/living/carbon/human/species/monkey/tumor/handle_mutations_and_radiation()
 	return
 
-/mob/living/carbon/monkey/tumor/has_dna()
+/mob/living/carbon/human/species/monkey/tumor/has_dna()
 	return FALSE
 
-/mob/living/carbon/monkey/tumor/create_dna()
+/mob/living/carbon/human/species/monkey/tumor/create_dna()
 	dna = new /datum/dna/tumor(src)
 	//Give us the juicy mutant organs
 	dna.species.on_species_gain(src, null, FALSE)

@@ -75,6 +75,35 @@
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
 
+/mob/living/carbon/proc/teratomize()
+	if (notransform || transformation_timer)
+		return
+
+	if(isteratoma(src))
+		return
+
+	//Make mob invisible and spawn animation
+	notransform = TRUE
+	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
+	icon = null
+	cut_overlays()
+	invisibility = INVISIBILITY_MAXIMUM
+
+	new /obj/effect/temp_visual/monkeyify(loc)
+
+	transformation_timer = addtimer(CALLBACK(src, PROC_REF(finish_teratomize)), TRANSFORMATION_DURATION, TIMER_UNIQUE)
+
+/mob/living/carbon/proc/finish_teratomize()
+	transformation_timer = null
+	to_chat(src, "<B>You are now a disgusting little cancer baby.</B>")
+	notransform = FALSE
+	icon = initial(icon)
+	invisibility = 0
+	set_species(/datum/species/monkey/teratoma)
+	uncuff()
+	regenerate_icons()
+	return src
+
 /mob/living/carbon/AIize(transfer_after = TRUE, client/preference_source)
 	return pre_transform() ? null : ..()
 

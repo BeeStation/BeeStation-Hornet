@@ -626,9 +626,9 @@
 	dna.remove_all_mutations()
 	dna.stability = 100
 	if(prob(max(70-instability,0)))
-		switch(rand(1,10)) //not complete and utter death
-			//if(0)
-			//	teratomize()
+		switch(rand(0,10)) //not complete and utter death
+			if(0)
+				teratomize()
 			if(1)
 				gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic)
 				new/obj/vehicle/ridden/wheelchair(get_turf(src)) //don't buckle, because I can't imagine to plethora of things to go through that could otherwise break

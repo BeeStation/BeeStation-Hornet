@@ -25,7 +25,6 @@
 /datum/antagonist/teratoma/proc/remove_objective(datum/objective/O)
 	objectives -= O
 
-/*
 /datum/antagonist/teratoma/admin_remove(mob/admin)
 	var/mob/living/carbon/human/species/monkey/tumor/M = owner.current
 	if(alert(admin, "Humanize?", "Humanize", "Yes", "No") == "Yes")
@@ -39,7 +38,6 @@
 	new_owner.add_antag_datum(src)
 	log_admin("[key_name(admin)] made [key_name(new_owner)] a living teratoma!")
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] a living teratoma!")
-*/
 
 //Mainttoma
 
