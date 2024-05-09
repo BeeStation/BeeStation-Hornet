@@ -30,52 +30,69 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp0"
 	layer = ABOVE_WINDOW_LAYER
-	var/area/area // Reference to our area
-	var/areastring = null // Mapper helper to tie an apc to another area
-	var/auto_name = FALSE // Autonaming by area on?
-	var/department = "" //Department name (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
-	var/list/messages = list() // List of all messages
-	var/departmentType = 0 // bitflag, DEPRECATED. If maps no longer contain this var, delete it. Use the flags. -fippe
-		// 0 = none (not listed, can only replied to)
-		// assistance 	= 1
-		// supplies 	= 2
-		// info 		= 4
-		// assistance + supplies 	= 3
-		// assistance + info 		= 5
-		// supplies + info 			= 6
-		// assistance + supplies + info = 7
-	var/newmessagepriority = REQ_NO_NEW_MESSAGE
-	var/screen = REQ_SCREEN_MAIN
-		// 0 = main menu,
-		// 1 = req. assistance,
-		// 2 = req. supplies
-		// 3 = relay information
-		// 4 = write msg - not used
-		// 5 = choose priority - not used
-		// 6 = sent successfully
-		// 7 = sent unsuccessfully
-		// 8 = view messages
-		// 9 = authentication before sending
-		// 10 = send announcement
-	var/silent = FALSE // set to 1 for it not to beep all the time
-	var/hackState = FALSE
-	var/announcementConsole = FALSE // FALSE = This console cannot be used to send department announcements, TRUE = This console can send department announcements
-	var/open = FALSE // TRUE if open
-	var/announceAuth = FALSE //Will be set to 1 when you authenticate yourself for announcements
-	var/msgVerified = "" //Will contain the name of the person who verified it
-	var/msgStamped = "" //If a message is stamped, this will contain the stamp name
-	var/message = ""
-	var/to_department = "" //the department which will be receiving the message
-	var/priority = REQ_NO_NEW_MESSAGE //Priority of the message being sent
-	var/obj/item/radio/Radio
-	var/emergency //If an emergency has been called by this device. Acts as both a cooldown and lets the responder know where it the emergency was triggered from
-	var/receive_ore_updates = FALSE // If ore redemption machines will send an update when it receives new ores.
-	var/assistance_requestable = FALSE // Can others request assistance from this terminal?
-	var/supplies_requestable = FALSE // Can others request supplies from this terminal?
-	var/anon_tips_receiver = FALSE // Can you relay information to this console?
-	var/auth_id = "Unknown" //Will contain the name and and job of the person who verified it
 	max_integrity = 300
 	armor = list(MELEE = 70,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	/// Reference to our area
+	var/area/area
+	/// Mapper helper to tie a request console to another area
+	var/areastring = null
+	/// Is autonaming by area on?
+	var/auto_name = FALSE
+	/// Department name (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
+	var/department = ""
+	/// List of all messages
+	var/list/messages = list()
+	/// Priority of the latest message
+	var/newmessagepriority = REQ_NO_NEW_MESSAGE
+	/*
+	Define for the currently displayed page
+		0 = main menu,
+		1 = req. assistance,
+		2 = req. supplies
+		3 = relay information
+		4 = write msg - not used
+		5 = choose priority - not used
+		6 = sent successfully
+		7 = sent unsuccessfully
+		8 = view messages
+		9 = authentication before sending
+		10 = send announcement
+	*/
+	var/screen = REQ_SCREEN_MAIN
+	// Is the console silent? Set to TRUE for it not to beep all the time
+	var/silent = FALSE
+	// Is the console hacked? Enables EXTREME priority if TRUE
+	var/hackState = FALSE
+	/// FALSE = This console cannot be used to send department announcements, TRUE = This console can send department announcements
+	var/announcementConsole = FALSE
+	// TRUE if maintenance panel is open
+	var/open = FALSE
+	/// Will be set to TRUE when you authenticate yourself for announcements
+	var/announceAuth = FALSE
+	/// Will contain the name of the person who verified it
+	var/msgVerified = ""
+	/// If a message is stamped, this will contain the stamp name
+	var/msgStamped = ""
+	/// The message to be sent
+	var/message = ""
+	/// The department which will be receiving the message
+	var/to_department = ""
+	/// Priority of the message being sent
+	var/priority = REQ_NO_NEW_MESSAGE
+	/// Reference to the internal radio
+	var/obj/item/radio/Radio
+	///If an emergency has been called by this device. Acts as both a cooldown and lets the responder know where it the emergency was triggered from
+	var/emergency
+	/// If ore redemption machines will send an update when it receives new ores.
+	var/receive_ore_updates = FALSE
+	/// Can others request assistance from this terminal?
+	var/assistance_requestable = FALSE
+	/// Can others request supplies from this terminal?
+	var/supplies_requestable = FALSE
+	/// Can you relay information to this console?
+	var/anon_tips_receiver = FALSE
+	///Will contain the name and and job of the person who verified it
+	var/auth_id = "Unknown"
 
 	light_color = LIGHT_COLOR_GREEN
 	light_power = 1.5
@@ -123,17 +140,6 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			name = "\improper [department] requests console" // and if we have a 'department', our name should reflect that.
 
 	GLOB.allConsoles += src
-
-	if(departmentType) // Do we have department type flags? Old, deletable once all req consoles are cleaned
-		if((departmentType & REQ_DEP_TYPE_ASSISTANCE) && !(department in GLOB.req_console_assistance))
-			assistance_requestable = TRUE
-
-		if((departmentType & REQ_DEP_TYPE_SUPPLIES) && !(department in GLOB.req_console_supplies))
-			supplies_requestable = TRUE
-
-		if((departmentType & REQ_DEP_TYPE_INFORMATION) && !(department in GLOB.req_console_information))
-			anon_tips_receiver = TRUE
-	// once all request consoles on every map are cleaned, this section above can be deleted
 
 	if((assistance_requestable) && !(department in GLOB.req_console_assistance)) // adding to assistance list if not already present
 		GLOB.req_console_assistance += department
@@ -250,6 +256,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		popup.open()
 	return
 
+/// Receives a list of department names, filters the request console list, and returns them formatted as a html table
 /obj/machinery/requests_console/proc/departments_table(list/req_consoles)
 	var/dat = ""
 	dat += "<table width='100%'>"
