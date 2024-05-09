@@ -39,6 +39,9 @@ SUBSYSTEM_DEF(security_level)
 	if(!selected_level)
 		CRASH("set_level was called with an invalid security level([new_level])")
 
+	if(SSnightshift.can_fire && (selected_level.number_level >= SEC_LEVEL_RED || current_security_level.number_level >= SEC_LEVEL_RED))
+		SSnightshift.next_fire = world.time + 7 SECONDS // Fire nightshift after the security level announcement is complete
+
 	announce_security_level(selected_level) // We want to announce BEFORE updating to the new level
 
 	var/old_shuttle_call_time_mod = current_security_level.shuttle_call_time_mod // Need this before we set the new one
@@ -57,7 +60,6 @@ SUBSYSTEM_DEF(security_level)
 		SSshuttle.emergency.modTimer(selected_level.shuttle_call_time_mod)
 
 	SEND_SIGNAL(src, COMSIG_SECURITY_LEVEL_CHANGED, selected_level.number_level)
-	SSnightshift.check_nightshift()
 	SSblackbox.record_feedback("tally", "security_level_changes", 1, selected_level.name)
 
 /**
