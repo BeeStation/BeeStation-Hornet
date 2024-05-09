@@ -15,10 +15,14 @@
 	if(target.attackby(src,user, params))
 		return TRUE
 	if(QDELETED(src))
+		#ifdef TESTING
 		stack_trace("An item got deleted while performing an item attack and did not stop melee_attack_chain.")
+		#endif
 		return TRUE
 	if(QDELETED(target))
+		#ifdef TESTING
 		stack_trace("The target of an item attack got deleted and melee_attack_chain was not stopped.")
+		#endif
 		return TRUE
 	return afterattack(target, user, TRUE, params)
 
