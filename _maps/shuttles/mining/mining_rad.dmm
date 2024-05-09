@@ -74,9 +74,9 @@
 	},
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2;
 	pixel_x = 31;
-	pixel_y = -1
+	pixel_y = -1;
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/mining)

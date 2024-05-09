@@ -1492,9 +1492,10 @@
 	},
 /obj/machinery/requests_console{
 	department = "Engineering";
-	departmentType = 3;
 	name = "Engineering RC";
-	pixel_y = -34
+	pixel_y = -34;
+	assistance_requestable = 1;
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
@@ -1587,9 +1588,10 @@
 "aAF" = (
 /obj/machinery/requests_console{
 	department = "Security";
-	departmentType = 5;
 	name = "Security RC";
-	pixel_x = -32
+	pixel_x = -32;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/machinery/light{
 	dir = 8
@@ -4335,10 +4337,11 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Research Director's Desk";
-	departmentType = 5;
 	name = "Research Director RC";
 	pixel_x = 32;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
@@ -19377,8 +19380,8 @@
 	},
 /obj/machinery/requests_console{
 	department = "Kitchen";
-	departmentType = 2;
-	pixel_y = 30
+	pixel_y = 30;
+	supplies_requestable = 1
 	},
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = -9;
@@ -22869,10 +22872,11 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Captain's Desk";
-	departmentType = 5;
 	name = "Captain RC";
 	pixel_x = -1;
-	pixel_y = -33
+	pixel_y = -33;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain)
@@ -24215,9 +24219,9 @@
 "hvB" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2;
 	pixel_x = 33;
-	pixel_y = -1
+	pixel_y = -1;
+	supplies_requestable = 1
 	},
 /obj/structure/closet/crate,
 /obj/machinery/light{
@@ -24809,8 +24813,8 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /obj/machinery/requests_console{
 	department = "Janitorial";
-	departmentType = 1;
-	pixel_x = 32
+	pixel_x = 32;
+	assistance_requestable = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -30083,10 +30087,11 @@
 	},
 /obj/machinery/requests_console{
 	department = "Atmospherics";
-	departmentType = 3;
 	name = "Atmos RC";
 	pixel_x = -1;
-	pixel_y = 30
+	pixel_y = 30;
+	assistance_requestable = 1;
+	supplies_requestable = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Incinerator";
@@ -31695,9 +31700,9 @@
 "jSa" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2;
 	pixel_x = -1;
-	pixel_y = -34
+	pixel_y = -34;
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/office)
@@ -33819,9 +33824,9 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Chief Engineer's Desk";
-	departmentType = 4;
 	name = "Chief Engineer RC";
-	pixel_x = -32
+	pixel_x = -32;
+	anon_tips_receiver = 1
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = 1;
@@ -33958,9 +33963,9 @@
 	},
 /obj/machinery/requests_console{
 	department = "Chapel";
-	departmentType = 2;
 	pixel_x = -1;
-	pixel_y = 28
+	pixel_y = 28;
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron/dark,
 /area/chapel/main)
@@ -35654,9 +35659,10 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Bridge";
-	departmentType = 5;
 	pixel_x = 31;
-	pixel_y = -2
+	pixel_y = -2;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/machinery/light{
 	dir = 4
@@ -38296,10 +38302,11 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Chief Medical Officer's Desk";
-	departmentType = 5;
 	name = "Chief Medical Officer RC";
 	pixel_x = 32;
-	pixel_y = -2
+	pixel_y = -2;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
@@ -38596,10 +38603,11 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Head of Security's Desk";
-	departmentType = 5;
 	name = "Head of Security RC";
 	pixel_x = 31;
-	pixel_y = -2
+	pixel_y = -2;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /turf/open/floor/iron/ridged/steel,
 /area/crew_quarters/heads/hos)
@@ -38822,10 +38830,11 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Bridge";
-	departmentType = 5;
 	name = "ai RC";
 	pixel_x = 31;
-	pixel_y = -2
+	pixel_y = -2;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /turf/open/space/basic,
 /area/ai_monitored/turret_protected/ai)
@@ -39990,10 +39999,10 @@
 	},
 /obj/machinery/requests_console{
 	department = "Medbay";
-	departmentType = 1;
 	name = "Medbay RC";
 	pixel_x = -32;
-	pixel_y = -2
+	pixel_y = -2;
+	assistance_requestable = 1
 	},
 /turf/open/floor/iron/white/side{
 	dir = 8
@@ -42840,10 +42849,10 @@
 	},
 /obj/machinery/requests_console{
 	department = "Science";
-	departmentType = 2;
 	name = "Science RC";
 	pixel_y = 30;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	supplies_requestable = 1
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -49710,11 +49719,11 @@
 	},
 /obj/machinery/requests_console{
 	department = "Science";
-	departmentType = 2;
 	name = "Science Requests Console";
 	pixel_x = -32;
 	pixel_y = -2;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
@@ -52549,9 +52558,9 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/machinery/requests_console{
 	department = "Bar";
-	departmentType = 2;
 	pixel_y = 30;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron/dark,
 /area/crew_quarters/bar)
@@ -57447,9 +57456,9 @@
 "rYi" = (
 /obj/machinery/requests_console{
 	department = "Hydroponics";
-	departmentType = 2;
 	pixel_x = -1;
-	pixel_y = -34
+	pixel_y = -34;
+	supplies_requestable = 1
 	},
 /obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/stripes/line{
@@ -60698,8 +60707,9 @@
 "taz" = (
 /obj/machinery/requests_console{
 	department = "Security";
-	departmentType = 5;
-	name = "Security RC"
+	name = "Security RC";
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /turf/closed/wall/r_wall,
 /area/security/warden)
@@ -61700,10 +61710,11 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Captain's Desk";
-	departmentType = 5;
 	name = "Captain RC";
 	pixel_x = -32;
-	pixel_y = -2
+	pixel_y = -2;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/item/book/manual/wiki/sopcommand,
 /turf/open/floor/wood,
@@ -62177,10 +62188,10 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/requests_console{
 	department = "Science";
-	departmentType = 2;
 	name = "Science Requests Console";
 	pixel_y = -30;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	supplies_requestable = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -65822,8 +65833,9 @@
 "uBE" = (
 /obj/machinery/requests_console{
 	department = "Security";
-	departmentType = 5;
-	pixel_y = 30
+	pixel_y = 30;
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Security Post - Medbay";
@@ -71285,11 +71297,11 @@
 	},
 /obj/machinery/requests_console{
 	department = "Science";
-	departmentType = 2;
 	name = "Science RC";
 	pixel_x = 32;
 	pixel_y = -2;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron/white/side{
 	dir = 4
@@ -73412,8 +73424,8 @@
 	},
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2;
-	pixel_y = 29
+	pixel_y = 29;
+	supplies_requestable = 1
 	},
 /obj/machinery/camera/autoname{
 	dir = 6
@@ -75790,10 +75802,10 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/requests_console{
 	department = "Medbay";
-	departmentType = 1;
 	name = "Medbay RC";
 	pixel_x = -32;
-	pixel_y = -1
+	pixel_y = -1;
+	assistance_requestable = 1
 	},
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
@@ -76648,9 +76660,9 @@
 	},
 /obj/machinery/requests_console{
 	department = "Chemistry";
-	departmentType = 2;
 	pixel_y = -34;
-	receive_ore_updates = 1
+	receive_ore_updates = 1;
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron,
 /area/medical/apothecary)

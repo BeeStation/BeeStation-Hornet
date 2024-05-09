@@ -1052,8 +1052,9 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Captain's Desk";
-	departmentType = 5;
-	name = "Captain RC"
+	name = "Captain RC";
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/item/disk/nuclear,
 /obj/item/book/manual/wiki/sopcommand,
@@ -1123,7 +1124,7 @@
 "Fh" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
-	departmentType = 2
+	supplies_requestable = 1
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/sorting)
@@ -1831,8 +1832,9 @@
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Bridge";
-	departmentType = 5;
-	name = "ai RC"
+	name = "ai RC";
+	assistance_requestable = 1;
+	anon_tips_receiver = 1
 	},
 /obj/item/radio/intercom,
 /obj/item/radio/intercom,
