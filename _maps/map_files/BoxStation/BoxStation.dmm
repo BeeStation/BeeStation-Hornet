@@ -12891,19 +12891,6 @@
 	},
 /obj/machinery/power/apc/auto_name/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/xenoartifact_console{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/science/misc_lab)
