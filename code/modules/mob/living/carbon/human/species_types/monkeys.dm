@@ -214,4 +214,5 @@
 	//Give us the juicy mutant organs
 	dna.species.on_species_gain(src, null, FALSE)
 	dna.species.regenerate_organs(src, replace_current = TRUE)
+	//Fix initial DNA not properly handling our height
 	dna.update_body_size(height = pick(dna.species.get_species_height()))
