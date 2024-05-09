@@ -360,8 +360,7 @@
 	if(orb)
 		return
 
-	spacewalk_initial = user.spacewalk
-	user.spacewalk = TRUE
+	user.spacewalk = spacewalk_initial
 
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")
@@ -389,7 +388,7 @@
 
 	var/datum/map_template/map_template = /datum/map_template/debug_target
 	var/working
-	var/turf_to_dive
+	var/turf/turf_to_dive
 
 	var/live_server_warning
 
@@ -400,32 +399,43 @@
 // friendly warning setter
 /obj/item/map_template_diver/Initialize()
 	. = ..()
-#ifndef LOWMEMORYMODE
+#ifndef DEBUG
 	live_server_warning = TRUE
 #endif
 
 /obj/item/map_template_diver/attack_self(mob/user)
 	. = ..()
 
+	if(turf_to_dive)
+		dive_into(user)
+		return
+
+	if(!check_rights_for(user.client, R_ADMIN | R_DEBUG))
+		client_alert(user.client, "Players are not allowed to use this debug item, even for fun.", "No permission, no fun")
+		return
 	if(live_server_warning)
 		client_alert(user.client, "It looks the server is actually live. Using this may cost the performance of the server. Use this again if you're sure.", "Warning")
 		live_server_warning = FALSE
 		return
 
-	if(ispath(map_template))
-		to_chat(user, "<span class='notice'>Creates a map template...</span>")
-		working = TRUE
-		map_template = new map_template()
-		var/datum/space_level/space_level = map_template.load_new_z(null, ZTRAITS_DEBUG)
-		turf_to_dive = locate(round((world.maxx - map_template.width)/2), round((world.maxy - map_template.height)/2), space_level.z_value)
-		to_chat(user, "<span class='notice'>Creation is completed.</span>")
-		working = FALSE
-		dive_into(user)
-		return
-
 	if(working)
+		to_chat(user, "<span class='notice'>We're creating a map yet.</span>")
 		return
 
+	if(ispath(map_template))
+		create_map(user)
+		return
+
+/obj/item/map_template_diver/proc/create_map(mob/user)
+	set waitfor = FALSE
+
+	to_chat(user, "<span class='notice'>Creates a map template...</span>")
+	working = TRUE
+	map_template = new map_template()
+	var/datum/space_level/space_level = map_template.load_new_z(null, ZTRAITS_DEBUG)
+	turf_to_dive = locate(round((world.maxx - map_template.width)/2), round((world.maxy - map_template.height)/2), space_level.z_value)
+	to_chat(user, "<span class='notice'>Creation is completed.</span>")
+	working = FALSE
 	dive_into(user)
 
 /obj/item/map_template_diver/proc/dive_into(mob/user)
