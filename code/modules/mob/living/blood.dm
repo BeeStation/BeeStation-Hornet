@@ -2,6 +2,21 @@
 
 /****************************************************
 				BLOOD SYSTEM
+
+To calculate the blood loss rate, use the following formula:
+n = starting amount of blood in your mob
+b = bleed rate of your mob
+h = Rate at which bleeding decreases over time (0.02 constant, 0.08 for non-human mobs)
+
+This function calculates the amount of blood left in your system at time x
+q\left(x\right)=\left\{b<2.4:ne^{-\frac{1}{560}\left(bx-\frac{1}{2}x^{2}h\right)},ne^{-\frac{bx}{560}}\right\}
+
+Hide this function
+d\left(x\right)=\max\left(0,200-\frac{\left(200\cdot\max\left(0,\min\left(1,\frac{x-122}{560-122}\right)\right)\right)^{0.3}}{\left(200\right)^{-0.7}}\right)
+
+This function calculates the amount of health that your mob has at time x
+y=d\left(q\left(x\right)\right)
+
 ****************************************************/
 
 /datum/status_effect/bleeding
@@ -67,7 +82,7 @@
 			return
 	else
 		tick_interval = 2
-	owner.bleed(bleed_rate * BLEED_RATE_MULTIPLIER)
+	owner.bleed(bleed_rate)
 
 /datum/status_effect/bleeding/on_remove()
 	var/mob/living/carbon/human/human = owner
@@ -221,6 +236,13 @@
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/bleed(amt)
 	if(blood_volume)
+		// As you get less bloodloss, you bleed slower
+		// See the top of this file for desmos lines
+		var/decrease_multiplier = BLEED_RATE_MULTIPLIER
+		var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
+		if (!heart || !heart.beating)
+			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
+		var/blood_loss_amount = blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
 		blood_volume = max(blood_volume - amt, 0)
 		if(isturf(src.loc) && prob(sqrt(amt)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
 			if(amt >= BLEED_DEEP_WOUND)

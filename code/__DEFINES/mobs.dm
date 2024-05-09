@@ -18,16 +18,18 @@
 #define MOVE_INTENT_RUN  "run"
 
 // Bleed rates
-#define BLEED_RATE_MINOR 2.4		/// Point at which bleeding is considered minor (5/sec). Any bleed rates greater than this will not heal.
-#define BLEED_HEAL_RATE_MINOR 0.02 /// How quickly minor bleeds will stop bleeding (0.05/sec)
+// See blood.dm for calculations
+#define BLEED_RATE_MINOR 2.4 		/// Point at which bleeding is considered minor and will eventually self-heal
+#define BLEED_HEAL_RATE_MINOR 0.02 	/// How quickly minor bleeds will stop bleeding (0.05/sec)
 
 // Bleed damage values
-#define BLEED_SURFACE 1.5			// Results in 60 blood loss
-#define BLEED_CUT 2.3				// Results in 140 bloos loss
-#define BLEED_DEEP_WOUND 2.4		// Death in 3 minutes if untreated
-#define BLEED_CRITICAL 3.6			// Death will come relatively quick if untreated
+#define BLEED_SURFACE 1.5			// 560 > 506 blood in 75 seconds
+#define BLEED_CUT 2.3				// 560 > 442 blood ni 115 seconds
+#define BLEED_DEEP_WOUND 2.4		// Crit in 285 seconds, Death in 356 seconds
+#define BLEED_CRITICAL 3.6			// Crit in 190 seconds, Death in 238 seconds
 
-#define BLEED_RATE_MULTIPLIER 1	// How quickly do we bleed out? A value of 1 means that if we have a bleed rate of 10, then we lose 5 blood per second.
+#define BLEED_RATE_MULTIPLIER 1				/// How quickly do we bleed out? A value of 1 means that if we have a bleed rate of 10, then we lose 5 blood per second.
+#define BLEED_RATE_MULTIPLIER_NO_HEART 0.4 	/// If we have no heart, then we will bleed slower. This multiplies by our bleeding rate if that is the case.
 
 //Blood levels
 #define BLOOD_VOLUME_MAXIMUM		2000
