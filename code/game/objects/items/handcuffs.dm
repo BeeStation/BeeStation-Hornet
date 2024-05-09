@@ -67,7 +67,7 @@
 									"<span class='userdanger'>[user] handcuffs you.</span>")
 				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
-				log_combat(user, C, "handcuffed")
+				log_combat(user, C, "handcuffed", important = FALSE)
 			else
 				to_chat(user, "<span class='warning'>You fail to handcuff [C]!</span>")
 		else

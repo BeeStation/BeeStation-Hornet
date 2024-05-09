@@ -221,6 +221,10 @@
 	name = "epinephrine reserve tank"
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 50)
 
+/obj/item/reagent_containers/glass/beaker/large/kelobic
+	name = "kelotane-bicaridine reserve tank"
+	list_reagents = list(/datum/reagent/medicine/kelotane = 50, /datum/reagent/medicine/bicaridine = 50)
+
 /obj/item/reagent_containers/glass/beaker/synthflesh
 	list_reagents = list(/datum/reagent/medicine/synthflesh = 50)
 
@@ -427,6 +431,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50, 100)
 	volume = 100
+	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT)
 	reagent_flags = OPENCONTAINER
 	spillable = TRUE
 	var/obj/item/grinded

@@ -43,7 +43,7 @@
 	. = ..()
 	// If we have an emissive state, add it to the worn icon too
 	if (!isinhands && emissive_state)
-		. += emissive_appearance(icon_file, emissive_state, item_layer, 100)
+		. += emissive_appearance(icon_file, emissive_state, item_layer, 100, filters = origin.filters)
 		ADD_LUM_SOURCE(origin, LUM_SOURCE_GLASSES)
 
 /obj/item/clothing/glasses/visor_toggling()
@@ -250,6 +250,12 @@
 	desc = "Why would you wear something so controversial yet so brave?"
 	icon_state = "circle_glasses"
 	item_state = "circle_glasses"
+
+/obj/item/clothing/glasses/sunglasses/circle_sunglasses
+	name = "circle sunglasses"
+	desc = "Shit's pimpin'"
+	icon_state = "circle_sunglasses"
+	item_state = "circle_sunglasses"
 
 //Here lies green glasses, so ugly they died. RIP
 

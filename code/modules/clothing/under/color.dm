@@ -234,11 +234,11 @@
 	desc = "A multi-colored jumpsuit!"
 	icon_state = "rainbow"
 	item_state = "rainbow"
-	can_adjust = FALSE
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+	can_adjust = FALSE
 
 /obj/item/clothing/under/color/jumpskirt/rainbow
 	name = "rainbow jumpskirt"
@@ -249,6 +249,7 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+	can_adjust = FALSE
 
 /obj/item/clothing/under/color/rainbow/denied
 	name = "ERROR jumpsuit"

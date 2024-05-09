@@ -4,7 +4,6 @@
 	icon_state = "MagiVend"
 	product_slogans = "Sling spells the proper way with MagiVend!;Be your own Houdini! Use MagiVend!"
 	vend_reply = "Have an enchanted evening!"
-	light_color = LIGHT_COLOR_PURPLE
 	product_ads = "FJKLFJSD;AJKFLBJAKL;1234 LOONIES LOL!;>MFW;Kill them fuckers!;GET DAT FUKKEN DISK;HONK!;EI NATH;Destroy the station!;Admin conspiracies since forever!;Space-time bending hardware!"
 	products = list(/obj/item/clothing/head/wizard = 1,
 		            /obj/item/clothing/suit/wizrobe = 1,
@@ -20,3 +19,4 @@
 	default_price = 25
 	extra_price = 50
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
+	light_mask = "magivend-light-mask"

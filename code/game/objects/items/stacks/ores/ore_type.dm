@@ -47,9 +47,8 @@ STACKSIZE_MACRO(/obj/item/stack/ore/iron)
 	refined_type = /obj/item/stack/sheet/glass
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/stack/ore/glass/get_main_recipes()
-	. = ..()
-	. += GLOB.sand_recipes
+/obj/item/stack/ore/glass/get_recipes()
+	return GLOB.sand_recipes
 
 /obj/item/stack/ore/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(..() || !ishuman(hit_atom))
@@ -85,7 +84,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/glass)
 	icon_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
 
-STACKSIZE_MACRO(/obj/item/stack/ore/basalt)
+STACKSIZE_MACRO(/obj/item/stack/ore/glass/basalt)
 
 /* Plasma ore */
 

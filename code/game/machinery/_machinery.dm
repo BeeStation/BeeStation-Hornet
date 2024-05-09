@@ -547,7 +547,7 @@ Class Procs:
 
 	new_frame.icon_state = "box_1"
 	. = new_frame
-	new_frame.anchored = TRUE
+	new_frame.set_anchored(TRUE)
 	if(!disassembled)
 		new_frame.obj_integrity = new_frame.max_integrity * 0.5 //the frame is already half broken
 	transfer_fingerprints_to(new_frame)
@@ -639,7 +639,7 @@ Class Procs:
 		to_chat(user, "<span class='notice'>You fail to secure [src].</span>")
 		return CANT_UNFASTEN
 	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-	setAnchored(!anchored)
+	set_anchored(!anchored)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	SEND_SIGNAL(src, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, anchored)
 	return SUCCESSFUL_UNFASTEN

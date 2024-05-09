@@ -3,7 +3,7 @@
 /turf/closed/wall/r_wall,
 /area/space)
 "n" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/space)
 "q" = (
 /turf/open/floor/monofloor{

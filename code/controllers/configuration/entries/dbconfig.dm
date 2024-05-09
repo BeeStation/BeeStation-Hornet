@@ -48,5 +48,9 @@
 	config_entry_value = 50
 	min_val = 1
 
+/datum/config_entry/number/max_concurrent_queries
+	config_entry_value = 25
+	min_val = 1
+
 /datum/config_entry/flag/limited_feedback	// Enable a more limited form of feedback tracking
 	protection = CONFIG_ENTRY_LOCKED

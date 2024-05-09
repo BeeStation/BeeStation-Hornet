@@ -208,7 +208,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if (showpiece && (broken || open))
 		to_chat(user, "<span class='notice'>You deactivate the hover field built into the case.</span>")
-		log_combat(user, src, "deactivates the hover field of")
+		log_combat(user, src, "deactivates the hover field of", important = FALSE)
 		dump()
 		add_fingerprint(user)
 		return
@@ -220,7 +220,7 @@
 			user.examinate(src)
 			return
 		user.visible_message("<span class='danger'>[user] kicks the display case.</span>", null, null, COMBAT_MESSAGE_RANGE)
-		log_combat(user, src, "kicks")
+		log_combat(user, src, "kicks", important = FALSE)
 		user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 		take_damage(2)
 
@@ -583,7 +583,7 @@
 				to_chat(user, "<span class='notice'>You unsecure [src].</span>")
 			else
 				to_chat(user, "<span class='notice'>You secure [src].</span>")
-			anchored = !anchored
+			set_anchored(!anchored)
 			return TRUE
 	else if(!open && user.a_intent == INTENT_HELP)
 		to_chat(user, "<span class='notice'>[src] must be open to move it.</span>")

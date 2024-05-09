@@ -147,7 +147,7 @@
 			A.circuit = circuit
 			// Circuit removal code is handled in /obj/machinery/Exited()
 			circuit.forceMove(A)
-			A.setAnchored(TRUE)
+			A.set_anchored(TRUE)
 			if(machine_stat & BROKEN)
 				if(user)
 					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
