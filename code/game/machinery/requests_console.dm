@@ -14,7 +14,8 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	name = "requests console"
 	desc = "A console intended to send requests to different departments on the station."
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "req_comp0"
+	icon_state = "req_comp_off"
+	base_icon_state = "req_comp"
 	layer = ABOVE_WINDOW_LAYER
 	max_integrity = 300
 	armor = list(MELEE = 70,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
@@ -315,7 +316,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 /obj/machinery/requests_console/proc/clear_emergency()
 	emergency = null
-	update_icon()
+	update_appearance()
 
 /// From message_server.dm: Console.create_message(data)
 /obj/machinery/requests_console/proc/create_message(data)
