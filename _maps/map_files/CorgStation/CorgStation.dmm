@@ -25266,12 +25266,12 @@
 "hZO" = (
 /obj/structure/table,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "RD's Desk";
 	pixel_y = -32;
 	assistance_requestable = 1;
 	supplies_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/item/nanite_remote,
 /obj/item/nanite_scanner,
@@ -27553,11 +27553,11 @@
 /area/science/explab)
 "iJM" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "CE's Desk";
 	pixel_x = 32;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
@@ -35486,12 +35486,12 @@
 	dir = 8
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Captain's Desk";
 	name = "Captain RC";
 	pixel_x = 32;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/camera/autoname{
 	dir = 9
@@ -40665,12 +40665,12 @@
 /area/hallway/secondary/service)
 "mUo" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Captain's Desk";
 	name = "Captain RC";
 	pixel_x = 32;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/structure/bed/dogbed/renault,
 /mob/living/simple_animal/pet/fox/Renault,
@@ -44804,12 +44804,12 @@
 /area/security/brig)
 "omW" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "HOS's Desk";
 	name = "Captain RC";
 	pixel_x = 32;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/item/storage/secure/safe/HoS{
 	pixel_x = 37;
@@ -48108,9 +48108,9 @@
 	network = list("vault")
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Vault";
-	pixel_x = -32
+	pixel_x = -32;
+	can_send_announcements = 1
 	},
 /turf/open/floor/circuit/green,
 /area/security/nuke_storage)
@@ -57709,11 +57709,11 @@
 "sAT" = (
 /obj/structure/table/wood,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "HOP's Desk";
 	pixel_y = -32;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/recharger,
 /obj/machinery/keycard_auth{
@@ -64325,11 +64325,11 @@
 /area/crew_quarters/heads/captain/private)
 "uKr" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Bridge";
 	pixel_y = -32;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -67905,10 +67905,10 @@
 	dir = 1
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Exploration Dock";
 	pixel_y = -32;
-	supplies_requestable = 1
+	supplies_requestable = 1;
+	can_send_announcements = 1
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/exploration_prep)
@@ -68326,9 +68326,9 @@
 /obj/item/bedsheet/cmo,
 /obj/effect/landmark/start/chief_medical_officer,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Chief Medical Officer's Office";
-	pixel_x = 32
+	pixel_x = 32;
+	can_send_announcements = 1
 	},
 /turf/open/floor/carpet/cyan,
 /area/crew_quarters/heads/cmo)
@@ -74575,11 +74575,11 @@
 /area/ai_monitored/turret_protected/ai)
 "xYZ" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "AI Chamber";
 	assistance_requestable = 1;
 	supplies_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/ai)

@@ -16617,12 +16617,12 @@
 	dir = 9
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Bridge";
 	name = "Bridge RC";
 	pixel_y = -30;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
@@ -22705,12 +22705,12 @@
 /area/ai_monitored/turret_protected/ai)
 "fLE" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Bridge";
 	name = "Bridge RC";
 	pixel_x = 30;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Bridge - Command Chair";
@@ -23546,12 +23546,12 @@
 "fVT" = (
 /obj/machinery/light,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Bridge";
 	name = "Bridge RC";
 	pixel_y = -30;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -35342,12 +35342,12 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
 	name = "Head of Personnel RC";
 	pixel_y = -30;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -35953,13 +35953,13 @@
 /area/ai_monitored/turret_protected/ai)
 "jcb" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Research Director's Desk";
 	name = "Research Director's RC";
 	pixel_x = 30;
 	receive_ore_updates = 1;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -37359,12 +37359,12 @@
 	dir = 8
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Captain's Desk";
 	name = "Captain RC";
 	pixel_x = 32;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
@@ -46884,12 +46884,12 @@
 /area/hallway/primary/central)
 "lOy" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Chief Medical Officer's Desk";
 	name = "Chief Medical Officer's RC";
 	pixel_x = 30;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = 26;
@@ -67832,12 +67832,12 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Telecomms Admin";
 	name = "Telecomms RC";
 	pixel_y = 30;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
@@ -78600,13 +78600,13 @@
 /area/engine/break_room)
 "ucx" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Head of Security's Desk";
 	name = "Head of Security RC";
 	pixel_x = -1;
 	pixel_y = 29;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/computer/secure_data,
@@ -92622,12 +92622,12 @@
 /area/engine/storage)
 "xja" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Chief Engineer's Desk";
 	name = "Chief Engineer RC";
 	pixel_y = 30;
 	assistance_requestable = 1;
-	supplies_requestable = 1
+	supplies_requestable = 1;
+	can_send_announcements = 1
 	},
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/red/opposingcorners,

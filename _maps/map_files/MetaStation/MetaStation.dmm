@@ -732,12 +732,12 @@
 "afe" = (
 /obj/structure/table/wood,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Head of Security's Desk";
 	name = "Head of Security RC";
 	pixel_y = 30;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/computer/med_data/laptop,
 /obj/item/storage/secure/safe/HoS{
@@ -19407,13 +19407,13 @@
 	dir = 4
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Research Director's Desk";
 	name = "Research Director RC";
 	pixel_y = 30;
 	receive_ore_updates = 1;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/modular_computer/console/preset/research{
 	dir = 8
@@ -40867,11 +40867,11 @@
 /area/storage/tools)
 "jND" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Chief Engineer's Desk";
 	name = "Chief Engineer RC";
 	pixel_y = 32;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/computer/card/minor/ce,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -48697,12 +48697,12 @@
 "mQT" = (
 /obj/machinery/computer/crew,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Chief Medical Officer's Desk";
 	name = "Chief Medical Officer's RC";
 	pixel_x = 32;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = 25;
@@ -49799,12 +49799,12 @@
 /area/medical/surgery)
 "nlR" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Bridge";
 	name = "Bridge RC";
 	pixel_x = 32;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -63242,12 +63242,12 @@
 	dir = 4
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Captain's Desk";
 	name = "Captain RC";
 	pixel_x = 32;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -67703,12 +67703,12 @@
 /area/maintenance/disposal/incinerator)
 "uev" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Head of Personnel's Desk";
 	name = "Head of Personnel RC";
 	pixel_y = 30;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/pdapainter{
 	pixel_y = 2
@@ -73186,12 +73186,12 @@
 /area/crew_quarters/bar)
 "wlg" = (
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Telecomms Admin";
 	name = "Telecomms RC";
 	pixel_y = -30;
 	assistance_requestable = 1;
-	anon_tips_receiver = 1
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
 	},
 /obj/machinery/firealarm{
 	dir = 8;
