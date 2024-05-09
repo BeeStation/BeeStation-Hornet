@@ -91,7 +91,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		screen_state = "[base_icon_state]0"
 
 	. += mutable_appearance(icon, screen_state)
-	. += emissive_appearance(icon, screen_state, src, layer, alpha = src.alpha)
+	. += emissive_appearance(icon, screen_state, layer, alpha = src.alpha)
 	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/requests_console/Initialize(mapload)
@@ -192,13 +192,14 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			if(!(announcement_authenticated || IsAdminGhost(usr)))
 				return
 
-			var/message = reject_bad_text(params["message"])
+			var/message = reject_bad_text(trim(html_encode(params["message"]), MAX_MESSAGE_LEN), ascii_only = FALSE)
 			if(!message)
 				to_chat(usr, "<span class='alert'>Invalid message.</span>")
 				return
 			if(isliving(usr))
 				var/mob/living/L = usr
 				message = L.treat_message(message)["message"]
+				
 			minor_announce(message, "[department] Announcement:", html_encode = FALSE)
 			GLOB.news_network.submit_article(message, department, "Station Announcements", null)
 			usr.log_talk(message, LOG_SAY, tag="station announcement from [src]")
@@ -211,7 +212,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		if("quick_reply")
 			var/recipient = params["reply_recipient"]
 
-			var/reply_message = reject_bad_text(tgui_input_text(usr, "Write a quick reply to [recipient]", "Awaiting Input"))
+			var/reply_message = reject_bad_text(tgui_input_text(usr, "Write a quick reply to [recipient]", "Awaiting Input"), ascii_only = FALSE)
 
 			if(!reply_message)
 				has_mail_send_error = TRUE
@@ -227,7 +228,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			var/priority = params["priority"]
 			if(!priority)
 				return
-			var/message = reject_bad_text(params["message"])
+			var/message = reject_bad_text(trim(html_encode(params["message"]), MAX_MESSAGE_LEN), ascii_only = FALSE)
 			if(!message)
 				to_chat(usr, "<span class='alert'>Invalid message.</span>")
 				has_mail_send_error = TRUE
