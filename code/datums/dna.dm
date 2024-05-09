@@ -717,5 +717,6 @@
 	height_displacement_holder.appearance = species?.get_species_height_map() || icon('icons/effects/64x64.dmi', "height_displacement")
 	//ALL our important visual stuff gets reset when we update appearance, so we have to set it back
 	height_displacement_holder.vis_flags = VIS_UNDERLAY | VIS_INHERIT_DIR
-	height_displacement_holder.plane = LOWEST_EVER_PLANE //Hide our sins
+	height_displacement_holder.appearance_flags = TILE_BOUND | PIXEL_SCALE | RESET_TRANSFORM
+	height_displacement_holder.plane = LOWEST_EVER_PLANE
 	height_displacement_holder.render_target = "[ref(height_displacement_holder)]"
