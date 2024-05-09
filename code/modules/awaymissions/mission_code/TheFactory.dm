@@ -247,7 +247,7 @@
 	maxHealth = 100
 	health = 100
 	melee_damage = 12
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	faction = list("nanotrasenprivate")
 	status_flags = CANPUSH
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
@@ -415,7 +415,7 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	obj_damage = 5
 	sidestep_per_cycle = 0
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	melee_damage = 15
 	lose_patience_timeout = 350
 	loot = list(/obj/effect/mob_spawn/human/corpse/psychost)
@@ -634,7 +634,7 @@
 	melee_damage = null
 	attack_sound = null
 	del_on_death = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	a_intent = INTENT_HARM
 	var/det_time = 30
 	var/active = 0

@@ -5,12 +5,6 @@
 // /atom signals
 ///from base of atom/proc/Initialize(mapload): sent any time a new atom is created
 #define COMSIG_ATOM_CREATED "atom_created"
-///! from base of atom/attackby(): (/obj/item, /mob/living, params)
-#define COMSIG_PARENT_ATTACKBY "atom_attackby"
-	///! Return this in response if you don't want afterattack to be called
-	#define COMPONENT_NO_AFTERATTACK 1
-///! from base of atom/attack_hulk(): (/mob/living/carbon/human)
-#define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 /// from base of atom/examine(): (/mob, list/examine_text)
 #define COMSIG_PARENT_EXAMINE "atom_examine"
 /// from base of atom/get_examine_name(): (/mob, list/overrides)
@@ -20,8 +14,6 @@
 	#define EXAMINE_POSITION_BEFORE (1<<1)
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED (1<<0)
-//from base of atom/attack_basic_mob(): (/mob/user)
-#define COMSIG_ATOM_ATTACK_BASIC_MOB "attack_basic_mob"
 
 ///	from base of [/atom/proc/update_appearance]: (updates)
 #define COMSIG_ATOM_UPDATE_APPEARANCE "atom_update_appearance"
@@ -133,24 +125,6 @@
 /// called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 
-/////////////////
-/* Attack signals. They should share the returned flags, to standardize the attack chain. */
-/// tool_act -> pre_attack -> target.attackby (item.attack) -> afterattack
-	///Ends the attack chain. If sent early might cause posterior attacks not to happen.
-	#define COMPONENT_CANCEL_ATTACK_CHAIN (1<<0)
-	///Skips the specific attack step, continuing for the next one to happen.
-	#define COMPONENT_SKIP_ATTACK (1<<1)
-
-///! from base of atom/attack_ghost(): (mob/dead/observer/ghost)
-#define COMSIG_ATOM_ATTACK_GHOST "atom_attack_ghost"
-///! from base of atom/attack_hand(): (mob/user)
-#define COMSIG_ATOM_ATTACK_HAND "atom_attack_hand"
-///! from base of atom/attack_paw(): (mob/user)
-#define COMSIG_ATOM_ATTACK_PAW "atom_attack_paw"
-	//works on all 3.
-	#define COMPONENT_NO_ATTACK_HAND 1
-///! from base of atom/animal_attack(): (/mob/user)
-#define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"
 ///This signal return value bitflags can be found in __DEFINES/misc.dm
 ///called for each movable in a turf contents on /turf/attempt_z_impact(): (atom/movable/A, levels)
 #define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"

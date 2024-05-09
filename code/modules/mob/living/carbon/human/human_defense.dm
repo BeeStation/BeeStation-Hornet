@@ -701,7 +701,7 @@
 		..()
 
 /mob/living/carbon/human/check_self_for_injuries()
-	if(stat == DEAD || stat == UNCONSCIOUS)
+	if(stat >= UNCONSCIOUS)
 		return
 
 	visible_message("[src] examines [p_them()]self.", \

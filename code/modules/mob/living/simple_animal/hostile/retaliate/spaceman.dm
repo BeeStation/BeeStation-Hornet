@@ -36,7 +36,7 @@
 	response_disarm = "shoves"
 	response_harm = "hits"
 	speed = 0
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 	vision_range = 3
 	maxHealth = 100
