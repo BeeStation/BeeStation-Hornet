@@ -54,9 +54,7 @@ export const RequestMainScreen = (props, context) => {
         <Stack.Item grow={1}>
           {tab === RequestTabs.MESSAGE_VIEW && <MessageViewTab />}
           {tab === RequestTabs.MESSAGE_WRITE && <MessageWriteTab />}
-          {!!can_send_announcements && tab === RequestTabs.ANNOUNCE && (
-            <AnnouncementTab />
-          )}
+          {!!can_send_announcements && tab === RequestTabs.ANNOUNCE && <AnnouncementTab />}
         </Stack.Item>
       </Stack>
     </Stack.Item>
