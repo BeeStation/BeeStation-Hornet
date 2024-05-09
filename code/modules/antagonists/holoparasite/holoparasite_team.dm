@@ -80,7 +80,7 @@
 		info["escaped"] = holder.owner.force_escaped || summoner_turf.onCentCom() || summoner_turf.onSyndieBase()
 		if(summoner.stat != DEAD)
 			info["stat"] = "alive"
-			info["crit"] = summoner.InCritical()
+			info["crit"] = HAS_TRAIT(summoner, TRAIT_CRITICAL_CONDITION)
 	SSblackbox.record_feedback("associative", "holoparasite_user_roundend_stat", 1, info)
 	SSblackbox.record_feedback("tally", "holoparasites_per_summoner", 1, length(members))
 

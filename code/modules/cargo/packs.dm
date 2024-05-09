@@ -104,8 +104,8 @@
 	max_supply = 1
 	contains = list(/mob/living/simple_animal/bot/floorbot,
 					/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
+					/mob/living/simple_animal/bot/medbot/filled,
+					/mob/living/simple_animal/bot/medbot/filled,
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air,
@@ -124,8 +124,8 @@
 	desc = "For when the shit hits the fan and medical can't keep up. Comes with a 7x5 Medical capsule and 2 Medibots for emergencies."
 	cost = 1100
 	max_supply = 1
-	contains = list(/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
+	contains = list(/mob/living/simple_animal/bot/medbot/filled,
+					/mob/living/simple_animal/bot/medbot/filled,
 					/obj/item/survivalcapsule/medical)
 	crate_name = "emergency medical crate"
 	crate_type = /obj/structure/closet/crate/medical
@@ -1888,6 +1888,16 @@
 	contains = list(/obj/machinery/computer/pandemic)
 	crate_name = "P.A.N.D.E.M.I.C. Replacement Crate"
 	dangerous = TRUE
+
+/datum/supply_pack/medical/chem_bags
+	name = "Chembag Refill Crate"
+	desc = "Contains 3 bags, containing Bicaridine, Kelotane and Anti-toxin for when the chemist is too busy making methamphetamines."
+	cost = 1000
+	max_supply = 3
+	contains = list(/obj/item/reagent_containers/chem_bag/bicaridine,
+					/obj/item/reagent_containers/chem_bag/kelotane,
+					/obj/item/reagent_containers/chem_bag/antitoxin)
+	crate_name = "Chembag Refill Crate"
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
