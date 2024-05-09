@@ -35,10 +35,6 @@
 
 	//payday_modifier = 1.5
 
-/datum/species/monkey/check_roundstart_eligible()
-	. = ..()
-	return TRUE
-
 /datum/species/monkey/random_name(gender,unique,lastname)
 	var/randname = "monkey ([rand(1,999)])"
 
