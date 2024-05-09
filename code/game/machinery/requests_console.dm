@@ -198,9 +198,9 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				return
 			if(isliving(usr))
 				var/mob/living/L = usr
-				message = L.treat_message(message)["message"]
-				
-			minor_announce(message, "[department] Announcement:", html_encode = FALSE)
+				message = L.treat_message(message)
+
+			minor_announce(message, "[department] Announcement:", from = auth_id, html_encode = FALSE)
 			GLOB.news_network.submit_article(message, department, "Station Announcements", null)
 			usr.log_talk(message, LOG_SAY, tag="station announcement from [src]")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] has made a station announcement from [src] at [AREACOORD(usr)].")
@@ -382,6 +382,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 /obj/machinery/requests_console/attackby(obj/item/attacking_item, mob/user, params)
 	var/obj/item/card/id/ID = attacking_item.GetID()
 	if(ID)
+		auth_id = "[ID.registered_name] ([ID.assignment])"
 		message_verified_by = "[ID.registered_name] ([ID.assignment])"
 		announcement_authenticated = (ACCESS_RC_ANNOUNCE in ID.access)
 		SStgui.update_uis(src)
