@@ -1,6 +1,4 @@
 ///Global names for science sellers
-GLOBAL_LIST_INIT(xenoa_seller_names, world.file2list("strings/names/science_seller.txt"))
-GLOBAL_LIST_INIT(xenoa_seller_dialogue, world.file2list("strings/science_dialogue.txt"))
 GLOBAL_LIST_INIT(xenoa_artifact_names, world.file2list("strings/names/artifact_sentience.txt"))
 
 ///traits types, referenced for generation
@@ -46,8 +44,6 @@ GLOBAL_LIST_INIT(discovered_traits, list())
 		return
 
 	//Bruh
-	GLOB.xenoa_seller_names -= ""
-	GLOB.xenoa_seller_dialogue -= ""
 	GLOB.xenoa_artifact_names -= ""
 
 	//List of weights based on trait type

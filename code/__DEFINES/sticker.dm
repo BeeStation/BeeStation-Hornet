@@ -10,7 +10,7 @@
 #define STICKER_RARITY_MYTHIC (1<<4)
 
 //Sticker series
-#define STICKER_SERIES_1 (1<<10)  //Bump these along if you somehow need more rarities
+#define STICKER_SERIES_1 (1<<10)  //Bump these along if you somehow need more rarities > 10
 
 //Drop weight
 #define STICKER_WEIGHT_COMMON 100

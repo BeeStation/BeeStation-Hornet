@@ -173,7 +173,7 @@
 		qdel(shape)
 	qdel(src)
 
-//Fuck off fuck you
+//Special subtype for artifacts that use it in a wonky-ish way, don't worry :)
 /obj/shapeshift_holder/no_damage
 
 /obj/shapeshift_holder/no_damage/restore(death=FALSE, convert_damage = FALSE)

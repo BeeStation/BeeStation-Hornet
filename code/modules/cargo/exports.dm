@@ -182,7 +182,6 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 		if(apply_elastic)
 			cost *= NUM_E**(-1*k_elasticity*amount)		//marginal cost modifier
 		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[the_cost]"))
-
 	return TRUE
 
 // Total printout for the cargo console.

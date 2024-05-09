@@ -895,5 +895,5 @@
 	var/atom/parent_atom = parent
 	var/matrix/M = parent_atom.transform
 	var/matrix/old_M = parent_atom.transform
-	animate(parent, time = 1.5, loop = 0, transform = M.Scale(1.11, 0.85), flags = ANIMATION_PARALLEL)
+	animate(parent, time = 1.5, loop = 0, transform = M.Scale(1.11, 0.85))
 	animate(time = 2, transform = old_M)
