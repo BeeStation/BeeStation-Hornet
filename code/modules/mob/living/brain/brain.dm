@@ -104,3 +104,6 @@
 	if(istype(loc, /obj/item/organ/brain))
 		var/obj/item/organ/brain/B = loc
 		. = B.traumas
+
+/mob/living/brain/soul_departed()
+	return !key && !get_ghost(FALSE, TRUE)
