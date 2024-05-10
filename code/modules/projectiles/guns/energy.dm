@@ -74,10 +74,6 @@
 	update_appearance()
 	AddElement(/datum/element/update_icon_updates_onmob)
 
-/obj/item/gun/energy/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/update_icon_updates_onmob)
-
 /obj/item/gun/energy/fire_sounds()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/batt_percent = FLOOR(clamp(cell.charge / cell.maxcharge, 0, 1) * 100, 1)
@@ -219,12 +215,6 @@
 	if(!skip_worn_icon)
 		worn_icon_state = temp_icon_to_use
 	return ..()
-
-	temp_icon_to_use += "[ratio]"
-	if(!skip_inhand)
-		item_state = temp_icon_to_use
-	if(!skip_worn_icon)
-		worn_icon_state = temp_icon_to_use
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()
