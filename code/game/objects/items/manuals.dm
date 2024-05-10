@@ -251,9 +251,11 @@
 /obj/item/book/manual/wiki/attack_self(mob/user)
 	var/wikiurl = CONFIG_GET(string/wikiurl)
 	if(!wikiurl)
+		user.balloon_alert(user, "what!? these pages are blank!")
 		return
-	if(alert(user, "This will open the wiki page in your browser. Are you sure?", null, "Yes", "No") != "Yes")
+	if(tgui_alert(user, "This will open the wiki page in your browser. Are you sure?", list("Yes", "No")) != "Yes")
 		return
+
 	DIRECT_OUTPUT(user, link("[wikiurl]/[page_link]"))
 
 /obj/item/book/manual/wiki/chemistry
@@ -330,7 +332,7 @@
 	icon_state = "barbook"
 	author = "Sir John Rose"
 	title = "Barman Recipes: Mixing Drinks and Changing Lives"
-	page_link = "Guide_to_food_and_drinks"
+	page_link = "Guide_to_Drinks"
 
 /obj/item/book/manual/wiki/robotics_cyborgs
 	name = "Robotics for Dummies"
@@ -366,7 +368,7 @@
 	icon_state ="cooked_book"
 	author = "the Kanamitan Empire"
 	title = "To Serve Man"
-	page_link = "Guide_to_food_and_drinks"
+	page_link = "Guide_to_Food"
 
 /obj/item/book/manual/wiki/tcomms
 	name = "Subspace Telecommunications And You"

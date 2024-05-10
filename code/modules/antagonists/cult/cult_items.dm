@@ -758,6 +758,7 @@ Striking a noncultist, however, will tear their flesh."}
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 	weapon_weight = WEAPON_LIGHT
 	equip_time = 0
+	has_weapon_slowdown = FALSE
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
