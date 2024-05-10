@@ -3,6 +3,7 @@
 Diona pbody and tail
 MAKE IT WORK
 make dionae be able to be planted via replica pods
+THE DIONAE SPLITTING
 
 
 testmerge
@@ -70,6 +71,8 @@ flowers work but the rest dont
 
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.take_overall_damage(2,0)
+	if(H.fire_stacks < 1)
+		H.adjust_fire_stacks(1) //VERY flammable
 
 /datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	. = FALSE
