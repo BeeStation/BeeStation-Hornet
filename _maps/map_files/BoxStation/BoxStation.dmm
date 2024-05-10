@@ -7412,7 +7412,6 @@
 	pixel_y = -24
 	},
 /obj/machinery/holopad,
-/obj/effect/turf_decal/tile/blue/opposingcorners,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
