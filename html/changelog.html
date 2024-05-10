@@ -56,6 +56,57 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">10 May 2024</h2>
+			<h3 class="author">ClownMoff updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">CorgStation: Added 3 oxytans to the security E.V.A room.</li>
+				<li class="tweak">CorgStation: Split the HoS shutter controllers into 2 buttons instead of one, for both the private room and the office.</li>
+				<li class="tweak">CorgStation: Cargo windoor from maints could be opened by everyone. Not anymore.</li>
+				<li class="tweak">CorgStation: Solved a camera and a fire alarm being in a window</li>
+				<li class="rscdel">CorgStation: Deleted an unnecesary shutter from the HoS room</li>
+			</ul>
+			<h3 class="author">rkz, Qustinnus, AnturK, TiviPlus, ShizCalev, MrMelbert, LemonInTheDark, ghommie updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">gunlight component</li>
+				<li class="refactor">refactored energy guns to have valid inhands</li>
+				<li class="rscadd">adds automated handling for inhand and worn energy guns</li>
+				<li class="bugfix">addresses possible runtime when qdeleting self-recharging guns with attached bayonets</li>
+				<li class="rscadd">new minigunlight sprite for mini e_guns like the PTSD</li>
+				<li class="code_imp">splits toggleable sec helmets into their own subtype to reduce snowflake code</li>
+			</ul>
+
+			<h2 class="date">08 May 2024</h2>
+			<h3 class="author">DrDuckedGoose updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fix emissives on players</li>
+				<li class="tweak">Add filter compatibility to emissives</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Improved textification of the language icon rendering in TGUI.</li>
+				<li class="code_imp">cleaned up religion code into multiple dm files</li>
+				<li class="code_imp">Refactored weather code and fixed weather bad rendering issue.</li>
+				<li class="bugfix">Void Heretic no longer shows void weather where they don't stand on.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes 515 compilation issue regarding species cold temperature</li>
+			</ul>
+			<h3 class="author">XeonMations updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed blood cultists being able to place structures on survival pods</li>
+			</ul>
+			<h3 class="author">rkz, coiax updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Refactors step_action to save us from a few thousand useless proccalls per shift</li>
+			</ul>
+			<h3 class="author">rkz, nightred, lemoninthedark updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">refactored temperature stabilization in humans. Split human temperature into core temperature, which is affected by fevers & shivering symptoms and represents the overall temperature range, and Body Temperature which is what is directly affected by environmental factors and projectiles.</li>
+				<li class="rscadd">All species will now receive temperature HUD alerts before receiving damage.</li>
+				<li class="balance">recalculates burn damage based on overall temperature</li>
+			</ul>
+
 			<h2 class="date">07 May 2024</h2>
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
@@ -589,45 +640,6 @@
 			<h3 class="author">contributors updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscdel">removes a lightswitch on fland</li>
-			</ul>
-
-			<h2 class="date">07 March 2024</h2>
-			<h3 class="author">@BriggsIDP @DrDuckedGoose @HowToLoLu  updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">added a new subtype of the holodeck, a smaller 7x7 holodeck</li>
-				<li class="rscadd">4 new shuttles: cargo_tiny, mining_tiny, arrival_tiny and evac_tiny</li>
-				<li class="rscadd">Edited bimo gen for surface fauna gen</li>
-				<li class="tweak">lighting fixes for dynamic lighting thanks to dakae!</li>
-				<li class="bugfix">fixed some zlevel rendering issues</li>
-				<li class="tweak">tweaked the mapGenerator files biome gen; pixel shifting placed objs</li>
-				<li class="tweak">various turfs for planetary use</li>
-				<li class="rscadd">pool water code to beach/water, you have to climb in it!</li>
-				<li class="tweak">made tesla quieter</li>
-			</ul>
-			<h3 class="author">MarkusLarsson421 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="imageadd">Added a map sign for Echo Station able to display any of the four floors for mappers to guide players.</li>
-			</ul>
-			<h3 class="author">MatiAvanti updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="config">Replace "Red Dead Redemption Two" and "Yanye Kest" with "Bonkers" and "John Nanotrasen"</li>
-			</ul>
-
-			<h2 class="date">06 March 2024</h2>
-			<h3 class="author">Aramix updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Admins can now use View Variable's Add Component/Element again (adminbus potential)</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Revived 'get_recipes()' proc</li>
-				<li class="code_imp">Base materials now correctly show a dupe version of a craftable object. Currently only a chair is available, and only certain materials like Iron, Plasma sheet, Bananium sheet, etc have this.</li>
-				<li class="bugfix">fixed some materials are not matched to each other</li>
-			</ul>
-			<h3 class="author">ToasterBan updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">adding a beaker to a medbot is now logged</li>
-				<li class="rscdel">The "Flow Hair" hairstyle, which was identical to "Short Hair 4"</li>
 			</ul>
 		</div>
 

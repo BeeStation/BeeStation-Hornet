@@ -2222,6 +2222,14 @@
 	},
 /turf/open/floor/grass,
 /area/awaymission/research/interior/escapepods)
+"mN" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "mO" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Two"
@@ -2713,6 +2721,16 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
+"tH" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/head/helmet/toggleable/riot,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/security)
 "ui" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 4
@@ -2726,6 +2744,11 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/security)
+"uk" = (
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "up" = (
 /obj/item/stack/rods,
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
@@ -2961,14 +2984,6 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
-"ym" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
 "ys" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
@@ -3122,16 +3137,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
-"An" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/head/helmet/riot,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/security)
 "At" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -3207,6 +3212,14 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
+"Cl" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/mob/living/carbon/human/species/monkey,
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/genetics)
 "Cm" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -3458,11 +3471,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
-"ET" = (
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
 "EU" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
@@ -4028,14 +4036,6 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
-"Ne" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/mob/living/carbon/human/species/monkey,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/genetics)
 "Ns" = (
 /obj/item/ammo_casing/c45,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
@@ -36759,10 +36759,10 @@ aH
 cm
 cw
 cx
-ET
+uk
 Fq
 Mu
-ET
+uk
 ea
 oP
 fc
@@ -37017,7 +37017,7 @@ cd
 cx
 cx
 oT
-ym
+Cl
 ss
 ss
 ea
@@ -38571,7 +38571,7 @@ oP
 fd
 Wi
 ea
-Ne
+mN
 Rb
 Rb
 Ez
@@ -38831,7 +38831,7 @@ ea
 Fq
 Kd
 Fq
-ET
+uk
 cx
 cm
 cw
@@ -48069,7 +48069,7 @@ ji
 aH
 aO
 do
-An
+tH
 LS
 FG
 do
