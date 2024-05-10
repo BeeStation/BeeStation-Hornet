@@ -4604,6 +4604,7 @@
 /area/crew_quarters/kitchen/coldroom)
 "aVE" = (
 /obj/machinery/computer/slot_machine,
+/obj/machinery/firealarm/directional/west,
 /turf/open/floor/wood/big,
 /area/crew_quarters/cafeteria)
 "aVF" = (
@@ -5398,7 +5399,7 @@
 	pixel_y = 12
 	},
 /obj/item/hand_labeler{
-	pixel_x = 4
+	pixel_x = 12
 	},
 /obj/item/reagent_containers/dropper{
 	pixel_x = -12
@@ -5419,6 +5420,38 @@
 /obj/item/clothing/glasses/science{
 	pixel_x = 10;
 	pixel_y = 12
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/timer{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -2;
+	pixel_y = 2
 	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
@@ -5935,7 +5968,15 @@
 	pixel_y = -6;
 	req_one_access_txt = "5; 33"
 	},
-/obj/machinery/vending/wardrobe/chem_wardrobe,
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder,
+/obj/item/storage/box/beakers{
+	pixel_x = 11;
+	pixel_y = 13
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_y = 4
+	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "bhl" = (
@@ -6640,6 +6681,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/obj/machinery/vending/wardrobe/chem_wardrobe,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "bkT" = (
@@ -6689,11 +6731,6 @@
 "bll" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
-	},
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder,
-/obj/item/stack/sheet/mineral/plasma{
-	pixel_y = 4
 	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
@@ -8415,13 +8452,7 @@
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "bBc" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/southleft{
-	dir = 1;
-	name = "Chemistry Desk";
-	req_access_txt = "33"
-	},
-/obj/machinery/door/firedoor,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/apothecary)
 "bBi" = (
@@ -23692,10 +23723,10 @@
 	pixel_x = 26;
 	pixel_y = 8
 	},
-/obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/machinery/disposal/bin,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "fgq" = (
@@ -44498,51 +44529,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
-	},
-/obj/structure/table/glass,
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/assembly/timer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/storage/box/beakers{
-	pixel_x = 11;
-	pixel_y = 13
 	},
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
@@ -101240,7 +101226,7 @@ rpr
 aUh
 aYV
 aYV
-aYV
+aRB
 cZK
 aUy
 bip
@@ -105102,7 +105088,7 @@ tMY
 bll
 mSX
 bxc
-bok
+bBc
 jLS
 jLS
 jLS
@@ -105616,7 +105602,7 @@ tVy
 jhL
 jhL
 bkP
-bBc
+sxt
 jLS
 cVy
 jLS
@@ -105873,7 +105859,7 @@ vjh
 xpk
 fgo
 bkR
-sxt
+bok
 jLS
 cVy
 jLS
