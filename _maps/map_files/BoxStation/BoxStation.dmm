@@ -19462,6 +19462,16 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
+"dti" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "dto" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
@@ -24317,13 +24327,16 @@
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
 "fod" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+/obj/machinery/door/airlock/maintenance{
+	name = "CMO Maintenance";
+	req_access_txt = "40";
+	security_level = 6
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
 /turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
+/area/crew_quarters/heads/cmo)
 "foC" = (
 /obj/item/bedsheet/red,
 /turf/open/floor/plating,
@@ -31633,6 +31646,14 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
+"iBA" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "iBE" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/trimline/dark_blue/filled/end{
@@ -39983,18 +40004,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/chemistry)
-"meW" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "mfn" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
@@ -41343,10 +41352,13 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "mOL" = (
+/obj/structure/table,
+/obj/item/stack/medical/gauze,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/ointment,
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "mOX" = (
@@ -50238,12 +50250,14 @@
 /turf/open/floor/wood,
 /area/library)
 "qQi" = (
-/obj/structure/table,
-/obj/item/stack/medical/gauze,
-/obj/item/stack/medical/bruise_pack,
-/obj/item/stack/medical/ointment,
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
@@ -61205,16 +61219,6 @@
 /obj/machinery/rnd/production/techfab/department/service,
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
-"vCe" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "vCl" = (
 /obj/machinery/holopad,
 /turf/open/floor/iron/white,
@@ -63431,17 +63435,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"wyM" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "CMO Maintenance";
-	req_access_txt = "40";
-	security_level = 6
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/crew_quarters/heads/cmo)
 "wzi" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/line{
@@ -65981,6 +65974,13 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
+"xEk" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "xEn" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /obj/item/clothing/head/hardhat/orange{
@@ -102971,7 +102971,7 @@ loN
 kSZ
 nSK
 kSZ
-vCe
+dti
 uwZ
 iQT
 uwZ
@@ -103228,7 +103228,7 @@ pcD
 kSZ
 oxh
 xen
-mOL
+xEk
 ipM
 jwX
 jwX
@@ -103485,7 +103485,7 @@ epq
 pYY
 tCh
 kSZ
-fod
+iBA
 szW
 tXQ
 bpV
@@ -103742,7 +103742,7 @@ pcD
 kSZ
 hjw
 nzv
-mOL
+xEk
 boi
 jWJ
 dan
@@ -103995,11 +103995,11 @@ aYV
 kDj
 rpN
 iQT
-qQi
+mOL
 kSZ
 aXz
 kSZ
-meW
+qQi
 uwZ
 iQT
 uwZ
@@ -108650,7 +108650,7 @@ bOt
 bWj
 bWj
 bWj
-wyM
+fod
 bWj
 bWj
 bWj
