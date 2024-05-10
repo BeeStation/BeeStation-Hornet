@@ -2836,15 +2836,15 @@
 /turf/open/floor/wood,
 /area/library)
 "aJH" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Cafeteria"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	layer = 1
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Cafeteria"
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/cafeteria)
@@ -21390,6 +21390,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "ekw" = (
@@ -26597,20 +26598,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"gvi" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/machinery/door/airlock/public/glass{
-	name = "Cafeteria"
-	},
-/obj/effect/turf_decal/siding/wood{
-	layer = 1
-	},
-/turf/open/floor/carpet/red,
-/area/crew_quarters/cafeteria)
 "gvI" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -62092,6 +62079,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Cafeteria"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/iron/cafeteria,
 /area/crew_quarters/kitchen)
 "wfU" = (
@@ -101714,7 +101702,7 @@ ekY
 nPC
 kIo
 rpr
-gvi
+aJH
 aYV
 nTk
 aYV
@@ -103513,7 +103501,7 @@ ekY
 lLK
 vhR
 rpr
-aUh
+aJH
 aYV
 kDj
 rpN
@@ -103770,7 +103758,7 @@ dUz
 mvz
 qQq
 rpr
-gvi
+aJH
 aYV
 kDj
 cOt
