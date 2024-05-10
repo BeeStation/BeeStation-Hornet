@@ -6787,13 +6787,13 @@
 /turf/open/floor/plating,
 /area/security/warden)
 "bll" = (
-/obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/epinephrine{
 	pixel_x = 8;
 	pixel_y = 6
 	},
 /obj/item/storage/box/medsprays,
 /obj/item/hand_labeler,
+/obj/structure/table/glass,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "blp" = (
@@ -41269,12 +41269,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
-"mOL" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/caution/stand_clear,
-/turf/open/floor/iron/dark,
-/area/medical/medbay/central)
 "mOX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
@@ -44698,12 +44692,12 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "oke" = (
-/obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/salglu_solution{
 	pixel_x = -5;
 	pixel_y = 10
 	},
 /obj/item/storage/box/pillbottles,
+/obj/structure/table/glass,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
 "oki" = (
@@ -104644,7 +104638,7 @@ bok
 bok
 pVe
 xaA
-mOL
+mGt
 mGt
 mGt
 fFu
