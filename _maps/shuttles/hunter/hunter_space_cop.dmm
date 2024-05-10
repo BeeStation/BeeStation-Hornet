@@ -761,7 +761,7 @@
 	},
 /obj/machinery/light/small,
 /obj/structure/toilet/secret{
-	contents = /obj/item/clothing/head/helmet/justice
+	contents = /obj/item/clothing/head/helmet/toggleable/justice
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/shuttle/hunter)
@@ -1160,7 +1160,7 @@
 /obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/head/helmet/riot,
+/obj/item/clothing/head/helmet/toggleable/riot,
 /obj/item/clothing/glasses/hud/security/sunglasses,
 /obj/item/clothing/glasses/hud/security/sunglasses,
 /obj/effect/turf_decal/bot_red,
