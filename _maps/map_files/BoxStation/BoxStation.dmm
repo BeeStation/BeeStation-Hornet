@@ -7139,6 +7139,12 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/central)
+"bnT" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/starboard)
 "bnY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -16467,9 +16473,15 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/exit)
 "cBm" = (
-/obj/effect/landmark/event_spawn,
-/turf/open/floor/iron,
-/area/hallway/primary/starboard)
+/obj/structure/table,
+/obj/item/stack/medical/gauze,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/ointment,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "cBn" = (
 /obj/effect/landmark/event_spawn,
 /obj/machinery/camera/autoname{
@@ -18981,6 +18993,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
+/obj/effect/landmark/event_spawn,
 /turf/open/floor/iron,
 /area/hallway/primary/starboard)
 "dgz" = (
@@ -19462,16 +19475,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/atmos)
-"dti" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "dto" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
@@ -24327,16 +24330,12 @@
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
 "fod" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "CMO Maintenance";
-	req_access_txt = "40";
-	security_level = 6
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/white,
-/area/crew_quarters/heads/cmo)
+/area/medical/medbay/lobby)
 "foC" = (
 /obj/item/bedsheet/red,
 /turf/open/floor/plating,
@@ -31646,14 +31645,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/port)
-"iBA" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "iBE" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/trimline/dark_blue/filled/end{
@@ -41352,15 +41343,16 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "mOL" = (
-/obj/structure/table,
-/obj/item/stack/medical/gauze,
-/obj/item/stack/medical/bruise_pack,
-/obj/item/stack/medical/ointment,
-/obj/effect/turf_decal/tile/blue{
+/obj/machinery/door/airlock/maintenance{
+	name = "CMO Maintenance";
+	req_access_txt = "40";
+	security_level = 6
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
+/area/crew_quarters/heads/cmo)
 "mOX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
@@ -50256,9 +50248,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "qQq" = (
@@ -56444,6 +56434,14 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"trp" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "trA" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -62072,6 +62070,18 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
+"vTK" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-10"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/medical/medbay/lobby)
 "vUe" = (
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder,
@@ -65974,13 +65984,6 @@
 	},
 /turf/open/floor/prison,
 /area/security/prison)
-"xEk" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron/white,
-/area/medical/medbay/lobby)
 "xEn" = (
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /obj/item/clothing/head/hardhat/orange{
@@ -102194,7 +102197,7 @@ rpr
 aJH
 aYV
 nTk
-aYV
+bnT
 btZ
 btZ
 btZ
@@ -102971,7 +102974,7 @@ loN
 kSZ
 nSK
 kSZ
-dti
+qQi
 uwZ
 iQT
 uwZ
@@ -103228,7 +103231,7 @@ pcD
 kSZ
 oxh
 xen
-xEk
+fod
 ipM
 jwX
 jwX
@@ -103485,7 +103488,7 @@ epq
 pYY
 tCh
 kSZ
-iBA
+trp
 szW
 tXQ
 bpV
@@ -103742,7 +103745,7 @@ pcD
 kSZ
 hjw
 nzv
-xEk
+fod
 boi
 jWJ
 dan
@@ -103995,11 +103998,11 @@ aYV
 kDj
 rpN
 iQT
-mOL
+cBm
 kSZ
 aXz
 kSZ
-qQi
+vTK
 uwZ
 iQT
 uwZ
@@ -104764,7 +104767,7 @@ vmn
 pEr
 aYV
 kDj
-aYV
+bnT
 bok
 bok
 bix
@@ -106049,7 +106052,7 @@ gSI
 ekt
 twv
 dgq
-cBm
+aYV
 bok
 bhm
 tVy
@@ -106563,7 +106566,7 @@ lmH
 qTP
 bbz
 aYV
-aYV
+bnT
 bok
 bok
 bok
@@ -108650,7 +108653,7 @@ bOt
 bWj
 bWj
 bWj
-fod
+mOL
 bWj
 bWj
 bWj
