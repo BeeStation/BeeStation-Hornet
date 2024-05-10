@@ -6252,6 +6252,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/white,
 /area/medical/storage)
 "bip" = (
@@ -7409,6 +7410,11 @@
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "bpV" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue,
 /obj/machinery/button/door{
 	desc = "A remote control switch for the medbay foyer.";
 	id = "MedbayFoyer";
@@ -7417,11 +7423,6 @@
 	pixel_x = 25;
 	pixel_y = -24
 	},
-/obj/machinery/holopad,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
 /turf/open/floor/iron/white,
 /area/medical/medbay/lobby)
 "bpX" = (
@@ -47599,6 +47600,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = 24
+	},
 /turf/open/floor/iron/white,
 /area/medical/cryo)
 "pFn" = (
@@ -50201,6 +50206,10 @@
 	name = "emergency shower"
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/radio/intercom{
+	pixel_x = -30;
+	pixel_y = -4
+	},
 /turf/open/floor/noslip/white,
 /area/medical/patients_rooms)
 "qPq" = (
@@ -50955,6 +50964,17 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"rfl" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
+/obj/machinery/newscaster{
+	pixel_y = -32
+	},
+/turf/open/floor/iron/white,
+/area/medical/patients_rooms)
 "rfG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -54924,6 +54944,18 @@
 /obj/effect/turf_decal/numbers/two_nine,
 /turf/open/floor/prison,
 /area/security/prison)
+"sJa" = (
+/obj/structure/closet/secure_closet/medical3,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = -30;
+	pixel_y = -4
+	},
+/turf/open/floor/iron/white,
+/area/medical/storage)
 "sJi" = (
 /obj/machinery/flasher/portable,
 /obj/effect/turf_decal/stripes/line{
@@ -101178,8 +101210,8 @@ etZ
 tZy
 btZ
 vPT
-bio
 bqR
+sJa
 bio
 mQy
 bRO
@@ -104013,7 +104045,7 @@ cGa
 wXK
 cfk
 diM
-niV
+rfl
 gWM
 rop
 gRe
