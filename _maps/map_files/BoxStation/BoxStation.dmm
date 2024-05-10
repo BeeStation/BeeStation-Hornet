@@ -18275,7 +18275,7 @@
 	name = "Morgue";
 	req_access_txt = "6"
 	},
-/turf/closed/wall,
+/turf/open/floor/iron/dark,
 /area/medical/morgue)
 "cQR" = (
 /obj/effect/turf_decal/stripes/line{
@@ -33114,7 +33114,7 @@
 	name = "Morgue Maintenance";
 	req_access_txt = "6"
 	},
-/turf/open/space/basic,
+/turf/open/floor/iron/dark,
 /area/maintenance/aft)
 "jhe" = (
 /obj/structure/chair{
