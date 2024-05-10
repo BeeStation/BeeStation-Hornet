@@ -216,18 +216,19 @@
 	AddElement(/datum/element/point_of_interest)
 
 /obj/machinery/capture_the_flag/process(delta_time)
-	for(var/mob/living/M as() in spawned_mobs)
-		if(QDELETED(M))
-			spawned_mobs -= M
+	for(var/mob/living/living_participant as anything in spawned_mobs)
+		if(QDELETED(living_participant))
+			spawned_mobs -= living_participant
 			continue
 		// Anyone in crit, automatically reap
-		if(M.InCritical() || M.stat == DEAD)
-			ctf_dust_old(M)
+
+		if(HAS_TRAIT(living_participant, TRAIT_CRITICAL_CONDITION) || living_participant.stat == DEAD)
+			ctf_dust_old(living_participant)
 		else
 			// The changes that you've been hit with no shield but not
 			// instantly critted are low, but have some healing.
-			M.adjustBruteLoss(-2.5 * delta_time)
-			M.adjustFireLoss(-2.5 * delta_time)
+			living_participant.adjustBruteLoss(-2.5 * delta_time)
+			living_participant.adjustFireLoss(-2.5 * delta_time)
 
 /obj/machinery/capture_the_flag/red
 	name = "Red CTF Controller"

@@ -30,7 +30,7 @@
 
 /datum/objective/crew/foodhoard
 	var/datum/crafting_recipe/food/targetfood
-	var/obj/item/reagent_containers/food/foodpath
+	var/obj/item/food/foodpath
 	explanation_text = "Personally deliver at least (Something broke, yell on GitHub) to CentCom."
 	jobs = JOB_NAME_COOK
 

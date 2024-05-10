@@ -1,6 +1,5 @@
 /datum/job/chief_engineer
 	title = JOB_NAME_CHIEFENGINEER
-	flag = CHIEF
 	description = "Oversee the engineers and atmospheric technicians, keep a watchful eye on the station's engine, gravity generator, and telecomms. Send your staff to repair hull breaches and damaged equipment as necessary."
 	department_for_prefs = DEPT_BITFLAG_ENG
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
@@ -28,7 +27,6 @@
 			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS, ACCESS_MINISAT, ACCESS_MECH_ENGINE,
 			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM, ACCESS_WEAPONS)
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_ENG | DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_ENG_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
