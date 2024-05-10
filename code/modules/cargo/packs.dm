@@ -104,8 +104,8 @@
 	max_supply = 1
 	contains = list(/mob/living/simple_animal/bot/floorbot,
 					/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
+					/mob/living/simple_animal/bot/medbot/filled,
+					/mob/living/simple_animal/bot/medbot/filled,
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air,
 					/obj/item/tank/internals/air,
@@ -124,8 +124,8 @@
 	desc = "For when the shit hits the fan and medical can't keep up. Comes with a 7x5 Medical capsule and 2 Medibots for emergencies."
 	cost = 1100
 	max_supply = 1
-	contains = list(/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
+	contains = list(/mob/living/simple_animal/bot/medbot/filled,
+					/mob/living/simple_animal/bot/medbot/filled,
 					/obj/item/survivalcapsule/medical)
 	crate_name = "emergency medical crate"
 	crate_type = /obj/structure/closet/crate/medical
@@ -505,7 +505,7 @@
 	cost = 5700 //justice comes at a price. An expensive, noisy price.
 	max_supply = 3
 	contraband = TRUE
-	contains = list(/obj/item/clothing/head/helmet/justice,
+	contains = list(/obj/item/clothing/head/helmet/toggleable/justice,
 					/obj/item/clothing/mask/gas/sechailer)
 	crate_name = "security clothing crate"
 
@@ -717,7 +717,7 @@
 					/obj/item/survivalcapsule/barricade)
 	cost = 2000
 	crate_name = "security barriers crate XL"
-	
+
 /datum/supply_pack/security/armory/capsule_checkpoints
 	name = "Security Checkpoint capsules"
 	desc = "A 3x3 checkpoint designed for allowing safely searching passing personnel. Requires Security access to open."
@@ -765,9 +765,9 @@
 	contains = list(/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/suit/armor/riot,
-					/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/head/helmet/riot)
+					/obj/item/clothing/head/helmet/toggleable/riot,
+					/obj/item/clothing/head/helmet/toggleable/riot,
+					/obj/item/clothing/head/helmet/toggleable/riot)
 	crate_name = "riot armor crate"
 
 /datum/supply_pack/security/armory/riotshields
@@ -1888,6 +1888,16 @@
 	contains = list(/obj/machinery/computer/pandemic)
 	crate_name = "P.A.N.D.E.M.I.C. Replacement Crate"
 	dangerous = TRUE
+
+/datum/supply_pack/medical/chem_bags
+	name = "Chembag Refill Crate"
+	desc = "Contains 3 bags, containing Bicaridine, Kelotane and Anti-toxin for when the chemist is too busy making methamphetamines."
+	cost = 1000
+	max_supply = 3
+	contains = list(/obj/item/reagent_containers/chem_bag/bicaridine,
+					/obj/item/reagent_containers/chem_bag/kelotane,
+					/obj/item/reagent_containers/chem_bag/antitoxin)
+	crate_name = "Chembag Refill Crate"
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

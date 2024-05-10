@@ -249,6 +249,10 @@
 		total = max(total, stamina_dam)
 	return total
 
+//Returns only stamina damage.
+/obj/item/bodypart/proc/get_staminaloss()
+	return stamina_dam
+
 //Checks disabled status thresholds
 /obj/item/bodypart/proc/update_disabled()
 	set_disabled(is_disabled())
@@ -485,7 +489,7 @@
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
-	if(!((owner.stat == DEAD) || owner.InFullCritical()))
+	if(owner.stat < HARD_CRIT)
 		return FALSE
 	return ..()
 

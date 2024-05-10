@@ -202,6 +202,10 @@
 	if (!destruction_timer)
 		destruction_timer = QDEL_IN(src, 10 SECONDS)
 
+// Get actual source atom when orbiting
+/atom/movable/openspace/mimic/get_orbitable()
+	return associated_atom
+
 // -- TURF PROXY --
 // This thing holds the mimic appearance for non-OVERWRITE turfs.
 /atom/movable/openspace/turf_proxy
