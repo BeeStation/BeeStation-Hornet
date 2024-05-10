@@ -19019,12 +19019,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/checkpoint/auxiliary)
-"dhF" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/medical/exam_room)
 "dhN" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -19854,15 +19848,17 @@
 /turf/open/space,
 /area/space/nearstation)
 "dxY" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
@@ -22021,6 +22017,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
 "esK" = (
@@ -25158,6 +25158,18 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/iron/white,
 /area/science/lab)
+"fHh" = (
+/obj/structure/closet/secure_closet/medical3,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = -30;
+	pixel_y = -4
+	},
+/turf/open/floor/iron/white,
+/area/medical/storage)
 "fHu" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -31978,13 +31990,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/medical/patients_rooms)
-"iIR" = (
-/obj/structure/bodycontainer/morgue,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/iron/dark,
-/area/medical/morgue)
 "iIT" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -32270,6 +32275,13 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"iPj" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/light,
+/turf/open/floor/iron/white,
+/area/medical/patients_rooms)
 "iPs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -33025,6 +33037,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
+"jek" = (
+/obj/structure/bodycontainer/morgue,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/medical/morgue)
 "jeB" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -35010,13 +35029,6 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
-"jZA" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/machinery/light,
-/turf/open/floor/iron/white,
-/area/medical/patients_rooms)
 "jZP" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -40247,17 +40259,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
-"mkS" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/obj/machinery/newscaster{
-	pixel_y = -32
-	},
-/turf/open/floor/iron/white,
-/area/medical/patients_rooms)
 "mkY" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -44740,17 +44741,16 @@
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
 "oiT" = (
-/obj/structure/closet/secure_closet/medical3,
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	pixel_x = -30;
-	pixel_y = -4
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
+/obj/machinery/newscaster{
+	pixel_y = -32
 	},
 /turf/open/floor/iron/white,
-/area/medical/storage)
+/area/medical/patients_rooms)
 "ojc" = (
 /obj/machinery/chem_master/condimaster{
 	desc = "Looks like a knock-off chem-master. Perhaps useful for separating liquids when mixing drinks precisely. Also dispenses condiments.";
@@ -56692,9 +56692,6 @@
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
 "tuJ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
 /obj/effect/turf_decal/pool{
 	dir = 1
 	},
@@ -59536,6 +59533,12 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/virology)
+"uFO" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/medical/exam_room)
 "uGA" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -59575,11 +59578,11 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "uGZ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /obj/effect/turf_decal/pool{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
 	},
 /turf/open/floor/iron,
 /area/crew_quarters/fitness)
@@ -98156,7 +98159,7 @@ sMZ
 hTg
 cBD
 bDL
-iIR
+jek
 bDL
 cuK
 cBD
@@ -101230,7 +101233,7 @@ tZy
 btZ
 vPT
 bqR
-oiT
+fHh
 bio
 mQy
 bRO
@@ -102522,7 +102525,7 @@ qOI
 mtZ
 mtZ
 xCy
-jZA
+iPj
 gWM
 mex
 aku
@@ -104064,7 +104067,7 @@ cGa
 wXK
 cfk
 diM
-mkS
+oiT
 gWM
 rop
 gRe
@@ -104578,7 +104581,7 @@ dlN
 dlN
 dlN
 dla
-jZA
+iPj
 gWM
 xKs
 xRj
@@ -106131,7 +106134,7 @@ bCR
 bLV
 xRh
 bNh
-dhF
+uFO
 bQF
 bNd
 fYc
