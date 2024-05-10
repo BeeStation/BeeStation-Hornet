@@ -1,6 +1,5 @@
 /datum/job/research_director
 	title = JOB_NAME_RESEARCHDIRECTOR
-	flag = RD_JF
 	description = "Oversee the scientists and roboticists and keep up with their research projects, take care of any issues with the station's AI that may arise, ensure research is being prioritized in accordance with the needs of the station."
 	department_for_prefs = DEPT_BITFLAG_SCI
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
@@ -30,7 +29,6 @@
 			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM,
 			            ACCESS_TECH_STORAGE, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_NETWORK, ACCESS_AUX_BASE, ACCESS_RD_SERVER, ACCESS_WEAPONS)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI | DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_SCI_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
