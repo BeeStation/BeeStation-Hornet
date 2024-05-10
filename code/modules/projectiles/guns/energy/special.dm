@@ -5,14 +5,18 @@
 	item_state = null //so the human update icon uses the icon_state instead.
 	worn_icon_state = null
 	shaded_charge = TRUE
-	can_flashlight = TRUE
 	w_class = WEIGHT_CLASS_HUGE
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
-	flight_x_offset = 17
-	flight_y_offset = 9
+
+/obj/item/gun/energy/ionrifle/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 17, \
+		overlay_y = 9)
 
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
@@ -23,8 +27,11 @@
 	slot_flags = ITEM_SLOT_BELT
 	pin = null
 	ammo_x_offset = 2
-	flight_x_offset = 18
-	flight_y_offset = 11
+
+/obj/item/gun/energy/ionrifle/carbine/add_seclight_point()
+	. = ..()
+	// We use the same overlay as the parent, so we can just let the component inherit the correct offsets here
+	AddComponent(/datum/component/seclite_attachable, overlay_x = 18, overlay_y = 11)
 
 /obj/item/gun/energy/ionrifle/carbine/pin
 	pin = /obj/item/firing_pin
@@ -105,8 +112,10 @@
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	can_flashlight = FALSE
 	max_mod_capacity = 0
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/add_seclight_point()
+	return
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/halloween
 	name = "candy corn crossbow"

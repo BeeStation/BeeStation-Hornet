@@ -4,16 +4,18 @@
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
 
-
 	///What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell
 	var/cell_type = /obj/item/stock_parts/cell
 	/// how much charge the cell will have, if we want the gun to have some abnormal charge level without making a new battery.
 	var/gun_charge
+	///if the weapon has custom icons for individual ammo types it can switch between. ie disabler beams, taser, laser/lethals, ect.
 	var/modifystate = FALSE
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	///The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
 	var/select = 1
+	///If the user can select the firemode through attack_self.
+	var/can_select = TRUE
 	///Can it be charged in a recharger?
 	var/can_charge = TRUE
 	///Do we handle overlays with base update_overlays()?
@@ -40,14 +42,14 @@
 	. = ..()
 	if(!(. & EMP_PROTECT_CONTENTS))
 		obj_flags |= OBJ_EMPED
-		update_appearance(UPDATE_ICON)
+		update_appearance()
 		addtimer(CALLBACK(src, PROC_REF(emp_reset)), rand(1, 200 / severity))
 		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
 
 /obj/item/gun/energy/proc/emp_reset()
 	obj_flags &= ~OBJ_EMPED
 	//Update the icon
-	update_appearance(UPDATE_ICON)
+	update_appearance()
 	//Play a sound to indicate re-activation
 	playsound(src, 'sound/machines/capacitor_charge.ogg', 90, TRUE)
 
@@ -69,7 +71,8 @@
 	recharge_newshot(TRUE)
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
-	update_appearance(UPDATE_ICON)
+	update_appearance()
+	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/gun/energy/ComponentInitialize()
 	. = ..()
@@ -120,7 +123,7 @@
 /obj/item/gun/energy/handle_atom_del(atom/A)
 	if(A == cell)
 		cell = null
-		update_appearance(UPDATE_ICON)
+		update_appearance()
 	return ..()
 
 /obj/item/gun/energy/process(delta_time)
@@ -132,12 +135,11 @@
 		cell.give(100)
 		if(!chambered) //if empty chamber we try to charge a new shot
 			recharge_newshot(TRUE)
-		update_appearance(UPDATE_ICON)
+		update_appearance()
 
 /obj/item/gun/energy/attack_self(mob/living/user as mob)
-	if(ammo_type.len > 1)
+	if(ammo_type.len > 1 && can_select)
 		select_fire(user)
-		update_appearance(UPDATE_ICON)
 
 /obj/item/gun/energy/can_shoot()
 	//Cannot shoot while EMPed
@@ -187,31 +189,36 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
-	if (shot.select_name)
+	if (shot.select_name && user)
 		balloon_alert(user, "You set [src]'s mode to [shot.select_name].")
 	chambered = null
 	recharge_newshot(TRUE)
-	update_appearance(UPDATE_ICON)
-	return
+	update_appearance()
 
 /obj/item/gun/energy/update_icon_state()
 	var/skip_inhand = initial(item_state) //only build if we aren't using a preset inhand icon
 	var/skip_worn_icon = initial(worn_icon_state) //only build if we aren't using a preset worn icon
 
 	if(skip_inhand && skip_worn_icon) //if we don't have either, don't do the math.
-		return
+		return ..()
 
 	if(QDELETED(src))
 		return
 	if(!automatic_charge_overlays)
 		return ..()
 
-
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/ratio = get_charge_ratio()
 	var/temp_icon_to_use = initial(icon_state)
 	if(modifystate)
+		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 		temp_icon_to_use += "[shot.select_name]"
+
+	temp_icon_to_use += "[ratio]"
+	if(!skip_inhand)
+		item_state = temp_icon_to_use
+	if(!skip_worn_icon)
+		worn_icon_state = temp_icon_to_use
+	return ..()
 
 	temp_icon_to_use += "[ratio]"
 	if(!skip_inhand)
@@ -228,8 +235,8 @@
 	if(modifystate)
 		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 		if(single_shot_type_overlay)
-			. += "[icon_state]_[shot.select_name]"
-		overlay_icon_state += "_[shot.select_name]"
+			. += "[icon_state]_[initial(shot.select_name)]"
+		overlay_icon_state += "_[initial(shot.select_name)]"
 
 	var/ratio = get_charge_ratio()
 	//Display no power if EMPed
@@ -272,7 +279,7 @@
 			playsound(loc, fire_sound, 50, 1, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			cell.use(shot.e_cost)
-			update_appearance(UPDATE_ICON)
+			update_appearance()
 			return(FIRELOSS)
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
