@@ -194,8 +194,6 @@ Contains:
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/ui_action_click(mob/user, datum/action)
 	switch(action.type)
-		if(/datum/action/item_action/toggle_helmet_light)
-			toggle_helmlight()
 		if(/datum/action/item_action/toggle_beacon_hud)
 			toggle_hud(user)
 

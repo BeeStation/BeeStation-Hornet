@@ -4,10 +4,35 @@
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(/mob/living/simple_animal/slime, /mob/living/brain)
 
+/// The time it takes for the blush visual to be removed
+#define BLUSH_DURATION 5.2 SECONDS
+
 /datum/emote/living/blush
 	key = "blush"
 	key_third_person = "blushes"
 	message = "blushes"
+	/// Timer for the blush visual to wear off
+
+/datum/emote/living/blush/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(. && ishuman(user)) // Give them a visual blush effect if they're human
+		var/mob/living/carbon/human/human_user = user
+		ADD_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
+		human_user.update_body()
+
+		// Use a timer to remove the blush effect after the BLUSH_DURATION has passed
+		var/list/key_emotes = GLOB.emote_list["blush"]
+		for(var/datum/emote/living/blush/living_emote in key_emotes)
+
+			// The existing timer restarts if it is already running
+			addtimer(CALLBACK(living_emote, PROC_REF(end_blush), human_user), BLUSH_DURATION, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/datum/emote/living/blush/proc/end_blush(mob/living/carbon/human/human_user)
+	if(!QDELETED(human_user))
+		REMOVE_TRAIT(human_user, TRAIT_BLUSHING, "[type]")
+		human_user.update_body()
+
+#undef BLUSH_DURATION
 
 /datum/emote/living/bow
 	key = "bow"
@@ -48,7 +73,7 @@
 
 /datum/emote/living/collapse/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user))
+	if(. && isliving(user) && intentional)
 		var/mob/living/L = user
 		L.Unconscious(40)
 
@@ -69,7 +94,7 @@
 	message_monkey = "lets out a faint chimper as it collapses and stops moving"
 	message_ipc = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off"
 	message_simple =  "stops moving"
-	stat_allowed = UNCONSCIOUS
+	stat_allowed = HARD_CRIT
 
 /datum/emote/living/deathgasp/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/simple_animal/S = user
@@ -96,7 +121,7 @@
 
 /datum/emote/living/faint/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user))
+	if(. && isliving(user) && intentional)
 		var/mob/living/L = user
 		L.SetSleeping(200)
 
@@ -218,7 +243,7 @@
 
 /datum/emote/living/point/run_emote(mob/user, params, type_override, intentional)
 	message_param = initial(message_param) // reset
-	if(ishuman(user))
+	if(ishuman(user) && intentional)
 		var/mob/living/carbon/human/H = user
 		if(H.get_num_arms() == 0)
 			if(H.get_num_legs() != 0)
@@ -313,7 +338,7 @@
 
 /datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && isliving(user))
+	if(. && isliving(user) && intentional)
 		var/mob/living/L = user
 		L.Paralyze(200)
 
@@ -446,12 +471,13 @@
 
 /datum/emote/living/circle/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/obj/item/circlegame/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You make a circle with your hand.</span>")
-	else
-		qdel(N)
-		to_chat(user, "<span class='warning'>You don't have any free hands to make a circle with.</span>")
+	if(intentional)
+		var/obj/item/circlegame/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You make a circle with your hand.</span>")
+		else
+			qdel(N)
+			to_chat(user, "<span class='warning'>You don't have any free hands to make a circle with.</span>")
 
 /datum/emote/living/slap
 	key = "slap"
@@ -462,11 +488,12 @@
 	. = ..()
 	if(!.)
 		return
-	var/obj/item/slapper/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
-	else
-		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
+	if(intentional)
+		var/obj/item/slapper/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
+		else
+			to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
 
 /datum/emote/living/raisehand
 	key = "highfive"
@@ -474,14 +501,15 @@
 	message = "raises their hand"
 	restraint_check = TRUE
 
-/datum/emote/living/raisehand/run_emote(mob/user, params)
+/datum/emote/living/raisehand/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/obj/item/highfive/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You raise your hand for a high-five.</span>")
-	else
-		qdel(N)
-		to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
+	if(intentional)
+		var/obj/item/highfive/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You raise your hand for a high-five.</span>")
+		else
+			qdel(N)
+			to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
 
 /datum/emote/living/fingergun
 	key = "fingergun"
@@ -489,14 +517,15 @@
 	message = "forms their fingers into the shape of a crude gun"
 	restraint_check = TRUE
 
-/datum/emote/living/fingergun/run_emote(mob/user, params)
+/datum/emote/living/fingergun/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	var/obj/item/gun/ballistic/revolver/mime/N = new(user)
-	if(user.put_in_hands(N))
-		to_chat(user, "<span class='notice'>You form your fingers into a gun.</span>")
-	else
-		qdel(N)
-		to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
+	if(intentional)
+		var/obj/item/gun/ballistic/revolver/mime/N = new(user)
+		if(user.put_in_hands(N))
+			to_chat(user, "<span class='notice'>You form your fingers into a gun.</span>")
+		else
+			qdel(N)
+			to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
 
 /datum/emote/living/click
 	key = "click"
@@ -596,7 +625,7 @@
 /datum/emote/living/must_breathe/cough
 	key = "cough"
 	key_third_person = "coughs"
-	message = "coughs!"
+	message = "coughs"
 
 /datum/emote/living/must_breathe/cough/can_run_emote(mob/user, status_check = TRUE, intentional)
 	return ..() && !HAS_TRAIT(user, TRAIT_SOOTHED_THROAT)
@@ -610,7 +639,7 @@
 /datum/emote/living/must_breathe/gasp
 	key = "gasp"
 	key_third_person = "gasps"
-	message = "gasps!"
+	message = "gasps"
 
 /datum/emote/living/must_breathe/gasp/get_sound(mob/living/user)
 	if(!ishuman(user))
@@ -621,12 +650,12 @@
 /datum/emote/living/must_breathe/huff
 	key = "huff"
 	key_third_person = "huffs"
-	message ="lets out a huff!"
+	message ="lets out a huff"
 
 /datum/emote/living/must_breathe/sigh
 	key = "sigh"
 	key_third_person = "sighs"
-	message = "sighs!"
+	message = "sighs"
 	emote_type = EMOTE_AUDIBLE|EMOTE_ANIMATED
 	emote_length = 3 SECONDS
 	overlay_y_offset = -1
@@ -641,7 +670,7 @@
 /datum/emote/living/must_breathe/sneeze
 	key = "sneeze"
 	key_third_person = "sneezes"
-	message = "sneezes!"
+	message = "sneezes"
 
 /datum/emote/living/must_breathe/sneeze/get_sound(mob/living/user)
 	if(!ishuman(user))
@@ -652,7 +681,7 @@
 /datum/emote/living/must_breathe/sniff
 	key = "sniff"
 	key_third_person = "sniffs"
-	message = "sniffs."
+	message = "sniffs"
 
 /datum/emote/living/must_breathe/sniff/get_sound(mob/living/user)
 	if(!ishuman(user))

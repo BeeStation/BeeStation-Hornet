@@ -54,6 +54,11 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
 	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_BRIGPHYSICIAN)
 
+/datum/gear/suit/wintercoat/brig_doc
+	display_name = "brig physician's winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/brigphys
+	allowed_roles = list(JOB_NAME_BRIGPHYSICIAN)
+
 /datum/gear/suit/wintercoat/science
 	display_name = "science winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
@@ -168,6 +173,12 @@
 /datum/gear/suit/jacket/letterman_syndie
 	display_name = "letterman jacket, Syndicate red"
 	path = /obj/item/clothing/suit/jacket/letterman_syndie
+	cost = 8000
+
+/datum/gear/suit/jacket/gothic
+	display_name = "gothic coat"
+	path = /obj/item/clothing/suit/gothcoat
+	description = "Perfect for those who want stalk in a corner of a bar."
 	cost = 8000
 
 /datum/gear/suit/jacket/joker

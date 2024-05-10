@@ -139,7 +139,7 @@
 /datum/antagonist/space_dragon/proc/rift_empower(is_permanent)
 	owner.current.fully_heal()
 	owner.current.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 5))
-	owner.current.add_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE, multiplicative_slowdown = -0.5)
+	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 	addtimer(CALLBACK(src, PROC_REF(rift_depower)), 30 SECONDS)
 
 /**
@@ -151,7 +151,7 @@
 /datum/antagonist/space_dragon/proc/permanent_empower()
 	owner.current.fully_heal()
 	owner.current.add_filter("anger_glow", 3, list("type" = "outline", "color" = "#ff330030", "size" = 5))
-	owner.current.add_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE, multiplicative_slowdown = -0.5)
+	owner.current.add_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 
 /**
  * Removes Space Dragon's rift speed buff.
@@ -162,7 +162,7 @@
  */
 /datum/antagonist/space_dragon/proc/rift_depower()
 	owner.current.remove_filter("anger_glow")
-	owner.current.remove_movespeed_modifier(MOVESPEED_ID_DRAGON_RAGE)
+	owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/rift_empowerment)
 
 /**
  * Destroys all of Space Dragon's current rifts.

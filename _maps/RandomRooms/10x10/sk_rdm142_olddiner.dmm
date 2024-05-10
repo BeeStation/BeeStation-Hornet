@@ -56,11 +56,11 @@
 "pb" = (
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/structure/rack,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "pI" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "qm" = (
 /obj/structure/table_frame/wood,
@@ -76,7 +76,7 @@
 	brightness = 3;
 	dir = 8
 	},
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "uE" = (
 /obj/item/stack/tile/carpet/black/fifty,
@@ -94,7 +94,7 @@
 /area/template_noop)
 "vO" = (
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "wa" = (
 /obj/structure/table/wood/fancy/black,
@@ -109,7 +109,7 @@
 "xT" = (
 /obj/machinery/light/small,
 /obj/machinery/processor,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "ya" = (
 /obj/machinery/chem_dispenser/drinks/beer,
@@ -185,7 +185,7 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "Hd" = (
 /obj/structure/table/wood,
@@ -202,7 +202,7 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "Mm" = (
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "Ny" = (
 /obj/structure/bookcase/random/reference,
@@ -219,7 +219,7 @@
 /area/template_noop)
 "Pi" = (
 /obj/machinery/smartfridge/drinks,
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "QG" = (
 /obj/machinery/door/airlock/wood,
@@ -236,7 +236,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Sl" = (
-/turf/open/floor/plasteel/cafeteria,
+/turf/open/floor/iron/cafeteria,
 /area/template_noop)
 "SJ" = (
 /turf/open/floor/carpet/royalblack,
@@ -267,7 +267,7 @@
 /obj/item/storage/box/ingredients/sweets,
 /obj/item/storage/box/ingredients/vegetarian,
 /obj/item/storage/box/ingredients/carnivore,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "Yd" = (
 /obj/structure/sign/warning/nosmoking,
@@ -281,7 +281,7 @@
 /area/template_noop)
 "Yt" = (
 /obj/machinery/light/small,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "Zp" = (
 /obj/structure/chair/wood{
@@ -291,7 +291,7 @@
 /area/template_noop)
 "ZF" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "ZH" = (
 /obj/structure/table/wood/fancy/black,

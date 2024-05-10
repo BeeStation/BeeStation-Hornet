@@ -4,7 +4,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 6
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "ab" = (
 /obj/effect/turf_decal/stripes/line{
@@ -13,23 +13,10 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "ac" = (
 /turf/open/floor/bluespace,
-/area/tdome/arena)
-"ad" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
 /area/tdome/arena)
 "ae" = (
 /obj/effect/turf_decal/stripes/line{
@@ -38,7 +25,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "af" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -47,7 +34,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "ag" = (
 /obj/effect/turf_decal/stripes/line{
@@ -56,7 +43,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "ah" = (
 /obj/effect/turf_decal/stripes/line{
@@ -65,7 +52,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "ai" = (
 /obj/effect/turf_decal/caution{
@@ -103,11 +90,11 @@
 /turf/open/floor/engine,
 /area/tdome/arena)
 "am" = (
-/turf/open/floor/plasteel/bluespace,
+/turf/open/floor/iron/bluespace,
 /area/tdome/arena)
 "an" = (
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/bluespace,
+/turf/open/floor/iron/bluespace,
 /area/tdome/arena)
 "ao" = (
 /obj/effect/turf_decal/box/white/corners{
@@ -164,7 +151,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/open/floor/plasteel/bluespace,
+/turf/open/floor/iron/bluespace,
 /area/tdome/arena)
 "aw" = (
 /obj/effect/turf_decal/stripes/line{
@@ -175,7 +162,7 @@
 /area/tdome/arena)
 "ax" = (
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/bluespace,
+/turf/open/floor/iron/bluespace,
 /area/tdome/arena)
 "ay" = (
 /obj/effect/turf_decal/stripes/line{
@@ -190,7 +177,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/open/floor/plasteel/bluespace,
+/turf/open/floor/iron/bluespace,
 /area/tdome/arena)
 "aA" = (
 /obj/effect/turf_decal/bot,
@@ -292,7 +279,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "aL" = (
 /obj/effect/turf_decal/stripes/line{
@@ -301,7 +288,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 6
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "aM" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -310,7 +297,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "aN" = (
 /obj/effect/turf_decal/stripes/line{
@@ -319,20 +306,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
-/area/tdome/arena)
-"aO" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "aP" = (
 /obj/effect/turf_decal/stripes/line{
@@ -341,7 +315,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "aQ" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -350,7 +324,7 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "aR" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
@@ -358,20 +332,6 @@
 	icon_state = "pipe11-2"
 	},
 /turf/open/floor/bluespace,
-/area/tdome/arena)
-"aS" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/general/hidden,
-/turf/open/floor/plasteel/dark,
 /area/tdome/arena)
 "aT" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
@@ -402,7 +362,7 @@
 	dir = 4;
 	icon_state = "pipe11-2"
 	},
-/turf/open/floor/plasteel/bluespace,
+/turf/open/floor/iron/bluespace,
 /area/tdome/arena)
 "aX" = (
 /obj/effect/turf_decal/delivery,
@@ -410,7 +370,7 @@
 	dir = 4;
 	icon_state = "pipe11-2"
 	},
-/turf/open/floor/plasteel/bluespace,
+/turf/open/floor/iron/bluespace,
 /area/tdome/arena)
 "aY" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
@@ -430,7 +390,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "kM" = (
 /obj/effect/turf_decal/stripes/line,
@@ -440,7 +400,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 "lU" = (
 /obj/effect/turf_decal/stripes/line,
@@ -451,7 +411,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/tdome/arena)
 
 (1,1,1) = {"

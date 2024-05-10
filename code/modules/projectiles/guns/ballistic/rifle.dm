@@ -64,6 +64,7 @@
 	desc = "Careful not to lose your head."
 	can_sawoff = FALSE
 	equip_time = 0 SECONDS
+	has_weapon_slowdown = FALSE
 	recoil = 0
 	var/guns_left = 30
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
@@ -82,10 +83,6 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
-
-/obj/item/gun/ballistic/rifle/boltaction/enchanted/Initialize(mapload)
-	. = ..()
-	chamber_round()
 
 /obj/item/gun/ballistic/rifle/boltaction/enchanted/dropped()
 	guns_left = 0

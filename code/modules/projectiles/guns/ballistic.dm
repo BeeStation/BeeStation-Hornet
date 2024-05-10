@@ -75,8 +75,7 @@
 		magazine = new mag_type(src)
 	if (!caliber)
 		caliber = magazine.caliber
-	if (bolt_type == BOLT_TYPE_NO_BOLT)
-		chamber_round()
+	chamber_round()
 	update_icon()
 
 /obj/item/gun/ballistic/fire_sounds()
@@ -516,7 +515,8 @@
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
 		if (bayonet)
 			bayonet.forceMove(drop_location())
-			clear_bayonet()
+			bayonet = null
+			update_appearance()
 		if (suppressed)
 			if (istype(suppressed, /obj/item/suppressor))
 				//weight class is set later, don't need to worry about removing extra weight from the suppressor

@@ -266,7 +266,7 @@
 
 /datum/heretic_knowledge/final/void_final/on_lose(mob/user)
 	on_death() // Losing is pretty much dying. I think
-	RegisterSignal(user, list(COMSIG_LIVING_LIFE, COMSIG_MOB_DEATH))
+	RegisterSignals(user, list(COMSIG_LIVING_LIFE, COMSIG_MOB_DEATH))
 
 /**
  * Signal proc for [COMSIG_LIVING_LIFE].
@@ -297,8 +297,7 @@
 		storm.telegraph()
 
 	storm.area_type = source_area.type
-	storm.impacted_areas = list(source_area)
-	storm.update_areas()
+	storm.update_areas(list(source_area))
 
 /**
  * Signal proc for [COMSIG_MOB_DEATH].

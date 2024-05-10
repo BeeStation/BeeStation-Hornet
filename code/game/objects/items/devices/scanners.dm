@@ -432,6 +432,7 @@ GENE SCANNER
 			mutant = TRUE
 
 		message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>"
+		message += "<span class='info'>Core temperature: [round(H.coretemperature-T0C,0.1)] &deg;C ([round(H.coretemperature*1.8-459.67,0.1)] &deg;F)</span>"
 	message += "<span class='info'>Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)</span>"
 
 	// Time of death
@@ -1207,7 +1208,7 @@ GENE SCANNER
 	if(!target_disease)
 		return
 	using = TRUE
-	if(isolate)
+	if(isolate && CONFIG_GET(flag/isolation_allowed))
 		. = isolate_symptom(user, target, target_disease)
 	else
 		. = isolate_disease(user, target, target_disease)
@@ -1218,6 +1219,8 @@ GENE SCANNER
  */
 /obj/item/extrapolator/proc/isolate_symptom(mob/living/user, atom/target, datum/disease/advance/target_disease)
 	. = FALSE
+	if(!CONFIG_GET(flag/isolation_allowed))
+		return FALSE
 	var/list/symptoms = list()
 	for(var/datum/symptom/symptom in target_disease.symptoms)
 		if(symptom.level <= maximum_level)

@@ -34,6 +34,11 @@
 	display_name = "red beret"
 	path = /obj/item/clothing/head/beret
 
+/datum/gear/hat/black_beret
+	display_name = "black beret"
+	path = /obj/item/clothing/head/beret/black
+	description = "A groovy beret that all the hip cats will totally dig"
+
 /datum/gear/hat/bowler
 	display_name = "bowler hat"
 	path = /obj/item/clothing/head/bowler
@@ -49,6 +54,11 @@
 /datum/gear/hat/fedora
 	display_name = "fedora"
 	path = /obj/item/clothing/head/fedora
+
+/datum/gear/hat/cowboy
+	display_name = "ranching hat"
+	path = /obj/item/clothing/head/cowboy
+	description = "King of the plains, the half cow half man mutant, the cowboy."
 
 /datum/gear/hat/sombrero
 	display_name = "sombrero"

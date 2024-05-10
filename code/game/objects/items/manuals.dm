@@ -251,9 +251,11 @@
 /obj/item/book/manual/wiki/attack_self(mob/user)
 	var/wikiurl = CONFIG_GET(string/wikiurl)
 	if(!wikiurl)
+		user.balloon_alert(user, "what!? these pages are blank!")
 		return
-	if(alert(user, "This will open the wiki page in your browser. Are you sure?", null, "Yes", "No") != "Yes")
+	if(tgui_alert(user, "This will open the wiki page in your browser. Are you sure?", list("Yes", "No")) != "Yes")
 		return
+
 	DIRECT_OUTPUT(user, link("[wikiurl]/[page_link]"))
 
 /obj/item/book/manual/wiki/chemistry
@@ -291,6 +293,7 @@
 	author = "Nanotrasen"
 	title = "Space Law"
 	page_link = "Space_Law"
+	dye_color = DYE_LAW
 
 /obj/item/book/manual/wiki/security_space_law/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] pretends to read \the [src] intently... then promptly dies of laughter!</span>")
@@ -329,7 +332,7 @@
 	icon_state = "barbook"
 	author = "Sir John Rose"
 	title = "Barman Recipes: Mixing Drinks and Changing Lives"
-	page_link = "Guide_to_food_and_drinks"
+	page_link = "Guide_to_Drinks"
 
 /obj/item/book/manual/wiki/robotics_cyborgs
 	name = "Robotics for Dummies"
@@ -365,7 +368,7 @@
 	icon_state ="cooked_book"
 	author = "the Kanamitan Empire"
 	title = "To Serve Man"
-	page_link = "Guide_to_food_and_drinks"
+	page_link = "Guide_to_Food"
 
 /obj/item/book/manual/wiki/tcomms
 	name = "Subspace Telecommunications And You"
@@ -450,6 +453,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Command Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Command"
+	dye_color = DYE_BLUE
 
 /obj/item/book/manual/wiki/sopsecurity
 	name = "Security Standard Operating Procedures"
@@ -457,6 +461,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Security Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Security"
+	dye_color = DYE_SECURITY
 
 /obj/item/book/manual/wiki/sopengineering
 	name = "Engineering Standard Operating Procedures"
@@ -464,6 +469,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Engineering Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Engineering"
+	dye_color = DYE_ORANGE
 
 /obj/item/book/manual/wiki/sopsupply
 	name = "Supply Standard Operating Procedures"
@@ -471,6 +477,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Supply Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Supply"
+	dye_color = DYE_YELLOW
 
 /obj/item/book/manual/wiki/sopscience
 	name = "Science Standard Operating Procedures"
@@ -478,6 +485,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Science Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Science"
+	dye_color = DYE_PURPLE
 
 /obj/item/book/manual/wiki/sopmedical
 	name = "Medical Standard Operating Procedures"
@@ -485,6 +493,7 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Medical Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Medical"
+	dye_color = DYE_WHITE
 
 /obj/item/book/manual/wiki/sopservice
 	name = "Service Standard Operating Procedures"
@@ -492,3 +501,4 @@
 	author = "Nanotrasen Department of Employee Resources"
 	title = "Service Standard Operating Procedures"
 	page_link = "Department_Standard_Operating_Procedure:_Service"
+	dye_color = DYE_GREEN

@@ -13,6 +13,8 @@
 	var/drive_range = 10
 	var/power_per_obj = 1000
 
+/obj/machinery/mass_driver/notspace
+	drive_range = 50
 
 /obj/machinery/mass_driver/Initialize(mapload)
 	. = ..()
