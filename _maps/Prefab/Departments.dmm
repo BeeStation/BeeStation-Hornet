@@ -311,6 +311,18 @@
 "ic" = (
 /turf/open/floor/wood,
 /area/security/detectives_office)
+"ih" = (
+/obj/machinery/requests_console{
+	department = "Captain's Desk";
+	name = "Captain RC";
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
+	},
+/obj/item/disk/nuclear,
+/obj/item/book/manual/wiki/sopcommand,
+/turf/open/floor/carpet/blue,
+/area/crew_quarters/heads/captain)
 "ir" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/item/reagent_containers/glass/bucket{
@@ -338,10 +350,6 @@
 "iC" = (
 /obj/structure/girder,
 /turf/open/floor/plating,
-/area/space)
-"iP" = (
-/obj/machinery/door_timer,
-/turf/open/floor/iron,
 /area/space)
 "jm" = (
 /obj/machinery/status_display/supply,
@@ -530,6 +538,13 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/medical/sleeper)
+"nC" = (
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	supplies_requestable = 1
+	},
+/turf/open/floor/iron/sepia,
+/area/quartermaster/sorting)
 "nG" = (
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 2;
@@ -1017,6 +1032,29 @@
 /obj/machinery/rnd/production/techfab/department/service,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
+"CJ" = (
+/obj/machinery/requests_console{
+	department = "Bridge";
+	name = "ai RC";
+	assistance_requestable = 1;
+	anon_tips_receiver = 1;
+	can_send_announcements = 1
+	},
+/obj/item/radio/intercom,
+/obj/item/radio/intercom,
+/obj/item/radio/intercom,
+/obj/item/radio/intercom,
+/obj/machinery/button/door{
+	id = "AIwindows";
+	name = "AI View Blast doors";
+	req_access_txt = "19"
+	},
+/obj/machinery/turretid{
+	control_area = "/area/ai_monitored/turret_protected/ai";
+	name = "AI Chamber turret control"
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
 "CM" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Robotics Lab";
@@ -1048,18 +1086,6 @@
 /obj/machinery/vending/dinnerware,
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
-"DS" = (
-/obj/machinery/requests_console{
-	department = "Captain's Desk";
-	name = "Captain RC";
-	assistance_requestable = 1;
-	anon_tips_receiver = 1;
-	can_send_announcements = 1
-	},
-/obj/item/disk/nuclear,
-/obj/item/book/manual/wiki/sopcommand,
-/turf/open/floor/carpet/blue,
-/area/crew_quarters/heads/captain)
 "Eb" = (
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/bar)
@@ -1121,13 +1147,6 @@
 /mob/living/carbon/monkey,
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
-"Fh" = (
-/obj/machinery/requests_console{
-	department = "Cargo Bay";
-	supplies_requestable = 1
-	},
-/turf/open/floor/iron/sepia,
-/area/quartermaster/sorting)
 "Fn" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/machinery/door/airlock{
@@ -1317,6 +1336,10 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
+"Lj" = (
+/obj/machinery/status_display/door_timer,
+/turf/open/floor/iron,
+/area/space)
 "Lw" = (
 /obj/effect/landmark/start/chaplain,
 /turf/open/floor/carpet/purple,
@@ -1828,29 +1851,6 @@
 /obj/item/storage/book/bible,
 /turf/open/floor/carpet/purple,
 /area/chapel/office)
-"YE" = (
-/obj/machinery/requests_console{
-	department = "Bridge";
-	name = "ai RC";
-	assistance_requestable = 1;
-	anon_tips_receiver = 1;
-	can_send_announcements = 1
-	},
-/obj/item/radio/intercom,
-/obj/item/radio/intercom,
-/obj/item/radio/intercom,
-/obj/item/radio/intercom,
-/obj/machinery/button/door{
-	id = "AIwindows";
-	name = "AI View Blast doors";
-	req_access_txt = "19"
-	},
-/obj/machinery/turretid{
-	control_area = "/area/ai_monitored/turret_protected/ai";
-	name = "AI Chamber turret control"
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "YT" = (
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 2;
@@ -1922,7 +1922,7 @@ Oq
 TZ
 "}
 (2,1,1) = {"
-DS
+ih
 vl
 qD
 rP
@@ -2138,7 +2138,7 @@ Qk
 Qk
 Qk
 tb
-Fh
+nC
 va
 "}
 (13,1,1) = {"
@@ -2285,7 +2285,7 @@ Qk
 ZA
 EM
 JN
-YE
+CJ
 CT
 ou
 XF
@@ -2455,7 +2455,7 @@ XF
 XF
 XF
 TX
-iP
+Lj
 ps
 Co
 Zj

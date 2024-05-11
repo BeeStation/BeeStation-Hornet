@@ -124,13 +124,6 @@
 	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	. += locked ? icon_locked : icon_unlocked
 
-/obj/structure/closet/update_appearance(updates=ALL)
-	. = ..()
-	if((opened || broken || !secure) || !imacrate)
-		luminosity = 0
-		return
-	luminosity = 1
-
 /obj/structure/closet/proc/animate_door(var/closing = FALSE)
 	if(!door_anim_time)
 		return
