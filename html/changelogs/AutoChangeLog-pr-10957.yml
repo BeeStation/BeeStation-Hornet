@@ -1,0 +1,7 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: pka seclite attachment
+  - bugfix: legion cores are not eaten like demonic potatoes, you may apply them normally
+      again and expect the usual healing
+  - bugfix: fixes the flashlight on mini e_guns like the PTSD
