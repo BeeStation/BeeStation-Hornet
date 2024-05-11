@@ -15,6 +15,7 @@
 	desc = "It's an emergency medical kit for those serious boo-boos."
 	icon = 'icons/obj/storage/medkit.dmi'
 	icon_state = "firstaid"
+	item_state = "firstaid"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
@@ -62,6 +63,7 @@
 	name = "doctor's bag"
 	icon_state = "firstaid-surgeryalt"
 	item_state = "firstaid-surgeryalt"
+	worn_icon_state = "baguette"
 	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
 	skin_type = null
 	w_class = WEIGHT_CLASS_BULKY

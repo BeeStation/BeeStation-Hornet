@@ -492,7 +492,7 @@
 /obj/effect/engineglow //Falling pod smoke
 	name = ""
 	icon = 'icons/obj/supplypods.dmi'
-	icon_state = "pod_engineglow"
+	icon_state = "pod_glow_green"
 	desc = ""
 	layer = GASFIRE_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -564,9 +564,6 @@
 	var/obj/structure/closet/supplypod/pod //The supplyPod that will be landing ontop of this pod_landingzone
 	var/obj/effect/pod_landingzone_effect/helper
 	var/list/smoke_effects = new /list(13)
-
-/obj/effect/ex_act()
-	return
 
 /obj/effect/pod_landingzone/Initialize(mapload, podParam, single_order = null, clientman)
 	. = ..()

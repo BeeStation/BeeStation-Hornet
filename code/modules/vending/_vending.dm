@@ -12,8 +12,6 @@
 	products = list()
 	contraband = list()
 	premium = list()
-
-IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY CANISTER CHARGES in vending_items.dm
 */
 
 #define MAX_VENDING_INPUT_AMOUNT 30
@@ -26,19 +24,20 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	name = "generic"
 	///Typepath of the product that is created when this record "sells"
 	var/product_path = null
-
 	///How many of this product we currently have
 	var/amount = 0
-
 	///How many we can store at maximum
 	var/max_amount = 0
-
 	///Does the item have a custom price override
 	var/custom_price
-
 	///Does the item have a custom premium price override
 	var/custom_premium_price
-
+	/**  GAGs recolorability
+	///Whether the product can be recolored by the GAGS system
+	var/colorable
+	**/
+	///List of items that have been returned to the vending machine.
+	var/list/returned_products
 	/// The category the product was in, if any.
 	/// Sourced directly from product_categories.
 	var/category
@@ -65,7 +64,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	clicksound = 'sound/machines/pda_button1.ogg'
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
-	light_color = LIGHT_COLOR_BLUE
+	light_power = 0.5
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 
 	/// Is the machine active (No sales pitches if off)!
 	var/active = 1
@@ -164,8 +164,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	  */
 	var/onstation = TRUE //if it doesn't originate from off-station during mapload, everything is free
 
-	var/dish_quants = list()  //used by the snack machine's custom compartment to count dishes.
-
   ///A variable to change on a per instance basis on the map that allows the instance to force cost and ID requirements
 	var/onstation_override = FALSE //change this on the object on the map to override the onstation check. DO NOT APPLY THIS GLOBALLY.
 
@@ -182,6 +180,9 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 
 	/// how many items have been inserted in a vendor
 	var/loaded_items = 0
+
+	///Name of lighting mask for the vending machine
+	var/light_mask
 
 /obj/item/circuitboard
     ///determines if the circuit board originated from a vendor off station or not.
@@ -203,6 +204,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		build_inv = TRUE
 	. = ..()
 	wires = new /datum/wires/vending(src)
+
 	if(build_inv) //non-constructable vending machine
 		build_inventories()
 
@@ -233,7 +235,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 /obj/machinery/vending/can_speak()
 	return !shut_up
 
-/obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
+//Better would be to make constructable child
+/obj/machinery/vending/RefreshParts()
 	if(!component_parts)
 		return
 
@@ -256,16 +259,47 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	else
 		..()
 
+/obj/machinery/vending/update_appearance(updates=ALL)
+	. = ..()
+	if(machine_stat & BROKEN)
+		set_light(0)
+		return
+	set_light(powered() ? MINIMUM_USEFUL_LIGHT_RANGE : 0)
+
+
+/obj/machinery/vending/update_icon_state()
+	if(machine_stat & BROKEN)
+		icon_state = "[initial(icon_state)]-broken"
+		return ..()
+	icon_state = "[initial(icon_state)][powered() ? null : "-off"]"
+	return ..()
+
+
+/obj/machinery/vending/update_overlays()
+	. = ..()
+	if(light_mask && !(machine_stat & BROKEN) && powered())
+		. += emissive_appearance(icon, light_mask, layer)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+
 /obj/machinery/vending/obj_break(damage_flag)
 	. = ..()
 	if(!.)
 		return
+
 	var/dump_amount = 0
 	var/found_anything = TRUE
 	while (found_anything)
 		found_anything = FALSE
 		for(var/record in shuffle(product_records))
 			var/datum/data/vending_product/R = record
+
+			//first dump any of the items that have been returned, in case they contain the nuke disk or something
+			for(var/obj/returned_obj_to_dump in R.returned_products)
+				LAZYREMOVE(R.returned_products, returned_obj_to_dump)
+				returned_obj_to_dump.forceMove(get_turf(src))
+				step(returned_obj_to_dump, pick(GLOB.alldirs))
+				R.amount--
+
 			if(R.amount <= 0) //Try to use a record that actually has something to dump.
 				continue
 			var/dump_path = R.product_path
@@ -275,8 +309,9 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			// busting open a vendor will destroy some of the contents
 			if(found_anything && prob(80))
 				continue
-			var/obj/O = new dump_path(loc)
-			step(O, pick(GLOB.alldirs))
+
+			var/obj/obj_to_dump = new dump_path(loc)
+			step(obj_to_dump, pick(GLOB.alldirs))
 			found_anything = TRUE
 			dump_amount++
 			if (dump_amount >= 16)
@@ -313,6 +348,9 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		R.max_amount = amount
 		R.custom_price = initial(temp.custom_price)
 		R.custom_premium_price = initial(temp.custom_premium_price)
+		/* GAGS recolorability
+		//R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
+		*/
 		R.category = product_to_category[typepath]
 		recordlist += R
 
@@ -354,7 +392,9 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		canister.contraband = contraband.Copy()
 	if (!canister.premium)
 		canister.premium = premium.Copy()
+
 	. = 0
+
 	if (isnull(canister.product_categories) && !isnull(product_categories))
 		canister.product_categories = product_categories.Copy()
 
@@ -404,6 +444,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		CRASH("Constructible vending machine did not have a refill canister")
 
 	unbuild_inventory_into(product_records, R.products, R.product_categories)
+
 	R.contraband = unbuild_inventory(hidden_records)
 	R.premium = unbuild_inventory(coin_records)
 
@@ -468,10 +509,12 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 
 /obj/machinery/vending/wrench_act(mob/living/user, obj/item/I)
 	..()
-	if(panel_open)
-		default_unfasten_wrench(user, I, time = 6 SECONDS)
+	if(!panel_open)
+		return FALSE
+	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
 		unbuckle_all_mobs(TRUE)
-	return TRUE
+		return TOOL_ACT_TOOLTYPE_SUCCESS
+	return FALSE
 
 /obj/machinery/vending/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
@@ -481,7 +524,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		cut_overlays()
 		if(panel_open)
 			add_overlay("[initial(icon_state)]-panel")
-		updateUsrDialog()
 	else
 		to_chat(user, "<span class='warning'>You must first secure [src].</span>")
 	return TRUE
@@ -490,6 +532,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	if(panel_open && is_wire_tool(I))
 		wires.interact(user)
 		return
+
 	if(refill_canister && istype(I, refill_canister))
 		if (!panel_open)
 			to_chat(user, "<span class='notice'>You should probably unscrew the service panel first.</span>")
@@ -511,7 +554,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	if(compartmentLoadAccessCheck(user) && user.a_intent != INTENT_HARM)
 		if(canLoadItem(I))
 			loadingAttempt(I,user)
-			updateUsrDialog() //can't put this on the proc above because we spam it below
+			ui_update()
 
 		if(istype(I, /obj/item/storage/bag)) //trays USUALLY
 			var/obj/item/storage/T = I
@@ -530,7 +573,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 				to_chat(user, "<span class='warning'>[src] refuses some items!</span>")
 			if(loaded)
 				to_chat(user, "<span class='notice'>You insert [loaded] dishes into [src]'s compartment.</span>")
-				updateUsrDialog()
+				ui_update()
 	else
 		. = ..()
 		if(tiltable && !tilted && I.force)
@@ -560,12 +603,18 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			var/dump_path = R.product_path
 			if(!dump_path)
 				continue
-
+			if(R.amount > LAZYLEN(R.returned_products)) //always give out new stuff that costs before free returned stuff, because of the risk getting gibbed involved
+				new dump_path(get_turf(src))
+			else
+				var/obj/returned_obj_to_dump = LAZYACCESS(R.returned_products, LAZYLEN(R.returned_products)) //first in, last out
+				LAZYREMOVE(R.returned_products, returned_obj_to_dump)
+				returned_obj_to_dump.forceMove(get_turf(src))
 			R.amount--
-			new dump_path(get_turf(src))
 			break
 
 /obj/machinery/vending/proc/tilt(mob/fatty, crit=FALSE)
+	if(QDELETED(src))
+		return
 	visible_message("<span class='danger'>[src] tips over!</span>")
 	tilted = TRUE
 	layer = ABOVE_MOB_LAYER
@@ -667,11 +716,18 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	. = TRUE
 	if(!user.transferItemToLoc(I, src))
 		return FALSE
+	to_chat(user, "<span class='notice'>You insert [I] into [src]'s input compartment.</span>")
+
+	for(var/datum/data/vending_product/product_datum in product_records + coin_records + hidden_records)
+		if(ispath(I.type, product_datum.product_path))
+			product_datum.amount++
+			LAZYADD(product_datum.returned_products, I)
+			return
+
 	if(vending_machine_input[format_text(I.name)])
 		vending_machine_input[format_text(I.name)]++
 	else
 		vending_machine_input[format_text(I.name)] = 1
-	to_chat(user, "<span class='notice'>You insert [I] into [src]'s input compartment.</span>")
 	loaded_items++
 
 /obj/machinery/vending/unbuckle_mob(mob/living/buckled_mob, force=FALSE)
@@ -753,9 +809,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		get_asset_datum(/datum/asset/spritesheet_batched/vending),
 	)
 
-/obj/machinery/vending/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/machinery/vending/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -835,13 +888,16 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		if(R)
 			.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()
+
 	for (var/datum/data/vending_product/product_record in product_records + coin_records + hidden_records)
 		var/list/product_data = list(
 			name = product_record.name,
 			amount = product_record.amount,
+			//colorable = product_record.colorable,
 		)
 
 		.["stock"][product_record.name] = product_data
+
 	.["extended_inventory"] = extended_inventory
 
 /obj/machinery/vending/ui_act(action, params)
@@ -851,8 +907,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	switch(action)
 		if("vend")
 			. = vend(params)
-		if("select_colors")
-			. = select_colors(params)
+		//if("select_colors")
+		//	. = select_colors(params)
 
 /obj/machinery/vending/proc/can_vend(user, silent=FALSE)
 	. = FALSE
@@ -947,18 +1003,18 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			flick(icon_deny, src)
 			vend_ready = TRUE
 			return
-
 		var/datum/bank_account/account = C.registered_account
 		if(account.account_job && (account.active_departments & dept_req_for_free))
 			price_to_use = 0
 		if(coin_records.Find(R) || hidden_records.Find(R))
 			price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
+		if(LAZYLEN(R.returned_products))
+			price_to_use = 0 //returned items are free
 		if(price_to_use && !account.adjust_money(-price_to_use))
 			say("You do not possess the funds to purchase [R.name].")
 			flick(icon_deny,src)
 			vend_ready = TRUE
 			return
-
 		if(price_to_use && seller_department)
 			var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
 			if(length(dept_list))
@@ -966,16 +1022,24 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 				for(var/datum/bank_account/department/D in dept_list)
 					if(D)
 						D.adjust_money(price_to_use)
+						SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
+						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
-	if(last_shopper != usr || purchase_message_cooldown < world.time)
+	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
 		say("Thank you for shopping with [src]!")
 		purchase_message_cooldown = world.time + 5 SECONDS
-		last_shopper = usr
+		last_shopper = REF(usr)
 	use_power(5)
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend,src)
 	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
-	var/obj/item/vended_item = new R.product_path(get_turf(src))
+	var/obj/item/vended_item
+	if(!LAZYLEN(R.returned_products)) //always give out free returned stuff first, e.g. to avoid walling a traitor objective in a bag behind paid items
+		vended_item = new R.product_path(get_turf(src))
+	else
+		vended_item = LAZYACCESS(R.returned_products, LAZYLEN(R.returned_products)) //first in, last out
+		LAZYREMOVE(R.returned_products, vended_item)
+		vended_item.forceMove(get_turf(src))
 	if(greyscale_colors)
 		vended_item.set_greyscale(colors=greyscale_colors)
 	R.amount--
@@ -1037,7 +1101,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/obj/throw_item = null
 	var/mob/living/target = locate() in view(7,src)
 	if(!target || target.incorporeal_move >= INCORPOREAL_MOVE_BASIC)
-		return 0
+		return FALSE
 
 	for(var/datum/data/vending_product/R in shuffle(product_records))
 		if(R.amount <= 0) //Try to use a record that actually has something to dump.
@@ -1045,19 +1109,23 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		var/dump_path = R.product_path
 		if(!dump_path)
 			continue
-
+		if(R.amount > LAZYLEN(R.returned_products)) //always throw new stuff that costs before free returned stuff, because of the hacking effort and time between throws involved
+			throw_item = new dump_path(loc)
+		else
+			throw_item = LAZYACCESS(R.returned_products, LAZYLEN(R.returned_products)) //first in, last out
+			throw_item.forceMove(loc)
+			LAZYREMOVE(R.returned_products, throw_item)
 		R.amount--
-		throw_item = new dump_path(loc)
 		break
 	if(!throw_item)
-		return 0
+		return FALSE
 
 	pre_throw(throw_item)
 
 	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item] at [target]!</span>")
 	ui_update()
-	return 1
+	return TRUE
 /**
   * A callback called before an item is tossed out
   *
@@ -1097,6 +1165,9 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
   * * user - the user doing the loading
   */
 /obj/machinery/vending/proc/canLoadItem(obj/item/I, mob/user)
+	if((I.type in products) || (I.type in premium) || (I.type in contraband))
+		return TRUE
+	balloon_alert(user, "[src] does not accept [I]!")
 	return FALSE
 
 /obj/machinery/vending/onTransitZ()
@@ -1106,6 +1177,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	name = "Custom Vendor"
 	icon_state = "robotics"
 	icon_deny = "robotics-deny"
+	light_mask = "robotics-light-mask"
 	max_integrity = 400
 	dept_req_for_free = NO_FREEBIES
 	refill_canister = /obj/item/vending_refill/custom
@@ -1144,7 +1216,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	if(loaded_items >= max_loaded_items)
 		say("There are too many items in stock.")
 		return
-	if(istype(I, /obj/item/stack))
+	if(isstack(I))
 		say("Loose items may cause problems, try to use it inside wrapping paper.")
 		return
 	if(I.custom_price)
@@ -1161,20 +1233,22 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			var/item_price = 0
 			var/item_path
 			for(var/obj/T in contents)
-				if(T.name == O)
+				if(format_text(T.name) == O)
 					item_price = T.custom_price
 					item_path = T.type
 					if(!base64)
 						if(base64_cache["[T.icon]_[T.icon_state]"])
 							base64 = base64_cache["[T.icon]_[T.icon_state]"]
 						else
-							base64 = icon2base64(icon(T.icon, T.icon_state, frame=1))
+							base64 = icon2base64(getFlatIcon(T, no_anim=TRUE))
 							base64_cache["[T.icon]_[T.icon_state]"] = base64
 					break
 			var/list/data = list(
 				name = O,
 				price = item_price,
 				img = base64,
+				amount = vending_machine_input[O],
+				//colorable = FALSE,
 				path = "[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"
 			)
 			.["stock"]["[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"] = vending_machine_input[O]
@@ -1196,7 +1270,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 				var/obj/item/card/id/C = H.get_idcard(TRUE)
 
 				for(var/obj/O in contents)
-					if(O.name == N)
+					if(format_text(O.name) == N)
 						S = O
 						break
 				if(S)
@@ -1231,6 +1305,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/datum/bank_account/owner = private_a
 	if(owner)
 		owner.adjust_money(bought_item.custom_price)
+		SSblackbox.record_feedback("amount", "vending_spent", bought_item.custom_price)
+		log_econ("[bought_item.custom_price] credits were spent on [src] buying a [bought_item] by [owner.account_holder], owned by [private_a.account_holder].")
 		var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 		if(id_card)
 			owner.bank_card_talk("[id_card.registered_name] has bought \a [bought_item] for [bought_item.custom_price] credits at your [name]!")
