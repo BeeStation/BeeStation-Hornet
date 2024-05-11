@@ -1,0 +1,7 @@
+author: Geatish
+delete-after: true
+changes:
+  - tweak: Made the godeye, monocle, hipster, jamjar and round glasses correct vision
+      for short sightedness
+  - spellcheck: The hipster glasses are now actually called hipster glasses instead
+      of prescription glasses
