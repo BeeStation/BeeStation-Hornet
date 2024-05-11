@@ -163,7 +163,7 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(ishuman(M) && (M.mind.assigned_role in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
 		return FALSE
-	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		return FALSE
 	if(is_servant_of_ratvar(M))
 		return FALSE

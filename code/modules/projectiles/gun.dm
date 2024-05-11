@@ -8,6 +8,7 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
+	worn_icon_state = "gun"
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	item_flags = SLOWS_WHILE_IN_HAND

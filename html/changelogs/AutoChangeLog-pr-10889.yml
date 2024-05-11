@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Updates some uses of luminosity internall for lockers and turfs.
