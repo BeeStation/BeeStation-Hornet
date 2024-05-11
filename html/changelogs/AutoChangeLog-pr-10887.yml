@@ -1,8 +1,0 @@
-author: rkz, TastyFish, Mothblocks
-delete-after: true
-changes:
-  - rscadd: adds colored text support for status displays
-  - rscadd: Circuit support for status displays
-  - rscadd: makes newscasters & status displays emissive!
-  - bugfix: fixes hardels with Status Display vis_contents
-  - bugfix: Status display marquee text flows nicer

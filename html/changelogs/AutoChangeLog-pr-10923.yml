@@ -1,7 +1,0 @@
-author: MatiAvanti
-delete-after: true
-changes:
-  - tweak: Harvester can now process corpsess with abiotic items like clothes and
-      handcuffs if upgraded. Emagging it unlocks processing live people.
-  - soundadd: added new sound for harvester.
-  - imageadd: new sprites for harvester.
