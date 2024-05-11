@@ -12,7 +12,7 @@
 						/obj/item/katana/cursed,
 						/obj/item/clothing/glasses/godeye,
 						/obj/item/melee/ghost_sword,
-						/obj/item/clothing/suit/space/hardsuit/cult,
+						/obj/item/clothing/suit/hooded/cultrobes/hardened,
 						/obj/item/voodoo,
 						/obj/item/grenade/clusterbuster/inferno,
 						/obj/item/clothing/neck/necklace/memento_mori,

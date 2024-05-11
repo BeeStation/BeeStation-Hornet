@@ -5,7 +5,6 @@
 	product_slogans = "Disks to go!"
 	icon_state = "cart"
 	icon_deny = "cart-deny"
-	light_color = LIGHT_COLOR_WHITE
 	products = list(/obj/item/modular_computer/tablet/pda = 15,
 					/obj/item/computer_hardware/hard_drive/role/medical = 5,
 					/obj/item/computer_hardware/hard_drive/role/chemistry = 5,
@@ -31,6 +30,7 @@
 	extra_price = 300
 	dept_req_for_free = ACCOUNT_COM_BITFLAG
 	seller_department = ACCOUNT_SRV_BITFLAG | ACCOUNT_CIV_BITFLAG // don't send the profic to CentCom Budget account.
+	light_mask="cart-light-mask"
 
 /obj/item/vending_refill/job_disk
 	machine_name = "PTech"
