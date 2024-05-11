@@ -5551,7 +5551,7 @@
 /area/awaymission/snowdin/post/engineering)
 "qd" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/item/weldingtool/largetank,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
@@ -6534,7 +6534,7 @@
 /obj/structure/statue/snow/snowman{
 	anchored = 1
 	},
-/obj/item/clothing/head/bowler{
+/obj/item/clothing/head/hats/bowler{
 	pixel_y = 13
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -10070,7 +10070,7 @@
 /obj/structure/statue/snow/snowman{
 	name = "Snow-Luc Price"
 	},
-/obj/item/clothing/head/HoS{
+/obj/item/clothing/head/hats/hos{
 	pixel_y = 10
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -10359,7 +10359,7 @@
 /area/awaymission/snowdin/post/mining_main/robotics)
 "Gy" = (
 /obj/structure/table,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -3;
 	pixel_y = 5
 	},

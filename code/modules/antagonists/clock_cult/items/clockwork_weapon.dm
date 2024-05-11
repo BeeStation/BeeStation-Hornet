@@ -4,6 +4,8 @@
 	icon = 'icons/obj/clockwork_objects.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
+	worn_icon_state = "baguette"
+	item_flags = ABSTRACT
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
 	block_upgrade_walk = 1
@@ -91,6 +93,8 @@
 	desc = "A brass hammer glowing with energy."
 	clockwork_desc = "A brass hammer enfused with an ancient power allowing it to strike foes with incredible force."
 	icon_state = "ratvarian_hammer"
+	worn_icon = 'icons/mob/clothing/back.dmi'
+	worn_icon_state = "mining_hammer1"
 	throwforce = 25
 	armour_penetration = 6
 	sharpness = IS_BLUNT
@@ -112,6 +116,8 @@
 	desc = "A large sword made of brass."
 	clockwork_desc = "A large sword made of brass. It contains an aurora of energetic power designed to disrupt electronics."
 	icon_state = "ratvarian_sword"
+	worn_icon = 'icons/mob/clothing/back.dmi'
+	worn_icon_state = "claymore"
 	force = 26
 	throwforce = 20
 	armour_penetration = 12
@@ -151,7 +157,7 @@
 /obj/item/gun/ballistic/bow/clockwork
 	name = "Brass Bow"
 	desc = "A bow made from brass and other components that you can't quite understand. It glows with a deep energy and frabricates arrows by itself."
-	icon_state = "bow_clockwork"
+	icon_state = "bow_clockwork_unloaded"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/clockcult
 	var/recharge_time = 15

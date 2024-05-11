@@ -374,7 +374,7 @@
 	suit = /obj/item/clothing/suit/armor/vest
 	suit_store = /obj/item/gun/ballistic/rifle/boltaction
 	l_hand = /obj/item/megaphone
-	head = /obj/item/clothing/head/intern
+	head = /obj/item/clothing/head/hats/intern
 
 /datum/outfit/centcom_clown
 	name = "Code Banana ERT"

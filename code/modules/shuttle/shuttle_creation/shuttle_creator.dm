@@ -13,6 +13,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	desc = "A device used to define the area required for custom ships. Uses bluespace crystals to create bluespace-capable ships."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsd"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	density = FALSE

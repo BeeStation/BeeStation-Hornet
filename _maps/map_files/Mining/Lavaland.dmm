@@ -1683,7 +1683,7 @@
 "lq" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/donkpockets,
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /obj/machinery/light{
 	dir = 8;
 	light_color = "#e8eaff"

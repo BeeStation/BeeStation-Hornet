@@ -69,19 +69,19 @@
 /obj/structure/closet/firecloset/PopulateContents()
 	..()
 
-	new /obj/item/clothing/suit/fire/firefighter(src)
+	new /obj/item/clothing/suit/utility/fire/firefighter(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/extinguisher(src)
-	new /obj/item/clothing/head/hardhat/red(src)
+	new /obj/item/clothing/head/utility/hardhat/red(src)
 
 /obj/structure/closet/firecloset/full/PopulateContents()
-	new /obj/item/clothing/suit/fire/firefighter(src)
+	new /obj/item/clothing/suit/utility/fire/firefighter(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/flashlight(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/extinguisher(src)
-	new /obj/item/clothing/head/hardhat/red(src)
+	new /obj/item/clothing/head/utility/hardhat/red(src)
 
 /*
  * Tool Closet
@@ -123,7 +123,7 @@
 	if(prob(5))
 		new /obj/item/clothing/gloves/color/yellow(src)
 	if(prob(40))
-		new /obj/item/clothing/head/hardhat(src)
+		new /obj/item/clothing/head/utility/hardhat(src)
 
 
 /*
@@ -138,8 +138,8 @@
 /obj/structure/closet/radiation/PopulateContents()
 	..()
 	new /obj/item/geiger_counter(src)
-	new /obj/item/clothing/suit/radiation(src)
-	new /obj/item/clothing/head/radiation(src)
+	new /obj/item/clothing/suit/utility/radiation(src)
+	new /obj/item/clothing/head/utility/radiation(src)
 	if(prob(50))
 		new /obj/item/storage/firstaid/radbgone(src)
 	else
@@ -155,22 +155,22 @@
 
 /obj/structure/closet/bombcloset/PopulateContents()
 	..()
-	new /obj/item/clothing/suit/bomb_suit(src)
+	new /obj/item/clothing/suit/utility/bomb_suit(src)
 	new /obj/item/clothing/under/color/black(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
-	new /obj/item/clothing/head/bomb_hood(src)
+	new /obj/item/clothing/head/utility/bomb_hood(src)
 
 /obj/structure/closet/bombcloset/security/PopulateContents()
-	new /obj/item/clothing/suit/bomb_suit/security(src)
+	new /obj/item/clothing/suit/utility/bomb_suit/security(src)
 	new /obj/item/clothing/under/rank/security/officer(src)
 	new /obj/item/clothing/shoes/jackboots(src)
-	new /obj/item/clothing/head/bomb_hood/security(src)
+	new /obj/item/clothing/head/utility/bomb_hood/security(src)
 
 /obj/structure/closet/bombcloset/white/PopulateContents()
-	new /obj/item/clothing/suit/bomb_suit/white(src)
+	new /obj/item/clothing/suit/utility/bomb_suit/white(src)
 	new /obj/item/clothing/under/color/black(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
-	new /obj/item/clothing/head/bomb_hood/white(src)
+	new /obj/item/clothing/head/utility/bomb_hood/white(src)
 
 /*
  * Ammunition
