@@ -48220,7 +48220,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/item/toy/plush/lizardplushie{
+/obj/item/toy/plush/lizard_plushie{
 	layer = 5;
 	pixel_x = 1;
 	pixel_y = 14
