@@ -22,7 +22,7 @@
 
 	var/recharge_timerid
 
-/obj/item/gun/energy/recharge/kinetic_accelerator/add_seclight_point()
+/obj/item/gun/energy/kinetic_accelerator/add_seclight_point()
 	AddComponent(/datum/component/seclite_attachable, \
 		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
 		light_overlay = "flight", \
