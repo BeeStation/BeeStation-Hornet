@@ -379,7 +379,6 @@
 /obj/item/storage/firstaid/shifty
 	name = "shifty medkit"
 	desc = "A shady medkit, assembled out of scraps and leftovers."
-	icon_state = "bezerk"
 
 /obj/item/storage/firstaid/shifty/battle/PopulateContents()
 	var/static/items_inside = list(
