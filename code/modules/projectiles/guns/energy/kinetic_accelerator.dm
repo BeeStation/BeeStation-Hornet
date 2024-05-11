@@ -8,9 +8,6 @@
 	item_flags = NONE
 	obj_flags = UNIQUE_RENAME
 	weapon_weight = WEAPON_LIGHT
-	can_flashlight = TRUE
-	flight_x_offset = 15
-	flight_y_offset = 9
 	automatic_charge_overlays = FALSE
 	var/overheat_time = 16
 	var/holds_charge = FALSE
@@ -24,6 +21,13 @@
 	var/list/modkits = list()
 
 	var/recharge_timerid
+
+/obj/item/gun/energy/recharge/kinetic_accelerator/add_seclight_point()
+	AddComponent(/datum/component/seclite_attachable, \
+		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
+		light_overlay = "flight", \
+		overlay_x = 15, \
+		overlay_y = 9)
 
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)
 	. = ..()

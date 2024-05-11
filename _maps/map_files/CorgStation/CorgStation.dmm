@@ -2625,7 +2625,6 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "aFR" = (
-/obj/machinery/camera/autoname,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/brown/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -9650,7 +9649,9 @@
 	},
 /area/holodeck/rec_center)
 "cUu" = (
-/obj/machinery/door/window/eastleft,
+/obj/machinery/door/window/eastleft{
+	req_one_access_txt = "31;48"
+	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/plasticflaps/opaque,
 /obj/structure/cable/yellow{
@@ -11066,9 +11067,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -15639,8 +15637,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Head of Security Dorm";
+/obj/machinery/door/airlock/command{
+	name = "Head of Security's Dorm";
 	req_access_txt = "58"
 	},
 /turf/open/floor/iron/dark,
@@ -17247,6 +17245,10 @@
 "fwi" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "hosroom";
+	name = "Head Of Security Blast door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -25694,6 +25696,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/iron,
 /area/security/brig)
 "igS" = (
@@ -27175,9 +27178,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -28169,6 +28169,12 @@
 /obj/machinery/camera/autoname{
 	dir = 4;
 	network = list("ss13","security")
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "hosroom";
+	name = "Head of Security's Room Shutters";
+	pixel_y = 22
 	},
 /turf/open/floor/carpet/black,
 /area/crew_quarters/heads/hos)
@@ -32502,16 +32508,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/door/airlock/command/glass{
-	name = "Head of Security";
-	req_access_txt = "58"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "hosoffice";
-	name = "Head Of Security Blast door"
+/obj/machinery/door/airlock/command{
+	name = "Head of Security's Office";
+	req_access_txt = "58"
 	},
 /turf/open/floor/iron/dark,
 /area/security/brig)
@@ -52124,12 +52126,6 @@
 /obj/structure/closet/crate,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
-"qLG" = (
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/turf_decal/tile/black/opposingcorners,
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/turf/open/floor/iron/dark,
-/area/security/main)
 "qLZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -53532,11 +53528,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "hosoffice";
 	name = "Head Of Security Blast door"
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/brig)
 "rkK" = (
@@ -59165,6 +59161,7 @@
 	dir = 1;
 	pixel_y = 24
 	},
+/obj/machinery/camera/autoname,
 /turf/open/floor/iron,
 /area/quartermaster/storage)
 "taC" = (
@@ -66054,6 +66051,10 @@
 /area/solar/starboard/aft)
 "voO" = (
 /obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id = "hosroom";
+	name = "Head Of Security Blast door"
+	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
@@ -72055,8 +72056,23 @@
 "xkK" = (
 /obj/machinery/firealarm/directional/east,
 /obj/structure/table/reinforced,
-/obj/effect/loot_jobscale/medical/oxy_kit,
+/obj/effect/loot_jobscale/medical/oxy_kit{
+	pixel_y = 10;
+	pixel_x = 7
+	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/item/tank/internals/oxygen/red{
+	pixel_y = 8;
+	pixel_x = -11
+	},
+/obj/item/tank/internals/oxygen/red{
+	pixel_y = 2;
+	pixel_x = -11
+	},
+/obj/item/tank/internals/oxygen/red{
+	pixel_y = -3;
+	pixel_x = -11
+	},
 /turf/open/floor/iron/dark,
 /area/security/main)
 "xkL" = (
@@ -74387,10 +74403,6 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "xUE" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -112595,7 +112607,7 @@ hHj
 ntR
 fwX
 vLT
-qLG
+vLT
 vLT
 vwV
 fUg
