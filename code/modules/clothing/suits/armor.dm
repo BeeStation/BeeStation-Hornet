@@ -1,4 +1,6 @@
 /obj/item/clothing/suit/armor
+	icon = 'icons/obj/clothing/suits/armor.dmi'
+	worn_icon = 'icons/mob/clothing/suits/armor.dmi'
 	allowed = null
 	body_parts_covered = CHEST
 	cold_protection = CHEST|GROIN
@@ -22,7 +24,7 @@
 	name = "armor vest"
 	desc = "A slim Type I-A armored vest that provides decent protection against most types of damage."
 	icon_state = "armoralt"
-	item_state = "armoralt"
+	item_state = "armor"
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
 
@@ -42,7 +44,7 @@
 	name = "large armor vest"
 	desc = "A large, yet comfortable piece of armor, protecting you from some threats. Type H-L"
 	icon_state = "blueshift"
-	item_state = "blueshift"
+	item_state = null
 	custom_premium_price = 600
 
 /obj/item/clothing/suit/armor/vest/corporate
@@ -119,17 +121,18 @@
 	desc = "A sinister looking vest of advanced armor worn over a black and red fireproof jacket. The gold collar and shoulders denote that this belongs to a high ranking syndicate officer."
 	icon_state = "syndievest"
 
-/obj/item/clothing/suit/armor/vest/capcarapace/alt
-	name = "captain's parade jacket"
+/obj/item/clothing/suit/armor/vest/capcarapace/captains_formal
+	name = "captain's parade coat"
 	desc = "For when an armoured vest isn't fashionable enough."
 	icon_state = "capformal"
-	item_state = "capspacesuit"
+	item_state = null
+	body_parts_covered = CHEST|GROIN|ARMS
 
 /obj/item/clothing/suit/armor/vest/capcarapace/jacket
 	name = "captain's jacket"
 	desc = "An armored Jacket in the Captains colors"
 	icon_state = "capjacket"
-	item_state = "capspacesuit"
+	item_state = null
 	body_parts_covered = CHEST|ARMS
 	armor = list(MELEE = 40,  BULLET = 30, LASER = 40, ENERGY = 50, BOMB = 55, BIO = 0, RAD = 0, FIRE = 90, ACID = 80, STAMINA = 40)
 
@@ -306,7 +309,7 @@
 	name = "russian battle coat"
 	desc = "Used in extremly cold fronts, made out of real bears."
 	icon_state = "rus_coat"
-	item_state = "rus_coat"
+	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT

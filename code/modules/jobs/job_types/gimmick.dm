@@ -90,7 +90,7 @@
 	jobtype = /datum/job/gimmick/stage_magician
 	id = /obj/item/card/id/job/stage_magician
 	belt = /obj/item/modular_computer/tablet/pda/unlicensed
-	head = /obj/item/clothing/head/that
+	head = /obj/item/clothing/head/hats/tophat
 	ears = /obj/item/radio/headset
 	neck = /obj/item/bedsheet/magician
 	uniform = /obj/item/clothing/under/suit/black_really

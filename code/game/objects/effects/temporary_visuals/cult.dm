@@ -1,7 +1,7 @@
 //temporary visual effects(/obj/effect/temp_visual) used by cult stuff
 /obj/effect/temp_visual/cult
 	icon = 'icons/effects/cult_effects.dmi'
-	randomdir = 0
+	randomdir = FALSE
 	duration = 10
 
 /obj/effect/temp_visual/cult/sparks
@@ -55,7 +55,7 @@
 
 /obj/effect/temp_visual/religion/turf/floor
 	icon = 'icons/effects/religion_effects.dmi'
-	randomdir = 0
+	randomdir = FALSE
 	duration = 10
 	icon_state = "grass_convert"
 	duration = 5

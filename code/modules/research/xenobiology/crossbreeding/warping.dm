@@ -23,7 +23,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	name = "warped rune"
 	desc = "An unstable rune born of the depths of bluespace"
 	icon = 'icons/obj/slimecrossing.dmi'
-	icon_state = "greyspace_rune"
+	icon_state = "rune_grey"
 	move_resist = INFINITY //here to avoid the rune being moved since it only sets it's turf once when it's drawn. doesn't include admin fuckery.
 	anchored = TRUE
 	layer = MID_TURF_LAYER
@@ -631,7 +631,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	)
 
 	var/static/list/uncommon_items = list(
-		/obj/item/clothing/head/speedwagon/cursed,
+		/obj/item/clothing/head/costume/speedwagon/cursed,
 		/obj/item/clothing/suit/space/hardsuit/ancient,
 		/obj/item/gun/energy/laser/retro/old,
 		/obj/item/storage/toolbox/mechanical/old,
