@@ -33,7 +33,7 @@
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_HEAVY
 	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
@@ -95,7 +95,7 @@
 	butcher_results = list(/obj/item/food/meat/slab/goliath = 2, /obj/item/stack/sheet/bone = 2)
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/goliath_hide = 1)
 	loot = list()
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	robust_searching = 1
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)

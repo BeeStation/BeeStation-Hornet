@@ -36,8 +36,8 @@
 	chat_color = "#9EE08F"
 	mobchatspan = "alienmobsay"
 
-	do_footstep = TRUE
 	discovery_points = 2000
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"

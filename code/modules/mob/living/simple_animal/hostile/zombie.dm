@@ -6,7 +6,7 @@
 	icon_living = "zombie"
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	speak_chance = 0
-	stat_attack = UNCONSCIOUS //braains
+	stat_attack = HARD_CRIT //braains
 	maxHealth = 100
 	health = 100
 	melee_damage = 21

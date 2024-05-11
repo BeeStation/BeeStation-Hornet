@@ -64,7 +64,8 @@
 	clicksound = 'sound/machines/pda_button1.ogg'
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
-	light_color = LIGHT_COLOR_BLUE
+	light_power = 0.5
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 
 	/// Is the machine active (No sales pitches if off)!
 	var/active = 1
@@ -180,6 +181,9 @@
 	/// how many items have been inserted in a vendor
 	var/loaded_items = 0
 
+	///Name of lighting mask for the vending machine
+	var/light_mask
+
 /obj/item/circuitboard
     ///determines if the circuit board originated from a vendor off station or not.
 	var/onstation = TRUE
@@ -254,6 +258,28 @@
 		qdel(src)
 	else
 		..()
+
+/obj/machinery/vending/update_appearance(updates=ALL)
+	. = ..()
+	if(machine_stat & BROKEN)
+		set_light(0)
+		return
+	set_light(powered() ? MINIMUM_USEFUL_LIGHT_RANGE : 0)
+
+
+/obj/machinery/vending/update_icon_state()
+	if(machine_stat & BROKEN)
+		icon_state = "[initial(icon_state)]-broken"
+		return ..()
+	icon_state = "[initial(icon_state)][powered() ? null : "-off"]"
+	return ..()
+
+
+/obj/machinery/vending/update_overlays()
+	. = ..()
+	if(light_mask && !(machine_stat & BROKEN) && powered())
+		. += emissive_appearance(icon, light_mask, layer)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 
 /obj/machinery/vending/obj_break(damage_flag)
 	. = ..()
@@ -996,6 +1022,8 @@
 				for(var/datum/bank_account/department/D in dept_list)
 					if(D)
 						D.adjust_money(price_to_use)
+						SSblackbox.record_feedback("amount", "vending_spent", price_to_use)
+						log_econ("[price_to_use] credits were inserted into [src] by [D.account_holder] to buy [R].")
 
 	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
 		say("Thank you for shopping with [src]!")
@@ -1149,6 +1177,7 @@
 	name = "Custom Vendor"
 	icon_state = "robotics"
 	icon_deny = "robotics-deny"
+	light_mask = "robotics-light-mask"
 	max_integrity = 400
 	dept_req_for_free = NO_FREEBIES
 	refill_canister = /obj/item/vending_refill/custom
@@ -1276,6 +1305,8 @@
 	var/datum/bank_account/owner = private_a
 	if(owner)
 		owner.adjust_money(bought_item.custom_price)
+		SSblackbox.record_feedback("amount", "vending_spent", bought_item.custom_price)
+		log_econ("[bought_item.custom_price] credits were spent on [src] buying a [bought_item] by [owner.account_holder], owned by [private_a.account_holder].")
 		var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 		if(id_card)
 			owner.bank_card_talk("[id_card.registered_name] has bought \a [bought_item] for [bought_item.custom_price] credits at your [name]!")

@@ -78,6 +78,7 @@
 	name = "hammerspace backpack"
 	desc = "A backpack that opens into a near infinite pocket of bluespace."
 	icon_state = "hammerspace"
+	worn_icon_state = "baguette"
 	resistance_flags = FIRE_PROOF
 	item_flags = NO_MAT_REDEMPTION
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
@@ -383,8 +384,8 @@
 
 /obj/item/storage/backpack/satchel/flat/treasure/PopulateContents()
 	new /obj/item/dualsaber/toy(src)
-	new /obj/item/clothing/suit/pirate(src)
-	new /obj/item/clothing/head/pirate(src)
+	new /obj/item/clothing/suit/costume/pirate(src)
+	new /obj/item/clothing/head/costume/pirate(src)
 	for(var/i in 1 to 3)
 		new /obj/item/coin/gold(src)
 
@@ -524,7 +525,7 @@
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
-	
+
 /obj/item/storage/backpack/duffelbag/science
 	name = "science duffel bag"
 	desc = "A large duffel bag for holding extra tools and artifacts."
@@ -592,7 +593,7 @@
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
 	new /obj/item/surgical_drapes(src)
-	new /obj/item/clothing/suit/straight_jacket(src)
+	new /obj/item/clothing/suit/jacket/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
 	new /obj/item/mmi/syndie(src)
 

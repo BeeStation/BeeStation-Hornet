@@ -8,6 +8,8 @@ GLOBAL_VAR_INIT(running_create_and_destroy, FALSE)
 	//We'll spawn everything here
 	var/turf/spawn_at = run_loc_floor_bottom_left
 	var/list/ignore = list(
+		//this is somehow a subtype of /atom/movable, because of its purpose...
+		/image/appearance
 		//Never meant to be created, errors out the ass for mobcode reasons
 		/mob/living/carbon,
 		//Nother template type, doesn't like being created with no seed
