@@ -21306,7 +21306,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "Cell 1";
 	name = "Cell 1";
 	pixel_y = 32

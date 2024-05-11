@@ -6160,7 +6160,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "caA" = (
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_x = 32
@@ -18877,7 +18877,7 @@
 /obj/effect/turf_decal/guideline/guideline_half_edge/red{
 	dir = 5
 	},
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_x = 32
@@ -23217,7 +23217,7 @@
 	dir = 9;
 	network = list("ss13","prison")
 	},
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_x = 32
@@ -25629,7 +25629,7 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central)
 "hRZ" = (
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_x = -32
@@ -40851,7 +40851,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_y = 32
@@ -48351,7 +48351,7 @@
 /area/security/brig/dock)
 "pbr" = (
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_y = -32
@@ -52417,7 +52417,7 @@
 /turf/open/floor/iron/dark,
 /area/security/checkpoint/engineering)
 "qpo" = (
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_y = 32
@@ -56283,7 +56283,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_y = -32
@@ -67791,7 +67791,7 @@
 /turf/open/floor/engine/air,
 /area/engine/atmos)
 "vgF" = (
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_y = 32

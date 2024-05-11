@@ -45038,7 +45038,7 @@
 /area/engine/engineering)
 "oMf" = (
 /obj/structure/toilet,
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_y = 32
@@ -57057,7 +57057,7 @@
 /turf/open/floor/iron,
 /area/quartermaster/qm)
 "tUj" = (
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_y = 32

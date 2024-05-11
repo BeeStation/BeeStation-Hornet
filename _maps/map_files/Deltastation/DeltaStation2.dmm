@@ -40025,7 +40025,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "scicell";
 	name = "Science Cell";
 	pixel_x = -32;
@@ -41660,7 +41660,7 @@
 /area/science/xenobiology)
 "gzR" = (
 /obj/structure/closet/secure_closet/security/engine,
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "engcell";
 	name = "Engineering Cell";
 	pixel_x = 32;
@@ -51292,7 +51292,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cargocell";
 	name = "Cargo Cell";
 	pixel_x = -32;
@@ -70424,7 +70424,7 @@
 /turf/open/floor/iron,
 /area/science/research)
 "qnj" = (
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "cell";
 	name = "Solitary confinement timer";
 	pixel_y = 32
@@ -79551,7 +79551,7 @@
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs,
 /obj/item/implant/radio,
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "medcell";
 	name = "Medical Cell";
 	pixel_y = -32
