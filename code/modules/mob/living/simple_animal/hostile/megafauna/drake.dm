@@ -411,9 +411,6 @@ Difficulty: Medium
 	light_range = 2
 	duration = 13
 
-/obj/effect/temp_visual/lava_warning/ex_act()
-	return
-
 /obj/effect/temp_visual/lava_warning/Initialize(mapload, var/reset_time = 10)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(fall), reset_time)
@@ -530,9 +527,6 @@ Difficulty: Medium
 	layer = BELOW_MOB_LAYER
 	light_range = 2
 	duration = 9
-
-/obj/effect/temp_visual/target/ex_act()
-	return
 
 /obj/effect/temp_visual/target/Initialize(mapload, list/flame_hit)
 	. = ..()

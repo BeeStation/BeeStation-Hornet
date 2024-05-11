@@ -238,7 +238,7 @@
 	reqs = list(/obj/item/extinguisher = 1,
 				/obj/item/bodypart/r_arm/robot = 1,
 				/obj/item/assembly/prox_sensor = 1,
-				/obj/item/clothing/head/hardhat/red = 1)
+				/obj/item/clothing/head/utility/hardhat/red = 1)
 	time = 40
 	category = CAT_ROBOT
 
@@ -644,21 +644,21 @@
 
 /datum/crafting_recipe/lizardhat
 	name = "Lizard Cloche Hat"
-	result = /obj/item/clothing/head/lizard
+	result = /obj/item/clothing/head/costume/lizard
 	time = 10
 	reqs = list(/obj/item/organ/tail/lizard = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/lizardhat_alternate
 	name = "Lizard Cloche Hat"
-	result = /obj/item/clothing/head/lizard
+	result = /obj/item/clothing/head/costume/lizard
 	time = 10
 	reqs = list(/obj/item/stack/sheet/animalhide/lizard = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/kittyears
 	name = "Kitty Ears"
-	result = /obj/item/clothing/head/kitty/genuine
+	result = /obj/item/clothing/head/costume/kitty/genuine
 	time = 10
 	reqs = list(/obj/item/organ/tail/cat = 1,
 				/obj/item/organ/ears/cat = 1)

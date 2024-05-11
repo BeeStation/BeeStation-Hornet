@@ -190,7 +190,7 @@
 								/obj/item/mecha_parts/part/ripley_right_arm,
 								/obj/item/mecha_parts/part/ripley_left_leg,
 								/obj/item/mecha_parts/part/ripley_right_leg,
-								/obj/item/clothing/suit/fire)
+								/obj/item/clothing/suit/utility/fire)
 	for(var/i = 0; i < 2; i++)
 		if(parts.len && prob(40))
 			var/part = pick(parts)
