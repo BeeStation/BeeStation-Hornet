@@ -534,6 +534,7 @@
 			item_state = sawn_item_state
 		else
 			item_state = "gun"
+		worn_icon_state = "gun"
 		slot_flags &= ~ITEM_SLOT_BACK	//you can't sling it on your back
 		slot_flags |= ITEM_SLOT_BELT	//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		recoil += SAWN_OFF_RECOIL		//Add the additional 1 recoil, instead of setting recoil to one (looking at you improv shotgun)

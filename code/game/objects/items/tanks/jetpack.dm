@@ -144,6 +144,7 @@
 	desc = "A jetpack made from two air tanks, a fire extinguisher and some atmospherics equipment. It doesn't look like it can hold much."
 	icon_state = "jetpack-improvised"
 	item_state = "jetpack-sec"
+	worn_icon = null
 	volume = 20 //normal jetpacks have 70 volume
 	gas_type = null //it starts empty
 	full_speed = FALSE //moves at hardsuit jetpack speeds
@@ -180,7 +181,7 @@
 	name = "jet harness (oxygen)"
 	desc = "A lightweight tactical harness, used by those who don't want to be weighed down by traditional jetpacks."
 	icon_state = "jetpack-mini"
-	item_state = "jetpack-mini"
+	item_state = "jetpack-black"
 	volume = 40
 	throw_range = 7
 	w_class = WEIGHT_CLASS_LARGE

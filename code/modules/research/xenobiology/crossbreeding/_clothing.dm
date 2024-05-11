@@ -101,8 +101,9 @@ Slimecrossing Armor
 	name = "heroine bud"
 	desc = "An extremely addictive flower, full of peace magic."
 	icon = 'icons/obj/slimecrossing.dmi'
+	worn_icon = 'icons/mob/clothing/head/costume.dmi'
 	icon_state = "peaceflower"
-	item_state = "peaceflower"
+	item_state = null
 	slot_flags = ITEM_SLOT_HEAD
 	clothing_flags = EFFECT_HAT | SNUG_FIT
 	body_parts_covered = NONE

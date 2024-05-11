@@ -110,7 +110,7 @@
 			unbuckle_mob(H)
 			H.throw_at(throw_target, 3, 2)
 			var/head_slot = H.get_item_by_slot(ITEM_SLOT_HEAD)
-			if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/hardhat)))
+			if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/utility/hardhat)))
 				if(prob(multiplier * 100)) //pro skaters get a 70% chance to not get the brain damage
 					H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
 					H.updatehealth()
@@ -303,7 +303,7 @@
 		H.Paralyze(multiplier * 30)
 		H.adjustStaminaLoss(multiplier * 10)
 		var/head_slot = H.get_item_by_slot(ITEM_SLOT_HEAD)
-		if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/hardhat)))
+		if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/utility/hardhat)))
 			if(prob(multiplier * 100)) //Pro skaters have a 70% chance to not get the brain damage
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 				H.updatehealth()

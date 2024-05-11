@@ -1680,16 +1680,6 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/mine/living_quarters)
-"lq" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/item/clothing/head/chefhat,
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/turf/open/floor/iron/grid/steel,
-/area/mine/laborcamp)
 "ls" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
@@ -6139,6 +6129,16 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/mine/maintenance)
+"Tz" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/donkpockets,
+/obj/item/clothing/head/utility/chefhat,
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/mine/laborcamp)
 "TA" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -32577,7 +32577,7 @@ NE
 rw
 jA
 tv
-lq
+Tz
 Ap
 rM
 uL

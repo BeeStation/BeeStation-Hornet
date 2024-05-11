@@ -5,6 +5,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"
+	worn_icon_state = "spraybottle"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	volume = 75
