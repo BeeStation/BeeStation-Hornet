@@ -167,7 +167,7 @@
 		/obj/item/clothing/suit/armor/bulletproof = 4,
 		/obj/item/clothing/head/helmet/alt = 4,
 		/obj/item/clothing/suit/armor/riot = 1,
-		/obj/item/clothing/head/helmet/riot = 1,
+		/obj/item/clothing/head/helmet/toggleable/riot = 1,
 		/obj/item/storage/lockbox/loyalty = 1,
 		/obj/item/storage/fancy/donut_box = 6,
 		/obj/item/storage/box/teargas = 2,
