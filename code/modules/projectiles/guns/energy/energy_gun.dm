@@ -32,6 +32,7 @@
 /obj/item/gun/energy/e_gun/mini/add_seclight_point()
 	// The mini energy gun's light comes attached but is unremovable.
 	AddComponent(/datum/component/seclite_attachable, \
+		starting_light = new /obj/item/flashlight/seclite(src), \
 		is_light_removable = FALSE, \
 		light_overlay_icon = 'icons/obj/guns/flashlights.dmi', \
 		light_overlay = "mini-light", \

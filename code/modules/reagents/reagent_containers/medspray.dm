@@ -4,6 +4,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "medspray"
 	item_state = "spraycan"
+	worn_icon_state = "spraycan"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
 	item_flags = NOBLUDGEON

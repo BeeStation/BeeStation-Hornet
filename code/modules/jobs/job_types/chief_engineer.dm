@@ -53,7 +53,7 @@
 	ears = /obj/item/radio/headset/heads/chief_engineer
 	uniform = /obj/item/clothing/under/rank/engineering/chief_engineer
 	shoes = /obj/item/clothing/shoes/sneakers/brown
-	head = /obj/item/clothing/head/hardhat/white
+	head = /obj/item/clothing/head/utility/hardhat/white
 	gloves = /obj/item/clothing/gloves/color/black
 	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1)
 
