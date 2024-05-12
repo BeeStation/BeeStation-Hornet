@@ -10,7 +10,7 @@
 /mob/living/carbon/human/species/monkey/angry/Initialize(mapload)
 	. = ..()
 	if(prob(10))
-		var/obj/item/clothing/head/helmet/justice/escape/helmet = new(src)
+		var/obj/item/clothing/head/helmet/toggleable/justice/escape/helmet = new(src)
 		equip_to_slot_or_del(helmet,ITEM_SLOT_HEAD)
 		helmet.attack_self(src) // todo encapsulate toggle
 
@@ -28,7 +28,7 @@
 
 /mob/living/carbon/human/species/monkey/punpun/Initialize(mapload)
 	// Init our blacklists.
-	relic_hat_blacklist = typecacheof(list(/obj/item/clothing/head/chameleon,/obj/item/clothing/head/monkey_sentience_helmet), only_root_path = TRUE)
+	relic_hat_blacklist = typecacheof(list(/obj/item/clothing/head/chameleon,/obj/item/clothing/head/helmet/monkey_sentience_helmet), only_root_path = TRUE)
 	relic_mask_blacklist = typecacheof(list(/obj/item/clothing/mask/facehugger, /obj/item/clothing/mask/chameleon), only_root_path = TRUE)
 
 	// Read memory

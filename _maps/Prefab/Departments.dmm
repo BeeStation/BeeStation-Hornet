@@ -339,10 +339,6 @@
 /obj/structure/girder,
 /turf/open/floor/plating,
 /area/space)
-"iP" = (
-/obj/machinery/door_timer,
-/turf/open/floor/iron,
-/area/space)
 "jm" = (
 /obj/machinery/status_display/supply,
 /turf/open/floor/iron,
@@ -355,15 +351,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"jF" = (
-/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
-/mob/living/carbon/human/species/monkey,
-/mob/living/simple_animal/pet/hamster/vector{
-	pixel_x = 1;
-	pixel_y = 10
-	},
-/turf/open/floor/iron/grid/steel,
-/area/medical/virology)
 "jK" = (
 /obj/effect/landmark/start/detective,
 /turf/open/floor/wood,
@@ -1115,11 +1102,6 @@
 /obj/machinery/light_switch,
 /turf/open/floor/iron,
 /area/space)
-"Fa" = (
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/mob/living/carbon/human/species/monkey,
-/turf/open/floor/iron/dark,
-/area/medical/genetics)
 "Fh" = (
 /obj/machinery/requests_console{
 	department = "Cargo Bay";
@@ -1148,6 +1130,11 @@
 /obj/structure/closet/l3closet/janitor,
 /turf/open/floor/iron,
 /area/janitor)
+"FF" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/iron/dark,
+/area/medical/genetics)
 "Gs" = (
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 2;
@@ -1386,6 +1373,10 @@
 /obj/item/book/manual/wiki/sopsupply,
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
+"MY" = (
+/obj/machinery/status_display/door_timer,
+/turf/open/floor/iron,
+/area/space)
 "Nb" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/machinery/vending/wardrobe/chem_wardrobe,
@@ -1448,6 +1439,15 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/medical/genetics)
+"OW" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/mob/living/carbon/human/species/monkey,
+/mob/living/simple_animal/pet/hamster/vector{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/turf/open/floor/iron/grid/steel,
+/area/medical/virology)
 "OX" = (
 /obj/item/toy/plush/moth,
 /turf/open/floor/iron/dark,
@@ -2108,7 +2108,7 @@ QG
 ew
 To
 pY
-Fa
+FF
 oa
 qL
 oa
@@ -2168,7 +2168,7 @@ ee
 cc
 TS
 eL
-jF
+OW
 Qk
 ff
 Qk
@@ -2453,7 +2453,7 @@ XF
 XF
 XF
 TX
-iP
+MY
 ps
 Co
 Zj

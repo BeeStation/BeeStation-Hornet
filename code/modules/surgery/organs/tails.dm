@@ -4,8 +4,10 @@
 	name = "tail"
 	desc = "A severed tail. What did you cut this off of?"
 	icon_state = "severedtail"
+
 	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_TAIL
+	
 	var/tail_type = "None"
 
 /obj/item/organ/tail/proc/is_wagging(mob/living/carbon/human/H)

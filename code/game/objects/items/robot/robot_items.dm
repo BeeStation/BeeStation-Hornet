@@ -635,7 +635,8 @@
 	name = "\improper Hyperkinetic Dampening projector"
 	desc = "A device that projects a dampening field that weakens kinetic energy above a certain threshold. <span class='boldnotice'>Projects a field that drains power per second while active, that will weaken and slow damaging projectiles inside its field.</span> Still being a prototype, it tends to induce a charge on ungrounded metallic surfaces."
 	icon = 'icons/obj/device.dmi'
-	icon_state = "shield"
+	icon_state = "shield0"
+	base_icon_state = "shield"
 	var/maxenergy = 1500
 	var/energy = 1500
 	/// Recharging rate in energy per second
@@ -688,7 +689,7 @@
 	to_chat(user, "<span class='boldnotice'>You [active? "activate":"deactivate"] [src].</span>")
 
 /obj/item/borg/projectile_dampen/update_icon_state()
-	icon_state = "[initial(icon_state)][active]"
+	icon_state = "[base_icon_state][active]"
 	return ..()
 
 /obj/item/borg/projectile_dampen/proc/activate_field()
@@ -701,7 +702,8 @@
 	active = TRUE
 
 /obj/item/borg/projectile_dampen/proc/deactivate_field()
-	QDEL_NULL(dampening_field)
+	if(istype(dampening_field))
+		QDEL_NULL(dampening_field)
 	visible_message("<span class='warning'>\The [src] shuts off!</span>")
 	for(var/P in tracked)
 		restore_projectile(P)

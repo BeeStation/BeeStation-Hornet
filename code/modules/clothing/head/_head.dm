@@ -1,8 +1,7 @@
 /obj/item/clothing/head
 	name = BODY_ZONE_HEAD
-	icon = 'icons/obj/clothing/hats.dmi'
-	icon_state = "top_hat"
-	item_state = "that"
+	icon = 'icons/obj/clothing/head/default.dmi'
+	worn_icon = 'icons/mob/clothing/head/default.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
 	dynamic_hair_suffix = "+generic"
