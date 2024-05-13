@@ -173,6 +173,7 @@
 
 /turf/open/floor/mineral/plastitanium/red
 	icon_state = "plastitanium_red"
+	floor_tile = /obj/item/stack/tile/mineral/plastitanium/red
 
 /turf/open/floor/mineral/plastitanium/red/airless
 	initial_gas_mix = AIRLESS_ATMOS

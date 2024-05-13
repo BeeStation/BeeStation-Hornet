@@ -15,10 +15,12 @@
 	material_flags = MATERIAL_EFFECTS
 	/// What type of turf does this tile produce.
 	var/turf_type = null
-	/// Determines certain welder interactions.
-	var/mineralType = null
+	/// What dir will the turf have?
+	var/turf_dir = SOUTH
 	/// Cached associative lazy list to hold the radial options for tile reskinning. See tile_reskinning.dm for more information. Pattern: list[type] -> image
 	var/list/tile_reskin_types
+	/// Cached associative lazy list to hold the radial options for tile dirs. See tile_reskinning.dm for more information.
+	var/list/tile_rotate_dirs
 
 /obj/item/stack/tile/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
@@ -26,9 +28,16 @@
 	pixel_y = rand(-3, 3) //randomize a little
 	if(tile_reskin_types)
 		tile_reskin_types = tile_reskin_list(tile_reskin_types)
+	if(tile_rotate_dirs)
+		var/list/values = list()
+		for(var/set_dir in tile_rotate_dirs)
+			values += dir2text(set_dir)
+		tile_rotate_dirs = tile_dir_list(values, turf_type)
 
 /obj/item/stack/tile/examine(mob/user)
 	. = ..()
+	if(tile_reskin_types || tile_rotate_dirs)
+		. += "<span class='notice'>Use while in your hand to change what type of [src] you want.</span>"
 	if(throwforce && !is_cyborg) //do not want to divide by zero or show the message to borgs who can't throw
 		var/verb
 		switch(CEILING(MAX_LIVING_HEALTH / throwforce, 1)) //throws to crit a human
@@ -46,55 +55,12 @@
 			return
 		. += "<span class='notice'>Those could work as a [verb] throwing weapon.</span>"
 
-/obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
-	if (W.tool_behaviour == TOOL_WELDER)
-		if(get_amount() < 4)
-			to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
-			return
-
-		if(!mineralType)
-			to_chat(user, "<span class='warning'>You can not reform this!</span>")
-			return
-
-		if(W.use_tool(src, user, 0, volume=40))
-			if(mineralType == "plasma")
-				atmos_spawn_air("plasma=5;TEMP=1000")
-				user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
-									"<span class='warning'>You set the plasma tiles on fire!</span>")
-				qdel(src)
-				return
-
-			if (mineralType == "iron")
-				var/obj/item/stack/sheet/iron/new_item = new(user.loc)
-				user.visible_message("[user.name] shaped [src] into iron with the welding tool.", \
-							 "<span class='notice'>You shaped [src] into iron with the welding tool.</span>", \
-							 "<span class='italics'>You hear welding.</span>")
-				var/obj/item/stack/rods/R = src
-				src = null
-				var/replace = (user.get_inactive_held_item()==R)
-				R.use(4)
-				if (!R && replace)
-					user.put_in_hands(new_item)
-
-			else
-				var/sheet_type = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
-				var/obj/item/stack/sheet/mineral/new_item = new sheet_type(user.loc)
-				user.visible_message("[user.name] shaped [src] into a sheet with the welding tool.", \
-							 "<span class='notice'>You shaped [src] into a sheet with the welding tool.</span>", \
-							 "<span class='italics'>You hear welding.</span>")
-				var/obj/item/stack/rods/R = src
-				src = null
-				var/replace = (user.get_inactive_held_item()==R)
-				R.use(4)
-				if (!R && replace)
-					user.put_in_hands(new_item)
-	else
-		return ..()
-
 /obj/item/stack/tile/proc/place_tile(turf/open/T)
 	if(!turf_type || !use(1))
 		return
-	. = T.PlaceOnTop(turf_type, flags = CHANGETURF_INHERIT_AIR)
+	var/turf/placed_turf = T.PlaceOnTop(turf_type, flags = CHANGETURF_INHERIT_AIR)
+	placed_turf.setDir(turf_dir)
+	return placed_turf
 
 //Grass
 /obj/item/stack/tile/grass
@@ -230,6 +196,28 @@
 	turf_type = /turf/open/floor/carpet
 	resistance_flags = FLAMMABLE
 	tableVariant = /obj/structure/table/wood/fancy
+	tile_reskin_types = list(
+		/obj/item/stack/tile/carpet,
+		/obj/item/stack/tile/carpet/symbol,
+		/obj/item/stack/tile/carpet/star,
+	)
+
+/obj/item/stack/tile/carpet/symbol
+	name = "symbol carpet"
+	singular_name = "symbol carpet tile"
+	icon_state = "tile-carpet-symbol"
+	desc = "A piece of carpet. This one has a symbol on it."
+	turf_type = /turf/open/floor/carpet/lone
+	merge_type = /obj/item/stack/tile/carpet/symbol
+	tile_rotate_dirs = list(SOUTH, NORTH, EAST, WEST, SOUTHEAST)
+
+/obj/item/stack/tile/carpet/star
+	name = "star carpet"
+	singular_name = "star carpet tile"
+	icon_state = "tile-carpet-star"
+	desc = "A piece of carpet. This one has a star on it."
+	turf_type = /turf/open/floor/carpet/lone/star
+	merge_type = /obj/item/stack/tile/carpet/star
 
 /obj/item/stack/tile/carpet/black
 	name = "black carpet"
@@ -498,6 +486,11 @@
 	icon_state = "tile_pod"
 	item_state = "tile-pod"
 	turf_type = /turf/open/floor/pod
+	tile_reskin_types = list(
+		/obj/item/stack/tile/pod,
+		/obj/item/stack/tile/pod/light,
+		/obj/item/stack/tile/pod/dark,
+		)
 
 /obj/item/stack/tile/pod/light
 	name = "light pod floor tile"
@@ -512,25 +505,6 @@
 	desc = "A darkly colored grooved floor tile."
 	icon_state = "tile_poddark"
 	turf_type = /turf/open/floor/pod/dark
-
-//Plasteel (normal)
-/obj/item/stack/tile/iron
-	name = "floor tile"
-	singular_name = "floor tile"
-	desc = "The ground you walk on."
-	icon_state = "tile"
-	item_state = "tile"
-	force = 6
-	mats_per_unit = list(/datum/material/iron=500)
-	throwforce = 10
-	flags_1 = CONDUCT_1
-	turf_type = /turf/open/floor/iron
-	mineralType = "iron"
-	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
-	resistance_flags = FIRE_PROOF
-	matter_amount = 1
-	cost = 125
-	source = /datum/robot_energy_storage/metal
 
 //Monotiles
 

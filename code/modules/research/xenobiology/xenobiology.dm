@@ -1129,7 +1129,7 @@
 	name = "sepia floor tile"
 	singular_name = "floor tile"
 	desc = "Time seems to flow very slowly around these tiles."
-	icon_state = "tile-sepia"
+	icon_state = "tile_sepia"
 	item_state = "tile-sepia"
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
