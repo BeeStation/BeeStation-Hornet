@@ -10709,11 +10709,13 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bSt" = (
-/obj/structure/closet/emcloset,
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/tcommsat/computer)
 "bSu" = (
@@ -11030,6 +11032,10 @@
 	name = "Telecomms RC";
 	pixel_x = 30
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/iron,
 /area/tcommsat/computer)
 "bUd" = (
@@ -11520,6 +11526,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 6
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bWD" = (
@@ -11529,6 +11538,9 @@
 "bWE" = (
 /obj/effect/turf_decal/siding/wideplating_new/dark,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
 /turf/open/floor/iron/dark/telecomms,
@@ -11547,6 +11559,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bWG" = (
@@ -11561,6 +11576,9 @@
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
@@ -11731,6 +11749,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bXA" = (
@@ -11938,6 +11957,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bYA" = (
@@ -11953,6 +11973,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "bYB" = (
@@ -12101,6 +12122,9 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
+	dir = 8
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
@@ -12821,6 +12845,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "ccg" = (
@@ -12922,6 +12947,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cdd" = (
@@ -12939,6 +12965,7 @@
 /obj/effect/turf_decal/siding/wideplating_new/dark{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cdh" = (
@@ -13051,6 +13078,9 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cea" = (
@@ -13064,6 +13094,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cec" = (
@@ -13075,6 +13108,9 @@
 	},
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = -32
+	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
@@ -13089,6 +13125,9 @@
 	dir = 8
 	},
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cef" = (
@@ -18026,6 +18065,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "cSG" = (
@@ -18821,6 +18861,9 @@
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 5
 	},
 /turf/open/floor/iron,
 /area/tcommsat/computer)
@@ -21453,9 +21496,6 @@
 /obj/machinery/camera/autoname{
 	dir = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
-	dir = 5
-	},
 /turf/open/floor/circuit/telecomms/server,
 /area/quartermaster/exploration_dock)
 "eqw" = (
@@ -22667,6 +22707,9 @@
 /obj/machinery/telecomms/receiver/preset_exploration,
 /obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 9
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "ePu" = (
@@ -22710,6 +22753,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_dock)
 "eQj" = (
@@ -29333,6 +29377,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "hSv" = (
@@ -34173,6 +34218,9 @@
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "jYS" = (
@@ -35503,6 +35551,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/security/brig)
+"kCj" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/plasma,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "kCJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -39588,7 +39643,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -45288,6 +45343,9 @@
 	name = "Server Room";
 	req_access_txt = "61"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "oTf" = (
@@ -45383,6 +45441,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "oVe" = (
@@ -46505,6 +46566,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/general/hidden{
+	dir = 4
+	},
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "pyz" = (
@@ -48752,6 +48816,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "qyw" = (
@@ -48888,6 +48953,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "qCh" = (
@@ -51211,6 +51277,9 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/manifold/general/hidden{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/tcommsat/computer)
 "rCK" = (
@@ -51611,6 +51680,9 @@
 /area/science/research)
 "rKw" = (
 /obj/machinery/telecomms/hub/preset/exploration,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 10
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "rLd" = (
@@ -53541,6 +53613,9 @@
 /area/crew_quarters/locker)
 "szx" = (
 /obj/machinery/telecomms/bus/preset_exploration,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "szC" = (
@@ -53615,6 +53690,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "sAt" = (
@@ -53831,8 +53907,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
-	dir = 10
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
+	dir = 4
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_dock)
@@ -54702,6 +54778,9 @@
 /area/science/robotics/lab)
 "sWW" = (
 /obj/machinery/telecomms/broadcaster/preset_exploration,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "sXf" = (
@@ -55057,8 +55136,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
-	dir = 5
+/obj/machinery/atmospherics/pipe/manifold/general/hidden{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -58417,8 +58496,8 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 5
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_dock)
@@ -58509,6 +58588,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/server)
 "uDa" = (
@@ -64428,9 +64508,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/white,
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/structure/closet/emcloset,
 /turf/open/floor/iron,
 /area/tcommsat/computer)
 "xtS" = (
@@ -65742,9 +65820,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	external_pressure_bound = 120;
-	name = "server vent"
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
+	dir = 1
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_dock)
@@ -66242,9 +66319,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/cyan/hidden{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_dock)
 "yjY" = (
@@ -117557,7 +117632,7 @@ aaa
 bky
 gpn
 tep
-btp
+kCj
 bky
 dnB
 kEM
