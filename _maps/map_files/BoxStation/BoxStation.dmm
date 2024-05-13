@@ -100,7 +100,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "aby" = (
 /obj/effect/spawner/room/threexfive,
@@ -128,7 +128,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "abY" = (
 /obj/structure/grille,
@@ -194,7 +194,7 @@
 	color = "#ff0000";
 	icon_state = "0-2"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "acW" = (
 /obj/structure/lattice/catwalk,
@@ -246,7 +246,7 @@
 	color = "#ff0000";
 	icon_state = "0-2"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "adt" = (
 /obj/structure/cable,
@@ -390,7 +390,7 @@
 	name = "Port Auxiliary Solar Array"
 	},
 /obj/structure/cable,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "aed" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -432,7 +432,7 @@
 	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "aeK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -12784,7 +12784,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "ccb" = (
 /obj/machinery/power/solar{
@@ -12794,7 +12794,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "ccc" = (
 /obj/structure/lattice/catwalk,
@@ -13740,7 +13740,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "chK" = (
 /obj/structure/lattice/catwalk,
@@ -15385,7 +15385,7 @@
 "ctB" = (
 /obj/structure/cable,
 /obj/machinery/power/tracker,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "ctE" = (
 /obj/structure/sign/warning/securearea,
@@ -17738,7 +17738,7 @@
 	color = "#ff0000";
 	icon_state = "0-2"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "cMU" = (
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
@@ -17755,7 +17755,7 @@
 	name = "Starboard Solar Array"
 	},
 /obj/structure/cable,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "cNq" = (
 /obj/structure/table/reinforced,
@@ -24374,7 +24374,7 @@
 	name = "Port Auxiliary Solar Array"
 	},
 /obj/structure/cable,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "fDa" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
@@ -52128,7 +52128,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/turf/open/floor/goonplaque,
+/turf/open/floor/iron/goonplaque,
 /area/security/brig)
 "rUC" = (
 /obj/structure/disposalpipe/segment{
@@ -63152,7 +63152,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/turf/open/floor/goonplaque,
+/turf/open/floor/iron/goonplaque,
 /area/hallway/secondary/entry)
 "wRj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{

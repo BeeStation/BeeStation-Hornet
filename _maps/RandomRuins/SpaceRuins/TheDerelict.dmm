@@ -944,7 +944,7 @@
 /area/ruin/space/derelict/bridge/access)
 "de" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/space/nearstation)
 "df" = (
 /obj/structure/cable/yellow{
@@ -977,7 +977,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/gravity_generator)
 "dj" = (
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/space/nearstation)
 "dk" = (
 /obj/item/stack/cable_coil/cut/red,

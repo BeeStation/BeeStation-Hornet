@@ -3986,7 +3986,7 @@
 /obj/structure/cable/white{
 	icon_state = "0-8"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "aWm" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -10027,7 +10027,7 @@
 /obj/structure/cable/white{
 	icon_state = "0-4"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "daX" = (
 /obj/effect/turf_decal/stripes/line,
@@ -11280,7 +11280,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "duF" = (
 /turf/closed/wall/r_wall,
@@ -11882,7 +11882,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "dGx" = (
 /obj/structure/cable/yellow{
@@ -43250,7 +43250,7 @@
 /obj/structure/cable/white{
 	icon_state = "0-4"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "nNi" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -46095,7 +46095,7 @@
 "oIq" = (
 /obj/structure/cable/white,
 /obj/machinery/power/solar,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "oID" = (
 /turf/open/floor/iron,
@@ -50307,7 +50307,7 @@
 "qhU" = (
 /obj/structure/cable/white,
 /obj/machinery/power/solar,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "qhV" = (
 /obj/machinery/conveyor{
@@ -66068,7 +66068,7 @@
 "voK" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable/white,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "voP" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -69457,7 +69457,7 @@
 /obj/structure/cable/white{
 	icon_state = "0-2"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "wre" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted,

@@ -206,6 +206,11 @@
 	desc = "Sadly, these don't seem to make you faster..."
 	floor_tile = /obj/item/stack/tile/iron/bluespace
 
+/turf/open/floor/iron/monotile
+	icon_state = "monotile"
+	base_icon_state = "monotile"
+	floor_tile = /obj/item/stack/tile/iron/monotile
+
 /turf/open/floor/iron/sepia
 	icon_state = "sepia"
 	base_icon_state = "sepia"

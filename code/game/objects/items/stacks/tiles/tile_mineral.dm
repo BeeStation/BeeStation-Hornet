@@ -34,19 +34,6 @@
 	mineralType = "plasma"
 	mats_per_unit = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT*0.25)
 
-/obj/item/stack/tile/mineral/plasma/attackby(obj/item/W, mob/user, params)
-	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
-		var/turf/T = get_turf(src)
-		message_admins("Plasma tiles ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma tiles ignited by [key_name(user)] in [AREACOORD(T)]")
-		fire_act(W.get_temperature())
-	else
-		return ..()
-
-/obj/item/stack/tile/mineral/plasma/fire_act(exposed_temperature, exposed_volume)
-	atmos_spawn_air("plasma=[amount*2.5];TEMP=[exposed_temperature]")
-	qdel(src)
-
 /obj/item/stack/tile/mineral/uranium
 	name = "uranium tile"
 	singular_name = "uranium floor tile"
@@ -132,11 +119,11 @@
 		/obj/item/stack/tile/mineral/titanium/blue,
 		/obj/item/stack/tile/mineral/titanium/white,
 		/obj/item/stack/tile/mineral/titanium/purple,
-		/obj/item/stack/tile/mineral/titanium/alt,
-		/obj/item/stack/tile/mineral/titanium/alt/yellow,
-		/obj/item/stack/tile/mineral/titanium/alt/blue,
-		/obj/item/stack/tile/mineral/titanium/alt/white,
-		/obj/item/stack/tile/mineral/titanium/alt/purple,
+		/obj/item/stack/tile/mineral/titanium/tiled,
+		/obj/item/stack/tile/mineral/titanium/tiled/yellow,
+		/obj/item/stack/tile/mineral/titanium/tiled/blue,
+		/obj/item/stack/tile/mineral/titanium/tiled/white,
+		/obj/item/stack/tile/mineral/titanium/tiled/purple,
 		)
 
 /obj/item/stack/tile/mineral/titanium/yellow
@@ -288,5 +275,5 @@
 	desc = "A strange tile made from runed metal. Doesn't seem to actually have any paranormal powers."
 	icon_state = "tile_cult"
 	turf_type = /turf/open/floor/cult
-	mats_per_unit = list(/datum/material/runedmetal=500)
+	//mats_per_unit = list(/datum/material/runedmetal=500)
 	merge_type = /obj/item/stack/tile/cult

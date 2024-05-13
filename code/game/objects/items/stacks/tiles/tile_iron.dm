@@ -10,7 +10,6 @@
 	throwforce = 10
 	flags_1 = CONDUCT_1
 	turf_type = /turf/open/floor/iron
-	mineralType = "iron"
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	matter_amount = 1
@@ -55,6 +54,10 @@
 
 /obj/item/stack/tile/iron/base //this subtype should be used for most stuff
 	merge_type = /obj/item/stack/tile/iron/base
+
+/obj/item/stack/tile/iron/base/cyborg //cant reskin these, fucks with borg code
+	merge_type = /obj/item/stack/tile/iron/base/cyborg
+	tile_reskin_types = null
 
 /obj/item/stack/tile/iron/dark
 	name = "dark tile"

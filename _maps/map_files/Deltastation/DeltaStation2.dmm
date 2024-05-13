@@ -20,7 +20,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "aaf" = (
 /obj/structure/cable{
@@ -37,7 +37,7 @@
 	id = "forestarboard";
 	name = "Fore-Starboard Solar Array"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "aah" = (
 /obj/structure/cable{
@@ -105,7 +105,7 @@
 	id = "forestarboard";
 	name = "Fore-Starboard Solar Array"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "aao" = (
 /obj/structure/lattice/catwalk,
@@ -1758,7 +1758,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "alT" = (
 /turf/closed/wall/r_wall,
@@ -2132,7 +2132,7 @@
 	id = "foreport";
 	name = "Fore-Port Solar Array"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "aoW" = (
 /obj/machinery/light/small{
@@ -2476,7 +2476,7 @@
 	id = "foreport";
 	name = "Fore-Port Solar Array"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "aqV" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -7568,7 +7568,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/goonplaque,
+/turf/open/floor/iron/goonplaque,
 /area/hallway/primary/fore)
 "aSg" = (
 /obj/structure/disposalpipe/segment{
@@ -30551,7 +30551,7 @@
 	id = "aftstarboard";
 	name = "Aft-Starboard Solar Array"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "dFz" = (
 /obj/structure/chair/office{
@@ -31068,7 +31068,7 @@
 	id = "aftstarboard";
 	name = "Aft-Starboard Solar Array"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "dIi" = (
 /obj/structure/window/reinforced,
@@ -32543,7 +32543,7 @@
 "dTk" = (
 /obj/structure/cable,
 /obj/machinery/power/tracker,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "dTm" = (
 /obj/structure/table/reinforced,
@@ -33790,7 +33790,7 @@
 	id = "aftport";
 	name = "Aft-Port Solar Array"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "efg" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -33959,7 +33959,7 @@
 	id = "aftport";
 	name = "Aft-Port Solar Array"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "egD" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -34078,7 +34078,7 @@
 "ehs" = (
 /obj/structure/cable,
 /obj/machinery/power/tracker,
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "ehv" = (
 /obj/effect/turf_decal/tile/yellow{

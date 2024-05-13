@@ -2067,7 +2067,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "ahV" = (
 /obj/effect/turf_decal/bot,
@@ -2746,7 +2746,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/fore)
 "akR" = (
 /obj/structure/lattice/catwalk,
@@ -3229,7 +3229,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/space/nearstation)
 "amL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3434,7 +3434,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/space/nearstation)
 "aol" = (
 /obj/structure/noticeboard{
@@ -21597,7 +21597,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "clh" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -22729,7 +22729,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/port/aft)
 "crb" = (
 /obj/structure/lattice/catwalk,
@@ -22803,7 +22803,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "crn" = (
 /turf/open/floor/plating{
@@ -24467,7 +24467,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "cyh" = (
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
@@ -24725,7 +24725,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "czy" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -26267,7 +26267,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "cGx" = (
 /obj/structure/sign/warning/electricshock,
@@ -28473,7 +28473,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/aft)
 "cPH" = (
 /obj/structure/lattice/catwalk,
@@ -52024,7 +52024,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/open/floor/iron/airless/solarpanel,
+/turf/open/floor/iron/solarpanel/airless,
 /area/solar/starboard/fore)
 "kHg" = (
 /obj/machinery/portable_atmospherics/pump,
