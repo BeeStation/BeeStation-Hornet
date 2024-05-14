@@ -2,13 +2,13 @@
 
 Diona pbody and tail
 MAKE IT WORK
+make markings actually work
 make dionae be able to be planted via replica pods
 THE DIONAE SPLITTING
-
+naming guidelines
 
 testmerge
-win and get those 85 bucks
-flowers work but the rest dont
+win and get those 85 CAD
 
 */
 
@@ -41,6 +41,7 @@ flowers work but the rest dont
 	mutanttongue = /obj/item/organ/tongue/diona //placeholder sprite
 	mutant_brain = /obj/item/organ/brain/diona //SS14 sprite
 	mutantliver = /obj/item/organ/liver/diona //placeholder sprite
+	mutantlungs = /obj/item/organ/lungs/diona //placeholder sprite
 	mutantstomach = /obj/item/organ/stomach/diona //SS14 sprite
 	mutantears = /obj/item/organ/ears/diona //SS14 sprite
 	mutant_heart = /obj/item/organ/heart/diona //placeholder sprite
@@ -96,6 +97,26 @@ flowers work but the rest dont
 /datum/species/diona/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	if(P.type == (/obj/projectile/energy/floramut || /obj/projectile/energy/florayield))
 		H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
+
+/datum/species/diona/spec_death(gibbed, mob/living/carbon/human/H)
+	gib(gibbed, H)
+	return ..()
+
+/datum/species/diona/proc/gib(gibbed, mob/living/carbon/human/H)
+	for (var/amount = 0, amount < NYMPH_SPAWN_AMOUNT, amount++)
+		new /mob/living/simple_animal/nymph(H.loc)
+	for(var/obj/item/I in H.contents)
+		H.dropItemToGround(I, TRUE)
+		I.pixel_x = rand(-10, 10)
+		I.pixel_y = rand(-10, 10)
+	QDEL_NULL(H)
+
+/datum/species/ipc/on_species_gain(mob/living/carbon/C)
+	. = ..()
+	var/obj/item/organ/appendix/appendix = C.getorganslot("appendix") //No appendixes for plant people
+	if(appendix)
+		appendix.Remove(C)
+		QDEL_NULL(appendix)
 
 /datum/species/diona/get_species_description()
 	return "Psyphoza are a species of extra-sensory lesser-sensory \
