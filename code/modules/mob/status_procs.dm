@@ -46,22 +46,34 @@
 		update_blindness()
 
 /// proc that adds and removes blindness overlays when necessary
-/mob/proc/update_blindness(overlay = /atom/movable/screen/fullscreen/blind, add_color = TRUE, var/can_see = TRUE)
-	if(stat == UNCONSCIOUS || HAS_TRAIT(src, TRAIT_BLIND) || eye_blind) // UNCONSCIOUS or has blind trait, or has temporary blindness
-		if((stat == CONSCIOUS || stat == SOFT_CRIT) && istype(overlay, /atom/movable/screen/alert))
-			throw_alert("blind", overlay)
-		overlay_fullscreen("blind", overlay)
+/mob/proc/update_blindness(overlay = /atom/movable/screen/fullscreen/blind, add_color = TRUE, can_see = TRUE)
+	switch(stat)
+		if(CONSCIOUS, SOFT_CRIT)
+			if(HAS_TRAIT(src, TRAIT_BLIND) || eye_blind && istype(overlay, /atom/movable/screen/alert))
+				throw_alert("blind", /atom/movable/screen/alert/blind)
+				do_set_blindness(FALSE, overlay, add_color)
+			else
+				do_set_blindness(TRUE, overlay, add_color)
+		if(UNCONSCIOUS, HARD_CRIT)
+			do_set_blindness(FALSE, overlay, add_color)
+		if(DEAD)
+			do_set_blindness(TRUE, overlay, add_color)
+
+///Proc that handles adding and removing the blindness overlays.
+/mob/proc/do_set_blindness(can_see, overlay_setter, add_color_setter)
+	if(!can_see)
+		overlay_fullscreen("blind", overlay_setter)
 		// You are blind why should you be able to make out details like color, only shapes near you
-		if(add_color)
+		if(add_color_setter)
 			add_client_colour(/datum/client_colour/monochrome/blind)
-		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
 		if(!B && !QDELING(src) && !QDELETED(src))
 			AddComponent(/datum/component/blind_sense)
-	else if(can_see) // CONSCIOUS no blind trait, no blindness
+	else
 		clear_alert("blind")
 		clear_fullscreen("blind")
 		remove_client_colour(/datum/client_colour/monochrome/blind)
-		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)
 		B?.RemoveComponent()
 
 /**

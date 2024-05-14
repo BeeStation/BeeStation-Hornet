@@ -2,6 +2,10 @@
 	if(stat == DEAD)
 		return
 
+	if(!gibbed)
+		// Will update all AI status displays with a blue screen of death
+		INVOKE_ASYNC(src, PROC_REF(emote), "bsod")
+
 	. = ..()
 
 	cut_overlays() //remove portraits
@@ -32,12 +36,6 @@
 	if(explosive)
 		var/T = get_turf(src)
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), T, 3, 6, 12, 15), 10)
-
-	if(src.key)
-		for(var/each in GLOB.ai_status_displays) //change status
-			var/obj/machinery/status_display/ai/O = each
-			O.mode = 2
-			O.update()
 
 	if(istype(loc, /obj/item/aicard/aitater))
 		loc.icon_state = "aitater-404"

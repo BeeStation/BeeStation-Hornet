@@ -30,6 +30,9 @@
 	remove_from_alive_mob_list()
 	remove_from_mob_suicide_list()
 	focus = null
+	if(length(progressbars))
+		stack_trace("[src] destroyed with elements in its progressbars list")
+		progressbars = null
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
 	if(observers?.len)
@@ -174,7 +177,7 @@
 				if(type & MSG_VISUAL && is_blind())
 					return
 	// voice muffling
-	if(stat == UNCONSCIOUS)
+	if(stat == UNCONSCIOUS || stat == HARD_CRIT)
 		if(type & MSG_AUDIBLE) //audio
 			to_chat(src, "<I>... You can almost hear something ...</I>")
 		return
@@ -804,7 +807,7 @@
 /mob/proc/canface()
 	if(world.time < client.last_turn)
 		return FALSE
-	if(stat == DEAD || stat == UNCONSCIOUS)
+	if(stat >= UNCONSCIOUS)
 		return FALSE
 	if(anchored)
 		return FALSE
@@ -959,6 +962,9 @@
 ///Can the mob interact() with an atom?
 /mob/proc/can_interact_with(atom/A, treat_mob_as_adjacent)
 	if(IsAdminGhost(src))
+		return TRUE
+	var/datum/dna/mob_dna = has_dna()
+	if(mob_dna?.check_mutation(TK) && tkMaxRangeCheck(src, A))
 		return TRUE
 	if(treat_mob_as_adjacent && src == A.loc)
 		return TRUE

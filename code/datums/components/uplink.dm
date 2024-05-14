@@ -159,7 +159,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 	if(user)
 		INVOKE_ASYNC(src, PROC_REF(ui_interact), user)
 	// an unlocked uplink blocks also opening the PDA or headset menu
-	return COMPONENT_NO_INTERACT
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 
 /datum/component/uplink/ui_state(mob/user)

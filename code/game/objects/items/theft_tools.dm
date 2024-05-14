@@ -135,8 +135,8 @@
 	. = ..()
 	AddComponent(/datum/component/trackable)
 
-/obj/item/nuke_core/supermatter_sliver/attack_tk() // no TK dusting memes
-	return FALSE
+/obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK dusting memes
+	return
 
 /obj/item/nuke_core/supermatter_sliver/can_be_pulled(user) // no drag memes
 	return FALSE

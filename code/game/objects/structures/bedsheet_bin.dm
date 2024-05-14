@@ -105,6 +105,7 @@
 			hidden = null
 
 	add_fingerprint(user)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/structure/bedsheetbin/attack_tk(mob/user)
 	if(amount >= 1)

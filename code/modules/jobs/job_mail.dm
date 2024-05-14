@@ -176,6 +176,8 @@
 		/obj/item/toy/plush/flushed = 5,
 		//rare, but not that much...
 		/obj/item/paicard = 2,
+		//definetly better than the lame PAi
+		/obj/item/toy/plush/flushed/rainbow = 2,
 	)
 
 //DEPUTY...IS THIS JOB EVEN ACTIVE? I DON'T THINK IT IS
@@ -255,7 +257,7 @@
 		/obj/item/firing_pin = 10,
 		/obj/item/implantcase/mindshield = 7,
 		//Vile, vile person...
-		/obj/item/clothing/head/kitty = 5,
+		/obj/item/clothing/head/costume/kitty = 5,
 		//hey, always come in handy!
 		/obj/item/storage/lockbox/loyalty = 2,
 	)
@@ -295,7 +297,7 @@
 		/obj/item/clothing/head/mob_holder/rabbit = 40,
 		/obj/item/gun/magic/wand = 10,
 		/obj/item/clothing/head/collectable/tophat = 10,
-		/obj/item/clothing/head/bowler = 5,
+		/obj/item/clothing/head/hats/bowler = 5,
 	)
 
 //MEDICAL DOCTOR
@@ -348,6 +350,7 @@
 		// it's hard to not look cool
 		/obj/item/clothing/glasses/science/sciencesun = 10,
 		/obj/item/taperecorder = 7,
+		/obj/item/toy/plush/slimeplushie/random = 7,
 		/obj/item/disk/tech_disk/research/random  = 4,
 		/obj/item/borg/upgrade/ai = 2,
 	)
@@ -370,6 +373,7 @@
 	mail_goodies = list(
 		/obj/item/anomaly_neutralizer = 10,
 		/obj/item/disk/tech_disk = 7,
+		/obj/item/toy/plush/slimeplushie/random = 7,
 		//STUFF
 		/obj/effect/spawner/mail/science = 4,
 	)

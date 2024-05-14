@@ -1,6 +1,5 @@
 /datum/job/shaft_miner
 	title = JOB_NAME_SHAFTMINER
-	flag = MINER
 	description = "Collect resources for the station, redeem them for points, and purchase gear to collect even more ores."
 	department_for_prefs = DEPT_BITFLAG_CAR
 	department_head_for_prefs = JOB_NAME_QUARTERMASTER
@@ -18,7 +17,6 @@
 	minimal_access = list(ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM,
 					ACCESS_AUX_BASE)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_HARD)

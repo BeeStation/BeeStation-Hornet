@@ -519,7 +519,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cd" = (
-/obj/item/food/toastedsandwich,
+/obj/item/food/grilled_cheese_sandwich,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
