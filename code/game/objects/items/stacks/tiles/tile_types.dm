@@ -71,6 +71,7 @@
 	item_state = "tile-grass"
 	turf_type = /turf/open/floor/grass
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/tile/grass
 
 /obj/item/stack/tile/grass/attackby(obj/item/W, mob/user, params)
 	if((W.tool_behaviour == TOOL_SHOVEL) && params)
@@ -93,6 +94,7 @@
 	item_state = "tile-fairygrass"
 	turf_type = /turf/open/floor/grass/fairy
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/tile/fairygrass
 	color = "#33CCFF"
 
 /obj/item/stack/tile/fairygrass/white
@@ -100,6 +102,7 @@
 	singular_name = "white fairygrass floor tile"
 	desc = "A patch of odd, glowing white grass."
 	turf_type = /turf/open/floor/grass/fairy/white
+	merge_type = /obj/item/stack/tile/fairygrass/white
 	color = "#FFFFFF"
 
 /obj/item/stack/tile/fairygrass/red
@@ -107,6 +110,7 @@
 	singular_name = "red fairygrass floor tile"
 	desc = "A patch of odd, glowing red grass."
 	turf_type = /turf/open/floor/grass/fairy/red
+	merge_type = /obj/item/stack/tile/fairygrass/red
 	color = "#FF3333"
 
 /obj/item/stack/tile/fairygrass/orange
@@ -114,6 +118,7 @@
 	singular_name = "orange fairygrass floor tile"
 	desc = "A patch of odd, glowing orange grass."
 	turf_type = /turf/open/floor/grass/fairy/orange
+	merge_type = /obj/item/stack/tile/fairygrass/orange
 	color = "#FFA500"
 
 /obj/item/stack/tile/fairygrass/yellow
@@ -121,6 +126,7 @@
 	singular_name = "yellow fairygrass floor tile"
 	desc = "A patch of odd, glowing yellow grass."
 	turf_type = /turf/open/floor/grass/fairy/yellow
+	merge_type = /obj/item/stack/tile/fairygrass/blue
 	color = "#FFFF66"
 
 /obj/item/stack/tile/fairygrass/green
@@ -128,6 +134,7 @@
 	singular_name = "green fairygrass floor tile"
 	desc = "A patch of odd, glowing green grass."
 	turf_type = /turf/open/floor/grass/fairy/green
+	merge_type = /obj/item/stack/tile/fairygrass/blue
 	color = "#99FF99"
 
 /obj/item/stack/tile/fairygrass/blue
@@ -135,12 +142,14 @@
 	singular_name = "blue fairygrass floor tile"
 	desc = "A patch of odd, glowing blue grass."
 	turf_type = /turf/open/floor/grass/fairy/blue
+	merge_type = /obj/item/stack/tile/fairygrass/blue
 
 /obj/item/stack/tile/fairygrass/purple
 	name = "purple fairygrass tile"
 	singular_name = "purple fairygrass floor tile"
 	desc = "A patch of odd, glowing purple grass."
 	turf_type = /turf/open/floor/grass/fairy/purple
+	merge_type = /obj/item/stack/tile/fairygrass/purple
 	color = "#D966FF"
 
 /obj/item/stack/tile/fairygrass/pink
@@ -148,6 +157,7 @@
 	singular_name = "pink fairygrass floor tile"
 	desc = "A patch of odd, glowing pink grass."
 	turf_type = /turf/open/floor/grass/fairy/pink
+	merge_type = /obj/item/stack/tile/fairygrass/pink
 	color = "#FFB3DA"
 
 /obj/item/stack/tile/fairygrass/dark
@@ -155,6 +165,7 @@
 	singular_name = "dark fairygrass floor tile"
 	desc = "A patch of odd, light consuming grass."
 	turf_type = /turf/open/floor/grass/fairy/dark
+	merge_type = /obj/item/stack/tile/fairygrass/dark
 	color = "#410096"
 
 //Wood
@@ -166,6 +177,7 @@
 	item_state = "tile-wood"
 	turf_type = /turf/open/floor/wood
 	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/tile/wood
 
 //Bamboo
 /obj/item/stack/tile/bamboo
@@ -198,6 +210,7 @@
 	turf_type = /turf/open/floor/carpet
 	resistance_flags = FLAMMABLE
 	tableVariant = /obj/structure/table/wood/fancy
+	merge_type = /obj/item/stack/tile/carpet
 	tile_reskin_types = list(
 		/obj/item/stack/tile/carpet,
 		/obj/item/stack/tile/carpet/symbol,
@@ -525,6 +538,7 @@
 	icon_state = "tile"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile
+	merge_type = /obj/item/stack/tile/mono
 
 /obj/item/stack/tile/mono/dark
 	name = "dark mono tile"
@@ -533,6 +547,7 @@
 	icon_state = "tile"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/dark
+	merge_type = /obj/item/stack/tile/mono/dark
 
 /obj/item/stack/tile/mono/light
 	name = "light mono tile"
@@ -541,6 +556,7 @@
 	icon_state = "tile"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/light
+	merge_type = /obj/item/stack/tile/mono/light
 
 //Bay grids
 /obj/item/stack/tile/grid
@@ -550,6 +566,7 @@
 	icon_state = "tile_grid"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/iron/grid
+	merge_type = /obj/item/stack/tile/grid
 
 /obj/item/stack/tile/ridge
 	name = "grey ridge tile"
@@ -558,6 +575,7 @@
 	icon_state = "tile_ridged"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/iron/ridged
+	merge_type = /obj/item/stack/tile/ridge
 
 //Techtiles
 /obj/item/stack/tile/techgrey
@@ -567,7 +585,7 @@
 	icon_state = "tile_tech_grey"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/iron/tech
-
+	merge_type = /obj/item/stack/tile/techgrey
 /obj/item/stack/tile/techgrid
 	name = "grid techfloor tile"
 	singular_name = "grid techfloor tile"
@@ -575,6 +593,7 @@
 	icon_state = "tile_tech_grid"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/iron/tech/grid
+	merge_type = /obj/item/stack/tile/techgrid
 
 /obj/item/stack/tile/techmaint
 	name = "dark techfloor tile"
@@ -583,6 +602,7 @@
 	icon_state = "tile_tech_maint"
 	custom_materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/iron/techmaint
+	merge_type = /obj/item/stack/tile/techmaint
 
 /obj/item/stack/tile/dock
 	name = "dock tile"

@@ -34,7 +34,7 @@
 	update_desc()
 
 /obj/item/stack/spacecash/c1
-	icon_state = "spacecash1"
+	icon_state = "spacecash"
 	singular_name = "one credit bill"
 	value = 1
 	merge_type = /obj/item/stack/spacecash/c1
