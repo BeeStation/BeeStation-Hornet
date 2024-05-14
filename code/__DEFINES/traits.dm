@@ -273,6 +273,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HYPERSPACED "hyperspaced" // Sanity trait to keep track of when we're in hyperspace and add the appropriate element if we werent
 #define TRAIT_FREE_HYPERSPACE_MOVEMENT "free_hyperspace_movement" // Gives the movable free hyperspace movement without being pulled during shuttle transit
 #define TRAIT_FAST_CUFF_REMOVAL "fast_cuff_removal" // Faster cuff removal
+#define TRAIT_BLEED_HELD		"bleed_held" // For when a mob is holding their wounds, preventing them from bleeding further
 
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either
@@ -393,6 +394,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
 #define TRAIT_RUSTY "rust_trait"
+#define ACTION_TRAIT "action_trait"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"

@@ -46,11 +46,29 @@ y=d\left(q\left(x\right)\right)
 			owner.add_splatter_floor(owner.loc, TRUE)
 		return
 	time_applied = 0
+	// Non-humans stop bleeding a lot quicker, even if it is not a minor cut
+	if (!ishuman(owner))
+		bleed_rate -= BLEED_HEAL_RATE_MINOR * 4
+	// The actual rate of bleeding, can be reduced by holding wounds
+	var/final_bleed_rate = bleed_rate
+	// Calculate the message to show to the user
 	if (owner.bleedsuppress > 0)
 		owner.bleedsuppress = max(0, owner.bleedsuppress - 1 SECONDS)
 		if (owner.bleedsuppress <= 0 && owner.stat != DEAD)
 			to_chat(owner, "<span class='warning'>Your bandage falls, and blood starts pouring out of your wounds.</span>")
-	if (owner.bleedsuppress > 0)
+	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))
+		linked_alert.name = "Bleeding (Held)"
+		if (bleed_rate > BLEED_RATE_MINOR)
+			linked_alert.desc = "You have serious wounds which are unlikely to heal themselves. You are applying pressure to them, slowing the rate of blood loss."
+		else
+			linked_alert.desc = "You are bleeding and are applying pressure to the wounds, preventing blood from pouring out."
+		linked_alert.icon_state = "bleed_held"
+		var/rate_string = "[round(final_bleed_rate, 0.1)]"
+		if (length(rate_string) == 1)
+			rate_string = "[rate_string].0"
+		linked_alert.maptext = MAPTEXT("[rate_string]/s")
+		final_bleed_rate = max(0, final_bleed_rate - BLEED_RATE_MINOR)
+	else if (owner.bleedsuppress > 0)
 		linked_alert.name = "Bleeding (Bandaged)"
 		linked_alert.desc = "You have bandages covering your wounds. They will heal slowly if they are not cauterized."
 		linked_alert.icon_state = "bleed_bandage"
@@ -68,21 +86,21 @@ y=d\left(q\left(x\right)\right)
 		if (length(rate_string) == 1)
 			rate_string = "[rate_string].0"
 		linked_alert.maptext = MAPTEXT("[rate_string]/s")
-	// Non-humans stop bleeding a lot quicker, even if it is not a minor cut
-	if (!ishuman(owner))
-		bleed_rate -= BLEED_HEAL_RATE_MINOR * 4
+	// Slow the bleeding rate over time, stop if we finish bleeding
 	if (bleed_rate < BLEED_RATE_MINOR || owner.bleedsuppress)
+		// Reduce the actual rate of bleeding
 		if (ishuman(owner))
 			bleed_rate -= BLEED_HEAL_RATE_MINOR
 		tick_interval = 1 SECONDS
-		if (bleed_rate <= 0)
+		if (final_bleed_rate <= 0)
 			qdel(src)
 			return
 		if (owner.bleedsuppress)
 			return
 	else
 		tick_interval = 2
-	owner.bleed(bleed_rate)
+	// Actually do the bleeding
+	owner.bleed(final_bleed_rate)
 
 /datum/status_effect/bleeding/on_remove()
 	var/mob/living/carbon/human/human = owner
@@ -453,9 +471,9 @@ y=d\left(q\left(x\right)\right)
 /obj/item/offhand/bleeding_suppress/equipped(mob/living/carbon/user, slot)
 	. = ..()
 	if (istype(user))
-		user.bleedsuppress = INFINITY
+		ADD_TRAIT(user, TRAIT_BLEED_HELD, ACTION_TRAIT)
 
 /obj/item/offhand/bleeding_suppress/dropped(mob/living/carbon/user, silent)
 	if (istype(user))
-		user.bleedsuppress = 0
+		REMOVE_TRAIT(user, TRAIT_BLEED_HELD, ACTION_TRAIT)
 	return ..()
