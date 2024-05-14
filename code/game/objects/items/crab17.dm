@@ -256,9 +256,6 @@
 	var/obj/structure/checkoutmachine/dump
 	var/mob/living/carbon/human/bogdanoff
 
-/obj/effect/ex_act()
-	return
-
 /obj/effect/dumpeetTarget/Initialize(mapload, user)
 	. = ..()
 	bogdanoff = user

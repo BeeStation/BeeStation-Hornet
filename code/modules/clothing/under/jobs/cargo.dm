@@ -1,3 +1,7 @@
+/obj/item/clothing/under/rank/cargo
+	icon = 'icons/obj/clothing/under/cargo.dmi'
+	worn_icon = 'icons/mob/clothing/under/cargo.dmi'
+
 /obj/item/clothing/under/rank/cargo/quartermaster
 	name = "quartermaster's jumpsuit"
 	desc = "It's a jumpsuit worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
@@ -36,7 +40,7 @@
 /obj/item/clothing/under/rank/cargo/tech
 	name = "cargo technician's jumpsuit"
 	desc = "Shooooorts! They're comfy and easy to wear!"
-	icon_state = "cargo"
+	icon_state = "cargotech"
 	item_state = "cargo"
 	body_parts_covered = CHEST|GROIN|ARMS
 	supports_variations = DIGITIGRADE_VARIATION
@@ -69,8 +73,10 @@
 /obj/item/clothing/under/rank/cargo/exploration
 	name = "exploration uniform"
 	desc = "A robust uniform used by exploration teams."
+	icon = 'icons/obj/clothing/under/civilian.dmi'
 	icon_state = "curator"
-	item_state = "curator"
+	worn_icon = 'icons/mob/clothing/under/civilian.dmi'
+	item_state = null
 	can_adjust = FALSE
 
 /obj/item/clothing/under/misc/mailman

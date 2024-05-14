@@ -1,6 +1,8 @@
 /obj/item/clothing/head/soft
 	name = "white cap"
 	desc = "It's a baseball hat in a tasteless white colour."
+	icon = 'icons/obj/clothing/head/hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/hats.dmi'
 	icon_state = "mimesoft"
 	dying_key = DYE_REGISTRY_CAP
 
@@ -107,10 +109,11 @@
 	soft_color = "secmed"
 
 /obj/item/clothing/head/soft/paramedic
-	name = "EMT cap"
+	name = "paramedic cap"
 	desc = "It's a baseball hat with a dark turquoise color and a reflective cross on the top."
-	icon_state = "emtsoft"
-	soft_color = "emt"
+	icon_state = "paramedicsoft"
+	soft_color = "paramedic"
+	dog_fashion = null
 
 /obj/item/clothing/head/soft/cargo
 	name = "cargo cap"

@@ -2,6 +2,8 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
+	icon = 'icons/obj/clothing/head/hardsuit.dmi'
+	worn_icon = 'icons/mob/clothing/head/hardsuit.dmi'
 	icon_state = "hardsuit0-engineering"
 	item_state = "eng_helm"
 	max_integrity = 300
@@ -126,6 +128,8 @@
 /obj/item/clothing/suit/space/hardsuit
 	name = "hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
+	icon = 'icons/obj/clothing/suits/hardsuit.dmi'
+	worn_icon = 'icons/mob/clothing/suits/hardsuit.dmi'
 	icon_state = "hardsuit-engineering"
 	item_state = "eng_hardsuit"
 	max_integrity = 300
@@ -138,6 +142,8 @@
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	pocket_storage_component_path = null
 	var/hardsuit_type
+	/// Whether the helmet is on.
+	var/helmet_on = FALSE
 
 /obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
 	if(jetpack && ispath(jetpack))
@@ -986,8 +992,6 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/action)
 	switch(action.type)
-		if(/datum/action/item_action/toggle_helmet_mode)
-			toggle_helmlight()
 		if(/datum/action/item_action/toggle_beacon_hud)
 			toggle_hud(user)
 

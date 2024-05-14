@@ -591,10 +591,10 @@
 /obj/structure/closet{
 	name = "mastercraft traditional russian clothes"
 	},
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
 /obj/item/clothing/under/pants/track,
 /obj/item/clothing/under/pants/track,
 /obj/item/clothing/under/pants/track,

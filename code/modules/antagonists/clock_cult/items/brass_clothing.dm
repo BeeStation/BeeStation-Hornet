@@ -73,6 +73,7 @@
 	name = "base clock glasses"
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass"
+	worn_icon_state = "wraith_specs"
 
 /obj/item/clothing/glasses/clockwork/equipped(mob/user, slot)
 	. = ..()

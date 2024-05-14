@@ -2,17 +2,17 @@
 	name = "reactive armour shell"
 	desc = "An experimental suit of armour, awaiting installation of an anomaly core."
 	icon_state = "reactiveoff"
-	icon = 'icons/obj/clothing/suits.dmi'
+	icon = 'icons/obj/clothing/suits/armor.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/reactive_armour_shell/attackby(obj/item/weapon, mob/user, params)
 	..()
 	var/static/list/anomaly_armour_types = list(
-		/obj/effect/anomaly/bluespace 	            = /obj/item/clothing/suit/armor/reactive/teleport,
-		/obj/effect/anomaly/bioscrambler			= /obj/item/clothing/suit/armor/reactive/bioscrambling,
-		/obj/effect/anomaly/flux 	           		= /obj/item/clothing/suit/armor/reactive/tesla,
-		/obj/effect/anomaly/grav	                = /obj/item/clothing/suit/armor/reactive/repulse,
-		/obj/effect/anomaly/hallucination			= /obj/item/clothing/suit/armor/reactive/hallucinating
+		/obj/effect/anomaly/bluespace = /obj/item/clothing/suit/armor/reactive/teleport,
+		/obj/effect/anomaly/bioscrambler = /obj/item/clothing/suit/armor/reactive/bioscrambling,
+		/obj/effect/anomaly/flux = /obj/item/clothing/suit/armor/reactive/tesla,
+		/obj/effect/anomaly/grav = /obj/item/clothing/suit/armor/reactive/repulse,
+		/obj/effect/anomaly/hallucination = /obj/item/clothing/suit/armor/reactive/hallucinating
 		)
 
 	if(istype(weapon, /obj/item/assembly/signaler/anomaly))
