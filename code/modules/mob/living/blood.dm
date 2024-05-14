@@ -152,11 +152,7 @@ y=d\left(q\left(x\right)\right)
 	return bleed?.bleed_rate
 
 /mob/living/carbon/proc/cauterise_wounds()
-	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
-	if (bleed)
-		qdel(bleed)
-		return TRUE
-	return FALSE
+	return remove_status_effect(STATUS_EFFECT_BLEED)
 
 /mob/living/carbon/proc/hold_wounds()
 	if (IsUnconscious())
