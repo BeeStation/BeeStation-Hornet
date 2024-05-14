@@ -282,6 +282,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "abt" = (
@@ -298,9 +301,8 @@
 	dir = 4;
 	pixel_x = -28
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "abv" = (
@@ -1740,6 +1742,15 @@
 	pixel_y = 31
 	},
 /obj/machinery/camera/autoname,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
+	dir = 8
+	},
 /turf/open/floor/iron/showroomfloor,
 /area/maintenance/department/science)
 "agw" = (
@@ -1784,6 +1795,15 @@
 	req_access_txt = "61"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "agC" = (
@@ -1803,8 +1823,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 6
+/obj/machinery/atmospherics/pipe/heat_exchanging/manifold{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_prep)
@@ -25872,12 +25898,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"cDO" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/junction{
-	dir = 4
-	},
-/turf/closed/wall/rust,
-/area/quartermaster/exploration_prep)
 "cDQ" = (
 /obj/machinery/door/airlock/mining{
 	name = "Auxiliary Base";
@@ -35037,6 +35057,7 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "eYR" = (
@@ -54058,6 +54079,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "lrk" = (
@@ -61545,9 +61567,6 @@
 /area/security/main)
 "nWL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -62259,9 +62278,6 @@
 /area/bridge)
 "ogM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
@@ -62273,6 +62289,9 @@
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
+	dir = 9
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/maintenance/department/science)
@@ -70718,6 +70737,9 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 5
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "qYQ" = (
@@ -74976,6 +74998,9 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
 	},
 /turf/open/floor/iron/dark/telecomms,
 /area/quartermaster/exploration_prep)
@@ -81745,6 +81770,7 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/iron/dark,
 /area/maintenance/department/science)
 "uQc" = (
@@ -83703,8 +83729,6 @@
 	})
 "vwx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -83713,6 +83737,15 @@
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
+	dir = 6
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/maintenance/department/science)
@@ -133072,7 +133105,7 @@ kvl
 uSg
 pYn
 agB
-cDO
+cEm
 btR
 btR
 xqW

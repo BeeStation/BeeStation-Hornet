@@ -19754,6 +19754,7 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/iron,
 /area/tcommsat/server)
 "cpL" = (

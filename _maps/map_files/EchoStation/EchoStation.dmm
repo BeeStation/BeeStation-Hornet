@@ -45498,6 +45498,7 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/circuit/telecomms/mainframe{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},

@@ -5277,12 +5277,12 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "bLz" = (
+/obj/structure/chair/fancy/sofa/old{
+	dir = 4
+	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -25;
 	pixel_y = -1
-	},
-/obj/structure/chair/fancy/sofa/old{
-	dir = 4
 	},
 /turf/open/floor/wood,
 /area/maintenance/central)
@@ -23069,6 +23069,10 @@
 "gZj" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/machinery/door/firedoor,
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = -8
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "gZt" = (
@@ -35196,6 +35200,8 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/south,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/mapping_helpers/atmos_auto_connect,
 /turf/open/floor/iron/dark/telecomms{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
@@ -43924,9 +43930,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
-"nDx" = (
-/turf/closed/wall/r_wall,
-/area/hallway/primary/fore)
 "nDB" = (
 /obj/effect/turf_decal/guideline/guideline_in/green{
 	color = "#439C1E"
@@ -61012,10 +61015,10 @@
 /turf/open/space/basic,
 /area/space)
 "tcn" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/structure/sign/warning/electricshock{
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "tcr" = (
@@ -76176,10 +76179,6 @@
 /area/quartermaster/miningdock)
 "xOg" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/item/radio/intercom{
-	pixel_x = 32;
-	pixel_y = -8
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -110745,7 +110744,7 @@ aKC
 nxE
 aqc
 oOu
-nDx
+jED
 sav
 oxQ
 mlR
