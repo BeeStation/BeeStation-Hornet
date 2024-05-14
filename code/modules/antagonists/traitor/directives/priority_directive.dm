@@ -44,9 +44,6 @@ NAMED_TUPLE_1(directive_special_action, var, action_name)
 	var/can_timeout = TRUE
 	VAR_PRIVATE/list/teams = list()
 
-/datum/priority_directive/New()
-	. = ..()
-
 /// Check if we are allowed to run this directive or not
 /datum/priority_directive/proc/can_run(list/uplinks, list/player_minds, force = FALSE)
 	SHOULD_NOT_OVERRIDE(TRUE)
