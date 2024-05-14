@@ -15,6 +15,7 @@
 	matter_amount = 1
 	cost = 125
 	source = /datum/robot_energy_storage/metal
+	merge_type = /obj/item/stack/tile/iron
 	tile_reskin_types = list(
 		/obj/item/stack/tile/iron,
 		/obj/item/stack/tile/iron/edge,

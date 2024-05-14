@@ -10,6 +10,7 @@
 	item_flags = NOBLUDGEON
 	amount = 5
 	max_amount = 5
+	merge_type = /obj/item/stack/sticky_tape
 
 	var/list/conferred_embed = EMBED_HARMLESS
 	var/overwrite_existing = FALSE
