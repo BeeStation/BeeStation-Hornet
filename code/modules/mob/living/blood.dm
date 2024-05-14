@@ -63,11 +63,12 @@ y=d\left(q\left(x\right)\right)
 		else
 			linked_alert.desc = "You are bleeding and are applying pressure to the wounds, preventing blood from pouring out."
 		linked_alert.icon_state = "bleed_held"
+		final_bleed_rate = max(0, final_bleed_rate - BLEED_RATE_MINOR)
+		// Set the text to the final bleed rate
 		var/rate_string = "[round(final_bleed_rate, 0.1)]"
 		if (length(rate_string) == 1)
 			rate_string = "[rate_string].0"
 		linked_alert.maptext = MAPTEXT("[rate_string]/s")
-		final_bleed_rate = max(0, final_bleed_rate - BLEED_RATE_MINOR)
 	else if (owner.bleedsuppress > 0)
 		linked_alert.name = "Bleeding (Bandaged)"
 		linked_alert.desc = "You have bandages covering your wounds. They will heal slowly if they are not cauterized."
@@ -92,13 +93,15 @@ y=d\left(q\left(x\right)\right)
 		if (ishuman(owner))
 			bleed_rate -= BLEED_HEAL_RATE_MINOR
 		tick_interval = 1 SECONDS
-		if (final_bleed_rate <= 0)
+		if (bleed_rate <= 0)
 			qdel(src)
 			return
 		if (owner.bleedsuppress)
 			return
 	else
 		tick_interval = 2
+	if (final_bleed_rate <= 0)
+		return
 	// Actually do the bleeding
 	owner.bleed(final_bleed_rate)
 
@@ -256,10 +259,10 @@ y=d\left(q\left(x\right)\right)
 		var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
 		if (!heart || !heart.beating)
 			decrease_multiplier = BLEED_RATE_MULTIPLIER_NO_HEART
-		var/blood_loss_amount = blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
-		blood_volume = max(blood_volume - amt, 0)
-		if(isturf(src.loc) && prob(sqrt(amt)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
-			if(amt >= BLEED_DEEP_WOUND)
+		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
+		blood_volume = max(blood_volume - blood_loss_amount, 0)
+		if(isturf(src.loc) && prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
+			if(blood_loss_amount >= BLEED_DEEP_WOUND)
 				add_splatter_floor(src.loc)
 			else
 				add_splatter_floor(src.loc, 1)
