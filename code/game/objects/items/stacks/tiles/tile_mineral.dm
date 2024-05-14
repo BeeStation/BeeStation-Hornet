@@ -33,6 +33,7 @@
 	turf_type = /turf/open/floor/mineral/plasma
 	mineralType = "plasma"
 	mats_per_unit = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT*0.25)
+	merge_type = /obj/item/stack/tile/mineral/plasma
 
 /obj/item/stack/tile/mineral/uranium
 	name = "uranium tile"
@@ -43,6 +44,7 @@
 	turf_type = /turf/open/floor/mineral/uranium
 	mineralType = "uranium"
 	mats_per_unit = list(/datum/material/uranium=MINERAL_MATERIAL_AMOUNT*0.25)
+	merge_type = /obj/item/stack/tile/mineral/uranium
 
 /obj/item/stack/tile/mineral/gold
 	name = "gold tile"
@@ -53,6 +55,7 @@
 	turf_type = /turf/open/floor/mineral/gold
 	mineralType = "gold"
 	mats_per_unit = list(/datum/material/gold=MINERAL_MATERIAL_AMOUNT*0.25)
+	merge_type = /obj/item/stack/tile/mineral/gold
 
 /obj/item/stack/tile/mineral/silver
 	name = "silver tile"
@@ -63,6 +66,7 @@
 	turf_type = /turf/open/floor/mineral/silver
 	mineralType = "silver"
 	mats_per_unit = list(/datum/material/silver=MINERAL_MATERIAL_AMOUNT*0.25)
+	merge_type = /obj/item/stack/tile/mineral/silver
 
 /obj/item/stack/tile/mineral/copper
 	name = "copper tile"
@@ -72,6 +76,7 @@
 	turf_type = /turf/open/floor/mineral/copper
 	mineralType = "copper"
 	mats_per_unit = list(/datum/material/copper=MINERAL_MATERIAL_AMOUNT*0.25)
+	merge_type = /obj/item/stack/tile/mineral/copper
 
 /obj/item/stack/tile/mineral/diamond
 	name = "diamond tile"
@@ -82,6 +87,7 @@
 	turf_type = /turf/open/floor/mineral/diamond
 	mineralType = "diamond"
 	mats_per_unit = list(/datum/material/diamond=MINERAL_MATERIAL_AMOUNT*0.25)
+	merge_type = /obj/item/stack/tile/mineral/diamond
 
 /obj/item/stack/tile/mineral/bananium
 	name = "bananium tile"
@@ -93,6 +99,7 @@
 	mineralType = "bananium"
 	mats_per_unit = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT*0.25)
 	material_flags = NONE //The slippery comp makes it unpractical for good clown decor. The material tiles should still slip.
+	merge_type = /obj/item/stack/tile/mineral/bananium
 
 /obj/item/stack/tile/mineral/abductor
 	name = "alien floor tile"
@@ -103,6 +110,7 @@
 	item_state = "tile-abductor"
 	turf_type = /turf/open/floor/mineral/abductor
 	mineralType = "abductor"
+	merge_type = /obj/item/stack/tile/mineral/abductor
 
 /obj/item/stack/tile/mineral/titanium
 	name = "titanium tile"
@@ -113,6 +121,7 @@
 	turf_type = /turf/open/floor/mineral/titanium
 	mineralType = "titanium"
 	mats_per_unit = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT*0.25)
+	merge_type = /obj/item/stack/tile/mineral/titanium
 	tile_reskin_types = list(
 		/obj/item/stack/tile/mineral/titanium,
 		/obj/item/stack/tile/mineral/titanium/yellow,
@@ -132,6 +141,7 @@
 	desc = "Sleek yellow titanium tiles, used for shuttles."
 	turf_type = /turf/open/floor/mineral/titanium/yellow
 	icon_state = "tile_titanium_yellow"
+	merge_type = /obj/item/stack/tile/mineral/titanium/yellow
 
 /obj/item/stack/tile/mineral/titanium/blue
 	name = "blue titanium tile"
@@ -139,6 +149,7 @@
 	desc = "Sleek blue titanium tiles, used for shuttles."
 	turf_type = /turf/open/floor/mineral/titanium/blue
 	icon_state = "tile_titanium_blue"
+	merge_type = /obj/item/stack/tile/mineral/titanium/blue
 
 /obj/item/stack/tile/mineral/titanium/white
 	name = "white titanium tile"
@@ -146,6 +157,7 @@
 	desc = "Sleek white titanium tiles, used for shuttles."
 	turf_type = /turf/open/floor/mineral/titanium/white
 	icon_state = "tile_titanium_white"
+	merge_type = /obj/item/stack/tile/mineral/titanium/white
 
 /obj/item/stack/tile/mineral/titanium/purple
 	name = "purple titanium tile"
@@ -153,6 +165,7 @@
 	desc = "Sleek purple titanium tiles, used for shuttles."
 	turf_type = /turf/open/floor/mineral/titanium/purple
 	icon_state = "tile_titanium_purple"
+	merge_type = /obj/item/stack/tile/mineral/titanium/purple
 
 /obj/item/stack/tile/mineral/titanium/tiled
 	name = "tiled titanium tile"
@@ -203,6 +216,7 @@
 	turf_type = /turf/open/floor/mineral/plastitanium
 	mineralType = "plastitanium"
 	mats_per_unit = list(/datum/material/titanium=500, /datum/material/plasma=500)
+	merge_type = /obj/item/stack/tile/mineral/plastitanium
 	tile_reskin_types = list(
 		/obj/item/stack/tile/mineral/plastitanium,
 		/obj/item/stack/tile/mineral/plastitanium/red,
@@ -224,6 +238,7 @@
 	item_state = "tile-silver"
 	turf_type = /turf/open/floor/grass/snow/safe
 	mineralType = "snow"
+	merge_type = /obj/item/stack/tile/mineral/snow
 
 /obj/item/stack/tile/mineral/wax
 	name = "wax tile"
@@ -233,6 +248,7 @@
 	item_state = "tile-wax"
 	turf_type = /turf/open/floor/wax
 	mineralType = "wax"
+	merge_type = /obj/item/stack/tile/mineral/wax
 
 /obj/item/stack/tile/mineral/brass
 	name = "brass tiles"
@@ -241,6 +257,7 @@
 	item_state = "tile_brass"
 	turf_type = /turf/open/floor/clockwork
 	mineralType = "brass"
+	merge_type = /obj/item/stack/tile/mineral/brass
 
 /obj/item/stack/tile/mineral/bronze
 	name = "bronze tiles"
@@ -249,6 +266,7 @@
 	item_state = "tile_brass"
 	turf_type = /turf/open/floor/bronze
 	mineralType = "bronze"
+	merge_type = /obj/item/stack/tile/mineral/bronze
 	tile_reskin_types = list(
 		/obj/item/stack/tile/bronze,
 		/obj/item/stack/tile/bronze/flat,

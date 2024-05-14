@@ -114,6 +114,7 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	merge_type = /obj/item/stack/sheet/animalhide/ashdrake
 
 /* Goliath Plates */
 /obj/item/stack/sheet/animalhide/goliath_hide
@@ -126,6 +127,7 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	merge_type = /obj/item/stack/sheet/animalhide/goliath_hide
 
 /* Generic functions for hides, fun for all the family! */
 

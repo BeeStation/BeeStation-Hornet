@@ -175,6 +175,7 @@
 	icon_state = "tile-bamboo"
 	item_state = "tile-bamboo"
 	turf_type = /turf/open/floor/bamboo
+	merge_type = /obj/item/stack/tile/bamboo
 	resistance_flags = FLAMMABLE
 
 //Basalt
@@ -185,6 +186,7 @@
 	icon_state = "tile_basalt"
 	item_state = "tile-basalt"
 	turf_type = /turf/open/floor/grass/fakebasalt
+	merge_type = /obj/item/stack/tile/basalt
 
 //Carpets
 /obj/item/stack/tile/carpet
@@ -455,6 +457,7 @@
 	icon_state = "tile_bcircuit"
 	item_state = "tile-bcircuit"
 	turf_type = /turf/open/floor/circuit
+	merge_type = /obj/item/stack/tile/circuit
 
 /obj/item/stack/tile/circuit/green
 	name = "green circuit tile"
@@ -463,9 +466,11 @@
 	icon_state = "tile_gcircuit"
 	item_state = "tile-gcircuit"
 	turf_type = /turf/open/floor/circuit/green
+	merge_type = /obj/item/stack/tile/circuit/green
 
 /obj/item/stack/tile/circuit/green/anim
 	turf_type = /turf/open/floor/circuit/green/anim
+	merge_type = /obj/item/stack/tile/circuit/green/anim
 
 /obj/item/stack/tile/circuit/red
 	name = "red circuit tile"
@@ -474,9 +479,11 @@
 	icon_state = "tile_rcircuit"
 	item_state = "tile-rcircuit"
 	turf_type = /turf/open/floor/circuit/red
+	merge_type = /obj/item/stack/tile/circuit/red
 
 /obj/item/stack/tile/circuit/red/anim
 	turf_type = /turf/open/floor/circuit/red/anim
+	merge_type = /obj/item/stack/tile/circuit/red/anim
 
 //Pod floor
 /obj/item/stack/tile/pod
@@ -486,6 +493,7 @@
 	icon_state = "tile_pod"
 	item_state = "tile-pod"
 	turf_type = /turf/open/floor/pod
+	merge_type = /obj/item/stack/tile/pod
 	tile_reskin_types = list(
 		/obj/item/stack/tile/pod,
 		/obj/item/stack/tile/pod/light,
@@ -498,6 +506,7 @@
 	desc = "A lightly colored grooved floor tile."
 	icon_state = "tile_podlight"
 	turf_type = /turf/open/floor/pod/light
+	merge_type = /obj/item/stack/tile/pod/light
 
 /obj/item/stack/tile/pod/dark
 	name = "dark pod floor tile"
@@ -505,6 +514,7 @@
 	desc = "A darkly colored grooved floor tile."
 	icon_state = "tile_poddark"
 	turf_type = /turf/open/floor/pod/dark
+	merge_type = /obj/item/stack/tile/pod/dark
 
 //Monotiles
 
@@ -581,6 +591,7 @@
 	icon_state = "tile_dock"
 	custom_materials = list(/datum/material/iron=500, /datum/material/plasma=500)
 	turf_type = /turf/open/floor/dock
+	merge_type = /obj/item/stack/tile/dock
 
 /obj/item/stack/tile/drydock
 	name = "dry dock tile"
@@ -589,6 +600,7 @@
 	icon_state = "tile_drydock"
 	custom_materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
 	turf_type = /turf/open/floor/dock/drydock
+	merge_type = /obj/item/stack/tile/drydock
 
 /obj/item/stack/tile/material
 	name = "floor tile"
