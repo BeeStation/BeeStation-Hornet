@@ -20523,6 +20523,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/machinery/space_heater,
 /turf/open/floor/engine,
 /area/tcommsat/computer)
 "cgu" = (
