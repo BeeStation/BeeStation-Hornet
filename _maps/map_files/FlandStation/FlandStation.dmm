@@ -5027,6 +5027,7 @@
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
+/obj/machinery/space_heater,
 /turf/open/floor/iron/dark,
 /area/tcommsat/computer)
 "bgZ" = (
@@ -64195,6 +64196,12 @@
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow,
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room";
+	dir = 10;
+	name = "telecomms camera";
+	network = list("ss13","tcomms")
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -65382,12 +65389,6 @@
 /turf/open/floor/iron/techmaint,
 /area/security/detectives_office)
 "qKb" = (
-/obj/machinery/camera{
-	c_tag = "Telecomms - Server Room";
-	dir = 8;
-	name = "telecomms camera";
-	network = list("ss13","tcomms")
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},

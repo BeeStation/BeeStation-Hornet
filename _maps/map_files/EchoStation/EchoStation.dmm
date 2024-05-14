@@ -15996,6 +15996,10 @@
 	},
 /turf/open/floor/iron,
 /area/engine/engineering)
+"hFB" = (
+/obj/machinery/space_heater,
+/turf/open/floor/iron,
+/area/engine/atmos)
 "hFP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -124843,7 +124847,7 @@ hoN
 pnn
 vgG
 tYX
-kLU
+hFB
 eHd
 cny
 jUM
