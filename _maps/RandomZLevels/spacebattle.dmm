@@ -2004,14 +2004,14 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "jm" = (
-/turf/open/floor/iron/rockvault/alien,
+/turf/open/floor/vault/alien,
 /area/awaymission/spacebattle/secret)
 "jn" = (
 /turf/closed/wall/mineral/plasma,
 /area/awaymission/spacebattle/secret)
 "jo" = (
 /obj/item/clothing/suit/space/hardsuit/wizard,
-/turf/open/floor/iron/rockvault/alien,
+/turf/open/floor/vault/alien,
 /area/awaymission/spacebattle/secret)
 "jp" = (
 /obj/mecha/combat/gygax,
