@@ -175,11 +175,11 @@
 
 /turf/open/floor/bronze/flat
 	icon_state = "reebe"
-	floor_tile = /obj/item/stack/tile/bronze/flat
+	floor_tile = /obj/item/stack/tile/mineral/bronze/flat
 
 /turf/open/floor/bronze/filled
 	icon = 'icons/obj/clockwork_objects.dmi'
-	floor_tile = /obj/item/stack/tile/bronze/filled
+	floor_tile = /obj/item/stack/tile/mineral/bronze/filled
 
 /turf/open/floor/bronze/filled/lavaland
 	planetary_atmos = TRUE

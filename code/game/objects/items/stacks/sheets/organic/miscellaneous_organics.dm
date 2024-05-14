@@ -47,6 +47,7 @@
 	singular_name = "watcher sinew"
 	icon_state = "sinew"
 	novariants = TRUE
+	merge_type = /obj/item/stack/sheet/sinew
 
 
 GLOBAL_LIST_INIT(sinew_recipes, list ( \

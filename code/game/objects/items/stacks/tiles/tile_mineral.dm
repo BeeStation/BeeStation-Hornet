@@ -261,31 +261,31 @@
 
 /obj/item/stack/tile/mineral/bronze
 	name = "bronze tiles"
-	desc = "An ornante tile made out of... wait this is bronze!"
+	desc = "An ornate tile made out of... wait this is bronze!"
 	icon_state = "tile_brass"
 	item_state = "tile_brass"
 	turf_type = /turf/open/floor/bronze
 	mineralType = "bronze"
 	merge_type = /obj/item/stack/tile/mineral/bronze
 	tile_reskin_types = list(
-		/obj/item/stack/tile/bronze,
-		/obj/item/stack/tile/bronze/flat,
-		/obj/item/stack/tile/bronze/filled,
+		/obj/item/stack/tile/mineral/bronze,
+		/obj/item/stack/tile/mineral/bronze/flat,
+		/obj/item/stack/tile/mineral/bronze/filled,
 		)
 
-/obj/item/stack/tile/bronze/flat
+/obj/item/stack/tile/mineral/bronze/flat
 	name = "flat bronze tile"
 	singular_name = "flat bronze floor tile"
 	icon_state = "tile_reebe"
 	turf_type = /turf/open/floor/bronze/flat
-	merge_type = /obj/item/stack/tile/bronze/flat
+	merge_type = /obj/item/stack/tile/mineral/bronze/flat
 
-/obj/item/stack/tile/bronze/filled
+/obj/item/stack/tile/mineral/bronze/filled
 	name = "filled bronze tile"
 	singular_name = "filled bronze floor tile"
 	icon_state = "tile_brass_filled"
 	turf_type = /turf/open/floor/bronze/filled
-	merge_type = /obj/item/stack/tile/bronze/filled
+	merge_type = /obj/item/stack/tile/mineral/bronze/filled
 
 /obj/item/stack/tile/cult
 	name = "engraved tile"
