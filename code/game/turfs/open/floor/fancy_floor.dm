@@ -456,6 +456,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_TURF_CHASM)
 	icon = 'icons/turf/floors/Chasms.dmi'
 	icon_state = "chasms-0"
+	floor_tile = /obj/item/stack/tile/fakepit
 	tiled_dirt = FALSE
 	max_integrity = 100
 
