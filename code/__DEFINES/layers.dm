@@ -42,6 +42,7 @@
 #define WIRE_TERMINAL_LAYER 2.45
 #define UNDER_CATWALK 2.454
 #define CATWALK_LAYER 2.455
+#define NUCLEAR_REACTOR_LAYER 2.456 //Below atmospheric devices, above hidden pipes and catwalks.
 #define GAS_SCRUBBER_LAYER 2.46
 #define GAS_PIPE_VISIBLE_LAYER 2.47
 #define GAS_FILTER_LAYER 2.48

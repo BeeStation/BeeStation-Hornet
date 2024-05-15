@@ -479,7 +479,6 @@ Arguments:
 			if(src.get_virtual_z_level() == WS.get_virtual_z_level()) //Begin the SLUDGING
 				WS.fire()
 
-
 //Plutonium sludge
 
 #define PLUTONIUM_SLUDGE_RANGE 500

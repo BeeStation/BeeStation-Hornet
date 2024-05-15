@@ -40,16 +40,6 @@ Be careful to not exhaust your plasma supply. I recommend you DON'T max out the 
 The reactor CHEWS through moderator. It does not do this slowly. Be very careful with that!
 
 Remember kids. If the reactor itself is not physically powered by an APC, it cannot shove coolant in!
-
-TO DO:
-sprites
-
-Make the overlay not overlap ontop of items placed on the reactor
-grilling
-
-
-test things with aramix
-
 */
 
 /obj/machinery/atmospherics/components/unary/rbmk/core
@@ -59,6 +49,7 @@ test things with aramix
 	icon_state = "reactor"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = IDLE_POWER_USE
+	layer = NUCLEAR_REACTOR_LAYER
 	///Vars for the state of the icon of the object (open, closed, fuel rod counts (1>5))
 	icon_state_open = "reactor_open"
 	icon_state_off = "reactor"
@@ -192,7 +183,6 @@ test things with aramix
 	radio.keyslot = new radio_key
 	radio.listening = 0
 	radio.recalculateChannels()
-
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -258,7 +248,6 @@ test things with aramix
 	var/mutable_appearance/ModeratorOverlay = mutable_appearance('icons/obj/machines/rbmk.dmi',"moderator")
 	ModeratorOverlay.transform = ModeratorOverlay.transform.Turn(dir2angle(linked_moderator.dir))
 	add_overlay(ModeratorOverlay)
-
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/examine(mob/user)
 	. = ..()
