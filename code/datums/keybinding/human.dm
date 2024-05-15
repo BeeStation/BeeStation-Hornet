@@ -56,6 +56,9 @@
 	if(!equipped_belt.contents.len) // nothing to take out
 		to_chat(user, "<span class='notice'>There's nothing in your belt to take out.</span>")
 		return TRUE
+	var/datum/component/storage/STR = equipped_belt.GetComponent(/datum/component/storage)
+	if(!STR.can_be_opened)
+		return FALSE
 	var/obj/item/stored = equipped_belt.contents[equipped_belt.contents.len]
 	if(!stored || stored.on_found(H))
 		return TRUE

@@ -374,7 +374,7 @@
 			if(SOFT_CRIT)
 				data["occupant"]["stat"] = "Conscious"
 				data["occupant"]["statstate"] = "average"
-			if(UNCONSCIOUS)
+			if(UNCONSCIOUS, HARD_CRIT)
 				data["occupant"]["stat"] = "Unconscious"
 				data["occupant"]["statstate"] = "average"
 			if(DEAD)
@@ -435,13 +435,13 @@
 				. = TRUE
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/CtrlClick(mob/user)
-	if(user.can_interact_with(src) && !state_open && occupant != user)
+	if(user.canUseTopic(src, !issilicon(user)) && !state_open && occupant != user)
 		on = !on
 		update_icon()
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/AltClick(mob/user)
-	if(user.can_interact_with(src) && occupant != user)
+	if(user.canUseTopic(src, !issilicon(user)) && occupant != user)
 		if(state_open)
 			close_machine()
 		else

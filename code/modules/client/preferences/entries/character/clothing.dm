@@ -1,24 +1,24 @@
 /proc/generate_values_for_underwear(list/accessory_list, list/icons, color)
-	var/icon/lower_half = icon('icons/effects/effects.dmi', "nothing")
+	var/datum/universal_icon/lower_half = uni_icon('icons/effects/effects.dmi', "nothing")
 
 	for (var/icon in icons)
-		lower_half.Blend(icon('icons/mob/human_parts_greyscale.dmi', icon), ICON_OVERLAY)
+		lower_half.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', icon), ICON_OVERLAY)
 
 	var/list/values = list()
 
 	for (var/accessory_name in accessory_list)
-		var/icon/icon_with_socks = new(lower_half)
+		var/datum/universal_icon/icon_with_socks = lower_half.copy()
 
 		if (accessory_name != "Nude")
 			var/datum/sprite_accessory/accessory = accessory_list[accessory_name]
 
-			var/icon/accessory_icon = icon('icons/mob/clothing/underwear.dmi', accessory.icon_state)
+			var/datum/universal_icon/accessory_icon = uni_icon('icons/mob/clothing/underwear.dmi', accessory.icon_state)
 			if (color && !accessory.use_static)
-				accessory_icon.Blend(color, ICON_MULTIPLY)
-			icon_with_socks.Blend(accessory_icon, ICON_OVERLAY)
+				accessory_icon.blend_color(color, ICON_MULTIPLY)
+			icon_with_socks.blend_icon(accessory_icon, ICON_OVERLAY)
 
-		icon_with_socks.Crop(10, 1, 22, 13)
-		icon_with_socks.Scale(32, 32)
+		icon_with_socks.crop(10, 1, 22, 13)
+		icon_with_socks.scale(32, 32)
 
 		values[accessory_name] = icon_with_socks
 
@@ -97,25 +97,25 @@
 	preference_spritesheet = PREFERENCE_SHEET_LARGE
 
 /datum/preference/choiced/undershirt/init_possible_values()
-	var/icon/body = icon('icons/mob/human_parts_greyscale.dmi', "human_r_leg")
-	body.Blend(icon('icons/mob/human_parts_greyscale.dmi', "human_l_leg"), ICON_OVERLAY)
-	body.Blend(icon('icons/mob/human_parts_greyscale.dmi', "human_r_arm"), ICON_OVERLAY)
-	body.Blend(icon('icons/mob/human_parts_greyscale.dmi', "human_l_arm"), ICON_OVERLAY)
-	body.Blend(icon('icons/mob/human_parts_greyscale.dmi', "human_r_hand"), ICON_OVERLAY)
-	body.Blend(icon('icons/mob/human_parts_greyscale.dmi', "human_l_hand"), ICON_OVERLAY)
-	body.Blend(icon('icons/mob/human_parts_greyscale.dmi', "human_chest_m"), ICON_OVERLAY)
+	var/datum/universal_icon/body = uni_icon('icons/mob/human_parts_greyscale.dmi', "human_r_leg")
+	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_l_leg"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_r_arm"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_l_arm"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_r_hand"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_l_hand"), ICON_OVERLAY)
+	body.blend_icon(uni_icon('icons/mob/human_parts_greyscale.dmi', "human_chest_m"), ICON_OVERLAY)
 
 	var/list/values = list()
 
 	for (var/accessory_name in GLOB.undershirt_list)
-		var/icon/icon_with_undershirt = icon(body)
+		var/datum/universal_icon/icon_with_undershirt = body.copy()
 
 		if (accessory_name != "Nude")
 			var/datum/sprite_accessory/accessory = GLOB.undershirt_list[accessory_name]
-			icon_with_undershirt.Blend(icon('icons/mob/clothing/underwear.dmi', accessory.icon_state), ICON_OVERLAY)
+			icon_with_undershirt.blend_icon(uni_icon('icons/mob/clothing/underwear.dmi', accessory.icon_state), ICON_OVERLAY)
 
-		icon_with_undershirt.Crop(9, 9, 23, 23)
-		icon_with_undershirt.Scale(32, 32)
+		icon_with_undershirt.crop(9, 9, 23, 23)
+		icon_with_undershirt.scale(32, 32)
 		values[accessory_name] = icon_with_undershirt
 
 	return values

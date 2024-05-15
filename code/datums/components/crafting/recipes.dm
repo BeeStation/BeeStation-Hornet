@@ -206,7 +206,7 @@
 	name = "Floorbot"
 	result = /mob/living/simple_animal/bot/floorbot
 	reqs = list(/obj/item/storage/toolbox = 1,
-				/obj/item/stack/tile/plasteel = 10,
+				/obj/item/stack/tile/iron = 10,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/bodypart/r_arm/robot = 1)
 	time = 40
@@ -238,7 +238,7 @@
 	reqs = list(/obj/item/extinguisher = 1,
 				/obj/item/bodypart/r_arm/robot = 1,
 				/obj/item/assembly/prox_sensor = 1,
-				/obj/item/clothing/head/hardhat/red = 1)
+				/obj/item/clothing/head/utility/hardhat/red = 1)
 	time = 40
 	category = CAT_ROBOT
 
@@ -371,6 +371,19 @@
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
 
+/datum/crafting_recipe/improvisedglassslug
+	name = "Glasspack Shotgun Shell"
+	result = /obj/item/ammo_casing/shotgun/improvised/glasspack
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/glass = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/fuel = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
 /datum/crafting_recipe/laserslug
 	name = "Scatter Laser Shell"
 	result = /obj/item/ammo_casing/shotgun/laserslug
@@ -382,6 +395,99 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 	dangerous_craft = TRUE
+
+/datum/crafting_recipe/a762improv
+	name = "Improvised 7.62 Cartridge"
+	result = /obj/item/ammo_casing/a762/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/iron = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/fuel = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/a762hotload
+	name = "Hot-Loaded 7.62 Cartridge"
+	result = /obj/item/ammo_casing/a762/improv/hotload
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/iron = 1,
+				/obj/item/stack/cable_coil = 1,
+				/datum/reagent/blackpowder = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/improv9mm_pack
+	name = "Improvised 9mm Ammo Pack"
+	result = /obj/item/ammo_box/pouch/c9mm/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 2,
+				/obj/item/stack/rods = 3,
+				/obj/item/stack/cable_coil = 3,
+				/datum/reagent/fuel = 20,
+				/obj/item/paper = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 15
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/improv10mm_pack
+	name = "Improvised 10mm Ammo Pack"
+	result = /obj/item/ammo_box/pouch/c10mm/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 2,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/stack/cable_coil = 2,
+				/datum/reagent/fuel = 20,
+				/obj/item/paper = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 15
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/improv38_pack
+	name = "Improvised .38 Ammo Pack"
+	result = /obj/item/ammo_box/pouch/c38/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 2,
+				/obj/item/stack/rods = 2,
+				/obj/item/stack/cable_coil = 2,
+				/datum/reagent/fuel = 20,
+				/obj/item/paper = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 15
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/improv357
+	name = "Improvised .357 Cartridge"
+	result = /obj/item/ammo_casing/a357/improv
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/sheet/iron = 1,
+				/obj/item/stack/cable_coil = 2,
+				/datum/reagent/blackpowder = 10)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/pipesmg_mag
+	name = "Pipe Repeater Magazine"
+	result = /obj/item/ammo_box/magazine/pipem9mm
+	reqs = list(/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stock_parts/matter_bin = 1,
+				/obj/item/stack/cable_coil = 3,
+				/obj/item/stack/package_wrap = 3)
+	tools = list(TOOL_WELDER, TOOL_WIRECUTTER)
+	time = 50
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/arrow
 	name = "Arrow"
@@ -428,8 +534,38 @@
 	reqs = list(/obj/item/weaponcrafting/receiver = 1,
 				/obj/item/pipe = 1,
 				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/assembly/igniter = 1,
 				/obj/item/stack/package_wrap = 5)
-	tools = list(TOOL_SCREWDRIVER)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	time = 100
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/piperifle
+	name = "Singleshot Pipe Rifle"
+	result = /obj/item/gun/ballistic/rifle/pipe
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/pipe = 1,
+				/obj/item/weaponcrafting/stock = 1,
+				/obj/item/assembly/igniter = 1,
+				/obj/item/stack/package_wrap = 5)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	time = 100
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	dangerous_craft = TRUE
+
+/datum/crafting_recipe/pipesmg
+	name = "Mag-Fed Pipe Repeater"
+	result = /obj/item/gun/ballistic/automatic/pipe_smg
+	reqs = list(/obj/item/weaponcrafting/receiver = 1,
+				/obj/item/pipe = 2,
+				/obj/item/stack/rods = 2,
+				/obj/item/stack/sheet/wood = 2,
+				/obj/item/assembly/igniter = 1,
+				/obj/item/stack/package_wrap = 5)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	time = 100
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -508,21 +644,21 @@
 
 /datum/crafting_recipe/lizardhat
 	name = "Lizard Cloche Hat"
-	result = /obj/item/clothing/head/lizard
+	result = /obj/item/clothing/head/costume/lizard
 	time = 10
 	reqs = list(/obj/item/organ/tail/lizard = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/lizardhat_alternate
 	name = "Lizard Cloche Hat"
-	result = /obj/item/clothing/head/lizard
+	result = /obj/item/clothing/head/costume/lizard
 	time = 10
 	reqs = list(/obj/item/stack/sheet/animalhide/lizard = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/kittyears
 	name = "Kitty Ears"
-	result = /obj/item/clothing/head/kitty/genuine
+	result = /obj/item/clothing/head/costume/kitty/genuine
 	time = 10
 	reqs = list(/obj/item/organ/tail/cat = 1,
 				/obj/item/organ/ears/cat = 1)
@@ -878,7 +1014,7 @@
 	result = /obj/item/pressure_plate
 	time = 5
 	reqs = list(/obj/item/stack/sheet/iron = 1,
-				  /obj/item/stack/tile/plasteel = 1,
+				  /obj/item/stack/tile/iron = 1,
 				  /obj/item/stack/cable_coil = 2,
 				  /obj/item/assembly/igniter = 1)
 	category = CAT_MISC

@@ -147,7 +147,7 @@
 	id = "welding_helmet"
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 1750, /datum/material/glass = 400)
-	build_path = /obj/item/clothing/head/welding
+	build_path = /obj/item/clothing/head/utility/welding
 	category = list("initial","Tools","Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
@@ -459,7 +459,7 @@
 	id = "tinfoil_hat"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 5500)
-	build_path = /obj/item/clothing/head/foilhat
+	build_path = /obj/item/clothing/head/costume/foilhat
 	category = list("hacked", "Misc")
 
 /datum/design/blood_filter
@@ -560,6 +560,14 @@
 	build_path = /obj/item/storage/pill_bottle
 	category = list("initial", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/hacksaw
+	name = "Hacksaw"
+	id = "hacksaw"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron=12000)
+	build_path = /obj/item/hacksaw
+	category = list("hacked", "Medical")
 
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
@@ -1089,3 +1097,13 @@
 	materials = list(/datum/material/iron = 100, /datum/material/glass = 50)
 	build_path = /obj/item/assembly/control
 	category = list("initial","Misc")
+
+/datum/design/digital_clock_frame
+	name = "Digital Clock Frame"
+	id = "digital_clock_frame"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 700, /datum/material/glass = 400)
+	build_path = /obj/item/wallframe/digital_clock
+	category = list("initial", "Construction")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
+

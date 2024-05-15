@@ -276,7 +276,7 @@
 	name = "Toggle Welding Screen"
 
 /datum/action/item_action/toggle_welding_screen/Trigger()
-	var/obj/item/clothing/head/hardhat/weldhat/H = target
+	var/obj/item/clothing/head/utility/hardhat/welding/H = target
 	if(istype(H))
 		H.toggle_welding_screen(owner)
 
@@ -403,14 +403,14 @@
 /datum/action/item_action/switch_hud
 	name = "Switch HUD"
 
-/datum/action/item_action/toggle_wings
-	name = "Toggle Wings"
-
 /datum/action/item_action/toggle_human_head
 	name = "Toggle Human Head"
 
 /datum/action/item_action/toggle_helmet
 	name = "Toggle Helmet"
+
+/datum/action/item_action/toggle_seclight
+	name = "Toggle Seclight"
 
 /datum/action/item_action/toggle_jetpack
 	name = "Toggle Jetpack"
@@ -558,6 +558,13 @@
 	var/box = new boxtype(owner.drop_location())
 	owner.forceMove(box)
 	owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
+
+/datum/action/item_action/portaseeder_dissolve
+	name = "Activate Seed Extractor"
+
+/datum/action/item_action/portaseeder_dissolve/Trigger()
+	var/obj/item/storage/bag/plants/portaseeder/H = target
+	H.dissolve_contents()
 
 //Preset for spells
 /datum/action/spell_action

@@ -1,8 +1,9 @@
 /obj/machinery/door
 	name = "door"
 	desc = "It opens and closes."
-	icon = 'icons/obj/doors/Doorint.dmi'
+	icon = 'icons/obj/doors/doorint.dmi'
 	icon_state = "door1"
+	base_icon_state = "door"
 	opacity = TRUE
 	density = TRUE
 	move_resist = MOVE_FORCE_VERY_STRONG
@@ -147,7 +148,8 @@
 
 /// Helper method for bumpopen() and try_to_activate_door(). Don't override.
 /obj/machinery/door/proc/activate_door_base(mob/user, can_close_door)
-	add_fingerprint(user)
+	if(user)
+		add_fingerprint(user)
 	if(operating)
 		return
 	// Cutting WIRE_IDSCAN disables normal entry
@@ -178,9 +180,12 @@
 	// But if we *have* cut the wire, this eventually falls through to attack_hand(), which calls try_to_activate_door(),
 	// which will fail because the door won't work if the wire is cut! Catch-22.
 	// Basically, TK won't work unless the door is all-access.
-	if(!id_scan_hacked() && !allowed())
+
+	if(user.stat || !tkMaxRangeCheck(user, src))
 		return
-	..()
+	new /obj/effect/temp_visual/telekinesis(get_turf(src))
+	add_hiddenprint(user)
+	activate_door_base(null, TRUE)
 
 /// Handles door activation via clicks, through attackby().
 /obj/machinery/door/proc/try_to_activate_door(obj/item/I, mob/user)
@@ -272,11 +277,9 @@
 /obj/machinery/door/proc/unelectrify()
 	secondsElectrified = MACHINE_NOT_ELECTRIFIED
 
-/obj/machinery/door/update_icon()
-	if(density)
-		icon_state = "door1"
-	else
-		icon_state = "door0"
+/obj/machinery/door/update_icon_state()
+	icon_state = "[base_icon_state][density]"
+	return ..()
 
 /obj/machinery/door/proc/do_animate(animation)
 	switch(animation)
@@ -341,7 +344,7 @@
 	set_density(TRUE)
 	z_flags |= Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	sleep(open_speed)
-	update_icon()
+	update_appearance()
 	if(visible && !glass)
 		set_opacity(1)
 	operating = FALSE
@@ -380,10 +383,10 @@
 		var/turf/location = get_turf(src)
 		//add_blood doesn't work for borgs/xenos, but add_blood_floor does.
 		L.add_splatter_floor(location)
-		log_combat(src, L, "crushed")
+		log_combat(src, L, "crushed", src)
 	for(var/obj/mecha/M in get_turf(src))
 		M.take_damage(DOOR_CRUSH_DAMAGE)
-		log_combat(src, M, "crushed")
+		log_combat(src, M, "crushed", src)
 /obj/machinery/door/proc/autoclose()
 	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)
 		close()

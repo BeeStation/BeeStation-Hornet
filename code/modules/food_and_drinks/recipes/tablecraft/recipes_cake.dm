@@ -16,7 +16,7 @@
 	name = "Cheese cake"
 	reqs = list(
 		/obj/item/food/cake/plain = 1,
-		/obj/item/reagent_containers/food/snacks/cheesewedge = 2
+		/obj/item/food/cheese/wedge = 2
 	)
 	result = /obj/item/food/cake/cheese
 	subcategory = CAT_CAKE

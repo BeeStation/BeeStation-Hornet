@@ -1103,8 +1103,8 @@
 /////////////////////////
 
 /obj/mecha/proc/operation_allowed(mob/M)
-	req_access = operation_req_access
-	req_one_access = list()
+	req_access = list()
+	req_one_access = operation_req_access
 	return allowed(M)
 
 /obj/mecha/proc/internals_access_allowed(mob/M)
@@ -1123,9 +1123,6 @@
 		if(occupant && occupant.client)
 			to_chat(occupant, "[icon2html(src, occupant)] [message]")
 	return
-
-GLOBAL_VAR_INIT(year, time2text(world.realtime,"YYYY"))
-GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 
 ///////////////////////
 ///// Power stuff /////

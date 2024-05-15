@@ -24,7 +24,7 @@
 		if (ruleset.weight == 0)
 			continue
 
-		if (ruleset.cost > max_threat_level && !is_lategame())
+		if (ruleset.cost > max_threat_level && !(is_lategame() && (ruleset.flags & LATEGAME_RULESET)))
 			continue
 
 		if (!ruleset.acceptable(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len, threat_level))

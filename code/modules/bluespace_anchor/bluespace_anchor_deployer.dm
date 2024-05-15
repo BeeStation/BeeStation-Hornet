@@ -5,6 +5,7 @@
 	icon = 'icons/obj/bluespace_anchor.dmi'
 	icon_state = "anchor_undeployed"
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 

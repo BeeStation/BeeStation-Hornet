@@ -145,16 +145,13 @@ Class Procs:
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
 
-/obj/machinery/Initialize(mapload, list/building_parts = null)
+/obj/machinery/Initialize(mapload)
 	if(!armor)
 		armor = list(MELEE = 25,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	. = ..()
 	GLOB.machines += src
 
-	if(building_parts)
-		InitializeOnMachineBuild(building_parts)
-		RefreshParts()
-	else if(ispath(circuit, /obj/item/circuitboard))
+	if(ispath(circuit, /obj/item/circuitboard))
 		circuit = new circuit(src)
 		circuit.apply_default_parts(src)
 
@@ -168,16 +165,6 @@ Class Procs:
 		seller_department = dept_req_for_free
 
 	return INITIALIZE_HINT_LATELOAD
-
-/// This is important because every machine has different part component to store it to different variable when built when initialized
-/// but Init() proc can only handle the basic.
-/obj/machinery/proc/InitializeOnMachineBuild(list/building_parts)
-	component_parts = list()
-	for(var/atom/movable/each_part in building_parts)
-		each_part.forceMove(src)
-		component_parts += each_part
-		if(istype(each_part, /obj/item/circuitboard))
-			circuit = each_part
 
 /obj/machinery/proc/set_occupant(atom/movable/new_occupant)
 	SHOULD_CALL_PARENT(TRUE)
@@ -560,7 +547,7 @@ Class Procs:
 
 	new_frame.icon_state = "box_1"
 	. = new_frame
-	new_frame.anchored = TRUE
+	new_frame.set_anchored(TRUE)
 	if(!disassembled)
 		new_frame.obj_integrity = new_frame.max_integrity * 0.5 //the frame is already half broken
 	transfer_fingerprints_to(new_frame)
@@ -652,7 +639,7 @@ Class Procs:
 		to_chat(user, "<span class='notice'>You fail to secure [src].</span>")
 		return CANT_UNFASTEN
 	to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-	setAnchored(!anchored)
+	set_anchored(!anchored)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	SEND_SIGNAL(src, COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH, anchored)
 	return SUCCESSFUL_UNFASTEN

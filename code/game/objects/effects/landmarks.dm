@@ -10,10 +10,6 @@
 /obj/effect/landmark/singularity_act()
 	return
 
-// Please stop bombing the Observer-Start landmark.
-/obj/effect/landmark/ex_act()
-	return
-
 /obj/effect/landmark/singularity_pull()
 	return
 
@@ -245,6 +241,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Experiment"
 	job = "Experiment"
 
+/obj/effect/landmark/start/randommaint/virologist
+	name = "Virologist"
+	icon_state = "Virologist"
+	job= "Virologist"
+
 //Department Security spawns
 
 /obj/effect/landmark/start/depsec
@@ -323,6 +324,18 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/latejoin/Initialize(mapload)
 	..()
 	SSjob.latejoin_trackers += loc
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/landmark/prisonspawn
+	name = "prisonspawn"
+	icon_state = "error"
+	/* Milviu's sin
+	icon_state = "prison_spawn"
+	*/
+
+/obj/effect/landmark/prisonspawn/Initialize(mapload)
+	..()
+	GLOB.prisonspawn += loc
 	return INITIALIZE_HINT_QDEL
 
 //space carps, magicarps, lone ops, slaughter demons, possibly revenants spawn here

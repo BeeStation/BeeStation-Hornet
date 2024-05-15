@@ -10,7 +10,6 @@
 	var/restricted = FALSE // if true, program goes on emag list
 
 	network_root_id = "HOLODECK"
-
 /*
 	Power tracking: Use the holodeck computer's power grid
 	Asserts are to avoid the inevitable infinite loops
@@ -52,3 +51,9 @@
 
 /area/holodeck/rec_center/offstation_one
 	name = "\improper Recreational Holodeck"
+//Prison holodeck will be 4x7
+/area/holodeck/prison
+	name = "\improper Workshop"
+
+/area/holodeck/small //7x7
+	name = "\improper Small Recreational Holodeck"

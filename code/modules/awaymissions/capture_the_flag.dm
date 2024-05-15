@@ -68,10 +68,10 @@
 /obj/item/ctf/attack_hand(mob/living/user)
 	//pre normal check item stuff, this is for our special flag checks
 	if(!is_ctf_target(user) && !anyonecanpickup)
-		to_chat(user, "Non players shouldn't be moving the flag!")
+		to_chat(user, "<span class='warning'>Non players shouldn't be moving the flag!</span>")
 		return
 	if(team in user.faction)
-		to_chat(user, "You can't move your own flag!")
+		to_chat(user, "<span class='warning'>You can't move your own flag!</span>")
 		return
 	if(loc == user)
 		if(!user.dropItemToGround(src))
@@ -87,12 +87,12 @@
 		anchored = TRUE
 		return
 	//passing means the user picked up the flag so we can now apply this
-	user.anchored = TRUE
+	user.set_anchored(TRUE)
 	user.status_flags &= ~CANPUSH
 
 /obj/item/ctf/dropped(mob/user)
 	..()
-	user.anchored = FALSE
+	user.set_anchored(FALSE)
 	user.status_flags |= CANPUSH
 	reset_cooldown = world.time + 20 SECONDS
 	START_PROCESSING(SSobj, src)
@@ -122,7 +122,7 @@
 
 /obj/effect/ctf/flag_reset
 	name = "banner landmark"
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/banner.dmi'
 	icon_state = "banner"
 	desc = "This is where a banner with Nanotrasen's logo on it would go."
 	layer = LOW_ITEM_LAYER
@@ -216,18 +216,19 @@
 	AddElement(/datum/element/point_of_interest)
 
 /obj/machinery/capture_the_flag/process(delta_time)
-	for(var/mob/living/M as() in spawned_mobs)
-		if(QDELETED(M))
-			spawned_mobs -= M
+	for(var/mob/living/living_participant as anything in spawned_mobs)
+		if(QDELETED(living_participant))
+			spawned_mobs -= living_participant
 			continue
 		// Anyone in crit, automatically reap
-		if(M.InCritical() || M.stat == DEAD)
-			ctf_dust_old(M)
+
+		if(HAS_TRAIT(living_participant, TRAIT_CRITICAL_CONDITION) || living_participant.stat == DEAD)
+			ctf_dust_old(living_participant)
 		else
 			// The changes that you've been hit with no shield but not
 			// instantly critted are low, but have some healing.
-			M.adjustBruteLoss(-2.5 * delta_time)
-			M.adjustFireLoss(-2.5 * delta_time)
+			living_participant.adjustBruteLoss(-2.5 * delta_time)
+			living_participant.adjustFireLoss(-2.5 * delta_time)
 
 /obj/machinery/capture_the_flag/red
 	name = "Red CTF Controller"

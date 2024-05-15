@@ -95,7 +95,7 @@
 		user.update_atom_colour()
 		user.animate_movement = FORWARD_STEPS
 		user.notransform = FALSE
-		user.anchored = FALSE
+		user.set_anchored(FALSE)
 		teleporting = FALSE
 		for(var/obj/item/I in user.held_items)
 			REMOVE_TRAIT(I, TRAIT_NODROP, CHRONOSUIT_TRAIT)
@@ -137,7 +137,7 @@
 		user.animate_movement = NO_STEPS
 		user.changeNext_move(8 + phase_in_ds)
 		user.notransform = 1
-		user.anchored = TRUE
+		user.set_anchored(TRUE)
 		user.Stun(INFINITY)
 
 		animate(user, color = "#00ccee", time = 3)
@@ -222,7 +222,7 @@
 			teleport_now.Remove(user)
 			if(user.wear_suit == src)
 				if(hard_landing)
-					user.electrocute_act(35, src, safety = 1)
+					user.electrocute_act(35, src, flags = SHOCK_NOGLOVES)
 					user.Paralyze(200)
 				if(!silent)
 					to_chat(user, "\nroot@ChronosuitMK4# chronowalk4 --stop\n")

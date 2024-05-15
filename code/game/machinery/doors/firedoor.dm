@@ -9,7 +9,7 @@
 /obj/machinery/door/firedoor
 	name = "firelock"
 	desc = "A convenable firelock. It has a card reader and a set of indicator lights on the side."
-	icon = 'icons/obj/doors/doorfireglass.dmi'
+	icon = 'icons/obj/doors/firelocks/doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = FALSE
 	density = FALSE
@@ -381,7 +381,7 @@
 			close()
 
 /obj/machinery/door/firedoor/border_only
-	icon = 'icons/obj/doors/edge_Doorfire.dmi'
+	icon = 'icons/obj/doors/firelocks/edge_Doorfire.dmi'
 	flags_1 = ON_BORDER_1
 	CanAtmosPass = ATMOS_PASS_PROC
 	assemblytype = /obj/structure/firelock_frame/border
@@ -482,7 +482,7 @@
 
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"
-	icon = 'icons/obj/doors/doorfire.dmi'
+	icon = 'icons/obj/doors/firelocks/doorfire.dmi'
 	glass = FALSE
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
@@ -490,7 +490,7 @@
 
 /obj/machinery/door/firedoor/window
 	name = "firelock window shutter"
-	icon = 'icons/obj/doors/doorfirewindow.dmi'
+	icon = 'icons/obj/doors/firelocks/doorfirewindow.dmi'
 	desc = "A second window that slides in when the original window is broken, designed to protect against hull breaches. Truly a work of genius by NT engineers."
 	glass = TRUE
 	explosion_block = 0
@@ -516,7 +516,7 @@
 /obj/structure/firelock_frame
 	name = "firelock frame"
 	desc = "A partially completed firelock."
-	icon = 'icons/obj/doors/doorfire.dmi'
+	icon = 'icons/obj/doors/firelocks/doorfire.dmi'
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
@@ -745,7 +745,7 @@
 
 /obj/structure/firelock_frame/border
 	name = "firelock frame"
-	icon = 'icons/obj/doors/edge_Doorfire.dmi'
+	icon = 'icons/obj/doors/firelocks/edge_Doorfire.dmi'
 	icon_state = "door_frame"
 	density = FALSE
 	firelock_type = /obj/machinery/door/firedoor/border_only
@@ -765,7 +765,7 @@
 
 /obj/structure/firelock_frame/window
 	name = "window firelock frame"
-	icon = 'icons/obj/doors/doorfirewindow.dmi'
+	icon = 'icons/obj/doors/firelocks/doorfirewindow.dmi'
 	icon_state = "door_frame"
 	firelock_type = /obj/machinery/door/firedoor/window
 

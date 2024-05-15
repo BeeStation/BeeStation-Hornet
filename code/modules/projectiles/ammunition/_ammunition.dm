@@ -3,6 +3,7 @@
 	desc = "A bullet casing."
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "s-casing"
+	worn_icon_state = "bullet"
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
@@ -63,7 +64,8 @@
 		BB = new projectile_type(src, src)
 
 /obj/item/ammo_casing/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box))
+	//Regular boxes of ammo can sweep shells up from the floor, magazines that get insert into guns do not though
+	if(istype(I, /obj/item/ammo_box) && !istype(I, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/box = I
 		if(isturf(loc))
 			var/boolets = 0

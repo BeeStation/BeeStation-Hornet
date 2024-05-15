@@ -285,7 +285,7 @@
 
 /obj/effect/turf_decal/siding/wood
 	icon_state = "siding_wood_line"
-	color = "#55391A"
+	color = "#b16a4c"
 
 /obj/effect/turf_decal/siding/wood/corner
 	icon_state = "siding_wood_corner"
@@ -469,3 +469,18 @@
 
 /obj/effect/turf_decal/techfloor/corners
 	icon_state = "techfloor_corners"
+
+/obj/effect/turf_decal/evac
+	icon_state = "evac"
+	
+/obj/effect/turf_decal/evac/evac_big
+	icon_state = "evac_big"
+	
+/obj/effect/turf_decal/evac/evac_massive_left
+	icon_state = "evac_massive_left"
+	
+/obj/effect/turf_decal/evac/evac_massive_middle
+	icon_state = "evac_massive_middle"
+	
+/obj/effect/turf_decal/evac/evac_massive_right
+	icon_state = "evac_massive_right"

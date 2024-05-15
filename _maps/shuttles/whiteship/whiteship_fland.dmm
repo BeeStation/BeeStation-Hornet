@@ -101,7 +101,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/shuttle/abandoned)
 "eJ" = (
 /obj/effect/turf_decal/stripes/full,
@@ -210,7 +210,7 @@
 	pixel_y = 15
 	},
 /obj/structure/curtain,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/shuttle/abandoned)
 "jb" = (
 /obj/effect/decal/cleanable/dirt,
@@ -688,7 +688,7 @@
 	},
 /obj/item/soap/homemade,
 /obj/machinery/light/small/built,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/shuttle/abandoned)
 "QS" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden,

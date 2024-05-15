@@ -11,11 +11,11 @@
 	pod_shuttles ++
 	port?.id = "podshuttle_[pod_shuttles]"
 	shuttleId = "podshuttle_[pod_shuttles]"
-	port.register()
+	port?.register()
 	//Create a shuttle designator with the port
 	var/obj/item/shuttle_creator/shuttle_creator = new(loc)
 	shuttle_creator.linkedShuttleId = "podshuttle_[pod_shuttles]"
-	shuttle_creator.recorded_shuttle_area = port.shuttle_areas[1] //Shuttle creators can only handle one area shuttles
+	shuttle_creator.recorded_shuttle_area = port?.shuttle_areas[1] //Shuttle creators can only handle one area shuttles
 	shuttle_creator.update_origin()
 	shuttle_creator.reset_saved_area(FALSE)
 

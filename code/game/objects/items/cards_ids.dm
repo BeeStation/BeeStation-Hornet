@@ -90,7 +90,7 @@
 	var/atom/A = target
 	if(!proximity && prox_check)
 		return
-	log_combat(user, A, "attempted to emag with [charges] charges")
+	log_combat(user, A, "attempted to emag with [charges] charges", important = FALSE)
 	A.use_emag(user, src)
 
 /obj/item/card/emag/proc/use_charge()
@@ -258,6 +258,8 @@
 		return
 
 	registered_account.adjust_money(cash_money)
+	SSblackbox.record_feedback("amount", "credits_inserted", cash_money)
+	log_econ("[cash_money] credits were inserted into [src] owned by [src.registered_name]")
 	if(istype(I, /obj/item/stack/spacecash) || istype(I, /obj/item/coin))
 		to_chat(user, "<span class='notice'>You stuff [I] into [src]. It disappears in a small puff of bluespace smoke, adding [cash_money] credits to the linked account.</span>")
 	else
@@ -282,6 +284,7 @@
 
 	registered_account.adjust_money(total)
 	SSblackbox.record_feedback("amount", "credits_inserted", total)
+	log_econ("[total] credits were inserted into [src] owned by [src.registered_name]")
 	QDEL_LIST(money)
 
 	return total
@@ -348,6 +351,8 @@
 		var/obj/item/holochip/holochip = new (user.drop_location(), amount_to_remove)
 		user.put_in_hands(holochip)
 		to_chat(user, "<span class='notice'>You withdraw [amount_to_remove] credits into a holochip.</span>")
+		SSblackbox.record_feedback("amount", "credits_removed", amount_to_remove)
+		log_econ("[amount_to_remove] credits were removed from [src] owned by [src.registered_name]")
 		return
 	else
 		var/difference = amount_to_remove - registered_account.account_balance
@@ -496,13 +501,13 @@ update_label("John Doe", "Clowny")
 		/obj/item/card/id/pass/mining_access_card,
 		/obj/item/card/mining_point_card,
 		/obj/item/card/id,
-		/obj/item/card/id/prisoner/one,
-		/obj/item/card/id/prisoner/two,
-		/obj/item/card/id/prisoner/three,
-		/obj/item/card/id/prisoner/four,
-		/obj/item/card/id/prisoner/five,
-		/obj/item/card/id/prisoner/six,
-		/obj/item/card/id/prisoner/seven,
+		/obj/item/card/id/gulag/one,
+		/obj/item/card/id/gulag/two,
+		/obj/item/card/id/gulag/three,
+		/obj/item/card/id/gulag/four,
+		/obj/item/card/id/gulag/five,
+		/obj/item/card/id/gulag/six,
+		/obj/item/card/id/gulag/seven,
 		/obj/item/card/id/departmental_budget,
 		/obj/item/card/id/syndicate/anyone,
 		/obj/item/card/id/syndicate/nuke_leader,
@@ -545,7 +550,7 @@ update_label("John Doe", "Clowny")
 				assignment = "Assistant"
 
 			var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
-			input_name = reject_bad_name(input_name)
+			input_name = reject_bad_name(input_name, allow_numbers = TRUE)
 			if(!input_name)
 				// Invalid/blank names give a randomly generated one.
 				if(user.gender == MALE)
@@ -768,7 +773,7 @@ update_label("John Doe", "Clowny")
 	. = ..()
 	access = list(ACCESS_CENT_GENERAL, ACCESS_COURT, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS)
 
-/obj/item/card/id/prisoner
+/obj/item/card/id/gulag
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
 	icon_state = "orange"
@@ -780,7 +785,7 @@ update_label("John Doe", "Clowny")
 	var/permanent = FALSE
 	hud_state = JOB_HUD_PRISONER
 
-/obj/item/card/id/prisoner/examine(mob/user)
+/obj/item/card/id/gulag/examine(mob/user)
 	. = ..()
 
 	if(!permanent)
@@ -789,31 +794,31 @@ update_label("John Doe", "Clowny")
 	else
 		. += "<span class='notice'>The mark on the ID indicates the sentence is permanent.</span>"
 
-/obj/item/card/id/prisoner/one
+/obj/item/card/id/gulag/one
 	name = "Prisoner #13-001"
 	registered_name = "Prisoner #13-001"
 
-/obj/item/card/id/prisoner/two
+/obj/item/card/id/gulag/two
 	name = "Prisoner #13-002"
 	registered_name = "Prisoner #13-002"
 
-/obj/item/card/id/prisoner/three
+/obj/item/card/id/gulag/three
 	name = "Prisoner #13-003"
 	registered_name = "Prisoner #13-003"
 
-/obj/item/card/id/prisoner/four
+/obj/item/card/id/gulag/four
 	name = "Prisoner #13-004"
 	registered_name = "Prisoner #13-004"
 
-/obj/item/card/id/prisoner/five
+/obj/item/card/id/gulag/five
 	name = "Prisoner #13-005"
 	registered_name = "Prisoner #13-005"
 
-/obj/item/card/id/prisoner/six
+/obj/item/card/id/gulag/six
 	name = "Prisoner #13-006"
 	registered_name = "Prisoner #13-006"
 
-/obj/item/card/id/prisoner/seven
+/obj/item/card/id/gulag/seven
 	name = "Prisoner #13-007"
 	registered_name = "Prisoner #13-007"
 

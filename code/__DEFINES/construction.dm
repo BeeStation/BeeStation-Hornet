@@ -60,6 +60,11 @@
 #define FLOODLIGHT_NEEDS_SECURING 2
 #define FLOODLIGHT_NEEDS_WRENCHING 3
 
+// turnstile state
+#define TURNSTILE_SECURED 0
+#define TURNSTILE_CIRCUIT_EXPOSED 1
+#define TURNSTILE_SHELL 2
+
 //! ## other construction-related things
 
 /// windows affected by Nar'Sie turn this color.

@@ -10,10 +10,9 @@ SUBSYSTEM_DEF(traumas)
 
 /datum/controller/subsystem/traumas/Initialize()
 	//phobia types is to pull from randomly for brain traumas, e.g. conspiracies is for special assignment only
+	//defined in __DEFINES/mobs.dm
 	//5 is the default weight, lower it for more punishing phobias
-	phobia_types = sort_list(list("spiders" = 5, "space" = 2, "security" = 5, "clowns" = 5, "greytide" = 5, "lizards" = 5,
-						"skeletons" = 5, "snakes" = 5, "robots" = 4, "doctors" = 4, "authority" = 5, "the supernatural" = 5,
-						"aliens" = 5, "strangers" = 5, "birds" = 5, "falling" = 5, "anime" = 5))
+	phobia_types = sort_list(GLOB.available_random_trauma_list)
 
 	phobia_words = list(
 		"spiders"   = strings(PHOBIA_FILE, "spiders"),
@@ -149,7 +148,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/structure/sign/departments/medbay, /obj/machinery/door/airlock/medical, /obj/machinery/sleeper, /obj/machinery/stasis,
 			/obj/machinery/dna_scannernew, /obj/machinery/atmospherics/components/unary/cryo_cell, /obj/item/surgical_drapes,
 			/obj/item/retractor, /obj/item/hemostat, /obj/item/cautery, /obj/item/surgicaldrill, /obj/item/scalpel, /obj/item/circular_saw,
-			/obj/item/clothing/suit/bio_suit/plaguedoctorsuit, /obj/item/clothing/head/plaguedoctorhat, /obj/item/clothing/mask/gas/plaguedoctor)),
+			/obj/item/clothing/suit/bio_suit/plaguedoctorsuit, /obj/item/clothing/head/bio_hood/plague, /obj/item/clothing/mask/gas/plaguedoctor)),
 
 		"authority"   = typecacheof(list(
 			/obj/item/clothing/under/rank/captain,  /obj/item/clothing/under/rank/civilian/head_of_personnel,
@@ -162,7 +161,7 @@ SUBSYSTEM_DEF(traumas)
 		"the supernatural"  = typecacheof(list(
 			/obj/structure/destructible/cult, /obj/item/tome,
 			/obj/item/melee/cultblade, /obj/item/cult_bastard, /obj/item/restraints/legcuffs/bola/cult,
-			/obj/item/clothing/suit/cultrobes, /obj/item/clothing/suit/space/hardsuit/cult,
+			/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/suit/hooded/cultrobes/hardened,
 			/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/head/hooded/cult_hoodie, /obj/effect/rune,
 			/obj/item/stack/sheet/runed_metal, /obj/machinery/door/airlock/cult, /obj/eldritch/narsie,
 			/obj/item/soulstone, /obj/item/clockwork,
@@ -182,19 +181,20 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/clothing/head/helmet/abductor, /obj/structure/bed/abductor, /obj/structure/table_frame/abductor,
 			/obj/structure/table/abductor, /obj/structure/table/optable/abductor, /obj/structure/closet/abductor, /obj/item/organ/heart/gland,
 			/obj/machinery/abductor, /obj/item/crowbar/abductor, /obj/item/screwdriver/abductor, /obj/item/weldingtool/abductor,
-			/obj/item/wirecutters/abductor, /obj/item/wrench/abductor, /obj/item/stack/sheet/mineral/abductor)),
+			/obj/item/wirecutters/abductor, /obj/item/wrench/abductor, /obj/item/stack/sheet/mineral/abductor,
+			/obj/item/toy/plush/slimeplushie)),
 
 		"birds" = typecacheof(list(
 			/obj/item/clothing/mask/gas/plaguedoctor,
 			/obj/item/food/cracker,
-			/obj/item/clothing/suit/chickensuit,
-			/obj/item/clothing/head/chicken,
+			/obj/item/clothing/suit/costume/chickensuit,
+			/obj/item/clothing/head/costume/chicken,
 			/obj/item/clothing/suit/toggle/owlwings,
 			/obj/item/clothing/under/costume/owl,
 			/obj/item/clothing/mask/gas/owl_mask,
 			/obj/item/clothing/under/costume/griffin,
 			/obj/item/clothing/shoes/griffin,
-			/obj/item/clothing/head/griffin,
+			/obj/item/clothing/head/costume/griffin,
 			/obj/item/clothing/head/helmet/space/freedom,
 			/obj/item/clothing/suit/space/freedom
 			)),
@@ -206,7 +206,7 @@ SUBSYSTEM_DEF(traumas)
 			/obj/item/food/chawanmushi,
 			/obj/item/reagent_containers/food/drinks/bottle/sake,
 			/obj/item/throwing_star,
-			/obj/item/clothing/head/kitty/genuine,
+			/obj/item/clothing/head/costume/kitty/genuine,
 			/obj/item/clothing/suit/space/space_ninja,
 			/obj/item/clothing/mask/gas/space_ninja,
 			/obj/item/clothing/shoes/space_ninja,
@@ -224,7 +224,7 @@ SUBSYSTEM_DEF(traumas)
 
 	phobia_turfs = list("space" = typecacheof(list(/turf/open/space, /turf/open/floor/holofloor/space, /turf/open/floor/fakespace)),
 						"the supernatural" = typecacheof(list(/turf/open/floor/clockwork, /turf/closed/wall/clockwork,
-						/turf/open/floor/plasteel/cult, /turf/closed/wall/mineral/cult)),
+						/turf/open/floor/iron/cult, /turf/closed/wall/mineral/cult)),
 						"aliens" = typecacheof(list(/turf/open/floor/plating/abductor, /turf/open/floor/plating/abductor2,
 						/turf/open/floor/mineral/abductor, /turf/closed/wall/mineral/abductor)),
 						"falling" = typecacheof(list(/turf/open/chasm, /turf/open/floor/fakepit))

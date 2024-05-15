@@ -188,10 +188,15 @@
 //////////////
 
 /obj/item/clothing/neck/necklace/dope
-	name = "gold necklace"
+	name = "dope gold necklace"
 	desc = "Damn, it feels good to be a gangster."
 	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "bling"
+
+/obj/item/clothing/neck/necklace/dope/cross
+	name = "gold cross necklace"
+	desc = "In nomine Patris, et Filii, et Spiritus Sancti."
+	icon_state = "cross"
 
 /obj/item/clothing/neck/neckerchief
 	icon = 'icons/obj/clothing/masks.dmi' //In order to reuse the bandana sprite
@@ -201,7 +206,7 @@
 /obj/item/clothing/neck/neckerchief/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file, item_layer, atom/origin)
 	. = ..()
 	if(!isinhands)
-		var/mutable_appearance/realOverlay = mutable_appearance('icons/mob/mask.dmi', icon_state, item_layer)
+		var/mutable_appearance/realOverlay = mutable_appearance('icons/mob/clothing/mask.dmi', icon_state, item_layer)
 		realOverlay.pixel_y = -3
 		. += realOverlay
 

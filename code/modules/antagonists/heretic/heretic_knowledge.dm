@@ -268,7 +268,7 @@
 		loc.balloon_alert(user, "Ritual failed, invalid choice")
 		return FALSE
 
-	log_combat(user, to_curse, "cursed via heretic ritual", addition = "([name])")
+	log_combat(user, to_curse, "cursed via heretic ritual", src, addition = "([name])")
 	curse(to_curse)
 	addtimer(CALLBACK(src, PROC_REF(uncurse), to_curse), duration)
 	return TRUE
@@ -408,7 +408,7 @@
 
 /datum/heretic_knowledge/knowledge_ritual/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/our_heretic = IS_HERETIC(user)
-	our_heretic.knowledge_points += KNOWLEDGE_RITUAL_POINTS
+	our_heretic.adjust_knowledge_points(KNOWLEDGE_RITUAL_POINTS)
 	was_completed = TRUE
 
 	var/drain_message = pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))

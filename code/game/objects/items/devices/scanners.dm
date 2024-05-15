@@ -26,6 +26,7 @@ GENE SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
+	worn_icon_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	custom_materials = list(/datum/material/iron=150)
@@ -137,6 +138,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
+	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject."
@@ -432,6 +434,7 @@ GENE SCANNER
 			mutant = TRUE
 
 		message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>"
+		message += "<span class='info'>Core temperature: [round(H.coretemperature-T0C,0.1)] &deg;C ([round(H.coretemperature*1.8-459.67,0.1)] &deg;F)</span>"
 	message += "<span class='info'>Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)</span>"
 
 	// Time of death
@@ -730,9 +733,10 @@ GENE SCANNER
 
 /obj/item/analyzer/ranged
 	desc = "A hand-held scanner which uses advanced spectroscopy and infrared readings to analyze gases as a distance. Alt-Click to use the built in barometer function."
-	name = "long-range analyzer"
+	name = "long-range gas analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ranged_analyzer"
+	worn_icon_state = "analyzer"
 
 /obj/item/analyzer/ranged/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -857,6 +861,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "nanite_scanner"
 	item_state = "nanite_remote"
+	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held body scanner able to detect nanites and their programming."
@@ -884,6 +889,7 @@ GENE SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gene"
 	item_state = "healthanalyzer"
+	worn_icon_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	desc = "A hand-held scanner for analyzing someones gene sequence on the fly. Hold near a DNA console to update the internal database."
@@ -999,7 +1005,8 @@ GENE SCANNER
 	name = "virus extrapolator"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "extrapolator_scan"
-	desc = "A bulky scanning device, used to extract genetic material of potential pathogens"
+	worn_icon_state = "healthanalyzer"
+	desc = "A bulky scanning device, used to extract genetic material of potential pathogens."
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
@@ -1167,7 +1174,14 @@ GENE SCANNER
 				var/datum/disease/advance/advance_disease = disease
 				if(advance_disease.stealth >= maximum_stealth) //the extrapolator can detect diseases of higher stealth than a normal scanner
 					continue
-				message += "<span class='info'><b>[advance_disease.name]</b>, [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
+				var/list/properties
+				if(!advance_disease.mutable)
+					LAZYADD(properties, "immutable")
+				if(advance_disease.faltered)
+					LAZYADD(properties, "faltered")
+				if(advance_disease.carrier)
+					LAZYADD(properties, "carrier")
+				message += "<span class='info'><b>[advance_disease.name]</b>[LAZYLEN(properties) ? " ([properties.Join(", ")])" : ""], [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
 				if(extracted_ids[advance_disease.GetDiseaseID()])
 					message += "<span class='info italics'>This virus has been extracted by \the [src] previously.</span>"
 				message += "<span class='info bold'>[advance_disease.name] has the following symptoms:</span>"
@@ -1200,7 +1214,7 @@ GENE SCANNER
 	if(!target_disease)
 		return
 	using = TRUE
-	if(isolate)
+	if(isolate && CONFIG_GET(flag/isolation_allowed))
 		. = isolate_symptom(user, target, target_disease)
 	else
 		. = isolate_disease(user, target, target_disease)
@@ -1211,6 +1225,8 @@ GENE SCANNER
  */
 /obj/item/extrapolator/proc/isolate_symptom(mob/living/user, atom/target, datum/disease/advance/target_disease)
 	. = FALSE
+	if(!CONFIG_GET(flag/isolation_allowed))
+		return FALSE
 	var/list/symptoms = list()
 	for(var/datum/symptom/symptom in target_disease.symptoms)
 		if(symptom.level <= maximum_level)
@@ -1250,6 +1266,8 @@ GENE SCANNER
  */
 /obj/item/extrapolator/proc/create_culture(mob/living/user, datum/disease/advance/disease)
 	. = FALSE
+	disease = disease.Copy()
+	disease.dormant = FALSE
 	var/list/data = list("viruses" = list(disease))
 	if(user.get_active_held_item() != src)
 		to_chat(user, "<span class='warning'>The extrapolator must be held in your active hand to work!</span>")

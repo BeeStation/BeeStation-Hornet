@@ -28,10 +28,10 @@ Mineral Sheets
 	mats_per_unit = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	sheettype = "sandstone"
 	merge_type = /obj/item/stack/sheet/mineral/sandstone
+	walltype = /turf/closed/wall/mineral/sandstone
 
-/obj/item/stack/sheet/mineral/sandstone/get_main_recipes()
-	. = ..()
-	. += GLOB.sandstone_recipes
+/obj/item/stack/sheet/mineral/sandstone/get_recipes()
+	return GLOB.sandstone_recipes
 
 /* Diamond */
 
@@ -46,10 +46,10 @@ Mineral Sheets
 	point_value = 25
 	merge_type = /obj/item/stack/sheet/mineral/diamond
 	material_type = /datum/material/diamond
+	walltype = /turf/closed/wall/mineral/diamond
 
-/obj/item/stack/sheet/mineral/diamond/get_main_recipes()
-	. = ..()
-	. += GLOB.diamond_recipes
+/obj/item/stack/sheet/mineral/diamond/get_recipes()
+	return GLOB.diamond_recipes
 
 /* Uranium */
 
@@ -64,10 +64,10 @@ Mineral Sheets
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/uranium
 	material_type = /datum/material/uranium
+	walltype = /turf/closed/wall/mineral/uranium
 
-/obj/item/stack/sheet/mineral/uranium/get_main_recipes()
-	. = ..()
-	. += GLOB.uranium_recipes
+/obj/item/stack/sheet/mineral/uranium/get_recipes()
+	return GLOB.uranium_recipes
 
 /* Plasma */
 
@@ -84,14 +84,14 @@ Mineral Sheets
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/plasma
 	material_type = /datum/material/plasma
+	walltype = /turf/closed/wall/mineral/plasma
 
 /obj/item/stack/sheet/mineral/plasma/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS//dont you kids know that stuff is toxic?
 
-/obj/item/stack/sheet/mineral/plasma/get_main_recipes()
-	. = ..()
-	. += GLOB.plasma_recipes
+/obj/item/stack/sheet/mineral/plasma/get_recipes()
+	return GLOB.plasma_recipes
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
@@ -121,10 +121,10 @@ Mineral Sheets
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/gold
 	material_type = /datum/material/gold
+	walltype = /turf/closed/wall/mineral/gold
 
-/obj/item/stack/sheet/mineral/gold/get_main_recipes()
-	. = ..()
-	. += GLOB.gold_recipes
+/obj/item/stack/sheet/mineral/gold/get_recipes()
+	return GLOB.gold_recipes
 
 /* Silver */
 
@@ -140,10 +140,10 @@ Mineral Sheets
 	merge_type = /obj/item/stack/sheet/mineral/silver
 	material_type = /datum/material/silver
 	tableVariant = /obj/structure/table/optable
+	walltype = /turf/closed/wall/mineral/silver
 
-/obj/item/stack/sheet/mineral/silver/get_main_recipes()
-	. = ..()
-	. += GLOB.silver_recipes
+/obj/item/stack/sheet/mineral/silver/get_recipes()
+	return GLOB.silver_recipes
 
 /* Copper */
 
@@ -157,11 +157,11 @@ Mineral Sheets
 	grind_results = list(/datum/reagent/copper = 20)
 	point_value = 3
 	merge_type = /obj/item/stack/sheet/mineral/copper
+	material_type = /datum/material/copper
 
 
-/obj/item/stack/sheet/mineral/copper/get_main_recipes()
-	. = ..()
-	. += GLOB.copper_recipes
+/obj/item/stack/sheet/mineral/copper/get_recipes()
+	return GLOB.copper_recipes
 
 /* Titanium */
 
@@ -180,10 +180,10 @@ Mineral Sheets
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/titanium
 	material_type = /datum/material/titanium
+	walltype = /turf/closed/wall/mineral/titanium
 
-/obj/item/stack/sheet/mineral/titanium/get_main_recipes()
-	. = ..()
-	. += GLOB.titanium_recipes
+/obj/item/stack/sheet/mineral/titanium/get_recipes()
+	return GLOB.titanium_recipes
 
 /* Plastitanium */
 
@@ -202,10 +202,10 @@ Mineral Sheets
 	point_value = 45
 	merge_type = /obj/item/stack/sheet/mineral/plastitanium
 	material_flags = NONE
+	walltype = /turf/closed/wall/mineral/plastitanium
 
-/obj/item/stack/sheet/mineral/plastitanium/get_main_recipes()
-	. = ..()
-	. += GLOB.plastitanium_recipes
+/obj/item/stack/sheet/mineral/plastitanium/get_recipes()
+	return GLOB.plastitanium_recipes
 
 /* Coal */
 

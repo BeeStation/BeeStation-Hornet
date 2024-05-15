@@ -83,7 +83,7 @@
 
 /obj/machinery/module_duplicator/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/sheetmaterials)
+		get_asset_datum(/datum/asset/spritesheet_batched/sheetmaterials)
 	)
 
 /obj/machinery/module_duplicator/ui_act(action, list/params)
