@@ -92,27 +92,33 @@
 		to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(zone_selected)]!</span>")
 		return
 
-	if(ishuman(C)) //apparently only humans bleed? funky.
-		var/mob/living/carbon/human/H = C
-		if(stop_bleeding)
-			if(!H.is_bleeding())
-				to_chat(user, "<span class='warning'>[H] isn't bleeding!</span>")
-				return
-			if(H.bleedsuppress) //so you can't stack bleed suppression
-				to_chat(user, "<span class='warning'>[H]'s bleeding is already bandaged!</span>")
-				return
-			H.suppress_bloodloss(stop_bleeding)
+	var/valid = FALSE
+	var/message = null
+
+	if(stop_bleeding)
+		if (C.is_bleeding())
+			valid = TRUE
+		else if (C.is_bandaged())
+			message = "[C]'s bleeding is already bandaged!"
+		else
+			message = "[C] isn't bleeding!"
 
 	if(!IS_ORGANIC_LIMB(affecting))
 		to_chat(user, "<span class='warning'>Medicine won't work on a robotic limb!</span>")
 		return
 
 	if(!(affecting.brute_dam || affecting.burn_dam))
-		to_chat(user, "<span class='warning'>[M]'s [parse_zone(zone_selected)] isn't hurt!</span>")
-		return
+		message = "[M]'s [parse_zone(zone_selected)] isn't hurt!</span>"
+	else
+		valid = TRUE
 
 	if((affecting.brute_dam && !affecting.burn_dam && !heal_brute) || (affecting.burn_dam && !affecting.brute_dam && !heal_burn)) //suffer
-		to_chat(user, "<span class='warning'>This type of medicine isn't appropriate for this type of wound.</span>")
+		message = "This type of medicine isn't appropriate for this type of wound."
+	else
+		valid = TRUE
+
+	if (!valid)
+		to_chat("<span class='warning'>[message]</span>")
 		return
 
 	if(C == user)
@@ -123,6 +129,9 @@
 		if(reagent && (C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/styptic_powder) || C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/silver_sulfadiazine)))
 			to_chat(user, "<span class='warning'>That stuff really hurt! You'll need to wait for the pain to go away before you can apply [src] to your wounds again, maybe someone else can help put it on for you.</span>")
 			return
+
+	if(stop_bleeding)
+		C.suppress_bloodloss(stop_bleeding)
 
 	user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
 	if(reagent)
@@ -174,7 +183,7 @@
 	name = "medical gauze"
 	desc = "A roll of elastic cloth that is extremely effective at stopping bleeding, heals minor bruising."
 	icon_state = "gauze"
-	stop_bleeding = 1800
+	stop_bleeding = BLEED_DEEP_WOUND
 	heal_brute = TRUE //Enables gauze to be used on simplemobs for healing
 	max_amount = 12
 
@@ -199,7 +208,7 @@
 	name = "improvised gauze"
 	singular_name = "improvised gauze"
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
-	stop_bleeding = 900
+	stop_bleeding = BLEED_SURFACE
 	heal_brute = 0
 
 /obj/item/stack/medical/gauze/adv

@@ -764,10 +764,9 @@
 		to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
 
 	if(is_bleeding())
-		if (bleedsuppress)
-			to_chat(src, "<span class='danger'>Your [bleed_msg] is bandaged!</span>")
-		else
-			to_chat(src, "<span class='danger'>You are [bleed_msg]!</span>")
+		to_chat(src, "<span class='danger'>You are [bleed_msg]!</span>")
+	else if (is_bandaged())
+		to_chat(src, "<span class='danger'>Your [bleed_msg] is bandaged!</span>")
 	if(getStaminaLoss())
 		if(getStaminaLoss() > 30)
 			to_chat(src, "<span class='info'>You're completely exhausted.</span>")

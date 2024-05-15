@@ -17,6 +17,9 @@ d\left(x\right)=\max\left(0,200-\frac{\left(200\cdot\max\left(0,\min\left(1,\fra
 This function calculates the amount of health that your mob has at time x
 y=d\left(q\left(x\right)\right)
 
+**Notes for porting/search:**
+bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() returns if you are not bleeding, even if you have active bandages.
+
 ****************************************************/
 
 /datum/status_effect/bleeding
@@ -25,6 +28,7 @@ y=d\left(q\left(x\right)\right)
 	alert_type = /atom/movable/screen/alert/status_effect/bleeding
 	tick_interval = 1 SECONDS
 
+	var/bandaged_bleeding = 0
 	var/bleed_rate = 0
 	var/time_applied = 0
 
@@ -38,6 +42,9 @@ y=d\left(q\left(x\right)\right)
 		linked_alert.maptext = MAPTEXT("[rate_string]/s")
 
 /datum/status_effect/bleeding/tick()
+	if (HAS_TRAIT(owner, TRAIT_NO_BLEED))
+		qdel(src)
+		return
 	time_applied += tick_interval
 	if (time_applied < 1 SECONDS)
 		if(bleed_rate >= BLEED_DEEP_WOUND)
@@ -49,13 +56,36 @@ y=d\left(q\left(x\right)\right)
 	// Non-humans stop bleeding a lot quicker, even if it is not a minor cut
 	if (!ishuman(owner))
 		bleed_rate -= BLEED_HEAL_RATE_MINOR * 4
+	// Make sure to update our icon
+	update_icon()
+	// Set the rate at which we process, so we bleed more on the ground when heavy bleeding
+	tick_interval = bleed_rate <= BLEED_RATE_MINOR ? 1 SECONDS : 0.2 SECONDS
+	// Reduce the actual rate of bleeding
+	if (ishuman(owner))
+		if (bleed_rate > 0 && bleed_rate < BLEED_RATE_MINOR)
+			bleed_rate -= BLEED_HEAL_RATE_MINOR
+		else
+			bandaged_bleeding -= BLEED_HEAL_RATE_MINOR
+	// We have finished bleeding
+	if (bleed_rate <= 0 && bandaged_bleeding <= 0)
+		qdel(src)
+		return
 	// The actual rate of bleeding, can be reduced by holding wounds
 	var/final_bleed_rate = bleed_rate
+	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))
+		final_bleed_rate = max(0, final_bleed_rate - BLEED_RATE_MINOR)
+	// We aren't actually bleeding
+	if (final_bleed_rate <= 0)
+		return
+	// Actually do the bleeding
+	owner.bleed(final_bleed_rate)
+
+/datum/status_effect/bleeding/proc/update_icon()
+	// The actual rate of bleeding, can be reduced by holding wounds
+	var/final_bleed_rate = bleed_rate
+	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))
+		final_bleed_rate = max(0, final_bleed_rate - BLEED_RATE_MINOR)
 	// Calculate the message to show to the user
-	if (owner.bleedsuppress > 0)
-		owner.bleedsuppress = max(0, owner.bleedsuppress - 1 SECONDS)
-		if (owner.bleedsuppress <= 0 && owner.stat != DEAD)
-			to_chat(owner, "<span class='warning'>Your bandage falls, and blood starts pouring out of your wounds.</span>")
 	if (HAS_TRAIT(owner, TRAIT_BLEED_HELD))
 		linked_alert.name = "Bleeding (Held)"
 		if (bleed_rate > BLEED_RATE_MINOR)
@@ -63,17 +93,10 @@ y=d\left(q\left(x\right)\right)
 		else
 			linked_alert.desc = "You are bleeding and are applying pressure to the wounds, preventing blood from pouring out."
 		linked_alert.icon_state = "bleed_held"
-		final_bleed_rate = max(0, final_bleed_rate - BLEED_RATE_MINOR)
-		// Set the text to the final bleed rate
-		var/rate_string = "[round(final_bleed_rate, 0.1)]"
-		if (length(rate_string) == 1)
-			rate_string = "[rate_string].0"
-		linked_alert.maptext = MAPTEXT("[rate_string]/s")
-	else if (owner.bleedsuppress > 0)
+	else if (bleed_rate == 0 && bandaged_bleeding > 0)
 		linked_alert.name = "Bleeding (Bandaged)"
 		linked_alert.desc = "You have bandages covering your wounds. They will heal slowly if they are not cauterized."
 		linked_alert.icon_state = "bleed_bandage"
-		linked_alert.maptext = MAPTEXT("0.0/s")
 	else
 		if (bleed_rate < BLEED_RATE_MINOR)
 			linked_alert.name = "Bleeding (Light)"
@@ -83,34 +106,16 @@ y=d\left(q\left(x\right)\right)
 			linked_alert.name = "Bleeding (Heavy)"
 			linked_alert.desc = "Your wounds are bleeding heavily and are unlikely to heal themselves. Seek medical attention immediately![ishuman(owner) ? " Click to apply pressure to the wounds." : ""]"
 			linked_alert.icon_state = "bleed_heavy"
-		var/rate_string = "[round(bleed_rate, 0.1)]"
-		if (length(rate_string) == 1)
-			rate_string = "[rate_string].0"
-		linked_alert.maptext = MAPTEXT("[rate_string]/s")
-	// Slow the bleeding rate over time, stop if we finish bleeding
-	if (bleed_rate < BLEED_RATE_MINOR || owner.bleedsuppress)
-		// Reduce the actual rate of bleeding
-		if (ishuman(owner))
-			bleed_rate -= BLEED_HEAL_RATE_MINOR
-		tick_interval = 1 SECONDS
-		if (bleed_rate <= 0)
-			qdel(src)
-			return
-		if (owner.bleedsuppress)
-			return
-	else
-		tick_interval = 2
-	if (final_bleed_rate <= 0)
-		return
-	// Actually do the bleeding
-	owner.bleed(final_bleed_rate)
+	// Set the text to the final bleed rate
+	var/rate_string = "[round(final_bleed_rate, 0.1)]"
+	if (length(rate_string) == 1)
+		rate_string = "[rate_string].0"
+	linked_alert.maptext = MAPTEXT("[rate_string]/s")
 
 /datum/status_effect/bleeding/on_remove()
 	var/mob/living/carbon/human/human = owner
 	if (!istype(human))
 		return
-	// Stop having bandages
-	human.bleedsuppress = 0
 	// Not bleeding anymore, no need to hold wounds
 	human.stop_holding_wounds()
 
@@ -128,14 +133,28 @@ y=d\left(q\left(x\right)\right)
 	else
 		human.hold_wounds()
 
+/mob/living/carbon/proc/is_bandaged()
+	if (HAS_TRAIT(src, TRAIT_NO_BLEED))
+		return FALSE
+	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	if (!bleed)
+		return FALSE
+	return bleed.bandaged_bleeding > 0
+
 /mob/living/carbon/proc/is_bleeding()
-	return has_status_effect(STATUS_EFFECT_BLEED)
+	if (HAS_TRAIT(src, TRAIT_NO_BLEED))
+		return FALSE
+	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	if (!bleed)
+		return FALSE
+	return bleed.bleed_rate > 0
 
 /mob/living/carbon/proc/add_bleeding(bleed_level)
 	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
 	playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
 	if (bleed)
 		bleed.bleed_rate = bleed.bleed_rate + max(min(bleed_level * bleed_level, sqrt(bleed_level)) / max(bleed.bleed_rate, 1),bleed_level - bleed.bleed_rate)
+		bleed.update_icon()
 	else
 		apply_status_effect(STATUS_EFFECT_BLEED, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
@@ -162,8 +181,11 @@ y=d\left(q\left(x\right)\right)
 /mob/living/carbon/proc/hold_wounds()
 	if (IsUnconscious())
 		return
-	if (bleedsuppress)
-		balloon_alert(src, "Wounds already bandaged!")
+	if (!is_bleeding())
+		if (is_bandaged())
+			balloon_alert(src, "Wounds already bandaged!")
+		else
+			balloon_alert(src, "You are not wounded!")
 		return
 	if (locate(/obj/item/offhand/bleeding_suppress) in held_items)
 		balloon_alert(src, "Already applying pressure!")
@@ -174,6 +196,8 @@ y=d\left(q\left(x\right)\right)
 	var/obj/item/offhand/bleeding_suppress/supressed_thing = new()
 	put_in_active_hand(supressed_thing)
 	balloon_alert(src, "You apply pressure to your wounds...")
+	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	bleed?.update_icon()
 
 /mob/living/carbon/proc/stop_holding_wounds()
 	var/located = FALSE
@@ -182,11 +206,19 @@ y=d\left(q\left(x\right)\right)
 		located = TRUE
 	if (located)
 		balloon_alert(src, "You stop applying pressure to your wounds...")
+	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	bleed?.update_icon()
 
 /mob/living/carbon/proc/suppress_bloodloss(amount)
-	// Stop holding the bleeding
-	stop_holding_wounds()
-	bleedsuppress += amount
+	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	if (!bleed)
+		return
+	var/reduced_amount = min(bleed.bleed_rate, amount)
+	bleed.bleed_rate -= reduced_amount
+	bleed.bandaged_bleeding += reduced_amount
+	bleed.update_icon()
+	if (bleed.bleed_rate <= 0)
+		stop_holding_wounds()
 
 /mob/living/carbon/monkey/handle_blood()
 	if(bodytemperature >= TCRYO && !(HAS_TRAIT(src, TRAIT_HUSK))) //cryosleep or husked people do not pump the blood.
@@ -199,7 +231,7 @@ y=d\left(q\left(x\right)\right)
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
 
-	if(NOBLOOD in dna.species.species_traits)
+	if((NOBLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_NO_BLEED))
 		cauterise_wounds()
 		return
 
@@ -254,7 +286,7 @@ y=d\left(q\left(x\right)\right)
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/bleed(amt)
-	if(blood_volume)
+	if(blood_volume && !HAS_TRAIT(src, TRAIT_NO_BLEED))
 		// As you get less bloodloss, you bleed slower
 		// See the top of this file for desmos lines
 		var/decrease_multiplier = BLEED_RATE_MULTIPLIER
@@ -408,6 +440,8 @@ y=d\left(q\left(x\right)\right)
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip)
+	if (HAS_TRAIT(src, TRAIT_NO_BLEED))
+		return
 	if(get_blood_id() != /datum/reagent/blood)
 		return
 	if(!T)

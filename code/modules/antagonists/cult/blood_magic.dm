@@ -687,7 +687,7 @@
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			if(NOBLOOD in H.dna.species.species_traits)
+			if((NOBLOOD in H.dna.species.species_traits) || HAS_TRAIT(H, TRAIT_NO_BLEED))
 				to_chat(user,"<span class='warning'>Blood rites do not work on species with no blood!</span>")
 				return
 			if(iscultist(H))
