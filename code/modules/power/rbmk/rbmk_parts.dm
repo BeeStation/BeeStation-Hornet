@@ -118,19 +118,16 @@
 	name = "RBMK coolant input port"
 	desc = "Input port for the RBMK Fusion Reactor, designed to take in coolant."
 	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "coolant_input"
 
 /obj/machinery/atmospherics/components/unary/rbmk/waste_output
 	name = "RBMK waste output port"
 	desc = "Waste port for the RBMK Fusion Reactor, designed to output the hot waste gases coming from the core of the machine."
 	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "waste_output"
 
 /obj/machinery/atmospherics/components/unary/rbmk/moderator_input
 	name = "RBMK moderator input port"
 	desc = "Moderator port for the RBMK Fusion Reactor, designed to move gases inside the machine to cool and control the flow of the reaction."
 	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "moderator_input"
 
 /*
 * Interface and corners
