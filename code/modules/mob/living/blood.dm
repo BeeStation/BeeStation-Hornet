@@ -262,6 +262,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		var/desired_health = (getMaxHealth() * 1.2) * CLAMP01((blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
 		// Make it so we only go unconcious at 25% blood remaining
 		desired_health = max(0, (getMaxHealth() * 2) - ((desired_health ** 0.3) / ((getMaxHealth() * 1.2) ** (-0.7))))
+		if (desired_health <= getMaxHealth() * 0.8)
+			desired_health = 0
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
@@ -276,8 +278,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 					Unconscious(rand(5,10))
 					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
-				if(!HAS_TRAIT(src, TRAIT_NODEATH))
-					death()
+				desired_health = 0
 		var/health_difference = clamp(desired_health - getOxyLoss(), 0, 5)
 		adjustOxyLoss(health_difference)
 
