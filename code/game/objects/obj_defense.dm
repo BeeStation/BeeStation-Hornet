@@ -129,8 +129,8 @@
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if(!M.melee_damage && !M.obj_damage)
-		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, emote), "custom", null, "[M.friendly] [src].")
-		return 0
+		M.emote("custom", message = "[M.friendly_verb_continuous] [src].")
+		return FALSE
 	else
 		var/play_soundeffect = 1
 		if(M.environment_smash)

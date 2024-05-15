@@ -24,7 +24,8 @@
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	faction = list("slaughter")
-	attacktext = "wildly tears into"
+	attack_verb_continuous = "wildly tears into"
+	attack_verb_simple = "wildly tear into"
 	maxHealth = 200
 	health = 200
 	healable = 0
@@ -118,8 +119,9 @@
 	desc = "A large, adorable creature covered in armor with pink bows."
 	speak_emote = list("giggles","titters","chuckles")
 	emote_hear = list("guffaws","laughs")
-	response_help  = "hugs"
-	attacktext = "wildly tickles"
+	response_help_continuous = "hugs"
+	attack_verb_continuous = "wildly tickles"
+	attack_verb_simple = "wildly tickle"
 
 	attack_sound = 'sound/items/bikehorn.ogg'
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'
