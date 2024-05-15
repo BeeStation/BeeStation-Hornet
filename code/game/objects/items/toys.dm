@@ -419,6 +419,11 @@
 	block_level = 0
 	item_flags = ISWEAPON
 
+/obj/item/dualsaber/toy/on_wield(obj/item/source, mob/living/carbon/user)
+	. = ..()
+	sharpness = IS_BLUNT
+	bleed_force = 0
+
 /obj/item/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
@@ -447,6 +452,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE //if it some how gets block level, katanas block projectiles for the meme
 	item_flags = ISWEAPON
+	sharpness = IS_SHARP
+	bleed_force = BLEED_SURFACE
 
 /*
  * Snap pops
