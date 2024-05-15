@@ -132,6 +132,12 @@
 
 	if(stop_bleeding)
 		C.suppress_bloodloss(stop_bleeding)
+		if (C.is_bleeding())
+			user.balloon_alert("You reduce [M == user ? "your" : M.p_their()] bleeding to [C.get_bleed_rate()]/s")
+		else
+			user.balloon_alert("You stop [M == user ? "your" : M.p_their()]'s bleeding!")
+	else
+		user.balloon_alert("You apply [src] to [M == user ? "yourself" : user].")
 
 	user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
 	if(reagent)
@@ -183,7 +189,7 @@
 	name = "medical gauze"
 	desc = "A roll of elastic cloth that is extremely effective at stopping bleeding, heals minor bruising."
 	icon_state = "gauze"
-	stop_bleeding = BLEED_DEEP_WOUND
+	stop_bleeding = BLEED_CRITICAL
 	heal_brute = TRUE //Enables gauze to be used on simplemobs for healing
 	max_amount = 12
 
