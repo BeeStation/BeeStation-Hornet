@@ -230,7 +230,7 @@
 			waste_output_machine.dir = box.dir
 			waste_output_machine.SetInitDirections()
 			waste_output_machine.build_network()
-	new /obj/machinery/atmospherics/components/unary/rbmk/core(locate(x-1,y-1,z), TRUE) //I'm sorry, but it kept showing the loc wrong.
+	new /obj/machinery/atmospherics/components/unary/rbmk/core(loc, TRUE)
 	for(var/obj/item/RBMK_box/box in parts)
 		qdel(box)
 	qdel(src)

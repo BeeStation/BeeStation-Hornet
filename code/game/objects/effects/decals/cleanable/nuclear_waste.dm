@@ -1,7 +1,7 @@
 /obj/effect/decal/cleanable/nuclear_waste
 	name = "plutonium sludge"
 	desc = "A writhing pool of heavily irradiated, spent reactor fuel. You probably shouldn't step through this..."
-	icon = 'icons/obj/machines/reactor_parts.dmi'
+	icon = 'icons/obj/machines/rbmkparts.dmi'
 	icon_state = "nuclearwaste"
 	alpha = 150
 	light_color = LIGHT_COLOR_CYAN

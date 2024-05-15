@@ -42,9 +42,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 Remember kids. If the reactor itself is not physically powered by an APC, it cannot shove coolant in!
 
 TO DO:
-
 sprites
-Make the core align correctly on creation (middle = middle, not middle = bottom left)
 test things with aramix
 
 */
@@ -196,7 +194,8 @@ test things with aramix
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/point_of_interest)
 	investigate_log("has been created.", INVESTIGATE_ENGINES)
-
+	pixel_x = -32 //This is to offset the entire reactor by one tile down and left, so it actually looks right.
+	pixel_y = -32
 	reactorcount++
 	src.name = name + " ([reactorcount])"
 	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
