@@ -12,7 +12,7 @@ This function calculates the amount of blood left in your system at time x
 q\left(x\right)=\left\{b<2.4:ne^{-\frac{1}{560}\left(bx-\frac{1}{2}x^{2}h\right)},ne^{-\frac{bx}{560}}\right\}
 
 Hide this function
-d\left(x\right)=\max\left(0,200-\frac{\left(200\cdot\max\left(0,\min\left(1,\frac{x-122}{560-122}\right)\right)\right)^{0.3}}{\left(200\right)^{-0.7}}\right)
+d\left(x\right)=\max\left(0,200-\frac{\left(120\cdot\max\left(0,\min\left(1,\frac{x-122}{560-122}\right)\right)\right)^{0.3}}{\left(120\right)^{-0.7}}\right)
 
 This function calculates the amount of health that your mob has at time x
 y=d\left(q\left(x\right)\right)
@@ -259,9 +259,9 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		var/word = pick("dizzy","woozy","faint")
 
 		// How much oxyloss we want to be on
-		var/desired_health = (getMaxHealth() * 2) * CLAMP01((blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
+		var/desired_health = (getMaxHealth() * 1.2) * CLAMP01((blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
 		// Make it so we only go unconcious at 25% blood remaining
-		desired_health = max(0, (getMaxHealth() * 2) - ((desired_health ** 0.3) / ((getMaxHealth() * 2) ** (-0.7))))
+		desired_health = max(0, (getMaxHealth() * 2) - ((desired_health ** 0.3) / ((getMaxHealth() * 1.2) ** (-0.7))))
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))

@@ -1386,6 +1386,7 @@
 	M.adjustToxLoss(-5*REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15*REM)
 	M.adjustCloneLoss(-3*REM, 0)
+	M.blood_volume = min(H.blood_volume + 4, BLOOD_VOLUME_NORMAL)
 	..()
 	. = 1
 
