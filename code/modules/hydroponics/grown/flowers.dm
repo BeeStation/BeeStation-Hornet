@@ -19,7 +19,6 @@
 	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
 	food_reagents = null //get the unit test off our back
 	foodtypes = VEGETABLES | GROSS
-	item_flags = ABSTRACT
 
 /obj/item/food/grown/flower/equipped(mob/user, slot)
 	. = ..()
