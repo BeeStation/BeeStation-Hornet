@@ -23,6 +23,7 @@
 #define BLEED_HEAL_RATE_MINOR 0.02 	/// How quickly minor bleeds will stop bleeding (0.05/sec)
 
 // Bleed damage values
+#define BLEED_TINY 0.3
 #define BLEED_SURFACE 1.5			// 560 > 506 blood in 75 seconds
 #define BLEED_CUT 2.3				// 560 > 442 blood ni 115 seconds
 #define BLEED_DEEP_WOUND 2.4		// Crit in 285 seconds, Death in 356 seconds
