@@ -78,7 +78,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	if (final_bleed_rate <= 0)
 		return
 	// Actually do the bleeding
-	owner.bleed(final_bleed_rate)
+	owner.bleed(min(MAX_BLEED_RATE, final_bleed_rate))
 
 /datum/status_effect/bleeding/proc/update_icon()
 	// The actual rate of bleeding, can be reduced by holding wounds

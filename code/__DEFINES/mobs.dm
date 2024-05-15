@@ -21,9 +21,10 @@
 // See blood.dm for calculations
 #define BLEED_RATE_MINOR 2.4 		/// Point at which bleeding is considered minor and will eventually self-heal
 #define BLEED_HEAL_RATE_MINOR 0.02 	/// How quickly minor bleeds will stop bleeding (0.05/sec)
+#define MAX_BLEED_RATE 3			/// Mobs can get more bleed than this, but won't actually bleed faster than this value
 
 // Bleed damage values
-#define BLEED_TINY 0.3
+#define BLEED_TINY 0.1
 #define BLEED_SURFACE 1.5			// 560 > 506 blood in 75 seconds
 #define BLEED_CUT 2.3				// 560 > 442 blood ni 115 seconds
 #define BLEED_DEEP_WOUND 2.4		// Crit in 285 seconds, Death in 356 seconds
