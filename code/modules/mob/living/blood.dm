@@ -261,7 +261,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		// How much oxyloss we want to be on
 		var/desired_health = (getMaxHealth() * 1.2) * CLAMP01((blood_volume - BLOOD_VOLUME_SURVIVE) / (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE))
 		// Make it so we only go unconcious at 25% blood remaining
-		desired_health = max(0, (getMaxHealth() * 2) - ((desired_health ** 0.3) / ((getMaxHealth() * 1.2) ** (-0.7))))
+		desired_health = max(0, (getMaxHealth() * 1.2) - ((desired_health ** 0.3) / ((getMaxHealth() * 1.2) ** (-0.7))))
 		if (desired_health <= getMaxHealth() * 0.8)
 			desired_health = 0
 		switch(blood_volume)
