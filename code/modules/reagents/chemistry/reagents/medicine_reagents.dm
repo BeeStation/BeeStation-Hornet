@@ -1705,7 +1705,7 @@
 
 /datum/reagent/medicine/stabilizing_nanites
 	name = "Stabilizing nanites"
-	description = "Rapidly heals a patient out of crit by regenerating damaged cells. Nanites distribution in the blood makes them ineffective against moderately healthy targets."
+	description = "Rapidly heals a patient out of crit by regenerating damaged cells and causing blood to clot, preventing bleeding. Nanites distribution in the blood makes them ineffective against moderately healthy targets."
 	reagent_state = LIQUID
 	color = "#000000"
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
@@ -1723,3 +1723,9 @@
 		M.Jitter(5)
 	M.losebreath = 0
 	..()
+
+/datum/reagent/medicine/stabilizing_nanites/on_mob_metabolize(mob/living/L)
+	ADD_TRAIT(M, TRAIT_NO_BLEED, type)
+
+/datum/reagent/medicine/stabilizing_nanites/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(M, TRAIT_NO_BLEED, type)
