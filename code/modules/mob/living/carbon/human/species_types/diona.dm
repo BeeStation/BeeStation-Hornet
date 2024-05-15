@@ -118,6 +118,11 @@ win and get those 85 CAD
 		appendix.Remove(C)
 		QDEL_NULL(appendix)
 
+/datum/species/diona/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.diona_names)]"
+	if(unique && attempts < 10 && findname(.))
+		return .(gender, TRUE, null, ++attempts)
+
 /datum/species/diona/get_species_description()
 	return "Psyphoza are a species of extra-sensory lesser-sensory \
 	fungal-form humanoids, infamous for their invulnerability to \
