@@ -88,9 +88,7 @@
 	return null
 
 /obj/machinery/atmospherics/components/unary/rbmk
-	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "reactor_closed"
-
+	icon = 'icons/obj/machines/rbmkparts.dmi'
 	name = "thermomachine"
 	desc = "Heats or cools gas in connected pipes."
 	anchored = TRUE
@@ -100,24 +98,15 @@
 	layer = OBJ_LAYER
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
 	circuit = /obj/item/circuitboard/machine/thermomachine
+	///Check if the machine has been activated
+	var/active = FALSE
 	///Vars for the state of the icon of the object (open, off, active)
 	var/icon_state_open
 	var/icon_state_off
-	///Check if the machine has been activated
-	var/active = FALSE
-
 
 /obj/machinery/atmospherics/components/unary/rbmk/Initialize(mapload)
 	. = ..()
 	initialize_directions = dir
-
-
-/obj/machinery/atmospherics/components/unary/rbmk/update_icon_state()
-	if(panel_open)
-		icon_state = icon_state_open
-		return ..()
-	icon_state = icon_state_off
-	return ..()
 
 /obj/machinery/atmospherics/components/unary/rbmk/update_overlays()
 	. = ..()
@@ -149,42 +138,16 @@
 /obj/machinery/rbmk
 	name = "rbmk_core"
 	desc = "rbmk_core"
-	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "reactor_off"
+	icon = 'icons/obj/machines/rbmkparts.dmi'
+	icon_state = "core"
 	move_resist = INFINITY
 	anchored = TRUE
 	density = FALSE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	power_channel = AREA_USAGE_ENVIRON
-	var/active = FALSE
-	var/icon_state_open
-	var/icon_state_off
-	var/icon_state_active
-	var/reaction_started = FALSE //Check if reaction has started
-
-/obj/machinery/rbmk/attackby(obj/item/I, mob/user, params)
-	if(!reaction_started)
-		if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_off, I))
-			return
-	if(default_change_direction_wrench(user, I))
-		return
-	if(default_deconstruction_crowbar(I))
-		return
-	return ..()
-
-/obj/machinery/rbmk/update_icon_state()
-	if(panel_open)
-		icon_state = icon_state_open
-		return ..()
-	if(active)
-		icon_state = icon_state_active
-		return ..()
-	icon_state = icon_state_off
-	return ..()
-
 /obj/item/book/manual/wiki/rbmk
-	name = "\improper Haynes nuclear reactor owner's manual"
+	name = "\improper Hayne's nuclear reactor owner's manual"
 	icon_state ="bookEngineering2"
 	author = "CogWerk Engineering Reactor Design Department"
 	title = "Haynes nuclear reactor owner's manual"
@@ -193,37 +156,38 @@
 /obj/item/RBMK_box
 	name = "RBMK box"
 	desc = "If you see this, call the police."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "box"
+	icon = 'icons/obj/machines/rbmkparts.dmi'
+	icon_state = "core"
 	var/box_type = "impossible" //	///What kind of box are we handling?
 	var/part_path //What's the path of the machine we making?
 
 /obj/item/RBMK_box/body
 	name = "RBMK box body"
 	desc = "A main storage body housing for your RBMK nuclear reactor."
-	icon_state = "box" //Change later to actual sprite
+	icon_state = "wall"
 	box_type = "normal"
 
 /obj/item/RBMK_box/body/coolant_input
 	name = "RBMK box coolant input"
-	icon_state = "box"  //Change later to actual sprite
+	icon_state = "input"
 	part_path = /obj/machinery/atmospherics/components/unary/rbmk/coolant_input
 	box_type = "coolant_input"
 
 /obj/item/RBMK_box/body/moderator_input
 	name = "RBMK box moderator input"
-	icon_state = "box"  //Change later to actual sprite
+	icon_state = "moderator"
 	part_path = /obj/machinery/atmospherics/components/unary/rbmk/moderator_input
 	box_type = "moderator_input"
 
 /obj/item/RBMK_box/body/waste_output
 	name = "RBMK box waste output"
-	icon_state = "box"  //Change later to actual sprite
+	icon_state = "output"
 	part_path = /obj/machinery/atmospherics/components/unary/rbmk/waste_output
 	box_type = "waste_output"
 
 /obj/item/RBMK_box/core
 	name = "RBMK box core"
+	icon_state = "core"
 	desc = "A box for the center piece core of the RBMK nuclear reactor."
 	part_path = /obj/machinery/atmospherics/components/unary/rbmk/core
 	box_type = "center"
@@ -266,7 +230,7 @@
 			waste_output_machine.dir = box.dir
 			waste_output_machine.SetInitDirections()
 			waste_output_machine.build_network()
-	new/obj/machinery/atmospherics/components/unary/rbmk/core(loc, TRUE)
+	new /obj/machinery/atmospherics/components/unary/rbmk/core(locate(x-1,y-1,z), TRUE) //I'm sorry, but it kept showing the loc wrong.
 	for(var/obj/item/RBMK_box/box in parts)
 		qdel(box)
 	qdel(src)

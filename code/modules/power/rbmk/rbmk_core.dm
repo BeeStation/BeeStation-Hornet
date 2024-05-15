@@ -44,6 +44,7 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 TO DO:
 
 sprites
+Make the core align correctly on creation (middle = middle, not middle = bottom left)
 test things with aramix
 
 */
@@ -52,13 +53,13 @@ test things with aramix
 	name = "\improper Advanced Gas-Cooled Nuclear Reactor"
 	desc = "A tried and tested design which can output stable power at an acceptably low risk. The moderator can be changed to provide different effects."
 	icon = 'icons/obj/machines/rbmk.dmi'
-	icon_state = "reactor_closed"
+	icon_state = "reactor"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = IDLE_POWER_USE
-
 	///Vars for the state of the icon of the object (open, closed, fuel rod counts (1>5))
 	icon_state_open = "reactor_open"
-	icon_state_off = "reactor_closed"
+	icon_state_off = "reactor"
+
 
 	//Processing checks
 
@@ -152,6 +153,36 @@ test things with aramix
 	//Counter for number of reactors on a server
 	var/static/reactorcount = 0
 
+/obj/effect/overlay/reactor_top_0
+	name = "reactor overlay"
+	icon = 'icons/obj/machines/rbmk.dmi'
+	icon_state = "reactor_top_0"
+
+/obj/effect/overlay/reactor_top_1
+	name = "reactor overlay"
+	icon = 'icons/obj/machines/rbmk.dmi'
+	icon_state = "reactor_top_1"
+
+/obj/effect/overlay/reactor_top_2
+	name = "reactor overlay"
+	icon = 'icons/obj/machines/rbmk.dmi'
+	icon_state = "reactor_top_2"
+
+/obj/effect/overlay/reactor_top_3
+	name = "reactor overlay"
+	icon = 'icons/obj/machines/rbmk.dmi'
+	icon_state = "reactor_top_3"
+
+/obj/effect/overlay/reactor_top_4
+	name = "reactor overlay"
+	icon = 'icons/obj/machines/rbmk.dmi'
+	icon_state = "reactor_top_4"
+
+/obj/effect/overlay/reactor_top_5
+	name = "reactor overlay"
+	icon = 'icons/obj/machines/rbmk.dmi'
+	icon_state = "reactor_top_5"
+
 /obj/machinery/atmospherics/components/unary/rbmk/core/Initialize(mapload)
 	. = ..()
 	radio = new(src)
@@ -171,6 +202,7 @@ test things with aramix
 	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
 	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
 	check_part_connectivity()
+	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/Destroy()
 	unregister_signals(TRUE)
@@ -184,8 +216,45 @@ test things with aramix
 		QDEL_NULL(linked_interface)
 	QDEL_NULL(radio)
 	QDEL_NULL(soundloop)
+	cut_overlays()
 	machine_parts = null
 	return ..()
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/update_appearance()
+	. = ..()
+	if(panel_open)
+		icon_state = icon_state_open
+	else if((start_power == FALSE) && (power == 0))
+		icon_state = icon_state_off
+	else if((start_power == TRUE) && power < 20)
+		icon_state = "reactor_startup"
+	else
+		icon_state = "reactor_active"
+	cut_overlays()
+	if(!length(fuel_rods))
+		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_0"))
+	if(length(fuel_rods) == 1)
+		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_1"))
+	if(length(fuel_rods) == 2)
+		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_2"))
+	if(length(fuel_rods) == 3)
+		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_3"))
+	if(length(fuel_rods) == 4)
+		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_4"))
+	if(length(fuel_rods) == 5)
+		add_overlay(mutable_appearance('icons/obj/machines/rbmk.dmi', "reactor_top_5"))
+
+	// Lord forgive me for what I'm about to do.
+	var/mutable_appearance/InputOverlay = mutable_appearance('icons/obj/machines/rbmk.dmi',"input")
+	InputOverlay.transform = InputOverlay.transform.Turn(dir2angle(linked_input.dir))
+	add_overlay(InputOverlay)
+	var/mutable_appearance/OutputOverlay = mutable_appearance('icons/obj/machines/rbmk.dmi',"output")
+	OutputOverlay.transform = OutputOverlay.transform.Turn(dir2angle(linked_output.dir))
+	add_overlay(OutputOverlay)
+	var/mutable_appearance/ModeratorOverlay = mutable_appearance('icons/obj/machines/rbmk.dmi',"moderator")
+	ModeratorOverlay.transform = ModeratorOverlay.transform.Turn(dir2angle(linked_moderator.dir))
+	add_overlay(ModeratorOverlay)
+
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/examine(mob/user)
 	. = ..()

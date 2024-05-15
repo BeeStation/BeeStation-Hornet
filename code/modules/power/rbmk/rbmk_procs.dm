@@ -85,9 +85,6 @@
 		to_chat(user, "<span class='notice'>You download the link from the nuclear reactor.</span>")
 	return ..()
 
-
-
-
 /*
 Called by multitool_act() in rbmk_parts.dm, by atmos_process() in rbmk_main_processes.dm and by atmos_process() in the same file
 This proc checks the surrounding of the core to ensure that the machine has been build correctly, returns false if there is a missing piece/wrong placed one
@@ -272,7 +269,7 @@ Arguments:
 	var/atom/movable/fuel_rod = input(usr, "Select a fuel rod to remove", "Fuel Rods List", null) as null|anything in src.fuel_rods
 	if(!fuel_rod)
 		return
-	playsound(src, pick('sound/effects/rbmk/switch.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
+	playsound(src, pick('sound/effects/rbmk/switch1.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
 	fuel_rod.forceMove(get_turf(src))
 	src.fuel_rods -= fuel_rod
 
@@ -444,7 +441,6 @@ Arguments:
 	var/rbmkzlevel = T.get_virtual_z_level()
 	for(var/mob/M in GLOB.player_list)
 		if(M.get_virtual_z_level() == rbmkzlevel)
-			SEND_SOUND(M, 'sound/effects/rbmk/meltdown.ogg')
 			to_chat(M, "<span class='userdanger'>You hear a horrible metallic hissing.</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam) //Might as well use the same moodlet since its essentialy the same thing happening
 
