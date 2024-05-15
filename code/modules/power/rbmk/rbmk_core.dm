@@ -43,6 +43,11 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 
 TO DO:
 sprites
+
+Make the overlay not overlap ontop of items placed on the reactor
+grilling
+
+
 test things with aramix
 
 */
