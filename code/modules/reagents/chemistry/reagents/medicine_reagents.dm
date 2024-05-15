@@ -1386,7 +1386,7 @@
 	M.adjustToxLoss(-5*REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15*REM)
 	M.adjustCloneLoss(-3*REM, 0)
-	M.blood_volume = min(H.blood_volume + 4, BLOOD_VOLUME_NORMAL)
+	M.blood_volume = min(M.blood_volume + 4, BLOOD_VOLUME_NORMAL)
 	..()
 	. = 1
 
@@ -1725,7 +1725,7 @@
 	..()
 
 /datum/reagent/medicine/stabilizing_nanites/on_mob_metabolize(mob/living/L)
-	ADD_TRAIT(M, TRAIT_NO_BLEED, type)
+	ADD_TRAIT(L, TRAIT_NO_BLEED, type)
 
 /datum/reagent/medicine/stabilizing_nanites/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(M, TRAIT_NO_BLEED, type)
+	REMOVE_TRAIT(L, TRAIT_NO_BLEED, type)
