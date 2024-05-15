@@ -399,24 +399,24 @@ GLOBAL_VAR(restart_counter)
 		// Station name is going to be truncated with ...
 		if (discordurl)
 			if (server_name)
-				s += "<a href='[discordurl]'><b>[server_name] &#8212; [copytext(station_name, 1, station_name_limit - 3)]...</b></a><br>"
+				s += "<a href='[discordurl]'><b>[server_name]</b> - <b>[copytext(station_name, 1, station_name_limit - 3)]...</b></a><br>"
 			else
 				s += "<a href='[discordurl]'><b>[copytext(station_name, 1, station_name_limit - 3)]...</b></a><br>"
 		else
 			if (server_name)
-				s += "<b>[server_name] &#8212; [copytext(station_name, 1, station_name_limit - 3)]...</b><br>"
+				s += "<b>[server_name]</b> - <b>[copytext(station_name, 1, station_name_limit - 3)]...</b><br>"
 			else
 				s += "<b>[copytext(station_name, 1, station_name_limit - 3)]...</b><br>"
 	else
 		// Station name can be displayed in full
 		if (discordurl)
 			if (server_name)
-				s += "<a href='[discordurl]'><b>[server_name] &#8212; [station_name]</b></a><br>"
+				s += "<a href='[discordurl]'><b>[server_name]</b> - <b>[station_name]</b></a><br>"
 			else
 				s += "<a href='[discordurl]'><b>[station_name]</b></a><br>"
 		else
 			if (server_name)
-				s += "<b>[server_name] &#8212; [station_name]</b><br>"
+				s += "<b>[server_name]</b> - <b>[station_name]</b><br>"
 			else
 				s += "<b>[station_name]</b><br>"
 
