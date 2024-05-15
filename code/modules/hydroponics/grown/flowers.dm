@@ -14,6 +14,8 @@
 /obj/item/food/grown/flower
 	name = "generic flower"
 	desc = "You should not be seeing this"
+	icon_state = null
+	worn_icon_state = null
 	slot_flags = ITEM_SLOT_HEAD
 	bite_consumption_mod = 2
 	worn_icon = 'icons/mob/clothing/head/hydroponics.dmi'
