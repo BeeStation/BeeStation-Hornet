@@ -1386,7 +1386,8 @@
 	M.adjustToxLoss(-5*REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -15*REM)
 	M.adjustCloneLoss(-3*REM, 0)
-	M.blood_volume = min(M.blood_volume + 4, BLOOD_VOLUME_NORMAL)
+	if (M.blood_volume < BLOOD_VOLUME_NORMAL)
+		M.blood_volume = max(M.blood_volume, min(M.blood_volume + 4, BLOOD_VOLUME_NORMAL))
 	..()
 	. = 1
 
@@ -1722,6 +1723,8 @@
 	if(prob(20))
 		M.Jitter(5)
 	M.losebreath = 0
+	if (M.blood_volume < BLOOD_VOLUME_SAFE)
+		M.blood_volume = max(M.blood_volume, min(M.blood_volume + 4, BLOOD_VOLUME_SAFE))
 	..()
 
 /datum/reagent/medicine/stabilizing_nanites/on_mob_metabolize(mob/living/L)
