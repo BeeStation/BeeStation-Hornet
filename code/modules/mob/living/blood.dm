@@ -109,6 +109,8 @@ y=d\left(q\left(x\right)\right)
 	var/mob/living/carbon/human/human = owner
 	if (!istype(human))
 		return
+	// Stop having bandages
+	human.bleedsuppress = 0
 	// Not bleeding anymore, no need to hold wounds
 	human.stop_holding_wounds()
 
