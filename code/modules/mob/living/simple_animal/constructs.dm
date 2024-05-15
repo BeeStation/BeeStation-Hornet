@@ -142,7 +142,8 @@
 	icon_living = "juggernaut"
 	maxHealth = 150
 	health = 150
-	response_harm = "punches"
+	response_harm_continuous = "punches"
+	response_harm_simple = "punch"
 
 	obj_damage = 90
 	melee_damage = 25
@@ -451,7 +452,8 @@
 	health = 35
 	melee_damage = 9
 	retreat_distance = 4 //AI proteons will rapidly move in and out of combat to avoid conflict, but will still target and follow you.
-	attacktext = "pinches"
+	attack_verb_continuous = "pinches"
+	attack_verb_simple = "pinch"
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	attack_sound = 'sound/weapons/punch2.ogg'
 	playstyle_string = "<b>You are a Proteon. Your abilities in combat are outmatched by most combat constructs, but you are still fast and nimble. Run metal and supplies, and cooperate with your fellow cultists.</b>"

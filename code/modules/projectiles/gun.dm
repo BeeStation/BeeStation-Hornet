@@ -19,7 +19,8 @@
 	throw_range = 5
 	force = 5
 	item_flags = NEEDS_PERMIT
-	attack_verb = list("struck", "hit", "bashed")
+	attack_verb_continuous = list("strikes", "hits", "bashes")
+	attack_verb_simple = list("strike", "hit", "bash")
 
 	var/fire_sound = "gunshot"
 	var/vary_fire_sound = TRUE
@@ -100,7 +101,7 @@
 			pin = new pin(src)
 
 	add_seclight_point()
-	
+
 	if(!canMouseDown) //Some things like beam rifles override this.
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()

@@ -60,9 +60,6 @@
 	icon_state = "evilcrab"
 	icon_living = "evilcrab"
 	icon_dead = "evilcrab_dead"
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "stomps"
 	gold_core_spawnable = HOSTILE_SPAWN
 	held_state = "evilcrab"
 

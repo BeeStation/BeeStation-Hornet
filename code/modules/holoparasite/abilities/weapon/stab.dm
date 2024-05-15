@@ -27,8 +27,10 @@
 	owner.armour_penetration = max(master_stats.potential - 1, 0) * 15
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = 'sound/weapons/bladeslice.ogg'
-	owner.response_harm = "stabs"
-	owner.attacktext = "stabs"
+	owner.response_harm_continuous = "stabs"
+	owner.response_harm_simple = "stab"
+	owner.attack_verb_continuous = "stabs"
+	owner.attack_verb_simple = "stab"
 	premultiplied_bleed_rate = master_stats.damage * 8
 
 /datum/holoparasite_ability/weapon/blade/remove()
@@ -38,8 +40,10 @@
 	owner.armour_penetration = initial(owner.armour_penetration)
 	if(isnull(owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND]))
 		owner.attack_sound = initial(owner.attack_sound)
-	owner.response_harm = initial(owner.response_harm)
-	owner.attacktext = initial(owner.attacktext)
+	owner.response_harm_continuous = initial(owner.response_harm_continuous)
+	owner.response_harm_simple = initial(owner.response_harm_simple)
+	owner.attack_verb_continuous = initial(owner.attack_verb_continuous)
+	owner.attack_verb_simple = initial(owner.attack_verb_simple)
 
 /datum/holoparasite_ability/weapon/blade/attack_effect(atom/movable/target, successful)
 	. = ..()

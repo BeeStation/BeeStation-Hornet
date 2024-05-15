@@ -55,7 +55,8 @@ Striking a noncultist, however, will tear their flesh."}
 	force = 30
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "rended")
+	attack_verb_continuous = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb_simple = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "rend")
 
 /obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
@@ -102,7 +103,8 @@ Striking a noncultist, however, will tear their flesh."}
 	light_color = "#ff0000"
 	light_system = MOVABLE_LIGHT
 	light_range = 4
-	attack_verb = list("cleaved", "slashed", "tore", "hacked", "ripped", "diced", "carved")
+	attack_verb_continuous = list("cleaves", "slashes", "tears", "lacerates", "hacks", "rips", "dices", "carves")
+	attack_verb_simple = list("cleave", "slash", "tear", "lacerate", "hack", "rip", "dice", "carve")
 	icon_state = "cultbastard"
 	item_state = "cultbastard"
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -658,7 +660,8 @@ Striking a noncultist, however, will tear their flesh."}
 	throw_speed = 2
 	armour_penetration = 30
 	block_upgrade_walk = 1
-	attack_verb = list("attacked", "impaled", "stabbed", "tore", "gored")
+	attack_verb_continuous = list("attacks", "impales", "stabs", "tears", "lacerates", "gores")
+	attack_verb_simple = list("attack", "impale", "stab", "tear", "lacerate", "gore")
 	sharpness = IS_SHARP
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/datum/action/innate/cult/spear/spear_act
@@ -920,7 +923,8 @@ Striking a noncultist, however, will tear their flesh."}
 	max_integrity = 50
 	w_class = WEIGHT_CLASS_BULKY
 	block_flags = BLOCKING_PROJECTILE
-	attack_verb = list("bumped", "prodded")
+	attack_verb_continuous = list("bumps", "prods")
+	attack_verb_simple = list("bump", "prod")
 	hitsound = 'sound/weapons/smash.ogg'
 	var/illusions = 4
 

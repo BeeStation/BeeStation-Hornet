@@ -571,7 +571,8 @@ Difficulty: Hard
 	icon_state = "bloodbrood"
 	icon_living = "bloodbrood"
 	icon_aggro = "bloodbrood"
-	attacktext = "pierces"
+	attack_verb_continuous = "pierces"
+	attack_verb_simple = "pierce"
 	color = "#C80000"
 	density = FALSE
 	faction = list("mining", "boss")
