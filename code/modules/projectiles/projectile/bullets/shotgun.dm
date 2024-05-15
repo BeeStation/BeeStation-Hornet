@@ -63,7 +63,7 @@
 	ricochets_max = 1
 	ricochet_chance = 50
 	ricochet_decay_chance = 0.9
-	bleed_force = BLEED_SURFACE
+	bleed_force = BLEED_SCRATCH
 
 /obj/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"
