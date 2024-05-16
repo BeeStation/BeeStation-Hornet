@@ -58733,6 +58733,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/item/clipboard,
 /turf/open/floor/iron/dark,
 /area/lawoffice)
 "mYg" = (

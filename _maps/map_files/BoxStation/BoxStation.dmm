@@ -60691,13 +60691,13 @@
 	pixel_x = -1;
 	pixel_y = 4
 	},
-/obj/item/clothing/glasses/sunglasses/advanced{
-	pixel_x = 3;
-	pixel_y = 8
-	},
 /obj/item/laser_pointer{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/clothing/glasses/sunglasses/advanced{
+	pixel_x = 3;
+	pixel_y = 8
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -60705,6 +60705,7 @@
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
 	},
+/obj/item/clipboard,
 /turf/open/floor/wood,
 /area/lawoffice)
 "vLp" = (

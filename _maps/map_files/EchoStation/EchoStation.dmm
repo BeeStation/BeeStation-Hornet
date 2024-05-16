@@ -43600,6 +43600,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/item/clipboard,
 /turf/open/floor/carpet/purple,
 /area/vacant_room/office)
 "woV" = (
