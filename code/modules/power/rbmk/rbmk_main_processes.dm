@@ -20,6 +20,7 @@
 		damage_handler()
 		check_alert()
 	update_pipenets()
+	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/atmos_process(seconds_per_tick)
 	var/datum/gas_mixture/coolant_input = linked_input.airs[1]

@@ -16,6 +16,7 @@
 			fuel_rods += W
 			W.forceMove(src)
 			radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
+			update_appearance()
 		return TRUE
 	if(istype(W, /obj/item/sealant))
 		if(power >= 20)
@@ -57,7 +58,8 @@
 		if (length(fuel_rods) > 0)
 			to_chat(user, "<span class='notice'>You can't open the maintenance panel of the [src] while it still has fuel rods inside!</span>")
 			return FALSE
-		default_deconstruction_screwdriver(user, "reactor_closed", "reactor_open", W)
+		default_deconstruction_screwdriver(user, "reactor", "reactor_open", W)
+		update_appearance()
 		return TRUE
 	if(W.tool_behaviour == TOOL_CROWBAR)
 		if(panel_open)
@@ -67,7 +69,7 @@
 			if (length(fuel_rods) > 0)
 				to_chat(user, "<span class='notice'>You can't deconstruct [src] while it still has fuel rods inside!</span>")
 				return FALSE
-			default_deconstruction_crowbar(W)
+			disassemble(W)
 			return TRUE
 		else
 			if(power >= 20)
@@ -77,6 +79,7 @@
 				to_chat(user, "<span class='notice'>The [src] is empty of fuel rods!</span>")
 				return FALSE
 			removeFuelRod(user, src)
+			update_appearance()
 			return TRUE
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		var/datum/component/buffer/heldmultitool = get_held_buffer_item(usr)
@@ -136,7 +139,7 @@ This proc checks the surrounding of the core to ensure that the machine has been
 		. = FALSE
 
 /*
-Called by multitool_act() in hfr_parts.dm
+Called by multitool_act() in rbmk_parts.dm
 It sets the pieces to active, allowing the player to start the main reaction
 Arguments:
 * -user: the player doing the action
@@ -226,14 +229,29 @@ Arguments:
 	if(linked_moderator)
 		linked_moderator.active = FALSE
 		linked_moderator.update_appearance()
-	if(soundloop)
-		QDEL_NULL(soundloop)
 	STOP_PROCESSING(SSmachines, src)
 	K = 0
 	can_unwrench = 1
 	desired_k = 0
 	temperature = 0
-	update_icon()
+	update_appearance()
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/disassemble(obj/item/I)
+	unregister_signals()
+	deactivate()
+	var/parts = list(/obj/item/RBMK_box/core,
+					/obj/item/RBMK_box/body/coolant_input,
+					/obj/item/RBMK_box/body/moderator_input,
+					/obj/item/RBMK_box/body/waste_output,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body,
+					/obj/item/RBMK_box/body)
+	for(var/item in parts)
+		new item(get_turf(src))
+	I.play_tool_sound(src, 50)
+	QDEL_NULL(src)
 
 /**
  * Updates all related pipenets from all connected components

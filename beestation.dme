@@ -3515,7 +3515,7 @@
 #include "code\modules\power\lighting\light_items.dm"
 #include "code\modules\power\lighting\light_wallframes.dm"
 #include "code\modules\power\rbmk\_rbmk_defines.dm"
-#include "code\modules\power\rbmk\items.dm"
+#include "code\modules\power\rbmk\fuel_rods.dm"
 #include "code\modules\power\rbmk\rbmk_core.dm"
 #include "code\modules\power\rbmk\rbmk_main_processes.dm"
 #include "code\modules\power\rbmk\rbmk_monitoring.dm"
