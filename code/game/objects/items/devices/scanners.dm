@@ -457,7 +457,7 @@ GENE SCANNER
 			if(ishuman(C))
 				var/mob/living/carbon/human/H = C
 				if(H.is_bleeding())
-					message += "<span class='alert'><b>Subject is bleeding at a rate of [H.get_bleed_rate()]/s!</b></span>"
+					message += "<span class='alert'><b>Subject is bleeding at a rate of [round(H.get_bleed_rate(), 0.1)]/s!</b></span>"
 				else if (H.is_bandaged())
 					message += "<span class='alert'><b>Subject is bleeding (Bandaged)!</b></span>"
 			var/blood_percent =  round((C.blood_volume / BLOOD_VOLUME_NORMAL)*100)

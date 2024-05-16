@@ -71,19 +71,19 @@
 		return
 	if (!user.can_interact_with(M, TRUE))
 		to_chat(user, "<span class='danger'>You cannot reach [M]!</span>")
-		user.balloon_alert("You cannot reach that.")
+		M.balloon_alert(user, "You cannot reach that.")
 		return
 	if (!user.can_interact_with(src, TRUE))
 		to_chat(user, "<span class='danger'>You cannot reach [src]!</span>")
-		user.balloon_alert("You cannot reach that.")
+		M.balloon_alert(user, "You cannot reach that.")
 		return
 	if(M.stat == DEAD && !stop_bleeding)
 		to_chat(user, "<span class='danger'>\The [M] is dead, you cannot help [M.p_them()]!</span>")
-		user.balloon_alert("[M] is dead.")
+		M.balloon_alert(user, "[M] is dead.")
 		return
 	if(!iscarbon(M))
 		to_chat(user, "<span class='danger'>You don't know how to apply \the [src] to [M]!</span>")
-		user.balloon_alert("You cannot use that.")
+		M.balloon_alert(user, "You cannot use that.")
 		return
 	var/obj/item/bodypart/affecting
 	var/mob/living/carbon/C = M
@@ -94,7 +94,7 @@
 
 	if(!affecting) //Missing limb?
 		to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(zone_selected)]!</span>")
-		user.balloon_alert("[C] has no [parse_zone(zone_selected)]!")
+		C.balloon_alert(user, "[C] has no [parse_zone(zone_selected)]!")
 		return
 
 	var/valid = FALSE
@@ -110,7 +110,7 @@
 
 	if(!IS_ORGANIC_LIMB(affecting))
 		to_chat(user, "<span class='warning'>Medicine won't work on a robotic limb!</span>")
-		user.balloon_alert("Cannot use on robotic limb!")
+		C.balloon_alert(user, "Cannot use on robotic limb!")
 		return
 
 	if(!(affecting.brute_dam || affecting.burn_dam))
@@ -125,7 +125,7 @@
 
 	if (!valid)
 		to_chat("<span class='warning'>[message]</span>")
-		user.balloon_alert(message)
+		C.balloon_alert(user, message)
 		return
 
 	if(C == user)
@@ -135,17 +135,17 @@
 		//After the do_mob to ensure metabolites have had time to process at least one tick.
 		if(reagent && (C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/styptic_powder) || C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/silver_sulfadiazine)))
 			to_chat(user, "<span class='warning'>That stuff really hurt! You'll need to wait for the pain to go away before you can apply [src] to your wounds again, maybe someone else can help put it on for you.</span>")
-			user.balloon_alert("You fail to apply [src] to yourself!")
+			C.balloon_alert(user, "You fail to apply [src] to yourself!")
 			return
 
 	if(stop_bleeding)
 		C.suppress_bloodloss(stop_bleeding)
 		if (C.is_bleeding())
-			user.balloon_alert("You reduce [M == user ? "your" : M.p_their()] bleeding to [C.get_bleed_rate()]/s")
+			C.balloon_alert(user, "You reduce [M == user ? "your" : M.p_their()] bleeding to [C.get_bleed_rate()]/s")
 		else
-			user.balloon_alert("You stop [M == user ? "your" : M.p_their()]'s bleeding!")
+			C.balloon_alert(user, "You stop [M == user ? "your" : M.p_their()]'s bleeding!")
 	else
-		user.balloon_alert("You apply [src] to [M == user ? "yourself" : user].")
+		C.balloon_alert(user, "You apply [src] to [M == user ? "yourself" : user].")
 
 	user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
 	if(reagent)
