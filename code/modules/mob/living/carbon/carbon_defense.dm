@@ -102,7 +102,7 @@
 						head.add_mob_blood(src)
 						update_inv_head()
 		else if (I.damtype == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
-			cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(P.damage / 3))
+			cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(I.force / 3))
 			to_chat(src, "<span class='userdanger'>The heat from [I] cauterizes your bleeding!</span>")
 			playsound(src, 'sound/surgery/cautery2.ogg', 70)
 
