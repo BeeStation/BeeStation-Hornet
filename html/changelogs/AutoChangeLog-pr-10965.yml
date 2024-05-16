@@ -1,4 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: Fixed the lavaland base's atmosphere alarm going off every shift
