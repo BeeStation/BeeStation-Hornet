@@ -281,10 +281,12 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 				if(prob(30))
 					blur_eyes(6)
-					Unconscious(rand(5,10))
+					Unconscious(rand(3,6))
 					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
 			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
-				desired_damage = 0
+				desired_damage = getMaxHealth() * 2.0
+				// Rapidly die with no saving you
+				adjustOxyLoss(clamp(getMaxHealth() * 2.0 - getOxyLoss(), 0, 10))
 		var/health_difference = clamp(desired_damage - getOxyLoss(), 0, 5)
 		adjustOxyLoss(health_difference)
 
