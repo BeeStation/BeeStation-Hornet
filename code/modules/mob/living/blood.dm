@@ -12,7 +12,7 @@ This function calculates the amount of blood left in your system at time x
 q\left(x\right)=\left\{b<2.4:ne^{-\frac{1}{560}\left(bx-\frac{1}{2}x^{2}h\right)},ne^{-\frac{bx}{560}}\right\}
 
 Hide this function
-d\left(x\right)=\max\left(0,200-\frac{\left(120\cdot\max\left(0,\min\left(1,\frac{x-122}{560-122}\right)\right)\right)^{0.3}}{\left(120\right)^{-0.7}}\right)
+d\left(x\right)=\max\left(0,120-\frac{\left(120\cdot\max\left(0,\min\left(1,\frac{x-122}{560-122}\right)\right)\right)^{0.3}}{\left(120\right)^{-0.7}}\right)
 
 This function calculates the amount of health that your mob has at time x
 y=d\left(q\left(x\right)\right)
