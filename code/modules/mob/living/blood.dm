@@ -175,8 +175,14 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
 	return bleed?.bleed_rate
 
-/mob/living/carbon/proc/cauterise_wounds()
-	return remove_status_effect(STATUS_EFFECT_BLEED)
+/mob/living/carbon/proc/cauterise_wounds(amount = INFINITY)
+	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
+	if (!bleed)
+		return FALSE
+	bleed.bleed_rate -= amount
+	if (bleed.bleed_rate <= 0)
+		remove_status_effect(STATUS_EFFECT_BLEED)
+	return TRUE
 
 /mob/living/carbon/proc/hold_wounds()
 	if (IsUnconscious())

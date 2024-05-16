@@ -1687,7 +1687,7 @@
 	M.adjustBruteLoss(-0.35, 0)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.suppress_bloodloss(0.1)
+		H.cauterise_wounds(0.1)
 	..()
 	. = 1
 

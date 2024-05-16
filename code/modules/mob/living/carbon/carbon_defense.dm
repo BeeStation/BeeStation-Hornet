@@ -102,12 +102,9 @@
 						head.add_mob_blood(src)
 						update_inv_head()
 		else if (I.damtype == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
-			if (get_bleed_intensity() <= I.force)
-				cauterise_wounds()
-				to_chat(src, "<span class='userdanger'>The heat from [I] cauterizes your bleeding!</span>")
-				playsound(src, 'sound/surgery/cautery2.ogg', 70)
-			else if (user == src)
-				to_chat(src, "<span class='warning'>Your bleeding is too strong to be cauterized with [I]...</span>")
+			cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(P.damage / 3))
+			to_chat(src, "<span class='userdanger'>The heat from [I] cauterizes your bleeding!</span>")
+			playsound(src, 'sound/surgery/cautery2.ogg', 70)
 
 		//dismemberment
 		var/dismemberthreshold = (((affecting.max_damage * 2) / max(I.is_sharp(), 0.5)) - (affecting.get_damage() + ((I.w_class - 3) * 10) + ((I.attack_weight - 1) * 15)))
@@ -490,7 +487,7 @@
 		var/hit_amount = (100 - armour_block) / 100
 		add_bleeding(P.bleed_force * hit_amount)
 	if (P.damage_type == BURN && is_bleeding() && IS_ORGANIC_LIMB(affecting))
-		cauterise_wounds()
+		cauterise_wounds(AMOUNT_TO_BLEED_INTENSITY(P.damage / 3))
 		playsound(src, 'sound/surgery/cautery2.ogg', 70)
 		to_chat(src, "<span class='userdanger'>The heat from [P] cauterizes your bleeding!</span>")
 

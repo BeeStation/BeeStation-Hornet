@@ -673,7 +673,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						var/mob/living/carbon/human/H = M
 						if(bruteheal && bloodpoints)
 							bloodpoints -= 1
-							H.suppress_bloodloss(0.1)
+							H.cauterise_wounds(0.1)
 					if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_id() == /datum/reagent/blood) //bloodloss is prioritized over healing brute
 						bloodpoints -= 1
 						M.blood_volume = max((M.blood_volume + 3 * power), BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
