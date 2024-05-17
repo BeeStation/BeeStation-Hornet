@@ -20,6 +20,9 @@
 	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/auto_deadmin_role_flags = NONE
 
+	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
+	var/lock_flags = NONE
+
 	/// If this job should show in the preferences menu
 	var/show_in_prefs = TRUE
 
@@ -119,6 +122,13 @@
 	. = ..()
 	lightup_areas = typecacheof(lightup_areas)
 	minimal_lightup_areas = typecacheof(minimal_lightup_areas)
+
+	if(!config_check())
+		lock_flags |= JOB_LOCK_REASON_CONFIG
+	if(!map_check())
+		lock_flags |= JOB_LOCK_REASON_MAP
+	if(lock_flags || gimmick)
+		SSjob.manipulation_blacklist_jobs |= title
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it

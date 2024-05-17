@@ -68,6 +68,7 @@ export type Department = {
 };
 
 export type Job = {
+  locked: number;
   description: string;
   department: string;
 };

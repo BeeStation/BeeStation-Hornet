@@ -134,10 +134,19 @@ const JobRow = (
 
   const experienceNeeded = data.job_required_experience && data.job_required_experience[name];
   const daysLeft = data.job_days_left ? data.job_days_left[name] : 0;
+  const isLocked = job.locked;
 
   let rightSide: InfernoNode;
 
-  if (experienceNeeded) {
+  if (isLocked) {
+    rightSide = (
+      <Stack align="center" height="100%" pr={1}>
+        <Stack.Item grow textAlign="right">
+          Locked by the server & map configuration
+        </Stack.Item>
+      </Stack>
+    );
+  } else if (experienceNeeded) {
     const { experience_type, required_playtime } = experienceNeeded;
     const hoursNeeded = Math.ceil(required_playtime / 60);
 

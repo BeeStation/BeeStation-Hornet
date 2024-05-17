@@ -22,6 +22,9 @@
 	if (isnull(job))
 		return FALSE
 
+	if(job.lock_flags)
+		return FALSE
+
 	if (job.faction != "Station")
 		return FALSE
 
@@ -63,6 +66,7 @@
 				departments[department_name] = list()
 
 		jobs[job.title] = list(
+			"locked" = job.lock_flags,
 			"description" = job.description,
 			"department" = department_name,
 		)
