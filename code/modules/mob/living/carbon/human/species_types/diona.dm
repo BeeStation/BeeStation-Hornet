@@ -5,7 +5,8 @@ MAKE IT WORK
 make markings actually work
 make dionae be able to be planted via replica pods
 THE DIONAE SPLITTING
-naming guidelines
+
+tongue, liver, lungs, stomach, heart, dionae plant sprites (growth phases), action buttons, seed sprite
 
 testmerge
 win and get those 85 CAD
