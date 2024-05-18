@@ -38,12 +38,12 @@
 
 REGISTER_BUFFER_HANDLER(/obj/machinery/mechpad)
 
-DEFINE_BUFFER_HANDLER(/obj/machinery/stasis)
+DEFINE_BUFFER_HANDLER(/obj/machinery/mechpad)
 	if(!panel_open)
 		to_chat(user, "<span class='warning'>\The [src]'s panel must be open in order to add it to \the [buffer_parent]'s buffer.</span>")
 		return
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You save the data in the [multitool.name]'s buffer.</span>")
+		to_chat(user, "<span class='notice'>You save the data in the [buffer_parent.name]'s buffer.</span>")
 		balloon_alert(user, "saved in buffer")
 		return COMPONENT_BUFFER_RECIEVED
 	return NONE
@@ -55,16 +55,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/stasis)
   */
 /obj/machinery/mechpad/proc/launch(obj/machinery/mechpad/where)
 	var/obj/structure/closet/supplypod/mechpod/pod = new()
-	pod.reverse_dropoff_turf = get_turf(where)
+	var/turf/target_turf = get_turf(where)
+	pod.reverse_dropoff_coords = list(target_turf.x, target_turf.y, target_turf.z)
 	new /obj/effect/pod_landingzone(get_turf(src), pod)
 
 /obj/structure/closet/supplypod/mechpod
 	style = STYLE_SEETHROUGH
 	explosionSize = list(0,0,0,0)
 	reversing = TRUE
-	landingDelay = 0
-	openingDelay = 0
-	departureDelay = 0
+	delays = list(POD_TRANSIT = 0, POD_FALLING = 4, POD_OPENING = 0, POD_LEAVING = 0)
 	effectOrgans = TRUE
 	effectQuiet = TRUE
 	leavingSound = 'sound/vehicles/rocketlaunch.ogg'
