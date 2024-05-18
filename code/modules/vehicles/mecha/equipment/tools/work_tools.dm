@@ -19,6 +19,8 @@
 	var/clamp_damage = 20
 	///Var for the chassis we are attached to, needed to access ripley contents and such
 	var/obj/vehicle/sealed/mecha/working/ripley/cargo_holder
+	///Audio for using the hydraulic clamp
+	var/clampsound = 'sound/mecha/hydraulic.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/vehicle/sealed/mecha/M)
 	. = ..()
@@ -45,10 +47,12 @@
 		var/obj/clamptarget = target
 		if(istype(clamptarget, /obj/machinery/door/firedoor))
 			var/obj/machinery/door/firedoor/targetfiredoor = clamptarget
+			playsound(chassis, clampsound, 50, FALSE, -6)
 			targetfiredoor.try_to_crowbar(src, source)
 			return
 		if(istype(clamptarget, /obj/machinery/door/airlock/))
 			var/obj/machinery/door/airlock/targetairlock = clamptarget
+			playsound(chassis, clampsound, 50, FALSE, -6)
 			targetairlock.try_to_crowbar(src, source)
 			return
 		if(clamptarget.anchored)
@@ -68,7 +72,7 @@
 		if(!cargo_holder.box && istype(clamptarget, /obj/structure/ore_box))
 			cargo_holder.box = clamptarget
 		balloon_alert(source, "[target] has been loaded.")
-		log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]", LOG_MECHA)
+		log_message("Loaded [clamptarget]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]", LOG_MECHA)
 
 
 	else if(isliving(target))
@@ -82,6 +86,7 @@
 					"<span class='userdanger'>[chassis] tosses you like a piece of paper!</span>")
 			else
 				to_chat(source, "[icon2html(src, source)]<span class='notice'>You push [target] out of the way.</span>")
+				playsound(chassis, clampsound, 50, FALSE, -6)
 				chassis.visible_message("<span class='notice'>[chassis] pushes [target] out of the way.</span>", \
 				"<span class='notice'>[chassis] pushes you aside.</span>")
 			return ..()
