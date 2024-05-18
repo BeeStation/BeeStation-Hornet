@@ -34,11 +34,12 @@
 	var/time_of_birth
 	var/instance_num
 	var/IsGhostSpawn = FALSE //For if a ghost can become this.
+	var/datum/mind/origin
 
 /mob/living/simple_animal/nymph/Initialize()
 	. = ..()
 	time_of_birth = world.time
-
+	START_PROCESSING(SSprocessing, src)
 	add_verb(/mob/living/proc/lay_down)
 	//AddAbility(new/obj/effect/proc_holder/alien/hide(null))
 
@@ -53,12 +54,18 @@
 
 /mob/living/simple_animal/nymph/get_stat_tab_status()
 	. = ..()
-	var/list/tab_data = list()
+	var/list/tab_data = ..()
 	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
-	tab_data["Growth"] = GENERATE_STAT_TEXT("[(round(amount_grown/max_grown) * 100)]%")
+	tab_data["Growth"] = GENERATE_STAT_TEXT("[(round(amount_grown / max_grown) * 100)]%")
 	return tab_data
 
+/mob/living/simple_animal/nymph/process(delta_time)
+	if(stat != DEAD && delta_time > 0)
+		amount_grown = min(amount_grown + 1, max_grown)
+	get_stat_tab_status()
+
 /mob/living/simple_animal/nymph/death(gibbed)
+	STOP_PROCESSING(SSprocessing, src)
 	return ..(gibbed,death_msg)
 
 /mob/living/simple_animal/nymph/attack_ghost(mob/dead/observer/user)

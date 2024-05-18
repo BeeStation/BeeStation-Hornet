@@ -3,6 +3,7 @@
 	static_icon = 'icons/mob/species/diona/bodyparts.dmi'
 	limb_id = SPECIES_DIONA
 	is_dimorphic = FALSE
+	dismemberable = 0
 
 /obj/item/bodypart/chest/diona
 	static_icon = 'icons/mob/species/diona/bodyparts.dmi'

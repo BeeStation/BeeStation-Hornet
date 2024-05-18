@@ -572,4 +572,4 @@ GLOBAL_LIST_INIT(available_random_trauma_list, list(
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
 
 // Amount of diona nymphs to spawn on a diona's death
-#define NYMPH_SPAWN_AMOUNT 3
+#define NPC_NYMPH_SPAWN_AMOUNT 2

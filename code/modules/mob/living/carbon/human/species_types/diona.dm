@@ -32,6 +32,8 @@ win and get those 85 CAD
 	burnmod = 1.25
 	heatmod = 1.5
 	meat = /obj/item/food/meat/slab/human/mutant/diona
+	exotic_blood = /datum/reagent/water
+	species_gibs = GIB_TYPE_ROBOTIC //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP
 	species_language_holder = /datum/language_holder/diona
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
@@ -100,17 +102,23 @@ win and get those 85 CAD
 		H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
 
 /datum/species/diona/spec_death(gibbed, mob/living/carbon/human/H)
-	gib(gibbed, H)
-	return ..()
+	addtimer(CALLBACK(src, PROC_REF(gib), gibbed, H), 50)
 
 /datum/species/diona/proc/gib(gibbed, mob/living/carbon/human/H)
-	for (var/amount = 0, amount < NYMPH_SPAWN_AMOUNT, amount++)
+	var/datum/mind/M = H.mind
+	for (var/amount = 0, amount < NPC_NYMPH_SPAWN_AMOUNT, amount++) //Spawn the NPC nymphs
 		new /mob/living/simple_animal/nymph(H.loc)
+	var/mob/living/simple_animal/nymph/nymph = new(H.loc) //Spawn the player nymph
 	for(var/obj/item/I in H.contents)
 		H.dropItemToGround(I, TRUE)
 		I.pixel_x = rand(-10, 10)
 		I.pixel_y = rand(-10, 10)
-	QDEL_NULL(H)
+	nymph.origin = M
+	if(nymph.origin)
+		nymph.origin.active = 1
+		nymph.origin.transfer_to(nymph) //Move the player's mind to the player nymph
+	H.gib(TRUE, TRUE, FALSE)  //Gib the old corpse with nothing left of use besides limbs
+
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/C)
 	. = ..()
@@ -125,11 +133,15 @@ win and get those 85 CAD
 		return .(gender, TRUE, null, ++attempts)
 
 /datum/species/diona/get_species_description()
+	/*
 	return "Psyphoza are a species of extra-sensory lesser-sensory \
 	fungal-form humanoids, infamous for their invulnerability to \
 	occlusion-based magic tricks and sleight of hand."
+	*/
+	return null
 
 /datum/species/diona/get_species_lore()
+	/*
 	return list(
 		"A standing testament to the humor of mother nature, Psyphoza have evolved powerful and mystical \
 			psychic abilities, which are almost completely mitigated by the fact they are absolutely \
@@ -148,11 +160,12 @@ win and get those 85 CAD
 		"Although most Psyphoza have left behind a majority of the especially superstitious ideas of their \
 			progenitors, some lower caste members still cling to these old ideas as strongly as ever. These beliefs \
 			impact their culture deeply, resulting in very different behaviors between the typical and lower castes."
-	)
+	)*/
+	return null
 
 /datum/species/diona/create_pref_unique_perks()
 	var/list/to_add = list()
-
+	/*
 	to_add += list(
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
@@ -179,5 +192,6 @@ win and get those 85 CAD
 			SPECIES_PERK_DESC = "This species features effects that individuals with epilepsy may experience negatively!",
 		),
 	)
+	*/
 
 	return to_add
