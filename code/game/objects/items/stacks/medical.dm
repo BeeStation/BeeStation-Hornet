@@ -141,11 +141,11 @@
 	if(stop_bleeding)
 		C.suppress_bloodloss(stop_bleeding)
 		if (C.is_bleeding())
-			C.balloon_alert(user, "You reduce [M == user ? "your" : M.p_their()] bleeding to [C.get_bleed_rate()]/s")
+			C.balloon_alert(user, "You reduce [M == user ? "your" : M.p_their()] bleeding to [round(C.get_bleed_rate(), 0.1)]/s")
 		else
 			C.balloon_alert(user, "You stop [M == user ? "your" : M.p_their()]'s bleeding!")
 	else
-		C.balloon_alert(user, "You apply [src] to [M == user ? "yourself" : user].")
+		C.balloon_alert(user, "You apply [src] to [M == user ? "yourself" : M].")
 
 	user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
 	if(reagent)
