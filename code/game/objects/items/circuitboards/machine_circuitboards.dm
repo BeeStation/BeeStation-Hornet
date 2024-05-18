@@ -981,8 +981,14 @@
 	build_path = /obj/machinery/ecto_sniffer
 	req_components = list(
 		/obj/item/stock_parts/scanning_module = 1)
-//Security
 
+/obj/item/circuitboard/machine/mechpad
+	name = "Mecha Orbital Pad (Machine Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/mechpad
+	req_components = list()
+
+//Security
 
 /obj/item/circuitboard/machine/protolathe/department/security
 	name = "departmental protolathe - security (Machine Board)"
