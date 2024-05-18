@@ -5,8 +5,10 @@
 	base_icon_state = "ripley"
 	silicon_icon_state = "ripley-empty"
 	movedelay = 1.5 //Move speed, lower is faster.
-	var/fast_pressure_step_in = 1.5 //step_in while in low pressure conditions
-	var/slow_pressure_step_in = 2.0 //step_in while in normal pressure conditions
+	/// How fast the mech is in low pressure
+	var/fast_pressure_step_in = 1.5
+	/// How fast the mech is in normal pressure
+	var/slow_pressure_step_in = 2
 	max_temperature = 20000
 	max_integrity = 200
 	lights_power = 7
@@ -15,29 +17,22 @@
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	internals_req_access = list(ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_MINING)
+	enclosed = FALSE //Normal ripley has an open cockpit design
+	enter_delay = 10 //can enter in a quarter of the time of other mechs
+	exit_delay = 10
+	/// Amount of Goliath hides attached to the mech
+	var/hides = 0
+	/// List of all things in Ripley's Cargo Compartment
 	var/list/cargo
+	/// How much things Ripley can carry in their Cargo Compartment
 	var/cargo_capacity = 15
 	/// Custom Ripley step and turning sounds (from TGMC)
 	stepsound = 'sound/mecha/powerloader_step.ogg'
 	turnsound = 'sound/mecha/powerloader_turn2.ogg'
-	var/hides = 0
-	enclosed = FALSE //Normal ripley has an open cockpit design
-	enter_delay = 10 //can enter in a quarter of the time of other mechs
-	exit_delay = 10
 
 /obj/vehicle/sealed/mecha/working/ripley/Move()
 	. = ..()
-	if(.)
-		collect_ore()
 	update_pressure()
-
-/obj/vehicle/sealed/mecha/working/ripley/proc/collect_ore()
-	if(locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in equipment)
-		var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in cargo
-		if(ore_box)
-			for(var/obj/item/stack/ore/ore in range(1, src))
-				if(ore.Adjacent(src) && ((get_dir(src, ore) & dir) || ore.loc == loc)) //we can reach it and it's in front of us? grab it!
-					ore.forceMove(ore_box)
 
 /obj/vehicle/sealed/mecha/working/ripley/generate_actions() //isnt allowed to have internal air
 	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_eject)
@@ -51,10 +46,10 @@
 		possible_int_damage -= (MECHA_INT_TEMP_CONTROL + MECHA_INT_TANK_BREACH)
 	return ..()
 
-
 /obj/vehicle/sealed/mecha/working/ripley/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/armor_plate,3,/obj/item/stack/sheet/animalhide/goliath_hide,list(MELEE = 10,  BULLET = 5, LASER = 5))
+
 
 /obj/vehicle/sealed/mecha/working/ripley/Destroy()
 	for(var/atom/movable/A in cargo)
@@ -112,9 +107,8 @@
 	icon_state = "deathripley"
 	base_icon_state = "deathripley"
 	fast_pressure_step_in = 2 //step_in while in low pressure conditions
-	slow_pressure_step_in = 4 //step_in while in normal pressure conditions
+	slow_pressure_step_in = 3 //step_in while in normal pressure conditions
 	movedelay = 4
-	slow_pressure_step_in = 3
 	lights_power = 7
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
@@ -142,7 +136,10 @@
 /obj/vehicle/sealed/mecha/working/ripley/mining
 	desc = "An old, dusty mining Ripley."
 	name = "\improper APLU \"Miner\""
-	obj_integrity = 75 //Low starting health
+
+/obj/vehicle/sealed/mecha/working/ripley/mining/Initialize(mapload)
+	. = ..()
+	take_damage(125) // Low starting health
 
 /obj/vehicle/sealed/mecha/working/ripley/mining/Initialize(mapload)
 	. = ..()
@@ -163,7 +160,6 @@
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
 	HC.attach(src)
-
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
 

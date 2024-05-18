@@ -55,9 +55,12 @@
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	///if we cant use our equipment(such as due to EMP)
 	var/equipment_disabled = FALSE
-	var/obj/item/stock_parts/cell/cell ///Keeps track of the mech's cell
-	var/obj/item/stock_parts/scanning_module/scanmod ///Keeps track of the mech's scanning module
-	var/obj/item/stock_parts/capacitor/capacitor ///Keeps track of the mech's capacitor
+	/// Keeps track of the mech's cell
+	var/obj/item/stock_parts/cell/cell
+	/// Keeps track of the mech's scanning module
+	var/obj/item/stock_parts/scanning_module/scanmod
+	/// Keeps track of the mech's capacitor
+	var/obj/item/stock_parts/capacitor/capacitor
 	///Whether the mechs maintenance protocols are on or off
 	var/construction_state = MECHA_LOCKED
 	///Contains flags for the mecha
@@ -93,7 +96,6 @@
 	var/list/trackers = list()
 
 	var/max_temperature = 25000
-
 	///Bitflags for internal damage
 	var/internal_damage = NONE
 	///health percentage below which internal damage is possible
@@ -171,6 +173,7 @@
 
 	///Bool for whether this mech can only be used on lavaland
 	var/lavaland_only = FALSE
+
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
