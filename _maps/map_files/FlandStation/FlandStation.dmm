@@ -3016,8 +3016,14 @@
 /turf/closed/wall,
 /area/hallway/primary/aft)
 "aKt" = (
-/obj/machinery/vending/wardrobe/robo_wardrobe,
-/obj/effect/turf_decal/delivery,
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/computer/mechpad{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/mechbay)
 "aKv" = (
@@ -18781,6 +18787,10 @@
 	},
 /turf/open/floor/plating/airless,
 /area/science/misc_lab)
+"eOW" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/iron/dark,
+/area/science/robotics/mechbay)
 "eOX" = (
 /obj/effect/turf_decal/siding/wood,
 /turf/open/floor/wood,
@@ -20212,6 +20222,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/machinery/vending/wardrobe/robo_wardrobe,
 /turf/open/floor/iron/dark,
 /area/science/robotics/mechbay)
 "fgp" = (
@@ -22975,30 +22986,7 @@
 /turf/open/floor/iron/techmaint,
 /area/security/brig)
 "fOp" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/crowbar,
-/obj/item/assembly/prox_sensor{
-	pixel_x = -8;
-	pixel_y = 4
-	},
-/obj/item/assembly/prox_sensor{
-	pixel_x = -8;
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/delivery,
+/obj/machinery/mechpad,
 /turf/open/floor/iron/dark,
 /area/science/robotics/mechbay)
 "fOz" = (
@@ -25312,12 +25300,34 @@
 /turf/open/floor/iron/grid/steel,
 /area/bridge)
 "gsz" = (
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
 	},
-/obj/structure/reagent_dispensers/fueltank,
-/obj/effect/turf_decal/bot,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/item/crowbar,
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/delivery,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 2;
+	pixel_y = -1
+	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/mechbay)
 "gsD" = (
@@ -129820,7 +129830,7 @@ cDO
 xIW
 bgZ
 xje
-uNj
+eOW
 uNj
 fOp
 sJa

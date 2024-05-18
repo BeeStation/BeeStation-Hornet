@@ -28326,17 +28326,15 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
+/obj/effect/turf_decal/tile/purple,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "dnb" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -28348,8 +28346,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -28358,8 +28356,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -28367,18 +28365,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "dnf" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -28386,6 +28378,9 @@
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/computer/mechpad{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "dnm" = (
@@ -28512,6 +28507,7 @@
 "doW" = (
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/bot,
+/obj/effect/landmark/start/cyborg,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "doZ" = (
@@ -28522,25 +28518,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mech_bay_recharge_floor,
 /area/science/robotics/mechbay)
-"dpb" = (
-/obj/machinery/mech_bay_recharge_port{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/science/robotics/mechbay)
 "dpc" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "dpd" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
+/obj/machinery/mechpad,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "dpe" = (
@@ -28747,29 +28732,12 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
-"dqM" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/science/robotics/mechbay)
 "dqN" = (
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron,
+/obj/machinery/mech_bay_recharge_port,
+/turf/open/floor/plating,
 /area/science/robotics/mechbay)
 "dqO" = (
 /turf/open/floor/circuit,
-/area/science/robotics/mechbay)
-"dqP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "dqQ" = (
 /obj/effect/turf_decal/delivery,
@@ -28968,9 +28936,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "dsk" = (
@@ -29292,6 +29258,7 @@
 /obj/machinery/recharge_station,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
+/obj/effect/landmark/start/cyborg,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "duV" = (
@@ -29299,10 +29266,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/cyborg,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "duX" = (
@@ -29312,13 +29276,10 @@
 /turf/open/floor/circuit/green,
 /area/science/robotics/mechbay)
 "duY" = (
-/obj/machinery/mech_bay_recharge_port{
-	dir = 8
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plating,
+/turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "duZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -29334,13 +29295,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
-"dva" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/hallway/primary/aft)
 "dvc" = (
 /turf/closed/wall,
 /area/medical/genetics)
@@ -29445,8 +29399,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -29455,7 +29409,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "dwy" = (
@@ -29468,31 +29424,36 @@
 	name = "science camera";
 	network = list("ss13","rd")
 	},
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/light{
+	light_color = "#e8eaff"
+	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "dwz" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "dwA" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron,
-/area/science/robotics/mechbay)
-"dwB" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
+"dwB" = (
+/turf/open/floor/iron,
+/area/science/robotics/mechbay)
 "dwC" = (
-/obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 4
@@ -29836,7 +29797,6 @@
 "dzI" = (
 /obj/structure/rack,
 /obj/item/book/manual/wiki/robotics_cyborgs,
-/obj/item/storage/belt/utility/full,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -36918,6 +36878,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/security/brig)
+"fcP" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/iron,
+/area/hallway/primary/aft)
 "fdc" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
@@ -40902,6 +40872,13 @@
 	},
 /turf/open/floor/iron/white,
 /area/janitor)
+"guP" = (
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/science/robotics/mechbay)
 "gvg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -47447,7 +47424,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "iCE" = (
@@ -50775,7 +50751,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 2;
+	pixel_y = -1
+	},
+/obj/structure/table/reinforced,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "jPi" = (
@@ -51978,7 +51958,7 @@
 "khr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/roboticist,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "khR" = (
@@ -58713,15 +58693,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "muI" = (
@@ -83673,10 +83651,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/aisat)
-"uPM" = (
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/science/robotics/mechbay)
 "uQc" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -131200,7 +131174,7 @@ djY
 dlN
 dna
 duV
-dqM
+duV
 muE
 dsg
 duV
@@ -131457,9 +131431,9 @@ ojC
 dlO
 dnb
 dqN
-dqN
+dqO
 iBJ
-dqN
+dtx
 dqN
 dwx
 dyd
@@ -131713,11 +131687,11 @@ kEs
 dka
 dlN
 dnb
-doZ
+dpa
 dqO
 jPb
 dtx
-duX
+dpa
 dwy
 dye
 dzI
@@ -131970,11 +131944,11 @@ lxK
 dkb
 dlP
 dnc
-dpa
+doZ
 dqO
 khr
-dtx
-dpa
+dty
+duX
 dwz
 dyd
 dzH
@@ -132227,10 +132201,10 @@ rXt
 dkc
 dlN
 dnd
-dpb
-dqO
-uPM
-dty
+duY
+guP
+duY
+duY
 duY
 dwA
 dyf
@@ -132484,9 +132458,9 @@ dil
 dkd
 dlN
 dne
-dpc
-dqP
-dpc
+dwB
+dwB
+dwB
 dpc
 dpc
 dwB
@@ -133259,8 +133233,8 @@ dpe
 dsm
 dsm
 dsm
-dva
-dwD
+dsm
+fcP
 dyh
 kXY
 daX
