@@ -37,7 +37,8 @@
 					"<span class='userdanger'>[chassis] starts to drill [target]...</span>", \
 					 "<span class='italics'>You hear drilling.</span>")
 
-	if(do_after_cooldown(target, source))
+	// You can't drill harder by clicking more.
+	if(!(target in source.do_afters) && do_after_cooldown(target, source))
 		log_message("Started drilling [target]", LOG_MECHA)
 		if(isturf(target))
 			var/turf/T = target
