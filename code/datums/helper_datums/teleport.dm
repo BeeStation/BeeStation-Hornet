@@ -256,7 +256,7 @@
 	duration = 11 SECONDS
 
 /obj/effect/temp_visual/portal_opening/Initialize(mapload, time)
+	duration = time
 	. = ..()
 	transform = matrix() * 0
 	animate(src, time = time, transform = matrix(), alpha = 255)
-	animate(time = 0.5 SECONDS, transform = matrix() * 0, alpha = 0)

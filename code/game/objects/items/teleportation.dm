@@ -186,11 +186,13 @@
 		return
 	var/teleport_target = L[t1]
 	var/turf/target_turf = get_teleport_turf(get_turf(teleport_target))
+	var/move_source = TRUE
 	// Non-turfs (Wakes) are handled differently
 	if (istype(teleport_target, /obj/effect/temp_visual/teleportation_wake))
 		var/distance = get_dist(teleport_target, user)
 		var/obj/effect/temp_visual/teleportation_wake/wake = teleport_target
 		target_turf = get_teleport_turf(wake.destination, 2 + distance)
+		move_source = FALSE
 		to_chat(user, "<span class='notice'>You begin teleporting to the target.</span>")
 		// Longer distances take more time to teleport, since they are more likely
 		// to be something like a base of operations and not just a quick jaunt away
@@ -218,9 +220,12 @@
 	var/obj/effect/portal/c1 = created[1]
 	var/obj/effect/portal/c2 = created[2]
 
-	var/turf/check_turf = get_turf(get_step(user, user.dir))
-	if(!check_turf.is_blocked_turf(TRUE, src))
-		c1.forceMove(check_turf)
+	if (move_source)
+		var/turf/check_turf = get_turf(get_step(user, user.dir))
+		if(!check_turf.is_blocked_turf(TRUE, src))
+			c1.forceMove(check_turf)
+	else
+		c1.Bumped(user)
 	active_portal_pairs[created[1]] = created[2]
 
 	investigate_log("was used by [key_name(user)] at [AREACOORD(user)] to create a portal pair with destinations [AREACOORD(c1)] and [AREACOORD(c2)].", INVESTIGATE_PORTAL)
