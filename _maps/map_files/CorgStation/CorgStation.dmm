@@ -6314,13 +6314,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/medical/cryo)
-"bKz" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_y = 5
-	},
-/turf/open/floor/circuit,
-/area/science/robotics)
 "bKV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
@@ -9092,11 +9085,11 @@
 /turf/open/floor/engine/vacuum,
 /area/engine/atmospherics_engine)
 "cJb" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
 	},
 /turf/open/floor/iron,
 /area/science/robotics)
@@ -10791,11 +10784,11 @@
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
 "dld" = (
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/holopad,
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron,
 /area/science/robotics)
 "dlf" = (
@@ -12639,9 +12632,6 @@
 "dRT" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
 	},
 /turf/open/floor/iron,
 /area/science/robotics)
@@ -17690,6 +17680,7 @@
 /turf/open/floor/iron/white,
 /area/medical/genetics)
 "fCw" = (
+/obj/effect/landmark/start/cyborg,
 /obj/machinery/camera/autoname{
 	dir = 4
 	},
@@ -17697,7 +17688,11 @@
 	pixel_x = -25
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/iron,
+/obj/machinery/recharge_station,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/circuit/green,
 /area/science/robotics)
 "fCz" = (
 /obj/structure/lattice/catwalk,
@@ -26838,9 +26833,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/iron,
 /area/science/robotics)
 "iys" = (
@@ -28310,9 +28302,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/recharge_station,
-/obj/effect/landmark/start/cyborg,
-/turf/open/floor/circuit/green,
+/turf/open/floor/iron,
 /area/science/robotics)
 "iYp" = (
 /obj/structure/disposalpipe/segment,
@@ -32867,11 +32857,15 @@
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "kxj" = (
+/obj/effect/landmark/start/cyborg,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/iron,
+/obj/machinery/recharge_station,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/circuit/green,
 /area/science/robotics)
 "kxy" = (
 /obj/machinery/advanced_airlock_controller/directional/south,
@@ -57638,8 +57632,7 @@
 /obj/machinery/requests_console{
 	pixel_x = 32
 	},
-/obj/machinery/mechpad,
-/turf/open/floor/iron,
+/turf/open/floor/iron/recharge_floor,
 /area/science/robotics)
 "sAj" = (
 /obj/effect/spawner/lootdrop/maintenance,
@@ -59234,9 +59227,7 @@
 /turf/open/floor/iron,
 /area/science/mixing)
 "tca" = (
-/obj/machinery/recharge_station,
-/obj/effect/landmark/start/cyborg,
-/turf/open/floor/circuit/green,
+/turf/open/floor/iron,
 /area/science/robotics)
 "tch" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -63902,11 +63893,11 @@
 	pixel_y = -26;
 	req_one_access_txt = "29"
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
 	},
 /turf/open/floor/iron,
 /area/science/robotics)
@@ -72593,7 +72584,7 @@
 /turf/open/floor/iron/dark,
 /area/engine/atmos)
 "xtY" = (
-/obj/machinery/computer/mechpad{
+/obj/machinery/computer/mech_bay_power_console{
 	dir = 8
 	},
 /turf/open/floor/iron,
@@ -109815,7 +109806,7 @@ sZy
 tca
 cJb
 uEj
-bKz
+tkN
 sAi
 xtY
 sZy

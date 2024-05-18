@@ -1223,9 +1223,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/mechbay)
 "auN" = (
@@ -4795,15 +4792,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/supermatter)
-"bDR" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/mechbay)
 "bDT" = (
 /obj/machinery/nanite_programmer,
 /obj/effect/turf_decal/stripes/line{
@@ -4841,12 +4829,6 @@
 "bEk" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/mechbay)
@@ -11862,13 +11844,9 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/entry)
 "dKJ" = (
+/obj/machinery/mech_bay_recharge_port,
 /obj/machinery/light,
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 2;
-	pixel_y = -1
-	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/circuit/green,
 /area/science/robotics/mechbay)
 "dKO" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -18611,10 +18589,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 34
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
+/turf/open/floor/circuit,
 /area/science/robotics/mechbay)
 "fLE" = (
 /obj/machinery/light/floor{
@@ -25935,8 +25910,8 @@
 /turf/open/floor/iron,
 /area/science/lab)
 "hWH" = (
-/obj/machinery/mechpad,
-/turf/open/floor/iron/dark,
+/obj/effect/turf_decal/box,
+/turf/open/floor/circuit/green,
 /area/science/robotics/mechbay)
 "hWZ" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -31843,12 +31818,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
-"jTl" = (
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/dark,
-/area/science/robotics/mechbay)
 "jTr" = (
 /obj/effect/spawner/randomarcade{
 	dir = 8
@@ -31897,10 +31866,10 @@
 /turf/open/floor/iron/dark,
 /area/chapel/main)
 "jUD" = (
-/obj/machinery/computer/mechpad{
+/obj/machinery/computer/mech_bay_power_console{
 	dir = 1
 	},
-/turf/open/floor/iron/dark,
+/turf/open/floor/circuit/green,
 /area/science/robotics/mechbay)
 "jUL" = (
 /obj/effect/turf_decal/guideline/guideline_in/red{
@@ -65672,9 +65641,6 @@
 /obj/structure/chair/office/light,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
 	},
 /turf/open/floor/iron/dark,
 /area/science/robotics/mechbay)
@@ -101954,7 +101920,7 @@ gAf
 odP
 uKi
 mHk
-jTl
+rlV
 hvF
 iiM
 ryi
@@ -102725,7 +102691,7 @@ vof
 wjz
 uKi
 wQI
-bDR
+bEk
 hWH
 uKi
 cKb

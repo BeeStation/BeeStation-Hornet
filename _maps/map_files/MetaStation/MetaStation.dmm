@@ -11560,7 +11560,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 20
 	},
-/turf/open/floor/circuit,
+/turf/open/floor/circuit/green,
 /area/science/robotics/mechbay)
 "bvl" = (
 /obj/machinery/door/poddoor/preopen{
@@ -17163,16 +17163,6 @@
 	},
 /turf/open/floor/iron/dark/corner,
 /area/engine/atmos)
-"caf" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/science/robotics/mechbay)
 "cak" = (
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 4
@@ -19821,16 +19811,16 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
+"cxE" = (
+/turf/open/floor/circuit/green,
+/area/science/robotics/mechbay)
 "cxG" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Mech Bay";
 	dir = 8;
 	network = list("ss13","rd")
 	},
-/turf/open/floor/circuit,
+/turf/open/floor/circuit/green,
 /area/science/robotics/mechbay)
 "cxH" = (
 /obj/machinery/airalarm/directional/west,
@@ -19923,13 +19913,21 @@
 "cyr" = (
 /turf/open/floor/circuit,
 /area/science/robotics/mechbay)
+"cys" = (
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/effect/landmark/start/roboticist,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/circuit,
+/area/science/robotics/mechbay)
 "cyt" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_x = -29
 	},
 /turf/open/floor/iron/dark,
 /area/science/nanite)
@@ -20049,6 +20047,9 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
+/obj/item/radio/intercom{
+	pixel_x = -29
+	},
 /obj/machinery/camera{
 	c_tag = "Research Division - Nanite Lab";
 	dir = 4;
@@ -20132,7 +20133,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/mechpad,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "cAp" = (
@@ -20197,6 +20197,10 @@
 /area/science/robotics/mechbay)
 "cBi" = (
 /obj/structure/reagent_dispensers/fueltank,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -20406,6 +20410,9 @@
 /area/science/robotics/lab)
 "cDd" = (
 /obj/machinery/modular_fabricator/exosuit_fab,
+/obj/item/radio/intercom{
+	pixel_y = 20
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -20413,6 +20420,9 @@
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "cDe" = (
+/obj/structure/sign/warning/nosmoking{
+	pixel_y = 32
+	},
 /obj/structure/rack,
 /obj/item/book/manual/wiki/robotics_cyborgs{
 	pixel_x = 2;
@@ -20421,9 +20431,6 @@
 /obj/item/storage/belt/utility,
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/effect/turf_decal/delivery,
-/obj/item/radio/intercom{
-	pixel_y = 20
-	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "cDf" = (
@@ -20433,9 +20440,6 @@
 	network = list("ss13","rd")
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/sign/warning/nosmoking{
-	pixel_y = 32
-	},
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "cDg" = (
@@ -26567,14 +26571,9 @@
 /turf/open/floor/wood,
 /area/library)
 "eeX" = (
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/iron,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/open/floor/mech_bay_recharge_floor,
 /area/science/robotics/mechbay)
 "efc" = (
 /obj/structure/window/reinforced,
@@ -42987,13 +42986,10 @@
 	pixel_y = -2
 	},
 /obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -45270,15 +45266,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/science/shuttledock)
-"lzr" = (
-/obj/machinery/recharge_station,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -28
-	},
-/turf/open/floor/iron,
-/area/science/robotics/mechbay)
 "lzt" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -45802,10 +45789,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
 "lLC" = (
@@ -51848,10 +51837,6 @@
 	},
 /obj/structure/sign/warning/nosmoking{
 	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -58848,17 +58833,6 @@
 	},
 /turf/open/floor/iron,
 /area/security/brig)
-"qGP" = (
-/obj/effect/landmark/start/roboticist,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/iron,
-/area/science/robotics/mechbay)
 "qGT" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/closed/wall/r_wall,
@@ -65230,25 +65204,6 @@
 /obj/item/stack/cable_coil,
 /turf/open/space,
 /area/solar/starboard/aft)
-"tgV" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/computer/mechpad{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/science/robotics/mechbay)
 "tgW" = (
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /obj/structure/disposalpipe/segment{
@@ -65777,13 +65732,6 @@
 "toZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -68062,16 +68010,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"ujX" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/mech_bay_recharge_port,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating,
-/area/science/robotics/mechbay)
 "ukf" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
@@ -74330,7 +74268,10 @@
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
 "wDx" = (
-/turf/open/floor/mech_bay_recharge_floor,
+/obj/effect/landmark/event_spawn,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/turf/open/floor/circuit,
 /area/science/robotics/mechbay)
 "wDQ" = (
 /obj/machinery/firealarm{
@@ -77014,8 +76955,8 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "xAf" = (
-/obj/effect/landmark/event_spawn,
-/turf/open/floor/circuit,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/turf/open/floor/circuit/green,
 /area/science/robotics/mechbay)
 "xAp" = (
 /obj/machinery/chem_heater,
@@ -77736,11 +77677,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/science/robotics/mechbay)
@@ -107298,11 +107239,11 @@ vEu
 jbw
 gRt
 nWX
-caf
+toZ
 toZ
 kDX
 xut
-lzr
+cBg
 cCn
 cDa
 kdt
@@ -107555,9 +107496,9 @@ ctJ
 cuC
 cvH
 cwH
+cxE
 cyr
-ujX
-qGP
+cwH
 lKP
 cBg
 cCo
@@ -108070,11 +108011,11 @@ cuE
 cvH
 bvk
 cxG
+cys
 mgN
-tgV
 cAo
 cBi
-cCo
+cCn
 cDd
 jDB
 cFf
