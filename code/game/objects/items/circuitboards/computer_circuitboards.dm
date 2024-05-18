@@ -328,10 +328,6 @@
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/scan_consolenew
 
-/obj/item/circuitboard/computer/mechpad
-	name = "Mecha Orbital Pad Console (Computer Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/computer/mechpad
 
 //Science
 
