@@ -32,7 +32,7 @@
 		if(pad.id != id)
 			continue
 		mechpads += pad
-		pad.consoles += src
+		LAZYADD(pad.consoles, src)
 		if(mechpads.len > maximum_pads)
 			break
 
@@ -41,7 +41,7 @@
 		connected_mechpad.connected_console = null
 		connected_mechpad = null
 	for(var/obj/machinery/mechpad/mechpad in mechpads)
-		mechpad.consoles -= src
+		LAZYREMOVE(mechpad.consoles, src)
 	return ..()
 
 ///Tries to locate a pad in the cardinal directions, if it finds one it returns it
@@ -72,7 +72,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/mechpad)
 			to_chat(user, "<span class='notice'>You connect the console to the pad with data from the [buffer_parent]'s buffer.</span>")
 		else
 			mechpads += buffered_console
-			buffered_console.consoles += src
+			LAZYADD(buffered_console.consoles, src)
 			buffer = null
 			to_chat(user, "<span class='notice'>You upload the data from the [buffer_parent]'s buffer.</span>")
 
@@ -155,7 +155,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/mechpad)
 		if("remove")
 			if(usr && alert(usr, "Are you sure?", "Unlink Orbital Pad", "I'm Sure", "Abort") != "Abort")
 				mechpads -= current_pad
-				current_pad.consoles -= src
+				LAZYREMOVE(current_pad.consoles, src)
 				selected_id = null
 		if("launch")
 			try_launch(usr, current_pad)
