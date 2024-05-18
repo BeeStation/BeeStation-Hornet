@@ -255,8 +255,8 @@
 	alpha = 0
 	duration = 11 SECONDS
 
-/obj/effect/temp_visual/portal_opening/Initialize(mapload)
+/obj/effect/temp_visual/portal_opening/Initialize(mapload, time)
 	. = ..()
 	transform = matrix() * 0
-	animate(src, time = 10 SECONDS, transform = matrix(), alpha = 255)
+	animate(src, time = time, transform = matrix(), alpha = 255)
 	animate(time = 0.5 SECONDS, transform = matrix() * 0, alpha = 0)

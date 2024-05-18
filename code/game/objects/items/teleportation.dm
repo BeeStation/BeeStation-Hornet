@@ -193,7 +193,7 @@
 		to_chat(user, "<span class='notice'>You begin teleporting to the target.</span>")
 		// Longer distances take more time to teleport, since they are more likely
 		// to be something like a base of operations and not just a quick jaunt away
-		var/time = max(1 SECONDS, target_turf.get_virtual_z_level() == current_location.get_virtual_z_level() ? min(distance, 10 SECONDS) : 10 SECONDS)
+		var/time = max(1 SECONDS, target_turf.get_virtual_z_level() == current_location.get_virtual_z_level() ? min(distance, 15 SECONDS) : 15 SECONDS)
 		var/obj/effect/temp_visual/portal_opening/target_effect = new(target_turf, time)
 		var/obj/effect/temp_visual/portal_opening/source_effect = new(get_turf(user), time)
 		if (!do_after(user, 10 SECONDS, user))
