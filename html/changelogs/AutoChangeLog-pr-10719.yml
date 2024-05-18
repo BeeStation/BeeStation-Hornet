@@ -1,4 +1,0 @@
-author: anturK, rkz
-delete-after: true
-changes:
-  - code_imp: inverted CanReach to default to blocking

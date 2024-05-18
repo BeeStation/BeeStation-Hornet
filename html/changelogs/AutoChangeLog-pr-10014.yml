@@ -1,9 +1,0 @@
-author: rkz, Tiviplus, msgerbs, Ghommie, Fikou, necromanceranne
-delete-after: true
-changes:
-  - refactor: mechs are now a vehicle subtype, instead of Winter Wonderland snowflake
-      code
-  - tweak: mechs no longer need to use middle click as a janky override to utilize
-      their equipment.
-  - bugfix: fixed bugs with inconsistent mech equipment balloons/to_chat
-  - bugfix: fixed mechs with ballistics shooting themselves while moving
