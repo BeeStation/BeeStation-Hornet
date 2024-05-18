@@ -34,9 +34,7 @@ export const MechpadConsole = (props, context) => {
   const { act, data } = useBackend(context);
   const { mechpads = [], selected_id } = data;
   return (
-    <Window
-      width={475}
-      height={130}>
+    <Window width={475} height={130}>
       <Window.Content>
         {(mechpads.length === 0 && <NoticeBox>No Pads Connected</NoticeBox>) || (
           <Section>
