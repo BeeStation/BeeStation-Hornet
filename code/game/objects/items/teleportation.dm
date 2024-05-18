@@ -191,15 +191,16 @@
 		var/obj/effect/temp_visual/teleportation_wake/wake = teleport_target
 		var/turf/target_turf = get_teleport_turf(wake.destination, 2 + distance)
 		to_chat(user, "<span class='notice'>You begin teleporting to the target.</span>")
-		var/obj/effect/temp_visual/portal_opening/target_effect = new(target_turf)
-		var/obj/effect/temp_visual/portal_opening/source_effect = new(get_turf(user))
-		if (do_after(user, 10 SECONDS, user))
-			do_teleport(user, target_turf)
-		else
+		// Longer distances take more time to teleport, since they are more likely
+		// to be something like a base of operations and not just a quick jaunt away
+		var/time = max(1 SECONDS, target_turf.get_virtual_z_level() == current_location.get_virtual_z_level() ? min(distance, 10 SECONDS) : 10 SECONDS)
+		var/obj/effect/temp_visual/portal_opening/target_effect = new(target_turf, time)
+		var/obj/effect/temp_visual/portal_opening/source_effect = new(get_turf(user), time)
+		if (!do_after(user, 10 SECONDS, user))
 			animate(user, flags = ANIMATION_END_NOW)
 			qdel(target_effect)
 			qdel(source_effect)
-		return
+			return
 	var/area/A = get_area(teleport_target)
 	if(A.teleport_restriction)
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
