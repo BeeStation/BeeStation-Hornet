@@ -190,10 +190,6 @@ export type PreferencesMenuData = {
   >;
   job_preferences: Record<string, JobPriority>;
 
-  JOB_LOCK_REASON_ABSTRACT: number;
-  JOB_LOCK_REASON_MAP: number;
-  JOB_LOCK_REASON_CONFIG: number;
-
   keybindings: Record<string, string[]>;
   overflow_role: string;
   selected_quirks: string[];
