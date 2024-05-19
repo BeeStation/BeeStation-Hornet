@@ -49,7 +49,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 	/// Zombies do not stabilize body temperature they are the walking dead and are cold blooded
-/datum/species/zombie/natural_bodytemperature_stabilization(datum/gas_mixture/environment, mob/living/carbon/human/H)
+/datum/species/zombie/body_temperature_core(mob/living/carbon/human/humi)
 	return
 
 /datum/species/zombie/infectious/check_roundstart_eligible()
@@ -71,12 +71,12 @@
 	//They must be restrained, beheaded or gibbed to stop being a threat.
 	if(regen_cooldown < world.time)
 		var/heal_amt = heal_rate
-		if(C.InCritical())
+		if(HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION))
 			heal_amt *= 2
 		C.heal_overall_damage(heal_amt,heal_amt)
 		C.adjustToxLoss(-heal_amt)
 		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amt)
-	if(!C.InCritical() && prob(4))
+	if(!HAS_TRAIT(C, TRAIT_CRITICAL_CONDITION) && prob(4))
 		playsound(C, pick(spooks), 50, TRUE, 10)
 
 //Congrats you somehow died so hard you stopped being a zombie

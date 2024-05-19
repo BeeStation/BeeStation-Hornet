@@ -121,7 +121,7 @@
 		if(SOFT_CRIT)
 			data["patient"]["stat"] = "Conscious"
 			data["patient"]["statstate"] = "average"
-		if(UNCONSCIOUS)
+		if(UNCONSCIOUS, HARD_CRIT)
 			data["patient"]["stat"] = "Unconscious"
 			data["patient"]["statstate"] = "average"
 		if(DEAD)

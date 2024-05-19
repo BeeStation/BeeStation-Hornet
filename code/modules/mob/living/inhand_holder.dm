@@ -4,7 +4,7 @@
 	name = "bugged mob"
 	desc = "Yell at coderbrush."
 	icon = null
-	icon_state = ""
+	icon_state = null
 	slot_flags = NONE
 	clothing_flags = NOTCONSUMABLE
 	var/mob/living/held_mob
@@ -24,6 +24,7 @@
 		righthand_file = rh_icon
 	if(worn_slot_flags)
 		slot_flags = worn_slot_flags
+	item_flags &= ~(ABSTRACT)
 	deposit(M)
 
 /obj/item/clothing/head/mob_holder/Destroy()

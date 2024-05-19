@@ -77,12 +77,20 @@
 			msg += "<span class='nicegreen'>I love life!</span>\n"
 
 	msg += "<span class='notice'>Moodlets:\n</span>"//All moodlets
-	if(mood_events.len)
-		for(var/i in mood_events)
-			var/datum/mood_event/event = mood_events[i]
-			msg += "[event.description]\n"
-	else
-		msg += "<span class='nicegreen'>I don't have much of a reaction to anything right now.<span>\n"
+	var/mood_msg = ""
+	var/thought_msg = ""
+	for(var/i in mood_events)
+		var/datum/mood_event/event = mood_events[i]
+		if(event.mood_change)
+			mood_msg += "[event.description]\n"
+		else
+			thought_msg += "[event.description]\n"
+	if(!mood_msg)
+		msg += "<span class='mood_neutral'>I don't have much of a reaction to anything right now.<span>\n"
+	msg += mood_msg
+	if(thought_msg)
+		msg += "<span class='notice'>Thoughts:</span>\n"
+		msg += thought_msg
 	to_chat(user || parent, EXAMINE_BLOCK(msg))
 
 /datum/component/mood/proc/update_mood() //Called whenever a mood event is added or removed
@@ -217,37 +225,24 @@
 	else
 		sanity = amount
 
-	var/mob/living/master = parent
 	switch(sanity)
 		if(SANITY_INSANE to SANITY_CRAZY)
 			setInsanityEffect(MAJOR_INSANITY_PEN)
-			master.add_movespeed_modifier(/datum/movespeed_modifier/sanity/insane)
-			master.add_actionspeed_modifier(/datum/actionspeed_modifier/low_sanity)
 			sanity_level = 6
 		if(SANITY_CRAZY to SANITY_UNSTABLE)
 			setInsanityEffect(MINOR_INSANITY_PEN)
-			master.add_movespeed_modifier(/datum/movespeed_modifier/sanity/crazy)
-			master.add_actionspeed_modifier(/datum/actionspeed_modifier/low_sanity)
 			sanity_level = 5
 		if(SANITY_UNSTABLE to SANITY_DISTURBED)
 			setInsanityEffect(0)
-			master.add_movespeed_modifier(/datum/movespeed_modifier/sanity/disturbed)
-			master.add_actionspeed_modifier(/datum/actionspeed_modifier/low_sanity)
 			sanity_level = 4
 		if(SANITY_DISTURBED to SANITY_NEUTRAL)
 			setInsanityEffect(0)
-			master.remove_movespeed_modifier(MOVESPEED_ID_SANITY)
-			master.remove_actionspeed_modifier(ACTIONSPEED_ID_SANITY)
 			sanity_level = 3
 		if(SANITY_NEUTRAL+1 to SANITY_GREAT+1) //shitty hack but +1 to prevent it from responding to super small differences
 			setInsanityEffect(0)
-			master.remove_movespeed_modifier(MOVESPEED_ID_SANITY)
-			master.add_actionspeed_modifier(/datum/actionspeed_modifier/high_sanity)
 			sanity_level = 2
 		if(SANITY_GREAT+1 to INFINITY)
 			setInsanityEffect(0)
-			master.remove_movespeed_modifier(MOVESPEED_ID_SANITY)
-			master.add_actionspeed_modifier(/datum/actionspeed_modifier/high_sanity)
 			sanity_level = 1
 	update_mood_icon()
 

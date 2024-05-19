@@ -197,7 +197,7 @@
 "N" = (
 /obj/structure/table/wood,
 /obj/item/clothing/neck/tie/red,
-/obj/item/clothing/head/that,
+/obj/item/clothing/head/hats/tophat,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/template_noop)
