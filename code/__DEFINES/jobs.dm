@@ -4,6 +4,13 @@
 #define JOB_UNAVAILABLE_PLAYTIME 3
 #define JOB_UNAVAILABLE_ACCOUNTAGE 4
 #define JOB_UNAVAILABLE_SLOTFULL 5
+#define JOB_UNAVAILABLE_LOCKED 6
+
+// reasons why you can't play this job
+#define JOB_LOCK_REASON_ABSTRACT (1<<0)
+#define JOB_LOCK_REASON_MAP (1<<1)
+#define JOB_LOCK_REASON_CONFIG (1<<2)
+
 
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"

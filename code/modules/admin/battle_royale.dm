@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/energy_katana,
 		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
 		/obj/item/his_grace,
-		/obj/mecha/combat/marauder/mauler/loaded,
+		/obj/vehicle/sealed/mecha/combat/marauder/mauler/loaded,
 		/obj/item/holoparasite_creator/tech,
 		/obj/item/mjolnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
