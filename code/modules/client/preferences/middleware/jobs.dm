@@ -68,7 +68,7 @@
 				departments[department_name] = list()
 
 		jobs[job.title] = list(
-			"lock_reason" = job.lock_flags ? job.get_lock_reason() : null,
+			"lock_reason" = job.get_lock_reason(),
 			"description" = job.description,
 			"department" = department_name,
 		)

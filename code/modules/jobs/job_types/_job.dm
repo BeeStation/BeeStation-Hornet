@@ -348,8 +348,8 @@
 		return "Disabled by server configuration"
 	else if(lock_flags & JOB_LOCK_REASON_MAP)
 		return "Not available on this map"
-	else
-		return "Unknown"
+	else if(lock_flags) // somehow flag exists
+		return "Unknown: [lock_flags]"
 
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
