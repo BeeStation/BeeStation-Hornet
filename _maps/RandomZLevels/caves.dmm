@@ -693,23 +693,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/BMP_asteroid)
-"cb" = (
-/obj/structure/closet/crate/miningcar{
-	name = "Mining cart"
-	},
-/obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
-	desc = "A pickaxe thats been left to rust.";
-	force = 1;
-	name = "rusty pickaxe";
-	pixel_x = 5;
-	throwforce = 1
-	},
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_two)
 "cc" = (
 /obj/structure/ore_box,
 /turf/open/floor/plating/asteroid/basalt{
@@ -957,20 +940,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/research)
-"cQ" = (
-/obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
-	desc = "A pickaxe thats been left to rust.";
-	force = 1;
-	name = "rusty pickaxe";
-	pixel_x = 5;
-	throwforce = 1
-	},
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_two)
 "cR" = (
 /obj/effect/landmark/awaystart,
 /turf/open/floor/plating{
@@ -1157,19 +1126,6 @@
 /area/awaymission/caves/BMP_asteroid/level_two)
 "dr" = (
 /obj/structure/spider/stickyweb,
-/turf/open/floor/iron,
-/area/awaymission/caves/BMP_asteroid/level_two)
-"ds" = (
-/obj/structure/closet/secure_closet/personal,
-/obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
-	desc = "A pickaxe thats been left to rust.";
-	force = 1;
-	name = "rusty pickaxe";
-	pixel_x = 5;
-	throwforce = 1
-	},
 /turf/open/floor/iron,
 /area/awaymission/caves/BMP_asteroid/level_two)
 "dt" = (
@@ -1555,28 +1511,6 @@
 /obj/effect/landmark/awaystart,
 /turf/open/floor/iron,
 /area/awaymission/caves/listeningpost)
-"eP" = (
-/obj/structure/table,
-/obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
-	desc = "A pickaxe thats been left to rust.";
-	force = 1;
-	name = "rusty pickaxe";
-	pixel_x = 5;
-	throwforce = 1
-	},
-/obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
-	desc = "A pickaxe thats been left to rust.";
-	force = 1;
-	name = "rusty pickaxe";
-	pixel_x = 5;
-	throwforce = 1
-	},
-/turf/open/floor/iron,
-/area/awaymission/caves/listeningpost)
 "eQ" = (
 /obj/machinery/mineral/mint,
 /turf/open/floor/plating/asteroid/basalt{
@@ -1935,26 +1869,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/BMP_asteroid)
-"fX" = (
-/obj/structure/closet/crate/miningcar{
-	name = "Mining cart"
-	},
-/obj/item/pickaxe{
-	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
-	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
-	desc = "A pickaxe thats been left to rust.";
-	force = 1;
-	name = "rusty pickaxe";
-	pixel_x = 5;
-	throwforce = 1
-	},
-/obj/item/stack/sheet/mineral/adamantine{
-	amount = 15
-	},
-/turf/open/floor/plating/asteroid/basalt{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
-	},
-/area/awaymission/caves/BMP_asteroid/level_two)
 "fY" = (
 /obj/structure/table,
 /obj/machinery/microwave,
@@ -2121,12 +2035,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/BMP_asteroid)
-"gC" = (
-/obj/mecha/working/ripley/mining{
-	ruin_mecha = 1
-	},
-/turf/open/floor/iron/recharge_floor,
-/area/awaymission/caves/BMP_asteroid)
 "gD" = (
 /obj/structure/spawner/mining/hivelord,
 /turf/open/floor/plating/asteroid/basalt{
@@ -2259,6 +2167,96 @@
 /obj/effect/baseturf_helper/asteroid/basalt,
 /turf/closed/wall,
 /area/awaymission/caves/northblock)
+"oT" = (
+/obj/structure/closet/crate/miningcar{
+	name = "Mining cart"
+	},
+/obj/item/pickaxe{
+	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
+	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	desc = "A pickaxe thats been left to rust.";
+	force = 1;
+	name = "rusty pickaxe";
+	pixel_x = 5;
+	throwforce = 1
+	},
+/obj/item/stack/sheet/mineral/adamantine{
+	amount = 15
+	},
+/turf/open/floor/plating/asteroid/basalt{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
+	},
+/area/awaymission/caves/BMP_asteroid/level_two)
+"xY" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/item/pickaxe{
+	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
+	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	desc = "A pickaxe thats been left to rust.";
+	force = 1;
+	name = "rusty pickaxe";
+	pixel_x = 5;
+	throwforce = 1
+	},
+/turf/open/floor/iron,
+/area/awaymission/caves/BMP_asteroid/level_two)
+"Gv" = (
+/obj/structure/closet/crate/miningcar{
+	name = "Mining cart"
+	},
+/obj/item/pickaxe{
+	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
+	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	desc = "A pickaxe thats been left to rust.";
+	force = 1;
+	name = "rusty pickaxe";
+	pixel_x = 5;
+	throwforce = 1
+	},
+/turf/open/floor/plating/asteroid/basalt{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
+	},
+/area/awaymission/caves/BMP_asteroid/level_two)
+"TL" = (
+/obj/item/pickaxe{
+	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
+	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	desc = "A pickaxe thats been left to rust.";
+	force = 1;
+	name = "rusty pickaxe";
+	pixel_x = 5;
+	throwforce = 1
+	},
+/turf/open/floor/plating/asteroid/basalt{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
+	},
+/area/awaymission/caves/BMP_asteroid/level_two)
+"Up" = (
+/obj/structure/table,
+/obj/item/pickaxe{
+	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
+	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	desc = "A pickaxe thats been left to rust.";
+	force = 1;
+	name = "rusty pickaxe";
+	pixel_x = 5;
+	throwforce = 1
+	},
+/obj/item/pickaxe{
+	attack_verb_continuous = list("bashes", "bludgeons", "thrashes", "whacks");
+	attack_verb_simple = list("bash", "bludgeon", "thrash", "whack");
+	desc = "A pickaxe thats been left to rust.";
+	force = 1;
+	name = "rusty pickaxe";
+	pixel_x = 5;
+	throwforce = 1
+	},
+/turf/open/floor/iron,
+/area/awaymission/caves/listeningpost)
+"UC" = (
+/obj/vehicle/sealed/mecha/working/ripley/mining,
+/turf/open/floor/iron/recharge_floor,
+/area/awaymission/caves/BMP_asteroid)
 
 (1,1,1) = {"
 aa
@@ -13251,7 +13249,7 @@ dX
 dW
 eF
 eK
-eP
+Up
 eV
 eF
 eJ
@@ -19442,7 +19440,7 @@ bL
 bL
 bL
 dX
-gC
+UC
 gE
 gG
 gJ
@@ -54129,7 +54127,7 @@ bJ
 bJ
 bJ
 bJ
-cQ
+TL
 gk
 bJ
 gs
@@ -54344,7 +54342,7 @@ bK
 bK
 bK
 bX
-cb
+Gv
 cf
 cf
 cf
@@ -58469,7 +58467,7 @@ bQ
 dk
 dp
 dq
-ds
+xY
 dw
 bR
 bK
@@ -60775,7 +60773,7 @@ bK
 bK
 bR
 bJ
-cQ
+TL
 bJ
 bJ
 bR
@@ -61580,7 +61578,7 @@ bK
 bK
 bK
 bK
-fX
+oT
 bJ
 bJ
 bJ
