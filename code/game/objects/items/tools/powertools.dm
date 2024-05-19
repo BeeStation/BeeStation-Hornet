@@ -24,6 +24,7 @@
 	desc = "A simple powered hand drill. It's fitted with a screw bit."
 	icon_state = "drill_screw"
 	item_state = "drill"
+	worn_icon_state = "drill"
 
 	force = 8 //might or might not be too high, subject to change
 	throwforce = 8
@@ -89,6 +90,7 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
+	worn_icon_state = "jawsoflife"
 
 	tool_behaviour = TOOL_CROWBAR
 

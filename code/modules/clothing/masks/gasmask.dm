@@ -169,8 +169,8 @@
 
 /obj/item/clothing/mask/gas/death_commando
 	name = "Death Commando Mask"
-	icon_state = "death_commando_mask"
-	item_state = "death_commando_mask"
+	icon_state = "swat"
+	item_state = "swat"
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
@@ -196,6 +196,7 @@
 	desc = "A creepy wooden mask. Surprisingly expressive for a poorly carved bit of wood."
 	icon_state = "tiki_eyebrow"
 	item_state = "tiki_eyebrow"
+	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 1.25)
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	actions_types = list(/datum/action/item_action/adjust)

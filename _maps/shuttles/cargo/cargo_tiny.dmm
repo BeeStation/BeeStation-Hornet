@@ -29,7 +29,7 @@
 	pixel_y = -31
 	},
 /obj/machinery/light,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/supply)
 "d" = (
 /obj/effect/turf_decal/stripes/line{
@@ -39,7 +39,7 @@
 	dir = 4;
 	id = "QMLoad2"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/supply)
 "f" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -90,11 +90,11 @@
 "u" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/supply)
 "y" = (
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/supply)
 "C" = (
 /obj/structure/fans/tiny,
@@ -103,7 +103,7 @@
 	id = "MailConv"
 	},
 /obj/structure/plasticflaps,
-/turf/open/floor/plasteel/sepia,
+/turf/open/floor/iron/sepia,
 /area/shuttle/supply)
 "D" = (
 /obj/effect/turf_decal/bot,
@@ -113,12 +113,12 @@
 	id = "QMLoad2";
 	name = "Unloading ramp Switch"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/supply)
 "F" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/oil/streak,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/supply)
 "G" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -130,7 +130,7 @@
 	dir = 8;
 	id = "MailConv"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/supply)
 "H" = (
 /obj/effect/turf_decal/bot,
@@ -139,7 +139,7 @@
 	dir = 1;
 	id = "MailConv"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/shuttle/supply)
 "I" = (
 /obj/effect/turf_decal/stripes/line{
@@ -150,7 +150,7 @@
 	dir = 4;
 	id = "QMLoad2"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/supply)
 "K" = (
 /obj/effect/spawner/structure/window/shuttle,
@@ -163,7 +163,7 @@
 	dir = 8;
 	id = "MailConv"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/supply)
 "T" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -178,7 +178,7 @@
 	dir = 4;
 	id = "QMLoad2"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/shuttle/supply)
 "X" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -199,7 +199,7 @@
 	id = "QMLoad2"
 	},
 /obj/structure/plasticflaps,
-/turf/open/floor/plasteel/sepia,
+/turf/open/floor/iron/sepia,
 /area/shuttle/supply)
 
 (1,1,1) = {"

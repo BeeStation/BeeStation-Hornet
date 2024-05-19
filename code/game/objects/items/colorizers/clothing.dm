@@ -17,6 +17,6 @@
 /obj/item/colorizer/captain_military_uniform
 	name = "Captain's Clothes Colouriser (Military)"
 	desc = "A colouriser that will change the look of the Captain's hat, jumpsuit and carapace to look more militaristic."
-	allowed_targets = list(/obj/item/clothing/under/rank/captain, /obj/item/clothing/suit/armor/vest/capcarapace, /obj/item/clothing/head/caphat)
+	allowed_targets = list(/obj/item/clothing/under/rank/captain, /obj/item/clothing/suit/armor/vest/capcarapace, /obj/item/clothing/head/hats/caphat)
 	apply_icon_state = "militarycap"
 	uses_left = 3

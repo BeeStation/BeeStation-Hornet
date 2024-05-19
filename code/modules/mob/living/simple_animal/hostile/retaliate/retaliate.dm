@@ -9,8 +9,8 @@
 		else
 			remove_enemy(L)
 	else if(ismecha(A))
-		var/obj/mecha/M = A
-		if(M.occupant)
+		var/obj/vehicle/sealed/mecha/M = A
+		if(LAZYLEN(M.occupants))
 			return A
 
 /mob/living/simple_animal/hostile/retaliate/ListTargets()
@@ -31,10 +31,10 @@
 				if(attack_same && H.attack_same)
 					H.add_enemies(enemies)
 		else if(ismecha(A))
-			var/obj/mecha/M = A
-			if(M.occupant)
+			var/obj/vehicle/sealed/mecha/M = A
+			if(LAZYLEN(M.occupants))
 				add_enemy(M)
-				add_enemy(M.occupant)
+				add_enemy(M.occupants)
 	return FALSE
 
 /mob/living/simple_animal/hostile/retaliate/adjustHealth(amount, updating_health = TRUE, forced = FALSE)

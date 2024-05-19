@@ -107,9 +107,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination = get_edge_target_turf(src, dir)
 	SSmove_manager.home_onto(src, destination)
 
-/obj/effect/immovablerod/ex_act(severity, target)
-	return 0
-
 /obj/effect/immovablerod/singularity_act()
 	return
 

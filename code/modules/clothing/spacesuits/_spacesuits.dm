@@ -2,10 +2,12 @@
 //      Meaning the the suit is defined directly after the corrisponding helmet. Just like below!
 /obj/item/clothing/head/helmet/space
 	name = "space helmet"
+	icon = 'icons/obj/clothing/head/spacehelm.dmi'
+	worn_icon = 'icons/mob/clothing/head/spacehelm.dmi'
 	icon_state = "spaceold"
+	item_state = "space_helmet"
 	desc = "A special helmet with solar UV shielding to protect your eyes from harmful rays."
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
-	item_state = "spaceold"
 	permeability_coefficient = 0.01
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70, STAMINA = 10)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
@@ -26,6 +28,8 @@
 	name = "space suit"
 	desc = "A suit that protects against low pressure environments. Has a big 13 on the back."
 	icon_state = "spaceold"
+	icon = 'icons/obj/clothing/suits/spacesuit.dmi'
+	worn_icon = 'icons/mob/clothing/suits/spacesuit.dmi'
 	item_state = "s_suit"
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01

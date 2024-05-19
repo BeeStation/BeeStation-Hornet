@@ -30,6 +30,9 @@
 	remove_from_alive_mob_list()
 	remove_from_mob_suicide_list()
 	focus = null
+	if(length(progressbars))
+		stack_trace("[src] destroyed with elements in its progressbars list")
+		progressbars = null
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
 	if(observers?.len)
@@ -174,7 +177,7 @@
 				if(type & MSG_VISUAL && is_blind())
 					return
 	// voice muffling
-	if(stat == UNCONSCIOUS)
+	if(stat == UNCONSCIOUS || stat == HARD_CRIT)
 		if(type & MSG_AUDIBLE) //audio
 			to_chat(src, "<I>... You can almost hear something ...</I>")
 		return
@@ -804,7 +807,7 @@
 /mob/proc/canface()
 	if(world.time < client.last_turn)
 		return FALSE
-	if(stat == DEAD || stat == UNCONSCIOUS)
+	if(stat >= UNCONSCIOUS)
 		return FALSE
 	if(anchored)
 		return FALSE
@@ -960,6 +963,9 @@
 /mob/proc/can_interact_with(atom/A, treat_mob_as_adjacent)
 	if(IsAdminGhost(src))
 		return TRUE
+	var/datum/dna/mob_dna = has_dna()
+	if(mob_dna?.check_mutation(TK) && tkMaxRangeCheck(src, A))
+		return TRUE
 	if(treat_mob_as_adjacent && src == A.loc)
 		return TRUE
 	return Adjacent(A)
@@ -1100,7 +1106,7 @@
 		return
 	client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 	if (ismecha(loc))
-		var/obj/mecha/M = loc
+		var/obj/vehicle/sealed/mecha/M = loc
 		if(M.mouse_pointer)
 			client.mouse_pointer_icon = M.mouse_pointer
 	else if (istype(loc, /obj/vehicle/sealed))
@@ -1228,17 +1234,22 @@
 /// Updates the grab state of the mob and updates movespeed
 /mob/setGrabState(newstate)
 	. = ..()
-	if(grab_state == GRAB_PASSIVE)
-		remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE, update=TRUE)
-	else
-		add_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=grab_state*3, blacklisted_movetypes=FLOATING)
+	switch(grab_state)
+		if(GRAB_PASSIVE)
+			remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE)
+		if(GRAB_AGGRESSIVE)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/aggressive)
+		if(GRAB_NECK)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/neck)
+		if(GRAB_KILL)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/kill)
 
 /mob/proc/update_equipment_speed_mods()
 	var/speedies = equipped_speed_mods()
 	if(!speedies)
-		remove_movespeed_modifier(MOVESPEED_ID_MOB_EQUIPMENT, update=TRUE)
+		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod)
 	else
-		add_movespeed_modifier(MOVESPEED_ID_MOB_EQUIPMENT, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=speedies, blacklisted_movetypes=FLOATING)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod, multiplicative_slowdown = speedies)
 
 /// Gets the combined speed modification of all worn items
 /// Except base mob type doesnt really wear items

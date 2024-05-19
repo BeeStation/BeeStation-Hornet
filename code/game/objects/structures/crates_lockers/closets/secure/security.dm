@@ -15,7 +15,7 @@
 	new /obj/item/storage/backpack/duffelbag/captain(src)
 	new	/obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/alt(src)
+	new /obj/item/clothing/suit/armor/vest/capcarapace/captains_formal(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/captain(src)
 	new /obj/item/clothing/suit/captunic(src)
 	new /obj/item/clothing/gloves/color/captain(src)
@@ -49,10 +49,10 @@
 	new /obj/item/clothing/under/rank/captain(src)
 	new /obj/item/clothing/under/rank/captain/skirt(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
-	new /obj/item/clothing/head/caphat(src)
+	new /obj/item/clothing/head/hats/caphat(src)
 	new /obj/item/clothing/head/beret/captain(src)
-	new /obj/item/clothing/head/caphat/parade(src)
-	new /obj/item/clothing/head/crown/fancy(src)
+	new /obj/item/clothing/head/hats/caphat/parade(src)
+	new /obj/item/clothing/head/costume/crown/fancy(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 
 /obj/structure/closet/secure_closet/hop
@@ -101,7 +101,7 @@
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel/skirt(src)
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel/alt(src)
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel/alt/skirt(src)
-	new /obj/item/clothing/head/hopcap(src)
+	new /obj/item/clothing/head/hats/hopcap(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 
 /obj/structure/closet/secure_closet/brig_physician
@@ -181,7 +181,7 @@
 	new /obj/item/clothing/under/rank/security/head_of_security/white(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade/female(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade(src)
-	new /obj/item/clothing/head/HoS(src)
+	new /obj/item/clothing/head/hats/hos(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "\proper warden's locker"
@@ -192,8 +192,8 @@
 	..()
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/clothing/suit/armor/vest/warden(src)
-	new /obj/item/clothing/head/warden(src)
-	new /obj/item/clothing/head/warden/drill(src)
+	new /obj/item/clothing/head/hats/warden(src)
+	new /obj/item/clothing/head/hats/warden/drill(src)
 	new /obj/item/clothing/head/beret/sec/navywarden(src)
 	new /obj/item/clothing/head/beret/corpwarden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
@@ -332,8 +332,8 @@
 	for(var/i in 1 to 3)
 		new /obj/item/paper/fluff/jobs/security/court_judgment (src)
 	new /obj/item/pen (src)
-	new /obj/item/clothing/suit/judgerobe (src)
-	new /obj/item/clothing/head/powdered_wig (src)
+	new /obj/item/clothing/suit/costume/judgerobe (src)
+	new /obj/item/clothing/head/costume/powdered_wig (src)
 	new /obj/item/storage/briefcase(src)
 
 /obj/structure/closet/secure_closet/contraband/armory
@@ -360,7 +360,7 @@
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/suit/armor/riot(src)
 	for(var/i in 1 to 3)
-		new /obj/item/clothing/head/helmet/riot(src)
+		new /obj/item/clothing/head/helmet/toggleable/riot(src)
 	for(var/i in 1 to 3)
 		new /obj/item/shield/riot(src)
 

@@ -176,7 +176,7 @@
 		priority_announce("Spatial object has reached peak energy charge in [initial(A.name)], please stand-by.", "Central Command Wildlife Observations")
 		obj_integrity = INFINITY
 		icon_state = "carp_rift_charged"
-		set_light_color(LIGHT_COLOR_YELLOW)
+		set_light_color(LIGHT_COLOR_DIM_YELLOW)
 		update_light()
 		resistance_flags = INDESTRUCTIBLE
 		dragon.rifts_charged += 1
