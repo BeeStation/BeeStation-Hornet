@@ -350,7 +350,7 @@
 	force = 8
 	throwforce = 7
 	cooldown = 0
-	stamina_damage = 25 // 4 hits to stamcrit
+	stamina_damage = 30 // 4 hits to stamcrit < that was a lie
 	stun_animation = TRUE
 	/// Per-mob sleep cooldowns.
 	/// [mob] = [world.time where the cooldown ends]
