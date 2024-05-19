@@ -85,7 +85,7 @@
 	///The setting of the valve on the internal tank
 	var/internal_tank_valve = ONE_ATMOSPHERE
 	///The internal air tank obj of the mech
-	var/obj/machinery/portable_atmospherics/canister/internal_tank
+	var/obj/machinery/portable_atmospherics/canister/air/internal_tank
 	///Internal air mix datum
 	var/datum/gas_mixture/cabin_air
 	///The connected air port, if we have one
@@ -232,11 +232,6 @@
 	STOP_PROCESSING(SSobj, src)
 	LAZYCLEARLIST(equipment)
 	assume_air(cabin_air)
-	if(loc)
-		loc.assume_air(cabin_air)
-		air_update_turf()
-	else
-		qdel(cabin_air)
 	cabin_air = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
