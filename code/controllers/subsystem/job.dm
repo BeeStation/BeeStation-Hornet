@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(job)
 	var/list/crew_obj_jobs = list()
 
 	/// jobs that are not allowed in HoP job manager
-	var/list/manipulation_blacklist_jobs = list(
+	var/list/job_manager_blacklisted = list(
 		JOB_NAME_AI,
 		JOB_NAME_ASSISTANT,
 		JOB_NAME_CYBORG,
@@ -84,7 +84,7 @@ SUBSYSTEM_DEF(job)
 	crew_obj_list = SSjob.crew_obj_list
 	crew_obj_jobs = SSjob.crew_obj_jobs
 
-	manipulation_blacklist_jobs = SSjob.manipulation_blacklist_jobs
+	job_manager_blacklisted = SSjob.job_manager_blacklisted
 
 /datum/controller/subsystem/job/proc/set_overflow_role(new_overflow_role)
 	var/datum/job/new_overflow = GetJob(new_overflow_role)

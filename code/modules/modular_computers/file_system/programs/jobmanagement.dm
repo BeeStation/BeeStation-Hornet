@@ -24,7 +24,7 @@
 	change_position_cooldown = CONFIG_GET(number/id_console_jobslot_delay)
 
 /datum/computer_file/program/proc/job_blacklisted(jobtitle)
-	return jobtitle == SSjob.overflow_role ? TRUE : (jobtitle in SSjob.manipulation_blacklist_jobs)
+	return jobtitle == SSjob.overflow_role ? TRUE : (jobtitle in SSjob.job_manager_blacklisted)
 
 /datum/computer_file/program/job_management/proc/can_open_job(datum/job/job)
 	if(!job_blacklisted(job?.title))

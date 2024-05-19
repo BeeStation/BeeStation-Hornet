@@ -111,7 +111,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 //Check if you can't open a new position for a certain job
 /obj/machinery/computer/card/proc/job_blacklisted(jobtitle)
-	return jobtitle == SSjob.overflow_role ? TRUE : (jobtitle in SSjob.manipulation_blacklist_jobs)
+	return jobtitle == SSjob.overflow_role ? TRUE : (jobtitle in SSjob.job_manager_blacklisted)
 
 // CentCom is powerful
 /obj/machinery/computer/card/centcom/job_blacklisted(jobtitle)

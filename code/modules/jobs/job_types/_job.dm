@@ -128,7 +128,7 @@
 	if(!map_check())
 		lock_flags |= JOB_LOCK_REASON_MAP
 	if(lock_flags || gimmick)
-		SSjob.manipulation_blacklist_jobs |= title
+		SSjob.job_manager_blacklisted |= title
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
