@@ -1,4 +1,0 @@
-author: MatiAvanti
-delete-after: true
-changes:
-  - tweak: changed LOBBY_COUNTDOWN from 180 to 300 seconds
