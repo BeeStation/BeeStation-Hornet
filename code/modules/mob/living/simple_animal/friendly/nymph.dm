@@ -35,13 +35,15 @@
 	var/instance_num
 	var/IsGhostSpawn = FALSE //For if a ghost can become this.
 	var/datum/mind/origin
+	var/oldName // The diona nymph's old name.
+	var/datum/action/nymph/evolve/EvolveAbility // The ability to grow up into a diona.
 
 /mob/living/simple_animal/nymph/Initialize()
 	. = ..()
 	time_of_birth = world.time
-	START_PROCESSING(SSprocessing, src)
 	add_verb(/mob/living/proc/lay_down)
-	//AddAbility(new/obj/effect/proc_holder/alien/hide(null))
+	EvolveAbility = new
+	EvolveAbility.Grant(src)
 
 	instance_num = rand(1, 1000)
 	name = "[initial(name)] ([instance_num])"
@@ -56,16 +58,16 @@
 	. = ..()
 	var/list/tab_data = ..()
 	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
-	tab_data["Growth"] = GENERATE_STAT_TEXT("[(round(amount_grown / max_grown) * 100)]%")
+	tab_data["Growth"] = GENERATE_STAT_TEXT("[(round(amount_grown / max_grown * 100))]%")
 	return tab_data
 
-/mob/living/simple_animal/nymph/process(delta_time)
-	if(stat != DEAD && delta_time > 0)
-		amount_grown = min(amount_grown + 1, max_grown)
+/mob/living/simple_animal/nymph/Life(delta_time, times_fired)
+	. = ..()
+	update_progression()
 	get_stat_tab_status()
 
 /mob/living/simple_animal/nymph/death(gibbed)
-	STOP_PROCESSING(SSprocessing, src)
+	EvolveAbility.Remove(src)
 	return ..(gibbed,death_msg)
 
 /mob/living/simple_animal/nymph/attack_ghost(mob/dead/observer/user)
@@ -86,12 +88,42 @@
 	to_chat(newnymph, "<span class='boldwarning'>Remember that you have forgotten all of your past lives and are a new person!</span>")
 
 
+/datum/action/nymph/evolve
+	name = "Evolve"
+	desc = "Evolve into your adult form."
+	background_icon_state = "bg_default"
+	icon_icon = 'icons/mob/actions/actions_genetic.dmi' // TO DO: Add icons for evolving
+	button_icon_state = "default"
 
-/mob/living/simple_animal/nymph/proc/confirm_evolution()
+/datum/action/nymph/evolve/Trigger()
+	. = ..()
+	var/mob/living/simple_animal/nymph/user = owner
+	if(!isnymph(user))
+		return
+	if(user.movement_type & VENTCRAWLING)
+		to_chat(user, "<span class='danger'>You cannot evolve while in a vent.</span>")
+		return
+
+	if(user.amount_grown >= user.max_grown)
+		if(user.incapacitated()) //something happened to us while we were choosing.
+			return
+		user.evolve()
+		return TRUE
+	else
+		to_chat(user, "<span class='danger'>You are not fully grown.</span>")
+		return FALSE
+
+
+/mob/living/simple_animal/nymph/verb/evolve()
+	if(stat != CONSCIOUS)
+		return
+
 	if(amount_grown < max_grown)
-		to_chat(src, "You are not yet ready for your growth...")
-		return null
-
+		to_chat(src, "<span class='warning'>You are not fully grown.")
+		return
+	if(src.movement_type & VENTCRAWLING)
+		to_chat(src, "<span class='danger'>You cannot evolve while in a vent.</span>")
+		return
 	if(istype(loc, /obj/item/clothing/head/mob_holder))
 		var/obj/item/clothing/head/mob_holder/L = loc
 		src.loc = L.loc
@@ -101,45 +133,21 @@
 		("<span class='warning'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea."),
 		("<span class='warning'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.")
 	)
-	return SPECIES_DIONA
 
-
-/mob/living/simple_animal/nymph/verb/evolve()
-	name = "Evolve"
-	desc = "Evolve into your adult form"
-
-	if(stat != CONSCIOUS)
-		return
-
-	if(amount_grown < max_grown)
-		to_chat(src, "<span class='warning'>You are not fully grown.")
-		return
-
-	// confirm_evolution() handles choices and other specific requirements.
-	var/new_species = confirm_evolution()
-	if(!new_species)
-		return
-
-	var/mob/living/carbon/human/adult = new /mob/living/carbon/human(get_turf(src))
-	adult.set_species(new_species)
-
+	var/mob/living/carbon/human/species/diona/adult = new /mob/living/carbon/human/species/diona(get_turf(src))
+	adult.set_species(SPECIES_DIONA)
 	if(src.faction != "neutral")
 		adult.faction = src.faction
-
+	if(oldName)
+		adult.real_name = src.oldName
+	else
+		adult.fully_replace_character_name(name, adult.dna.species.random_name(gender))
 	if(mind)
 		mind.transfer_to(adult)
-		if(can_namepick_as_adult)
-			var/newname = sanitize(input(adult, "You have become an adult. Choose a name for yourself.", "Adult Name") as null|text, MAX_NAME_LEN)
-			if(!newname)
-				adult.fully_replace_character_name(name, adult.dna.species.random_name(gender))
-			else
-				adult.fully_replace_character_name(name, newname)
 	else
 		adult.key = src.key
-
 	for (var/obj/item/W in src.contents)
 		src.forceMove(src.loc)
-
 	qdel(src)
 
 
