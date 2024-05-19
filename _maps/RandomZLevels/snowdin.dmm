@@ -5446,10 +5446,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post)
-"pR" = (
-/obj/structure/closet/crate,
-/turf/open/floor/plating,
-/area/awaymission/snowdin/post/mining_dock)
 "pS" = (
 /obj/machinery/power/terminal{
 	dir = 8
@@ -5547,6 +5543,16 @@
 /area/awaymission/snowdin/post/engineering)
 "qc" = (
 /obj/structure/reagent_dispensers/watertank/high,
+/obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/simple/supply/visible{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/awaymission/snowdin/post/engineering)
+"qd" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/item/clothing/head/utility/welding,
+/obj/item/weldingtool/largetank,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
 	dir = 8
@@ -6524,6 +6530,15 @@
 	},
 /turf/open/floor/iron/dark/snowdin,
 /area/awaymission/snowdin/outside)
+"sV" = (
+/obj/structure/statue/snow/snowman{
+	anchored = 1
+	},
+/obj/item/clothing/head/hats/bowler{
+	pixel_y = 13
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/snowdin/outside)
 "sW" = (
 /obj/machinery/power/turbine{
 	dir = 2;
@@ -6968,15 +6983,6 @@
 "uG" = (
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/cavern1)
-"uH" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/closet/crate,
-/turf/open/floor/plating{
-	broken = 1
-	},
-/area/awaymission/snowdin/post/mining_dock)
 "uI" = (
 /turf/closed/wall/ice,
 /area/awaymission/snowdin/post/cavern1)
@@ -8660,15 +8666,6 @@
 	broken = 1
 	},
 /area/awaymission/snowdin/post/minipost)
-"AF" = (
-/obj/structure/statue/snow/snowman{
-	anchored = 1
-	},
-/obj/item/clothing/head/hats/bowler{
-	pixel_y = 13
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "AG" = (
 /mob/living/simple_animal/hostile/bear/snow,
 /turf/open/floor/plating/snowed/smoothed,
@@ -10051,6 +10048,15 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/outside)
+"FF" = (
+/obj/structure/statue/snow/snowman{
+	name = "Snow-Luc Price"
+	},
+/obj/item/clothing/head/hats/hos{
+	pixel_y = 10
+	},
+/turf/open/floor/plating/asteroid/snow,
+/area/awaymission/snowdin/outside)
 "FG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -10332,6 +10338,15 @@
 /area/awaymission/snowdin/outside)
 "Gx" = (
 /turf/closed/wall,
+/area/awaymission/snowdin/post/mining_main/robotics)
+"Gy" = (
+/obj/structure/table,
+/obj/item/clothing/head/utility/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/welding,
+/turf/open/floor/iron,
 /area/awaymission/snowdin/post/mining_main/robotics)
 "Gz" = (
 /turf/open/floor/plating,
@@ -10822,14 +10837,6 @@
 "Im" = (
 /obj/machinery/mech_bay_recharge_port,
 /turf/open/floor/iron/dark,
-/area/awaymission/snowdin/post/mining_main/mechbay)
-"In" = (
-/obj/mecha/working/ripley/mining{
-	dir = 1;
-	ruin_mecha = 1
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mech_bay_recharge_floor,
 /area/awaymission/snowdin/post/mining_main/mechbay)
 "Io" = (
 /obj/effect/turf_decal/stripes/line{
@@ -11374,15 +11381,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/mining_main)
-"KU" = (
-/obj/structure/table,
-/obj/item/clothing/head/utility/welding{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/welding,
-/turf/open/floor/iron,
-/area/awaymission/snowdin/post/mining_main/robotics)
 "KW" = (
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 4
@@ -11852,6 +11850,11 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/mining_main)
+"Nh" = (
+/obj/vehicle/sealed/mecha/working/ripley/mining,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mech_bay_recharge_floor,
+/area/awaymission/snowdin/post/mining_main/mechbay)
 "Nj" = (
 /obj/structure/door_assembly/door_assembly_min{
 	anchored = 1;
@@ -12465,6 +12468,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/snowdin/cave)
+"QI" = (
+/obj/structure/closet/crate,
+/turf/open/floor/plating,
+/area/awaymission/snowdin/post/mining_dock)
 "QL" = (
 /obj/machinery/door/airlock/external{
 	name = "Ready Room";
@@ -12550,16 +12557,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/snowdin/post)
-"Rj" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/item/clothing/head/utility/welding,
-/obj/item/weldingtool/largetank,
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/supply/visible{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/awaymission/snowdin/post/engineering)
 "Ro" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
@@ -13974,6 +13971,15 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark/snowdin,
 /area/awaymission/snowdin/cave)
+"Yq" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/closet/crate,
+/turf/open/floor/plating{
+	broken = 1
+	},
+/area/awaymission/snowdin/post/mining_dock)
 "Yr" = (
 /obj/effect/decal/cleanable/vomit/old,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -14191,15 +14197,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/awaymission/snowdin/post/messhall)
-"ZB" = (
-/obj/structure/statue/snow/snowman{
-	name = "Snow-Luc Price"
-	},
-/obj/item/clothing/head/hats/hos{
-	pixel_y = 10
-	},
-/turf/open/floor/plating/asteroid/snow,
-/area/awaymission/snowdin/outside)
 "ZC" = (
 /obj/structure/closet/emcloset,
 /obj/item/clothing/suit/hooded/wintercoat,
@@ -26398,7 +26395,7 @@ af
 af
 ak
 af
-AF
+sV
 af
 af
 af
@@ -29988,7 +29985,7 @@ nY
 ov
 oV
 nN
-Rj
+qd
 qB
 Xs
 rt
@@ -43795,7 +43792,7 @@ af
 af
 am
 sf
-ZB
+FF
 af
 am
 ae
@@ -58706,7 +58703,7 @@ oZ
 oZ
 oZ
 Ge
-KU
+Gy
 GV
 Hs
 HJ
@@ -63336,7 +63333,7 @@ GJ
 He
 HA
 HO
-In
+Nh
 GH
 wL
 wL
@@ -64266,7 +64263,7 @@ RA
 wL
 wL
 Nk
-uH
+Yq
 UT
 xW
 eJ
@@ -64524,7 +64521,7 @@ XD
 xy
 Nk
 UT
-pR
+QI
 wD
 eJ
 eJ

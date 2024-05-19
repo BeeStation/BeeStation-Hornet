@@ -398,19 +398,6 @@
 	},
 /turf/open/floor/circuit/telecomms,
 /area/mine/maintenance)
-"dq" = (
-/obj/structure/chair/fancy/bench/pew/right{
-	dir = 8
-	},
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
-	},
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/mine/living_quarters)
 "dt" = (
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
@@ -1680,6 +1667,16 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/mine/living_quarters)
+"lq" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/donkpockets,
+/obj/item/clothing/head/utility/chefhat,
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/mine/laborcamp)
 "ls" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
@@ -6129,16 +6126,6 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /turf/open/floor/iron/dark,
 /area/mine/maintenance)
-"Tz" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/item/clothing/head/utility/chefhat,
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/turf/open/floor/iron/grid/steel,
-/area/mine/laborcamp)
 "TA" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -6864,6 +6851,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/eva)
+"Yo" = (
+/obj/structure/chair/fancy/bench/pew/right{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/mine/living_quarters)
 "Yp" = (
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron/checker,
@@ -32577,7 +32573,7 @@ NE
 rw
 jA
 tv
-Tz
+lq
 Ap
 rM
 uL
@@ -44384,7 +44380,7 @@ ZH
 ZH
 YM
 uv
-dq
+Yo
 ZH
 ZH
 mq
