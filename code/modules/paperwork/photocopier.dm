@@ -186,7 +186,7 @@
 		// Remove the toner cartridge from the copier.
 		if("remove_toner")
 			if(busy)
-				to_chat(usr, "span class='warning'>[src] is currently busy copying something. Please wait until it is finished.</span>")
+				to_chat(usr, "<span class='warning'>[src] is currently busy copying something. Please wait until it is finished.</span>")
 				return
 			if(issilicon(usr) || (ishuman(usr) && !usr.put_in_hands(toner_cartridge)))
 				toner_cartridge.forceMove(drop_location())

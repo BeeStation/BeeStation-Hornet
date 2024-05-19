@@ -8,10 +8,8 @@
 	var/id = "roboticsmining"
 	///Name of the mechpad in a mechpad console
 	var/display_name = "Orbital Pad"
-	///The console the pad is linked to
-	var/obj/machinery/computer/mechpad/connected_console
-	///List of consoles that can access the pad
-	var/list/obj/machinery/computer/mechpad/consoles
+	///Can we carry mobs or just mechs?
+	var/mech_only = FALSE
 
 /obj/machinery/mechpad/Initialize()
 	. = ..()
@@ -19,12 +17,13 @@
 	GLOB.mechpad_list += src
 
 /obj/machinery/mechpad/Destroy()
-	if(connected_console)
-		connected_console.connected_mechpad = null
-		connected_console = null
-	for(var/obj/machinery/computer/mechpad/console in consoles)
-		console.mechpads -= src
+	GLOB.mechpad_list -= src
 	return ..()
+
+/obj/machinery/mechpad/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Use a multitool with the panel open to save id to buffer.</span>"
+	. += "<span class='notice'>Use wirecutters with the panel open to [mech_only ? "cut" : "mend"] the lifeform restriction wire.</span>"
 
 /obj/machinery/mechpad/screwdriver_act(mob/user, obj/item/tool)
 	. = ..()
@@ -48,6 +47,13 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mechpad)
 		return COMPONENT_BUFFER_RECIEVED
 	return NONE
 
+/obj/machinery/mechpad/wirecutter_act(mob/living/user, obj/item/tool)
+	if(!panel_open)
+		return
+	mech_only = !mech_only
+	to_chat(user, "<span class='notice'>You [mech_only ? "mend" : "cut"] the lifeform restriction wire.</span>")
+	return TRUE
+
 /**
   * Spawns a special supply pod whitelisted to only accept mechs and have its drop off location be another mechpad
   * Arguments:
@@ -63,14 +69,16 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mechpad)
 	style = STYLE_SEETHROUGH
 	explosionSize = list(0,0,0,0)
 	reversing = TRUE
-	delays = list(POD_TRANSIT = 0, POD_FALLING = 4, POD_OPENING = 0, POD_LEAVING = 0)
-	effectOrgans = TRUE
+	reverse_option_list = list("Mobs"=FALSE,"Objects"=FALSE,"Anchored"=FALSE,"Underfloor"=FALSE,"Wallmounted"=FALSE,"Floors"=FALSE,"Walls"=FALSE,"Mecha"=TRUE)
+	delays = list(POD_TRANSIT = 0, POD_FALLING = 0, POD_OPENING = 0, POD_LEAVING = 0)
+	reverse_delays = list(POD_TRANSIT = 30, POD_FALLING = 10, POD_OPENING = 0, POD_LEAVING = 0)
+	custom_rev_delay = TRUE
 	effectQuiet = TRUE
+	effectStealth = TRUE
 	leavingSound = 'sound/vehicles/rocketlaunch.ogg'
 	close_sound = null
 	pod_flags = FIRST_SOUNDS
 
-/obj/structure/closet/supplypod/mechpod/insertion_allowed(atom/movable/AM)
-	if(!ismecha(AM))
-		return FALSE
-	. = ..()
+/obj/structure/closet/supplypod/mechpod/handleReturnAfterDeparting(atom/movable/holder = src)
+	effectGib = TRUE
+	return ..()
