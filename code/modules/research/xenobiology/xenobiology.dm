@@ -914,8 +914,6 @@
 
 /obj/item/slimepotion/speed/pre_attack(obj/thingy, mob/user)
 	. = ..()
-	if(!.)
-		return
 	if(isitem(thingy))
 		var/obj/item/item = thingy
 		if(item.anchored)
@@ -959,8 +957,6 @@
 
 /obj/item/slimepotion/fireproof/pre_attack(obj/item/clothing/clothing, mob/user)
 	. = ..()
-	if(!.)
-		return
 	if(!uses)
 		qdel(src)
 		return
