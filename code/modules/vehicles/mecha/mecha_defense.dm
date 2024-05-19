@@ -296,8 +296,6 @@
 
 /obj/vehicle/sealed/mecha/welder_act(mob/living/user, obj/item/W)
 	. = ..()
-	if(user in src.occupants) //Fuck with any attempts by the current user to self heal whilst piloting
-		return
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE

@@ -30,7 +30,6 @@
 	if(ismob(gone))
 		remove_occupant(gone)
 
-/*
 /obj/vehicle/sealed/after_add_occupant(mob/M)
 	. = ..()
 	ADD_TRAIT(M, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
@@ -39,7 +38,6 @@
 /obj/vehicle/sealed/after_remove_occupant(mob/M)
 	. = ..()
 	REMOVE_TRAIT(M, TRAIT_HANDS_BLOCKED, VEHICLE_TRAIT)
-*/
 
 /obj/vehicle/sealed/proc/mob_try_enter(mob/M)
 	if(!istype(M))
