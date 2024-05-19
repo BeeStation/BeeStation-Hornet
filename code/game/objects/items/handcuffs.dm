@@ -27,6 +27,8 @@
 	gender = PLURAL
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "handcuff"
+	item_state = "handcuff"
+	worn_icon_state = "handcuff"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -94,15 +96,6 @@
 		qdel(src)
 	return
 
-/obj/item/restraints/handcuffs/cable/sinew
-	name = "sinew restraints"
-	desc = "A pair of restraints fashioned from long strands of flesh."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "sinewcuff"
-	item_state = "sinewcuff"
-	custom_materials = null
-	color = null
-
 /obj/item/restraints/handcuffs/cable
 	name = "cable restraints"
 	desc = "Looks like some cables tied together. Could be used to tie something up."
@@ -139,13 +132,22 @@
 /obj/item/restraints/handcuffs/cable/white
 	color = null
 
+/obj/item/restraints/handcuffs/cable/sinew
+	name = "sinew restraints"
+	desc = "A pair of restraints fashioned from long strands of flesh."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "sinewcuff"
+	item_state = "sinewcuff"
+	custom_materials = null
+	color = null
+
 /obj/item/restraints/handcuffs/alien
 	icon_state = "handcuffAlien"
 
 /obj/item/restraints/handcuffs/fake
 	name = "fake handcuffs"
 	desc = "Fake handcuffs meant for gag purposes."
-	breakouttime = 10 //Deciseconds = 1s
+	breakouttime = 1 SECONDS
 
 /obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
 	..()

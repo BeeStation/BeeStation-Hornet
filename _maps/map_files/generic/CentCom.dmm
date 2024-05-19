@@ -1734,7 +1734,7 @@
 /obj/structure/rack,
 /obj/item/storage/box/donkpockets,
 /obj/item/storage/box/donkpockets,
-/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/utility/chefhat,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/tdome/tdomeobserve)
@@ -3393,7 +3393,7 @@
 /obj/item/clothing/neck/stripedredscarf,
 /obj/item/clothing/neck/tie/red,
 /obj/item/clothing/head/helmet/space/beret,
-/obj/item/clothing/suit/curator,
+/obj/item/clothing/suit/jacket/curator,
 /obj/item/clothing/suit/space/officer,
 /obj/item/clothing/gloves/fingerless,
 /obj/item/clothing/gloves/color/black,

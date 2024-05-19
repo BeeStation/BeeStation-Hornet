@@ -30,6 +30,21 @@ SUBSYSTEM_DEF(job)
 	var/list/crew_obj_list = list()
 	var/list/crew_obj_jobs = list()
 
+	/// jobs that are not allowed in HoP job manager
+	var/list/job_manager_blacklisted = list(
+		JOB_NAME_AI,
+		JOB_NAME_ASSISTANT,
+		JOB_NAME_CYBORG,
+		JOB_NAME_CAPTAIN,
+		JOB_NAME_HEADOFPERSONNEL,
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_RESEARCHDIRECTOR,
+		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_BRIGPHYSICIAN,
+		JOB_NAME_DEPUTY,
+		JOB_NAME_GIMMICK)
+
 /datum/controller/subsystem/job/Initialize(timeofday)
 	SSmapping.HACK_LoadMapConfig()
 	if(!occupations.len)
@@ -53,8 +68,28 @@ SUBSYSTEM_DEF(job)
 
 	return ..()
 
+/datum/controller/subsystem/job/Recover()
+	occupations = SSjob.occupations
+	name_occupations = SSjob.name_occupations
+	type_occupations = SSjob.type_occupations
+	unassigned = SSjob.unassigned
+	initial_players_to_assign = SSjob.initial_players_to_assign
+
+	prioritized_jobs = SSjob.prioritized_jobs
+	latejoin_trackers = SSjob.latejoin_trackers
+
+	overflow_role = SSjob.overflow_role
+
+	spare_id_safe_code = SSjob.spare_id_safe_code
+	crew_obj_list = SSjob.crew_obj_list
+	crew_obj_jobs = SSjob.crew_obj_jobs
+
+	job_manager_blacklisted = SSjob.job_manager_blacklisted
+
 /datum/controller/subsystem/job/proc/set_overflow_role(new_overflow_role)
 	var/datum/job/new_overflow = GetJob(new_overflow_role)
+	if(!new_overflow || new_overflow.lock_flags)
+		CRASH("[new_overflow_role] was used for an overflow role, but it's not allowed. BITFLAG: [new_overflow?.lock_flags]")
 	var/cap = CONFIG_GET(number/overflow_cap)
 
 	new_overflow.allow_bureaucratic_error = FALSE
@@ -76,20 +111,13 @@ SUBSYSTEM_DEF(job)
 		to_chat(world, "<span class='boldannounce'>Error setting up jobs, no job datums found.</span>")
 		return 0
 
-	for(var/J in all_jobs)
-		var/datum/job/job = new J()
-		if(!job)
+	for(var/datum/job/each_job as anything in all_jobs)
+		each_job = new each_job()
+		if(each_job.faction != faction)
 			continue
-		if(job.faction != faction)
-			continue
-		if(!job.config_check())
-			continue
-		if(!job.map_check())	//Even though we initialize before mapping, this is fine because the config is loaded at new
-			testing("Removed [job.type] due to map config")
-			continue
-		occupations += job
-		name_occupations[job.title] = job
-		type_occupations[J] = job
+		occupations += each_job
+		name_occupations[each_job.title] = each_job
+		type_occupations[each_job.type] = each_job
 
 	return 1
 
@@ -128,7 +156,7 @@ SUBSYSTEM_DEF(job)
 	JobDebug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
 	if(player?.mind && rank)
 		var/datum/job/job = GetJob(rank)
-		if(!job)
+		if(!job || job.lock_flags)
 			return FALSE
 		if(QDELETED(player) || is_banned_from(player.ckey, rank))
 			return FALSE
@@ -181,7 +209,7 @@ SUBSYSTEM_DEF(job)
 	JobDebug("GRJ Giving random job, Player: [player]")
 	. = FALSE
 	for(var/datum/job/job in shuffle(occupations))
-		if(!job)
+		if(!job || job.lock_flags)
 			continue
 
 		if(istype(job, GetJob(SSjob.overflow_role))) // We don't want to give him assistant, that's boring!
@@ -368,7 +396,7 @@ SUBSYSTEM_DEF(job)
 
 			// Loop through all jobs
 			for(var/datum/job/job in shuffledoccupations) // SHUFFLE ME BABY
-				if(!job)
+				if(!job || job.lock_flags)
 					continue
 
 				if(is_banned_from(player.ckey, job.title))
@@ -594,7 +622,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/LoadJobs()
 	var/jobstext = rustg_file_read("[global.config.directory]/jobs.txt")
 	for(var/datum/job/J in occupations)
-		if(J.flag == GIMMICK || J.gimmick) //gimmick job slots are dependant on random maint
+		if(J.gimmick) //gimmick job slots are dependant on random maint
 			continue
 		var/regex/jobs = new("[J.title]=(-1|\\d+),(-1|\\d+)")
 		if(jobs.Find(jobstext))
@@ -612,6 +640,8 @@ SUBSYSTEM_DEF(job)
 		var/banned = 0 //banned
 		var/young = 0 //account too young
 		for(var/mob/dead/new_player/player in GLOB.player_list)
+			if(job.lock_flags)
+				continue
 			if(!(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.assigned_role))
 				continue //This player is not ready
 			if(is_banned_from(player.ckey, job.title) || QDELETED(player))
@@ -658,21 +688,6 @@ SUBSYSTEM_DEF(job)
 	unassigned -= player
 	player.ready = PLAYER_NOT_READY
 
-
-/datum/controller/subsystem/job/Recover()
-	set waitfor = FALSE
-	var/oldjobs = SSjob.occupations
-	sleep(20)
-	for (var/datum/job/J in oldjobs)
-		INVOKE_ASYNC(src, PROC_REF(RecoverJob), J)
-
-/datum/controller/subsystem/job/proc/RecoverJob(datum/job/J)
-	var/datum/job/newjob = GetJob(J.title)
-	if (!istype(newjob))
-		return
-	newjob.total_positions = J.total_positions
-	newjob.spawn_positions = J.spawn_positions
-	newjob.current_positions = J.current_positions
 
 /atom/proc/JoinPlayerHere(mob/M, buckle)
 	// By default, just place the mob on the same turf as the marker or whatever.

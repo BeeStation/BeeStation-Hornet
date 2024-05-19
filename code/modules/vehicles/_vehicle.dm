@@ -2,12 +2,13 @@
 	name = "generic vehicle"
 	desc = "Yell at coderbus."
 	icon = 'icons/obj/vehicles.dmi'
-	icon_state = "fuckyou"
+	icon_state = "error"
 	max_integrity = 300
 	armor = list(MELEE = 30,  BULLET = 30, LASER = 30, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 60, ACID = 60, STAMINA = 0)
 	density = TRUE
 	anchored = FALSE
-	var/list/mob/occupants				//mob = bitflags of their control level.
+	COOLDOWN_DECLARE(cooldown_vehicle_move)
+	var/list/mob/occupants //mob = bitflags of their control level.
 	var/max_occupants = 1
 	var/max_drivers = 1
 	var/movedelay = 2
@@ -131,9 +132,9 @@
 	return TRUE
 
 /obj/vehicle/proc/vehicle_move(direction)
-	if(lastmove + movedelay > world.time)
+	if(!COOLDOWN_FINISHED(src, cooldown_vehicle_move))
 		return FALSE
-	lastmove = world.time
+	COOLDOWN_START(src, cooldown_vehicle_move, movedelay)
 	if(trailer)
 		var/dir_to_move = get_dir(trailer.loc, loc)
 		var/did_move = step(src, direction)

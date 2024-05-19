@@ -51,6 +51,7 @@
 	item_state = "laser"
 	desc = "An industrial-grade heavy-duty laser rifle with a modified laser lens to scatter its shot into multiple smaller lasers. The inner-core can self-charge for theoretically infinite use."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
+	shaded_charge = FALSE
 
 /obj/item/gun/energy/laser/cyborg
 	can_charge = FALSE
@@ -74,6 +75,7 @@
 	shaded_charge = 0
 	pin = /obj/item/firing_pin/implant/mindshield
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/disabler, /obj/item/ammo_casing/energy/electrode)
+	automatic_charge_overlays = FALSE
 
 ///Laser Cannon
 
@@ -82,6 +84,7 @@
 	desc = "An advanced laser cannon that does more damage the farther away the target is."
 	icon_state = "lasercannon"
 	item_state = "laser"
+	worn_icon_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags_1 =  CONDUCT_1

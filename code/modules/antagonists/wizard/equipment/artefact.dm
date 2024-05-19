@@ -511,7 +511,7 @@
 	name = "tornado"
 	desc = "This thing sucks!"
 	layer = FLY_LAYER
-	randomdir = 0
+	randomdir = FALSE
 	duration = 40
 	pixel_x = 500
 

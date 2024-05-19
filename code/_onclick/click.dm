@@ -112,10 +112,6 @@
 	if(!LAZYACCESS(modifiers, "catcher") && A.IsObscured())
 		return
 
-	if(ismecha(loc))
-		var/obj/mecha/M = loc
-		return M.click_action(A,src,params)
-
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
 		UnarmedAttack(A)
@@ -206,7 +202,8 @@
 			if (!target.loc)
 				continue
 
-			if(!(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_BLOCK_REACH))
+			//Storage and things with reachable internal atoms need add to next here. Or return COMPONENT_ALLOW_REACH.
+			if(SEND_SIGNAL(target.loc, COMSIG_ATOM_CANREACH, next) & COMPONENT_ALLOW_REACH)
 				next += target.loc
 
 		checking = next
