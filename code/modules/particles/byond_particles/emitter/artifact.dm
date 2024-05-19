@@ -17,7 +17,9 @@
 	spawning = 0.15
 	lifespan = 15
 	fade = 3
-	//UNLINT(fadein = 3)
+	#ifndef SPACEMAN_DMM // Waiting on next release of DreamChecker
+	fadein = 3
+	#endif
 	friction = 0.25
 	color = "#0081ff"
 	scale = list(2, 2)
@@ -43,7 +45,9 @@
 	spawning = 1
 	lifespan = 10
 	fade = 4
-	//UNLINT(fadein = 4)
+	#ifndef SPACEMAN_DMM
+	fadein = 4
+	#endif
 	position = generator("box", list(-15, 10, -15), list(15, 12, 15), UNIFORM_RAND)
 	velocity = list(0, -2, 0)
 	gravity = list(0, 0.1, 0)
@@ -64,7 +68,9 @@
 	spawning = 1
 	lifespan = 10
 	fade = 2
-	//UNLINT(fadein = 1)
+	#ifndef SPACEMAN_DMM
+	fadein = 1
+	#endif
 	position = generator("box", list(-5, -5, -5), list(5, 5, 5), UNIFORM_RAND)
 	velocity = generator("box", list(-3, -3, -3), list(3, 3, 3), UNIFORM_RAND)
 	rotation = generator("num", 0, 360, UNIFORM_RAND)
@@ -92,7 +98,9 @@
 	spawning = 30
 	lifespan = 3
 	fade = 1
-	//UNLINT(fadein = 1)
+	#ifndef SPACEMAN_DMM
+	fadein = 1
+	#endif
 	rotation = generator("num", 0, 360, UNIFORM_RAND)
 	spin = generator("num", 8, 10, UNIFORM_RAND)
 	friction = 0.21

@@ -12,7 +12,9 @@
 	spawning = 15
 	lifespan = 20
 	fade = 1
-	//UNLINT(fadein = 3)
+	#ifndef SPACEMAN_DMM
+	fadein = 3
+	#endif
 	friction = 0.15
 	gravity = list(0, -1, 0)
 	color = generator("color", "#ff0000", "#0000ff", UNIFORM_RAND)
