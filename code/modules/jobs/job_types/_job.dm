@@ -341,6 +341,16 @@
 /datum/job/proc/map_check()
 	return TRUE
 
+/datum/job/proc/get_lock_reason()
+	if(lock_flags & JOB_LOCK_REASON_ABSTRACT)
+		return "Not a real job"
+	else if(lock_flags & JOB_LOCK_REASON_CONFIG)
+		return "Disabled by server configuration"
+	else if(lock_flags & JOB_LOCK_REASON_MAP)
+		return "Not available on this map"
+	else
+		return "Unknown"
+
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
 

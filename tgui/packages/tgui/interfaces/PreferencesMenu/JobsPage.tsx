@@ -134,15 +134,15 @@ const JobRow = (
 
   const experienceNeeded = data.job_required_experience && data.job_required_experience[name];
   const daysLeft = data.job_days_left ? data.job_days_left[name] : 0;
-  const isLocked = job.locked;
+  const lockReason = job.lock_reason;
 
   let rightSide: InfernoNode;
 
-  if (isLocked) {
+  if (lockReason) {
     rightSide = (
       <Stack align="center" height="100%" pr={1}>
         <Stack.Item grow textAlign="right">
-          Locked by the server & map configuration
+          {lockReason}
         </Stack.Item>
       </Stack>
     );

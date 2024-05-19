@@ -68,9 +68,9 @@ export type Department = {
 };
 
 export type Job = {
-  locked: number;
   description: string;
   department: string;
+  lock_reason: string;
 };
 
 export type Quirk = {
@@ -189,6 +189,10 @@ export type PreferencesMenuData = {
     }
   >;
   job_preferences: Record<string, JobPriority>;
+
+  JOB_LOCK_REASON_ABSTRACT: number;
+  JOB_LOCK_REASON_MAP: number;
+  JOB_LOCK_REASON_CONFIG: number;
 
   keybindings: Record<string, string[]>;
   overflow_role: string;

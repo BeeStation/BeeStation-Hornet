@@ -43,6 +43,8 @@
 	for (var/datum/job/job as anything in SSjob.occupations)
 		if(!job.show_in_prefs)
 			continue
+		if(job.lock_flags & ~JOB_LOCK_REASON_MAP) // anything but map reason shouldn't be visible
+			continue
 
 		var/department_flag = job.department_for_prefs
 		if (isnull(department_flag))
@@ -66,7 +68,7 @@
 				departments[department_name] = list()
 
 		jobs[job.title] = list(
-			"locked" = job.lock_flags,
+			"lock_reason" = job.lock_flags ? job.get_lock_reason() : null,
 			"description" = job.description,
 			"department" = department_name,
 		)
