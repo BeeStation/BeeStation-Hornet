@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: Jobs will be told when a job is not available to play in a shift.
+  - admin: CentCom console can manage all jobs now. You  can prioritize Captain role.
+  - bugfix: fixed some job code glitches
