@@ -28,9 +28,6 @@
 /obj/effect/acid_act()
 	return
 
-/obj/effect/mech_melee_attack(obj/mecha/M)
-	return 0
-
 /obj/effect/blob_act(obj/structure/blob/B)
 	return
 
@@ -41,25 +38,11 @@
 	return
 
 /obj/effect/ex_act(severity, target)
-	if(target == src)
-		qdel(src)
-	else
-		switch(severity)
-			if(1)
-				qdel(src)
-			if(2)
-				if(prob(60))
-					qdel(src)
-			if(3)
-				if(prob(25))
-					qdel(src)
+	return
 
 /obj/effect/singularity_act()
 	qdel(src)
 	return 0
-
-/obj/effect/abstract/ex_act(severity, target)
-	return
 
 /obj/effect/abstract/singularity_pull()
 	return
