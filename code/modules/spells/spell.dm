@@ -224,10 +224,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 				to_chat(H, "<span class='notice'>I don't feel strong enough without my hat.</span>")
 				return FALSE
 		if(cult_req) //CULT_REQ CLOTHES CHECK
-			if(!istype(H.wear_suit, /obj/item/clothing/suit/magusred) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/cult))
+			if(!istype(H.wear_suit, /obj/item/clothing/suit/magusred) && !istype(H.wear_suit, /obj/item/clothing/suit/hooded/cultrobes/hardened))
 				to_chat(H, "<span class='notice'>I don't feel strong enough without my armor.</span>")
 				return FALSE
-			if(!istype(H.head, /obj/item/clothing/head/magus) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/cult))
+			if(!istype(H.head, /obj/item/clothing/head/wizard/magus) && !istype(H.head, /obj/item/clothing/head/hooded/cult_hoodie/hardened))
 				to_chat(H, "<span class='notice'>I don't feel strong enough without my helmet.</span>")
 				return FALSE
 	else
@@ -362,7 +362,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			var/obj/effect/overlay/spell = new /obj/effect/overlay(location)
 			spell.icon = overlay_icon
 			spell.icon_state = overlay_icon_state
-			spell.anchored = TRUE
+			spell.set_anchored(TRUE)
 			spell.set_density(FALSE)
 			QDEL_IN(spell, overlay_lifespan)
 

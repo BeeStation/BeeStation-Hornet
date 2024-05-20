@@ -23,7 +23,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 10
 	robust_searching = 1
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	gold_core_spawnable = HOSTILE_SPAWN
 	faction = list("skeleton")
 	see_in_dark = 8
@@ -32,7 +32,7 @@
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/remains/human)
 
-	do_footstep = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
 	hardattacks = TRUE
 
 	mobchatspan = "assistant"
@@ -74,7 +74,7 @@
 	melee_damage = 30
 	deathmessage = "collapses into a pile of bones, its gear clanging as it hits the ground!"
 	loot = list(/obj/effect/decal/remains/human,
-				/obj/item/clothing/suit/armor/riot/chaplain,
+				/obj/item/clothing/suit/chaplainsuit/armor/templar,
 				/obj/item/clothing/head/helmet/chaplain,
 				/obj/item/claymore/weak{name = "holy sword"})
 

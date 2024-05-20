@@ -131,16 +131,18 @@
 	)
 
 /obj/tear_in_reality/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		var/datum/component/mood/insaneinthemembrane = C.GetComponent(/datum/component/mood)
-		if(insaneinthemembrane.sanity < 15)
-			return //they've already seen it and are about to die, or are just too insane to care
-		to_chat(C, "<span class='userdanger'>OH GOD! NONE OF IT IS REAL! NONE OF IT IS REEEEEEEEEEEEEEEEEEEEEEEEAL!</span>")
-		insaneinthemembrane.sanity = 0
-		for(var/lore in typesof(/datum/brain_trauma/severe))
-			C.gain_trauma(lore)
-		addtimer(CALLBACK(src, PROC_REF(deranged), C), 100)
+	if(!iscarbon(user))
+		return
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
+	var/mob/living/carbon/jedi = user
+	var/datum/component/mood/insaneinthemembrane = jedi.GetComponent(/datum/component/mood)
+	if(insaneinthemembrane.sanity < 15)
+		return //they've already seen it and are about to die, or are just too insane to care
+	to_chat(jedi, "<span class='userdanger'>OH GOD! NONE OF IT IS REAL! NONE OF IT IS REEEEEEEEEEEEEEEEEEEEEEEEAL!</span>")
+	insaneinthemembrane.sanity = 0
+	for(var/lore in typesof(/datum/brain_trauma/severe))
+		jedi.gain_trauma(lore)
+	addtimer(CALLBACK(src, PROC_REF(deranged), jedi), 10 SECONDS)
 
 /obj/tear_in_reality/proc/deranged(mob/living/carbon/C)
 	if(!C || C.stat == DEAD)
@@ -360,7 +362,7 @@
 		return
 
 	var/datum/task/select_zone_task = user.select_bodyzone(user, TRUE, BODYZONE_STYLE_DEFAULT)
-	select_zone_task.continue_with(CALLBACK(PROC_REF(perform_voodoo), user))
+	select_zone_task.continue_with(CALLBACK(src,PROC_REF(perform_voodoo), user))
 
 /obj/item/voodoo/proc/perform_voodoo(mob/user, zone_selected)
 	if (!can_interact(user))
@@ -508,7 +510,7 @@
 	name = "tornado"
 	desc = "This thing sucks!"
 	layer = FLY_LAYER
-	randomdir = 0
+	randomdir = FALSE
 	duration = 40
 	pixel_x = 500
 

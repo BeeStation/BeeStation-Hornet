@@ -188,6 +188,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal/examine(mob/user)
 	. = ..()
+	if(!user?.mind) // ghosts don't have mind
+		return .
 	var/immune = HAS_TRAIT(user, TRAIT_MADNESS_IMMUNE) || HAS_TRAIT(user.mind, TRAIT_MADNESS_IMMUNE)
 	if (!isliving(user) && !immune && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 		. += "<span class='danger'>You get headaches just from looking at it.</span>"
@@ -650,13 +652,16 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			Consume(B)
 
 /obj/machinery/power/supermatter_crystal/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		to_chat(C, "<span class='userdanger'>That was a really dense idea.</span>")
-		C.ghostize()
-		var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in C.internal_organs
-		rip_u.Remove(C)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/jedi = user
+	to_chat(jedi, "<span class='userdanger'>That was a really dense idea.</span>")
+	jedi.ghostize()
+	var/obj/item/organ/brain/rip_u = locate(/obj/item/organ/brain) in jedi.internal_organs
+	if(rip_u)
+		rip_u.Remove(jedi)
 		qdel(rip_u)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/power/supermatter_crystal/attack_paw(mob/user)
 	dust_mob(user, cause = "monkey attack")

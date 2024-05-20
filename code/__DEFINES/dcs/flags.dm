@@ -43,19 +43,14 @@
 #define CALTROP_BYPASS_SHOES 1
 #define CALTROP_IGNORE_WALKERS 2
 
-// Update flags for [/atom/proc/update_appearance]
-/// Update the atom's name
-#define UPDATE_NAME (1<<0)
-/// Update the atom's desc
-#define UPDATE_DESC (1<<1)
-/// Update the atom's icon state
-#define UPDATE_ICON_STATE (1<<2)
-/// Update the atom's overlays
-#define UPDATE_OVERLAYS (1<<3)
-/// Update the atom's greyscaling
-#define UPDATE_GREYSCALE (1<<4)
-/// Update the atom's smoothing. (More accurately, queue it for an update)
-#define UPDATE_SMOOTHING (1<<5)
-/// Update the atom's icon
-#define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
-//Redirection component init flags
+//Ingredient type in datum/component/customizable_reagent_holder
+#define CUSTOM_INGREDIENT_TYPE_EDIBLE 1
+#define CUSTOM_INGREDIENT_TYPE_DRYABLE 2
+
+//Icon overlay type in datum/component/customizable_reagent_holder
+#define CUSTOM_INGREDIENT_ICON_NOCHANGE 0
+#define CUSTOM_INGREDIENT_ICON_FILL 1
+#define CUSTOM_INGREDIENT_ICON_SCATTER 2
+#define CUSTOM_INGREDIENT_ICON_STACK 3
+#define CUSTOM_INGREDIENT_ICON_LINE 4
+#define CUSTOM_INGREDIENT_ICON_STACKPLUSTOP 5

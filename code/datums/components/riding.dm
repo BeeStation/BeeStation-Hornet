@@ -173,7 +173,7 @@
 		if(!istype(next) || !istype(current))
 			return	//not happening.
 		if(!turf_check(next, current))
-			to_chat(user, "Your \the [AM] can not go onto [next]!")
+			to_chat(user, "\The [AM] cannot go onto [next]!")
 			return
 		if(!Process_Spacemove(direction) || !isturf(AM.loc))
 			return
@@ -220,13 +220,13 @@
 
 /datum/component/riding/human/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
 	var/mob/living/carbon/human/H = parent
-	H.remove_movespeed_modifier(MOVESPEED_ID_HUMAN_CARRYING)
+	H.remove_movespeed_modifier(/datum/movespeed_modifier/human_carry)
 	. = ..()
 
 /datum/component/riding/human/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
 	. = ..()
 	var/mob/living/carbon/human/H = parent
-	H.add_movespeed_modifier(MOVESPEED_ID_HUMAN_CARRYING, multiplicative_slowdown = HUMAN_CARRY_SLOWDOWN)
+	H.add_movespeed_modifier(/datum/movespeed_modifier/human_carry)
 
 /datum/component/riding/human/proc/on_host_unarmed_melee(atom/target)
 	SIGNAL_HANDLER

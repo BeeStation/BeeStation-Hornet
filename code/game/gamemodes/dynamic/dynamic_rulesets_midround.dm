@@ -602,7 +602,11 @@
 	return TRUE
 
 /datum/dynamic_ruleset/midround/from_ghosts/revenant/generate_ruleset_body(mob/applicant)
-	var/mob/living/simple_animal/revenant/revenant = new(pick(spawn_locs))
+	var/turf/spawnable_turf = get_non_holy_tile_from_list(spawn_locs)
+	if(!spawnable_turf)
+		message_admins("Failed to find a proper spawn location because there are a lot of blessed tiles. We'll spawn it anyway.")
+		spawnable_turf = pick(spawn_locs)
+	var/mob/living/simple_animal/revenant/revenant = new(spawnable_turf)
 	revenant.key = applicant.key
 	message_admins("[ADMIN_LOOKUPFLW(revenant)] has been made into a revenant by the midround ruleset.")
 	log_game("[key_name(revenant)] was spawned as a revenant by the midround ruleset.")
@@ -816,6 +820,52 @@
 	message_admins("[ADMIN_LOOKUPFLW(S)] has been made into a Morph by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(S)] was spawned as a Morph by the midround ruleset.")
 	return S
+
+
+//////////////////////////////////////////////
+//                                          //
+//           PRISONER  (GHOST)            	//
+//                                          //
+//////////////////////////////////////////////
+/datum/dynamic_ruleset/midround/from_ghosts/prisoners
+	name = "Prisoners"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
+	role_preference = /datum/role_preference/midround_ghost/prisoner
+	required_type = /mob/dead/observer
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY)
+	required_enemies = list(3,1,1,0,0,0,0,0,0,0)
+	required_candidates = 1
+	weight = 2
+	cost = 6
+	minimum_players = 20
+	repeatable = FALSE
+	var/list/spawn_locs
+
+/datum/dynamic_ruleset/midround/from_ghosts/prisoners/acceptable(population=0, threat=0)
+	if (!SSmapping.empty_space)
+		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/prisoners/ready(forced = FALSE)
+	if(!..())
+		return FALSE
+	spawn_locs = list()
+	for(var/obj/effect/landmark/prisonspawn/L in GLOB.landmarks_list)
+		if(isturf(L.loc))
+			spawn_locs += L.loc
+	if(!length(spawn_locs))
+		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations.")
+		return FALSE
+	return TRUE
+
+/datum/dynamic_ruleset/midround/from_ghosts/prisoners/review_applications()
+	var/turf/landing_turf = pick(spawn_locs)
+	var/result = spawn_prisoners(landing_turf, candidates, list())
+	if(result == NOT_ENOUGH_PLAYERS)
+		message_admins("Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_candidates].")
+		log_game("DYNAMIC: Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_candidates].")
+		return FALSE
+	return TRUE
 
 //////////////////////////////////////////////
 //                                          //

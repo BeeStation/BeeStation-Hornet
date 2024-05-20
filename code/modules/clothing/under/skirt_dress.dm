@@ -4,6 +4,8 @@
 	body_parts_covered = CHEST|GROIN
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	dying_key = DYE_REGISTRY_JUMPSKIRT
+	icon = 'icons/obj/clothing/under/dress.dmi'
+	worn_icon = 'icons/mob/clothing/under/dress.dmi'
 
 /obj/item/clothing/under/dress/sundress
 	name = "sundress"
@@ -34,12 +36,13 @@
 	name = "red evening gown"
 	desc = "Fancy dress for space bar singers."
 	icon_state = "red_evening_gown"
-	item_state = "redeveninggown"
+	item_state = null
 
 /obj/item/clothing/under/dress/skirt
 	name = "black skirt"
 	desc = "A black skirt, very fancy!"
 	icon_state = "blackskirt"
+	item_state = "blackskirt"
 
 /obj/item/clothing/under/dress/skirt/blue
 	name = "blue skirt"
