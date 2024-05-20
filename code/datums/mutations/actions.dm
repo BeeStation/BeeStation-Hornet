@@ -289,3 +289,35 @@
 		S.start()
 	if(holder?.my_atom)
 		holder.clear_reagents()
+
+//Diona species mutation
+/datum/mutation/drone
+	name = "Nymph Drone"
+	desc = "An ancient mutation that gives diona the ability to send out a nymph drone."
+	quality = POSITIVE
+	difficulty = 12
+	locked = TRUE
+	power = /obj/effect/proc_holder/spell/self/drone
+	instability = 30
+	energy_coeff = 1
+	power_coeff = 1
+	species_allowed = list(SPECIES_DIONA)
+
+/obj/effect/proc_holder/spell/self/drone
+	name = "Release Drone"
+	desc = "A rare genome that forces the diona to evict a nymph from their gestalt."
+	school = "evocation"
+	invocation = ""
+	clothes_req = FALSE
+	charge_max = 600
+	invocation_type = INVOCATION_NONE
+	base_icon_state = "smoke"
+	action_icon_state = "smoke"
+
+/obj/effect/proc_holder/spell/self/drone/cast(mob/user = usr)
+	. = ..()
+	//Setup reagents
+	var/datum/reagents/holder = new()
+	//If our user is a carbon, use their blood
+	var/mob/living/carbon/C = user
+	to_chat(usr, "ABILITY ACTIVATED")

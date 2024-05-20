@@ -1,12 +1,12 @@
 /* TO DO:
 
 Diona pbody and tail
-MAKE IT WORK
 make markings actually work
-make dionae be able to be planted via replica pods
-THE DIONAE SPLITTING
 
-tongue, liver, lungs, stomach, heart, dionae plant sprites (growth phases), action buttons, seed sprite
+tongue, liver, lungs, stomach, heart, action buttons sprites
+
+make the diona mutation work correctly, give a second button to switch between the remote control and original body of the diona, only allow one remote control at a time (unless it dies, then allow another to spawn)
+
 
 testmerge
 win and get those 85 CAD
@@ -39,6 +39,8 @@ win and get those 85 CAD
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
 	speedmod = 2 // Dionae are slow.
 	species_height = SPECIES_HEIGHTS(2, 1, 0)
+	swimming_component = /datum/component/swimming/diona
+	inert_mutation = DRONE
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
 	mutanttongue = /obj/item/organ/tongue/diona //placeholder sprite
@@ -56,6 +58,9 @@ win and get those 85 CAD
 	species_r_arm = /obj/item/bodypart/r_arm/diona
 	species_l_leg = /obj/item/bodypart/l_leg/diona
 	species_r_leg = /obj/item/bodypart/r_leg/diona
+
+	var/datum/action/diona/Split/SplitAbility //All dionae start with this.
+
 
 
 /datum/species/diona/spec_life(mob/living/carbon/human/H)
@@ -93,6 +98,15 @@ win and get those 85 CAD
 /datum/species/diona/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/plantbgone)
 		H.adjustToxLoss(3)
+		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		return TRUE
+	if(chem.type == /datum/reagent/toxin/mutagen)
+		H.adjustToxLoss(-3)
+		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		return TRUE
+	if(chem.type == /datum/reagent/plantnutriment)
+		H.adjustBruteLoss(-1)
+		H.adjustFireLoss(-1)
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
