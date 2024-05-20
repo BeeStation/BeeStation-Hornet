@@ -173,7 +173,7 @@
 
 /datum/religion_rites/grass_generator
 	name = "Blessing of Nature"
-	desc = "Summon a moveable object that slowly generates grass and fairy-grass around itself while healing any Pod-People or Holy people nearby."
+	desc = "Summon a moveable object that slowly generates grass and fairy-grass around itself while healing any Dionae or Holy people nearby."
 	ritual_length = 60 SECONDS
 	ritual_invocations = list(
 		"Let the plantlife grow ...",
@@ -235,6 +235,6 @@
 				break
 	if(!rite_target)
 		return FALSE
-	rite_target.set_species(/datum/species/pod)
+	rite_target.set_species(/datum/species/diona)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
 	return TRUE
