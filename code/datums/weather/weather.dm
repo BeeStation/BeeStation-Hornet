@@ -24,7 +24,9 @@
 
 	var/area_type = /area/space //Types of area to affect
 	var/protect_indoors = FALSE // set to TRUE to protect indoor areas
-	var/list/impacted_areas = list() //Areas to be affected by the weather, calculated when the weather begins
+	/// Areas to be affected by the weather, calculated when the weather begins.
+	/// * If you need to update this list outside of this datum, you might be doing wrong. use update_areas(new_list)
+	VAR_PRIVATE/list/impacted_areas = list()
 	var/list/protected_areas = list()//Areas that are protected and excluded from the affected areas.
 	var/impacted_z_levels // The list of z-levels that this weather is actively affecting
 
@@ -33,7 +35,10 @@
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
 
-	var/stage = END_STAGE //The stage of the weather, from 1-4
+	/// The stage of the weather, from 1-4
+	var/stage = END_STAGE
+	/// takes the same value as stage by update_areas(). Used to prevent overlay error.
+	VAR_PRIVATE/overlay_stage
 
 	// These are read by the weather subsystem and used to determine when and where to run the weather.
 	var/probability = 0 // Weight amongst other eligible weather. If zero, will never happen randomly.
@@ -48,6 +53,7 @@
 	var/mutable_appearance/cached_weather_sprite_start
 	var/mutable_appearance/cached_weather_sprite_process
 	var/mutable_appearance/cached_weather_sprite_end
+	var/mutable_appearance/cached_current_overlay // a quick access variable
 
 /datum/weather/New(z_levels)
 	..()
@@ -148,41 +154,99 @@
 /datum/weather/proc/weather_act(mob/living/L) //What effect does this weather have on the hapless mob?
 	return
 
-/datum/weather/proc/update_areas()
-	var/previous_overlay
-	var/new_overlay
+/// * [Func A] If list/newly_given_areas = null, It will update area overlays to new weather stage overlay. Typically called by this datum itself.
+/// * [Func B] If list/newly_given_areas is given + overlay is not changed, it will apply overlays to new areas, and remove old areas.
+/// * [Func C] If list/newly_given_areas is given + overlay stage is changed, it will remove old overlay from old areas, and apply new overlay to new areas.
+/datum/weather/proc/update_areas(list/newly_given_areas = null)
+	if(overlay_stage == stage && isnull(newly_given_areas))
+		CRASH("update_areas() is called again while weather overlay is already set (and list/newly_given_areas doesn't exist). stage:[stage] / overlay_stage:[overlay_stage]")
+	overlay_stage = stage
+
+	var/new_overlay = null
 	switch(stage)
 		if(STARTUP_STAGE)
 			if(cached_weather_sprite_start)
 				new_overlay = cached_weather_sprite_start
-				previous_overlay = TRUE // temporary value. see below.
 		if(MAIN_STAGE)
-			if(cached_weather_sprite_start)
-				previous_overlay = cached_weather_sprite_start
 			if(cached_weather_sprite_process)
 				new_overlay = cached_weather_sprite_process
 		if(WIND_DOWN_STAGE)
-			if(cached_weather_sprite_process)
-				previous_overlay = cached_weather_sprite_process
 			if(cached_weather_sprite_end)
 				new_overlay = cached_weather_sprite_end
-		if(END_STAGE)
-			if(cached_weather_sprite_end)
-				previous_overlay = cached_weather_sprite_end
-				new_overlay = TRUE // temporary value. see below.
-
-	// we won't iterate all areas unnecesarily
-	if(!previous_overlay && !new_overlay)
+	var/is_overlay_same = (cached_current_overlay == new_overlay)
+	if(is_overlay_same && isnull(newly_given_areas) && isnull(cached_current_overlay) && isnull(new_overlay)) // changing null? meaningless
 		return
 
-	// removing TRUE value because we don't want typecheck every iteration from for loop
-	if(previous_overlay == TRUE)
-		previous_overlay = null
-	if(new_overlay == TRUE)
-		new_overlay = null
+	//! [Func A] Standard update_areas. This will typically do the weather overlay change.
+	if(isnull(newly_given_areas))
+		if(is_overlay_same) // we don't have to iterate
+			return
 
-	for(var/area/each_area as anything in impacted_areas)
-		if(previous_overlay)
-			each_area.cut_overlay(previous_overlay)
+		// ugly if conditions, but optimisation. We don't want to do if() checks in for loop
+		if(cached_current_overlay && new_overlay)
+			for(var/area/each_area as anything in impacted_areas)
+				each_area.cut_overlay(cached_current_overlay)
+				each_area.add_overlay(new_overlay)
+		else if(cached_current_overlay)
+			for(var/area/each_area as anything in impacted_areas)
+				each_area.cut_overlay(cached_current_overlay)
+		else if(new_overlay)
+			for(var/area/each_area as anything in impacted_areas)
+				each_area.add_overlay(new_overlay)
+
+		cached_current_overlay = new_overlay // remembers previous one
+		return
+
+	if(!islist(newly_given_areas))
+		CRASH("lsit/newly_given_areas has been given, but it's not a list()")
+
+
+	// From after this line, It means list/newly_given_areas has a list to update
+	// This will remove old areas, and overlay from list/impacted_areas
+	// and add a new overlay to new areas
+	// And list/impacted_areas will be updated with the new list
+
+	if(is_overlay_same)
+	//! [Func B] overlays are the same, but we have new areas.
+	// * Calculate list
+	// * Early return if there's no list to iterate
+	// * If old_areas_to_remove exists, cut_overlay() for those
+	// * If new_areas_to_add exists, add_overlay() for those
+		var/list/old_areas_to_remove
+		var/list/new_areas_to_add
+		if(length(newly_given_areas))
+			old_areas_to_remove = impacted_areas - newly_given_areas
+			new_areas_to_add = newly_given_areas - impacted_areas
+			/*
+				impacted_areas = list(A, B, C, D)
+				newly_given_areas =  list(C, D, E, F)
+
+				old_areas_to_remove = list(A, B) // we want to remove already existing overlay from this
+				new_areas_to_add = list(E, F)    // and add the existing overlay to this
+			*/
+
+		if(!length(new_areas_to_add) && !length(old_areas_to_remove)) // nope
+			return
+
+		if(cached_current_overlay) // do the change only overlay exists. If there's no overlay, we'll just save list/newly_given_areas
+			for(var/area/each_old_area as anything in old_areas_to_remove)
+				each_old_area.cut_overlay(cached_current_overlay)
+			for(var/area/each_new_area as anything in new_areas_to_add)
+				each_new_area.add_overlay(cached_current_overlay)
+		impacted_areas = newly_given_areas.Copy() // this is now our new team
+		// Note: "new_areas_to_add" is not correct to copy. We just needed to apply cached overlay to new areas.
+		return
+
+	else
+	//! [Func C] different overlays, but also we have new areas
+	// * Removing old overlays from impacted_areas
+	// * Adding new overlays to new areas
+		if(cached_current_overlay)
+			for(var/area/each_old_area as anything in impacted_areas)
+				each_old_area.cut_overlay(cached_current_overlay)
 		if(new_overlay)
-			each_area.add_overlay(new_overlay)
+			for(var/area/each_new_area as anything in newly_given_areas)
+				each_new_area.add_overlay(new_overlay)
+		cached_current_overlay = new_overlay
+		impacted_areas = newly_given_areas.Copy() // this is now our new team
+		return

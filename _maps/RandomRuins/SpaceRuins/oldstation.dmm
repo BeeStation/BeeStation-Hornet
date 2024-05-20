@@ -2590,7 +2590,7 @@
 /area/template_noop)
 "hP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_x = -3;
 	pixel_y = 5
 	},

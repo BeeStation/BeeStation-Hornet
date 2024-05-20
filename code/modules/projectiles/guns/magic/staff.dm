@@ -1,5 +1,7 @@
 /obj/item/gun/magic/staff
 	slot_flags = ITEM_SLOT_BACK
+	worn_icon_state = null
+	icon_state = "staff"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	item_flags = NEEDS_PERMIT | NO_MAT_REDEMPTION
@@ -108,6 +110,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/locker
 	icon_state = "locker"
 	item_state = "locker"
+	worn_icon_state = "lockerstaff"
 	max_charges = 6
 	recharge_rate = 4
 
@@ -120,6 +123,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/flying
 	icon_state = "staffofflight"
 	item_state = "staffofflight"
+	worn_icon_state = "flightstaff"
 
 /obj/item/gun/magic/staff/sapping
 	name = "staff of sapping"
@@ -128,6 +132,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/sapping
 	icon_state = "staffofsapping"
 	item_state = "staffofsapping"
+	worn_icon_state = "staff"
 
 /obj/item/gun/magic/staff/necropotence
 	name = "staff of necropotence"
@@ -136,6 +141,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/necropotence
 	icon_state = "staffofnecropotence"
 	item_state = "staffofnecropotence"
+	worn_icon_state = "necrostaff"
 
 /obj/item/gun/magic/staff/wipe
 	name = "staff of possession"
@@ -144,3 +150,4 @@
 	ammo_type = /obj/item/ammo_casing/magic/wipe
 	icon_state = "staffofwipe"
 	item_state = "staffofwipe"
+	worn_icon_state = "wipestaff"
