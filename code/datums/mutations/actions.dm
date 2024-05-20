@@ -309,15 +309,12 @@
 	school = "evocation"
 	invocation = ""
 	clothes_req = FALSE
-	charge_max = 600
+	charge_max = 60
 	invocation_type = INVOCATION_NONE
-	base_icon_state = "smoke"
-	action_icon_state = "smoke"
+	base_icon_state = "statue"
+	action_icon_state = "statue"
 
 /obj/effect/proc_holder/spell/self/drone/cast(mob/user = usr)
 	. = ..()
-	//Setup reagents
-	var/datum/reagents/holder = new()
-	//If our user is a carbon, use their blood
 	var/mob/living/carbon/C = user
-	to_chat(usr, "ABILITY ACTIVATED")
+	to_chat(C, "ABILITY ACTIVATED")
