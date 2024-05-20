@@ -18,7 +18,7 @@
 	if(!ismachinery(parent)) // currently only compatible with machinery
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_MACHINERY_POWER_USED, PROC_REF(ParentPowerUsed))
-	START_PROCESSING(SSfastprocess, src)
+	START_PROCESSING(SSservers, src)
 
 /datum/component/server/proc/ParentPowerUsed(source, amount, chan)
 	heat_generation += amount * 1000
@@ -31,7 +31,8 @@
 		parent_machine.set_machine_stat(parent_machine.machine_stat | OVERHEATED)
 	else
 		parent_machine.set_machine_stat(parent_machine.machine_stat & ~OVERHEATED)
-		efficiency = clamp(1 - ((temperature - T20C) / (overheated_temp - T20C)), 0, 1)
+		var/efficiency_change = ((temperature - T20C) / (overheated_temp - T20C)) ** 2
+		efficiency = clamp(1 - efficiency_change, 0, 1)
 		temperature += heat_generation / heat_capacity
 		heat_generation = 0
 
@@ -42,7 +43,3 @@
 	var/datum/gas_mixture/environment = turf.return_air()
 
 	temperature = environment.temperature_share(null, OPEN_HEAT_TRANSFER_COEFFICIENT, temperature, heat_capacity)
-	// Debug output
-	var/efficiency_status = efficiency ? "Efficiency: [efficiency]" : "OVERHEATED"
-	var/obj/par = parent
-	to_chat(world, "[src] ([ADMIN_VERBOSEJMP(par)]) temperature: [temperature]K, [efficiency_status]")

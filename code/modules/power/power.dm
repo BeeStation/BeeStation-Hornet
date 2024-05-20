@@ -78,7 +78,7 @@
 		return TRUE
 	if(!loc)
 		return FALSE
-	if(machine_stat & EMPED)
+	if(machine_stat & (EMPED|OVERHEATED))
 		return FALSE
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A)
