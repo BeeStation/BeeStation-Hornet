@@ -3,29 +3,22 @@
 	id = SPECIES_MONKEY
 	skinned_type = /obj/item/stack/sheet/animalhide/
 	changesource_flags = MIRROR_BADMIN
-	offset_features = list(
-	OFFSET_HEAD = list(0,-3),
-	OFFSET_FACEMASK = list(0,-3)
-	)
 	mutanttongue = /obj/item/organ/tongue/monkey
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	meat = /obj/item/food/meat/slab/monkey
 	knife_butcher_results = list(/obj/item/food/meat/slab/monkey = 5, /obj/item/stack/sheet/animalhide/monkey = 1)
 	species_traits = list(
 		NO_UNDERWEAR,
-		NOBLOODOVERLAY,
-		NOEYESPRITES, //monkeys already have eyes baked-in
 		NOTRANSSTING,
-		NOAUGMENTS,
+		EYECOLOR
 	)
 	inherent_traits = list(
 		TRAIT_DISCOORDINATED,
 		TRAIT_VENTCRAWLER_NUDE,
 	)
-	no_equip = list(ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN | SLIME_EXTRACT
 	inherent_factions = list("monkey")
-	sexes = FALSE
+	sexes = TRUE
 	species_language_holder = /datum/language_holder/monkey
 
 	species_l_arm = /obj/item/bodypart/l_arm/monkey
@@ -37,6 +30,8 @@
 
 	dust_anim = "dust-m"
 	gib_anim = "gibbed-m"
+
+	species_height = SPECIES_HEIGHTS(8, 8, 8)
 
 	//payday_modifier = 1.5
 
@@ -162,6 +157,9 @@
 
 	return to_add
 
+/datum/species/monkey/get_species_height_map()
+	return icon('icons/effects/64x64.dmi', "height_displacement_monkey")
+
 /datum/dna/tumor
 	species = new /datum/species/monkey/teratoma
 
@@ -172,6 +170,7 @@
 		NOTRANSSTING,
 		NO_DNA_COPY,
 		NOEYESPRITES, //teratomas already have eyes baked-in
+		NO_UNDERWEAR,
 		HAIR,
 		FACEHAIR,
 		LIPS)
@@ -210,3 +209,5 @@
 	//Give us the juicy mutant organs
 	dna.species.on_species_gain(src, null, FALSE)
 	dna.species.regenerate_organs(src, replace_current = TRUE)
+	//Fix initial DNA not properly handling our height
+	dna.update_body_size(height = pick(dna.species.get_species_height()))
