@@ -43,7 +43,7 @@
 #define BLOOD_VOLUME_BAD			224
 #define BLOOD_VOLUME_SURVIVE		122
 
-#define AMOUNT_TO_BLEED_INTENSITY(x) (x ** 0.3333)
+#define AMOUNT_TO_BLEED_INTENSITY(x) ((x) ** 0.3333)
 
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
