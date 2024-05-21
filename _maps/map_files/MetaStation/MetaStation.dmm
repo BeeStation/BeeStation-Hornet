@@ -39114,7 +39114,7 @@
 "jdY" = (
 /obj/machinery/light/small,
 /obj/item/toy/dummy,
-/obj/item/toy/prize/honk{
+/obj/item/toy/mecha/honk{
 	pixel_y = 12
 	},
 /obj/structure/table/wood,

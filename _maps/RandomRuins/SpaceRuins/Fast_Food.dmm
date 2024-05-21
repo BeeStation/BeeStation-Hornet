@@ -253,7 +253,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/toy/prize/honk,
+/obj/item/toy/mecha/honk,
 /turf/open/floor/iron/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bb" = (
