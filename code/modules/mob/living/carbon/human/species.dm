@@ -124,6 +124,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///List of possible heights
 	var/list/species_height = SPECIES_HEIGHTS(BODY_SIZE_SHORT, BODY_SIZE_NORMAL, BODY_SIZE_TALL)
 
+	/// What bleed status effect should we apply?
+	var/bleed_effect = STATUS_EFFECT_BLEED
+
 ///////////
 // PROCS //
 ///////////

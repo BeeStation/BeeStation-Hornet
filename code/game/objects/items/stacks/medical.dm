@@ -141,7 +141,7 @@
 	if(stop_bleeding)
 		C.suppress_bloodloss(stop_bleeding)
 		if (C.is_bleeding())
-			C.balloon_alert(user, "You reduce [M == user ? "your" : M.p_their()] bleeding to [round(C.get_bleed_rate(), 0.1)]/s")
+			C.balloon_alert(user, "You reduce [M == user ? "your" : M.p_their()] bleeding to [C.get_bleed_rate_string()]")
 		else
 			C.balloon_alert(user, "You stop [M == user ? "your" : M.p_their()]'s bleeding!")
 	else
