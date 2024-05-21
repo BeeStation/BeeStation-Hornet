@@ -150,6 +150,8 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	return bleed.bleed_rate > 0
 
 /mob/living/carbon/proc/add_bleeding(bleed_level)
+	if (HAS_TRAIT(src, TRAIT_NO_BLEED))
+		return
 	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
 	playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
 	if (bleed)
