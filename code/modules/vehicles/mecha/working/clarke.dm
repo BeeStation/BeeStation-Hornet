@@ -14,7 +14,7 @@
 	max_equip = 7
 	wreckage = /obj/structure/mecha_wreckage/clarke
 	enter_delay = 40
-	mecha_flags = ADDING_ACCESS_POSSIBLE | IS_ENCLOSED | HAS_LIGHTS
+	mecha_flags = ADDING_ACCESS_POSSIBLE | IS_ENCLOSED | HAS_LIGHTS | OMNIDIRECTIONAL_ATTACKS
 	internals_req_access = list(ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_MINING)
 	allow_diagonal_movement = FALSE
 	pivot_step = TRUE
@@ -49,6 +49,10 @@
 		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
 		var/mob/living/brain/B = M.brainmob
 		hud.add_hud_to(B)
+
+/obj/vehicle/sealed/mecha/working/clarke/generate_actions()
+	. = ..()
+	initialize_passenger_action_type(/datum/action/vehicle/sealed/mecha/mech_search_ruins)
 
 //Ore Box Controls
 
