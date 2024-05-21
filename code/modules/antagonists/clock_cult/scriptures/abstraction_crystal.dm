@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	var/health_lost = last_check_health - health
 	if(health_lost > 0)
 		damage_crystal(health_lost)
-	var/required_health =  (linked_crystal.obj_integrity / linked_crystal.max_integrity) * maxHealth
+	var/required_health =  (linked_crystal.get_integrity() / linked_crystal.max_integrity) * maxHealth
 	var/health_delta_needed = max(health - required_health, 0)
 	adjustCloneLoss(health_delta_needed)	//Adjust clone loss so that our health = crystals health
 	last_check_health = health

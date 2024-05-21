@@ -500,13 +500,16 @@
 /obj/structure/grille/ratvar/broken
 	icon_state = "brokenratvargrille"
 	density = FALSE
-	obj_integrity = 20
 	broken = TRUE
 	rods_type = /obj/item/stack/sheet/brass
 	rods_amount = 1
 	rods_broken = FALSE
 	grille_type = /obj/structure/grille/ratvar
 	broken_type = null
+
+/obj/structure/grille/ratvar/broken/Initialize(mapload)
+	. = ..()
+	take_damage(max_integrity * 0.6)
 
 //=================================================
 //Ratvar Window: A transparent window

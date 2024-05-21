@@ -1451,8 +1451,7 @@
 		A.update_icon()
 
 		if(!disassembled)
-			if(A)
-				A.obj_integrity = A.max_integrity * 0.5
+			A?.update_integrity(A.max_integrity * 0.5)
 		else
 			if(user)
 				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
