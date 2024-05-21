@@ -216,23 +216,26 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_equip_info()
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [name] - <a href='?src=[REF(src)];toggle_repairs=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return "<span style=\"color:[activated?"#0f0":"#f00"];\">*</span>&nbsp; [src] - <a href='?src=[REF(src)];toggle_repairs=1'>[activated?"Deactivate":"Activate"]</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
 	..()
-	if(href_list["toggle_repairs"])
-		chassis.cut_overlay(droid_overlay)
-		if(equip_ready)
-			START_PROCESSING(SSobj, src)
-			droid_overlay = new(src.icon, icon_state = "repair_droid_a")
-			log_message("Activated.", LOG_MECHA)
-		else
-			STOP_PROCESSING(SSobj, src)
-			droid_overlay = new(src.icon, icon_state = "repair_droid")
-			log_message("Deactivated.", LOG_MECHA)
-		chassis.add_overlay(droid_overlay)
-		send_byjax(chassis.occupants,"exosuit.browser", "[REF(src)]", get_equip_info())
+	if(!href_list["toggle_repairs"])
+		return
+	chassis.cut_overlay(droid_overlay)
+	activated = !activated //now set to FALSE and active, so update the UI
+	update_equip_info()
+	if(activated)
+		START_PROCESSING(SSobj, src)
+		droid_overlay = new(icon, icon_state = "repair_droid_a")
+		log_message("Activated.", LOG_MECHA)
+	else
+		STOP_PROCESSING(SSobj, src)
+		droid_overlay = new(icon, icon_state = "repair_droid")
+		log_message("Deactivated.", LOG_MECHA)
+	chassis.add_overlay(droid_overlay)
+	send_byjax(chassis.occupants,"exosuit.browser", "[REF(src)]", get_equip_info())
 
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/process()
@@ -285,7 +288,7 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_charge()
-	if(equip_ready) //disabled
+	if(activated) //disabled
 		return
 	var/pow_chan = get_chassis_area_power(get_area(chassis))
 	if(pow_chan)
@@ -306,7 +309,9 @@
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Topic(href, href_list)
 	..()
 	if(href_list["toggle_relay"])
-		if(equip_ready) //inactive
+		activated = !activated //now set to FALSE and active, so update the UI
+		update_equip_info()
+		if(activated) //inactive
 			START_PROCESSING(SSobj, src)
 			log_message("Activated.", LOG_MECHA)
 		else
@@ -316,7 +321,7 @@
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_equip_info()
 	if(!chassis)
 		return
-	return "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp; [src.name] - <a href='?src=[REF(src)];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return "<span style=\"color:[activated?"#0f0":"#f00"];\">*</span>&nbsp; [src.name] - <a href='?src=[REF(src)];toggle_relay=1'>[activated?"Deactivate":"Activate"]</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
@@ -371,7 +376,9 @@
 /obj/item/mecha_parts/mecha_equipment/generator/Topic(href, href_list)
 	..()
 	if(href_list["toggle"])
-		if(equip_ready) //inactive
+		activated = !activated //now set to FALSE and active, so update the UI
+		update_equip_info()
+		if(activated) //inactive
 			START_PROCESSING(SSobj, src)
 			log_message("Activated.", LOG_MECHA)
 		else
@@ -381,7 +388,7 @@
 /obj/item/mecha_parts/mecha_equipment/generator/get_equip_info()
 	var/output = ..()
 	if(output)
-		return "[output] \[[fuel]: [round(fuel.amount*MINERAL_MATERIAL_AMOUNT,0.1)] cm<sup>3</sup>\] - <a href='?src=[REF(src)];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+		return "[output] \[[fuel]: [round(fuel.amount*MINERAL_MATERIAL_AMOUNT,0.1)] cm<sup>3</sup>\] - <a href='?src=[REF(src)];toggle=1'>[activated?"Deactivate":"Activate"]</a>"
 
 /obj/item/mecha_parts/mecha_equipment/generator/action(mob/source, atom/movable/target, params)
 	if(!chassis)
@@ -480,15 +487,17 @@
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/Topic(href,href_list)
 	..()
-	if(!chassis)
-		return
-	if(href_list["mode"])
-		var/isactive = text2num(href_list["mode"])
-		switch(isactive)
-			if(FALSE)
-				enable()
-			if(TRUE)
-				disable()
+	if(href_list["toggle"])
+		activated = !activated //now set to FALSE and active, so update the UI
+		update_equip_info()
+		if(activated) //inactive
+			START_PROCESSING(SSobj, src)
+			enable()
+			log_message("Activated.", LOG_MECHA)
+		else
+			STOP_PROCESSING(SSobj, src)
+			disable()
+			log_message("Deactivated.", LOG_MECHA)
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/proc/enable()
 	if (chassis.active_thrusters == src)
@@ -503,7 +512,9 @@
 	to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)]<span class='notice'>[src] disabled.</span>")
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/get_equip_info()
-	return "[..()] \[<a href='?src=[REF(src)];isactive=0'>Enable</a>|<a href='?src=[REF(src)];isactive=1'>Disable</a>\]"
+	var/output = ..()
+	if(output)
+		return "[output] <a href='?src=[REF(src)];toggle=1'>[activated?"Deactivate":"Activate"]</a>"
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/proc/thrust(var/movement_dir)
 	if(!chassis)
@@ -547,7 +558,6 @@
 	name = "Ion thruster package"
 	desc = "A set of thrusters that allow for exosuit movement in zero-gravity environments."
 	detachable = FALSE
-	salvageable = FALSE
 	effect_type = /obj/effect/particle_effect/ion_trails
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/ion/thrust(var/movement_dir)
