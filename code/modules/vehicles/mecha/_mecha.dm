@@ -41,8 +41,8 @@
 	var/normal_step_energy_drain = 10
 
 	//Beestation stuff
-	var/step_multiplier = 1
-	var/step_restricted = 0 //applied on_entered() by things which slow or restrict mech movement. Resets to zero at the end of every movement
+	///applied on_entered() by things which slow or restrict mech movement. Resets to zero at the end of every movement
+	var/step_restricted = 0
 
 	///How much energy the mech will consume each time it moves. this is the current active energy consumed
 	var/step_energy_drain = 10
@@ -219,7 +219,6 @@
 	update_appearance()
 
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
-	update_step_speed()
 
 /obj/vehicle/sealed/mecha/Destroy()
 	for(var/ejectee in occupants)
@@ -573,12 +572,6 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
-
-/obj/vehicle/sealed/mecha/proc/update_step_speed()
-	// Calculate the speed delta
-	// Calculate the move multiplier speed, to be proportional to mob speed
-	// 1.5 was the previous value, so calculate the multiplier in proportion to that
-	step_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
 
 /obj/vehicle/sealed/mecha/proc/play_stepsound()
 	SIGNAL_HANDLER
