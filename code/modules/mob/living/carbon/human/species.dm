@@ -1497,6 +1497,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps.</span>")
 			addtimer(CALLBACK(src, PROC_REF(go_bald), H), 50)
 
+
+/datum/species/proc/handle_blood(mob/living/carbon/human/H)
+	return FALSE
+
 /datum/species/proc/go_bald(mob/living/carbon/human/H)
 	if(QDELETED(H))	//may be called from a timer
 		return

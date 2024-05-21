@@ -290,6 +290,18 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		desired_damage = max(0, (getMaxHealth() * 1.2) - ((desired_damage ** 0.3) / ((getMaxHealth() * 1.2) ** (-0.7))))
 		if (desired_damage >= getMaxHealth() * 1.2)
 			desired_damage = getMaxHealth() * 2.0
+		if (HAS_TRAIT(src, TRAIT_BLOOD_COOLANT))
+			switch(blood_volume)
+				if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_SAFE)
+					if(prob(3))
+						to_chat(src, "<span class='warning'>Your sensors indicate [pick("overheating", "thermal throttling", "coolant issues")].</span>")
+				if(-INFINITY to BLOOD_VOLUME_SURVIVE)
+					desired_damage = getMaxHealth() * 2.0
+					// Rapidly die with no saving you
+					adjustFireLoss(clamp(getMaxHealth() * 2.0 - getFireLoss(), 0, 10))
+			var/health_difference = clamp(desired_damage - getFireLoss(), 0, 5)
+			adjustFireLoss(health_difference)
+			return
 		switch(blood_volume)
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
