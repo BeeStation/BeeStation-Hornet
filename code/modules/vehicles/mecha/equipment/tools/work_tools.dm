@@ -5,8 +5,7 @@
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
 	name = "hydraulic clamp"
 	desc = "Equipment for engineering exosuits. Lifts objects and loads them into cargo."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "bin"
+	icon_state = "mecha_clamp"
 	equip_cooldown = 15
 	energy_drain = 10
 	tool_behaviour = TOOL_RETRACTOR
