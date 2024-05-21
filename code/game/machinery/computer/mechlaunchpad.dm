@@ -14,6 +14,10 @@
 	var/list/obj/machinery/mechpad/mechpads = list()
 	///Maximum amount of pads connected at once
 	var/maximum_pads = 3
+	///Voiceline during transportation, bool
+	var/announcefall = FALSE
+	///Voiceline during transportation, soundfile
+	var/sound/standbyfortitanfall = 'sound/mecha/standbyfortitanfall.ogg'
 
 /obj/machinery/computer/mechpad/Initialize(mapload)
 	. = ..()
@@ -133,6 +137,8 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/mechpad)
 		return
 	var/obj/vehicle/sealed/mecha/mech = locate() in get_turf(connected_mechpad)
 	mech.setDir(SOUTH)
+	if(announcefall == TRUE)
+		playsound(mech, standbyfortitanfall, 100, TRUE)
 	connected_mechpad.launch(where)
 
 /obj/machinery/computer/mechpad/proc/can_launch(mob/user, obj/machinery/mechpad/where, silent = FALSE)
