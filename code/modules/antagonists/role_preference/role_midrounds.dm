@@ -181,6 +181,13 @@
 	morph_icon.Shift(NORTH, 8)
 	return finish_preview_icon(morph_icon)
 
+/datum/role_preference/midround_ghost/prisoner
+	name = "prisoner"
+	description = "You are a Prisoner, sent to the station brig by Nanotrasen. \
+	You have a chance to escape, but be careful, the security officers are on high alert."
+	antag_datum = /datum/antagonist/prisoner
+	preview_outfit = /datum/outfit/prisoner
+
 /datum/role_preference/midround_ghost/fugitive
 	name = "Fugitive"
 	description = "You're a fugitive, escaped from imprisonment. You've managed to make it to Space Station 13. \

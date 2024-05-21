@@ -1,7 +1,7 @@
 /obj/structure/big_delivery
 	name = "large parcel"
 	desc = "A large delivery parcel."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "deliverycloset"
 	density = TRUE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
@@ -93,7 +93,7 @@
 /obj/item/small_delivery
 	name = "parcel"
 	desc = "A brown paper delivery parcel."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/wrapping.dmi'
 	icon_state = "deliverypackage3"
 	item_state = "deliverypackage"
 	var/giftwrapped = 0
@@ -177,6 +177,7 @@
 	desc = "Used to set the destination of properly wrapped packages."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "cargotagger"
+	worn_icon_state = "cargotagger"
 	var/currTag = 0 //Destinations are stored in code\globalvars\lists\flavor_misc.dm
 	var/locked_destination = FALSE //if true, users can't open the destination tag window to prevent changing the tagger's current destination
 	w_class = WEIGHT_CLASS_TINY

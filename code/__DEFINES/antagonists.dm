@@ -33,9 +33,6 @@
 #define BLOB_REFLECTOR_COST 15
 #define BLOB_STRAIN_COLOR_LIST list("#BE5532", "#7D6EB4", "#EC8383", "#00E5B1", "#00668B", "#FFF68", "#BBBBAA", "#CD7794", "#57787B", "#3C6EC8", "#AD6570", "#823ABB")
 
-//Overthrow time to update heads obj
-#define OBJECTIVE_UPDATING_TIME 300
-
 //gang dominators
 #define NOT_DOMINATING			-1
 #define MAX_LEADERS_GANG		3

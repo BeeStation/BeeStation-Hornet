@@ -24,6 +24,12 @@
 		pipe_astar_cost = 1\
 	)
 
+/turf/open/floor/plating/get_turf_texture()
+	return GLOB.turf_texture_plating
+
+/turf/open/floor/plating/broken
+	broken = TRUE
+
 /turf/open/floor/plating/examine(mob/user)
 	. = ..()
 	if(broken || burnt)
@@ -35,10 +41,6 @@
 		. += "<span class='notice'>You might be able to build ontop of it with some <i>tiles</i>...</span>"
 
 /turf/open/floor/plating/Initialize(mapload)
-	if (!broken_states)
-		broken_states = list("platingdmg1", "platingdmg2", "platingdmg3")
-	if (!burnt_states)
-		burnt_states = list("panelscorched")
 	. = ..()
 	if(!attachment_holes || (!broken && !burnt))
 		icon_plating = icon_state
@@ -80,9 +82,26 @@
 			if(do_after(user, 30, target = src))
 				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/engine))
 					PlaceOnTop(/turf/open/floor/engine, flags = CHANGETURF_INHERIT_AIR)
-					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
+					playsound(src, 'sound/items/deconstruct.ogg', 80, TRUE)
 					R.use(1)
 					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
+				return
+	if(istype(C, /obj/item/stack/sheet/plasteel) && attachment_holes)
+		if(broken || burnt)
+			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
+			return
+		var/obj/item/stack/sheet/iron/R = C
+		if (R.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need one sheet to make a prison secure floor!</span>")
+			return
+		else
+			to_chat(user, "<span class='notice'>You begin reinforcing the floor to secure the plating..</span>")
+			if(do_after(user, 30, target = src))
+				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/prison))
+					PlaceOnTop(/turf/open/floor/prison, flags = CHANGETURF_INHERIT_AIR)
+					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
+					R.use(1)
+					to_chat(user, "<span class='notice'>You secure the plating.</span>")
 				return
 	else if(istype(C, /obj/item/stack/tile) && !locate(/obj/structure/lattice/catwalk, src))
 		if(!broken && !burnt)
@@ -90,15 +109,9 @@
 				for(var/M in O.buckled_mobs)
 					to_chat(user, "<span class='warning'>Someone is buckled to \the [O]! Unbuckle [M] to move \him out of the way.</span>")
 					return
-			var/obj/item/stack/tile/W = C
-			if(!W.use(1))
-				return
-			var/turf/open/floor/T = PlaceOnTop(W.turf_type, flags = CHANGETURF_INHERIT_AIR)
-			if(istype(W, /obj/item/stack/tile/light)) //TODO: get rid of this ugly check somehow
-				var/obj/item/stack/tile/light/L = W
-				var/turf/open/floor/light/F = T
-				F.state = L.state
-			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+			var/obj/item/stack/tile/tile = C
+			tile.place_tile(src)
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 		else
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 
@@ -132,8 +145,8 @@
 	return //jetfuel can't break steel foam...
 
 /turf/open/floor/plating/foam/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tile/plasteel))
-		var/obj/item/stack/tile/plasteel/P = I
+	if(istype(I, /obj/item/stack/tile/iron))
+		var/obj/item/stack/tile/iron/P = I
 		if(P.use(1))
 			var/obj/L = locate(/obj/structure/lattice) in src
 			if(L)

@@ -1,6 +1,5 @@
 /datum/job/virologist
 	title = JOB_NAME_VIROLOGIST
-	flag = VIROLOGIST
 	description = "Collect virus samples from dormant viruses, old blood, and crusty vomit from around the station, isolate the symptoms and use them to create useful healing viruses for the crew."
 	department_for_prefs = DEPT_BITFLAG_MED
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
@@ -17,7 +16,6 @@
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_MECH_MEDICAL, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
@@ -39,6 +37,9 @@
 		/area/medical/apothecary
 	)
 	minimal_lightup_areas = list(/area/medical/virology)
+
+/datum/job/virologist/config_check()
+	return CONFIG_GET(flag/allow_virologist)
 
 /datum/outfit/job/virologist
 	name = JOB_NAME_VIROLOGIST

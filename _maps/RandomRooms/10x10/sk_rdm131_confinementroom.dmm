@@ -9,61 +9,28 @@
 "ac" = (
 /turf/closed/wall,
 /area/template_noop)
-"ad" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "ae" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"af" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"ag" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "ah" = (
 /obj/machinery/door/airlock/security{
 	id_tag = "confine1";
 	name = "Confinement Room 1"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "ai" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
-/area/template_noop)
-"aj" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/template_noop)
 "ak" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "al" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -74,22 +41,15 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/xeno,
 /turf/open/floor/plating{
-	icon_state = "platingdmg1"
+	broken = 1
 	},
-/area/template_noop)
-"an" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
 /area/template_noop)
 "ao" = (
 /obj/machinery/door/airlock/security{
 	id_tag = "confine3";
 	name = "Confinement Room 3"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "ap" = (
 /obj/machinery/light/small/broken{
@@ -106,61 +66,11 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "ar" = (
 /obj/machinery/light/broken,
 /turf/open/floor/plating,
-/area/template_noop)
-"as" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/button/door{
-	bound_y = 0;
-	id = "confine1";
-	name = "Confinement Lock 1";
-	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_y = 25
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"at" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/structure/chair,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"au" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"av" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 1;
-	light_color = "#e8eaff"
-	},
-/turf/open/floor/plasteel,
 /area/template_noop)
 "aw" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -174,38 +84,17 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"ax" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/template_noop)
-"ay" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/button/door{
-	id = "confine2";
-	name = "Confinement Lock 2";
-	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_y = -25
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "az" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "aA" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	burnt = 1
 	},
 /area/template_noop)
 "aB" = (
@@ -214,17 +103,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"aC" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aD" = (
 /obj/machinery/light/small/broken{
@@ -238,28 +117,12 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/template_noop)
-"aF" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/button/door{
-	id = "confine4";
-	name = "Confinement Lock 4";
-	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_y = -25
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "aG" = (
 /obj/machinery/door/airlock/security{
 	id_tag = "confine2";
 	name = "Confinement Room 2"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/template_noop)
 "aH" = (
 /obj/machinery/door/airlock/security{
@@ -288,12 +151,12 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/sanitarium,
 /obj/effect/trap/nexus/doorbolt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/nexus/doorbolt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -308,7 +171,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aO" = (
 /obj/structure/chair,
@@ -316,34 +179,34 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/nexus/doorbolt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "aQ" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -358,18 +221,18 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/trap,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	broken = 1
 	},
 /area/template_noop)
 "aW" = (
@@ -380,7 +243,7 @@
 /area/template_noop)
 "aX" = (
 /obj/effect/turf_decal/tile/red/half/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -394,19 +257,19 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "aZ" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "lf" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Ac" = (
 /obj/effect/decal/cleanable/dirt,
@@ -417,12 +280,12 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Fn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red/half/contrasted,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -435,7 +298,7 @@ ai
 ac
 ab
 ab
-ax
+ai
 "}
 (2,1,1) = {"
 ab
@@ -526,7 +389,7 @@ ai
 aL
 aU
 ao
-ax
+ai
 ab
 aH
 aW

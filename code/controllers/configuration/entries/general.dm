@@ -23,6 +23,8 @@
 
 /datum/config_entry/string/servername	// server name (the name of the game window)
 
+/datum/config_entry/string/servertag	// Server tagline for displaying on the hub
+
 /datum/config_entry/string/serversqlname	// short form server name used for the DB
 
 /datum/config_entry/string/stationname	// station name (the name of the station in-game)
@@ -71,6 +73,8 @@
 /datum/config_entry/flag/log_attack	// log attack messages
 
 /datum/config_entry/flag/log_emote	// log emotes
+
+/datum/config_entry/flag/log_econ // log economy actions
 
 /datum/config_entry/flag/log_adminchat	// log admin chat messages
 	protection = CONFIG_ENTRY_LOCKED
@@ -162,6 +166,14 @@
 	config_entry_value = TICK_LIMIT_MC_INIT_DEFAULT
 	min_val = 0 //oranges warned us
 	integer = FALSE
+
+/datum/config_entry/flag/mc_diagnostics
+
+/datum/config_entry/flag/mc_diagnostics/ValidateAndSet(str_val)
+	. = ..()
+	if (!.)
+		return FALSE
+	Master.diagnostic_mode = config_entry_value
 
 /datum/config_entry/flag/admin_legacy_system	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system
 	protection = CONFIG_ENTRY_LOCKED
@@ -614,6 +626,5 @@
 
 
 /datum/config_entry/flag/enable_mrat
-
 
 /datum/config_entry/string/discord_ooc_tag

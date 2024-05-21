@@ -37,9 +37,9 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	item_state = "trashbag"
+	worn_icon_state = "baguette"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-
 	w_class = WEIGHT_CLASS_BULKY
 	var/insertable = TRUE
 
@@ -99,6 +99,7 @@
 	desc = "A belt that opens into a near infinite pocket of bluespace."
 	icon_state = "hammerspace"
 	w_class = WEIGHT_CLASS_GIGANTIC
+	icon = 'icons/obj/storage/backpack.dmi'
 
 /obj/item/storage/bag/trash/bluespace/hammerspace/ComponentInitialize()
 	. = ..()
@@ -126,10 +127,12 @@
 	desc = "This little bugger can be used to store and transport ores."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
+	worn_icon_state = "satchel"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKETS
 	w_class = WEIGHT_CLASS_NORMAL
 	component_type = /datum/component/storage/concrete/stack
-	var/spam_protection = FALSE //If this is TRUE, the holder won't receive any messages when they fail to pick up ore through crossing it
+	///If this is TRUE, the holder won't receive any messages when they fail to pick up ore through crossing it
+	var/spam_protection = FALSE
 	var/mob/listeningTo
 
 /obj/item/storage/bag/ore/ComponentInitialize()
@@ -217,6 +220,7 @@
 	name = "plant bag"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
+	worn_icon_state = "plantbag"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 
@@ -234,11 +238,9 @@
 	name = "portable seed extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	icon_state = "portaseeder"
+	actions_types = list(/datum/action/item_action/portaseeder_dissolve)
 
-/obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
-	set name = "Activate Seed Extraction"
-	set category = "Object"
-	set desc = "Activate to convert your plants into plantable seeds."
+/obj/item/storage/bag/plants/portaseeder/proc/dissolve_contents()
 	if(usr.incapacitated())
 		return
 	for(var/obj/item/O in contents)
@@ -268,6 +270,7 @@
 	desc = "A patented Nanotrasen storage system designed for any kind of mineral sheet."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
+	worn_icon_state = "satchel"
 
 	var/capacity = 150 //the number of sheets it can carry.
 	w_class = WEIGHT_CLASS_NORMAL
@@ -304,6 +307,7 @@
 	desc = "A bag for books."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bookbag"
+	worn_icon_state = "bookbag"
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
 	resistance_flags = FLAMMABLE
 
@@ -323,6 +327,7 @@
 	name = "tray"
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
+	worn_icon_state = "tray"
 	desc = "A metal tray to lay food on."
 	force = 5
 	throwforce = 10
@@ -392,6 +397,7 @@
 	name = "chemistry bag"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bag"
+	worn_icon_state = "chembag"
 	desc = "A bag for storing pills, patches, and bottles."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
@@ -412,6 +418,7 @@
 	name = "bio bag"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "biobag"
+	worn_icon_state = "biobag"
 	desc = "A bag for the safe transportation and disposal of biowaste and other biological materials."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
@@ -422,7 +429,7 @@
 	STR.max_combined_w_class = 200
 	STR.max_items = 25
 	STR.insert_preposition = "in"
-	STR.can_hold = typecacheof(list(/obj/item/slime_extract, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/blood, /obj/item/reagent_containers/hypospray/medipen, /obj/item/reagent_containers/food/snacks/deadmouse, /obj/item/food/monkeycube, /obj/item/organ, /obj/item/bodypart))
+	STR.can_hold = typecacheof(list(/obj/item/slime_extract, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/blood, /obj/item/reagent_containers/hypospray/medipen, /obj/item/food/deadmouse, /obj/item/food/monkeycube, /obj/item/organ, /obj/item/bodypart))
 
 /obj/item/storage/bag/bio/pre_attack(atom/A, mob/living/user, params)
 	if(istype(A, /obj/item/slimecross/reproductive))
@@ -433,6 +440,7 @@
 	name = "construction bag"
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "construction_bag"
+	worn_icon_state = "construction_bag"
 	desc = "A bag for storing small construction components."
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
@@ -445,28 +453,3 @@
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.insert_preposition = "in"
 	STR.can_hold = typecacheof(list(/obj/item/stack/ore/bluespace_crystal, /obj/item/assembly, /obj/item/stock_parts, /obj/item/reagent_containers/glass/beaker, /obj/item/stack/cable_coil, /obj/item/circuitboard, /obj/item/electronics, /obj/item/rcd_ammo))
-
-// -----------------------------
-//           mail bag
-// -----------------------------
-
-/obj/item/storage/bag/mail
-	name = "mail bag"
-	desc = "A bag for letters, envelopes, and other postage."
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "mailbag"
-	resistance_flags = FLAMMABLE
-
-/obj/item/storage/bag/mail/ComponentInitialize()
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_combined_w_class = 32
-	STR.max_items = 32
-	STR.display_numerical_stacking = FALSE
-	STR.can_hold = typecacheof (list(	/obj/item/mail,
-										/obj/item/small_delivery,
-										/obj/item/paper,
-										/obj/item/reagent_containers/food/condiment/milk,
-										/obj/item/food/bread/plain
-									))

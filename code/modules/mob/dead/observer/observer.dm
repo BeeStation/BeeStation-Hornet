@@ -452,7 +452,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 
 // This is the ghost's follow verb with an argument
-/mob/dead/observer/check_orbitable(atom/movable/target)
+/mob/dead/observer/check_orbitable(atom/movable/target_original)
+	var/atom/movable/target = target_original.get_orbitable()
 	if (!istype(target))
 		return
 

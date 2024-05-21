@@ -69,7 +69,7 @@
 	if(remote_materials)
 		AddComponent(/datum/component/remote_materials, "modfab", mapload, TRUE, auto_link)
 	else
-		AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium, /datum/material/plastic, /datum/material/adamantine), 0, TRUE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
+		AddComponent(/datum/component/material_container, SSmaterials.materialtypes_by_category[MAT_CATEGORY_RIGID], 0, TRUE, null, null, CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	. = ..()
 	stored_research = new stored_research_type
 
@@ -493,12 +493,13 @@
 	use_power(power)
 	materials.use_materials(materials_used)
 	if(is_stack)
-		var/obj/item/stack/N = new being_built.build_path(A, multiplier)
+		var/obj/item/stack/N = new being_built.build_path(null, multiplier)
+		N.forceMove(A)
 		N.update_icon()
 	else
 		for(var/i in 1 to multiplier)
-			var/obj/item/new_item = new being_built.build_path(A)
-
+			var/obj/item/new_item = new being_built.build_path(null)
+			new_item.forceMove(A)
 			if(length(picked_materials))
 				new_item.set_custom_materials(picked_materials, 1 / multiplier) //Ensure we get the non multiplied amount
 	being_built = null

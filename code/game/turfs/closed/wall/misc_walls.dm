@@ -44,6 +44,9 @@
 /turf/closed/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
+	smoothing_flags = NONE
+	base_icon_state = null
+	canSmoothWith = null
 	rcd_memory = null
 
 /turf/closed/wall/ice
@@ -124,8 +127,8 @@
 		var/mob/interloper = AM
 		interloper.death()
 	if(ismecha(AM))
-		var/obj/mecha/fuckphazons = AM
-		var/mob/living/carbon/interloper = fuckphazons.occupant
+		var/obj/vehicle/sealed/mecha/fuckphazons = AM
+		var/mob/living/carbon/interloper = fuckphazons.occupants
 		interloper?.death()
 		qdel(interloper)
 

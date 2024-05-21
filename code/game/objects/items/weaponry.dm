@@ -224,6 +224,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "Jagged pieces of bone are tied to what looks like a goliaths femur."
 	icon_state = "bone_sword"
 	item_state = "bone_sword"
+	worn_icon_state = "claymore"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -612,11 +613,17 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throw_speed = 5
 	throw_range = 2
 	attack_verb = list("busted")
+	var/impressiveness = 45
+
+/obj/item/statuebust/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/art, impressiveness)
 
 /obj/item/statuebust/hippocratic
 	name = "hippocrates bust"
 	desc = "A bust of the famous Greek physician Hippocrates of Kos, often referred to as the father of western medicine."
 	icon_state = "hippocratic"
+	impressiveness = 50
 
 /obj/item/melee/chainofcommand/tailwhip
 	name = "liz o' nine tails"
@@ -683,6 +690,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 13
 	throwforce = 6
 	attack_verb = list("beat", "smacked")
+	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 3.5)
 	w_class = WEIGHT_CLASS_HUGE
 	var/homerun_ready = 0
 	var/homerun_able = 0

@@ -1,6 +1,5 @@
 /datum/job/scientist
 	title = JOB_NAME_SCIENTIST
-	flag = SCIENTIST
 	description = "Engage in Xenobiology, Xenoarchaeology, Nanites, and Toxins; research new technology; and upgrade the machine parts around the station."
 	department_for_prefs = DEPT_BITFLAG_SCI
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
@@ -19,7 +18,6 @@
 	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE,
 					ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
@@ -57,6 +55,7 @@
 
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox
+	duffelbag = /obj/item/storage/backpack/duffelbag/science
 
 /datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H)
 	..()

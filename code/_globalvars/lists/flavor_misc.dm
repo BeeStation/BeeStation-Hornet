@@ -349,6 +349,22 @@ GLOBAL_LIST_INIT(admiral_messages, list(
 
 GLOBAL_LIST_INIT(junkmail_messages, world.file2list("strings/junkmail.txt"))
 
+// All valid inputs to status display post_status
+GLOBAL_LIST_INIT(status_display_approved_pictures, list(
+	"blank",
+	"shuttle",
+	"default",
+	"biohazard",
+	"lockdown",
+	"redalert",
+))
+
+// Members of status_display_approved_pictures that are actually states and not alert values
+GLOBAL_LIST_INIT(status_display_state_pictures, list(
+	"blank",
+	"shuttle",
+))
+
 GLOBAL_LIST_INIT(pAI_faces_list, list(
 	"Angry" = "angry",
 	"Cat" = "cat",
@@ -373,4 +389,32 @@ GLOBAL_LIST_INIT(pAI_faces_icons, list(
 	"Sad" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-sad"),
 	"Sunglasses" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-sunglasses"),
 	"What" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-what"),
+))
+
+GLOBAL_LIST_INIT(smoker_cigarettes, list(
+	/obj/item/storage/fancy/cigarettes,
+	/obj/item/storage/fancy/cigarettes/cigpack_midori,
+	/obj/item/storage/fancy/cigarettes/cigpack_uplift,
+	/obj/item/storage/fancy/cigarettes/cigpack_robust,
+	/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
+	/obj/item/storage/fancy/cigarettes/cigpack_carp
+))
+
+GLOBAL_LIST_INIT(alcoholic_bottles, list(
+	/obj/item/reagent_containers/food/drinks/bottle/ale,
+	/obj/item/reagent_containers/food/drinks/bottle/beer,
+	/obj/item/reagent_containers/food/drinks/bottle/gin,
+	/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+	/obj/item/reagent_containers/food/drinks/bottle/vodka,
+	/obj/item/reagent_containers/food/drinks/bottle/rum,
+	/obj/item/reagent_containers/food/drinks/bottle/applejack
+))
+
+GLOBAL_LIST_INIT(junkie_drugs, list(
+	/datum/reagent/drug/crank,
+	/datum/reagent/drug/krokodil,
+	/datum/reagent/medicine/morphine,
+	/datum/reagent/drug/happiness,
+	/datum/reagent/drug/methamphetamine,
+	/datum/reagent/drug/ketamine
 ))

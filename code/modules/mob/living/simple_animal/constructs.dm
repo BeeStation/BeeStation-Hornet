@@ -122,7 +122,7 @@
 /mob/living/simple_animal/hostile/construct/narsie_act()
 	return
 
-/mob/living/simple_animal/hostile/construct/electrocute_act(shock_damage, source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
+/mob/living/simple_animal/hostile/construct/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	return 0
 
 /mob/living/simple_animal/hostile/construct/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
@@ -238,7 +238,7 @@
 		var/refund = 0
 		if(QDELETED(L) || (L.stat == DEAD && prev_stat != DEAD)) //they're dead, you killed them
 			refund += kill_refund
-		else if(L.InCritical() && prev_stat == CONSCIOUS) //you knocked them into critical
+		else if(HAS_TRAIT(L, TRAIT_CRITICAL_CONDITION) && prev_stat == CONSCIOUS) //you knocked them into critical
 			refund += crit_refund
 		if(L.stat != DEAD && prev_stat != DEAD)
 			refund += attack_refund
