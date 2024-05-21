@@ -702,7 +702,6 @@
 /obj/vehicle/sealed/mecha/Bump(atom/obstacle)
 	. = ..()
 	if(phasing) //Theres only one cause for phasing canpass fails
-		addtimer(VARSET_CALLBACK(src, movedelay, TRUE), movedelay*3*step_multiplier)
 		to_chat(occupants, "[icon2html(src, occupants)]<span class='warning'>A dull, universal force is preventing you from phasing here!</span>")
 		spark_system.start()
 		return
