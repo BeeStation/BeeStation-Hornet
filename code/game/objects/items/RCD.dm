@@ -137,7 +137,7 @@ RLD
 				to_chat(user, no_ammo_message)
 			return FALSE
 		matter -= amount
-		update_icon()
+		update_appearance()
 		return TRUE
 	else
 		var/list/matlist = list(SSmaterials.GetMaterialRef(/datum/material/iron) = 500)
@@ -248,6 +248,15 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	grille_icon.Blend(window_icon, ICON_OVERLAY)
 
 	return getHologramIcon(grille_icon)
+
+/obj/item/construction/rcd/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/openspace_item_click_handler)
+
+/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		mode = RCD_FLOORWALL
+		rcd_create(target, user)
 
 /obj/item/construction/rcd/ui_action_click(mob/user, actiontype)
 	if (!COOLDOWN_FINISHED(src, destructive_scan_cooldown))
@@ -608,17 +617,11 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 	airlock_electronics.name = "Access Control"
 	airlock_electronics.holder = src
 	GLOB.rcd_list += src
-	AddElement(/datum/element/openspace_item_click_handler)
 
 /obj/item/construction/rcd/Destroy()
 	QDEL_NULL(airlock_electronics)
 	GLOB.rcd_list -= src
 	. = ..()
-
-/obj/item/construction/rcd/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
-	if(proximity_flag)
-		mode = RCD_FLOORWALL
-		rcd_create(target, user)
 
 /obj/item/construction/rcd/attack_self(mob/user)
 	..()
@@ -732,7 +735,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 
 /obj/item/construction/rcd/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/item/construction/rcd/borg
 	no_ammo_message = "<span class='warning'>Insufficient charge.</span>"
@@ -898,7 +901,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 				if(checkResource(deconcost, user))
 					to_chat(user, "<span class='notice'>You start deconstructing [A]...</span>")
 					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 					if(do_after(user, decondelay, target = A))
 						if(!useResource(deconcost, user))
 							return 0
@@ -913,7 +916,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 					to_chat(user, "<span class='notice'>You start building a wall light...</span>")
 					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, 0)
+					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, FALSE)
 					if(do_after(user, floordelay, target = A))
 						if(!istype(W))
 							return FALSE
@@ -927,7 +930,7 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 								candidates += C
 						if(!candidates.len)
 							to_chat(user, "<span class='warning'>Valid target not found...</span>")
-							playsound(src.loc, 'sound/misc/compiler-failure.ogg', 30, 1)
+							playsound(src.loc, 'sound/misc/compiler-failure.ogg', 30, TRUE)
 							return FALSE
 						for(var/turf/open/O in candidates)
 							if(istype(O))
@@ -958,8 +961,8 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 				if(checkResource(floorcost, user))
 					to_chat(user, "<span class='notice'>You start building a floor light...</span>")
 					user.Beam(A,icon_state="nzcrentrs_power", time = 15)
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, 1)
+					playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
+					playsound(loc, 'sound/effects/light_flicker.ogg', 50, TRUE)
 					if(do_after(user, floordelay, target = A))
 						if(!istype(F))
 							return 0
@@ -1013,7 +1016,6 @@ GLOBAL_VAR_INIT(icon_holographic_window, init_holographic_window())
 /obj/item/construction/plumbing/Initialize(mapload)
 	. = ..()
 	set_plumbing_designs()
-
 
 ///Set the list of designs this plumbing rcd can make
 /obj/item/construction/plumbing/proc/set_plumbing_designs()
