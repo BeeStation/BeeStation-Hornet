@@ -23,8 +23,6 @@
 	var/shield_flags = ENERGY_SHEILD_BLOCK_PROJECTILES | ENERGY_SHEILD_BLOCK_MELEE
 	/// Energy shield alpha
 	var/shield_alpha = 180
-	/// Animation flash
-	VAR_PRIVATE/animation_flash = FALSE
 	/// The cooldown tracking when we were last hit
 	COOLDOWN_DECLARE(recently_hit_cd)
 	/// The cooldown tracking when we last replenished a charge
@@ -126,13 +124,9 @@
 /datum/component/shielded/proc/on_update_overlays(atom/parent_atom, list/overlays)
 	SIGNAL_HANDLER
 
-	var/image/shield_image = image(shield_icon_file, (current_integrity > 0 ? shield_icon : "broken"), MOB_SHIELD_LAYER)
+	var/mutable_appearance/shield_image = mutable_appearance(shield_icon_file, (current_integrity > 0 ? shield_icon : "broken"), MOB_SHIELD_LAYER)
 	shield_image.alpha = shield_alpha
-	if (animation_flash && current_integrity > 0)
-		shield_image.alpha = 255
-		animate(shield_image, time = 5, alpha = shield_alpha)
 	overlays += shield_image
-	animation_flash = FALSE
 
 /**
  * This proc fires when we're hit, and is responsible for checking if we're charged, then deducting one + returning that we're blocking if so.
@@ -155,13 +149,15 @@
 
 	INVOKE_ASYNC(src, PROC_REF(actually_run_hit_callback), owner, attack_text, current_integrity)
 
+
 	if(!recharge_start_delay) // if recharge_start_delay is 0, we don't recharge
 		if(!current_integrity) // obviously if someone ever adds a manual way to replenish charges, change this
 			qdel(src)
 		return
 
-	animation_flash = TRUE
-	wearer.update_icon()
+	if (!current_integrity)
+		wearer.update_icon()
+
 	START_PROCESSING(SSdcs, src) // if we DO recharge, start processing so we can do that
 
 /// The wrapper to invoke the on_hit callback, so we don't have to worry about blocking in the signal handler
