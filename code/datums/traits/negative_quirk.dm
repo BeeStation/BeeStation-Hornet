@@ -600,12 +600,7 @@
 		/obj/item/storage/fancy/cigarettes/cigpack_uplift,
 		/obj/item/storage/fancy/cigarettes/cigpack_robust,
 		/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-		/obj/item/storage/fancy/cigarettes/cigpack_carp,
-		/obj/item/storage/fancy/cigarettes/cigpack_syndicate //THIS IS ONLY FOR TESTING IF I FORGOT TO REMOVE THIS THEN SHAME ON ME AND REMOVE THIS ASAP!!
-		/obj/item/storage/fancy/cigarettes/dromedaryco,
-		/obj/item/storage/fancy/cigarettes/cigars,
-		/obj/item/storage/fancy/cigarettes/cigars/havana,
-		/obj/item/storage/fancy/cigarettes/cigars/cohiba)
+		/obj/item/storage/fancy/cigarettes/cigpack_carp) 
 	. = ..()
 
 /datum/quirk/junkie/smoker/announce_drugs()
