@@ -8,7 +8,7 @@
  * Arguments:
  * * packet_data - Either a list() or a /datum/netdata.  If its netdata, the other args are ignored
  * * target_id - 	Target hardware id or network_id for this packet. If we are a network id, then its
-					broadcasted to that network.
+ * *				broadcasted to that network.
  * * passkey - 	Authentication for the packet.  If the target doesn't authenticate the packet is dropped
  */
 /datum/proc/ntnet_send(packet_data, target_id = null, passkey = null)

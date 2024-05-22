@@ -49,6 +49,7 @@
 #define __NETWORK_CARGO					"CARGO"
 #define __NETWORK_BOTS					"BOTS"
 #define __NETWORK_COMPUTER				"COMPUTER"
+#define __NETWORK_SERVER				"SERVER"
 #define __NETWORK_CARDS					"CARDS"
 #define __NETWORK_CIRCUITS				"CIRCUITS"
 

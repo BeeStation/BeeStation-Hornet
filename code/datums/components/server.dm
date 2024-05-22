@@ -31,7 +31,7 @@
 		parent_machine.set_machine_stat(parent_machine.machine_stat | OVERHEATED)
 	else
 		parent_machine.set_machine_stat(parent_machine.machine_stat & ~OVERHEATED)
-		var/efficiency_change = ((temperature - T20C) / (overheated_temp - T20C)) ** 2
+		var/efficiency_change = ((temperature - T20C) / (overheated_temp - T20C))
 		efficiency = clamp(1 - efficiency_change, 0, 1)
 		temperature += heat_generation / heat_capacity
 		heat_generation = 0
