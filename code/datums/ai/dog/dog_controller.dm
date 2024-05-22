@@ -41,7 +41,8 @@
 		pawn.visible_message("<span='danger'>[pawn] drops [carried_item].</span>")
 		carried_item.forceMove(pawn.drop_location())
 		blackboard[BB_SIMPLE_CARRY_ITEM] = null
-	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_CLICK_ALT, COMSIG_MOB_DEATH, COMSIG_GLOB_CARBON_THROW_THING, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_CLICK_ALT, COMSIG_LIVING_DEATH, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(SSdcs, COMSIG_GLOB_CARBON_THROW_THING)
 	return ..() //Run parent at end
 
 /datum/ai_controller/dog/able_to_run()
@@ -97,6 +98,11 @@
 /datum/ai_controller/dog/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER
 
+	var/mob/living/living_pawn = pawn
+	var/additional_text = HAS_TRAIT(user, TRAIT_NAIVE) ? "It looks like [living_pawn.p_theyre()] sleeping." : "[living_pawn.p_they(capitalized = TRUE)] seem[living_pawn.p_s()] to be dead."
+	if(living_pawn.stat == DEAD)
+		to_chat(user, span_warning("Touching [living_pawn], you feel [living_pawn.p_their()] cold skin through the fur. [additional_text]"))
+		return
 	if(user.a_intent == INTENT_HARM)
 		unfriend(user)
 	else
