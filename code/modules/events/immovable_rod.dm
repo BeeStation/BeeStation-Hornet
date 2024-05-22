@@ -127,7 +127,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	if(isturf(clong) || isobj(clong))
 		if(clong.density)
-			EX_ACT(clong, EXPLODE_HEAVY)
+			var/turf/hit_turf = clong
+			hit_turf.take_damage(hit_turf.integrity, armour_penetration = 100)
 
 	else if(isliving(clong))
 		penetrate(clong)
