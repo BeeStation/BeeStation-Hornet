@@ -928,7 +928,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(!H.dna.features["diona_antennae"] || H.dna.features["diona_antennae"] == "None" || !HD)
 			bodyparts_to_add -= "diona_antennae"
 	if("diona_eyes" in mutant_bodyparts)
-		if(!H.dna.features["diona_eyes"] || H.dna.features["diona_eyes"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
+		if(!H.dna.features["diona_eyes"] || H.dna.features["diona_eyes"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "diona_eyes"
 	if("diona_pbody" in mutant_bodyparts)
 		if(!H.dna.features["diona_pbody"] || H.dna.features["diona_pbody"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))

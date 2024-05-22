@@ -16,7 +16,7 @@ win and get those 85 CAD
 	sexes = 0
 	bodyflag = FLAG_DIONA
 	default_color = "59CE00"
-	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NOMOUTH,NO_UNDERWEAR,NOSOCKS,NOTRANSSTING,NOEYESPRITES,)
+	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NOMOUTH,NO_UNDERWEAR,NOSOCKS,NOTRANSSTING,NOEYESPRITES)
 	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
@@ -58,9 +58,7 @@ win and get those 85 CAD
 	species_l_leg = /obj/item/bodypart/l_leg/diona
 	species_r_leg = /obj/item/bodypart/r_leg/diona
 
-	var/datum/action/diona/Split/SplitAbility //All dionae start with this.
-
-
+	var/datum/action/diona/split/SplitAbility //All dionae start with this.
 
 /datum/species/diona/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
@@ -115,9 +113,52 @@ win and get those 85 CAD
 		H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
 
 /datum/species/diona/spec_death(gibbed, mob/living/carbon/human/H)
-	addtimer(CALLBACK(src, PROC_REF(gib), gibbed, H), 50)
+	SplitAbility.Trigger(TRUE)
 
-/datum/species/diona/proc/gib(gibbed, mob/living/carbon/human/H)
+/datum/species/diona/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	var/obj/item/organ/appendix/appendix = H.getorganslot("appendix") //No appendixes for plant people
+	if(appendix)
+		appendix.Remove(H)
+		QDEL_NULL(appendix)
+	SplitAbility = new
+	SplitAbility.Grant(H)
+
+/datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
+	. = ..()
+	SplitAbility.Remove(H)
+
+/datum/species/diona/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.diona_names)]"
+	if(unique && attempts < 10 && findname(.))
+		return .(gender, TRUE, null, ++attempts)
+
+/datum/action/diona/split
+	name = "Split"
+	desc = "Split into your seperate nymphs."
+	background_icon_state = "bg_default"
+	icon_icon = 'icons/mob/actions/actions_genetic.dmi' // TO DO: Add icons for evolving
+	button_icon_state = "default"
+	var/Activated = FALSE
+
+/datum/action/diona/split/Trigger(special)
+	. = ..()
+	var/mob/living/carbon/human/user = owner
+	if(!ispodperson(user))
+		return FALSE
+	if(special)
+		split(FALSE, user) //This runs when you are dead.
+	if(user.incapacitated())
+		return FALSE
+	if(do_after(user, 5 SECONDS, user, NONE, TRUE))
+		split(FALSE, user) //This runs when you manually activate the ability.
+
+/datum/action/diona/split/proc/split(gibbed, mob/living/carbon/human/H)
+	H.death() //Ha ha, we're totally dead right now
+	sleep(50) //or are we?
+	if(Activated)
+		return
+	Activated = TRUE
 	var/datum/mind/M = H.mind
 	for (var/amount = 0, amount < NPC_NYMPH_SPAWN_AMOUNT, amount++) //Spawn the NPC nymphs
 		new /mob/living/simple_animal/nymph(H.loc)
@@ -132,19 +173,6 @@ win and get those 85 CAD
 		nymph.origin.active = 1
 		nymph.origin.transfer_to(nymph) //Move the player's mind to the player nymph
 	H.gib(TRUE, TRUE, FALSE)  //Gib the old corpse with nothing left of use besides limbs
-
-
-/datum/species/ipc/on_species_gain(mob/living/carbon/C)
-	. = ..()
-	var/obj/item/organ/appendix/appendix = C.getorganslot("appendix") //No appendixes for plant people
-	if(appendix)
-		appendix.Remove(C)
-		QDEL_NULL(appendix)
-
-/datum/species/diona/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.diona_names)]"
-	if(unique && attempts < 10 && findname(.))
-		return .(gender, TRUE, null, ++attempts)
 
 /datum/species/diona/get_species_description()
 	return "Dionae are the equivalent to a shambling mound of bug-like sentient plants \
