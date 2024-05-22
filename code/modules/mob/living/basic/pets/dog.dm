@@ -2,21 +2,22 @@
 
 /mob/living/basic/pet/dog
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
-	//response_help_continuous = "pets"
-	//response_help_simple = "pet"
-	//response_disarm_continuous = "bops"
-	//response_disarm_simple = "bop"
-	//response_harm_continuous = "kicks"
-	//response_harm_simple = "kick"
+	response_help_continuous = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "bops"
+	response_disarm_simple = "bop"
+	response_harm_continuous = "kicks"
+	response_harm_simple = "kick"
 	speak_emote = list("barks", "woofs")
 	speak_language = /datum/language/metalanguage
 	faction = list("neutral")
+	can_be_held = TRUE
 	see_in_dark = 5
 	ai_controller = /datum/ai_controller/dog
-	can_be_held = TRUE
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	attack_sound = 'sound/weapons/bite.ogg'
+
 	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
 
@@ -43,7 +44,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_icon_state = "corgi"
 	ai_controller = /datum/ai_controller/dog/corgi
-	collar_type = "corgi"
+	collar_icon_state = "corgi"
 	held_state = "corgi"
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
@@ -55,7 +56,12 @@
 	/// Is this corgi physically slow due to age, etc?
 	var/is_slow = FALSE
 
-/mob/living/simple_animal/pet/dog/corgi/Destroy()
+/mob/living/basic/pet/dog/corgi/examine(mob/user)
+	. = ..()
+	if(access_card)
+		. += "There appears to be [icon2html(access_card, user)] \a [access_card] pinned to [p_them()]."
+
+/mob/living/basic/pet/dog/corgi/Destroy()
 	QDEL_NULL(inventory_head)
 	QDEL_NULL(inventory_back)
 	QDEL_NULL(access_card)
@@ -133,8 +139,10 @@
 	desc = "Nar'sie and rat'var are nothing compared to the might of this monstertruck loving dog."
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
-	speak = list("barks!", "woofs!", "Walter", "firetrucks", "monstertrucks")
 	speak_language = /datum/language/common // barks woofs are not common, but wouldn't be matter if they can't understand firetrucks, monstertrucks
+
+/mob/living/basic/pet/dog/bullterrier/walter/update_dog_speech(datum/ai_planning_subtree/random_speech/speech)
+	speech.speak = string_list(list("barks!", "woofs!", "Walter", "firetrucks", "monstertrucks"))
 
 /mob/living/basic/pet/dog/corgi/exoticcorgi
 	name = "Exotic Corgi"
@@ -571,7 +579,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 			P.gib()
 	for(var/mob/living/basic/pet/P in ohearers(1, src))
 		if(P != src && !istype(P,/mob/living/basic/pet/dog/corgi/narsie))
-		if(!istype(P,/mob/living/simple_animal/pet/dog/corgi/narsie))
+		if(!istype(P,/mob/living/basic/pet/dog/corgi/narsie))
 			visible_message("<span class='warning'>[src] devours [P]!</span>", \
 			"<span class='cult big bold'>DELICIOUS SOULS</span>")
 			playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)

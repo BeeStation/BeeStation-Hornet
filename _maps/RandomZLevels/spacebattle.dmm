@@ -1193,7 +1193,7 @@
 /area/awaymission/spacebattle/syndicate7)
 "hw" = (
 /obj/structure/closet/crate/large,
-/mob/living/simple_animal/pet/dog/corgi/puppy,
+/mob/living/basic/pet/dog/corgi/puppy,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "hx" = (

@@ -16078,7 +16078,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/mob/living/simple_animal/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/ian{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{
@@ -35556,7 +35556,7 @@
 	dir = 8
 	},
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/mob/living/basic/pet/dog/bullterrier/walter,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},

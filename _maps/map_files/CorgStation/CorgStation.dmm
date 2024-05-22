@@ -35,7 +35,7 @@
 "aag" = (
 /obj/structure/bed/dogbed/ian,
 /obj/machinery/camera/autoname,
-/mob/living/simple_animal/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/ian,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "aah" = (
@@ -5713,7 +5713,7 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai_upload)
 "bCg" = (
-/mob/living/simple_animal/pet/dog/bullterrier{
+/mob/living/basic/pet/dog/bullterrier{
 	name = "Mr. Licks"
 	},
 /turf/open/floor/grass,
@@ -35287,7 +35287,7 @@
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
 	},
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/mob/living/basic/pet/dog/bullterrier/walter,
 /turf/open/floor/iron/dark,
 /area/security/warden)
 "lpO" = (
@@ -40267,7 +40267,7 @@
 /turf/open/floor/iron/dark/telecomms,
 /area/tcommsat/relay)
 "mOd" = (
-/mob/living/simple_animal/pet/dog/corgi/cardigan{
+/mob/living/basic/pet/dog/corgi/cardigan{
 	name = "His Highness Sir Nose Boops II"
 	},
 /obj/structure/flora/ausbushes/fullgrass,
@@ -47528,7 +47528,7 @@
 /turf/open/floor/carpet/grimy,
 /area/chapel/office)
 "plB" = (
-/mob/living/simple_animal/pet/dog/corgi{
+/mob/living/basic/pet/dog/corgi{
 	name = "Dr. Cute Paws"
 	},
 /turf/open/floor/grass,
@@ -53740,7 +53740,7 @@
 /turf/open/floor/iron/dark,
 /area/security/brig)
 "rnW" = (
-/mob/living/simple_animal/pet/dog/pug,
+/mob/living/basic/pet/dog/pug,
 /turf/open/floor/engine,
 /area/science/explab)
 "rok" = (

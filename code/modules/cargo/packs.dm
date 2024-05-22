@@ -2698,17 +2698,17 @@
 	name = "Corgi Crate"
 	desc = "Considered the optimal dog breed by thousands of research scientists, this Corgi is but one dog from the millions of Ian's noble bloodline. Comes with a cute collar!"
 	cost = 5000
-	contains = list(/mob/living/simple_animal/pet/dog/corgi,
+	contains = list(/mob/living/basic/pet/dog/corgi,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "corgi crate"
 
 /datum/supply_pack/critter/corgi/generate()
 	. = ..()
 	if(prob(50))
-		var/mob/living/simple_animal/pet/dog/corgi/D = locate() in .
+		var/mob/living/basic/pet/dog/corgi/D = locate() in .
 		if(D.gender == FEMALE)
 			qdel(D)
-			new /mob/living/simple_animal/pet/dog/corgi/Lisa(.)
+			new /mob/living/basic/pet/dog/corgi/lisa(.)
 
 /datum/supply_pack/critter/cow
 	name = "Cow Crate"
@@ -2734,7 +2734,7 @@
 	name = "Exotic Corgi Crate"
 	desc = "Corgis fit for a king, these corgis come in a unique color to signify their superiority. Comes with a cute collar!"
 	cost = 5500
-	contains = list(/mob/living/simple_animal/pet/dog/corgi/exoticcorgi,
+	contains = list(/mob/living/basic/pet/dog/corgi/exoticcorgi,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "exotic corgi crate"
 
@@ -2773,7 +2773,7 @@
 	name = "Pug Crate"
 	desc = "Like a normal dog, but... squished. Comes with a nice collar!"
 	cost = 5000
-	contains = list(/mob/living/simple_animal/pet/dog/pug,
+	contains = list(/mob/living/basic/pet/dog/pug,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "pug crate"
 
@@ -2781,7 +2781,7 @@
 	name = "Bull Terrier Crate"
 	desc = "Like a normal dog, but with a head the shape of an egg. Comes with a nice collar!"
 	cost = 5000
-	contains = list(/mob/living/simple_animal/pet/dog/bullterrier,
+	contains = list(/mob/living/basic/pet/dog/bullterrier,
 					/obj/item/clothing/neck/petcollar)
 	crate_name = "bull terrier crate"
 

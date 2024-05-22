@@ -29395,7 +29395,7 @@
 /area/medical/medbay/central)
 "hTX" = (
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/mob/living/basic/pet/dog/bullterrier/walter,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
@@ -54844,7 +54844,7 @@
 /turf/open/floor/iron,
 /area/engine/break_room)
 "taY" = (
-/mob/living/simple_animal/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/ian,
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/bed/dogbed/ian,
 /obj/machinery/camera/autoname{

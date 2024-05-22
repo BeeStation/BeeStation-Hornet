@@ -33748,7 +33748,7 @@
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
 "hal" = (
-/mob/living/simple_animal/pet/dog/pug{
+/mob/living/basic/pet/dog/pug{
 	desc = "It's Pugley IV, the research department's lovable pug clone. Hopefully nothing happens to this one - fourth time lucky!";
 	name = "Pugley IV";
 	real_name = "Pugley IV"
@@ -50988,7 +50988,7 @@
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "nJM" = (
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/mob/living/basic/pet/dog/bullterrier/walter,
 /obj/structure/bed/dogbed/walter,
 /obj/machinery/newscaster{
 	pixel_y = -30
@@ -62653,7 +62653,7 @@
 	pixel_y = 32
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/dog/corgi/Ian,
+/mob/living/basic/pet/dog/corgi/ian,
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1

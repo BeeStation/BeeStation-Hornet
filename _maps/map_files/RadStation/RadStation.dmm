@@ -23255,7 +23255,7 @@
 /turf/open/floor/iron/tech,
 /area/engine/atmos)
 "hcf" = (
-/mob/living/simple_animal/pet/dog/pug{
+/mob/living/basic/pet/dog/pug{
 	density = 0;
 	dir = 8
 	},
@@ -41068,7 +41068,7 @@
 	pixel_x = 40;
 	pixel_y = -1
 	},
-/mob/living/simple_animal/pet/dog/corgi/Ian{
+/mob/living/basic/pet/dog/corgi/ian{
 	density = 0;
 	dir = 1;
 	pixel_y = 4
@@ -66408,7 +66408,7 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/mob/living/simple_animal/pet/dog/bullterrier/walter{
+/mob/living/basic/pet/dog/bullterrier/walter{
 	density = 0
 	},
 /turf/open/floor/iron/dark,

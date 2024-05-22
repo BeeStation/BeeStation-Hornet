@@ -75,7 +75,7 @@
 /obj/machinery/rnd/experimentor/Initialize(mapload)
 	. = ..()
 
-	trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
+	trackedIan = locate(/mob/living/basic/pet/dog/corgi/ian) in GLOB.mob_living_list
 	trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
 
 	critical_items_typecache = typecacheof(list(
@@ -480,7 +480,7 @@
 				trackedIan.forceMove(loc)
 				investigate_log("Experimentor has stolen Ian!", INVESTIGATE_EXPERIMENTOR) //...if anyone ever fixes it...
 			else
-				new /mob/living/simple_animal/pet/dog/corgi(loc)
+				new /mob/living/basic/pet/dog/corgi(loc)
 				investigate_log("Experimentor has spawned a new corgi.", INVESTIGATE_EXPERIMENTOR)
 			ejectItem(TRUE)
 		if(globalMalf > 36 && globalMalf < 50)
@@ -589,7 +589,7 @@
 
 /obj/item/relic/proc/corgicannon(mob/user)
 	playsound(src, "sparks", rand(25,50), 1)
-	var/mob/living/simple_animal/pet/dog/corgi/C = new/mob/living/simple_animal/pet/dog/corgi(get_turf(user))
+	var/mob/living/basic/pet/dog/corgi/C = new/mob/living/basic/pet/dog/corgi(get_turf(user))
 	C.throw_at(pick(oview(10,user)), 10, rand(3,8), callback = CALLBACK(src, PROC_REF(throwSmoke), C))
 	warn_admins(user, "Corgi Cannon", 0)
 
