@@ -165,6 +165,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	desc = "Click this to get out of a pool quickly."
 	icon = 'icons/obj/pool.dmi'
 	icon_state = "ladder"
+	anchored = TRUE
 	pixel_y = 12
 
 GLOBAL_LIST_EMPTY(pool_filters)
