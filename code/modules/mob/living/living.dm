@@ -508,6 +508,8 @@
 			to_chat(src, "<span class='notice'>You get up.</span>")
 	. = rest
 	resting = rest
+
+	SEND_SIGNAL(src, COMSIG_LIVING_RESTING, new_resting, silent, instant)
 	update_resting()
 
 

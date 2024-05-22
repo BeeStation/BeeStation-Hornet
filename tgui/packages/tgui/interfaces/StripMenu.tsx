@@ -42,7 +42,7 @@ const SLOTS: Record<string, string> = {
   'head': 'Headwear',
   'mask': 'Mask',
   'neck': 'Neckwear',
-  'corgi_collar': 'Collar',
+  'pet_collar': 'Collar',
   'parrot_headset': 'Headset',
   'eyes': 'Eyewear',
   'ears': 'Earwear',
@@ -91,7 +91,7 @@ const DEFAULT_LAYOUT: Layout = [
       id: 'neck',
     },
     {
-      id: 'corgi_collar',
+      id: 'pet_collar',
     },
     {
       id: 'parrot_headset',

@@ -266,7 +266,7 @@ Chilling extracts:
 
 /obj/item/slimecross/chilling/pink/do_effect(mob/user)
 	user.visible_message("<span class='notice'>[src] cracks like an egg, and an adorable puppy comes tumbling out!</span>")
-	new /mob/living/simple_animal/pet/dog/corgi/puppy/slime(get_turf(user))
+	new /mob/living/basic/pet/dog/corgi/puppy/slime(get_turf(user))
 	..()
 
 /obj/item/slimecross/chilling/gold

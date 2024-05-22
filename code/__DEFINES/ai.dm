@@ -139,6 +139,7 @@
 #define BB_DOG_PLAYING_DEAD "BB_DOG_PLAYING_DEAD"
 #define BB_DOG_HARASS_TARGET "BB_DOG_HARASS_TARGET"
 #define BB_DOG_HARASS_FRUSTRATION "BB_DOG_HARASS_FRUSTRATION"
+#define BB_DOG_IS_SLOW "BB_DOG_IS_SLOW"
 
 /// Basically, what is our vision/hearing range for picking up on things to fetch/
 #define AI_DOG_VISION_RANGE	10
@@ -188,3 +189,11 @@
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
 #define BB_TARGETTING_DATUM "targetting_datum"
+
+///Baby-making blackboard
+///Types of animal we can make babies with.
+#define BB_BABIES_PARTNER_TYPES "BB_babies_partner"
+///Types of animal that we make as a baby.
+#define BB_BABIES_CHILD_TYPES "BB_babies_child"
+///Current partner target
+#define BB_BABIES_TARGET "BB_babies_target"
