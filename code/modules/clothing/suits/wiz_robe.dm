@@ -211,7 +211,7 @@
 	icon_state = "battlemage"
 	item_state = "battlemage"
 	recharge_delay = 0 // no auto-recharge
-	max_charges = 15
+	max_integrity = 300
 	shield_icon = "shield-red"
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -241,4 +241,4 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
 	/// How many charges get restored
-	var/restored_charges = 8
+	var/added_shield = 400
