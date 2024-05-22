@@ -211,7 +211,7 @@
 	icon_state = "battlemage"
 	item_state = "battlemage"
 	recharge_delay = 0 // no auto-recharge
-	max_integrity = 300
+	shield_integrity = 300
 	shield_icon = "shield-red"
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT

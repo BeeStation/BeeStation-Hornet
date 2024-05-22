@@ -857,7 +857,7 @@
 	armor = list(MELEE = 30,  BULLET = 15, LASER = 30, ENERGY = 40, BOMB = 10, BIO = 100, RAD = 50, FIRE = 100, ACID = 100, STAMINA = 60)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	/// How many charges total the shielding has
-	var/max_integrity = 60
+	var/shield_integrity = 60
 	/// How long after we've been shot before we can start recharging.
 	var/recharge_delay = 20 SECONDS
 	/// How quickly the shield recharges each charge once it starts charging
@@ -872,7 +872,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/shielded/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/shielded, max_integrity = max_integrity, recharge_start_delay = recharge_delay, charge_increment_delay = recharge_rate, shield_icon = shield_icon)
+	AddComponent(/datum/component/shielded, max_integrity = shield_integrity, recharge_start_delay = recharge_delay, charge_increment_delay = recharge_rate, shield_icon = shield_icon)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -889,7 +889,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf
 	armor = list(MELEE = 0,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 100, RAD = 100, FIRE = 95, ACID = 95, STAMINA = 0)
 	slowdown = 0
-	max_integrity = 100
+	shield_integrity = 100
 
 /obj/item/clothing/suit/space/hardsuit/shielded/ctf/red
 	name = "red shielded hardsuit"
@@ -1002,7 +1002,7 @@
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
 	hardsuit_type = "syndi"
-	max_integrity = 80
+	shield_integrity = 80
 	recharge_delay = 1.5 SECONDS
 	armor = list(MELEE = 80,  BULLET = 80, LASER = 50, ENERGY =60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 100)
 	strip_delay = 130
@@ -1044,7 +1044,7 @@
 	desc = "A somehow spaceworthy set of armor with outstanding protection against almost everything. Comes in an oddly nostalgic green. "
 	icon_state = "doomguy"
 	item_state = "doomguy"
-	max_integrity = 20
+	shield_integrity = 20
 	recharge_delay = 100
 	armor = list(MELEE = 135,  BULLET = 135, LASER = 135, ENERGY = 135, BOMB = 135, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 100)
 	strip_delay = 130
