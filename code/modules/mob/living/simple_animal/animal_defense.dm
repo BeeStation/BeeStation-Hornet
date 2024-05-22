@@ -9,8 +9,6 @@
 			visible_message("<span class='notice'>[M] [response_help] [src].</span>", \
 				"<span class='notice'>[M] [response_help] you.</span>")
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			if(pet_bonus)
-				funpet(M)
 
 		if("grab")
 			grabbedby(M)
@@ -43,16 +41,6 @@
 			log_combat(M, src, "attacked", "harm")
 			updatehealth()
 			return TRUE
-
-/**
-*This is used to make certain mobs (pet_bonus == TRUE) emote when pet, make a heart emoji at their location, and give the petter a moodlet.
-*
-*/
-/mob/living/simple_animal/proc/funpet(mob/petter)
-	new /obj/effect/temp_visual/heart(loc)
-	if(prob(33))
-		manual_emote("[pet_bonus_emote]")
-	SEND_SIGNAL(petter, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
 
 /mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(user.a_intent == INTENT_HARM)

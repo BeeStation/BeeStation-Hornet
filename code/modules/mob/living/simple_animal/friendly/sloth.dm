@@ -24,11 +24,12 @@
 	chat_color = "#728AE6"
 	can_be_held = TRUE
 	held_state = "sloth"
-	pet_bonus = TRUE
-	pet_bonus_emote = "slowly smiles!"
-	
 	footstep_type = FOOTSTEP_MOB_CLAW
 
+
+/mob/living/simple_animal/sloth/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/pet_bonus, "slowly smiles!")
 
 //Cargo Sloth
 /mob/living/simple_animal/sloth/paperwork

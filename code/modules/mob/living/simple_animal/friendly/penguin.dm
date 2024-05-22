@@ -22,6 +22,7 @@
 
 /mob/living/simple_animal/pet/penguin/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/pet_bonus, "honks happily!")
 	AddComponent(/datum/component/waddling)
 
 /mob/living/simple_animal/pet/penguin/emperor

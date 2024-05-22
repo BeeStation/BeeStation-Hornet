@@ -95,11 +95,6 @@
 	///Generic flags
 	var/simple_mob_flags = NONE
 
-	/// Used for making mobs show a heart emoji and give a mood boost when pet.
-	var/pet_bonus = FALSE
-	/// A string for an emote used when pet_bonus == true for the mob being pet.
-	var/pet_bonus_emote = ""
-
 	var/special_process = FALSE
 
 	///set it TRUE if "health" is not relable to this simple mob.

@@ -62,3 +62,7 @@
 	movement_type = GROUND
 	response_help = "pets"
 	turns_per_move = 10
+
+/mob/living/simple_animal/hostile/retaliate/bat/sgt_araneus/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/pet_bonus, "chitters proudly!")

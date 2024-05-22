@@ -68,6 +68,7 @@
 	)
 
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
+	AddElement(/datum/element/pet_bonus, "bloops happily!")
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 	if(random_color)
 		set_greyscale(new_config=/datum/greyscale_config/carp)
@@ -159,6 +160,7 @@
 
 /mob/living/simple_animal/hostile/carp/cayenne/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/pet_bonus, "bloops happily!")
 	ADD_TRAIT(src, TRAIT_DISK_VERIFIER, INNATE_TRAIT) //carp can verify disky
 	ADD_TRAIT(src, TRAIT_CAN_USE_NUKE, INNATE_TRAIT)  //carp SMART
 

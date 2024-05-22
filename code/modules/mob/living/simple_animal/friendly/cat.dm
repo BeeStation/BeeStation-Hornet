@@ -35,14 +35,13 @@
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "cat2"
-	pet_bonus = TRUE
-	pet_bonus_emote = "purrs!"
 	chat_color = "#FFD586"
 
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/pet/cat/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/pet_bonus, "purrs!")
 	add_verb(/mob/living/proc/lay_down)
 
 /mob/living/simple_animal/pet/cat/space

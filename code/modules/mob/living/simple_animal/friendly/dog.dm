@@ -18,12 +18,13 @@
 	can_be_held = TRUE
 	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
-
 	footstep_type = FOOTSTEP_MOB_CLAW
-	pet_bonus = TRUE
-	pet_bonus_emote = "woofs happily!"
 	var/turns_since_scan = 0
 	var/obj/movement_target
+
+/mob/living/simple_animal/pet/dog/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/pet_bonus, "woofs happily!")
 
 //Corgis and pugs are now under one dog subtype
 
