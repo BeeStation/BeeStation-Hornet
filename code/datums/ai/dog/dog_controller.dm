@@ -7,7 +7,9 @@
 		BB_FETCH_IGNORE_LIST = list(),\
 		BB_DOG_ORDER_MODE = DOG_COMMAND_NONE,\
 		BB_DOG_PLAYING_DEAD = FALSE,\
-		BB_DOG_HARASS_TARGET = null)
+		BB_DOG_HARASS_TARGET = null,\
+		BB_DOG_HARASS_FRUSTRATION = null,\
+		BB_VISION_RANGE = AI_DOG_VISION_RANGE)
 	ai_movement = /datum/ai_movement/jps
 	idle_behavior = /datum/idle_behavior/idle_dog
 	planning_subtrees = list(/datum/ai_planning_subtree/dog)
@@ -203,7 +205,7 @@
 	var/command
 	if(findtext(spoken_text, "heel") || findtext(spoken_text, "sit") || findtext(spoken_text, "stay"))
 		command = COMMAND_HEEL
-	else if(findtext(spoken_text, "fetch") || findtext(spoken_text, "get it"))
+	else if(findtext(spoken_text, "fetch"))
 		command = COMMAND_FETCH
 	else if(findtext(spoken_text, "attack") || findtext(spoken_text, "sic"))
 		command = COMMAND_ATTACK
@@ -227,7 +229,7 @@
 			blackboard[BB_DOG_ORDER_MODE] = DOG_COMMAND_NONE
 			COOLDOWN_START(src, heel_cooldown, AI_DOG_HEEL_DURATION)
 			CancelActions()
-		// fetch: whatever the commander points to, try and bring it back
+		// follow: whatever the commander points to, try and bring it back
 		if(COMMAND_FETCH)
 			pawn.visible_message("<span class='notice'>[pawn]'s ears prick up at [commander]'s command, and [pawn.p_they()] bounce[pawn.p_s()] slightly in anticipation.</span>")
 			blackboard[BB_DOG_ORDER_MODE] = DOG_COMMAND_FETCH
