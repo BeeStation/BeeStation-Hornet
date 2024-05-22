@@ -179,6 +179,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	pixel_y = 12
 
 /obj/structure/pool_ladder/wrench_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='notice'>You start disassembling [src].</span>")
 	if(I.use_tool(src, user, 5 SECONDS))
 		deconstruct()
 
