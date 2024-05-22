@@ -190,7 +190,7 @@
 	if(!controller.blackboard[BB_DOG_HARASS_FRUSTRATION])
 		controller.blackboard[BB_DOG_HARASS_FRUSTRATION] = world.time
 	else if(controller.blackboard[BB_DOG_HARASS_FRUSTRATION] + AI_DOG_HARASS_FRUSTRATE_TIME < world.time) // if we haven't actually bit them in a while, give up
-		living_pawn.visible_message(span_danger("[living_pawn] yawns and seems to lose interest in harassing [harass_target]."))
+		living_pawn.visible_message("<span='danger'>[living_pawn] yawns and seems to lose interest in harassing [harass_target].</span>")
 		finish_action(controller, FALSE)
 		return
 
@@ -214,7 +214,7 @@
 		return
 
 	controller.blackboard[BB_DOG_HARASS_FRUSTRATION] = world.time
-	
+
 	// make sure the pawn gets some temporary strength boost to actually attack the target instead of pathetically nuzzling them.
 	var/old_melee_damage = living_pawn.melee_damage
 	living_pawn.melee_damage = max(7, old_melee_damage)

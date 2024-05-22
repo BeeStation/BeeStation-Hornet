@@ -25,63 +25,6 @@
 	var/turns_since_scan = 0
 	var/obj/movement_target
 
-/mob/living/simple_animal/pet/dog/Life()
-	..()
-
-	//Feeding, chasing food, FOOOOODDDD
-	if(!stat && !resting && !buckled)
-		turns_since_scan++
-		if(turns_since_scan > 5)
-			turns_since_scan = 0
-			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
-				movement_target = null
-				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
-				movement_target = null
-				stop_automated_movement = 0
-				for(var/obj/item/potential_snack in oview(src,3))
-					if(IS_EDIBLE(potential_snack) && (isturf(potential_snack.loc) || ishuman(potential_snack.loc)))
-						movement_target = potential_snack
-						break
-			if(movement_target)
-				stop_automated_movement = 1
-				step_to(src,movement_target,1)
-				sleep(3)
-				step_to(src,movement_target,1)
-				sleep(3)
-				step_to(src,movement_target,1)
-
-				if(movement_target) //Not redundant due to sleeps, Item can be gone in 6 decisecomds
-					var/turf/T = get_turf(movement_target)
-					if(!T)
-						return
-					if (T.x < src.x)
-						setDir(WEST)
-					else if (T.x > src.x)
-						setDir(EAST)
-					else if (T.y < src.y)
-						setDir(SOUTH)
-					else if (T.y > src.y)
-						setDir(NORTH)
-					else
-						setDir(SOUTH)
-
-					if(!Adjacent(movement_target)) //can't reach food through windows.
-						return
-
-					if(isturf(movement_target.loc))
-						movement_target.attack_animal(src)
-					else if(ishuman(movement_target.loc) )
-						if(prob(20))
-							manual_emote("stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
-
-		if(prob(1))
-			manual_emote(pick("dances around.","chases its tail!"))
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
-					setDir(i)
-					sleep(1)
-
 //Corgis and pugs are now under one dog subtype
 
 /mob/living/simple_animal/pet/dog/corgi
@@ -195,7 +138,8 @@
 GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	/datum/strippable_item/corgi_head,
 	/datum/strippable_item/corgi_back,
-	/datum/strippable_item/corgi_collar
+	/datum/strippable_item/corgi_collar,
+	/datum/strippable_item/corgi_id
 )))
 
 /datum/strippable_item/corgi_head
@@ -308,6 +252,45 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 
 	user.put_in_hands(corgi_source.pcollar)
 	corgi_source.pcollar = null
+	corgi_source.update_corgi_fluff()
+	corgi_source.regenerate_icons()
+
+/datum/strippable_item/corgi_id
+	key = STRIPPABLE_ITEM_ID
+
+/datum/strippable_item/corgi_id/get_item(atom/source)
+	var/mob/living/simple_animal/pet/dog/corgi/corgi_source = source
+	if (!istype(corgi_source))
+		return
+
+	return corgi_source.access_card
+
+/datum/strippable_item/corgi_id/try_equip(atom/source, obj/item/equipping, mob/user)
+	. = ..()
+	if (!.)
+		return FALSE
+
+	if (!istype(equipping, /obj/item/card/id))
+		to_chat(user, "<span class='warning'>You can't pin [equipping] to [source]!</span>")
+		return FALSE
+
+	return TRUE
+
+/datum/strippable_item/corgi_id/finish_equip(atom/source, obj/item/equipping, mob/user)
+	var/mob/living/simple_animal/pet/dog/corgi/corgi_source = source
+	if (!istype(corgi_source))
+		return
+
+	equipping.forceMove(source)
+	corgi_source.access_card = equipping
+
+/datum/strippable_item/corgi_id/finish_unequip(atom/source, mob/user)
+	var/mob/living/simple_animal/pet/dog/corgi/corgi_source = source
+	if (!istype(corgi_source))
+		return
+
+	user.put_in_hands(corgi_source.access_card)
+	corgi_source.access_card = null
 	corgi_source.update_corgi_fluff()
 	corgi_source.regenerate_icons()
 
