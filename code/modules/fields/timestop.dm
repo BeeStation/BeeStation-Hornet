@@ -84,7 +84,7 @@
 		freeze_mob(A)
 	else if(istype(A, /obj/projectile))
 		freeze_projectile(A)
-	else if(istype(A, /obj/mecha))
+	else if(istype(A, /obj/vehicle/sealed/mecha))
 		freeze_mecha(A)
 	else
 		frozen = FALSE
@@ -116,7 +116,7 @@
 		unfreeze_mob(A)
 	else if(istype(A, /obj/projectile))
 		unfreeze_projectile(A)
-	else if(istype(A, /obj/mecha))
+	else if(istype(A, /obj/vehicle/sealed/mecha))
 		unfreeze_mecha(A)
 
 	UnregisterSignal(A, COMSIG_MOVABLE_PRE_MOVE)
@@ -127,10 +127,10 @@
 	global_frozen_atoms -= A
 
 
-/datum/proximity_monitor/advanced/timestop/proc/freeze_mecha(obj/mecha/M)
+/datum/proximity_monitor/advanced/timestop/proc/freeze_mecha(obj/vehicle/sealed/mecha/M)
 	M.completely_disabled = TRUE
 
-/datum/proximity_monitor/advanced/timestop/proc/unfreeze_mecha(obj/mecha/M)
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_mecha(obj/vehicle/sealed/mecha/M)
 	M.completely_disabled = FALSE
 
 

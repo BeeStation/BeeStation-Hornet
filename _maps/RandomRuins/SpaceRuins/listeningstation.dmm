@@ -555,7 +555,7 @@
 	icon_state = "0-2"
 	},
 /obj/structure/reagent_dispensers/fueltank,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/utility/welding,
 /obj/item/weldingtool/largetank,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,

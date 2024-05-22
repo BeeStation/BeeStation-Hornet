@@ -1,8 +1,9 @@
 /obj/machinery/door
 	name = "door"
 	desc = "It opens and closes."
-	icon = 'icons/obj/doors/Doorint.dmi'
+	icon = 'icons/obj/doors/doorint.dmi'
 	icon_state = "door1"
+	base_icon_state = "door"
 	opacity = TRUE
 	density = TRUE
 	move_resist = MOVE_FORCE_VERY_STRONG
@@ -109,17 +110,6 @@
 			bumpopen(M)
 			return
 
-	if(ismecha(AM))
-		var/obj/mecha/mecha = AM
-		if(density)
-			if(mecha.occupant)
-				if(world.time - mecha.occupant.last_bumped <= 10)
-					return
-				mecha.occupant.last_bumped = world.time
-			if(mecha.occupant && (src.allowed(mecha.occupant) || src.check_access_list(mecha.operation_req_access)))
-				open()
-			else
-				do_animate("deny")
 		return
 
 	if(isitem(AM))
@@ -276,11 +266,9 @@
 /obj/machinery/door/proc/unelectrify()
 	secondsElectrified = MACHINE_NOT_ELECTRIFIED
 
-/obj/machinery/door/update_icon()
-	if(density)
-		icon_state = "door1"
-	else
-		icon_state = "door0"
+/obj/machinery/door/update_icon_state()
+	icon_state = "[base_icon_state][density]"
+	return ..()
 
 /obj/machinery/door/proc/do_animate(animation)
 	switch(animation)
@@ -345,7 +333,7 @@
 	set_density(TRUE)
 	z_flags |= Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	sleep(open_speed)
-	update_icon()
+	update_appearance()
 	if(visible && !glass)
 		set_opacity(1)
 	operating = FALSE
@@ -385,7 +373,7 @@
 		//add_blood doesn't work for borgs/xenos, but add_blood_floor does.
 		L.add_splatter_floor(location)
 		log_combat(src, L, "crushed", src)
-	for(var/obj/mecha/M in get_turf(src))
+	for(var/obj/vehicle/sealed/mecha/M in get_turf(src))
 		M.take_damage(DOOR_CRUSH_DAMAGE)
 		log_combat(src, M, "crushed", src)
 /obj/machinery/door/proc/autoclose()

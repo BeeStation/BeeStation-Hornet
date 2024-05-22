@@ -1,7 +1,0 @@
-author: rkz, Ghommie, haukeschaumann
-delete-after: true
-changes:
-  - rscadd: Goliaths, paper wizards and sloths now have footstep sounds.
-  - bugfix: footsteps properly use audio falloff (being further away from the sound
-      source gives a quieter sound)
-  - code_imp: makes footsteps component sane, and converts it to an element

@@ -14,7 +14,7 @@
 #define isimage(thing) (istype(thing, /image))
 
 GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are awful to detect safely, but this seems to be the best way ~ninjanomnom
-#define isappearance(thing) (!ispath(thing) && istype(GLOB.magic_appearance_detecting_image, thing))
+#define isappearance(thing) (!isimage(thing) && !ispath(thing) && istype(GLOB.magic_appearance_detecting_image, thing))
 
 // The filters list has the same ref type id as a filter, but isnt one and also isnt a list, so we have to check if the thing has Cut() instead
 GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
@@ -205,9 +205,9 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
-#define ismecha(A) (istype(A, /obj/mecha))
+#define ismecha(A) (istype(A, /obj/vehicle/sealed/mecha))
 
-#define ismopable(A) (A.layer <= HIGH_SIGIL_LAYER) //If something can be cleaned by floor-cleaning devices such as mops or clean bots
+#define ismopable(A) (A && (A.layer <= HIGH_SIGIL_LAYER)) //If something can be cleaned by floor-cleaning devices such as mops or clean bots
 
 #define isorgan(A) (istype(A, /obj/item/organ))
 

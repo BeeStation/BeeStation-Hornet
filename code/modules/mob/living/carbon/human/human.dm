@@ -521,7 +521,7 @@
 		threatcount -= 5
 
 	//individuals wearing tinfoil hats are 30% more likely to be criminals
-	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		threatcount += 2
 	return threatcount
 
@@ -792,6 +792,8 @@
 	for(var/datum/mutation/HM as() in dna.mutations)
 		if(HM.quality != POSITIVE)
 			dna.remove_mutation(HM.name)
+	coretemperature = get_body_temp_normal(apply_change=FALSE)
+	heat_exposure_stacks = 0
 	..()
 
 /mob/living/carbon/human/check_weakness(obj/item/weapon, mob/living/attacker)

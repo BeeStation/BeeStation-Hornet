@@ -10,7 +10,7 @@
 /area/template_noop)
 "d" = (
 /obj/structure/closet/toolcloset,
-/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/jacket/straight_jacket,
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (

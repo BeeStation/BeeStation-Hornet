@@ -1,4 +1,0 @@
-author: nikothedude (EvilDragon ports)
-delete-after: true
-changes:
-  - code_imp: LabeledListItem component now can have tooltip

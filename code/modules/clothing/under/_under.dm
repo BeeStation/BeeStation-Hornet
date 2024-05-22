@@ -1,6 +1,7 @@
 /obj/item/clothing/under
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	name = "under"
+	icon = 'icons/obj/clothing/under/default.dmi'
+	worn_icon = 'icons/mob/clothing/under/default.dmi'
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	permeability_coefficient = 0.9
 	slot_flags = ITEM_SLOT_ICLOTHING
@@ -226,8 +227,8 @@
 		return
 
 	//Start with a base and align it with the mask
-	var/icon/base = icon('icons/mob/clothing/uniform.dmi', icon_state, SOUTH) //This takes the icon and uses the worn version of the icon
-	var/icon/back = icon('icons/mob/clothing/uniform.dmi', icon_state, NORTH) //Awkard but, we have to manually insert the back
+	var/icon/base = icon('icons/mob/clothing/under/default.dmi', icon_state, SOUTH) //This takes the icon and uses the worn version of the icon
+	var/icon/back = icon('icons/mob/clothing/under/default.dmi', icon_state, NORTH) //Awkard but, we have to manually insert the back
 	back.Shift(SOUTH, 2) //Allign with masks
 	base.Shift(SOUTH, 2)
 
