@@ -66,8 +66,8 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	dna.features["diona_moss"] = "None"
 	dna.features["diona_mushroom"] = "None"
 	dna.features["diona_antennae"] = "None"
+	dna.features["diona_eyes"] = "None"
 	dna.features["diona_pbody"] = "None"
-	dna.features["diona_tail"] = "None"
 
 //Inefficient pooling/caching way.
 GLOBAL_LIST_EMPTY(human_dummy_list)

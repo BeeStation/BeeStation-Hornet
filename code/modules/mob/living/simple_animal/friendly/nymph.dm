@@ -34,6 +34,8 @@
 	var/time_of_birth
 	var/instance_num
 	var/IsGhostSpawn = FALSE //For if a ghost can become this.
+	var/IsDrone = FALSE //Is a remote controlled nymph from a diona.
+	var/DroneParent //The diona which can control the nymph, if there is one
 	var/datum/mind/origin
 	var/oldName // The diona nymph's old name.
 	var/datum/action/nymph/evolve/EvolveAbility // The ability to grow up into a diona.

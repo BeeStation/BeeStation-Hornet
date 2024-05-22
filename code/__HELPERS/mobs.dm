@@ -112,6 +112,11 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_mushroom, GLOB.diona_mushroom_list)
 	if(!GLOB.diona_antennae_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_antennae, GLOB.diona_antennae_list)
+	if(!GLOB.diona_eyes_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_eyes, GLOB.diona_eyes_list)
+	if(!GLOB.diona_pbody_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/diona_pbody, GLOB.diona_pbody_list)
+
 
 	//For now we will always return none for tail_human and ears.
 	return(
@@ -147,7 +152,9 @@
 		"diona_flowers" == pick(GLOB.diona_flowers_list),
 		"diona_moss" == pick(GLOB.diona_moss_list),
 		"diona_mushroom" == pick(GLOB.diona_mushroom_list),
-		"diona_antennae" == pick(GLOB.diona_antennae_list)
+		"diona_antennae" == pick(GLOB.diona_antennae_list),
+		"diona_eyes" == pick(GLOB.diona_eyes_list),
+		"diona_pbody" == pick(GLOB.diona_pbody_list)
 		)
 	)
 

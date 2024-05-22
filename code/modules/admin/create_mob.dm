@@ -47,6 +47,8 @@
 	H.dna.features["diona_moss"] = pick(GLOB.diona_moss_list)
 	H.dna.features["diona_mushroom"] = pick(GLOB.diona_mushroom_list)
 	H.dna.features["diona_antennae"] = pick(GLOB.diona_antennae_list)
+	H.dna.features["diona_eyes"] = pick(GLOB.diona_eyes_list)
+	H.dna.features["diona_pbody"] = pick(GLOB.diona_pbody_list)
 
 	H.update_body()
 	H.update_hair()

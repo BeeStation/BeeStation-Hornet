@@ -1,8 +1,4 @@
 /* TO DO:
-
-Diona pbody and tail
-make markings actually work
-
 tongue, liver, lungs, stomach, heart, action buttons sprites
 
 make the diona mutation work correctly, give a second button to switch between the remote control and original body of the diona, only allow one remote control at a time (unless it dies, then allow another to spawn)
@@ -14,16 +10,17 @@ win and get those 85 CAD
 */
 
 /datum/species/diona
-	// A mutation caused by a human being ressurected in a revival pod. These regain health in light, and begin to wither in darkness.
 	name = "\improper Diona"
 	plural_form = "Dionae"
 	id = SPECIES_DIONA
+	sexes = 0
 	bodyflag = FLAG_DIONA
 	default_color = "59CE00"
-	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NOMOUTH)
+	species_traits = list(MUTCOLORS,EYECOLOR,AGENDER,NOHUSK,NO_DNA_COPY,NOMOUTH,NO_UNDERWEAR,NOSOCKS,NOTRANSSTING,NOEYESPRITES,)
 	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE)
-	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae")
-	default_features = list("diona_leaves" = "None", "diona_thorns" = "None", "diona_flowers" = "None", "diona_moss" = "None", "diona_mushroom" = "None", "diona_antennae" = "None", "body_size" = "Normal")
+	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
+	mutant_bodyparts = list("diona_leaves", "diona_thorns", "diona_flowers", "diona_moss", "diona_mushroom", "diona_antennae", "diona_eyes", "diona_pbody")
+	default_features = list("diona_leaves" = "None", "diona_thorns" = "None", "diona_flowers" = "None", "diona_moss" = "None", "diona_mushroom" = "None", "diona_antennae" = "None", "body_size" = "Normal", "diona_eyes" = "None", "diona_pbody" = "None")
 	inherent_factions = list("plants", "vines")
 	fixed_mut_color = "59CE00"
 	attack_verb = "slash"
@@ -31,6 +28,8 @@ win and get those 85 CAD
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	burnmod = 1.25
 	heatmod = 1.5
+	brutemod = 0.8
+	staminamod = 0.7
 	meat = /obj/item/food/meat/slab/human/mutant/diona
 	exotic_blood = /datum/reagent/water
 	species_gibs = GIB_TYPE_ROBOTIC //Someone please make this like, xeno gibs or something in the future. I cant be bothered to fuck around with gib code right now.
@@ -38,7 +37,7 @@ win and get those 85 CAD
 	species_language_holder = /datum/language_holder/diona
 	bodytemp_normal = (BODYTEMP_NORMAL - 22) // Body temperature for dionae is much lower then humans as they are plants, supposed to be 15 celsius
 	speedmod = 2 // Dionae are slow.
-	species_height = SPECIES_HEIGHTS(2, 1, 0)
+	species_height = SPECIES_HEIGHTS(-1, 0, -2) //Naturally tall.
 	swimming_component = /datum/component/swimming/diona
 	inert_mutation = DRONE
 
@@ -148,65 +147,59 @@ win and get those 85 CAD
 		return .(gender, TRUE, null, ++attempts)
 
 /datum/species/diona/get_species_description()
-	/*
-	return "Psyphoza are a species of extra-sensory lesser-sensory \
-	fungal-form humanoids, infamous for their invulnerability to \
-	occlusion-based magic tricks and sleight of hand."
-	*/
-	return null
+	return "Dionae are the equivalent to a shambling mound of bug-like sentient plants \
+	wearing a trenchoat and pretending to be a human. Commonly found basking in the \
+	supermatter chamber during lunch breaks."
 
 /datum/species/diona/get_species_lore()
-	/*
 	return list(
-		"A standing testament to the humor of mother nature, Psyphoza have evolved powerful and mystical \
-			psychic abilities, which are almost completely mitigated by the fact they are absolutely \
-			blind, and depend entirely on their psychic abilities to navigate their surroundings.",
+		"Dionae are a space-faring species of intensely curious sapient plant-bug-creatures, formed \
+			by a collective of independent Diona, named 'Nymphs', gathering together to form a collective named a 'Gestalt', commonly \
+			vaugely resembling a humanoid, although older collectives may grow into structures, or even floating asteroids in space.",
 
-		"Psyphoza culture is deeply rooted in superstition, mysticism, and the occult. It is their belief \
-			that the morphology of their cap deeply impacts the course of their life, with characteristics \
-			such as size, colour, and shape influencing how irrespectively lucky or unlucky they might be in \
-			their experiences.",
+		"Dionae culture, for the most part, is nomadic, with Parent Gestalts splitting off a bud \
+			that then goes off into the world to explore and gain knowledge for itself. Rarely, a handful of Gestalts may link up \
+			in an agreed upon location to share knowledge, or to form a larger structure.",
 
-		"An unfortunate superstition that Psyphoza 'meat' and 'blood' contain powerful psychedelics has caused \
-			many individuals of the species to be targeted, and hunted, by rich & eccentric individuals who wish \
-			to taste their flesh, and learn the truth for themselves. Unfortunately for Psyphoza, \
-			this superstition is completely true...",
-
-		"Although most Psyphoza have left behind a majority of the especially superstitious ideas of their \
-			progenitors, some lower caste members still cling to these old ideas as strongly as ever. These beliefs \
-			impact their culture deeply, resulting in very different behaviors between the typical and lower castes."
-	)*/
-	return null
+		"As a collective of various individual nymphs with varying experiences,  \
+			names can become rather tricky, thus, Dionae Gestalts settle upon a single core memory shared between all Nymphs \
+			most commonly something from their younger years and expanding over time as they relook upon their memories, though \
+			it's not unheard of for a Gestalt to fully change their name if they find a fresher memory represents them more."
+	)
 
 /datum/species/diona/create_pref_unique_perks()
 	var/list/to_add = list()
-	/*
+
 	to_add += list(
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "lightbulb",
-			SPECIES_PERK_NAME = "Psychic",
-			SPECIES_PERK_DESC = "Psyphoza are psychic and can sense things others can't.",
+			SPECIES_PERK_ICON = "sun-plant-wilt",
+			SPECIES_PERK_NAME = "Photosynthetic",
+			SPECIES_PERK_DESC = "You find radiation and light pretty tasty, but you can't live long without either!",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "biohazard",
-			SPECIES_PERK_NAME = "Drug Codependance",
-			SPECIES_PERK_DESC = "Consuming any kind of drug will replenish a Psyphoza's blood.",
+			SPECIES_PERK_ICON = "bugs",
+			SPECIES_PERK_NAME = "Bugsplosion",
+			SPECIES_PERK_DESC = "When you're about to die, you explode into a pile of bugs to escape, but you are very vulnerable in this state!",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "leaf",
+			SPECIES_PERK_NAME = "Planty",
+			SPECIES_PERK_DESC = "You're a plant! Bees quite like you, while you LOVE fertilizer and hate weedkiller.",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-			SPECIES_PERK_ICON = "eye",
-			SPECIES_PERK_NAME = "Blind",
-			SPECIES_PERK_DESC = "Psyphoza are blind and can't see outside their immediate location and psychic sense.",
+			SPECIES_PERK_ICON = "fire",
+			SPECIES_PERK_NAME = "Flammable",
+			SPECIES_PERK_DESC = "The smallest flame can set you on fire, be careful!",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
-			SPECIES_PERK_ICON = "eye",
-			SPECIES_PERK_NAME = "Epilepsy Warning",
-			SPECIES_PERK_DESC = "This species features effects that individuals with epilepsy may experience negatively!",
+			SPECIES_PERK_ICON = "weight-hanging",
+			SPECIES_PERK_NAME = "Bulky",
+			SPECIES_PERK_DESC = "As a plant, you aren't very nimble, walking takes more time for you.",
 		),
 	)
-	*/
-
 	return to_add

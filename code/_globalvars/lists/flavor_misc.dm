@@ -63,6 +63,8 @@ GLOBAL_LIST_EMPTY(diona_flowers_list)
 GLOBAL_LIST_EMPTY(diona_moss_list)
 GLOBAL_LIST_EMPTY(diona_mushroom_list)
 GLOBAL_LIST_EMPTY(diona_antennae_list)
+GLOBAL_LIST_EMPTY(diona_eyes_list)
+GLOBAL_LIST_EMPTY(diona_pbody_list)
 
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(

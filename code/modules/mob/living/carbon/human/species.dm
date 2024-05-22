@@ -922,11 +922,17 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(!H.dna.features["diona_moss"] || H.dna.features["diona_moss"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
 			bodyparts_to_add -= "diona_moss"
 	if("diona_mushroom" in mutant_bodyparts)
-		if(!H.dna.features["diona_mushroom"] || H.dna.features["diona_mushroom"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+		if(!H.dna.features["diona_mushroom"] || H.dna.features["diona_mushroom"] == "None" || !HD)
 			bodyparts_to_add -= "diona_mushroom"
 	if("diona_antennae" in mutant_bodyparts)
-		if(!H.dna.features["diona_antennae"] || H.dna.features["diona_antennae"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+		if(!H.dna.features["diona_antennae"] || H.dna.features["diona_antennae"] == "None" || !HD)
 			bodyparts_to_add -= "diona_antennae"
+	if("diona_eyes" in mutant_bodyparts)
+		if(!H.dna.features["diona_eyes"] || H.dna.features["diona_eyes"] == "None" || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEYES)) || !HD)
+			bodyparts_to_add -= "diona_eyes"
+	if("diona_pbody" in mutant_bodyparts)
+		if(!H.dna.features["diona_pbody"] || H.dna.features["diona_pbody"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))
+			bodyparts_to_add -= "diona_pbody"
 
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
@@ -1038,6 +1044,11 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					S = GLOB.diona_mushroom_list[H.dna.features["diona_mushroom"]]
 				if("diona_antennae")
 					S = GLOB.diona_antennae_list[H.dna.features["diona_antennae"]]
+				if("diona_eyes")
+					S = GLOB.diona_eyes_list[H.dna.features["diona_eyes"]]
+				if("diona_pbody")
+					S = GLOB.diona_pbody_list[H.dna.features["diona_pbody"]]
+
 
 			if(!S || S.icon_state == "none")
 				continue
