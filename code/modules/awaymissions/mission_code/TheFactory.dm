@@ -789,6 +789,7 @@
 	fire_sound_volume = 60    //tried on 90 my eardrums said goodbye
 	item_state = "leveraction"
 	icon_state = "leveraction"
+	worn_icon_state = "shotgun"
 	rack_sound = "sound/weapons/leveractionrack.ogg"
 	fire_sound = "sound/weapons/leveractionshot.ogg"
 	vary_fire_sound = FALSE

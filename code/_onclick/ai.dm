@@ -59,10 +59,6 @@
 		if(LAZYACCESS(modifiers, CTRL_CLICK))
 			CtrlShiftClickOn(A)
 			return
-	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-		if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.
-			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.
-		return
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		ShiftClickOn(A)
 		return
@@ -71,6 +67,9 @@
 		return
 	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
+		return
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
+		MiddleClickOn(A, params)
 		return
 
 	if(world.time <= next_move)
