@@ -163,7 +163,7 @@
 
 /obj/item/storage/secure/briefcase/syndie/plus/PopulateContents()
 	..()
-	for(var/i in 1 to 15)
+	for(var/i in 1 to 10)
 		new /obj/item/stack/spacecash/c1000(src)
 
 

@@ -84,13 +84,13 @@
 
 /datum/component/stationloving/exile/relocate()
 	var/mob/hotelstaff = parent
-	heavy = round(heavy)
-	medium = round(medium)
-	weak = round(weak)
+	var/heavy = round(heavy)
+	var/medium = round(medium)
+	var/weak = round(weak)
 	explosion(src,heavy,medium,weak,weak, flame_range = weak)
 	if(imp_in)
 		imp_in.investigate_log("has been gibbed by an explosive implant.", INVESTIGATE_DEATHS)
-		
+
 /obj/item/implanter/exile/station
 	name = "implanter (station exile)"
 	imp_type = /obj/item/implant/exile/station

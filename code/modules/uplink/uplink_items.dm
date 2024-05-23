@@ -2447,7 +2447,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/badass/syndiecash/plus
 	name = "Bigger Syndicate Briefcase Full of Cash"
-	desc = "A secure briefcase containing 15 000 space credits. Useful for buying weapons from NT to be used on NT! \
+	desc = "A secure briefcase containing 10 000 space credits. Useful for buying weapons from NT to be used on NT! \
 			The briefcase also feels a little heavier to hold; it can be used as a weapon if you're that cheap."
 	item = /obj/item/storage/secure/briefcase/syndie/plus
 	cost = 1
