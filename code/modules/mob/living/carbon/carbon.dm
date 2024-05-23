@@ -562,6 +562,10 @@
 	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
 		sight |= (SEE_MOBS)
 		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+		src.eye_color = "f00"
+		src.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
+		ADD_TRAIT(src, CULT_EYES)
+		src.update_body()
 
 	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)

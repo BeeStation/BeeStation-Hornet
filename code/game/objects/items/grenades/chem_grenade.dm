@@ -439,7 +439,7 @@
 
 /obj/item/grenade/chem_grenade/ez_mess
 	name = "messy grenade"
-	desc = "Waffle Co.-brand spicy 'cleaner'. In a special applicator for rapid messiness of wide areas."
+	desc = "Waffle Co.-brand spicy \"cleaner\". In a special applicator for rapid messiness of wide areas."
 	stage = GRENADE_READY
 
 /obj/item/grenade/chem_grenade/ez_mess/Initialize(mapload)

@@ -1835,6 +1835,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Hypnotic Flash"
 	desc = "A modified flash able to hypnotize targets. If the target is not in a mentally vulnerable state, it will only confuse and pacify them temporarily."
 	item = /obj/item/assembly/flash/hypnotic
+	player_minimum = 20
 	cost = 7
 
 /datum/uplink_item/device_tools/medgun
@@ -2082,7 +2083,8 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/race_restricted/plasma_friend
 	name = "Plasma Man Mutation Toxin"
-	desc = "Become one with the fire. Rumors have it that there is a secret sect dedicated to the Super Matter Crystal and must be of their species to unlock it, be aware however, you will take damage in oxygenrich environments."
+	desc = "Become one with the fire. Rumors have it that there is a secret sect dedicated to the Super Matter Crystal and must be of their species to unlock it, be aware however, they will take damage in oxygenrich environments without proper protection equipment. \
+	Protection equipment not included."
 	item = /obj/item/reagent_containers/hypospray/medipen/plasma_species_mutator
 	cost = 5
 	restricted_roles = list(SPECIES_PLASMAMAN)
@@ -2174,6 +2176,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 6
 	restricted_roles = list(JOB_NAME_GENETICIST, JOB_NAME_CHIEFMEDICALOFFICER)
 
+/datum/uplink_item/role_restricted/thermal_eyes_injector
+	name = "Thermal Eyes Injector"
+	desc = "An injector containing the encoding required to geneticially alter you or someone elses body to seeing more than what's in front of you. \
+	Causion: May have an unintended side effect of glowing red eyes."
+	item = /obj/item/dnainjector/thermal
+	cost = 6
+	restricted_roles = list(JOB_NAME_GENETICIST, JOB_NAME_CHIEFMEDICALOFFICER)
+
 /datum/uplink_item/role_restricted/rad_laser
 	name = "Radioactive Microlaser"
 	desc = "A radioactive microlaser disguised as a standard Nanotrasen health analyzer. When used, it emits a \
@@ -2183,6 +2193,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/healthanalyzer/rad_laser
 	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_ROBOTICIST, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
 	cost = 3
+
+/datum/uplink_item/role_restricted/brainwash_disk
+	name = "Brainwashing Surgery Program"
+	desc = "A disk containing the procedure to perform a brainwashing surgery, allowing you to implant an objective onto a target. \
+	Insert into an Operating Console to enable the procedure."
+	item = /obj/item/disk/surgery/brainwashing
+	cost = 2
+	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER)
 
 /datum/uplink_item/role_restricted/syndicate_mmi
 	name = "Syndicate MMI"
