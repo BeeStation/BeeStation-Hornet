@@ -508,7 +508,11 @@
 
 /obj/item/storage/box/syndie_kit/ez_clean/PopulateContents()
 	for(var/i in 1 to 3)
-		new/obj/item/grenade/chem_grenade/ez_clean(src)
+		new /obj/item/grenade/chem_grenade/ez_clean(src)
+
+/obj/item/storage/box/syndie_kit/ez_mess/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/grenade/chem_grenade/ez_mess(src)
 
 /obj/item/storage/box/hug/reverse_revolver/PopulateContents()
 	new /obj/item/gun/ballistic/revolver/reverse(src)

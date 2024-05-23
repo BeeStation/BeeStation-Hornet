@@ -1153,6 +1153,25 @@
 		M.adjustBruteLoss(1.5)
 		M.adjustFireLoss(1.5)
 
+/datum/reagent/space_cleaner/ez_mess
+	name = "EZ Mess"
+	description = "A powerful, messy acidic sold by Waffle Co. Affects organic matter while leaving other objects unaffected."
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	taste_description = "acid"
+
+/datum/reagent/space_cleaner/ez_mess/on_mob_life(mob/living/carbon/M)
+	M.adjustBruteLoss(5)
+	M.adjustFireLoss(5)
+	M.adjustToxLoss(5)
+	..()
+
+/datum/reagent/space_cleaner/ez_mess/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	..()
+	if((method == TOUCH || method == VAPOR) && !issilicon(M))
+		M.adjustBruteLoss(1.75)
+		M.adjustFireLoss(1.75)
+
 /datum/reagent/cryptobiolin
 	name = "Cryptobiolin"
 	description = "Cryptobiolin causes confusion and dizziness."

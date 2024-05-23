@@ -437,6 +437,25 @@
 	beakers += B2
 
 
+/obj/item/grenade/chem_grenade/ez_mess
+	name = "messy grenade"
+	desc = "Waffle Co.-brand spicy 'cleaner'. In a special applicator for rapid messiness of wide areas."
+	stage = GRENADE_READY
+
+/obj/item/grenade/chem_grenade/ez_mess/Initialize(mapload)
+	. = ..()
+	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+
+	B1.reagents.add_reagent(/datum/reagent/fluorosurfactant, 40)
+	B1.reagents.add_reagent(/datum/reagent/blood, 60)
+	B2.reagents.add_reagent(/datum/reagent/water, 40)
+	B2.reagents.add_reagent(/datum/reagent/space_cleaner/ez_mess, 60) //ensures a  t h i c c  distribution
+
+	beakers += B1
+	beakers += B2
+
+
 
 /obj/item/grenade/chem_grenade/teargas
 	name = "teargas grenade"

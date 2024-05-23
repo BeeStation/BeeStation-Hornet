@@ -1941,6 +1941,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 3
 
+/datum/uplink_item/device_tools/antag_lasso
+	name = "Mindslave Lasso"
+	desc = "A state of the art taming device.\n Use this device to tame almost any animal by lassoing and untying them.\n Tamed animals can be rode & commanded!"
+	item = /obj/item/mob_lasso/traitor
+	cost = 3
+	surplus = 0
+
 // Implants
 /datum/uplink_item/implants
 	category = "Implants"
@@ -2072,6 +2079,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 2
 	item = /obj/item/flashlight/lantern/syndicate
 	restricted_species = list(SPECIES_MOTH)
+
+/datum/uplink_item/race_restricted/plasma_friend
+	name = "Plasma Man Mutation Toxin"
+	desc = "Become one with the fire. Rumors have it that there is a secret sect dedicated to the Super Matter Crystal and must be of their species to unlock it, be aware however, you will take damage in oxygenrich environments."
+	item = /obj/item/reagent_containers/hypospray/medipen/plasma_species_mutator
+	cost = 5
+	restricted_roles = list(SPECIES_PLASMAMAN)
 
 /datum/uplink_item/race_restricted/onehuman
 	name = "One-Human Law Board"
@@ -2299,7 +2313,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	To activate His Grace, simply unlatch Him."
 	item = /obj/item/his_grace
 	cost = 20
-	restricted_roles = list(JOB_NAME_CHAPLAIN)
+	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_ASSISTANT)
 	murderbone_type = TRUE
 	surplus = 0
 
@@ -2312,7 +2326,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/role_restricted/shadowmutationtoxin
 	name = "Shadow Person Mutation Toxin"
-	desc = "Become one with the night, Rumors have it that there is a secret sect dedicated to the shadows and must be of their species to unlock it, be aware however, you will take damage in the light."
+	desc = "Become one with the night. Rumors have it that there is a secret sect dedicated to the shadows and must be of their species to unlock it, be aware however, you will take damage in the light."
 	item = /obj/item/reagent_containers/hypospray/medipen/shadow_species_mutator
 	cost = 5
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
@@ -2375,6 +2389,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A box with three cleaner grenades using the trademark Waffle Co. formula. Serves as a cleaner and causes acid damage to anyone standing nearby. \
 			The acid only affects carbon-based creatures."
 	item = /obj/item/storage/box/syndie_kit/ez_clean
+	cost = 4
+	surplus = 20
+	restricted_roles = list(JOB_NAME_JANITOR)
+
+/datum/uplink_item/role_restricted/ez_mess_bundle
+	name = "EZ Mess Grenade Bundle"
+	desc = "A box with three messy grenades using the trademark Waffle Co. formula. Serves as an explosive and firey method of 'cleaning'."
+	item = /obj/item/storage/box/syndie_kit/ez_mess
 	cost = 6
 	surplus = 20
 	restricted_roles = list(JOB_NAME_JANITOR)
@@ -2427,6 +2449,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/autosurgeon/syndicate/esaw_arm
 	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
 
+/adtum/uplink_item/role_restricted/abductor_bed
+	name = "Abductor Bed"
+	desc = "A normal looking abductor, but which immediately strap any victim placed in it with zip ties."
+	cost = 5
+	item = /obj/item/rollerbed/abductor
+	restricted_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
+
 /datum/uplink_item/role_restricted/magillitis_serum
 	name = "Magillitis Serum Autoinjector"
 	desc = "A single-use autoinjector which contains an experimental serum that causes rapid muscular growth in Hominidae. \
@@ -2446,7 +2475,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Reagent Dartgun"
 	desc = "A heavily modified syringe gun which is capable of synthesizing its own chemical darts using input reagents. Can hold 100u of reagents."
 	item = /obj/item/gun/chem
-	cost = 12
+	cost = 8
 	restricted_roles = list(JOB_NAME_CHEMIST, JOB_NAME_CHIEFMEDICALOFFICER)
 
 /datum/uplink_item/role_restricted/reverse_bear_trap
@@ -2482,7 +2511,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 
 /datum/uplink_item/badass/costumes
 	surplus = 0
-	cost = 4
+	cost = 2
 	cant_discount = TRUE
 	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
@@ -2491,7 +2520,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
 			Please note that this kit did NOT pass quality control."
 	item = /obj/item/storage/box/syndie_kit/chameleon/broken
-	cost = 2
 	purchasable_from = ALL
 
 /datum/uplink_item/badass/costumes/centcom_official
@@ -2554,7 +2582,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Syndicate Smokes"
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	cost = 2
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
 
@@ -2564,7 +2591,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	Toys inside of the box are totally safe and not harmful, approved by Nanotrasen safety assurance even, that can be said as non-contraband stuff literally. \
 	This package will be special when you're going to present funny toys to your beloved child. Don't ask why the box is red."
 	item = /obj/item/storage/box/syndie_kit/toy_box
-	cost = 2
 	surplus = 0
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
@@ -2579,10 +2605,3 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 4
 	surplus = 0
 	purchasable_from = UPLINK_NUKE_OPS
-
-/datum/uplink_item/device_tools/antag_lasso
-	name = "Mindslave Lasso"
-	desc = "A state of the art taming device.\n Use this device to tame almost any animal by lassoing and untying them.\n Tamed animals can be rode & commanded!"
-	item = /obj/item/mob_lasso/traitor
-	cost = 3
-	surplus = 0
