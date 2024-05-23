@@ -15,7 +15,6 @@
 	invisibility = INVISIBILITY_MAXIMUM
 
 	new /obj/effect/temp_visual/monkeyify(loc)
-
 	transformation_timer = addtimer(CALLBACK(src, PROC_REF(finish_monkeyize)), TRANSFORMATION_DURATION, TIMER_UNIQUE)
 
 /mob/living/carbon/proc/finish_monkeyize()
