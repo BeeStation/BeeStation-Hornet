@@ -2189,7 +2189,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	desc = "We found these lying around Warehouse R1O-GN, which was decommissioned years ago. We were going to throw them out but we heard you might be interested in them."
 	item = /obj/item/storage/pill_bottle/floorpill/full
 	restricted_roles = list(JOB_NAME_ASSISTANT)
-	cost = 2
+	cost = 1
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE
 
