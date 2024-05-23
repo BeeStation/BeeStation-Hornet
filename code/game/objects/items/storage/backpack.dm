@@ -692,6 +692,20 @@
 	new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
 	new /obj/item/grenade/syndieminibomb(src)
 
+/obj/item/storage/backpack/duffelbag/syndie/DIY_grenades
+	name = "DIY Chemical Grenade Kit"
+
+/obj/item/storage/backpack/duffelbag/syndie/DIY_grenades/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/storage/box/syndie_kit/detonators(src)
+	for(var/i in 1 to 4)
+		new /obj/item/grenade/chem_grenade/large(src)
+	for(var/i in 1 to 7)
+		new /obj/item/grenade/chem_grenade/pyro(src)
+	for(var/i in 1 to 7)
+		new /obj/item/grenade/chem_grenade/adv_release(src)
+	new /obj/item/screwdriver(src)
+
 // For ClownOps.
 /obj/item/storage/backpack/duffelbag/clown/syndie/ComponentInitialize()
 	. = ..()

@@ -422,6 +422,30 @@
 	new /obj/item/reagent_containers/glass/bottle/amanitin(src)
 	new /obj/item/reagent_containers/syringe(src)
 
+/obj/item/storage/box/syndie_kit/detonators
+	. = ..()
+	name = "Detonators"
+
+/obj/item/storage/box/syndie_kit/detonators/PopulateContents()
+	var/list/many = list(
+		/obj/item/assembly/timer, 
+		/obj/item/assembly/prox_sensor,
+		/obj/item/assembly/signaler)
+	for(var/assembly in many)
+		for(var/i in 1 to 7)
+			new assembly(src)
+
+	var/list/few = list(
+		/obj/item/assembly/mousetrap,
+		/obj/item/assembly/voice)
+	for(var/assembly in few)
+		for(var/i in 1 to 2)
+			new assembly(src)
+
+	/obj/item/assembly/health
+	/obj/item/assembly/igniter
+	/obj/item/assembly/infra
+
 /obj/item/storage/box/syndie_kit/nuke
 	name = "box"
 

@@ -2496,6 +2496,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 8
 	restricted_roles = list(JOB_NAME_CHEMIST, JOB_NAME_CHIEFMEDICALOFFICER)
 
+/datum/uplink_item/role_restricted/DIY_grenades
+	name = "DIY_grenades"
+	desc = "Do It Yourself grenade starter kit! Provides multiple detonators and grenade casings for all your exploding desires. \
+	Warning: Limb reattachment not included, all warrenty will be null and void if bought."
+	item = /obj/item/storage/backpack/duffelbag/syndie/DIY_grenades
+	cost = 4
+	restricted_roles = list(JOB_NAME_CHEMIST, JOB_NAME_CHIEFMEDICALOFFICER)
+
 /datum/uplink_item/role_restricted/reverse_bear_trap
 	name = "Reverse Bear Trap"
 	desc = "An ingenious execution device worn on (or forced onto) the head. Arming it starts a 1-minute kitchen timer mounted on the bear trap. When it goes off, the trap's jaws will \
