@@ -327,11 +327,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/prisonspawn
-	name = "prisonspawn"
-	icon_state = "error"
-	/* Milviu's sin
-	icon_state = "prison_spawn"
-	*/
+	name = "Prisoner"
+	icon_state = "Prisoner"
+	// You were arguably both wrong
 
 /obj/effect/landmark/prisonspawn/Initialize(mapload)
 	..()
