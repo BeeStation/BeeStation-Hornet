@@ -169,7 +169,8 @@
 	var/power = 0
 	for (var/obj/item/stack/spacecash/c1000 in GetAllContents())
 		power += c1000.amount
-	force = 8 + power
+	//Only counts the amount of 1000 credit spacecash in the briefcase, it should count all money.
+	force = 8 + power / 2
 	throwforce = 11 + power
 
 /obj/item/storage/secure/briefcase/syndie/plus/attack(mob/target, mob/living/user)
