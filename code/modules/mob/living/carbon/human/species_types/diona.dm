@@ -1,14 +1,3 @@
-/* TO DO:
-tongue, liver, lungs, stomach, heart, action buttons sprites
-
-make the diona mutation work correctly, give a second button to switch between the remote control and original body of the diona, only allow one remote control at a time (unless it dies, then allow another to spawn)
-
-
-testmerge
-win and get those 85 CAD
-
-*/
-
 /datum/species/diona
 	name = "\improper Diona"
 	plural_form = "Dionae"
