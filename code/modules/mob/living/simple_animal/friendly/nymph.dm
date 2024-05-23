@@ -22,6 +22,7 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	hud_type = /datum/hud/nymph
 	speak_emote = list("chirps")
+	butcher_results = list(/obj/item/food/meat/slab/human/mutant/diona = 4)
 
 	health = 100
 	maxHealth = 100
@@ -35,10 +36,12 @@
 	var/instance_num
 	var/IsGhostSpawn = FALSE //For if a ghost can become this.
 	var/IsDrone = FALSE //Is a remote controlled nymph from a diona.
-	var/DroneParent //The diona which can control the nymph, if there is one
+	var/mob/living/carbon/DroneParent //The diona which can control the nymph, if there is one
 	var/datum/mind/origin
 	var/oldName // The diona nymph's old name.
 	var/datum/action/nymph/evolve/EvolveAbility // The ability to grow up into a diona.
+	var/datum/action/nymph/SwitchFrom/SwitchAbility //The ability to switch back to the parent diona as a drone.
+	var/list/features = list()
 
 /mob/living/simple_animal/nymph/Initialize()
 	. = ..()
@@ -46,7 +49,6 @@
 	add_verb(/mob/living/proc/lay_down)
 	EvolveAbility = new
 	EvolveAbility.Grant(src)
-
 	instance_num = rand(1, 1000)
 	name = "[initial(name)] ([instance_num])"
 	real_name = name
@@ -60,17 +62,25 @@
 	. = ..()
 	var/list/tab_data = ..()
 	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
-	tab_data["Growth"] = GENERATE_STAT_TEXT("[(round(amount_grown / max_grown * 100))]%")
+	if(!IsDrone)
+		tab_data["Growth"] = GENERATE_STAT_TEXT("[(round(amount_grown / max_grown * 100))]%")
 	return tab_data
 
 /mob/living/simple_animal/nymph/Life(delta_time, times_fired)
 	. = ..()
-	update_progression()
+	if(!IsDrone)
+		update_progression()
 	get_stat_tab_status()
 
 /mob/living/simple_animal/nymph/death(gibbed)
 	EvolveAbility.Remove(src)
+	if(IsDrone)
+		SwitchAbility.Remove(src)
 	return ..(gibbed,death_msg)
+
+/mob/living/simple_animal/nymph/spawn_gibs() //redgrubs dont have much in the way of gibs or mess. just meat.
+	new /obj/effect/decal/cleanable/insectguts(drop_location())
+	playsound(drop_location(), 'sound/effects/blobattack.ogg', 60, TRUE)
 
 /mob/living/simple_animal/nymph/attack_ghost(mob/dead/observer/user)
 	if(client || key || ckey)
@@ -89,18 +99,25 @@
 	newnymph.unique_name = TRUE
 	to_chat(newnymph, "<span class='boldwarning'>Remember that you have forgotten all of your past lives and are a new person!</span>")
 
+/mob/living/simple_animal/nymph/proc/update_progression()
+	if(amount_grown < max_grown)
+		amount_grown++
+	return
 
 /datum/action/nymph/evolve
 	name = "Evolve"
 	desc = "Evolve into your adult form."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_genetic.dmi' // TO DO: Add icons for evolving
-	button_icon_state = "default"
+	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	button_icon_state = "grow"
 
 /datum/action/nymph/evolve/Trigger()
 	. = ..()
 	var/mob/living/simple_animal/nymph/user = owner
 	if(!isnymph(user))
+		return
+	if(user.IsDrone)
+		to_chat(user, "<span class='danger'>You can't grow up as a lone nymph drone!")
 		return
 	if(user.movement_type & VENTCRAWLING)
 		to_chat(user, "<span class='danger'>You cannot evolve while in a vent.</span>")
@@ -136,8 +153,10 @@
 		("<span class='warning'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.")
 	)
 
-	var/mob/living/carbon/human/species/diona/adult = new /mob/living/carbon/human/species/diona(get_turf(src))
+	var/mob/living/carbon/human/species/diona/adult = new /mob/living/carbon/human/species/diona(src.loc)
 	adult.set_species(SPECIES_DIONA)
+	adult.dna.features = src.features
+	adult.update_body()
 	if(src.faction != "neutral")
 		adult.faction = src.faction
 	if(oldName)
@@ -152,8 +171,35 @@
 		src.forceMove(src.loc)
 	qdel(src)
 
+/datum/action/nymph/SwitchFrom
+	name = "Return"
+	desc = "Return back into your adult form."
+	background_icon_state = "bg_default"
+	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	button_icon_state = "return"
 
-/mob/living/simple_animal/nymph/proc/update_progression()
-	if(amount_grown < max_grown)
-		amount_grown++
-	return
+/datum/action/nymph/SwitchFrom/Trigger(DroneParent)
+	. = ..()
+	var/mob/living/simple_animal/nymph/user = owner
+	if(!isnymph(user))
+		return
+	if(user.movement_type & VENTCRAWLING)
+		to_chat(user, "<span class='danger'>You cannot switch while in a vent.</span>")
+		return
+	SwitchFrom(user, DroneParent)
+
+/datum/action/nymph/SwitchFrom/proc/SwitchFrom(mob/living/simple_animal/nymph/user, mob/living/carbon/M)
+	var/datum/mind/C = user.origin
+	M = user.DroneParent
+	if(user.stat == CONSCIOUS)
+		user.visible_message("<span class='notice'>[user] \
+			stops moving and starts staring vacantly into space.</span>",
+			"<span class='notice'>You stop moving this form...</span>")
+	else
+		to_chat(M, "<span class='notice'>You abandon this nymph...</span>")
+	C.transfer_to(M)
+	M.mind = C
+	M.visible_message("<span class='notice'>[M] blinks and looks \
+		around.</span>",
+		"<span class='notice'>...and move this one instead.</span>")
+

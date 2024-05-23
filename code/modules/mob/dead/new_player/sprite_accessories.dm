@@ -2675,7 +2675,7 @@
 /datum/sprite_accessory/diona_thorns/torso
 	name = "Diona Thorns (Torso)"
 	icon_state = "chest"
-
+/////////////////////////////////////////////////////
 /datum/sprite_accessory/diona_flowers
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
@@ -2691,7 +2691,7 @@
 /datum/sprite_accessory/diona_flowers/torso
 	name = "Diona Flowers (Torso)"
 	icon_state = "chest"
-
+/////////////////////////////////////////////////////
 /datum/sprite_accessory/diona_moss
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
@@ -2703,7 +2703,7 @@
 /datum/sprite_accessory/diona_moss/torso
 	name = "Diona Moss"
 	icon_state = "chest"
-
+/////////////////////////////////////////////////////
 /datum/sprite_accessory/diona_mushroom
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
@@ -2715,7 +2715,7 @@
 /datum/sprite_accessory/diona_mushroom/head
 	name = "Diona Mushroom"
 	icon_state = "head"
-
+/////////////////////////////////////////////////////
 /datum/sprite_accessory/diona_antennae
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
@@ -2727,7 +2727,7 @@
 /datum/sprite_accessory/diona_antennae/head
 	name = "Diona Antennae"
 	icon_state = "head"
-
+/////////////////////////////////////////////////////
 /datum/sprite_accessory/diona_eyes
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
@@ -2811,7 +2811,7 @@
 /datum/sprite_accessory/diona_eyes/snout
 	name = "Snout"
 	icon_state = "snout_head"
-
+/////////////////////////////////////////////////////
 /datum/sprite_accessory/diona_pbody
 	icon = 'icons/mob/diona_markings.dmi'
 	color_src = null
@@ -2825,7 +2825,8 @@
 	icon_state = "chest"
 /datum/sprite_accessory/diona_pbody/blinking
 	name = "Blinking P-Body"
-	icon_state = "chest"
+	icon_state = "blinking_chest"
+/////////////////////////////////////////////////////
 
 //apids
 
