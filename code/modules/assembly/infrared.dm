@@ -211,14 +211,8 @@
 
 /obj/item/assembly/infra/update_icon()
 	. = ..()
-	if(QDELETED(src))
-		return
-	if(src == gone || istype(gone, /obj/effect/ebeam/reacting/infrared))
-		return
-	if(isitem(gone))
-		var/obj/item/I = gone
-		if (I.item_flags & ABSTRACT)
-			return
+	holder?.update_appearance()
+	attached_overlays = list()
 	if(on)
 		attached_overlays += "[icon_state]_on"
 
