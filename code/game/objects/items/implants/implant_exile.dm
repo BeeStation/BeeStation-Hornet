@@ -60,3 +60,43 @@
 		message_admins("[ADMIN_LOOKUPFLW(hotelstaff)] tried to enter the station as hotel staff and was dusted.")
 	else
 		qdel(src) // This should only ever be applied to mobs
+
+/obj/item/implant/exile/station
+	name = "station exile implant"
+	desc = "Explodes upon reaching the station."
+
+	var/weak = 2
+	var/medium = 0.8
+	var/heavy = 0.4
+
+/obj/item/implant/exile/station/on_implanted(mob/user)
+	user.AddComponent(/datum/component/stationloving/exile)
+
+/datum/component/stationloving/exile/in_bounds()
+	if(SSticker.current_state <= GAME_STATE_PREGAME)
+		return TRUE
+	var/turf/T = get_turf(parent)
+	if(!T)
+		return FALSE
+	if(is_station_level(T.z))
+		return FALSE
+	return TRUE
+
+/datum/component/stationloving/exile/relocate()
+	var/mob/hotelstaff = parent
+	heavy = round(heavy)
+	medium = round(medium)
+	weak = round(weak)
+	explosion(src,heavy,medium,weak,weak, flame_range = weak)
+			if(imp_in)
+			imp_in.investigate_log("has been gibbed by an explosive implant.", INVESTIGATE_DEATHS)
+			imp_in.gib(TRUE)
+
+/obj/item/implanter/exile/station
+	name = "implanter (station exile)"
+	imp_type = /obj/item/implant/exile/station
+
+/obj/item/implantcase/exile/station
+	name = "implant case - 'Station Exile'"
+	desc = "A glass case containing a station exile implant."
+	imp_type = /obj/item/implant/exile/station

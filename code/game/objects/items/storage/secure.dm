@@ -156,6 +156,16 @@
 	for(var/i in 1 to STR.max_items - 2)
 		new /obj/item/stack/spacecash/c1000(src)
 
+//Contains more space cash.
+/obj/item/storage/secure/briefcase/syndie/plus
+	force = 15
+	item_flags = ISWEAPON
+
+/obj/item/storage/secure/briefcase/syndie/plus/PopulateContents()
+	..()
+	for(var/i in 1 to 15)
+		new /obj/item/stack/spacecash/c1000(src)
+
 
 // -----------------------------
 //        Secure Safe

@@ -745,6 +745,17 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 12
 	purchasable_from = UPLINK_NUKE_OPS
 
+	/datum/uplink_item/dangerous/narsie_conversion
+	name = "Romerol"
+	desc = "A highly experimental bioterror agent which creates dormant nodules to be etched into the grey matter of the brain. \
+			On death, these nodules take control of the dead body, causing limited revivification, \
+			along with slurred speech, aggression, and the ability to infect others with this agent."
+	item = /obj/item/storage/box/syndie_kit/romerol
+	cost = 20
+	cant_discount = TRUE
+	murderbone_type = TRUE
+	surplus = 0
+
 
 // Stealthy Weapons
 /datum/uplink_item/stealthy_weapons
@@ -844,7 +855,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	name = "Poison Kit"
 	desc = "An assortment of deadly chemicals packed into a compact box. Comes with a syringe for more precise application."
 	item = /obj/item/storage/box/syndie_kit/chemical
-	cost = 7
+	cost = 4
 	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/romerol_kit
@@ -2040,6 +2051,16 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 0
 	purchasable_from = UPLINK_NUKE_OPS
 
+/datum/uplink_item/implants/cultist
+	name = "Ancient Blood"
+	desc = "Contains the Ancient Blood of a Blood God."
+	item = /obj/item/implanter/cultist
+	cost = 20
+	surplus = 0
+	restricted_roles = list(JOB_NAME_CHAPLAIN)
+	murderbone_type = TRUE
+
+
 
 //Race-specific items
 /datum/uplink_item/race_restricted
@@ -2054,6 +2075,13 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 2
 	item = /obj/item/flashlight/lantern/syndicate
 	restricted_species = list(SPECIES_MOTH)
+
+/datum/uplink_item/race_restricted/onehuman
+	name = "One-Human Law Board"
+	desc = "A stolen One-Human Law Board used to subvert an AI or Cyborg. Ensure that the Cyborg has their panel open and isn't synced to an AI."
+	cost = "1"
+	item = /obj/item/aiModule/zeroth/oneHuman
+	restricted_species = list(SPECIES_HUMAN)
 
 /datum/uplink_item/race_restricted/ethereal_grenade
 	name = "Ethereal Dance Grenade"
@@ -2379,6 +2407,14 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	cost = 5 //you need one for full damage, so total of 5 for maximum damage
 	limited_stock = 1 //you can't use more than one!
 	restricted_roles = list(JOB_NAME_SHAFTMINER)
+
+/datum/uplink_item/badass/syndiecash/plus
+	name = "Bigger Syndicate Briefcase Full of Cash"
+	desc = "A secure briefcase containing 15 000 space credits. Useful for buying weapons from NT to be used on NT! \
+			The briefcase also feels a little heavier to hold; it can be used as a weapon if you're that cheap."
+	item = /obj/item/storage/secure/briefcase/syndie/plus
+	cost = 1
+	restricted_roles = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN)
 
 /datum/uplink_item/role_restricted/esaw
 	name = "Energy Saw"

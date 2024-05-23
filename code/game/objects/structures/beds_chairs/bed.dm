@@ -104,6 +104,18 @@
 	//Set them back down to the normal lying position
 	M.pixel_y = M.base_pixel_y + M.body_position_pixel_y_offset
 
+/obj/structure/bed/roller/abductor
+	name = "abductor bed"
+	var/foldabletype = /obj/item/rollerbed/abductor
+
+/obj/structure/bed/roller/abductor/post_buckle_mob(mob/living/M)
+	set_density(TRUE)
+	icon_state = "up"
+	M.reset_pull_offsets(M, TRUE)
+	//Push them up from the normal lying position
+	M.pixel_y = M.base_pixel_y
+	M.handcuffed = /obj/item/restraints/handcuffs/cable/zipties
+
 //Dog bed
 
 /obj/structure/bed/dogbed
