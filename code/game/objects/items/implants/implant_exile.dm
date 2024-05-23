@@ -64,11 +64,7 @@
 /obj/item/implant/exile/station
 	name = "station exile implant"
 	desc = "Explodes upon reaching the station."
-
-	var/weak = 2
-	var/medium = 0.8
-	var/heavy = 0.4
-
+	
 /obj/item/implant/exile/station/on_implanted(mob/user)
 	user.AddComponent(/datum/component/stationloving/exile)
 
@@ -83,13 +79,8 @@
 	return TRUE
 
 /datum/component/stationloving/exile/relocate()
-	var/mob/hotelstaff = parent
-	var/heavy = round(heavy)
-	var/medium = round(medium)
-	var/weak = round(weak)
-	explosion(src,heavy,medium,weak,weak, flame_range = weak)
-	if(imp_in)
-		imp_in.investigate_log("has been gibbed by an explosive implant.", INVESTIGATE_DEATHS)
+	explosion(src,round(0.4),round(0.8),round(2),round(2), flame_range = round(2))
+
 
 /obj/item/implanter/exile/station
 	name = "implanter (station exile)"

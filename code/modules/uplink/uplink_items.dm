@@ -2445,12 +2445,12 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	limited_stock = 1 //you can't use more than one!
 	restricted_roles = list(JOB_NAME_SHAFTMINER)
 
-/datum/uplink_item/badass/syndiecash/plus
+/datum/uplink_item/role_restricted/syndiecash/plus
 	name = "Bigger Syndicate Briefcase Full of Cash"
 	desc = "A secure briefcase containing 10 000 space credits. Useful for buying weapons from NT to be used on NT! \
-			The briefcase also feels a little heavier to hold; it can be used as a weapon if you're that cheap."
+			This design was especially made to become more robust the more money it has inside it!"
 	item = /obj/item/storage/secure/briefcase/syndie/plus
-	cost = 1
+	cost = 4
 	restricted_roles = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN)
 
 /datum/uplink_item/role_restricted/esaw
@@ -2467,7 +2467,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	item = /obj/item/autosurgeon/syndicate/esaw_arm
 	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
 
-/adtum/uplink_item/role_restricted/abductor_bed
+/datum/uplink_item/role_restricted/abductor_bed
 	name = "Abductor Bed"
 	desc = "A normal looking abductor, but which immediately strap any victim placed in it with zip ties."
 	cost = 5
@@ -2590,7 +2590,7 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 			and services at lucrative prices. The briefcase also feels a little heavier to hold; it has been \
 			manufactured to pack a little bit more of a punch if your client needs some convincing."
 	item = /obj/item/storage/secure/briefcase/syndie
-	cost = 1
+	cost = 2
 	restricted = TRUE
 	illegal_tech = FALSE
 	contents_are_illegal_tech = FALSE

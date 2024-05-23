@@ -166,6 +166,21 @@
 	for(var/i in 1 to 10)
 		new /obj/item/stack/spacecash/c1000(src)
 
+/obj/item/storage/secure/briefcase/syndie/plus/proc/calc_damage()
+	var/power = 0
+	for (var/obj/item/stack/sheet/telecrystal/TC in GetAllContents())
+		power += TC.amount
+	force = 19 + power
+	throwforce = 22 + power
+
+/obj/item/storage/secure/briefcase/syndie/plus/attack(mob/target, mob/living/user)
+	calc_damage()
+	..()
+
+/obj/item/storage/secure/briefcase/syndie/plus/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	calc_damage()
+	..()
+
 
 // -----------------------------
 //        Secure Safe
