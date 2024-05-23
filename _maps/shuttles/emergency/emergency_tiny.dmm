@@ -8,7 +8,7 @@
 /area/shuttle/escape)
 "bm" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/chefhat{
+/obj/item/clothing/head/utility/chefhat{
 	pixel_y = 5;
 	pixel_x = -3
 	},

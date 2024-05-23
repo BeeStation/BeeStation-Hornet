@@ -207,7 +207,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
 		dynamic_lighting = CONFIG_GET(flag/starlight) ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
 	if(dynamic_lighting == DYNAMIC_LIGHTING_DISABLED)
-		base_luminosity = 1
+		set_base_luminosity(src, 1)
 
 	. = ..()
 
@@ -246,7 +246,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	update_lighting_overlay()
 	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also
 	//be luminous
-	luminosity = 1
+	set_base_luminosity(src, 1)
 	//Add the lighting overlay
 	add_overlay(lighting_overlay)
 
