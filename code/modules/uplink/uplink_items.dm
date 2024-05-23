@@ -2042,7 +2042,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	new /obj/item/implanter/uplink(uplink_box, purchaser_uplink.uplink_flag)
 	return uplink_box
 
-
 /datum/uplink_item/implants/xray
 	name = "X-ray Vision Implant"
 	desc = "These cybernetic eyes will give you X-ray vision. Comes with an autosurgeon."
@@ -2059,8 +2058,6 @@ GLOBAL_LIST_INIT(illegal_tech_blacklist, typecacheof(list(
 	surplus = 0
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
 	murderbone_type = TRUE
-
-
 
 //Race-specific items
 /datum/uplink_item/race_restricted
