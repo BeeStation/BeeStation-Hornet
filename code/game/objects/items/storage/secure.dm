@@ -158,7 +158,6 @@
 
 //Contains more space cash.
 /obj/item/storage/secure/briefcase/syndie/plus
-	force = 15
 	item_flags = ISWEAPON
 
 /obj/item/storage/secure/briefcase/syndie/plus/PopulateContents()
@@ -168,10 +167,10 @@
 
 /obj/item/storage/secure/briefcase/syndie/plus/proc/calc_damage()
 	var/power = 0
-	for (var/obj/item/stack/sheet/telecrystal/TC in GetAllContents())
-		power += TC.amount
-	force = 19 + power
-	throwforce = 22 + power
+	for (var/obj/item/stack/spacecash/c1000 in GetAllContents())
+		power += c1000.amount
+	force = 8 + power
+	throwforce = 11 + power
 
 /obj/item/storage/secure/briefcase/syndie/plus/attack(mob/target, mob/living/user)
 	calc_damage()

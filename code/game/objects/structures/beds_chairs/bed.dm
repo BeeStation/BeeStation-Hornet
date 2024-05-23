@@ -106,9 +106,9 @@
 
 /obj/structure/bed/roller/abductor
 	name = "abductor bed"
-	var/foldabletype = /obj/item/rollerbed/abductor
+	foldabletype = /obj/item/rollerbed/abductor
 
-/obj/structure/bed/roller/abductor/post_buckle_mob(mob/living/M)
+/obj/structure/bed/roller/abductor/post_buckle_mob(mob/living/carbon/M)
 	set_density(TRUE)
 	icon_state = "up"
 	M.reset_pull_offsets(M, TRUE)

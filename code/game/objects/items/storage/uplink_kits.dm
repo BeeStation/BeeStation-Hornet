@@ -423,7 +423,6 @@
 	new /obj/item/reagent_containers/syringe(src)
 
 /obj/item/storage/box/syndie_kit/detonators
-	. = ..()
 	name = "Detonators"
 
 /obj/item/storage/box/syndie_kit/detonators/PopulateContents()

@@ -64,7 +64,7 @@
 /obj/item/implant/exile/station
 	name = "station exile implant"
 	desc = "Explodes upon reaching the station."
-	
+
 /obj/item/implant/exile/station/on_implanted(mob/user)
 	user.AddComponent(/datum/component/stationloving/exile)
 
@@ -80,7 +80,6 @@
 
 /datum/component/stationloving/exile/relocate()
 	explosion(src,round(0.4),round(0.8),round(2),round(2), flame_range = round(2))
-
 
 /obj/item/implanter/exile/station
 	name = "implanter (station exile)"
