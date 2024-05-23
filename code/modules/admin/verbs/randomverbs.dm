@@ -545,9 +545,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!mob)
 		return
 	if(!istype(M))
-		alert("Cannot revive a ghost")
+		tgui_alert(usr, "Cannot revive a ghost")
 		return
-	M.revive(full_heal = 1, admin_revive = 1)
+	// We query the admin who sent the adminheal if they are sure
+	if(tgui_alert(usr, "A full adminheal was called on [src], approve or deny?", "Aheal Query", buttons = list("Approve", "Deny")) != "Approve")
+		return
+	M.revive(full_heal = TRUE, admin_revive = TRUE)
 
 	log_admin("[key_name(usr)] healed / revived [key_name(M)]")
 	var/msg = "<span class='danger'>Admin [key_name_admin(usr)] healed / revived [ADMIN_LOOKUPFLW(M)]!</span>"
