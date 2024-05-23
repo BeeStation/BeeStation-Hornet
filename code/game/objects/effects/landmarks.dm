@@ -10,10 +10,6 @@
 /obj/effect/landmark/singularity_act()
 	return
 
-// Please stop bombing the Observer-Start landmark.
-/obj/effect/landmark/ex_act()
-	return
-
 /obj/effect/landmark/singularity_pull()
 	return
 
@@ -223,6 +219,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	var/datum/job/J = SSjob.GetJob(job)
 	J.total_positions += 1
 	J.spawn_positions += 1
+	SSjob.job_manager_blacklisted -= J.title
 
 /obj/effect/landmark/start/randommaint/backalley_doc
 	name = "Barber"
@@ -331,7 +328,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/prisonspawn
 	name = "prisonspawn"
+	icon_state = "error"
+	/* Milviu's sin
 	icon_state = "prison_spawn"
+	*/
 
 /obj/effect/landmark/prisonspawn/Initialize(mapload)
 	..()
