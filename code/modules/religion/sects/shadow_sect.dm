@@ -15,7 +15,8 @@
 		/datum/religion_rites/shadow_obelisk,
 		/datum/religion_rites/shadow_conversion,
 		/datum/religion_rites/shadow_blessing,
-		/datum/religion_rites/shadow_eyes)
+		/datum/religion_rites/shadow_eyes,
+		/datum/religion_rites/summon_faithful)
 	altar_icon_state = "convertaltar-dark"
 	var/light_reach = 1
 	var/light_power = 0
@@ -101,8 +102,6 @@
 	var/light_amount = T.get_lumcount()
 	var/favor_gained = max(1 - light_amount, 0) * delta_time
 	sect.adjust_favor(favor_gained, creator)
-
-
 
 /**** Shadow rites ****/ //Original code by DingoDongler
 
@@ -251,11 +250,10 @@
 	if(!rite_target)
 		return FALSE
 	ADD_TRAIT(rite_target, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
-	//glowing wings overlay
+	to_chat(rite_target, "<span class='userdanger'>You are grateful to have been converted to the dark by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 	playsound(rite_target, 'sound/weapons/fwoosh.ogg', 75, 0)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been blessed by the rite of [name]!</span>")
 	return TRUE
-
 
 /datum/religion_rites/shadow_eyes
 	name = "Grant Shadow Eyes"
@@ -301,3 +299,23 @@
 	organ.Insert(rite_target)
 	rite_target.visible_message("<span class='notice'>[organ] have been merged into [rite_target] by the rite of [name]!</span>")
 	return TRUE
+
+/datum/religion_rites/summon_faithful
+	name = "Summon the faithful"
+	desc = "Summons 2-6 Faithful, Creatures similar to the faithless, that will not attack any shadowpeople, but are hostile to others."
+	ritual_length = 30 SECONDS
+	ritual_invocations = list(
+		"Join us in this darkness ...",
+		"... Protect us from the light ...",
+		"... Destroy those who defy us ...")
+	invoke_msg = "... Let the darkness come and fight!!"
+	favor_cost = 20000
+
+/datum/religion_rites/summon_faithful/invoke_effect(mob/living/user, atom/religious_tool)
+	var/altar_turf = get_turf(religious_tool)
+	for(var/i in 2 to 6)
+		var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(altar_turf)
+		faithful.AddComponent(/datum/component/dark_favor, user)
+		faithful.set_light(1, 1, DARKNESS_INVERSE_COLOR)
+	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
+	return ..()
