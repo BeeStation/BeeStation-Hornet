@@ -250,7 +250,7 @@
 				break
 	if(!rite_target)
 		return FALSE
-	ADD_TRAIT(rite_target, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
+	owner.AddComponent(/datum/component/anti_magic, MAGIC_TRAIT, _magic = TRUE, _holy = FALSE)
 	//glowing wings overlay
 	playsound(rite_target, 'sound/weapons/fwoosh.ogg', 75, 0)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been blessed by the rite of [name]!</span>")

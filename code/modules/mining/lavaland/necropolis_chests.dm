@@ -477,7 +477,7 @@
 
 /obj/item/immortality_talisman/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/anti_magic, TRUE, TRUE)
+	AddComponent(/datum/component/anti_magic, INNATE_TRAIT, TRUE, TRUE)
 
 /datum/action/item_action/immortality
 	name = "Immortality"
@@ -646,7 +646,7 @@
 				C.emote("scream")
 		if(holycheck)
 			to_chat(C, "<span class='notice'>You feel blessed!</span>")
-			ADD_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
+			C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
 	..()
 
 

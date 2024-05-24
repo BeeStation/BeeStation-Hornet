@@ -160,8 +160,8 @@ SUBSYSTEM_DEF(traumas)
 
 		"the supernatural"  = typecacheof(list(
 			/obj/structure/destructible/cult, /obj/item/tome,
-			/obj/item/melee/cultblade, /obj/item/cult_bastard, /obj/item/restraints/legcuffs/bola/cult,
-			/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/suit/hooded/cultrobes/hardened,
+			/obj/item/melee/cultblade, /obj/item/restraints/legcuffs/bola/cult,
+			/obj/item/clothing/suit/hooded/cultrobes,
 			/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/head/hooded/cult_hoodie, /obj/effect/rune,
 			/obj/item/stack/sheet/runed_metal, /obj/machinery/door/airlock/cult, /obj/eldritch/narsie,
 			/obj/item/soulstone, /obj/item/clockwork,
