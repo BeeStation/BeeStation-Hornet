@@ -71,10 +71,6 @@ Striking a noncultist, however, will tear their flesh."}
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(force/10,force/2))
 	if (target.anti_magic_check(magic = FALSE, holy = TRUE))
 		force = 15
-		target.mob_light(_range = 2, _color = LIGHT_COLOR_HOLY_MAGIC, _duration = 10 SECONDS)
-		var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", CALCULATE_MOB_OVERLAY_LAYER(MUTATIONS_LAYER))
-		target.add_overlay(forbearance)
-		addtimer(CALLBACK(target, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
 	else
 		force = 22
 	..()
