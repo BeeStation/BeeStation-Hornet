@@ -6,7 +6,7 @@
 			return facing_modifiers[MECHA_FRONT_ARMOUR]
 	return facing_modifiers[MECHA_SIDE_ARMOUR] //always return non-0
 
-/obj/vehicle/sealed/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/vehicle/sealed/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(. && obj_integrity > 0)
 		spark_system.start()

@@ -50,7 +50,7 @@
 	. = ..()
 	UnregisterSignal(M, COMSIG_MOB_CLICKON)
 
-/obj/vehicle/sealed/car/clowncar/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/vehicle/sealed/car/clowncar/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(prob(33))
 		visible_message("<span class='danger'>[src] spews out a ton of space lube!</span>")
