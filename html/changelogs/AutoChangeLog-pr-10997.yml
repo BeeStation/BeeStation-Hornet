@@ -1,0 +1,9 @@
+author: rkz
+delete-after: true
+changes:
+  - bugfix: fix clockwork armor error worn_states. No more pink drip
+  - bugfix: bows arent invisible anymore. The code is still ugly, sorry
+  - bugfix: Ion rifles have their emissivity back
+  - code_imp: added a bunch of error icons to clothing icon files. Less invisible
+      stuff, more people wearing ugly stuff for them to report so it can be fixed
+      <3

@@ -14,7 +14,7 @@
 		return 0
 	. = ..()
 
-/obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+/obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
 		boom()
 	else

@@ -86,6 +86,8 @@
 		return ..()
 	return FALSE
 
+/obj/machinery/door/firedoor/bumpopen(mob/living/user)
+	return FALSE //No bumping to open, not even in mechs
 
 /obj/machinery/door/firedoor/power_change()
 	. = ..()

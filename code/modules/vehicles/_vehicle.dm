@@ -166,12 +166,13 @@
 			remove_controller_actions_by_flag(controller, i)
 	return TRUE
 
-/obj/vehicle/Bump(atom/movable/M)
+/obj/vehicle/Bump(atom/A)
 	. = ..()
 	if(emulate_door_bumps)
-		if(istype(M, /obj/machinery/door))
+		if(istype(A, /obj/machinery/door))
+			var/obj/machinery/door/conditionalwall = A
 			for(var/m in occupants)
-				M.Bumped(m)
+				conditionalwall.bumpopen(m)
 
 /obj/vehicle/Move(newloc, dir)
 	. = ..()

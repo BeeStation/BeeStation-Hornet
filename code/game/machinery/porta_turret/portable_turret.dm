@@ -372,7 +372,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 		addtimer(CALLBACK(src, PROC_REF(toggle_on), TRUE), rand(60,600))
 
-/obj/machinery/porta_turret/take_damage(damage, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+/obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(. && obj_integrity > 0) //damage received
 		if(prob(30))

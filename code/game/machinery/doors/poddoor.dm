@@ -124,6 +124,9 @@
 	else
 		return ..()
 
+/obj/machinery/door/poddoor/shutters/bumpopen()
+	return
+
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
 /obj/machinery/door/poddoor/ex_act(severity, target)
 	if(severity == 3)

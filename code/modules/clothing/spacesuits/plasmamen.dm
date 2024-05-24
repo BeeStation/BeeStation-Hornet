@@ -47,7 +47,7 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_default_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_default_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_default_worn
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	strip_delay = 80
 	flash_protect = 2
 	tint = 2

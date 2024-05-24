@@ -222,7 +222,7 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 
 	setDir(newdir)
 
-/obj/durand_shield/take_damage()
+/obj/durand_shield/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	if(!chassis)
 		qdel(src)
 		return
