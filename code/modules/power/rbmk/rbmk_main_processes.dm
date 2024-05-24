@@ -123,10 +123,14 @@
 	if(power >= 90 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
 		next_flicker = world.time + 1 MINUTES
 		for(var/obj/machinery/light/L in GLOB.machines)
-			if(prob(75)) //If youre running the reactor cold though, no need to flicker the lights.
+			if(DT_PROB(75, seconds_per_tick)) //If youre running the reactor cold though, no need to flicker the lights.
 				L.flicker()
 	for(var/atom/movable/I in get_turf(src))
-		if(isliving(I))
+		if(isliving(I) && temperature > 0)
 			var/mob/living/L = I
-			if(temperature > 0)
-				L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
+			L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
+	if(grilled_item)
+		SEND_SIGNAL(grilled_item, COMSIG_ITEM_GRILLED, grilled_item, seconds_per_tick)
+		grill_time += seconds_per_tick
+		grilled_item.AddComponent(/datum/component/sizzle)
+

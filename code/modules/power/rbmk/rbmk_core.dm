@@ -140,12 +140,16 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 	///Var used in the meltdown phase
 	var/final_countdown = FALSE
 
-
 	///Flags used in the alert proc to select what messages to show when the reactor is delaminating (RBMK_PRESSURE_DAMAGE | RBMK_TEMPERATURE_DAMAGE)
 	var/warning_damage_flags = NONE
 
 	//Counter for number of reactors on a server
 	var/static/reactorcount = 0
+
+	//Grilling.
+	var/grill_time = 0
+	var/datum/looping_sound/grill/grill_loop
+	var/obj/item/food/grilled_item
 
 /obj/effect/overlay/reactor_top_0
 	name = "reactor overlay"
@@ -179,12 +183,14 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/Initialize(mapload)
 	. = ..()
+	grill_loop = new(src, FALSE)
 	radio = new(src)
 	radio.keyslot = new radio_key
 	radio.listening = 0
 	radio.recalculateChannels()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	AddElement(/datum/element/point_of_interest)
@@ -208,6 +214,8 @@ Remember kids. If the reactor itself is not physically powered by an APC, it can
 		QDEL_NULL(linked_moderator)
 	if(linked_interface)
 		QDEL_NULL(linked_interface)
+	grilled_item = null
+	QDEL_NULL(grill_loop)
 	QDEL_NULL(radio)
 	QDEL_NULL(soundloop)
 	cut_overlays()

@@ -337,9 +337,30 @@ Arguments:
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/on_entered(datum/source, atom/movable/AM, oldloc)
 	SIGNAL_HANDLER
-	if(isliving(AM) && temperature > 0)
-		var/mob/living/L = AM
-		L.adjust_bodytemperature(clamp(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
+	if(istype(AM, /obj/item/food))
+		grilled_item = AM
+		grillStart(grilled_item)
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/on_exited(atom/movable/gone, direction)
+	if(direction == grilled_item)
+		finish_grill()
+		grilled_item = null
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/grillStart(/obj/item/food/grilled_item)
+	RegisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
+	grill_loop.start()
+
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/finish_grill()
+	SEND_SIGNAL(grilled_item, COMSIG_GRILL_FOOD, grilled_item, grill_time)
+	grill_time = 0
+	UnregisterSignal(grilled_item, COMSIG_GRILL_COMPLETED, PROC_REF(GrillCompleted))
+	grill_loop.stop()
+
+///Called when a food is transformed by the grillable component
+/obj/machinery/atmospherics/components/unary/rbmk/core/proc/GrillCompleted(obj/item/source, atom/grilled_result)
+	SIGNAL_HANDLER
+	grilled_item = grilled_result //use the new item!!
+
 
 /obj/machinery/atmospherics/components/unary/rbmk/core/proc/damage_handler()
 	critical_threshold_proximity_archived = critical_threshold_proximity
@@ -442,6 +463,8 @@ Arguments:
 		blowout()
 	else if(temperature < RBMK_TEMPERATURE_CRITICAL)
 		meltdown()
+	else
+		meltdown() //This is caused if neither pressure nor temperature was in critical. We still want to explode
 
 
 /**
