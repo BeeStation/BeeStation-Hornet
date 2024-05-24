@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: random maint spawner will spawn items correctly
