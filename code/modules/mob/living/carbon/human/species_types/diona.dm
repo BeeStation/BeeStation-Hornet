@@ -133,7 +133,7 @@
 /datum/action/diona/split/Trigger(special)
 	. = ..()
 	var/mob/living/carbon/human/user = owner
-	if(!ispodperson(user))
+	if(!isdiona(user))
 		return FALSE
 	if(special)
 		split(FALSE, user) //This runs when you are dead.
@@ -157,7 +157,7 @@
 		I.pixel_x = rand(-10, 10)
 		I.pixel_y = rand(-10, 10)
 	nymph.origin = M
-	nymph.oldName = H.real_name
+	nymph.old_name = H.real_name
 	if(nymph.origin)
 		nymph.origin.active = 1
 		nymph.origin.transfer_to(nymph) //Move the player's mind to the player nymph

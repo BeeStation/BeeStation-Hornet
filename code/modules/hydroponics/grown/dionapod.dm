@@ -15,7 +15,7 @@
 	potency = 30
 	growthstages = 3
 	var/volume = 5
-	var/spawnNymph = FALSE
+	var/spawn_nymph = FALSE
 	var/list/result = list()
 
 /obj/item/seeds/dionapod/Initialize(mapload)
@@ -25,16 +25,16 @@
 /obj/item/seeds/dionapod/on_reagent_change(changetype)
 	if(changetype == ADD_REAGENT)
 		if(reagents.has_reagent(/datum/reagent/blood))
-			spawnNymph = TRUE
+			spawn_nymph = TRUE
 	if(!reagents.has_reagent(/datum/reagent/blood))
-		spawnNymph = FALSE
+		spawn_nymph = FALSE
 
 /obj/item/seeds/dionapod/harvest(mob/user)
 	var/obj/machinery/hydroponics/parent = src.loc
-	if(CONFIG_GET(flag/revival_pod_plants) && spawnNymph)
+	if(CONFIG_GET(flag/revival_pod_plants) && spawn_nymph)
 		for (var/x ; x < yield; x++)
 			var/mob/living/simple_animal/nymph/child = new /mob/living/simple_animal/nymph(get_turf(parent))
-			child.IsGhostSpawn = TRUE
+			child.is_ghost_spawn = TRUE
 	else
 		var/seed_count = 1
 		if(prob(getYield() * 20))

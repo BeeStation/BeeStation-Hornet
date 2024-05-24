@@ -14,7 +14,7 @@
 #define SCANGATE_PLASMAMAN		"plasma"
 #define SCANGATE_MOTH			"moth"
 #define SCANGATE_OOZE			"oozeling"
-#define SCANGATE_POD			"pod"
+#define SCANGATE_DIONA			"diona"
 #define SCANGATE_GOLEM			"golem"
 #define SCANGATE_ZOMBIE			"zombie"
 
@@ -145,7 +145,7 @@
 						scan_species = /datum/species/moth
 					if(SCANGATE_OOZE)
 						scan_species = /datum/species/oozeling
-					if(SCANGATE_POD)
+					if(SCANGATE_DIONA)
 						scan_species = /datum/species/diona
 					if(SCANGATE_GOLEM)
 						scan_species = /datum/species/golem
@@ -268,6 +268,6 @@
 #undef SCANGATE_PLASMAMAN
 #undef SCANGATE_MOTH
 #undef SCANGATE_OOZE
-#undef SCANGATE_POD
+#undef SCANGATE_DIONA
 #undef SCANGATE_GOLEM
 #undef SCANGATE_ZOMBIE

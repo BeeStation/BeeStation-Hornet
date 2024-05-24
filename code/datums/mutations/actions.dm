@@ -313,15 +313,15 @@
 	invocation_type = INVOCATION_NONE
 	base_icon_state = "statue"
 	action_icon_state = "statue"
-	var/HasDrone //If the diona has a drone active or not, for their special mutation.
+	var/has_drone //If the diona has a drone active or not, for their special mutation.
 
-/obj/effect/proc_holder/spell/self/drone/cast(mob/user = usr, HasDrone)
+/obj/effect/proc_holder/spell/self/drone/cast(mob/user = usr)
 	. = ..()
 	var/mob/living/carbon/C = user
-	if(!HasDrone)
+	if(!has_drone)
 		if(do_after(C, 5 SECONDS, C, NONE, TRUE))
-			HasDrone = TRUE
+			has_drone = TRUE
 			var/mob/living/simple_animal/nymph/nymph = new(C.loc)
-			nymph.IsDrone = TRUE
-			nymph.DroneParent = C
+			nymph.is_drone = TRUE
+			nymph.drone_parent = C
 

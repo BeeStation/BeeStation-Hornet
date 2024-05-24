@@ -33,26 +33,24 @@
 	var/max_grown = 200
 	var/time_of_birth
 	var/instance_num
-	var/IsGhostSpawn = FALSE //For if a ghost can become this.
-	var/IsDrone = FALSE //Is a remote controlled nymph from a diona.
-	var/DroneParent //The diona which can control the nymph, if there is one
+	var/is_ghost_spawn = FALSE //For if a ghost can become this.
+	var/is_drone = FALSE //Is a remote controlled nymph from a diona.
+	var/drone_parent //The diona which can control the nymph, if there is one
 	var/datum/mind/origin
-	var/oldName // The diona nymph's old name.
-	var/datum/action/nymph/evolve/EvolveAbility // The ability to grow up into a diona.
+	var/old_name // The diona nymph's old name.
+	var/datum/action/nymph/evolve/evolve_ability // The ability to grow up into a diona.
 
 /mob/living/simple_animal/nymph/Initialize()
 	. = ..()
 	time_of_birth = world.time
 	add_verb(/mob/living/proc/lay_down)
-	EvolveAbility = new
-	EvolveAbility.Grant(src)
+	evolve_ability = new
+	evolve_ability.Grant(src)
 
 	instance_num = rand(1, 1000)
 	name = "[initial(name)] ([instance_num])"
 	real_name = name
 	regenerate_icons()
-
-	set_species(SPECIES_DIONA)
 	grant_language(/datum/language/common)
 	grant_language(/datum/language/sylvan)
 
@@ -69,14 +67,14 @@
 	get_stat_tab_status()
 
 /mob/living/simple_animal/nymph/death(gibbed)
-	EvolveAbility.Remove(src)
+	evolve_ability.Remove(src)
 	return ..(gibbed,death_msg)
 
 /mob/living/simple_animal/nymph/attack_ghost(mob/dead/observer/user)
 	if(client || key || ckey)
 		to_chat(user, "<span class='warning'>\The [src] already has a player.")
 		return
-	if(!IsGhostSpawn)
+	if(!is_ghost_spawn)
 		to_chat(user, "<span class='warning'>\The [src] is not possessable!")
 		return
 	var/control_ask = alert("Do you wish to take control of \the [src]", "Chirp Time?", "Yes", "No")
@@ -140,8 +138,8 @@
 	adult.set_species(SPECIES_DIONA)
 	if(src.faction != "neutral")
 		adult.faction = src.faction
-	if(oldName)
-		adult.real_name = src.oldName
+	if(old_name)
+		adult.real_name = src.old_name
 	else
 		adult.fully_replace_character_name(name, adult.dna.species.random_name(gender))
 	if(mind)

@@ -60,10 +60,10 @@
 		for(var/mob/living/L in range(5, src))
 			if(L.health == L.maxHealth)
 				continue
-			if(!ispodperson(L) && !L.mind?.holy_role)
+			if(!isdiona(L) && !L.mind?.holy_role)
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(src), "#47ac05")
-			if(ispodperson(L) || L.mind?.holy_role)
+			if(isdiona(L) || L.mind?.holy_role)
 				L.adjustBruteLoss(-2*delta_time, 0)
 				L.adjustToxLoss(-2*delta_time, 0)
 				L.adjustOxyLoss(-2*delta_time, 0)
@@ -214,7 +214,7 @@
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
 			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 			return FALSE
-		if(ispodperson(user))
+		if(isdiona(user))
 			to_chat(user,"<span class='warning'>You've already converted yourself. To convert others, they must be buckled to [movable_reltool].</span>")
 			return FALSE
 		to_chat(user,"<span class='warning'>You're going to convert yourself with this ritual.</span>")
