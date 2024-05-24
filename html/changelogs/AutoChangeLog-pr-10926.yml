@@ -1,5 +1,0 @@
-author: rkz, Rohesie
-delete-after: true
-changes:
-  - refactor: Made actions restraining/handcuffing a carbon into traits. Split into
-      two.
