@@ -248,10 +248,10 @@
 
 /datum/reagent/water/holywater/on_mob_metabolize(mob/living/L)
 	..()
-	owner.AddComponent(/datum/component/anti_magic, type, _magic = FALSE, _holy = TRUE)
+	L.AddComponent(/datum/component/anti_magic, type, _magic = FALSE, _holy = TRUE)
 
 /datum/reagent/water/holywater/on_mob_end_metabolize(mob/living/L)
-	for (var/datum/component/anti_magic/anti_magic in owner.GetComponents(/datum/component/anti_magic))
+	for (var/datum/component/anti_magic/anti_magic in L.GetComponents(/datum/component/anti_magic))
 		if (anti_magic.source == type)
 			qdel(anti_magic)
 	if(HAS_TRAIT_FROM(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT))

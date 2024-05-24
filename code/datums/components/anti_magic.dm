@@ -1,6 +1,6 @@
 /datum/component/anti_magic
 	dupe_mode = COMPONENT_DUPE_ALLOWED
-	var/am_source
+	var/source
 	var/magic = FALSE
 	var/holy = FALSE
 	var/charges = INFINITY
@@ -22,7 +22,7 @@
 
 	// Random enough that it will never conflict, and avoids having a static variable
 	identifier = identifier_current++
-	am_source = _source
+	source = _source
 	magic = _magic
 	holy = _holy
 	if(!isnull(_charges))

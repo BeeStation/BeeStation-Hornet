@@ -95,10 +95,10 @@
 
 /datum/species/golem/adamantine/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	owner.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = TRUE, _holy = FALSE)
+	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = TRUE, _holy = FALSE)
 
 /datum/species/golem/adamantine/on_species_loss(mob/living/carbon/C)
-	for (var/datum/component/anti_magic/anti_magic in owner.GetComponents(/datum/component/anti_magic))
+	for (var/datum/component/anti_magic/anti_magic in C.GetComponents(/datum/component/anti_magic))
 		if (anti_magic.source == SPECIES_TRAIT)
 			qdel(anti_magic)
 	..()
@@ -198,10 +198,10 @@
 
 /datum/species/golem/silver/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	owner.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
+	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
 
 /datum/species/golem/silver/on_species_loss(mob/living/carbon/C)
-	for (var/datum/component/anti_magic/anti_magic in owner.GetComponents(/datum/component/anti_magic))
+	for (var/datum/component/anti_magic/anti_magic in C.GetComponents(/datum/component/anti_magic))
 		if (anti_magic.source == SPECIES_TRAIT)
 			qdel(anti_magic)
 	..()
@@ -776,10 +776,10 @@
 
 /datum/species/golem/cloth/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	owner.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
+	C.AddComponent(/datum/component/anti_magic, SPECIES_TRAIT, _magic = FALSE, _holy = TRUE)
 
 /datum/species/golem/cloth/on_species_loss(mob/living/carbon/C)
-	for (var/datum/component/anti_magic/anti_magic in owner.GetComponents(/datum/component/anti_magic))
+	for (var/datum/component/anti_magic/anti_magic in C.GetComponents(/datum/component/anti_magic))
 		if (anti_magic.source == SPECIES_TRAIT)
 			qdel(anti_magic)
 	..()
