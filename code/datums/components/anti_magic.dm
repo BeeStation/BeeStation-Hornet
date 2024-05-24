@@ -17,6 +17,12 @@
 		RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 	else if(ismob(parent))
 		RegisterSignal(parent, COMSIG_MOB_RECEIVE_MAGIC, PROC_REF(protect))
+		var/mob/mob_parent = parent
+		ADD_TRAIT(mob_parent, TRAIT_SEE_ANTIMAGIC, identifier)
+		var/image/forbearance = image('icons/effects/genetics.dmi', mob_parent, "servitude", MOB_OVERLAY_LAYER_ABSOLUTE(mob_parent.layer, MUTATIONS_LAYER))
+		forbearance.plane = mob_parent.plane
+		mob_parent.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessedAware, "magic_protection_[identifier]", forbearance)
+		mob_parent.update_alt_appearances()
 	else
 		return COMPONENT_INCOMPATIBLE
 
