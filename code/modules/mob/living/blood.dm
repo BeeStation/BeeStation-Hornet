@@ -24,7 +24,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 
 /datum/status_effect/bleeding
 	id = "bleeding"
-	status_type = STATUS_EFFECT_REFRESH
+	status_type = STATUS_EFFECT_MERGE
 	alert_type = /atom/movable/screen/alert/status_effect/bleeding
 	tick_interval = 1 SECONDS
 
