@@ -8,7 +8,7 @@
 	damage = 10
 	stamina = 50
 	armour_penetration = -20
-	bleed_force = 0
+	bleed_force = BLEED_SCRATCH
 
 /obj/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
@@ -82,6 +82,7 @@
 	ricochet_incidence_leeway = 60
 	ricochet_decay_chance = 0.75
 	armour_penetration = -20
+	bleed_force = BLEED_TINY
 
 /obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
 	if(damage <= 0 && tile_dropoff_s == 0)

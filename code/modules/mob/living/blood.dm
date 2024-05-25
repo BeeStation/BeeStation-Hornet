@@ -33,6 +33,10 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	var/time_applied = 0
 	var/bleed_heal_multiplier = 1
 
+/datum/status_effect/bleeding/merge(bleed_level)
+	src.bleed_rate = src.bleed_rate + max(min(bleed_level * bleed_level, sqrt(bleed_level)) / max(src.bleed_rate, 1), bleed_level - src.bleed_rate)
+	update_icon()
+
 /datum/status_effect/bleeding/on_creation(mob/living/new_owner, bleed_rate)
 	. = ..()
 	if (.)
@@ -146,11 +150,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		return
 	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
 	playsound(src, 'sound/surgery/blood_wound.ogg', 80, vary = TRUE)
-	if (bleed)
-		bleed.bleed_rate = bleed.bleed_rate + max(min(bleed_level * bleed_level, sqrt(bleed_level)) / max(bleed.bleed_rate, 1),bleed_level - bleed.bleed_rate)
-		bleed.update_icon()
-	else
-		apply_status_effect(dna?.species?.bleed_effect || STATUS_EFFECT_BLEED, bleed_level)
+	apply_status_effect(dna?.species?.bleed_effect || STATUS_EFFECT_BLEED, bleed_level)
 	if (bleed_level >= BLEED_DEEP_WOUND)
 		blur_eyes(1)
 		to_chat(src, "<span class='user_danger'>Blood starts rushing out of the open wound!</span>")
