@@ -1,5 +1,5 @@
 /// How much stun resistance you gain every time you exercise
-#define EXERCISE_STEP 0.02
+#define EXERCISE_INCREMENT 0.02
 /// The max amount that you can be improved by exercise
 #define EXERCISE_LIMIT 0.5
 /// How much exercise effect you lose every second.
@@ -11,7 +11,7 @@
 
 /datum/status_effect/exercised
 	id = "exericsed"
-	status_type = STATUS_EFFECT_REFRESH
+	status_type = STATUS_EFFECT_MERGE
 	tick_interval = ((1 SECONDS) * EXERCISE_STEP) / EXERCISE_VISUAL_DELTA
 	alert_type = /atom/movable/screen/alert/status_effect/exercised
 	var/applied_amount = 0
@@ -20,7 +20,11 @@
 /datum/status_effect/exercised/on_creation(mob/living/new_owner, exercise_amount)
 	. = ..()
 	if (.)
-		src.exercise_amount = exercise_amount
+		src.exercise_amount = exercise_amount * EXERCISE_INCREMENT
+
+/datum/status_effect/exercised/merge(exercise_amount)
+	src.exercise_amount += exercise_amount * EXERCISE_INCREMENT
+	update_exercise()
 
 /datum/status_effect/exercised/on_apply()
 	update_exercise()
@@ -36,10 +40,6 @@
 	exercise_amount -= (EXERCISE_STEP * tick_interval) / (1 SECONDS)
 	update_exercise()
 	return ..()
-
-/datum/status_effect/exercised/proc/perform_exercise()
-	exercise_amount = min(exercise_amount + EXERCISE_STEP, EXERCISE_LIMIT)
-	update_exercise()
 
 /datum/status_effect/exercised/proc/update_exercise()
 	if (ishuman(owner))
