@@ -117,7 +117,7 @@
 				S.refresh()
 				return
 			else if (S.status_type == STATUS_EFFECT_MERGE)
-				S.merge(args.Copy(2))
+				S.merge(arglist(args.Copy(2)))
 				return
 			else
 				return
