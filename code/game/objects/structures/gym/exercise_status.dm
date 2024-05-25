@@ -1,9 +1,9 @@
 /// How much stun resistance you gain every time you exercise
-#define EXERCISE_INCREMENT 0.02
+#define EXERCISE_INCREMENT 0.005
 /// The max amount that you can be improved by exercise
 #define EXERCISE_LIMIT 0.5
 /// How much exercise effect you lose every second.
-/// Each exercise will last 40 seconds.
+/// Each exercise will last 10 seconds.
 /// Maximum exercise lasts 1000 seconds, or about 16 minutes.
 #define EXERCISE_STEP 0.0005
 /// The minimum that exercise needs to change before we step (Rounded to percentages so 1%)
@@ -23,7 +23,7 @@
 	update_exercise()
 
 /datum/status_effect/exercised/merge(exercise_amount)
-	src.exercise_amount += exercise_amount * EXERCISE_INCREMENT
+	src.exercise_amount = min(exercise_amount * EXERCISE_INCREMENT, EXERCISE_LIMIT)
 	update_exercise()
 
 /datum/status_effect/exercised/on_apply()
