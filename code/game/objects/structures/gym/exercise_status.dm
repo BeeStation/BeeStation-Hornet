@@ -23,7 +23,7 @@
 	update_exercise()
 
 /datum/status_effect/exercised/merge(exercise_amount)
-	src.exercise_amount = min(exercise_amount * EXERCISE_INCREMENT, EXERCISE_LIMIT)
+	src.exercise_amount = min(src.exercise_amount + exercise_amount * EXERCISE_INCREMENT, EXERCISE_LIMIT)
 	update_exercise()
 
 /datum/status_effect/exercised/on_apply()
