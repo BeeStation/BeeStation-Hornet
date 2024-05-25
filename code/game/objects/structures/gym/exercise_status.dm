@@ -1,5 +1,5 @@
 /// How much stun resistance you gain every time you exercise
-#define EXERCISE_INCREMENT 0.005
+#define EXERCISE_INCREMENT 0.001
 /// The max amount that you can be improved by exercise
 #define EXERCISE_LIMIT 0.5
 /// How much exercise effect you lose every second.
