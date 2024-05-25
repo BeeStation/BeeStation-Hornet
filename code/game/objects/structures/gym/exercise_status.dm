@@ -33,7 +33,7 @@
 /datum/status_effect/exercised/on_remove()
 	if (ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
-		human_owner.physiology.stun_add -= applied_amount
+		human_owner.physiology.stun_add += applied_amount
 		applied_amount = 0
 
 /datum/status_effect/exercised/tick()
@@ -48,7 +48,7 @@
 	if (ishuman(owner))
 		var/delta = exercise_amount - applied_amount
 		var/mob/living/carbon/human/human_owner = owner
-		human_owner.physiology.stun_add += delta
+		human_owner.physiology.stun_add -= delta
 		applied_amount = exercise_amount
 	linked_alert?.maptext = MAPTEXT("[round(100 * exercise_amount / EXERCISE_LIMIT, 1)]%")
 	switch (exercise_amount)
