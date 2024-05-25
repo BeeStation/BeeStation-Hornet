@@ -7,7 +7,7 @@
 /// Maximum exercise lasts 1000 seconds, or about 16 minutes.
 #define EXERCISE_STEP 0.0005
 /// The minimum that exercise needs to change before we step (Rounded to percentages so 1%)
-#define EXERCISE_VISUAL_DELTA 0.01
+#define EXERCISE_VISUAL_DELTA 0.005
 
 /datum/status_effect/exercised
 	id = "exericsed"
@@ -36,7 +36,7 @@
 		human_owner.physiology.stun_add -= applied_amount
 		applied_amount = 0
 
-/datum/status_effect/exercised/process()
+/datum/status_effect/exercised/tick()
 	exercise_amount -= EXERCISE_VISUAL_DELTA
 	update_exercise()
 	return ..()
@@ -50,7 +50,7 @@
 		var/mob/living/carbon/human/human_owner = owner
 		human_owner.physiology.stun_add += delta
 		applied_amount = exercise_amount
-	linked_alert?.maptext = "[round(100 * exercise_amount / EXERCISE_LIMIT, 1)]%"
+	linked_alert?.maptext = MAPTEXT("[round(100 * exercise_amount / EXERCISE_LIMIT, 1)]%")
 	switch (exercise_amount)
 		if (0.3 to 0.5)
 			examine_text = "<span class='warning'>[owner.p_they(TRUE)] seem exceptionally strong!</span>"
