@@ -1,6 +1,0 @@
-author: Bokkiewokkie
-delete-after: true
-changes:
-  - rscadd: Made it possible to disassemble pool ladders with wrenches and possible
-      to build them with rods.
-  - bugfix: Fixed pool ladders being unanchored.
