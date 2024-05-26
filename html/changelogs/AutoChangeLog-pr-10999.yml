@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes loading a gun from an ammo box multiple times resulting in the gun
-      being unable to fire.
