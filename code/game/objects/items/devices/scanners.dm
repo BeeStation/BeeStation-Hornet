@@ -468,6 +468,7 @@ GENE SCANNER
 					blood_type = R.name
 				else
 					blood_type = blood_id
+			blood_type = "[bloodtype] ([jointext(get_safe_blood(blood_type), ", ")])"
 			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
 				message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>"
 			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
