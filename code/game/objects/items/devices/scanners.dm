@@ -468,13 +468,13 @@ GENE SCANNER
 					blood_type = R.name
 				else
 					blood_type = blood_id
-			blood_type = "[bloodtype] ([jointext(get_safe_blood(blood_type), ", ")])"
+			var/blood_info = "[blood_type] ([jointext(get_safe_blood(blood_type), ", ")])"
 			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
-				message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>"
+				message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]</span>"
 			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
-				message += "<span class='alert'>Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>"
+				message += "<span class='alert'>Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,</span> <span class='info'>type: [blood_info]</span>"
 			else
-				message += "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_type]</span>"
+				message += "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_info]</span>"
 
 		var/list/cyberimp_detect = list()
 		for(var/obj/item/organ/cyberimp/CI in C.internal_organs)
