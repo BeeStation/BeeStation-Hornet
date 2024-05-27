@@ -176,6 +176,10 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 				A.log_message("purchased malf module [AM.module_name] (NEW PROCESSING: [processing_time - AM.cost])", LOG_GAME)
 			else
 				if(AM.power_type)
+					if(AM.unlock_text)
+						to_chat(A, AM.unlock_text)
+					if(AM.unlock_sound)
+						A.playsound_local(A, AM.unlock_sound, 50, 0)
 					if(!action) //Unlocking for the first time
 						var/datum/action/AC = new AM.power_type
 						AC.Grant(A)
@@ -183,14 +187,12 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 						temp = AM.description
 						if(AM.one_purchase)
 							possible_modules -= AM
-						if(AM.unlock_text)
-							to_chat(A, AM.unlock_text)
-						if(AM.unlock_sound)
-							A.playsound_local(A, AM.unlock_sound, 50, 0)
 						A.log_message("purchased malf module [AM.module_name] (NEW PROCESSING: [processing_time - AM.cost])", LOG_GAME)
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
 						temp = "Additional use[action.uses > 1 ? "s" : ""] added to [action.name]!"
+						action.button.desc = "[initial(action.button.desc)] There are [action.uses] reactivations remaining."
+						A.update_action_buttons()
 						A.log_message("purchased malf module [AM.module_name] (NEW USES: [action.uses]) (NEW PROCESSING: [processing_time - AM.cost])", LOG_GAME)
 			processing_time -= AM.cost
 
@@ -573,6 +575,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	uses = 2
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/overload_machine
 
+/datum/action/innate/ai/ranged/overload_machine/New()
+	..()
+	desc = "[desc] There are [uses] reactivations remaining."
+	button.desc = desc
+
 /datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
 		var/turf/T = get_turf(M)
@@ -602,6 +609,8 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		return
 	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, 0)
 	attached_action.adjust_uses(-1)
+	attached_action.desc = "[initial(desc)] There are [attached_action.uses] reactivations remaining."
+	attached_action.owner_AI.update_action_buttons()
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	caller.log_message("activated malf module [name]", LOG_GAME)
 	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/overload_machine, detonate_machine), target), 50) //kaboom!
@@ -625,6 +634,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	button_icon_state = "override_machine"
 	uses = 4
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/override_machine
+
+/datum/action/innate/ai/ranged/override_machine/New()
+	..()
+	desc = "[desc] There are [uses] reactivations remaining."
+	button.desc = desc
 
 /datum/action/innate/ai/ranged/override_machine/proc/animate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
@@ -653,6 +667,8 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		return
 	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, 0)
 	attached_action.adjust_uses(-1)
+	attached_action.desc = "[initial(desc)] There are [attached_action.uses] reactivations remaining."
+	attached_action.owner_AI.update_action_buttons()
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	caller.log_message("activated malf module [name]", LOG_GAME)
 	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/override_machine, animate_machine), target), 50) //kabeep!
@@ -754,6 +770,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	button_icon_state = "blackout"
 	uses = 3
 
+/datum/action/innate/ai/blackout/New()
+	..()
+	desc = "[desc] There are [uses] reactivations remaining."
+	button.desc = desc
+
 /datum/action/innate/ai/blackout/Activate()
 	for(var/obj/machinery/power/apc/apc in GLOB.apcs_list)
 		if(prob(30 * apc.overload))
@@ -761,6 +782,8 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		else
 			apc.overload++
 	owner.log_message("activated malf module [name]", LOG_GAME)
+	desc = "[initial(desc)] There are [uses] reactivations remaining."
+	owner_AI.update_action_buttons()
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
 	owner.playsound_local(owner, "sparks", 50, 0)
 
@@ -793,13 +816,12 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	owner.playsound_local(owner, 'sound/effects/light_flicker.ogg', 50, FALSE)
 
 
-//Reactivate Camera Network: Reactivates up to 30 cameras across the station.
+//Reactivate Camera Network: Reactivates up to 20 cameras across the station.
 /datum/AI_Module/small/reactivate_cameras
 	module_name = "Reactivate Camera Network"
 	mod_pick_name = "recam"
-	description = "Runs a network-wide diagnostic on the camera network, resetting focus and re-routing power to failed cameras. Can be used to repair up to 30 cameras."
+	description = "Runs a network-wide diagnostic on the camera network, resetting focus and re-routing power to failed cameras. Can be used to repair up to 20 cameras."
 	cost = 10
-	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/reactivate_cameras
 	unlock_text = "<span class='notice'>You deploy nanomachines to the cameranet.</span>"
 	unlock_sound = 'sound/items/wirecutter.ogg'
@@ -808,13 +830,13 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	name = "Reactivate Cameras"
 	desc = "Reactivates disabled cameras across the station; remaining uses can be used later."
 	button_icon_state = "reactivate_cameras"
-	uses = 30
+	uses = 20
 	auto_use_uses = FALSE
 	cooldown_period = 30
 
 /datum/action/innate/ai/reactivate_cameras/New()
 	..()
-	desc = "[desc] There are 30 reactivations remaining."
+	desc = "[desc] There are [uses] reactivations remaining."
 	button.desc = desc
 
 /datum/action/innate/ai/reactivate_cameras/Activate()
@@ -830,11 +852,13 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 			uses-- //Not adjust_uses() so it doesn't automatically delete or show a message
 	to_chat(owner, "<span class='notice'>Diagnostic complete! Cameras reactivated: <b>[fixed_cameras]</b>. Reactivations remaining: <b>[uses]</b>.</span>")
 	owner.playsound_local(owner, 'sound/items/wirecutter.ogg', 50, 0)
+	desc = "[initial(desc)] There are [uses] reactivations remaining."
+	owner_AI.update_action_buttons()
+	if(uses)
+		owner.log_message("activated malf module [name] (NEW USES: [uses])", LOG_GAME)
+	else
+		owner.log_message("activated malf module [name] (NEW USES: 0)", LOG_GAME)
 	adjust_uses(0, TRUE) //Checks the uses remaining
-	owner.log_message("activated malf module [name] (NEW USES: [uses])", LOG_GAME)
-	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
-		desc = "[initial(desc)] There are [uses] reactivations remaining."
-
 
 //Upgrade Camera Network: EMP-proofs all cameras, in addition to giving them X-ray vision.
 /datum/AI_Module/large/upgrade_cameras
@@ -888,7 +912,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		AI.eyeobj.set_relay_speech(TRUE)
 
 
-//Fake Alert: Overloads a random number of lights across the station. Three uses.
+//Fake Alert: Overloads a random number of lights across the station. Three uses. //Actually one use, always has been, silly comment
 /datum/AI_Module/small/fake_alert
 	module_name = "Fake Alert"
 	mod_pick_name = "fake_alert"
@@ -903,6 +927,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	desc = "Scare the crew with a fake alert."
 	button_icon_state = "fake_alert"
 	uses = 1
+
+/datum/action/innate/ai/fake_alert/New()
+	..()
+	desc = "[desc] There are [uses] reactivations remaining."
+	button.desc = desc
 
 /datum/action/innate/ai/fake_alert/Activate()
 	var/list/events_to_chose = list()
@@ -919,6 +948,8 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	var/datum/round_event/event_announcement = new event_control.typepath()
 	event_announcement.kill()
 	event_announcement.announce(TRUE)
+	desc = "[initial(desc)] There are [uses] reactivations remaining."
+	owner_AI.update_action_buttons()
 	owner.log_message("activated malf module [name] (TYPE: [chosen_event])", LOG_GAME)
 	return TRUE
 
