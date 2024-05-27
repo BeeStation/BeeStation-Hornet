@@ -371,18 +371,6 @@
 	},
 /turf/open/floor/iron/techmaint,
 /area/shuttle/exploration)
-"om" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/turf/open/floor/plasteel/tech/grid,
-/area/shuttle/exploration)
 "oo" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /obj/structure/chair/stool/bar{
@@ -977,7 +965,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/shuttle/exploration)
 "RO" = (
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
@@ -1060,7 +1048,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/stairs,
+/turf/open/floor/iron/stairs,
 /area/shuttle/exploration)
 "VI" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -1258,7 +1246,7 @@ Om
 qt
 Ti
 Xt
-om
+qt
 Om
 nG
 Om

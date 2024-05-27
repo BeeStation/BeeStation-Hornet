@@ -73245,7 +73245,7 @@
 /obj/machinery/computer/shuttle_flight/science{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/science/shuttledock)
 "ssa" = (
 /obj/structure/closet/emcloset,

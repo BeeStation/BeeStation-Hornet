@@ -16183,7 +16183,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/quartermaster/exploration_dock)
 "cjq" = (
 /obj/effect/turf_decal/stripes/line,
@@ -34419,15 +34419,6 @@
 	broken = 1
 	},
 /area/maintenance/port)
-"gsd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/door/poddoor/shutters{
-	id = "explorerstorage";
-	name = "Exploration storage shutter"
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/exploration_dock)
 "gsI" = (
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -58564,7 +58555,7 @@
 /obj/machinery/computer/shuttle_flight/science{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/science/shuttledock)
 "nRS" = (
 /obj/machinery/computer/robotics{
@@ -82415,7 +82406,7 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/plasma,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/quartermaster/exploration_dock)
 "vjw" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -86312,7 +86303,7 @@
 	req_access_txt = "49";
 	pixel_y = -25
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/quartermaster/exploration_dock)
 "wvZ" = (
 /obj/machinery/door/poddoor/preopen{
@@ -134505,7 +134496,7 @@ cEn
 cEn
 rQx
 dzF
-gsd
+dzF
 nXP
 uSg
 uSg

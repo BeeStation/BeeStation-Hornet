@@ -545,7 +545,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/quartermaster/exploration_prep)
 "aeZ" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -12335,7 +12335,7 @@
 	dir = 1
 	},
 /obj/machinery/advanced_airlock_controller/directional/south,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
 "cns" = (
 /obj/machinery/light/small{
@@ -20264,7 +20264,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
 "dZr" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -27427,7 +27427,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "fVQ" = (
 /obj/structure/cable/yellow{
@@ -40676,7 +40676,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/randomvend/snack,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "jHq" = (
 /obj/structure/girder,
@@ -41836,7 +41836,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/randomvend/cola,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "jWN" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -49531,7 +49531,7 @@
 "mjX" = (
 /obj/machinery/suit_storage_unit/exploration,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "mkk" = (
 /obj/machinery/camera/motion{
@@ -50276,7 +50276,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "mvr" = (
 /obj/structure/table/wood,
@@ -54237,7 +54237,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "nxX" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
@@ -55135,7 +55135,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
 "nKC" = (
 /obj/structure/cable/yellow{
@@ -56969,7 +56969,7 @@
 	name = "exploration preperation room";
 	req_access_txt = "49"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/quartermaster/exploration_prep)
 "ohz" = (
 /obj/effect/turf_decal/stripes/line,
@@ -58057,7 +58057,7 @@
 "oyY" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/bookcase/random,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "ozf" = (
 /obj/effect/landmark/event_spawn,
@@ -69220,7 +69220,7 @@
 "rws" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/turf_decal/box,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "rwt" = (
 /obj/structure/cable/yellow{
@@ -70923,7 +70923,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "rRL" = (
 /obj/machinery/gibber,
@@ -81548,7 +81548,7 @@
 /area/hallway/secondary/entry)
 "uHi" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "uHv" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -83232,7 +83232,7 @@
 	},
 /obj/machinery/suit_storage_unit/exploration,
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "vbP" = (
 /obj/structure/cable/yellow{
@@ -84047,7 +84047,7 @@
 /area/crew_quarters/fitness/recreation)
 "voe" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/quartermaster/exploration_prep)
 "vol" = (
 /obj/structure/chair/office{

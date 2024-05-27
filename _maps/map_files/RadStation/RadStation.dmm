@@ -63354,7 +63354,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 1
 	},
 /area/quartermaster/exploration_prep)

@@ -36783,7 +36783,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/science/shuttledock)
 "kuO" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -39223,7 +39223,7 @@
 	dir = 10
 	},
 /obj/machinery/pipedispenser,
-/turf/open/floor/plasteel/grid/steel,
+/turf/open/floor/iron/grid/steel,
 /area/science/shuttledock)
 "liF" = (
 /obj/machinery/airalarm/directional/east,
@@ -51358,7 +51358,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/iron/techmaint,
 /area/science/shuttledock)
 "oZX" = (
 /obj/machinery/light{
