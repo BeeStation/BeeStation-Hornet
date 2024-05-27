@@ -32,7 +32,7 @@
 		else
 			return
 
-/obj/item/clothing/head/ushanka/spritesheet_debug
+/obj/item/clothing/head/costume/ushanka/spritesheet_debug
 	name = "Racist Ushanka"
 	desc = "The Return"
 	flags_inv = HIDEEARS|HIDEHAIR
