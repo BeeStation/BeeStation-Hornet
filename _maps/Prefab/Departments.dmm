@@ -142,7 +142,7 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/space)
 "dc" = (
 /obj/structure/disposalpipe/sorting/mail{
@@ -183,7 +183,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/space)
 "dZ" = (
 /turf/open/floor/iron/sepia,
@@ -471,7 +471,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/space)
 "mo" = (
 /obj/item/toy/plush/moth/lovers,
@@ -892,7 +892,7 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/space)
 "xI" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
@@ -1014,7 +1014,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/space)
 "Ax" = (
 /obj/machinery/power/apc/auto_name/east,
@@ -1080,7 +1080,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/space)
 "CE" = (
 /obj/machinery/rnd/production/techfab/department/service,
@@ -1249,7 +1249,7 @@
 /obj/structure/closet/crate/rcd{
 	pixel_y = 4
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/space)
 "Hb" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -1291,7 +1291,7 @@
 /obj/item/grenade/chem_grenade/metalfoam{
 	pixel_x = -7
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/space)
 "HZ" = (
 /obj/structure/disposalpipe/sorting/mail{
@@ -1324,7 +1324,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/iron/dark,
 /area/space)
 "IO" = (
 /obj/structure/closet/secure_closet/RD,
