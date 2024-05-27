@@ -50873,9 +50873,6 @@
 	broken = 1
 	},
 /area/maintenance/port/fore)
-"lHq" = (
-/turf/open/floor/plasteel/showroomfloor,
-/area/medical/medbay/central)
 "lHu" = (
 /obj/machinery/disposal/bin,
 /obj/machinery/firealarm{
@@ -58083,7 +58080,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/rack,
@@ -68335,7 +68331,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "rdl" = (
 /obj/effect/turf_decal/stripes/line{
@@ -79162,7 +79158,7 @@
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/north,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "utC" = (
 /obj/structure/sign/directions/medical{
@@ -80182,7 +80178,7 @@
 /obj/machinery/light_switch{
 	pixel_x = 25
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/iron/showroomfloor,
 /area/medical/medbay/central)
 "uJN" = (
 /obj/structure/window/reinforced{
@@ -91458,7 +91454,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -112910,7 +112905,7 @@ uVm
 aNn
 aNn
 utA
-lHq
+gOp
 xjC
 gOp
 gOp

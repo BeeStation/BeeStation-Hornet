@@ -7539,7 +7539,6 @@
 /obj/item/radio/intercom/directional/west,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet/secure_closet/hop,
@@ -9001,7 +9000,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/item/radio/intercom{
@@ -10955,7 +10953,6 @@
 /obj/item/clothing/mask/muzzle,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -39204,7 +39201,6 @@
 /obj/item/radio/intercom/directional/west,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -68979,7 +68975,6 @@
 /obj/structure/lattice/catwalk/over,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/rack,
@@ -79021,7 +79016,7 @@
 	name = "medbay camera";
 	network = list("ss13","medbay")
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/medical/surgery)
 "tPU" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -91863,7 +91858,6 @@
 /obj/item/radio/intercom/directional/east,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet/secure_closet/hos,
