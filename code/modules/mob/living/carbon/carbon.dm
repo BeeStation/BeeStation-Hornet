@@ -285,7 +285,7 @@
 		breakouttime = 50
 		visible_message("<span class='warning'>[src] is trying to break [I]!</span>")
 		to_chat(src, "<span class='notice'>You attempt to break [I]... (This will take around 5 seconds and you need to stand still.)</span>")
-		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM|IGNORE_RESTRAINED))
+		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM|IGNORE_RESTRAINED|IGNORE_STASIS))
 			clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, "<span class='warning'>You fail to break [I]!</span>")
@@ -326,7 +326,7 @@
 	update_equipment_speed_mods() // In case cuffs ever change speed
 
 /mob/living/carbon/proc/clear_cuffs(obj/item/I, cuff_break)
-	if(!I.loc || buckled)
+	if(!I.loc || buckled && !HAS_TRAIT(src, TRAIT_FAST_CUFF_REMOVAL))
 		return
 	visible_message("<span class='danger'>[src] manages to [cuff_break ? "break" : "remove"] [I]!</span>")
 	to_chat(src, "<span class='notice'>You successfully [cuff_break ? "break" : "remove"] [I].</span>")
