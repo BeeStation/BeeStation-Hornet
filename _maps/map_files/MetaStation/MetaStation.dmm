@@ -1446,6 +1446,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
 /turf/open/floor/iron/dark,
 /area/ai_monitored/security/armory)
 "aoi" = (
@@ -21159,9 +21162,6 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/virology)
 "fpf" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /obj/machinery/light{
 	dir = 8;
 	light_color = "#e8eaff"
@@ -24516,7 +24516,7 @@
 	dir = 8
 	},
 /obj/item/kirbyplants/random,
-/obj/effect/turf_decal{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/iron/techmaint,
@@ -26258,7 +26258,7 @@
 /area/maintenance/solars/starboard/fore)
 "gXD" = (
 /obj/machinery/computer/holodeck/prison,
-/obj/effect/turf_decal{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/prison,
@@ -42255,6 +42255,15 @@
 	},
 /turf/open/floor/iron/dark,
 /area/bridge)
+"mbq" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/iron,
+/area/security/checkpoint)
 "mbr" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
@@ -48468,10 +48477,10 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/bin,
-/obj/effect/turf_decal{
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/iron/techmaint,
 /area/security/prison)
 "odp" = (
@@ -50628,6 +50637,7 @@
 	id = "fun_room";
 	name = "Execution-Prison access blast door"
 	},
+/obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/iron/dark,
 /area/security/prison)
 "oNX" = (
@@ -59849,15 +59859,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/genetics)
-"rMl" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/iron,
-/area/security/checkpoint)
 "rMn" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -63530,7 +63531,7 @@
 	color = "#DE3A3A"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/effect/turf_decal{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/prison,
@@ -63546,7 +63547,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/turf_decal{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/prison,
@@ -65271,6 +65272,9 @@
 /area/crew_quarters/dorms)
 "txl" = (
 /obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /turf/open/floor/prison,
@@ -103294,9 +103298,9 @@ aRG
 dne
 kjo
 fpf
-fHb
-fHb
-rMl
+hjC
+hjC
+kAZ
 aJN
 eni
 dvK
@@ -103550,10 +103554,10 @@ qbb
 pGG
 nqM
 fHb
+mbq
+fHb
+fHb
 hjQ
-hjC
-hjC
-kAZ
 aJN
 qEc
 dvK
