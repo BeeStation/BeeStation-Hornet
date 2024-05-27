@@ -15420,7 +15420,7 @@
 /area/maintenance/central)
 "ezu" = (
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/quartermaster/exploration_dock)
 "ezw" = (
 /obj/structure/cable/yellow{
@@ -16794,15 +16794,6 @@
 /area/medical/chemistry)
 "fcz" = (
 /obj/machinery/telecomms/receiver/preset_exploration,
-/obj/machinery/telecomms/receiver/preset_exploration,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/telecomms/receiver/preset_exploration,
-/obj/machinery/power/apc/auto_name/east,
-/obj/structure/cable/yellow,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
 "fcC" = (
@@ -17654,7 +17645,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/secure/science,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/quartermaster/exploration_dock)
 "fub" = (
 /obj/effect/turf_decal/bot,
@@ -45519,7 +45510,7 @@
 /obj/structure/closet/crate/secure/science,
 /obj/effect/turf_decal/bot,
 /obj/machinery/airalarm/directional/west,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/quartermaster/exploration_dock)
 "qfo" = (
 /obj/structure/table/glass,
