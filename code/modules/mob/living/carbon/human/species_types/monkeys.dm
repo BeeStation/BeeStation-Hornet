@@ -90,6 +90,12 @@
 	target.attack_paw(user)
 	return TRUE
 
+/datum/species/monkey/handle_mutations_and_radiation(mob/living/carbon/human/H)
+	. = ..()
+	if(H.radiation > RAD_MOB_MUTATE * 2 && prob(50))
+		H.gorillize()
+		return
+
 /datum/species/monkey/get_scream_sound(mob/living/carbon/human/monkey)
 	return pick(
 		'sound/creatures/monkey/monkey_screech_1.ogg',
