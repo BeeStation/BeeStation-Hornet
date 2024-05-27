@@ -118,7 +118,7 @@
 	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
-/turf/open/floor/plasteel/airless/solarpanel,
+/turf/open/floor/iron/airless/solarpanel,
 /area/template_noop)
 "x" = (
 /obj/structure/cable,
@@ -199,7 +199,7 @@
 	id = "auxsolareast";
 	name = "Port Auxiliary Solar Array"
 	},
-/turf/open/floor/plasteel/airless/solarpanel,
+/turf/open/floor/iron/airless/solarpanel,
 /area/template_noop)
 "N" = (
 /obj/structure/lattice/catwalk,
@@ -217,7 +217,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/open/floor/plasteel/airless/solarpanel,
+/turf/open/floor/iron/airless/solarpanel,
 /area/template_noop)
 "S" = (
 /obj/structure/cable/yellow{

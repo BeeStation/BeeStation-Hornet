@@ -1,7 +1,8 @@
 /obj/machinery/recharger
 	name = "recharger"
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "recharger0"
+	icon_state = "recharger"
+	base_icon_state = "recharger"
 	desc = "A charging dock for energy based weaponry."
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
@@ -61,7 +62,7 @@
 		if(charging)
 			to_chat(user, "<span class='notice'>Remove the charging item first!</span>")
 			return
-		setAnchored(!anchored)
+		set_anchored(!anchored)
 		power_change()
 		to_chat(user, "<span class='notice'>You [anchored ? "attached" : "detached"] [src].</span>")
 		G.play_tool_sound(src)
@@ -123,6 +124,7 @@
 	charging.update_icon()
 	charging.forceMove(drop_location())
 	setCharging(null)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/machinery/recharger/process(delta_time)
 	if(machine_stat & (NOPOWER|BROKEN) || !anchored)
@@ -136,7 +138,7 @@
 				C.give(C.chargerate * recharge_coeff * delta_time / 2)
 				use_power(125 * recharge_coeff * delta_time)
 				using_power = TRUE
-			update_icon()
+			update_appearance()
 
 		if(istype(charging, /obj/item/ammo_box/magazine/recharge))
 			var/obj/item/ammo_box/magazine/recharge/R = charging
@@ -144,8 +146,9 @@
 				R.stored_ammo += new R.ammo_type(R)
 				use_power(100 * recharge_coeff * delta_time)
 				using_power = TRUE
-			update_icon()
+			update_appearance()
 			return
+
 	else
 		return PROCESS_KILL
 
@@ -165,16 +168,28 @@
 				B.cell.charge = 0
 
 
-/obj/machinery/recharger/update_icon_state()
+
+/obj/machinery/recharger/update_overlays()
 	. = ..()
 	if(machine_stat & (NOPOWER|BROKEN) || !anchored)
-		icon_state = "rechargeroff"
-	else if(panel_open)
-		icon_state = "rechargeropen"
-	else if(charging)
-		if(using_power)
-			icon_state = "recharger1"
-		else
-			icon_state = "recharger2"
-	else
-		icon_state = "recharger0"
+		return
+
+	if(panel_open)
+		. += mutable_appearance(icon, "[base_icon_state]-open", layer, alpha = src.alpha)
+		return
+
+	if(!charging)
+		. += mutable_appearance(icon, "[base_icon_state]-empty", alpha = src.alpha)
+		. += emissive_appearance(icon, "[base_icon_state]-empty", layer, alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+		return
+
+	if(using_power)
+		. += mutable_appearance(icon, "[base_icon_state]-charging", alpha = src.alpha)
+		. += emissive_appearance(icon, "[base_icon_state]-charging", layer, alpha = src.alpha)
+		ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
+		return
+
+	. += mutable_appearance(icon, "[base_icon_state]-full", alpha = src.alpha)
+	. += emissive_appearance(icon, "[base_icon_state]-full", layer, alpha = src.alpha)
+	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)

@@ -344,7 +344,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	has_gravity = TRUE
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	area_flags = HIDDEN_AREA
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	ambientsounds = list('sound/ambience/servicebell.ogg')
 	var/roomnumber = 0
 	var/obj/item/hilbertshotel/parentSphere
@@ -457,6 +457,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 	name = "custom rigged analyzer"
 	desc = "A hand-held environmental scanner which reports current gas levels. This one seems custom rigged to additionally be able to analyze some sort of bluespace device."
 	icon_state = "hilbertsanalyzer"
+	worn_icon_state = "analyzer"
 
 /obj/item/analyzer/hilbertsanalyzer/afterattack(atom/target, mob/user, proximity)
 	. = ..()

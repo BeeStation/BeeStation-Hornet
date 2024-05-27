@@ -307,7 +307,7 @@
 
 		//This code handles moving the turret around. After all, it's a portable turret!
 		if(!anchored && !isinspace())
-			setAnchored(TRUE)
+			set_anchored(TRUE)
 			invisibility = INVISIBILITY_MAXIMUM
 			update_icon()
 			to_chat(user, "<span class='notice'>You secure the exterior bolts on the turret.</span>")
@@ -315,7 +315,7 @@
 				cover = new /obj/machinery/porta_turret_cover(loc) //create a new turret. While this is handled in process(), this is to workaround a bug where the turret becomes invisible for a split second
 				cover.parent_turret = src //make the cover's parent src
 		else if(anchored)
-			setAnchored(FALSE)
+			set_anchored(FALSE)
 			to_chat(user, "<span class='notice'>You unsecure the exterior bolts on the turret.</span>")
 			power_change()
 			invisibility = 0
@@ -372,7 +372,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 
 		addtimer(CALLBACK(src, PROC_REF(toggle_on), TRUE), rand(60,600))
 
-/obj/machinery/porta_turret/take_damage(damage, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+/obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(. && obj_integrity > 0) //damage received
 		if(prob(30))
@@ -470,12 +470,15 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 				else if(check_anomalies) //non humans who are not simple animals (xenos etc)
 					if(!in_faction(C))
 						targets += C
+
 		for(var/A in GLOB.mechas_list)
-			if((get_dist(A, T) < scan_range) && can_see(T, A, scan_range))
-				var/obj/mecha/Mech = A
-				if(Mech.occupant && !in_faction(Mech.occupant)) //If there is a user and they're not in our faction
-					if(assess_perp(Mech.occupant) >= 4)
-						targets += Mech
+			if((get_dist(A, base) < scan_range) && can_see(base, A, scan_range))
+				var/obj/vehicle/sealed/mecha/mech = A
+				for(var/O in mech.occupants)
+					var/mob/living/occupant = O
+					if(!in_faction(occupant)) //If there is a user and they're not in our faction
+						if(assess_perp(occupant) >= 4)
+							targets += mech
 
 		if(check_anomalies && GLOB.blobs.len && (mode == TURRET_LETHAL))
 			for(var/obj/structure/blob/B in view(scan_range, T))
@@ -684,7 +687,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	if(!can_interact(caller))
 		remove_control()
 		return FALSE
-	log_combat(caller,A,"fired with manual turret control at")
+	log_combat(caller,A,"fired with manual turret control at", src)
 	target(A)
 	return TRUE
 
@@ -1000,21 +1003,21 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 /obj/machinery/turretid/proc/toggle_lethal(mob/user)
 	lethal = !lethal
 	add_hiddenprint(user)
-	log_combat(user, src, "[lethal ? "enabled" : "disabled"] lethals on")
+	log_combat(user, src, "[lethal ? "enabled" : "disabled"] lethals on", important = FALSE)
 	updateTurrets()
 	ui_update()
 
 /obj/machinery/turretid/proc/toggle_on(mob/user)
 	enabled = !enabled
 	add_hiddenprint(user)
-	log_combat(user, src, "[enabled ? "enabled" : "disabled"]")
+	log_combat(user, src, "[enabled ? "enabled" : "disabled"]", important = FALSE)
 	updateTurrets()
 	ui_update()
 
 /obj/machinery/turretid/proc/shoot_silicons(mob/user)
 	shoot_cyborgs = !shoot_cyborgs
 	add_hiddenprint(user)
-	log_combat(user, src, "[shoot_cyborgs ? "Shooting Borgs" : "Not Shooting Borgs"]")
+	log_combat(user, src, "[shoot_cyborgs ? "Shooting Borgs" : "Not Shooting Borgs"]", important = FALSE)
 	updateTurrets()
 	ui_update()
 

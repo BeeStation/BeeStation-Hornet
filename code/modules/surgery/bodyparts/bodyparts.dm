@@ -77,7 +77,7 @@
 	var/heavy_burn_msg = "peeling away"
 
 /obj/item/bodypart/Initialize(mapload)
-	..()
+	. = ..()
 	name = "[limb_id] [parse_zone(body_zone)]"
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
@@ -248,6 +248,10 @@
 	if(include_stamina)
 		total = max(total, stamina_dam)
 	return total
+
+//Returns only stamina damage.
+/obj/item/bodypart/proc/get_staminaloss()
+	return stamina_dam
 
 //Checks disabled status thresholds
 /obj/item/bodypart/proc/update_disabled()
@@ -472,7 +476,7 @@
 /obj/item/bodypart/chest
 	name = BODY_ZONE_CHEST
 	desc = "It's impolite to stare at a person's chest."
-	icon_state = "default_human_chest"
+	//icon_state = "default_human_chest"
 	max_damage = 200
 	body_zone = BODY_ZONE_CHEST
 	body_part = CHEST
@@ -485,7 +489,7 @@
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
-	if(!((owner.stat == DEAD) || owner.InFullCritical()))
+	if(owner.stat < HARD_CRIT)
 		return FALSE
 	return ..()
 
@@ -535,7 +539,7 @@
 		Latin 'sinestra' (left hand), because the left hand was supposed to \
 		be possessed by the devil? This arm appears to be possessed by no \
 		one though."
-	icon_state = "default_human_l_arm"
+	//icon_state = "default_human_l_arm"
 	attack_verb = list("slapped", "punched")
 	max_damage = 50
 	max_stamina_damage = 50
@@ -605,7 +609,7 @@
 	name = "right arm"
 	desc = "Over 87% of humans are right handed. That figure is much lower \
 		among humans missing their right arm."
-	icon_state = "default_human_r_arm"
+	//icon_state = "default_human_r_arm"
 	attack_verb = list("slapped", "punched")
 	max_damage = 50
 	max_stamina_damage = 50
@@ -676,7 +680,7 @@
 	name = "left leg"
 	desc = "Some athletes prefer to tie their left shoelaces first for good \
 		luck. In this instance, it probably would not have helped."
-	icon_state = "default_human_l_leg"
+	//icon_state = "default_human_l_leg"
 	attack_verb = list("kicked", "stomped")
 	max_damage = 50
 	body_zone = BODY_ZONE_L_LEG
@@ -738,7 +742,7 @@
 		shake it all about. And apparently then it detaches.\n\
 		The hokey pokey has certainly changed a lot since space colonisation."
 	// alternative spellings of 'pokey' are available
-	icon_state = "default_human_r_leg"
+	//icon_state = "default_human_r_leg"
 	attack_verb = list("kicked", "stomped")
 	max_damage = 50
 	body_zone = BODY_ZONE_R_LEG

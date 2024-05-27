@@ -112,7 +112,11 @@
 		"stamp-rd" = 'icons/stamp_icons/large_stamp-rd.png',
 		"stamp-cap" = 'icons/stamp_icons/large_stamp-cap.png',
 		"stamp-qm" = 'icons/stamp_icons/large_stamp-qm.png',
-		"stamp-law" = 'icons/stamp_icons/large_stamp-law.png'
+		"stamp-law" = 'icons/stamp_icons/large_stamp-law.png',
+		"stamp-chap" = 'icons/stamp_icons/large_stamp-chap.png',
+		"stamp-mime" = 'icons/stamp_icons/large_stamp-mime.png',
+		"stamp-cent" = 'icons/stamp_icons/large_stamp-cent.png',
+		"stamp-syndicate" = 'icons/stamp_icons/large_stamp-syndicate.png',
 	)
 
 
@@ -166,11 +170,10 @@
 /datum/asset/simple/namespaced/fontawesome
 	legacy = TRUE
 	assets = list(
-		"fa-regular-400.eot"  = 'html/font-awesome/webfonts/fa-regular-400.eot',
-		"fa-regular-400.woff" = 'html/font-awesome/webfonts/fa-regular-400.woff',
-		"fa-solid-900.eot"    = 'html/font-awesome/webfonts/fa-solid-900.eot',
-		"fa-solid-900.woff"   = 'html/font-awesome/webfonts/fa-solid-900.woff',
-		"v4shim.css"          = 'html/font-awesome/css/v4-shims.min.css'
+		"fa-regular-400.ttf" = 'html/font-awesome/webfonts/fa-regular-400.ttf',
+		"fa-solid-900.ttf" = 'html/font-awesome/webfonts/fa-solid-900.ttf',
+		"fa-v4compatibility.ttf" = 'html/font-awesome/webfonts/fa-v4compatibility.ttf',
+		"v4shim.css" = 'html/font-awesome/css/v4-shims.min.css',
 	)
 	parents = list("font-awesome.css" = 'html/font-awesome/css/all.min.css')
 
@@ -187,7 +190,10 @@
 	name = "emoji"
 
 /datum/asset/spritesheet_batched/emoji/create_spritesheets()
-	insert_all_icons("", 'icons/emoji.dmi')
+	for (var/icon_state_name in icon_states('icons/emoji.dmi'))
+		var/datum/universal_icon/u_icon = uni_icon('icons/emoji.dmi', icon_state_name, SOUTH)
+		u_icon.scale(48, 48)
+		insert_icon("[icon_state_name]", u_icon)
 
 /datum/asset/simple/lobby
 	assets = list(
@@ -391,6 +397,15 @@
 	for(var/atom/item as() in target_items)
 		if (!ispath(item, /atom))
 			return FALSE
+
+		var/overlay = initial(item.icon_state)
+		var/icon_init = initial(item.icon)
+		var/list/icon_states_available = icon_states(icon_init)
+		if(!(overlay in icon_states_available))
+			var/icon_file = "[icon_init]" || "Unknown Generated Icon"
+			stack_trace("Invalid overlay: Icon object '[icon_file]' [REF(src)] used in '[src]' [type] is missing icon state [overlay].")
+			continue
+
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 		insert_icon(imgid, get_display_icon_for(item))
 

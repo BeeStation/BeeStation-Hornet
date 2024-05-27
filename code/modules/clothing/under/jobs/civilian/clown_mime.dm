@@ -3,7 +3,7 @@
 	name = "mime's outfit"
 	desc = "It's not very colourful."
 	icon_state = "mime"
-	item_state = "mime"
+	item_state = null
 
 /obj/item/clothing/under/rank/civilian/mime/skirt
 	name = "mime's skirt"
@@ -20,7 +20,7 @@
 	name = "sexy mime outfit"
 	desc = "The only time when you DON'T enjoy looking at someone's rack."
 	icon_state = "sexymime"
-	item_state = "sexymime"
+	item_state = null
 	body_parts_covered = CHEST|GROIN|LEGS
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE

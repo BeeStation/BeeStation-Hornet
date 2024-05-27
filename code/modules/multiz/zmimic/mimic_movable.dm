@@ -54,7 +54,7 @@
 /atom/movable/openspace/acid_act()
 	return
 
-/atom/movable/openspace/mech_melee_attack(obj/mecha/M)
+/atom/movable/openspace/mech_melee_attack(obj/vehicle/sealed/mecha/M)
 	return 0
 
 /atom/movable/openspace/blob_act(obj/structure/blob/B)
@@ -201,6 +201,10 @@
 /atom/movable/openspace/mimic/proc/owning_turf_changed()
 	if (!destruction_timer)
 		destruction_timer = QDEL_IN(src, 10 SECONDS)
+
+// Get actual source atom when orbiting
+/atom/movable/openspace/mimic/get_orbitable()
+	return associated_atom
 
 // -- TURF PROXY --
 // This thing holds the mimic appearance for non-OVERWRITE turfs.
