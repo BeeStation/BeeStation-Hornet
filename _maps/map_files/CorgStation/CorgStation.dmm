@@ -54040,11 +54040,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"rie" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/aft)
 "rig" = (
 /obj/structure/bed/dogbed,
 /obj/effect/landmark/xeno_spawn,
@@ -119341,7 +119336,7 @@ cCM
 snf
 eAn
 snf
-rie
+ueX
 oaL
 mql
 kfy

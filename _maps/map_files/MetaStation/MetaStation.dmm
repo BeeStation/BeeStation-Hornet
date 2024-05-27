@@ -21368,27 +21368,6 @@
 	pixel_x = -3
 	},
 /obj/effect/turf_decal/delivery,
-/obj/item/assembly/health,
-/obj/item/assembly/health,
-/obj/item/assembly/health,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/rack,
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
 /obj/item/healthanalyzer{
 	pixel_x = 4;
 	pixel_y = -4
@@ -21401,10 +21380,6 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
-/obj/item/radio/headset/headset_sci{
-	pixel_x = -3
-	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/iron,
 /area/science/robotics/lab)
 "flL" = (
