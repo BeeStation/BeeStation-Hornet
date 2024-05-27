@@ -71,6 +71,22 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	var/auth_id = "Unknown" //Will contain the name and and job of the person who verified it
 	max_integrity = 300
 	armor = list(MELEE = 70,  BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, STAMINA = 0)
+	
+/obj/machinery/requests_console/north
+	dir = SOUTH
+	pixel_y = 32
+
+/obj/machinery/requests_console/south
+	dir = NORTH
+	pixel_y = -32
+
+/obj/machinery/requests_console/east
+	dir = EAST
+	pixel_x = 32
+
+/obj/machinery/requests_console/west
+	dir = WEST
+	pixel_x = -32
 
 /obj/machinery/requests_console/update_appearance(updates=ALL)
 	. = ..()

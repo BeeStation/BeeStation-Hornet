@@ -8,14 +8,14 @@
 	dog_fashion = null
 	unscrewed = FALSE
 	layer = ABOVE_WINDOW_LAYER
-	dir = NORTH
+	dir = SOUTH
 	
 /obj/item/radio/intercom/directional/north
-	dir = NORTH
+	dir = SOUTH
 	pixel_y = 25
 	
 /obj/item/radio/intercom/directional/south
-	dir = SOUTH
+	dir = NORTH
 	pixel_y = -25
 	
 /obj/item/radio/intercom/directional/east
