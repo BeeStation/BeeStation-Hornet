@@ -4,6 +4,9 @@
 /// What's the chance that, when a singularity moves, it'll go to its target?
 #define CHANCE_TO_MOVE_TO_TARGET 60
 
+//What's the range for the singularity to see things to eat?
+#define SINGULARITY_SIGHT_SIZE 10
+
 /// Things that maybe move around and does stuff to things around them
 /// Used for the singularity (duh) and Nar'Sie
 /datum/component/singularity
@@ -18,8 +21,11 @@
 	/// Does this singularity move?
 	var/roaming
 
-	/// The chosen direction to drift in
+	/// The chosen directions to drift in
 	var/drifting_dir
+
+	/// The final chosen direction to go.
+	var/final_dir
 
 	/// How many tiles out to pull in
 	var/grav_pull
@@ -138,7 +144,7 @@
 	if(time_since_last_eat > 1) // Delta time is in seconds for "reasons"
 		time_since_last_eat = 0
 		if (roaming)
-			move()
+			move(delta_time)
 		eat()
 
 /datum/component/singularity/proc/block_blob()
@@ -203,13 +209,26 @@
 
 	turfs_to_eat--
 
-/datum/component/singularity/proc/move()
-	var/drifting_dir = pick(GLOB.alldirs - last_failed_movement)
-
-	if(!QDELETED(target) && prob(CHANCE_TO_MOVE_TO_TARGET))
-		drifting_dir = get_dir(parent, target)
-
-	step(parent, drifting_dir)
+/datum/component/singularity/proc/move(delta_time)
+	var/list/drifting_dir = GLOB.alldirs
+	drifting_dir -= last_failed_movement
+	var/neareest_distance = SINGULARITY_SIGHT_SIZE
+	var/closest_target
+	var/static/things_to_eat = typecacheof(list(/turf/open/floor, /turf/closed/wall, /obj/structure))
+	for(var/atom/A as() in oview(SINGULARITY_SIGHT_SIZE, parent)) //Find the furthest wall, floor or structure that we can eat, then go that direction
+		if(A.type in things_to_eat)
+			var/dist = get_dist(parent, A)
+			if(dist < neareest_distance)
+				closest_target = A
+				neareest_distance = dist
+	var/dir = get_dir(parent, closest_target)
+	if(dir in drifting_dir) //Can we go that direction?
+		final_dir = dir //If so, go that way.
+	else
+		final_dir = pick(drifting_dir) //Else, pick a random other direction to go.
+	if(!QDELETED(target) && prob(CHANCE_TO_MOVE_TO_TARGET)) //Do we have a beacon to go to? If so, with chance, go there instead.
+		final_dir = get_dir(parent, target)
+	step(parent, final_dir)
 
 /datum/component/singularity/proc/moved(datum/source, atom/new_location)
 	SIGNAL_HANDLER
