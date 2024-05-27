@@ -504,6 +504,10 @@
 			return FALSE
 		if (L.mobility_flags & MOBILITY_STAND)// if you stand, it returns true and you get hit. If you arent standing(i.e. resting), it returns false and you dont get hit. Such stupid code.
 			return TRUE
+		// If you are moving, then bullets will hit you even if you are lying.
+		// This is to counter abuse in space where you can be moving via inertia while lying #11020
+		if (L.last_move_time < world.time + max(L.inertia_move_delay, CRAWLING_ADD_SLOWDOWN + CONFIG_GET(number/movedelay/run_delay)))
+			return TRUE
 		var/stunned = !CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE)
 		return !stunned || hit_stunned_targets
 	return TRUE
