@@ -15,6 +15,7 @@
 	inherent_traits = list(
 		TRAIT_DISCOORDINATED,
 		TRAIT_VENTCRAWLER_NUDE,
+		TRAIT_WEAK_SOUL,
 	)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN | SLIME_EXTRACT
 	inherent_factions = list("monkey")
@@ -179,8 +180,15 @@
 		NO_UNDERWEAR,
 		HAIR,
 		FACEHAIR,
-		LIPS)
-	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
+		LIPS,
+	)
+	inherent_traits = list(
+		TRAIT_NOHUNGER,
+		TRAIT_RADIMMUNE,
+		TRAIT_BADDNA, //Made of mutated cells
+		TRAIT_NOGUNS,
+		TRAIT_NONECRODISEASE,
+	)
 	default_features = list("mcolor" = "FFF", "wings" = "None")
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
