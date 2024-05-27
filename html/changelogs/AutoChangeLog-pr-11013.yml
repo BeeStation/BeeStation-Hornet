@@ -1,4 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: Object spawners properly return a QDEL_HINT now.
