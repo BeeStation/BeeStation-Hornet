@@ -217,10 +217,10 @@
 	var/closest_target
 	var/static/things_to_eat = typecacheof(list(/turf/closed/wall, /obj/structure, /mob/living))
 	var/static/things_to_not_eat = typecacheof(list(/obj/structure/grille/indestructable, /obj/structure/window/reinforced/fulltile/indestructable, /turf/closed/indestructible, /turf/open/indestructible))
-	for(var/atom/A as() in oview(SINGULARITY_SIGHT_SIZE + singularity_sight_modifier, parent)) //Find the nearest wall, floor, structure or mob
+	for(var/atom/A as() in oview(SINGULARITY_SIGHT_SIZE + singularity_sight_modifier, parent)) //Find the nearest wall, strucutre or mob
 		if((A.type in things_to_eat) && !(A.type in things_to_not_eat)) //can we eat it?
-			var/dist = get_dist(parent, A)
-			if(dist < nearest_distance)
+			var/dist = get_dist(parent, A) //Get the distance to it.
+			if(dist < nearest_distance) //Is it closer than the previous iteration?
 				closest_target = A
 				nearest_distance = dist
 				singularity_sight_modifier = 0
