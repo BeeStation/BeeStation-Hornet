@@ -56,17 +56,19 @@
 
 /obj/item/clothing/suit/hooded/wintercoat/security
 	name = "security winter coat"
+	desc = "A thick jacket made from a light, fire-resistant kevlar-like material which provides some protection to the user. It is particularly effective against energy-based threats due to its thickness and insulation."
 	icon_state = "coatsecurity"
 	item_state = "coatsecurity"
-	armor = list(MELEE = 25,  BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 45, STAMINA = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
-	slowdown = 0.05
+	armor = list(MELEE = 15,  BULLET = 15, LASER = 40, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 60, ACID = 45, STAMINA = 40)
+	slowdown = 0.04
 
 /obj/item/clothing/suit/hooded/wintercoat/security/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_wintercoat_allowed
 
 /obj/item/clothing/head/hooded/winterhood/security
+	armor = list(MELEE = 15,  BULLET = 15, LASER = 40, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 60, ACID = 45, STAMINA = 40)
 	icon_state = "winterhood_security"
 
 /obj/item/clothing/suit/hooded/wintercoat/detective
