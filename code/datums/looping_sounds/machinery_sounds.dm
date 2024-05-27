@@ -41,6 +41,13 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/looping_sound/grill
+	mid_sounds = list('sound/machines/grill/grillsizzle.ogg' = 1)
+	mid_length = 18
+	volume = 50
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/datum/looping_sound/deep_fryer
 	mid_length = 2
 	mid_sounds = list('sound/machines/fryer/deep_fryer_1.ogg' = 1, 'sound/machines/fryer/deep_fryer_2.ogg' = 1)
 	volume = 30
@@ -54,16 +61,6 @@
 	mid_length = 10
 	end_sound = 'sound/machines/microwave/microwave-end.ogg'
 	volume = 90
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/datum/looping_sound/bioscanner
-	start_sound = 'sound/machines/capacitor_charge.ogg'
-	start_length = 10
-	mid_sounds = list('sound/machines/microwave/microwave-mid1.ogg'=10, 'sound/machines/microwave/microwave-mid2.ogg'=1)
-	mid_length = 10
-	end_sound = 'sound/machines/capacitor_discharge.ogg'
-	volume = 50
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -393,7 +393,7 @@
 /area/ruin/powered/seedvault)
 "qR" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/stairs/left{
+/turf/open/floor/iron/stairs/left{
 	dir = 8
 	},
 /area/lavaland/surface/outdoors)
@@ -532,8 +532,8 @@
 /obj/item/honey_frame,
 /obj/item/honey_frame,
 /obj/item/queen_bee/bought,
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/utility/beekeeper_head,
+/obj/item/clothing/suit/utility/beekeeper_suit,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -768,7 +768,7 @@
 /area/ruin/powered/seedvault)
 "Gt" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel/stairs/right{
+/turf/open/floor/iron/stairs/right{
 	dir = 8
 	},
 /area/lavaland/surface/outdoors)
@@ -1404,8 +1404,8 @@
 /obj/item/honey_frame,
 /obj/item/honey_frame,
 /obj/item/queen_bee/bought,
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/utility/beekeeper_head,
+/obj/item/clothing/suit/utility/beekeeper_suit,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4

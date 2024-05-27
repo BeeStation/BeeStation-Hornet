@@ -93,6 +93,40 @@ There are several things that need to be remembered:
 		//damage overlays
 		update_damage_overlays()
 
+/mob/living/carbon/human/update_clothing(slot_flags)
+	if(slot_flags & ITEM_SLOT_BACK)
+		update_inv_back()
+	if(slot_flags & ITEM_SLOT_MASK)
+		update_inv_wear_mask()
+	if(slot_flags & ITEM_SLOT_NECK)
+		update_inv_neck()
+	if(slot_flags & ITEM_SLOT_HANDCUFFED)
+		update_inv_handcuffed()
+	if(slot_flags & ITEM_SLOT_LEGCUFFED)
+		update_inv_legcuffed()
+	if(slot_flags & ITEM_SLOT_BELT)
+		update_inv_belt()
+	if(slot_flags & ITEM_SLOT_ID)
+		update_inv_wear_id()
+	if(slot_flags & ITEM_SLOT_EARS)
+		update_inv_ears()
+	if(slot_flags & ITEM_SLOT_EYES)
+		update_inv_glasses()
+	if(slot_flags & ITEM_SLOT_GLOVES)
+		update_inv_gloves()
+	if(slot_flags & ITEM_SLOT_HEAD)
+		update_inv_head()
+	if(slot_flags & ITEM_SLOT_FEET)
+		update_inv_shoes()
+	if(slot_flags & ITEM_SLOT_OCLOTHING)
+		update_inv_wear_suit()
+	if(slot_flags & ITEM_SLOT_ICLOTHING)
+		update_inv_w_uniform()
+	if(slot_flags & ITEM_SLOT_SUITSTORE)
+		update_inv_s_store()
+	if(slot_flags & ITEM_SLOT_LPOCKET || slot_flags & ITEM_SLOT_RPOCKET)
+		update_inv_pockets()
+
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
 
@@ -123,10 +157,10 @@ There are several things that need to be remembered:
 
 		if(dna?.species.sexes)
 			if(dna.features["body_model"] == FEMALE && U.fitted != NO_FEMALE_UNIFORM)
-				uniform_overlay = U.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/clothing/uniform.dmi', isinhands = FALSE, femaleuniform = U.fitted, override_state = target_overlay)
+				uniform_overlay = U.build_worn_icon(src, default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/clothing/under/default.dmi', isinhands = FALSE, femaleuniform = U.fitted, override_state = target_overlay)
 
 		//Change check_adjustable_clothing.dm if you change this
-		var/icon_file = 'icons/mob/clothing/uniform.dmi'
+		var/icon_file = 'icons/mob/clothing/under/default.dmi'
 		if(!uniform_overlay)
 			if(U.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("uniform")
@@ -228,7 +262,7 @@ There are several things that need to be remembered:
 		glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
 	if(istype(glasses, /obj/item/clothing/glasses))
 		var/obj/item/clothing/glasses/G = glasses
-		var/icon_file = 'icons/mob/eyes.dmi'
+		var/icon_file = 'icons/mob/clothing/eyes.dmi'
 		if(G.sprite_sheets & (dna?.species.bodyflag))
 			icon_file = dna.species.get_custom_icons("glasses")
 		if(client && hud_used && hud_used.hud_shown)
@@ -259,7 +293,7 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(ears)
-		var/icon_file = 'icons/mob/ears.dmi'
+		var/icon_file = 'icons/mob/clothing/ears.dmi'
 		if(istype(ears, /obj/item))
 			var/obj/item/E = ears
 			if(E.sprite_sheets & (dna?.species.bodyflag))
@@ -292,7 +326,7 @@ There are several things that need to be remembered:
 				client.screen += wear_neck					//add it to the client's screen
 		update_observer_view(wear_neck,1)
 		if(!(check_obscured_slots() & ITEM_SLOT_NECK))
-			var/icon_file = 'icons/mob/neck.dmi'
+			var/icon_file = 'icons/mob/clothing/neck.dmi'
 			if(istype(wear_neck, /obj/item))
 				var/obj/item/N = wear_neck
 				if(N.sprite_sheets & dna?.species.bodyflag)
@@ -378,7 +412,9 @@ There are several things that need to be remembered:
 	update_mutant_bodyparts()
 	if(head)
 		update_hud_head(head)
-		var/icon_file = 'icons/mob/clothing/head.dmi'
+
+		var/icon_file = 'icons/mob/clothing/head/default.dmi'
+
 		if(istype(head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/HE = head
 			if(HE.sprite_sheets & (dna?.species.bodyflag))
@@ -430,7 +466,7 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(istype(wear_suit, /obj/item/clothing/suit))
-		var/icon_file = 'icons/mob/clothing/suit.dmi'
+		var/icon_file = 'icons/mob/clothing/suits/default.dmi'
 		var/obj/item/clothing/suit/S = wear_suit
 		if(S.sprite_sheets & (dna?.species.bodyflag))
 			icon_file = dna.species.get_custom_icons("suit")
@@ -492,7 +528,7 @@ There are several things that need to be remembered:
 
 	if(wear_mask)
 		update_hud_wear_mask(wear_mask)
-		var/icon_file = 'icons/mob/mask.dmi'
+		var/icon_file = 'icons/mob/clothing/mask.dmi'
 		if(istype(wear_mask, /obj/item/clothing/mask))
 			var/obj/item/clothing/mask/M = wear_mask
 			if(M.sprite_sheets & dna?.species.bodyflag)
@@ -519,6 +555,7 @@ There are several things that need to be remembered:
 	if(back)
 		update_hud_back(back)
 		var/icon_file = 'icons/mob/clothing/back.dmi'
+
 		if(istype(back, /obj/item))
 			var/obj/item/I = back
 			if(I.sprite_sheets & dna?.species.bodyflag)
