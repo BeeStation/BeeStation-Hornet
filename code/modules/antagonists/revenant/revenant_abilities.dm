@@ -205,7 +205,7 @@
 
 /obj/effect/proc_holder/spell/targeted/telepathy/revenant/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
-		if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, "<span class='warning'>It appears the target's mind is ironclad! No getting a message in there!</span>")
 			return
 		if(M.anti_magic_check(magic_check, holy_check)) //hear no evil

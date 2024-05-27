@@ -319,7 +319,7 @@
 // Mechs
 //====================================
 
-/turf/mech_melee_attack(obj/mecha/M)
+/turf/mech_melee_attack(obj/vehicle/sealed/mecha/M)
 	if (!can_hit)
 		return FALSE
 	M.do_attack_animation(src)

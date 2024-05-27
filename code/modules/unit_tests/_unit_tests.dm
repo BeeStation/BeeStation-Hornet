@@ -106,12 +106,12 @@
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
 #include "food_edibility_check.dm"
-#include "food_icons.dm"
 #include "greyscale_config.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
 #include "icon_smoothing_unit_test.dm"
 #include "metabolizing.dm"
+#include "missing_icons.dm"
 #include "ntnetwork_tests.dm"
 #include "preference_species.dm"
 #include "projectiles.dm"
@@ -126,6 +126,7 @@
 #include "unit_test.dm"
 #include "random_ruin_mapsize.dm"
 #include "walls_have_sheets.dm"
+#include "worn_icons.dm"
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "find_reference_sanity.dm"
