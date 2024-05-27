@@ -7,7 +7,7 @@
 /area/template_noop)
 "fQ" = (
 /obj/machinery/button/door{
-	id = "Cabin6";
+	id = "MaintCabin4";
 	name = "Cabin Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_y = -24;
@@ -27,7 +27,7 @@
 /area/template_noop)
 "hK" = (
 /obj/machinery/button/door{
-	id = "Cabin2";
+	id = "MaintCabin2";
 	name = "Cabin Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_y = 24;
@@ -65,11 +65,11 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/open/floor/plasteel/stairs/right,
+/turf/open/floor/iron/stairs/right,
 /area/template_noop)
 "nI" = (
 /obj/machinery/door/airlock{
-	id_tag = "Cabin3";
+	id_tag = "MaintCabin3";
 	name = "Cabin 3"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -91,7 +91,7 @@
 /area/template_noop)
 "rQ" = (
 /obj/machinery/door/airlock{
-	id_tag = "Cabin1";
+	id_tag = "MaintCabin1";
 	name = "Cabin 1"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -127,7 +127,7 @@
 /area/template_noop)
 "xz" = (
 /obj/machinery/door/airlock{
-	id_tag = "Cabin2";
+	id_tag = "MaintCabin2";
 	name = "Cabin 2"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -164,7 +164,6 @@
 "DB" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/dress/redeveninggown,
-/obj/item/clothing/head/rabbitears,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/carpet/red,
 /area/template_noop)
@@ -219,7 +218,7 @@
 /area/template_noop)
 "HI" = (
 /obj/machinery/button/door{
-	id = "Cabin5";
+	id = "MaintCabin3";
 	name = "Cabin Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_y = -24;
@@ -230,7 +229,7 @@
 /area/template_noop)
 "IR" = (
 /obj/machinery/button/door{
-	id = "Cabin3";
+	id = "MaintCabin1";
 	name = "Cabin Bolt Control";
 	normaldoorcontrol = 1;
 	pixel_y = 24;
@@ -271,7 +270,7 @@
 /area/template_noop)
 "Pj" = (
 /obj/machinery/door/airlock{
-	id_tag = "Cabin4";
+	id_tag = "MaintCabin4";
 	name = "Cabin 4"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
@@ -282,7 +281,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/stairs/right{
+/turf/open/floor/iron/stairs/right{
 	dir = 1
 	},
 /area/template_noop)
@@ -303,7 +302,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/stairs/left{
+/turf/open/floor/iron/stairs/left{
 	dir = 1
 	},
 /area/template_noop)
@@ -333,10 +332,11 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/stairs/left,
+/turf/open/floor/iron/stairs/left,
 /area/template_noop)
 "Wl" = (
 /obj/structure/table/wood,
+/obj/item/clothing/head/collectable/rabbitears,
 /turf/open/floor/carpet/purple,
 /area/template_noop)
 "Xb" = (

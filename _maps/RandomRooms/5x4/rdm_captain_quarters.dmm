@@ -43,7 +43,7 @@
 	pixel_y = 35
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 "p" = (
 /obj/effect/decal/cleanable/dirt,
@@ -89,10 +89,6 @@
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "F" = (
-/obj/item/pinpointer/nuke{
-	layer = 6;
-	pixel_y = 5
-	},
 /obj/structure/closet/secure_closet{
 	icon_state = "cap";
 	req_access = list(20);
@@ -161,7 +157,7 @@
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/iron/white,
 /area/template_noop)
 
 (1,1,1) = {"

@@ -14,7 +14,7 @@
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "h" = (
 /obj/structure/chair{
@@ -24,23 +24,23 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 5
 	},
 /area/template_noop)
 "j" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark/corner{
+/turf/open/floor/iron/dark/corner{
 	dir = 8
 	},
 /area/template_noop)
 "k" = (
-/turf/open/floor/plasteel/dark/corner{
+/turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
 /area/template_noop)
 "l" = (
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 5
 	},
 /area/template_noop)
@@ -48,14 +48,14 @@
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel/dark/corner{
+/turf/open/floor/iron/dark/corner{
 	dir = 8
 	},
 /area/template_noop)
 "n" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/dark/corner,
+/turf/open/floor/iron/dark/corner,
 /area/template_noop)
 "o" = (
 /obj/structure/chair{
@@ -66,7 +66,7 @@
 	},
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 9
 	},
 /area/template_noop)
@@ -74,18 +74,18 @@
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 6
 	},
 /area/template_noop)
 "s" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 1
 	},
 /area/template_noop)
 "t" = (
-/turf/open/floor/plasteel/dark/corner{
+/turf/open/floor/iron/dark/corner{
 	dir = 4
 	},
 /area/template_noop)
@@ -96,7 +96,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark/corner{
+/turf/open/floor/iron/dark/corner{
 	dir = 4
 	},
 /area/template_noop)
@@ -115,12 +115,12 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "w" = (
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 2
 	},
 /area/template_noop)
 "x" = (
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 10
 	},
 /area/template_noop)
@@ -131,23 +131,23 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 6
 	},
 /area/template_noop)
 "A" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark/corner{
+/turf/open/floor/iron/dark/corner{
 	dir = 4
 	},
 /area/template_noop)
 "B" = (
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 9
 	},
 /area/template_noop)
 "C" = (
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 1
 	},
 /area/template_noop)
@@ -159,7 +159,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 9
 	},
 /area/template_noop)
@@ -171,12 +171,12 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "F" = (
-/turf/open/floor/plasteel/dark/corner,
+/turf/open/floor/iron/dark/corner,
 /area/template_noop)
 "G" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 10
 	},
 /area/template_noop)
@@ -192,7 +192,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "J" = (
-/turf/open/floor/plasteel/dark/corner{
+/turf/open/floor/iron/dark/corner{
 	dir = 8
 	},
 /area/template_noop)
@@ -203,12 +203,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark/corner{
+/turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
 /area/template_noop)
 "L" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "N" = (
 /obj/structure/chair,
@@ -216,7 +216,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 10
 	},
 /area/template_noop)
@@ -229,18 +229,18 @@
 	},
 /obj/machinery/light,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 5
 	},
 /area/template_noop)
 "P" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/beacon,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Q" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark/corner{
+/turf/open/floor/iron/dark/corner{
 	dir = 1
 	},
 /area/template_noop)
@@ -258,7 +258,7 @@
 /area/template_noop)
 "T" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark/corner,
+/turf/open/floor/iron/dark/corner,
 /area/template_noop)
 "U" = (
 /obj/structure/window/reinforced{
@@ -270,7 +270,7 @@
 /area/template_noop)
 "V" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 2
 	},
 /area/template_noop)
@@ -303,7 +303,7 @@
 /area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark/side{
+/turf/open/floor/iron/dark/side{
 	dir = 6
 	},
 /area/template_noop)

@@ -76,7 +76,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
-/turf/open/floor/plasteel/stairs{
+/turf/open/floor/iron/stairs{
 	dir = 8
 	},
 /area/template_noop)

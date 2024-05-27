@@ -8,7 +8,7 @@
 	name = "Toilet Unit 1"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "s" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -17,7 +17,7 @@
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil/slippery,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "t" = (
 /obj/structure/curtain,
@@ -39,7 +39,7 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/greenglow,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "C" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -50,7 +50,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "F" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -59,7 +59,7 @@
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "H" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -73,7 +73,7 @@
 	pixel_y = 35
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "L" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -101,7 +101,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/leaper_sludge,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "O" = (
 /obj/structure/curtain,
@@ -118,7 +118,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "W" = (
 /turf/closed/wall,
@@ -148,7 +148,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 
 (1,1,1) = {"

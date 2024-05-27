@@ -39,7 +39,7 @@
 	name = "syringe (morphine)";
 	desc = "Contains morphine."
 	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "fM" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -52,7 +52,7 @@
 "gS" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "jF" = (
 /obj/structure/chair/fancy/comfy{
@@ -97,11 +97,11 @@
 /area/template_noop)
 "oD" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "oO" = (
 /obj/machinery/door/airlock/maintenance/glass,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "pq" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -111,7 +111,7 @@
 	pixel_x = 5;
 	pixel_y = -6
 	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "pD" = (
 /obj/effect/mapping_helpers/dead_body_placer/maint_fridge,
@@ -124,7 +124,7 @@
 	id = "organ_harvesting_backroom"
 	},
 /obj/item/restraints/handcuffs/cable/zipties/used,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "qK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -161,7 +161,7 @@
 /obj/effect/decal/cleanable/blood/bubblegum,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/very_dim/directional/north,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "xL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -177,7 +177,7 @@
 	},
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "yq" = (
 /obj/structure/chair/fancy/comfy{
@@ -214,7 +214,7 @@
 /obj/effect/spawner/lootdrop/organ_spawner,
 /obj/effect/spawner/lootdrop/organ_spawner,
 /obj/effect/spawner/lootdrop/organ_spawner,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Bx" = (
 /obj/item/clothing/neck/tie/red,
@@ -240,7 +240,7 @@
 	id_tag = "organ_harvesting_backroom"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "Ik" = (
 /obj/item/reagent_containers/food/drinks/bottle/molotov{
@@ -317,7 +317,7 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Qm" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -328,7 +328,7 @@
 "QB" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Rx" = (
 /obj/machinery/computer/security{
@@ -354,7 +354,7 @@
 /area/template_noop)
 "Vo" = (
 /obj/machinery/door/airlock/maintenance,
-/turf/open/floor/plasteel,
+/turf/open/floor/iron,
 /area/template_noop)
 "VO" = (
 /obj/structure/table/glass,
@@ -379,7 +379,7 @@
 	pixel_x = 7
 	},
 /obj/item/crowbar,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "XC" = (
 /obj/machinery/computer/crew{

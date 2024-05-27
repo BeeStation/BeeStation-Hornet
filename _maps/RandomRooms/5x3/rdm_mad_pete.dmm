@@ -15,7 +15,7 @@
 	dir = 1
 	},
 /obj/effect/trap/nexus/doorbolt,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "d" = (
 /obj/structure/closet/secure_closet/freezer/meat,
@@ -33,11 +33,11 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "g" = (
 /obj/machinery/food_cart,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "h" = (
 /obj/structure/closet/secure_closet/freezer/meat,
@@ -53,19 +53,19 @@
 /obj/item/food/meat/slab/human/mutant/apid,
 /obj/item/food/meat/slab/human/mutant/apid,
 /obj/item/stack/sheet/animalhide/lizard,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "j" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "m" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8;
 	pixel_y = 8
 	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "w" = (
 /obj/effect/decal/cleanable/blood/tracks{
@@ -73,7 +73,7 @@
 	pixel_y = 8
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "x" = (
 /obj/effect/decal/cleanable/blood/footprints,
@@ -81,7 +81,7 @@
 	dir = 1
 	},
 /obj/effect/trap/trigger/reusable,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "A" = (
 /obj/effect/decal/cleanable/blood/tracks{
@@ -89,28 +89,28 @@
 	pixel_y = 8
 	},
 /obj/effect/trap/trigger/reusable,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "F" = (
 /obj/machinery/gibber,
 /obj/effect/decal/cleanable/blood/gibs,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "K" = (
 /obj/effect/decal/cleanable/blood/gibs,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/trap/trigger/reusable,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "L" = (
 /obj/structure/kitchenspike{
 	contents = list(/obj/effect/mob_spawn/human)
 	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "R" = (
 /obj/structure/reagent_dispensers/cooking_oil,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 "Z" = (
 /obj/effect/decal/cleanable/blood/tracks{
@@ -119,7 +119,7 @@
 	},
 /obj/item/stack/sheet/animalhide/monkey,
 /obj/effect/trap/trigger/reusable,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/iron/freezer,
 /area/template_noop)
 
 (1,1,1) = {"
