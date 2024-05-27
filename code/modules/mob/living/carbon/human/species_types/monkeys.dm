@@ -60,7 +60,7 @@
 
 /datum/species/monkey/spec_unarmedattack(mob/living/carbon/human/user, atom/target)
 	. = ..()
-	if(user.restrained())
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(!iscarbon(target))
 			return TRUE
 		var/mob/living/carbon/victim = target
