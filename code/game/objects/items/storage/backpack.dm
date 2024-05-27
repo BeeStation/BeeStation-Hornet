@@ -480,7 +480,10 @@
 						/obj/item/organ/eyes/robotic/shield)
 	for(var/i in 1 to 4)
 		var/ctype = pick(implants)
+		implants -= ctype
 		new ctype(src)
+		/datum/techweb_node/base.design_ids += ctype
+	qdel(implants)
 
 /obj/item/storage/backpack/duffelbag/sec
 	name = "security duffel bag"
