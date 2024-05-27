@@ -18,7 +18,7 @@
 	throw_speed = 3
 	throw_range = 5
 	force = 5
-	item_flags = NEEDS_PERMIT
+	item_flags = NEEDS_PERMIT || ISWEAPON
 	attack_verb_continuous = list("strikes", "hits", "bashes")
 	attack_verb_simple = list("strike", "hit", "bash")
 
@@ -76,6 +76,9 @@
 	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
 	var/zoom_out_amt = 0
 	var/datum/action/toggle_scope_zoom/azoom
+
+	var/automatic = 0 //can gun use it, 0 is no, anything above 0 is the delay between clicks in ds
+
 	var/fire_rate = null //how many times per second can a gun fire? default is 2.5
 	//Autofire
 	var/atom/autofire_target = null //What are we aiming at? This will change if you move your mouse whilst spraying.
@@ -313,7 +316,7 @@
 				return
 		// On simplified mode, contextually determine if we want to suicide them
 		// If the target is ourselves, they are buckled, restrained or lying down then suicide them
-		else if(user.is_zone_selected(BODY_ZONE_HEAD) && istype(living_target) && (user == target || living_target.restrained() || living_target.buckled || living_target.IsUnconscious()))
+		else if(user.is_zone_selected(BODY_ZONE_HEAD) && istype(living_target) && (user == target || HAS_TRAIT(living_target, TRAIT_HANDS_BLOCKED) || living_target.buckled || living_target.IsUnconscious()))
 			handle_suicide(user, target, params)
 			return
 
@@ -667,7 +670,7 @@
 
 /datum/action/toggle_scope_zoom
 	name = "Toggle Scope"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_LYING
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null

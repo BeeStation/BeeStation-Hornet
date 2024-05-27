@@ -41,7 +41,7 @@
 	ui_interact(user)
 
 /obj/item/instrument/ui_interact(mob/living/user)
-	if(!isliving(user) || user.stat || (user.restrained() && !ispAI(user)))
+	if((!isliving(user) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) && !ispAI(user))
 		return
 
 	user.set_machine(src)
