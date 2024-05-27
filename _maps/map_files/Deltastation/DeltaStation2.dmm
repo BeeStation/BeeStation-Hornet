@@ -44480,7 +44480,7 @@
 /area/crew_quarters/locker)
 "kEF" = (
 /obj/structure/closet/secure_closet/security/engine,
-/obj/machinery/door_timer{
+/obj/machinery/status_display/door_timer{
 	id = "engcell";
 	name = "Engineering Cell";
 	pixel_x = 32;
