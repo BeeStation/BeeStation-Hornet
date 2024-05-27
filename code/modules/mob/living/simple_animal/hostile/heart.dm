@@ -21,7 +21,7 @@
 	attacktext = "beats"
 	ventcrawler = VENTCRAWLER_ALWAYS
 	attack_sound = 'sound/effects/singlebeat.ogg'
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	attack_same = 1
 	gold_core_spawnable = HOSTILE_SPAWN
 	see_in_dark = 8

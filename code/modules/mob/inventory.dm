@@ -227,21 +227,21 @@
 
 	// If the item is a stack and we're already holding a stack then merge
 	if (istype(I, /obj/item/stack))
-		var/obj/item/stack/I_stack = I
+		var/obj/item/stack/item_stack = I
 		var/obj/item/stack/active_stack = get_active_held_item()
 
-		if (I_stack.zero_amount())
+		if (item_stack.is_zero_amount(delete_if_zero = TRUE))
 			return FALSE
 
 		if (merge_stacks)
-			if (istype(active_stack) && active_stack.can_merge(I_stack))
-				if (I_stack.merge(active_stack))
+			if (istype(active_stack) && active_stack.can_merge(item_stack))
+				if (item_stack.merge(active_stack))
 					to_chat(usr, "<span class='notice'>Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.singular_name]\s.</span>")
 					return TRUE
 			else
 				var/obj/item/stack/inactive_stack = get_inactive_held_item()
-				if (istype(inactive_stack) && inactive_stack.can_merge(I_stack))
-					if (I_stack.merge(inactive_stack))
+				if (istype(inactive_stack) && inactive_stack.can_merge(item_stack))
+					if (item_stack.merge(inactive_stack))
 						to_chat(usr, "<span class='notice'>Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s.</span>")
 						return TRUE
 
@@ -296,7 +296,7 @@
 	. = doUnEquip(I, force, drop_location(), FALSE, silent = silent)
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
-	if(!(I.item_flags & NO_PIXEL_RANDOM_DROP) && !(I.item_flags & WAS_THROWN))
+	if(!(I.item_flags & NO_PIXEL_RANDOM_DROP))
 		I.pixel_x = rand(-6, 6)
 		I.pixel_y = rand(-6, 6)
 	I.do_drop_animation(src)
@@ -426,8 +426,8 @@
 	return obscured
 
 
-/obj/item/proc/equip_to_best_slot(mob/M)
-	if(src != M.get_active_held_item())
+/obj/item/proc/equip_to_best_slot(mob/M, swap = FALSE, check_hand = TRUE)
+	if(check_hand && src != M.get_active_held_item())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
 		return FALSE
 

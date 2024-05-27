@@ -77,7 +77,7 @@
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
 	if(I.use_tool(src, user, 1 SECONDS, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
-		setAnchored(!anchored)
+		set_anchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
 
@@ -140,6 +140,6 @@
 	layer = ABOVE_MOB_LAYER
 
 /obj/structure/railing/sec/corner
-	icon_state = "sec_railing_corner"
+	icon_state = "railing_corner"
 	density = FALSE
 	climbable = FALSE

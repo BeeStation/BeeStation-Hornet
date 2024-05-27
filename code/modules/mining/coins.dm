@@ -171,7 +171,6 @@
 
 /obj/item/coin/arcade_token
 	name = "arcade token"
-	icon_state = "coin_bananium_heads"
 	custom_materials = list(/datum/material/bananium = 400)
 	desc = "A coin that allows you to redeem a prize from an arcade machine."
 	value = 0

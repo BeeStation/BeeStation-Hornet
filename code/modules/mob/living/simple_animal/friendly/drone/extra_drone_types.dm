@@ -109,4 +109,4 @@
 
 /mob/living/simple_animal/drone/derelict
 	name = "derelict drone"
-	default_hatmask = /obj/item/clothing/head/ushanka
+	default_hatmask = /obj/item/clothing/head/costume/ushanka
