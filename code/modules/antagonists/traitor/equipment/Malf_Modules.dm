@@ -782,7 +782,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		else
 			apc.overload++
 	owner.log_message("activated malf module [name]", LOG_GAME)
-	desc = "[initial(desc)] There are [uses] reactivations remaining."
+	desc = "[initial(desc)] There are [uses - 1] reactivations remaining."
 	owner_AI.update_action_buttons()
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
 	owner.playsound_local(owner, "sparks", 50, 0)
@@ -948,7 +948,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	var/datum/round_event/event_announcement = new event_control.typepath()
 	event_announcement.kill()
 	event_announcement.announce(TRUE)
-	desc = "[initial(desc)] There are [uses] reactivations remaining."
+	desc = "[initial(desc)] There are [uses - 1] reactivations remaining."
 	owner_AI.update_action_buttons()
 	owner.log_message("activated malf module [name] (TYPE: [chosen_event])", LOG_GAME)
 	return TRUE
