@@ -179,9 +179,6 @@
 		return TRUE
 	return FALSE
 
-/mob/living/carbon/restrained(ignore_grab)
-	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_NECK))
-
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
 
@@ -218,7 +215,7 @@
 		return FALSE
 
 /mob/living/carbon/resist_buckle()
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
 		changeNext_move(CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
 		var/buckle_cd = 600
@@ -299,7 +296,7 @@
 /mob/living/carbon/proc/uncuff()
 	if (handcuffed)
 		var/obj/item/W = handcuffed
-		handcuffed = null
+		set_handcuffed(null)
 		if (buckled && buckled.buckle_requires_restraints)
 			buckled.unbuckle_mob(src)
 		update_handcuffed()
@@ -341,7 +338,7 @@
 	else
 		if(I == handcuffed)
 			handcuffed.forceMove(drop_location())
-			handcuffed = null
+			set_handcuffed(null)
 			I.dropped(src)
 			if(buckled && buckled.buckle_requires_restraints)
 				buckled.unbuckle_mob(src)
@@ -821,7 +818,7 @@
 		suiciding = FALSE
 		regenerate_limbs()
 		regenerate_organs()
-		handcuffed = initial(handcuffed)
+		set_handcuffed(null)
 		for(var/obj/item/restraints/R in contents) //actually remove cuffs from inventory
 			qdel(R)
 		update_handcuffed()
@@ -1139,3 +1136,17 @@
 	if(update_icon)
 		update_body()
 		update_body_parts(TRUE)
+
+/// Modifies the handcuffed value if a different value is passed, returning FALSE otherwise. The variable should only be changed through this proc.
+/mob/living/carbon/proc/set_handcuffed(new_value)
+	if(handcuffed == new_value)
+		return FALSE
+	. = handcuffed
+	handcuffed = new_value
+	if(.)
+		if(!handcuffed)
+			REMOVE_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, HANDCUFFED_TRAIT)
+	else if(handcuffed)
+		ADD_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
+		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, HANDCUFFED_TRAIT)
