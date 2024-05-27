@@ -436,7 +436,7 @@
 			if(istype(anti_magic_source, /obj/item))
 				target.visible_message("<span class='warning'>[L] is utterly unphased by your utterance!</span>", \
 									   "<span class='userdanger'>[GLOB.deity] protects you from the heresy of [user]!</span>")
-		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 			to_chat(user, "<span class='cultitalic'>[L] falls to the ground, gibbering madly!</span>")
 			L.Paralyze(160)
 			L.flash_act(1,1)
@@ -522,7 +522,7 @@
 								"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
 		if(do_after(user, 3 SECONDS, C))
 			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
+				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
 				C.update_handcuffed()
 				C.silent += 5
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
@@ -664,8 +664,8 @@
 		var/mob/living/carbon/C = target
 		C.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [C]!</span>")
 		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black,ITEM_SLOT_ICLOTHING)
-		C.equip_to_slot_or_del(new /obj/item/clothing/suit/cultrobes/alt(user), ITEM_SLOT_OCLOTHING)
-		C.equip_to_slot_or_del(new /obj/item/clothing/head/culthood/alt(user), ITEM_SLOT_HEAD)
+		C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_OCLOTHING)
+		C.equip_to_slot_or_del(new /obj/item/clothing/head/hooded/cult_hoodie/alt(user), ITEM_SLOT_HEAD)
 		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult/alt(user), ITEM_SLOT_FEET)
 		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
 		if(C == user)

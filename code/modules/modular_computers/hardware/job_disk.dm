@@ -30,9 +30,11 @@
 	if(disk_flags & DISK_POWER)
 		progs_to_store += new /datum/computer_file/program/power_monitor(src)
 		progs_to_store += new /datum/computer_file/program/supermatter_monitor(src)
+		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
 
 	if(disk_flags & DISK_ATMOS)
 		progs_to_store += new /datum/computer_file/program/atmosscan(src)
+		progs_to_store += new /datum/computer_file/program/alarm_monitor(src)
 
 	if(disk_flags & DISK_SEC)
 		progs_to_store += new /datum/computer_file/program/records/security(src)
@@ -40,14 +42,15 @@
 	if(disk_flags & DISK_JANI)
 		progs_to_store += new /datum/computer_file/program/radar/custodial_locator(src)
 
-	if(disk_flags & DISK_MED)
-		progs_to_store += new /datum/computer_file/program/records/medical(src)
-
-	if((disk_flags & DISK_CHEM) || (disk_flags & DISK_POWER) || (disk_flags & DISK_ATMOS))
+	if((disk_flags & DISK_CHEM) || (disk_flags & DISK_MED) || (disk_flags & DISK_POWER) || (disk_flags & DISK_ATMOS))
 		var/datum/computer_file/program/phys_scanner/scanner = new(src)
 
 		if(disk_flags & DISK_CHEM)
 			scanner.available_modes += DISK_CHEM
+
+		if(disk_flags & DISK_MED)
+			progs_to_store += new /datum/computer_file/program/records/medical(src)
+			scanner.available_modes += DISK_MED
 
 		if(disk_flags & DISK_POWER)
 			scanner.available_modes += DISK_POWER

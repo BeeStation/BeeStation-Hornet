@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 /obj/docking_port/has_gravity(turf/T)
 	return FALSE
 
-/obj/docking_port/take_damage()
+/obj/docking_port/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	return
 
 /obj/docking_port/singularity_pull()
@@ -773,7 +773,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		var/turf/T = t
 		for(var/mob/living/M in T.GetAllContents())
 			// If they have a mind and they're not in the brig, they escaped
-			if(M.mind && !istype(t, /turf/open/floor/plasteel/shuttle/red) && !istype(t, /turf/open/floor/mineral/plastitanium/red/brig))
+			if(M.mind && !istype(t, /turf/open/floor/iron/shuttle/red) && !istype(t, /turf/open/floor/mineral/plastitanium/red/brig))
 				M.mind.force_escaped = TRUE
 			// Ghostize them and put them in nullspace stasis (for stat & possession checks)
 			M.notransform = TRUE

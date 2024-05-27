@@ -45,7 +45,7 @@
 /area/survivalpod)
 "m" = (
 /obj/machinery/power/solar,
-/turf/open/floor/plasteel/airless/solarpanel,
+/turf/open/floor/iron/airless/solarpanel,
 /area/template_noop)
 "n" = (
 /obj/structure/bed/pod,

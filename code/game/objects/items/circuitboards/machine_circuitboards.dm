@@ -627,13 +627,6 @@
 
 //Medical
 
-/obj/item/circuitboard/machine/bioscanner
-	name = "Bioscanner (Machine Board)"
-	icon_state = "medical"
-	build_path = /obj/machinery/bioscanner
-	req_components = list(
-		/obj/item/stock_parts/scanning_module = 1,
-		/obj/item/stock_parts/micro_laser = 1)
 
 /obj/item/circuitboard/machine/chem_dispenser
 	name = "chem dispenser (Machine Board)"
@@ -1064,6 +1057,13 @@
 	req_components = list(/obj/item/stock_parts/micro_laser = 1)
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/griddle
+	name = "circuit board (Griddle)"
+	icon_state = "service"
+	build_path = /obj/machinery/griddle
+	req_components = list(/obj/item/stock_parts/micro_laser = 1)
+	needs_anchored = FALSE
+
 /obj/item/circuitboard/machine/dish_drive
 	name = "dish drive (Machine Board)"
 	icon_state = "service"
@@ -1284,6 +1284,13 @@
 
 //Misc
 
+/obj/item/circuitboard/machine/sheetifier
+	name = "Sheet-meister 2000 (Machine Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/sheetifier
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/matter_bin = 2)
 
 /obj/item/circuitboard/machine/abductor
 	name = "alien board (Report This)"

@@ -206,6 +206,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "rubberducky"
 	item_state = "rubberducky"
+	worn_icon_state = "duck"
 
 
 /obj/structure/sink

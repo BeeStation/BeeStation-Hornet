@@ -10,7 +10,7 @@
 	if(iscarbon(loc))
 		var/mob/living/carbon/M = loc
 		if(M.handcuffed == src)
-			M.handcuffed = null
+			M.set_handcuffed(null)
 			M.update_handcuffed()
 			if(M.buckled?.buckle_requires_restraints)
 				M.buckled.unbuckle_mob(M)
@@ -27,6 +27,8 @@
 	gender = PLURAL
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "handcuff"
+	item_state = "handcuff"
+	worn_icon_state = "handcuff"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -87,21 +89,12 @@
 		cuffs = new type()
 
 	cuffs.forceMove(target)
-	target.handcuffed = cuffs
+	target.set_handcuffed(cuffs)
 
 	target.update_handcuffed()
 	if(trashtype && !dispense)
 		qdel(src)
 	return
-
-/obj/item/restraints/handcuffs/cable/sinew
-	name = "sinew restraints"
-	desc = "A pair of restraints fashioned from long strands of flesh."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "sinewcuff"
-	item_state = "sinewcuff"
-	custom_materials = null
-	color = null
 
 /obj/item/restraints/handcuffs/cable
 	name = "cable restraints"
@@ -139,13 +132,22 @@
 /obj/item/restraints/handcuffs/cable/white
 	color = null
 
+/obj/item/restraints/handcuffs/cable/sinew
+	name = "sinew restraints"
+	desc = "A pair of restraints fashioned from long strands of flesh."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "sinewcuff"
+	item_state = "sinewcuff"
+	custom_materials = null
+	color = null
+
 /obj/item/restraints/handcuffs/alien
 	icon_state = "handcuffAlien"
 
 /obj/item/restraints/handcuffs/fake
 	name = "fake handcuffs"
 	desc = "Fake handcuffs meant for gag purposes."
-	breakouttime = 10 //Deciseconds = 1s
+	breakouttime = 1 SECONDS
 
 /obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
 	..()
@@ -240,11 +242,12 @@
 	return BRUTELOSS
 
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
-	..()
-	if(ishuman(user) && !user.stat && !user.restrained())
-		armed = !armed
-		update_appearance()
-		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
+	. = ..()
+	if(!ishuman(user) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	armed = !armed
+	update_appearance()
+	to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
 /obj/item/restraints/legcuffs/beartrap/proc/close_trap()
 	armed = FALSE

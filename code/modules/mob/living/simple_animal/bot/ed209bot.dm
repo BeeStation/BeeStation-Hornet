@@ -45,8 +45,6 @@
 	var/cell_type = /obj/item/stock_parts/cell
 	var/vest_type = /obj/item/clothing/suit/armor/vest
 
-	do_footstep = TRUE
-
 /mob/living/simple_animal/bot/ed209/Initialize(mapload,created_name,created_lasercolor)
 	. = ..()
 	if(created_name)
@@ -569,7 +567,7 @@
 	if(!on || !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
 		return
 	if(!C.handcuffed)
-		C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
+		C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
 		C.update_handcuffed()
 		playsound(src, "law", 50, 0)
 		back_to_idle()

@@ -199,7 +199,7 @@
 /datum/outfit/revolutionary
 	name = "Revolutionary (Preview only)"
 	uniform = /obj/item/clothing/under/costume/soviet
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/costume/ushanka
 	gloves = /obj/item/clothing/gloves/color/black
 	l_hand = /obj/item/spear
 	r_hand = /obj/item/assembly/flash
@@ -327,7 +327,7 @@
 	name = "Incursionist (Preview only)"
 	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
-	head = /obj/item/clothing/head/ushanka
+	head = /obj/item/clothing/head/costume/ushanka
 	mask = null
 
 /datum/role_preference/antagonist/gangster
@@ -341,7 +341,7 @@
 	name = "Gangster (Preview only)"
 	head = /obj/item/clothing/head/beanie/black
 	uniform = /obj/item/clothing/under/syndicate/combat
-	suit = /obj/item/clothing/suit/jacket
+	suit = /obj/item/clothing/suit/jacket/bomber
 
 /datum/role_preference/antagonist/nuclear_operative
 	name = "Nuclear Operative"
