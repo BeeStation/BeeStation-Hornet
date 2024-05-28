@@ -85,7 +85,8 @@
 				/turf/open/floor/grass,
 				/turf/open/space,
 				/turf/open/lava,
-				/turf/open/chasm))
+				/turf/open/chasm,
+				/turf/open/openspace))
 			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
 				continue
 			else
