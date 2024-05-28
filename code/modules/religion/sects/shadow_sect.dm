@@ -403,6 +403,8 @@
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
 		obs.LateInitialize()
 	if(user.mind.is_murderbone())
+		priority_announce("May our lord, [GLOB.deity], have mercy on your soul as darkness reigns apon you all.", "Faith Alert", SSstation.announcer.get_rand_alert_sound())
+		sleep(150)
 		for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
 			var/obelisk_turf = get_turf(obs)
 			for(var/i in 1 to 3)
