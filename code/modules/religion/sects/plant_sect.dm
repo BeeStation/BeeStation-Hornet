@@ -8,7 +8,7 @@
 	desired_items = list(
 		/obj/item/seeds)
 	rites_list = list(
-		/datum/religion_rites/create_podperson,
+		/datum/religion_rites/create_diona,
 		/datum/religion_rites/create_sandstone,
 		/datum/religion_rites/grass_generator,
 		/datum/religion_rites/summon_animals)
@@ -190,7 +190,7 @@
 		new /obj/structure/destructible/religion/nature_pylon(T)
 	return ..()
 
-/datum/religion_rites/create_podperson
+/datum/religion_rites/create_diona
 	name = "Nature Conversion"
 	desc = "Convert a human-esque individual into a being of nature. Buckle a human to convert them, otherwise it will convert you."
 	ritual_length = 30 SECONDS
@@ -201,7 +201,7 @@
 	invoke_msg = "... May the grass be greener on the other side, show us what it means to be one with nature!!"
 	favor_cost = 300
 
-/datum/religion_rites/create_podperson/perform_rite(mob/living/user, atom/religious_tool)
+/datum/religion_rites/create_diona/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
 		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 		return FALSE
@@ -220,7 +220,7 @@
 		to_chat(user,"<span class='warning'>You're going to convert yourself with this ritual.</span>")
 	return ..()
 
-/datum/religion_rites/create_podperson/invoke_effect(mob/living/user, atom/religious_tool)
+/datum/religion_rites/create_diona/invoke_effect(mob/living/user, atom/religious_tool)
 	..()
 	if(!ismovable(religious_tool))
 		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")

@@ -31,13 +31,13 @@
 	inert_mutation = DRONE
 
 	mutanteyes = /obj/item/organ/eyes/diona //SS14 sprite
-	mutanttongue = /obj/item/organ/tongue/diona //placeholder sprite
+	mutanttongue = /obj/item/organ/tongue/diona //Dungeon's sprite
 	mutant_brain = /obj/item/organ/brain/diona //SS14 sprite
-	mutantliver = /obj/item/organ/liver/diona //placeholder sprite
-	mutantlungs = /obj/item/organ/lungs/diona //placeholder sprite
+	mutantliver = /obj/item/organ/liver/diona //Dungeon's sprite
+	mutantlungs = /obj/item/organ/lungs/diona //Dungeon's sprite
 	mutantstomach = /obj/item/organ/stomach/diona //SS14 sprite
 	mutantears = /obj/item/organ/ears/diona //SS14 sprite
-	mutant_heart = /obj/item/organ/heart/diona //placeholder sprite
+	mutant_heart = /obj/item/organ/heart/diona //Dungeon's sprite
 	mutant_organs = list()
 
 	species_chest = /obj/item/bodypart/chest/diona
@@ -47,7 +47,7 @@
 	species_l_leg = /obj/item/bodypart/l_leg/diona
 	species_r_leg = /obj/item/bodypart/r_leg/diona
 
-	var/datum/action/diona/split/SplitAbility //All dionae start with this.
+	var/datum/action/diona/split/split_ability //All dionae start with this.
 
 /datum/species/diona/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
@@ -69,6 +69,12 @@
 	if(H.fire_stacks < 1)
 		H.adjust_fire_stacks(1) //VERY flammable
 
+/datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
+	//var/datum/mind/M = H.mind
+	//if(!M)
+	return //TO DO: Fix the bug that causes the dionae's mind to go into nullspace when the original body is gone and the mind is in the drone
+
+
 /datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	. = FALSE
 	var/radiation = H.radiation
@@ -78,7 +84,7 @@
 		H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 	if(radiation > 50)
 		H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
-		H.adjustToxLoss(-1)
+		H.adjustToxLoss(-2)
 		H.adjustOxyLoss(-1)
 
 /datum/species/diona/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
@@ -102,7 +108,7 @@
 		H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
 
 /datum/species/diona/spec_death(gibbed, mob/living/carbon/human/H)
-	SplitAbility.Trigger(TRUE)
+	split_ability.Trigger(TRUE)
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -110,12 +116,12 @@
 	if(appendix)
 		appendix.Remove(H)
 		QDEL_NULL(appendix)
-	SplitAbility = new
-	SplitAbility.Grant(H)
+	split_ability = new
+	split_ability.Grant(H)
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
-	SplitAbility.Remove(H)
+	split_ability.Remove(H)
 
 /datum/species/diona/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.diona_names)]"
@@ -126,8 +132,8 @@
 	name = "Split"
 	desc = "Split into your seperate nymphs."
 	background_icon_state = "bg_default"
-	icon_icon = 'icons/mob/actions/actions_genetic.dmi' // TO DO: Add icons for evolving
-	button_icon_state = "default"
+	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	button_icon_state = "split"
 	var/Activated = FALSE
 
 /datum/action/diona/split/Trigger(special)
@@ -136,28 +142,33 @@
 	if(!isdiona(user))
 		return FALSE
 	if(special)
-		split(FALSE, user) //This runs when you are dead.
+		fakeDeath(FALSE, user) //This runs when you are dead.
 	if(user.incapacitated())
 		return FALSE
+	if(alert("Are we sure we wish to kill ourselves and split into seperated nymphs?",,"Yes", "No") != "Yes")
+		return
 	if(do_after(user, 5 SECONDS, user, NONE, TRUE))
-		split(FALSE, user) //This runs when you manually activate the ability.
+		fakeDeath(FALSE, user) //This runs when you manually activate the ability.
 
-/datum/action/diona/split/proc/split(gibbed, mob/living/carbon/human/H)
-	H.death() //Ha ha, we're totally dead right now
-	sleep(50) //or are we?
+/datum/action/diona/split/proc/fakeDeath(gibbed, var/mob/living/carbon/H)
 	if(Activated)
 		return
 	Activated = TRUE
+	H.death() //Ha ha, we're totally dead right now
+	addtimer(CALLBACK(src, PROC_REF(split), gibbed, H), 5 SECONDS, TIMER_DELETE_ME) //Or are we?
+
+/datum/action/diona/split/proc/split(gibbed, var/mob/living/carbon/H)
 	var/datum/mind/M = H.mind
 	for (var/amount = 0, amount < NPC_NYMPH_SPAWN_AMOUNT, amount++) //Spawn the NPC nymphs
 		new /mob/living/simple_animal/nymph(H.loc)
 	var/mob/living/simple_animal/nymph/nymph = new(H.loc) //Spawn the player nymph
-	for(var/obj/item/I in H.contents)
+	for(var/obj/item/I in H.contents) //Drop the player's items on the ground
 		H.dropItemToGround(I, TRUE)
 		I.pixel_x = rand(-10, 10)
 		I.pixel_y = rand(-10, 10)
 	nymph.origin = M
 	nymph.old_name = H.real_name
+	nymph.features = H.dna.features
 	if(nymph.origin)
 		nymph.origin.active = 1
 		nymph.origin.transfer_to(nymph) //Move the player's mind to the player nymph
