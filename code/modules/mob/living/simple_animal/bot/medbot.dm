@@ -572,6 +572,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		..()
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		set_patient(C)
