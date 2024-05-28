@@ -64,7 +64,7 @@ SUBSYSTEM_DEF(research)
 				bitcoins[i] = bitcoins[i]? bitcoins[i] + result[i] : result[i]
 	else
 		for(var/obj/machinery/rnd/server/miner in servers)
-			if(miner.working)
+			if(!miner.machine_stat)
 				bitcoins = single_server_income.Copy()
 				break			//Just need one to work.
 	if (!isnull(last_income))
@@ -78,7 +78,7 @@ SUBSYSTEM_DEF(research)
 /datum/controller/subsystem/research/proc/calculate_server_coefficient()	//Diminishing returns.
 	var/list/obj/machinery/rnd/server/active = new()
 	for(var/obj/machinery/rnd/server/miner in servers)
-		if(miner.working)
+		if(!miner.machine_stat)
 			active.Add(miner)
 	var/amt = active.len
 	if(!amt)

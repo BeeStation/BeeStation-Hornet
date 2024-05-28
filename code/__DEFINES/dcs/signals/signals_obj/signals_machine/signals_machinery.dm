@@ -23,3 +23,8 @@
 
 /// from /obj/machinery/atmospherics/components/unary/cryo_cell/set_on(bool): (on)
 #define COMSIG_CRYO_SET_ON "cryo_set_on"
+
+// /datum/component/server signals
+
+// from //datum/component/server/proc/overheated(is_overheated): (is_overheated)
+#define COMSIG_MACHINERY_OVERHEAT_CHANGE "machinery_overheated"

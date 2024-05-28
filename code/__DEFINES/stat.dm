@@ -18,6 +18,7 @@
 #define MAINT		(1<<2)	// under maintenance
 #define EMPED		(1<<3)	// temporary broken by EMP pulse
 #define OVERHEATED	(1<<4)	// overheated
+#define TURNED_OFF	(1<<5)	// turned off
 
 //ai power requirement defines
 #define POWER_REQ_ALL 1
