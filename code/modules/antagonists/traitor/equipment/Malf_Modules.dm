@@ -191,7 +191,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
 						temp = "Additional use[action.uses > 1 ? "s" : ""] added to [action.name]!"
-						action.button.desc = "[initial(action.button.desc)] There are [action.uses] reactivations remaining."
+						action.desc = "[initial(action.button.desc)] There are [action.uses] reactivations remaining."
 						A.update_action_buttons()
 						A.log_message("purchased malf module [AM.module_name] (NEW USES: [action.uses]) (NEW PROCESSING: [processing_time - AM.cost])", LOG_GAME)
 			processing_time -= AM.cost
