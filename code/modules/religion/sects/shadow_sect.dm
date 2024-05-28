@@ -7,7 +7,7 @@
 	tgui_icon = "moon"
 	alignment = ALIGNMENT_EVIL
 	favor = 100 //Starts off with enough favor to make an obelisk
-	max_favor = 25000
+	max_favor = 50000
 	desired_items = list(
 		/obj/item/flashlight)
 	rites_list = list(
@@ -16,11 +16,12 @@
 		/datum/religion_rites/shadow_conversion,
 		/datum/religion_rites/shadow_blessing,
 		/datum/religion_rites/shadow_eyes,
-		/datum/religion_rites/summon_faithful)
+		/datum/religion_rites/final_darkness)
 	altar_icon_state = "convertaltar-dark"
 	var/light_reach = 1
 	var/light_power = 0
 	var/list/obelisks = list()
+	var/faithful_used = FALSE
 
 /datum/religion_sect/shadow_sect/is_available(mob/user)
     if(isshadow(user))
@@ -49,6 +50,8 @@
 	. = ..()
 	if(is_special_character(chap))
 		to_chat(chap,  "<span class='big notice'>As you are an antagonist role, you are free to spread darkness across the station.</span>")
+		if(chap.mind.is_murderbone())
+			to_chat(chap,  "<span class='big notice'>As you have a murderbone objective, Faithsworn will spawn with the Final Darkness rite.</span>")
 	else
 		to_chat(chap,  "<span class='userdanger'>You are not an antagonist, please do not spread darkness outside of the chapel without Command Staff approval.</span>")
 
@@ -61,6 +64,84 @@
 	icon_state = "shadow-obelisk"
 	anchored = FALSE
 	break_message = "<span class='warning'>The Obelisk crumbles before you!</span>"
+	var/heal_delay = 20
+	var/last_heal = 0
+	var/spread_delay = 45
+	var/last_spread = 0
+
+/obj/structure/destructible/religion/shadow_obelisk/Initialize(mapload)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	. = ..()
+	if(!sect.faithful_used)
+		return
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/structure/destructible/religion/shadow_obelisk/LateInitialize()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	. = ..()
+	if(!sect.faithful_used)
+		return
+	START_PROCESSING(SSobj, src)
+
+/obj/structure/destructible/religion/shadow_obelisk/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/structure/destructible/religion/shadow_obelisk/process(delta_time)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.faithful_used)
+		if(last_heal <= world.time)
+			last_heal = world.time + heal_delay
+			for(var/mob/living/L in range(5, src))
+				if(L.health == L.maxHealth)
+					continue
+				if(!isshadow(L) && !L.mind?.holy_role && !isfaithless(L))
+					continue
+				new /obj/effect/temp_visual/heal(get_turf(src), "#29005f")
+				if(isshadow(L) || L.mind?.holy_role || isfaithless(L))
+					L.adjustBruteLoss(-2*delta_time, 0)
+					L.adjustToxLoss(-2*delta_time, 0)
+					L.adjustOxyLoss(-2*delta_time, 0)
+					L.adjustFireLoss(-2*delta_time, 0)
+					L.adjustCloneLoss(-2*delta_time, 0)
+					L.updatehealth()
+					if(L.blood_volume < BLOOD_VOLUME_NORMAL)
+						L.blood_volume += 1.0
+				CHECK_TICK
+		if(last_spread <= world.time)
+			var/list/validturfs = list()
+			var/list/shadowturfs = list()
+			for(var/T in circleviewturfs(src, 5))
+				if(istype(T, /turf/open/floor/black))
+					shadowturfs |= T
+					continue
+				var/static/list/blacklisted_pylon_turfs = typecacheof(list(
+					/turf/closed,
+					/turf/open/floor/black,
+					/turf/open/space,
+					/turf/open/lava,
+					/turf/open/chasm))
+				if(is_type_in_typecache(T, blacklisted_pylon_turfs))
+					continue
+				else
+					validturfs |= T
+
+			last_spread = world.time + spread_delay
+
+			var/turf/T = safepick(validturfs)
+			if(T)
+				if(istype(T, /turf/open/floor/plating))
+					T.PlaceOnTop(/turf/open/floor/black, flags = CHANGETURF_INHERIT_AIR)
+				else
+					T.ChangeTurf(/turf/open/floor/black, flags = CHANGETURF_INHERIT_AIR)
+			else
+				var/turf/open/floor/black/F = safepick(shadowturfs)
+				if(F)
+					new /obj/effect/temp_visual/religion/turf/floor(F)
+				else
+					// Are we in space or something? No black turfs or
+					// convertable turfs?
+					last_spread = world.time + spread_delay*2
 
 /obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/nullrod))
@@ -300,22 +381,37 @@
 	rite_target.visible_message("<span class='notice'>[organ] have been merged into [rite_target] by the rite of [name]!</span>")
 	return TRUE
 
-/datum/religion_rites/summon_faithful
-	name = "Summon the faithful"
-	desc = "Summons 2-6 Faithful, Creatures similar to the faithless, that will not attack any shadowpeople, but are hostile to others."
-	ritual_length = 30 SECONDS
+/datum/religion_rites/final_darkness
+	name = "Final Darkness"
+	desc = "The endgame, Activates the shadow heal and (if you meet the requirements) summons numerous Faithsworn entities from every obelisk in existence. THIS IS ONE USE ONLY."
+	ritual_length = 60 SECONDS
 	ritual_invocations = list(
 		"Join us in this darkness ...",
 		"... Protect us from the light ...",
 		"... Destroy those who defy us ...")
 	invoke_msg = "... Let the darkness come and fight!!"
-	favor_cost = 20000
+	favor_cost = 50000
 
-/datum/religion_rites/summon_faithful/invoke_effect(mob/living/user, atom/religious_tool)
-	var/altar_turf = get_turf(religious_tool)
-	for(var/i in 2 to 6)
-		var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(altar_turf)
-		faithful.AddComponent(/datum/component/dark_favor, user)
-		faithful.set_light(1, 1, DARKNESS_INVERSE_COLOR)
-	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
-	return ..()
+
+/datum/religion_rites/final_darkness/invoke_effect(mob/living/user, atom/religious_tool)
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
+	if(sect.faithful_used)
+		to_chat(user,"<span class='warning'>This rite has already been used, your favor has been refuned.</span>")
+		GLOB.religious_sect?.adjust_favor(50000, user)
+		return..()
+	sect.faithful_used = TRUE
+	for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
+		obs.LateInitialize()
+	if(user.mind.is_murderbone())
+		for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
+			var/obelisk_turf = get_turf(obs)
+			for(var/i in 1 to 3)
+				var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(obelisk_turf)
+				faithful.AddComponent(/datum/component/dark_favor, user)
+				faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
+			playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
+		return ..()
+	else
+		for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
+			playsound(obs, 'sound/magic/fireball.ogg', 50, TRUE)
+		return ..()
