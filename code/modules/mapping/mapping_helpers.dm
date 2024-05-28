@@ -379,4 +379,18 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 				qdel(A)
 				new /obj/machinery/vending/wardrobe/viro_wardrobe(src.loc)
 
+// automatically connects any portable atmospherics to the connector on the same tile
+/obj/effect/mapping_helpers/atmos_auto_connect
+	name = "atmos auto-connect helper"
+	desc = "Place this on a portable atmospherics like canister to automatically connect it to the connector on the same tile."
+	late = TRUE
 
+/obj/effect/mapping_helpers/atmos_auto_connect/LateInitialize()
+	. = ..()
+	var/obj/machinery/portable_atmospherics/PortAtmos = locate(/obj/machinery/portable_atmospherics) in loc
+	var/obj/machinery/atmospherics/components/unary/portables_connector/Connector = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
+	if(PortAtmos && Connector)
+		Connector.connect_to = PortAtmos
+		qdel(src)
+		return
+	CRASH("Failed to find a portable atmospherics or a portables connector at [AREACOORD(src)]")
