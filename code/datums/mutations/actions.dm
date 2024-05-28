@@ -314,14 +314,15 @@
 	base_icon_state = "control"
 	action_icon_state = "control"
 	var/has_drone = FALSE //If the diona has a drone active or not, for their special mutation.
-	var/mob/living/simple_animal/nymph/DroneID = null
+	var/mob/living/simple_animal/nymph/drone = null
 
 /obj/effect/proc_holder/spell/self/drone/cast(list/targets, mob/user = usr)
 	. = ..()
-	var/mob/living/carbon/C = user
+	var/mob/living/carbon/human/C = user
 	if(!isdiona(C))
 		return
 	CHECK_DNA_AND_SPECIES(C)
+	var/datum/species/diona/S = C.dna.species
 	if(!has_drone)
 		if(do_after(C, 5 SECONDS, C, NONE, TRUE))
 			has_drone = TRUE
@@ -330,20 +331,21 @@
 			nymph.drone_parent = C
 			nymph.switch_ability = new
 			nymph.switch_ability.Grant(nymph)
-			DroneID = nymph
+			drone = nymph
+			S.drone = nymph
 	else if(has_drone)
-		if(DroneID.stat == DEAD)
+		if(drone.stat == DEAD)
 			to_chat(C, "You can't seem to find the psychic link with your nymph.")
 			has_drone = FALSE
 		else
 			to_chat(C, "Switching to nymph...")
-			SwitchTo(DroneID, C)
+			SwitchTo(drone, C)
 	else
 		to_chat(C, "Something fucked up, tell the admins and coders to figure out what went wrong!")
 
 
-/obj/effect/proc_holder/spell/self/drone/proc/SwitchTo(mob/living/simple_animal/nymph/DroneID, mob/living/carbon/M)
-	if(DroneID.stat == DEAD) //sanity check
+/obj/effect/proc_holder/spell/self/drone/proc/SwitchTo(mob/living/simple_animal/nymph/drone, mob/living/carbon/M)
+	if(drone.stat == DEAD) //sanity check
 		return
 	var/datum/mind/C = M.mind
 	if(M.stat == CONSCIOUS)
@@ -352,9 +354,9 @@
 			"<span class='notice'>You stop moving this form...</span>")
 	else
 		to_chat(C, "<span class='notice'>You abandon this nymph...</span>")
-	C.transfer_to(DroneID)
-	DroneID.origin = C
-	DroneID.visible_message("<span class='notice'>[DroneID] blinks and looks \
+	C.transfer_to(drone)
+	drone.origin = C
+	drone.visible_message("<span class='notice'>[drone] blinks and looks \
 		around.</span>",
 		"<span class='notice'>...and move this one instead.</span>")
 

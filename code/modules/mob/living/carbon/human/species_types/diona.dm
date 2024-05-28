@@ -48,6 +48,7 @@
 	species_r_leg = /obj/item/bodypart/r_leg/diona
 
 	var/datum/action/diona/split/split_ability //All dionae start with this.
+	var/mob/living/simple_animal/nymph/drone = null
 
 /datum/species/diona/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
@@ -70,9 +71,9 @@
 		H.adjust_fire_stacks(1) //VERY flammable
 
 /datum/species/diona/spec_updatehealth(mob/living/carbon/human/H)
-	//var/datum/mind/M = H.mind
-	//if(!M)
-	return //TO DO: Fix the bug that causes the dionae's mind to go into nullspace when the original body is gone and the mind is in the drone
+	var/datum/mind/M = H.mind
+	if(H.stat != CONSCIOUS && !M && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
+		drone.switch_ability.Trigger(H) //Bring them home.
 
 
 /datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
