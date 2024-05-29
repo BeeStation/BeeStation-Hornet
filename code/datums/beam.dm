@@ -87,8 +87,8 @@
 	visuals.layer = beam_layer
 	visuals.update_appearance()
 	Draw()
-	RegisterSignal(origin, COMSIG_MOVABLE_MOVED, PROC_REF(redrawing))
-	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(redrawing))
+	RegisterSignal(origin, COMSIG_MOVABLE_MOVED, PROC_REF(redrawing), override = TRUE)
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(redrawing), override = TRUE)
 
 /**
  * Triggered by signals set up when the beam is set up. If it's still sane to create a beam, it removes the old beam, creates a new one. Otherwise it kills the beam.
@@ -100,7 +100,7 @@
  */
 /datum/beam/proc/redrawing(atom/movable/mover, atom/oldloc, direction)
 	SIGNAL_HANDLER
-	if(origin && target && (get_dist(origin.loc,target.loc)<max_distance) && (origin.z == target.z))
+	if(origin && target && get_dist(origin.loc,target.loc)<max_distance && origin.z == target.z)
 		QDEL_LIST(elements)
 		INVOKE_ASYNC(src, PROC_REF(Draw))
 	else
@@ -125,7 +125,7 @@
 	var/origin_py = isnull(override_origin_pixel_y) ? origin.pixel_y : override_origin_pixel_y
 	var/target_px = isnull(override_target_pixel_x) ? target.pixel_x : override_target_pixel_x
 	var/target_py = isnull(override_target_pixel_y) ? target.pixel_y : override_target_pixel_y
-	var/Angle = round(get_angle(origin,target))
+	var/Angle = get_angle_raw(origin.x, origin.y, origin_px, origin_py, target.x , target.y, target_px, target_py)
 	var/matrix/rot_matrix = matrix()
 	var/turf/origin_turf = get_turf(origin)
 	rot_matrix.Turn(Angle)

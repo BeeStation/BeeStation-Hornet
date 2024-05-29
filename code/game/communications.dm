@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 	if(range)
 		start_point = get_turf(source)
 		if(!start_point)
-			return 0
+			return
 
 	//Send the data
 	for(var/current_filter in filter_list)
@@ -173,6 +173,7 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 				if(start_point.get_virtual_z_level() != end_point.get_virtual_z_level() || (range > 0 && get_dist(start_point, end_point) > range))
 					continue
 			device.receive_signal(signal)
+			CHECK_TICK
 
 /datum/radio_frequency/proc/add_listener(obj/device, filter as text|null)
 	if (!filter)
@@ -201,11 +202,21 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 	return
 
 /datum/signal
+	/// The source of this signal.
 	var/obj/source
+	/// The frequency on which this signal was emitted.
 	var/frequency = 0
+	/// The method through which this signal was transmitted.
+	/// See all of the `TRANSMISSION_X` in `code/__DEFINES/radio.dm` for
+	/// all of the possible options.
 	var/transmission_method
+	/// The data carried through this signal. Defaults to `null`, otherwise it's
+	/// an associative list of (string, any).
 	var/list/data
+	/// Logging data, used for logging purposes. Makes sense, right?
+	var/logging_data
 
-/datum/signal/New(data, transmission_method = TRANSMISSION_RADIO)
+/datum/signal/New(data, transmission_method = TRANSMISSION_RADIO, logging_data = null)
 	src.data = data || list()
 	src.transmission_method = transmission_method
+	src.logging_data = logging_data

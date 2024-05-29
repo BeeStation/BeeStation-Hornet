@@ -1,8 +1,3 @@
-#define WIRE_RECEIVE		(1<<0)
-#define WIRE_PULSE			(1<<1)
-#define WIRE_PULSE_SPECIAL	(1<<2)
-#define WIRE_RADIO_RECEIVE	(1<<3)
-#define WIRE_RADIO_PULSE	(1<<4)
 
 /obj/item/assembly
 	name = "assembly"
@@ -22,19 +17,11 @@
 										//This will prevent things such as visible lasers from facing the incorrect direction when transformed by assembly_holder's update_icon()
 	var/assembly_flags = NONE
 	var/secured = TRUE
-	var/securable = TRUE				//False for assemblies that are always unsecured
 	var/list/attached_overlays = null
 	var/obj/item/assembly_holder/holder = null
-	var/wire_type = WIRE_RECEIVE | WIRE_PULSE
 	var/attachable = FALSE // can this be attached to wires
 	var/datum/wires/connected = null
-
 	var/next_activate = 0 //When we're next allowed to activate - for spam control
-	var/activate_delay = 30
-
-/obj/item/assembly/Initialize(mapload)
-	. = ..()
-	secured &&= securable
 
 /obj/item/assembly/Destroy()
 	holder = null
@@ -81,37 +68,32 @@
 
 
 //Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
-/obj/item/assembly/proc/pulsed(radio = FALSE)
-	if(wire_type & WIRE_RECEIVE)
-		INVOKE_ASYNC(src, PROC_REF(activate))
-	if(radio && (wire_type & WIRE_RADIO_RECEIVE))
-		INVOKE_ASYNC(src, PROC_REF(activate))
+/obj/item/assembly/proc/pulsed(mob/pulser)
+	INVOKE_ASYNC(src, PROC_REF(activate), pulser)
+	SEND_SIGNAL(src, COMSIG_ASSEMBLY_PULSED)
 	return TRUE
 
 
 //Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
 /obj/item/assembly/proc/pulse(radio = FALSE)
-	if(connected && wire_type)
+	if(connected) // if we have connected wires and are a pulsing assembly, pulse it
 		connected.pulse_assembly(src)
-		return TRUE
-	if(holder && (wire_type & WIRE_PULSE))
-		holder.process_activation(src, 1, 0)
-	if(holder && (wire_type & WIRE_PULSE_SPECIAL))
-		holder.process_activation(src, 0, 1)
+	else if(holder) // otherwise if we're attached to a holder, process the activation of it with our flags
+		holder.process_activation(src)
 	return TRUE
 
 
 // What the device does when turned on
 /obj/item/assembly/proc/activate()
-	if(QDELETED(src) || (securable && !secured) || (next_activate > world.time))
+	if(QDELETED(src) || !secured || (next_activate > world.time))
 		return FALSE
-	next_activate = world.time + activate_delay
+	next_activate = world.time + 30
 	return TRUE
 
 
 /obj/item/assembly/proc/toggle_secure()
-	secured = securable && !secured
-	update_icon()
+	secured = !secured
+	update_appearance()
 	return secured
 
 // This is overwritten so that clumsy people can set off mousetraps even when in a holder.
@@ -153,29 +135,16 @@
 /obj/item/assembly/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
-	if(!securable)
-		return FALSE
 	if(toggle_secure())
-		to_chat(user, "<span class='notice'>\The [src] is ready!</span>")
+		to_chat(user, "<span class='notice'>The [src] is ready!")
 	else
-		to_chat(user, "<span class='notice'>\The [src] can now be attached!</span>")
+		to_chat(user, "<span class='notice'>The [src] can now be attached!")
 	add_fingerprint(user)
 	return TRUE
 
 /obj/item/assembly/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>\The [src] [secured? "is secured and ready to be used!" : "can be attached to other things."]</span>"
-
-
-/obj/item/assembly/attack_self(mob/user)
-	if(!user)
-		return FALSE
-	user.set_machine(src)
-	interact(user)
-	return TRUE
-
-/obj/item/assembly/interact(mob/user)
-	return ui_interact(user)
 
 /obj/item/assembly/ui_host(mob/user)
 	// In order, return:
@@ -184,3 +153,6 @@
 	// - the assembly holder itself, or
 	// - us
 	return connected?.holder || holder?.master || holder || src
+
+/obj/item/assembly/ui_state(mob/user)
+	return GLOB.hands_state

@@ -38,6 +38,8 @@
 #define COOLDOWN_CIRCUIT_PATHFIND_DIF "circuit_pathfind_different"
 #define COOLDOWN_CIRCUIT_TARGET_INTERCEPT "circuit_target_intercept"
 
+// item cooldowns
+#define COOLDOWN_SIGNALLER_SEND "cooldown_signaller_send"
 
 
 //TIMER COOLDOWN MACROS
