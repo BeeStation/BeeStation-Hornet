@@ -20,6 +20,9 @@
 	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/auto_deadmin_role_flags = NONE
 
+	/// flags with the job lock reasons. If this flag exists, it's not available anyway.
+	var/lock_flags = NONE
+
 	/// If this job should show in the preferences menu
 	var/show_in_prefs = TRUE
 
@@ -119,6 +122,13 @@
 	. = ..()
 	lightup_areas = typecacheof(lightup_areas)
 	minimal_lightup_areas = typecacheof(minimal_lightup_areas)
+
+	if(!config_check())
+		lock_flags |= JOB_LOCK_REASON_CONFIG
+	if(!map_check())
+		lock_flags |= JOB_LOCK_REASON_MAP
+	if(lock_flags || gimmick)
+		SSjob.job_manager_blacklisted |= title
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
@@ -330,6 +340,16 @@
 
 /datum/job/proc/map_check()
 	return TRUE
+
+/datum/job/proc/get_lock_reason()
+	if(lock_flags & JOB_LOCK_REASON_ABSTRACT)
+		return "Not a real job"
+	else if(lock_flags & JOB_LOCK_REASON_CONFIG)
+		return "Disabled by server configuration"
+	else if(lock_flags & JOB_LOCK_REASON_MAP)
+		return "Not available on this map"
+	else if(lock_flags) // somehow flag exists
+		return "Unknown: [lock_flags]"
 
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
