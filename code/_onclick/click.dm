@@ -112,9 +112,9 @@
 	if(!LAZYACCESS(modifiers, "catcher") && A.IsObscured())
 		return
 
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
-		RestrainedClickOn(A)
+		UnarmedAttack(A)
 		return
 
 	if(throw_mode && throw_item(A))
@@ -278,20 +278,11 @@
 	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
 
 /**
-  * Restrained ClickOn
-  *
-  * Used when you are handcuffed and click things.
-  * Not currently used by anything but could easily be.
-  */
-/mob/proc/RestrainedClickOn(atom/A)
-	return
-
-/**
   * Middle click
   * Mainly used for swapping hands
   */
-/mob/proc/MiddleClickOn(atom/A)
-	. = SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A)
+/mob/proc/MiddleClickOn(atom/A, params)
+	. = SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A, params)
 	if(. & COMSIG_MOB_CANCEL_CLICKON)
 		return
 	swap_hand()

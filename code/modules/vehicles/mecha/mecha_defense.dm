@@ -6,7 +6,7 @@
 			return facing_modifiers[MECHA_FRONT_ARMOUR]
 	return facing_modifiers[MECHA_SIDE_ARMOUR] //always return non-0
 
-/obj/vehicle/sealed/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+/obj/vehicle/sealed/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(. && obj_integrity > 0)
 		spark_system.start()
@@ -69,7 +69,7 @@
 /obj/vehicle/sealed/mecha/attack_alien(mob/living/user)
 	log_message("Attack by alien. Attacker - [user].", LOG_MECHA, color="red")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
-	attack_generic(user, 15, BRUTE, MELEE, 0)
+	attack_generic(user, user.melee_damage, BRUTE, MELEE, 0)
 
 /obj/vehicle/sealed/mecha/attack_animal(mob/living/simple_animal/user)
 	log_message("Attack by simple animal. Attacker - [user].", LOG_MECHA, color="red")
@@ -296,8 +296,6 @@
 
 /obj/vehicle/sealed/mecha/welder_act(mob/living/user, obj/item/W)
 	. = ..()
-	if(user in src.occupants) //Fuck with any attempts by the current user to self heal whilst piloting
-		return
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
