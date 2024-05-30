@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fix cult construct creation spawning copies of the construct.
