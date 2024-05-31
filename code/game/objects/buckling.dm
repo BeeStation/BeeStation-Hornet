@@ -1,7 +1,7 @@
 /atom/movable
 	var/can_buckle = FALSE
-	/// Bed-like behaviour, forces mob.lying = buckle_lying if != -1
-	var/buckle_lying = -1
+	/// Bed-like behaviour, forces mob.lying = buckle_lying if not set to [NO_BUCKLE_LYING].
+	var/buckle_lying = NO_BUCKLE_LYING
 	/// Require people to be handcuffed before being able to buckle. eg: pipes
 	var/buckle_requires_restraints = FALSE
 	var/list/mob/living/buckled_mobs = null //list()

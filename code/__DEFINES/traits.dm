@@ -134,12 +134,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCED_STANDING "forcedstanding"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
 #define TRAIT_HANDS_BLOCKED "handsblocked"
-/* All to replace update_mobility with traits
 /// Inability to access UI hud elements. Turned into a trait from [MOBILITY_UI] to be able to track sources.
 #define TRAIT_UI_BLOCKED "uiblocked"
 /// Inability to pull things. Turned into a trait from [MOBILITY_PULL] to be able to track sources.
 #define TRAIT_PULL_BLOCKED "pullblocked"
-*/
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
 #define TRAIT_INCAPACITATED "incapacitated"
@@ -393,6 +391,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STAT_TRAIT "stat"
 /// Trait associated to wearing a suit
 #define SUIT_TRAIT "suit"
+/// Trait associated to lying down (having a [lying_angle] of a different value than zero).
+#define LYING_DOWN_TRAIT "lying-down"
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
