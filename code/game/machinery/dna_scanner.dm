@@ -118,7 +118,7 @@
 
 	return TRUE
 
-/obj/machinery/dna_scannernew/relaymove(mob/user as mob)
+/obj/machinery/dna_scannernew/relaymove(mob/living/user, direction)
 	if(user.stat || (locked && !state_open))
 		if(message_cooldown <= world.time)
 			message_cooldown = world.time + 50

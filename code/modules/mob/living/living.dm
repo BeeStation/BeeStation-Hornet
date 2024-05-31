@@ -436,7 +436,7 @@
 		return TRUE
 
 /mob/living/canUseStorage()
-	if (get_num_arms() <= 0)
+	if (usable_hands <= 0)
 		return FALSE
 	return TRUE
 
@@ -1203,15 +1203,12 @@
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 //Robots, animals and brains have their own version so don't worry about them
 /mob/living/proc/update_mobility()
-	var/has_legs = get_num_legs()
-	var/has_arms = get_num_arms()
-	var/ignore_legs = get_leg_ignore()
-	var/canmove = !HAS_TRAIT(src, TRAIT_IMMOBILIZED) && (has_arms || ignore_legs || has_legs)
+	var/canmove = !HAS_TRAIT(src, TRAIT_IMMOBILIZED)
 	if(canmove)
 		mobility_flags |= MOBILITY_MOVE
 	else
 		mobility_flags &= ~MOBILITY_MOVE
-	var/canstand_involuntary = !HAS_TRAIT(src, TRAIT_FLOORED) && (ignore_legs || has_legs)
+	var/canstand_involuntary = !HAS_TRAIT(src, TRAIT_FLOORED)
 	var/canstand = canstand_involuntary && !resting
 
 	if(buckled && buckled.buckle_lying != -1)
@@ -1245,13 +1242,15 @@
 		unset_machine()
 
 	// Movespeed mods based on arms/legs quantity
-	if(!get_leg_ignore())
+	if(movement_type & (FLYING | FLOATING))
+		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
+	else
 		var/limbless_slowdown = 0
 		// These checks for <2 should be swapped out for something else if we ever end up with a species with more than 2
-		if(has_legs < 2)
-			limbless_slowdown += 6 - (has_legs * 3)
-			if(!has_legs && has_arms < 2)
-				limbless_slowdown += 6 - (has_arms * 3)
+		if(usable_legs < default_num_legs)
+			limbless_slowdown += (default_num_legs * 3) - (usable_legs * 3)
+			if(!usable_legs && usable_hands < default_num_hands)
+				limbless_slowdown += (default_num_hands * 3) - (usable_hands * 3)
 		if(limbless_slowdown)
 			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/limbless, multiplicative_slowdown = limbless_slowdown)
 		else
@@ -1606,3 +1605,35 @@
 	remove_client_colour(current_correction)
 	add_client_colour(entered.color_correction)
 	current_correction = entered.color_correction
+
+
+///Proc to modify the value of num_legs and hook behavior associated to this event.
+/mob/living/proc/set_num_legs(new_value)
+	if(num_legs == new_value)
+		return
+	. = num_legs
+	num_legs = new_value
+
+
+///Proc to modify the value of usable_legs and hook behavior associated to this event.
+/mob/living/proc/set_usable_legs(new_value)
+	if(usable_legs == new_value)
+		return
+	. = usable_legs
+	usable_legs = new_value
+
+
+///Proc to modify the value of num_hands and hook behavior associated to this event.
+/mob/living/proc/set_num_hands(new_value)
+	if(num_hands == new_value)
+		return
+	. = num_hands
+	num_hands = new_value
+
+
+///Proc to modify the value of usable_hands and hook behavior associated to this event.
+/mob/living/proc/set_usable_hands(new_value)
+	if(usable_hands == new_value)
+		return
+	. = usable_hands
+	usable_hands = new_value
