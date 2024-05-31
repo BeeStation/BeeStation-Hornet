@@ -263,6 +263,12 @@
 /obj/item/bodypart/proc/is_disabled()
 	if(HAS_TRAIT(src, TRAIT_PARALYSIS))
 		return BODYPART_DISABLED_PARALYSIS
+	/*
+	for(var/i in wounds)
+		var/datum/wound/W = i
+		if(W.disabling)
+			return BODYPART_DISABLED_WOUND
+	*/
 	if(can_dismember() && !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
 		. = bodypart_disabled //inertia, to avoid limbs healing 0.1 damage and being re-enabled
 		if((get_damage(TRUE) >= max_damage) || (HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE) && (get_damage(TRUE) >= (max_damage * 0.6)))) //Easy limb disable disables the limb at 40% health instead of 0%
@@ -277,8 +283,8 @@
 		return
 	. = bodypart_disabled
 	bodypart_disabled = new_disabled
-	if(bodypart_disabled && owner.get_item_for_held_index(held_index))
-		owner.dropItemToGround(owner.get_item_for_held_index(held_index))
+	//if(bodypart_disabled && owner.get_item_for_held_index(held_index))
+	//	owner.dropItemToGround(owner.get_item_for_held_index(held_index))
 	owner.update_health_hud() //update the healthdoll
 	owner.update_body()
 
