@@ -280,11 +280,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MADNESS_IMMUNE "supermatter_madness_immune"
 
 //non-mob traits
-//Used for limb-based paralysis, where replacing the limb will fix it
+/// Used for limb-based paralysis, where replacing the limb will fix it.
 #define TRAIT_PARALYSIS "paralysis"
+/// Used for limbs.
+#define TRAIT_DISABLED_BY_WOUND "disabled-by-wound"
 
 ///Used for managing KEEP_TOGETHER in [appearance_flags]
-#define TRAIT_KEEP_TOGETHER 	"keep-together"
+#define TRAIT_KEEP_TOGETHER "keep-together"
 
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
 
