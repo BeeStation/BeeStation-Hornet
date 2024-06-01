@@ -134,12 +134,12 @@
 		active_coma = TRUE
 		addtimer(CALLBACK(src, PROC_REF(coma), M), 60)
 
+
 /datum/symptom/heal/coma/proc/coma(mob/living/M)
 	if(deathgasp)
 		M.fakedeath(TRAIT_REGEN_COMA)
 	else
 		M.Unconscious(300, TRUE, TRUE)
-	M.update_mobility()
 	addtimer(CALLBACK(src, PROC_REF(uncoma), M), 300)
 
 /datum/symptom/heal/coma/proc/uncoma(mob/living/M)
@@ -150,7 +150,6 @@
 		M.cure_fakedeath(TRAIT_REGEN_COMA)
 	else
 		M.SetUnconscious(0)
-	M.update_mobility()
 
 /datum/symptom/heal/coma/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
 	var/heal_amt = 4 * actual_power

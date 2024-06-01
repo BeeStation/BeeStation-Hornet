@@ -481,24 +481,26 @@
 	else
 		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
 			SetSleeping(400) //Short nap
-	update_mobility()
+
 
 /mob/proc/get_contents()
 
-/mob/living/proc/lay_down()
+
+/mob/living/proc/toggle_resting()
 	set name = "Rest"
 	set category = "IC"
 
 	set_resting(!resting, FALSE)
 
+
 ///Proc to hook behavior to the change of value in the resting variable.
-/mob/living/proc/set_resting(new_resting, silent = TRUE)
+/mob/living/proc/set_resting(new_resting, silent = TRUE, instant = FALSE)
 	if(new_resting == resting)
 		return
 	. = resting
 	resting = new_resting
 	if(new_resting)
-		if(lying_angle == 90 || lying_angle == 270)
+		if(body_position == LYING_DOWN)
 			if(!silent)
 				to_chat(src, "<span class='notice'>You will now try to stay lying down on the floor.</span>")
 		else if(buckled && buckled.buckle_lying != NO_BUCKLE_LYING)
@@ -509,7 +511,7 @@
 				to_chat(src, "<span class='notice'>You lay down.</span>")
 			set_lying_down()
 	else
-		if(lying_angle == 0)
+		if(body_position == STANDING_UP)
 			if(!silent)
 				to_chat(src, "<span class='notice'>You will now try to remain standing up.</span>")
 		else if(HAS_TRAIT(src, TRAIT_FLOORED) || (buckled && buckled.buckle_lying != NO_BUCKLE_LYING))
@@ -518,24 +520,25 @@
 		else
 			if(!silent)
 				to_chat(src, "<span class='notice'>You stand up.</span>")
-			get_up()
+			get_up(instant)
 
 	update_resting()
 
 
+/// Proc to append and redefine behavior to the change of the [/mob/living/var/resting] variable.
 /mob/living/proc/update_resting()
 	update_rest_hud_icon()
-	update_mobility()
 
 
-/mob/living/proc/get_up()
+/mob/living/proc/get_up(instant = FALSE)
 	set waitfor = FALSE
 	var/static/datum/callback/rest_checks = CALLBACK(src, .proc/rest_checks_callback)
-	if(!do_mob(src, src, 2 SECONDS, uninterruptible = TRUE, extra_checks = rest_checks))
+	if(!instant && !do_mob(src, src, 2 SECONDS, uninterruptible = TRUE, extra_checks = rest_checks))
 		return
-	if(resting || lying_angle == 0 || HAS_TRAIT(src, TRAIT_FLOORED))
+	if(resting || body_position == STANDING_UP || HAS_TRAIT(src, TRAIT_FLOORED))
 		return
 	set_lying_angle(0)
+	set_body_position(STANDING_UP)
 
 
 /mob/living/proc/rest_checks_callback()
@@ -544,13 +547,29 @@
 	return TRUE
 
 
+/// Change the [body_position] to [LYING_DOWN] and update associated behavior.
 /mob/living/proc/set_lying_down(new_lying_angle)
-	if(buckled && buckled.buckle_lying == 0)
-		return
-	if(!new_lying_angle)
-		set_lying_angle(pick(90, 270))
-	else
-		set_lying_angle(new_lying_angle)
+	set_body_position(LYING_DOWN)
+
+
+/// Proc to append behavior related to lying down.
+/mob/living/proc/on_lying_down(new_lying_angle)
+	if(layer == initial(layer)) //to avoid things like hiding larvas.
+		layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
+	ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
+	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
+	density = FALSE // We lose density and stop bumping passable dense things.
+	if(HAS_TRAIT(src, TRAIT_FLOORED) && !(dir & (NORTH|SOUTH)))
+		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
+
+
+/// Proc to append behavior related to lying down.
+/mob/living/proc/on_standing_up()
+	if(layer == LYING_MOB_LAYER)
+		layer = initial(layer)
+	density = initial(density) // We were prone before, so we become dense and things can bump into us again.
+	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
 
 
 //Recursive function to find everything a mob is holding. Really shitty proc tbh.
@@ -608,7 +627,6 @@
 		set_suicide(FALSE)
 		set_stat(UNCONSCIOUS) //the mob starts unconscious,
 		updatehealth() //then we check if the mob should wake up.
-		update_mobility()
 		update_sight()
 		clear_alert("not_enough_oxy")
 		reload_fullscreen()
@@ -662,16 +680,15 @@
 
 	return stat != DEAD
 
-/mob/living/proc/remove_CC(should_update_mobility = TRUE)
-	SetStun(0, FALSE)
-	SetKnockdown(0, FALSE)
-	SetImmobilized(0, FALSE)
-	SetParalyzed(0, FALSE)
-	SetSleeping(0, FALSE)
+/mob/living/proc/remove_CC()
+	SetStun(0)
+	SetKnockdown(0)
+	SetImmobilized(0)
+	SetParalyzed(0)
+	SetSleeping(0)
 	setStaminaLoss(0)
-	SetUnconscious(0, FALSE)
-	if(should_update_mobility)
-		update_mobility()
+	SetUnconscious(0)
+
 
 //proc used to completely heal a mob.
 /mob/living/proc/fully_heal(admin_revive = FALSE)
@@ -711,8 +728,8 @@
 	var/datum/component/mood/mood = GetComponent(/datum/component/mood)
 	if (mood)
 		mood.remove_temp_moods(admin_revive)
-	update_mobility()
 	stop_sound_channel(CHANNEL_HEARTBEAT)
+
 
 //proc called by revive(), to check if we can actually ressuscitate the mob (we don't want to revive him and have him instantly die again)
 /mob/living/proc/can_be_revived()
@@ -750,8 +767,9 @@
 	if(active_storage && !(CanReach(active_storage.parent,view_only = TRUE)))
 		active_storage.close(src)
 
-	if(!(mobility_flags & MOBILITY_STAND) && !buckled && prob(getBruteLoss()*200/maxHealth))
+	if(body_position == LYING_DOWN && !buckled && prob(getBruteLoss()*200/maxHealth))
 		makeTrail(newloc, T, old_direction)
+
 
 ///Called by mob Move() when the lying_angle is different than zero, to better visually simulate crawling.
 /mob/living/proc/lying_angle_on_movement(direct)
@@ -1238,11 +1256,7 @@
 	return ..() && !(buckled && buckled.buckle_prevents_pull)
 
 
-//Updates lying and icons on robots, animals and brains. Needs to be refactored to use traits and update based on events.
-/mob/living/proc/update_mobility()
-	return
-
-///Called when mob changes from a standing position into a prone while lacking the ability to stand up at the moment, through update_mobility()
+/// Called when mob changes from a standing position into a prone while lacking the ability to stand up at the moment.
 /mob/living/proc/on_fall()
 	return
 
@@ -1283,7 +1297,7 @@
 	if(.)
 		if(client)
 			reset_perspective()
-		update_mobility() //if the mob was asleep inside a container and then got forceMoved out we need to make them fall.
+
 
 /mob/living/set_stat(new_stat)
 	. = ..()
@@ -1298,6 +1312,7 @@
 			ADD_TRAIT(src, TRAIT_FLOORED, UNCONSCIOUS_TRAIT)
 		if(SOFT_CRIT)
 			if(stat >= UNCONSCIOUS)
+				ADD_TRAIT(src, TRAIT_INCAPACITATED, TRAIT_KNOCKEDOUT)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT) //adding trait sources should come before removing to avoid unnecessary updates
 				ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_KNOCKEDOUT)
 			if(pulledby)
@@ -1320,6 +1335,7 @@
 			if(pulledby)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT) //adding trait sources should come before removing to avoid unnecessary updates
 			if(. >= UNCONSCIOUS)
+				REMOVE_TRAIT(src, TRAIT_INCAPACITATED, TRAIT_KNOCKEDOUT)
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
 				REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_KNOCKEDOUT)
 			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
@@ -1345,23 +1361,24 @@
 	. = buckled
 	buckled = new_buckled
 	if(buckled)
-		if(!.)
-			ADD_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
-			switch(buckled.buckle_lying)
-				if(NO_BUCKLE_LYING) // The buckle doesn't force a lying angle.
-					REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
-					return
-				if(0) // Forcing to a standing position.
-					REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
-				else // Forcing to a lying position.
-					ADD_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
-			set_lying_angle(buckled.buckle_lying)
-	else if(.) // We unbuckled from something.
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
+		switch(buckled.buckle_lying)
+			if(NO_BUCKLE_LYING) // The buckle doesn't force a lying angle.
+				REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+			if(0) // Forcing to a standing position.
+				REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+				set_lying_angle(0)
+			else // Forcing to a lying position.
+				ADD_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
+				set_body_position(LYING_DOWN)
+				set_lying_angle(buckled.buckle_lying)
+	else
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT)
 		REMOVE_TRAIT(src, TRAIT_FLOORED, BUCKLED_TRAIT)
-		var/atom/movable/old_buckled = .
-		if(old_buckled.buckle_lying == 0 && resting) // The buckle forced us to stay up (like a chair) and our preference is set to resting...
-			set_lying_down() // ...so let's drop on the ground.
+		if(.) // We unbuckled from something.
+			var/atom/movable/old_buckled = .
+			if(old_buckled.buckle_lying == 0 && (resting || HAS_TRAIT(src, TRAIT_FLOORED))) // The buckle forced us to stay up (like a chair)
+				set_lying_down() // We want to rest or are otherwise floored, so let's drop on the ground.
 
 
 /mob/living/set_pulledby(new_pulledby)
@@ -1535,22 +1552,6 @@
 	if(lying_angle != lying_prev)
 		update_transform()
 		lying_prev = lying_angle
-	if(lying_angle != 0) //We are not standing up.
-		if(layer == initial(layer)) //to avoid things like hiding larvas.
-			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
-		if(. == 0) // We became prone and were not before.
-			ADD_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
-			ADD_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
-			density = FALSE // We lose density and stop bumping passable dense things.
-			if(HAS_TRAIT(src, TRAIT_FLOORED) && !(dir & (NORTH|SOUTH)))
-				setDir(pick(NORTH, SOUTH)) // We are and look helpless.
-	else //We are prone.
-		if(layer == LYING_MOB_LAYER)
-			layer = initial(layer)
-		if(.) //We weren't pone before, so we become dense and things can bump into us again.
-			density = initial(density)
-			REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, LYING_DOWN_TRAIT)
-			REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, LYING_DOWN_TRAIT)
 
 /**
  * add_body_temperature_change Adds modifications to the body temperature
@@ -1662,3 +1663,42 @@
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 	else if(!(movement_type & (FLYING | FLOATING)) && !usable_hands && !usable_legs) //Lost a hand, not flying, no hands left, no legs.
 		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
+
+
+/// Changes the value of the [living/body_position] variable.
+/mob/living/proc/set_body_position(new_value)
+	if(body_position == new_value)
+		return
+	. = body_position
+	body_position = new_value
+	if(new_value == LYING_DOWN) // From standing to lying down.
+		on_lying_down()
+	else // From lying down to standing up.
+		on_standing_up()
+
+
+/// Proc to append behavior to the condition of being floored. Called when the condition starts.
+/mob/living/proc/on_floored_start()
+	if(body_position == STANDING_UP) //force them on the ground
+		set_lying_angle(pick(90, 270))
+		set_body_position(LYING_DOWN)
+		on_fall()
+
+
+/// Proc to append behavior to the condition of being floored. Called when the condition ends.
+/mob/living/proc/on_floored_end()
+	if(!resting)
+		get_up()
+
+
+/// Proc to append behavior to the condition of being handsblocked. Called when the condition starts.
+/mob/living/proc/on_handsblocked_start()
+	drop_all_held_items()
+	ADD_TRAIT(src, TRAIT_UI_BLOCKED, TRAIT_HANDS_BLOCKED)
+	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED)
+
+
+/// Proc to append behavior to the condition of being handsblocked. Called when the condition ends.
+/mob/living/proc/on_handsblocked_end()
+	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, TRAIT_HANDS_BLOCKED)
+	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED)

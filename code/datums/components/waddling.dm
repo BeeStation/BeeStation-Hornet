@@ -14,7 +14,7 @@
 	SIGNAL_HANDLER
 
 	var/mob/living/L = parent
-	if(L.incapacitated() || !(L.mobility_flags & MOBILITY_STAND))
+	if(L.incapacitated() || L.body_position == LYING_DOWN)
 		return
 	Waddle()
 
