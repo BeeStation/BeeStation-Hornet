@@ -192,6 +192,7 @@
 		if(ismob(pulling))
 			pulling.log_message("has stopped being pulled by [key_name(pulling.pulledby)]", LOG_ATTACK)
 		pulling.set_pulledby(null)
+		var/mob/living/ex_pulled = pulling
 		setGrabState(GRAB_PASSIVE)
 		pulling = null
 		SEND_SIGNAL(ex_pulled, COMSIG_MOVABLE_NO_LONGER_PULLED)

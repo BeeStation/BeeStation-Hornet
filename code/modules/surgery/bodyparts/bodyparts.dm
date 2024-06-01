@@ -82,6 +82,9 @@
 	var/medium_burn_msg = "blistered"
 	var/heavy_burn_msg = "peeling away"
 
+	/// So we know if we need to scream if this limb hits max damage
+	var/last_maxed
+
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)
@@ -294,6 +297,8 @@
 
 //Checks disabled status thresholds
 /obj/item/bodypart/proc/update_disabled()
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(!owner)
 		return
 
@@ -310,7 +315,7 @@
 	if(total_damage >= max_damage * disable_threshold) //Easy limb disable disables the limb at 40% health instead of 0%
 		if(!last_maxed)
 			if(owner.stat < UNCONSCIOUS)
-				owner.emote("scream")
+				INVOKE_ASYNC(owner, /mob.proc/emote, "scream")
 			last_maxed = TRUE
 		set_disabled(TRUE)
 		return
@@ -333,22 +338,15 @@
 	owner.update_body()
 
 ///Proc to change the value of the `owner` variable and react to the event of its change.
-/obj/item/bodypart/proc/set_owner(new_owner)
+/obj/item/bodypart/proc/set_owner(mob/living/carbon/new_owner)
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(owner == new_owner)
 		return FALSE //`null` is a valid option, so we need to use a num var to make it clear no change was made.
-	. = owner
+	var/mob/living/carbon/old_owner = owner
 	owner = new_owner
 	var/needs_update_disabled = FALSE //Only really relevant if there's an owner
-	if(.)
-		var/mob/living/carbon/old_owner = .
-		if(can_be_disabled)
-			if(HAS_TRAIT(old_owner, TRAIT_EASYLIMBWOUND))
-				disable_threshold = initial(disable_threshold)
-				needs_update_disabled = TRUE
-			UnregisterSignal(old_owner, list(
-				SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBWOUND),
-				SIGNAL_ADDTRAIT(TRAIT_EASYLIMBWOUND),
-				))
+	if(old_owner)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(old_owner, TRAIT_NOLIMBDISABLE))
 				if(!owner || !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -359,20 +357,17 @@
 				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
 				))
 	if(owner)
-		if(can_be_disabled)
-			if(HAS_TRAIT(owner, TRAIT_EASYLIMBWOUND))
-				disable_threshold = 0.6
-				needs_update_disabled = TRUE
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBWOUND), .proc/on_owner_easylimbwound_trait_loss)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_EASYLIMBWOUND), .proc/on_owner_easylimbwound_trait_gain)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
 				set_can_be_disabled(FALSE)
 				needs_update_disabled = FALSE
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE), .proc/on_owner_nolimbdisable_trait_loss)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE), .proc/on_owner_nolimbdisable_trait_gain)
+			RegisterSignal(new_owner, SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE), .proc/on_owner_nolimbdisable_trait_loss)
+			RegisterSignal(new_owner, SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE), .proc/on_owner_nolimbdisable_trait_gain)
+
 		if(needs_update_disabled)
 			update_disabled()
+
+	return old_owner
 
 
 ///Proc to change the value of the `can_be_disabled` variable and react to the event of its change.
@@ -387,18 +382,12 @@
 				CRASH("set_can_be_disabled to TRUE with for limb whose owner has TRAIT_NOLIMBDISABLE")
 			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_gain)
 			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_loss)
-			if(HAS_TRAIT(owner, TRAIT_EASYLIMBWOUND))
-				disable_threshold = 0.6
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBWOUND), .proc/on_owner_easylimbwound_trait_loss)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_EASYLIMBWOUND), .proc/on_owner_easylimbwound_trait_gain)
 		update_disabled()
 	else if(.)
 		if(owner)
 			UnregisterSignal(owner, list(
 				SIGNAL_ADDTRAIT(TRAIT_PARALYSIS),
 				SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS),
-				SIGNAL_REMOVETRAIT(TRAIT_EASYLIMBWOUND),
-				SIGNAL_ADDTRAIT(TRAIT_EASYLIMBWOUND),
 				))
 		set_disabled(FALSE)
 

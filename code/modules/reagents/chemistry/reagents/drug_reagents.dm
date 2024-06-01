@@ -256,7 +256,7 @@
 	..()
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage3(mob/living/M)
-	f(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
+	if(!HAS_TRAIT(M, TRAIT_IMMOBILIZED) && !ismovable(M.loc))
 		for(var/i = 0, i < 4, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(15)
