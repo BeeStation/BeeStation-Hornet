@@ -6,19 +6,6 @@
 	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
-/obj/item/restraints/Destroy()
-	if(iscarbon(loc))
-		var/mob/living/carbon/M = loc
-		if(M.handcuffed == src)
-			M.set_handcuffed(null)
-			M.update_handcuffed()
-			if(M.buckled?.buckle_requires_restraints)
-				M.buckled.unbuckle_mob(M)
-		if(M.legcuffed == src)
-			M.legcuffed = null
-			M.update_inv_legcuffed()
-	return ..()
-
 //Handcuffs
 
 /obj/item/restraints/handcuffs
