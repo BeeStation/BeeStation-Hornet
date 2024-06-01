@@ -88,8 +88,8 @@
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
 	if(can_be_disabled)
-		RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_gain)
-		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_loss)
+		RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_gain))
+		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_loss))
 	name = "[limb_id] [parse_zone(body_zone)]"
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
@@ -158,7 +158,7 @@
 /obj/item/bodypart/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	if(IS_ORGANIC_LIMB(src))
-		playsound(get_turf(src), 'sound/misc/splort.ogg', 50, 1, -1)
+		playsound(get_turf(src), 'sound/misc/splort.ogg', 50, TRUE, -1)
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3)
 
@@ -172,7 +172,9 @@
 
 //Return TRUE to get whatever mob this is in to update health.
 /obj/item/bodypart/proc/on_life(stam_regen)
-	if(stamina_dam >= DAMAGE_PRECISION && stam_regen)					//DO NOT update health here, it'll be done in the carbon's life.
+	SHOULD_CALL_PARENT(TRUE)
+	//DO NOT update health here, it'll be done in the carbon's life.
+	if(stamina_dam >= DAMAGE_PRECISION && stam_regen)
 		heal_damage(0, 0, stam_regen, null, FALSE)
 		. |= BODYPART_LIFE_UPDATE_HEALTH
 
@@ -180,6 +182,8 @@
 //Damage will not exceed max_damage using this proc
 //Cannot apply negative damage
 /obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, required_status = null)
+	SHOULD_CALL_PARENT(TRUE)
+
 	var/hit_percent = (100-blocked)/100
 	if((!brute && !burn && !stamina) || hit_percent <= 0)
 		return FALSE
@@ -235,6 +239,7 @@
 //Damage cannot go below zero.
 //Cannot remove negative damage (i.e. apply damage)
 /obj/item/bodypart/proc/heal_damage(brute, burn, stamina, required_status, updating_health = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
 
 	if(required_status && !(bodytype & required_status)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
 		return
@@ -259,6 +264,8 @@
 
 ///Proc to hook behavior associated to the change of the brute_dam variable's value.
 /obj/item/bodypart/proc/set_brute_dam(new_value)
+	PROTECTED_PROC(TRUE)
+
 	if(brute_dam == new_value)
 		return
 	. = brute_dam
@@ -267,6 +274,8 @@
 
 ///Proc to hook behavior associated to the change of the burn_dam variable's value.
 /obj/item/bodypart/proc/set_burn_dam(new_value)
+	PROTECTED_PROC(TRUE)
+
 	if(burn_dam == new_value)
 		return
 	. = burn_dam
@@ -275,6 +284,8 @@
 
 ///Proc to hook behavior associated to the change of the stamina_dam variable's value.
 /obj/item/bodypart/proc/set_stamina_dam(new_value)
+	PROTECTED_PROC(TRUE)
+
 	if(stamina_dam == new_value)
 		return
 	. = stamina_dam
@@ -315,7 +326,7 @@
 	if(total_damage >= max_damage * disable_threshold) //Easy limb disable disables the limb at 40% health instead of 0%
 		if(!last_maxed)
 			if(owner.stat < UNCONSCIOUS)
-				INVOKE_ASYNC(owner, /mob.proc/emote, "scream")
+				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 			last_maxed = TRUE
 		set_disabled(TRUE)
 		return
@@ -327,6 +338,9 @@
 
 ///Proc to change the value of the `disabled` variable and react to the event of its change.
 /obj/item/bodypart/proc/set_disabled(new_disabled)
+	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
+
 	if(bodypart_disabled == new_disabled)
 		return
 	. = bodypart_disabled
@@ -361,8 +375,8 @@
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
 				set_can_be_disabled(FALSE)
 				needs_update_disabled = FALSE
-			RegisterSignal(new_owner, SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE), .proc/on_owner_nolimbdisable_trait_loss)
-			RegisterSignal(new_owner, SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE), .proc/on_owner_nolimbdisable_trait_gain)
+			RegisterSignal(new_owner, SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE), PROC_REF(on_owner_nolimbdisable_trait_loss))
+			RegisterSignal(new_owner, SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE), PROC_REF(on_owner_nolimbdisable_trait_gain))
 
 		if(needs_update_disabled)
 			update_disabled()
@@ -380,8 +394,8 @@
 		if(owner)
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
 				CRASH("set_can_be_disabled to TRUE with for limb whose owner has TRAIT_NOLIMBDISABLE")
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_gain)
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_loss)
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_gain))
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), PROC_REF(on_paralysis_trait_loss))
 		update_disabled()
 	else if(.)
 		if(owner)
@@ -717,10 +731,10 @@
 	if(owner)
 		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_ARM))
 			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM), .proc/on_owner_paralysis_loss)
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_loss))
 		else
 			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM), .proc/on_owner_paralysis_gain)
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_gain))
 	if(.)
 		var/mob/living/carbon/old_owner = .
 		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_L_ARM))
@@ -736,7 +750,7 @@
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM))
-	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM), .proc/on_owner_paralysis_loss)
+	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_loss))
 
 
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_L_ARM trait.
@@ -744,7 +758,7 @@
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM))
-	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM), .proc/on_owner_paralysis_gain)
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM), PROC_REF(on_owner_paralysis_gain))
 
 
 /obj/item/bodypart/l_arm/set_disabled(new_disabled)
@@ -821,10 +835,10 @@
 	if(owner)
 		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_ARM))
 			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM), .proc/on_owner_paralysis_loss)
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_loss))
 		else
 			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM), .proc/on_owner_paralysis_gain)
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_gain))
 	if(.)
 		var/mob/living/carbon/old_owner = .
 		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_R_ARM))
@@ -840,7 +854,7 @@
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM))
-	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM), .proc/on_owner_paralysis_loss)
+	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_loss))
 
 
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_R_ARM trait.
@@ -848,7 +862,7 @@
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM))
-	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM), .proc/on_owner_paralysis_gain)
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM), PROC_REF(on_owner_paralysis_gain))
 
 
 /obj/item/bodypart/r_arm/set_disabled(new_disabled)
@@ -923,10 +937,10 @@
 	if(owner)
 		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_LEG))
 			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG), .proc/on_owner_paralysis_loss)
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_loss))
 		else
 			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG), .proc/on_owner_paralysis_gain)
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_gain))
 	if(.)
 		var/mob/living/carbon/old_owner = .
 		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_L_LEG))
@@ -942,7 +956,7 @@
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG))
-	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG), .proc/on_owner_paralysis_loss)
+	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_loss))
 
 
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_L_LEG trait.
@@ -950,7 +964,7 @@
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG))
-	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG), .proc/on_owner_paralysis_gain)
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG), PROC_REF(on_owner_paralysis_gain))
 
 
 /obj/item/bodypart/l_leg/set_disabled(new_disabled)
@@ -1021,10 +1035,10 @@
 	if(owner)
 		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_LEG))
 			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
-			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG), .proc/on_owner_paralysis_loss)
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_loss))
 		else
 			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
-			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG), .proc/on_owner_paralysis_gain)
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_gain))
 	if(.)
 		var/mob/living/carbon/old_owner = .
 		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_R_LEG))
@@ -1040,7 +1054,7 @@
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG))
-	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG), .proc/on_owner_paralysis_loss)
+	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_loss))
 
 
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_R_LEG trait.
@@ -1048,7 +1062,7 @@
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG))
-	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG), .proc/on_owner_paralysis_gain)
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG), PROC_REF(on_owner_paralysis_gain))
 
 
 /obj/item/bodypart/r_leg/set_disabled(new_disabled)
