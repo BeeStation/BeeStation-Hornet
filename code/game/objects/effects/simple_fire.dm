@@ -62,7 +62,7 @@
 	if(!location.air || location.air.get_oxidation_power() < 0.5)
 		qdel(src)
 		return
-	fire_power -= delta_time * SSeffects.wait
+	fire_power -= delta_time * 1 SECONDS
 	switch (fire_power)
 		if (3 SECONDS to INFINITY)
 			icon_state = "3"

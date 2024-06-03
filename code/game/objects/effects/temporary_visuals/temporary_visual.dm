@@ -7,8 +7,8 @@
 	var/duration = 10 //in deciseconds
 	var/randomdir = TRUE
 	var/heap_position
-	VAR_PRIVATE/destroy_at
-	VAR_PRIVATE/bumped = FALSE
+	var/destroy_at
+	var/bumped = FALSE
 
 /obj/effect/temp_visual/Initialize(mapload)
 	destroy_at = world.time + duration
