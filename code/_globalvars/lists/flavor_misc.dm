@@ -397,7 +397,11 @@ GLOBAL_LIST_INIT(smoker_cigarettes, list(
 	/obj/item/storage/fancy/cigarettes/cigpack_uplift,
 	/obj/item/storage/fancy/cigarettes/cigpack_robust,
 	/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-	/obj/item/storage/fancy/cigarettes/cigpack_carp
+	/obj/item/storage/fancy/cigarettes/cigpack_carp,
+	/obj/item/storage/fancy/cigarettes/dromedaryco,
+	/obj/item/storage/fancy/cigarettes/cigars,
+	/obj/item/storage/fancy/cigarettes/cigars/cohiba,
+	/obj/item/storage/fancy/cigarettes/cigars/havana
 ))
 
 GLOBAL_LIST_INIT(alcoholic_bottles, list(
