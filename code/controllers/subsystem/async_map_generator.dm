@@ -28,6 +28,7 @@ SUBSYSTEM_DEF(async_map_generator)
 		current_run_length = length(executing_generators)
 	//Split the tick
 	MC_SPLIT_TICK_INIT(current_run_length)
+	MC_SPLIT_TICK
 	//Start processing
 	while (current_run_index <= current_run_length)
 		//Get current action

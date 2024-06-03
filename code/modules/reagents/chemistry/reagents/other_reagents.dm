@@ -183,6 +183,8 @@
 	for(var/mob/living/simple_animal/slime/M in T)
 		M.apply_water()
 
+	for (var/obj/effect/simple_fire/simple_fire in T)
+		qdel(simple_fire)
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot && !isspaceturf(T))
 		if(T.air)

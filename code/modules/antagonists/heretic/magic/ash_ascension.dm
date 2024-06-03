@@ -39,7 +39,7 @@
 		return
 
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, current_user))
-		new /obj/effect/hotspot(nearby_turf)
+		new /obj/effect/simple_fire(nearby_turf)
 		nearby_turf.hotspot_expose(750, 25 * delta_time, 1)
 		for(var/mob/living/fried_living in nearby_turf.contents - current_user)
 			fried_living.adjustFireLoss(2.5 * delta_time)
@@ -65,7 +65,7 @@
 	var/current_range = 1
 	for(var/i in 0 to max_range)
 		for(var/turf/nearby_turf as anything in spiral_range_turfs(current_range, centre))
-			new /obj/effect/hotspot(nearby_turf)
+			new /obj/effect/simple_fire(nearby_turf)
 			nearby_turf.hotspot_expose(750, 50, 1)
 			for(var/mob/living/fried_living in nearby_turf.contents - centre)
 				fried_living.adjustFireLoss(5)
@@ -133,7 +133,7 @@
 			L.adjustFireLoss(20)
 			to_chat(L, "<span class='userdanger'>You're hit by [source]'s eldritch flames!</span>")
 
-		new /obj/effect/hotspot(T)
+		new /obj/effect/simple_fire(T)
 		T.hotspot_expose(700,50,1)
 		// deals damage to mechs
 		for(var/obj/vehicle/sealed/mecha/M in T.contents)

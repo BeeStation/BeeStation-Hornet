@@ -15,6 +15,7 @@ SUBSYSTEM_DEF(enumeration)
 
 /datum/controller/subsystem/enumeration/fire()
 	MC_SPLIT_TICK_INIT(length(tick_enumerations))
+	MC_SPLIT_TICK
 	//No need to copy the list, so use indexing enumeration isntead
 	//Go backwards to prevent concurrent modification issues
 	for (var/i in length(tick_enumerations) to 1 step -1)

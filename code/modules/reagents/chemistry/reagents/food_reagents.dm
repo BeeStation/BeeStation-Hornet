@@ -475,6 +475,8 @@
 	if (!istype(T))
 		return
 	T.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume*2 SECONDS)
+	if (locate(/obj/effect/simple_fire) in T)
+		new /obj/effect/hotspot(T)
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = T.return_air()

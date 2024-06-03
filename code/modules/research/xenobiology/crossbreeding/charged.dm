@@ -43,8 +43,7 @@ Charged extracts:
 
 /obj/item/slimecross/charged/orange/do_effect(mob/user)
 	for(var/turf/open/turf in RANGE_TURFS(5, user))
-		if(!locate(/obj/effect/hotspot) in turf)
-			new /obj/effect/hotspot(turf)
+		new /obj/effect/simple_fire(turf)
 	..()
 
 /obj/item/slimecross/charged/purple

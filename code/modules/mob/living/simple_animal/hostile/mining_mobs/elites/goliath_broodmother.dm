@@ -206,8 +206,7 @@
 	if(!latched)
 		retract()
 	else
-		deltimer(timerid)
-		timerid = addtimer(CALLBACK(src, PROC_REF(retract)), 10, TIMER_STOPPABLE)
+		set_destroy_at_time(world.time + 1 SECONDS)
 
 /obj/effect/temp_visual/goliath_tentacle/broodmother/patch/Initialize(mapload, new_spawner)
 	. = ..()

@@ -266,7 +266,7 @@ Difficulty: Medium
 	for(var/turf/T in turfs)
 		if(istype(T, /turf/closed))
 			break
-		new /obj/effect/hotspot(T)
+		new /obj/effect/simple_fire(T)
 		T.hotspot_expose(700,50,1)
 		for(var/mob/living/L in T.contents)
 			if(L in hit_list || L == source)
@@ -541,7 +541,7 @@ Difficulty: Medium
 		var/turf/closed/mineral/M = T
 		M.gets_drilled()
 	playsound(T, "explosion", 80, 1)
-	new /obj/effect/hotspot(T)
+	new /obj/effect/simple_fire(T)
 	T.hotspot_expose(700, 50, 1)
 	for(var/mob/living/L in T.contents)
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))

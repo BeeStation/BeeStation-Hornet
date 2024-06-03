@@ -539,7 +539,7 @@
 				break
 	if(firestarter && active)
 		hit_atom.fire_act()
-		new /obj/effect/hotspot(get_turf(hit_atom))
+		new /obj/effect/simple_fire(get_turf(hit_atom), 400)
 	..()
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)

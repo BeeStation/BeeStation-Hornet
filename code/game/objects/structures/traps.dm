@@ -192,7 +192,7 @@
 
 /obj/structure/trap/fire/flare()
 	..()
-	new /obj/effect/hotspot(get_turf(src))
+	new /obj/effect/simple_fire(get_turf(src))
 
 
 /obj/structure/trap/chill

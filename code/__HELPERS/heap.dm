@@ -23,7 +23,7 @@
 /datum/heap/proc/insert(atom/A)
 
 	L.Add(A)
-	swim(length(L))
+	return swim(length(L))
 
 //removes and returns the first element of the heap
 //(i.e the max or the min dependant on the comparison function)
@@ -37,6 +37,19 @@
 	if(length(L))
 		sink(1)
 
+/datum/heap/proc/delete_at(index)
+	if (index <= 0)
+		CRASH("Attempted to delete from heap where index is less than 0. This is an error.")
+	if (index > length(L))
+		CRASH("Attempted to delete from a heap outside of the bounds of the heap.")
+	var/deleted = L[index]
+	L.Swap(index, length(L))
+	L.len--
+	// Edge case where we remove the sole element of the heap
+	if (index <= L.len)
+		swim(index)
+	return deleted
+
 //Get a node up to its right position in the heap
 /datum/heap/proc/swim(index)
 	var/parent = round(index * 0.5)
@@ -45,6 +58,7 @@
 		L.Swap(index,parent)
 		index = parent
 		parent = round(index * 0.5)
+	return index
 
 //Get a node down to its right position in the heap
 /datum/heap/proc/sink(index)
