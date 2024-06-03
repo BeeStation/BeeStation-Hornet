@@ -70,18 +70,11 @@
 	var/last_spread = 0
 
 /obj/structure/destructible/religion/shadow_obelisk/Initialize(mapload)
-	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	. = ..()
-	if(!sect.faithful_used)
-		return
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/structure/destructible/religion/shadow_obelisk/LateInitialize()
-	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	. = ..()
-	if(!sect.faithful_used)
-		return
-	START_PROCESSING(SSobj, src)
 
 /obj/structure/destructible/religion/shadow_obelisk/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -89,63 +82,62 @@
 
 /obj/structure/destructible/religion/shadow_obelisk/process(delta_time)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
-	if(sect.faithful_used)
-		if(last_heal <= world.time)
-			last_heal = world.time + heal_delay
-			for(var/mob/living/L in range(5, src))
-				if(L.health == L.maxHealth)
-					continue
-				if(!isshadow(L) && !L.mind?.holy_role && !isfaithless(L))
-					continue
-				new /obj/effect/temp_visual/heal(get_turf(src), "#29005f")
-				if(isshadow(L) || L.mind?.holy_role || isfaithless(L))
-					L.adjustBruteLoss(-2*delta_time, 0)
-					L.adjustToxLoss(-2*delta_time, 0)
-					L.adjustOxyLoss(-2*delta_time, 0)
-					L.adjustFireLoss(-2*delta_time, 0)
-					L.adjustCloneLoss(-2*delta_time, 0)
-					L.updatehealth()
-					if(L.blood_volume < BLOOD_VOLUME_NORMAL)
-						L.blood_volume += 1.0
-				CHECK_TICK
-		if(last_spread <= world.time)
-			var/list/validturfs = list()
-			var/list/shadowturfs = list()
-			for(var/T in circleviewturfs(src, 5))
-				if(istype(T, /turf/open/floor/black))
-					shadowturfs |= T
-					continue
-				var/static/list/blacklisted_pylon_turfs = typecacheof(list(
-					/turf/closed,
-					/turf/open/floor/black,
-					/turf/open/space,
-					/turf/open/lava,
-					/turf/open/chasm,
-					/turf/open/openspace,
-					/turf/open/floor/plating/beach,
-					/turf/open/indestructible,
-					/turf/open/floor/prison))
-				if(is_type_in_typecache(T, blacklisted_pylon_turfs))
-					continue
-				else
-					validturfs |= T
-
-			last_spread = world.time + spread_delay
-
-			var/turf/T = safepick(validturfs)
-			if(T)
-				if(istype(T, /turf/open/floor/plating))
-					T.PlaceOnTop(/turf/open/floor/black, flags = CHANGETURF_INHERIT_AIR)
-				else
-					T.ChangeTurf(/turf/open/floor/black, flags = CHANGETURF_INHERIT_AIR)
+	if(!sect.faithful_used)
+		return
+	if(last_heal <= world.time)
+		last_heal = world.time + heal_delay
+		for(var/mob/living/L in range(5, src))
+			if(L.health == L.maxHealth)
+				continue
+			if(!isshadow(L) && !L.mind?.holy_role && !isfaithless(L))
+				continue
+			new /obj/effect/temp_visual/heal(get_turf(src), "#29005f")
+			if(isshadow(L) || L.mind?.holy_role || isfaithless(L))
+				L.adjustBruteLoss(-2*delta_time, 0)
+				L.adjustToxLoss(-2*delta_time, 0)
+				L.adjustOxyLoss(-2*delta_time, 0)
+				L.adjustFireLoss(-2*delta_time, 0)
+				L.adjustCloneLoss(-2*delta_time, 0)
+				L.updatehealth()
+				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
+					L.blood_volume += 1.0
+			CHECK_TICK
+	if(last_spread <= world.time)
+		var/list/validturfs = list()
+		var/list/shadowturfs = list()
+		for(var/T in circleviewturfs(src, 5))
+			if(istype(T, /turf/open/floor/black))
+				shadowturfs |= T
+				continue
+			var/static/list/blacklisted_obelisk_turfs = typecacheof(list(
+				/turf/closed,
+				/turf/open/floor/black,
+				/turf/open/space,
+				/turf/open/lava,
+				/turf/open/chasm,
+				/turf/open/openspace,
+				/turf/open/floor/plating/beach,
+				/turf/open/indestructible,
+				/turf/open/floor/prison))
+			if(is_type_in_typecache(T, blacklisted_obelisk_turfs))
+				continue
 			else
-				var/turf/open/floor/black/F = safepick(shadowturfs)
-				if(F)
-					new /obj/effect/temp_visual/religion/turf/floor(F)
-				else
-					// Are we in space or something? No black turfs or
-					// convertable turfs?
-					last_spread = world.time + spread_delay*2
+				validturfs |= T
+		last_spread = world.time + spread_delay
+		var/turf/T = safepick(validturfs)
+		if(T)
+			if(istype(T, /turf/open/floor/plating))
+				T.PlaceOnTop(/turf/open/floor/black, flags = CHANGETURF_INHERIT_AIR)
+			else
+				T.ChangeTurf(/turf/open/floor/black, flags = CHANGETURF_INHERIT_AIR)
+		else
+			var/turf/open/floor/black/F = safepick(shadowturfs)
+			if(F)
+				new /obj/effect/temp_visual/religion/turf/floor(F)
+			else
+				// Are we in space or something? No black turfs or
+				// convertable turfs?
+				last_spread = world.time + spread_delay*2
 
 /obj/structure/destructible/religion/shadow_obelisk/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/nullrod))
@@ -387,7 +379,7 @@
 
 /datum/religion_rites/final_darkness
 	name = "Final Darkness"
-	desc = "The endgame, Activates the shadow heal and (if you meet the requirements) summons numerous Faithsworn entities from every obelisk in existence. THIS IS ONE USE ONLY."
+	desc = "The endgame, Activates the obelisk heal and summons Faithsworn entities from every obelisk in existence. THIS IS ONE USE ONLY."
 	ritual_length = 60 SECONDS
 	ritual_invocations = list(
 		"Join us in this darkness ...",
@@ -396,28 +388,29 @@
 	invoke_msg = "... Let the darkness come and fight!!"
 	favor_cost = 50000
 
-
 /datum/religion_rites/final_darkness/invoke_effect(mob/living/user, atom/religious_tool)
 	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	if(sect.faithful_used)
 		to_chat(user,"<span class='warning'>This rite has already been used, your favor has been refuned.</span>")
 		GLOB.religious_sect?.adjust_favor(50000, user)
-		return..()
+		return ..()
 	sect.faithful_used = TRUE
+	var/altar_turf = get_turf(religious_tool)
+	var/obj/structure/destructible/religion/shadow_obelisk/lisk = new(altar_turf)
+	sect.obelisks += lisk
+	lisk.AddComponent(/datum/component/dark_favor, user)
+	lisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
+	priority_announce("May our lord, [GLOB.deity], have mercy on your soul as darkness reigns apon you all.", "Faith Alert", SSstation.announcer.get_rand_alert_sound())
+	addtimer(CALLBACK(lisk, TYPE_PROC_REF(/obj/structure/destructible/religion/shadow_obelisk, final_darkness_activate)), 100)
+
+/obj/structure/destructible/religion/shadow_obelisk/proc/final_darkness_activate()
+	var/datum/religion_sect/shadow_sect/sect = GLOB.religious_sect
 	for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
-		obs.LateInitialize()
-	if(user.mind.is_murderbone())
-		priority_announce("May our lord, [GLOB.deity], have mercy on your soul as darkness reigns apon you all.", "Faith Alert", SSstation.announcer.get_rand_alert_sound())
-		sleep(150)
-		for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
-			var/obelisk_turf = get_turf(obs)
-			for(var/i in 1 to 3)
-				var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(obelisk_turf)
-				faithful.AddComponent(/datum/component/dark_favor, user)
-				faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
-			playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
-		return ..()
-	else
-		for(var/obj/structure/destructible/religion/shadow_obelisk/obs in sect.obelisks)
-			playsound(obs, 'sound/magic/fireball.ogg', 50, TRUE)
-		return ..()
+		START_PROCESSING(SSobj, obs)
+		var/obelisk_turf = get_turf(obs)
+		for(var/i in 1 to 3)
+			var/mob/living/simple_animal/hostile/faithless/faithful/faithful = new(obelisk_turf)
+			faithful.AddComponent(/datum/component/dark_favor, faithful)
+			faithful.set_light(2, -2, DARKNESS_INVERSE_COLOR)
+		playsound(obs, 'sound/hallucinations/wail.ogg', 50, TRUE)
