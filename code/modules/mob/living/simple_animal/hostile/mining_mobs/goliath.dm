@@ -164,7 +164,8 @@
 	if(ismineralturf(loc))
 		var/turf/closed/mineral/M = loc
 		M.gets_drilled()
-	set_destroy_at_time(world.time + 7)
+	deltimer(timerid)
+	timerid = addtimer(CALLBACK(src, PROC_REF(tripanim)), 7, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/goliath_tentacle/original/Initialize(mapload, new_spawner)
 	. = ..()
@@ -177,7 +178,8 @@
 
 /obj/effect/temp_visual/goliath_tentacle/proc/tripanim()
 	icon_state = "Goliath_tentacle_wiggle"
-	set_destroy_at_time(world.time + 3)
+	deltimer(timerid)
+	timerid = addtimer(CALLBACK(src, PROC_REF(trip)), 3, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/goliath_tentacle/proc/trip()
 	var/latched = FALSE
@@ -192,8 +194,10 @@
 	if(!latched)
 		retract()
 	else
-		set_destroy_at_time(world.time + 1 SECONDS)
+		deltimer(timerid)
+		timerid = addtimer(CALLBACK(src, PROC_REF(retract)), 10, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/goliath_tentacle/proc/retract()
 	icon_state = "Goliath_tentacle_retract"
-	set_destroy_at_time(world.time + 7)
+	deltimer(timerid)
+	timerid = QDEL_IN(src, 7)

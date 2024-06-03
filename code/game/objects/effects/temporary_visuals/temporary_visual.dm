@@ -6,20 +6,18 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/duration = 10 //in deciseconds
 	var/randomdir = TRUE
-	var/heap_position
-	var/destroy_at
-	var/bumped = FALSE
+	var/timerid
 
 /obj/effect/temp_visual/Initialize(mapload)
-	destroy_at = world.time + duration
-	SSeffects.join_temp_visual(src)
 	. = ..()
 	if(randomdir)
 		setDir(pick(GLOB.cardinals))
 
-/obj/effect/temp_visual/Destroy(force)
+	timerid = QDEL_IN(src, duration)
+
+/obj/effect/temp_visual/Destroy()
 	. = ..()
-	SSeffects.leave_temp_visual(src)
+	deltimer(timerid)
 
 /obj/effect/temp_visual/singularity_act()
 	return
@@ -35,6 +33,4 @@
 		setDir(set_dir)
 	. = ..()
 
-/obj/effect/temp_visual/proc/set_destroy_at_time(new_time)
-	destroy_at = new_time
-	bumped = TRUE
+

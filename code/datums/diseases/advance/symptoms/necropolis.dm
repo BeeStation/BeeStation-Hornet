@@ -140,4 +140,5 @@
 	if(!latched)
 		retract()
 	else
-		set_destroy_at_time(world.time + 1 SECONDS)
+		deltimer(timerid)
+		timerid = addtimer(CALLBACK(src, PROC_REF(retract)), 10, TIMER_STOPPABLE)
