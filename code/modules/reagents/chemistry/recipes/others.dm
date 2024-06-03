@@ -41,21 +41,21 @@
 	id = /datum/reagent/impedrezene
 	results = list(/datum/reagent/impedrezene = 2)
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_ORGAN
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_DAMAGING | REACTION_TAG_ORGAN
 
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"
 	id = /datum/reagent/cryptobiolin
 	results = list(/datum/reagent/cryptobiolin = 3)
 	required_reagents = list(/datum/reagent/potassium = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/glycerol
 	name = "Glycerol"
 	id = /datum/reagent/glycerol
 	results = list(/datum/reagent/glycerol = 1)
 	required_reagents = list(/datum/reagent/consumable/cornoil = 3, /datum/reagent/toxin/acid = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_EXPLOSIVE
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/sodiumchloride
 	name = "Sodium Chloride"
@@ -765,7 +765,7 @@
 	id = /datum/reagent/hair_dye
 	results = list(/datum/reagent/hair_dye = 5)
 	required_reagents = list(/datum/reagent/colorful_reagent = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/drug/space_drugs = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/barbers_aid
 	name = /datum/reagent/barbers_aid

@@ -12,7 +12,7 @@
 	id = /datum/reagent/medicine/rezadone
 	results = list(/datum/reagent/medicine/rezadone = 3)
 	required_reagents = list(/datum/reagent/toxin/carpotoxin = 1, /datum/reagent/cryptobiolin = 1, /datum/reagent/copper = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_CLONE
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_HEALING | REACTION_TAG_CLONE
 
 /datum/chemical_reaction/spaceacillin
 	name = "Spaceacillin"
@@ -33,7 +33,7 @@
 	id = /datum/reagent/medicine/synaptizine
 	results = list(/datum/reagent/medicine/synaptizine = 3)
 	required_reagents = list(/datum/reagent/consumable/sugar = 1, /datum/reagent/lithium = 1, /datum/reagent/water = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/charcoal
 	name = "Charcoal"
@@ -56,7 +56,7 @@
 	id = /datum/reagent/medicine/salglu_solution
 	results = list(/datum/reagent/medicine/salglu_solution = 3)
 	required_reagents = list(/datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/water = 1, /datum/reagent/consumable/sugar = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_ORGAN
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE | REACTION_TAG_BURN | REACTION_TAG_ORGAN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/mine_salve
 	name = "Miner's Salve"
@@ -77,7 +77,7 @@
 	id = /datum/reagent/medicine/synthflesh
 	results = list(/datum/reagent/medicine/synthflesh = 4)
 	required_reagents = list(/datum/reagent/blood = 1, /datum/reagent/carbon = 1, /datum/reagent/medicine/styptic_powder = 1, /datum/reagent/medicine/silver_sulfadiazine = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE | REACTION_TAG_BURN
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE | REACTION_TAG_BURN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/styptic_powder
 	name = "Styptic Powder"
@@ -107,7 +107,7 @@
 	id = /datum/reagent/medicine/pen_acid
 	results = list(/datum/reagent/medicine/pen_acid = 6)
 	required_reagents = list(/datum/reagent/fuel = 1, /datum/reagent/chlorine = 1, /datum/reagent/ammonia = 1, /datum/reagent/toxin/formaldehyde = 1, /datum/reagent/sodium = 1, /datum/reagent/toxin/cyanide = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_HEALING | REACTION_TAG_TOXIN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/sal_acid
 	name = "Salicyclic Acid"
@@ -197,7 +197,7 @@
 	id = /datum/reagent/medicine/neurine
 	results = list(/datum/reagent/medicine/neurine = 3)
 	required_reagents = list(/datum/reagent/medicine/mannitol = 1, /datum/reagent/acetone = 1, /datum/reagent/oxygen = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_ORGAN
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_ORGAN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/mutadone
 	name = "Mutadone"
@@ -211,7 +211,7 @@
 	id = /datum/reagent/medicine/antihol
 	results = list(/datum/reagent/medicine/antihol = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/copper = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/cryoxadone
 	name = "Cryoxadone"
@@ -225,7 +225,7 @@
 	id = /datum/reagent/medicine/pyroxadone
 	results = list(/datum/reagent/medicine/pyroxadone = 2)
 	required_reagents = list(/datum/reagent/medicine/cryoxadone = 1, /datum/reagent/toxin/slimejelly = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE |REACTION_TAG_BURN | REACTION_TAG_TOXIN | REACTION_TAG_OXY | REACTION_TAG_CLONE
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_HEALING | REACTION_TAG_BRUTE |REACTION_TAG_BURN | REACTION_TAG_TOXIN | REACTION_TAG_OXY | REACTION_TAG_CLONE
 
 /datum/chemical_reaction/clonexadone
 	name = "Clonexadone"
@@ -233,7 +233,7 @@
 	results = list(/datum/reagent/medicine/clonexadone = 2)
 	required_reagents = list(/datum/reagent/medicine/cryoxadone = 1, /datum/reagent/sodium = 1)
 	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_CLONE
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_CLONE | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/haloperidol
 	name = "Haloperidol"
@@ -262,7 +262,7 @@
 	id = "dexalinp"
 	results = list(/datum/reagent/medicine/dexalinp = 3)
 	required_reagents = list(/datum/reagent/medicine/dexalin = 1, /datum/reagent/carbon = 1, /datum/reagent/iron = 1)
-	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_HEALING | REACTION_TAG_OXY
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OXY
 
 /datum/chemical_reaction/kelotane
 	name = "Kelotane"
@@ -283,14 +283,14 @@
 	id = /datum/reagent/medicine/tricordrazine
 	results = list(/datum/reagent/medicine/tricordrazine = 3)
 	required_reagents = list(/datum/reagent/medicine/bicaridine = 1, /datum/reagent/medicine/kelotane = 1, /datum/reagent/medicine/antitoxin = 1)
-	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_HEALING | REACTION_TAG_BRUTE | REACTION_TAG_BURN | REACTION_TAG_TOXIN
+	reaction_tags = REACTION_TAG_EAST | REACTION_TAG_HEALING | REACTION_TAG_BRUTE | REACTION_TAG_BURN | REACTION_TAG_TOXIN | REACTION_TAG_OXY
 
 /datum/chemical_reaction/regen_jelly
 	name = "Regenerative Jelly"
 	id = /datum/reagent/medicine/regen_jelly
 	results = list(/datum/reagent/medicine/regen_jelly = 2)
 	required_reagents = list(/datum/reagent/medicine/tricordrazine = 1, /datum/reagent/toxin/slimejelly = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_BRUTE |REACTION_TAG_BURN | REACTION_TAG_TOXIN | REACTION_TAG_OXY
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_HEALING | REACTION_TAG_BRUTE |REACTION_TAG_BURN | REACTION_TAG_TOXIN | REACTION_TAG_OXY
 
 /datum/chemical_reaction/corazone
 	name = "Corazone"
@@ -305,7 +305,7 @@
 	results = list(/datum/reagent/medicine/morphine = 2)
 	required_reagents = list(/datum/reagent/carbon = 2, /datum/reagent/hydrogen = 2, /datum/reagent/consumable/ethanol = 1, /datum/reagent/oxygen = 1)
 	required_temp = 480
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OTHER | REACTION_TAG_DRUG
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_OTHER | REACTION_TAG_DRUG
 
 /datum/chemical_reaction/modafinil
 	name = "Modafinil"
@@ -313,7 +313,7 @@
 	results = list(/datum/reagent/medicine/modafinil = 5)
 	required_reagents = list(/datum/reagent/diethylamine = 1, /datum/reagent/ammonia = 1, /datum/reagent/phenol = 1, /datum/reagent/acetone = 1, /datum/reagent/toxin/acid = 1)
 	required_catalysts = list(/datum/reagent/bromine = 1) // as close to the real world synthesis as possible
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_HEALING | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/psicodine
 	name = "Psicodine"
@@ -327,7 +327,7 @@
 	id = /datum/reagent/medicine/system_cleaner
 	results = list(/datum/reagent/medicine/system_cleaner = 4)
 	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/chlorine = 1, /datum/reagent/phenol = 2, /datum/reagent/potassium = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/liquid_solder
 	name = "Liquid Solder"
@@ -336,7 +336,7 @@
 	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/copper = 1, /datum/reagent/silver = 1)
 	required_temp = 370
 	mix_message = "The mixture becomes a metallic slurry."
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_ORGAN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/carthatoline
 	name = "Carthatoline"
@@ -351,7 +351,7 @@
 	id = /datum/reagent/medicine/meclizine
 	results = list(/datum/reagent/medicine/meclizine = 4)
 	required_reagents = list(/datum/reagent/ammonia = 1, /datum/reagent/chlorine = 1, /datum/reagent/carbon = 2)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_TOXIN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/hepanephrodaxon
 	name = "Hepanephrodaxon"

@@ -125,13 +125,14 @@
 	id = /datum/reagent/consumable/ethanol/screwdrivercocktail
 	results = list(/datum/reagent/consumable/ethanol/screwdrivercocktail = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 2, /datum/reagent/consumable/orangejuice = 1)
-	reaction_tags = REACTION_TAG_DRINK | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_DRINK | REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/drink/bloody_mary
 	name = "Bloody Mary"
 	id = /datum/reagent/consumable/ethanol/bloody_mary
 	results = list(/datum/reagent/consumable/ethanol/bloody_mary = 4)
 	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 1, /datum/reagent/consumable/tomatojuice = 2, /datum/reagent/consumable/limejuice = 1)
+reaction_tags = REACTION_TAG_DRINK | REACTION_TAG_EASY | REACTION_TAG_HEALING | REACTION_TAG_ORGAN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/drink/gargle_blaster
 	name = "Pan-Galactic Gargle Blaster"
