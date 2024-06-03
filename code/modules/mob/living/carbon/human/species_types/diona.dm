@@ -38,7 +38,6 @@
 	mutantstomach = /obj/item/organ/stomach/diona //SS14 sprite
 	mutantears = /obj/item/organ/ears/diona //SS14 sprite
 	mutant_heart = /obj/item/organ/heart/diona //Dungeon's sprite
-	mutant_organs = list()
 
 	species_chest = /obj/item/bodypart/chest/diona
 	species_head = /obj/item/bodypart/head/diona
@@ -50,6 +49,8 @@
 	var/datum/action/diona/split/split_ability //All dionae start with this.
 	var/mob/living/simple_animal/nymph/drone = null
 
+	var/time_spent_in_light
+
 /datum/species/diona/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		return
@@ -60,13 +61,17 @@
 		H.adjust_nutrition(light_amount * 10)
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
-		if(light_amount > 0.2) //if there's enough light, heal
-			H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
-			H.adjustToxLoss(-1)
-			H.adjustOxyLoss(-1)
-
+		if(light_amount > 0.2) //Is there light here?
+			time_spent_in_light++  //If so, how long have we been somewhere with light?
+			if(time_spent_in_light > 5) //More than 5 seconds spent in the light
+				if(H.stat != CONSCIOUS)
+					return
+				H.apply_status_effect(STATUS_EFFECT_PLANTHEALING)
+		else
+			H.remove_status_effect(STATUS_EFFECT_PLANTHEALING)
+			time_spent_in_light = 0  //No light? Reset the timer.
 	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
-		H.take_overall_damage(2,0)
+		H.take_overall_damage(1,0)
 	if(H.fire_stacks < 1)
 		H.adjust_fire_stacks(1) //VERY flammable
 
@@ -74,7 +79,6 @@
 	var/datum/mind/M = H.mind
 	if(H.stat != CONSCIOUS && !M && drone) //If the home body is not fully conscious, they dont have a mind and have a drone
 		drone.switch_ability.Trigger(H) //Bring them home.
-
 
 /datum/species/diona/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	. = FALSE
@@ -127,7 +131,7 @@
 /datum/species/diona/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.diona_names)]"
 	if(unique && attempts < 10 && findname(.))
-		return .(gender, TRUE, null, ++attempts)
+		return ..(gender, TRUE, null, ++attempts)
 
 /datum/action/diona/split
 	name = "Split"
@@ -144,23 +148,25 @@
 		return FALSE
 	if(special)
 		fakeDeath(FALSE, user) //This runs when you are dead.
+		return TRUE
 	if(user.incapacitated())
 		return FALSE
 	if(alert("Are we sure we wish to kill ourselves and split into seperated nymphs?",,"Yes", "No") != "Yes")
-		return
+		return FALSE
 	if(do_after(user, 5 SECONDS, user, NONE, TRUE))
 		fakeDeath(FALSE, user) //This runs when you manually activate the ability.
+		return TRUE
 
-/datum/action/diona/split/proc/fakeDeath(gibbed, var/mob/living/carbon/H)
+/datum/action/diona/split/proc/fakeDeath(gibbed, mob/living/carbon/H)
 	if(Activated)
 		return
 	Activated = TRUE
 	H.death() //Ha ha, we're totally dead right now
 	addtimer(CALLBACK(src, PROC_REF(split), gibbed, H), 5 SECONDS, TIMER_DELETE_ME) //Or are we?
 
-/datum/action/diona/split/proc/split(gibbed, var/mob/living/carbon/H)
+/datum/action/diona/split/proc/split(gibbed, mob/living/carbon/H)
 	var/datum/mind/M = H.mind
-	for (var/amount = 0, amount < NPC_NYMPH_SPAWN_AMOUNT, amount++) //Spawn the NPC nymphs
+	for (var/amount in 1 to NPC_NYMPH_SPAWN_AMOUNT) //Spawn the NPC nymphs
 		new /mob/living/simple_animal/nymph(H.loc)
 	var/mob/living/simple_animal/nymph/nymph = new(H.loc) //Spawn the player nymph
 	for(var/obj/item/I in H.contents) //Drop the player's items on the ground

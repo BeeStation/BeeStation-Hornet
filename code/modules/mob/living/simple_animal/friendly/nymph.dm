@@ -58,7 +58,6 @@
 	grant_language(/datum/language/sylvan)
 
 /mob/living/simple_animal/nymph/get_stat_tab_status()
-	. = ..()
 	var/list/tab_data = ..()
 	tab_data["Health"] = GENERATE_STAT_TEXT("[round((health / maxHealth) * 100)]%")
 	if(!is_drone)
@@ -101,7 +100,6 @@
 /mob/living/simple_animal/nymph/proc/update_progression()
 	if(amount_grown < max_grown)
 		amount_grown++
-	return
 
 /datum/action/nymph/evolve
 	name = "Evolve"
@@ -156,7 +154,7 @@
 	adult.set_species(SPECIES_DIONA)
 	adult.dna.features = src.features
 	adult.update_body()
-	if(src.faction != "neutral")
+	if(!("neutral" in src.faction))
 		adult.faction = src.faction
 	if(old_name)
 		adult.real_name = src.old_name
@@ -166,8 +164,6 @@
 		mind.transfer_to(adult)
 	else
 		adult.key = src.key
-	for (var/obj/item/W in src.contents)
-		src.forceMove(src.loc)
 	qdel(src)
 
 /datum/action/nymph/SwitchFrom

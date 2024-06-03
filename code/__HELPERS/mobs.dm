@@ -147,14 +147,14 @@
 		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
 		"body_model" = gender == MALE ? MALE : gender == FEMALE ? FEMALE : pick(MALE, FEMALE),
 		"psyphoza_cap" = pick(GLOB.psyphoza_cap_list),
-		"diona_leaves" == pick(GLOB.diona_leaves_list),
-		"diona_thorns" == pick(GLOB.diona_thorns_list),
-		"diona_flowers" == pick(GLOB.diona_flowers_list),
-		"diona_moss" == pick(GLOB.diona_moss_list),
-		"diona_mushroom" == pick(GLOB.diona_mushroom_list),
-		"diona_antennae" == pick(GLOB.diona_antennae_list),
-		"diona_eyes" == pick(GLOB.diona_eyes_list),
-		"diona_pbody" == pick(GLOB.diona_pbody_list)
+		"diona_leaves" = pick(GLOB.diona_leaves_list),
+		"diona_thorns" = pick(GLOB.diona_thorns_list),
+		"diona_flowers" = pick(GLOB.diona_flowers_list),
+		"diona_moss" = pick(GLOB.diona_moss_list),
+		"diona_mushroom" = pick(GLOB.diona_mushroom_list),
+		"diona_antennae" = pick(GLOB.diona_antennae_list),
+		"diona_eyes" = pick(GLOB.diona_eyes_list),
+		"diona_pbody" = pick(GLOB.diona_pbody_list)
 		)
 	)
 
