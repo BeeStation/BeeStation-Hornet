@@ -1,0 +1,4 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: The autolathe shock wire reacts to cutting the wire once more
