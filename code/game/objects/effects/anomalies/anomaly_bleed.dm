@@ -2,6 +2,7 @@
 	name = "blood anomaly"
 	icon_state = "blood_anomaly"
 	density = TRUE
+	aSignal = /obj/item/assembly/signaler/anomaly/blood
 
 /obj/effect/anomaly/blood/anomalyEffect(delta_time)
 	..()
@@ -17,9 +18,13 @@
 			continue
 		forceMove(pick(RANGE_TURFS(4, get_turf(player))))
 		sleep(40)
+		if (QDELETED(src))
+			return
 		AddComponent(/datum/component/pellet_cloud, projectile_type=/obj/projectile/bullet/shrapnel/bleed, magnitude=3)
 		playsound(src, 'sound/weapons/shrapnel.ogg', 70, TRUE)
 		sleep(20)
+		if (QDELETED(src))
+			return
 
 /obj/projectile/bullet/shrapnel/bleed
 	damage = 4
