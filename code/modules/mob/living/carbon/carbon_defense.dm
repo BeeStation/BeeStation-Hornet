@@ -488,3 +488,41 @@
 		to_chat(src, "<span class='userdanger'>The heat from [P] cauterizes your bleeding!</span>")
 
 	return ..()
+
+/mob/living/carbon/attack_basic_mob(mob/living/basic/user)
+	. = ..()
+	if(!.)
+		return
+	var/affected_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/dam_zone = dismembering_strike(user, affected_zone)
+	if(!dam_zone) //Dismemberment successful
+		return TRUE
+	var/obj/item/bodypart/affecting = get_bodypart(affected_zone)
+	if(!affecting)
+		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
+	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
+	// Apply bleeding
+	if (user.melee_damage_type == BRUTE)
+		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = user.armour_penetration, silent = TRUE)
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(user.melee_damage * 0.1 * hit_amount)
+
+/mob/living/carbon/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(!.)
+		return
+	var/affected_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/dam_zone = dismembering_strike(M, affected_zone)
+	if(!dam_zone) //Dismemberment successful
+		return TRUE
+	var/obj/item/bodypart/affecting = get_bodypart(affected_zone)
+	if(!affecting)
+		affecting = get_bodypart(BODY_ZONE_CHEST)
+	var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
+	apply_damage(M.melee_damage, M.melee_damage_type, affecting, armor)
+	// Apply bleeding
+	if (M.melee_damage_type == BRUTE)
+		var/armour_block = run_armor_check(dam_zone, BLEED, armour_penetration = M.armour_penetration, silent = TRUE)
+		var/hit_amount = (100 - armour_block) / 100
+		add_bleeding(M.melee_damage * 0.1 * hit_amount)
