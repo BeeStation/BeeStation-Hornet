@@ -261,12 +261,16 @@
 			return "Your account is not old enough for [jobtitle]."
 		if(JOB_UNAVAILABLE_SLOTFULL)
 			return "[jobtitle] is already filled to capacity."
+		if(JOB_UNAVAILABLE_LOCKED)
+			return "[jobtitle] is locked by the system."
 	return "Error: Unknown job availability."
 
 /mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
 	var/datum/job/job = SSjob.GetJob(rank)
 	if(!job)
 		return JOB_UNAVAILABLE_GENERIC
+	if(job.lock_flags)
+		return JOB_UNAVAILABLE_LOCKED
 	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
 		if(job.title == JOB_NAME_ASSISTANT)
 			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants

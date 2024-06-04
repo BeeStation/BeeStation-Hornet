@@ -25,7 +25,7 @@
 		revert_cast()
 		return
 
-	if((HAS_TRAIT(target, TRAIT_MINDSHIELD) && !ignore_mindshield) || istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if((HAS_TRAIT(target, TRAIT_MINDSHIELD) && !ignore_mindshield) || istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/costume/foilhat))
 		to_chat(user, "<span class='warning'>Powerful technology protects [target.name]'s mind.</span>")
 		revert_cast()
 		return

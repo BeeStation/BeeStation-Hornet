@@ -3,7 +3,7 @@
 	name = "ratvar's light"
 	icon = 'icons/effects/clockwork_effects.dmi'
 	duration = 8
-	randomdir = 0
+	randomdir = FALSE
 	layer = ABOVE_NORMAL_TURF_LAYER
 
 /obj/effect/temp_visual/ratvar/door
@@ -123,10 +123,10 @@
 	pixel_x = -16
 
 /obj/effect/temp_visual/ratvar/geis_binding
-	icon_state = "geisbinding"
+	icon_state = "ratvargearglow"
 
 /obj/effect/temp_visual/ratvar/geis_binding/top
-	icon_state = "geisbinding_top"
+	icon_state = "ratvargearglow"
 
 /obj/effect/temp_visual/ratvar/component
 	icon = 'icons/obj/clockwork_objects.dmi'

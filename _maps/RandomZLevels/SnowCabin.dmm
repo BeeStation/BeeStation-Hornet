@@ -2138,7 +2138,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/suit/hooded/wintercoat/hydro,
 /obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/head/hardhat,
+/obj/item/clothing/head/utility/hardhat,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "gZ" = (
@@ -2284,7 +2284,7 @@
 /area/awaymission/cabin)
 "hv" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/welding{
+/obj/item/clothing/head/utility/welding{
 	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3356,7 +3356,7 @@
 	anchored = 1;
 	name = "I Don't Know"
 	},
-/obj/item/clothing/head/bishopmitre{
+/obj/item/clothing/head/chaplain/bishopmitre{
 	pixel_x = -1;
 	pixel_y = 16
 	},
@@ -3374,7 +3374,7 @@
 	anchored = 1;
 	name = "Because"
 	},
-/obj/item/clothing/head/scarecrow_hat{
+/obj/item/clothing/head/costume/scarecrow_hat{
 	desc = "A replica straw hat that isn't actually made out of straw";
 	name = "synthetic straw hat";
 	pixel_x = -1;
@@ -3543,7 +3543,7 @@
 	anchored = 1;
 	name = "Why"
 	},
-/obj/item/clothing/head/bandana{
+/obj/item/clothing/head/costume/pirate/bandana{
 	pixel_x = -1;
 	pixel_y = -1
 	},
@@ -4603,11 +4603,11 @@
 	invoke_damage = 60;
 	name = "ice rune"
 	},
-/obj/item/clothing/suit/snowman{
+/obj/item/clothing/suit/costume/snowman{
 	desc = "The dead body of a snowman. There's holes to stick your own body in it.";
 	name = "snowman corpse"
 	},
-/obj/item/clothing/head/snowman{
+/obj/item/clothing/head/costume/snowman{
 	desc = "The head of a dead snowman. There's enough room inside for your own head.";
 	pixel_x = -1;
 	pixel_y = 10

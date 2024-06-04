@@ -196,7 +196,7 @@
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/pdapainter/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || usr.stat || usr.restrained())
+	if(!user.canUseTopic(src, !issilicon(user)) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(storedpda || storedid)
 		ejectid()

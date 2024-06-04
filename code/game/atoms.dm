@@ -143,10 +143,12 @@
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
 
-	/// How much luminosity should we have by default?
-	var/base_luminosity = 0
+	/// What is our default level of luminosity, if you want inherent luminosity
+	/// withing an atom's type, set luminosity instead and we will manage it for you.
+	/// Always use set_base_luminosity instead of directly modifying this
+	VAR_PRIVATE/base_luminosity = 0
 	/// DO NOT EDIT THIS, USE ADD_LUM_SOURCE INSTEAD
-	var/_emissive_count = 0
+	VAR_PRIVATE/_emissive_count = 0
 
 /**
   * Called when an atom is created in byond (built in engine proc)
@@ -1099,10 +1101,6 @@
 	setDir(newdir)
 	return TRUE
 
-///Handle melee attack by a mech
-/atom/proc/mech_melee_attack(obj/mecha/M)
-	return
-
 /**
   * Called when the atom log's in or out
   *
@@ -1771,7 +1769,7 @@
   */
 /atom/proc/setClosed()
 	return
-
+	
 /**
   * Used to attempt to charge an object with a payment component.
   *
@@ -1912,10 +1910,16 @@
 	if (isnull(base_luminosity))
 		base_luminosity = initial(luminosity)
 
-	if (_emissive_count)
-		luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1)
+	if (UNLINT(_emissive_count))
+		UNLINT(luminosity = max(max(base_luminosity, affecting_dynamic_lumi), 1))
 	else
-		luminosity = max(base_luminosity, affecting_dynamic_lumi)
+		UNLINT(luminosity = max(base_luminosity, affecting_dynamic_lumi))
+
+#define set_base_luminosity(target, new_value)\
+if (UNLINT(target.base_luminosity != new_value)) {\
+	UNLINT(target.base_luminosity = new_value);\
+	target.update_luminosity();\
+}
 
 /atom/movable/proc/get_orbitable()
 	return src
