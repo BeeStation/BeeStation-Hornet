@@ -16,7 +16,13 @@
 	for (var/mob/living/carbon/human/player in GLOB.player_list)
 		if (!is_station_level(player.z))
 			continue
-		forceMove(pick(RANGE_TURFS(4, get_turf(player))))
+		var/turf/player_loc = get_turf(player)
+		var/list/nearby_turfs = RANGE_TURFS(4, player_loc)
+		shuffle_inplace(nearby_turfs)
+		var/turf/target = locate(/turf/open) in nearby_turfs
+		if (!target)
+			continue
+		forceMove(target)
 		sleep(40)
 		if (QDELETED(src))
 			return
