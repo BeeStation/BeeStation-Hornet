@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: _basemap.dm has FORCE_MAP define options for debug

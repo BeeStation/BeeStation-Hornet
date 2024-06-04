@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes incorrect message on brains and heads.
-  - bugfix: Fixes z-clear not announcing brains that have someone inside their brain
-      instead of ghosted.
