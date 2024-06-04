@@ -394,5 +394,8 @@
 	if(dat.len)
 		return dat.Join()
 
-/mob/living/proc/soul_departed()
+/mob/proc/soul_departed()
+	return !key && !get_ghost(FALSE, TRUE)
+
+/mob/living/soul_departed()
 	return getorgan(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE)
