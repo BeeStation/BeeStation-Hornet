@@ -15,7 +15,7 @@
 	for (var/mob/living/carbon/human/player in GLOB.player_list)
 		if (!is_station_level(player.z))
 			continue
-		forceMove(pick(orange(4, player)))
+		forceMove(pick(RANGE_TURFS(4, get_turf(player))))
 		sleep(40)
 		AddComponent(/datum/component/pellet_cloud, projectile_type=/obj/projectile/bullet/shrapnel/bleed, magnitude=3)
 		playsound(src, 'sound/weapons/shrapnel.ogg', 70, TRUE)
