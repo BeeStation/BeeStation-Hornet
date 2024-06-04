@@ -55,7 +55,6 @@
 	else
 		to_chat(chap,  "<span class='userdanger'>You are not an antagonist, please do not spread darkness outside of the chapel without Command Staff approval.</span>")
 
-
 // Shadow sect construction
 /obj/structure/destructible/religion/shadow_obelisk
 	name = "Shadow Obelisk"
@@ -68,13 +67,6 @@
 	var/last_heal = 0
 	var/spread_delay = 45
 	var/last_spread = 0
-
-/obj/structure/destructible/religion/shadow_obelisk/Initialize(mapload)
-	. = ..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/structure/destructible/religion/shadow_obelisk/LateInitialize()
-	. = ..()
 
 /obj/structure/destructible/religion/shadow_obelisk/Destroy()
 	STOP_PROCESSING(SSobj, src)
