@@ -136,9 +136,9 @@
 	if(..())
 		return TRUE
 	if(toggle_secure())
-		to_chat(user, "<span class='notice'>The [src] is ready!")
+		to_chat(user, "<span class='notice'>\The [src] is ready!")
 	else
-		to_chat(user, "<span class='notice'>The [src] can now be attached!")
+		to_chat(user, "<span class='notice'>\The [src] can now be attached!")
 	add_fingerprint(user)
 	return TRUE
 
