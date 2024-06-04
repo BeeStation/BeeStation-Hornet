@@ -3,6 +3,8 @@
 /****************************************************
 				BLOOD SYSTEM
 
+https://www.desmos.com/calculator/vxrevmdvfx
+
 To calculate the blood loss rate, use the following formula:
 n = starting amount of blood in your mob
 b = bleed rate of your mob
@@ -336,7 +338,7 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 		var/blood_loss_amount = blood_volume - blood_volume * NUM_E ** (-(amt * decrease_multiplier)/BLOOD_VOLUME_NORMAL)
 		blood_volume = max(blood_volume - blood_loss_amount, 0)
 		if(isturf(src.loc) && prob(sqrt(blood_loss_amount)*BLOOD_DRIP_RATE_MOD)) //Blood loss still happens in locker, floor stays clean
-			if(blood_loss_amount >= BLEED_DEEP_WOUND)
+			if(blood_loss_amount >= 2)
 				add_splatter_floor(src.loc)
 			else
 				add_splatter_floor(src.loc, 1)
