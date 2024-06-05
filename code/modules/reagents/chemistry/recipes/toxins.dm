@@ -5,7 +5,7 @@
 	results = list(/datum/reagent/toxin/formaldehyde = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/oxygen = 1, /datum/reagent/silver = 1)
 	required_temp = 420
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DAMAGING | REACTION_TAG_CHEMICAL | REACTION_TAG_BRUTE | REACTION_TAG_TOXIN
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DAMAGING | REACTION_TAG_CHEMICAL | REACTION_TAG_ORGAN | REACTION_TAG_TOXIN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/fentanyl
 	name = /datum/reagent/toxin/fentanyl
@@ -36,7 +36,7 @@
 	results = list(/datum/reagent/toxin/acid/fluacid = 4)
 	required_reagents = list(/datum/reagent/toxin/acid = 1, /datum/reagent/fluorine = 1, /datum/reagent/hydrogen = 1, /datum/reagent/potassium = 1)
 	required_temp = 380
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DAMAGING | REACTION_TAG_PLANT | REACTION_TAG_BURN | REACTION_TAG_TOXIN
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DAMAGING | REACTION_TAG_PLANT | REACTION_TAG_BRUTE | REACTION_TAG_BURN | REACTION_TAG_TOXIN
 
 /datum/chemical_reaction/sulfonal
 	name = /datum/reagent/toxin/sulfonal
@@ -50,7 +50,7 @@
 	id = /datum/reagent/toxin/lipolicide
 	results = list(/datum/reagent/toxin/lipolicide = 3)
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/diethylamine = 1, /datum/reagent/medicine/ephedrine = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DAMAGING | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DAMAGING | REACTION_TAG_TOXIN | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/mutagen
 	name = "Unstable mutagen"
@@ -78,7 +78,7 @@
 	id = /datum/reagent/toxin/mutetoxin
 	results = list(/datum/reagent/toxin/mutetoxin = 2)
 	required_reagents = list(/datum/reagent/uranium = 2, /datum/reagent/water = 1, /datum/reagent/carbon = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DAMAGING | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/zombiepowder
 	name = "Zombie Powder"
@@ -99,7 +99,7 @@
 	id = /datum/reagent/toxin/mindbreaker
 	results = list(/datum/reagent/toxin/mindbreaker = 5)
 	required_reagents = list(/datum/reagent/silicon = 1, /datum/reagent/hydrogen = 1, /datum/reagent/medicine/charcoal = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DAMAGING | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DRUG | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/heparin
 	name = "Heparin"
@@ -129,7 +129,7 @@
 	id = /datum/reagent/toxin/mimesbane
 	results = list(/datum/reagent/toxin/mimesbane = 3)
 	required_reagents = list(/datum/reagent/uranium/radium = 1, /datum/reagent/toxin/mutetoxin = 1, /datum/reagent/consumable/nothing = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DAMAGING | REACTION_TAG_OTHER
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/bonehurtingjuice
 	name = "Bone Hurting Juice"
