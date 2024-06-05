@@ -160,6 +160,11 @@ bleedsuppress has been replaced for is_bandaged(). Note that is_bleeding() retur
 	else
 		add_splatter_floor(src.loc, 1)
 
+/mob/living/carbon/human/add_bleeding(bleed_level)
+	if (NOBLOOD in dna.species.species_traits)
+		return
+	..()
+
 /mob/living/carbon/proc/get_bleed_intensity()
 	var/datum/status_effect/bleeding/bleed = has_status_effect(STATUS_EFFECT_BLEED)
 	if (!bleed)
