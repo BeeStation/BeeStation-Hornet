@@ -12,7 +12,7 @@
 	required_reagents = list(/datum/reagent/medicine/diphenhydramine = 1, /datum/reagent/ammonia = 1, /datum/reagent/lithium = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/fuel = 1)
 	mix_message = "The mixture violently reacts, leaving behind a few crystalline shards."
 	required_temp = 390
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DRUG
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_DRUG
 
 /datum/chemical_reaction/krokodil
 	name = "Krokodil"
@@ -21,7 +21,7 @@
 	required_reagents = list(/datum/reagent/medicine/diphenhydramine = 1, /datum/reagent/medicine/morphine = 1, /datum/reagent/space_cleaner = 1, /datum/reagent/potassium = 1, /datum/reagent/phosphorus = 1, /datum/reagent/fuel = 1)
 	mix_message = "The mixture dries into a pale blue powder."
 	required_temp = 380
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DRUG
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_DRUG
 
 /datum/chemical_reaction/methamphetamine
 	name = /datum/reagent/drug/methamphetamine
@@ -29,7 +29,7 @@
 	results = list(/datum/reagent/drug/methamphetamine = 4)
 	required_reagents = list(/datum/reagent/medicine/ephedrine = 1, /datum/reagent/iodine = 1, /datum/reagent/phosphorus = 1, /datum/reagent/hydrogen = 1)
 	required_temp = 374
-	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DRUG | REACTION_TAG_DANGEROUS
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DRUG | REACTION_TAG_DANGEROUS | REACTION_TAG_ORGAN
 
 /datum/chemical_reaction/bath_salts
 	name = /datum/reagent/drug/bath_salts
@@ -44,7 +44,7 @@
 	id = /datum/reagent/drug/aranesp
 	results = list(/datum/reagent/drug/aranesp = 3)
 	required_reagents = list(/datum/reagent/medicine/epinephrine = 1, /datum/reagent/medicine/atropine = 1, /datum/reagent/medicine/morphine = 1)
-	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DRUG | REACTION_TAG_TOXIN | REACTION_TAG_DAMAGING
+	reaction_tags = REACTION_TAG_MODERATE | REACTION_TAG_DRUG | REACTION_TAG_TOXIN | REACTION_TAG_OXY | REACTION_TAG_DAMAGING
 
 /datum/chemical_reaction/happiness
 	name = "Happiness"
