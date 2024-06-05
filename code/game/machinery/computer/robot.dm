@@ -177,7 +177,7 @@
 			message_admins("[ADMIN_LOOKUPFLW(usr)] is extracting the upload key!")
 			extracting = TRUE
 			ui_update();
-			say("commencing extraction.")
+			say("Commencing extraction.")
 			src.timerid = addtimer(CALLBACK(src, PROC_REF(extraction),usr), 300, TIMER_STOPPABLE)
 
 
