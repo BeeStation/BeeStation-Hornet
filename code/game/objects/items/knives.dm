@@ -123,7 +123,9 @@
 	icon_state = "secknife"
 	desc = "A multipurpose dual edged knife designed for use within security. Fits snugly into a boot."
 	force = 18
+	throwforce = 22
 	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "cut", "scored", "hacked", "lacerated", "gashed")
+	bayonet = TRUE
 
 /obj/item/knife/combat/survival
 	name = "survival knife"
