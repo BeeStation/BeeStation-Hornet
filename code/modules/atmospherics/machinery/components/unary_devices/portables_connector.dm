@@ -16,6 +16,8 @@
 
 	var/obj/machinery/portable_atmospherics/connected_device
 
+	var/obj/machinery/atmospherics/components/unary/portables_connector/connect_to
+
 /obj/machinery/atmospherics/components/unary/portables_connector/New()
 	..()
 	var/datum/gas_mixture/air_contents = airs[1]
@@ -45,6 +47,13 @@
 
 /obj/machinery/atmospherics/components/unary/portables_connector/portableConnectorReturnAir()
 	return connected_device.portableConnectorReturnAir()
+
+/obj/machinery/atmospherics/components/unary/portables_connector/build_network()
+	. = ..()
+	if(connect_to)
+		var/obj/machinery/portable_atmospherics/PA = connect_to
+		if(PA)
+			PA.connect(src)
 
 /obj/proc/portableConnectorReturnAir()
 	return
