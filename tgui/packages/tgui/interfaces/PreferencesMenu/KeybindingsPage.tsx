@@ -7,7 +7,7 @@ import { range, sortBy } from 'common/collections';
 import { KeyEvent } from '../../events';
 import { TabbedMenu } from './TabbedMenu';
 import { fetchRetry } from '../../http';
-import { KEY } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 
 const CATEGORY_SCALES = {
   'AI': '100%',
@@ -39,7 +39,7 @@ type KeybindingsPageState = {
 };
 
 const isStandardKey = (event: KeyboardEvent): boolean => {
-  return event.key !== KEY.Alt && event.key !== KEY.Control && event.key !== KEY.Shift && event.key !== KEY.Escape;
+  return event.key !== KEY.Alt && event.key !== KEY.Control && event.key !== KEY.Shift && !isEscape(event.key);
 };
 
 /**
@@ -283,7 +283,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
     if (isStandardKey(event)) {
       this.setRebindingHotkey(formatKeyboardEvent(event));
       return;
-    } else if (event.key === KEY.Escape) {
+    } else if (isEscape(event.key)) {
       this.setRebindingHotkey(undefined);
       return;
     }
