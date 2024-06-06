@@ -1,7 +1,7 @@
 /obj/item/clothing/shoes/cluwne
 	desc = "The prankster's standard-issue clowning shoes. Damn, they're huge!"
 	name = "clown shoes"
-	icon_state = "cluwne"
+	icon_state = "clown"
 	item_state = "cluwne"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = DROPDEL
