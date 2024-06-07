@@ -1073,7 +1073,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1240,7 +1240,7 @@
 "ee" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1547,8 +1547,7 @@
 /area/ruin/space/has_grav/ancientstation/hydroponics)
 "fl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/tile/green{
@@ -2498,7 +2497,8 @@
 "hw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 23
+	pixel_y = 23;
+	dir = 1
 	},
 /obj/effect/decal/cleanable/food/egg_smudge,
 /turf/open/floor/iron/cafeteria,
@@ -2847,7 +2847,7 @@
 /area/ruin/space/has_grav/ancientstation/kitchen)
 "iO" = (
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3388,7 +3388,8 @@
 "kj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 23
+	pixel_y = 23;
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
@@ -3803,7 +3804,7 @@
 /area/ruin/space/has_grav/ancientstation/proto)
 "lk" = (
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3863,7 +3864,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/yellow,
@@ -4018,7 +4019,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /obj/machinery/light{
@@ -4204,7 +4205,7 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	dir = 8;
+	dir = 4;
 	pixel_x = 24
 	},
 /obj/item/clothing/suit/space/nasavoid/old,

@@ -466,8 +466,7 @@
 /area/centcom/holding)
 "bR" = (
 /obj/structure/bookcase/random,
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -917,8 +916,7 @@
 	pixel_y = 3
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -959,8 +957,7 @@
 /turf/open/floor/iron,
 /area/tdome/tdomeobserve)
 "dQ" = (
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 24
 	},
 /obj/structure/filingcabinet/filingcabinet,
@@ -1001,8 +998,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen/fourcolor,
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1066,8 +1062,7 @@
 /obj/machinery/computer/security{
 	dir = 8
 	},
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -1131,7 +1126,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
 "et" = (
-/obj/machinery/camera{
+/obj/machinery/camera/directional/north{
 	c_tag = "Red Team";
 	network = list("thunder");
 	pixel_x = 11;
@@ -1398,7 +1393,7 @@
 /turf/open/floor/iron,
 /area/centcom/control)
 "fq" = (
-/obj/machinery/camera{
+/obj/machinery/camera/directional/north{
 	c_tag = "Green Team";
 	network = list("thunder");
 	pixel_x = 12;
@@ -1886,8 +1881,7 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -2112,7 +2106,7 @@
 	pixel_y = 5
 	},
 /obj/item/radio,
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 23
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -2480,8 +2474,7 @@
 /turf/open/floor/iron,
 /area/centcom/supply)
 "jz" = (
-/obj/machinery/airalarm{
-	dir = 4;
+/obj/machinery/airalarm/directional/west{
 	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -2599,8 +2592,7 @@
 /area/centcom/supplypod)
 "jQ" = (
 /obj/structure/closet/secure_closet/quartermaster,
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/bot,
@@ -3700,8 +3692,7 @@
 /area/centcom/ferry)
 "qn" = (
 /obj/structure/filingcabinet/filingcabinet,
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -4482,8 +4473,7 @@
 	id = "XCCsec3";
 	name = "CC Main Access Control"
 	},
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -4551,8 +4541,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
 	},
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4621,8 +4610,7 @@
 /obj/item/gun/energy/pulse/carbine/loyalpin,
 /obj/item/flashlight/seclite,
 /obj/structure/table/reinforced,
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -6069,7 +6057,7 @@
 /area/centcom/ferry)
 "zf" = (
 /obj/structure/closet/secure_closet/ertEngi,
-/obj/machinery/airalarm{
+/obj/machinery/airalarm/directional/north{
 	pixel_y = 24
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -6174,8 +6162,7 @@
 /obj/item/clothing/mask/cigarette/cigar{
 	pixel_x = 4.5
 	},
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -8796,8 +8783,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen/fourcolor,
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -9822,8 +9808,7 @@
 /obj/machinery/chem_master/condimaster{
 	name = "HoochMaster 2000"
 	},
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -10172,8 +10157,7 @@
 /turf/open/floor/iron/cafeteria,
 /area/centcom/holding)
 "QC" = (
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
@@ -10526,8 +10510,7 @@
 /turf/open/floor/wood,
 /area/centcom/holding)
 "RU" = (
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -11170,8 +11153,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -11467,8 +11449,7 @@
 /turf/open/floor/iron/dark,
 /area/ctf)
 "VR" = (
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 24
 	},
 /obj/structure/filingcabinet/filingcabinet,
@@ -11623,8 +11604,7 @@
 /obj/item/clipboard,
 /obj/item/folder/white,
 /obj/item/pen/blue,
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -12434,8 +12414,7 @@
 "Zr" = (
 /obj/structure/destructible/cult/tome,
 /obj/item/book/codex_gigas,
-/obj/machinery/airalarm{
-	dir = 8;
+/obj/machinery/airalarm/directional/east{
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -12547,8 +12526,7 @@
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/restraints/handcuffs,
 /obj/item/assembly/flash/handheld,
-/obj/machinery/airalarm{
-	dir = 1;
+/obj/machinery/airalarm/directional/south{
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,

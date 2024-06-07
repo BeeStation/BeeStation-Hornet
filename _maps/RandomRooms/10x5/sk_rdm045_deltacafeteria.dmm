@@ -119,9 +119,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "I" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
+/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
