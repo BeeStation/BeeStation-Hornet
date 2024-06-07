@@ -15,7 +15,7 @@ export const Signaler = (props, context) => {
 
 export const SignalerContent = (props, context) => {
   const { act, data } = useBackend(context);
-  const { code, frequency, cooldown, minFrequency, maxFrequency, connection } = data;
+  const { code, frequency, cooldown, minFrequency, maxFrequency } = data;
   return (
     <Section>
       <Grid>
@@ -95,7 +95,6 @@ export const SignalerContent = (props, context) => {
             icon="arrow-up"
             content="Send Signal"
             textAlign="center"
-            disabled={!connection}
             onClick={() => act('signal')}
           />
         </Grid.Column>
