@@ -72,7 +72,7 @@
 				L.updatehealth()
 				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1.0
-			CHECK_TICK
+
 	if(last_spread <= world.time)
 		var/list/validturfs = list()
 		var/list/natureturfs = list()
