@@ -9182,8 +9182,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 22
+/obj/machinery/airalarm/kitchen_cold_room{
+	dir = 4;
+	pixel_x = 24
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)

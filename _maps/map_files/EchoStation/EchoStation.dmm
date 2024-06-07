@@ -25355,10 +25355,13 @@
 /area/quartermaster/storage)
 "mOA" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/airalarm/directional/north,
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/machinery/airalarm/kitchen_cold_room{
+	pixel_y = 24;
+	dir = 1
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
@@ -32451,7 +32454,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/engine{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -36933,7 +36936,7 @@
 /area/asteroid/paradise/surface)
 "sUg" = (
 /obj/machinery/airalarm/engine{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23
 	},
 /obj/machinery/meter,

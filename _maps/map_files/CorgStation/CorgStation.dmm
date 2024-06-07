@@ -1240,7 +1240,7 @@
 "amk" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /obj/machinery/airalarm/engine{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /turf/open/floor/engine,
@@ -57108,7 +57108,6 @@
 /area/chapel/office)
 "svj" = (
 /obj/machinery/airalarm/server{
-	dir = 1;
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
@@ -66751,9 +66750,12 @@
 	pixel_x = 29;
 	pixel_y = -2
 	},
-/obj/machinery/airalarm/directional/north,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
+	},
+/obj/machinery/airalarm/kitchen_cold_room{
+	pixel_y = 24;
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/crew_quarters/kitchen/coldroom)
@@ -71878,7 +71880,7 @@
 	pixel_y = 28
 	},
 /obj/machinery/airalarm/mixingchamber{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/machinery/button/door/incinerator_vent_toxmix{

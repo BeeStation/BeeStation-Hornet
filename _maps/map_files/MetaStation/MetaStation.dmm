@@ -14544,7 +14544,7 @@
 /area/engine/atmos)
 "bMo" = (
 /obj/machinery/airalarm/server{
-	dir = 4;
+	dir = 8;
 	pixel_x = -22
 	},
 /obj/machinery/light/small{
@@ -35993,7 +35993,6 @@
 /area/security/brig)
 "hUB" = (
 /obj/machinery/airalarm/mixingchamber{
-	dir = 1;
 	pixel_y = -22
 	},
 /obj/structure/cable/yellow{
@@ -50075,14 +50074,14 @@
 /obj/machinery/camera/directional/south{
 	c_tag = "Kitchen - Coldroom"
 	},
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/airalarm/kitchen_cold_room{
+	pixel_y = -24
 	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen)
@@ -63166,7 +63165,7 @@
 /area/security/courtroom)
 "svQ" = (
 /obj/machinery/airalarm/server{
-	dir = 4;
+	dir = 8;
 	pixel_x = -22
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
@@ -64664,7 +64663,7 @@
 	},
 /obj/item/reagent_containers/dropper,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/machinery/button/ignition{

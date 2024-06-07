@@ -9376,11 +9376,11 @@
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "beZ" = (
-/obj/machinery/airalarm/directional/south{
-	pixel_y = -22
-	},
 /obj/effect/turf_decal/bot,
 /obj/structure/reagent_dispensers/cooking_oil,
+/obj/machinery/airalarm/kitchen_cold_room{
+	pixel_y = -24
+	},
 /turf/open/floor/iron,
 /area/crew_quarters/kitchen)
 "bfa" = (
@@ -17620,7 +17620,7 @@
 /turf/open/floor/iron/dark,
 /area/security/execution/transfer)
 "cfB" = (
-/obj/machinery/camera/directional/emp_proof/east{
+/obj/machinery/camera/emp_proof/directional/east{
 	c_tag = "Containment - Fore Starboard";
 	network = list("singularity")
 	},
@@ -18339,7 +18339,7 @@
 /area/maintenance/aft)
 "ciY" = (
 /obj/structure/lattice,
-/obj/machinery/camera/directional/emp_proof/west{
+/obj/machinery/camera/emp_proof/directional/west{
 	c_tag = "Containment - Fore Port";
 	network = list("singularity")
 	},
@@ -21946,7 +21946,7 @@
 /area/maintenance/aft)
 "cAG" = (
 /obj/structure/lattice,
-/obj/machinery/camera/directional/emp_proof/west{
+/obj/machinery/camera/emp_proof/directional/west{
 	c_tag = "Containment - Aft Port";
 	network = list("singularity")
 	},
@@ -22639,7 +22639,7 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "cDV" = (
-/obj/machinery/camera/directional/emp_proof/east{
+/obj/machinery/camera/emp_proof/directional/east{
 	c_tag = "Containment - Aft Starboard";
 	network = list("singularity")
 	},

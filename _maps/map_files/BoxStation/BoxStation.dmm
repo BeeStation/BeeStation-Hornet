@@ -8113,7 +8113,7 @@
 /area/science/server)
 "bAz" = (
 /obj/machinery/airalarm/server{
-	dir = 4;
+	dir = 8;
 	pixel_x = -22
 	},
 /obj/machinery/light/small{
@@ -14851,7 +14851,7 @@
 	name = "Gas to Filter"
 	},
 /obj/machinery/airalarm/engine{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -19057,7 +19057,7 @@
 	},
 /obj/item/reagent_containers/dropper,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/machinery/button/ignition{
@@ -19946,7 +19946,7 @@
 "dLB" = (
 /obj/machinery/telecomms/processor/preset_exploration,
 /obj/machinery/airalarm/server{
-	dir = 4;
+	dir = 8;
 	pixel_x = -28
 	},
 /turf/open/floor/circuit/telecomms/server,
@@ -32384,9 +32384,6 @@
 "jkJ" = (
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/machinery/airalarm/directional/east{
-	pixel_x = 24
 	},
 /obj/machinery/vending/wardrobe/chef_wardrobe,
 /turf/open/floor/iron/freezer,
@@ -52638,6 +52635,10 @@
 /area/science/research)
 "skV" = (
 /obj/machinery/gibber,
+/obj/machinery/airalarm/kitchen_cold_room{
+	dir = 4;
+	pixel_x = 24
+	},
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "sld" = (
@@ -64056,7 +64057,7 @@
 /area/engine/atmos)
 "xrs" = (
 /obj/machinery/airalarm/mixingchamber{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/machinery/door/firedoor,
@@ -65594,7 +65595,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/airalarm/server{
-	dir = 4;
+	dir = 8;
 	pixel_x = -22
 	},
 /turf/open/floor/circuit/telecomms,

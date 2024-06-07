@@ -1463,7 +1463,7 @@
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "gU" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/structure/sink{
@@ -4310,7 +4310,6 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "uo" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 1;
 	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -4369,7 +4368,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "vN" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/machinery/light/small{
@@ -4435,7 +4434,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "xg" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/structure/chair/stool,
@@ -4480,7 +4479,7 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "xG" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -4964,7 +4963,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/syndicate{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/structure/table,
@@ -5572,7 +5571,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "WJ" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/machinery/light/small{
@@ -5583,7 +5582,7 @@
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "Xd" = (
 /obj/machinery/airalarm/syndicate{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{

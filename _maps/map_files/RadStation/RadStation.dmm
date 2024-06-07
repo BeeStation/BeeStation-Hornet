@@ -988,7 +988,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/airalarm/engine{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23
 	},
 /obj/machinery/atmospherics/components/binary/pump{
@@ -12629,7 +12629,7 @@
 /area/maintenance/department/security)
 "dWi" = (
 /obj/machinery/airalarm/server{
-	dir = 4;
+	dir = 8;
 	pixel_x = -22
 	},
 /turf/open/floor/engine{
@@ -25034,7 +25034,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/mixingchamber{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /turf/open/floor/iron/dark/side{
@@ -51945,7 +51945,7 @@
 	},
 /obj/item/geiger_counter,
 /obj/machinery/airalarm/engine{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23
 	},
 /turf/open/floor/iron,
