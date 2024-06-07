@@ -1,0 +1,5 @@
+author: TsunamiAnt
+delete-after: true
+changes:
+  - tweak: no pool overlay on ocean water
+  - bugfix: deep water is now called deep water
