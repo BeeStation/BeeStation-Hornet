@@ -276,7 +276,8 @@
 	id = "cryopodg1";
 	name = "panic lockdown button"
 	},
-/obj/machinery/airalarm/directional/south{
+/obj/machinery/airalarm{
+	dir = 1;
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -1353,7 +1354,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/security)
 "ij" = (
-/obj/machinery/airalarm/directional/north{
+/obj/machinery/airalarm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -2485,7 +2486,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
 "qQ" = (
-/obj/machinery/airalarm/directional/north{
+/obj/machinery/airalarm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -2583,7 +2584,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
 "sc" = (
-/obj/machinery/airalarm/directional/north{
+/obj/machinery/airalarm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
@@ -2774,7 +2775,7 @@
 	id = "cryopodg2";
 	name = "panic lockdown button"
 	},
-/obj/machinery/airalarm/directional/north{
+/obj/machinery/airalarm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -2885,7 +2886,8 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/machinery/airalarm/directional/east{
+/obj/machinery/airalarm{
+	dir = 8;
 	pixel_x = 32
 	},
 /turf/open/floor/iron/yellowsiding{
@@ -3251,7 +3253,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/airalarm/directional/west{
+/obj/machinery/airalarm{
+	dir = 4;
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
@@ -3581,7 +3584,8 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
 "GA" = (
-/obj/machinery/airalarm/directional/east{
+/obj/machinery/airalarm{
+	dir = 8;
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/green{
@@ -3725,7 +3729,8 @@
 "Je" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
-/obj/machinery/airalarm/directional/west{
+/obj/machinery/airalarm{
+	dir = 4;
 	pixel_x = -32
 	},
 /turf/open/floor/iron/dark,
@@ -3863,7 +3868,7 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
 "KS" = (
-/obj/machinery/airalarm/directional/north{
+/obj/machinery/airalarm{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/blue,
@@ -3875,7 +3880,8 @@
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
 "KW" = (
-/obj/machinery/airalarm/directional/west{
+/obj/machinery/airalarm{
+	dir = 4;
 	pixel_x = -32
 	},
 /turf/open/floor/iron/dark,

@@ -1,7 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "c" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "k" = (
@@ -56,7 +58,9 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "v" = (
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "w" = (

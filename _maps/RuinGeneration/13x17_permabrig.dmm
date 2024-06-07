@@ -143,7 +143,7 @@
 	},
 /obj/machinery/hydroponics/soil,
 /obj/item/plant_analyzer,
-/obj/machinery/camera/directional/north,
+/obj/machinery/camera/autoname,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
@@ -239,7 +239,9 @@
 /turf/open/floor/iron/freezer,
 /area/ruin/unpowered)
 "xk" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -447,6 +449,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
+"Us" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
 "UG" = (
 /mob/living/simple_animal/mouse/brown/Tom,
 /turf/open/floor/plating,
@@ -524,7 +533,7 @@ KP
 Nf
 xe
 NR
-xk
+Us
 NR
 VL
 dn
@@ -619,7 +628,7 @@ NR
 jz
 NR
 NR
-xk
+Us
 NR
 NR
 NR

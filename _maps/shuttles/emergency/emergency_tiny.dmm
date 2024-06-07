@@ -149,7 +149,7 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("evac")
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -258,7 +258,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("evac")
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -428,7 +429,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("evac")
 	},
 /turf/open/floor/iron/white,
@@ -639,7 +640,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("evac")
 	},
 /turf/open/floor/circuit/green{

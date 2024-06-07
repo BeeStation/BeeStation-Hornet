@@ -702,8 +702,7 @@
 "cu" = (
 /obj/structure/table,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/folder/blue{
@@ -1572,7 +1571,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /turf/open/floor/iron/dark,
@@ -1770,7 +1769,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
@@ -1891,7 +1890,7 @@
 "uR" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1966,8 +1965,7 @@
 "xl" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/machinery/light/small/built{
 	dir = 1
@@ -2065,8 +2063,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -2089,8 +2086,7 @@
 "Af" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2451,8 +2447,7 @@
 "Lt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{

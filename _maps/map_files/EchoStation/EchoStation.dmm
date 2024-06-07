@@ -25,7 +25,9 @@
 /turf/open/floor/iron/grid/steel,
 /area/medical/patients_rooms)
 "aaD" = (
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/iron/dark,
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
@@ -313,7 +315,9 @@
 /turf/open/floor/iron,
 /area/crew_quarters/heads/hop)
 "ahK" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
@@ -395,7 +399,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
@@ -518,7 +522,8 @@
 	color = "#DE3A3A"
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","security")
 	},
 /turf/open/floor/iron/dark,
@@ -720,7 +725,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 34
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	c_tag = "Corporate Meeting Room"
 	},
 /obj/structure/chair/fancy/comfy{
@@ -1011,7 +1016,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/iron/dark/corner,
 /area/hallway/primary/central{
 	name = "-2 Primary Hallway"
@@ -1284,7 +1291,8 @@
 	},
 /obj/structure/table,
 /obj/structure/railing,
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","rd")
 	},
 /turf/open/floor/iron,
@@ -1343,7 +1351,9 @@
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "avM" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -1703,7 +1713,7 @@
 	dir = 1;
 	light_color = "#7AC3FF"
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	c_tag = "Captain's Quarters";
 	network = list("ss13","public")
 	},
@@ -2715,7 +2725,9 @@
 	pixel_x = 14;
 	pixel_y = 5
 	},
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/carpet/green,
 /area/chapel/main)
@@ -2764,15 +2776,6 @@
 /area/crew_quarters/dorms)
 "aSK" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/machinery/camera/autoname/directional/east{
-	network = list("ss13","engine")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/flora/ausbushes/fullgrass,
 /obj/machinery/camera/autoname{
 	dir = 8;
 	network = list("ss13","engine")
@@ -2793,7 +2796,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","medbay")
 	},
 /obj/machinery/firealarm/directional/north,
@@ -2865,7 +2868,7 @@
 /obj/structure/sign/painting/library{
 	pixel_y = 32
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","medbay","public")
 	},
 /turf/open/floor/iron,
@@ -3256,7 +3259,8 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/iron/dark/telecomms{
@@ -3306,18 +3310,6 @@
 	name = "-2 Primary Hallway"
 	})
 "bfG" = (
-/obj/structure/sign/poster/official/moth1{
-	pixel_y = -32
-	},
-/obj/structure/chair/stool/bar/directional/west,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/chair/stool/bar{
 	dir = 8
 	},
@@ -3426,7 +3418,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -4070,7 +4064,9 @@
 /turf/open/floor/iron,
 /area/ai_monitored/turret_protected/aisat/maint)
 "byo" = (
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -4233,7 +4229,8 @@
 /obj/effect/turf_decal/siding/dark{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","engine","public")
 	},
 /turf/open/floor/iron/dark,
@@ -4350,7 +4347,8 @@
 	pixel_x = -30
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","security")
 	},
 /turf/open/floor/iron/dark,
@@ -4468,7 +4466,9 @@
 /area/crew_quarters/heads/cmo)
 "bHz" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -4567,7 +4567,8 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("ss13","rd")
 	},
 /mob/living/simple_animal/pet/dog/pug{
@@ -4855,7 +4856,8 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "bQz" = (
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","medbay")
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -4917,7 +4919,7 @@
 	dir = 10
 	},
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","rd")
 	},
 /obj/machinery/light{
@@ -5146,10 +5148,13 @@
 /area/quartermaster/storage)
 "cbp" = (
 /obj/machinery/light,
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","rd")
 	},
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
@@ -5436,8 +5441,9 @@
 	},
 /obj/machinery/airalarm/directional/west,
 /obj/machinery/monkey_recycler,
-/obj/machinery/camera/directional/west{
+/obj/machinery/camera{
 	c_tag = "Xenobiology Lab";
+	dir = 4;
 	name = "Xeno camera";
 	network = list("ss13","rd","xeno")
 	},
@@ -5518,7 +5524,9 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/assistant,
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "cmX" = (
@@ -6305,7 +6313,9 @@
 /obj/structure/sign/poster/official/suit_sensors{
 	pixel_x = -32
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 9
 	},
@@ -6335,14 +6345,6 @@
 /turf/open/floor/iron/dark,
 /area/crew_quarters/heads/hos)
 "cFh" = (
-/obj/machinery/camera/autoname/directional/north{
-	network = list("ss13","rd")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/camera/autoname{
 	network = list("ss13","rd")
 	},
@@ -6760,7 +6762,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
@@ -7155,7 +7157,9 @@
 	c_tag = "Corporate Meeting Room";
 	dir = 10
 	},
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -7489,7 +7493,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "dqI" = (
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -7506,7 +7512,8 @@
 /area/chapel/office)
 "dqL" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/iron/dark,
@@ -8222,7 +8229,9 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/cafeteria)
 "dIl" = (
@@ -8765,23 +8774,6 @@
 /area/maintenance/department/engine/atmos)
 "dYT" = (
 /obj/machinery/power/compressor{
-	comp_id = "incineratorturbine";
-	dir = 1;
-	luminosity = 2
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/cable,
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13, engine")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/power/compressor{
 	comp_id = "incineratorturbineLeft";
 	dir = 1;
 	luminosity = 2
@@ -8908,7 +8900,7 @@
 "edO" = (
 /obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","rd")
 	},
 /turf/open/floor/iron/dark,
@@ -9059,7 +9051,9 @@
 /turf/open/floor/iron/tech,
 /area/science/mixing/chamber)
 "ehA" = (
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
 /obj/structure/railing,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/iron/dark,
@@ -9245,7 +9239,9 @@
 /area/science/explab)
 "emI" = (
 /obj/machinery/computer/prisoner/management,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -9956,7 +9952,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable{
@@ -10018,7 +10014,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/storage/primary)
 "eHB" = (
@@ -10218,7 +10216,9 @@
 /area/asteroid/paradise/surface)
 "eOe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /turf/open/floor/carpet/royalblack,
 /area/vacant_room/office)
 "eOr" = (
@@ -10649,30 +10649,6 @@
 /area/quartermaster/warehouse)
 "fbb" = (
 /obj/machinery/turretid{
-	icon_state = "control_stun";
-	name = "AI Chamber turret control";
-	pixel_x = -1;
-	pixel_y = 33
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/camera/autoname{
-	dir = 9;
-	network = list("aiupload")
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/turretid{
 	control_area = "/area/ai_monitored/turret_protected/ai";
 	icon_state = "control_stun";
 	name = "AI Chamber turret control";
@@ -10847,7 +10823,8 @@
 /turf/open/floor/plating/grass,
 /area/asteroid/paradise/surface/grass)
 "ffL" = (
-/obj/machinery/airalarm/directional/east{
+/obj/machinery/airalarm{
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/trimline/dark_blue/filled/line{
@@ -11579,7 +11556,9 @@
 /turf/open/floor/iron/techmaint/planetary,
 /area/asteroid/paradise/surface)
 "fzT" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /turf/open/floor/plating/beach/sand,
 /area/asteroid/paradise/surface)
 "fzZ" = (
@@ -11883,7 +11862,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -12006,14 +11987,17 @@
 	},
 /area/science/research)
 "fKt" = (
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","medbay")
 	},
 /obj/machinery/vending/medical,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
@@ -12558,7 +12542,9 @@
 /area/crew_quarters/dorms)
 "fWq" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -12876,7 +12862,8 @@
 /turf/open/floor/dock/drydock,
 /area/quartermaster/storage)
 "gdZ" = (
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","engine")
 	},
 /obj/item/radio/intercom{
@@ -13402,7 +13389,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/openspace,
 /area/hallway/primary/fore{
 	name = "-1 Primary Hallway"
@@ -13503,7 +13492,9 @@
 	name = "-1 Primary Hallway"
 	})
 "gqs" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /obj/effect/landmark/start/assistant,
 /obj/item/food/fishandchips,
 /turf/open/floor/plating/beach/coastline_t{
@@ -13511,39 +13502,6 @@
 	},
 /area/asteroid/paradise/surface)
 "gqt" = (
-/obj/machinery/firealarm/directional/west,
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -38
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/item/storage/secure/briefcase{
-	pixel_y = 6
-	},
-/obj/item/storage/firstaid/regular,
-/obj/structure/safe,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/under/rank/medical/doctor/nurse,
-/obj/item/clothing/mask/muzzle{
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/machinery/airalarm/directional/north,
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13","medbay")
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/firealarm/directional/west,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -13642,7 +13600,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
@@ -13742,8 +13700,9 @@
 	name = "-2 Primary Hallway"
 	})
 "gwy" = (
-/obj/machinery/camera/motion/directional/south{
+/obj/machinery/camera/motion{
 	c_tag = "MiniSat Exterior 1";
+	dir = 1;
 	network = list("minisat");
 	view_range = 5
 	},
@@ -13841,7 +13800,9 @@
 /turf/open/floor/iron,
 /area/maintenance/department/crew_quarters/bar)
 "gzB" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
@@ -14265,30 +14226,6 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/maint)
 "gKT" = (
-/obj/machinery/computer/cargo/request{
-	dir = 4
-	},
-/obj/machinery/requests_console{
-	department = "Engineering";
-	departmentType = 3;
-	name = "Engineering RC";
-	pixel_x = -32;
-	pixel_y = -1
-	},
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13","engine")
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/computer/cargo/request{
 	dir = 4
 	},
@@ -14973,7 +14910,8 @@
 	pixel_x = 1;
 	pixel_y = -34
 	},
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","security")
 	},
 /turf/open/floor/iron/dark,
@@ -15010,7 +14948,9 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
@@ -15018,7 +14958,7 @@
 	pixel_x = 1;
 	pixel_y = -40
 	},
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -15321,7 +15261,7 @@
 /area/quartermaster/storage)
 "hmu" = (
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","medbay")
 	},
 /obj/item/radio/intercom{
@@ -15354,7 +15294,8 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("ss13","public")
 	},
 /turf/open/floor/carpet/green,
@@ -15383,7 +15324,8 @@
 /obj/machinery/computer/atmos_control{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("ss13","engine")
 	},
 /obj/machinery/light{
@@ -15399,7 +15341,8 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/iron/dark,
@@ -15486,7 +15429,7 @@
 "hqb" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -15705,7 +15648,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
 "hvw" = (
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -15909,7 +15854,8 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","rd")
 	},
 /obj/machinery/firealarm/directional/south,
@@ -16400,7 +16346,8 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/power/emitter,
 /obj/machinery/light,
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/iron,
@@ -16462,7 +16409,8 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "hOC" = (
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("ss13","rd")
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -16480,7 +16428,9 @@
 /turf/open/floor/iron,
 /area/science/lab)
 "hOO" = (
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /obj/structure/filingcabinet{
 	pixel_x = -8
@@ -16552,7 +16502,7 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 10;
+	dir = 5;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/iron,
@@ -16680,7 +16630,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","security","prison","public")
 	},
 /obj/item/radio/intercom{
@@ -16950,7 +16900,7 @@
 	pixel_y = 32
 	},
 /obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","medbay")
 	},
 /obj/structure/disposalpipe/segment{
@@ -16985,7 +16935,8 @@
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/airalarm/directional/west{
+/obj/machinery/airalarm{
+	dir = 4;
 	pixel_x = -22
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -17376,7 +17327,9 @@
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/hor)
 "inL" = (
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -17396,14 +17349,6 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "ioq" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/kitchenspike,
-/obj/machinery/camera/autoname/directional/east,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera/autoname{
 	dir = 8
@@ -17448,35 +17393,6 @@
 /turf/open/openspace,
 /area/security/brig)
 "iqi" = (
-/obj/machinery/airalarm/all_access{
-	dir = 4;
-	pixel_x = 24
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/camera/autoname/directional/east{
-	network = list("ss13","engine")
-	},
-/obj/effect/loot_jobscale/medical/burn_kit,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/airalarm/all_access{
 	dir = 8;
 	pixel_x = 24
@@ -17538,7 +17454,9 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -17690,7 +17608,9 @@
 /area/crew_quarters/dorms)
 "ivq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
@@ -17830,7 +17750,7 @@
 	pixel_y = 23
 	},
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","medbay")
 	},
 /turf/open/floor/iron,
@@ -17884,7 +17804,7 @@
 "iBX" = (
 /obj/machinery/atmospherics/miner/station/carbon_dioxide,
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","engine")
 	},
 /obj/machinery/atmospherics/pipe/simple/green/hidden{
@@ -18506,7 +18426,9 @@
 /turf/open/floor/carpet/green,
 /area/crew_quarters/cafeteria)
 "iXS" = (
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/machinery/vending/wardrobe/jani_wardrobe,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
@@ -18514,7 +18436,8 @@
 /turf/open/floor/iron,
 /area/janitor)
 "iXT" = (
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","engine")
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrous_output{
@@ -18714,7 +18637,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -18733,7 +18658,9 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -18746,8 +18673,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/camera/directional/east{
+/obj/machinery/camera{
 	c_tag = "Interrogation room";
+	dir = 8;
 	name = "Interrogation room";
 	network = list("interrogation")
 	},
@@ -19014,7 +18942,9 @@
 	alpha = 180;
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -19499,7 +19429,9 @@
 /area/vacant_room/office)
 "jzC" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -19974,7 +19906,9 @@
 /turf/open/floor/iron/white,
 /area/medical/medbay/central)
 "jIj" = (
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
@@ -20319,7 +20253,9 @@
 	req_access = null;
 	req_one_access_txt = "28;25;35"
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -20365,7 +20301,7 @@
 "jRJ" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/plasma,
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","rd")
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -20763,7 +20699,8 @@
 	alpha = 180;
 	color = "#DE3A3A"
 	},
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","security")
 	},
 /obj/machinery/light,
@@ -20973,7 +20910,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 34
 	},
-/obj/machinery/camera/directional/north,
+/obj/machinery/camera/autoname,
 /obj/item/storage/secure/safe{
 	pixel_x = -27;
 	pixel_y = 1
@@ -20989,23 +20926,6 @@
 	},
 /area/asteroid/paradise/surface/water)
 "kjn" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/chair/office/light{
-	dir = 1;
-	pixel_y = 3
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/landmark/start/scientist,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -21912,17 +21832,6 @@
 	pixel_y = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/camera/directional/north,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/item/storage/secure/safe{
-	pixel_x = 37;
-	pixel_y = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/camera/autoname,
 /obj/item/radio/intercom{
 	dir = 1;
@@ -22016,33 +21925,6 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
-	dir = 2;
-	initialize_directions = 2;
-	piping_layer = 4
-	},
-/obj/machinery/camera/autoname{
-	dir = 9;
-	network = list("ss13","medbay")
-	},
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/vending/wallmed{
-	pixel_x = -32
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	piping_layer = 4
 	},
 /obj/machinery/camera/autoname{
@@ -22093,7 +21975,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","security","prison")
 	},
 /turf/open/floor/iron,
@@ -22137,7 +22020,8 @@
 	pixel_y = -28
 	},
 /obj/machinery/light,
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","rd")
 	},
 /turf/open/floor/iron/tech,
@@ -22179,7 +22063,9 @@
 /turf/open/floor/plating,
 /area/science/lab)
 "kNA" = (
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -22291,7 +22177,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/reagent_dispensers/fueltank,
@@ -22355,7 +22241,9 @@
 	name = "Coffin Storage";
 	req_access_txt = "22"
 	},
-/obj/machinery/camera/autoname/directional/east,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/iron/techmaint/planetary,
 /area/chapel/office)
 "kQJ" = (
@@ -22427,15 +22315,6 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "kUa" = (
-/obj/structure/railing/corner,
-/obj/effect/spawner/randomvend/cola,
-/obj/effect/turf_decal/siding/wood,
-/obj/machinery/camera/directional/north,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/camera/autoname,
@@ -22634,7 +22513,8 @@
 /obj/item/stock_parts/subspace/filter,
 /obj/item/stock_parts/subspace/filter,
 /obj/item/stock_parts/subspace/filter,
-/obj/machinery/airalarm/directional/south{
+/obj/machinery/airalarm{
+	dir = 1;
 	pixel_y = -22
 	},
 /turf/open/floor/iron/dark,
@@ -22742,7 +22622,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/iron/white,
 /area/crew_quarters/heads/cmo)
@@ -23260,7 +23142,8 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow,
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/plating,
@@ -23441,7 +23324,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -23482,7 +23367,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
 "lwF" = (
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
 /turf/open/floor/iron/cafeteria_red,
 /area/crew_quarters/cafeteria)
 "lwX" = (
@@ -23988,8 +23875,10 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/machinery/camera/directional/north{
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/machinery/camera/autoname{
 	network = list("ss13","security")
 	},
 /obj/structure/cable/yellow{
@@ -24068,7 +23957,9 @@
 	pixel_x = -8;
 	pixel_y = 4
 	},
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
@@ -24083,7 +23974,7 @@
 /area/crew_quarters/heads/captain/private)
 "lNV" = (
 /obj/item/kirbyplants/random,
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow,
@@ -24172,7 +24063,9 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -24336,7 +24229,8 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "lRR" = (
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","medbay","public")
 	},
 /obj/effect/turf_decal/delivery,
@@ -24382,7 +24276,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","security")
 	},
 /turf/open/floor/iron/dark,
@@ -24481,7 +24375,9 @@
 /turf/open/floor/iron,
 /area/medical/surgery)
 "lVG" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -24866,7 +24762,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
@@ -24956,33 +24852,6 @@
 	},
 /area/ai_monitored/turret_protected/ai)
 "mkd" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box{
-	name = "Emergency donut box";
-	pixel_x = -2;
-	pixel_y = 15
-	},
-/obj/item/gun/energy/e_gun/dragnet{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/item/beacon/nettingportal,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/obj/machinery/camera/motion/directional/west{
-	c_tag = "Armory - Internal";
-	network = list("ss13","security")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box{
 	name = "Emergency donut box";
@@ -25169,7 +25038,9 @@
 /obj/effect/turf_decal/siding/white{
 	alpha = 100
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -25213,47 +25084,6 @@
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/cafeteria)
 "mrS" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/obj/item/paper/monitorkey{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/obj/item/folder/yellow,
-/obj/item/toy/figure/ce{
-	pixel_x = 8;
-	pixel_y = 4
-	},
-/obj/item/stamp/chief_engineer{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/siding/wideplating/dark{
-	dir = 5
-	},
-/obj/machinery/camera/autoname/directional/east{
-	network = list("ss13","engine")
-	},
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Chief Engineer's Desk";
-	departmentType = 4;
-	name = "Chief Engineer RC";
-	pixel_x = 32;
-	pixel_y = 31
-	},
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/table/reinforced,
 /obj/item/clipboard{
 	pixel_x = -5;
@@ -25584,12 +25414,6 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "mAQ" = (
-/obj/structure/chair/stool/bar/directional/west,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/chair/stool/bar{
 	dir = 8
 	},
@@ -25624,29 +25448,6 @@
 /turf/closed/wall,
 /area/science/robotics)
 "mBQ" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/techstorage/command,
-/obj/effect/turf_decal/delivery,
-/obj/item/radio/intercom{
-	pixel_y = 29
-	},
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/camera/motion/directional/east{
-	c_tag = "Technical Storage";
-	name = "motion-sensitive Technical Storage";
-	network = list("ss13","engine")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/railing{
 	dir = 4
 	},
@@ -25846,7 +25647,8 @@
 /turf/open/floor/iron/dark,
 /area/bridge/meeting_room)
 "mFW" = (
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","security")
 	},
 /obj/machinery/light,
@@ -25958,8 +25760,9 @@
 /turf/open/floor/iron,
 /area/janitor)
 "mJj" = (
-/obj/machinery/camera/motion/directional/south{
+/obj/machinery/camera/motion{
 	c_tag = "MiniSat Exterior 2";
+	dir = 1;
 	network = list("minisat");
 	view_range = 5
 	},
@@ -26063,19 +25866,6 @@
 /area/maintenance/department/engine/atmos)
 "mMt" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/numbers/two_nine{
-	dir = 2
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
@@ -26091,7 +25881,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","public")
 	},
 /turf/open/floor/iron,
@@ -26148,7 +25938,9 @@
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "mOi" = (
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -26195,7 +25987,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("aiupload")
 	},
 /obj/machinery/status_display/evac{
@@ -26253,7 +26046,8 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","public")
 	},
 /turf/open/floor/plating,
@@ -26535,7 +26329,8 @@
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/rnd/production/techfab/department/security,
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","security")
 	},
 /turf/open/floor/iron,
@@ -26570,7 +26365,8 @@
 /turf/open/floor/iron/dark,
 /area/engine/engineering)
 "naQ" = (
-/obj/machinery/airalarm/directional/east{
+/obj/machinery/airalarm{
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/oil,
@@ -26707,21 +26503,6 @@
 	name = "-2 Primary Hallway"
 	})
 "nfg" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable/yellow{
-	icon_state = "1-16"
-	},
-/obj/effect/turf_decal/trimline/yellow,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/yellow,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-16"
 	},
@@ -26831,7 +26612,9 @@
 /area/space/nearstation)
 "njX" = (
 /obj/machinery/rnd/production/techfab/department/service,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -26852,7 +26635,9 @@
 	name = "maintenance microwave";
 	pixel_y = 5
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -27080,8 +26865,9 @@
 	pixel_y = 1
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/camera/motion/directional/west{
+/obj/machinery/camera/motion{
 	c_tag = "vault";
+	dir = 4;
 	network = list("ss13","security","cargo")
 	},
 /obj/machinery/ntnet_relay,
@@ -27184,7 +26970,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/machinery/camera/directional/north,
+/obj/machinery/camera/autoname,
 /turf/open/floor/iron/white,
 /area/crew_quarters/fitness/recreation)
 "ntA" = (
@@ -27273,7 +27059,9 @@
 /area/maintenance/department/science/central)
 "nwD" = (
 /obj/machinery/light,
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
 /obj/machinery/telecomms/server/presets/supply,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/circuit/green/telecomms/mainframe,
@@ -27331,7 +27119,10 @@
 /area/crew_quarters/dorms)
 "nyb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	dir = 1;
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -27412,7 +27203,9 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "nzi" = (
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -27595,7 +27388,9 @@
 /area/science/explab)
 "nGj" = (
 /obj/machinery/space_heater,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -27905,7 +27700,8 @@
 	receive_ore_updates = 1
 	},
 /obj/machinery/airalarm/directional/south,
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("ss13","medbay")
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -27962,7 +27758,9 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -28243,21 +28041,6 @@
 /turf/open/floor/wood,
 /area/chapel/main)
 "nXy" = (
-/obj/machinery/camera/autoname/directional/north,
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 1;
-	pixel_y = 23
-	},
-/obj/structure/reagent_dispensers/watertank,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/camera/autoname,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
@@ -28366,8 +28149,9 @@
 /obj/item/restraints/handcuffs{
 	pixel_y = 3
 	},
-/obj/machinery/camera/autoname/directional/east{
-	c_tag = "Corporate Meeting Room"
+/obj/machinery/camera/autoname{
+	c_tag = "Corporate Meeting Room";
+	dir = 8
 	},
 /turf/open/floor/iron,
 /area/bridge)
@@ -28497,7 +28281,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","cargo")
 	},
 /obj/structure/table/reinforced,
@@ -28689,22 +28474,6 @@
 /turf/open/floor/iron/dark,
 /area/teleporter)
 "okG" = (
-/obj/item/clothing/gloves/color/yellow,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/bot,
-/obj/machinery/camera/directional/north{
-	network = list("ss13","engine")
-	},
-/obj/structure/closet/secure_closet/atmospherics{
-	anchored = 1;
-	req_access = null;
-	req_one_access_txt = "11"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/item/clothing/gloves/color/yellow,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
@@ -29159,20 +28928,6 @@
 /turf/open/floor/iron,
 /area/ai_monitored/turret_protected/aisat/maint)
 "osI" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/camera/directional/north{
-	network = list("aiupload")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/railing{
 	dir = 4
 	},
@@ -29666,7 +29421,9 @@
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "oFF" = (
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -29785,7 +29542,8 @@
 /area/crew_quarters/dorms)
 "oKv" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","engine")
 	},
 /obj/machinery/status_display/evac{
@@ -30042,23 +29800,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "oNL" = (
-/obj/machinery/nanite_program_hub,
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science RC";
-	pixel_y = 30;
-	receive_ore_updates = 1
-	},
-/obj/machinery/camera/autoname/directional/north{
-	network = list("ss13","rd")
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/nanite_program_hub,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/requests_console{
@@ -30900,7 +30641,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","cargo")
 	},
 /turf/open/floor/plating/asteroid/basalt/planetary,
@@ -30937,15 +30678,6 @@
 /turf/open/floor/iron/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "pos" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/yellow,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/power/apc/auto_name/east,
@@ -31022,7 +30754,9 @@
 	},
 /obj/machinery/photocopier,
 /obj/effect/turf_decal/bot,
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -31067,13 +30801,16 @@
 /area/engine/supermatter)
 "prs" = (
 /obj/structure/lattice/catwalk/over,
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","security")
 	},
 /turf/open/openspace,
 /area/maintenance/department/security/brig)
 "prv" = (
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /obj/machinery/sleeper{
 	dir = 8
@@ -31699,7 +31436,8 @@
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
 "pIK" = (
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("ss13","cargo")
 	},
 /obj/structure/extinguisher_cabinet{
@@ -31740,7 +31478,7 @@
 /area/bridge)
 "pJM" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable{
@@ -31940,7 +31678,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/machinery/computer/cargo/request{
@@ -32015,7 +31753,9 @@
 	alpha = 180
 	},
 /obj/machinery/light,
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /obj/item/camera{
 	pixel_x = 2;
@@ -32169,7 +31909,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","cargo")
 	},
 /turf/open/floor/iron/dark,
@@ -32809,7 +32549,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/airalarm/directional/east{
+/obj/machinery/airalarm{
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/structure/table/reinforced,
@@ -33346,14 +33087,6 @@
 /turf/open/floor/iron,
 /area/engine/engineering)
 "qEY" = (
-/obj/machinery/airalarm/directional/north{
-	pixel_y = 28
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/camera/autoname,
 /turf/open/openspace,
 /area/crew_quarters/kitchen)
@@ -33363,7 +33096,7 @@
 	dir = 1;
 	pixel_y = 20
 	},
-/obj/machinery/camera/directional/north,
+/obj/machinery/camera/autoname,
 /turf/open/floor/iron,
 /area/hydroponics)
 "qFF" = (
@@ -33599,7 +33332,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow,
@@ -33608,7 +33341,7 @@
 "qNa" = (
 /obj/machinery/vending/autodrobe/all_access,
 /obj/machinery/airalarm/directional/north,
-/obj/machinery/camera/directional/north,
+/obj/machinery/camera/autoname,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
 "qNf" = (
@@ -33648,18 +33381,6 @@
 	name = "Engineering Viewing Platform"
 	})
 "qNS" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/camera/directional/north{
-	network = list("ss13","security")
-	},
-/obj/item/kirbyplants/random,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -33929,7 +33650,8 @@
 /area/crew_quarters/theatre/backstage)
 "qVd" = (
 /obj/structure/railing,
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","engine")
 	},
 /turf/open/openspace,
@@ -33977,7 +33699,7 @@
 /area/quartermaster/storage)
 "qVQ" = (
 /obj/machinery/firealarm/directional/north,
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","medbay")
 	},
 /obj/machinery/vending/cigarette,
@@ -33996,7 +33718,9 @@
 "qWw" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/three,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -34029,7 +33753,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
@@ -34327,7 +34051,7 @@
 	name = "Storage Locker";
 	req_one_access_txt = "1;4"
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","security")
 	},
 /turf/open/floor/iron/dark,
@@ -34365,7 +34089,7 @@
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/fernybush,
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
@@ -34811,20 +34535,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/sink{
-	dir = 1;
-	pixel_y = 28
-	},
-/obj/machinery/camera/directional/north,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -34880,7 +34590,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/mixingchamber{
-	dir = 4;
+	dir = 8;
 	pixel_x = 22
 	},
 /turf/open/floor/iron/tech,
@@ -34930,7 +34640,8 @@
 /obj/machinery/porta_turret/ai{
 	dir = 4
 	},
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("aiupload")
 	},
 /obj/item/radio/intercom{
@@ -35256,7 +34967,7 @@
 	network = list("ss13");
 	pixel_x = 24
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","security")
 	},
 /obj/item/holosign_creator/security,
@@ -35423,7 +35134,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -35531,25 +35244,6 @@
 /turf/open/floor/iron,
 /area/hydroponics)
 "rGu" = (
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	alpha = 180;
-	dir = 1
-	},
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13","security")
-	},
-/obj/machinery/button/door{
-	id = "armory";
-	name = "Armory Shutter Toggle";
-	pixel_x = -32;
-	pixel_y = 1;
-	req_access_txt = "3"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	alpha = 180;
 	dir = 1
@@ -35806,7 +35500,9 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -36156,28 +35852,6 @@
 	icon_state = "2-8"
 	},
 /obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/table/reinforced,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/effect/spawner/lootdrop/aimodule_harmless,
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/flasher{
-	id = "AI";
-	pixel_x = -1;
-	pixel_y = 32
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/effect/spawner/lootdrop/aimodule_harmless,
 /obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -36207,7 +35881,7 @@
 	dir = 8
 	},
 /obj/structure/chair/office,
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
@@ -36263,7 +35937,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow,
@@ -36750,7 +36424,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -36868,7 +36544,9 @@
 	name = "-3 Primary Hallway"
 	})
 "sov" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /obj/effect/landmark/start/medical_doctor,
 /obj/structure/disposalpipe/trunk/multiz/down{
 	dir = 8
@@ -36995,22 +36673,6 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "stF" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/rnd/production/techfab/department/cargo,
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -37532,7 +37194,8 @@
 /obj/machinery/modular_computer/console/preset/engineering{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/iron/dark,
@@ -37805,7 +37468,9 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -37830,7 +37495,7 @@
 /turf/open/floor/plating/asteroid/planetary,
 /area/quartermaster/storage)
 "sRR" = (
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow,
@@ -38259,7 +37924,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","rd")
 	},
 /turf/open/floor/plating/airless,
@@ -39103,7 +38769,9 @@
 /area/medical/medbay/central)
 "tuQ" = (
 /obj/effect/decal/cleanable/generic,
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -39427,7 +39095,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/medical/medbay/central)
 "tEl" = (
@@ -39711,16 +39381,6 @@
 	},
 /area/asteroid/paradise/surface)
 "tMb" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
@@ -40299,18 +39959,6 @@
 	},
 /obj/machinery/light,
 /obj/item/kirbyplants/random,
-/obj/machinery/camera/autoname/directional/south,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/light_switch{
-	pixel_x = 25;
-	pixel_y = -25
-	},
-/obj/machinery/light,
-/obj/item/kirbyplants/random,
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
@@ -40533,7 +40181,9 @@
 /area/engine/engineering)
 "uaI" = (
 /obj/effect/landmark/start/randommaint/vip,
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /turf/open/floor/plating/beach/coastline_t{
 	dir = 1
 	},
@@ -40639,7 +40289,9 @@
 "ugr" = (
 /obj/structure/closet/secure_closet/lethalshots,
 /obj/effect/turf_decal/bot,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
 	color = "#DE3A3A"
@@ -40903,7 +40555,9 @@
 /area/bridge)
 "unM" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -40964,7 +40618,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/chapel)
 "upn" = (
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -41126,7 +40782,8 @@
 /turf/open/floor/iron,
 /area/security/brig)
 "uru" = (
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","public")
 	},
 /turf/open/openspace,
@@ -41303,7 +40960,7 @@
 "uwL" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/vending/wardrobe/robo_wardrobe,
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","rd")
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -42042,7 +41699,7 @@
 /area/maintenance/disposal/incinerator)
 "uRF" = (
 /obj/machinery/telecomms/server/presets/common,
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/effect/turf_decal/stripes/closeup{
@@ -42610,20 +42267,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/filingcabinet,
-/obj/item/folder/documents,
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
 /obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -42898,7 +42541,7 @@
 "vmr" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","cargo")
 	},
 /obj/machinery/light{
@@ -43009,7 +42652,9 @@
 	name = "Engineering Viewing Platform"
 	})
 "voB" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
@@ -43124,7 +42769,9 @@
 /turf/closed/wall/r_wall,
 /area/security/brig)
 "vqG" = (
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/machinery/chem_dispenser/drinks,
 /obj/structure/table,
 /obj/machinery/light{
@@ -43140,7 +42787,9 @@
 /turf/closed/mineral/random/air,
 /area/asteroid/paradise)
 "vqR" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
@@ -43175,8 +42824,9 @@
 /area/maintenance/department/medical/morgue)
 "vrO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera/autoname/directional/west{
-	c_tag = "Teleporter Room"
+/obj/machinery/camera/autoname{
+	c_tag = "Teleporter Room";
+	dir = 4
 	},
 /obj/structure/table/wood,
 /obj/machinery/computer/libraryconsole/bookmanagement,
@@ -43292,7 +42942,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/directional/west{
+/obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow,
@@ -43305,22 +42955,6 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
 "vuV" = (
-/obj/machinery/computer/cloning{
-	dir = 2
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/power/apc/auto_name/directional/north,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/computer/cloning,
 /obj/effect/turf_decal/bot,
 /obj/machinery/light{
@@ -43468,7 +43102,8 @@
 /turf/open/floor/iron/sepia,
 /area/quartermaster/storage)
 "vzt" = (
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("ss13","public")
 	},
 /obj/machinery/light{
@@ -43664,7 +43299,8 @@
 	dir = 4
 	},
 /obj/machinery/light,
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","cargo")
 	},
 /turf/open/floor/plating/asteroid/planetary,
@@ -43762,14 +43398,16 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
 "vJW" = (
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","engine")
 	},
 /turf/open/floor/iron/dark,
@@ -44150,7 +43788,8 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","security","prison")
 	},
 /obj/structure/cable/yellow{
@@ -44431,7 +44070,9 @@
 	icon_state = "baseball_bat_metal";
 	name = "kneecapper"
 	},
-/obj/machinery/power/apc/auto_name/directional/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /turf/open/floor/iron/dark,
 /area/security/execution/education)
@@ -44626,7 +44267,8 @@
 /area/security/warden)
 "wgK" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","public")
 	},
 /turf/open/floor/plating/asteroid/planetary,
@@ -44929,7 +44571,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/west{
+/obj/machinery/camera/autoname{
+	dir = 4;
 	network = list("ss13","security")
 	},
 /turf/open/openspace,
@@ -44942,7 +44585,7 @@
 	},
 /obj/effect/spawner/randomvend/snack,
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","medbay")
 	},
 /obj/machinery/status_display/evac{
@@ -44961,7 +44604,8 @@
 	dir = 1;
 	network = list("vault","cargo")
 	},
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","cargo")
 	},
 /obj/structure/sign/painting/library{
@@ -45077,7 +44721,9 @@
 /area/maintenance/department/engine)
 "wqQ" = (
 /obj/machinery/airalarm/directional/east,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/bookcase/manuals/medical,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -45609,7 +45255,9 @@
 /area/quartermaster/storage)
 "wGy" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -45746,7 +45394,9 @@
 	pixel_x = 6
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/camera/autoname/directional/west,
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_x = -32
 	},
@@ -45868,7 +45518,8 @@
 	alpha = 100;
 	dir = 1
 	},
-/obj/machinery/camera/autoname/directional/south{
+/obj/machinery/camera/autoname{
+	dir = 1;
 	network = list("ss13","public")
 	},
 /obj/structure/extinguisher_cabinet{
@@ -46364,7 +46015,7 @@
 /turf/open/floor/iron,
 /area/maintenance/department/science/xenobiology)
 "wZq" = (
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","rd")
 	},
 /obj/machinery/computer/security/telescreen/toxins{
@@ -47237,7 +46888,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/techstorage/medical,
 /obj/effect/spawner/lootdrop/techstorage/medical,
-/obj/machinery/airalarm/directional/north{
+/obj/machinery/airalarm{
 	pixel_y = 22
 	},
 /obj/effect/turf_decal/delivery,
@@ -48178,7 +47829,7 @@
 /turf/open/floor/wood/broken,
 /area/crew_quarters/cafeteria)
 "xWG" = (
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","engine")
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrogen_output{
@@ -48250,7 +47901,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","cargo")
 	},
 /turf/open/floor/plating,
@@ -48265,7 +47916,7 @@
 	},
 /obj/machinery/camera/autoname{
 	c_tag = "Corporate Meeting Room";
-	dir = 10
+	dir = 5
 	},
 /obj/item/aicard{
 	pixel_x = 6
@@ -48296,7 +47947,8 @@
 /obj/effect/turf_decal/trimline/dark/warning{
 	dir = 8
 	},
-/obj/machinery/camera/autoname/directional/east{
+/obj/machinery/camera/autoname{
+	dir = 8;
 	network = list("ss13","engine","public")
 	},
 /turf/open/floor/iron/dark,
@@ -48318,7 +47970,9 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "xZs" = (
-/obj/machinery/power/apc/auto_name/directional/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -48409,21 +48063,6 @@
 /turf/closed/wall,
 /area/maintenance/department/crew_quarters/dorms)
 "ybT" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/power/apc/auto_name/directional/east,
-/obj/structure/cable/yellow,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -48529,26 +48168,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/camera/autoname/directional/west{
-	network = list("ss13","cargo")
-	},
-/obj/effect/turf_decal/numbers/two_nine{
-	dir = 2
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/noticeboard{
-	name = "bounty list";
-	pixel_x = 1;
-	pixel_y = 33
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
 /obj/machinery/camera/autoname{
 	dir = 4;
 	network = list("ss13","cargo")
@@ -48574,7 +48193,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/camera/directional/north{
+/obj/machinery/camera/autoname{
 	network = list("ss13","rd")
 	},
 /obj/machinery/firealarm/directional/north,
@@ -48601,7 +48220,9 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 31
 	},
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
 /obj/effect/landmark/start/randommaint/magician,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -48640,7 +48261,7 @@
 /obj/item/circuitboard/machine/telecomms/bus,
 /obj/item/circuitboard/machine/telecomms/broadcaster,
 /obj/machinery/camera/autoname{
-	dir = 9;
+	dir = 6;
 	network = list("ss13","engine")
 	},
 /turf/open/floor/iron/dark,

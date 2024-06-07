@@ -198,8 +198,7 @@
 "lU" = (
 /obj/structure/table,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/item/ammo_box/a40mm,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -558,7 +557,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /turf/open/floor/plating,
@@ -579,8 +578,7 @@
 "Du" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/pirate)

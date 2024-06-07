@@ -233,6 +233,13 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/tdome/arena)
+"gJ" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/tdome/arena)
 "gO" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -252,7 +259,9 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "AT" = (
-/obj/structure/chair/stool/directional/south,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/tdome/arena)
@@ -265,7 +274,9 @@
 /turf/open/floor/iron,
 /area/tdome/arena)
 "EK" = (
-/obj/structure/chair/stool/directional/west,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/tdome/arena)
@@ -436,7 +447,7 @@ OA
 am
 hK
 ac
-EK
+gJ
 ac
 ac
 an

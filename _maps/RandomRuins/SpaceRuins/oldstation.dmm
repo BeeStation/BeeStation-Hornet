@@ -3869,8 +3869,7 @@
 "nW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 23;
-	dir = 1
+	pixel_y = 23
 	},
 /obj/effect/decal/cleanable/food/egg_smudge,
 /turf/open/floor/iron/cafeteria,
@@ -4046,7 +4045,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/yellow,
@@ -4124,7 +4123,7 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/item/clothing/suit/space/nasavoid/old,
@@ -4172,8 +4171,7 @@
 "At" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 23;
-	dir = 1
+	pixel_y = 23
 	},
 /turf/open/floor/iron/white,
 /area/ruin/space/has_grav/ancientstation/proto)
@@ -4236,7 +4234,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/machinery/light{
@@ -4436,7 +4434,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4816,7 +4814,7 @@
 /area/ruin/space/has_grav/ancientstation/comm)
 "TE" = (
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4886,7 +4884,8 @@
 /area/ruin/space/has_grav/ancientstation/sec)
 "VG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/airalarm/directional/south{
+/obj/machinery/airalarm{
+	dir = 1;
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/tile/green{
@@ -4926,7 +4925,7 @@
 /area/ruin/space/has_grav/ancientstation/engi)
 "XT" = (
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4994,7 +4993,7 @@
 "Zg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,

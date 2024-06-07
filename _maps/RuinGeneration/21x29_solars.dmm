@@ -224,7 +224,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes,
-/obj/machinery/camera/autoname/directional/south,
+/obj/machinery/camera/autoname{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "U" = (

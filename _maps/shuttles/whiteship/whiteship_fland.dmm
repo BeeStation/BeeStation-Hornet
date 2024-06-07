@@ -123,8 +123,7 @@
 	pixel_y = 6
 	},
 /obj/machinery/airalarm/all_access{
-	pixel_y = 22;
-	dir = 1
+	pixel_y = 22
 	},
 /obj/item/storage/backpack/duffelbag/med/surgery{
 	pixel_y = 4
@@ -698,7 +697,7 @@
 "Ri" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 22
 	},
 /obj/machinery/atmospherics/pipe/manifold/dark/hidden{
@@ -777,8 +776,7 @@
 /area/shuttle/abandoned)
 "Us" = (
 /obj/machinery/airalarm/all_access{
-	pixel_y = 22;
-	dir = 1
+	pixel_y = 22
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4

@@ -682,7 +682,7 @@
 /turf/open/floor/iron/tech/grid,
 /area/shuttle/hunter)
 "Hr" = (
-/obj/machinery/power/apc/auto_name/directional/north{
+/obj/machinery/power/apc/auto_name/north{
 	cell_type = /obj/item/stock_parts/cell/high/plus;
 	req_access = list(181)
 	},

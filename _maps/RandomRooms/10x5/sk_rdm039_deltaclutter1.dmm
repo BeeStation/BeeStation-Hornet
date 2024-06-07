@@ -68,7 +68,8 @@
 /area/template_noop)
 "j" = (
 /obj/structure/table/wood,
-/obj/machinery/airalarm/directional/west{
+/obj/machinery/airalarm{
+	dir = 4;
 	pixel_x = -23
 	},
 /obj/machinery/light_switch{
@@ -213,7 +214,9 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "W" = (
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "X" = (

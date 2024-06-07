@@ -64,7 +64,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
@@ -260,8 +260,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -364,7 +363,7 @@
 /area/shuttle/pirate)
 "bC" = (
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/machinery/light/small{
@@ -669,16 +668,14 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/bot,
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/shuttle/pirate)
 "nO" = (
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -962,8 +959,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{

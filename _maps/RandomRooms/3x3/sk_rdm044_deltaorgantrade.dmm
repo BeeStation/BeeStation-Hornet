@@ -40,7 +40,8 @@
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/airalarm/directional/south{
+/obj/machinery/airalarm{
+	dir = 1;
 	pixel_y = -22
 	},
 /obj/effect/turf_decal/bot,

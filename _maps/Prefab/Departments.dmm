@@ -548,7 +548,7 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 10;
+	dir = 5;
 	network = list("ss13","rd")
 	},
 /turf/open/floor/iron,
@@ -1763,7 +1763,7 @@
 /turf/open/floor/iron/sepia,
 /area/quartermaster/sorting)
 "VZ" = (
-/obj/machinery/power/apc/auto_name/directional/east,
+/obj/machinery/power/apc/auto_name/east,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/space)

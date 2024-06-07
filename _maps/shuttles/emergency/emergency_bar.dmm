@@ -127,8 +127,9 @@
 /turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
 "aG" = (
-/obj/structure/chair/stool/directional/west{
-	can_buckle = 1
+/obj/structure/chair/stool{
+	can_buckle = 1;
+	dir = 8
 	},
 /turf/open/floor/carpet/grimy,
 /area/shuttle/escape)
@@ -356,7 +357,9 @@
 /turf/open/floor/iron,
 /area/shuttle/escape)
 "hI" = (
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/shuttle/escape)

@@ -687,7 +687,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/syndicate{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -719,8 +719,7 @@
 	dir = 2
 	},
 /obj/machinery/airalarm/syndicate{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -776,8 +775,7 @@
 /area/ruin/space/has_grav/listeningstation)
 "rE" = (
 /obj/machinery/airalarm/syndicate{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{

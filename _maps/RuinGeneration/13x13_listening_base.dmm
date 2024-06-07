@@ -14,8 +14,7 @@
 /area/ruin/space/has_grav/listeningstation)
 "cs" = (
 /obj/machinery/airalarm/syndicate{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
@@ -227,8 +226,7 @@
 "pS" = (
 /obj/machinery/computer/message_monitor,
 /obj/machinery/airalarm/syndicate{
-	pixel_y = 24;
-	dir = 1
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -423,7 +421,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/syndicate{
-	dir = 4;
+	dir = 8;
 	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
