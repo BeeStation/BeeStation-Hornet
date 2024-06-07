@@ -398,6 +398,15 @@
 	},
 /turf/open/floor/circuit/telecomms,
 /area/mine/maintenance)
+"dq" = (
+/obj/structure/chair/fancy/bench/pew/right{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/mine/living_quarters)
 "dt" = (
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
@@ -522,13 +531,6 @@
 	},
 /turf/open/floor/plating,
 /area/mine/science)
-"en" = (
-/obj/machinery/computer/arcade{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/iron/checker,
-/area/mine/living_quarters)
 "er" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -1538,16 +1540,6 @@
 "kw" = (
 /turf/open/floor/iron/white,
 /area/mine/laborcamp)
-"kx" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/item/clothing/head/utility/chefhat,
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/turf/open/floor/iron/grid/steel,
-/area/mine/laborcamp)
 "kC" = (
 /obj/structure/closet/crate/secure/loot,
 /turf/open/floor/iron/techmaint,
@@ -1677,6 +1669,16 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/mine/living_quarters)
+"lq" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/donkpockets,
+/obj/item/clothing/head/utility/chefhat,
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/iron/grid/steel,
+/area/mine/laborcamp)
 "ls" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
@@ -2417,6 +2419,13 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/maintenance)
+"rq" = (
+/obj/effect/spawner/randomarcade{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/iron/checker,
+/area/mine/living_quarters)
 "rt" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -5762,15 +5771,6 @@
 	},
 /turf/open/floor/iron/dark,
 /area/mine/eva)
-"Rg" = (
-/obj/structure/chair/fancy/bench/pew/right{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/mine/living_quarters)
 "Rh" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -32573,7 +32573,7 @@ NE
 rw
 jA
 tv
-kx
+lq
 Ap
 rM
 uL
@@ -40792,7 +40792,7 @@ wS
 wS
 wS
 wS
-en
+rq
 kM
 Yp
 KI
@@ -44380,7 +44380,7 @@ ZH
 ZH
 YM
 uv
-Rg
+dq
 ZH
 ZH
 mq
