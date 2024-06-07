@@ -15,10 +15,7 @@
 
 /obj/item/assembly_holder/Initialize(mapload)
 	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
+	AddComponent(/datum/component/simple_rotation)
 
 /obj/item/assembly_holder/Destroy()
 	QDEL_LAZYLIST(assemblies)
@@ -32,13 +29,9 @@
 	. = ..()
 	LAZYREMOVE(assemblies, gone)
 
-/obj/item/assembly_holder/ComponentInitialize()
-	. = ..()
-	var/static/rotation_flags = ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_FLIP | ROTATION_VERBS
-	AddComponent(/datum/component/simple_rotation, rotation_flags)
-
 /obj/item/assembly_holder/IsAssemblyHolder()
 	return TRUE
+
 /obj/item/assembly_holder/examine(mob/user)
 	. = ..()
 	for(var/assembly in assemblies)
@@ -140,7 +133,7 @@
 
 
 /obj/item/assembly_holder/dropped(mob/user)
-	..()
+	. = ..()
 	for(var/obj/item/assembly/assembly as anything in assemblies)
 		assembly.dropped(user)
 
@@ -158,8 +151,10 @@
 
 	return ..()
 
-/obj/item/assembly_holder/Moved()
+/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
+	for(var/obj/item/assembly/assembly in assemblies)
+		assembly.Moved(old_loc, movement_dir, forced, old_locs, momentum_change)
 
 /obj/item/assembly_holder/AltClick(mob/user)
 	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
