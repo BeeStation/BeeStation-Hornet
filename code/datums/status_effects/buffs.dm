@@ -621,7 +621,7 @@
 /atom/movable/screen/alert/status_effect/planthealing
 	name = "Photosynthesis"
 	desc = "Your wounds seem to be healing from the light."
-	icon_state = "blooming" //Waiting on dungeon or luxlator to get a sprite for this.
+	icon_state = "blooming"
 
 /datum/status_effect/planthealing/on_apply()
 	ADD_TRAIT(owner, TRAIT_PLANTHEALING, "Light Source")
