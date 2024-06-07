@@ -2230,7 +2230,7 @@
 "aiw" = (
 /obj/machinery/door/airlock/maintenance/external{
 	name = "construction zone";
-	req_access_txt = "12;37"
+	req_access_txt = "32;47;48;37"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -29704,7 +29704,7 @@
 	},
 /obj/machinery/door/airlock/maintenance/external{
 	name = "construction zone";
-	req_access_txt = "12;37"
+	req_access_txt = "32;47;48;37"
 	},
 /turf/open/floor/iron/dark,
 /area/construction/mining/aux_base)
