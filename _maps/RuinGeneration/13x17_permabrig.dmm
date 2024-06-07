@@ -8,6 +8,11 @@
 "aW" = (
 /turf/template_noop,
 /area/template_noop)
+"be" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/randomarcade,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
 "bO" = (
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -39,11 +44,6 @@
 	name = "Unisex Restroom"
 	},
 /turf/open/floor/iron/freezer,
-/area/ruin/unpowered)
-"gN" = (
-/obj/structure/chair/stool/directional/west,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
 /area/ruin/unpowered)
 "hq" = (
 /obj/structure/table,
@@ -105,18 +105,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
-"mv" = (
-/obj/structure/sign/warning/electricshock{
-	pixel_y = 32
-	},
-/obj/machinery/hydroponics/soil,
-/obj/item/plant_analyzer,
-/obj/machinery/camera/directional/north,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ruin/unpowered)
 "mW" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -146,6 +134,18 @@
 "qb" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
+	},
+/turf/open/floor/iron,
+/area/ruin/unpowered)
+"qc" = (
+/obj/structure/sign/warning/electricshock{
+	pixel_y = 32
+	},
+/obj/machinery/hydroponics/soil,
+/obj/item/plant_analyzer,
+/obj/machinery/camera/directional/north,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -237,6 +237,11 @@
 /area/ruin/unpowered)
 "xh" = (
 /turf/open/floor/iron/freezer,
+/area/ruin/unpowered)
+"xk" = (
+/obj/structure/chair/stool/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "xP" = (
 /obj/structure/window/reinforced,
@@ -356,11 +361,6 @@
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 1
 	},
-/turf/open/floor/iron,
-/area/ruin/unpowered)
-"Le" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/arcade,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "My" = (
@@ -524,7 +524,7 @@ KP
 Nf
 xe
 NR
-gN
+xk
 NR
 VL
 dn
@@ -563,7 +563,7 @@ UG
 vY
 NR
 NR
-gN
+xk
 NR
 NR
 lv
@@ -596,7 +596,7 @@ lv
 "}
 (7,1,1) = {"
 EW
-mv
+qc
 jz
 jj
 RC
@@ -619,7 +619,7 @@ NR
 jz
 NR
 NR
-gN
+xk
 NR
 NR
 NR
@@ -659,7 +659,7 @@ NR
 Gr
 hu
 mW
-Le
+be
 NR
 CC
 NR

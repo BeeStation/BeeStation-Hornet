@@ -2,19 +2,6 @@
 "af" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/caravan/pirate)
-"aE" = (
-/obj/structure/closet{
-	name = "pirate outfits"
-	},
-/obj/item/clothing/head/collectable/pirate,
-/obj/item/clothing/suit/pirate,
-/obj/item/clothing/under/costume/pirate,
-/obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/head/bandana,
-/turf/open/floor/iron/dark/side{
-	dir = 5
-	},
-/area/shuttle/caravan/pirate)
 "bE" = (
 /obj/structure/table,
 /obj/item/storage/box/lethalshot,
@@ -208,6 +195,16 @@
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/caravan/pirate)
+"lU" = (
+/obj/structure/table,
+/obj/machinery/airalarm/all_access{
+	pixel_y = 24;
+	dir = 1
+	},
+/obj/item/ammo_box/a40mm,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/shuttle/caravan/pirate)
 "mI" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/brute{
@@ -261,20 +258,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/shuttle/caravan/pirate)
-"oF" = (
-/obj/structure/closet{
-	name = "pirate outfits"
-	},
-/obj/item/clothing/head/collectable/pirate,
-/obj/item/clothing/suit/pirate,
-/obj/item/clothing/under/costume/pirate,
-/obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/head/bandana,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/pirate)
 "oG" = (
@@ -563,7 +546,7 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
-"Cb" = (
+"BV" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -580,17 +563,30 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
-"DN" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
+"Dr" = (
+/obj/structure/closet{
+	name = "pirate outfits"
+	},
+/obj/item/clothing/head/collectable/pirate,
+/obj/item/clothing/suit/costume/pirate,
+/obj/item/clothing/under/costume/pirate,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/head/costume/pirate/bandana,
+/turf/open/floor/iron/dark/side{
+	dir = 5
+	},
 /area/shuttle/caravan/pirate)
-"DY" = (
+"Du" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/machinery/airalarm/all_access{
 	pixel_y = 24;
 	dir = 1
 	},
+/turf/open/floor/iron/dark,
+/area/shuttle/caravan/pirate)
+"DN" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/pirate)
 "EE" = (
@@ -705,16 +701,6 @@
 "Jv" = (
 /turf/template_noop,
 /area/template_noop)
-"JA" = (
-/obj/structure/table,
-/obj/machinery/airalarm/all_access{
-	pixel_y = 24;
-	dir = 1
-	},
-/obj/item/ammo_box/a40mm,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/shuttle/caravan/pirate)
 "Kd" = (
 /obj/machinery/sleeper{
 	dir = 1
@@ -764,6 +750,20 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
+	},
+/turf/open/floor/iron/dark,
+/area/shuttle/caravan/pirate)
+"Od" = (
+/obj/structure/closet{
+	name = "pirate outfits"
+	},
+/obj/item/clothing/head/collectable/pirate,
+/obj/item/clothing/suit/costume/pirate,
+/obj/item/clothing/under/costume/pirate,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/head/costume/pirate/bandana,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/iron/dark,
 /area/shuttle/caravan/pirate)
@@ -971,7 +971,7 @@ Gh
 kY
 vW
 fh
-Cb
+BV
 hI
 vW
 Zo
@@ -1017,7 +1017,7 @@ na
 su
 Ag
 af
-JA
+lU
 tM
 gO
 af
@@ -1088,13 +1088,13 @@ Jv
 Jv
 Jv
 af
-aE
+Dr
 SF
 vq
 NM
 fS
 Bc
-oF
+Od
 af
 Jv
 Jv
@@ -1180,7 +1180,7 @@ Jv
 Jv
 Jv
 af
-DY
+Du
 DN
 SR
 af

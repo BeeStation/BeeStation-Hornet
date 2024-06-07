@@ -251,7 +251,7 @@
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(pluckOut), user, 1, 2, "pulling out")
-	return COMPONENT_NO_ATTACK_HAND
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/embedded/proc/checkRemoval(mob/living/carbon/victim, obj/item/I, mob/user)
 	SIGNAL_HANDLER

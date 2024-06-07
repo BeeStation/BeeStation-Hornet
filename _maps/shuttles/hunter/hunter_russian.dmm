@@ -29,6 +29,32 @@
 /obj/machinery/light,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
+"dt" = (
+/obj/structure/railing{
+	dir = 2;
+	layer = 3.1
+	},
+/obj/structure/closet{
+	name = "mastercraft traditional russian clothes"
+	},
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/head/costume/ushanka,
+/obj/item/clothing/under/pants/track,
+/obj/item/clothing/under/pants/track,
+/obj/item/clothing/under/pants/track,
+/obj/item/clothing/under/costume/soviet{
+	pixel_x = 2
+	},
+/obj/item/clothing/under/costume/soviet{
+	pixel_x = 2
+	},
+/obj/item/clothing/under/costume/soviet{
+	pixel_x = 2
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
 "dv" = (
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/arrows{
@@ -583,32 +609,6 @@
 /obj/effect/mapping_helpers/tile_breaker,
 /turf/open/floor/wood,
 /area/shuttle/hunter)
-"Ck" = (
-/obj/structure/railing{
-	dir = 2;
-	layer = 3.1
-	},
-/obj/structure/closet{
-	name = "mastercraft traditional russian clothes"
-	},
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/under/pants/track,
-/obj/item/clothing/under/pants/track,
-/obj/item/clothing/under/pants/track,
-/obj/item/clothing/under/costume/soviet{
-	pixel_x = 2
-	},
-/obj/item/clothing/under/costume/soviet{
-	pixel_x = 2
-	},
-/obj/item/clothing/under/costume/soviet{
-	pixel_x = 2
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
 "Dv" = (
 /obj/structure/table,
 /obj/item/ammo_box/a762{
@@ -818,20 +818,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron/tech/grid,
-/area/shuttle/hunter)
-"Nx" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/machinery/power/apc/auto_name/directional/east{
-	cell_type = /obj/item/stock_parts/cell/high/plus;
-	req_access = list(181)
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/tile_breaker,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
 "OG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1079,6 +1065,20 @@
 /obj/effect/turf_decal/bot/left,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/hunter)
+"Zm" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/auto_name/directional/east{
+	cell_type = /obj/item/stock_parts/cell/high/plus;
+	req_access = list(181)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/tile_breaker,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/hunter)
 "Zy" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/decal/cleanable/dirt,
@@ -1161,7 +1161,7 @@ Al
 ET
 XZ
 zj
-Nx
+Zm
 vK
 Al
 PE
@@ -1190,7 +1190,7 @@ Al
 kA
 Zy
 Al
-Ck
+dt
 fd
 Nb
 Al

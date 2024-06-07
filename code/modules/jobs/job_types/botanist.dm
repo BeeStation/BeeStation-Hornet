@@ -1,6 +1,5 @@
 /datum/job/botanist
 	title = JOB_NAME_BOTANIST
-	flag = BOTANIST
 	description = "Grow plants for the Kitchen, Bar and Chemistry. Sell cannabis and other goods to the crew. Clone people with Replica Pods when needed."
 	department_for_prefs = DEPT_BITFLAG_SRV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
@@ -15,7 +14,6 @@
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)

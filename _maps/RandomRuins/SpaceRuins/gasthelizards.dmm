@@ -208,7 +208,7 @@
 /area/ruin/space/has_grav/gasthelizard)
 "D" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/jacket/straight_jacket,
 /obj/item/reagent_containers/syringe/lethal,
 /obj/item/reagent_containers/syringe/lethal/choral,
 /turf/open/floor/iron/airless/dark,

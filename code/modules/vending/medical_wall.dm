@@ -4,7 +4,6 @@
 	icon_state = "wallmed"
 	icon_deny = "wallmed-deny"
 	density = FALSE
-	light_color = LIGHT_COLOR_WHITE
 	products = list(/obj/item/reagent_containers/syringe = 3,
 					/obj/item/stack/medical/gauze = 4,
 					/obj/item/reagent_containers/hypospray/medipen = 3,
@@ -21,6 +20,7 @@
 	extra_price = 100
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	tiltable = FALSE
+	light_mask = "wallmed-light-mask"
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/vending/wallmed, 32)
 

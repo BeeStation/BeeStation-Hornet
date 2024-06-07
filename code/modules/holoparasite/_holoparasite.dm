@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		else
 			health_percent = round((current.health / current.maxHealth) * 100, 0.5)
 		var/stat_text = "[health_percent]%"
-		if(current.InCritical())
+		if(HAS_TRAIT(current, TRAIT_CRITICAL_CONDITION))
 			stat_text += " (!! CRITICAL !!)"
 		.["Summoner Health"] = GENERATE_STAT_TEXT(stat_text)
 	if(!COOLDOWN_FINISHED(src, manifest_cooldown))
