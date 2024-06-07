@@ -66,22 +66,6 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/template_noop)
-"j" = (
-/obj/structure/table/wood,
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -23
-	},
-/obj/machinery/light_switch{
-	pixel_y = -26
-	},
-/obj/item/stack/cable_coil/white,
-/obj/item/stack/cable_coil/white,
-/obj/item/stack/sheet/glass,
-/obj/item/stack/sheet/glass,
-/obj/item/circuitboard/machine/microwave,
-/turf/open/floor/iron/dark,
-/area/template_noop)
 "k" = (
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -153,6 +137,12 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
+"z" = (
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/template_noop)
 "A" = (
 /obj/structure/chair/fancy/comfy{
 	dir = 4
@@ -171,11 +161,20 @@
 	},
 /turf/open/floor/wood,
 /area/template_noop)
-"E" = (
+"F" = (
 /obj/structure/table/wood,
-/obj/item/clothing/neck/tie/red,
-/obj/item/clothing/head/hats/tophat,
-/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -23
+	},
+/obj/machinery/light_switch{
+	pixel_y = -26
+	},
+/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil/white,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/circuitboard/machine/microwave,
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "H" = (
@@ -195,6 +194,13 @@
 /obj/machinery/light/small,
 /turf/open/floor/wood,
 /area/template_noop)
+"N" = (
+/obj/structure/table/wood,
+/obj/item/clothing/neck/tie/red,
+/obj/item/clothing/head/hats/tophat,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/template_noop)
 "O" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron/dark,
@@ -211,12 +217,6 @@
 /area/template_noop)
 "V" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/wood,
-/area/template_noop)
-"W" = (
-/obj/structure/chair/stool/bar{
-	dir = 8
-	},
 /turf/open/floor/wood,
 /area/template_noop)
 "X" = (
@@ -241,7 +241,7 @@ a
 X
 s
 P
-j
+F
 "}
 (2,1,1) = {"
 Z
@@ -252,7 +252,7 @@ f
 "}
 (3,1,1) = {"
 c
-E
+N
 k
 Y
 H
@@ -261,8 +261,8 @@ H
 d
 r
 n
-W
-W
+z
+z
 "}
 (5,1,1) = {"
 e

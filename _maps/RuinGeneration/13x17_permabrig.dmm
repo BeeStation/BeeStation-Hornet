@@ -8,9 +8,11 @@
 "aW" = (
 /turf/template_noop,
 /area/template_noop)
-"be" = (
+"bv" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomarcade,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
 "bO" = (
@@ -44,6 +46,13 @@
 	name = "Unisex Restroom"
 	},
 /turf/open/floor/iron/freezer,
+/area/ruin/unpowered)
+"gN" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
 /area/ruin/unpowered)
 "hq" = (
 /obj/structure/table,
@@ -105,6 +114,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/ruin/unpowered)
+"mv" = (
+/obj/structure/sign/warning/electricshock{
+	pixel_y = 32
+	},
+/obj/machinery/hydroponics/soil,
+/obj/item/plant_analyzer,
+/obj/machinery/camera/autoname,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/unpowered)
 "mW" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
@@ -134,18 +155,6 @@
 "qb" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
-	},
-/turf/open/floor/iron,
-/area/ruin/unpowered)
-"qc" = (
-/obj/structure/sign/warning/electricshock{
-	pixel_y = 32
-	},
-/obj/machinery/hydroponics/soil,
-/obj/item/plant_analyzer,
-/obj/machinery/camera/autoname,
-/obj/effect/turf_decal/tile/green/anticorner/contrasted{
-	dir = 4
 	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
@@ -237,13 +246,6 @@
 /area/ruin/unpowered)
 "xh" = (
 /turf/open/floor/iron/freezer,
-/area/ruin/unpowered)
-"xk" = (
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
 /area/ruin/unpowered)
 "xP" = (
 /obj/structure/window/reinforced,
@@ -365,6 +367,11 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/unpowered)
+"Le" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/randomarcade,
+/turf/open/floor/iron,
+/area/ruin/unpowered)
 "My" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -449,13 +456,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
-"Us" = (
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/ruin/unpowered)
 "UG" = (
 /mob/living/simple_animal/mouse/brown/Tom,
 /turf/open/floor/plating,
@@ -533,7 +533,7 @@ KP
 Nf
 xe
 NR
-Us
+bv
 NR
 VL
 dn
@@ -572,7 +572,7 @@ UG
 vY
 NR
 NR
-xk
+gN
 NR
 NR
 lv
@@ -605,7 +605,7 @@ lv
 "}
 (7,1,1) = {"
 EW
-qc
+mv
 jz
 jj
 RC
@@ -628,7 +628,7 @@ NR
 jz
 NR
 NR
-Us
+bv
 NR
 NR
 NR
@@ -668,7 +668,7 @@ NR
 Gr
 hu
 mW
-be
+Le
 NR
 CC
 NR

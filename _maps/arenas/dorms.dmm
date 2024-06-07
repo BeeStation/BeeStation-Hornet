@@ -209,6 +209,13 @@
 	},
 /turf/open/floor/iron/freezer,
 /area/tdome/arena)
+"aP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/randomarcade{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/tdome/arena)
 "aQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool,
@@ -223,6 +230,20 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/tdome/arena)
+"aV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/randomarcade{
+	dir = 8
+	},
+/turf/open/floor/iron,
+/area/tdome/arena)
+"aW" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/tdome/arena)
 "aX" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -233,7 +254,14 @@
 	},
 /turf/open/floor/iron/cafeteria,
 /area/tdome/arena)
-"gJ" = (
+"aY" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/iron,
+/area/tdome/arena)
+"aZ" = (
 /obj/structure/chair/stool{
 	dir = 8
 	},
@@ -258,26 +286,12 @@
 	},
 /turf/open/floor/iron,
 /area/tdome/arena)
-"AT" = (
-/obj/structure/chair/stool{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/iron,
-/area/tdome/arena)
 "DH" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/green/anticorner/contrasted{
 	dir = 4
 	},
-/turf/open/floor/iron,
-/area/tdome/arena)
-"EK" = (
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/iron,
 /area/tdome/arena)
 "FK" = (
@@ -313,13 +327,6 @@
 /obj/effect/turf_decal/tile/green/anticorner/contrasted,
 /turf/open/floor/iron,
 /area/tdome/arena)
-"MO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomarcade{
-	dir = 8
-	},
-/turf/open/floor/iron,
-/area/tdome/arena)
 "OA" = (
 /obj/machinery/hydroponics/soil,
 /obj/effect/decal/cleanable/dirt,
@@ -343,13 +350,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/cafeteria,
-/area/tdome/arena)
-"Xs" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/randomarcade{
-	dir = 4
-	},
-/turf/open/floor/iron,
 /area/tdome/arena)
 
 (1,1,1) = {"
@@ -390,7 +390,7 @@ av
 an
 an
 ac
-Xs
+aP
 "}
 (5,1,1) = {"
 Ls
@@ -408,7 +408,7 @@ am
 hK
 ac
 ac
-EK
+aY
 ac
 ac
 "}
@@ -429,7 +429,7 @@ at
 ax
 aC
 aB
-AT
+aW
 an
 "}
 (9,1,1) = {"
@@ -447,7 +447,7 @@ OA
 am
 hK
 ac
-gJ
+aZ
 ac
 ac
 an
@@ -470,7 +470,7 @@ az
 an
 ac
 ac
-MO
+aV
 "}
 (13,1,1) = {"
 ac

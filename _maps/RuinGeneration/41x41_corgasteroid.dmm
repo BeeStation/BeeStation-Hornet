@@ -1010,12 +1010,6 @@
 /obj/structure/transit_tube,
 /turf/template_noop,
 /area/template_noop)
-"Vi" = (
-/obj/structure/chair/stool{
-	dir = 4
-	},
-/turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
 "Vn" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 1
@@ -1082,6 +1076,12 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered)
+"YT" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 
@@ -2439,8 +2439,8 @@ jZ
 jZ
 jZ
 jZ
-Vi
-Vi
+YT
+YT
 mi
 jZ
 DU

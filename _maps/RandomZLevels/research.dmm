@@ -269,20 +269,6 @@
 	icon_state = "damaged5"
 	},
 /area/awaymission/research/interior/engineering)
-"bh" = (
-/obj/structure/table,
-/obj/item/reagent_containers/peppercloud_deployer,
-/obj/machinery/button/door{
-	id = "cryopodg1";
-	name = "panic lockdown button"
-	},
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -32
-	},
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/genetics)
 "bj" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating/asteroid/airless,
@@ -547,6 +533,15 @@
 	icon_state = "damaged4"
 	},
 /area/awaymission/research/interior)
+"ct" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -32
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/gateway)
 "cu" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -952,6 +947,13 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/research/interior/security)
+"eT" = (
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -32
+	},
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/secure)
 "eU" = (
 /obj/item/paper/crumpled/awaymissions/research/sensitive_info,
 /turf/open/floor/iron/dark,
@@ -1353,15 +1355,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/security)
-"ij" = (
-/obj/machinery/airalarm{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior)
 "ik" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1561,6 +1554,13 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/research/interior/dorm)
+"iZ" = (
+/obj/machinery/airalarm{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/medbay)
 "je" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -1997,6 +1997,19 @@
 	},
 /turf/open/floor/wood,
 /area/awaymission/research/interior/dorm)
+"lN" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 32
+	},
+/turf/open/floor/iron/yellowsiding{
+	dir = 4
+	},
+/area/awaymission/research/interior/dorm)
 "lO" = (
 /obj/machinery/button/door{
 	id = "Dorm6";
@@ -2039,6 +2052,12 @@
 /obj/item/bedsheet/patriot,
 /obj/effect/landmark/awaystart,
 /turf/open/floor/wood,
+/area/awaymission/research/interior/dorm)
+"lU" = (
+/obj/effect/spawner/randomarcade,
+/turf/open/floor/iron/yellowsiding{
+	dir = 4
+	},
 /area/awaymission/research/interior/dorm)
 "lV" = (
 /obj/machinery/light/small{
@@ -2224,6 +2243,16 @@
 "mT" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/escapepods)
+"mX" = (
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/escapepods)
@@ -2485,15 +2514,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
-"qQ" = (
-/obj/machinery/airalarm{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/cryo)
 "qV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2583,15 +2603,6 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
-"sc" = (
-/obj/machinery/airalarm{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/security)
 "sk" = (
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_x = -32
@@ -2658,12 +2669,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
-"tb" = (
-/obj/effect/spawner/randomarcade,
-/turf/open/floor/iron/yellowsiding{
-	dir = 4
-	},
-/area/awaymission/research/interior/dorm)
 "te" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 8
@@ -2768,19 +2773,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
-"vo" = (
-/obj/structure/table,
-/obj/item/reagent_containers/peppercloud_deployer,
-/obj/machinery/button/door{
-	id = "cryopodg2";
-	name = "panic lockdown button"
-	},
-/obj/machinery/airalarm{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/genetics)
 "vr" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/iron/white,
@@ -2881,19 +2873,6 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
-"wX" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 32
-	},
-/turf/open/floor/iron/yellowsiding{
-	dir = 4
-	},
-/area/awaymission/research/interior/dorm)
 "xb" = (
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 8
@@ -3143,6 +3122,16 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"An" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/head/helmet/toggleable/riot,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/iron,
+/area/awaymission/research/interior/security)
 "At" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -3249,17 +3238,6 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/security)
-"Cz" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted,
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/engineering)
 "CE" = (
 /obj/machinery/door/airlock/medical{
 	name = "Medical"
@@ -3386,6 +3364,15 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"DK" = (
+/obj/machinery/airalarm{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/cryo)
 "DQ" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
@@ -3411,13 +3398,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
-"En" = (
-/obj/effect/spawner/randomarcade,
-/obj/effect/turf_decal/tile/green/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/escapepods)
 "Eo" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
@@ -3425,6 +3405,15 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/cryo)
+"Ex" = (
+/obj/machinery/airalarm{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/security)
 "Ez" = (
 /obj/machinery/door/window/westright,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
@@ -3583,16 +3572,6 @@
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
-"GA" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/escapepods)
 "GG" = (
 /obj/machinery/light{
 	dir = 8
@@ -3726,15 +3705,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/security)
-"Je" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -32
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/gateway)
 "Ji" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3831,6 +3801,15 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
+"Kf" = (
+/obj/machinery/airalarm{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior)
 "Kp" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -3867,25 +3846,11 @@
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
-"KS" = (
-/obj/machinery/airalarm{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/iron/white,
-/area/awaymission/research/interior/medbay)
 "KT" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
-"KW" = (
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -32
-	},
-/turf/open/floor/iron/dark,
-/area/awaymission/research/interior/secure)
 "KY" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -4026,6 +3991,17 @@
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/awaymission/research/interior/genetics)
+"MG" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/engineering)
 "MH" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -4376,6 +4352,13 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/research/interior/escapepods)
+"TF" = (
+/obj/effect/spawner/randomarcade,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/research/interior/escapepods)
 "TH" = (
 /obj/item/stack/rods,
 /obj/item/ammo_casing/c45,
@@ -4408,6 +4391,20 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/engineering)
+"Ui" = (
+/obj/structure/table,
+/obj/item/reagent_containers/peppercloud_deployer,
+/obj/machinery/button/door{
+	id = "cryopodg1";
+	name = "panic lockdown button"
+	},
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/genetics)
 "Uk" = (
 /obj/item/stack/sheet/plasteel,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
@@ -4707,16 +4704,6 @@
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior/medbay)
-"YL" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/head/helmet/toggleable/riot,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/iron,
-/area/awaymission/research/interior/security)
 "YR" = (
 /obj/item/ammo_casing/c45,
 /obj/effect/decal/cleanable/blood/drip,
@@ -4770,6 +4757,19 @@
 	},
 /turf/open/floor/iron/white,
 /area/awaymission/research/interior)
+"ZQ" = (
+/obj/structure/table,
+/obj/item/reagent_containers/peppercloud_deployer,
+/obj/machinery/button/door{
+	id = "cryopodg2";
+	name = "panic lockdown button"
+	},
+/obj/machinery/airalarm{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/awaymission/research/interior/genetics)
 "ZZ" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
@@ -29569,7 +29569,7 @@ cQ
 cQ
 cQ
 dc
-KW
+eT
 dK
 gh
 dK
@@ -32645,7 +32645,7 @@ bl
 bQ
 bQ
 ci
-Je
+ct
 bl
 bl
 ji
@@ -37021,7 +37021,7 @@ ym
 ss
 ss
 ea
-qQ
+DK
 fe
 Wi
 Go
@@ -37529,7 +37529,7 @@ ji
 aH
 cd
 cx
-vo
+ZQ
 HB
 HB
 AU
@@ -38061,7 +38061,7 @@ HB
 AU
 SP
 HB
-bh
+Ui
 cx
 cd
 id
@@ -40396,7 +40396,7 @@ iX
 iX
 cd
 mb
-En
+TF
 IN
 IN
 JY
@@ -41377,7 +41377,7 @@ at
 aD
 ar
 aQ
-Cz
+MG
 yj
 bE
 ar
@@ -41417,9 +41417,9 @@ kV
 lc
 lp
 lp
-wX
-tb
-tb
+lN
+lU
+lU
 lY
 aP
 cd
@@ -42160,7 +42160,7 @@ cp
 UA
 cp
 cp
-ij
+Kf
 Pp
 eJ
 eJ
@@ -43232,7 +43232,7 @@ Ib
 Ib
 xe
 Ib
-GA
+mX
 mb
 aa
 aa
@@ -46033,7 +46033,7 @@ ji
 aH
 aO
 iW
-KS
+iZ
 FA
 Kx
 ow
@@ -48069,11 +48069,11 @@ ji
 aH
 aO
 do
-YL
+An
 LS
 FG
 do
-sc
+Ex
 uj
 rl
 Fz

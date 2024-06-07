@@ -1155,6 +1155,12 @@
 /obj/structure/dresser,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_1)
+"dA" = (
+/obj/machinery/airalarm{
+	pixel_y = 24
+	},
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/hotel/workroom)
 "dB" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1507,6 +1513,20 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
+"eL" = (
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/hotel/bar)
+"eM" = (
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/hotel)
 "eN" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Hotel Maintenance";
@@ -1582,6 +1602,12 @@
 "fb" = (
 /obj/machinery/light{
 	dir = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/space/has_grav/hotel/dock)
+"fc" = (
+/obj/machinery/airalarm{
+	pixel_y = 24
 	},
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/dock)
@@ -2591,6 +2617,19 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel)
+"iY" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/hotel/pool)
 "iZ" = (
 /obj/machinery/power/apc/highcap/five_k{
 	name = "Pool APC";
@@ -2809,6 +2848,10 @@
 "jR" = (
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/pool)
+"jS" = (
+/obj/effect/spawner/randomarcade,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/hotel/pool)
 "jT" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
@@ -2841,6 +2884,11 @@
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = 32
 	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/hotel/pool)
+"ka" = (
+/obj/effect/spawner/randomarcade,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/pool)
 "kb" = (
@@ -2918,12 +2966,6 @@
 /obj/item/storage/fancy/donut_box,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/security)
-"kD" = (
-/obj/structure/closet/crate,
-/obj/item/clothing/head/costume/rice_hat,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/hotel/workroom)
 "kF" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/wood,
@@ -3171,6 +3213,12 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
+"lL" = (
+/obj/structure/closet/crate,
+/obj/item/clothing/head/costume/rice_hat,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/iron/white,
+/area/ruin/space/has_grav/hotel/workroom)
 "lM" = (
 /obj/machinery/door/airlock{
 	name = "Men's Changing"
@@ -3418,15 +3466,6 @@
 /obj/machinery/light,
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
-"nJ" = (
-/obj/machinery/airalarm{
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/hotel/security)
 "nY" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -3461,6 +3500,15 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
+"ou" = (
+/obj/machinery/airalarm{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/hotel/security)
 "oC" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
@@ -3510,18 +3558,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
-"qz" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/airalarm{
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 4
-	},
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/hotel/power)
 "qI" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
@@ -3551,10 +3587,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
-"rM" = (
-/obj/effect/spawner/randomarcade,
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/hotel/pool)
 "sc" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -3599,19 +3631,6 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/secondary_solars)
-"tu" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/hotel/pool)
 "tP" = (
 /obj/structure/table/wood,
 /obj/item/instrument/violin,
@@ -3830,6 +3849,11 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
+"zu" = (
+/obj/structure/table/wood,
+/obj/item/clothing/head/costume/sombrero,
+/turf/open/floor/wood,
+/area/ruin/space/has_grav/hotel/guestroom/room_3)
 "zI" = (
 /obj/effect/turf_decal/pool{
 	dir = 4
@@ -3850,12 +3874,6 @@
 	},
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
-"AJ" = (
-/obj/machinery/airalarm{
-	pixel_y = 24
-	},
-/turf/open/floor/wood,
-/area/ruin/space/has_grav/hotel/dock)
 "AP" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
@@ -3922,11 +3940,6 @@
 /obj/effect/turf_decal/pool,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/hotel/pool)
-"DB" = (
-/obj/effect/spawner/randomarcade,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/pool)
 "DH" = (
 /obj/machinery/door/window/brigdoor{
@@ -4035,11 +4048,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/security)
-"GM" = (
-/obj/structure/closet/crate,
-/obj/item/clothing/head/costume/papersack/smiley,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/hotel)
 "GX" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -4145,6 +4153,16 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/security)
+"IZ" = (
+/obj/structure/closet/secure_closet/security{
+	req_access = null;
+	req_access_txt = "203"
+	},
+/obj/item/gun/energy/laser/scatter/shotty,
+/obj/item/clothing/head/helmet/toggleable/justice,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/hotel/security)
 "Ju" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4194,13 +4212,6 @@
 /obj/effect/light_emitter,
 /turf/open/indestructible/sound/pool,
 /area/ruin/space/has_grav/hotel/pool)
-"Lx" = (
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/hotel)
 "LK" = (
 /obj/machinery/light{
 	dir = 8
@@ -4210,15 +4221,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/security)
-"Mk" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/clothing/head/utility/welding,
-/obj/effect/turf_decal/tile/yellow/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/ruin/space/has_grav/hotel/power)
 "MR" = (
 /turf/open/indestructible/sound/pool/end,
 /area/ruin/space/has_grav/hotel/pool)
@@ -4251,11 +4253,6 @@
 "Nl" = (
 /turf/open/floor/carpet/grimy,
 /area/ruin/space/has_grav/hotel/bar)
-"ND" = (
-/obj/structure/table/wood,
-/obj/item/clothing/head/costume/sombrero,
-/turf/open/floor/wood,
-/area/ruin/space/has_grav/hotel/guestroom/room_3)
 "NP" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/structure/cable/yellow{
@@ -4328,12 +4325,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/bar)
-"Qp" = (
-/obj/machinery/airalarm{
-	pixel_y = 24
-	},
-/turf/open/floor/iron/white,
-/area/ruin/space/has_grav/hotel/workroom)
 "Qv" = (
 /obj/structure/table/wood,
 /obj/item/instrument/guitar,
@@ -4461,16 +4452,6 @@
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/bar)
-"TU" = (
-/obj/structure/closet/secure_closet/security{
-	req_access = null;
-	req_access_txt = "203"
-	},
-/obj/item/gun/energy/laser/scatter/shotty,
-/obj/item/clothing/head/helmet/toggleable/justice,
-/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/turf/open/floor/iron/dark,
-/area/ruin/space/has_grav/hotel/security)
 "TW" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/effect/spawner/structure/window/reinforced,
@@ -4521,13 +4502,6 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
-"VT" = (
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/hotel/bar)
 "Wl" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass/fifty,
@@ -4548,11 +4522,25 @@
 	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/security)
+"Xl" = (
+/obj/structure/closet/crate,
+/obj/item/clothing/head/costume/papersack/smiley,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/hotel)
 "Xr" = (
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/hotel/power)
+"Yd" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/clothing/head/utility/welding,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hotel/power)
 "Yh" = (
@@ -4587,6 +4575,18 @@
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/ruin/space/has_grav/hotel/security)
+"Zy" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/airalarm{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/iron,
+/area/ruin/space/has_grav/hotel/power)
 "ZF" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
@@ -5210,7 +5210,7 @@ cJ
 ic
 UR
 tY
-Mk
+Yd
 ZX
 Vs
 yP
@@ -5418,7 +5418,7 @@ hu
 fi
 cJ
 ic
-qz
+Zy
 iJ
 iS
 jl
@@ -5476,7 +5476,7 @@ dH
 dH
 cZ
 eJ
-GM
+Xl
 fi
 DZ
 fQ
@@ -5852,7 +5852,7 @@ Si
 If
 wf
 yX
-TU
+IZ
 jG
 Vb
 Ob
@@ -5965,7 +5965,7 @@ dM
 dM
 dM
 cZ
-VT
+eL
 fi
 fx
 fx
@@ -5982,7 +5982,7 @@ fx
 fi
 cJ
 jo
-nJ
+ou
 kk
 kA
 kM
@@ -6024,7 +6024,7 @@ an
 aE
 bj
 bj
-ND
+zu
 an
 cx
 cL
@@ -6735,7 +6735,7 @@ dU
 dU
 ex
 dc
-Lx
+eM
 ct
 fI
 cF
@@ -6752,7 +6752,7 @@ eT
 am
 cJ
 jt
-rM
+jS
 ko
 jR
 jR
@@ -6822,7 +6822,7 @@ eT
 am
 cJ
 jt
-rM
+jS
 ko
 YO
 YO
@@ -6890,9 +6890,9 @@ cF
 cF
 iC
 am
-tu
+iY
 jt
-rM
+jS
 ko
 YO
 xt
@@ -7150,7 +7150,7 @@ cx
 cL
 cF
 di
-Qp
+dA
 dV
 en
 ey
@@ -7872,7 +7872,7 @@ fu
 fu
 eX
 jt
-rM
+jS
 ko
 YO
 IE
@@ -7942,7 +7942,7 @@ fu
 fu
 eY
 jt
-rM
+jS
 ko
 YO
 BE
@@ -7993,7 +7993,7 @@ cG
 ac
 ec
 BR
-kD
+lL
 di
 eZ
 fu
@@ -8012,7 +8012,7 @@ fu
 fu
 eZ
 jy
-DB
+ka
 kp
 kG
 kT
@@ -8275,7 +8275,7 @@ tr
 xX
 Bn
 Ru
-AJ
+fc
 fu
 fu
 fu

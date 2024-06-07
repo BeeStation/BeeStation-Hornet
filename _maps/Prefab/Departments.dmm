@@ -40,10 +40,6 @@
 /obj/machinery/status_display/evac,
 /turf/open/floor/iron,
 /area/space)
-"aO" = (
-/obj/machinery/status_display/door_timer,
-/turf/open/floor/iron,
-/area/space)
 "aR" = (
 /obj/machinery/door/airlock/atmos/glass{
 	req_access_txt = "24"
@@ -343,6 +339,10 @@
 /obj/structure/girder,
 /turf/open/floor/plating,
 /area/space)
+"iP" = (
+/obj/machinery/status_display/door_timer,
+/turf/open/floor/iron,
+/area/space)
 "jm" = (
 /obj/machinery/status_display/supply,
 /turf/open/floor/iron,
@@ -542,17 +542,6 @@
 /obj/structure/closet/crate/wooden/toy,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/theatre/backstage)
-"nY" = (
-/obj/item/radio/intercom,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/camera/autoname{
-	dir = 5;
-	network = list("ss13","rd")
-	},
-/turf/open/floor/iron,
-/area/space)
 "oa" = (
 /turf/open/floor/carpet/green,
 /area/lawoffice)
@@ -914,6 +903,17 @@
 /obj/effect/landmark/start/chemist,
 /turf/open/floor/iron/white,
 /area/medical/apothecary)
+"yQ" = (
+/obj/item/radio/intercom,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/camera/autoname{
+	dir = 5;
+	network = list("ss13","rd")
+	},
+/turf/open/floor/iron,
+/area/space)
 "yX" = (
 /obj/machinery/fax/eng,
 /turf/open/floor/carpet/royalblue,
@@ -956,6 +956,11 @@
 /obj/machinery/vending/wardrobe/jani_wardrobe,
 /turf/open/floor/iron,
 /area/janitor)
+"Ax" = (
+/obj/machinery/power/apc/auto_name/east,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/space)
 "Az" = (
 /obj/machinery/vending/wardrobe/det_wardrobe,
 /turf/open/floor/wood,
@@ -1762,11 +1767,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/quartermaster/sorting)
-"VZ" = (
-/obj/machinery/power/apc/auto_name/east,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
 "Wp" = (
 /mob/living/simple_animal/chicken{
 	name = "Kentucky";
@@ -2352,9 +2352,9 @@ Qk
 XF
 rs
 XF
-nY
+yQ
 fK
-VZ
+Ax
 Td
 aZ
 yt
@@ -2453,7 +2453,7 @@ XF
 XF
 XF
 TX
-aO
+iP
 ps
 Co
 Zj

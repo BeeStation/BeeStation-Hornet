@@ -1,5 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"c" = (
+"g" = (
+/turf/closed/wall,
+/area/template_noop)
+"i" = (
 /obj/structure/table,
 /obj/item/clothing/head/utility/chefhat,
 /obj/item/clothing/suit/apron/chef,
@@ -7,9 +10,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron/white/side,
-/area/template_noop)
-"g" = (
-/turf/closed/wall,
 /area/template_noop)
 "n" = (
 /obj/structure/table/reinforced,
@@ -100,16 +100,6 @@
 	},
 /turf/open/floor/iron,
 /area/template_noop)
-"E" = (
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/effect/turf_decal/tile/yellow/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/iron,
-/area/template_noop)
 "G" = (
 /obj/structure/table_frame/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -127,6 +117,16 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
+/area/template_noop)
+"I" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/effect/turf_decal/tile/yellow/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/iron,
 /area/template_noop)
 "J" = (
 /obj/effect/spawner/randomvend/snack,
@@ -264,9 +264,9 @@ N
 "}
 (6,1,1) = {"
 K
-E
+I
 D
-E
+I
 N
 "}
 (7,1,1) = {"
@@ -284,7 +284,7 @@ o
 x
 "}
 (9,1,1) = {"
-c
+i
 V
 Y
 V
