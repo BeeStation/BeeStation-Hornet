@@ -69,7 +69,7 @@ export const LanguageMenu = (props, context) => {
                       </>
                     }>
                     <Box>{languageData.desc}</Box>
-                    <Box pl={4} pb={1}>
+                    <Box>
                       {each_language.can_understand ? 'Can understand.' : 'Cannot understand.'}{' '}
                       {each_language.can_speak ? 'Can speak.' : 'Cannot speak.'}
                     </Box>
@@ -123,10 +123,7 @@ export const LanguageMenu = (props, context) => {
                         />
                       }>
                       <Box>{languageData.desc}</Box>
-                      <Box pl={4}>
-                        Chat key: ,{languageData.key} {!!each_language.shadow && '(Language gained from mob)'}
-                      </Box>
-                      <Box pl={4} pb={1}>
+                      <Box>
                         {each_language.can_understand ? 'Can understand.' : 'Cannot understand.'}{' '}
                         {each_language.can_speak ? 'Can speak.' : 'Cannot speak.'}
                       </Box>
