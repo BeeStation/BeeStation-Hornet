@@ -2294,7 +2294,7 @@
 	dir = 4
 	},
 /obj/machinery/airalarm/away{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/dirt,

@@ -3013,7 +3013,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "ly" = (
-/obj/structure/chair/stool/bar/directional/west,
+/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "lz" = (
@@ -4860,8 +4860,8 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "FX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "Gi" = (
@@ -5243,8 +5243,8 @@
 /turf/open/floor/carpet/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "PC" = (
-/obj/structure/chair/stool/bar/directional/west,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/structure/chair/stool/bar/directional/east,
 /turf/open/floor/iron/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "PJ" = (

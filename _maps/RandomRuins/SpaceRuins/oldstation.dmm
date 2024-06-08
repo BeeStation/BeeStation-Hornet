@@ -1027,7 +1027,7 @@
 	dir = 8
 	},
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1200,7 +1200,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2755,7 +2755,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/all_access{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23
 	},
 /obj/effect/decal/cleanable/dirt,

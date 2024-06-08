@@ -3328,7 +3328,7 @@
 /area/awaymission/moonoutpost19/research)
 "ij" = (
 /obj/machinery/airalarm/unlocked{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23;
 	req_access = null
 	},
@@ -6302,7 +6302,7 @@
 /obj/structure/table,
 /obj/item/storage/box,
 /obj/machinery/airalarm/unlocked{
-	dir = 4;
+	dir = 8;
 	pixel_x = -23;
 	req_access = null
 	},

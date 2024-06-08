@@ -161,7 +161,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm/syndicate{
-	dir = 4;
+	dir = 8;
 	pixel_x = -24
 	},
 /turf/open/floor/iron/dark,
