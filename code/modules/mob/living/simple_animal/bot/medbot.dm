@@ -685,7 +685,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 					update_icon()
 					soft_reset()
 					return
-				H.suppress_bloodloss(1.5) // as good as a improvized medical gauze
+				H.suppress_bloodloss(BLEED_SURFACE) // as good as a improvized medical gauze
 				C.visible_message("<span class='danger'>[src] bandages [patient] with its gauze!</span>", \
 				"<span class='userdanger'>[src] bandages you with its gauze!</span>")
 			if(MEDBOT_TREAT_SUCK)
