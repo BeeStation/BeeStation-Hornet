@@ -296,7 +296,7 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 	set name = "Generate job landmarks icons"
 	set category = "Mapping"
 	var/icon/final = icon()
-	var/mob/living/carbon/human/dummy/D = new(locate(1,1,1)) //spawn on 1,1,1 so we don't have runtimes when items are deleted
+	var/mob/living/carbon/human/dummy/consistent/source/D = new(locate(1,1,1)) //spawn on 1,1,1 so we don't have runtimes when items are deleted
 	D.setDir(SOUTH)
 	for(var/job in subtypesof(/datum/job))
 		var/datum/job/JB = new job
@@ -308,7 +308,7 @@ GLOBAL_VAR_INIT(say_disabled, FALSE)
 			else
 				for(var/obj/item/I in D)
 					qdel(I)
-				randomize_human(D)
+				//randomize_human(D)
 				JB.equip(D, TRUE, FALSE)
 				COMPILE_OVERLAYS(D)
 				var/icon/I = icon(getFlatIcon(D), frame = 1)

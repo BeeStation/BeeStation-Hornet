@@ -1,9 +1,12 @@
 /datum/species/debug
-	name = "CODER DISASTER"
+	name = "\improper info_player_start"
+	plural_form = "Psyphoza"
 	id = SPECIES_DEBUG
 	bodyflag = FLAG_DEBUG_SPECIES
+	meat = null //you can't turn something that doesn't exist into a steak, dummy
+	species_traits = list(NOEYESPRITES, AGENDER)
+	sexes = FALSE
 	changesource_flags = MIRROR_BADMIN
-	sexes = 0
 
 /datum/species/debug/get_custom_icons(var/part)
 	switch(part)
