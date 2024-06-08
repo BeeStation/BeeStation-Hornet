@@ -535,7 +535,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			var/obj/item/clothing/CH = H.head
 			if (CS.clothing_flags & CH.clothing_flags & THICKMATERIAL)
 				return FALSE // Skip over them if they have no exposed flesh.
-		if(H.bleed_rate&&!H.bleedsuppress)
+		if(H.is_bleeding()&&!H.is_bandaged())
 			return TRUE
 
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
@@ -623,7 +623,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 		if(!treat_behaviour && ishuman(C))
 			var/mob/living/carbon/human/H = C
-			if(H.bleed_rate)
+			if(H.is_bleeding())
 				treat_behaviour = MEDBOT_TREAT_BANDAGE
 
 		if(!treat_behaviour && reagent_glass?.reagents.total_volume) //have a beaker with something?
@@ -675,13 +675,17 @@ GLOBAL_VAR(medibot_unique_id_gen)
 					"<span class='userdanger'>[src] injects you with its syringe!</span>")
 			if(MEDBOT_TREAT_BANDAGE)
 				var/mob/living/carbon/human/H = C
-				if(!H.bleed_rate)
+				if(!H.is_bleeding())
 					to_chat(src, "<span class='warning'>[H] isn't bleeding!</span>")
+					update_icon()
+					soft_reset()
 					return
-				if(H.bleedsuppress) //so you can't stack bleed suppression
+				if(H.is_bandaged()) //so you can't stack bleed suppression
 					to_chat(src, "<span class='warning'>[H]'s bleeding is already bandaged!</span>")
+					update_icon()
+					soft_reset()
 					return
-				H.suppress_bloodloss(900) //half as good as a regular medical gauze
+				H.suppress_bloodloss(1.5) // as good as a improvized medical gauze
 				C.visible_message("<span class='danger'>[src] bandages [patient] with its gauze!</span>", \
 				"<span class='userdanger'>[src] bandages you with its gauze!</span>")
 			if(MEDBOT_TREAT_SUCK)
