@@ -42,6 +42,8 @@
 		go_inert()
 
 /obj/item/organ/regenerative_core/proc/preserved(implanted = 0)
+	if(inert)
+		return
 	inert = FALSE
 	preserved = TRUE
 	update_icon()
