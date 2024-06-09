@@ -557,7 +557,7 @@
 		alreadyinfected = TRUE
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
 	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
-	if(is_mining_level(owner.get_virtual_z_level))
+	if(is_mining_level(owner.z))
 		power = 5
 	owner.adjustBruteLoss(-20 * power)
 	owner.adjustFireLoss(-20 * power)
