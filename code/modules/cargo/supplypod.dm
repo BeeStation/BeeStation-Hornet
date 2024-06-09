@@ -67,7 +67,7 @@
 
 /obj/structure/closet/supplypod/extractionpod
 	name = "Syndicate Extraction Pod"
-	desc = "A specalised, blood-red styled pod for extracting high-value targets out of active mission areas. <b>Targets must be manually stuffed inside the pod for proper delivery.</b>"
+	desc = "A specialised, blood-red styled pod for extracting high-value targets out of active mission areas. <b>Targets must be manually stuffed inside the pod for proper delivery.</b>"
 	specialised = TRUE
 	style = STYLE_SYNDICATE
 	bluespace = TRUE
@@ -88,6 +88,15 @@
 	delays = list(POD_TRANSIT = 40, POD_FALLING = 4, POD_OPENING = 30, POD_LEAVING = 30) //Very slow
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	max_integrity = 20
+
+/obj/structure/closet/supplypod/droppod
+	name = "'HELLE' Infiltration Drop Pod" //TODO: Add some cool name with a serial number in front I guess
+	desc = "A HELLE-class Drop Pod intended for operative insertion behind enemy lines. <b>Nuclear Operative ADDENDUM: After deployment, the Pod cannot be retrieved. Be certain of your designated target before launch.</b>"
+	specialised = TRUE
+	style = STYLE_DROPPOD
+	bluespace = FALSE // We want the pod to persist after landing. Unusable, but proof a nukie dropped.
+	delays = list(POD_TRANSIT = 20, POD_FALLING = 4, POD_OPENING = 30, POD_LEAVING = 30)
+	reversing = FALSE //Under no circumstances should it reverse
 
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()
