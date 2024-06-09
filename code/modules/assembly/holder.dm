@@ -15,7 +15,7 @@
 
 /obj/item/assembly_holder/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
 
 /obj/item/assembly_holder/Destroy()
 	QDEL_LAZYLIST(assemblies)
@@ -39,6 +39,13 @@
 			var/obj/item/assembly/timer/timer = assembly
 			. += "<span class='notice'>The timer is [timer.timing ? "counting down from [timer.time]":"set for [timer.time] seconds"].</span>"
 
+/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir)
+	. = ..()
+	on_move(old_loc, movement_dir)
+
+/obj/item/assembly_holder/proc/on_move(atom/old_loc, movement_dir)
+	for(var/obj/item/assembly/infra/assembly in assemblies)
+		assembly.on_move(old_loc, movement_dir)
 
 /obj/item/assembly_holder/proc/assemble(obj/item/assembly/A, obj/item/assembly/A2, mob/user)
 	attach(A,user)
@@ -48,12 +55,12 @@
 	SSblackbox.record_feedback("tally", "assembly_made", 1, "[initial(A.name)]-[initial(A2.name)]")
 
 // on_attach: Pass on_attach message to child assemblies
-/obj/item/assembly_holder/proc/on_attach()
+/obj/item/assembly_holder/proc/on_attach(var/obj/structure/reagent_dispensers/rig)
 	var/obj/item/newloc = loc
 	if(!newloc.IsSpecialAssembly() && !newloc.IsAssemblyHolder())
 		return
 	for(var/obj/item/assembly/assembly in assemblies)
-		assembly.on_attach()
+		assembly.on_attach(rig)
 
 /obj/item/assembly_holder/proc/try_add_assembly(obj/item/assembly/attached_assembly, mob/user)
 	if(attached_assembly.secured)
@@ -151,11 +158,6 @@
 
 	return ..()
 
-/obj/item/assembly_holder/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
-	. = ..()
-	for(var/obj/item/assembly/assembly in assemblies)
-		assembly.Moved(old_loc, movement_dir, forced, old_locs, momentum_change)
-
 /obj/item/assembly_holder/AltClick(mob/user)
 	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
@@ -185,7 +187,7 @@
  * This proc is usually called by signalers, timers, or anything that can trigger and
  * send a pulse to the assembly holder, which then calls this proc that actually activates the assemblies
  * Arguments:
- * * /obj/device - the device we sent the pulse from which called this proc
+ * * /obj/D - the device we sent the pulse from which called this proc
  */
 /obj/item/assembly_holder/proc/process_activation(obj/D)
 	if(!D)

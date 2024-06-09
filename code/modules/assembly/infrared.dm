@@ -13,12 +13,12 @@
 	var/maxlength = 8 // The length the beam can go
 	var/beam_pass_flags = PASSTABLE|PASSTRANSPARENT|PASSGRILLE // Pass flags the beam uses to determine what it can pass through
 	var/hearing_range = 3 // The radius of which people can hear triggers
-	VAR_FINAL/datum/beam/active_beam // The current active beam datum
-	VAR_FINAL/turf/buffer_turf // A reference to the turf at the END of our active beam
+	var/datum/beam/active_beam // The current active beam datum
+	var/turf/buffer_turf // A reference to the turf at the END of our active beam
 
 /obj/item/assembly/infra/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
 
 /obj/item/assembly/infra/Destroy()
 	QDEL_NULL(active_beam)
@@ -72,10 +72,12 @@
 		buffer_turf = null
 
 	QDEL_NULL(active_beam)
+	if(QDELETED(src))
+		return
 	if(!on || !secured)
 		return
 
-	var/atom/start_loc = holder || src
+	var/atom/start_loc = rig || holder || src
 	var/turf/start_turf = start_loc.loc
 	if(!istype(start_turf))
 		return
@@ -238,6 +240,9 @@
 
 /obj/item/assembly/infra/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
+	on_move(old_loc, movement_dir)
+
+/obj/item/assembly/infra/proc/on_move(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	if(loc == old_loc)
 		return
 	make_beam()

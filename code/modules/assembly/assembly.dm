@@ -19,6 +19,7 @@
 	var/secured = TRUE
 	var/list/attached_overlays = null
 	var/obj/item/assembly_holder/holder = null
+	var/obj/structure/reagent_dispensers/rig = null
 	var/attachable = FALSE // can this be attached to wires
 	var/datum/wires/connected = null
 	var/next_activate = 0 //When we're next allowed to activate - for spam control
@@ -35,9 +36,11 @@
  * Will also be called if the assembly holder is attached to a plasma (internals) tank or welding fuel (dispenser) tank.
  */
 
-/obj/item/assembly/proc/on_attach()
+/obj/item/assembly/proc/on_attach(var/obj/structure/reagent_dispensers/T)
 	if(!holder && connected)
 		holder = connected.holder
+	if(T)
+		rig = T
 
 /**
  * on_detach: Called when removed from an assembly holder or wiring datum
@@ -104,8 +107,6 @@
 	if(holder || connected)
 		return
 	. = ..()
-
-
 
 /obj/item/assembly/attackby(obj/item/W, mob/user, params)
 	if(isassembly(W))

@@ -70,7 +70,7 @@
 			return
 		rig = holder
 		holder.master = src
-		holder.on_attach()
+		holder.on_attach(src)
 		assembliesoverlay = holder
 		assembliesoverlay.pixel_x += 6
 		assembliesoverlay.pixel_y += 1
@@ -143,9 +143,10 @@
 				explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 6, flame_range = 8)
 	qdel(src)
 
-/obj/structure/reagent_dispensers/Moved()
+/obj/structure/reagent_dispensers/Moved(atom/old_loc, movement_dir)
 	. = ..()
-
+	if(rig)
+		rig.on_move(old_loc, movement_dir)
 
 /obj/structure/reagent_dispensers/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
