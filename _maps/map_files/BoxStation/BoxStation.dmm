@@ -6905,12 +6905,10 @@
 	},
 /obj/structure/table,
 /obj/item/paper_bin{
-	pixel_x = 4;
-	pixel_y = 0
+	pixel_x = 4
 	},
 /obj/item/pen{
-	pixel_x = 4;
-	pixel_y = 0
+	pixel_x = 4
 	},
 /turf/open/floor/iron,
 /area/quartermaster/office)
@@ -23837,7 +23835,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/desk_bell{
-	pixel_y = 0;
 	pixel_x = -6
 	},
 /obj/item/paper_bin{
@@ -103026,9 +103023,9 @@ ccD
 cbH
 bLK
 hPY
-bMK
-ccv
-bMK
+bzs
+bAw
+bzs
 gdc
 aoV
 aoV
