@@ -100,8 +100,8 @@
 	floor_tile = /obj/item/stack/tile/iron/dark/smooth_large
 
 /turf/open/floor/iron/dark/side
-	icon_state = "dark"
-	base_icon_state = "dark"
+	icon_state = "darkside"
+	base_icon_state = "darkside"
 	floor_tile = /obj/item/stack/tile/iron/dark_side
 
 /turf/open/floor/iron/dark/corner
