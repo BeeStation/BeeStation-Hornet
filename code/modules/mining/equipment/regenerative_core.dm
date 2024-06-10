@@ -44,7 +44,6 @@
 /obj/item/organ/regenerative_core/proc/preserved(implanted = 0)
 	if(inert)
 		return
-	inert = FALSE
 	preserved = TRUE
 	update_icon()
 	desc = "All that remains of a hivelord. It is preserved, allowing you to use it to heal completely without danger of decay."
