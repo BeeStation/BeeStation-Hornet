@@ -572,7 +572,7 @@
 		var/mob/living/carbon/human/humi = owner
 		humi.coretemperature = humi.get_body_temp_normal()
 	owner.restoreEars()
-	duration = rand(150, 450) * power
+	duration = rand(150, 450) * 2
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
