@@ -1101,10 +1101,6 @@
 	setDir(newdir)
 	return TRUE
 
-///Handle melee attack by a mech
-/atom/proc/mech_melee_attack(obj/mecha/M)
-	return
-
 /**
   * Called when the atom log's in or out
   *
@@ -1773,7 +1769,7 @@
   */
 /atom/proc/setClosed()
 	return
-
+	
 /**
   * Used to attempt to charge an object with a payment component.
   *
