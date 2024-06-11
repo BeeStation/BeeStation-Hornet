@@ -22614,6 +22614,14 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hop)
+"gTf" = (
+/obj/structure/chair/fancy/plastic,
+/obj/structure/lattice/catwalk,
+/obj/item/toy/plush/lizard_plushie/space{
+	name = "Taksh-Vrac"
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "gTh" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -32564,6 +32572,9 @@
 /obj/machinery/light_switch{
 	pixel_x = -21;
 	pixel_y = 8
+	},
+/obj/item/toy/plush/lizard_plushie{
+	name = "Eats-The-Rubbish"
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
@@ -59410,6 +59421,9 @@
 "sDE" = (
 /obj/structure/chair/fancy/plastic,
 /obj/structure/lattice/catwalk,
+/obj/item/toy/plush/lizard_plushie/space{
+	name = "Drkh-Hlyt"
+	},
 /turf/open/space/basic,
 /area/space/nearstation)
 "sDJ" = (
@@ -70744,6 +70758,13 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
+"wbs" = (
+/obj/structure/lattice,
+/obj/item/toy/plush/lizard_plushie/space{
+	name = "Embraces-the-Void"
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "wbE" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/disposal/bin,
@@ -109580,7 +109601,7 @@ yeA
 yeA
 yeA
 yeA
-gsA
+wbs
 yeA
 yeA
 yeA
@@ -121628,7 +121649,7 @@ yeA
 yeA
 gsA
 ewB
-sDE
+gTf
 gsA
 yeA
 yeA

@@ -34176,7 +34176,13 @@
 	name = "-1 Primary Hallway"
 	})
 "roL" = (
-/obj/item/toy/plush/moth/firewatch,
+/obj/item/toy/plush/moth/firewatch{
+	pixel_x = -10
+	},
+/obj/item/toy/plush/lizard_plushie{
+	pixel_x = 5;
+	name = "Walks-upon-Embers"
+	},
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "roN" = (
@@ -35978,6 +35984,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/item/toy/plush/lizard_plushie{
+	name = "Eats-The-Rubbish"
 	},
 /turf/open/floor/iron/dark,
 /area/quartermaster/sorting)
@@ -45060,6 +45069,10 @@
 "wER" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/flora/rock/pile,
+/turf/open/floor/plating/asteroid/basalt/planetary,
+/area/asteroid/paradise)
+"wET" = (
+/obj/item/toy/plush/lizard_plushie,
 /turf/open/floor/plating/asteroid/basalt/planetary,
 /area/asteroid/paradise)
 "wEX" = (
@@ -69881,7 +69894,7 @@ vqI
 cEk
 cEk
 xqU
-sLz
+wET
 bXA
 bXA
 sLz

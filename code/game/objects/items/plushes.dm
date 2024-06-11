@@ -496,7 +496,7 @@
 /obj/item/toy/plush/lizard_plushie
 	name = "lizard plushie"
 	desc = "An adorable stuffed toy that resembles a lizardperson."
-	icon_state = "map_pushie_lizard"
+	icon_state = "map_plushie_lizard"
 	greyscale_config = /datum/greyscale_config/plush_lizard
 	attack_verb = list("clawed", "hissed", "tail slapped")
 	squeak_override = list('sound/weapons/slash.ogg' = 1)
