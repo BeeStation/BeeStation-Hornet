@@ -43147,10 +43147,10 @@
 	pixel_x = 2;
 	pixel_y = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
 /obj/structure/disposalpipe/segment{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/iron,
@@ -43951,7 +43951,11 @@
 /obj/item/radio/intercom{
 	pixel_y = -34
 	},
-/turf/open/floor/iron/white,
+/obj/structure/closet/secure_closet/chemical/plumbing,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/iron,
 /area/medical/apothecary)
 "wcZ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
