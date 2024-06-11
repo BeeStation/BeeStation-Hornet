@@ -127,6 +127,15 @@
 	throwforce = 15
 	bayonet = TRUE
 
+/obj/item/knife/combat/secknife
+	name = "security survival knife"
+	icon_state = "secknife"
+	embedding = list("pain_mult" = 4, "embed_chance" = 45, "fall_chance" = 10, "armour_block" = 50)
+	desc = "A strengthened version of the survival knife intended for use as a practical tool in security."
+	force = 16
+	throwforce = 16
+	bayonet = TRUE
+
 /obj/item/knife/combat/bone
 	name = "bone dagger"
 	item_state = "bone_dagger"
