@@ -130,18 +130,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IMMOBILIZED "immobilized"
 /// Prevents voluntary standing or staying up on its own.
 #define TRAIT_FLOORED "floored"
-/* All to replace update_mobility with traits
 /// Forces user to stay standing (ensures the unconscious/immobilized dont enter a lying position in cryopods)
 #define TRAIT_FORCED_STANDING "forcedstanding"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
 #define TRAIT_HANDS_BLOCKED "handsblocked"
+/* All to replace update_mobility with traits
 /// Inability to access UI hud elements. Turned into a trait from [MOBILITY_UI] to be able to track sources.
 #define TRAIT_UI_BLOCKED "uiblocked"
 /// Inability to pull things. Turned into a trait from [MOBILITY_PULL] to be able to track sources.
 #define TRAIT_PULL_BLOCKED "pullblocked"
+*/
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
-*/
 #define TRAIT_INCAPACITATED "incapacitated"
 //In some kind of critical condition. Is able to succumb.
 #define TRAIT_CRITICAL_CONDITION "critical-condition"
@@ -389,6 +389,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define RESTING_TRAIT "resting"
 //trait associated to a stat value or range of
 #define STAT_TRAIT "stat"
+/// Trait associated to wearing a suit
+#define SUIT_TRAIT "suit"
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
@@ -453,6 +455,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BUSY_FLOORBOT_TRAIT "busy-floorbot"
 #define PULLED_WHILE_SOFTCRIT_TRAIT "pulled-while-softcrit"
 #define LOCKED_BORG_TRAIT "locked-borg"
+#define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades" //trait associated to not having fine manipulation appendages such as hands
+#define HANDCUFFED_TRAIT "handcuffed"
+/// Trait granted by [/obj/item/warpwhistle]
+#define WARPWHISTLE_TRAIT "warpwhistle"
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 #define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 #define NINJA_KIDNAPPED_TRAIT "ninja_kidnapped"

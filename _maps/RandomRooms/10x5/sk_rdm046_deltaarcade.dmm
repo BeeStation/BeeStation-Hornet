@@ -6,7 +6,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "g" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
@@ -42,7 +42,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "y" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -87,7 +87,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "H" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
 /area/template_noop)
@@ -199,7 +199,7 @@
 /turf/open/floor/iron/dark,
 /area/template_noop)
 "V" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/iron/dark,
