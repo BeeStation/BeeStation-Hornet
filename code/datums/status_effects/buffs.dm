@@ -549,6 +549,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
 	var/power = 1
 	var/alreadyinfected = FALSE
+	var/duration_amount = 1
 
 /datum/status_effect/regenerative_core/on_apply()
 	if(!HAS_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED))
@@ -559,6 +560,7 @@
 	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
 	if(is_mining_level(owner.z))
 		power = 5
+		duration_amount = 2
 	owner.adjustBruteLoss(-20 * power)
 	owner.adjustFireLoss(-20 * power)
 	owner.cure_nearsighted()
@@ -572,7 +574,7 @@
 		var/mob/living/carbon/human/humi = owner
 		humi.coretemperature = humi.get_body_temp_normal()
 	owner.restoreEars()
-	duration = rand(150, 450) * 2
+	duration = rand(150, 450) * duration_amount
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
