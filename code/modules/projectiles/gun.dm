@@ -116,7 +116,7 @@
 		spread_unwielded = weapon_weight * 10 + 10
 	if (has_weapon_slowdown)
 		if (!slowdown)
-			slowdown = 0.3 + weapon_weight * 0.1
+			slowdown = 0.1 + weapon_weight * 0.3
 		item_flags |= SLOWS_WHILE_IN_HAND
 	if(requires_wielding)
 		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
