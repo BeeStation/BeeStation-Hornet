@@ -188,7 +188,7 @@
 	glow.set_light_range_power_color(glow_range * GET_MUTATION_POWER(src), glow_power, glow_color)
 
 /// Returns the color for the glow effect
-/datum/mutation/human/glow/proc/glow_color()
+/datum/mutation/glow/proc/glow_color()
 	return pick(COLOR_RED, COLOR_BLUE, COLOR_YELLOW, COLOR_GREEN, COLOR_PURPLE, COLOR_ORANGE)
 
 /datum/mutation/glow/on_losing(mob/living/carbon/owner)
@@ -208,7 +208,7 @@
 	conflicts = list(GLOWY)
 	locked = TRUE
 
-/datum/mutation/human/glow/anti/get_glow_color()
+/datum/mutation/glow/anti/get_glow_color()
 	return COLOR_BLACK
 
 /datum/mutation/strong
