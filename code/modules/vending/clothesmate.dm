@@ -5,7 +5,6 @@
 	icon_deny = "clothes-deny"
 	product_slogans = "Dress for success!;Prepare to look swagalicious!;Look at all this swag!;Why leave style up to fate? Use the ClothesMate!"
 	vend_reply = "Thank you for using the ClothesMate!"
-	light_color = LIGHT_COLOR_GREEN
 	product_categories = list(
 		list(
 			"name" = "Head",
@@ -48,12 +47,12 @@
 				/obj/item/clothing/neck/tie/red = 3,
 				/obj/item/clothing/neck/tie/black = 3,
 				/obj/item/clothing/neck/tie/horrible = 3,
-				/obj/item/clothing/head/kippah = 3,
-				/obj/item/clothing/head/taqiyahred = 3,
-				/obj/item/clothing/head/that = 1,
+				/obj/item/clothing/head/chaplain/kippah = 3,
+				/obj/item/clothing/head/chaplain/taqiyah/red = 3,
+				/obj/item/clothing/head/hats/tophat = 1,
 				/obj/item/clothing/head/fedora = 1,
 				/obj/item/clothing/head/cowboy = 1,
-				/obj/item/clothing/head/sombrero = 1,
+				/obj/item/clothing/head/costume/sombrero = 1,
 
 			),
 		),
@@ -122,13 +121,12 @@
 				/obj/item/clothing/under/suit/white = 1,
 				/obj/item/clothing/under/suit/sl = 1,
 				/obj/item/clothing/under/suit/tan = 1,
-				/obj/item/clothing/suit/jacket = 2,
 				/obj/item/clothing/suit/jacket/puffer/vest = 2,
 				/obj/item/clothing/suit/jacket/puffer = 2,
 				/obj/item/clothing/suit/toggle/softshell = 2,
 				/obj/item/clothing/suit/jacket/letterman = 2,
 				/obj/item/clothing/suit/jacket/letterman_red = 2,
-				/obj/item/clothing/suit/poncho = 1,
+				/obj/item/clothing/suit/costume/poncho = 1,
 				/obj/item/clothing/suit/jacket/miljacket = 1,
 				/obj/item/clothing/suit/hooded/hoodie = 3,
 				/obj/item/clothing/suit/hooded/hoodie/blue = 3,
@@ -141,7 +139,7 @@
 				/obj/item/clothing/suit/hooded/hoodie/darkblue = 3,
 				/obj/item/clothing/suit/hooded/hoodie/teal = 3,
 				/obj/item/clothing/suit/hooded/hoodie/purple = 3,
-				/obj/item/clothing/suit/ianshirt = 1,
+				/obj/item/clothing/suit/costume/ianshirt = 1,
 			),
 		),
 
@@ -180,12 +178,12 @@
 	contraband = list(
 		/obj/item/clothing/under/syndicate/tacticool = 1,
 		/obj/item/clothing/mask/balaclava = 1,
-		/obj/item/clothing/head/ushanka = 1,
+		/obj/item/clothing/head/costume/ushanka = 1,
 		/obj/item/clothing/under/costume/soviet = 1,
 		/obj/item/storage/belt/fannypack/black = 2,
 		/obj/item/clothing/suit/jacket/letterman_syndie = 1,
 		/obj/item/clothing/under/costume/jabroni = 1,
-		/obj/item/clothing/suit/vapeshirt = 1,
+		/obj/item/clothing/suit/costume/vapeshirt = 1,
 		/obj/item/clothing/under/costume/geisha = 1
 	)
 	premium = list(
@@ -200,6 +198,8 @@
 	default_price = PAYCHECK_MEDIUM
 	extra_price = PAYCHECK_HARD
 	dept_req_for_free = NO_FREEBIES
+	light_mask = "wardrobe-light-mask"
+	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 
 /obj/item/vending_refill/clothing
 	machine_name = "ClothesMate"

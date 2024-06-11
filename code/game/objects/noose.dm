@@ -84,7 +84,7 @@
 		add_fingerprint(user)
 
 /obj/structure/chair/noose/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
-	if(!in_range(user, src) || user.stat || user.restrained() || !iscarbon(M))
+	if(!in_range(user, src) || user.stat != CONSCIOUS || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !iscarbon(M))
 		return FALSE
 
 	if (!M.get_bodypart("head"))

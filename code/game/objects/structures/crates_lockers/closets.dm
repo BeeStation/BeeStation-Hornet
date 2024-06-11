@@ -124,13 +124,6 @@
 	ADD_LUM_SOURCE(src, LUM_SOURCE_MANAGED_OVERLAY)
 	. += locked ? icon_locked : icon_unlocked
 
-/obj/structure/closet/update_appearance(updates=ALL)
-	. = ..()
-	if((opened || broken || !secure) || !imacrate)
-		luminosity = 0
-		return
-	luminosity = 1
-
 /obj/structure/closet/proc/animate_door(var/closing = FALSE)
 	if(!door_anim_time)
 		return
@@ -461,7 +454,8 @@
 
 // tk grab then use on self
 /obj/structure/closet/attack_self_tk(mob/user)
-	return attack_hand(user)
+	if(attack_hand(user))
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in view(1)

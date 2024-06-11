@@ -68,6 +68,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-4), OFFSET_HEAD = list(0,-4), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
 	check_if_natural()
 	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
+	AddElement(/datum/element/footstep, FOOTSTEP_MOB_BAREFOOT, 1, 2)
 
 	// Give random dormant diseases to roundstart monkeys.
 	if(mapload)
@@ -192,7 +193,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /mob/living/carbon/monkey/angry/Initialize(mapload)
 	. = ..()
 	if(prob(10))
-		var/obj/item/clothing/head/helmet/justice/escape/helmet = new(src)
+		var/obj/item/clothing/head/helmet/toggleable/justice/escape/helmet = new(src)
 		equip_to_slot_or_del(helmet,ITEM_SLOT_HEAD)
 		helmet.attack_self(src) // todo encapsulate toggle
 

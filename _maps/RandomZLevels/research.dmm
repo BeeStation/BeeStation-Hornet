@@ -2054,7 +2054,7 @@
 /turf/open/floor/wood,
 /area/awaymission/research/interior/dorm)
 "lU" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /turf/open/floor/iron/yellowsiding{
 	dir = 4
 	},
@@ -3125,7 +3125,7 @@
 "An" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/head/helmet/riot,
+/obj/item/clothing/head/helmet/toggleable/riot,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -4353,7 +4353,7 @@
 /turf/open/floor/plating,
 /area/awaymission/research/interior/escapepods)
 "TF" = (
-/obj/machinery/computer/arcade,
+/obj/effect/spawner/randomarcade,
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 8
 	},
