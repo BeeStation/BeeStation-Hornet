@@ -1,0 +1,5 @@
+author: XeonMations
+delete-after: true
+changes:
+  - balance: Changed legion core healing from 50 to 20 on station z level
+  - balance: Made inert legion cores no longer able to be preserved and thus work
