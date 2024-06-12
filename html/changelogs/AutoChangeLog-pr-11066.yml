@@ -1,4 +1,0 @@
-author: XeonMations
-delete-after: true
-changes:
-  - bugfix: Fixed the ED-209 Crafting recipe using a dragnet instead of a disabler
