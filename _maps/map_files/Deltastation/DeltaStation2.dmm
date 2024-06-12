@@ -2435,6 +2435,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
+/obj/item/toy/plush/lizard_plushie{
+	name = "Eats-The-Rubbish"
+	},
 /turf/open/floor/iron,
 /area/maintenance/disposal)
 "aqG" = (

@@ -59913,6 +59913,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/toy/plush/lizard_plushie{
+	name = "Eats-The-Rubbish"
+	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "tmC" = (
