@@ -42,6 +42,7 @@
 	charge_delay = 8
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/captain)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	weapon_weight = WEAPON_LIGHT
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
