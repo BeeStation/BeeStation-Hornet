@@ -548,6 +548,7 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/regenerative_core
 	var/power = 1
+	var/duration_mod = 1
 	var/alreadyinfected = FALSE
 
 /datum/status_effect/regenerative_core/on_apply()
@@ -557,10 +558,11 @@
 		alreadyinfected = TRUE
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
 	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
-	if(owner.z == 5)
-		power = 2
-	owner.adjustBruteLoss(-50 * power)
-	owner.adjustFireLoss(-50 * power)
+	if(is_mining_level(owner.z))
+		power = 5
+		duration_mod = 2
+	owner.adjustBruteLoss(-20 * power)
+	owner.adjustFireLoss(-20 * power)
 	owner.cure_nearsighted()
 	owner.ExtinguishMob()
 	owner.fire_stacks = 0
@@ -572,7 +574,7 @@
 		var/mob/living/carbon/human/humi = owner
 		humi.coretemperature = humi.get_body_temp_normal()
 	owner.restoreEars()
-	duration = rand(150, 450) * power
+	duration = rand(150, 450) * duration_mod
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
