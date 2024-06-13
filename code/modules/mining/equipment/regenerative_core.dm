@@ -15,7 +15,9 @@
 	if(C.preserved)
 		to_chat(user, "<span class='notice'>[M] is already stabilised.")
 		return
-
+	if(C.inert)
+		to_chat(user, "<span class='notice'>[M] is inert, it's not worth it to stabilize a nonfunctional one.")
+		return
 	C.preserved()
 	to_chat(user, "<span class='notice'>You inject [M] with the stabilizer. It will no longer go inert.</span>")
 	qdel(src)
@@ -42,7 +44,6 @@
 		go_inert()
 
 /obj/item/organ/regenerative_core/proc/preserved(implanted = 0)
-	inert = FALSE
 	preserved = TRUE
 	update_icon()
 	desc = "All that remains of a hivelord. It is preserved, allowing you to use it to heal completely without danger of decay."
